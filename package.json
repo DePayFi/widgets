@@ -2,10 +2,16 @@
   "name": "depay-widget",
   "version": "1.0.0",
   "description": "Decentralized Payments. A simple to implement, simple to use, anything to anything crypto payment processing widget.",
-  "main": "index.js",
+  "main": "build/index.js",
+  "module": "src/index.js",
   "repository": "git@github.com:depayapp/depay-widget.git",
   "author": "DePay",
-  "license": "GPL3",
+  "license": "GPL-3.0-only",
+  "scripts": {
+    "build": "webpack --mode production",
+    "test": "jest",
+    "lint": "eslint --cache --format codeframe --ext mjs,js src test"
+  },
   "dependencies": {
     "@babel/preset-react": "^7.10.4",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
@@ -15,5 +21,17 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@neutrinojs/react": "^9.4.0",
+    "neutrino": "^9.4.0",
+    "@neutrinojs/airbnb-base": "^9.4.0",
+    "@neutrinojs/jest": "^9.4.0",
+    "@neutrinojs/library": "^9.4.0",
+    "eslint": "^7",
+    "jest": "^26",
+    "neutrino": "^9.4.0",
+    "webpack": "^4",
+    "webpack-cli": "^3"
   }
 }
