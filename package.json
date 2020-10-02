@@ -5,5 +5,15 @@
   "main": "index.js",
   "repository": "git@github.com:depayapp/depay-widget.git",
   "author": "DePay",
-  "license": "GPL3"
+  "license": "GPL3",
+  "dependencies": {
+    "@babel/preset-react": "^7.10.4",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "ethers": "^5.0.14",
+    "lodash": "^4.17.20",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
 }
