@@ -13,24 +13,20 @@
     "lint": "eslint --cache --format codeframe --ext mjs,js src test"
   },
   "dependencies": {
-    "@babel/preset-react": "^7.10.4",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "ethers": "^5.0.14",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-shadow-dom-retarget-events": "^1.0.11"
   },
   "devDependencies": {
-    "@neutrinojs/react": "^9.4.0",
-    "neutrino": "^9.4.0",
-    "@neutrinojs/airbnb-base": "^9.4.0",
-    "@neutrinojs/jest": "^9.4.0",
-    "@neutrinojs/library": "^9.4.0",
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
     "eslint": "^7",
     "jest": "^26",
-    "neutrino": "^9.4.0",
     "webpack": "^4",
     "webpack-cli": "^3"
   }
