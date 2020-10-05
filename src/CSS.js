@@ -2,6 +2,7 @@ import CircularButtonCSS from './css/CircularButtonCSS';
 import DialogCSS from './css/DialogCSS';
 import InsideContainerCSS from './css/InsideContainerCSS';
 import SearchCSS from './css/SearchCSS';
+import StackedDialogCSS from './css/StackedDialogCSS';
 import TextButtonCSS from './css/TextButtonCSS';
 import TipCSS from './css/TipCSS';
 import TokenListCSS from './css/TokenListCSS';
@@ -78,7 +79,8 @@ const CSS = [
   TipCSS,
   TokenListCSS,
   SearchCSS,
-  TextButtonCSS
+  TextButtonCSS,
+  StackedDialogCSS
 ].join("\n");
 
 export default CSS;

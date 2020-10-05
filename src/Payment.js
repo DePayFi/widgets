@@ -1,11 +1,23 @@
+import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ShadowContainer from './utils/ShadowContainer';
-import PayDialog from './dialogs/PayDialog';
+import PaymentStack from './stacks/PaymentStack';
+import CloseContainerContext from './contexts/CloseContainerContext';
 
 function checkArguments(args){
   if(args.length == 0 || args.length > 1) {
     throw 'Unknown amount of arguments.'
+  }
+}
+
+function toElement(arg) {
+  if(typeof arg === 'string') {
+    return document.querySelector(arg);
+  } else if (_.isElement(arg)) {
+    return arg;
+  } else {
+    throw 'Unknown element or element query.'
   }
 }
 
@@ -43,12 +55,13 @@ export default function Payment() {
   const [shadowContainer, closeContainer] = ShadowContainer();
   return new Promise(() => {
     ReactDOM.render(
-      <PayDialog
-        paymentAmount={options.amount}
-        paymentToken={options.token}
-        paymentReceiver={options.receiver}
-        closeContainer={closeContainer}
-      />,
+      <CloseContainerContext.Provider value={closeContainer}>
+        <PaymentStack
+          amount={options.amount}
+          token={options.token}
+          receiver={options.receiver}
+        />
+      </CloseContainerContext.Provider>,
       shadowContainer,
     );
   });
