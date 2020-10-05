@@ -8,7 +8,7 @@ export default function ShadowContainer() {
     style.type = 'text/css';
     style.setAttribute('id', 'DePayContainerStyle');
     style.appendChild(document.createTextNode(`
-      #DePayContainer {
+      #DePayShadowContainer {
         background: rgba(0,0,0,0);
         bottom: 0;
         height: 100%;
@@ -22,7 +22,7 @@ export default function ShadowContainer() {
         z-index: 99999;
       }
 
-      #DePayContainer.DepayContainerOpen {
+      #DePayShadowContainer.open {
         background: rgba(0,0,0,0.4);
         opacity: 1;
         top: 0;
@@ -31,14 +31,14 @@ export default function ShadowContainer() {
     document.getElementsByTagName('head')[0].appendChild(style);
   }
 
-  let container = document.getElementById('DePayContainer');
+  let container = document.getElementById('DePayShadowContainer');
   if (container) { container.remove(); }
 
   container = document.createElement('div');
-  container.setAttribute('id', 'DePayContainer');
+  container.setAttribute('id', 'DePayShadowContainer');
   document.body.appendChild(container);
   setTimeout(() => {
-    container.classList.add('DepayContainerOpen');
+    container.classList.add('open');
   }, 0);
 
   const shadow = container.attachShadow({ mode: 'closed' });
@@ -49,18 +49,18 @@ export default function ShadowContainer() {
   style.appendChild(document.createTextNode(CSS));
   shadow.appendChild(style);
 
-  const shadowContainer = document.createElement('div');
-  shadowContainer.classList.add('depay-container');
-  const shadowContainerRow = document.createElement('div');
-  shadowContainerRow.classList.add('depay-container-row');
-  shadowContainer.appendChild(shadowContainerRow);
-  const shadowContainerCell = document.createElement('div');
-  shadowContainerCell.classList.add('depay-container-cell');
-  shadowContainerRow.appendChild(shadowContainerCell);
-  shadow.appendChild(shadowContainer);
+  const insideContainer = document.createElement('div');
+  insideContainer.classList.add('InsideContainerTable');
+  const insideContainerRow = document.createElement('div');
+  insideContainerRow.classList.add('InsideContainerRow');
+  insideContainer.appendChild(insideContainerRow);
+  const insideContainerCell = document.createElement('div');
+  insideContainerCell.classList.add('InsideContainerCell');
+  insideContainerRow.appendChild(insideContainerCell);
+  shadow.appendChild(insideContainer);
 
   function closeContainer() {
-    container.classList.remove('DepayContainerOpen');
+    container.classList.remove('open');
     setTimeout(() => {
       container.remove();
     }, 300);
@@ -68,12 +68,12 @@ export default function ShadowContainer() {
 
   shadow.addEventListener('click', (event) => {
     if (
-      event.target === shadowContainerRow
-      || event.target === shadowContainerCell
+      event.target === insideContainerRow
+      || event.target === insideContainerCell
     ) {
       closeContainer();
     }
   });
 
-  return [shadowContainerCell, closeContainer];
+  return [insideContainerCell, closeContainer];
 }
