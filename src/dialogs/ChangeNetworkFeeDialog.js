@@ -1,5 +1,6 @@
 import React from 'react';
 import CloseContainerContext from '../contexts/CloseContainerContext';
+import NavigateStackContext from '../contexts/NavigateStackContext';
 
 class ChangeNetworkFeeDialog extends React.Component {
   
@@ -7,11 +8,16 @@ class ChangeNetworkFeeDialog extends React.Component {
     return (
       <CloseContainerContext.Consumer>
         {closeContainer => (
-          <div className='Dialog ChangeNetworkFeeDialog'>
-            <div className='DialogBody'>
-              ChangeNetworkFee
-            </div>
-          </div>
+          <NavigateStackContext.Consumer>
+            {navigate => (
+              <div className='Dialog ChangePaymentDialog'>
+                <div className='DialogBody'>
+                  Change Network fee
+                  <a onClick={()=>navigate('ChangePaymentToken')}>Change Payment again</a>
+                </div>
+              </div>
+            )}
+          </NavigateStackContext.Consumer>
         )}
       </CloseContainerContext.Consumer>
     )

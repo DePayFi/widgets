@@ -5,7 +5,7 @@ const StackedDialogCSS = `
     height: 100%;
     position: absolute;
     top: 0;
-    transition: all 0.3s ease-out;
+    transition: left 0.1s ease, opacity 0.2s ease;
     width: 100%;
   }
 
@@ -18,11 +18,35 @@ const StackedDialogCSS = `
     vertical-align: middle;
   }
 
-  .StackedDialog.active {
+  .StackedDialog {
     left: 0;
+    opacity: 1;
   }
 
-  .StackedDialog.movedOutLeft {
+  .StackedDialog.inactive {
+    display: none;
+  }
+
+  .StackedDialog.animating.stale {
+    display: none;
+  }
+
+  .StackedDialog.animating.previous.forward {
+    opacity: 0;
+    left: -5rem;
+  }
+
+  .StackedDialog.animating.previous.backward {
+    opacity: 0;
+    left: 5rem;
+  }
+
+  .StackedDialog.animating.next.forward {
+    opacity: 0;
+    left: 5rem;
+  }
+
+  .StackedDialog.animating.next.backward {
     opacity: 0;
     left: -5rem;
   }

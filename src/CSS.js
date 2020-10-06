@@ -1,7 +1,12 @@
+import CallToActionCSS from './css/CallToActionCSS';
 import CircularButtonCSS from './css/CircularButtonCSS';
 import DialogCSS from './css/DialogCSS';
 import InsideContainerCSS from './css/InsideContainerCSS';
+import PaymentCSS from './css/PaymentCSS';
+import PaymentDialogCSS from './css/PaymentDialogCSS';
+import PoweredByCSS from './css/PoweredByCSS';
 import SearchCSS from './css/SearchCSS';
+import SkeletonCSS from './css/SkeletonCSS';
 import StackedDialogCSS from './css/StackedDialogCSS';
 import TextButtonCSS from './css/TextButtonCSS';
 import TipCSS from './css/TipCSS';
@@ -75,12 +80,17 @@ const CSS = [
   `,
   InsideContainerCSS,
   DialogCSS,
+  SkeletonCSS,
   CircularButtonCSS,
   TipCSS,
   TokenListCSS,
   SearchCSS,
   TextButtonCSS,
-  StackedDialogCSS
+  StackedDialogCSS,
+  PaymentCSS,
+  CallToActionCSS,
+  PoweredByCSS,
+  PaymentDialogCSS
 ].join("\n");
 
 export default CSS;

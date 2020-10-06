@@ -40,7 +40,9 @@ class PaymentStack extends React.Component {
     return (
       <Stack
         dialogs={{
-          Payment: <PaymentDialog/>,
+          Payment: <PaymentDialog
+            loading={this.state.loading}
+          />,
           ChangePaymentToken: <ChangePaymentTokenDialog/>,
           ChangeNetworkFee: <ChangeNetworkFeeDialog/>
         }}
