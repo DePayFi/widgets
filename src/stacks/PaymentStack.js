@@ -15,7 +15,7 @@ class PaymentStack extends React.Component {
     priceGas: null,
     priceETHinUSD: null,
 
-    payerAddress: '0x317D875cA3B9f8d14f960486C0d1D1913be74e90',
+    payerAddress: null,
     payerAvailableRoutes: null,
     payerAvailableTokens: null,
     payerAvailableAmounts: null,

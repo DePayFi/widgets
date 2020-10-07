@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import ShadowContainer from './utils/ShadowContainer';
 import PaymentStack from './stacks/PaymentStack';
 import CloseContainerContext from './contexts/CloseContainerContext';
+import WalletProvider from './providers/WalletProvider';
 
 function checkArguments(args){
   if(args.length == 0 || args.length > 1) {
@@ -56,13 +57,15 @@ export default function Payment() {
   return new Promise(() => {
     ReactDOM.render(
       <CloseContainerContext.Provider value={closeContainer}>
-        <PaymentStack
-          amount={options.amount}
-          token={options.token}
-          receiver={options.receiver}
-        />
-      </CloseContainerContext.Provider>,
-      shadowContainer,
+        <WalletProvider>
+          <PaymentStack
+            amount={options.amount}
+            token={options.token}
+            receiver={options.receiver}
+          />
+        </WalletProvider>
+      </CloseContainerContext.Provider>
+      , shadowContainer
     );
   });
 }

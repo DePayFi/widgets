@@ -14,6 +14,10 @@ const DialogCSS = `
     border-bottom: 1px solid rgb(238,238,238);
   }
 
+  .DialogBody.HeightAuto {
+    height: auto;
+  }
+
   .DialogHeader {
     padding: 1.1rem 1.8rem 1.2rem 1.8rem;
     background: rgb(248,248,248);

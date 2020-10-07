@@ -1,7 +1,9 @@
 import CallToActionCSS from './css/CallToActionCSS';
 import CircularButtonCSS from './css/CircularButtonCSS';
+import CircularIconCSS from './css/CircularIconCSS';
 import DialogCSS from './css/DialogCSS';
 import InsideContainerCSS from './css/InsideContainerCSS';
+import PaddingCSS from './css/PaddingCSS';
 import PaymentCSS from './css/PaymentCSS';
 import PaymentDialogCSS from './css/PaymentDialogCSS';
 import PoweredByCSS from './css/PoweredByCSS';
@@ -11,6 +13,7 @@ import StackedDialogCSS from './css/StackedDialogCSS';
 import TextButtonCSS from './css/TextButtonCSS';
 import TipCSS from './css/TipCSS';
 import TokenListCSS from './css/TokenListCSS';
+import TypographyCSS from './css/TypographyCSS';
 
 const CSS = [
   `
@@ -73,15 +76,12 @@ const CSS = [
       background: none;
       outline: none;
     }
-
-    h1 {
-      font-size: 120%;
-    }
   `,
   InsideContainerCSS,
   DialogCSS,
   SkeletonCSS,
   CircularButtonCSS,
+  CircularIconCSS,
   TipCSS,
   TokenListCSS,
   SearchCSS,
@@ -90,7 +90,9 @@ const CSS = [
   PaymentCSS,
   CallToActionCSS,
   PoweredByCSS,
-  PaymentDialogCSS
+  PaymentDialogCSS,
+  TypographyCSS,
+  PaddingCSS,
 ].join("\n");
 
 export default CSS;
