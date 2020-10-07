@@ -24,6 +24,7 @@ class WalletProvider extends React.Component {
     this.wallet = new Wallet();
 
     Object.assign(this.state, {
+      wallet: this.wallet,
       address: this.wallet.address(),
       connected: this.wallet.isConnected(),
     });
