@@ -1,6 +1,7 @@
 import ChangeNetworkFeeDialog from '../dialogs/ChangeNetworkFeeDialog';
 import ChangePaymentTokenDialog from '../dialogs/ChangePaymentTokenDialog';
 import PaymentDialog from '../dialogs/PaymentDialog';
+import PriceProvider from '../providers/PriceProvider';
 import React from 'react';
 import Stack from '../utils/Stack';
 
@@ -11,9 +12,6 @@ class PaymentStack extends React.Component {
     paymentAmount: null,
     paymentToken: null,
     paymentReceiver: null,
-
-    priceGas: null,
-    priceETHinUSD: null,
 
     payerAddress: null,
     payerAvailableRoutes: null,
@@ -38,16 +36,18 @@ class PaymentStack extends React.Component {
 
   render() {
     return (
-      <Stack
-        dialogs={{
-          Payment: <PaymentDialog
-            loading={this.state.loading}
-          />,
-          ChangePaymentToken: <ChangePaymentTokenDialog/>,
-          ChangeNetworkFee: <ChangeNetworkFeeDialog/>
-        }}
-        start={'Payment'}
-      />
+      <PriceProvider>
+        <Stack
+          dialogs={{
+            Payment: <PaymentDialog
+              loading={this.state.loading}
+            />,
+            ChangePaymentToken: <ChangePaymentTokenDialog/>,
+            ChangeNetworkFee: <ChangeNetworkFeeDialog/>
+          }}
+          start={'Payment'}
+        />
+      </PriceProvider>
     );
   }
 }
