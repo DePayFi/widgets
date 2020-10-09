@@ -16,7 +16,6 @@ const PaymentCSS = `
   .PaymentCell {
     border-bottom: 1px solid rgb(246,246,246);
     display: table-cell;
-    padding: 1rem 1.6rem 2.3rem;
     position: relative;
     vertical-align: middle;
     width: 100%
@@ -34,69 +33,78 @@ const PaymentCSS = `
     background: rgb(241,232,235);
   }
 
-  .PaymentAmountAndSymbol {
-    font-size: 160%;
+  .PaymentAmountInLocalCurrency {
+    font-size: 140%;
+    line-height: 2rem;
     position: relative;
-    vertical-align: middle;
-  }
-
-  .PaymentCellRow2{
-    color: rgb(140,140,140);
+    width: 66%;
     overflow: hidden;
-    text-overflow: ellipsis;
-    vertical-align: middle;
     white-space: nowrap;
-    width: 100%;
+    text-overflow: ellipsis;
   }
 
-  .ChangeNetworkFeeRow .PaymentAmountAndSymbol {
-    font-size: 110%;
-  }
-
-  .PaymentToLocalCurrency {
+  .PaymentOriginalAmount {
     color: rgb(140,140,140);
     font-size: 100%;
-    position: absolute;
-    top: 0.53rem;
-    right: 0;
+    width: 66%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
-  .PaymentCellRow1 {
+  .PaymentCellInner {
+    position: relative;
+    padding: 1.35rem 1rem 1rem 4.6rem;
+  }
+
+  .PaymentCellInside {
     position: relative;
   }
 
-  .PaymentCellRow2 {
-    color: rgb(140,140,140);
-    height: 0;
-    overflow: hidden;
+  .PaymentCellInner .CircularIcon {
     position: absolute;
-    padding-top: 0.2rem;
-    transition: all 0.3s ease;
+    left: 1.4rem;
+    top: 1.4rem;
+  }
+
+  .PaymentCellInnerRow1 {
     width: 100%;
-    font-size: 90%;
+    display: block;
   }
 
-  .PaymentCell:hover .PaymentCellRow2,
-  .PaymentCell:active .PaymentCellRow2 {
-    height: 1.9rem;
-  }
-
-  .PaymentRowButton {
+  .PaymentAction {
     color: #d7477a;
+    right: 0;
     position: absolute;
-    right: 2.54rem;
+    display: inline-block;
     padding: 0.3rem 0.8rem;
     border: 1px solid transparent;
     border-radius: 99rem;
-    margin-top: -0.4rem;
   }
 
-  .PaymentRowButton:hover {
+  .PaymentAction:hover {
     background: rgba(0,0,0,0.03);
   }
   
-  .PaymentRowButton:active {
+  .PaymentAction:active {
     background: rgba(0,0,0,0.08);
+  }
+
+  .ChangePaymentRow .PaymentAction {
+    top: -0.15rem;
+  }
+
+  .ChangeNetworkFeeRow .PaymentAction {
+    top: -0.25rem;
+  }
+
+  .ChangeNetworkFeeRow .PaymentAmountInLocalCurrency {
+    font-size: 130%;
+    line-height: 1.8rem;
+  }
+  
+  .ChangeNetworkFeeRow .CircularIcon {
+    top: 1.2rem;
   }
 `;
 

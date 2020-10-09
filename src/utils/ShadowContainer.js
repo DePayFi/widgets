@@ -1,6 +1,6 @@
-import retargetEvents from 'react-shadow-dom-retarget-events';
-
 import CSS from '../CSS';
+import retargetEvents from 'react-shadow-dom-retarget-events';
+import RollbarSnippet from '../utils/RollbarSnippet';
 
 export default function ShadowContainer() {
   if (!document.querySelector('#DePayContainerStyle')) {
@@ -48,6 +48,10 @@ export default function ShadowContainer() {
   style.type = 'text/css';
   style.appendChild(document.createTextNode(CSS));
   shadow.appendChild(style);
+
+  const script = document.createElement('script');
+  script.appendChild(document.createTextNode(RollbarSnippet));
+  shadow.appendChild(script);
 
   const insideContainer = document.createElement('div');
   insideContainer.classList.add('InsideContainerTable');

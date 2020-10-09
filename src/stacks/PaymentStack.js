@@ -2,9 +2,11 @@ import ChangeNetworkFeeDialog from '../dialogs/ChangeNetworkFeeDialog';
 import ChangePaymentTokenDialog from '../dialogs/ChangePaymentTokenDialog';
 import PaymentContext from '../contexts/PaymentContext';
 import PaymentDialog from '../dialogs/PaymentDialog';
+import PriceContext from '../contexts/PriceContext';
 import PriceProvider from '../providers/PriceProvider';
 import React from 'react';
-import RouteProvider from '../providers/RouteProvider';
+import RoutesContext from '../contexts/RoutesContext';
+import RoutesProvider from '../providers/RoutesProvider';
 import Stack from '../utils/Stack';
 import WalletContext from '../contexts/WalletContext';
 
@@ -24,38 +26,52 @@ class PaymentStack extends React.Component {
     })
   }
 
-  isLoading() {
-    return true;
-  }
-
   render() {
     return (
       <PriceProvider>
-        <PaymentContext.Provider value={{
-          amount: this.state.amount,
-          token: this.state.token,
-          receiver: this.state.receiver
-        }}>
-          <WalletContext.Consumer>
-            {walletContext => (
-              <RouteProvider
-                token={ this.state.token }
-                address={ walletContext.address }
-              >
-                <Stack
-                  dialogs={{
-                    Payment: <PaymentDialog
-                      loading={ this.isLoading() }
-                    />,
-                    ChangePaymentToken: <ChangePaymentTokenDialog/>,
-                    ChangeNetworkFee: <ChangeNetworkFeeDialog/>
-                  }}
-                  start={'Payment'}
-                />
-              </RouteProvider>
-            )}
-          </WalletContext.Consumer>
-        </PaymentContext.Provider>
+        <PriceContext.Consumer>
+          {priceContext => (
+            <PaymentContext.Provider value={{
+              amount: this.state.amount,
+              token: this.state.token,
+              receiver: this.state.receiver
+            }}>
+              <WalletContext.Consumer>
+                {walletContext => (
+                  <RoutesProvider
+                    token={ this.state.token }
+                    amount={ this.state.amount }
+                    address={ walletContext.address }
+                  >
+                    <RoutesContext.Consumer>
+                      {routesContext => (
+                        <Stack
+                          dialogs={{
+                            Payment: <PaymentDialog
+                              initializing={ priceContext.initializing || routesContext.initializing }
+                              routes={ routesContext.routes }
+                              selected={ routesContext.selected }
+                              price={ priceContext.price }
+                            />,
+                            ChangePaymentToken: <ChangePaymentTokenDialog
+                              routes={ routesContext.routes }
+                              change={ routesContext.change }
+                              price={ priceContext.price }
+                            />,
+                            ChangeNetworkFee: <ChangeNetworkFeeDialog
+                              price={ priceContext.price }
+                            />
+                          }}
+                          start={'Payment'}
+                        />
+                      )}
+                    </RoutesContext.Consumer>
+                  </RoutesProvider>
+                )}
+              </WalletContext.Consumer>
+            </PaymentContext.Provider>
+          )}
+        </PriceContext.Consumer>
       </PriceProvider>
     );
   }

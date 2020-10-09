@@ -1,6 +1,6 @@
 const CircularIconCSS = `
   .CircularIcon {
-    background: rgba(255,255,255,0.6);
+    background: #d7477a;
     border-radius: 99rem;
     border: 1px solid transparent;
     box-shadow: 0 3px 8px rgba(0,0,0,0.2);

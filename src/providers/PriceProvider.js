@@ -4,16 +4,16 @@ import EthUsdPriceAbi from '../abi/EthUsdPriceAbi';
 
 class PriceProvider extends React.Component {
   state = {
+    initializing: true,
     price: null
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.loadPrice().then(function(price){
-      this.setState({ price });
+      this.setState({
+        initializing: false,
+        price
+      });
     }.bind(this));
 
     this.priceInterval = setInterval(function(){
@@ -53,7 +53,10 @@ class PriceProvider extends React.Component {
 
   render() {
     return(
-      <PriceContext.Provider value={this.state.price}>
+      <PriceContext.Provider value={{
+        initializing: this.state.initializing,
+        price: this.state.price
+      }}>
         {this.props.children}
       </PriceContext.Provider>
     )
