@@ -19,6 +19,12 @@ const TypographyCSS = `
   .TextAlignCenter {
     text-align: center;
   }
+
+  .TextEllipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 `;
 
 export default TypographyCSS;

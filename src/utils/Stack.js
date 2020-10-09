@@ -21,6 +21,7 @@ class Stack extends React.Component {
 
   navigate(route) {
     if(this.state.stack.indexOf(route) > -1) { return }
+    if(route === 'back') { return this.unstack() }
 
     this.setState({
       stack: this.state.stack.concat(route),

@@ -32,7 +32,7 @@ class RoutesProvider extends React.Component {
 
   changeSelected(index) {
     this.setState({
-      selected: routes[index]
+      selected: this.state.routes[index]
     });
   }
 

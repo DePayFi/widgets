@@ -42,6 +42,12 @@ const DialogCSS = `
     top: 1rem;
     right: 1rem;
   }
+  
+  .DialogGoBackButton {
+    position: absolute;
+    top: 1rem;
+    left: 0.9rem;
+  }
 `;
 
 export default DialogCSS;

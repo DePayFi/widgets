@@ -3,80 +3,71 @@ const PaymentCSS = `
   .Payment {
     display: table;
     width: 100%;
+    table-layout: fixed;
   }
 
   .PaymentRow {
     display: table-row;
   }
 
-  .PaymentRow:last-child .PaymentCell { 
-    border-bottom: 1px solid transparent;
+  .PaymentRow:not(.loading) {
+    cursor: pointer;
   }
 
-  .PaymentCell {
+  .PaymentRow:not(.loading):hover {
+    background: rgb(248,243,245);
+  }
+
+  .PaymentRow:not(.loading):active {
+    background: rgb(241,232,235);
+  }
+
+  .PaymentColumn {
     border-bottom: 1px solid rgb(246,246,246);
     display: table-cell;
     position: relative;
     vertical-align: middle;
-    width: 100%
+    padding-top: 1.4rem;
+    padding-bottom: 1.6rem;
   }
 
-  .PaymentCell:not(.loading) {
-    cursor: pointer;
+  .PaymentRow:last-child .PaymentColumn { 
+    border-bottom: 1px solid transparent;
   }
 
-  .PaymentCell:not(.loading):hover {
-    background: rgb(248,243,245);
+  .PaymentColumn1 {
+    width: 20%;
+    padding: 1rem;
+    text-align: center;
   }
 
-  .PaymentCell:not(.loading):active {
-    background: rgb(241,232,235);
+  .PaymentColumn2 {
+    width: 52%;
   }
 
-  .PaymentAmountInLocalCurrency {
+  .PaymentColumn3 {
+    text-align: right;
+    padding-right: 0.9rem;
+    width: 28%;
+  }
+
+  .PaymentAmountRow1 {
     font-size: 140%;
     line-height: 2rem;
     position: relative;
-    width: 66%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
   }
 
-  .PaymentOriginalAmount {
+  .PaymentAmountRow2, .PaymentDescription {
     color: rgb(140,140,140);
     font-size: 100%;
-    width: 66%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
   }
 
-  .PaymentCellInner {
-    position: relative;
-    padding: 1.35rem 1rem 1rem 4.6rem;
-  }
-
-  .PaymentCellInside {
-    position: relative;
-  }
-
-  .PaymentCellInner .CircularIcon {
-    position: absolute;
-    left: 1.4rem;
-    top: 1.4rem;
-  }
-
-  .PaymentCellInnerRow1 {
-    width: 100%;
+  .PaymentAmountRow1, .PaymentAmountRow2, .PaymentDescription {
     display: block;
   }
 
   .PaymentAction {
     color: #d7477a;
-    right: 0;
-    position: absolute;
-    display: inline-block;
     padding: 0.3rem 0.8rem;
     border: 1px solid transparent;
     border-radius: 99rem;
@@ -90,21 +81,9 @@ const PaymentCSS = `
     background: rgba(0,0,0,0.08);
   }
 
-  .ChangePaymentRow .PaymentAction {
-    top: -0.15rem;
-  }
-
-  .ChangeNetworkFeeRow .PaymentAction {
-    top: -0.25rem;
-  }
-
-  .ChangeNetworkFeeRow .PaymentAmountInLocalCurrency {
+  .ChangeNetworkFeeRow .PaymentAmountRow1 {
     font-size: 130%;
     line-height: 1.8rem;
-  }
-  
-  .ChangeNetworkFeeRow .CircularIcon {
-    top: 1.2rem;
   }
 `;
 
