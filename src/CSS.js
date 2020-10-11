@@ -1,4 +1,6 @@
 import CallToActionCSS from './css/CallToActionCSS';
+import CardCSS from './css/CardCSS';
+import ChangeNetworkFeeDialogCSS from './css/ChangeNetworkFeeDialogCSS';
 import CircularButtonCSS from './css/CircularButtonCSS';
 import CircularIconCSS from './css/CircularIconCSS';
 import DialogCSS from './css/DialogCSS';
@@ -7,9 +9,11 @@ import PaddingCSS from './css/PaddingCSS';
 import PaymentCSS from './css/PaymentCSS';
 import PaymentDialogCSS from './css/PaymentDialogCSS';
 import PoweredByCSS from './css/PoweredByCSS';
+import RangeSliderCSS from './css/RangeSliderCSS';
 import SearchCSS from './css/SearchCSS';
 import SkeletonCSS from './css/SkeletonCSS';
 import StackedDialogCSS from './css/StackedDialogCSS';
+import TableCSS from './css/TableCSS';
 import TextButtonCSS from './css/TextButtonCSS';
 import TipCSS from './css/TipCSS';
 import TokenListCSS from './css/TokenListCSS';
@@ -93,6 +97,10 @@ const CSS = [
   PaymentDialogCSS,
   TypographyCSS,
   PaddingCSS,
+  CardCSS,
+  TableCSS,
+  RangeSliderCSS,
+  ChangeNetworkFeeDialogCSS,
 ].join("\n");
 
 export default CSS;

@@ -25,11 +25,6 @@ class RoutesProvider extends React.Component {
     selected: null
   };
 
-  constructor(props) {
-    super(props);
-    this.changeSelected = this.changeSelected.bind(this);
-  }
-
   changeSelected(index) {
     this.setState({
       selected: this.state.routes[index]
@@ -106,7 +101,7 @@ class RoutesProvider extends React.Component {
         initializing: this.state.initializing,
         routes: this.state.routes,
         selected: this.state.selected,
-        change: this.changeSelected,
+        change: this.changeSelected.bind(this),
       }}>
         {this.props.children}
       </RoutesContext.Provider>

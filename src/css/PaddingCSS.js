@@ -59,6 +59,26 @@ const PaddingCSS = `
   .PaddingLeftSmall {
     padding-left: 1rem;
   }
+
+  .PaddingNone {
+    padding: 0;
+  }
+
+  .PaddingTopNone {
+    padding-top: 0;
+  }
+
+  .PaddingRightNone {
+    padding-right: 0;
+  }
+
+  .PaddingBottomNone {
+    padding-bottom: 0;
+  }
+
+  .PaddingLeftNone {
+    padding-left: 0;
+  }
 `;
 
 export default PaddingCSS;

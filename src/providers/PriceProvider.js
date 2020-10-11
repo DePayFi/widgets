@@ -16,7 +16,7 @@ class PriceProvider extends React.Component {
       });
     }.bind(this));
 
-    this.priceInterval = setInterval(function(){
+    this.interval = setInterval(function(){
       this.loadPrice().then(function(price){
         let diff = Math.abs(this.state.price - price) / this.state.price;
         // only update if price is half a percent difference
@@ -28,13 +28,7 @@ class PriceProvider extends React.Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.priceInterval);
-  }
-
-  loadAndSetPrice() {
-    this.loadPrice().then(function(price){
-      this.setState({ price });
-    }.bind(this));
+    clearInterval(this.interval);
   }
 
   loadPrice() {

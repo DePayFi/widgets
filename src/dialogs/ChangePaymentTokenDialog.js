@@ -15,11 +15,14 @@ class ChangePaymentTokenDialog extends React.Component {
     return (
       <NavigateStackContext.Consumer>
         {navigate => (
-          <div className='Dialog PaymentDialog'>
+          <div className='Dialog ChangePaymentDialog'>
             <div className='DialogHeader'>
               <GoBackDialogComponent/>
               <CloseDialogComponent/>
               <h1 className='FontSizeMedium TextAlignCenter'>Change payment</h1>
+              <div className='FontSizeMedium FontWeightBold TextAlignCenter'>
+                $300 USD
+              </div>
             </div>
             <div className='DialogBody'>
               {this.props.routes.map((route, index) => {

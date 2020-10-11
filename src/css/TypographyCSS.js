@@ -25,6 +25,14 @@ const TypographyCSS = `
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+  .FontWeightBold {
+    font-weight: bold;
+  }
+
+  .TextGrey {
+    color: rgb(140,140,140);
+  }
 `;
 
 export default TypographyCSS;
