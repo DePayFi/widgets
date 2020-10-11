@@ -19,14 +19,25 @@ class GasProvider extends React.Component {
 
   componentDidMount() {
     this.loadGas().then(function(gas){
-      this.setGas(gas);
-      this.setState({ initializing: false });
+      this.setState({ 
+        initializing: false,
+        selected: gas.fast,
+        slow: gas.slow,
+        standard: gas.standard,
+        fast: gas.fast,
+        instant: gas.instant
+      });
     }.bind(this));
 
     this.interval = setInterval(function(){
       this.loadGas().then(function(gas){
         if(this.equalState(gas)) { return }
-        this.setGas(gas);
+        this.setState({
+          slow: gas.slow,
+          standard: gas.standard,
+          fast: gas.fast,
+          instant: gas.instant
+        });
       }.bind(this))
     }.bind(this), 1000 * 30)
   }
@@ -37,10 +48,10 @@ class GasProvider extends React.Component {
 
   loadGas() {
     return new Promise(function(resolve, reject){
-      fetch('https://api.anyblock.tools/latest-minimum-gasprice').then(function(response){
-        response.json().then(resolve);
-      });
-    });
+      fetch('https://ethgasstation.info/api/ethgasAPI.json').then(function(response){
+        response.json().then((data)=>(resolve(this.gasToStandardFormat(data))));
+      }.bind(this));
+    }.bind(this));
   }
 
   equalState(gas) {
@@ -52,13 +63,14 @@ class GasProvider extends React.Component {
     )
   }
 
-  setGas(gas){
-    this.setState({
-      slow: gas.slow,
-      standard: gas.standard,
-      fast: gas.fast,
-      instant: gas.instant
-    });
+  // convert ethgasstation.info format
+  gasToStandardFormat(gas) {
+    return({
+      slow: gas.safeLow/10,
+      standard: gas.average/10,
+      fast: gas.fast/10,
+      instant: gas.fastest/10
+    })
   }
 
   render() {

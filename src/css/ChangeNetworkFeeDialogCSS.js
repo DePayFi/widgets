@@ -2,7 +2,7 @@ const ChangeNetworkFeeDialogCSS = `
   
   .NetworkFeeButton {
     background: rgb(250,250,250);
-    border-right: 1px solid white;
+    border-right: 3px solid white;
     cursor: pointer;
     border-radius: 1rem;
     width: 100%;
