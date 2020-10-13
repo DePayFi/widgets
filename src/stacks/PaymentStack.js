@@ -47,6 +47,7 @@ class PaymentStack extends React.Component {
                           token={ this.state.token }
                           amount={ this.state.amount }
                           address={ walletContext.address }
+                          wallet={ walletContext.wallet }
                         >
                           <RoutesContext.Consumer>
                             {routesContext => (

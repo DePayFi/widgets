@@ -36,6 +36,10 @@ class Wallet {
     return this.connector.address();
   }
 
+  balance() {
+    return this.connector.balance();
+  }
+
   name() {
     return this.connector.name();
   }

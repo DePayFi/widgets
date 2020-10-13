@@ -15,6 +15,14 @@ class MetaMaskConnector {
     return ethereum.selectedAddress
   }
 
+  static balance() {
+    return new Promise(function(resolve, reject) {
+      DePay.ethers.provider.getBalance(MetaMaskConnector.address()).then(function(balance){
+        resolve(balance);
+      });
+    });
+  }
+
   static connect() {
     return new Promise(function(resolve, reject) {
       ethereum.request({ method: 'eth_requestAccounts' }).then(function(accounts){

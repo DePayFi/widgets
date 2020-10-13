@@ -234,7 +234,7 @@ export default function TokenList(){
       "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC0F9bD5Fa5698B6505F643900FFA515Ea5dF54A9/logo.png"
     },
     {
-      "name": "Ethereum",
+      "name": "Ether",
       "symbol": "ETH",
       "decimals": 18,
       "chainId": 1,

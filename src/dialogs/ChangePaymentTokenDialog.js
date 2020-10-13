@@ -1,5 +1,7 @@
 import CloseDialogComponent from '../components/CloseDialogComponent';
+import DisplayTokenAmount from '../utils/DisplayTokenAmount';
 import GoBackDialogComponent from '../components/GoBackDialogComponent';
+import LocalCurrency from '../utils/LocalCurrency';
 import NavigateStackContext from '../contexts/NavigateStackContext';
 import React from 'react';
 import TokenIconComponent from '../components/TokenIconComponent';
@@ -12,6 +14,9 @@ class ChangePaymentTokenDialog extends React.Component {
   }
   
   render() {
+    const eth = DePay.ethers.utils.formatEther(this.props.routes[0].amounts[1]);
+    const localPrice = LocalCurrency(eth * this.props.price);
+
     return (
       <NavigateStackContext.Consumer>
         {navigate => (
@@ -21,14 +26,14 @@ class ChangePaymentTokenDialog extends React.Component {
               <CloseDialogComponent/>
               <h1 className='FontSizeMedium TextAlignCenter'>Change payment</h1>
               <div className='FontSizeMedium FontWeightBold TextAlignCenter'>
-                $300 USD
+                { localPrice }
               </div>
             </div>
             <div className='DialogBody'>
               {this.props.routes.map((route, index) => {
                 
-                const totalDisplayed = DePay.ethers.utils.formatUnits(route.balance.toLocaleString('fullwide', {useGrouping:false}), route.token.decimals);
-                const percentage = route.required / route.balance * 100;
+                const totalDisplayed = DisplayTokenAmount(route.balance, route.token.decimals, route.token.symbol)
+                const displayedTokenAmount = DisplayTokenAmount(route.amounts[0], route.token.decimals, route.token.symbol)
 
                 return(
                   <div className='Payment' key={index}>
@@ -41,14 +46,14 @@ class ChangePaymentTokenDialog extends React.Component {
                         />
                       </div>
                       <div className='PaymentColumn PaymentColumn2'>
-                        <div className='PaymentDescription TextEllipsis' title={ route.token.name }>
+                        <div className='PaymentDescription TextEllipsis'>
                           { route.token.name }
                         </div>
-                        <div className='PaymentAmountRow1 TextEllipsis' title={`${ route.required } ${ route.token.symbol }`}>
-                          { route.required } { route.token.symbol }
+                        <div className='PaymentAmountRow1 TextEllipsis'>
+                          { displayedTokenAmount }
                         </div>
                         <div className='PaymentAmountRow2 TextEllipsis'>
-                          { percentage.toFixed(2) }% of { totalDisplayed }
+                          { totalDisplayed }
                         </div>
                       </div>
                       <div className='PaymentColumn PaymentColumn3'>

@@ -1,5 +1,6 @@
 import CloseDialogComponent from '../components/CloseDialogComponent';
 import LocalCurrency from '../utils/LocalCurrency';
+import DisplayTokenAmount from '../utils/DisplayTokenAmount';
 import NavigateStackContext from '../contexts/NavigateStackContext';
 import PaymentDialogSkeleton from '../dialogs/PaymentDialogSkeleton';
 import React from 'react';
@@ -13,6 +14,10 @@ class PaymentDialog extends React.Component {
         <PaymentDialogSkeleton/>
       ) 
     }
+
+    const eth = DePay.ethers.utils.formatEther(this.props.selected.amounts[1]);
+    const localPrice = LocalCurrency(eth * this.props.price);
+    const displayedTokenAmount = DisplayTokenAmount(this.props.selected.amounts[0], this.props.selected.token.decimals, this.props.selected.token.symbol)
 
     return (
       <NavigateStackContext.Consumer>
@@ -34,11 +39,11 @@ class PaymentDialog extends React.Component {
                     <div className='PaymentDescription'>
                       Payment
                     </div>
-                    <div className='PaymentAmountRow1 TextEllipsis' title={ LocalCurrency(this.props.selected.requiredInETH * this.props.price) }>
-                      { LocalCurrency(this.props.selected.requiredInETH * this.props.price) }
+                    <div className='PaymentAmountRow1 TextEllipsis'>
+                      { localPrice }
                     </div>
                     <div className='PaymentAmountRow2 TextEllipsis'>
-                      { this.props.selected.required } { this.props.selected.token.symbol }
+                      { displayedTokenAmount }
                     </div>
                   </div>
                   <div className='PaymentColumn PaymentColumn3'>
