@@ -58,6 +58,8 @@ class RoutesProvider extends React.Component {
           .then(this.filterTokensWithLiquidity)
           .then(this.mapBasicTokenDetailsToRoute.bind(this))
           .then(this.retrieveRequiredAmounts.bind(this))
+          .then(this.filterRoutesWithEnoughBalance.bind(this))
+          .then(this.sortRoutes.bind(this))
           .then(function(routes){
             resolve(routes);
           })
@@ -76,10 +78,24 @@ class RoutesProvider extends React.Component {
     });
   }
 
+  filterRoutesWithEnoughBalance(routes) {
+    return new Promise(function(resolve, reject){
+      resolve(
+        routes.filter(function(route){
+          return parseFloat(route.balance) > parseFloat(route.amounts[0])
+        })
+      )
+    });
+  }
+
   mapBasicTokenDetailsToRoute(tokens) {
     return(
       tokens.map(function(token){
-        let address = DePay.ethers.utils.getAddress(token.address);
+        const address = DePay.ethers.utils.getAddress(token.address);
+        const directTransfer = (address === this.props.token);
+        // fee for transfer or uniswap
+        const fee = directTransfer ? 75000 : 150000;
+        const route = directTransfer ? [] : [address, WETH, this.props.token];
         return {
           token: {
             name: token.name,
@@ -88,10 +104,11 @@ class RoutesProvider extends React.Component {
             decimals: parseInt(token.decimals, 10),
             logoURI: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/'+address+'/logo.png'
           },
-          route: [address, WETH, this.props.token],
+          route: route,
           amounts: [],
           balance: token.balance.toLocaleString('fullwide', {useGrouping:false}),
-          fee: 100000 // approx gas for uniswap
+          fee: fee,
+          transfer: directTransfer
         }
       }.bind(this))
     )
@@ -155,9 +172,15 @@ class RoutesProvider extends React.Component {
           resolve(
             amounts.map(function(amounts, index){
               if(amounts === null) { return null }
-              return Object.assign(routes[index], {
-                amounts: [amounts[0].toString(), requiredETHToToken.toString(), this.props.amount]
-              })
+              if(routes[index].directTransfer) { // direct transfer only needs amounts: [ETH, targetToken]
+                return Object.assign(routes[index], {
+                  amounts: [requiredETHToToken.toString(), this.props.amount]
+                })
+              } else { // set all required amounts for the entire route
+                return Object.assign(routes[index], {
+                  amounts: [amounts[0].toString(), requiredETHToToken.toString(), this.props.amount]
+                })
+              }
             }.bind(this)).filter((amounts)=>amounts !== null)
           )
         }.bind(this));
@@ -167,25 +190,42 @@ class RoutesProvider extends React.Component {
 
   unshiftETHRoute(routes) {
     return new Promise(function(resolve, reject){
-      const UniswapV2Router02Contract = new DePay.ethers.Contract('0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', UniswapV2Router02Abi, DePay.ethers.provider);
-      UniswapV2Router02Contract.getAmountsIn(
-        this.props.amount,
-        [WETH, this.props.token]
-      ).then(function(amounts){
-        this.props.wallet.balance().then(function(balance){
+      const directTransfer = this.props.token === undefined;
+      // fee for transfer or uniswap
+      const fee = directTransfer ? 21000 : 150000;
+
+      this.props.wallet.balance().then(function(balance){
+        let route = {
+          token: {
+            name: 'Ether',
+            symbol: 'ETH',
+            decimals: 18,
+            logoURI: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAIVBMVEVHcExkgexjf+tifutifurAy/b///+CmO6hsvJxi+zj6PuyVvwSAAAABHRSTlMANYHDscZ74QAAA+NJREFUeNq1ml1y2jAQx+PAATwpB0gmHCANPkAhZgg849g+QDwZnh1o3w29AJNp817aYzayLa8d7YditXqE7i/674fYlXrGrIvrySQMJ5Pbq7Mey7sOW+vW72XeH3ERIuvqw3++7ya8ICTWnd/XHgj97YEg2zsRxqGwZrz9p1Bcnzn789BiXcoO6O2GUWi1pqwAFxFagCwCtx9g//Y+xz69sd/Aas1uQU6Bh4RLBnkDiyw6ylsAD5gKsqhAv7ixDMEhi2I6EPIGllkWRSG5BbkK5wpQ2FSlh/+ZrQKk+He+TRWcFCChKkJ24X2mAFFOuFEuoxcFIDVcygoeFIDWICpYZApAaxAVrDRgTWgQFZQARoOoQAOiI6/BIxQAoOBzaYB/fQBATNQD64LlCQAR74SAKKQKwGi44wsJAHRBcS44tQEJ54QRUUgNgE7GKXOWvGgAp2HG+PChC0hoL3pEGmoAq8EnK2n1HrAm62lIpCEAmGT8QgVhmbUBdEFNqSCsTEBBhSFgFQAgpsJApiEAmIIiojjPAMBr8PEobjFAisdxwCvY7BtAgpfTEC0kvR6jHRByNBGGTCFlv6JoB4Q1ChhhhdTYvwHeCIyGKZZHi8a+Auy+0sk4wwCrtv93LUKBAQLyPNcAIMRYKgZ4IW0iAADhaAWYl/YNQBP2tQYZcFDhfw+oghFbAU61PQCAgFSTqaAMHwA6hMICsG3sAdA4IrUARN216xIsAD84gBlHxInPNOCbGAWTYNrLgOX+HQDsZQAQTEBoB1B+WmCAEm0CxoYHFOHeBKiPl98tzoP5UyeYnQDuCxMwMmvhT7mRLuBn+VmCHGlD5Ej93SLUAah2lfKnMhzqKYSitq/8kiOAAXooFw2hsV+gx/IN9tP2+nYi5cpEA3Rk19hPm4cf6486mMpeb+eINklEd/BYB1MHkOgQmgbD/GGog7nLm5AUeIMxJjqkOphVAOkfJmiyzJ+WtHvGxESTNaQ7FLVnKK2CaPPO6Q5jU7TsE6rR9JgeZ5PD4ZCSA0NA9ShVOujDJSdHljHXrD89cx3SjB44XsVmGwaOgVW7f6RHHq//wOFzV1hdQEEOLFLDzzb77Oh7aANidvT1+k6ufjP+95ud74QLiC0AUuEC4pyZXZmZ71K6hCk1sFMnaKCnX14BaCDTWVYgzM+cAlHDqgIUggJ+AicvgXybC8mDAsRWzwSDD95owpWolM5sGstb2GY6CeTL8QDXwB8l8tX4ib8al7fwkqIb+D/PA84PFO5PJM6PNO7PRM4PVe5PZe6Pde7Phc4Plu5Ppu6Ptu7Pxu4P1//g6dz98d7+vw/8BVHcYRQ1d5GsAAAAAElFTkSuQmCC'
+          },
+          balance: balance.toString(),
+          fee: fee,
+          transfer: directTransfer
+        }
+
+        if(directTransfer){
+          return resolve(
+            [Object.assign(route,{
+              route: [],
+              amounts: [this.props.amount]
+            })].concat(routes)
+          )
+        }
+
+        const UniswapV2Router02Contract = new DePay.ethers.Contract('0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', UniswapV2Router02Abi, DePay.ethers.provider);
+        UniswapV2Router02Contract.getAmountsIn(
+          this.props.amount,
+          [WETH, this.props.token]
+        ).then(function(amounts){
           resolve(
-            [{
-              token: {
-                name: 'Ether',
-                symbol: 'ETH',
-                decimals: 18,
-                logoURI: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAIVBMVEVHcExkgexjf+tifutifurAy/b///+CmO6hsvJxi+zj6PuyVvwSAAAABHRSTlMANYHDscZ74QAAA+NJREFUeNq1ml1y2jAQx+PAATwpB0gmHCANPkAhZgg849g+QDwZnh1o3w29AJNp817aYzayLa8d7YditXqE7i/674fYlXrGrIvrySQMJ5Pbq7Mey7sOW+vW72XeH3ERIuvqw3++7ya8ICTWnd/XHgj97YEg2zsRxqGwZrz9p1Bcnzn789BiXcoO6O2GUWi1pqwAFxFagCwCtx9g//Y+xz69sd/Aas1uQU6Bh4RLBnkDiyw6ylsAD5gKsqhAv7ixDMEhi2I6EPIGllkWRSG5BbkK5wpQ2FSlh/+ZrQKk+He+TRWcFCChKkJ24X2mAFFOuFEuoxcFIDVcygoeFIDWICpYZApAaxAVrDRgTWgQFZQARoOoQAOiI6/BIxQAoOBzaYB/fQBATNQD64LlCQAR74SAKKQKwGi44wsJAHRBcS44tQEJ54QRUUgNgE7GKXOWvGgAp2HG+PChC0hoL3pEGmoAq8EnK2n1HrAm62lIpCEAmGT8QgVhmbUBdEFNqSCsTEBBhSFgFQAgpsJApiEAmIIiojjPAMBr8PEobjFAisdxwCvY7BtAgpfTEC0kvR6jHRByNBGGTCFlv6JoB4Q1ChhhhdTYvwHeCIyGKZZHi8a+Auy+0sk4wwCrtv93LUKBAQLyPNcAIMRYKgZ4IW0iAADhaAWYl/YNQBP2tQYZcFDhfw+oghFbAU61PQCAgFSTqaAMHwA6hMICsG3sAdA4IrUARN216xIsAD84gBlHxInPNOCbGAWTYNrLgOX+HQDsZQAQTEBoB1B+WmCAEm0CxoYHFOHeBKiPl98tzoP5UyeYnQDuCxMwMmvhT7mRLuBn+VmCHGlD5Ej93SLUAah2lfKnMhzqKYSitq/8kiOAAXooFw2hsV+gx/IN9tP2+nYi5cpEA3Rk19hPm4cf6486mMpeb+eINklEd/BYB1MHkOgQmgbD/GGog7nLm5AUeIMxJjqkOphVAOkfJmiyzJ+WtHvGxESTNaQ7FLVnKK2CaPPO6Q5jU7TsE6rR9JgeZ5PD4ZCSA0NA9ShVOujDJSdHljHXrD89cx3SjB44XsVmGwaOgVW7f6RHHq//wOFzV1hdQEEOLFLDzzb77Oh7aANidvT1+k6ufjP+95ud74QLiC0AUuEC4pyZXZmZ71K6hCk1sFMnaKCnX14BaCDTWVYgzM+cAlHDqgIUggJ+AicvgXybC8mDAsRWzwSDD95owpWolM5sGstb2GY6CeTL8QDXwB8l8tX4ib8al7fwkqIb+D/PA84PFO5PJM6PNO7PRM4PVe5PZe6Pde7Phc4Plu5Ppu6Ptu7Pxu4P1//g6dz98d7+vw/8BVHcYRQ1d5GsAAAAAElFTkSuQmCC'
-              },
+            [Object.assign(route,{
               route: [WETH, this.props.token],
-              amounts: [amounts[0].toString(), amounts[0].toString(), this.props.amount],
-              balance: balance.toString(),
-              fee: 100000 // approx gas for uniswap
-            }].concat(routes)
+              amounts: [amounts[0].toString(), this.props.amount]
+            })].concat(routes)
           )
         }.bind(this))
       }.bind(this))
@@ -193,8 +233,14 @@ class RoutesProvider extends React.Component {
   }
 
   sortRoutes(routes) {
-    return routes.map(function(route){
-      return route;
+    return routes.sort(function(a, b){
+      if (a.fee > b.fee) {
+        return 1;
+      }
+      if (b.fee > a.fee) {
+        return -1;
+      }
+      return 0; // equal
     });
   }
 

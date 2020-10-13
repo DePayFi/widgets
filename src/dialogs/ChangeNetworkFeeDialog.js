@@ -1,7 +1,8 @@
 import CloseDialogComponent from '../components/CloseDialogComponent';
-import GoBackDialogComponent from '../components/GoBackDialogComponent';
-import NavigateStackContext from '../contexts/NavigateStackContext';
 import GasContext from '../contexts/GasContext';
+import GoBackDialogComponent from '../components/GoBackDialogComponent';
+import LocalCurrency from '../utils/LocalCurrency';
+import NavigateStackContext from '../contexts/NavigateStackContext';
 import React from 'react';
 import Skeleton from '../utils/Skeleton';
 import Slider from 'react-rangeslider';
@@ -11,6 +12,11 @@ class ChangeNetworkFeeDialog extends React.Component {
   select(type, gasContext, navigate) {
     gasContext.change(gasContext[type]);
     navigate('back');
+  }
+
+  feeToLocal(gas) {
+    const feeInETH = parseFloat(DePay.ethers.utils.formatUnits(gas, 'gwei')) * this.props.selected.fee;
+    return LocalCurrency(feeInETH * this.props.price);
   }
   
   render() {
@@ -25,7 +31,7 @@ class ChangeNetworkFeeDialog extends React.Component {
                   <CloseDialogComponent/>
                   <h1 className='FontSizeMedium TextAlignCenter'>Change network fee</h1>
                   <div className='FontSizeMedium FontWeightBold TextAlignCenter'>
-                    $300 USD
+                    { this.props.paymentContext.feeLocal }
                   </div>
                 </div>
                 <div className='DialogBody HeightAuto'>
@@ -49,7 +55,7 @@ class ChangeNetworkFeeDialog extends React.Component {
                         <div className='TableCell TextAlignCenter'>
                           <div className=' NetworkFeeButton PaddingSmall' onClick={()=>this.select('slow', gasContext, navigate)}>
                             <div className='FontSizeSmall FontWeightBold'>Slow</div>
-                            <div className='depay-dialog-change-network-fee-button-price'>$1.00 USD</div>
+                            <div className='depay-dialog-change-network-fee-button-price'>{ this.feeToLocal(gasContext.slow) }</div>
                             <div className='FontSizeSmall'>~15 min.</div>
                             <div className='FontSizeSmall TextGrey'>{gasContext.slow} gwei</div>
                           </div>
@@ -58,7 +64,7 @@ class ChangeNetworkFeeDialog extends React.Component {
                         <div className='TableCell TextAlignCenter'>
                           <div className=' NetworkFeeButton PaddingSmall' onClick={()=>this.select('standard', gasContext, navigate)}>
                             <div className='FontSizeSmall FontWeightBold'>Average</div>
-                            <div className='depay-dialog-change-network-fee-button-price'>$1.00 USD</div>
+                            <div className='depay-dialog-change-network-fee-button-price'>{ this.feeToLocal(gasContext.standard) }</div>
                             <div className='FontSizeSmall'>~2 min.</div>
                             <div className='FontSizeSmall TextGrey'>{gasContext.standard} gwei</div>
                           </div>
@@ -67,7 +73,7 @@ class ChangeNetworkFeeDialog extends React.Component {
                         <div className='TableCell TextAlignCenter'>
                           <div className=' NetworkFeeButton PaddingSmall' onClick={()=>this.select('fast', gasContext, navigate)}>
                             <div className='FontSizeSmall FontWeightBold'>Fast</div>
-                            <div className='depay-dialog-change-network-fee-button-price'>$1.00 USD</div>
+                            <div className='depay-dialog-change-network-fee-button-price'>{ this.feeToLocal(gasContext.fast) }</div>
                             <div className='FontSizeSmall'>seconds</div>
                             <div className='FontSizeSmall TextGrey'>{gasContext.fast} gwei</div>
                           </div>

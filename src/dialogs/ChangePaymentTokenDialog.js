@@ -14,8 +14,6 @@ class ChangePaymentTokenDialog extends React.Component {
   }
   
   render() {
-    const eth = DePay.ethers.utils.formatEther(this.props.routes[0].amounts[1]);
-    const localPrice = LocalCurrency(eth * this.props.price);
 
     return (
       <NavigateStackContext.Consumer>
@@ -26,7 +24,7 @@ class ChangePaymentTokenDialog extends React.Component {
               <CloseDialogComponent/>
               <h1 className='FontSizeMedium TextAlignCenter'>Change payment</h1>
               <div className='FontSizeMedium FontWeightBold TextAlignCenter'>
-                { localPrice }
+                { this.props.paymentContext.total }
               </div>
             </div>
             <div className='DialogBody'>

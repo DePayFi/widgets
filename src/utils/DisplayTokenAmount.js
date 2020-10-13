@@ -1,5 +1,10 @@
 const DisplayTokenAmount = function(amount, decimals, symbol){
-  const float = DePay.ethers.utils.formatUnits(amount, decimals);
+  let float;
+  if(decimals === 0) {
+    float = parseFloat(amount);
+  } else {
+    float = DePay.ethers.utils.formatUnits(amount, decimals);
+  }
   const subZeroMatch = float.toString().match(/(?!0)\d/)
   let displayedValue = float.toString();
   if(float.toString().match(/\./) && subZeroMatch) {

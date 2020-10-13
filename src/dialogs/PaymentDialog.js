@@ -1,6 +1,4 @@
 import CloseDialogComponent from '../components/CloseDialogComponent';
-import LocalCurrency from '../utils/LocalCurrency';
-import DisplayTokenAmount from '../utils/DisplayTokenAmount';
 import NavigateStackContext from '../contexts/NavigateStackContext';
 import PaymentDialogSkeleton from '../dialogs/PaymentDialogSkeleton';
 import React from 'react';
@@ -14,10 +12,6 @@ class PaymentDialog extends React.Component {
         <PaymentDialogSkeleton/>
       ) 
     }
-
-    const eth = DePay.ethers.utils.formatEther(this.props.selected.amounts[1]);
-    const localPrice = LocalCurrency(eth * this.props.price);
-    const displayedTokenAmount = DisplayTokenAmount(this.props.selected.amounts[0], this.props.selected.token.decimals, this.props.selected.token.symbol)
 
     return (
       <NavigateStackContext.Consumer>
@@ -40,10 +34,10 @@ class PaymentDialog extends React.Component {
                       Payment
                     </div>
                     <div className='PaymentAmountRow1 TextEllipsis'>
-                      { localPrice }
+                      { this.props.paymentContext.local }
                     </div>
                     <div className='PaymentAmountRow2 TextEllipsis'>
-                      { displayedTokenAmount }
+                      { this.props.paymentContext.token }
                     </div>
                   </div>
                   <div className='PaymentColumn PaymentColumn3'>
@@ -65,14 +59,14 @@ class PaymentDialog extends React.Component {
                       Network fee
                     </div>
                     <div className='PaymentAmountRow1 TextEllipsis'>
-                      { LocalCurrency(15) }
+                      { this.props.paymentContext.feeLocal }
                     </div>
                     <div className='PaymentAmountRow2 TextEllipsis'>
-                      0.4121 ETH
+                      { this.props.paymentContext.feeToken }
                     </div>
                   </div>
                   <div className='PaymentColumn PaymentColumn3'>
-                    <span className='PaymentAction' title='Change fee'>
+                    <span className='PaymentAction' title='Change network fee'>
                       Change
                     </span>
                   </div>
@@ -81,7 +75,7 @@ class PaymentDialog extends React.Component {
             </div>
             <div className='DialogFooter'>
               <button className='CallToAction'>
-                Pay { LocalCurrency(10) }
+                Pay { this.props.paymentContext.total }
               </button>
               <div className='PoweredBy'>
                 <a target='_blank' rel='noopener noreferrer' href='https://depay.app' className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
