@@ -2,7 +2,7 @@ import React from 'react';
 import RoutesContext from '../contexts/RoutesContext';
 import UniswapV2FactoryAbi from '../abi/UniswapV2FactoryAbi';
 import UniswapV2PairAbi from '../abi/UniswapV2PairAbi';
-import UniswapV2Router02Abi from '../abi/UniswapV2Router02Abi';
+import UniswapV2Router02Contract from '../contracts/UniswapV2Router02Contract';
 
 const WETH = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
 
@@ -10,18 +10,20 @@ const WETH = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
 // Example: [{
 //  route: ["0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb", "", ""],
 //  token: { "name": "DePay", "address": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb", "symbol": "DEPAY", "decimals": 18, "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb/logo.png" },
-//  required: 200000,
+//  amounts: [...],
 //  balance: 44000000,
 //  fee: 4220000 (in gwei)
+//  transfer: false
 // }, ...]
 //
 // Can contain ETH without any routes, as ETH is a native currency and not a token (otherwise it would be WETH)
 // Example: [{
 //  route: [],
-//  token: { "name": "Ether", "symbol": "ETH", "decimals": 18, "logoURI": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAIVBMVEVHcExkgexjf+tifutifurAy/b///+CmO6hsvJxi+zj6PuyVvwSAAAABHRSTlMANYHDscZ74QAAA+NJREFUeNq1ml1y2jAQx+PAATwpB0gmHCANPkAhZgg849g+QDwZnh1o3w29AJNp817aYzayLa8d7YditXqE7i/674fYlXrGrIvrySQMJ5Pbq7Mey7sOW+vW72XeH3ERIuvqw3++7ya8ICTWnd/XHgj97YEg2zsRxqGwZrz9p1Bcnzn789BiXcoO6O2GUWi1pqwAFxFagCwCtx9g//Y+xz69sd/Aas1uQU6Bh4RLBnkDiyw6ylsAD5gKsqhAv7ixDMEhi2I6EPIGllkWRSG5BbkK5wpQ2FSlh/+ZrQKk+He+TRWcFCChKkJ24X2mAFFOuFEuoxcFIDVcygoeFIDWICpYZApAaxAVrDRgTWgQFZQARoOoQAOiI6/BIxQAoOBzaYB/fQBATNQD64LlCQAR74SAKKQKwGi44wsJAHRBcS44tQEJ54QRUUgNgE7GKXOWvGgAp2HG+PChC0hoL3pEGmoAq8EnK2n1HrAm62lIpCEAmGT8QgVhmbUBdEFNqSCsTEBBhSFgFQAgpsJApiEAmIIiojjPAMBr8PEobjFAisdxwCvY7BtAgpfTEC0kvR6jHRByNBGGTCFlv6JoB4Q1ChhhhdTYvwHeCIyGKZZHi8a+Auy+0sk4wwCrtv93LUKBAQLyPNcAIMRYKgZ4IW0iAADhaAWYl/YNQBP2tQYZcFDhfw+oghFbAU61PQCAgFSTqaAMHwA6hMICsG3sAdA4IrUARN216xIsAD84gBlHxInPNOCbGAWTYNrLgOX+HQDsZQAQTEBoB1B+WmCAEm0CxoYHFOHeBKiPl98tzoP5UyeYnQDuCxMwMmvhT7mRLuBn+VmCHGlD5Ej93SLUAah2lfKnMhzqKYSitq/8kiOAAXooFw2hsV+gx/IN9tP2+nYi5cpEA3Rk19hPm4cf6486mMpeb+eINklEd/BYB1MHkOgQmgbD/GGog7nLm5AUeIMxJjqkOphVAOkfJmiyzJ+WtHvGxESTNaQ7FLVnKK2CaPPO6Q5jU7TsE6rR9JgeZ5PD4ZCSA0NA9ShVOujDJSdHljHXrD89cx3SjB44XsVmGwaOgVW7f6RHHq//wOFzV1hdQEEOLFLDzzb77Oh7aANidvT1+k6ufjP+95ud74QLiC0AUuEC4pyZXZmZ71K6hCk1sFMnaKCnX14BaCDTWVYgzM+cAlHDqgIUggJ+AicvgXybC8mDAsRWzwSDD95owpWolM5sGstb2GY6CeTL8QDXwB8l8tX4ib8al7fwkqIb+D/PA84PFO5PJM6PNO7PRM4PVe5PZe6Pde7Phc4Plu5Ppu6Ptu7Pxu4P1//g6dz98d7+vw/8BVHcYRQ1d5GsAAAAAElFTkSuQmCC" },
-//  required: 200000,
+//  token: { "name": "Ether", "symbol": "ETH", "address": "ETH", "decimals": 18, "logoURI": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAIVBMVEVHcExkgexjf+tifutifurAy/b///+CmO6hsvJxi+zj6PuyVvwSAAAABHRSTlMANYHDscZ74QAAA+NJREFUeNq1ml1y2jAQx+PAATwpB0gmHCANPkAhZgg849g+QDwZnh1o3w29AJNp817aYzayLa8d7YditXqE7i/674fYlXrGrIvrySQMJ5Pbq7Mey7sOW+vW72XeH3ERIuvqw3++7ya8ICTWnd/XHgj97YEg2zsRxqGwZrz9p1Bcnzn789BiXcoO6O2GUWi1pqwAFxFagCwCtx9g//Y+xz69sd/Aas1uQU6Bh4RLBnkDiyw6ylsAD5gKsqhAv7ixDMEhi2I6EPIGllkWRSG5BbkK5wpQ2FSlh/+ZrQKk+He+TRWcFCChKkJ24X2mAFFOuFEuoxcFIDVcygoeFIDWICpYZApAaxAVrDRgTWgQFZQARoOoQAOiI6/BIxQAoOBzaYB/fQBATNQD64LlCQAR74SAKKQKwGi44wsJAHRBcS44tQEJ54QRUUgNgE7GKXOWvGgAp2HG+PChC0hoL3pEGmoAq8EnK2n1HrAm62lIpCEAmGT8QgVhmbUBdEFNqSCsTEBBhSFgFQAgpsJApiEAmIIiojjPAMBr8PEobjFAisdxwCvY7BtAgpfTEC0kvR6jHRByNBGGTCFlv6JoB4Q1ChhhhdTYvwHeCIyGKZZHi8a+Auy+0sk4wwCrtv93LUKBAQLyPNcAIMRYKgZ4IW0iAADhaAWYl/YNQBP2tQYZcFDhfw+oghFbAU61PQCAgFSTqaAMHwA6hMICsG3sAdA4IrUARN216xIsAD84gBlHxInPNOCbGAWTYNrLgOX+HQDsZQAQTEBoB1B+WmCAEm0CxoYHFOHeBKiPl98tzoP5UyeYnQDuCxMwMmvhT7mRLuBn+VmCHGlD5Ej93SLUAah2lfKnMhzqKYSitq/8kiOAAXooFw2hsV+gx/IN9tP2+nYi5cpEA3Rk19hPm4cf6486mMpeb+eINklEd/BYB1MHkOgQmgbD/GGog7nLm5AUeIMxJjqkOphVAOkfJmiyzJ+WtHvGxESTNaQ7FLVnKK2CaPPO6Q5jU7TsE6rR9JgeZ5PD4ZCSA0NA9ShVOujDJSdHljHXrD89cx3SjB44XsVmGwaOgVW7f6RHHq//wOFzV1hdQEEOLFLDzzb77Oh7aANidvT1+k6ufjP+95ud74QLiC0AUuEC4pyZXZmZ71K6hCk1sFMnaKCnX14BaCDTWVYgzM+cAlHDqgIUggJ+AicvgXybC8mDAsRWzwSDD95owpWolM5sGstb2GY6CeTL8QDXwB8l8tX4ib8al7fwkqIb+D/PA84PFO5PJM6PNO7PRM4PVe5PZe6Pde7Phc4Plu5Ppu6Ptu7Pxu4P1//g6dz98d7+vw/8BVHcYRQ1d5GsAAAAAElFTkSuQmCC" },
+//  amounts: [...],
 //  balance: 44000000,
 //  fee: 20000 (in gwei)
+//  transfer: true
 // }, ...]
 //
 class RoutesProvider extends React.Component {
@@ -41,6 +43,8 @@ class RoutesProvider extends React.Component {
     this.getAllTokenRoutes()
       .then(this.unshiftETHRoute.bind(this))
       .then(this.sortRoutes.bind(this))
+      .then(this.filterRoutesWithEnoughBalance.bind(this))
+      .then(this.sortRoutes.bind(this))
       .then(function(routes){
         this.setState({
           initializing: false,
@@ -58,8 +62,6 @@ class RoutesProvider extends React.Component {
           .then(this.filterTokensWithLiquidity)
           .then(this.mapBasicTokenDetailsToRoute.bind(this))
           .then(this.retrieveRequiredAmounts.bind(this))
-          .then(this.filterRoutesWithEnoughBalance.bind(this))
-          .then(this.sortRoutes.bind(this))
           .then(function(routes){
             resolve(routes);
           })
@@ -82,7 +84,7 @@ class RoutesProvider extends React.Component {
     return new Promise(function(resolve, reject){
       resolve(
         routes.filter(function(route){
-          return parseFloat(route.balance) > parseFloat(route.amounts[0])
+          return parseFloat(route.balance) >= parseFloat(route.amounts[0])
         })
       )
     });
@@ -92,10 +94,17 @@ class RoutesProvider extends React.Component {
     return(
       tokens.map(function(token){
         const address = DePay.ethers.utils.getAddress(token.address);
-        const directTransfer = (address === this.props.token);
+        const transfer = (address === this.props.token);
         // fee for transfer or uniswap
-        const fee = directTransfer ? 75000 : 150000;
-        const route = directTransfer ? [] : [address, WETH, this.props.token];
+        const fee = transfer ? 75000 : 150000;
+        let route;
+        if(transfer) { 
+          route = [];
+        } else if (this.props.token === 'ETH') {
+          route = [address, WETH];
+        } else {
+          route = [address, WETH, this.props.token];
+        }
         return {
           token: {
             name: token.name,
@@ -108,7 +117,7 @@ class RoutesProvider extends React.Component {
           amounts: [],
           balance: token.balance.toLocaleString('fullwide', {useGrouping:false}),
           fee: fee,
-          transfer: directTransfer
+          transfer: transfer
         }
       }.bind(this))
     )
@@ -153,32 +162,38 @@ class RoutesProvider extends React.Component {
     });
   }
 
+  requiredETHforToken(token, amount) {
+    return new Promise(function(resolve, reject){
+      if(token === 'ETH') { return resolve(amount) }
+
+      UniswapV2Router02Contract.getAmountsIn(
+        amount,
+        [WETH, token]
+      ).then((amounts)=>resolve(amounts[0]))
+    }.bind(this));
+  }
+
   retrieveRequiredAmounts(routes) {
     return new Promise(function(resolve, reject){
-      const UniswapV2Router02Contract = new DePay.ethers.Contract('0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', UniswapV2Router02Abi, DePay.ethers.provider);
-      UniswapV2Router02Contract.getAmountsIn(
-        this.props.amount,
-        [WETH, this.props.token]
-      ).then(function(amounts){
-        const requiredETHToToken = amounts[0];
+      this.requiredETHforToken(this.props.token, this.props.amount).then(function(requiredETHforToken){
         Promise.all(routes.map(function(route){
           return new Promise(function(resolve, reject){
             UniswapV2Router02Contract.getAmountsIn(
-              requiredETHToToken.toString(),
+              requiredETHforToken.toString(),
               [route.route[0], WETH]
             ).then(resolve).catch(()=>resolve(null))
           })
         })).then(function(amounts){
           resolve(
             amounts.map(function(amounts, index){
-              if(amounts === null) { return null }
-              if(routes[index].directTransfer) { // direct transfer only needs amounts: [ETH, targetToken]
+              if(routes[index].transfer) {
                 return Object.assign(routes[index], {
-                  amounts: [requiredETHToToken.toString(), this.props.amount]
+                  amounts: [this.props.amount, requiredETHforToken.toString(), this.props.amount]
                 })
-              } else { // set all required amounts for the entire route
+              } else {
+                if(amounts === null) { return null }
                 return Object.assign(routes[index], {
-                  amounts: [amounts[0].toString(), requiredETHToToken.toString(), this.props.amount]
+                  amounts: [amounts[0].toString(), requiredETHforToken.toString(), this.props.amount]
                 })
               }
             }.bind(this)).filter((amounts)=>amounts !== null)
@@ -190,24 +205,25 @@ class RoutesProvider extends React.Component {
 
   unshiftETHRoute(routes) {
     return new Promise(function(resolve, reject){
-      const directTransfer = this.props.token === undefined;
+      const transfer = this.props.token === 'ETH';
       // fee for transfer or uniswap
-      const fee = directTransfer ? 21000 : 150000;
+      const fee = transfer ? 21000 : 150000;
 
       this.props.wallet.balance().then(function(balance){
         let route = {
           token: {
             name: 'Ether',
+            address: 'ETH',
             symbol: 'ETH',
             decimals: 18,
             logoURI: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAIVBMVEVHcExkgexjf+tifutifurAy/b///+CmO6hsvJxi+zj6PuyVvwSAAAABHRSTlMANYHDscZ74QAAA+NJREFUeNq1ml1y2jAQx+PAATwpB0gmHCANPkAhZgg849g+QDwZnh1o3w29AJNp817aYzayLa8d7YditXqE7i/674fYlXrGrIvrySQMJ5Pbq7Mey7sOW+vW72XeH3ERIuvqw3++7ya8ICTWnd/XHgj97YEg2zsRxqGwZrz9p1Bcnzn789BiXcoO6O2GUWi1pqwAFxFagCwCtx9g//Y+xz69sd/Aas1uQU6Bh4RLBnkDiyw6ylsAD5gKsqhAv7ixDMEhi2I6EPIGllkWRSG5BbkK5wpQ2FSlh/+ZrQKk+He+TRWcFCChKkJ24X2mAFFOuFEuoxcFIDVcygoeFIDWICpYZApAaxAVrDRgTWgQFZQARoOoQAOiI6/BIxQAoOBzaYB/fQBATNQD64LlCQAR74SAKKQKwGi44wsJAHRBcS44tQEJ54QRUUgNgE7GKXOWvGgAp2HG+PChC0hoL3pEGmoAq8EnK2n1HrAm62lIpCEAmGT8QgVhmbUBdEFNqSCsTEBBhSFgFQAgpsJApiEAmIIiojjPAMBr8PEobjFAisdxwCvY7BtAgpfTEC0kvR6jHRByNBGGTCFlv6JoB4Q1ChhhhdTYvwHeCIyGKZZHi8a+Auy+0sk4wwCrtv93LUKBAQLyPNcAIMRYKgZ4IW0iAADhaAWYl/YNQBP2tQYZcFDhfw+oghFbAU61PQCAgFSTqaAMHwA6hMICsG3sAdA4IrUARN216xIsAD84gBlHxInPNOCbGAWTYNrLgOX+HQDsZQAQTEBoB1B+WmCAEm0CxoYHFOHeBKiPl98tzoP5UyeYnQDuCxMwMmvhT7mRLuBn+VmCHGlD5Ej93SLUAah2lfKnMhzqKYSitq/8kiOAAXooFw2hsV+gx/IN9tP2+nYi5cpEA3Rk19hPm4cf6486mMpeb+eINklEd/BYB1MHkOgQmgbD/GGog7nLm5AUeIMxJjqkOphVAOkfJmiyzJ+WtHvGxESTNaQ7FLVnKK2CaPPO6Q5jU7TsE6rR9JgeZ5PD4ZCSA0NA9ShVOujDJSdHljHXrD89cx3SjB44XsVmGwaOgVW7f6RHHq//wOFzV1hdQEEOLFLDzzb77Oh7aANidvT1+k6ufjP+95ud74QLiC0AUuEC4pyZXZmZ71K6hCk1sFMnaKCnX14BaCDTWVYgzM+cAlHDqgIUggJ+AicvgXybC8mDAsRWzwSDD95owpWolM5sGstb2GY6CeTL8QDXwB8l8tX4ib8al7fwkqIb+D/PA84PFO5PJM6PNO7PRM4PVe5PZe6Pde7Phc4Plu5Ppu6Ptu7Pxu4P1//g6dz98d7+vw/8BVHcYRQ1d5GsAAAAAElFTkSuQmCC'
           },
           balance: balance.toString(),
           fee: fee,
-          transfer: directTransfer
+          transfer: transfer
         }
 
-        if(directTransfer){
+        if(transfer){
           return resolve(
             [Object.assign(route,{
               route: [],
@@ -216,15 +232,11 @@ class RoutesProvider extends React.Component {
           )
         }
 
-        const UniswapV2Router02Contract = new DePay.ethers.Contract('0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', UniswapV2Router02Abi, DePay.ethers.provider);
-        UniswapV2Router02Contract.getAmountsIn(
-          this.props.amount,
-          [WETH, this.props.token]
-        ).then(function(amounts){
+        this.requiredETHforToken(this.props.token, this.props.amount).then(function(requiredETHforToken){
           resolve(
             [Object.assign(route,{
               route: [WETH, this.props.token],
-              amounts: [amounts[0].toString(), this.props.amount]
+              amounts: [requiredETHforToken.toString(), this.props.amount]
             })].concat(routes)
           )
         }.bind(this))

@@ -7,7 +7,7 @@ class PaymentProvider extends React.Component {
   state = {}
 
   isETHPayment() {
-    return this.props.selected.token.address === undefined;
+    return this.props.selected.token.address === 'ETH';
   }
 
   isDirectETHTransfer() {
@@ -20,11 +20,10 @@ class PaymentProvider extends React.Component {
 
   inETH() {
     if(this.isDirectETHTransfer()){
-      return this.props.amount;
-    } else if (this.isDirectERC20Transfer() || this.isETHPayment()) {
-      // consider ETH swap to then convert to local currency
+      return DePay.ethers.utils.formatEther(this.props.amount);
+    } else if (this.isETHPayment()) {
       return DePay.ethers.utils.formatEther(this.props.selected.amounts[0]);
-    } else { // swap with ETH intermediary
+    } else {
       return DePay.ethers.utils.formatEther(this.props.selected.amounts[1]);
     }
   }

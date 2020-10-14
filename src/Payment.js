@@ -31,7 +31,7 @@ function checkAndPrepOptions(input) {
 
   // token
   if(_.isEmpty(options.token))  { throw '"token" needs to be set.' }
-  options.token = DePay.ethers.utils.getAddress(DePay.ethers.utils.getAddress(options.token));
+  options.token = (options.token === 'ETH') ? 'ETH' : DePay.ethers.utils.getAddress(DePay.ethers.utils.getAddress(options.token));
 
   // receiver
   if(_.isEmpty(options.receiver))     { throw '"receiver" needs to be set.' }

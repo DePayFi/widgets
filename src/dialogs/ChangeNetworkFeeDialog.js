@@ -44,7 +44,7 @@ class ChangeNetworkFeeDialog extends React.Component {
 
                     <Slider
                       min={gasContext.slow}
-                      max={gasContext.instant}
+                      max={gasContext.fast}
                       value={gasContext.selected}
                       onChange={gasContext.change}
                     />

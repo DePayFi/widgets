@@ -24,7 +24,7 @@ class ChangePaymentTokenDialog extends React.Component {
               <CloseDialogComponent/>
               <h1 className='FontSizeMedium TextAlignCenter'>Change payment</h1>
               <div className='FontSizeMedium FontWeightBold TextAlignCenter'>
-                { this.props.paymentContext.total }
+                { this.props.paymentContext.local }
               </div>
             </div>
             <div className='DialogBody'>
