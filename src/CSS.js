@@ -5,6 +5,7 @@ import CircularButtonCSS from './css/CircularButtonCSS';
 import CircularIconCSS from './css/CircularIconCSS';
 import DialogCSS from './css/DialogCSS';
 import InsideContainerCSS from './css/InsideContainerCSS';
+import LabelCSS from './css/LabelCSS';
 import PaddingCSS from './css/PaddingCSS';
 import PaymentCSS from './css/PaymentCSS';
 import PaymentDialogCSS from './css/PaymentDialogCSS';
@@ -101,6 +102,7 @@ const CSS = [
   TableCSS,
   RangeSliderCSS,
   ChangeNetworkFeeDialogCSS,
+  LabelCSS,
 ].join("\n");
 
 export default CSS;

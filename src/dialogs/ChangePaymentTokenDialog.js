@@ -53,6 +53,13 @@ class ChangePaymentTokenDialog extends React.Component {
                         <div className='PaymentAmountRow2 TextEllipsis'>
                           { totalDisplayed }
                         </div>
+                        {index < (this.props.routes.length-1) && route.fee < this.props.routes[index+1].fee &&
+                          <div className='PaymentAmountRow3 PaddingTopTiny'>
+                            <span className='Label grey' title='Significantly lower network fees compared to the other payment options.'>
+                              Lowest Network Fee
+                            </span>
+                          </div>
+                        }
                       </div>
                       <div className='PaymentColumn PaymentColumn3'>
                         <span className='PaymentAction' title='Select for payment'>

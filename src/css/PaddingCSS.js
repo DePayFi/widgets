@@ -60,6 +60,26 @@ const PaddingCSS = `
     padding-left: 1rem;
   }
 
+  .PaddingTiny {
+    padding: 0.3rem;
+  }
+
+  .PaddingTopTiny {
+    padding-top: 0.3rem;
+  }
+
+  .PaddingRightTiny {
+    padding-right: 0.3rem;
+  }
+
+  .PaddingBottomTiny {
+    padding-bottom: 0.3rem;
+  }
+
+  .PaddingLeftTiny {
+    padding-left: 0.3rem;
+  }
+
   .PaddingNone {
     padding: 0;
   }

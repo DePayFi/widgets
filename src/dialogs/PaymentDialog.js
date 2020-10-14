@@ -74,7 +74,7 @@ class PaymentDialog extends React.Component {
               </div>
             </div>
             <div className='DialogFooter'>
-              <button className='CallToAction'>
+              <button className='CallToAction' onClick={()=>alert('Coming soon')}>
                 Pay { this.props.paymentContext.total }
               </button>
               <div className='PoweredBy'>
