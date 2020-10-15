@@ -22,16 +22,23 @@ class Exchanges {
           // can be { <exchange>: [WETH, endTokenAddress] }
           // or just { <exchange>: [WETH] } if endTokenAddress is WETH or ETH
           Promise.all(routes.map(function(route){
-            return Exchanges.findAmountsForRoutePerExchange(
-              Object.keys(exchangesWithIntermediateRoute),
-              [route.token.address].concat(Object.values(exchangesWithIntermediateRoute)[0]),
-              endTokenAmount
-            )
+            if(
+              (route.token.address === 'ETH' || route.token.address === WETH) &&
+              endTokenAddress === 'ETH' || endTokenAddress === WETH
+            ) {
+              return Promise.resolve({ all: [endTokenAmount] });
+            } else {
+              return Exchanges.findAmountsForRoutePerExchange(
+                Object.keys(exchangesWithIntermediateRoute),
+                [route.token.address].concat(Object.values(exchangesWithIntermediateRoute)[0]),
+                endTokenAmount
+              )
+            }
           })).then(function(amountsForRoutesPerExchange){
             resolve(
               routes.map(function(route, index){
                 return Object.assign(
-                  {}, 
+                  {},
                   route,
                   { route: [route.token.address].concat(Object.values(exchangesWithIntermediateRoute)[0]) },
                   { amounts: amountsForRoutesPerExchange[index] });

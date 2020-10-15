@@ -31,10 +31,6 @@ const PaymentCSS = `
     padding-bottom: 1.6rem;
   }
 
-  .PaymentRow:last-child .PaymentColumn { 
-    border-bottom: 1px solid transparent;
-  }
-
   .PaymentColumn1 {
     width: 20%;
     padding: 1rem;
