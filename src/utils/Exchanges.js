@@ -24,7 +24,7 @@ class Exchanges {
           Promise.all(routes.map(function(route){
             if(
               (route.token.address === 'ETH' || route.token.address === WETH) &&
-              endTokenAddress === 'ETH' || endTokenAddress === WETH
+              (endTokenAddress === 'ETH' || endTokenAddress === WETH)
             ) {
               return Promise.resolve({ all: [endTokenAmount] });
             } else {
