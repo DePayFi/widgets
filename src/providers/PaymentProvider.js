@@ -6,22 +6,8 @@ import React from 'react';
 class PaymentProvider extends React.Component {
   state = {}
 
-  isETHPayment() {
-    return this.props.selected.token.address === 'ETH';
-  }
-
-  isDirectETHTransfer() {
-    return this.isETHPayment() && this.props.selected.transfer;
-  }
-
-  isDirectERC20Transfer() {
-    return this.props.selected.transfer;
-  }
-
-  inETH() {
-    if(this.isDirectETHTransfer()){
-      return DePay.ethers.utils.formatEther(this.props.amount);
-    } else if (this.isETHPayment()) {
+  paymentInETH() {
+    if(this.props.selected.amounts.length == 2) {
       return DePay.ethers.utils.formatEther(this.props.selected.amounts[0]);
     } else {
       return DePay.ethers.utils.formatEther(this.props.selected.amounts[1]);
@@ -29,7 +15,7 @@ class PaymentProvider extends React.Component {
   }
 
   local() {
-    return LocalCurrency(this.inETH() * this.props.price);
+    return LocalCurrency(this.paymentInETH() * this.props.price);
   }
 
   token() {
@@ -49,7 +35,7 @@ class PaymentProvider extends React.Component {
   }
 
   total() {
-    return LocalCurrency((this.feeInETH() + parseFloat(this.inETH())) * this.props.price);
+    return LocalCurrency((this.feeInETH() + parseFloat(this.paymentInETH())) * this.props.price);
   }
 
   render() {
