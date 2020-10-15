@@ -1,10 +1,52 @@
 import CloseDialogComponent from '../components/CloseDialogComponent';
+import Exchanges from '../utils/Exchanges';
 import NavigateStackContext from '../contexts/NavigateStackContext';
 import PaymentDialogSkeleton from '../dialogs/PaymentDialogSkeleton';
 import React from 'react';
 import TokenIconComponent from '../components/TokenIconComponent';
 
 class PaymentDialog extends React.Component {
+
+  paymentType() {
+    if(this.props.selected.token.address === this.props.token) {
+      return 'transfer';
+    } else {
+      return 'swap';
+    }
+  }
+
+  paymentTypeText() {
+    switch (this.paymentType()) {
+      case 'transfer':
+        return 'via transfer';
+      break;
+      case 'swap':
+        return 'via ' + Exchanges.findByName(this.props.selected.exchange).displayedName();
+      break;
+    }
+  }
+
+  paymentTypeTitle() {
+    switch (this.paymentType()) {
+      case 'transfer':
+        return 'Direct token transfer';
+      break;
+      case 'swap':
+        return 'Token swap via ' + this.props.selected.exchange;
+      break;
+    }
+  }
+
+  paymentTypeLink() {
+    switch (this.paymentType()) {
+      case 'transfer':
+        return 'https://etherscan.io/token/'+this.props.token;
+      break;
+      case 'swap':
+        return Exchanges.findByName(this.props.selected.exchange).linkRoute(this.props.selected);
+      break;
+    }
+  }
 
   render() {
     if(this.props.initializing) { 
@@ -78,6 +120,14 @@ class PaymentDialog extends React.Component {
                 Pay { this.props.paymentContext.total }
               </button>
               <div className='PoweredBy'>
+                {this.paymentType() &&
+                  <span>
+                    <a target='_blank' rel='noopener noreferrer' href={ this.paymentTypeLink() } className='PoweredByLink' title={ this.paymentTypeTitle() }>
+                      { this.paymentTypeText() }
+                    </a>
+                    <span className='PoweredByLink'>&nbsp;•&nbsp;</span>
+                  </span>
+                }
                 <a target='_blank' rel='noopener noreferrer' href='https://depay.app' className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
                   by DePay
                 </a>

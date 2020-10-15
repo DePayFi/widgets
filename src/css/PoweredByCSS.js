@@ -10,11 +10,11 @@ const PoweredByCSS = `
     text-decoration: none;
   }
 
-  .PoweredByLink:hover {
+  a.PoweredByLink:hover {
     color: #cc2c65;
   }
 
-  .PoweredByLink:active {
+  a.PoweredByLink:active {
     color: #c12a5f;
   }
 `;

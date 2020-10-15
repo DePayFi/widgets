@@ -6,7 +6,8 @@ import { ethers } from 'ethers';
 
 class Exchanges {
   static all = [
-    UniswapExchange
+    UniswapExchange,
+    MooniswapExchange
   ]
 
   static findByName(name) {
@@ -64,14 +65,13 @@ class Exchanges {
     let bestExchangeRoute = _.map(route.amounts, function(amounts, exchangeName){
       return({ exchange: exchangeName, amounts: amounts })
     }).sort(function(a, b){
-      debugger;
-      // if (a.fee > b.fee) {
-      //   return 1; // b wins
-      // }
-      // if (b.fee > a.fee) {
-      //   return -1; // a wins
-      // }
-      // return 0; // equal
+      if (ethers.BigNumber.from(a.amounts[0]).gt(ethers.BigNumber.from(b.amounts[0]))) {
+        return 1; // b wins
+      }
+      if (ethers.BigNumber.from(b.amounts[0]).gt(ethers.BigNumber.from(a.amounts[0]))) {
+        return -1; // a wins
+      }
+      return 0; // equal
     })[0];
 
     return Object.assign(
@@ -108,7 +108,7 @@ class Exchanges {
       } else {
         Promise.all(Exchanges.all.map(function(exchange){
           return exchange.findLiquidity(WETH, tokenAddress).then(function(liquidity){
-            if(liquidity === null || liquidity[0].eq(0) || liquidity[1].eq(0)) {
+            if(liquidity === null || _.every(liquidity, function(liquidity){ liquidity.eq(0) })) {
               return null;
             } else {
               let exchangeWithLiquidity = {};
@@ -118,7 +118,9 @@ class Exchanges {
           })
         })).then(function(exchangesWithLiquidity){
           exchangesWithLiquidity.forEach(function(exchangeWithLiquidity){
-            routesPerExchange[Object.keys(exchangeWithLiquidity)[0]] = [WETH, tokenAddress];
+            if(exchangeWithLiquidity) {
+              routesPerExchange[Object.keys(exchangeWithLiquidity)[0]] = [WETH, tokenAddress];
+            }
           })
           resolve(routesPerExchange);
         })

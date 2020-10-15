@@ -15,6 +15,10 @@ const CircularIconCSS = `
     width: 4rem;
   }
 
+  .CircularIcon.noshadow{
+    box-shadow: none;
+  }
+
   .CircularIcon.notfound {
     background: #d7477a;
   }

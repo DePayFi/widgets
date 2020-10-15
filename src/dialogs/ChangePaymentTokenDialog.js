@@ -32,12 +32,6 @@ class ChangePaymentTokenDialog extends React.Component {
                 
                 const totalDisplayed = DisplayTokenAmount(route.balance, route.token.decimals, route.token.symbol)
                 const displayedTokenAmount = DisplayTokenAmount(route.amounts[0], route.token.decimals, route.token.symbol)
-                let percentage = (parseFloat(route.amounts[0])/parseFloat(route.balance));
-                if(percentage < 1) {
-                  percentage = percentage.toFixed(2);
-                } else {
-                  percentage = percentage.toFixed(0);
-                }
 
                 return(
                   <div className='Payment' key={index}>
@@ -53,10 +47,10 @@ class ChangePaymentTokenDialog extends React.Component {
                         <div className='PaymentDescription TextEllipsis'>
                           { route.token.name }
                         </div>
-                        <div className='PaymentAmountRow1 TextEllipsis' title=`${percentage}% of total balance`>
+                        <div className='PaymentAmountRow1 TextEllipsis'>
                           { displayedTokenAmount }
                         </div>
-                        <div className='PaymentAmountRow2 TextEllipsis' title='Total balance'>
+                        <div className='PaymentAmountRow2 TextEllipsis'>
                           { totalDisplayed }
                         </div>
                         {index < (this.props.routes.length-1) && route.fee < this.props.routes[index+1].fee &&
