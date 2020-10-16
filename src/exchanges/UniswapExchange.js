@@ -5,7 +5,7 @@ import { ethers } from 'ethers';
 
 class UniswapExchange {
 
-  static displayedName() {
+  static name() {
     return 'Uniswap';
   }
 

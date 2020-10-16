@@ -12,7 +12,7 @@ class Exchanges {
 
   static findByName(name) {
     return Exchanges.all.find(function(exchange){
-      return exchange.name === name;
+      return exchange.name() === name;
     });
   }
 
@@ -62,15 +62,20 @@ class Exchanges {
   }
 
   static selectBestExchangeRoute(route) {
+    console.log('selectBestExchangeRoute', route);
     let bestExchangeRoute = _.map(route.amounts, function(amounts, exchangeName){
       return({ exchange: exchangeName, amounts: amounts })
     }).sort(function(a, b){
+      console.log(a, b)
       if (ethers.BigNumber.from(a.amounts[0]).gt(ethers.BigNumber.from(b.amounts[0]))) {
+        console.log(b)
         return 1; // b wins
       }
       if (ethers.BigNumber.from(b.amounts[0]).gt(ethers.BigNumber.from(a.amounts[0]))) {
+        console.log(a)
         return -1; // a wins
       }
+      console.log('equal')
       return 0; // equal
     })[0];
 
@@ -102,7 +107,7 @@ class Exchanges {
     return new Promise(function(resolve, reject){
       if(tokenAddress === 'ETH' || tokenAddress === WETH) {
         Exchanges.all.map(function(exchange){
-          routesPerExchange[exchange.name] = [WETH];
+          routesPerExchange[exchange.name()] = [WETH];
         });
         resolve(routesPerExchange);
       } else {
@@ -112,7 +117,7 @@ class Exchanges {
               return null;
             } else {
               let exchangeWithLiquidity = {};
-              exchangeWithLiquidity[exchange.name] = liquidity;
+              exchangeWithLiquidity[exchange.name()] = liquidity;
               return exchangeWithLiquidity;
             }
           })

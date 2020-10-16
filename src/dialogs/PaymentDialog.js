@@ -21,7 +21,7 @@ class PaymentDialog extends React.Component {
         return 'via transfer';
       break;
       case 'swap':
-        return 'via ' + Exchanges.findByName(this.props.selected.exchange).displayedName();
+        return 'via ' + Exchanges.findByName(this.props.selected.exchange).name();
       break;
     }
   }

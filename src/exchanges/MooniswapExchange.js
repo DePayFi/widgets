@@ -8,7 +8,7 @@ const ETH = '0x0000000000000000000000000000000000000000';
 
 class MooniswapExchange {
 
-  static displayedName() {
+  static name() {
     return 'Mooniswap';
   }
 
