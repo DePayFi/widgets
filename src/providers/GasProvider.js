@@ -62,9 +62,9 @@ class GasProvider extends React.Component {
   // convert ethgasstation.info format
   gasToStandardFormat(gas) {
     return({
-      slow: gas.safeLow/10,
-      standard: gas.average/10,
-      fast: gas.fast/10
+      slow: parseInt(gas.safeLow/10, 10),
+      standard: parseInt(gas.average/10, 10),
+      fast: parseInt(gas.fast/10, 10)
     })
   }
 
