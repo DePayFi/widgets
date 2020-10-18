@@ -62,6 +62,8 @@ class PaymentStack extends React.Component {
                                         selected={ routesContext.selected }
                                         token={ this.state.token }
                                         paymentContext={ paymentContext }
+                                        receiver={ this.state.receiver }
+                                        wallet={ walletContext.wallet }
                                       />,
                                       ChangePaymentToken: <ChangePaymentTokenDialog
                                         routes={ routesContext.routes }

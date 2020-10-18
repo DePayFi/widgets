@@ -43,6 +43,10 @@ class Wallet {
   name() {
     return this.connector.name();
   }
+
+  provider() {
+    return this.connector.provider();
+  }
 }
 
 export default Wallet;

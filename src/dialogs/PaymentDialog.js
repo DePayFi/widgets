@@ -1,4 +1,5 @@
 import CloseDialogComponent from '../components/CloseDialogComponent';
+import DePayV1ProcessorBetaContract from '../contracts/DePayV1ProcessorBetaContract';
 import Exchanges from '../utils/Exchanges';
 import NavigateStackContext from '../contexts/NavigateStackContext';
 import PaymentDialogSkeleton from '../dialogs/PaymentDialogSkeleton';
@@ -46,6 +47,18 @@ class PaymentDialog extends React.Component {
         return Exchanges.findByName(this.props.selected.exchange).linkRoute(this.props.selected);
       break;
     }
+  }
+
+  performPayment() {
+    debugger;
+    DePayV1ProcessorBetaContract.connect(this.props.wallet.provider().getSigner(0)).pay(
+      route,
+      (parseFloat(this.props.selected.amounts[0]) * 1.01).toString(),
+      this.props.selected.amounts[this.props.selected.amounts.length-1],
+      this.props.receiver,
+      123456,
+      0
+    )
   }
 
   render() {
@@ -116,7 +129,7 @@ class PaymentDialog extends React.Component {
               </div>
             </div>
             <div className='DialogFooter'>
-              <button className='CallToAction' onClick={()=>alert('Coming soon')}>
+              <button className='CallToAction' onClick={this.performPayment.bind(this)}>
                 Pay { this.props.paymentContext.total }
               </button>
               <div className='PoweredBy'>

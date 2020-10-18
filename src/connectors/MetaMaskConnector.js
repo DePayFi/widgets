@@ -42,6 +42,10 @@ class MetaMaskConnector {
   static name() {
     return 'MetaMask';
   }
+
+  static provider() {
+    return DePay.ethers.provider;
+  }
 }
 
 export default MetaMaskConnector;
