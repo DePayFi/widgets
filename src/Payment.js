@@ -1,10 +1,10 @@
 import _ from 'lodash';
+import DialogProvider from './providers/DialogProvider';
+import PaymentStack from './stacks/PaymentStack';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ShadowContainer from './utils/ShadowContainer';
-import PaymentStack from './stacks/PaymentStack';
-import CloseContainerContext from './contexts/CloseContainerContext';
 import WalletProvider from './providers/WalletProvider';
+import { ETH } from './utils/Constants';
 
 function checkArguments(args){
   if(args.length == 0 || args.length > 1) {
@@ -31,7 +31,7 @@ function checkAndPrepOptions(input) {
 
   // token
   if(_.isEmpty(options.token))  { throw '"token" needs to be set.' }
-  options.token = (options.token === 'ETH') ? 'ETH' : DePay.ethers.utils.getAddress(DePay.ethers.utils.getAddress(options.token));
+  options.token = (options.token === ETH) ? ETH : DePay.ethers.utils.getAddress(DePay.ethers.utils.getAddress(options.token));
 
   // receiver
   if(_.isEmpty(options.receiver))     { throw '"receiver" needs to be set.' }
@@ -53,10 +53,13 @@ function checkAndPrepOptions(input) {
 export default function Payment() {
   checkArguments(arguments);
   var options = checkAndPrepOptions(arguments[0]);
-  const [shadowContainer, closeContainer] = ShadowContainer();
+  const [shadowContainer, closeContainer, setClosable] = ShadowContainer();
   return new Promise(() => {
     ReactDOM.render(
-      <CloseContainerContext.Provider value={closeContainer}>
+      <DialogProvider
+        closeContainer={ closeContainer }
+        setClosable={ setClosable }
+      >
         <WalletProvider>
           <PaymentStack
             amount={options.amount}
@@ -64,7 +67,7 @@ export default function Payment() {
             receiver={options.receiver}
           />
         </WalletProvider>
-      </CloseContainerContext.Provider>
+      </DialogProvider>
       , shadowContainer
     );
   });

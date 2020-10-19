@@ -1,4 +1,4 @@
-import CloseContainerContext from '../contexts/CloseContainerContext';
+import DialogContext from '../contexts/DialogContext';
 import NavigateStackContext from '../contexts/NavigateStackContext';
 import React from 'react';
 
@@ -133,13 +133,13 @@ class Stack extends React.Component {
 
   render() {
     return (
-      <CloseContainerContext.Consumer>
-      {closeContainer => (
+      <DialogContext.Consumer>
+      {dialogContext => (
         <div>
-          { this.renderStackedDialogs(closeContainer) }
+          { this.renderStackedDialogs(dialogContext.closeContainer) }
         </div>
       )}
-      </CloseContainerContext.Consumer>
+      </DialogContext.Consumer>
     );
   }
 }

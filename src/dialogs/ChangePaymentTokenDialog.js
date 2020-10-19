@@ -12,6 +12,36 @@ class ChangePaymentTokenDialog extends React.Component {
     this.props.change(index);
     navigate('back');
   }
+
+  renderThirdRow(route, index, routes) {
+    let labels = [];
+
+    if(index < (routes.length-1) && route.fee < routes[index+1].fee) {
+      labels.push(
+        <span key='networkfee' className='Label grey small' title='Significantly lower network fees compared to the other payment options.'>
+          Lowest Network Fee
+        </span>
+      )
+    }
+
+    if(route.approved === false) {
+      labels.push(
+        <span key='approval' className='Label grey small' title='Requires a one-time additional approval transaction to allow swapping this token to perform payments.'>
+          Requires Approval
+        </span>
+      )
+    }
+
+    if(labels.length) {
+      return (
+        <div className='PaymentAmountRow3'>
+          { labels }
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
   
   render() {
 
@@ -53,13 +83,7 @@ class ChangePaymentTokenDialog extends React.Component {
                         <div className='PaymentAmountRow2 TextEllipsis'>
                           { totalDisplayed }
                         </div>
-                        {index < (this.props.routes.length-1) && route.fee < this.props.routes[index+1].fee &&
-                          <div className='PaymentAmountRow3 PaddingTopTiny'>
-                            <span className='Label grey' title='Significantly lower network fees compared to the other payment options.'>
-                              Lowest Network Fee
-                            </span>
-                          </div>
-                        }
+                        { this.renderThirdRow(route, index, this.props.routes) }
                       </div>
                       <div className='PaymentColumn PaymentColumn3'>
                         <span className='PaymentAction' title='Select for payment'>

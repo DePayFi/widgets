@@ -2,9 +2,6 @@ import _ from 'lodash';
 import MoonifactoryContract from '../contracts/MoonifactoryContract';
 import MooniswapContract from '../contracts/MooniswapContract';
 import { ethers } from 'ethers';
-import { WETH } from '../utils/Constants';
-
-const ETH = '0x0000000000000000000000000000000000000000';
 
 class MooniswapExchange {
 
@@ -16,16 +13,11 @@ class MooniswapExchange {
     return `https://mooniswap.exchange/#/swap?exactAmount=${parseFloat(ethers.utils.formatEther(route.amounts[0])).toFixed(4)}&inputCurrency=${route.route[0]}&outputCurrency=${route.route[route.route.length-1]}`
   }
 
-  static ETHis0(address) {
-    if(address === WETH) { return ETH }
-    return address;
-  }
-  
   static findLiquidity(addressA, addressB) {
     return new Promise(function(resolve, reject){
       MoonifactoryContract.pools(
-        MooniswapExchange.ETHis0(addressA),
-        MooniswapExchange.ETHis0(addressB)
+        addressA,
+        addressB
       ).then(function(pairAddress){
         if(pairAddress === ethers.constants.AddressZero) {
           resolve(null);

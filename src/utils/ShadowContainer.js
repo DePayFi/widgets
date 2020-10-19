@@ -63,7 +63,13 @@ export default function ShadowContainer() {
   insideContainerRow.appendChild(insideContainerCell);
   shadow.appendChild(insideContainer);
 
+  let closable = true;
+  function setClosable(value) {
+    closable = value;
+  }
+
   function closeContainer() {
+    if(!closable) { return };
     container.classList.remove('open');
     setTimeout(() => {
       container.remove();
@@ -79,5 +85,5 @@ export default function ShadowContainer() {
     }
   });
 
-  return [insideContainerCell, closeContainer];
+  return [insideContainerCell, closeContainer, setClosable];
 }
