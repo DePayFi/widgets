@@ -14,11 +14,15 @@ const PaymentCSS = `
     cursor: pointer;
   }
 
-  .PaymentRow:not(.loading):hover {
+  .PaymentDialog.unactionable .PaymentRow {
+    cursor: default;
+  }
+
+  .PaymentDialog:not(.unactionable) .PaymentRow:not(.loading):hover {
     background: rgb(248,243,245);
   }
 
-  .PaymentRow:not(.loading):active {
+  .PaymentDialog:not(.unactionable) .PaymentRow:not(.loading):active {
     background: rgb(241,232,235);
   }
 
@@ -75,6 +79,10 @@ const PaymentCSS = `
   
   .PaymentAction:active {
     background: rgba(0,0,0,0.08);
+  }
+
+  .PaymentDialog.unactionable .PaymentAction {
+    display: none;
   }
 
   .ChangeNetworkFeeRow .PaymentAmountRow1 {

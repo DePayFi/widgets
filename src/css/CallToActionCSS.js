@@ -1,6 +1,7 @@
 const CallToActionCSS = `
   .CallToAction {
     background: #d7477a;
+    display: inline-block;
     border-radius: 999rem;
     border: 1px solid transparent;
     box-shadow: 0 0 10px rgba(0,0,0,0.05);
@@ -11,6 +12,13 @@ const CallToActionCSS = `
     padding: 0.6rem 1.4rem;
     text-decoration: none;
     transition: background 0.1s;
+  }
+
+  .CallToAction.circular {
+    padding: 0;
+    width: 3.4rem;
+    height: 3.4rem;
+    line-height: 3.2rem;
   }
 
   .CallToAction:not(.disabled){

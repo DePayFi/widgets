@@ -8,6 +8,12 @@ const IconCSS = `
     width: 20px;
   }
 
+  .Icon.large {
+    height: 24px;
+    width: 24px;
+    top: 0px;
+  }
+
   .Icon.white path {
     fill: white;
   }

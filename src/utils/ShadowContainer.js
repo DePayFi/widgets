@@ -69,11 +69,12 @@ export default function ShadowContainer() {
   }
 
   function closeContainer() {
-    if(!closable) { return };
+    if(!closable) { return false };
     container.classList.remove('open');
     setTimeout(() => {
       container.remove();
     }, 300);
+    return true;
   }
 
   shadow.addEventListener('click', (event) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import DialogContext from './contexts/DialogContext';
+import DialogContext from '../contexts/DialogContext';
 
 class DialogProvider extends React.Component {
   state = {
@@ -12,13 +12,15 @@ class DialogProvider extends React.Component {
   }
 
   render() {
-    <DialogContext.Provider value={{
-      closeContainer: this.props.closeContainer,
-      setClosable: this.setClosable.bind(this),
-      closable: this.state.closable
-    }}>
-      { this.props.children }
-    </DialogContext.Provider>
+    return(
+      <DialogContext.Provider value={{
+        closeContainer: this.props.closeContainer,
+        setClosable: this.setClosable.bind(this),
+        closable: this.state.closable
+      }}>
+        { this.props.children }
+      </DialogContext.Provider>
+    )
   }
 }
 

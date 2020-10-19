@@ -1,8 +1,10 @@
 import _ from 'lodash';
+import CallbackContext from './contexts/CallbackContext';
 import DialogProvider from './providers/DialogProvider';
 import PaymentStack from './stacks/PaymentStack';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ShadowContainer from './utils/ShadowContainer';
 import WalletProvider from './providers/WalletProvider';
 import { ETH } from './utils/Constants';
 
@@ -47,6 +49,9 @@ function checkAndPrepOptions(input) {
     options.route = DePay.ethers.utils.getAddress(DePay.ethers.utils.getAddress(options.route));
   }
 
+  // callback
+  if(options.callback !== undefined && typeof options.callback !== 'function') { throw 'callback needs to be a function' }
+
   return options;
 }
 
@@ -54,20 +59,30 @@ export default function Payment() {
   checkArguments(arguments);
   var options = checkAndPrepOptions(arguments[0]);
   const [shadowContainer, closeContainer, setClosable] = ShadowContainer();
+
+  let unmountAndClose = function(){
+    let closed = closeContainer();
+    if(closed) { ReactDOM.unmountComponentAtNode(shadowContainer); }
+  }
+
   return new Promise(() => {
     ReactDOM.render(
-      <DialogProvider
-        closeContainer={ closeContainer }
-        setClosable={ setClosable }
-      >
-        <WalletProvider>
-          <PaymentStack
-            amount={options.amount}
-            token={options.token}
-            receiver={options.receiver}
-          />
-        </WalletProvider>
-      </DialogProvider>
+      <CallbackContext.Provider value={{
+        callback: options.callback
+      }}>
+        <DialogProvider
+          closeContainer={ unmountAndClose }
+          setClosable={ setClosable }
+        >
+          <WalletProvider>
+            <PaymentStack
+              amount={options.amount}
+              token={options.token}
+              receiver={options.receiver}
+            />
+          </WalletProvider>
+        </DialogProvider>
+      </CallbackContext.Provider>
       , shadowContainer
     );
   });
