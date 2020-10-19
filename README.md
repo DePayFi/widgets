@@ -1,3 +1,7 @@
+## Ethereum
+
+Smart contracts: https://github.com/depayapp/ethereum-contracts
+
 ## Development
 
 • To build your project run:  `yarn build`
