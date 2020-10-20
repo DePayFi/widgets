@@ -37,7 +37,18 @@ class ChangeTokenAmountDialog extends React.Component {
     })
   }
 
+  changeInputAmount(event){
+    let amount = parseInt(event.target.value, 10);
+    if(!isNaN(amount)) {
+      this.setState({
+        amount: parseInt(DePay.ethers.utils.parseUnits(amount.toString(), this.props.token.decimals))
+      }) 
+    }
+  }
+
   render() {
+    const min = parseInt(DePay.ethers.utils.formatUnits((10**this.props.token.decimals).toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals).toString());
+    const max = parseInt(DePay.ethers.utils.formatUnits(this.state.maxAmount.toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals).toString());
     return (
       <NavigateStackContext.Consumer>
         {navigate => (
@@ -53,7 +64,7 @@ class ChangeTokenAmountDialog extends React.Component {
 
                 <div className='PaddingTopSmall TextAlignCenter'>
                   <div className='FontSizeLarge'>
-                    { DisplayTokenAmount(this.state.amount.toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals, '') }
+                    <input max={max} min={min} step={min} className='Input FontSizeMedium TextAlignCenter' type="number" name="amount" value={ parseInt(DisplayTokenAmount(this.state.amount.toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals, ''), 10) } onChange={this.changeInputAmount.bind(this)}/>
                   </div>
                 </div>
 

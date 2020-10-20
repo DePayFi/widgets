@@ -5,6 +5,7 @@ import CircularButtonCSS from './css/CircularButtonCSS';
 import CircularIconCSS from './css/CircularIconCSS';
 import DialogCSS from './css/DialogCSS';
 import IconCSS from './css/IconCSS';
+import InputCSS from './css/InputCSS';
 import InsideContainerCSS from './css/InsideContainerCSS';
 import LabelCSS from './css/LabelCSS';
 import LoadingDotsCSS from './css/LoadingDotsCSS';
@@ -106,7 +107,8 @@ const CSS = [
   ChangeNetworkFeeDialogCSS,
   LabelCSS,
   IconCSS,
-  LoadingDotsCSS
+  LoadingDotsCSS,
+  InputCSS
 ].join("\n");
 
 export default CSS;
