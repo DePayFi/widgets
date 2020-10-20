@@ -14,7 +14,7 @@ class TokenIconComponent extends React.Component {
     return(
       <img
         title={ this.props.title }
-        className={`CircularIcon ${this.state.className}`}
+        className={`CircularIcon ${this.state.className} ${this.props.className}`}
         src={ this.state.src || this.props.src }
         onError={ this.handleLoadError.bind(this) }
       />

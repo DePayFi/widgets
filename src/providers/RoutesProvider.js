@@ -18,13 +18,25 @@ class RoutesProvider extends React.Component {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    if(prevProps.amount !== this.props.amount) {
+      this.setState({ initializing: true });
+      this.computeRoutes();
+    }
+  }
+
   componentDidMount() {
+    this.computeRoutes();
+  }
+
+  computeRoutes() {
     this.getAllTokenRoutes()
       .then(this.unshiftETHRoute.bind(this))
       .then(this.findBestRoutesAndRequiredAmounts.bind(this))
       .then(this.filterRoutesWithEnoughBalance.bind(this))
       .then(this.addApprovalStatus.bind(this))
       .then(this.sortRoutes.bind(this))
+      .then(this.addMaxAmounts.bind(this))
       .then(function(routes){
         this.setState({
           initializing: false,
@@ -33,6 +45,14 @@ class RoutesProvider extends React.Component {
         });
         return routes;
       }.bind(this))
+  }
+
+  addMaxAmounts(routes){
+    if(this.props.addMaxAmounts === true) {
+      return Exchanges.routesWithMaxAmounts(routes);
+    } else {
+      return Promise.resolve(routes);
+    }
   }
 
   addApprovalStatus(routes) {

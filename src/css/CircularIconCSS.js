@@ -10,7 +10,7 @@ const CircularIconCSS = `
     width: 2rem;
   }
 
-  .CircularIcon.Large {
+  .CircularIcon.large {
     height: 4rem;
     width: 4rem;
   }

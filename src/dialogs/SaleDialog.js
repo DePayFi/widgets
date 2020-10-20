@@ -3,17 +3,18 @@ import CheckMarkComponent from '../components/CheckMarkComponent';
 import CloseDialogComponent from '../components/CloseDialogComponent';
 import DePayV1ProcessorBetaContract from '../contracts/DePayV1ProcessorBetaContract';
 import DialogContext from '../contexts/DialogContext';
+import DisplayTokenAmount from '../utils/DisplayTokenAmount';
 import Erc20Abi from '../abi/Erc20Abi';
 import Exchanges from '../utils/Exchanges';
 import NavigateStackContext from '../contexts/NavigateStackContext';
-import PaymentDialogSkeleton from '../dialogs/PaymentDialogSkeleton';
 import QuestionMarkCircleComponent from '../components/QuestionMarkCircleComponent';
 import React from 'react';
+import SaleDialogSkeleton from '../dialogs/SaleDialogSkeleton';
 import TokenIconComponent from '../components/TokenIconComponent';
 import { ETH, MAXINT } from '../utils/Constants';
 import { ethers } from 'ethers';
 
-class PaymentDialog extends React.Component {
+class SaleDialog extends React.Component {
   state={
     approving: null,
     paying: null,
@@ -192,7 +193,7 @@ class PaymentDialog extends React.Component {
   render() {
     if(this.props.initializing) { 
       return(
-        <PaymentDialogSkeleton/>
+        <SaleDialogSkeleton/>
       ) 
     }
 
@@ -206,7 +207,32 @@ class PaymentDialog extends React.Component {
                   <CloseDialogComponent/>
                 </div>
                 <div className='DialogBody HeightAuto'>
-                  <div className='Payment' key={ this.props.selected.token.address }>
+                  <div className='Payment' key={ this.props.tokenContext.token.address }>
+                    <div className='PaymentRow ChangeTokenAmount' onClick={ ()=> this.navigateIfActionable(navigate, 'ChangeTokenAmount', dialogContext) }>
+                      <div className='PaymentColumn PaymentColumn1'>
+                        <TokenIconComponent
+                          title={ this.props.tokenContext.token.name }
+                          src={ this.props.tokenContext.token.logoURI }
+                        />
+                      </div>
+                      <div className='PaymentColumn PaymentColumn2'>
+                        <div className='PaymentDescription'>
+                          Purchase
+                        </div>
+                        <div className='PaymentAmountRow1 TextEllipsis' title={DisplayTokenAmount(this.props.amount, this.props.tokenContext.decimals, this.props.tokenContext.token.symbol)}>
+                          { DisplayTokenAmount(this.props.amount, this.props.tokenContext.token.decimals, this.props.tokenContext.token.symbol) }
+                        </div>
+                        <div className='PaymentAmountRow2 TextEllipsis'>
+                          { this.props.tokenContext.token.name }
+                        </div>
+                      </div>
+                      <div className='PaymentColumn PaymentColumn3'>
+                        <span className='PaymentAction' title='Change purchase amount'>
+                          Change
+                        </span>
+                      </div>
+                    </div>
+
                     <div className='PaymentRow ChangePaymentRow' onClick={ ()=> this.navigateIfActionable(navigate, 'ChangePaymentToken', dialogContext) }>
                       <div className='PaymentColumn PaymentColumn1'>
                         <TokenIconComponent
@@ -365,4 +391,4 @@ class PaymentDialog extends React.Component {
 
 }
 
-export default PaymentDialog;
+export default SaleDialog;

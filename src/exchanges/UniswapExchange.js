@@ -58,6 +58,28 @@ class UniswapExchange {
       });
     });
   }
+
+  static findMaxAmount(route) {
+    return new Promise(function(resolve, reject){
+      let inToken = route.token.address;
+      if(inToken === ETH) { inToken = WETH };
+      let outToken = route.route[route.route.length-1];
+      let path;
+      if(inToken === WETH) {
+        path = [WETH, outToken];
+      } else {
+        path = [inToken, WETH, outToken];
+      }
+
+      UniswapV2Router02Contract.getAmountsOut(
+        route.balance,
+        path
+      ).then(function(amounts){
+        resolve(amounts[amounts.length-1].toString());
+      })
+      .catch(()=>resolve('0'))
+    });
+  }
 }
 
 export default UniswapExchange;

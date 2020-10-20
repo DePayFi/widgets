@@ -13,7 +13,7 @@ import TokenIconComponent from '../components/TokenIconComponent';
 import { ETH, MAXINT } from '../utils/Constants';
 import { ethers } from 'ethers';
 
-class PaymentDialog extends React.Component {
+class SwapDialog extends React.Component {
   state={
     approving: null,
     paying: null,
@@ -365,4 +365,4 @@ class PaymentDialog extends React.Component {
 
 }
 
-export default PaymentDialog;
+export default SwapDialog;

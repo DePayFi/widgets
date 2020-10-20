@@ -4,7 +4,6 @@ import GoBackDialogComponent from '../components/GoBackDialogComponent';
 import LocalCurrency from '../utils/LocalCurrency';
 import NavigateStackContext from '../contexts/NavigateStackContext';
 import React from 'react';
-import Skeleton from '../utils/Skeleton';
 import Slider from 'react-rangeslider';
 
 class ChangeNetworkFeeDialog extends React.Component {

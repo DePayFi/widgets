@@ -16,6 +16,22 @@ class Exchanges {
     });
   }
 
+  static routesWithMaxAmounts(routes) {
+    return new Promise(function(resolve, reject){
+      Promise.all(routes.map(function(route){
+        return Exchanges.findByName(route.exchange).findMaxAmount(route);
+      })).then(function(maxAmounts){
+        resolve(
+          routes.map(function(route, index){
+            return Object.assign({}, route, {
+              maxAmount: maxAmounts[index]
+            })
+          })
+        )
+      });
+    });
+  }
+
   static findBestRoutesAndRequiredAmountsForEndToken(routes, endTokenAddress, endTokenAmount){
     return new Promise(function(resolve, reject){
       Exchanges.findIntermediateRoute(endTokenAddress)
@@ -57,11 +73,6 @@ class Exchanges {
           })
         });
     });
-  }
-
-  static addSlippage(amounts) {
-    amounts[0] = (parseFloat(amounts[0]) * 1.01).toString();
-    return amounts;
   }
 
   static selectBestExchangeRoute(route) {

@@ -39,7 +39,7 @@ class Stack extends React.Component {
   unstack() {
     if(this.state.stack.length <= 1) { return }
 
-    var newStack = [...this.state.stack];
+    let newStack = [...this.state.stack];
     newStack.pop();
     
     this.setState({
