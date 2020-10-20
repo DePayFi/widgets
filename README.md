@@ -1,6 +1,6 @@
 ## Ethereum
 
-Smart contracts: https://github.com/depayapp/ethereum-contracts
+Based on DePay's payment processor smart contracts: https://github.com/depayapp/ethereum-contracts
 
 ## Development
 
