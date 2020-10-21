@@ -16,7 +16,7 @@ class UniswapExchange {
 
   static feeDefaults() {
     // return {
-    //   transferETH: ,
+    //   transferETH: 43000,
     //   transferERC20: ,
     //   swap: ,
     //   toETH: 230000,

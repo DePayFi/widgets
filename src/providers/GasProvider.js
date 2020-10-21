@@ -20,7 +20,7 @@ class GasProvider extends React.Component {
     this.loadGas().then(function(gas){
       this.setState({ 
         initializing: false,
-        selected: gas.standard,
+        selected: parseInt((gas.standard + gas.fast) / 2, 10),
         slow: gas.slow,
         standard: gas.standard,
         fast: gas.fast,
