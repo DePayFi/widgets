@@ -14,15 +14,15 @@ const PaymentCSS = `
     cursor: pointer;
   }
 
-  .PaymentDialog.unactionable .PaymentRow {
+  .Dialog.unactionable .PaymentRow {
     cursor: default;
   }
 
-  .PaymentDialog:not(.unactionable) .PaymentRow:not(.loading):hover {
+  .Dialog:not(.unactionable) .PaymentRow:not(.loading):hover {
     background: rgb(248,243,245);
   }
 
-  .PaymentDialog:not(.unactionable) .PaymentRow:not(.loading):active {
+  .Dialog:not(.unactionable) .PaymentRow:not(.loading):active {
     background: rgb(241,232,235);
   }
 

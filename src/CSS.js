@@ -17,6 +17,7 @@ import RangeSliderCSS from './css/RangeSliderCSS';
 import SearchCSS from './css/SearchCSS';
 import SkeletonCSS from './css/SkeletonCSS';
 import StackedDialogCSS from './css/StackedDialogCSS';
+import SwapDialogCSS from './css/SwapDialogCSS';
 import TableCSS from './css/TableCSS';
 import TextButtonCSS from './css/TextButtonCSS';
 import TipCSS from './css/TipCSS';
@@ -108,7 +109,8 @@ const CSS = [
   LabelCSS,
   IconCSS,
   LoadingDotsCSS,
-  InputCSS
+  InputCSS,
+  SwapDialogCSS
 ].join("\n");
 
 export default CSS;

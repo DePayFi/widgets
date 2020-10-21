@@ -4,7 +4,7 @@ import DialogProvider from './providers/DialogProvider';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ShadowContainer from './utils/ShadowContainer';
-import SwapStack from './stacks/SaleStack';
+import SwapStack from './stacks/SwapStack';
 import WalletContext from './contexts/WalletContext';
 import WalletProvider from './providers/WalletProvider';
 import { ETH } from './utils/Constants';

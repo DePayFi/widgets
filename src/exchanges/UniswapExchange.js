@@ -6,12 +6,30 @@ import { ethers } from 'ethers';
 
 class UniswapExchange {
 
+  static id() {
+    return 0;
+  }
+
   static name() {
     return 'Uniswap';
   }
 
+  static feeDefaults() {
+    // return {
+    //   transferETH: ,
+    //   transferERC20: ,
+    //   swap: ,
+    //   toETH: 230000,
+    //   fromETH: 182000
+    // }
+  }
+
   static linkRoute(route) {
-    return `https://app.uniswap.org/#/swap?exactAmount=${parseFloat(ethers.utils.formatEther(route.amounts[0])).toFixed(4)}&inputCurrency=${route.route[0]}&outputCurrency=${route.route[route.route.length-1]}`
+    let path = route.route.map(function(step){
+      if(step === ETH) { return '83C756Cc2' }
+      return step;
+    });
+    return `https://app.uniswap.org/#/swap?exactAmount=${parseFloat(ethers.utils.formatEther(route.amounts[0])).toFixed(4)}&inputCurrency=${path[0]}&outputCurrency=${path[path.length-1]}`
   }
   
   static findLiquidity(addressA, addressB) {

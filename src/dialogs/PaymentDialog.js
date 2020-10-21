@@ -5,6 +5,7 @@ import DePayV1ProcessorBetaContract from '../contracts/DePayV1ProcessorBetaContr
 import DialogContext from '../contexts/DialogContext';
 import Erc20Abi from '../abi/Erc20Abi';
 import Exchanges from '../utils/Exchanges';
+import GasContext from '../contexts/GasContext';
 import NavigateStackContext from '../contexts/NavigateStackContext';
 import PaymentDialogSkeleton from '../dialogs/PaymentDialogSkeleton';
 import QuestionMarkCircleComponent from '../components/QuestionMarkCircleComponent';
@@ -109,7 +110,7 @@ class PaymentDialog extends React.Component {
     return(ethers.BigNumber.from(this.props.wallet.address()).toString()+''+(now).toString());
   }
 
-  pay(dialogContext, callbackContext) {
+  pay(dialogContext, callbackContext, gasContext) {
     let route;
 
     // Drop intermediate ETH routes
@@ -129,7 +130,10 @@ class PaymentDialog extends React.Component {
     let amountIn = this.props.selected.amounts[0];
     let amountOut = this.props.selected.amounts[this.props.selected.amounts.length-1];
 
-    let transactionConfiguration = {};
+    let transactionConfiguration = {
+      gasPrice: DePay.ethers.utils.parseUnits(gasContext.selected.toString(), 'gwei')
+    };
+      
     if(route[0] === ETH) {
       transactionConfiguration.value = amountIn;
     }
@@ -348,17 +352,21 @@ class PaymentDialog extends React.Component {
       )
     } else {
       return(
-        <DialogContext.Consumer>
-          {dialogContext => (
-            <CallbackContext.Consumer>
-              {callbackContext => (
-                <button className='CallToAction' onClick={()=>this.pay.bind(this)(dialogContext, callbackContext)}>
-                  Pay { this.props.paymentContext.total }
-                </button>
+        <GasContext.Consumer>
+          {gasContext => (
+            <DialogContext.Consumer>
+              {dialogContext => (
+                <CallbackContext.Consumer>
+                  {callbackContext => (
+                    <button className='CallToAction' onClick={()=>this.pay.bind(this)(dialogContext, callbackContext, gasContext)}>
+                      Pay { this.props.paymentContext.total }
+                    </button>
+                  )}
+                </CallbackContext.Consumer>
               )}
-            </CallbackContext.Consumer>
+            </DialogContext.Consumer>
           )}
-        </DialogContext.Consumer>
+        </GasContext.Consumer>
       )
     }
   }

@@ -8,7 +8,11 @@ class PaymentProvider extends React.Component {
 
   paymentInETH() {
     if(this.props.selected.amounts.length <= 2) {
-      return DePay.ethers.utils.formatEther(this.props.selected.amounts[0]);
+      if(this.props.selected.token.symbol === 'ETH') {
+        return DePay.ethers.utils.formatEther(this.props.selected.amounts[0]);
+      } else {
+        return DePay.ethers.utils.formatEther(this.props.selected.amounts[1]);
+      }
     } else {
       return DePay.ethers.utils.formatEther(this.props.selected.amounts[1]);
     }

@@ -104,6 +104,7 @@ class Exchanges {
     return new Promise(function(resolve, reject){
       Promise.all(exchangeNames.map(function(exchangeName){
         if(route[0] === ETH) { route = route.slice(1,3); }
+        if(route[route.length-1] === ETH) { route = [route[0], route[route.length-1]] }
         return Exchanges.findByName(exchangeName).findAmounts(route, endTokenAmount);
       })).then(function(amounts){
         exchangeNames.forEach(function(exchangeName, index){

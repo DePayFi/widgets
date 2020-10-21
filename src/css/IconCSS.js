@@ -14,8 +14,14 @@ const IconCSS = `
     top: 0px;
   }
 
+  .Icon.grey * {
+    fill: rgb(210,210,210);
+    stroke: rgb(210,210,210);
+  }
+
   .Icon.white path {
     fill: white;
+    stroke: white;
   }
 
   .Icon.translucent {
