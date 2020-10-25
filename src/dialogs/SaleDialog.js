@@ -343,7 +343,7 @@ class SaleDialog extends React.Component {
       return(
         <DialogContext.Consumer>
           {dialogContext => (
-            <button key='approve' className='CallToAction' onClick={()=>this.approve.bind(this)(dialogContext)} title='Click to approve that the selected token is allowed to be swapped for performing this payment. This approval is only required the first time you pay with the selected token.'>
+            <button key='approve' className='CallToAction MainAction' onClick={()=>this.approve.bind(this)(dialogContext)} title='Click to approve that the selected token is allowed to be swapped for performing this payment. This approval is only required the first time you pay with the selected token.'>
               Approve
             </button>
           )}
@@ -378,7 +378,7 @@ class SaleDialog extends React.Component {
           {dialogContext => (
             <CallbackContext.Consumer>
               {callbackContext => (
-                <button className='CallToAction' onClick={()=>this.pay.bind(this)(dialogContext, callbackContext)}>
+                <button className='CallToAction MainAction' onClick={()=>this.pay.bind(this)(dialogContext, callbackContext)}>
                   Pay { this.props.paymentContext.total }
                 </button>
               )}

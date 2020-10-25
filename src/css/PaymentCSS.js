@@ -73,6 +73,10 @@ const PaymentCSS = `
     border-radius: 99rem;
   }
 
+  .PaymentAction:not(.disabled){
+    cursor: pointer;
+  }
+
   .PaymentAction:hover {
     background: rgba(0,0,0,0.03);
   }

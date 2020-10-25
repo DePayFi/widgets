@@ -91,7 +91,7 @@ class ChangeNetworkFeeDialog extends React.Component {
 
                 </div>
                 <div className='DialogFooter'>
-                  <button className='CallToAction' onClick={ ()=>navigate('back') }>
+                  <button className='CallToAction MainAction' onClick={ ()=>navigate('back') }>
                     Done
                   </button>
                   <div className='PoweredBy'>

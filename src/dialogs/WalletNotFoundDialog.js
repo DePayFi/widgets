@@ -19,7 +19,7 @@ class WalletNotFoundDialog extends React.Component {
           </h1>
         </div>
         <div className='DialogFooter'>
-          <button className='CallToAction'>
+          <button className='CallToAction MainAction'>
             Install
           </button>
           <div className='PoweredBy'>

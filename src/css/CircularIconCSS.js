@@ -15,6 +15,11 @@ const CircularIconCSS = `
     width: 4rem;
   }
 
+  .CircularIcon.small {
+    height: 1.4rem;
+    width: 1.4rem;
+  }
+
   .CircularIcon.noshadow{
     box-shadow: none;
   }

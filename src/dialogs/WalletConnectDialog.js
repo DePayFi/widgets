@@ -22,7 +22,7 @@ class WalletConnectDialog extends React.Component {
               </h1>
             </div>
             <div className='DialogFooter'>
-              <button className='CallToAction' onClick={this.props.connect}>
+              <button className='CallToAction MainAction' onClick={this.props.connect}>
                 Connect
               </button>
               <div className='PoweredBy'>

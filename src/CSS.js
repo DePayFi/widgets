@@ -9,6 +9,7 @@ import InputCSS from './css/InputCSS';
 import InsideContainerCSS from './css/InsideContainerCSS';
 import LabelCSS from './css/LabelCSS';
 import LoadingDotsCSS from './css/LoadingDotsCSS';
+import MainActionCSS from './css/MainActionCSS';
 import PaddingCSS from './css/PaddingCSS';
 import PaymentCSS from './css/PaymentCSS';
 import PaymentDialogCSS from './css/PaymentDialogCSS';
@@ -110,7 +111,8 @@ const CSS = [
   IconCSS,
   LoadingDotsCSS,
   InputCSS,
-  SwapDialogCSS
+  SwapDialogCSS,
+  MainActionCSS
 ].join("\n");
 
 export default CSS;

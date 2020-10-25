@@ -14,6 +14,18 @@ const TableCSS = `
     display: table-cell;
     width: 100%;
   }
+
+  .Table .CallToActionName {
+    display: none;
+  }
+
+  .Table .TableCell:first-child {
+    padding-right: 3px;
+  }
+
+  .Table .TableCell:last-child {
+    padding-left: 3px;
+  }
 `;
 
 export default TableCSS;

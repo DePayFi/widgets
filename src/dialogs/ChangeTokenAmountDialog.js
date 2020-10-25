@@ -17,11 +17,12 @@ class ChangeTokenAmountDialog extends React.Component {
   constructor(props) {
     super(props);
 
-    let maxAmount = _.sortBy(props.routes, function(route){ return parseInt(route.maxAmount,10) })[props.routes.length-1].maxAmount;
+    let maxAmountRoute = _.sortBy(props.routes, function(route){ return parseInt(route.maxAmount,10) })[props.routes.length-1];
 
     this.state = {
       amount: parseInt(props.amount),
-      maxAmount: (parseInt(maxAmount)/SLIPPAGE)
+      maxAmount: (parseInt(maxAmountRoute.maxAmount)/SLIPPAGE),
+      maxAmountRoute: maxAmountRoute,
     };
   }
 
@@ -57,6 +58,9 @@ class ChangeTokenAmountDialog extends React.Component {
               <GoBackDialogComponent/>
               <CloseDialogComponent/>
               <h1 className='FontSizeMedium TextAlignCenter'>Change purchase amount</h1>
+              <div className='FontSizeMedium FontWeightBold TextAlignCenter'>
+                { this.props.token.symbol }
+              </div>
             </div>
             <div className='DialogBody HeightAuto'>
 
@@ -78,10 +82,21 @@ class ChangeTokenAmountDialog extends React.Component {
                   />
                 </div>
 
+                <div className='TextAlignCenter TextGrey PaddingBottomSmall'>
+                  Max. purchase for<br/>
+                  {DisplayTokenAmount((parseInt(this.state.maxAmountRoute.balance) / SLIPPAGE).toLocaleString('fullwide', {useGrouping:false}), this.state.maxAmountRoute.token.decimals, this.state.maxAmountRoute.token.symbol)}
+                  <TokenIconComponent
+                    className='small'
+                    title={ this.state.maxAmountRoute.token.name }
+                    src={ this.state.maxAmountRoute.token.logoURI }
+                  />
+                  { this.state.maxAmountRoute.symbol }
+                </div>
+
               </div>
             </div>
             <div className='DialogFooter'>
-              <button className='CallToAction' onClick={ ()=>navigate('back') }>
+              <button className='CallToAction MainAction' onClick={ ()=>navigate('back') }>
                 Done
               </button>
               <div className='PoweredBy'>

@@ -21,6 +21,11 @@ class SwapDialog extends React.Component {
     payed: false
   }
 
+  constructor(props) {
+    super(props);
+    this.toTokenAmount = React.createRef();
+  }
+
   componentWillUnmount() {
     clearInterval(this.approvalCheckInterval);
   }
@@ -161,6 +166,17 @@ class SwapDialog extends React.Component {
     return dialogContext.closable === true && this.state.payed === false
   }
 
+  componentDidUpdate(prevProps) {
+    if(
+      (this.props.to && prevProps.to === null) ||
+      (this.props.to && prevProps.to.address !== this.props.to.address)
+    ) {
+      setTimeout(function(){
+        this.toTokenAmount.current.focus();
+      }.bind(this), 250);
+    }
+  }
+
   render() {
     if(this.props.initializing) { 
       return(
@@ -181,27 +197,33 @@ class SwapDialog extends React.Component {
                   <div className='Payment'>
                     <div className='PaymentRow FromRow'>
                       <div className='PaymentColumn PaymentColumn1'>
-                        <TokenIconComponent
-                          title={ this.props.from.name }
-                          src={ this.props.from.logoURI }
-                        />
+                        <label htmlFor='TokenSwapFrom'>
+                          <TokenIconComponent
+                            title={ this.props.from.name }
+                            src={ this.props.from.logoURI }
+                          />
+                        </label>
                       </div>
                       <div className='PaymentColumn PaymentColumn2'>
                         <div className='PaymentDescription'>
-                          From
+                          <label htmlFor='TokenSwapFrom'>
+                            From
+                          </label>
                         </div>
                         <div className='PaymentAmountRow1 TextEllipsis'>
-                          <input className='Input FontSizeMedium' placeholder='0.0' maxLength='79' minLength='1' inputMode='decimal' pattern="^[0-9]*[.,]?[0-9]*$" autocorret='off' />
+                          <input name='TokenSwapFrom' id='TokenSwapFrom' className='Input FontSizeMedium' placeholder='0.0' maxLength='79' minLength='1' inputMode='decimal' pattern="^[0-9]*[.,]?[0-9]*$" autocorret='off' />
                         </div>
                         <div className='PaymentAmountRow2 TextEllipsis'>
-                          { this.props.from.symbol }
+                          <label htmlFor='TokenSwapFrom'>
+                            { this.props.from.symbol }
+                          </label>
                         </div>
                       </div>
                       <div className='PaymentColumn PaymentColumn3'>
                         <span className='PaymentAction' title='Set max. amount'>
                           Max
                         </span>
-                        <span className='PaymentAction' title='Change token'>
+                        <span className='PaymentAction' title='Change token' onClick={ ()=>this.navigateIfActionable(navigate, 'ChangeFromToken', dialogContext) }>
                           Change
                         </span>
                       </div>
@@ -209,33 +231,53 @@ class SwapDialog extends React.Component {
                   </div>
 
                   <div className='TextAlignCenter ExchangeRow'>
-                    <ExchangeComponent/>
+                    <button className='SwapInputs'>
+                      <ExchangeComponent/>
+                    </button>
                   </div>
 
                   <div className='Payment'>
 
                     <div className='PaymentRow ToRow'>
                       <div className='PaymentColumn PaymentColumn1'>
-                        <TokenIconComponent
-                          title={ this.props.to.name }
-                          src={ this.props.to.logoURI }
-                        />
+                        <label htmlFor='TokenSwapTo'>
+                          <TokenIconComponent
+                            title={ this.props.to ? this.props.to.name : 'Please select a token' }
+                            src={ this.props.to ? this.props.to.logoURI : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAGFBMVEVHcEz///////////////////////////8dS1W+AAAAB3RSTlMAHklzmMLqCsLrGwAAAQ9JREFUeNrtlrsOgkAQRRdFbDcae4IFrZEYazXRVitqQ2Hrk/19BVdX7XYuiQX3VDZzMsxrVYQQQkibGIyzLNHi8OHaVJRLWXgwMy8KLYnfGEchEFTxjp2/wHxRalBg9v4CNAXzwxYVXCSC2ypJstx+g6/ATaAdqImvoHxHzEVFcPGqWwtOnoLFx++6DGdgq9NnG+T0K8EVEPTqnrZbEKGCFO1CDs2BG2UZbpnABEwMJIA1IRSeZfdCgV8wsjdVnEBuLyKyBu51Fb+xpfhPRgdsgYqeM6DlQwQmoA62AvISgIsc2j0EaxgDL0ojx/CCCs4KPGYnVHCk4CEg7SbIKqbqfyeRAgoaERBCCCGESLgDeRfMNogh3QMAAAAASUVORK5CYII=' }
+                            className={ this.props.to ? '' : 'notfound' }
+                          />
+                        </label>
                       </div>
                       <div className='PaymentColumn PaymentColumn2'>
                         <div className='PaymentDescription'>
-                          To
+                          <label htmlFor='TokenSwapTo'>
+                            To
+                          </label>
                         </div>
                         <div className='PaymentAmountRow1 TextEllipsis'>
-                          <input className='Input FontSizeMedium' placeholder='0.0' maxLength='79' minLength='1' inputMode='decimal' pattern="^[0-9]*[.,]?[0-9]*$" autocorret='off' />
+                          <input ref={this.toTokenAmount} name='TokenSwapTo' id='TokenSwapTo' className='Input FontSizeMedium' placeholder='0.0' maxLength='79' minLength='1' inputMode='decimal' pattern="^[0-9]*[.,]?[0-9]*$" autocorret='off' />
                         </div>
                         <div className='PaymentAmountRow2 TextEllipsis'>
-                          { this.props.to.symbol }
+                          <label htmlFor='TokenSwapTo'>
+                            { this.props.to && this.props.to.symbol }
+                            { !this.props.to && 
+                              <span>&nbsp;</span>
+                            }
+                          </label>
                         </div>
                       </div>
                       <div className='PaymentColumn PaymentColumn3'>
-                        <span className='PaymentAction' title='Change token'>
-                          Change
-                        </span>
+                        { this.props.to &&
+                          <span className='PaymentAction' onClick={ ()=>this.navigateIfActionable(navigate, 'ChangeToToken', dialogContext) } title='Change token'>
+                            Change
+                          </span>
+                        }
+                        {
+                          !this.props.to &&
+                          <span className='PaymentAction CallToAction' onClick={ ()=>this.navigateIfActionable(navigate, 'ChangeToToken', dialogContext) } title='Select token'>
+                            Select
+                          </span> 
+                        }
                       </div>
                     </div>
                   </div>
@@ -299,7 +341,7 @@ class SwapDialog extends React.Component {
       return(
         <DialogContext.Consumer>
           {dialogContext => (
-            <button key='approve' className='CallToAction' onClick={()=>this.approve.bind(this)(dialogContext)} title='Click to approve that the selected token is allowed to be swapped for performing this payment. This approval is only required the first time you pay with the selected token.'>
+            <button key='approve' className='CallToAction MainAction' onClick={()=>this.approve.bind(this)(dialogContext)} title='Click to approve that the selected token is allowed to be swapped for performing this payment. This approval is only required the first time you pay with the selected token.'>
               Approve
             </button>
           )}
@@ -328,13 +370,19 @@ class SwapDialog extends React.Component {
           <span className='dot'>.</span>
         </a>
       )
+    } else if(this.props.selected === null) {
+      return(
+        <button className='CallToAction MainAction disabled'>
+          Swap
+        </button>
+      )
     } else {
       return(
         <DialogContext.Consumer>
           {dialogContext => (
             <CallbackContext.Consumer>
               {callbackContext => (
-                <button className='CallToAction' onClick={()=>this.pay.bind(this)(dialogContext, callbackContext)}>
+                <button className='CallToAction MainAction' onClick={()=>this.pay.bind(this)(dialogContext, callbackContext)}>
                   Swap
                 </button>
               )}
