@@ -24,8 +24,13 @@ class UniswapExchange {
     // }
   }
 
+  static ETHtoWETH(input){
+    if(input === ETH) { return WETH }
+    return input;
+  }
+
   static linkRoute(route) {
-    let path = route.route.map(function(step){
+    let path = (route.route || route.path).map(function(step){
       if(step === ETH) { return '83C756Cc2' }
       return step;
     });
@@ -41,9 +46,11 @@ class UniswapExchange {
         if(pairAddress.address === ethers.constants.AddressZero) {
           resolve(null);
         } else {
-          UniswapV2PairContract(pairAddress).getReserves().then(function(reserves){
+          UniswapV2PairContract(pairAddress).getReserves()
+          .then(function(reserves){
             resolve([reserves[0], reserves[1]]);
           })
+          .catch(()=>resolve([ethers.BigNumber.from('0'), ethers.BigNumber.from('0')]))
         }
       })
     });
@@ -97,6 +104,19 @@ class UniswapExchange {
       })
       .catch(()=>resolve('0'))
     });
+  }
+
+  static amountsFromTo(from, fromAmount, to) {
+    return new Promise(function(resolve, reject){
+      UniswapV2Router02Contract.getAmountsOut(
+        fromAmount,
+        [this.ETHtoWETH(from), this.ETHtoWETH(to)]
+      )
+      .then(function(amounts){
+        resolve(amounts);
+      })
+      .catch(()=>resolve(null))
+    }.bind(this))
   }
 }
 

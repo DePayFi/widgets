@@ -4,6 +4,7 @@ import GoBackDialogComponent from '../components/GoBackDialogComponent';
 import ImportToken from '../utils/ImportToken';
 import PropTypes from 'prop-types';
 import React from 'react';
+import TokenIconComponent from '../components/TokenIconComponent';
 import TokenList from '../utils/TokenList';
 
 class TokenSelectorDialog extends React.Component {
@@ -34,9 +35,11 @@ class TokenSelectorDialog extends React.Component {
     if(DePay.ethers.utils.isAddress(value)) {
       var address = DePay.ethers.utils.getAddress(value);
       this.setState({search: address});
-      ImportToken(address).then(function(token){
-        this.setState({tokens: [token]});
-      }.bind(this));
+      if(!this.props.disableImportTokens) {
+        ImportToken(address).then(function(token){
+          this.setState({tokens: [token]});
+        }.bind(this));
+      }
     } else if(value.length == 0) {
       this.setState({tokens: this.tokens});
     } else {
@@ -83,7 +86,7 @@ class TokenSelectorDialog extends React.Component {
       <div className='Dialog SelectTokenDialog'>
         <div className='DialogHeader'>
           { this.renderDialogHeader() }
-          <input ref={(input) => { this.input = input; }}  value={this.state.search} id='SearchToken' autoFocus='autofocus' onChange={this.changeSearch.bind(this)} className='Search' type='text' placeholder='Search name or paste address'/>
+          <input ref={(input) => { this.input = input; }}  value={this.state.search} id='SearchToken' autoFocus='autofocus' onChange={this.changeSearch.bind(this)} className='Search' type='text' placeholder={this.props.disableImportTokens ? 'Search by name' : 'Search by name or paste address'}/>
           {this.state.showImportTokenTip &&
             <div className='TipContainer'>
               <div className='Tip'>
@@ -99,7 +102,11 @@ class TokenSelectorDialog extends React.Component {
               return (
                 <li key={token.symbol} className='TokenListItem' onClick={()=> this.selectToken(token)}>
                   <div className='TokenListCell'>
-                    <img className='TokenListImage' src={token.logoURI}/>
+                    <TokenIconComponent
+                      className={ 'TokenListImage' }
+                      title={ token.name }
+                      src={ token.logoURI }
+                    />
                     <span className='TokenListSymbol'>{token.symbol}</span>
                     <span className='TokenListName'>{token.name}</span>
                   </div>
@@ -109,7 +116,9 @@ class TokenSelectorDialog extends React.Component {
           </ul>
         </div>
         <div className='DialogFooter'>
-          <button type='button' onClick={this.showImportTokenTip.bind(this)} className='TextButton'>Token missing? Add it.</button>
+          { !this.props.disableImportTokens &&
+            <button type='button' onClick={this.showImportTokenTip.bind(this)} className='TextButton'>Token missing? Add it.</button>
+          }
         </div>        
       </div>
     )

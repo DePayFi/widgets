@@ -18,12 +18,16 @@ class SwapDialog extends React.Component {
   state={
     approving: null,
     paying: null,
-    payed: false
+    payed: false,
+    fromAmount: '',
+    toAmount: '',
+    entered: null
   }
 
   constructor(props) {
     super(props);
     this.toTokenAmount = React.createRef();
+    this.fromTokenAmount = React.createRef();
   }
 
   componentWillUnmount() {
@@ -35,15 +39,15 @@ class SwapDialog extends React.Component {
   }
 
   paymentTypeTitle() {
-    return 'Token swap via ' + this.props.selected.exchange;
+    return 'Token swap via ' + this.props.route.exchange;
   }
 
   paymentTypeLink() {
-    return Exchanges.findByName(this.props.selected.exchange).linkRoute(this.props.selected);
+    return Exchanges.findByName(this.props.route.exchange).linkRoute(this.props.route);
   }
 
   approve(dialogContext) {
-    new DePay.ethers.Contract(this.props.selected.token.address, Erc20Abi, DePay.ethers.provider)
+    new DePay.ethers.Contract(this.props.route.token.address, Erc20Abi, DePay.ethers.provider)
       .connect(this.props.wallet.provider().getSigner(0))
       .approve(DePayV1ProcessorBetaContract.address, MAXINT)
       .catch(function(){ 
@@ -71,9 +75,9 @@ class SwapDialog extends React.Component {
   }
 
   checkApproved(dialogContext) {
-    new DePay.ethers.Contract(this.props.selected.token.address, Erc20Abi, DePay.ethers.provider).allowance(this.props.wallet.address(), DePayV1ProcessorBetaContract.address).then(function(amount){
-      if(amount.gt(DePay.ethers.BigNumber.from(this.props.selected.amounts[0]))) {
-        this.props.selected.approved = true;
+    new DePay.ethers.Contract(this.props.route.token.address, Erc20Abi, DePay.ethers.provider).allowance(this.props.wallet.address(), DePayV1ProcessorBetaContract.address).then(function(amount){
+      if(amount.gt(DePay.ethers.BigNumber.from(this.props.route.amounts[0]))) {
+        this.props.route.approved = true;
         dialogContext.setClosable(true);
         this.setState({ approving: false });
         clearInterval(this.approvalCheckInterval);
@@ -91,9 +95,9 @@ class SwapDialog extends React.Component {
 
     // Drop intermediate ETH routes
     // as only start and end ETH is relevant for the smart contract.
-    route = this.props.selected.route.filter(function(step, index){
+    route = this.props.route.path.filter(function(step, index){
       return index === 0 || 
-        index === this.props.selected.route.length-1 || 
+        index === this.props.route.path.length-1 || 
         step !== ETH
     }.bind(this));
 
@@ -103,8 +107,8 @@ class SwapDialog extends React.Component {
       route = [route[0]];
     }
     
-    let amountIn = this.props.selected.amounts[0];
-    let amountOut = this.props.selected.amounts[this.props.selected.amounts.length-1];
+    let amountIn = this.props.route.amounts[0];
+    let amountOut = this.props.route.amounts[this.props.route.amounts.length-1];
 
     let transactionConfiguration = {};
     if(route[0] === ETH) {
@@ -166,14 +170,112 @@ class SwapDialog extends React.Component {
     return dialogContext.closable === true && this.state.payed === false
   }
 
-  componentDidUpdate(prevProps) {
+  considerFocusToTokenAmount(prevProps) {
     if(
       (this.props.to && prevProps.to === null) ||
       (this.props.to && prevProps.to.address !== this.props.to.address)
     ) {
-      setTimeout(function(){
-        this.toTokenAmount.current.focus();
-      }.bind(this), 250);
+      if(this.props.fromAmount === '') {
+        setTimeout(function(){
+          this.toTokenAmount.current.focus();
+        }.bind(this), 250);
+      }
+    }
+  }
+  
+  considerFocusFromTokenAmount(prevProps) {
+    if(
+      (this.props.from && prevProps.from === null) ||
+      (this.props.from && prevProps.from.address !== this.props.from.address)
+    ) {
+      if(this.props.toAmount === '') {
+        setTimeout(function(){
+          this.fromTokenAmount.current.focus();
+        }.bind(this), 250);
+      }
+    }
+  }
+
+  considerSettingFromAmountFromProps(prevProps) {
+    if(this.props.fromAmount === prevProps.fromAmount) { return }
+    if(this.props.fromAmount === null) {
+      this.setState({ fromAmount: '' });
+    } else {
+      this.setState({ fromAmount: DePay.ethers.utils.formatUnits(this.props.fromAmount, this.props.from.decimals) })
+    }
+  }
+
+  considerSettingToAmountFromProps(prevProps) {
+    if(this.props.toAmount === prevProps.toAmount) { return }
+    if(this.props.toAmount === null) {
+      this.setState({ toAmount: '' });
+    } else {
+      this.setState({ toAmount: DePay.ethers.utils.formatUnits(this.props.toAmount, this.props.to.decimals) })
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    this.considerFocusToTokenAmount(prevProps);
+    this.considerFocusFromTokenAmount(prevProps);
+    this.considerSettingFromAmountFromProps(prevProps);
+    this.considerSettingToAmountFromProps(prevProps)    
+  }
+
+  setMax() {
+    this.setState({
+      fromAmount: DePay.ethers.utils.formatUnits(this.props.from.balance, this.props.from.decimals),
+      entered: 'from'
+    });
+    this.props.changeFromAmount(this.props.from.balance);
+  }
+
+  changeFromAmount(event){
+    this.setState({
+      fromAmount: event.target.value,
+      entered: 'from'
+    });
+    let value;
+    try {
+      value = DePay.ethers.utils.parseUnits(event.target.value.toString(), this.props.from.decimals);
+    } catch {}
+    if(
+      value !== undefined
+    ) {
+      this.props.changeFromAmount(value.toString());
+    }
+  }
+
+  changeToAmount(event){
+    this.setState({
+      toAmount: event.target.value,
+      entered: 'to'
+    });
+    let value;
+    try {
+      value = DePay.ethers.utils.parseUnits(event.target.value.toString(), this.props.to.decimals);
+    } catch {}
+    if(
+      value !== undefined
+    ) {
+      this.props.changeFromAmount(value.toString());
+    }
+  }
+
+  swapInputs() {
+    if(this.state.entered === 'from') {
+      this.setState({
+        fromAmount: '',
+        toAmount: this.state.fromAmount,
+        entered: 'to'
+      })
+      this.props.swapFromTo();
+    } else if (this.state.entered === 'to') {
+      this.setState({
+        fromAmount: this.state.toAmount,
+        toAmount: '',
+        entered: 'from'
+      })
+      this.props.swapToFrom();
     }
   }
 
@@ -211,7 +313,7 @@ class SwapDialog extends React.Component {
                           </label>
                         </div>
                         <div className='PaymentAmountRow1 TextEllipsis'>
-                          <input name='TokenSwapFrom' id='TokenSwapFrom' className='Input FontSizeMedium' placeholder='0.0' maxLength='79' minLength='1' inputMode='decimal' pattern="^[0-9]*[.,]?[0-9]*$" autocorret='off' />
+                          <input onChange={ this.changeFromAmount.bind(this) } value={ this.state.fromAmount } ref={this.fromTokenAmount} name='TokenSwapFrom' id='TokenSwapFrom' className='Input TextEllipsis FontSizeMedium' placeholder='0.0' maxLength='79' minLength='1' inputMode='decimal' pattern="^[0-9]*[.,]?[0-9]*$" autocorret='off' />
                         </div>
                         <div className='PaymentAmountRow2 TextEllipsis'>
                           <label htmlFor='TokenSwapFrom'>
@@ -220,7 +322,7 @@ class SwapDialog extends React.Component {
                         </div>
                       </div>
                       <div className='PaymentColumn PaymentColumn3'>
-                        <span className='PaymentAction' title='Set max. amount'>
+                        <span className='PaymentAction' title='Set max. amount' onClick={ this.setMax.bind(this) }>
                           Max
                         </span>
                         <span className='PaymentAction' title='Change token' onClick={ ()=>this.navigateIfActionable(navigate, 'ChangeFromToken', dialogContext) }>
@@ -231,7 +333,7 @@ class SwapDialog extends React.Component {
                   </div>
 
                   <div className='TextAlignCenter ExchangeRow'>
-                    <button className='SwapInputs'>
+                    <button className='SwapInputs' title='Swap tokens and amounts' onClick={ this.swapInputs.bind(this) }>
                       <ExchangeComponent/>
                     </button>
                   </div>
@@ -255,7 +357,7 @@ class SwapDialog extends React.Component {
                           </label>
                         </div>
                         <div className='PaymentAmountRow1 TextEllipsis'>
-                          <input ref={this.toTokenAmount} name='TokenSwapTo' id='TokenSwapTo' className='Input FontSizeMedium' placeholder='0.0' maxLength='79' minLength='1' inputMode='decimal' pattern="^[0-9]*[.,]?[0-9]*$" autocorret='off' />
+                          <input onChange={ this.changeToAmount.bind(this) } value={ this.state.toAmount } ref={this.toTokenAmount} name='TokenSwapTo' id='TokenSwapTo' className='Input TextEllipsis FontSizeMedium' placeholder='0.0' maxLength='79' minLength='1' inputMode='decimal' pattern="^[0-9]*[.,]?[0-9]*$" autocorret='off' />
                         </div>
                         <div className='PaymentAmountRow2 TextEllipsis'>
                           <label htmlFor='TokenSwapTo'>
@@ -285,10 +387,10 @@ class SwapDialog extends React.Component {
                 <div className='DialogFooter'>
                   { this.renderCallToAction.bind(this)() }
                   <div className='PoweredBy'>
-                    {this.props.selected && this.paymentType() &&
+                    {this.props.route && this.paymentType() &&
                       <span>
                         <a target='_blank' rel='noopener noreferrer' href={ this.paymentTypeLink() } className='PoweredByLink' title={ this.paymentTypeTitle() }>
-                          { this.paymentTypeText() }
+                          { 'via '+this.props.route.exchange }
                         </a>
                         <span className='PoweredByLink'>&nbsp;•&nbsp;</span>
                       </span>
@@ -307,7 +409,13 @@ class SwapDialog extends React.Component {
   }
 
   renderCallToAction() {
-    if(!this.props.selected || this.props.selected.approved) {
+    if(this.props.loadingRoute) {
+      return(
+        <button className='CallToAction MainAction disabled'>
+          Loading...
+        </button>
+      )
+    } else if(!this.props.route || this.props.route.approved) {
       return(this.renderPaymentButton())
     } else {
       return(
@@ -317,8 +425,8 @@ class SwapDialog extends React.Component {
               { this.renderApproveButton() }
             </div>
             <div className='TableCell'>
-              <button className='CallToAction disabled'>
-                <span className='CallToActionName'>Swap</span>
+              <button className='CallToAction MainAction disabled'>
+                Swap
               </button>
             </div>
           </div>
@@ -370,7 +478,7 @@ class SwapDialog extends React.Component {
           <span className='dot'>.</span>
         </a>
       )
-    } else if(this.props.selected === null) {
+    } else if(this.props.route === null) {
       return(
         <button className='CallToAction MainAction disabled'>
           Swap

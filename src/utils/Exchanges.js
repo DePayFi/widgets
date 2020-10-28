@@ -34,7 +34,7 @@ class Exchanges {
 
   static findBestRoutesAndRequiredAmountsForEndToken(routes, endTokenAddress, endTokenAmount){
     return new Promise(function(resolve, reject){
-      Exchanges.findIntermediateRoute(endTokenAddress)
+      Exchanges.findRoutes(endTokenAddress)
         .then(function(exchangesWithIntermediateRoute){
           Promise.all(routes.map(function(route){
             if(
@@ -115,7 +115,7 @@ class Exchanges {
     });
   }
 
-  static findIntermediateRoute(tokenAddress) {
+  static findRoutes(tokenAddress) {
     let routesPerExchange = {};
     return new Promise(function(resolve, reject){
       if(tokenAddress === 'ETH') {
@@ -126,7 +126,7 @@ class Exchanges {
       } else {
         Promise.all(Exchanges.all.map(function(exchange){
           return exchange.findLiquidity(ETH, tokenAddress).then(function(liquidity){
-            if(liquidity === null || _.every(liquidity, function(liquidity){ liquidity.eq(0) })) {
+            if(liquidity === null || !Boolean(_.find(liquidity, function(liquidity){ return liquidity.gt(0) }))) {
               return null;
             } else {
               let exchangeWithLiquidity = {};
@@ -144,6 +144,29 @@ class Exchanges {
         })
       }
     });
+  }
+
+  static findBestRouteFromTo(from, fromAmount, to) {
+    return new Promise(function(resolve, reject){
+      Promise.all(Exchanges.all.map(function(exchange){
+        return exchange.amountsFromTo(from, fromAmount, to)
+      })).then(function(amountsPerExchange){
+        let bestAmounts = _.sortBy(amountsPerExchange, function(amounts){ return _.last(amounts) })[0];
+        resolve({
+          path: [from, to],
+          amounts: bestAmounts,
+          exchange: Exchanges.all[amountsPerExchange.indexOf(bestAmounts)].name()
+        });
+      })
+    })
+  }
+
+  static findBestRouteToFrom(to, toAmount, from) {
+    return Promise.all(Exchanges.all.map(function(exchange){
+      return exchange.amountsToFrom(to, toAmount, from)
+    })).then(function(amountsPerExchange){
+      console.log('amountsPerExchange', amountsPerExchange)
+    })
   }
 }
 
