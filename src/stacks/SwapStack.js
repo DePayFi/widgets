@@ -107,6 +107,7 @@ class SwapStack extends React.Component {
                       fromAmount={ this.state.fromAmount }
                       to={ this.state.to ? this.state.to.address : null }
                       toAmount={ this.state.toAmount }
+                      wallet={ walletContext.wallet }
                     >
                       <RouteContext.Consumer>
                         {routeContext => (

@@ -1,6 +1,9 @@
+import DePayV1ProcessorBetaContract from '../contracts/DePayV1ProcessorBetaContract';
+import Erc20Abi from '../abi/Erc20Abi';
+import Exchanges from '../utils/Exchanges';
 import React from 'react';
 import RouteContext from '../contexts/RouteContext';
-import Exchanges from '../utils/Exchanges';
+import { ETH } from '../utils/Constants';
 
 class RouteProvider extends React.Component {
   state = {
@@ -28,18 +31,39 @@ class RouteProvider extends React.Component {
     }
   }
 
+  addApprovalStateToRoute(route) {
+    return new Promise(function(resolve, reject){
+      if(route.path[0] === ETH) {
+        route.approved = true;
+        resolve(route);
+      } else {
+        new DePay.ethers.Contract(route.path[0], Erc20Abi, DePay.ethers.provider)
+        .allowance(this.props.wallet.address(), DePayV1ProcessorBetaContract.address)
+        .then(function(amount){
+          if(amount.gt(DePay.ethers.BigNumber.from(route.amounts[0]))) {
+            route.approved = true;
+          } else {
+            route.approved = false;
+          }
+          resolve(route);
+        });
+      }
+    });
+  }
+
   findRouteFromTo() {
-    console.log('findRouteFromTo');
     Exchanges.findBestRouteFromTo(
       this.props.from,
       this.state.fromAmount,
       this.props.to
     ).then(function(route){
-      this.setState({
-        route: route,
-        loading: false,
-        toAmount: _.last(route.amounts).toString()
-      })
+      this.addApprovalStateToRoute(route).then(function(route){
+        this.setState({
+          route: route,
+          loading: false,
+          toAmount: _.last(route.amounts).toString()
+        })
+      }.bind(this))
     }.bind(this))
   }
 

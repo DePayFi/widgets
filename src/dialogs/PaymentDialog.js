@@ -297,7 +297,7 @@ class PaymentDialog extends React.Component {
               { this.renderApproveButton() }
             </div>
             <div className='TableCell'>
-              <button className='CallToAction disabled'>
+              <button className='CallToAction MainAction disabled'>
                 <span className='CallToActionName'>Pay</span> <span className='CallToActionPrice TextEllipsis'>{ this.props.paymentContext.total }</span>
               </button>
             </div>
@@ -310,7 +310,7 @@ class PaymentDialog extends React.Component {
   renderApproveButton() {
     if(this.state.approving) {
       return(
-        <a target='_blank' rel='noopener noreferrer' href={ 'https://etherscan.io/tx/'+this.state.approving.transactionHash } key='approving' className='CallToAction loading' title='Please wait for the approval transaction to be confirmed by the network. Click to open transaction on etherscan.'>
+        <a target='_blank' rel='noopener noreferrer' href={ 'https://etherscan.io/tx/'+this.state.approving.transactionHash } key='approving' className='CallToAction MainAction loading' title='Please wait for the approval transaction to be confirmed by the network. Click to open transaction on etherscan.'>
           Approving
           <span className='dot'>.</span>
           <span className='dot'>.</span>
@@ -335,7 +335,7 @@ class PaymentDialog extends React.Component {
       return(
         <DialogContext.Consumer>
           {dialogContext => (
-            <span className='CallToAction circular' onClick={ dialogContext.closeContainer }>
+            <span className='CallToAction MainAction circular' onClick={ dialogContext.closeContainer }>
               <CheckMarkComponent className="large"/>
             </span>
           )}
@@ -343,7 +343,7 @@ class PaymentDialog extends React.Component {
       )
     } else if(this.state.paying) {
       return(
-        <a target='_blank' rel='noopener noreferrer' href={ 'https://etherscan.io/tx/'+this.state.paying.transactionHash } key='approving' className='CallToAction loading' title='Please wait payment transaction to be confirmed by the network. Click to open transaction on etherscan.'>
+        <a target='_blank' rel='noopener noreferrer' href={ 'https://etherscan.io/tx/'+this.state.paying.transactionHash } key='approving' className='CallToAction MainAction loading' title='Please wait payment transaction to be confirmed by the network. Click to open transaction on etherscan.'>
           Paying
           <span className='dot'>.</span>
           <span className='dot'>.</span>
