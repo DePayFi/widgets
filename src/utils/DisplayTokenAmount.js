@@ -1,9 +1,11 @@
+import { ethers } from 'ethers';
+
 const DisplayTokenAmount = function(amount, decimals, symbol){
   let float;
   if(decimals === 0) {
     float = parseFloat(amount);
   } else {
-    float = DePay.ethers.utils.formatUnits(amount, decimals);
+    float = ethers.utils.formatUnits(amount, decimals);
   }
   const subZeroMatch = float.toString().match(/(?!0)\d/)
   let displayedValue = float.toString();

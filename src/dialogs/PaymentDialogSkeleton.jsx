@@ -2,11 +2,11 @@ import CloseDialogComponent from '../components/CloseDialogComponent';
 import React from 'react';
 import Skeleton from '../utils/Skeleton';
 
-class SwapDialogSkeleton extends React.Component {
+class PaymentDialogSkeleton extends React.Component {
 
   render() {
     return(
-      <div className='Dialog SwapDialog'>
+      <div className='Dialog PaymentDialog'>
         <div className='DialogHeader'>
           <CloseDialogComponent/>
         </div>
@@ -122,7 +122,7 @@ class SwapDialogSkeleton extends React.Component {
             }}
           />
           <div className='PoweredBy'>
-            <a target='_blank' rel='noopener noreferrer' href='https://depay.app' className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
+            <a target='_blank' rel='noopener noreferrer' href='https://depay.fi' className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
               by DePay
             </a>
           </div>
@@ -132,4 +132,4 @@ class SwapDialogSkeleton extends React.Component {
   }
 }
 
-export default SwapDialogSkeleton;
+export default PaymentDialogSkeleton;

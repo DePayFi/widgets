@@ -4,6 +4,7 @@ import React from 'react';
 import RoutesContext from '../contexts/RoutesContext';
 import DePayV1ProcessorBetaContract from '../contracts/DePayV1ProcessorBetaContract';
 import { ETH } from '../utils/Constants';
+import { ethers } from 'ethers';
 
 class RoutesProvider extends React.Component {
   state = {
@@ -62,10 +63,10 @@ class RoutesProvider extends React.Component {
           route.approved = true;
           return Promise.resolve(route);
         } else {
-          return new DePay.ethers.Contract(route.token.address, Erc20Abi, DePay.ethers.provider)
+          return new ethers.Contract(route.token.address, Erc20Abi, ethers.provider)
           .allowance(this.props.wallet.address(), DePayV1ProcessorBetaContract.address)
           .then(function(amount){
-            if(amount.gt(DePay.ethers.BigNumber.from(route.amounts[0]))) {
+            if(amount.gt(ethers.BigNumber.from(route.amounts[0]))) {
               route.approved = true;
             } else {
               route.approved = false;
@@ -99,7 +100,7 @@ class RoutesProvider extends React.Component {
 
   getAllTokenRoutes() {
     return new Promise(function(resolve, reject){
-      fetch(`https://depay.app/api/payment/${this.props.address}`).then(function(response){
+      fetch(`https://depay.fi/api/payment/${this.props.address}`).then(function(response){
         response.json().then(function(tokens) {
           this.filterTokensWithAnyBalance(tokens)
           .then(this.convertTokensToRoutes.bind(this))
@@ -132,7 +133,7 @@ class RoutesProvider extends React.Component {
   convertTokensToRoutes(tokens) {
     return(
       tokens.map(function(token){
-        const address = DePay.ethers.utils.getAddress(token.address);
+        const address = ethers.utils.getAddress(token.address);
         const transfer = (address === this.props.token);
         // fee for transfer or swap
         const fee = transfer ? 75000 : 155000;

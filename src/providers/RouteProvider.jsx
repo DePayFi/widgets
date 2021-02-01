@@ -4,6 +4,7 @@ import Exchanges from '../utils/Exchanges';
 import React from 'react';
 import RouteContext from '../contexts/RouteContext';
 import { ETH } from '../utils/Constants';
+import { ethers } from 'ethers';
 
 class RouteProvider extends React.Component {
   state = {
@@ -37,10 +38,10 @@ class RouteProvider extends React.Component {
         route.approved = true;
         resolve(route);
       } else {
-        new DePay.ethers.Contract(route.path[0], Erc20Abi, DePay.ethers.provider)
+        new ethers.Contract(route.path[0], Erc20Abi, ethers.provider)
         .allowance(this.props.wallet.address(), DePayV1ProcessorBetaContract.address)
         .then(function(amount){
-          if(amount.gt(DePay.ethers.BigNumber.from(route.amounts[0]))) {
+          if(amount.gt(ethers.BigNumber.from(route.amounts[0]))) {
             route.approved = true;
           } else {
             route.approved = false;

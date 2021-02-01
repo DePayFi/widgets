@@ -26,7 +26,7 @@ class WalletConnectDialog extends React.Component {
                 Connect
               </button>
               <div className='PoweredBy'>
-                <a target='_blank' rel='noopener noreferrer' href='https://depay.app' className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
+                <a target='_blank' rel='noopener noreferrer' href='https://depay.fi' className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
                   by DePay
                 </a>
               </div>

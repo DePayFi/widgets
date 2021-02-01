@@ -67,7 +67,7 @@ class PaymentDialog extends React.Component {
   }
 
   approve(dialogContext) {
-    new DePay.ethers.Contract(this.props.selected.token.address, Erc20Abi, DePay.ethers.provider)
+    new ethers.Contract(this.props.selected.token.address, Erc20Abi, ethers.provider)
       .connect(this.props.wallet.provider().getSigner(0))
       .approve(DePayV1ProcessorBetaContract.address, MAXINT)
       .catch(function(){ 
@@ -95,8 +95,8 @@ class PaymentDialog extends React.Component {
   }
 
   checkApproved(dialogContext) {
-    new DePay.ethers.Contract(this.props.selected.token.address, Erc20Abi, DePay.ethers.provider).allowance(this.props.wallet.address(), DePayV1ProcessorBetaContract.address).then(function(amount){
-      if(amount.gt(DePay.ethers.BigNumber.from(this.props.selected.amounts[0]))) {
+    new ethers.Contract(this.props.selected.token.address, Erc20Abi, ethers.provider).allowance(this.props.wallet.address(), DePayV1ProcessorBetaContract.address).then(function(amount){
+      if(amount.gt(ethers.BigNumber.from(this.props.selected.amounts[0]))) {
         this.props.selected.approved = true;
         dialogContext.setClosable(true);
         this.setState({ approving: false });
@@ -131,7 +131,7 @@ class PaymentDialog extends React.Component {
     let amountOut = this.props.selected.amounts[this.props.selected.amounts.length-1];
 
     let transactionConfiguration = {
-      gasPrice: DePay.ethers.utils.parseUnits(gasContext.selected.toString(), 'gwei')
+      gasPrice: ethers.utils.parseUnits(gasContext.selected.toString(), 'gwei')
     };
       
     if(route[0] === ETH) {
@@ -273,7 +273,7 @@ class PaymentDialog extends React.Component {
                         <span className='PoweredByLink'>&nbsp;•&nbsp;</span>
                       </span>
                     }
-                    <a target='_blank' rel='noopener noreferrer' href='https://depay.app' className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
+                    <a target='_blank' rel='noopener noreferrer' href='https://depay.fi' className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
                       by DePay
                     </a>
                   </div>

@@ -5,6 +5,7 @@ import LocalCurrency from '../utils/LocalCurrency';
 import NavigateStackContext from '../contexts/NavigateStackContext';
 import React from 'react';
 import Slider from 'react-rangeslider';
+import { ethers } from 'ethers';
 
 class ChangeNetworkFeeDialog extends React.Component {
 
@@ -14,7 +15,7 @@ class ChangeNetworkFeeDialog extends React.Component {
   }
 
   feeToLocal(gas) {
-    const feeInETH = parseFloat(DePay.ethers.utils.formatUnits(gas, 'gwei')) * this.props.selected.fee;
+    const feeInETH = parseFloat(ethers.utils.formatUnits(gas, 'gwei')) * this.props.selected.fee;
     return LocalCurrency(feeInETH * this.props.price);
   }
   
@@ -95,7 +96,7 @@ class ChangeNetworkFeeDialog extends React.Component {
                     Done
                   </button>
                   <div className='PoweredBy'>
-                    <a target='_blank' rel='noopener noreferrer' href='https://depay.app' className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
+                    <a target='_blank' rel='noopener noreferrer' href='https://depay.fi' className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
                       by DePay
                     </a>
                   </div>

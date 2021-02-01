@@ -1,6 +1,7 @@
 import React from 'react';
 import PriceContext from '../contexts/PriceContext';
 import EthUsdPriceAbi from '../abi/EthUsdPriceAbi';
+import { ethers } from 'ethers';
 
 class PriceProvider extends React.Component {
   state = {
@@ -34,10 +35,10 @@ class PriceProvider extends React.Component {
   loadPrice() {
     return new Promise(function(resolve, reject){
       // Chainlink ETH/USDT oracle contract
-      new DePay.ethers.Contract(
+      new ethers.Contract(
         '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
         EthUsdPriceAbi,
-        DePay.ethers.provider
+        ethers.provider
       ).latestAnswer().then(function(price){
         // USDT has 6 decimals
         resolve(price.toNumber()/100000000);

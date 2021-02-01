@@ -1,4 +1,4 @@
-var ethers = require('ethers');
+import {ethers} from 'ethers';
 
 var EthersProvider;
 

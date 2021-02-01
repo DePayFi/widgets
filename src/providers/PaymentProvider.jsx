@@ -2,6 +2,7 @@ import DisplayTokenAmount from '../utils/DisplayTokenAmount';
 import LocalCurrency from '../utils/LocalCurrency';
 import PaymentContext from '../contexts/PaymentContext';
 import React from 'react';
+import { ethers } from 'ethers';
 
 class PaymentProvider extends React.Component {
   state = {}
@@ -9,12 +10,12 @@ class PaymentProvider extends React.Component {
   paymentInETH() {
     if(this.props.selected.amounts.length <= 2) {
       if(this.props.selected.token.symbol === 'ETH') {
-        return DePay.ethers.utils.formatEther(this.props.selected.amounts[0]);
+        return ethers.utils.formatEther(this.props.selected.amounts[0]);
       } else {
-        return DePay.ethers.utils.formatEther(this.props.selected.amounts[1]);
+        return ethers.utils.formatEther(this.props.selected.amounts[1]);
       }
     } else {
-      return DePay.ethers.utils.formatEther(this.props.selected.amounts[1]);
+      return ethers.utils.formatEther(this.props.selected.amounts[1]);
     }
   }
 
@@ -27,7 +28,7 @@ class PaymentProvider extends React.Component {
   }
 
   feeInETH() {
-    return parseFloat(DePay.ethers.utils.formatUnits(this.props.gas, 'gwei')) * this.props.selected.fee;
+    return parseFloat(ethers.utils.formatUnits(this.props.gas, 'gwei')) * this.props.selected.fee;
   }
 
   feeLocal() {

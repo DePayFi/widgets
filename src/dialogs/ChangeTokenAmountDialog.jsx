@@ -8,6 +8,7 @@ import React from 'react';
 import Slider from 'react-rangeslider';
 import TokenIconComponent from '../components/TokenIconComponent';
 import { SLIPPAGE } from '../utils/Constants';
+import { ethers } from 'ethers';
 
 class ChangeTokenAmountDialog extends React.Component {
   state = {
@@ -42,14 +43,14 @@ class ChangeTokenAmountDialog extends React.Component {
     let amount = parseInt(event.target.value, 10);
     if(!isNaN(amount)) {
       this.setState({
-        amount: parseInt(DePay.ethers.utils.parseUnits(amount.toString(), this.props.token.decimals))
+        amount: parseInt(ethers.utils.parseUnits(amount.toString(), this.props.token.decimals))
       }) 
     }
   }
 
   render() {
-    const min = parseInt(DePay.ethers.utils.formatUnits((10**this.props.token.decimals).toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals).toString());
-    const max = parseInt(DePay.ethers.utils.formatUnits(this.state.maxAmount.toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals).toString());
+    const min = parseInt(ethers.utils.formatUnits((10**this.props.token.decimals).toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals).toString());
+    const max = parseInt(ethers.utils.formatUnits(this.state.maxAmount.toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals).toString());
     return (
       <NavigateStackContext.Consumer>
         {navigate => (
@@ -100,7 +101,7 @@ class ChangeTokenAmountDialog extends React.Component {
                 Done
               </button>
               <div className='PoweredBy'>
-                <a target='_blank' rel='noopener noreferrer' href='https://depay.app' className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
+                <a target='_blank' rel='noopener noreferrer' href='https://depay.fi' className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
                   by DePay
                 </a>
               </div>

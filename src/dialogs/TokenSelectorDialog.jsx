@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import TokenIconComponent from '../components/TokenIconComponent';
 import TokenList from '../utils/TokenList';
+import { ethers } from 'ethers';
 
 class TokenSelectorDialog extends React.Component {
   
@@ -32,8 +33,8 @@ class TokenSelectorDialog extends React.Component {
   changeSearch(event) {
     var value = event.target.value;
     this.setState({search: value});
-    if(DePay.ethers.utils.isAddress(value)) {
-      var address = DePay.ethers.utils.getAddress(value);
+    if(ethers.utils.isAddress(value)) {
+      var address = ethers.utils.getAddress(value);
       this.setState({search: address});
       if(!this.props.disableImportTokens) {
         ImportToken(address).then(function(token){

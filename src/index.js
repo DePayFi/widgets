@@ -7,12 +7,10 @@ import { ethers } from 'ethers';
 
 ethers.provider = EthersProvider;
 
-window.DePay = {
+export {
   ethers,
   Payment,
   Sale,
   Swap,
   TokenSelector
-};
-
-export default window.DePay;
+}

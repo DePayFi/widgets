@@ -2,6 +2,7 @@ import Exchanges from '../utils/Exchanges';
 import React from 'react';
 import WalletTokensContext from '../contexts/WalletTokensContext';
 import { ETH } from '../utils/Constants';
+import { ethers } from 'ethers';
 
 class WalletTokensProvider extends React.Component {
   state = {
@@ -54,13 +55,13 @@ class WalletTokensProvider extends React.Component {
 
   filterForBalance(tokens) {
     return Promise.resolve(tokens.filter(function(token){
-      return DePay.ethers.BigNumber.from(token.balance).gt(0)
+      return ethers.BigNumber.from(token.balance).gt(0)
     }))
   }
 
   loadWalletTokens() {
     return new Promise(function(resolve, reject){
-      fetch(`https://depay.app/api/payment/${this.props.address}`).then(function(response){
+      fetch(`https://depay.fi/api/payment/${this.props.address}`).then(function(response){
         response.json().then(resolve)
       }.bind(this))
     }.bind(this));
@@ -69,7 +70,7 @@ class WalletTokensProvider extends React.Component {
   addTokenImages(tokens) {
     return Promise.resolve(tokens.map(function(token){
       return Object.assign(token, {
-        logoURI: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/"+DePay.ethers.utils.getAddress(token.address)+"/logo.png"
+        logoURI: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/"+ethers.utils.getAddress(token.address)+"/logo.png"
       })
     }))
   }

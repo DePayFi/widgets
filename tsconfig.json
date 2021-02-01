@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "module": "es6",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "outDir": "dist",
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es6",
+    "types": ["node"],
+    "noImplicitAny": false
+  },
+  "include": ["src"]
+}

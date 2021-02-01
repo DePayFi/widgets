@@ -1,3 +1,5 @@
+import { ethers } from 'ethers';
+
 class MetaMaskConnector {
   static ethereum = window.ethereum;
 
@@ -17,7 +19,7 @@ class MetaMaskConnector {
 
   static balance() {
     return new Promise(function(resolve, reject) {
-      DePay.ethers.provider.getBalance(MetaMaskConnector.address()).then(function(balance){
+      ethers.provider.getBalance(MetaMaskConnector.address()).then(function(balance){
         resolve(balance);
       });
     });
@@ -44,7 +46,7 @@ class MetaMaskConnector {
   }
 
   static provider() {
-    return DePay.ethers.provider;
+    return ethers.provider;
   }
 }
 

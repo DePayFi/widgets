@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import ShadowContainer from './utils/ShadowContainer';
 import WalletProvider from './providers/WalletProvider';
 import { ETH } from './utils/Constants';
+import { ethers } from 'ethers';
 
 function checkArguments(args){
   if(args.length == 0 || args.length > 1) {
@@ -33,11 +34,11 @@ function checkAndPrepOptions(input) {
 
   // token
   if(_.isEmpty(options.token))  { throw '"token" needs to be set.' }
-  options.token = (options.token === ETH) ? ETH : DePay.ethers.utils.getAddress(DePay.ethers.utils.getAddress(options.token));
+  options.token = (options.token === ETH) ? ETH : ethers.utils.getAddress(ethers.utils.getAddress(options.token));
 
   // receiver
   if(_.isEmpty(options.receiver))     { throw '"receiver" needs to be set.' }
-  options.receiver = DePay.ethers.utils.getAddress(DePay.ethers.utils.getAddress(options.receiver));
+  options.receiver = ethers.utils.getAddress(ethers.utils.getAddress(options.receiver));
 
   // element
   if(!_.isEmpty(options.element)) {
@@ -46,7 +47,7 @@ function checkAndPrepOptions(input) {
 
   // route
   if(!_.isEmpty(options.route)) {
-    options.route = DePay.ethers.utils.getAddress(DePay.ethers.utils.getAddress(options.route));
+    options.route = ethers.utils.getAddress(ethers.utils.getAddress(options.route));
   }
 
   // callback
