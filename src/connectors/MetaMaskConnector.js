@@ -1,4 +1,5 @@
 import { ethers } from 'ethers';
+import EthersProvider from '../utils/EthersProvider';
 
 class MetaMaskConnector {
   static ethereum = window.ethereum;
@@ -19,7 +20,7 @@ class MetaMaskConnector {
 
   static balance() {
     return new Promise(function(resolve, reject) {
-      ethers.provider.getBalance(MetaMaskConnector.address()).then(function(balance){
+      EthersProvider.getBalance(MetaMaskConnector.address()).then(function(balance){
         resolve(balance);
       });
     });
@@ -46,7 +47,7 @@ class MetaMaskConnector {
   }
 
   static provider() {
-    return ethers.provider;
+    return EthersProvider;
   }
 }
 

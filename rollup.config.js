@@ -1,10 +1,13 @@
 import commonjs from '@rollup/plugin-commonjs';
+import del from 'rollup-plugin-delete'
 import pkg from './package.json';
+import replace from '@rollup/plugin-replace';
 import resolve from '@rollup/plugin-node-resolve';
 import sucrase from '@rollup/plugin-sucrase';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { terser } from "rollup-plugin-terser";
 
+// This creates production builds
 export default {
   input: 'src/index.js',
   output: [
@@ -27,6 +30,7 @@ export default {
     // ...Object.keys(pkg.peerDependencies || {}),
   ],
   plugins: [
+    del({ targets: 'dist/*' }),
     sucrase({
       exclude: ['node_modules/**'],
       transforms: ['typescript', 'jsx']
@@ -37,6 +41,9 @@ export default {
     nodeResolve(),
     commonjs({
       include: 'node_modules/**'
+    }),
+    replace({
+      'process.env.NODE_ENV': JSON.stringify( 'production' )
     }),
     terser({
       output: {

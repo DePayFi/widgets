@@ -1,6 +1,7 @@
-import React from 'react';
-import PriceContext from '../contexts/PriceContext';
+import EthersProvider from '../utils/EthersProvider';
 import EthUsdPriceAbi from '../abi/EthUsdPriceAbi';
+import PriceContext from '../contexts/PriceContext';
+import React from 'react';
 import { ethers } from 'ethers';
 
 class PriceProvider extends React.Component {
@@ -38,7 +39,7 @@ class PriceProvider extends React.Component {
       new ethers.Contract(
         '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
         EthUsdPriceAbi,
-        ethers.provider
+        EthersProvider
       ).latestAnswer().then(function(price){
         // USDT has 6 decimals
         resolve(price.toNumber()/100000000);

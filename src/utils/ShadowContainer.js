@@ -2,7 +2,7 @@ import CSS from '../CSS';
 import retargetEvents from 'react-shadow-dom-retarget-events';
 import RollbarSnippet from '../utils/RollbarSnippet';
 
-export default function ShadowContainer() {
+export default function ShadowContainer(inputStyle) {
   if (!document.querySelector('#DePayContainerStyle')) {
     const style = document.createElement('style');
     style.type = 'text/css';
@@ -46,7 +46,7 @@ export default function ShadowContainer() {
 
   const style = document.createElement('style');
   style.type = 'text/css';
-  style.appendChild(document.createTextNode(CSS));
+  style.appendChild(document.createTextNode(CSS(inputStyle)));
   shadow.appendChild(style);
 
   const script = document.createElement('script');

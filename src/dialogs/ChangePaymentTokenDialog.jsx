@@ -18,7 +18,7 @@ class ChangePaymentTokenDialog extends React.Component {
 
     if(index < (routes.length-1) && route.fee < routes[index+1].fee) {
       labels.push(
-        <span key='networkfee' className='Label grey small' title='Significantly lower network fees compared to the other payment options.'>
+        <span key='networkfee' className='Label highlight small' title='Significantly lower network fees compared to the other payment options.'>
           Lowest Network Fee
         </span>
       )
@@ -26,7 +26,7 @@ class ChangePaymentTokenDialog extends React.Component {
 
     if(route.approved === false) {
       labels.push(
-        <span key='approval' className='Label grey small' title='Requires a one-time additional approval transaction to allow swapping this token to perform payments.'>
+        <span key='approval' className='Label highlight small' title='Requires a one-time additional approval transaction to allow swapping this token to perform payments.'>
           Requires Approval
         </span>
       )

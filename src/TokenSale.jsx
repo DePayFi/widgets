@@ -20,10 +20,10 @@ function checkAndPrepOptions(input) {
   return options;
 }
 
-export default function Sale() {
+export default function TokenSale() {
   checkArguments(arguments);
   var options = checkAndPrepOptions(arguments[0]);
-  const [shadowContainer, closeContainer, setClosable] = ShadowContainer();
+  const [shadowContainer, closeContainer, setClosable] = ShadowContainer(options.style);
 
   let unmountAndClose = function(){
     let closed = closeContainer();

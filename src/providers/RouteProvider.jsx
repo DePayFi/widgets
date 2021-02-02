@@ -1,5 +1,6 @@
 import DePayV1ProcessorBetaContract from '../contracts/DePayV1ProcessorBetaContract';
 import Erc20Abi from '../abi/Erc20Abi';
+import EthersProvider from '../utils/EthersProvider';
 import Exchanges from '../utils/Exchanges';
 import React from 'react';
 import RouteContext from '../contexts/RouteContext';
@@ -38,7 +39,7 @@ class RouteProvider extends React.Component {
         route.approved = true;
         resolve(route);
       } else {
-        new ethers.Contract(route.path[0], Erc20Abi, ethers.provider)
+        new ethers.Contract(route.path[0], Erc20Abi, EthersProvider)
         .allowance(this.props.wallet.address(), DePayV1ProcessorBetaContract.address)
         .then(function(amount){
           if(amount.gt(ethers.BigNumber.from(route.amounts[0]))) {

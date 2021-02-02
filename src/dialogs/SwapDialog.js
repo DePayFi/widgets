@@ -4,6 +4,7 @@ import CloseDialogComponent from '../components/CloseDialogComponent';
 import DePayV1ProcessorBetaContract from '../contracts/DePayV1ProcessorBetaContract';
 import DialogContext from '../contexts/DialogContext';
 import Erc20Abi from '../abi/Erc20Abi';
+import EthersProvider from '../utils/EthersProvider';
 import ExchangeComponent from '../components/ExchangeComponent';
 import Exchanges from '../utils/Exchanges';
 import NavigateStackContext from '../contexts/NavigateStackContext';
@@ -47,7 +48,7 @@ class SwapDialog extends React.Component {
   }
 
   approve(dialogContext) {
-    new ethers.Contract(this.props.route.token.address, Erc20Abi, ethers.provider)
+    new ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider)
       .connect(this.props.wallet.provider().getSigner(0))
       .approve(DePayV1ProcessorBetaContract.address, MAXINT)
       .catch(function(){ 
@@ -75,7 +76,7 @@ class SwapDialog extends React.Component {
   }
 
   checkApproved(dialogContext) {
-    new ethers.Contract(this.props.route.token.address, Erc20Abi, ethers.provider).allowance(this.props.wallet.address(), DePayV1ProcessorBetaContract.address).then(function(amount){
+    new ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider).allowance(this.props.wallet.address(), DePayV1ProcessorBetaContract.address).then(function(amount){
       if(amount.gt(ethers.BigNumber.from(this.props.route.amounts[0]))) {
         this.props.route.approved = true;
         dialogContext.setClosable(true);

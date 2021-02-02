@@ -1,8 +1,8 @@
-const PaymentDialogCSS = `
+export default function(){
+  return `
 
-  .PaymentDialog {
-    top: -2rem;
-  }
-`;
-
-export default PaymentDialogCSS;
+    .PaymentDialog {
+      top: -2rem;
+    }
+  `;
+}

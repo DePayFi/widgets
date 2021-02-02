@@ -1,10 +1,11 @@
 import Erc20Abi from '../abi/Erc20Abi';
+import EthersProvider from '../utils/EthersProvider';
 import { ethers } from 'ethers';
 
 export default function ImportToken(address){
   address = ethers.utils.getAddress(address);
   return new Promise(function(resolve, reject) {
-    const contract = new ethers.Contract(address, Erc20Abi, ethers.provider);
+    const contract = new ethers.Contract(address, Erc20Abi, EthersProvider);
     Promise.all([contract.name(), contract.symbol(), contract.decimals()]).then(function(values){
       resolve({
         name: values[0],

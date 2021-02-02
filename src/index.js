@@ -1,16 +1,13 @@
-import EthersProvider from './utils/EthersProvider';
 import Payment from './Payment';
-import Sale from './Sale';
+import TokenSale from './TokenSale';
 import Swap from './Swap';
 import TokenSelector from './TokenSelector';
 import { ethers } from 'ethers';
 
-ethers.provider = EthersProvider;
-
 export {
   ethers,
   Payment,
-  Sale,
+  TokenSale,
   Swap,
   TokenSelector
 }
