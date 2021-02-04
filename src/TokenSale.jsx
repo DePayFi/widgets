@@ -40,16 +40,14 @@ export default function TokenSale() {
           setClosable={ setClosable }
         >
           <WalletProvider>
-            <WalletContext.Consumer>
-              {walletContext => (
-                <TokenSaleStack
-                  action={options.action}
-                  amount={options.amount}
-                  token={options.token}
-                  receiver={walletContext.wallet.address()}
-                />
-              )}
-            </WalletContext.Consumer>
+            <TokenSaleStack
+              action={options.action}
+              amount={options.amount}
+              token={options.token}
+              addresses={options.addresses}
+              plugins={options.plugins}
+              data={options.data}
+            />
           </WalletProvider>
         </DialogProvider>
       </CallbackContext.Provider>

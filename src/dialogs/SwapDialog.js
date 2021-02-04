@@ -1,7 +1,7 @@
 import CallbackContext from '../contexts/CallbackContext';
 import CheckMarkComponent from '../components/CheckMarkComponent';
 import CloseDialogComponent from '../components/CloseDialogComponent';
-import DePayV1ProcessorBetaContract from '../contracts/DePayV1ProcessorBetaContract';
+import DePayPaymentsV1Contract from '../contracts/DePayPaymentsV1Contract';
 import DialogContext from '../contexts/DialogContext';
 import Erc20Abi from '../abi/Erc20Abi';
 import EthersProvider from '../utils/EthersProvider';
@@ -50,7 +50,7 @@ class SwapDialog extends React.Component {
   approve(dialogContext) {
     new ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider)
       .connect(this.props.wallet.provider().getSigner(0))
-      .approve(DePayV1ProcessorBetaContract.address, MAXINT)
+      .approve(DePayPaymentsV1Contract.address, MAXINT)
       .catch(function(){ 
         clearInterval(this.approvalCheckInterval);
         this.setState({ approving: false });
@@ -76,7 +76,7 @@ class SwapDialog extends React.Component {
   }
 
   checkApproved(dialogContext) {
-    new ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider).allowance(this.props.wallet.address(), DePayV1ProcessorBetaContract.address).then(function(amount){
+    new ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider).allowance(this.props.wallet.address(), DePayPaymentsV1Contract.address).then(function(amount){
       if(amount.gt(ethers.BigNumber.from(this.props.route.amounts[0]))) {
         this.props.route.approved = true;
         dialogContext.setClosable(true);
@@ -84,11 +84,6 @@ class SwapDialog extends React.Component {
         clearInterval(this.approvalCheckInterval);
       }
     }.bind(this));
-  }
-
-  generatePaymentUUID() {
-    let now = +(new Date());
-    return(ethers.BigNumber.from(this.props.wallet.address()).toString()+''+(now).toString());
   }
 
   pay(dialogContext, callbackContext) {
@@ -116,18 +111,14 @@ class SwapDialog extends React.Component {
       transactionConfiguration.value = amountIn;
     }
 
-    let routerId = 0; // fix on uniswap for now (until mooni bus are fixed)
+    let deadline = Math.round(new Date().getTime() / 1000) + (24 * 3600); // 24 hours from now
 
-    let paymentId = this.generatePaymentUUID();
-
-    DePayV1ProcessorBetaContract.connect(this.props.wallet.provider().getSigner(0)).pay(
+    DePayPaymentsV1Contract.connect(this.props.wallet.provider().getSigner(0)).pay(
       route,
-      amountIn,
-      amountOut,
-      this.props.receiver,
-      paymentId,
-      routerId,
-      transactionConfiguration
+      [amountIn, amountOut, deadline],
+      this.props.addresses,
+      this.props.plugins,
+      this.props.data
     )
     .catch(function(){
       Rollbar.error("pay catch", arguments);

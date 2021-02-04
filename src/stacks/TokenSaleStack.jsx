@@ -12,7 +12,7 @@ import PriceProvider from '../providers/PriceProvider';
 import React from 'react';
 import RoutesContext from '../contexts/RoutesContext';
 import RoutesProvider from '../providers/RoutesProvider';
-import SaleDialog from '../dialogs/SaleDialog';
+import TokenSaleDialog from '../dialogs/TokenSaleDialog';
 import Stack from '../utils/Stack';
 import TokenContext from '../contexts/TokenContext';
 import TokenProvider from '../providers/TokenProvider';
@@ -20,15 +20,13 @@ import WalletContext from '../contexts/WalletContext';
 
 class TokenSaleStack extends React.Component {
   state = {
-    token: null,
-    receiver: null
+    token: null
   };
 
   constructor(props) {
     super(props);
     Object.assign(this.state, {
       token: props.token,
-      receiver: props.receiver,
       action: props.action
     })
   }
@@ -58,53 +56,58 @@ class TokenSaleStack extends React.Component {
                                     token={ tokenContext.token.address }
                                     amount={ amountContext.amount }
                                     address={ walletContext.address }
+                                    addresses={ this.props.addresses }
+                                    plugins={ this.props.plugins }
+                                    data={ this.props.data }
                                     wallet={ walletContext.wallet }
                                     addMaxAmounts={ true }
                                   >
                                     <RoutesContext.Consumer>
                                       {routesContext => (
                                         <PaymentProvider
-                                          selected={ routesContext.selected }
+                                          route={ routesContext.selected }
                                           gas={ gasContext.selected }
                                           price={ priceContext.price }
                                           amount={ amountContext.amount }
                                         >
                                           <PaymentContext.Consumer>
                                             {paymentContext => (
-                                                  <Stack
-                                                    dialogs={{
-                                                      Sale: <SaleDialog
-                                                        initializing={ priceContext.initializing || routesContext.initializing || gasContext.initializing || tokenContext.initializing }
-                                                        selected={ routesContext.selected }
-                                                        token={ tokenContext.token.address }
-                                                        paymentContext={ paymentContext }
-                                                        receiver={ this.state.receiver }
-                                                        wallet={ walletContext.wallet }
-                                                        tokenContext={ tokenContext }
-                                                        amount={ amountContext.amount }
-                                                        action={ this.state.action }
-                                                      />,
-                                                      ChangeTokenAmount: <ChangeTokenAmountDialog
-                                                        token={ tokenContext.token }
-                                                        amount={ amountContext.amount }
-                                                        amountOptions={ this.props.amount }
-                                                        change={ amountContext.change }
-                                                        routes={ routesContext.routes }
-                                                      />,
-                                                      ChangePaymentToken: <ChangePaymentTokenDialog
-                                                        routes={ routesContext.routes }
-                                                        change={ routesContext.change }
-                                                        paymentContext={ paymentContext }
-                                                      />,
-                                                      ChangeNetworkFee: <ChangeNetworkFeeDialog
-                                                        selected={ routesContext.selected }
-                                                        price={ priceContext.price }
-                                                        gasContext={ gasContext }
-                                                        paymentContext={ paymentContext }
-                                                      />
-                                                    }}
-                                                    start={'Sale'}
+                                              <Stack
+                                                dialogs={{
+                                                  TokenSale: <TokenSaleDialog
+                                                    initializing={ priceContext.initializing || routesContext.initializing || gasContext.initializing || tokenContext.initializing }
+                                                    selected={ routesContext.selected }
+                                                    token={ tokenContext.token.address }
+                                                    paymentContext={ paymentContext }
+                                                    wallet={ walletContext.wallet }
+                                                    tokenContext={ tokenContext }
+                                                    amount={ amountContext.amount }
+                                                    action={ this.state.action }
+                                                    addresses={ this.props.addresses }
+                                                    plugins={ this.props.plugins }
+                                                    data={ this.props.data }
+                                                  />,
+                                                  ChangeTokenAmount: <ChangeTokenAmountDialog
+                                                    token={ tokenContext.token }
+                                                    amount={ amountContext.amount }
+                                                    amountOptions={ this.props.amount }
+                                                    change={ amountContext.change }
+                                                    routes={ routesContext.routes }
+                                                  />,
+                                                  ChangePaymentToken: <ChangePaymentTokenDialog
+                                                    routes={ routesContext.routes }
+                                                    change={ routesContext.change }
+                                                    paymentContext={ paymentContext }
+                                                  />,
+                                                  ChangeNetworkFee: <ChangeNetworkFeeDialog
+                                                    selected={ routesContext.selected }
+                                                    price={ priceContext.price }
+                                                    gasContext={ gasContext }
+                                                    paymentContext={ paymentContext }
                                                   />
+                                                }}
+                                                start={'TokenSale'}
+                                              />
                                             )}
                                           </PaymentContext.Consumer>
                                         </PaymentProvider>

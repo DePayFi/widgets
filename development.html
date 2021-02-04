@@ -41,6 +41,15 @@
             address: '0x32C868F6318D6334B2250F323D914Bc2239E4EeE',
             image: 'https://s2.coinmarketcap.com/static/img/coins/64x64/8019.png'
           },
+          addresses: [
+            'user', // will be replaced by the user wallet address (at runtime)
+            '0x357ADa6E0da1BB40668BDDd3E3aF64F472Cbd9ff' // the staking contract (payment receiver)
+          ],
+          plugins: [
+            'swap', // will be replaced by best route dex (at runtime)
+            '0xAAFbF4dE32b55809A685FF4c1D3aC48345c79d99' // DePayPaymentsV1ApproveAndCallContractAddressAmount01
+          ],
+          data: ['depositFor(address,uint256)'], // call signature
           amount: {
             min: 0.1,
             step: 0.1

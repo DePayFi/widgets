@@ -4,6 +4,14 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+var require$$0 = require('buffer');
+var require$$0$1 = require('util');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var require$$0__default = /*#__PURE__*/_interopDefaultLegacy(require$$0);
+var require$$0__default$1 = /*#__PURE__*/_interopDefaultLegacy(require$$0$1);
+
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 function getAugmentedNamespace(n) {
@@ -19045,29 +19053,7 @@ function _interopRequireDefault$1(obj) { return obj && obj.__esModule ? obj : { 
 
 var _default$1 = _Rangeslider2.default;
 
-var commonjsGlobal$1 = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-function unwrapExports (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-}
-
-function createCommonjsModule$1(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
-}
-
-function getCjsExportFromNamespace (n) {
-	return n && n['default'] || n;
-}
-
-var _nodeResolve_empty = {};
-
-var _nodeResolve_empty$1 = /*#__PURE__*/Object.freeze({
-	'default': _nodeResolve_empty
-});
-
-var require$$0 = getCjsExportFromNamespace(_nodeResolve_empty$1);
-
-var bn = createCommonjsModule$1(function (module) {
+var bn = createCommonjsModule(function (module) {
 (function (module, exports) {
 
   // Utils
@@ -19119,7 +19105,7 @@ var bn = createCommonjsModule$1(function (module) {
 
   var Buffer;
   try {
-    Buffer = require$$0.Buffer;
+    Buffer = require$$0__default['default'].Buffer;
   } catch (e) {
   }
 
@@ -22497,11 +22483,11 @@ var bn = createCommonjsModule$1(function (module) {
     var res = this.imod(a._invmp(this.m).mul(this.r2));
     return res._forceRed(this);
   };
-})( module, commonjsGlobal$1);
+})( module, commonjsGlobal);
 });
-var bn_1 = bn.BN;
 
-const version = "logger/5.0.5";
+const version = "logger/5.0.9";
+
 let _permanentCensorErrors = false;
 let _censorErrors = false;
 const LogLevels = { debug: 1, "default": 2, info: 2, warning: 3, error: 4, off: 5 };
@@ -22786,17 +22772,15 @@ class Logger {
         }
         _logLevel = level;
     }
+    static from(version) {
+        return new Logger(version);
+    }
 }
 Logger.errors = ErrorCode;
 Logger.levels = LogLevel;
 
-var lib_esm = /*#__PURE__*/Object.freeze({
-	get LogLevel () { return LogLevel; },
-	get ErrorCode () { return ErrorCode; },
-	Logger: Logger
-});
+const version$1 = "bytes/5.0.10";
 
-const version$1 = "bytes/5.0.4";
 const logger = new Logger(version$1);
 ///////////////////////////////
 function isHexable(value) {
@@ -22830,7 +22814,7 @@ function isBytes(value) {
     }
     for (let i = 0; i < value.length; i++) {
         const v = value[i];
-        if (v < 0 || v >= 256 || (v % 1)) {
+        if (typeof (v) !== "number" || v < 0 || v >= 256 || (v % 1)) {
             return false;
         }
     }
@@ -23174,26 +23158,9 @@ function joinSignature(signature) {
     ]));
 }
 
-var lib_esm$1 = /*#__PURE__*/Object.freeze({
-	isBytesLike: isBytesLike,
-	isBytes: isBytes,
-	arrayify: arrayify,
-	concat: concat,
-	stripZeros: stripZeros,
-	zeroPad: zeroPad,
-	isHexString: isHexString,
-	hexlify: hexlify,
-	hexDataLength: hexDataLength,
-	hexDataSlice: hexDataSlice,
-	hexConcat: hexConcat,
-	hexValue: hexValue,
-	hexStripZeros: hexStripZeros,
-	hexZeroPad: hexZeroPad,
-	splitSignature: splitSignature,
-	joinSignature: joinSignature
-});
+const version$2 = "bignumber/5.0.14";
 
-const version$2 = "bignumber/5.0.7";
+var BN = bn.BN;
 const logger$1 = new Logger(version$2);
 const _constructorGuard = {};
 const MAX_SAFE = 0x1fffffffffffff;
@@ -23205,6 +23172,8 @@ function isBigNumberish(value) {
         (typeof (value) === "bigint") ||
         isBytes(value));
 }
+// Only warn about passing 10 into radix once
+let _warnedToStringRadix = false;
 class BigNumber {
     constructor(constructorGuard, hex) {
         logger$1.checkNew(new.target, BigNumber);
@@ -23329,9 +23298,20 @@ class BigNumber {
         return null;
     }
     toString() {
-        // Lots of people expect this, which we do not support, so check
-        if (arguments.length !== 0) {
-            logger$1.throwError("bigNumber.toString does not accept parameters", Logger.errors.UNEXPECTED_ARGUMENT, {});
+        // Lots of people expect this, which we do not support, so check (See: #889)
+        if (arguments.length > 0) {
+            if (arguments[0] === 10) {
+                if (!_warnedToStringRadix) {
+                    _warnedToStringRadix = true;
+                    logger$1.warn("BigNumber.toString does not accept any parameters; base-10 is assumed");
+                }
+            }
+            else if (arguments[0] === 16) {
+                logger$1.throwError("BigNumber.toString does not accept any parameters; use bigNumber.toHexString()", Logger.errors.UNEXPECTED_ARGUMENT, {});
+            }
+            else {
+                logger$1.throwError("BigNumber.toString does not accept parameters", Logger.errors.UNEXPECTED_ARGUMENT, {});
+            }
         }
         return toBN(this).toString(10);
     }
@@ -23350,7 +23330,7 @@ class BigNumber {
                 return new BigNumber(_constructorGuard, toHex(value));
             }
             if (value.match(/^-?[0-9]+$/)) {
-                return new BigNumber(_constructorGuard, toHex(new bn_1(value)));
+                return new BigNumber(_constructorGuard, toHex(new BN(value)));
             }
             return logger$1.throwArgumentError("invalid BigNumber string", "value", value);
         }
@@ -23445,9 +23425,9 @@ function toBigNumber(value) {
 function toBN(value) {
     const hex = BigNumber.from(value).toHexString();
     if (hex[0] === "-") {
-        return (new bn_1("-" + hex.substring(3), 16));
+        return (new BN("-" + hex.substring(3), 16));
     }
-    return new bn_1(hex.substring(2), 16);
+    return new BN(hex.substring(2), 16);
 }
 function throwFault(fault, operation, value) {
     const params = { fault: fault, operation: operation };
@@ -23456,6 +23436,15 @@ function throwFault(fault, operation, value) {
     }
     return logger$1.throwError(fault, Logger.errors.NUMERIC_FAULT, params);
 }
+// value should have no prefix
+function _base36To16(value) {
+    return (new BN(value, 36)).toString(16);
+}
+// value should have no prefix
+function _base16To36(value) {
+    return (new BN(value, 16)).toString(36);
+}
+
 const logger$2 = new Logger(version$2);
 const _constructorGuard$1 = {};
 const Zero = BigNumber.from(0);
@@ -23788,8 +23777,9 @@ class FixedNumber {
 const ONE = FixedNumber.from(1);
 const BUMP = FixedNumber.from("0.5");
 
-const version$3 = "properties/5.0.3";
-var __awaiter = (window && window.__awaiter) || function (thisArg, _arguments, P, generator) {
+const version$3 = "properties/5.0.8";
+
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -23903,7 +23893,8 @@ class Description {
     }
 }
 
-const version$4 = "abi/5.0.5";
+const version$4 = "abi/5.0.12";
+
 const logger$4 = new Logger(version$4);
 const _constructorGuard$2 = {};
 let ModifiersBytes = { calldata: true, memory: true, storage: true };
@@ -24468,7 +24459,7 @@ class ConstructorFragment extends Fragment$1 {
             return JSON.stringify({
                 type: "constructor",
                 stateMutability: ((this.stateMutability !== "nonpayable") ? this.stateMutability : undefined),
-                payble: this.payable,
+                payable: this.payable,
                 gas: (this.gas ? this.gas.toNumber() : undefined),
                 inputs: this.inputs.map((input) => JSON.parse(input.format(format)))
             });
@@ -24540,10 +24531,10 @@ class FunctionFragment extends ConstructorFragment {
                 name: this.name,
                 constant: this.constant,
                 stateMutability: ((this.stateMutability !== "nonpayable") ? this.stateMutability : undefined),
-                payble: this.payable,
+                payable: this.payable,
                 gas: (this.gas ? this.gas.toNumber() : undefined),
                 inputs: this.inputs.map((input) => JSON.parse(input.format(format))),
-                ouputs: this.outputs.map((output) => JSON.parse(output.format(format))),
+                outputs: this.outputs.map((output) => JSON.parse(output.format(format))),
             });
         }
         let result = "";
@@ -24681,6 +24672,7 @@ function splitNesting(value) {
     }
     return result;
 }
+
 const logger$5 = new Logger(version$4);
 function checkResultErrors(result) {
     // Find the first error (if any)
@@ -24718,20 +24710,28 @@ class Coder {
 class Writer {
     constructor(wordSize) {
         defineReadOnly(this, "wordSize", wordSize || 32);
-        this._data = arrayify([]);
+        this._data = [];
+        this._dataLength = 0;
         this._padding = new Uint8Array(wordSize);
     }
-    get data() { return hexlify(this._data); }
-    get length() { return this._data.length; }
+    get data() {
+        return hexConcat(this._data);
+    }
+    get length() { return this._dataLength; }
     _writeData(data) {
-        this._data = concat([this._data, data]);
+        this._data.push(data);
+        this._dataLength += data.length;
         return data.length;
+    }
+    appendWriter(writer) {
+        return this._writeData(concat(writer._data));
     }
     // Arrayish items; padded on the right to wordSize
     writeBytes(value) {
         let bytes = arrayify(value);
-        if (bytes.length % this.wordSize) {
-            bytes = concat([bytes, this._padding.slice(bytes.length % this.wordSize)]);
+        const paddingOffset = bytes.length % this.wordSize;
+        if (paddingOffset) {
+            bytes = concat([bytes, this._padding.slice(paddingOffset)]);
         }
         return this._writeData(bytes);
     }
@@ -24753,10 +24753,11 @@ class Writer {
         return this._writeData(this._getValue(value));
     }
     writeUpdatableValue() {
-        let offset = this.length;
-        this.writeValue(0);
+        const offset = this._data.length;
+        this._data.push(this._padding);
+        this._dataLength += this.wordSize;
         return (value) => {
-            this._data.set(this._getValue(value), offset);
+            this._data[offset] = this._getValue(value);
         };
     }
 }
@@ -24813,7 +24814,6 @@ class Reader {
     }
 }
 
-var sha3 = createCommonjsModule$1(function (module) {
 /**
  * [js-sha3]{@link https://github.com/emn178/js-sha3}
  *
@@ -24822,13 +24822,15 @@ var sha3 = createCommonjsModule$1(function (module) {
  * @copyright Chen, Yi-Cyuan 2015-2016
  * @license MIT
  */
+
+var sha3 = createCommonjsModule(function (module) {
 /*jslint bitwise: true */
 (function () {
 
   var root = typeof window === 'object' ? window : {};
   var NODE_JS = !root.JS_SHA3_NO_NODE_JS && typeof process === 'object' && process.versions && process.versions.node;
   if (NODE_JS) {
-    root = commonjsGlobal$1;
+    root = commonjsGlobal;
   }
   var COMMON_JS = !root.JS_SHA3_NO_COMMON_JS && 'object' === 'object' && module.exports;
   var HEX_CHARS = '0123456789abcdef'.split('');
@@ -25289,11 +25291,13 @@ var sha3 = createCommonjsModule$1(function (module) {
   }
 })();
 });
+
 function keccak256(data) {
     return '0x' + sha3.keccak_256(arrayify(data));
 }
 
-const version$5 = "rlp/5.0.3";
+const version$5 = "rlp/5.0.8";
+
 const logger$6 = new Logger(version$5);
 function arrayifyInteger(value) {
     const result = [];
@@ -25410,11 +25414,13 @@ function decode(data) {
 }
 
 var index$1 = /*#__PURE__*/Object.freeze({
+	__proto__: null,
 	encode: encode,
 	decode: decode
 });
 
-const version$6 = "address/5.0.4";
+const version$6 = "address/5.0.10";
+
 const logger$7 = new Logger(version$6);
 function getChecksumAddress(address) {
     if (!isHexString(address, 20)) {
@@ -25493,7 +25499,7 @@ function getAddress(address) {
         if (address.substring(2, 4) !== ibanChecksum(address)) {
             logger$7.throwArgumentError("bad icap checksum", "address", address);
         }
-        result = (new bn_1(address.substring(4), 36)).toString(16);
+        result = _base36To16(address.substring(4));
         while (result.length < 40) {
             result = "0" + result;
         }
@@ -25513,7 +25519,7 @@ function isAddress(address) {
     return false;
 }
 function getIcapAddress(address) {
-    let base36 = (new bn_1(getAddress(address).substring(2), 16)).toString(36).toUpperCase();
+    let base36 = _base16To36(getAddress(address).substring(2)).toUpperCase();
     while (base36.length < 30) {
         base36 = "0" + base36;
     }
@@ -25540,9 +25546,13 @@ function getCreate2Address(from, salt, initCodeHash) {
     }
     return getAddress(hexDataSlice(keccak256(concat(["0xff", getAddress(from), salt, initCodeHash])), 12));
 }
+
 class AddressCoder extends Coder {
     constructor(localName) {
         super("address", "address", localName, false);
+    }
+    defaultValue() {
+        return "0x0000000000000000000000000000000000000000";
     }
     encode(writer, value) {
         try {
@@ -25557,11 +25567,15 @@ class AddressCoder extends Coder {
         return getAddress(hexZeroPad(reader.readValue().toHexString(), 20));
     }
 }
+
 // Clones the functionality of an existing Coder, but without a localName
 class AnonymousCoder extends Coder {
     constructor(coder) {
         super(coder.name, coder.type, undefined, coder.dynamic);
         this.coder = coder;
+    }
+    defaultValue() {
+        return this.coder.defaultValue();
     }
     encode(writer, value) {
         return this.coder.encode(writer, value);
@@ -25570,6 +25584,7 @@ class AnonymousCoder extends Coder {
         return this.coder.decode(reader);
     }
 }
+
 const logger$8 = new Logger(version$4);
 function pack(writer, coders, values) {
     let arrayValues = null;
@@ -25626,8 +25641,8 @@ function pack(writer, coders, values) {
     });
     // Backfill all the dynamic offsets, now that we know the static length
     updateFuncs.forEach((func) => { func(staticWriter.length); });
-    let length = writer.writeBytes(staticWriter.data);
-    length += writer.writeBytes(dynamicWriter.data);
+    let length = writer.appendWriter(staticWriter);
+    length += writer.appendWriter(dynamicWriter);
     return length;
 }
 function unpack(reader, coders) {
@@ -25723,6 +25738,15 @@ class ArrayCoder extends Coder {
         this.coder = coder;
         this.length = length;
     }
+    defaultValue() {
+        // Verifies the child coder is valid (even if the array is dynamic or 0-length)
+        const defaultChild = this.coder.defaultValue();
+        const result = [];
+        for (let i = 0; i < this.length; i++) {
+            result.push(defaultChild);
+        }
+        return result;
+    }
     encode(writer, value) {
         if (!Array.isArray(value)) {
             this._throwError("expected array value", value);
@@ -25751,9 +25775,13 @@ class ArrayCoder extends Coder {
         return reader.coerce(this.name, unpack(reader, coders));
     }
 }
+
 class BooleanCoder extends Coder {
     constructor(localName) {
         super("bool", "bool", localName, false);
+    }
+    defaultValue() {
+        return false;
     }
     encode(writer, value) {
         return writer.writeValue(value ? 1 : 0);
@@ -25762,9 +25790,13 @@ class BooleanCoder extends Coder {
         return reader.coerce(this.type, !reader.readValue().isZero());
     }
 }
+
 class DynamicBytesCoder extends Coder {
     constructor(type, localName) {
         super(type, type, localName, true);
+    }
+    defaultValue() {
+        return "0x";
     }
     encode(writer, value) {
         value = arrayify(value);
@@ -25784,12 +25816,16 @@ class BytesCoder extends DynamicBytesCoder {
         return reader.coerce(this.name, hexlify(super.decode(reader)));
     }
 }
+
 // @TODO: Merge this with bytes
 class FixedBytesCoder extends Coder {
     constructor(size, localName) {
         let name = "bytes" + String(size);
         super(name, name, localName, false);
         this.size = size;
+    }
+    defaultValue() {
+        return ("0x0000000000000000000000000000000000000000000000000000000000000000").substring(0, 2 + this.size * 2);
     }
     encode(writer, value) {
         let data = arrayify(value);
@@ -25802,9 +25838,13 @@ class FixedBytesCoder extends Coder {
         return reader.coerce(this.name, hexlify(reader.readBytes(this.size)));
     }
 }
+
 class NullCoder extends Coder {
     constructor(localName) {
         super("null", "", localName, false);
+    }
+    defaultValue() {
+        return null;
     }
     encode(writer, value) {
         if (value != null) {
@@ -25817,34 +25857,43 @@ class NullCoder extends Coder {
         return reader.coerce(this.name, null);
     }
 }
+
 const AddressZero = "0x0000000000000000000000000000000000000000";
+
+const NegativeOne$1 = ( /*#__PURE__*/BigNumber.from(-1));
+const Zero$1 = ( /*#__PURE__*/BigNumber.from(0));
+const One = ( /*#__PURE__*/BigNumber.from(1));
+const Two = ( /*#__PURE__*/BigNumber.from(2));
+const WeiPerEther = ( /*#__PURE__*/BigNumber.from("1000000000000000000"));
+const MaxUint256 = ( /*#__PURE__*/BigNumber.from("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"));
+
 const HashZero = "0x0000000000000000000000000000000000000000000000000000000000000000";
+
 // NFKC (composed)             // (decomposed)
 const EtherSymbol = "\u039e"; // "\uD835\uDF63";
-const NegativeOne$1 = BigNumber.from(-1);
-const Zero$1 = BigNumber.from(0);
-const One = BigNumber.from(1);
-const Two = BigNumber.from(2);
-const WeiPerEther = BigNumber.from("1000000000000000000");
-const MaxUint256 = BigNumber.from("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
 
-var index$1$1 = /*#__PURE__*/Object.freeze({
+var index$2 = /*#__PURE__*/Object.freeze({
+	__proto__: null,
 	AddressZero: AddressZero,
-	HashZero: HashZero,
-	EtherSymbol: EtherSymbol,
 	NegativeOne: NegativeOne$1,
 	Zero: Zero$1,
 	One: One,
 	Two: Two,
 	WeiPerEther: WeiPerEther,
-	MaxUint256: MaxUint256
+	MaxUint256: MaxUint256,
+	HashZero: HashZero,
+	EtherSymbol: EtherSymbol
 });
+
 class NumberCoder extends Coder {
     constructor(size, signed, localName) {
         const name = ((signed ? "int" : "uint") + (size * 8));
         super(name, name, localName, false);
         this.size = size;
         this.signed = signed;
+    }
+    defaultValue() {
+        return 0;
     }
     encode(writer, value) {
         let v = BigNumber.from(value);
@@ -25874,7 +25923,8 @@ class NumberCoder extends Coder {
     }
 }
 
-const version$7 = "strings/5.0.4";
+const version$7 = "strings/5.0.9";
+
 const logger$9 = new Logger(version$7);
 ///////////////////////////////
 var UnicodeNormalizationForm;
@@ -26114,6 +26164,7 @@ function toUtf8String(bytes, onError) {
 function toUtf8CodePoints(str, form = UnicodeNormalizationForm.current) {
     return getUtf8CodePoints(toUtf8Bytes(str, form));
 }
+
 function formatBytes32String(text) {
     // Get the bytes
     const bytes = toUtf8Bytes(text);
@@ -26141,6 +26192,7 @@ function parseBytes32String(bytes) {
     // Determine the string value
     return toUtf8String(data.slice(0, length));
 }
+
 function bytes2(data) {
     if ((data.length % 4) !== 0) {
         throw new Error("bad data");
@@ -26326,9 +26378,13 @@ function nameprep(value) {
     }
     return name;
 }
+
 class StringCoder extends DynamicBytesCoder {
     constructor(localName) {
         super("string", localName);
+    }
+    defaultValue() {
+        return "";
     }
     encode(writer, value) {
         return super.encode(writer, toUtf8Bytes(value));
@@ -26337,6 +26393,7 @@ class StringCoder extends DynamicBytesCoder {
         return toUtf8String(super.decode(reader));
     }
 }
+
 class TupleCoder extends Coder {
     constructor(coders, localName) {
         let dynamic = false;
@@ -26351,6 +26408,38 @@ class TupleCoder extends Coder {
         super("tuple", type, localName, dynamic);
         this.coders = coders;
     }
+    defaultValue() {
+        const values = [];
+        this.coders.forEach((coder) => {
+            values.push(coder.defaultValue());
+        });
+        // We only output named properties for uniquely named coders
+        const uniqueNames = this.coders.reduce((accum, coder) => {
+            const name = coder.localName;
+            if (name) {
+                if (!accum[name]) {
+                    accum[name] = 0;
+                }
+                accum[name]++;
+            }
+            return accum;
+        }, {});
+        // Add named values
+        this.coders.forEach((coder, index) => {
+            let name = coder.localName;
+            if (!name || uniqueNames[name] !== 1) {
+                return;
+            }
+            if (name === "length") {
+                name = "_length";
+            }
+            if (values[name] != null) {
+                return;
+            }
+            values[name] = values[index];
+        });
+        return Object.freeze(values);
+    }
     encode(writer, value) {
         return pack(writer, this.coders, value);
     }
@@ -26358,6 +26447,7 @@ class TupleCoder extends Coder {
         return reader.coerce(this.name, unpack(reader, this.coders));
     }
 }
+
 const logger$a = new Logger(version$4);
 const paramTypeBytes = new RegExp(/^bytes([0-9]*)$/);
 const paramTypeNumber = new RegExp(/^(u?int)([0-9]*)$/);
@@ -26412,6 +26502,11 @@ class AbiCoder {
     _getWriter() {
         return new Writer(this._getWordSize());
     }
+    getDefaultValue(types) {
+        const coders = types.map((type) => this._getCoder(ParamType.from(type)));
+        const coder = new TupleCoder(coders, "_");
+        return coder.defaultValue();
+    }
     encode(types, values) {
         if (types.length !== values.length) {
             logger$a.throwError("types/values length mismatch", Logger.errors.INVALID_ARGUMENT, {
@@ -26433,10 +26528,15 @@ class AbiCoder {
 }
 const defaultAbiCoder = new AbiCoder();
 
-const version$8 = "hash/5.0.4";
+function id(text) {
+    return keccak256(toUtf8Bytes(text));
+}
+
+const version$8 = "hash/5.0.11";
+
 const logger$b = new Logger(version$8);
-///////////////////////////////
-const Zeros = new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+const Zeros = new Uint8Array(32);
+Zeros.fill(0);
 const Partition = new RegExp("^((.*)\\.)?([^.]+)$");
 function isValidName(name) {
     try {
@@ -26465,9 +26565,7 @@ function namehash(name) {
     }
     return hexlify(result);
 }
-function id(text) {
-    return keccak256(toUtf8Bytes(text));
-}
+
 const messagePrefix = "\x19Ethereum Signed Message:\n";
 function hashMessage(message) {
     if (typeof (message) === "string") {
@@ -26479,7 +26577,447 @@ function hashMessage(message) {
         message
     ]));
 }
-const logger$c = new Logger(version$4);
+
+var __awaiter$1 = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+const logger$c = new Logger(version$8);
+const padding = new Uint8Array(32);
+padding.fill(0);
+const NegativeOne$2 = BigNumber.from(-1);
+const Zero$2 = BigNumber.from(0);
+const One$1 = BigNumber.from(1);
+const MaxUint256$1 = BigNumber.from("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+function hexPadRight(value) {
+    const bytes = arrayify(value);
+    const padOffset = bytes.length % 32;
+    if (padOffset) {
+        return hexConcat([bytes, padding.slice(padOffset)]);
+    }
+    return hexlify(bytes);
+}
+const hexTrue = hexZeroPad(One$1.toHexString(), 32);
+const hexFalse = hexZeroPad(Zero$2.toHexString(), 32);
+const domainFieldTypes = {
+    name: "string",
+    version: "string",
+    chainId: "uint256",
+    verifyingContract: "address",
+    salt: "bytes32"
+};
+const domainFieldNames = [
+    "name", "version", "chainId", "verifyingContract", "salt"
+];
+function checkString(key) {
+    return function (value) {
+        if (typeof (value) !== "string") {
+            logger$c.throwArgumentError(`invalid domain value for ${JSON.stringify(key)}`, `domain.${key}`, value);
+        }
+        return value;
+    };
+}
+const domainChecks = {
+    name: checkString("name"),
+    version: checkString("version"),
+    chainId: function (value) {
+        try {
+            return BigNumber.from(value).toString();
+        }
+        catch (error) { }
+        return logger$c.throwArgumentError(`invalid domain value for "chainId"`, "domain.chainId", value);
+    },
+    verifyingContract: function (value) {
+        try {
+            return getAddress(value).toLowerCase();
+        }
+        catch (error) { }
+        return logger$c.throwArgumentError(`invalid domain value "verifyingContract"`, "domain.verifyingContract", value);
+    },
+    salt: function (value) {
+        try {
+            const bytes = arrayify(value);
+            if (bytes.length !== 32) {
+                throw new Error("bad length");
+            }
+            return hexlify(bytes);
+        }
+        catch (error) { }
+        return logger$c.throwArgumentError(`invalid domain value "salt"`, "domain.salt", value);
+    }
+};
+function getBaseEncoder(type) {
+    // intXX and uintXX
+    {
+        const match = type.match(/^(u?)int(\d*)$/);
+        if (match) {
+            const signed = (match[1] === "");
+            const width = parseInt(match[2] || "256");
+            if (width % 8 !== 0 || width > 256 || (match[2] && match[2] !== String(width))) {
+                logger$c.throwArgumentError("invalid numeric width", "type", type);
+            }
+            const boundsUpper = MaxUint256$1.mask(signed ? (width - 1) : width);
+            const boundsLower = signed ? boundsUpper.add(One$1).mul(NegativeOne$2) : Zero$2;
+            return function (value) {
+                const v = BigNumber.from(value);
+                if (v.lt(boundsLower) || v.gt(boundsUpper)) {
+                    logger$c.throwArgumentError(`value out-of-bounds for ${type}`, "value", value);
+                }
+                return hexZeroPad(v.toTwos(256).toHexString(), 32);
+            };
+        }
+    }
+    // bytesXX
+    {
+        const match = type.match(/^bytes(\d+)$/);
+        if (match) {
+            const width = parseInt(match[1]);
+            if (width === 0 || width > 32 || match[1] !== String(width)) {
+                logger$c.throwArgumentError("invalid bytes width", "type", type);
+            }
+            return function (value) {
+                const bytes = arrayify(value);
+                if (bytes.length !== width) {
+                    logger$c.throwArgumentError(`invalid length for ${type}`, "value", value);
+                }
+                return hexPadRight(value);
+            };
+        }
+    }
+    switch (type) {
+        case "address": return function (value) {
+            return hexZeroPad(getAddress(value), 32);
+        };
+        case "bool": return function (value) {
+            return ((!value) ? hexFalse : hexTrue);
+        };
+        case "bytes": return function (value) {
+            return keccak256(value);
+        };
+        case "string": return function (value) {
+            return id(value);
+        };
+    }
+    return null;
+}
+function encodeType(name, fields) {
+    return `${name}(${fields.map(({ name, type }) => (type + " " + name)).join(",")})`;
+}
+class TypedDataEncoder {
+    constructor(types) {
+        defineReadOnly(this, "types", Object.freeze(deepCopy(types)));
+        defineReadOnly(this, "_encoderCache", {});
+        defineReadOnly(this, "_types", {});
+        // Link struct types to their direct child structs
+        const links = {};
+        // Link structs to structs which contain them as a child
+        const parents = {};
+        // Link all subtypes within a given struct
+        const subtypes = {};
+        Object.keys(types).forEach((type) => {
+            links[type] = {};
+            parents[type] = [];
+            subtypes[type] = {};
+        });
+        for (const name in types) {
+            const uniqueNames = {};
+            types[name].forEach((field) => {
+                // Check each field has a unique name
+                if (uniqueNames[field.name]) {
+                    logger$c.throwArgumentError(`duplicate variable name ${JSON.stringify(field.name)} in ${JSON.stringify(name)}`, "types", types);
+                }
+                uniqueNames[field.name] = true;
+                // Get the base type (drop any array specifiers)
+                const baseType = field.type.match(/^([^\x5b]*)(\x5b|$)/)[1];
+                if (baseType === name) {
+                    logger$c.throwArgumentError(`circular type reference to ${JSON.stringify(baseType)}`, "types", types);
+                }
+                // Is this a base encoding type?
+                const encoder = getBaseEncoder(baseType);
+                if (encoder) {
+                    return;
+                }
+                if (!parents[baseType]) {
+                    logger$c.throwArgumentError(`unknown type ${JSON.stringify(baseType)}`, "types", types);
+                }
+                // Add linkage
+                parents[baseType].push(name);
+                links[name][baseType] = true;
+            });
+        }
+        // Deduce the primary type
+        const primaryTypes = Object.keys(parents).filter((n) => (parents[n].length === 0));
+        if (primaryTypes.length === 0) {
+            logger$c.throwArgumentError("missing primary type", "types", types);
+        }
+        else if (primaryTypes.length > 1) {
+            logger$c.throwArgumentError(`ambiguous primary types or unused types: ${primaryTypes.map((t) => (JSON.stringify(t))).join(", ")}`, "types", types);
+        }
+        defineReadOnly(this, "primaryType", primaryTypes[0]);
+        // Check for circular type references
+        function checkCircular(type, found) {
+            if (found[type]) {
+                logger$c.throwArgumentError(`circular type reference to ${JSON.stringify(type)}`, "types", types);
+            }
+            found[type] = true;
+            Object.keys(links[type]).forEach((child) => {
+                if (!parents[child]) {
+                    return;
+                }
+                // Recursively check children
+                checkCircular(child, found);
+                // Mark all ancestors as having this decendant
+                Object.keys(found).forEach((subtype) => {
+                    subtypes[subtype][child] = true;
+                });
+            });
+            delete found[type];
+        }
+        checkCircular(this.primaryType, {});
+        // Compute each fully describe type
+        for (const name in subtypes) {
+            const st = Object.keys(subtypes[name]);
+            st.sort();
+            this._types[name] = encodeType(name, types[name]) + st.map((t) => encodeType(t, types[t])).join("");
+        }
+    }
+    getEncoder(type) {
+        let encoder = this._encoderCache[type];
+        if (!encoder) {
+            encoder = this._encoderCache[type] = this._getEncoder(type);
+        }
+        return encoder;
+    }
+    _getEncoder(type) {
+        // Basic encoder type (address, bool, uint256, etc)
+        {
+            const encoder = getBaseEncoder(type);
+            if (encoder) {
+                return encoder;
+            }
+        }
+        // Array
+        const match = type.match(/^(.*)(\x5b(\d*)\x5d)$/);
+        if (match) {
+            const subtype = match[1];
+            const subEncoder = this.getEncoder(subtype);
+            const length = parseInt(match[3]);
+            return (value) => {
+                if (length >= 0 && value.length !== length) {
+                    logger$c.throwArgumentError("array length mismatch; expected length ${ arrayLength }", "value", value);
+                }
+                let result = value.map(subEncoder);
+                if (this._types[subtype]) {
+                    result = result.map(keccak256);
+                }
+                return keccak256(hexConcat(result));
+            };
+        }
+        // Struct
+        const fields = this.types[type];
+        if (fields) {
+            const encodedType = id(this._types[type]);
+            return (value) => {
+                const values = fields.map(({ name, type }) => {
+                    const result = this.getEncoder(type)(value[name]);
+                    if (this._types[type]) {
+                        return keccak256(result);
+                    }
+                    return result;
+                });
+                values.unshift(encodedType);
+                return hexConcat(values);
+            };
+        }
+        return logger$c.throwArgumentError(`unknown type: ${type}`, "type", type);
+    }
+    encodeType(name) {
+        const result = this._types[name];
+        if (!result) {
+            logger$c.throwArgumentError(`unknown type: ${JSON.stringify(name)}`, "name", name);
+        }
+        return result;
+    }
+    encodeData(type, value) {
+        return this.getEncoder(type)(value);
+    }
+    hashStruct(name, value) {
+        return keccak256(this.encodeData(name, value));
+    }
+    encode(value) {
+        return this.encodeData(this.primaryType, value);
+    }
+    hash(value) {
+        return this.hashStruct(this.primaryType, value);
+    }
+    _visit(type, value, callback) {
+        // Basic encoder type (address, bool, uint256, etc)
+        {
+            const encoder = getBaseEncoder(type);
+            if (encoder) {
+                return callback(type, value);
+            }
+        }
+        // Array
+        const match = type.match(/^(.*)(\x5b(\d*)\x5d)$/);
+        if (match) {
+            const subtype = match[1];
+            const length = parseInt(match[3]);
+            if (length >= 0 && value.length !== length) {
+                logger$c.throwArgumentError("array length mismatch; expected length ${ arrayLength }", "value", value);
+            }
+            return value.map((v) => this._visit(subtype, v, callback));
+        }
+        // Struct
+        const fields = this.types[type];
+        if (fields) {
+            return fields.reduce((accum, { name, type }) => {
+                accum[name] = this._visit(type, value[name], callback);
+                return accum;
+            }, {});
+        }
+        return logger$c.throwArgumentError(`unknown type: ${type}`, "type", type);
+    }
+    visit(value, callback) {
+        return this._visit(this.primaryType, value, callback);
+    }
+    static from(types) {
+        return new TypedDataEncoder(types);
+    }
+    static getPrimaryType(types) {
+        return TypedDataEncoder.from(types).primaryType;
+    }
+    static hashStruct(name, types, value) {
+        return TypedDataEncoder.from(types).hashStruct(name, value);
+    }
+    static hashDomain(domain) {
+        const domainFields = [];
+        for (const name in domain) {
+            const type = domainFieldTypes[name];
+            if (!type) {
+                logger$c.throwArgumentError(`invalid typed-data domain key: ${JSON.stringify(name)}`, "domain", domain);
+            }
+            domainFields.push({ name, type });
+        }
+        domainFields.sort((a, b) => {
+            return domainFieldNames.indexOf(a.name) - domainFieldNames.indexOf(b.name);
+        });
+        return TypedDataEncoder.hashStruct("EIP712Domain", { EIP712Domain: domainFields }, domain);
+    }
+    static encode(domain, types, value) {
+        return hexConcat([
+            "0x1901",
+            TypedDataEncoder.hashDomain(domain),
+            TypedDataEncoder.from(types).hash(value)
+        ]);
+    }
+    static hash(domain, types, value) {
+        return keccak256(TypedDataEncoder.encode(domain, types, value));
+    }
+    // Replaces all address types with ENS names with their looked up address
+    static resolveNames(domain, types, value, resolveName) {
+        return __awaiter$1(this, void 0, void 0, function* () {
+            // Make a copy to isolate it from the object passed in
+            domain = shallowCopy(domain);
+            // Look up all ENS names
+            const ensCache = {};
+            // Do we need to look up the domain's verifyingContract?
+            if (domain.verifyingContract && !isHexString(domain.verifyingContract, 20)) {
+                ensCache[domain.verifyingContract] = "0x";
+            }
+            // We are going to use the encoder to visit all the base values
+            const encoder = TypedDataEncoder.from(types);
+            // Get a list of all the addresses
+            encoder.visit(value, (type, value) => {
+                if (type === "address" && !isHexString(value, 20)) {
+                    ensCache[value] = "0x";
+                }
+                return value;
+            });
+            // Lookup each name
+            for (const name in ensCache) {
+                ensCache[name] = yield resolveName(name);
+            }
+            // Replace the domain verifyingContract if needed
+            if (domain.verifyingContract && ensCache[domain.verifyingContract]) {
+                domain.verifyingContract = ensCache[domain.verifyingContract];
+            }
+            // Replace all ENS names with their address
+            value = encoder.visit(value, (type, value) => {
+                if (type === "address" && ensCache[value]) {
+                    return ensCache[value];
+                }
+                return value;
+            });
+            return { domain, value };
+        });
+    }
+    static getPayload(domain, types, value) {
+        // Validate the domain fields
+        TypedDataEncoder.hashDomain(domain);
+        // Derive the EIP712Domain Struct reference type
+        const domainValues = {};
+        const domainTypes = [];
+        domainFieldNames.forEach((name) => {
+            const value = domain[name];
+            if (value == null) {
+                return;
+            }
+            domainValues[name] = domainChecks[name](value);
+            domainTypes.push({ name, type: domainFieldTypes[name] });
+        });
+        const encoder = TypedDataEncoder.from(types);
+        const typesWithDomain = shallowCopy(types);
+        if (typesWithDomain.EIP712Domain) {
+            logger$c.throwArgumentError("types must not contain EIP712Domain type", "types.EIP712Domain", types);
+        }
+        else {
+            typesWithDomain.EIP712Domain = domainTypes;
+        }
+        // Validate the data structures and types
+        encoder.encode(value);
+        return {
+            types: typesWithDomain,
+            domain: domainValues,
+            primaryType: encoder.primaryType,
+            message: encoder.visit(value, (type, value) => {
+                // bytes
+                if (type.match(/^bytes(\d*)/)) {
+                    return hexlify(arrayify(value));
+                }
+                // uint or int
+                if (type.match(/^u?int/)) {
+                    let prefix = "";
+                    let v = BigNumber.from(value);
+                    if (v.isNegative()) {
+                        prefix = "-";
+                        v = v.mul(-1);
+                    }
+                    return prefix + hexValue(v.toHexString());
+                }
+                switch (type) {
+                    case "address":
+                        return value.toLowerCase();
+                    case "bool":
+                        return !!value;
+                    case "string":
+                        if (typeof (value) !== "string") {
+                            logger$c.throwArgumentError(`invalid string`, "value", value);
+                        }
+                        return value;
+                }
+                return logger$c.throwArgumentError("unsupported type", "type", type);
+            })
+        };
+    }
+}
+
+const logger$d = new Logger(version$4);
 class LogDescription extends Description {
 }
 class TransactionDescription extends Description {
@@ -26509,7 +27047,7 @@ function checkNames(fragment: Fragment, type: "input" | "output", params: Array<
 */
 class Interface {
     constructor(fragments) {
-        logger$c.checkNew(new.target, Interface);
+        logger$d.checkNew(new.target, Interface);
         let abi = [];
         if (typeof (fragments) === "string") {
             abi = JSON.parse(fragments);
@@ -26531,7 +27069,7 @@ class Interface {
             switch (fragment.type) {
                 case "constructor":
                     if (this.deploy) {
-                        logger$c.warn("duplicate definition - constructor");
+                        logger$d.warn("duplicate definition - constructor");
                         return;
                     }
                     //checkNames(fragment, "input", fragment.inputs);
@@ -26551,7 +27089,7 @@ class Interface {
             }
             let signature = fragment.format();
             if (bucket[signature]) {
-                logger$c.warn("duplicate definition - " + signature);
+                logger$d.warn("duplicate definition - " + signature);
                 return;
             }
             bucket[signature] = fragment;
@@ -26570,7 +27108,7 @@ class Interface {
             format = FormatTypes.full;
         }
         if (format === FormatTypes.sighash) {
-            logger$c.throwArgumentError("interface does not support formatting sighash", "format", format);
+            logger$d.throwArgumentError("interface does not support formatting sighash", "format", format);
         }
         const abi = this.fragments.map((fragment) => fragment.format(format));
         // We need to re-bundle the JSON fragments a bit
@@ -26600,24 +27138,24 @@ class Interface {
                     return this.functions[name];
                 }
             }
-            logger$c.throwArgumentError("no matching function", "sighash", nameOrSignatureOrSighash);
+            logger$d.throwArgumentError("no matching function", "sighash", nameOrSignatureOrSighash);
         }
         // It is a bare name, look up the function (will return null if ambiguous)
         if (nameOrSignatureOrSighash.indexOf("(") === -1) {
             const name = nameOrSignatureOrSighash.trim();
             const matching = Object.keys(this.functions).filter((f) => (f.split("(" /* fix:) */)[0] === name));
             if (matching.length === 0) {
-                logger$c.throwArgumentError("no matching function", "name", name);
+                logger$d.throwArgumentError("no matching function", "name", name);
             }
             else if (matching.length > 1) {
-                logger$c.throwArgumentError("multiple matching functions", "name", name);
+                logger$d.throwArgumentError("multiple matching functions", "name", name);
             }
             return this.functions[matching[0]];
         }
         // Normlize the signature and lookup the function
         const result = this.functions[FunctionFragment.fromString(nameOrSignatureOrSighash).format()];
         if (!result) {
-            logger$c.throwArgumentError("no matching function", "signature", nameOrSignatureOrSighash);
+            logger$d.throwArgumentError("no matching function", "signature", nameOrSignatureOrSighash);
         }
         return result;
     }
@@ -26630,24 +27168,24 @@ class Interface {
                     return this.events[name];
                 }
             }
-            logger$c.throwArgumentError("no matching event", "topichash", topichash);
+            logger$d.throwArgumentError("no matching event", "topichash", topichash);
         }
         // It is a bare name, look up the function (will return null if ambiguous)
         if (nameOrSignatureOrTopic.indexOf("(") === -1) {
             const name = nameOrSignatureOrTopic.trim();
             const matching = Object.keys(this.events).filter((f) => (f.split("(" /* fix:) */)[0] === name));
             if (matching.length === 0) {
-                logger$c.throwArgumentError("no matching event", "name", name);
+                logger$d.throwArgumentError("no matching event", "name", name);
             }
             else if (matching.length > 1) {
-                logger$c.throwArgumentError("multiple matching events", "name", name);
+                logger$d.throwArgumentError("multiple matching events", "name", name);
             }
             return this.events[matching[0]];
         }
         // Normlize the signature and lookup the function
         const result = this.events[EventFragment.fromString(nameOrSignatureOrTopic).format()];
         if (!result) {
-            logger$c.throwArgumentError("no matching event", "signature", nameOrSignatureOrTopic);
+            logger$d.throwArgumentError("no matching event", "signature", nameOrSignatureOrTopic);
         }
         return result;
     }
@@ -26681,7 +27219,7 @@ class Interface {
         }
         const bytes = arrayify(data);
         if (hexlify(bytes.slice(0, 4)) !== this.getSighash(functionFragment)) {
-            logger$c.throwArgumentError(`data signature does not match function ${functionFragment.name}.`, "data", hexlify(bytes));
+            logger$d.throwArgumentError(`data signature does not match function ${functionFragment.name}.`, "data", hexlify(bytes));
         }
         return this._decodeParams(functionFragment.inputs, bytes.slice(4));
     }
@@ -26717,7 +27255,7 @@ class Interface {
                 }
                 break;
         }
-        return logger$c.throwError("call revert exception", Logger.errors.CALL_EXCEPTION, {
+        return logger$d.throwError("call revert exception", Logger.errors.CALL_EXCEPTION, {
             method: functionFragment.format(),
             errorSignature: errorSignature,
             errorArgs: [reason],
@@ -26737,7 +27275,7 @@ class Interface {
             eventFragment = this.getEvent(eventFragment);
         }
         if (values.length > eventFragment.inputs.length) {
-            logger$c.throwError("too many arguments for " + eventFragment.format(), Logger.errors.UNEXPECTED_ARGUMENT, {
+            logger$d.throwError("too many arguments for " + eventFragment.format(), Logger.errors.UNEXPECTED_ARGUMENT, {
                 argument: "values",
                 value: values
             });
@@ -26763,7 +27301,7 @@ class Interface {
             let param = eventFragment.inputs[index];
             if (!param.indexed) {
                 if (value != null) {
-                    logger$c.throwArgumentError("cannot filter non-indexed parameters; must be null", ("contract." + param.name), value);
+                    logger$d.throwArgumentError("cannot filter non-indexed parameters; must be null", ("contract." + param.name), value);
                 }
                 return;
             }
@@ -26771,7 +27309,7 @@ class Interface {
                 topics.push(null);
             }
             else if (param.baseType === "array" || param.baseType === "tuple") {
-                logger$c.throwArgumentError("filtering with tuples or arrays not supported", ("contract." + param.name), value);
+                logger$d.throwArgumentError("filtering with tuples or arrays not supported", ("contract." + param.name), value);
             }
             else if (Array.isArray(value)) {
                 topics.push(value.map((value) => encodeTopic(param, value)));
@@ -26797,7 +27335,7 @@ class Interface {
             topics.push(this.getEventTopic(eventFragment));
         }
         if (values.length !== eventFragment.inputs.length) {
-            logger$c.throwArgumentError("event arguments/values mismatch", "values", values);
+            logger$d.throwArgumentError("event arguments/values mismatch", "values", values);
         }
         eventFragment.inputs.forEach((param, index) => {
             const value = values[index];
@@ -26834,7 +27372,7 @@ class Interface {
         if (topics != null && !eventFragment.anonymous) {
             let topicHash = this.getEventTopic(eventFragment);
             if (!isHexString(topics[0], 32) || topics[0].toLowerCase() !== topicHash) {
-                logger$c.throwError("fragment/topic mismatch", Logger.errors.INVALID_ARGUMENT, { argument: "topics[0]", expected: topicHash, value: topics[0] });
+                logger$d.throwError("fragment/topic mismatch", Logger.errors.INVALID_ARGUMENT, { argument: "topics[0]", expected: topicHash, value: topics[0] });
             }
             topics = topics.slice(1);
         }
@@ -26961,8 +27499,9 @@ class Interface {
     }
 }
 
-const version$9 = "abstract-provider/5.0.4";
-const logger$d = new Logger(version$9);
+const version$9 = "abstract-provider/5.0.9";
+
+const logger$e = new Logger(version$9);
 //export type CallTransactionable = {
 //    call(transaction: TransactionRequest): Promise<TransactionResponse>;
 //};
@@ -26975,7 +27514,7 @@ class ForkEvent extends Description {
 // Exported Abstracts
 class Provider {
     constructor() {
-        logger$d.checkAbstract(new.target, Provider);
+        logger$e.checkAbstract(new.target, Provider);
         defineReadOnly(this, "_isProvider", true);
     }
     // Alias for "on"
@@ -26991,8 +27530,9 @@ class Provider {
     }
 }
 
-const version$a = "abstract-signer/5.0.5";
-var __awaiter$1 = (window && window.__awaiter) || function (thisArg, _arguments, P, generator) {
+const version$a = "abstract-signer/5.0.12";
+
+var __awaiter$2 = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -27001,7 +27541,7 @@ var __awaiter$1 = (window && window.__awaiter) || function (thisArg, _arguments,
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const logger$e = new Logger(version$a);
+const logger$f = new Logger(version$a);
 const allowedTransactionKeys = [
     "chainId", "data", "from", "gasLimit", "gasPrice", "nonce", "to", "value"
 ];
@@ -27010,36 +27550,30 @@ const forwardErrors = [
     Logger.errors.NONCE_EXPIRED,
     Logger.errors.REPLACEMENT_UNDERPRICED,
 ];
-// Sub-Class Notes:
-//  - A Signer MUST always make sure, that if present, the "from" field
-//    matches the Signer, before sending or signing a transaction
-//  - A Signer SHOULD always wrap private information (such as a private
-//    key or mnemonic) in a function, so that console.log does not leak
-//    the data
 class Signer {
     ///////////////////
     // Sub-classes MUST call super
     constructor() {
-        logger$e.checkAbstract(new.target, Signer);
+        logger$f.checkAbstract(new.target, Signer);
         defineReadOnly(this, "_isSigner", true);
     }
     ///////////////////
     // Sub-classes MAY override these
     getBalance(blockTag) {
-        return __awaiter$1(this, void 0, void 0, function* () {
+        return __awaiter$2(this, void 0, void 0, function* () {
             this._checkProvider("getBalance");
             return yield this.provider.getBalance(this.getAddress(), blockTag);
         });
     }
     getTransactionCount(blockTag) {
-        return __awaiter$1(this, void 0, void 0, function* () {
+        return __awaiter$2(this, void 0, void 0, function* () {
             this._checkProvider("getTransactionCount");
             return yield this.provider.getTransactionCount(this.getAddress(), blockTag);
         });
     }
     // Populates "from" if unspecified, and estimates the gas for the transation
     estimateGas(transaction) {
-        return __awaiter$1(this, void 0, void 0, function* () {
+        return __awaiter$2(this, void 0, void 0, function* () {
             this._checkProvider("estimateGas");
             const tx = yield resolveProperties(this.checkTransaction(transaction));
             return yield this.provider.estimateGas(tx);
@@ -27047,7 +27581,7 @@ class Signer {
     }
     // Populates "from" if unspecified, and calls with the transation
     call(transaction, blockTag) {
-        return __awaiter$1(this, void 0, void 0, function* () {
+        return __awaiter$2(this, void 0, void 0, function* () {
             this._checkProvider("call");
             const tx = yield resolveProperties(this.checkTransaction(transaction));
             return yield this.provider.call(tx, blockTag);
@@ -27063,20 +27597,20 @@ class Signer {
         });
     }
     getChainId() {
-        return __awaiter$1(this, void 0, void 0, function* () {
+        return __awaiter$2(this, void 0, void 0, function* () {
             this._checkProvider("getChainId");
             const network = yield this.provider.getNetwork();
             return network.chainId;
         });
     }
     getGasPrice() {
-        return __awaiter$1(this, void 0, void 0, function* () {
+        return __awaiter$2(this, void 0, void 0, function* () {
             this._checkProvider("getGasPrice");
             return yield this.provider.getGasPrice();
         });
     }
     resolveName(name) {
-        return __awaiter$1(this, void 0, void 0, function* () {
+        return __awaiter$2(this, void 0, void 0, function* () {
             this._checkProvider("resolveName");
             return yield this.provider.resolveName(name);
         });
@@ -27093,7 +27627,7 @@ class Signer {
     checkTransaction(transaction) {
         for (const key in transaction) {
             if (allowedTransactionKeys.indexOf(key) === -1) {
-                logger$e.throwArgumentError("invalid transaction key: " + key, "transaction", transaction);
+                logger$f.throwArgumentError("invalid transaction key: " + key, "transaction", transaction);
             }
         }
         const tx = shallowCopy(transaction);
@@ -27106,8 +27640,8 @@ class Signer {
                 Promise.resolve(tx.from),
                 this.getAddress()
             ]).then((result) => {
-                if (result[0] !== result[1]) {
-                    logger$e.throwArgumentError("from address mismatch", "transaction", transaction);
+                if (result[0].toLowerCase() !== result[1].toLowerCase()) {
+                    logger$f.throwArgumentError("from address mismatch", "transaction", transaction);
                 }
                 return result[0];
             });
@@ -27119,7 +27653,7 @@ class Signer {
     // By default called from: (overriding these prevents it)
     //   - sendTransaction
     populateTransaction(transaction) {
-        return __awaiter$1(this, void 0, void 0, function* () {
+        return __awaiter$2(this, void 0, void 0, function* () {
             const tx = yield resolveProperties(this.checkTransaction(transaction));
             if (tx.to != null) {
                 tx.to = Promise.resolve(tx.to).then((to) => this.resolveName(to));
@@ -27135,7 +27669,7 @@ class Signer {
                     if (forwardErrors.indexOf(error.code) >= 0) {
                         throw error;
                     }
-                    return logger$e.throwError("cannot estimate gas; transaction may fail or may require manual gas limit", Logger.errors.UNPREDICTABLE_GAS_LIMIT, {
+                    return logger$f.throwError("cannot estimate gas; transaction may fail or may require manual gas limit", Logger.errors.UNPREDICTABLE_GAS_LIMIT, {
                         error: error,
                         tx: tx
                     });
@@ -27150,7 +27684,7 @@ class Signer {
                     this.getChainId()
                 ]).then((results) => {
                     if (results[1] !== 0 && results[0] !== results[1]) {
-                        logger$e.throwArgumentError("chainId address mismatch", "transaction", transaction);
+                        logger$f.throwArgumentError("chainId address mismatch", "transaction", transaction);
                     }
                     return results[0];
                 });
@@ -27162,7 +27696,7 @@ class Signer {
     // Sub-classes SHOULD leave these alone
     _checkProvider(operation) {
         if (!this.provider) {
-            logger$e.throwError("missing provider", Logger.errors.UNSUPPORTED_OPERATION, {
+            logger$f.throwError("missing provider", Logger.errors.UNSUPPORTED_OPERATION, {
                 operation: (operation || "_checkProvider")
             });
         }
@@ -27173,7 +27707,7 @@ class Signer {
 }
 class VoidSigner extends Signer {
     constructor(address, provider) {
-        logger$e.checkNew(new.target, VoidSigner);
+        logger$f.checkNew(new.target, VoidSigner);
         super();
         defineReadOnly(this, "address", address);
         defineReadOnly(this, "provider", provider || null);
@@ -27183,7 +27717,7 @@ class VoidSigner extends Signer {
     }
     _fail(message, operation) {
         return Promise.resolve().then(() => {
-            logger$e.throwError(message, Logger.errors.UNSUPPORTED_OPERATION, { operation: operation });
+            logger$f.throwError(message, Logger.errors.UNSUPPORTED_OPERATION, { operation: operation });
         });
     }
     signMessage(message) {
@@ -27192,13 +27726,17 @@ class VoidSigner extends Signer {
     signTransaction(transaction) {
         return this._fail("VoidSigner cannot sign transactions", "signTransaction");
     }
+    _signTypedData(domain, types, value) {
+        return this._fail("VoidSigner cannot sign typed data", "signTypedData");
+    }
     connect(provider) {
         return new VoidSigner(this.address, provider);
     }
 }
 
-const version$b = "contracts/5.0.4";
-var __awaiter$2 = (window && window.__awaiter) || function (thisArg, _arguments, P, generator) {
+const version$b = "contracts/5.0.10";
+
+var __awaiter$3 = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -27207,13 +27745,13 @@ var __awaiter$2 = (window && window.__awaiter) || function (thisArg, _arguments,
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const logger$f = new Logger(version$b);
+const logger$g = new Logger(version$b);
 ///////////////////////////////
 const allowedTransactionKeys$1 = {
     chainId: true, data: true, from: true, gasLimit: true, gasPrice: true, nonce: true, to: true, value: true
 };
 function resolveName(resolver, nameOrPromise) {
-    return __awaiter$2(this, void 0, void 0, function* () {
+    return __awaiter$3(this, void 0, void 0, function* () {
         const name = yield nameOrPromise;
         // If it is already an address, just use it (after adding checksum)
         try {
@@ -27221,43 +27759,49 @@ function resolveName(resolver, nameOrPromise) {
         }
         catch (error) { }
         if (!resolver) {
-            logger$f.throwError("a provider or signer is needed to resolve ENS names", Logger.errors.UNSUPPORTED_OPERATION, {
+            logger$g.throwError("a provider or signer is needed to resolve ENS names", Logger.errors.UNSUPPORTED_OPERATION, {
                 operation: "resolveName"
             });
         }
-        return yield resolver.resolveName(name);
+        const address = yield resolver.resolveName(name);
+        if (address == null) {
+            logger$g.throwArgumentError("resolver or addr is not configured for ENS name", "name", name);
+        }
+        return address;
     });
 }
 // Recursively replaces ENS names with promises to resolve the name and resolves all properties
 function resolveAddresses(resolver, value, paramType) {
-    if (Array.isArray(paramType)) {
-        return Promise.all(paramType.map((paramType, index) => {
-            return resolveAddresses(resolver, ((Array.isArray(value)) ? value[index] : value[paramType.name]), paramType);
-        }));
-    }
-    if (paramType.type === "address") {
-        return resolveName(resolver, value);
-    }
-    if (paramType.type === "tuple") {
-        return resolveAddresses(resolver, value, paramType.components);
-    }
-    if (paramType.baseType === "array") {
-        if (!Array.isArray(value)) {
-            throw new Error("invalid value for array");
+    return __awaiter$3(this, void 0, void 0, function* () {
+        if (Array.isArray(paramType)) {
+            return yield Promise.all(paramType.map((paramType, index) => {
+                return resolveAddresses(resolver, ((Array.isArray(value)) ? value[index] : value[paramType.name]), paramType);
+            }));
         }
-        return Promise.all(value.map((v) => resolveAddresses(resolver, v, paramType.arrayChildren)));
-    }
-    return Promise.resolve(value);
+        if (paramType.type === "address") {
+            return yield resolveName(resolver, value);
+        }
+        if (paramType.type === "tuple") {
+            return yield resolveAddresses(resolver, value, paramType.components);
+        }
+        if (paramType.baseType === "array") {
+            if (!Array.isArray(value)) {
+                return Promise.reject(new Error("invalid value for array"));
+            }
+            return yield Promise.all(value.map((v) => resolveAddresses(resolver, v, paramType.arrayChildren)));
+        }
+        return value;
+    });
 }
 function populateTransaction(contract, fragment, args) {
-    return __awaiter$2(this, void 0, void 0, function* () {
+    return __awaiter$3(this, void 0, void 0, function* () {
         // If an extra argument is given, it is overrides
         let overrides = {};
         if (args.length === fragment.inputs.length + 1 && typeof (args[args.length - 1]) === "object") {
             overrides = shallowCopy(args.pop());
         }
         // Make sure the parameter count matches
-        logger$f.checkArgumentCount(args.length, fragment.inputs.length, "passed to contract");
+        logger$g.checkArgumentCount(args.length, fragment.inputs.length, "passed to contract");
         // Populate "from" override (allow promises)
         if (contract.signer) {
             if (overrides.from) {
@@ -27266,9 +27810,9 @@ function populateTransaction(contract, fragment, args) {
                 overrides.from = resolveProperties({
                     override: resolveName(contract.signer, overrides.from),
                     signer: contract.signer.getAddress()
-                }).then((check) => __awaiter$2(this, void 0, void 0, function* () {
+                }).then((check) => __awaiter$3(this, void 0, void 0, function* () {
                     if (getAddress(check.signer) !== check.override) {
-                        logger$f.throwError("Contract with a Signer cannot override from", Logger.errors.UNSUPPORTED_OPERATION, {
+                        logger$g.throwError("Contract with a Signer cannot override from", Logger.errors.UNSUPPORTED_OPERATION, {
                             operation: "overrides.from"
                         });
                     }
@@ -27293,8 +27837,9 @@ function populateTransaction(contract, fragment, args) {
             overrides: (resolveProperties(overrides) || {})
         });
         // The ABI coded transaction
+        const data = contract.interface.encodeFunctionData(fragment, resolved.args);
         const tx = {
-            data: contract.interface.encodeFunctionData(fragment, resolved.args),
+            data: data,
             to: resolved.address
         };
         // Resolved Overrides
@@ -27314,13 +27859,26 @@ function populateTransaction(contract, fragment, args) {
         }
         // If there was no "gasLimit" override, but the ABI specifies a default, use it
         if (tx.gasLimit == null && fragment.gas != null) {
-            tx.gasLimit = BigNumber.from(fragment.gas).add(21000);
+            // Conmpute the intrinisic gas cost for this transaction
+            // @TODO: This is based on the yellow paper as of Petersburg; this is something
+            // we may wish to parameterize in v6 as part of the Network object. Since this
+            // is always a non-nil to address, we can ignore G_create, but may wish to add
+            // similar logic to the ContractFactory.
+            let intrinsic = 21000;
+            const bytes = arrayify(data);
+            for (let i = 0; i < bytes.length; i++) {
+                intrinsic += 4;
+                if (bytes[i]) {
+                    intrinsic += 64;
+                }
+            }
+            tx.gasLimit = BigNumber.from(fragment.gas).add(intrinsic);
         }
         // Populate "value" override
         if (ro.value) {
             const roValue = BigNumber.from(ro.value);
             if (!roValue.isZero() && !fragment.payable) {
-                logger$f.throwError("non-payable method cannot override value", Logger.errors.UNSUPPORTED_OPERATION, {
+                logger$g.throwError("non-payable method cannot override value", Logger.errors.UNSUPPORTED_OPERATION, {
                     operation: "overrides.value",
                     value: overrides.value
                 });
@@ -27337,7 +27895,7 @@ function populateTransaction(contract, fragment, args) {
         // typo or using an unsupported key.
         const leftovers = Object.keys(overrides).filter((key) => (overrides[key] != null));
         if (leftovers.length) {
-            logger$f.throwError(`cannot override ${leftovers.map((l) => JSON.stringify(l)).join(",")}`, Logger.errors.UNSUPPORTED_OPERATION, {
+            logger$g.throwError(`cannot override ${leftovers.map((l) => JSON.stringify(l)).join(",")}`, Logger.errors.UNSUPPORTED_OPERATION, {
                 operation: "overrides",
                 overrides: leftovers
             });
@@ -27347,17 +27905,15 @@ function populateTransaction(contract, fragment, args) {
 }
 function buildPopulate(contract, fragment) {
     return function (...args) {
-        return __awaiter$2(this, void 0, void 0, function* () {
-            return populateTransaction(contract, fragment, args);
-        });
+        return populateTransaction(contract, fragment, args);
     };
 }
 function buildEstimate(contract, fragment) {
     const signerOrProvider = (contract.signer || contract.provider);
     return function (...args) {
-        return __awaiter$2(this, void 0, void 0, function* () {
+        return __awaiter$3(this, void 0, void 0, function* () {
             if (!signerOrProvider) {
-                logger$f.throwError("estimate require a provider or signer", Logger.errors.UNSUPPORTED_OPERATION, {
+                logger$g.throwError("estimate require a provider or signer", Logger.errors.UNSUPPORTED_OPERATION, {
                     operation: "estimateGas"
                 });
             }
@@ -27369,7 +27925,7 @@ function buildEstimate(contract, fragment) {
 function buildCall(contract, fragment, collapseSimple) {
     const signerOrProvider = (contract.signer || contract.provider);
     return function (...args) {
-        return __awaiter$2(this, void 0, void 0, function* () {
+        return __awaiter$3(this, void 0, void 0, function* () {
             // Extract the "blockTag" override if present
             let blockTag = undefined;
             if (args.length === fragment.inputs.length + 1 && typeof (args[args.length - 1]) === "object") {
@@ -27407,9 +27963,9 @@ function buildCall(contract, fragment, collapseSimple) {
 }
 function buildSend(contract, fragment) {
     return function (...args) {
-        return __awaiter$2(this, void 0, void 0, function* () {
+        return __awaiter$3(this, void 0, void 0, function* () {
             if (!contract.signer) {
-                logger$f.throwError("sending a transaction requires a signer", Logger.errors.UNSUPPORTED_OPERATION, {
+                logger$g.throwError("sending a transaction requires a signer", Logger.errors.UNSUPPORTED_OPERATION, {
                     operation: "sendTransaction"
                 });
             }
@@ -27542,7 +28098,7 @@ class FragmentRunningEvent extends RunningEvent {
         let topic = contractInterface.getEventTopic(fragment);
         if (topics) {
             if (topic !== topics[0]) {
-                logger$f.throwArgumentError("topic mismatch", "topics", topics);
+                logger$g.throwArgumentError("topic mismatch", "topics", topics);
             }
             filter.topics = topics.slice();
         }
@@ -27608,7 +28164,7 @@ class WildcardRunningEvent extends RunningEvent {
 }
 class Contract {
     constructor(addressOrName, contractInterface, signerOrProvider) {
-        logger$f.checkNew(new.target, Contract);
+        logger$g.checkNew(new.target, Contract);
         // @TODO: Maybe still check the addressOrName looks like a valid address or name?
         //address = getAddress(address);
         defineReadOnly(this, "interface", getStatic((new.target), "getInterface")(contractInterface));
@@ -27625,7 +28181,7 @@ class Contract {
             defineReadOnly(this, "signer", null);
         }
         else {
-            logger$f.throwArgumentError("invalid signer or provider", "signerOrProvider", signerOrProvider);
+            logger$g.throwArgumentError("invalid signer or provider", "signerOrProvider", signerOrProvider);
         }
         defineReadOnly(this, "callStatic", {});
         defineReadOnly(this, "estimateGas", {});
@@ -27653,7 +28209,7 @@ class Contract {
                     defineReadOnly(this.filters, name, this.filters[filters[0]]);
                 }
                 else {
-                    logger$f.warn(`Duplicate definition of ${name} (${filters.join(", ")})`);
+                    logger$g.warn(`Duplicate definition of ${name} (${filters.join(", ")})`);
                 }
             });
         }
@@ -27661,15 +28217,7 @@ class Contract {
         defineReadOnly(this, "_wrappedEmits", {});
         defineReadOnly(this, "address", addressOrName);
         if (this.provider) {
-            defineReadOnly(this, "resolvedAddress", this.provider.resolveName(addressOrName).then((address) => {
-                if (address == null) {
-                    throw new Error("name not found");
-                }
-                return address;
-            }).catch((error) => {
-                console.log("ERROR: Cannot find Contract - " + addressOrName);
-                throw error;
-            }));
+            defineReadOnly(this, "resolvedAddress", resolveName(this.provider, addressOrName));
         }
         else {
             try {
@@ -27677,7 +28225,7 @@ class Contract {
             }
             catch (error) {
                 // Without a provider, we cannot use ENS names
-                logger$f.throwError("provider is required to use ENS name as contract address", Logger.errors.UNSUPPORTED_OPERATION, {
+                logger$g.throwError("provider is required to use ENS name as contract address", Logger.errors.UNSUPPORTED_OPERATION, {
                     operation: "new Contract"
                 });
             }
@@ -27689,7 +28237,7 @@ class Contract {
             // Check that the signature is unique; if not the ABI generation has
             // not been cleaned or may be incorrectly generated
             if (uniqueSignatures[signature]) {
-                logger$f.warn(`Duplicate ABI entry for ${JSON.stringify(name)}`);
+                logger$g.warn(`Duplicate ABI entry for ${JSON.stringify(name)}`);
                 return;
             }
             uniqueSignatures[signature] = true;
@@ -27772,7 +28320,7 @@ class Contract {
                 // Otherwise, poll for our code to be deployed
                 this._deployedPromise = this.provider.getCode(this.address, blockTag).then((code) => {
                     if (code === "0x") {
-                        logger$f.throwError("contract not deployed", Logger.errors.UNSUPPORTED_OPERATION, {
+                        logger$g.throwError("contract not deployed", Logger.errors.UNSUPPORTED_OPERATION, {
                             contractAddress: this.address,
                             operation: "getDeployed"
                         });
@@ -27789,14 +28337,14 @@ class Contract {
     // estimateDeploy(bytecode: string, ...args): Promise<BigNumber>
     fallback(overrides) {
         if (!this.signer) {
-            logger$f.throwError("sending a transactions require a signer", Logger.errors.UNSUPPORTED_OPERATION, { operation: "sendTransaction(fallback)" });
+            logger$g.throwError("sending a transactions require a signer", Logger.errors.UNSUPPORTED_OPERATION, { operation: "sendTransaction(fallback)" });
         }
         const tx = shallowCopy(overrides || {});
         ["from", "to"].forEach(function (key) {
             if (tx[key] == null) {
                 return;
             }
-            logger$f.throwError("cannot override " + key, Logger.errors.UNSUPPORTED_OPERATION, { operation: key });
+            logger$g.throwError("cannot override " + key, Logger.errors.UNSUPPORTED_OPERATION, { operation: key });
         });
         tx.to = this.resolvedAddress;
         return this.deployed().then(() => {
@@ -27899,7 +28447,7 @@ class Contract {
     }
     _addEventListener(runningEvent, listener, once) {
         if (!this.provider) {
-            logger$f.throwError("events require a provider or a signer with a provider", Logger.errors.UNSUPPORTED_OPERATION, { operation: "once" });
+            logger$g.throwError("events require a provider or a signer with a provider", Logger.errors.UNSUPPORTED_OPERATION, { operation: "once" });
         }
         runningEvent.addListener(listener, once);
         // Track this running event and its listeners (may already be there; but no hard in updating)
@@ -27939,7 +28487,7 @@ class Contract {
         const filter = shallowCopy(runningEvent.filter);
         if (typeof (fromBlockOrBlockhash) === "string" && isHexString(fromBlockOrBlockhash, 32)) {
             if (toBlock != null) {
-                logger$f.throwArgumentError("cannot specify toBlock with blockhash", "toBlock", toBlock);
+                logger$g.throwArgumentError("cannot specify toBlock with blockhash", "toBlock", toBlock);
             }
             filter.blockHash = fromBlockOrBlockhash;
         }
@@ -27972,6 +28520,11 @@ class Contract {
     listenerCount(eventName) {
         if (!this.provider) {
             return 0;
+        }
+        if (eventName == null) {
+            return Object.keys(this._runningEvents).reduce((accum, key) => {
+                return accum + this._runningEvents[key].listenerCount();
+            }, 0);
         }
         return this._getRunningEvent(eventName).listenerCount();
     }
@@ -28044,11 +28597,11 @@ class ContractFactory {
         }
         // Make sure the final result is valid bytecode
         if (!isHexString(bytecodeHex) || (bytecodeHex.length % 2)) {
-            logger$f.throwArgumentError("invalid bytecode", "bytecode", bytecode);
+            logger$g.throwArgumentError("invalid bytecode", "bytecode", bytecode);
         }
         // If we have a signer, make sure it is valid
         if (signer && !Signer.isSigner(signer)) {
-            logger$f.throwArgumentError("invalid signer", "signer", signer);
+            logger$g.throwArgumentError("invalid signer", "signer", signer);
         }
         defineReadOnly(this, "bytecode", bytecodeHex);
         defineReadOnly(this, "interface", getStatic((new.target), "getInterface")(contractInterface));
@@ -28071,10 +28624,10 @@ class ContractFactory {
             if (tx[key] == null) {
                 return;
             }
-            logger$f.throwError("cannot override " + key, Logger.errors.UNSUPPORTED_OPERATION, { operation: key });
+            logger$g.throwError("cannot override " + key, Logger.errors.UNSUPPORTED_OPERATION, { operation: key });
         });
         // Make sure the call matches the constructor signature
-        logger$f.checkArgumentCount(args.length, this.interface.deploy.inputs.length, " in Contract constructor");
+        logger$g.checkArgumentCount(args.length, this.interface.deploy.inputs.length, " in Contract constructor");
         // Set the data to the bytecode + the encoded constructor arguments
         tx.data = hexlify(concat([
             this.bytecode,
@@ -28083,14 +28636,14 @@ class ContractFactory {
         return tx;
     }
     deploy(...args) {
-        return __awaiter$2(this, void 0, void 0, function* () {
+        return __awaiter$3(this, void 0, void 0, function* () {
             let overrides = {};
             // If 1 extra parameter was passed in, it contains overrides
             if (args.length === this.interface.deploy.inputs.length + 1) {
                 overrides = args.pop();
             }
             // Make sure the call matches the constructor signature
-            logger$f.checkArgumentCount(args.length, this.interface.deploy.inputs.length, " in Contract constructor");
+            logger$g.checkArgumentCount(args.length, this.interface.deploy.inputs.length, " in Contract constructor");
             // Resolve ENS names and promises in the arguments
             const params = yield resolveAddresses(this.signer, args, this.interface.deploy.inputs);
             params.push(overrides);
@@ -28112,7 +28665,7 @@ class ContractFactory {
     }
     static fromSolidity(compilerOutput, signer) {
         if (compilerOutput == null) {
-            logger$f.throwError("missing compiler output", Logger.errors.MISSING_ARGUMENT, { argument: "compilerOutput" });
+            logger$g.throwError("missing compiler output", Logger.errors.MISSING_ARGUMENT, { argument: "compilerOutput" });
         }
         if (typeof (compilerOutput) === "string") {
             compilerOutput = JSON.parse(compilerOutput);
@@ -28266,7 +28819,7 @@ assert.equal = function assertEqual(l, r, msg) {
     throw new Error(msg || ('Assertion failed: ' + l + ' != ' + r));
 };
 
-var inherits_browser = createCommonjsModule$1(function (module) {
+var inherits_browser = createCommonjsModule(function (module) {
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -28296,10 +28849,19 @@ if (typeof Object.create === 'function') {
 }
 });
 
+var inherits = createCommonjsModule(function (module) {
+try {
+  var util = require$$0__default$1['default'];
+  /* istanbul ignore next */
+  if (typeof util.inherits !== 'function') throw '';
+  module.exports = util.inherits;
+} catch (e) {
+  /* istanbul ignore next */
+  module.exports = inherits_browser;
+}
+});
 
-
-
-var inherits_1 = inherits_browser;
+var inherits_1 = inherits;
 
 function toArray(msg, enc) {
   if (Array.isArray(msg))
@@ -28577,9 +29139,6 @@ var utils$1 = {
 	shr64_lo: shr64_lo_1
 };
 
-
-
-
 function BlockHash() {
   this.pending = null;
   this.pendingTotal = 0;
@@ -28672,11 +29231,6 @@ var common = {
 	BlockHash: BlockHash_1
 };
 
-var _1 = {};
-
-var _224 = {};
-
-
 var rotr32$1 = utils$1.rotr32;
 
 function ft_1(s, x, y, z) {
@@ -28735,14 +29289,78 @@ var common$1 = {
 	g1_256: g1_256_1
 };
 
-
-
-
-
-
+var rotl32$1 = utils$1.rotl32;
 var sum32$1 = utils$1.sum32;
-var sum32_4$1 = utils$1.sum32_4;
 var sum32_5$1 = utils$1.sum32_5;
+var ft_1$1 = common$1.ft_1;
+var BlockHash$1 = common.BlockHash;
+
+var sha1_K = [
+  0x5A827999, 0x6ED9EBA1,
+  0x8F1BBCDC, 0xCA62C1D6
+];
+
+function SHA1() {
+  if (!(this instanceof SHA1))
+    return new SHA1();
+
+  BlockHash$1.call(this);
+  this.h = [
+    0x67452301, 0xefcdab89, 0x98badcfe,
+    0x10325476, 0xc3d2e1f0 ];
+  this.W = new Array(80);
+}
+
+utils$1.inherits(SHA1, BlockHash$1);
+var _1 = SHA1;
+
+SHA1.blockSize = 512;
+SHA1.outSize = 160;
+SHA1.hmacStrength = 80;
+SHA1.padLength = 64;
+
+SHA1.prototype._update = function _update(msg, start) {
+  var W = this.W;
+
+  for (var i = 0; i < 16; i++)
+    W[i] = msg[start + i];
+
+  for(; i < W.length; i++)
+    W[i] = rotl32$1(W[i - 3] ^ W[i - 8] ^ W[i - 14] ^ W[i - 16], 1);
+
+  var a = this.h[0];
+  var b = this.h[1];
+  var c = this.h[2];
+  var d = this.h[3];
+  var e = this.h[4];
+
+  for (i = 0; i < W.length; i++) {
+    var s = ~~(i / 20);
+    var t = sum32_5$1(rotl32$1(a, 5), ft_1$1(s, b, c, d), e, W[i], sha1_K[s]);
+    e = d;
+    d = c;
+    c = rotl32$1(b, 30);
+    b = a;
+    a = t;
+  }
+
+  this.h[0] = sum32$1(this.h[0], a);
+  this.h[1] = sum32$1(this.h[1], b);
+  this.h[2] = sum32$1(this.h[2], c);
+  this.h[3] = sum32$1(this.h[3], d);
+  this.h[4] = sum32$1(this.h[4], e);
+};
+
+SHA1.prototype._digest = function digest(enc) {
+  if (enc === 'hex')
+    return utils$1.toHex32(this.h, 'big');
+  else
+    return utils$1.split32(this.h, 'big');
+};
+
+var sum32$2 = utils$1.sum32;
+var sum32_4$1 = utils$1.sum32_4;
+var sum32_5$2 = utils$1.sum32_5;
 var ch32$1 = common$1.ch32;
 var maj32$1 = common$1.maj32;
 var s0_256$1 = common$1.s0_256;
@@ -28750,7 +29368,7 @@ var s1_256$1 = common$1.s1_256;
 var g0_256$1 = common$1.g0_256;
 var g1_256$1 = common$1.g1_256;
 
-var BlockHash$1 = common.BlockHash;
+var BlockHash$2 = common.BlockHash;
 
 var sha256_K = [
   0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
@@ -28775,7 +29393,7 @@ function SHA256() {
   if (!(this instanceof SHA256))
     return new SHA256();
 
-  BlockHash$1.call(this);
+  BlockHash$2.call(this);
   this.h = [
     0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
     0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
@@ -28783,7 +29401,7 @@ function SHA256() {
   this.k = sha256_K;
   this.W = new Array(64);
 }
-utils$1.inherits(SHA256, BlockHash$1);
+utils$1.inherits(SHA256, BlockHash$2);
 var _256 = SHA256;
 
 SHA256.blockSize = 512;
@@ -28810,26 +29428,26 @@ SHA256.prototype._update = function _update(msg, start) {
 
   minimalisticAssert(this.k.length === W.length);
   for (i = 0; i < W.length; i++) {
-    var T1 = sum32_5$1(h, s1_256$1(e), ch32$1(e, f, g), this.k[i], W[i]);
-    var T2 = sum32$1(s0_256$1(a), maj32$1(a, b, c));
+    var T1 = sum32_5$2(h, s1_256$1(e), ch32$1(e, f, g), this.k[i], W[i]);
+    var T2 = sum32$2(s0_256$1(a), maj32$1(a, b, c));
     h = g;
     g = f;
     f = e;
-    e = sum32$1(d, T1);
+    e = sum32$2(d, T1);
     d = c;
     c = b;
     b = a;
-    a = sum32$1(T1, T2);
+    a = sum32$2(T1, T2);
   }
 
-  this.h[0] = sum32$1(this.h[0], a);
-  this.h[1] = sum32$1(this.h[1], b);
-  this.h[2] = sum32$1(this.h[2], c);
-  this.h[3] = sum32$1(this.h[3], d);
-  this.h[4] = sum32$1(this.h[4], e);
-  this.h[5] = sum32$1(this.h[5], f);
-  this.h[6] = sum32$1(this.h[6], g);
-  this.h[7] = sum32$1(this.h[7], h);
+  this.h[0] = sum32$2(this.h[0], a);
+  this.h[1] = sum32$2(this.h[1], b);
+  this.h[2] = sum32$2(this.h[2], c);
+  this.h[3] = sum32$2(this.h[3], d);
+  this.h[4] = sum32$2(this.h[4], e);
+  this.h[5] = sum32$2(this.h[5], f);
+  this.h[6] = sum32$2(this.h[6], g);
+  this.h[7] = sum32$2(this.h[7], h);
 };
 
 SHA256.prototype._digest = function digest(enc) {
@@ -28839,11 +29457,30 @@ SHA256.prototype._digest = function digest(enc) {
     return utils$1.split32(this.h, 'big');
 };
 
-var _384 = {};
+function SHA224() {
+  if (!(this instanceof SHA224))
+    return new SHA224();
 
+  _256.call(this);
+  this.h = [
+    0xc1059ed8, 0x367cd507, 0x3070dd17, 0xf70e5939,
+    0xffc00b31, 0x68581511, 0x64f98fa7, 0xbefa4fa4 ];
+}
+utils$1.inherits(SHA224, _256);
+var _224 = SHA224;
 
+SHA224.blockSize = 512;
+SHA224.outSize = 224;
+SHA224.hmacStrength = 192;
+SHA224.padLength = 64;
 
-
+SHA224.prototype._digest = function digest(enc) {
+  // Just truncate output
+  if (enc === 'hex')
+    return utils$1.toHex32(this.h.slice(0, 7), 'big');
+  else
+    return utils$1.split32(this.h.slice(0, 7), 'big');
+};
 
 var rotr64_hi$1 = utils$1.rotr64_hi;
 var rotr64_lo$1 = utils$1.rotr64_lo;
@@ -28857,7 +29494,7 @@ var sum64_4_lo$1 = utils$1.sum64_4_lo;
 var sum64_5_hi$1 = utils$1.sum64_5_hi;
 var sum64_5_lo$1 = utils$1.sum64_5_lo;
 
-var BlockHash$2 = common.BlockHash;
+var BlockHash$3 = common.BlockHash;
 
 var sha512_K = [
   0x428a2f98, 0xd728ae22, 0x71374491, 0x23ef65cd,
@@ -28906,7 +29543,7 @@ function SHA512() {
   if (!(this instanceof SHA512))
     return new SHA512();
 
-  BlockHash$2.call(this);
+  BlockHash$3.call(this);
   this.h = [
     0x6a09e667, 0xf3bcc908,
     0xbb67ae85, 0x84caa73b,
@@ -28919,7 +29556,7 @@ function SHA512() {
   this.k = sha512_K;
   this.W = new Array(160);
 }
-utils$1.inherits(SHA512, BlockHash$2);
+utils$1.inherits(SHA512, BlockHash$3);
 var _512 = SHA512;
 
 SHA512.blockSize = 1024;
@@ -29170,6 +29807,36 @@ function g1_512_lo(xh, xl) {
   return r;
 }
 
+function SHA384() {
+  if (!(this instanceof SHA384))
+    return new SHA384();
+
+  _512.call(this);
+  this.h = [
+    0xcbbb9d5d, 0xc1059ed8,
+    0x629a292a, 0x367cd507,
+    0x9159015a, 0x3070dd17,
+    0x152fecd8, 0xf70e5939,
+    0x67332667, 0xffc00b31,
+    0x8eb44a87, 0x68581511,
+    0xdb0c2e0d, 0x64f98fa7,
+    0x47b5481d, 0xbefa4fa4 ];
+}
+utils$1.inherits(SHA384, _512);
+var _384 = SHA384;
+
+SHA384.blockSize = 1024;
+SHA384.outSize = 384;
+SHA384.hmacStrength = 192;
+SHA384.padLength = 128;
+
+SHA384.prototype._digest = function digest(enc) {
+  if (enc === 'hex')
+    return utils$1.toHex32(this.h.slice(0, 12), 'big');
+  else
+    return utils$1.split32(this.h.slice(0, 12), 'big');
+};
+
 var sha1 = _1;
 var sha224 = _224;
 var sha256 = _256;
@@ -29184,25 +29851,22 @@ var sha = {
 	sha512: sha512
 };
 
-
-
-
-var rotl32$1 = utils$1.rotl32;
-var sum32$2 = utils$1.sum32;
+var rotl32$2 = utils$1.rotl32;
+var sum32$3 = utils$1.sum32;
 var sum32_3$1 = utils$1.sum32_3;
 var sum32_4$2 = utils$1.sum32_4;
-var BlockHash$3 = common.BlockHash;
+var BlockHash$4 = common.BlockHash;
 
 function RIPEMD160() {
   if (!(this instanceof RIPEMD160))
     return new RIPEMD160();
 
-  BlockHash$3.call(this);
+  BlockHash$4.call(this);
 
   this.h = [ 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476, 0xc3d2e1f0 ];
   this.endian = 'little';
 }
-utils$1.inherits(RIPEMD160, BlockHash$3);
+utils$1.inherits(RIPEMD160, BlockHash$4);
 var ripemd160 = RIPEMD160;
 
 RIPEMD160.blockSize = 512;
@@ -29222,24 +29886,24 @@ RIPEMD160.prototype._update = function update(msg, start) {
   var Dh = D;
   var Eh = E;
   for (var j = 0; j < 80; j++) {
-    var T = sum32$2(
-      rotl32$1(
+    var T = sum32$3(
+      rotl32$2(
         sum32_4$2(A, f$1(j, B, C, D), msg[r$1[j] + start], K(j)),
         s[j]),
       E);
     A = E;
     E = D;
-    D = rotl32$1(C, 10);
+    D = rotl32$2(C, 10);
     C = B;
     B = T;
-    T = sum32$2(
-      rotl32$1(
+    T = sum32$3(
+      rotl32$2(
         sum32_4$2(Ah, f$1(79 - j, Bh, Ch, Dh), msg[rh[j] + start], Kh(j)),
         sh[j]),
       Eh);
     Ah = Eh;
     Eh = Dh;
-    Dh = rotl32$1(Ch, 10);
+    Dh = rotl32$2(Ch, 10);
     Ch = Bh;
     Bh = T;
   }
@@ -29333,9 +29997,6 @@ var ripemd = {
 	ripemd160: ripemd160
 };
 
-
-
-
 function Hmac(hash, key, enc) {
   if (!(this instanceof Hmac))
     return new Hmac(hash, key, enc);
@@ -29379,7 +30040,7 @@ Hmac.prototype.digest = function digest(enc) {
   return this.outer.digest(enc);
 };
 
-var hash_1 = createCommonjsModule$1(function (module, exports) {
+var hash_1 = createCommonjsModule(function (module, exports) {
 var hash = exports;
 
 hash.utils = utils$1;
@@ -29396,70 +30057,35 @@ hash.sha384 = hash.sha.sha384;
 hash.sha512 = hash.sha.sha512;
 hash.ripemd160 = hash.ripemd.ripemd160;
 });
-hash_1.hmac;
-hash_1.ripemd160;
-hash_1.sha256;
-hash_1.sha512;
 
-var _version = createCommonjsModule$1(function (module, exports) {
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.version = "sha2/5.0.3";
-
-});
-
-unwrapExports(_version);
-_version.version;
-
-var browser = createCommonjsModule$1(function (module, exports) {
-var __importStar = (commonjsGlobal$1 && commonjsGlobal$1.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var hash = __importStar(hash_1);
-
-
-
-var logger = new lib_esm.Logger(_version.version);
 var SupportedAlgorithm;
 (function (SupportedAlgorithm) {
     SupportedAlgorithm["sha256"] = "sha256";
     SupportedAlgorithm["sha512"] = "sha512";
-})(SupportedAlgorithm = exports.SupportedAlgorithm || (exports.SupportedAlgorithm = {}));
-function ripemd160(data) {
-    return "0x" + (hash.ripemd160().update(lib_esm$1.arrayify(data)).digest("hex"));
+})(SupportedAlgorithm || (SupportedAlgorithm = {}));
+
+const version$c = "sha2/5.0.8";
+
+const logger$h = new Logger(version$c);
+function ripemd160$1(data) {
+    return "0x" + (hash_1.ripemd160().update(arrayify(data)).digest("hex"));
 }
-exports.ripemd160 = ripemd160;
-function sha256(data) {
-    return "0x" + (hash.sha256().update(lib_esm$1.arrayify(data)).digest("hex"));
+function sha256$1(data) {
+    return "0x" + (hash_1.sha256().update(arrayify(data)).digest("hex"));
 }
-exports.sha256 = sha256;
-function sha512(data) {
-    return "0x" + (hash.sha512().update(lib_esm$1.arrayify(data)).digest("hex"));
+function sha512$1(data) {
+    return "0x" + (hash_1.sha512().update(arrayify(data)).digest("hex"));
 }
-exports.sha512 = sha512;
 function computeHmac(algorithm, key, data) {
     if (!SupportedAlgorithm[algorithm]) {
-        logger.throwError("unsupported algorithm " + algorithm, lib_esm.Logger.errors.UNSUPPORTED_OPERATION, {
+        logger$h.throwError("unsupported algorithm " + algorithm, Logger.errors.UNSUPPORTED_OPERATION, {
             operation: "hmac",
             algorithm: algorithm
         });
     }
-    return "0x" + hash.hmac(hash[algorithm], lib_esm$1.arrayify(key)).update(lib_esm$1.arrayify(data)).digest("hex");
+    return "0x" + hash_1.hmac(hash_1[algorithm], arrayify(key)).update(arrayify(data)).digest("hex");
 }
-exports.computeHmac = computeHmac;
 
-});
-
-unwrapExports(browser);
-var browser_1 = browser.SupportedAlgorithm;
-var browser_2 = browser.ripemd160;
-var browser_3 = browser.sha256;
-var browser_4 = browser.sha512;
-var browser_5 = browser.computeHmac;
 function pbkdf2(password, salt, iterations, keylen, hashAlgorithm) {
     password = arrayify(password);
     salt = arrayify(salt);
@@ -29478,7 +30104,7 @@ function pbkdf2(password, salt, iterations, keylen, hashAlgorithm) {
         block1[salt.length + 2] = (i >> 8) & 0xff;
         block1[salt.length + 3] = i & 0xff;
         //let U = createHmac(password).update(block1).digest();
-        let U = arrayify(browser_5(hashAlgorithm, password, block1));
+        let U = arrayify(computeHmac(hashAlgorithm, password, block1));
         if (!hLen) {
             hLen = U.length;
             T = new Uint8Array(hLen);
@@ -29489,7 +30115,7 @@ function pbkdf2(password, salt, iterations, keylen, hashAlgorithm) {
         T.set(U);
         for (let j = 1; j < iterations; j++) {
             //U = createHmac(password).update(U).digest();
-            U = arrayify(browser_5(hashAlgorithm, password, U));
+            U = arrayify(computeHmac(hashAlgorithm, password, U));
             for (let k = 0; k < hLen; k++)
                 T[k] ^= U[k];
         }
@@ -29501,3448 +30127,1253 @@ function pbkdf2(password, salt, iterations, keylen, hashAlgorithm) {
     return hexlify(DK);
 }
 
-var version$c = "6.5.3";
-var _package = {
-	version: version$c
+var inherits_1$1 = inherits;
+
+function isSurrogatePair(msg, i) {
+  if ((msg.charCodeAt(i) & 0xFC00) !== 0xD800) {
+    return false;
+  }
+  if (i < 0 || i + 1 >= msg.length) {
+    return false;
+  }
+  return (msg.charCodeAt(i + 1) & 0xFC00) === 0xDC00;
+}
+
+function toArray$1(msg, enc) {
+  if (Array.isArray(msg))
+    return msg.slice();
+  if (!msg)
+    return [];
+  var res = [];
+  if (typeof msg === 'string') {
+    if (!enc) {
+      // Inspired by stringToUtf8ByteArray() in closure-library by Google
+      // https://github.com/google/closure-library/blob/8598d87242af59aac233270742c8984e2b2bdbe0/closure/goog/crypt/crypt.js#L117-L143
+      // Apache License 2.0
+      // https://github.com/google/closure-library/blob/master/LICENSE
+      var p = 0;
+      for (var i = 0; i < msg.length; i++) {
+        var c = msg.charCodeAt(i);
+        if (c < 128) {
+          res[p++] = c;
+        } else if (c < 2048) {
+          res[p++] = (c >> 6) | 192;
+          res[p++] = (c & 63) | 128;
+        } else if (isSurrogatePair(msg, i)) {
+          c = 0x10000 + ((c & 0x03FF) << 10) + (msg.charCodeAt(++i) & 0x03FF);
+          res[p++] = (c >> 18) | 240;
+          res[p++] = ((c >> 12) & 63) | 128;
+          res[p++] = ((c >> 6) & 63) | 128;
+          res[p++] = (c & 63) | 128;
+        } else {
+          res[p++] = (c >> 12) | 224;
+          res[p++] = ((c >> 6) & 63) | 128;
+          res[p++] = (c & 63) | 128;
+        }
+      }
+    } else if (enc === 'hex') {
+      msg = msg.replace(/[^a-z0-9]+/ig, '');
+      if (msg.length % 2 !== 0)
+        msg = '0' + msg;
+      for (i = 0; i < msg.length; i += 2)
+        res.push(parseInt(msg[i] + msg[i + 1], 16));
+    }
+  } else {
+    for (i = 0; i < msg.length; i++)
+      res[i] = msg[i] | 0;
+  }
+  return res;
+}
+var toArray_1$1 = toArray$1;
+
+function toHex$2(msg) {
+  var res = '';
+  for (var i = 0; i < msg.length; i++)
+    res += zero2$1(msg[i].toString(16));
+  return res;
+}
+var toHex_1$1 = toHex$2;
+
+function htonl$1(w) {
+  var res = (w >>> 24) |
+            ((w >>> 8) & 0xff00) |
+            ((w << 8) & 0xff0000) |
+            ((w & 0xff) << 24);
+  return res >>> 0;
+}
+var htonl_1$1 = htonl$1;
+
+function toHex32$1(msg, endian) {
+  var res = '';
+  for (var i = 0; i < msg.length; i++) {
+    var w = msg[i];
+    if (endian === 'little')
+      w = htonl$1(w);
+    res += zero8$1(w.toString(16));
+  }
+  return res;
+}
+var toHex32_1$1 = toHex32$1;
+
+function zero2$1(word) {
+  if (word.length === 1)
+    return '0' + word;
+  else
+    return word;
+}
+var zero2_1$1 = zero2$1;
+
+function zero8$1(word) {
+  if (word.length === 7)
+    return '0' + word;
+  else if (word.length === 6)
+    return '00' + word;
+  else if (word.length === 5)
+    return '000' + word;
+  else if (word.length === 4)
+    return '0000' + word;
+  else if (word.length === 3)
+    return '00000' + word;
+  else if (word.length === 2)
+    return '000000' + word;
+  else if (word.length === 1)
+    return '0000000' + word;
+  else
+    return word;
+}
+var zero8_1$1 = zero8$1;
+
+function join32$1(msg, start, end, endian) {
+  var len = end - start;
+  minimalisticAssert(len % 4 === 0);
+  var res = new Array(len / 4);
+  for (var i = 0, k = start; i < res.length; i++, k += 4) {
+    var w;
+    if (endian === 'big')
+      w = (msg[k] << 24) | (msg[k + 1] << 16) | (msg[k + 2] << 8) | msg[k + 3];
+    else
+      w = (msg[k + 3] << 24) | (msg[k + 2] << 16) | (msg[k + 1] << 8) | msg[k];
+    res[i] = w >>> 0;
+  }
+  return res;
+}
+var join32_1$1 = join32$1;
+
+function split32$1(msg, endian) {
+  var res = new Array(msg.length * 4);
+  for (var i = 0, k = 0; i < msg.length; i++, k += 4) {
+    var m = msg[i];
+    if (endian === 'big') {
+      res[k] = m >>> 24;
+      res[k + 1] = (m >>> 16) & 0xff;
+      res[k + 2] = (m >>> 8) & 0xff;
+      res[k + 3] = m & 0xff;
+    } else {
+      res[k + 3] = m >>> 24;
+      res[k + 2] = (m >>> 16) & 0xff;
+      res[k + 1] = (m >>> 8) & 0xff;
+      res[k] = m & 0xff;
+    }
+  }
+  return res;
+}
+var split32_1$1 = split32$1;
+
+function rotr32$2(w, b) {
+  return (w >>> b) | (w << (32 - b));
+}
+var rotr32_1$1 = rotr32$2;
+
+function rotl32$3(w, b) {
+  return (w << b) | (w >>> (32 - b));
+}
+var rotl32_1$1 = rotl32$3;
+
+function sum32$4(a, b) {
+  return (a + b) >>> 0;
+}
+var sum32_1$1 = sum32$4;
+
+function sum32_3$2(a, b, c) {
+  return (a + b + c) >>> 0;
+}
+var sum32_3_1$1 = sum32_3$2;
+
+function sum32_4$3(a, b, c, d) {
+  return (a + b + c + d) >>> 0;
+}
+var sum32_4_1$1 = sum32_4$3;
+
+function sum32_5$3(a, b, c, d, e) {
+  return (a + b + c + d + e) >>> 0;
+}
+var sum32_5_1$1 = sum32_5$3;
+
+function sum64$2(buf, pos, ah, al) {
+  var bh = buf[pos];
+  var bl = buf[pos + 1];
+
+  var lo = (al + bl) >>> 0;
+  var hi = (lo < al ? 1 : 0) + ah + bh;
+  buf[pos] = hi >>> 0;
+  buf[pos + 1] = lo;
+}
+var sum64_1$1 = sum64$2;
+
+function sum64_hi$2(ah, al, bh, bl) {
+  var lo = (al + bl) >>> 0;
+  var hi = (lo < al ? 1 : 0) + ah + bh;
+  return hi >>> 0;
+}
+var sum64_hi_1$1 = sum64_hi$2;
+
+function sum64_lo$2(ah, al, bh, bl) {
+  var lo = al + bl;
+  return lo >>> 0;
+}
+var sum64_lo_1$1 = sum64_lo$2;
+
+function sum64_4_hi$2(ah, al, bh, bl, ch, cl, dh, dl) {
+  var carry = 0;
+  var lo = al;
+  lo = (lo + bl) >>> 0;
+  carry += lo < al ? 1 : 0;
+  lo = (lo + cl) >>> 0;
+  carry += lo < cl ? 1 : 0;
+  lo = (lo + dl) >>> 0;
+  carry += lo < dl ? 1 : 0;
+
+  var hi = ah + bh + ch + dh + carry;
+  return hi >>> 0;
+}
+var sum64_4_hi_1$1 = sum64_4_hi$2;
+
+function sum64_4_lo$2(ah, al, bh, bl, ch, cl, dh, dl) {
+  var lo = al + bl + cl + dl;
+  return lo >>> 0;
+}
+var sum64_4_lo_1$1 = sum64_4_lo$2;
+
+function sum64_5_hi$2(ah, al, bh, bl, ch, cl, dh, dl, eh, el) {
+  var carry = 0;
+  var lo = al;
+  lo = (lo + bl) >>> 0;
+  carry += lo < al ? 1 : 0;
+  lo = (lo + cl) >>> 0;
+  carry += lo < cl ? 1 : 0;
+  lo = (lo + dl) >>> 0;
+  carry += lo < dl ? 1 : 0;
+  lo = (lo + el) >>> 0;
+  carry += lo < el ? 1 : 0;
+
+  var hi = ah + bh + ch + dh + eh + carry;
+  return hi >>> 0;
+}
+var sum64_5_hi_1$1 = sum64_5_hi$2;
+
+function sum64_5_lo$2(ah, al, bh, bl, ch, cl, dh, dl, eh, el) {
+  var lo = al + bl + cl + dl + el;
+
+  return lo >>> 0;
+}
+var sum64_5_lo_1$1 = sum64_5_lo$2;
+
+function rotr64_hi$2(ah, al, num) {
+  var r = (al << (32 - num)) | (ah >>> num);
+  return r >>> 0;
+}
+var rotr64_hi_1$1 = rotr64_hi$2;
+
+function rotr64_lo$2(ah, al, num) {
+  var r = (ah << (32 - num)) | (al >>> num);
+  return r >>> 0;
+}
+var rotr64_lo_1$1 = rotr64_lo$2;
+
+function shr64_hi$2(ah, al, num) {
+  return ah >>> num;
+}
+var shr64_hi_1$1 = shr64_hi$2;
+
+function shr64_lo$2(ah, al, num) {
+  var r = (ah << (32 - num)) | (al >>> num);
+  return r >>> 0;
+}
+var shr64_lo_1$1 = shr64_lo$2;
+
+var utils$2 = {
+	inherits: inherits_1$1,
+	toArray: toArray_1$1,
+	toHex: toHex_1$1,
+	htonl: htonl_1$1,
+	toHex32: toHex32_1$1,
+	zero2: zero2_1$1,
+	zero8: zero8_1$1,
+	join32: join32_1$1,
+	split32: split32_1$1,
+	rotr32: rotr32_1$1,
+	rotl32: rotl32_1$1,
+	sum32: sum32_1$1,
+	sum32_3: sum32_3_1$1,
+	sum32_4: sum32_4_1$1,
+	sum32_5: sum32_5_1$1,
+	sum64: sum64_1$1,
+	sum64_hi: sum64_hi_1$1,
+	sum64_lo: sum64_lo_1$1,
+	sum64_4_hi: sum64_4_hi_1$1,
+	sum64_4_lo: sum64_4_lo_1$1,
+	sum64_5_hi: sum64_5_hi_1$1,
+	sum64_5_lo: sum64_5_lo_1$1,
+	rotr64_hi: rotr64_hi_1$1,
+	rotr64_lo: rotr64_lo_1$1,
+	shr64_hi: shr64_hi_1$1,
+	shr64_lo: shr64_lo_1$1
 };
 
-var _package$1 = /*#__PURE__*/Object.freeze({
-	version: version$c,
-	'default': _package
+function BlockHash$5() {
+  this.pending = null;
+  this.pendingTotal = 0;
+  this.blockSize = this.constructor.blockSize;
+  this.outSize = this.constructor.outSize;
+  this.hmacStrength = this.constructor.hmacStrength;
+  this.padLength = this.constructor.padLength / 8;
+  this.endian = 'big';
+
+  this._delta8 = this.blockSize / 8;
+  this._delta32 = this.blockSize / 32;
+}
+var BlockHash_1$1 = BlockHash$5;
+
+BlockHash$5.prototype.update = function update(msg, enc) {
+  // Convert message to array, pad it, and join into 32bit blocks
+  msg = utils$2.toArray(msg, enc);
+  if (!this.pending)
+    this.pending = msg;
+  else
+    this.pending = this.pending.concat(msg);
+  this.pendingTotal += msg.length;
+
+  // Enough data, try updating
+  if (this.pending.length >= this._delta8) {
+    msg = this.pending;
+
+    // Process pending data in blocks
+    var r = msg.length % this._delta8;
+    this.pending = msg.slice(msg.length - r, msg.length);
+    if (this.pending.length === 0)
+      this.pending = null;
+
+    msg = utils$2.join32(msg, 0, msg.length - r, this.endian);
+    for (var i = 0; i < msg.length; i += this._delta32)
+      this._update(msg, i, i + this._delta32);
+  }
+
+  return this;
+};
+
+BlockHash$5.prototype.digest = function digest(enc) {
+  this.update(this._pad());
+  minimalisticAssert(this.pending === null);
+
+  return this._digest(enc);
+};
+
+BlockHash$5.prototype._pad = function pad() {
+  var len = this.pendingTotal;
+  var bytes = this._delta8;
+  var k = bytes - ((len + this.padLength) % bytes);
+  var res = new Array(k + this.padLength);
+  res[0] = 0x80;
+  for (var i = 1; i < k; i++)
+    res[i] = 0;
+
+  // Append length
+  len <<= 3;
+  if (this.endian === 'big') {
+    for (var t = 8; t < this.padLength; t++)
+      res[i++] = 0;
+
+    res[i++] = 0;
+    res[i++] = 0;
+    res[i++] = 0;
+    res[i++] = 0;
+    res[i++] = (len >>> 24) & 0xff;
+    res[i++] = (len >>> 16) & 0xff;
+    res[i++] = (len >>> 8) & 0xff;
+    res[i++] = len & 0xff;
+  } else {
+    res[i++] = len & 0xff;
+    res[i++] = (len >>> 8) & 0xff;
+    res[i++] = (len >>> 16) & 0xff;
+    res[i++] = (len >>> 24) & 0xff;
+    res[i++] = 0;
+    res[i++] = 0;
+    res[i++] = 0;
+    res[i++] = 0;
+
+    for (t = 8; t < this.padLength; t++)
+      res[i++] = 0;
+  }
+
+  return res;
+};
+
+var common$2 = {
+	BlockHash: BlockHash_1$1
+};
+
+var rotr32$3 = utils$2.rotr32;
+
+function ft_1$2(s, x, y, z) {
+  if (s === 0)
+    return ch32$2(x, y, z);
+  if (s === 1 || s === 3)
+    return p32$1(x, y, z);
+  if (s === 2)
+    return maj32$2(x, y, z);
+}
+var ft_1_1$1 = ft_1$2;
+
+function ch32$2(x, y, z) {
+  return (x & y) ^ ((~x) & z);
+}
+var ch32_1$1 = ch32$2;
+
+function maj32$2(x, y, z) {
+  return (x & y) ^ (x & z) ^ (y & z);
+}
+var maj32_1$1 = maj32$2;
+
+function p32$1(x, y, z) {
+  return x ^ y ^ z;
+}
+var p32_1$1 = p32$1;
+
+function s0_256$2(x) {
+  return rotr32$3(x, 2) ^ rotr32$3(x, 13) ^ rotr32$3(x, 22);
+}
+var s0_256_1$1 = s0_256$2;
+
+function s1_256$2(x) {
+  return rotr32$3(x, 6) ^ rotr32$3(x, 11) ^ rotr32$3(x, 25);
+}
+var s1_256_1$1 = s1_256$2;
+
+function g0_256$2(x) {
+  return rotr32$3(x, 7) ^ rotr32$3(x, 18) ^ (x >>> 3);
+}
+var g0_256_1$1 = g0_256$2;
+
+function g1_256$2(x) {
+  return rotr32$3(x, 17) ^ rotr32$3(x, 19) ^ (x >>> 10);
+}
+var g1_256_1$1 = g1_256$2;
+
+var common$3 = {
+	ft_1: ft_1_1$1,
+	ch32: ch32_1$1,
+	maj32: maj32_1$1,
+	p32: p32_1$1,
+	s0_256: s0_256_1$1,
+	s1_256: s1_256_1$1,
+	g0_256: g0_256_1$1,
+	g1_256: g1_256_1$1
+};
+
+var rotl32$4 = utils$2.rotl32;
+var sum32$5 = utils$2.sum32;
+var sum32_5$4 = utils$2.sum32_5;
+var ft_1$3 = common$3.ft_1;
+var BlockHash$6 = common$2.BlockHash;
+
+var sha1_K$1 = [
+  0x5A827999, 0x6ED9EBA1,
+  0x8F1BBCDC, 0xCA62C1D6
+];
+
+function SHA1$1() {
+  if (!(this instanceof SHA1$1))
+    return new SHA1$1();
+
+  BlockHash$6.call(this);
+  this.h = [
+    0x67452301, 0xefcdab89, 0x98badcfe,
+    0x10325476, 0xc3d2e1f0 ];
+  this.W = new Array(80);
+}
+
+utils$2.inherits(SHA1$1, BlockHash$6);
+var _1$1 = SHA1$1;
+
+SHA1$1.blockSize = 512;
+SHA1$1.outSize = 160;
+SHA1$1.hmacStrength = 80;
+SHA1$1.padLength = 64;
+
+SHA1$1.prototype._update = function _update(msg, start) {
+  var W = this.W;
+
+  for (var i = 0; i < 16; i++)
+    W[i] = msg[start + i];
+
+  for(; i < W.length; i++)
+    W[i] = rotl32$4(W[i - 3] ^ W[i - 8] ^ W[i - 14] ^ W[i - 16], 1);
+
+  var a = this.h[0];
+  var b = this.h[1];
+  var c = this.h[2];
+  var d = this.h[3];
+  var e = this.h[4];
+
+  for (i = 0; i < W.length; i++) {
+    var s = ~~(i / 20);
+    var t = sum32_5$4(rotl32$4(a, 5), ft_1$3(s, b, c, d), e, W[i], sha1_K$1[s]);
+    e = d;
+    d = c;
+    c = rotl32$4(b, 30);
+    b = a;
+    a = t;
+  }
+
+  this.h[0] = sum32$5(this.h[0], a);
+  this.h[1] = sum32$5(this.h[1], b);
+  this.h[2] = sum32$5(this.h[2], c);
+  this.h[3] = sum32$5(this.h[3], d);
+  this.h[4] = sum32$5(this.h[4], e);
+};
+
+SHA1$1.prototype._digest = function digest(enc) {
+  if (enc === 'hex')
+    return utils$2.toHex32(this.h, 'big');
+  else
+    return utils$2.split32(this.h, 'big');
+};
+
+var sum32$6 = utils$2.sum32;
+var sum32_4$4 = utils$2.sum32_4;
+var sum32_5$5 = utils$2.sum32_5;
+var ch32$3 = common$3.ch32;
+var maj32$3 = common$3.maj32;
+var s0_256$3 = common$3.s0_256;
+var s1_256$3 = common$3.s1_256;
+var g0_256$3 = common$3.g0_256;
+var g1_256$3 = common$3.g1_256;
+
+var BlockHash$7 = common$2.BlockHash;
+
+var sha256_K$1 = [
+  0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
+  0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+  0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
+  0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+  0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc,
+  0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+  0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
+  0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+  0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13,
+  0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+  0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3,
+  0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+  0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
+  0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+  0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
+  0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+];
+
+function SHA256$1() {
+  if (!(this instanceof SHA256$1))
+    return new SHA256$1();
+
+  BlockHash$7.call(this);
+  this.h = [
+    0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
+    0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
+  ];
+  this.k = sha256_K$1;
+  this.W = new Array(64);
+}
+utils$2.inherits(SHA256$1, BlockHash$7);
+var _256$1 = SHA256$1;
+
+SHA256$1.blockSize = 512;
+SHA256$1.outSize = 256;
+SHA256$1.hmacStrength = 192;
+SHA256$1.padLength = 64;
+
+SHA256$1.prototype._update = function _update(msg, start) {
+  var W = this.W;
+
+  for (var i = 0; i < 16; i++)
+    W[i] = msg[start + i];
+  for (; i < W.length; i++)
+    W[i] = sum32_4$4(g1_256$3(W[i - 2]), W[i - 7], g0_256$3(W[i - 15]), W[i - 16]);
+
+  var a = this.h[0];
+  var b = this.h[1];
+  var c = this.h[2];
+  var d = this.h[3];
+  var e = this.h[4];
+  var f = this.h[5];
+  var g = this.h[6];
+  var h = this.h[7];
+
+  minimalisticAssert(this.k.length === W.length);
+  for (i = 0; i < W.length; i++) {
+    var T1 = sum32_5$5(h, s1_256$3(e), ch32$3(e, f, g), this.k[i], W[i]);
+    var T2 = sum32$6(s0_256$3(a), maj32$3(a, b, c));
+    h = g;
+    g = f;
+    f = e;
+    e = sum32$6(d, T1);
+    d = c;
+    c = b;
+    b = a;
+    a = sum32$6(T1, T2);
+  }
+
+  this.h[0] = sum32$6(this.h[0], a);
+  this.h[1] = sum32$6(this.h[1], b);
+  this.h[2] = sum32$6(this.h[2], c);
+  this.h[3] = sum32$6(this.h[3], d);
+  this.h[4] = sum32$6(this.h[4], e);
+  this.h[5] = sum32$6(this.h[5], f);
+  this.h[6] = sum32$6(this.h[6], g);
+  this.h[7] = sum32$6(this.h[7], h);
+};
+
+SHA256$1.prototype._digest = function digest(enc) {
+  if (enc === 'hex')
+    return utils$2.toHex32(this.h, 'big');
+  else
+    return utils$2.split32(this.h, 'big');
+};
+
+function SHA224$1() {
+  if (!(this instanceof SHA224$1))
+    return new SHA224$1();
+
+  _256$1.call(this);
+  this.h = [
+    0xc1059ed8, 0x367cd507, 0x3070dd17, 0xf70e5939,
+    0xffc00b31, 0x68581511, 0x64f98fa7, 0xbefa4fa4 ];
+}
+utils$2.inherits(SHA224$1, _256$1);
+var _224$1 = SHA224$1;
+
+SHA224$1.blockSize = 512;
+SHA224$1.outSize = 224;
+SHA224$1.hmacStrength = 192;
+SHA224$1.padLength = 64;
+
+SHA224$1.prototype._digest = function digest(enc) {
+  // Just truncate output
+  if (enc === 'hex')
+    return utils$2.toHex32(this.h.slice(0, 7), 'big');
+  else
+    return utils$2.split32(this.h.slice(0, 7), 'big');
+};
+
+var rotr64_hi$3 = utils$2.rotr64_hi;
+var rotr64_lo$3 = utils$2.rotr64_lo;
+var shr64_hi$3 = utils$2.shr64_hi;
+var shr64_lo$3 = utils$2.shr64_lo;
+var sum64$3 = utils$2.sum64;
+var sum64_hi$3 = utils$2.sum64_hi;
+var sum64_lo$3 = utils$2.sum64_lo;
+var sum64_4_hi$3 = utils$2.sum64_4_hi;
+var sum64_4_lo$3 = utils$2.sum64_4_lo;
+var sum64_5_hi$3 = utils$2.sum64_5_hi;
+var sum64_5_lo$3 = utils$2.sum64_5_lo;
+
+var BlockHash$8 = common$2.BlockHash;
+
+var sha512_K$1 = [
+  0x428a2f98, 0xd728ae22, 0x71374491, 0x23ef65cd,
+  0xb5c0fbcf, 0xec4d3b2f, 0xe9b5dba5, 0x8189dbbc,
+  0x3956c25b, 0xf348b538, 0x59f111f1, 0xb605d019,
+  0x923f82a4, 0xaf194f9b, 0xab1c5ed5, 0xda6d8118,
+  0xd807aa98, 0xa3030242, 0x12835b01, 0x45706fbe,
+  0x243185be, 0x4ee4b28c, 0x550c7dc3, 0xd5ffb4e2,
+  0x72be5d74, 0xf27b896f, 0x80deb1fe, 0x3b1696b1,
+  0x9bdc06a7, 0x25c71235, 0xc19bf174, 0xcf692694,
+  0xe49b69c1, 0x9ef14ad2, 0xefbe4786, 0x384f25e3,
+  0x0fc19dc6, 0x8b8cd5b5, 0x240ca1cc, 0x77ac9c65,
+  0x2de92c6f, 0x592b0275, 0x4a7484aa, 0x6ea6e483,
+  0x5cb0a9dc, 0xbd41fbd4, 0x76f988da, 0x831153b5,
+  0x983e5152, 0xee66dfab, 0xa831c66d, 0x2db43210,
+  0xb00327c8, 0x98fb213f, 0xbf597fc7, 0xbeef0ee4,
+  0xc6e00bf3, 0x3da88fc2, 0xd5a79147, 0x930aa725,
+  0x06ca6351, 0xe003826f, 0x14292967, 0x0a0e6e70,
+  0x27b70a85, 0x46d22ffc, 0x2e1b2138, 0x5c26c926,
+  0x4d2c6dfc, 0x5ac42aed, 0x53380d13, 0x9d95b3df,
+  0x650a7354, 0x8baf63de, 0x766a0abb, 0x3c77b2a8,
+  0x81c2c92e, 0x47edaee6, 0x92722c85, 0x1482353b,
+  0xa2bfe8a1, 0x4cf10364, 0xa81a664b, 0xbc423001,
+  0xc24b8b70, 0xd0f89791, 0xc76c51a3, 0x0654be30,
+  0xd192e819, 0xd6ef5218, 0xd6990624, 0x5565a910,
+  0xf40e3585, 0x5771202a, 0x106aa070, 0x32bbd1b8,
+  0x19a4c116, 0xb8d2d0c8, 0x1e376c08, 0x5141ab53,
+  0x2748774c, 0xdf8eeb99, 0x34b0bcb5, 0xe19b48a8,
+  0x391c0cb3, 0xc5c95a63, 0x4ed8aa4a, 0xe3418acb,
+  0x5b9cca4f, 0x7763e373, 0x682e6ff3, 0xd6b2b8a3,
+  0x748f82ee, 0x5defb2fc, 0x78a5636f, 0x43172f60,
+  0x84c87814, 0xa1f0ab72, 0x8cc70208, 0x1a6439ec,
+  0x90befffa, 0x23631e28, 0xa4506ceb, 0xde82bde9,
+  0xbef9a3f7, 0xb2c67915, 0xc67178f2, 0xe372532b,
+  0xca273ece, 0xea26619c, 0xd186b8c7, 0x21c0c207,
+  0xeada7dd6, 0xcde0eb1e, 0xf57d4f7f, 0xee6ed178,
+  0x06f067aa, 0x72176fba, 0x0a637dc5, 0xa2c898a6,
+  0x113f9804, 0xbef90dae, 0x1b710b35, 0x131c471b,
+  0x28db77f5, 0x23047d84, 0x32caab7b, 0x40c72493,
+  0x3c9ebe0a, 0x15c9bebc, 0x431d67c4, 0x9c100d4c,
+  0x4cc5d4be, 0xcb3e42b6, 0x597f299c, 0xfc657e2a,
+  0x5fcb6fab, 0x3ad6faec, 0x6c44198c, 0x4a475817
+];
+
+function SHA512$1() {
+  if (!(this instanceof SHA512$1))
+    return new SHA512$1();
+
+  BlockHash$8.call(this);
+  this.h = [
+    0x6a09e667, 0xf3bcc908,
+    0xbb67ae85, 0x84caa73b,
+    0x3c6ef372, 0xfe94f82b,
+    0xa54ff53a, 0x5f1d36f1,
+    0x510e527f, 0xade682d1,
+    0x9b05688c, 0x2b3e6c1f,
+    0x1f83d9ab, 0xfb41bd6b,
+    0x5be0cd19, 0x137e2179 ];
+  this.k = sha512_K$1;
+  this.W = new Array(160);
+}
+utils$2.inherits(SHA512$1, BlockHash$8);
+var _512$1 = SHA512$1;
+
+SHA512$1.blockSize = 1024;
+SHA512$1.outSize = 512;
+SHA512$1.hmacStrength = 192;
+SHA512$1.padLength = 128;
+
+SHA512$1.prototype._prepareBlock = function _prepareBlock(msg, start) {
+  var W = this.W;
+
+  // 32 x 32bit words
+  for (var i = 0; i < 32; i++)
+    W[i] = msg[start + i];
+  for (; i < W.length; i += 2) {
+    var c0_hi = g1_512_hi$1(W[i - 4], W[i - 3]);  // i - 2
+    var c0_lo = g1_512_lo$1(W[i - 4], W[i - 3]);
+    var c1_hi = W[i - 14];  // i - 7
+    var c1_lo = W[i - 13];
+    var c2_hi = g0_512_hi$1(W[i - 30], W[i - 29]);  // i - 15
+    var c2_lo = g0_512_lo$1(W[i - 30], W[i - 29]);
+    var c3_hi = W[i - 32];  // i - 16
+    var c3_lo = W[i - 31];
+
+    W[i] = sum64_4_hi$3(
+      c0_hi, c0_lo,
+      c1_hi, c1_lo,
+      c2_hi, c2_lo,
+      c3_hi, c3_lo);
+    W[i + 1] = sum64_4_lo$3(
+      c0_hi, c0_lo,
+      c1_hi, c1_lo,
+      c2_hi, c2_lo,
+      c3_hi, c3_lo);
+  }
+};
+
+SHA512$1.prototype._update = function _update(msg, start) {
+  this._prepareBlock(msg, start);
+
+  var W = this.W;
+
+  var ah = this.h[0];
+  var al = this.h[1];
+  var bh = this.h[2];
+  var bl = this.h[3];
+  var ch = this.h[4];
+  var cl = this.h[5];
+  var dh = this.h[6];
+  var dl = this.h[7];
+  var eh = this.h[8];
+  var el = this.h[9];
+  var fh = this.h[10];
+  var fl = this.h[11];
+  var gh = this.h[12];
+  var gl = this.h[13];
+  var hh = this.h[14];
+  var hl = this.h[15];
+
+  minimalisticAssert(this.k.length === W.length);
+  for (var i = 0; i < W.length; i += 2) {
+    var c0_hi = hh;
+    var c0_lo = hl;
+    var c1_hi = s1_512_hi$1(eh, el);
+    var c1_lo = s1_512_lo$1(eh, el);
+    var c2_hi = ch64_hi$1(eh, el, fh, fl, gh);
+    var c2_lo = ch64_lo$1(eh, el, fh, fl, gh, gl);
+    var c3_hi = this.k[i];
+    var c3_lo = this.k[i + 1];
+    var c4_hi = W[i];
+    var c4_lo = W[i + 1];
+
+    var T1_hi = sum64_5_hi$3(
+      c0_hi, c0_lo,
+      c1_hi, c1_lo,
+      c2_hi, c2_lo,
+      c3_hi, c3_lo,
+      c4_hi, c4_lo);
+    var T1_lo = sum64_5_lo$3(
+      c0_hi, c0_lo,
+      c1_hi, c1_lo,
+      c2_hi, c2_lo,
+      c3_hi, c3_lo,
+      c4_hi, c4_lo);
+
+    c0_hi = s0_512_hi$1(ah, al);
+    c0_lo = s0_512_lo$1(ah, al);
+    c1_hi = maj64_hi$1(ah, al, bh, bl, ch);
+    c1_lo = maj64_lo$1(ah, al, bh, bl, ch, cl);
+
+    var T2_hi = sum64_hi$3(c0_hi, c0_lo, c1_hi, c1_lo);
+    var T2_lo = sum64_lo$3(c0_hi, c0_lo, c1_hi, c1_lo);
+
+    hh = gh;
+    hl = gl;
+
+    gh = fh;
+    gl = fl;
+
+    fh = eh;
+    fl = el;
+
+    eh = sum64_hi$3(dh, dl, T1_hi, T1_lo);
+    el = sum64_lo$3(dl, dl, T1_hi, T1_lo);
+
+    dh = ch;
+    dl = cl;
+
+    ch = bh;
+    cl = bl;
+
+    bh = ah;
+    bl = al;
+
+    ah = sum64_hi$3(T1_hi, T1_lo, T2_hi, T2_lo);
+    al = sum64_lo$3(T1_hi, T1_lo, T2_hi, T2_lo);
+  }
+
+  sum64$3(this.h, 0, ah, al);
+  sum64$3(this.h, 2, bh, bl);
+  sum64$3(this.h, 4, ch, cl);
+  sum64$3(this.h, 6, dh, dl);
+  sum64$3(this.h, 8, eh, el);
+  sum64$3(this.h, 10, fh, fl);
+  sum64$3(this.h, 12, gh, gl);
+  sum64$3(this.h, 14, hh, hl);
+};
+
+SHA512$1.prototype._digest = function digest(enc) {
+  if (enc === 'hex')
+    return utils$2.toHex32(this.h, 'big');
+  else
+    return utils$2.split32(this.h, 'big');
+};
+
+function ch64_hi$1(xh, xl, yh, yl, zh) {
+  var r = (xh & yh) ^ ((~xh) & zh);
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function ch64_lo$1(xh, xl, yh, yl, zh, zl) {
+  var r = (xl & yl) ^ ((~xl) & zl);
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function maj64_hi$1(xh, xl, yh, yl, zh) {
+  var r = (xh & yh) ^ (xh & zh) ^ (yh & zh);
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function maj64_lo$1(xh, xl, yh, yl, zh, zl) {
+  var r = (xl & yl) ^ (xl & zl) ^ (yl & zl);
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function s0_512_hi$1(xh, xl) {
+  var c0_hi = rotr64_hi$3(xh, xl, 28);
+  var c1_hi = rotr64_hi$3(xl, xh, 2);  // 34
+  var c2_hi = rotr64_hi$3(xl, xh, 7);  // 39
+
+  var r = c0_hi ^ c1_hi ^ c2_hi;
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function s0_512_lo$1(xh, xl) {
+  var c0_lo = rotr64_lo$3(xh, xl, 28);
+  var c1_lo = rotr64_lo$3(xl, xh, 2);  // 34
+  var c2_lo = rotr64_lo$3(xl, xh, 7);  // 39
+
+  var r = c0_lo ^ c1_lo ^ c2_lo;
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function s1_512_hi$1(xh, xl) {
+  var c0_hi = rotr64_hi$3(xh, xl, 14);
+  var c1_hi = rotr64_hi$3(xh, xl, 18);
+  var c2_hi = rotr64_hi$3(xl, xh, 9);  // 41
+
+  var r = c0_hi ^ c1_hi ^ c2_hi;
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function s1_512_lo$1(xh, xl) {
+  var c0_lo = rotr64_lo$3(xh, xl, 14);
+  var c1_lo = rotr64_lo$3(xh, xl, 18);
+  var c2_lo = rotr64_lo$3(xl, xh, 9);  // 41
+
+  var r = c0_lo ^ c1_lo ^ c2_lo;
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function g0_512_hi$1(xh, xl) {
+  var c0_hi = rotr64_hi$3(xh, xl, 1);
+  var c1_hi = rotr64_hi$3(xh, xl, 8);
+  var c2_hi = shr64_hi$3(xh, xl, 7);
+
+  var r = c0_hi ^ c1_hi ^ c2_hi;
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function g0_512_lo$1(xh, xl) {
+  var c0_lo = rotr64_lo$3(xh, xl, 1);
+  var c1_lo = rotr64_lo$3(xh, xl, 8);
+  var c2_lo = shr64_lo$3(xh, xl, 7);
+
+  var r = c0_lo ^ c1_lo ^ c2_lo;
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function g1_512_hi$1(xh, xl) {
+  var c0_hi = rotr64_hi$3(xh, xl, 19);
+  var c1_hi = rotr64_hi$3(xl, xh, 29);  // 61
+  var c2_hi = shr64_hi$3(xh, xl, 6);
+
+  var r = c0_hi ^ c1_hi ^ c2_hi;
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function g1_512_lo$1(xh, xl) {
+  var c0_lo = rotr64_lo$3(xh, xl, 19);
+  var c1_lo = rotr64_lo$3(xl, xh, 29);  // 61
+  var c2_lo = shr64_lo$3(xh, xl, 6);
+
+  var r = c0_lo ^ c1_lo ^ c2_lo;
+  if (r < 0)
+    r += 0x100000000;
+  return r;
+}
+
+function SHA384$1() {
+  if (!(this instanceof SHA384$1))
+    return new SHA384$1();
+
+  _512$1.call(this);
+  this.h = [
+    0xcbbb9d5d, 0xc1059ed8,
+    0x629a292a, 0x367cd507,
+    0x9159015a, 0x3070dd17,
+    0x152fecd8, 0xf70e5939,
+    0x67332667, 0xffc00b31,
+    0x8eb44a87, 0x68581511,
+    0xdb0c2e0d, 0x64f98fa7,
+    0x47b5481d, 0xbefa4fa4 ];
+}
+utils$2.inherits(SHA384$1, _512$1);
+var _384$1 = SHA384$1;
+
+SHA384$1.blockSize = 1024;
+SHA384$1.outSize = 384;
+SHA384$1.hmacStrength = 192;
+SHA384$1.padLength = 128;
+
+SHA384$1.prototype._digest = function digest(enc) {
+  if (enc === 'hex')
+    return utils$2.toHex32(this.h.slice(0, 12), 'big');
+  else
+    return utils$2.split32(this.h.slice(0, 12), 'big');
+};
+
+var sha1$1 = _1$1;
+var sha224$1 = _224$1;
+var sha256$2 = _256$1;
+var sha384$1 = _384$1;
+var sha512$2 = _512$1;
+
+var sha$1 = {
+	sha1: sha1$1,
+	sha224: sha224$1,
+	sha256: sha256$2,
+	sha384: sha384$1,
+	sha512: sha512$2
+};
+
+var rotl32$5 = utils$2.rotl32;
+var sum32$7 = utils$2.sum32;
+var sum32_3$3 = utils$2.sum32_3;
+var sum32_4$5 = utils$2.sum32_4;
+var BlockHash$9 = common$2.BlockHash;
+
+function RIPEMD160$1() {
+  if (!(this instanceof RIPEMD160$1))
+    return new RIPEMD160$1();
+
+  BlockHash$9.call(this);
+
+  this.h = [ 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476, 0xc3d2e1f0 ];
+  this.endian = 'little';
+}
+utils$2.inherits(RIPEMD160$1, BlockHash$9);
+var ripemd160$2 = RIPEMD160$1;
+
+RIPEMD160$1.blockSize = 512;
+RIPEMD160$1.outSize = 160;
+RIPEMD160$1.hmacStrength = 192;
+RIPEMD160$1.padLength = 64;
+
+RIPEMD160$1.prototype._update = function update(msg, start) {
+  var A = this.h[0];
+  var B = this.h[1];
+  var C = this.h[2];
+  var D = this.h[3];
+  var E = this.h[4];
+  var Ah = A;
+  var Bh = B;
+  var Ch = C;
+  var Dh = D;
+  var Eh = E;
+  for (var j = 0; j < 80; j++) {
+    var T = sum32$7(
+      rotl32$5(
+        sum32_4$5(A, f$2(j, B, C, D), msg[r$2[j] + start], K$1(j)),
+        s$1[j]),
+      E);
+    A = E;
+    E = D;
+    D = rotl32$5(C, 10);
+    C = B;
+    B = T;
+    T = sum32$7(
+      rotl32$5(
+        sum32_4$5(Ah, f$2(79 - j, Bh, Ch, Dh), msg[rh$1[j] + start], Kh$1(j)),
+        sh$1[j]),
+      Eh);
+    Ah = Eh;
+    Eh = Dh;
+    Dh = rotl32$5(Ch, 10);
+    Ch = Bh;
+    Bh = T;
+  }
+  T = sum32_3$3(this.h[1], C, Dh);
+  this.h[1] = sum32_3$3(this.h[2], D, Eh);
+  this.h[2] = sum32_3$3(this.h[3], E, Ah);
+  this.h[3] = sum32_3$3(this.h[4], A, Bh);
+  this.h[4] = sum32_3$3(this.h[0], B, Ch);
+  this.h[0] = T;
+};
+
+RIPEMD160$1.prototype._digest = function digest(enc) {
+  if (enc === 'hex')
+    return utils$2.toHex32(this.h, 'little');
+  else
+    return utils$2.split32(this.h, 'little');
+};
+
+function f$2(j, x, y, z) {
+  if (j <= 15)
+    return x ^ y ^ z;
+  else if (j <= 31)
+    return (x & y) | ((~x) & z);
+  else if (j <= 47)
+    return (x | (~y)) ^ z;
+  else if (j <= 63)
+    return (x & z) | (y & (~z));
+  else
+    return x ^ (y | (~z));
+}
+
+function K$1(j) {
+  if (j <= 15)
+    return 0x00000000;
+  else if (j <= 31)
+    return 0x5a827999;
+  else if (j <= 47)
+    return 0x6ed9eba1;
+  else if (j <= 63)
+    return 0x8f1bbcdc;
+  else
+    return 0xa953fd4e;
+}
+
+function Kh$1(j) {
+  if (j <= 15)
+    return 0x50a28be6;
+  else if (j <= 31)
+    return 0x5c4dd124;
+  else if (j <= 47)
+    return 0x6d703ef3;
+  else if (j <= 63)
+    return 0x7a6d76e9;
+  else
+    return 0x00000000;
+}
+
+var r$2 = [
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+  7, 4, 13, 1, 10, 6, 15, 3, 12, 0, 9, 5, 2, 14, 11, 8,
+  3, 10, 14, 4, 9, 15, 8, 1, 2, 7, 0, 6, 13, 11, 5, 12,
+  1, 9, 11, 10, 0, 8, 12, 4, 13, 3, 7, 15, 14, 5, 6, 2,
+  4, 0, 5, 9, 7, 12, 2, 10, 14, 1, 3, 8, 11, 6, 15, 13
+];
+
+var rh$1 = [
+  5, 14, 7, 0, 9, 2, 11, 4, 13, 6, 15, 8, 1, 10, 3, 12,
+  6, 11, 3, 7, 0, 13, 5, 10, 14, 15, 8, 12, 4, 9, 1, 2,
+  15, 5, 1, 3, 7, 14, 6, 9, 11, 8, 12, 2, 10, 0, 4, 13,
+  8, 6, 4, 1, 3, 11, 15, 0, 5, 12, 2, 13, 9, 7, 10, 14,
+  12, 15, 10, 4, 1, 5, 8, 7, 6, 2, 13, 14, 0, 3, 9, 11
+];
+
+var s$1 = [
+  11, 14, 15, 12, 5, 8, 7, 9, 11, 13, 14, 15, 6, 7, 9, 8,
+  7, 6, 8, 13, 11, 9, 7, 15, 7, 12, 15, 9, 11, 7, 13, 12,
+  11, 13, 6, 7, 14, 9, 13, 15, 14, 8, 13, 6, 5, 12, 7, 5,
+  11, 12, 14, 15, 14, 15, 9, 8, 9, 14, 5, 6, 8, 6, 5, 12,
+  9, 15, 5, 11, 6, 8, 13, 12, 5, 12, 13, 14, 11, 8, 5, 6
+];
+
+var sh$1 = [
+  8, 9, 9, 11, 13, 15, 15, 5, 7, 7, 8, 11, 14, 14, 12, 6,
+  9, 13, 15, 7, 12, 8, 9, 11, 7, 7, 12, 7, 6, 15, 13, 11,
+  9, 7, 15, 11, 8, 6, 6, 14, 12, 13, 5, 14, 13, 13, 7, 5,
+  15, 5, 8, 11, 14, 14, 6, 14, 6, 9, 12, 9, 12, 5, 15, 8,
+  8, 5, 12, 9, 12, 5, 14, 6, 8, 13, 6, 5, 15, 13, 11, 11
+];
+
+var ripemd$1 = {
+	ripemd160: ripemd160$2
+};
+
+function Hmac$1(hash, key, enc) {
+  if (!(this instanceof Hmac$1))
+    return new Hmac$1(hash, key, enc);
+  this.Hash = hash;
+  this.blockSize = hash.blockSize / 8;
+  this.outSize = hash.outSize / 8;
+  this.inner = null;
+  this.outer = null;
+
+  this._init(utils$2.toArray(key, enc));
+}
+var hmac$1 = Hmac$1;
+
+Hmac$1.prototype._init = function init(key) {
+  // Shorten key, if needed
+  if (key.length > this.blockSize)
+    key = new this.Hash().update(key).digest();
+  minimalisticAssert(key.length <= this.blockSize);
+
+  // Add padding to key
+  for (var i = key.length; i < this.blockSize; i++)
+    key.push(0);
+
+  for (i = 0; i < key.length; i++)
+    key[i] ^= 0x36;
+  this.inner = new this.Hash().update(key);
+
+  // 0x36 ^ 0x5c = 0x6a
+  for (i = 0; i < key.length; i++)
+    key[i] ^= 0x6a;
+  this.outer = new this.Hash().update(key);
+};
+
+Hmac$1.prototype.update = function update(msg, enc) {
+  this.inner.update(msg, enc);
+  return this;
+};
+
+Hmac$1.prototype.digest = function digest(enc) {
+  this.outer.update(this.inner.digest());
+  return this.outer.digest(enc);
+};
+
+var hash_1$1 = createCommonjsModule(function (module, exports) {
+var hash = exports;
+
+hash.utils = utils$2;
+hash.common = common$2;
+hash.sha = sha$1;
+hash.ripemd = ripemd$1;
+hash.hmac = hmac$1;
+
+// Proxy hash functions to the main object
+hash.sha1 = hash.sha.sha1;
+hash.sha256 = hash.sha.sha256;
+hash.sha224 = hash.sha.sha224;
+hash.sha384 = hash.sha.sha384;
+hash.sha512 = hash.sha.sha512;
+hash.ripemd160 = hash.ripemd.ripemd160;
 });
 
-var bn$1 = createCommonjsModule$1(function (module) {
-(function (module, exports) {
-
-  // Utils
-  function assert (val, msg) {
-    if (!val) throw new Error(msg || 'Assertion failed');
-  }
-
-  // Could use `inherits` module, but don't want to move from single file
-  // architecture yet.
-  function inherits (ctor, superCtor) {
-    ctor.super_ = superCtor;
-    var TempCtor = function () {};
-    TempCtor.prototype = superCtor.prototype;
-    ctor.prototype = new TempCtor();
-    ctor.prototype.constructor = ctor;
-  }
-
-  // BN
-
-  function BN (number, base, endian) {
-    if (BN.isBN(number)) {
-      return number;
-    }
-
-    this.negative = 0;
-    this.words = null;
-    this.length = 0;
-
-    // Reduction context
-    this.red = null;
-
-    if (number !== null) {
-      if (base === 'le' || base === 'be') {
-        endian = base;
-        base = 10;
-      }
-
-      this._init(number || 0, base || 10, endian || 'be');
-    }
-  }
-  if (typeof module === 'object') {
-    module.exports = BN;
-  } else {
-    exports.BN = BN;
-  }
-
-  BN.BN = BN;
-  BN.wordSize = 26;
-
-  var Buffer;
-  try {
-    Buffer = require$$0.Buffer;
-  } catch (e) {
-  }
-
-  BN.isBN = function isBN (num) {
-    if (num instanceof BN) {
-      return true;
-    }
-
-    return num !== null && typeof num === 'object' &&
-      num.constructor.wordSize === BN.wordSize && Array.isArray(num.words);
-  };
-
-  BN.max = function max (left, right) {
-    if (left.cmp(right) > 0) return left;
-    return right;
-  };
-
-  BN.min = function min (left, right) {
-    if (left.cmp(right) < 0) return left;
-    return right;
-  };
-
-  BN.prototype._init = function init (number, base, endian) {
-    if (typeof number === 'number') {
-      return this._initNumber(number, base, endian);
-    }
-
-    if (typeof number === 'object') {
-      return this._initArray(number, base, endian);
-    }
-
-    if (base === 'hex') {
-      base = 16;
-    }
-    assert(base === (base | 0) && base >= 2 && base <= 36);
-
-    number = number.toString().replace(/\s+/g, '');
-    var start = 0;
-    if (number[0] === '-') {
-      start++;
-    }
-
-    if (base === 16) {
-      this._parseHex(number, start);
-    } else {
-      this._parseBase(number, base, start);
-    }
-
-    if (number[0] === '-') {
-      this.negative = 1;
-    }
-
-    this.strip();
-
-    if (endian !== 'le') return;
-
-    this._initArray(this.toArray(), base, endian);
-  };
-
-  BN.prototype._initNumber = function _initNumber (number, base, endian) {
-    if (number < 0) {
-      this.negative = 1;
-      number = -number;
-    }
-    if (number < 0x4000000) {
-      this.words = [ number & 0x3ffffff ];
-      this.length = 1;
-    } else if (number < 0x10000000000000) {
-      this.words = [
-        number & 0x3ffffff,
-        (number / 0x4000000) & 0x3ffffff
-      ];
-      this.length = 2;
-    } else {
-      assert(number < 0x20000000000000); // 2 ^ 53 (unsafe)
-      this.words = [
-        number & 0x3ffffff,
-        (number / 0x4000000) & 0x3ffffff,
-        1
-      ];
-      this.length = 3;
-    }
-
-    if (endian !== 'le') return;
-
-    // Reverse the bytes
-    this._initArray(this.toArray(), base, endian);
-  };
-
-  BN.prototype._initArray = function _initArray (number, base, endian) {
-    // Perhaps a Uint8Array
-    assert(typeof number.length === 'number');
-    if (number.length <= 0) {
-      this.words = [ 0 ];
-      this.length = 1;
-      return this;
-    }
-
-    this.length = Math.ceil(number.length / 3);
-    this.words = new Array(this.length);
-    for (var i = 0; i < this.length; i++) {
-      this.words[i] = 0;
-    }
-
-    var j, w;
-    var off = 0;
-    if (endian === 'be') {
-      for (i = number.length - 1, j = 0; i >= 0; i -= 3) {
-        w = number[i] | (number[i - 1] << 8) | (number[i - 2] << 16);
-        this.words[j] |= (w << off) & 0x3ffffff;
-        this.words[j + 1] = (w >>> (26 - off)) & 0x3ffffff;
-        off += 24;
-        if (off >= 26) {
-          off -= 26;
-          j++;
-        }
-      }
-    } else if (endian === 'le') {
-      for (i = 0, j = 0; i < number.length; i += 3) {
-        w = number[i] | (number[i + 1] << 8) | (number[i + 2] << 16);
-        this.words[j] |= (w << off) & 0x3ffffff;
-        this.words[j + 1] = (w >>> (26 - off)) & 0x3ffffff;
-        off += 24;
-        if (off >= 26) {
-          off -= 26;
-          j++;
-        }
-      }
-    }
-    return this.strip();
-  };
-
-  function parseHex (str, start, end) {
-    var r = 0;
-    var len = Math.min(str.length, end);
-    for (var i = start; i < len; i++) {
-      var c = str.charCodeAt(i) - 48;
-
-      r <<= 4;
-
-      // 'a' - 'f'
-      if (c >= 49 && c <= 54) {
-        r |= c - 49 + 0xa;
-
-      // 'A' - 'F'
-      } else if (c >= 17 && c <= 22) {
-        r |= c - 17 + 0xa;
-
-      // '0' - '9'
-      } else {
-        r |= c & 0xf;
-      }
-    }
-    return r;
-  }
-
-  BN.prototype._parseHex = function _parseHex (number, start) {
-    // Create possibly bigger array to ensure that it fits the number
-    this.length = Math.ceil((number.length - start) / 6);
-    this.words = new Array(this.length);
-    for (var i = 0; i < this.length; i++) {
-      this.words[i] = 0;
-    }
-
-    var j, w;
-    // Scan 24-bit chunks and add them to the number
-    var off = 0;
-    for (i = number.length - 6, j = 0; i >= start; i -= 6) {
-      w = parseHex(number, i, i + 6);
-      this.words[j] |= (w << off) & 0x3ffffff;
-      // NOTE: `0x3fffff` is intentional here, 26bits max shift + 24bit hex limb
-      this.words[j + 1] |= w >>> (26 - off) & 0x3fffff;
-      off += 24;
-      if (off >= 26) {
-        off -= 26;
-        j++;
-      }
-    }
-    if (i + 6 !== start) {
-      w = parseHex(number, start, i + 6);
-      this.words[j] |= (w << off) & 0x3ffffff;
-      this.words[j + 1] |= w >>> (26 - off) & 0x3fffff;
-    }
-    this.strip();
-  };
-
-  function parseBase (str, start, end, mul) {
-    var r = 0;
-    var len = Math.min(str.length, end);
-    for (var i = start; i < len; i++) {
-      var c = str.charCodeAt(i) - 48;
-
-      r *= mul;
-
-      // 'a'
-      if (c >= 49) {
-        r += c - 49 + 0xa;
-
-      // 'A'
-      } else if (c >= 17) {
-        r += c - 17 + 0xa;
-
-      // '0' - '9'
-      } else {
-        r += c;
-      }
-    }
-    return r;
-  }
-
-  BN.prototype._parseBase = function _parseBase (number, base, start) {
-    // Initialize as zero
-    this.words = [ 0 ];
-    this.length = 1;
-
-    // Find length of limb in base
-    for (var limbLen = 0, limbPow = 1; limbPow <= 0x3ffffff; limbPow *= base) {
-      limbLen++;
-    }
-    limbLen--;
-    limbPow = (limbPow / base) | 0;
-
-    var total = number.length - start;
-    var mod = total % limbLen;
-    var end = Math.min(total, total - mod) + start;
-
-    var word = 0;
-    for (var i = start; i < end; i += limbLen) {
-      word = parseBase(number, i, i + limbLen, base);
-
-      this.imuln(limbPow);
-      if (this.words[0] + word < 0x4000000) {
-        this.words[0] += word;
-      } else {
-        this._iaddn(word);
-      }
-    }
-
-    if (mod !== 0) {
-      var pow = 1;
-      word = parseBase(number, i, number.length, base);
-
-      for (i = 0; i < mod; i++) {
-        pow *= base;
-      }
-
-      this.imuln(pow);
-      if (this.words[0] + word < 0x4000000) {
-        this.words[0] += word;
-      } else {
-        this._iaddn(word);
-      }
-    }
-  };
-
-  BN.prototype.copy = function copy (dest) {
-    dest.words = new Array(this.length);
-    for (var i = 0; i < this.length; i++) {
-      dest.words[i] = this.words[i];
-    }
-    dest.length = this.length;
-    dest.negative = this.negative;
-    dest.red = this.red;
-  };
-
-  BN.prototype.clone = function clone () {
-    var r = new BN(null);
-    this.copy(r);
-    return r;
-  };
-
-  BN.prototype._expand = function _expand (size) {
-    while (this.length < size) {
-      this.words[this.length++] = 0;
-    }
-    return this;
-  };
-
-  // Remove leading `0` from `this`
-  BN.prototype.strip = function strip () {
-    while (this.length > 1 && this.words[this.length - 1] === 0) {
-      this.length--;
-    }
-    return this._normSign();
-  };
-
-  BN.prototype._normSign = function _normSign () {
-    // -0 = 0
-    if (this.length === 1 && this.words[0] === 0) {
-      this.negative = 0;
-    }
-    return this;
-  };
-
-  BN.prototype.inspect = function inspect () {
-    return (this.red ? '<BN-R: ' : '<BN: ') + this.toString(16) + '>';
-  };
-
-  /*
-
-  var zeros = [];
-  var groupSizes = [];
-  var groupBases = [];
-
-  var s = '';
-  var i = -1;
-  while (++i < BN.wordSize) {
-    zeros[i] = s;
-    s += '0';
-  }
-  groupSizes[0] = 0;
-  groupSizes[1] = 0;
-  groupBases[0] = 0;
-  groupBases[1] = 0;
-  var base = 2 - 1;
-  while (++base < 36 + 1) {
-    var groupSize = 0;
-    var groupBase = 1;
-    while (groupBase < (1 << BN.wordSize) / base) {
-      groupBase *= base;
-      groupSize += 1;
-    }
-    groupSizes[base] = groupSize;
-    groupBases[base] = groupBase;
-  }
-
-  */
-
-  var zeros = [
-    '',
-    '0',
-    '00',
-    '000',
-    '0000',
-    '00000',
-    '000000',
-    '0000000',
-    '00000000',
-    '000000000',
-    '0000000000',
-    '00000000000',
-    '000000000000',
-    '0000000000000',
-    '00000000000000',
-    '000000000000000',
-    '0000000000000000',
-    '00000000000000000',
-    '000000000000000000',
-    '0000000000000000000',
-    '00000000000000000000',
-    '000000000000000000000',
-    '0000000000000000000000',
-    '00000000000000000000000',
-    '000000000000000000000000',
-    '0000000000000000000000000'
-  ];
-
-  var groupSizes = [
-    0, 0,
-    25, 16, 12, 11, 10, 9, 8,
-    8, 7, 7, 7, 7, 6, 6,
-    6, 6, 6, 6, 6, 5, 5,
-    5, 5, 5, 5, 5, 5, 5,
-    5, 5, 5, 5, 5, 5, 5
-  ];
-
-  var groupBases = [
-    0, 0,
-    33554432, 43046721, 16777216, 48828125, 60466176, 40353607, 16777216,
-    43046721, 10000000, 19487171, 35831808, 62748517, 7529536, 11390625,
-    16777216, 24137569, 34012224, 47045881, 64000000, 4084101, 5153632,
-    6436343, 7962624, 9765625, 11881376, 14348907, 17210368, 20511149,
-    24300000, 28629151, 33554432, 39135393, 45435424, 52521875, 60466176
-  ];
-
-  BN.prototype.toString = function toString (base, padding) {
-    base = base || 10;
-    padding = padding | 0 || 1;
-
-    var out;
-    if (base === 16 || base === 'hex') {
-      out = '';
-      var off = 0;
-      var carry = 0;
-      for (var i = 0; i < this.length; i++) {
-        var w = this.words[i];
-        var word = (((w << off) | carry) & 0xffffff).toString(16);
-        carry = (w >>> (24 - off)) & 0xffffff;
-        if (carry !== 0 || i !== this.length - 1) {
-          out = zeros[6 - word.length] + word + out;
-        } else {
-          out = word + out;
-        }
-        off += 2;
-        if (off >= 26) {
-          off -= 26;
-          i--;
-        }
-      }
-      if (carry !== 0) {
-        out = carry.toString(16) + out;
-      }
-      while (out.length % padding !== 0) {
-        out = '0' + out;
-      }
-      if (this.negative !== 0) {
-        out = '-' + out;
-      }
-      return out;
-    }
-
-    if (base === (base | 0) && base >= 2 && base <= 36) {
-      // var groupSize = Math.floor(BN.wordSize * Math.LN2 / Math.log(base));
-      var groupSize = groupSizes[base];
-      // var groupBase = Math.pow(base, groupSize);
-      var groupBase = groupBases[base];
-      out = '';
-      var c = this.clone();
-      c.negative = 0;
-      while (!c.isZero()) {
-        var r = c.modn(groupBase).toString(base);
-        c = c.idivn(groupBase);
-
-        if (!c.isZero()) {
-          out = zeros[groupSize - r.length] + r + out;
-        } else {
-          out = r + out;
-        }
-      }
-      if (this.isZero()) {
-        out = '0' + out;
-      }
-      while (out.length % padding !== 0) {
-        out = '0' + out;
-      }
-      if (this.negative !== 0) {
-        out = '-' + out;
-      }
-      return out;
-    }
-
-    assert(false, 'Base should be between 2 and 36');
-  };
-
-  BN.prototype.toNumber = function toNumber () {
-    var ret = this.words[0];
-    if (this.length === 2) {
-      ret += this.words[1] * 0x4000000;
-    } else if (this.length === 3 && this.words[2] === 0x01) {
-      // NOTE: at this stage it is known that the top bit is set
-      ret += 0x10000000000000 + (this.words[1] * 0x4000000);
-    } else if (this.length > 2) {
-      assert(false, 'Number can only safely store up to 53 bits');
-    }
-    return (this.negative !== 0) ? -ret : ret;
-  };
-
-  BN.prototype.toJSON = function toJSON () {
-    return this.toString(16);
-  };
-
-  BN.prototype.toBuffer = function toBuffer (endian, length) {
-    assert(typeof Buffer !== 'undefined');
-    return this.toArrayLike(Buffer, endian, length);
-  };
-
-  BN.prototype.toArray = function toArray (endian, length) {
-    return this.toArrayLike(Array, endian, length);
-  };
-
-  BN.prototype.toArrayLike = function toArrayLike (ArrayType, endian, length) {
-    var byteLength = this.byteLength();
-    var reqLength = length || Math.max(1, byteLength);
-    assert(byteLength <= reqLength, 'byte array longer than desired length');
-    assert(reqLength > 0, 'Requested array length <= 0');
-
-    this.strip();
-    var littleEndian = endian === 'le';
-    var res = new ArrayType(reqLength);
-
-    var b, i;
-    var q = this.clone();
-    if (!littleEndian) {
-      // Assume big-endian
-      for (i = 0; i < reqLength - byteLength; i++) {
-        res[i] = 0;
-      }
-
-      for (i = 0; !q.isZero(); i++) {
-        b = q.andln(0xff);
-        q.iushrn(8);
-
-        res[reqLength - i - 1] = b;
-      }
-    } else {
-      for (i = 0; !q.isZero(); i++) {
-        b = q.andln(0xff);
-        q.iushrn(8);
-
-        res[i] = b;
-      }
-
-      for (; i < reqLength; i++) {
-        res[i] = 0;
-      }
-    }
-
-    return res;
-  };
-
-  if (Math.clz32) {
-    BN.prototype._countBits = function _countBits (w) {
-      return 32 - Math.clz32(w);
-    };
-  } else {
-    BN.prototype._countBits = function _countBits (w) {
-      var t = w;
-      var r = 0;
-      if (t >= 0x1000) {
-        r += 13;
-        t >>>= 13;
-      }
-      if (t >= 0x40) {
-        r += 7;
-        t >>>= 7;
-      }
-      if (t >= 0x8) {
-        r += 4;
-        t >>>= 4;
-      }
-      if (t >= 0x02) {
-        r += 2;
-        t >>>= 2;
-      }
-      return r + t;
-    };
-  }
-
-  BN.prototype._zeroBits = function _zeroBits (w) {
-    // Short-cut
-    if (w === 0) return 26;
-
-    var t = w;
-    var r = 0;
-    if ((t & 0x1fff) === 0) {
-      r += 13;
-      t >>>= 13;
-    }
-    if ((t & 0x7f) === 0) {
-      r += 7;
-      t >>>= 7;
-    }
-    if ((t & 0xf) === 0) {
-      r += 4;
-      t >>>= 4;
-    }
-    if ((t & 0x3) === 0) {
-      r += 2;
-      t >>>= 2;
-    }
-    if ((t & 0x1) === 0) {
-      r++;
-    }
-    return r;
-  };
-
-  // Return number of used bits in a BN
-  BN.prototype.bitLength = function bitLength () {
-    var w = this.words[this.length - 1];
-    var hi = this._countBits(w);
-    return (this.length - 1) * 26 + hi;
-  };
-
-  function toBitArray (num) {
-    var w = new Array(num.bitLength());
-
-    for (var bit = 0; bit < w.length; bit++) {
-      var off = (bit / 26) | 0;
-      var wbit = bit % 26;
-
-      w[bit] = (num.words[off] & (1 << wbit)) >>> wbit;
-    }
-
-    return w;
-  }
-
-  // Number of trailing zero bits
-  BN.prototype.zeroBits = function zeroBits () {
-    if (this.isZero()) return 0;
-
-    var r = 0;
-    for (var i = 0; i < this.length; i++) {
-      var b = this._zeroBits(this.words[i]);
-      r += b;
-      if (b !== 26) break;
-    }
-    return r;
-  };
-
-  BN.prototype.byteLength = function byteLength () {
-    return Math.ceil(this.bitLength() / 8);
-  };
-
-  BN.prototype.toTwos = function toTwos (width) {
-    if (this.negative !== 0) {
-      return this.abs().inotn(width).iaddn(1);
-    }
-    return this.clone();
-  };
-
-  BN.prototype.fromTwos = function fromTwos (width) {
-    if (this.testn(width - 1)) {
-      return this.notn(width).iaddn(1).ineg();
-    }
-    return this.clone();
-  };
-
-  BN.prototype.isNeg = function isNeg () {
-    return this.negative !== 0;
-  };
-
-  // Return negative clone of `this`
-  BN.prototype.neg = function neg () {
-    return this.clone().ineg();
-  };
-
-  BN.prototype.ineg = function ineg () {
-    if (!this.isZero()) {
-      this.negative ^= 1;
-    }
-
-    return this;
-  };
-
-  // Or `num` with `this` in-place
-  BN.prototype.iuor = function iuor (num) {
-    while (this.length < num.length) {
-      this.words[this.length++] = 0;
-    }
-
-    for (var i = 0; i < num.length; i++) {
-      this.words[i] = this.words[i] | num.words[i];
-    }
-
-    return this.strip();
-  };
-
-  BN.prototype.ior = function ior (num) {
-    assert((this.negative | num.negative) === 0);
-    return this.iuor(num);
-  };
-
-  // Or `num` with `this`
-  BN.prototype.or = function or (num) {
-    if (this.length > num.length) return this.clone().ior(num);
-    return num.clone().ior(this);
-  };
-
-  BN.prototype.uor = function uor (num) {
-    if (this.length > num.length) return this.clone().iuor(num);
-    return num.clone().iuor(this);
-  };
-
-  // And `num` with `this` in-place
-  BN.prototype.iuand = function iuand (num) {
-    // b = min-length(num, this)
-    var b;
-    if (this.length > num.length) {
-      b = num;
-    } else {
-      b = this;
-    }
-
-    for (var i = 0; i < b.length; i++) {
-      this.words[i] = this.words[i] & num.words[i];
-    }
-
-    this.length = b.length;
-
-    return this.strip();
-  };
-
-  BN.prototype.iand = function iand (num) {
-    assert((this.negative | num.negative) === 0);
-    return this.iuand(num);
-  };
-
-  // And `num` with `this`
-  BN.prototype.and = function and (num) {
-    if (this.length > num.length) return this.clone().iand(num);
-    return num.clone().iand(this);
-  };
-
-  BN.prototype.uand = function uand (num) {
-    if (this.length > num.length) return this.clone().iuand(num);
-    return num.clone().iuand(this);
-  };
-
-  // Xor `num` with `this` in-place
-  BN.prototype.iuxor = function iuxor (num) {
-    // a.length > b.length
-    var a;
-    var b;
-    if (this.length > num.length) {
-      a = this;
-      b = num;
-    } else {
-      a = num;
-      b = this;
-    }
-
-    for (var i = 0; i < b.length; i++) {
-      this.words[i] = a.words[i] ^ b.words[i];
-    }
-
-    if (this !== a) {
-      for (; i < a.length; i++) {
-        this.words[i] = a.words[i];
-      }
-    }
-
-    this.length = a.length;
-
-    return this.strip();
-  };
-
-  BN.prototype.ixor = function ixor (num) {
-    assert((this.negative | num.negative) === 0);
-    return this.iuxor(num);
-  };
-
-  // Xor `num` with `this`
-  BN.prototype.xor = function xor (num) {
-    if (this.length > num.length) return this.clone().ixor(num);
-    return num.clone().ixor(this);
-  };
-
-  BN.prototype.uxor = function uxor (num) {
-    if (this.length > num.length) return this.clone().iuxor(num);
-    return num.clone().iuxor(this);
-  };
-
-  // Not ``this`` with ``width`` bitwidth
-  BN.prototype.inotn = function inotn (width) {
-    assert(typeof width === 'number' && width >= 0);
-
-    var bytesNeeded = Math.ceil(width / 26) | 0;
-    var bitsLeft = width % 26;
-
-    // Extend the buffer with leading zeroes
-    this._expand(bytesNeeded);
-
-    if (bitsLeft > 0) {
-      bytesNeeded--;
-    }
-
-    // Handle complete words
-    for (var i = 0; i < bytesNeeded; i++) {
-      this.words[i] = ~this.words[i] & 0x3ffffff;
-    }
-
-    // Handle the residue
-    if (bitsLeft > 0) {
-      this.words[i] = ~this.words[i] & (0x3ffffff >> (26 - bitsLeft));
-    }
-
-    // And remove leading zeroes
-    return this.strip();
-  };
-
-  BN.prototype.notn = function notn (width) {
-    return this.clone().inotn(width);
-  };
-
-  // Set `bit` of `this`
-  BN.prototype.setn = function setn (bit, val) {
-    assert(typeof bit === 'number' && bit >= 0);
-
-    var off = (bit / 26) | 0;
-    var wbit = bit % 26;
-
-    this._expand(off + 1);
-
-    if (val) {
-      this.words[off] = this.words[off] | (1 << wbit);
-    } else {
-      this.words[off] = this.words[off] & ~(1 << wbit);
-    }
-
-    return this.strip();
-  };
-
-  // Add `num` to `this` in-place
-  BN.prototype.iadd = function iadd (num) {
-    var r;
-
-    // negative + positive
-    if (this.negative !== 0 && num.negative === 0) {
-      this.negative = 0;
-      r = this.isub(num);
-      this.negative ^= 1;
-      return this._normSign();
-
-    // positive + negative
-    } else if (this.negative === 0 && num.negative !== 0) {
-      num.negative = 0;
-      r = this.isub(num);
-      num.negative = 1;
-      return r._normSign();
-    }
-
-    // a.length > b.length
-    var a, b;
-    if (this.length > num.length) {
-      a = this;
-      b = num;
-    } else {
-      a = num;
-      b = this;
-    }
-
-    var carry = 0;
-    for (var i = 0; i < b.length; i++) {
-      r = (a.words[i] | 0) + (b.words[i] | 0) + carry;
-      this.words[i] = r & 0x3ffffff;
-      carry = r >>> 26;
-    }
-    for (; carry !== 0 && i < a.length; i++) {
-      r = (a.words[i] | 0) + carry;
-      this.words[i] = r & 0x3ffffff;
-      carry = r >>> 26;
-    }
-
-    this.length = a.length;
-    if (carry !== 0) {
-      this.words[this.length] = carry;
-      this.length++;
-    // Copy the rest of the words
-    } else if (a !== this) {
-      for (; i < a.length; i++) {
-        this.words[i] = a.words[i];
-      }
-    }
-
-    return this;
-  };
-
-  // Add `num` to `this`
-  BN.prototype.add = function add (num) {
-    var res;
-    if (num.negative !== 0 && this.negative === 0) {
-      num.negative = 0;
-      res = this.sub(num);
-      num.negative ^= 1;
-      return res;
-    } else if (num.negative === 0 && this.negative !== 0) {
-      this.negative = 0;
-      res = num.sub(this);
-      this.negative = 1;
-      return res;
-    }
-
-    if (this.length > num.length) return this.clone().iadd(num);
-
-    return num.clone().iadd(this);
-  };
-
-  // Subtract `num` from `this` in-place
-  BN.prototype.isub = function isub (num) {
-    // this - (-num) = this + num
-    if (num.negative !== 0) {
-      num.negative = 0;
-      var r = this.iadd(num);
-      num.negative = 1;
-      return r._normSign();
-
-    // -this - num = -(this + num)
-    } else if (this.negative !== 0) {
-      this.negative = 0;
-      this.iadd(num);
-      this.negative = 1;
-      return this._normSign();
-    }
-
-    // At this point both numbers are positive
-    var cmp = this.cmp(num);
-
-    // Optimization - zeroify
-    if (cmp === 0) {
-      this.negative = 0;
-      this.length = 1;
-      this.words[0] = 0;
-      return this;
-    }
-
-    // a > b
-    var a, b;
-    if (cmp > 0) {
-      a = this;
-      b = num;
-    } else {
-      a = num;
-      b = this;
-    }
-
-    var carry = 0;
-    for (var i = 0; i < b.length; i++) {
-      r = (a.words[i] | 0) - (b.words[i] | 0) + carry;
-      carry = r >> 26;
-      this.words[i] = r & 0x3ffffff;
-    }
-    for (; carry !== 0 && i < a.length; i++) {
-      r = (a.words[i] | 0) + carry;
-      carry = r >> 26;
-      this.words[i] = r & 0x3ffffff;
-    }
-
-    // Copy rest of the words
-    if (carry === 0 && i < a.length && a !== this) {
-      for (; i < a.length; i++) {
-        this.words[i] = a.words[i];
-      }
-    }
-
-    this.length = Math.max(this.length, i);
-
-    if (a !== this) {
-      this.negative = 1;
-    }
-
-    return this.strip();
-  };
-
-  // Subtract `num` from `this`
-  BN.prototype.sub = function sub (num) {
-    return this.clone().isub(num);
-  };
-
-  function smallMulTo (self, num, out) {
-    out.negative = num.negative ^ self.negative;
-    var len = (self.length + num.length) | 0;
-    out.length = len;
-    len = (len - 1) | 0;
-
-    // Peel one iteration (compiler can't do it, because of code complexity)
-    var a = self.words[0] | 0;
-    var b = num.words[0] | 0;
-    var r = a * b;
-
-    var lo = r & 0x3ffffff;
-    var carry = (r / 0x4000000) | 0;
-    out.words[0] = lo;
-
-    for (var k = 1; k < len; k++) {
-      // Sum all words with the same `i + j = k` and accumulate `ncarry`,
-      // note that ncarry could be >= 0x3ffffff
-      var ncarry = carry >>> 26;
-      var rword = carry & 0x3ffffff;
-      var maxJ = Math.min(k, num.length - 1);
-      for (var j = Math.max(0, k - self.length + 1); j <= maxJ; j++) {
-        var i = (k - j) | 0;
-        a = self.words[i] | 0;
-        b = num.words[j] | 0;
-        r = a * b + rword;
-        ncarry += (r / 0x4000000) | 0;
-        rword = r & 0x3ffffff;
-      }
-      out.words[k] = rword | 0;
-      carry = ncarry | 0;
-    }
-    if (carry !== 0) {
-      out.words[k] = carry | 0;
-    } else {
-      out.length--;
-    }
-
-    return out.strip();
-  }
-
-  // TODO(indutny): it may be reasonable to omit it for users who don't need
-  // to work with 256-bit numbers, otherwise it gives 20% improvement for 256-bit
-  // multiplication (like elliptic secp256k1).
-  var comb10MulTo = function comb10MulTo (self, num, out) {
-    var a = self.words;
-    var b = num.words;
-    var o = out.words;
-    var c = 0;
-    var lo;
-    var mid;
-    var hi;
-    var a0 = a[0] | 0;
-    var al0 = a0 & 0x1fff;
-    var ah0 = a0 >>> 13;
-    var a1 = a[1] | 0;
-    var al1 = a1 & 0x1fff;
-    var ah1 = a1 >>> 13;
-    var a2 = a[2] | 0;
-    var al2 = a2 & 0x1fff;
-    var ah2 = a2 >>> 13;
-    var a3 = a[3] | 0;
-    var al3 = a3 & 0x1fff;
-    var ah3 = a3 >>> 13;
-    var a4 = a[4] | 0;
-    var al4 = a4 & 0x1fff;
-    var ah4 = a4 >>> 13;
-    var a5 = a[5] | 0;
-    var al5 = a5 & 0x1fff;
-    var ah5 = a5 >>> 13;
-    var a6 = a[6] | 0;
-    var al6 = a6 & 0x1fff;
-    var ah6 = a6 >>> 13;
-    var a7 = a[7] | 0;
-    var al7 = a7 & 0x1fff;
-    var ah7 = a7 >>> 13;
-    var a8 = a[8] | 0;
-    var al8 = a8 & 0x1fff;
-    var ah8 = a8 >>> 13;
-    var a9 = a[9] | 0;
-    var al9 = a9 & 0x1fff;
-    var ah9 = a9 >>> 13;
-    var b0 = b[0] | 0;
-    var bl0 = b0 & 0x1fff;
-    var bh0 = b0 >>> 13;
-    var b1 = b[1] | 0;
-    var bl1 = b1 & 0x1fff;
-    var bh1 = b1 >>> 13;
-    var b2 = b[2] | 0;
-    var bl2 = b2 & 0x1fff;
-    var bh2 = b2 >>> 13;
-    var b3 = b[3] | 0;
-    var bl3 = b3 & 0x1fff;
-    var bh3 = b3 >>> 13;
-    var b4 = b[4] | 0;
-    var bl4 = b4 & 0x1fff;
-    var bh4 = b4 >>> 13;
-    var b5 = b[5] | 0;
-    var bl5 = b5 & 0x1fff;
-    var bh5 = b5 >>> 13;
-    var b6 = b[6] | 0;
-    var bl6 = b6 & 0x1fff;
-    var bh6 = b6 >>> 13;
-    var b7 = b[7] | 0;
-    var bl7 = b7 & 0x1fff;
-    var bh7 = b7 >>> 13;
-    var b8 = b[8] | 0;
-    var bl8 = b8 & 0x1fff;
-    var bh8 = b8 >>> 13;
-    var b9 = b[9] | 0;
-    var bl9 = b9 & 0x1fff;
-    var bh9 = b9 >>> 13;
-
-    out.negative = self.negative ^ num.negative;
-    out.length = 19;
-    /* k = 0 */
-    lo = Math.imul(al0, bl0);
-    mid = Math.imul(al0, bh0);
-    mid = (mid + Math.imul(ah0, bl0)) | 0;
-    hi = Math.imul(ah0, bh0);
-    var w0 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w0 >>> 26)) | 0;
-    w0 &= 0x3ffffff;
-    /* k = 1 */
-    lo = Math.imul(al1, bl0);
-    mid = Math.imul(al1, bh0);
-    mid = (mid + Math.imul(ah1, bl0)) | 0;
-    hi = Math.imul(ah1, bh0);
-    lo = (lo + Math.imul(al0, bl1)) | 0;
-    mid = (mid + Math.imul(al0, bh1)) | 0;
-    mid = (mid + Math.imul(ah0, bl1)) | 0;
-    hi = (hi + Math.imul(ah0, bh1)) | 0;
-    var w1 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w1 >>> 26)) | 0;
-    w1 &= 0x3ffffff;
-    /* k = 2 */
-    lo = Math.imul(al2, bl0);
-    mid = Math.imul(al2, bh0);
-    mid = (mid + Math.imul(ah2, bl0)) | 0;
-    hi = Math.imul(ah2, bh0);
-    lo = (lo + Math.imul(al1, bl1)) | 0;
-    mid = (mid + Math.imul(al1, bh1)) | 0;
-    mid = (mid + Math.imul(ah1, bl1)) | 0;
-    hi = (hi + Math.imul(ah1, bh1)) | 0;
-    lo = (lo + Math.imul(al0, bl2)) | 0;
-    mid = (mid + Math.imul(al0, bh2)) | 0;
-    mid = (mid + Math.imul(ah0, bl2)) | 0;
-    hi = (hi + Math.imul(ah0, bh2)) | 0;
-    var w2 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w2 >>> 26)) | 0;
-    w2 &= 0x3ffffff;
-    /* k = 3 */
-    lo = Math.imul(al3, bl0);
-    mid = Math.imul(al3, bh0);
-    mid = (mid + Math.imul(ah3, bl0)) | 0;
-    hi = Math.imul(ah3, bh0);
-    lo = (lo + Math.imul(al2, bl1)) | 0;
-    mid = (mid + Math.imul(al2, bh1)) | 0;
-    mid = (mid + Math.imul(ah2, bl1)) | 0;
-    hi = (hi + Math.imul(ah2, bh1)) | 0;
-    lo = (lo + Math.imul(al1, bl2)) | 0;
-    mid = (mid + Math.imul(al1, bh2)) | 0;
-    mid = (mid + Math.imul(ah1, bl2)) | 0;
-    hi = (hi + Math.imul(ah1, bh2)) | 0;
-    lo = (lo + Math.imul(al0, bl3)) | 0;
-    mid = (mid + Math.imul(al0, bh3)) | 0;
-    mid = (mid + Math.imul(ah0, bl3)) | 0;
-    hi = (hi + Math.imul(ah0, bh3)) | 0;
-    var w3 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w3 >>> 26)) | 0;
-    w3 &= 0x3ffffff;
-    /* k = 4 */
-    lo = Math.imul(al4, bl0);
-    mid = Math.imul(al4, bh0);
-    mid = (mid + Math.imul(ah4, bl0)) | 0;
-    hi = Math.imul(ah4, bh0);
-    lo = (lo + Math.imul(al3, bl1)) | 0;
-    mid = (mid + Math.imul(al3, bh1)) | 0;
-    mid = (mid + Math.imul(ah3, bl1)) | 0;
-    hi = (hi + Math.imul(ah3, bh1)) | 0;
-    lo = (lo + Math.imul(al2, bl2)) | 0;
-    mid = (mid + Math.imul(al2, bh2)) | 0;
-    mid = (mid + Math.imul(ah2, bl2)) | 0;
-    hi = (hi + Math.imul(ah2, bh2)) | 0;
-    lo = (lo + Math.imul(al1, bl3)) | 0;
-    mid = (mid + Math.imul(al1, bh3)) | 0;
-    mid = (mid + Math.imul(ah1, bl3)) | 0;
-    hi = (hi + Math.imul(ah1, bh3)) | 0;
-    lo = (lo + Math.imul(al0, bl4)) | 0;
-    mid = (mid + Math.imul(al0, bh4)) | 0;
-    mid = (mid + Math.imul(ah0, bl4)) | 0;
-    hi = (hi + Math.imul(ah0, bh4)) | 0;
-    var w4 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w4 >>> 26)) | 0;
-    w4 &= 0x3ffffff;
-    /* k = 5 */
-    lo = Math.imul(al5, bl0);
-    mid = Math.imul(al5, bh0);
-    mid = (mid + Math.imul(ah5, bl0)) | 0;
-    hi = Math.imul(ah5, bh0);
-    lo = (lo + Math.imul(al4, bl1)) | 0;
-    mid = (mid + Math.imul(al4, bh1)) | 0;
-    mid = (mid + Math.imul(ah4, bl1)) | 0;
-    hi = (hi + Math.imul(ah4, bh1)) | 0;
-    lo = (lo + Math.imul(al3, bl2)) | 0;
-    mid = (mid + Math.imul(al3, bh2)) | 0;
-    mid = (mid + Math.imul(ah3, bl2)) | 0;
-    hi = (hi + Math.imul(ah3, bh2)) | 0;
-    lo = (lo + Math.imul(al2, bl3)) | 0;
-    mid = (mid + Math.imul(al2, bh3)) | 0;
-    mid = (mid + Math.imul(ah2, bl3)) | 0;
-    hi = (hi + Math.imul(ah2, bh3)) | 0;
-    lo = (lo + Math.imul(al1, bl4)) | 0;
-    mid = (mid + Math.imul(al1, bh4)) | 0;
-    mid = (mid + Math.imul(ah1, bl4)) | 0;
-    hi = (hi + Math.imul(ah1, bh4)) | 0;
-    lo = (lo + Math.imul(al0, bl5)) | 0;
-    mid = (mid + Math.imul(al0, bh5)) | 0;
-    mid = (mid + Math.imul(ah0, bl5)) | 0;
-    hi = (hi + Math.imul(ah0, bh5)) | 0;
-    var w5 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w5 >>> 26)) | 0;
-    w5 &= 0x3ffffff;
-    /* k = 6 */
-    lo = Math.imul(al6, bl0);
-    mid = Math.imul(al6, bh0);
-    mid = (mid + Math.imul(ah6, bl0)) | 0;
-    hi = Math.imul(ah6, bh0);
-    lo = (lo + Math.imul(al5, bl1)) | 0;
-    mid = (mid + Math.imul(al5, bh1)) | 0;
-    mid = (mid + Math.imul(ah5, bl1)) | 0;
-    hi = (hi + Math.imul(ah5, bh1)) | 0;
-    lo = (lo + Math.imul(al4, bl2)) | 0;
-    mid = (mid + Math.imul(al4, bh2)) | 0;
-    mid = (mid + Math.imul(ah4, bl2)) | 0;
-    hi = (hi + Math.imul(ah4, bh2)) | 0;
-    lo = (lo + Math.imul(al3, bl3)) | 0;
-    mid = (mid + Math.imul(al3, bh3)) | 0;
-    mid = (mid + Math.imul(ah3, bl3)) | 0;
-    hi = (hi + Math.imul(ah3, bh3)) | 0;
-    lo = (lo + Math.imul(al2, bl4)) | 0;
-    mid = (mid + Math.imul(al2, bh4)) | 0;
-    mid = (mid + Math.imul(ah2, bl4)) | 0;
-    hi = (hi + Math.imul(ah2, bh4)) | 0;
-    lo = (lo + Math.imul(al1, bl5)) | 0;
-    mid = (mid + Math.imul(al1, bh5)) | 0;
-    mid = (mid + Math.imul(ah1, bl5)) | 0;
-    hi = (hi + Math.imul(ah1, bh5)) | 0;
-    lo = (lo + Math.imul(al0, bl6)) | 0;
-    mid = (mid + Math.imul(al0, bh6)) | 0;
-    mid = (mid + Math.imul(ah0, bl6)) | 0;
-    hi = (hi + Math.imul(ah0, bh6)) | 0;
-    var w6 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w6 >>> 26)) | 0;
-    w6 &= 0x3ffffff;
-    /* k = 7 */
-    lo = Math.imul(al7, bl0);
-    mid = Math.imul(al7, bh0);
-    mid = (mid + Math.imul(ah7, bl0)) | 0;
-    hi = Math.imul(ah7, bh0);
-    lo = (lo + Math.imul(al6, bl1)) | 0;
-    mid = (mid + Math.imul(al6, bh1)) | 0;
-    mid = (mid + Math.imul(ah6, bl1)) | 0;
-    hi = (hi + Math.imul(ah6, bh1)) | 0;
-    lo = (lo + Math.imul(al5, bl2)) | 0;
-    mid = (mid + Math.imul(al5, bh2)) | 0;
-    mid = (mid + Math.imul(ah5, bl2)) | 0;
-    hi = (hi + Math.imul(ah5, bh2)) | 0;
-    lo = (lo + Math.imul(al4, bl3)) | 0;
-    mid = (mid + Math.imul(al4, bh3)) | 0;
-    mid = (mid + Math.imul(ah4, bl3)) | 0;
-    hi = (hi + Math.imul(ah4, bh3)) | 0;
-    lo = (lo + Math.imul(al3, bl4)) | 0;
-    mid = (mid + Math.imul(al3, bh4)) | 0;
-    mid = (mid + Math.imul(ah3, bl4)) | 0;
-    hi = (hi + Math.imul(ah3, bh4)) | 0;
-    lo = (lo + Math.imul(al2, bl5)) | 0;
-    mid = (mid + Math.imul(al2, bh5)) | 0;
-    mid = (mid + Math.imul(ah2, bl5)) | 0;
-    hi = (hi + Math.imul(ah2, bh5)) | 0;
-    lo = (lo + Math.imul(al1, bl6)) | 0;
-    mid = (mid + Math.imul(al1, bh6)) | 0;
-    mid = (mid + Math.imul(ah1, bl6)) | 0;
-    hi = (hi + Math.imul(ah1, bh6)) | 0;
-    lo = (lo + Math.imul(al0, bl7)) | 0;
-    mid = (mid + Math.imul(al0, bh7)) | 0;
-    mid = (mid + Math.imul(ah0, bl7)) | 0;
-    hi = (hi + Math.imul(ah0, bh7)) | 0;
-    var w7 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w7 >>> 26)) | 0;
-    w7 &= 0x3ffffff;
-    /* k = 8 */
-    lo = Math.imul(al8, bl0);
-    mid = Math.imul(al8, bh0);
-    mid = (mid + Math.imul(ah8, bl0)) | 0;
-    hi = Math.imul(ah8, bh0);
-    lo = (lo + Math.imul(al7, bl1)) | 0;
-    mid = (mid + Math.imul(al7, bh1)) | 0;
-    mid = (mid + Math.imul(ah7, bl1)) | 0;
-    hi = (hi + Math.imul(ah7, bh1)) | 0;
-    lo = (lo + Math.imul(al6, bl2)) | 0;
-    mid = (mid + Math.imul(al6, bh2)) | 0;
-    mid = (mid + Math.imul(ah6, bl2)) | 0;
-    hi = (hi + Math.imul(ah6, bh2)) | 0;
-    lo = (lo + Math.imul(al5, bl3)) | 0;
-    mid = (mid + Math.imul(al5, bh3)) | 0;
-    mid = (mid + Math.imul(ah5, bl3)) | 0;
-    hi = (hi + Math.imul(ah5, bh3)) | 0;
-    lo = (lo + Math.imul(al4, bl4)) | 0;
-    mid = (mid + Math.imul(al4, bh4)) | 0;
-    mid = (mid + Math.imul(ah4, bl4)) | 0;
-    hi = (hi + Math.imul(ah4, bh4)) | 0;
-    lo = (lo + Math.imul(al3, bl5)) | 0;
-    mid = (mid + Math.imul(al3, bh5)) | 0;
-    mid = (mid + Math.imul(ah3, bl5)) | 0;
-    hi = (hi + Math.imul(ah3, bh5)) | 0;
-    lo = (lo + Math.imul(al2, bl6)) | 0;
-    mid = (mid + Math.imul(al2, bh6)) | 0;
-    mid = (mid + Math.imul(ah2, bl6)) | 0;
-    hi = (hi + Math.imul(ah2, bh6)) | 0;
-    lo = (lo + Math.imul(al1, bl7)) | 0;
-    mid = (mid + Math.imul(al1, bh7)) | 0;
-    mid = (mid + Math.imul(ah1, bl7)) | 0;
-    hi = (hi + Math.imul(ah1, bh7)) | 0;
-    lo = (lo + Math.imul(al0, bl8)) | 0;
-    mid = (mid + Math.imul(al0, bh8)) | 0;
-    mid = (mid + Math.imul(ah0, bl8)) | 0;
-    hi = (hi + Math.imul(ah0, bh8)) | 0;
-    var w8 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w8 >>> 26)) | 0;
-    w8 &= 0x3ffffff;
-    /* k = 9 */
-    lo = Math.imul(al9, bl0);
-    mid = Math.imul(al9, bh0);
-    mid = (mid + Math.imul(ah9, bl0)) | 0;
-    hi = Math.imul(ah9, bh0);
-    lo = (lo + Math.imul(al8, bl1)) | 0;
-    mid = (mid + Math.imul(al8, bh1)) | 0;
-    mid = (mid + Math.imul(ah8, bl1)) | 0;
-    hi = (hi + Math.imul(ah8, bh1)) | 0;
-    lo = (lo + Math.imul(al7, bl2)) | 0;
-    mid = (mid + Math.imul(al7, bh2)) | 0;
-    mid = (mid + Math.imul(ah7, bl2)) | 0;
-    hi = (hi + Math.imul(ah7, bh2)) | 0;
-    lo = (lo + Math.imul(al6, bl3)) | 0;
-    mid = (mid + Math.imul(al6, bh3)) | 0;
-    mid = (mid + Math.imul(ah6, bl3)) | 0;
-    hi = (hi + Math.imul(ah6, bh3)) | 0;
-    lo = (lo + Math.imul(al5, bl4)) | 0;
-    mid = (mid + Math.imul(al5, bh4)) | 0;
-    mid = (mid + Math.imul(ah5, bl4)) | 0;
-    hi = (hi + Math.imul(ah5, bh4)) | 0;
-    lo = (lo + Math.imul(al4, bl5)) | 0;
-    mid = (mid + Math.imul(al4, bh5)) | 0;
-    mid = (mid + Math.imul(ah4, bl5)) | 0;
-    hi = (hi + Math.imul(ah4, bh5)) | 0;
-    lo = (lo + Math.imul(al3, bl6)) | 0;
-    mid = (mid + Math.imul(al3, bh6)) | 0;
-    mid = (mid + Math.imul(ah3, bl6)) | 0;
-    hi = (hi + Math.imul(ah3, bh6)) | 0;
-    lo = (lo + Math.imul(al2, bl7)) | 0;
-    mid = (mid + Math.imul(al2, bh7)) | 0;
-    mid = (mid + Math.imul(ah2, bl7)) | 0;
-    hi = (hi + Math.imul(ah2, bh7)) | 0;
-    lo = (lo + Math.imul(al1, bl8)) | 0;
-    mid = (mid + Math.imul(al1, bh8)) | 0;
-    mid = (mid + Math.imul(ah1, bl8)) | 0;
-    hi = (hi + Math.imul(ah1, bh8)) | 0;
-    lo = (lo + Math.imul(al0, bl9)) | 0;
-    mid = (mid + Math.imul(al0, bh9)) | 0;
-    mid = (mid + Math.imul(ah0, bl9)) | 0;
-    hi = (hi + Math.imul(ah0, bh9)) | 0;
-    var w9 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w9 >>> 26)) | 0;
-    w9 &= 0x3ffffff;
-    /* k = 10 */
-    lo = Math.imul(al9, bl1);
-    mid = Math.imul(al9, bh1);
-    mid = (mid + Math.imul(ah9, bl1)) | 0;
-    hi = Math.imul(ah9, bh1);
-    lo = (lo + Math.imul(al8, bl2)) | 0;
-    mid = (mid + Math.imul(al8, bh2)) | 0;
-    mid = (mid + Math.imul(ah8, bl2)) | 0;
-    hi = (hi + Math.imul(ah8, bh2)) | 0;
-    lo = (lo + Math.imul(al7, bl3)) | 0;
-    mid = (mid + Math.imul(al7, bh3)) | 0;
-    mid = (mid + Math.imul(ah7, bl3)) | 0;
-    hi = (hi + Math.imul(ah7, bh3)) | 0;
-    lo = (lo + Math.imul(al6, bl4)) | 0;
-    mid = (mid + Math.imul(al6, bh4)) | 0;
-    mid = (mid + Math.imul(ah6, bl4)) | 0;
-    hi = (hi + Math.imul(ah6, bh4)) | 0;
-    lo = (lo + Math.imul(al5, bl5)) | 0;
-    mid = (mid + Math.imul(al5, bh5)) | 0;
-    mid = (mid + Math.imul(ah5, bl5)) | 0;
-    hi = (hi + Math.imul(ah5, bh5)) | 0;
-    lo = (lo + Math.imul(al4, bl6)) | 0;
-    mid = (mid + Math.imul(al4, bh6)) | 0;
-    mid = (mid + Math.imul(ah4, bl6)) | 0;
-    hi = (hi + Math.imul(ah4, bh6)) | 0;
-    lo = (lo + Math.imul(al3, bl7)) | 0;
-    mid = (mid + Math.imul(al3, bh7)) | 0;
-    mid = (mid + Math.imul(ah3, bl7)) | 0;
-    hi = (hi + Math.imul(ah3, bh7)) | 0;
-    lo = (lo + Math.imul(al2, bl8)) | 0;
-    mid = (mid + Math.imul(al2, bh8)) | 0;
-    mid = (mid + Math.imul(ah2, bl8)) | 0;
-    hi = (hi + Math.imul(ah2, bh8)) | 0;
-    lo = (lo + Math.imul(al1, bl9)) | 0;
-    mid = (mid + Math.imul(al1, bh9)) | 0;
-    mid = (mid + Math.imul(ah1, bl9)) | 0;
-    hi = (hi + Math.imul(ah1, bh9)) | 0;
-    var w10 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w10 >>> 26)) | 0;
-    w10 &= 0x3ffffff;
-    /* k = 11 */
-    lo = Math.imul(al9, bl2);
-    mid = Math.imul(al9, bh2);
-    mid = (mid + Math.imul(ah9, bl2)) | 0;
-    hi = Math.imul(ah9, bh2);
-    lo = (lo + Math.imul(al8, bl3)) | 0;
-    mid = (mid + Math.imul(al8, bh3)) | 0;
-    mid = (mid + Math.imul(ah8, bl3)) | 0;
-    hi = (hi + Math.imul(ah8, bh3)) | 0;
-    lo = (lo + Math.imul(al7, bl4)) | 0;
-    mid = (mid + Math.imul(al7, bh4)) | 0;
-    mid = (mid + Math.imul(ah7, bl4)) | 0;
-    hi = (hi + Math.imul(ah7, bh4)) | 0;
-    lo = (lo + Math.imul(al6, bl5)) | 0;
-    mid = (mid + Math.imul(al6, bh5)) | 0;
-    mid = (mid + Math.imul(ah6, bl5)) | 0;
-    hi = (hi + Math.imul(ah6, bh5)) | 0;
-    lo = (lo + Math.imul(al5, bl6)) | 0;
-    mid = (mid + Math.imul(al5, bh6)) | 0;
-    mid = (mid + Math.imul(ah5, bl6)) | 0;
-    hi = (hi + Math.imul(ah5, bh6)) | 0;
-    lo = (lo + Math.imul(al4, bl7)) | 0;
-    mid = (mid + Math.imul(al4, bh7)) | 0;
-    mid = (mid + Math.imul(ah4, bl7)) | 0;
-    hi = (hi + Math.imul(ah4, bh7)) | 0;
-    lo = (lo + Math.imul(al3, bl8)) | 0;
-    mid = (mid + Math.imul(al3, bh8)) | 0;
-    mid = (mid + Math.imul(ah3, bl8)) | 0;
-    hi = (hi + Math.imul(ah3, bh8)) | 0;
-    lo = (lo + Math.imul(al2, bl9)) | 0;
-    mid = (mid + Math.imul(al2, bh9)) | 0;
-    mid = (mid + Math.imul(ah2, bl9)) | 0;
-    hi = (hi + Math.imul(ah2, bh9)) | 0;
-    var w11 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w11 >>> 26)) | 0;
-    w11 &= 0x3ffffff;
-    /* k = 12 */
-    lo = Math.imul(al9, bl3);
-    mid = Math.imul(al9, bh3);
-    mid = (mid + Math.imul(ah9, bl3)) | 0;
-    hi = Math.imul(ah9, bh3);
-    lo = (lo + Math.imul(al8, bl4)) | 0;
-    mid = (mid + Math.imul(al8, bh4)) | 0;
-    mid = (mid + Math.imul(ah8, bl4)) | 0;
-    hi = (hi + Math.imul(ah8, bh4)) | 0;
-    lo = (lo + Math.imul(al7, bl5)) | 0;
-    mid = (mid + Math.imul(al7, bh5)) | 0;
-    mid = (mid + Math.imul(ah7, bl5)) | 0;
-    hi = (hi + Math.imul(ah7, bh5)) | 0;
-    lo = (lo + Math.imul(al6, bl6)) | 0;
-    mid = (mid + Math.imul(al6, bh6)) | 0;
-    mid = (mid + Math.imul(ah6, bl6)) | 0;
-    hi = (hi + Math.imul(ah6, bh6)) | 0;
-    lo = (lo + Math.imul(al5, bl7)) | 0;
-    mid = (mid + Math.imul(al5, bh7)) | 0;
-    mid = (mid + Math.imul(ah5, bl7)) | 0;
-    hi = (hi + Math.imul(ah5, bh7)) | 0;
-    lo = (lo + Math.imul(al4, bl8)) | 0;
-    mid = (mid + Math.imul(al4, bh8)) | 0;
-    mid = (mid + Math.imul(ah4, bl8)) | 0;
-    hi = (hi + Math.imul(ah4, bh8)) | 0;
-    lo = (lo + Math.imul(al3, bl9)) | 0;
-    mid = (mid + Math.imul(al3, bh9)) | 0;
-    mid = (mid + Math.imul(ah3, bl9)) | 0;
-    hi = (hi + Math.imul(ah3, bh9)) | 0;
-    var w12 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w12 >>> 26)) | 0;
-    w12 &= 0x3ffffff;
-    /* k = 13 */
-    lo = Math.imul(al9, bl4);
-    mid = Math.imul(al9, bh4);
-    mid = (mid + Math.imul(ah9, bl4)) | 0;
-    hi = Math.imul(ah9, bh4);
-    lo = (lo + Math.imul(al8, bl5)) | 0;
-    mid = (mid + Math.imul(al8, bh5)) | 0;
-    mid = (mid + Math.imul(ah8, bl5)) | 0;
-    hi = (hi + Math.imul(ah8, bh5)) | 0;
-    lo = (lo + Math.imul(al7, bl6)) | 0;
-    mid = (mid + Math.imul(al7, bh6)) | 0;
-    mid = (mid + Math.imul(ah7, bl6)) | 0;
-    hi = (hi + Math.imul(ah7, bh6)) | 0;
-    lo = (lo + Math.imul(al6, bl7)) | 0;
-    mid = (mid + Math.imul(al6, bh7)) | 0;
-    mid = (mid + Math.imul(ah6, bl7)) | 0;
-    hi = (hi + Math.imul(ah6, bh7)) | 0;
-    lo = (lo + Math.imul(al5, bl8)) | 0;
-    mid = (mid + Math.imul(al5, bh8)) | 0;
-    mid = (mid + Math.imul(ah5, bl8)) | 0;
-    hi = (hi + Math.imul(ah5, bh8)) | 0;
-    lo = (lo + Math.imul(al4, bl9)) | 0;
-    mid = (mid + Math.imul(al4, bh9)) | 0;
-    mid = (mid + Math.imul(ah4, bl9)) | 0;
-    hi = (hi + Math.imul(ah4, bh9)) | 0;
-    var w13 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w13 >>> 26)) | 0;
-    w13 &= 0x3ffffff;
-    /* k = 14 */
-    lo = Math.imul(al9, bl5);
-    mid = Math.imul(al9, bh5);
-    mid = (mid + Math.imul(ah9, bl5)) | 0;
-    hi = Math.imul(ah9, bh5);
-    lo = (lo + Math.imul(al8, bl6)) | 0;
-    mid = (mid + Math.imul(al8, bh6)) | 0;
-    mid = (mid + Math.imul(ah8, bl6)) | 0;
-    hi = (hi + Math.imul(ah8, bh6)) | 0;
-    lo = (lo + Math.imul(al7, bl7)) | 0;
-    mid = (mid + Math.imul(al7, bh7)) | 0;
-    mid = (mid + Math.imul(ah7, bl7)) | 0;
-    hi = (hi + Math.imul(ah7, bh7)) | 0;
-    lo = (lo + Math.imul(al6, bl8)) | 0;
-    mid = (mid + Math.imul(al6, bh8)) | 0;
-    mid = (mid + Math.imul(ah6, bl8)) | 0;
-    hi = (hi + Math.imul(ah6, bh8)) | 0;
-    lo = (lo + Math.imul(al5, bl9)) | 0;
-    mid = (mid + Math.imul(al5, bh9)) | 0;
-    mid = (mid + Math.imul(ah5, bl9)) | 0;
-    hi = (hi + Math.imul(ah5, bh9)) | 0;
-    var w14 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w14 >>> 26)) | 0;
-    w14 &= 0x3ffffff;
-    /* k = 15 */
-    lo = Math.imul(al9, bl6);
-    mid = Math.imul(al9, bh6);
-    mid = (mid + Math.imul(ah9, bl6)) | 0;
-    hi = Math.imul(ah9, bh6);
-    lo = (lo + Math.imul(al8, bl7)) | 0;
-    mid = (mid + Math.imul(al8, bh7)) | 0;
-    mid = (mid + Math.imul(ah8, bl7)) | 0;
-    hi = (hi + Math.imul(ah8, bh7)) | 0;
-    lo = (lo + Math.imul(al7, bl8)) | 0;
-    mid = (mid + Math.imul(al7, bh8)) | 0;
-    mid = (mid + Math.imul(ah7, bl8)) | 0;
-    hi = (hi + Math.imul(ah7, bh8)) | 0;
-    lo = (lo + Math.imul(al6, bl9)) | 0;
-    mid = (mid + Math.imul(al6, bh9)) | 0;
-    mid = (mid + Math.imul(ah6, bl9)) | 0;
-    hi = (hi + Math.imul(ah6, bh9)) | 0;
-    var w15 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w15 >>> 26)) | 0;
-    w15 &= 0x3ffffff;
-    /* k = 16 */
-    lo = Math.imul(al9, bl7);
-    mid = Math.imul(al9, bh7);
-    mid = (mid + Math.imul(ah9, bl7)) | 0;
-    hi = Math.imul(ah9, bh7);
-    lo = (lo + Math.imul(al8, bl8)) | 0;
-    mid = (mid + Math.imul(al8, bh8)) | 0;
-    mid = (mid + Math.imul(ah8, bl8)) | 0;
-    hi = (hi + Math.imul(ah8, bh8)) | 0;
-    lo = (lo + Math.imul(al7, bl9)) | 0;
-    mid = (mid + Math.imul(al7, bh9)) | 0;
-    mid = (mid + Math.imul(ah7, bl9)) | 0;
-    hi = (hi + Math.imul(ah7, bh9)) | 0;
-    var w16 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w16 >>> 26)) | 0;
-    w16 &= 0x3ffffff;
-    /* k = 17 */
-    lo = Math.imul(al9, bl8);
-    mid = Math.imul(al9, bh8);
-    mid = (mid + Math.imul(ah9, bl8)) | 0;
-    hi = Math.imul(ah9, bh8);
-    lo = (lo + Math.imul(al8, bl9)) | 0;
-    mid = (mid + Math.imul(al8, bh9)) | 0;
-    mid = (mid + Math.imul(ah8, bl9)) | 0;
-    hi = (hi + Math.imul(ah8, bh9)) | 0;
-    var w17 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w17 >>> 26)) | 0;
-    w17 &= 0x3ffffff;
-    /* k = 18 */
-    lo = Math.imul(al9, bl9);
-    mid = Math.imul(al9, bh9);
-    mid = (mid + Math.imul(ah9, bl9)) | 0;
-    hi = Math.imul(ah9, bh9);
-    var w18 = (((c + lo) | 0) + ((mid & 0x1fff) << 13)) | 0;
-    c = (((hi + (mid >>> 13)) | 0) + (w18 >>> 26)) | 0;
-    w18 &= 0x3ffffff;
-    o[0] = w0;
-    o[1] = w1;
-    o[2] = w2;
-    o[3] = w3;
-    o[4] = w4;
-    o[5] = w5;
-    o[6] = w6;
-    o[7] = w7;
-    o[8] = w8;
-    o[9] = w9;
-    o[10] = w10;
-    o[11] = w11;
-    o[12] = w12;
-    o[13] = w13;
-    o[14] = w14;
-    o[15] = w15;
-    o[16] = w16;
-    o[17] = w17;
-    o[18] = w18;
-    if (c !== 0) {
-      o[19] = c;
-      out.length++;
-    }
-    return out;
-  };
-
-  // Polyfill comb
-  if (!Math.imul) {
-    comb10MulTo = smallMulTo;
-  }
-
-  function bigMulTo (self, num, out) {
-    out.negative = num.negative ^ self.negative;
-    out.length = self.length + num.length;
-
-    var carry = 0;
-    var hncarry = 0;
-    for (var k = 0; k < out.length - 1; k++) {
-      // Sum all words with the same `i + j = k` and accumulate `ncarry`,
-      // note that ncarry could be >= 0x3ffffff
-      var ncarry = hncarry;
-      hncarry = 0;
-      var rword = carry & 0x3ffffff;
-      var maxJ = Math.min(k, num.length - 1);
-      for (var j = Math.max(0, k - self.length + 1); j <= maxJ; j++) {
-        var i = k - j;
-        var a = self.words[i] | 0;
-        var b = num.words[j] | 0;
-        var r = a * b;
-
-        var lo = r & 0x3ffffff;
-        ncarry = (ncarry + ((r / 0x4000000) | 0)) | 0;
-        lo = (lo + rword) | 0;
-        rword = lo & 0x3ffffff;
-        ncarry = (ncarry + (lo >>> 26)) | 0;
-
-        hncarry += ncarry >>> 26;
-        ncarry &= 0x3ffffff;
-      }
-      out.words[k] = rword;
-      carry = ncarry;
-      ncarry = hncarry;
-    }
-    if (carry !== 0) {
-      out.words[k] = carry;
-    } else {
-      out.length--;
-    }
-
-    return out.strip();
-  }
-
-  function jumboMulTo (self, num, out) {
-    var fftm = new FFTM();
-    return fftm.mulp(self, num, out);
-  }
-
-  BN.prototype.mulTo = function mulTo (num, out) {
-    var res;
-    var len = this.length + num.length;
-    if (this.length === 10 && num.length === 10) {
-      res = comb10MulTo(this, num, out);
-    } else if (len < 63) {
-      res = smallMulTo(this, num, out);
-    } else if (len < 1024) {
-      res = bigMulTo(this, num, out);
-    } else {
-      res = jumboMulTo(this, num, out);
-    }
-
-    return res;
-  };
-
-  // Cooley-Tukey algorithm for FFT
-  // slightly revisited to rely on looping instead of recursion
-
-  function FFTM (x, y) {
-    this.x = x;
-    this.y = y;
-  }
-
-  FFTM.prototype.makeRBT = function makeRBT (N) {
-    var t = new Array(N);
-    var l = BN.prototype._countBits(N) - 1;
-    for (var i = 0; i < N; i++) {
-      t[i] = this.revBin(i, l, N);
-    }
-
-    return t;
-  };
-
-  // Returns binary-reversed representation of `x`
-  FFTM.prototype.revBin = function revBin (x, l, N) {
-    if (x === 0 || x === N - 1) return x;
-
-    var rb = 0;
-    for (var i = 0; i < l; i++) {
-      rb |= (x & 1) << (l - i - 1);
-      x >>= 1;
-    }
-
-    return rb;
-  };
-
-  // Performs "tweedling" phase, therefore 'emulating'
-  // behaviour of the recursive algorithm
-  FFTM.prototype.permute = function permute (rbt, rws, iws, rtws, itws, N) {
-    for (var i = 0; i < N; i++) {
-      rtws[i] = rws[rbt[i]];
-      itws[i] = iws[rbt[i]];
-    }
-  };
-
-  FFTM.prototype.transform = function transform (rws, iws, rtws, itws, N, rbt) {
-    this.permute(rbt, rws, iws, rtws, itws, N);
-
-    for (var s = 1; s < N; s <<= 1) {
-      var l = s << 1;
-
-      var rtwdf = Math.cos(2 * Math.PI / l);
-      var itwdf = Math.sin(2 * Math.PI / l);
-
-      for (var p = 0; p < N; p += l) {
-        var rtwdf_ = rtwdf;
-        var itwdf_ = itwdf;
-
-        for (var j = 0; j < s; j++) {
-          var re = rtws[p + j];
-          var ie = itws[p + j];
-
-          var ro = rtws[p + j + s];
-          var io = itws[p + j + s];
-
-          var rx = rtwdf_ * ro - itwdf_ * io;
-
-          io = rtwdf_ * io + itwdf_ * ro;
-          ro = rx;
-
-          rtws[p + j] = re + ro;
-          itws[p + j] = ie + io;
-
-          rtws[p + j + s] = re - ro;
-          itws[p + j + s] = ie - io;
-
-          /* jshint maxdepth : false */
-          if (j !== l) {
-            rx = rtwdf * rtwdf_ - itwdf * itwdf_;
-
-            itwdf_ = rtwdf * itwdf_ + itwdf * rtwdf_;
-            rtwdf_ = rx;
-          }
-        }
-      }
-    }
-  };
-
-  FFTM.prototype.guessLen13b = function guessLen13b (n, m) {
-    var N = Math.max(m, n) | 1;
-    var odd = N & 1;
-    var i = 0;
-    for (N = N / 2 | 0; N; N = N >>> 1) {
-      i++;
-    }
-
-    return 1 << i + 1 + odd;
-  };
-
-  FFTM.prototype.conjugate = function conjugate (rws, iws, N) {
-    if (N <= 1) return;
-
-    for (var i = 0; i < N / 2; i++) {
-      var t = rws[i];
-
-      rws[i] = rws[N - i - 1];
-      rws[N - i - 1] = t;
-
-      t = iws[i];
-
-      iws[i] = -iws[N - i - 1];
-      iws[N - i - 1] = -t;
-    }
-  };
-
-  FFTM.prototype.normalize13b = function normalize13b (ws, N) {
-    var carry = 0;
-    for (var i = 0; i < N / 2; i++) {
-      var w = Math.round(ws[2 * i + 1] / N) * 0x2000 +
-        Math.round(ws[2 * i] / N) +
-        carry;
-
-      ws[i] = w & 0x3ffffff;
-
-      if (w < 0x4000000) {
-        carry = 0;
-      } else {
-        carry = w / 0x4000000 | 0;
-      }
-    }
-
-    return ws;
-  };
-
-  FFTM.prototype.convert13b = function convert13b (ws, len, rws, N) {
-    var carry = 0;
-    for (var i = 0; i < len; i++) {
-      carry = carry + (ws[i] | 0);
-
-      rws[2 * i] = carry & 0x1fff; carry = carry >>> 13;
-      rws[2 * i + 1] = carry & 0x1fff; carry = carry >>> 13;
-    }
-
-    // Pad with zeroes
-    for (i = 2 * len; i < N; ++i) {
-      rws[i] = 0;
-    }
-
-    assert(carry === 0);
-    assert((carry & ~0x1fff) === 0);
-  };
-
-  FFTM.prototype.stub = function stub (N) {
-    var ph = new Array(N);
-    for (var i = 0; i < N; i++) {
-      ph[i] = 0;
-    }
-
-    return ph;
-  };
-
-  FFTM.prototype.mulp = function mulp (x, y, out) {
-    var N = 2 * this.guessLen13b(x.length, y.length);
-
-    var rbt = this.makeRBT(N);
-
-    var _ = this.stub(N);
-
-    var rws = new Array(N);
-    var rwst = new Array(N);
-    var iwst = new Array(N);
-
-    var nrws = new Array(N);
-    var nrwst = new Array(N);
-    var niwst = new Array(N);
-
-    var rmws = out.words;
-    rmws.length = N;
-
-    this.convert13b(x.words, x.length, rws, N);
-    this.convert13b(y.words, y.length, nrws, N);
-
-    this.transform(rws, _, rwst, iwst, N, rbt);
-    this.transform(nrws, _, nrwst, niwst, N, rbt);
-
-    for (var i = 0; i < N; i++) {
-      var rx = rwst[i] * nrwst[i] - iwst[i] * niwst[i];
-      iwst[i] = rwst[i] * niwst[i] + iwst[i] * nrwst[i];
-      rwst[i] = rx;
-    }
-
-    this.conjugate(rwst, iwst, N);
-    this.transform(rwst, iwst, rmws, _, N, rbt);
-    this.conjugate(rmws, _, N);
-    this.normalize13b(rmws, N);
-
-    out.negative = x.negative ^ y.negative;
-    out.length = x.length + y.length;
-    return out.strip();
-  };
-
-  // Multiply `this` by `num`
-  BN.prototype.mul = function mul (num) {
-    var out = new BN(null);
-    out.words = new Array(this.length + num.length);
-    return this.mulTo(num, out);
-  };
-
-  // Multiply employing FFT
-  BN.prototype.mulf = function mulf (num) {
-    var out = new BN(null);
-    out.words = new Array(this.length + num.length);
-    return jumboMulTo(this, num, out);
-  };
-
-  // In-place Multiplication
-  BN.prototype.imul = function imul (num) {
-    return this.clone().mulTo(num, this);
-  };
-
-  BN.prototype.imuln = function imuln (num) {
-    assert(typeof num === 'number');
-    assert(num < 0x4000000);
-
-    // Carry
-    var carry = 0;
-    for (var i = 0; i < this.length; i++) {
-      var w = (this.words[i] | 0) * num;
-      var lo = (w & 0x3ffffff) + (carry & 0x3ffffff);
-      carry >>= 26;
-      carry += (w / 0x4000000) | 0;
-      // NOTE: lo is 27bit maximum
-      carry += lo >>> 26;
-      this.words[i] = lo & 0x3ffffff;
-    }
-
-    if (carry !== 0) {
-      this.words[i] = carry;
-      this.length++;
-    }
-
-    return this;
-  };
-
-  BN.prototype.muln = function muln (num) {
-    return this.clone().imuln(num);
-  };
-
-  // `this` * `this`
-  BN.prototype.sqr = function sqr () {
-    return this.mul(this);
-  };
-
-  // `this` * `this` in-place
-  BN.prototype.isqr = function isqr () {
-    return this.imul(this.clone());
-  };
-
-  // Math.pow(`this`, `num`)
-  BN.prototype.pow = function pow (num) {
-    var w = toBitArray(num);
-    if (w.length === 0) return new BN(1);
-
-    // Skip leading zeroes
-    var res = this;
-    for (var i = 0; i < w.length; i++, res = res.sqr()) {
-      if (w[i] !== 0) break;
-    }
-
-    if (++i < w.length) {
-      for (var q = res.sqr(); i < w.length; i++, q = q.sqr()) {
-        if (w[i] === 0) continue;
-
-        res = res.mul(q);
-      }
-    }
-
-    return res;
-  };
-
-  // Shift-left in-place
-  BN.prototype.iushln = function iushln (bits) {
-    assert(typeof bits === 'number' && bits >= 0);
-    var r = bits % 26;
-    var s = (bits - r) / 26;
-    var carryMask = (0x3ffffff >>> (26 - r)) << (26 - r);
-    var i;
-
-    if (r !== 0) {
-      var carry = 0;
-
-      for (i = 0; i < this.length; i++) {
-        var newCarry = this.words[i] & carryMask;
-        var c = ((this.words[i] | 0) - newCarry) << r;
-        this.words[i] = c | carry;
-        carry = newCarry >>> (26 - r);
-      }
-
-      if (carry) {
-        this.words[i] = carry;
-        this.length++;
-      }
-    }
-
-    if (s !== 0) {
-      for (i = this.length - 1; i >= 0; i--) {
-        this.words[i + s] = this.words[i];
-      }
-
-      for (i = 0; i < s; i++) {
-        this.words[i] = 0;
-      }
-
-      this.length += s;
-    }
-
-    return this.strip();
-  };
-
-  BN.prototype.ishln = function ishln (bits) {
-    // TODO(indutny): implement me
-    assert(this.negative === 0);
-    return this.iushln(bits);
-  };
-
-  // Shift-right in-place
-  // NOTE: `hint` is a lowest bit before trailing zeroes
-  // NOTE: if `extended` is present - it will be filled with destroyed bits
-  BN.prototype.iushrn = function iushrn (bits, hint, extended) {
-    assert(typeof bits === 'number' && bits >= 0);
-    var h;
-    if (hint) {
-      h = (hint - (hint % 26)) / 26;
-    } else {
-      h = 0;
-    }
-
-    var r = bits % 26;
-    var s = Math.min((bits - r) / 26, this.length);
-    var mask = 0x3ffffff ^ ((0x3ffffff >>> r) << r);
-    var maskedWords = extended;
-
-    h -= s;
-    h = Math.max(0, h);
-
-    // Extended mode, copy masked part
-    if (maskedWords) {
-      for (var i = 0; i < s; i++) {
-        maskedWords.words[i] = this.words[i];
-      }
-      maskedWords.length = s;
-    }
-
-    if (s === 0) ; else if (this.length > s) {
-      this.length -= s;
-      for (i = 0; i < this.length; i++) {
-        this.words[i] = this.words[i + s];
-      }
-    } else {
-      this.words[0] = 0;
-      this.length = 1;
-    }
-
-    var carry = 0;
-    for (i = this.length - 1; i >= 0 && (carry !== 0 || i >= h); i--) {
-      var word = this.words[i] | 0;
-      this.words[i] = (carry << (26 - r)) | (word >>> r);
-      carry = word & mask;
-    }
-
-    // Push carried bits as a mask
-    if (maskedWords && carry !== 0) {
-      maskedWords.words[maskedWords.length++] = carry;
-    }
-
-    if (this.length === 0) {
-      this.words[0] = 0;
-      this.length = 1;
-    }
-
-    return this.strip();
-  };
-
-  BN.prototype.ishrn = function ishrn (bits, hint, extended) {
-    // TODO(indutny): implement me
-    assert(this.negative === 0);
-    return this.iushrn(bits, hint, extended);
-  };
-
-  // Shift-left
-  BN.prototype.shln = function shln (bits) {
-    return this.clone().ishln(bits);
-  };
-
-  BN.prototype.ushln = function ushln (bits) {
-    return this.clone().iushln(bits);
-  };
-
-  // Shift-right
-  BN.prototype.shrn = function shrn (bits) {
-    return this.clone().ishrn(bits);
-  };
-
-  BN.prototype.ushrn = function ushrn (bits) {
-    return this.clone().iushrn(bits);
-  };
-
-  // Test if n bit is set
-  BN.prototype.testn = function testn (bit) {
-    assert(typeof bit === 'number' && bit >= 0);
-    var r = bit % 26;
-    var s = (bit - r) / 26;
-    var q = 1 << r;
-
-    // Fast case: bit is much higher than all existing words
-    if (this.length <= s) return false;
-
-    // Check bit and return
-    var w = this.words[s];
-
-    return !!(w & q);
-  };
-
-  // Return only lowers bits of number (in-place)
-  BN.prototype.imaskn = function imaskn (bits) {
-    assert(typeof bits === 'number' && bits >= 0);
-    var r = bits % 26;
-    var s = (bits - r) / 26;
-
-    assert(this.negative === 0, 'imaskn works only with positive numbers');
-
-    if (this.length <= s) {
-      return this;
-    }
-
-    if (r !== 0) {
-      s++;
-    }
-    this.length = Math.min(s, this.length);
-
-    if (r !== 0) {
-      var mask = 0x3ffffff ^ ((0x3ffffff >>> r) << r);
-      this.words[this.length - 1] &= mask;
-    }
-
-    return this.strip();
-  };
-
-  // Return only lowers bits of number
-  BN.prototype.maskn = function maskn (bits) {
-    return this.clone().imaskn(bits);
-  };
-
-  // Add plain number `num` to `this`
-  BN.prototype.iaddn = function iaddn (num) {
-    assert(typeof num === 'number');
-    assert(num < 0x4000000);
-    if (num < 0) return this.isubn(-num);
-
-    // Possible sign change
-    if (this.negative !== 0) {
-      if (this.length === 1 && (this.words[0] | 0) < num) {
-        this.words[0] = num - (this.words[0] | 0);
-        this.negative = 0;
-        return this;
-      }
-
-      this.negative = 0;
-      this.isubn(num);
-      this.negative = 1;
-      return this;
-    }
-
-    // Add without checks
-    return this._iaddn(num);
-  };
-
-  BN.prototype._iaddn = function _iaddn (num) {
-    this.words[0] += num;
-
-    // Carry
-    for (var i = 0; i < this.length && this.words[i] >= 0x4000000; i++) {
-      this.words[i] -= 0x4000000;
-      if (i === this.length - 1) {
-        this.words[i + 1] = 1;
-      } else {
-        this.words[i + 1]++;
-      }
-    }
-    this.length = Math.max(this.length, i + 1);
-
-    return this;
-  };
-
-  // Subtract plain number `num` from `this`
-  BN.prototype.isubn = function isubn (num) {
-    assert(typeof num === 'number');
-    assert(num < 0x4000000);
-    if (num < 0) return this.iaddn(-num);
-
-    if (this.negative !== 0) {
-      this.negative = 0;
-      this.iaddn(num);
-      this.negative = 1;
-      return this;
-    }
-
-    this.words[0] -= num;
-
-    if (this.length === 1 && this.words[0] < 0) {
-      this.words[0] = -this.words[0];
-      this.negative = 1;
-    } else {
-      // Carry
-      for (var i = 0; i < this.length && this.words[i] < 0; i++) {
-        this.words[i] += 0x4000000;
-        this.words[i + 1] -= 1;
-      }
-    }
-
-    return this.strip();
-  };
-
-  BN.prototype.addn = function addn (num) {
-    return this.clone().iaddn(num);
-  };
-
-  BN.prototype.subn = function subn (num) {
-    return this.clone().isubn(num);
-  };
-
-  BN.prototype.iabs = function iabs () {
-    this.negative = 0;
-
-    return this;
-  };
-
-  BN.prototype.abs = function abs () {
-    return this.clone().iabs();
-  };
-
-  BN.prototype._ishlnsubmul = function _ishlnsubmul (num, mul, shift) {
-    var len = num.length + shift;
-    var i;
-
-    this._expand(len);
-
-    var w;
-    var carry = 0;
-    for (i = 0; i < num.length; i++) {
-      w = (this.words[i + shift] | 0) + carry;
-      var right = (num.words[i] | 0) * mul;
-      w -= right & 0x3ffffff;
-      carry = (w >> 26) - ((right / 0x4000000) | 0);
-      this.words[i + shift] = w & 0x3ffffff;
-    }
-    for (; i < this.length - shift; i++) {
-      w = (this.words[i + shift] | 0) + carry;
-      carry = w >> 26;
-      this.words[i + shift] = w & 0x3ffffff;
-    }
-
-    if (carry === 0) return this.strip();
-
-    // Subtraction overflow
-    assert(carry === -1);
-    carry = 0;
-    for (i = 0; i < this.length; i++) {
-      w = -(this.words[i] | 0) + carry;
-      carry = w >> 26;
-      this.words[i] = w & 0x3ffffff;
-    }
-    this.negative = 1;
-
-    return this.strip();
-  };
-
-  BN.prototype._wordDiv = function _wordDiv (num, mode) {
-    var shift = this.length - num.length;
-
-    var a = this.clone();
-    var b = num;
-
-    // Normalize
-    var bhi = b.words[b.length - 1] | 0;
-    var bhiBits = this._countBits(bhi);
-    shift = 26 - bhiBits;
-    if (shift !== 0) {
-      b = b.ushln(shift);
-      a.iushln(shift);
-      bhi = b.words[b.length - 1] | 0;
-    }
-
-    // Initialize quotient
-    var m = a.length - b.length;
-    var q;
-
-    if (mode !== 'mod') {
-      q = new BN(null);
-      q.length = m + 1;
-      q.words = new Array(q.length);
-      for (var i = 0; i < q.length; i++) {
-        q.words[i] = 0;
-      }
-    }
-
-    var diff = a.clone()._ishlnsubmul(b, 1, m);
-    if (diff.negative === 0) {
-      a = diff;
-      if (q) {
-        q.words[m] = 1;
-      }
-    }
-
-    for (var j = m - 1; j >= 0; j--) {
-      var qj = (a.words[b.length + j] | 0) * 0x4000000 +
-        (a.words[b.length + j - 1] | 0);
-
-      // NOTE: (qj / bhi) is (0x3ffffff * 0x4000000 + 0x3ffffff) / 0x2000000 max
-      // (0x7ffffff)
-      qj = Math.min((qj / bhi) | 0, 0x3ffffff);
-
-      a._ishlnsubmul(b, qj, j);
-      while (a.negative !== 0) {
-        qj--;
-        a.negative = 0;
-        a._ishlnsubmul(b, 1, j);
-        if (!a.isZero()) {
-          a.negative ^= 1;
-        }
-      }
-      if (q) {
-        q.words[j] = qj;
-      }
-    }
-    if (q) {
-      q.strip();
-    }
-    a.strip();
-
-    // Denormalize
-    if (mode !== 'div' && shift !== 0) {
-      a.iushrn(shift);
-    }
-
-    return {
-      div: q || null,
-      mod: a
-    };
-  };
-
-  // NOTE: 1) `mode` can be set to `mod` to request mod only,
-  //       to `div` to request div only, or be absent to
-  //       request both div & mod
-  //       2) `positive` is true if unsigned mod is requested
-  BN.prototype.divmod = function divmod (num, mode, positive) {
-    assert(!num.isZero());
-
-    if (this.isZero()) {
-      return {
-        div: new BN(0),
-        mod: new BN(0)
-      };
-    }
-
-    var div, mod, res;
-    if (this.negative !== 0 && num.negative === 0) {
-      res = this.neg().divmod(num, mode);
-
-      if (mode !== 'mod') {
-        div = res.div.neg();
-      }
-
-      if (mode !== 'div') {
-        mod = res.mod.neg();
-        if (positive && mod.negative !== 0) {
-          mod.iadd(num);
-        }
-      }
-
-      return {
-        div: div,
-        mod: mod
-      };
-    }
-
-    if (this.negative === 0 && num.negative !== 0) {
-      res = this.divmod(num.neg(), mode);
-
-      if (mode !== 'mod') {
-        div = res.div.neg();
-      }
-
-      return {
-        div: div,
-        mod: res.mod
-      };
-    }
-
-    if ((this.negative & num.negative) !== 0) {
-      res = this.neg().divmod(num.neg(), mode);
-
-      if (mode !== 'div') {
-        mod = res.mod.neg();
-        if (positive && mod.negative !== 0) {
-          mod.isub(num);
-        }
-      }
-
-      return {
-        div: res.div,
-        mod: mod
-      };
-    }
-
-    // Both numbers are positive at this point
-
-    // Strip both numbers to approximate shift value
-    if (num.length > this.length || this.cmp(num) < 0) {
-      return {
-        div: new BN(0),
-        mod: this
-      };
-    }
-
-    // Very short reduction
-    if (num.length === 1) {
-      if (mode === 'div') {
-        return {
-          div: this.divn(num.words[0]),
-          mod: null
-        };
-      }
-
-      if (mode === 'mod') {
-        return {
-          div: null,
-          mod: new BN(this.modn(num.words[0]))
-        };
-      }
-
-      return {
-        div: this.divn(num.words[0]),
-        mod: new BN(this.modn(num.words[0]))
-      };
-    }
-
-    return this._wordDiv(num, mode);
-  };
-
-  // Find `this` / `num`
-  BN.prototype.div = function div (num) {
-    return this.divmod(num, 'div', false).div;
-  };
-
-  // Find `this` % `num`
-  BN.prototype.mod = function mod (num) {
-    return this.divmod(num, 'mod', false).mod;
-  };
-
-  BN.prototype.umod = function umod (num) {
-    return this.divmod(num, 'mod', true).mod;
-  };
-
-  // Find Round(`this` / `num`)
-  BN.prototype.divRound = function divRound (num) {
-    var dm = this.divmod(num);
-
-    // Fast case - exact division
-    if (dm.mod.isZero()) return dm.div;
-
-    var mod = dm.div.negative !== 0 ? dm.mod.isub(num) : dm.mod;
-
-    var half = num.ushrn(1);
-    var r2 = num.andln(1);
-    var cmp = mod.cmp(half);
-
-    // Round down
-    if (cmp < 0 || r2 === 1 && cmp === 0) return dm.div;
-
-    // Round up
-    return dm.div.negative !== 0 ? dm.div.isubn(1) : dm.div.iaddn(1);
-  };
-
-  BN.prototype.modn = function modn (num) {
-    assert(num <= 0x3ffffff);
-    var p = (1 << 26) % num;
-
-    var acc = 0;
-    for (var i = this.length - 1; i >= 0; i--) {
-      acc = (p * acc + (this.words[i] | 0)) % num;
-    }
-
-    return acc;
-  };
-
-  // In-place division by number
-  BN.prototype.idivn = function idivn (num) {
-    assert(num <= 0x3ffffff);
-
-    var carry = 0;
-    for (var i = this.length - 1; i >= 0; i--) {
-      var w = (this.words[i] | 0) + carry * 0x4000000;
-      this.words[i] = (w / num) | 0;
-      carry = w % num;
-    }
-
-    return this.strip();
-  };
-
-  BN.prototype.divn = function divn (num) {
-    return this.clone().idivn(num);
-  };
-
-  BN.prototype.egcd = function egcd (p) {
-    assert(p.negative === 0);
-    assert(!p.isZero());
-
-    var x = this;
-    var y = p.clone();
-
-    if (x.negative !== 0) {
-      x = x.umod(p);
-    } else {
-      x = x.clone();
-    }
-
-    // A * x + B * y = x
-    var A = new BN(1);
-    var B = new BN(0);
-
-    // C * x + D * y = y
-    var C = new BN(0);
-    var D = new BN(1);
-
-    var g = 0;
-
-    while (x.isEven() && y.isEven()) {
-      x.iushrn(1);
-      y.iushrn(1);
-      ++g;
-    }
-
-    var yp = y.clone();
-    var xp = x.clone();
-
-    while (!x.isZero()) {
-      for (var i = 0, im = 1; (x.words[0] & im) === 0 && i < 26; ++i, im <<= 1);
-      if (i > 0) {
-        x.iushrn(i);
-        while (i-- > 0) {
-          if (A.isOdd() || B.isOdd()) {
-            A.iadd(yp);
-            B.isub(xp);
-          }
-
-          A.iushrn(1);
-          B.iushrn(1);
-        }
-      }
-
-      for (var j = 0, jm = 1; (y.words[0] & jm) === 0 && j < 26; ++j, jm <<= 1);
-      if (j > 0) {
-        y.iushrn(j);
-        while (j-- > 0) {
-          if (C.isOdd() || D.isOdd()) {
-            C.iadd(yp);
-            D.isub(xp);
-          }
-
-          C.iushrn(1);
-          D.iushrn(1);
-        }
-      }
-
-      if (x.cmp(y) >= 0) {
-        x.isub(y);
-        A.isub(C);
-        B.isub(D);
-      } else {
-        y.isub(x);
-        C.isub(A);
-        D.isub(B);
-      }
-    }
-
-    return {
-      a: C,
-      b: D,
-      gcd: y.iushln(g)
-    };
-  };
-
-  // This is reduced incarnation of the binary EEA
-  // above, designated to invert members of the
-  // _prime_ fields F(p) at a maximal speed
-  BN.prototype._invmp = function _invmp (p) {
-    assert(p.negative === 0);
-    assert(!p.isZero());
-
-    var a = this;
-    var b = p.clone();
-
-    if (a.negative !== 0) {
-      a = a.umod(p);
-    } else {
-      a = a.clone();
-    }
-
-    var x1 = new BN(1);
-    var x2 = new BN(0);
-
-    var delta = b.clone();
-
-    while (a.cmpn(1) > 0 && b.cmpn(1) > 0) {
-      for (var i = 0, im = 1; (a.words[0] & im) === 0 && i < 26; ++i, im <<= 1);
-      if (i > 0) {
-        a.iushrn(i);
-        while (i-- > 0) {
-          if (x1.isOdd()) {
-            x1.iadd(delta);
-          }
-
-          x1.iushrn(1);
-        }
-      }
-
-      for (var j = 0, jm = 1; (b.words[0] & jm) === 0 && j < 26; ++j, jm <<= 1);
-      if (j > 0) {
-        b.iushrn(j);
-        while (j-- > 0) {
-          if (x2.isOdd()) {
-            x2.iadd(delta);
-          }
-
-          x2.iushrn(1);
-        }
-      }
-
-      if (a.cmp(b) >= 0) {
-        a.isub(b);
-        x1.isub(x2);
-      } else {
-        b.isub(a);
-        x2.isub(x1);
-      }
-    }
-
-    var res;
-    if (a.cmpn(1) === 0) {
-      res = x1;
-    } else {
-      res = x2;
-    }
-
-    if (res.cmpn(0) < 0) {
-      res.iadd(p);
-    }
-
-    return res;
-  };
-
-  BN.prototype.gcd = function gcd (num) {
-    if (this.isZero()) return num.abs();
-    if (num.isZero()) return this.abs();
-
-    var a = this.clone();
-    var b = num.clone();
-    a.negative = 0;
-    b.negative = 0;
-
-    // Remove common factor of two
-    for (var shift = 0; a.isEven() && b.isEven(); shift++) {
-      a.iushrn(1);
-      b.iushrn(1);
-    }
-
-    do {
-      while (a.isEven()) {
-        a.iushrn(1);
-      }
-      while (b.isEven()) {
-        b.iushrn(1);
-      }
-
-      var r = a.cmp(b);
-      if (r < 0) {
-        // Swap `a` and `b` to make `a` always bigger than `b`
-        var t = a;
-        a = b;
-        b = t;
-      } else if (r === 0 || b.cmpn(1) === 0) {
-        break;
-      }
-
-      a.isub(b);
-    } while (true);
-
-    return b.iushln(shift);
-  };
-
-  // Invert number in the field F(num)
-  BN.prototype.invm = function invm (num) {
-    return this.egcd(num).a.umod(num);
-  };
-
-  BN.prototype.isEven = function isEven () {
-    return (this.words[0] & 1) === 0;
-  };
-
-  BN.prototype.isOdd = function isOdd () {
-    return (this.words[0] & 1) === 1;
-  };
-
-  // And first word and num
-  BN.prototype.andln = function andln (num) {
-    return this.words[0] & num;
-  };
-
-  // Increment at the bit position in-line
-  BN.prototype.bincn = function bincn (bit) {
-    assert(typeof bit === 'number');
-    var r = bit % 26;
-    var s = (bit - r) / 26;
-    var q = 1 << r;
-
-    // Fast case: bit is much higher than all existing words
-    if (this.length <= s) {
-      this._expand(s + 1);
-      this.words[s] |= q;
-      return this;
-    }
-
-    // Add bit and propagate, if needed
-    var carry = q;
-    for (var i = s; carry !== 0 && i < this.length; i++) {
-      var w = this.words[i] | 0;
-      w += carry;
-      carry = w >>> 26;
-      w &= 0x3ffffff;
-      this.words[i] = w;
-    }
-    if (carry !== 0) {
-      this.words[i] = carry;
-      this.length++;
-    }
-    return this;
-  };
-
-  BN.prototype.isZero = function isZero () {
-    return this.length === 1 && this.words[0] === 0;
-  };
-
-  BN.prototype.cmpn = function cmpn (num) {
-    var negative = num < 0;
-
-    if (this.negative !== 0 && !negative) return -1;
-    if (this.negative === 0 && negative) return 1;
-
-    this.strip();
-
-    var res;
-    if (this.length > 1) {
-      res = 1;
-    } else {
-      if (negative) {
-        num = -num;
-      }
-
-      assert(num <= 0x3ffffff, 'Number is too big');
-
-      var w = this.words[0] | 0;
-      res = w === num ? 0 : w < num ? -1 : 1;
-    }
-    if (this.negative !== 0) return -res | 0;
-    return res;
-  };
-
-  // Compare two numbers and return:
-  // 1 - if `this` > `num`
-  // 0 - if `this` == `num`
-  // -1 - if `this` < `num`
-  BN.prototype.cmp = function cmp (num) {
-    if (this.negative !== 0 && num.negative === 0) return -1;
-    if (this.negative === 0 && num.negative !== 0) return 1;
-
-    var res = this.ucmp(num);
-    if (this.negative !== 0) return -res | 0;
-    return res;
-  };
-
-  // Unsigned comparison
-  BN.prototype.ucmp = function ucmp (num) {
-    // At this point both numbers have the same sign
-    if (this.length > num.length) return 1;
-    if (this.length < num.length) return -1;
-
-    var res = 0;
-    for (var i = this.length - 1; i >= 0; i--) {
-      var a = this.words[i] | 0;
-      var b = num.words[i] | 0;
-
-      if (a === b) continue;
-      if (a < b) {
-        res = -1;
-      } else if (a > b) {
-        res = 1;
-      }
-      break;
-    }
-    return res;
-  };
-
-  BN.prototype.gtn = function gtn (num) {
-    return this.cmpn(num) === 1;
-  };
-
-  BN.prototype.gt = function gt (num) {
-    return this.cmp(num) === 1;
-  };
-
-  BN.prototype.gten = function gten (num) {
-    return this.cmpn(num) >= 0;
-  };
-
-  BN.prototype.gte = function gte (num) {
-    return this.cmp(num) >= 0;
-  };
-
-  BN.prototype.ltn = function ltn (num) {
-    return this.cmpn(num) === -1;
-  };
-
-  BN.prototype.lt = function lt (num) {
-    return this.cmp(num) === -1;
-  };
-
-  BN.prototype.lten = function lten (num) {
-    return this.cmpn(num) <= 0;
-  };
-
-  BN.prototype.lte = function lte (num) {
-    return this.cmp(num) <= 0;
-  };
-
-  BN.prototype.eqn = function eqn (num) {
-    return this.cmpn(num) === 0;
-  };
-
-  BN.prototype.eq = function eq (num) {
-    return this.cmp(num) === 0;
-  };
-
-  //
-  // A reduce context, could be using montgomery or something better, depending
-  // on the `m` itself.
-  //
-  BN.red = function red (num) {
-    return new Red(num);
-  };
-
-  BN.prototype.toRed = function toRed (ctx) {
-    assert(!this.red, 'Already a number in reduction context');
-    assert(this.negative === 0, 'red works only with positives');
-    return ctx.convertTo(this)._forceRed(ctx);
-  };
-
-  BN.prototype.fromRed = function fromRed () {
-    assert(this.red, 'fromRed works only with numbers in reduction context');
-    return this.red.convertFrom(this);
-  };
-
-  BN.prototype._forceRed = function _forceRed (ctx) {
-    this.red = ctx;
-    return this;
-  };
-
-  BN.prototype.forceRed = function forceRed (ctx) {
-    assert(!this.red, 'Already a number in reduction context');
-    return this._forceRed(ctx);
-  };
-
-  BN.prototype.redAdd = function redAdd (num) {
-    assert(this.red, 'redAdd works only with red numbers');
-    return this.red.add(this, num);
-  };
-
-  BN.prototype.redIAdd = function redIAdd (num) {
-    assert(this.red, 'redIAdd works only with red numbers');
-    return this.red.iadd(this, num);
-  };
-
-  BN.prototype.redSub = function redSub (num) {
-    assert(this.red, 'redSub works only with red numbers');
-    return this.red.sub(this, num);
-  };
-
-  BN.prototype.redISub = function redISub (num) {
-    assert(this.red, 'redISub works only with red numbers');
-    return this.red.isub(this, num);
-  };
-
-  BN.prototype.redShl = function redShl (num) {
-    assert(this.red, 'redShl works only with red numbers');
-    return this.red.shl(this, num);
-  };
-
-  BN.prototype.redMul = function redMul (num) {
-    assert(this.red, 'redMul works only with red numbers');
-    this.red._verify2(this, num);
-    return this.red.mul(this, num);
-  };
-
-  BN.prototype.redIMul = function redIMul (num) {
-    assert(this.red, 'redMul works only with red numbers');
-    this.red._verify2(this, num);
-    return this.red.imul(this, num);
-  };
-
-  BN.prototype.redSqr = function redSqr () {
-    assert(this.red, 'redSqr works only with red numbers');
-    this.red._verify1(this);
-    return this.red.sqr(this);
-  };
-
-  BN.prototype.redISqr = function redISqr () {
-    assert(this.red, 'redISqr works only with red numbers');
-    this.red._verify1(this);
-    return this.red.isqr(this);
-  };
-
-  // Square root over p
-  BN.prototype.redSqrt = function redSqrt () {
-    assert(this.red, 'redSqrt works only with red numbers');
-    this.red._verify1(this);
-    return this.red.sqrt(this);
-  };
-
-  BN.prototype.redInvm = function redInvm () {
-    assert(this.red, 'redInvm works only with red numbers');
-    this.red._verify1(this);
-    return this.red.invm(this);
-  };
-
-  // Return negative clone of `this` % `red modulo`
-  BN.prototype.redNeg = function redNeg () {
-    assert(this.red, 'redNeg works only with red numbers');
-    this.red._verify1(this);
-    return this.red.neg(this);
-  };
-
-  BN.prototype.redPow = function redPow (num) {
-    assert(this.red && !num.red, 'redPow(normalNum)');
-    this.red._verify1(this);
-    return this.red.pow(this, num);
-  };
-
-  // Prime numbers with efficient reduction
-  var primes = {
-    k256: null,
-    p224: null,
-    p192: null,
-    p25519: null
-  };
-
-  // Pseudo-Mersenne prime
-  function MPrime (name, p) {
-    // P = 2 ^ N - K
-    this.name = name;
-    this.p = new BN(p, 16);
-    this.n = this.p.bitLength();
-    this.k = new BN(1).iushln(this.n).isub(this.p);
-
-    this.tmp = this._tmp();
-  }
-
-  MPrime.prototype._tmp = function _tmp () {
-    var tmp = new BN(null);
-    tmp.words = new Array(Math.ceil(this.n / 13));
-    return tmp;
-  };
-
-  MPrime.prototype.ireduce = function ireduce (num) {
-    // Assumes that `num` is less than `P^2`
-    // num = HI * (2 ^ N - K) + HI * K + LO = HI * K + LO (mod P)
-    var r = num;
-    var rlen;
-
-    do {
-      this.split(r, this.tmp);
-      r = this.imulK(r);
-      r = r.iadd(this.tmp);
-      rlen = r.bitLength();
-    } while (rlen > this.n);
-
-    var cmp = rlen < this.n ? -1 : r.ucmp(this.p);
-    if (cmp === 0) {
-      r.words[0] = 0;
-      r.length = 1;
-    } else if (cmp > 0) {
-      r.isub(this.p);
-    } else {
-      if (r.strip !== undefined) {
-        // r is BN v4 instance
-        r.strip();
-      } else {
-        // r is BN v5 instance
-        r._strip();
-      }
-    }
-
-    return r;
-  };
-
-  MPrime.prototype.split = function split (input, out) {
-    input.iushrn(this.n, 0, out);
-  };
-
-  MPrime.prototype.imulK = function imulK (num) {
-    return num.imul(this.k);
-  };
-
-  function K256 () {
-    MPrime.call(
-      this,
-      'k256',
-      'ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff fffffffe fffffc2f');
-  }
-  inherits(K256, MPrime);
-
-  K256.prototype.split = function split (input, output) {
-    // 256 = 9 * 26 + 22
-    var mask = 0x3fffff;
-
-    var outLen = Math.min(input.length, 9);
-    for (var i = 0; i < outLen; i++) {
-      output.words[i] = input.words[i];
-    }
-    output.length = outLen;
-
-    if (input.length <= 9) {
-      input.words[0] = 0;
-      input.length = 1;
-      return;
-    }
-
-    // Shift by 9 limbs
-    var prev = input.words[9];
-    output.words[output.length++] = prev & mask;
-
-    for (i = 10; i < input.length; i++) {
-      var next = input.words[i] | 0;
-      input.words[i - 10] = ((next & mask) << 4) | (prev >>> 22);
-      prev = next;
-    }
-    prev >>>= 22;
-    input.words[i - 10] = prev;
-    if (prev === 0 && input.length > 10) {
-      input.length -= 10;
-    } else {
-      input.length -= 9;
-    }
-  };
-
-  K256.prototype.imulK = function imulK (num) {
-    // K = 0x1000003d1 = [ 0x40, 0x3d1 ]
-    num.words[num.length] = 0;
-    num.words[num.length + 1] = 0;
-    num.length += 2;
-
-    // bounded at: 0x40 * 0x3ffffff + 0x3d0 = 0x100000390
-    var lo = 0;
-    for (var i = 0; i < num.length; i++) {
-      var w = num.words[i] | 0;
-      lo += w * 0x3d1;
-      num.words[i] = lo & 0x3ffffff;
-      lo = w * 0x40 + ((lo / 0x4000000) | 0);
-    }
-
-    // Fast length reduction
-    if (num.words[num.length - 1] === 0) {
-      num.length--;
-      if (num.words[num.length - 1] === 0) {
-        num.length--;
-      }
-    }
-    return num;
-  };
-
-  function P224 () {
-    MPrime.call(
-      this,
-      'p224',
-      'ffffffff ffffffff ffffffff ffffffff 00000000 00000000 00000001');
-  }
-  inherits(P224, MPrime);
-
-  function P192 () {
-    MPrime.call(
-      this,
-      'p192',
-      'ffffffff ffffffff ffffffff fffffffe ffffffff ffffffff');
-  }
-  inherits(P192, MPrime);
-
-  function P25519 () {
-    // 2 ^ 255 - 19
-    MPrime.call(
-      this,
-      '25519',
-      '7fffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffed');
-  }
-  inherits(P25519, MPrime);
-
-  P25519.prototype.imulK = function imulK (num) {
-    // K = 0x13
-    var carry = 0;
-    for (var i = 0; i < num.length; i++) {
-      var hi = (num.words[i] | 0) * 0x13 + carry;
-      var lo = hi & 0x3ffffff;
-      hi >>>= 26;
-
-      num.words[i] = lo;
-      carry = hi;
-    }
-    if (carry !== 0) {
-      num.words[num.length++] = carry;
-    }
-    return num;
-  };
-
-  // Exported mostly for testing purposes, use plain name instead
-  BN._prime = function prime (name) {
-    // Cached version of prime
-    if (primes[name]) return primes[name];
-
-    var prime;
-    if (name === 'k256') {
-      prime = new K256();
-    } else if (name === 'p224') {
-      prime = new P224();
-    } else if (name === 'p192') {
-      prime = new P192();
-    } else if (name === 'p25519') {
-      prime = new P25519();
-    } else {
-      throw new Error('Unknown prime ' + name);
-    }
-    primes[name] = prime;
-
-    return prime;
-  };
-
-  //
-  // Base reduction engine
-  //
-  function Red (m) {
-    if (typeof m === 'string') {
-      var prime = BN._prime(m);
-      this.m = prime.p;
-      this.prime = prime;
-    } else {
-      assert(m.gtn(1), 'modulus must be greater than 1');
-      this.m = m;
-      this.prime = null;
-    }
-  }
-
-  Red.prototype._verify1 = function _verify1 (a) {
-    assert(a.negative === 0, 'red works only with positives');
-    assert(a.red, 'red works only with red numbers');
-  };
-
-  Red.prototype._verify2 = function _verify2 (a, b) {
-    assert((a.negative | b.negative) === 0, 'red works only with positives');
-    assert(a.red && a.red === b.red,
-      'red works only with red numbers');
-  };
-
-  Red.prototype.imod = function imod (a) {
-    if (this.prime) return this.prime.ireduce(a)._forceRed(this);
-    return a.umod(this.m)._forceRed(this);
-  };
-
-  Red.prototype.neg = function neg (a) {
-    if (a.isZero()) {
-      return a.clone();
-    }
-
-    return this.m.sub(a)._forceRed(this);
-  };
-
-  Red.prototype.add = function add (a, b) {
-    this._verify2(a, b);
-
-    var res = a.add(b);
-    if (res.cmp(this.m) >= 0) {
-      res.isub(this.m);
-    }
-    return res._forceRed(this);
-  };
-
-  Red.prototype.iadd = function iadd (a, b) {
-    this._verify2(a, b);
-
-    var res = a.iadd(b);
-    if (res.cmp(this.m) >= 0) {
-      res.isub(this.m);
-    }
-    return res;
-  };
-
-  Red.prototype.sub = function sub (a, b) {
-    this._verify2(a, b);
-
-    var res = a.sub(b);
-    if (res.cmpn(0) < 0) {
-      res.iadd(this.m);
-    }
-    return res._forceRed(this);
-  };
-
-  Red.prototype.isub = function isub (a, b) {
-    this._verify2(a, b);
-
-    var res = a.isub(b);
-    if (res.cmpn(0) < 0) {
-      res.iadd(this.m);
-    }
-    return res;
-  };
-
-  Red.prototype.shl = function shl (a, num) {
-    this._verify1(a);
-    return this.imod(a.ushln(num));
-  };
-
-  Red.prototype.imul = function imul (a, b) {
-    this._verify2(a, b);
-    return this.imod(a.imul(b));
-  };
-
-  Red.prototype.mul = function mul (a, b) {
-    this._verify2(a, b);
-    return this.imod(a.mul(b));
-  };
-
-  Red.prototype.isqr = function isqr (a) {
-    return this.imul(a, a.clone());
-  };
-
-  Red.prototype.sqr = function sqr (a) {
-    return this.mul(a, a);
-  };
-
-  Red.prototype.sqrt = function sqrt (a) {
-    if (a.isZero()) return a.clone();
-
-    var mod3 = this.m.andln(3);
-    assert(mod3 % 2 === 1);
-
-    // Fast case
-    if (mod3 === 3) {
-      var pow = this.m.add(new BN(1)).iushrn(2);
-      return this.pow(a, pow);
-    }
-
-    // Tonelli-Shanks algorithm (Totally unoptimized and slow)
-    //
-    // Find Q and S, that Q * 2 ^ S = (P - 1)
-    var q = this.m.subn(1);
-    var s = 0;
-    while (!q.isZero() && q.andln(1) === 0) {
-      s++;
-      q.iushrn(1);
-    }
-    assert(!q.isZero());
-
-    var one = new BN(1).toRed(this);
-    var nOne = one.redNeg();
-
-    // Find quadratic non-residue
-    // NOTE: Max is such because of generalized Riemann hypothesis.
-    var lpow = this.m.subn(1).iushrn(1);
-    var z = this.m.bitLength();
-    z = new BN(2 * z * z).toRed(this);
-
-    while (this.pow(z, lpow).cmp(nOne) !== 0) {
-      z.redIAdd(nOne);
-    }
-
-    var c = this.pow(z, q);
-    var r = this.pow(a, q.addn(1).iushrn(1));
-    var t = this.pow(a, q);
-    var m = s;
-    while (t.cmp(one) !== 0) {
-      var tmp = t;
-      for (var i = 0; tmp.cmp(one) !== 0; i++) {
-        tmp = tmp.redSqr();
-      }
-      assert(i < m);
-      var b = this.pow(c, new BN(1).iushln(m - i - 1));
-
-      r = r.redMul(b);
-      c = b.redSqr();
-      t = t.redMul(c);
-      m = i;
-    }
-
-    return r;
-  };
-
-  Red.prototype.invm = function invm (a) {
-    var inv = a._invmp(this.m);
-    if (inv.negative !== 0) {
-      inv.negative = 0;
-      return this.imod(inv).redNeg();
-    } else {
-      return this.imod(inv);
-    }
-  };
-
-  Red.prototype.pow = function pow (a, num) {
-    if (num.isZero()) return new BN(1).toRed(this);
-    if (num.cmpn(1) === 0) return a.clone();
-
-    var windowSize = 4;
-    var wnd = new Array(1 << windowSize);
-    wnd[0] = new BN(1).toRed(this);
-    wnd[1] = a;
-    for (var i = 2; i < wnd.length; i++) {
-      wnd[i] = this.mul(wnd[i - 1], a);
-    }
-
-    var res = wnd[0];
-    var current = 0;
-    var currentLen = 0;
-    var start = num.bitLength() % 26;
-    if (start === 0) {
-      start = 26;
-    }
-
-    for (i = num.length - 1; i >= 0; i--) {
-      var word = num.words[i];
-      for (var j = start - 1; j >= 0; j--) {
-        var bit = (word >> j) & 1;
-        if (res !== wnd[0]) {
-          res = this.sqr(res);
-        }
-
-        if (bit === 0 && current === 0) {
-          currentLen = 0;
-          continue;
-        }
-
-        current <<= 1;
-        current |= bit;
-        currentLen++;
-        if (currentLen !== windowSize && (i !== 0 || j !== 0)) continue;
-
-        res = this.mul(res, wnd[current]);
-        currentLen = 0;
-        current = 0;
-      }
-      start = 26;
-    }
-
-    return res;
-  };
-
-  Red.prototype.convertTo = function convertTo (num) {
-    var r = num.umod(this.m);
-
-    return r === num ? r.clone() : r;
-  };
-
-  Red.prototype.convertFrom = function convertFrom (num) {
-    var res = num.clone();
-    res.red = null;
-    return res;
-  };
-
-  //
-  // Montgomery method engine
-  //
-
-  BN.mont = function mont (num) {
-    return new Mont(num);
-  };
-
-  function Mont (m) {
-    Red.call(this, m);
-
-    this.shift = this.m.bitLength();
-    if (this.shift % 26 !== 0) {
-      this.shift += 26 - (this.shift % 26);
-    }
-
-    this.r = new BN(1).iushln(this.shift);
-    this.r2 = this.imod(this.r.sqr());
-    this.rinv = this.r._invmp(this.m);
-
-    this.minv = this.rinv.mul(this.r).isubn(1).div(this.m);
-    this.minv = this.minv.umod(this.r);
-    this.minv = this.r.sub(this.minv);
-  }
-  inherits(Mont, Red);
-
-  Mont.prototype.convertTo = function convertTo (num) {
-    return this.imod(num.ushln(this.shift));
-  };
-
-  Mont.prototype.convertFrom = function convertFrom (num) {
-    var r = this.imod(num.mul(this.rinv));
-    r.red = null;
-    return r;
-  };
-
-  Mont.prototype.imul = function imul (a, b) {
-    if (a.isZero() || b.isZero()) {
-      a.words[0] = 0;
-      a.length = 1;
-      return a;
-    }
-
-    var t = a.imul(b);
-    var c = t.maskn(this.shift).mul(this.minv).imaskn(this.shift).mul(this.m);
-    var u = t.isub(c).iushrn(this.shift);
-    var res = u;
-
-    if (u.cmp(this.m) >= 0) {
-      res = u.isub(this.m);
-    } else if (u.cmpn(0) < 0) {
-      res = u.iadd(this.m);
-    }
-
-    return res._forceRed(this);
-  };
-
-  Mont.prototype.mul = function mul (a, b) {
-    if (a.isZero() || b.isZero()) return new BN(0)._forceRed(this);
-
-    var t = a.mul(b);
-    var c = t.maskn(this.shift).mul(this.minv).imaskn(this.shift).mul(this.m);
-    var u = t.isub(c).iushrn(this.shift);
-    var res = u;
-    if (u.cmp(this.m) >= 0) {
-      res = u.isub(this.m);
-    } else if (u.cmpn(0) < 0) {
-      res = u.iadd(this.m);
-    }
-
-    return res._forceRed(this);
-  };
-
-  Mont.prototype.invm = function invm (a) {
-    // (AR)^-1 * R^2 = (A^-1 * R^-1) * R^2 = A^-1 * R
-    var res = this.imod(a._invmp(this.m).mul(this.r2));
-    return res._forceRed(this);
-  };
-})( module, commonjsGlobal$1);
-});
+function createCommonjsModule$1(fn, basedir, module) {
+	return module = {
+		path: basedir,
+		exports: {},
+		require: function (path, base) {
+			return commonjsRequire(path, (base === undefined || base === null) ? module.path : base);
+		}
+	}, fn(module, module.exports), module.exports;
+}
+
+function commonjsRequire () {
+	throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
+}
+
+var minimalisticAssert$1 = assert$1;
+
+function assert$1(val, msg) {
+  if (!val)
+    throw new Error(msg || 'Assertion failed');
+}
+
+assert$1.equal = function assertEqual(l, r, msg) {
+  if (l != r)
+    throw new Error(msg || ('Assertion failed: ' + l + ' != ' + r));
+};
 
 var utils_1 = createCommonjsModule$1(function (module, exports) {
 
@@ -33011,7 +31442,7 @@ var utils = exports;
 
 
 
-utils.assert = minimalisticAssert;
+utils.assert = minimalisticAssert$1;
 utils.toArray = utils_1.toArray;
 utils.zero2 = utils_1.zero2;
 utils.toHex = utils_1.toHex;
@@ -33119,33 +31550,31 @@ function parseBytes(bytes) {
 utils.parseBytes = parseBytes;
 
 function intFromLE(bytes) {
-  return new bn$1(bytes, 'hex', 'le');
+  return new bn(bytes, 'hex', 'le');
 }
 utils.intFromLE = intFromLE;
 });
-
-var brorand = function(length) { var result = new Uint8Array(length); (commonjsGlobal$1.crypto || commonjsGlobal$1.msCrypto).getRandomValues(result); return result; };
 
 
 
 var getNAF = utils_1$1.getNAF;
 var getJSF = utils_1$1.getJSF;
-var assert$1 = utils_1$1.assert;
+var assert$1$1 = utils_1$1.assert;
 
 function BaseCurve(type, conf) {
   this.type = type;
-  this.p = new bn$1(conf.p, 16);
+  this.p = new bn(conf.p, 16);
 
   // Use Montgomery, when there is no fast reduction for the prime
-  this.red = conf.prime ? bn$1.red(conf.prime) : bn$1.mont(this.p);
+  this.red = conf.prime ? bn.red(conf.prime) : bn.mont(this.p);
 
   // Useful for many curves
-  this.zero = new bn$1(0).toRed(this.red);
-  this.one = new bn$1(1).toRed(this.red);
-  this.two = new bn$1(2).toRed(this.red);
+  this.zero = new bn(0).toRed(this.red);
+  this.one = new bn(1).toRed(this.red);
+  this.two = new bn(2).toRed(this.red);
 
   // Curve configuration, optional
-  this.n = conf.n && new bn$1(conf.n, 16);
+  this.n = conf.n && new bn(conf.n, 16);
   this.g = conf.g && this.pointFromJSON(conf.g, conf.gRed);
 
   // Temporary arrays
@@ -33176,7 +31605,7 @@ BaseCurve.prototype.validate = function validate() {
 };
 
 BaseCurve.prototype._fixedNafMul = function _fixedNafMul(p, k) {
-  assert$1(p.precomputed);
+  assert$1$1(p.precomputed);
   var doubles = p._getDoubles();
 
   var naf = getNAF(k, 1, this._bitLength);
@@ -33231,7 +31660,7 @@ BaseCurve.prototype._wnafMul = function _wnafMul(p, k) {
     if (i < 0)
       break;
     var z = naf[i];
-    assert$1(z !== 0);
+    assert$1$1(z !== 0);
     if (p.type === 'affine') {
       // J +- P
       if (z > 0)
@@ -33397,9 +31826,9 @@ BaseCurve.prototype.decodePoint = function decodePoint(bytes, enc) {
   if ((bytes[0] === 0x04 || bytes[0] === 0x06 || bytes[0] === 0x07) &&
       bytes.length - 1 === 2 * len) {
     if (bytes[0] === 0x06)
-      assert$1(bytes[bytes.length - 1] % 2 === 0);
+      assert$1$1(bytes[bytes.length - 1] % 2 === 0);
     else if (bytes[0] === 0x07)
-      assert$1(bytes[bytes.length - 1] % 2 === 1);
+      assert$1$1(bytes[bytes.length - 1] % 2 === 1);
 
     var res =  this.point(bytes.slice(1, 1 + len),
                           bytes.slice(1 + len, 1 + 2 * len));
@@ -33501,6 +31930,36 @@ BasePoint.prototype.dblp = function dblp(k) {
   return r;
 };
 
+var inherits_browser$1 = createCommonjsModule$1(function (module) {
+if (typeof Object.create === 'function') {
+  // implementation from standard node.js 'util' module
+  module.exports = function inherits(ctor, superCtor) {
+    if (superCtor) {
+      ctor.super_ = superCtor;
+      ctor.prototype = Object.create(superCtor.prototype, {
+        constructor: {
+          value: ctor,
+          enumerable: false,
+          writable: true,
+          configurable: true
+        }
+      });
+    }
+  };
+} else {
+  // old school shim for old browsers
+  module.exports = function inherits(ctor, superCtor) {
+    if (superCtor) {
+      ctor.super_ = superCtor;
+      var TempCtor = function () {};
+      TempCtor.prototype = superCtor.prototype;
+      ctor.prototype = new TempCtor();
+      ctor.prototype.constructor = ctor;
+    }
+  };
+}
+});
+
 
 
 
@@ -33511,8 +31970,8 @@ var assert$2 = utils_1$1.assert;
 function ShortCurve(conf) {
   base.call(this, 'short', conf);
 
-  this.a = new bn$1(conf.a, 16).toRed(this.red);
-  this.b = new bn$1(conf.b, 16).toRed(this.red);
+  this.a = new bn(conf.a, 16).toRed(this.red);
+  this.b = new bn(conf.b, 16).toRed(this.red);
   this.tinv = this.two.redInvm();
 
   this.zeroA = this.a.fromRed().cmpn(0) === 0;
@@ -33523,7 +31982,7 @@ function ShortCurve(conf) {
   this._endoWnafT1 = new Array(4);
   this._endoWnafT2 = new Array(4);
 }
-inherits_browser(ShortCurve, base);
+inherits_browser$1(ShortCurve, base);
 var short_1 = ShortCurve;
 
 ShortCurve.prototype._getEndomorphism = function _getEndomorphism(conf) {
@@ -33535,7 +31994,7 @@ ShortCurve.prototype._getEndomorphism = function _getEndomorphism(conf) {
   var beta;
   var lambda;
   if (conf.beta) {
-    beta = new bn$1(conf.beta, 16).toRed(this.red);
+    beta = new bn(conf.beta, 16).toRed(this.red);
   } else {
     var betas = this._getEndoRoots(this.p);
     // Choose the smallest beta
@@ -33543,7 +32002,7 @@ ShortCurve.prototype._getEndomorphism = function _getEndomorphism(conf) {
     beta = beta.toRed(this.red);
   }
   if (conf.lambda) {
-    lambda = new bn$1(conf.lambda, 16);
+    lambda = new bn(conf.lambda, 16);
   } else {
     // Choose the lambda that is matching selected beta
     var lambdas = this._getEndoRoots(this.n);
@@ -33560,8 +32019,8 @@ ShortCurve.prototype._getEndomorphism = function _getEndomorphism(conf) {
   if (conf.basis) {
     basis = conf.basis.map(function(vec) {
       return {
-        a: new bn$1(vec.a, 16),
-        b: new bn$1(vec.b, 16)
+        a: new bn(vec.a, 16),
+        b: new bn(vec.b, 16)
       };
     });
   } else {
@@ -33579,11 +32038,11 @@ ShortCurve.prototype._getEndoRoots = function _getEndoRoots(num) {
   // Find roots of for x^2 + x + 1 in F
   // Root = (-1 +- Sqrt(-3)) / 2
   //
-  var red = num === this.p ? this.red : bn$1.mont(num);
-  var tinv = new bn$1(2).toRed(red).redInvm();
+  var red = num === this.p ? this.red : bn.mont(num);
+  var tinv = new bn(2).toRed(red).redInvm();
   var ntinv = tinv.redNeg();
 
-  var s = new bn$1(3).toRed(red).redNeg().redSqrt().redMul(tinv);
+  var s = new bn(3).toRed(red).redNeg().redSqrt().redMul(tinv);
 
   var l1 = ntinv.redAdd(s).fromRed();
   var l2 = ntinv.redSub(s).fromRed();
@@ -33598,10 +32057,10 @@ ShortCurve.prototype._getEndoBasis = function _getEndoBasis(lambda) {
   // Run EGCD, until r(L + 1) < aprxSqrt
   var u = lambda;
   var v = this.n.clone();
-  var x1 = new bn$1(1);
-  var y1 = new bn$1(0);
-  var x2 = new bn$1(0);
-  var y2 = new bn$1(1);
+  var x1 = new bn(1);
+  var y1 = new bn(0);
+  var x2 = new bn(0);
+  var y2 = new bn(1);
 
   // NOTE: all vectors are roots of: a + b * lambda = 0 (mod n)
   var a0;
@@ -33686,7 +32145,7 @@ ShortCurve.prototype._endoSplit = function _endoSplit(k) {
 };
 
 ShortCurve.prototype.pointFromX = function pointFromX(x, odd) {
-  x = new bn$1(x, 16);
+  x = new bn(x, 16);
   if (!x.red)
     x = x.toRed(this.red);
 
@@ -33756,8 +32215,8 @@ function Point(curve, x, y, isRed) {
     this.y = null;
     this.inf = true;
   } else {
-    this.x = new bn$1(x, 16);
-    this.y = new bn$1(y, 16);
+    this.x = new bn(x, 16);
+    this.y = new bn(y, 16);
     // Force redgomery representation when loading from JSON
     if (isRed) {
       this.x.forceRed(this.curve.red);
@@ -33770,7 +32229,7 @@ function Point(curve, x, y, isRed) {
     this.inf = false;
   }
 }
-inherits_browser(Point, base.BasePoint);
+inherits_browser$1(Point, base.BasePoint);
 
 ShortCurve.prototype.point = function point(x, y, isRed) {
   return new Point(this, x, y, isRed);
@@ -33921,7 +32380,7 @@ Point.prototype.getY = function getY() {
 };
 
 Point.prototype.mul = function mul(k) {
-  k = new bn$1(k, 16);
+  k = new bn(k, 16);
   if (this.isInfinity())
     return this;
   else if (this._hasDoubles(k))
@@ -33993,11 +32452,11 @@ function JPoint(curve, x, y, z) {
   if (x === null && y === null && z === null) {
     this.x = this.curve.one;
     this.y = this.curve.one;
-    this.z = new bn$1(0);
+    this.z = new bn(0);
   } else {
-    this.x = new bn$1(x, 16);
-    this.y = new bn$1(y, 16);
-    this.z = new bn$1(z, 16);
+    this.x = new bn(x, 16);
+    this.y = new bn(y, 16);
+    this.z = new bn(z, 16);
   }
   if (!this.x.red)
     this.x = this.x.toRed(this.curve.red);
@@ -34008,7 +32467,7 @@ function JPoint(curve, x, y, z) {
 
   this.zOne = this.z === this.curve.one;
 }
-inherits_browser(JPoint, base.BasePoint);
+inherits_browser$1(JPoint, base.BasePoint);
 
 ShortCurve.prototype.jpoint = function jpoint(x, y, z) {
   return new JPoint(this, x, y, z);
@@ -34381,7 +32840,7 @@ JPoint.prototype.trpl = function trpl() {
 };
 
 JPoint.prototype.mul = function mul(k, kbase) {
-  k = new bn$1(k, kbase);
+  k = new bn(k, kbase);
 
   return this.curve._wnafMul(this, k);
 };
@@ -34437,21 +32896,15 @@ JPoint.prototype.isInfinity = function isInfinity() {
   return this.z.cmpn(0) === 0;
 };
 
-var mont = {};
-
-var edwards = {};
-
 var curve_1 = createCommonjsModule$1(function (module, exports) {
 
 var curve = exports;
 
 curve.base = base;
 curve.short = short_1;
-curve.mont = mont;
-curve.edwards = edwards;
+curve.mont = /*RicMoo:ethers:require(./mont)*/(null);
+curve.edwards = /*RicMoo:ethers:require(./edwards)*/(null);
 });
-
-var secp256k1 = undefined;
 
 var curves_1 = createCommonjsModule$1(function (module, exports) {
 
@@ -34502,7 +32955,7 @@ defineCurve('p192', {
   a: 'ffffffff ffffffff ffffffff fffffffe ffffffff fffffffc',
   b: '64210519 e59c80e7 0fa7e9ab 72243049 feb8deec c146b9b1',
   n: 'ffffffff ffffffff ffffffff 99def836 146bc9b1 b4d22831',
-  hash: hash_1.sha256,
+  hash: hash_1$1.sha256,
   gRed: false,
   g: [
     '188da80e b03090f6 7cbf20eb 43a18800 f4ff0afd 82ff1012',
@@ -34517,7 +32970,7 @@ defineCurve('p224', {
   a: 'ffffffff ffffffff ffffffff fffffffe ffffffff ffffffff fffffffe',
   b: 'b4050a85 0c04b3ab f5413256 5044b0b7 d7bfd8ba 270b3943 2355ffb4',
   n: 'ffffffff ffffffff ffffffff ffff16a2 e0b8f03e 13dd2945 5c5c2a3d',
-  hash: hash_1.sha256,
+  hash: hash_1$1.sha256,
   gRed: false,
   g: [
     'b70e0cbd 6bb4bf7f 321390b9 4a03c1d3 56c21122 343280d6 115c1d21',
@@ -34532,7 +32985,7 @@ defineCurve('p256', {
   a: 'ffffffff 00000001 00000000 00000000 00000000 ffffffff ffffffff fffffffc',
   b: '5ac635d8 aa3a93e7 b3ebbd55 769886bc 651d06b0 cc53b0f6 3bce3c3e 27d2604b',
   n: 'ffffffff 00000000 ffffffff ffffffff bce6faad a7179e84 f3b9cac2 fc632551',
-  hash: hash_1.sha256,
+  hash: hash_1$1.sha256,
   gRed: false,
   g: [
     '6b17d1f2 e12c4247 f8bce6e5 63a440f2 77037d81 2deb33a0 f4a13945 d898c296',
@@ -34551,7 +33004,7 @@ defineCurve('p384', {
      '5013875a c656398d 8a2ed19d 2a85c8ed d3ec2aef',
   n: 'ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff c7634d81 ' +
      'f4372ddf 581a0db2 48b0a77a ecec196a ccc52973',
-  hash: hash_1.sha384,
+  hash: hash_1$1.sha384,
   gRed: false,
   g: [
     'aa87ca22 be8b0537 8eb1c71e f320ad74 6e1d3b62 8ba79b98 59f741e0 82542a38 ' +
@@ -34576,7 +33029,7 @@ defineCurve('p521', {
   n: '000001ff ffffffff ffffffff ffffffff ffffffff ffffffff ' +
      'ffffffff ffffffff fffffffa 51868783 bf2f966b 7fcc0148 ' +
      'f709a5d0 3bb5c9b8 899c47ae bb6fb71e 91386409',
-  hash: hash_1.sha512,
+  hash: hash_1$1.sha512,
   gRed: false,
   g: [
     '000000c6 858e06b7 0404e9cd 9e3ecb66 2395b442 9c648139 ' +
@@ -34595,7 +33048,7 @@ defineCurve('curve25519', {
   a: '76d06',
   b: '1',
   n: '1000000000000000 0000000000000000 14def9dea2f79cd6 5812631a5cf5d3ed',
-  hash: hash_1.sha256,
+  hash: hash_1$1.sha256,
   gRed: false,
   g: [
     '9'
@@ -34611,7 +33064,7 @@ defineCurve('ed25519', {
   // -121665 * (121666^(-1)) (mod P)
   d: '52036cee2b6ffe73 8cc740797779e898 00700a4d4141d8ab 75eb4dca135978a3',
   n: '1000000000000000 0000000000000000 14def9dea2f79cd6 5812631a5cf5d3ed',
-  hash: hash_1.sha256,
+  hash: hash_1$1.sha256,
   gRed: false,
   g: [
     '216936d3cd6e53fec0a4e231fdd6dc5c692cc7609525a7b2c9562d608f25d51a',
@@ -34623,7 +33076,7 @@ defineCurve('ed25519', {
 
 var pre;
 try {
-  pre = secp256k1;
+  pre = /*RicMoo:ethers:require(./precomputed/secp256k1)*/(null).crash();
 } catch (e) {
   pre = undefined;
 }
@@ -34636,7 +33089,7 @@ defineCurve('secp256k1', {
   b: '7',
   n: 'ffffffff ffffffff ffffffff fffffffe baaedce6 af48a03b bfd25e8c d0364141',
   h: '1',
-  hash: hash_1.sha256,
+  hash: hash_1$1.sha256,
 
   // Precomputed endomorphism
   beta: '7ae96a2b657c07106e64479eac3434e99cf0497512f58995c1396c28719501ee',
@@ -34682,7 +33135,7 @@ function HmacDRBG(options) {
   var entropy = utils_1.toArray(options.entropy, options.entropyEnc || 'hex');
   var nonce = utils_1.toArray(options.nonce, options.nonceEnc || 'hex');
   var pers = utils_1.toArray(options.pers, options.persEnc || 'hex');
-  minimalisticAssert(entropy.length >= (this.minEntropy / 8),
+  minimalisticAssert$1(entropy.length >= (this.minEntropy / 8),
          'Not enough entropy. Minimum is: ' + this.minEntropy + ' bits');
   this._init(entropy, nonce, pers);
 }
@@ -34704,7 +33157,7 @@ HmacDRBG.prototype._init = function init(entropy, nonce, pers) {
 };
 
 HmacDRBG.prototype._hmac = function hmac() {
-  return new hash_1.hmac(this.hash, this.K);
+  return new hash_1$1.hmac(this.hash, this.K);
 };
 
 HmacDRBG.prototype._update = function update(seed) {
@@ -34737,7 +33190,7 @@ HmacDRBG.prototype.reseed = function reseed(entropy, entropyEnc, add, addEnc) {
   entropy = utils_1.toArray(entropy, entropyEnc);
   add = utils_1.toArray(add, addEnc);
 
-  minimalisticAssert(entropy.length >= (this.minEntropy / 8),
+  minimalisticAssert$1(entropy.length >= (this.minEntropy / 8),
          'Not enough entropy. Minimum is: ' + this.minEntropy + ' bits');
 
   this._update(entropy.concat(add || []));
@@ -34847,7 +33300,7 @@ KeyPair.prototype.getPrivate = function getPrivate(enc) {
 };
 
 KeyPair.prototype._importPrivate = function _importPrivate(key, enc) {
-  this.priv = new bn$1(key, enc || 16);
+  this.priv = new bn(key, enc || 16);
 
   // Ensure that the priv won't be bigger than n, otherwise we may fail
   // in fixed multiplication method
@@ -34903,8 +33356,8 @@ function Signature(options, enc) {
     return;
 
   assert$4(options.r && options.s, 'Signature without r or s');
-  this.r = new bn$1(options.r, 16);
-  this.s = new bn$1(options.s, 16);
+  this.r = new bn(options.r, 16);
+  this.s = new bn(options.s, 16);
   if (options.recoveryParam === undefined)
     this.recoveryParam = null;
   else
@@ -35006,8 +33459,8 @@ Signature.prototype._importDER = function _importDER(data, enc) {
     }
   }
 
-  this.r = new bn$1(r);
-  this.s = new bn$1(s);
+  this.r = new bn(r);
+  this.s = new bn(s);
   this.recoveryParam = null;
 
   return true;
@@ -35059,7 +33512,7 @@ Signature.prototype.toDER = function toDER(enc) {
 
 
 
-
+var rand = /*RicMoo:ethers:require(brorand)*/(function() { throw new Error('unsupported'); });
 var assert$5 = utils_1$1.assert;
 
 
@@ -35115,15 +33568,15 @@ EC.prototype.genKeyPair = function genKeyPair(options) {
     hash: this.hash,
     pers: options.pers,
     persEnc: options.persEnc || 'utf8',
-    entropy: options.entropy || brorand(this.hash.hmacStrength),
+    entropy: options.entropy || rand(this.hash.hmacStrength),
     entropyEnc: options.entropy && options.entropyEnc || 'utf8',
     nonce: this.n.toArray()
   });
 
   var bytes = this.n.byteLength();
-  var ns2 = this.n.sub(new bn$1(2));
+  var ns2 = this.n.sub(new bn(2));
   do {
-    var priv = new bn$1(drbg.generate(bytes));
+    var priv = new bn(drbg.generate(bytes));
     if (priv.cmp(ns2) > 0)
       continue;
 
@@ -35151,7 +33604,7 @@ EC.prototype.sign = function sign(msg, key, enc, options) {
     options = {};
 
   key = this.keyFromPrivate(key, enc);
-  msg = this._truncateToN(new bn$1(msg, 16));
+  msg = this._truncateToN(new bn(msg, 16));
 
   // Zero-extend key to provide enough entropy
   var bytes = this.n.byteLength();
@@ -35170,12 +33623,12 @@ EC.prototype.sign = function sign(msg, key, enc, options) {
   });
 
   // Number of bytes to generate
-  var ns1 = this.n.sub(new bn$1(1));
+  var ns1 = this.n.sub(new bn(1));
 
   for (var iter = 0; true; iter++) {
     var k = options.k ?
         options.k(iter) :
-        new bn$1(drbg.generate(this.n.byteLength()));
+        new bn(drbg.generate(this.n.byteLength()));
     k = this._truncateToN(k, true);
     if (k.cmpn(1) <= 0 || k.cmp(ns1) >= 0)
       continue;
@@ -35208,7 +33661,7 @@ EC.prototype.sign = function sign(msg, key, enc, options) {
 };
 
 EC.prototype.verify = function verify(msg, signature$1, key, enc) {
-  msg = this._truncateToN(new bn$1(msg, 16));
+  msg = this._truncateToN(new bn(msg, 16));
   key = this.keyFromPublic(key, enc);
   signature$1 = new signature(signature$1, 'hex');
 
@@ -35251,7 +33704,7 @@ EC.prototype.recoverPubKey = function(msg, signature$1, j, enc) {
   signature$1 = new signature(signature$1, enc);
 
   var n = this.n;
-  var e = new bn$1(msg);
+  var e = new bn(msg);
   var r = signature$1.r;
   var s = signature$1.s;
 
@@ -35295,32 +33748,30 @@ EC.prototype.getKeyRecoveryParam = function(e, signature$1, Q, enc) {
   throw new Error('Unable to find valid recovery factor');
 };
 
-var eddsa = {};
-
-var require$$0$1 = getCjsExportFromNamespace(_package$1);
-
 var elliptic_1 = createCommonjsModule$1(function (module, exports) {
 
 var elliptic = exports;
 
-elliptic.version = require$$0$1.version;
+elliptic.version = /*RicMoo:ethers*/{ version: "6.5.3" }.version;
 elliptic.utils = utils_1$1;
-elliptic.rand = brorand;
+elliptic.rand = /*RicMoo:ethers:require(brorand)*/(function() { throw new Error('unsupported'); });
 elliptic.curve = curve_1;
 elliptic.curves = curves_1;
 
 // Protocols
 elliptic.ec = ec;
-elliptic.eddsa = eddsa;
+elliptic.eddsa = /*RicMoo:ethers:require(./elliptic/eddsa)*/(null);
 });
-var elliptic_2 = elliptic_1.ec;
 
-const version$d = "signing-key/5.0.4";
-const logger$g = new Logger(version$d);
+var EC$1 = elliptic_1.ec;
+
+const version$d = "signing-key/5.0.9";
+
+const logger$i = new Logger(version$d);
 let _curve = null;
 function getCurve() {
     if (!_curve) {
-        _curve = new elliptic_2("secp256k1");
+        _curve = new EC$1("secp256k1");
     }
     return _curve;
 }
@@ -35340,7 +33791,11 @@ class SigningKey {
     }
     signDigest(digest) {
         const keyPair = getCurve().keyFromPrivate(arrayify(this.privateKey));
-        const signature = keyPair.sign(arrayify(digest), { canonical: true });
+        const digestBytes = arrayify(digest);
+        if (digestBytes.length !== 32) {
+            logger$i.throwArgumentError("bad digest length", "digest", digest);
+        }
+        const signature = keyPair.sign(digestBytes, { canonical: true });
         return splitSignature({
             recoveryParam: signature.recoveryParam,
             r: hexZeroPad("0x" + signature.r.toString(16), 32),
@@ -35382,11 +33837,12 @@ function computePublicKey(key, compressed) {
         }
         return "0x" + getCurve().keyFromPublic(bytes).getPublic(true, "hex");
     }
-    return logger$g.throwArgumentError("invalid public or private key", "key", "[REDACTED]");
+    return logger$i.throwArgumentError("invalid public or private key", "key", "[REDACTED]");
 }
 
-const version$e = "transactions/5.0.5";
-const logger$h = new Logger(version$e);
+const version$e = "transactions/5.0.10";
+
+const logger$j = new Logger(version$e);
 ///////////////////////////////
 function handleAddress(value) {
     if (value === "0x") {
@@ -35430,13 +33886,13 @@ function serialize(transaction, signature) {
         value = arrayify(hexlify(value, options));
         // Fixed-width field
         if (fieldInfo.length && value.length !== fieldInfo.length && value.length > 0) {
-            logger$h.throwArgumentError("invalid length for " + fieldInfo.name, ("transaction:" + fieldInfo.name), value);
+            logger$j.throwArgumentError("invalid length for " + fieldInfo.name, ("transaction:" + fieldInfo.name), value);
         }
         // Variable-width (with a maximum)
         if (fieldInfo.maxLength) {
             value = stripZeros(value);
             if (value.length > fieldInfo.maxLength) {
-                logger$h.throwArgumentError("invalid length for " + fieldInfo.name, ("transaction:" + fieldInfo.name), value);
+                logger$j.throwArgumentError("invalid length for " + fieldInfo.name, ("transaction:" + fieldInfo.name), value);
             }
         }
         raw.push(hexlify(value));
@@ -35446,7 +33902,7 @@ function serialize(transaction, signature) {
         // A chainId was provided; if non-zero we'll use EIP-155
         chainId = transaction.chainId;
         if (typeof (chainId) !== "number") {
-            logger$h.throwArgumentError("invalid transaction.chainId", "transaction", transaction);
+            logger$j.throwArgumentError("invalid transaction.chainId", "transaction", transaction);
         }
     }
     else if (signature && !isBytesLike(signature) && signature.v > 28) {
@@ -35475,11 +33931,11 @@ function serialize(transaction, signature) {
         v += chainId * 2 + 8;
         // If an EIP-155 v (directly or indirectly; maybe _vs) was provided, check it!
         if (sig.v > 28 && sig.v !== v) {
-            logger$h.throwArgumentError("transaction.chainId/signature.v mismatch", "signature", signature);
+            logger$j.throwArgumentError("transaction.chainId/signature.v mismatch", "signature", signature);
         }
     }
     else if (sig.v !== v) {
-        logger$h.throwArgumentError("transaction.chainId/signature.v mismatch", "signature", signature);
+        logger$j.throwArgumentError("transaction.chainId/signature.v mismatch", "signature", signature);
     }
     raw.push(hexlify(v));
     raw.push(stripZeros(arrayify(sig.r)));
@@ -35489,7 +33945,7 @@ function serialize(transaction, signature) {
 function parse(rawTransaction) {
     const transaction = decode(rawTransaction);
     if (transaction.length !== 9 && transaction.length !== 6) {
-        logger$h.throwArgumentError("invalid raw transaction", "rawTransaction", rawTransaction);
+        logger$j.throwArgumentError("invalid raw transaction", "rawTransaction", rawTransaction);
     }
     const tx = {
         nonce: handleNumber(transaction[0]).toNumber(),
@@ -35544,11 +34000,12 @@ function parse(rawTransaction) {
     return tx;
 }
 
-const version$f = "wordlists/5.0.4";
-const logger$i = new Logger(version$f);
+const version$f = "wordlists/5.0.9";
+
+const logger$k = new Logger(version$f);
 class Wordlist {
     constructor(locale) {
-        logger$i.checkAbstract(new.target, Wordlist);
+        logger$k.checkAbstract(new.target, Wordlist);
         defineReadOnly(this, "locale", locale);
     }
     // Subclasses may override this
@@ -35577,7 +34034,8 @@ class Wordlist {
         }
     }
 }
-const words = "AbandonAbilityAbleAboutAboveAbsentAbsorbAbstractAbsurdAbuseAccessAccidentAccountAccuseAchieveAcidAcousticAcquireAcrossActActionActorActressActualAdaptAddAddictAddressAdjustAdmitAdultAdvanceAdviceAerobicAffairAffordAfraidAgainAgeAgentAgreeAheadAimAirAirportAisleAlarmAlbumAlcoholAlertAlienAllAlleyAllowAlmostAloneAlphaAlreadyAlsoAlterAlwaysAmateurAmazingAmongAmountAmusedAnalystAnchorAncientAngerAngleAngryAnimalAnkleAnnounceAnnualAnotherAnswerAntennaAntiqueAnxietyAnyApartApologyAppearAppleApproveAprilArchArcticAreaArenaArgueArmArmedArmorArmyAroundArrangeArrestArriveArrowArtArtefactArtistArtworkAskAspectAssaultAssetAssistAssumeAsthmaAthleteAtomAttackAttendAttitudeAttractAuctionAuditAugustAuntAuthorAutoAutumnAverageAvocadoAvoidAwakeAwareAwayAwesomeAwfulAwkwardAxisBabyBachelorBaconBadgeBagBalanceBalconyBallBambooBananaBannerBarBarelyBargainBarrelBaseBasicBasketBattleBeachBeanBeautyBecauseBecomeBeefBeforeBeginBehaveBehindBelieveBelowBeltBenchBenefitBestBetrayBetterBetweenBeyondBicycleBidBikeBindBiologyBirdBirthBitterBlackBladeBlameBlanketBlastBleakBlessBlindBloodBlossomBlouseBlueBlurBlushBoardBoatBodyBoilBombBoneBonusBookBoostBorderBoringBorrowBossBottomBounceBoxBoyBracketBrainBrandBrassBraveBreadBreezeBrickBridgeBriefBrightBringBriskBroccoliBrokenBronzeBroomBrotherBrownBrushBubbleBuddyBudgetBuffaloBuildBulbBulkBulletBundleBunkerBurdenBurgerBurstBusBusinessBusyButterBuyerBuzzCabbageCabinCableCactusCageCakeCallCalmCameraCampCanCanalCancelCandyCannonCanoeCanvasCanyonCapableCapitalCaptainCarCarbonCardCargoCarpetCarryCartCaseCashCasinoCastleCasualCatCatalogCatchCategoryCattleCaughtCauseCautionCaveCeilingCeleryCementCensusCenturyCerealCertainChairChalkChampionChangeChaosChapterChargeChaseChatCheapCheckCheeseChefCherryChestChickenChiefChildChimneyChoiceChooseChronicChuckleChunkChurnCigarCinnamonCircleCitizenCityCivilClaimClapClarifyClawClayCleanClerkCleverClickClientCliffClimbClinicClipClockClogCloseClothCloudClownClubClumpClusterClutchCoachCoastCoconutCodeCoffeeCoilCoinCollectColorColumnCombineComeComfortComicCommonCompanyConcertConductConfirmCongressConnectConsiderControlConvinceCookCoolCopperCopyCoralCoreCornCorrectCostCottonCouchCountryCoupleCourseCousinCoverCoyoteCrackCradleCraftCramCraneCrashCraterCrawlCrazyCreamCreditCreekCrewCricketCrimeCrispCriticCropCrossCrouchCrowdCrucialCruelCruiseCrumbleCrunchCrushCryCrystalCubeCultureCupCupboardCuriousCurrentCurtainCurveCushionCustomCuteCycleDadDamageDampDanceDangerDaringDashDaughterDawnDayDealDebateDebrisDecadeDecemberDecideDeclineDecorateDecreaseDeerDefenseDefineDefyDegreeDelayDeliverDemandDemiseDenialDentistDenyDepartDependDepositDepthDeputyDeriveDescribeDesertDesignDeskDespairDestroyDetailDetectDevelopDeviceDevoteDiagramDialDiamondDiaryDiceDieselDietDifferDigitalDignityDilemmaDinnerDinosaurDirectDirtDisagreeDiscoverDiseaseDishDismissDisorderDisplayDistanceDivertDivideDivorceDizzyDoctorDocumentDogDollDolphinDomainDonateDonkeyDonorDoorDoseDoubleDoveDraftDragonDramaDrasticDrawDreamDressDriftDrillDrinkDripDriveDropDrumDryDuckDumbDuneDuringDustDutchDutyDwarfDynamicEagerEagleEarlyEarnEarthEasilyEastEasyEchoEcologyEconomyEdgeEditEducateEffortEggEightEitherElbowElderElectricElegantElementElephantElevatorEliteElseEmbarkEmbodyEmbraceEmergeEmotionEmployEmpowerEmptyEnableEnactEndEndlessEndorseEnemyEnergyEnforceEngageEngineEnhanceEnjoyEnlistEnoughEnrichEnrollEnsureEnterEntireEntryEnvelopeEpisodeEqualEquipEraEraseErodeErosionErrorEruptEscapeEssayEssenceEstateEternalEthicsEvidenceEvilEvokeEvolveExactExampleExcessExchangeExciteExcludeExcuseExecuteExerciseExhaustExhibitExileExistExitExoticExpandExpectExpireExplainExposeExpressExtendExtraEyeEyebrowFabricFaceFacultyFadeFaintFaithFallFalseFameFamilyFamousFanFancyFantasyFarmFashionFatFatalFatherFatigueFaultFavoriteFeatureFebruaryFederalFeeFeedFeelFemaleFenceFestivalFetchFeverFewFiberFictionFieldFigureFileFilmFilterFinalFindFineFingerFinishFireFirmFirstFiscalFishFitFitnessFixFlagFlameFlashFlatFlavorFleeFlightFlipFloatFlockFloorFlowerFluidFlushFlyFoamFocusFogFoilFoldFollowFoodFootForceForestForgetForkFortuneForumForwardFossilFosterFoundFoxFragileFrameFrequentFreshFriendFringeFrogFrontFrostFrownFrozenFruitFuelFunFunnyFurnaceFuryFutureGadgetGainGalaxyGalleryGameGapGarageGarbageGardenGarlicGarmentGasGaspGateGatherGaugeGazeGeneralGeniusGenreGentleGenuineGestureGhostGiantGiftGiggleGingerGiraffeGirlGiveGladGlanceGlareGlassGlideGlimpseGlobeGloomGloryGloveGlowGlueGoatGoddessGoldGoodGooseGorillaGospelGossipGovernGownGrabGraceGrainGrantGrapeGrassGravityGreatGreenGridGriefGritGroceryGroupGrowGruntGuardGuessGuideGuiltGuitarGunGymHabitHairHalfHammerHamsterHandHappyHarborHardHarshHarvestHatHaveHawkHazardHeadHealthHeartHeavyHedgehogHeightHelloHelmetHelpHenHeroHiddenHighHillHintHipHireHistoryHobbyHockeyHoldHoleHolidayHollowHomeHoneyHoodHopeHornHorrorHorseHospitalHostHotelHourHoverHubHugeHumanHumbleHumorHundredHungryHuntHurdleHurryHurtHusbandHybridIceIconIdeaIdentifyIdleIgnoreIllIllegalIllnessImageImitateImmenseImmuneImpactImposeImproveImpulseInchIncludeIncomeIncreaseIndexIndicateIndoorIndustryInfantInflictInformInhaleInheritInitialInjectInjuryInmateInnerInnocentInputInquiryInsaneInsectInsideInspireInstallIntactInterestIntoInvestInviteInvolveIronIslandIsolateIssueItemIvoryJacketJaguarJarJazzJealousJeansJellyJewelJobJoinJokeJourneyJoyJudgeJuiceJumpJungleJuniorJunkJustKangarooKeenKeepKetchupKeyKickKidKidneyKindKingdomKissKitKitchenKiteKittenKiwiKneeKnifeKnockKnowLabLabelLaborLadderLadyLakeLampLanguageLaptopLargeLaterLatinLaughLaundryLavaLawLawnLawsuitLayerLazyLeaderLeafLearnLeaveLectureLeftLegLegalLegendLeisureLemonLendLengthLensLeopardLessonLetterLevelLiarLibertyLibraryLicenseLifeLiftLightLikeLimbLimitLinkLionLiquidListLittleLiveLizardLoadLoanLobsterLocalLockLogicLonelyLongLoopLotteryLoudLoungeLoveLoyalLuckyLuggageLumberLunarLunchLuxuryLyricsMachineMadMagicMagnetMaidMailMainMajorMakeMammalManManageMandateMangoMansionManualMapleMarbleMarchMarginMarineMarketMarriageMaskMassMasterMatchMaterialMathMatrixMatterMaximumMazeMeadowMeanMeasureMeatMechanicMedalMediaMelodyMeltMemberMemoryMentionMenuMercyMergeMeritMerryMeshMessageMetalMethodMiddleMidnightMilkMillionMimicMindMinimumMinorMinuteMiracleMirrorMiseryMissMistakeMixMixedMixtureMobileModelModifyMomMomentMonitorMonkeyMonsterMonthMoonMoralMoreMorningMosquitoMotherMotionMotorMountainMouseMoveMovieMuchMuffinMuleMultiplyMuscleMuseumMushroomMusicMustMutualMyselfMysteryMythNaiveNameNapkinNarrowNastyNationNatureNearNeckNeedNegativeNeglectNeitherNephewNerveNestNetNetworkNeutralNeverNewsNextNiceNightNobleNoiseNomineeNoodleNormalNorthNoseNotableNoteNothingNoticeNovelNowNuclearNumberNurseNutOakObeyObjectObligeObscureObserveObtainObviousOccurOceanOctoberOdorOffOfferOfficeOftenOilOkayOldOliveOlympicOmitOnceOneOnionOnlineOnlyOpenOperaOpinionOpposeOptionOrangeOrbitOrchardOrderOrdinaryOrganOrientOriginalOrphanOstrichOtherOutdoorOuterOutputOutsideOvalOvenOverOwnOwnerOxygenOysterOzonePactPaddlePagePairPalacePalmPandaPanelPanicPantherPaperParadeParentParkParrotPartyPassPatchPathPatientPatrolPatternPausePavePaymentPeacePeanutPearPeasantPelicanPenPenaltyPencilPeoplePepperPerfectPermitPersonPetPhonePhotoPhrasePhysicalPianoPicnicPicturePiecePigPigeonPillPilotPinkPioneerPipePistolPitchPizzaPlacePlanetPlasticPlatePlayPleasePledgePluckPlugPlungePoemPoetPointPolarPolePolicePondPonyPoolPopularPortionPositionPossiblePostPotatoPotteryPovertyPowderPowerPracticePraisePredictPreferPreparePresentPrettyPreventPricePridePrimaryPrintPriorityPrisonPrivatePrizeProblemProcessProduceProfitProgramProjectPromoteProofPropertyProsperProtectProudProvidePublicPuddingPullPulpPulsePumpkinPunchPupilPuppyPurchasePurityPurposePursePushPutPuzzlePyramidQualityQuantumQuarterQuestionQuickQuitQuizQuoteRabbitRaccoonRaceRackRadarRadioRailRainRaiseRallyRampRanchRandomRangeRapidRareRateRatherRavenRawRazorReadyRealReasonRebelRebuildRecallReceiveRecipeRecordRecycleReduceReflectReformRefuseRegionRegretRegularRejectRelaxReleaseReliefRelyRemainRememberRemindRemoveRenderRenewRentReopenRepairRepeatReplaceReportRequireRescueResembleResistResourceResponseResultRetireRetreatReturnReunionRevealReviewRewardRhythmRibRibbonRiceRichRideRidgeRifleRightRigidRingRiotRippleRiskRitualRivalRiverRoadRoastRobotRobustRocketRomanceRoofRookieRoomRoseRotateRoughRoundRouteRoyalRubberRudeRugRuleRunRunwayRuralSadSaddleSadnessSafeSailSaladSalmonSalonSaltSaluteSameSampleSandSatisfySatoshiSauceSausageSaveSayScaleScanScareScatterSceneSchemeSchoolScienceScissorsScorpionScoutScrapScreenScriptScrubSeaSearchSeasonSeatSecondSecretSectionSecuritySeedSeekSegmentSelectSellSeminarSeniorSenseSentenceSeriesServiceSessionSettleSetupSevenShadowShaftShallowShareShedShellSheriffShieldShiftShineShipShiverShockShoeShootShopShortShoulderShoveShrimpShrugShuffleShySiblingSickSideSiegeSightSignSilentSilkSillySilverSimilarSimpleSinceSingSirenSisterSituateSixSizeSkateSketchSkiSkillSkinSkirtSkullSlabSlamSleepSlenderSliceSlideSlightSlimSloganSlotSlowSlushSmallSmartSmileSmokeSmoothSnackSnakeSnapSniffSnowSoapSoccerSocialSockSodaSoftSolarSoldierSolidSolutionSolveSomeoneSongSoonSorrySortSoulSoundSoupSourceSouthSpaceSpareSpatialSpawnSpeakSpecialSpeedSpellSpendSphereSpiceSpiderSpikeSpinSpiritSplitSpoilSponsorSpoonSportSpotSpraySpreadSpringSpySquareSqueezeSquirrelStableStadiumStaffStageStairsStampStandStartStateStaySteakSteelStemStepStereoStickStillStingStockStomachStoneStoolStoryStoveStrategyStreetStrikeStrongStruggleStudentStuffStumbleStyleSubjectSubmitSubwaySuccessSuchSuddenSufferSugarSuggestSuitSummerSunSunnySunsetSuperSupplySupremeSureSurfaceSurgeSurpriseSurroundSurveySuspectSustainSwallowSwampSwapSwarmSwearSweetSwiftSwimSwingSwitchSwordSymbolSymptomSyrupSystemTableTackleTagTailTalentTalkTankTapeTargetTaskTasteTattooTaxiTeachTeamTellTenTenantTennisTentTermTestTextThankThatThemeThenTheoryThereTheyThingThisThoughtThreeThriveThrowThumbThunderTicketTideTigerTiltTimberTimeTinyTipTiredTissueTitleToastTobaccoTodayToddlerToeTogetherToiletTokenTomatoTomorrowToneTongueTonightToolToothTopTopicToppleTorchTornadoTortoiseTossTotalTouristTowardTowerTownToyTrackTradeTrafficTragicTrainTransferTrapTrashTravelTrayTreatTreeTrendTrialTribeTrickTriggerTrimTripTrophyTroubleTruckTrueTrulyTrumpetTrustTruthTryTubeTuitionTumbleTunaTunnelTurkeyTurnTurtleTwelveTwentyTwiceTwinTwistTwoTypeTypicalUglyUmbrellaUnableUnawareUncleUncoverUnderUndoUnfairUnfoldUnhappyUniformUniqueUnitUniverseUnknownUnlockUntilUnusualUnveilUpdateUpgradeUpholdUponUpperUpsetUrbanUrgeUsageUseUsedUsefulUselessUsualUtilityVacantVacuumVagueValidValleyValveVanVanishVaporVariousVastVaultVehicleVelvetVendorVentureVenueVerbVerifyVersionVeryVesselVeteranViableVibrantViciousVictoryVideoViewVillageVintageViolinVirtualVirusVisaVisitVisualVitalVividVocalVoiceVoidVolcanoVolumeVoteVoyageWageWagonWaitWalkWallWalnutWantWarfareWarmWarriorWashWaspWasteWaterWaveWayWealthWeaponWearWeaselWeatherWebWeddingWeekendWeirdWelcomeWestWetWhaleWhatWheatWheelWhenWhereWhipWhisperWideWidthWifeWildWillWinWindowWineWingWinkWinnerWinterWireWisdomWiseWishWitnessWolfWomanWonderWoodWoolWordWorkWorldWorryWorthWrapWreckWrestleWristWriteWrongYardYearYellowYouYoungYouthZebraZeroZoneZoo";
+
+const words = "AbdikaceAbecedaAdresaAgreseAkceAktovkaAlejAlkoholAmputaceAnanasAndulkaAnekdotaAnketaAntikaAnulovatArchaAroganceAsfaltAsistentAspiraceAstmaAstronomAtlasAtletikaAtolAutobusAzylBabkaBachorBacilBaculkaBadatelBagetaBagrBahnoBakterieBaladaBaletkaBalkonBalonekBalvanBalzaBambusBankomatBarbarBaretBarmanBarokoBarvaBaterkaBatohBavlnaBazalkaBazilikaBazukaBednaBeranBesedaBestieBetonBezinkaBezmocBeztakBicyklBidloBiftekBikinyBilanceBiografBiologBitvaBizonBlahobytBlatouchBlechaBleduleBleskBlikatBliznaBlokovatBlouditBludBobekBobrBodlinaBodnoutBohatostBojkotBojovatBokorysBolestBorecBoroviceBotaBoubelBouchatBoudaBouleBouratBoxerBradavkaBramboraBrankaBratrBreptaBriketaBrkoBrlohBronzBroskevBrunetkaBrusinkaBrzdaBrzyBublinaBubnovatBuchtaBuditelBudkaBudovaBufetBujarostBukviceBuldokBulvaBundaBunkrBurzaButikBuvolBuzolaBydletBylinaBytovkaBzukotCapartCarevnaCedrCeduleCejchCejnCelaCelerCelkemCelniceCeninaCennostCenovkaCentrumCenzorCestopisCetkaChalupaChapadloCharitaChataChechtatChemieChichotChirurgChladChlebaChlubitChmelChmuraChobotChocholChodbaCholeraChomoutChopitChorobaChovChrapotChrlitChrtChrupChtivostChudinaChutnatChvatChvilkaChvostChybaChystatChytitCibuleCigaretaCihelnaCihlaCinkotCirkusCisternaCitaceCitrusCizinecCizostClonaCokolivCouvatCtitelCtnostCudnostCuketaCukrCupotCvaknoutCvalCvikCvrkotCyklistaDalekoDarebaDatelDatumDceraDebataDechovkaDecibelDeficitDeflaceDeklDekretDemokratDepreseDerbyDeskaDetektivDikobrazDiktovatDiodaDiplomDiskDisplejDivadloDivochDlahaDlouhoDluhopisDnesDobroDobytekDocentDochutitDodnesDohledDohodaDohraDojemDojniceDokladDokolaDoktorDokumentDolarDolevaDolinaDomaDominantDomluvitDomovDonutitDopadDopisDoplnitDoposudDoprovodDopustitDorazitDorostDortDosahDoslovDostatekDosudDosytaDotazDotekDotknoutDoufatDoutnatDovozceDozaduDoznatDozorceDrahotaDrakDramatikDravecDrazeDrdolDrobnostDrogerieDrozdDrsnostDrtitDrzostDubenDuchovnoDudekDuhaDuhovkaDusitDusnoDutostDvojiceDvorecDynamitEkologEkonomieElektronElipsaEmailEmiseEmoceEmpatieEpizodaEpochaEpopejEposEsejEsenceEskortaEskymoEtiketaEuforieEvoluceExekuceExkurzeExpediceExplozeExportExtraktFackaFajfkaFakultaFanatikFantazieFarmacieFavoritFazoleFederaceFejetonFenkaFialkaFigurantFilozofFiltrFinanceFintaFixaceFjordFlanelFlirtFlotilaFondFosforFotbalFotkaFotonFrakceFreskaFrontaFukarFunkceFyzikaGalejeGarantGenetikaGeologGilotinaGlazuraGlejtGolemGolfistaGotikaGrafGramofonGranuleGrepGrilGrogGroteskaGumaHadiceHadrHalaHalenkaHanbaHanopisHarfaHarpunaHavranHebkostHejkalHejnoHejtmanHektarHelmaHematomHerecHernaHesloHezkyHistorikHladovkaHlasivkyHlavaHledatHlenHlodavecHlohHloupostHltatHlubinaHluchotaHmatHmotaHmyzHnisHnojivoHnoutHoblinaHobojHochHodinyHodlatHodnotaHodovatHojnostHokejHolinkaHolkaHolubHomoleHonitbaHonoraceHoralHordaHorizontHorkoHorlivecHormonHorninaHoroskopHorstvoHospodaHostinaHotovostHoubaHoufHoupatHouskaHovorHradbaHraniceHravostHrazdaHrbolekHrdinaHrdloHrdostHrnekHrobkaHromadaHrotHroudaHrozenHrstkaHrubostHryzatHubenostHubnoutHudbaHukotHumrHusitaHustotaHvozdHybnostHydrantHygienaHymnaHysterikIdylkaIhnedIkonaIluzeImunitaInfekceInflaceInkasoInovaceInspekceInternetInvalidaInvestorInzerceIronieJablkoJachtaJahodaJakmileJakostJalovecJantarJarmarkJaroJasanJasnoJatkaJavorJazykJedinecJedleJednatelJehlanJekotJelenJelitoJemnostJenomJepiceJeseterJevitJezdecJezeroJinakJindyJinochJiskraJistotaJitrniceJizvaJmenovatJogurtJurtaKabaretKabelKabinetKachnaKadetKadidloKahanKajakKajutaKakaoKaktusKalamitaKalhotyKalibrKalnostKameraKamkolivKamnaKanibalKanoeKantorKapalinaKapelaKapitolaKapkaKapleKapotaKaprKapustaKapybaraKaramelKarotkaKartonKasaKatalogKatedraKauceKauzaKavalecKazajkaKazetaKazivostKdekolivKdesiKedlubenKempKeramikaKinoKlacekKladivoKlamKlapotKlasikaKlaunKlecKlenbaKlepatKlesnoutKlidKlimaKlisnaKloboukKlokanKlopaKloubKlubovnaKlusatKluzkostKmenKmitatKmotrKnihaKnotKoaliceKoberecKobkaKoblihaKobylaKocourKohoutKojenecKokosKoktejlKolapsKoledaKolizeKoloKomandoKometaKomikKomnataKomoraKompasKomunitaKonatKonceptKondiceKonecKonfeseKongresKoninaKonkursKontaktKonzervaKopanecKopieKopnoutKoprovkaKorbelKorektorKormidloKoroptevKorpusKorunaKorytoKorzetKosatecKostkaKotelKotletaKotoulKoukatKoupelnaKousekKouzloKovbojKozaKozorohKrabiceKrachKrajinaKralovatKrasopisKravataKreditKrejcarKresbaKrevetaKriketKritikKrizeKrkavecKrmelecKrmivoKrocanKrokKronikaKropitKroupaKrovkaKrtekKruhadloKrupiceKrutostKrvinkaKrychleKryptaKrystalKrytKudlankaKufrKujnostKuklaKulajdaKulichKulkaKulometKulturaKunaKupodivuKurtKurzorKutilKvalitaKvasinkaKvestorKynologKyselinaKytaraKyticeKytkaKytovecKyvadloLabradorLachtanLadnostLaikLakomecLamelaLampaLanovkaLasiceLasoLasturaLatinkaLavinaLebkaLeckdyLedenLedniceLedovkaLedvinaLegendaLegieLegraceLehceLehkostLehnoutLektvarLenochodLentilkaLepenkaLepidloLetadloLetecLetmoLetokruhLevhartLevitaceLevobokLibraLichotkaLidojedLidskostLihovinaLijavecLilekLimetkaLinieLinkaLinoleumListopadLitinaLitovatLobistaLodivodLogikaLogopedLokalitaLoketLomcovatLopataLopuchLordLososLotrLoudalLouhLoukaLouskatLovecLstivostLucernaLuciferLumpLuskLustraceLviceLyraLyrikaLysinaMadamMadloMagistrMahagonMajetekMajitelMajoritaMakakMakoviceMakrelaMalbaMalinaMalovatMalviceMaminkaMandleMankoMarnostMasakrMaskotMasopustMaticeMatrikaMaturitaMazanecMazivoMazlitMazurkaMdlobaMechanikMeditaceMedovinaMelasaMelounMentolkaMetlaMetodaMetrMezeraMigraceMihnoutMihuleMikinaMikrofonMilenecMilimetrMilostMimikaMincovnaMinibarMinometMinulostMiskaMistrMixovatMladostMlhaMlhovinaMlokMlsatMluvitMnichMnohemMobilMocnostModelkaModlitbaMohylaMokroMolekulaMomentkaMonarchaMonoklMonstrumMontovatMonzunMosazMoskytMostMotivaceMotorkaMotykaMouchaMoudrostMozaikaMozekMozolMramorMravenecMrkevMrtvolaMrzetMrzutostMstitelMudrcMuflonMulatMumieMuniceMusetMutaceMuzeumMuzikantMyslivecMzdaNabouratNachytatNadaceNadbytekNadhozNadobroNadpisNahlasNahnatNahodileNahraditNaivitaNajednouNajistoNajmoutNaklonitNakonecNakrmitNalevoNamazatNamluvitNanometrNaokoNaopakNaostroNapadatNapevnoNaplnitNapnoutNaposledNaprostoNaroditNarubyNarychloNasaditNasekatNaslepoNastatNatolikNavenekNavrchNavzdoryNazvatNebeNechatNeckyNedalekoNedbatNeduhNegaceNehetNehodaNejenNejprveNeklidNelibostNemilostNemocNeochotaNeonkaNepokojNerostNervNesmyslNesouladNetvorNeuronNevinaNezvykleNicotaNijakNikamNikdyNiklNikterakNitroNoclehNohaviceNominaceNoraNorekNositelNosnostNouzeNovinyNovotaNozdraNudaNudleNugetNutitNutnostNutrieNymfaObalObarvitObavaObdivObecObehnatObejmoutObezitaObhajobaObilniceObjasnitObjektObklopitOblastOblekOblibaOblohaObludaObnosObohatitObojekOboutObrazecObrnaObrubaObrysObsahObsluhaObstaratObuvObvazObvinitObvodObvykleObyvatelObzorOcasOcelOcenitOchladitOchotaOchranaOcitnoutOdbojOdbytOdchodOdcizitOdebratOdeslatOdevzdatOdezvaOdhadceOdhoditOdjetOdjinudOdkazOdkoupitOdlivOdlukaOdmlkaOdolnostOdpadOdpisOdploutOdporOdpustitOdpykatOdrazkaOdsouditOdstupOdsunOdtokOdtudOdvahaOdvetaOdvolatOdvracetOdznakOfinaOfsajdOhlasOhniskoOhradaOhrozitOhryzekOkapOkeniceOklikaOknoOkouzlitOkovyOkrasaOkresOkrsekOkruhOkupantOkurkaOkusitOlejninaOlizovatOmakOmeletaOmezitOmladinaOmlouvatOmluvaOmylOnehdyOpakovatOpasekOperaceOpiceOpilostOpisovatOporaOpoziceOpravduOprotiOrbitalOrchestrOrgieOrliceOrlojOrtelOsadaOschnoutOsikaOsivoOslavaOslepitOslnitOslovitOsnovaOsobaOsolitOspalecOstenOstrahaOstudaOstychOsvojitOteplitOtiskOtopOtrhatOtrlostOtrokOtrubyOtvorOvanoutOvarOvesOvlivnitOvoceOxidOzdobaPachatelPacientPadouchPahorekPaktPalandaPalecPalivoPalubaPamfletPamlsekPanenkaPanikaPannaPanovatPanstvoPantoflePaprikaParketaParodiePartaParukaParybaPasekaPasivitaPastelkaPatentPatronaPavoukPaznehtPazourekPeckaPedagogPejsekPekloPelotonPenaltaPendrekPenzePeriskopPeroPestrostPetardaPeticePetrolejPevninaPexesoPianistaPihaPijavicePiklePiknikPilinaPilnostPilulkaPinzetaPipetaPisatelPistolePitevnaPivnicePivovarPlacentaPlakatPlamenPlanetaPlastikaPlatitPlavidloPlazPlechPlemenoPlentaPlesPletivoPlevelPlivatPlnitPlnoPlochaPlodinaPlombaPloutPlukPlynPobavitPobytPochodPocitPoctivecPodatPodcenitPodepsatPodhledPodivitPodkladPodmanitPodnikPodobaPodporaPodrazPodstataPodvodPodzimPoeziePohankaPohnutkaPohovorPohromaPohybPointaPojistkaPojmoutPokazitPoklesPokojPokrokPokutaPokynPolednePolibekPolknoutPolohaPolynomPomaluPominoutPomlkaPomocPomstaPomysletPonechatPonorkaPonurostPopadatPopelPopisekPoplachPoprositPopsatPopudPoradcePorcePorodPoruchaPoryvPosaditPosedPosilaPoskokPoslanecPosouditPospoluPostavaPosudekPosypPotahPotkanPotleskPotomekPotravaPotupaPotvoraPoukazPoutoPouzdroPovahaPovidlaPovlakPovozPovrchPovstatPovykPovzdechPozdravPozemekPoznatekPozorPozvatPracovatPrahoryPraktikaPralesPraotecPraporekPrasePravdaPrincipPrknoProbuditProcentoProdejProfeseProhraProjektProlomitPromilePronikatPropadProrokProsbaProtonProutekProvazPrskavkaPrstenPrudkostPrutPrvekPrvohoryPsanecPsovodPstruhPtactvoPubertaPuchPudlPukavecPuklinaPukrlePultPumpaPuncPupenPusaPusinkaPustinaPutovatPutykaPyramidaPyskPytelRacekRachotRadiaceRadniceRadonRaftRagbyRaketaRakovinaRamenoRampouchRandeRarachRaritaRasovnaRastrRatolestRazanceRazidloReagovatReakceReceptRedaktorReferentReflexRejnokReklamaRekordRekrutRektorReputaceRevizeRevmaRevolverRezervaRiskovatRizikoRobotikaRodokmenRohovkaRokleRokokoRomanetoRopovodRopuchaRorejsRosolRostlinaRotmistrRotopedRotundaRoubenkaRouchoRoupRouraRovinaRovniceRozborRozchodRozdatRozeznatRozhodceRozinkaRozjezdRozkazRozlohaRozmarRozpadRozruchRozsahRoztokRozumRozvodRubrikaRuchadloRukaviceRukopisRybaRybolovRychlostRydloRypadloRytinaRyzostSadistaSahatSakoSamecSamizdatSamotaSanitkaSardinkaSasankaSatelitSazbaSazeniceSborSchovatSebrankaSeceseSedadloSedimentSedloSehnatSejmoutSekeraSektaSekundaSekvojeSemenoSenoServisSesaditSeshoraSeskokSeslatSestraSesuvSesypatSetbaSetinaSetkatSetnoutSetrvatSeverSeznamShodaShrnoutSifonSilniceSirkaSirotekSirupSituaceSkafandrSkaliskoSkanzenSkautSkeptikSkicaSkladbaSkleniceSkloSkluzSkobaSkokanSkoroSkriptaSkrzSkupinaSkvostSkvrnaSlabikaSladidloSlaninaSlastSlavnostSledovatSlepecSlevaSlezinaSlibSlinaSlizniceSlonSloupekSlovoSluchSluhaSlunceSlupkaSlzaSmaragdSmetanaSmilstvoSmlouvaSmogSmradSmrkSmrtkaSmutekSmyslSnadSnahaSnobSobotaSochaSodovkaSokolSopkaSotvaSoubojSoucitSoudceSouhlasSouladSoumrakSoupravaSousedSoutokSouvisetSpalovnaSpasitelSpisSplavSpodekSpojenecSpoluSponzorSpornostSpoustaSprchaSpustitSrandaSrazSrdceSrnaSrnecSrovnatSrpenSrstSrubStaniceStarostaStatikaStavbaStehnoStezkaStodolaStolekStopaStornoStoupatStrachStresStrhnoutStromStrunaStudnaStupniceStvolStykSubjektSubtropySucharSudostSuknoSundatSunoutSurikataSurovinaSvahSvalstvoSvetrSvatbaSvazekSvisleSvitekSvobodaSvodidloSvorkaSvrabSykavkaSykotSynekSynovecSypatSypkostSyrovostSyselSytostTabletkaTabuleTahounTajemnoTajfunTajgaTajitTajnostTaktikaTamhleTamponTancovatTanecTankerTapetaTaveninaTazatelTechnikaTehdyTekutinaTelefonTemnotaTendenceTenistaTenorTeplotaTepnaTeprveTerapieTermoskaTextilTichoTiskopisTitulekTkadlecTkaninaTlapkaTleskatTlukotTlupaTmelToaletaTopinkaTopolTorzoTouhaToulecTradiceTraktorTrampTrasaTraverzaTrefitTrestTrezorTrhavinaTrhlinaTrochuTrojiceTroskaTroubaTrpceTrpitelTrpkostTrubecTruchlitTruhliceTrusTrvatTudyTuhnoutTuhostTundraTuristaTurnajTuzemskoTvarohTvorbaTvrdostTvrzTygrTykevUbohostUbozeUbratUbrousekUbrusUbytovnaUchoUctivostUdivitUhraditUjednatUjistitUjmoutUkazatelUklidnitUklonitUkotvitUkrojitUliceUlitaUlovitUmyvadloUnavitUniformaUniknoutUpadnoutUplatnitUplynoutUpoutatUpravitUranUrazitUsednoutUsilovatUsmrtitUsnadnitUsnoutUsouditUstlatUstrnoutUtahovatUtkatUtlumitUtonoutUtopenecUtrousitUvalitUvolnitUvozovkaUzdravitUzelUzeninaUzlinaUznatVagonValchaValounVanaVandalVanilkaVaranVarhanyVarovatVcelkuVchodVdovaVedroVegetaceVejceVelbloudVeletrhVelitelVelmocVelrybaVenkovVerandaVerzeVeselkaVeskrzeVesniceVespoduVestaVeterinaVeverkaVibraceVichrVideohraVidinaVidleVilaViniceVisetVitalitaVizeVizitkaVjezdVkladVkusVlajkaVlakVlasecVlevoVlhkostVlivVlnovkaVloupatVnucovatVnukVodaVodivostVodoznakVodstvoVojenskyVojnaVojskoVolantVolbaVolitVolnoVoskovkaVozidloVozovnaVpravoVrabecVracetVrahVrataVrbaVrcholekVrhatVrstvaVrtuleVsaditVstoupitVstupVtipVybavitVybratVychovatVydatVydraVyfotitVyhledatVyhnoutVyhoditVyhraditVyhubitVyjasnitVyjetVyjmoutVyklopitVykonatVylekatVymazatVymezitVymizetVymysletVynechatVynikatVynutitVypadatVyplatitVypravitVypustitVyrazitVyrovnatVyrvatVyslovitVysokoVystavitVysunoutVysypatVytasitVytesatVytratitVyvinoutVyvolatVyvrhelVyzdobitVyznatVzaduVzbuditVzchopitVzdorVzduchVzdychatVzestupVzhledemVzkazVzlykatVznikVzorekVzpouraVztahVztekXylofonZabratZabydletZachovatZadarmoZadusitZafoukatZahltitZahoditZahradaZahynoutZajatecZajetZajistitZaklepatZakoupitZalepitZamezitZamotatZamysletZanechatZanikatZaplatitZapojitZapsatZarazitZastavitZasunoutZatajitZatemnitZatknoutZaujmoutZavalitZaveletZavinitZavolatZavrtatZazvonitZbavitZbrusuZbudovatZbytekZdalekaZdarmaZdatnostZdivoZdobitZdrojZdvihZdymadloZeleninaZemanZeminaZeptatZezaduZezdolaZhatitZhltnoutZhlubokaZhotovitZhrubaZimaZimniceZjemnitZklamatZkoumatZkratkaZkumavkaZlatoZlehkaZlobaZlomZlostZlozvykZmapovatZmarZmatekZmijeZmizetZmocnitZmodratZmrzlinaZmutovatZnakZnalostZnamenatZnovuZobrazitZotavitZoubekZoufaleZploditZpomalitZpravaZprostitZprudkaZprvuZradaZranitZrcadloZrnitostZrnoZrovnaZrychlitZrzavostZtichaZtratitZubovinaZubrZvednoutZvenkuZveselaZvonZvratZvukovodZvyk";
 let wordlist = null;
 function loadWords(lang) {
     if (wordlist != null) {
@@ -35586,14 +34044,14 @@ function loadWords(lang) {
     wordlist = words.replace(/([A-Z])/g, " $1").toLowerCase().substring(1).split(" ");
     // Verify the computed list matches the official list
     /* istanbul ignore if */
-    if (Wordlist.check(lang) !== "0x3c8acc1e7b08d8e76f9fda015ef48dc8c710a73cb7e0f77b2c18a9b5a7adde60") {
+    if (Wordlist.check(lang) !== "0x25f44555f4af25b51a711136e1c7d6e50ce9f8917d39d6b1f076b2bb4d2fac1a") {
         wordlist = null;
         throw new Error("BIP39 Wordlist for en (English) FAILED");
     }
 }
-class LangEn extends Wordlist {
+class LangCz extends Wordlist {
     constructor() {
-        super("en");
+        super("cz");
     }
     getWord(index) {
         loadWords(this);
@@ -35604,12 +34062,451 @@ class LangEn extends Wordlist {
         return wordlist.indexOf(word);
     }
 }
+const langCz = new LangCz();
+Wordlist.register(langCz);
+
+const words$1 = "AbandonAbilityAbleAboutAboveAbsentAbsorbAbstractAbsurdAbuseAccessAccidentAccountAccuseAchieveAcidAcousticAcquireAcrossActActionActorActressActualAdaptAddAddictAddressAdjustAdmitAdultAdvanceAdviceAerobicAffairAffordAfraidAgainAgeAgentAgreeAheadAimAirAirportAisleAlarmAlbumAlcoholAlertAlienAllAlleyAllowAlmostAloneAlphaAlreadyAlsoAlterAlwaysAmateurAmazingAmongAmountAmusedAnalystAnchorAncientAngerAngleAngryAnimalAnkleAnnounceAnnualAnotherAnswerAntennaAntiqueAnxietyAnyApartApologyAppearAppleApproveAprilArchArcticAreaArenaArgueArmArmedArmorArmyAroundArrangeArrestArriveArrowArtArtefactArtistArtworkAskAspectAssaultAssetAssistAssumeAsthmaAthleteAtomAttackAttendAttitudeAttractAuctionAuditAugustAuntAuthorAutoAutumnAverageAvocadoAvoidAwakeAwareAwayAwesomeAwfulAwkwardAxisBabyBachelorBaconBadgeBagBalanceBalconyBallBambooBananaBannerBarBarelyBargainBarrelBaseBasicBasketBattleBeachBeanBeautyBecauseBecomeBeefBeforeBeginBehaveBehindBelieveBelowBeltBenchBenefitBestBetrayBetterBetweenBeyondBicycleBidBikeBindBiologyBirdBirthBitterBlackBladeBlameBlanketBlastBleakBlessBlindBloodBlossomBlouseBlueBlurBlushBoardBoatBodyBoilBombBoneBonusBookBoostBorderBoringBorrowBossBottomBounceBoxBoyBracketBrainBrandBrassBraveBreadBreezeBrickBridgeBriefBrightBringBriskBroccoliBrokenBronzeBroomBrotherBrownBrushBubbleBuddyBudgetBuffaloBuildBulbBulkBulletBundleBunkerBurdenBurgerBurstBusBusinessBusyButterBuyerBuzzCabbageCabinCableCactusCageCakeCallCalmCameraCampCanCanalCancelCandyCannonCanoeCanvasCanyonCapableCapitalCaptainCarCarbonCardCargoCarpetCarryCartCaseCashCasinoCastleCasualCatCatalogCatchCategoryCattleCaughtCauseCautionCaveCeilingCeleryCementCensusCenturyCerealCertainChairChalkChampionChangeChaosChapterChargeChaseChatCheapCheckCheeseChefCherryChestChickenChiefChildChimneyChoiceChooseChronicChuckleChunkChurnCigarCinnamonCircleCitizenCityCivilClaimClapClarifyClawClayCleanClerkCleverClickClientCliffClimbClinicClipClockClogCloseClothCloudClownClubClumpClusterClutchCoachCoastCoconutCodeCoffeeCoilCoinCollectColorColumnCombineComeComfortComicCommonCompanyConcertConductConfirmCongressConnectConsiderControlConvinceCookCoolCopperCopyCoralCoreCornCorrectCostCottonCouchCountryCoupleCourseCousinCoverCoyoteCrackCradleCraftCramCraneCrashCraterCrawlCrazyCreamCreditCreekCrewCricketCrimeCrispCriticCropCrossCrouchCrowdCrucialCruelCruiseCrumbleCrunchCrushCryCrystalCubeCultureCupCupboardCuriousCurrentCurtainCurveCushionCustomCuteCycleDadDamageDampDanceDangerDaringDashDaughterDawnDayDealDebateDebrisDecadeDecemberDecideDeclineDecorateDecreaseDeerDefenseDefineDefyDegreeDelayDeliverDemandDemiseDenialDentistDenyDepartDependDepositDepthDeputyDeriveDescribeDesertDesignDeskDespairDestroyDetailDetectDevelopDeviceDevoteDiagramDialDiamondDiaryDiceDieselDietDifferDigitalDignityDilemmaDinnerDinosaurDirectDirtDisagreeDiscoverDiseaseDishDismissDisorderDisplayDistanceDivertDivideDivorceDizzyDoctorDocumentDogDollDolphinDomainDonateDonkeyDonorDoorDoseDoubleDoveDraftDragonDramaDrasticDrawDreamDressDriftDrillDrinkDripDriveDropDrumDryDuckDumbDuneDuringDustDutchDutyDwarfDynamicEagerEagleEarlyEarnEarthEasilyEastEasyEchoEcologyEconomyEdgeEditEducateEffortEggEightEitherElbowElderElectricElegantElementElephantElevatorEliteElseEmbarkEmbodyEmbraceEmergeEmotionEmployEmpowerEmptyEnableEnactEndEndlessEndorseEnemyEnergyEnforceEngageEngineEnhanceEnjoyEnlistEnoughEnrichEnrollEnsureEnterEntireEntryEnvelopeEpisodeEqualEquipEraEraseErodeErosionErrorEruptEscapeEssayEssenceEstateEternalEthicsEvidenceEvilEvokeEvolveExactExampleExcessExchangeExciteExcludeExcuseExecuteExerciseExhaustExhibitExileExistExitExoticExpandExpectExpireExplainExposeExpressExtendExtraEyeEyebrowFabricFaceFacultyFadeFaintFaithFallFalseFameFamilyFamousFanFancyFantasyFarmFashionFatFatalFatherFatigueFaultFavoriteFeatureFebruaryFederalFeeFeedFeelFemaleFenceFestivalFetchFeverFewFiberFictionFieldFigureFileFilmFilterFinalFindFineFingerFinishFireFirmFirstFiscalFishFitFitnessFixFlagFlameFlashFlatFlavorFleeFlightFlipFloatFlockFloorFlowerFluidFlushFlyFoamFocusFogFoilFoldFollowFoodFootForceForestForgetForkFortuneForumForwardFossilFosterFoundFoxFragileFrameFrequentFreshFriendFringeFrogFrontFrostFrownFrozenFruitFuelFunFunnyFurnaceFuryFutureGadgetGainGalaxyGalleryGameGapGarageGarbageGardenGarlicGarmentGasGaspGateGatherGaugeGazeGeneralGeniusGenreGentleGenuineGestureGhostGiantGiftGiggleGingerGiraffeGirlGiveGladGlanceGlareGlassGlideGlimpseGlobeGloomGloryGloveGlowGlueGoatGoddessGoldGoodGooseGorillaGospelGossipGovernGownGrabGraceGrainGrantGrapeGrassGravityGreatGreenGridGriefGritGroceryGroupGrowGruntGuardGuessGuideGuiltGuitarGunGymHabitHairHalfHammerHamsterHandHappyHarborHardHarshHarvestHatHaveHawkHazardHeadHealthHeartHeavyHedgehogHeightHelloHelmetHelpHenHeroHiddenHighHillHintHipHireHistoryHobbyHockeyHoldHoleHolidayHollowHomeHoneyHoodHopeHornHorrorHorseHospitalHostHotelHourHoverHubHugeHumanHumbleHumorHundredHungryHuntHurdleHurryHurtHusbandHybridIceIconIdeaIdentifyIdleIgnoreIllIllegalIllnessImageImitateImmenseImmuneImpactImposeImproveImpulseInchIncludeIncomeIncreaseIndexIndicateIndoorIndustryInfantInflictInformInhaleInheritInitialInjectInjuryInmateInnerInnocentInputInquiryInsaneInsectInsideInspireInstallIntactInterestIntoInvestInviteInvolveIronIslandIsolateIssueItemIvoryJacketJaguarJarJazzJealousJeansJellyJewelJobJoinJokeJourneyJoyJudgeJuiceJumpJungleJuniorJunkJustKangarooKeenKeepKetchupKeyKickKidKidneyKindKingdomKissKitKitchenKiteKittenKiwiKneeKnifeKnockKnowLabLabelLaborLadderLadyLakeLampLanguageLaptopLargeLaterLatinLaughLaundryLavaLawLawnLawsuitLayerLazyLeaderLeafLearnLeaveLectureLeftLegLegalLegendLeisureLemonLendLengthLensLeopardLessonLetterLevelLiarLibertyLibraryLicenseLifeLiftLightLikeLimbLimitLinkLionLiquidListLittleLiveLizardLoadLoanLobsterLocalLockLogicLonelyLongLoopLotteryLoudLoungeLoveLoyalLuckyLuggageLumberLunarLunchLuxuryLyricsMachineMadMagicMagnetMaidMailMainMajorMakeMammalManManageMandateMangoMansionManualMapleMarbleMarchMarginMarineMarketMarriageMaskMassMasterMatchMaterialMathMatrixMatterMaximumMazeMeadowMeanMeasureMeatMechanicMedalMediaMelodyMeltMemberMemoryMentionMenuMercyMergeMeritMerryMeshMessageMetalMethodMiddleMidnightMilkMillionMimicMindMinimumMinorMinuteMiracleMirrorMiseryMissMistakeMixMixedMixtureMobileModelModifyMomMomentMonitorMonkeyMonsterMonthMoonMoralMoreMorningMosquitoMotherMotionMotorMountainMouseMoveMovieMuchMuffinMuleMultiplyMuscleMuseumMushroomMusicMustMutualMyselfMysteryMythNaiveNameNapkinNarrowNastyNationNatureNearNeckNeedNegativeNeglectNeitherNephewNerveNestNetNetworkNeutralNeverNewsNextNiceNightNobleNoiseNomineeNoodleNormalNorthNoseNotableNoteNothingNoticeNovelNowNuclearNumberNurseNutOakObeyObjectObligeObscureObserveObtainObviousOccurOceanOctoberOdorOffOfferOfficeOftenOilOkayOldOliveOlympicOmitOnceOneOnionOnlineOnlyOpenOperaOpinionOpposeOptionOrangeOrbitOrchardOrderOrdinaryOrganOrientOriginalOrphanOstrichOtherOutdoorOuterOutputOutsideOvalOvenOverOwnOwnerOxygenOysterOzonePactPaddlePagePairPalacePalmPandaPanelPanicPantherPaperParadeParentParkParrotPartyPassPatchPathPatientPatrolPatternPausePavePaymentPeacePeanutPearPeasantPelicanPenPenaltyPencilPeoplePepperPerfectPermitPersonPetPhonePhotoPhrasePhysicalPianoPicnicPicturePiecePigPigeonPillPilotPinkPioneerPipePistolPitchPizzaPlacePlanetPlasticPlatePlayPleasePledgePluckPlugPlungePoemPoetPointPolarPolePolicePondPonyPoolPopularPortionPositionPossiblePostPotatoPotteryPovertyPowderPowerPracticePraisePredictPreferPreparePresentPrettyPreventPricePridePrimaryPrintPriorityPrisonPrivatePrizeProblemProcessProduceProfitProgramProjectPromoteProofPropertyProsperProtectProudProvidePublicPuddingPullPulpPulsePumpkinPunchPupilPuppyPurchasePurityPurposePursePushPutPuzzlePyramidQualityQuantumQuarterQuestionQuickQuitQuizQuoteRabbitRaccoonRaceRackRadarRadioRailRainRaiseRallyRampRanchRandomRangeRapidRareRateRatherRavenRawRazorReadyRealReasonRebelRebuildRecallReceiveRecipeRecordRecycleReduceReflectReformRefuseRegionRegretRegularRejectRelaxReleaseReliefRelyRemainRememberRemindRemoveRenderRenewRentReopenRepairRepeatReplaceReportRequireRescueResembleResistResourceResponseResultRetireRetreatReturnReunionRevealReviewRewardRhythmRibRibbonRiceRichRideRidgeRifleRightRigidRingRiotRippleRiskRitualRivalRiverRoadRoastRobotRobustRocketRomanceRoofRookieRoomRoseRotateRoughRoundRouteRoyalRubberRudeRugRuleRunRunwayRuralSadSaddleSadnessSafeSailSaladSalmonSalonSaltSaluteSameSampleSandSatisfySatoshiSauceSausageSaveSayScaleScanScareScatterSceneSchemeSchoolScienceScissorsScorpionScoutScrapScreenScriptScrubSeaSearchSeasonSeatSecondSecretSectionSecuritySeedSeekSegmentSelectSellSeminarSeniorSenseSentenceSeriesServiceSessionSettleSetupSevenShadowShaftShallowShareShedShellSheriffShieldShiftShineShipShiverShockShoeShootShopShortShoulderShoveShrimpShrugShuffleShySiblingSickSideSiegeSightSignSilentSilkSillySilverSimilarSimpleSinceSingSirenSisterSituateSixSizeSkateSketchSkiSkillSkinSkirtSkullSlabSlamSleepSlenderSliceSlideSlightSlimSloganSlotSlowSlushSmallSmartSmileSmokeSmoothSnackSnakeSnapSniffSnowSoapSoccerSocialSockSodaSoftSolarSoldierSolidSolutionSolveSomeoneSongSoonSorrySortSoulSoundSoupSourceSouthSpaceSpareSpatialSpawnSpeakSpecialSpeedSpellSpendSphereSpiceSpiderSpikeSpinSpiritSplitSpoilSponsorSpoonSportSpotSpraySpreadSpringSpySquareSqueezeSquirrelStableStadiumStaffStageStairsStampStandStartStateStaySteakSteelStemStepStereoStickStillStingStockStomachStoneStoolStoryStoveStrategyStreetStrikeStrongStruggleStudentStuffStumbleStyleSubjectSubmitSubwaySuccessSuchSuddenSufferSugarSuggestSuitSummerSunSunnySunsetSuperSupplySupremeSureSurfaceSurgeSurpriseSurroundSurveySuspectSustainSwallowSwampSwapSwarmSwearSweetSwiftSwimSwingSwitchSwordSymbolSymptomSyrupSystemTableTackleTagTailTalentTalkTankTapeTargetTaskTasteTattooTaxiTeachTeamTellTenTenantTennisTentTermTestTextThankThatThemeThenTheoryThereTheyThingThisThoughtThreeThriveThrowThumbThunderTicketTideTigerTiltTimberTimeTinyTipTiredTissueTitleToastTobaccoTodayToddlerToeTogetherToiletTokenTomatoTomorrowToneTongueTonightToolToothTopTopicToppleTorchTornadoTortoiseTossTotalTouristTowardTowerTownToyTrackTradeTrafficTragicTrainTransferTrapTrashTravelTrayTreatTreeTrendTrialTribeTrickTriggerTrimTripTrophyTroubleTruckTrueTrulyTrumpetTrustTruthTryTubeTuitionTumbleTunaTunnelTurkeyTurnTurtleTwelveTwentyTwiceTwinTwistTwoTypeTypicalUglyUmbrellaUnableUnawareUncleUncoverUnderUndoUnfairUnfoldUnhappyUniformUniqueUnitUniverseUnknownUnlockUntilUnusualUnveilUpdateUpgradeUpholdUponUpperUpsetUrbanUrgeUsageUseUsedUsefulUselessUsualUtilityVacantVacuumVagueValidValleyValveVanVanishVaporVariousVastVaultVehicleVelvetVendorVentureVenueVerbVerifyVersionVeryVesselVeteranViableVibrantViciousVictoryVideoViewVillageVintageViolinVirtualVirusVisaVisitVisualVitalVividVocalVoiceVoidVolcanoVolumeVoteVoyageWageWagonWaitWalkWallWalnutWantWarfareWarmWarriorWashWaspWasteWaterWaveWayWealthWeaponWearWeaselWeatherWebWeddingWeekendWeirdWelcomeWestWetWhaleWhatWheatWheelWhenWhereWhipWhisperWideWidthWifeWildWillWinWindowWineWingWinkWinnerWinterWireWisdomWiseWishWitnessWolfWomanWonderWoodWoolWordWorkWorldWorryWorthWrapWreckWrestleWristWriteWrongYardYearYellowYouYoungYouthZebraZeroZoneZoo";
+let wordlist$1 = null;
+function loadWords$1(lang) {
+    if (wordlist$1 != null) {
+        return;
+    }
+    wordlist$1 = words$1.replace(/([A-Z])/g, " $1").toLowerCase().substring(1).split(" ");
+    // Verify the computed list matches the official list
+    /* istanbul ignore if */
+    if (Wordlist.check(lang) !== "0x3c8acc1e7b08d8e76f9fda015ef48dc8c710a73cb7e0f77b2c18a9b5a7adde60") {
+        wordlist$1 = null;
+        throw new Error("BIP39 Wordlist for en (English) FAILED");
+    }
+}
+class LangEn extends Wordlist {
+    constructor() {
+        super("en");
+    }
+    getWord(index) {
+        loadWords$1(this);
+        return wordlist$1[index];
+    }
+    getWordIndex(word) {
+        loadWords$1(this);
+        return wordlist$1.indexOf(word);
+    }
+}
 const langEn = new LangEn();
 Wordlist.register(langEn);
-const wordlists = { en: langEn };
 
-const version$g = "hdnode/5.0.4";
-const logger$j = new Logger(version$g);
+const words$2 = "A/bacoAbdomenAbejaAbiertoAbogadoAbonoAbortoAbrazoAbrirAbueloAbusoAcabarAcademiaAccesoAccio/nAceiteAcelgaAcentoAceptarA/cidoAclararAcne/AcogerAcosoActivoActoActrizActuarAcudirAcuerdoAcusarAdictoAdmitirAdoptarAdornoAduanaAdultoAe/reoAfectarAficio/nAfinarAfirmarA/gilAgitarAgoni/aAgostoAgotarAgregarAgrioAguaAgudoA/guilaAgujaAhogoAhorroAireAislarAjedrezAjenoAjusteAlacra/nAlambreAlarmaAlbaA/lbumAlcaldeAldeaAlegreAlejarAlertaAletaAlfilerAlgaAlgodo/nAliadoAlientoAlivioAlmaAlmejaAlmi/barAltarAltezaAltivoAltoAlturaAlumnoAlzarAmableAmanteAmapolaAmargoAmasarA/mbarA/mbitoAmenoAmigoAmistadAmorAmparoAmplioAnchoAncianoAnclaAndarAnde/nAnemiaA/nguloAnilloA/nimoAni/sAnotarAntenaAntiguoAntojoAnualAnularAnuncioA~adirA~ejoA~oApagarAparatoApetitoApioAplicarApodoAporteApoyoAprenderAprobarApuestaApuroAradoAra~aArarA/rbitroA/rbolArbustoArchivoArcoArderArdillaArduoA/reaA/ridoAriesArmoni/aArne/sAromaArpaArpo/nArregloArrozArrugaArteArtistaAsaAsadoAsaltoAscensoAsegurarAseoAsesorAsientoAsiloAsistirAsnoAsombroA/speroAstillaAstroAstutoAsumirAsuntoAtajoAtaqueAtarAtentoAteoA/ticoAtletaA/tomoAtraerAtrozAtu/nAudazAudioAugeAulaAumentoAusenteAutorAvalAvanceAvaroAveAvellanaAvenaAvestruzAvio/nAvisoAyerAyudaAyunoAzafra/nAzarAzoteAzu/carAzufreAzulBabaBaborBacheBahi/aBaileBajarBalanzaBalco/nBaldeBambu/BancoBandaBa~oBarbaBarcoBarnizBarroBa/sculaBasto/nBasuraBatallaBateri/aBatirBatutaBau/lBazarBebe/BebidaBelloBesarBesoBestiaBichoBienBingoBlancoBloqueBlusaBoaBobinaBoboBocaBocinaBodaBodegaBoinaBolaBoleroBolsaBombaBondadBonitoBonoBonsa/iBordeBorrarBosqueBoteBoti/nBo/vedaBozalBravoBrazoBrechaBreveBrilloBrincoBrisaBrocaBromaBronceBroteBrujaBruscoBrutoBuceoBucleBuenoBueyBufandaBufo/nBu/hoBuitreBultoBurbujaBurlaBurroBuscarButacaBuzo/nCaballoCabezaCabinaCabraCacaoCada/verCadenaCaerCafe/Cai/daCaima/nCajaCajo/nCalCalamarCalcioCaldoCalidadCalleCalmaCalorCalvoCamaCambioCamelloCaminoCampoCa/ncerCandilCanelaCanguroCanicaCantoCa~aCa~o/nCaobaCaosCapazCapita/nCapoteCaptarCapuchaCaraCarbo/nCa/rcelCaretaCargaCari~oCarneCarpetaCarroCartaCasaCascoCaseroCaspaCastorCatorceCatreCaudalCausaCazoCebollaCederCedroCeldaCe/lebreCelosoCe/lulaCementoCenizaCentroCercaCerdoCerezaCeroCerrarCertezaCe/spedCetroChacalChalecoChampu/ChanclaChapaCharlaChicoChisteChivoChoqueChozaChuletaChuparCiclo/nCiegoCieloCienCiertoCifraCigarroCimaCincoCineCintaCipre/sCircoCiruelaCisneCitaCiudadClamorClanClaroClaseClaveClienteClimaCli/nicaCobreCoccio/nCochinoCocinaCocoCo/digoCodoCofreCogerCoheteCoji/nCojoColaColchaColegioColgarColinaCollarColmoColumnaCombateComerComidaCo/modoCompraCondeConejoCongaConocerConsejoContarCopaCopiaCorazo/nCorbataCorchoCordo/nCoronaCorrerCoserCosmosCostaCra/neoCra/terCrearCrecerCrei/doCremaCri/aCrimenCriptaCrisisCromoCro/nicaCroquetaCrudoCruzCuadroCuartoCuatroCuboCubrirCucharaCuelloCuentoCuerdaCuestaCuevaCuidarCulebraCulpaCultoCumbreCumplirCunaCunetaCuotaCupo/nCu/pulaCurarCuriosoCursoCurvaCutisDamaDanzaDarDardoDa/tilDeberDe/bilDe/cadaDecirDedoDefensaDefinirDejarDelfi/nDelgadoDelitoDemoraDensoDentalDeporteDerechoDerrotaDesayunoDeseoDesfileDesnudoDestinoDesvi/oDetalleDetenerDeudaDi/aDiabloDiademaDiamanteDianaDiarioDibujoDictarDienteDietaDiezDifi/cilDignoDilemaDiluirDineroDirectoDirigirDiscoDise~oDisfrazDivaDivinoDobleDoceDolorDomingoDonDonarDoradoDormirDorsoDosDosisDrago/nDrogaDuchaDudaDueloDue~oDulceDu/oDuqueDurarDurezaDuroE/banoEbrioEcharEcoEcuadorEdadEdicio/nEdificioEditorEducarEfectoEficazEjeEjemploElefanteElegirElementoElevarElipseE/liteElixirElogioEludirEmbudoEmitirEmocio/nEmpateEmpe~oEmpleoEmpresaEnanoEncargoEnchufeEnci/aEnemigoEneroEnfadoEnfermoEnga~oEnigmaEnlaceEnormeEnredoEnsayoEnse~arEnteroEntrarEnvaseEnvi/oE/pocaEquipoErizoEscalaEscenaEscolarEscribirEscudoEsenciaEsferaEsfuerzoEspadaEspejoEspi/aEsposaEspumaEsqui/EstarEsteEstiloEstufaEtapaEternoE/ticaEtniaEvadirEvaluarEventoEvitarExactoExamenExcesoExcusaExentoExigirExilioExistirE/xitoExpertoExplicarExponerExtremoFa/bricaFa/bulaFachadaFa/cilFactorFaenaFajaFaldaFalloFalsoFaltarFamaFamiliaFamosoFarao/nFarmaciaFarolFarsaFaseFatigaFaunaFavorFaxFebreroFechaFelizFeoFeriaFerozFe/rtilFervorFesti/nFiableFianzaFiarFibraFiccio/nFichaFideoFiebreFielFieraFiestaFiguraFijarFijoFilaFileteFilialFiltroFinFincaFingirFinitoFirmaFlacoFlautaFlechaFlorFlotaFluirFlujoFlu/orFobiaFocaFogataFogo/nFolioFolletoFondoFormaForroFortunaForzarFosaFotoFracasoFra/gilFranjaFraseFraudeFrei/rFrenoFresaFri/oFritoFrutaFuegoFuenteFuerzaFugaFumarFuncio/nFundaFurgo/nFuriaFusilFu/tbolFuturoGacelaGafasGaitaGajoGalaGaleri/aGalloGambaGanarGanchoGangaGansoGarajeGarzaGasolinaGastarGatoGavila/nGemeloGemirGenGe/neroGenioGenteGeranioGerenteGermenGestoGiganteGimnasioGirarGiroGlaciarGloboGloriaGolGolfoGolosoGolpeGomaGordoGorilaGorraGotaGoteoGozarGradaGra/ficoGranoGrasaGratisGraveGrietaGrilloGripeGrisGritoGrosorGru/aGruesoGrumoGrupoGuanteGuapoGuardiaGuerraGui/aGui~oGuionGuisoGuitarraGusanoGustarHaberHa/bilHablarHacerHachaHadaHallarHamacaHarinaHazHaza~aHebillaHebraHechoHeladoHelioHembraHerirHermanoHe/roeHervirHieloHierroHi/gadoHigieneHijoHimnoHistoriaHocicoHogarHogueraHojaHombreHongoHonorHonraHoraHormigaHornoHostilHoyoHuecoHuelgaHuertaHuesoHuevoHuidaHuirHumanoHu/medoHumildeHumoHundirHuraca/nHurtoIconoIdealIdiomaI/doloIglesiaIglu/IgualIlegalIlusio/nImagenIma/nImitarImparImperioImponerImpulsoIncapazI/ndiceInerteInfielInformeIngenioInicioInmensoInmuneInnatoInsectoInstanteIntere/sI/ntimoIntuirInu/tilInviernoIraIrisIroni/aIslaIsloteJabali/Jabo/nJamo/nJarabeJardi/nJarraJaulaJazmi/nJefeJeringaJineteJornadaJorobaJovenJoyaJuergaJuevesJuezJugadorJugoJugueteJuicioJuncoJunglaJunioJuntarJu/piterJurarJustoJuvenilJuzgarKiloKoalaLabioLacioLacraLadoLadro/nLagartoLa/grimaLagunaLaicoLamerLa/minaLa/mparaLanaLanchaLangostaLanzaLa/pizLargoLarvaLa/stimaLataLa/texLatirLaurelLavarLazoLealLeccio/nLecheLectorLeerLegio/nLegumbreLejanoLenguaLentoLe~aLeo/nLeopardoLesio/nLetalLetraLeveLeyendaLibertadLibroLicorLi/derLidiarLienzoLigaLigeroLimaLi/miteLimo/nLimpioLinceLindoLi/neaLingoteLinoLinternaLi/quidoLisoListaLiteraLitioLitroLlagaLlamaLlantoLlaveLlegarLlenarLlevarLlorarLloverLluviaLoboLocio/nLocoLocuraLo/gicaLogroLombrizLomoLonjaLoteLuchaLucirLugarLujoLunaLunesLupaLustroLutoLuzMacetaMachoMaderaMadreMaduroMaestroMafiaMagiaMagoMai/zMaldadMaletaMallaMaloMama/MamboMamutMancoMandoManejarMangaManiqui/ManjarManoMansoMantaMa~anaMapaMa/quinaMarMarcoMareaMarfilMargenMaridoMa/rmolMarro/nMartesMarzoMasaMa/scaraMasivoMatarMateriaMatizMatrizMa/ximoMayorMazorcaMechaMedallaMedioMe/dulaMejillaMejorMelenaMelo/nMemoriaMenorMensajeMenteMenu/MercadoMerengueMe/ritoMesMeso/nMetaMeterMe/todoMetroMezclaMiedoMielMiembroMigaMilMilagroMilitarMillo/nMimoMinaMineroMi/nimoMinutoMiopeMirarMisaMiseriaMisilMismoMitadMitoMochilaMocio/nModaModeloMohoMojarMoldeMolerMolinoMomentoMomiaMonarcaMonedaMonjaMontoMo~oMoradaMorderMorenoMorirMorroMorsaMortalMoscaMostrarMotivoMoverMo/vilMozoMuchoMudarMuebleMuelaMuerteMuestraMugreMujerMulaMuletaMultaMundoMu~ecaMuralMuroMu/sculoMuseoMusgoMu/sicaMusloNa/carNacio/nNadarNaipeNaranjaNarizNarrarNasalNatalNativoNaturalNa/useaNavalNaveNavidadNecioNe/ctarNegarNegocioNegroNeo/nNervioNetoNeutroNevarNeveraNichoNidoNieblaNietoNi~ezNi~oNi/tidoNivelNoblezaNocheNo/minaNoriaNormaNorteNotaNoticiaNovatoNovelaNovioNubeNucaNu/cleoNudilloNudoNueraNueveNuezNuloNu/meroNutriaOasisObesoObispoObjetoObraObreroObservarObtenerObvioOcaOcasoOce/anoOchentaOchoOcioOcreOctavoOctubreOcultoOcuparOcurrirOdiarOdioOdiseaOesteOfensaOfertaOficioOfrecerOgroOi/doOi/rOjoOlaOleadaOlfatoOlivoOllaOlmoOlorOlvidoOmbligoOndaOnzaOpacoOpcio/nO/peraOpinarOponerOptarO/pticaOpuestoOracio/nOradorOralO/rbitaOrcaOrdenOrejaO/rganoOrgi/aOrgulloOrienteOrigenOrillaOroOrquestaOrugaOsadi/aOscuroOseznoOsoOstraOto~oOtroOvejaO/vuloO/xidoOxi/genoOyenteOzonoPactoPadrePaellaPa/ginaPagoPai/sPa/jaroPalabraPalcoPaletaPa/lidoPalmaPalomaPalparPanPanalPa/nicoPanteraPa~ueloPapa/PapelPapillaPaquetePararParcelaParedParirParoPa/rpadoParquePa/rrafoPartePasarPaseoPasio/nPasoPastaPataPatioPatriaPausaPautaPavoPayasoPeato/nPecadoPeceraPechoPedalPedirPegarPeinePelarPelda~oPeleaPeligroPellejoPeloPelucaPenaPensarPe~o/nPeo/nPeorPepinoPeque~oPeraPerchaPerderPerezaPerfilPericoPerlaPermisoPerroPersonaPesaPescaPe/simoPesta~aPe/taloPetro/leoPezPezu~aPicarPicho/nPiePiedraPiernaPiezaPijamaPilarPilotoPimientaPinoPintorPinzaPi~aPiojoPipaPirataPisarPiscinaPisoPistaPito/nPizcaPlacaPlanPlataPlayaPlazaPleitoPlenoPlomoPlumaPluralPobrePocoPoderPodioPoemaPoesi/aPoetaPolenPolici/aPolloPolvoPomadaPomeloPomoPompaPonerPorcio/nPortalPosadaPoseerPosiblePostePotenciaPotroPozoPradoPrecozPreguntaPremioPrensaPresoPrevioPrimoPri/ncipePrisio/nPrivarProaProbarProcesoProductoProezaProfesorProgramaProlePromesaProntoPropioPro/ximoPruebaPu/blicoPucheroPudorPuebloPuertaPuestoPulgaPulirPulmo/nPulpoPulsoPumaPuntoPu~alPu~oPupaPupilaPure/QuedarQuejaQuemarQuererQuesoQuietoQui/micaQuinceQuitarRa/banoRabiaRaboRacio/nRadicalRai/zRamaRampaRanchoRangoRapazRa/pidoRaptoRasgoRaspaRatoRayoRazaRazo/nReaccio/nRealidadReba~oReboteRecaerRecetaRechazoRecogerRecreoRectoRecursoRedRedondoReducirReflejoReformaRefra/nRefugioRegaloRegirReglaRegresoRehe/nReinoRei/rRejaRelatoRelevoRelieveRellenoRelojRemarRemedioRemoRencorRendirRentaRepartoRepetirReposoReptilResRescateResinaRespetoRestoResumenRetiroRetornoRetratoReunirReve/sRevistaReyRezarRicoRiegoRiendaRiesgoRifaRi/gidoRigorRinco/nRi~o/nRi/oRiquezaRisaRitmoRitoRizoRobleRoceRociarRodarRodeoRodillaRoerRojizoRojoRomeroRomperRonRoncoRondaRopaRoperoRosaRoscaRostroRotarRubi/RuborRudoRuedaRugirRuidoRuinaRuletaRuloRumboRumorRupturaRutaRutinaSa/badoSaberSabioSableSacarSagazSagradoSalaSaldoSaleroSalirSalmo/nSalo/nSalsaSaltoSaludSalvarSambaSancio/nSandi/aSanearSangreSanidadSanoSantoSapoSaqueSardinaSarte/nSastreSata/nSaunaSaxofo/nSeccio/nSecoSecretoSectaSedSeguirSeisSelloSelvaSemanaSemillaSendaSensorSe~alSe~orSepararSepiaSequi/aSerSerieSermo/nServirSesentaSesio/nSetaSetentaSeveroSexoSextoSidraSiestaSieteSigloSignoSi/labaSilbarSilencioSillaSi/mboloSimioSirenaSistemaSitioSituarSobreSocioSodioSolSolapaSoldadoSoledadSo/lidoSoltarSolucio/nSombraSondeoSonidoSonoroSonrisaSopaSoplarSoporteSordoSorpresaSorteoSoste/nSo/tanoSuaveSubirSucesoSudorSuegraSueloSue~oSuerteSufrirSujetoSulta/nSumarSuperarSuplirSuponerSupremoSurSurcoSure~oSurgirSustoSutilTabacoTabiqueTablaTabu/TacoTactoTajoTalarTalcoTalentoTallaTalo/nTama~oTamborTangoTanqueTapaTapeteTapiaTapo/nTaquillaTardeTareaTarifaTarjetaTarotTarroTartaTatuajeTauroTazaTazo/nTeatroTechoTeclaTe/cnicaTejadoTejerTejidoTelaTele/fonoTemaTemorTemploTenazTenderTenerTenisTensoTeori/aTerapiaTercoTe/rminoTernuraTerrorTesisTesoroTestigoTeteraTextoTezTibioTiburo/nTiempoTiendaTierraTiesoTigreTijeraTildeTimbreTi/midoTimoTintaTi/oTi/picoTipoTiraTiro/nTita/nTi/tereTi/tuloTizaToallaTobilloTocarTocinoTodoTogaToldoTomarTonoTontoToparTopeToqueTo/raxToreroTormentaTorneoToroTorpedoTorreTorsoTortugaTosToscoToserTo/xicoTrabajoTractorTraerTra/ficoTragoTrajeTramoTranceTratoTraumaTrazarTre/bolTreguaTreintaTrenTreparTresTribuTrigoTripaTristeTriunfoTrofeoTrompaTroncoTropaTroteTrozoTrucoTruenoTrufaTuberi/aTuboTuertoTumbaTumorTu/nelTu/nicaTurbinaTurismoTurnoTutorUbicarU/lceraUmbralUnidadUnirUniversoUnoUntarU~aUrbanoUrbeUrgenteUrnaUsarUsuarioU/tilUtopi/aUvaVacaVaci/oVacunaVagarVagoVainaVajillaValeVa/lidoValleValorVa/lvulaVampiroVaraVariarVaro/nVasoVecinoVectorVehi/culoVeinteVejezVelaVeleroVelozVenaVencerVendaVenenoVengarVenirVentaVenusVerVeranoVerboVerdeVeredaVerjaVersoVerterVi/aViajeVibrarVicioVi/ctimaVidaVi/deoVidrioViejoViernesVigorVilVillaVinagreVinoVi~edoVioli/nViralVirgoVirtudVisorVi/speraVistaVitaminaViudoVivazViveroVivirVivoVolca/nVolumenVolverVorazVotarVotoVozVueloVulgarYacerYateYeguaYemaYernoYesoYodoYogaYogurZafiroZanjaZapatoZarzaZonaZorroZumoZurdo";
+const lookup = {};
+let wordlist$2 = null;
+function dropDiacritic(word) {
+    logger$k.checkNormalize();
+    return toUtf8String(Array.prototype.filter.call(toUtf8Bytes(word.normalize("NFD").toLowerCase()), (c) => {
+        return ((c >= 65 && c <= 90) || (c >= 97 && c <= 123));
+    }));
+}
+function expand(word) {
+    const output = [];
+    Array.prototype.forEach.call(toUtf8Bytes(word), (c) => {
+        // Acute accent
+        if (c === 47) {
+            output.push(204);
+            output.push(129);
+            // n-tilde
+        }
+        else if (c === 126) {
+            output.push(110);
+            output.push(204);
+            output.push(131);
+        }
+        else {
+            output.push(c);
+        }
+    });
+    return toUtf8String(output);
+}
+function loadWords$2(lang) {
+    if (wordlist$2 != null) {
+        return;
+    }
+    wordlist$2 = words$2.replace(/([A-Z])/g, " $1").toLowerCase().substring(1).split(" ").map((w) => expand(w));
+    wordlist$2.forEach((word, index) => {
+        lookup[dropDiacritic(word)] = index;
+    });
+    // Verify the computed list matches the official list
+    /* istanbul ignore if */
+    if (Wordlist.check(lang) !== "0xf74fb7092aeacdfbf8959557de22098da512207fb9f109cb526994938cf40300") {
+        wordlist$2 = null;
+        throw new Error("BIP39 Wordlist for es (Spanish) FAILED");
+    }
+}
+class LangEs extends Wordlist {
+    constructor() {
+        super("es");
+    }
+    getWord(index) {
+        loadWords$2(this);
+        return wordlist$2[index];
+    }
+    getWordIndex(word) {
+        loadWords$2(this);
+        return lookup[dropDiacritic(word)];
+    }
+}
+const langEs = new LangEs();
+Wordlist.register(langEs);
+
+const words$3 = "AbaisserAbandonAbdiquerAbeilleAbolirAborderAboutirAboyerAbrasifAbreuverAbriterAbrogerAbruptAbsenceAbsoluAbsurdeAbusifAbyssalAcade/mieAcajouAcarienAccablerAccepterAcclamerAccoladeAccrocheAccuserAcerbeAchatAcheterAcidulerAcierAcompteAcque/rirAcronymeActeurActifActuelAdepteAde/quatAdhe/sifAdjectifAdjugerAdmettreAdmirerAdopterAdorerAdoucirAdresseAdroitAdulteAdverbeAe/rerAe/ronefAffaireAffecterAfficheAffreuxAffublerAgacerAgencerAgileAgiterAgraferAgre/ableAgrumeAiderAiguilleAilierAimableAisanceAjouterAjusterAlarmerAlchimieAlerteAlge-breAlgueAlie/nerAlimentAlle/gerAlliageAllouerAllumerAlourdirAlpagaAltesseAlve/oleAmateurAmbiguAmbreAme/nagerAmertumeAmidonAmiralAmorcerAmourAmovibleAmphibieAmpleurAmusantAnalyseAnaphoreAnarchieAnatomieAncienAne/antirAngleAngoisseAnguleuxAnimalAnnexerAnnonceAnnuelAnodinAnomalieAnonymeAnormalAntenneAntidoteAnxieuxApaiserApe/ritifAplanirApologieAppareilAppelerApporterAppuyerAquariumAqueducArbitreArbusteArdeurArdoiseArgentArlequinArmatureArmementArmoireArmureArpenterArracherArriverArroserArsenicArte/rielArticleAspectAsphalteAspirerAssautAsservirAssietteAssocierAssurerAsticotAstreAstuceAtelierAtomeAtriumAtroceAttaqueAttentifAttirerAttraperAubaineAubergeAudaceAudibleAugurerAuroreAutomneAutrucheAvalerAvancerAvariceAvenirAverseAveugleAviateurAvideAvionAviserAvoineAvouerAvrilAxialAxiomeBadgeBafouerBagageBaguetteBaignadeBalancerBalconBaleineBalisageBambinBancaireBandageBanlieueBannie-reBanquierBarbierBarilBaronBarqueBarrageBassinBastionBatailleBateauBatterieBaudrierBavarderBeletteBe/lierBeloteBe/ne/ficeBerceauBergerBerlineBermudaBesaceBesogneBe/tailBeurreBiberonBicycleBiduleBijouBilanBilingueBillardBinaireBiologieBiopsieBiotypeBiscuitBisonBistouriBitumeBizarreBlafardBlagueBlanchirBlessantBlinderBlondBloquerBlousonBobardBobineBoireBoiserBolideBonbonBondirBonheurBonifierBonusBordureBorneBotteBoucleBoueuxBougieBoulonBouquinBourseBoussoleBoutiqueBoxeurBrancheBrasierBraveBrebisBre-cheBreuvageBricolerBrigadeBrillantBriocheBriqueBrochureBroderBronzerBrousseBroyeurBrumeBrusqueBrutalBruyantBuffleBuissonBulletinBureauBurinBustierButinerButoirBuvableBuvetteCabanonCabineCachetteCadeauCadreCafe/ineCaillouCaissonCalculerCalepinCalibreCalmerCalomnieCalvaireCamaradeCame/raCamionCampagneCanalCanetonCanonCantineCanularCapableCaporalCapriceCapsuleCapterCapucheCarabineCarboneCaresserCaribouCarnageCarotteCarreauCartonCascadeCasierCasqueCassureCauserCautionCavalierCaverneCaviarCe/dilleCeintureCe/lesteCelluleCendrierCensurerCentralCercleCe/re/bralCeriseCernerCerveauCesserChagrinChaiseChaleurChambreChanceChapitreCharbonChasseurChatonChaussonChavirerChemiseChenilleChe/quierChercherChevalChienChiffreChignonChime-reChiotChlorureChocolatChoisirChoseChouetteChromeChuteCigareCigogneCimenterCine/maCintrerCirculerCirerCirqueCiterneCitoyenCitronCivilClaironClameurClaquerClasseClavierClientClignerClimatClivageClocheClonageCloporteCobaltCobraCocasseCocotierCoderCodifierCoffreCognerCohe/sionCoifferCoincerCole-reColibriCollineColmaterColonelCombatCome/dieCommandeCompactConcertConduireConfierCongelerConnoterConsonneContactConvexeCopainCopieCorailCorbeauCordageCornicheCorpusCorrectCorte-geCosmiqueCostumeCotonCoudeCoupureCourageCouteauCouvrirCoyoteCrabeCrainteCravateCrayonCre/atureCre/diterCre/meuxCreuserCrevetteCriblerCrierCristalCrite-reCroireCroquerCrotaleCrucialCruelCrypterCubiqueCueillirCuille-reCuisineCuivreCulminerCultiverCumulerCupideCuratifCurseurCyanureCycleCylindreCyniqueDaignerDamierDangerDanseurDauphinDe/battreDe/biterDe/borderDe/briderDe/butantDe/calerDe/cembreDe/chirerDe/ciderDe/clarerDe/corerDe/crireDe/cuplerDe/daleDe/ductifDe/esseDe/fensifDe/filerDe/frayerDe/gagerDe/givrerDe/glutirDe/graferDe/jeunerDe/liceDe/logerDemanderDemeurerDe/molirDe/nicherDe/nouerDentelleDe/nuderDe/partDe/penserDe/phaserDe/placerDe/poserDe/rangerDe/roberDe/sastreDescenteDe/sertDe/signerDe/sobe/irDessinerDestrierDe/tacherDe/testerDe/tourerDe/tresseDevancerDevenirDevinerDevoirDiableDialogueDiamantDicterDiffe/rerDige/rerDigitalDigneDiluerDimancheDiminuerDioxydeDirectifDirigerDiscuterDisposerDissiperDistanceDivertirDiviserDocileDocteurDogmeDoigtDomaineDomicileDompterDonateurDonjonDonnerDopamineDortoirDorureDosageDoseurDossierDotationDouanierDoubleDouceurDouterDoyenDragonDraperDresserDribblerDroitureDuperieDuplexeDurableDurcirDynastieE/blouirE/carterE/charpeE/chelleE/clairerE/clipseE/cloreE/cluseE/coleE/conomieE/corceE/couterE/craserE/cre/merE/crivainE/crouE/cumeE/cureuilE/difierE/duquerEffacerEffectifEffigieEffortEffrayerEffusionE/galiserE/garerE/jecterE/laborerE/largirE/lectronE/le/gantE/le/phantE/le-veE/ligibleE/litismeE/logeE/luciderE/luderEmballerEmbellirEmbryonE/meraudeE/missionEmmenerE/motionE/mouvoirEmpereurEmployerEmporterEmpriseE/mulsionEncadrerEnche-reEnclaveEncocheEndiguerEndosserEndroitEnduireE/nergieEnfanceEnfermerEnfouirEngagerEnginEngloberE/nigmeEnjamberEnjeuEnleverEnnemiEnnuyeuxEnrichirEnrobageEnseigneEntasserEntendreEntierEntourerEntraverE/nume/rerEnvahirEnviableEnvoyerEnzymeE/olienE/paissirE/pargneE/patantE/pauleE/picerieE/pide/mieE/pierE/pilogueE/pineE/pisodeE/pitapheE/poqueE/preuveE/prouverE/puisantE/querreE/quipeE/rigerE/rosionErreurE/ruptionEscalierEspadonEspe-ceEspie-gleEspoirEspritEsquiverEssayerEssenceEssieuEssorerEstimeEstomacEstradeE/tage-reE/talerE/tancheE/tatiqueE/teindreE/tendoirE/ternelE/thanolE/thiqueEthnieE/tirerE/tofferE/toileE/tonnantE/tourdirE/trangeE/troitE/tudeEuphorieE/valuerE/vasionE/ventailE/videnceE/viterE/volutifE/voquerExactExage/rerExaucerExcellerExcitantExclusifExcuseExe/cuterExempleExercerExhalerExhorterExigenceExilerExisterExotiqueExpe/dierExplorerExposerExprimerExquisExtensifExtraireExulterFableFabuleuxFacetteFacileFactureFaiblirFalaiseFameuxFamilleFarceurFarfeluFarineFaroucheFascinerFatalFatigueFauconFautifFaveurFavoriFe/brileFe/conderFe/de/rerFe/linFemmeFe/murFendoirFe/odalFermerFe/roceFerveurFestivalFeuilleFeutreFe/vrierFiascoFicelerFictifFide-leFigureFilatureFiletageFilie-reFilleulFilmerFilouFiltrerFinancerFinirFioleFirmeFissureFixerFlairerFlammeFlasqueFlatteurFle/auFle-cheFleurFlexionFloconFloreFluctuerFluideFluvialFolieFonderieFongibleFontaineForcerForgeronFormulerFortuneFossileFoudreFouge-reFouillerFoulureFourmiFragileFraiseFranchirFrapperFrayeurFre/gateFreinerFrelonFre/mirFre/ne/sieFre-reFriableFrictionFrissonFrivoleFroidFromageFrontalFrotterFruitFugitifFuiteFureurFurieuxFurtifFusionFuturGagnerGalaxieGalerieGambaderGarantirGardienGarnirGarrigueGazelleGazonGe/antGe/latineGe/luleGendarmeGe/ne/ralGe/nieGenouGentilGe/ologieGe/ome-treGe/raniumGermeGestuelGeyserGibierGiclerGirafeGivreGlaceGlaiveGlisserGlobeGloireGlorieuxGolfeurGommeGonflerGorgeGorilleGoudronGouffreGoulotGoupilleGourmandGoutteGraduelGraffitiGraineGrandGrappinGratuitGravirGrenatGriffureGrillerGrimperGrognerGronderGrotteGroupeGrugerGrutierGruye-reGue/pardGuerrierGuideGuimauveGuitareGustatifGymnasteGyrostatHabitudeHachoirHalteHameauHangarHannetonHaricotHarmonieHarponHasardHe/liumHe/matomeHerbeHe/rissonHermineHe/ronHe/siterHeureuxHibernerHibouHilarantHistoireHiverHomardHommageHomoge-neHonneurHonorerHonteuxHordeHorizonHorlogeHormoneHorribleHouleuxHousseHublotHuileuxHumainHumbleHumideHumourHurlerHydromelHygie-neHymneHypnoseIdylleIgnorerIguaneIlliciteIllusionImageImbiberImiterImmenseImmobileImmuableImpactImpe/rialImplorerImposerImprimerImputerIncarnerIncendieIncidentInclinerIncoloreIndexerIndiceInductifIne/ditIneptieInexactInfiniInfligerInformerInfusionInge/rerInhalerInhiberInjecterInjureInnocentInoculerInonderInscrireInsecteInsigneInsoliteInspirerInstinctInsulterIntactIntenseIntimeIntrigueIntuitifInutileInvasionInventerInviterInvoquerIroniqueIrradierIrre/elIrriterIsolerIvoireIvresseJaguarJaillirJambeJanvierJardinJaugerJauneJavelotJetableJetonJeudiJeunesseJoindreJoncherJonglerJoueurJouissifJournalJovialJoyauJoyeuxJubilerJugementJuniorJuponJuristeJusticeJuteuxJuve/nileKayakKimonoKiosqueLabelLabialLabourerLace/rerLactoseLaguneLaineLaisserLaitierLambeauLamelleLampeLanceurLangageLanterneLapinLargeurLarmeLaurierLavaboLavoirLectureLe/galLe/gerLe/gumeLessiveLettreLevierLexiqueLe/zardLiasseLibe/rerLibreLicenceLicorneLie-geLie-vreLigatureLigoterLigueLimerLimiteLimonadeLimpideLine/aireLingotLionceauLiquideLisie-reListerLithiumLitigeLittoralLivreurLogiqueLointainLoisirLombricLoterieLouerLourdLoutreLouveLoyalLubieLucideLucratifLueurLugubreLuisantLumie-reLunaireLundiLuronLutterLuxueuxMachineMagasinMagentaMagiqueMaigreMaillonMaintienMairieMaisonMajorerMalaxerMale/ficeMalheurMaliceMalletteMammouthMandaterManiableManquantManteauManuelMarathonMarbreMarchandMardiMaritimeMarqueurMarronMartelerMascotteMassifMate/rielMatie-reMatraqueMaudireMaussadeMauveMaximalMe/chantMe/connuMe/dailleMe/decinMe/diterMe/duseMeilleurMe/langeMe/lodieMembreMe/moireMenacerMenerMenhirMensongeMentorMercrediMe/riteMerleMessagerMesureMe/talMe/te/oreMe/thodeMe/tierMeubleMiaulerMicrobeMietteMignonMigrerMilieuMillionMimiqueMinceMine/ralMinimalMinorerMinuteMiracleMiroiterMissileMixteMobileModerneMoelleuxMondialMoniteurMonnaieMonotoneMonstreMontagneMonumentMoqueurMorceauMorsureMortierMoteurMotifMoucheMoufleMoulinMoussonMoutonMouvantMultipleMunitionMurailleMure-neMurmureMuscleMuse/umMusicienMutationMuterMutuelMyriadeMyrtilleMyste-reMythiqueNageurNappeNarquoisNarrerNatationNationNatureNaufrageNautiqueNavireNe/buleuxNectarNe/fasteNe/gationNe/gligerNe/gocierNeigeNerveuxNettoyerNeuroneNeutronNeveuNicheNickelNitrateNiveauNobleNocifNocturneNoirceurNoisetteNomadeNombreuxNommerNormatifNotableNotifierNotoireNourrirNouveauNovateurNovembreNoviceNuageNuancerNuireNuisibleNume/roNuptialNuqueNutritifObe/irObjectifObligerObscurObserverObstacleObtenirObturerOccasionOccuperOce/anOctobreOctroyerOctuplerOculaireOdeurOdorantOffenserOfficierOffrirOgiveOiseauOisillonOlfactifOlivierOmbrageOmettreOnctueuxOndulerOne/reuxOniriqueOpaleOpaqueOpe/rerOpinionOpportunOpprimerOpterOptiqueOrageuxOrangeOrbiteOrdonnerOreilleOrganeOrgueilOrificeOrnementOrqueOrtieOscillerOsmoseOssatureOtarieOuraganOursonOutilOutragerOuvrageOvationOxydeOxyge-neOzonePaisiblePalacePalmare-sPalourdePalperPanachePandaPangolinPaniquerPanneauPanoramaPantalonPapayePapierPapoterPapyrusParadoxeParcelleParesseParfumerParlerParoleParrainParsemerPartagerParureParvenirPassionPaste-quePaternelPatiencePatronPavillonPavoiserPayerPaysagePeignePeintrePelagePe/licanPellePelousePeluchePendulePe/ne/trerPe/niblePensifPe/nuriePe/pitePe/plumPerdrixPerforerPe/riodePermuterPerplexePersilPertePeserPe/talePetitPe/trirPeuplePharaonPhobiePhoquePhotonPhrasePhysiquePianoPicturalPie-cePierrePieuvrePilotePinceauPipettePiquerPiroguePiscinePistonPivoterPixelPizzaPlacardPlafondPlaisirPlanerPlaquePlastronPlateauPleurerPlexusPliagePlombPlongerPluiePlumagePochettePoe/siePoe-tePointePoirierPoissonPoivrePolairePolicierPollenPolygonePommadePompierPonctuelPonde/rerPoneyPortiquePositionPosse/derPosturePotagerPoteauPotionPoucePoulainPoumonPourprePoussinPouvoirPrairiePratiquePre/cieuxPre/direPre/fixePre/ludePre/nomPre/sencePre/textePre/voirPrimitifPrincePrisonPriverProble-meProce/derProdigeProfondProgre-sProieProjeterProloguePromenerPropreProspe-reProte/gerProuesseProverbePrudencePruneauPsychosePublicPuceronPuiserPulpePulsarPunaisePunitifPupitrePurifierPuzzlePyramideQuasarQuerelleQuestionQuie/tudeQuitterQuotientRacineRaconterRadieuxRagondinRaideurRaisinRalentirRallongeRamasserRapideRasageRatisserRavagerRavinRayonnerRe/actifRe/agirRe/aliserRe/animerRecevoirRe/citerRe/clamerRe/colterRecruterReculerRecyclerRe/digerRedouterRefaireRe/flexeRe/formerRefrainRefugeRe/galienRe/gionRe/glageRe/gulierRe/ite/rerRejeterRejouerRelatifReleverReliefRemarqueReme-deRemiseRemonterRemplirRemuerRenardRenfortReniflerRenoncerRentrerRenvoiReplierReporterRepriseReptileRequinRe/serveRe/sineuxRe/soudreRespectResterRe/sultatRe/tablirRetenirRe/ticuleRetomberRetracerRe/unionRe/ussirRevancheRevivreRe/volteRe/vulsifRichesseRideauRieurRigideRigolerRincerRiposterRisibleRisqueRituelRivalRivie-reRocheuxRomanceRompreRonceRondinRoseauRosierRotatifRotorRotuleRougeRouilleRouleauRoutineRoyaumeRubanRubisRucheRuelleRugueuxRuinerRuisseauRuserRustiqueRythmeSablerSaboterSabreSacocheSafariSagesseSaisirSaladeSaliveSalonSaluerSamediSanctionSanglierSarcasmeSardineSaturerSaugrenuSaumonSauterSauvageSavantSavonnerScalpelScandaleSce/le/ratSce/narioSceptreSche/maScienceScinderScoreScrutinSculpterSe/anceSe/cableSe/cherSecouerSe/cre/terSe/datifSe/duireSeigneurSe/jourSe/lectifSemaineSemblerSemenceSe/minalSe/nateurSensibleSentenceSe/parerSe/quenceSereinSergentSe/rieuxSerrureSe/rumServiceSe/sameSe/virSevrageSextupleSide/ralSie-cleSie/gerSifflerSigleSignalSilenceSiliciumSimpleSince-reSinistreSiphonSiropSismiqueSituerSkierSocialSocleSodiumSoigneuxSoldatSoleilSolitudeSolubleSombreSommeilSomnolerSondeSongeurSonnetteSonoreSorcierSortirSosieSottiseSoucieuxSoudureSouffleSouleverSoupapeSourceSoutirerSouvenirSpacieuxSpatialSpe/cialSphe-reSpiralStableStationSternumStimulusStipulerStrictStudieuxStupeurStylisteSublimeSubstratSubtilSubvenirSucce-sSucreSuffixeSugge/rerSuiveurSulfateSuperbeSupplierSurfaceSuricateSurmenerSurpriseSursautSurvieSuspectSyllabeSymboleSyme/trieSynapseSyntaxeSyste-meTabacTablierTactileTaillerTalentTalismanTalonnerTambourTamiserTangibleTapisTaquinerTarderTarifTartineTasseTatamiTatouageTaupeTaureauTaxerTe/moinTemporelTenailleTendreTeneurTenirTensionTerminerTerneTerribleTe/tineTexteThe-meThe/orieThe/rapieThoraxTibiaTie-deTimideTirelireTiroirTissuTitaneTitreTituberTobogganTole/rantTomateToniqueTonneauToponymeTorcheTordreTornadeTorpilleTorrentTorseTortueTotemToucherTournageTousserToxineTractionTraficTragiqueTrahirTrainTrancherTravailTre-fleTremperTre/sorTreuilTriageTribunalTricoterTrilogieTriompheTriplerTriturerTrivialTromboneTroncTropicalTroupeauTuileTulipeTumulteTunnelTurbineTuteurTutoyerTuyauTympanTyphonTypiqueTyranUbuesqueUltimeUltrasonUnanimeUnifierUnionUniqueUnitaireUniversUraniumUrbainUrticantUsageUsineUsuelUsureUtileUtopieVacarmeVaccinVagabondVagueVaillantVaincreVaisseauValableValiseVallonValveVampireVanilleVapeurVarierVaseuxVassalVasteVecteurVedetteVe/ge/talVe/hiculeVeinardVe/loceVendrediVe/ne/rerVengerVenimeuxVentouseVerdureVe/rinVernirVerrouVerserVertuVestonVe/te/ranVe/tusteVexantVexerViaducViandeVictoireVidangeVide/oVignetteVigueurVilainVillageVinaigreViolonVipe-reVirementVirtuoseVirusVisageViseurVisionVisqueuxVisuelVitalVitesseViticoleVitrineVivaceVivipareVocationVoguerVoileVoisinVoitureVolailleVolcanVoltigerVolumeVoraceVortexVoterVouloirVoyageVoyelleWagonXe/nonYachtZe-breZe/nithZesteZoologie";
+let wordlist$3 = null;
+const lookup$1 = {};
+function dropDiacritic$1(word) {
+    logger$k.checkNormalize();
+    return toUtf8String(Array.prototype.filter.call(toUtf8Bytes(word.normalize("NFD").toLowerCase()), (c) => {
+        return ((c >= 65 && c <= 90) || (c >= 97 && c <= 123));
+    }));
+}
+function expand$1(word) {
+    const output = [];
+    Array.prototype.forEach.call(toUtf8Bytes(word), (c) => {
+        // Acute accent
+        if (c === 47) {
+            output.push(204);
+            output.push(129);
+            // Grave accent
+        }
+        else if (c === 45) {
+            output.push(204);
+            output.push(128);
+        }
+        else {
+            output.push(c);
+        }
+    });
+    return toUtf8String(output);
+}
+function loadWords$3(lang) {
+    if (wordlist$3 != null) {
+        return;
+    }
+    wordlist$3 = words$3.replace(/([A-Z])/g, " $1").toLowerCase().substring(1).split(" ").map((w) => expand$1(w));
+    wordlist$3.forEach((word, index) => {
+        lookup$1[dropDiacritic$1(word)] = index;
+    });
+    // Verify the computed list matches the official list
+    /* istanbul ignore if */
+    if (Wordlist.check(lang) !== "0x51deb7ae009149dc61a6bd18a918eb7ac78d2775726c68e598b92d002519b045") {
+        wordlist$3 = null;
+        throw new Error("BIP39 Wordlist for fr (French) FAILED");
+    }
+}
+class LangFr extends Wordlist {
+    constructor() {
+        super("fr");
+    }
+    getWord(index) {
+        loadWords$3(this);
+        return wordlist$3[index];
+    }
+    getWordIndex(word) {
+        loadWords$3(this);
+        return lookup$1[dropDiacritic$1(word)];
+    }
+}
+const langFr = new LangFr();
+Wordlist.register(langFr);
+
+const data = [
+    // 4-kana words
+    "AQRASRAGBAGUAIRAHBAghAURAdBAdcAnoAMEAFBAFCBKFBQRBSFBCXBCDBCHBGFBEQBpBBpQBIkBHNBeOBgFBVCBhBBhNBmOBmRBiHBiFBUFBZDBvFBsXBkFBlcBjYBwDBMBBTBBTRBWBBWXXaQXaRXQWXSRXCFXYBXpHXOQXHRXhRXuRXmXXbRXlXXwDXTRXrCXWQXWGaBWaKcaYgasFadQalmaMBacAKaRKKBKKXKKjKQRKDRKCYKCRKIDKeVKHcKlXKjHKrYNAHNBWNaRNKcNIBNIONmXNsXNdXNnBNMBNRBNrXNWDNWMNFOQABQAHQBrQXBQXFQaRQKXQKDQKOQKFQNBQNDQQgQCXQCDQGBQGDQGdQYXQpBQpQQpHQLXQHuQgBQhBQhCQuFQmXQiDQUFQZDQsFQdRQkHQbRQlOQlmQPDQjDQwXQMBQMDQcFQTBQTHQrDDXQDNFDGBDGQDGRDpFDhFDmXDZXDbRDMYDRdDTRDrXSAhSBCSBrSGQSEQSHBSVRShYShkSyQSuFSiBSdcSoESocSlmSMBSFBSFKSFNSFdSFcCByCaRCKcCSBCSRCCrCGbCEHCYXCpBCpQCIBCIHCeNCgBCgFCVECVcCmkCmwCZXCZFCdRClOClmClFCjDCjdCnXCwBCwXCcRCFQCFjGXhGNhGDEGDMGCDGCHGIFGgBGVXGVEGVRGmXGsXGdYGoSGbRGnXGwXGwDGWRGFNGFLGFOGFdGFkEABEBDEBFEXOEaBEKSENBENDEYXEIgEIkEgBEgQEgHEhFEudEuFEiBEiHEiFEZDEvBEsXEsFEdXEdREkFEbBEbRElFEPCEfkEFNYAEYAhYBNYQdYDXYSRYCEYYoYgQYgRYuRYmCYZTYdBYbEYlXYjQYRbYWRpKXpQopQnpSFpCXpIBpISphNpdBpdRpbRpcZpFBpFNpFDpFopFrLADLBuLXQLXcLaFLCXLEhLpBLpFLHXLeVLhILdHLdRLoDLbRLrXIABIBQIBCIBsIBoIBMIBRIXaIaRIKYIKRINBINuICDIGBIIDIIkIgRIxFIyQIiHIdRIbYIbRIlHIwRIMYIcRIRVITRIFBIFNIFQOABOAFOBQOaFONBONMOQFOSFOCDOGBOEQOpBOLXOIBOIFOgQOgFOyQOycOmXOsXOdIOkHOMEOMkOWWHBNHXNHXWHNXHDuHDRHSuHSRHHoHhkHmRHdRHkQHlcHlRHwBHWcgAEgAggAkgBNgBQgBEgXOgYcgLXgHjgyQgiBgsFgdagMYgWSgFQgFEVBTVXEVKBVKNVKDVKYVKRVNBVNYVDBVDxVSBVSRVCjVGNVLXVIFVhBVhcVsXVdRVbRVlRhBYhKYhDYhGShxWhmNhdahdkhbRhjohMXhTRxAXxXSxKBxNBxEQxeNxeQxhXxsFxdbxlHxjcxFBxFNxFQxFOxFoyNYyYoybcyMYuBQuBRuBruDMuCouHBudQukkuoBulVuMXuFEmCYmCRmpRmeDmiMmjdmTFmFQiADiBOiaRiKRiNBiNRiSFiGkiGFiERipRiLFiIFihYibHijBijEiMXiWBiFBiFCUBQUXFUaRUNDUNcUNRUNFUDBUSHUCDUGBUGFUEqULNULoUIRUeEUeYUgBUhFUuRUiFUsXUdFUkHUbBUjSUjYUwXUMDUcHURdUTBUrBUrXUrQZAFZXZZaRZKFZNBZQFZCXZGBZYdZpBZLDZIFZHXZHNZeQZVRZVFZmXZiBZvFZdFZkFZbHZbFZwXZcCZcRZRBvBQvBGvBLvBWvCovMYsAFsBDsaRsKFsNFsDrsSHsSFsCXsCRsEBsEHsEfspBsLBsLDsIgsIRseGsbRsFBsFQsFSdNBdSRdCVdGHdYDdHcdVbdySduDdsXdlRdwXdWYdWcdWRkBMkXOkaRkNIkNFkSFkCFkYBkpRkeNkgBkhVkmXksFklVkMBkWDkFNoBNoaQoaFoNBoNXoNaoNEoSRoEroYXoYCoYbopRopFomXojkowXorFbBEbEIbdBbjYlaRlDElMXlFDjKjjSRjGBjYBjYkjpRjLXjIBjOFjeVjbRjwBnXQnSHnpFnLXnINnMBnTRwXBwXNwXYwNFwQFwSBwGFwLXwLDweNwgBwuHwjDwnXMBXMpFMIBMeNMTHcaQcNBcDHcSFcCXcpBcLXcLDcgFcuFcnXcwXccDcTQcrFTQErXNrCHrpFrgFrbFrTHrFcWNYWNbWEHWMXWTR",
+    // 5-kana words
+    "ABGHABIJAEAVAYJQALZJAIaRAHNXAHdcAHbRAZJMAZJRAZTRAdVJAklmAbcNAjdRAMnRAMWYAWpRAWgRAFgBAFhBAFdcBNJBBNJDBQKBBQhcBQlmBDEJBYJkBYJTBpNBBpJFBIJBBIJDBIcABOKXBOEJBOVJBOiJBOZJBepBBeLXBeIFBegBBgGJBVJXBuocBiJRBUJQBlXVBlITBwNFBMYVBcqXBTlmBWNFBWiJBWnRBFGHBFwXXKGJXNJBXNZJXDTTXSHSXSVRXSlHXCJDXGQJXEhXXYQJXYbRXOfXXeNcXVJFXhQJXhEJXdTRXjdXXMhBXcQTXRGBXTEBXTnQXFCXXFOFXFgFaBaFaBNJaBCJaBpBaBwXaNJKaNJDaQIBaDpRaEPDaHMFamDJalEJaMZJaFaFaFNBaFQJaFLDaFVHKBCYKBEBKBHDKXaFKXGdKXEJKXpHKXIBKXZDKXwXKKwLKNacKNYJKNJoKNWcKDGdKDTRKChXKGaRKGhBKGbRKEBTKEaRKEPTKLMDKLWRKOHDKVJcKdBcKlIBKlOPKFSBKFEPKFpFNBNJNJBQNBGHNBEPNBHXNBgFNBVXNBZDNBsXNBwXNNaRNNJDNNJENNJkNDCJNDVDNGJRNJiDNZJNNsCJNJFNNFSBNFCXNFEPNFLXNFIFQJBFQCaRQJEQQLJDQLJFQIaRQOqXQHaFQHHQQVJXQVJDQhNJQmEIQZJFQsJXQJrFQWbRDJABDBYJDXNFDXCXDXLXDXZDDXsJDQqXDSJFDJCXDEPkDEqXDYmQDpSJDOCkDOGQDHEIDVJDDuDuDWEBDJFgSBNDSBSFSBGHSBIBSBTQSKVYSJQNSJQiSJCXSEqXSJYVSIiJSOMYSHAHSHaQSeCFSepQSegBSHdHSHrFShSJSJuHSJUFSkNRSrSrSWEBSFaHSJFQSFCXSFGDSFYXSFODSFgBSFVXSFhBSFxFSFkFSFbBSFMFCADdCJXBCXaFCXKFCXNFCXCXCXGBCXEJCXYBCXLDCXIBCXOPCXHXCXgBCXhBCXiBCXlDCXcHCJNBCJNFCDCJCDGBCDVXCDhBCDiDCDJdCCmNCpJFCIaRCOqXCHCHCHZJCViJCuCuCmddCJiFCdNBCdHhClEJCnUJCreSCWlgCWTRCFBFCFNBCFYBCFVFCFhFCFdSCFTBCFWDGBNBGBQFGJBCGBEqGBpBGBgQGNBEGNJYGNkOGNJRGDUFGJpQGHaBGJeNGJeEGVBlGVKjGiJDGvJHGsVJGkEBGMIJGWjNGFBFGFCXGFGBGFYXGFpBGFMFEASJEAWpEJNFECJVEIXSEIQJEOqXEOcFEeNcEHEJEHlFEJgFEhlmEmDJEmZJEiMBEUqXEoSREPBFEPXFEPKFEPSFEPEFEPpFEPLXEPIBEJPdEPcFEPTBEJnXEqlHEMpREFCXEFODEFcFYASJYJAFYBaBYBVXYXpFYDhBYCJBYJGFYYbRYeNcYJeVYiIJYZJcYvJgYvJRYJsXYsJFYMYMYreVpBNHpBEJpBwXpQxFpYEJpeNDpJeDpeSFpeCHpHUJpHbBpHcHpmUJpiiJpUJrpsJuplITpFaBpFQqpFGBpFEfpFYBpFpBpFLJpFIDpFgBpFVXpFyQpFuFpFlFpFjDpFnXpFwXpJFMpFTBLXCJLXEFLXhFLXUJLXbFLalmLNJBLSJQLCLCLGJBLLDJLHaFLeNFLeSHLeCXLepFLhaRLZsJLsJDLsJrLocaLlLlLMdbLFNBLFSBLFEHLFkFIBBFIBXFIBaQIBKXIBSFIBpHIBLXIBgBIBhBIBuHIBmXIBiFIBZXIBvFIBbFIBjQIBwXIBWFIKTRIQUJIDGFICjQIYSRIINXIJeCIVaRImEkIZJFIvJRIsJXIdCJIJoRIbBQIjYBIcqXITFVIreVIFKFIFSFIFCJIFGFIFLDIFIBIJFOIFgBIFVXIJFhIFxFIFmXIFdHIFbBIJFrIJFWOBGBOQfXOOKjOUqXOfXBOqXEOcqXORVJOFIBOFlDHBIOHXiFHNTRHCJXHIaRHHJDHHEJHVbRHZJYHbIBHRsJHRkDHWlmgBKFgBSBgBCDgBGHgBpBgBIBgBVJgBuBgBvFgKDTgQVXgDUJgGSJgOqXgmUMgZIJgTUJgWIEgFBFgFNBgFDJgFSFgFGBgFYXgJFOgFgQgFVXgFhBgFbHgJFWVJABVQKcVDgFVOfXVeDFVhaRVmGdViJYVMaRVFNHhBNDhBCXhBEqhBpFhBLXhNJBhSJRheVXhhKEhxlmhZIJhdBQhkIJhbMNhMUJhMZJxNJgxQUJxDEkxDdFxSJRxplmxeSBxeCXxeGFxeYXxepQxegBxWVcxFEQxFLXxFIBxFgBxFxDxFZtxFdcxFbBxFwXyDJXyDlcuASJuDJpuDIBuCpJuGSJuIJFueEFuZIJusJXudWEuoIBuWGJuFBcuFKEuFNFuFQFuFDJuFGJuFVJuFUtuFdHuFTBmBYJmNJYmQhkmLJDmLJomIdXmiJYmvJRmsJRmklmmMBymMuCmclmmcnQiJABiJBNiJBDiBSFiBCJiBEFiBYBiBpFiBLXiBTHiJNciDEfiCZJiECJiJEqiOkHiHKFieNDiHJQieQcieDHieSFieCXieGFieEFieIHiegFihUJixNoioNXiFaBiFKFiFNDiFEPiFYXitFOitFHiFgBiFVEiFmXiFitiFbBiFMFiFrFUCXQUIoQUIJcUHQJUeCEUHwXUUJDUUqXUdWcUcqXUrnQUFNDUFSHUFCFUFEfUFLXUtFOZBXOZXSBZXpFZXVXZEQJZEJkZpDJZOqXZeNHZeCDZUqXZFBQZFEHZFLXvBAFvBKFvBCXvBEPvBpHvBIDvBgFvBuHvQNJvFNFvFGBvFIBvJFcsXCDsXLXsXsXsXlFsXcHsQqXsJQFsEqXseIFsFEHsFjDdBxOdNpRdNJRdEJbdpJRdhZJdnSJdrjNdFNJdFQHdFhNkNJDkYaRkHNRkHSRkVbRkuMRkjSJkcqDoSJFoEiJoYZJoOfXohEBoMGQocqXbBAFbBXFbBaFbBNDbBGBbBLXbBTBbBWDbGJYbIJHbFQqbFpQlDgQlOrFlVJRjGEBjZJRnXvJnXbBnEfHnOPDngJRnxfXnUJWwXEJwNpJwDpBwEfXwrEBMDCJMDGHMDIJMLJDcQGDcQpHcqXccqNFcqCXcFCJRBSBRBGBRBEJRBpQTBNFTBQJTBpBTBVXTFABTFSBTFCFTFGBTFMDrXCJrXLDrDNJrEfHrFQJrFitWNjdWNTR",
+    // 6-kana words
+    "AKLJMANOPFASNJIAEJWXAYJNRAIIbRAIcdaAeEfDAgidRAdjNYAMYEJAMIbRAFNJBAFpJFBBIJYBDZJFBSiJhBGdEBBEJfXBEJqXBEJWRBpaUJBLXrXBIYJMBOcfXBeEfFBestXBjNJRBcDJOBFEqXXNvJRXDMBhXCJNYXOAWpXONJWXHDEBXeIaRXhYJDXZJSJXMDJOXcASJXFVJXaBQqXaBZJFasXdQaFSJQaFEfXaFpJHaFOqXKBNSRKXvJBKQJhXKEJQJKEJGFKINJBKIJjNKgJNSKVElmKVhEBKiJGFKlBgJKjnUJKwsJYKMFIJKFNJDKFIJFKFOfXNJBSFNJBCXNBpJFNJBvQNJBMBNJLJXNJOqXNJeCXNJeGFNdsJCNbTKFNwXUJQNFEPQDiJcQDMSJQSFpBQGMQJQJeOcQyCJEQUJEBQJFBrQFEJqDXDJFDJXpBDJXIMDGiJhDIJGRDJeYcDHrDJDVXgFDkAWpDkIgRDjDEqDMvJRDJFNFDJFIBSKclmSJQOFSJQVHSJQjDSJGJBSJGJFSECJoSHEJqSJHTBSJVJDSViJYSZJNBSJsJDSFSJFSFEfXSJFLXCBUJVCJXSBCJXpBCXVJXCJXsXCJXdFCJNJHCLIJgCHiJFCVNJMChCJhCUHEJCsJTRCJdYcCoQJCCFEfXCFIJgCFUJxCFstFGJBaQGJBIDGQJqXGYJNRGJHKFGeQqDGHEJFGJeLXGHIiJGHdBlGUJEBGkIJTGFQPDGJFEqEAGegEJIJBEJVJXEhQJTEiJNcEJZJFEJoEqEjDEqEPDsXEPGJBEPOqXEPeQFEfDiDEJfEFEfepQEfMiJEqXNBEqDIDEqeSFEqVJXEMvJRYXNJDYXEJHYKVJcYYJEBYJeEcYJUqXYFpJFYFstXpAZJMpBSJFpNBNFpeQPDpHLJDpHIJFpHgJFpeitFpHZJFpJFADpFSJFpJFCJpFOqXpFitBpJFZJLXIJFLIJgRLVNJWLVHJMLwNpJLFGJBLFLJDLFOqXLJFUJIBDJXIBGJBIJBYQIJBIBIBOqXIBcqDIEGJFILNJTIIJEBIOiJhIJeNBIJeIBIhiJIIWoTRIJFAHIJFpBIJFuHIFUtFIJFTHOSBYJOEcqXOHEJqOvBpFOkVJrObBVJOncqDOcNJkHhNJRHuHJuHdMhBgBUqXgBsJXgONJBgHNJDgHHJQgJeitgHsJXgJyNagyDJBgZJDrgsVJQgkEJNgkjSJgJFAHgFCJDgFZtMVJXNFVXQfXVJXDJVXoQJVQVJQVDEfXVDvJHVEqNFVeQfXVHpJFVHxfXVVJSRVVmaRVlIJOhCXVJhHjYkhxCJVhWVUJhWiJcxBNJIxeEqDxfXBFxcFEPxFSJFxFYJXyBDQJydaUJyFOPDuYCJYuLvJRuHLJXuZJLDuFOPDuFZJHuFcqXmKHJdmCQJcmOsVJiJAGFitLCFieOfXiestXiZJMEikNJQirXzFiFQqXiFIJFiFZJFiFvtFUHpJFUteIcUteOcUVCJkUhdHcUbEJEUJqXQUMNJhURjYkUFitFZDGJHZJIxDZJVJXZJFDJZJFpQvBNJBvBSJFvJxBrseQqDsVFVJdFLJDkEJNBkmNJYkFLJDoQJOPoGsJRoEAHBoEJfFbBQqDbBZJHbFVJXlFIJBjYIrXjeitcjjCEBjWMNBwXQfXwXOaFwDsJXwCJTRwrCZJMDNJQcDDJFcqDOPRYiJFTBsJXTQIJBTFEfXTFLJDrXEJFrEJXMrFZJFWEJdEWYTlm",
+    // 7-kana words
+    "ABCDEFACNJTRAMBDJdAcNJVXBLNJEBXSIdWRXErNJkXYDJMBXZJCJaXMNJaYKKVJKcKDEJqXKDcNJhKVJrNYKbgJVXKFVJSBNBYBwDNJeQfXNJeEqXNhGJWENJFiJRQlIJbEQJfXxDQqXcfXQFNDEJQFwXUJDYcnUJDJIBgQDIUJTRDJFEqDSJQSJFSJQIJFSOPeZtSJFZJHCJXQfXCTDEqFGJBSJFGJBOfXGJBcqXGJHNJDGJRLiJEJfXEqEJFEJPEFpBEJYJBZJFYBwXUJYiJMEBYJZJyTYTONJXpQMFXFpeGIDdpJFstXpJFcPDLBVSJRLHQJqXLJFZJFIJBNJDIJBUqXIBkFDJIJEJPTIYJGWRIJeQPDIJeEfHIJFsJXOqGDSFHXEJqXgJCsJCgGQJqXgdQYJEgFMFNBgJFcqDVJwXUJVJFZJchIgJCCxOEJqXxOwXUJyDJBVRuscisciJBiJBieUtqXiJFDJkiFsJXQUGEZJcUJFsJXZtXIrXZDZJDrZJFNJDZJFstXvJFQqXvJFCJEsJXQJqkhkNGBbDJdTRbYJMEBlDwXUJMEFiJFcfXNJDRcNJWMTBLJXC",
+    // 8-kana words
+    "BraFUtHBFSJFdbNBLJXVJQoYJNEBSJBEJfHSJHwXUJCJdAZJMGjaFVJXEJPNJBlEJfFiJFpFbFEJqIJBVJCrIBdHiJhOPFChvJVJZJNJWxGFNIFLueIBQJqUHEJfUFstOZJDrlXEASJRlXVJXSFwVJNJWD",
+    // 9-kana words
+    "QJEJNNJDQJEJIBSFQJEJxegBQJEJfHEPSJBmXEJFSJCDEJqXLXNJFQqXIcQsFNJFIFEJqXUJgFsJXIJBUJEJfHNFvJxEqXNJnXUJFQqD",
+    // 10-kana words
+    "IJBEJqXZJ"
+];
+// Maps each character into its kana value (the index)
+const mapping = "~~AzB~X~a~KN~Q~D~S~C~G~E~Y~p~L~I~O~eH~g~V~hxyumi~~U~~Z~~v~~s~~dkoblPjfnqwMcRTr~W~~~F~~~~~Jt";
+let wordlist$4 = null;
+function hex(word) {
+    return hexlify(toUtf8Bytes(word));
+}
+const KiYoKu = "0xe3818de38284e3818f";
+const KyoKu = "0xe3818de38283e3818f";
+function loadWords$4(lang) {
+    if (wordlist$4 !== null) {
+        return;
+    }
+    wordlist$4 = [];
+    // Transforms for normalizing (sort is a not quite UTF-8)
+    const transform = {};
+    // Delete the diacritic marks
+    transform[toUtf8String([227, 130, 154])] = false;
+    transform[toUtf8String([227, 130, 153])] = false;
+    // Some simple transforms that sort out most of the order
+    transform[toUtf8String([227, 130, 133])] = toUtf8String([227, 130, 134]);
+    transform[toUtf8String([227, 129, 163])] = toUtf8String([227, 129, 164]);
+    transform[toUtf8String([227, 130, 131])] = toUtf8String([227, 130, 132]);
+    transform[toUtf8String([227, 130, 135])] = toUtf8String([227, 130, 136]);
+    // Normalize words using the transform
+    function normalize(word) {
+        let result = "";
+        for (let i = 0; i < word.length; i++) {
+            let kana = word[i];
+            const target = transform[kana];
+            if (target === false) {
+                continue;
+            }
+            if (target) {
+                kana = target;
+            }
+            result += kana;
+        }
+        return result;
+    }
+    // Sort how the Japanese list is sorted
+    function sortJapanese(a, b) {
+        a = normalize(a);
+        b = normalize(b);
+        if (a < b) {
+            return -1;
+        }
+        if (a > b) {
+            return 1;
+        }
+        return 0;
+    }
+    // Load all the words
+    for (let length = 3; length <= 9; length++) {
+        const d = data[length - 3];
+        for (let offset = 0; offset < d.length; offset += length) {
+            const word = [];
+            for (let i = 0; i < length; i++) {
+                const k = mapping.indexOf(d[offset + i]);
+                word.push(227);
+                word.push((k & 0x40) ? 130 : 129);
+                word.push((k & 0x3f) + 128);
+            }
+            wordlist$4.push(toUtf8String(word));
+        }
+    }
+    wordlist$4.sort(sortJapanese);
+    // For some reason kyoku and kiyoku are flipped in node (!!).
+    // The order SHOULD be:
+    //   - kyoku
+    //   - kiyoku
+    // This should ignore "if", but that doesn't work here??
+    /* istanbul ignore next */
+    if (hex(wordlist$4[442]) === KiYoKu && hex(wordlist$4[443]) === KyoKu) {
+        const tmp = wordlist$4[442];
+        wordlist$4[442] = wordlist$4[443];
+        wordlist$4[443] = tmp;
+    }
+    // Verify the computed list matches the official list
+    /* istanbul ignore if */
+    if (Wordlist.check(lang) !== "0xcb36b09e6baa935787fd762ce65e80b0c6a8dabdfbc3a7f86ac0e2c4fd111600") {
+        wordlist$4 = null;
+        throw new Error("BIP39 Wordlist for ja (Japanese) FAILED");
+    }
+}
+class LangJa extends Wordlist {
+    constructor() {
+        super("ja");
+    }
+    getWord(index) {
+        loadWords$4(this);
+        return wordlist$4[index];
+    }
+    getWordIndex(word) {
+        loadWords$4(this);
+        return wordlist$4.indexOf(word);
+    }
+    split(mnemonic) {
+        logger$k.checkNormalize();
+        return mnemonic.split(/(?:\u3000| )+/g);
+    }
+    join(words) {
+        return words.join("\u3000");
+    }
+}
+const langJa = new LangJa();
+Wordlist.register(langJa);
+
+const data$1 = [
+    "OYAa",
+    "ATAZoATBl3ATCTrATCl8ATDloATGg3ATHT8ATJT8ATJl3ATLlvATLn4ATMT8ATMX8ATMboATMgoAToLbAToMTATrHgATvHnAT3AnAT3JbAT3MTAT8DbAT8JTAT8LmAT8MYAT8MbAT#LnAUHT8AUHZvAUJXrAUJX8AULnrAXJnvAXLUoAXLgvAXMn6AXRg3AXrMbAX3JTAX3QbAYLn3AZLgvAZrSUAZvAcAZ8AaAZ8AbAZ8AnAZ8HnAZ8LgAZ8MYAZ8MgAZ8OnAaAboAaDTrAaFTrAaJTrAaJboAaLVoAaMXvAaOl8AaSeoAbAUoAbAg8AbAl4AbGnrAbMT8AbMXrAbMn4AbQb8AbSV8AbvRlAb8AUAb8AnAb8HgAb8JTAb8NTAb8RbAcGboAcLnvAcMT8AcMX8AcSToAcrAaAcrFnAc8AbAc8MgAfGgrAfHboAfJnvAfLV8AfLkoAfMT8AfMnoAfQb8AfScrAfSgrAgAZ8AgFl3AgGX8AgHZvAgHgrAgJXoAgJX8AgJboAgLZoAgLn4AgOX8AgoATAgoAnAgoCUAgoJgAgoLXAgoMYAgoSeAgrDUAgrJTAhrFnAhrLjAhrQgAjAgoAjJnrAkMX8AkOnoAlCTvAlCV8AlClvAlFg4AlFl6AlFn3AloSnAlrAXAlrAfAlrFUAlrFbAlrGgAlrOXAlvKnAlvMTAl3AbAl3MnAnATrAnAcrAnCZ3AnCl8AnDg8AnFboAnFl3AnHX4AnHbrAnHgrAnIl3AnJgvAnLXoAnLX4AnLbrAnLgrAnLhrAnMXoAnMgrAnOn3AnSbrAnSeoAnvLnAn3OnCTGgvCTSlvCTvAUCTvKnCTvNTCT3CZCT3GUCT3MTCT8HnCUCZrCULf8CULnvCU3HnCU3JUCY6NUCbDb8CbFZoCbLnrCboOTCboScCbrFnCbvLnCb8AgCb8HgCb$LnCkLfoClBn3CloDUDTHT8DTLl3DTSU8DTrAaDTrLXDTrLjDTrOYDTrOgDTvFXDTvFnDT3HUDT3LfDUCT9DUDT4DUFVoDUFV8DUFkoDUGgrDUJnrDULl8DUMT8DUMXrDUMX4DUMg8DUOUoDUOgvDUOg8DUSToDUSZ8DbDXoDbDgoDbGT8DbJn3DbLg3DbLn4DbMXrDbMg8DbOToDboJXGTClvGTDT8GTFZrGTLVoGTLlvGTLl3GTMg8GTOTvGTSlrGToCUGTrDgGTrJYGTrScGTtLnGTvAnGTvQgGUCZrGUDTvGUFZoGUHXrGULnvGUMT8GUoMgGXoLnGXrMXGXrMnGXvFnGYLnvGZOnvGZvOnGZ8LaGZ8LmGbAl3GbDYvGbDlrGbHX3GbJl4GbLV8GbLn3GbMn4GboJTGboRfGbvFUGb3GUGb4JnGgDX3GgFl$GgJlrGgLX6GgLZoGgLf8GgOXoGgrAgGgrJXGgrMYGgrScGgvATGgvOYGnAgoGnJgvGnLZoGnLg3GnLnrGnQn8GnSbrGnrMgHTClvHTDToHTFT3HTQT8HToJTHToJgHTrDUHTrMnHTvFYHTvRfHT8MnHT8SUHUAZ8HUBb4HUDTvHUoMYHXFl6HXJX6HXQlrHXrAUHXrMnHXrSbHXvFYHXvKXHX3LjHX3MeHYvQlHZrScHZvDbHbAcrHbFT3HbFl3HbJT8HbLTrHbMT8HbMXrHbMbrHbQb8HbSX3HboDbHboJTHbrFUHbrHgHbrJTHb8JTHb8MnHb8QgHgAlrHgDT3HgGgrHgHgrHgJTrHgJT8HgLX@HgLnrHgMT8HgMX8HgMboHgOnrHgQToHgRg3HgoHgHgrCbHgrFnHgrLVHgvAcHgvAfHnAloHnCTrHnCnvHnGTrHnGZ8HnGnvHnJT8HnLf8HnLkvHnMg8HnRTrITvFUITvFnJTAXrJTCV8JTFT3JTFT8JTFn4JTGgvJTHT8JTJT8JTJXvJTJl3JTJnvJTLX4JTLf8JTLhvJTMT8JTMXrJTMnrJTObrJTQT8JTSlvJT8DUJT8FkJT8MTJT8OXJT8OgJT8QUJT8RfJUHZoJXFT4JXFlrJXGZ8JXGnrJXLV8JXLgvJXMXoJXMX3JXNboJXPlvJXoJTJXoLkJXrAXJXrHUJXrJgJXvJTJXvOnJX4KnJYAl3JYJT8JYLhvJYQToJYrQXJY6NUJbAl3JbCZrJbDloJbGT8JbGgrJbJXvJbJboJbLf8JbLhrJbLl3JbMnvJbRg8JbSZ8JboDbJbrCZJbrSUJb3KnJb8LnJfRn8JgAXrJgCZrJgDTrJgGZrJgGZ8JgHToJgJT8JgJXoJgJgvJgLX4JgLZ3JgLZ8JgLn4JgMgrJgMn4JgOgvJgPX6JgRnvJgSToJgoCZJgoJbJgoMYJgrJXJgrJgJgrLjJg6MTJlCn3JlGgvJlJl8Jl4AnJl8FnJl8HgJnAToJnATrJnAbvJnDUoJnGnrJnJXrJnJXvJnLhvJnLnrJnLnvJnMToJnMT8JnMXvJnMX3JnMg8JnMlrJnMn4JnOX8JnST4JnSX3JnoAgJnoAnJnoJTJnoObJnrAbJnrAkJnrHnJnrJTJnrJYJnrOYJnrScJnvCUJnvFaJnvJgJnvJnJnvOYJnvQUJnvRUJn3FnJn3JTKnFl3KnLT6LTDlvLTMnoLTOn3LTRl3LTSb4LTSlrLToAnLToJgLTrAULTrAcLTrCULTrHgLTrMgLT3JnLULnrLUMX8LUoJgLVATrLVDTrLVLb8LVoJgLV8MgLV8RTLXDg3LXFlrLXrCnLXrLXLX3GTLX4GgLX4OYLZAXrLZAcrLZAgrLZAhrLZDXyLZDlrLZFbrLZFl3LZJX6LZJX8LZLc8LZLnrLZSU8LZoJTLZoJnLZrAgLZrAnLZrJYLZrLULZrMgLZrSkLZvAnLZvGULZvJeLZvOTLZ3FZLZ4JXLZ8STLZ8ScLaAT3LaAl3LaHT8LaJTrLaJT8LaJXrLaJgvLaJl4LaLVoLaMXrLaMXvLaMX8LbClvLbFToLbHlrLbJn4LbLZ3LbLhvLbMXrLbMnoLbvSULcLnrLc8HnLc8MTLdrMnLeAgoLeOgvLeOn3LfAl3LfLnvLfMl3LfOX8Lf8AnLf8JXLf8LXLgJTrLgJXrLgJl8LgMX8LgRZrLhCToLhrAbLhrFULhrJXLhvJYLjHTrLjHX4LjJX8LjLhrLjSX3LjSZ4LkFX4LkGZ8LkGgvLkJTrLkMXoLkSToLkSU8LkSZ8LkoOYLl3FfLl3MgLmAZrLmCbrLmGgrLmHboLmJnoLmJn3LmLfoLmLhrLmSToLnAX6LnAb6LnCZ3LnCb3LnDTvLnDb8LnFl3LnGnrLnHZvLnHgvLnITvLnJT8LnJX8LnJlvLnLf8LnLg6LnLhvLnLnoLnMXrLnMg8LnQlvLnSbrLnrAgLnrAnLnrDbLnrFkLnrJdLnrMULnrOYLnrSTLnvAnLnvDULnvHgLnvOYLnvOnLn3GgLn4DULn4JTLn4JnMTAZoMTAloMTDb8MTFT8MTJnoMTJnrMTLZrMTLhrMTLkvMTMX8MTRTrMToATMTrDnMTrOnMT3JnMT4MnMT8FUMT8FaMT8FlMT8GTMT8GbMT8GnMT8HnMT8JTMT8JbMT8OTMUCl8MUJTrMUJU8MUMX8MURTrMUSToMXAX6MXAb6MXCZoMXFXrMXHXrMXLgvMXOgoMXrAUMXrAnMXrHgMXrJYMXrJnMXrMTMXrMgMXrOYMXrSZMXrSgMXvDUMXvOTMX3JgMX3OTMX4JnMX8DbMX8FnMX8HbMX8HgMX8HnMX8LbMX8MnMX8OnMYAb8MYGboMYHTvMYHX4MYLTrMYLnvMYMToMYOgvMYRg3MYSTrMbAToMbAXrMbAl3MbAn8MbGZ8MbJT8MbJXrMbMXvMbMX8MbMnoMbrMUMb8AfMb8FbMb8FkMcJXoMeLnrMgFl3MgGTvMgGXoMgGgrMgGnrMgHT8MgHZrMgJnoMgLnrMgLnvMgMT8MgQUoMgrHnMgvAnMg8HgMg8JYMg8LfMloJnMl8ATMl8AXMl8JYMnAToMnAT4MnAZ8MnAl3MnAl4MnCl8MnHT8MnHg8MnJnoMnLZoMnLhrMnMXoMnMX3MnMnrMnOgvMnrFbMnrFfMnrFnMnrNTMnvJXNTMl8OTCT3OTFV8OTFn3OTHZvOTJXrOTOl3OT3ATOT3JUOT3LZOT3LeOT3MbOT8ATOT8AbOT8AgOT8MbOUCXvOUMX3OXHXvOXLl3OXrMUOXvDbOX6NUOX8JbOYFZoOYLbrOYLkoOYMg8OYSX3ObHTrObHT4ObJgrObLhrObMX3ObOX8Ob8FnOeAlrOeJT8OeJXrOeJnrOeLToOeMb8OgJXoOgLXoOgMnrOgOXrOgOloOgoAgOgoJbOgoMYOgoSTOg8AbOjLX4OjMnoOjSV8OnLVoOnrAgOn3DUPXQlrPXvFXPbvFTPdAT3PlFn3PnvFbQTLn4QToAgQToMTQULV8QURg8QUoJnQXCXvQbFbrQb8AaQb8AcQb8FbQb8MYQb8ScQeAlrQeLhrQjAn3QlFXoQloJgQloSnRTLnvRTrGURTrJTRUJZrRUoJlRUrQnRZrLmRZrMnRZrSnRZ8ATRZ8JbRZ8ScRbMT8RbST3RfGZrRfMX8RfMgrRfSZrRnAbrRnGT8RnvJgRnvLfRnvMTRn8AaSTClvSTJgrSTOXrSTRg3STRnvSToAcSToAfSToAnSToHnSToLjSToMTSTrAaSTrEUST3BYST8AgST8LmSUAZvSUAgrSUDT4SUDT8SUGgvSUJXoSUJXvSULTrSU8JTSU8LjSV8AnSV8JgSXFToSXLf8SYvAnSZrDUSZrMUSZrMnSZ8HgSZ8JTSZ8JgSZ8MYSZ8QUSaQUoSbCT3SbHToSbQYvSbSl4SboJnSbvFbSb8HbSb8JgSb8OTScGZrScHgrScJTvScMT8ScSToScoHbScrMTScvAnSeAZrSeAcrSeHboSeJUoSeLhrSeMT8SeMXrSe6JgSgHTrSkJnoSkLnvSk8CUSlFl3SlrSnSl8GnSmAboSmGT8SmJU8",
+    "ATLnDlATrAZoATrJX4ATrMT8ATrMX4ATrRTrATvDl8ATvJUoATvMl8AT3AToAT3MX8AT8CT3AT8DT8AT8HZrAT8HgoAUAgFnAUCTFnAXoMX8AXrAT8AXrGgvAXrJXvAXrOgoAXvLl3AZvAgoAZvFbrAZvJXoAZvJl8AZvJn3AZvMX8AZvSbrAZ8FZoAZ8LZ8AZ8MU8AZ8OTvAZ8SV8AZ8SX3AbAgFZAboJnoAbvGboAb8ATrAb8AZoAb8AgrAb8Al4Ab8Db8Ab8JnoAb8LX4Ab8LZrAb8LhrAb8MT8Ab8OUoAb8Qb8Ab8ST8AcrAUoAcrAc8AcrCZ3AcrFT3AcrFZrAcrJl4AcrJn3AcrMX3AcrOTvAc8AZ8Ac8MT8AfAcJXAgoFn4AgoGgvAgoGnrAgoLc8AgoMXoAgrLnrAkrSZ8AlFXCTAloHboAlrHbrAlrLhrAlrLkoAl3CZrAl3LUoAl3LZrAnrAl4AnrMT8An3HT4BT3IToBX4MnvBb!Ln$CTGXMnCToLZ4CTrHT8CT3JTrCT3RZrCT#GTvCU6GgvCU8Db8CU8GZrCU8HT8CboLl3CbrGgrCbrMU8Cb8DT3Cb8GnrCb8LX4Cb8MT8Cb8ObrCgrGgvCgrKX4Cl8FZoDTrAbvDTrDboDTrGT6DTrJgrDTrMX3DTrRZrDTrRg8DTvAVvDTvFZoDT3DT8DT3Ln3DT4HZrDT4MT8DT8AlrDT8MT8DUAkGbDUDbJnDYLnQlDbDUOYDbMTAnDbMXSnDboAT3DboFn4DboLnvDj6JTrGTCgFTGTGgFnGTJTMnGTLnPlGToJT8GTrCT3GTrLVoGTrLnvGTrMX3GTrMboGTvKl3GZClFnGZrDT3GZ8DTrGZ8FZ8GZ8MXvGZ8On8GZ8ST3GbCnQXGbMbFnGboFboGboJg3GboMXoGb3JTvGb3JboGb3Mn6Gb3Qb8GgDXLjGgMnAUGgrDloGgrHX4GgrSToGgvAXrGgvAZvGgvFbrGgvLl3GgvMnvGnDnLXGnrATrGnrMboGnuLl3HTATMnHTAgCnHTCTCTHTrGTvHTrHTvHTrJX8HTrLl8HTrMT8HTrMgoHTrOTrHTuOn3HTvAZrHTvDTvHTvGboHTvJU8HTvLl3HTvMXrHTvQb4HT4GT6HT4JT8HT4Jb#HT8Al3HT8GZrHT8GgrHT8HX4HT8Jb8HT8JnoHT8LTrHT8LgvHT8SToHT8SV8HUoJUoHUoJX8HUoLnrHXrLZoHXvAl3HX3LnrHX4FkvHX4LhrHX4MXoHX4OnoHZrAZ8HZrDb8HZrGZ8HZrJnrHZvGZ8HZvLnvHZ8JnvHZ8LhrHbCXJlHbMTAnHboJl4HbpLl3HbrJX8HbrLnrHbrMnvHbvRYrHgoSTrHgrFV8HgrGZ8HgrJXoHgrRnvHgvBb!HgvGTrHgvHX4HgvHn!HgvLTrHgvSU8HnDnLbHnFbJbHnvDn8Hn6GgvHn!BTvJTCTLnJTQgFnJTrAnvJTrLX4JTrOUoJTvFn3JTvLnrJTvNToJT3AgoJT3Jn4JT3LhvJT3ObrJT8AcrJT8Al3JT8JT8JT8JnoJT8LX4JT8LnrJT8MX3JT8Rg3JT8Sc8JUoBTvJU8AToJU8GZ8JU8GgvJU8JTrJU8JXrJU8JnrJU8LnvJU8ScvJXHnJlJXrGgvJXrJU8JXrLhrJXrMT8JXrMXrJXrQUoJXvCTvJXvGZ8JXvGgrJXvQT8JX8Ab8JX8DT8JX8GZ8JX8HZvJX8LnrJX8MT8JX8MXoJX8MnvJX8ST3JYGnCTJbAkGbJbCTAnJbLTAcJboDT3JboLb6JbrAnvJbrCn3JbrDl8JbrGboJbrIZoJbrJnvJbrMnvJbrQb4Jb8RZrJeAbAnJgJnFbJgScAnJgrATrJgvHZ8JgvMn4JlJlFbJlLiQXJlLjOnJlRbOlJlvNXoJlvRl3Jl4AcrJl8AUoJl8MnrJnFnMlJnHgGbJnoDT8JnoFV8JnoGgvJnoIT8JnoQToJnoRg3JnrCZ3JnrGgrJnrHTvJnrLf8JnrOX8JnvAT3JnvFZoJnvGT8JnvJl4JnvMT8JnvMX8JnvOXrJnvPX6JnvSX3JnvSZrJn3MT8Jn3MX8Jn3RTrLTATKnLTJnLTLTMXKnLTRTQlLToGb8LTrAZ8LTrCZ8LTrDb8LTrHT8LT3PX6LT4FZoLT$CTvLT$GgrLUvHX3LVoATrLVoAgoLVoJboLVoMX3LVoRg3LV8CZ3LV8FZoLV8GTvLXrDXoLXrFbrLXvAgvLXvFlrLXvLl3LXvRn6LX4Mb8LX8GT8LYCXMnLYrMnrLZoSTvLZrAZvLZrAloLZrFToLZrJXvLZrJboLZrJl4LZrLnrLZrMT8LZrOgvLZrRnvLZrST4LZvMX8LZvSlvLZ8AgoLZ8CT3LZ8JT8LZ8LV8LZ8LZoLZ8Lg8LZ8SV8LZ8SbrLZ$HT8LZ$Mn4La6CTvLbFbMnLbRYFTLbSnFZLboJT8LbrAT9LbrGb3LbrQb8LcrJX8LcrMXrLerHTvLerJbrLerNboLgrDb8LgrGZ8LgrHTrLgrMXrLgrSU8LgvJTrLgvLl3Lg6Ll3LhrLnrLhrMT8LhvAl4LiLnQXLkoAgrLkoJT8LkoJn4LlrSU8Ll3FZoLl3HTrLl3JX8Ll3JnoLl3LToLmLeFbLnDUFbLnLVAnLnrATrLnrAZoLnrAb8LnrAlrLnrGgvLnrJU8LnrLZrLnrLhrLnrMb8LnrOXrLnrSZ8LnvAb4LnvDTrLnvDl8LnvHTrLnvHbrLnvJT8LnvJU8LnvJbrLnvLhvLnvMX8LnvMb8LnvNnoLnvSU8Ln3Al3Ln4FZoLn4GT6Ln4JgvLn4LhrLn4MT8Ln4SToMToCZrMToJX8MToLX4MToLf8MToRg3MTrEloMTvGb6MT3BTrMT3Lb6MT8AcrMT8AgrMT8GZrMT8JnoMT8LnrMT8MX3MUOUAnMXAbFnMXoAloMXoJX8MXoLf8MXoLl8MXrAb8MXrDTvMXrGT8MXrGgrMXrHTrMXrLf8MXrMU8MXrOXvMXrQb8MXvGT8MXvHTrMXvLVoMX3AX3MX3Jn3MX3LhrMX3MX3MX4AlrMX4OboMX8GTvMX8GZrMX8GgrMX8JT8MX8JX8MX8LhrMX8MT8MYDUFbMYMgDbMbGnFfMbvLX4MbvLl3Mb8Mb8Mb8ST4MgGXCnMg8ATrMg8AgoMg8CZrMg8DTrMg8DboMg8HTrMg8JgrMg8LT8MloJXoMl8AhrMl8JT8MnLgAUMnoJXrMnoLX4MnoLhrMnoMT8MnrAl4MnrDb8MnrOTvMnrOgvMnrQb8MnrSU8MnvGgrMnvHZ8Mn3MToMn4DTrMn4LTrMn4Mg8NnBXAnOTFTFnOToAToOTrGgvOTrJX8OT3JXoOT6MTrOT8GgrOT8HTpOT8MToOUoHT8OUoJT8OUoLn3OXrAgoOXrDg8OXrMT8OXvSToOX6CTvOX8CZrOX8OgrOb6HgvOb8AToOb8MT8OcvLZ8OgvAlrOgvHTvOgvJTrOgvJnrOgvLZrOgvLn4OgvMT8OgvRTrOg8AZoOg8DbvOnrOXoOnvJn4OnvLhvOnvRTrOn3GgoOn3JnvOn6JbvOn8OTrPTGYFTPbBnFnPbGnDnPgDYQTPlrAnvPlrETvPlrLnvPlrMXvPlvFX4QTMTAnQTrJU8QYCnJlQYJlQlQbGTQbQb8JnrQb8LZoQb8LnvQb8MT8Qb8Ml8Qb8ST4QloAl4QloHZvQloJX8QloMn8QnJZOlRTrAZvRTrDTrRTvJn4RTvLhvRT4Jb8RZrAZrRZ8AkrRZ8JU8RZ8LV8RZ8LnvRbJlQXRg3GboRg3MnvRg8AZ8Rg8JboRg8Jl4RnLTCbRnvFl3RnvQb8SToAl4SToCZrSToFZoSToHXrSToJU8SToJgvSToJl4SToLhrSToMX3STrAlvSTrCT9STrCgrSTrGgrSTrHXrSTrHboSTrJnoSTrNboSTvLnrST4AZoST8Ab8ST8JT8SUoJn3SU6HZ#SU6JTvSU8Db8SU8HboSU8LgrSV8JT8SZrAcrSZrAl3SZrJT8SZrJnvSZrMT8SZvLUoSZ4FZoSZ8JnoSZ8RZrScoLnrScoMT8ScoMX8ScrAT4ScrAZ8ScrLZ8ScrLkvScvDb8ScvLf8ScvNToSgrFZrShvKnrSloHUoSloLnrSlrMXoSl8HgrSmrJUoSn3BX6",
+    "ATFlOn3ATLgrDYAT4MTAnAT8LTMnAYJnRTrAbGgJnrAbLV8LnAbvNTAnAeFbLg3AgOYMXoAlQbFboAnDboAfAnJgoJTBToDgAnBUJbAl3BboDUAnCTDlvLnCTFTrSnCYoQTLnDTwAbAnDUDTrSnDUHgHgrDX8LXFnDbJXAcrETvLTLnGTFTQbrGTMnGToGT3DUFbGUJlPX3GbQg8LnGboJbFnGb3GgAYGgAg8ScGgMbAXrGgvAbAnGnJTLnvGnvATFgHTDT6ATHTrDlJnHYLnMn8HZrSbJTHZ8LTFnHbFTJUoHgSeMT8HgrLjAnHgvAbAnHlFUrDlHnDgvAnHnHTFT3HnQTGnrJTAaMXvJTGbCn3JTOgrAnJXvAXMnJbMg8SnJbMnRg3Jb8LTMnJnAl3OnJnGYrQlJnJlQY3LTDlCn3LTJjLg3LTLgvFXLTMg3GTLV8HUOgLXFZLg3LXNXrMnLX8QXFnLX9AlMYLYLXPXrLZAbJU8LZDUJU8LZMXrSnLZ$AgFnLaPXrDULbFYrMnLbMn8LXLboJgJgLeFbLg3LgLZrSnLgOYAgoLhrRnJlLkCTrSnLkOnLhrLnFX%AYLnFZoJXLnHTvJbLnLloAbMTATLf8MTHgJn3MTMXrAXMT3MTFnMUITvFnMXFX%AYMXMXvFbMXrFTDbMYAcMX3MbLf8SnMb8JbFnMgMXrMTMgvAXFnMgvGgCmMnAloSnMnFnJTrOXvMXSnOX8HTMnObJT8ScObLZFl3ObMXCZoPTLgrQXPUFnoQXPU3RXJlPX3RkQXPbrJXQlPlrJbFnQUAhrDbQXGnCXvQYLnHlvQbLfLnvRTOgvJbRXJYrQlRYLnrQlRbLnrQlRlFT8JlRlFnrQXSTClCn3STHTrAnSTLZQlrSTMnGTrSToHgGbSTrGTDnSTvGXCnST3HgFbSU3HXAXSbAnJn3SbFT8LnScLfLnv",
+    "AT3JgJX8AT8FZoSnAT8JgFV8AT8LhrDbAZ8JT8DbAb8GgLhrAb8SkLnvAe8MT8SnAlMYJXLVAl3GYDTvAl3LfLnvBUDTvLl3CTOn3HTrCT3DUGgrCU8MT8AbCbFTrJUoCgrDb8MTDTLV8JX8DTLnLXQlDT8LZrSnDUQb8FZ8DUST4JnvDb8ScOUoDj6GbJl4GTLfCYMlGToAXvFnGboAXvLnGgAcrJn3GgvFnSToGnLf8JnvGn#HTDToHTLnFXJlHTvATFToHTvHTDToHTvMTAgoHT3STClvHT4AlFl6HT8HTDToHUoDgJTrHUoScMX3HbRZrMXoHboJg8LTHgDb8JTrHgMToLf8HgvLnLnoHnHn3HT4Hn6MgvAnJTJU8ScvJT3AaQT8JT8HTrAnJXrRg8AnJbAloMXoJbrATFToJbvMnoSnJgDb6GgvJgDb8MXoJgSX3JU8JguATFToJlPYLnQlJlQkDnLbJlQlFYJlJl8Lf8OTJnCTFnLbJnLTHXMnJnLXGXCnJnoFfRg3JnrMYRg3Jn3HgFl3KT8Dg8LnLTRlFnPTLTvPbLbvLVoSbrCZLXMY6HT3LXNU7DlrLXNXDTATLX8DX8LnLZDb8JU8LZMnoLhrLZSToJU8LZrLaLnrLZvJn3SnLZ8LhrSnLaJnoMT8LbFlrHTvLbrFTLnrLbvATLlvLb6OTFn3LcLnJZOlLeAT6Mn4LeJT3ObrLg6LXFlrLhrJg8LnLhvDlPX4LhvLfLnvLj6JTFT3LnFbrMXoLnQluCTvLnrQXCY6LnvLfLnvLnvMgLnvLnvSeLf8MTMbrJn3MT3JgST3MT8AnATrMT8LULnrMUMToCZrMUScvLf8MXoDT8SnMX6ATFToMX8AXMT8MX8FkMT8MX8HTrDUMX8ScoSnMYJT6CTvMgAcrMXoMg8SToAfMlvAXLg3MnFl3AnvOT3AnFl3OUoATHT8OU3RnLXrOXrOXrSnObPbvFn6Og8HgrSnOg8OX8DbPTvAgoJgPU3RYLnrPXrDnJZrPb8CTGgvPlrLTDlvPlvFUJnoQUvFXrQlQeMnoAl3QlrQlrSnRTFTrJUoSTDlLiLXSTFg6HT3STJgoMn4STrFTJTrSTrLZFl3ST4FnMXoSUrDlHUoScvHTvSnSfLkvMXo",
+    "AUoAcrMXoAZ8HboAg8AbOg6ATFgAg8AloMXoAl3AT8JTrAl8MX8MXoCT3SToJU8Cl8Db8MXoDT8HgrATrDboOT8MXoGTOTrATMnGT8LhrAZ8GnvFnGnQXHToGgvAcrHTvAXvLl3HbrAZoMXoHgBlFXLg3HgMnFXrSnHgrSb8JUoHn6HT8LgvITvATrJUoJUoLZrRnvJU8HT8Jb8JXvFX8QT8JXvLToJTrJYrQnGnQXJgrJnoATrJnoJU8ScvJnvMnvMXoLTCTLgrJXLTJlRTvQlLbRnJlQYvLbrMb8LnvLbvFn3RnoLdCVSTGZrLeSTvGXCnLg3MnoLn3MToLlrETvMT8SToAl3MbrDU6GTvMb8LX4LhrPlrLXGXCnSToLf8Rg3STrDb8LTrSTvLTHXMnSb3RYLnMnSgOg6ATFg",
+    "HUDlGnrQXrJTrHgLnrAcJYMb8DULc8LTvFgGnCk3Mg8JbAnLX4QYvFYHnMXrRUoJnGnvFnRlvFTJlQnoSTrBXHXrLYSUJgLfoMT8Se8DTrHbDb",
+    "AbDl8SToJU8An3RbAb8ST8DUSTrGnrAgoLbFU6Db8LTrMg8AaHT8Jb8ObDl8SToJU8Pb3RlvFYoJl"
+];
+const codes = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+function getHangul(code) {
+    if (code >= 40) {
+        code = code + 168 - 40;
+    }
+    else if (code >= 19) {
+        code = code + 97 - 19;
+    }
+    return toUtf8String([225, (code >> 6) + 132, (code & 0x3f) + 128]);
+}
+let wordlist$5 = null;
+function loadWords$5(lang) {
+    if (wordlist$5 != null) {
+        return;
+    }
+    wordlist$5 = [];
+    data$1.forEach((data, length) => {
+        length += 4;
+        for (let i = 0; i < data.length; i += length) {
+            let word = "";
+            for (let j = 0; j < length; j++) {
+                word += getHangul(codes.indexOf(data[i + j]));
+            }
+            wordlist$5.push(word);
+        }
+    });
+    wordlist$5.sort();
+    // Verify the computed list matches the official list
+    /* istanbul ignore if */
+    if (Wordlist.check(lang) !== "0xf9eddeace9c5d3da9c93cf7d3cd38f6a13ed3affb933259ae865714e8a3ae71a") {
+        wordlist$5 = null;
+        throw new Error("BIP39 Wordlist for ko (Korean) FAILED");
+    }
+}
+class LangKo extends Wordlist {
+    constructor() {
+        super("ko");
+    }
+    getWord(index) {
+        loadWords$5(this);
+        return wordlist$5[index];
+    }
+    getWordIndex(word) {
+        loadWords$5(this);
+        return wordlist$5.indexOf(word);
+    }
+}
+const langKo = new LangKo();
+Wordlist.register(langKo);
+
+const words$4 = "AbacoAbbaglioAbbinatoAbeteAbissoAbolireAbrasivoAbrogatoAccadereAccennoAccusatoAcetoneAchilleAcidoAcquaAcreAcrilicoAcrobataAcutoAdagioAddebitoAddomeAdeguatoAderireAdipeAdottareAdulareAffabileAffettoAffissoAffrantoAforismaAfosoAfricanoAgaveAgenteAgevoleAggancioAgireAgitareAgonismoAgricoloAgrumetoAguzzoAlabardaAlatoAlbatroAlberatoAlboAlbumeAlceAlcolicoAlettoneAlfaAlgebraAlianteAlibiAlimentoAllagatoAllegroAllievoAllodolaAllusivoAlmenoAlogenoAlpacaAlpestreAltalenaAlternoAlticcioAltroveAlunnoAlveoloAlzareAmalgamaAmanitaAmarenaAmbitoAmbratoAmebaAmericaAmetistaAmicoAmmassoAmmendaAmmirareAmmonitoAmoreAmpioAmpliareAmuletoAnacardoAnagrafeAnalistaAnarchiaAnatraAncaAncellaAncoraAndareAndreaAnelloAngeloAngolareAngustoAnimaAnnegareAnnidatoAnnoAnnuncioAnonimoAnticipoAnziApaticoAperturaApodeApparireAppetitoAppoggioApprodoAppuntoAprileArabicaArachideAragostaAraldicaArancioAraturaArazzoArbitroArchivioArditoArenileArgentoArgineArgutoAriaArmoniaArneseArredatoArringaArrostoArsenicoArsoArteficeArzilloAsciuttoAscoltoAsepsiAsetticoAsfaltoAsinoAsolaAspiratoAsproAssaggioAsseAssolutoAssurdoAstaAstenutoAsticeAstrattoAtavicoAteismoAtomicoAtonoAttesaAttivareAttornoAttritoAttualeAusilioAustriaAutistaAutonomoAutunnoAvanzatoAvereAvvenireAvvisoAvvolgereAzioneAzotoAzzimoAzzurroBabeleBaccanoBacinoBacoBadessaBadilataBagnatoBaitaBalconeBaldoBalenaBallataBalzanoBambinoBandireBaraondaBarbaroBarcaBaritonoBarlumeBaroccoBasilicoBassoBatostaBattutoBauleBavaBavosaBeccoBeffaBelgioBelvaBendaBenevoleBenignoBenzinaBereBerlinaBetaBibitaBiciBidoneBifidoBigaBilanciaBimboBinocoloBiologoBipedeBipolareBirbanteBirraBiscottoBisestoBisnonnoBisonteBisturiBizzarroBlandoBlattaBollitoBonificoBordoBoscoBotanicoBottinoBozzoloBraccioBradipoBramaBrancaBravuraBretellaBrevettoBrezzaBrigliaBrillanteBrindareBroccoloBrodoBronzinaBrulloBrunoBubboneBucaBudinoBuffoneBuioBulboBuonoBurloneBurrascaBussolaBustaCadettoCaducoCalamaroCalcoloCalesseCalibroCalmoCaloriaCambusaCamerataCamiciaCamminoCamolaCampaleCanapaCandelaCaneCaninoCanottoCantinaCapaceCapelloCapitoloCapogiroCapperoCapraCapsulaCarapaceCarcassaCardoCarismaCarovanaCarrettoCartolinaCasaccioCascataCasermaCasoCassoneCastelloCasualeCatastaCatenaCatrameCautoCavilloCedibileCedrataCefaloCelebreCellulareCenaCenoneCentesimoCeramicaCercareCertoCerumeCervelloCesoiaCespoCetoChelaChiaroChiccaChiedereChimeraChinaChirurgoChitarraCiaoCiclismoCifrareCignoCilindroCiottoloCircaCirrosiCitricoCittadinoCiuffoCivettaCivileClassicoClinicaCloroCoccoCodardoCodiceCoerenteCognomeCollareColmatoColoreColposoColtivatoColzaComaCometaCommandoComodoComputerComuneConcisoCondurreConfermaCongelareConiugeConnessoConoscereConsumoContinuoConvegnoCopertoCopioneCoppiaCopricapoCorazzaCordataCoricatoCorniceCorollaCorpoCorredoCorsiaCorteseCosmicoCostanteCotturaCovatoCratereCravattaCreatoCredereCremosoCrescitaCretaCricetoCrinaleCrisiCriticoCroceCronacaCrostataCrucialeCruscaCucireCuculoCuginoCullatoCupolaCuratoreCursoreCurvoCuscinoCustodeDadoDainoDalmataDamerinoDanielaDannosoDanzareDatatoDavantiDavveroDebuttoDecennioDecisoDeclinoDecolloDecretoDedicatoDefinitoDeformeDegnoDelegareDelfinoDelirioDeltaDemenzaDenotatoDentroDepositoDerapataDerivareDerogaDescrittoDesertoDesiderioDesumereDetersivoDevotoDiametroDicembreDiedroDifesoDiffusoDigerireDigitaleDiluvioDinamicoDinnanziDipintoDiplomaDipoloDiradareDireDirottoDirupoDisagioDiscretoDisfareDisgeloDispostoDistanzaDisumanoDitoDivanoDiveltoDividereDivoratoDobloneDocenteDoganaleDogmaDolceDomatoDomenicaDominareDondoloDonoDormireDoteDottoreDovutoDozzinaDragoDruidoDubbioDubitareDucaleDunaDuomoDupliceDuraturoEbanoEccessoEccoEclissiEconomiaEderaEdicolaEdileEditoriaEducareEgemoniaEgliEgoismoEgregioElaboratoElargireEleganteElencatoElettoElevareElficoElicaElmoElsaElusoEmanatoEmblemaEmessoEmiroEmotivoEmozioneEmpiricoEmuloEndemicoEnduroEnergiaEnfasiEnotecaEntrareEnzimaEpatiteEpilogoEpisodioEpocaleEppureEquatoreErarioErbaErbosoEredeEremitaErigereErmeticoEroeErosivoErranteEsagonoEsameEsanimeEsaudireEscaEsempioEsercitoEsibitoEsigenteEsistereEsitoEsofagoEsortatoEsosoEspansoEspressoEssenzaEssoEstesoEstimareEstoniaEstrosoEsultareEtilicoEtnicoEtruscoEttoEuclideoEuropaEvasoEvidenzaEvitatoEvolutoEvvivaFabbricaFaccendaFachiroFalcoFamigliaFanaleFanfaraFangoFantasmaFareFarfallaFarinosoFarmacoFasciaFastosoFasulloFaticareFatoFavolosoFebbreFecolaFedeFegatoFelpaFeltroFemminaFendereFenomenoFermentoFerroFertileFessuraFestivoFettaFeudoFiabaFiduciaFifaFiguratoFiloFinanzaFinestraFinireFioreFiscaleFisicoFiumeFlaconeFlamencoFleboFlemmaFloridoFluenteFluoroFobicoFocacciaFocosoFoderatoFoglioFolataFolcloreFolgoreFondenteFoneticoFoniaFontanaForbitoForchettaForestaFormicaFornaioForoFortezzaForzareFosfatoFossoFracassoFranaFrassinoFratelloFreccettaFrenataFrescoFrigoFrollinoFrondeFrugaleFruttaFucilataFucsiaFuggenteFulmineFulvoFumanteFumettoFumosoFuneFunzioneFuocoFurboFurgoneFuroreFusoFutileGabbianoGaffeGalateoGallinaGaloppoGamberoGammaGaranziaGarboGarofanoGarzoneGasdottoGasolioGastricoGattoGaudioGazeboGazzellaGecoGelatinaGelsoGemelloGemmatoGeneGenitoreGennaioGenotipoGergoGhepardoGhiaccioGhisaGialloGildaGineproGiocareGioielloGiornoGioveGiratoGironeGittataGiudizioGiuratoGiustoGlobuloGlutineGnomoGobbaGolfGomitoGommoneGonfioGonnaGovernoGracileGradoGraficoGrammoGrandeGrattareGravosoGraziaGrecaGreggeGrifoneGrigioGrinzaGrottaGruppoGuadagnoGuaioGuantoGuardareGufoGuidareIbernatoIconaIdenticoIdillioIdoloIdraIdricoIdrogenoIgieneIgnaroIgnoratoIlareIllesoIllogicoIlludereImballoImbevutoImboccoImbutoImmaneImmersoImmolatoImpaccoImpetoImpiegoImportoImprontaInalareInarcareInattivoIncantoIncendioInchinoIncisivoInclusoIncontroIncrocioIncuboIndagineIndiaIndoleIneditoInfattiInfilareInflittoIngaggioIngegnoIngleseIngordoIngrossoInnescoInodoreInoltrareInondatoInsanoInsettoInsiemeInsonniaInsulinaIntasatoInteroIntonacoIntuitoInumidireInvalidoInveceInvitoIperboleIpnoticoIpotesiIppicaIrideIrlandaIronicoIrrigatoIrrorareIsolatoIsotopoIstericoIstitutoIstriceItaliaIterareLabbroLabirintoLaccaLaceratoLacrimaLacunaLaddoveLagoLampoLancettaLanternaLardosoLargaLaringeLastraLatenzaLatinoLattugaLavagnaLavoroLegaleLeggeroLemboLentezzaLenzaLeoneLepreLesivoLessatoLestoLetteraleLevaLevigatoLiberoLidoLievitoLillaLimaturaLimitareLimpidoLineareLinguaLiquidoLiraLiricaLiscaLiteLitigioLivreaLocandaLodeLogicaLombareLondraLongevoLoquaceLorenzoLotoLotteriaLuceLucidatoLumacaLuminosoLungoLupoLuppoloLusingaLussoLuttoMacabroMacchinaMaceroMacinatoMadamaMagicoMagliaMagneteMagroMaiolicaMalafedeMalgradoMalintesoMalsanoMaltoMalumoreManaManciaMandorlaMangiareManifestoMannaroManovraMansardaMantideManubrioMappaMaratonaMarcireMarettaMarmoMarsupioMascheraMassaiaMastinoMaterassoMatricolaMattoneMaturoMazurcaMeandroMeccanicoMecenateMedesimoMeditareMegaMelassaMelisMelodiaMeningeMenoMensolaMercurioMerendaMerloMeschinoMeseMessereMestoloMetalloMetodoMettereMiagolareMicaMicelioMicheleMicroboMidolloMieleMiglioreMilanoMiliteMimosaMineraleMiniMinoreMirinoMirtilloMiscelaMissivaMistoMisurareMitezzaMitigareMitraMittenteMnemonicoModelloModificaModuloMoganoMogioMoleMolossoMonasteroMoncoMondinaMonetarioMonileMonotonoMonsoneMontatoMonvisoMoraMordereMorsicatoMostroMotivatoMotosegaMottoMovenzaMovimentoMozzoMuccaMucosaMuffaMughettoMugnaioMulattoMulinelloMultiploMummiaMuntoMuovereMuraleMusaMuscoloMusicaMutevoleMutoNababboNaftaNanometroNarcisoNariceNarratoNascereNastrareNaturaleNauticaNaviglioNebulosaNecrosiNegativoNegozioNemmenoNeofitaNerettoNervoNessunoNettunoNeutraleNeveNevroticoNicchiaNinfaNitidoNobileNocivoNodoNomeNominaNordicoNormaleNorvegeseNostranoNotareNotiziaNotturnoNovellaNucleoNullaNumeroNuovoNutrireNuvolaNuzialeOasiObbedireObbligoObeliscoOblioOboloObsoletoOccasioneOcchioOccidenteOccorrereOccultareOcraOculatoOdiernoOdorareOffertaOffrireOffuscatoOggettoOggiOgnunoOlandeseOlfattoOliatoOlivaOlogrammaOltreOmaggioOmbelicoOmbraOmegaOmissioneOndosoOnereOniceOnnivoroOnorevoleOntaOperatoOpinioneOppostoOracoloOrafoOrdineOrecchinoOreficeOrfanoOrganicoOrigineOrizzonteOrmaOrmeggioOrnativoOrologioOrrendoOrribileOrtensiaOrticaOrzataOrzoOsareOscurareOsmosiOspedaleOspiteOssaOssidareOstacoloOsteOtiteOtreOttagonoOttimoOttobreOvaleOvestOvinoOviparoOvocitoOvunqueOvviareOzioPacchettoPacePacificoPadellaPadronePaesePagaPaginaPalazzinaPalesarePallidoPaloPaludePandoroPannelloPaoloPaonazzoPapricaParabolaParcellaParerePargoloPariParlatoParolaPartireParvenzaParzialePassivoPasticcaPataccaPatologiaPattumePavonePeccatoPedalarePedonalePeggioPelosoPenarePendicePenisolaPennutoPenombraPensarePentolaPepePepitaPerbenePercorsoPerdonatoPerforarePergamenaPeriodoPermessoPernoPerplessoPersuasoPertugioPervasoPesatorePesistaPesoPestiferoPetaloPettinePetulantePezzoPiacerePiantaPiattinoPiccinoPicozzaPiegaPietraPifferoPigiamaPigolioPigroPilaPiliferoPillolaPilotaPimpantePinetaPinnaPinoloPioggiaPiomboPiramidePireticoPiritePirolisiPitonePizzicoPlaceboPlanarePlasmaPlatanoPlenarioPochezzaPoderosoPodismoPoesiaPoggiarePolentaPoligonoPollicePolmonitePolpettaPolsoPoltronaPolverePomicePomodoroPontePopolosoPorfidoPorosoPorporaPorrePortataPosaPositivoPossessoPostulatoPotassioPoterePranzoPrassiPraticaPreclusoPredicaPrefissoPregiatoPrelievoPremerePrenotarePreparatoPresenzaPretestoPrevalsoPrimaPrincipePrivatoProblemaProcuraProdurreProfumoProgettoProlungaPromessaPronomePropostaProrogaProtesoProvaPrudentePrugnaPruritoPsichePubblicoPudicaPugilatoPugnoPulcePulitoPulsantePuntarePupazzoPupillaPuroQuadroQualcosaQuasiQuerelaQuotaRaccoltoRaddoppioRadicaleRadunatoRafficaRagazzoRagioneRagnoRamarroRamingoRamoRandagioRantolareRapatoRapinaRappresoRasaturaRaschiatoRasenteRassegnaRastrelloRataRavvedutoRealeRecepireRecintoReclutaReconditoRecuperoRedditoRedimereRegalatoRegistroRegolaRegressoRelazioneRemareRemotoRennaReplicaReprimereReputareResaResidenteResponsoRestauroReteRetinaRetoricaRettificaRevocatoRiassuntoRibadireRibelleRibrezzoRicaricaRiccoRicevereRiciclatoRicordoRicredutoRidicoloRidurreRifasareRiflessoRiformaRifugioRigareRigettatoRighelloRilassatoRilevatoRimanereRimbalzoRimedioRimorchioRinascitaRincaroRinforzoRinnovoRinomatoRinsavitoRintoccoRinunciaRinvenireRiparatoRipetutoRipienoRiportareRipresaRipulireRisataRischioRiservaRisibileRisoRispettoRistoroRisultatoRisvoltoRitardoRitegnoRitmicoRitrovoRiunioneRivaRiversoRivincitaRivoltoRizomaRobaRoboticoRobustoRocciaRocoRodaggioRodereRoditoreRogitoRollioRomanticoRompereRonzioRosolareRospoRotanteRotondoRotulaRovescioRubizzoRubricaRugaRullinoRumineRumorosoRuoloRupeRussareRusticoSabatoSabbiareSabotatoSagomaSalassoSaldaturaSalgemmaSalivareSalmoneSaloneSaltareSalutoSalvoSapereSapidoSaporitoSaracenoSarcasmoSartoSassosoSatelliteSatiraSatolloSaturnoSavanaSavioSaziatoSbadiglioSbalzoSbancatoSbarraSbattereSbavareSbendareSbirciareSbloccatoSbocciatoSbrinareSbruffoneSbuffareScabrosoScadenzaScalaScambiareScandaloScapolaScarsoScatenareScavatoSceltoScenicoScettroSchedaSchienaSciarpaScienzaScindereScippoSciroppoScivoloSclerareScodellaScolpitoScompartoSconfortoScoprireScortaScossoneScozzeseScribaScrollareScrutinioScuderiaScultoreScuolaScuroScusareSdebitareSdoganareSeccaturaSecondoSedanoSeggiolaSegnalatoSegregatoSeguitoSelciatoSelettivoSellaSelvaggioSemaforoSembrareSemeSeminatoSempreSensoSentireSepoltoSequenzaSerataSerbatoSerenoSerioSerpenteSerraglioServireSestinaSetolaSettimanaSfaceloSfaldareSfamatoSfarzosoSfaticatoSferaSfidaSfilatoSfingeSfocatoSfoderareSfogoSfoltireSforzatoSfrattoSfruttatoSfuggitoSfumareSfusoSgabelloSgarbatoSgonfiareSgorbioSgrassatoSguardoSibiloSiccomeSierraSiglaSignoreSilenzioSillabaSimboloSimpaticoSimulatoSinfoniaSingoloSinistroSinoSintesiSinusoideSiparioSismaSistoleSituatoSlittaSlogaturaSlovenoSmarritoSmemoratoSmentitoSmeraldoSmilzoSmontareSmottatoSmussatoSnellireSnervatoSnodoSobbalzoSobrioSoccorsoSocialeSodaleSoffittoSognoSoldatoSolenneSolidoSollazzoSoloSolubileSolventeSomaticoSommaSondaSonettoSonniferoSopireSoppesoSopraSorgereSorpassoSorrisoSorsoSorteggioSorvolatoSospiroSostaSottileSpadaSpallaSpargereSpatolaSpaventoSpazzolaSpecieSpedireSpegnereSpelaturaSperanzaSpessoreSpettraleSpezzatoSpiaSpigolosoSpillatoSpinosoSpiraleSplendidoSportivoSposoSprangaSprecareSpronatoSpruzzoSpuntinoSquilloSradicareSrotolatoStabileStaccoStaffaStagnareStampatoStantioStarnutoStaseraStatutoSteloSteppaSterzoStilettoStimaStirpeStivaleStizzosoStonatoStoricoStrappoStregatoStriduloStrozzareStruttoStuccareStufoStupendoSubentroSuccosoSudoreSuggeritoSugoSultanoSuonareSuperboSupportoSurgelatoSurrogatoSussurroSuturaSvagareSvedeseSveglioSvelareSvenutoSveziaSviluppoSvistaSvizzeraSvoltaSvuotareTabaccoTabulatoTacciareTaciturnoTaleTalismanoTamponeTanninoTaraTardivoTargatoTariffaTarpareTartarugaTastoTatticoTavernaTavolataTazzaTecaTecnicoTelefonoTemerarioTempoTemutoTendoneTeneroTensioneTentacoloTeoremaTermeTerrazzoTerzettoTesiTesseratoTestatoTetroTettoiaTifareTigellaTimbroTintoTipicoTipografoTiraggioTiroTitanioTitoloTitubanteTizioTizzoneToccareTollerareToltoTombolaTomoTonfoTonsillaTopazioTopologiaToppaTorbaTornareTorroneTortoraToscanoTossireTostaturaTotanoTraboccoTracheaTrafilaTragediaTralcioTramontoTransitoTrapanoTrarreTraslocoTrattatoTraveTrecciaTremolioTrespoloTributoTrichecoTrifoglioTrilloTrinceaTrioTristezzaTrituratoTrivellaTrombaTronoTroppoTrottolaTrovareTruccatoTubaturaTuffatoTulipanoTumultoTunisiaTurbareTurchinoTutaTutelaUbicatoUccelloUccisoreUdireUditivoUffaUfficioUgualeUlisseUltimatoUmanoUmileUmorismoUncinettoUngereUnghereseUnicornoUnificatoUnisonoUnitarioUnteUovoUpupaUraganoUrgenzaUrloUsanzaUsatoUscitoUsignoloUsuraioUtensileUtilizzoUtopiaVacanteVaccinatoVagabondoVagliatoValangaValgoValicoVallettaValorosoValutareValvolaVampataVangareVanitosoVanoVantaggioVanveraVaporeVaranoVarcatoVarianteVascaVedettaVedovaVedutoVegetaleVeicoloVelcroVelinaVellutoVeloceVenatoVendemmiaVentoVeraceVerbaleVergognaVerificaVeroVerrucaVerticaleVescicaVessilloVestaleVeteranoVetrinaVetustoViandanteVibranteVicendaVichingoVicinanzaVidimareVigiliaVignetoVigoreVileVillanoViminiVincitoreViolaViperaVirgolaVirologoVirulentoViscosoVisioneVispoVissutoVisuraVitaVitelloVittimaVivandaVividoViziareVoceVogaVolatileVolereVolpeVoragineVulcanoZampognaZannaZappatoZatteraZavorraZefiroZelanteZeloZenzeroZerbinoZibettoZincoZirconeZittoZollaZoticoZuccheroZufoloZuluZuppa";
+let wordlist$6 = null;
+function loadWords$6(lang) {
+    if (wordlist$6 != null) {
+        return;
+    }
+    wordlist$6 = words$4.replace(/([A-Z])/g, " $1").toLowerCase().substring(1).split(" ");
+    // Verify the computed list matches the official list
+    /* istanbul ignore if */
+    if (Wordlist.check(lang) !== "0x5c1362d88fd4cf614a96f3234941d29f7d37c08c5292fde03bf62c2db6ff7620") {
+        wordlist$6 = null;
+        throw new Error("BIP39 Wordlist for it (Italian) FAILED");
+    }
+}
+class LangIt extends Wordlist {
+    constructor() {
+        super("it");
+    }
+    getWord(index) {
+        loadWords$6(this);
+        return wordlist$6[index];
+    }
+    getWordIndex(word) {
+        loadWords$6(this);
+        return wordlist$6.indexOf(word);
+    }
+}
+const langIt = new LangIt();
+Wordlist.register(langIt);
+
+const data$2 = "}aE#4A=Yv&co#4N#6G=cJ&SM#66|/Z#4t&kn~46#4K~4q%b9=IR#7l,mB#7W_X2*dl}Uo~7s}Uf&Iw#9c&cw~6O&H6&wx&IG%v5=IQ~8a&Pv#47$PR&50%Ko&QM&3l#5f,D9#4L|/H&tQ;v0~6n]nN<di,AM=W5%QO&ka&ua,hM^tm=zV=JA=wR&+X]7P&NB#4J#5L|/b[dA}tJ<Do&6m&u2[U1&Kb.HM&mC=w0&MW<rY,Hq#6M}QG,13&wP}Jp]Ow%ue&Kg<HP<D9~4k~9T&I2_c6$9T#9/[C5~7O~4a=cs&O7=KK=An&l9$6U$8A&uD&QI|/Y&bg}Ux&F2#6b}E2&JN&kW&kp=U/&bb=Xl<Cj}k+~5J#6L&5z&9i}b4&Fo,ho(X0_g3~4O$Fz&QE<HN=Ww]6/%GF-Vw=tj&/D&PN#9g=YO}cL&Of&PI~5I&Ip=vU=IW#9G;0o-wU}ss&QR<BT&R9=tk$PY_dh&Pq-yh]7T,nj.Xu=EP&76=cI&Fs*Xg}z7$Gb&+I=DF,AF=cA}rL#7j=Dz&3y<Aa$52=PQ}b0(iY$Fa}oL&xV#6U=ec=WZ,xh%RY<dp#9N&Fl&44=WH*A7=sh&TB&8P=07;u+&PK}uh}J5#72)V/=xC,AB$k0&f6;1E|+5=1B,3v]6n&wR%b+&xx]7f=Ol}fl;+D^wG]7E;nB;uh^Ir&l5=JL,nS=cf=g5;u6|/Q$Gc=MH%Hg#5d%M6^86=U+$Gz,l/,ir^5y&Ba&/F-IY&FI&be%IZ#77&PW_Nu$kE(Yf&NX]7Z,Jy&FJ(Xo&Nz#/d=y7&MX<Ag}Z+;nE]Dt(iG#4D=13&Pj~4c%v8&Zo%OL&/X#4W<HR&ie~6J_1O(Y2=y5=Ad*cv_eB#6k&PX:BU#7A;uk&Ft&Fx_dD=U2;vB=U5=4F}+O&GN.HH:9s=b0%NV(jO&IH=JT}Z9=VZ<Af,Kx^4m&uJ%c6,6r;9m#+L}cf%Kh&F3~4H=vP}bu,Hz|++,1w]nv}k6;uu$jw*Kl*WX&uM[x7&Fr[m7$NO&QN]hu=JN}nR^8g#/h(ps|KC;vd}xz=V0}p6&FD$G1#7K<bG_4p~8g&cf;u4=tl}+k%5/}fz;uw<cA=u1}gU}VM=LJ=eX&+L&Pr#4U}p2:nC,2K]7H:jF&9x}uX#9O=MB<fz~8X~5m&4D&kN&u5%E/(h7(ZF&VG<de(qM|/e-Wt=3x(a+,/R]f/&ND$Ro&nU}0g=KA%kH&NK$Ke<dS}cB&IX~5g$TN]6m=Uv,Is&Py=Ef%Kz#+/%bi&+A<F4$OG&4C&FL#9V<Zk=2I_eE&6c]nw&kq$HG}y+&A8$P3}OH=XP]70%IS(AJ_gH%GZ&tY&AZ=vb~6y&/r=VI=Wv<Zi=fl=xf&eL}c8}OL=MJ=g8$F7=YT}9u=0+^xC}JH&nL^N0~4T]K2,Cy%OC#6s;vG(AC^xe^cG&MF}Br#9P;wD-7h$O/&xA}Fn^PC]6i]7G&8V$Qs;vl(TB~73~4l<mW&6V=2y&uY&+3)aP}XF;LP&kx$wU=t7;uy<FN&lz)7E=Oo*Y+;wI}9q}le;J6&Ri&4t&Qr#8B=cb&vG=J5|Ql(h5<Yy~4+}QD,Lx=wn%K/&RK=dO&Pw,Q9=co%4u;9u}g0@6a^4I%b0=zo|/c&tX=dQ=OS#+b=yz_AB&wB&Pm=W9$HP_gR=62=AO=ti=hI,oA&jr&dH=tm&b6$P2(x8=zi;nG~7F;05]0n[Ix&3m}rg=Xp=cd&uz]7t;97=cN;vV<jf&FF&F1=6Q&Ik*Kk&P4,2z=fQ]7D&3u,H0=d/}Uw<ZN<7R}Kv;0f$H7,MD]7n$F0#88~9Z%da=by;+T#/u=VF&fO&kr^kf<AB]sU,I5$Ng&Pz;0i&QD&vM=Yl:BM;nJ_xJ]U7&Kf&30,3f|Z9*dC)je_jA&Q4&Kp$NH(Yz#6S&Id%Ib=KX,AD=KV%dP}tW&Pk^+E_Ni=cq,3R}VZ(Si=b+}rv;0j}rZ]uA,/w(Sx&Jv$w9&4d&wE,NJ$Gy=J/]Ls#7k<ZQ<Y/&uj]Ov$PM;v3,2F&+u:up=On&3e,Jv;90=J+&Qm]6q}bK#+d~8Y(h2]hA;99&AS=I/}qB&dQ}yJ-VM}Vl&ui,iB&G3|Dc]7d=eQ%dX%JC_1L~4d^NP;vJ&/1)ZI#7N]9X[bQ&PL=0L(UZ,Lm&kc&IR}n7(iR<AQ<dg=33=vN}ft}au]7I,Ba=x9=dR~6R&Tq=Xi,3d$Nr&Bc}DI&ku&vf]Dn,/F&iD,Ll&Nw=0y&I7=Ls=/A&tU=Qe}Ua&uk&+F=g4=gh=Vj#+1&Qn}Uy*44#5F,Pc&Rz*Xn=oh=5W;0n_Nf(iE<Y7=vr=Zu]oz#5Z%mI=kN=Bv_Jp(T2;vt_Ml<FS&uI=L/&6P]64$M7}86<bo%QX(SI%IY&VK=Al&Ux;vv;ut*E/%uh<ZE|O3,M2(yc]yu=Wk&tp:Ex}hr,Cl&WE)+Z=8U}I2_4Q,hA_si=iw=OM=tM=yZ%Ia=U7;wT}b+;uo=Za}yS!5x}HD}fb#5O_dA;Nv%uB(yB;01(Sf}Fk;v7}Pt#8v<mZ#7L,/r&Pl~4w&f5=Ph$Fw_LF&8m,bL=yJ&BH}p/*Jn}tU~5Q;wB(h6]Df]8p^+B;E4&Wc=d+;Ea&bw$8C&FN,DM=Yf}mP~5w=fT#6V=mC=Fi=AV}jB&AN}lW}aH#/D)dZ;hl;vE}/7,CJ;31&w8,hj%u9_Js=jJ&4M~8k=TN&eC}nL&uc-wi&lX}dj=Mv=e2#6u=cr$uq$6G]8W}Jb:nm=Yg<b3(UA;vX&6n&xF=KT,jC,De&R8&oY=Zv&oB]7/=Z2&Oa}bf,hh(4h^tZ&72&Nx;D2&xL~5h~40)ZG)h+=OJ&RA]Bv$yB=Oq=df,AQ%Jn}OJ;11,3z&Tl&tj;v+^Hv,Dh(id=s+]7N&N3)9Q~8f,S4=uW=w4&uX,LX&3d]CJ&yp&8x<b2_do&lP=y/<cy_dG=Oi=7R(VH(lt_1T,Iq_AA;12^6T%k6#8K[B1{oO<AU[Bt;1b$9S&Ps<8T=St{bY,jB(Zp&63&Uv$9V,PM]6v&Af}zW[bW_oq}sm}nB&Kq&gC&ff_eq_2m&5F&TI}rf}Gf;Zr_z9;ER&jk}iz_sn<BN~+n&vo=Vi%97|ZR=Wc,WE&6t]6z%85(ly#84=KY)6m_5/=aX,N3}Tm&he&6K]tR_B2-I3;u/&hU&lH<AP=iB&IA=XL;/5&Nh=wv<BH#79=vS=zl<AA=0X_RG}Bw&9p$NW,AX&kP_Lp&/Z(Tc]Mu}hs#6I}5B&cI<bq&H9#6m=K9}vH(Y1(Y0#4B&w6,/9&gG<bE,/O=zb}I4_l8<B/;wL%Qo<HO[Mq=XX}0v&BP&F4(mG}0i}nm,EC=9u{I3,xG&/9=JY*DK&hR)BX=EI=cx=b/{6k}yX%A+&wa}Xb=la;wi^lL;0t}jo&Qb=xg=XB}iO<qo{bR=NV&8f=a0&Jy;0v=uK)HK;vN#6h&jB(h/%ud&NI%wY.X7=Pt}Cu-uL&Gs_hl%mH,tm]78=Lb^Q0#7Y=1u<Bt&+Q=Co_RH,w3;1e}ux<aU;ui}U3&Q5%bt]63&UQ|0l&uL}O7&3o,AV&dm|Nj(Xt*5+(Uu&Hh(p7(UF=VR=Bp^Jl&Hd[ix)9/=Iq]C8<67]66}mB%6f}bb}JI]8T$HA}db=YM&pa=2J}tS&Y0=PS&y4=cX$6E,hX,XP&nR;04,FQ&l0&Vm_Dv#5Y~8Z=Bi%MA]6x=JO:+p,Az&9q,Hj~6/}SD=K1:EJ}nA;Qo#/E]9R,Ie&6X%W3]61&v4=xX_MC=0q;06(Xq=fs}IG}Dv=0l}o7$iZ;9v&LH&DP-7a&OY,SZ,Kz,Cv&dh=fx|Nh,F/~7q=XF&w+;9n&Gw;0h}Z7<7O&JK(S7&LS<AD<ac=wo<Dt&zw%4B=4v#8P;9o~6p*vV=Tm,Or&I6=1q}nY=P0=gq&Bl&Uu,Ch%yb}UY=zh}dh}rl(T4_xk(YA#8R*xH,IN}Jn]7V}C4&Ty}j3]7p=cL=3h&wW%Qv<Z3=f0&RI&+S(ic_zq}oN&/Y=z1;Td=LW=0e=OI(Vc,+b^ju(UL;0r:Za%8v=Rp=zw&58&73&wK}qX]6y&8E)a2}WR=wP^ur&nQ<cH}Re=Aq&wk}Q0&+q=PP,Gc|/d^k5,Fw]8Y}Pg]p3=ju=ed}r5_yf&Cs]7z$/G<Cm&Jp&54_1G_gP_Ll}JZ;0u]k8_7k(Sg]65{9i=LN&Sx&WK,iW&fD&Lk{9a}Em-9c#8N&io=sy]8d&nT&IK(lx#7/$lW(Td<s8~49,3o<7Y=MW(T+_Jr&Wd,iL}Ct=xh&5V;v4&8n%Kx=iF&l2_0B{B+,If(J0,Lv;u8=Kx-vB=HC&vS=Z6&fU&vE^xK;3D=4h=MR#45:Jw;0d}iw=LU}I5=I0]gB*im,K9}GU,1k_4U&Tt=Vs(iX&lU(TF#7y,ZO}oA&m5#5P}PN}Uz=hM<B1&FB<aG,e6~7T<tP(UQ_ZT=wu&F8)aQ]iN,1r_Lo&/g:CD}84{J1_Ki&Na&3n$jz&FE=dc;uv;va}in}ll=fv(h1&3h}fp=Cy}BM(+E~8m}lo%v7=hC(T6$cj=BQ=Bw(DR,2j=Ks,NS|F+;00=fU=70}Mb(YU;+G&m7&hr=Sk%Co]t+(X5_Jw}0r}gC(AS-IP&QK<Z2#8Q$WC]WX}T2&pG_Ka,HC=R4&/N;Z+;ch(C7,D4$3p_Mk&B2$8D=n9%Ky#5z(CT&QJ#7B]DC]gW}nf~5M;Iw#80}Tc_1F#4Z-aC}Hl=ph=fz,/3=aW}JM}nn;DG;vm}wn,4P}T3;wx&RG$u+}zK=0b;+J_Ek{re<aZ=AS}yY#5D]7q,Cp}xN=VP*2C}GZ}aG~+m_Cs=OY#6r]6g<GS}LC(UB=3A=Bo}Jy<c4}Is;1P<AG}Op<Z1}ld}nS=1Z,yM&95&98=CJ(4t:2L$Hk=Zo}Vc;+I}np&N1}9y=iv}CO*7p=jL)px]tb^zh&GS&Vl%v/;vR=14=zJ&49|/f]hF}WG;03=8P}o/&Gg&rp;DB,Kv}Ji&Pb;aA^ll(4j%yt}+K$Ht#4y&hY]7Y<F1,eN}bG(Uh%6Z]t5%G7;+F_RE;it}tL=LS&Da=Xx(S+(4f=8G=yI}cJ}WP=37=jS}pX}hd)fp<A8=Jt~+o$HJ=M6}iX=g9}CS=dv=Cj(mP%Kd,xq|+9&LD(4/=Xm&QP=Lc}LX&fL;+K=Op(lu=Qs.qC:+e&L+=Jj#8w;SL]7S(b+#4I=c1&nG_Lf&uH;+R)ZV<bV%B/,TE&0H&Jq&Ah%OF&Ss(p2,Wv&I3=Wl}Vq;1L&lJ#9b_1H=8r=b8=JH(SZ=hD=J2#7U,/U#/X~6P,FU<eL=jx,mG=hG=CE&PU=Se(qX&LY=X6=y4&tk&QQ&tf=4g&xI}W+&mZ=Dc#7w}Lg;DA;wQ_Kb(cJ=hR%yX&Yb,hw{bX_4X;EP;1W_2M}Uc=b5(YF,CM&Tp^OJ{DD]6s=vF=Yo~8q}XH}Fu%P5(SJ=Qt;MO]s8<F3&B3&8T(Ul-BS*dw&dR<87}/8]62$PZ]Lx<Au}9Q]7c=ja=KR,Go,Us&v6(qk}pG&G2=ev^GM%w4&H4]7F&dv]J6}Ew:9w=sj-ZL}Ym$+h(Ut(Um~4n=Xs(U7%eE=Qc_JR<CA#6t<Fv|/I,IS,EG<F2(Xy$/n<Fa(h9}+9_2o&N4#7X<Zq|+f_Dp=dt&na,Ca=NJ)jY=8C=YG=s6&Q+<DO}D3=xB&R1(lw;Qn<bF(Cu|/B}HV=SS&n7,10&u0]Dm%A6^4Q=WR(TD=Xo<GH,Rj(l8)bP&n/=LM&CF,F5&ml=PJ;0k=LG=tq,Rh,D6@4i=1p&+9=YC%er_Mh;nI;0q=Fw]80=xq=FM$Gv;v6&nc;wK%H2&Kj;vs,AA=YP,66}bI(qR~5U=6q~4b$Ni=K5.X3$So&Iu(p+]8G=Cf=RY(TS_O3(iH&57=fE=Dg_Do#9z#7H;FK{qd_2k%JR}en&gh_z8;Rx}9p<cN_Ne,DO;LN_7o~/p=NF=5Y}gN<ce<C1,QE]Wv=3u<BC}GK]yq}DY&u/_hj=II(pz&rC,jV&+Z}ut=NQ;Cg-SR_ZS,+o=u/;Oy_RK_QF(Fx&xP}Wr&TA,Uh&g1=yr{ax[VF$Pg(YB;Ox=Vy;+W(Sp}XV%dd&33(l/]l4#4Y}OE=6c=bw(A7&9t%wd&N/&mo,JH&Qe)fm=Ao}fu=tH";
+const deltaData = "FAZDC6BALcLZCA+GBARCW8wNCcDDZ8LVFBOqqDUiou+M42TFAyERXFb7EjhP+vmBFpFrUpfDV2F7eB+eCltCHJFWLFCED+pWTojEIHFXc3aFn4F68zqjEuKidS1QBVPDEhE7NA4mhMF7oThD49ot3FgtzHFCK0acW1x8DH1EmLoIlrWFBLE+y5+NA3Cx65wJHTaEZVaK1mWAmPGxgYCdxwOjTDIt/faOEhTl1vqNsKtJCOhJWuio2g07KLZEQsFBUpNtwEByBgxFslFheFbiEPvi61msDvApxCzB6rBCzox7joYA5UdDc+Cb4FSgIabpXFAj3bjkmFAxCZE+mD/SFf/0ELecYCt3nLoxC6WEZf2tKDB4oZvrEmqFkKk7BwILA7gtYBpsTq//D4jD0F0wEB9pyQ1BD5Ba0oYHDI+sbDFhvrHXdDHfgFEIJLi5r8qercNFBgFLC4bo5ERJtamWBDFy73KCEb6M8VpmEt330ygCTK58EIIFkYgF84gtGA9Uyh3m68iVrFbWFbcbqiCYHZ9J1jeRPbL8yswhMiDbhEhdNoSwFbZrLT740ABEqgCkO8J1BLd1VhKKR4sD1yUo0z+FF59Mvg71CFbyEhbHSFBKEIKyoQNgQppq9T0KAqePu0ZFGrXOHdKJqkoTFhYvpDNyuuznrN84thJbsCoO6Cu6Xlvntvy0QYuAExQEYtTUBf3CoCqwgGFZ4u1HJFzDVwEy3cjcpV4QvsPaBC3rCGyCF23o4K3pp2gberGgFEJEHo4nHICtyKH2ZqyxhN05KBBJIQlKh/Oujv/DH32VrlqFdIFC7Fz9Ct4kaqFME0UETLprnN9kfy+kFmtQBB0+5CFu0N9Ij8l/VvJDh2oq3hT6EzjTHKFN7ZjZwoTsAZ4Exsko6Fpa6WC+sduz8jyrLpegTv2h1EBeYpLpm2czQW0KoCcS0bCVXCmuWJDBjN1nQNLdF58SFJ0h7i3pC3oEOKy/FjBklL70XvBEEIWp2yZ04xObzAWDDJG7f+DbqBEA7LyiR95j7MDVdDViz2RE5vWlBMv5e4+VfhP3aXNPhvLSynb9O2x4uFBV+3jqu6d5pCG28/sETByvmu/+IJ0L3wb4rj9DNOLBF6XPIODr4L19U9RRofAG6Nxydi8Bki8BhGJbBAJKzbJxkZSlF9Q2Cu8oKqggB9hBArwLLqEBWEtFowy8XK8bEyw9snT+BeyFk1ZCSrdmgfEwFePTgCjELBEnIbjaDDPJm36rG9pztcEzT8dGk23SBhXBB1H4z+OWze0ooFzz8pDBYFvp9j9tvFByf9y4EFdVnz026CGR5qMr7fxMHN8UUdlyJAzlTBDRC28k+L4FB8078ljyD91tUj1ocnTs8vdEf7znbzm+GIjEZnoZE5rnLL700Xc7yHfz05nWxy03vBB9YGHYOWxgMQGBCR24CVYNE1hpfKxN0zKnfJDmmMgMmBWqNbjfSyFCBWSCGCgR8yFXiHyEj+VtD1FB3FpC1zI0kFbzifiKTLm9yq5zFmur+q8FHqjoOBWsBPiDbnCC2ErunV6cJ6TygXFYHYp7MKN9RUlSIS8/xBAGYLzeqUnBF4QbsTuUkUqGs6CaiDWKWjQK9EJkjpkTmNCPYXL";
+// @TODO: Load lazily
+const wordlist$7 = {
+    zh_cn: null,
+    zh_tw: null
+};
+const Checks = {
+    zh_cn: "0x17bcc4d8547e5a7135e365d1ab443aaae95e76d8230c2782c67305d4f21497a1",
+    zh_tw: "0x51e720e90c7b87bec1d70eb6e74a21a449bd3ec9c020b01d3a40ed991b60ce5d"
+};
+const codes$1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+const style = "~!@#$%^&*_-=[]{}|;:,.()<>?";
+function loadWords$7(lang) {
+    if (wordlist$7[lang.locale] !== null) {
+        return;
+    }
+    wordlist$7[lang.locale] = [];
+    let deltaOffset = 0;
+    for (let i = 0; i < 2048; i++) {
+        const s = style.indexOf(data$2[i * 3]);
+        const bytes = [
+            228 + (s >> 2),
+            128 + codes$1.indexOf(data$2[i * 3 + 1]),
+            128 + codes$1.indexOf(data$2[i * 3 + 2]),
+        ];
+        if (lang.locale === "zh_tw") {
+            const common = s % 4;
+            for (let i = common; i < 3; i++) {
+                bytes[i] = codes$1.indexOf(deltaData[deltaOffset++]) + ((i == 0) ? 228 : 128);
+            }
+        }
+        wordlist$7[lang.locale].push(toUtf8String(bytes));
+    }
+    // Verify the computed list matches the official list
+    /* istanbul ignore if */
+    if (Wordlist.check(lang) !== Checks[lang.locale]) {
+        wordlist$7[lang.locale] = null;
+        throw new Error("BIP39 Wordlist for " + lang.locale + " (Chinese) FAILED");
+    }
+}
+class LangZh extends Wordlist {
+    constructor(country) {
+        super("zh_" + country);
+    }
+    getWord(index) {
+        loadWords$7(this);
+        return wordlist$7[this.locale][index];
+    }
+    getWordIndex(word) {
+        loadWords$7(this);
+        return wordlist$7[this.locale].indexOf(word);
+    }
+    split(mnemonic) {
+        mnemonic = mnemonic.replace(/(?:\u3000| )+/g, "");
+        return mnemonic.split("");
+    }
+}
+const langZhCn = new LangZh("cn");
+Wordlist.register(langZhCn);
+Wordlist.register(langZhCn, "zh");
+const langZhTw = new LangZh("tw");
+Wordlist.register(langZhTw);
+
+const wordlists = {
+    cz: langCz,
+    en: langEn,
+    es: langEs,
+    fr: langFr,
+    it: langIt,
+    ja: langJa,
+    ko: langKo,
+    zh: langZhCn,
+    zh_cn: langZhCn,
+    zh_tw: langZhTw
+};
+
+const version$g = "hdnode/5.0.9";
+
+const logger$l = new Logger(version$g);
 const N = BigNumber.from("0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141");
 // "Bitcoin seed"
 const MasterSecret = toUtf8Bytes("Bitcoin seed");
@@ -35626,7 +34523,7 @@ function bytes32(value) {
     return hexZeroPad(hexlify(value), 32);
 }
 function base58check(data) {
-    return Base58.encode(concat([data, hexDataSlice(browser_3(browser_3(data)), 0, 4)]));
+    return Base58.encode(concat([data, hexDataSlice(sha256$1(sha256$1(data)), 0, 4)]));
 }
 function getWordlist(wordlist) {
     if (wordlist == null) {
@@ -35635,7 +34532,7 @@ function getWordlist(wordlist) {
     if (typeof (wordlist) === "string") {
         const words = wordlists[wordlist];
         if (words == null) {
-            logger$j.throwArgumentError("unknown locale", "wordlist", wordlist);
+            logger$l.throwArgumentError("unknown locale", "wordlist", wordlist);
         }
         return words;
     }
@@ -35652,7 +34549,7 @@ class HDNode {
      *   - fromSeed
      */
     constructor(constructorGuard, privateKey, publicKey, parentFingerprint, chainCode, index, depth, mnemonicOrPath) {
-        logger$j.checkNew(new.target, HDNode);
+        logger$l.checkNew(new.target, HDNode);
         /* istanbul ignore if */
         if (constructorGuard !== _constructorGuard$3) {
             throw new Error("HDNode constructor cannot be called directly");
@@ -35667,7 +34564,7 @@ class HDNode {
             defineReadOnly(this, "publicKey", hexlify(publicKey));
         }
         defineReadOnly(this, "parentFingerprint", parentFingerprint);
-        defineReadOnly(this, "fingerprint", hexDataSlice(browser_2(browser_3(this.publicKey)), 0, 4));
+        defineReadOnly(this, "fingerprint", hexDataSlice(ripemd160$1(sha256$1(this.publicKey)), 0, 4));
         defineReadOnly(this, "address", computeAddress(this.publicKey));
         defineReadOnly(this, "chainCode", chainCode);
         defineReadOnly(this, "index", index);
@@ -35738,7 +34635,7 @@ class HDNode {
         for (let i = 24; i >= 0; i -= 8) {
             data[33 + (i >> 3)] = ((index >> (24 - i)) & 0xff);
         }
-        const I = arrayify(browser_5(browser_1.sha512, this.chainCode, data));
+        const I = arrayify(computeHmac(SupportedAlgorithm.sha512, this.chainCode, data));
         const IL = I.slice(0, 32);
         const IR = I.slice(32);
         // The private key
@@ -35799,7 +34696,7 @@ class HDNode {
         if (seedArray.length < 16 || seedArray.length > 64) {
             throw new Error("invalid seed");
         }
-        const I = arrayify(browser_5(browser_1.sha512, MasterSecret, seedArray));
+        const I = arrayify(computeHmac(SupportedAlgorithm.sha512, MasterSecret, seedArray));
         return new HDNode(_constructorGuard$3, bytes32(I.slice(0, 32)), null, "0x00000000", bytes32(I.slice(32)), 0, 0, mnemonic);
     }
     static fromMnemonic(mnemonic, password, wordlist) {
@@ -35819,7 +34716,7 @@ class HDNode {
     static fromExtendedKey(extendedKey) {
         const bytes = Base58.decode(extendedKey);
         if (bytes.length !== 82 || base58check(bytes.slice(0, 78)) !== extendedKey) {
-            logger$j.throwArgumentError("invalid extended key", "extendedKey", "[REDACTED]");
+            logger$l.throwArgumentError("invalid extended key", "extendedKey", "[REDACTED]");
         }
         const depth = bytes[4];
         const parentFingerprint = hexlify(bytes.slice(5, 9));
@@ -35839,7 +34736,7 @@ class HDNode {
                 }
                 return new HDNode(_constructorGuard$3, hexlify(key.slice(1)), null, parentFingerprint, chainCode, index, depth, null);
         }
-        return logger$j.throwArgumentError("invalid extended key", "extendedKey", "[REDACTED]");
+        return logger$l.throwArgumentError("invalid extended key", "extendedKey", "[REDACTED]");
     }
 }
 function mnemonicToSeed(mnemonic, password) {
@@ -35851,7 +34748,7 @@ function mnemonicToSeed(mnemonic, password) {
 }
 function mnemonicToEntropy(mnemonic, wordlist) {
     wordlist = getWordlist(wordlist);
-    logger$j.checkNormalize();
+    logger$l.checkNormalize();
     const words = wordlist.split(mnemonic);
     if ((words.length % 3) !== 0) {
         throw new Error("invalid mnemonic");
@@ -35873,7 +34770,7 @@ function mnemonicToEntropy(mnemonic, wordlist) {
     const entropyBits = 32 * words.length / 3;
     const checksumBits = words.length / 3;
     const checksumMask = getUpperMask(checksumBits);
-    const checksum = arrayify(browser_3(entropy.slice(0, entropyBits / 8)))[0] & checksumMask;
+    const checksum = arrayify(sha256$1(entropy.slice(0, entropyBits / 8)))[0] & checksumMask;
     if (checksum !== (entropy[entropy.length - 1] & checksumMask)) {
         throw new Error("invalid checksum");
     }
@@ -35905,7 +34802,7 @@ function entropyToMnemonic(entropy, wordlist) {
     }
     // Compute the checksum bits
     const checksumBits = entropy.length / 4;
-    const checksum = arrayify(browser_3(entropy))[0] & getUpperMask(checksumBits);
+    const checksum = arrayify(sha256$1(entropy))[0] & getUpperMask(checksumBits);
     // Shift the checksum into the word indices
     indices[indices.length - 1] <<= checksumBits;
     indices[indices.length - 1] |= (checksum >> (8 - checksumBits));
@@ -35920,18 +34817,9 @@ function isValidMnemonic(mnemonic, wordlist) {
     return false;
 }
 
-const version$h = "random/5.0.3";
-function shuffled(array) {
-    array = array.slice();
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const tmp = array[i];
-        array[i] = array[j];
-        array[j] = tmp;
-    }
-    return array;
-}
-const logger$k = new Logger(version$h);
+const version$h = "random/5.0.8";
+
+const logger$m = new Logger(version$h);
 let anyGlobal = null;
 try {
     anyGlobal = window;
@@ -35952,10 +34840,10 @@ catch (error) {
 }
 let crypto = anyGlobal.crypto || anyGlobal.msCrypto;
 if (!crypto || !crypto.getRandomValues) {
-    logger$k.warn("WARNING: Missing strong random number source");
+    logger$m.warn("WARNING: Missing strong random number source");
     crypto = {
         getRandomValues: function (buffer) {
-            return logger$k.throwError("no secure random source avaialble", Logger.errors.UNSUPPORTED_OPERATION, {
+            return logger$m.throwError("no secure random source avaialble", Logger.errors.UNSUPPORTED_OPERATION, {
                 operation: "crypto.getRandomValues"
             });
         }
@@ -35963,14 +34851,25 @@ if (!crypto || !crypto.getRandomValues) {
 }
 function randomBytes(length) {
     if (length <= 0 || length > 1024 || (length % 1)) {
-        logger$k.throwArgumentError("invalid length", "length", length);
+        logger$m.throwArgumentError("invalid length", "length", length);
     }
     const result = new Uint8Array(length);
     crypto.getRandomValues(result);
     return arrayify(result);
 }
 
-var aesJs = createCommonjsModule$1(function (module, exports) {
+function shuffled(array) {
+    array = array.slice();
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const tmp = array[i];
+        array[i] = array[j];
+        array[j] = tmp;
+    }
+    return array;
+}
+
+var aesJs = createCommonjsModule(function (module, exports) {
 
 (function(root) {
 
@@ -36758,7 +35657,8 @@ var aesJs = createCommonjsModule$1(function (module, exports) {
 })();
 });
 
-const version$i = "json-wallets/5.0.6";
+const version$i = "json-wallets/5.0.11";
+
 function looseArrayify(hexString) {
     if (typeof (hexString) === 'string' && hexString.substring(0, 2) !== '0x') {
         hexString = '0x' + hexString;
@@ -36818,7 +35718,8 @@ function uuidV4(randomBytes) {
         value.substring(22, 34),
     ].join("-");
 }
-const logger$l = new Logger(version$i);
+
+const logger$n = new Logger(version$i);
 class CrowdsaleAccount extends Description {
     isCrowdsaleAccount(value) {
         return !!(value && value._isCrowdsaleAccount);
@@ -36833,7 +35734,7 @@ function decrypt(json, password) {
     // Encrypted Seed
     const encseed = looseArrayify(searchPath(data, "encseed"));
     if (!encseed || (encseed.length % 16) !== 0) {
-        logger$l.throwArgumentError("invalid encseed", "json", json);
+        logger$n.throwArgumentError("invalid encseed", "json", json);
     }
     const key = arrayify(pbkdf2(password, password, 2000, 32, "sha256")).slice(0, 16);
     const iv = encseed.slice(0, 16);
@@ -36854,6 +35755,7 @@ function decrypt(json, password) {
         privateKey: privateKey
     });
 }
+
 function isCrowdsaleWallet(json) {
     let data = null;
     try {
@@ -36901,7 +35803,7 @@ function getJsonWalletAddress(json) {
     return null;
 }
 
-var scrypt = createCommonjsModule$1(function (module, exports) {
+var scrypt = createCommonjsModule(function (module, exports) {
 
 (function(root) {
     const MAX_VALUE = 0x7fffffff;
@@ -37378,9 +36280,8 @@ var scrypt = createCommonjsModule$1(function (module, exports) {
 
 })();
 });
-var scrypt_1 = scrypt.scrypt;
-var scrypt_2 = scrypt.syncScrypt;
-var __awaiter$3 = (window && window.__awaiter) || function (thisArg, _arguments, P, generator) {
+
+var __awaiter$4 = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -37389,7 +36290,7 @@ var __awaiter$3 = (window && window.__awaiter) || function (thisArg, _arguments,
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const logger$m = new Logger(version$i);
+const logger$o = new Logger(version$i);
 // Exported Types
 function hasMnemonic(value) {
     return (value != null && value.mnemonic && value.mnemonic.phrase);
@@ -37417,7 +36318,7 @@ function _getAccount(data, key) {
     }
     const privateKey = _decrypt(data, key.slice(0, 16), ciphertext);
     if (!privateKey) {
-        logger$m.throwError("unsupported cipher", Logger.errors.UNSUPPORTED_OPERATION, {
+        logger$o.throwError("unsupported cipher", Logger.errors.UNSUPPORTED_OPERATION, {
             operation: "decrypt"
         });
     }
@@ -37476,7 +36377,7 @@ function _computeKdfKey(data, password, pbkdf2Func, scryptFunc, progressCallback
     const kdf = searchPath(data, "crypto/kdf");
     if (kdf && typeof (kdf) === "string") {
         const throwError = function (name, value) {
-            return logger$m.throwArgumentError("invalid key-derivation function parameters", name, value);
+            return logger$o.throwArgumentError("invalid key-derivation function parameters", name, value);
         };
         if (kdf.toLowerCase() === "scrypt") {
             const salt = looseArrayify(searchPath(data, "crypto/kdfparams/salt"));
@@ -37518,17 +36419,17 @@ function _computeKdfKey(data, password, pbkdf2Func, scryptFunc, progressCallback
             return pbkdf2Func(passwordBytes, salt, count, dkLen, prfFunc);
         }
     }
-    return logger$m.throwArgumentError("unsupported key-derivation function", "kdf", kdf);
+    return logger$o.throwArgumentError("unsupported key-derivation function", "kdf", kdf);
 }
 function decryptSync(json, password) {
     const data = JSON.parse(json);
-    const key = _computeKdfKey(data, password, pbkdf2Sync, scrypt_2);
+    const key = _computeKdfKey(data, password, pbkdf2Sync, scrypt.syncScrypt);
     return _getAccount(data, key);
 }
 function decrypt$1(json, password, progressCallback) {
-    return __awaiter$3(this, void 0, void 0, function* () {
+    return __awaiter$4(this, void 0, void 0, function* () {
         const data = JSON.parse(json);
-        const key = yield _computeKdfKey(data, password, pbkdf2$1, scrypt_1, progressCallback);
+        const key = yield _computeKdfKey(data, password, pbkdf2$1, scrypt.scrypt, progressCallback);
         return _getAccount(data, key);
     });
 }
@@ -37619,7 +36520,7 @@ function encrypt(account, password, options, progressCallback) {
     // We take 64 bytes:
     //   - 32 bytes   As normal for the Web3 secret storage (derivedKey, macPrefix)
     //   - 32 bytes   AES key to encrypt mnemonic with (required here to be Ethers Wallet)
-    return scrypt_1(passwordBytes, salt, N, r, p, 64, progressCallback).then((key) => {
+    return scrypt.scrypt(passwordBytes, salt, N, r, p, 64, progressCallback).then((key) => {
         key = arrayify(key);
         // This will be used to encrypt the wallet (as per Web3 secret storage)
         const derivedKey = key.slice(0, 16);
@@ -37680,6 +36581,7 @@ function encrypt(account, password, options, progressCallback) {
         return JSON.stringify(data);
     });
 }
+
 function decryptJsonWallet(json, password, progressCallback) {
     if (isCrowdsaleWallet(json)) {
         if (progressCallback) {
@@ -37706,8 +36608,18 @@ function decryptJsonWalletSync(json, password) {
     throw new Error("invalid JSON wallet");
 }
 
-const version$j = "wallet/5.0.4";
-const logger$n = new Logger(version$j);
+const version$j = "wallet/5.0.11";
+
+var __awaiter$5 = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+const logger$p = new Logger(version$j);
 function isAccount(value) {
     return (value != null && isHexString(value.privateKey, 32) && value.address != null);
 }
@@ -37717,14 +36629,14 @@ function hasMnemonic$1(value) {
 }
 class Wallet extends Signer {
     constructor(privateKey, provider) {
-        logger$n.checkNew(new.target, Wallet);
+        logger$p.checkNew(new.target, Wallet);
         super();
         if (isAccount(privateKey)) {
             const signingKey = new SigningKey(privateKey.privateKey);
             defineReadOnly(this, "_signingKey", () => signingKey);
             defineReadOnly(this, "address", computeAddress(this.publicKey));
             if (this.address !== getAddress(privateKey.address)) {
-                logger$n.throwArgumentError("privateKey/address mismatch", "privateKey", "[REDACTED]");
+                logger$p.throwArgumentError("privateKey/address mismatch", "privateKey", "[REDACTED]");
             }
             if (hasMnemonic$1(privateKey)) {
                 const srcMnemonic = privateKey.mnemonic;
@@ -37736,7 +36648,7 @@ class Wallet extends Signer {
                 const mnemonic = this.mnemonic;
                 const node = HDNode.fromMnemonic(mnemonic.phrase, null, mnemonic.locale).derivePath(mnemonic.path);
                 if (computeAddress(node.privateKey) !== this.address) {
-                    logger$n.throwArgumentError("mnemonic/address mismatch", "privateKey", "[REDACTED]");
+                    logger$p.throwArgumentError("mnemonic/address mismatch", "privateKey", "[REDACTED]");
                 }
             }
             else {
@@ -37747,11 +36659,17 @@ class Wallet extends Signer {
             if (SigningKey.isSigningKey(privateKey)) {
                 /* istanbul ignore if */
                 if (privateKey.curve !== "secp256k1") {
-                    logger$n.throwArgumentError("unsupported curve; must be secp256k1", "privateKey", "[REDACTED]");
+                    logger$p.throwArgumentError("unsupported curve; must be secp256k1", "privateKey", "[REDACTED]");
                 }
                 defineReadOnly(this, "_signingKey", () => privateKey);
             }
             else {
+                // A lot of common tools do not prefix private keys with a 0x (see: #1166)
+                if (typeof (privateKey) === "string") {
+                    if (privateKey.match(/^[0-9a-f]*$/i) && privateKey.length === 64) {
+                        privateKey = "0x" + privateKey;
+                    }
+                }
                 const signingKey = new SigningKey(privateKey);
                 defineReadOnly(this, "_signingKey", () => signingKey);
             }
@@ -37760,7 +36678,7 @@ class Wallet extends Signer {
         }
         /* istanbul ignore if */
         if (provider && !Provider.isProvider(provider)) {
-            logger$n.throwArgumentError("invalid provider", "provider", provider);
+            logger$p.throwArgumentError("invalid provider", "provider", provider);
         }
         defineReadOnly(this, "provider", provider || null);
     }
@@ -37777,7 +36695,7 @@ class Wallet extends Signer {
         return resolveProperties(transaction).then((tx) => {
             if (tx.from != null) {
                 if (getAddress(tx.from) !== this.address) {
-                    logger$n.throwArgumentError("transaction from address mismatch", "transaction.from", transaction.from);
+                    logger$p.throwArgumentError("transaction from address mismatch", "transaction.from", transaction.from);
                 }
                 delete tx.from;
             }
@@ -37786,7 +36704,24 @@ class Wallet extends Signer {
         });
     }
     signMessage(message) {
-        return Promise.resolve(joinSignature(this._signingKey().signDigest(hashMessage(message))));
+        return __awaiter$5(this, void 0, void 0, function* () {
+            return joinSignature(this._signingKey().signDigest(hashMessage(message)));
+        });
+    }
+    _signTypedData(domain, types, value) {
+        return __awaiter$5(this, void 0, void 0, function* () {
+            // Populate any ENS names
+            const populated = yield TypedDataEncoder.resolveNames(domain, types, value, (name) => {
+                if (this.provider == null) {
+                    logger$p.throwError("cannot resolve ENS names without a provider", Logger.errors.UNSUPPORTED_OPERATION, {
+                        operation: "resolveName",
+                        value: name
+                    });
+                }
+                return this.provider.resolveName(name);
+            });
+            return joinSignature(this._signingKey().signDigest(TypedDataEncoder.hash(populated.domain, types, populated.value)));
+        });
     }
     encrypt(password, options, progressCallback) {
         if (typeof (options) === "function" && !progressCallback) {
@@ -37833,9 +36768,13 @@ class Wallet extends Signer {
 function verifyMessage(message, signature) {
     return recoverAddress(hashMessage(message), signature);
 }
+function verifyTypedData(domain, types, value, signature) {
+    return recoverAddress(TypedDataEncoder.hash(domain, types, value), signature);
+}
 
-const version$k = "networks/5.0.3";
-const logger$o = new Logger(version$k);
+const version$k = "networks/5.0.8";
+
+const logger$q = new Logger(version$k);
 function isRenetworkable(value) {
     return (value && typeof (value.renetwork) === "function");
 }
@@ -37860,6 +36799,12 @@ function ethDefaultProvider(network) {
         if (providers.AlchemyProvider) {
             try {
                 providerList.push(new providers.AlchemyProvider(network, options.alchemy));
+            }
+            catch (error) { }
+        }
+        if (providers.PocketProvider) {
+            try {
+                providerList.push(new providers.PocketProvider(network));
             }
             catch (error) { }
         }
@@ -38010,13 +36955,13 @@ function getNetwork(network) {
     // Not a standard network; check that it is a valid network in general
     if (!standard) {
         if (typeof (network.chainId) !== "number") {
-            logger$o.throwArgumentError("invalid network chainId", "network", network);
+            logger$q.throwArgumentError("invalid network chainId", "network", network);
         }
         return network;
     }
     // Make sure the chainId matches the expected network chainId (or is 0; disable EIP-155)
     if (network.chainId !== 0 && network.chainId !== standard.chainId) {
-        logger$o.throwArgumentError("network chainId mismatch", "network", network);
+        logger$q.throwArgumentError("network chainId mismatch", "network", network);
     }
     // @TODO: In the next major version add an attach function to a defaultProvider
     // class and move the _defaultProvider internal to this file (extend Network)
@@ -38037,6 +36982,7 @@ function getNetwork(network) {
         _defaultProvider: defaultProvider
     };
 }
+
 function decode$1(textData) {
     textData = atob(textData);
     const data = [];
@@ -38054,13 +37000,15 @@ function encode$1(data) {
     return btoa(textData);
 }
 
-var browser$2 = /*#__PURE__*/Object.freeze({
+var index$3 = /*#__PURE__*/Object.freeze({
+	__proto__: null,
 	decode: decode$1,
 	encode: encode$1
 });
 
-const version$l = "web/5.0.7";
-var __awaiter$4 = (window && window.__awaiter) || function (thisArg, _arguments, P, generator) {
+const version$l = "web/5.0.13";
+
+var __awaiter$6 = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -38070,7 +37018,7 @@ var __awaiter$4 = (window && window.__awaiter) || function (thisArg, _arguments,
     });
 };
 function getUrl(href, options) {
-    return __awaiter$4(this, void 0, void 0, function* () {
+    return __awaiter$6(this, void 0, void 0, function* () {
         if (options == null) {
             options = {};
         }
@@ -38105,7 +37053,8 @@ function getUrl(href, options) {
         };
     });
 }
-var __awaiter$5 = (window && window.__awaiter) || function (thisArg, _arguments, P, generator) {
+
+var __awaiter$7 = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -38114,7 +37063,7 @@ var __awaiter$5 = (window && window.__awaiter) || function (thisArg, _arguments,
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const logger$p = new Logger(version$l);
+const logger$r = new Logger(version$l);
 function staller(duration) {
     return new Promise((resolve) => {
         setTimeout(resolve, duration);
@@ -38147,10 +37096,10 @@ function bodyify(value, type) {
 function _fetchData(connection, body, processFunc) {
     // How many times to retry in the event of a throttle
     const attemptLimit = (typeof (connection) === "object" && connection.throttleLimit != null) ? connection.throttleLimit : 12;
-    logger$p.assertArgument((attemptLimit > 0 && (attemptLimit % 1) === 0), "invalid connection throttle limit", "connection.throttleLimit", attemptLimit);
+    logger$r.assertArgument((attemptLimit > 0 && (attemptLimit % 1) === 0), "invalid connection throttle limit", "connection.throttleLimit", attemptLimit);
     const throttleCallback = ((typeof (connection) === "object") ? connection.throttleCallback : null);
     const throttleSlotInterval = ((typeof (connection) === "object" && typeof (connection.throttleSlotInterval) === "number") ? connection.throttleSlotInterval : 100);
-    logger$p.assertArgument((throttleSlotInterval > 0 && (throttleSlotInterval % 1) === 0), "invalid connection throttle slot interval", "connection.throttleSlotInterval", throttleSlotInterval);
+    logger$r.assertArgument((throttleSlotInterval > 0 && (throttleSlotInterval % 1) === 0), "invalid connection throttle slot interval", "connection.throttleSlotInterval", throttleSlotInterval);
     const headers = {};
     let url = null;
     // @TODO: Allow ConnectionInfo to override some of these values
@@ -38164,7 +37113,7 @@ function _fetchData(connection, body, processFunc) {
     }
     else if (typeof (connection) === "object") {
         if (connection == null || connection.url == null) {
-            logger$p.throwArgumentError("missing URL", "connection.url", connection);
+            logger$r.throwArgumentError("missing URL", "connection.url", connection);
         }
         url = connection.url;
         if (typeof (connection.timeout) === "number" && connection.timeout > 0) {
@@ -38178,9 +37127,10 @@ function _fetchData(connection, body, processFunc) {
                 }
             }
         }
+        options.allowGzip = !!connection.allowGzip;
         if (connection.user != null && connection.password != null) {
             if (url.substring(0, 6) !== "https:" && connection.allowInsecureAuthentication !== true) {
-                logger$p.throwError("basic authentication requires a secure https url", Logger.errors.INVALID_ARGUMENT, { argument: "url", url: url, user: connection.user, password: "[REDACTED]" });
+                logger$r.throwError("basic authentication requires a secure https url", Logger.errors.INVALID_ARGUMENT, { argument: "url", url: url, user: connection.user, password: "[REDACTED]" });
             }
             const authorization = connection.user + ":" + connection.password;
             headers["authorization"] = {
@@ -38214,7 +37164,7 @@ function _fetchData(connection, body, processFunc) {
                         return;
                     }
                     timer = null;
-                    reject(logger$p.makeError("timeout", Logger.errors.TIMEOUT, {
+                    reject(logger$r.makeError("timeout", Logger.errors.TIMEOUT, {
                         requestBody: bodyify(options.body, flatHeaders["content-type"]),
                         requestMethod: options.method,
                         timeout: timeout,
@@ -38233,7 +37183,7 @@ function _fetchData(connection, body, processFunc) {
         return { promise, cancel };
     })();
     const runningFetch = (function () {
-        return __awaiter$5(this, void 0, void 0, function* () {
+        return __awaiter$7(this, void 0, void 0, function* () {
             for (let attempt = 0; attempt < attemptLimit; attempt++) {
                 let response = null;
                 try {
@@ -38263,7 +37213,7 @@ function _fetchData(connection, body, processFunc) {
                     response = error.response;
                     if (response == null) {
                         runningTimeout.cancel();
-                        logger$p.throwError("missing response", Logger.errors.SERVER_ERROR, {
+                        logger$r.throwError("missing response", Logger.errors.SERVER_ERROR, {
                             requestBody: bodyify(options.body, flatHeaders["content-type"]),
                             requestMethod: options.method,
                             serverError: error,
@@ -38277,7 +37227,7 @@ function _fetchData(connection, body, processFunc) {
                 }
                 else if (response.statusCode < 200 || response.statusCode >= 300) {
                     runningTimeout.cancel();
-                    logger$p.throwError("bad response", Logger.errors.SERVER_ERROR, {
+                    logger$r.throwError("bad response", Logger.errors.SERVER_ERROR, {
                         status: response.statusCode,
                         headers: response.headers,
                         body: bodyify(body, ((response.headers) ? response.headers["content-type"] : null)),
@@ -38307,7 +37257,7 @@ function _fetchData(connection, body, processFunc) {
                             }
                         }
                         runningTimeout.cancel();
-                        logger$p.throwError("processing response error", Logger.errors.SERVER_ERROR, {
+                        logger$r.throwError("processing response error", Logger.errors.SERVER_ERROR, {
                             body: bodyify(body, ((response.headers) ? response.headers["content-type"] : null)),
                             error: error,
                             requestBody: bodyify(options.body, flatHeaders["content-type"]),
@@ -38321,7 +37271,7 @@ function _fetchData(connection, body, processFunc) {
                 // The "body" is now a Uint8Array.
                 return body;
             }
-            return logger$p.throwError("failed response", Logger.errors.SERVER_ERROR, {
+            return logger$r.throwError("failed response", Logger.errors.SERVER_ERROR, {
                 requestBody: bodyify(options.body, flatHeaders["content-type"]),
                 requestMethod: options.method,
                 url: url
@@ -38338,7 +37288,7 @@ function fetchJson(connection, json, processFunc) {
                 result = JSON.parse(toUtf8String(value));
             }
             catch (error) {
-                logger$p.throwError("invalid JSON", Logger.errors.SERVER_ERROR, {
+                logger$r.throwError("invalid JSON", Logger.errors.SERVER_ERROR, {
                     body: value,
                     error: error
                 });
@@ -38450,6 +37400,7 @@ function poll(func, options) {
         check();
     });
 }
+
 var ALPHABET = 'qpzry9x8gf2tvdw0s3jn54khce6mua7l';
 
 // pre-compute lookup table
@@ -38631,14 +37582,13 @@ var bech32 = {
   fromWordsUnsafe: fromWordsUnsafe,
   fromWords: fromWords
 };
-var bech32_3 = bech32.encode;
-var bech32_5 = bech32.toWords;
 
-const version$m = "providers/5.0.9";
-const logger$q = new Logger(version$m);
+const version$m = "providers/5.0.21";
+
+const logger$s = new Logger(version$m);
 class Formatter {
     constructor() {
-        logger$q.checkNew(new.target, Formatter);
+        logger$s.checkNew(new.target, Formatter);
         this.formats = this.getDefaultFormats();
     }
     getDefaultFormats() {
@@ -38694,7 +37644,8 @@ class Formatter {
             from: Formatter.allowNull(this.address, null),
             contractAddress: Formatter.allowNull(address, null),
             transactionIndex: number,
-            root: Formatter.allowNull(hash),
+            // should be allowNull(hash), but broken-EIP-658 support is handled in receipt
+            root: Formatter.allowNull(hex),
             gasUsed: bigNumber,
             logsBloom: Formatter.allowNull(data),
             blockHash: hash,
@@ -38743,6 +37694,9 @@ class Formatter {
     // Requires a BigNumberish that is within the IEEE754 safe integer range; returns a number
     // Strict! Used on input.
     number(number) {
+        if (number === "0x") {
+            return 0;
+        }
         return BigNumber.from(number).toNumber();
     }
     // Strict! Used on input.
@@ -38774,7 +37728,7 @@ class Formatter {
                 return value.toLowerCase();
             }
         }
-        return logger$q.throwArgumentError("invalid hash", "value", value);
+        return logger$s.throwArgumentError("invalid hash", "value", value);
     }
     data(value, strict) {
         const result = this.hex(value, strict);
@@ -38818,7 +37772,7 @@ class Formatter {
     hash(value, strict) {
         const result = this.hex(value, strict);
         if (hexDataLength(result) !== 32) {
-            return logger$q.throwArgumentError("invalid hash", "value", value);
+            return logger$s.throwArgumentError("invalid hash", "value", value);
         }
         return result;
     }
@@ -38939,7 +37893,29 @@ class Formatter {
     }
     receipt(value) {
         const result = Formatter.check(this.formats.receipt, value);
-        if (value.status != null) {
+        // RSK incorrectly implemented EIP-658, so we munge things a bit here for it
+        if (result.root != null) {
+            if (result.root.length <= 4) {
+                // Could be 0x00, 0x0, 0x01 or 0x1
+                const value = BigNumber.from(result.root).toNumber();
+                if (value === 0 || value === 1) {
+                    // Make sure if both are specified, they match
+                    if (result.status != null && (result.status !== value)) {
+                        logger$s.throwArgumentError("alt-root-status/status mismatch", "value", { root: result.root, status: result.status });
+                    }
+                    result.status = value;
+                    delete result.root;
+                }
+                else {
+                    logger$s.throwArgumentError("invalid alt-root-status", "value.root", result.root);
+                }
+            }
+            else if (result.root.length !== 66) {
+                // Must be a valid bytes32
+                logger$s.throwArgumentError("invalid root hash", "value.root", result.root);
+            }
+        }
+        if (result.status != null) {
             result.byzantium = true;
         }
         return result;
@@ -39008,6 +37984,12 @@ class Formatter {
         });
     }
 }
+function isCommunityResourcable(value) {
+    return (value && typeof (value.isCommunityResource) === "function");
+}
+function isCommunityResource(value) {
+    return (isCommunityResourcable(value) && value.isCommunityResource());
+}
 // Show the throttle message only once
 let throttleMessage = false;
 function showThrottleMessage() {
@@ -39028,7 +38010,8 @@ function showThrottleMessage() {
     console.log("For more details: https:/\/docs.ethers.io/api-keys/");
     console.log("==========================");
 }
-var __awaiter$6 = (window && window.__awaiter) || function (thisArg, _arguments, P, generator) {
+
+var __awaiter$8 = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -39037,7 +38020,7 @@ var __awaiter$6 = (window && window.__awaiter) || function (thisArg, _arguments,
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const logger$r = new Logger(version$m);
+const logger$t = new Logger(version$m);
 //////////////////////////////
 // Event Serializeing
 function checkTopic(topic) {
@@ -39045,7 +38028,7 @@ function checkTopic(topic) {
         return "null";
     }
     if (hexDataLength(topic) !== 32) {
-        logger$r.throwArgumentError("invalid topic", "topic", topic);
+        logger$t.throwArgumentError("invalid topic", "topic", topic);
     }
     return topic.toLowerCase();
 }
@@ -39100,7 +38083,7 @@ function getEventTag$1(eventName) {
         return "filter:*:" + serializeTopics(eventName);
     }
     else if (ForkEvent.isForkEvent(eventName)) {
-        logger$r.warn("not implemented");
+        logger$t.warn("not implemented");
         throw new Error("not implemented");
     }
     else if (eventName && typeof (eventName) === "object") {
@@ -39192,7 +38175,7 @@ function bytes32ify(value) {
 }
 // Compute the Base58Check encoded data (checksum is first 4 bytes of sha256d)
 function base58Encode(data) {
-    return Base58.encode(concat([data, hexDataSlice(browser_3(browser_3(data)), 0, 4)]));
+    return Base58.encode(concat([data, hexDataSlice(sha256$1(sha256$1(data)), 0, 4)]));
 }
 class Resolver {
     constructor(provider, address, name) {
@@ -39201,7 +38184,7 @@ class Resolver {
         defineReadOnly(this, "address", provider.formatter.address(address));
     }
     _fetchBytes(selector, parameters) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             // keccak256("addr(bytes32,uint256)")
             const transaction = {
                 to: this.address,
@@ -39219,7 +38202,7 @@ class Resolver {
     _getAddress(coinType, hexBytes) {
         const coinInfo = coinInfos[String(coinType)];
         if (coinInfo == null) {
-            logger$r.throwError(`unsupported coin type: ${coinType}`, Logger.errors.UNSUPPORTED_OPERATION, {
+            logger$t.throwError(`unsupported coin type: ${coinType}`, Logger.errors.UNSUPPORTED_OPERATION, {
                 operation: `getAddress(${coinType})`
             });
         }
@@ -39261,15 +38244,15 @@ class Resolver {
                 version = -1;
             }
             if (version >= 0 && bytes.length === 2 + length && length >= 1 && length <= 75) {
-                const words = bech32_5(bytes.slice(2));
+                const words = bech32.toWords(bytes.slice(2));
                 words.unshift(version);
-                return bech32_3(coinInfo.prefix, words);
+                return bech32.encode(coinInfo.prefix, words);
             }
         }
         return null;
     }
     getAddress(coinType) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             if (coinType == null) {
                 coinType = 60;
             }
@@ -39296,7 +38279,7 @@ class Resolver {
             // Compute the address
             const address = this._getAddress(coinType, hexBytes);
             if (address == null) {
-                logger$r.throwError(`invalid or unsupported coin data`, Logger.errors.UNSUPPORTED_OPERATION, {
+                logger$t.throwError(`invalid or unsupported coin data`, Logger.errors.UNSUPPORTED_OPERATION, {
                     operation: `getAddress(${coinType})`,
                     coinType: coinType,
                     data: hexBytes
@@ -39306,7 +38289,7 @@ class Resolver {
         });
     }
     getContentHash() {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             // keccak256("contenthash()")
             const hexBytes = yield this._fetchBytes("0xbc1c58d1");
             // No contenthash
@@ -39328,14 +38311,14 @@ class Resolver {
                     return "bzz:/\/" + swarm[1];
                 }
             }
-            return logger$r.throwError(`invalid or unsupported content hash data`, Logger.errors.UNSUPPORTED_OPERATION, {
+            return logger$t.throwError(`invalid or unsupported content hash data`, Logger.errors.UNSUPPORTED_OPERATION, {
                 operation: "getContentHash()",
                 data: hexBytes
             });
         });
     }
     getText(key) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             // The key encoded as parameter to fetchBytes
             let keyBytes = toUtf8Bytes(key);
             // The nodehash consumes the first slot, so the string pointer targets
@@ -39366,7 +38349,7 @@ class BaseProvider extends Provider {
      *
      */
     constructor(network) {
-        logger$r.checkNew(new.target, Provider);
+        logger$t.checkNew(new.target, Provider);
         super();
         // Events being listened to
         this._events = [];
@@ -39393,7 +38376,7 @@ class BaseProvider extends Provider {
                 this.emit("network", knownNetwork, null);
             }
             else {
-                logger$r.throwArgumentError("invalid network", "network", network);
+                logger$t.throwArgumentError("invalid network", "network", network);
             }
         }
         this._maxInternalBlockNumber = -1024;
@@ -39402,7 +38385,7 @@ class BaseProvider extends Provider {
         this._fastQueryDate = 0;
     }
     _ready() {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             if (this._network == null) {
                 let network = null;
                 if (this._networkPromise) {
@@ -39418,7 +38401,7 @@ class BaseProvider extends Provider {
                 // This should never happen; every Provider sub-class should have
                 // suggested a network by here (or have thrown).
                 if (!network) {
-                    logger$r.throwError("no network detected", Logger.errors.UNKNOWN_ERROR, {});
+                    logger$t.throwError("no network detected", Logger.errors.UNKNOWN_ERROR, {});
                 }
                 // Possible this call stacked so do not call defineReadOnly again
                 if (this._network == null) {
@@ -39464,13 +38447,32 @@ class BaseProvider extends Provider {
     // Fetches the blockNumber, but will reuse any result that is less
     // than maxAge old or has been requested since the last request
     _getInternalBlockNumber(maxAge) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             yield this._ready();
-            const internalBlockNumber = this._internalBlockNumber;
-            if (maxAge > 0 && this._internalBlockNumber) {
-                const result = yield internalBlockNumber;
-                if ((getTime() - result.respTime) <= maxAge) {
-                    return result.blockNumber;
+            // Allowing stale data up to maxAge old
+            if (maxAge > 0) {
+                // While there are pending internal block requests...
+                while (this._internalBlockNumber) {
+                    // ..."remember" which fetch we started with
+                    const internalBlockNumber = this._internalBlockNumber;
+                    try {
+                        // Check the result is not too stale
+                        const result = yield internalBlockNumber;
+                        if ((getTime() - result.respTime) <= maxAge) {
+                            return result.blockNumber;
+                        }
+                        // Too old; fetch a new value
+                        break;
+                    }
+                    catch (error) {
+                        // The fetch rejected; if we are the first to get the
+                        // rejection, drop through so we replace it with a new
+                        // fetch; all others blocked will then get that fetch
+                        // which won't match the one they "remembered" and loop
+                        if (this._internalBlockNumber === internalBlockNumber) {
+                            break;
+                        }
+                    }
                 }
             }
             const reqTime = getTime();
@@ -39495,15 +38497,29 @@ class BaseProvider extends Provider {
                 return { blockNumber, reqTime, respTime };
             });
             this._internalBlockNumber = checkInternalBlockNumber;
+            // Swallow unhandled exceptions; if needed they are handled else where
+            checkInternalBlockNumber.catch((error) => {
+                // Don't null the dead (rejected) fetch, if it has already been updated
+                if (this._internalBlockNumber === checkInternalBlockNumber) {
+                    this._internalBlockNumber = null;
+                }
+            });
             return (yield checkInternalBlockNumber).blockNumber;
         });
     }
     poll() {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             const pollId = nextPollId++;
             // Track all running promises, so we can trigger a post-poll once they are complete
             const runners = [];
-            const blockNumber = yield this._getInternalBlockNumber(100 + this.pollingInterval / 2);
+            let blockNumber = null;
+            try {
+                blockNumber = yield this._getInternalBlockNumber(100 + this.pollingInterval / 2);
+            }
+            catch (error) {
+                this.emit("error", error);
+                return;
+            }
             this._setFastBlockNumber(blockNumber);
             // Emit a poll event after we have the latest (fast) block number
             this.emit("poll", pollId, blockNumber);
@@ -39517,8 +38533,8 @@ class BaseProvider extends Provider {
                 this._emitted.block = blockNumber - 1;
             }
             if (Math.abs((this._emitted.block) - blockNumber) > 1000) {
-                logger$r.warn("network block skew detected; skipping block events");
-                this.emit("error", logger$r.makeError("network block skew detected", Logger.errors.NETWORK_ERROR, {
+                logger$t.warn("network block skew detected; skipping block events");
+                this.emit("error", logger$t.makeError("network block skew detected", Logger.errors.NETWORK_ERROR, {
                     blockNumber: blockNumber,
                     event: "blockSkew",
                     previousBlockNumber: this._emitted.block
@@ -39597,8 +38613,8 @@ class BaseProvider extends Provider {
             // Once all events for this loop have been processed, emit "didPoll"
             Promise.all(runners).then(() => {
                 this.emit("didPoll", pollId);
-            });
-            return null;
+            }).catch((error) => { this.emit("error", error); });
+            return;
         });
     }
     // Deprecated; do not use this
@@ -39614,14 +38630,14 @@ class BaseProvider extends Provider {
     // This method should query the network if the underlying network
     // can change, such as when connected to a JSON-RPC backend
     detectNetwork() {
-        return __awaiter$6(this, void 0, void 0, function* () {
-            return logger$r.throwError("provider does not support network detection", Logger.errors.UNSUPPORTED_OPERATION, {
+        return __awaiter$8(this, void 0, void 0, function* () {
+            return logger$t.throwError("provider does not support network detection", Logger.errors.UNSUPPORTED_OPERATION, {
                 operation: "provider.detectNetwork"
             });
         });
     }
     getNetwork() {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             const network = yield this._ready();
             // Make sure we are still connected to the same network; this is
             // only an external call for backends which can have the underlying
@@ -39647,7 +38663,7 @@ class BaseProvider extends Provider {
                     yield stall(0);
                     return this._network;
                 }
-                const error = logger$r.makeError("underlying network changed", Logger.errors.NETWORK_ERROR, {
+                const error = logger$t.makeError("underlying network changed", Logger.errors.NETWORK_ERROR, {
                     event: "changed",
                     network: network,
                     detectedNetwork: currentNetwork
@@ -39661,7 +38677,7 @@ class BaseProvider extends Provider {
     get blockNumber() {
         this._getInternalBlockNumber(100 + this.pollingInterval / 2).then((blockNumber) => {
             this._setFastBlockNumber(blockNumber);
-        });
+        }, (error) => { });
         return (this._fastBlockNumber != null) ? this._fastBlockNumber : -1;
     }
     get polling() {
@@ -39669,7 +38685,7 @@ class BaseProvider extends Provider {
     }
     set polling(value) {
         if (value && !this._poller) {
-            this._poller = setInterval(this.poll.bind(this), this.pollingInterval);
+            this._poller = setInterval(() => { this.poll(); }, this.pollingInterval);
             if (!this._bootstrapPoll) {
                 this._bootstrapPoll = setTimeout(() => {
                     this.poll();
@@ -39733,7 +38749,7 @@ class BaseProvider extends Provider {
         }
     }
     waitForTransaction(transactionHash, confirmations, timeout) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             if (confirmations == null) {
                 confirmations = 1;
             }
@@ -39769,7 +38785,7 @@ class BaseProvider extends Provider {
                         timer = null;
                         done = true;
                         this.removeListener(transactionHash, handler);
-                        reject(logger$r.makeError("timeout exceeded", Logger.errors.TIMEOUT, { timeout: timeout }));
+                        reject(logger$t.makeError("timeout exceeded", Logger.errors.TIMEOUT, { timeout: timeout }));
                     }, timeout);
                     if (timer.unref) {
                         timer.unref();
@@ -39779,18 +38795,18 @@ class BaseProvider extends Provider {
         });
     }
     getBlockNumber() {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             return this._getInternalBlockNumber(0);
         });
     }
     getGasPrice() {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             yield this.getNetwork();
             return BigNumber.from(yield this.perform("getGasPrice", {}));
         });
     }
     getBalance(addressOrName, blockTag) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             yield this.getNetwork();
             const params = yield resolveProperties({
                 address: this._getAddress(addressOrName),
@@ -39800,7 +38816,7 @@ class BaseProvider extends Provider {
         });
     }
     getTransactionCount(addressOrName, blockTag) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             yield this.getNetwork();
             const params = yield resolveProperties({
                 address: this._getAddress(addressOrName),
@@ -39810,7 +38826,7 @@ class BaseProvider extends Provider {
         });
     }
     getCode(addressOrName, blockTag) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             yield this.getNetwork();
             const params = yield resolveProperties({
                 address: this._getAddress(addressOrName),
@@ -39820,7 +38836,7 @@ class BaseProvider extends Provider {
         });
     }
     getStorageAt(addressOrName, position, blockTag) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             yield this.getNetwork();
             const params = yield resolveProperties({
                 address: this._getAddress(addressOrName),
@@ -39838,10 +38854,10 @@ class BaseProvider extends Provider {
         const result = tx;
         // Check the hash we expect is the same as the hash the server reported
         if (hash != null && tx.hash !== hash) {
-            logger$r.throwError("Transaction hash mismatch from Provider.sendTransaction.", Logger.errors.UNKNOWN_ERROR, { expectedHash: tx.hash, returnedHash: hash });
+            logger$t.throwError("Transaction hash mismatch from Provider.sendTransaction.", Logger.errors.UNKNOWN_ERROR, { expectedHash: tx.hash, returnedHash: hash });
         }
         // @TODO: (confirmations? number, timeout? number)
-        result.wait = (confirmations) => __awaiter$6(this, void 0, void 0, function* () {
+        result.wait = (confirmations) => __awaiter$8(this, void 0, void 0, function* () {
             // We know this transaction *must* exist (whether it gets mined is
             // another story), so setting an emitted value forces us to
             // wait even if the node returns null for the receipt
@@ -39855,7 +38871,7 @@ class BaseProvider extends Provider {
             // No longer pending, allow the polling loop to garbage collect this
             this._emitted["t:" + tx.hash] = receipt.blockNumber;
             if (receipt.status === 0) {
-                logger$r.throwError("transaction failed", Logger.errors.CALL_EXCEPTION, {
+                logger$t.throwError("transaction failed", Logger.errors.CALL_EXCEPTION, {
                     transactionHash: tx.hash,
                     transaction: tx,
                     receipt: receipt
@@ -39866,7 +38882,7 @@ class BaseProvider extends Provider {
         return result;
     }
     sendTransaction(signedTransaction) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             yield this.getNetwork();
             const hexTx = yield Promise.resolve(signedTransaction).then(t => hexlify(t));
             const tx = this.formatter.transaction(signedTransaction);
@@ -39882,7 +38898,7 @@ class BaseProvider extends Provider {
         });
     }
     _getTransactionRequest(transaction) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             const values = yield transaction;
             const tx = {};
             ["from", "to"].forEach((key) => {
@@ -39907,7 +38923,7 @@ class BaseProvider extends Provider {
         });
     }
     _getFilter(filter) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             filter = yield filter;
             const result = {};
             if (filter.address != null) {
@@ -39929,7 +38945,7 @@ class BaseProvider extends Provider {
         });
     }
     call(transaction, blockTag) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             yield this.getNetwork();
             const params = yield resolveProperties({
                 transaction: this._getTransactionRequest(transaction),
@@ -39939,7 +38955,7 @@ class BaseProvider extends Provider {
         });
     }
     estimateGas(transaction) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             yield this.getNetwork();
             const params = yield resolveProperties({
                 transaction: this._getTransactionRequest(transaction)
@@ -39948,10 +38964,10 @@ class BaseProvider extends Provider {
         });
     }
     _getAddress(addressOrName) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             const address = yield this.resolveName(addressOrName);
             if (address == null) {
-                logger$r.throwError("ENS name not configured", Logger.errors.UNSUPPORTED_OPERATION, {
+                logger$t.throwError("ENS name not configured", Logger.errors.UNSUPPORTED_OPERATION, {
                     operation: `resolveName(${JSON.stringify(addressOrName)})`
                 });
             }
@@ -39959,7 +38975,7 @@ class BaseProvider extends Provider {
         });
     }
     _getBlock(blockHashOrBlockTag, includeTransactions) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             yield this.getNetwork();
             blockHashOrBlockTag = yield blockHashOrBlockTag;
             // If blockTag is a number (not "latest", etc), this is the block number
@@ -39978,10 +38994,10 @@ class BaseProvider extends Provider {
                     }
                 }
                 catch (error) {
-                    logger$r.throwArgumentError("invalid block hash or block tag", "blockHashOrBlockTag", blockHashOrBlockTag);
+                    logger$t.throwArgumentError("invalid block hash or block tag", "blockHashOrBlockTag", blockHashOrBlockTag);
                 }
             }
-            return poll(() => __awaiter$6(this, void 0, void 0, function* () {
+            return poll(() => __awaiter$8(this, void 0, void 0, function* () {
                 const block = yield this.perform("getBlock", params);
                 // Block was not found
                 if (block == null) {
@@ -40035,11 +39051,11 @@ class BaseProvider extends Provider {
         return (this._getBlock(blockHashOrBlockTag, true));
     }
     getTransaction(transactionHash) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             yield this.getNetwork();
             transactionHash = yield transactionHash;
             const params = { transactionHash: this.formatter.hash(transactionHash, true) };
-            return poll(() => __awaiter$6(this, void 0, void 0, function* () {
+            return poll(() => __awaiter$8(this, void 0, void 0, function* () {
                 const result = yield this.perform("getTransaction", params);
                 if (result == null) {
                     if (this._emitted["t:" + transactionHash] == null) {
@@ -40065,11 +39081,11 @@ class BaseProvider extends Provider {
         });
     }
     getTransactionReceipt(transactionHash) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             yield this.getNetwork();
             transactionHash = yield transactionHash;
             const params = { transactionHash: this.formatter.hash(transactionHash, true) };
-            return poll(() => __awaiter$6(this, void 0, void 0, function* () {
+            return poll(() => __awaiter$8(this, void 0, void 0, function* () {
                 const result = yield this.perform("getTransactionReceipt", params);
                 if (result == null) {
                     if (this._emitted["t:" + transactionHash] == null) {
@@ -40099,7 +39115,7 @@ class BaseProvider extends Provider {
         });
     }
     getLogs(filter) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             yield this.getNetwork();
             const params = yield resolveProperties({ filter: this._getFilter(filter) });
             const logs = yield this.perform("getLogs", params);
@@ -40112,17 +39128,17 @@ class BaseProvider extends Provider {
         });
     }
     getEtherPrice() {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             yield this.getNetwork();
             return this.perform("getEtherPrice", {});
         });
     }
     _getBlockTag(blockTag) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             blockTag = yield blockTag;
             if (typeof (blockTag) === "number" && blockTag < 0) {
                 if (blockTag % 1) {
-                    logger$r.throwArgumentError("invalid BlockTag", "blockTag", blockTag);
+                    logger$t.throwArgumentError("invalid BlockTag", "blockTag", blockTag);
                 }
                 let blockNumber = yield this._getInternalBlockNumber(100 + 2 * this.pollingInterval);
                 blockNumber += blockTag;
@@ -40135,7 +39151,7 @@ class BaseProvider extends Provider {
         });
     }
     getResolver(name) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             const address = yield this._getResolver(name);
             if (address == null) {
                 return null;
@@ -40144,12 +39160,12 @@ class BaseProvider extends Provider {
         });
     }
     _getResolver(name) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             // Get the resolver from the blockchain
             const network = yield this.getNetwork();
             // No ENS...
             if (!network.ensAddress) {
-                logger$r.throwError("network does not support ENS", Logger.errors.UNSUPPORTED_OPERATION, { operation: "ENS", network: network.name });
+                logger$t.throwError("network does not support ENS", Logger.errors.UNSUPPORTED_OPERATION, { operation: "ENS", network: network.name });
             }
             // keccak256("resolver(bytes32)")
             const transaction = {
@@ -40160,7 +39176,7 @@ class BaseProvider extends Provider {
         });
     }
     resolveName(name) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             name = yield name;
             // If it is already an address, nothing to resolve
             try {
@@ -40173,7 +39189,7 @@ class BaseProvider extends Provider {
                 }
             }
             if (typeof (name) !== "string") {
-                logger$r.throwArgumentError("invalid ENS name", "name", name);
+                logger$t.throwArgumentError("invalid ENS name", "name", name);
             }
             // Get the addr from the resovler
             const resolver = yield this.getResolver(name);
@@ -40184,7 +39200,7 @@ class BaseProvider extends Provider {
         });
     }
     lookupAddress(address) {
-        return __awaiter$6(this, void 0, void 0, function* () {
+        return __awaiter$8(this, void 0, void 0, function* () {
             address = yield address;
             address = this.formatter.address(address);
             const reverseName = address.substring(2).toLowerCase() + ".addr.reverse";
@@ -40223,7 +39239,7 @@ class BaseProvider extends Provider {
         });
     }
     perform(method, params) {
-        return logger$r.throwError(method + " not implemented", Logger.errors.NOT_IMPLEMENTED, { operation: method });
+        return logger$t.throwError(method + " not implemented", Logger.errors.NOT_IMPLEMENTED, { operation: method });
     }
     _startEvent(event) {
         this.polling = (this._events.filter((e) => e.pollable()).length > 0);
@@ -40324,40 +39340,7 @@ class BaseProvider extends Provider {
     }
 }
 
-var _version$2 = createCommonjsModule$1(function (module, exports) {
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.version = "providers/5.0.9";
-
-});
-
-unwrapExports(_version$2);
-_version$2.version;
-
-var browserWs = createCommonjsModule$1(function (module, exports) {
-Object.defineProperty(exports, "__esModule", { value: true });
-
-
-var WS = null;
-try {
-    WS = WebSocket;
-    if (WS == null) {
-        throw new Error("inject please");
-    }
-}
-catch (error) {
-    var logger_2 = new lib_esm.Logger(_version$2.version);
-    WS = function () {
-        logger_2.throwError("WebSockets not supported in this environment", lib_esm.Logger.errors.UNSUPPORTED_OPERATION, {
-            operation: "new WebSocket()"
-        });
-    };
-}
-module.exports = WS;
-
-});
-
-var WebSocket$1 = unwrapExports(browserWs);
-var __awaiter$7 = (window && window.__awaiter) || function (thisArg, _arguments, P, generator) {
+var __awaiter$9 = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -40366,9 +39349,17 @@ var __awaiter$7 = (window && window.__awaiter) || function (thisArg, _arguments,
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const logger$s = new Logger(version$m);
+const logger$u = new Logger(version$m);
 const errorGas = ["call", "estimateGas"];
 function checkError(method, error, params) {
+    // Undo the "convenience" some nodes are attempting to prevent backwards
+    // incompatibility; maybe for v6 consider forwarding reverts as errors
+    if (method === "call" && error.code === Logger.errors.SERVER_ERROR) {
+        const e = error.error;
+        if (e && e.message.match("reverted") && isHexString(e.data)) {
+            return e.data;
+        }
+    }
     let message = error.message;
     if (error.code === Logger.errors.SERVER_ERROR && error.error && typeof (error.error.message) === "string") {
         message = error.error.message;
@@ -40383,24 +39374,24 @@ function checkError(method, error, params) {
     const transaction = params.transaction || params.signedTransaction;
     // "insufficient funds for gas * price + value + cost(data)"
     if (message.match(/insufficient funds/)) {
-        logger$s.throwError("insufficient funds for intrinsic transaction cost", Logger.errors.INSUFFICIENT_FUNDS, {
+        logger$u.throwError("insufficient funds for intrinsic transaction cost", Logger.errors.INSUFFICIENT_FUNDS, {
             error, method, transaction
         });
     }
     // "nonce too low"
     if (message.match(/nonce too low/)) {
-        logger$s.throwError("nonce has already been used", Logger.errors.NONCE_EXPIRED, {
+        logger$u.throwError("nonce has already been used", Logger.errors.NONCE_EXPIRED, {
             error, method, transaction
         });
     }
     // "replacement transaction underpriced"
     if (message.match(/replacement transaction underpriced/)) {
-        logger$s.throwError("replacement fee too low", Logger.errors.REPLACEMENT_UNDERPRICED, {
+        logger$u.throwError("replacement fee too low", Logger.errors.REPLACEMENT_UNDERPRICED, {
             error, method, transaction
         });
     }
     if (errorGas.indexOf(method) >= 0 && message.match(/gas required exceeds allowance|always failing transaction|execution reverted/)) {
-        logger$s.throwError("cannot estimate gas; transaction may fail or may require manual gas limit", Logger.errors.UNPREDICTABLE_GAS_LIMIT, {
+        logger$u.throwError("cannot estimate gas; transaction may fail or may require manual gas limit", Logger.errors.UNPREDICTABLE_GAS_LIMIT, {
             error, method, transaction
         });
     }
@@ -40430,7 +39421,7 @@ function getLowerCase(value) {
 const _constructorGuard$4 = {};
 class JsonRpcSigner extends Signer {
     constructor(constructorGuard, provider, addressOrIndex) {
-        logger$s.checkNew(new.target, JsonRpcSigner);
+        logger$u.checkNew(new.target, JsonRpcSigner);
         super();
         if (constructorGuard !== _constructorGuard$4) {
             throw new Error("do not call the JsonRpcSigner constructor directly; use provider.getSigner");
@@ -40448,11 +39439,11 @@ class JsonRpcSigner extends Signer {
             defineReadOnly(this, "_address", null);
         }
         else {
-            logger$s.throwArgumentError("invalid address or index", "addressOrIndex", addressOrIndex);
+            logger$u.throwArgumentError("invalid address or index", "addressOrIndex", addressOrIndex);
         }
     }
     connect(provider) {
-        return logger$s.throwError("cannot alter JSON-RPC Signer connection", Logger.errors.UNSUPPORTED_OPERATION, {
+        return logger$u.throwError("cannot alter JSON-RPC Signer connection", Logger.errors.UNSUPPORTED_OPERATION, {
             operation: "connect"
         });
     }
@@ -40465,7 +39456,7 @@ class JsonRpcSigner extends Signer {
         }
         return this.provider.send("eth_accounts", []).then((accounts) => {
             if (accounts.length <= this._index) {
-                logger$s.throwError("unknown account #" + this._index, Logger.errors.UNSUPPORTED_OPERATION, {
+                logger$u.throwError("unknown account #" + this._index, Logger.errors.UNSUPPORTED_OPERATION, {
                     operation: "getAddress"
                 });
             }
@@ -40494,7 +39485,7 @@ class JsonRpcSigner extends Signer {
         }).then(({ tx, sender }) => {
             if (tx.from != null) {
                 if (tx.from.toLowerCase() !== sender) {
-                    logger$s.throwArgumentError("from address mismatch", "transaction", transaction);
+                    logger$u.throwArgumentError("from address mismatch", "transaction", transaction);
                 }
             }
             else {
@@ -40509,7 +39500,7 @@ class JsonRpcSigner extends Signer {
         });
     }
     signTransaction(transaction) {
-        return logger$s.throwError("signing transactions is unsupported", Logger.errors.UNSUPPORTED_OPERATION, {
+        return logger$u.throwError("signing transactions is unsupported", Logger.errors.UNSUPPORTED_OPERATION, {
             operation: "signTransaction"
         });
     }
@@ -40529,15 +39520,30 @@ class JsonRpcSigner extends Signer {
         });
     }
     signMessage(message) {
-        const data = ((typeof (message) === "string") ? toUtf8Bytes(message) : message);
-        return this.getAddress().then((address) => {
+        return __awaiter$9(this, void 0, void 0, function* () {
+            const data = ((typeof (message) === "string") ? toUtf8Bytes(message) : message);
+            const address = yield this.getAddress();
             // https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sign
-            return this.provider.send("eth_sign", [address.toLowerCase(), hexlify(data)]);
+            return yield this.provider.send("eth_sign", [address.toLowerCase(), hexlify(data)]);
+        });
+    }
+    _signTypedData(domain, types, value) {
+        return __awaiter$9(this, void 0, void 0, function* () {
+            // Populate any ENS names (in-place)
+            const populated = yield TypedDataEncoder.resolveNames(domain, types, value, (name) => {
+                return this.provider.resolveName(name);
+            });
+            const address = yield this.getAddress();
+            return yield this.provider.send("eth_signTypedData_v4", [
+                address.toLowerCase(),
+                JSON.stringify(TypedDataEncoder.getPayload(populated.domain, types, populated.value))
+            ]);
         });
     }
     unlock(password) {
-        const provider = this.provider;
-        return this.getAddress().then(function (address) {
+        return __awaiter$9(this, void 0, void 0, function* () {
+            const provider = this.provider;
+            const address = yield this.getAddress();
             return provider.send("personal_unlockAccount", [address.toLowerCase(), password, null]);
         });
     }
@@ -40565,7 +39571,7 @@ const allowedTransactionKeys$3 = {
 };
 class JsonRpcProvider extends BaseProvider {
     constructor(url, network) {
-        logger$s.checkNew(new.target, JsonRpcProvider);
+        logger$u.checkNew(new.target, JsonRpcProvider);
         let networkOrReady = network;
         // The network is unknown, query the JSON-RPC for it
         if (networkOrReady == null) {
@@ -40598,7 +39604,7 @@ class JsonRpcProvider extends BaseProvider {
         return "http:/\/localhost:8545";
     }
     detectNetwork() {
-        return __awaiter$7(this, void 0, void 0, function* () {
+        return __awaiter$9(this, void 0, void 0, function* () {
             yield timer(0);
             let chainId = null;
             try {
@@ -40616,14 +39622,14 @@ class JsonRpcProvider extends BaseProvider {
                     return getNetwork(BigNumber.from(chainId).toNumber());
                 }
                 catch (error) {
-                    return logger$s.throwError("could not detect network", Logger.errors.NETWORK_ERROR, {
+                    return logger$u.throwError("could not detect network", Logger.errors.NETWORK_ERROR, {
                         chainId: chainId,
                         event: "invalidNetwork",
                         serverError: error
                     });
                 }
             }
-            return logger$s.throwError("could not detect network", Logger.errors.NETWORK_ERROR, {
+            return logger$u.throwError("could not detect network", Logger.errors.NETWORK_ERROR, {
                 event: "noNetwork"
             });
         });
@@ -40714,10 +39720,10 @@ class JsonRpcProvider extends BaseProvider {
         return null;
     }
     perform(method, params) {
-        return __awaiter$7(this, void 0, void 0, function* () {
+        return __awaiter$9(this, void 0, void 0, function* () {
             const args = this.prepareRequest(method, params);
             if (args == null) {
-                logger$s.throwError(method + " not implemented", Logger.errors.NOT_IMPLEMENTED, { operation: method });
+                logger$u.throwError(method + " not implemented", Logger.errors.NOT_IMPLEMENTED, { operation: method });
             }
             try {
                 return yield this.send(args[0], args[1]);
@@ -40820,7 +39826,24 @@ class JsonRpcProvider extends BaseProvider {
         return result;
     }
 }
-var __awaiter$8 = (window && window.__awaiter) || function (thisArg, _arguments, P, generator) {
+
+let WS = null;
+try {
+    WS = WebSocket;
+    if (WS == null) {
+        throw new Error("inject please");
+    }
+}
+catch (error) {
+    const logger = new Logger(version$m);
+    WS = function () {
+        logger.throwError("WebSockets not supported in this environment", Logger.errors.UNSUPPORTED_OPERATION, {
+            operation: "new WebSocket()"
+        });
+    };
+}
+
+var __awaiter$a = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -40829,7 +39852,7 @@ var __awaiter$8 = (window && window.__awaiter) || function (thisArg, _arguments,
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const logger$t = new Logger(version$m);
+const logger$v = new Logger(version$m);
 /**
  *  Notes:
  *
@@ -40851,18 +39874,19 @@ class WebSocketProvider extends JsonRpcProvider {
     constructor(url, network) {
         // This will be added in the future; please open an issue to expedite
         if (network === "any") {
-            logger$t.throwError("WebSocketProvider does not support 'any' network yet", Logger.errors.UNSUPPORTED_OPERATION, {
+            logger$v.throwError("WebSocketProvider does not support 'any' network yet", Logger.errors.UNSUPPORTED_OPERATION, {
                 operation: "network:any"
             });
         }
         super(url, network);
         this._pollingInterval = -1;
-        defineReadOnly(this, "_websocket", new WebSocket$1(this.connection.url));
+        this._wsReady = false;
+        defineReadOnly(this, "_websocket", new WS(this.connection.url));
         defineReadOnly(this, "_requests", {});
         defineReadOnly(this, "_subs", {});
         defineReadOnly(this, "_subIds", {});
+        defineReadOnly(this, "_detectNetwork", super.detectNetwork());
         // Stall sending requests until the socket is open...
-        this._wsReady = false;
         this._websocket.onopen = () => {
             this._wsReady = true;
             Object.keys(this._requests).forEach((id) => {
@@ -40878,17 +39902,30 @@ class WebSocketProvider extends JsonRpcProvider {
                 delete this._requests[id];
                 if (result.result !== undefined) {
                     request.callback(null, result.result);
+                    this.emit("debug", {
+                        action: "response",
+                        request: JSON.parse(request.payload),
+                        response: result.result,
+                        provider: this
+                    });
                 }
                 else {
+                    let error = null;
                     if (result.error) {
-                        const error = new Error(result.error.message || "unknown error");
+                        error = new Error(result.error.message || "unknown error");
                         defineReadOnly(error, "code", result.error.code || null);
                         defineReadOnly(error, "response", data);
-                        request.callback(error, undefined);
                     }
                     else {
-                        request.callback(new Error("unknown error"), undefined);
+                        error = new Error("unknown error");
                     }
+                    request.callback(error, undefined);
+                    this.emit("debug", {
+                        action: "response",
+                        error: error,
+                        request: JSON.parse(request.payload),
+                        provider: this
+                    });
                 }
             }
             else if (result.method === "eth_subscription") {
@@ -40913,21 +39950,24 @@ class WebSocketProvider extends JsonRpcProvider {
             fauxPoll.unref();
         }
     }
+    detectNetwork() {
+        return this._detectNetwork;
+    }
     get pollingInterval() {
         return 0;
     }
     resetEventsBlock(blockNumber) {
-        logger$t.throwError("cannot reset events block on WebSocketProvider", Logger.errors.UNSUPPORTED_OPERATION, {
+        logger$v.throwError("cannot reset events block on WebSocketProvider", Logger.errors.UNSUPPORTED_OPERATION, {
             operation: "resetEventBlock"
         });
     }
     set pollingInterval(value) {
-        logger$t.throwError("cannot set polling interval on WebSocketProvider", Logger.errors.UNSUPPORTED_OPERATION, {
+        logger$v.throwError("cannot set polling interval on WebSocketProvider", Logger.errors.UNSUPPORTED_OPERATION, {
             operation: "setPollingInterval"
         });
     }
     poll() {
-        return __awaiter$8(this, void 0, void 0, function* () {
+        return __awaiter$a(this, void 0, void 0, function* () {
             return null;
         });
     }
@@ -40935,7 +39975,7 @@ class WebSocketProvider extends JsonRpcProvider {
         if (!value) {
             return;
         }
-        logger$t.throwError("cannot set polling on WebSocketProvider", Logger.errors.UNSUPPORTED_OPERATION, {
+        logger$v.throwError("cannot set polling on WebSocketProvider", Logger.errors.UNSUPPORTED_OPERATION, {
             operation: "setPolling"
         });
     }
@@ -40954,6 +39994,11 @@ class WebSocketProvider extends JsonRpcProvider {
                 id: rid,
                 jsonrpc: "2.0"
             });
+            this.emit("debug", {
+                action: "request",
+                request: JSON.parse(payload),
+                provider: this
+            });
             this._requests[String(rid)] = { callback, payload };
             if (this._wsReady) {
                 this._websocket.send(payload);
@@ -40964,7 +40009,7 @@ class WebSocketProvider extends JsonRpcProvider {
         return "ws:/\/localhost:8546";
     }
     _subscribe(tag, param, processFunc) {
-        return __awaiter$8(this, void 0, void 0, function* () {
+        return __awaiter$a(this, void 0, void 0, function* () {
             let subIdPromise = this._subIds[tag];
             if (subIdPromise == null) {
                 subIdPromise = Promise.all(param).then((param) => {
@@ -41058,9 +40103,9 @@ class WebSocketProvider extends JsonRpcProvider {
         });
     }
     destroy() {
-        return __awaiter$8(this, void 0, void 0, function* () {
+        return __awaiter$a(this, void 0, void 0, function* () {
             // Wait until we have connected before trying to disconnect
-            if (this._websocket.readyState === WebSocket$1.CONNECTING) {
+            if (this._websocket.readyState === WS.CONNECTING) {
                 yield (new Promise((resolve) => {
                     this._websocket.onopen = function () {
                         resolve(true);
@@ -41076,7 +40121,8 @@ class WebSocketProvider extends JsonRpcProvider {
         });
     }
 }
-var __awaiter$9 = (window && window.__awaiter) || function (thisArg, _arguments, P, generator) {
+
+var __awaiter$b = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -41085,7 +40131,7 @@ var __awaiter$9 = (window && window.__awaiter) || function (thisArg, _arguments,
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const logger$u = new Logger(version$m);
+const logger$w = new Logger(version$m);
 // A StaticJsonRpcProvider is useful when you *know* for certain that
 // the backend will never change, as it never calls eth_chainId to
 // verify its backend. However, if the backend does change, the effects
@@ -41102,12 +40148,12 @@ class StaticJsonRpcProvider extends JsonRpcProvider {
         const _super = Object.create(null, {
             detectNetwork: { get: () => super.detectNetwork }
         });
-        return __awaiter$9(this, void 0, void 0, function* () {
+        return __awaiter$b(this, void 0, void 0, function* () {
             let network = this.network;
             if (network == null) {
                 network = yield _super.detectNetwork.call(this);
                 if (!network) {
-                    logger$u.throwError("no network detected", Logger.errors.UNKNOWN_ERROR, {});
+                    logger$w.throwError("no network detected", Logger.errors.UNKNOWN_ERROR, {});
                 }
                 // If still not set, set it
                 if (this._network == null) {
@@ -41122,7 +40168,7 @@ class StaticJsonRpcProvider extends JsonRpcProvider {
 }
 class UrlJsonRpcProvider extends StaticJsonRpcProvider {
     constructor(network, apiKey) {
-        logger$u.checkAbstract(new.target, UrlJsonRpcProvider);
+        logger$w.checkAbstract(new.target, UrlJsonRpcProvider);
         // Normalize the Network and API Key
         network = getStatic((new.target), "getNetwork")(network);
         apiKey = getStatic((new.target), "getApiKey")(apiKey);
@@ -41138,10 +40184,13 @@ class UrlJsonRpcProvider extends StaticJsonRpcProvider {
         }
     }
     _startPending() {
-        logger$u.warn("WARNING: API provider does not support pending filters");
+        logger$w.warn("WARNING: API provider does not support pending filters");
+    }
+    isCommunityResource() {
+        return false;
     }
     getSigner(address) {
-        return logger$u.throwError("API provider does not support signing", Logger.errors.UNSUPPORTED_OPERATION, { operation: "getSigner" });
+        return logger$w.throwError("API provider does not support signing", Logger.errors.UNSUPPORTED_OPERATION, { operation: "getSigner" });
     }
     listAccounts() {
         return Promise.resolve([]);
@@ -41154,30 +40203,40 @@ class UrlJsonRpcProvider extends StaticJsonRpcProvider {
     // API key will have been sanitized by the getApiKey first, so any validation
     // or transformations can be done there.
     static getUrl(network, apiKey) {
-        return logger$u.throwError("not implemented; sub-classes must override getUrl", Logger.errors.NOT_IMPLEMENTED, {
+        return logger$w.throwError("not implemented; sub-classes must override getUrl", Logger.errors.NOT_IMPLEMENTED, {
             operation: "getUrl"
         });
     }
 }
-const logger$v = new Logger(version$m);
+
+const logger$x = new Logger(version$m);
 // This key was provided to ethers.js by Alchemy to be used by the
 // default provider, but it is recommended that for your own
 // production environments, that you acquire your own API key at:
 //   https://dashboard.alchemyapi.io
 const defaultApiKey = "_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC";
-class AlchemyProvider extends UrlJsonRpcProvider {
-    static getWebSocketProvider(network, apiKey) {
+class AlchemyWebSocketProvider extends WebSocketProvider {
+    constructor(network, apiKey) {
         const provider = new AlchemyProvider(network, apiKey);
         const url = provider.connection.url.replace(/^http/i, "ws")
             .replace(".alchemyapi.", ".ws.alchemyapi.");
-        return new WebSocketProvider(url, provider.network);
+        super(url, provider.network);
+        defineReadOnly(this, "apiKey", provider.apiKey);
+    }
+    isCommunityResource() {
+        return (this.apiKey === defaultApiKey);
+    }
+}
+class AlchemyProvider extends UrlJsonRpcProvider {
+    static getWebSocketProvider(network, apiKey) {
+        return new AlchemyWebSocketProvider(network, apiKey);
     }
     static getApiKey(apiKey) {
         if (apiKey == null) {
             return defaultApiKey;
         }
         if (apiKey && typeof (apiKey) !== "string") {
-            logger$v.throwArgumentError("invalid apiKey", "apiKey", apiKey);
+            logger$x.throwArgumentError("invalid apiKey", "apiKey", apiKey);
         }
         return apiKey;
     }
@@ -41200,9 +40259,10 @@ class AlchemyProvider extends UrlJsonRpcProvider {
                 host = "eth-kovan.alchemyapi.io/v2/";
                 break;
             default:
-                logger$v.throwArgumentError("unsupported network", "network", arguments[0]);
+                logger$x.throwArgumentError("unsupported network", "network", arguments[0]);
         }
         return {
+            allowGzip: true,
             url: ("https:/" + "/" + host + apiKey),
             throttleCallback: (attempt, url) => {
                 if (apiKey === defaultApiKey) {
@@ -41212,8 +40272,12 @@ class AlchemyProvider extends UrlJsonRpcProvider {
             }
         };
     }
+    isCommunityResource() {
+        return (this.apiKey === defaultApiKey);
+    }
 }
-var __awaiter$a = (window && window.__awaiter) || function (thisArg, _arguments, P, generator) {
+
+var __awaiter$c = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -41222,11 +40286,11 @@ var __awaiter$a = (window && window.__awaiter) || function (thisArg, _arguments,
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const logger$w = new Logger(version$m);
+const logger$y = new Logger(version$m);
 class CloudflareProvider extends UrlJsonRpcProvider {
     static getApiKey(apiKey) {
         if (apiKey != null) {
-            logger$w.throwArgumentError("apiKey not supported for cloudflare", "apiKey", apiKey);
+            logger$y.throwArgumentError("apiKey not supported for cloudflare", "apiKey", apiKey);
         }
         return null;
     }
@@ -41237,7 +40301,7 @@ class CloudflareProvider extends UrlJsonRpcProvider {
                 host = "https://cloudflare-eth.com/";
                 break;
             default:
-                logger$w.throwArgumentError("unsupported network", "network", arguments[0]);
+                logger$y.throwArgumentError("unsupported network", "network", arguments[0]);
         }
         return host;
     }
@@ -41245,7 +40309,7 @@ class CloudflareProvider extends UrlJsonRpcProvider {
         const _super = Object.create(null, {
             perform: { get: () => super.perform }
         });
-        return __awaiter$a(this, void 0, void 0, function* () {
+        return __awaiter$c(this, void 0, void 0, function* () {
             // The Cloudflare provider does not support eth_blockNumber,
             // so we get the latest block and pull it from that
             if (method === "getBlockNumber") {
@@ -41256,7 +40320,8 @@ class CloudflareProvider extends UrlJsonRpcProvider {
         });
     }
 }
-var __awaiter$b = (window && window.__awaiter) || function (thisArg, _arguments, P, generator) {
+
+var __awaiter$d = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -41265,21 +40330,22 @@ var __awaiter$b = (window && window.__awaiter) || function (thisArg, _arguments,
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const logger$x = new Logger(version$m);
+const logger$z = new Logger(version$m);
 // The transaction has already been sanitized by the calls in Provider
-function getTransactionString(transaction) {
-    const result = [];
+function getTransactionPostData(transaction) {
+    const result = {};
     for (let key in transaction) {
         if (transaction[key] == null) {
             continue;
         }
         let value = hexlify(transaction[key]);
+        // Quantity-types require no leading zero, unless 0
         if ({ gasLimit: true, gasPrice: true, nonce: true, value: true }[key]) {
             value = hexValue(value);
         }
-        result.push(key + "=" + value);
+        result[key] = value;
     }
-    return result.join("&");
+    return result;
 }
 function getResult$1(result) {
     // getLogs, getHistory have weird success responses
@@ -41335,6 +40401,14 @@ function checkLogTag(blockTag) {
 }
 const defaultApiKey$1 = "9D13ZE7XSBTJ94N9BNJ2MA33VMAY2YPIRB";
 function checkError$1(method, error, transaction) {
+    // Undo the "convenience" some nodes are attempting to prevent backwards
+    // incompatibility; maybe for v6 consider forwarding reverts as errors
+    if (method === "call" && error.code === Logger.errors.SERVER_ERROR) {
+        const e = error.error;
+        if (e && e.message.match("reverted") && isHexString(e.data)) {
+            return e.data;
+        }
+    }
     // Get the message from any nested error structure
     let message = error.message;
     if (error.code === Logger.errors.SERVER_ERROR) {
@@ -41351,24 +40425,24 @@ function checkError$1(method, error, transaction) {
     message = (message || "").toLowerCase();
     // "Insufficient funds. The account you tried to send transaction from does not have enough funds. Required 21464000000000 and got: 0"
     if (message.match(/insufficient funds/)) {
-        logger$x.throwError("insufficient funds for intrinsic transaction cost", Logger.errors.INSUFFICIENT_FUNDS, {
+        logger$z.throwError("insufficient funds for intrinsic transaction cost", Logger.errors.INSUFFICIENT_FUNDS, {
             error, method, transaction
         });
     }
     // "Transaction with the same hash was already imported."
     if (message.match(/same hash was already imported|transaction nonce is too low/)) {
-        logger$x.throwError("nonce has already been used", Logger.errors.NONCE_EXPIRED, {
+        logger$z.throwError("nonce has already been used", Logger.errors.NONCE_EXPIRED, {
             error, method, transaction
         });
     }
     // "Transaction gas price is too low. There is another transaction with same nonce in the queue. Try increasing the gas price or incrementing the nonce."
     if (message.match(/another transaction with same nonce/)) {
-        logger$x.throwError("replacement fee too low", Logger.errors.REPLACEMENT_UNDERPRICED, {
+        logger$z.throwError("replacement fee too low", Logger.errors.REPLACEMENT_UNDERPRICED, {
             error, method, transaction
         });
     }
     if (message.match(/execution failed due to an exception/)) {
-        logger$x.throwError("cannot estimate gas; transaction may fail or may require manual gas limit", Logger.errors.UNPREDICTABLE_GAS_LIMIT, {
+        logger$z.throwError("cannot estimate gas; transaction may fail or may require manual gas limit", Logger.errors.UNPREDICTABLE_GAS_LIMIT, {
             error, method, transaction
         });
     }
@@ -41376,7 +40450,7 @@ function checkError$1(method, error, transaction) {
 }
 class EtherscanProvider extends BaseProvider {
     constructor(network, apiKey) {
-        logger$x.checkNew(new.target, EtherscanProvider);
+        logger$z.checkNew(new.target, EtherscanProvider);
         super(network);
         let name = "invalid";
         if (this.network) {
@@ -41406,7 +40480,7 @@ class EtherscanProvider extends BaseProvider {
         defineReadOnly(this, "apiKey", apiKey || defaultApiKey$1);
     }
     detectNetwork() {
-        return __awaiter$b(this, void 0, void 0, function* () {
+        return __awaiter$d(this, void 0, void 0, function* () {
             return this.network;
         });
     }
@@ -41414,13 +40488,13 @@ class EtherscanProvider extends BaseProvider {
         const _super = Object.create(null, {
             perform: { get: () => super.perform }
         });
-        return __awaiter$b(this, void 0, void 0, function* () {
-            let url = this.baseUrl;
+        return __awaiter$d(this, void 0, void 0, function* () {
+            let url = this.baseUrl + "/api";
             let apiKey = "";
             if (this.apiKey) {
                 apiKey += "&apikey=" + this.apiKey;
             }
-            const get = (url, procFunc) => __awaiter$b(this, void 0, void 0, function* () {
+            const get = (url, payload, procFunc) => __awaiter$d(this, void 0, void 0, function* () {
                 this.emit("debug", {
                     action: "request",
                     request: url,
@@ -41430,13 +40504,20 @@ class EtherscanProvider extends BaseProvider {
                     url: url,
                     throttleSlotInterval: 1000,
                     throttleCallback: (attempt, url) => {
-                        if (this.apiKey === defaultApiKey$1) {
+                        if (this.isCommunityResource()) {
                             showThrottleMessage();
                         }
                         return Promise.resolve(true);
                     }
                 };
-                const result = yield fetchJson(connection, null, procFunc || getJsonResult);
+                let payloadStr = null;
+                if (payload) {
+                    connection.headers = { "content-type": "application/x-www-form-urlencoded; charset=UTF-8" };
+                    payloadStr = Object.keys(payload).map((key) => {
+                        return `${key}=${payload[key]}`;
+                    }).join("&");
+                }
+                const result = yield fetchJson(connection, payloadStr, procFunc || getJsonResult);
                 this.emit("debug", {
                     action: "response",
                     request: url,
@@ -41447,38 +40528,41 @@ class EtherscanProvider extends BaseProvider {
             });
             switch (method) {
                 case "getBlockNumber":
-                    url += "/api?module=proxy&action=eth_blockNumber" + apiKey;
-                    return get(url);
+                    url += "?module=proxy&action=eth_blockNumber" + apiKey;
+                    return get(url, null);
                 case "getGasPrice":
-                    url += "/api?module=proxy&action=eth_gasPrice" + apiKey;
-                    return get(url);
+                    url += "?module=proxy&action=eth_gasPrice" + apiKey;
+                    return get(url, null);
                 case "getBalance":
                     // Returns base-10 result
-                    url += "/api?module=account&action=balance&address=" + params.address;
+                    url += "?module=account&action=balance&address=" + params.address;
                     url += "&tag=" + params.blockTag + apiKey;
-                    return get(url, getResult$1);
+                    return get(url, null, getResult$1);
                 case "getTransactionCount":
-                    url += "/api?module=proxy&action=eth_getTransactionCount&address=" + params.address;
+                    url += "?module=proxy&action=eth_getTransactionCount&address=" + params.address;
                     url += "&tag=" + params.blockTag + apiKey;
-                    return get(url);
+                    return get(url, null);
                 case "getCode":
-                    url += "/api?module=proxy&action=eth_getCode&address=" + params.address;
+                    url += "?module=proxy&action=eth_getCode&address=" + params.address;
                     url += "&tag=" + params.blockTag + apiKey;
-                    return get(url);
+                    return get(url, null);
                 case "getStorageAt":
-                    url += "/api?module=proxy&action=eth_getStorageAt&address=" + params.address;
+                    url += "?module=proxy&action=eth_getStorageAt&address=" + params.address;
                     url += "&position=" + params.position;
                     url += "&tag=" + params.blockTag + apiKey;
-                    return get(url);
+                    return get(url, null);
                 case "sendTransaction":
-                    url += "/api?module=proxy&action=eth_sendRawTransaction&hex=" + params.signedTransaction;
-                    url += apiKey;
-                    return get(url).catch((error) => {
+                    return get(url, {
+                        module: "proxy",
+                        action: "eth_sendRawTransaction",
+                        hex: params.signedTransaction,
+                        apikey: this.apiKey
+                    }).catch((error) => {
                         return checkError$1("sendTransaction", error, params.signedTransaction);
                     });
                 case "getBlock":
                     if (params.blockTag) {
-                        url += "/api?module=proxy&action=eth_getBlockByNumber&tag=" + params.blockTag;
+                        url += "?module=proxy&action=eth_getBlockByNumber&tag=" + params.blockTag;
                         if (params.includeTransactions) {
                             url += "&boolean=true";
                         }
@@ -41486,51 +40570,46 @@ class EtherscanProvider extends BaseProvider {
                             url += "&boolean=false";
                         }
                         url += apiKey;
-                        return get(url);
+                        return get(url, null);
                     }
                     throw new Error("getBlock by blockHash not implemented");
                 case "getTransaction":
-                    url += "/api?module=proxy&action=eth_getTransactionByHash&txhash=" + params.transactionHash;
+                    url += "?module=proxy&action=eth_getTransactionByHash&txhash=" + params.transactionHash;
                     url += apiKey;
-                    return get(url);
+                    return get(url, null);
                 case "getTransactionReceipt":
-                    url += "/api?module=proxy&action=eth_getTransactionReceipt&txhash=" + params.transactionHash;
+                    url += "?module=proxy&action=eth_getTransactionReceipt&txhash=" + params.transactionHash;
                     url += apiKey;
-                    return get(url);
+                    return get(url, null);
                 case "call": {
-                    let transaction = getTransactionString(params.transaction);
-                    if (transaction) {
-                        transaction = "&" + transaction;
-                    }
-                    url += "/api?module=proxy&action=eth_call" + transaction;
-                    //url += "&tag=" + params.blockTag + apiKey;
                     if (params.blockTag !== "latest") {
                         throw new Error("EtherscanProvider does not support blockTag for call");
                     }
-                    url += apiKey;
+                    const postData = getTransactionPostData(params.transaction);
+                    postData.module = "proxy";
+                    postData.action = "eth_call";
+                    postData.apikey = this.apiKey;
                     try {
-                        return yield get(url);
+                        return yield get(url, postData);
                     }
                     catch (error) {
                         return checkError$1("call", error, params.transaction);
                     }
                 }
                 case "estimateGas": {
-                    let transaction = getTransactionString(params.transaction);
-                    if (transaction) {
-                        transaction = "&" + transaction;
-                    }
-                    url += "/api?module=proxy&action=eth_estimateGas&" + transaction;
-                    url += apiKey;
+                    const postData = getTransactionPostData(params.transaction);
+                    postData.module = "proxy";
+                    postData.action = "eth_estimateGas";
+                    postData.apikey = this.apiKey;
                     try {
-                        return yield get(url);
+                        return yield get(url, postData);
                     }
                     catch (error) {
                         return checkError$1("estimateGas", error, params.transaction);
                     }
                 }
                 case "getLogs": {
-                    url += "/api?module=logs&action=getLogs";
+                    url += "?module=logs&action=getLogs";
                     if (params.filter.fromBlock) {
                         url += "&fromBlock=" + checkLogTag(params.filter.fromBlock);
                     }
@@ -41543,33 +40622,33 @@ class EtherscanProvider extends BaseProvider {
                     // @TODO: We can handle slightly more complicated logs using the logs API
                     if (params.filter.topics && params.filter.topics.length > 0) {
                         if (params.filter.topics.length > 1) {
-                            logger$x.throwError("unsupported topic count", Logger.errors.UNSUPPORTED_OPERATION, { topics: params.filter.topics });
+                            logger$z.throwError("unsupported topic count", Logger.errors.UNSUPPORTED_OPERATION, { topics: params.filter.topics });
                         }
                         if (params.filter.topics.length === 1) {
                             const topic0 = params.filter.topics[0];
                             if (typeof (topic0) !== "string" || topic0.length !== 66) {
-                                logger$x.throwError("unsupported topic format", Logger.errors.UNSUPPORTED_OPERATION, { topic0: topic0 });
+                                logger$z.throwError("unsupported topic format", Logger.errors.UNSUPPORTED_OPERATION, { topic0: topic0 });
                             }
                             url += "&topic0=" + topic0;
                         }
                     }
                     url += apiKey;
-                    const logs = yield get(url, getResult$1);
+                    const logs = yield get(url, null, getResult$1);
                     // Cache txHash => blockHash
-                    let txs = {};
+                    let blocks = {};
                     // Add any missing blockHash to the logs
                     for (let i = 0; i < logs.length; i++) {
                         const log = logs[i];
                         if (log.blockHash != null) {
                             continue;
                         }
-                        if (txs[log.transactionHash] == null) {
-                            const tx = yield this.getTransaction(log.transactionHash);
-                            if (tx) {
-                                txs[log.transactionHash] = tx.blockHash;
+                        if (blocks[log.blockNumber] == null) {
+                            const block = yield this.getBlock(log.blockNumber);
+                            if (block) {
+                                blocks[log.blockNumber] = block.hash;
                             }
                         }
-                        log.blockHash = txs[log.transactionHash];
+                        log.blockHash = blocks[log.blockNumber];
                     }
                     return logs;
                 }
@@ -41577,9 +40656,9 @@ class EtherscanProvider extends BaseProvider {
                     if (this.network.name !== "homestead") {
                         return 0.0;
                     }
-                    url += "/api?module=stats&action=ethprice";
+                    url += "?module=stats&action=ethprice";
                     url += apiKey;
-                    return parseFloat((yield get(url, getResult$1)).ethusd);
+                    return parseFloat((yield get(url, null, getResult$1)).ethusd);
             }
             return _super.perform.call(this, method, params);
         });
@@ -41644,8 +40723,12 @@ class EtherscanProvider extends BaseProvider {
             });
         });
     }
+    isCommunityResource() {
+        return (this.apiKey === defaultApiKey$1);
+    }
 }
-var __awaiter$c = (window && window.__awaiter) || function (thisArg, _arguments, P, generator) {
+
+var __awaiter$e = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -41654,7 +40737,7 @@ var __awaiter$c = (window && window.__awaiter) || function (thisArg, _arguments,
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const logger$y = new Logger(version$m);
+const logger$A = new Logger(version$m);
 function now() { return (new Date()).getTime(); }
 // Returns to network as long as all agree, or null if any is null.
 // Throws an error if any two networks do not match.
@@ -41670,7 +40753,7 @@ function checkNetworks(networks) {
             // Make sure the network matches the previous networks
             if (!(result.name === network.name && result.chainId === network.chainId &&
                 ((result.ensAddress === network.ensAddress) || (result.ensAddress == null && network.ensAddress == null)))) {
-                logger$y.throwArgumentError("provider mismatch", "networks", networks);
+                logger$A.throwArgumentError("provider mismatch", "networks", networks);
             }
         }
         else {
@@ -41906,7 +40989,7 @@ function getProcessFunc(provider, method, params) {
 // If we are doing a blockTag query, we need to make sure the backend is
 // caught up to the FallbackProvider, before sending a request to it.
 function waitForSync(config, blockNumber) {
-    return __awaiter$c(this, void 0, void 0, function* () {
+    return __awaiter$e(this, void 0, void 0, function* () {
         const provider = (config.provider);
         if ((provider.blockNumber != null && provider.blockNumber >= blockNumber) || blockNumber === -1) {
             return provider;
@@ -41930,7 +41013,7 @@ function waitForSync(config, blockNumber) {
     });
 }
 function getRunner(config, currentBlockNumber, method, params) {
-    return __awaiter$c(this, void 0, void 0, function* () {
+    return __awaiter$e(this, void 0, void 0, function* () {
         let provider = config.provider;
         switch (method) {
             case "getBlockNumber":
@@ -41975,7 +41058,7 @@ function getRunner(config, currentBlockNumber, method, params) {
                 return provider.getLogs(filter);
             }
         }
-        return logger$y.throwError("unknown method error", Logger.errors.UNKNOWN_ERROR, {
+        return logger$A.throwError("unknown method error", Logger.errors.UNKNOWN_ERROR, {
             method: method,
             params: params
         });
@@ -41983,27 +41066,29 @@ function getRunner(config, currentBlockNumber, method, params) {
 }
 class FallbackProvider extends BaseProvider {
     constructor(providers, quorum) {
-        logger$y.checkNew(new.target, FallbackProvider);
+        logger$A.checkNew(new.target, FallbackProvider);
         if (providers.length === 0) {
-            logger$y.throwArgumentError("missing providers", "providers", providers);
+            logger$A.throwArgumentError("missing providers", "providers", providers);
         }
         const providerConfigs = providers.map((configOrProvider, index) => {
             if (Provider.isProvider(configOrProvider)) {
-                return Object.freeze({ provider: configOrProvider, weight: 1, stallTimeout: 750, priority: 1 });
+                const stallTimeout = isCommunityResource(configOrProvider) ? 2000 : 750;
+                const priority = 1;
+                return Object.freeze({ provider: configOrProvider, weight: 1, stallTimeout, priority });
             }
             const config = shallowCopy(configOrProvider);
             if (config.priority == null) {
                 config.priority = 1;
             }
             if (config.stallTimeout == null) {
-                config.stallTimeout = 750;
+                config.stallTimeout = isCommunityResource(configOrProvider) ? 2000 : 750;
             }
             if (config.weight == null) {
                 config.weight = 1;
             }
             const weight = config.weight;
             if (weight % 1 || weight > 512 || weight < 1) {
-                logger$y.throwArgumentError("invalid weight; must be integer in [1, 512]", `providers[${index}].weight`, weight);
+                logger$A.throwArgumentError("invalid weight; must be integer in [1, 512]", `providers[${index}].weight`, weight);
             }
             return Object.freeze(config);
         });
@@ -42012,7 +41097,7 @@ class FallbackProvider extends BaseProvider {
             quorum = total / 2;
         }
         else if (quorum > total) {
-            logger$y.throwArgumentError("quorum will always fail; larger than total weight", "quorum", quorum);
+            logger$A.throwArgumentError("quorum will always fail; larger than total weight", "quorum", quorum);
         }
         // Are all providers' networks are known
         let networkOrReady = checkNetworks(providerConfigs.map((c) => (c.provider).network));
@@ -42031,13 +41116,13 @@ class FallbackProvider extends BaseProvider {
         this._highestBlockNumber = -1;
     }
     detectNetwork() {
-        return __awaiter$c(this, void 0, void 0, function* () {
+        return __awaiter$e(this, void 0, void 0, function* () {
             const networks = yield Promise.all(this.providerConfigs.map((c) => c.provider.getNetwork()));
             return checkNetworks(networks);
         });
     }
     perform(method, params) {
-        return __awaiter$c(this, void 0, void 0, function* () {
+        return __awaiter$e(this, void 0, void 0, function* () {
             // Sending transactions is special; always broadcast it to all backends
             if (method === "sendTransaction") {
                 const results = yield Promise.all(this.providerConfigs.map((c) => {
@@ -42186,7 +41271,7 @@ class FallbackProvider extends BaseProvider {
                         }
                         props[name] = e[name];
                     });
-                    logger$y.throwError(e.reason || e.message, errorCode, props);
+                    logger$A.throwError(e.reason || e.message, errorCode, props);
                 });
                 // All configs have run to completion; we will never get more data
                 if (configs.filter((c) => !c.done).length === 0) {
@@ -42200,7 +41285,7 @@ class FallbackProvider extends BaseProvider {
                 }
                 c.cancelled = true;
             });
-            return logger$y.throwError("failed to meet quorum", Logger.errors.SERVER_ERROR, {
+            return logger$A.throwError("failed to meet quorum", Logger.errors.SERVER_ERROR, {
                 method: method,
                 params: params,
                 //results: configs.map((c) => c.result),
@@ -42211,20 +41296,33 @@ class FallbackProvider extends BaseProvider {
         });
     }
 }
-var IpcProvider = null;
-const logger$z = new Logger(version$m);
+
+const IpcProvider = null;
+
+const logger$B = new Logger(version$m);
 const defaultProjectId = "84842078b09946638c03157f83405213";
-class InfuraProvider extends UrlJsonRpcProvider {
-    static getWebSocketProvider(network, apiKey) {
+class InfuraWebSocketProvider extends WebSocketProvider {
+    constructor(network, apiKey) {
         const provider = new InfuraProvider(network, apiKey);
         const connection = provider.connection;
         if (connection.password) {
-            logger$z.throwError("INFURA WebSocket project secrets unsupported", Logger.errors.UNSUPPORTED_OPERATION, {
+            logger$B.throwError("INFURA WebSocket project secrets unsupported", Logger.errors.UNSUPPORTED_OPERATION, {
                 operation: "InfuraProvider.getWebSocketProvider()"
             });
         }
         const url = connection.url.replace(/^http/i, "ws").replace("/v3/", "/ws/v3/");
-        return new WebSocketProvider(url, network);
+        super(url, network);
+        defineReadOnly(this, "apiKey", provider.projectId);
+        defineReadOnly(this, "projectId", provider.projectId);
+        defineReadOnly(this, "projectSecret", provider.projectSecret);
+    }
+    isCommunityResource() {
+        return (this.projectId === defaultProjectId);
+    }
+}
+class InfuraProvider extends UrlJsonRpcProvider {
+    static getWebSocketProvider(network, apiKey) {
+        return new InfuraWebSocketProvider(network, apiKey);
     }
     static getApiKey(apiKey) {
         const apiKeyObj = {
@@ -42239,8 +41337,8 @@ class InfuraProvider extends UrlJsonRpcProvider {
             apiKeyObj.projectId = apiKey;
         }
         else if (apiKey.projectSecret != null) {
-            logger$z.assertArgument((typeof (apiKey.projectId) === "string"), "projectSecret requires a projectId", "projectId", apiKey.projectId);
-            logger$z.assertArgument((typeof (apiKey.projectSecret) === "string"), "invalid projectSecret", "projectSecret", "[REDACTED]");
+            logger$B.assertArgument((typeof (apiKey.projectId) === "string"), "projectSecret requires a projectId", "projectId", apiKey.projectId);
+            logger$B.assertArgument((typeof (apiKey.projectSecret) === "string"), "invalid projectSecret", "projectSecret", "[REDACTED]");
             apiKeyObj.projectId = apiKey.projectId;
             apiKeyObj.projectSecret = apiKey.projectSecret;
         }
@@ -42269,12 +41367,13 @@ class InfuraProvider extends UrlJsonRpcProvider {
                 host = "goerli.infura.io";
                 break;
             default:
-                logger$z.throwError("unsupported network", Logger.errors.INVALID_ARGUMENT, {
+                logger$B.throwError("unsupported network", Logger.errors.INVALID_ARGUMENT, {
                     argument: "network",
                     value: network
                 });
         }
         const connection = {
+            allowGzip: true,
             url: ("https:/" + "/" + host + "/v3/" + apiKey.projectId),
             throttleCallback: (attempt, url) => {
                 if (apiKey.projectId === defaultProjectId) {
@@ -42289,19 +41388,24 @@ class InfuraProvider extends UrlJsonRpcProvider {
         }
         return connection;
     }
+    isCommunityResource() {
+        return (this.projectId === defaultProjectId);
+    }
 }
-const logger$A = new Logger(version$m);
+
+/* istanbul ignore file */
+const logger$C = new Logger(version$m);
 // Special API key provided by Nodesmith for ethers.js
 const defaultApiKey$2 = "ETHERS_JS_SHARED";
 class NodesmithProvider extends UrlJsonRpcProvider {
     static getApiKey(apiKey) {
         if (apiKey && typeof (apiKey) !== "string") {
-            logger$A.throwArgumentError("invalid apiKey", "apiKey", apiKey);
+            logger$C.throwArgumentError("invalid apiKey", "apiKey", apiKey);
         }
         return apiKey || defaultApiKey$2;
     }
     static getUrl(network, apiKey) {
-        logger$A.warn("NodeSmith will be discontinued on 2019-12-20; please migrate to another platform.");
+        logger$C.warn("NodeSmith will be discontinued on 2019-12-20; please migrate to another platform.");
         let host = null;
         switch (network.name) {
             case "homestead":
@@ -42320,12 +41424,122 @@ class NodesmithProvider extends UrlJsonRpcProvider {
                 host = "https://ethereum.api.nodesmith.io/v1/kovan/jsonrpc";
                 break;
             default:
-                logger$A.throwArgumentError("unsupported network", "network", arguments[0]);
+                logger$C.throwArgumentError("unsupported network", "network", arguments[0]);
         }
         return (host + "?apiKey=" + apiKey);
     }
 }
-const logger$B = new Logger(version$m);
+
+const logger$D = new Logger(version$m);
+// These are load-balancer-based applicatoin IDs
+const defaultApplicationIds = {
+    homestead: "6004bcd10040261633ade990",
+    ropsten: "6004bd4d0040261633ade991",
+    rinkeby: "6004bda20040261633ade994",
+    goerli: "6004bd860040261633ade992",
+};
+class PocketProvider extends UrlJsonRpcProvider {
+    constructor(network, apiKey) {
+        // We need a bit of creativity in the constructor because
+        // Pocket uses different default API keys based on the network
+        if (apiKey == null) {
+            const n = getStatic((new.target), "getNetwork")(network);
+            if (n) {
+                const applicationId = defaultApplicationIds[n.name];
+                if (applicationId) {
+                    apiKey = {
+                        applicationId: applicationId,
+                        loadBalancer: true
+                    };
+                }
+            }
+            // If there was any issue above, we don't know this network
+            if (apiKey == null) {
+                logger$D.throwError("unsupported network", Logger.errors.INVALID_ARGUMENT, {
+                    argument: "network",
+                    value: network
+                });
+            }
+        }
+        super(network, apiKey);
+    }
+    static getApiKey(apiKey) {
+        // Most API Providers allow null to get the default configuration, but
+        // Pocket requires the network to decide the default provider, so we
+        // rely on hijacking the constructor to add a sensible default for us
+        if (apiKey == null) {
+            logger$D.throwArgumentError("PocketProvider.getApiKey does not support null apiKey", "apiKey", apiKey);
+        }
+        const apiKeyObj = {
+            applicationId: null,
+            loadBalancer: false,
+            applicationSecretKey: null
+        };
+        // Parse applicationId and applicationSecretKey
+        if (typeof (apiKey) === "string") {
+            apiKeyObj.applicationId = apiKey;
+        }
+        else if (apiKey.applicationSecretKey != null) {
+            logger$D.assertArgument((typeof (apiKey.applicationId) === "string"), "applicationSecretKey requires an applicationId", "applicationId", apiKey.applicationId);
+            logger$D.assertArgument((typeof (apiKey.applicationSecretKey) === "string"), "invalid applicationSecretKey", "applicationSecretKey", "[REDACTED]");
+            apiKeyObj.applicationId = apiKey.applicationId;
+            apiKeyObj.applicationSecretKey = apiKey.applicationSecretKey;
+            apiKeyObj.loadBalancer = !!apiKey.loadBalancer;
+        }
+        else if (apiKey.applicationId) {
+            logger$D.assertArgument((typeof (apiKey.applicationId) === "string"), "apiKey.applicationId must be a string", "apiKey.applicationId", apiKey.applicationId);
+            apiKeyObj.applicationId = apiKey.applicationId;
+            apiKeyObj.loadBalancer = !!apiKey.loadBalancer;
+        }
+        else {
+            logger$D.throwArgumentError("unsupported PocketProvider apiKey", "apiKey", apiKey);
+        }
+        return apiKeyObj;
+    }
+    static getUrl(network, apiKey) {
+        let host = null;
+        switch (network ? network.name : "unknown") {
+            case "homestead":
+                host = "eth-mainnet.gateway.pokt.network";
+                break;
+            case "ropsten":
+                host = "eth-ropsten.gateway.pokt.network";
+                break;
+            case "rinkeby":
+                host = "eth-rinkeby.gateway.pokt.network";
+                break;
+            case "goerli":
+                host = "eth-goerli.gateway.pokt.network";
+                break;
+            default:
+                logger$D.throwError("unsupported network", Logger.errors.INVALID_ARGUMENT, {
+                    argument: "network",
+                    value: network
+                });
+        }
+        let url = null;
+        if (apiKey.loadBalancer) {
+            url = `https:/\/${host}/v1/lb/${apiKey.applicationId}`;
+        }
+        else {
+            url = `https:/\/${host}/v1/${apiKey.applicationId}`;
+        }
+        const connection = { url };
+        // Initialize empty headers
+        connection.headers = {};
+        // Apply application secret key
+        if (apiKey.applicationSecretKey != null) {
+            connection.user = "";
+            connection.password = apiKey.applicationSecretKey;
+        }
+        return connection;
+    }
+    isCommunityResource() {
+        return (this.applicationId === defaultApplicationIds[this.network.name]);
+    }
+}
+
+const logger$E = new Logger(version$m);
 let _nextId = 1;
 function buildWeb3LegacyFetcher(provider, sendFunc) {
     return function (method, params) {
@@ -42373,9 +41587,9 @@ function buildEip1193Fetcher(provider) {
 }
 class Web3Provider extends JsonRpcProvider {
     constructor(provider, network) {
-        logger$B.checkNew(new.target, Web3Provider);
+        logger$E.checkNew(new.target, Web3Provider);
         if (provider == null) {
-            logger$B.throwArgumentError("missing provider", "provider", provider);
+            logger$E.throwArgumentError("missing provider", "provider", provider);
         }
         let path = null;
         let jsonRpcFetchFunc = null;
@@ -42403,7 +41617,7 @@ class Web3Provider extends JsonRpcProvider {
                 jsonRpcFetchFunc = buildWeb3LegacyFetcher(provider, provider.send.bind(provider));
             }
             else {
-                logger$B.throwArgumentError("unsupported provider", "provider", provider);
+                logger$E.throwArgumentError("unsupported provider", "provider", provider);
             }
             if (!path) {
                 path = "unknown:";
@@ -42417,7 +41631,8 @@ class Web3Provider extends JsonRpcProvider {
         return this.jsonRpcFetchFunc(method, params);
     }
 }
-const logger$C = new Logger(version$m);
+
+const logger$F = new Logger(version$m);
 ////////////////////////
 // Helper Functions
 function getDefaultProvider(network, options) {
@@ -42436,13 +41651,13 @@ function getDefaultProvider(network, options) {
                 case "ws":
                     return new WebSocketProvider(network);
                 default:
-                    logger$C.throwArgumentError("unsupported URL scheme", "network", network);
+                    logger$F.throwArgumentError("unsupported URL scheme", "network", network);
             }
         }
     }
     const n = getNetwork(network);
     if (!n || !n._defaultProvider) {
-        logger$C.throwError("unsupported getDefaultProvider network", Logger.errors.NETWORK_ERROR, {
+        logger$F.throwError("unsupported getDefaultProvider network", Logger.errors.NETWORK_ERROR, {
             operation: "getDefaultProvider",
             network: network
         });
@@ -42455,23 +41670,28 @@ function getDefaultProvider(network, options) {
         InfuraProvider,
         JsonRpcProvider,
         NodesmithProvider,
+        PocketProvider,
         Web3Provider,
         IpcProvider,
     }, options);
 }
 
-var index$2 = /*#__PURE__*/Object.freeze({
+var index$4 = /*#__PURE__*/Object.freeze({
+	__proto__: null,
 	Provider: Provider,
 	BaseProvider: BaseProvider,
 	Resolver: Resolver,
 	UrlJsonRpcProvider: UrlJsonRpcProvider,
 	FallbackProvider: FallbackProvider,
 	AlchemyProvider: AlchemyProvider,
+	AlchemyWebSocketProvider: AlchemyWebSocketProvider,
 	CloudflareProvider: CloudflareProvider,
 	EtherscanProvider: EtherscanProvider,
 	InfuraProvider: InfuraProvider,
+	InfuraWebSocketProvider: InfuraWebSocketProvider,
 	JsonRpcProvider: JsonRpcProvider,
 	NodesmithProvider: NodesmithProvider,
+	PocketProvider: PocketProvider,
 	StaticJsonRpcProvider: StaticJsonRpcProvider,
 	Web3Provider: Web3Provider,
 	WebSocketProvider: WebSocketProvider,
@@ -42479,8 +41699,12 @@ var index$2 = /*#__PURE__*/Object.freeze({
 	JsonRpcSigner: JsonRpcSigner,
 	getDefaultProvider: getDefaultProvider,
 	getNetwork: getNetwork,
+	isCommunityResource: isCommunityResource,
+	isCommunityResourcable: isCommunityResourcable,
+	showThrottleMessage: showThrottleMessage,
 	Formatter: Formatter
 });
+
 const regexBytes = new RegExp("^bytes([0-9]+)$");
 const regexNumber = new RegExp("^(u?int)([0-9]*)$");
 const regexArray = new RegExp("^(.*)\\[([0-9]*)\\]$");
@@ -42559,12 +41783,13 @@ function pack$1(types, values) {
 function keccak256$1(types, values) {
     return keccak256(pack$1(types, values));
 }
-function sha256$1(types, values) {
-    return browser_3(pack$1(types, values));
+function sha256$3(types, values) {
+    return sha256$1(pack$1(types, values));
 }
 
-const version$n = "units/5.0.4";
-const logger$D = new Logger(version$n);
+const version$n = "units/5.0.10";
+
+const logger$G = new Logger(version$n);
 const names = [
     "wei",
     "kwei",
@@ -42579,7 +41804,7 @@ const names = [
 function commify(value) {
     const comps = String(value).split(".");
     if (comps.length > 2 || !comps[0].match(/^-?[0-9]*$/) || (comps[1] && !comps[1].match(/^[0-9]*$/)) || value === "." || value === "-.") {
-        logger$D.throwArgumentError("invalid value", "value", value);
+        logger$G.throwArgumentError("invalid value", "value", value);
     }
     // Make sure we have at least one whole digit (0 if none)
     let whole = comps[0];
@@ -42626,6 +41851,9 @@ function formatUnits(value, unitName) {
     return formatFixed(value, (unitName != null) ? unitName : 18);
 }
 function parseUnits(value, unitName) {
+    if (typeof (value) !== "string") {
+        logger$G.throwArgumentError("value must be a string", "value", value);
+    }
     if (typeof (unitName) === "string") {
         const index = names.indexOf(unitName);
         if (index !== -1) {
@@ -42641,7 +41869,8 @@ function parseEther(ether) {
     return parseUnits(ether, 18);
 }
 
-var utils$1$1 = /*#__PURE__*/Object.freeze({
+var utils$3 = /*#__PURE__*/Object.freeze({
+	__proto__: null,
 	AbiCoder: AbiCoder,
 	defaultAbiCoder: defaultAbiCoder,
 	Fragment: Fragment$1,
@@ -42674,9 +41903,10 @@ var utils$1$1 = /*#__PURE__*/Object.freeze({
 	LogDescription: LogDescription,
 	TransactionDescription: TransactionDescription,
 	base58: Base58,
-	base64: browser$2,
+	base64: index$3,
 	hexlify: hexlify,
 	isHexString: isHexString,
+	hexConcat: hexConcat,
 	hexStripZeros: hexStripZeros,
 	hexValue: hexValue,
 	hexZeroPad: hexZeroPad,
@@ -42694,6 +41924,7 @@ var utils$1$1 = /*#__PURE__*/Object.freeze({
 	namehash: namehash,
 	isValidName: isValidName,
 	id: id,
+	_TypedDataEncoder: TypedDataEncoder,
 	getAddress: getAddress,
 	getIcapAddress: getIcapAddress,
 	getContractAddress: getContractAddress,
@@ -42704,16 +41935,16 @@ var utils$1$1 = /*#__PURE__*/Object.freeze({
 	formatUnits: formatUnits,
 	parseUnits: parseUnits,
 	commify: commify,
-	computeHmac: browser_5,
+	computeHmac: computeHmac,
 	keccak256: keccak256,
-	ripemd160: browser_2,
-	sha256: browser_3,
-	sha512: browser_4,
+	ripemd160: ripemd160$1,
+	sha256: sha256$1,
+	sha512: sha512$1,
 	randomBytes: randomBytes,
 	shuffled: shuffled,
 	solidityPack: pack$1,
 	solidityKeccak256: keccak256$1,
-	soliditySha256: sha256$1,
+	soliditySha256: sha256$3,
 	splitSignature: splitSignature,
 	joinSignature: joinSignature,
 	parseTransaction: parse,
@@ -42724,37 +41955,41 @@ var utils$1$1 = /*#__PURE__*/Object.freeze({
 	computePublicKey: computePublicKey,
 	recoverPublicKey: recoverPublicKey,
 	verifyMessage: verifyMessage,
+	verifyTypedData: verifyTypedData,
 	mnemonicToEntropy: mnemonicToEntropy,
 	entropyToMnemonic: entropyToMnemonic,
 	isValidMnemonic: isValidMnemonic,
 	mnemonicToSeed: mnemonicToSeed,
-	SupportedAlgorithm: browser_1,
+	get SupportedAlgorithm () { return SupportedAlgorithm; },
 	get UnicodeNormalizationForm () { return UnicodeNormalizationForm; },
 	get Utf8ErrorReason () { return Utf8ErrorReason; },
 	Indexed: Indexed
 });
 
-const version$o = "ethers/5.0.14";
-const logger$E = new Logger(version$o);
+const version$o = "ethers/5.0.29";
+
+const logger$H = new Logger(version$o);
 
 var ethers = /*#__PURE__*/Object.freeze({
+	__proto__: null,
 	Signer: Signer,
 	Wallet: Wallet,
 	VoidSigner: VoidSigner,
 	getDefaultProvider: getDefaultProvider,
-	providers: index$2,
+	providers: index$4,
 	Contract: Contract,
 	ContractFactory: ContractFactory,
 	BigNumber: BigNumber,
 	FixedNumber: FixedNumber,
-	constants: index$1$1,
+	constants: index$2,
 	get errors () { return ErrorCode; },
-	logger: logger$E,
-	utils: utils$1$1,
+	logger: logger$H,
+	utils: utils$3,
 	wordlists: wordlists,
 	version: version$o,
 	Wordlist: Wordlist
 });
+
 try {
     const anyGlobal = window;
     if (anyGlobal._ethers == null) {
@@ -42772,7 +42007,7 @@ class ChangeNetworkFeeDialog extends react.Component {
   }
 
   feeToLocal(gas) {
-    const feeInETH = parseFloat(ethers.utils.formatUnits(gas, 'gwei')) * this.props.selected.fee;
+    const feeInETH = parseFloat(formatUnits(gas, 'gwei')) * this.props.selected.fee;
     return LocalCurrency(feeInETH * this.props.price);
   }
   
@@ -42872,7 +42107,7 @@ const DisplayTokenAmount = function(amount, decimals, symbol){
   if(decimals === 0) {
     float = parseFloat(amount);
   } else {
-    float = ethers.utils.formatUnits(amount, decimals);
+    float = formatUnits(amount, decimals);
   }
   const subZeroMatch = float.toString().match(/(?!0)\d/);
   let displayedValue = float.toString();
@@ -43116,87 +42351,28 @@ class CheckMarkComponent extends react.Component {
 var EthersProvider;
 
 if (window.ethereum) {
-  EthersProvider = new ethers.providers.Web3Provider(window.ethereum);
+  EthersProvider = new Web3Provider(window.ethereum);
 } else if (window.web3 && window.web3.currentProvider) {
-  EthersProvider = new ethers.providers.Web3Provider(window.web3.currentProvider);
+  EthersProvider = new Web3Provider(window.web3.currentProvider);
 }
 
 var EthersProvider$1 = EthersProvider;
 
-var DePayV1ProcessorBetaAbi = [
+var DePayPaymentsV1Abi = [
   {
-    "inputs": [],
-    "name": "destroy",
-    "outputs": [],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_configuration",
+        "type": "address"
+      }
+    ],
     "stateMutability": "nonpayable",
-    "type": "function"
+    "type": "constructor"
   },
   {
     "anonymous": false,
     "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "previousOwner",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "newOwner",
-        "type": "address"
-      }
-    ],
-    "name": "OwnershipTransferred",
-    "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address[]",
-        "name": "path",
-        "type": "address[]"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amountIn",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amountOut",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address payable",
-        "name": "receiver",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "routerId",
-        "type": "uint256"
-      }
-    ],
-    "name": "pay",
-    "outputs": [],
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
       {
         "indexed": true,
         "internalType": "address",
@@ -43215,29 +42391,93 @@ var DePayV1ProcessorBetaAbi = [
   },
   {
     "inputs": [],
-    "name": "renounceOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
+    "name": "ETH",
+    "outputs": [
       {
         "internalType": "address",
-        "name": "newOwner",
+        "name": "",
         "type": "address"
       }
     ],
-    "name": "transferOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "configuration",
+    "outputs": [
+      {
+        "internalType": "contract DePayPaymentsV1Configuration",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
       {
         "internalType": "address",
-        "name": "tokenAddress",
+        "name": "pluginAddress",
+        "type": "address"
+      }
+    ],
+    "name": "isApproved",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "path",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "amounts",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "address[]",
+        "name": "addresses",
+        "type": "address[]"
+      },
+      {
+        "internalType": "address[]",
+        "name": "plugins",
+        "type": "address[]"
+      },
+      {
+        "internalType": "string[]",
+        "name": "data",
+        "type": "string[]"
+      }
+    ],
+    "name": "pay",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
         "type": "address"
       },
       {
@@ -43247,88 +42487,23 @@ var DePayV1ProcessorBetaAbi = [
       }
     ],
     "name": "withdraw",
-    "outputs": [],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "stateMutability": "payable",
     "type": "receive"
-  },
-  {
-    "inputs": [],
-    "name": "Mooniswap",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "owner",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "routers",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "UniswapV2Router02",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "WETH",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
   }
 ];
 
-const DePayV1ProcessorBetaContract = new ethers.Contract('0x9Af62E7A5542FAAc11aA1A06AA30f424736b1775', DePayV1ProcessorBetaAbi, EthersProvider$1);
+const DePayPaymentsV1Contract = new Contract('0xa5eC11D6A58B5cC03d1F28DEbB5077d41287ACD2', DePayPaymentsV1Abi, EthersProvider$1);
 
 var Erc20Abi = [
   {
@@ -43633,7 +42808,7 @@ var UniswapV2FactoryAbi = [
   }
 ];
 
-const UniswapV2FactoryContract = new ethers.Contract('0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f', UniswapV2FactoryAbi, EthersProvider$1);
+const UniswapV2FactoryContract = new Contract('0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f', UniswapV2FactoryAbi, EthersProvider$1);
 
 var UniswapV2PairAbi = [
   {
@@ -44350,7 +43525,7 @@ var UniswapV2PairAbi = [
 ];
 
 const UniswapV2PairContract = function(address){
-  return new ethers.Contract(address, UniswapV2PairAbi, EthersProvider$1);
+  return new Contract(address, UniswapV2PairAbi, EthersProvider$1);
 };
 
 var UniswapV2Router02Abi = [
@@ -45327,9 +44502,9 @@ var UniswapV2Router02Abi = [
   }
 ];
 
-const UniswapV2Router02Contract = new ethers.Contract('0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', UniswapV2Router02Abi, EthersProvider$1);
+const UniswapV2Router02Contract = new Contract('0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', UniswapV2Router02Abi, EthersProvider$1);
 
-const ETH = '0x0000000000000000000000000000000000000000';
+const ETH = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';
 const WETH = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
 const MAXINT = '115792089237316195423570985008687907853269984665640564039457584007913129639935';
 const SLIPPAGE = 1.01; // 1% slippage on DEX token swaps
@@ -45364,23 +44539,23 @@ class UniswapExchange {
       if(step === ETH) { return '83C756Cc2' }
       return step;
     });
-    return `https://app.uniswap.org/#/swap?exactAmount=${parseFloat(ethers.utils.formatEther(route.amounts[0])).toFixed(4)}&inputCurrency=${path[0]}&outputCurrency=${path[path.length-1]}`
+    return `https://app.uniswap.org/#/swap?exactAmount=${parseFloat(formatEther(route.amounts[0])).toFixed(4)}&inputCurrency=${path[0]}&outputCurrency=${path[path.length-1]}`
   }
   
   static findLiquidity(addressA, addressB) {
     if(addressA === ETH) { addressA = WETH; }
     if(addressB === ETH) { addressB = WETH; }
-    if(addressA === addressB) { return(Promise.resolve([ethers.BigNumber.from(MAXINT.toString()), ethers.BigNumber.from(MAXINT.toString())])); }
+    if(addressA === addressB) { return(Promise.resolve([BigNumber.from(MAXINT.toString()), BigNumber.from(MAXINT.toString())])); }
     return new Promise(function(resolve, reject){
       UniswapV2FactoryContract.getPair(addressA, addressB).then(function(pairAddress){
-        if(pairAddress.address === ethers.constants.AddressZero) {
+        if(pairAddress.address === AddressZero) {
           resolve(null);
         } else {
           UniswapV2PairContract(pairAddress).getReserves()
           .then(function(reserves){
             resolve([reserves[0], reserves[1]]);
           })
-          .catch(()=>resolve([ethers.BigNumber.from('0'), ethers.BigNumber.from('0')]));
+          .catch(()=>resolve([BigNumber.from('0'), BigNumber.from('0')]));
         }
       });
     });
@@ -45396,7 +44571,7 @@ class UniswapExchange {
     });
     return new Promise(function(resolve, reject){
       UniswapV2FactoryContract.getPair(route[0], route[1]).then(function(pairAddress){
-        if(pairAddress.address === ethers.constants.AddressZero) {
+        if(pairAddress.address === AddressZero) {
           return(resolve(null)); // dont bother if there is no pair
         } else {
           UniswapV2Router02Contract.getAmountsIn(
@@ -45507,7 +44682,7 @@ class Exchanges {
                   lodash.every(Object.values(route.amounts), function(values){
                     return values !== null && 
                       lodash.every(values, function(value){
-                        return ethers.BigNumber.from(value).gt(0);
+                        return BigNumber.from(value).gt(0);
                       })
                   })
                 )
@@ -45527,10 +44702,10 @@ class Exchanges {
         amounts: amounts
       });
     }.bind(this)).sort(function(a, b){
-      if (ethers.BigNumber.from(a.amounts[0]).gt(ethers.BigNumber.from(b.amounts[0]))) {
+      if (BigNumber.from(a.amounts[0]).gt(BigNumber.from(b.amounts[0]))) {
         return 1; // b wins
       }
-      if (ethers.BigNumber.from(b.amounts[0]).gt(ethers.BigNumber.from(a.amounts[0]))) {
+      if (BigNumber.from(b.amounts[0]).gt(BigNumber.from(a.amounts[0]))) {
         return -1; // a wins
       }
       return 0; // equal
@@ -45807,9 +44982,9 @@ class PaymentDialog extends react.Component {constructor(...args) { super(...arg
   }
 
   approve(dialogContext) {
-    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider$1)
+    new Contract(this.props.selected.token.address, Erc20Abi, EthersProvider$1)
       .connect(this.props.wallet.provider().getSigner(0))
-      .approve(DePayV1ProcessorBetaContract.address, MAXINT)
+      .approve(DePayPaymentsV1Contract.address, MAXINT)
       .catch(function(){ 
         clearInterval(this.approvalCheckInterval);
         this.setState({ approving: false });
@@ -45835,8 +45010,8 @@ class PaymentDialog extends react.Component {constructor(...args) { super(...arg
   }
 
   checkApproved(dialogContext) {
-    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider$1).allowance(this.props.wallet.address(), DePayV1ProcessorBetaContract.address).then(function(amount){
-      if(amount.gt(ethers.BigNumber.from(this.props.selected.amounts[0]))) {
+    new Contract(this.props.selected.token.address, Erc20Abi, EthersProvider$1).allowance(this.props.wallet.address(), DePayPaymentsV1Contract.address).then(function(amount){
+      if(amount.gt(BigNumber.from(this.props.selected.amounts[0]))) {
         this.props.selected.approved = true;
         dialogContext.setClosable(true);
         this.setState({ approving: false });
@@ -45847,7 +45022,7 @@ class PaymentDialog extends react.Component {constructor(...args) { super(...arg
 
   generatePaymentUUID() {
     let now = +(new Date());
-    return(ethers.BigNumber.from(this.props.wallet.address()).toString()+''+(now).toString());
+    return(BigNumber.from(this.props.wallet.address()).toString()+''+(now).toString());
   }
 
   pay(dialogContext, callbackContext, gasContext) {
@@ -45870,26 +45045,20 @@ class PaymentDialog extends react.Component {constructor(...args) { super(...arg
     let amountIn = this.props.selected.amounts[0];
     let amountOut = this.props.selected.amounts[this.props.selected.amounts.length-1];
 
-    let transactionConfiguration = {
-      gasPrice: ethers.utils.parseUnits(gasContext.selected.toString(), 'gwei')
-    };
+    ({
+      gasPrice: parseUnits(gasContext.selected.toString(), 'gwei')
+    });
       
-    if(route[0] === ETH) {
-      transactionConfiguration.value = amountIn;
-    }
+    if(route[0] === ETH) ;
 
-    let routerId = 0; // fix on uniswap for now (until mooni bus are fixed)
+    let deadline = Math.round(new Date().getTime() / 1000) + (24 * 3600); // 24 hours from now
 
-    let paymentId = this.generatePaymentUUID();
-
-    DePayV1ProcessorBetaContract.connect(this.props.wallet.provider().getSigner(0)).pay(
+    DePayPaymentsV1Contract.connect(this.props.wallet.provider().getSigner(0)).pay(
       route,
-      amountIn,
-      amountOut,
-      this.props.receiver,
-      paymentId,
-      routerId,
-      transactionConfiguration
+      [amountIn, amountOut, deadline],
+      this.props.addresses,
+      this.props.plugins,
+      this.props.data
     )
     .catch(function(){
       Rollbar.error("pay catch", arguments);
@@ -45936,84 +45105,84 @@ class PaymentDialog extends react.Component {constructor(...args) { super(...arg
   render() {
     if(this.props.initializing) { 
       return(
-        react.createElement(PaymentDialogSkeleton, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 200}})
+        react.createElement(PaymentDialogSkeleton, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 196}})
       ) 
     }
 
     return (
-      react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 205}}
+      react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 201}}
         , dialogContext => (
-          react.createElement(NavigateStackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 207}}
+          react.createElement(NavigateStackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 203}}
             , navigate => (
-              react.createElement('div', { className: 'Dialog PaymentDialog ' + (this.isActionable(dialogContext) ? '' : 'unactionable'), __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 209}}
-                , react.createElement('div', { className: "DialogHeader", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 210}}
-                  , react.createElement(CloseDialogComponent, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 211}})
+              react.createElement('div', { className: 'Dialog PaymentDialog ' + (this.isActionable(dialogContext) ? '' : 'unactionable'), __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 205}}
+                , react.createElement('div', { className: "DialogHeader", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 206}}
+                  , react.createElement(CloseDialogComponent, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 207}})
                 )
-                , react.createElement('div', { className: "DialogBody HeightAuto" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 213}}
-                  , react.createElement('div', { className: "Payment", key:  this.props.selected.token.address , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 214}}
-                    , react.createElement('div', { className: "PaymentRow ChangePaymentRow" , onClick:  ()=> this.navigateIfActionable(navigate, 'ChangePaymentToken', dialogContext) , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 215}}
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn1" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 216}}
+                , react.createElement('div', { className: "DialogBody HeightAuto" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 209}}
+                  , react.createElement('div', { className: "Payment", key:  this.props.selected.token.address , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 210}}
+                    , react.createElement('div', { className: "PaymentRow ChangePaymentRow" , onClick:  ()=> this.navigateIfActionable(navigate, 'ChangePaymentToken', dialogContext) , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 211}}
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn1" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 212}}
                         , react.createElement(TokenIconComponent, {
                           title:  this.props.selected.token.name ,
-                          src:  this.props.selected.token.logoURI , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 217}}
+                          src:  this.props.selected.token.logoURI , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 213}}
                         )
                       )
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 222}}
-                        , react.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 223}}, "Payment"
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 218}}
+                        , react.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 219}}, "Payment"
 
                         )
-                        , react.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 226}}
+                        , react.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 222}}
                           ,  this.props.paymentContext.local 
                         )
-                        , react.createElement('div', { className: "PaymentAmountRow2 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 229}}
+                        , react.createElement('div', { className: "PaymentAmountRow2 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 225}}
                           ,  this.props.paymentContext.token 
                         )
                       )
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 233}}
-                        , react.createElement('span', { className: "PaymentAction", title: "Change payment" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 234}}, "Change"
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 229}}
+                        , react.createElement('span', { className: "PaymentAction", title: "Change payment" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 230}}, "Change"
 
                         )
                       )
                     )
 
-                    , react.createElement('div', { className: "PaymentRow ChangeNetworkFeeRow" , onClick:  ()=> this.navigateIfActionable(navigate, 'ChangeNetworkFee', dialogContext) , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 240}}
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn1" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 241}}
+                    , react.createElement('div', { className: "PaymentRow ChangeNetworkFeeRow" , onClick:  ()=> this.navigateIfActionable(navigate, 'ChangeNetworkFee', dialogContext) , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 236}}
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn1" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 237}}
                         , react.createElement(TokenIconComponent, {
                           title:  'Ethereum network fee' ,
-                          src:  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAIVBMVEVHcExkgexjf+tifutifurAy/b///+CmO6hsvJxi+zj6PuyVvwSAAAABHRSTlMANYHDscZ74QAAA+NJREFUeNq1ml1y2jAQx+PAATwpB0gmHCANPkAhZgg849g+QDwZnh1o3w29AJNp817aYzayLa8d7YditXqE7i/674fYlXrGrIvrySQMJ5Pbq7Mey7sOW+vW72XeH3ERIuvqw3++7ya8ICTWnd/XHgj97YEg2zsRxqGwZrz9p1Bcnzn789BiXcoO6O2GUWi1pqwAFxFagCwCtx9g//Y+xz69sd/Aas1uQU6Bh4RLBnkDiyw6ylsAD5gKsqhAv7ixDMEhi2I6EPIGllkWRSG5BbkK5wpQ2FSlh/+ZrQKk+He+TRWcFCChKkJ24X2mAFFOuFEuoxcFIDVcygoeFIDWICpYZApAaxAVrDRgTWgQFZQARoOoQAOiI6/BIxQAoOBzaYB/fQBATNQD64LlCQAR74SAKKQKwGi44wsJAHRBcS44tQEJ54QRUUgNgE7GKXOWvGgAp2HG+PChC0hoL3pEGmoAq8EnK2n1HrAm62lIpCEAmGT8QgVhmbUBdEFNqSCsTEBBhSFgFQAgpsJApiEAmIIiojjPAMBr8PEobjFAisdxwCvY7BtAgpfTEC0kvR6jHRByNBGGTCFlv6JoB4Q1ChhhhdTYvwHeCIyGKZZHi8a+Auy+0sk4wwCrtv93LUKBAQLyPNcAIMRYKgZ4IW0iAADhaAWYl/YNQBP2tQYZcFDhfw+oghFbAU61PQCAgFSTqaAMHwA6hMICsG3sAdA4IrUARN216xIsAD84gBlHxInPNOCbGAWTYNrLgOX+HQDsZQAQTEBoB1B+WmCAEm0CxoYHFOHeBKiPl98tzoP5UyeYnQDuCxMwMmvhT7mRLuBn+VmCHGlD5Ej93SLUAah2lfKnMhzqKYSitq/8kiOAAXooFw2hsV+gx/IN9tP2+nYi5cpEA3Rk19hPm4cf6486mMpeb+eINklEd/BYB1MHkOgQmgbD/GGog7nLm5AUeIMxJjqkOphVAOkfJmiyzJ+WtHvGxESTNaQ7FLVnKK2CaPPO6Q5jU7TsE6rR9JgeZ5PD4ZCSA0NA9ShVOujDJSdHljHXrD89cx3SjB44XsVmGwaOgVW7f6RHHq//wOFzV1hdQEEOLFLDzzb77Oh7aANidvT1+k6ufjP+95ud74QLiC0AUuEC4pyZXZmZ71K6hCk1sFMnaKCnX14BaCDTWVYgzM+cAlHDqgIUggJ+AicvgXybC8mDAsRWzwSDD95owpWolM5sGstb2GY6CeTL8QDXwB8l8tX4ib8al7fwkqIb+D/PA84PFO5PJM6PNO7PRM4PVe5PZe6Pde7Phc4Plu5Ppu6Ptu7Pxu4P1//g6dz98d7+vw/8BVHcYRQ1d5GsAAAAAElFTkSuQmCC' , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 242}}
+                          src:  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAIVBMVEVHcExkgexjf+tifutifurAy/b///+CmO6hsvJxi+zj6PuyVvwSAAAABHRSTlMANYHDscZ74QAAA+NJREFUeNq1ml1y2jAQx+PAATwpB0gmHCANPkAhZgg849g+QDwZnh1o3w29AJNp817aYzayLa8d7YditXqE7i/674fYlXrGrIvrySQMJ5Pbq7Mey7sOW+vW72XeH3ERIuvqw3++7ya8ICTWnd/XHgj97YEg2zsRxqGwZrz9p1Bcnzn789BiXcoO6O2GUWi1pqwAFxFagCwCtx9g//Y+xz69sd/Aas1uQU6Bh4RLBnkDiyw6ylsAD5gKsqhAv7ixDMEhi2I6EPIGllkWRSG5BbkK5wpQ2FSlh/+ZrQKk+He+TRWcFCChKkJ24X2mAFFOuFEuoxcFIDVcygoeFIDWICpYZApAaxAVrDRgTWgQFZQARoOoQAOiI6/BIxQAoOBzaYB/fQBATNQD64LlCQAR74SAKKQKwGi44wsJAHRBcS44tQEJ54QRUUgNgE7GKXOWvGgAp2HG+PChC0hoL3pEGmoAq8EnK2n1HrAm62lIpCEAmGT8QgVhmbUBdEFNqSCsTEBBhSFgFQAgpsJApiEAmIIiojjPAMBr8PEobjFAisdxwCvY7BtAgpfTEC0kvR6jHRByNBGGTCFlv6JoB4Q1ChhhhdTYvwHeCIyGKZZHi8a+Auy+0sk4wwCrtv93LUKBAQLyPNcAIMRYKgZ4IW0iAADhaAWYl/YNQBP2tQYZcFDhfw+oghFbAU61PQCAgFSTqaAMHwA6hMICsG3sAdA4IrUARN216xIsAD84gBlHxInPNOCbGAWTYNrLgOX+HQDsZQAQTEBoB1B+WmCAEm0CxoYHFOHeBKiPl98tzoP5UyeYnQDuCxMwMmvhT7mRLuBn+VmCHGlD5Ej93SLUAah2lfKnMhzqKYSitq/8kiOAAXooFw2hsV+gx/IN9tP2+nYi5cpEA3Rk19hPm4cf6486mMpeb+eINklEd/BYB1MHkOgQmgbD/GGog7nLm5AUeIMxJjqkOphVAOkfJmiyzJ+WtHvGxESTNaQ7FLVnKK2CaPPO6Q5jU7TsE6rR9JgeZ5PD4ZCSA0NA9ShVOujDJSdHljHXrD89cx3SjB44XsVmGwaOgVW7f6RHHq//wOFzV1hdQEEOLFLDzzb77Oh7aANidvT1+k6ufjP+95ud74QLiC0AUuEC4pyZXZmZ71K6hCk1sFMnaKCnX14BaCDTWVYgzM+cAlHDqgIUggJ+AicvgXybC8mDAsRWzwSDD95owpWolM5sGstb2GY6CeTL8QDXwB8l8tX4ib8al7fwkqIb+D/PA84PFO5PJM6PNO7PRM4PVe5PZe6Pde7Phc4Plu5Ppu6Ptu7Pxu4P1//g6dz98d7+vw/8BVHcYRQ1d5GsAAAAAElFTkSuQmCC' , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 238}}
                         )
                       )
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 247}}
-                        , react.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 248}}, "Network fee"
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 243}}
+                        , react.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 244}}, "Network fee"
 
                         )
-                        , react.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 251}}
+                        , react.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 247}}
                           ,  this.props.paymentContext.feeLocal 
                         )
-                        , react.createElement('div', { className: "PaymentAmountRow2 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 254}}
+                        , react.createElement('div', { className: "PaymentAmountRow2 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 250}}
                           ,  this.props.paymentContext.feeToken 
                         )
                       )
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 258}}
-                        , react.createElement('span', { className: "PaymentAction", title: "Change network fee"  , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 259}}, "Change"
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 254}}
+                        , react.createElement('span', { className: "PaymentAction", title: "Change network fee"  , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 255}}, "Change"
 
                         )
                       )
                     )
                   )
                 )
-                , react.createElement('div', { className: "DialogFooter", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 266}}
+                , react.createElement('div', { className: "DialogFooter", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 262}}
                   ,  this.renderCallToAction.bind(this)() 
-                  , react.createElement('div', { className: "PoweredBy", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 268}}
+                  , react.createElement('div', { className: "PoweredBy", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 264}}
                     , this.paymentType() &&
-                      react.createElement('span', {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 270}}
-                        , react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  this.paymentTypeLink() , className: "PoweredByLink", title:  this.paymentTypeTitle() , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 271}}
+                      react.createElement('span', {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 266}}
+                        , react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  this.paymentTypeLink() , className: "PoweredByLink", title:  this.paymentTypeTitle() , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 267}}
                           ,  this.paymentTypeText() 
                         )
-                        , react.createElement('span', { className: "PoweredByLink", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 274}}, " • ")
+                        , react.createElement('span', { className: "PoweredByLink", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 270}}, " • ")
                       )
                     
-                    , react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href: "https://depay.fi", className: "PoweredByLink", title: "Powered by DePay: Decentralized Payments"    , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 277}}, "by DePay"
+                    , react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href: "https://depay.fi", className: "PoweredByLink", title: "Powered by DePay: Decentralized Payments"    , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 273}}, "by DePay"
 
                     )
                   )
@@ -46031,14 +45200,14 @@ class PaymentDialog extends react.Component {constructor(...args) { super(...arg
       return(this.renderPaymentButton())
     } else {
       return(
-        react.createElement('div', { className: "Table", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 295}}
-          , react.createElement('div', { className: "TableRow", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 296}}
-            , react.createElement('div', { className: "TableCell", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 297}}
+        react.createElement('div', { className: "Table", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 291}}
+          , react.createElement('div', { className: "TableRow", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 292}}
+            , react.createElement('div', { className: "TableCell", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 293}}
               ,  this.renderApproveButton() 
             )
-            , react.createElement('div', { className: "TableCell", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 300}}
-              , react.createElement('button', { className: "CallToAction MainAction disabled"  , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 301}}
-                , react.createElement('span', { className: "CallToActionName", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 302}}, "Pay"), " " , react.createElement('span', { className: "CallToActionPrice TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 302}},  this.props.paymentContext.total )
+            , react.createElement('div', { className: "TableCell", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 296}}
+              , react.createElement('button', { className: "CallToAction MainAction disabled"  , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 297}}
+                , react.createElement('span', { className: "CallToActionName", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 298}}, "Pay"), " " , react.createElement('span', { className: "CallToActionPrice TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 298}},  this.props.paymentContext.total )
               )
             )
           )
@@ -46050,18 +45219,18 @@ class PaymentDialog extends react.Component {constructor(...args) { super(...arg
   renderApproveButton() {
     if(this.state.approving) {
       return(
-        react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+this.state.approving.transactionHash , key: "approving", className: "CallToAction MainAction loading"  , title: "Please wait for the approval transaction to be confirmed by the network. Click to open transaction on etherscan."                 , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 314}}, "Approving"
+        react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+this.state.approving.transactionHash , key: "approving", className: "CallToAction MainAction loading"  , title: "Please wait for the approval transaction to be confirmed by the network. Click to open transaction on etherscan."                 , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 310}}, "Approving"
 
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 316}}, ".")
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 317}}, ".")
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 318}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 312}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 313}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 314}}, ".")
         )
       )
     } else {
       return(
-        react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 323}}
+        react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 319}}
           , dialogContext => (
-            react.createElement('button', { key: "approve", className: "CallToAction MainAction" , onClick: ()=>this.approve.bind(this)(dialogContext), title: "Click to approve that the selected token is allowed to be swapped for performing this payment. This approval is only required the first time you pay with the selected token."                             , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 325}}, "Approve"
+            react.createElement('button', { key: "approve", className: "CallToAction MainAction" , onClick: ()=>this.approve.bind(this)(dialogContext), title: "Click to approve that the selected token is allowed to be swapped for performing this payment. This approval is only required the first time you pay with the selected token."                             , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 321}}, "Approve"
 
             )
           )
@@ -46073,32 +45242,32 @@ class PaymentDialog extends react.Component {constructor(...args) { super(...arg
   renderPaymentButton() {
     if(this.state.payed) {
       return(
-        react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 337}}
+        react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 333}}
           , dialogContext => (
-            react.createElement('span', { className: "CallToAction MainAction circular"  , onClick:  dialogContext.closeContainer , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 339}}
-              , react.createElement(CheckMarkComponent, { className: "large", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 340}})
+            react.createElement('span', { className: "CallToAction MainAction circular"  , onClick:  dialogContext.closeContainer , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 335}}
+              , react.createElement(CheckMarkComponent, { className: "large", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 336}})
             )
           )
         )
       )
     } else if(this.state.paying) {
       return(
-        react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+this.state.paying.transactionHash , key: "approving", className: "CallToAction MainAction loading"  , title: "Please wait payment transaction to be confirmed by the network. Click to open transaction on etherscan."               , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 347}}, "Paying"
+        react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+this.state.paying.transactionHash , key: "approving", className: "CallToAction MainAction loading"  , title: "Please wait payment transaction to be confirmed by the network. Click to open transaction on etherscan."               , __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 343}}, "Paying"
 
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 349}}, ".")
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 350}}, ".")
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 351}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 345}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 346}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 347}}, ".")
         )
       )
     } else {
       return(
-        react.createElement(GasContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 356}}
+        react.createElement(GasContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 352}}
           , gasContext => (
-            react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 358}}
+            react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 354}}
               , dialogContext => (
-                react.createElement(CallbackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 360}}
+                react.createElement(CallbackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$a, lineNumber: 356}}
                   , callbackContext => (
-                    react.createElement('button', { className: "CallToAction MainAction" , onClick: ()=>this.pay.bind(this)(dialogContext, callbackContext, gasContext), __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 362}}, "Pay "
+                    react.createElement('button', { className: "CallToAction MainAction" , onClick: ()=>this.pay.bind(this)(dialogContext, callbackContext, gasContext), __self: this, __source: {fileName: _jsxFileName$a, lineNumber: 358}}, "Pay "
                        ,  this.props.paymentContext.total 
                     )
                   )
@@ -46118,14 +45287,14 @@ class PaymentProvider extends react.Component {constructor(...args) { super(...a
   __init() {this.state = {};}
 
   paymentInETH() {
-    if(this.props.selected.amounts.length <= 2) {
-      if(this.props.selected.token.symbol === 'ETH') {
-        return ethers.utils.formatEther(this.props.selected.amounts[0]);
+    if(this.props.route.amounts.length <= 2) {
+      if(this.props.route.token.symbol === 'ETH') {
+        return formatEther(this.props.route.amounts[0]);
       } else {
-        return ethers.utils.formatEther(this.props.selected.amounts[1]);
+        return formatEther(this.props.route.amounts[1]);
       }
     } else {
-      return ethers.utils.formatEther(this.props.selected.amounts[1]);
+      return formatEther(this.props.route.amounts[1]);
     }
   }
 
@@ -46134,11 +45303,11 @@ class PaymentProvider extends react.Component {constructor(...args) { super(...a
   }
 
   token() {
-    return DisplayTokenAmount(this.props.selected.amounts[0], this.props.selected.token.decimals, this.props.selected.token.symbol);
+    return DisplayTokenAmount(this.props.route.amounts[0], this.props.route.token.decimals, this.props.route.token.symbol);
   }
 
   feeInETH() {
-    return parseFloat(ethers.utils.formatUnits(this.props.gas, 'gwei')) * this.props.selected.fee;
+    return parseFloat(formatUnits(this.props.gas, 'gwei')) * this.props.route.fee;
   }
 
   feeLocal() {
@@ -46154,7 +45323,7 @@ class PaymentProvider extends react.Component {constructor(...args) { super(...a
   }
 
   render() {
-    if(this.props.selected === null) { return(react.createElement('div', {__self: this, __source: {fileName: _jsxFileName$b, lineNumber: 47}}, this.props.children)) }
+    if(this.props.route === null) { return(react.createElement('div', {__self: this, __source: {fileName: _jsxFileName$b, lineNumber: 47}}, this.props.children)) }
     return(
       react.createElement(PaymentContext.Provider, { value: {
         local: this.local(),
@@ -46715,7 +45884,7 @@ class PriceProvider extends react.Component {constructor(...args) { super(...arg
   loadPrice() {
     return new Promise(function(resolve, reject){
       // Chainlink ETH/USDT oracle contract
-      new ethers.Contract(
+      new Contract(
         '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
         EthUsdPriceAbi,
         EthersProvider$1
@@ -46770,6 +45939,7 @@ class RoutesProvider extends react.Component {constructor(...args) { super(...ar
       .then(this.unshiftETHRoute.bind(this))
       .then(this.findBestRoutesAndRequiredAmounts.bind(this))
       .then(this.filterRoutesWithEnoughBalance.bind(this))
+      .then(this.addFeesToRoutes.bind(this))
       .then(this.addApprovalStatus.bind(this))
       .then(this.sortRoutes.bind(this))
       .then(this.addMaxAmounts.bind(this))
@@ -46791,6 +45961,53 @@ class RoutesProvider extends react.Component {constructor(...args) { super(...ar
     }
   }
 
+  addFeesToRoutes(routes) {
+    return Promise.all(
+      routes.map(function(route){
+        return new Promise(function(resolve, reject){
+        
+          Math.round(new Date().getTime() / 1000) + (24 * 3600); // 24 hours from now
+
+          let addresses;
+          if(this.props.addresses && this.props.addresses.length) {
+            addresses = _.map(this.props.addresses, function(address){
+              if(address === 'user') { return this.props.wallet.address() }
+              return address;
+            });
+          } else {
+            addresses = [this.props.wallet.address()];
+          }
+
+          let plugins;
+          if(this.props.plugins && this.props.plugins.length) {
+            plugins = _.map(this.props.plugins, function(address){
+              if(address === 'user') { return this.props.wallet.address() }
+              return address;
+            });
+          } else {
+            plugins = [this.props.wallet.address()];
+          }
+
+          console.log('calculateFees', route, addresses, plugins);
+
+          // DePayPaymentsV1Contract
+          //   .connect(this.props.wallet.provider().getSigner(0))
+          //   .estimateGas
+          //   .pay(
+          //     route,
+          //     [amountIn, amountOut, deadline],
+          //     addresses,
+          //     plugins,
+          //     this.props.data || []
+          //   ).then(function(){
+          //     console.log('estimateGas then', arguments);
+          //   })
+          //   .catch(reject)
+        }.bind(this));
+      }.bind(this))
+    )
+  }
+
   addApprovalStatus(routes) {
     return Promise.all(
       routes.map(function(route){
@@ -46798,10 +46015,10 @@ class RoutesProvider extends react.Component {constructor(...args) { super(...ar
           route.approved = true;
           return Promise.resolve(route);
         } else {
-          return new ethers.Contract(route.token.address, Erc20Abi, EthersProvider$1)
-          .allowance(this.props.wallet.address(), DePayV1ProcessorBetaContract.address)
+          return new Contract(route.token.address, Erc20Abi, EthersProvider$1)
+          .allowance(this.props.wallet.address(), DePayPaymentsV1Contract.address)
           .then(function(amount){
-            if(amount.gt(ethers.BigNumber.from(route.amounts[0]))) {
+            if(amount.gt(BigNumber.from(route.amounts[0]))) {
               route.approved = true;
             } else {
               route.approved = false;
@@ -46868,10 +46085,8 @@ class RoutesProvider extends react.Component {constructor(...args) { super(...ar
   convertTokensToRoutes(tokens) {
     return(
       tokens.map(function(token){
-        const address = ethers.utils.getAddress(token.address);
+        const address = getAddress(token.address);
         const transfer = (address === this.props.token);
-        // fee for transfer or swap
-        const fee = transfer ? 75000 : 155000;
         let route;
         if(transfer) { 
           route = [];
@@ -46891,7 +46106,6 @@ class RoutesProvider extends react.Component {constructor(...args) { super(...ar
           route: route,
           amounts: [],
           balance: token.balance.toLocaleString('fullwide', {useGrouping:false}),
-          fee: fee,
           approved: null
         }
       }.bind(this))
@@ -46900,9 +46114,7 @@ class RoutesProvider extends react.Component {constructor(...args) { super(...ar
 
   unshiftETHRoute(routes) {
     return new Promise(function(resolve, reject){
-      const transfer = this.props.token === 'ETH';
-      // fee for transfer or swap
-      const fee = transfer ? 21000 : 155000;
+      this.props.token === 'ETH';
 
       this.props.wallet.balance().then(function(balance){
         let route = {
@@ -46916,7 +46128,6 @@ class RoutesProvider extends react.Component {constructor(...args) { super(...ar
           route: [],
           amounts: [],
           balance: balance.toString(),
-          fee: fee,
           approved: true
         };
 
@@ -46944,7 +46155,7 @@ class RoutesProvider extends react.Component {constructor(...args) { super(...ar
         routes: this.state.routes,
         selected: this.state.selected,
         change: this.changeSelected.bind(this),
-      }, __self: this, __source: {fileName: _jsxFileName$d, lineNumber: 208}}
+      }, __self: this, __source: {fileName: _jsxFileName$d, lineNumber: 250}}
         , this.props.children
       )
     )
@@ -47373,11 +46584,11 @@ function dh(a){if(a===$g)throw Error(y$1(174));return a}function eh(a,b){I(ch,b)
 function ih(a){for(var b=a;null!==b;){if(13===b.tag){var c=b.memoizedState;if(null!==c&&(c=c.dehydrated,null===c||"$?"===c.data||"$!"===c.data))return b}else if(19===b.tag&&void 0!==b.memoizedProps.revealOrder){if(0!==(b.flags&64))return b}else if(null!==b.child){b.child.return=b;b=b.child;continue}if(b===a)break;for(;null===b.sibling;){if(null===b.return||b.return===a)return null;b=b.return;}b.sibling.return=b.return;b=b.sibling;}return null}var jh=null,kh=null,lh=!1;
 function mh(a,b){var c=nh(5,null,null,0);c.elementType="DELETED";c.type="DELETED";c.stateNode=b;c.return=a;c.flags=8;null!==a.lastEffect?(a.lastEffect.nextEffect=c,a.lastEffect=c):a.firstEffect=a.lastEffect=c;}function oh(a,b){switch(a.tag){case 5:var c=a.type;b=1!==b.nodeType||c.toLowerCase()!==b.nodeName.toLowerCase()?null:b;return null!==b?(a.stateNode=b,!0):!1;case 6:return b=""===a.pendingProps||3!==b.nodeType?null:b,null!==b?(a.stateNode=b,!0):!1;case 13:return !1;default:return !1}}
 function ph(a){if(lh){var b=kh;if(b){var c=b;if(!oh(a,b)){b=rf(c.nextSibling);if(!b||!oh(a,b)){a.flags=a.flags&-1025|2;lh=!1;jh=a;return}mh(jh,c);}jh=a;kh=rf(b.firstChild);}else a.flags=a.flags&-1025|2,lh=!1,jh=a;}}function qh(a){for(a=a.return;null!==a&&5!==a.tag&&3!==a.tag&&13!==a.tag;)a=a.return;jh=a;}
-function rh$1(a){if(a!==jh)return !1;if(!lh)return qh(a),lh=!0,!1;var b=a.type;if(5!==a.tag||"head"!==b&&"body"!==b&&!nf(b,a.memoizedProps))for(b=kh;b;)mh(a,b),b=rf(b.nextSibling);qh(a);if(13===a.tag){a=a.memoizedState;a=null!==a?a.dehydrated:null;if(!a)throw Error(y$1(317));a:{a=a.nextSibling;for(b=0;a;){if(8===a.nodeType){var c=a.data;if("/$"===c){if(0===b){kh=rf(a.nextSibling);break a}b--;}else "$"!==c&&"$!"!==c&&"$?"!==c||b++;}a=a.nextSibling;}kh=null;}}else kh=jh?rf(a.stateNode.nextSibling):null;return !0}
-function sh$1(){kh=jh=null;lh=!1;}var th=[];function uh(){for(var a=0;a<th.length;a++)th[a]._workInProgressVersionPrimary=null;th.length=0;}var vh=ra.ReactCurrentDispatcher,wh=ra.ReactCurrentBatchConfig,xh=0,R=null,S=null,T=null,yh=!1,zh=!1;function Ah(){throw Error(y$1(321));}function Bh(a,b){if(null===b)return !1;for(var c=0;c<b.length&&c<a.length;c++)if(!He(a[c],b[c]))return !1;return !0}
+function rh$2(a){if(a!==jh)return !1;if(!lh)return qh(a),lh=!0,!1;var b=a.type;if(5!==a.tag||"head"!==b&&"body"!==b&&!nf(b,a.memoizedProps))for(b=kh;b;)mh(a,b),b=rf(b.nextSibling);qh(a);if(13===a.tag){a=a.memoizedState;a=null!==a?a.dehydrated:null;if(!a)throw Error(y$1(317));a:{a=a.nextSibling;for(b=0;a;){if(8===a.nodeType){var c=a.data;if("/$"===c){if(0===b){kh=rf(a.nextSibling);break a}b--;}else "$"!==c&&"$!"!==c&&"$?"!==c||b++;}a=a.nextSibling;}kh=null;}}else kh=jh?rf(a.stateNode.nextSibling):null;return !0}
+function sh$2(){kh=jh=null;lh=!1;}var th=[];function uh(){for(var a=0;a<th.length;a++)th[a]._workInProgressVersionPrimary=null;th.length=0;}var vh=ra.ReactCurrentDispatcher,wh=ra.ReactCurrentBatchConfig,xh=0,R=null,S=null,T=null,yh=!1,zh=!1;function Ah(){throw Error(y$1(321));}function Bh(a,b){if(null===b)return !1;for(var c=0;c<b.length&&c<a.length;c++)if(!He(a[c],b[c]))return !1;return !0}
 function Ch(a,b,c,d,e,f){xh=f;R=b;b.memoizedState=null;b.updateQueue=null;b.lanes=0;vh.current=null===a||null===a.memoizedState?Dh:Eh;a=c(d,e);if(zh){f=0;do{zh=!1;if(!(25>f))throw Error(y$1(301));f+=1;T=S=null;b.updateQueue=null;vh.current=Fh;a=c(d,e);}while(zh)}vh.current=Gh;b=null!==S&&null!==S.next;xh=0;T=S=R=null;yh=!1;if(b)throw Error(y$1(300));return a}function Hh(){var a={memoizedState:null,baseState:null,baseQueue:null,queue:null,next:null};null===T?R.memoizedState=T=a:T=T.next=a;return T}
 function Ih(){if(null===S){var a=R.alternate;a=null!==a?a.memoizedState:null;}else a=S.next;var b=null===T?R.memoizedState:T.next;if(null!==b)T=b,S=a;else {if(null===a)throw Error(y$1(310));S=a;a={memoizedState:S.memoizedState,baseState:S.baseState,baseQueue:S.baseQueue,queue:S.queue,next:null};null===T?R.memoizedState=T=a:T=T.next=a;}return T}function Jh(a,b){return "function"===typeof b?b(a):b}
-function Kh$1(a){var b=Ih(),c=b.queue;if(null===c)throw Error(y$1(311));c.lastRenderedReducer=a;var d=S,e=d.baseQueue,f=c.pending;if(null!==f){if(null!==e){var g=e.next;e.next=f.next;f.next=g;}d.baseQueue=e=f;c.pending=null;}if(null!==e){e=e.next;d=d.baseState;var h=g=f=null,k=e;do{var l=k.lane;if((xh&l)===l)null!==h&&(h=h.next={lane:0,action:k.action,eagerReducer:k.eagerReducer,eagerState:k.eagerState,next:null}),d=k.eagerReducer===a?k.eagerState:a(d,k.action);else {var n={lane:l,action:k.action,eagerReducer:k.eagerReducer,
+function Kh$2(a){var b=Ih(),c=b.queue;if(null===c)throw Error(y$1(311));c.lastRenderedReducer=a;var d=S,e=d.baseQueue,f=c.pending;if(null!==f){if(null!==e){var g=e.next;e.next=f.next;f.next=g;}d.baseQueue=e=f;c.pending=null;}if(null!==e){e=e.next;d=d.baseState;var h=g=f=null,k=e;do{var l=k.lane;if((xh&l)===l)null!==h&&(h=h.next={lane:0,action:k.action,eagerReducer:k.eagerReducer,eagerState:k.eagerState,next:null}),d=k.eagerReducer===a?k.eagerState:a(d,k.action);else {var n={lane:l,action:k.action,eagerReducer:k.eagerReducer,
 eagerState:k.eagerState,next:null};null===h?(g=h=n,f=d):h=h.next=n;R.lanes|=l;Dg|=l;}k=k.next;}while(null!==k&&k!==e);null===h?f=d:h.next=g;He(d,b.memoizedState)||(ug=!0);b.memoizedState=d;b.baseState=f;b.baseQueue=h;c.lastRenderedState=d;}return [b.memoizedState,c.dispatch]}
 function Lh(a){var b=Ih(),c=b.queue;if(null===c)throw Error(y$1(311));c.lastRenderedReducer=a;var d=c.dispatch,e=c.pending,f=b.memoizedState;if(null!==e){c.pending=null;var g=e=e.next;do f=a(f,g.action),g=g.next;while(g!==e);He(f,b.memoizedState)||(ug=!0);b.memoizedState=f;null===b.baseQueue&&(b.baseState=f);c.lastRenderedState=f;}return [f,d]}
 function Mh(a,b,c){var d=b._getVersion;d=d(b._source);var e=b._workInProgressVersionPrimary;if(null!==e)a=e===d;else if(a=a.mutableReadLanes,a=(xh&a)===a)b._workInProgressVersionPrimary=d,th.push(b);if(a)return c(b._source);th.push(b);throw Error(y$1(350));}
@@ -47392,8 +46603,8 @@ function Oh(a,b,c){var d=Hg(),e=Ig(a),f={lane:e,action:c,eagerReducer:null,eager
 var Gh={readContext:vg,useCallback:Ah,useContext:Ah,useEffect:Ah,useImperativeHandle:Ah,useLayoutEffect:Ah,useMemo:Ah,useReducer:Ah,useRef:Ah,useState:Ah,useDebugValue:Ah,useDeferredValue:Ah,useTransition:Ah,useMutableSource:Ah,useOpaqueIdentifier:Ah,unstable_isNewReconciler:!1},Dh={readContext:vg,useCallback:function(a,b){Hh().memoizedState=[a,void 0===b?null:b];return a},useContext:vg,useEffect:Wh,useImperativeHandle:function(a,b,c){c=null!==c&&void 0!==c?c.concat([a]):null;return Uh(4,2,Zh.bind(null,
 b,a),c)},useLayoutEffect:function(a,b){return Uh(4,2,a,b)},useMemo:function(a,b){var c=Hh();b=void 0===b?null:b;a=a();c.memoizedState=[a,b];return a},useReducer:function(a,b,c){var d=Hh();b=void 0!==c?c(b):b;d.memoizedState=d.baseState=b;a=d.queue={pending:null,dispatch:null,lastRenderedReducer:a,lastRenderedState:b};a=a.dispatch=Oh.bind(null,R,a);return [d.memoizedState,a]},useRef:Sh,useState:Qh,useDebugValue:ai,useDeferredValue:function(a){var b=Qh(a),c=b[0],d=b[1];Wh(function(){var b=wh.transition;
 wh.transition=1;try{d(a);}finally{wh.transition=b;}},[a]);return c},useTransition:function(){var a=Qh(!1),b=a[0];a=di.bind(null,a[1]);Sh(a);return [a,b]},useMutableSource:function(a,b,c){var d=Hh();d.memoizedState={refs:{getSnapshot:b,setSnapshot:null},source:a,subscribe:c};return Nh(d,a,b,c)},useOpaqueIdentifier:function(){if(lh){var a=!1,b=uf(function(){a||(a=!0,c("r:"+(tf++).toString(36)));throw Error(y$1(355));}),c=Qh(b)[1];0===(R.mode&2)&&(R.flags|=516,Rh(5,function(){c("r:"+(tf++).toString(36));},
-void 0,null));return b}b="r:"+(tf++).toString(36);Qh(b);return b},unstable_isNewReconciler:!1},Eh={readContext:vg,useCallback:bi,useContext:vg,useEffect:Xh,useImperativeHandle:$h,useLayoutEffect:Yh,useMemo:ci,useReducer:Kh$1,useRef:Th,useState:function(){return Kh$1(Jh)},useDebugValue:ai,useDeferredValue:function(a){var b=Kh$1(Jh),c=b[0],d=b[1];Xh(function(){var b=wh.transition;wh.transition=1;try{d(a);}finally{wh.transition=b;}},[a]);return c},useTransition:function(){var a=Kh$1(Jh)[0];return [Th().current,
-a]},useMutableSource:Ph,useOpaqueIdentifier:function(){return Kh$1(Jh)[0]},unstable_isNewReconciler:!1},Fh={readContext:vg,useCallback:bi,useContext:vg,useEffect:Xh,useImperativeHandle:$h,useLayoutEffect:Yh,useMemo:ci,useReducer:Lh,useRef:Th,useState:function(){return Lh(Jh)},useDebugValue:ai,useDeferredValue:function(a){var b=Lh(Jh),c=b[0],d=b[1];Xh(function(){var b=wh.transition;wh.transition=1;try{d(a);}finally{wh.transition=b;}},[a]);return c},useTransition:function(){var a=Lh(Jh)[0];return [Th().current,
+void 0,null));return b}b="r:"+(tf++).toString(36);Qh(b);return b},unstable_isNewReconciler:!1},Eh={readContext:vg,useCallback:bi,useContext:vg,useEffect:Xh,useImperativeHandle:$h,useLayoutEffect:Yh,useMemo:ci,useReducer:Kh$2,useRef:Th,useState:function(){return Kh$2(Jh)},useDebugValue:ai,useDeferredValue:function(a){var b=Kh$2(Jh),c=b[0],d=b[1];Xh(function(){var b=wh.transition;wh.transition=1;try{d(a);}finally{wh.transition=b;}},[a]);return c},useTransition:function(){var a=Kh$2(Jh)[0];return [Th().current,
+a]},useMutableSource:Ph,useOpaqueIdentifier:function(){return Kh$2(Jh)[0]},unstable_isNewReconciler:!1},Fh={readContext:vg,useCallback:bi,useContext:vg,useEffect:Xh,useImperativeHandle:$h,useLayoutEffect:Yh,useMemo:ci,useReducer:Lh,useRef:Th,useState:function(){return Lh(Jh)},useDebugValue:ai,useDeferredValue:function(a){var b=Lh(Jh),c=b[0],d=b[1];Xh(function(){var b=wh.transition;wh.transition=1;try{d(a);}finally{wh.transition=b;}},[a]);return c},useTransition:function(){var a=Lh(Jh)[0];return [Th().current,
 a]},useMutableSource:Ph,useOpaqueIdentifier:function(){return Lh(Jh)[0]},unstable_isNewReconciler:!1},ei=ra.ReactCurrentOwner,ug=!1;function fi(a,b,c,d){b.child=null===a?Zg(b,null,c,d):Yg(b,a.child,c,d);}function gi(a,b,c,d,e){c=c.render;var f=b.ref;tg(b,e);d=Ch(a,b,c,d,f,e);if(null!==a&&!ug)return b.updateQueue=a.updateQueue,b.flags&=-517,a.lanes&=~e,hi(a,b,e);b.flags|=1;fi(a,b,d,e);return b.child}
 function ii(a,b,c,d,e,f){if(null===a){var g=c.type;if("function"===typeof g&&!ji(g)&&void 0===g.defaultProps&&null===c.compare&&void 0===c.defaultProps)return b.tag=15,b.type=g,ki(a,b,g,d,e,f);a=Vg(c.type,null,d,b,b.mode,f);a.ref=b.ref;a.return=b;return b.child=a}g=a.child;if(0===(e&f)&&(e=g.memoizedProps,c=c.compare,c=null!==c?c:Je,c(e,d)&&a.ref===b.ref))return hi(a,b,f);b.flags|=1;a=Tg(g,d);a.ref=b.ref;a.return=b;return b.child=a}
 function ki(a,b,c,d,e,f){if(null!==a&&Je(a.memoizedProps,d)&&a.ref===b.ref)if(ug=!1,0!==(f&e))0!==(a.flags&16384)&&(ug=!0);else return b.lanes=a.lanes,hi(a,b,f);return li(a,b,c,d,f)}
@@ -47421,14 +46632,14 @@ Di=function(a,b,c,d){var e=a.memoizedProps;if(e!==d){a=b.stateNode;dh(ah.current
 l){var h=e[l];for(g in h)h.hasOwnProperty(g)&&(c||(c={}),c[g]="");}else "dangerouslySetInnerHTML"!==l&&"children"!==l&&"suppressContentEditableWarning"!==l&&"suppressHydrationWarning"!==l&&"autoFocus"!==l&&(ca.hasOwnProperty(l)?f||(f=[]):(f=f||[]).push(l,null));for(l in d){var k=d[l];h=null!=e?e[l]:void 0;if(d.hasOwnProperty(l)&&k!==h&&(null!=k||null!=h))if("style"===l)if(h){for(g in h)!h.hasOwnProperty(g)||k&&k.hasOwnProperty(g)||(c||(c={}),c[g]="");for(g in k)k.hasOwnProperty(g)&&h[g]!==k[g]&&(c||
 (c={}),c[g]=k[g]);}else c||(f||(f=[]),f.push(l,c)),c=k;else "dangerouslySetInnerHTML"===l?(k=k?k.__html:void 0,h=h?h.__html:void 0,null!=k&&h!==k&&(f=f||[]).push(l,k)):"children"===l?"string"!==typeof k&&"number"!==typeof k||(f=f||[]).push(l,""+k):"suppressContentEditableWarning"!==l&&"suppressHydrationWarning"!==l&&(ca.hasOwnProperty(l)?(null!=k&&"onScroll"===l&&G("scroll",a),f||h===k||(f=[])):"object"===typeof k&&null!==k&&k.$$typeof===Ga?k.toString():(f=f||[]).push(l,k));}c&&(f=f||[]).push("style",
 c);var l=f;if(b.updateQueue=l)b.flags|=4;}};Ei=function(a,b,c,d){c!==d&&(b.flags|=4);};function Fi(a,b){if(!lh)switch(a.tailMode){case "hidden":b=a.tail;for(var c=null;null!==b;)null!==b.alternate&&(c=b),b=b.sibling;null===c?a.tail=null:c.sibling=null;break;case "collapsed":c=a.tail;for(var d=null;null!==c;)null!==c.alternate&&(d=c),c=c.sibling;null===d?b||null===a.tail?a.tail=null:a.tail.sibling=null:d.sibling=null;}}
-function Gi(a,b,c){var d=b.pendingProps;switch(b.tag){case 2:case 16:case 15:case 0:case 11:case 7:case 8:case 12:case 9:case 14:return null;case 1:return Ff(b.type)&&Gf(),null;case 3:fh();H(N$1);H(M);uh();d=b.stateNode;d.pendingContext&&(d.context=d.pendingContext,d.pendingContext=null);if(null===a||null===a.child)rh$1(b)?b.flags|=4:d.hydrate||(b.flags|=256);Ci(b);return null;case 5:hh(b);var e=dh(ch.current);c=b.type;if(null!==a&&null!=b.stateNode)Di(a,b,c,d,e),a.ref!==b.ref&&(b.flags|=128);else {if(!d){if(null===
-b.stateNode)throw Error(y$1(166));return null}a=dh(ah.current);if(rh$1(b)){d=b.stateNode;c=b.type;var f=b.memoizedProps;d[wf]=b;d[xf]=f;switch(c){case "dialog":G("cancel",d);G("close",d);break;case "iframe":case "object":case "embed":G("load",d);break;case "video":case "audio":for(a=0;a<Xe.length;a++)G(Xe[a],d);break;case "source":G("error",d);break;case "img":case "image":case "link":G("error",d);G("load",d);break;case "details":G("toggle",d);break;case "input":Za(d,f);G("invalid",d);break;case "select":d._wrapperState=
+function Gi(a,b,c){var d=b.pendingProps;switch(b.tag){case 2:case 16:case 15:case 0:case 11:case 7:case 8:case 12:case 9:case 14:return null;case 1:return Ff(b.type)&&Gf(),null;case 3:fh();H(N$1);H(M);uh();d=b.stateNode;d.pendingContext&&(d.context=d.pendingContext,d.pendingContext=null);if(null===a||null===a.child)rh$2(b)?b.flags|=4:d.hydrate||(b.flags|=256);Ci(b);return null;case 5:hh(b);var e=dh(ch.current);c=b.type;if(null!==a&&null!=b.stateNode)Di(a,b,c,d,e),a.ref!==b.ref&&(b.flags|=128);else {if(!d){if(null===
+b.stateNode)throw Error(y$1(166));return null}a=dh(ah.current);if(rh$2(b)){d=b.stateNode;c=b.type;var f=b.memoizedProps;d[wf]=b;d[xf]=f;switch(c){case "dialog":G("cancel",d);G("close",d);break;case "iframe":case "object":case "embed":G("load",d);break;case "video":case "audio":for(a=0;a<Xe.length;a++)G(Xe[a],d);break;case "source":G("error",d);break;case "img":case "image":case "link":G("error",d);G("load",d);break;case "details":G("toggle",d);break;case "input":Za(d,f);G("invalid",d);break;case "select":d._wrapperState=
 {wasMultiple:!!f.multiple};G("invalid",d);break;case "textarea":hb(d,f),G("invalid",d);}vb(c,f);a=null;for(var g in f)f.hasOwnProperty(g)&&(e=f[g],"children"===g?"string"===typeof e?d.textContent!==e&&(a=["children",e]):"number"===typeof e&&d.textContent!==""+e&&(a=["children",""+e]):ca.hasOwnProperty(g)&&null!=e&&"onScroll"===g&&G("scroll",d));switch(c){case "input":Va(d);cb(d,f,!0);break;case "textarea":Va(d);jb(d);break;case "select":case "option":break;default:"function"===typeof f.onClick&&(d.onclick=
 jf);}d=a;b.updateQueue=d;null!==d&&(b.flags|=4);}else {g=9===e.nodeType?e:e.ownerDocument;a===kb.html&&(a=lb(c));a===kb.html?"script"===c?(a=g.createElement("div"),a.innerHTML="<script>\x3c/script>",a=a.removeChild(a.firstChild)):"string"===typeof d.is?a=g.createElement(c,{is:d.is}):(a=g.createElement(c),"select"===c&&(g=a,d.multiple?g.multiple=!0:d.size&&(g.size=d.size))):a=g.createElementNS(a,c);a[wf]=b;a[xf]=d;Bi(a,b,!1,!1);b.stateNode=a;g=wb(c,d);switch(c){case "dialog":G("cancel",a);G("close",a);
 e=d;break;case "iframe":case "object":case "embed":G("load",a);e=d;break;case "video":case "audio":for(e=0;e<Xe.length;e++)G(Xe[e],a);e=d;break;case "source":G("error",a);e=d;break;case "img":case "image":case "link":G("error",a);G("load",a);e=d;break;case "details":G("toggle",a);e=d;break;case "input":Za(a,d);e=Ya(a,d);G("invalid",a);break;case "option":e=eb(a,d);break;case "select":a._wrapperState={wasMultiple:!!d.multiple};e=objectAssign({},d,{value:void 0});G("invalid",a);break;case "textarea":hb(a,d);e=
 gb(a,d);G("invalid",a);break;default:e=d;}vb(c,e);var h=e;for(f in h)if(h.hasOwnProperty(f)){var k=h[f];"style"===f?tb(a,k):"dangerouslySetInnerHTML"===f?(k=k?k.__html:void 0,null!=k&&ob(a,k)):"children"===f?"string"===typeof k?("textarea"!==c||""!==k)&&pb(a,k):"number"===typeof k&&pb(a,""+k):"suppressContentEditableWarning"!==f&&"suppressHydrationWarning"!==f&&"autoFocus"!==f&&(ca.hasOwnProperty(f)?null!=k&&"onScroll"===f&&G("scroll",a):null!=k&&qa(a,f,k,g));}switch(c){case "input":Va(a);cb(a,d,!1);
 break;case "textarea":Va(a);jb(a);break;case "option":null!=d.value&&a.setAttribute("value",""+Sa(d.value));break;case "select":a.multiple=!!d.multiple;f=d.value;null!=f?fb(a,!!d.multiple,f,!1):null!=d.defaultValue&&fb(a,!!d.multiple,d.defaultValue,!0);break;default:"function"===typeof e.onClick&&(a.onclick=jf);}mf(c,d)&&(b.flags|=4);}null!==b.ref&&(b.flags|=128);}return null;case 6:if(a&&null!=b.stateNode)Ei(a,b,a.memoizedProps,d);else {if("string"!==typeof d&&null===b.stateNode)throw Error(y$1(166));
-c=dh(ch.current);dh(ah.current);rh$1(b)?(d=b.stateNode,c=b.memoizedProps,d[wf]=b,d.nodeValue!==c&&(b.flags|=4)):(d=(9===c.nodeType?c:c.ownerDocument).createTextNode(d),d[wf]=b,b.stateNode=d);}return null;case 13:H(P);d=b.memoizedState;if(0!==(b.flags&64))return b.lanes=c,b;d=null!==d;c=!1;null===a?void 0!==b.memoizedProps.fallback&&rh$1(b):c=null!==a.memoizedState;if(d&&!c&&0!==(b.mode&2))if(null===a&&!0!==b.memoizedProps.unstable_avoidThisFallback||0!==(P.current&1))0===V&&(V=3);else {if(0===V||3===V)V=
+c=dh(ch.current);dh(ah.current);rh$2(b)?(d=b.stateNode,c=b.memoizedProps,d[wf]=b,d.nodeValue!==c&&(b.flags|=4)):(d=(9===c.nodeType?c:c.ownerDocument).createTextNode(d),d[wf]=b,b.stateNode=d);}return null;case 13:H(P);d=b.memoizedState;if(0!==(b.flags&64))return b.lanes=c,b;d=null!==d;c=!1;null===a?void 0!==b.memoizedProps.fallback&&rh$2(b):c=null!==a.memoizedState;if(d&&!c&&0!==(b.mode&2))if(null===a&&!0!==b.memoizedProps.unstable_avoidThisFallback||0!==(P.current&1))0===V&&(V=3);else {if(0===V||3===V)V=
 4;null===U||0===(Dg&134217727)&&0===(Hi&134217727)||Ii(U,W);}if(d||c)b.flags|=4;return null;case 4:return fh(),Ci(b),null===a&&cf(b.stateNode.containerInfo),null;case 10:return rg(b),null;case 17:return Ff(b.type)&&Gf(),null;case 19:H(P);d=b.memoizedState;if(null===d)return null;f=0!==(b.flags&64);g=d.rendering;if(null===g)if(f)Fi(d,!1);else {if(0!==V||null!==a&&0!==(a.flags&64))for(a=b.child;null!==a;){g=ih(a);if(null!==g){b.flags|=64;Fi(d,!1);f=g.updateQueue;null!==f&&(b.updateQueue=f,b.flags|=4);
 null===d.lastEffect&&(b.firstEffect=null);b.lastEffect=d.lastEffect;d=c;for(c=b.child;null!==c;)f=c,a=d,f.flags&=2,f.nextEffect=null,f.firstEffect=null,f.lastEffect=null,g=f.alternate,null===g?(f.childLanes=0,f.lanes=a,f.child=null,f.memoizedProps=null,f.memoizedState=null,f.updateQueue=null,f.dependencies=null,f.stateNode=null):(f.childLanes=g.childLanes,f.lanes=g.lanes,f.child=g.child,f.memoizedProps=g.memoizedProps,f.memoizedState=g.memoizedState,f.updateQueue=g.updateQueue,f.type=g.type,a=g.dependencies,
 f.dependencies=null===a?null:{lanes:a.lanes,firstContext:a.firstContext}),c=c.sibling;I(P,P.current&1|2);return b.child}a=a.sibling;}null!==d.tail&&O()>Ji&&(b.flags|=64,f=!0,Fi(d,!1),b.lanes=33554432);}else {if(!f)if(a=ih(g),null!==a){if(b.flags|=64,f=!0,c=a.updateQueue,null!==c&&(b.updateQueue=c,b.flags|=4),Fi(d,!0),null===d.tail&&"hidden"===d.tailMode&&!g.alternate&&!lh)return b=b.lastEffect=d.lastEffect,null!==b&&(b.nextEffect=null),null}else 2*O()-d.renderingStartTime>Ji&&1073741824!==c&&(b.flags|=
@@ -47484,11 +46695,11 @@ function fk(){if(null===yj)return !1;var a=yj;yj=null;if(0!==(X&48))throw Error(
 null,h.stateNode=null),h=a;X=b;ig();return !0}function gk(a,b,c){b=Mi(c,b);b=Pi(a,b,1);Ag(a,b);b=Hg();a=Kj(a,1);null!==a&&($c(a,1,b),Mj(a,b));}
 function Wi(a,b){if(3===a.tag)gk(a,a,b);else for(var c=a.return;null!==c;){if(3===c.tag){gk(c,a,b);break}else if(1===c.tag){var d=c.stateNode;if("function"===typeof c.type.getDerivedStateFromError||"function"===typeof d.componentDidCatch&&(null===Ti||!Ti.has(d))){a=Mi(b,a);var e=Si(c,a,1);Ag(c,e);e=Hg();c=Kj(c,1);if(null!==c)$c(c,1,e),Mj(c,e);else if("function"===typeof d.componentDidCatch&&(null===Ti||!Ti.has(d)))try{d.componentDidCatch(b,a);}catch(f){}break}}c=c.return;}}
 function Yj(a,b,c){var d=a.pingCache;null!==d&&d.delete(b);b=Hg();a.pingedLanes|=a.suspendedLanes&c;U===a&&(W&c)===c&&(4===V||3===V&&(W&62914560)===W&&500>O()-jj?Qj(a,0):uj|=c);Mj(a,b);}function lj(a,b){var c=a.stateNode;null!==c&&c.delete(b);b=0;0===b&&(b=a.mode,0===(b&2)?b=1:0===(b&4)?b=99===eg()?1:2:(0===Gj&&(Gj=tj),b=Yc(62914560&~Gj),0===b&&(b=4194304)));c=Hg();a=Kj(a,b);null!==a&&($c(a,b,c),Mj(a,c));}var ck;
-ck=function(a,b,c){var d=b.lanes;if(null!==a)if(a.memoizedProps!==b.pendingProps||N$1.current)ug=!0;else if(0!==(c&d))ug=0!==(a.flags&16384)?!0:!1;else {ug=!1;switch(b.tag){case 3:ri(b);sh$1();break;case 5:gh(b);break;case 1:Ff(b.type)&&Jf(b);break;case 4:eh(b,b.stateNode.containerInfo);break;case 10:d=b.memoizedProps.value;var e=b.type._context;I(mg,e._currentValue);e._currentValue=d;break;case 13:if(null!==b.memoizedState){if(0!==(c&b.child.childLanes))return ti(a,b,c);I(P,P.current&1);b=hi(a,b,c);return null!==
+ck=function(a,b,c){var d=b.lanes;if(null!==a)if(a.memoizedProps!==b.pendingProps||N$1.current)ug=!0;else if(0!==(c&d))ug=0!==(a.flags&16384)?!0:!1;else {ug=!1;switch(b.tag){case 3:ri(b);sh$2();break;case 5:gh(b);break;case 1:Ff(b.type)&&Jf(b);break;case 4:eh(b,b.stateNode.containerInfo);break;case 10:d=b.memoizedProps.value;var e=b.type._context;I(mg,e._currentValue);e._currentValue=d;break;case 13:if(null!==b.memoizedState){if(0!==(c&b.child.childLanes))return ti(a,b,c);I(P,P.current&1);b=hi(a,b,c);return null!==
 b?b.sibling:null}I(P,P.current&1);break;case 19:d=0!==(c&b.childLanes);if(0!==(a.flags&64)){if(d)return Ai(a,b,c);b.flags|=64;}e=b.memoizedState;null!==e&&(e.rendering=null,e.tail=null,e.lastEffect=null);I(P,P.current);if(d)break;else return null;case 23:case 24:return b.lanes=0,mi(a,b,c)}return hi(a,b,c)}else ug=!1;b.lanes=0;switch(b.tag){case 2:d=b.type;null!==a&&(a.alternate=null,b.alternate=null,b.flags|=2);a=b.pendingProps;e=Ef(b,M.current);tg(b,c);e=Ch(null,b,d,a,e,c);b.flags|=1;if("object"===
 typeof e&&null!==e&&"function"===typeof e.render&&void 0===e.$$typeof){b.tag=1;b.memoizedState=null;b.updateQueue=null;if(Ff(d)){var f=!0;Jf(b);}else f=!1;b.memoizedState=null!==e.state&&void 0!==e.state?e.state:null;xg(b);var g=d.getDerivedStateFromProps;"function"===typeof g&&Gg(b,d,g,a);e.updater=Kg;b.stateNode=e;e._reactInternals=b;Og(b,d,a,c);b=qi(null,b,d,!0,f,c);}else b.tag=0,fi(null,b,e,c),b=b.child;return b;case 16:e=b.elementType;a:{null!==a&&(a.alternate=null,b.alternate=null,b.flags|=2);
 a=b.pendingProps;f=e._init;e=f(e._payload);b.type=e;f=b.tag=hk(e);a=lg(e,a);switch(f){case 0:b=li(null,b,e,a,c);break a;case 1:b=pi(null,b,e,a,c);break a;case 11:b=gi(null,b,e,a,c);break a;case 14:b=ii(null,b,e,lg(e.type,a),d,c);break a}throw Error(y$1(306,e,""));}return b;case 0:return d=b.type,e=b.pendingProps,e=b.elementType===d?e:lg(d,e),li(a,b,d,e,c);case 1:return d=b.type,e=b.pendingProps,e=b.elementType===d?e:lg(d,e),pi(a,b,d,e,c);case 3:ri(b);d=b.updateQueue;if(null===a||null===d)throw Error(y$1(282));
-d=b.pendingProps;e=b.memoizedState;e=null!==e?e.element:null;yg(a,b);Cg(b,d,null,c);d=b.memoizedState.element;if(d===e)sh$1(),b=hi(a,b,c);else {e=b.stateNode;if(f=e.hydrate)kh=rf(b.stateNode.containerInfo.firstChild),jh=b,f=lh=!0;if(f){a=e.mutableSourceEagerHydrationData;if(null!=a)for(e=0;e<a.length;e+=2)f=a[e],f._workInProgressVersionPrimary=a[e+1],th.push(f);c=Zg(b,null,d,c);for(b.child=c;c;)c.flags=c.flags&-3|1024,c=c.sibling;}else fi(a,b,d,c),sh$1();b=b.child;}return b;case 5:return gh(b),null===a&&
+d=b.pendingProps;e=b.memoizedState;e=null!==e?e.element:null;yg(a,b);Cg(b,d,null,c);d=b.memoizedState.element;if(d===e)sh$2(),b=hi(a,b,c);else {e=b.stateNode;if(f=e.hydrate)kh=rf(b.stateNode.containerInfo.firstChild),jh=b,f=lh=!0;if(f){a=e.mutableSourceEagerHydrationData;if(null!=a)for(e=0;e<a.length;e+=2)f=a[e],f._workInProgressVersionPrimary=a[e+1],th.push(f);c=Zg(b,null,d,c);for(b.child=c;c;)c.flags=c.flags&-3|1024,c=c.sibling;}else fi(a,b,d,c),sh$2();b=b.child;}return b;case 5:return gh(b),null===a&&
 ph(b),d=b.type,e=b.pendingProps,f=null!==a?a.memoizedProps:null,g=e.children,nf(d,e)?g=null:null!==f&&nf(d,f)&&(b.flags|=16),oi(a,b),fi(a,b,g,c),b.child;case 6:return null===a&&ph(b),null;case 13:return ti(a,b,c);case 4:return eh(b,b.stateNode.containerInfo),d=b.pendingProps,null===a?b.child=Yg(b,null,d,c):fi(a,b,d,c),b.child;case 11:return d=b.type,e=b.pendingProps,e=b.elementType===d?e:lg(d,e),gi(a,b,d,e,c);case 7:return fi(a,b,b.pendingProps,c),b.child;case 8:return fi(a,b,b.pendingProps.children,
 c),b.child;case 12:return fi(a,b,b.pendingProps.children,c),b.child;case 10:a:{d=b.type._context;e=b.pendingProps;g=b.memoizedProps;f=e.value;var h=b.type._context;I(mg,h._currentValue);h._currentValue=f;if(null!==g)if(h=g.value,f=He(h,f)?0:("function"===typeof d._calculateChangedBits?d._calculateChangedBits(h,f):1073741823)|0,0===f){if(g.children===e.children&&!N$1.current){b=hi(a,b,c);break a}}else for(h=b.child,null!==h&&(h.return=b);null!==h;){var k=h.dependencies;if(null!==k){g=h.child;for(var l=
 k.firstContext;null!==l;){if(l.context===d&&0!==(l.observedBits&f)){1===h.tag&&(l=zg(-1,c&-c),l.tag=2,Ag(h,l));h.lanes|=c;l=h.alternate;null!==l&&(l.lanes|=c);sg(h.return,c);k.lanes|=c;break}l=l.next;}}else g=10===h.tag?h.type===b.type?null:h.child:h.child;if(null!==g)g.return=h;else for(g=h;null!==g;){if(g===b){g=null;break}h=g.sibling;if(null!==h){h.return=g.return;g=h;break}g=g.return;}h=g;}fi(a,b,e.children,c);b=b.child;}return b;case 9:return e=b.type,f=b.pendingProps,d=f.children,tg(b,c),e=vg(e,
@@ -49235,11 +48446,11 @@ function checkAndPrepOptions(input) {
 
   // token
   if(lodash.isEmpty(options.token))  { throw '"token" needs to be set.' }
-  options.token = (options.token === ETH) ? ETH : ethers.utils.getAddress(ethers.utils.getAddress(options.token));
+  options.token = (options.token === ETH) ? ETH : getAddress(getAddress(options.token));
 
   // receiver
   if(lodash.isEmpty(options.receiver))     { throw '"receiver" needs to be set.' }
-  options.receiver = ethers.utils.getAddress(ethers.utils.getAddress(options.receiver));
+  options.receiver = getAddress(getAddress(options.receiver));
 
   // element
   if(!lodash.isEmpty(options.element)) {
@@ -49248,7 +48459,7 @@ function checkAndPrepOptions(input) {
 
   // route
   if(!lodash.isEmpty(options.route)) {
-    options.route = ethers.utils.getAddress(ethers.utils.getAddress(options.route));
+    options.route = getAddress(getAddress(options.route));
   }
 
   // callback
@@ -49315,13 +48526,13 @@ class AmountProvider extends react.Component {
 
   change(amount) {
     this.setState({
-      amount: parseFloat(ethers.utils.formatUnits(amount.toLocaleString('fullwide', {useGrouping:false}), this.state.token.decimals).toString())
+      amount: parseFloat(formatUnits(amount.toLocaleString('fullwide', {useGrouping:false}), this.state.token.decimals).toString())
     });
   }
 
   convertedStateAmount() {
     if(this.state.token) {
-      return ethers.utils.parseUnits(this.state.amount.toString(), this.state.token.decimals).toString()
+      return parseUnits(this.state.amount.toString(), this.state.token.decimals).toString()
     } else {
       return this.state.amount;
     }
@@ -49372,16 +48583,16 @@ class ChangeTokenAmountDialog extends react.Component {
     let amount = parseInt(event.target.value, 10);
     if(!isNaN(amount)) {
       this.setState({
-        amount: parseInt(ethers.utils.parseUnits(amount.toString(), this.props.token.decimals))
+        amount: parseInt(parseUnits(amount.toString(), this.props.token.decimals))
       }); 
     }
   }
 
   render() {
-    const tokenMin = parseInt(ethers.utils.formatUnits((10**this.props.token.decimals).toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals).toString());
+    const tokenMin = parseInt(formatUnits((10**this.props.token.decimals).toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals).toString());
     const min = (this.props.amountOptions ? this.props.amountOptions.min : tokenMin) || tokenMin;
     const step = (this.props.amountOptions ? this.props.amountOptions.step : min) || min;
-    const max = parseInt(ethers.utils.formatUnits(this.state.maxAmount.toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals).toString());
+    const max = parseInt(formatUnits(this.state.maxAmount.toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals).toString());
     return (
       react.createElement(NavigateStackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$l, lineNumber: 57}}
         , navigate => (
@@ -49444,8 +48655,8 @@ class ChangeTokenAmountDialog extends react.Component {
   }
 }
 
-const _jsxFileName$m = "/Users/sebastian/Work/DePay/depay-widgets/src/dialogs/SaleDialogSkeleton.jsx";
-class SaleDialogSkeleton extends react.Component {
+const _jsxFileName$m = "/Users/sebastian/Work/DePay/depay-widgets/src/dialogs/TokenSaleDialogSkeleton.jsx";
+class TokenSaleDialogSkeleton extends react.Component {
 
   render() {
     return(
@@ -49624,7 +48835,7 @@ class SaleDialogSkeleton extends react.Component {
   }
 }
 
-const _jsxFileName$n = "/Users/sebastian/Work/DePay/depay-widgets/src/dialogs/SaleDialog.jsx";
+const _jsxFileName$n = "/Users/sebastian/Work/DePay/depay-widgets/src/dialogs/TokenSaleDialog.jsx";
 class SaleDialog extends react.Component {constructor(...args) { super(...args); SaleDialog.prototype.__init.call(this); }
   __init() {this.state={
     approving: null,
@@ -49672,9 +48883,9 @@ class SaleDialog extends react.Component {constructor(...args) { super(...args);
   }
 
   approve(dialogContext) {
-    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider$1)
+    new Contract(this.props.selected.token.address, Erc20Abi, EthersProvider$1)
       .connect(this.props.wallet.provider().getSigner(0))
-      .approve(DePayV1ProcessorBetaContract.address, MAXINT)
+      .approve(DePayPaymentsV1Contract.address, MAXINT)
       .catch(function(){ 
         clearInterval(this.approvalCheckInterval);
         this.setState({ approving: false });
@@ -49700,8 +48911,8 @@ class SaleDialog extends react.Component {constructor(...args) { super(...args);
   }
 
   checkApproved(dialogContext) {
-    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider$1).allowance(this.props.wallet.address(), DePayV1ProcessorBetaContract.address).then(function(amount){
-      if(amount.gt(ethers.BigNumber.from(this.props.selected.amounts[0]))) {
+    new Contract(this.props.selected.token.address, Erc20Abi, EthersProvider$1).allowance(this.props.wallet.address(), DePayPaymentsV1Contract.address).then(function(amount){
+      if(amount.gt(BigNumber.from(this.props.selected.amounts[0]))) {
         this.props.selected.approved = true;
         dialogContext.setClosable(true);
         this.setState({ approving: false });
@@ -49712,7 +48923,7 @@ class SaleDialog extends react.Component {constructor(...args) { super(...args);
 
   generatePaymentUUID() {
     let now = +(new Date());
-    return(ethers.BigNumber.from(this.props.wallet.address()).toString()+''+(now).toString());
+    return(BigNumber.from(this.props.wallet.address()).toString()+''+(now).toString());
   }
 
   pay(dialogContext, callbackContext) {
@@ -49734,24 +48945,36 @@ class SaleDialog extends react.Component {constructor(...args) { super(...args);
     
     let amountIn = this.props.selected.amounts[0];
     let amountOut = this.props.selected.amounts[this.props.selected.amounts.length-1];
+    if(route[0] === ETH) ;
 
-    let transactionConfiguration = {};
-    if(route[0] === ETH) {
-      transactionConfiguration.value = amountIn;
+    let deadline = Math.round(new Date().getTime() / 1000) + (24 * 3600); // 24 hours from now
+
+    let addresses;
+    if(this.props.addresses && this.props.addresses.length) {
+      addresses = lodash.map(this.props.addresses, function(address){
+        if(address === 'user') { return this.props.wallet.address() }
+        return address;
+      });
+    } else {
+      addresses = [this.props.wallet.address()];
     }
 
-    let routerId = 0; // fix on uniswap for now (until mooni bus are fixed)
+    let plugins;
+    if(this.props.plugins && this.props.plugins.length) {
+      plugins = lodash.map(this.props.plugins, function(address){
+        if(address === 'user') { return this.props.wallet.address() }
+        return address;
+      });
+    } else {
+      plugins = [this.props.wallet.address()];
+    }
 
-    let paymentId = this.generatePaymentUUID();
-
-    DePayV1ProcessorBetaContract.connect(this.props.wallet.provider().getSigner(0)).pay(
+    DePayPaymentsV1Contract.connect(this.props.wallet.provider().getSigner(0)).pay(
       route,
-      amountIn,
-      amountOut,
-      this.props.receiver,
-      paymentId,
-      routerId,
-      transactionConfiguration
+      [amountIn, amountOut, deadline],
+      addresses,
+      plugins,
+      this.props.data || []
     )
     .catch(function(){
       Rollbar.error("pay catch", arguments);
@@ -49798,109 +49021,109 @@ class SaleDialog extends react.Component {constructor(...args) { super(...args);
   render() {
     if(this.props.initializing) { 
       return(
-        react.createElement(SaleDialogSkeleton, {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 197}})
+        react.createElement(TokenSaleDialogSkeleton, {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 214}})
       ) 
     }
 
     return (
-      react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 202}}
+      react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 219}}
         , dialogContext => (
-          react.createElement(NavigateStackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 204}}
+          react.createElement(NavigateStackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 221}}
             , navigate => (
-              react.createElement('div', { className: 'Dialog PaymentDialog ' + (this.isActionable(dialogContext) ? '' : 'unactionable'), __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 206}}
-                , react.createElement('div', { className: "DialogHeader", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 207}}
-                  , react.createElement(CloseDialogComponent, {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 208}})
+              react.createElement('div', { className: 'Dialog PaymentDialog ' + (this.isActionable(dialogContext) ? '' : 'unactionable'), __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 223}}
+                , react.createElement('div', { className: "DialogHeader", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 224}}
+                  , react.createElement(CloseDialogComponent, {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 225}})
                 )
-                , react.createElement('div', { className: "DialogBody HeightAuto" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 210}}
-                  , react.createElement('div', { className: "Payment", key:  this.props.tokenContext.token.address , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 211}}
-                    , react.createElement('div', { className: "PaymentRow ChangeTokenAmount" , onClick:  ()=> this.navigateIfActionable(navigate, 'ChangeTokenAmount', dialogContext) , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 212}}
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn1" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 213}}
+                , react.createElement('div', { className: "DialogBody HeightAuto" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 227}}
+                  , react.createElement('div', { className: "Payment", key:  this.props.tokenContext.token.address , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 228}}
+                    , react.createElement('div', { className: "PaymentRow ChangeTokenAmount" , onClick:  ()=> this.navigateIfActionable(navigate, 'ChangeTokenAmount', dialogContext) , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 229}}
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn1" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 230}}
                         , react.createElement(TokenIconComponent, {
                           title:  this.props.tokenContext.token.name ,
-                          src:  this.props.tokenContext.token.logoURI , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 214}}
+                          src:  this.props.tokenContext.token.logoURI , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 231}}
                         )
                       )
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 219}}
-                        , react.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 220}}
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 236}}
+                        , react.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 237}}
                           ,  this.props.action || 'Purchase' 
                         )
-                        , react.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , title: DisplayTokenAmount(this.props.amount, this.props.tokenContext.decimals, this.props.tokenContext.token.symbol), __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 223}}
+                        , react.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , title: DisplayTokenAmount(this.props.amount, this.props.tokenContext.decimals, this.props.tokenContext.token.symbol), __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 240}}
                           ,  DisplayTokenAmount(this.props.amount, this.props.tokenContext.token.decimals, this.props.tokenContext.token.symbol) 
                         )
-                        , react.createElement('div', { className: "PaymentAmountRow2 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 226}}
+                        , react.createElement('div', { className: "PaymentAmountRow2 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 243}}
                           ,  this.props.tokenContext.token.name 
                         )
                       )
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 230}}
-                        , react.createElement('span', { className: "PaymentAction", title: "Change amount" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 231}}, "Change"
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 247}}
+                        , react.createElement('span', { className: "PaymentAction", title: "Change amount" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 248}}, "Change"
 
                         )
                       )
                     )
 
-                    , react.createElement('div', { className: "PaymentRow ChangePaymentRow" , onClick:  ()=> this.navigateIfActionable(navigate, 'ChangePaymentToken', dialogContext) , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 237}}
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn1" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 238}}
+                    , react.createElement('div', { className: "PaymentRow ChangePaymentRow" , onClick:  ()=> this.navigateIfActionable(navigate, 'ChangePaymentToken', dialogContext) , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 254}}
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn1" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 255}}
                         , react.createElement(TokenIconComponent, {
                           title:  this.props.selected.token.name ,
-                          src:  this.props.selected.token.logoURI , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 239}}
+                          src:  this.props.selected.token.logoURI , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 256}}
                         )
                       )
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 244}}
-                        , react.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 245}}, "Payment"
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 261}}
+                        , react.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 262}}, "Payment"
 
                         )
-                        , react.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 248}}
+                        , react.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 265}}
                           ,  this.props.paymentContext.local 
                         )
-                        , react.createElement('div', { className: "PaymentAmountRow2 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 251}}
+                        , react.createElement('div', { className: "PaymentAmountRow2 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 268}}
                           ,  this.props.paymentContext.token 
                         )
                       )
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 255}}
-                        , react.createElement('span', { className: "PaymentAction", title: "Change payment" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 256}}, "Change"
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 272}}
+                        , react.createElement('span', { className: "PaymentAction", title: "Change payment" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 273}}, "Change"
 
                         )
                       )
                     )
 
-                    , react.createElement('div', { className: "PaymentRow ChangeNetworkFeeRow" , onClick:  ()=> this.navigateIfActionable(navigate, 'ChangeNetworkFee', dialogContext) , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 262}}
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn1" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 263}}
+                    , react.createElement('div', { className: "PaymentRow ChangeNetworkFeeRow" , onClick:  ()=> this.navigateIfActionable(navigate, 'ChangeNetworkFee', dialogContext) , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 279}}
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn1" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 280}}
                         , react.createElement(TokenIconComponent, {
                           title:  'Ethereum network fee' ,
-                          src:  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAIVBMVEVHcExkgexjf+tifutifurAy/b///+CmO6hsvJxi+zj6PuyVvwSAAAABHRSTlMANYHDscZ74QAAA+NJREFUeNq1ml1y2jAQx+PAATwpB0gmHCANPkAhZgg849g+QDwZnh1o3w29AJNp817aYzayLa8d7YditXqE7i/674fYlXrGrIvrySQMJ5Pbq7Mey7sOW+vW72XeH3ERIuvqw3++7ya8ICTWnd/XHgj97YEg2zsRxqGwZrz9p1Bcnzn789BiXcoO6O2GUWi1pqwAFxFagCwCtx9g//Y+xz69sd/Aas1uQU6Bh4RLBnkDiyw6ylsAD5gKsqhAv7ixDMEhi2I6EPIGllkWRSG5BbkK5wpQ2FSlh/+ZrQKk+He+TRWcFCChKkJ24X2mAFFOuFEuoxcFIDVcygoeFIDWICpYZApAaxAVrDRgTWgQFZQARoOoQAOiI6/BIxQAoOBzaYB/fQBATNQD64LlCQAR74SAKKQKwGi44wsJAHRBcS44tQEJ54QRUUgNgE7GKXOWvGgAp2HG+PChC0hoL3pEGmoAq8EnK2n1HrAm62lIpCEAmGT8QgVhmbUBdEFNqSCsTEBBhSFgFQAgpsJApiEAmIIiojjPAMBr8PEobjFAisdxwCvY7BtAgpfTEC0kvR6jHRByNBGGTCFlv6JoB4Q1ChhhhdTYvwHeCIyGKZZHi8a+Auy+0sk4wwCrtv93LUKBAQLyPNcAIMRYKgZ4IW0iAADhaAWYl/YNQBP2tQYZcFDhfw+oghFbAU61PQCAgFSTqaAMHwA6hMICsG3sAdA4IrUARN216xIsAD84gBlHxInPNOCbGAWTYNrLgOX+HQDsZQAQTEBoB1B+WmCAEm0CxoYHFOHeBKiPl98tzoP5UyeYnQDuCxMwMmvhT7mRLuBn+VmCHGlD5Ej93SLUAah2lfKnMhzqKYSitq/8kiOAAXooFw2hsV+gx/IN9tP2+nYi5cpEA3Rk19hPm4cf6486mMpeb+eINklEd/BYB1MHkOgQmgbD/GGog7nLm5AUeIMxJjqkOphVAOkfJmiyzJ+WtHvGxESTNaQ7FLVnKK2CaPPO6Q5jU7TsE6rR9JgeZ5PD4ZCSA0NA9ShVOujDJSdHljHXrD89cx3SjB44XsVmGwaOgVW7f6RHHq//wOFzV1hdQEEOLFLDzzb77Oh7aANidvT1+k6ufjP+95ud74QLiC0AUuEC4pyZXZmZ71K6hCk1sFMnaKCnX14BaCDTWVYgzM+cAlHDqgIUggJ+AicvgXybC8mDAsRWzwSDD95owpWolM5sGstb2GY6CeTL8QDXwB8l8tX4ib8al7fwkqIb+D/PA84PFO5PJM6PNO7PRM4PVe5PZe6Pde7Phc4Plu5Ppu6Ptu7Pxu4P1//g6dz98d7+vw/8BVHcYRQ1d5GsAAAAAElFTkSuQmCC' , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 264}}
+                          src:  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAIVBMVEVHcExkgexjf+tifutifurAy/b///+CmO6hsvJxi+zj6PuyVvwSAAAABHRSTlMANYHDscZ74QAAA+NJREFUeNq1ml1y2jAQx+PAATwpB0gmHCANPkAhZgg849g+QDwZnh1o3w29AJNp817aYzayLa8d7YditXqE7i/674fYlXrGrIvrySQMJ5Pbq7Mey7sOW+vW72XeH3ERIuvqw3++7ya8ICTWnd/XHgj97YEg2zsRxqGwZrz9p1Bcnzn789BiXcoO6O2GUWi1pqwAFxFagCwCtx9g//Y+xz69sd/Aas1uQU6Bh4RLBnkDiyw6ylsAD5gKsqhAv7ixDMEhi2I6EPIGllkWRSG5BbkK5wpQ2FSlh/+ZrQKk+He+TRWcFCChKkJ24X2mAFFOuFEuoxcFIDVcygoeFIDWICpYZApAaxAVrDRgTWgQFZQARoOoQAOiI6/BIxQAoOBzaYB/fQBATNQD64LlCQAR74SAKKQKwGi44wsJAHRBcS44tQEJ54QRUUgNgE7GKXOWvGgAp2HG+PChC0hoL3pEGmoAq8EnK2n1HrAm62lIpCEAmGT8QgVhmbUBdEFNqSCsTEBBhSFgFQAgpsJApiEAmIIiojjPAMBr8PEobjFAisdxwCvY7BtAgpfTEC0kvR6jHRByNBGGTCFlv6JoB4Q1ChhhhdTYvwHeCIyGKZZHi8a+Auy+0sk4wwCrtv93LUKBAQLyPNcAIMRYKgZ4IW0iAADhaAWYl/YNQBP2tQYZcFDhfw+oghFbAU61PQCAgFSTqaAMHwA6hMICsG3sAdA4IrUARN216xIsAD84gBlHxInPNOCbGAWTYNrLgOX+HQDsZQAQTEBoB1B+WmCAEm0CxoYHFOHeBKiPl98tzoP5UyeYnQDuCxMwMmvhT7mRLuBn+VmCHGlD5Ej93SLUAah2lfKnMhzqKYSitq/8kiOAAXooFw2hsV+gx/IN9tP2+nYi5cpEA3Rk19hPm4cf6486mMpeb+eINklEd/BYB1MHkOgQmgbD/GGog7nLm5AUeIMxJjqkOphVAOkfJmiyzJ+WtHvGxESTNaQ7FLVnKK2CaPPO6Q5jU7TsE6rR9JgeZ5PD4ZCSA0NA9ShVOujDJSdHljHXrD89cx3SjB44XsVmGwaOgVW7f6RHHq//wOFzV1hdQEEOLFLDzzb77Oh7aANidvT1+k6ufjP+95ud74QLiC0AUuEC4pyZXZmZ71K6hCk1sFMnaKCnX14BaCDTWVYgzM+cAlHDqgIUggJ+AicvgXybC8mDAsRWzwSDD95owpWolM5sGstb2GY6CeTL8QDXwB8l8tX4ib8al7fwkqIb+D/PA84PFO5PJM6PNO7PRM4PVe5PZe6Pde7Phc4Plu5Ppu6Ptu7Pxu4P1//g6dz98d7+vw/8BVHcYRQ1d5GsAAAAAElFTkSuQmCC' , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 281}}
                         )
                       )
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 269}}
-                        , react.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 270}}, "Network fee"
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 286}}
+                        , react.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 287}}, "Network fee"
 
                         )
-                        , react.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 273}}
+                        , react.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 290}}
                           ,  this.props.paymentContext.feeLocal 
                         )
-                        , react.createElement('div', { className: "PaymentAmountRow2 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 276}}
+                        , react.createElement('div', { className: "PaymentAmountRow2 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 293}}
                           ,  this.props.paymentContext.feeToken 
                         )
                       )
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 280}}
-                        , react.createElement('span', { className: "PaymentAction", title: "Change network fee"  , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 281}}, "Change"
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 297}}
+                        , react.createElement('span', { className: "PaymentAction", title: "Change network fee"  , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 298}}, "Change"
 
                         )
                       )
                     )
                   )
                 )
-                , react.createElement('div', { className: "DialogFooter", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 288}}
+                , react.createElement('div', { className: "DialogFooter", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 305}}
                   ,  this.renderCallToAction.bind(this)() 
-                  , react.createElement('div', { className: "PoweredBy", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 290}}
+                  , react.createElement('div', { className: "PoweredBy", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 307}}
                     , this.paymentType() &&
-                      react.createElement('span', {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 292}}
-                        , react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  this.paymentTypeLink() , className: "PoweredByLink", title:  this.paymentTypeTitle() , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 293}}
+                      react.createElement('span', {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 309}}
+                        , react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  this.paymentTypeLink() , className: "PoweredByLink", title:  this.paymentTypeTitle() , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 310}}
                           ,  this.paymentTypeText() 
                         )
-                        , react.createElement('span', { className: "PoweredByLink", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 296}}, " • ")
+                        , react.createElement('span', { className: "PoweredByLink", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 313}}, " • ")
                       )
                     
-                    , react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href: "https://depay.fi", className: "PoweredByLink", title: "Powered by DePay: Decentralized Payments"    , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 299}}, "by DePay"
+                    , react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href: "https://depay.fi", className: "PoweredByLink", title: "Powered by DePay: Decentralized Payments"    , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 316}}, "by DePay"
 
                     )
                   )
@@ -49918,14 +49141,14 @@ class SaleDialog extends react.Component {constructor(...args) { super(...args);
       return(this.renderPaymentButton())
     } else {
       return(
-        react.createElement('div', { className: "Table", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 317}}
-          , react.createElement('div', { className: "TableRow", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 318}}
-            , react.createElement('div', { className: "TableCell", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 319}}
+        react.createElement('div', { className: "Table", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 334}}
+          , react.createElement('div', { className: "TableRow", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 335}}
+            , react.createElement('div', { className: "TableCell", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 336}}
               ,  this.renderApproveButton() 
             )
-            , react.createElement('div', { className: "TableCell", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 322}}
-              , react.createElement('button', { className: "CallToAction MainAction disabled"  , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 323}}
-                , react.createElement('span', { className: "CallToActionName", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 324}}, "Pay"), " " , react.createElement('span', { className: "CallToActionPrice TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 324}},  this.props.paymentContext.total )
+            , react.createElement('div', { className: "TableCell", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 339}}
+              , react.createElement('button', { className: "CallToAction MainAction disabled"  , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 340}}
+                , react.createElement('span', { className: "CallToActionName", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 341}}, "Pay"), " " , react.createElement('span', { className: "CallToActionPrice TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 341}},  this.props.paymentContext.total )
               )
             )
           )
@@ -49937,18 +49160,18 @@ class SaleDialog extends react.Component {constructor(...args) { super(...args);
   renderApproveButton() {
     if(this.state.approving) {
       return(
-        react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+this.state.approving.transactionHash , key: "approving", className: "CallToAction MainAction loading"  , title: "Please wait for the approval transaction to be confirmed by the network. Click to open transaction on etherscan."                 , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 336}}, "Approving"
+        react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+this.state.approving.transactionHash , key: "approving", className: "CallToAction MainAction loading"  , title: "Please wait for the approval transaction to be confirmed by the network. Click to open transaction on etherscan."                 , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 353}}, "Approving"
 
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 338}}, ".")
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 339}}, ".")
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 340}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 355}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 356}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 357}}, ".")
         )
       )
     } else {
       return(
-        react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 345}}
+        react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 362}}
           , dialogContext => (
-            react.createElement('button', { key: "approve", className: "CallToAction MainAction" , onClick: ()=>this.approve.bind(this)(dialogContext), title: "Click to approve that the selected token is allowed to be swapped for performing this payment. This approval is only required the first time you pay with the selected token."                             , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 347}}, "Approve"
+            react.createElement('button', { key: "approve", className: "CallToAction MainAction" , onClick: ()=>this.approve.bind(this)(dialogContext), title: "Click to approve that the selected token is allowed to be swapped for performing this payment. This approval is only required the first time you pay with the selected token."                             , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 364}}, "Approve"
 
             )
           )
@@ -49960,30 +49183,30 @@ class SaleDialog extends react.Component {constructor(...args) { super(...args);
   renderPaymentButton() {
     if(this.state.payed) {
       return(
-        react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 359}}
+        react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 376}}
           , dialogContext => (
-            react.createElement('span', { className: "CallToAction MainAction circular"  , onClick:  dialogContext.closeContainer , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 361}}
-              , react.createElement(CheckMarkComponent, { className: "large", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 362}})
+            react.createElement('span', { className: "CallToAction MainAction circular"  , onClick:  dialogContext.closeContainer , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 378}}
+              , react.createElement(CheckMarkComponent, { className: "large", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 379}})
             )
           )
         )
       )
     } else if(this.state.paying) {
       return(
-        react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+this.state.paying.transactionHash , key: "approving", className: "CallToAction MainAction loading"  , title: "Please wait payment transaction to be confirmed by the network. Click to open transaction on etherscan."               , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 369}}, "Paying"
+        react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+this.state.paying.transactionHash , key: "approving", className: "CallToAction MainAction loading"  , title: "Please wait payment transaction to be confirmed by the network. Click to open transaction on etherscan."               , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 386}}, "Paying"
 
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 371}}, ".")
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 372}}, ".")
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 373}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 388}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 389}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 390}}, ".")
         )
       )
     } else {
       return(
-        react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 378}}
+        react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 395}}
           , dialogContext => (
-            react.createElement(CallbackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 380}}
+            react.createElement(CallbackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$n, lineNumber: 397}}
               , callbackContext => (
-                react.createElement('button', { className: "CallToAction MainAction" , onClick: ()=>this.pay.bind(this)(dialogContext, callbackContext), __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 382}}, "Pay "
+                react.createElement('button', { className: "CallToAction MainAction" , onClick: ()=>this.pay.bind(this)(dialogContext, callbackContext), __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 399}}, "Pay "
                    ,  this.props.paymentContext.total 
                 )
               )
@@ -49999,9 +49222,9 @@ class SaleDialog extends react.Component {constructor(...args) { super(...args);
 var TokenContext = react.createContext();
 
 function ImportToken(address){
-  address = ethers.utils.getAddress(address);
+  address = getAddress(address);
   return new Promise(function(resolve, reject) {
-    const contract = new ethers.Contract(address, Erc20Abi, EthersProvider$1);
+    const contract = new Contract(address, Erc20Abi, EthersProvider$1);
     Promise.all([contract.name(), contract.symbol(), contract.decimals()]).then(function(values){
       resolve({
         name: values[0],
@@ -50055,90 +49278,93 @@ class TokenProvider extends react.Component {
 const _jsxFileName$p = "/Users/sebastian/Work/DePay/depay-widgets/src/stacks/TokenSaleStack.jsx";
 class TokenSaleStack extends react.Component {
   __init() {this.state = {
-    token: null,
-    receiver: null
+    token: null
   };}
 
   constructor(props) {
     super(props);TokenSaleStack.prototype.__init.call(this);    Object.assign(this.state, {
       token: props.token,
-      receiver: props.receiver,
       action: props.action
     });
   }
 
   render() {
     return (
-      react.createElement(GasProvider, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 38}}
-        , react.createElement(GasContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 39}}
+      react.createElement(GasProvider, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 36}}
+        , react.createElement(GasContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 37}}
           , gasContext => (
-            react.createElement(PriceProvider, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 41}}
-              , react.createElement(PriceContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 42}}
+            react.createElement(PriceProvider, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 39}}
+              , react.createElement(PriceContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 40}}
                 , priceContext => (
                   react.createElement(TokenProvider, {
-                    token:  this.state.token , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 44}}
+                    token:  this.state.token , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 42}}
                   
-                    , react.createElement(TokenContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 47}}
+                    , react.createElement(TokenContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 45}}
                       , tokenContext => (
                         react.createElement(AmountProvider, {
                           amount:  this.props.amount ,
-                          token:  tokenContext.token , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 49}}
+                          token:  tokenContext.token , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 47}}
                         
-                          , react.createElement(AmountContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 53}}
+                          , react.createElement(AmountContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 51}}
                             , amountContext => (
-                              react.createElement(WalletContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 55}}
+                              react.createElement(WalletContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 53}}
                                 , walletContext => (
                                   react.createElement(RoutesProvider, {
                                     token:  tokenContext.token.address ,
                                     amount:  amountContext.amount ,
                                     address:  walletContext.address ,
+                                    addresses:  this.props.addresses ,
+                                    plugins:  this.props.plugins ,
+                                    data:  this.props.data ,
                                     wallet:  walletContext.wallet ,
-                                    addMaxAmounts:  true , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 57}}
+                                    addMaxAmounts:  true , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 55}}
                                   
-                                    , react.createElement(RoutesContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 64}}
+                                    , react.createElement(RoutesContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 65}}
                                       , routesContext => (
                                         react.createElement(PaymentProvider, {
-                                          selected:  routesContext.selected ,
+                                          route:  routesContext.selected ,
                                           gas:  gasContext.selected ,
                                           price:  priceContext.price ,
-                                          amount:  amountContext.amount , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 66}}
+                                          amount:  amountContext.amount , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 67}}
                                         
-                                          , react.createElement(PaymentContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 72}}
+                                          , react.createElement(PaymentContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 73}}
                                             , paymentContext => (
-                                                  react.createElement(Stack, {
-                                                    dialogs: {
-                                                      Sale: react.createElement(SaleDialog, {
-                                                        initializing:  priceContext.initializing || routesContext.initializing || gasContext.initializing || tokenContext.initializing ,
-                                                        selected:  routesContext.selected ,
-                                                        token:  tokenContext.token.address ,
-                                                        paymentContext:  paymentContext ,
-                                                        receiver:  this.state.receiver ,
-                                                        wallet:  walletContext.wallet ,
-                                                        tokenContext:  tokenContext ,
-                                                        amount:  amountContext.amount ,
-                                                        action:  this.state.action , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 76}}
-                                                      ),
-                                                      ChangeTokenAmount: react.createElement(ChangeTokenAmountDialog, {
-                                                        token:  tokenContext.token ,
-                                                        amount:  amountContext.amount ,
-                                                        amountOptions:  this.props.amount ,
-                                                        change:  amountContext.change ,
-                                                        routes:  routesContext.routes , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 87}}
-                                                      ),
-                                                      ChangePaymentToken: react.createElement(ChangePaymentTokenDialog, {
-                                                        routes:  routesContext.routes ,
-                                                        change:  routesContext.change ,
-                                                        paymentContext:  paymentContext , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 94}}
-                                                      ),
-                                                      ChangeNetworkFee: react.createElement(ChangeNetworkFeeDialog, {
-                                                        selected:  routesContext.selected ,
-                                                        price:  priceContext.price ,
-                                                        gasContext:  gasContext ,
-                                                        paymentContext:  paymentContext , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 99}}
-                                                      )
-                                                    },
-                                                    start: 'Sale', __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 74}}
+                                              react.createElement(Stack, {
+                                                dialogs: {
+                                                  TokenSale: react.createElement(SaleDialog, {
+                                                    initializing:  priceContext.initializing || routesContext.initializing || gasContext.initializing || tokenContext.initializing ,
+                                                    selected:  routesContext.selected ,
+                                                    token:  tokenContext.token.address ,
+                                                    paymentContext:  paymentContext ,
+                                                    wallet:  walletContext.wallet ,
+                                                    tokenContext:  tokenContext ,
+                                                    amount:  amountContext.amount ,
+                                                    action:  this.state.action ,
+                                                    addresses:  this.props.addresses ,
+                                                    plugins:  this.props.plugins ,
+                                                    data:  this.props.data , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 77}}
+                                                  ),
+                                                  ChangeTokenAmount: react.createElement(ChangeTokenAmountDialog, {
+                                                    token:  tokenContext.token ,
+                                                    amount:  amountContext.amount ,
+                                                    amountOptions:  this.props.amount ,
+                                                    change:  amountContext.change ,
+                                                    routes:  routesContext.routes , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 90}}
+                                                  ),
+                                                  ChangePaymentToken: react.createElement(ChangePaymentTokenDialog, {
+                                                    routes:  routesContext.routes ,
+                                                    change:  routesContext.change ,
+                                                    paymentContext:  paymentContext , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 97}}
+                                                  ),
+                                                  ChangeNetworkFee: react.createElement(ChangeNetworkFeeDialog, {
+                                                    selected:  routesContext.selected ,
+                                                    price:  priceContext.price ,
+                                                    gasContext:  gasContext ,
+                                                    paymentContext:  paymentContext , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 102}}
                                                   )
+                                                },
+                                                start: 'TokenSale', __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 75}}
+                                              )
                                             )
                                           )
                                         )
@@ -50197,15 +49423,13 @@ function TokenSale() {
           setClosable:  setClosable , __self: this, __source: {fileName: _jsxFileName$q, lineNumber: 38}}
         
           , react.createElement(WalletProvider, {__self: this, __source: {fileName: _jsxFileName$q, lineNumber: 42}}
-            , react.createElement(WalletContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$q, lineNumber: 43}}
-              , walletContext => (
-                react.createElement(TokenSaleStack, {
-                  action: options.action,
-                  amount: options.amount,
-                  token: options.token,
-                  receiver: walletContext.wallet.address(), __self: this, __source: {fileName: _jsxFileName$q, lineNumber: 45}}
-                )
-              )
+            , react.createElement(TokenSaleStack, {
+              action: options.action,
+              amount: options.amount,
+              token: options.token,
+              addresses: options.addresses,
+              plugins: options.plugins,
+              data: options.data, __self: this, __source: {fileName: _jsxFileName$q, lineNumber: 43}}
             )
           )
         )
@@ -50250,10 +49474,10 @@ class RouteProvider extends react.Component {constructor(...args) { super(...arg
         route.approved = true;
         resolve(route);
       } else {
-        new ethers.Contract(route.path[0], Erc20Abi, EthersProvider$1)
-        .allowance(this.props.wallet.address(), DePayV1ProcessorBetaContract.address)
+        new Contract(route.path[0], Erc20Abi, EthersProvider$1)
+        .allowance(this.props.wallet.address(), DePayPaymentsV1Contract.address)
         .then(function(amount){
-          if(amount.gt(ethers.BigNumber.from(route.amounts[0]))) {
+          if(amount.gt(BigNumber.from(route.amounts[0]))) {
             route.approved = true;
           } else {
             route.approved = false;
@@ -50477,9 +49701,9 @@ class SwapDialog extends react.Component {
   }
 
   approve(dialogContext) {
-    new ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider$1)
+    new Contract(this.props.route.token.address, Erc20Abi, EthersProvider$1)
       .connect(this.props.wallet.provider().getSigner(0))
-      .approve(DePayV1ProcessorBetaContract.address, MAXINT)
+      .approve(DePayPaymentsV1Contract.address, MAXINT)
       .catch(function(){ 
         clearInterval(this.approvalCheckInterval);
         this.setState({ approving: false });
@@ -50505,19 +49729,14 @@ class SwapDialog extends react.Component {
   }
 
   checkApproved(dialogContext) {
-    new ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider$1).allowance(this.props.wallet.address(), DePayV1ProcessorBetaContract.address).then(function(amount){
-      if(amount.gt(ethers.BigNumber.from(this.props.route.amounts[0]))) {
+    new Contract(this.props.route.token.address, Erc20Abi, EthersProvider$1).allowance(this.props.wallet.address(), DePayPaymentsV1Contract.address).then(function(amount){
+      if(amount.gt(BigNumber.from(this.props.route.amounts[0]))) {
         this.props.route.approved = true;
         dialogContext.setClosable(true);
         this.setState({ approving: false });
         clearInterval(this.approvalCheckInterval);
       }
     }.bind(this));
-  }
-
-  generatePaymentUUID() {
-    let now = +(new Date());
-    return(ethers.BigNumber.from(this.props.wallet.address()).toString()+''+(now).toString());
   }
 
   pay(dialogContext, callbackContext) {
@@ -50539,24 +49758,16 @@ class SwapDialog extends react.Component {
     
     let amountIn = this.props.route.amounts[0];
     let amountOut = this.props.route.amounts[this.props.route.amounts.length-1];
+    if(route[0] === ETH) ;
 
-    let transactionConfiguration = {};
-    if(route[0] === ETH) {
-      transactionConfiguration.value = amountIn;
-    }
+    let deadline = Math.round(new Date().getTime() / 1000) + (24 * 3600); // 24 hours from now
 
-    let routerId = 0; // fix on uniswap for now (until mooni bus are fixed)
-
-    let paymentId = this.generatePaymentUUID();
-
-    DePayV1ProcessorBetaContract.connect(this.props.wallet.provider().getSigner(0)).pay(
+    DePayPaymentsV1Contract.connect(this.props.wallet.provider().getSigner(0)).pay(
       route,
-      amountIn,
-      amountOut,
-      this.props.receiver,
-      paymentId,
-      routerId,
-      transactionConfiguration
+      [amountIn, amountOut, deadline],
+      this.props.addresses,
+      this.props.plugins,
+      this.props.data
     )
     .catch(function(){
       Rollbar.error("pay catch", arguments);
@@ -50631,7 +49842,7 @@ class SwapDialog extends react.Component {
     if(this.props.fromAmount === null) {
       this.setState({ fromAmount: '' });
     } else {
-      this.setState({ fromAmount: ethers.utils.formatUnits(this.props.fromAmount, this.props.from.decimals) });
+      this.setState({ fromAmount: formatUnits(this.props.fromAmount, this.props.from.decimals) });
     }
   }
 
@@ -50640,7 +49851,7 @@ class SwapDialog extends react.Component {
     if(this.props.toAmount === null) {
       this.setState({ toAmount: '' });
     } else {
-      this.setState({ toAmount: ethers.utils.formatUnits(this.props.toAmount, this.props.to.decimals) });
+      this.setState({ toAmount: formatUnits(this.props.toAmount, this.props.to.decimals) });
     }
   }
 
@@ -50653,7 +49864,7 @@ class SwapDialog extends react.Component {
 
   setMax() {
     this.setState({
-      fromAmount: ethers.utils.formatUnits(this.props.from.balance, this.props.from.decimals),
+      fromAmount: formatUnits(this.props.from.balance, this.props.from.decimals),
       entered: 'from'
     });
     this.props.changeFromAmount(this.props.from.balance);
@@ -50666,7 +49877,7 @@ class SwapDialog extends react.Component {
     });
     let value;
     try {
-      value = ethers.utils.parseUnits(event.target.value.toString(), this.props.from.decimals);
+      value = parseUnits(event.target.value.toString(), this.props.from.decimals);
     } catch (e) {}
     if(
       value !== undefined
@@ -50682,7 +49893,7 @@ class SwapDialog extends react.Component {
     });
     let value;
     try {
-      value = ethers.utils.parseUnits(event.target.value.toString(), this.props.to.decimals);
+      value = parseUnits(event.target.value.toString(), this.props.to.decimals);
     } catch (e2) {}
     if(
       value !== undefined
@@ -50712,101 +49923,101 @@ class SwapDialog extends react.Component {
   render() {
     if(this.props.initializing) { 
       return(
-        react.createElement(SwapDialogSkeleton, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 286}})
+        react.createElement(SwapDialogSkeleton, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 277}})
       ) 
     }
 
     return (
-      react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 291}}
+      react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 282}}
         , dialogContext => (
-          react.createElement(NavigateStackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 293}}
+          react.createElement(NavigateStackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 284}}
             , navigate => (
-              react.createElement('div', { className: 'Dialog SwapDialog ' + (this.isActionable(dialogContext) ? '' : 'unactionable'), __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 295}}
-                , react.createElement('div', { className: "DialogHeader", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 296}}
-                  , react.createElement(CloseDialogComponent, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 297}})
+              react.createElement('div', { className: 'Dialog SwapDialog ' + (this.isActionable(dialogContext) ? '' : 'unactionable'), __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 286}}
+                , react.createElement('div', { className: "DialogHeader", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 287}}
+                  , react.createElement(CloseDialogComponent, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 288}})
                 )
-                , react.createElement('div', { className: "DialogBody HeightAuto" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 299}}
-                  , react.createElement('div', { className: "Payment", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 300}}
-                    , react.createElement('div', { className: "PaymentRow FromRow" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 301}}
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn1" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 302}}
-                        , react.createElement('label', { htmlFor: "TokenSwapFrom", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 303}}
+                , react.createElement('div', { className: "DialogBody HeightAuto" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 290}}
+                  , react.createElement('div', { className: "Payment", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 291}}
+                    , react.createElement('div', { className: "PaymentRow FromRow" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 292}}
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn1" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 293}}
+                        , react.createElement('label', { htmlFor: "TokenSwapFrom", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 294}}
                           , react.createElement(TokenIconComponent, {
                             title:  this.props.from.name ,
-                            src:  this.props.from.logoURI , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 304}}
+                            src:  this.props.from.logoURI , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 295}}
                           )
                         )
                       )
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 310}}
-                        , react.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 311}}
-                          , react.createElement('label', { htmlFor: "TokenSwapFrom", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 312}}, "From"
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 301}}
+                        , react.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 302}}
+                          , react.createElement('label', { htmlFor: "TokenSwapFrom", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 303}}, "From"
 
                           )
                         )
-                        , react.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 316}}
-                          , react.createElement('input', { onChange:  this.changeFromAmount.bind(this) , value:  this.state.fromAmount , ref: this.fromTokenAmount, name: "TokenSwapFrom", id: "TokenSwapFrom", className: "Input TextEllipsis FontSizeMedium"  , placeholder: "0.0", maxLength: "79", minLength: "1", inputMode: "decimal", pattern: "^[0-9]*[.,]?[0-9]*$", autocorret: "off", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 317}} )
+                        , react.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 307}}
+                          , react.createElement('input', { onChange:  this.changeFromAmount.bind(this) , value:  this.state.fromAmount , ref: this.fromTokenAmount, name: "TokenSwapFrom", id: "TokenSwapFrom", className: "Input TextEllipsis FontSizeMedium"  , placeholder: "0.0", maxLength: "79", minLength: "1", inputMode: "decimal", pattern: "^[0-9]*[.,]?[0-9]*$", autocorret: "off", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 308}} )
                         )
-                        , react.createElement('div', { className: "PaymentAmountRow2 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 319}}
-                          , react.createElement('label', { htmlFor: "TokenSwapFrom", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 320}}
+                        , react.createElement('div', { className: "PaymentAmountRow2 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 310}}
+                          , react.createElement('label', { htmlFor: "TokenSwapFrom", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 311}}
                             ,  this.props.from.symbol 
                           )
                         )
                       )
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 325}}
-                        , react.createElement('span', { className: "PaymentAction", title: "Set max. amount"  , onClick:  this.setMax.bind(this) , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 326}}, "Max"
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 316}}
+                        , react.createElement('span', { className: "PaymentAction", title: "Set max. amount"  , onClick:  this.setMax.bind(this) , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 317}}, "Max"
 
                         )
-                        , react.createElement('span', { className: "PaymentAction", title: "Change token" , onClick:  ()=>this.navigateIfActionable(navigate, 'ChangeFromToken', dialogContext) , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 329}}, "Change"
+                        , react.createElement('span', { className: "PaymentAction", title: "Change token" , onClick:  ()=>this.navigateIfActionable(navigate, 'ChangeFromToken', dialogContext) , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 320}}, "Change"
 
                         )
                       )
                     )
                   )
 
-                  , react.createElement('div', { className: "TextAlignCenter ExchangeRow" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 336}}
-                    , react.createElement('button', { className: "SwapInputs", title: "Swap tokens and amounts"   , onClick:  this.swapInputs.bind(this) , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 337}}
-                      , react.createElement(ExchangeComponent, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 338}})
+                  , react.createElement('div', { className: "TextAlignCenter ExchangeRow" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 327}}
+                    , react.createElement('button', { className: "SwapInputs", title: "Swap tokens and amounts"   , onClick:  this.swapInputs.bind(this) , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 328}}
+                      , react.createElement(ExchangeComponent, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 329}})
                     )
                   )
 
-                  , react.createElement('div', { className: "Payment", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 342}}
+                  , react.createElement('div', { className: "Payment", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 333}}
 
-                    , react.createElement('div', { className: "PaymentRow ToRow" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 344}}
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn1" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 345}}
-                        , react.createElement('label', { htmlFor: "TokenSwapTo", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 346}}
+                    , react.createElement('div', { className: "PaymentRow ToRow" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 335}}
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn1" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 336}}
+                        , react.createElement('label', { htmlFor: "TokenSwapTo", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 337}}
                           , react.createElement(TokenIconComponent, {
                             title:  this.props.to ? this.props.to.name : 'Please select a token' ,
                             src:  this.props.to ? this.props.to.logoURI : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAGFBMVEVHcEz///////////////////////////8dS1W+AAAAB3RSTlMAHklzmMLqCsLrGwAAAQ9JREFUeNrtlrsOgkAQRRdFbDcae4IFrZEYazXRVitqQ2Hrk/19BVdX7XYuiQX3VDZzMsxrVYQQQkibGIyzLNHi8OHaVJRLWXgwMy8KLYnfGEchEFTxjp2/wHxRalBg9v4CNAXzwxYVXCSC2ypJstx+g6/ATaAdqImvoHxHzEVFcPGqWwtOnoLFx++6DGdgq9NnG+T0K8EVEPTqnrZbEKGCFO1CDs2BG2UZbpnABEwMJIA1IRSeZfdCgV8wsjdVnEBuLyKyBu51Fb+xpfhPRgdsgYqeM6DlQwQmoA62AvISgIsc2j0EaxgDL0ojx/CCCs4KPGYnVHCk4CEg7SbIKqbqfyeRAgoaERBCCCGESLgDeRfMNogh3QMAAAAASUVORK5CYII=' ,
-                            className:  this.props.to ? '' : 'notfound' , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 347}}
+                            className:  this.props.to ? '' : 'notfound' , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 338}}
                           )
                         )
                       )
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 354}}
-                        , react.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 355}}
-                          , react.createElement('label', { htmlFor: "TokenSwapTo", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 356}}, "To"
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 345}}
+                        , react.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 346}}
+                          , react.createElement('label', { htmlFor: "TokenSwapTo", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 347}}, "To"
 
                           )
                         )
-                        , react.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 360}}
-                          , react.createElement('input', { onChange:  this.changeToAmount.bind(this) , value:  this.state.toAmount , ref: this.toTokenAmount, name: "TokenSwapTo", id: "TokenSwapTo", className: "Input TextEllipsis FontSizeMedium"  , placeholder: "0.0", maxLength: "79", minLength: "1", inputMode: "decimal", pattern: "^[0-9]*[.,]?[0-9]*$", autocorret: "off", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 361}} )
+                        , react.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 351}}
+                          , react.createElement('input', { onChange:  this.changeToAmount.bind(this) , value:  this.state.toAmount , ref: this.toTokenAmount, name: "TokenSwapTo", id: "TokenSwapTo", className: "Input TextEllipsis FontSizeMedium"  , placeholder: "0.0", maxLength: "79", minLength: "1", inputMode: "decimal", pattern: "^[0-9]*[.,]?[0-9]*$", autocorret: "off", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 352}} )
                         )
-                        , react.createElement('div', { className: "PaymentAmountRow2 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 363}}
-                          , react.createElement('label', { htmlFor: "TokenSwapTo", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 364}}
+                        , react.createElement('div', { className: "PaymentAmountRow2 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 354}}
+                          , react.createElement('label', { htmlFor: "TokenSwapTo", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 355}}
                             ,  this.props.to && this.props.to.symbol 
                             ,  !this.props.to && 
-                              react.createElement('span', {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 367}}, " ")
+                              react.createElement('span', {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 358}}, " ")
                             
                           )
                         )
                       )
-                      , react.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 372}}
+                      , react.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 363}}
                         ,  this.props.to &&
-                          react.createElement('span', { className: "PaymentAction", onClick:  ()=>this.navigateIfActionable(navigate, 'ChangeToToken', dialogContext) , title: "Change token" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 374}}, "Change"
+                          react.createElement('span', { className: "PaymentAction", onClick:  ()=>this.navigateIfActionable(navigate, 'ChangeToToken', dialogContext) , title: "Change token" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 365}}, "Change"
 
                           )
                         
                         , 
                           !this.props.to &&
-                          react.createElement('span', { className: "PaymentAction CallToAction" , onClick:  ()=>this.navigateIfActionable(navigate, 'ChangeToToken', dialogContext) , title: "Select token" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 380}}, "Select"
+                          react.createElement('span', { className: "PaymentAction CallToAction" , onClick:  ()=>this.navigateIfActionable(navigate, 'ChangeToToken', dialogContext) , title: "Select token" , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 371}}, "Select"
 
                           ) 
                         
@@ -50814,18 +50025,18 @@ class SwapDialog extends react.Component {
                     )
                   )
                 )
-                , react.createElement('div', { className: "DialogFooter", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 388}}
+                , react.createElement('div', { className: "DialogFooter", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 379}}
                   ,  this.renderCallToAction.bind(this)() 
-                  , react.createElement('div', { className: "PoweredBy", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 390}}
+                  , react.createElement('div', { className: "PoweredBy", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 381}}
                     , this.props.route && this.paymentType() &&
-                      react.createElement('span', {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 392}}
-                        , react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  this.paymentTypeLink() , className: "PoweredByLink", title:  this.paymentTypeTitle() , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 393}}
+                      react.createElement('span', {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 383}}
+                        , react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  this.paymentTypeLink() , className: "PoweredByLink", title:  this.paymentTypeTitle() , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 384}}
                           ,  'via '+this.props.route.exchange 
                         )
-                        , react.createElement('span', { className: "PoweredByLink", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 396}}, " • ")
+                        , react.createElement('span', { className: "PoweredByLink", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 387}}, " • ")
                       )
                     
-                    , react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href: "https://depay.fi", className: "PoweredByLink", title: "Powered by DePay: Decentralized Payments"    , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 399}}, "by DePay"
+                    , react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href: "https://depay.fi", className: "PoweredByLink", title: "Powered by DePay: Decentralized Payments"    , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 390}}, "by DePay"
 
                     )
                   )
@@ -50841,7 +50052,7 @@ class SwapDialog extends react.Component {
   renderCallToAction() {
     if(this.props.loadingRoute) {
       return(
-        react.createElement('button', { className: "CallToAction MainAction disabled"  , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 415}}, "Loading..."
+        react.createElement('button', { className: "CallToAction MainAction disabled"  , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 406}}, "Loading..."
 
         )
       )
@@ -50849,13 +50060,13 @@ class SwapDialog extends react.Component {
       return(this.renderPaymentButton())
     } else {
       return(
-        react.createElement('div', { className: "Table", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 423}}
-          , react.createElement('div', { className: "TableRow", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 424}}
-            , react.createElement('div', { className: "TableCell", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 425}}
+        react.createElement('div', { className: "Table", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 414}}
+          , react.createElement('div', { className: "TableRow", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 415}}
+            , react.createElement('div', { className: "TableCell", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 416}}
               ,  this.renderApproveButton() 
             )
-            , react.createElement('div', { className: "TableCell", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 428}}
-              , react.createElement('button', { className: "CallToAction MainAction disabled"  , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 429}}, "Swap"
+            , react.createElement('div', { className: "TableCell", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 419}}
+              , react.createElement('button', { className: "CallToAction MainAction disabled"  , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 420}}, "Swap"
 
               )
             )
@@ -50868,18 +50079,18 @@ class SwapDialog extends react.Component {
   renderApproveButton() {
     if(this.state.approving) {
       return(
-        react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+this.state.approving.transactionHash , key: "approving", className: "CallToAction MainAction loading"  , title: "Please wait for the approval transaction to be confirmed by the network. Click to open transaction on etherscan."                 , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 442}}, "Approving"
+        react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+this.state.approving.transactionHash , key: "approving", className: "CallToAction MainAction loading"  , title: "Please wait for the approval transaction to be confirmed by the network. Click to open transaction on etherscan."                 , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 433}}, "Approving"
 
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 444}}, ".")
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 445}}, ".")
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 446}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 435}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 436}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 437}}, ".")
         )
       )
     } else {
       return(
-        react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 451}}
+        react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 442}}
           , dialogContext => (
-            react.createElement('button', { key: "approve", className: "CallToAction MainAction" , onClick: ()=>this.approve.bind(this)(dialogContext), title: "Click to approve that the selected token is allowed to be swapped for performing this payment. This approval is only required the first time you pay with the selected token."                             , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 453}}, "Approve"
+            react.createElement('button', { key: "approve", className: "CallToAction MainAction" , onClick: ()=>this.approve.bind(this)(dialogContext), title: "Click to approve that the selected token is allowed to be swapped for performing this payment. This approval is only required the first time you pay with the selected token."                             , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 444}}, "Approve"
 
             )
           )
@@ -50891,36 +50102,36 @@ class SwapDialog extends react.Component {
   renderPaymentButton() {
     if(this.state.payed) {
       return(
-        react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 465}}
+        react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 456}}
           , dialogContext => (
-            react.createElement('span', { className: "CallToAction MainAction circular"  , onClick:  dialogContext.closeContainer , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 467}}
-              , react.createElement(CheckMarkComponent, { className: "large", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 468}})
+            react.createElement('span', { className: "CallToAction MainAction circular"  , onClick:  dialogContext.closeContainer , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 458}}
+              , react.createElement(CheckMarkComponent, { className: "large", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 459}})
             )
           )
         )
       )
     } else if(this.state.paying) {
       return(
-        react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+this.state.paying.transactionHash , key: "approving", className: "CallToAction MainAction loading"  , title: "Please wait payment transaction to be confirmed by the network. Click to open transaction on etherscan."               , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 475}}, "Swapping"
+        react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+this.state.paying.transactionHash , key: "approving", className: "CallToAction MainAction loading"  , title: "Please wait payment transaction to be confirmed by the network. Click to open transaction on etherscan."               , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 466}}, "Swapping"
 
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 477}}, ".")
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 478}}, ".")
-          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 479}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 468}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 469}}, ".")
+          , react.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 470}}, ".")
         )
       )
     } else if(this.props.route === null) {
       return(
-        react.createElement('button', { className: "CallToAction MainAction disabled"  , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 484}}, "Swap"
+        react.createElement('button', { className: "CallToAction MainAction disabled"  , __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 475}}, "Swap"
 
         )
       )
     } else {
       return(
-        react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 490}}
+        react.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 481}}
           , dialogContext => (
-            react.createElement(CallbackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 492}}
+            react.createElement(CallbackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$u, lineNumber: 483}}
               , callbackContext => (
-                react.createElement('button', { className: "CallToAction MainAction" , onClick: ()=>this.pay.bind(this)(dialogContext, callbackContext), __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 494}}, "Swap"
+                react.createElement('button', { className: "CallToAction MainAction" , onClick: ()=>this.pay.bind(this)(dialogContext, callbackContext), __self: this, __source: {fileName: _jsxFileName$u, lineNumber: 485}}, "Swap"
 
                 )
               )
@@ -52937,7 +52148,7 @@ function TokenList(){
     {
       "name": "Ether",
       "symbol": "ETH",
-      "address": "0x0000000000000000000000000000000000000000",
+      "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
       "decimals": 18,
       "chainId": 1,
       "logoURI": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAIVBMVEVHcExkgexjf+tifutifurAy/b///+CmO6hsvJxi+zj6PuyVvwSAAAABHRSTlMANYHDscZ74QAAA+NJREFUeNq1ml1y2jAQx+PAATwpB0gmHCANPkAhZgg849g+QDwZnh1o3w29AJNp817aYzayLa8d7YditXqE7i/674fYlXrGrIvrySQMJ5Pbq7Mey7sOW+vW72XeH3ERIuvqw3++7ya8ICTWnd/XHgj97YEg2zsRxqGwZrz9p1Bcnzn789BiXcoO6O2GUWi1pqwAFxFagCwCtx9g//Y+xz69sd/Aas1uQU6Bh4RLBnkDiyw6ylsAD5gKsqhAv7ixDMEhi2I6EPIGllkWRSG5BbkK5wpQ2FSlh/+ZrQKk+He+TRWcFCChKkJ24X2mAFFOuFEuoxcFIDVcygoeFIDWICpYZApAaxAVrDRgTWgQFZQARoOoQAOiI6/BIxQAoOBzaYB/fQBATNQD64LlCQAR74SAKKQKwGi44wsJAHRBcS44tQEJ54QRUUgNgE7GKXOWvGgAp2HG+PChC0hoL3pEGmoAq8EnK2n1HrAm62lIpCEAmGT8QgVhmbUBdEFNqSCsTEBBhSFgFQAgpsJApiEAmIIiojjPAMBr8PEobjFAisdxwCvY7BtAgpfTEC0kvR6jHRByNBGGTCFlv6JoB4Q1ChhhhdTYvwHeCIyGKZZHi8a+Auy+0sk4wwCrtv93LUKBAQLyPNcAIMRYKgZ4IW0iAADhaAWYl/YNQBP2tQYZcFDhfw+oghFbAU61PQCAgFSTqaAMHwA6hMICsG3sAdA4IrUARN216xIsAD84gBlHxInPNOCbGAWTYNrLgOX+HQDsZQAQTEBoB1B+WmCAEm0CxoYHFOHeBKiPl98tzoP5UyeYnQDuCxMwMmvhT7mRLuBn+VmCHGlD5Ej93SLUAah2lfKnMhzqKYSitq/8kiOAAXooFw2hsV+gx/IN9tP2+nYi5cpEA3Rk19hPm4cf6486mMpeb+eINklEd/BYB1MHkOgQmgbD/GGog7nLm5AUeIMxJjqkOphVAOkfJmiyzJ+WtHvGxESTNaQ7FLVnKK2CaPPO6Q5jU7TsE6rR9JgeZ5PD4ZCSA0NA9ShVOujDJSdHljHXrD89cx3SjB44XsVmGwaOgVW7f6RHHq//wOFzV1hdQEEOLFLDzzb77Oh7aANidvT1+k6ufjP+95ud74QLiC0AUuEC4pyZXZmZ71K6hCk1sFMnaKCnX14BaCDTWVYgzM+cAlHDqgIUggJ+AicvgXybC8mDAsRWzwSDD95owpWolM5sGstb2GY6CeTL8QDXwB8l8tX4ib8al7fwkqIb+D/PA84PFO5PJM6PNO7PRM4PVe5PZe6Pde7Phc4Plu5Ppu6Ptu7Pxu4P1//g6dz98d7+vw/8BVHcYRQ1d5GsAAAAAElFTkSuQmCC"
@@ -53730,8 +52941,8 @@ class TokenSelectorDialog extends react.Component {
   changeSearch(event) {
     var value = event.target.value;
     this.setState({search: value});
-    if(ethers.utils.isAddress(value)) {
-      var address = ethers.utils.getAddress(value);
+    if(isAddress(value)) {
+      var address = getAddress(value);
       this.setState({search: address});
       if(!this.props.disableImportTokens) {
         ImportToken(address).then(function(token){
@@ -53877,7 +53088,7 @@ class WalletTokensProvider extends react.Component {constructor(...args) { super
 
   filterForBalance(tokens) {
     return Promise.resolve(tokens.filter(function(token){
-      return ethers.BigNumber.from(token.balance).gt(0)
+      return BigNumber.from(token.balance).gt(0)
     }))
   }
 
@@ -53892,7 +53103,7 @@ class WalletTokensProvider extends react.Component {constructor(...args) { super
   addTokenImages(tokens) {
     return Promise.resolve(tokens.map(function(token){
       return Object.assign(token, {
-        logoURI: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/"+ethers.utils.getAddress(token.address)+"/logo.png"
+        logoURI: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/"+getAddress(token.address)+"/logo.png"
       })
     }))
   }

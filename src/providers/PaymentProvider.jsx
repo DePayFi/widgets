@@ -8,14 +8,14 @@ class PaymentProvider extends React.Component {
   state = {}
 
   paymentInETH() {
-    if(this.props.selected.amounts.length <= 2) {
-      if(this.props.selected.token.symbol === 'ETH') {
-        return ethers.utils.formatEther(this.props.selected.amounts[0]);
+    if(this.props.route.amounts.length <= 2) {
+      if(this.props.route.token.symbol === 'ETH') {
+        return ethers.utils.formatEther(this.props.route.amounts[0]);
       } else {
-        return ethers.utils.formatEther(this.props.selected.amounts[1]);
+        return ethers.utils.formatEther(this.props.route.amounts[1]);
       }
     } else {
-      return ethers.utils.formatEther(this.props.selected.amounts[1]);
+      return ethers.utils.formatEther(this.props.route.amounts[1]);
     }
   }
 
@@ -24,11 +24,11 @@ class PaymentProvider extends React.Component {
   }
 
   token() {
-    return DisplayTokenAmount(this.props.selected.amounts[0], this.props.selected.token.decimals, this.props.selected.token.symbol);
+    return DisplayTokenAmount(this.props.route.amounts[0], this.props.route.token.decimals, this.props.route.token.symbol);
   }
 
   feeInETH() {
-    return parseFloat(ethers.utils.formatUnits(this.props.gas, 'gwei')) * this.props.selected.fee;
+    return parseFloat(ethers.utils.formatUnits(this.props.gas, 'gwei')) * this.props.route.fee;
   }
 
   feeLocal() {
@@ -44,7 +44,7 @@ class PaymentProvider extends React.Component {
   }
 
   render() {
-    if(this.props.selected === null) { return(<div>{this.props.children}</div>) }
+    if(this.props.route === null) { return(<div>{this.props.children}</div>) }
     return(
       <PaymentContext.Provider value={{
         local: this.local(),
