@@ -3,7 +3,7 @@ import CallbackContext from './contexts/CallbackContext';
 import DialogProvider from './providers/DialogProvider';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SaleStack from './stacks/SaleStack';
+import TokenSaleStack from './stacks/TokenSaleStack';
 import ShadowContainer from './utils/ShadowContainer';
 import WalletContext from './contexts/WalletContext';
 import WalletProvider from './providers/WalletProvider';
@@ -42,7 +42,8 @@ export default function TokenSale() {
           <WalletProvider>
             <WalletContext.Consumer>
               {walletContext => (
-                <SaleStack
+                <TokenSaleStack
+                  action={options.action}
                   amount={options.amount}
                   token={options.token}
                   receiver={walletContext.wallet.address()}

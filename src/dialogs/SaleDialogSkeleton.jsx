@@ -164,10 +164,10 @@ class SaleDialogSkeleton extends React.Component {
         </div>
         <div className='DialogFooter'>
           <Skeleton
+            className="CallToAction"
             style={{
               height: '2.8rem',
-              width: '50%',
-              margin: '0 auto -0.5rem'
+              width: '50%'
             }}
           />
           <div className='PoweredBy'>

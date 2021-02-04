@@ -48203,7 +48203,7 @@ function PoweredByCSS(){
   `;
 }
 
-function RangeSliderCSS(){
+function RangeSliderCSS(style){
   return `
 
     .rangeslider {
@@ -48226,19 +48226,17 @@ function RangeSliderCSS(){
       display: inline-block;
       position: absolute;
       border-radius: 50%;
-      background-color: #eb2f7b;
+      background-color: `+style.colors.primary+`;
       border: 1px solid white;
       box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
 
     .rangeslider__handle:hover {
-      background: #cc2c65;
+      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);
     }
 
     .rangeslider__handle:active {
-      background: #c12a5f;
-      border: 1px solid #eb2f7b;
-      box-shadow: 0;
+      box-shadow: inset 0 0 300px rgba(0,0,0,0.3);
     }
 
     .rangeslider__active {
@@ -48256,7 +48254,7 @@ function RangeSliderCSS(){
 
     .rangeslider-horizontal .rangeslider__fill {
       height: 100%;
-      background-color: #eb2f7b;
+      background-color: `+style.colors.primary+`;
       border-radius: 10px;
       top: 0;
     }
@@ -48708,14 +48706,15 @@ function CSS(style){
     PaddingCSS(),
     CardCSS(),
     TableCSS(),
-    RangeSliderCSS(),
+    RangeSliderCSS(style),
     ChangeNetworkFeeDialogCSS(),
     LabelCSS(style),
     IconCSS(),
     LoadingDotsCSS(),
     InputCSS(),
     SwapDialogCSS(),
-    MainActionCSS()
+    MainActionCSS(),
+    style.inject
   ].join("\n");
 }
 
@@ -49302,7 +49301,7 @@ class AmountProvider extends react.Component {
   constructor(props) {
     super(props);AmountProvider.prototype.__init.call(this);    Object.assign(this.state, {
       token: props.token,
-      amount: props.amount
+      amount: props.amount.min || 1
     });
   }
 
@@ -49316,7 +49315,7 @@ class AmountProvider extends react.Component {
 
   change(amount) {
     this.setState({
-      amount: amount.toLocaleString('fullwide', {useGrouping:false})
+      amount: parseFloat(ethers.utils.formatUnits(amount.toLocaleString('fullwide', {useGrouping:false}), this.state.token.decimals).toString())
     });
   }
 
@@ -49379,59 +49378,61 @@ class ChangeTokenAmountDialog extends react.Component {
   }
 
   render() {
-    const min = parseInt(ethers.utils.formatUnits((10**this.props.token.decimals).toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals).toString());
+    const tokenMin = parseInt(ethers.utils.formatUnits((10**this.props.token.decimals).toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals).toString());
+    const min = (this.props.amountOptions ? this.props.amountOptions.min : tokenMin) || tokenMin;
+    const step = (this.props.amountOptions ? this.props.amountOptions.step : min) || min;
     const max = parseInt(ethers.utils.formatUnits(this.state.maxAmount.toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals).toString());
     return (
-      react.createElement(NavigateStackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$l, lineNumber: 55}}
+      react.createElement(NavigateStackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$l, lineNumber: 57}}
         , navigate => (
-          react.createElement('div', { className: "Dialog ChangeTokenAmountDialog" , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 57}}
-            , react.createElement('div', { className: "DialogHeader", __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 58}}
-              , react.createElement(GoBackDialogComponent, {__self: this, __source: {fileName: _jsxFileName$l, lineNumber: 59}})
-              , react.createElement(CloseDialogComponent, {__self: this, __source: {fileName: _jsxFileName$l, lineNumber: 60}})
-              , react.createElement('h1', { className: "FontSizeMedium TextAlignCenter" , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 61}}, "Change purchase amount"  )
-              , react.createElement('div', { className: "FontSizeMedium FontWeightBold TextAlignCenter"  , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 62}}
+          react.createElement('div', { className: "Dialog ChangeTokenAmountDialog" , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 59}}
+            , react.createElement('div', { className: "DialogHeader", __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 60}}
+              , react.createElement(GoBackDialogComponent, {__self: this, __source: {fileName: _jsxFileName$l, lineNumber: 61}})
+              , react.createElement(CloseDialogComponent, {__self: this, __source: {fileName: _jsxFileName$l, lineNumber: 62}})
+              , react.createElement('h1', { className: "FontSizeMedium TextAlignCenter" , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 63}}, "Change amount" )
+              , react.createElement('div', { className: "FontSizeMedium FontWeightBold TextAlignCenter"  , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 64}}
                 ,  this.props.token.symbol 
               )
             )
-            , react.createElement('div', { className: "DialogBody HeightAuto" , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 66}}
+            , react.createElement('div', { className: "DialogBody HeightAuto" , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 68}}
 
-              , react.createElement('div', { className: "PaddingSmall", __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 68}}
+              , react.createElement('div', { className: "PaddingSmall", __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 70}}
 
-                , react.createElement('div', { className: "PaddingTopSmall TextAlignCenter" , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 70}}
-                  , react.createElement('div', { className: "FontSizeLarge", __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 71}}
-                    , react.createElement('input', { max: max, min: min, step: min, className: "Input FontSizeMedium TextAlignCenter"  , type: "number", name: "amount", value:  parseInt(DisplayTokenAmount(this.state.amount.toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals, ''), 10) , onChange: this.changeInputAmount.bind(this), __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 72}})
+                , react.createElement('div', { className: "PaddingTopSmall TextAlignCenter" , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 72}}
+                  , react.createElement('div', { className: "FontSizeLarge", __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 73}}
+                    , react.createElement('input', { max: max, min: min, step: step, className: "Input FontSizeMedium TextAlignCenter"  , type: "number", name: "amount", value:  parseFloat(DisplayTokenAmount(this.state.amount.toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals, '')) , onChange: this.changeInputAmount.bind(this), __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 74}})
                   )
                 )
 
-                , react.createElement('div', { className: "PaddingBottomSmall", __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 76}}
+                , react.createElement('div', { className: "PaddingBottomSmall", __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 78}}
                   , react.createElement(_default$1, {
-                    min: 10**this.props.token.decimals,
+                    min: 10**this.props.token.decimals*min,
                     max: this.state.maxAmount,
-                    step: 10**this.props.token.decimals,
+                    step: 10**this.props.token.decimals*step,
                     value: this.state.amount,
-                    onChange: this.changeAmount.bind(this), __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 77}}
+                    onChange: this.changeAmount.bind(this), __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 79}}
                   )
                 )
 
-                , react.createElement('div', { className: "TextAlignCenter TextGrey PaddingBottomSmall"  , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 86}}, "Max. purchase for"
-                    , react.createElement('br', {__self: this, __source: {fileName: _jsxFileName$l, lineNumber: 87}})
+                , react.createElement('div', { className: "TextAlignCenter TextGrey PaddingBottomSmall"  , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 88}}, "Max. purchase for"
+                    , react.createElement('br', {__self: this, __source: {fileName: _jsxFileName$l, lineNumber: 89}})
                   , DisplayTokenAmount((parseInt(this.state.maxAmountRoute.balance) / SLIPPAGE).toLocaleString('fullwide', {useGrouping:false}), this.state.maxAmountRoute.token.decimals, this.state.maxAmountRoute.token.symbol)
                   , react.createElement(TokenIconComponent, {
                     className: "small",
                     title:  this.state.maxAmountRoute.token.name ,
-                    src:  this.state.maxAmountRoute.token.logoURI , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 89}}
+                    src:  this.state.maxAmountRoute.token.logoURI , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 91}}
                   )
                   ,  this.state.maxAmountRoute.symbol 
                 )
 
               )
             )
-            , react.createElement('div', { className: "DialogFooter", __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 99}}
-              , react.createElement('button', { className: "CallToAction MainAction" , onClick:  ()=>navigate('back') , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 100}}, "Done"
+            , react.createElement('div', { className: "DialogFooter", __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 101}}
+              , react.createElement('button', { className: "CallToAction MainAction" , onClick:  ()=>navigate('back') , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 102}}, "Done"
 
               )
-              , react.createElement('div', { className: "PoweredBy", __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 103}}
-                , react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href: "https://depay.fi", className: "PoweredByLink", title: "Powered by DePay: Decentralized Payments"    , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 104}}, "by DePay"
+              , react.createElement('div', { className: "PoweredBy", __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 105}}
+                , react.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href: "https://depay.fi", className: "PoweredByLink", title: "Powered by DePay: Decentralized Payments"    , __self: this, __source: {fileName: _jsxFileName$l, lineNumber: 106}}, "by DePay"
 
                 )
               )
@@ -49606,10 +49607,10 @@ class SaleDialogSkeleton extends react.Component {
         )
         , react.createElement('div', { className: "DialogFooter", __self: this, __source: {fileName: _jsxFileName$m, lineNumber: 165}}
           , react.createElement(Skeleton, {
+            className: "CallToAction",
             style: {
               height: '2.8rem',
-              width: '50%',
-              margin: '0 auto -0.5rem'
+              width: '50%'
             }, __self: this, __source: {fileName: _jsxFileName$m, lineNumber: 166}}
           )
           , react.createElement('div', { className: "PoweredBy", __self: this, __source: {fileName: _jsxFileName$m, lineNumber: 173}}
@@ -49820,8 +49821,8 @@ class SaleDialog extends react.Component {constructor(...args) { super(...args);
                         )
                       )
                       , react.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 219}}
-                        , react.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 220}}, "Purchase"
-
+                        , react.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 220}}
+                          ,  this.props.action || 'Purchase' 
                         )
                         , react.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , title: DisplayTokenAmount(this.props.amount, this.props.tokenContext.decimals, this.props.tokenContext.token.symbol), __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 223}}
                           ,  DisplayTokenAmount(this.props.amount, this.props.tokenContext.token.decimals, this.props.tokenContext.token.symbol) 
@@ -49831,7 +49832,7 @@ class SaleDialog extends react.Component {constructor(...args) { super(...args);
                         )
                       )
                       , react.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 230}}
-                        , react.createElement('span', { className: "PaymentAction", title: "Change purchase amount"  , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 231}}, "Change"
+                        , react.createElement('span', { className: "PaymentAction", title: "Change amount" , __self: this, __source: {fileName: _jsxFileName$n, lineNumber: 231}}, "Change"
 
                         )
                       )
@@ -50051,57 +50052,58 @@ class TokenProvider extends react.Component {
   }
 }
 
-const _jsxFileName$p = "/Users/sebastian/Work/DePay/depay-widgets/src/stacks/SaleStack.jsx";
-class SaleStack extends react.Component {
+const _jsxFileName$p = "/Users/sebastian/Work/DePay/depay-widgets/src/stacks/TokenSaleStack.jsx";
+class TokenSaleStack extends react.Component {
   __init() {this.state = {
     token: null,
     receiver: null
   };}
 
   constructor(props) {
-    super(props);SaleStack.prototype.__init.call(this);    Object.assign(this.state, {
+    super(props);TokenSaleStack.prototype.__init.call(this);    Object.assign(this.state, {
       token: props.token,
-      receiver: props.receiver
+      receiver: props.receiver,
+      action: props.action
     });
   }
 
   render() {
     return (
-      react.createElement(GasProvider, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 37}}
-        , react.createElement(GasContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 38}}
+      react.createElement(GasProvider, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 38}}
+        , react.createElement(GasContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 39}}
           , gasContext => (
-            react.createElement(PriceProvider, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 40}}
-              , react.createElement(PriceContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 41}}
+            react.createElement(PriceProvider, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 41}}
+              , react.createElement(PriceContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 42}}
                 , priceContext => (
                   react.createElement(TokenProvider, {
-                    token:  this.state.token , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 43}}
+                    token:  this.state.token , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 44}}
                   
-                    , react.createElement(TokenContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 46}}
+                    , react.createElement(TokenContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 47}}
                       , tokenContext => (
                         react.createElement(AmountProvider, {
                           amount:  this.props.amount ,
-                          token:  tokenContext.token , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 48}}
+                          token:  tokenContext.token , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 49}}
                         
-                          , react.createElement(AmountContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 52}}
+                          , react.createElement(AmountContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 53}}
                             , amountContext => (
-                              react.createElement(WalletContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 54}}
+                              react.createElement(WalletContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 55}}
                                 , walletContext => (
                                   react.createElement(RoutesProvider, {
                                     token:  tokenContext.token.address ,
                                     amount:  amountContext.amount ,
                                     address:  walletContext.address ,
                                     wallet:  walletContext.wallet ,
-                                    addMaxAmounts:  true , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 56}}
+                                    addMaxAmounts:  true , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 57}}
                                   
-                                    , react.createElement(RoutesContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 63}}
+                                    , react.createElement(RoutesContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 64}}
                                       , routesContext => (
                                         react.createElement(PaymentProvider, {
                                           selected:  routesContext.selected ,
                                           gas:  gasContext.selected ,
                                           price:  priceContext.price ,
-                                          amount:  amountContext.amount , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 65}}
+                                          amount:  amountContext.amount , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 66}}
                                         
-                                          , react.createElement(PaymentContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 71}}
+                                          , react.createElement(PaymentContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 72}}
                                             , paymentContext => (
                                                   react.createElement(Stack, {
                                                     dialogs: {
@@ -50113,27 +50115,29 @@ class SaleStack extends react.Component {
                                                         receiver:  this.state.receiver ,
                                                         wallet:  walletContext.wallet ,
                                                         tokenContext:  tokenContext ,
-                                                        amount:  amountContext.amount , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 75}}
+                                                        amount:  amountContext.amount ,
+                                                        action:  this.state.action , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 76}}
                                                       ),
                                                       ChangeTokenAmount: react.createElement(ChangeTokenAmountDialog, {
                                                         token:  tokenContext.token ,
                                                         amount:  amountContext.amount ,
+                                                        amountOptions:  this.props.amount ,
                                                         change:  amountContext.change ,
-                                                        routes:  routesContext.routes , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 85}}
+                                                        routes:  routesContext.routes , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 87}}
                                                       ),
                                                       ChangePaymentToken: react.createElement(ChangePaymentTokenDialog, {
                                                         routes:  routesContext.routes ,
                                                         change:  routesContext.change ,
-                                                        paymentContext:  paymentContext , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 91}}
+                                                        paymentContext:  paymentContext , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 94}}
                                                       ),
                                                       ChangeNetworkFee: react.createElement(ChangeNetworkFeeDialog, {
                                                         selected:  routesContext.selected ,
                                                         price:  priceContext.price ,
                                                         gasContext:  gasContext ,
-                                                        paymentContext:  paymentContext , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 96}}
+                                                        paymentContext:  paymentContext , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 99}}
                                                       )
                                                     },
-                                                    start: 'Sale', __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 73}}
+                                                    start: 'Sale', __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 74}}
                                                   )
                                             )
                                           )
@@ -50195,7 +50199,8 @@ function TokenSale() {
           , react.createElement(WalletProvider, {__self: this, __source: {fileName: _jsxFileName$q, lineNumber: 42}}
             , react.createElement(WalletContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$q, lineNumber: 43}}
               , walletContext => (
-                react.createElement(SaleStack, {
+                react.createElement(TokenSaleStack, {
+                  action: options.action,
                   amount: options.amount,
                   token: options.token,
                   receiver: walletContext.wallet.address(), __self: this, __source: {fileName: _jsxFileName$q, lineNumber: 45}}

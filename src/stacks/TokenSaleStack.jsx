@@ -18,7 +18,7 @@ import TokenContext from '../contexts/TokenContext';
 import TokenProvider from '../providers/TokenProvider';
 import WalletContext from '../contexts/WalletContext';
 
-class SaleStack extends React.Component {
+class TokenSaleStack extends React.Component {
   state = {
     token: null,
     receiver: null
@@ -28,7 +28,8 @@ class SaleStack extends React.Component {
     super(props);
     Object.assign(this.state, {
       token: props.token,
-      receiver: props.receiver
+      receiver: props.receiver,
+      action: props.action
     })
   }
 
@@ -81,10 +82,12 @@ class SaleStack extends React.Component {
                                                         wallet={ walletContext.wallet }
                                                         tokenContext={ tokenContext }
                                                         amount={ amountContext.amount }
+                                                        action={ this.state.action }
                                                       />,
                                                       ChangeTokenAmount: <ChangeTokenAmountDialog
                                                         token={ tokenContext.token }
                                                         amount={ amountContext.amount }
+                                                        amountOptions={ this.props.amount }
                                                         change={ amountContext.change }
                                                         routes={ routesContext.routes }
                                                       />,
@@ -126,4 +129,4 @@ class SaleStack extends React.Component {
   }
 }
 
-export default SaleStack;
+export default TokenSaleStack;

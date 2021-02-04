@@ -49,7 +49,9 @@ class ChangeTokenAmountDialog extends React.Component {
   }
 
   render() {
-    const min = parseInt(ethers.utils.formatUnits((10**this.props.token.decimals).toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals).toString());
+    const tokenMin = parseInt(ethers.utils.formatUnits((10**this.props.token.decimals).toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals).toString());
+    const min = (this.props.amountOptions ? this.props.amountOptions.min : tokenMin) || tokenMin;
+    const step = (this.props.amountOptions ? this.props.amountOptions.step : min) || min;
     const max = parseInt(ethers.utils.formatUnits(this.state.maxAmount.toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals).toString());
     return (
       <NavigateStackContext.Consumer>
@@ -58,7 +60,7 @@ class ChangeTokenAmountDialog extends React.Component {
             <div className='DialogHeader'>
               <GoBackDialogComponent/>
               <CloseDialogComponent/>
-              <h1 className='FontSizeMedium TextAlignCenter'>Change purchase amount</h1>
+              <h1 className='FontSizeMedium TextAlignCenter'>Change amount</h1>
               <div className='FontSizeMedium FontWeightBold TextAlignCenter'>
                 { this.props.token.symbol }
               </div>
@@ -69,15 +71,15 @@ class ChangeTokenAmountDialog extends React.Component {
 
                 <div className='PaddingTopSmall TextAlignCenter'>
                   <div className='FontSizeLarge'>
-                    <input max={max} min={min} step={min} className='Input FontSizeMedium TextAlignCenter' type="number" name="amount" value={ parseInt(DisplayTokenAmount(this.state.amount.toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals, ''), 10) } onChange={this.changeInputAmount.bind(this)}/>
+                    <input max={max} min={min} step={step} className='Input FontSizeMedium TextAlignCenter' type="number" name="amount" value={ parseFloat(DisplayTokenAmount(this.state.amount.toLocaleString('fullwide', {useGrouping:false}), this.props.token.decimals, '')) } onChange={this.changeInputAmount.bind(this)}/>
                   </div>
                 </div>
 
                 <div className='PaddingBottomSmall'>
                   <Slider
-                    min={10**this.props.token.decimals}
+                    min={10**this.props.token.decimals*min}
                     max={this.state.maxAmount}
-                    step={10**this.props.token.decimals}
+                    step={10**this.props.token.decimals*step}
                     value={this.state.amount}
                     onChange={this.changeAmount.bind(this)}
                   />

@@ -116,6 +116,7 @@ export default function(style){
     LoadingDotsCSS(style),
     InputCSS(style),
     SwapDialogCSS(style),
-    MainActionCSS(style)
+    MainActionCSS(style),
+    style.inject
   ].join("\n");
 }

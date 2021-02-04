@@ -11,7 +11,7 @@ class AmountProvider extends React.Component {
     super(props);
     Object.assign(this.state, {
       token: props.token,
-      amount: props.amount
+      amount: props.amount.min || 1
     })
   }
 
@@ -25,7 +25,7 @@ class AmountProvider extends React.Component {
 
   change(amount) {
     this.setState({
-      amount: amount.toLocaleString('fullwide', {useGrouping:false})
+      amount: parseFloat(ethers.utils.formatUnits(amount.toLocaleString('fullwide', {useGrouping:false}), this.state.token.decimals).toString())
     })
   }
 

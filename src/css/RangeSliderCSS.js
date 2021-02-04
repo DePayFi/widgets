@@ -1,4 +1,4 @@
-export default function(){
+export default function(style){
   return `
 
     .rangeslider {
@@ -21,19 +21,17 @@ export default function(){
       display: inline-block;
       position: absolute;
       border-radius: 50%;
-      background-color: #eb2f7b;
+      background-color: `+style.colors.primary+`;
       border: 1px solid white;
       box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
 
     .rangeslider__handle:hover {
-      background: #cc2c65;
+      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);
     }
 
     .rangeslider__handle:active {
-      background: #c12a5f;
-      border: 1px solid #eb2f7b;
-      box-shadow: 0;
+      box-shadow: inset 0 0 300px rgba(0,0,0,0.3);
     }
 
     .rangeslider__active {
@@ -51,7 +49,7 @@ export default function(){
 
     .rangeslider-horizontal .rangeslider__fill {
       height: 100%;
-      background-color: #eb2f7b;
+      background-color: `+style.colors.primary+`;
       border-radius: 10px;
       top: 0;
     }

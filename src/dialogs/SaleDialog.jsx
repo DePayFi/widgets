@@ -218,7 +218,7 @@ class SaleDialog extends React.Component {
                       </div>
                       <div className='PaymentColumn PaymentColumn2'>
                         <div className='PaymentDescription'>
-                          Purchase
+                          { this.props.action || 'Purchase' }
                         </div>
                         <div className='PaymentAmountRow1 TextEllipsis' title={DisplayTokenAmount(this.props.amount, this.props.tokenContext.decimals, this.props.tokenContext.token.symbol)}>
                           { DisplayTokenAmount(this.props.amount, this.props.tokenContext.token.decimals, this.props.tokenContext.token.symbol) }
@@ -228,7 +228,7 @@ class SaleDialog extends React.Component {
                         </div>
                       </div>
                       <div className='PaymentColumn PaymentColumn3'>
-                        <span className='PaymentAction' title='Change purchase amount'>
+                        <span className='PaymentAction' title='Change amount'>
                           Change
                         </span>
                       </div>
