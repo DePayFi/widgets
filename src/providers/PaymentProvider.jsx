@@ -40,7 +40,7 @@ class PaymentProvider extends React.Component {
   }
 
   total() {
-    return LocalCurrency((this.feeInETH() + parseFloat(this.paymentInETH())) * this.props.price);
+    return LocalCurrency((parseFloat(this.paymentInETH())) * this.props.price);
   }
 
   render() {

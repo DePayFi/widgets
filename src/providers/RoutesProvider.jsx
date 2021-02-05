@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import DePayPaymentsV1Contract from '../contracts/DePayPaymentsV1Contract';
 import Erc20Abi from '../abi/Erc20Abi';
 import EthersProvider from '../utils/EthersProvider';
@@ -36,7 +37,6 @@ class RoutesProvider extends React.Component {
       .then(this.unshiftETHRoute.bind(this))
       .then(this.findBestRoutesAndRequiredAmounts.bind(this))
       .then(this.filterRoutesWithEnoughBalance.bind(this))
-      .then(this.addFeesToRoutes.bind(this))
       .then(this.addApprovalStatus.bind(this))
       .then(this.sortRoutes.bind(this))
       .then(this.addMaxAmounts.bind(this))
@@ -56,53 +56,6 @@ class RoutesProvider extends React.Component {
     } else {
       return Promise.resolve(routes);
     }
-  }
-
-  addFeesToRoutes(routes) {
-    return Promise.all(
-      routes.map(function(route){
-        return new Promise(function(resolve, reject){
-        
-          let deadline = Math.round(new Date().getTime() / 1000) + (24 * 3600); // 24 hours from now
-
-          let addresses;
-          if(this.props.addresses && this.props.addresses.length) {
-            addresses = _.map(this.props.addresses, function(address){
-              if(address === 'user') { return this.props.wallet.address() }
-              return address;
-            });
-          } else {
-            addresses = [this.props.wallet.address()];
-          }
-
-          let plugins;
-          if(this.props.plugins && this.props.plugins.length) {
-            plugins = _.map(this.props.plugins, function(address){
-              if(address === 'user') { return this.props.wallet.address() }
-              return address;
-            });
-          } else {
-            plugins = [this.props.wallet.address()];
-          }
-
-          console.log('calculateFees', route, addresses, plugins);
-
-          // DePayPaymentsV1Contract
-          //   .connect(this.props.wallet.provider().getSigner(0))
-          //   .estimateGas
-          //   .pay(
-          //     route,
-          //     [amountIn, amountOut, deadline],
-          //     addresses,
-          //     plugins,
-          //     this.props.data || []
-          //   ).then(function(){
-          //     console.log('estimateGas then', arguments);
-          //   })
-          //   .catch(reject)
-        }.bind(this));
-      }.bind(this))
-    )
   }
 
   addApprovalStatus(routes) {
@@ -184,6 +137,7 @@ class RoutesProvider extends React.Component {
       tokens.map(function(token){
         const address = ethers.utils.getAddress(token.address);
         const transfer = (address === this.props.token);
+        const fee = transfer ? 75000 : 155000;
         let route;
         if(transfer) { 
           route = [];
@@ -203,6 +157,7 @@ class RoutesProvider extends React.Component {
           route: route,
           amounts: [],
           balance: token.balance.toLocaleString('fullwide', {useGrouping:false}),
+          fee: fee,
           approved: null
         }
       }.bind(this))
@@ -212,6 +167,8 @@ class RoutesProvider extends React.Component {
   unshiftETHRoute(routes) {
     return new Promise(function(resolve, reject){
       const transfer = this.props.token === 'ETH';
+      // fee for transfer or swap
+      const fee = transfer ? 21000 : 155000;
 
       this.props.wallet.balance().then(function(balance){
         let route = {
@@ -225,6 +182,7 @@ class RoutesProvider extends React.Component {
           route: [],
           amounts: [],
           balance: balance.toString(),
+          fee: fee,
           approved: true
         }
 
