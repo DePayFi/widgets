@@ -52,8 +52,10 @@ class ChangePaymentTokenDialog extends React.Component {
             <div className='DialogHeader'>
               <GoBackDialogComponent/>
               <CloseDialogComponent/>
-              <h1 className='FontSizeMedium TextAlignCenter'>Change payment</h1>
-              <div className='FontSizeMedium FontWeightBold TextAlignCenter'>
+              <h1 className='FontSizeNormal TextAlignCenter'>
+                Change payment
+              </h1>
+              <div className='FontSizeLarge TextAlignCenter'>
                 { this.props.paymentContext.local }
               </div>
             </div>

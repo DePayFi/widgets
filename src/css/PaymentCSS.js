@@ -58,11 +58,12 @@ export default function(style){
     }
 
     .PaymentAmountRow2, .PaymentDescription {
-      color: rgb(140,140,140);
-      font-size: 100%;
+      color: rgb(110,110,110);
+      font-size: 90%;
     }
 
-    .PaymentAmountRow1, .PaymentAmountRow2, .PaymentDescription {
+    .PaymentAmountRow1, .PaymentAmountRow2, .PaymentAmountRow3, .PaymentDescription {
+      text-align: left;
       display: block;
     }
 

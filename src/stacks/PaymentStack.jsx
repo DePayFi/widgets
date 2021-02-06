@@ -48,7 +48,7 @@ class PaymentStack extends React.Component {
                         <RoutesContext.Consumer>
                           {routesContext => (
                             <PaymentProvider
-                              selected={ routesContext.selected }
+                              route={ routesContext.selected }
                               gas={ gasContext.selected }
                               price={ priceContext.price }
                               amount={ this.state.amount }

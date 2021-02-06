@@ -7,7 +7,7 @@ export default function(style){
       box-shadow: 0 0 10px rgba(0,0,0,0.05);
       color: white;
       display: inline-block;
-      font-weight: 500;
+      font-weight: 400;
       text-decoration: none;
       transition: background 0.1s;
     }

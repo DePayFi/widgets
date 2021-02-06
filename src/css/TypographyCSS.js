@@ -2,11 +2,11 @@ export default function(){
   return `
     
     .FontSizeLarge {
-      font-size: 160%;
+      font-size: 140%;
     }
 
     .FontSizeMedium {
-      font-size: 130%;
+      font-size: 120%;
     }
 
     .FontSizeNormal {
@@ -32,7 +32,7 @@ export default function(){
     }
 
     .TextGrey {
-      color: rgb(140,140,140);
+      color: rgb(110,110,110);
     }
   `;
 }

@@ -62,54 +62,6 @@ class PaymentDialogSkeleton extends React.Component {
               </div>
             </div>
 
-            <div className='PaymentRow loading ChangeNetworkFeeRow' key='loading-row-2'>
-              <div className='PaymentColumn PaymentColumn1'>
-                <Skeleton
-                  className='CircularIcon'
-                  style={{
-                    top: '-0.3rem'
-                  }}
-                />
-              </div>
-              <div className='PaymentColumn PaymentColumn2'>
-                <div className='PaymentDescription'>
-                  <Skeleton
-                    style={{
-                      display: 'inline-block',
-                      height: '1.1rem',
-                      width: '4rem',
-                    }}
-                  />
-                </div>
-                <div className='PaymentAmountRow1'>
-                  <Skeleton
-                    style={{
-                      display: 'inline-block',
-                      height: '1.6rem',
-                      width: '8rem'
-                    }}
-                  />
-                </div>
-                <div className='PaymentAmountRow2'>
-                  <Skeleton
-                    style={{
-                      display: 'inline-block',
-                      height: '1.1rem',
-                      width: '4rem',
-                    }}
-                  />
-                </div>
-              </div>
-              <div className='PaymentColumn PaymentColumn3'>
-                <Skeleton
-                  style={{
-                    display: 'inline-block',
-                    right: '0.7rem',
-                    width: '5rem'
-                  }}
-                />
-              </div>
-            </div>
           </div>
 
         </div>
@@ -122,7 +74,7 @@ class PaymentDialogSkeleton extends React.Component {
             }}
           />
           <div className='PoweredBy'>
-            <a target='_blank' rel='noopener noreferrer' href='https://depay.fi' className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
+            <a target='_blank' rel='noopener noreferrer' href={'https://depay.fi?utm_source='+window.location.hostname+'&utm_medium=widget&utm_campaign=DePayPayment'} className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
               by DePay
             </a>
           </div>

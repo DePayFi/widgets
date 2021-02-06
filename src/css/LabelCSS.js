@@ -2,7 +2,8 @@ export default function(style){
   return `
 
     .Label.highlight {
-      background: `+style.colors.primary+`;
+      background: rgba(40,40,40,0.05);
+      color: `+style.colors.primary+`;
       border-radius: 20rem;
       border: 1px solid rgb(210,210,210);
       display: inline-block;

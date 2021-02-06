@@ -17,8 +17,9 @@ export default function(){
       border-bottom: 1px solid rgb(246,246,246);
       display: table-cell;
       padding: 1rem 1.8rem;
-      vertical-align: middle;
       position: relative;
+      text-align: left;
+      vertical-align: middle;
     }
 
     .TokenListCell:hover {
@@ -46,7 +47,7 @@ export default function(){
       position: absolute;
       right: 1.8rem;
       padding-top: 0.3rem;
-      color: rgb(140,140,140);
+      color: rgb(110,110,110);
       vertical-align: middle;
     }
   `;

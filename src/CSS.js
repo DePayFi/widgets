@@ -54,6 +54,7 @@ export default function(style){
         border: 0;
         font-size: 100%;
         font: inherit;
+        text-align: inherit;
         vertical-align: baseline;
       }
       article, aside, details, figcaption, figure, 

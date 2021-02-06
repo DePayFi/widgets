@@ -164,7 +164,6 @@ class SaleDialog extends React.Component {
 
     let value = 0;
     if(route[0] === '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE') { value = amountIn }
-    console.log('pay!!!', value, route, [amountIn, amountOut, deadline], addresses, plugins, this.props.data || []);
 
     DePayPaymentsV1Contract.connect(this.props.wallet.provider().getSigner(0)).pay(
       route,

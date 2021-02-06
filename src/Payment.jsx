@@ -29,8 +29,8 @@ function checkAndPrepOptions(input) {
   var options = Object.assign({}, input); // shallow copy
 
   // amount
-  if(_.isEmpty(options.amount)) { throw '"amount" needs to be set.' }
   if(typeof options.amount != 'string') { throw '"amount" needs to be passed as a string.' }
+  if(_.isEmpty(options.amount)) { throw '"amount" needs to be set.' }
 
   // token
   if(_.isEmpty(options.token))  { throw '"token" needs to be set.' }
