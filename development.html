@@ -20,34 +20,35 @@
     </style>
   </head>
   <body style="text-align: center;">
-    <div class="container">
+    
+    <div class="container"><!-- DePay Payments -->
       <div class="row">
       <div class="col-4"></div>
       <div class="col-4">
-        <h2 class="pt-5">DePay Payment</h2>
+        <h2 class="pt-5">DePay Payments</h2>
         <div class="form-group pt-3">
-          <label for="amountInput">Amount</label>
-          <input type="amount" class="form-control text-center" id="amountInput" aria-describedby="amount" placeholder="20000000" value="20000000">
-          <small id="amount" class="form-text text-muted">How much do you want to receive?</small>
+          <label for="paymentAmountInput">Amount</label>
+          <input class="form-control text-center" id="paymentAmountInput" aria-describedby="paymentAmount" placeholder="20000000" value="20000000">
+          <small id="paymentAmount" class="form-text text-muted">How much do you want to receive?</small>
         </div>
         <div class="form-group pt-1">
-          <label for="tokenInput">Token</label>
-          (<a id="switchToken" href="#">Switch</a>)
+          <label for="paymentTokenInput">Token</label>
+          (<a id="paymentSwitchToken" href="#">Switch</a>)
           <script>
-            var button = document.getElementById("switchToken");
+            var button = document.getElementById("paymentSwitchToken");
             button.addEventListener("click",function(e){
-              DePayWidgets.TokenSelector(function(token){
-                document.getElementById("tokenInput").value = token.address;
+              DePayWidgets.Selector(function(token){
+                document.getElementById("paymentTokenInput").value = token.address;
               });
             });
           </script>  
-          <input type="token" class="form-control text-center" id="tokenInput" aria-describedby="token" placeholder="0xdac17f958d2ee523a2206206994597c13d831ec7" value="0xdac17f958d2ee523a2206206994597c13d831ec7">
-          <small id="token" class="form-text text-muted">Which token do you want to receive?</small>
+          <input class="form-control text-center" id="paymentTokenInput" aria-describedby="paymentToken" placeholder="0xdac17f958d2ee523a2206206994597c13d831ec7" value="0xdac17f958d2ee523a2206206994597c13d831ec7">
+          <small id="paymentToken" class="form-text text-muted">Which token do you want to receive?</small>
         </div>
         <div class="form-group pt-1">
-          <label for="receiverInput">Receiver</label>
-          <input type="receiver" class="form-control text-center" id="receiverInput" aria-describedby="receiver" placeholder="0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02" value="0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02">
-          <small id="receiver" class="form-text text-muted">Which address should receive the payment?</small>
+          <label for="paymentReceiverInput">Receiver</label>
+          <input class="form-control text-center" id="paymentReceiverInput" aria-describedby="paymentReceiver" placeholder="0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02" value="0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02">
+          <small id="paymentReceiver" class="form-text text-muted">Which address should receive the payment?</small>
         </div>
         
         <button id="payButton" class="btn-lg mt-2">Pay</button>
@@ -55,14 +56,59 @@
           var button = document.getElementById("payButton");
           button.addEventListener("click",function(e){
             DePayWidgets.Payment({
-              amount: document.getElementById("amountInput").value,
-              token: document.getElementById("tokenInput").value,
-              receiver: document.getElementById("receiverInput").value
+              amount: document.getElementById("paymentAmountInput").value,
+              token: document.getElementById("paymentTokenInput").value,
+              receiver: document.getElementById("paymentReceiverInput").value
             });
           });
         </script>
       </div>
       <div class="col-4"></div>
-    </div>
+    </div><!-- DePay Payments -->
+
+    <div class="container"><!-- DePay Sales -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <h2 class="pt-5">DePay Sales</h2>
+        <div class="form-group pt-3">
+          <label for="salesAmountInput">Amount</label>
+          <input class="form-control text-center" id="salesAmountInput" aria-describedby="salesAmount" placeholder="20000000000000000000" value="20000000000000000000">
+          <small id="salesAmount" class="form-text text-muted">How much do you want to sell?</small>
+        </div>
+        <div class="form-group pt-1">
+          <label for="salesTokenInput">Token</label>
+          (<a id="salesSwitchToken" href="#">Switch</a>)
+          <script>
+            var button = document.getElementById("salesSwitchToken");
+            button.addEventListener("click",function(e){
+              DePayWidgets.Selector(function(token){
+                document.getElementById("salesTokenInput").value = token.address;
+              });
+            });
+          </script>  
+          <input class="form-control text-center" id="salesTokenInput" aria-describedby="salesToken" placeholder="0xa0bed124a09ac2bd941b10349d8d224fe3c955eb" value="0xa0bed124a09ac2bd941b10349d8d224fe3c955eb">
+          <small id="salesToken" class="form-text text-muted">Which token do you want to receive?</small>
+        </div>
+        
+        <button id="buyButton" class="btn-lg mt-2">Buy</button>
+        <script>
+          var button = document.getElementById("buyButton");
+          button.addEventListener("click",function(e){
+            DePayWidgets.Sale({
+              amount: {
+                min: document.getElementById("salesAmountInput").value,
+                step: 100000000000000000
+              },
+              token: document.getElementById("salesTokenInput").value
+            });
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- DePay Sales -->
+
+
   </body>
 </html>
+

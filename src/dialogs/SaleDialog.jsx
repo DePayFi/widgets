@@ -11,7 +11,7 @@ import Exchanges from '../utils/Exchanges';
 import NavigateStackContext from '../contexts/NavigateStackContext';
 import QuestionMarkCircleComponent from '../components/QuestionMarkCircleComponent';
 import React from 'react';
-import TokenSaleDialogSkeleton from '../dialogs/TokenSaleDialogSkeleton';
+import SaleDialogSkeleton from '../dialogs/SaleDialogSkeleton';
 import TokenIconComponent from '../components/TokenIconComponent';
 import { ETH, MAXINT } from '../utils/Constants';
 import { ethers } from 'ethers';
@@ -219,7 +219,7 @@ class SaleDialog extends React.Component {
   render() {
     if(this.props.initializing) { 
       return(
-        <TokenSaleDialogSkeleton/>
+        <SaleDialogSkeleton/>
       ) 
     }
 
@@ -271,10 +271,10 @@ class SaleDialog extends React.Component {
                           Payment
                         </div>
                         <div className='PaymentAmountRow1 TextEllipsis'>
-                          { this.props.paymentContext.local }
+                          { this.props.paymentContext.token }
                         </div>
                         <div className='PaymentAmountRow2 TextEllipsis'>
-                          { this.props.paymentContext.token }
+                          { this.props.paymentContext.local }
                         </div>
                       </div>
                       <div className='PaymentColumn PaymentColumn3'>

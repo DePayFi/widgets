@@ -105,6 +105,7 @@ class RoutesProvider extends React.Component {
       fetch(`https://depay.fi/api/payment/${this.props.address}`).then(function(response){
         response.json().then(function(tokens) {
           this.filterTokensWithAnyBalance(tokens)
+          .then(this.excludeTokens.bind(this))
           .then(this.convertTokensToRoutes.bind(this))
           .then(resolve)
         }.bind(this))
@@ -120,6 +121,20 @@ class RoutesProvider extends React.Component {
         })
       )
     });
+  }
+
+  excludeTokens(tokens){
+    return new Promise(function(resolve, reject){
+      if(this.props.exclude === undefined) {
+        resolve(tokens)
+      } else {
+        resolve(
+          tokens.filter(function(token){
+            return token.address !== this.props.exclude.toLowerCase()
+          }.bind(this))
+        )
+      }
+    }.bind(this));
   }
 
   filterRoutesWithEnoughBalance(routes) {

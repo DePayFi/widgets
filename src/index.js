@@ -1,13 +1,13 @@
 import Payment from './Payment';
-import TokenSale from './TokenSale';
+import Sale from './Sale';
 import Swap from './Swap';
-import TokenSelector from './TokenSelector';
+import Selector from './Selector';
 import { ethers } from 'ethers';
 
 export {
   ethers,
   Payment,
-  TokenSale,
+  Sale,
   Swap,
-  TokenSelector
+  Selector
 }

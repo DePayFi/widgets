@@ -12,13 +12,13 @@ import PriceProvider from '../providers/PriceProvider';
 import React from 'react';
 import RoutesContext from '../contexts/RoutesContext';
 import RoutesProvider from '../providers/RoutesProvider';
-import TokenSaleDialog from '../dialogs/TokenSaleDialog';
+import SaleDialog from '../dialogs/SaleDialog';
 import Stack from '../utils/Stack';
 import TokenContext from '../contexts/TokenContext';
 import TokenProvider from '../providers/TokenProvider';
 import WalletContext from '../contexts/WalletContext';
 
-class TokenSaleStack extends React.Component {
+class SaleStack extends React.Component {
   state = {
     token: null
   };
@@ -53,6 +53,7 @@ class TokenSaleStack extends React.Component {
                               <WalletContext.Consumer>
                                 {walletContext => (
                                   <RoutesProvider
+                                    exclude={ tokenContext.token.address }
                                     token={ tokenContext.token.address }
                                     amount={ amountContext.amount }
                                     address={ walletContext.address }
@@ -74,7 +75,7 @@ class TokenSaleStack extends React.Component {
                                             {paymentContext => (
                                               <Stack
                                                 dialogs={{
-                                                  TokenSale: <TokenSaleDialog
+                                                  Sale: <SaleDialog
                                                     initializing={ priceContext.initializing || routesContext.initializing || gasContext.initializing || tokenContext.initializing }
                                                     selected={ routesContext.selected }
                                                     token={ tokenContext.token.address }
@@ -106,7 +107,7 @@ class TokenSaleStack extends React.Component {
                                                     paymentContext={ paymentContext }
                                                   />
                                                 }}
-                                                start={'TokenSale'}
+                                                start={'Sale'}
                                               />
                                             )}
                                           </PaymentContext.Consumer>
@@ -132,4 +133,4 @@ class TokenSaleStack extends React.Component {
   }
 }
 
-export default TokenSaleStack;
+export default SaleStack;

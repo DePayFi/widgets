@@ -2,7 +2,7 @@ import CloseDialogComponent from '../components/CloseDialogComponent';
 import React from 'react';
 import Skeleton from '../utils/Skeleton';
 
-class TokenSaleDialogSkeleton extends React.Component {
+class SaleDialogSkeleton extends React.Component {
 
   render() {
     return(
@@ -133,4 +133,4 @@ class TokenSaleDialogSkeleton extends React.Component {
   }
 }
 
-export default TokenSaleDialogSkeleton;
+export default SaleDialogSkeleton;

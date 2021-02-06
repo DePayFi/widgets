@@ -48,7 +48,7 @@ export default Object.assign({}, rollup, {
       openPage: '/development.html'
     }),
     livereload({
-      watch: 'tmp'
+      watch: ['tmp']
     })
   ]
 })

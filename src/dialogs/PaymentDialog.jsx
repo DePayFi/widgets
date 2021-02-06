@@ -149,7 +149,6 @@ class PaymentDialog extends React.Component {
       plugins.unshift(Exchanges.findByName(this.props.selected.exchange).pluginAddress())
     }
     
-    debugger;
     DePayPaymentsV1Contract.connect(this.props.wallet.provider().getSigner(0)).pay(
       route,
       [amountIn, amountOut, deadline],
