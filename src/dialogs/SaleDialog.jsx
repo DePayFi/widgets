@@ -9,6 +9,7 @@ import Erc20Abi from '../abi/Erc20Abi';
 import EthersProvider from '../utils/EthersProvider';
 import Exchanges from '../utils/Exchanges';
 import NavigateStackContext from '../contexts/NavigateStackContext';
+import NotEnoughFundsDialog from '../dialogs/NotEnoughFundsDialog';
 import QuestionMarkCircleComponent from '../components/QuestionMarkCircleComponent';
 import React from 'react';
 import SaleDialogSkeleton from '../dialogs/SaleDialogSkeleton';
@@ -223,6 +224,12 @@ class SaleDialog extends React.Component {
       ) 
     }
 
+    if(!this.props.selected) {
+      return(
+        <NotEnoughFundsDialog/>
+      )
+    }
+
     return (
       <DialogContext.Consumer>
         {dialogContext => (
@@ -297,7 +304,7 @@ class SaleDialog extends React.Component {
                         <span className='PoweredByLink'>&nbsp;•&nbsp;</span>
                       </span>
                     }
-                    <a target='_blank' rel='noopener noreferrer' href='https://depay.fi' className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
+                    <a target='_blank' rel='noopener noreferrer' href={'https://depay.fi?utm_source='+window.location.hostname+'&utm_medium=widget&utm_campaign=DePayPayment'} className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
                       by DePay
                     </a>
                   </div>

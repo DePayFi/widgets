@@ -44,7 +44,7 @@ class PaymentProvider extends React.Component {
   }
 
   render() {
-    if(this.props.route === null) { return(<div>{this.props.children}</div>) }
+    if(!this.props.route) { return(<div>{this.props.children}</div>) }
     return(
       <PaymentContext.Provider value={{
         local: this.local(),

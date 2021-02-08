@@ -21,14 +21,14 @@
   </head>
   <body style="text-align: center;">
     
-    <div class="container"><!-- DePay Payments -->
+    <div class="container pb-4"><!-- DePay Payments -->
       <div class="row">
       <div class="col-4"></div>
       <div class="col-4">
         <h2 class="pt-5">DePay Payments</h2>
         <div class="form-group pt-3">
           <label for="paymentAmountInput">Amount</label>
-          <input class="form-control text-center" id="paymentAmountInput" aria-describedby="paymentAmount" placeholder="20000000" value="20000000">
+          <input class="form-control text-center" id="paymentAmountInput" aria-describedby="paymentAmount" placeholder="20" value="20">
           <small id="paymentAmount" class="form-text text-muted">How much do you want to receive?</small>
         </div>
         <div class="form-group pt-1">
@@ -66,15 +66,20 @@
       <div class="col-4"></div>
     </div><!-- DePay Payments -->
 
-    <div class="container"><!-- DePay Sales -->
+    <div class="container pb-4"><!-- DePay Sales -->
       <div class="row">
       <div class="col-4"></div>
       <div class="col-4">
         <h2 class="pt-5">DePay Sales</h2>
         <div class="form-group pt-3">
-          <label for="salesAmountInput">Amount</label>
-          <input class="form-control text-center" id="salesAmountInput" aria-describedby="salesAmount" placeholder="20000000000000000000" value="20000000000000000000">
+          <label for="salesMinAmountInput">Min. Amount</label>
+          <input class="form-control text-center" id="salesMinAmountInput" aria-describedby="salesAmount" placeholder="1" value="1">
           <small id="salesAmount" class="form-text text-muted">How much do you want to sell?</small>
+        </div>
+        <div class="form-group pt-1">
+          <label for="salesStepAmountInput">Step Amount</label>
+          <input class="form-control text-center" id="salesStepAmountInput" aria-describedby="salesAmount" placeholder="0.1" value="0.1">
+          <small id="salesAmount" class="form-text text-muted">Selectable in which steps?</small>
         </div>
         <div class="form-group pt-1">
           <label for="salesTokenInput">Token</label>
@@ -88,7 +93,7 @@
             });
           </script>  
           <input class="form-control text-center" id="salesTokenInput" aria-describedby="salesToken" placeholder="0xa0bed124a09ac2bd941b10349d8d224fe3c955eb" value="0xa0bed124a09ac2bd941b10349d8d224fe3c955eb">
-          <small id="salesToken" class="form-text text-muted">Which token do you want to receive?</small>
+          <small id="salesToken" class="form-text text-muted">Which token do you want to sell?</small>
         </div>
         
         <button id="buyButton" class="btn-lg mt-2">Buy</button>
@@ -97,8 +102,8 @@
           button.addEventListener("click",function(e){
             DePayWidgets.Sale({
               amount: {
-                min: document.getElementById("salesAmountInput").value,
-                step: 100000000000000000
+                min: document.getElementById("salesMinAmountInput").value,
+                step: document.getElementById("salesStepAmountInput").value
               },
               token: document.getElementById("salesTokenInput").value
             });

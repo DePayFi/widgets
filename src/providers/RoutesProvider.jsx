@@ -87,6 +87,7 @@ class RoutesProvider extends React.Component {
         this.props.token,
         this.props.amount
       ).then(function(routes){
+
         var directTransfer = routes.find(function(route){
           return route.token.address === route.route[route.route.length-1];
         });

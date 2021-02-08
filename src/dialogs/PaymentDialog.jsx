@@ -8,6 +8,7 @@ import EthersProvider from '../utils/EthersProvider';
 import Exchanges from '../utils/Exchanges';
 import GasContext from '../contexts/GasContext';
 import NavigateStackContext from '../contexts/NavigateStackContext';
+import NotEnoughFundsDialog from '../dialogs/NotEnoughFundsDialog';
 import PaymentDialogSkeleton from '../dialogs/PaymentDialogSkeleton';
 import QuestionMarkCircleComponent from '../components/QuestionMarkCircleComponent';
 import React from 'react';
@@ -204,6 +205,12 @@ class PaymentDialog extends React.Component {
       return(
         <PaymentDialogSkeleton/>
       ) 
+    }
+
+    if(!this.props.selected) {
+      return(
+        <NotEnoughFundsDialog/>
+      )
     }
 
     return (

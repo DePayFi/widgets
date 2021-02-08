@@ -103,7 +103,7 @@ class ChangeTokenAmountDialog extends React.Component {
                 Done
               </button>
               <div className='PoweredBy'>
-                <a target='_blank' rel='noopener noreferrer' href='https://depay.fi' className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
+                <a target='_blank' rel='noopener noreferrer' href={'https://depay.fi?utm_source='+window.location.hostname+'&utm_medium=widget&utm_campaign=DePayPayment'} className='PoweredByLink' title='Powered by DePay: Decentralized Payments'>
                   by DePay
                 </a>
               </div>
