@@ -14,7 +14,7 @@ import QuestionMarkCircleComponent from '../components/QuestionMarkCircleCompone
 import React from 'react';
 import SaleDialogSkeleton from '../dialogs/SaleDialogSkeleton';
 import TokenIconComponent from '../components/TokenIconComponent';
-import { ETH, MAXINT } from '../utils/Constants';
+import { ETH, MAXINT, SLIPPAGE } from '../utils/Constants';
 import { ethers } from 'ethers';
 
 class SaleDialog extends React.Component {
@@ -130,7 +130,7 @@ class SaleDialog extends React.Component {
       route = [route[0]];
     }
     
-    let amountIn = this.props.selected.amounts[0];
+    let amountIn = parseInt(parseInt(this.props.selected.amounts[0]) * SLIPPAGE).toString();
     let amountOut = this.props.selected.amounts[this.props.selected.amounts.length-1];
 
     let transactionConfiguration = {};
@@ -151,26 +151,23 @@ class SaleDialog extends React.Component {
     }
 
     let plugins;
-    if(this.props.plugins && this.props.plugins.length) {
-      plugins = _.map(this.props.plugins, function(address){
-        if(address === 'swap') { 
-          if(this.props.selected.exchange) {
-            return Exchanges.findByName(this.props.selected.exchange).pluginAddress() 
-          } else { return }
-        }
-        return address;
-      }.bind(this));
-    }
-    plugins = _.compact(plugins);
+    plugins = [Exchanges.findByName(this.props.selected.exchange).pluginAddress(), DePayPaymentsV1Contract.address]
 
     let value = 0;
     if(route[0] === '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE') { value = amountIn }
+
+    console.log('route', route);
+    console.log('amountIn', amountIn);
+    console.log('amountOut', amountOut);
+    console.log('deadline', deadline);
+    console.log('addresses', addresses);
+    console.log('plugins', plugins);
 
     DePayPaymentsV1Contract.connect(this.props.wallet.provider().getSigner(0)).pay(
       route,
       [amountIn, amountOut, deadline],
       addresses,
-      [plugins[0], DePayPaymentsV1Contract.address],
+      plugins,
       ([]),
       { value: value }
     )

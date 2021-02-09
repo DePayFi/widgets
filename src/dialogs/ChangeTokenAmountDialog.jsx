@@ -60,8 +60,10 @@ class ChangeTokenAmountDialog extends React.Component {
             <div className='DialogHeader'>
               <GoBackDialogComponent/>
               <CloseDialogComponent/>
-              <h1 className='FontSizeMedium TextAlignCenter'>Change amount</h1>
-              <div className='FontSizeMedium FontWeightBold TextAlignCenter'>
+              <h1 className='FontSizeNormal TextAlignCenter'>
+                Change amount
+              </h1>
+              <div className='FontSizeLarge TextAlignCenter'>
                 { this.props.token.symbol }
               </div>
             </div>
@@ -87,7 +89,7 @@ class ChangeTokenAmountDialog extends React.Component {
 
                 <div className='TextAlignCenter TextGrey PaddingBottomSmall'>
                   Max. purchase for<br/>
-                  {DisplayTokenAmount((parseInt(this.state.maxAmountRoute.balance) / SLIPPAGE).toLocaleString('fullwide', {useGrouping:false}), this.state.maxAmountRoute.token.decimals, this.state.maxAmountRoute.token.symbol)}
+                  {DisplayTokenAmount(parseInt(this.state.maxAmountRoute.balance / SLIPPAGE).toLocaleString('fullwide', {useGrouping:false}), this.state.maxAmountRoute.token.decimals, this.state.maxAmountRoute.token.symbol)}
                   <TokenIconComponent
                     className='small'
                     title={ this.state.maxAmountRoute.token.name }
