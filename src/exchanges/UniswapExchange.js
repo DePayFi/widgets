@@ -14,6 +14,10 @@ class UniswapExchange {
     return 'Uniswap';
   }
 
+  static pluginAddress() {
+    return '0x2AAC8B0bCC52F0bA1d971FC91dD5d60101391f7F';
+  }
+
   static feeDefaults() {
     // return {
     //   transferETH: 43000,

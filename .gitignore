@@ -82,7 +82,6 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
 
 # Gatsby files
 .cache/
@@ -117,3 +116,5 @@ dist
 
 # Neutrino build directory
 build
+
+tmp/

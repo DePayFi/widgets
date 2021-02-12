@@ -1,31 +1,32 @@
-const TableCSS = `
-  .Table {
-    display: table;
-    table-layout: fixed;
-    width: 100%;
-  }
+export default function(){
+  return `
 
-  .TableRow {
-    display: table-row;
-    width: 100%;
-  }
+    .Table {
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+    }
 
-  .TableCell {
-    display: table-cell;
-    width: 100%;
-  }
+    .TableRow {
+      display: table-row;
+      width: 100%;
+    }
 
-  .Table .CallToActionName {
-    display: none;
-  }
+    .TableCell {
+      display: table-cell;
+      width: 100%;
+    }
 
-  .Table .TableCell:first-child {
-    padding-right: 3px;
-  }
+    .Table .CallToActionName {
+      display: none;
+    }
 
-  .Table .TableCell:last-child {
-    padding-left: 3px;
-  }
-`;
+    .Table .TableCell:first-child {
+      padding-right: 3px;
+    }
 
-export default TableCSS;
+    .Table .TableCell:last-child {
+      padding-left: 3px;
+    }
+  `;
+}

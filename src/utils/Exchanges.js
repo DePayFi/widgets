@@ -55,7 +55,7 @@ class Exchanges {
                 return Object.assign(
                   {},
                   route,
-                  { route: [route.token.address].concat(Object.values(exchangesWithIntermediateRoute)[0]) },
+                  { route: _.uniq([route.token.address].concat(Object.values(exchangesWithIntermediateRoute)[0])) },
                   { amounts: amountsForRoutesPerExchange[index] });
               }).filter(function(route){
                 return Boolean(
@@ -77,7 +77,7 @@ class Exchanges {
 
   static selectBestExchangeRoute(route) {
     let bestExchangeRoute = _.map(route.amounts, function(amounts, exchangeName){
-      return({ 
+      return({
         exchange: exchangeName, 
         amounts: amounts
       });
