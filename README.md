@@ -93,5 +93,5 @@ yarn start
 
 ```
 npm login
-npm release
+npm publish
 ```
