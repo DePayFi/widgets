@@ -88,3 +88,10 @@ A function that will be called once the payment has been successfully confirmed 
 yarn install
 yarn start
 ```
+
+### Release new versions to npm
+
+```
+npm login
+npm release
+```

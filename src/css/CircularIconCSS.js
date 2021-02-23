@@ -22,6 +22,12 @@ export default function(style){
       width: 1.4rem;
     }
 
+    .CircularIcon.tiny {
+      height: 1rem;
+      width: 1rem;
+      box-shadow: 0 0px 4px rgba(0,0,0,0.1);
+    }
+
     .CircularIcon.noshadow{
       box-shadow: none;
     }
