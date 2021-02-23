@@ -75,7 +75,8 @@ class PaymentStack extends React.Component {
                                                   Payment: <PaymentDialog
                                                     initializing={ priceContext.initializing || routesContext.initializing || gasContext.initializing }
                                                     selected={ routesContext.selected }
-                                                    token={ tokenContext.token.address }
+                                                    receiverToken={ tokenContext.token }
+                                                    receiverAmount={ amountContext.amount }
                                                     paymentContext={ paymentContext }
                                                     receiver={ this.state.receiver }
                                                     wallet={ walletContext.wallet }

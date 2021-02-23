@@ -3,6 +3,7 @@ import CheckMarkComponent from '../components/CheckMarkComponent';
 import CloseDialogComponent from '../components/CloseDialogComponent';
 import DePayPaymentsV1Contract from '../contracts/DePayPaymentsV1Contract';
 import DialogContext from '../contexts/DialogContext';
+import DisplayTokenAmount from '../utils/DisplayTokenAmount';
 import Erc20Abi from '../abi/Erc20Abi';
 import EthersProvider from '../utils/EthersProvider';
 import Exchanges from '../utils/Exchanges';
@@ -28,7 +29,7 @@ class PaymentDialog extends React.Component {
   }
 
   paymentType() {
-    if(this.props.selected.token.address === this.props.token) {
+    if(this.props.selected.token.address === this.props.receiverToken.address) {
       return 'transfer';
     } else {
       return 'swap';
@@ -60,7 +61,7 @@ class PaymentDialog extends React.Component {
   paymentTypeLink() {
     switch (this.paymentType()) {
       case 'transfer':
-        return 'https://etherscan.io/token/'+this.props.token;
+        return 'https://etherscan.io/token/'+this.props.receiverToken.address;
       break;
       case 'swap':
         return Exchanges.findByName(this.props.selected.exchange).linkRoute(this.props.selected);
@@ -254,6 +255,13 @@ class PaymentDialog extends React.Component {
                 <div className='DialogFooter'>
                   { this.renderCallToAction.bind(this)() }
                   <div className='PoweredBy'>
+                    <a target='_blank' rel='noopener noreferrer' href={ 'https://etherscan.io/token/'+this.props.receiverToken.address } title={'Sending '+DisplayTokenAmount(this.props.receiverAmount, this.props.receiverToken.decimals, this.props.receiverToken.symbol)+' to the receiver'}>
+                      <TokenIconComponent
+                        src={ this.props.receiverToken.logoURI }
+                        className={ 'tiny' }
+                      />
+                    </a>
+                    <span className='PoweredByLink'>&nbsp;•&nbsp;</span>
                     {this.paymentType() &&
                       <span>
                         <a target='_blank' rel='noopener noreferrer' href={ this.paymentTypeLink() } className='PoweredByLink' title={ this.paymentTypeTitle() }>
