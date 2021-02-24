@@ -50,7 +50,6 @@ class Exchanges {
               )
             }
           })).then(function(amountsForRoutesPerExchange){
-            console.log('amountsForRoutesPerExchange', amountsForRoutesPerExchange);
             resolve(
               routes.map(function(route, index){
                 return Object.assign(
