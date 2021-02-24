@@ -28,6 +28,7 @@ class PaymentProvider extends React.Component {
   }
 
   feeInETH() {
+    if(this.props.gas == undefined) { return }
     return parseFloat(ethers.utils.formatUnits(this.props.gas, 'gwei')) * this.props.route.fee;
   }
 
