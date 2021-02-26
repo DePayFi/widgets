@@ -14,7 +14,7 @@ DePay Payments allows you to accept and perform crypto payments.
 ### Quick start
 
 ```
-<script src="https://unpkg.com/depay-widgets@1.0.0/dist/umd/index.js"/>
+<script src="https://unpkg.com/depay-widgets@1.1.2/dist/umd/index.js"/>
 ```
 
 ```
@@ -36,7 +36,7 @@ In order to receive decentralized payments on any blockchain you need to have yo
 You can either load the depay-widgets package via unpkg's CDN:
 
 ```
-<script src="https://unpkg.com/depay-widgets@1.0.0/dist/umd/index.js"/>
+<script src="https://unpkg.com/depay-widgets@1.1.2/dist/umd/index.js"/>
 ```
 
 or you install depay-widgets via the package manager of your choice and ship it as part of your application bundle:

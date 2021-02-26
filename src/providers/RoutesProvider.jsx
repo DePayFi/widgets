@@ -131,7 +131,7 @@ class RoutesProvider extends React.Component {
       } else {
         resolve(
           tokens.filter(function(token){
-            return token.address !== this.props.exclude.toLowerCase()
+            return token.address.toLowerCase() !== this.props.exclude.toLowerCase()
           }.bind(this))
         )
       }
