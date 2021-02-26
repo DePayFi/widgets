@@ -116,13 +116,7 @@ class PaymentDialog extends React.Component {
   pay(dialogContext, callbackContext, gasContext) {
     let route;
 
-    // Drop intermediate ETH routes
-    // as only start and end ETH is relevant for the smart contract.
-    route = this.props.selected.route.filter(function(step, index){
-      return index === 0 || 
-        index === this.props.selected.route.length-1 || 
-        step !== ETH
-    }.bind(this));
+    route = this.props.selected.route;
 
     // Reduce routes with the same token to direct transfers,
     // as for the smart contract it's not a swap, but a transfer
@@ -150,7 +144,7 @@ class PaymentDialog extends React.Component {
     if(route[0].length > 1) {
       plugins.unshift(Exchanges.findByName(this.props.selected.exchange).pluginAddress())
     }
-    
+
     DePayPaymentsV1Contract.connect(this.props.wallet.provider().getSigner(0)).pay(
       route,
       [amountIn, amountOut, deadline],
