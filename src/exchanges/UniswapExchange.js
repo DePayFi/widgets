@@ -15,7 +15,7 @@ class UniswapExchange {
   }
 
   static pluginAddress() {
-    return '0x2AAC8B0bCC52F0bA1d971FC91dD5d60101391f7F';
+    return '0xe04b08Dfc6CaA0F4Ec523a3Ae283Ece7efE00019';
   }
 
   static feeDefaults() {
