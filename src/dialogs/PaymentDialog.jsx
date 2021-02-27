@@ -1,7 +1,7 @@
 import CallbackContext from '../contexts/CallbackContext';
 import CheckMarkComponent from '../components/CheckMarkComponent';
 import CloseDialogComponent from '../components/CloseDialogComponent';
-import DePayPaymentsV1Contract from '../contracts/DePayPaymentsV1Contract';
+import DePayRouterV1Contract from '../contracts/DePayRouterV1Contract';
 import DialogContext from '../contexts/DialogContext';
 import DisplayTokenAmount from '../utils/DisplayTokenAmount';
 import Erc20Abi from '../abi/Erc20Abi';
@@ -72,7 +72,7 @@ class PaymentDialog extends React.Component {
   approve(dialogContext) {
     new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider)
       .connect(this.props.wallet.provider().getSigner(0))
-      .approve(DePayPaymentsV1Contract.address, MAXINT)
+      .approve(DePayRouterV1Contract.address, MAXINT)
       .catch(function(){ 
         clearInterval(this.approvalCheckInterval);
         this.setState({ approving: false });
@@ -98,7 +98,7 @@ class PaymentDialog extends React.Component {
   }
 
   checkApproved(dialogContext) {
-    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider).allowance(this.props.wallet.address(), DePayPaymentsV1Contract.address).then(function(amount){
+    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
       if(amount.gt(ethers.BigNumber.from(this.props.selected.amounts[0]))) {
         this.props.selected.approved = true;
         dialogContext.setClosable(true);
@@ -140,12 +140,13 @@ class PaymentDialog extends React.Component {
     let value = 0;
     if(route[0] === '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE') { value = amountIn }
 
-    let plugins = [DePayPaymentsV1Contract.address];
-    if(route[0].length > 1) {
-      plugins.unshift(Exchanges.findByName(this.props.selected.exchange).pluginAddress())
+    let plugins = ['0x99F3F4685a7178F26EB4F4Ca8B75a1724F1577B9'];
+    let exchange = Exchanges.findByName(this.props.selected.exchange);
+    if(exchange) {
+      plugins.unshift(exchange.pluginAddress())
     }
 
-    DePayPaymentsV1Contract.connect(this.props.wallet.provider().getSigner(0)).pay(
+    DePayRouterV1Contract.connect(this.props.wallet.provider().getSigner(0)).route(
       route,
       [amountIn, amountOut, deadline],
       [this.props.receiver],
@@ -182,8 +183,6 @@ class PaymentDialog extends React.Component {
         this.setState({ paying: false })
       }
     }.bind(this));
-
-        
   }
 
   navigateIfActionable(navigate, path, dialogContext) {

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import DePayPaymentsV1Contract from '../contracts/DePayPaymentsV1Contract';
+import DePayRouterV1Contract from '../contracts/DePayRouterV1Contract';
 import Erc20Abi from '../abi/Erc20Abi';
 import EthersProvider from '../utils/EthersProvider';
 import Exchanges from '../utils/Exchanges';
@@ -41,6 +41,7 @@ class RoutesProvider extends React.Component {
       .then(this.sortRoutes.bind(this))
       .then(this.addMaxAmounts.bind(this))
       .then(function(routes){
+        this.setState({selected: routes[0]}); // set selected first to prevent flickering "Not enough funds"
         this.setState({
           initializing: false,
           routes,
@@ -66,7 +67,7 @@ class RoutesProvider extends React.Component {
           return Promise.resolve(route);
         } else {
           return new ethers.Contract(route.token.address, Erc20Abi, EthersProvider)
-          .allowance(this.props.wallet.address(), DePayPaymentsV1Contract.address)
+          .allowance(this.props.wallet.address(), DePayRouterV1Contract.address)
           .then(function(amount){
             if(amount.gt(ethers.BigNumber.from(route.amounts[0]))) {
               route.approved = true;

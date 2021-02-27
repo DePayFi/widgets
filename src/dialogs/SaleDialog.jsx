@@ -2,7 +2,7 @@ import _ from 'lodash';
 import CallbackContext from '../contexts/CallbackContext';
 import CheckMarkComponent from '../components/CheckMarkComponent';
 import CloseDialogComponent from '../components/CloseDialogComponent';
-import DePayPaymentsV1Contract from '../contracts/DePayPaymentsV1Contract';
+import DePayRouterV1Contract from '../contracts/DePayRouterV1Contract';
 import DialogContext from '../contexts/DialogContext';
 import DisplayTokenAmount from '../utils/DisplayTokenAmount';
 import Erc20Abi from '../abi/Erc20Abi';
@@ -72,7 +72,7 @@ class SaleDialog extends React.Component {
   approve(dialogContext) {
     new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider)
       .connect(this.props.wallet.provider().getSigner(0))
-      .approve(DePayPaymentsV1Contract.address, MAXINT)
+      .approve(DePayRouterV1Contract.address, MAXINT)
       .catch(function(){ 
         clearInterval(this.approvalCheckInterval);
         this.setState({ approving: false });
@@ -98,7 +98,7 @@ class SaleDialog extends React.Component {
   }
 
   checkApproved(dialogContext) {
-    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider).allowance(this.props.wallet.address(), DePayPaymentsV1Contract.address).then(function(amount){
+    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
       if(amount.gt(ethers.BigNumber.from(this.props.selected.amounts[0]))) {
         this.props.selected.approved = true;
         dialogContext.setClosable(true);
@@ -116,13 +116,7 @@ class SaleDialog extends React.Component {
   pay(dialogContext, callbackContext) {
     let route;
 
-    // Drop intermediate ETH routes
-    // as only start and end ETH is relevant for the smart contract.
-    route = this.props.selected.route.filter(function(step, index){
-      return index === 0 || 
-        index === this.props.selected.route.length-1 || 
-        step !== ETH
-    }.bind(this));
+    route = this.props.selected.route;
 
     // Reduce routes with the same token to direct transfers,
     // as for the smart contract it's not a swap, but a transfer
@@ -151,19 +145,12 @@ class SaleDialog extends React.Component {
     }
 
     let plugins;
-    plugins = [Exchanges.findByName(this.props.selected.exchange).pluginAddress(), DePayPaymentsV1Contract.address]
+    plugins = [Exchanges.findByName(this.props.selected.exchange).pluginAddress(), DePayRouterV1Contract.address]
 
     let value = 0;
     if(route[0] === '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE') { value = amountIn }
 
-    console.log('route', route);
-    console.log('amountIn', amountIn);
-    console.log('amountOut', amountOut);
-    console.log('deadline', deadline);
-    console.log('addresses', addresses);
-    console.log('plugins', plugins);
-
-    DePayPaymentsV1Contract.connect(this.props.wallet.provider().getSigner(0)).pay(
+    DePayRouterV1Contract.connect(this.props.wallet.provider().getSigner(0)).route(
       route,
       [amountIn, amountOut, deadline],
       addresses,
@@ -191,7 +178,7 @@ class SaleDialog extends React.Component {
             });
             setTimeout(function(){
               dialogContext.closeContainer();
-              callbackContext.callback();
+              if(typeof callbackContext.callback === 'function') { callbackContext.callback(); }
             }, 1600)
           }
         }.bind(this));
