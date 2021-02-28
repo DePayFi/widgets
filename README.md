@@ -1,42 +1,27 @@
 # Overview
 
+[Preparation](#preparation)
+
+[Installation](#installation)
+
 [DePay Payments](#depay-payments)
+
+[DePay Sales](#depay-sales)
 
 [Development](#development)
 
-
-## DePay Payments
-
-DePay Payments allows you to accept and perform crypto payments.
-
-[Product Video](https://www.youtube.com/watch?v=gP1Q-M7blWw)
-
-### Quick start
-
-```
-<script src="https://unpkg.com/depay-widgets@1.1.2/dist/umd/index.js"/>
-```
-
-```
-DePayWidgets.Payment({
-  amount: '20',
-  token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-  receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-});
-```
-
-### Preparation
+## Preparation
 
 In order to receive decentralized payments on any blockchain you need to have your own wallet on that particular blockchain first:
 
 - [Create an Ethereum wallet](https://ethereum.org/en/wallets/)
 
-### Installation
+## Installation
 
 You can either load the depay-widgets package via unpkg's CDN:
 
 ```
-<script src="https://unpkg.com/depay-widgets@1.1.2/dist/umd/index.js"/>
+<script src="https://unpkg.com/depay-widgets@1.2.0/dist/umd/index.js"/>
 ```
 
 or you install depay-widgets via the package manager of your choice and ship it as part of your application bundle:
@@ -53,6 +38,26 @@ and load the DePayWidgets package wherever you need it:
 
 ```
 import DePayWidgets from 'depay-widgets';
+```
+
+## DePay Payments
+
+DePay Payments allows you to accept and perform crypto payments.
+
+[DePay Payments Product Video](https://www.youtube.com/watch?v=gP1Q-M7blWw)
+
+### Quick start
+
+```
+<script src="https://unpkg.com/depay-widgets@1.2.0/dist/umd/index.js"/>
+```
+
+```
+DePayWidgets.Payment({
+  amount: '20',
+  token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+  receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+});
 ```
 
 ### Configuration
@@ -75,6 +80,50 @@ Use our [payment configurator](https://depay.fi/documentation/payments#payment-c
 `receiver`
 
 The address receiving the payment. Always double check that you've set the right address.
+
+`callback`
+
+A function that will be called once the payment has been successfully confirmed by the network.
+
+
+## DePay Sales
+
+DePay Sales allows you easily sell tokens directly from your website or Dapp while accepting thousands of crypto assets as means of payment.
+
+[DePay Sales Product Video](XXX)
+
+### Quick start
+
+```
+<script src="https://unpkg.com/depay-widgets@1.2.0/dist/umd/index.js"/>
+```
+
+```
+DePayWidgets.Sale({
+  amount: {
+    start: "10",
+    min: "1",
+    step: "1"
+  },
+  token: "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
+});
+```
+
+### Configuration
+
+You need to pass a configuration object to `DePayWidgets.Sale` which needs to contain the fields:
+
+`amount`
+
+The amount object contains the amount of preselected tokens when the widget opens (`start`),
+the minimum amount of tokens the user can select in the widget (`min`) and
+by which number the amount increments/decrements when changed by the user (`step`).
+
+`token`
+
+The address of the token you want to sell.
+
+Use our [sale configurator](https://depay.fi/documentation/sale#sale-configurator) in order to simplify configuration.
 
 `callback`
 
