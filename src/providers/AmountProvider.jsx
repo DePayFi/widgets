@@ -11,7 +11,7 @@ class AmountProvider extends React.Component {
     super(props);
     Object.assign(this.state, {
       token: props.token,
-      amount: (typeof props.amount === 'object') ? (props.amount.min || 1) : parseFloat(props.amount)
+      amount: (typeof props.amount === 'object') ? (props.amount.start || props.amount.min || 1) : parseFloat(props.amount)
     })
   }
 
