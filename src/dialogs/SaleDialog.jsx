@@ -145,7 +145,10 @@ class SaleDialog extends React.Component {
     }
 
     let plugins;
-    plugins = [Exchanges.findByName(this.props.selected.exchange).pluginAddress(), DePayRouterV1Contract.address]
+    plugins = [
+      Exchanges.findByName(this.props.selected.exchange).pluginAddress(),
+      '0x99F3F4685a7178F26EB4F4Ca8B75a1724F1577B9' // payment plugin
+    ]
 
     let value = 0;
     if(route[0] === '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE') { value = amountIn }

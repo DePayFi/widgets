@@ -72,13 +72,18 @@
       <div class="col-4">
         <h2 class="pt-5">DePay Sales</h2>
         <div class="form-group pt-3">
+          <label for="salesStartAmountInput">Start Amount</label>
+          <input class="form-control text-center" id="salesStartAmountInput" aria-describedby="salesAmount" placeholder="10" value="10">
+          <small id="salesAmount" class="form-text text-muted">The start amount selected by the widget?</small>
+        </div>
+        <div class="form-group pt-3">
           <label for="salesMinAmountInput">Min. Amount</label>
           <input class="form-control text-center" id="salesMinAmountInput" aria-describedby="salesAmount" placeholder="1" value="1">
-          <small id="salesAmount" class="form-text text-muted">How much do you want to sell?</small>
+          <small id="salesAmount" class="form-text text-muted">Min. amount you want to enforce by the widget?</small>
         </div>
         <div class="form-group pt-1">
           <label for="salesStepAmountInput">Step Amount</label>
-          <input class="form-control text-center" id="salesStepAmountInput" aria-describedby="salesAmount" placeholder="0.1" value="0.1">
+          <input class="form-control text-center" id="salesStepAmountInput" aria-describedby="salesAmount" placeholder="1" value="1">
           <small id="salesAmount" class="form-text text-muted">Selectable in which steps?</small>
         </div>
         <div class="form-group pt-1">
@@ -102,6 +107,7 @@
           button.addEventListener("click",function(e){
             DePayWidgets.Sale({
               amount: {
+                start: document.getElementById("salesStartAmountInput").value,
                 min: document.getElementById("salesMinAmountInput").value,
                 step: document.getElementById("salesStepAmountInput").value
               },
