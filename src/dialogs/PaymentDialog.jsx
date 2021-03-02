@@ -173,7 +173,7 @@ class PaymentDialog extends React.Component {
             });
             setTimeout(function(){
               dialogContext.closeContainer();
-              if(typeof callbackContext.callback === 'function') { callbackContext.callback(); }
+              if(typeof callbackContext.callback === 'function') { callbackContext.callback({tx: transaction.hash}); }
             }, 1600)
           }
         }.bind(this));

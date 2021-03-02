@@ -10,18 +10,12 @@
 
 [Development](#development)
 
-## Preparation
-
-In order to receive decentralized payments on any blockchain you need to have your own wallet on that particular blockchain first:
-
-- [Create an Ethereum wallet](https://ethereum.org/en/wallets/)
-
 ## Installation
 
 You can either load the depay-widgets package via unpkg's CDN:
 
 ```
-<script src="https://unpkg.com/depay-widgets@1.2.0/dist/umd/index.js"/>
+<script src="https://unpkg.com/depay-widgets@1/dist/umd/index.js"/>
 ```
 
 or you install depay-widgets via the package manager of your choice and ship it as part of your application bundle:
@@ -46,10 +40,16 @@ DePay Payments allows you to accept and perform crypto payments.
 
 [DePay Payments Product Video](https://www.youtube.com/watch?v=gP1Q-M7blWw)
 
+### Preparation
+
+In order to receive decentralized payments on any blockchain you need to have your own wallet on that particular blockchain first:
+
+- [Create an Ethereum wallet](https://ethereum.org/en/wallets/)
+
 ### Quick start
 
 ```
-<script src="https://unpkg.com/depay-widgets@1.2.0/dist/umd/index.js"/>
+<script src="https://unpkg.com/depay-widgets@1/dist/umd/index.js"/>
 ```
 
 ```
@@ -85,6 +85,13 @@ The address receiving the payment. Always double check that you've set the right
 
 A function that will be called once the payment has been successfully confirmed by the network.
 
+The widget will call the `callback` function passing a callback object as an argument:
+
+```
+{
+  tx: '<the transaction hash of the confirmed transaction>'
+}
+```
 
 ## DePay Sales
 
@@ -92,10 +99,16 @@ DePay Sales allows you easily sell tokens directly from your website or Dapp whi
 
 [DePay Sales Product Video](XXX)
 
+### Preparation
+
+In order to to sell tokens in a decentralized way on any blockchain you need to have a decentralized liquidity pool (dex pair) on any decentralized exchange:
+
+- [How to list your token on UniSwap](https://hackernoon.com/how-to-list-your-defi-token-on-uniswap-d4s3w7s)
+
 ### Quick start
 
 ```
-<script src="https://unpkg.com/depay-widgets@1.2.0/dist/umd/index.js"/>
+<script src="https://unpkg.com/depay-widgets@1/dist/umd/index.js"/>
 ```
 
 ```
@@ -128,6 +141,14 @@ Use our [sale configurator](https://depay.fi/documentation/sale#sale-configurato
 `callback`
 
 A function that will be called once the payment has been successfully confirmed by the network.
+
+The widget will call the `callback` function passing a callback object as an argument:
+
+```
+{
+  tx: '<the transaction hash of the confirmed transaction>'
+}
+```
 
 ## Development
 
