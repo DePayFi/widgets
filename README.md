@@ -97,7 +97,7 @@ The widget will call the `callback` function passing a callback object as an arg
 
 DePay Sales allows you easily sell tokens directly from your website or Dapp while accepting thousands of crypto assets as means of payment.
 
-[DePay Sales Product Video](XXX)
+[DePay Sales Product Video](https://youtu.be/rfdPCoF3tpw)
 
 ### Preparation
 
