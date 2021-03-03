@@ -162,7 +162,6 @@ class SaleDialog extends React.Component {
       { value: value }
     )
     .catch(function(){
-      console.log(arguments);
       Rollbar.error("pay catch", arguments);
       this.setState({ paying: false });
     }.bind(this))
@@ -177,11 +176,12 @@ class SaleDialog extends React.Component {
             dialogContext.setClosable(true);
             this.setState({
               paying: false,
-              payed: true
+              payed: { transactionHash: transaction.transactionHash }
             });
             setTimeout(function(){
-              dialogContext.closeContainer();
-              if(typeof callbackContext.callback === 'function') { callbackContext.callback({tx: transaction.hash}); }
+              if(typeof callbackContext.callback === 'function') {
+                callbackContext.callback({tx: transaction.transactionHash});
+              }
             }, 1600)
           }
         }.bind(this));
@@ -283,6 +283,7 @@ class SaleDialog extends React.Component {
                 <div className='DialogFooter'>
                   { this.renderCallToAction.bind(this)() }
                   <div className='PoweredBy'>
+                    { this.renderTransaction.bind(this)() }
                     {this.paymentType() &&
                       <span>
                         <a target='_blank' rel='noopener noreferrer' href={ this.paymentTypeLink() } className='PoweredByLink' title={ this.paymentTypeTitle() }>
@@ -302,6 +303,22 @@ class SaleDialog extends React.Component {
         )}
       </DialogContext.Consumer>
     )
+  }
+
+  renderTransaction() {
+    if((this.state.paying && this.state.paying.transactionHash) || (this.state.payed && this.state.payed.transactionHash)) {
+      let transactionHash = (this.state.paying && this.state.paying.transactionHash) || (this.state.payed && this.state.payed.transactionHash);
+      return(
+        <span>
+          <a target='_blank' rel='noopener noreferrer' href={ 'https://etherscan.io/tx/'+transactionHash } className='PoweredByLink' title='Your transaction'>
+            tx
+          </a>
+          <span className='PoweredByLink'>&nbsp;•&nbsp;</span>
+        </span>
+      )
+    } else {
+      return
+    }
   }
 
   renderCallToAction() {

@@ -169,11 +169,12 @@ class PaymentDialog extends React.Component {
             dialogContext.setClosable(true);
             this.setState({
               paying: false,
-              payed: true
+              payed: { transactionHash: transaction.transactionHash }
             });
             setTimeout(function(){
-              dialogContext.closeContainer();
-              if(typeof callbackContext.callback === 'function') { callbackContext.callback({tx: transaction.hash}); }
+              if(typeof callbackContext.callback === 'function') {
+                callbackContext.callback({tx: transaction.transactionHash}); 
+              }
             }, 1600)
           }
         }.bind(this));
@@ -242,12 +243,12 @@ class PaymentDialog extends React.Component {
                         </span>
                       </div>
                     </div>
-
                   </div>
                 </div>
                 <div className='DialogFooter'>
                   { this.renderCallToAction.bind(this)() }
                   <div className='PoweredBy'>
+                    { this.renderTransaction.bind(this)() }
                     <a target='_blank' rel='noopener noreferrer' href={ 'https://etherscan.io/token/'+this.props.receiverToken.address } title={'Sending '+DisplayTokenAmount(this.props.receiverAmount, this.props.receiverToken.decimals, this.props.receiverToken.symbol)+' to the receiver'}>
                       <TokenIconComponent
                         src={ this.props.receiverToken.logoURI }
@@ -274,6 +275,22 @@ class PaymentDialog extends React.Component {
         )}
       </DialogContext.Consumer>
     )
+  }
+
+  renderTransaction() {
+    if((this.state.paying && this.state.paying.transactionHash) || (this.state.payed && this.state.payed.transactionHash)) {
+      let transactionHash = (this.state.paying && this.state.paying.transactionHash) || (this.state.payed && this.state.payed.transactionHash);
+      return(
+        <span>
+          <a target='_blank' rel='noopener noreferrer' href={ 'https://etherscan.io/tx/'+transactionHash } className='PoweredByLink' title='Your transaction'>
+            tx
+          </a>
+          <span className='PoweredByLink'>&nbsp;•&nbsp;</span>
+        </span>
+      )
+    } else {
+      return
+    }
   }
 
   renderCallToAction() {
