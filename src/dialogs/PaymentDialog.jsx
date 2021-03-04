@@ -117,13 +117,13 @@ class PaymentDialog extends React.Component {
     let route;
 
     route = this.props.selected.route;
-
+    
     // Reduce routes with the same token to direct transfers,
     // as for the smart contract it's not a swap, but a transfer
-    if(route.length === 2 && route[0] === route[1]) {
+    if(this.paymentType() === 'transfer') {
       route = [route[0]];
     }
-    
+
     let amountIn = this.props.selected.amounts[0];
     let amountOut = this.props.selected.amounts[this.props.selected.amounts.length-1];
 
@@ -142,8 +142,8 @@ class PaymentDialog extends React.Component {
 
     let plugins = ['0x99F3F4685a7178F26EB4F4Ca8B75a1724F1577B9'];
     let exchange = Exchanges.findByName(this.props.selected.exchange);
-    if(exchange) {
-      plugins.unshift(exchange.pluginAddress())
+    if(exchange && this.paymentType() != 'transfer') {
+      plugins.unshift(exchange.pluginAddress()); // only add exchange plugin if swap is nessary
     }
 
     DePayRouterV1Contract.connect(this.props.wallet.provider().getSigner(0)).route(

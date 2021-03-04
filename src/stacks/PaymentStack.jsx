@@ -65,6 +65,7 @@ class PaymentStack extends React.Component {
                                         <PaymentProvider
                                           route={ routesContext.selected }
                                           gas={ gasContext.selected }
+                                          receiverToken={ tokenContext.token }
                                           price={ priceContext.price }
                                           amount={ amountContext.amount }
                                         >

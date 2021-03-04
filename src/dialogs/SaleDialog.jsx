@@ -14,7 +14,7 @@ import QuestionMarkCircleComponent from '../components/QuestionMarkCircleCompone
 import React from 'react';
 import SaleDialogSkeleton from '../dialogs/SaleDialogSkeleton';
 import TokenIconComponent from '../components/TokenIconComponent';
-import { ETH, MAXINT, SLIPPAGE } from '../utils/Constants';
+import { ETH, MAXINT } from '../utils/Constants';
 import { ethers } from 'ethers';
 
 class SaleDialog extends React.Component {
@@ -124,7 +124,7 @@ class SaleDialog extends React.Component {
       route = [route[0]];
     }
     
-    let amountIn = parseInt(parseInt(this.props.selected.amounts[0]) * SLIPPAGE).toString();
+    let amountIn = this.props.selected.amounts[0];
     let amountOut = this.props.selected.amounts[this.props.selected.amounts.length-1];
 
     let transactionConfiguration = {};
