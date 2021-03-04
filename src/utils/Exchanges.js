@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import UniswapExchange from '../exchanges/UniswapExchange';
 import MooniswapExchange from '../exchanges/MooniswapExchange';
-import { ETH } from '../utils/Constants';
+import { ETH, SLIPPAGE } from '../utils/Constants';
 import { ethers } from 'ethers';
 
 class Exchanges {
@@ -32,6 +32,27 @@ class Exchanges {
     });
   }
 
+  static amountsWithOrWithoutSlippage(endTokenAddress, route, amounts) {
+    if(amounts[Object.keys(amounts)[0]] == undefined || amounts[Object.keys(amounts)[0]] == null) {
+      // No amounts as there is not route
+      return amounts;
+    } else if(endTokenAddress.toLowerCase() === route.token.address.toLowerCase()) {
+      // direct transfer requries no slippage nor a conversion (input = output)
+      let amountsWithoutSlippage = amounts[Object.keys(amounts)[0]].slice(0); // create a copy
+      amountsWithoutSlippage[0] = amountsWithoutSlippage[amountsWithoutSlippage.length-1];
+      amounts[Object.keys(amounts)[0]] = amountsWithoutSlippage;
+      return amounts;
+    } else {
+      // swap requires to add slippage
+      let amountsWithSlippage = amounts[Object.keys(amounts)[0]].slice(0); // create a copy
+      for (var i = 0; i < amountsWithSlippage.length-1; i++) {
+        amountsWithSlippage[i] = ethers.BigNumber.from(amountsWithSlippage[i]).div("100").mul(SLIPPAGE.toString()).add(amountsWithSlippage[i]).toString();
+      }
+      amounts[Object.keys(amounts)[0]] = amountsWithSlippage;
+      return amounts;
+    }
+  }
+
   static findBestRoutesAndRequiredAmountsForEndToken(routes, endTokenAddress, endTokenAmount){
     return new Promise(function(resolve, reject){
       Exchanges.findRoutes(endTokenAddress)
@@ -56,8 +77,8 @@ class Exchanges {
                   {},
                   route,
                   { route: _.uniq([route.token.address].concat(Object.values(exchangesWithIntermediateRoute)[0])) },
-                  { amounts: amountsForRoutesPerExchange[index] });
-              }).filter(function(route){
+                  { amounts: this.amountsWithOrWithoutSlippage(endTokenAddress, route, amountsForRoutesPerExchange[index]) });
+              }.bind(this)).filter(function(route){
                 return Boolean(
                   _.every(Object.values(route.amounts), function(values){
                     return values !== null && 
@@ -70,9 +91,9 @@ class Exchanges {
                 return Exchanges.selectBestExchangeRoute(route);
               })
             )
-          })
-        });
-    });
+          }.bind(this))
+        }.bind(this));
+    }.bind(this));
   }
 
   static selectBestExchangeRoute(route) {

@@ -22,7 +22,7 @@ class ChangeTokenAmountDialog extends React.Component {
 
     this.state = {
       amount: parseInt(props.amount),
-      maxAmount: (parseInt(maxAmountRoute.maxAmount)/SLIPPAGE),
+      maxAmount: ethers.BigNumber.from(maxAmountRoute.maxAmount).div("100").mul(SLIPPAGE.toString()).add(maxAmountRoute.maxAmount).toString(),
       maxAmountRoute: maxAmountRoute,
     };
   }

@@ -127,11 +127,6 @@ class PaymentDialog extends React.Component {
     let amountIn = this.props.selected.amounts[0];
     let amountOut = this.props.selected.amounts[this.props.selected.amounts.length-1];
 
-    // amountIn In is the same amount as out if transfered directly
-    if(this.paymentType() === 'transfer') {
-      amountIn = amountOut;
-    }
-
     let transactionConfiguration = {
       gasPrice: ethers.utils.parseUnits(gasContext.selected.toString(), 'gwei')
     };
@@ -151,6 +146,8 @@ class PaymentDialog extends React.Component {
       plugins.unshift(exchange.pluginAddress()); // only add exchange plugin if swap is nessary
     }
 
+    console.log('amountIn', amountIn);
+    console.log('amountOut', amountOut);
     DePayRouterV1Contract.connect(this.props.wallet.provider().getSigner(0)).route(
       route,
       [amountIn, amountOut, deadline],
