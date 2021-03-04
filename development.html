@@ -21,11 +21,11 @@
   </head>
   <body style="text-align: center;">
     
-    <div class="container pb-4"><!-- DePay Payments -->
+    <div class="container pb-4"><!-- Payment -->
       <div class="row">
       <div class="col-4"></div>
       <div class="col-4">
-        <h2 class="pt-5">DePay Payments</h2>
+        <h2 class="pt-5">Payment</h2>
         <div class="form-group pt-3">
           <label for="paymentAmountInput">Amount</label>
           <input class="form-control text-center" id="paymentAmountInput" aria-describedby="paymentAmount" placeholder="20" value="20">
@@ -64,13 +64,72 @@
         </script>
       </div>
       <div class="col-4"></div>
-    </div><!-- DePay Payments -->
+    </div><!-- Payment -->
 
-    <div class="container pb-4"><!-- DePay Sales -->
+    <div class="container pb-4"><!-- Donation -->
       <div class="row">
       <div class="col-4"></div>
       <div class="col-4">
-        <h2 class="pt-5">DePay Sales</h2>
+        <h2 class="pt-5">Donation</h2>
+        <div class="form-group pt-3">
+          <label for="donationStartAmountInput">Start Amount</label>
+          <input class="form-control text-center" id="donationStartAmountInput" aria-describedby="donationAmount" placeholder="10" value="10">
+          <small id="donationAmount" class="form-text text-muted">The start amount selected by the widget?</small>
+        </div>
+        <div class="form-group pt-3">
+          <label for="donationMinAmountInput">Min. Amount</label>
+          <input class="form-control text-center" id="donationMinAmountInput" aria-describedby="donationAmount" placeholder="1" value="1">
+          <small id="donationAmount" class="form-text text-muted">Min. amount you want to enforce by the widget?</small>
+        </div>
+        <div class="form-group pt-1">
+          <label for="donationStepAmountInput">Step Amount</label>
+          <input class="form-control text-center" id="donationStepAmountInput" aria-describedby="donationAmount" placeholder="1" value="1">
+          <small id="donationAmount" class="form-text text-muted">Selectable in which steps?</small>
+        </div>
+        <div class="form-group pt-1">
+          <label for="donationTokenInput">Token</label>
+          (<a id="donationSwitchToken" href="#">Switch</a>)
+          <script>
+            var button = document.getElementById("donationSwitchToken");
+            button.addEventListener("click",function(e){
+              DePayWidgets.Selector(function(token){
+                document.getElementById("donationTokenInput").value = token.address;
+              });
+            });
+          </script>  
+          <input class="form-control text-center" id="paymentTokenInput" aria-describedby="donationToken" placeholder="0xdac17f958d2ee523a2206206994597c13d831ec7" value="0xdac17f958d2ee523a2206206994597c13d831ec7">
+          <small id="donationToken" class="form-text text-muted">Which token do you want to receive?</small>
+        </div>
+        <div class="form-group pt-1">
+          <label for="donationReceiverInput">Receiver</label>
+          <input class="form-control text-center" id="donationReceiverInput" aria-describedby="donationReceiver" placeholder="0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02" value="0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02">
+          <small id="donationReceiver" class="form-text text-muted">Which address should receive the payment?</small>
+        </div>
+        
+        <button id="donationButton" class="btn-lg mt-2">Donate</button>
+        <script>
+          var button = document.getElementById("payButton");
+          button.addEventListener("click",function(e){
+            DePayWidgets.Donation({
+              amount: {
+                start: document.getElementById("salesStartAmountInput").value,
+                min: document.getElementById("salesMinAmountInput").value,
+                step: document.getElementById("salesStepAmountInput").value
+              },
+              token: document.getElementById("paymentTokenInput").value,
+              receiver: document.getElementById("paymentReceiverInput").value
+            });
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Donation -->
+
+    <div class="container pb-4"><!-- Sale -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <h2 class="pt-5">Sale</h2>
         <div class="form-group pt-3">
           <label for="salesStartAmountInput">Start Amount</label>
           <input class="form-control text-center" id="salesStartAmountInput" aria-describedby="salesAmount" placeholder="10" value="10">
@@ -117,7 +176,7 @@
         </script>
       </div>
       <div class="col-4"></div>
-    </div><!-- DePay Sales -->
+    </div><!-- Sale -->
 
 
   </body>
