@@ -23,8 +23,11 @@ class Exchanges {
       })).then(function(maxAmounts){
         resolve(
           routes.map(function(route, index){
+            var maxAmountIncludingSlippage = maxAmounts[index];
+            var maxAmountExcludingSlippage = ethers.BigNumber.from(maxAmountIncludingSlippage).sub(ethers.BigNumber.from(maxAmountIncludingSlippage).div("100").mul(SLIPPAGE.toString())).toString();
+            // slippage gets added later again, so maxAmount need to exclude slippage
             return Object.assign({}, route, {
-              maxAmount: maxAmounts[index]
+              maxAmount: maxAmountExcludingSlippage
             })
           })
         )
