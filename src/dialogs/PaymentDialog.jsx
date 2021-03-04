@@ -117,15 +117,20 @@ class PaymentDialog extends React.Component {
     let route;
 
     route = this.props.selected.route;
-
+    
     // Reduce routes with the same token to direct transfers,
     // as for the smart contract it's not a swap, but a transfer
     if(this.paymentType() === 'transfer') {
       route = [route[0]];
     }
-    
+
     let amountIn = this.props.selected.amounts[0];
     let amountOut = this.props.selected.amounts[this.props.selected.amounts.length-1];
+
+    // amountIn In is the same amount as out if transfered directly
+    if(this.paymentType() === 'transfer') {
+      amountIn = amountOut;
+    }
 
     let transactionConfiguration = {
       gasPrice: ethers.utils.parseUnits(gasContext.selected.toString(), 'gwei')
