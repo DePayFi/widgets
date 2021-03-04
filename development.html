@@ -97,7 +97,7 @@
               });
             });
           </script>  
-          <input class="form-control text-center" id="paymentTokenInput" aria-describedby="donationToken" placeholder="0xdac17f958d2ee523a2206206994597c13d831ec7" value="0xdac17f958d2ee523a2206206994597c13d831ec7">
+          <input class="form-control text-center" id="donationTokenInput" aria-describedby="donationToken" placeholder="0xdac17f958d2ee523a2206206994597c13d831ec7" value="0xdac17f958d2ee523a2206206994597c13d831ec7">
           <small id="donationToken" class="form-text text-muted">Which token do you want to receive?</small>
         </div>
         <div class="form-group pt-1">
@@ -108,16 +108,16 @@
         
         <button id="donationButton" class="btn-lg mt-2">Donate</button>
         <script>
-          var button = document.getElementById("payButton");
+          var button = document.getElementById("donationButton");
           button.addEventListener("click",function(e){
             DePayWidgets.Donation({
               amount: {
-                start: document.getElementById("salesStartAmountInput").value,
-                min: document.getElementById("salesMinAmountInput").value,
-                step: document.getElementById("salesStepAmountInput").value
+                start: document.getElementById("donationStartAmountInput").value,
+                min: document.getElementById("donationMinAmountInput").value,
+                step: document.getElementById("donationStepAmountInput").value
               },
-              token: document.getElementById("paymentTokenInput").value,
-              receiver: document.getElementById("paymentReceiverInput").value
+              token: document.getElementById("donationTokenInput").value,
+              receiver: document.getElementById("donationReceiverInput").value
             });
           });
         </script>

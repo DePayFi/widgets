@@ -5,7 +5,6 @@ import CloseDialogComponent from '../components/CloseDialogComponent';
 import DePayRouterV1Contract from '../contracts/DePayRouterV1Contract';
 import DialogContext from '../contexts/DialogContext';
 import DisplayTokenAmount from '../utils/DisplayTokenAmount';
-import DonationDialogSkeleton from '../dialogs/DonationDialogSkeleton';
 import Erc20Abi from '../abi/Erc20Abi';
 import EthersProvider from '../utils/EthersProvider';
 import Exchanges from '../utils/Exchanges';
@@ -13,8 +12,9 @@ import NavigateStackContext from '../contexts/NavigateStackContext';
 import NotEnoughFundsDialog from '../dialogs/NotEnoughFundsDialog';
 import QuestionMarkCircleComponent from '../components/QuestionMarkCircleComponent';
 import React from 'react';
+import DonationDialogSkeleton from '../dialogs/DonationDialogSkeleton';
 import TokenIconComponent from '../components/TokenIconComponent';
-import { ETH, MAXINT, SLIPPAGE } from '../utils/Constants';
+import { ETH, MAXINT } from '../utils/Constants';
 import { ethers } from 'ethers';
 
 class DonationDialog extends React.Component {
@@ -124,7 +124,7 @@ class DonationDialog extends React.Component {
       route = [route[0]];
     }
     
-    let amountIn = parseInt(parseInt(this.props.selected.amounts[0]) * SLIPPAGE).toString();
+    let amountIn = this.props.selected.amounts[0];
     let amountOut = this.props.selected.amounts[this.props.selected.amounts.length-1];
 
     let transactionConfiguration = {};
@@ -133,16 +133,6 @@ class DonationDialog extends React.Component {
     }
 
     let deadline = Math.round(new Date().getTime() / 1000) + (24 * 3600); // 24 hours from now
-
-    let addresses;
-    if(this.props.addresses && this.props.addresses.length) {
-      addresses = _.map(this.props.addresses, function(address){
-        if(address === 'user') { return this.props.wallet.address() }
-        return address;
-      }.bind(this));
-    } else {
-      addresses = [this.props.wallet.address()];
-    }
 
     let plugins;
     plugins = [
@@ -153,10 +143,18 @@ class DonationDialog extends React.Component {
     let value = 0;
     if(route[0] === '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE') { value = amountIn }
 
+    console.log('==== route ====');
+    console.log('route', route);
+    console.log('amountIn', amountIn);
+    console.log('amountOut', amountOut);
+    console.log('deadline', deadline);
+    console.log('addresses', this.props.receiver);
+    console.log('plugins', plugins);
+    
     DePayRouterV1Contract.connect(this.props.wallet.provider().getSigner(0)).route(
       route,
       [amountIn, amountOut, deadline],
-      addresses,
+      [this.props.receiver],
       plugins,
       ([]),
       { value: value }
@@ -227,23 +225,23 @@ class DonationDialog extends React.Component {
                   <CloseDialogComponent/>
                 </div>
                 <div className='DialogBody HeightAuto'>
-                  <div className='Payment' key={ this.props.tokenContext.token.address }>
+                  <div className='Payment' key={ this.props.receiverToken.address }>
                     <div className='PaymentRow ChangeTokenAmount' onClick={ ()=> this.navigateIfActionable(navigate, 'ChangeTokenAmount', dialogContext) }>
                       <div className='PaymentColumn PaymentColumn1'>
                         <TokenIconComponent
-                          title={ this.props.tokenContext.token.name }
-                          src={ this.props.tokenContext.token.logoURI }
+                          title={ this.props.receiverToken.name }
+                          src={ this.props.receiverToken.logoURI }
                         />
                       </div>
                       <div className='PaymentColumn PaymentColumn2'>
                         <div className='PaymentDescription'>
-                          { this.props.action || 'Purchase' }
+                          { this.props.action || 'Donation' }
                         </div>
-                        <div className='PaymentAmountRow1 TextEllipsis' title={DisplayTokenAmount(this.props.amount, this.props.tokenContext.decimals, this.props.tokenContext.token.symbol)}>
-                          { DisplayTokenAmount(this.props.amount, this.props.tokenContext.token.decimals, this.props.tokenContext.token.symbol) }
+                        <div className='PaymentAmountRow1 TextEllipsis' title={DisplayTokenAmount(this.props.receiverAmount, this.props.receiverToken.decimals, this.props.receiverToken.symbol)}>
+                          { DisplayTokenAmount(this.props.receiverAmount, this.props.receiverToken.decimals, this.props.receiverToken.symbol) }
                         </div>
                         <div className='PaymentAmountRow2 TextEllipsis'>
-                          { this.props.tokenContext.token.name }
+                          { this.props.receiverToken.name }
                         </div>
                       </div>
                       <div className='PaymentColumn PaymentColumn3'>

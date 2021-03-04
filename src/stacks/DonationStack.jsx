@@ -1,6 +1,6 @@
 import AmountContext from '../contexts/AmountContext';
 import AmountProvider from '../providers/AmountProvider';
-import ChangeDonationAmountDialog from '../dialogs/ChangeDonationAmountDialog';
+import ChangeTokenAmountDialog from '../dialogs/ChangeTokenAmountDialog';
 import ChangeNetworkFeeDialog from '../dialogs/ChangeNetworkFeeDialog';
 import ChangePaymentTokenDialog from '../dialogs/ChangePaymentTokenDialog';
 import DonationDialog from '../dialogs/DonationDialog';
@@ -60,6 +60,7 @@ class DonationStack extends React.Component {
                                     amount={ amountContext.amount }
                                     address={ walletContext.address }
                                     wallet={ walletContext.wallet }
+                                    addMaxAmounts={ true }
                                   >
                                     <RoutesContext.Consumer>
                                       {routesContext => (
@@ -74,15 +75,15 @@ class DonationStack extends React.Component {
                                               <Stack
                                                 dialogs={{
                                                   Donation: <DonationDialog
-                                                    initializing={ priceContext.initializing || routesContext.initializing || gasContext.initializing }
                                                     selected={ routesContext.selected }
+                                                    initializing={ priceContext.initializing || routesContext.initializing || gasContext.initializing }
                                                     receiverToken={ tokenContext.token }
                                                     receiverAmount={ amountContext.amount }
                                                     paymentContext={ paymentContext }
                                                     receiver={ this.state.receiver }
                                                     wallet={ walletContext.wallet }
                                                   />,
-                                                  ChangeDonationAmount: <ChangeDonationAmountDialog
+                                                  ChangeTokenAmount: <ChangeTokenAmountDialog
                                                     token={ tokenContext.token }
                                                     amount={ amountContext.amount }
                                                     amountOptions={ this.props.amount }
