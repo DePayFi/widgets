@@ -76,8 +76,8 @@ class SaleStack extends React.Component {
                                               <Stack
                                                 dialogs={{
                                                   Sale: <SaleDialog
-                                                    initializing={ priceContext.initializing || routesContext.initializing || gasContext.initializing || tokenContext.initializing }
                                                     selected={ routesContext.selected }
+                                                    initializing={ priceContext.initializing || routesContext.initializing || tokenContext.initializing }
                                                     token={ tokenContext.token.address }
                                                     paymentContext={ paymentContext }
                                                     wallet={ walletContext.wallet }

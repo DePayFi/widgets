@@ -29,6 +29,7 @@ class RoutesProvider extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({ initializing: true });
     this.computeRoutes();
   }
 
@@ -41,12 +42,13 @@ class RoutesProvider extends React.Component {
       .then(this.sortRoutes.bind(this))
       .then(this.addMaxAmounts.bind(this))
       .then(function(routes){
-        this.setState({selected: routes[0]}); // set selected first to prevent flickering "Not enough funds"
-        this.setState({
-          initializing: false,
-          routes,
-          selected: routes[0]
-        });
+        this.setState({selected: routes[0]}, function(){
+          // set selected first to prevent flickering "Not enough funds"
+          this.setState({
+            initializing: false,
+            routes
+          });
+        }); 
         return routes;
       }.bind(this))
   }
