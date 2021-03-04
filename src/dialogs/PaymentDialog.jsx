@@ -146,8 +146,6 @@ class PaymentDialog extends React.Component {
       plugins.unshift(exchange.pluginAddress()); // only add exchange plugin if swap is nessary
     }
 
-    console.log('amountIn', amountIn);
-    console.log('amountOut', amountOut);
     DePayRouterV1Contract.connect(this.props.wallet.provider().getSigner(0)).route(
       route,
       [amountIn, amountOut, deadline],
