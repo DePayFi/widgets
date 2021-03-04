@@ -7,7 +7,6 @@ import NavigateStackContext from '../contexts/NavigateStackContext';
 import React from 'react';
 import Slider from 'react-rangeslider';
 import TokenIconComponent from '../components/TokenIconComponent';
-import { SLIPPAGE } from '../utils/Constants';
 import { ethers } from 'ethers';
 
 class ChangeTokenAmountDialog extends React.Component {
@@ -22,7 +21,7 @@ class ChangeTokenAmountDialog extends React.Component {
 
     this.state = {
       amount: parseInt(props.amount),
-      maxAmount: ethers.BigNumber.from(maxAmountRoute.maxAmount).div("100").mul(SLIPPAGE.toString()).add(maxAmountRoute.maxAmount).toString(),
+      maxAmount: maxAmountRoute.maxAmount,
       maxAmountRoute: maxAmountRoute,
     };
   }
@@ -89,7 +88,7 @@ class ChangeTokenAmountDialog extends React.Component {
 
                 <div className='TextAlignCenter TextGrey PaddingBottomSmall'>
                   Max. purchase for<br/>
-                  {DisplayTokenAmount(parseInt(this.state.maxAmountRoute.balance / SLIPPAGE).toLocaleString('fullwide', {useGrouping:false}), this.state.maxAmountRoute.token.decimals, this.state.maxAmountRoute.token.symbol)}
+                  {DisplayTokenAmount(parseInt(this.state.maxAmountRoute.balance).toLocaleString('fullwide', {useGrouping:false}), this.state.maxAmountRoute.token.decimals, this.state.maxAmountRoute.token.symbol)}
                   <TokenIconComponent
                     className='small'
                     title={ this.state.maxAmountRoute.token.name }
