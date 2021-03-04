@@ -143,14 +143,6 @@ class DonationDialog extends React.Component {
     let value = 0;
     if(route[0] === '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE') { value = amountIn }
 
-    console.log('==== route ====');
-    console.log('route', route);
-    console.log('amountIn', amountIn);
-    console.log('amountOut', amountOut);
-    console.log('deadline', deadline);
-    console.log('addresses', this.props.receiver);
-    console.log('plugins', plugins);
-    
     DePayRouterV1Contract.connect(this.props.wallet.provider().getSigner(0)).route(
       route,
       [amountIn, amountOut, deadline],

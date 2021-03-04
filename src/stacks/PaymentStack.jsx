@@ -74,8 +74,8 @@ class PaymentStack extends React.Component {
                                               <Stack
                                                 dialogs={{
                                                   Payment: <PaymentDialog
-                                                    initializing={ priceContext.initializing || routesContext.initializing || gasContext.initializing }
                                                     selected={ routesContext.selected }
+                                                    initializing={ priceContext.initializing || routesContext.initializing || gasContext.initializing }
                                                     receiverToken={ tokenContext.token }
                                                     receiverAmount={ amountContext.amount }
                                                     paymentContext={ paymentContext }
