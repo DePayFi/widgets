@@ -18,6 +18,7 @@ export default function(){
     .StackedDialogCell {
       display: table-cell;
       vertical-align: middle;
+      padding: 0 0.6rem;
     }
 
     .StackedDialog {

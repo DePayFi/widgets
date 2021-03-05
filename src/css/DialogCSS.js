@@ -3,8 +3,9 @@ export default function(){
 
     .Dialog {
       margin: 0 auto;
+      max-width: 26rem;
       position: relative;
-      width: 26rem;
+      width: 100%;
     }
 
     .DialogBody {
