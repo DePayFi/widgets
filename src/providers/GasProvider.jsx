@@ -3,7 +3,7 @@ import GasContext from '../contexts/GasContext';
 
 class GasProvider extends React.Component {
   state = {
-    initializing: true,
+    initializing: false,
     slow: null,
     standard: null,
     fast: null,
@@ -17,26 +17,26 @@ class GasProvider extends React.Component {
   }
 
   componentDidMount() {
-    this.loadGas().then(function(gas){
-      this.setState({ 
-        initializing: false,
-        selected: parseInt((gas.standard + gas.fast) / 2, 10),
-        slow: gas.slow,
-        standard: gas.standard,
-        fast: gas.fast,
-      });
-    }.bind(this));
+    // this.loadGas().then(function(gas){
+    //   this.setState({ 
+    //     initializing: false,
+    //     selected: parseInt((gas.standard + gas.fast) / 2, 10),
+    //     slow: gas.slow,
+    //     standard: gas.standard,
+    //     fast: gas.fast,
+    //   });
+    // }.bind(this));
 
-    this.interval = setInterval(function(){
-      this.loadGas().then(function(gas){
-        if(this.equalState(gas)) { return }
-        this.setState({
-          slow: gas.slow,
-          standard: gas.standard,
-          fast: gas.fast,
-        });
-      }.bind(this))
-    }.bind(this), 1000 * 30)
+    // this.interval = setInterval(function(){
+    //   this.loadGas().then(function(gas){
+    //     if(this.equalState(gas)) { return }
+    //     this.setState({
+    //       slow: gas.slow,
+    //       standard: gas.standard,
+    //       fast: gas.fast,
+    //     });
+    //   }.bind(this))
+    // }.bind(this), 1000 * 30)
   }
 
   componentWillUnmount() {

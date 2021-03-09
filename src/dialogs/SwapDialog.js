@@ -121,7 +121,7 @@ class SwapDialog extends React.Component {
       this.props.data
     )
     .catch(function(){
-      Rollbar.error("pay catch", arguments);
+      console.log("pay catch", arguments);
       this.setState({ paying: false });
     }.bind(this))
     .then(function(transaction){
@@ -144,7 +144,7 @@ class SwapDialog extends React.Component {
           }
         }.bind(this));
       } else {
-        Rollbar.error("pay then", arguments);
+        console.log("pay then", arguments);
         dialogContext.setClosable(true);
         this.setState({ paying: false })
       }
