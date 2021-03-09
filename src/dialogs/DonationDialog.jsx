@@ -29,7 +29,7 @@ class DonationDialog extends React.Component {
   }
 
   paymentType() {
-    if(this.props.selected.token.address === this.props.token) {
+    if(this.props.selected.token.address === this.props.receiverToken.address) {
       return 'transfer';
     } else {
       return 'swap';
@@ -61,7 +61,7 @@ class DonationDialog extends React.Component {
   paymentTypeLink() {
     switch (this.paymentType()) {
       case 'transfer':
-        return 'https://etherscan.io/token/'+this.props.token;
+        return 'https://etherscan.io/token/'+this.props.receiverToken.address;
       break;
       case 'swap':
         return Exchanges.findByName(this.props.selected.exchange).linkRoute(this.props.selected);
@@ -117,31 +117,32 @@ class DonationDialog extends React.Component {
     let route;
 
     route = this.props.selected.route;
-
+    
     // Reduce routes with the same token to direct transfers,
     // as for the smart contract it's not a swap, but a transfer
-    if(route.length === 2 && route[0] === route[1]) {
+    if(this.paymentType() === 'transfer') {
       route = [route[0]];
     }
-    
+
     let amountIn = this.props.selected.amounts[0];
     let amountOut = this.props.selected.amounts[this.props.selected.amounts.length-1];
 
     let transactionConfiguration = {};
+      
     if(route[0] === ETH) {
       transactionConfiguration.value = amountIn;
     }
 
     let deadline = Math.round(new Date().getTime() / 1000) + (24 * 3600); // 24 hours from now
 
-    let plugins;
-    plugins = [
-      Exchanges.findByName(this.props.selected.exchange).pluginAddress(),
-      '0x99F3F4685a7178F26EB4F4Ca8B75a1724F1577B9' // payment plugin
-    ]
-
     let value = 0;
     if(route[0] === '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE') { value = amountIn }
+
+    let plugins = ['0x99F3F4685a7178F26EB4F4Ca8B75a1724F1577B9'];
+    let exchange = Exchanges.findByName(this.props.selected.exchange);
+    if(exchange && this.paymentType() != 'transfer') {
+      plugins.unshift(exchange.pluginAddress()); // only add exchange plugin if swap is nessary
+    }
 
     DePayRouterV1Contract.connect(this.props.wallet.provider().getSigner(0)).route(
       route,
@@ -152,7 +153,7 @@ class DonationDialog extends React.Component {
       { value: value }
     )
     .catch(function(){
-      Rollbar.error("pay catch", arguments);
+      console.log("pay catch", arguments);
       this.setState({ paying: false });
     }.bind(this))
     .then(function(transaction){
@@ -176,7 +177,7 @@ class DonationDialog extends React.Component {
           }
         }.bind(this));
       } else {
-        Rollbar.error("pay then", arguments);
+        console.log("pay then", arguments);
         dialogContext.setClosable(true);
         this.setState({ paying: false })
       }

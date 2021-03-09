@@ -127,10 +127,7 @@ class PaymentDialog extends React.Component {
     let amountIn = this.props.selected.amounts[0];
     let amountOut = this.props.selected.amounts[this.props.selected.amounts.length-1];
 
-    let transactionConfiguration = {
-      gasPrice: ethers.utils.parseUnits(gasContext.selected.toString(), 'gwei')
-    };
-      
+    let transactionConfiguration = {};
     if(route[0] === ETH) {
       transactionConfiguration.value = amountIn;
     }
@@ -155,7 +152,7 @@ class PaymentDialog extends React.Component {
       { value: value }
     )
     .catch(function(){
-      Rollbar.error("pay catch", arguments);
+      console.log("pay catch", arguments);
       this.setState({ paying: false });
     }.bind(this))
     .then(function(transaction){
@@ -179,7 +176,7 @@ class PaymentDialog extends React.Component {
           }
         }.bind(this));
       } else {
-        Rollbar.error("pay then", arguments);
+        console.log("pay then", arguments);
         dialogContext.setClosable(true);
         this.setState({ paying: false })
       }
