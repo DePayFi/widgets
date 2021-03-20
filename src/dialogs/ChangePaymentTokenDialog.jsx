@@ -42,7 +42,7 @@ class ChangePaymentTokenDialog extends React.Component {
       return null;
     }
   }
-  
+
   render() {
 
     return (
@@ -61,7 +61,7 @@ class ChangePaymentTokenDialog extends React.Component {
             </div>
             <div className='DialogBody'>
               {this.props.routes.map((route, index) => {
-                
+
                 const totalDisplayed = DisplayTokenAmount(route.balance, route.token.decimals, route.token.symbol)
                 const displayedTokenAmount = DisplayTokenAmount(route.amounts[0], route.token.decimals, route.token.symbol)
 
@@ -69,12 +69,20 @@ class ChangePaymentTokenDialog extends React.Component {
                   <div className='Payment' key={index}>
 
                     <div className='PaymentRow ChangePaymentRow' onClick={ ()=> this.selectNewRoute(index, navigate) }>
-                      <div className='PaymentColumn PaymentColumn1'>
+                    {route.nft
+                      ?<div className='PaymentColumn PaymentColumn1'>
                         <TokenIconComponent
                           title={ route.token.name }
                           src={ route.token.logoURI }
                         />
                       </div>
+                      :<div className='PaymentColumn PaymentColumnNFT'>
+                        <TokenIconComponent
+                          title={ route.token.name }
+                          src={ route.token.logoURI }
+                        />
+                      </div>
+                    }
                       <div className='PaymentColumn PaymentColumn2'>
                         <div className='PaymentDescription TextEllipsis'>
                           { route.token.name }

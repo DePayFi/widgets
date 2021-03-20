@@ -40,6 +40,11 @@ export default function(style){
       padding: 1rem;
       text-align: center;
     }
+    .PaymentColumnNFT{
+      height: 100%;
+      width:100%;
+      object-fit: contain;
+    }
 
     .PaymentColumn2 {
       width: 52%;
@@ -81,7 +86,7 @@ export default function(style){
     .PaymentAction:hover {
       background: rgba(0,0,0,0.03);
     }
-    
+
     .PaymentAction:active {
       background: rgba(0,0,0,0.08);
     }
