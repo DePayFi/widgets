@@ -33,38 +33,22 @@
         </div>
         <div class="form-group pt-1">
           <label for="senderAddress">Sender</label>
-          (<a id="nftSelector" href="#">View</a>)
-          <script>
-            var button = document.getElementById("nftSelector");
-            button.addEventListener("click",function(e){
+          <input class="form-control text-center" id="senderAddress" aria-describedby="senderAddressDesc" placeholder="0x317D875cA3B9f8d14f960486C0d1D1913be74e90" value="0x317D875cA3B9f8d14f960486C0d1D1913be74e90">
+          <label style="margin-top: 8px;" for="selectedNftToken">Selected NFT</label>
+          <input disabled class="form-control text-center" id="selectedNftToken" placeholder="" value="">
+          <small id="senderAddressDesc" class="form-text text-muted">Which NFT do you want to sell?</small>
+        </div>
+        
+        <button id="payWithNftButton" class="btn-lg mt-2">Pay with NFT</button>
+        <script>
+          var button = document.getElementById("payWithNftButton");
+          button.addEventListener("click",function(e){
               DePayWidgets.Nft.Selector({
                 sender: document.getElementById("senderAddress").value,
               }, function(tokenId){
                 document.getElementById("selectedNftToken").value = tokenId;
               });
             });
-          </script>  
-          <input class="form-control text-center" id="senderAddress" aria-describedby="senderAddressDesc" placeholder="0x317D875cA3B9f8d14f960486C0d1D1913be74e90" value="0x317D875cA3B9f8d14f960486C0d1D1913be74e90">
-          <label style="margin-top: 8px;" for="selectedNftToken">Selected NFT</label>
-          <input disabled class="form-control text-center" id="selectedNftToken" placeholder="" value="">
-          <small id="senderAddressDesc" class="form-text text-muted">Which NFT do you want to sell?</small>
-        </div>
-        <div class="form-group pt-1">
-          <label for="paymentReceiverInput">Receiver</label>
-          <input class="form-control text-center" id="paymentReceiverInput" aria-describedby="paymentReceiver" placeholder="0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02" value="0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02">
-          <small id="paymentReceiver" class="form-text text-muted">Which address should receive the payment?</small>
-        </div>
-        
-        <button id="payButton" class="btn-lg mt-2">Pay</button>
-        <script>
-          var button = document.getElementById("payButton");
-          button.addEventListener("click",function(e){
-            DePayWidgets.Payment({
-              amount: document.getElementById("paymentAmountInput").value,
-              token: document.getElementById("paymentTokenInput").value,
-              receiver: document.getElementById("paymentReceiverInput").value
-            });
-          });
         </script>
       </div>
       <div class="col-4"></div>
