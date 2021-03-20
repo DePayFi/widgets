@@ -35,6 +35,7 @@ class RoutesProvider extends React.Component {
 
   computeRoutes() {
     this.getAllTokenRoutes()
+      .then(this.addNFTRoutes.bind(this))
       .then(this.unshiftETHRoute.bind(this))
       .then(this.findBestRoutesAndRequiredAmounts.bind(this))
       .then(this.filterRoutesWithEnoughBalance.bind(this))
@@ -184,6 +185,7 @@ class RoutesProvider extends React.Component {
   }
 
   unshiftETHRoute(routes) {
+    console.log('all routes', routes);
     return new Promise(function(resolve, reject){
       const transfer = this.props.token === 'ETH';
       // fee for transfer or swap
@@ -207,6 +209,29 @@ class RoutesProvider extends React.Component {
 
         resolve([route].concat(routes));
       }.bind(this))
+    }.bind(this));
+  }
+
+  addNFTRoutes(routes) {
+    return new Promise(function(resolve, reject){
+      fetch(`https://api.opensea.io/api/v1/assets?owner=`+this.props.wallet.address()+`&order_direction=desc&offset=0&limit=100`).then(function(response){
+        response.json().then(function(data) {
+          routes = routes.concat(data.assets.map(function(asset){
+            return {
+              token: {
+                name: asset.name,
+                address: asset.asset_contract.address,
+                symbol: asset.asset_contract.name,
+                logoURI: asset.image_url
+              },
+              nft: true,
+              balance: 1,
+              approved: true
+            }            
+          }));
+          resolve(routes);
+        });
+      });
     }.bind(this));
   }
 

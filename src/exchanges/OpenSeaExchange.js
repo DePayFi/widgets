@@ -1,9 +1,5 @@
 class OpenSeaExchange {
 
-  static id() {
-    return 0;
-  }
-
   static name() {
     return 'OpenSea';
   }
@@ -25,6 +21,7 @@ class OpenSeaExchange {
   
   static findLiquidity(addressA, addressB) {
     return new Promise(function(resolve, reject){
+      console.log()
       debugger;
     });
   }
