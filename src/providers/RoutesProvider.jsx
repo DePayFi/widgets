@@ -5,7 +5,7 @@ import EthersProvider from '../utils/EthersProvider';
 import Exchanges from '../utils/Exchanges';
 import React from 'react';
 import RoutesContext from '../contexts/RoutesContext';
-import { ETH } from '../utils/Constants';
+import { WETH, ETH } from '../utils/Constants';
 import { ethers } from 'ethers';
 
 class RoutesProvider extends React.Component {
@@ -43,6 +43,7 @@ class RoutesProvider extends React.Component {
       .then(this.sortRoutes.bind(this))
       .then(this.addMaxAmounts.bind(this))
       .then(function(routes){
+        console.log(routes);
         this.setState({selected: routes[0]}, function(){
           // set selected first to prevent flickering "Not enough funds"
           this.setState({
@@ -91,7 +92,6 @@ class RoutesProvider extends React.Component {
         this.props.token,
         this.props.amount
       ).then(function(routes){
-
         var directTransfer = routes.find(function(route){
           return route.token.address === route.route[route.route.length-1];
         });
@@ -146,6 +146,7 @@ class RoutesProvider extends React.Component {
     return new Promise(function(resolve, reject){
       resolve(
         routes.filter(function(route){
+          if(route.amounts === null) { return false }
           return parseFloat(route.balance) >= parseFloat(route.amounts[0])
         })
       )
@@ -185,7 +186,6 @@ class RoutesProvider extends React.Component {
   }
 
   unshiftETHRoute(routes) {
-    console.log('all routes', routes);
     return new Promise(function(resolve, reject){
       const transfer = this.props.token === 'ETH';
       // fee for transfer or swap
@@ -214,7 +214,7 @@ class RoutesProvider extends React.Component {
 
   addNFTRoutes(routes) {
     return new Promise(function(resolve, reject){
-      fetch(`https://api.opensea.io/api/v1/assets?owner=`+this.props.wallet.address()+`&order_direction=desc&offset=0&limit=100`).then(function(response){
+      fetch(`https://api.opensea.io/api/v1/assets?owner=`+this.props.wallet.address()+`&order_direction=desc&offset=0&limit=1`).then(function(response){
         response.json().then(function(data) {
           routes = routes.concat(data.assets.map(function(asset){
             return {
@@ -222,10 +222,12 @@ class RoutesProvider extends React.Component {
                 name: asset.name,
                 address: asset.asset_contract.address,
                 symbol: asset.asset_contract.name,
-                logoURI: asset.image_url
+                logoURI: asset.image_url,
+                id: asset.token_id
               },
+              route: [WETH], // let's assume NFTs always go for WETH
               nft: true,
-              balance: 1,
+              balance: '1',
               approved: true
             }            
           }));

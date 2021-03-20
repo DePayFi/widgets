@@ -72,7 +72,8 @@ class Exchanges {
               return Exchanges.findAmountsForRoutePerExchange(
                 Object.keys(exchangesWithIntermediateRoute),
                 [route.token.address].concat(Object.values(exchangesWithIntermediateRoute)[0]),
-                endTokenAmount
+                endTokenAmount,
+                route
               )
             }
           })).then(function(amountsForRoutesPerExchange){
@@ -84,14 +85,15 @@ class Exchanges {
                   { route: _.uniq([route.token.address].concat(Object.values(exchangesWithIntermediateRoute)[0])) },
                   { amounts: this.amountsWithOrWithoutSlippage(endTokenAddress, route, amountsForRoutesPerExchange[index]) });
               }.bind(this)).filter(function(route){
-                return Boolean(
-                  _.every(Object.values(route.amounts), function(values){
+                let routeHasAmounts = Boolean(
+                  _.find(Object.values(route.amounts), function(values){
                     return values !== null && 
                       _.every(values, function(value){
                         return ethers.BigNumber.from(value).gt(0);
                       })
                   })
                 )
+                return routeHasAmounts
               }).map(function(route){
                 return Exchanges.selectBestExchangeRoute(route);
               })
@@ -108,10 +110,13 @@ class Exchanges {
         amounts: amounts
       });
     }.bind(this)).sort(function(a, b){
+      if(a.amounts === null && b.amounts === null) { return 0 } // equal
+      if(a.amounts === null) { return 1 } // b wins
+      if(b.amounts === null) { return -1 } // a wins
       if (ethers.BigNumber.from(a.amounts[0]).gt(ethers.BigNumber.from(b.amounts[0]))) {
         return 1; // b wins
       }
-      if (ethers.BigNumber.from(b.amounts[0]).gt(ethers.BigNumber.from(a.amounts[0]))) {
+      if (b.amounts === null || ethers.BigNumber.from(b.amounts[0]).gt(ethers.BigNumber.from(a.amounts[0]))) {
         return -1; // a wins
       }
       return 0; // equal
@@ -125,13 +130,13 @@ class Exchanges {
     )
   }
 
-  static findAmountsForRoutePerExchange(exchangeNames, route, endTokenAmount) {
+  static findAmountsForRoutePerExchange(exchangeNames, route, endTokenAmount, completeRoute) {
     let findAmountsForRoutePerExchange = {};
     return new Promise(function(resolve, reject){
       Promise.all(exchangeNames.map(function(exchangeName){
         if(route[0] === ETH) { route = route.slice(1,3); }
         if(route[route.length-1] === ETH) { route = [route[0], route[route.length-1]] }
-        return Exchanges.findByName(exchangeName).findAmounts(route, endTokenAmount);
+        return Exchanges.findByName(exchangeName).findAmounts(route, endTokenAmount, completeRoute);
       })).then(function(amounts){
         exchangeNames.forEach(function(exchangeName, index){
           findAmountsForRoutePerExchange[exchangeName] = amounts[index];
