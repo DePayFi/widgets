@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import DePayRouterV1Contract from '../contracts/DePayRouterV1Contract';
 import Erc20Abi from '../abi/Erc20Abi';
+import Erc1155Abi from '../abi/Erc1155Abi';
 import EthersProvider from '../utils/EthersProvider';
 import Exchanges from '../utils/Exchanges';
 import React from 'react';
@@ -56,6 +57,7 @@ class RoutesProvider extends React.Component {
   }
 
   addMaxAmounts(routes){
+    console.log('addMaxAmounts');
     if(this.props.addMaxAmounts === true) {
       return Exchanges.routesWithMaxAmounts(routes);
     } else {
@@ -64,22 +66,32 @@ class RoutesProvider extends React.Component {
   }
 
   addApprovalStatus(routes) {
+    console.log('addApprovalStatus');
     return Promise.all(
       routes.map(function(route){
         if(route.token.address === ETH) {
           route.approved = true;
           return Promise.resolve(route);
         } else {
-          return new ethers.Contract(route.token.address, Erc20Abi, EthersProvider)
-          .allowance(this.props.wallet.address(), DePayRouterV1Contract.address)
-          .then(function(amount){
-            if(amount.gt(ethers.BigNumber.from(route.amounts[0]))) {
-              route.approved = true;
-            } else {
-              route.approved = false;
-            }
-            return route;
-          });
+          if(route.nft) {
+            return new ethers.Contract(route.token.address, Erc1155Abi, EthersProvider)
+            .isApprovedForAll(this.props.wallet.address(), DePayRouterV1Contract.address)
+            .then(function(approved){
+              route.approved = approved;
+              return route;
+            });
+          } else {
+            return new ethers.Contract(route.token.address, Erc20Abi, EthersProvider)
+            .allowance(this.props.wallet.address(), DePayRouterV1Contract.address)
+            .then(function(amount){
+              if(amount.gt(ethers.BigNumber.from(route.amounts[0]))) {
+                route.approved = true;
+              } else {
+                route.approved = false;
+              }
+              return route;
+            });
+          }
         }
       }.bind(this))
     )
@@ -238,6 +250,7 @@ class RoutesProvider extends React.Component {
   }
 
   sortRoutes(routes) {
+    console.log('sortRoutes');
     return Promise.resolve(routes.sort(function(a, b){
       if (a.fee > b.fee) {
         return 1;

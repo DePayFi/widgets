@@ -14,10 +14,6 @@ class OpenSeaExchange {
   }
 
   static linkRoute(route) {
-    let path = (route.route || route.path).map(function(step){
-      if(step === ETH) { return '83C756Cc2' }
-      return step;
-    });
     return `https://opensea.com`
   }
   
