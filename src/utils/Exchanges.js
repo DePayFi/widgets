@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import UniswapExchange from '../exchanges/UniswapExchange';
+import OpenSeaExchange from '../exchanges/OpenSeaExchange';
 import MooniswapExchange from '../exchanges/MooniswapExchange';
 import { ETH, SLIPPAGE } from '../utils/Constants';
 import { ethers } from 'ethers';
@@ -7,7 +8,8 @@ import { ethers } from 'ethers';
 class Exchanges {
   static all = [
     // MooniswapExchange,
-    UniswapExchange
+    UniswapExchange,
+    OpenSeaExchange,
   ]
 
   static findByName(name) {
