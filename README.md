@@ -14,10 +14,10 @@
 
 ## Installation
 
-You can either load the depay-widgets package via unpkg's CDN:
+You can either load the depay-widgets package via CDN:
 
 ```
-<script src="https://unpkg.com/depay-widgets@1/dist/umd/index.js"/>
+<script src="https://depay.fi/integrate/widgets/v1.js"/>
 ```
 
 or you install depay-widgets via the package manager of your choice and ship it as part of your application bundle:
@@ -51,7 +51,7 @@ In order to receive decentralized payments on any blockchain you need to have yo
 ### Quick start
 
 ```
-<script src="https://unpkg.com/depay-widgets@1/dist/umd/index.js"/>
+<script src="https://depay.fi/integrate/buttons/v2.js"/>
 ```
 
 ```
@@ -110,7 +110,7 @@ In order to receive decentralized payments on any blockchain you need to have yo
 ### Quick start
 
 ```
-<script src="https://unpkg.com/depay-widgets@1/dist/umd/index.js"/>
+<script src="https://depay.fi/integrate/buttons/v2.js"/>
 ```
 
 ```
@@ -172,7 +172,7 @@ In order to to sell tokens in a decentralized way on any blockchain you need to 
 ### Quick start
 
 ```
-<script src="https://unpkg.com/depay-widgets@1/dist/umd/index.js"/>
+<script src="https://depay.fi/integrate/buttons/v2.js"/>
 ```
 
 ```
