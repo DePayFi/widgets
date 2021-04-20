@@ -36,8 +36,8 @@ export default {
     },
   ],
   external: [
-    // ...Object.keys(pkg.dependencies || {}),
-    // ...Object.keys(pkg.peerDependencies || {}),
+    ...Object.keys(pkg.dependencies || {}),
+    ...Object.keys(pkg.peerDependencies || {}),
   ],
   plugins: [
     sucrase({
