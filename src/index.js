@@ -13,3 +13,12 @@ export {
   Selector,
   Swap,
 }
+
+export default {
+  ethers,
+  Donation,
+  Payment,
+  Sale,
+  Selector,
+  Swap,
+}

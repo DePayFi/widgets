@@ -9602,4 +9602,14 @@ function Swap() {
   });
 }
 
+var index = {
+  ethers,
+  Donation,
+  Payment,
+  Sale: TokenSale,
+  Selector,
+  Swap,
+};
+
+export default index;
 export { Donation, Payment, TokenSale as Sale, Selector, Swap };

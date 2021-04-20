@@ -9614,6 +9614,15 @@ function Swap() {
   });
 }
 
+var index = {
+  ethers: ethers.ethers,
+  Donation,
+  Payment,
+  Sale: TokenSale,
+  Selector,
+  Swap,
+};
+
 Object.defineProperty(exports, 'ethers', {
   enumerable: true,
   get: function () {
@@ -9625,3 +9634,4 @@ exports.Payment = Payment;
 exports.Sale = TokenSale;
 exports.Selector = Selector;
 exports.Swap = Swap;
+exports.default = index;
