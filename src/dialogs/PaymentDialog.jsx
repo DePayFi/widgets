@@ -160,6 +160,13 @@ class PaymentDialog extends React.Component {
         this.setState({ paying: {
           transactionHash: transaction.hash
         } });
+        if(typeof callbackContext.sent === 'function') {
+          callbackContext.sent({
+            tx: transaction.hash,
+            amount: amountOut,
+            token: route[route.length-1]
+          });
+        }
         dialogContext.setClosable(false);
         transaction.wait(1).then(function(transaction){
           if(transaction.status === 1) {
@@ -172,7 +179,14 @@ class PaymentDialog extends React.Component {
               if(typeof callbackContext.callback === 'function') {
                 callbackContext.callback({tx: transaction.transactionHash}); 
               }
-            }, 1600)
+              if(typeof callbackContext.confirmed === 'function') {
+                callbackContext.confirmed({
+                  tx: transaction.transactionHash,
+                  amount: amountOut,
+                  token: route[route.length-1]
+                }); 
+              }
+            }, 100)
           }
         }.bind(this));
       } else {

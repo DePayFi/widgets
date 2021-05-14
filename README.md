@@ -83,15 +83,31 @@ Use our [payment configurator](https://depay.fi/documentation/payments#payment-c
 
 The address receiving the payment. Always double check that you've set the right address.
 
-`callback`
+`sent`
 
-A function that will be called once the payment has been successfully confirmed by the network.
+A function that will be called once the payment has been sent to the network (but still needs to be mined/confirmed).
 
-The widget will call the `callback` function passing a callback object as an argument:
+The widget will call the `sent` function passing the following object as an argument:
 
 ```
 {
-  tx: '<the transaction hash of the confirmed transaction>'
+  tx: '<the transaction hash of the confirmed transaction>',
+  amount: '<the expected payment amount as big number string>',
+  token: '<the expected token address>'
+}
+```
+
+`confirmed`
+
+A function that will be called once the payment has been confirmed by the network.
+
+The widget will call the `confirmed` function passing the following object as an argument:
+
+```
+{
+  tx: '<the transaction hash of the confirmed transaction>',
+  amount: '<the expected payment amount as big number string>',
+  token: '<the expected token address>'
 }
 ```
 

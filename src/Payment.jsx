@@ -52,6 +52,8 @@ function checkAndPrepOptions(input) {
 
   // callback
   if(options.callback !== undefined && typeof options.callback !== 'function') { throw 'callback needs to be a function' }
+  if(options.sent !== undefined && typeof options.sent !== 'function') { throw 'sent callback needs to be a function' }
+  if(options.confirmed !== undefined && typeof options.confirmed !== 'function') { throw 'confirmed callback needs to be a function' }
 
   return options;
 }
@@ -69,7 +71,9 @@ export default function Payment() {
   return new Promise(() => {
     ReactDOM.render(
       <CallbackContext.Provider value={{
-        callback: options.callback
+        callback: options.callback,
+        sent: options.sent,
+        confirmed: options.confirmed
       }}>
         <DialogProvider
           closeContainer={ unmountAndClose }
