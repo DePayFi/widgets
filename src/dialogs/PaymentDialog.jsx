@@ -142,6 +142,7 @@ class PaymentDialog extends React.Component {
     if(exchange && this.paymentType() != 'transfer') {
       plugins.unshift(exchange.pluginAddress()); // only add exchange plugin if swap is nessary
     }
+    let from = this.props.wallet.address();
 
     DePayRouterV1Contract.connect(this.props.wallet.provider().getSigner(0)).route(
       route,
@@ -164,7 +165,8 @@ class PaymentDialog extends React.Component {
           callbackContext.sent({
             tx: transaction.hash,
             amount: amountOut,
-            token: route[route.length-1]
+            token: route[route.length-1],
+            from: from
           });
         }
         dialogContext.setClosable(false);
@@ -183,7 +185,8 @@ class PaymentDialog extends React.Component {
                 callbackContext.confirmed({
                   tx: transaction.transactionHash,
                   amount: amountOut,
-                  token: route[route.length-1]
+                  token: route[route.length-1],
+                  from: from
                 }); 
               }
             }, 100)

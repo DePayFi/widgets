@@ -93,7 +93,8 @@ The widget will call the `sent` function passing the following object as an argu
 {
   tx: '<the transaction hash of the confirmed transaction>',
   amount: '<the expected payment amount as big number string>',
-  token: '<the expected token address>'
+  token: '<the expected token address>',
+  from: `<the address from which the payment is sent>`
 }
 ```
 
@@ -107,7 +108,8 @@ The widget will call the `confirmed` function passing the following object as an
 {
   tx: '<the transaction hash of the confirmed transaction>',
   amount: '<the expected payment amount as big number string>',
-  token: '<the expected token address>'
+  token: '<the expected token address>',
+  from: `<the address from which the payment is sent>`
 }
 ```
 
