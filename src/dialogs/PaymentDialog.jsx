@@ -166,7 +166,8 @@ class PaymentDialog extends React.Component {
             tx: transaction.hash,
             amount: amountOut,
             token: route[route.length-1],
-            from: from
+            from: from,
+            nonce: transaction.nonce
           });
         }
         dialogContext.setClosable(false);

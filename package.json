@@ -1,7 +1,7 @@
 {
   "name": "depay-widgets",
   "moduleName": "DePayWidgets",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Accept and perform crypto payments with DePay. Decentralized payment widgets that simplify crypto payments.",
   "main": "./dist/cjs/index.js",
   "files": [

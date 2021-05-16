@@ -94,7 +94,8 @@ The widget will call the `sent` function passing the following object as an argu
   tx: '<the transaction hash of the confirmed transaction>',
   amount: '<the expected payment amount as big number string>',
   token: '<the expected token address>',
-  from: `<the address from which the payment is sent>`
+  from: `<the address from which the payment is sent>`,
+  nonce: `<the sender nonce of the transaction>`
 }
 ```
 
