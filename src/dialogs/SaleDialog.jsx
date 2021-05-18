@@ -70,7 +70,7 @@ class SaleDialog extends React.Component {
   }
 
   approve(dialogContext) {
-    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider)
+    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider())
       .connect(this.props.wallet.provider().getSigner(0))
       .approve(DePayRouterV1Contract.address, MAXINT)
       .catch(function(){ 
@@ -98,7 +98,7 @@ class SaleDialog extends React.Component {
   }
 
   checkApproved(dialogContext) {
-    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
+    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider()).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
       if(amount.gt(ethers.BigNumber.from(this.props.selected.amounts[0]))) {
         this.props.selected.approved = true;
         dialogContext.setClosable(true);

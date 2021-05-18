@@ -39,7 +39,7 @@ class PriceProvider extends React.Component {
       new ethers.Contract(
         '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
         EthUsdPriceAbi,
-        EthersProvider
+        EthersProvider()
       ).latestAnswer().then(function(price){
         // USDT has 6 decimals
         resolve(price.toNumber()/100000000);

@@ -39,7 +39,7 @@ class RouteProvider extends React.Component {
         route.approved = true;
         resolve(route);
       } else {
-        new ethers.Contract(route.path[0], Erc20Abi, EthersProvider)
+        new ethers.Contract(route.path[0], Erc20Abi, EthersProvider())
         .allowance(this.props.wallet.address(), DePayRouterV1Contract.address)
         .then(function(amount){
           if(amount.gt(ethers.BigNumber.from(route.amounts[0]))) {
