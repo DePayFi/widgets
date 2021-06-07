@@ -504,19 +504,17 @@
     }
   }
 
-  var EthersProvider;
-
-  if (window.ethereum) {
-    EthersProvider = new ethers.ethers.providers.Web3Provider(window.ethereum);
-  } else if (window.web3 && window.web3.currentProvider) {
-    EthersProvider = new ethers.ethers.providers.Web3Provider(window.web3.currentProvider);
-  }
-
-  var EthersProvider$1 = EthersProvider;
+  var EthersProvider = function(){
+    if (window.ethereum) {
+      return new ethers.ethers.providers.Web3Provider(window.ethereum);
+    } else if (window.web3 && window.web3.currentProvider) {
+      return new ethers.ethers.providers.Web3Provider(window.web3.currentProvider);
+    }
+  };
 
   var DePayRouterV1Abi = [{"inputs":[{"internalType":"address","name":"_configuration","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"configuration","outputs":[{"internalType":"contract DePayRouterV1Configuration","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"pluginAddress","type":"address"}],"name":"isApproved","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"uint256[]","name":"amounts","type":"uint256[]"},{"internalType":"address[]","name":"addresses","type":"address[]"},{"internalType":"address[]","name":"plugins","type":"address[]"},{"internalType":"string[]","name":"data","type":"string[]"}],"name":"route","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
 
-  const DePayRouterV1Contract = new ethers.ethers.Contract('0xae60aC8e69414C2Dc362D0e6a03af643d1D85b92', DePayRouterV1Abi, EthersProvider$1);
+  const DePayRouterV1Contract = new ethers.ethers.Contract('0xae60aC8e69414C2Dc362D0e6a03af643d1D85b92', DePayRouterV1Abi, EthersProvider());
 
   var Erc20Abi = [
     {
@@ -821,7 +819,7 @@
     }
   ];
 
-  const UniswapV2FactoryContract = new ethers.ethers.Contract('0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f', UniswapV2FactoryAbi, EthersProvider$1);
+  const UniswapV2FactoryContract = new ethers.ethers.Contract('0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f', UniswapV2FactoryAbi, EthersProvider());
 
   var UniswapV2PairAbi = [
     {
@@ -1538,7 +1536,7 @@
   ];
 
   const UniswapV2PairContract = function(address){
-    return new ethers.ethers.Contract(address, UniswapV2PairAbi, EthersProvider$1);
+    return new ethers.ethers.Contract(address, UniswapV2PairAbi, EthersProvider());
   };
 
   var UniswapV2Router02Abi = [
@@ -2515,7 +2513,7 @@
     }
   ];
 
-  const UniswapV2Router02Contract = new ethers.ethers.Contract('0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', UniswapV2Router02Abi, EthersProvider$1);
+  const UniswapV2Router02Contract = new ethers.ethers.Contract('0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', UniswapV2Router02Abi, EthersProvider());
 
   const ETH = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';
   const WETH = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
@@ -3052,7 +3050,7 @@
     }
 
     approve(dialogContext) {
-      new ethers.ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider$1)
+      new ethers.ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider())
         .connect(this.props.wallet.provider().getSigner(0))
         .approve(DePayRouterV1Contract.address, MAXINT)
         .catch(function(){ 
@@ -3080,7 +3078,7 @@
     }
 
     checkApproved(dialogContext) {
-      new ethers.ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider$1).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
+      new ethers.ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider()).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
         if(amount.gt(ethers.ethers.BigNumber.from(this.props.selected.amounts[0]))) {
           this.props.selected.approved = true;
           dialogContext.setClosable(true);
@@ -4065,7 +4063,7 @@
         new ethers.ethers.Contract(
           '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
           EthUsdPriceAbi,
-          EthersProvider$1
+          EthersProvider()
         ).latestAnswer().then(function(price){
           // USDT has 6 decimals
           resolve(price.toNumber()/100000000);
@@ -4149,7 +4147,7 @@
             route.approved = true;
             return Promise.resolve(route);
           } else {
-            return new ethers.ethers.Contract(route.token.address, Erc20Abi, EthersProvider$1)
+            return new ethers.ethers.Contract(route.token.address, Erc20Abi, EthersProvider())
             .allowance(this.props.wallet.address(), DePayRouterV1Contract.address)
             .then(function(amount){
               if(amount.gt(ethers.ethers.BigNumber.from(route.amounts[0]))) {
@@ -4474,7 +4472,7 @@
           "logoURI": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAIVBMVEVHcExkgexjf+tifutifurAy/b///+CmO6hsvJxi+zj6PuyVvwSAAAABHRSTlMANYHDscZ74QAAA+NJREFUeNq1ml1y2jAQx+PAATwpB0gmHCANPkAhZgg849g+QDwZnh1o3w29AJNp817aYzayLa8d7YditXqE7i/674fYlXrGrIvrySQMJ5Pbq7Mey7sOW+vW72XeH3ERIuvqw3++7ya8ICTWnd/XHgj97YEg2zsRxqGwZrz9p1Bcnzn789BiXcoO6O2GUWi1pqwAFxFagCwCtx9g//Y+xz69sd/Aas1uQU6Bh4RLBnkDiyw6ylsAD5gKsqhAv7ixDMEhi2I6EPIGllkWRSG5BbkK5wpQ2FSlh/+ZrQKk+He+TRWcFCChKkJ24X2mAFFOuFEuoxcFIDVcygoeFIDWICpYZApAaxAVrDRgTWgQFZQARoOoQAOiI6/BIxQAoOBzaYB/fQBATNQD64LlCQAR74SAKKQKwGi44wsJAHRBcS44tQEJ54QRUUgNgE7GKXOWvGgAp2HG+PChC0hoL3pEGmoAq8EnK2n1HrAm62lIpCEAmGT8QgVhmbUBdEFNqSCsTEBBhSFgFQAgpsJApiEAmIIiojjPAMBr8PEobjFAisdxwCvY7BtAgpfTEC0kvR6jHRByNBGGTCFlv6JoB4Q1ChhhhdTYvwHeCIyGKZZHi8a+Auy+0sk4wwCrtv93LUKBAQLyPNcAIMRYKgZ4IW0iAADhaAWYl/YNQBP2tQYZcFDhfw+oghFbAU61PQCAgFSTqaAMHwA6hMICsG3sAdA4IrUARN216xIsAD84gBlHxInPNOCbGAWTYNrLgOX+HQDsZQAQTEBoB1B+WmCAEm0CxoYHFOHeBKiPl98tzoP5UyeYnQDuCxMwMmvhT7mRLuBn+VmCHGlD5Ej93SLUAah2lfKnMhzqKYSitq/8kiOAAXooFw2hsV+gx/IN9tP2+nYi5cpEA3Rk19hPm4cf6486mMpeb+eINklEd/BYB1MHkOgQmgbD/GGog7nLm5AUeIMxJjqkOphVAOkfJmiyzJ+WtHvGxESTNaQ7FLVnKK2CaPPO6Q5jU7TsE6rR9JgeZ5PD4ZCSA0NA9ShVOujDJSdHljHXrD89cx3SjB44XsVmGwaOgVW7f6RHHq//wOFzV1hdQEEOLFLDzzb77Oh7aANidvT1+k6ufjP+95ud74QLiC0AUuEC4pyZXZmZ71K6hCk1sFMnaKCnX14BaCDTWVYgzM+cAlHDqgIUggJ+AicvgXybC8mDAsRWzwSDD95owpWolM5sGstb2GY6CeTL8QDXwB8l8tX4ib8al7fwkqIb+D/PA84PFO5PJM6PNO7PRM4PVe5PZe6Pde7Phc4Plu5Ppu6Ptu7Pxu4P1//g6dz98d7+vw/8BVHcYRQ1d5GsAAAAAElFTkSuQmCC"
         });
       } else {
-        const contract = new ethers.ethers.Contract(address, Erc20Abi, EthersProvider$1);
+        const contract = new ethers.ethers.Contract(address, Erc20Abi, EthersProvider());
         Promise.all([contract.name(), contract.symbol(), contract.decimals()]).then(function(values){
           resolve({
             name: values[0],
@@ -5861,7 +5859,7 @@
 
     static balance() {
       return new Promise(function(resolve, reject) {
-        EthersProvider$1.getBalance(MetaMaskConnector.address()).then(function(balance){
+        EthersProvider().getBalance(MetaMaskConnector.address()).then(function(balance){
           resolve(balance);
         });
       });
@@ -5888,7 +5886,7 @@
     }
 
     static provider() {
-      return EthersProvider$1;
+      return EthersProvider();
     }
   } MetaMaskConnector.__initStatic();
 
@@ -6305,7 +6303,7 @@
     }
 
     approve(dialogContext) {
-      new ethers.ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider$1)
+      new ethers.ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider())
         .connect(this.props.wallet.provider().getSigner(0))
         .approve(DePayRouterV1Contract.address, MAXINT)
         .catch(function(){ 
@@ -6333,7 +6331,7 @@
     }
 
     checkApproved(dialogContext) {
-      new ethers.ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider$1).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
+      new ethers.ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider()).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
         if(amount.gt(ethers.ethers.BigNumber.from(this.props.selected.amounts[0]))) {
           this.props.selected.approved = true;
           dialogContext.setClosable(true);
@@ -6994,7 +6992,7 @@
     }
 
     approve(dialogContext) {
-      new ethers.ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider$1)
+      new ethers.ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider())
         .connect(this.props.wallet.provider().getSigner(0))
         .approve(DePayRouterV1Contract.address, MAXINT)
         .catch(function(){ 
@@ -7022,7 +7020,7 @@
     }
 
     checkApproved(dialogContext) {
-      new ethers.ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider$1).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
+      new ethers.ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider()).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
         if(amount.gt(ethers.ethers.BigNumber.from(this.props.selected.amounts[0]))) {
           this.props.selected.approved = true;
           dialogContext.setClosable(true);
@@ -8660,7 +8658,7 @@
           route.approved = true;
           resolve(route);
         } else {
-          new ethers.ethers.Contract(route.path[0], Erc20Abi, EthersProvider$1)
+          new ethers.ethers.Contract(route.path[0], Erc20Abi, EthersProvider())
           .allowance(this.props.wallet.address(), DePayRouterV1Contract.address)
           .then(function(amount){
             if(amount.gt(ethers.ethers.BigNumber.from(route.amounts[0]))) {
@@ -8887,7 +8885,7 @@
     }
 
     approve(dialogContext) {
-      new ethers.ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider$1)
+      new ethers.ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider())
         .connect(this.props.wallet.provider().getSigner(0))
         .approve(DePayRouterV1Contract.address, MAXINT)
         .catch(function(){ 
@@ -8915,7 +8913,7 @@
     }
 
     checkApproved(dialogContext) {
-      new ethers.ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider$1).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
+      new ethers.ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider()).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
         if(amount.gt(ethers.ethers.BigNumber.from(this.props.route.amounts[0]))) {
           this.props.route.approved = true;
           dialogContext.setClosable(true);
