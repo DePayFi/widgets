@@ -1,3 +1,5 @@
+
+(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 function getAugmentedNamespace(n) {
@@ -43189,7 +43191,9 @@ var EthersProvider = function(){
 
 var DePayRouterV1Abi = [{"inputs":[{"internalType":"address","name":"_configuration","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"configuration","outputs":[{"internalType":"contract DePayRouterV1Configuration","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"pluginAddress","type":"address"}],"name":"isApproved","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"uint256[]","name":"amounts","type":"uint256[]"},{"internalType":"address[]","name":"addresses","type":"address[]"},{"internalType":"address[]","name":"plugins","type":"address[]"},{"internalType":"string[]","name":"data","type":"string[]"}],"name":"route","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
 
-const DePayRouterV1Contract = new ethers.Contract('0xae60aC8e69414C2Dc362D0e6a03af643d1D85b92', DePayRouterV1Abi, EthersProvider());
+const DePayRouterV1Contract = function(){
+  return new ethers.Contract('0xae60aC8e69414C2Dc362D0e6a03af643d1D85b92', DePayRouterV1Abi, EthersProvider());
+};
 
 var Erc20Abi = [
   {
@@ -43494,7 +43498,9 @@ var UniswapV2FactoryAbi = [
   }
 ];
 
-const UniswapV2FactoryContract = new ethers.Contract('0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f', UniswapV2FactoryAbi, EthersProvider());
+const UniswapV2FactoryContract = function(){
+  return new ethers.Contract('0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f', UniswapV2FactoryAbi, EthersProvider());
+};
 
 var UniswapV2PairAbi = [
   {
@@ -45188,7 +45194,9 @@ var UniswapV2Router02Abi = [
   }
 ];
 
-const UniswapV2Router02Contract = new ethers.Contract('0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', UniswapV2Router02Abi, EthersProvider());
+const UniswapV2Router02Contract = function(){
+  return new ethers.Contract('0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', UniswapV2Router02Abi, EthersProvider());
+};
 
 const ETH = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';
 const WETH = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
@@ -45237,7 +45245,7 @@ class UniswapExchange {
     if(addressB === ETH) { addressB = WETH; }
     if(addressA === addressB) { return(Promise.resolve([ethers.BigNumber.from(MAXINT.toString()), ethers.BigNumber.from(MAXINT.toString())])); }
     return new Promise(function(resolve, reject){
-      UniswapV2FactoryContract.getPair(addressA, addressB).then(function(pairAddress){
+      UniswapV2FactoryContract().getPair(addressA, addressB).then(function(pairAddress){
         if(pairAddress.address === ethers.constants.AddressZero) {
           resolve(null);
         } else {
@@ -45260,11 +45268,11 @@ class UniswapExchange {
       }
     });
     return new Promise(function(resolve, reject){
-      UniswapV2FactoryContract.getPair(route[0], route[1]).then(function(pairAddress){
+      UniswapV2FactoryContract().getPair(route[0], route[1]).then(function(pairAddress){
         if(pairAddress.address === ethers.constants.AddressZero) {
           return(resolve(null)); // dont bother if there is no pair
         } else {
-          UniswapV2Router02Contract.getAmountsIn(
+          UniswapV2Router02Contract().getAmountsIn(
             endTokenAmount.toString(),
             route
           )
@@ -45290,7 +45298,7 @@ class UniswapExchange {
         path = [inToken, WETH, outToken];
       }
 
-      UniswapV2Router02Contract.getAmountsOut(
+      UniswapV2Router02Contract().getAmountsOut(
         route.balance,
         path
       ).then(function(amounts){
@@ -45302,7 +45310,7 @@ class UniswapExchange {
 
   static amountsFromTo(from, fromAmount, to) {
     return new Promise(function(resolve, reject){
-      UniswapV2Router02Contract.getAmountsOut(
+      UniswapV2Router02Contract().getAmountsOut(
         fromAmount,
         [this.ETHtoWETH(from), this.ETHtoWETH(to)]
       )
@@ -45727,7 +45735,7 @@ class DonationDialog extends react.Component {constructor(...args) { super(...ar
   approve(dialogContext) {
     new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider())
       .connect(this.props.wallet.provider().getSigner(0))
-      .approve(DePayRouterV1Contract.address, MAXINT)
+      .approve(DePayRouterV1Contract().address, MAXINT)
       .catch(function(){ 
         clearInterval(this.approvalCheckInterval);
         this.setState({ approving: false });
@@ -45753,7 +45761,7 @@ class DonationDialog extends react.Component {constructor(...args) { super(...ar
   }
 
   checkApproved(dialogContext) {
-    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider()).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
+    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider()).allowance(this.props.wallet.address(), DePayRouterV1Contract().address).then(function(amount){
       if(amount.gt(ethers.BigNumber.from(this.props.selected.amounts[0]))) {
         this.props.selected.approved = true;
         dialogContext.setClosable(true);
@@ -45795,7 +45803,7 @@ class DonationDialog extends react.Component {constructor(...args) { super(...ar
       plugins.unshift(exchange.pluginAddress()); // only add exchange plugin if swap is nessary
     }
 
-    DePayRouterV1Contract.connect(this.props.wallet.provider().getSigner(0)).route(
+    DePayRouterV1Contract().connect(this.props.wallet.provider().getSigner(0)).route(
       route,
       [amountIn, amountOut, deadline],
       [this.props.receiver],
@@ -46823,7 +46831,7 @@ class RoutesProvider extends react.Component {constructor(...args) { super(...ar
           return Promise.resolve(route);
         } else {
           return new ethers.Contract(route.token.address, Erc20Abi, EthersProvider())
-          .allowance(this.props.wallet.address(), DePayRouterV1Contract.address)
+          .allowance(this.props.wallet.address(), DePayRouterV1Contract().address)
           .then(function(amount){
             if(amount.gt(ethers.BigNumber.from(route.amounts[0]))) {
               route.approved = true;
@@ -49549,7 +49557,7 @@ class PaymentDialog extends react.Component {constructor(...args) { super(...arg
   approve(dialogContext) {
     new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider())
       .connect(this.props.wallet.provider().getSigner(0))
-      .approve(DePayRouterV1Contract.address, MAXINT)
+      .approve(DePayRouterV1Contract().address, MAXINT)
       .catch(function(){ 
         clearInterval(this.approvalCheckInterval);
         this.setState({ approving: false });
@@ -49575,7 +49583,7 @@ class PaymentDialog extends react.Component {constructor(...args) { super(...arg
   }
 
   checkApproved(dialogContext) {
-    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider()).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
+    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider()).allowance(this.props.wallet.address(), DePayRouterV1Contract().address).then(function(amount){
       if(amount.gt(ethers.BigNumber.from(this.props.selected.amounts[0]))) {
         this.props.selected.approved = true;
         dialogContext.setClosable(true);
@@ -49617,7 +49625,7 @@ class PaymentDialog extends react.Component {constructor(...args) { super(...arg
     }
     let from = this.props.wallet.address();
 
-    DePayRouterV1Contract.connect(this.props.wallet.provider().getSigner(0)).route(
+    DePayRouterV1Contract().connect(this.props.wallet.provider().getSigner(0)).route(
       route,
       [amountIn, amountOut, deadline],
       [this.props.receiver],
@@ -50238,7 +50246,7 @@ class SaleDialog extends react.Component {constructor(...args) { super(...args);
   approve(dialogContext) {
     new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider())
       .connect(this.props.wallet.provider().getSigner(0))
-      .approve(DePayRouterV1Contract.address, MAXINT)
+      .approve(DePayRouterV1Contract().address, MAXINT)
       .catch(function(){ 
         clearInterval(this.approvalCheckInterval);
         this.setState({ approving: false });
@@ -50264,7 +50272,7 @@ class SaleDialog extends react.Component {constructor(...args) { super(...args);
   }
 
   checkApproved(dialogContext) {
-    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider()).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
+    new ethers.Contract(this.props.selected.token.address, Erc20Abi, EthersProvider()).allowance(this.props.wallet.address(), DePayRouterV1Contract().address).then(function(amount){
       if(amount.gt(ethers.BigNumber.from(this.props.selected.amounts[0]))) {
         this.props.selected.approved = true;
         dialogContext.setClosable(true);
@@ -50315,7 +50323,7 @@ class SaleDialog extends react.Component {constructor(...args) { super(...args);
     let value = 0;
     if(route[0] === '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE') { value = amountIn; }
 
-    DePayRouterV1Contract.connect(this.props.wallet.provider().getSigner(0)).route(
+    DePayRouterV1Contract().connect(this.props.wallet.provider().getSigner(0)).route(
       route,
       [amountIn, amountOut, deadline],
       addresses,
@@ -53669,7 +53677,7 @@ class RouteProvider extends react.Component {constructor(...args) { super(...arg
         resolve(route);
       } else {
         new ethers.Contract(route.path[0], Erc20Abi, EthersProvider())
-        .allowance(this.props.wallet.address(), DePayRouterV1Contract.address)
+        .allowance(this.props.wallet.address(), DePayRouterV1Contract().address)
         .then(function(amount){
           if(amount.gt(ethers.BigNumber.from(route.amounts[0]))) {
             route.approved = true;
@@ -53897,7 +53905,7 @@ class SwapDialog extends react.Component {
   approve(dialogContext) {
     new ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider())
       .connect(this.props.wallet.provider().getSigner(0))
-      .approve(DePayRouterV1Contract.address, MAXINT)
+      .approve(DePayRouterV1Contract().address, MAXINT)
       .catch(function(){ 
         clearInterval(this.approvalCheckInterval);
         this.setState({ approving: false });
@@ -53923,7 +53931,7 @@ class SwapDialog extends react.Component {
   }
 
   checkApproved(dialogContext) {
-    new ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider()).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
+    new ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider()).allowance(this.props.wallet.address(), DePayRouterV1Contract().address).then(function(amount){
       if(amount.gt(ethers.BigNumber.from(this.props.route.amounts[0]))) {
         this.props.route.approved = true;
         dialogContext.setClosable(true);
@@ -53956,7 +53964,7 @@ class SwapDialog extends react.Component {
 
     let deadline = Math.round(new Date().getTime() / 1000) + (24 * 3600); // 24 hours from now
 
-    DePayRouterV1Contract.connect(this.props.wallet.provider().getSigner(0)).pay(
+    DePayRouterV1Contract().connect(this.props.wallet.provider().getSigner(0)).pay(
       route,
       [amountIn, amountOut, deadline],
       this.props.addresses,

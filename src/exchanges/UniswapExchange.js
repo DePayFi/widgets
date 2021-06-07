@@ -46,7 +46,7 @@ class UniswapExchange {
     if(addressB === ETH) { addressB = WETH; }
     if(addressA === addressB) { return(Promise.resolve([ethers.BigNumber.from(MAXINT.toString()), ethers.BigNumber.from(MAXINT.toString())])); }
     return new Promise(function(resolve, reject){
-      UniswapV2FactoryContract.getPair(addressA, addressB).then(function(pairAddress){
+      UniswapV2FactoryContract().getPair(addressA, addressB).then(function(pairAddress){
         if(pairAddress.address === ethers.constants.AddressZero) {
           resolve(null);
         } else {
@@ -69,11 +69,11 @@ class UniswapExchange {
       }
     });
     return new Promise(function(resolve, reject){
-      UniswapV2FactoryContract.getPair(route[0], route[1]).then(function(pairAddress){
+      UniswapV2FactoryContract().getPair(route[0], route[1]).then(function(pairAddress){
         if(pairAddress.address === ethers.constants.AddressZero) {
           return(resolve(null)); // dont bother if there is no pair
         } else {
-          UniswapV2Router02Contract.getAmountsIn(
+          UniswapV2Router02Contract().getAmountsIn(
             endTokenAmount.toString(),
             route
           )
@@ -100,7 +100,7 @@ class UniswapExchange {
         path = [inToken, WETH, outToken];
       }
 
-      UniswapV2Router02Contract.getAmountsOut(
+      UniswapV2Router02Contract().getAmountsOut(
         route.balance,
         path
       ).then(function(amounts){
@@ -112,7 +112,7 @@ class UniswapExchange {
 
   static amountsFromTo(from, fromAmount, to) {
     return new Promise(function(resolve, reject){
-      UniswapV2Router02Contract.getAmountsOut(
+      UniswapV2Router02Contract().getAmountsOut(
         fromAmount,
         [this.ETHtoWETH(from), this.ETHtoWETH(to)]
       )

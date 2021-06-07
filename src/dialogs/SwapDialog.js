@@ -50,7 +50,7 @@ class SwapDialog extends React.Component {
   approve(dialogContext) {
     new ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider())
       .connect(this.props.wallet.provider().getSigner(0))
-      .approve(DePayRouterV1Contract.address, MAXINT)
+      .approve(DePayRouterV1Contract().address, MAXINT)
       .catch(function(){ 
         clearInterval(this.approvalCheckInterval);
         this.setState({ approving: false });
@@ -76,7 +76,7 @@ class SwapDialog extends React.Component {
   }
 
   checkApproved(dialogContext) {
-    new ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider()).allowance(this.props.wallet.address(), DePayRouterV1Contract.address).then(function(amount){
+    new ethers.Contract(this.props.route.token.address, Erc20Abi, EthersProvider()).allowance(this.props.wallet.address(), DePayRouterV1Contract().address).then(function(amount){
       if(amount.gt(ethers.BigNumber.from(this.props.route.amounts[0]))) {
         this.props.route.approved = true;
         dialogContext.setClosable(true);
@@ -113,7 +113,7 @@ class SwapDialog extends React.Component {
 
     let deadline = Math.round(new Date().getTime() / 1000) + (24 * 3600); // 24 hours from now
 
-    DePayRouterV1Contract.connect(this.props.wallet.provider().getSigner(0)).pay(
+    DePayRouterV1Contract().connect(this.props.wallet.provider().getSigner(0)).pay(
       route,
       [amountIn, amountOut, deadline],
       this.props.addresses,
