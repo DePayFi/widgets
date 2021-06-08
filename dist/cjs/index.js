@@ -5805,7 +5805,7 @@ function ShadowContainer(inputStyle) {
     container.classList.add('open');
   }, 0);
 
-  const shadow = container.attachShadow({ mode: 'closed' });
+  const shadow = container.attachShadow({ mode: 'open' });
   retargetEvents__default['default'](shadow);
 
   const style = document.createElement('style');

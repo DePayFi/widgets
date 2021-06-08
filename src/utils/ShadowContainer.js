@@ -40,7 +40,7 @@ export default function ShadowContainer(inputStyle) {
     container.classList.add('open');
   }, 0);
 
-  const shadow = container.attachShadow({ mode: 'closed' });
+  const shadow = container.attachShadow({ mode: 'open' });
   retargetEvents(shadow);
 
   const style = document.createElement('style');

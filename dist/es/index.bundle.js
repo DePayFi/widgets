@@ -49043,7 +49043,7 @@ function ShadowContainer(inputStyle) {
     container.classList.add('open');
   }, 0);
 
-  const shadow = container.attachShadow({ mode: 'closed' });
+  const shadow = container.attachShadow({ mode: 'open' });
   reactShadowDomRetargetEvents(shadow);
 
   const style = document.createElement('style');
