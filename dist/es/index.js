@@ -6396,7 +6396,8 @@ class PaymentDialog extends React.Component {constructor(...args) { super(...arg
             amount: amountOut,
             token: route[route.length-1],
             from: from,
-            nonce: transaction.nonce
+            nonce: transaction.nonce,
+            close: dialogContext.closeContainer
           });
         }
         dialogContext.setClosable(false);
@@ -6416,7 +6417,8 @@ class PaymentDialog extends React.Component {constructor(...args) { super(...arg
                   tx: transaction.transactionHash,
                   amount: amountOut,
                   token: route[route.length-1],
-                  from: from
+                  from: from,
+                  close: dialogContext.closeContainer
                 }); 
               }
             }, 100);
@@ -6442,73 +6444,73 @@ class PaymentDialog extends React.Component {constructor(...args) { super(...arg
   render() {
     if(this.props.initializing) { 
       return(
-        React.createElement(PaymentDialogSkeleton, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 216}})
+        React.createElement(PaymentDialogSkeleton, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 218}})
       ) 
     }
 
     if(!this.props.selected) {
       return(
-        React.createElement(NotEnoughFundsDialog, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 222}})
+        React.createElement(NotEnoughFundsDialog, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 224}})
       )
     }
 
     return (
-      React.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 227}}
+      React.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 229}}
         , dialogContext => (
-          React.createElement(NavigateStackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 229}}
+          React.createElement(NavigateStackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 231}}
             , navigate => (
-              React.createElement('div', { className: 'Dialog PaymentDialog ' + (this.isActionable(dialogContext) ? '' : 'unactionable'), __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 231}}
-                , React.createElement('div', { className: "DialogHeader", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 232}}
-                  , React.createElement(CloseDialogComponent, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 233}})
+              React.createElement('div', { className: 'Dialog PaymentDialog ' + (this.isActionable(dialogContext) ? '' : 'unactionable'), __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 233}}
+                , React.createElement('div', { className: "DialogHeader", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 234}}
+                  , React.createElement(CloseDialogComponent, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 235}})
                 )
-                , React.createElement('div', { className: "DialogBody HeightAuto" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 235}}
-                  , React.createElement('div', { className: "Payment", key:  this.props.selected.token.address , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 236}}
-                    , React.createElement('div', { className: "PaymentRow ChangePaymentRow" , onClick:  ()=> this.navigateIfActionable(navigate, 'ChangePaymentToken', dialogContext) , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 237}}
-                      , React.createElement('div', { className: "PaymentColumn PaymentColumn1" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 238}}
+                , React.createElement('div', { className: "DialogBody HeightAuto" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 237}}
+                  , React.createElement('div', { className: "Payment", key:  this.props.selected.token.address , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 238}}
+                    , React.createElement('div', { className: "PaymentRow ChangePaymentRow" , onClick:  ()=> this.navigateIfActionable(navigate, 'ChangePaymentToken', dialogContext) , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 239}}
+                      , React.createElement('div', { className: "PaymentColumn PaymentColumn1" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 240}}
                         , React.createElement(TokenIconComponent, {
                           title:  this.props.selected.token.name ,
-                          src:  this.props.selected.token.logoURI , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 239}}
+                          src:  this.props.selected.token.logoURI , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 241}}
                         )
                       )
-                      , React.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 244}}
-                        , React.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 245}}, "Payment"
+                      , React.createElement('div', { className: "PaymentColumn PaymentColumn2" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 246}}
+                        , React.createElement('div', { className: "PaymentDescription", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 247}}, "Payment"
 
                         )
-                        , React.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 248}}
+                        , React.createElement('div', { className: "PaymentAmountRow1 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 250}}
                           ,  this.props.paymentContext.token 
                         )
-                        , React.createElement('div', { className: "PaymentAmountRow2 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 251}}
+                        , React.createElement('div', { className: "PaymentAmountRow2 TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 253}}
                           ,  this.props.paymentContext.local 
                         )
                       )
-                      , React.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 255}}
-                        , React.createElement('span', { className: "PaymentAction", title: "Change payment" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 256}}, "Change"
+                      , React.createElement('div', { className: "PaymentColumn PaymentColumn3" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 257}}
+                        , React.createElement('span', { className: "PaymentAction", title: "Change payment" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 258}}, "Change"
 
                         )
                       )
                     )
                   )
                 )
-                , React.createElement('div', { className: "DialogFooter", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 263}}
+                , React.createElement('div', { className: "DialogFooter", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 265}}
                   ,  this.renderCallToAction.bind(this)() 
-                  , React.createElement('div', { className: "PoweredBy", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 265}}
+                  , React.createElement('div', { className: "PoweredBy", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 267}}
                     ,  this.renderTransaction.bind(this)() 
-                    , React.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/token/'+this.props.receiverToken.address , title: 'Sending '+DisplayTokenAmount(this.props.receiverAmount, this.props.receiverToken.decimals, this.props.receiverToken.symbol)+' to the receiver', __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 267}}
+                    , React.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/token/'+this.props.receiverToken.address , title: 'Sending '+DisplayTokenAmount(this.props.receiverAmount, this.props.receiverToken.decimals, this.props.receiverToken.symbol)+' to the receiver', __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 269}}
                       , React.createElement(TokenIconComponent, {
                         src:  this.props.receiverToken.logoURI ,
-                        className:  'tiny' , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 268}}
+                        className:  'tiny' , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 270}}
                       )
                     )
-                    , React.createElement('span', { className: "PoweredByLink", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 273}}, " • ")
+                    , React.createElement('span', { className: "PoweredByLink", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 275}}, " • ")
                     , this.paymentType() &&
-                      React.createElement('span', {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 275}}
-                        , React.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  this.paymentTypeLink() , className: "PoweredByLink", title:  this.paymentTypeTitle() , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 276}}
+                      React.createElement('span', {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 277}}
+                        , React.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  this.paymentTypeLink() , className: "PoweredByLink", title:  this.paymentTypeTitle() , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 278}}
                           ,  this.paymentTypeText() 
                         )
-                        , React.createElement('span', { className: "PoweredByLink", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 279}}, " • ")
+                        , React.createElement('span', { className: "PoweredByLink", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 281}}, " • ")
                       )
                     
-                    , React.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href: 'https://depay.fi?utm_source='+window.location.hostname+'&utm_medium=widget&utm_campaign=DePayPayment', className: "PoweredByLink", title: "Powered by DePay: Decentralized Payments"    , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 282}}, "by DePay"
+                    , React.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href: 'https://depay.fi?utm_source='+window.location.hostname+'&utm_medium=widget&utm_campaign=DePayPayment', className: "PoweredByLink", title: "Powered by DePay: Decentralized Payments"    , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 284}}, "by DePay"
 
                     )
                   )
@@ -6525,11 +6527,11 @@ class PaymentDialog extends React.Component {constructor(...args) { super(...arg
     if((this.state.paying && this.state.paying.transactionHash) || (this.state.payed && this.state.payed.transactionHash)) {
       let transactionHash = (this.state.paying && this.state.paying.transactionHash) || (this.state.payed && this.state.payed.transactionHash);
       return(
-        React.createElement('span', {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 299}}
-          , React.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+transactionHash , className: "PoweredByLink", title: "Your transaction" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 300}}, "tx"
+        React.createElement('span', {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 301}}
+          , React.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+transactionHash , className: "PoweredByLink", title: "Your transaction" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 302}}, "tx"
 
           )
-          , React.createElement('span', { className: "PoweredByLink", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 303}}, " • ")
+          , React.createElement('span', { className: "PoweredByLink", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 305}}, " • ")
         )
       )
     } else {
@@ -6542,14 +6544,14 @@ class PaymentDialog extends React.Component {constructor(...args) { super(...arg
       return(this.renderPaymentButton())
     } else {
       return(
-        React.createElement('div', { className: "Table", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 316}}
-          , React.createElement('div', { className: "TableRow", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 317}}
-            , React.createElement('div', { className: "TableCell", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 318}}
+        React.createElement('div', { className: "Table", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 318}}
+          , React.createElement('div', { className: "TableRow", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 319}}
+            , React.createElement('div', { className: "TableCell", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 320}}
               ,  this.renderApproveButton() 
             )
-            , React.createElement('div', { className: "TableCell", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 321}}
-              , React.createElement('button', { className: "CallToAction MainAction disabled"  , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 322}}
-                , React.createElement('span', { className: "CallToActionName", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 323}}, "Pay"), " " , React.createElement('span', { className: "CallToActionPrice TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 323}},  this.props.paymentContext.total )
+            , React.createElement('div', { className: "TableCell", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 323}}
+              , React.createElement('button', { className: "CallToAction MainAction disabled"  , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 324}}
+                , React.createElement('span', { className: "CallToActionName", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 325}}, "Pay"), " " , React.createElement('span', { className: "CallToActionPrice TextEllipsis" , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 325}},  this.props.paymentContext.total )
               )
             )
           )
@@ -6561,18 +6563,18 @@ class PaymentDialog extends React.Component {constructor(...args) { super(...arg
   renderApproveButton() {
     if(this.state.approving) {
       return(
-        React.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+this.state.approving.transactionHash , key: "approving", className: "CallToAction MainAction loading"  , title: "Please wait for the approval transaction to be confirmed by the network. Click to open transaction on etherscan."                 , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 335}}, "Approving"
+        React.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+this.state.approving.transactionHash , key: "approving", className: "CallToAction MainAction loading"  , title: "Please wait for the approval transaction to be confirmed by the network. Click to open transaction on etherscan."                 , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 337}}, "Approving"
 
-          , React.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 337}}, ".")
-          , React.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 338}}, ".")
           , React.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 339}}, ".")
+          , React.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 340}}, ".")
+          , React.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 341}}, ".")
         )
       )
     } else {
       return(
-        React.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 344}}
+        React.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 346}}
           , dialogContext => (
-            React.createElement('button', { key: "approve", className: "CallToAction MainAction" , onClick: ()=>this.approve.bind(this)(dialogContext), title: "Click to approve that the selected token is allowed to be swapped for performing this payment. This approval is only required the first time you pay with the selected token."                             , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 346}}, "Approve"
+            React.createElement('button', { key: "approve", className: "CallToAction MainAction" , onClick: ()=>this.approve.bind(this)(dialogContext), title: "Click to approve that the selected token is allowed to be swapped for performing this payment. This approval is only required the first time you pay with the selected token."                             , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 348}}, "Approve"
 
             )
           )
@@ -6584,32 +6586,32 @@ class PaymentDialog extends React.Component {constructor(...args) { super(...arg
   renderPaymentButton() {
     if(this.state.payed) {
       return(
-        React.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 358}}
+        React.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 360}}
           , dialogContext => (
-            React.createElement('span', { className: "CallToAction MainAction circular"  , onClick:  dialogContext.closeContainer , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 360}}
-              , React.createElement(CheckMarkComponent, { className: "large", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 361}})
+            React.createElement('span', { className: "CallToAction MainAction circular"  , onClick:  dialogContext.closeContainer , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 362}}
+              , React.createElement(CheckMarkComponent, { className: "large", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 363}})
             )
           )
         )
       )
     } else if(this.state.paying) {
       return(
-        React.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+this.state.paying.transactionHash , key: "approving", className: "CallToAction MainAction loading"  , title: "Please wait payment transaction to be confirmed by the network. Click to open transaction on etherscan."               , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 368}}, "Paying"
+        React.createElement('a', { target: "_blank", rel: "noopener noreferrer" , href:  'https://etherscan.io/tx/'+this.state.paying.transactionHash , key: "approving", className: "CallToAction MainAction loading"  , title: "Please wait payment transaction to be confirmed by the network. Click to open transaction on etherscan."               , __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 370}}, "Paying"
 
-          , React.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 370}}, ".")
-          , React.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 371}}, ".")
           , React.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 372}}, ".")
+          , React.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 373}}, ".")
+          , React.createElement('span', { className: "dot", __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 374}}, ".")
         )
       )
     } else {
       return(
-        React.createElement(GasContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 377}}
+        React.createElement(GasContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 379}}
           , gasContext => (
-            React.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 379}}
+            React.createElement(DialogContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 381}}
               , dialogContext => (
-                React.createElement(CallbackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 381}}
+                React.createElement(CallbackContext.Consumer, {__self: this, __source: {fileName: _jsxFileName$p, lineNumber: 383}}
                   , callbackContext => (
-                    React.createElement('button', { className: "CallToAction MainAction" , onClick: ()=>this.pay.bind(this)(dialogContext, callbackContext, gasContext), __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 383}}, "Pay "
+                    React.createElement('button', { className: "CallToAction MainAction" , onClick: ()=>this.pay.bind(this)(dialogContext, callbackContext, gasContext), __self: this, __source: {fileName: _jsxFileName$p, lineNumber: 385}}, "Pay "
                        ,  this.props.paymentContext.total 
                     )
                   )

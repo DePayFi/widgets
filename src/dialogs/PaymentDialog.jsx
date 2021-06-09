@@ -167,7 +167,8 @@ class PaymentDialog extends React.Component {
             amount: amountOut,
             token: route[route.length-1],
             from: from,
-            nonce: transaction.nonce
+            nonce: transaction.nonce,
+            close: dialogContext.closeContainer
           });
         }
         dialogContext.setClosable(false);
@@ -187,7 +188,8 @@ class PaymentDialog extends React.Component {
                   tx: transaction.transactionHash,
                   amount: amountOut,
                   token: route[route.length-1],
-                  from: from
+                  from: from,
+                  close: dialogContext.closeContainer
                 }); 
               }
             }, 100)
