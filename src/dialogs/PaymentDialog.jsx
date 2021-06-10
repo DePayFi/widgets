@@ -168,7 +168,10 @@ class PaymentDialog extends React.Component {
             token: route[route.length-1],
             from: from,
             nonce: transaction.nonce,
-            close: dialogContext.closeContainer
+            close: function(){
+              dialogContext.setClosable(true)
+              dialogContext.closeContainer()
+            }
           });
         }
         dialogContext.setClosable(false);
@@ -189,7 +192,10 @@ class PaymentDialog extends React.Component {
                   amount: amountOut,
                   token: route[route.length-1],
                   from: from,
-                  close: dialogContext.closeContainer
+                  close: function(){
+                    dialogContext.setClosable(true)
+                    dialogContext.closeContainer()
+                  }
                 }); 
               }
             }, 100)
