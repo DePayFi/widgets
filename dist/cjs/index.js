@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var depayReactDialogStack = require('depay-react-dialog-stack');
 var ReactDOM = require('react-dom');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -8,7 +9,28 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
 
-const _jsxFileName = "/Users/sebastian/Work/DePay/depay-widgets/src/Payment.jsx";
+var PaymentOverviewDialog = ()=>{
+  console.log('PAYMENT OVERVIEW DIALOG');
+  return(React__default['default'].createElement('h1', {}, 'I am a dialog!'))
+};
+
+const _jsxFileName = "/Users/sebastian/Work/DePay/depay-widgets/src/stacks/PaymentStack.js";
+var PaymentStack = (props)=>{
+  console.log('PaymentStack props.document', props.document);
+  return(
+    React__default['default'].createElement(depayReactDialogStack.ReactDialogStack, {
+      open:  true ,
+      close: ()=>{},
+      start: "PaymentOverview",
+      document:  props.document ,
+      dialogs: {
+        PaymentOverview: React__default['default'].createElement(PaymentOverviewDialog, {__self: undefined, __source: {fileName: _jsxFileName, lineNumber: 14}})
+      }, __self: undefined, __source: {fileName: _jsxFileName, lineNumber: 8}}
+    )
+  )
+};
+
+const _jsxFileName$1 = "/Users/sebastian/Work/DePay/depay-widgets/src/Payment.jsx";
 let preflight = async ({
   amount,
   token,
@@ -26,15 +48,16 @@ var Payment = async ({
   document
 })=> {
 
+  if(typeof document === 'undefined') { document = window.document; }
+
   await preflight({ amount, token, receiver });
 
-  let _document = document || window.document;
-
   ReactDOM__default['default'].render(
-    React__default['default'].createElement('h1', {__self: undefined, __source: {fileName: _jsxFileName, lineNumber: 26}}, "I am a dialog!"   ),
-    _document.body
+    React__default['default'].createElement(PaymentStack, {
+      document:  document , __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 27}}
+    ), 
+    document.body
   );
-
 };
 
 let DePayWidgets = {

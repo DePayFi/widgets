@@ -22,13 +22,15 @@
     "lint:fix": "eslint \"src/**/*.{js,ts,tsx}\" --fix",
     "format": "prettier src --write",
     "prepublishOnly": "yarn build",
-    "start": "npx rollup -c rollup.demo.config.js -w",
+    "demo": "npx rollup -c rollup.demo.config.js -w",
     "test:jest": "yarn build && npx jest --no-cache",
     "test:cypress": "yarn build && yarn cypress run",
     "test:cypress:debug": "yarn build && yarn cypress run --headed --no-exit",
     "test": "yarn build && npx jest --no-cache && yarn cypress run"
   },
-  "dependencies": {},
+  "dependencies": {
+    "depay-react-dialog-stack": "^1.0.1"
+  },
   "peerDependencies": {
     "react": "^17",
     "react-dom": "^17"

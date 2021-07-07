@@ -1,3 +1,5 @@
+
+(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -143,6 +145,11 @@
 	  module.exports = react_production_min;
 	}
 	});
+
+	var PaymentOverviewDialog = ()=>{
+	  console.log('PAYMENT OVERVIEW DIALOG');
+	  return(react.createElement('h1', {}, 'I am a dialog!'))
+	};
 
 	/** @license React v0.20.2
 	 * scheduler.production.min.js
@@ -577,7 +584,440 @@
 	}
 	});
 
-	const _jsxFileName = "/Users/sebastian/Work/DePay/depay-widgets/src/Payment.jsx";
+	function _interopDefaultLegacy$1 (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+	var React__default = /*#__PURE__*/_interopDefaultLegacy$1(react);
+	var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy$1(reactDom);
+
+	function ReactDialogStyle (styles) {
+	  let background =
+	    typeof styles === 'object' && styles.background ? styles.background : 'rgba(0,0,0,0.4)';
+
+	  return (
+	    `
+    .ReactDialog {
+      bottom: 0;
+      display: table-row-group;
+      height: 100%;
+      left: 0;
+      overflow: hidden;
+      position: absolute;
+      right: 0;
+      top: 0;
+      user-select: none;
+      width: 100%;
+    }
+
+    .ReactDialogRow {
+      display: table-row;
+      height: 100%;
+      width: 100%;
+    }
+
+    .ReactDialogCell {
+      display: table-cell;
+      height: 100%;
+      vertical-align: middle;
+      width: 100%;
+      text-align: center;
+    }
+
+    .ReactDialogBackground {
+      background: ` +
+	    background +
+	    `;
+      bottom: 0;
+      display: block;
+      height: 100vh;
+      left: 0;
+      opacity: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: opacity 0.4s ease;
+      width: 100vw;
+    }
+
+    .ReactDialog.ReactDialogOpen .ReactDialogBackground {
+      opacity: 1;
+    }
+
+    .ReactDialogAnimation {
+      display: inline-block;
+      position: relative;
+      opacity: 0;
+      top: -17vh;
+      transition: opacity 0.4s ease, top 0.4s ease;
+    }
+
+    .ReactDialog.ReactDialogOpen .ReactDialogAnimation {
+      opacity: 1.0;
+      top: -5vh;
+    }
+  `
+	  )
+	}
+
+	const _jsxFileName = "/Users/sebastian/Work/DePay/depay-react-dialog/src/components/Dialog.jsx";
+
+
+	class Dialog extends React__default['default'].Component {
+	  constructor(props) {
+	    super(props);
+
+	    this.state = {
+	      open: true,
+	    };
+	  }
+
+	  closeDialog() {
+	    this.props.close();
+	  }
+
+	  onKeyDown(event) {
+	    if (event.key === 'Escape') {
+	      this.closeDialog();
+	    }
+	  }
+
+	  componentDidUpdate(prevProps) {
+	    if (this.props.open === false && prevProps.open === true) {
+	      this.setState({ open: false });
+	    }
+	  }
+
+	  onClickBackground(event) {
+	    this.closeDialog();
+	  }
+
+	  componentDidMount() {
+	    this.setState({ open: false }, () => {
+	      // make sure state is false first before opening the dialog
+	      // to ensure opening is animated
+	      setTimeout(() => {
+	        this.setState({ open: true });
+	      }, 10);
+	    });
+	    this.props.document.addEventListener('keydown', this.onKeyDown.bind(this), false);
+	  }
+
+	  componentWillUnmount() {
+	    this.props.document.addEventListener('keydown', this.onKeyDown.bind(this), false);
+	  }
+
+	  render() {
+	    const classNames = ['ReactDialog', this.state.open ? 'ReactDialogOpen' : ''];
+	    const style = ReactDialogStyle({ background: this.props.background });
+	    return (
+	      React__default['default'].createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName, lineNumber: 54}}
+	        , React__default['default'].createElement('style', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 55}}, style)
+	        , React__default['default'].createElement('div', { className: "ReactDialogRow", __self: this, __source: {fileName: _jsxFileName, lineNumber: 56}}
+	          , React__default['default'].createElement('div', { className: "ReactDialogCell", __self: this, __source: {fileName: _jsxFileName, lineNumber: 57}}
+	            , React__default['default'].createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName, lineNumber: 58}} )
+	            , this.props.children
+	          )
+	        )
+	      )
+	    )
+	  }
+	}
+
+	const _jsxFileName$1 = "/Users/sebastian/Work/DePay/depay-react-dialog/src/index.jsx";
+	class ReactDialog extends React__default['default'].Component {
+	  constructor(props) {
+	    super(props);
+
+	    this.state = {
+	      open: props.open,
+	    };
+	  }
+
+	  componentDidUpdate(prevProps) {
+	    if (this.props.open === false && prevProps.open === true) {
+	      setTimeout(() => {
+	        this.setState({ open: false });
+	      }, 400);
+	    } else if (this.props.open === true && prevProps.open === false) {
+	      this.setState({ open: true });
+	    }
+	  }
+
+	  render() {
+	    let _document = this.props.document || document;
+	    if (this.state.open) {
+	      return ReactDOM__default['default'].createPortal(
+	        React__default['default'].createElement(Dialog, {
+	          background: this.props.background,
+	          close: this.props.close,
+	          document: _document,
+	          open: this.props.open, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 28}}
+	        
+	          , this.props.children
+	        ),
+	        _document.body,
+	      )
+	    } else {
+	      // enforces unmount
+	      return null
+	    }
+	  }
+	}
+
+	var ReactDialog_1 = ReactDialog;
+
+	var cjs = /*#__PURE__*/Object.defineProperty({
+		ReactDialog: ReactDialog_1
+	}, '__esModule', {value: true});
+
+	function _interopDefaultLegacy$2 (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+	var React__default$1 = /*#__PURE__*/_interopDefaultLegacy$2(react);
+
+	var CloseStackContext = React__default$1['default'].createContext();
+
+	var NavigateStackContext = React__default$1['default'].createContext();
+
+	function ReactDialogStackStyle () {
+	  return `
+
+    .ReactDialogStack {
+      bottom: 0;
+      display: table;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      transition: left 0.1s ease, opacity 0.2s ease;
+      width: 100%;
+    }
+
+    .ReactDialogStackRow {
+      display: table-row;
+    }
+
+    .ReactDialogStackCell {
+      display: table-cell;
+      vertical-align: middle;
+      padding: 0 0.6rem;
+    }
+
+    .ReactDialogStack {
+      left: 0;
+      opacity: 1;
+    }
+
+    .ReactDialogStack.inactive {
+      display: none;
+    }
+
+    .ReactDialogStack.animating.stale {
+      display: none;
+    }
+
+    .ReactDialogStack.animating.previous.forward {
+      opacity: 0;
+      left: -5rem;
+    }
+
+    .ReactDialogStack.animating.previous.backward {
+      opacity: 0;
+      left: 5rem;
+    }
+
+    .ReactDialogStack.animating.next.forward {
+      opacity: 0;
+      left: 5rem;
+    }
+
+    .ReactDialogStack.animating.next.backward {
+      opacity: 0;
+      left: -5rem;
+    }
+  `
+	}
+
+	const _jsxFileName$2 = "/Users/sebastian/Work/DePay/depay-react-dialog-stack/src/index.jsx";
+	class ReactDialogStack extends React__default$1['default'].Component {
+	  constructor(props) {
+	    super(props);
+
+	    this.state = {
+	      stack: [props.start],
+	      animating: false,
+	      animation: null,
+	      direction: 'forward',
+	      animationSpeed: 200,
+	    };
+	  }
+
+	  navigate(route) {
+	    if (this.state.stack.indexOf(route) > -1) {
+	      return
+	    }
+	    if (route === 'back') {
+	      return this.unstack()
+	    }
+
+	    this.setState({
+	      stack: this.state.stack.concat(route),
+	      animating: true,
+	      direction: 'forward',
+	      animation: setTimeout(
+	        function () {
+	          this.setState({
+	            animating: false,
+	          });
+	        }.bind(this),
+	        this.state.animationSpeed,
+	      ),
+	    });
+	  }
+
+	  unstack() {
+	    if (this.state.stack.length <= 1) {
+	      return
+	    }
+
+	    let newStack = [...this.state.stack];
+	    newStack.pop();
+
+	    this.setState({
+	      animating: true,
+	      direction: 'backward',
+	      animation: setTimeout(
+	        function () {
+	          this.setState({
+	            stack: newStack,
+	            animating: false,
+	          });
+	        }.bind(this),
+	        this.state.animationSpeed,
+	      ),
+	    });
+	  }
+
+	  classForState(index) {
+	    if (this.state.animating) {
+	      return
+	    }
+	    if (this.state.stack.length === 1) {
+	      return 'active'
+	    } else {
+	      if (this.state.stack.length === index + 1) {
+	        return 'active'
+	      } else {
+	        return 'inactive'
+	      }
+	    }
+	  }
+
+	  classForPosition(index) {
+	    if (this.state.stack.length > 1) {
+	      if (this.state.stack.length === index + 1) {
+	        if (this.state.direction === 'forward') {
+	          return 'next'
+	        } else {
+	          return 'previous'
+	        }
+	      } else if (this.state.stack.length - 1 === index + 1) {
+	        if (this.state.direction === 'forward') {
+	          return 'previous'
+	        } else {
+	          return 'next'
+	        }
+	      } else {
+	        return 'stale'
+	      }
+	    }
+	  }
+
+	  classForAnimation() {
+	    if (this.state.animating) {
+	      return 'animating'
+	    }
+	  }
+
+	  classForDirection() {
+	    return this.state.direction
+	  }
+
+	  renderStack() {
+	    return this.state.stack.map(
+	      function (route, index) {
+	        let stackState = [
+	          this.classForState(index),
+	          this.classForPosition(index),
+	          this.classForAnimation(),
+	          this.classForDirection(),
+	        ];
+	        return (
+	          React__default$1['default'].createElement('div', { key: index, className: ['ReactDialogStack'].concat(stackState).join(' '), __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 122}}
+	            , React__default$1['default'].createElement('div', { className: "ReactDialogStackRow", __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 123}}
+	              , React__default$1['default'].createElement('div', { className: "ReactDialogStackCell", onClick: this.onClick.bind(this), __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 124}}
+	                , React__default$1['default'].createElement(NavigateStackContext.Provider, { value: this.navigate.bind(this), __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 125}}
+	                  , React__default$1['default'].createElement(CloseStackContext.Provider, { value: this.close.bind(this), __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 126}}
+	                    , React__default$1['default'].createElement('div', { className: "ReactDialogAnimation", __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 127}}, this.props.dialogs[route])
+	                  )
+	                )
+	              )
+	            )
+	          )
+	        )
+	      }.bind(this),
+	    )
+	  }
+
+	  onClick(event) {
+	    if (
+	      event.target &&
+	      event.target.className &&
+	      event.target.className.match('ReactDialogStackCell') // clicked background
+	    ) {
+	      if (this.state.stack.length > 1) {
+	        this.unstack();
+	      } else {
+	        this.close();
+	      }
+	    }
+	  }
+
+	  close() {
+	    this.setState({ stack: this.state.stack.slice(0, 1) });
+	    this.props.close();
+	  }
+
+	  render() {
+	    return (
+	      React__default$1['default'].createElement(cjs.ReactDialog, {
+	        close: this.close.bind(this),
+	        open: this.props.open,
+	        document: this.props.document,
+	        background: this.props.background, __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 159}}
+	      
+	        , React__default$1['default'].createElement('style', {__self: this, __source: {fileName: _jsxFileName$2, lineNumber: 165}}, ReactDialogStackStyle())
+	        , this.renderStack()
+	      )
+	    )
+	  }
+	}
+	var ReactDialogStack_1 = ReactDialogStack;
+
+	const _jsxFileName$3 = "/Users/sebastian/Work/DePay/depay-widgets/src/stacks/PaymentStack.js";
+	var PaymentStack = (props)=>{
+	  console.log('PaymentStack props.document', props.document);
+	  return(
+	    react.createElement(ReactDialogStack_1, {
+	      open:  true ,
+	      close: ()=>{},
+	      start: "PaymentOverview",
+	      document:  props.document ,
+	      dialogs: {
+	        PaymentOverview: react.createElement(PaymentOverviewDialog, {__self: undefined, __source: {fileName: _jsxFileName$3, lineNumber: 14}})
+	      }, __self: undefined, __source: {fileName: _jsxFileName$3, lineNumber: 8}}
+	    )
+	  )
+	};
+
+	const _jsxFileName$4 = "/Users/sebastian/Work/DePay/depay-widgets/src/Payment.jsx";
 	let preflight = async ({
 	  amount,
 	  token,
@@ -595,15 +1035,16 @@
 	  document
 	})=> {
 
+	  if(typeof document === 'undefined') { document = window.document; }
+
 	  await preflight({ amount, token, receiver });
 
-	  let _document = document || window.document;
-
 	  reactDom.render(
-	    react.createElement('h1', {__self: undefined, __source: {fileName: _jsxFileName, lineNumber: 26}}, "I am a dialog!"   ),
-	    _document.body
+	    react.createElement(PaymentStack, {
+	      document:  document , __self: undefined, __source: {fileName: _jsxFileName$4, lineNumber: 27}}
+	    ), 
+	    document.body
 	  );
-
 	};
 
 	let DePayWidgets = {

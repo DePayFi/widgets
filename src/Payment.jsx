@@ -1,3 +1,4 @@
+import PaymentStack from './stacks/PaymentStack'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -18,13 +19,14 @@ export default async ({
   document
 })=> {
 
+  if(typeof document === 'undefined') { document = window.document }
+
   await preflight({ amount, token, receiver })
 
-  let _document = document || window.document
-
   ReactDOM.render(
-    <h1>I am a dialog!</h1>,
-    _document.body
+    <PaymentStack
+      document={ document }
+    />, 
+    document.body
   )
-
 }

@@ -3197,6 +3197,21 @@ delayed-stream@~1.0.0:
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   integrity sha1-3zrhmayt+31ECqrgsp4icrJOxhk=
 
+depay-react-dialog-stack@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/depay-react-dialog-stack/-/depay-react-dialog-stack-1.0.1.tgz#5e778c3e4e37a4f8b93fb794f25730690e719fe4"
+  integrity sha512-2H0ueXcD+iUbjUSd2EY79okxWo8CFePhiTwqA636QseMLiNRsSWsnAqVtTM2OM1eAEH/5HopDXTT9c4NDm5nFA==
+  dependencies:
+    depay-react-dialog "^9.0.1"
+    react-dom "^17.0.1"
+
+depay-react-dialog@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/depay-react-dialog/-/depay-react-dialog-9.0.1.tgz#b70d003e33220b2633ada0e6c656030d7744b304"
+  integrity sha512-5KXnF4GNfCVJlzImWedKjY/+29Es7E1ON0KijmQe6cuHbr1f6kFHmYQP1brMdOI6qAqqKBQrlcMnS69w3Okj7A==
+  dependencies:
+    react-dom "^17.0.1"
+
 detect-newline@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-3.1.0.tgz#576f5dfc63ae1a192ff192d8ad3af6308991b651"
@@ -6031,7 +6046,7 @@ randombytes@^2.1.0:
   dependencies:
     safe-buffer "^5.1.0"
 
-react-dom@^17.0.2:
+react-dom@^17.0.1:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
   integrity sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==
