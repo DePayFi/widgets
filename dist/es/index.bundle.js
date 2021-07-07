@@ -1,5 +1,5 @@
+var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
-(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
 function createCommonjsModule(fn) {
   var module = { exports: {} };
 	return fn(module, module.exports), module.exports;
@@ -140,9 +140,13 @@ var react = createCommonjsModule(function (module) {
 }
 });
 
+const _jsxFileName = "/Users/sebastian/Work/DePay/depay-widgets/src/dialogs/Payment/PaymentOverviewDialog.jsx";
 var PaymentOverviewDialog = ()=>{
-  console.log('PAYMENT OVERVIEW DIALOG');
-  return(react.createElement('h1', {}, 'I am a dialog!'))
+  return(
+    react.createElement('div', { className: "ReactDialogAnimation DePayWidgetDialog" , __self: undefined, __source: {fileName: _jsxFileName, lineNumber: 5}}
+      , react.createElement('h1', {__self: undefined, __source: {fileName: _jsxFileName, lineNumber: 6}}, "I am a dialog"   )
+    )
+  )
 };
 
 /** @license React v0.20.2
@@ -652,7 +656,7 @@ function ReactDialogStyle (styles) {
   )
 }
 
-const _jsxFileName = "/Users/sebastian/Work/DePay/depay-react-dialog/src/components/Dialog.jsx";
+const _jsxFileName$1 = "/Users/sebastian/Work/DePay/depay-react-dialog/src/components/Dialog.jsx";
 
 
 class Dialog extends React__default['default'].Component {
@@ -703,11 +707,11 @@ class Dialog extends React__default['default'].Component {
     const classNames = ['ReactDialog', this.state.open ? 'ReactDialogOpen' : ''];
     const style = ReactDialogStyle({ background: this.props.background });
     return (
-      React__default['default'].createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName, lineNumber: 54}}
-        , React__default['default'].createElement('style', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 55}}, style)
-        , React__default['default'].createElement('div', { className: "ReactDialogRow", __self: this, __source: {fileName: _jsxFileName, lineNumber: 56}}
-          , React__default['default'].createElement('div', { className: "ReactDialogCell", __self: this, __source: {fileName: _jsxFileName, lineNumber: 57}}
-            , React__default['default'].createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName, lineNumber: 58}} )
+      React__default['default'].createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 54}}
+        , React__default['default'].createElement('style', {__self: this, __source: {fileName: _jsxFileName$1, lineNumber: 55}}, style)
+        , React__default['default'].createElement('div', { className: "ReactDialogRow", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 56}}
+          , React__default['default'].createElement('div', { className: "ReactDialogCell", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 57}}
+            , React__default['default'].createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 58}} )
             , this.props.children
           )
         )
@@ -716,7 +720,7 @@ class Dialog extends React__default['default'].Component {
   }
 }
 
-const _jsxFileName$1 = "/Users/sebastian/Work/DePay/depay-react-dialog/src/index.jsx";
+const _jsxFileName$1$1 = "/Users/sebastian/Work/DePay/depay-react-dialog/src/index.jsx";
 class ReactDialog extends React__default['default'].Component {
   constructor(props) {
     super(props);
@@ -738,17 +742,18 @@ class ReactDialog extends React__default['default'].Component {
 
   render() {
     let _document = this.props.document || document;
+    let container = this.props.container || _document.body;
     if (this.state.open) {
       return ReactDOM__default['default'].createPortal(
         React__default['default'].createElement(Dialog, {
           background: this.props.background,
           close: this.props.close,
           document: _document,
-          open: this.props.open, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 28}}
+          open: this.props.open, __self: this, __source: {fileName: _jsxFileName$1$1, lineNumber: 29}}
         
           , this.props.children
         ),
-        _document.body,
+        container,
       )
     } else {
       // enforces unmount
@@ -985,9 +990,10 @@ class ReactDialogStack extends React__default$1['default'].Component {
         close: this.close.bind(this),
         open: this.props.open,
         document: this.props.document,
+        container: this.props.container,
         background: this.props.background, __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 159}}
       
-        , React__default$1['default'].createElement('style', {__self: this, __source: {fileName: _jsxFileName$2, lineNumber: 165}}, ReactDialogStackStyle())
+        , React__default$1['default'].createElement('style', {__self: this, __source: {fileName: _jsxFileName$2, lineNumber: 166}}, ReactDialogStackStyle())
         , this.renderStack()
       )
     )
@@ -997,18 +1003,110 @@ var ReactDialogStack_1 = ReactDialogStack;
 
 const _jsxFileName$3 = "/Users/sebastian/Work/DePay/depay-widgets/src/stacks/PaymentStack.js";
 var PaymentStack = (props)=>{
-  console.log('PaymentStack props.document', props.document);
   return(
     react.createElement(ReactDialogStack_1, {
       open:  true ,
       close: ()=>{},
       start: "PaymentOverview",
+      container:  props.container ,
       document:  props.document ,
       dialogs: {
         PaymentOverview: react.createElement(PaymentOverviewDialog, {__self: undefined, __source: {fileName: _jsxFileName$3, lineNumber: 14}})
-      }, __self: undefined, __source: {fileName: _jsxFileName$3, lineNumber: 8}}
+      }, __self: undefined, __source: {fileName: _jsxFileName$3, lineNumber: 7}}
     )
   )
+};
+
+var umd = createCommonjsModule(function (module, exports) {
+(function (global, factory) {
+   module.exports = factory(reactDom) ;
+}(commonjsGlobal, (function (ReactDOM) {
+  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+  var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
+
+  const outsideContainerClass = 'ReactShadowDOMOutsideContainer';
+  function getOutsideContainer(element) {
+      return element.getElementsByClassName(outsideContainerClass)[0];
+  }
+  function createOutsideContainer({ document, element, style, }) {
+      const container = document.createElement('div');
+      container.setAttribute('class', outsideContainerClass);
+      container.setAttribute('style', style);
+      element.appendChild(container);
+      return container;
+  }
+
+  function cleanup(element) {
+      const outsideContainer = getOutsideContainer(element);
+      if (outsideContainer && outsideContainer.shadowRoot) {
+          const shadowRoot = outsideContainer.shadowRoot;
+          if (shadowRoot) {
+              const insideContainer = shadowRoot.childNodes[0];
+              if (insideContainer) {
+                  ReactDOM__default['default'].unmountComponentAtNode(insideContainer);
+              }
+          }
+          outsideContainer.remove();
+      }
+  }
+
+  const insideContainerClass = 'ReactShadowDOMInsideContainer';
+  function createInsideContainer({ document, shadow, style, }) {
+      if (style && style.length) {
+          const styleElement = document.createElement('style');
+          styleElement.type = 'text/css';
+          styleElement.appendChild(document.createTextNode(style));
+          shadow.appendChild(styleElement);
+      }
+      const container = document.createElement('div');
+      container.setAttribute('class', insideContainerClass);
+      shadow.appendChild(container);
+      return container;
+  }
+
+  function createShadow(container) {
+      let shadow;
+      if (container.shadowRoot) {
+          shadow = container.shadowRoot;
+      }
+      else {
+          shadow = container.attachShadow({ mode: 'open' });
+      }
+      return shadow;
+  }
+
+  function trimStyle(style) {
+      return style.replace(/\s*[\r\n]\s*/g, '');
+  }
+
+  function ReactShadowDOM({ document, element, content, outsideStyle = '', insideStyle = '', }) {
+      cleanup(element);
+      const outsideContainer = createOutsideContainer({
+          document,
+          element,
+          style: trimStyle(outsideStyle),
+      });
+      const shadow = createShadow(outsideContainer);
+      const insideContainer = createInsideContainer({ document, shadow, style: trimStyle(insideStyle) });
+      if (typeof content === 'function') {
+          content = content(insideContainer);
+      }
+      ReactDOM__default['default'].render(content, insideContainer);
+      return content;
+  }
+
+  return ReactShadowDOM;
+
+})));
+});
+
+var style = ()=>{
+  return(`
+    .DePayWidgetDialog {
+      background: white;
+    }
+  `)
 };
 
 const _jsxFileName$4 = "/Users/sebastian/Work/DePay/depay-widgets/src/Payment.jsx";
@@ -1032,13 +1130,20 @@ var Payment = async ({
   if(typeof document === 'undefined') { document = window.document; }
 
   await preflight({ amount, token, receiver });
-
-  reactDom.render(
-    react.createElement(PaymentStack, {
-      document:  document , __self: undefined, __source: {fileName: _jsxFileName$4, lineNumber: 27}}
-    ), 
-    document.body
-  );
+  
+  umd({
+    document,
+    element: document.body,
+    content: (container)=> {
+      return(
+        react.createElement(PaymentStack, {
+          document:  document ,
+          container:  container , __self: undefined, __source: {fileName: _jsxFileName$4, lineNumber: 32}}
+        )
+      )
+    },
+    insideStyle: style()
+  });
 };
 
 let DePayWidgets = {

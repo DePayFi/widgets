@@ -3197,20 +3197,25 @@ delayed-stream@~1.0.0:
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   integrity sha1-3zrhmayt+31ECqrgsp4icrJOxhk=
 
-depay-react-dialog-stack@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/depay-react-dialog-stack/-/depay-react-dialog-stack-1.0.1.tgz#5e778c3e4e37a4f8b93fb794f25730690e719fe4"
-  integrity sha512-2H0ueXcD+iUbjUSd2EY79okxWo8CFePhiTwqA636QseMLiNRsSWsnAqVtTM2OM1eAEH/5HopDXTT9c4NDm5nFA==
+depay-react-dialog-stack@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/depay-react-dialog-stack/-/depay-react-dialog-stack-1.1.0.tgz#7ca96c27fd1069c00c08dde42a5e1d7a37f02531"
+  integrity sha512-gvcbn8BrGHZw0gPbyb2r4aLRvREGURgNyGoHz04AJQOeuel+JzGSwO+S+YaiWE7VyA2zAmQVTbSYvK/8klDMlA==
   dependencies:
-    depay-react-dialog "^9.0.1"
+    depay-react-dialog "^9.1.0"
     react-dom "^17.0.1"
 
-depay-react-dialog@^9.0.1:
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/depay-react-dialog/-/depay-react-dialog-9.0.1.tgz#b70d003e33220b2633ada0e6c656030d7744b304"
-  integrity sha512-5KXnF4GNfCVJlzImWedKjY/+29Es7E1ON0KijmQe6cuHbr1f6kFHmYQP1brMdOI6qAqqKBQrlcMnS69w3Okj7A==
+depay-react-dialog@^9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/depay-react-dialog/-/depay-react-dialog-9.1.0.tgz#0f76733a447844d186380508348129640cd14e8e"
+  integrity sha512-ZXNHBiDfmF3Y9ORuTGStdTwSTHvN/ES/lxbPeXQPmM729NtTBTtJbXRbhyezDFi+ktfl3mwatUVc8nv6Ii5bCg==
   dependencies:
     react-dom "^17.0.1"
+
+depay-react-shadow-dom@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/depay-react-shadow-dom/-/depay-react-shadow-dom-1.1.0.tgz#eb3e844d9aaded3278f295e0752f8dc5dcafc0d2"
+  integrity sha512-vyGMGk4/zsFQ1B+4Bkea7M3H0GzdEkri2ya2Ki83vavv/FV9ptTIDSWz7unnk8kQ8PDWgKip2W+4SBFzXMdj9g==
 
 detect-newline@^3.0.0:
   version "3.1.0"

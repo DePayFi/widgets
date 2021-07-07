@@ -1,6 +1,7 @@
 import PaymentStack from './stacks/PaymentStack'
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactShadowDOM from 'depay-react-shadow-dom'
+import style from './style'
 
 let preflight = async ({
   amount,
@@ -22,11 +23,18 @@ export default async ({
   if(typeof document === 'undefined') { document = window.document }
 
   await preflight({ amount, token, receiver })
-
-  ReactDOM.render(
-    <PaymentStack
-      document={ document }
-    />, 
-    document.body
-  )
+  
+  ReactShadowDOM({
+    document,
+    element: document.body,
+    content: (container)=> {
+      return(
+        <PaymentStack
+          document={ document }
+          container={ container }
+        />
+      )
+    },
+    insideStyle: style()
+  })
 }

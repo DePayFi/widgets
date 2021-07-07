@@ -1,29 +1,41 @@
 import React from 'react';
 import { ReactDialogStack } from 'depay-react-dialog-stack';
-import ReactDOM from 'react-dom';
+import ReactShadowDOM from 'depay-react-shadow-dom';
 
+const _jsxFileName = "/Users/sebastian/Work/DePay/depay-widgets/src/dialogs/Payment/PaymentOverviewDialog.jsx";
 var PaymentOverviewDialog = ()=>{
-  console.log('PAYMENT OVERVIEW DIALOG');
-  return(React.createElement('h1', {}, 'I am a dialog!'))
+  return(
+    React.createElement('div', { className: "ReactDialogAnimation DePayWidgetDialog" , __self: undefined, __source: {fileName: _jsxFileName, lineNumber: 5}}
+      , React.createElement('h1', {__self: undefined, __source: {fileName: _jsxFileName, lineNumber: 6}}, "I am a dialog"   )
+    )
+  )
 };
 
-const _jsxFileName = "/Users/sebastian/Work/DePay/depay-widgets/src/stacks/PaymentStack.js";
+const _jsxFileName$1 = "/Users/sebastian/Work/DePay/depay-widgets/src/stacks/PaymentStack.js";
 var PaymentStack = (props)=>{
-  console.log('PaymentStack props.document', props.document);
   return(
     React.createElement(ReactDialogStack, {
       open:  true ,
       close: ()=>{},
       start: "PaymentOverview",
+      container:  props.container ,
       document:  props.document ,
       dialogs: {
-        PaymentOverview: React.createElement(PaymentOverviewDialog, {__self: undefined, __source: {fileName: _jsxFileName, lineNumber: 14}})
-      }, __self: undefined, __source: {fileName: _jsxFileName, lineNumber: 8}}
+        PaymentOverview: React.createElement(PaymentOverviewDialog, {__self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 14}})
+      }, __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 7}}
     )
   )
 };
 
-const _jsxFileName$1 = "/Users/sebastian/Work/DePay/depay-widgets/src/Payment.jsx";
+var style = ()=>{
+  return(`
+    .DePayWidgetDialog {
+      background: white;
+    }
+  `)
+};
+
+const _jsxFileName$2 = "/Users/sebastian/Work/DePay/depay-widgets/src/Payment.jsx";
 let preflight = async ({
   amount,
   token,
@@ -44,13 +56,20 @@ var Payment = async ({
   if(typeof document === 'undefined') { document = window.document; }
 
   await preflight({ amount, token, receiver });
-
-  ReactDOM.render(
-    React.createElement(PaymentStack, {
-      document:  document , __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 27}}
-    ), 
-    document.body
-  );
+  
+  ReactShadowDOM({
+    document,
+    element: document.body,
+    content: (container)=> {
+      return(
+        React.createElement(PaymentStack, {
+          document:  document ,
+          container:  container , __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 32}}
+        )
+      )
+    },
+    insideStyle: style()
+  });
 };
 
 let DePayWidgets = {

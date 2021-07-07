@@ -29,7 +29,8 @@
     "test": "yarn build && npx jest --no-cache && yarn cypress run"
   },
   "dependencies": {
-    "depay-react-dialog-stack": "^1.0.1"
+    "depay-react-dialog-stack": "^1.1.0",
+    "depay-react-shadow-dom": "^1.1.0"
   },
   "peerDependencies": {
     "react": "^17",
