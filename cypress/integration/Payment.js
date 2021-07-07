@@ -20,9 +20,12 @@ describe('Payment', () => {
           document
         })
         
-        // expect(
-        //   document.querySelector('h1').innerHTML
-        // ).to.equal('I am a dialog!')
+        cy.get('#test').get('.ReactShadowDOMOutsideContainer').should(element => {
+          const [container] = element.get()
+          expect(
+            container.shadowRoot.querySelector('style').innerHTML
+          ).to.contain('.DePayWidgetDialog')
+        })
       })
     })
   })
