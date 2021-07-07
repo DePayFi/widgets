@@ -1,23 +1,9 @@
-# Overview
-
-[Preparation](#preparation)
-
-[Installation](#installation)
-
-[DePay Payments](#depay-payments)
-
-[DePay Donations](#depay-donations)
-
-[DePay Sales](#depay-sales)
-
-[Development](#development)
-
 ## Installation
 
 You can either load the depay-widgets package via CDN:
 
 ```
-<script src="https://depay.fi/integrate/widgets/v1.js"/>
+<script src="https://depay.fi/integrate/widgets/v2.js"/>
 ```
 
 or you install depay-widgets via the package manager of your choice and ship it as part of your application bundle:
@@ -51,7 +37,7 @@ In order to receive decentralized payments on any blockchain you need to have yo
 ### Quick start
 
 ```
-<script src="https://depay.fi/integrate/buttons/v2.js"/>
+<script src="https://depay.fi/integrate/widgets/v2.js"/>
 ```
 
 ```
