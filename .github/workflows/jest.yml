@@ -31,4 +31,4 @@ jobs:
           npm run build
       - name: Run Jest
         run: |
-          yarn test:units
+          yarn test:jest

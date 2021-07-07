@@ -22,12 +22,11 @@
     "lint:fix": "eslint \"src/**/*.{js,ts,tsx}\" --fix",
     "format": "prettier src --write",
     "prepublishOnly": "yarn build",
-    "start": "npx rollup -c rollup.serve.config.js -w",
-    "test:units": "yarn build && npx jest --no-cache",
-    "test:integration": "yarn cypress run",
-    "test:cov": "jest --coverage",
-    "test:watch": "jest --watch --no-cache",
-    "test": "yarn test:units && yarn test:integration"
+    "start": "npx rollup -c rollup.demo.config.js -w",
+    "test:jest": "yarn build && npx jest --no-cache",
+    "test:cypress": "yarn build && yarn cypress run",
+    "test:cypress:debug": "yarn build && yarn cypress run --headed --no-exit",
+    "test": "yarn build && npx jest --no-cache && yarn cypress run"
   },
   "dependencies": {},
   "peerDependencies": {
@@ -38,6 +37,7 @@
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
+    "@cypress/react": "^5.9.1",
     "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-node-resolve": "^11.1.1",
     "@rollup/plugin-replace": "^2.3.4",

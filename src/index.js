@@ -1,5 +1,7 @@
+import Payment from './Payment'
+
 let DePayWidgets = {
-  Payment: function(){}
+  Payment
 }
 
 export default DePayWidgets

@@ -230,6 +230,16 @@ yarn install
 yarn start
 ```
 
+### Testing
+
+#### Debug Cypress
+
+Starts cypress in `--headed` and `--no-exit`
+
+```
+test:cypress:debug
+```
+
 ### Release new versions to npm
 
 ```
