@@ -29,4 +29,24 @@ describe('Payment', () => {
       })
     })
   })
+
+  it('shows an animated skeleton while loading data', () => {
+    throw('PENDING')
+  })
+
+  it('allows me to close the container while its loading', () => {
+    throw('PENDING')
+  })
+
+  it('loads the most cost-effective route and suggests that as a payment', () => {
+    throw('PENDING')
+  })
+
+  it('allows me to close the container after it loaded', () => {
+    throw('PENDING')
+  })
+  
+  it('contains a link to the DePay website in the footer', () => {
+    throw('PENDING')
+  })
 })

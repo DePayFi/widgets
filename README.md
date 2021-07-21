@@ -227,7 +227,7 @@ The widget will call the `callback` function passing a callback object as an arg
 
 ```
 yarn install
-yarn demo
+yarn dev
 ```
 
 ### Testing

@@ -17,20 +17,23 @@
   "author": "DePay",
   "license": "MIT",
   "scripts": {
-    "build": "npx rollup -c && npx rollup --config rollup.bundle.config.js",
+    "build": "npx rollup --config rollup.module.config.js && npx rollup --config rollup.bundle.config.js",
     "lint": "eslint \"src/**/*.{js,ts,tsx}\"",
     "lint:fix": "eslint \"src/**/*.{js,ts,tsx}\" --fix",
     "format": "prettier src --write",
     "prepublishOnly": "yarn build",
     "demo": "npx rollup -c rollup.demo.config.js -w",
+    "dev": "npx rollup -c rollup.dev.config.js -w",
     "test:jest": "yarn build && npx jest --no-cache",
     "test:cypress": "yarn build && yarn cypress run",
     "test:cypress:debug": "yarn build && yarn cypress run --headed --no-exit",
     "test": "yarn build && npx jest --no-cache && yarn cypress run"
   },
   "dependencies": {
-    "depay-react-dialog-stack": "^1.1.0",
-    "depay-react-shadow-dom": "^1.1.0"
+    "depay-crypto-wallets": "^2.4.0",
+    "depay-payment-routing": "^0.2.3",
+    "depay-react-dialog-stack": "^1.1.4",
+    "depay-react-shadow-dom": "^2.0.0"
   },
   "peerDependencies": {
     "react": "^17",
@@ -38,9 +41,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@babel/plugin-transform-runtime": "^7.14.5",
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "@cypress/react": "^5.9.1",
+    "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-node-resolve": "^11.1.1",
     "@rollup/plugin-replace": "^2.3.4",
@@ -50,6 +55,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "cypress": "^7.6.0",
+    "depay-web3mock": "^4.4.0",
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-loader": "^4.0.2",
