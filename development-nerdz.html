@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="https://depay.fi/favicon.png"/>
     <title>Development</title>
-    <script src="tmp/umd/index.js"></script>
+    <script src="dist/umd/index.bundle.js"></script>
   </head>
   <body>
 
@@ -36,7 +36,7 @@
     <script>
       var nerdzButton = document.getElementById("nerdz-stake-button");
       nerdzButton.addEventListener("click",function(e){
-        DePayWidgets.TokenSale({
+        DePayWidgets.Sale({
           token: {
             address: '0x32C868F6318D6334B2250F323D914Bc2239E4EeE',
             image: 'https://s2.coinmarketcap.com/static/img/coins/64x64/8019.png'
