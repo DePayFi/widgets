@@ -3350,69 +3350,6 @@ delayed-stream@~1.0.0:
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   integrity sha1-3zrhmayt+31ECqrgsp4icrJOxhk=
 
-depay-blockchain-client@^2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/depay-blockchain-client/-/depay-blockchain-client-2.3.2.tgz#57f229e382c1e09553353a7463d4a7cf92719c1b"
-  integrity sha512-KiCyL/IOkI0pJO7Q/ypam/Z5ZKvZP0rmPcNTmwRHsMmBWqQPbVEHOJdzwtWOf4tOd+j2PGRawe0wUF9yTDZIvQ==
-  dependencies:
-    depay-crypto-wallets "^2.4.0"
-    ethers "^5.3.1"
-
-depay-blockchain-constants@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/depay-blockchain-constants/-/depay-blockchain-constants-1.4.0.tgz#269ab10ac0a761ca771c5545ceca46d7556cde3b"
-  integrity sha512-R8BbF/BF0iB1lt/rdP+mfekhBOTQVpJ88Wi4aLIWPdVfqmaULwaExWwlEhbUdtFabJuVTIWnXSpZffuqsq1bIQ==
-
-depay-blockchain-token@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/depay-blockchain-token/-/depay-blockchain-token-1.5.2.tgz#612fefd4104634fb3f6dbd6549051699a8c986bb"
-  integrity sha512-OLuezSSaWsMJCcYiAdMolD+mSdQGEQlJ1naGPzPEfUUg9I1Gm6E3B4eijjC44QLcRxxcBrIkn51pxsBilaBH5Q==
-  dependencies:
-    depay-blockchain-client "^2.3.2"
-    depay-blockchain-constants "^1.4.0"
-    depay-crypto-wallets "^2.4.0"
-    ethers "^5.3.1"
-
-depay-blockchain-transaction@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/depay-blockchain-transaction/-/depay-blockchain-transaction-1.0.1.tgz#675f56e5198caa7e7463049cb4403bee24e0d0a1"
-  integrity sha512-9sfX4VRuSTITVltC/TYOLXyp0QmxAr+wyVVMlqDIkLOXuXRFlfKbSYkx3EyLcv5WYfh08EtNx++6Pjv2Gjentg==
-  dependencies:
-    depay-blockchain-constants "^1.4.0"
-    ethers "^5.3.1"
-
-depay-blockchains@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/depay-blockchains/-/depay-blockchains-1.0.1.tgz#2a53bdf7f9852a7ee2d87528d944d0d83eb72399"
-  integrity sha512-70H27HcsU9kbSKqdS+spzap6mpTZ+CUrj6w24BF66cKNFlqvxhR+CMQ+ijNyO39843a+2Thy0wDonfCNa/tpjQ==
-
-depay-crypto-wallets@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/depay-crypto-wallets/-/depay-crypto-wallets-2.4.0.tgz#56a33e5640dc941946489264161f775649c18696"
-  integrity sha512-c6b6EvlK41Atrf2fjgh0uuiBBSoWZTObfxWwoCu884x75ai/mZgua4z2HcW1jp+DJpavHcCce0zC0xZ0bA6WVQ==
-  dependencies:
-    depay-blockchains "^1.0.1"
-
-depay-decentralized-exchanges@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/depay-decentralized-exchanges/-/depay-decentralized-exchanges-1.1.4.tgz#51a385cd90cc0e8c297045aabb74c15ce2f8324e"
-  integrity sha512-RLhjLHUxtL5DCI4znvKVlhE+d5XtNz6tyCoti/hTehy7g0/PXIonHOkryrAeFaXEkShIPAxgiWNZZDmg7PAl7A==
-  dependencies:
-    depay-blockchain-client "^2.3.2"
-    depay-blockchain-constants "^1.4.0"
-    depay-blockchain-token "^1.5.2"
-    depay-blockchain-transaction "^1.0.1"
-
-depay-payment-routing@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/depay-payment-routing/-/depay-payment-routing-0.2.3.tgz#0610a5ac68f329738bb48de6ab760406fcb9152a"
-  integrity sha512-E7Ez2YAnje9PjvRxdxmOomMNh/u//Pa4HqfR4e3b2QL/qE2SlAUZPbS0f9leQ8afd5jsLmBf5BbwOvQvE77OqQ==
-  dependencies:
-    depay-blockchain-constants "^1.4.0"
-    depay-blockchain-token "^1.5.2"
-    depay-crypto-wallets "^2.4.0"
-    depay-decentralized-exchanges "^1.1.4"
-
 depay-react-dialog-stack@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/depay-react-dialog-stack/-/depay-react-dialog-stack-1.1.4.tgz#ddf1324eea213ac1e9de1bbf927980e0329e3073"
@@ -3432,12 +3369,77 @@ depay-react-shadow-dom@^2.0.0:
   resolved "https://registry.yarnpkg.com/depay-react-shadow-dom/-/depay-react-shadow-dom-2.0.0.tgz#238687e7fb0805c31701d7a24498ae87b6918803"
   integrity sha512-Dydu9me3PaX9ZK8Iy508yuHbzgYynhjTqNxYgorhjBqa12R1bqlUExO0aPWPZvMfjlcM3wMT6z8TY9KgUhUv+w==
 
-depay-web3mock@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/depay-web3mock/-/depay-web3mock-4.4.0.tgz#80fa77307e3d3be4d5eabaa8325847e2f5335af8"
-  integrity sha512-ExFMpgtSI/w1n+wJxzBqRE8yp/tDRQyMhjwn06K6y3tuuBLTMJCQt+4IOKTCh81AHeIe0+blQg78pT55Wkr2kQ==
+depay-web3-blockchains@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/depay-web3-blockchains/-/depay-web3-blockchains-2.1.0.tgz#1b16e50a027763150d962b498a8d2e60822a0892"
+  integrity sha512-oKoSZaNkIzkSCiiIXZkdogRO41m3RH4Eka1HufDOoLe1p+90WJjPqW9ABVPAkxGItJXrtUaIJs0+gsZ9ZdEzhw==
+
+depay-web3-client@^3.0.0, depay-web3-client@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/depay-web3-client/-/depay-web3-client-3.0.3.tgz#121a72a6d635ce7f8f74af793cf8de7b38269d9a"
+  integrity sha512-VU/7A84WyfzAt6wv1nn0Hk+7ZTfBkVetKodXc4UCm3MpS5IrVlHiwbz5/EP2QIT4LERpy/HwoN7dV+FXtHJt+g==
   dependencies:
+    depay-web3-wallets "^3.1.0"
+    ethers "^5.3.1"
+
+depay-web3-constants@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/depay-web3-constants/-/depay-web3-constants-2.0.1.tgz#db8c77984352bc8890ff53a59263e25242092cc1"
+  integrity sha512-W4Fgb9lnHBE0fAN00Nt+g6YPhj5aVliSefVLGpWQO9S5MySGw21xZMXXrybr1w2KJpZEdRND22AYsHgIWE/3ow==
+
+depay-web3-exchanges@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/depay-web3-exchanges/-/depay-web3-exchanges-2.1.0.tgz#5996f7c5aab1edd2dce6683df7bdb2f6a78d6339"
+  integrity sha512-2hoBS1G0cGcrk/Z3kA+ewEaPwMKSFOrSR+UP8K+35mL8U+kVz2aYzykk5s7HE+Su/AfuPuX/29u4kdzNGo2lPQ==
+  dependencies:
+    depay-web3-client "^3.0.3"
+    depay-web3-constants "^2.0.0"
+    depay-web3-tokens "^2.0.2"
+    depay-web3-transaction "^2.0.0"
+
+depay-web3-mock@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/depay-web3-mock/-/depay-web3-mock-5.0.0.tgz#1a87ff91bb4def59f58fb2e8b42ef87ccc6a16c0"
+  integrity sha512-iqIF5XC/5D2Q5t/axI9vNAA7qaJEFp9CDNrZJBqgfTHzLhhZ3aNh0qNjFDWrce9SGXWwdP5fjJqgYNRt7ipXUA==
+  dependencies:
+    depay-web3-blockchains "^2.1.0"
     ethers "^5.4.0"
+
+depay-web3-payments@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/depay-web3-payments/-/depay-web3-payments-1.0.0.tgz#d0d215692603c57e3d5c276b727f4a2ef5b45adc"
+  integrity sha512-ZkLNMjrM2S9dtY/lfZiGk4Z0MPAKLS0/zY8WirMab2qx40lRcpwskLIgw7tAa7AOz0+cBr6Ah/plyKcWUlhD2w==
+  dependencies:
+    depay-web3-constants "^2.0.0"
+    depay-web3-exchanges "^2.1.0"
+    depay-web3-tokens "^2.0.2"
+    depay-web3-transaction "^2.0.0"
+    depay-web3-wallets "^3.1.0"
+
+depay-web3-tokens@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/depay-web3-tokens/-/depay-web3-tokens-2.0.2.tgz#a007d7f1c19bb0e681784e2669b63df31f913bef"
+  integrity sha512-RUcWK8XHIJ9xI6llXRWWN4p3oeoi0uy8YvMpGN+OZkglUorYVuGBWJEHCK3LWgEvv3NEFvKtX3IkFyHiAOGebA==
+  dependencies:
+    depay-web3-client "^3.0.0"
+    depay-web3-constants "^2.0.0"
+    depay-web3-wallets "^3.0.0"
+    ethers "^5.3.1"
+
+depay-web3-transaction@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/depay-web3-transaction/-/depay-web3-transaction-2.0.0.tgz#9d1cf2e4c703d04ca13a1100b4b29d77850f626a"
+  integrity sha512-6EiHWgXx4zAVtjh6KejOiSW2H1sZqjfMhDlbrhaeNIEC7wY4liCbmcQvHu6874RKgdNiWxv0SNOQE1gNKWpMtQ==
+  dependencies:
+    depay-web3-constants "^2.0.0"
+    ethers "^5.3.1"
+
+depay-web3-wallets@^3.0.0, depay-web3-wallets@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/depay-web3-wallets/-/depay-web3-wallets-3.1.0.tgz#d4440ddb2230c248758d1f62f99e7a4db5f76d41"
+  integrity sha512-eSHI2NJD7eJQHaENjyrNBVntQokB6zbARJvcUBPqYb35yw9Jv/qk26OKvspSmEvS19zE8ge78frjAW27ntm24w==
+  dependencies:
+    depay-web3-blockchains "^2.1.0"
 
 detect-newline@^3.0.0:
   version "3.1.0"
@@ -3602,11 +3604,6 @@ escodegen@^2.0.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-prettier@^7.0.0:
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-7.2.0.tgz#f4a4bd2832e810e8cc7c1411ec85b3e85c0c53f9"
-  integrity sha512-rV4Qu0C3nfJKPOAhFujFxB7RMP+URFyQqqOZW9DMRD7ZDTFyjaIlETU3xzHELt++4ugC0+Jm084HQYkkJe+Ivg==
-
 eslint-import-resolver-node@^0.3.4:
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/eslint-import-resolver-node/-/eslint-import-resolver-node-0.3.4.tgz#85ffa81942c25012d8231096ddf679c03042c717"
@@ -3654,13 +3651,6 @@ eslint-plugin-import@^2.22.1:
     read-pkg-up "^3.0.0"
     resolve "^1.20.0"
     tsconfig-paths "^3.9.0"
-
-eslint-plugin-prettier@^3.2.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.4.0.tgz#cdbad3bf1dbd2b177e9825737fe63b476a08f0c7"
-  integrity sha512-UDK6rJT6INSfcOo545jiaOwB701uAIt2/dR7WnFQoGCVl1/EMqdANBmwUaqqQ45aXprsTGzSa39LI1PyuRBxxw==
-  dependencies:
-    prettier-linter-helpers "^1.0.0"
 
 eslint-plugin-react-hooks@^4.2.0:
   version "4.2.0"
@@ -3979,11 +3969,6 @@ fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
   integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
-
-fast-diff@^1.1.2:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/fast-diff/-/fast-diff-1.2.0.tgz#73ee11982d86caaf7959828d519cfe927fac5f03"
-  integrity sha512-xJuoT5+L99XlZ8twedaRf6Ax2TgQVxvgZOYoPKqZufmJib0tL2tegPBOZb1pVNgIhlqDlA0eO0c3wBvQcmzx4w==
 
 fast-glob@^3.0.3:
   version "3.2.7"
@@ -6208,18 +6193,6 @@ prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
-
-prettier-linter-helpers@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/prettier-linter-helpers/-/prettier-linter-helpers-1.0.0.tgz#d23d41fe1375646de2d0104d3454a3008802cf7b"
-  integrity sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==
-  dependencies:
-    fast-diff "^1.1.2"
-
-prettier@^2.2.1:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.3.2.tgz#ef280a05ec253712e486233db5c6f23441e7342d"
-  integrity sha512-lnJzDfJ66zkMy58OL5/NY5zp70S7Nz6KqcKkXYzn2tMVrNxvbqaBpg7H3qHaLxCJ5lNMsGuM8+ohS7cZrthdLQ==
 
 pretty-bytes@^5.6.0:
   version "5.6.0"

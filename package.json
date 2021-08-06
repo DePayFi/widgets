@@ -9,10 +9,13 @@
   ],
   "repository": "git@github.com:depayfi/depay-widgets.git",
   "keywords": [
-    "payments",
-    "crypto",
+    "blockchain",
+    "payment",
+    "widgets",
     "react",
-    "widget"
+    "web3",
+    "crypto",
+    "cryptocurrencies"
   ],
   "author": "DePay",
   "license": "MIT",
@@ -30,10 +33,10 @@
     "test": "yarn build && npx jest --no-cache && yarn cypress run"
   },
   "dependencies": {
-    "depay-crypto-wallets": "^2.4.0",
-    "depay-payment-routing": "^0.2.3",
     "depay-react-dialog-stack": "^1.1.4",
-    "depay-react-shadow-dom": "^2.0.0"
+    "depay-react-shadow-dom": "^2.0.0",
+    "depay-web3-payments": "^1.0.0",
+    "depay-web3-wallets": "^3.1.0"
   },
   "peerDependencies": {
     "react": "^17",
@@ -55,17 +58,14 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "cypress": "^7.6.0",
-    "depay-web3mock": "^4.4.0",
+    "depay-web3-mock": "^5.0.0",
     "eslint": "^7.15.0",
-    "eslint-config-prettier": "^7.0.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-prettier": "^3.2.0",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "jest": "^26.4.2",
     "jest-dom": "^4.0.0",
-    "prettier": "^2.2.1",
     "react": "^17.0.1",
     "regenerator-runtime": "^0.13.7",
     "rollup": "^2.34.2",
