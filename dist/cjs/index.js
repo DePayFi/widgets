@@ -3,8 +3,8 @@
 'use strict';
 
 var React$1 = require('react');
-var depayPaymentRouting = require('depay-payment-routing');
-var depayCryptoWallets = require('depay-crypto-wallets');
+var depayWeb3Payments = require('depay-web3-payments');
+var depayWeb3Wallets = require('depay-web3-wallets');
 var depayReactDialogStack = require('depay-react-dialog-stack');
 var depayReactShadowDom = require('depay-react-shadow-dom');
 
@@ -948,7 +948,7 @@ var Dialog = (function (props) {
     className: "DialogBody"
   }, props.body), /*#__PURE__*/React__default['default'].createElement("div", {
     className: "DialogFooter"
-  }, /*#__PURE__*/React__default['default'].createElement("div", null, props.footer), /*#__PURE__*/React__default['default'].createElement("a", {
+  }, props.footer, /*#__PURE__*/React__default['default'].createElement("a", {
     href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=Widget',
     rel: "noopener noreferrer",
     target: "_blank",
@@ -961,12 +961,14 @@ var PaymentOverviewSkeleton = (function (props) {
     header: /*#__PURE__*/React__default['default'].createElement("h1", {
       className: "HeaderTitle"
     }, "Payment"),
-    body: /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+    body: /*#__PURE__*/React__default['default'].createElement("div", {
       className: "Card Skeleton"
     }, /*#__PURE__*/React__default['default'].createElement("div", {
       className: "SkeletonBackground"
-    }))),
-    footer: /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+    })),
+    footer: /*#__PURE__*/React__default['default'].createElement("div", {
+      className: "SkeletonWrapper"
+    }, /*#__PURE__*/React__default['default'].createElement("div", {
       className: "ButtonPrimary Skeleton"
     }, /*#__PURE__*/React__default['default'].createElement("div", {
       className: "SkeletonBackground"
@@ -988,7 +990,7 @@ var PaymentOverviewDialog = (function (props) {
     }, "Payment"),
     body: /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
       className: "Card",
-      title: "Change Payment"
+      title: "Change payment"
     }, /*#__PURE__*/React__default['default'].createElement("div", {
       className: "CardImage"
     }, /*#__PURE__*/React__default['default'].createElement("img", {
@@ -1044,21 +1046,17 @@ var RoutingProvider = (function (props) {
       return;
     }
 
-    console.log('configuration', {
-      from: account,
-      to: receiver,
-      blockchain: 'ethereum',
-      token: token,
-      amount: amount
-    });
-    depayPaymentRouting.route({
-      from: account,
-      to: receiver,
+    depayWeb3Payments.route({
+      fromAddress: account,
+      toAddress: receiver,
       blockchain: 'ethereum',
       token: token,
       amount: amount
     }).then(function (routes) {
-      console.log('routes', routes); // setAllRoutes(routes)
+      setAllRoutes(routes);
+      setLoading({
+        routing: false
+      });
     });
   }, [account]);
   return /*#__PURE__*/React__default['default'].createElement(RoutingContext.Provider, {
@@ -1082,9 +1080,11 @@ var WalletProvider = (function (props) {
       account = _useState4[0],
       setAccount = _useState4[1];
 
-  depayCryptoWallets.setApiKey('M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c');
   React$1.useEffect(function () {
-    return setWallet(depayCryptoWallets.getWallet());
+    return depayWeb3Wallets.setApiKey('M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c');
+  }, []);
+  React$1.useEffect(function () {
+    return setWallet(depayWeb3Wallets.getWallet());
   }, []);
   React$1.useEffect(function () {
     if (wallet) {
@@ -1139,11 +1139,11 @@ var CardStyle = (function (style) {
 });
 
 var DialogStyle = (function () {
-  return "\n\n    .Dialog {\n      margin: 0 auto;\n      max-width: 26rem;\n      min-width: 26rem;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      padding: 0.8rem 1.2rem 0.2rem;\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      padding: 0.8rem 1.2rem 0 1.2rem;\n      position: relative;\n    }\n\n    .DialogHeaderInner {\n      position: relative;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      padding: 0.2rem 1.8rem 0.2rem 1.8rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .DialogCloseButton {\n      position: absolute;\n      top: 1px;\n      right: -6px;\n    }\n    \n    .DialogGoBackButton {\n      position: absolute;\n      top: 1rem;\n      left: 0.9rem;\n    }\n  ";
+  return "\n\n    .Dialog {\n      margin: 0 auto;\n      max-width: 26rem;\n      min-width: 26rem;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      padding: 0.8rem 1.2rem 0.2rem;\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      padding: 0.8rem 1.2rem 0 1.2rem;\n      position: relative;\n    }\n\n    .DialogHeaderInner {\n      position: relative;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      padding: 0.15rem 1.8rem 0.15rem 1.8rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .DialogCloseButton {\n      position: absolute;\n      top: 1px;\n      right: -6px;\n    }\n    \n    .DialogGoBackButton {\n      position: absolute;\n      top: 1rem;\n      left: 0.9rem;\n    }\n  ";
 });
 
 var FooterStyle = (function (style) {
-  return "\n\n    .FooterLink {\n      color: rgba(0,0,0,0.2);\n      display: inline-block;\n      font-size: 1rem;\n      padding-top: 0.1rem;\n      text-decoration: none;\n    }\n\n    .FooterLink:hover, .FooterLink:active {\n      color: #cc2c65;\n    }\n  ";
+  return "\n\n    .FooterLink {\n      color: rgba(0,0,0,0.2);\n      display: inline-block;\n      font-size: 1rem;\n      text-decoration: none;\n    }\n\n    .FooterLink:hover, .FooterLink:active {\n      color: #cc2c65;\n    }\n  ";
 });
 
 var HeaderTitleStyle = (function () {
@@ -1155,7 +1155,7 @@ var ResetStyle = (function () {
 });
 
 var SkeletonStyle = (function () {
-  return "\n        \n    .Skeleton {\n      background: rgb(230,230,230) !important;\n      border: 1px solid transparent;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      overflow: hidden;\n      position: relative;\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n  ";
+  return "\n        \n    .Skeleton {\n      background: rgb(230,230,230) !important;\n      border: 1px solid transparent;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ";
 });
 
 var style = (function (style) {

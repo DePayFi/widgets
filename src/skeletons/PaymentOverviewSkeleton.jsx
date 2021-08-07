@@ -9,14 +9,12 @@ export default (props)=>{
         <h1 className="HeaderTitle">Payment</h1>
       }
       body={
-        <div>
-          <div className="Card Skeleton">
-            <div className="SkeletonBackground"/>
-          </div>
+        <div className="Card Skeleton">
+          <div className="SkeletonBackground"/>
         </div>
       }
       footer={
-        <div>
+        <div className="SkeletonWrapper">
           <div className="ButtonPrimary Skeleton">
             <div className="SkeletonBackground"/>
           </div>

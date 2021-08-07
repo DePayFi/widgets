@@ -3,7 +3,7 @@ import LoadingContext from '../contexts/LoadingContext'
 import React, { useState, useContext, useEffect } from 'react'
 import RoutingContext from '../contexts/RoutingContext'
 import WalletContext from '../contexts/WalletContext'
-import { route } from 'depay-payment-routing'
+import { route } from 'depay-web3-payments'
 import { ethers } from 'ethers'
 
 export default (props)=>{
@@ -18,22 +18,15 @@ export default (props)=>{
 
   useEffect(() => {
     if(!account) { return }
-    console.log('configuration', {
-      from: account,
-      to: receiver,
-      blockchain: 'ethereum',
-      token,
-      amount: amount
-    })
     let routes = route({
-      from: account,
-      to: receiver,
+      fromAddress: account,
+      toAddress: receiver,
       blockchain: 'ethereum',
       token,
       amount: amount
     }).then((routes)=>{
-      console.log('routes', routes)
-      // setAllRoutes(routes)
+      setAllRoutes(routes)
+      setLoading({ routing: false })
     })
   }, [account])
   

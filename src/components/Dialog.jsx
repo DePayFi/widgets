@@ -24,10 +24,9 @@ export default (props)=>{
       </div>
 
       <div className="DialogFooter">
-        <div>{ props.footer }</div>
+        { props.footer }
         <a href={'https://depay.fi?utm_source='+window.location.hostname+'&utm_medium=widget&utm_campaign=Widget'} rel="noopener noreferrer" target="_blank" className="FooterLink">by DePay</a>
       </div>
-
     </div>
   )
 }

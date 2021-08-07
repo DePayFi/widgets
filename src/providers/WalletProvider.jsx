@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import WalletContext from '../contexts/WalletContext'
-import { getWallet, setApiKey } from 'depay-crypto-wallets'
+import { getWallet, setApiKey } from 'depay-web3-wallets'
 
 export default (props)=>{
 
   const [wallet, setWallet] = useState()
   const [account, setAccount] = useState()
-  setApiKey('M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c')
 
+  useEffect(()=>setApiKey('M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c'), [])
   useEffect(()=>setWallet(getWallet()), [])
   useEffect(()=>{
     if(wallet) { 

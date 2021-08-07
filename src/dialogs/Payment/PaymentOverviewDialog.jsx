@@ -17,7 +17,7 @@ export default (props)=>{
       }
       body={
         <div>
-          <div className="Card" title="Change Payment">
+          <div className="Card" title="Change payment">
             <div className="CardImage">
               <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb/logo.png"/>
             </div>

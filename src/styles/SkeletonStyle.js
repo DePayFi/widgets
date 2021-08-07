@@ -6,6 +6,7 @@ export default ()=>{
       border: 1px solid transparent;
       box-shadow: none !important;
       cursor: inherit !important;
+      line-height: 0;
       overflow: hidden;
       position: relative;
     }
@@ -27,6 +28,10 @@ export default ()=>{
       position: absolute;
       top: 0;
       width: 400px;
+    }
+
+    .SkeletonWrapper {
+      line-height: 0;
     }
   `)
 }
