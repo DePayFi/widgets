@@ -1,4 +1,4 @@
-import DePayWidgets from 'dist/cjs/index.js'
+import DePayWidgets from 'src'
 
 describe('Payment', () => {
 
