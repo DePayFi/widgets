@@ -1,14 +1,23 @@
 import ChevronRight from '../../components/ChevronRight'
+import ConfigurationContext from '../../contexts/ConfigurationContext'
 import Dialog from '../../components/Dialog'
 import LoadingContext from '../../contexts/LoadingContext'
+import PaymentContext from '../../contexts/PaymentContext'
 import PaymentOverviewSkeleton from '../../skeletons/PaymentOverviewSkeleton'
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
+import ToTokenContext from '../../contexts/ToTokenContext'
+import { NavigateStackContext } from 'depay-react-dialog-stack'
+import { TokenImage } from 'depay-react-token-image'
 
 export default (props)=>{
 
   const { loading } = useContext(LoadingContext)
+  const { blockchain } = useContext(ConfigurationContext)
+  const { payment } = useContext(PaymentContext)
+  const { localValue } = useContext(ToTokenContext)
+  const navigate = useContext(NavigateStackContext)
 
-  if(loading) { return(<PaymentOverviewSkeleton/>) }
+  if(loading || payment == undefined || localValue == undefined) { return(<PaymentOverviewSkeleton/>) }
 
   return(
     <Dialog
@@ -17,17 +26,28 @@ export default (props)=>{
       }
       body={
         <div>
-          <div className="Card" title="Change payment">
-            <div className="CardImage">
-              <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb/logo.png"/>
+          <div className="Card" title="Change payment" onClick={ ()=>navigate('ChangePayment') }>
+            <div className="CardImage" title={ payment.name }>
+              <TokenImage
+                blockchain={ blockchain }
+                address={ payment.token }
+              />
             </div>
             <div className="CardBody">
-              <div>
+              <div className="CardBodyWrapper">
                 <h2 className="CardText">
-                  <strong>1.0 DEPAY</strong>
+                  <div className="TokenAmountRow">
+                    <span className="TokenAmountCell" title={ payment.amount }>
+                      { payment.amount }
+                    </span>
+                    <span>&nbsp;</span>
+                    <span className="TokenSymbolCell">
+                      { payment.symbol }
+                    </span>
+                  </div>
                 </h2>
                 <h3 className="CardText">
-                  <small>$12.21 USD</small>
+                  <small>{ localValue.toString() }</small>
                 </h3>
               </div>
             </div>
@@ -40,7 +60,7 @@ export default (props)=>{
       footer={
         <div>
           <button className="ButtonPrimary">
-            Pay $12.21 USD
+            Pay { localValue.toString() }
           </button>
         </div>
       }

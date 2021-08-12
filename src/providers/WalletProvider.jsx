@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import WalletContext from '../contexts/WalletContext'
-import { getWallet, setApiKey } from 'depay-web3-wallets'
+import { getWallet } from 'depay-web3-wallets'
 
 export default (props)=>{
 
   const [wallet, setWallet] = useState()
   const [account, setAccount] = useState()
 
-  useEffect(()=>setApiKey('M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c'), [])
-  useEffect(()=>setWallet(getWallet()), [])
+  useEffect(()=>{
+    let _wallet = getWallet()
+    if(_wallet) {
+      console.log('WALLET')
+      setWallet(_wallet)
+    } else {
+      console.log('NO WALLET connected')
+    }
+  }, [])
+
   useEffect(()=>{
     if(wallet) { 
       wallet.connect().then((accounts)=>{

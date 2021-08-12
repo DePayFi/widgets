@@ -1,4 +1,5 @@
 import ConfigurationContext from '../contexts/ConfigurationContext'
+import React from 'react'
 
 export default (props)=>{
   

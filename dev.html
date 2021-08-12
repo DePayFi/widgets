@@ -14,11 +14,13 @@
     <script crossorigin src="https://unpkg.com/depay-web3-blockchains@2/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-web3-constants@2/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-web3-transaction@2/dist/umd/index.js"></script>
-    <script crossorigin src="https://unpkg.com/depay-web3-wallets@3/dist/umd/index.js"></script>
+    <script crossorigin src="https://unpkg.com/depay-web3-wallets@4/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-web3-client@3/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-web3-tokens@2/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-web3-exchanges@2/dist/umd/index.js"></script>
-    <script crossorigin src="https://unpkg.com/depay-web3-payments@1/dist/umd/index.js"></script>
+    <script crossorigin src="https://unpkg.com/depay-web3-payments@2/dist/umd/index.js"></script>
+    <script crossorigin src="https://unpkg.com/depay-local-currency@1/dist/umd/index.js"></script>
+    <script crossorigin src="https://unpkg.com/depay-react-token-image@1/dist/umd/index.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.css">
     <script src="dist/umd/index.js"></script>
     <style>
@@ -40,6 +42,14 @@
       <div class="col-4"></div>
       <div class="col-4">
         <h2 class="pt-5">Payment</h2>
+        <div class="form-group pt-3">
+          <label for="paymentBlockchainInput">Blockchain</label>
+          <select class="form-control text-center" id="paymentBlockchainInput">
+            <option value='ethereum'>Ethereum</option>
+            <option value='bsc'>Binance Smart Chain</option>
+          </select>
+          <small id="paymentAmount" class="form-text text-muted">On which blockchain do you want to receive the payment?</small>
+        </div>
         <div class="form-group pt-3">
           <label for="paymentAmountInput">Amount</label>
           <input class="form-control text-center" id="paymentAmountInput" aria-describedby="paymentAmount" placeholder="20" value="20">
@@ -70,7 +80,8 @@
           var button = document.getElementById("payButton");
           button.addEventListener("click",function(e){
             DePayWidgets.Payment({
-              amount: document.getElementById("paymentAmountInput").value,
+              blockchain: document.getElementById("paymentBlockchainInput").value,
+              amount: parseFloat(document.getElementById("paymentAmountInput").value),
               token: document.getElementById("paymentTokenInput").value,
               receiver: document.getElementById("paymentReceiverInput").value
             });

@@ -1,34 +1,42 @@
+import apiKey from '../apiKey'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import LoadingContext from '../contexts/LoadingContext'
 import React, { useState, useContext, useEffect } from 'react'
 import RoutingContext from '../contexts/RoutingContext'
 import WalletContext from '../contexts/WalletContext'
-import { route } from 'depay-web3-payments'
 import { ethers } from 'ethers'
+import { route } from 'depay-web3-payments'
 
 export default (props)=>{
 
   const [allRoutes, setAllRoutes] = useState()
   const [selectedRoute, setSelectedRoute] = useState()
-  const { setLoading } = useContext(LoadingContext)
-  const { amount, token, receiver } = useContext(ConfigurationContext)
+  const { updateLoading } = useContext(LoadingContext)
+  const { blockchain, amount, token, receiver } = useContext(ConfigurationContext)
   const { account } = useContext(WalletContext)
-
-  useEffect(() => setLoading({ routing: true }), [])
 
   useEffect(() => {
     if(!account) { return }
     let routes = route({
       fromAddress: account,
       toAddress: receiver,
-      blockchain: 'ethereum',
+      blockchain,
       token,
-      amount: amount
+      amount: amount,
+      apiKey
     }).then((routes)=>{
       setAllRoutes(routes)
-      setLoading({ routing: false })
+      setSelectedRoute(routes[0])
     })
   }, [account])
+
+  useEffect(()=>{
+    if(allRoutes && selectedRoute) {
+      updateLoading({ routing: false })
+    } else {
+      updateLoading({ routing: true })
+    }
+  }, [allRoutes, selectedRoute])
   
   return(
     <RoutingContext.Provider value={{

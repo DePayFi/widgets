@@ -30,21 +30,35 @@ export default (style)=>{
     .CardImage, .CardBody, .CardAction {
       align-items: center;
       display: flex;
+      min-width: 0;
       padding: 0 0.4rem;
     }
 
-    .CardAction {
-      padding-right: 0;
-    }
-
-    .CardAction {
-      margin-left: auto;
+    .CardImage {
+      flex-basis: auto;
+      flex-shrink: 0;
+      flex-grow: 0;
     }
 
     .CardBody {
+      flex-basis: auto;
+      flex-grow: 1;
+      flex-shrink: 1;
       line-height: 1.4rem;
       padding-left: 0.6rem;
       text-align: left;
+    }
+
+    .CardBodyWrapper {
+      min-width: 0;
+    }
+
+    .CardAction {
+      flex-basis: auto;
+      flex-shrink: 0;
+      flex-grow: 0;
+      padding-right: 0;
+      margin-left: auto;
     }
 
     .CardImage img {
@@ -59,6 +73,7 @@ export default (style)=>{
     }
     
     .CardText {
+      flex: 1;
       font-size: 1.3rem;
     }
 

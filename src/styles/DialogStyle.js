@@ -46,6 +46,12 @@ export default ()=>{
       top: 1px;
       right: -6px;
     }
+
+    .DialogBackButton {
+      position: absolute;
+      top: 1px;
+      left: -6px;
+    }
     
     .DialogGoBackButton {
       position: absolute;

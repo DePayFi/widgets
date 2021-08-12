@@ -29,13 +29,18 @@
     "test:jest": "npx jest --no-cache",
     "test:cypress": "yarn cypress run",
     "test:cypress:debug": "yarn cypress run --headed --no-exit",
-    "test": "npx jest --no-cache && yarn cypress run"
+    "test": "yarn test:jest && yarn test:cypress"
   },
   "dependencies": {
-    "depay-react-dialog-stack": "^1.1.4",
+    "depay-local-currency": "^1.0.1",
+    "depay-react-dialog-stack": "^1.2.0",
     "depay-react-shadow-dom": "^2.0.0",
-    "depay-web3-payments": "^1.0.0",
-    "depay-web3-wallets": "^3.1.0"
+    "depay-react-token-image": "^1.0.0",
+    "depay-web3-constants": "^2.1.0",
+    "depay-web3-exchanges": "^2.1.0",
+    "depay-web3-payments": "^2.1.1",
+    "depay-web3-tokens": "^2.1.0",
+    "depay-web3-wallets": "^4.0.0"
   },
   "peerDependencies": {
     "react": "^17",
@@ -57,12 +62,13 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "cypress": "^7.6.0",
-    "depay-web3-mock": "^5.0.0",
+    "depay-web3-mock": "^5.2.0",
     "eslint": "^7.15.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "fetch-mock": "^9.11.0",
     "jest": "^26.4.2",
     "jest-dom": "^4.0.0",
     "react": "^17.0.1",
