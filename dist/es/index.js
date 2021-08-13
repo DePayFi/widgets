@@ -1,6 +1,6 @@
 
 (function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { NavigateStackContext, ReactDialogStack } from 'depay-react-dialog-stack';
 import { TokenImage } from 'depay-react-token-image';
 import { route } from 'depay-web3-payments';
@@ -857,6 +857,8 @@ var ClosableProvider = (function (props) {
       closable = _useState2[0],
       setClosable = _useState2[1];
 
+  useContext(NavigateStackContext);
+
   var _useState3 = useState(true),
       _useState4 = _slicedToArray(_useState3, 2),
       open = _useState4[0],
@@ -864,7 +866,6 @@ var ClosableProvider = (function (props) {
 
   var close = function close() {
     setOpen(false);
-    props.unmount();
     setTimeout(props.unmount, 300);
   };
 
@@ -1005,17 +1006,23 @@ var Dialog = (function (props) {
   return /*#__PURE__*/React.createElement("div", {
     className: "ReactDialogAnimation Dialog"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "DialogHeader"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: ["DialogHeaderInner", props.stacked ? 'TextCenter' : ''].join(' ')
-  }, props.stacked && /*#__PURE__*/React.createElement("button", {
+    className: ["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')
+  }, props.stacked && /*#__PURE__*/React.createElement("div", {
+    className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
+  }, /*#__PURE__*/React.createElement("button", {
     onClick: function onClick() {
       return navigate('back');
     },
-    className: "DialogBackButton ButtonCircular"
-  }, /*#__PURE__*/React.createElement(ChevronLeft, null)), props.header, /*#__PURE__*/React.createElement("button", {
+    className: "ButtonCircular",
+    title: "Go back"
+  }, /*#__PURE__*/React.createElement(ChevronLeft, null))), /*#__PURE__*/React.createElement("div", {
+    className: "DialogHeaderTitle"
+  }, props.header), /*#__PURE__*/React.createElement("div", {
+    className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
+  }, /*#__PURE__*/React.createElement("button", {
     onClick: close,
-    className: "DialogCloseButton ButtonCircular"
+    className: "ButtonCircular",
+    title: "Close dialog"
   }, /*#__PURE__*/React.createElement(CloseIcon, null)))), /*#__PURE__*/React.createElement("div", {
     className: "DialogBody"
   }, props.body), /*#__PURE__*/React.createElement("div", {
@@ -1028,18 +1035,133 @@ var Dialog = (function (props) {
   }, "by DePay")));
 });
 
+var round = (function (input) {
+  var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'up';
+
+  var _float;
+
+  var match = parseFloat(input).toString().match(/\d+\.0*(\d{3})/);
+
+  if (match && match.length) {
+    match = match[0];
+
+    if (direction == 'up') {
+      _float = match.replace(/\d{2}$/, parseInt(match[match.length - 2], 10) + 1);
+    } else {
+      _float = match.replace(/\d{2}$/, parseInt(match[match.length - 2], 10));
+    }
+  } else {
+    _float = parseFloat(input).toString();
+  }
+
+  return parseFloat(_float);
+});
+
+var ToTokenContext = /*#__PURE__*/React.createContext();
+
 var ChangePaymentDialog = (function (props) {
-  var cards = [1].map(function (element, index) {
-    return /*#__PURE__*/React.createElement("h2", {
-      key: index
-    }, "Payment");
-  });
+  var _useContext = useContext(ConfigurationContext),
+      blockchain = _useContext.blockchain;
+
+  var _useContext2 = useContext(RoutingContext),
+      allRoutes = _useContext2.allRoutes,
+      setSelectedRoute = _useContext2.setSelectedRoute;
+
+  var _useContext3 = useContext(ToTokenContext),
+      localValue = _useContext3.localValue;
+
+  var navigate = useContext(NavigateStackContext);
+
+  var _useState = useState([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      allPaymentRoutesWithData = _useState2[0],
+      setAllPaymentRoutesWithData = _useState2[1];
+
+  var _useState3 = useState([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      cards = _useState4[0],
+      setCards = _useState4[1];
+
+  useEffect(function () {
+    if (allRoutes == undefined) {
+      return;
+    }
+
+    Promise.all(allRoutes.map(function (route) {
+      var exchangeRoute = route.exchangeRoutes[0];
+      route.fromToken;
+      var fromAmount = exchangeRoute ? route.exchangeRoutes[0].amountIn : route.toAmount;
+      return Promise.all([route.fromToken.name(), route.fromToken.symbol(), route.fromToken.decimals(), route.fromToken.readable(fromAmount)]);
+    })).then(function (allPaymentRoutesWithData) {
+      setAllPaymentRoutesWithData(allRoutes.map(function (route, index) {
+        return {
+          name: allPaymentRoutesWithData[index][0],
+          symbol: allPaymentRoutesWithData[index][1],
+          decimals: allPaymentRoutesWithData[index][2],
+          amount: allPaymentRoutesWithData[index][3],
+          route: route
+        };
+      }));
+    });
+  }, [allRoutes]);
+
+  var selectNewPayment = function selectNewPayment(payment) {
+    setSelectedRoute(payment.route);
+    navigate('back');
+  };
+
+  useEffect(function () {
+    setCards(allPaymentRoutesWithData.map(function (payment, index) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: index,
+        className: "Card",
+        title: "Select as payment",
+        onClick: function onClick() {
+          return selectNewPayment(payment);
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage",
+        title: payment.name
+      }, /*#__PURE__*/React.createElement(TokenImage, {
+        blockchain: blockchain,
+        address: payment.route.fromToken.address
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("h2", {
+        className: "CardText"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TokenAmountRow"
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "TokenSymbolCell"
+      }, payment.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
+        className: "TokenAmountCell"
+      }, round(payment.amount)))), /*#__PURE__*/React.createElement("h3", {
+        className: "CardText"
+      }, /*#__PURE__*/React.createElement("small", null, round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals), 'down'))))), /*#__PURE__*/React.createElement("div", {
+        className: "CardInfo"
+      }, payment.route.directTransfer && /*#__PURE__*/React.createElement("span", {
+        className: "Label"
+      }, "Lowest Network Fee"), payment.route.approvalRequired && /*#__PURE__*/React.createElement("span", {
+        className: "Label"
+      }, "Requires Approval")));
+    }));
+  }, [allPaymentRoutesWithData]);
   return /*#__PURE__*/React.createElement(Dialog, {
     stacked: true,
-    header: /*#__PURE__*/React.createElement("h1", {
-      className: "HeaderTitle"
-    }, "Change Payment"),
-    body: /*#__PURE__*/React.createElement("div", null, cards),
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "FontSizeL TextLeft"
+    }, "Change Payment"), /*#__PURE__*/React.createElement("div", {
+      className: "FontSizeL TextCenter FontWeightBold"
+    }, /*#__PURE__*/React.createElement("strong", null, localValue.toString()))),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "MaxHeight PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftM PaddingRightM"
+    }, cards)),
     footer: /*#__PURE__*/React.createElement("div", null)
   });
 });
@@ -1061,25 +1183,29 @@ var ChevronRight = (function () {
 
 var PaymentOverviewSkeleton = (function (props) {
   return /*#__PURE__*/React.createElement(Dialog, {
-    header: /*#__PURE__*/React.createElement("h1", {
-      className: "HeaderTitle"
-    }, "Payment"),
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "FontSizeL TextLeft"
+    }, "Payment")),
     body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("div", {
       className: "Card Skeleton"
     }, /*#__PURE__*/React.createElement("div", {
       className: "SkeletonBackground"
-    })),
+    }))),
     footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM"
+    }, /*#__PURE__*/React.createElement("div", {
       className: "SkeletonWrapper"
     }, /*#__PURE__*/React.createElement("div", {
       className: "ButtonPrimary Skeleton"
     }, /*#__PURE__*/React.createElement("div", {
       className: "SkeletonBackground"
-    })))
+    }))))
   });
 });
-
-var ToTokenContext = /*#__PURE__*/React.createContext();
 
 var PaymentOverviewDialog = (function (props) {
   var _useContext = useContext(LoadingContext),
@@ -1101,10 +1227,14 @@ var PaymentOverviewDialog = (function (props) {
   }
 
   return /*#__PURE__*/React.createElement(Dialog, {
-    header: /*#__PURE__*/React.createElement("h1", {
-      className: "HeaderTitle"
-    }, "Payment"),
-    body: /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "FontSizeL TextLeft"
+    }, "Payment")),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("div", {
       className: "Card",
       title: "Change payment",
       onClick: function onClick() {
@@ -1125,16 +1255,17 @@ var PaymentOverviewDialog = (function (props) {
     }, /*#__PURE__*/React.createElement("div", {
       className: "TokenAmountRow"
     }, /*#__PURE__*/React.createElement("span", {
-      className: "TokenAmountCell",
-      title: payment.amount
-    }, payment.amount), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
       className: "TokenSymbolCell"
-    }, payment.symbol))), /*#__PURE__*/React.createElement("h3", {
+    }, payment.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
+      className: "TokenAmountCell"
+    }, round(payment.amount)))), /*#__PURE__*/React.createElement("h3", {
       className: "CardText"
     }, /*#__PURE__*/React.createElement("small", null, localValue.toString())))), /*#__PURE__*/React.createElement("div", {
       className: "CardAction"
     }, /*#__PURE__*/React.createElement(ChevronRight, null)))),
-    footer: /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM"
+    }, /*#__PURE__*/React.createElement("button", {
       className: "ButtonPrimary"
     }, "Pay ", localValue.toString()))
   });
@@ -1232,23 +1363,35 @@ var ButtonPrimaryStyle = (function (style) {
 });
 
 var CardStyle = (function (style) {
-  return "\n\n    .Card {\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n    }\n\n    .Card:hover {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02); \n    }\n\n    .Card:hover .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n    \n    .CardText {\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ";
+  return "\n\n    .Card {\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n    }\n\n    .Card:hover {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02); \n    }\n\n    .Card:hover .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .CardInfo {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto; \n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n    \n    .CardText {\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ";
 });
 
 var DialogStyle = (function () {
-  return "\n\n    .Dialog {\n      margin: 0 auto;\n      max-width: 26rem;\n      min-width: 26rem;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      padding: 0.8rem 1.2rem 0.2rem;\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      padding: 0.8rem 1.2rem 0 1.2rem;\n      position: relative;\n    }\n\n    .DialogHeaderInner {\n      position: relative;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      padding: 0.15rem 1.8rem 0.15rem 1.8rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .DialogCloseButton {\n      position: absolute;\n      top: 1px;\n      right: -6px;\n    }\n\n    .DialogBackButton {\n      position: absolute;\n      top: 1px;\n      left: -6px;\n    }\n    \n    .DialogGoBackButton {\n      position: absolute;\n      top: 1rem;\n      left: 0.9rem;\n    }\n  ";
+  return "\n\n    .Dialog {\n      margin: 0 auto;\n      max-width: 26rem;\n      min-width: 26rem;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
 });
 
 var FontStyle = (function () {
-  return "\n\n    .ReactShadowDOMInsideContainer {\n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n    }\n  ";
+  return "\n\n    * {\n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n  ";
 });
 
 var FooterStyle = (function (style) {
-  return "\n\n    .FooterLink {\n      color: rgba(0,0,0,0.2);\n      display: inline-block;\n      font-size: 1rem;\n      text-decoration: none;\n    }\n\n    .FooterLink:hover, .FooterLink:active {\n      color: #cc2c65;\n    }\n  ";
+  return "\n\n    .FooterLink {\n      color: rgba(0,0,0,0.2);\n      display: inline-block;\n      font-size: 1rem;\n      text-decoration: none;\n      padding-bottom: 0.1rem;\n    }\n\n    .FooterLink:hover, .FooterLink:active {\n      color: #cc2c65;\n    }\n  ";
 });
 
-var HeaderTitleStyle = (function () {
-  return "\n\n    .HeaderTitle {\n      font-size: 1.4rem;\n      text-align: left;\n    }\n\n  ";
+var HeightStyle = (function () {
+  return "\n\n    .MaxHeight {\n      max-height: 320px;\n      overflow-y: auto;\n    }\n  ";
+});
+
+var IconStyle = (function () {
+  return "\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n    \n  ";
+});
+
+var LabelStyle = (function (style) {
+  return "\n\n    .Label {\n      background: rgb(248,248,248);\n      border-radius: 999px;\n      color: ".concat(style.colors.primary, ";\n      font-size: 0.8rem;\n      padding: 0.1rem 0.5rem;\n    }\n\n  ");
+});
+
+var PaddingStyle = (function () {
+  return "\n\n    .PaddingTopXS {\n      padding-top: 0.2rem;\n    }\n\n    .PaddingRightXS {\n      padding-right: 0.2rem;\n    }\n\n    .PaddingBottomXS {\n      padding-bottom: 0.2rem;\n    }\n\n    .PaddingLeftXS {\n      padding-left: 0.2rem; \n    }\n\n    .PaddingTopS {\n      padding-top: 0.8rem;\n    }\n\n    .PaddingRightS {\n      padding-right: 0.8rem;\n    }\n\n    .PaddingBottomS {\n      padding-bottom: 0.8rem;\n    }\n\n    .PaddingLeftS {\n      padding-left: 0.8rem; \n    }\n\n    .PaddingTopM {\n      padding-top: 1.2rem;\n    }\n\n    .PaddingRightM {\n      padding-right: 1.2rem;\n    }\n\n    .PaddingBottomM {\n      padding-bottom: 1.2rem;\n    }\n\n    .PaddingLeftM {\n      padding-left: 1.2rem; \n    }\n\n    .PaddingTopL {\n      padding-top: 1.8rem;\n    }\n\n    .PaddingRightL {\n      padding-right: 1.8rem;\n    }\n\n    .PaddingBottomL {\n      padding-bottom: 1.8rem;\n    }\n\n    .PaddingLeftL {\n      padding-left: 1.28em; \n    }\n  ";
 });
 
 var ResetStyle = (function () {
@@ -1260,15 +1403,11 @@ var SkeletonStyle = (function () {
 });
 
 var TextStyle = (function () {
-  return "\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n  ";
+  return "\n\n    .TextLeft, .TextLeft * {\n      text-align: left;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n  ";
 });
 
 var TokenAmountStyle = (function () {
   return "\n        \n    .TokenAmountRow {\n      min-width: 0;\n      width: 100%;\n      display: flex;\n      flex-direction: row;\n    }\n\n    .TokenAmountCell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .TokenSymbolCell {\n      \n    }\n  ";
-});
-
-var IconStyle = (function () {
-  return "\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n    \n  ";
 });
 
 var style = (function (style) {
@@ -1277,7 +1416,7 @@ var style = (function (style) {
       primary: '#ea357a'
     }
   }, style);
-  return [ResetStyle(), FontStyle(), DialogStyle(), ButtonCircularStyle(), ButtonPrimaryStyle(style), HeaderTitleStyle(), CardStyle(), FooterStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(), IconStyle()].join('');
+  return [ResetStyle(), FontStyle(), DialogStyle(), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(), FooterStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(), IconStyle(), PaddingStyle(), HeightStyle(), LabelStyle(style)].join('');
 });
 
 var ToTokenProvider = (function (props) {

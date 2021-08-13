@@ -3492,10 +3492,10 @@ depay-local-currency@^1.0.1:
   resolved "https://registry.yarnpkg.com/depay-local-currency/-/depay-local-currency-1.0.1.tgz#00505f7f2168a7e0378105129fee621473205897"
   integrity sha512-r4qs1bByzOPp1knE9VvagHf0vUyrVj+fJ7hbdZSesyOGiYvjtEYYyT+qN2vnjci2meLWW4aR1zHqjFImCPnWVw==
 
-depay-react-dialog-stack@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/depay-react-dialog-stack/-/depay-react-dialog-stack-1.2.0.tgz#a4386afc02bd161c4ecbe61d0407ad762e5922cd"
-  integrity sha512-0O2am+IXszNvK0xlFrnmKmyxnUec/L/JNngCo7NTiZ5B99oRTxaHsvyjdwFufS6OzEvnpWIj1JQQK6F5Y5ydHg==
+depay-react-dialog-stack@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/depay-react-dialog-stack/-/depay-react-dialog-stack-1.2.1.tgz#5ae6f256950d7cbced585b24fdefffb530ff2964"
+  integrity sha512-6wFzzKODRcUDb+RtCiaL01uKt4IHJbz/7u8KDffdUKlLiemY0lJ1paJoGBVUwfjTbhm6BO5GNAZMw8kA+KGtgA==
   dependencies:
     depay-react-dialog "^9.1.0"
 
@@ -3557,10 +3557,10 @@ depay-web3-mock@^5.2.0:
     depay-web3-blockchains "^2.1.0"
     ethers "^5.4.0"
 
-depay-web3-payments@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/depay-web3-payments/-/depay-web3-payments-2.1.1.tgz#173e009c4e70047b9264e22160e592612597a62f"
-  integrity sha512-4d8o+JTdX5sAWzltHVpLpQLhkpVUPTGYolJG/NFQOFRKjhb9iEX+Zkl1A6OvRuyUZEEbrAEkhLYa+zFY4GVjkw==
+depay-web3-payments@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/depay-web3-payments/-/depay-web3-payments-2.2.0.tgz#8ec6c2df7abece40a28a8eeb43cc73bc4d265241"
+  integrity sha512-GzrZTvLZ1HfFUGNsT//jMCtE+r3aDE3uWkoU80JqHlpOQzT/SlBzDWo7jHznveqB5D+7JQEwQeUwrgiKbU06BA==
   dependencies:
     depay-web3-constants "^2.0.0"
     depay-web3-exchanges "^2.1.0"

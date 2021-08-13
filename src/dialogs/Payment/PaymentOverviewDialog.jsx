@@ -5,6 +5,7 @@ import LoadingContext from '../../contexts/LoadingContext'
 import PaymentContext from '../../contexts/PaymentContext'
 import PaymentOverviewSkeleton from '../../skeletons/PaymentOverviewSkeleton'
 import React, { useContext, useState, useEffect } from 'react'
+import round from '../../helpers/round'
 import ToTokenContext from '../../contexts/ToTokenContext'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
 import { TokenImage } from 'depay-react-token-image'
@@ -22,10 +23,12 @@ export default (props)=>{
   return(
     <Dialog
       header={
-        <h1 className="HeaderTitle">Payment</h1>
+        <div className="PaddingTopS PaddingLeftM PaddingRightM">
+          <h1 className="FontSizeL TextLeft">Payment</h1>
+        </div>
       }
       body={
-        <div>
+        <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
           <div className="Card" title="Change payment" onClick={ ()=>navigate('ChangePayment') }>
             <div className="CardImage" title={ payment.name }>
               <TokenImage
@@ -37,12 +40,12 @@ export default (props)=>{
               <div className="CardBodyWrapper">
                 <h2 className="CardText">
                   <div className="TokenAmountRow">
-                    <span className="TokenAmountCell" title={ payment.amount }>
-                      { payment.amount }
-                    </span>
-                    <span>&nbsp;</span>
                     <span className="TokenSymbolCell">
                       { payment.symbol }
+                    </span>
+                    <span>&nbsp;</span>
+                    <span className="TokenAmountCell">
+                      { round(payment.amount) }
                     </span>
                   </div>
                 </h2>
@@ -58,7 +61,7 @@ export default (props)=>{
         </div>
       }
       footer={
-        <div>
+        <div className="PaddingTopXS PaddingRightM PaddingLeftM">
           <button className="ButtonPrimary">
             Pay { localValue.toString() }
           </button>

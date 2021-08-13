@@ -12,15 +12,17 @@ export default (props)=>{
   return(
     <div className="ReactDialogAnimation Dialog">
       
-      <div className="DialogHeader">
-        <div className={["DialogHeaderInner", props.stacked ? 'TextCenter' : ''].join(' ')}>
-          { props.stacked &&
-            <button onClick={ ()=>navigate('back') } className="DialogBackButton ButtonCircular">
+      <div className={["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')}>
+        { props.stacked &&
+          <div className="DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS">
+            <button onClick={ ()=>navigate('back') } className="ButtonCircular" title="Go back">
               <ChevronLeft/>
             </button>
-          }
-          { props.header }
-          <button onClick={ close } className="DialogCloseButton ButtonCircular">
+          </div>
+        }
+        <div className="DialogHeaderTitle">{ props.header }</div>
+        <div className="DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS">
+          <button onClick={ close } className="ButtonCircular" title="Close dialog">
             <CloseIcon/>
           </button>
         </div>

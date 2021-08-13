@@ -27,7 +27,7 @@ export default (style)=>{
       opacity: 0.4;
     }
 
-    .CardImage, .CardBody, .CardAction {
+    .CardImage, .CardBody, .CardAction, .CardInfo {
       align-items: center;
       display: flex;
       min-width: 0;
@@ -59,6 +59,14 @@ export default (style)=>{
       flex-grow: 0;
       padding-right: 0;
       margin-left: auto;
+    }
+
+    .CardInfo {
+      flex-basis: auto;
+      flex-shrink: 0;
+      flex-grow: 0;
+      padding-right: 0;
+      margin-left: auto; 
     }
 
     .CardImage img {

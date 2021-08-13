@@ -6,17 +6,23 @@ export default (props)=>{
   return(
     <Dialog
       header={
-        <h1 className="HeaderTitle">Payment</h1>
+        <div className="PaddingTopS PaddingLeftM PaddingRightM">
+          <h1 className="FontSizeL TextLeft">Payment</h1>
+        </div>
       }
       body={
-        <div className="Card Skeleton">
-          <div className="SkeletonBackground"/>
+        <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
+          <div className="Card Skeleton">
+            <div className="SkeletonBackground"/>
+          </div>
         </div>
       }
       footer={
-        <div className="SkeletonWrapper">
-          <div className="ButtonPrimary Skeleton">
-            <div className="SkeletonBackground"/>
+        <div className="PaddingTopXS PaddingRightM PaddingLeftM">
+          <div className="SkeletonWrapper">
+            <div className="ButtonPrimary Skeleton">
+              <div className="SkeletonBackground"/>
+            </div>
           </div>
         </div>
       }
