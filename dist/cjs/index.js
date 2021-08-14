@@ -1076,6 +1076,9 @@ var ChangePaymentDialog = (function (props) {
   var _useContext3 = React.useContext(ToTokenContext),
       localValue = _useContext3.localValue;
 
+  var _useContext4 = React.useContext(LoadingContext);
+      _useContext4.loading;
+
   var navigate = React.useContext(depayReactDialogStack.NavigateStackContext);
 
   var _useState = React.useState([]),

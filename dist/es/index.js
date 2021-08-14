@@ -1070,6 +1070,9 @@ var ChangePaymentDialog = (function (props) {
   var _useContext3 = useContext(ToTokenContext),
       localValue = _useContext3.localValue;
 
+  var _useContext4 = useContext(LoadingContext);
+      _useContext4.loading;
+
   var navigate = useContext(NavigateStackContext);
 
   var _useState = useState([]),

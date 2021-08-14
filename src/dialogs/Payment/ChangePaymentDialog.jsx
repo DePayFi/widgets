@@ -1,5 +1,6 @@
 import ConfigurationContext from '../../contexts/ConfigurationContext'
 import Dialog from '../../components/Dialog'
+import LoadingContext from '../../contexts/LoadingContext'
 import React, { useContext, useEffect, useState } from 'react'
 import round from '../../helpers/round'
 import RoutingContext from '../../contexts/RoutingContext'
@@ -12,6 +13,7 @@ export default (props)=>{
   const { blockchain } = useContext(ConfigurationContext)
   const { allRoutes, setSelectedRoute } = useContext(RoutingContext)
   const { localValue } = useContext(ToTokenContext)
+  const { loading } = useContext(LoadingContext)
   const navigate = useContext(NavigateStackContext)
   const [ allPaymentRoutesWithData, setAllPaymentRoutesWithData ] = useState([])
   const [ cards, setCards ] = useState([])
