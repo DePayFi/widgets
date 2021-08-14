@@ -1,6 +1,5 @@
 import ClosableProvider from './providers/ClosableProvider'
 import ConfigurationProvider from './providers/ConfigurationProvider'
-import LoadingProvider from './providers/LoadingProvider'
 import PaymentProvider from './providers/PaymentProvider'
 import PaymentStack from './stacks/PaymentStack'
 import React from 'react'
@@ -29,24 +28,22 @@ let Payment = async ({ blockchain, amount, token, receiver, document }) => {
 
   let content = (container)=> {
     return(
-      <LoadingProvider>
-        <ConfigurationProvider configuration={ { blockchain, amount, token, receiver } }>
-          <ClosableProvider unmount={ unmountShadowDOM }>
-            <WalletProvider>
-              <ToTokenProvider>
-                <RoutingProvider>
-                  <PaymentProvider>
-                    <PaymentStack
-                      document={ document }
-                      container={ container }
-                    />
-                  </PaymentProvider>
-                </RoutingProvider>
-              </ToTokenProvider>
-            </WalletProvider>
-          </ClosableProvider>
-        </ConfigurationProvider>
-      </LoadingProvider>
+      <ConfigurationProvider configuration={ { blockchain, amount, token, receiver } }>
+        <ClosableProvider unmount={ unmountShadowDOM }>
+          <WalletProvider>
+            <ToTokenProvider>
+              <RoutingProvider>
+                <PaymentProvider>
+                  <PaymentStack
+                    document={ document }
+                    container={ container }
+                  />
+                </PaymentProvider>
+              </RoutingProvider>
+            </ToTokenProvider>
+          </WalletProvider>
+        </ClosableProvider>
+      </ConfigurationProvider>
     )
   }
 

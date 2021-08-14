@@ -3549,10 +3549,10 @@ depay-web3-exchanges@^2.1.0:
     depay-web3-tokens "^2.0.2"
     depay-web3-transaction "^2.0.0"
 
-depay-web3-mock@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/depay-web3-mock/-/depay-web3-mock-5.2.0.tgz#7664854f3bcfceab02da0dc4e82bdd8731fc04d2"
-  integrity sha512-l57azjtux72ZyaKVYdEJfP30I5auqZVbD2/AXyvyHqOsUeSvbo3B+QMKy7OMPyaiyO/x6NnvbqsdtJmEjVZjFQ==
+depay-web3-mock@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/depay-web3-mock/-/depay-web3-mock-5.3.0.tgz#afe2da134ef019c049028a7bc4a968db60d609b8"
+  integrity sha512-RgWne1ptPwOhL2qQn8gn+7XLmHs2VMKPE+zNEKIHWTPODEIU9XxvYW/Zs8rvaTNusTL8lCwnQWo5bkvOP34o4A==
   dependencies:
     depay-web3-blockchains "^2.1.0"
     ethers "^5.4.0"

@@ -886,37 +886,6 @@
     }, props.children);
   });
 
-  var LoadingContext = /*#__PURE__*/React__default['default'].createContext();
-
-  var LoadingProvider = (function (props) {
-    var _useState = React.useState({}),
-        _useState2 = _slicedToArray(_useState, 2),
-        instances = _useState2[0],
-        setInstances = _useState2[1];
-
-    var _useState3 = React.useState(false),
-        _useState4 = _slicedToArray(_useState3, 2),
-        loading = _useState4[0],
-        setLoading = _useState4[1];
-
-    React.useEffect(function () {
-      setLoading(Object.values(instances).some(function (element) {
-        return Boolean(element);
-      }));
-    }, [instances]);
-
-    var updateLoading = function updateLoading(instance) {
-      setInstances(Object.assign({}, Object.assign(instances, instance)));
-    };
-
-    return /*#__PURE__*/React__default['default'].createElement(LoadingContext.Provider, {
-      value: {
-        loading: loading,
-        updateLoading: updateLoading
-      }
-    }, props.children);
-  });
-
   var PaymentContext = /*#__PURE__*/React__default['default'].createContext();
 
   var RoutingContext = /*#__PURE__*/React__default['default'].createContext();
@@ -1034,6 +1003,45 @@
     }, "by DePay")));
   });
 
+  var ToTokenContext = /*#__PURE__*/React__default['default'].createContext();
+
+  var ChangePaymentSkeleton = (function (props) {
+    var _useContext = React.useContext(ToTokenContext),
+        localValue = _useContext.localValue;
+
+    return /*#__PURE__*/React__default['default'].createElement(Dialog, {
+      stacked: true,
+      header: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
+      }, /*#__PURE__*/React__default['default'].createElement("h1", {
+        className: "FontSizeL TextCenter"
+      }, "Change Payment"), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "FontSizeL TextCenter FontWeightBold"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, localValue.toString()))),
+      body: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "MaxHeight PaddingTopXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Card Skeleton"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "SkeletonBackground"
+      })), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Card Skeleton"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "SkeletonBackground"
+      })), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Card Skeleton"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "SkeletonBackground"
+      })), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Card Skeleton"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "SkeletonBackground"
+      }))))
+    });
+  });
+
   var round = (function (input) {
     var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'up';
 
@@ -1056,8 +1064,6 @@
     return parseFloat(_float);
   });
 
-  var ToTokenContext = /*#__PURE__*/React__default['default'].createContext();
-
   var ChangePaymentDialog = (function (props) {
     var _useContext = React.useContext(ConfigurationContext),
         blockchain = _useContext.blockchain;
@@ -1068,9 +1074,6 @@
 
     var _useContext3 = React.useContext(ToTokenContext),
         localValue = _useContext3.localValue;
-
-    var _useContext4 = React.useContext(LoadingContext);
-        _useContext4.loading;
 
     var navigate = React.useContext(depayReactDialogStack.NavigateStackContext);
 
@@ -1106,12 +1109,6 @@
         }));
       });
     }, [allRoutes]);
-
-    var selectNewPayment = function selectNewPayment(payment) {
-      setSelectedRoute(payment.route);
-      navigate('back');
-    };
-
     React.useEffect(function () {
       setCards(allPaymentRoutesWithData.map(function (payment, index) {
         return /*#__PURE__*/React__default['default'].createElement("div", {
@@ -1119,7 +1116,8 @@
           className: "Card",
           title: "Select as payment",
           onClick: function onClick() {
-            return selectNewPayment(payment);
+            setSelectedRoute(payment.route);
+            navigate('back');
           }
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardImage",
@@ -1150,12 +1148,17 @@
         }, "Requires Approval")));
       }));
     }, [allPaymentRoutesWithData]);
+
+    if (allPaymentRoutesWithData.length == 0 || cards.length == 0) {
+      return /*#__PURE__*/React__default['default'].createElement(ChangePaymentSkeleton, null);
+    }
+
     return /*#__PURE__*/React__default['default'].createElement(Dialog, {
       stacked: true,
       header: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
-        className: "FontSizeL TextLeft"
+        className: "FontSizeL TextCenter"
       }, "Change Payment"), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "FontSizeL TextCenter FontWeightBold"
       }, /*#__PURE__*/React__default['default'].createElement("strong", null, localValue.toString()))),
@@ -1210,21 +1213,18 @@
   });
 
   var PaymentOverviewDialog = (function (props) {
-    var _useContext = React.useContext(LoadingContext),
-        loading = _useContext.loading;
+    var _useContext = React.useContext(ConfigurationContext),
+        blockchain = _useContext.blockchain;
 
-    var _useContext2 = React.useContext(ConfigurationContext),
-        blockchain = _useContext2.blockchain;
+    var _useContext2 = React.useContext(PaymentContext),
+        payment = _useContext2.payment;
 
-    var _useContext3 = React.useContext(PaymentContext),
-        payment = _useContext3.payment;
-
-    var _useContext4 = React.useContext(ToTokenContext),
-        localValue = _useContext4.localValue;
+    var _useContext3 = React.useContext(ToTokenContext),
+        localValue = _useContext3.localValue;
 
     var navigate = React.useContext(depayReactDialogStack.NavigateStackContext);
 
-    if (loading || payment == undefined || localValue == undefined) {
+    if (payment == undefined || localValue == undefined) {
       return /*#__PURE__*/React__default['default'].createElement(PaymentOverviewSkeleton, null);
     }
 
@@ -1306,17 +1306,14 @@
         selectedRoute = _useState4[0],
         setSelectedRoute = _useState4[1];
 
-    var _useContext = React.useContext(LoadingContext),
-        updateLoading = _useContext.updateLoading;
+    var _useContext = React.useContext(ConfigurationContext),
+        blockchain = _useContext.blockchain,
+        amount = _useContext.amount,
+        token = _useContext.token,
+        receiver = _useContext.receiver;
 
-    var _useContext2 = React.useContext(ConfigurationContext),
-        blockchain = _useContext2.blockchain,
-        amount = _useContext2.amount,
-        token = _useContext2.token,
-        receiver = _useContext2.receiver;
-
-    var _useContext3 = React.useContext(WalletContext),
-        account = _useContext3.account;
+    var _useContext2 = React.useContext(WalletContext),
+        account = _useContext2.account;
 
     React.useEffect(function () {
       if (!account) {
@@ -1335,17 +1332,6 @@
         setSelectedRoute(routes[0]);
       });
     }, [account]);
-    React.useEffect(function () {
-      if (allRoutes && selectedRoute) {
-        updateLoading({
-          routing: false
-        });
-      } else {
-        updateLoading({
-          routing: true
-        });
-      }
-    }, [allRoutes, selectedRoute]);
     return /*#__PURE__*/React__default['default'].createElement(RoutingContext.Provider, {
       value: {
         selectedRoute: selectedRoute,
@@ -1373,7 +1359,7 @@
   });
 
   var FontStyle = (function () {
-    return "\n\n    * {\n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n  ";
+    return "\n\n    .Dialog, * {\n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n  ";
   });
 
   var FooterStyle = (function (style) {
@@ -1435,13 +1421,7 @@
         localValue = _useState2[0],
         setLocalValue = _useState2[1];
 
-    var _useContext3 = React.useContext(LoadingContext),
-        updateLoading = _useContext3.updateLoading;
-
     React.useEffect(function () {
-      updateLoading({
-        toToken: true
-      });
       Promise.all([depayWeb3Exchanges.route({
         blockchain: blockchain,
         tokenIn: token,
@@ -1465,9 +1445,6 @@
           apiKey: apiKey
         }).then(function (localValue) {
           setLocalValue(localValue);
-          updateLoading({
-            toToken: false
-          });
         });
       });
     }, []);
@@ -1604,7 +1581,7 @@
               };
 
               content = function content(container) {
-                return /*#__PURE__*/React__default['default'].createElement(LoadingProvider, null, /*#__PURE__*/React__default['default'].createElement(ConfigurationProvider, {
+                return /*#__PURE__*/React__default['default'].createElement(ConfigurationProvider, {
                   configuration: {
                     blockchain: blockchain,
                     amount: amount,
@@ -1616,7 +1593,7 @@
                 }, /*#__PURE__*/React__default['default'].createElement(WalletProvider, null, /*#__PURE__*/React__default['default'].createElement(ToTokenProvider, null, /*#__PURE__*/React__default['default'].createElement(RoutingProvider, null, /*#__PURE__*/React__default['default'].createElement(PaymentProvider, null, /*#__PURE__*/React__default['default'].createElement(PaymentStack, {
                   document: document,
                   container: container
-                }))))))));
+                })))))));
               };
 
               _ReactShadowDOM = depayReactShadowDom.ReactShadowDOM({

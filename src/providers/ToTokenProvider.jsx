@@ -1,6 +1,5 @@
 import apiKey from '../apiKey'
 import ConfigurationContext from '../contexts/ConfigurationContext'
-import LoadingContext from '../contexts/LoadingContext'
 import React, { useState, useEffect, useContext } from 'react'
 import ToTokenContext from '../contexts/ToTokenContext'
 import WalletContext from '../contexts/WalletContext'
@@ -14,10 +13,8 @@ export default (props)=>{
   const { account } = useContext(WalletContext)
   const { blockchain, token, amount } = useContext(ConfigurationContext)
   const [ localValue, setLocalValue ] = useState()
-  const { updateLoading } = useContext(LoadingContext)
   
   useEffect(()=>{
-    updateLoading({ toToken: true })
     Promise.all([
       route({
         blockchain,
@@ -34,7 +31,6 @@ export default (props)=>{
       let USDValue = parseFloat(USDAmount) / 10**USDDecimals
       Currency.fromUSD({ amount: USDValue, apiKey }).then((localValue)=>{
         setLocalValue(localValue)
-        updateLoading({ toToken: false })
       })
     })
   }, [])

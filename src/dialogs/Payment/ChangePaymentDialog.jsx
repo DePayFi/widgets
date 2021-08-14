@@ -1,6 +1,6 @@
+import ChangePaymentSkeleton from '../../skeletons/ChangePaymentSkeleton'
 import ConfigurationContext from '../../contexts/ConfigurationContext'
 import Dialog from '../../components/Dialog'
-import LoadingContext from '../../contexts/LoadingContext'
 import React, { useContext, useEffect, useState } from 'react'
 import round from '../../helpers/round'
 import RoutingContext from '../../contexts/RoutingContext'
@@ -13,7 +13,6 @@ export default (props)=>{
   const { blockchain } = useContext(ConfigurationContext)
   const { allRoutes, setSelectedRoute } = useContext(RoutingContext)
   const { localValue } = useContext(ToTokenContext)
-  const { loading } = useContext(LoadingContext)
   const navigate = useContext(NavigateStackContext)
   const [ allPaymentRoutesWithData, setAllPaymentRoutesWithData ] = useState([])
   const [ cards, setCards ] = useState([])
@@ -45,16 +44,14 @@ export default (props)=>{
     })
   }, [allRoutes])
 
-  const selectNewPayment = (payment)=> {
-    setSelectedRoute(payment.route)
-    navigate('back')
-  }
-
   useEffect(()=>{
     setCards(
       allPaymentRoutesWithData.map((payment, index)=>{
         return(
-          <div key={ index } className="Card" title="Select as payment" onClick={ ()=>selectNewPayment(payment) }>
+          <div key={ index } className="Card" title="Select as payment" onClick={()=>{
+            setSelectedRoute(payment.route)
+            navigate('back')
+          }}>
             <div className="CardImage" title={ payment.name }>
               <TokenImage
                 blockchain={ blockchain }
@@ -89,12 +86,14 @@ export default (props)=>{
     )
   }, [allPaymentRoutesWithData])
 
+  if(allPaymentRoutesWithData.length == 0 || cards.length == 0) { return(<ChangePaymentSkeleton/>) }
+
   return(
     <Dialog
       stacked={ true }
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS">
-          <h1 className="FontSizeL TextLeft">Change Payment</h1>
+          <h1 className="FontSizeL TextCenter">Change Payment</h1>
           <div className="FontSizeL TextCenter FontWeightBold"><strong>{ localValue.toString() }</strong></div>
         </div>
       }

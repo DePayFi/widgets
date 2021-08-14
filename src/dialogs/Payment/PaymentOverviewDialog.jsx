@@ -1,7 +1,6 @@
 import ChevronRight from '../../components/ChevronRight'
 import ConfigurationContext from '../../contexts/ConfigurationContext'
 import Dialog from '../../components/Dialog'
-import LoadingContext from '../../contexts/LoadingContext'
 import PaymentContext from '../../contexts/PaymentContext'
 import PaymentOverviewSkeleton from '../../skeletons/PaymentOverviewSkeleton'
 import React, { useContext, useState, useEffect } from 'react'
@@ -12,13 +11,12 @@ import { TokenImage } from 'depay-react-token-image'
 
 export default (props)=>{
 
-  const { loading } = useContext(LoadingContext)
   const { blockchain } = useContext(ConfigurationContext)
   const { payment } = useContext(PaymentContext)
   const { localValue } = useContext(ToTokenContext)
   const navigate = useContext(NavigateStackContext)
 
-  if(loading || payment == undefined || localValue == undefined) { return(<PaymentOverviewSkeleton/>) }
+  if(payment == undefined || localValue == undefined) { return(<PaymentOverviewSkeleton/>) }
 
   return(
     <Dialog

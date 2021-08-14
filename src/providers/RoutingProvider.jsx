@@ -1,6 +1,5 @@
 import apiKey from '../apiKey'
 import ConfigurationContext from '../contexts/ConfigurationContext'
-import LoadingContext from '../contexts/LoadingContext'
 import React, { useState, useContext, useEffect } from 'react'
 import RoutingContext from '../contexts/RoutingContext'
 import WalletContext from '../contexts/WalletContext'
@@ -11,7 +10,6 @@ export default (props)=>{
 
   const [allRoutes, setAllRoutes] = useState()
   const [selectedRoute, setSelectedRoute] = useState()
-  const { updateLoading } = useContext(LoadingContext)
   const { blockchain, amount, token, receiver } = useContext(ConfigurationContext)
   const { account } = useContext(WalletContext)
 
@@ -30,14 +28,6 @@ export default (props)=>{
     })
   }, [account])
 
-  useEffect(()=>{
-    if(allRoutes && selectedRoute) {
-      updateLoading({ routing: false })
-    } else {
-      updateLoading({ routing: true })
-    }
-  }, [allRoutes, selectedRoute])
-  
   return(
     <RoutingContext.Provider value={{
       selectedRoute: selectedRoute,

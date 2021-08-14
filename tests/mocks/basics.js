@@ -86,11 +86,16 @@ export default ({
   mock({ blockchain, call: { to: TOKEN_A, api: Token[blockchain].DEFAULT, method: 'decimals', return: TOKEN_A_Decimals } })
   mock({ blockchain, call: { to: TOKEN_A, api: Token[blockchain].DEFAULT, method: 'symbol', return: TOKEN_A_Symbol } })
   mock({ blockchain, call: { to: TOKEN_A, api: Token[blockchain].DEFAULT, method: 'name', return: TOKEN_A_Name } })
+
+  mock({ blockchain, call: { to: TOKEN_B, api: Token[blockchain].DEFAULT, method: 'decimals', return: TOKEN_B_Decimals } })
+  mock({ blockchain, call: { to: TOKEN_B, api: Token[blockchain].DEFAULT, method: 'symbol', return: TOKEN_B_Symbol } })
+  mock({ blockchain, call: { to: TOKEN_B, api: Token[blockchain].DEFAULT, method: 'name', return: TOKEN_B_Name } })
+  
   mock({ blockchain, call: { to: TOKEN_A, api: Token[blockchain].DEFAULT, method: 'balanceOf', params: fromAddress, return: TOKEN_A_BalanceBN } })
   mock({ blockchain, call: { to: TOKEN_A, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: CONSTANTS[blockchain].MAXINT } })
   
   mock({ blockchain, call: { to: TOKEN_B, api: Token[blockchain].DEFAULT, method: 'balanceOf', params: fromAddress, return: TOKEN_B_BalanceBN } })
-  mock({ blockchain, call: { to: TOKEN_B, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: CONSTANTS[blockchain].MAXINT } })
+  mock({ blockchain, call: { to: TOKEN_B, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: CONSTANTS[blockchain].ZERO } })
 
   mock({ blockchain, call: { to: CONSTANTS[blockchain].USD, api: Token[blockchain].DEFAULT, method: 'decimals', return: CONSTANTS[blockchain].DECIMALS } })
   
