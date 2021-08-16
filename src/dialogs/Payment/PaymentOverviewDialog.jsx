@@ -1,10 +1,11 @@
 import ChevronRight from '../../components/ChevronRight'
+import ClosableContext from '../../contexts/ClosableContext'
 import ConfigurationContext from '../../contexts/ConfigurationContext'
 import Dialog from '../../components/Dialog'
+import LoadingText from '../../components/LoadingText'
 import PaymentContext from '../../contexts/PaymentContext'
 import PaymentOverviewSkeleton from '../../skeletons/PaymentOverviewSkeleton'
 import React, { useContext, useState, useEffect } from 'react'
-import round from '../../helpers/round'
 import ToTokenContext from '../../contexts/ToTokenContext'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
 import { TokenImage } from 'depay-react-token-image'
@@ -15,6 +16,15 @@ export default (props)=>{
   const { payment } = useContext(PaymentContext)
   const { localValue } = useContext(ToTokenContext)
   const navigate = useContext(NavigateStackContext)
+  const { setClosable } = useContext(ClosableContext)
+  const [paying, setPaying] = useState(false)
+  const [transactionHash, setTransactionHash] = useState()
+  const [transactionLink, setTransactionLink] = useState()
+  const pay = ()=> {
+    setClosable(false)
+    setPaying(true)
+    payment.route.transaction.submit()
+  }
 
   if(payment == undefined || localValue == undefined) { return(<PaymentOverviewSkeleton/>) }
 
@@ -27,7 +37,14 @@ export default (props)=>{
       }
       body={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
-          <div className="Card" title="Change payment" onClick={ ()=>navigate('ChangePayment') }>
+          <div 
+            className={["Card", (paying ? 'disabled' : '')].join(' ')}
+            title="Change payment"
+            onClick={ ()=>{
+              if(paying) { return }
+              navigate('ChangePayment')
+            } }
+          >
             <div className="CardImage" title={ payment.name }>
               <TokenImage
                 blockchain={ blockchain }
@@ -43,7 +60,7 @@ export default (props)=>{
                     </span>
                     <span>&nbsp;</span>
                     <span className="TokenAmountCell">
-                      { round(payment.amount) }
+                      { payment.amount }
                     </span>
                   </div>
                 </h2>
@@ -60,9 +77,16 @@ export default (props)=>{
       }
       footer={
         <div className="PaddingTopXS PaddingRightM PaddingLeftM">
-          <button className="ButtonPrimary">
-            Pay { localValue.toString() }
-          </button>
+          { paying == false && 
+            <button className="ButtonPrimary" onClick={ pay }>
+              Pay { localValue.toString() }
+            </button>
+          }
+          { paying == true &&
+            <a className="ButtonPrimary" title="Performing the payment - please wait" href={ transactionLink } target="_blank" rel="noopener noreferrer">
+              <LoadingText >Paying</LoadingText>
+            </a>
+          }
         </div>
       }
     />

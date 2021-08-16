@@ -864,6 +864,10 @@
         setOpen = _useState4[1];
 
     var close = function close() {
+      if (!closable) {
+        return;
+      }
+
       setOpen(false);
       setTimeout(props.unmount, 300);
     };
@@ -901,9 +905,8 @@
 
     React.useEffect(function () {
       if (selectedRoute) {
-        var exchangeRoute = selectedRoute.exchangeRoutes[0];
         var fromToken = selectedRoute.fromToken;
-        var fromAmount = exchangeRoute ? selectedRoute.exchangeRoutes[0].amountIn : selectedRoute.toAmount;
+        var fromAmount = selectedRoute.transaction.params.amounts[0];
         Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(fromAmount)]).then(function (_ref) {
           var _ref2 = _slicedToArray(_ref, 3),
               name = _ref2[0],
@@ -911,6 +914,7 @@
               amount = _ref2[2];
 
           setPayment({
+            route: selectedRoute,
             token: selectedRoute.fromToken.address,
             name: name,
             symbol: symbol,
@@ -969,7 +973,8 @@
     var navigate = React.useContext(depayReactDialogStack.NavigateStackContext);
 
     var _useContext = React.useContext(ClosableContext),
-        close = _useContext.close;
+        close = _useContext.close,
+        closable = _useContext.closable;
 
     return /*#__PURE__*/React__default['default'].createElement("div", {
       className: "ReactDialogAnimation Dialog"
@@ -987,7 +992,7 @@
       className: "DialogHeaderTitle"
     }, props.header), /*#__PURE__*/React__default['default'].createElement("div", {
       className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/React__default['default'].createElement("button", {
+    }, closable && /*#__PURE__*/React__default['default'].createElement("button", {
       onClick: close,
       className: "ButtonCircular",
       title: "Close dialog"
@@ -1023,10 +1028,6 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "Card Skeleton"
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "SkeletonBackground"
-      })), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Card Skeleton"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "SkeletonBackground"
@@ -1093,9 +1094,9 @@
       }
 
       Promise.all(allRoutes.map(function (route) {
-        var exchangeRoute = route.exchangeRoutes[0];
+        route.exchangeRoutes[0];
         route.fromToken;
-        var fromAmount = exchangeRoute ? route.exchangeRoutes[0].amountIn : route.toAmount;
+        var fromAmount = route.transaction.params.amounts[0];
         return Promise.all([route.fromToken.name(), route.fromToken.symbol(), route.fromToken.decimals(), route.fromToken.readable(fromAmount)]);
       })).then(function (allPaymentRoutesWithData) {
         setAllPaymentRoutesWithData(allRoutes.map(function (route, index) {
@@ -1114,14 +1115,13 @@
         return /*#__PURE__*/React__default['default'].createElement("div", {
           key: index,
           className: "Card",
-          title: "Select as payment",
+          title: "Select ".concat(payment.symbol, " as payment"),
           onClick: function onClick() {
             setSelectedRoute(payment.route);
             navigate('back');
           }
         }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardImage",
-          title: payment.name
+          className: "CardImage"
         }, /*#__PURE__*/React__default['default'].createElement(depayReactTokenImage.TokenImage, {
           blockchain: blockchain,
           address: payment.route.fromToken.address
@@ -1137,7 +1137,7 @@
           className: "TokenSymbolCell"
         }, payment.symbol), /*#__PURE__*/React__default['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default['default'].createElement("span", {
           className: "TokenAmountCell"
-        }, round(payment.amount)))), /*#__PURE__*/React__default['default'].createElement("h3", {
+        }, payment.amount))), /*#__PURE__*/React__default['default'].createElement("h3", {
           className: "CardText"
         }, /*#__PURE__*/React__default['default'].createElement("small", null, round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals), 'down'))))), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardInfo"
@@ -1186,6 +1186,18 @@
     }));
   });
 
+  var LoadingText = (function (props) {
+    return /*#__PURE__*/React__default['default'].createElement("div", {
+      className: "LoadingText"
+    }, props.children, /*#__PURE__*/React__default['default'].createElement("span", {
+      className: "dot"
+    }, "."), /*#__PURE__*/React__default['default'].createElement("span", {
+      className: "dot"
+    }, "."), /*#__PURE__*/React__default['default'].createElement("span", {
+      className: "dot"
+    }, "."));
+  });
+
   var PaymentOverviewSkeleton = (function (props) {
     return /*#__PURE__*/React__default['default'].createElement(Dialog, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
@@ -1224,6 +1236,30 @@
 
     var navigate = React.useContext(depayReactDialogStack.NavigateStackContext);
 
+    var _useContext4 = React.useContext(ClosableContext),
+        setClosable = _useContext4.setClosable;
+
+    var _useState = React.useState(false),
+        _useState2 = _slicedToArray(_useState, 2),
+        paying = _useState2[0],
+        setPaying = _useState2[1];
+
+    var _useState3 = React.useState(),
+        _useState4 = _slicedToArray(_useState3, 2);
+        _useState4[0];
+        _useState4[1];
+
+    var _useState5 = React.useState(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        transactionLink = _useState6[0];
+        _useState6[1];
+
+    var pay = function pay() {
+      setClosable(false);
+      setPaying(true);
+      payment.route.transaction.submit();
+    };
+
     if (payment == undefined || localValue == undefined) {
       return /*#__PURE__*/React__default['default'].createElement(PaymentOverviewSkeleton, null);
     }
@@ -1237,10 +1273,14 @@
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "Card",
+        className: ["Card", paying ? 'disabled' : ''].join(' '),
         title: "Change payment",
         onClick: function onClick() {
-          return navigate('ChangePayment');
+          if (paying) {
+            return;
+          }
+
+          navigate('ChangePayment');
         }
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardImage",
@@ -1260,16 +1300,23 @@
         className: "TokenSymbolCell"
       }, payment.symbol), /*#__PURE__*/React__default['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default['default'].createElement("span", {
         className: "TokenAmountCell"
-      }, round(payment.amount)))), /*#__PURE__*/React__default['default'].createElement("h3", {
+      }, payment.amount))), /*#__PURE__*/React__default['default'].createElement("h3", {
         className: "CardText"
       }, /*#__PURE__*/React__default['default'].createElement("small", null, localValue.toString())))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardAction"
       }, /*#__PURE__*/React__default['default'].createElement(ChevronRight, null)))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM"
-      }, /*#__PURE__*/React__default['default'].createElement("button", {
-        className: "ButtonPrimary"
-      }, "Pay ", localValue.toString()))
+      }, paying == false && /*#__PURE__*/React__default['default'].createElement("button", {
+        className: "ButtonPrimary",
+        onClick: pay
+      }, "Pay ", localValue.toString()), paying == true && /*#__PURE__*/React__default['default'].createElement("a", {
+        className: "ButtonPrimary",
+        title: "Performing the payment - please wait",
+        href: transactionLink,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Paying")))
     });
   });
 
@@ -1315,6 +1362,71 @@
     var _useContext2 = React.useContext(WalletContext),
         account = _useContext2.account;
 
+    var roundAmounts = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(routes) {
+        return regenerator.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                return _context2.abrupt("return", Promise.all(routes.map( /*#__PURE__*/function () {
+                  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(route) {
+                    var readableAmount, roundedAmountBN;
+                    return regenerator.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            if (!route.directTransfer) {
+                              _context.next = 2;
+                              break;
+                            }
+
+                            return _context.abrupt("return", route);
+
+                          case 2:
+                            _context.next = 4;
+                            return route.fromToken.readable(route.transaction.params.amounts[0]);
+
+                          case 4:
+                            readableAmount = _context.sent;
+                            _context.next = 7;
+                            return route.fromToken.BigNumber(round(readableAmount));
+
+                          case 7:
+                            roundedAmountBN = _context.sent;
+                            route.transaction.params.amounts[0] = roundedAmountBN;
+
+                            if (route.transaction.value && route.transaction.value.toString() != '0') {
+                              route.transaction.value = roundedAmountBN;
+                            }
+
+                            return _context.abrupt("return", route);
+
+                          case 11:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x2) {
+                    return _ref2.apply(this, arguments);
+                  };
+                }())));
+
+              case 1:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function roundAmounts(_x) {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
     React.useEffect(function () {
       if (!account) {
         return;
@@ -1328,8 +1440,10 @@
         amount: amount,
         apiKey: apiKey
       }).then(function (routes) {
-        setAllRoutes(routes);
-        setSelectedRoute(routes[0]);
+        roundAmounts(routes).then(function (roundedRoutes) {
+          setAllRoutes(roundedRoutes);
+          setSelectedRoute(roundedRoutes[0]);
+        });
       });
     }, [account]);
     return /*#__PURE__*/React__default['default'].createElement(RoutingContext.Provider, {
@@ -1347,11 +1461,11 @@
   });
 
   var ButtonPrimaryStyle = (function (style) {
-    return "\n\n    .ButtonPrimary {\n      background: " + style.colors.primary + ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 10px rgba(0,0,0,0.05);\n      color: white;\n      display: inline-block;\n      font-size: 1.3rem;\n      font-weight: 400;\n      min-height: 2.96rem;\n      min-width: 13rem;\n      padding: 0.7rem 1.4rem 0.6rem;\n      text-decoration: none;\n      transition: background 0.1s;\n    }\n\n    .ButtonPrimary.circular {\n      padding: 0;\n      width: 3.4rem;\n      height: 3.4rem;\n      line-height: 3.2rem;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ";
+    return "\n\n    .ButtonPrimary {\n      background: " + style.colors.primary + ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 10px rgba(0,0,0,0.05);\n      color: white;\n      display: inline-block;\n      font-size: 1.3rem;\n      font-weight: 400;\n      line-height: 1.2rem;\n      margin: 0;\n      min-height: 2.96rem;\n      min-width: 13rem;\n      padding: 0.7rem 1.4rem 0.6rem;\n      text-decoration: none;\n      transition: background 0.1s;\n      vertical-align: middle;\n    }\n\n    .ButtonPrimary.circular {\n      padding: 0;\n      width: 3.4rem;\n      height: 3.4rem;\n      line-height: 3.2rem;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ";
   });
 
   var CardStyle = (function (style) {
-    return "\n\n    .Card {\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n    }\n\n    .Card:hover {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02); \n    }\n\n    .Card:hover .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .CardInfo {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto; \n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n    \n    .CardText {\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ";
+    return "\n\n    .Card {\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02); \n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto; \n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n    \n    .CardText {\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ";
   });
 
   var DialogStyle = (function () {
@@ -1376,6 +1490,10 @@
 
   var LabelStyle = (function (style) {
     return "\n\n    .Label {\n      background: rgb(248,248,248);\n      border-radius: 999px;\n      color: ".concat(style.colors.primary, ";\n      font-size: 0.8rem;\n      padding: 0.1rem 0.5rem;\n    }\n\n  ");
+  });
+
+  var LoadingTextStyle = (function (style) {
+    return "\n\n    .LoadingText {\n      color: white;\n      display: inline-block;\n      text-decoration: none;\n      vertical-align: middle;\n    }\n\n    @keyframes blink {\n      0% { opacity: .2; }\n      20% { opacity: 1; }\n      100% { opacity: .2; }\n    }\n    \n    .LoadingText .dot {\n      animation-name: blink;\n      animation-duration: 1.4s;\n      animation-iteration-count: infinite;\n      animation-fill-mode: both;\n    }\n    \n    .LoadingText .dot:nth-child(2) {\n      animation-delay: .2s;\n    }\n    \n    .LoadingText .dot:nth-child(3) {\n      animation-delay: .4s;\n    }\n  ";
   });
 
   var PaddingStyle = (function () {
@@ -1404,7 +1522,7 @@
         primary: '#ea357a'
       }
     }, style);
-    return [ResetStyle(), FontStyle(), DialogStyle(), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(), FooterStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(), IconStyle(), PaddingStyle(), HeightStyle(), LabelStyle(style)].join('');
+    return [ResetStyle(), FontStyle(), DialogStyle(), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(), FooterStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(), IconStyle(), PaddingStyle(), HeightStyle(), LabelStyle(style), LoadingTextStyle()].join('');
   });
 
   var ToTokenProvider = (function (props) {

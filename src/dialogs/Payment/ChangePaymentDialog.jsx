@@ -23,7 +23,7 @@ export default (props)=>{
       allRoutes.map((route)=>{
         let exchangeRoute = route.exchangeRoutes[0]
         let fromToken = route.fromToken
-        let fromAmount = exchangeRoute ? route.exchangeRoutes[0].amountIn : route.toAmount
+        let fromAmount = route.transaction.params.amounts[0]
         return Promise.all([
           route.fromToken.name(),
           route.fromToken.symbol(),
@@ -48,11 +48,11 @@ export default (props)=>{
     setCards(
       allPaymentRoutesWithData.map((payment, index)=>{
         return(
-          <div key={ index } className="Card" title="Select as payment" onClick={()=>{
+          <div key={ index } className="Card" title={ `Select ${payment.symbol} as payment` } onClick={()=>{
             setSelectedRoute(payment.route)
             navigate('back')
           }}>
-            <div className="CardImage" title={ payment.name }>
+            <div className="CardImage">
               <TokenImage
                 blockchain={ blockchain }
                 address={ payment.route.fromToken.address }
@@ -67,7 +67,7 @@ export default (props)=>{
                     </span>
                     <span>&nbsp;</span>
                     <span className="TokenAmountCell">
-                      { round(payment.amount) }
+                      { payment.amount }
                     </span>
                   </div>
                 </h2>

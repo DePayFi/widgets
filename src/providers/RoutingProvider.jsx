@@ -1,6 +1,7 @@
 import apiKey from '../apiKey'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import React, { useState, useContext, useEffect } from 'react'
+import round from '../helpers/round'
 import RoutingContext from '../contexts/RoutingContext'
 import WalletContext from '../contexts/WalletContext'
 import { ethers } from 'ethers'
@@ -12,6 +13,18 @@ export default (props)=>{
   const [selectedRoute, setSelectedRoute] = useState()
   const { blockchain, amount, token, receiver } = useContext(ConfigurationContext)
   const { account } = useContext(WalletContext)
+  const roundAmounts = async (routes)=> {
+    return Promise.all(routes.map(async (route)=>{
+      if(route.directTransfer){ return route }
+      let readableAmount = await route.fromToken.readable(route.transaction.params.amounts[0])
+      let roundedAmountBN = await route.fromToken.BigNumber(round(readableAmount))
+      route.transaction.params.amounts[0] = roundedAmountBN
+      if(route.transaction.value && route.transaction.value.toString() != '0') {
+        route.transaction.value = roundedAmountBN
+      }
+      return route
+    }))
+  }
 
   useEffect(() => {
     if(!account) { return }
@@ -23,8 +36,10 @@ export default (props)=>{
       amount: amount,
       apiKey
     }).then((routes)=>{
-      setAllRoutes(routes)
-      setSelectedRoute(routes[0])
+      roundAmounts(routes).then((roundedRoutes)=>{
+        setAllRoutes(roundedRoutes)
+        setSelectedRoute(roundedRoutes[0])
+      })
     })
   }, [account])
 

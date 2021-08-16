@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
 import { mock, resetMocks } from 'depay-web3-mock'
 
-describe('Payment', () => {
+describe('overview Payment', () => {
   
   beforeEach(resetMocks)
   beforeEach(()=>fetchMock.restore())

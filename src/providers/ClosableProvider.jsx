@@ -9,6 +9,7 @@ export default (props)=>{
   const [open, setOpen] = useState(true)
 
   let close = ()=>{
+    if(!closable) { return }
     setOpen(false)
     setTimeout(props.unmount, 300)
   }

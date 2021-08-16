@@ -7,6 +7,7 @@ import FooterStyle from './styles/FooterStyle'
 import HeightStyle from './styles/HeightStyle'
 import IconStyle from './styles/IconStyle'
 import LabelStyle from './styles/LabelStyle'
+import LoadingTextStyle from './styles/LoadingTextStyle'
 import PaddingStyle from './styles/PaddingStyle'
 import ResetStyle from './styles/ResetStyle'
 import SkeletonStyle from './styles/SkeletonStyle'
@@ -37,6 +38,7 @@ export default (style)=>{
       PaddingStyle(style),
       HeightStyle(style),
       LabelStyle(style),
+      LoadingTextStyle(style),
     ].join('')
   )
 }

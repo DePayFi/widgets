@@ -7,7 +7,7 @@ import { NavigateStackContext } from 'depay-react-dialog-stack'
 export default (props)=>{
 
   const navigate = useContext(NavigateStackContext)
-  const { close } = useContext(ClosableContext)
+  const { close, closable } = useContext(ClosableContext)
 
   return(
     <div className="ReactDialogAnimation Dialog">
@@ -22,9 +22,11 @@ export default (props)=>{
         }
         <div className="DialogHeaderTitle">{ props.header }</div>
         <div className="DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS">
-          <button onClick={ close } className="ButtonCircular" title="Close dialog">
-            <CloseIcon/>
-          </button>
+          { closable &&
+            <button onClick={ close } className="ButtonCircular" title="Close dialog">
+              <CloseIcon/>
+            </button>
+          }
         </div>
       </div>
 

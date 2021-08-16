@@ -27,9 +27,6 @@ export default (props)=>{
             <div className="Card Skeleton">
               <div className="SkeletonBackground"/>
             </div>
-            <div className="Card Skeleton">
-              <div className="SkeletonBackground"/>
-            </div>
           </div>
         </div>
       }

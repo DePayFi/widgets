@@ -10,11 +10,14 @@ export default (style)=>{
       display: inline-block;
       font-size: 1.3rem;
       font-weight: 400;
+      line-height: 1.2rem;
+      margin: 0;
       min-height: 2.96rem;
       min-width: 13rem;
       padding: 0.7rem 1.4rem 0.6rem;
       text-decoration: none;
       transition: background 0.1s;
+      vertical-align: middle;
     }
 
     .ButtonPrimary.circular {

@@ -13,17 +13,21 @@ export default (style)=>{
       padding: 1rem 0.6rem;
     }
 
-    .Card:hover {
+    .Card.disabled {
+      cursor: default;
+    }
+
+    .Card:hover:not(.disabled) {
       background: rgb(240,240,240);
       box-shadow: 0 0 0 rgba(0,0,0,0); 
     }
 
-    .Card:active {
+    .Card:active:not(.disabled) {
       background: rgb(235,235,235);
       box-shadow: inset 0 0 6px rgba(0,0,0,0.02); 
     }
 
-    .Card:hover .CardAction {
+    .Card:hover:not(.disabled) .CardAction {
       opacity: 0.4;
     }
 
@@ -59,6 +63,10 @@ export default (style)=>{
       flex-grow: 0;
       padding-right: 0;
       margin-left: auto;
+    }
+
+    .Card.disabled .CardAction {
+      opacity: 0;  
     }
 
     .CardInfo {
