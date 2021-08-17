@@ -39,7 +39,7 @@ export default (props)=>{
       .then((sentTransaction)=>{
         setTransaction(sentTransaction)
       })
-      .catch((error)=>{
+      .catch((error, originalError)=>{
         console.log('error', error)
         setState('overview')
         setClosable(true)

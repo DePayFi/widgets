@@ -160,7 +160,7 @@ describe('change Payment', () => {
       })
     })
 
-    it.only('allows me to submit a changed payment', ()=> {
+    it('allows me to submit a changed payment', ()=> {
 
       let fromAddress = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045'
       let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
@@ -192,7 +192,6 @@ describe('change Payment', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
-            console.log('mockedTransaction', mockedTransaction)
             confirm(mockedTransaction)
             cy.wait(2000).then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{

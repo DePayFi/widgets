@@ -1291,7 +1291,7 @@ var PaymentOverviewDialog = (function (props) {
       }
     }).then(function (sentTransaction) {
       setTransaction(sentTransaction);
-    })["catch"](function (error) {
+    })["catch"](function (error, originalError) {
       console.log('error', error);
       setState('overview');
       setClosable(true);
