@@ -4,8 +4,9 @@ import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
-import { mock, resetMocks } from 'depay-web3-mock'
+import { mock, confirm, resetMocks, anything } from 'depay-web3-mock'
 import { Token } from 'depay-web3-tokens'
+import { routers, plugins } from 'depay-web3-payments'
 
 describe('change Payment', () => {
 
@@ -17,18 +18,18 @@ describe('change Payment', () => {
   let DAI = CONSTANTS[blockchain].USD
   let ETH = CONSTANTS[blockchain].NATIVE
   let WETH = CONSTANTS[blockchain].WRAPPED
-  let defaultArguments
+  let WRAPPED_AmountInBN
+  let TOKEN_A_AmountBN
+  let defaultArguments = {
+    blockchain,
+    amount: 20,
+    token: DEPAY,
+    receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  }
 
   beforeEach(()=>{
     
-    defaultArguments = {
-      blockchain,
-      amount: 20,
-      token: DEPAY,
-      receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-    }
-
-    mockBasics({
+    ({ WRAPPED_AmountInBN, TOKEN_A_AmountBN } = mockBasics({
       blockchain: 'ethereum',
 
       fromAddress: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
@@ -88,7 +89,7 @@ describe('change Payment', () => {
 
       currency: 'EUR',
       currencyToUSD: '0.85'
-    })
+    }))
   })
   
   describe('change payment', () => {
@@ -159,8 +160,49 @@ describe('change Payment', () => {
       })
     })
 
-    it('allows me to submit a changed payment', ()=> {
-      PENDING
+    it.only('allows me to submit a changed payment', ()=> {
+
+      let fromAddress = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045'
+      let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+      
+      let mockedTransaction = mock({
+        blockchain,
+        transaction: {
+          delay: 1000,
+          from: fromAddress,
+          to: routers[blockchain].address,
+          api: routers[blockchain].api,
+          method: 'route',
+          params: {
+            path: [ETH, DEPAY],
+            amounts: [WRAPPED_AmountInBN, TOKEN_A_AmountBN, anything],
+            addresses: [fromAddress, toAddress],
+            plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
+            data: []
+          },
+          value: WRAPPED_AmountInBN
+        }
+      })
+
+      cy.visit('cypress/test.html').then((contentWindow) => {
+        cy.document().then((document)=>{
+          DePayWidgets.Payment({ ...defaultArguments, document })
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
+            console.log('mockedTransaction', mockedTransaction)
+            confirm(mockedTransaction)
+            cy.wait(2000).then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.round .Checkmark.Icon.white').click()
+                cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+              })
+            })
+          })
+        })
+      })
     })
   })
 })

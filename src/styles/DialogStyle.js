@@ -32,6 +32,10 @@ export default ()=>{
       flex-basis: auto;
       flex-grow: 1;
     }
+    
+    .DialogHeaderAction {
+      height: 3rem;
+    }
 
     .DialogFooter {
       background: rgb(248,248,248);
