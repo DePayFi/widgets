@@ -63,7 +63,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "cypress": "^7.6.0",
-    "depay-web3-mock": "^5.4.0",
+    "depay-web3-mock": "^5.5.1",
     "eslint": "^7.15.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.22.1",

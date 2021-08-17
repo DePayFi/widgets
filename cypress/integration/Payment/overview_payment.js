@@ -145,7 +145,7 @@ describe('overview Payment', () => {
       })
     })
 
-    it.only('allows me to close the container after it loaded', () => {
+    it('allows me to close the container after it loaded', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })

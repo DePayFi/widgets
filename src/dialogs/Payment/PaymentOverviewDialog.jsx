@@ -1,3 +1,4 @@
+import Checkmark from '../../components/Checkmark'
 import ChevronRight from '../../components/ChevronRight'
 import ClosableContext from '../../contexts/ClosableContext'
 import ConfigurationContext from '../../contexts/ConfigurationContext'
@@ -12,23 +13,58 @@ import { TokenImage } from 'depay-react-token-image'
 
 export default (props)=>{
 
-  const { blockchain } = useContext(ConfigurationContext)
+  const { blockchain, sent, confirmed, safe } = useContext(ConfigurationContext)
   const { payment } = useContext(PaymentContext)
   const { localValue } = useContext(ToTokenContext)
   const navigate = useContext(NavigateStackContext)
-  const { setClosable } = useContext(ClosableContext)
-  const [paying, setPaying] = useState(false)
+  const { close, setClosable } = useContext(ClosableContext)
+  const [state, setState] = useState('overview')
   const [transaction, setTransaction] = useState()
   const pay = ()=> {
     setClosable(false)
-    setPaying(true)
-    payment.route.transaction.submit()
+    setState('paying')
+    payment.route.transaction.submit({
+      sent: ()=>{
+        if(sent) { sent(transaction) }
+      },
+      confirmed: ()=>{
+        setClosable(true)
+        setState('confirmed')
+        if(confirmed) { confirmed(transaction) }
+      },
+      safe: ()=>{
+        if(safe) { safe(transaction) }
+      },
+    })
       .then((sentTransaction)=>{
         setTransaction(sentTransaction)
       })
       .catch((error)=>{
-        console.log('catch', error)
+        console.log('error', error)
+        setState('overview')
+        setClosable(true)
       })
+  }
+  const mainAction = ()=> {
+    if(state == 'overview') {
+      return(
+        <button className="ButtonPrimary" onClick={ pay }>
+          Pay { localValue.toString() }
+        </button>
+      )
+    } else if (state == 'paying') {
+      return(
+        <a className="ButtonPrimary" title="Performing the payment - please wait" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
+          <LoadingText>Paying</LoadingText>
+        </a>
+      )
+    } else if (state == 'confirmed') {
+      return(
+        <button className="ButtonPrimary round" title="Done" onClick={ close }>
+          <Checkmark/>
+        </button>
+      )
+    }
   }
 
   if(payment == undefined || localValue == undefined) { return(<PaymentOverviewSkeleton/>) }
@@ -43,10 +79,10 @@ export default (props)=>{
       body={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
           <div 
-            className={["Card", (paying ? 'disabled' : '')].join(' ')}
-            title="Change payment"
+            className={["Card", (state == 'overview' ? '' : 'disabled')].join(' ')}
+            title={state == 'overview' ? "Change payment" : undefined}
             onClick={ ()=>{
-              if(paying) { return }
+              if(state != 'overview') { return }
               navigate('ChangePayment')
             } }
           >
@@ -82,16 +118,7 @@ export default (props)=>{
       }
       footer={
         <div className="PaddingTopXS PaddingRightM PaddingLeftM">
-          { paying == false && 
-            <button className="ButtonPrimary" onClick={ pay }>
-              Pay { localValue.toString() }
-            </button>
-          }
-          { paying == true &&
-            <a className="ButtonPrimary" title="Performing the payment - please wait" href={ transactionLink } target="_blank" rel="noopener noreferrer">
-              <LoadingText >Paying</LoadingText>
-            </a>
-          }
+          { mainAction() }
         </div>
       }
     />

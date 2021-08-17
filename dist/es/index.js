@@ -1172,6 +1172,19 @@ var ChangePaymentDialog = (function (props) {
   });
 });
 
+var Checkmark = (function () {
+  return /*#__PURE__*/React.createElement("svg", {
+    className: "Checkmark Icon white",
+    version: "1.1",
+    xmlns: "http://www.w3.org/2000/svg",
+    x: "0px",
+    y: "0px",
+    viewBox: "0 0 24 24"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M20,4.9L9.2,16l-5.4-3.9c-0.7-0.5-1.6-0.3-2.1,0.3c-0.5,0.7-0.3,1.6,0.3,2.1l6.4,4.7c0.3,0.2,0.6,0.3,0.9,0.3 c0.4,0,0.8-0.2,1.1-0.5l11.7-12c0.6-0.6,0.6-1.6,0-2.2C21.6,4.3,20.6,4.3,20,4.9z"
+  }));
+});
+
 var ChevronRight = (function () {
   return /*#__PURE__*/React.createElement("svg", {
     className: "ChevronRight",
@@ -1227,7 +1240,10 @@ var PaymentOverviewSkeleton = (function (props) {
 
 var PaymentOverviewDialog = (function (props) {
   var _useContext = useContext(ConfigurationContext),
-      blockchain = _useContext.blockchain;
+      blockchain = _useContext.blockchain,
+      _sent = _useContext.sent,
+      _confirmed = _useContext.confirmed,
+      _safe = _useContext.safe;
 
   var _useContext2 = useContext(PaymentContext),
       payment = _useContext2.payment;
@@ -1238,26 +1254,71 @@ var PaymentOverviewDialog = (function (props) {
   var navigate = useContext(NavigateStackContext);
 
   var _useContext4 = useContext(ClosableContext),
+      close = _useContext4.close,
       setClosable = _useContext4.setClosable;
 
-  var _useState = useState(false),
+  var _useState = useState('overview'),
       _useState2 = _slicedToArray(_useState, 2),
-      paying = _useState2[0],
-      setPaying = _useState2[1];
+      state = _useState2[0],
+      setState = _useState2[1];
 
   var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2);
-      _useState4[0];
-      var setTransaction = _useState4[1];
+      _useState4 = _slicedToArray(_useState3, 2),
+      transaction = _useState4[0],
+      setTransaction = _useState4[1];
 
   var pay = function pay() {
     setClosable(false);
-    setPaying(true);
-    payment.route.transaction.submit().then(function (sentTransaction) {
+    setState('paying');
+    payment.route.transaction.submit({
+      sent: function sent() {
+        if (_sent) {
+          _sent(transaction);
+        }
+      },
+      confirmed: function confirmed() {
+        setClosable(true);
+        setState('confirmed');
+
+        if (_confirmed) {
+          _confirmed(transaction);
+        }
+      },
+      safe: function safe() {
+        if (_safe) {
+          _safe(transaction);
+        }
+      }
+    }).then(function (sentTransaction) {
       setTransaction(sentTransaction);
     })["catch"](function (error) {
-      console.log('catch', error);
+      console.log('error', error);
+      setState('overview');
+      setClosable(true);
     });
+  };
+
+  var mainAction = function mainAction() {
+    if (state == 'overview') {
+      return /*#__PURE__*/React.createElement("button", {
+        className: "ButtonPrimary",
+        onClick: pay
+      }, "Pay ", localValue.toString());
+    } else if (state == 'paying') {
+      return /*#__PURE__*/React.createElement("a", {
+        className: "ButtonPrimary",
+        title: "Performing the payment - please wait",
+        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, /*#__PURE__*/React.createElement(LoadingText, null, "Paying"));
+    } else if (state == 'confirmed') {
+      return /*#__PURE__*/React.createElement("button", {
+        className: "ButtonPrimary round",
+        title: "Done",
+        onClick: close
+      }, /*#__PURE__*/React.createElement(Checkmark, null));
+    }
   };
 
   if (payment == undefined || localValue == undefined) {
@@ -1273,10 +1334,10 @@ var PaymentOverviewDialog = (function (props) {
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("div", {
-      className: ["Card", paying ? 'disabled' : ''].join(' '),
-      title: "Change payment",
+      className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
+      title: state == 'overview' ? "Change payment" : undefined,
       onClick: function onClick() {
-        if (paying) {
+        if (state != 'overview') {
           return;
         }
 
@@ -1307,16 +1368,7 @@ var PaymentOverviewDialog = (function (props) {
     }, /*#__PURE__*/React.createElement(ChevronRight, null)))),
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingRightM PaddingLeftM"
-    }, paying == false && /*#__PURE__*/React.createElement("button", {
-      className: "ButtonPrimary",
-      onClick: pay
-    }, "Pay ", localValue.toString()), paying == true && /*#__PURE__*/React.createElement("a", {
-      className: "ButtonPrimary",
-      title: "Performing the payment - please wait",
-      href: transactionLink,
-      target: "_blank",
-      rel: "noopener noreferrer"
-    }, /*#__PURE__*/React.createElement(LoadingText, null, "Paying")))
+    }, mainAction())
   });
 });
 
@@ -1461,7 +1513,7 @@ var ButtonCircularStyle = (function () {
 });
 
 var ButtonPrimaryStyle = (function (style) {
-  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: " + style.colors.primary + ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 10px rgba(0,0,0,0.05);\n      color: white;\n      display: inline-flex;\n      flex: 1;\n      font-size: 1.3rem;\n      font-weight: 400;\n      height: 3rem;\n      justify-content: center;\n      min-width: 12rem;\n      padding: 0 1.4rem;\n      text-align: center;\n      text-decoration: none;\n      transition: background 0.1s;\n      vertical-align: middle;\n    }\n\n    .ButtonPrimary.circular {\n      padding: 0;\n      width: 3.4rem;\n      line-height: 3.2rem;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ";
+  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: " + style.colors.primary + ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 10px rgba(0,0,0,0.05);\n      color: white;\n      display: inline-flex;\n      flex: 1;\n      font-size: 1.3rem;\n      font-weight: 400;\n      height: 3rem;\n      justify-content: center;\n      min-width: 12rem;\n      padding: 0 1.4rem;\n      text-align: center;\n      text-decoration: none;\n      transition: background 0.1s;\n      vertical-align: middle;\n    }\n\n    .ButtonPrimary.round {\n      padding: 0;\n      width: 3.4rem;\n      line-height: 3.2rem;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ";
 });
 
 var CardStyle = (function (style) {
@@ -1485,7 +1537,7 @@ var HeightStyle = (function () {
 });
 
 var IconStyle = (function () {
-  return "\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n    \n  ";
+  return "\n\n    .Icon.white {\n      fill: white;\n      stroke: white;\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 1.4rem;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 1.4rem;\n    }\n    \n  ";
 });
 
 var LabelStyle = (function (style) {
@@ -1672,13 +1724,13 @@ var preflight = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var blockchain, amount, token, receiver, document, unmountShadowDOM, content, _ReactShadowDOM, unmount;
+    var blockchain, amount, token, receiver, sent, confirmed, safe, document, unmountShadowDOM, content, _ReactShadowDOM, unmount;
 
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            blockchain = _ref3.blockchain, amount = _ref3.amount, token = _ref3.token, receiver = _ref3.receiver, document = _ref3.document;
+            blockchain = _ref3.blockchain, amount = _ref3.amount, token = _ref3.token, receiver = _ref3.receiver, sent = _ref3.sent, confirmed = _ref3.confirmed, safe = _ref3.safe, document = _ref3.document;
 
             if (typeof document === 'undefined') {
               document = window.document;
@@ -1704,7 +1756,10 @@ var Payment = /*#__PURE__*/function () {
                   blockchain: blockchain,
                   amount: amount,
                   token: token,
-                  receiver: receiver
+                  receiver: receiver,
+                  sent: sent,
+                  confirmed: confirmed,
+                  safe: safe
                 }
               }, /*#__PURE__*/React.createElement(ClosableProvider, {
                 unmount: unmountShadowDOM
