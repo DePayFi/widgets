@@ -18,12 +18,17 @@ export default (props)=>{
   const navigate = useContext(NavigateStackContext)
   const { setClosable } = useContext(ClosableContext)
   const [paying, setPaying] = useState(false)
-  const [transactionHash, setTransactionHash] = useState()
-  const [transactionLink, setTransactionLink] = useState()
+  const [transaction, setTransaction] = useState()
   const pay = ()=> {
     setClosable(false)
     setPaying(true)
     payment.route.transaction.submit()
+      .then((sentTransaction)=>{
+        setTransaction(sentTransaction)
+      })
+      .catch((error)=>{
+        console.log('catch', error)
+      })
   }
 
   if(payment == undefined || localValue == undefined) { return(<PaymentOverviewSkeleton/>) }

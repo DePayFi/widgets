@@ -2,19 +2,22 @@ export default (style)=>{
   return(`
 
     .ButtonPrimary {
+      align-items: center;
+      align-self: center;
       background: `+style.colors.primary+`;
       border-radius: 9999rem;
       border: 1px solid transparent;
       box-shadow: 0 0 10px rgba(0,0,0,0.05);
       color: white;
-      display: inline-block;
+      display: inline-flex;
+      flex: 1;
       font-size: 1.3rem;
       font-weight: 400;
-      line-height: 1.2rem;
-      margin: 0;
-      min-height: 2.96rem;
-      min-width: 13rem;
-      padding: 0.7rem 1.4rem 0.6rem;
+      height: 3rem;
+      justify-content: center;
+      min-width: 12rem;
+      padding: 0 1.4rem;
+      text-align: center;
       text-decoration: none;
       transition: background 0.1s;
       vertical-align: middle;
@@ -23,7 +26,6 @@ export default (style)=>{
     .ButtonPrimary.circular {
       padding: 0;
       width: 3.4rem;
-      height: 3.4rem;
       line-height: 3.2rem;
     }
 

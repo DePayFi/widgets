@@ -5,7 +5,6 @@ export default (style)=>{
       color: white;
       display: inline-block;
       text-decoration: none;
-      vertical-align: middle;
     }
 
     @keyframes blink {

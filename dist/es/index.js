@@ -1248,17 +1248,16 @@ var PaymentOverviewDialog = (function (props) {
   var _useState3 = useState(),
       _useState4 = _slicedToArray(_useState3, 2);
       _useState4[0];
-      _useState4[1];
-
-  var _useState5 = useState(),
-      _useState6 = _slicedToArray(_useState5, 2),
-      transactionLink = _useState6[0];
-      _useState6[1];
+      var setTransaction = _useState4[1];
 
   var pay = function pay() {
     setClosable(false);
     setPaying(true);
-    payment.route.transaction.submit();
+    payment.route.transaction.submit().then(function (sentTransaction) {
+      setTransaction(sentTransaction);
+    })["catch"](function (error) {
+      console.log('catch', error);
+    });
   };
 
   if (payment == undefined || localValue == undefined) {
@@ -1462,7 +1461,7 @@ var ButtonCircularStyle = (function () {
 });
 
 var ButtonPrimaryStyle = (function (style) {
-  return "\n\n    .ButtonPrimary {\n      background: " + style.colors.primary + ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 10px rgba(0,0,0,0.05);\n      color: white;\n      display: inline-block;\n      font-size: 1.3rem;\n      font-weight: 400;\n      line-height: 1.2rem;\n      margin: 0;\n      min-height: 2.96rem;\n      min-width: 13rem;\n      padding: 0.7rem 1.4rem 0.6rem;\n      text-decoration: none;\n      transition: background 0.1s;\n      vertical-align: middle;\n    }\n\n    .ButtonPrimary.circular {\n      padding: 0;\n      width: 3.4rem;\n      height: 3.4rem;\n      line-height: 3.2rem;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ";
+  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: " + style.colors.primary + ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 10px rgba(0,0,0,0.05);\n      color: white;\n      display: inline-flex;\n      flex: 1;\n      font-size: 1.3rem;\n      font-weight: 400;\n      height: 3rem;\n      justify-content: center;\n      min-width: 12rem;\n      padding: 0 1.4rem;\n      text-align: center;\n      text-decoration: none;\n      transition: background 0.1s;\n      vertical-align: middle;\n    }\n\n    .ButtonPrimary.circular {\n      padding: 0;\n      width: 3.4rem;\n      line-height: 3.2rem;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ";
 });
 
 var CardStyle = (function (style) {
@@ -1470,7 +1469,7 @@ var CardStyle = (function (style) {
 });
 
 var DialogStyle = (function () {
-  return "\n\n    .Dialog {\n      margin: 0 auto;\n      max-width: 26rem;\n      min-width: 26rem;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
+  return "\n\n    .Dialog {\n      margin: 0 auto;\n      max-width: 26rem;\n      min-width: 26rem;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
 });
 
 var FontStyle = (function () {
@@ -1494,7 +1493,7 @@ var LabelStyle = (function (style) {
 });
 
 var LoadingTextStyle = (function (style) {
-  return "\n\n    .LoadingText {\n      color: white;\n      display: inline-block;\n      text-decoration: none;\n      vertical-align: middle;\n    }\n\n    @keyframes blink {\n      0% { opacity: .2; }\n      20% { opacity: 1; }\n      100% { opacity: .2; }\n    }\n    \n    .LoadingText .dot {\n      animation-name: blink;\n      animation-duration: 1.4s;\n      animation-iteration-count: infinite;\n      animation-fill-mode: both;\n    }\n    \n    .LoadingText .dot:nth-child(2) {\n      animation-delay: .2s;\n    }\n    \n    .LoadingText .dot:nth-child(3) {\n      animation-delay: .4s;\n    }\n  ";
+  return "\n\n    .LoadingText {\n      color: white;\n      display: inline-block;\n      text-decoration: none;\n    }\n\n    @keyframes blink {\n      0% { opacity: .2; }\n      20% { opacity: 1; }\n      100% { opacity: .2; }\n    }\n    \n    .LoadingText .dot {\n      animation-name: blink;\n      animation-duration: 1.4s;\n      animation-iteration-count: infinite;\n      animation-fill-mode: both;\n    }\n    \n    .LoadingText .dot:nth-child(2) {\n      animation-delay: .2s;\n    }\n    \n    .LoadingText .dot:nth-child(3) {\n      animation-delay: .4s;\n    }\n  ";
 });
 
 var PaddingStyle = (function () {
