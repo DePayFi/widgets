@@ -5,12 +5,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
 import { mock, confirm, resetMocks, anything } from 'depay-web3-mock'
-import { Token } from 'depay-web3-tokens'
+import { resetCache } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
+import { Token } from 'depay-web3-tokens'
 
 describe('change Payment', () => {
 
   beforeEach(resetMocks)
+  beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
 
   let blockchain = 'ethereum'
@@ -96,13 +98,10 @@ describe('change Payment', () => {
 
     describe('while loading', ()=> {
 
-      beforeEach(()=>{
-        mock({ blockchain, call: { delay: 3000, to: DAI, api: Token[blockchain].DEFAULT, method: 'name', return: 'Dai Stablecoin' } })
-      })
-
       it('shows an animated skeleton while loading the change payment dialog', ()=> {
         cy.visit('cypress/test.html').then((contentWindow) => {
           cy.document().then((document)=>{
+            mock({ blockchain, call: { delay: 3000, to: DAI, api: Token[blockchain].DEFAULT, method: 'name', return: 'Dai Stablecoin' } })
             DePayWidgets.Payment({ ...defaultArguments, document })
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Skeleton')

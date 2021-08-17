@@ -213,10 +213,10 @@ describe('execute Payment', () => {
             expect(sentCalled).to.equal(true)
             expect(mockedTransaction.calls.count()).to.equal(1)
             confirm(mockedTransaction)
-            cy.wait(1000).then(()=>{
+            cy.wait(5000).then(()=>{
               expect(confirmedCalled).to.equal(true)
               increaseBlock(12)
-              cy.wait(3000).then(()=>{
+              cy.wait(5000).then(()=>{
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.round .Checkmark.Icon.white').click().then(()=>{
                   expect(safeCalled).to.equal(true)
                 })
