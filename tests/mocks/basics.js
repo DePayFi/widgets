@@ -112,7 +112,9 @@ export default ({
   mock({ blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [TOKEN_A_AmountBN, [TOKEN_A, WRAPPED, CONSTANTS[blockchain].USD]], return: [TOKEN_A_AmountBN, WRAPPED_AmountInBN, USD_AmountOutBN] }})
 
   return {
+    exchange,
     TOKEN_A_AmountBN,
+    TOKEN_B_AmountBN,
     WRAPPED_AmountInBN,
   }
 }

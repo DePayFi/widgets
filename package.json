@@ -34,7 +34,7 @@
   "dependencies": {
     "depay-local-currency": "^1.0.1",
     "depay-react-dialog-stack": "^1.2.1",
-    "depay-react-shadow-dom": "^2.0.0",
+    "depay-react-shadow-dom": "^2.0.1",
     "depay-react-token-image": "^1.1.1",
     "depay-web3-constants": "^2.1.0",
     "depay-web3-exchanges": "^2.4.0",

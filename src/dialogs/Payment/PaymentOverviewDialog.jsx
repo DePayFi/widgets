@@ -8,6 +8,7 @@ import PaymentContext from '../../contexts/PaymentContext'
 import PaymentOverviewSkeleton from '../../skeletons/PaymentOverviewSkeleton'
 import React, { useContext, useState, useEffect } from 'react'
 import ToTokenContext from '../../contexts/ToTokenContext'
+import UpdateContext from '../../contexts/UpdateContext'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
 import { TokenImage } from 'depay-react-token-image'
 
@@ -18,6 +19,7 @@ export default (props)=>{
   const { localValue } = useContext(ToTokenContext)
   const navigate = useContext(NavigateStackContext)
   const { close, setClosable } = useContext(ClosableContext)
+  const { update, setUpdate } = useContext(UpdateContext)
   const [state, setState] = useState('overview')
   const [paymentTransaction, setPaymentTransaction] = useState()
   const [approvalTransaction, setApprovalTransaction] = useState()
@@ -44,6 +46,7 @@ export default (props)=>{
   const pay = ()=> {
     setClosable(false)
     setState('paying')
+    setUpdate(false)
     payment.route.transaction.submit({
       sent: ()=>{
         if(sent) { sent(paymentTransaction) }
@@ -64,6 +67,7 @@ export default (props)=>{
         console.log('error', error)
         setState('overview')
         setClosable(true)
+        setUpdate(true)
       })
   }
   const mainAction = ()=> {

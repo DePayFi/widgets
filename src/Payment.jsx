@@ -6,6 +6,7 @@ import React from 'react'
 import RoutingProvider from './providers/RoutingProvider'
 import style from './style'
 import ToTokenProvider from './providers/ToTokenProvider'
+import UpdateProvider from './providers/UpdateProvider'
 import WalletProvider from './providers/WalletProvider'
 import { ReactShadowDOM } from 'depay-react-shadow-dom'
 
@@ -23,25 +24,29 @@ let Payment = async ({ blockchain, amount, token, receiver, sent, confirmed, saf
 
   await preflight({ blockchain, amount, token, receiver })
 
-  // setTimeout to allow dialog to animate out first
-  let unmountShadowDOM = ()=> setTimeout(unmount, 300)
+  let unmountShadowDOM = ()=> {
+    // setTimeout to allow dialog to animate out first
+    setTimeout(unmount, 300)
+  }
 
   let content = (container)=> {
     return(
       <ConfigurationProvider configuration={ { blockchain, amount, token, receiver, sent, confirmed, safe } }>
         <ClosableProvider unmount={ unmountShadowDOM }>
-          <WalletProvider>
-            <ToTokenProvider>
-              <RoutingProvider>
-                <PaymentProvider>
-                  <PaymentStack
-                    document={ document }
-                    container={ container }
-                  />
-                </PaymentProvider>
-              </RoutingProvider>
-            </ToTokenProvider>
-          </WalletProvider>
+          <UpdateProvider>
+            <WalletProvider>
+              <ToTokenProvider>
+                <RoutingProvider>
+                  <PaymentProvider>
+                    <PaymentStack
+                      document={ document }
+                      container={ container }
+                    />
+                  </PaymentProvider>
+                </RoutingProvider>
+              </ToTokenProvider>
+            </WalletProvider>
+          </UpdateProvider>
         </ClosableProvider>
       </ConfigurationProvider>
     )

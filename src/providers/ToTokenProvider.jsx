@@ -2,6 +2,7 @@ import apiKey from '../apiKey'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import React, { useState, useEffect, useContext } from 'react'
 import ToTokenContext from '../contexts/ToTokenContext'
+import UpdateContext from '../contexts/UpdateContext'
 import WalletContext from '../contexts/WalletContext'
 import { CONSTANTS } from 'depay-web3-constants'
 import { Currency } from 'depay-local-currency'
@@ -11,10 +12,12 @@ import { Token } from 'depay-web3-tokens'
 export default (props)=>{
 
   const { account } = useContext(WalletContext)
+  const { update } = useContext(UpdateContext)
   const { blockchain, token, amount } = useContext(ConfigurationContext)
   const [ localValue, setLocalValue ] = useState()
-  
-  useEffect(()=>{
+  const [ reloadCount, setReloadCount ] = useState(0)
+  const getToTokenLocalValue = ({ update })=>{
+    if(update == false) { return }
     Promise.all([
       route({
         blockchain,
@@ -26,6 +29,7 @@ export default (props)=>{
       }),
       (new Token({ blockchain, address: CONSTANTS[blockchain].USD })).decimals()
     ]).then(([USDExchangeRoutes, USDDecimals])=>{
+      console.log('TO TOKEN LOCAL VALUE RELOADED', USDExchangeRoutes, USDDecimals)
       let USDRoute = USDExchangeRoutes[0]
       let USDAmount = USDRoute.amountOut.toString()
       let USDValue = parseFloat(USDAmount) / 10**USDDecimals
@@ -33,7 +37,20 @@ export default (props)=>{
         setLocalValue(localValue)
       })
     })
-  }, [])
+  }
+  
+  useEffect(()=>{
+    if(account) { getToTokenLocalValue({ update }) }
+  }, [account])
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setReloadCount(reloadCount + 1)
+      getToTokenLocalValue({ update })
+    }, 15000);
+
+    return () => clearTimeout(timeout)
+  }, [reloadCount, update])
   
   return(
     <ToTokenContext.Provider value={{
