@@ -14,47 +14,74 @@ import { TokenImage } from 'depay-react-token-image'
 export default (props)=>{
 
   const { blockchain, sent, confirmed, safe } = useContext(ConfigurationContext)
-  const { payment } = useContext(PaymentContext)
+  const { payment, setPayment } = useContext(PaymentContext)
   const { localValue } = useContext(ToTokenContext)
   const navigate = useContext(NavigateStackContext)
   const { close, setClosable } = useContext(ClosableContext)
   const [state, setState] = useState('overview')
-  const [transaction, setTransaction] = useState()
+  const [paymentTransaction, setPaymentTransaction] = useState()
+  const [approvalTransaction, setApprovalTransaction] = useState()
+  const approve = ()=> {
+    setClosable(false)
+    setState('approving')
+    payment.route.approve({
+      confirmed: ()=>{
+        payment.route.approvalRequired = false
+        setPayment(payment)
+        setClosable(true)
+        setState('overview')
+      }
+    })
+    .then((sentTransaction)=>{
+      setApprovalTransaction(sentTransaction)
+    })
+    .catch((error)=>{
+      console.log('error', error)
+      setState('overview')
+      setClosable(true)
+    })
+  }
   const pay = ()=> {
     setClosable(false)
     setState('paying')
     payment.route.transaction.submit({
       sent: ()=>{
-        if(sent) { sent(transaction) }
+        if(sent) { sent(paymentTransaction) }
       },
       confirmed: ()=>{
         setClosable(true)
         setState('confirmed')
-        if(confirmed) { confirmed(transaction) }
+        if(confirmed) { confirmed(paymentTransaction) }
       },
       safe: ()=>{
-        if(safe) { safe(transaction) }
+        if(safe) { safe(paymentTransaction) }
       },
     })
       .then((sentTransaction)=>{
-        setTransaction(sentTransaction)
+        setPaymentTransaction(sentTransaction)
       })
-      .catch((error, originalError)=>{
+      .catch((error)=>{
         console.log('error', error)
         setState('overview')
         setClosable(true)
       })
   }
   const mainAction = ()=> {
-    if(state == 'overview') {
+    if(state == 'overview' || state == 'approving') {
       return(
-        <button className="ButtonPrimary" onClick={ pay }>
+        <button 
+          className={["ButtonPrimary", (payment.route.approvalRequired ? 'disabled': '')].join(' ')}
+          onClick={()=>{
+            if(payment.route.approvalRequired) { return }
+            pay()
+          }}
+        >
           Pay { localValue.toString() }
         </button>
       )
     } else if (state == 'paying') {
       return(
-        <a className="ButtonPrimary" title="Performing the payment - please wait" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
+        <a className="ButtonPrimary" title="Performing the payment - please wait" href={ paymentTransaction?.url } target="_blank" rel="noopener noreferrer">
           <LoadingText>Paying</LoadingText>
         </a>
       )
@@ -65,6 +92,33 @@ export default (props)=>{
         </button>
       )
     }
+  }
+  const approvalAction = ()=> {
+    if(state == 'overview') {
+      return(
+        <div className="PaddingBottomS">
+          <button className="ButtonPrimary wide" onClick={ approve }>
+            Allow { payment.symbol } to be used as payment
+          </button>
+        </div>
+      )
+    } else if (state == 'approving') {
+      return(
+        <div className="PaddingBottomS">
+          <a className="ButtonPrimary wide" title="Approving payment token - please wait" href={ approvalTransaction?.url } target="_blank" rel="noopener noreferrer">
+            <LoadingText>Approving</LoadingText>
+          </a>
+        </div>
+      )
+    }
+  }
+  const actions = ()=> {
+    return(
+      <div>
+        { payment.route.approvalRequired && approvalAction() }
+        { mainAction() }
+      </div>
+    )
   }
 
   if(payment == undefined || localValue == undefined) { return(<PaymentOverviewSkeleton/>) }
@@ -118,7 +172,7 @@ export default (props)=>{
       }
       footer={
         <div className="PaddingTopXS PaddingRightM PaddingLeftM">
-          { mainAction() }
+          { actions() }
         </div>
       }
     />

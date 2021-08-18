@@ -1264,8 +1264,29 @@ var PaymentOverviewDialog = (function (props) {
 
   var _useState3 = useState(),
       _useState4 = _slicedToArray(_useState3, 2),
-      transaction = _useState4[0],
-      setTransaction = _useState4[1];
+      paymentTransaction = _useState4[0],
+      setPaymentTransaction = _useState4[1];
+
+  var _useState5 = useState(),
+      _useState6 = _slicedToArray(_useState5, 2);
+      _useState6[0];
+      var setApprovalTransaction = _useState6[1];
+
+  var approve = function approve() {
+    setClosable(false);
+    setState('approving');
+    payment.route.approve({
+      confirmed: function confirmed() {
+        console.log('APPROVAL CONFIRMED');
+      }
+    }).then(function (sentTransaction) {
+      setApprovalTransaction(sentTransaction);
+    })["catch"](function (error) {
+      console.log('error', error);
+      setState('overview');
+      setClosable(true);
+    });
+  };
 
   var pay = function pay() {
     setClosable(false);
@@ -1273,7 +1294,7 @@ var PaymentOverviewDialog = (function (props) {
     payment.route.transaction.submit({
       sent: function sent() {
         if (_sent) {
-          _sent(transaction);
+          _sent(paymentTransaction);
         }
       },
       confirmed: function confirmed() {
@@ -1281,17 +1302,17 @@ var PaymentOverviewDialog = (function (props) {
         setState('confirmed');
 
         if (_confirmed) {
-          _confirmed(transaction);
+          _confirmed(paymentTransaction);
         }
       },
       safe: function safe() {
         if (_safe) {
-          _safe(transaction);
+          _safe(paymentTransaction);
         }
       }
     }).then(function (sentTransaction) {
-      setTransaction(sentTransaction);
-    })["catch"](function (error, originalError) {
+      setPaymentTransaction(sentTransaction);
+    })["catch"](function (error) {
       console.log('error', error);
       setState('overview');
       setClosable(true);
@@ -1299,16 +1320,22 @@ var PaymentOverviewDialog = (function (props) {
   };
 
   var mainAction = function mainAction() {
-    if (state == 'overview') {
+    if (state == 'overview' || state == 'approving') {
       return /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary",
-        onClick: pay
+        className: ["ButtonPrimary", payment.route.approvalRequired ? 'disabled' : ''].join(' '),
+        onClick: function onClick() {
+          if (payment.route.approvalRequired) {
+            return;
+          }
+
+          pay();
+        }
       }, "Pay ", localValue.toString());
     } else if (state == 'paying') {
       return /*#__PURE__*/React.createElement("a", {
         className: "ButtonPrimary",
         title: "Performing the payment - please wait",
-        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+        href: paymentTransaction === null || paymentTransaction === void 0 ? void 0 : paymentTransaction.url,
         target: "_blank",
         rel: "noopener noreferrer"
       }, /*#__PURE__*/React.createElement(LoadingText, null, "Paying"));
@@ -1319,6 +1346,19 @@ var PaymentOverviewDialog = (function (props) {
         onClick: close
       }, /*#__PURE__*/React.createElement(Checkmark, null));
     }
+  };
+
+  var approvalAction = function approvalAction() {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary wide",
+      onClick: approve
+    }, "Allow ", payment.symbol, " to be used as payment"));
+  };
+
+  var actions = function actions() {
+    return /*#__PURE__*/React.createElement("div", null, payment.route.approvalRequired && approvalAction(), mainAction());
   };
 
   if (payment == undefined || localValue == undefined) {
@@ -1368,7 +1408,7 @@ var PaymentOverviewDialog = (function (props) {
     }, /*#__PURE__*/React.createElement(ChevronRight, null)))),
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingRightM PaddingLeftM"
-    }, mainAction())
+    }, actions())
   });
 });
 
@@ -1513,7 +1553,7 @@ var ButtonCircularStyle = (function () {
 });
 
 var ButtonPrimaryStyle = (function (style) {
-  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: " + style.colors.primary + ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 10px rgba(0,0,0,0.05);\n      color: white;\n      display: inline-flex;\n      flex: 1;\n      font-size: 1.3rem;\n      font-weight: 400;\n      height: 3rem;\n      justify-content: center;\n      min-width: 12rem;\n      padding: 0 1.4rem;\n      text-align: center;\n      text-decoration: none;\n      transition: background 0.1s;\n      vertical-align: middle;\n    }\n\n    .ButtonPrimary.round {\n      padding: 0;\n      width: 3.4rem;\n      line-height: 3.2rem;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ";
+  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: " + style.colors.primary + ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 10px rgba(0,0,0,0.05);\n      color: white;\n      display: inline-flex;\n      flex: 1;\n      font-size: 1.3rem;\n      font-weight: 400;\n      height: 2.8rem;\n      justify-content: center;\n      min-width: 12rem;\n      padding: 0 1.4rem;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      transition: background 0.1s;\n      vertical-align: middle;\n    }\n\n    .ButtonPrimary.round {\n      padding: 0;\n      width: 3.4rem;\n      line-height: 3.2rem;\n    }\n\n    .ButtonPrimary.wide {\n      border-radius: 0.8rem;\n      width: 100%;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n      color: rgb(140,140,140);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ";
 });
 
 var CardStyle = (function (style) {
@@ -1521,7 +1561,7 @@ var CardStyle = (function (style) {
 });
 
 var DialogStyle = (function () {
-  return "\n\n    .Dialog {\n      margin: 0 auto;\n      max-width: 26rem;\n      min-width: 26rem;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
+  return "\n\n    .Dialog {\n      margin: 0 auto;\n      max-width: 26rem;\n      min-width: 26rem;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
 });
 
 var FontStyle = (function () {
@@ -1529,7 +1569,7 @@ var FontStyle = (function () {
 });
 
 var FooterStyle = (function (style) {
-  return "\n\n    .FooterLink {\n      color: rgba(0,0,0,0.2);\n      display: inline-block;\n      font-size: 1rem;\n      text-decoration: none;\n      padding-bottom: 0.1rem;\n    }\n\n    .FooterLink:hover, .FooterLink:active {\n      color: #cc2c65;\n    }\n  ";
+  return "\n\n    .FooterLink {\n      color: rgba(0,0,0,0.2);\n      display: inline-block;\n      font-size: 0.9rem;\n      text-decoration: none;\n      padding-top: 0.1rem;\n      padding-bottom: 0.1rem;\n    }\n\n    .FooterLink:hover, .FooterLink:active {\n      color: #cc2c65;\n    }\n  ";
 });
 
 var HeightStyle = (function () {

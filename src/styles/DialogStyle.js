@@ -42,6 +42,7 @@ export default ()=>{
       border-bottom-left-radius: 0.8rem;
       border-bottom-right-radius: 0.8rem;
       line-height: 1.5rem;
+      min-height: 2rem;
       position: relative;
       text-align: center;
     }

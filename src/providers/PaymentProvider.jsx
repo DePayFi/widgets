@@ -29,6 +29,7 @@ export default (props)=>{
 
   return(
     <PaymentContext.Provider value={{
+      setPayment,
       payment
     }}>
       { props.children }

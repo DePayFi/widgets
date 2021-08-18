@@ -13,10 +13,11 @@ export default (style)=>{
       flex: 1;
       font-size: 1.3rem;
       font-weight: 400;
-      height: 3rem;
+      height: 2.8rem;
       justify-content: center;
       min-width: 12rem;
       padding: 0 1.4rem;
+      position: relative;
       text-align: center;
       text-decoration: none;
       transition: background 0.1s;
@@ -29,8 +30,14 @@ export default (style)=>{
       line-height: 3.2rem;
     }
 
+    .ButtonPrimary.wide {
+      border-radius: 0.8rem;
+      width: 100%;
+    }
+
     .ButtonPrimary.disabled {
       background: rgb(210,210,210);
+      color: rgb(140,140,140);
     }
 
     .ButtonPrimary:not(.disabled){
