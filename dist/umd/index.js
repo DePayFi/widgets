@@ -154,11 +154,9 @@
 
 
       var IteratorPrototype = {};
-
-      IteratorPrototype[iteratorSymbol] = function () {
+      define(IteratorPrototype, iteratorSymbol, function () {
         return this;
-      };
-
+      });
       var getProto = Object.getPrototypeOf;
       var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
 
@@ -169,8 +167,9 @@
       }
 
       var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype);
-      GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
-      GeneratorFunctionPrototype.constructor = GeneratorFunction;
+      GeneratorFunction.prototype = GeneratorFunctionPrototype;
+      define(Gp, "constructor", GeneratorFunctionPrototype);
+      define(GeneratorFunctionPrototype, "constructor", GeneratorFunction);
       GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"); // Helper for defining the .next, .throw, and .return methods of the
       // Iterator interface in terms of a single ._invoke method.
 
@@ -275,11 +274,9 @@
       }
 
       defineIteratorMethods(AsyncIterator.prototype);
-
-      AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+      define(AsyncIterator.prototype, asyncIteratorSymbol, function () {
         return this;
-      };
-
+      });
       exports.AsyncIterator = AsyncIterator; // Note that simple async functions are implemented on top of
       // AsyncIterator objects; they just return a Promise for the value of
       // the final result produced by the iterator.
@@ -456,13 +453,12 @@
       // object to not be returned from this call. This ensures that doesn't happen.
       // See https://github.com/facebook/regenerator/issues/274 for more details.
 
-      Gp[iteratorSymbol] = function () {
+      define(Gp, iteratorSymbol, function () {
         return this;
-      };
-
-      Gp.toString = function () {
+      });
+      define(Gp, "toString", function () {
         return "[object Generator]";
-      };
+      });
 
       function pushTryEntry(locs) {
         var entry = {
@@ -774,14 +770,19 @@
     } catch (accidentalStrictMode) {
       // This module should not be running in strict mode, so the above
       // assignment should always work unless something is misconfigured. Just
-      // in case runtime.js accidentally runs in strict mode, we can escape
+      // in case runtime.js accidentally runs in strict mode, in modern engines
+      // we can explicitly access globalThis. In older engines we can escape
       // strict mode using a global Function call. This could conceivably fail
       // if a Content Security Policy forbids using Function, but in that case
       // the proper solution is to fix the accidental strict mode problem. If
       // you've misconfigured your bundler to force strict mode and applied a
       // CSP to forbid Function, and you're not willing to fix either of those
       // problems, please detail your unique predicament in a GitHub issue.
-      Function("r", "regeneratorRuntime = r")(runtime);
+      if ((typeof globalThis === "undefined" ? "undefined" : _typeof(globalThis)) === "object") {
+        globalThis.regeneratorRuntime = runtime;
+      } else {
+        Function("r", "regeneratorRuntime = r")(runtime);
+      }
     }
   });
 
@@ -1717,7 +1718,6 @@
             USDExchangeRoutes = _ref3[0],
             USDDecimals = _ref3[1];
 
-        console.log('TO TOKEN LOCAL VALUE RELOADED', USDExchangeRoutes, USDDecimals);
         var USDRoute = USDExchangeRoutes[0];
         var USDAmount = USDRoute.amountOut.toString();
         var USDValue = parseFloat(USDAmount) / Math.pow(10, USDDecimals);

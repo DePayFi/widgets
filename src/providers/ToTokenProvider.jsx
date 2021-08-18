@@ -29,7 +29,6 @@ export default (props)=>{
       }),
       (new Token({ blockchain, address: CONSTANTS[blockchain].USD })).decimals()
     ]).then(([USDExchangeRoutes, USDDecimals])=>{
-      console.log('TO TOKEN LOCAL VALUE RELOADED', USDExchangeRoutes, USDDecimals)
       let USDRoute = USDExchangeRoutes[0]
       let USDAmount = USDRoute.amountOut.toString()
       let USDValue = parseFloat(USDAmount) / 10**USDDecimals
