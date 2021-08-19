@@ -8,7 +8,7 @@ import { mock, confirm, resetMocks } from 'depay-web3-mock'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
-describe('execute Payment', () => {
+describe('approve Payment', () => {
 
   beforeEach(resetMocks)
   beforeEach(()=>fetchMock.restore())
