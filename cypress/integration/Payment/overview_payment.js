@@ -5,14 +5,27 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
 import { ethers } from 'ethers'
-import { mock, resetMocks, anything } from 'depay-web3-mock'
+import { mock, confirm, resetMocks, anything } from 'depay-web3-mock'
+import { resetCache } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
 describe('overview Payment', () => {
   
   beforeEach(resetMocks)
+  beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
+
+  afterEach(()=>{
+    cy.wait(500).then(()=>{
+      cy.get('body').then((body) => {
+        if (body.find('.ReactShadowDOMOutsideContainer').length > 0) {
+          console.log('CLOSE DIALOG')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+        }
+      })
+    })
+  })
 
   let blockchain = 'ethereum'
   let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
@@ -180,7 +193,7 @@ describe('overview Payment', () => {
 
   describe('updating', () => {
 
-    it('updates payment routes every 10s as prices can change', () => {
+    it('updates payment routes every 15s as prices can change', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
@@ -204,7 +217,7 @@ describe('overview Payment', () => {
       })
     })
 
-    it('updates the payment amount aka. toToken conversion price to local currency', () => {
+    it('updates the payment amount aka toToken conversion price to local currency', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
@@ -222,11 +235,11 @@ describe('overview Payment', () => {
       })
     })
 
-    it('stops updating prices once payment is sending', () => {
+    it.only('stops updating prices once payment is sending', () => {
       let mockedTransaction = mock({
         blockchain,
         transaction: {
-          delay: 20000,
+          delay: 17000,
           from: fromAddress,
           to: routers[blockchain].address,
           api: routers[blockchain].api,
@@ -246,23 +259,26 @@ describe('overview Payment', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '€28.05')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
           cy.wait(2000).then(()=>{
-            let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('35', 18)
-            mock({ blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
-            let NEW_USD_AmountOutBN = ethers.utils.parseUnits('35', 18)
-            mock({ blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [TOKEN_A_AmountBN, [DEPAY, CONSTANTS[blockchain].WRAPPED, DAI]], return: [TOKEN_A_AmountBN, WRAPPED_AmountInBN, NEW_USD_AmountOutBN] }})
-          })
-          cy.wait(15000).then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '€28.05')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €28.05').click()
+            cy.wait(2000).then(()=>{
+              let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('35', 18)
+              mock({ blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
+              let NEW_USD_AmountOutBN = ethers.utils.parseUnits('35', 18)
+              mock({ blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [TOKEN_A_AmountBN, [DEPAY, CONSTANTS[blockchain].WRAPPED, DAI]], return: [TOKEN_A_AmountBN, WRAPPED_AmountInBN, NEW_USD_AmountOutBN] }})
+            })
+            cy.wait(15000).then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '€28.05')
+              confirm(mockedTransaction)
+            })
           })
         })
       })
@@ -271,6 +287,8 @@ describe('overview Payment', () => {
     it('unmounts the update intervals if dialog is closed', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
+          let NEW_TOKEN_B_AmountBN_mock_count
+          let NEW_USD_AmountOutBN_mock_count
           DePayWidgets.Payment({ ...defaultArguments, document })
           let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('35', 18)
           let NEW_TOKEN_B_AmountBN_mock = mock({ blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
@@ -279,12 +297,12 @@ describe('overview Payment', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
           cy.wait(2000).then(()=>{
-            expect(NEW_TOKEN_B_AmountBN_mock.calls.count()).to.eq(1)
-            expect(NEW_USD_AmountOutBN_mock.calls.count()).to.eq(1)
+            NEW_TOKEN_B_AmountBN_mock_count = NEW_TOKEN_B_AmountBN_mock.calls.count()
+            NEW_USD_AmountOutBN_mock_count = NEW_USD_AmountOutBN_mock.calls.count()
           })
           cy.wait(16000).then(()=>{
-            expect(NEW_TOKEN_B_AmountBN_mock.calls.count()).to.eq(1)
-            expect(NEW_USD_AmountOutBN_mock.calls.count()).to.eq(1)
+            expect(NEW_TOKEN_B_AmountBN_mock.calls.count()).to.eq(NEW_TOKEN_B_AmountBN_mock_count)
+            expect(NEW_USD_AmountOutBN_mock.calls.count()).to.eq(NEW_USD_AmountOutBN_mock_count)
           })
         })
       })

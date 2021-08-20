@@ -1,10 +1,10 @@
 
 (function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('depay-react-dialog-stack'), require('depay-react-token-image'), require('depay-web3-payments'), require('depay-web3-constants'), require('depay-local-currency'), require('depay-web3-exchanges'), require('depay-web3-tokens'), require('depay-web3-wallets'), require('depay-react-shadow-dom')) :
-  typeof define === 'function' && define.amd ? define(['react', 'depay-react-dialog-stack', 'depay-react-token-image', 'depay-web3-payments', 'depay-web3-constants', 'depay-local-currency', 'depay-web3-exchanges', 'depay-web3-tokens', 'depay-web3-wallets', 'depay-react-shadow-dom'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.ReactDialogStack, global.ReactTokenImage, global.Web3Payments, global.Web3Constants, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.Web3Wallets, global.ReactShadowDOM));
-}(this, (function (React, depayReactDialogStack, depayReactTokenImage, depayWeb3Payments, depayWeb3Constants, depayLocalCurrency, depayWeb3Exchanges, depayWeb3Tokens, depayWeb3Wallets, depayReactShadowDom) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('depay-react-dialog-stack'), require('depay-react-token-image'), require('depay-web3-constants'), require('depay-web3-payments'), require('depay-local-currency'), require('depay-web3-exchanges'), require('depay-web3-tokens'), require('depay-web3-wallets'), require('depay-react-shadow-dom')) :
+  typeof define === 'function' && define.amd ? define(['react', 'depay-react-dialog-stack', 'depay-react-token-image', 'depay-web3-constants', 'depay-web3-payments', 'depay-local-currency', 'depay-web3-exchanges', 'depay-web3-tokens', 'depay-web3-wallets', 'depay-react-shadow-dom'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.ReactDialogStack, global.ReactTokenImage, global.Web3Constants, global.Web3Payments, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.Web3Wallets, global.ReactShadowDOM));
+}(this, (function (React, depayReactDialogStack, depayReactTokenImage, depayWeb3Constants, depayWeb3Payments, depayLocalCurrency, depayWeb3Exchanges, depayWeb3Tokens, depayWeb3Wallets, depayReactShadowDom) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -907,8 +907,8 @@
     React.useEffect(function () {
       if (selectedRoute) {
         var fromToken = selectedRoute.fromToken;
-        var fromAmount = selectedRoute.transaction.params.amounts[0];
-        Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(fromAmount)]).then(function (_ref) {
+        selectedRoute.transaction.params;
+        Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref) {
           var _ref2 = _slicedToArray(_ref, 3),
               name = _ref2[0],
               symbol = _ref2[1],
@@ -1098,8 +1098,7 @@
       Promise.all(allRoutes.map(function (route) {
         route.exchangeRoutes[0];
         route.fromToken;
-        var fromAmount = route.transaction.params.amounts[0];
-        return Promise.all([route.fromToken.name(), route.fromToken.symbol(), route.fromToken.decimals(), route.fromToken.readable(fromAmount)]);
+        return Promise.all([route.fromToken.name(), route.fromToken.symbol(), route.fromToken.decimals(), route.fromToken.readable(route.fromAmount)]);
       })).then(function (allPaymentRoutesWithData) {
         setAllPaymentRoutesWithData(allRoutes.map(function (route, index) {
           return {
@@ -1543,6 +1542,7 @@
 
                           case 7:
                             roundedAmountBN = _context.sent;
+                            route.fromAmount = roundedAmountBN;
                             route.transaction.params.amounts[0] = roundedAmountBN;
 
                             if (route.transaction.value && route.transaction.value.toString() != '0') {
@@ -1551,7 +1551,7 @@
 
                             return _context.abrupt("return", route);
 
-                          case 11:
+                          case 12:
                           case "end":
                             return _context.stop();
                         }

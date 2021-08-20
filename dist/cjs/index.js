@@ -5,8 +5,8 @@
 var React = require('react');
 var depayReactDialogStack = require('depay-react-dialog-stack');
 var depayReactTokenImage = require('depay-react-token-image');
-var depayWeb3Payments = require('depay-web3-payments');
 var depayWeb3Constants = require('depay-web3-constants');
+var depayWeb3Payments = require('depay-web3-payments');
 var depayLocalCurrency = require('depay-local-currency');
 var depayWeb3Exchanges = require('depay-web3-exchanges');
 var depayWeb3Tokens = require('depay-web3-tokens');
@@ -914,8 +914,8 @@ var PaymentProvider = (function (props) {
   React.useEffect(function () {
     if (selectedRoute) {
       var fromToken = selectedRoute.fromToken;
-      var fromAmount = selectedRoute.transaction.params.amounts[0];
-      Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(fromAmount)]).then(function (_ref) {
+      selectedRoute.transaction.params;
+      Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref) {
         var _ref2 = _slicedToArray(_ref, 3),
             name = _ref2[0],
             symbol = _ref2[1],
@@ -1105,8 +1105,7 @@ var ChangePaymentDialog = (function (props) {
     Promise.all(allRoutes.map(function (route) {
       route.exchangeRoutes[0];
       route.fromToken;
-      var fromAmount = route.transaction.params.amounts[0];
-      return Promise.all([route.fromToken.name(), route.fromToken.symbol(), route.fromToken.decimals(), route.fromToken.readable(fromAmount)]);
+      return Promise.all([route.fromToken.name(), route.fromToken.symbol(), route.fromToken.decimals(), route.fromToken.readable(route.fromAmount)]);
     })).then(function (allPaymentRoutesWithData) {
       setAllPaymentRoutesWithData(allRoutes.map(function (route, index) {
         return {
@@ -1550,6 +1549,7 @@ var RoutingProvider = (function (props) {
 
                         case 7:
                           roundedAmountBN = _context.sent;
+                          route.fromAmount = roundedAmountBN;
                           route.transaction.params.amounts[0] = roundedAmountBN;
 
                           if (route.transaction.value && route.transaction.value.toString() != '0') {
@@ -1558,7 +1558,7 @@ var RoutingProvider = (function (props) {
 
                           return _context.abrupt("return", route);
 
-                        case 11:
+                        case 12:
                         case "end":
                           return _context.stop();
                       }

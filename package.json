@@ -37,10 +37,10 @@
     "depay-react-shadow-dom": "^2.0.2",
     "depay-react-token-image": "^1.1.1",
     "depay-web3-constants": "^2.1.0",
-    "depay-web3-exchanges": "^3.0.3",
-    "depay-web3-payments": "^3.0.3",
+    "depay-web3-exchanges": "^3.1.0",
+    "depay-web3-payments": "^3.2.0",
     "depay-web3-tokens": "^3.0.3",
-    "depay-web3-transaction": "^2.3.0",
+    "depay-web3-transaction": "^2.4.0",
     "depay-web3-wallets": "^4.2.0"
   },
   "peerDependencies": {

@@ -10,11 +10,11 @@ export default (props)=>{
   useEffect(()=>{
     if(selectedRoute) {
       let fromToken = selectedRoute.fromToken
-      let fromAmount = selectedRoute.transaction.params.amounts[0]
+      let transactionParams = selectedRoute.transaction.params
       Promise.all([
         fromToken.name(),
         fromToken.symbol(),
-        fromToken.readable(fromAmount)
+        fromToken.readable(selectedRoute.fromAmount)
       ]).then(([name, symbol, amount])=>{
         setPayment({ 
           route: selectedRoute,

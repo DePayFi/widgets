@@ -5,6 +5,7 @@ import round from '../helpers/round'
 import RoutingContext from '../contexts/RoutingContext'
 import UpdateContext from '../contexts/UpdateContext'
 import WalletContext from '../contexts/WalletContext'
+import { CONSTANTS } from 'depay-web3-constants'
 import { ethers } from 'ethers'
 import { route } from 'depay-web3-payments'
 
@@ -38,6 +39,7 @@ export default (props)=>{
       if(route.directTransfer){ return route }
       let readableAmount = await route.fromToken.readable(route.transaction.params.amounts[0])
       let roundedAmountBN = await route.fromToken.BigNumber(round(readableAmount))
+      route.fromAmount = roundedAmountBN
       route.transaction.params.amounts[0] = roundedAmountBN
       if(route.transaction.value && route.transaction.value.toString() != '0') {
         route.transaction.value = roundedAmountBN

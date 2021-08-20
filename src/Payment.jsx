@@ -65,7 +65,6 @@ let Payment = async ({ blockchain, amount, token, receiver, sent, confirmed, saf
       right: 0;
     `,
   })
-  
 }
 
 export default Payment

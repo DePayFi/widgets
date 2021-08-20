@@ -115,6 +115,12 @@ Starts cypress in `--headed` and `--no-exit`
 test:cypress:debug
 ```
 
+Test and debug single cypress file:
+
+```
+test:cypress:debug --spec "cypress/integration/Payment/execute_payment.js"
+```
+
 ### Release new versions to npm
 
 ```

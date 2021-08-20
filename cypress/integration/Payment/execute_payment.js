@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
 import { mock, confirm, increaseBlock, resetMocks } from 'depay-web3-mock'
 import { routers, plugins } from 'depay-web3-payments'
+import { Token } from 'depay-web3-tokens'
 
 describe('execute Payment', () => {
 
@@ -98,17 +99,10 @@ describe('execute Payment', () => {
       blockchain,
       transaction: {
         from: fromAddress,
-        to: routers[blockchain].address,
-        api: routers[blockchain].api,
-        method: 'route',
-        params: {
-          path: [DEPAY],
-          amounts: [TOKEN_A_AmountBN],
-          addresses: [fromAddress, toAddress],
-          plugins: [plugins[blockchain].payment.address],
-          data: []
-        },
-        value: 0
+        to: DEPAY,
+        api: Token[blockchain].DEFAULT,
+        method: 'transfer',
+        params: [toAddress, TOKEN_A_AmountBN]
       }
     })
 
@@ -144,17 +138,10 @@ describe('execute Payment', () => {
       transaction: {
         delay: 1000,
         from: fromAddress,
-        to: routers[blockchain].address,
-        api: routers[blockchain].api,
-        method: 'route',
-        params: {
-          path: [DEPAY],
-          amounts: [TOKEN_A_AmountBN],
-          addresses: [fromAddress, toAddress],
-          plugins: [plugins[blockchain].payment.address],
-          data: []
-        },
-        value: 0,
+        to: DEPAY,
+        api: Token[blockchain].DEFAULT,
+        method: 'transfer',
+        params: [toAddress, TOKEN_A_AmountBN],
         return: Error('MetaMask Tx Signature: User denied transaction signature.')
       }
     })
@@ -181,17 +168,10 @@ describe('execute Payment', () => {
       transaction: {
         delay: 1000,
         from: fromAddress,
-        to: routers[blockchain].address,
-        api: routers[blockchain].api,
-        method: 'route',
-        params: {
-          path: [DEPAY],
-          amounts: [TOKEN_A_AmountBN],
-          addresses: [fromAddress, toAddress],
-          plugins: [plugins[blockchain].payment.address],
-          data: []
-        },
-        value: 0
+        to: DEPAY,
+        api: Token[blockchain].DEFAULT,
+        method: 'transfer',
+        params: [toAddress, TOKEN_A_AmountBN],
       }
     })
 

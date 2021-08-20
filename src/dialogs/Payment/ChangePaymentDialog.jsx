@@ -23,12 +23,11 @@ export default (props)=>{
       allRoutes.map((route)=>{
         let exchangeRoute = route.exchangeRoutes[0]
         let fromToken = route.fromToken
-        let fromAmount = route.transaction.params.amounts[0]
         return Promise.all([
           route.fromToken.name(),
           route.fromToken.symbol(),
           route.fromToken.decimals(),
-          route.fromToken.readable(fromAmount)
+          route.fromToken.readable(route.fromAmount)
         ])
       })
     ).then((allPaymentRoutesWithData)=>{
