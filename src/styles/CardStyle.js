@@ -71,10 +71,12 @@ export default (style)=>{
 
     .CardInfo {
       flex-basis: auto;
-      flex-shrink: 0;
+      flex-shrink: 1;
       flex-grow: 0;
       padding-right: 0;
       margin-left: auto; 
+      display: flex;
+      flex-direction: column;
     }
 
     .CardImage img {

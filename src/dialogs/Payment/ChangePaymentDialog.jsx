@@ -34,7 +34,7 @@ export default (props)=>{
       setAllPaymentRoutesWithData(allRoutes.map((route, index)=>{
         return {
           name: allPaymentRoutesWithData[index][0],
-          symbol: allPaymentRoutesWithData[index][1],
+          symbol: allPaymentRoutesWithData[index][1].toUpperCase(),
           decimals: allPaymentRoutesWithData[index][2],
           amount: allPaymentRoutesWithData[index][3],
           route

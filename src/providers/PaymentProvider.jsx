@@ -20,7 +20,7 @@ export default (props)=>{
           route: selectedRoute,
           token: selectedRoute.fromToken.address,
           name,
-          symbol,
+          symbol: symbol.toUpperCase(),
           amount
         })
       })

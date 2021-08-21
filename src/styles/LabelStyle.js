@@ -7,6 +7,7 @@ export default (style)=>{
       color: ${style.colors.primary};
       font-size: 0.8rem;
       padding: 0.1rem 0.5rem;
+      margin: 0.1rem;
     }
 
   `)
