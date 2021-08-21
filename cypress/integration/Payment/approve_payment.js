@@ -128,6 +128,20 @@ describe('approve Payment', () => {
       })
     })
   })
+
+  it.only('does not require approval for direct token transfers', () => {
+    
+    mock({ blockchain, call: { to: DEPAY, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: CONSTANTS[blockchain].ZERO } })
+
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        DePayWidgets.Payment({ ...defaultArguments, document })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').then(()=>{
+          cy.get('.ButtonPrimary.wide', { includeShadowDom: true }).should('not.exist')
+        })
+      })
+    })
+  })
   
   it('resets back to overview if I decline the approval (e.g. reject metamask)', () => {
     let mockedTransaction = mock({

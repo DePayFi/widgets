@@ -74,9 +74,9 @@ export default (props)=>{
     if(state == 'overview' || state == 'approving') {
       return(
         <button 
-          className={["ButtonPrimary", (payment.route.approvalRequired ? 'disabled': '')].join(' ')}
+          className={["ButtonPrimary", (payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled': '')].join(' ')}
           onClick={()=>{
-            if(payment.route.approvalRequired) { return }
+            if(payment.route.approvalRequired && !payment.route.directTransfer) { return }
             pay()
           }}
         >
@@ -119,7 +119,7 @@ export default (props)=>{
   const actions = ()=> {
     return(
       <div>
-        { payment.route.approvalRequired && approvalAction() }
+        { payment.route.approvalRequired && !payment.route.directTransfer && approvalAction() }
         { mainAction() }
       </div>
     )
