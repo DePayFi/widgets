@@ -16,14 +16,13 @@ import { TokenImage } from 'depay-react-token-image'
 export default (props)=>{
 
   const { blockchain, sent, confirmed, safe } = useContext(ConfigurationContext)
-  const { payment, setPayment } = useContext(PaymentContext)
+  const { payment, setPayment, transaction, setTransaction } = useContext(PaymentContext)
   const { allRoutes } = useContext(RoutingContext)
   const { localValue } = useContext(ToTokenContext)
   const { navigate, set } = useContext(NavigateStackContext)
   const { close, setClosable } = useContext(ClosableContext)
   const { update, setUpdate } = useContext(UpdateContext)
   const [state, setState] = useState('overview')
-  const [paymentTransaction, setPaymentTransaction] = useState()
   const [approvalTransaction, setApprovalTransaction] = useState()
   const approve = ()=> {
     setClosable(false)
@@ -51,25 +50,26 @@ export default (props)=>{
     setUpdate(false)
     payment.route.transaction.submit({
       sent: ()=>{
-        if(sent) { sent(paymentTransaction) }
+        if(sent) { sent(transaction) }
       },
       confirmed: ()=>{
         setClosable(true)
         setState('confirmed')
-        if(confirmed) { confirmed(paymentTransaction) }
+        if(confirmed) { confirmed(transaction) }
       },
       safe: ()=>{
-        if(safe) { safe(paymentTransaction) }
+        if(safe) { safe(transaction) }
       },
     })
       .then((sentTransaction)=>{
-        setPaymentTransaction(sentTransaction)
+        settransaction(sentTransaction)
       })
       .catch((error)=>{
         console.log('error', error)
         setState('overview')
         setClosable(true)
         setUpdate(true)
+        navigate('PaymentError')
       })
   }
   const mainAction = ()=> {
@@ -87,7 +87,7 @@ export default (props)=>{
       )
     } else if (state == 'paying') {
       return(
-        <a className="ButtonPrimary" title="Performing the payment - please wait" href={ paymentTransaction?.url } target="_blank" rel="noopener noreferrer">
+        <a className="ButtonPrimary" title="Performing the payment - please wait" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
           <LoadingText>Paying</LoadingText>
         </a>
       )

@@ -8,8 +8,6 @@ export default ()=>{
     .Graphic {
       width: 60%;
       position: relative;
-      top: -10px;
-      margin-bottom: -10px;
     }
   `)
 }

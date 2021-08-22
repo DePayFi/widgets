@@ -6,6 +6,7 @@ export default (props)=>{
 
   const { selectedRoute } = useContext(RoutingContext)
   const [ payment, setPayment ] = useState()
+  const [ transaction, setTransaction ] = useState()
 
   useEffect(()=>{
     if(selectedRoute) {
@@ -30,7 +31,9 @@ export default (props)=>{
   return(
     <PaymentContext.Provider value={{
       setPayment,
-      payment
+      payment,
+      setTransaction,
+      transaction,
     }}>
       { props.children }
     </PaymentContext.Provider>
