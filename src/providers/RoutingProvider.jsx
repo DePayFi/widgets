@@ -27,12 +27,15 @@ export default (props)=>{
       amount: amount,
       apiKey
     }).then((routes)=>{
-      roundAmounts(routes).then((roundedRoutes)=>{
-        let selected = selectedRoute ? roundedRoutes[allRoutes.indexOf(selectedRoute)] : roundedRoutes[0]
-        console.log('selected', selected)
-        setSelectedRoute(selected)
-        setAllRoutes(roundedRoutes)
-      })
+      if(routes.length == 0) {
+        setAllRoutes([])
+      } else {
+        roundAmounts(routes).then((roundedRoutes)=>{
+          let selected = selectedRoute ? roundedRoutes[allRoutes.indexOf(selectedRoute)] : roundedRoutes[0]
+          setSelectedRoute(selected)
+          setAllRoutes(roundedRoutes)
+        })
+      }
     })
   }
   const roundAmounts = async (routes)=> {

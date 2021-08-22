@@ -7,6 +7,7 @@ import LoadingText from '../../components/LoadingText'
 import PaymentContext from '../../contexts/PaymentContext'
 import PaymentOverviewSkeleton from '../../skeletons/PaymentOverviewSkeleton'
 import React, { useContext, useState, useEffect } from 'react'
+import RoutingContext from '../../contexts/RoutingContext'
 import ToTokenContext from '../../contexts/ToTokenContext'
 import UpdateContext from '../../contexts/UpdateContext'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
@@ -16,8 +17,9 @@ export default (props)=>{
 
   const { blockchain, sent, confirmed, safe } = useContext(ConfigurationContext)
   const { payment, setPayment } = useContext(PaymentContext)
+  const { allRoutes } = useContext(RoutingContext)
   const { localValue } = useContext(ToTokenContext)
-  const navigate = useContext(NavigateStackContext)
+  const { navigate, set } = useContext(NavigateStackContext)
   const { close, setClosable } = useContext(ClosableContext)
   const { update, setUpdate } = useContext(UpdateContext)
   const [state, setState] = useState('overview')
@@ -124,6 +126,12 @@ export default (props)=>{
       </div>
     )
   }
+  useEffect(()=>{
+    if(allRoutes && allRoutes.length == 0) {
+      set(['NoPaymentMethodFound'])
+      setUpdate(false)
+    }
+  }, [allRoutes])
 
   if(payment == undefined || localValue == undefined) { return(<PaymentOverviewSkeleton/>) }
 

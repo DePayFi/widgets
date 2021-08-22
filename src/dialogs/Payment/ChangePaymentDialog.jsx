@@ -13,7 +13,7 @@ export default (props)=>{
   const { blockchain } = useContext(ConfigurationContext)
   const { allRoutes, setSelectedRoute } = useContext(RoutingContext)
   const { localValue } = useContext(ToTokenContext)
-  const navigate = useContext(NavigateStackContext)
+  const { navigate } = useContext(NavigateStackContext)
   const [ allPaymentRoutesWithData, setAllPaymentRoutesWithData ] = useState([])
   const [ cards, setCards ] = useState([])
 

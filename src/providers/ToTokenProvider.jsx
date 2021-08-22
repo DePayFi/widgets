@@ -30,6 +30,7 @@ export default (props)=>{
       (new Token({ blockchain, address: CONSTANTS[blockchain].USD })).decimals()
     ]).then(([USDExchangeRoutes, USDDecimals])=>{
       let USDRoute = USDExchangeRoutes[0]
+      if (USDRoute == undefined) { return }
       let USDAmount = USDRoute.amountOut.toString()
       let USDValue = parseFloat(USDAmount) / 10**USDDecimals
       Currency.fromUSD({ amount: USDValue, apiKey }).then((localValue)=>{

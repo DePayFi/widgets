@@ -3360,10 +3360,10 @@ depay-local-currency@^1.0.1:
   resolved "https://registry.yarnpkg.com/depay-local-currency/-/depay-local-currency-1.0.1.tgz#00505f7f2168a7e0378105129fee621473205897"
   integrity sha512-r4qs1bByzOPp1knE9VvagHf0vUyrVj+fJ7hbdZSesyOGiYvjtEYYyT+qN2vnjci2meLWW4aR1zHqjFImCPnWVw==
 
-depay-react-dialog-stack@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/depay-react-dialog-stack/-/depay-react-dialog-stack-1.2.1.tgz#5ae6f256950d7cbced585b24fdefffb530ff2964"
-  integrity sha512-6wFzzKODRcUDb+RtCiaL01uKt4IHJbz/7u8KDffdUKlLiemY0lJ1paJoGBVUwfjTbhm6BO5GNAZMw8kA+KGtgA==
+depay-react-dialog-stack@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/depay-react-dialog-stack/-/depay-react-dialog-stack-2.0.0.tgz#95da18e16b0ee070aa7286367ed1e359c0f3caf0"
+  integrity sha512-IkBIR6PHQ8upo78YNN7ia8pXtEYX6+IM9ZYPs9TQyA5LTFWXhf6h29W9XzqiP5cnr49EFA23AOEv8jQZ/01Buw==
   dependencies:
     depay-react-dialog "^9.1.0"
 

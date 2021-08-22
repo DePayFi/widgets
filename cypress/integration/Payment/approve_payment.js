@@ -129,7 +129,7 @@ describe('approve Payment', () => {
     })
   })
 
-  it.only('does not require approval for direct token transfers', () => {
+  it('does not require approval for direct token transfers', () => {
     
     mock({ blockchain, call: { to: DEPAY, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: CONSTANTS[blockchain].ZERO } })
 

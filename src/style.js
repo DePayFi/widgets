@@ -4,6 +4,7 @@ import CardStyle from './styles/CardStyle'
 import DialogStyle from './styles/DialogStyle'
 import FontStyle from './styles/FontStyle'
 import FooterStyle from './styles/FooterStyle'
+import GraphicStyle from './styles/GraphicStyle'
 import HeightStyle from './styles/HeightStyle'
 import IconStyle from './styles/IconStyle'
 import LabelStyle from './styles/LabelStyle'
@@ -31,6 +32,7 @@ export default (style)=>{
       ButtonPrimaryStyle(style),
       CardStyle(style),
       FooterStyle(style),
+      GraphicStyle(style),
       SkeletonStyle(style),
       TokenAmountStyle(style),
       TextStyle(style),

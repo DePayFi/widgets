@@ -1,5 +1,6 @@
 import ChangePaymentDialog from '../dialogs/Payment/ChangePaymentDialog'
 import ClosableContext from '../contexts/ClosableContext'
+import NoPaymentMethodFoundDialog from '../dialogs/Payment/NoPaymentMethodFoundDialog'
 import PaymentOverviewDialog from '../dialogs/Payment/PaymentOverviewDialog'
 import React, { useContext } from 'react'
 import { ReactDialogStack } from 'depay-react-dialog-stack'
@@ -17,7 +18,8 @@ export default (props)=>{
       document={ props.document }
       dialogs={{
         PaymentOverview: <PaymentOverviewDialog/>,
-        ChangePayment: <ChangePaymentDialog/>
+        ChangePayment: <ChangePaymentDialog/>,
+        NoPaymentMethodFound: <NoPaymentMethodFoundDialog/>,
       }}
     />
   )

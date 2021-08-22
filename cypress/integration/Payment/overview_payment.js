@@ -20,7 +20,6 @@ describe('overview Payment', () => {
     cy.wait(500).then(()=>{
       cy.get('body').then((body) => {
         if (body.find('.ReactShadowDOMOutsideContainer').length > 0) {
-          console.log('CLOSE DIALOG')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
         }
       })

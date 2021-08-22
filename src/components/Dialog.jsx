@@ -6,7 +6,7 @@ import { NavigateStackContext } from 'depay-react-dialog-stack'
 
 export default (props)=>{
 
-  const navigate = useContext(NavigateStackContext)
+  const { navigate } = useContext(NavigateStackContext)
   const { close, closable } = useContext(ClosableContext)
 
   return(
