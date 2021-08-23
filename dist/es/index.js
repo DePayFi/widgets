@@ -1319,13 +1319,13 @@ var PaymentOverviewDialog = (function (props) {
       blockchain = _useContext.blockchain,
       _sent = _useContext.sent,
       _confirmed = _useContext.confirmed,
-      _safe = _useContext.safe;
+      _ensured = _useContext.ensured;
 
   var _useContext2 = useContext(PaymentContext),
       payment = _useContext2.payment,
       setPayment = _useContext2.setPayment,
-      transaction = _useContext2.transaction;
-      _useContext2.setTransaction;
+      transaction = _useContext2.transaction,
+      setTransaction = _useContext2.setTransaction;
 
   var _useContext3 = useContext(RoutingContext),
       allRoutes = _useContext3.allRoutes;
@@ -1392,19 +1392,25 @@ var PaymentOverviewDialog = (function (props) {
           _confirmed(transaction);
         }
       },
-      safe: function safe() {
-        if (_safe) {
-          _safe(transaction);
+      ensured: function ensured() {
+        if (_ensured) {
+          _ensured(transaction);
         }
+      },
+      failed: function failed(error) {
+        console.log('error', error);
+        setState('overview');
+        setClosable(true);
+        setUpdate(true);
+        navigate('PaymentError');
       }
     }).then(function (sentTransaction) {
-      settransaction(sentTransaction);
+      setTransaction(sentTransaction);
     })["catch"](function (error) {
       console.log('error', error);
       setState('overview');
       setClosable(true);
       setUpdate(true);
-      navigate('PaymentError');
     });
   };
 
@@ -1967,13 +1973,13 @@ var preflight = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var blockchain, amount, token, receiver, sent, confirmed, safe, document, unmountShadowDOM, content, _ReactShadowDOM, unmount;
+    var blockchain, amount, token, receiver, sent, confirmed, ensured, document, unmountShadowDOM, content, _ReactShadowDOM, unmount;
 
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            blockchain = _ref3.blockchain, amount = _ref3.amount, token = _ref3.token, receiver = _ref3.receiver, sent = _ref3.sent, confirmed = _ref3.confirmed, safe = _ref3.safe, document = _ref3.document;
+            blockchain = _ref3.blockchain, amount = _ref3.amount, token = _ref3.token, receiver = _ref3.receiver, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, document = _ref3.document;
 
             if (typeof document === 'undefined') {
               document = window.document;
@@ -2002,7 +2008,7 @@ var Payment = /*#__PURE__*/function () {
                   receiver: receiver,
                   sent: sent,
                   confirmed: confirmed,
-                  safe: safe
+                  ensured: ensured
                 }
               }, /*#__PURE__*/React.createElement(ClosableProvider, {
                 unmount: unmountShadowDOM

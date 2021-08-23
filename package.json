@@ -38,10 +38,10 @@
     "depay-react-token-image": "^1.1.2",
     "depay-web3-client": "^4.0.2",
     "depay-web3-constants": "^3.0.1",
-    "depay-web3-exchanges": "^4.0.0",
-    "depay-web3-payments": "^4.0.0",
+    "depay-web3-exchanges": "^4.1.0",
+    "depay-web3-payments": "^4.1.1",
     "depay-web3-tokens": "^3.0.3",
-    "depay-web3-transaction": "^3.1.0",
+    "depay-web3-transaction": "^3.2.0",
     "depay-web3-wallets": "^5.0.0"
   },
   "peerDependencies": {
@@ -64,7 +64,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "cypress": "^7.6.0",
-    "depay-web3-mock": "^5.6.0",
+    "depay-web3-mock": "^5.8.1",
     "eslint": "^7.15.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.22.1",
