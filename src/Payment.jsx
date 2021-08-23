@@ -18,7 +18,7 @@ let preflight = async({ blockchain, amount, token, receiver }) => {
   if(typeof receiver === 'undefined') { throw('DePayWidgets.Payment: You need to set the receiver address that you want to receive the payment!') }
 }
 
-let Payment = async ({ blockchain, amount, token, receiver, sent, confirmed, safe, document }) => {
+let Payment = async ({ blockchain, amount, token, receiver, sent, confirmed, ensured, document }) => {
 
   if(typeof document === 'undefined') { document = window.document }
 
@@ -31,7 +31,7 @@ let Payment = async ({ blockchain, amount, token, receiver, sent, confirmed, saf
 
   let content = (container)=> {
     return(
-      <ConfigurationProvider configuration={ { blockchain, amount, token, receiver, sent, confirmed, safe } }>
+      <ConfigurationProvider configuration={ { blockchain, amount, token, receiver, sent, confirmed, ensured } }>
         <ClosableProvider unmount={ unmountShadowDOM }>
           <UpdateProvider>
             <WalletProvider>

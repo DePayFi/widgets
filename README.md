@@ -90,11 +90,11 @@ A function that will be called once the payment has been confirmed once by the n
 
 The widget will call the `confirmed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
 
-`safe`
+`ensured`
 
-A function that will be called once the payment has been confirmed enough times to consider it's "safe" (e.g. 12 confirmations on Ethereum).
+A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
 
-The widget will call the `safe` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+The widget will call the `ensured` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
 
 ## Development
 
@@ -118,7 +118,7 @@ test:cypress:debug
 Test and debug single cypress file:
 
 ```
-test:cypress:debug --spec "cypress/integration/Payment/execute_payment.js"
+test:cypress:debug --spec "cypress/integration/Payment/failed.js"
 ```
 
 ### Release new versions to npm

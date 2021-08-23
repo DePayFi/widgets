@@ -70,13 +70,14 @@ export default (style)=>{
     }
 
     .CardInfo {
-      flex-basis: auto;
-      flex-shrink: 1;
-      flex-grow: 0;
-      padding-right: 0;
-      margin-left: auto; 
       display: flex;
+      flex-basis: auto;
       flex-direction: column;
+      flex-grow: 0;
+      flex-shrink: 1;
+      justify-content: center;
+      margin-left: auto; 
+      padding-right: 0;
     }
 
     .CardImage img {

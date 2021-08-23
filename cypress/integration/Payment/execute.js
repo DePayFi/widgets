@@ -162,7 +162,7 @@ describe('execute Payment', () => {
     })
   })
 
-  it('calls all callbacks (sent, confirmed, safe)', () => {
+  it('calls all callbacks (sent, confirmed, ensured)', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
@@ -177,14 +177,14 @@ describe('execute Payment', () => {
 
     let sentCalled = false
     let confirmedCalled = false
-    let safeCalled = false
+    let ensuredCalled = false
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document,
           sent: ()=>{ sentCalled = true },
           confirmed: ()=>{ confirmedCalled = true },
-          safe: ()=>{ safeCalled = true },
+          ensured: ()=>{ ensuredCalled = true },
         })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
@@ -198,7 +198,7 @@ describe('execute Payment', () => {
               increaseBlock(12)
               cy.wait(5000).then(()=>{
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.round .Checkmark.Icon.white').click().then(()=>{
-                  expect(safeCalled).to.equal(true)
+                  expect(ensuredCalled).to.equal(true)
                 })
               })
             })

@@ -4,7 +4,7 @@ import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
-import { mock, confirm, increaseBlock, resetMocks } from 'depay-web3-mock'
+import { mock, resetMocks, fail } from 'depay-web3-mock'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
@@ -94,17 +94,15 @@ describe('execute Payment', () => {
     }))
   })
   
-  it.only('shows an error dialog if sending payment transaction failed', () => {
+  it.only('shows an error dialog if confirming sent payment transaction by the network failed', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
-        delay: 2000,
         from: fromAddress,
         to: DEPAY,
         api: Token[blockchain].DEFAULT,
         method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN],
-        return: Error('Something failed')
+        params: [toAddress, TOKEN_A_AmountBN]
       }
     })
 
@@ -114,7 +112,9 @@ describe('execute Payment', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
-          cy.wait(3000).then(()=>{
+          fail(mockedTransaction)
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('a').invoke('attr', 'href').should('include', 'https://etherscan.com/tx/')
+          cy.wait(2000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('h1').should('contain.text', 'Payment Failed')
             cy.get('button[title="Go back"]', { includeShadowDom: true }).should('exist')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'Unfortunately executing your payment failed. You can go back and try again.')
@@ -124,9 +124,5 @@ describe('execute Payment', () => {
         })
       })
     })
-  })
-
-  it('shows an error dialog if confirming the payment transaction from the network failed', () => {
-
   })
 })

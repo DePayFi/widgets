@@ -1245,6 +1245,31 @@
     bech32 "1.1.4"
     ws "7.4.6"
 
+"@ethersproject/providers@5.4.4":
+  version "5.4.4"
+  resolved "https://registry.yarnpkg.com/@ethersproject/providers/-/providers-5.4.4.tgz#6729120317942fc0ab0ecdb35e944ec6bbedb795"
+  integrity sha512-mQevyXj2X2D3l8p/JGDYFZbODhZjW6On15DnCK4Xc9y6b+P0vqorQC/j46omWSm4cyo7BQ/rgfhXNYmvAfyZoQ==
+  dependencies:
+    "@ethersproject/abstract-provider" "^5.4.0"
+    "@ethersproject/abstract-signer" "^5.4.0"
+    "@ethersproject/address" "^5.4.0"
+    "@ethersproject/basex" "^5.4.0"
+    "@ethersproject/bignumber" "^5.4.0"
+    "@ethersproject/bytes" "^5.4.0"
+    "@ethersproject/constants" "^5.4.0"
+    "@ethersproject/hash" "^5.4.0"
+    "@ethersproject/logger" "^5.4.0"
+    "@ethersproject/networks" "^5.4.0"
+    "@ethersproject/properties" "^5.4.0"
+    "@ethersproject/random" "^5.4.0"
+    "@ethersproject/rlp" "^5.4.0"
+    "@ethersproject/sha2" "^5.4.0"
+    "@ethersproject/strings" "^5.4.0"
+    "@ethersproject/transactions" "^5.4.0"
+    "@ethersproject/web" "^5.4.0"
+    bech32 "1.1.4"
+    ws "7.4.6"
+
 "@ethersproject/random@5.4.0", "@ethersproject/random@^5.4.0":
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/@ethersproject/random/-/random-5.4.0.tgz#9cdde60e160d024be39cc16f8de3b9ce39191e16"
@@ -3433,34 +3458,34 @@ depay-web3-constants@^3.0.1:
   resolved "https://registry.yarnpkg.com/depay-web3-constants/-/depay-web3-constants-3.0.1.tgz#c8979b063de9b875eb7692e8d93b0c9da80232b9"
   integrity sha512-bRHj8mLnXuPWORZ6eE/2qKry3C9k7W7z4EHPKc5cruTJuBLnhN/zqmZWo/3nbEMaqd6n2tI/ObwW6bzA+E4rlg==
 
-depay-web3-exchanges@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/depay-web3-exchanges/-/depay-web3-exchanges-3.1.1.tgz#98320594140dc43d959a290dc3528fba44cca2db"
-  integrity sha512-rPHw7cZxn9Uz60YTOBEPfheenV8/wLhKrMZIgqd1aUr1s82VfZ9JAD4FKJts5ALNlA+Nlf5dWcjncBwBcH+CpA==
+depay-web3-exchanges@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/depay-web3-exchanges/-/depay-web3-exchanges-4.0.0.tgz#efb2603885b44c686449a594dbc1b0bb5a9d1d41"
+  integrity sha512-AQmoiW9Ifv8HbEIOIMmqkGYesG/Qe3QA8juWmkm/oDwY/zkQ1aM0Qtn8eiswOok98WOQOl6yMdfWivrLxeNV/Q==
   dependencies:
     depay-web3-client "^4.0.2"
     depay-web3-constants "^2.1.0"
     depay-web3-tokens "^3.0.3"
-    depay-web3-transaction "^2.4.1"
+    depay-web3-transaction "^3.1.0"
 
-depay-web3-mock@^5.5.5:
-  version "5.5.5"
-  resolved "https://registry.yarnpkg.com/depay-web3-mock/-/depay-web3-mock-5.5.5.tgz#1dcf2a0e43c9b400cced7004c21d78dfd829a597"
-  integrity sha512-QOg2e8qsD25gUojz12AUaXMFAFtbs8HpGBSrITEVRzgnQrBPJwKFEmRK6COCng4eIuKwIKHCij5o6O74v0wVgQ==
+depay-web3-mock@^5.6.0:
+  version "5.6.0"
+  resolved "https://registry.yarnpkg.com/depay-web3-mock/-/depay-web3-mock-5.6.0.tgz#8421bf3694b996494ec4b757cdfe3a47390769d2"
+  integrity sha512-7n0H/GxK5cdSut9Bj1JCNNVB/Z2Y2SnFYvYP49T2oiCJSsSsnkuy2RrLzJBQmAt+JtAflBI2v02Us7guGJg4/g==
   dependencies:
     depay-web3-blockchains "^2.1.0"
     ethers "^5.4.4"
 
-depay-web3-payments@^3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/depay-web3-payments/-/depay-web3-payments-3.3.1.tgz#26fa2039d3b8d28135169ef8c70e865e52e9933c"
-  integrity sha512-VcWJBrhAj4KXfxKSm7A+xHKNiaNU4O1p0aB522WvgRt1oLxXK8uqyoINWGKSN2Rb4t5py/O29HfXaEBDk6bxRA==
+depay-web3-payments@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/depay-web3-payments/-/depay-web3-payments-4.0.0.tgz#2032ec33d7e5c7c4a78f0380e91ae7c31a4c00b0"
+  integrity sha512-68XNBTXsKFO8b7M0VSE7Qj3AjTg1KRz2tfVNLGD/tUfqV35t5hIlQGnUyehHDzbx3eAS4XfBxpOI143hRwqHgg==
   dependencies:
     depay-web3-assets "^1.0.0"
     depay-web3-constants "^3.0.0"
-    depay-web3-exchanges "^3.1.1"
+    depay-web3-exchanges "^4.0.0"
     depay-web3-tokens "^3.0.3"
-    depay-web3-transaction "^2.4.1"
+    depay-web3-transaction "^3.1.0"
 
 depay-web3-tokens@^2.3.0:
   version "2.3.1"
@@ -3482,13 +3507,13 @@ depay-web3-tokens@^3.0.3:
     depay-web3-wallets "^4.2.1"
     ethers "^5.4.4"
 
-depay-web3-transaction@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/depay-web3-transaction/-/depay-web3-transaction-2.4.1.tgz#177cd322575897db3c20a36cafce9e643c75a64e"
-  integrity sha512-EVPuk+CF+fK0Z201+JE0kDyUyTsF1Np2IjL+GeBmK8ri/xPz45ASC8VXWbz/Rg+OjWaBXPVXSkXo6U/++qnJRQ==
+depay-web3-transaction@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/depay-web3-transaction/-/depay-web3-transaction-3.1.0.tgz#f28e36ff071b1b49d325a5ba6d4f2d1905e1a8ef"
+  integrity sha512-CUyh02VTiKxecqoktv0tOEGnDf4uUL6ag+Am1vwg2UhKyz2N8yG7yOPiZnbaJh0dcrseiKbF2LU41UZ5ubRWEA==
   dependencies:
     depay-web3-constants "^2.0.0"
-    ethers "^5.3.1"
+    ethers "^5.4.5"
 
 depay-web3-wallets@^3.0.0, depay-web3-wallets@^3.1.0:
   version "3.1.1"
@@ -3905,6 +3930,42 @@ ethers@^5.3.1, ethers@^5.4.4:
     "@ethersproject/pbkdf2" "5.4.0"
     "@ethersproject/properties" "5.4.0"
     "@ethersproject/providers" "5.4.3"
+    "@ethersproject/random" "5.4.0"
+    "@ethersproject/rlp" "5.4.0"
+    "@ethersproject/sha2" "5.4.0"
+    "@ethersproject/signing-key" "5.4.0"
+    "@ethersproject/solidity" "5.4.0"
+    "@ethersproject/strings" "5.4.0"
+    "@ethersproject/transactions" "5.4.0"
+    "@ethersproject/units" "5.4.0"
+    "@ethersproject/wallet" "5.4.0"
+    "@ethersproject/web" "5.4.0"
+    "@ethersproject/wordlists" "5.4.0"
+
+ethers@^5.4.5:
+  version "5.4.5"
+  resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.4.5.tgz#cec133b9f5b514dc55e2561ee7aa7218c33affd7"
+  integrity sha512-PPZ6flOAj230sXEWf/r/It6ZZ5c7EOVWx+PU87Glkbg79OtT7pLE1WgL4MRdwx6iF7HzSOvUUI+8cAmcdzo12w==
+  dependencies:
+    "@ethersproject/abi" "5.4.0"
+    "@ethersproject/abstract-provider" "5.4.1"
+    "@ethersproject/abstract-signer" "5.4.1"
+    "@ethersproject/address" "5.4.0"
+    "@ethersproject/base64" "5.4.0"
+    "@ethersproject/basex" "5.4.0"
+    "@ethersproject/bignumber" "5.4.1"
+    "@ethersproject/bytes" "5.4.0"
+    "@ethersproject/constants" "5.4.0"
+    "@ethersproject/contracts" "5.4.1"
+    "@ethersproject/hash" "5.4.0"
+    "@ethersproject/hdnode" "5.4.0"
+    "@ethersproject/json-wallets" "5.4.0"
+    "@ethersproject/keccak256" "5.4.0"
+    "@ethersproject/logger" "5.4.0"
+    "@ethersproject/networks" "5.4.2"
+    "@ethersproject/pbkdf2" "5.4.0"
+    "@ethersproject/properties" "5.4.0"
+    "@ethersproject/providers" "5.4.4"
     "@ethersproject/random" "5.4.0"
     "@ethersproject/rlp" "5.4.0"
     "@ethersproject/sha2" "5.4.0"

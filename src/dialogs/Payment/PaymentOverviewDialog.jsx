@@ -15,7 +15,7 @@ import { TokenImage } from 'depay-react-token-image'
 
 export default (props)=>{
 
-  const { blockchain, sent, confirmed, safe } = useContext(ConfigurationContext)
+  const { blockchain, sent, confirmed, ensured } = useContext(ConfigurationContext)
   const { payment, setPayment, transaction, setTransaction } = useContext(PaymentContext)
   const { allRoutes } = useContext(RoutingContext)
   const { localValue } = useContext(ToTokenContext)
@@ -57,19 +57,25 @@ export default (props)=>{
         setState('confirmed')
         if(confirmed) { confirmed(transaction) }
       },
-      safe: ()=>{
-        if(safe) { safe(transaction) }
+      ensured: ()=>{
+        if(ensured) { ensured(transaction) }
       },
+      failed: (error)=> {
+        console.log('error', error)
+        setState('overview')
+        setClosable(true)
+        setUpdate(true)
+        navigate('PaymentError')
+      }
     })
       .then((sentTransaction)=>{
-        settransaction(sentTransaction)
+        setTransaction(sentTransaction)
       })
       .catch((error)=>{
         console.log('error', error)
         setState('overview')
         setClosable(true)
         setUpdate(true)
-        navigate('PaymentError')
       })
   }
   const mainAction = ()=> {
