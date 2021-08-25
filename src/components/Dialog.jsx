@@ -10,7 +10,7 @@ export default (props)=>{
   const { close, closable } = useContext(ClosableContext)
 
   return(
-    <div className="ReactDialogAnimation Dialog">
+    <div className="Dialog">
       
       <div className={["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')}>
         { props.stacked &&

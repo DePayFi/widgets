@@ -9,7 +9,7 @@ export default ()=> {
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <h1 className="FontSizeL TextLeft">Payment</h1>
+          <h1 className="FontSizeL TextLeft">Insufficient Balance</h1>
         </div>
       }
       body={
@@ -17,8 +17,12 @@ export default ()=> {
           <div className="GraphicWrapper">
             <img className="Graphic" src={ QuestionsGraphic }/>
           </div>
-          <div>
-            <strong className="FontSizeL">No Payment Method Found</strong>
+          <div className="PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM">
+            <strong>
+              We were unable to find a convertable asset in order to perform this payment.
+
+              Please top up your account in order to proceed.
+            </strong>
           </div>
         </div>
       }

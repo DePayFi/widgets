@@ -3,10 +3,64 @@ export default ()=>{
 
     .Dialog {
       margin: 0 auto;
-      max-width: 26rem;
-      min-width: 26rem;
       position: relative;
-      width: 100%;
+      width: 420px;
+    }
+
+    @media screen and (max-width: 450px) {
+      
+      .Dialog, .ReactDialogAnimation {
+        width: 100%;
+      }
+
+    }
+
+    @media (orientation: portrait) {
+
+      .Dialog {
+        align-content: stretch;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      .DialogBody {
+        flex: 1;
+        align-items: flex-end;
+        max-height: 40vh !important;
+      }
+
+      .FooterLink {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        width: 100%;
+      }
+
+      .DialogFooter {
+        padding-bottom: 50px;
+      }
+
+      .ReactDialogStackCell {
+        vertical-align: bottom;
+      }
+
+      .ReactDialogAnimation {
+        bottom: -100px !important;
+        max-height: 66vh !important;
+        top: inherit !important;
+        transition: opacity 0.4s ease, bottom 0.4s ease;
+      }
+
+      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {
+        bottom: 0px !important;
+      }
+
+      .DialogFooter {
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+      }
     }
 
     .DialogBody {

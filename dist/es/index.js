@@ -986,7 +986,7 @@ var Dialog = (function (props) {
       closable = _useContext2.closable;
 
   return /*#__PURE__*/React.createElement("div", {
-    className: "ReactDialogAnimation Dialog"
+    className: "Dialog"
   }, /*#__PURE__*/React.createElement("div", {
     className: ["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')
   }, props.stacked && /*#__PURE__*/React.createElement("div", {
@@ -1188,15 +1188,15 @@ var NoPaymentMethodFoundDialog = (function () {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React.createElement("h1", {
       className: "FontSizeL TextLeft"
-    }, "Payment")),
+    }, "Insufficient Balance")),
     body: /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "GraphicWrapper"
     }, /*#__PURE__*/React.createElement("img", {
       className: "Graphic",
       src: QuestionsGraphic
-    })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", {
-      className: "FontSizeL"
-    }, "No Payment Method Found")))
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("strong", null, "We were unable to find a convertable asset in order to perform this payment. Please top up your account in order to proceed.")))
   });
 });
 
@@ -1714,7 +1714,7 @@ var CardStyle = (function (style) {
 });
 
 var DialogStyle = (function () {
-  return "\n\n    .Dialog {\n      margin: 0 auto;\n      max-width: 26rem;\n      min-width: 26rem;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
+  return "\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n        max-height: 40vh !important;\n      }\n\n      .FooterLink {\n        bottom: 0;\n        left: 0;\n        position: absolute;\n        right: 0;\n        width: 100%;\n      }\n\n      .DialogFooter {\n        padding-bottom: 50px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        max-height: 66vh !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
 });
 
 var FontStyle = (function () {

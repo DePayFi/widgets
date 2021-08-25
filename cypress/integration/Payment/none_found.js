@@ -63,7 +63,7 @@ describe('execute Payment', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'No Payment Method Found')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were unable to find a convertable asset in order to perform this payment. Please top up your account in order to proceed.')
       })
     })
   })
@@ -74,7 +74,7 @@ describe('execute Payment', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'No Payment Method Found')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were unable to find a convertable asset in order to perform this payment. Please top up your account in order to proceed.')
         cy.wait(2000).then(()=>{
           USDValueMock_count = USDValueMock.calls.count()
           TOKENRouteMock_count = TOKENRouteMock.calls.count()
