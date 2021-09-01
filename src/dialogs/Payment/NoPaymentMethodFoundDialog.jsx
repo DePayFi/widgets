@@ -19,9 +19,7 @@ export default ()=> {
           </div>
           <div className="PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM">
             <strong>
-              We were unable to find a convertable asset in order to perform this payment.
-
-              Please top up your account in order to proceed.
+              We were not able to find the request payment token nor any other convertable asset in your wallet. Please top up your account in order to proceed with this payment.
             </strong>
           </div>
         </div>

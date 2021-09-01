@@ -19,7 +19,7 @@
     <script crossorigin src="https://unpkg.com/depay-web3-tokens@3/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-web3-assets@1/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-web3-exchanges@4/dist/umd/index.js"></script>
-    <script crossorigin src="https://unpkg.com/depay-web3-payments@4/dist/umd/index.js"></script>
+    <script crossorigin src="https://unpkg.com/depay-web3-payments@5/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-local-currency@1/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-react-token-image@1/dist/umd/index.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.css">
@@ -81,10 +81,12 @@
           var button = document.getElementById("payButton");
           button.addEventListener("click",function(e){
             DePayWidgets.Payment({
-              blockchain: document.getElementById("paymentBlockchainInput").value,
-              amount: parseFloat(document.getElementById("paymentAmountInput").value),
-              token: document.getElementById("paymentTokenInput").value,
-              receiver: document.getElementById("paymentReceiverInput").value
+              accept: [{
+                blockchain: document.getElementById("paymentBlockchainInput").value,
+                amount: parseFloat(document.getElementById("paymentAmountInput").value),
+                token: document.getElementById("paymentTokenInput").value,
+                receiver: document.getElementById("paymentReceiverInput").value
+              }]
             });
           });
         </script>

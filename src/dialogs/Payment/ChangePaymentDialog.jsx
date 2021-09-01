@@ -10,7 +10,6 @@ import { TokenImage } from 'depay-react-token-image'
 
 export default (props)=>{
 
-  const { blockchain } = useContext(ConfigurationContext)
   const { allRoutes, setSelectedRoute } = useContext(RoutingContext)
   const { localValue } = useContext(ToTokenContext)
   const { navigate } = useContext(NavigateStackContext)
@@ -53,7 +52,7 @@ export default (props)=>{
           }}>
             <div className="CardImage">
               <TokenImage
-                blockchain={ blockchain }
+                blockchain={ payment.route.blockchain }
                 address={ payment.route.fromToken.address }
               />
             </div>

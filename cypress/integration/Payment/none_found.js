@@ -22,10 +22,12 @@ describe('execute Payment', () => {
   let decimals = 18
   let amountBN = ethers.utils.parseUnits(amount.toString(), decimals)
   let defaultArguments = {
-    blockchain,
-    amount,
-    token: TOKEN,
-    receiver: toAddress
+    accept: [{
+      blockchain,
+      amount,
+      token: TOKEN,
+      receiver: toAddress
+    }]
   }
 
   let USDValueMock
@@ -59,11 +61,11 @@ describe('execute Payment', () => {
     })
   })
 
-  it('shows a dialog explaining that no payment round could be found', () => {
+  it('shows a dialog explaining that no payment route could be found', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were unable to find a convertable asset in order to perform this payment. Please top up your account in order to proceed.')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find the request payment token nor any other convertable asset in your wallet. Please top up your account in order to proceed with this payment.')
       })
     })
   })
@@ -74,7 +76,7 @@ describe('execute Payment', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were unable to find a convertable asset in order to perform this payment. Please top up your account in order to proceed.')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find the request payment token nor any other convertable asset in your wallet. Please top up your account in order to proceed with this payment.')
         cy.wait(2000).then(()=>{
           USDValueMock_count = USDValueMock.calls.count()
           TOKENRouteMock_count = TOKENRouteMock.calls.count()

@@ -14,17 +14,13 @@ export default (props)=>{
   const [allRoutes, setAllRoutes] = useState()
   const [selectedRoute, setSelectedRoute] = useState()
   const [reloadCount, setReloadCount] = useState(0)
-  const { blockchain, amount, token, receiver } = useContext(ConfigurationContext)
+  const { accept } = useContext(ConfigurationContext)
   const { account } = useContext(WalletContext)
   const { update } = useContext(UpdateContext)
   const getPaymentRoutes = ({ allRoutes, selectedRoute, update })=>{
     if(update == false) { return }
     route({
-      fromAddress: account,
-      toAddress: receiver,
-      blockchain,
-      token,
-      amount: amount,
+      accept: accept.map((configuration)=>({ ...configuration, fromAddress: account, toAddress: configuration.receiver })),
       apiKey
     }).then((routes)=>{
       if(routes.length == 0) {

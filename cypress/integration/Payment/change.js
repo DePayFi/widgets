@@ -22,11 +22,15 @@ describe('change Payment', () => {
   let WETH = CONSTANTS[blockchain].WRAPPED
   let WRAPPED_AmountInBN
   let TOKEN_A_AmountBN
+  let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  let amount = 20
   let defaultArguments = {
-    blockchain,
-    amount: 20,
-    token: DEPAY,
-    receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+    accept: [{
+      blockchain,
+      amount,
+      token: DEPAY,
+      receiver: toAddress
+    }]
   }
 
   beforeEach(()=>{
@@ -54,7 +58,7 @@ describe('change Payment', () => {
         }
       ],
       
-      toAddress: defaultArguments.toAddress,
+      toAddress,
 
       exchange: 'uniswap_v2',
       NATIVE_Balance: 1,
@@ -63,7 +67,7 @@ describe('change Payment', () => {
       TOKEN_A_Decimals: 18,
       TOKEN_A_Name: 'DePay',
       TOKEN_A_Symbol: 'DEPAY',
-      TOKEN_A_Amount: defaultArguments.amount,
+      TOKEN_A_Amount: amount,
       TOKEN_A_Balance: 30,
       
       TOKEN_B: DAI,

@@ -23,10 +23,12 @@ describe('approve Payment', () => {
   let amount = 20
   let TOKEN_A_AmountBN
   let defaultArguments = {
-    blockchain,
-    amount,
-    token: DEPAY,
-    receiver: toAddress
+    accept: [{
+      blockchain,
+      amount,
+      token: DEPAY,
+      receiver: toAddress
+    }]
   }
 
   beforeEach(()=>{

@@ -1075,18 +1075,15 @@ var round = (function (input) {
 });
 
 var ChangePaymentDialog = (function (props) {
-  var _useContext = useContext(ConfigurationContext),
-      blockchain = _useContext.blockchain;
+  var _useContext = useContext(RoutingContext),
+      allRoutes = _useContext.allRoutes,
+      setSelectedRoute = _useContext.setSelectedRoute;
 
-  var _useContext2 = useContext(RoutingContext),
-      allRoutes = _useContext2.allRoutes,
-      setSelectedRoute = _useContext2.setSelectedRoute;
+  var _useContext2 = useContext(ToTokenContext),
+      localValue = _useContext2.localValue;
 
-  var _useContext3 = useContext(ToTokenContext),
-      localValue = _useContext3.localValue;
-
-  var _useContext4 = useContext(NavigateStackContext),
-      navigate = _useContext4.navigate;
+  var _useContext3 = useContext(NavigateStackContext),
+      navigate = _useContext3.navigate;
 
   var _useState = useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -1132,7 +1129,7 @@ var ChangePaymentDialog = (function (props) {
       }, /*#__PURE__*/React.createElement("div", {
         className: "CardImage"
       }, /*#__PURE__*/React.createElement(TokenImage, {
-        blockchain: blockchain,
+        blockchain: payment.route.blockchain,
         address: payment.route.fromToken.address
       })), /*#__PURE__*/React.createElement("div", {
         className: "CardBody"
@@ -1196,7 +1193,7 @@ var NoPaymentMethodFoundDialog = (function () {
       src: QuestionsGraphic
     })), /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React.createElement("strong", null, "We were unable to find a convertable asset in order to perform this payment. Please top up your account in order to proceed.")))
+    }, /*#__PURE__*/React.createElement("strong", null, "We were not able to find a convertable asset in your wallet in order to perform this payment. Please top up your account in order to proceed.")))
   });
 });
 
@@ -1316,7 +1313,6 @@ var UpdateContext = /*#__PURE__*/React.createContext();
 
 var PaymentOverviewDialog = (function (props) {
   var _useContext = useContext(ConfigurationContext),
-      blockchain = _useContext.blockchain,
       _sent = _useContext.sent,
       _confirmed = _useContext.confirmed,
       _ensured = _useContext.ensured;
@@ -1501,7 +1497,7 @@ var PaymentOverviewDialog = (function (props) {
       className: "CardImage",
       title: payment.name
     }, /*#__PURE__*/React.createElement(TokenImage, {
-      blockchain: blockchain,
+      blockchain: payment.route.blockchain,
       address: payment.token
     })), /*#__PURE__*/React.createElement("div", {
       className: "CardBody"
@@ -1546,10 +1542,28 @@ var PaymentStack = (function (props) {
   });
 });
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
 var apiKey = 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c';
 
 var WalletContext = /*#__PURE__*/React.createContext();
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var RoutingProvider = (function (props) {
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -1567,10 +1581,7 @@ var RoutingProvider = (function (props) {
       setReloadCount = _useState6[1];
 
   var _useContext = useContext(ConfigurationContext),
-      blockchain = _useContext.blockchain,
-      amount = _useContext.amount,
-      token = _useContext.token,
-      receiver = _useContext.receiver;
+      accept = _useContext.accept;
 
   var _useContext2 = useContext(WalletContext),
       account = _useContext2.account;
@@ -1588,11 +1599,11 @@ var RoutingProvider = (function (props) {
     }
 
     route({
-      fromAddress: account,
-      toAddress: receiver,
-      blockchain: blockchain,
-      token: token,
-      amount: amount,
+      accept: accept.map(function (configuration) {
+        return _objectSpread(_objectSpread({}, configuration), {}, {
+          fromAddress: account
+        });
+      }),
       apiKey: apiKey
     }).then(function (routes) {
       if (routes.length == 0) {
@@ -1714,7 +1725,7 @@ var CardStyle = (function (style) {
 });
 
 var DialogStyle = (function () {
-  return "\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n        max-height: 40vh !important;\n      }\n\n      .FooterLink {\n        bottom: 0;\n        left: 0;\n        position: absolute;\n        right: 0;\n        width: 100%;\n      }\n\n      .DialogFooter {\n        padding-bottom: 50px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        max-height: 66vh !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
+  return "\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 700px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n        max-height: 40vh !important;\n      }\n\n      .FooterLink {\n        bottom: 0;\n        left: 0;\n        position: absolute;\n        right: 0;\n        width: 100%;\n      }\n\n      .DialogFooter {\n        padding-bottom: 50px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        max-height: 66vh !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
 });
 
 var FontStyle = (function () {
@@ -1781,10 +1792,8 @@ var ToTokenProvider = (function (props) {
   var _useContext2 = useContext(UpdateContext),
       update = _useContext2.update;
 
-  var _useContext3 = useContext(ConfigurationContext),
-      blockchain = _useContext3.blockchain,
-      token = _useContext3.token,
-      amount = _useContext3.amount;
+  var _useContext3 = useContext(PaymentContext),
+      payment = _useContext3.payment;
 
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -1797,22 +1806,23 @@ var ToTokenProvider = (function (props) {
       setReloadCount = _useState4[1];
 
   var getToTokenLocalValue = function getToTokenLocalValue(_ref) {
-    var update = _ref.update;
+    var update = _ref.update,
+        payment = _ref.payment;
 
-    if (update == false) {
+    if (update == false || (payment === null || payment === void 0 ? void 0 : payment.route) == undefined) {
       return;
     }
 
     Promise.all([route$1({
-      blockchain: blockchain,
-      tokenIn: token,
-      tokenOut: CONSTANTS[blockchain].USD,
-      amountIn: amount,
+      blockchain: payment.route.blockchain,
+      tokenIn: payment.route.toToken.address,
+      tokenOut: CONSTANTS[payment.route.blockchain].USD,
+      amountIn: payment.route.toAmount,
       fromAddress: account,
       toAddress: account
     }), new Token({
-      blockchain: blockchain,
-      address: CONSTANTS[blockchain].USD
+      blockchain: payment.route.blockchain,
+      address: CONSTANTS[payment.route.blockchain].USD
     }).decimals()]).then(function (_ref2) {
       var _ref3 = _slicedToArray(_ref2, 2),
           USDExchangeRoutes = _ref3[0],
@@ -1836,12 +1846,13 @@ var ToTokenProvider = (function (props) {
   };
 
   useEffect(function () {
-    if (account) {
+    if (account && payment) {
       getToTokenLocalValue({
-        update: update
+        update: update,
+        payment: payment
       });
     }
-  }, [account]);
+  }, [payment, account]);
   useEffect(function () {
     var timeout = setTimeout(function () {
       setReloadCount(reloadCount + 1);
@@ -1912,53 +1923,35 @@ var WalletProvider = (function (props) {
 
 var preflight = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-    var blockchain, amount, token, receiver;
+    var accept;
     return regenerator.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            blockchain = _ref.blockchain, amount = _ref.amount, token = _ref.token, receiver = _ref.receiver;
+            accept = _ref.accept;
+            accept.forEach(function (configuration) {
+              if (typeof configuration.blockchain === 'undefined') {
+                throw 'DePayWidgets.Payment: You need to set the blockchain your want to receive the payment on!';
+              }
 
-            if (!(typeof blockchain === 'undefined')) {
-              _context.next = 3;
-              break;
-            }
+              if (!['ethereum', 'bsc'].includes(configuration.blockchain)) {
+                throw 'DePayWidgets.Payment: You need to set a supported blockchain!';
+              }
 
-            throw 'DePayWidgets.Payment: You need to set the blockchain your want to receive the payment on!';
+              if (typeof configuration.amount === 'undefined') {
+                throw 'DePayWidgets.Payment: You need to set the amount you want to receive as payment!';
+              }
 
-          case 3:
-            if (['ethereum', 'bsc'].includes(blockchain)) {
-              _context.next = 5;
-              break;
-            }
+              if (typeof configuration.token === 'undefined') {
+                throw 'DePayWidgets.Payment: You need to set the token you want to receive as payment!';
+              }
 
-            throw 'DePayWidgets.Payment: You need to set a supported blockchain!';
+              if (typeof configuration.receiver === 'undefined') {
+                throw 'DePayWidgets.Payment: You need to set the receiver address that you want to receive the payment!';
+              }
+            });
 
-          case 5:
-            if (!(typeof amount === 'undefined')) {
-              _context.next = 7;
-              break;
-            }
-
-            throw 'DePayWidgets.Payment: You need to set the amount you want to receive as payment!';
-
-          case 7:
-            if (!(typeof token === 'undefined')) {
-              _context.next = 9;
-              break;
-            }
-
-            throw 'DePayWidgets.Payment: You need to set the token you want to receive as payment!';
-
-          case 9:
-            if (!(typeof receiver === 'undefined')) {
-              _context.next = 11;
-              break;
-            }
-
-            throw 'DePayWidgets.Payment: You need to set the receiver address that you want to receive the payment!';
-
-          case 11:
+          case 2:
           case "end":
             return _context.stop();
         }
@@ -1973,13 +1966,13 @@ var preflight = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var blockchain, amount, token, receiver, sent, confirmed, ensured, document, unmountShadowDOM, content, _ReactShadowDOM, unmount;
+    var accept, sent, confirmed, ensured, document, unmountShadowDOM, content, _ReactShadowDOM, unmount;
 
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            blockchain = _ref3.blockchain, amount = _ref3.amount, token = _ref3.token, receiver = _ref3.receiver, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, document = _ref3.document;
+            accept = _ref3.accept, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, document = _ref3.document;
 
             if (typeof document === 'undefined') {
               document = window.document;
@@ -1987,10 +1980,7 @@ var Payment = /*#__PURE__*/function () {
 
             _context2.next = 4;
             return preflight({
-              blockchain: blockchain,
-              amount: amount,
-              token: token,
-              receiver: receiver
+              accept: accept
             });
 
           case 4:
@@ -2002,17 +1992,14 @@ var Payment = /*#__PURE__*/function () {
             content = function content(container) {
               return /*#__PURE__*/React.createElement(ConfigurationProvider, {
                 configuration: {
-                  blockchain: blockchain,
-                  amount: amount,
-                  token: token,
-                  receiver: receiver,
+                  accept: accept,
                   sent: sent,
                   confirmed: confirmed,
                   ensured: ensured
                 }
               }, /*#__PURE__*/React.createElement(ClosableProvider, {
                 unmount: unmountShadowDOM
-              }, /*#__PURE__*/React.createElement(UpdateProvider, null, /*#__PURE__*/React.createElement(WalletProvider, null, /*#__PURE__*/React.createElement(ToTokenProvider, null, /*#__PURE__*/React.createElement(RoutingProvider, null, /*#__PURE__*/React.createElement(PaymentProvider, null, /*#__PURE__*/React.createElement(PaymentStack, {
+              }, /*#__PURE__*/React.createElement(UpdateProvider, null, /*#__PURE__*/React.createElement(WalletProvider, null, /*#__PURE__*/React.createElement(RoutingProvider, null, /*#__PURE__*/React.createElement(PaymentProvider, null, /*#__PURE__*/React.createElement(ToTokenProvider, null, /*#__PURE__*/React.createElement(PaymentStack, {
                 document: document,
                 container: container
               }))))))));

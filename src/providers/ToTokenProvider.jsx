@@ -1,5 +1,5 @@
 import apiKey from '../apiKey'
-import ConfigurationContext from '../contexts/ConfigurationContext'
+import PaymentContext from '../contexts/PaymentContext'
 import React, { useState, useEffect, useContext } from 'react'
 import ToTokenContext from '../contexts/ToTokenContext'
 import UpdateContext from '../contexts/UpdateContext'
@@ -13,21 +13,21 @@ export default (props)=>{
 
   const { account } = useContext(WalletContext)
   const { update } = useContext(UpdateContext)
-  const { blockchain, token, amount } = useContext(ConfigurationContext)
+  const { payment } = useContext(PaymentContext)
   const [ localValue, setLocalValue ] = useState()
   const [ reloadCount, setReloadCount ] = useState(0)
-  const getToTokenLocalValue = ({ update })=>{
-    if(update == false) { return }
+  const getToTokenLocalValue = ({ update, payment })=>{
+    if(update == false || payment?.route == undefined) { return }
     Promise.all([
       route({
-        blockchain,
-        tokenIn: token,
-        tokenOut: CONSTANTS[blockchain].USD,
-        amountIn: amount,
+        blockchain: payment.route.blockchain,
+        tokenIn: payment.route.toToken.address,
+        tokenOut: CONSTANTS[payment.route.blockchain].USD,
+        amountIn: payment.route.toAmount,
         fromAddress: account,
         toAddress: account
       }),
-      (new Token({ blockchain, address: CONSTANTS[blockchain].USD })).decimals()
+      (new Token({ blockchain: payment.route.blockchain, address: CONSTANTS[payment.route.blockchain].USD })).decimals()
     ]).then(([USDExchangeRoutes, USDDecimals])=>{
       let USDRoute = USDExchangeRoutes[0]
       if (USDRoute == undefined) { return }
@@ -40,8 +40,8 @@ export default (props)=>{
   }
   
   useEffect(()=>{
-    if(account) { getToTokenLocalValue({ update }) }
-  }, [account])
+    if(account && payment) { getToTokenLocalValue({ update, payment }) }
+  }, [payment, account])
 
   useEffect(() => {
     const timeout = setTimeout(() => {
