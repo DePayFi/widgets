@@ -1,64 +1,41 @@
-import DisplayTokenAmount from '../utils/DisplayTokenAmount';
-import LocalCurrency from '../utils/LocalCurrency';
-import PaymentContext from '../contexts/PaymentContext';
-import React from 'react';
-import { ethers } from 'ethers';
+import PaymentContext from '../contexts/PaymentContext'
+import React, { useContext, useEffect, useState } from 'react'
+import RoutingContext from '../contexts/RoutingContext'
 
-class PaymentProvider extends React.Component {
-  state = {}
+export default (props)=>{
 
-  paymentInETH() {
-    if(this.props.route.amounts.length <= 2) {
-      if(this.props.route.token.symbol === 'ETH') {
-        return ethers.utils.formatEther(this.props.route.amounts[0]);
-      } else {
-        return ethers.utils.formatEther(this.props.route.amounts[1]);
-      }
-    } else {
-      return ethers.utils.formatEther(this.props.route.amounts[1]);
+  const { selectedRoute } = useContext(RoutingContext)
+  const [ payment, setPayment ] = useState()
+  const [ transaction, setTransaction ] = useState()
+
+  useEffect(()=>{
+    if(selectedRoute) {
+      let fromToken = selectedRoute.fromToken
+      let transactionParams = selectedRoute.transaction.params
+      Promise.all([
+        fromToken.name(),
+        fromToken.symbol(),
+        fromToken.readable(selectedRoute.fromAmount)
+      ]).then(([name, symbol, amount])=>{
+        setPayment({ 
+          route: selectedRoute,
+          token: selectedRoute.fromToken.address,
+          name,
+          symbol: symbol.toUpperCase(),
+          amount
+        })
+      })
     }
-  }
+  }, [selectedRoute])
 
-  local() {
-    return LocalCurrency(this.paymentInETH() * this.props.price);
-  }
-
-  token() {
-    return DisplayTokenAmount(this.props.route.amounts[0], this.props.route.token.decimals, this.props.route.token.symbol);
-  }
-
-  feeInETH() {
-    if(this.props.gas == undefined) { return }
-    return parseFloat(ethers.utils.formatUnits(this.props.gas, 'gwei')) * this.props.route.fee;
-  }
-
-  feeLocal() {
-    return LocalCurrency(this.feeInETH() * this.props.price);
-  }
-
-  feeToken() {
-    return DisplayTokenAmount(this.feeInETH(), 0, 'ETH')
-  }
-
-  total() {
-    return LocalCurrency((parseFloat(this.paymentInETH())) * this.props.price);
-  }
-
-  render() {
-    if(!this.props.route) { return(<div>{this.props.children}</div>) }
-    return(
-      <PaymentContext.Provider value={{
-        local: this.local(),
-        token: this.token(),
-        feeInETH: this.feeInETH(),
-        feeLocal: this.feeLocal(),
-        feeToken: this.feeToken(),
-        total: this.total()
-      }}>
-        {this.props.children}
-      </PaymentContext.Provider>
-    )
-  }
+  return(
+    <PaymentContext.Provider value={{
+      setPayment,
+      payment,
+      setTransaction,
+      transaction,
+    }}>
+      { props.children }
+    </PaymentContext.Provider>
+  )
 }
-
-export default PaymentProvider;

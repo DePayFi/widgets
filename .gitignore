@@ -118,3 +118,6 @@ out
 build
 
 tmp/
+
+cypress/videos
+cypress/screenshots

@@ -1,24 +1,7 @@
-import Donation from './Donation';
-import Payment from './Payment';
-import Sale from './Sale';
-import Selector from './Selector';
-import Swap from './Swap';
-import { ethers } from 'ethers';
+import Payment from './Payment'
 
-export {
-  ethers,
-  Donation,
-  Payment,
-  Sale,
-  Selector,
-  Swap,
+let DePayWidgets = {
+  Payment
 }
 
-export default {
-  ethers,
-  Donation,
-  Payment,
-  Sale,
-  Selector,
-  Swap,
-}
+export default DePayWidgets

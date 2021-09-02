@@ -1,94 +1,72 @@
-import _ from 'lodash';
-import CallbackContext from './contexts/CallbackContext';
-import DialogProvider from './providers/DialogProvider';
-import PaymentStack from './stacks/PaymentStack';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import ShadowContainer from './utils/ShadowContainer';
-import WalletProvider from './providers/WalletProvider';
-import { ETH } from './utils/Constants';
-import { ethers } from 'ethers';
+import ClosableProvider from './providers/ClosableProvider'
+import ConfigurationProvider from './providers/ConfigurationProvider'
+import PaymentProvider from './providers/PaymentProvider'
+import PaymentStack from './stacks/PaymentStack'
+import React from 'react'
+import RoutingProvider from './providers/RoutingProvider'
+import style from './style'
+import ToTokenProvider from './providers/ToTokenProvider'
+import UpdateProvider from './providers/UpdateProvider'
+import WalletProvider from './providers/WalletProvider'
+import { ReactShadowDOM } from 'depay-react-shadow-dom'
 
-function checkArguments(args){
-  if(args.length == 0 || args.length > 1) {
-    throw 'Unknown amount of arguments.'
-  }
+let preflight = async({ accept }) => {
+  accept.forEach((configuration)=>{
+    if(typeof configuration.blockchain === 'undefined') { throw('DePayWidgets.Payment: You need to set the blockchain your want to receive the payment on!') }
+    if(!['ethereum', 'bsc'].includes(configuration.blockchain)) { throw('DePayWidgets.Payment: You need to set a supported blockchain!') }
+    if(typeof configuration.amount === 'undefined') { throw('DePayWidgets.Payment: You need to set the amount you want to receive as payment!') }
+    if(typeof configuration.token === 'undefined') { throw('DePayWidgets.Payment: You need to set the token you want to receive as payment!') }
+    if(typeof configuration.receiver === 'undefined') { throw('DePayWidgets.Payment: You need to set the receiver address that you want to receive the payment!') }
+  })
 }
 
-function toElement(arg) {
-  if(typeof arg === 'string') {
-    return document.querySelector(arg);
-  } else if (_.isElement(arg)) {
-    return arg;
-  } else {
-    throw 'Unknown element or element query.'
+let Payment = async ({ accept, sent, confirmed, ensured, document }) => {
+
+  if(typeof document === 'undefined') { document = window.document }
+
+  await preflight({ accept })
+
+  let unmountShadowDOM = ()=> {
+    // setTimeout to allow dialog to animate out first
+    setTimeout(unmount, 300)
   }
+
+  let content = (container)=> {
+    return(
+      <ConfigurationProvider configuration={ { accept, sent, confirmed, ensured } }>
+        <ClosableProvider unmount={ unmountShadowDOM }>
+          <UpdateProvider>
+            <WalletProvider>
+              <RoutingProvider>
+                <PaymentProvider>
+                  <ToTokenProvider>
+                    <PaymentStack
+                      document={ document }
+                      container={ container }
+                    />
+                  </ToTokenProvider>
+                </PaymentProvider>
+              </RoutingProvider>
+            </WalletProvider>
+          </UpdateProvider>
+        </ClosableProvider>
+      </ConfigurationProvider>
+    )
+  }
+
+  let { unmount } = ReactShadowDOM({
+    document,
+    element: document.body,
+    content: content,
+    insideStyle: style(),
+    outsideStyle: `
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    `,
+  })
 }
 
-function checkAndPrepOptions(input) {
-  var options = Object.assign({}, input); // shallow copy
-
-  // amount
-  if(typeof options.amount != 'string') { throw '"amount" needs to be passed as a string.' }
-  if(_.isEmpty(options.amount)) { throw '"amount" needs to be set.' }
-
-  // token
-  if(_.isEmpty(options.token))  { throw '"token" needs to be set.' }
-  options.token = (options.token === ETH) ? ETH : ethers.utils.getAddress(ethers.utils.getAddress(options.token));
-
-  // receiver
-  if(_.isEmpty(options.receiver))     { throw '"receiver" needs to be set.' }
-  options.receiver = ethers.utils.getAddress(ethers.utils.getAddress(options.receiver));
-
-  // element
-  if(!_.isEmpty(options.element)) {
-    options.element = toElement(options.element);
-  }
-
-  // route
-  if(!_.isEmpty(options.route)) {
-    options.route = ethers.utils.getAddress(ethers.utils.getAddress(options.route));
-  }
-
-  // callback
-  if(options.callback !== undefined && typeof options.callback !== 'function') { throw 'callback needs to be a function' }
-  if(options.sent !== undefined && typeof options.sent !== 'function') { throw 'sent callback needs to be a function' }
-  if(options.confirmed !== undefined && typeof options.confirmed !== 'function') { throw 'confirmed callback needs to be a function' }
-
-  return options;
-}
-
-export default function Payment() {
-  checkArguments(arguments);
-  var options = checkAndPrepOptions(arguments[0]);
-  const [shadowContainer, closeContainer, setClosable] = ShadowContainer();
-
-  let unmountAndClose = function(){
-    let closed = closeContainer();
-    if(closed) { ReactDOM.unmountComponentAtNode(shadowContainer); }
-  }
-
-  return new Promise(() => {
-    ReactDOM.render(
-      <CallbackContext.Provider value={{
-        callback: options.callback,
-        sent: options.sent,
-        confirmed: options.confirmed
-      }}>
-        <DialogProvider
-          closeContainer={ unmountAndClose }
-          setClosable={ setClosable }
-        >
-          <WalletProvider>
-            <PaymentStack
-              amount={options.amount}
-              token={options.token}
-              receiver={options.receiver}
-            />
-          </WalletProvider>
-        </DialogProvider>
-      </CallbackContext.Provider>
-      , shadowContainer
-    );
-  });
-}
+export default Payment
