@@ -1,5 +1,4 @@
 import commonjs from '@rollup/plugin-commonjs'
-import del from 'rollup-plugin-delete'
 import globals from './rollup.globals.js'
 import pkg from './package.json'
 import replace from '@rollup/plugin-replace'
@@ -33,7 +32,6 @@ export default {
     ...Object.keys(pkg.peerDependencies || {}),
   ],
   plugins: [
-    del({ targets: 'dist/*' }),
     nodeResolve(),
     commonjs({
       include: 'node_modules/**'
