@@ -75,7 +75,6 @@ export default (props)=>{
               </div>
             </div>
             <div className="CardInfo">
-              { payment.route.directTransfer && <span className="Label">Lowest Network Fee</span> }
               { payment.route.approvalRequired && <span className="Label">Requires Approval</span> }
             </div>
           </div>

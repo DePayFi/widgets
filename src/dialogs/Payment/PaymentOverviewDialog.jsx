@@ -88,7 +88,7 @@ export default (props)=>{
             pay()
           }}
         >
-          Pay { localValue.toString() }
+          Pay { localValue != 0 ? localValue.toString() : `${payment.amount}` }
         </button>
       )
     } else if (state == 'paying') {
@@ -177,9 +177,11 @@ export default (props)=>{
                     </span>
                   </div>
                 </h2>
-                <h3 className="CardText">
-                  <small>{ localValue.toString() }</small>
-                </h3>
+                { localValue != 0 &&
+                  <h3 className="CardText">
+                    <small>{ localValue.toString() }</small>
+                  </h3>
+                }
               </div>
             </div>
             <div className="CardAction">

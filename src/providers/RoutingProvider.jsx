@@ -28,7 +28,7 @@ export default (props)=>{
         setAllRoutes([])
       } else {
         roundAmounts(routes).then((roundedRoutes)=>{
-          let selected = selectedRoute ? roundedRoutes[allRoutes.indexOf(selectedRoute)] : roundedRoutes[0]
+          let selected = selectedRoute ? (roundedRoutes[allRoutes.indexOf(selectedRoute)] || roundedRoutes[0]) : roundedRoutes[0]
           setSelectedRoute(selected)
           setAllRoutes(roundedRoutes)
         })

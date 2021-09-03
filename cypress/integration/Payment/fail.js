@@ -100,7 +100,7 @@ describe('Payment execution fails', () => {
     }))
   })
   
-  it.only('shows an error dialog if confirming sent payment transaction by the network failed', () => {
+  it('shows an error dialog if confirming sent payment transaction by the network failed', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {

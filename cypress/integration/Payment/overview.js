@@ -238,7 +238,7 @@ describe('overview Payment', () => {
       })
     })
 
-    it.only('stops updating prices once payment is sending', () => {
+    it('stops updating prices once payment is sending', () => {
       let mockedTransaction = mock({
         blockchain,
         transaction: {
@@ -307,6 +307,33 @@ describe('overview Payment', () => {
             expect(NEW_TOKEN_B_AmountBN_mock.calls.count()).to.eq(NEW_TOKEN_B_AmountBN_mock_count)
             expect(NEW_USD_AmountOutBN_mock.calls.count()).to.eq(NEW_USD_AmountOutBN_mock_count)
           })
+        })
+      })
+    })
+  })
+
+  describe('couldnt load toToken USD route for localValue', ()=> {
+
+    beforeEach(()=> {
+      mock({
+        provider: provider(blockchain),
+        blockchain, 
+        call: {
+          to: exchange.contracts.router.address,
+          api: exchange.contracts.router.api,
+          method: 'getAmountsOut',
+          params: [TOKEN_A_AmountBN, [DEPAY, WETH, CONSTANTS[blockchain].USD]],
+          return: []
+        }
+      })
+    })
+
+    it('falls back to display the token amount and symbol', ()=> {
+      cy.visit('cypress/test.html').then((contentWindow) => {
+        cy.document().then((document)=>{
+          DePayWidgets.Payment({ ...defaultArguments, document })
+          cy.get('h3.CardText', { includeShadowDom: true }).should('not.exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay 20')
         })
       })
     })
