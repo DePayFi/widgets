@@ -20,7 +20,7 @@ let preflight = async({ accept }) => {
   })
 }
 
-let Payment = async ({ accept, sent, confirmed, ensured, document }) => {
+let Payment = async ({ accept, event, sent, confirmed, ensured, document }) => {
 
   if(typeof document === 'undefined') { document = window.document }
 
@@ -33,7 +33,7 @@ let Payment = async ({ accept, sent, confirmed, ensured, document }) => {
 
   let content = (container)=> {
     return(
-      <ConfigurationProvider configuration={ { accept, sent, confirmed, ensured } }>
+      <ConfigurationProvider configuration={ { accept, event, sent, confirmed, ensured } }>
         <ClosableProvider unmount={ unmountShadowDOM }>
           <UpdateProvider>
             <WalletProvider>

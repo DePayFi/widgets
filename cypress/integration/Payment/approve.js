@@ -5,6 +5,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
 import { mock, confirm, resetMocks } from 'depay-web3-mock'
+import { provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
@@ -34,7 +35,9 @@ describe('approve Payment', () => {
   beforeEach(()=>{
 
     ({ TOKEN_A_AmountBN } = mockBasics({
-      blockchain: 'ethereum',
+      
+      provider: provider(blockchain),
+      blockchain,
 
       fromAddress,
       fromAddressAssets: [

@@ -5,7 +5,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
 import { mock, confirm, resetMocks, anything } from 'depay-web3-mock'
-import { resetCache } from 'depay-web3-client'
+import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
@@ -36,7 +36,8 @@ describe('change Payment', () => {
   beforeEach(()=>{
     
     ({ WRAPPED_AmountInBN, TOKEN_A_AmountBN } = mockBasics({
-      blockchain: 'ethereum',
+      provider: provider(blockchain),
+      blockchain,
 
       fromAddress: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
       fromAddressAssets: [

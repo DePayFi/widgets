@@ -4,14 +4,15 @@ import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
-import { mock, confirm, increaseBlock, resetMocks } from 'depay-web3-mock'
-import { provider } from 'depay-web3-client'
+import { mock, confirm, increaseBlock, resetMocks, anything } from 'depay-web3-mock'
+import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
 describe('execute Payment', () => {
 
   beforeEach(resetMocks)
+  beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
 
   let blockchain = 'ethereum'
@@ -35,6 +36,7 @@ describe('execute Payment', () => {
   beforeEach(()=>{
 
     ({ TOKEN_A_AmountBN } = mockBasics({
+      
       provider: provider(blockchain),
       blockchain,
 
@@ -45,23 +47,13 @@ describe('execute Payment', () => {
           "symbol": "ETH",
           "address": ETH,
           "type": "NATIVE"
-        }, {
-          "name": "Dai Stablecoin",
-          "symbol": "DAI",
-          "address": DAI,
-          "type": "ERC20"
-        }, {
-          "name": "DePay",
-          "symbol": "DEPAY",
-          "address": DEPAY,
-          "type": "ERC20"
         }
       ],
       
       toAddress,
 
       exchange: 'uniswap_v2',
-      NATIVE_Balance: 0,
+      NATIVE_Balance: 1.1,
 
       TOKEN_A: DEPAY,
       TOKEN_A_Decimals: 18,
@@ -98,21 +90,31 @@ describe('execute Payment', () => {
     }))
   })
   
-  it('executes a payment', () => {
+  it('emits an event if payment transaction goes through the router', () => {
+
     let mockedTransaction = mock({
       blockchain,
       transaction: {
-        from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN]
+        to: "0xae60ac8e69414c2dc362d0e6a03af643d1d85b92",
+        api: routers[blockchain].api,
+        method: 'route',
+        params: {
+          path: ["0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee","0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"],
+          amounts: ["10000000000000000", "20000000000000000000", anything],
+          addresses: ["0xd8da6bf26964af9d7eed9e03e53415d37aa96045","0x4e260bb2b25ec6f3a59b478fcde5ed5b8d783b02"],
+          plugins: [
+            plugins[blockchain].uniswap_v2.address,
+            plugins[blockchain].payment.address,
+            plugins[blockchain].event.address
+          ],
+          data:[]
+        }
       }
     })
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, document })
+        DePayWidgets.Payment({ ...defaultArguments, event: 'ifSwapped', document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
@@ -129,82 +131,6 @@ describe('execute Payment', () => {
               cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.round .Checkmark.Icon.white').click()
               cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
-            })
-          })
-        })
-      })
-    })
-  })
-
-  it('resets the payment if anything goes wrong during submission (like user denying signature)', () => {
-    let mockedTransaction = mock({
-      blockchain,
-      transaction: {
-        delay: 1000,
-        from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN],
-        return: Error('MetaMask Tx Signature: User denied transaction signature.')
-      }
-    })
-
-    cy.visit('cypress/test.html').then((contentWindow) => {
-      cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.get('.Card[title="Change payment"]', { includeShadowDom: true }).should('exist')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-        cy.get('.Card[title="Change payment"]', { includeShadowDom: true }).should('not.exist')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...')
-        // sent fails:
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]')
-        cy.get('.Card[title="Change payment"]', { includeShadowDom: true }).should('exist')
-      })
-    })
-  })
-
-  it('calls all callbacks (sent, confirmed, ensured)', () => {
-    let mockedTransaction = mock({
-      blockchain,
-      transaction: {
-        delay: 1000,
-        from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN],
-      }
-    })
-
-    let sentCalled = false
-    let confirmedCalled = false
-    let ensuredCalled = false
-
-    cy.visit('cypress/test.html').then((contentWindow) => {
-      cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, document,
-          sent: ()=>{ sentCalled = true },
-          confirmed: ()=>{ confirmedCalled = true },
-          ensured: ()=>{ ensuredCalled = true },
-        })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
-          cy.wait(1000).then(()=>{
-            expect(sentCalled).to.equal(true)
-            expect(mockedTransaction.calls.count()).to.equal(1)
-            confirm(mockedTransaction)
-            cy.wait(5000).then(()=>{
-              expect(confirmedCalled).to.equal(true)
-              increaseBlock(12)
-              cy.wait(5000).then(()=>{
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.round .Checkmark.Icon.white').click().then(()=>{
-                  expect(ensuredCalled).to.equal(true)
-                })
-              })
             })
           })
         })

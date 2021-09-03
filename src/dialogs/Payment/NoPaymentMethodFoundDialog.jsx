@@ -9,7 +9,6 @@ export default ()=> {
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <h1 className="FontSizeL TextLeft">Insufficient Balance</h1>
         </div>
       }
       body={
@@ -17,9 +16,10 @@ export default ()=> {
           <div className="GraphicWrapper">
             <img className="Graphic" src={ QuestionsGraphic }/>
           </div>
-          <div className="PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM">
-            <strong>
-              We were not able to find the request payment token nor any other convertable asset in your wallet. Please top up your account in order to proceed with this payment.
+          <h1 className="FontSizeL PaddingTopS FontWeightBold">Insufficient Balance</h1>
+          <div className="PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
+            <strong className="FontSizeM">
+              We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.
             </strong>
           </div>
         </div>

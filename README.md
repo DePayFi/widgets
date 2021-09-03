@@ -52,7 +52,9 @@ DePayWidgets.Payment({
 
 ### Configuration
 
-You need to pass a configuration object to `DePayWidgets.Payment` which needs to contain the fields:
+You need to pass a configuration object to `DePayWidgets.Payment` which needs to contain the `accept` field:
+
+#### accept
 
 `blockchain`
 
@@ -80,11 +82,15 @@ Use our [payment configurator](https://depay.fi/documentation/payments#payment-c
 
 The address receiving the payment. Always double check that you've set the right address.
 
+#### sent
+
 `sent`
 
 A function that will be called once the payment has been sent to the network (but still needs to be mined/confirmed).
 
 The widget will call the `sent` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+
+#### confirmed
 
 `confirmed`
 
@@ -92,11 +98,20 @@ A function that will be called once the payment has been confirmed once by the n
 
 The widget will call the `confirmed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
 
+#### ensured
+
 `ensured`
 
 A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
 
 The widget will call the `ensured` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+
+#### event
+
+`event`
+
+If set to `ifSwapped`, emits a [payment event](https://github.com/depayfi/depay-evm-router#depayrouterv1paymentevent02) if payments are routed through [router smart contract](https://github.com/depayfi/depay-evm-router).
+Payments are routed through the DePayPaymentRouter if swapping tokens is required in order to perform the payment. If payments are not routed through the router, e.g. direct transfer, no event is emited if `event` is set to `ifSwapped`.
 
 ## Development
 

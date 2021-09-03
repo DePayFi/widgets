@@ -16,7 +16,6 @@ export default ()=> {
       stacked={ true }
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <h1 className="FontSizeL TextLeft">Payment Failed</h1>
         </div>
       }
       body={
@@ -24,8 +23,11 @@ export default ()=> {
           <div className="GraphicWrapper">
             <img className="Graphic" src={ ErrorGraphic }/>
           </div>
-          <div className="PaddingTopS PaddingBottomS">
-            <strong className="FontSizeL">Unfortunately executing your payment failed. You can go back and try again.</strong>
+          <h1 className="FontSizeL PaddingTopS FontWeightBold">Payment Failed</h1>
+          <div className="PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
+            <strong className="FontSizeM">
+              Unfortunately executing your payment failed. You can go back and try again.
+            </strong>
             { transaction && 
               <div className="PaddingTopS">
                 <a className="Link" title="Check your transaction on a block explorer" href={ transaction?.url } target="_blank" rel="noopener noreferrer">

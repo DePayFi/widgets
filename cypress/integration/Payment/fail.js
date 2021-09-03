@@ -5,12 +5,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
 import { mock, resetMocks, fail } from 'depay-web3-mock'
+import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
-describe('execute Payment', () => {
+describe('Payment execution fails', () => {
 
   beforeEach(resetMocks)
+  beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
 
   let blockchain = 'ethereum'
@@ -34,7 +36,9 @@ describe('execute Payment', () => {
   beforeEach(()=>{
 
     ({ TOKEN_A_AmountBN } = mockBasics({
-      blockchain: 'ethereum',
+
+      provider: provider(blockchain),
+      blockchain,
 
       fromAddress,
       fromAddressAssets: [
