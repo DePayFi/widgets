@@ -24,57 +24,118 @@
     <script crossorigin src="https://unpkg.com/depay-react-token-image@1/dist/umd/index.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.css">
     <script src="dist/umd/index.js"></script>
-    <style>
-      button {
-        color: #fff;
-        background-color: #ea357a;
-        border: none;
-        padding: 0.35rem 1.2rem !important;
-        border-radius: 1.2rem !important;
-        box-shadow: none;
-        outline: none;
-      }
-    </style>
+    <link href="https://duelistking.com/fe/scss/styles.css?v=2.0.2" rel="stylesheet">
+    <link href="https://duelistking.com/fe/scss/custom.css?v=2.0.2" rel="stylesheet">
   </head>
   <body style="text-align: center;">
     
-    <div class="container pb-4"><!-- Payment -->
-      <div class="row">
-      <div class="col-4"></div>
-      <div class="col-4">
-        <h2 class="pt-5">Duelistking</h2>
-        <button id="payButton" class="btn-lg mt-2">Pay</button>
-        <script>
-          var button = document.getElementById("payButton");
-          button.addEventListener("click",function(e){
-            let amount = 20;
-            let receiver = '0xcC527eb38F459882f0efFbAB8fe79B47716DE72F';
-            DePayWidgets.Payment({
-              accept: [
-                { blockchain: 'ethereum', token: '0xdAC17F958D2ee523a2206206994597C13D831ec7', amount, receiver },
-                { blockchain: 'bsc', token: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56', amount, receiver }
-              ]
-            });
-            // let amount = 5;
-            // let receiver = '0xcC527eb38F459882f0efFbAB8fe79B47716DE72F';
-            // DePayWidgets.Payment({
-            //   accept: [
-            //     { blockchain: 'ethereum', token: '0xdAC17F958D2ee523a2206206994597C13D831ec7', amount, receiver },
-            //     { blockchain: 'ethereum', token: '0x6B175474E89094C44Da98b954EedeAC495271d0F', amount, receiver },
-            //     { blockchain: 'ethereum', token: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', amount, receiver },
-            //     { blockchain: 'ethereum', token: '0x4Fabb145d64652a948d72533023f6E7A623C7C53', amount, receiver },
-            //     { blockchain: 'bsc', token: '0x55d398326f99059fF775485246999027B3197955', amount, receiver },
-            //     { blockchain: 'bsc', token: '0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3', amount, receiver },
-            //     { blockchain: 'bsc', token: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d', amount, receiver },
-            //     { blockchain: 'bsc', token: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56', amount, receiver }
-            //   ],
-            //   event: 'ifSwapped'
-            // });
-          });
-        </script>
+    <section class="tokenomics sign-in">
+      <div class="container">
+        <div class="row">
+          <div class="col offset-xl-3 col-xl-6">
+            <form id="signin-form" class="form-horizontal form-sigin ab-form" action="/site/signin" method="post">
+              <input type="hidden" name="_csrf" value="eFxJ_Ov_mxdpDGg8qd2UNxIApT6Jd8r4EkqKHxbSFOIPCAaRjZb9QhlPC3P7vsRbeWrSSLk2j5JEIdMoc-Eijw==">    
+              <h3>Buy Card Packs</h3>
+              <button class="btn btn-sign" id="btnPay" type="button">Buy</button>
+            </form>            
+          </div>
+        </div>
       </div>
-      <div class="col-4"></div>
-    </div><!-- Payment -->
+    </section>
+    
+    <script>
+      var button = document.getElementById("btnPay");
+      button.addEventListener("click",function(e){
+        let amount = 5;
+        let receiver = '0xcC527eb38F459882f0efFbAB8fe79B47716DE72F';
+        DePayWidgets.Payment({
+          accept: [
+            { blockchain: 'ethereum', token: '0xdAC17F958D2ee523a2206206994597C13D831ec7', amount, receiver },
+            { blockchain: 'ethereum', token: '0x6B175474E89094C44Da98b954EedeAC495271d0F', amount, receiver },
+            { blockchain: 'ethereum', token: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', amount, receiver },
+            { blockchain: 'ethereum', token: '0x4Fabb145d64652a948d72533023f6E7A623C7C53', amount, receiver },
+            { blockchain: 'bsc', token: '0x55d398326f99059fF775485246999027B3197955', amount, receiver },
+            { blockchain: 'bsc', token: '0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3', amount, receiver },
+            { blockchain: 'bsc', token: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d', amount, receiver },
+            { blockchain: 'bsc', token: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56', amount, receiver }
+          ],
+          event: 'ifSwapped',
+          style: {
+            colors: {
+              primary: '#ffd265',
+              buttonText: '#000000',
+            },
+            fontFamily: '"Cardo", serif !important',
+            css: `
+              @import url("https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap");
+
+              .ReactDialogBackground {
+                background: rgba(0,0,0,0.8);
+              }
+              
+              .Dialog {
+                border-radius: 0;
+                border: 2px solid #94763B;
+                box-shadow: 0 0 12px rgba(0,0,0,0.4);
+              }
+
+              .DialogHeader, .DialogBody, .DialogFooter {
+                background: rgba(0,0,0,0.9);
+              }
+
+              .DialogHeader {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+              }
+
+              .DialogFooter {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+              }
+
+              .DialogFooter a {
+                color: rgba(150,150,150,0.5);
+              }
+
+              .DialogHeader * {
+                color: #94763B;
+                text-transform: uppercase;
+              }
+
+              .DialogHeader .Icon {
+                fill: #94763B;
+                stroke: #94763B;
+              }
+
+              .Skeleton {
+                opacity: 0.4;
+              }
+
+              .Card {
+                background: rgba(150,150,150,0.2);
+              }
+
+              .Card:hover:not(.Disabled) {
+                background: rgba(150,150,150,0.3);
+              }
+
+              .Card:active:not(.Disabled) {
+                background: rgba(150,150,150,0.2);
+              }
+
+              .TokenAmountRow {
+                color: #ffd265;
+              }
+
+              .Label {
+                background: rgba(0,0,0,0.7);
+              }
+            `
+          }
+        });
+      });
+    </script>
+      
   </body>
 </html>
 

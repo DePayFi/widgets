@@ -19,8 +19,10 @@ export default (style)=>{
 
   style = Object.assign({
     colors: {
-      primary: '#ea357a'
-    }
+      primary: '#ea357a',
+      buttonText: '#ffffff'
+    },
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
   }, style);
   
   return(

@@ -11,7 +11,7 @@ export default (style)=>{
     }
 
     .FooterLink:hover, .FooterLink:active {
-      color: #cc2c65;
+      color: ${style.colors.primary};
     }
   `)
 }

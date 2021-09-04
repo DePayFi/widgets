@@ -113,6 +113,67 @@ The widget will call the `ensured` callback-function passing a transaction as si
 If set to `ifSwapped`, emits a [payment event](https://github.com/depayfi/depay-evm-router#depayrouterv1paymentevent02) if payments are routed through [router smart contract](https://github.com/depayfi/depay-evm-router).
 Payments are routed through the DePayPaymentRouter if swapping tokens is required in order to perform the payment. If payments are not routed through the router, e.g. direct transfer, no event is emited if `event` is set to `ifSwapped`.
 
+
+#### style
+
+`style`
+
+Allows you to change the style of the widget:
+
+##### colors
+
+`colors`
+
+Allows you to set color values:
+
+```javascript
+DePayWidgets.Payment({
+  style: {
+    colors: {
+      primary: '#ffd265',
+      buttonText: '#000000'
+    },
+  },
+  // ...
+})
+```
+
+##### fontFamily
+
+`fontFamily`
+
+Allows you to set the font-family:
+
+```javascript
+DePayWidgets.Payment({
+  style: {
+    fontFamily: '"Cardo", serif !important'
+  },
+  // ...
+})
+```
+
+##### css
+
+`css`
+
+Allows you to inject CSS:
+
+```javascript
+DePayWidgets.Payment({
+  style: {
+    css: `
+      @import url("https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap");
+
+      .ReactDialogBackground {
+        background: rgba(0,0,0,0.8);
+      }
+    `
+  },
+  // ...
+})
+```
+
 ## Development
 
 ### Quick start

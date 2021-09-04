@@ -1,9 +1,9 @@
-export default ()=>{
+export default (style)=>{
   return(`
 
-    .Icon.white {
-      fill: white;
-      stroke: white;
+    .Icon {
+      fill : ${style.colors.buttonText};
+      stroke : ${style.colors.buttonText};
     }
 
     .ChevronLeft, .ChevronRight {
@@ -17,6 +17,11 @@ export default ()=>{
       top: -1px;
       vertical-align: middle;
       width: 1.4rem;
+    }
+
+    .ButtonPrimary .Icon {
+      fill : ${style.colors.buttonText};
+      stroke : ${style.colors.buttonText};
     }
     
   `)

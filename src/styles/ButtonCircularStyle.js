@@ -5,7 +5,7 @@ export default ()=>{
       border-radius: 99rem;
       cursor: pointer;
       height: 34px;
-      opacity: 0.35;
+      opacity: 0.5;
       padding: 5px 4px 4px 4px;
       width: 34px;
     }

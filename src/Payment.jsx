@@ -4,7 +4,7 @@ import PaymentProvider from './providers/PaymentProvider'
 import PaymentStack from './stacks/PaymentStack'
 import React from 'react'
 import RoutingProvider from './providers/RoutingProvider'
-import style from './style'
+import styleRenderer from './style'
 import ToTokenProvider from './providers/ToTokenProvider'
 import UpdateProvider from './providers/UpdateProvider'
 import WalletProvider from './providers/WalletProvider'
@@ -20,7 +20,7 @@ let preflight = async({ accept }) => {
   })
 }
 
-let Payment = async ({ accept, event, sent, confirmed, ensured, document }) => {
+let Payment = async ({ accept, event, sent, confirmed, ensured, style, document }) => {
 
   if(typeof document === 'undefined') { document = window.document }
 
@@ -53,12 +53,13 @@ let Payment = async ({ accept, event, sent, confirmed, ensured, document }) => {
       </ConfigurationProvider>
     )
   }
-
+  let insideStyle = styleRenderer(style)
+  if(style && style.css) { insideStyle = [insideStyle, style.css].join(' ') }
   let { unmount } = ReactShadowDOM({
     document,
     element: document.body,
     content: content,
-    insideStyle: style(),
+    insideStyle,
     outsideStyle: `
       position: fixed;
       top: 0;

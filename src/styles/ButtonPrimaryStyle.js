@@ -4,11 +4,11 @@ export default (style)=>{
     .ButtonPrimary {
       align-items: center;
       align-self: center;
-      background: `+style.colors.primary+`;
+      background: ${style.colors.primary};
       border-radius: 9999rem;
       border: 1px solid transparent;
       box-shadow: 0 0 10px rgba(0,0,0,0.05);
-      color: white;
+      color: ${style.colors.buttonText};
       display: inline-flex;
       flex: 1;
       font-size: 1.3rem;
