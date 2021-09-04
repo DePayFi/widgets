@@ -1829,13 +1829,17 @@
             USDDecimals = _ref3[1];
 
         var USDRoute = USDExchangeRoutes[0];
+        var USDAmount;
 
-        if (USDRoute == undefined) {
+        if (payment.route.toToken.address.toLowerCase() == depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+          USDAmount = payment.route.toAmount.toString();
+        } else if (USDRoute == undefined) {
           return setLocalValue(0);
+        } else {
+          USDAmount = USDRoute.amountOut.toString();
         }
 
-        var USDAmount = USDRoute.amountOut.toString();
-        var USDValue = parseFloat(USDAmount) / Math.pow(10, USDDecimals);
+        var USDValue = ethers.ethers.utils.formatUnits(USDAmount, USDDecimals);
         depayLocalCurrency.Currency.fromUSD({
           amount: USDValue,
           apiKey: apiKey

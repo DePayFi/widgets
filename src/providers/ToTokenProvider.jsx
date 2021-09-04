@@ -6,6 +6,7 @@ import UpdateContext from '../contexts/UpdateContext'
 import WalletContext from '../contexts/WalletContext'
 import { CONSTANTS } from 'depay-web3-constants'
 import { Currency } from 'depay-local-currency'
+import { ethers } from 'ethers'
 import { route } from 'depay-web3-exchanges'
 import { Token } from 'depay-web3-tokens'
 
@@ -30,11 +31,17 @@ export default (props)=>{
       (new Token({ blockchain: payment.route.blockchain, address: CONSTANTS[payment.route.blockchain].USD })).decimals()
     ]).then(([USDExchangeRoutes, USDDecimals])=>{
       let USDRoute = USDExchangeRoutes[0]
-      if (USDRoute == undefined) {
+
+      let USDAmount
+      if(payment.route.toToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+        USDAmount = payment.route.toAmount.toString()
+      } else if (USDRoute == undefined) {
         return setLocalValue(0)
+      } else {
+        USDAmount = USDRoute.amountOut.toString()
       }
-      let USDAmount = USDRoute.amountOut.toString()
-      let USDValue = parseFloat(USDAmount) / 10**USDDecimals
+
+      let USDValue = ethers.utils.formatUnits(USDAmount, USDDecimals)
       Currency.fromUSD({ amount: USDValue, apiKey }).then((localValue)=>{
         setLocalValue(localValue)
       })

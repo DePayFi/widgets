@@ -64888,13 +64888,17 @@ var ToTokenProvider = (function (props) {
           USDDecimals = _ref3[1];
 
       var USDRoute = USDExchangeRoutes[0];
+      var USDAmount;
 
-      if (USDRoute == undefined) {
+      if (payment.route.toToken.address.toLowerCase() == CONSTANTS$2[payment.route.blockchain].USD.toLowerCase()) {
+        USDAmount = payment.route.toAmount.toString();
+      } else if (USDRoute == undefined) {
         return setLocalValue(0);
+      } else {
+        USDAmount = USDRoute.amountOut.toString();
       }
 
-      var USDAmount = USDRoute.amountOut.toString();
-      var USDValue = parseFloat(USDAmount) / Math.pow(10, USDDecimals);
+      var USDValue = formatUnits(USDAmount, USDDecimals);
       Currency.fromUSD({
         amount: USDValue,
         apiKey: apiKey

@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { NavigateStackContext, ReactDialogStack } from 'depay-react-dialog-stack';
 import { TokenImage } from 'depay-react-token-image';
 import { CONSTANTS } from 'depay-web3-constants';
-import 'ethers';
+import { ethers } from 'ethers';
 import { route } from 'depay-web3-payments';
 import { Currency } from 'depay-local-currency';
 import { route as route$1 } from 'depay-web3-exchanges';
@@ -1831,13 +1831,17 @@ var ToTokenProvider = (function (props) {
           USDDecimals = _ref3[1];
 
       var USDRoute = USDExchangeRoutes[0];
+      var USDAmount;
 
-      if (USDRoute == undefined) {
+      if (payment.route.toToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+        USDAmount = payment.route.toAmount.toString();
+      } else if (USDRoute == undefined) {
         return setLocalValue(0);
+      } else {
+        USDAmount = USDRoute.amountOut.toString();
       }
 
-      var USDAmount = USDRoute.amountOut.toString();
-      var USDValue = parseFloat(USDAmount) / Math.pow(10, USDDecimals);
+      var USDValue = ethers.utils.formatUnits(USDAmount, USDDecimals);
       Currency.fromUSD({
         amount: USDValue,
         apiKey: apiKey

@@ -22,6 +22,7 @@ describe('overview Payment', () => {
         if (body.find('.ReactShadowDOMOutsideContainer').length > 0) {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
         }
+        cy.wait(1000)
       })
     })
   })
@@ -242,7 +243,7 @@ describe('overview Payment', () => {
       let mockedTransaction = mock({
         blockchain,
         transaction: {
-          delay: 17000,
+          delay: 16000,
           from: fromAddress,
           to: routers[blockchain].address,
           api: routers[blockchain].api,
@@ -297,11 +298,11 @@ describe('overview Payment', () => {
           let NEW_TOKEN_B_AmountBN_mock = mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
           let NEW_USD_AmountOutBN = ethers.utils.parseUnits('35', 18)
           let NEW_USD_AmountOutBN_mock = mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [TOKEN_A_AmountBN, [DEPAY, CONSTANTS[blockchain].WRAPPED, DAI]], return: [TOKEN_A_AmountBN, WRAPPED_AmountInBN, NEW_USD_AmountOutBN] }})
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
           cy.wait(2000).then(()=>{
             NEW_TOKEN_B_AmountBN_mock_count = NEW_TOKEN_B_AmountBN_mock.calls.count()
             NEW_USD_AmountOutBN_mock_count = NEW_USD_AmountOutBN_mock.calls.count()
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+            cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
           })
           cy.wait(16000).then(()=>{
             expect(NEW_TOKEN_B_AmountBN_mock.calls.count()).to.eq(NEW_TOKEN_B_AmountBN_mock_count)
@@ -334,6 +335,31 @@ describe('overview Payment', () => {
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('h3.CardText', { includeShadowDom: true }).should('not.exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay 20')
+        })
+      })
+    })
+  })
+
+  describe('toToken is CONSTANTS[blockchain].USD and hence cant route localValue to CONSTANTS[blockchain].USD itself', ()=>{
+
+    it('takes the amount for toToken CONSTANTS[blockchain].USD instead of trying to route to USD token itself (which is not routable)', ()=> {
+      cy.visit('cypress/test.html').then((contentWindow) => {
+        cy.document().then((document)=>{
+          let USD = CONSTANTS[blockchain].USD
+          mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.factory.address, api: exchange.contracts.factory.api, method: 'getPair', params: [WETH, USD], return: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11' }})
+          mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DEPAY, WETH, USD]], return: [TOKEN_A_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
+          DePayWidgets.Payment({ 
+            accept: [{
+              blockchain,
+              amount,
+              token: USD,
+              receiver: toAddress
+            }]
+          , document })
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '20')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '€17.00')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €17.00')
         })
       })
     })
