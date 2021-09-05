@@ -3,7 +3,7 @@
 You can either load the depay-widgets package via CDN:
 
 ```
-<script src="https://depay.fi/integrate/widgets/v2.js"/>
+<script src="https://depay.fi/integrate/widgets/v2.js"></script>
 ```
 
 or you install depay-widgets via the package manager of your choice and ship it as part of your application bundle:
