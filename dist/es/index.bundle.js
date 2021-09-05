@@ -64299,7 +64299,7 @@ var HeightStyle = (function () {
 });
 
 var IconStyle = (function (style) {
-  return "\n\n    .Icon {\n      fill : ".concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 1.4rem;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 1.4rem;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n    \n  ");
+  return "\n\n    .Icon {\n      fill : ".concat(style.colors.icons, ";\n      stroke : ").concat(style.colors.icons, ";\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 1.4rem;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 1.4rem;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n    \n  ");
 });
 
 var LabelStyle = (function (style) {
@@ -64334,7 +64334,8 @@ var styleRenderer = (function (style) {
   style = Object.assign({
     colors: {
       primary: '#ea357a',
-      buttonText: '#ffffff'
+      buttonText: '#ffffff',
+      icons: '#000000'
     },
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
   }, style);
