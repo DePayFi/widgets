@@ -197,7 +197,7 @@ test:cypress:debug
 Test and debug single cypress file:
 
 ```
-yarn test:cypress:debug --spec "cypress/integration/Payment/none_found.js"
+yarn test:cypress:debug --spec "cypress/integration/Payment/execute.js"
 ```
 
 ### Release new versions to npm

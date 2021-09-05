@@ -6,29 +6,37 @@ export default (props)=>{
 
   const [wallet, setWallet] = useState()
   const [account, setAccount] = useState()
+  const [walletState, setWalletState] = useState()
+  const connect = ()=>{
+    setWalletState('connecting')
+    wallet.connect().then((accounts)=>{
+      setWalletState('connected')
+      setAccount(accounts[0])        
+    })
+  }
 
   useEffect(()=>{
     let _wallet = getWallet()
     if(_wallet) {
-      console.log('WALLET')
+      setWalletState('found')
       setWallet(_wallet)
     } else {
-      console.log('NO WALLET connected')
+      setWalletState('unavailable')
     }
   }, [])
 
   useEffect(()=>{
     if(wallet) { 
-      wallet.connect().then((accounts)=>{
-        setAccount(accounts[0])        
-      })
+      connect()
     }
   }, [wallet])
 
   return(
     <WalletContext.Provider value={{
-      account: account,
-      wallet: wallet,
+      account,
+      wallet,
+      walletState,
+      connect
     }}>
       { props.children }
     </WalletContext.Provider>

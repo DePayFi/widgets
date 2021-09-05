@@ -1,3 +1,5 @@
+
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 'use strict';
 
 var React = require('react');
@@ -1209,7 +1211,6 @@ var PaymentErrorDialog = (function () {
   var _useContext2 = React.useContext(PaymentContext),
       transaction = _useContext2.transaction;
 
-  console.log(transaction);
   return /*#__PURE__*/React__default['default'].createElement(Dialog, {
     stacked: true,
     header: /*#__PURE__*/React__default['default'].createElement("div", {
@@ -1273,6 +1274,37 @@ var ChevronRight = (function () {
   }));
 });
 
+var WalletContext = /*#__PURE__*/React__default['default'].createContext();
+
+var ConnectingWalletDialog = (function () {
+  var _useContext = React.useContext(WalletContext),
+      wallet = _useContext.wallet,
+      connect = _useContext.connect;
+
+  var walletName = wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
+  var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
+  return /*#__PURE__*/React__default['default'].createElement(Dialog, {
+    body: /*#__PURE__*/React__default['default'].createElement("div", null, walletLogo && /*#__PURE__*/React__default['default'].createElement("div", {
+      className: "GraphicWrapper"
+    }, /*#__PURE__*/React__default['default'].createElement("img", {
+      className: "Graphic",
+      src: walletLogo
+    })), /*#__PURE__*/React__default['default'].createElement("h1", {
+      className: "FontSizeL PaddingTopS FontWeightBold"
+    }, "Connect Wallet"), /*#__PURE__*/React__default['default'].createElement("div", {
+      className: "PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/React__default['default'].createElement("strong", {
+      className: "FontSizeM"
+    }, "This payment requires access to your wallet, please login and authorize access to your ", walletName, " account to continue."))),
+    footer: /*#__PURE__*/React__default['default'].createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM"
+    }, /*#__PURE__*/React__default['default'].createElement("button", {
+      className: "ButtonPrimary wide",
+      onClick: connect
+    }, "Connect"))
+  });
+});
+
 var LoadingText = (function (props) {
   return /*#__PURE__*/React__default['default'].createElement("div", {
     className: "LoadingText"
@@ -1328,20 +1360,23 @@ var PaymentOverviewDialog = (function (props) {
   var _useContext3 = React.useContext(RoutingContext),
       allRoutes = _useContext3.allRoutes;
 
-  var _useContext4 = React.useContext(ToTokenContext),
-      localValue = _useContext4.localValue;
+  var _useContext4 = React.useContext(WalletContext),
+      walletState = _useContext4.walletState;
 
-  var _useContext5 = React.useContext(depayReactDialogStack.NavigateStackContext),
-      navigate = _useContext5.navigate,
-      set = _useContext5.set;
+  var _useContext5 = React.useContext(ToTokenContext),
+      localValue = _useContext5.localValue;
 
-  var _useContext6 = React.useContext(ClosableContext),
-      close = _useContext6.close,
-      setClosable = _useContext6.setClosable;
+  var _useContext6 = React.useContext(depayReactDialogStack.NavigateStackContext),
+      navigate = _useContext6.navigate,
+      set = _useContext6.set;
 
-  var _useContext7 = React.useContext(UpdateContext);
-      _useContext7.update;
-      var setUpdate = _useContext7.setUpdate;
+  var _useContext7 = React.useContext(ClosableContext),
+      close = _useContext7.close,
+      setClosable = _useContext7.setClosable;
+
+  var _useContext8 = React.useContext(UpdateContext);
+      _useContext8.update;
+      var setUpdate = _useContext8.setUpdate;
 
   var _useState = React.useState('overview'),
       _useState2 = _slicedToArray(_useState, 2),
@@ -1473,6 +1508,10 @@ var PaymentOverviewDialog = (function (props) {
     }
   }, [allRoutes]);
 
+  if (walletState == 'connecting') {
+    return /*#__PURE__*/React__default['default'].createElement(ConnectingWalletDialog, null);
+  }
+
   if (payment == undefined || localValue == undefined) {
     return /*#__PURE__*/React__default['default'].createElement(PaymentOverviewSkeleton, null);
   }
@@ -1560,8 +1599,6 @@ function _defineProperty(obj, key, value) {
 }
 
 var apiKey = 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c';
-
-var WalletContext = /*#__PURE__*/React__default['default'].createContext();
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
@@ -1908,27 +1945,40 @@ var WalletProvider = (function (props) {
       account = _useState4[0],
       setAccount = _useState4[1];
 
+  var _useState5 = React.useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      walletState = _useState6[0],
+      setWalletState = _useState6[1];
+
+  var connect = function connect() {
+    setWalletState('connecting');
+    wallet.connect().then(function (accounts) {
+      setWalletState('connected');
+      setAccount(accounts[0]);
+    });
+  };
+
   React.useEffect(function () {
     var _wallet = depayWeb3Wallets.getWallet();
 
     if (_wallet) {
-      console.log('WALLET');
+      setWalletState('found');
       setWallet(_wallet);
     } else {
-      console.log('NO WALLET connected');
+      setWalletState('unavailable');
     }
   }, []);
   React.useEffect(function () {
     if (wallet) {
-      wallet.connect().then(function (accounts) {
-        setAccount(accounts[0]);
-      });
+      connect();
     }
   }, [wallet]);
   return /*#__PURE__*/React__default['default'].createElement(WalletContext.Provider, {
     value: {
       account: account,
-      wallet: wallet
+      wallet: wallet,
+      walletState: walletState,
+      connect: connect
     }
   }, props.children);
 });

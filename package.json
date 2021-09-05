@@ -47,9 +47,9 @@
     "depay-web3-wallets": "^5.1.1"
   },
   "peerDependencies": {
+    "ethers": "^5.4.6",
     "react": "^17",
-    "react-dom": "^17",
-    "ethers": "^5.4.6"
+    "react-dom": "^17"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -67,7 +67,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "cypress": "^7.6.0",
-    "depay-web3-mock": "^7.0.0",
+    "depay-web3-mock": "^8.0.0",
     "eslint": "^7.15.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.22.1",
@@ -77,7 +77,6 @@
     "fetch-mock": "^9.11.0",
     "jest": "^26.4.2",
     "jest-dom": "^4.0.0",
-    "react": "^17",
     "react": "^17.0.1",
     "react-dom": "^17",
     "regenerator-runtime": "^0.13.7",

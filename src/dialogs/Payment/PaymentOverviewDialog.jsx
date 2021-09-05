@@ -2,6 +2,7 @@ import Checkmark from '../../components/Checkmark'
 import ChevronRight from '../../components/ChevronRight'
 import ClosableContext from '../../contexts/ClosableContext'
 import ConfigurationContext from '../../contexts/ConfigurationContext'
+import ConnectingWalletDialog from '../ConnectingWalletDialog'
 import Dialog from '../../components/Dialog'
 import LoadingText from '../../components/LoadingText'
 import PaymentContext from '../../contexts/PaymentContext'
@@ -10,6 +11,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import RoutingContext from '../../contexts/RoutingContext'
 import ToTokenContext from '../../contexts/ToTokenContext'
 import UpdateContext from '../../contexts/UpdateContext'
+import WalletContext from '../../contexts/WalletContext'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
 import { TokenImage } from 'depay-react-token-image'
 
@@ -18,6 +20,7 @@ export default (props)=>{
   const { sent, confirmed, ensured } = useContext(ConfigurationContext)
   const { payment, setPayment, transaction, setTransaction } = useContext(PaymentContext)
   const { allRoutes } = useContext(RoutingContext)
+  const { walletState } = useContext(WalletContext)
   const { localValue } = useContext(ToTokenContext)
   const { navigate, set } = useContext(NavigateStackContext)
   const { close, setClosable } = useContext(ClosableContext)
@@ -139,6 +142,7 @@ export default (props)=>{
     }
   }, [allRoutes])
 
+  if(walletState == 'connecting') { return(<ConnectingWalletDialog/>) }
   if(payment == undefined || localValue == undefined) { return(<PaymentOverviewSkeleton/>) }
 
   return(

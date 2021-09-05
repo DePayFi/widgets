@@ -9,8 +9,6 @@ export default ()=> {
   const { navigate } = useContext(NavigateStackContext)
   const { transaction } = useContext(PaymentContext)
 
-  console.log(transaction)
-
   return(
     <Dialog
       stacked={ true }

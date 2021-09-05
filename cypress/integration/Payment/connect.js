@@ -9,7 +9,7 @@ import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
-describe('execute Payment', () => {
+describe('connect wallet', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -92,50 +92,16 @@ describe('execute Payment', () => {
     }))
   })
   
-  it('emits an event if payment transaction goes through the router', () => {
-
-    let mockedTransaction = mock({
-      blockchain,
-      transaction: {
-        to: "0xae60ac8e69414c2dc362d0e6a03af643d1d85b92",
-        api: routers[blockchain].api,
-        method: 'route',
-        params: {
-          path: ["0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee","0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"],
-          amounts: ["10000000000000000", "20000000000000000000", anything],
-          addresses: [fromAddress, toAddress],
-          plugins: [
-            plugins[blockchain].uniswap_v2.address,
-            plugins[blockchain].payment.address,
-            plugins[blockchain].event.address
-          ],
-          data:[]
-        }
-      }
+  it('asks to connect the detected wallet', () => {
+    
+    mock({
+      blockchain: 'ethereum',
+      wallet: 'metamask'
     })
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, event: 'ifSwapped', document })
-        cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.com/tx/')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
-          expect(mockedTransaction.calls.count()).to.equal(1)
-          cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
-          confirm(mockedTransaction)
-          cy.wait(1000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
-              cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.round .Checkmark.Icon').click()
-              cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
-            })
-          })
-        })
       })
     })
   })
