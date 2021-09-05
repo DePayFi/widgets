@@ -2,8 +2,8 @@ export default (style)=>{
   return(`
 
     .Icon {
-      fill : ${style.colors.buttonText};
-      stroke : ${style.colors.buttonText};
+      fill : ${style.colors.icons};
+      stroke : ${style.colors.icons};
     }
 
     .ChevronLeft, .ChevronRight {

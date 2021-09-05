@@ -131,7 +131,8 @@ DePayWidgets.Payment({
   style: {
     colors: {
       primary: '#ffd265',
-      buttonText: '#000000'
+      buttonText: '#000000',
+      icons: '#000000'
     },
   },
   // ...
