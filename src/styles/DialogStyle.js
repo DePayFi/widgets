@@ -1,10 +1,14 @@
-export default ()=>{
+export default (style)=>{
   return(`
 
     .Dialog {
       margin: 0 auto;
       position: relative;
       width: 420px;
+    }
+
+    .Dialog .Text {
+      color: ${style.colors.text};
     }
 
     @media screen and (max-width: 450px) {

@@ -21,7 +21,8 @@ export default (style)=>{
     colors: {
       primary: '#ea357a',
       buttonText: '#ffffff',
-      icons: '#000000'
+      icons: '#000000',
+      text: '#212529',
     },
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
   }, style);

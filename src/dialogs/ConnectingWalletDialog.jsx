@@ -18,8 +18,8 @@ export default ()=> {
               <img className="Graphic" src={walletLogo}/>
             </div>
           }
-          <h1 className="FontSizeL PaddingTopS FontWeightBold">Connect Wallet</h1>
-          <div className="PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
+          <h1 className="Text FontSizeL PaddingTopS FontWeightBold">Connect Wallet</h1>
+          <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
             <strong className="FontSizeM">
               This payment requires access to your wallet, please login and authorize access to your { walletName } account to continue.
             </strong>
