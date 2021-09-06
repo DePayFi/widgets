@@ -10636,7 +10636,6 @@
     var _useContext2 = react.useContext(PaymentContext),
         transaction = _useContext2.transaction;
 
-    console.log(transaction);
     return /*#__PURE__*/react.createElement(Dialog, {
       stacked: true,
       header: /*#__PURE__*/react.createElement("div", {
@@ -10700,6 +10699,37 @@
     }));
   });
 
+  var WalletContext = /*#__PURE__*/react.createContext();
+
+  var ConnectingWalletDialog = (function () {
+    var _useContext = react.useContext(WalletContext),
+        wallet = _useContext.wallet,
+        connect = _useContext.connect;
+
+    var walletName = wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
+    var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
+    return /*#__PURE__*/react.createElement(Dialog, {
+      body: /*#__PURE__*/react.createElement("div", null, walletLogo && /*#__PURE__*/react.createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/react.createElement("img", {
+        className: "Graphic",
+        src: walletLogo
+      })), /*#__PURE__*/react.createElement("h1", {
+        className: "FontSizeL PaddingTopS FontWeightBold"
+      }, "Connect Wallet"), /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/react.createElement("strong", {
+        className: "FontSizeM"
+      }, "This payment requires access to your wallet, please login and authorize access to your ", walletName, " account to continue."))),
+      footer: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      }, /*#__PURE__*/react.createElement("button", {
+        className: "ButtonPrimary wide",
+        onClick: connect
+      }, "Connect"))
+    });
+  });
+
   var LoadingText = (function (props) {
     return /*#__PURE__*/react.createElement("div", {
       className: "LoadingText"
@@ -10755,20 +10785,23 @@
     var _useContext3 = react.useContext(RoutingContext),
         allRoutes = _useContext3.allRoutes;
 
-    var _useContext4 = react.useContext(ToTokenContext),
-        localValue = _useContext4.localValue;
+    var _useContext4 = react.useContext(WalletContext),
+        walletState = _useContext4.walletState;
 
-    var _useContext5 = react.useContext(NavigateStackContext_1),
-        navigate = _useContext5.navigate,
-        set = _useContext5.set;
+    var _useContext5 = react.useContext(ToTokenContext),
+        localValue = _useContext5.localValue;
 
-    var _useContext6 = react.useContext(ClosableContext),
-        close = _useContext6.close,
-        setClosable = _useContext6.setClosable;
+    var _useContext6 = react.useContext(NavigateStackContext_1),
+        navigate = _useContext6.navigate,
+        set = _useContext6.set;
 
-    var _useContext7 = react.useContext(UpdateContext);
-        _useContext7.update;
-        var setUpdate = _useContext7.setUpdate;
+    var _useContext7 = react.useContext(ClosableContext),
+        close = _useContext7.close,
+        setClosable = _useContext7.setClosable;
+
+    var _useContext8 = react.useContext(UpdateContext);
+        _useContext8.update;
+        var setUpdate = _useContext8.setUpdate;
 
     var _useState = react.useState('overview'),
         _useState2 = _slicedToArray(_useState, 2),
@@ -10900,6 +10933,10 @@
       }
     }, [allRoutes]);
 
+    if (walletState == 'connecting') {
+      return /*#__PURE__*/react.createElement(ConnectingWalletDialog, null);
+    }
+
     if (payment == undefined || localValue == undefined) {
       return /*#__PURE__*/react.createElement(PaymentOverviewSkeleton, null);
     }
@@ -10987,8 +11024,6 @@
   }
 
   var apiKey = 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c';
-
-  var WalletContext = /*#__PURE__*/react.createContext();
 
   function _superPropBase(object, property) {
     while (!Object.prototype.hasOwnProperty.call(object, property)) {
@@ -64967,27 +65002,40 @@
         account = _useState4[0],
         setAccount = _useState4[1];
 
+    var _useState5 = react.useState(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        walletState = _useState6[0],
+        setWalletState = _useState6[1];
+
+    var connect = function connect() {
+      setWalletState('connecting');
+      wallet.connect().then(function (accounts) {
+        setWalletState('connected');
+        setAccount(accounts[0]);
+      });
+    };
+
     react.useEffect(function () {
       var _wallet = getWallet();
 
       if (_wallet) {
-        console.log('WALLET');
+        setWalletState('found');
         setWallet(_wallet);
       } else {
-        console.log('NO WALLET connected');
+        setWalletState('unavailable');
       }
     }, []);
     react.useEffect(function () {
       if (wallet) {
-        wallet.connect().then(function (accounts) {
-          setAccount(accounts[0]);
-        });
+        connect();
       }
     }, [wallet]);
     return /*#__PURE__*/react.createElement(WalletContext.Provider, {
       value: {
         account: account,
-        wallet: wallet
+        wallet: wallet,
+        walletState: walletState,
+        connect: connect
       }
     }, props.children);
   });
