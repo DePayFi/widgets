@@ -213,6 +213,31 @@ DePayWidgets.Payment({
 })
 ```
 
+#### whitelist
+
+Allows only fromTokens (from the sender) that are part of the whitelist:
+
+```javacript
+DePayWidgets.Payment({
+  
+  whitelist: {
+    ethereum: [
+      '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', // ETH
+      '0xdac17f958d2ee523a2206206994597c13d831ec7', // USDT
+      '0x6b175474e89094c44da98b954eedeac495271d0f'  // DAI
+    ],
+    bsc: [
+      '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', // BNB
+      '0xe9e7cea3dedca5984780bafc599bd69add087d56', // BUSD
+      '0x55d398326f99059ff775485246999027b3197955'  // BSC-USD
+    ]
+  },
+  
+  accept: [...]
+})
+
+```
+
 #### event
 
 `event`
