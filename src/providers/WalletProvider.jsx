@@ -1,9 +1,11 @@
+import ErrorContext from '../contexts/ErrorContext'
 import React, { useState, useEffect } from 'react'
 import WalletContext from '../contexts/WalletContext'
 import { getWallet } from 'depay-web3-wallets'
 
 export default (props)=>{
 
+  const { setError } = useContext(ErrorContext)
   const [wallet, setWallet] = useState()
   const [account, setAccount] = useState()
   const [walletState, setWalletState] = useState()
@@ -12,7 +14,7 @@ export default (props)=>{
     wallet.connect().then((accounts)=>{
       setWalletState('connected')
       setAccount(accounts[0])        
-    })
+    }).catch(setError)
   }
 
   useEffect(()=>{

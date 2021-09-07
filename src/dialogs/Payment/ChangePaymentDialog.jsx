@@ -1,6 +1,7 @@
 import ChangePaymentSkeleton from '../../skeletons/ChangePaymentSkeleton'
 import ConfigurationContext from '../../contexts/ConfigurationContext'
 import Dialog from '../../components/Dialog'
+import ErrorContext from '../contexts/ErrorContext'
 import React, { useContext, useEffect, useState } from 'react'
 import round from '../../helpers/round'
 import RoutingContext from '../../contexts/RoutingContext'
@@ -10,6 +11,7 @@ import { TokenImage } from 'depay-react-token-image'
 
 export default (props)=>{
 
+  const { setError } = useContext(ErrorContext)
   const { allRoutes, setSelectedRoute } = useContext(RoutingContext)
   const { localValue } = useContext(ToTokenContext)
   const { navigate } = useContext(NavigateStackContext)
@@ -39,7 +41,7 @@ export default (props)=>{
           route
         }
       }))
-    })
+    }).catch(setError)
   }, [allRoutes])
 
   useEffect(()=>{

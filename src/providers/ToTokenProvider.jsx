@@ -1,4 +1,5 @@
 import apiKey from '../helpers/apiKey'
+import ErrorContext from '../contexts/ErrorContext'
 import PaymentContext from '../contexts/PaymentContext'
 import React, { useState, useEffect, useContext } from 'react'
 import ToTokenContext from '../contexts/ToTokenContext'
@@ -12,6 +13,7 @@ import { Token } from 'depay-web3-tokens'
 
 export default (props)=>{
 
+  const { setError } = useContext(ErrorContext)
   const { account } = useContext(WalletContext)
   const { update } = useContext(UpdateContext)
   const { payment } = useContext(PaymentContext)
@@ -42,10 +44,10 @@ export default (props)=>{
       }
 
       let USDValue = ethers.utils.formatUnits(USDAmount, USDDecimals)
-      Currency.fromUSD({ amount: USDValue, apiKey }).then((localValue)=>{
-        setLocalValue(localValue)
-      })
-    })
+      Currency.fromUSD({ amount: USDValue, apiKey })
+        .then(setLocalValue)
+        .catch(setError)
+    }).catch(setError)
   }
   
   useEffect(()=>{
