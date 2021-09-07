@@ -64048,7 +64048,7 @@
               })));
               _context6.next = 4;
               return Promise.all(routes.map( /*#__PURE__*/function () {
-                var _ref20 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(route) {
+                var _ref21 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(route) {
                   return regenerator.wrap(function _callee5$(_context5) {
                     while (1) {
                       switch (_context5.prev = _context5.next) {
@@ -64073,7 +64073,7 @@
                 }));
 
                 return function (_x8) {
-                  return _ref20.apply(this, arguments);
+                  return _ref21.apply(this, arguments);
                 };
               }())).then(function (assets) {
                 return assets.flat();
@@ -64129,7 +64129,7 @@
             case 0:
               _context8.next = 2;
               return Promise.all(routes.map( /*#__PURE__*/function () {
-                var _ref21 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee7(route) {
+                var _ref22 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee7(route) {
                   return regenerator.wrap(function _callee7$(_context7) {
                     while (1) {
                       switch (_context7.prev = _context7.next) {
@@ -64150,7 +64150,7 @@
                 }));
 
                 return function (_x9) {
-                  return _ref21.apply(this, arguments);
+                  return _ref22.apply(this, arguments);
                 };
               }()));
 
@@ -64173,16 +64173,21 @@
 
   function _route() {
     _route = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee9(_ref14) {
-      var accept, apiKey, event, paymentRoutes;
+      var accept, whitelist, apiKey, event, paymentRoutes;
       return regenerator.wrap(function _callee9$(_context9) {
         while (1) {
           switch (_context9.prev = _context9.next) {
             case 0:
-              accept = _ref14.accept, apiKey = _ref14.apiKey, event = _ref14.event;
+              accept = _ref14.accept, whitelist = _ref14.whitelist, apiKey = _ref14.apiKey, event = _ref14.event;
               paymentRoutes = getAllAssets({
                 accept: accept,
                 apiKey: apiKey
-              }).then(assetsToTokens).then(filterTransferableTokens).then(function (tokens) {
+              }).then(assetsToTokens).then(function (tokens) {
+                return filterWhitelistedTokens({
+                  tokens: tokens,
+                  whitelist: whitelist
+                });
+              }).then(filterTransferableTokens).then(function (tokens) {
                 return convertToRoutes({
                   tokens: tokens,
                   accept: accept
@@ -64259,8 +64264,27 @@
     };
   }();
 
+  var filterWhitelistedTokens = function filterWhitelistedTokens(_ref17) {
+    var tokens = _ref17.tokens,
+        whitelist = _ref17.whitelist;
+
+    if (whitelist == undefined) {
+      return tokens;
+    } else {
+      return tokens.filter(function (token) {
+        if (whitelist[token.blockchain] == undefined) {
+          return true;
+        } else {
+          return whitelist[token.blockchain].find(function (whiteListedTokenAddress) {
+            return whiteListedTokenAddress.toLowerCase() == token.address.toLowerCase();
+          });
+        }
+      });
+    }
+  };
+
   var filterTransferableTokens = /*#__PURE__*/function () {
-    var _ref17 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(tokens) {
+    var _ref18 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(tokens) {
       return regenerator.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -64286,12 +64310,12 @@
     }));
 
     return function filterTransferableTokens(_x6) {
-      return _ref17.apply(this, arguments);
+      return _ref18.apply(this, arguments);
     };
   }();
 
   var addExchangeRoutes = /*#__PURE__*/function () {
-    var _ref18 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(routes) {
+    var _ref19 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(routes) {
       return regenerator.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -64329,7 +64353,7 @@
     }));
 
     return function addExchangeRoutes(_x7) {
-      return _ref18.apply(this, arguments);
+      return _ref19.apply(this, arguments);
     };
   }();
 
@@ -64489,9 +64513,9 @@
     });
   };
 
-  var addTransactions = function addTransactions(_ref19) {
-    var routes = _ref19.routes,
-        event = _ref19.event;
+  var addTransactions = function addTransactions(_ref20) {
+    var routes = _ref20.routes,
+        event = _ref20.event;
     return routes.map(function (route) {
       route.transaction = routeToTransaction({
         paymentRoute: route,
@@ -64523,7 +64547,8 @@
 
     var _useContext = react.useContext(ConfigurationContext),
         accept = _useContext.accept,
-        event = _useContext.event;
+        event = _useContext.event,
+        whitelist = _useContext.whitelist;
 
     var _useContext2 = react.useContext(WalletContext),
         account = _useContext2.account;
@@ -64547,6 +64572,7 @@
             toAddress: configuration.receiver
           });
         }),
+        whitelist: whitelist,
         event: event,
         apiKey: apiKey
       }).then(function (routes) {
@@ -65360,12 +65386,12 @@
 
   var Payment = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var accept, event, sent, confirmed, ensured, failed, error, critical, style, document;
+      var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, document;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, document = _ref3.document;
+              accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, document = _ref3.document;
               _context2.prev = 1;
               _context2.next = 4;
               return preflight({
@@ -65389,7 +65415,8 @@
                       sent: sent,
                       confirmed: confirmed,
                       ensured: ensured,
-                      failed: failed
+                      failed: failed,
+                      whitelist: whitelist
                     }
                   }, /*#__PURE__*/react.createElement(ClosableProvider, {
                     unmount: unmount

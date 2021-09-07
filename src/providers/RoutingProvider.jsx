@@ -14,13 +14,14 @@ export default (props)=>{
   const [allRoutes, setAllRoutes] = useState()
   const [selectedRoute, setSelectedRoute] = useState()
   const [reloadCount, setReloadCount] = useState(0)
-  const { accept, event } = useContext(ConfigurationContext)
+  const { accept, event, whitelist } = useContext(ConfigurationContext)
   const { account } = useContext(WalletContext)
   const { update } = useContext(UpdateContext)
   const getPaymentRoutes = ({ allRoutes, selectedRoute, update })=>{
     if(update == false) { return }
     route({
       accept: accept.map((configuration)=>({ ...configuration, fromAddress: account, toAddress: configuration.receiver })),
+      whitelist,
       event,
       apiKey
     }).then((routes)=>{
