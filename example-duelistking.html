@@ -48,6 +48,9 @@
           confirmed: (transaction)=>{
             // do something once the payment has been confirmed
           },
+          critical: (error)=> {
+            alert(`The following error occured: ${error.toString()}`)
+          },
           style: {
             colors: {
               primary: '#ffd265',
