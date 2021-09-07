@@ -1,5 +1,3 @@
-
-(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('react-dom'), require('depay-react-shadow-dom'), require('depay-react-dialog-stack'), require('depay-react-token-image'), require('depay-web3-constants'), require('ethers'), require('depay-web3-payments'), require('depay-local-currency'), require('depay-web3-exchanges'), require('depay-web3-tokens'), require('depay-web3-wallets')) :
   typeof define === 'function' && define.amd ? define(['react', 'react-dom', 'depay-react-shadow-dom', 'depay-react-dialog-stack', 'depay-react-token-image', 'depay-web3-constants', 'ethers', 'depay-web3-payments', 'depay-local-currency', 'depay-web3-exchanges', 'depay-web3-tokens', 'depay-web3-wallets'], factory) :

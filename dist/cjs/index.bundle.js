@@ -64388,7 +64388,7 @@ var addApproval = function addApproval(routes) {
     return route.fromToken.allowance(routers[route.blockchain].address);
   })).then(function (allowances) {
     routes.forEach(function (route, index) {
-      if (route.fromToken.address.toLowerCase() == CONSTANTS$2[route.blockchain].NATIVE.toLowerCase()) {
+      if (route.directTransfer || route.fromToken.address.toLowerCase() == CONSTANTS$2[route.blockchain].NATIVE.toLowerCase()) {
         routes[index].approvalRequired = false;
       } else {
         routes[index].approvalRequired = route.fromBalance.gte(allowances[index]);
