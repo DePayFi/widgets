@@ -44,6 +44,22 @@
             { blockchain: 'bsc', token: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d', amount, receiver },
             { blockchain: 'bsc', token: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56', amount, receiver }
           ],
+          whitelist: {
+            ethereum: [
+              '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', // ETH
+              '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+              '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+              '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+              '0x4Fabb145d64652a948d72533023f6E7A623C7C53'
+            ],
+            bsc: [
+              '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', // BNB
+              '0x55d398326f99059fF775485246999027B3197955',
+              '0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3',
+              '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
+              '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56'
+            ]
+          },
           event: 'ifSwapped',
           confirmed: (transaction)=>{
             // do something once the payment has been confirmed
