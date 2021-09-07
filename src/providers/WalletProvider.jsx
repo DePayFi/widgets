@@ -1,5 +1,5 @@
 import ErrorContext from '../contexts/ErrorContext'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import WalletContext from '../contexts/WalletContext'
 import { getWallet } from 'depay-web3-wallets'
 

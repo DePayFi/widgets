@@ -1,5 +1,3 @@
-
-(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 'use strict';
 
 var React = require('react');
@@ -1578,15 +1576,18 @@ var round = (function (input) {
 });
 
 var ChangePaymentDialog = (function (props) {
-  var _useContext = React.useContext(RoutingContext),
-      allRoutes = _useContext.allRoutes,
-      setSelectedRoute = _useContext.setSelectedRoute;
+  var _useContext = React.useContext(ErrorContext),
+      setError = _useContext.setError;
 
-  var _useContext2 = React.useContext(ToTokenContext),
-      localValue = _useContext2.localValue;
+  var _useContext2 = React.useContext(RoutingContext),
+      allRoutes = _useContext2.allRoutes,
+      setSelectedRoute = _useContext2.setSelectedRoute;
 
-  var _useContext3 = React.useContext(depayReactDialogStack.NavigateStackContext),
-      navigate = _useContext3.navigate;
+  var _useContext3 = React.useContext(ToTokenContext),
+      localValue = _useContext3.localValue;
+
+  var _useContext4 = React.useContext(depayReactDialogStack.NavigateStackContext),
+      navigate = _useContext4.navigate;
 
   var _useState = React.useState([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -1617,7 +1618,7 @@ var ChangePaymentDialog = (function (props) {
           route: route
         };
       }));
-    });
+    })["catch"](setError);
   }, [allRoutes]);
   React.useEffect(function () {
     setCards(allPaymentRoutesWithData.map(function (payment, index) {
@@ -2256,14 +2257,17 @@ var RoutingProvider = (function (props) {
 });
 
 var ToTokenProvider = (function (props) {
-  var _useContext = React.useContext(WalletContext),
-      account = _useContext.account;
+  var _useContext = React.useContext(ErrorContext),
+      setError = _useContext.setError;
 
-  var _useContext2 = React.useContext(UpdateContext),
-      update = _useContext2.update;
+  var _useContext2 = React.useContext(WalletContext),
+      account = _useContext2.account;
 
-  var _useContext3 = React.useContext(PaymentContext),
-      payment = _useContext3.payment;
+  var _useContext3 = React.useContext(UpdateContext),
+      update = _useContext3.update;
+
+  var _useContext4 = React.useContext(PaymentContext),
+      payment = _useContext4.payment;
 
   var _useState = React.useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -2313,10 +2317,8 @@ var ToTokenProvider = (function (props) {
       depayLocalCurrency.Currency.fromUSD({
         amount: USDValue,
         apiKey: apiKey
-      }).then(function (localValue) {
-        setLocalValue(localValue);
-      });
-    });
+      }).then(setLocalValue)["catch"](setError);
+    })["catch"](setError);
   };
 
   React.useEffect(function () {
@@ -2360,6 +2362,9 @@ var UpdateProvider = (function (props) {
 });
 
 var WalletProvider = (function (props) {
+  var _useContext = React.useContext(ErrorContext),
+      setError = _useContext.setError;
+
   var _useState = React.useState(),
       _useState2 = _slicedToArray(_useState, 2),
       wallet = _useState2[0],
@@ -2380,7 +2385,7 @@ var WalletProvider = (function (props) {
     wallet.connect().then(function (accounts) {
       setWalletState('connected');
       setAccount(accounts[0]);
-    });
+    })["catch"](setError);
   };
 
   React.useEffect(function () {
