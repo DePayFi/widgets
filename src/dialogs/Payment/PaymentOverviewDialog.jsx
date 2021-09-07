@@ -17,7 +17,7 @@ import { TokenImage } from 'depay-react-token-image'
 
 export default (props)=>{
 
-  const { sent, confirmed, ensured } = useContext(ConfigurationContext)
+  const { sent, confirmed, ensured, failed } = useContext(ConfigurationContext)
   const { payment, setPayment, transaction, setTransaction } = useContext(PaymentContext)
   const { allRoutes } = useContext(RoutingContext)
   const { walletState } = useContext(WalletContext)
@@ -64,6 +64,7 @@ export default (props)=>{
         if(ensured) { ensured(transaction) }
       },
       failed: (error)=> {
+        if(failed) { failed(transaction) }
         console.log('error', error)
         setState('overview')
         setClosable(true)

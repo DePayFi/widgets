@@ -90,6 +90,15 @@ A function that will be called once the payment has been sent to the network (bu
 
 The widget will call the `sent` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
 
+```javascript
+DePayWidgets.Payment({
+  // ...
+  sent: (transaction)=> {
+    // called when payment transaction has been sent to the network
+  }
+})
+```
+
 #### confirmed
 
 `confirmed`
@@ -98,6 +107,15 @@ A function that will be called once the payment has been confirmed once by the n
 
 The widget will call the `confirmed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
 
+```javascript
+DePayWidgets.Payment({
+  // ...
+  confirmed: (transaction)=> {
+    // called when payment transaction has been confirmed once by the network
+  }
+})
+```
+
 #### ensured
 
 `ensured`
@@ -105,6 +123,32 @@ The widget will call the `confirmed` callback-function passing a transaction as 
 A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
 
 The widget will call the `ensured` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+
+```javascript
+DePayWidgets.Payment({
+  // ...
+  ensured: (transaction)=> {
+    // called when payment transaction has been confirmed X times by the network
+  }
+})
+```
+
+#### failed
+
+`failed`
+
+A function that will be called if the payment execution failed on the blockchain (after it has been sent/submitted).
+
+The widget will call the `failed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+
+```javascript
+DePayWidgets.Payment({
+  // ...
+  failed: (transaction)=> {
+    // called when payment transaction failed on the blockchain
+  }
+})
+```
 
 #### event
 
