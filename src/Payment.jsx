@@ -1,14 +1,15 @@
 import ClosableProvider from './providers/ClosableProvider'
 import ConfigurationProvider from './providers/ConfigurationProvider'
+import ensureDocument from './helpers/ensureDocument'
+import ErrorProvider from './providers/ErrorProvider'
+import mount from './helpers/mount'
 import PaymentProvider from './providers/PaymentProvider'
 import PaymentStack from './stacks/PaymentStack'
 import React from 'react'
 import RoutingProvider from './providers/RoutingProvider'
-import styleRenderer from './style'
 import ToTokenProvider from './providers/ToTokenProvider'
 import UpdateProvider from './providers/UpdateProvider'
 import WalletProvider from './providers/WalletProvider'
-import { ReactShadowDOM } from 'depay-react-shadow-dom'
 
 let preflight = async({ accept }) => {
   accept.forEach((configuration)=>{
@@ -20,54 +21,50 @@ let preflight = async({ accept }) => {
   })
 }
 
-let Payment = async ({ accept, event, sent, confirmed, ensured, failed, style, document }) => {
+let Payment = async ({
+  accept,
+  event,
+  sent,
+  confirmed,
+  ensured,
+  failed,
+  error,
+  critical,
+  style,
+  document
+}) => {
 
-  if(typeof document === 'undefined') { document = window.document }
-
-  await preflight({ accept })
-
-  let unmountShadowDOM = ()=> {
-    // setTimeout to allow dialog to animate out first
-    setTimeout(unmount, 300)
+  try {
+    await preflight({ accept })
+    mount({ style, document: ensureDocument(document) }, (unmount)=> {
+      return (container)=>
+        <ErrorProvider error={ error } container={ container } unmount={ unmount }>
+          <ConfigurationProvider configuration={ { accept, event, sent, confirmed, ensured, failed } }>
+            <ClosableProvider unmount={ unmount }>
+              <UpdateProvider>
+                <WalletProvider>
+                  <RoutingProvider>
+                    <PaymentProvider>
+                      <ToTokenProvider>
+                        <PaymentStack
+                          document={ document }
+                          container={ container }
+                        />
+                      </ToTokenProvider>
+                    </PaymentProvider>
+                  </RoutingProvider>
+                </WalletProvider>
+              </UpdateProvider>
+            </ClosableProvider>
+          </ConfigurationProvider>
+        </ErrorProvider>
+    })
+  } catch (error) {
+    console.log('critical error', error)
+    if(critical != undefined) {
+      critical(error)
+    }
   }
-
-  let content = (container)=> {
-    return(
-      <ConfigurationProvider configuration={ { accept, event, sent, confirmed, ensured, failed } }>
-        <ClosableProvider unmount={ unmountShadowDOM }>
-          <UpdateProvider>
-            <WalletProvider>
-              <RoutingProvider>
-                <PaymentProvider>
-                  <ToTokenProvider>
-                    <PaymentStack
-                      document={ document }
-                      container={ container }
-                    />
-                  </ToTokenProvider>
-                </PaymentProvider>
-              </RoutingProvider>
-            </WalletProvider>
-          </UpdateProvider>
-        </ClosableProvider>
-      </ConfigurationProvider>
-    )
-  }
-  let insideStyle = styleRenderer(style)
-  if(style && style.css) { insideStyle = [insideStyle, style.css].join(' ') }
-  let { unmount } = ReactShadowDOM({
-    document,
-    element: document.body,
-    content: content,
-    insideStyle,
-    outsideStyle: `
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-    `,
-  })
 }
 
 export default Payment

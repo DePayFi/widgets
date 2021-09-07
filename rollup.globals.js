@@ -11,5 +11,6 @@ export default {
   'depay-web3-exchanges': 'Web3Exchanges',
   'depay-web3-constants': 'Web3Constants',
   'depay-local-currency': 'LocalCurrency',
-  'depay-react-token-image': 'ReactTokenImage'
+  'depay-react-token-image': 'ReactTokenImage',
+  'react-error-boundary': 'ErrorBoundary'
 }

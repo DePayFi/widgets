@@ -105,5 +105,9 @@ export default (style)=>{
       text-align: center;
     }
 
+    .ReactShadowDOMInsideContainer > .ReactDialog {
+      display: table;
+    }
+
   `)
 }

@@ -1,4 +1,4 @@
-import apiKey from '../apiKey'
+import apiKey from '../helpers/apiKey'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import React, { useState, useContext, useEffect } from 'react'
 import round from '../helpers/round'

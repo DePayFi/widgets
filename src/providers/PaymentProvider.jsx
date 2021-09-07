@@ -1,9 +1,11 @@
+import ErrorContext from '../contexts/ErrorContext'
 import PaymentContext from '../contexts/PaymentContext'
 import React, { useContext, useEffect, useState } from 'react'
 import RoutingContext from '../contexts/RoutingContext'
 
 export default (props)=>{
 
+  const { setError } = useContext(ErrorContext)
   const { selectedRoute } = useContext(RoutingContext)
   const [ payment, setPayment ] = useState()
   const [ transaction, setTransaction ] = useState()
@@ -24,7 +26,7 @@ export default (props)=>{
           symbol: symbol.toUpperCase(),
           amount
         })
-      })
+      }).catch(setError)
     }
   }, [selectedRoute])
 

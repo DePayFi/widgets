@@ -17,5 +17,8 @@ export default (style)=>{
       font-weight: bold;
     }
 
+    .FontItalic {
+      font-style: italic;
+    }
   `)
 }

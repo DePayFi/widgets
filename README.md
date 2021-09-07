@@ -177,6 +177,38 @@ DePayWidgets.Payment({
   // ...
   failed: (transaction)=> {
     // called when payment transaction failed on the blockchain
+    // handled by the widget, no need to display anything
+  }
+})
+```
+
+#### critical
+
+`critical`
+
+A function that will be called if the widget throws an critical internal error that it can't handle and display on it's own:
+
+```javascript
+DePayWidgets.Payment({
+  // ...
+  critical: (error)=> {
+    // render and display the error with error.toString()
+  }
+})
+```
+
+#### error
+
+`error`
+
+A function that will be called if the widget throws an non-critical internal error that it can and will handle and display on it's own:
+
+```javascript
+DePayWidgets.Payment({
+  // ...
+  error: (error)=> {
+    // maybe do some internal tracking with error.toString()
+    // no need to display anything as widget takes care of displaying the error
   }
 })
 ```

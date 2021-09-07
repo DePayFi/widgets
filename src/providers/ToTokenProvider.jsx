@@ -1,4 +1,4 @@
-import apiKey from '../apiKey'
+import apiKey from '../helpers/apiKey'
 import PaymentContext from '../contexts/PaymentContext'
 import React, { useState, useEffect, useContext } from 'react'
 import ToTokenContext from '../contexts/ToTokenContext'
