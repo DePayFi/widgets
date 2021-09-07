@@ -45,6 +45,9 @@
             { blockchain: 'bsc', token: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56', amount, receiver }
           ],
           event: 'ifSwapped',
+          confirmed: ()=>{
+            // do something once the payment has been confirmed
+          },
           style: {
             colors: {
               primary: '#ffd265',
