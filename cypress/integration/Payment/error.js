@@ -122,7 +122,7 @@ describe('Payment widget error', () => {
     })
   })
 
-  it.only('renders an error dialog if internal error was not critical and can be handled by the widget', ()=> {
+  it('renders an error dialog if internal error was not critical and can be handled by the widget', ()=> {
 
     let errorCalled
     let passedError

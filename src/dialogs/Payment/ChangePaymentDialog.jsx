@@ -1,7 +1,7 @@
 import ChangePaymentSkeleton from '../../skeletons/ChangePaymentSkeleton'
 import ConfigurationContext from '../../contexts/ConfigurationContext'
 import Dialog from '../../components/Dialog'
-import ErrorContext from '../contexts/ErrorContext'
+import ErrorContext from '../../contexts/ErrorContext'
 import React, { useContext, useEffect, useState } from 'react'
 import round from '../../helpers/round'
 import RoutingContext from '../../contexts/RoutingContext'

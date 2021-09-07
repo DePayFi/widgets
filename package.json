@@ -26,10 +26,9 @@
     "format": "prettier src --write",
     "prepublishOnly": "yarn build",
     "dev": "npx rollup -c rollup.dev.config.js -w",
-    "test:jest": "npx jest --no-cache",
     "test:cypress": "yarn cypress run",
     "test:cypress:debug": "yarn cypress run --headed --no-exit",
-    "test": "yarn test:jest && yarn test:cypress"
+    "test": "yarn test:cypress"
   },
   "dependencies": {
     "depay-local-currency": "^1.0.1",
@@ -62,7 +61,6 @@
     "@rollup/plugin-node-resolve": "^11.1.1",
     "@rollup/plugin-replace": "^2.3.4",
     "@rollup/plugin-sucrase": "^3.1.0",
-    "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
@@ -75,8 +73,6 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "ethers": "^5.4.6",
     "fetch-mock": "^9.11.0",
-    "jest": "^26.4.2",
-    "jest-dom": "^4.0.0",
     "react": "^17.0.1",
     "react-dom": "^17",
     "regenerator-runtime": "^0.13.7",
