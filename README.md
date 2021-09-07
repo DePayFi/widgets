@@ -52,7 +52,38 @@ DePayWidgets.Payment({
 
 ### Configuration
 
-You need to pass a configuration object to `DePayWidgets.Payment` which needs to contain the `accept` field:
+You need to pass a configuration object to `DePayWidgets.Payment` which needs to at least contain the `accept` field:
+
+```javascript
+DePayWidgets.Payment({
+  accept: [{
+    blockchain: 'ethereum',
+    amount: 20,
+    token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+    receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  }]
+});
+```
+
+You can also accept multiple payments of multiple blockchains:
+
+```javascript
+DePayWidgets.Payment({
+  accept: [
+    { // 20 USDT on ethereum
+      blockchain: 'ethereum',
+      amount: 20,
+      token: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+      receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+    },{ // 20 BUSD on bsc
+      blockchain: 'bsc',
+      amount: 20,
+      token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+      receiver: '0x552C2a5a774CcaEeC036d41c983808E3c76477e6'
+    }
+  ]
+});
+```
 
 #### accept
 
@@ -158,11 +189,51 @@ If set to `ifSwapped`, emits a [payment event](https://github.com/depayfi/depay-
 Payments are routed through the DePayPaymentRouter if swapping tokens is required in order to perform the payment. If payments are not routed through the router, e.g. direct transfer, no event is emited if `event` is set to `ifSwapped`.
 
 
+```javascript
+DePayWidgets.Payment({
+  
+  event: 'ifSwapped',
+  
+  accept: [
+    { blockchain: 'ethereum', token: '0xdAC17F958D2ee523a2206206994597C13D831ec7', amount, receiver },
+    { blockchain: 'ethereum', token: '0x6B175474E89094C44Da98b954EedeAC495271d0F', amount, receiver },
+    { blockchain: 'ethereum', token: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', amount, receiver },
+    { blockchain: 'ethereum', token: '0x4Fabb145d64652a948d72533023f6E7A623C7C53', amount, receiver },
+    { blockchain: 'bsc', token: '0x55d398326f99059fF775485246999027B3197955', amount, receiver },
+    { blockchain: 'bsc', token: '0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3', amount, receiver },
+    { blockchain: 'bsc', token: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d', amount, receiver },
+    { blockchain: 'bsc', token: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56', amount, receiver }
+  ]
+})
+```
+
 #### style
 
 `style`
 
-Allows you to change the style of the widget:
+Allows you to change the style of the widget.
+
+```javascript
+DePayWidgets.Payment({
+  style: {
+    colors: {
+      primary: '#ffd265',
+      text: '#e1b64a',
+      buttonText: '#000000',
+      icons: '#ffd265'
+    },
+    fontFamily: '"Cardo", serif !important',
+    css: `
+      @import url("https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap");
+
+      .ReactDialogBackground {
+        background: rgba(0,0,0,0.8);
+      }
+    `
+  },
+  accept: [...]
+})
+```
 
 ##### colors
 
