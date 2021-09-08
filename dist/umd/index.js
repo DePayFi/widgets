@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('react-dom'), require('depay-react-shadow-dom'), require('depay-react-dialog-stack'), require('depay-react-token-image'), require('depay-web3-constants'), require('ethers'), require('depay-web3-payments'), require('depay-local-currency'), require('depay-web3-exchanges'), require('depay-web3-tokens'), require('depay-web3-wallets')) :
-  typeof define === 'function' && define.amd ? define(['react', 'react-dom', 'depay-react-shadow-dom', 'depay-react-dialog-stack', 'depay-react-token-image', 'depay-web3-constants', 'ethers', 'depay-web3-payments', 'depay-local-currency', 'depay-web3-exchanges', 'depay-web3-tokens', 'depay-web3-wallets'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.ReactDOM, global.ReactShadowDOM, global.ReactDialogStack, global.ReactTokenImage, global.Web3Constants, global.ethers, global.Web3Payments, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.Web3Wallets));
-}(this, (function (React, ReactDOM, depayReactShadowDom, depayReactDialogStack, depayReactTokenImage, depayWeb3Constants, ethers, depayWeb3Payments, depayLocalCurrency, depayWeb3Exchanges, depayWeb3Tokens, depayWeb3Wallets) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('depay-web3-client'), require('react-dom'), require('depay-react-shadow-dom'), require('depay-react-dialog-stack'), require('depay-react-token-image'), require('depay-web3-constants'), require('ethers'), require('depay-web3-payments'), require('depay-local-currency'), require('depay-web3-exchanges'), require('depay-web3-tokens'), require('depay-web3-wallets')) :
+  typeof define === 'function' && define.amd ? define(['react', 'depay-web3-client', 'react-dom', 'depay-react-shadow-dom', 'depay-react-dialog-stack', 'depay-react-token-image', 'depay-web3-constants', 'ethers', 'depay-web3-payments', 'depay-local-currency', 'depay-web3-exchanges', 'depay-web3-tokens', 'depay-web3-wallets'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.Web3Client, global.ReactDOM, global.ReactShadowDOM, global.ReactDialogStack, global.ReactTokenImage, global.Web3Constants, global.ethers, global.Web3Payments, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.Web3Wallets));
+}(this, (function (React, depayWeb3Client, ReactDOM, depayReactShadowDom, depayReactDialogStack, depayReactTokenImage, depayWeb3Constants, ethers, depayWeb3Payments, depayLocalCurrency, depayWeb3Exchanges, depayWeb3Tokens, depayWeb3Wallets) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -883,6 +883,13 @@
   var ConfigurationContext = /*#__PURE__*/React__default$1['default'].createContext();
 
   var ConfigurationProvider = (function (props) {
+    React.useEffect(function () {
+      if (props.configuration.providers != undefined) {
+        Object.entries(props.configuration.providers).forEach(function (entry) {
+          depayWeb3Client.setProvider(entry[0], entry[1]);
+        });
+      }
+    }, [props.configuration]);
     return /*#__PURE__*/React__default$1['default'].createElement(ConfigurationContext.Provider, {
       value: props.configuration
     }, props.children);
@@ -2451,12 +2458,12 @@
 
   var Payment = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, document;
+      var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, providers, document;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, document = _ref3.document;
+              accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, providers = _ref3.providers, document = _ref3.document;
               _context2.prev = 1;
               _context2.next = 4;
               return preflight({
@@ -2481,7 +2488,8 @@
                       confirmed: confirmed,
                       ensured: ensured,
                       failed: failed,
-                      whitelist: whitelist
+                      whitelist: whitelist,
+                      providers: providers
                     }
                   }, /*#__PURE__*/React__default$1['default'].createElement(ClosableProvider, {
                     unmount: unmount
