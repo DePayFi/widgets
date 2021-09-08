@@ -106,8 +106,7 @@ describe('execute Payment', () => {
           addresses: [fromAddress, toAddress],
           plugins: [
             plugins[blockchain].uniswap_v2.address,
-            plugins[blockchain].payment.address,
-            plugins[blockchain].event.address
+            plugins[blockchain].paymentWithEvent.address
           ],
           data:[]
         }
