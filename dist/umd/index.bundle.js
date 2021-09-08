@@ -59230,8 +59230,8 @@
           return transaction;
         }
       },
-      event: {
-        address: '0x6A12C2Cc8AF31f125484EB685F7c0bfcE280B919'
+      paymentWithEvent: {
+        address: '0xD8fBC10787b019fE4059Eb5AA5fB11a5862229EF'
       }
     },
     bsc: {
@@ -59253,8 +59253,8 @@
           return transaction;
         }
       },
-      event: {
-        address: '0xf83f63ccf66dfd9ef285e58217352835c470c56c'
+      paymentWithEvent: {
+        address: '0x1869E236c03eE67B9FfEd3aCA139f4AeBA79Dc21'
       }
     }
   };
@@ -63880,7 +63880,8 @@
       }),
       params: transactionParams({
         paymentRoute: paymentRoute,
-        exchangeRoute: exchangeRoute
+        exchangeRoute: exchangeRoute,
+        event: event
       }),
       value: transactionValue({
         paymentRoute: paymentRoute,
@@ -63894,10 +63895,6 @@
       if (exchangePlugin) {
         transaction = exchangePlugin.prepareTransaction(transaction);
       }
-    }
-
-    if (event == 'ifSwapped' && !paymentRoute.directTransfer) {
-      transaction.params.plugins.push(plugins[paymentRoute.blockchain].event.address);
     }
 
     return transaction;
@@ -63947,7 +63944,8 @@
 
   var transactionParams = function transactionParams(_ref5) {
     var paymentRoute = _ref5.paymentRoute,
-        exchangeRoute = _ref5.exchangeRoute;
+        exchangeRoute = _ref5.exchangeRoute,
+        event = _ref5.event;
 
     if (paymentRoute.directTransfer) {
       if (paymentRoute.toToken.address == CONSTANTS$2[paymentRoute.blockchain].NATIVE) {
@@ -63970,7 +63968,8 @@
         }),
         plugins: transactionPlugins({
           paymentRoute: paymentRoute,
-          exchangeRoute: exchangeRoute
+          exchangeRoute: exchangeRoute,
+          event: event
         }),
         data: []
       };
@@ -64006,13 +64005,21 @@
 
   var transactionPlugins = function transactionPlugins(_ref9) {
     var paymentRoute = _ref9.paymentRoute,
-        exchangeRoute = _ref9.exchangeRoute;
+        exchangeRoute = _ref9.exchangeRoute,
+        event = _ref9.event;
+    var paymentPlugins = [];
 
     if (exchangeRoute) {
-      return [plugins[paymentRoute.blockchain][exchangeRoute.exchange.name].address, plugins[paymentRoute.blockchain].payment.address];
-    } else {
-      return [plugins[paymentRoute.blockchain].payment.address];
+      paymentPlugins.push(plugins[paymentRoute.blockchain][exchangeRoute.exchange.name].address);
     }
+
+    if (event == 'ifSwapped' && !paymentRoute.directTransfer) {
+      paymentPlugins.push(plugins[paymentRoute.blockchain].paymentWithEvent.address);
+    } else {
+      paymentPlugins.push(plugins[paymentRoute.blockchain].payment.address);
+    }
+
+    return paymentPlugins;
   };
 
   var transactionValue = function transactionValue(_ref10) {
