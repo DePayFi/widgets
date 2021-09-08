@@ -32,6 +32,7 @@ let Payment = async ({
   critical,
   style,
   whitelist,
+  providers,
   document
 }) => {
 
@@ -40,7 +41,7 @@ let Payment = async ({
     mount({ style, document: ensureDocument(document) }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={ { accept, event, sent, confirmed, ensured, failed, whitelist } }>
+          <ConfigurationProvider configuration={ { accept, event, sent, confirmed, ensured, failed, whitelist, providers } }>
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
                 <WalletProvider>

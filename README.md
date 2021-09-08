@@ -213,6 +213,22 @@ DePayWidgets.Payment({
 })
 ```
 
+#### providers
+
+Allows to set providers to be used for making RPC calls to the individiual blockchains:
+
+```javascript
+DePayWidgets.Payment({
+
+  providers: {
+    ethereum: ['http://localhost:8545'],
+    bsc: ['http://localhost:8545']
+  },
+
+  accept: [...]
+})
+```
+
 #### whitelist
 
 Allows only fromTokens (from the sender) that are part of the whitelist:
