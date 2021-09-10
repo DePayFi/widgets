@@ -2217,10 +2217,6 @@ var RoutingProvider = (function (props) {
 
                         case 7:
                           roundedAmountBN = _context.sent;
-                          console.log('route', route);
-                          console.log('readableAmount', readableAmount);
-                          console.log('readableAmount', round(readableAmount));
-                          console.log('roundedAmountBN', roundedAmountBN.toString());
                           route.fromAmount = roundedAmountBN;
                           route.transaction.params.amounts[0] = roundedAmountBN;
 
@@ -2230,7 +2226,7 @@ var RoutingProvider = (function (props) {
 
                           return _context.abrupt("return", route);
 
-                        case 16:
+                        case 12:
                         case "end":
                           return _context.stop();
                       }
