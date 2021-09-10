@@ -26,6 +26,7 @@ let Sale = async ({
   critical,
   style,
   providers,
+  currency,
   document
 }) => {
 
@@ -34,7 +35,7 @@ let Sale = async ({
     mount({ style, document: ensureDocument(document) }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={{ amount, token, blockchains, event, sent, confirmed, ensured, failed, providers }}>
+          <ConfigurationProvider configuration={{ amount, token, blockchains, currency, event, sent, confirmed, ensured, failed, providers }}>
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
                 <WalletProvider>

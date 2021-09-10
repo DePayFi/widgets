@@ -53,6 +53,7 @@ export default (props)=>{
     })
   }
   const pay = ()=> {
+    console.log(payment.route)
     setClosable(false)
     setState('paying')
     setUpdate(false)
@@ -149,7 +150,7 @@ export default (props)=>{
   }, [allRoutes])
   useEffect(()=>{
     if(paymentValue) {
-      setSalePerTokenValue(`${paymentValue.code} ${(paymentValue.amount / parseFloat(purchasedAmount)).toFixed(2)}`)
+      setSalePerTokenValue((new Currency({ amount: (paymentValue.amount / parseFloat(purchasedAmount)).toFixed(2), code: paymentValue.code })).toString())
     }
   }, [paymentValue])
 

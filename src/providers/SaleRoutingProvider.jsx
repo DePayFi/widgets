@@ -16,19 +16,21 @@ export default (props)=>{
   const [accept, setAccept] = useState()
 
   useEffect(()=>{
-    setAccept(
-      blockchains.map((blockchain)=>{
-        return(
-          {
-            blockchain,
-            amount: purchasedAmount,
-            token: token,
-            receiver: account
-          }
-        )
-      })
-    )
-  }, [purchasedAmount])
+    if(account) {
+      setAccept(
+        blockchains.map((blockchain)=>{
+          return(
+            {
+              blockchain,
+              amount: purchasedAmount,
+              token: token,
+              receiver: account
+            }
+          )
+        })
+      )
+    }
+  }, [account, purchasedAmount])
 
   useEffect(()=>{
     let tokenInstance = new Token({ blockchain: blockchains[0], address: token })

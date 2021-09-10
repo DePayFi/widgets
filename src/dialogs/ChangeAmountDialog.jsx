@@ -76,8 +76,6 @@ export default (props)=>{
     setInputAmount(Math.min(value, max))
   }
 
-  console.log('maxRouteData', maxRouteData)
-
   return(
     <Dialog
       stacked={ true }
