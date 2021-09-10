@@ -1,3 +1,5 @@
+
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 import React, { useState, useEffect, useContext } from 'react';
 import { setProvider } from 'depay-web3-client';
 import ReactDOM from 'react-dom';
@@ -1555,25 +1557,46 @@ var ChangePaymentSkeleton = (function (props) {
 });
 
 var round = (function (input) {
+  var _digitsAfterDecimal;
+
   var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'up';
+  var digitsAfterDecimal = parseFloat(input).toString().match(/\d+\.0*(\d{3})/);
 
-  var _float;
+  if ((_digitsAfterDecimal = digitsAfterDecimal) !== null && _digitsAfterDecimal !== void 0 && _digitsAfterDecimal.length) {
+    digitsAfterDecimal = digitsAfterDecimal[0];
+    var focus = digitsAfterDecimal.match(/\d{3}$/)[0];
 
-  var match = parseFloat(input).toString().match(/\d+\.0*(\d{3})/);
-
-  if (match && match.length) {
-    match = match[0];
-
-    if (direction == 'up') {
-      _float = match.replace(/\d{2}$/, parseInt(match[match.length - 2], 10) + 1);
-    } else {
-      _float = match.replace(/\d{2}$/, parseInt(match[match.length - 2], 10));
+    if (focus.match(/^00/)) {
+      return input;
     }
-  } else {
-    _float = parseFloat(input).toString();
-  }
 
-  return parseFloat(_float);
+    var _float;
+
+    var focusToFixed;
+
+    if (focus.match(/^0/)) {
+      if (direction == 'up') {
+        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]));
+      } else {
+        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]));
+      }
+
+      focusToFixed = parseFloat(_float).toFixed(1);
+      focusToFixed = "0".concat(focusToFixed).replace('.', '');
+    } else {
+      if (direction == 'up') {
+        _float = parseFloat("".concat(focus[0], ".").concat(focus[1], "9"));
+      } else {
+        _float = parseFloat("".concat(focus[0], ".").concat(focus[1], "1"));
+      }
+
+      focusToFixed = parseFloat(_float).toFixed(1).replace('.', '');
+    }
+
+    return parseFloat(digitsAfterDecimal.replace(/\d{3}$/, focusToFixed));
+  } else {
+    return parseFloat(parseFloat(input).toFixed(2));
+  }
 });
 
 var ChangePaymentDialog = (function (props) {
@@ -2138,7 +2161,7 @@ var RoutingProvider = (function (props) {
         selectedRoute = _ref.selectedRoute,
         update = _ref.update;
 
-    if (update == false) {
+    if (update == false || accept == undefined || account == undefined) {
       return;
     }
 
@@ -2196,6 +2219,10 @@ var RoutingProvider = (function (props) {
 
                         case 7:
                           roundedAmountBN = _context.sent;
+                          console.log('route', route);
+                          console.log('readableAmount', readableAmount);
+                          console.log('readableAmount', round(readableAmount));
+                          console.log('roundedAmountBN', roundedAmountBN.toString());
                           route.fromAmount = roundedAmountBN;
                           route.transaction.params.amounts[0] = roundedAmountBN;
 
@@ -2205,7 +2232,7 @@ var RoutingProvider = (function (props) {
 
                           return _context.abrupt("return", route);
 
-                        case 12:
+                        case 16:
                         case "end":
                           return _context.stop();
                       }

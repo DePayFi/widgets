@@ -51989,7 +51989,7 @@
 
     var _float;
 
-    var match = parseFloat(input).toString().match(/\d+\.0*(\d{3})/);
+    var match = parseFloat(input).toString().match(/\d+\.0*([123456789]{3})/);
 
     if (match && match.length) {
       match = match[0];
@@ -64669,7 +64669,7 @@
           selectedRoute = _ref.selectedRoute,
           update = _ref.update;
 
-      if (update == false) {
+      if (update == false || props.accept == undefined || account == undefined) {
         return;
       }
 
@@ -64727,6 +64727,10 @@
 
                           case 7:
                             roundedAmountBN = _context.sent;
+                            console.log('route', route);
+                            console.log('readableAmount', readableAmount);
+                            console.log('readableAmount', round(readableAmount));
+                            console.log('roundedAmountBN', roundedAmountBN.toString());
                             route.fromAmount = roundedAmountBN;
                             route.transaction.params.amounts[0] = roundedAmountBN;
 
@@ -64736,7 +64740,7 @@
 
                             return _context.abrupt("return", route);
 
-                          case 12:
+                          case 16:
                           case "end":
                             return _context.stop();
                         }

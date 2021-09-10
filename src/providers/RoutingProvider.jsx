@@ -18,7 +18,7 @@ export default (props)=>{
   const { account } = useContext(WalletContext)
   const { update } = useContext(UpdateContext)
   const getPaymentRoutes = ({ allRoutes, selectedRoute, update })=>{
-    if(update == false) { return }
+    if(update == false || accept == undefined || account == undefined) { return }
     route({
       accept: accept.map((configuration)=>({ ...configuration, fromAddress: account, toAddress: configuration.receiver })),
       whitelist,
@@ -41,6 +41,10 @@ export default (props)=>{
       if(route.directTransfer){ return route }
       let readableAmount = await route.fromToken.readable(route.transaction.params.amounts[0])
       let roundedAmountBN = await route.fromToken.BigNumber(round(readableAmount))
+      console.log('route', route)
+      console.log('readableAmount', readableAmount)
+      console.log('readableAmount', round(readableAmount))
+      console.log('roundedAmountBN', roundedAmountBN.toString())
       route.fromAmount = roundedAmountBN
       route.transaction.params.amounts[0] = roundedAmountBN
       if(route.transaction.value && route.transaction.value.toString() != '0') {
@@ -57,7 +61,7 @@ export default (props)=>{
   useEffect(() => {
     const timeout = setTimeout(() => {
       setReloadCount(reloadCount + 1)
-      getPaymentRoutes({ allRoutes, selectedRoute, update })
+      getPaymentRoutes({ allRoutes, selectedRoute, update })  
     }, 15000);
 
     return () => clearTimeout(timeout)
