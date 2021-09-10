@@ -27,6 +27,8 @@ export default (props)=>{
           amount
         })
       }).catch(setError)
+    } else {
+      setPayment(undefined)
     }
   }, [selectedRoute])
 

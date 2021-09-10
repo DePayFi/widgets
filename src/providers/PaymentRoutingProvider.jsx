@@ -49,10 +49,6 @@ export default (props)=>{
   }
 
   useEffect(() => {
-    if(account) { getPaymentRoutes({}) }
-  }, [account])
-
-  useEffect(() => {
     const timeout = setTimeout(() => {
       setReloadCount(reloadCount + 1)
       getPaymentRoutes({ allRoutes, selectedRoute, update })
@@ -60,6 +56,14 @@ export default (props)=>{
 
     return () => clearTimeout(timeout)
   }, [reloadCount, allRoutes, selectedRoute, update])
+
+  useEffect(() => {
+    if(account && props.accept) {
+      setAllRoutes(undefined)
+      setSelectedRoute(undefined)
+      getPaymentRoutes({})
+    }
+  }, [account, props.accept])
 
   return(
     <PaymentRoutingContext.Provider value={{

@@ -13,17 +13,22 @@ export default (props)=>{
   const { account } = useContext(WalletContext)
   const [purchasedAmount, setPurchaseAmount] = useState(amount.start)
   const [purchasedToken, setPurchasedToken] = useState()
+  const [accept, setAccept] = useState()
 
-  let accept = blockchains.map((blockchain)=>{
-    return(
-      {
-        blockchain,
-        amount: purchasedAmount,
-        token: token,
-        receiver: account
-      }
+  useEffect(()=>{
+    setAccept(
+      blockchains.map((blockchain)=>{
+        return(
+          {
+            blockchain,
+            amount: purchasedAmount,
+            token: token,
+            receiver: account
+          }
+        )
+      })
     )
-  })
+  }, [purchasedAmount])
 
   useEffect(()=>{
     let tokenInstance = new Token({ blockchain: blockchains[0], address: token })
@@ -39,6 +44,7 @@ export default (props)=>{
 
   return(
     <SaleRoutingContext.Provider value={{
+      setPurchaseAmount,
       purchasedAmount,
       purchasedToken
     }}>

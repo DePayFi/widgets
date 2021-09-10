@@ -1,15 +1,16 @@
 
 (function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('depay-web3-client'), require('react-dom'), require('depay-react-shadow-dom'), require('depay-web3-constants'), require('ethers'), require('depay-web3-payments'), require('depay-react-dialog-stack'), require('depay-react-token-image'), require('depay-local-currency'), require('depay-web3-exchanges'), require('depay-web3-tokens'), require('depay-web3-wallets')) :
-  typeof define === 'function' && define.amd ? define(['react', 'depay-web3-client', 'react-dom', 'depay-react-shadow-dom', 'depay-web3-constants', 'ethers', 'depay-web3-payments', 'depay-react-dialog-stack', 'depay-react-token-image', 'depay-local-currency', 'depay-web3-exchanges', 'depay-web3-tokens', 'depay-web3-wallets'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.Web3Client, global.ReactDOM, global.ReactShadowDOM, global.Web3Constants, global.ethers, global.Web3Payments, global.ReactDialogStack, global.ReactTokenImage, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.Web3Wallets));
-}(this, (function (React, depayWeb3Client, ReactDOM, depayReactShadowDom, depayWeb3Constants, ethers, depayWeb3Payments, depayReactDialogStack, depayReactTokenImage, depayLocalCurrency, depayWeb3Exchanges, depayWeb3Tokens, depayWeb3Wallets) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('depay-web3-client'), require('react-dom'), require('depay-react-shadow-dom'), require('depay-web3-constants'), require('ethers'), require('depay-web3-payments'), require('depay-react-dialog-stack'), require('depay-react-token-image'), require('depay-local-currency'), require('depay-web3-exchanges'), require('depay-web3-tokens'), require('depay-web3-wallets'), require('react-rangeslider')) :
+  typeof define === 'function' && define.amd ? define(['react', 'depay-web3-client', 'react-dom', 'depay-react-shadow-dom', 'depay-web3-constants', 'ethers', 'depay-web3-payments', 'depay-react-dialog-stack', 'depay-react-token-image', 'depay-local-currency', 'depay-web3-exchanges', 'depay-web3-tokens', 'depay-web3-wallets', 'react-rangeslider'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.Web3Client, global.ReactDOM, global.ReactShadowDOM, global.Web3Constants, global.ethers, global.Web3Payments, global.ReactDialogStack, global.ReactTokenImage, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.Web3Wallets, global.Slider));
+}(this, (function (React, depayWeb3Client, ReactDOM, depayReactShadowDom, depayWeb3Constants, ethers, depayWeb3Payments, depayReactDialogStack, depayReactTokenImage, depayLocalCurrency, depayWeb3Exchanges, depayWeb3Tokens, depayWeb3Wallets, Slider) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
   var React__default$1 = /*#__PURE__*/_interopDefaultLegacy(React);
   var ReactDOM__default$1 = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
+  var Slider__default = /*#__PURE__*/_interopDefaultLegacy(Slider);
 
   function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
     try {
@@ -1304,7 +1305,7 @@
   });
 
   var FontStyle = (function (style) {
-    return "\n\n    .Dialog, * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeM {\n      font-size: 1.2rem;\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
+    return "\n\n    .Dialog, * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeM {\n      font-size: 1.2rem;\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontSizeXL {\n      font-size: 2.0rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
   });
 
   var FooterStyle = (function (style) {
@@ -1323,6 +1324,10 @@
     return "\n\n    .Icon {\n      fill : ".concat(style.colors.icons, ";\n      stroke : ").concat(style.colors.icons, ";\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 1.4rem;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 1.4rem;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n    \n  ");
   });
 
+  var InputStyle = (function (style) {
+    return "\n\n    .Input {\n      background: none;\n      border: 1px solid transparent;\n      margin: 0;\n      outline: none !important;\n      padding: 0;\n      width: 100%;\n    }\n\n    .Input::placeholder {\n      color: rgb(210,210,210);\n    }\n    \n  ";
+  });
+
   var LabelStyle = (function (style) {
     return "\n\n    .Label {\n      background: rgb(248,248,248);\n      border-radius: 999px;\n      color: ".concat(style.colors.primary, ";\n      font-size: 0.8rem;\n      padding: 0.1rem 0.5rem;\n      margin: 0.1rem;\n    }\n\n  ");
   });
@@ -1333,6 +1338,10 @@
 
   var PaddingStyle = (function () {
     return "\n\n    .PaddingTopXS {\n      padding-top: 0.2rem;\n    }\n\n    .PaddingRightXS {\n      padding-right: 0.2rem;\n    }\n\n    .PaddingBottomXS {\n      padding-bottom: 0.2rem;\n    }\n\n    .PaddingLeftXS {\n      padding-left: 0.2rem; \n    }\n\n    .PaddingTopS {\n      padding-top: 0.8rem;\n    }\n\n    .PaddingRightS {\n      padding-right: 0.8rem;\n    }\n\n    .PaddingBottomS {\n      padding-bottom: 0.8rem;\n    }\n\n    .PaddingLeftS {\n      padding-left: 0.8rem; \n    }\n\n    .PaddingTopM {\n      padding-top: 1.2rem;\n    }\n\n    .PaddingRightM {\n      padding-right: 1.2rem;\n    }\n\n    .PaddingBottomM {\n      padding-bottom: 1.2rem;\n    }\n\n    .PaddingLeftM {\n      padding-left: 1.2rem; \n    }\n\n    .PaddingTopL {\n      padding-top: 1.8rem;\n    }\n\n    .PaddingRightL {\n      padding-right: 1.8rem;\n    }\n\n    .PaddingBottomL {\n      padding-bottom: 1.8rem;\n    }\n\n    .PaddingLeftL {\n      padding-left: 1.28em; \n    }\n  ";
+  });
+
+  var RangeSliderStyle = (function (style) {
+    return "\n\n    .rangeslider {\n      margin: 20px 0;\n      position: relative;\n      background: #e6e6e6;\n      -ms-touch-action: none;\n      touch-action: none;\n    }\n\n    .rangeslider,\n    .rangeslider__fill {\n      display: block;\n      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);\n    }\n\n    .rangeslider__handle {\n      outline: none;\n      cursor: pointer;\n      display: inline-block;\n      position: absolute;\n      border-radius: 50%;\n      background-color: " + style.colors.primary + ";\n      border: 1px solid white;\n      box-shadow: 0 0 8px rgba(0,0,0,0.1);\n    }\n\n    .rangeslider__handle:hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n\n    .rangeslider__handle:active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.3);\n    }\n\n    .rangeslider__active {\n      opacity: 1;\n    }\n\n    .rangeslider__handle-tooltip {\n      display: none;\n    }\n\n    .rangeslider-horizontal {\n      height: 12px;\n      border-radius: 10px;\n    }\n\n    .rangeslider-horizontal .rangeslider__fill {\n      height: 100%;\n      background-color: " + style.colors.primary + ";\n      border-radius: 10px;\n      top: 0;\n    }\n    .rangeslider-horizontal .rangeslider__handle {\n      width: 18px;\n      height: 18px;\n      border-radius: 30px;\n      top: 50%;\n      transform: translate3d(-50%, -50%, 0);\n    }\n\n\n    .rangeslider-horizontal .rangeslider__handle-tooltip {\n      top: -55px;\n    }\n\n  ";
   });
 
   var ResetStyle = (function () {
@@ -1361,7 +1370,7 @@
       },
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
     }, style);
-    return [ResetStyle(), FontStyle(style), DialogStyle(style), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(), FooterStyle(style), GraphicStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(), IconStyle(style), PaddingStyle(), HeightStyle(), LabelStyle(style), LoadingTextStyle(style)].join('');
+    return [ResetStyle(), FontStyle(style), DialogStyle(style), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(), FooterStyle(style), GraphicStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(), IconStyle(style), PaddingStyle(), HeightStyle(), LabelStyle(style), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle()].join('');
   });
 
   var mount = (function (_ref, content) {
@@ -1429,6 +1438,8 @@
             amount: amount
           });
         })["catch"](setError);
+      } else {
+        setPayment(undefined);
       }
     }, [selectedRoute]);
     return /*#__PURE__*/React__default$1['default'].createElement(PaymentContext.Provider, {
@@ -1608,11 +1619,6 @@
     }();
 
     React.useEffect(function () {
-      if (account) {
-        getPaymentRoutes({});
-      }
-    }, [account]);
-    React.useEffect(function () {
       var timeout = setTimeout(function () {
         setReloadCount(reloadCount + 1);
         getPaymentRoutes({
@@ -1625,6 +1631,13 @@
         return clearTimeout(timeout);
       };
     }, [reloadCount, allRoutes, selectedRoute, update]);
+    React.useEffect(function () {
+      if (account && props.accept) {
+        setAllRoutes(undefined);
+        setSelectedRoute(undefined);
+        getPaymentRoutes({});
+      }
+    }, [account, props.accept]);
     return /*#__PURE__*/React__default$1['default'].createElement(PaymentRoutingContext.Provider, {
       value: {
         selectedRoute: selectedRoute,
@@ -2544,22 +2557,29 @@
 
     var _useState = React.useState(amount.start),
         _useState2 = _slicedToArray(_useState, 2),
-        purchasedAmount = _useState2[0];
-        _useState2[1];
+        purchasedAmount = _useState2[0],
+        setPurchaseAmount = _useState2[1];
 
     var _useState3 = React.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
         purchasedToken = _useState4[0],
         setPurchasedToken = _useState4[1];
 
-    var accept = blockchains.map(function (blockchain) {
-      return {
-        blockchain: blockchain,
-        amount: purchasedAmount,
-        token: token,
-        receiver: account
-      };
-    });
+    var _useState5 = React.useState(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        accept = _useState6[0],
+        setAccept = _useState6[1];
+
+    React.useEffect(function () {
+      setAccept(blockchains.map(function (blockchain) {
+        return {
+          blockchain: blockchain,
+          amount: purchasedAmount,
+          token: token,
+          receiver: account
+        };
+      }));
+    }, [purchasedAmount]);
     React.useEffect(function () {
       var tokenInstance = new depayWeb3Tokens.Token({
         blockchain: blockchains[0],
@@ -2581,6 +2601,7 @@
     }, []);
     return /*#__PURE__*/React__default$1['default'].createElement(SaleRoutingContext.Provider, {
       value: {
+        setPurchaseAmount: setPurchaseAmount,
         purchasedAmount: purchasedAmount,
         purchasedToken: purchasedToken
       }
@@ -2589,9 +2610,22 @@
     }, /*#__PURE__*/React__default$1['default'].createElement(PaymentProvider, null, /*#__PURE__*/React__default$1['default'].createElement(PaymentValueProvider, null, props.children))));
   });
 
-  var ChangePurchaseDialog = (function (props) {
-    var _useContext = React.useContext(depayReactDialogStack.NavigateStackContext);
-        _useContext.navigate;
+  var ChangeAmountDialog = (function (props) {
+    var _useContext = React.useContext(ConfigurationContext);
+        _useContext.amount;
+
+    var _useContext2 = React.useContext(depayReactDialogStack.NavigateStackContext);
+        _useContext2.navigate;
+
+    var _useState = React.useState(props.amount),
+        _useState2 = _slicedToArray(_useState, 2),
+        inputAmount = _useState2[0];
+        _useState2[1];
+    console.log('inputAmount', inputAmount);
+
+    var changeAmountAndGoBack = function changeAmountAndGoBack() {};
+
+    var changeAmount = function changeAmount(value) {};
 
     return /*#__PURE__*/React__default$1['default'].createElement(Dialog, {
       stacked: true,
@@ -2599,15 +2633,35 @@
         className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
       }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
         className: "FontSizeL TextCenter"
-      }, "Change Purchase"), /*#__PURE__*/React__default$1['default'].createElement("div", {
+      }, "Change Amount"), /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "FontSizeL TextCenter FontWeightBold"
-      }, /*#__PURE__*/React__default$1['default'].createElement("strong", null, "TOKEN SYMBOL HERE"))),
+      }, /*#__PURE__*/React__default$1['default'].createElement("strong", null, props.token.symbol))),
       body: /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "MaxHeight PaddingTopXS"
       }, /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM"
-      }, "SOMETHING?")),
-      footer: /*#__PURE__*/React__default$1['default'].createElement("div", null)
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopS TextCenter"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "FontSizeL"
+      }, /*#__PURE__*/React__default$1['default'].createElement("input", {
+        max: 100,
+        min: 1,
+        step: 1,
+        className: "Input FontSizeXL TextAlignCenter",
+        type: "number",
+        name: "amount",
+        value: inputAmount,
+        onChange: function onChange(event) {
+          changeAmount(parseFloat(event.target.value));
+        }
+      }))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingBottomL"
+      }, /*#__PURE__*/React__default$1['default'].createElement(Slider__default['default'], null)))),
+      footer: /*#__PURE__*/React__default$1['default'].createElement("div", null, /*#__PURE__*/React__default$1['default'].createElement("button", {
+        className: "ButtonPrimary",
+        onClick: changeAmountAndGoBack
+      }, "Done"))
     });
   });
 
@@ -2850,7 +2904,7 @@
             return;
           }
 
-          navigate('ChangePurchase');
+          navigate('ChangeAmount');
         }
       }, /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "CardImage",
@@ -2920,6 +2974,11 @@
         open = _useContext.open,
         close = _useContext.close;
 
+    var _useContext2 = React.useContext(SaleRoutingContext),
+        purchasedToken = _useContext2.purchasedToken,
+        purchasedAmount = _useContext2.purchasedAmount,
+        setPurchaseAmount = _useContext2.setPurchaseAmount;
+
     return /*#__PURE__*/React__default$1['default'].createElement(depayReactDialogStack.ReactDialogStack, {
       open: open,
       close: close,
@@ -2928,7 +2987,11 @@
       document: props.document,
       dialogs: {
         SaleOverview: /*#__PURE__*/React__default$1['default'].createElement(SaleOverviewDialog, null),
-        ChangePurchase: /*#__PURE__*/React__default$1['default'].createElement(ChangePurchaseDialog, null),
+        ChangeAmount: /*#__PURE__*/React__default$1['default'].createElement(ChangeAmountDialog, {
+          token: purchasedToken,
+          amount: purchasedAmount,
+          setAmount: setPurchaseAmount
+        }),
         ChangePayment: /*#__PURE__*/React__default$1['default'].createElement(ChangePaymentDialog, null),
         NoPaymentMethodFound: /*#__PURE__*/React__default$1['default'].createElement(NoPaymentMethodFoundDialog, null),
         PaymentError: /*#__PURE__*/React__default$1['default'].createElement(PaymentErrorDialog, null)

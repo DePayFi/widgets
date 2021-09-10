@@ -13,6 +13,7 @@ import { Currency } from 'depay-local-currency';
 import { route as route$1 } from 'depay-web3-exchanges';
 import { Token } from 'depay-web3-tokens';
 import { getWallet } from 'depay-web3-wallets';
+import Slider from 'react-rangeslider';
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
@@ -1307,7 +1308,7 @@ var DialogStyle = (function (style) {
 });
 
 var FontStyle = (function (style) {
-  return "\n\n    .Dialog, * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeM {\n      font-size: 1.2rem;\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
+  return "\n\n    .Dialog, * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeM {\n      font-size: 1.2rem;\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontSizeXL {\n      font-size: 2.0rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
 });
 
 var FooterStyle = (function (style) {
@@ -1326,6 +1327,10 @@ var IconStyle = (function (style) {
   return "\n\n    .Icon {\n      fill : ".concat(style.colors.icons, ";\n      stroke : ").concat(style.colors.icons, ";\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 1.4rem;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 1.4rem;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n    \n  ");
 });
 
+var InputStyle = (function (style) {
+  return "\n\n    .Input {\n      background: none;\n      border: 1px solid transparent;\n      margin: 0;\n      outline: none !important;\n      padding: 0;\n      width: 100%;\n    }\n\n    .Input::placeholder {\n      color: rgb(210,210,210);\n    }\n    \n  ";
+});
+
 var LabelStyle = (function (style) {
   return "\n\n    .Label {\n      background: rgb(248,248,248);\n      border-radius: 999px;\n      color: ".concat(style.colors.primary, ";\n      font-size: 0.8rem;\n      padding: 0.1rem 0.5rem;\n      margin: 0.1rem;\n    }\n\n  ");
 });
@@ -1336,6 +1341,10 @@ var LoadingTextStyle = (function (style) {
 
 var PaddingStyle = (function () {
   return "\n\n    .PaddingTopXS {\n      padding-top: 0.2rem;\n    }\n\n    .PaddingRightXS {\n      padding-right: 0.2rem;\n    }\n\n    .PaddingBottomXS {\n      padding-bottom: 0.2rem;\n    }\n\n    .PaddingLeftXS {\n      padding-left: 0.2rem; \n    }\n\n    .PaddingTopS {\n      padding-top: 0.8rem;\n    }\n\n    .PaddingRightS {\n      padding-right: 0.8rem;\n    }\n\n    .PaddingBottomS {\n      padding-bottom: 0.8rem;\n    }\n\n    .PaddingLeftS {\n      padding-left: 0.8rem; \n    }\n\n    .PaddingTopM {\n      padding-top: 1.2rem;\n    }\n\n    .PaddingRightM {\n      padding-right: 1.2rem;\n    }\n\n    .PaddingBottomM {\n      padding-bottom: 1.2rem;\n    }\n\n    .PaddingLeftM {\n      padding-left: 1.2rem; \n    }\n\n    .PaddingTopL {\n      padding-top: 1.8rem;\n    }\n\n    .PaddingRightL {\n      padding-right: 1.8rem;\n    }\n\n    .PaddingBottomL {\n      padding-bottom: 1.8rem;\n    }\n\n    .PaddingLeftL {\n      padding-left: 1.28em; \n    }\n  ";
+});
+
+var RangeSliderStyle = (function (style) {
+  return "\n\n    .rangeslider {\n      margin: 20px 0;\n      position: relative;\n      background: #e6e6e6;\n      -ms-touch-action: none;\n      touch-action: none;\n    }\n\n    .rangeslider,\n    .rangeslider__fill {\n      display: block;\n      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);\n    }\n\n    .rangeslider__handle {\n      outline: none;\n      cursor: pointer;\n      display: inline-block;\n      position: absolute;\n      border-radius: 50%;\n      background-color: " + style.colors.primary + ";\n      border: 1px solid white;\n      box-shadow: 0 0 8px rgba(0,0,0,0.1);\n    }\n\n    .rangeslider__handle:hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n\n    .rangeslider__handle:active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.3);\n    }\n\n    .rangeslider__active {\n      opacity: 1;\n    }\n\n    .rangeslider__handle-tooltip {\n      display: none;\n    }\n\n    .rangeslider-horizontal {\n      height: 12px;\n      border-radius: 10px;\n    }\n\n    .rangeslider-horizontal .rangeslider__fill {\n      height: 100%;\n      background-color: " + style.colors.primary + ";\n      border-radius: 10px;\n      top: 0;\n    }\n    .rangeslider-horizontal .rangeslider__handle {\n      width: 18px;\n      height: 18px;\n      border-radius: 30px;\n      top: 50%;\n      transform: translate3d(-50%, -50%, 0);\n    }\n\n\n    .rangeslider-horizontal .rangeslider__handle-tooltip {\n      top: -55px;\n    }\n\n  ";
 });
 
 var ResetStyle = (function () {
@@ -1364,7 +1373,7 @@ var styleRenderer = (function (style) {
     },
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
   }, style);
-  return [ResetStyle(), FontStyle(style), DialogStyle(style), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(), FooterStyle(style), GraphicStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(), IconStyle(style), PaddingStyle(), HeightStyle(), LabelStyle(style), LoadingTextStyle(style)].join('');
+  return [ResetStyle(), FontStyle(style), DialogStyle(style), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(), FooterStyle(style), GraphicStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(), IconStyle(style), PaddingStyle(), HeightStyle(), LabelStyle(style), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle()].join('');
 });
 
 var mount = (function (_ref, content) {
@@ -1432,6 +1441,8 @@ var PaymentProvider = (function (props) {
           amount: amount
         });
       })["catch"](setError);
+    } else {
+      setPayment(undefined);
     }
   }, [selectedRoute]);
   return /*#__PURE__*/React.createElement(PaymentContext.Provider, {
@@ -1611,11 +1622,6 @@ var PaymentRoutingProvider = (function (props) {
   }();
 
   useEffect(function () {
-    if (account) {
-      getPaymentRoutes({});
-    }
-  }, [account]);
-  useEffect(function () {
     var timeout = setTimeout(function () {
       setReloadCount(reloadCount + 1);
       getPaymentRoutes({
@@ -1628,6 +1634,13 @@ var PaymentRoutingProvider = (function (props) {
       return clearTimeout(timeout);
     };
   }, [reloadCount, allRoutes, selectedRoute, update]);
+  useEffect(function () {
+    if (account && props.accept) {
+      setAllRoutes(undefined);
+      setSelectedRoute(undefined);
+      getPaymentRoutes({});
+    }
+  }, [account, props.accept]);
   return /*#__PURE__*/React.createElement(PaymentRoutingContext.Provider, {
     value: {
       selectedRoute: selectedRoute,
@@ -2547,22 +2560,29 @@ var SaleRoutingProvider = (function (props) {
 
   var _useState = useState(amount.start),
       _useState2 = _slicedToArray(_useState, 2),
-      purchasedAmount = _useState2[0];
-      _useState2[1];
+      purchasedAmount = _useState2[0],
+      setPurchaseAmount = _useState2[1];
 
   var _useState3 = useState(),
       _useState4 = _slicedToArray(_useState3, 2),
       purchasedToken = _useState4[0],
       setPurchasedToken = _useState4[1];
 
-  var accept = blockchains.map(function (blockchain) {
-    return {
-      blockchain: blockchain,
-      amount: purchasedAmount,
-      token: token,
-      receiver: account
-    };
-  });
+  var _useState5 = useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      accept = _useState6[0],
+      setAccept = _useState6[1];
+
+  useEffect(function () {
+    setAccept(blockchains.map(function (blockchain) {
+      return {
+        blockchain: blockchain,
+        amount: purchasedAmount,
+        token: token,
+        receiver: account
+      };
+    }));
+  }, [purchasedAmount]);
   useEffect(function () {
     var tokenInstance = new Token({
       blockchain: blockchains[0],
@@ -2584,6 +2604,7 @@ var SaleRoutingProvider = (function (props) {
   }, []);
   return /*#__PURE__*/React.createElement(SaleRoutingContext.Provider, {
     value: {
+      setPurchaseAmount: setPurchaseAmount,
       purchasedAmount: purchasedAmount,
       purchasedToken: purchasedToken
     }
@@ -2592,9 +2613,22 @@ var SaleRoutingProvider = (function (props) {
   }, /*#__PURE__*/React.createElement(PaymentProvider, null, /*#__PURE__*/React.createElement(PaymentValueProvider, null, props.children))));
 });
 
-var ChangePurchaseDialog = (function (props) {
-  var _useContext = useContext(NavigateStackContext);
-      _useContext.navigate;
+var ChangeAmountDialog = (function (props) {
+  var _useContext = useContext(ConfigurationContext);
+      _useContext.amount;
+
+  var _useContext2 = useContext(NavigateStackContext);
+      _useContext2.navigate;
+
+  var _useState = useState(props.amount),
+      _useState2 = _slicedToArray(_useState, 2),
+      inputAmount = _useState2[0];
+      _useState2[1];
+  console.log('inputAmount', inputAmount);
+
+  var changeAmountAndGoBack = function changeAmountAndGoBack() {};
+
+  var changeAmount = function changeAmount(value) {};
 
   return /*#__PURE__*/React.createElement(Dialog, {
     stacked: true,
@@ -2602,15 +2636,35 @@ var ChangePurchaseDialog = (function (props) {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
     }, /*#__PURE__*/React.createElement("h1", {
       className: "FontSizeL TextCenter"
-    }, "Change Purchase"), /*#__PURE__*/React.createElement("div", {
+    }, "Change Amount"), /*#__PURE__*/React.createElement("div", {
       className: "FontSizeL TextCenter FontWeightBold"
-    }, /*#__PURE__*/React.createElement("strong", null, "TOKEN SYMBOL HERE"))),
+    }, /*#__PURE__*/React.createElement("strong", null, props.token.symbol))),
     body: /*#__PURE__*/React.createElement("div", {
       className: "MaxHeight PaddingTopXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftM PaddingRightM"
-    }, "SOMETHING?")),
-    footer: /*#__PURE__*/React.createElement("div", null)
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS TextCenter"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "FontSizeL"
+    }, /*#__PURE__*/React.createElement("input", {
+      max: 100,
+      min: 1,
+      step: 1,
+      className: "Input FontSizeXL TextAlignCenter",
+      type: "number",
+      name: "amount",
+      value: inputAmount,
+      onChange: function onChange(event) {
+        changeAmount(parseFloat(event.target.value));
+      }
+    }))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingBottomL"
+    }, /*#__PURE__*/React.createElement(Slider, null)))),
+    footer: /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: changeAmountAndGoBack
+    }, "Done"))
   });
 });
 
@@ -2853,7 +2907,7 @@ var SaleOverviewDialog = (function (props) {
           return;
         }
 
-        navigate('ChangePurchase');
+        navigate('ChangeAmount');
       }
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardImage",
@@ -2923,6 +2977,11 @@ var SaleStack = (function (props) {
       open = _useContext.open,
       close = _useContext.close;
 
+  var _useContext2 = useContext(SaleRoutingContext),
+      purchasedToken = _useContext2.purchasedToken,
+      purchasedAmount = _useContext2.purchasedAmount,
+      setPurchaseAmount = _useContext2.setPurchaseAmount;
+
   return /*#__PURE__*/React.createElement(ReactDialogStack, {
     open: open,
     close: close,
@@ -2931,7 +2990,11 @@ var SaleStack = (function (props) {
     document: props.document,
     dialogs: {
       SaleOverview: /*#__PURE__*/React.createElement(SaleOverviewDialog, null),
-      ChangePurchase: /*#__PURE__*/React.createElement(ChangePurchaseDialog, null),
+      ChangeAmount: /*#__PURE__*/React.createElement(ChangeAmountDialog, {
+        token: purchasedToken,
+        amount: purchasedAmount,
+        setAmount: setPurchaseAmount
+      }),
       ChangePayment: /*#__PURE__*/React.createElement(ChangePaymentDialog, null),
       NoPaymentMethodFound: /*#__PURE__*/React.createElement(NoPaymentMethodFoundDialog, null),
       PaymentError: /*#__PURE__*/React.createElement(PaymentErrorDialog, null)

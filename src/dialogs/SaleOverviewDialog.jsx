@@ -174,7 +174,7 @@ export default (props)=>{
             title={state == 'overview' ? "Change payment" : undefined}
             onClick={ ()=>{
               if(state != 'overview') { return }
-              navigate('ChangePurchase')
+              navigate('ChangeAmount')
             } }
           >
             <div className="CardImage" title={ payment.name }>
