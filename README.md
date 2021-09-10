@@ -229,6 +229,21 @@ DePayWidgets.Payment({
 })
 ```
 
+#### currency
+
+Allows you to enforce displayed local currency (instead of automatically detecting it):
+
+```javascript
+
+DePayWidgets.Payment({
+
+  currency: 'USD',
+
+  accept: [...]
+})
+
+```
+
 #### whitelist
 
 Allows only fromTokens (from the sender) that are part of the whitelist:

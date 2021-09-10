@@ -1,5 +1,3 @@
-
-(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('depay-web3-client'), require('react-dom'), require('depay-react-shadow-dom'), require('depay-react-dialog-stack'), require('depay-react-token-image'), require('depay-web3-constants'), require('ethers'), require('depay-web3-payments'), require('depay-local-currency'), require('depay-web3-exchanges'), require('depay-web3-tokens'), require('depay-web3-wallets')) :
   typeof define === 'function' && define.amd ? define(['react', 'depay-web3-client', 'react-dom', 'depay-react-shadow-dom', 'depay-react-dialog-stack', 'depay-react-token-image', 'depay-web3-constants', 'ethers', 'depay-web3-payments', 'depay-local-currency', 'depay-web3-exchanges', 'depay-web3-tokens', 'depay-web3-wallets'], factory) :
@@ -2271,6 +2269,9 @@
     var _useContext4 = React.useContext(PaymentContext),
         payment = _useContext4.payment;
 
+    var _useContext5 = React.useContext(ConfigurationContext),
+        currency = _useContext5.currency;
+
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
         localValue = _useState2[0],
@@ -2318,6 +2319,7 @@
         var USDValue = ethers.ethers.utils.formatUnits(USDAmount, USDDecimals);
         depayLocalCurrency.Currency.fromUSD({
           amount: USDValue,
+          code: currency,
           apiKey: apiKey
         }).then(setLocalValue)["catch"](setError);
       })["catch"](setError);
@@ -2460,12 +2462,12 @@
 
   var Payment = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, providers, document;
+      var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, providers, currency, document;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, providers = _ref3.providers, document = _ref3.document;
+              accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, providers = _ref3.providers, currency = _ref3.currency, document = _ref3.document;
               _context2.prev = 1;
               _context2.next = 4;
               return preflight({
@@ -2485,6 +2487,7 @@
                   }, /*#__PURE__*/React__default$1['default'].createElement(ConfigurationProvider, {
                     configuration: {
                       accept: accept,
+                      currency: currency,
                       event: event,
                       sent: sent,
                       confirmed: confirmed,

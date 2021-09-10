@@ -65212,14 +65212,15 @@ var timezoneToCurrency = {
 var Currency = /*#__PURE__*/function () {
   function Currency(_ref) {
     var amount = _ref.amount,
+        code = _ref.code,
         _ref$timeZone = _ref.timeZone,
         timeZone = _ref$timeZone === void 0 ? Currency.timeZone() : _ref$timeZone;
 
     _classCallCheck(this, Currency);
 
     this.amount = amount;
+    this.code = code || timezoneToCurrency[timeZone] || 'USD';
     this.timeZone = timeZone;
-    this.code = timezoneToCurrency[this.timeZone] || 'USD';
   }
 
   _createClass(Currency, [{
@@ -65234,14 +65235,15 @@ var Currency = /*#__PURE__*/function () {
     key: "fromUSD",
     value: function () {
       var _fromUSD = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref2) {
-        var amount, timeZone, apiKey, currency, rate;
+        var amount, code, timeZone, apiKey, currency, rate;
         return regenerator.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                amount = _ref2.amount, timeZone = _ref2.timeZone, apiKey = _ref2.apiKey;
+                amount = _ref2.amount, code = _ref2.code, timeZone = _ref2.timeZone, apiKey = _ref2.apiKey;
                 currency = new Currency({
                   amount: amount,
+                  code: code,
                   timeZone: timeZone
                 });
                 _context.next = 4;
@@ -65297,6 +65299,9 @@ var ToTokenProvider = (function (props) {
   var _useContext4 = react.useContext(PaymentContext),
       payment = _useContext4.payment;
 
+  var _useContext5 = react.useContext(ConfigurationContext),
+      currency = _useContext5.currency;
+
   var _useState = react.useState(),
       _useState2 = _slicedToArray(_useState, 2),
       localValue = _useState2[0],
@@ -65344,6 +65349,7 @@ var ToTokenProvider = (function (props) {
       var USDValue = formatUnits(USDAmount, USDDecimals);
       Currency.fromUSD({
         amount: USDValue,
+        code: currency,
         apiKey: apiKey
       }).then(setLocalValue)["catch"](setError);
     })["catch"](setError);
@@ -65486,12 +65492,12 @@ var preflight = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, providers, document;
+    var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, providers, currency, document;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, providers = _ref3.providers, document = _ref3.document;
+            accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, providers = _ref3.providers, currency = _ref3.currency, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight({
@@ -65511,6 +65517,7 @@ var Payment = /*#__PURE__*/function () {
                 }, /*#__PURE__*/react.createElement(ConfigurationProvider, {
                   configuration: {
                     accept: accept,
+                    currency: currency,
                     event: event,
                     sent: sent,
                     confirmed: confirmed,

@@ -1,4 +1,5 @@
 import apiKey from '../helpers/apiKey'
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
 import PaymentContext from '../contexts/PaymentContext'
 import React, { useState, useEffect, useContext } from 'react'
@@ -17,6 +18,7 @@ export default (props)=>{
   const { account } = useContext(WalletContext)
   const { update } = useContext(UpdateContext)
   const { payment } = useContext(PaymentContext)
+  const { currency } = useContext(ConfigurationContext)
   const [ localValue, setLocalValue ] = useState()
   const [ reloadCount, setReloadCount ] = useState(0)
   const getToTokenLocalValue = ({ update, payment })=>{
@@ -44,7 +46,7 @@ export default (props)=>{
       }
 
       let USDValue = ethers.utils.formatUnits(USDAmount, USDDecimals)
-      Currency.fromUSD({ amount: USDValue, apiKey })
+      Currency.fromUSD({ amount: USDValue, code: currency, apiKey })
         .then(setLocalValue)
         .catch(setError)
     }).catch(setError)
