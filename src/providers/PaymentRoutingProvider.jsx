@@ -16,7 +16,7 @@ export default (props)=>{
   const { account } = useContext(WalletContext)
   const { update } = useContext(UpdateContext)
   const getPaymentRoutes = ({ allRoutes, selectedRoute, update })=>{
-    if(update == false) { return }
+    if(update == false || accept == undefined || account == undefined) { return }
     route({
       accept: props.accept.map((configuration)=>({ ...configuration, fromAddress: account, toAddress: configuration.receiver })),
       whitelist: props.whitelist,
@@ -51,7 +51,7 @@ export default (props)=>{
   useEffect(() => {
     const timeout = setTimeout(() => {
       setReloadCount(reloadCount + 1)
-      getPaymentRoutes({ allRoutes, selectedRoute, update })
+      getPaymentRoutes({ allRoutes, selectedRoute, update })  
     }, 15000);
 
     return () => clearTimeout(timeout)

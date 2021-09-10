@@ -1,5 +1,3 @@
-
-(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 import React, { useState, useEffect, useContext } from 'react';
 import { setProvider } from 'depay-web3-client';
 import ReactDOM from 'react-dom';
@@ -13,6 +11,7 @@ import { Currency } from 'depay-local-currency';
 import { route as route$1 } from 'depay-web3-exchanges';
 import { Token } from 'depay-web3-tokens';
 import { getWallet } from 'depay-web3-wallets';
+import Slider from 'react-rangeslider';
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
@@ -64,21 +63,6 @@ function _typeof(obj) {
   }
 
   return _typeof(obj);
-}
-
-function getAugmentedNamespace(n) {
-	if (n.__esModule) return n;
-	var a = Object.defineProperty({}, '__esModule', {value: true});
-	Object.keys(n).forEach(function (k) {
-		var d = Object.getOwnPropertyDescriptor(n, k);
-		Object.defineProperty(a, k, d.get ? d : {
-			enumerable: true,
-			get: function () {
-				return n[k];
-			}
-		});
-	});
-	return a;
 }
 
 function createCommonjsModule(fn) {
@@ -923,7 +907,7 @@ var ensureDocument = (function (document) {
   }
 });
 
-function _classCallCheck$1(instance, Constructor) {
+function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
@@ -939,7 +923,7 @@ function _defineProperties(target, props) {
   }
 }
 
-function _createClass$1(Constructor, protoProps, staticProps) {
+function _createClass(Constructor, protoProps, staticProps) {
   if (protoProps) _defineProperties(Constructor.prototype, protoProps);
   if (staticProps) _defineProperties(Constructor, staticProps);
   return Constructor;
@@ -954,7 +938,7 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
-function _inherits$1(subClass, superClass) {
+function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
   }
@@ -977,7 +961,7 @@ function _assertThisInitialized(self) {
   return self;
 }
 
-function _possibleConstructorReturn$1(self, call) {
+function _possibleConstructorReturn(self, call) {
   if (call && (_typeof(call) === "object" || typeof call === "function")) {
     return call;
   } else if (call !== void 0) {
@@ -998,7 +982,7 @@ var ErrorContext = /*#__PURE__*/React.createContext();
 
 var ErrorGraphic = "data:image/png;base64,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";
 
-function _createSuper$1(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$1(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
+function _createSuper$1(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$1(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
 function _isNativeReflectConstruct$1() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
@@ -1020,14 +1004,14 @@ function ReactDialogStyle(styles) {
 var _jsxFileName = "/Users/sebastian/Work/DePay/depay-react-dialog/src/components/Dialog.jsx";
 
 var Dialog$1 = /*#__PURE__*/function (_React__default$defau) {
-  _inherits$1(Dialog, _React__default$defau);
+  _inherits(Dialog, _React__default$defau);
 
   var _super = _createSuper$1(Dialog);
 
   function Dialog(props) {
     var _this;
 
-    _classCallCheck$1(this, Dialog);
+    _classCallCheck(this, Dialog);
 
     _this = _super.call(this, props);
     _this.state = {
@@ -1036,7 +1020,7 @@ var Dialog$1 = /*#__PURE__*/function (_React__default$defau) {
     return _this;
   }
 
-  _createClass$1(Dialog, [{
+  _createClass(Dialog, [{
     key: "closeDialog",
     value: function closeDialog() {
       this.props.close();
@@ -1137,14 +1121,14 @@ var Dialog$1 = /*#__PURE__*/function (_React__default$defau) {
 var _jsxFileName$1 = "/Users/sebastian/Work/DePay/depay-react-dialog/src/index.jsx";
 
 var ReactDialog = /*#__PURE__*/function (_React__default$defau2) {
-  _inherits$1(ReactDialog, _React__default$defau2);
+  _inherits(ReactDialog, _React__default$defau2);
 
   var _super2 = _createSuper$1(ReactDialog);
 
   function ReactDialog(props) {
     var _this3;
 
-    _classCallCheck$1(this, ReactDialog);
+    _classCallCheck(this, ReactDialog);
 
     _this3 = _super2.call(this, props);
     _this3.state = {
@@ -1153,7 +1137,7 @@ var ReactDialog = /*#__PURE__*/function (_React__default$defau2) {
     return _this3;
   }
 
-  _createClass$1(ReactDialog, [{
+  _createClass(ReactDialog, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
       var _this4 = this;
@@ -1201,22 +1185,22 @@ var ReactDialog = /*#__PURE__*/function (_React__default$defau2) {
 
 var ReactDialog_1 = ReactDialog;
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
-  _inherits$1(ErrorBoundary, _React$Component);
+  _inherits(ErrorBoundary, _React$Component);
 
   var _super = _createSuper(ErrorBoundary);
 
   function ErrorBoundary(props) {
-    _classCallCheck$1(this, ErrorBoundary);
+    _classCallCheck(this, ErrorBoundary);
 
     return _super.call(this, props);
   }
 
-  _createClass$1(ErrorBoundary, [{
+  _createClass(ErrorBoundary, [{
     key: "componentDidCatch",
     value: function componentDidCatch(error, errorInfo) {
       this.props.setError(error);
@@ -1477,7 +1461,7 @@ var PaymentProvider = (function (props) {
   }, props.children);
 });
 
-function _defineProperty$1(obj, key, value) {
+function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
       value: value,
@@ -1495,25 +1479,46 @@ function _defineProperty$1(obj, key, value) {
 var apiKey = 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c';
 
 var round = (function (input) {
+  var _digitsAfterDecimal;
+
   var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'up';
+  var digitsAfterDecimal = parseFloat(input).toString().match(/\d+\.0*(\d{3})/);
 
-  var _float;
+  if ((_digitsAfterDecimal = digitsAfterDecimal) !== null && _digitsAfterDecimal !== void 0 && _digitsAfterDecimal.length) {
+    digitsAfterDecimal = digitsAfterDecimal[0];
+    var focus = digitsAfterDecimal.match(/\d{3}$/)[0];
 
-  var match = parseFloat(input).toString().match(/\d+\.0*(\d{3})/);
-
-  if (match && match.length) {
-    match = match[0];
-
-    if (direction == 'up') {
-      _float = match.replace(/\d{2}$/, parseInt(match[match.length - 2], 10) + 1);
-    } else {
-      _float = match.replace(/\d{2}$/, parseInt(match[match.length - 2], 10));
+    if (focus.match(/^00/)) {
+      return input;
     }
-  } else {
-    _float = parseFloat(input).toString();
-  }
 
-  return parseFloat(_float);
+    var _float;
+
+    var focusToFixed;
+
+    if (focus.match(/^0/)) {
+      if (direction == 'up') {
+        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]));
+      } else {
+        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]));
+      }
+
+      focusToFixed = parseFloat(_float).toFixed(1);
+      focusToFixed = "0".concat(focusToFixed).replace('.', '');
+    } else {
+      if (direction == 'up') {
+        _float = parseFloat("".concat(focus[0], ".").concat(focus[1], "9"));
+      } else {
+        _float = parseFloat("".concat(focus[0], ".").concat(focus[1], "1"));
+      }
+
+      focusToFixed = parseFloat(_float).toFixed(1).replace('.', '');
+    }
+
+    return parseFloat(digitsAfterDecimal.replace(/\d{3}$/, focusToFixed));
+  } else {
+    return parseFloat(parseFloat(input).toFixed(2));
+  }
 });
 
 var UpdateContext = /*#__PURE__*/React.createContext();
@@ -1522,7 +1527,7 @@ var WalletContext = /*#__PURE__*/React.createContext();
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var PaymentRoutingProvider = (function (props) {
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -1550,7 +1555,7 @@ var PaymentRoutingProvider = (function (props) {
         selectedRoute = _ref.selectedRoute,
         update = _ref.update;
 
-    if (update == false) {
+    if (update == false || accept == undefined || account == undefined) {
       return;
     }
 
@@ -2602,15 +2607,17 @@ var SaleRoutingProvider = (function (props) {
       setAccept = _useState6[1];
 
   useEffect(function () {
-    setAccept(blockchains.map(function (blockchain) {
-      return {
-        blockchain: blockchain,
-        amount: purchasedAmount,
-        token: token,
-        receiver: account
-      };
-    }));
-  }, [purchasedAmount]);
+    if (account) {
+      setAccept(blockchains.map(function (blockchain) {
+        return {
+          blockchain: blockchain,
+          amount: purchasedAmount,
+          token: token,
+          receiver: account
+        };
+      }));
+    }
+  }, [account, purchasedAmount]);
   useEffect(function () {
     var tokenInstance = new Token({
       blockchain: blockchains[0],
@@ -2656,2049 +2663,6 @@ function _nonIterableSpread() {
 function _toConsumableArray(arr) {
   return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
-
-var classnames = createCommonjsModule(function (module) {
-  /* global define */
-  (function () {
-
-    var hasOwn = {}.hasOwnProperty;
-
-    function classNames() {
-      var classes = [];
-
-      for (var i = 0; i < arguments.length; i++) {
-        var arg = arguments[i];
-        if (!arg) continue;
-
-        var argType = _typeof(arg);
-
-        if (argType === 'string' || argType === 'number') {
-          classes.push(arg);
-        } else if (Array.isArray(arg)) {
-          if (arg.length) {
-            var inner = classNames.apply(null, arg);
-
-            if (inner) {
-              classes.push(inner);
-            }
-          }
-        } else if (argType === 'object') {
-          if (arg.toString === Object.prototype.toString) {
-            for (var key in arg) {
-              if (hasOwn.call(arg, key) && arg[key]) {
-                classes.push(key);
-              }
-            }
-          } else {
-            classes.push(arg.toString());
-          }
-        }
-      }
-
-      return classes.join(' ');
-    }
-
-    if (module.exports) {
-      classNames["default"] = classNames;
-      module.exports = classNames;
-    } else {
-      window.classNames = classNames;
-    }
-  })();
-});
-
-/** @license React v16.13.1
- * react-is.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-var b = "function" === typeof Symbol && Symbol["for"],
-    c = b ? Symbol["for"]("react.element") : 60103,
-    d = b ? Symbol["for"]("react.portal") : 60106,
-    e = b ? Symbol["for"]("react.fragment") : 60107,
-    f = b ? Symbol["for"]("react.strict_mode") : 60108,
-    g = b ? Symbol["for"]("react.profiler") : 60114,
-    h = b ? Symbol["for"]("react.provider") : 60109,
-    k = b ? Symbol["for"]("react.context") : 60110,
-    l = b ? Symbol["for"]("react.async_mode") : 60111,
-    m = b ? Symbol["for"]("react.concurrent_mode") : 60111,
-    n = b ? Symbol["for"]("react.forward_ref") : 60112,
-    p = b ? Symbol["for"]("react.suspense") : 60113,
-    q = b ? Symbol["for"]("react.suspense_list") : 60120,
-    r = b ? Symbol["for"]("react.memo") : 60115,
-    t = b ? Symbol["for"]("react.lazy") : 60116,
-    v = b ? Symbol["for"]("react.block") : 60121,
-    w = b ? Symbol["for"]("react.fundamental") : 60117,
-    x = b ? Symbol["for"]("react.responder") : 60118,
-    y = b ? Symbol["for"]("react.scope") : 60119;
-
-function z(a) {
-  if ("object" === _typeof(a) && null !== a) {
-    var u = a.$$typeof;
-
-    switch (u) {
-      case c:
-        switch (a = a.type, a) {
-          case l:
-          case m:
-          case e:
-          case g:
-          case f:
-          case p:
-            return a;
-
-          default:
-            switch (a = a && a.$$typeof, a) {
-              case k:
-              case n:
-              case t:
-              case r:
-              case h:
-                return a;
-
-              default:
-                return u;
-            }
-
-        }
-
-      case d:
-        return u;
-    }
-  }
-}
-
-function A(a) {
-  return z(a) === m;
-}
-
-var AsyncMode = l;
-var ConcurrentMode = m;
-var ContextConsumer = k;
-var ContextProvider = h;
-var Element$1 = c;
-var ForwardRef = n;
-var Fragment = e;
-var Lazy = t;
-var Memo = r;
-var Portal = d;
-var Profiler = g;
-var StrictMode = f;
-var Suspense = p;
-
-var isAsyncMode = function isAsyncMode(a) {
-  return A(a) || z(a) === l;
-};
-
-var isConcurrentMode = A;
-
-var isContextConsumer = function isContextConsumer(a) {
-  return z(a) === k;
-};
-
-var isContextProvider = function isContextProvider(a) {
-  return z(a) === h;
-};
-
-var isElement = function isElement(a) {
-  return "object" === _typeof(a) && null !== a && a.$$typeof === c;
-};
-
-var isForwardRef = function isForwardRef(a) {
-  return z(a) === n;
-};
-
-var isFragment = function isFragment(a) {
-  return z(a) === e;
-};
-
-var isLazy = function isLazy(a) {
-  return z(a) === t;
-};
-
-var isMemo = function isMemo(a) {
-  return z(a) === r;
-};
-
-var isPortal = function isPortal(a) {
-  return z(a) === d;
-};
-
-var isProfiler = function isProfiler(a) {
-  return z(a) === g;
-};
-
-var isStrictMode = function isStrictMode(a) {
-  return z(a) === f;
-};
-
-var isSuspense = function isSuspense(a) {
-  return z(a) === p;
-};
-
-var isValidElementType = function isValidElementType(a) {
-  return "string" === typeof a || "function" === typeof a || a === e || a === m || a === g || a === f || a === p || a === q || "object" === _typeof(a) && null !== a && (a.$$typeof === t || a.$$typeof === r || a.$$typeof === h || a.$$typeof === k || a.$$typeof === n || a.$$typeof === w || a.$$typeof === x || a.$$typeof === y || a.$$typeof === v);
-};
-
-var typeOf = z;
-var reactIs_production_min = {
-  AsyncMode: AsyncMode,
-  ConcurrentMode: ConcurrentMode,
-  ContextConsumer: ContextConsumer,
-  ContextProvider: ContextProvider,
-  Element: Element$1,
-  ForwardRef: ForwardRef,
-  Fragment: Fragment,
-  Lazy: Lazy,
-  Memo: Memo,
-  Portal: Portal,
-  Profiler: Profiler,
-  StrictMode: StrictMode,
-  Suspense: Suspense,
-  isAsyncMode: isAsyncMode,
-  isConcurrentMode: isConcurrentMode,
-  isContextConsumer: isContextConsumer,
-  isContextProvider: isContextProvider,
-  isElement: isElement,
-  isForwardRef: isForwardRef,
-  isFragment: isFragment,
-  isLazy: isLazy,
-  isMemo: isMemo,
-  isPortal: isPortal,
-  isProfiler: isProfiler,
-  isStrictMode: isStrictMode,
-  isSuspense: isSuspense,
-  isValidElementType: isValidElementType,
-  typeOf: typeOf
-};
-
-createCommonjsModule(function (module, exports) {
-});
-
-createCommonjsModule(function (module) {
-
-  {
-    module.exports = reactIs_production_min;
-  }
-});
-
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-/* eslint-disable no-unused-vars */
-
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-function toObject(val) {
-  if (val === null || val === undefined) {
-    throw new TypeError('Object.assign cannot be called with null or undefined');
-  }
-
-  return Object(val);
-}
-
-function shouldUseNative() {
-  try {
-    if (!Object.assign) {
-      return false;
-    } // Detect buggy property enumeration order in older V8 versions.
-    // https://bugs.chromium.org/p/v8/issues/detail?id=4118
-
-
-    var test1 = new String('abc'); // eslint-disable-line no-new-wrappers
-
-    test1[5] = 'de';
-
-    if (Object.getOwnPropertyNames(test1)[0] === '5') {
-      return false;
-    } // https://bugs.chromium.org/p/v8/issues/detail?id=3056
-
-
-    var test2 = {};
-
-    for (var i = 0; i < 10; i++) {
-      test2['_' + String.fromCharCode(i)] = i;
-    }
-
-    var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-      return test2[n];
-    });
-
-    if (order2.join('') !== '0123456789') {
-      return false;
-    } // https://bugs.chromium.org/p/v8/issues/detail?id=3056
-
-
-    var test3 = {};
-    'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-      test3[letter] = letter;
-    });
-
-    if (Object.keys(Object.assign({}, test3)).join('') !== 'abcdefghijklmnopqrst') {
-      return false;
-    }
-
-    return true;
-  } catch (err) {
-    // We don't expect any of the above to throw, but better to be safe.
-    return false;
-  }
-}
-
-shouldUseNative() ? Object.assign : function (target, source) {
-  var from;
-  var to = toObject(target);
-  var symbols;
-
-  for (var s = 1; s < arguments.length; s++) {
-    from = Object(arguments[s]);
-
-    for (var key in from) {
-      if (hasOwnProperty.call(from, key)) {
-        to[key] = from[key];
-      }
-    }
-
-    if (getOwnPropertySymbols) {
-      symbols = getOwnPropertySymbols(from);
-
-      for (var i = 0; i < symbols.length; i++) {
-        if (propIsEnumerable.call(from, symbols[i])) {
-          to[symbols[i]] = from[symbols[i]];
-        }
-      }
-    }
-  }
-
-  return to;
-};
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
-var ReactPropTypesSecret_1 = ReactPropTypesSecret;
-
-Function.call.bind(Object.prototype.hasOwnProperty);
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-function emptyFunction() {}
-
-function emptyFunctionWithReset() {}
-
-emptyFunctionWithReset.resetWarningCache = emptyFunction;
-
-var factoryWithThrowingShims = function factoryWithThrowingShims() {
-  function shim(props, propName, componentName, location, propFullName, secret) {
-    if (secret === ReactPropTypesSecret_1) {
-      // It is still safe when called from React.
-      return;
-    }
-
-    var err = new Error('Calling PropTypes validators directly is not supported by the `prop-types` package. ' + 'Use PropTypes.checkPropTypes() to call them. ' + 'Read more at http://fb.me/use-check-prop-types');
-    err.name = 'Invariant Violation';
-    throw err;
-  }
-  shim.isRequired = shim;
-
-  function getShim() {
-    return shim;
-  }
-  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
-
-  var ReactPropTypes = {
-    array: shim,
-    bool: shim,
-    func: shim,
-    number: shim,
-    object: shim,
-    string: shim,
-    symbol: shim,
-    any: shim,
-    arrayOf: getShim,
-    element: shim,
-    elementType: shim,
-    instanceOf: getShim,
-    node: shim,
-    objectOf: getShim,
-    oneOf: getShim,
-    oneOfType: getShim,
-    shape: getShim,
-    exact: getShim,
-    checkPropTypes: emptyFunctionWithReset,
-    resetWarningCache: emptyFunction
-  };
-  ReactPropTypes.PropTypes = ReactPropTypes;
-  return ReactPropTypes;
-};
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-var propTypes = createCommonjsModule(function (module) {
-  {
-    // By explicitly using `prop-types` you are opting into new production behavior.
-    // http://fb.me/prop-types-in-prod
-    module.exports = factoryWithThrowingShims();
-  }
-});
-
-/**
- * A collection of shims that provide minimal functionality of the ES6 collections.
- *
- * These implementations are not meant to be used outside of the ResizeObserver
- * modules as they cover only a limited range of use cases.
- */
-
-/* eslint-disable require-jsdoc, valid-jsdoc */
-var MapShim = function () {
-  if (typeof Map !== 'undefined') {
-    return Map;
-  }
-  /**
-   * Returns index in provided array that matches the specified key.
-   *
-   * @param {Array<Array>} arr
-   * @param {*} key
-   * @returns {number}
-   */
-
-
-  function getIndex(arr, key) {
-    var result = -1;
-    arr.some(function (entry, index) {
-      if (entry[0] === key) {
-        result = index;
-        return true;
-      }
-
-      return false;
-    });
-    return result;
-  }
-
-  return function () {
-    function class_1() {
-      this.__entries__ = [];
-    }
-
-    Object.defineProperty(class_1.prototype, "size", {
-      /**
-       * @returns {boolean}
-       */
-      get: function get() {
-        return this.__entries__.length;
-      },
-      enumerable: true,
-      configurable: true
-    });
-    /**
-     * @param {*} key
-     * @returns {*}
-     */
-
-    class_1.prototype.get = function (key) {
-      var index = getIndex(this.__entries__, key);
-      var entry = this.__entries__[index];
-      return entry && entry[1];
-    };
-    /**
-     * @param {*} key
-     * @param {*} value
-     * @returns {void}
-     */
-
-
-    class_1.prototype.set = function (key, value) {
-      var index = getIndex(this.__entries__, key);
-
-      if (~index) {
-        this.__entries__[index][1] = value;
-      } else {
-        this.__entries__.push([key, value]);
-      }
-    };
-    /**
-     * @param {*} key
-     * @returns {void}
-     */
-
-
-    class_1.prototype["delete"] = function (key) {
-      var entries = this.__entries__;
-      var index = getIndex(entries, key);
-
-      if (~index) {
-        entries.splice(index, 1);
-      }
-    };
-    /**
-     * @param {*} key
-     * @returns {void}
-     */
-
-
-    class_1.prototype.has = function (key) {
-      return !!~getIndex(this.__entries__, key);
-    };
-    /**
-     * @returns {void}
-     */
-
-
-    class_1.prototype.clear = function () {
-      this.__entries__.splice(0);
-    };
-    /**
-     * @param {Function} callback
-     * @param {*} [ctx=null]
-     * @returns {void}
-     */
-
-
-    class_1.prototype.forEach = function (callback, ctx) {
-      if (ctx === void 0) {
-        ctx = null;
-      }
-
-      for (var _i = 0, _a = this.__entries__; _i < _a.length; _i++) {
-        var entry = _a[_i];
-        callback.call(ctx, entry[1], entry[0]);
-      }
-    };
-
-    return class_1;
-  }();
-}();
-/**
- * Detects whether window and document objects are available in current environment.
- */
-
-
-var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined' && window.document === document; // Returns global object of a current environment.
-
-var global$1 = function () {
-  if (typeof global !== 'undefined' && global.Math === Math) {
-    return global;
-  }
-
-  if (typeof self !== 'undefined' && self.Math === Math) {
-    return self;
-  }
-
-  if (typeof window !== 'undefined' && window.Math === Math) {
-    return window;
-  } // eslint-disable-next-line no-new-func
-
-
-  return Function('return this')();
-}();
-/**
- * A shim for the requestAnimationFrame which falls back to the setTimeout if
- * first one is not supported.
- *
- * @returns {number} Requests' identifier.
- */
-
-
-var requestAnimationFrame$1 = function () {
-  if (typeof requestAnimationFrame === 'function') {
-    // It's required to use a bounded function because IE sometimes throws
-    // an "Invalid calling object" error if rAF is invoked without the global
-    // object on the left hand side.
-    return requestAnimationFrame.bind(global$1);
-  }
-
-  return function (callback) {
-    return setTimeout(function () {
-      return callback(Date.now());
-    }, 1000 / 60);
-  };
-}(); // Defines minimum timeout before adding a trailing call.
-
-
-var trailingTimeout = 2;
-/**
- * Creates a wrapper function which ensures that provided callback will be
- * invoked only once during the specified delay period.
- *
- * @param {Function} callback - Function to be invoked after the delay period.
- * @param {number} delay - Delay after which to invoke callback.
- * @returns {Function}
- */
-
-function throttle(callback, delay) {
-  var leadingCall = false,
-      trailingCall = false,
-      lastCallTime = 0;
-  /**
-   * Invokes the original callback function and schedules new invocation if
-   * the "proxy" was called during current request.
-   *
-   * @returns {void}
-   */
-
-  function resolvePending() {
-    if (leadingCall) {
-      leadingCall = false;
-      callback();
-    }
-
-    if (trailingCall) {
-      proxy();
-    }
-  }
-  /**
-   * Callback invoked after the specified delay. It will further postpone
-   * invocation of the original function delegating it to the
-   * requestAnimationFrame.
-   *
-   * @returns {void}
-   */
-
-
-  function timeoutCallback() {
-    requestAnimationFrame$1(resolvePending);
-  }
-  /**
-   * Schedules invocation of the original function.
-   *
-   * @returns {void}
-   */
-
-
-  function proxy() {
-    var timeStamp = Date.now();
-
-    if (leadingCall) {
-      // Reject immediately following calls.
-      if (timeStamp - lastCallTime < trailingTimeout) {
-        return;
-      } // Schedule new call to be in invoked when the pending one is resolved.
-      // This is important for "transitions" which never actually start
-      // immediately so there is a chance that we might miss one if change
-      // happens amids the pending invocation.
-
-
-      trailingCall = true;
-    } else {
-      leadingCall = true;
-      trailingCall = false;
-      setTimeout(timeoutCallback, delay);
-    }
-
-    lastCallTime = timeStamp;
-  }
-
-  return proxy;
-} // Minimum delay before invoking the update of observers.
-
-
-var REFRESH_DELAY = 20; // A list of substrings of CSS properties used to find transition events that
-// might affect dimensions of observed elements.
-
-var transitionKeys = ['top', 'right', 'bottom', 'left', 'width', 'height', 'size', 'weight']; // Check if MutationObserver is available.
-
-var mutationObserverSupported = typeof MutationObserver !== 'undefined';
-/**
- * Singleton controller class which handles updates of ResizeObserver instances.
- */
-
-var ResizeObserverController = function () {
-  /**
-   * Creates a new instance of ResizeObserverController.
-   *
-   * @private
-   */
-  function ResizeObserverController() {
-    /**
-     * Indicates whether DOM listeners have been added.
-     *
-     * @private {boolean}
-     */
-    this.connected_ = false;
-    /**
-     * Tells that controller has subscribed for Mutation Events.
-     *
-     * @private {boolean}
-     */
-
-    this.mutationEventsAdded_ = false;
-    /**
-     * Keeps reference to the instance of MutationObserver.
-     *
-     * @private {MutationObserver}
-     */
-
-    this.mutationsObserver_ = null;
-    /**
-     * A list of connected observers.
-     *
-     * @private {Array<ResizeObserverSPI>}
-     */
-
-    this.observers_ = [];
-    this.onTransitionEnd_ = this.onTransitionEnd_.bind(this);
-    this.refresh = throttle(this.refresh.bind(this), REFRESH_DELAY);
-  }
-  /**
-   * Adds observer to observers list.
-   *
-   * @param {ResizeObserverSPI} observer - Observer to be added.
-   * @returns {void}
-   */
-
-
-  ResizeObserverController.prototype.addObserver = function (observer) {
-    if (!~this.observers_.indexOf(observer)) {
-      this.observers_.push(observer);
-    } // Add listeners if they haven't been added yet.
-
-
-    if (!this.connected_) {
-      this.connect_();
-    }
-  };
-  /**
-   * Removes observer from observers list.
-   *
-   * @param {ResizeObserverSPI} observer - Observer to be removed.
-   * @returns {void}
-   */
-
-
-  ResizeObserverController.prototype.removeObserver = function (observer) {
-    var observers = this.observers_;
-    var index = observers.indexOf(observer); // Remove observer if it's present in registry.
-
-    if (~index) {
-      observers.splice(index, 1);
-    } // Remove listeners if controller has no connected observers.
-
-
-    if (!observers.length && this.connected_) {
-      this.disconnect_();
-    }
-  };
-  /**
-   * Invokes the update of observers. It will continue running updates insofar
-   * it detects changes.
-   *
-   * @returns {void}
-   */
-
-
-  ResizeObserverController.prototype.refresh = function () {
-    var changesDetected = this.updateObservers_(); // Continue running updates if changes have been detected as there might
-    // be future ones caused by CSS transitions.
-
-    if (changesDetected) {
-      this.refresh();
-    }
-  };
-  /**
-   * Updates every observer from observers list and notifies them of queued
-   * entries.
-   *
-   * @private
-   * @returns {boolean} Returns "true" if any observer has detected changes in
-   *      dimensions of it's elements.
-   */
-
-
-  ResizeObserverController.prototype.updateObservers_ = function () {
-    // Collect observers that have active observations.
-    var activeObservers = this.observers_.filter(function (observer) {
-      return observer.gatherActive(), observer.hasActive();
-    }); // Deliver notifications in a separate cycle in order to avoid any
-    // collisions between observers, e.g. when multiple instances of
-    // ResizeObserver are tracking the same element and the callback of one
-    // of them changes content dimensions of the observed target. Sometimes
-    // this may result in notifications being blocked for the rest of observers.
-
-    activeObservers.forEach(function (observer) {
-      return observer.broadcastActive();
-    });
-    return activeObservers.length > 0;
-  };
-  /**
-   * Initializes DOM listeners.
-   *
-   * @private
-   * @returns {void}
-   */
-
-
-  ResizeObserverController.prototype.connect_ = function () {
-    // Do nothing if running in a non-browser environment or if listeners
-    // have been already added.
-    if (!isBrowser || this.connected_) {
-      return;
-    } // Subscription to the "Transitionend" event is used as a workaround for
-    // delayed transitions. This way it's possible to capture at least the
-    // final state of an element.
-
-
-    document.addEventListener('transitionend', this.onTransitionEnd_);
-    window.addEventListener('resize', this.refresh);
-
-    if (mutationObserverSupported) {
-      this.mutationsObserver_ = new MutationObserver(this.refresh);
-      this.mutationsObserver_.observe(document, {
-        attributes: true,
-        childList: true,
-        characterData: true,
-        subtree: true
-      });
-    } else {
-      document.addEventListener('DOMSubtreeModified', this.refresh);
-      this.mutationEventsAdded_ = true;
-    }
-
-    this.connected_ = true;
-  };
-  /**
-   * Removes DOM listeners.
-   *
-   * @private
-   * @returns {void}
-   */
-
-
-  ResizeObserverController.prototype.disconnect_ = function () {
-    // Do nothing if running in a non-browser environment or if listeners
-    // have been already removed.
-    if (!isBrowser || !this.connected_) {
-      return;
-    }
-
-    document.removeEventListener('transitionend', this.onTransitionEnd_);
-    window.removeEventListener('resize', this.refresh);
-
-    if (this.mutationsObserver_) {
-      this.mutationsObserver_.disconnect();
-    }
-
-    if (this.mutationEventsAdded_) {
-      document.removeEventListener('DOMSubtreeModified', this.refresh);
-    }
-
-    this.mutationsObserver_ = null;
-    this.mutationEventsAdded_ = false;
-    this.connected_ = false;
-  };
-  /**
-   * "Transitionend" event handler.
-   *
-   * @private
-   * @param {TransitionEvent} event
-   * @returns {void}
-   */
-
-
-  ResizeObserverController.prototype.onTransitionEnd_ = function (_a) {
-    var _b = _a.propertyName,
-        propertyName = _b === void 0 ? '' : _b; // Detect whether transition may affect dimensions of an element.
-
-    var isReflowProperty = transitionKeys.some(function (key) {
-      return !!~propertyName.indexOf(key);
-    });
-
-    if (isReflowProperty) {
-      this.refresh();
-    }
-  };
-  /**
-   * Returns instance of the ResizeObserverController.
-   *
-   * @returns {ResizeObserverController}
-   */
-
-
-  ResizeObserverController.getInstance = function () {
-    if (!this.instance_) {
-      this.instance_ = new ResizeObserverController();
-    }
-
-    return this.instance_;
-  };
-  /**
-   * Holds reference to the controller's instance.
-   *
-   * @private {ResizeObserverController}
-   */
-
-
-  ResizeObserverController.instance_ = null;
-  return ResizeObserverController;
-}();
-/**
- * Defines non-writable/enumerable properties of the provided target object.
- *
- * @param {Object} target - Object for which to define properties.
- * @param {Object} props - Properties to be defined.
- * @returns {Object} Target object.
- */
-
-
-var defineConfigurable = function defineConfigurable(target, props) {
-  for (var _i = 0, _a = Object.keys(props); _i < _a.length; _i++) {
-    var key = _a[_i];
-    Object.defineProperty(target, key, {
-      value: props[key],
-      enumerable: false,
-      writable: false,
-      configurable: true
-    });
-  }
-
-  return target;
-};
-/**
- * Returns the global object associated with provided element.
- *
- * @param {Object} target
- * @returns {Object}
- */
-
-
-var getWindowOf = function getWindowOf(target) {
-  // Assume that the element is an instance of Node, which means that it
-  // has the "ownerDocument" property from which we can retrieve a
-  // corresponding global object.
-  var ownerGlobal = target && target.ownerDocument && target.ownerDocument.defaultView; // Return the local global object if it's not possible extract one from
-  // provided element.
-
-  return ownerGlobal || global$1;
-}; // Placeholder of an empty content rectangle.
-
-
-var emptyRect = createRectInit(0, 0, 0, 0);
-/**
- * Converts provided string to a number.
- *
- * @param {number|string} value
- * @returns {number}
- */
-
-function toFloat(value) {
-  return parseFloat(value) || 0;
-}
-/**
- * Extracts borders size from provided styles.
- *
- * @param {CSSStyleDeclaration} styles
- * @param {...string} positions - Borders positions (top, right, ...)
- * @returns {number}
- */
-
-
-function getBordersSize(styles) {
-  var positions = [];
-
-  for (var _i = 1; _i < arguments.length; _i++) {
-    positions[_i - 1] = arguments[_i];
-  }
-
-  return positions.reduce(function (size, position) {
-    var value = styles['border-' + position + '-width'];
-    return size + toFloat(value);
-  }, 0);
-}
-/**
- * Extracts paddings sizes from provided styles.
- *
- * @param {CSSStyleDeclaration} styles
- * @returns {Object} Paddings box.
- */
-
-
-function getPaddings(styles) {
-  var positions = ['top', 'right', 'bottom', 'left'];
-  var paddings = {};
-
-  for (var _i = 0, positions_1 = positions; _i < positions_1.length; _i++) {
-    var position = positions_1[_i];
-    var value = styles['padding-' + position];
-    paddings[position] = toFloat(value);
-  }
-
-  return paddings;
-}
-/**
- * Calculates content rectangle of provided SVG element.
- *
- * @param {SVGGraphicsElement} target - Element content rectangle of which needs
- *      to be calculated.
- * @returns {DOMRectInit}
- */
-
-
-function getSVGContentRect(target) {
-  var bbox = target.getBBox();
-  return createRectInit(0, 0, bbox.width, bbox.height);
-}
-/**
- * Calculates content rectangle of provided HTMLElement.
- *
- * @param {HTMLElement} target - Element for which to calculate the content rectangle.
- * @returns {DOMRectInit}
- */
-
-
-function getHTMLElementContentRect(target) {
-  // Client width & height properties can't be
-  // used exclusively as they provide rounded values.
-  var clientWidth = target.clientWidth,
-      clientHeight = target.clientHeight; // By this condition we can catch all non-replaced inline, hidden and
-  // detached elements. Though elements with width & height properties less
-  // than 0.5 will be discarded as well.
-  //
-  // Without it we would need to implement separate methods for each of
-  // those cases and it's not possible to perform a precise and performance
-  // effective test for hidden elements. E.g. even jQuery's ':visible' filter
-  // gives wrong results for elements with width & height less than 0.5.
-
-  if (!clientWidth && !clientHeight) {
-    return emptyRect;
-  }
-
-  var styles = getWindowOf(target).getComputedStyle(target);
-  var paddings = getPaddings(styles);
-  var horizPad = paddings.left + paddings.right;
-  var vertPad = paddings.top + paddings.bottom; // Computed styles of width & height are being used because they are the
-  // only dimensions available to JS that contain non-rounded values. It could
-  // be possible to utilize the getBoundingClientRect if only it's data wasn't
-  // affected by CSS transformations let alone paddings, borders and scroll bars.
-
-  var width = toFloat(styles.width),
-      height = toFloat(styles.height); // Width & height include paddings and borders when the 'border-box' box
-  // model is applied (except for IE).
-
-  if (styles.boxSizing === 'border-box') {
-    // Following conditions are required to handle Internet Explorer which
-    // doesn't include paddings and borders to computed CSS dimensions.
-    //
-    // We can say that if CSS dimensions + paddings are equal to the "client"
-    // properties then it's either IE, and thus we don't need to subtract
-    // anything, or an element merely doesn't have paddings/borders styles.
-    if (Math.round(width + horizPad) !== clientWidth) {
-      width -= getBordersSize(styles, 'left', 'right') + horizPad;
-    }
-
-    if (Math.round(height + vertPad) !== clientHeight) {
-      height -= getBordersSize(styles, 'top', 'bottom') + vertPad;
-    }
-  } // Following steps can't be applied to the document's root element as its
-  // client[Width/Height] properties represent viewport area of the window.
-  // Besides, it's as well not necessary as the <html> itself neither has
-  // rendered scroll bars nor it can be clipped.
-
-
-  if (!isDocumentElement(target)) {
-    // In some browsers (only in Firefox, actually) CSS width & height
-    // include scroll bars size which can be removed at this step as scroll
-    // bars are the only difference between rounded dimensions + paddings
-    // and "client" properties, though that is not always true in Chrome.
-    var vertScrollbar = Math.round(width + horizPad) - clientWidth;
-    var horizScrollbar = Math.round(height + vertPad) - clientHeight; // Chrome has a rather weird rounding of "client" properties.
-    // E.g. for an element with content width of 314.2px it sometimes gives
-    // the client width of 315px and for the width of 314.7px it may give
-    // 314px. And it doesn't happen all the time. So just ignore this delta
-    // as a non-relevant.
-
-    if (Math.abs(vertScrollbar) !== 1) {
-      width -= vertScrollbar;
-    }
-
-    if (Math.abs(horizScrollbar) !== 1) {
-      height -= horizScrollbar;
-    }
-  }
-
-  return createRectInit(paddings.left, paddings.top, width, height);
-}
-/**
- * Checks whether provided element is an instance of the SVGGraphicsElement.
- *
- * @param {Element} target - Element to be checked.
- * @returns {boolean}
- */
-
-
-var isSVGGraphicsElement = function () {
-  // Some browsers, namely IE and Edge, don't have the SVGGraphicsElement
-  // interface.
-  if (typeof SVGGraphicsElement !== 'undefined') {
-    return function (target) {
-      return target instanceof getWindowOf(target).SVGGraphicsElement;
-    };
-  } // If it's so, then check that element is at least an instance of the
-  // SVGElement and that it has the "getBBox" method.
-  // eslint-disable-next-line no-extra-parens
-
-
-  return function (target) {
-    return target instanceof getWindowOf(target).SVGElement && typeof target.getBBox === 'function';
-  };
-}();
-/**
- * Checks whether provided element is a document element (<html>).
- *
- * @param {Element} target - Element to be checked.
- * @returns {boolean}
- */
-
-
-function isDocumentElement(target) {
-  return target === getWindowOf(target).document.documentElement;
-}
-/**
- * Calculates an appropriate content rectangle for provided html or svg element.
- *
- * @param {Element} target - Element content rectangle of which needs to be calculated.
- * @returns {DOMRectInit}
- */
-
-
-function getContentRect(target) {
-  if (!isBrowser) {
-    return emptyRect;
-  }
-
-  if (isSVGGraphicsElement(target)) {
-    return getSVGContentRect(target);
-  }
-
-  return getHTMLElementContentRect(target);
-}
-/**
- * Creates rectangle with an interface of the DOMRectReadOnly.
- * Spec: https://drafts.fxtf.org/geometry/#domrectreadonly
- *
- * @param {DOMRectInit} rectInit - Object with rectangle's x/y coordinates and dimensions.
- * @returns {DOMRectReadOnly}
- */
-
-
-function createReadOnlyRect(_a) {
-  var x = _a.x,
-      y = _a.y,
-      width = _a.width,
-      height = _a.height; // If DOMRectReadOnly is available use it as a prototype for the rectangle.
-
-  var Constr = typeof DOMRectReadOnly !== 'undefined' ? DOMRectReadOnly : Object;
-  var rect = Object.create(Constr.prototype); // Rectangle's properties are not writable and non-enumerable.
-
-  defineConfigurable(rect, {
-    x: x,
-    y: y,
-    width: width,
-    height: height,
-    top: y,
-    right: x + width,
-    bottom: height + y,
-    left: x
-  });
-  return rect;
-}
-/**
- * Creates DOMRectInit object based on the provided dimensions and the x/y coordinates.
- * Spec: https://drafts.fxtf.org/geometry/#dictdef-domrectinit
- *
- * @param {number} x - X coordinate.
- * @param {number} y - Y coordinate.
- * @param {number} width - Rectangle's width.
- * @param {number} height - Rectangle's height.
- * @returns {DOMRectInit}
- */
-
-
-function createRectInit(x, y, width, height) {
-  return {
-    x: x,
-    y: y,
-    width: width,
-    height: height
-  };
-}
-/**
- * Class that is responsible for computations of the content rectangle of
- * provided DOM element and for keeping track of it's changes.
- */
-
-
-var ResizeObservation = function () {
-  /**
-   * Creates an instance of ResizeObservation.
-   *
-   * @param {Element} target - Element to be observed.
-   */
-  function ResizeObservation(target) {
-    /**
-     * Broadcasted width of content rectangle.
-     *
-     * @type {number}
-     */
-    this.broadcastWidth = 0;
-    /**
-     * Broadcasted height of content rectangle.
-     *
-     * @type {number}
-     */
-
-    this.broadcastHeight = 0;
-    /**
-     * Reference to the last observed content rectangle.
-     *
-     * @private {DOMRectInit}
-     */
-
-    this.contentRect_ = createRectInit(0, 0, 0, 0);
-    this.target = target;
-  }
-  /**
-   * Updates content rectangle and tells whether it's width or height properties
-   * have changed since the last broadcast.
-   *
-   * @returns {boolean}
-   */
-
-
-  ResizeObservation.prototype.isActive = function () {
-    var rect = getContentRect(this.target);
-    this.contentRect_ = rect;
-    return rect.width !== this.broadcastWidth || rect.height !== this.broadcastHeight;
-  };
-  /**
-   * Updates 'broadcastWidth' and 'broadcastHeight' properties with a data
-   * from the corresponding properties of the last observed content rectangle.
-   *
-   * @returns {DOMRectInit} Last observed content rectangle.
-   */
-
-
-  ResizeObservation.prototype.broadcastRect = function () {
-    var rect = this.contentRect_;
-    this.broadcastWidth = rect.width;
-    this.broadcastHeight = rect.height;
-    return rect;
-  };
-
-  return ResizeObservation;
-}();
-
-var ResizeObserverEntry = function () {
-  /**
-   * Creates an instance of ResizeObserverEntry.
-   *
-   * @param {Element} target - Element that is being observed.
-   * @param {DOMRectInit} rectInit - Data of the element's content rectangle.
-   */
-  function ResizeObserverEntry(target, rectInit) {
-    var contentRect = createReadOnlyRect(rectInit); // According to the specification following properties are not writable
-    // and are also not enumerable in the native implementation.
-    //
-    // Property accessors are not being used as they'd require to define a
-    // private WeakMap storage which may cause memory leaks in browsers that
-    // don't support this type of collections.
-
-    defineConfigurable(this, {
-      target: target,
-      contentRect: contentRect
-    });
-  }
-
-  return ResizeObserverEntry;
-}();
-
-var ResizeObserverSPI = function () {
-  /**
-   * Creates a new instance of ResizeObserver.
-   *
-   * @param {ResizeObserverCallback} callback - Callback function that is invoked
-   *      when one of the observed elements changes it's content dimensions.
-   * @param {ResizeObserverController} controller - Controller instance which
-   *      is responsible for the updates of observer.
-   * @param {ResizeObserver} callbackCtx - Reference to the public
-   *      ResizeObserver instance which will be passed to callback function.
-   */
-  function ResizeObserverSPI(callback, controller, callbackCtx) {
-    /**
-     * Collection of resize observations that have detected changes in dimensions
-     * of elements.
-     *
-     * @private {Array<ResizeObservation>}
-     */
-    this.activeObservations_ = [];
-    /**
-     * Registry of the ResizeObservation instances.
-     *
-     * @private {Map<Element, ResizeObservation>}
-     */
-
-    this.observations_ = new MapShim();
-
-    if (typeof callback !== 'function') {
-      throw new TypeError('The callback provided as parameter 1 is not a function.');
-    }
-
-    this.callback_ = callback;
-    this.controller_ = controller;
-    this.callbackCtx_ = callbackCtx;
-  }
-  /**
-   * Starts observing provided element.
-   *
-   * @param {Element} target - Element to be observed.
-   * @returns {void}
-   */
-
-
-  ResizeObserverSPI.prototype.observe = function (target) {
-    if (!arguments.length) {
-      throw new TypeError('1 argument required, but only 0 present.');
-    } // Do nothing if current environment doesn't have the Element interface.
-
-
-    if (typeof Element === 'undefined' || !(Element instanceof Object)) {
-      return;
-    }
-
-    if (!(target instanceof getWindowOf(target).Element)) {
-      throw new TypeError('parameter 1 is not of type "Element".');
-    }
-
-    var observations = this.observations_; // Do nothing if element is already being observed.
-
-    if (observations.has(target)) {
-      return;
-    }
-
-    observations.set(target, new ResizeObservation(target));
-    this.controller_.addObserver(this); // Force the update of observations.
-
-    this.controller_.refresh();
-  };
-  /**
-   * Stops observing provided element.
-   *
-   * @param {Element} target - Element to stop observing.
-   * @returns {void}
-   */
-
-
-  ResizeObserverSPI.prototype.unobserve = function (target) {
-    if (!arguments.length) {
-      throw new TypeError('1 argument required, but only 0 present.');
-    } // Do nothing if current environment doesn't have the Element interface.
-
-
-    if (typeof Element === 'undefined' || !(Element instanceof Object)) {
-      return;
-    }
-
-    if (!(target instanceof getWindowOf(target).Element)) {
-      throw new TypeError('parameter 1 is not of type "Element".');
-    }
-
-    var observations = this.observations_; // Do nothing if element is not being observed.
-
-    if (!observations.has(target)) {
-      return;
-    }
-
-    observations["delete"](target);
-
-    if (!observations.size) {
-      this.controller_.removeObserver(this);
-    }
-  };
-  /**
-   * Stops observing all elements.
-   *
-   * @returns {void}
-   */
-
-
-  ResizeObserverSPI.prototype.disconnect = function () {
-    this.clearActive();
-    this.observations_.clear();
-    this.controller_.removeObserver(this);
-  };
-  /**
-   * Collects observation instances the associated element of which has changed
-   * it's content rectangle.
-   *
-   * @returns {void}
-   */
-
-
-  ResizeObserverSPI.prototype.gatherActive = function () {
-    var _this = this;
-
-    this.clearActive();
-    this.observations_.forEach(function (observation) {
-      if (observation.isActive()) {
-        _this.activeObservations_.push(observation);
-      }
-    });
-  };
-  /**
-   * Invokes initial callback function with a list of ResizeObserverEntry
-   * instances collected from active resize observations.
-   *
-   * @returns {void}
-   */
-
-
-  ResizeObserverSPI.prototype.broadcastActive = function () {
-    // Do nothing if observer doesn't have active observations.
-    if (!this.hasActive()) {
-      return;
-    }
-
-    var ctx = this.callbackCtx_; // Create ResizeObserverEntry instance for every active observation.
-
-    var entries = this.activeObservations_.map(function (observation) {
-      return new ResizeObserverEntry(observation.target, observation.broadcastRect());
-    });
-    this.callback_.call(ctx, entries, ctx);
-    this.clearActive();
-  };
-  /**
-   * Clears the collection of active observations.
-   *
-   * @returns {void}
-   */
-
-
-  ResizeObserverSPI.prototype.clearActive = function () {
-    this.activeObservations_.splice(0);
-  };
-  /**
-   * Tells whether observer has active observations.
-   *
-   * @returns {boolean}
-   */
-
-
-  ResizeObserverSPI.prototype.hasActive = function () {
-    return this.activeObservations_.length > 0;
-  };
-
-  return ResizeObserverSPI;
-}(); // Registry of internal observers. If WeakMap is not available use current shim
-// for the Map collection as it has all required methods and because WeakMap
-// can't be fully polyfilled anyway.
-
-
-var observers = typeof WeakMap !== 'undefined' ? new WeakMap() : new MapShim();
-/**
- * ResizeObserver API. Encapsulates the ResizeObserver SPI implementation
- * exposing only those methods and properties that are defined in the spec.
- */
-
-var ResizeObserver = function () {
-  /**
-   * Creates a new instance of ResizeObserver.
-   *
-   * @param {ResizeObserverCallback} callback - Callback that is invoked when
-   *      dimensions of the observed elements change.
-   */
-  function ResizeObserver(callback) {
-    if (!(this instanceof ResizeObserver)) {
-      throw new TypeError('Cannot call a class as a function.');
-    }
-
-    if (!arguments.length) {
-      throw new TypeError('1 argument required, but only 0 present.');
-    }
-
-    var controller = ResizeObserverController.getInstance();
-    var observer = new ResizeObserverSPI(callback, controller, this);
-    observers.set(this, observer);
-  }
-
-  return ResizeObserver;
-}(); // Expose public methods of ResizeObserver.
-
-
-['observe', 'unobserve', 'disconnect'].forEach(function (method) {
-  ResizeObserver.prototype[method] = function () {
-    var _a;
-
-    return (_a = observers.get(this))[method].apply(_a, arguments);
-  };
-});
-
-var index = function () {
-  // Export existing implementation if available.
-  if (typeof global$1.ResizeObserver !== 'undefined') {
-    return global$1.ResizeObserver;
-  }
-
-  return ResizeObserver;
-}();
-
-var ResizeObserver_es = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  'default': index
-});
-
-var capitalize_1 = capitalize;
-var clamp_1 = clamp;
-/**
- * Capitalize first letter of string
- * @private
- * @param  {string} - String
- * @return {string} - String with first letter capitalized
- */
-
-function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.substr(1);
-}
-/**
- * Clamp position between a range
- * @param  {number} - Value to be clamped
- * @param  {number} - Minimum value in range
- * @param  {number} - Maximum value in range
- * @return {number} - Clamped value
- */
-
-
-function clamp(value, min, max) {
-  return Math.min(Math.max(value, min), max);
-}
-
-var utils = /*#__PURE__*/Object.defineProperty({
-  capitalize: capitalize_1,
-  clamp: clamp_1
-}, '__esModule', {
-  value: true
-});
-
-var _resizeObserverPolyfill = /*@__PURE__*/getAugmentedNamespace(ResizeObserver_es);
-
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-
-var _classnames2 = _interopRequireDefault$1(classnames);
-
-var _react2 = _interopRequireDefault$1(React);
-
-var _propTypes2 = _interopRequireDefault$1(propTypes);
-
-var _resizeObserverPolyfill2 = _interopRequireDefault$1(_resizeObserverPolyfill);
-
-function _interopRequireDefault$1(obj) {
-  return obj && obj.__esModule ? obj : {
-    "default": obj
-  };
-}
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (_typeof(call) === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + _typeof(superClass));
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-/* eslint no-debugger: "warn" */
-
-/**
- * Predefined constants
- * @type {Object}
- */
-
-
-var constants = {
-  orientation: {
-    horizontal: {
-      dimension: 'width',
-      direction: 'left',
-      reverseDirection: 'right',
-      coordinate: 'x'
-    },
-    vertical: {
-      dimension: 'height',
-      direction: 'top',
-      reverseDirection: 'bottom',
-      coordinate: 'y'
-    }
-  }
-};
-
-var Slider = function (_Component) {
-  _inherits(Slider, _Component);
-
-  function Slider(props, context) {
-    _classCallCheck(this, Slider);
-
-    var _this = _possibleConstructorReturn(this, (Slider.__proto__ || Object.getPrototypeOf(Slider)).call(this, props, context));
-
-    _this.handleFormat = function (value) {
-      var format = _this.props.format;
-      return format ? format(value) : value;
-    };
-
-    _this.handleUpdate = function () {
-      if (!_this.slider) {
-        // for shallow rendering
-        return;
-      }
-
-      var orientation = _this.props.orientation;
-      var dimension = (0, utils.capitalize)(constants.orientation[orientation].dimension);
-      var sliderPos = _this.slider['offset' + dimension];
-      var handlePos = _this.handle['offset' + dimension];
-
-      _this.setState({
-        limit: sliderPos - handlePos,
-        grab: handlePos / 2
-      });
-    };
-
-    _this.handleStart = function (e) {
-      var onChangeStart = _this.props.onChangeStart;
-      document.addEventListener('mousemove', _this.handleDrag);
-      document.addEventListener('mouseup', _this.handleEnd);
-
-      _this.setState({
-        active: true
-      }, function () {
-        onChangeStart && onChangeStart(e);
-      });
-    };
-
-    _this.handleDrag = function (e) {
-      e.stopPropagation();
-      var onChange = _this.props.onChange;
-      var _e$target = e.target,
-          className = _e$target.className,
-          classList = _e$target.classList,
-          dataset = _e$target.dataset;
-      if (!onChange || className === 'rangeslider__labels') return;
-
-      var value = _this.position(e);
-
-      if (classList && classList.contains('rangeslider__label-item') && dataset.value) {
-        value = parseFloat(dataset.value);
-      }
-
-      onChange && onChange(value, e);
-    };
-
-    _this.handleEnd = function (e) {
-      var onChangeComplete = _this.props.onChangeComplete;
-
-      _this.setState({
-        active: false
-      }, function () {
-        onChangeComplete && onChangeComplete(e);
-      });
-
-      document.removeEventListener('mousemove', _this.handleDrag);
-      document.removeEventListener('mouseup', _this.handleEnd);
-    };
-
-    _this.handleKeyDown = function (e) {
-      e.preventDefault();
-      var keyCode = e.keyCode;
-      var _this$props = _this.props,
-          value = _this$props.value,
-          min = _this$props.min,
-          max = _this$props.max,
-          step = _this$props.step,
-          onChange = _this$props.onChange;
-      var sliderValue = void 0;
-
-      switch (keyCode) {
-        case 38:
-        case 39:
-          sliderValue = value + step > max ? max : value + step;
-          onChange && onChange(sliderValue, e);
-          break;
-
-        case 37:
-        case 40:
-          sliderValue = value - step < min ? min : value - step;
-          onChange && onChange(sliderValue, e);
-          break;
-      }
-    };
-
-    _this.getPositionFromValue = function (value) {
-      var limit = _this.state.limit;
-      var _this$props2 = _this.props,
-          min = _this$props2.min,
-          max = _this$props2.max;
-      var diffMaxMin = max - min;
-      var diffValMin = value - min;
-      var percentage = diffValMin / diffMaxMin;
-      var pos = Math.round(percentage * limit);
-      return pos;
-    };
-
-    _this.getValueFromPosition = function (pos) {
-      var limit = _this.state.limit;
-      var _this$props3 = _this.props,
-          orientation = _this$props3.orientation,
-          min = _this$props3.min,
-          max = _this$props3.max,
-          step = _this$props3.step;
-      var percentage = (0, utils.clamp)(pos, 0, limit) / (limit || 1);
-      var baseVal = step * Math.round(percentage * (max - min) / step);
-      var value = orientation === 'horizontal' ? baseVal + min : max - baseVal;
-      return (0, utils.clamp)(value, min, max);
-    };
-
-    _this.position = function (e) {
-      var grab = _this.state.grab;
-      var _this$props4 = _this.props,
-          orientation = _this$props4.orientation,
-          reverse = _this$props4.reverse;
-      var node = _this.slider;
-      var coordinateStyle = constants.orientation[orientation].coordinate;
-      var directionStyle = reverse ? constants.orientation[orientation].reverseDirection : constants.orientation[orientation].direction;
-      var clientCoordinateStyle = 'client' + (0, utils.capitalize)(coordinateStyle);
-      var coordinate = !e.touches ? e[clientCoordinateStyle] : e.touches[0][clientCoordinateStyle];
-      var direction = node.getBoundingClientRect()[directionStyle];
-      var pos = reverse ? direction - coordinate - grab : coordinate - direction - grab;
-
-      var value = _this.getValueFromPosition(pos);
-
-      return value;
-    };
-
-    _this.coordinates = function (pos) {
-      var _this$state = _this.state,
-          limit = _this$state.limit,
-          grab = _this$state.grab;
-      var orientation = _this.props.orientation;
-
-      var value = _this.getValueFromPosition(pos);
-
-      var position = _this.getPositionFromValue(value);
-
-      var handlePos = orientation === 'horizontal' ? position + grab : position;
-      var fillPos = orientation === 'horizontal' ? handlePos : limit - handlePos;
-      return {
-        fill: fillPos,
-        handle: handlePos,
-        label: handlePos
-      };
-    };
-
-    _this.renderLabels = function (labels) {
-      return _react2["default"].createElement('ul', {
-        ref: function ref(sl) {
-          _this.labels = sl;
-        },
-        className: (0, _classnames2["default"])('rangeslider__labels')
-      }, labels);
-    };
-
-    _this.state = {
-      active: false,
-      limit: 0,
-      grab: 0
-    };
-    return _this;
-  }
-
-  _createClass(Slider, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.handleUpdate();
-      var resizeObserver = new _resizeObserverPolyfill2["default"](this.handleUpdate);
-      resizeObserver.observe(this.slider);
-    }
-    /**
-     * Format label/tooltip value
-     * @param  {Number} - value
-     * @return {Formatted Number}
-     */
-
-    /**
-     * Update slider state on change
-     * @return {void}
-     */
-
-    /**
-     * Attach event listeners to mousemove/mouseup events
-     * @return {void}
-     */
-
-    /**
-     * Handle drag/mousemove event
-     * @param  {Object} e - Event object
-     * @return {void}
-     */
-
-    /**
-     * Detach event listeners to mousemove/mouseup events
-     * @return {void}
-     */
-
-    /**
-     * Support for key events on the slider handle
-     * @param  {Object} e - Event object
-     * @return {void}
-     */
-
-    /**
-     * Calculate position of slider based on its value
-     * @param  {number} value - Current value of slider
-     * @return {position} pos - Calculated position of slider based on value
-     */
-
-    /**
-     * Translate position of slider to slider value
-     * @param  {number} pos - Current position/coordinates of slider
-     * @return {number} value - Slider value
-     */
-
-    /**
-     * Calculate position of slider based on value
-     * @param  {Object} e - Event object
-     * @return {number} value - Slider value
-     */
-
-    /**
-     * Grab coordinates of slider
-     * @param  {Object} pos - Position object
-     * @return {Object} - Slider fill/handle coordinates
-     */
-
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var _props = this.props,
-          value = _props.value,
-          orientation = _props.orientation,
-          className = _props.className,
-          tooltip = _props.tooltip,
-          reverse = _props.reverse,
-          labels = _props.labels,
-          min = _props.min,
-          max = _props.max,
-          handleLabel = _props.handleLabel;
-      var active = this.state.active;
-      var dimension = constants.orientation[orientation].dimension;
-      var direction = reverse ? constants.orientation[orientation].reverseDirection : constants.orientation[orientation].direction;
-      var position = this.getPositionFromValue(value);
-      var coords = this.coordinates(position);
-
-      var fillStyle = _defineProperty({}, dimension, coords.fill + 'px');
-
-      var handleStyle = _defineProperty({}, direction, coords.handle + 'px');
-
-      var showTooltip = tooltip && active;
-      var labelItems = [];
-      var labelKeys = Object.keys(labels);
-
-      if (labelKeys.length > 0) {
-        labelKeys = labelKeys.sort(function (a, b) {
-          return reverse ? a - b : b - a;
-        });
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
-        try {
-          for (var _iterator = labelKeys[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var key = _step.value;
-            var labelPosition = this.getPositionFromValue(key);
-            var labelCoords = this.coordinates(labelPosition);
-
-            var labelStyle = _defineProperty({}, direction, labelCoords.label + 'px');
-
-            labelItems.push(_react2["default"].createElement('li', {
-              key: key,
-              className: (0, _classnames2["default"])('rangeslider__label-item'),
-              'data-value': key,
-              onMouseDown: this.handleDrag,
-              onTouchStart: this.handleStart,
-              onTouchEnd: this.handleEnd,
-              style: labelStyle
-            }, this.props.labels[key]));
-          }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion && _iterator["return"]) {
-              _iterator["return"]();
-            }
-          } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
-            }
-          }
-        }
-      }
-
-      return _react2["default"].createElement('div', {
-        ref: function ref(s) {
-          _this2.slider = s;
-        },
-        className: (0, _classnames2["default"])('rangeslider', 'rangeslider-' + orientation, {
-          'rangeslider-reverse': reverse
-        }, className),
-        onMouseDown: this.handleDrag,
-        onMouseUp: this.handleEnd,
-        onTouchStart: this.handleStart,
-        onTouchEnd: this.handleEnd,
-        'aria-valuemin': min,
-        'aria-valuemax': max,
-        'aria-valuenow': value,
-        'aria-orientation': orientation
-      }, _react2["default"].createElement('div', {
-        className: 'rangeslider__fill',
-        style: fillStyle
-      }), _react2["default"].createElement('div', {
-        ref: function ref(sh) {
-          _this2.handle = sh;
-        },
-        className: 'rangeslider__handle',
-        onMouseDown: this.handleStart,
-        onTouchMove: this.handleDrag,
-        onTouchEnd: this.handleEnd,
-        onKeyDown: this.handleKeyDown,
-        style: handleStyle,
-        tabIndex: 0
-      }, showTooltip ? _react2["default"].createElement('div', {
-        ref: function ref(st) {
-          _this2.tooltip = st;
-        },
-        className: 'rangeslider__handle-tooltip'
-      }, _react2["default"].createElement('span', null, this.handleFormat(value))) : null, _react2["default"].createElement('div', {
-        className: 'rangeslider__handle-label'
-      }, handleLabel)), labels ? this.renderLabels(labelItems) : null);
-    }
-  }]);
-
-  return Slider;
-}(React.Component);
-
-Slider.propTypes = {
-  min: _propTypes2["default"].number,
-  max: _propTypes2["default"].number,
-  step: _propTypes2["default"].number,
-  value: _propTypes2["default"].number,
-  orientation: _propTypes2["default"].string,
-  tooltip: _propTypes2["default"].bool,
-  reverse: _propTypes2["default"].bool,
-  labels: _propTypes2["default"].object,
-  handleLabel: _propTypes2["default"].string,
-  format: _propTypes2["default"].func,
-  onChangeStart: _propTypes2["default"].func,
-  onChange: _propTypes2["default"].func,
-  onChangeComplete: _propTypes2["default"].func
-};
-Slider.defaultProps = {
-  min: 0,
-  max: 100,
-  step: 1,
-  value: 0,
-  orientation: 'horizontal',
-  tooltip: true,
-  reverse: false,
-  labels: {},
-  handleLabel: ''
-};
-var _default$1 = Slider;
-var Rangeslider = /*#__PURE__*/Object.defineProperty({
-  "default": _default$1
-}, '__esModule', {
-  value: true
-});
-
-var _Rangeslider2 = _interopRequireDefault(Rangeslider);
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    "default": obj
-  };
-}
-
-var _default = _Rangeslider2["default"];
 
 var ChangeAmountDialog = (function (props) {
   var _useContext = useContext(ConfigurationContext),
@@ -4791,7 +2755,6 @@ var ChangeAmountDialog = (function (props) {
     setInputAmount(Math.min(value, max));
   };
 
-  console.log('maxRouteData', maxRouteData);
   return /*#__PURE__*/React.createElement(Dialog, {
     stacked: true,
     header: /*#__PURE__*/React.createElement("div", {
@@ -4820,7 +2783,7 @@ var ChangeAmountDialog = (function (props) {
       onChange: function onChange(event) {
         changeAmount(parseFloat(event.target.value));
       }
-    })), /*#__PURE__*/React.createElement(_default, {
+    })), /*#__PURE__*/React.createElement(Slider, {
       min: parseFloat(amount.min),
       max: parseFloat(max),
       step: parseFloat(amount.step),
@@ -4954,6 +2917,7 @@ var SaleOverviewDialog = (function (props) {
   };
 
   var pay = function pay() {
+    console.log(payment.route);
     setClosable(false);
     setState('paying');
     setUpdate(false);
@@ -5059,7 +3023,10 @@ var SaleOverviewDialog = (function (props) {
   }, [allRoutes]);
   useEffect(function () {
     if (paymentValue) {
-      setSalePerTokenValue("".concat(paymentValue.code, " ").concat((paymentValue.amount / parseFloat(purchasedAmount)).toFixed(2)));
+      setSalePerTokenValue(new Currency({
+        amount: (paymentValue.amount / parseFloat(purchasedAmount)).toFixed(2),
+        code: paymentValue.code
+      }).toString());
     }
   }, [paymentValue]);
 
@@ -5204,12 +3171,12 @@ var preflight = /*#__PURE__*/function () {
 
 var Sale = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, token, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, providers, document;
+    var amount, token, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, providers, currency, document;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, token = _ref3.token, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, providers = _ref3.providers, document = _ref3.document;
+            amount = _ref3.amount, token = _ref3.token, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, providers = _ref3.providers, currency = _ref3.currency, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight({
@@ -5233,6 +3200,7 @@ var Sale = /*#__PURE__*/function () {
                     amount: amount,
                     token: token,
                     blockchains: blockchains,
+                    currency: currency,
                     event: event,
                     sent: sent,
                     confirmed: confirmed,

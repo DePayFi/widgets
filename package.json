@@ -1,7 +1,7 @@
 {
   "name": "depay-widgets",
   "moduleName": "DePayWidgets",
-  "version": "2.9.0",
+  "version": "2.9.2",
   "description": "Accept and perform crypto payments with DePay widgets. Simple Decentralized Payments.",
   "main": "./dist/cjs/index.js",
   "files": [
@@ -28,7 +28,8 @@
     "dev": "npx rollup -c rollup.dev.config.js -w",
     "test:cypress": "yarn cypress run",
     "test:cypress:debug": "yarn cypress run --headed --no-exit",
-    "test": "yarn test:cypress"
+    "test:jest": "npx jest --no-cache",
+    "test": "yarn test:jest && yarn test:cypress"
   },
   "dependencies": {
     "@appigram/react-rangeslider": "^2.2.13",

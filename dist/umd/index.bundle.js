@@ -1,13 +1,14 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('buffer'), require('util')) :
-  typeof define === 'function' && define.amd ? define(['buffer', 'util'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.require$$0, global.require$$0$1));
-}(this, (function (require$$0, require$$0$1) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('buffer'), require('util'), require('react-rangeslider')) :
+  typeof define === 'function' && define.amd ? define(['buffer', 'util', 'react-rangeslider'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.require$$0, global.require$$0$1, global.Slider));
+}(this, (function (require$$0, require$$0$1, Slider) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
   var require$$0__default = /*#__PURE__*/_interopDefaultLegacy(require$$0);
   var require$$0__default$1 = /*#__PURE__*/_interopDefaultLegacy(require$$0$1);
+  var Slider__default = /*#__PURE__*/_interopDefaultLegacy(Slider);
 
   function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
     try {
@@ -51358,7 +51359,7 @@
   });
 
   var FontStyle = (function (style) {
-    return "\n\n    .Dialog, * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeM {\n      font-size: 1.2rem;\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
+    return "\n\n    .Dialog, * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeM {\n      font-size: 1.2rem;\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontSizeXL {\n      font-size: 2.0rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
   });
 
   var FooterStyle = (function (style) {
@@ -51377,6 +51378,14 @@
     return "\n\n    .Icon {\n      fill : ".concat(style.colors.icons, ";\n      stroke : ").concat(style.colors.icons, ";\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 1.4rem;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 1.4rem;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n    \n  ");
   });
 
+  var ImageStyle = (function (style) {
+    return "\n\n    .MaxAmountImage {\n      display: inline-block;\n      padding-right: 6px;\n    }\n    \n    .MaxAmountImage img {\n      height: 16px;\n      width: 16px;\n      position: relative;\n      top: 3px;\n    }\n  ";
+  });
+
+  var InputStyle = (function (style) {
+    return "\n\n    .Input {\n      background: none;\n      border: 1px solid transparent;\n      margin: 0;\n      outline: none !important;\n      padding: 0;\n      width: 100%;\n    }\n\n    .Input::placeholder {\n      color: rgb(210,210,210);\n    }\n    \n  ";
+  });
+
   var LabelStyle = (function (style) {
     return "\n\n    .Label {\n      background: rgb(248,248,248);\n      border-radius: 999px;\n      color: ".concat(style.colors.primary, ";\n      font-size: 0.8rem;\n      padding: 0.1rem 0.5rem;\n      margin: 0.1rem;\n    }\n\n  ");
   });
@@ -51389,12 +51398,20 @@
     return "\n\n    .PaddingTopXS {\n      padding-top: 0.2rem;\n    }\n\n    .PaddingRightXS {\n      padding-right: 0.2rem;\n    }\n\n    .PaddingBottomXS {\n      padding-bottom: 0.2rem;\n    }\n\n    .PaddingLeftXS {\n      padding-left: 0.2rem; \n    }\n\n    .PaddingTopS {\n      padding-top: 0.8rem;\n    }\n\n    .PaddingRightS {\n      padding-right: 0.8rem;\n    }\n\n    .PaddingBottomS {\n      padding-bottom: 0.8rem;\n    }\n\n    .PaddingLeftS {\n      padding-left: 0.8rem; \n    }\n\n    .PaddingTopM {\n      padding-top: 1.2rem;\n    }\n\n    .PaddingRightM {\n      padding-right: 1.2rem;\n    }\n\n    .PaddingBottomM {\n      padding-bottom: 1.2rem;\n    }\n\n    .PaddingLeftM {\n      padding-left: 1.2rem; \n    }\n\n    .PaddingTopL {\n      padding-top: 1.8rem;\n    }\n\n    .PaddingRightL {\n      padding-right: 1.8rem;\n    }\n\n    .PaddingBottomL {\n      padding-bottom: 1.8rem;\n    }\n\n    .PaddingLeftL {\n      padding-left: 1.28em; \n    }\n  ";
   });
 
+  var RangeSliderStyle = (function (style) {
+    return "\n\n    .rangeslider {\n      margin: 20px 0;\n      position: relative;\n      background: #e6e6e6;\n      -ms-touch-action: none;\n      touch-action: none;\n    }\n\n    .rangeslider,\n    .rangeslider__fill {\n      display: block;\n      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);\n    }\n\n    .rangeslider__handle {\n      outline: none;\n      cursor: pointer;\n      display: inline-block;\n      position: absolute;\n      border-radius: 50%;\n      background-color: " + style.colors.primary + ";\n      border: 1px solid white;\n      box-shadow: 0 0 8px rgba(0,0,0,0.1);\n    }\n\n    .rangeslider__handle:hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n\n    .rangeslider__handle:active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.3);\n    }\n\n    .rangeslider__active {\n      opacity: 1;\n    }\n\n    .rangeslider__handle-tooltip {\n      display: none;\n    }\n\n    .rangeslider-horizontal {\n      height: 12px;\n      border-radius: 10px;\n    }\n\n    .rangeslider-horizontal .rangeslider__fill {\n      height: 100%;\n      background-color: " + style.colors.primary + ";\n      border-radius: 10px;\n      top: 0;\n    }\n    .rangeslider-horizontal .rangeslider__handle {\n      width: 18px;\n      height: 18px;\n      border-radius: 30px;\n      top: 50%;\n      transform: translate3d(-50%, -50%, 0);\n    }\n\n\n    .rangeslider-horizontal .rangeslider__handle-tooltip {\n      top: -55px;\n    }\n\n  ";
+  });
+
   var ResetStyle = (function () {
     return "\n\n      html, body, div, span, applet, object, iframe,\n      h1, h2, h3, h4, h5, h6, p, blockquote, pre,\n      a, abbr, acronym, address, big, cite, code,\n      del, dfn, em, img, ins, kbd, q, s, samp,\n      small, strike, strong, sub, sup, tt, var,\n      b, u, i, center,\n      dl, dt, dd, ol, ul, li,\n      fieldset, form, label, legend,\n      table, caption, tbody, tfoot, thead, tr, th, td,\n      article, aside, canvas, details, embed, \n      figure, figcaption, footer, header, hgroup, \n      menu, nav, output, ruby, section, summary,\n      time, mark, audio, video {\n        margin: 0;\n        padding: 0;\n        border: 0;\n        font-size: 100%;\n        font: inherit;\n        text-align: inherit;\n        vertical-align: baseline;\n      }\n\n      article, aside, details, figcaption, figure, \n      footer, header, hgroup, menu, nav, section {\n        display: block;\n      }\n\n      body {\n        line-height: 1;\n      }\n\n      ol, ul {\n        list-style: none;\n      }\n\n      blockquote, q {\n        quotes: none;\n      }\n\n      blockquote:before, blockquote:after,\n      q:before, q:after {\n        content: '';\n        content: none;\n      }\n      \n      table {\n        border-collapse: collapse;\n        border-spacing: 0;\n      }\n\n      * {\n        box-sizing: border-box;\n      }\n\n      button {\n        border: 0;\n        background: none;\n        outline: none;\n      }\n\n  ";
   });
 
   var SkeletonStyle = (function () {
     return "\n        \n    .Skeleton {\n      background: rgb(230,230,230) !important;\n      border: 1px solid transparent;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ";
+  });
+
+  var TextButtonStyle = (function (style) {
+    return "\n\n    .TextButton {\n      cursor: pointer;\n      font-size: 16px;\n      color: ".concat(style.colors.primary, "\n    }\n  ");
   });
 
   var TextStyle = (function () {
@@ -51415,7 +51432,7 @@
       },
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
     }, style);
-    return [ResetStyle(), FontStyle(style), DialogStyle(style), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(), FooterStyle(style), GraphicStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(), IconStyle(style), PaddingStyle(), HeightStyle(), LabelStyle(style), LoadingTextStyle(style)].join('');
+    return [ResetStyle(), FontStyle(style), DialogStyle(style), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(), FooterStyle(style), GraphicStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(), IconStyle(style), PaddingStyle(), HeightStyle(), LabelStyle(style), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle()].join('');
   });
 
   function _interopDefaultLegacy$3(e) {
@@ -51602,6 +51619,8 @@
             amount: amount
           });
         })["catch"](setError);
+      } else {
+        setPayment(undefined);
       }
     }, [selectedRoute]);
     return /*#__PURE__*/react.createElement(PaymentContext.Provider, {
@@ -51632,25 +51651,46 @@
   var apiKey = 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c';
 
   var round = (function (input) {
+    var _digitsAfterDecimal;
+
     var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'up';
+    var digitsAfterDecimal = parseFloat(input).toString().match(/\d+\.0*(\d{3})/);
 
-    var _float;
+    if ((_digitsAfterDecimal = digitsAfterDecimal) !== null && _digitsAfterDecimal !== void 0 && _digitsAfterDecimal.length) {
+      digitsAfterDecimal = digitsAfterDecimal[0];
+      var focus = digitsAfterDecimal.match(/\d{3}$/)[0];
 
-    var match = parseFloat(input).toString().match(/\d+\.0*(\d{3})/);
-
-    if (match && match.length) {
-      match = match[0];
-
-      if (direction == 'up') {
-        _float = match.replace(/\d{2}$/, parseInt(match[match.length - 2], 10) + 1);
-      } else {
-        _float = match.replace(/\d{2}$/, parseInt(match[match.length - 2], 10));
+      if (focus.match(/^00/)) {
+        return input;
       }
-    } else {
-      _float = parseFloat(input).toString();
-    }
 
-    return parseFloat(_float);
+      var _float;
+
+      var focusToFixed;
+
+      if (focus.match(/^0/)) {
+        if (direction == 'up') {
+          _float = parseFloat("".concat(focus[1], ".").concat(focus[2]));
+        } else {
+          _float = parseFloat("".concat(focus[1], ".").concat(focus[2]));
+        }
+
+        focusToFixed = parseFloat(_float).toFixed(1);
+        focusToFixed = "0".concat(focusToFixed).replace('.', '');
+      } else {
+        if (direction == 'up') {
+          _float = parseFloat("".concat(focus[0], ".").concat(focus[1], "9"));
+        } else {
+          _float = parseFloat("".concat(focus[0], ".").concat(focus[1], "1"));
+        }
+
+        focusToFixed = parseFloat(_float).toFixed(1).replace('.', '');
+      }
+
+      return parseFloat(digitsAfterDecimal.replace(/\d{3}$/, focusToFixed));
+    } else {
+      return parseFloat(parseFloat(input).toFixed(2));
+    }
   });
 
   var UpdateContext = /*#__PURE__*/react.createContext();
@@ -63704,7 +63744,7 @@
           selectedRoute = _ref.selectedRoute,
           update = _ref.update;
 
-      if (update == false) {
+      if (update == false || accept == undefined || account == undefined) {
         return;
       }
 
@@ -63798,11 +63838,6 @@
     }();
 
     react.useEffect(function () {
-      if (account) {
-        getPaymentRoutes({});
-      }
-    }, [account]);
-    react.useEffect(function () {
       var timeout = setTimeout(function () {
         setReloadCount(reloadCount + 1);
         getPaymentRoutes({
@@ -63815,6 +63850,13 @@
         return clearTimeout(timeout);
       };
     }, [reloadCount, allRoutes, selectedRoute, update]);
+    react.useEffect(function () {
+      if (account && props.accept) {
+        setAllRoutes(undefined);
+        setSelectedRoute(undefined);
+        getPaymentRoutes({});
+      }
+    }, [account, props.accept]);
     return /*#__PURE__*/react.createElement(PaymentRoutingContext.Provider, {
       value: {
         selectedRoute: selectedRoute,
@@ -64195,6 +64237,12 @@
     });
   });
 
+  var format = (function (input) {
+    var _float = parseFloat(input);
+
+    return new Intl.NumberFormat().format(_float);
+  });
+
   var depayWeb3Blockchains = /*@__PURE__*/getAugmentedNamespace(es$1);
 
   var depayWeb3Constants = /*@__PURE__*/getAugmentedNamespace(es);
@@ -64351,9 +64399,9 @@
           className: "TokenSymbolCell"
         }, payment.symbol), /*#__PURE__*/react.createElement("span", null, "\xA0"), /*#__PURE__*/react.createElement("span", {
           className: "TokenAmountCell"
-        }, payment.amount))), /*#__PURE__*/react.createElement("h3", {
+        }, format(payment.amount)))), /*#__PURE__*/react.createElement("h3", {
           className: "CardText"
-        }, /*#__PURE__*/react.createElement("small", null, round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals), 'down'))))), /*#__PURE__*/react.createElement("div", {
+        }, /*#__PURE__*/react.createElement("small", null, format(round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals), 'down')))))), /*#__PURE__*/react.createElement("div", {
           className: "CardInfo"
         }, payment.route.approvalRequired && /*#__PURE__*/react.createElement("span", {
           className: "Label"
@@ -64754,7 +64802,7 @@
         className: "TokenSymbolCell"
       }, payment.symbol), /*#__PURE__*/react.createElement("span", null, "\xA0"), /*#__PURE__*/react.createElement("span", {
         className: "TokenAmountCell"
-      }, payment.amount))), paymentValue.toString().length && /*#__PURE__*/react.createElement("h3", {
+      }, format(payment.amount)))), paymentValue.toString().length && /*#__PURE__*/react.createElement("h3", {
         className: "CardText"
       }, /*#__PURE__*/react.createElement("small", null, paymentValue.toString())))), /*#__PURE__*/react.createElement("div", {
         className: "CardAction"
@@ -65580,22 +65628,31 @@
 
     var _useState = react.useState(amount.start),
         _useState2 = _slicedToArray(_useState, 2),
-        purchasedAmount = _useState2[0];
-        _useState2[1];
+        purchasedAmount = _useState2[0],
+        setPurchaseAmount = _useState2[1];
 
     var _useState3 = react.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
         purchasedToken = _useState4[0],
         setPurchasedToken = _useState4[1];
 
-    var accept = blockchains.map(function (blockchain) {
-      return {
-        blockchain: blockchain,
-        amount: purchasedAmount,
-        token: token,
-        receiver: account
-      };
-    });
+    var _useState5 = react.useState(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        accept = _useState6[0],
+        setAccept = _useState6[1];
+
+    react.useEffect(function () {
+      if (account) {
+        setAccept(blockchains.map(function (blockchain) {
+          return {
+            blockchain: blockchain,
+            amount: purchasedAmount,
+            token: token,
+            receiver: account
+          };
+        }));
+      }
+    }, [account, purchasedAmount]);
     react.useEffect(function () {
       var tokenInstance = new Token({
         blockchain: blockchains[0],
@@ -65617,12 +65674,160 @@
     }, []);
     return /*#__PURE__*/react.createElement(SaleRoutingContext.Provider, {
       value: {
+        setPurchaseAmount: setPurchaseAmount,
         purchasedAmount: purchasedAmount,
         purchasedToken: purchasedToken
       }
     }, /*#__PURE__*/react.createElement(PaymentRoutingProvider, {
       accept: accept
     }, /*#__PURE__*/react.createElement(PaymentProvider, null, /*#__PURE__*/react.createElement(PaymentValueProvider, null, props.children))));
+  });
+
+  var ChangeAmountDialog = (function (props) {
+    var _useContext = react.useContext(ConfigurationContext),
+        amount = _useContext.amount;
+
+    var _useContext2 = react.useContext(NavigateStackContext_1),
+        navigate = _useContext2.navigate;
+
+    var _useContext3 = react.useContext(WalletContext),
+        account = _useContext3.account;
+
+    var _useState = react.useState(props.amount),
+        _useState2 = _slicedToArray(_useState, 2),
+        inputAmount = _useState2[0],
+        setInputAmount = _useState2[1];
+
+    var _useContext4 = react.useContext(PaymentRoutingContext),
+        allRoutes = _useContext4.allRoutes;
+
+    var _useState3 = react.useState(),
+        _useState4 = _slicedToArray(_useState3, 2),
+        maxRoute = _useState4[0],
+        setMaxRoute = _useState4[1];
+
+    var _useState5 = react.useState(parseFloat(amount.start) * 10),
+        _useState6 = _slicedToArray(_useState5, 2),
+        max = _useState6[0],
+        setMax = _useState6[1];
+
+    var _useState7 = react.useState(),
+        _useState8 = _slicedToArray(_useState7, 2),
+        maxRouteData = _useState8[0],
+        setMaxRouteData = _useState8[1];
+
+    react.useEffect(function () {
+      var sortedLowToHigh = _toConsumableArray(allRoutes).sort(function (a, b) {
+        var aAmountsAvailable = a.fromBalance.div(a.fromAmount);
+        var bAmountsAvailable = b.fromBalance.div(b.fromAmount);
+
+        if (aAmountsAvailable.lt(bAmountsAvailable)) {
+          return -1;
+        }
+
+        if (bAmountsAvailable.lt(aAmountsAvailable)) {
+          return 1;
+        }
+
+        return 0; // equal
+      });
+
+      setMaxRoute(sortedLowToHigh[sortedLowToHigh.length - 1]);
+    }, []);
+    react.useEffect(function () {
+      if (maxRoute) {
+        return Promise.all([maxRoute.fromToken.name(), maxRoute.fromToken.symbol(), maxRoute.fromToken.decimals(), maxRoute.fromToken.readable(maxRoute.fromBalance), route$8({
+          blockchain: maxRoute.blockchain,
+          tokenIn: maxRoute.fromToken.address,
+          tokenOut: maxRoute.toToken.address,
+          amountIn: maxRoute.fromBalance,
+          fromAddress: account,
+          toAddress: account
+        })]).then(function (_ref) {
+          var _ref2 = _slicedToArray(_ref, 5),
+              name = _ref2[0],
+              symbol = _ref2[1],
+              decimals = _ref2[2],
+              balance = _ref2[3],
+              routes = _ref2[4];
+
+          var SLIPPAGE = 1.01;
+          var max = round(parseFloat(ethers.utils.formatUnits(routes[0].amountOutMin, decimals)) / SLIPPAGE, 'down');
+          setMax(max);
+          setMaxRouteData({
+            name: name,
+            symbol: symbol,
+            balance: balance,
+            blockchain: maxRoute.blockchain,
+            address: maxRoute.fromToken.address
+          });
+        });
+      }
+    }, [maxRoute]);
+
+    var changeAmountAndGoBack = function changeAmountAndGoBack() {
+      props.setAmount(inputAmount);
+      navigate('back');
+    };
+
+    var changeAmount = function changeAmount(value) {
+      setInputAmount(Math.min(value, max));
+    };
+
+    return /*#__PURE__*/react.createElement(Dialog, {
+      stacked: true,
+      header: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
+      }, /*#__PURE__*/react.createElement("h1", {
+        className: "FontSizeL TextCenter"
+      }, "Change Amount"), /*#__PURE__*/react.createElement("div", {
+        className: "FontSizeL TextCenter FontWeightBold"
+      }, /*#__PURE__*/react.createElement("strong", null, props.token.symbol))),
+      body: /*#__PURE__*/react.createElement("div", {
+        className: "MaxHeight PaddingTopXS"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS TextCenter PaddingBottomL"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "FontSizeL"
+      }, /*#__PURE__*/react.createElement("input", {
+        max: parseFloat(max),
+        min: parseFloat(amount.min),
+        step: parseFloat(amount.step),
+        className: "Input FontSizeXL TextAlignCenter",
+        type: "number",
+        name: "amount",
+        value: parseFloat(inputAmount),
+        onChange: function onChange(event) {
+          changeAmount(parseFloat(event.target.value));
+        }
+      })), /*#__PURE__*/react.createElement(Slider__default['default'], {
+        min: parseFloat(amount.min),
+        max: parseFloat(max),
+        step: parseFloat(amount.step),
+        value: parseFloat(inputAmount),
+        onChange: function onChange(value) {
+          changeAmount(parseFloat(value));
+        }
+      }), maxRouteData && /*#__PURE__*/react.createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
+        className: "MaxAmountImage"
+      }, /*#__PURE__*/react.createElement(TokenImage_1, {
+        blockchain: maxRouteData.blockchain,
+        address: maxRouteData.address
+      })), maxRouteData.symbol, " ", format(round(maxRouteData.balance, 'down')), /*#__PURE__*/react.createElement("button", {
+        className: "TextButton",
+        onClick: function onClick() {
+          changeAmount(max);
+        }
+      }, "(Max)")))))),
+      footer: /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("button", {
+        className: "ButtonPrimary",
+        onClick: changeAmountAndGoBack
+      }, "Done"))
+    });
   });
 
   var SaleOverviewSkeleton = (function (props) {
@@ -65731,6 +65936,7 @@
     };
 
     var pay = function pay() {
+      console.log(payment.route);
       setClosable(false);
       setState('paying');
       setUpdate(false);
@@ -65836,7 +66042,10 @@
     }, [allRoutes]);
     react.useEffect(function () {
       if (paymentValue) {
-        setSalePerTokenValue("".concat(paymentValue.code, " ").concat((paymentValue.amount / parseFloat(purchasedAmount)).toFixed(2)));
+        setSalePerTokenValue(new Currency({
+          amount: (paymentValue.amount / parseFloat(purchasedAmount)).toFixed(2),
+          code: paymentValue.code
+        }).toString());
       }
     }, [paymentValue]);
 
@@ -65864,7 +66073,7 @@
             return;
           }
 
-          navigate('ChangePayment');
+          navigate('ChangeAmount');
         }
       }, /*#__PURE__*/react.createElement("div", {
         className: "CardImage",
@@ -65884,7 +66093,7 @@
         className: "TokenSymbolCell"
       }, purchasedToken.symbol), /*#__PURE__*/react.createElement("span", null, "\xA0"), /*#__PURE__*/react.createElement("span", {
         className: "TokenAmountCell"
-      }, purchasedAmount))), salePerTokenValue && /*#__PURE__*/react.createElement("h3", {
+      }, format(purchasedAmount)))), salePerTokenValue && /*#__PURE__*/react.createElement("h3", {
         className: "CardText"
       }, /*#__PURE__*/react.createElement("small", null, salePerTokenValue, " per token")))), /*#__PURE__*/react.createElement("div", {
         className: "CardAction"
@@ -65918,7 +66127,7 @@
         className: "TokenSymbolCell"
       }, payment.symbol), /*#__PURE__*/react.createElement("span", null, "\xA0"), /*#__PURE__*/react.createElement("span", {
         className: "TokenAmountCell"
-      }, payment.amount))), paymentValue.toString().length && /*#__PURE__*/react.createElement("h3", {
+      }, format(payment.amount)))), paymentValue.toString().length && /*#__PURE__*/react.createElement("h3", {
         className: "CardText"
       }, /*#__PURE__*/react.createElement("small", null, paymentValue.toString())))), /*#__PURE__*/react.createElement("div", {
         className: "CardAction"
@@ -65934,6 +66143,11 @@
         open = _useContext.open,
         close = _useContext.close;
 
+    var _useContext2 = react.useContext(SaleRoutingContext),
+        purchasedToken = _useContext2.purchasedToken,
+        purchasedAmount = _useContext2.purchasedAmount,
+        setPurchaseAmount = _useContext2.setPurchaseAmount;
+
     return /*#__PURE__*/react.createElement(ReactDialogStack_1, {
       open: open,
       close: close,
@@ -65942,6 +66156,11 @@
       document: props.document,
       dialogs: {
         SaleOverview: /*#__PURE__*/react.createElement(SaleOverviewDialog, null),
+        ChangeAmount: /*#__PURE__*/react.createElement(ChangeAmountDialog, {
+          token: purchasedToken,
+          amount: purchasedAmount,
+          setAmount: setPurchaseAmount
+        }),
         ChangePayment: /*#__PURE__*/react.createElement(ChangePaymentDialog, null),
         NoPaymentMethodFound: /*#__PURE__*/react.createElement(NoPaymentMethodFoundDialog, null),
         PaymentError: /*#__PURE__*/react.createElement(PaymentErrorDialog, null)
@@ -65971,12 +66190,12 @@
 
   var Sale = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var amount, token, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, providers, document;
+      var amount, token, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, providers, currency, document;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              amount = _ref3.amount, token = _ref3.token, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, providers = _ref3.providers, document = _ref3.document;
+              amount = _ref3.amount, token = _ref3.token, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, providers = _ref3.providers, currency = _ref3.currency, document = _ref3.document;
               _context2.prev = 1;
               _context2.next = 4;
               return preflight({
@@ -66000,6 +66219,7 @@
                       amount: amount,
                       token: token,
                       blockchains: blockchains,
+                      currency: currency,
                       event: event,
                       sent: sent,
                       confirmed: confirmed,
