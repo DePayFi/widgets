@@ -1,5 +1,5 @@
-import Dialog from '../../components/Dialog'
-import QuestionsGraphic from '../../graphics/questions'
+import Dialog from '../components/Dialog'
+import QuestionsGraphic from '../graphics/questions'
 import React from 'react'
 
 export default ()=> {

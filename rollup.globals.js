@@ -1,5 +1,6 @@
 export default {
   'react': 'React',
+  'react-dom': 'ReactDOM',
   'ethers': 'ethers',
   'depay-react-dialog-stack': 'ReactDialogStack',
   'depay-react-dialog': 'ReactDialog',

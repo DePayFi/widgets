@@ -4,10 +4,10 @@ import ensureDocument from './helpers/ensureDocument'
 import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
 import PaymentProvider from './providers/PaymentProvider'
+import PaymentRoutingProvider from './providers/PaymentRoutingProvider'
 import PaymentStack from './stacks/PaymentStack'
+import PaymentValueProvider from './providers/PaymentValueProvider'
 import React from 'react'
-import RoutingProvider from './providers/RoutingProvider'
-import ToTokenProvider from './providers/ToTokenProvider'
 import UpdateProvider from './providers/UpdateProvider'
 import WalletProvider from './providers/WalletProvider'
 
@@ -45,16 +45,16 @@ let Payment = async ({
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
                 <WalletProvider>
-                  <RoutingProvider>
+                  <PaymentRoutingProvider accept={ accept } whitelist={ whitelist } event={ event }>
                     <PaymentProvider>
-                      <ToTokenProvider>
+                      <PaymentValueProvider>
                         <PaymentStack
                           document={ document }
                           container={ container }
                         />
-                      </ToTokenProvider>
+                      </PaymentValueProvider>
                     </PaymentProvider>
-                  </RoutingProvider>
+                  </PaymentRoutingProvider>
                 </WalletProvider>
               </UpdateProvider>
             </ClosableProvider>

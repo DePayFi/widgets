@@ -1,6 +1,6 @@
-import Dialog from '../../components/Dialog'
-import ErrorGraphic from '../../graphics/error'
-import PaymentContext from '../../contexts/PaymentContext'
+import Dialog from '../components/Dialog'
+import ErrorGraphic from '../graphics/error'
+import PaymentContext from '../contexts/PaymentContext'
 import React, { useContext } from 'react'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
 

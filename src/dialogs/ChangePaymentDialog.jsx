@@ -1,19 +1,18 @@
-import ChangePaymentSkeleton from '../../skeletons/ChangePaymentSkeleton'
-import ConfigurationContext from '../../contexts/ConfigurationContext'
-import Dialog from '../../components/Dialog'
-import ErrorContext from '../../contexts/ErrorContext'
+import ChangePaymentSkeleton from '../skeletons/ChangePaymentSkeleton'
+import Dialog from '../components/Dialog'
+import ErrorContext from '../contexts/ErrorContext'
+import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
+import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useEffect, useState } from 'react'
-import round from '../../helpers/round'
-import RoutingContext from '../../contexts/RoutingContext'
-import ToTokenContext from '../../contexts/ToTokenContext'
+import round from '../helpers/round'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
 import { TokenImage } from 'depay-react-token-image'
 
 export default (props)=>{
 
   const { setError } = useContext(ErrorContext)
-  const { allRoutes, setSelectedRoute } = useContext(RoutingContext)
-  const { localValue } = useContext(ToTokenContext)
+  const { allRoutes, setSelectedRoute } = useContext(PaymentRoutingContext)
+  const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
   const [ allPaymentRoutesWithData, setAllPaymentRoutesWithData ] = useState([])
   const [ cards, setCards ] = useState([])
@@ -93,7 +92,9 @@ export default (props)=>{
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS">
           <h1 className="FontSizeL TextCenter">Change Payment</h1>
-          <div className="FontSizeL TextCenter FontWeightBold"><strong>{ localValue.toString() }</strong></div>
+          { paymentValue != undefined &&
+            <div className="FontSizeL TextCenter FontWeightBold"><strong>{ paymentValue.toString() }</strong></div>
+          }
         </div>
       }
       body={

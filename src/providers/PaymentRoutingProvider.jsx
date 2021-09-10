@@ -1,8 +1,7 @@
 import apiKey from '../helpers/apiKey'
-import ConfigurationContext from '../contexts/ConfigurationContext'
 import React, { useState, useContext, useEffect } from 'react'
 import round from '../helpers/round'
-import RoutingContext from '../contexts/RoutingContext'
+import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import UpdateContext from '../contexts/UpdateContext'
 import WalletContext from '../contexts/WalletContext'
 import { CONSTANTS } from 'depay-web3-constants'
@@ -14,15 +13,14 @@ export default (props)=>{
   const [allRoutes, setAllRoutes] = useState()
   const [selectedRoute, setSelectedRoute] = useState()
   const [reloadCount, setReloadCount] = useState(0)
-  const { accept, event, whitelist } = useContext(ConfigurationContext)
   const { account } = useContext(WalletContext)
   const { update } = useContext(UpdateContext)
   const getPaymentRoutes = ({ allRoutes, selectedRoute, update })=>{
     if(update == false) { return }
     route({
-      accept: accept.map((configuration)=>({ ...configuration, fromAddress: account, toAddress: configuration.receiver })),
-      whitelist,
-      event,
+      accept: props.accept.map((configuration)=>({ ...configuration, fromAddress: account, toAddress: configuration.receiver })),
+      whitelist: props.whitelist,
+      event: props.event,
       apiKey
     }).then((routes)=>{
       if(routes.length == 0) {
@@ -64,13 +62,13 @@ export default (props)=>{
   }, [reloadCount, allRoutes, selectedRoute, update])
 
   return(
-    <RoutingContext.Provider value={{
+    <PaymentRoutingContext.Provider value={{
       selectedRoute: selectedRoute,
       setSelectedRoute: setSelectedRoute,
       allRoutes: allRoutes,
       setAllRoutes: setAllRoutes
     }}>
       { props.children }
-    </RoutingContext.Provider>
+    </PaymentRoutingContext.Provider>
   )
 }

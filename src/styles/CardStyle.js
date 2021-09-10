@@ -90,6 +90,11 @@ export default (style)=>{
       vertical-align: middle;
       width: 2.8rem;
     }
+
+    .CardTitle {
+      font-size: 0.9rem;
+      color: rgb(150,150,150);
+    }
     
     .CardText {
       flex: 1;
