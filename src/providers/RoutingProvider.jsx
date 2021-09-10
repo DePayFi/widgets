@@ -41,10 +41,6 @@ export default (props)=>{
       if(route.directTransfer){ return route }
       let readableAmount = await route.fromToken.readable(route.transaction.params.amounts[0])
       let roundedAmountBN = await route.fromToken.BigNumber(round(readableAmount))
-      console.log('route', route)
-      console.log('readableAmount', readableAmount)
-      console.log('readableAmount', round(readableAmount))
-      console.log('roundedAmountBN', roundedAmountBN.toString())
       route.fromAmount = roundedAmountBN
       route.transaction.params.amounts[0] = roundedAmountBN
       if(route.transaction.value && route.transaction.value.toString() != '0') {
