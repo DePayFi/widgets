@@ -4,6 +4,7 @@ import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ConnectingWalletDialog from './ConnectingWalletDialog'
 import Dialog from '../components/Dialog'
+import format from '../helpers/format'
 import LoadingText from '../components/LoadingText'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
@@ -192,7 +193,7 @@ export default (props)=>{
                     </span>
                     <span>&nbsp;</span>
                     <span className="TokenAmountCell">
-                      { purchasedAmount }
+                      { format(purchasedAmount) }
                     </span>
                   </div>
                 </h2>
@@ -233,7 +234,7 @@ export default (props)=>{
                     </span>
                     <span>&nbsp;</span>
                     <span className="TokenAmountCell">
-                      { payment.amount }
+                      { format(payment.amount) }
                     </span>
                   </div>
                 </h2>

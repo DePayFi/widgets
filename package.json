@@ -31,6 +31,7 @@
     "test": "yarn test:cypress"
   },
   "dependencies": {
+    "@appigram/react-rangeslider": "^2.2.13",
     "depay-local-currency": "^1.1.0",
     "depay-react-dialog-stack": "^2.0.0",
     "depay-react-shadow-dom": "^2.0.2",
@@ -43,8 +44,7 @@
     "depay-web3-payments": "^5.3.1",
     "depay-web3-tokens": "^4.1.0",
     "depay-web3-transaction": "^3.2.1",
-    "depay-web3-wallets": "^5.1.1",
-    "react-rangeslider": "^2.2.0"
+    "depay-web3-wallets": "^5.1.1"
   },
   "peerDependencies": {
     "ethers": "^5.4.6",

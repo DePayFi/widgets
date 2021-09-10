@@ -1,6 +1,7 @@
 import ChangePaymentSkeleton from '../skeletons/ChangePaymentSkeleton'
 import Dialog from '../components/Dialog'
 import ErrorContext from '../contexts/ErrorContext'
+import format from '../helpers/format'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useEffect, useState } from 'react'
@@ -66,12 +67,12 @@ export default (props)=>{
                     </span>
                     <span>&nbsp;</span>
                     <span className="TokenAmountCell">
-                      { payment.amount }
+                      { format(payment.amount) }
                     </span>
                   </div>
                 </h2>
                 <h3 className="CardText">
-                  <small>{ round(parseFloat(payment.route.fromBalance.toString())/10**payment.decimals, 'down') }</small>
+                  <small>{ format(round(parseFloat(payment.route.fromBalance.toString())/10**payment.decimals, 'down')) }</small>
                 </h3>
               </div>
             </div>
