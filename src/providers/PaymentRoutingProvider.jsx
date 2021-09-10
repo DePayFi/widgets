@@ -16,7 +16,7 @@ export default (props)=>{
   const { account } = useContext(WalletContext)
   const { update } = useContext(UpdateContext)
   const getPaymentRoutes = ({ allRoutes, selectedRoute, update })=>{
-    if(update == false || accept == undefined || account == undefined) { return }
+    if(update == false || props.accept == undefined || account == undefined) { return }
     route({
       accept: props.accept.map((configuration)=>({ ...configuration, fromAddress: account, toAddress: configuration.receiver })),
       whitelist: props.whitelist,
