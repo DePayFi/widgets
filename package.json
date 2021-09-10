@@ -1,7 +1,7 @@
 {
   "name": "depay-widgets",
   "moduleName": "DePayWidgets",
-  "version": "2.8.1",
+  "version": "2.9.0",
   "description": "Accept and perform crypto payments with DePay widgets. Simple Decentralized Payments.",
   "main": "./dist/cjs/index.js",
   "files": [
@@ -31,7 +31,7 @@
     "test": "yarn test:cypress"
   },
   "dependencies": {
-    "depay-local-currency": "^1.0.1",
+    "depay-local-currency": "^1.1.0",
     "depay-react-dialog-stack": "^2.0.0",
     "depay-react-shadow-dom": "^2.0.2",
     "depay-react-token-image": "^1.1.3",

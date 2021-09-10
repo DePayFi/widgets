@@ -1,4 +1,5 @@
 import apiKey from '../helpers/apiKey'
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
@@ -18,6 +19,7 @@ export default (props)=>{
   const { update } = useContext(UpdateContext)
   const { payment } = useContext(PaymentContext)
   const [ paymentValue, setPaymentValue ] = useState()
+  const { currency } = useContext(ConfigurationContext)
   const [ reloadCount, setReloadCount ] = useState(0)
   const getToTokenLocalValue = ({ update, payment })=>{
     if(update == false || payment?.route == undefined) { return }
@@ -45,7 +47,7 @@ export default (props)=>{
       }
 
       let USDValue = ethers.utils.formatUnits(USDAmount, USDDecimals)
-      Currency.fromUSD({ amount: USDValue, apiKey })
+      Currency.fromUSD({ amount: USDValue, code: currency, apiKey })
         .then(setPaymentValue)
         .catch(setError)
     }).catch(setError)

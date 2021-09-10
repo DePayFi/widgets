@@ -51350,7 +51350,7 @@
   });
 
   var CardStyle = (function (style) {
-    return "\n\n    .Card {\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02); \n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n    \n    .CardText {\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ";
+    return "\n\n    .Card {\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02); \n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText {\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ";
   });
 
   var DialogStyle = (function (style) {
@@ -51565,13 +51565,13 @@
 
   var PaymentContext = /*#__PURE__*/react.createContext();
 
-  var RoutingContext = /*#__PURE__*/react.createContext();
+  var PaymentRoutingContext = /*#__PURE__*/react.createContext();
 
   var PaymentProvider = (function (props) {
     var _useContext = react.useContext(ErrorContext),
         setError = _useContext.setError;
 
-    var _useContext2 = react.useContext(RoutingContext),
+    var _useContext2 = react.useContext(PaymentRoutingContext),
         selectedRoute = _useContext2.selectedRoute;
 
     var _useState = react.useState(),
@@ -51614,375 +51614,22 @@
     }, props.children);
   });
 
-  var ChevronLeft = (function () {
-    return /*#__PURE__*/react.createElement("svg", {
-      className: "ChevronLeft Icon",
-      xmlns: "http://www.w3.org/2000/svg",
-      width: "16",
-      height: "16",
-      viewBox: "0 0 16 16"
-    }, /*#__PURE__*/react.createElement("path", {
-      strokeWidth: "1",
-      fillRule: "evenodd",
-      d: "M10.4,1.6c0.2,0.2,0.2,0.5,0,0.7L4.7,8l5.6,5.6c0.2,0.2,0.2,0.5,0,0.7s-0.5,0.2-0.7,0l-6-6l0,0,c-0.2-0.2-0.2-0.5,0-0.7l6-6l0,0C9.8,1.5,10.2,1.5,10.4,1.6L10.4,1.6z"
-    }));
-  });
-
-  var CloseIcon = (function () {
-    return /*#__PURE__*/react.createElement("svg", {
-      className: "CloseIcon Icon",
-      xmlns: "http://www.w3.org/2000/svg",
-      width: "24",
-      height: "24",
-      viewBox: "0 0 24 24",
-      strokeWidth: "2",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    }, /*#__PURE__*/react.createElement("line", {
-      x1: "18",
-      y1: "6",
-      x2: "6",
-      y2: "18"
-    }), /*#__PURE__*/react.createElement("line", {
-      x1: "6",
-      y1: "6",
-      x2: "18",
-      y2: "18"
-    }));
-  });
-
-  function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-  function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-  function _interopDefaultLegacy$2(e) {
-    return e && _typeof(e) === 'object' && 'default' in e ? e : {
-      'default': e
-    };
-  }
-
-  var React__default$1 = /*#__PURE__*/_interopDefaultLegacy$2(react);
-
-  var CloseStackContext = React__default$1['default'].createContext();
-  var NavigateStackContext = React__default$1['default'].createContext();
-
-  function ReactDialogStackStyle() {
-    return "\n\n    .ReactDialogStack {\n      bottom: 0;\n      display: table;\n      height: 100%;\n      position: absolute;\n      top: 0;\n      transition: left 0.1s ease, opacity 0.2s ease;\n      width: 100%;\n    }\n\n    .ReactDialogStackRow {\n      display: table-row;\n    }\n\n    .ReactDialogStackCell {\n      display: table-cell;\n      vertical-align: middle;\n      padding: 0 0.6rem;\n    }\n\n    .ReactDialogStack {\n      left: 0;\n      opacity: 1;\n    }\n\n    .ReactDialogStack.inactive {\n      display: none;\n    }\n\n    .ReactDialogStack.animating.stale {\n      display: none;\n    }\n\n    .ReactDialogStack.animating.previous.forward {\n      opacity: 0;\n      left: -5rem;\n    }\n\n    .ReactDialogStack.animating.previous.backward {\n      opacity: 0;\n      left: 5rem;\n    }\n\n    .ReactDialogStack.animating.next.forward {\n      opacity: 0;\n      left: 5rem;\n    }\n\n    .ReactDialogStack.animating.next.backward {\n      opacity: 0;\n      left: -5rem;\n    }\n  ";
-  }
-
-  var StackContext = React__default$1['default'].createContext();
-  var _jsxFileName$1 = "/Users/sebastian/Work/DePay/depay-react-dialog-stack/src/index.jsx";
-
-  var ReactDialogStack = /*#__PURE__*/function (_React__default$defau) {
-    _inherits(ReactDialogStack, _React__default$defau);
-
-    var _super = _createSuper(ReactDialogStack);
-
-    function ReactDialogStack(props) {
-      var _this;
-
-      _classCallCheck(this, ReactDialogStack);
-
-      _this = _super.call(this, props);
-      _this.state = {
-        stack: [props.start],
-        animating: false,
-        animation: null,
-        direction: 'forward',
-        animationSpeed: 200
-      };
-      return _this;
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
     }
 
-    _createClass(ReactDialogStack, [{
-      key: "set",
-      value: function set(stack) {
-        this.setState({
-          stack: stack
-        });
-      }
-    }, {
-      key: "navigate",
-      value: function navigate(route) {
-        if (this.state.stack.indexOf(route) > -1) {
-          return;
-        }
+    return obj;
+  }
 
-        if (route === 'back') {
-          return this.unstack();
-        }
-
-        this.setState({
-          stack: this.state.stack.concat(route),
-          animating: true,
-          direction: 'forward',
-          animation: setTimeout(function () {
-            this.setState({
-              animating: false
-            });
-          }.bind(this), this.state.animationSpeed)
-        });
-      }
-    }, {
-      key: "unstack",
-      value: function unstack() {
-        if (this.state.stack.length <= 1) {
-          return;
-        }
-
-        var newStack = _toConsumableArray(this.state.stack);
-
-        newStack.pop();
-        this.setState({
-          animating: true,
-          direction: 'backward',
-          animation: setTimeout(function () {
-            this.setState({
-              stack: newStack,
-              animating: false
-            });
-          }.bind(this), this.state.animationSpeed)
-        });
-      }
-    }, {
-      key: "classForState",
-      value: function classForState(index) {
-        if (this.state.animating) {
-          return;
-        }
-
-        if (this.state.stack.length === 1) {
-          return 'active';
-        } else {
-          if (this.state.stack.length === index + 1) {
-            return 'active';
-          } else {
-            return 'inactive';
-          }
-        }
-      }
-    }, {
-      key: "classForPosition",
-      value: function classForPosition(index) {
-        if (this.state.stack.length > 1) {
-          if (this.state.stack.length === index + 1) {
-            if (this.state.direction === 'forward') {
-              return 'next';
-            } else {
-              return 'previous';
-            }
-          } else if (this.state.stack.length - 1 === index + 1) {
-            if (this.state.direction === 'forward') {
-              return 'previous';
-            } else {
-              return 'next';
-            }
-          } else {
-            return 'stale';
-          }
-        }
-      }
-    }, {
-      key: "classForAnimation",
-      value: function classForAnimation() {
-        if (this.state.animating) {
-          return 'animating';
-        }
-      }
-    }, {
-      key: "classForDirection",
-      value: function classForDirection() {
-        return this.state.direction;
-      }
-    }, {
-      key: "renderStack",
-      value: function renderStack() {
-        return this.state.stack.map(function (route, index) {
-          var stackState = [this.classForState(index), this.classForPosition(index), this.classForAnimation(), this.classForDirection()];
-          return React__default$1['default'].createElement('div', {
-            key: index,
-            className: ['ReactDialogStack'].concat(stackState).join(' '),
-            __self: this,
-            __source: {
-              fileName: _jsxFileName$1,
-              lineNumber: 127
-            }
-          }, React__default$1['default'].createElement('div', {
-            className: "ReactDialogStackRow",
-            __self: this,
-            __source: {
-              fileName: _jsxFileName$1,
-              lineNumber: 128
-            }
-          }, React__default$1['default'].createElement('div', {
-            className: "ReactDialogStackCell",
-            onClick: this.onClick.bind(this),
-            __self: this,
-            __source: {
-              fileName: _jsxFileName$1,
-              lineNumber: 129
-            }
-          }, React__default$1['default'].createElement(NavigateStackContext.Provider, {
-            value: {
-              navigate: this.navigate.bind(this),
-              set: this.set.bind(this)
-            },
-            __self: this,
-            __source: {
-              fileName: _jsxFileName$1,
-              lineNumber: 130
-            }
-          }, React__default$1['default'].createElement(CloseStackContext.Provider, {
-            value: this.close.bind(this),
-            __self: this,
-            __source: {
-              fileName: _jsxFileName$1,
-              lineNumber: 133
-            }
-          }, React__default$1['default'].createElement(StackContext.Provider, {
-            value: this.state.stack,
-            __self: this,
-            __source: {
-              fileName: _jsxFileName$1,
-              lineNumber: 134
-            }
-          }, React__default$1['default'].createElement('div', {
-            className: "ReactDialogAnimation",
-            __self: this,
-            __source: {
-              fileName: _jsxFileName$1,
-              lineNumber: 135
-            }
-          }, this.props.dialogs[route])))))));
-        }.bind(this));
-      }
-    }, {
-      key: "onClick",
-      value: function onClick(event) {
-        if (event.target && event.target.className && event.target.className.match && event.target.className.match('ReactDialogStackCell') // clicked background
-        ) {
-          if (this.state.stack.length > 1) {
-            this.unstack();
-          } else {
-            this.close();
-          }
-        }
-      }
-    }, {
-      key: "close",
-      value: function close() {
-        if (this.state.stack.length > 1) {
-          this.unstack();
-        } else {
-          this.setState({
-            stack: this.state.stack.slice(0, 1)
-          });
-          this.props.close();
-        }
-      }
-    }, {
-      key: "render",
-      value: function render() {
-        return React__default$1['default'].createElement(cjs.ReactDialog, {
-          close: this.close.bind(this),
-          open: this.props.open,
-          document: this.props.document,
-          container: this.props.container,
-          background: this.props.background,
-          __self: this,
-          __source: {
-            fileName: _jsxFileName$1,
-            lineNumber: 173
-          }
-        }, React__default$1['default'].createElement('style', {
-          __self: this,
-          __source: {
-            fileName: _jsxFileName$1,
-            lineNumber: 180
-          }
-        }, ReactDialogStackStyle()), this.renderStack());
-      }
-    }]);
-
-    return ReactDialogStack;
-  }(React__default$1['default'].Component);
-  var NavigateStackContext_1 = NavigateStackContext;
-  var ReactDialogStack_1 = ReactDialogStack;
-
-  var Dialog = (function (props) {
-    var _useContext = react.useContext(NavigateStackContext_1),
-        navigate = _useContext.navigate;
-
-    var _useContext2 = react.useContext(ClosableContext),
-        close = _useContext2.close,
-        closable = _useContext2.closable;
-
-    return /*#__PURE__*/react.createElement("div", {
-      className: "Dialog"
-    }, /*#__PURE__*/react.createElement("div", {
-      className: ["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')
-    }, props.stacked && /*#__PURE__*/react.createElement("div", {
-      className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/react.createElement("button", {
-      onClick: function onClick() {
-        return navigate('back');
-      },
-      className: "ButtonCircular",
-      title: "Go back"
-    }, /*#__PURE__*/react.createElement(ChevronLeft, null))), /*#__PURE__*/react.createElement("div", {
-      className: "DialogHeaderTitle"
-    }, props.header), /*#__PURE__*/react.createElement("div", {
-      className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
-    }, closable && /*#__PURE__*/react.createElement("button", {
-      onClick: close,
-      className: "ButtonCircular",
-      title: "Close dialog"
-    }, /*#__PURE__*/react.createElement(CloseIcon, null)))), /*#__PURE__*/react.createElement("div", {
-      className: "DialogBody"
-    }, props.body), /*#__PURE__*/react.createElement("div", {
-      className: "DialogFooter"
-    }, props.footer, /*#__PURE__*/react.createElement("a", {
-      href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
-      rel: "noopener noreferrer",
-      target: "_blank",
-      className: "FooterLink"
-    }, "by DePay")));
-  });
-
-  var ToTokenContext = /*#__PURE__*/react.createContext();
-
-  var ChangePaymentSkeleton = (function (props) {
-    var _useContext = react.useContext(ToTokenContext),
-        localValue = _useContext.localValue;
-
-    return /*#__PURE__*/react.createElement(Dialog, {
-      stacked: true,
-      header: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
-      }, /*#__PURE__*/react.createElement("h1", {
-        className: "FontSizeL TextCenter"
-      }, "Change Payment"), /*#__PURE__*/react.createElement("div", {
-        className: "FontSizeL TextCenter FontWeightBold"
-      }, /*#__PURE__*/react.createElement("strong", null, localValue.toString()))),
-      body: /*#__PURE__*/react.createElement("div", {
-        className: "MaxHeight PaddingTopXS"
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "Card Skeleton"
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "SkeletonBackground"
-      })), /*#__PURE__*/react.createElement("div", {
-        className: "Card Skeleton"
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "SkeletonBackground"
-      })), /*#__PURE__*/react.createElement("div", {
-        className: "Card Skeleton"
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "SkeletonBackground"
-      }))))
-    });
-  });
+  var apiKey = 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c';
 
   var round = (function (input) {
     var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'up';
@@ -52005,6 +51652,10 @@
 
     return parseFloat(_float);
   });
+
+  var UpdateContext = /*#__PURE__*/react.createContext();
+
+  var WalletContext = /*#__PURE__*/react.createContext();
 
   var CONSTANTS = {
     ZERO: '0x0000000000000000000000000000000000000000',
@@ -52036,617 +51687,6 @@
     __proto__: null,
     CONSTANTS: CONSTANTS$2
   });
-
-  var depayWeb3Blockchains = /*@__PURE__*/getAugmentedNamespace(es$1);
-
-  var depayWeb3Constants = /*@__PURE__*/getAugmentedNamespace(es);
-
-  function _interopDefaultLegacy$1(e) {
-    return e && _typeof(e) === 'object' && 'default' in e ? e : {
-      'default': e
-    };
-  }
-
-  var React__default = /*#__PURE__*/_interopDefaultLegacy$1(react);
-
-  var _jsxFileName = "/Users/sebastian/Work/DePay/depay-react-token-image/src/index.jsx";
-
-  var TokenImage = function TokenImage(props) {
-    var _React$useState = react.useState(),
-        _React$useState2 = _slicedToArray(_React$useState, 2),
-        src = _React$useState2[0],
-        setSrc = _React$useState2[1];
-
-    var _React$useState3 = react.useState('trustwallet'),
-        _React$useState4 = _slicedToArray(_React$useState3, 2),
-        source = _React$useState4[0],
-        setSource = _React$useState4[1];
-
-    var blockchain = props.blockchain.toLowerCase();
-    var address = props.address;
-    react.useEffect(function () {
-      if (depayWeb3Constants.CONSTANTS[blockchain].NATIVE.toLowerCase() == address.toLowerCase()) {
-        setSrc(depayWeb3Blockchains.Blockchain.findByName(blockchain).logo);
-      } else {
-        setSrc(trustWalletAddress({
-          blockchain: blockchain,
-          address: address
-        }));
-      }
-    }, [blockchain, address]);
-
-    var trustWalletAddress = function trustWalletAddress(_ref) {
-      var blockchain = _ref.blockchain,
-          address = _ref.address;
-      return "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/".concat(mapBlockchainName(blockchain), "/assets/").concat(address, "/logo.png");
-    };
-
-    var mapBlockchainName = function mapBlockchainName(blockchain) {
-      switch (blockchain) {
-        case 'ethereum':
-          return 'ethereum';
-
-        case 'bsc':
-          return 'smartchain';
-
-        default:
-          throw 'DePayReactTokenImage: Unknown blockchain';
-      }
-    };
-
-    var handleLoadError = function handleLoadError(error) {
-      if (source == 'trustwallet') {
-        setSource('depay');
-        setSrc("https://api.depay.pro/v1/images/tokens/".concat(blockchain, "/").concat(address));
-      } else {
-        setSource('unknown');
-        setSrc('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAGFBMVEVHcEz///////////////////////////8dS1W+AAAAB3RSTlMAHklzmMLqCsLrGwAAAQ9JREFUeNrtlrsOgkAQRRdFbDcae4IFrZEYazXRVitqQ2Hrk/19BVdX7XYuiQX3VDZzMsxrVYQQQkibGIyzLNHi8OHaVJRLWXgwMy8KLYnfGEchEFTxjp2/wHxRalBg9v4CNAXzwxYVXCSC2ypJstx+g6/ATaAdqImvoHxHzEVFcPGqWwtOnoLFx++6DGdgq9NnG+T0K8EVEPTqnrZbEKGCFO1CDs2BG2UZbpnABEwMJIA1IRSeZfdCgV8wsjdVnEBuLyKyBu51Fb+xpfhPRgdsgYqeM6DlQwQmoA62AvISgIsc2j0EaxgDL0ojx/CCCs4KPGYnVHCk4CEg7SbIKqbqfyeRAgoaERBCCCGESLgDeRfMNogh3QMAAAAASUVORK5CYII=');
-      }
-    };
-
-    if (src == undefined) {
-      return null;
-    }
-
-    return React__default['default'].createElement('img', {
-      src: src,
-      onError: handleLoadError,
-      __self: this,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 51
-      }
-    });
-  };
-
-  var TokenImage_1 = TokenImage;
-
-  var ChangePaymentDialog = (function (props) {
-    var _useContext = react.useContext(ErrorContext),
-        setError = _useContext.setError;
-
-    var _useContext2 = react.useContext(RoutingContext),
-        allRoutes = _useContext2.allRoutes,
-        setSelectedRoute = _useContext2.setSelectedRoute;
-
-    var _useContext3 = react.useContext(ToTokenContext),
-        localValue = _useContext3.localValue;
-
-    var _useContext4 = react.useContext(NavigateStackContext_1),
-        navigate = _useContext4.navigate;
-
-    var _useState = react.useState([]),
-        _useState2 = _slicedToArray(_useState, 2),
-        allPaymentRoutesWithData = _useState2[0],
-        setAllPaymentRoutesWithData = _useState2[1];
-
-    var _useState3 = react.useState([]),
-        _useState4 = _slicedToArray(_useState3, 2),
-        cards = _useState4[0],
-        setCards = _useState4[1];
-
-    react.useEffect(function () {
-      if (allRoutes == undefined) {
-        return;
-      }
-
-      Promise.all(allRoutes.map(function (route) {
-        route.exchangeRoutes[0];
-        route.fromToken;
-        return Promise.all([route.fromToken.name(), route.fromToken.symbol(), route.fromToken.decimals(), route.fromToken.readable(route.fromAmount)]);
-      })).then(function (allPaymentRoutesWithData) {
-        setAllPaymentRoutesWithData(allRoutes.map(function (route, index) {
-          return {
-            name: allPaymentRoutesWithData[index][0],
-            symbol: allPaymentRoutesWithData[index][1].toUpperCase(),
-            decimals: allPaymentRoutesWithData[index][2],
-            amount: allPaymentRoutesWithData[index][3],
-            route: route
-          };
-        }));
-      })["catch"](setError);
-    }, [allRoutes]);
-    react.useEffect(function () {
-      setCards(allPaymentRoutesWithData.map(function (payment, index) {
-        return /*#__PURE__*/react.createElement("div", {
-          key: index,
-          className: "Card",
-          title: "Select ".concat(payment.symbol, " as payment"),
-          onClick: function onClick() {
-            setSelectedRoute(payment.route);
-            navigate('back');
-          }
-        }, /*#__PURE__*/react.createElement("div", {
-          className: "CardImage"
-        }, /*#__PURE__*/react.createElement(TokenImage_1, {
-          blockchain: payment.route.blockchain,
-          address: payment.route.fromToken.address
-        })), /*#__PURE__*/react.createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/react.createElement("div", {
-          className: "CardBodyWrapper"
-        }, /*#__PURE__*/react.createElement("h2", {
-          className: "CardText"
-        }, /*#__PURE__*/react.createElement("div", {
-          className: "TokenAmountRow"
-        }, /*#__PURE__*/react.createElement("span", {
-          className: "TokenSymbolCell"
-        }, payment.symbol), /*#__PURE__*/react.createElement("span", null, "\xA0"), /*#__PURE__*/react.createElement("span", {
-          className: "TokenAmountCell"
-        }, payment.amount))), /*#__PURE__*/react.createElement("h3", {
-          className: "CardText"
-        }, /*#__PURE__*/react.createElement("small", null, round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals), 'down'))))), /*#__PURE__*/react.createElement("div", {
-          className: "CardInfo"
-        }, payment.route.approvalRequired && /*#__PURE__*/react.createElement("span", {
-          className: "Label"
-        }, "Requires Approval")));
-      }));
-    }, [allPaymentRoutesWithData]);
-
-    if (allPaymentRoutesWithData.length == 0 || cards.length == 0) {
-      return /*#__PURE__*/react.createElement(ChangePaymentSkeleton, null);
-    }
-
-    return /*#__PURE__*/react.createElement(Dialog, {
-      stacked: true,
-      header: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
-      }, /*#__PURE__*/react.createElement("h1", {
-        className: "FontSizeL TextCenter"
-      }, "Change Payment"), /*#__PURE__*/react.createElement("div", {
-        className: "FontSizeL TextCenter FontWeightBold"
-      }, /*#__PURE__*/react.createElement("strong", null, localValue.toString()))),
-      body: /*#__PURE__*/react.createElement("div", {
-        className: "MaxHeight PaddingTopXS"
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "PaddingLeftM PaddingRightM"
-      }, cards)),
-      footer: /*#__PURE__*/react.createElement("div", null)
-    });
-  });
-
-  var QuestionsGraphic = "data:image/png;base64,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";
-
-  var NoPaymentMethodFoundDialog = (function () {
-    return /*#__PURE__*/react.createElement(Dialog, {
-      header: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }),
-      body: /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
-        className: "GraphicWrapper"
-      }, /*#__PURE__*/react.createElement("img", {
-        className: "Graphic",
-        src: QuestionsGraphic
-      })), /*#__PURE__*/react.createElement("h1", {
-        className: "Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Insufficient Balance"), /*#__PURE__*/react.createElement("div", {
-        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/react.createElement("strong", {
-        className: "FontSizeM"
-      }, "We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.")))
-    });
-  });
-
-  var PaymentErrorDialog = (function () {
-    var _useContext = react.useContext(NavigateStackContext_1),
-        navigate = _useContext.navigate;
-
-    var _useContext2 = react.useContext(PaymentContext),
-        transaction = _useContext2.transaction;
-
-    return /*#__PURE__*/react.createElement(Dialog, {
-      stacked: true,
-      header: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }),
-      body: /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
-        className: "GraphicWrapper"
-      }, /*#__PURE__*/react.createElement("img", {
-        className: "Graphic",
-        src: ErrorGraphic
-      })), /*#__PURE__*/react.createElement("h1", {
-        className: "Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Payment Failed"), /*#__PURE__*/react.createElement("div", {
-        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/react.createElement("strong", {
-        className: "FontSizeM"
-      }, "Unfortunately executing your payment failed. You can go back and try again."), transaction && /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS"
-      }, /*#__PURE__*/react.createElement("a", {
-        className: "Link",
-        title: "Check your transaction on a block explorer",
-        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-        target: "_blank",
-        rel: "noopener noreferrer"
-      }, "View on explorer")))),
-      footer: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM"
-      }, /*#__PURE__*/react.createElement("button", {
-        className: "ButtonPrimary wide",
-        onClick: function onClick() {
-          return navigate('back');
-        }
-      }, "Try again"))
-    });
-  });
-
-  var Checkmark = (function () {
-    return /*#__PURE__*/react.createElement("svg", {
-      className: "Checkmark Icon",
-      version: "1.1",
-      xmlns: "http://www.w3.org/2000/svg",
-      x: "0px",
-      y: "0px",
-      viewBox: "0 0 24 24"
-    }, /*#__PURE__*/react.createElement("path", {
-      d: "M20,4.9L9.2,16l-5.4-3.9c-0.7-0.5-1.6-0.3-2.1,0.3c-0.5,0.7-0.3,1.6,0.3,2.1l6.4,4.7c0.3,0.2,0.6,0.3,0.9,0.3 c0.4,0,0.8-0.2,1.1-0.5l11.7-12c0.6-0.6,0.6-1.6,0-2.2C21.6,4.3,20.6,4.3,20,4.9z"
-    }));
-  });
-
-  var ChevronRight = (function () {
-    return /*#__PURE__*/react.createElement("svg", {
-      className: "ChevronRight Icon",
-      xmlns: "http://www.w3.org/2000/svg",
-      width: "16",
-      height: "16",
-      viewBox: "0 0 16 16"
-    }, /*#__PURE__*/react.createElement("path", {
-      strokeWidth: "1",
-      fillRule: "evenodd",
-      d: "M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
-    }));
-  });
-
-  var WalletContext = /*#__PURE__*/react.createContext();
-
-  var ConnectingWalletDialog = (function () {
-    var _useContext = react.useContext(WalletContext),
-        wallet = _useContext.wallet,
-        connect = _useContext.connect;
-
-    var walletName = wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
-    var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
-    return /*#__PURE__*/react.createElement(Dialog, {
-      body: /*#__PURE__*/react.createElement("div", null, walletLogo && /*#__PURE__*/react.createElement("div", {
-        className: "GraphicWrapper"
-      }, /*#__PURE__*/react.createElement("img", {
-        className: "Graphic",
-        src: walletLogo
-      })), /*#__PURE__*/react.createElement("h1", {
-        className: "Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Connect Wallet"), /*#__PURE__*/react.createElement("div", {
-        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/react.createElement("strong", {
-        className: "FontSizeM"
-      }, "This payment requires access to your wallet, please login and authorize access to your ", walletName, " account to continue."))),
-      footer: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM"
-      }, /*#__PURE__*/react.createElement("button", {
-        className: "ButtonPrimary wide",
-        onClick: connect
-      }, "Connect"))
-    });
-  });
-
-  var LoadingText = (function (props) {
-    return /*#__PURE__*/react.createElement("div", {
-      className: "LoadingText"
-    }, props.children, /*#__PURE__*/react.createElement("span", {
-      className: "dot"
-    }, "."), /*#__PURE__*/react.createElement("span", {
-      className: "dot"
-    }, "."), /*#__PURE__*/react.createElement("span", {
-      className: "dot"
-    }, "."));
-  });
-
-  var PaymentOverviewSkeleton = (function (props) {
-    return /*#__PURE__*/react.createElement(Dialog, {
-      header: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/react.createElement("h1", {
-        className: "FontSizeL TextLeft"
-      }, "Payment")),
-      body: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "Card Skeleton"
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "SkeletonBackground"
-      }))),
-      footer: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM"
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "SkeletonWrapper"
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "ButtonPrimary Skeleton"
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "SkeletonBackground"
-      }))))
-    });
-  });
-
-  var UpdateContext = /*#__PURE__*/react.createContext();
-
-  var PaymentOverviewDialog = (function (props) {
-    var _useContext = react.useContext(ConfigurationContext),
-        _sent = _useContext.sent,
-        _confirmed = _useContext.confirmed,
-        _ensured = _useContext.ensured,
-        _failed = _useContext.failed;
-
-    var _useContext2 = react.useContext(PaymentContext),
-        payment = _useContext2.payment,
-        setPayment = _useContext2.setPayment,
-        transaction = _useContext2.transaction,
-        setTransaction = _useContext2.setTransaction;
-
-    var _useContext3 = react.useContext(RoutingContext),
-        allRoutes = _useContext3.allRoutes;
-
-    var _useContext4 = react.useContext(WalletContext),
-        walletState = _useContext4.walletState;
-
-    var _useContext5 = react.useContext(ToTokenContext),
-        localValue = _useContext5.localValue;
-
-    var _useContext6 = react.useContext(NavigateStackContext_1),
-        navigate = _useContext6.navigate,
-        set = _useContext6.set;
-
-    var _useContext7 = react.useContext(ClosableContext),
-        close = _useContext7.close,
-        setClosable = _useContext7.setClosable;
-
-    var _useContext8 = react.useContext(UpdateContext);
-        _useContext8.update;
-        var setUpdate = _useContext8.setUpdate;
-
-    var _useState = react.useState('overview'),
-        _useState2 = _slicedToArray(_useState, 2),
-        state = _useState2[0],
-        setState = _useState2[1];
-
-    var _useState3 = react.useState(),
-        _useState4 = _slicedToArray(_useState3, 2),
-        approvalTransaction = _useState4[0],
-        setApprovalTransaction = _useState4[1];
-
-    var approve = function approve() {
-      setClosable(false);
-      setState('approving');
-      payment.route.approve({
-        confirmed: function confirmed() {
-          payment.route.approvalRequired = false;
-          setPayment(payment);
-          setClosable(true);
-          setState('overview');
-        }
-      }).then(function (sentTransaction) {
-        setApprovalTransaction(sentTransaction);
-      })["catch"](function (error) {
-        console.log('error', error);
-        setState('overview');
-        setClosable(true);
-      });
-    };
-
-    var pay = function pay() {
-      setClosable(false);
-      setState('paying');
-      setUpdate(false);
-      payment.route.transaction.submit({
-        sent: function sent() {
-          if (_sent) {
-            _sent(transaction);
-          }
-        },
-        confirmed: function confirmed() {
-          setClosable(true);
-          setState('confirmed');
-
-          if (_confirmed) {
-            _confirmed(transaction);
-          }
-        },
-        ensured: function ensured() {
-          if (_ensured) {
-            _ensured(transaction);
-          }
-        },
-        failed: function failed(error) {
-          if (_failed) {
-            _failed(transaction);
-          }
-
-          console.log('error', error);
-          setState('overview');
-          setClosable(true);
-          setUpdate(true);
-          navigate('PaymentError');
-        }
-      }).then(function (sentTransaction) {
-        setTransaction(sentTransaction);
-      })["catch"](function (error) {
-        console.log('error', error);
-        setState('overview');
-        setClosable(true);
-        setUpdate(true);
-      });
-    };
-
-    var mainAction = function mainAction() {
-      if (state == 'overview' || state == 'approving') {
-        return /*#__PURE__*/react.createElement("button", {
-          className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
-          onClick: function onClick() {
-            if (payment.route.approvalRequired && !payment.route.directTransfer) {
-              return;
-            }
-
-            pay();
-          }
-        }, "Pay ", localValue != 0 ? localValue.toString() : "".concat(payment.amount));
-      } else if (state == 'paying') {
-        return /*#__PURE__*/react.createElement("a", {
-          className: "ButtonPrimary",
-          title: "Performing the payment - please wait",
-          href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-          target: "_blank",
-          rel: "noopener noreferrer"
-        }, /*#__PURE__*/react.createElement(LoadingText, null, "Paying"));
-      } else if (state == 'confirmed') {
-        return /*#__PURE__*/react.createElement("button", {
-          className: "ButtonPrimary round",
-          title: "Done",
-          onClick: close
-        }, /*#__PURE__*/react.createElement(Checkmark, null));
-      }
-    };
-
-    var approvalAction = function approvalAction() {
-      if (state == 'overview') {
-        return /*#__PURE__*/react.createElement("div", {
-          className: "PaddingBottomS"
-        }, /*#__PURE__*/react.createElement("button", {
-          className: "ButtonPrimary wide",
-          onClick: approve
-        }, "Allow ", payment.symbol, " to be used as payment"));
-      } else if (state == 'approving') {
-        return /*#__PURE__*/react.createElement("div", {
-          className: "PaddingBottomS"
-        }, /*#__PURE__*/react.createElement("a", {
-          className: "ButtonPrimary wide",
-          title: "Approving payment token - please wait",
-          href: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
-          target: "_blank",
-          rel: "noopener noreferrer"
-        }, /*#__PURE__*/react.createElement(LoadingText, null, "Approving")));
-      }
-    };
-
-    var actions = function actions() {
-      return /*#__PURE__*/react.createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
-    };
-
-    react.useEffect(function () {
-      if (allRoutes && allRoutes.length == 0) {
-        set(['NoPaymentMethodFound']);
-        setUpdate(false);
-      }
-    }, [allRoutes]);
-
-    if (walletState == 'connecting') {
-      return /*#__PURE__*/react.createElement(ConnectingWalletDialog, null);
-    }
-
-    if (payment == undefined || localValue == undefined) {
-      return /*#__PURE__*/react.createElement(PaymentOverviewSkeleton, null);
-    }
-
-    return /*#__PURE__*/react.createElement(Dialog, {
-      header: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/react.createElement("h1", {
-        className: "FontSizeL TextLeft"
-      }, "Payment")),
-      body: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
-      }, /*#__PURE__*/react.createElement("div", {
-        className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
-        title: state == 'overview' ? "Change payment" : undefined,
-        onClick: function onClick() {
-          if (state != 'overview') {
-            return;
-          }
-
-          navigate('ChangePayment');
-        }
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "CardImage",
-        title: payment.name
-      }, /*#__PURE__*/react.createElement(TokenImage_1, {
-        blockchain: payment.route.blockchain,
-        address: payment.token
-      })), /*#__PURE__*/react.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/react.createElement("h2", {
-        className: "CardText"
-      }, /*#__PURE__*/react.createElement("div", {
-        className: "TokenAmountRow"
-      }, /*#__PURE__*/react.createElement("span", {
-        className: "TokenSymbolCell"
-      }, payment.symbol), /*#__PURE__*/react.createElement("span", null, "\xA0"), /*#__PURE__*/react.createElement("span", {
-        className: "TokenAmountCell"
-      }, payment.amount))), localValue != 0 && /*#__PURE__*/react.createElement("h3", {
-        className: "CardText"
-      }, /*#__PURE__*/react.createElement("small", null, localValue.toString())))), /*#__PURE__*/react.createElement("div", {
-        className: "CardAction"
-      }, /*#__PURE__*/react.createElement(ChevronRight, null)))),
-      footer: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM"
-      }, actions())
-    });
-  });
-
-  var PaymentStack = (function (props) {
-    var _useContext = react.useContext(ClosableContext),
-        open = _useContext.open,
-        close = _useContext.close;
-
-    return /*#__PURE__*/react.createElement(ReactDialogStack_1, {
-      open: open,
-      close: close,
-      start: "PaymentOverview",
-      container: props.container,
-      document: props.document,
-      dialogs: {
-        PaymentOverview: /*#__PURE__*/react.createElement(PaymentOverviewDialog, null),
-        ChangePayment: /*#__PURE__*/react.createElement(ChangePaymentDialog, null),
-        NoPaymentMethodFound: /*#__PURE__*/react.createElement(NoPaymentMethodFoundDialog, null),
-        PaymentError: /*#__PURE__*/react.createElement(PaymentErrorDialog, null)
-      }
-    });
-  });
-
-  function _defineProperty(obj, key, value) {
-    if (key in obj) {
-      Object.defineProperty(obj, key, {
-        value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      });
-    } else {
-      obj[key] = value;
-    }
-
-    return obj;
-  }
-
-  var apiKey = 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c';
 
   var ensureNativeTokenAsset = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
@@ -54228,7 +53268,7 @@
     };
   }();
 
-  var preflight$1 = function preflight(_ref5) {
+  var preflight$2 = function preflight(_ref5) {
     _ref5.fromAddress;
         _ref5.toAddress;
         _ref5.tokenIn;
@@ -54305,7 +53345,7 @@
                   return _context3.abrupt("return", Promise.resolve());
 
                 case 3:
-                  preflight$1({
+                  preflight$2({
                     fromAddress: fromAddress,
                     toAddress: toAddress,
                     tokenIn: tokenIn,
@@ -64637,7 +63677,7 @@
   function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
   function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-  var RoutingProvider = (function (props) {
+  var PaymentRoutingProvider = (function (props) {
     var _useState = react.useState(),
         _useState2 = _slicedToArray(_useState, 2),
         allRoutes = _useState2[0],
@@ -64653,16 +63693,11 @@
         reloadCount = _useState6[0],
         setReloadCount = _useState6[1];
 
-    var _useContext = react.useContext(ConfigurationContext),
-        accept = _useContext.accept,
-        event = _useContext.event,
-        whitelist = _useContext.whitelist;
+    var _useContext = react.useContext(WalletContext),
+        account = _useContext.account;
 
-    var _useContext2 = react.useContext(WalletContext),
-        account = _useContext2.account;
-
-    var _useContext3 = react.useContext(UpdateContext),
-        update = _useContext3.update;
+    var _useContext2 = react.useContext(UpdateContext),
+        update = _useContext2.update;
 
     var getPaymentRoutes = function getPaymentRoutes(_ref) {
       var allRoutes = _ref.allRoutes,
@@ -64674,14 +63709,14 @@
       }
 
       route({
-        accept: accept.map(function (configuration) {
+        accept: props.accept.map(function (configuration) {
           return _objectSpread(_objectSpread({}, configuration), {}, {
             fromAddress: account,
             toAddress: configuration.receiver
           });
         }),
-        whitelist: whitelist,
-        event: event,
+        whitelist: props.whitelist,
+        event: props.event,
         apiKey: apiKey
       }).then(function (routes) {
         if (routes.length == 0) {
@@ -64780,7 +63815,7 @@
         return clearTimeout(timeout);
       };
     }, [reloadCount, allRoutes, selectedRoute, update]);
-    return /*#__PURE__*/react.createElement(RoutingContext.Provider, {
+    return /*#__PURE__*/react.createElement(PaymentRoutingContext.Provider, {
       value: {
         selectedRoute: selectedRoute,
         setSelectedRoute: setSelectedRoute,
@@ -64788,6 +63823,966 @@
         setAllRoutes: setAllRoutes
       }
     }, props.children);
+  });
+
+  var ChevronLeft = (function () {
+    return /*#__PURE__*/react.createElement("svg", {
+      className: "ChevronLeft Icon",
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      viewBox: "0 0 16 16"
+    }, /*#__PURE__*/react.createElement("path", {
+      strokeWidth: "1",
+      fillRule: "evenodd",
+      d: "M10.4,1.6c0.2,0.2,0.2,0.5,0,0.7L4.7,8l5.6,5.6c0.2,0.2,0.2,0.5,0,0.7s-0.5,0.2-0.7,0l-6-6l0,0,c-0.2-0.2-0.2-0.5,0-0.7l6-6l0,0C9.8,1.5,10.2,1.5,10.4,1.6L10.4,1.6z"
+    }));
+  });
+
+  var CloseIcon = (function () {
+    return /*#__PURE__*/react.createElement("svg", {
+      className: "CloseIcon Icon",
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "24",
+      height: "24",
+      viewBox: "0 0 24 24",
+      strokeWidth: "2",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    }, /*#__PURE__*/react.createElement("line", {
+      x1: "18",
+      y1: "6",
+      x2: "6",
+      y2: "18"
+    }), /*#__PURE__*/react.createElement("line", {
+      x1: "6",
+      y1: "6",
+      x2: "18",
+      y2: "18"
+    }));
+  });
+
+  function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+  function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+  function _interopDefaultLegacy$2(e) {
+    return e && _typeof(e) === 'object' && 'default' in e ? e : {
+      'default': e
+    };
+  }
+
+  var React__default$1 = /*#__PURE__*/_interopDefaultLegacy$2(react);
+
+  var CloseStackContext = React__default$1['default'].createContext();
+  var NavigateStackContext = React__default$1['default'].createContext();
+
+  function ReactDialogStackStyle() {
+    return "\n\n    .ReactDialogStack {\n      bottom: 0;\n      display: table;\n      height: 100%;\n      position: absolute;\n      top: 0;\n      transition: left 0.1s ease, opacity 0.2s ease;\n      width: 100%;\n    }\n\n    .ReactDialogStackRow {\n      display: table-row;\n    }\n\n    .ReactDialogStackCell {\n      display: table-cell;\n      vertical-align: middle;\n      padding: 0 0.6rem;\n    }\n\n    .ReactDialogStack {\n      left: 0;\n      opacity: 1;\n    }\n\n    .ReactDialogStack.inactive {\n      display: none;\n    }\n\n    .ReactDialogStack.animating.stale {\n      display: none;\n    }\n\n    .ReactDialogStack.animating.previous.forward {\n      opacity: 0;\n      left: -5rem;\n    }\n\n    .ReactDialogStack.animating.previous.backward {\n      opacity: 0;\n      left: 5rem;\n    }\n\n    .ReactDialogStack.animating.next.forward {\n      opacity: 0;\n      left: 5rem;\n    }\n\n    .ReactDialogStack.animating.next.backward {\n      opacity: 0;\n      left: -5rem;\n    }\n  ";
+  }
+
+  var StackContext = React__default$1['default'].createContext();
+  var _jsxFileName$1 = "/Users/sebastian/Work/DePay/depay-react-dialog-stack/src/index.jsx";
+
+  var ReactDialogStack = /*#__PURE__*/function (_React__default$defau) {
+    _inherits(ReactDialogStack, _React__default$defau);
+
+    var _super = _createSuper(ReactDialogStack);
+
+    function ReactDialogStack(props) {
+      var _this;
+
+      _classCallCheck(this, ReactDialogStack);
+
+      _this = _super.call(this, props);
+      _this.state = {
+        stack: [props.start],
+        animating: false,
+        animation: null,
+        direction: 'forward',
+        animationSpeed: 200
+      };
+      return _this;
+    }
+
+    _createClass(ReactDialogStack, [{
+      key: "set",
+      value: function set(stack) {
+        this.setState({
+          stack: stack
+        });
+      }
+    }, {
+      key: "navigate",
+      value: function navigate(route) {
+        if (this.state.stack.indexOf(route) > -1) {
+          return;
+        }
+
+        if (route === 'back') {
+          return this.unstack();
+        }
+
+        this.setState({
+          stack: this.state.stack.concat(route),
+          animating: true,
+          direction: 'forward',
+          animation: setTimeout(function () {
+            this.setState({
+              animating: false
+            });
+          }.bind(this), this.state.animationSpeed)
+        });
+      }
+    }, {
+      key: "unstack",
+      value: function unstack() {
+        if (this.state.stack.length <= 1) {
+          return;
+        }
+
+        var newStack = _toConsumableArray(this.state.stack);
+
+        newStack.pop();
+        this.setState({
+          animating: true,
+          direction: 'backward',
+          animation: setTimeout(function () {
+            this.setState({
+              stack: newStack,
+              animating: false
+            });
+          }.bind(this), this.state.animationSpeed)
+        });
+      }
+    }, {
+      key: "classForState",
+      value: function classForState(index) {
+        if (this.state.animating) {
+          return;
+        }
+
+        if (this.state.stack.length === 1) {
+          return 'active';
+        } else {
+          if (this.state.stack.length === index + 1) {
+            return 'active';
+          } else {
+            return 'inactive';
+          }
+        }
+      }
+    }, {
+      key: "classForPosition",
+      value: function classForPosition(index) {
+        if (this.state.stack.length > 1) {
+          if (this.state.stack.length === index + 1) {
+            if (this.state.direction === 'forward') {
+              return 'next';
+            } else {
+              return 'previous';
+            }
+          } else if (this.state.stack.length - 1 === index + 1) {
+            if (this.state.direction === 'forward') {
+              return 'previous';
+            } else {
+              return 'next';
+            }
+          } else {
+            return 'stale';
+          }
+        }
+      }
+    }, {
+      key: "classForAnimation",
+      value: function classForAnimation() {
+        if (this.state.animating) {
+          return 'animating';
+        }
+      }
+    }, {
+      key: "classForDirection",
+      value: function classForDirection() {
+        return this.state.direction;
+      }
+    }, {
+      key: "renderStack",
+      value: function renderStack() {
+        return this.state.stack.map(function (route, index) {
+          var stackState = [this.classForState(index), this.classForPosition(index), this.classForAnimation(), this.classForDirection()];
+          return React__default$1['default'].createElement('div', {
+            key: index,
+            className: ['ReactDialogStack'].concat(stackState).join(' '),
+            __self: this,
+            __source: {
+              fileName: _jsxFileName$1,
+              lineNumber: 127
+            }
+          }, React__default$1['default'].createElement('div', {
+            className: "ReactDialogStackRow",
+            __self: this,
+            __source: {
+              fileName: _jsxFileName$1,
+              lineNumber: 128
+            }
+          }, React__default$1['default'].createElement('div', {
+            className: "ReactDialogStackCell",
+            onClick: this.onClick.bind(this),
+            __self: this,
+            __source: {
+              fileName: _jsxFileName$1,
+              lineNumber: 129
+            }
+          }, React__default$1['default'].createElement(NavigateStackContext.Provider, {
+            value: {
+              navigate: this.navigate.bind(this),
+              set: this.set.bind(this)
+            },
+            __self: this,
+            __source: {
+              fileName: _jsxFileName$1,
+              lineNumber: 130
+            }
+          }, React__default$1['default'].createElement(CloseStackContext.Provider, {
+            value: this.close.bind(this),
+            __self: this,
+            __source: {
+              fileName: _jsxFileName$1,
+              lineNumber: 133
+            }
+          }, React__default$1['default'].createElement(StackContext.Provider, {
+            value: this.state.stack,
+            __self: this,
+            __source: {
+              fileName: _jsxFileName$1,
+              lineNumber: 134
+            }
+          }, React__default$1['default'].createElement('div', {
+            className: "ReactDialogAnimation",
+            __self: this,
+            __source: {
+              fileName: _jsxFileName$1,
+              lineNumber: 135
+            }
+          }, this.props.dialogs[route])))))));
+        }.bind(this));
+      }
+    }, {
+      key: "onClick",
+      value: function onClick(event) {
+        if (event.target && event.target.className && event.target.className.match && event.target.className.match('ReactDialogStackCell') // clicked background
+        ) {
+          if (this.state.stack.length > 1) {
+            this.unstack();
+          } else {
+            this.close();
+          }
+        }
+      }
+    }, {
+      key: "close",
+      value: function close() {
+        if (this.state.stack.length > 1) {
+          this.unstack();
+        } else {
+          this.setState({
+            stack: this.state.stack.slice(0, 1)
+          });
+          this.props.close();
+        }
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        return React__default$1['default'].createElement(cjs.ReactDialog, {
+          close: this.close.bind(this),
+          open: this.props.open,
+          document: this.props.document,
+          container: this.props.container,
+          background: this.props.background,
+          __self: this,
+          __source: {
+            fileName: _jsxFileName$1,
+            lineNumber: 173
+          }
+        }, React__default$1['default'].createElement('style', {
+          __self: this,
+          __source: {
+            fileName: _jsxFileName$1,
+            lineNumber: 180
+          }
+        }, ReactDialogStackStyle()), this.renderStack());
+      }
+    }]);
+
+    return ReactDialogStack;
+  }(React__default$1['default'].Component);
+  var NavigateStackContext_1 = NavigateStackContext;
+  var ReactDialogStack_1 = ReactDialogStack;
+
+  var Dialog = (function (props) {
+    var _useContext = react.useContext(NavigateStackContext_1),
+        navigate = _useContext.navigate;
+
+    var _useContext2 = react.useContext(ClosableContext),
+        close = _useContext2.close,
+        closable = _useContext2.closable;
+
+    return /*#__PURE__*/react.createElement("div", {
+      className: "Dialog"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: ["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')
+    }, props.stacked && /*#__PURE__*/react.createElement("div", {
+      className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/react.createElement("button", {
+      onClick: function onClick() {
+        return navigate('back');
+      },
+      className: "ButtonCircular",
+      title: "Go back"
+    }, /*#__PURE__*/react.createElement(ChevronLeft, null))), /*#__PURE__*/react.createElement("div", {
+      className: "DialogHeaderTitle"
+    }, props.header), /*#__PURE__*/react.createElement("div", {
+      className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
+    }, closable && /*#__PURE__*/react.createElement("button", {
+      onClick: close,
+      className: "ButtonCircular",
+      title: "Close dialog"
+    }, /*#__PURE__*/react.createElement(CloseIcon, null)))), /*#__PURE__*/react.createElement("div", {
+      className: "DialogBody"
+    }, props.body), /*#__PURE__*/react.createElement("div", {
+      className: "DialogFooter"
+    }, props.footer, /*#__PURE__*/react.createElement("a", {
+      href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
+      rel: "noopener noreferrer",
+      target: "_blank",
+      className: "FooterLink"
+    }, "by DePay")));
+  });
+
+  var PaymentValueContext = /*#__PURE__*/react.createContext();
+
+  var ChangePaymentSkeleton = (function (props) {
+    var _useContext = react.useContext(PaymentValueContext),
+        paymentValue = _useContext.paymentValue;
+
+    return /*#__PURE__*/react.createElement(Dialog, {
+      stacked: true,
+      header: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
+      }, /*#__PURE__*/react.createElement("h1", {
+        className: "FontSizeL TextCenter"
+      }, "Change Payment"), paymentValue != undefined && /*#__PURE__*/react.createElement("div", {
+        className: "FontSizeL TextCenter FontWeightBold"
+      }, /*#__PURE__*/react.createElement("strong", null, paymentValue.toString()))),
+      body: /*#__PURE__*/react.createElement("div", {
+        className: "MaxHeight PaddingTopXS"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "Card Skeleton"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "SkeletonBackground"
+      })), /*#__PURE__*/react.createElement("div", {
+        className: "Card Skeleton"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "SkeletonBackground"
+      })), /*#__PURE__*/react.createElement("div", {
+        className: "Card Skeleton"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "SkeletonBackground"
+      }))))
+    });
+  });
+
+  var depayWeb3Blockchains = /*@__PURE__*/getAugmentedNamespace(es$1);
+
+  var depayWeb3Constants = /*@__PURE__*/getAugmentedNamespace(es);
+
+  function _interopDefaultLegacy$1(e) {
+    return e && _typeof(e) === 'object' && 'default' in e ? e : {
+      'default': e
+    };
+  }
+
+  var React__default = /*#__PURE__*/_interopDefaultLegacy$1(react);
+
+  var _jsxFileName = "/Users/sebastian/Work/DePay/depay-react-token-image/src/index.jsx";
+
+  var TokenImage = function TokenImage(props) {
+    var _React$useState = react.useState(),
+        _React$useState2 = _slicedToArray(_React$useState, 2),
+        src = _React$useState2[0],
+        setSrc = _React$useState2[1];
+
+    var _React$useState3 = react.useState('trustwallet'),
+        _React$useState4 = _slicedToArray(_React$useState3, 2),
+        source = _React$useState4[0],
+        setSource = _React$useState4[1];
+
+    var blockchain = props.blockchain.toLowerCase();
+    var address = props.address;
+    react.useEffect(function () {
+      if (depayWeb3Constants.CONSTANTS[blockchain].NATIVE.toLowerCase() == address.toLowerCase()) {
+        setSrc(depayWeb3Blockchains.Blockchain.findByName(blockchain).logo);
+      } else {
+        setSrc(trustWalletAddress({
+          blockchain: blockchain,
+          address: address
+        }));
+      }
+    }, [blockchain, address]);
+
+    var trustWalletAddress = function trustWalletAddress(_ref) {
+      var blockchain = _ref.blockchain,
+          address = _ref.address;
+      return "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/".concat(mapBlockchainName(blockchain), "/assets/").concat(address, "/logo.png");
+    };
+
+    var mapBlockchainName = function mapBlockchainName(blockchain) {
+      switch (blockchain) {
+        case 'ethereum':
+          return 'ethereum';
+
+        case 'bsc':
+          return 'smartchain';
+
+        default:
+          throw 'DePayReactTokenImage: Unknown blockchain';
+      }
+    };
+
+    var handleLoadError = function handleLoadError(error) {
+      if (source == 'trustwallet') {
+        setSource('depay');
+        setSrc("https://api.depay.pro/v1/images/tokens/".concat(blockchain, "/").concat(address));
+      } else {
+        setSource('unknown');
+        setSrc('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAGFBMVEVHcEz///////////////////////////8dS1W+AAAAB3RSTlMAHklzmMLqCsLrGwAAAQ9JREFUeNrtlrsOgkAQRRdFbDcae4IFrZEYazXRVitqQ2Hrk/19BVdX7XYuiQX3VDZzMsxrVYQQQkibGIyzLNHi8OHaVJRLWXgwMy8KLYnfGEchEFTxjp2/wHxRalBg9v4CNAXzwxYVXCSC2ypJstx+g6/ATaAdqImvoHxHzEVFcPGqWwtOnoLFx++6DGdgq9NnG+T0K8EVEPTqnrZbEKGCFO1CDs2BG2UZbpnABEwMJIA1IRSeZfdCgV8wsjdVnEBuLyKyBu51Fb+xpfhPRgdsgYqeM6DlQwQmoA62AvISgIsc2j0EaxgDL0ojx/CCCs4KPGYnVHCk4CEg7SbIKqbqfyeRAgoaERBCCCGESLgDeRfMNogh3QMAAAAASUVORK5CYII=');
+      }
+    };
+
+    if (src == undefined) {
+      return null;
+    }
+
+    return React__default['default'].createElement('img', {
+      src: src,
+      onError: handleLoadError,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 51
+      }
+    });
+  };
+
+  var TokenImage_1 = TokenImage;
+
+  var ChangePaymentDialog = (function (props) {
+    var _useContext = react.useContext(ErrorContext),
+        setError = _useContext.setError;
+
+    var _useContext2 = react.useContext(PaymentRoutingContext),
+        allRoutes = _useContext2.allRoutes,
+        setSelectedRoute = _useContext2.setSelectedRoute;
+
+    var _useContext3 = react.useContext(PaymentValueContext),
+        paymentValue = _useContext3.paymentValue;
+
+    var _useContext4 = react.useContext(NavigateStackContext_1),
+        navigate = _useContext4.navigate;
+
+    var _useState = react.useState([]),
+        _useState2 = _slicedToArray(_useState, 2),
+        allPaymentRoutesWithData = _useState2[0],
+        setAllPaymentRoutesWithData = _useState2[1];
+
+    var _useState3 = react.useState([]),
+        _useState4 = _slicedToArray(_useState3, 2),
+        cards = _useState4[0],
+        setCards = _useState4[1];
+
+    react.useEffect(function () {
+      if (allRoutes == undefined) {
+        return;
+      }
+
+      Promise.all(allRoutes.map(function (route) {
+        route.exchangeRoutes[0];
+        route.fromToken;
+        return Promise.all([route.fromToken.name(), route.fromToken.symbol(), route.fromToken.decimals(), route.fromToken.readable(route.fromAmount)]);
+      })).then(function (allPaymentRoutesWithData) {
+        setAllPaymentRoutesWithData(allRoutes.map(function (route, index) {
+          return {
+            name: allPaymentRoutesWithData[index][0],
+            symbol: allPaymentRoutesWithData[index][1].toUpperCase(),
+            decimals: allPaymentRoutesWithData[index][2],
+            amount: allPaymentRoutesWithData[index][3],
+            route: route
+          };
+        }));
+      })["catch"](setError);
+    }, [allRoutes]);
+    react.useEffect(function () {
+      setCards(allPaymentRoutesWithData.map(function (payment, index) {
+        return /*#__PURE__*/react.createElement("div", {
+          key: index,
+          className: "Card",
+          title: "Select ".concat(payment.symbol, " as payment"),
+          onClick: function onClick() {
+            setSelectedRoute(payment.route);
+            navigate('back');
+          }
+        }, /*#__PURE__*/react.createElement("div", {
+          className: "CardImage"
+        }, /*#__PURE__*/react.createElement(TokenImage_1, {
+          blockchain: payment.route.blockchain,
+          address: payment.route.fromToken.address
+        })), /*#__PURE__*/react.createElement("div", {
+          className: "CardBody"
+        }, /*#__PURE__*/react.createElement("div", {
+          className: "CardBodyWrapper"
+        }, /*#__PURE__*/react.createElement("h2", {
+          className: "CardText"
+        }, /*#__PURE__*/react.createElement("div", {
+          className: "TokenAmountRow"
+        }, /*#__PURE__*/react.createElement("span", {
+          className: "TokenSymbolCell"
+        }, payment.symbol), /*#__PURE__*/react.createElement("span", null, "\xA0"), /*#__PURE__*/react.createElement("span", {
+          className: "TokenAmountCell"
+        }, payment.amount))), /*#__PURE__*/react.createElement("h3", {
+          className: "CardText"
+        }, /*#__PURE__*/react.createElement("small", null, round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals), 'down'))))), /*#__PURE__*/react.createElement("div", {
+          className: "CardInfo"
+        }, payment.route.approvalRequired && /*#__PURE__*/react.createElement("span", {
+          className: "Label"
+        }, "Requires Approval")));
+      }));
+    }, [allPaymentRoutesWithData]);
+
+    if (allPaymentRoutesWithData.length == 0 || cards.length == 0) {
+      return /*#__PURE__*/react.createElement(ChangePaymentSkeleton, null);
+    }
+
+    return /*#__PURE__*/react.createElement(Dialog, {
+      stacked: true,
+      header: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
+      }, /*#__PURE__*/react.createElement("h1", {
+        className: "FontSizeL TextCenter"
+      }, "Change Payment"), paymentValue != undefined && /*#__PURE__*/react.createElement("div", {
+        className: "FontSizeL TextCenter FontWeightBold"
+      }, /*#__PURE__*/react.createElement("strong", null, paymentValue.toString()))),
+      body: /*#__PURE__*/react.createElement("div", {
+        className: "MaxHeight PaddingTopXS"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "PaddingLeftM PaddingRightM"
+      }, cards)),
+      footer: /*#__PURE__*/react.createElement("div", null)
+    });
+  });
+
+  var QuestionsGraphic = "data:image/png;base64,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";
+
+  var NoPaymentMethodFoundDialog = (function () {
+    return /*#__PURE__*/react.createElement(Dialog, {
+      header: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }),
+      body: /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/react.createElement("img", {
+        className: "Graphic",
+        src: QuestionsGraphic
+      })), /*#__PURE__*/react.createElement("h1", {
+        className: "Text FontSizeL PaddingTopS FontWeightBold"
+      }, "Insufficient Balance"), /*#__PURE__*/react.createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/react.createElement("strong", {
+        className: "FontSizeM"
+      }, "We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.")))
+    });
+  });
+
+  var PaymentErrorDialog = (function () {
+    var _useContext = react.useContext(NavigateStackContext_1),
+        navigate = _useContext.navigate;
+
+    var _useContext2 = react.useContext(PaymentContext),
+        transaction = _useContext2.transaction;
+
+    return /*#__PURE__*/react.createElement(Dialog, {
+      stacked: true,
+      header: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }),
+      body: /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/react.createElement("img", {
+        className: "Graphic",
+        src: ErrorGraphic
+      })), /*#__PURE__*/react.createElement("h1", {
+        className: "Text FontSizeL PaddingTopS FontWeightBold"
+      }, "Payment Failed"), /*#__PURE__*/react.createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/react.createElement("strong", {
+        className: "FontSizeM"
+      }, "Unfortunately executing your payment failed. You can go back and try again."), transaction && /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS"
+      }, /*#__PURE__*/react.createElement("a", {
+        className: "Link",
+        title: "Check your transaction on a block explorer",
+        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, "View on explorer")))),
+      footer: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      }, /*#__PURE__*/react.createElement("button", {
+        className: "ButtonPrimary wide",
+        onClick: function onClick() {
+          return navigate('back');
+        }
+      }, "Try again"))
+    });
+  });
+
+  var Checkmark = (function () {
+    return /*#__PURE__*/react.createElement("svg", {
+      className: "Checkmark Icon",
+      version: "1.1",
+      xmlns: "http://www.w3.org/2000/svg",
+      x: "0px",
+      y: "0px",
+      viewBox: "0 0 24 24"
+    }, /*#__PURE__*/react.createElement("path", {
+      d: "M20,4.9L9.2,16l-5.4-3.9c-0.7-0.5-1.6-0.3-2.1,0.3c-0.5,0.7-0.3,1.6,0.3,2.1l6.4,4.7c0.3,0.2,0.6,0.3,0.9,0.3 c0.4,0,0.8-0.2,1.1-0.5l11.7-12c0.6-0.6,0.6-1.6,0-2.2C21.6,4.3,20.6,4.3,20,4.9z"
+    }));
+  });
+
+  var ChevronRight = (function () {
+    return /*#__PURE__*/react.createElement("svg", {
+      className: "ChevronRight Icon",
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      viewBox: "0 0 16 16"
+    }, /*#__PURE__*/react.createElement("path", {
+      strokeWidth: "1",
+      fillRule: "evenodd",
+      d: "M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+    }));
+  });
+
+  var ConnectingWalletDialog = (function () {
+    var _useContext = react.useContext(WalletContext),
+        wallet = _useContext.wallet,
+        connect = _useContext.connect;
+
+    var walletName = wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
+    var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
+    return /*#__PURE__*/react.createElement(Dialog, {
+      body: /*#__PURE__*/react.createElement("div", null, walletLogo && /*#__PURE__*/react.createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/react.createElement("img", {
+        className: "Graphic",
+        src: walletLogo
+      })), /*#__PURE__*/react.createElement("h1", {
+        className: "Text FontSizeL PaddingTopS FontWeightBold"
+      }, "Connect Wallet"), /*#__PURE__*/react.createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/react.createElement("strong", {
+        className: "FontSizeM"
+      }, "This payment requires access to your wallet, please login and authorize access to your ", walletName, " account to continue."))),
+      footer: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      }, /*#__PURE__*/react.createElement("button", {
+        className: "ButtonPrimary wide",
+        onClick: connect
+      }, "Connect"))
+    });
+  });
+
+  var LoadingText = (function (props) {
+    return /*#__PURE__*/react.createElement("div", {
+      className: "LoadingText"
+    }, props.children, /*#__PURE__*/react.createElement("span", {
+      className: "dot"
+    }, "."), /*#__PURE__*/react.createElement("span", {
+      className: "dot"
+    }, "."), /*#__PURE__*/react.createElement("span", {
+      className: "dot"
+    }, "."));
+  });
+
+  var PaymentOverviewSkeleton = (function (props) {
+    return /*#__PURE__*/react.createElement(Dialog, {
+      header: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/react.createElement("h1", {
+        className: "FontSizeL TextLeft"
+      }, "Payment")),
+      body: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "Card Skeleton"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "SkeletonBackground"
+      }))),
+      footer: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "SkeletonWrapper"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "ButtonPrimary Skeleton"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "SkeletonBackground"
+      }))))
+    });
+  });
+
+  var PaymentOverviewDialog = (function (props) {
+    var _useContext = react.useContext(ConfigurationContext),
+        _sent = _useContext.sent,
+        _confirmed = _useContext.confirmed,
+        _ensured = _useContext.ensured,
+        _failed = _useContext.failed;
+
+    var _useContext2 = react.useContext(PaymentContext),
+        payment = _useContext2.payment,
+        setPayment = _useContext2.setPayment,
+        transaction = _useContext2.transaction,
+        setTransaction = _useContext2.setTransaction;
+
+    var _useContext3 = react.useContext(PaymentRoutingContext),
+        allRoutes = _useContext3.allRoutes;
+
+    var _useContext4 = react.useContext(WalletContext),
+        walletState = _useContext4.walletState;
+
+    var _useContext5 = react.useContext(PaymentValueContext),
+        paymentValue = _useContext5.paymentValue;
+
+    var _useContext6 = react.useContext(NavigateStackContext_1),
+        navigate = _useContext6.navigate,
+        set = _useContext6.set;
+
+    var _useContext7 = react.useContext(ClosableContext),
+        close = _useContext7.close,
+        setClosable = _useContext7.setClosable;
+
+    var _useContext8 = react.useContext(UpdateContext);
+        _useContext8.update;
+        var setUpdate = _useContext8.setUpdate;
+
+    var _useState = react.useState('overview'),
+        _useState2 = _slicedToArray(_useState, 2),
+        state = _useState2[0],
+        setState = _useState2[1];
+
+    var _useState3 = react.useState(),
+        _useState4 = _slicedToArray(_useState3, 2),
+        approvalTransaction = _useState4[0],
+        setApprovalTransaction = _useState4[1];
+
+    var approve = function approve() {
+      setClosable(false);
+      setState('approving');
+      payment.route.approve({
+        confirmed: function confirmed() {
+          payment.route.approvalRequired = false;
+          setPayment(payment);
+          setClosable(true);
+          setState('overview');
+        }
+      }).then(function (sentTransaction) {
+        setApprovalTransaction(sentTransaction);
+      })["catch"](function (error) {
+        console.log('error', error);
+        setState('overview');
+        setClosable(true);
+      });
+    };
+
+    var pay = function pay() {
+      setClosable(false);
+      setState('paying');
+      setUpdate(false);
+      payment.route.transaction.submit({
+        sent: function sent() {
+          if (_sent) {
+            _sent(transaction);
+          }
+        },
+        confirmed: function confirmed() {
+          setClosable(true);
+          setState('confirmed');
+
+          if (_confirmed) {
+            _confirmed(transaction);
+          }
+        },
+        ensured: function ensured() {
+          if (_ensured) {
+            _ensured(transaction);
+          }
+        },
+        failed: function failed(error) {
+          if (_failed) {
+            _failed(transaction);
+          }
+
+          console.log('error', error);
+          setState('overview');
+          setClosable(true);
+          setUpdate(true);
+          navigate('PaymentError');
+        }
+      }).then(function (sentTransaction) {
+        setTransaction(sentTransaction);
+      })["catch"](function (error) {
+        console.log('error', error);
+        setState('overview');
+        setClosable(true);
+        setUpdate(true);
+      });
+    };
+
+    var mainAction = function mainAction() {
+      if (state == 'overview' || state == 'approving') {
+        return /*#__PURE__*/react.createElement("button", {
+          className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
+          onClick: function onClick() {
+            if (payment.route.approvalRequired && !payment.route.directTransfer) {
+              return;
+            }
+
+            pay();
+          }
+        }, "Pay ", paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
+      } else if (state == 'paying') {
+        return /*#__PURE__*/react.createElement("a", {
+          className: "ButtonPrimary",
+          title: "Performing the payment - please wait",
+          href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+          target: "_blank",
+          rel: "noopener noreferrer"
+        }, /*#__PURE__*/react.createElement(LoadingText, null, "Paying"));
+      } else if (state == 'confirmed') {
+        return /*#__PURE__*/react.createElement("button", {
+          className: "ButtonPrimary round",
+          title: "Done",
+          onClick: close
+        }, /*#__PURE__*/react.createElement(Checkmark, null));
+      }
+    };
+
+    var approvalAction = function approvalAction() {
+      if (state == 'overview') {
+        return /*#__PURE__*/react.createElement("div", {
+          className: "PaddingBottomS"
+        }, /*#__PURE__*/react.createElement("button", {
+          className: "ButtonPrimary wide",
+          onClick: approve
+        }, "Allow ", payment.symbol, " to be used as payment"));
+      } else if (state == 'approving') {
+        return /*#__PURE__*/react.createElement("div", {
+          className: "PaddingBottomS"
+        }, /*#__PURE__*/react.createElement("a", {
+          className: "ButtonPrimary wide",
+          title: "Approving payment token - please wait",
+          href: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
+          target: "_blank",
+          rel: "noopener noreferrer"
+        }, /*#__PURE__*/react.createElement(LoadingText, null, "Approving")));
+      }
+    };
+
+    var actions = function actions() {
+      return /*#__PURE__*/react.createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
+    };
+
+    react.useEffect(function () {
+      if (allRoutes && allRoutes.length == 0) {
+        set(['NoPaymentMethodFound']);
+        setUpdate(false);
+      }
+    }, [allRoutes]);
+
+    if (walletState == 'connecting') {
+      return /*#__PURE__*/react.createElement(ConnectingWalletDialog, null);
+    }
+
+    if (payment == undefined || paymentValue == undefined) {
+      return /*#__PURE__*/react.createElement(PaymentOverviewSkeleton, null);
+    }
+
+    return /*#__PURE__*/react.createElement(Dialog, {
+      header: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/react.createElement("h1", {
+        className: "FontSizeL TextLeft"
+      }, "Payment")),
+      body: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
+        title: state == 'overview' ? "Change payment" : undefined,
+        onClick: function onClick() {
+          if (state != 'overview') {
+            return;
+          }
+
+          navigate('ChangePayment');
+        }
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardImage",
+        title: payment.name
+      }, /*#__PURE__*/react.createElement(TokenImage_1, {
+        blockchain: payment.route.blockchain,
+        address: payment.token
+      })), /*#__PURE__*/react.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/react.createElement("h2", {
+        className: "CardText"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "TokenAmountRow"
+      }, /*#__PURE__*/react.createElement("span", {
+        className: "TokenSymbolCell"
+      }, payment.symbol), /*#__PURE__*/react.createElement("span", null, "\xA0"), /*#__PURE__*/react.createElement("span", {
+        className: "TokenAmountCell"
+      }, payment.amount))), paymentValue.toString().length && /*#__PURE__*/react.createElement("h3", {
+        className: "CardText"
+      }, /*#__PURE__*/react.createElement("small", null, paymentValue.toString())))), /*#__PURE__*/react.createElement("div", {
+        className: "CardAction"
+      }, /*#__PURE__*/react.createElement(ChevronRight, null)))),
+      footer: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      }, actions())
+    });
+  });
+
+  var PaymentStack = (function (props) {
+    var _useContext = react.useContext(ClosableContext),
+        open = _useContext.open,
+        close = _useContext.close;
+
+    return /*#__PURE__*/react.createElement(ReactDialogStack_1, {
+      open: open,
+      close: close,
+      start: "PaymentOverview",
+      container: props.container,
+      document: props.document,
+      dialogs: {
+        PaymentOverview: /*#__PURE__*/react.createElement(PaymentOverviewDialog, null),
+        ChangePayment: /*#__PURE__*/react.createElement(ChangePaymentDialog, null),
+        NoPaymentMethodFound: /*#__PURE__*/react.createElement(NoPaymentMethodFoundDialog, null),
+        PaymentError: /*#__PURE__*/react.createElement(PaymentErrorDialog, null)
+      }
+    });
   });
 
   var timezoneToCurrency = {
@@ -65220,14 +65215,15 @@
   var Currency = /*#__PURE__*/function () {
     function Currency(_ref) {
       var amount = _ref.amount,
+          code = _ref.code,
           _ref$timeZone = _ref.timeZone,
           timeZone = _ref$timeZone === void 0 ? Currency.timeZone() : _ref$timeZone;
 
       _classCallCheck(this, Currency);
 
       this.amount = amount;
+      this.code = code || timezoneToCurrency[timeZone] || 'USD';
       this.timeZone = timeZone;
-      this.code = timezoneToCurrency[this.timeZone] || 'USD';
     }
 
     _createClass(Currency, [{
@@ -65242,14 +65238,15 @@
       key: "fromUSD",
       value: function () {
         var _fromUSD = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref2) {
-          var amount, timeZone, apiKey, currency, rate;
+          var amount, code, timeZone, apiKey, currency, rate;
           return regenerator.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  amount = _ref2.amount, timeZone = _ref2.timeZone, apiKey = _ref2.apiKey;
+                  amount = _ref2.amount, code = _ref2.code, timeZone = _ref2.timeZone, apiKey = _ref2.apiKey;
                   currency = new Currency({
                     amount: amount,
+                    code: code,
                     timeZone: timeZone
                   });
                   _context.next = 4;
@@ -65292,7 +65289,7 @@
     return Currency;
   }();
 
-  var ToTokenProvider = (function (props) {
+  var PaymentValueProvider = (function (props) {
     var _useContext = react.useContext(ErrorContext),
         setError = _useContext.setError;
 
@@ -65307,8 +65304,11 @@
 
     var _useState = react.useState(),
         _useState2 = _slicedToArray(_useState, 2),
-        localValue = _useState2[0],
-        setLocalValue = _useState2[1];
+        paymentValue = _useState2[0],
+        setPaymentValue = _useState2[1];
+
+    var _useContext5 = react.useContext(ConfigurationContext),
+        currency = _useContext5.currency;
 
     var _useState3 = react.useState(0),
         _useState4 = _slicedToArray(_useState3, 2),
@@ -65344,7 +65344,8 @@
         if (payment.route.toToken.address.toLowerCase() == CONSTANTS$2[payment.route.blockchain].USD.toLowerCase()) {
           USDAmount = payment.route.toAmount.toString();
         } else if (USDRoute == undefined) {
-          return setLocalValue(0);
+          setPaymentValue('');
+          return;
         } else {
           USDAmount = USDRoute.amountOut.toString();
         }
@@ -65352,8 +65353,9 @@
         var USDValue = formatUnits(USDAmount, USDDecimals);
         Currency.fromUSD({
           amount: USDValue,
+          code: currency,
           apiKey: apiKey
-        }).then(setLocalValue)["catch"](setError);
+        }).then(setPaymentValue)["catch"](setError);
       })["catch"](setError);
     };
 
@@ -65376,9 +65378,9 @@
         return clearTimeout(timeout);
       };
     }, [reloadCount, update]);
-    return /*#__PURE__*/react.createElement(ToTokenContext.Provider, {
+    return /*#__PURE__*/react.createElement(PaymentValueContext.Provider, {
       value: {
-        localValue: localValue
+        paymentValue: paymentValue
       }
     }, props.children);
   });
@@ -65449,7 +65451,7 @@
     }, props.children);
   });
 
-  var preflight = /*#__PURE__*/function () {
+  var preflight$1 = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
       var accept;
       return regenerator.wrap(function _callee$(_context) {
@@ -65494,15 +65496,15 @@
 
   var Payment = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, providers, document;
+      var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, providers, currency, document;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, providers = _ref3.providers, document = _ref3.document;
+              accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, providers = _ref3.providers, currency = _ref3.currency, document = _ref3.document;
               _context2.prev = 1;
               _context2.next = 4;
-              return preflight({
+              return preflight$1({
                 accept: accept
               });
 
@@ -65519,6 +65521,7 @@
                   }, /*#__PURE__*/react.createElement(ConfigurationProvider, {
                     configuration: {
                       accept: accept,
+                      currency: currency,
                       event: event,
                       sent: sent,
                       confirmed: confirmed,
@@ -65529,7 +65532,11 @@
                     }
                   }, /*#__PURE__*/react.createElement(ClosableProvider, {
                     unmount: unmount
-                  }, /*#__PURE__*/react.createElement(UpdateProvider, null, /*#__PURE__*/react.createElement(WalletProvider, null, /*#__PURE__*/react.createElement(RoutingProvider, null, /*#__PURE__*/react.createElement(PaymentProvider, null, /*#__PURE__*/react.createElement(ToTokenProvider, null, /*#__PURE__*/react.createElement(PaymentStack, {
+                  }, /*#__PURE__*/react.createElement(UpdateProvider, null, /*#__PURE__*/react.createElement(WalletProvider, null, /*#__PURE__*/react.createElement(PaymentRoutingProvider, {
+                    accept: accept,
+                    whitelist: whitelist,
+                    event: event
+                  }, /*#__PURE__*/react.createElement(PaymentProvider, null, /*#__PURE__*/react.createElement(PaymentValueProvider, null, /*#__PURE__*/react.createElement(PaymentStack, {
                     document: document,
                     container: container
                   })))))))));
@@ -65560,8 +65567,482 @@
     };
   }();
 
+  var SaleRoutingContext = /*#__PURE__*/react.createContext();
+
+  var SaleRoutingProvider = (function (props) {
+    var _useContext = react.useContext(ConfigurationContext),
+        amount = _useContext.amount,
+        token = _useContext.token,
+        blockchains = _useContext.blockchains;
+
+    var _useContext2 = react.useContext(WalletContext),
+        account = _useContext2.account;
+
+    var _useState = react.useState(amount.start),
+        _useState2 = _slicedToArray(_useState, 2),
+        purchasedAmount = _useState2[0];
+        _useState2[1];
+
+    var _useState3 = react.useState(),
+        _useState4 = _slicedToArray(_useState3, 2),
+        purchasedToken = _useState4[0],
+        setPurchasedToken = _useState4[1];
+
+    var accept = blockchains.map(function (blockchain) {
+      return {
+        blockchain: blockchain,
+        amount: purchasedAmount,
+        token: token,
+        receiver: account
+      };
+    });
+    react.useEffect(function () {
+      var tokenInstance = new Token({
+        blockchain: blockchains[0],
+        address: token
+      });
+      Promise.all([tokenInstance.name(), tokenInstance.symbol(), tokenInstance.decimals()]).then(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 3),
+            name = _ref2[0],
+            symbol = _ref2[1],
+            decimals = _ref2[2];
+
+        setPurchasedToken({
+          address: token,
+          name: name,
+          symbol: symbol,
+          decimals: decimals
+        });
+      });
+    }, []);
+    return /*#__PURE__*/react.createElement(SaleRoutingContext.Provider, {
+      value: {
+        purchasedAmount: purchasedAmount,
+        purchasedToken: purchasedToken
+      }
+    }, /*#__PURE__*/react.createElement(PaymentRoutingProvider, {
+      accept: accept
+    }, /*#__PURE__*/react.createElement(PaymentProvider, null, /*#__PURE__*/react.createElement(PaymentValueProvider, null, props.children))));
+  });
+
+  var SaleOverviewSkeleton = (function (props) {
+    return /*#__PURE__*/react.createElement(Dialog, {
+      header: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/react.createElement("h1", {
+        className: "FontSizeL TextLeft"
+      }, "Purchase")),
+      body: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "Card Skeleton"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "SkeletonBackground"
+      })), /*#__PURE__*/react.createElement("div", {
+        className: "Card Skeleton",
+        style: {
+          height: '100px'
+        }
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "SkeletonBackground"
+      }))),
+      footer: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "SkeletonWrapper"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "ButtonPrimary Skeleton"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "SkeletonBackground"
+      }))))
+    });
+  });
+
+  var SaleOverviewDialog = (function (props) {
+    var _useContext = react.useContext(SaleRoutingContext),
+        purchasedToken = _useContext.purchasedToken,
+        purchasedAmount = _useContext.purchasedAmount;
+
+    var _useContext2 = react.useContext(ConfigurationContext),
+        _sent = _useContext2.sent,
+        _confirmed = _useContext2.confirmed,
+        _ensured = _useContext2.ensured,
+        _failed = _useContext2.failed;
+
+    var _useContext3 = react.useContext(PaymentContext),
+        payment = _useContext3.payment,
+        setPayment = _useContext3.setPayment,
+        transaction = _useContext3.transaction,
+        setTransaction = _useContext3.setTransaction;
+
+    var _useContext4 = react.useContext(PaymentRoutingContext),
+        allRoutes = _useContext4.allRoutes;
+
+    var _useContext5 = react.useContext(WalletContext),
+        walletState = _useContext5.walletState;
+
+    var _useContext6 = react.useContext(PaymentValueContext),
+        paymentValue = _useContext6.paymentValue;
+
+    var _useContext7 = react.useContext(NavigateStackContext_1),
+        navigate = _useContext7.navigate,
+        set = _useContext7.set;
+
+    var _useContext8 = react.useContext(ClosableContext),
+        close = _useContext8.close,
+        setClosable = _useContext8.setClosable;
+
+    var _useContext9 = react.useContext(UpdateContext);
+        _useContext9.update;
+        var setUpdate = _useContext9.setUpdate;
+
+    var _useState = react.useState('overview'),
+        _useState2 = _slicedToArray(_useState, 2),
+        state = _useState2[0],
+        setState = _useState2[1];
+
+    var _useState3 = react.useState(),
+        _useState4 = _slicedToArray(_useState3, 2),
+        salePerTokenValue = _useState4[0],
+        setSalePerTokenValue = _useState4[1];
+
+    var _useState5 = react.useState(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        approvalTransaction = _useState6[0],
+        setApprovalTransaction = _useState6[1];
+
+    var approve = function approve() {
+      setClosable(false);
+      setState('approving');
+      payment.route.approve({
+        confirmed: function confirmed() {
+          payment.route.approvalRequired = false;
+          setPayment(payment);
+          setClosable(true);
+          setState('overview');
+        }
+      }).then(function (sentTransaction) {
+        setApprovalTransaction(sentTransaction);
+      })["catch"](function (error) {
+        console.log('error', error);
+        setState('overview');
+        setClosable(true);
+      });
+    };
+
+    var pay = function pay() {
+      setClosable(false);
+      setState('paying');
+      setUpdate(false);
+      payment.route.transaction.submit({
+        sent: function sent() {
+          if (_sent) {
+            _sent(transaction);
+          }
+        },
+        confirmed: function confirmed() {
+          setClosable(true);
+          setState('confirmed');
+
+          if (_confirmed) {
+            _confirmed(transaction);
+          }
+        },
+        ensured: function ensured() {
+          if (_ensured) {
+            _ensured(transaction);
+          }
+        },
+        failed: function failed(error) {
+          if (_failed) {
+            _failed(transaction);
+          }
+
+          console.log('error', error);
+          setState('overview');
+          setClosable(true);
+          setUpdate(true);
+          navigate('PaymentError');
+        }
+      }).then(function (sentTransaction) {
+        setTransaction(sentTransaction);
+      })["catch"](function (error) {
+        console.log('error', error);
+        setState('overview');
+        setClosable(true);
+        setUpdate(true);
+      });
+    };
+
+    var mainAction = function mainAction() {
+      if (state == 'overview' || state == 'approving') {
+        return /*#__PURE__*/react.createElement("button", {
+          className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
+          onClick: function onClick() {
+            if (payment.route.approvalRequired && !payment.route.directTransfer) {
+              return;
+            }
+
+            pay();
+          }
+        }, "Pay ", paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
+      } else if (state == 'paying') {
+        return /*#__PURE__*/react.createElement("a", {
+          className: "ButtonPrimary",
+          title: "Performing the payment - please wait",
+          href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+          target: "_blank",
+          rel: "noopener noreferrer"
+        }, /*#__PURE__*/react.createElement(LoadingText, null, "Paying"));
+      } else if (state == 'confirmed') {
+        return /*#__PURE__*/react.createElement("button", {
+          className: "ButtonPrimary round",
+          title: "Done",
+          onClick: close
+        }, /*#__PURE__*/react.createElement(Checkmark, null));
+      }
+    };
+
+    var approvalAction = function approvalAction() {
+      if (state == 'overview') {
+        return /*#__PURE__*/react.createElement("div", {
+          className: "PaddingBottomS"
+        }, /*#__PURE__*/react.createElement("button", {
+          className: "ButtonPrimary wide",
+          onClick: approve
+        }, "Allow ", payment.symbol, " to be used as payment"));
+      } else if (state == 'approving') {
+        return /*#__PURE__*/react.createElement("div", {
+          className: "PaddingBottomS"
+        }, /*#__PURE__*/react.createElement("a", {
+          className: "ButtonPrimary wide",
+          title: "Approving payment token - please wait",
+          href: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
+          target: "_blank",
+          rel: "noopener noreferrer"
+        }, /*#__PURE__*/react.createElement(LoadingText, null, "Approving")));
+      }
+    };
+
+    var actions = function actions() {
+      return /*#__PURE__*/react.createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
+    };
+
+    react.useEffect(function () {
+      if (allRoutes && allRoutes.length == 0) {
+        set(['NoPaymentMethodFound']);
+        setUpdate(false);
+      }
+    }, [allRoutes]);
+    react.useEffect(function () {
+      if (paymentValue) {
+        setSalePerTokenValue("".concat(paymentValue.code, " ").concat((paymentValue.amount / parseFloat(purchasedAmount)).toFixed(2)));
+      }
+    }, [paymentValue]);
+
+    if (walletState == 'connecting') {
+      return /*#__PURE__*/react.createElement(ConnectingWalletDialog, null);
+    }
+
+    if (purchasedToken == undefined || purchasedAmount == undefined || payment == undefined || paymentValue == undefined) {
+      return /*#__PURE__*/react.createElement(SaleOverviewSkeleton, null);
+    }
+
+    return /*#__PURE__*/react.createElement(Dialog, {
+      header: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/react.createElement("h1", {
+        className: "FontSizeL TextLeft"
+      }, "Purchase")),
+      body: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
+        title: state == 'overview' ? "Change payment" : undefined,
+        onClick: function onClick() {
+          if (state != 'overview') {
+            return;
+          }
+
+          navigate('ChangePayment');
+        }
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardImage",
+        title: payment.name
+      }, /*#__PURE__*/react.createElement(TokenImage_1, {
+        blockchain: payment.route.blockchain,
+        address: purchasedToken.address
+      })), /*#__PURE__*/react.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/react.createElement("h2", {
+        className: "CardText"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "TokenAmountRow"
+      }, /*#__PURE__*/react.createElement("span", {
+        className: "TokenSymbolCell"
+      }, purchasedToken.symbol), /*#__PURE__*/react.createElement("span", null, "\xA0"), /*#__PURE__*/react.createElement("span", {
+        className: "TokenAmountCell"
+      }, purchasedAmount))), salePerTokenValue && /*#__PURE__*/react.createElement("h3", {
+        className: "CardText"
+      }, /*#__PURE__*/react.createElement("small", null, salePerTokenValue, " per token")))), /*#__PURE__*/react.createElement("div", {
+        className: "CardAction"
+      }, /*#__PURE__*/react.createElement(ChevronRight, null))), /*#__PURE__*/react.createElement("div", {
+        className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
+        title: state == 'overview' ? "Change payment" : undefined,
+        onClick: function onClick() {
+          if (state != 'overview') {
+            return;
+          }
+
+          navigate('ChangePayment');
+        }
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardImage",
+        title: payment.name
+      }, /*#__PURE__*/react.createElement(TokenImage_1, {
+        blockchain: payment.route.blockchain,
+        address: payment.token
+      })), /*#__PURE__*/react.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/react.createElement("h4", {
+        className: "CardTitle"
+      }, "Payment"), /*#__PURE__*/react.createElement("h2", {
+        className: "CardText"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "TokenAmountRow"
+      }, /*#__PURE__*/react.createElement("span", {
+        className: "TokenSymbolCell"
+      }, payment.symbol), /*#__PURE__*/react.createElement("span", null, "\xA0"), /*#__PURE__*/react.createElement("span", {
+        className: "TokenAmountCell"
+      }, payment.amount))), paymentValue.toString().length && /*#__PURE__*/react.createElement("h3", {
+        className: "CardText"
+      }, /*#__PURE__*/react.createElement("small", null, paymentValue.toString())))), /*#__PURE__*/react.createElement("div", {
+        className: "CardAction"
+      }, /*#__PURE__*/react.createElement(ChevronRight, null)))),
+      footer: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      }, actions())
+    });
+  });
+
+  var SaleStack = (function (props) {
+    var _useContext = react.useContext(ClosableContext),
+        open = _useContext.open,
+        close = _useContext.close;
+
+    return /*#__PURE__*/react.createElement(ReactDialogStack_1, {
+      open: open,
+      close: close,
+      start: "SaleOverview",
+      container: props.container,
+      document: props.document,
+      dialogs: {
+        SaleOverview: /*#__PURE__*/react.createElement(SaleOverviewDialog, null),
+        ChangePayment: /*#__PURE__*/react.createElement(ChangePaymentDialog, null),
+        NoPaymentMethodFound: /*#__PURE__*/react.createElement(NoPaymentMethodFoundDialog, null),
+        PaymentError: /*#__PURE__*/react.createElement(PaymentErrorDialog, null)
+      }
+    });
+  });
+
+  var preflight = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function preflight(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  var Sale = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
+      var amount, token, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, providers, document;
+      return regenerator.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              amount = _ref3.amount, token = _ref3.token, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, providers = _ref3.providers, document = _ref3.document;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return preflight({
+                amount: amount,
+                token: token,
+                blockchains: blockchains
+              });
+
+            case 4:
+              mount({
+                style: style,
+                document: ensureDocument(document)
+              }, function (unmount) {
+                return function (container) {
+                  return /*#__PURE__*/react.createElement(ErrorProvider, {
+                    error: error,
+                    container: container,
+                    unmount: unmount
+                  }, /*#__PURE__*/react.createElement(ConfigurationProvider, {
+                    configuration: {
+                      amount: amount,
+                      token: token,
+                      blockchains: blockchains,
+                      event: event,
+                      sent: sent,
+                      confirmed: confirmed,
+                      ensured: ensured,
+                      failed: failed,
+                      providers: providers
+                    }
+                  }, /*#__PURE__*/react.createElement(ClosableProvider, {
+                    unmount: unmount
+                  }, /*#__PURE__*/react.createElement(UpdateProvider, null, /*#__PURE__*/react.createElement(WalletProvider, null, /*#__PURE__*/react.createElement(SaleRoutingProvider, null, /*#__PURE__*/react.createElement(SaleStack, {
+                    document: document,
+                    container: container
+                  })))))));
+                };
+              });
+              _context2.next = 11;
+              break;
+
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](1);
+              console.log('critical error', _context2.t0);
+
+              if (critical != undefined) {
+                critical(_context2.t0);
+              }
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 7]]);
+    }));
+
+    return function Sale(_x2) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+
   var DePayWidgets = {
-    Payment: Payment
+    Payment: Payment,
+    Sale: Sale
   };
 
   return DePayWidgets;
