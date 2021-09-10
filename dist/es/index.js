@@ -1,3 +1,5 @@
+
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 import React, { useState, useEffect, useContext } from 'react';
 import { setProvider } from 'depay-web3-client';
 import ReactDOM from 'react-dom';
@@ -2590,6 +2592,28 @@ var SaleRoutingProvider = (function (props) {
   }, /*#__PURE__*/React.createElement(PaymentProvider, null, /*#__PURE__*/React.createElement(PaymentValueProvider, null, props.children))));
 });
 
+var ChangePurchaseDialog = (function (props) {
+  var _useContext = useContext(NavigateStackContext);
+      _useContext.navigate;
+
+  return /*#__PURE__*/React.createElement(Dialog, {
+    stacked: true,
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "FontSizeL TextCenter"
+    }, "Change Purchase"), /*#__PURE__*/React.createElement("div", {
+      className: "FontSizeL TextCenter FontWeightBold"
+    }, /*#__PURE__*/React.createElement("strong", null, "TOKEN SYMBOL HERE"))),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "MaxHeight PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftM PaddingRightM"
+    }, "SOMETHING?")),
+    footer: /*#__PURE__*/React.createElement("div", null)
+  });
+});
+
 var SaleOverviewSkeleton = (function (props) {
   return /*#__PURE__*/React.createElement(Dialog, {
     header: /*#__PURE__*/React.createElement("div", {
@@ -2829,7 +2853,7 @@ var SaleOverviewDialog = (function (props) {
           return;
         }
 
-        navigate('ChangePayment');
+        navigate('ChangePurchase');
       }
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardImage",
@@ -2907,6 +2931,7 @@ var SaleStack = (function (props) {
     document: props.document,
     dialogs: {
       SaleOverview: /*#__PURE__*/React.createElement(SaleOverviewDialog, null),
+      ChangePurchase: /*#__PURE__*/React.createElement(ChangePurchaseDialog, null),
       ChangePayment: /*#__PURE__*/React.createElement(ChangePaymentDialog, null),
       NoPaymentMethodFound: /*#__PURE__*/React.createElement(NoPaymentMethodFoundDialog, null),
       PaymentError: /*#__PURE__*/React.createElement(PaymentErrorDialog, null)
