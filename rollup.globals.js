@@ -13,5 +13,6 @@ export default {
   'depay-web3-constants': 'Web3Constants',
   'depay-local-currency': 'LocalCurrency',
   'depay-react-token-image': 'ReactTokenImage',
-  'react-error-boundary': 'ErrorBoundary'
+  'react-error-boundary': 'ErrorBoundary',
+  'react-rangeslider': 'Slider'
 }

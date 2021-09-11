@@ -194,7 +194,7 @@ export default (props)=>{
                     </span>
                     <span>&nbsp;</span>
                     <span className="TokenAmountCell">
-                      { format(purchasedAmount) }
+                    { format(purchasedAmount) }
                     </span>
                   </div>
                 </h2>
