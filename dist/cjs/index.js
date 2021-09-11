@@ -1803,11 +1803,14 @@ var ChangePaymentSkeleton = (function (props) {
 var format = (function (input) {
   var _float = parseFloat(input);
 
-  if (_float < 1) {
-    return _float;
-  }
+  var floatToString = _float.toString();
 
-  return new Intl.NumberFormat().format(_float);
+  if (new RegExp(/\./).test(floatToString)) {
+    var exploded = floatToString.split('.');
+    return new Intl.NumberFormat().format(parseInt(exploded[0])) + '.' + exploded[1];
+  } else {
+    return new Intl.NumberFormat().format(_float);
+  }
 });
 
 var ChangePaymentDialog = (function (props) {
