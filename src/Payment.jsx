@@ -13,11 +13,11 @@ import WalletProvider from './providers/WalletProvider'
 
 let preflight = async({ accept }) => {
   accept.forEach((configuration)=>{
-    if(typeof configuration.blockchain === 'undefined') { throw('DePayWidgets.Payment: You need to set the blockchain your want to receive the payment on!') }
-    if(!['ethereum', 'bsc'].includes(configuration.blockchain)) { throw('DePayWidgets.Payment: You need to set a supported blockchain!') }
-    if(typeof configuration.amount === 'undefined') { throw('DePayWidgets.Payment: You need to set the amount you want to receive as payment!') }
-    if(typeof configuration.token === 'undefined') { throw('DePayWidgets.Payment: You need to set the token you want to receive as payment!') }
-    if(typeof configuration.receiver === 'undefined') { throw('DePayWidgets.Payment: You need to set the receiver address that you want to receive the payment!') }
+    if(typeof configuration.blockchain === 'undefined') { throw('You need to set the blockchain your want to receive the payment on!') }
+    if(!['ethereum', 'bsc'].includes(configuration.blockchain)) { throw('You need to set a supported blockchain!') }
+    if(typeof configuration.amount === 'undefined') { throw('You need to set the amount you want to receive as payment!') }
+    if(typeof configuration.token === 'undefined') { throw('You need to set the token you want to receive as payment!') }
+    if(typeof configuration.receiver === 'undefined') { throw('You need to set the receiver address that you want to receive the payment!') }
   })
 }
 

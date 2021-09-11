@@ -1566,6 +1566,7 @@
           });
         }),
         whitelist: props.whitelist,
+        blacklist: props.blacklist,
         event: props.event,
         apiKey: apiKey
       }).then(function (routes) {
@@ -2362,17 +2363,14 @@
 
         if (payment.route.fromToken.address.toLowerCase() == depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
           USDAmount = payment.route.fromAmount.toString();
-          console.log('USD TOKEN', USDAmount);
         } else if (USDRoute == undefined) {
           setPaymentValue('');
           return;
         } else {
           USDAmount = USDRoute.amountOut.toString();
-          console.log('CONVERTED USD AMOUNT', USDAmount);
         }
 
         var USDValue = ethers$1.ethers.utils.formatUnits(USDAmount, USDDecimals);
-        console.log('USDValue', USDValue);
         depayLocalCurrency.Currency.fromUSD({
           amount: USDValue,
           code: currency,
@@ -2615,6 +2613,10 @@
         accept = _useState6[0],
         setAccept = _useState6[1];
 
+    var blacklist = {};
+    blockchains.forEach(function (blockchain) {
+      blacklist[blockchain] = [token];
+    });
     React.useEffect(function () {
       if (account) {
         setAccept(blockchains.map(function (blockchain) {
@@ -2653,7 +2655,8 @@
         purchasedToken: purchasedToken
       }
     }, /*#__PURE__*/React__default$1['default'].createElement(PaymentRoutingProvider, {
-      accept: accept
+      accept: accept,
+      blacklist: blacklist
     }, /*#__PURE__*/React__default$1['default'].createElement(PaymentProvider, null, /*#__PURE__*/React__default$1['default'].createElement(PaymentValueProvider, null, props.children))));
   });
 

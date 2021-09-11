@@ -20,6 +20,7 @@ export default (props)=>{
     route({
       accept: props.accept.map((configuration)=>({ ...configuration, fromAddress: account, toAddress: configuration.receiver })),
       whitelist: props.whitelist,
+      blacklist: props.blacklist,
       event: props.event,
       apiKey
     }).then((routes)=>{

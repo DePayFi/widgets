@@ -10,7 +10,15 @@ import UpdateProvider from './providers/UpdateProvider'
 import WalletProvider from './providers/WalletProvider'
 
 let preflight = async({ amount, token, blockchains }) => {
-
+  if(typeof amount === 'undefined') { throw('You need to set the amount!') }
+  if(typeof amount.min === 'undefined') { throw('You need to set amount.min!') }
+  if(typeof amount.step === 'undefined') { throw('You need to set amount.step!') }
+  if(typeof amount.start === 'undefined') { throw('You need to set amount.start!') }
+  if(typeof token == 'undefined') { throw('You need to set a token!') }
+  if((typeof blockchains == 'undefined') || blockchains.length == 0) { throw('You need to set blockchains!') }
+  blockchains.forEach((blockchain)=>{
+    if(!['ethereum', 'bsc'].includes(blockchain)) { throw('You need to set only supported blockchains!') }  
+  })
 }
 
 let Sale = async ({

@@ -15,7 +15,7 @@ describe('Payment widget preflight', () => {
         })
       })
       cy.wait(200).then(()=>{
-        expect(criticalError.toString()).to.eq('DePayWidgets.Payment: You need to set the blockchain your want to receive the payment on!')
+        expect(criticalError.toString()).to.eq('You need to set the blockchain your want to receive the payment on!')
       })
     })
   })
@@ -31,7 +31,7 @@ describe('Payment widget preflight', () => {
         })
       })
       cy.wait(200).then(()=>{
-        expect(criticalError.toString()).to.eq('DePayWidgets.Payment: You need to set a supported blockchain!')
+        expect(criticalError.toString()).to.eq('You need to set a supported blockchain!')
       })
     })
   })
@@ -47,7 +47,7 @@ describe('Payment widget preflight', () => {
         })
       })
       cy.wait(200).then(()=>{
-        expect(criticalError.toString()).to.eq('DePayWidgets.Payment: You need to set the amount you want to receive as payment!')
+        expect(criticalError.toString()).to.eq('You need to set the amount you want to receive as payment!')
       })
     })
   })
@@ -63,7 +63,7 @@ describe('Payment widget preflight', () => {
         })
       })
       cy.wait(200).then(()=>{
-        expect(criticalError.toString()).to.eq('DePayWidgets.Payment: You need to set the token you want to receive as payment!')
+        expect(criticalError.toString()).to.eq('You need to set the token you want to receive as payment!')
       })
     })
   })
@@ -79,7 +79,7 @@ describe('Payment widget preflight', () => {
         })
       })
       cy.wait(200).then(()=>{
-        expect(criticalError.toString()).to.eq('DePayWidgets.Payment: You need to set the receiver address that you want to receive the payment!')
+        expect(criticalError.toString()).to.eq('You need to set the receiver address that you want to receive the payment!')
       })
     })
   })

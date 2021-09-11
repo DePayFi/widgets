@@ -15,6 +15,11 @@ export default (props)=>{
   const [purchasedToken, setPurchasedToken] = useState()
   const [accept, setAccept] = useState()
 
+  let blacklist = {}
+  blockchains.forEach((blockchain)=>{
+    blacklist[blockchain] = [token]
+  })
+
   useEffect(()=>{
     if(account) {
       setAccept(
@@ -50,7 +55,7 @@ export default (props)=>{
       purchasedAmount,
       purchasedToken
     }}>
-      <PaymentRoutingProvider accept={ accept }>
+      <PaymentRoutingProvider accept={ accept } blacklist={ blacklist }>
         <PaymentProvider>
           <PaymentValueProvider>
             { props.children }

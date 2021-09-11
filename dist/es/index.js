@@ -1569,6 +1569,7 @@ var PaymentRoutingProvider = (function (props) {
         });
       }),
       whitelist: props.whitelist,
+      blacklist: props.blacklist,
       event: props.event,
       apiKey: apiKey
     }).then(function (routes) {
@@ -2365,17 +2366,14 @@ var PaymentValueProvider = (function (props) {
 
       if (payment.route.fromToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
         USDAmount = payment.route.fromAmount.toString();
-        console.log('USD TOKEN', USDAmount);
       } else if (USDRoute == undefined) {
         setPaymentValue('');
         return;
       } else {
         USDAmount = USDRoute.amountOut.toString();
-        console.log('CONVERTED USD AMOUNT', USDAmount);
       }
 
       var USDValue = ethers$1.utils.formatUnits(USDAmount, USDDecimals);
-      console.log('USDValue', USDValue);
       Currency.fromUSD({
         amount: USDValue,
         code: currency,
@@ -2618,6 +2616,10 @@ var SaleRoutingProvider = (function (props) {
       accept = _useState6[0],
       setAccept = _useState6[1];
 
+  var blacklist = {};
+  blockchains.forEach(function (blockchain) {
+    blacklist[blockchain] = [token];
+  });
   useEffect(function () {
     if (account) {
       setAccept(blockchains.map(function (blockchain) {
@@ -2656,7 +2658,8 @@ var SaleRoutingProvider = (function (props) {
       purchasedToken: purchasedToken
     }
   }, /*#__PURE__*/React.createElement(PaymentRoutingProvider, {
-    accept: accept
+    accept: accept,
+    blacklist: blacklist
   }, /*#__PURE__*/React.createElement(PaymentProvider, null, /*#__PURE__*/React.createElement(PaymentValueProvider, null, props.children))));
 });
 

@@ -123,7 +123,7 @@ The widget will call the `sent` callback-function passing a transaction as singl
 
 ```javascript
 DePayWidgets.Payment({
-  // ...
+
   sent: (transaction)=> {
     // called when payment transaction has been sent to the network
   }
@@ -140,7 +140,7 @@ The widget will call the `confirmed` callback-function passing a transaction as 
 
 ```javascript
 DePayWidgets.Payment({
-  // ...
+
   confirmed: (transaction)=> {
     // called when payment transaction has been confirmed once by the network
   }
@@ -157,7 +157,7 @@ The widget will call the `ensured` callback-function passing a transaction as si
 
 ```javascript
 DePayWidgets.Payment({
-  // ...
+
   ensured: (transaction)=> {
     // called when payment transaction has been confirmed X times by the network
   }
@@ -174,7 +174,7 @@ The widget will call the `failed` callback-function passing a transaction as sin
 
 ```javascript
 DePayWidgets.Payment({
-  // ...
+
   failed: (transaction)=> {
     // called when payment transaction failed on the blockchain
     // handled by the widget, no need to display anything
@@ -190,7 +190,7 @@ A function that will be called if the widget throws an critical internal error t
 
 ```javascript
 DePayWidgets.Payment({
-  // ...
+  
   critical: (error)=> {
     // render and display the error with error.toString()
   }
@@ -205,7 +205,7 @@ A function that will be called if the widget throws an non-critical internal err
 
 ```javascript
 DePayWidgets.Payment({
-  // ...
+
   error: (error)=> {
     // maybe do some internal tracking with error.toString()
     // no need to display anything as widget takes care of displaying the error
@@ -223,9 +223,7 @@ DePayWidgets.Payment({
   providers: {
     ethereum: ['http://localhost:8545'],
     bsc: ['http://localhost:8545']
-  },
-
-  accept: [...]
+  }
 })
 ```
 
@@ -237,9 +235,8 @@ Allows you to enforce displayed local currency (instead of automatically detecti
 
 DePayWidgets.Payment({
 
-  currency: 'USD',
+  currency: 'USD'
 
-  accept: [...]
 })
 
 ```
@@ -262,9 +259,8 @@ DePayWidgets.Payment({
       '0xe9e7cea3dedca5984780bafc599bd69add087d56', // BUSD
       '0x55d398326f99059ff775485246999027b3197955'  // BSC-USD
     ]
-  },
-  
-  accept: [...]
+  }
+
 })
 
 ```
@@ -318,8 +314,7 @@ DePayWidgets.Payment({
         background: rgba(0,0,0,0.8);
       }
     `
-  },
-  accept: [...]
+  }
 })
 ```
 
@@ -331,6 +326,7 @@ Allows you to set color values:
 
 ```javascript
 DePayWidgets.Payment({
+  
   style: {
     colors: {
       primary: '#ffd265',
@@ -338,8 +334,7 @@ DePayWidgets.Payment({
       buttonText: '#000000',
       icons: '#ffd265'
     }
-  },
-  // ...
+  }
 })
 ```
 
@@ -351,10 +346,10 @@ Allows you to set the font-family:
 
 ```javascript
 DePayWidgets.Payment({
+  
   style: {
     fontFamily: '"Cardo", serif !important'
-  },
-  // ...
+  }
 })
 ```
 
@@ -366,6 +361,7 @@ Allows you to inject CSS:
 
 ```javascript
 DePayWidgets.Payment({
+  
   style: {
     css: `
       @import url("https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap");
@@ -374,8 +370,288 @@ DePayWidgets.Payment({
         background: rgba(0,0,0,0.8);
       }
     `
+  }
+})
+```
+
+## DePay Sales
+
+DePay Sales allows you to sell tokens directly from your website or dApp with automatic any-to-any conversion.
+
+### Preparation
+
+In order to sell tokens in a decentralized way, that token needs to have a liquidity pool on a decentralized exchange:
+
+- [Create Uniswap v2 Liquidity Pool](https://app.uniswap.org/#/add/v2/ETH)
+- [Create Pancakeswap Liquidity Pool](https://pancakeswap.finance/add)
+
+### Quick start
+
+```
+<script src="https://depay.fi/integrate/widgets/v2.js"/>
+```
+
+```javascript
+DePayWidgets.Sale({
+  amount: {
+    start: 10,
+    min: 1,
+    step: 1
   },
-  // ...
+  token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+  blockchains: ['ethereum']
+);
+```
+
+### Configuration
+
+You need to pass a configuration object to `DePayWidgets.Sale` which needs to at least contain `amount.start`, `amount.min`, `amount.step`, `token` and `blockchains`:
+
+```javascript
+DePayWidgets.Sale({
+  amount: {
+    start: 10,
+    min: 1,
+    step: 1
+  },
+  token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+  blockchains: ['ethereum']
+);
+```
+
+You can also sell the same token on multiple blockchains:
+
+```javascript
+DePayWidgets.Sale({
+  amount: {
+    start: 10,
+    min: 1,
+    step: 1
+  },
+  token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+  blockchains: ['ethereum', 'bsc']
+);
+```
+
+#### amount
+
+The amount object contains the amount of preselected tokens when the widget opens (`start`),
+the minimum amount of tokens the user can select in the widget (`min`) and
+by which number the amount increments/decrements when changed by the user (`step`).
+
+#### token
+
+The address of the token you want to sell.
+
+#### sent
+
+`sent`
+
+A function that will be called once the payment has been sent to the network (but still needs to be mined/confirmed).
+
+The widget will call the `sent` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+
+```javascript
+DePayWidgets.Sale({
+  
+  sent: (transaction)=> {
+    // called when payment transaction has been sent to the network
+  }
+})
+```
+
+#### confirmed
+
+`confirmed`
+
+A function that will be called once the payment has been confirmed once by the network.
+
+The widget will call the `confirmed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+
+```javascript
+DePayWidgets.Sale({
+
+  confirmed: (transaction)=> {
+    // called when payment transaction has been confirmed once by the network
+  }
+})
+```
+
+#### ensured
+
+`ensured`
+
+A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
+
+The widget will call the `ensured` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+
+```javascript
+DePayWidgets.Sale({
+
+  ensured: (transaction)=> {
+    // called when payment transaction has been confirmed X times by the network
+  }
+})
+```
+
+#### failed
+
+`failed`
+
+A function that will be called if the payment execution failed on the blockchain (after it has been sent/submitted).
+
+The widget will call the `failed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+
+```javascript
+DePayWidgets.Sale({
+
+  failed: (transaction)=> {
+    // called when payment transaction failed on the blockchain
+    // handled by the widget, no need to display anything
+  }
+})
+```
+
+#### critical
+
+`critical`
+
+A function that will be called if the widget throws an critical internal error that it can't handle and display on it's own:
+
+```javascript
+DePayWidgets.Sale({
+  
+  critical: (error)=> {
+    // render and display the error with error.toString()
+  }
+})
+```
+
+#### error
+
+`error`
+
+A function that will be called if the widget throws an non-critical internal error that it can and will handle and display on it's own:
+
+```javascript
+DePayWidgets.Sale({
+  
+  error: (error)=> {
+    // maybe do some internal tracking with error.toString()
+    // no need to display anything as widget takes care of displaying the error
+  }
+})
+```
+
+#### providers
+
+Allows to set providers to be used for making RPC calls to the individiual blockchains:
+
+```javascript
+DePayWidgets.Sale({
+
+  providers: {
+    ethereum: ['http://localhost:8545'],
+    bsc: ['http://localhost:8545']
+  }
+})
+```
+
+#### currency
+
+Allows you to enforce displayed local currency (instead of automatically detecting it):
+
+```javascript
+
+DePayWidgets.Sale({
+
+  currency: 'USD'
+
+})
+
+```
+
+#### style
+
+`style`
+
+Allows you to change the style of the widget.
+
+```javascript
+DePayWidgets.Sale({
+  
+  style: {
+    colors: {
+      primary: '#ffd265',
+      text: '#e1b64a',
+      buttonText: '#000000',
+      icons: '#ffd265'
+    },
+    fontFamily: '"Cardo", serif !important',
+    css: `
+      @import url("https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap");
+
+      .ReactDialogBackground {
+        background: rgba(0,0,0,0.8);
+      }
+    `
+  }
+})
+```
+
+##### colors
+
+`colors`
+
+Allows you to set color values:
+
+```javascript
+DePayWidgets.Sale({
+  
+  style: {
+    colors: {
+      primary: '#ffd265',
+      text: '#ffd265',
+      buttonText: '#000000',
+      icons: '#ffd265'
+    }
+  }
+})
+```
+
+##### fontFamily
+
+`fontFamily`
+
+Allows you to set the font-family:
+
+```javascript
+DePayWidgets.Sale({
+  
+  style: {
+    fontFamily: '"Cardo", serif !important'
+  }
+})
+```
+
+##### css
+
+`css`
+
+Allows you to inject CSS:
+
+```javascript
+DePayWidgets.Sale({
+  
+  style: {
+    css: `
+      @import url("https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap");
+
+      .ReactDialogBackground {
+        background: rgba(0,0,0,0.8);
+      }
+    `
+  }
 })
 ```
 

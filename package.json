@@ -41,7 +41,7 @@
     "depay-web3-client": "^5.1.0",
     "depay-web3-constants": "^3.0.1",
     "depay-web3-exchanges": "^5.1.0",
-    "depay-web3-payments": "^5.3.1",
+    "depay-web3-payments": "^5.4.0",
     "depay-web3-tokens": "^4.1.0",
     "depay-web3-transaction": "^3.2.1",
     "depay-web3-wallets": "^5.1.1",
