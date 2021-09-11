@@ -16,7 +16,6 @@ describe('connect wallet', () => {
   beforeEach(resetMocks)
   beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
-  beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
 
   let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   let DAI = CONSTANTS[blockchain].USD
@@ -99,9 +98,14 @@ describe('connect wallet', () => {
       wallet: 'metamask'
     })
 
+    mock({ blockchain, accounts: { return: accounts, delay: 5000 } })
+
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, event: 'ifSwapped', document })
+        DePayWidgets.Payment({ ...defaultArguments, document })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Connect Wallet')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'This payment requires access to your wallet, please login and authorize access to your MetaMask account to continue.')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Connect')
       })
     })
   })

@@ -8,7 +8,7 @@ import { mock, resetMocks } from 'depay-web3-mock'
 import { provider, resetCache } from 'depay-web3-client'
 import { Token } from 'depay-web3-tokens'
 
-describe('Payment widget error', () => {
+describe('Sale widget error', () => {
   
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -17,26 +17,46 @@ describe('Payment widget error', () => {
   beforeEach(()=>fetchMock.restore())
   beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
 
+  afterEach(()=>{
+    cy.wait(500).then(()=>{
+      cy.get('body').then((body) => {
+        if (body.find('.ReactShadowDOMOutsideContainer').length > 0) {
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+        }
+        cy.wait(1000)
+      })
+    })
+  })
+
   let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   let DAI = CONSTANTS[blockchain].USD
   let ETH = CONSTANTS[blockchain].NATIVE
   let WETH = CONSTANTS[blockchain].WRAPPED
   let fromAddress = accounts[0]
-  let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  let toAddress = fromAddress
   let amount = 20
-  let TOKEN_A_AmountBN
   let defaultArguments = {
-    accept: [{
-      blockchain,
-      amount,
-      token: DEPAY,
-      receiver: toAddress
-    }]
+    amount: {
+      start: 20,
+      min: 1,
+      step: 1
+    },
+    token: DEPAY,
+    blockchains: [blockchain]
   }
+  let exchange
+  let WRAPPED_AmountInBN
+  let TOKEN_A_AmountBN
+  let TOKEN_B_AmountBN
 
   beforeEach(()=>{
-
-    ({ TOKEN_A_AmountBN } = mockBasics({
+    
+    ({ 
+      exchange,
+      TOKEN_A_AmountBN,
+      TOKEN_B_AmountBN,
+      WRAPPED_AmountInBN 
+    } = mockBasics({
       provider: provider(blockchain),
       blockchain,
 
@@ -78,6 +98,7 @@ describe('Payment widget error', () => {
       TOKEN_B_Symbol: 'DAI',
       TOKEN_B_Amount: 33,
       TOKEN_B_Balance: 50,
+      TOKEN_B_Allowance: CONSTANTS[blockchain].MAXINT,
 
       TOKEN_A_TOKEN_B_Pair: CONSTANTS[blockchain].ZERO,
       TOKEN_B_WRAPPED_Pair: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
@@ -107,7 +128,7 @@ describe('Payment widget error', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Payment({
+        DePayWidgets.Sale({
           document,
           critical: (error)=>{
             criticalError = error
@@ -115,7 +136,7 @@ describe('Payment widget error', () => {
           }
         })
         cy.wait(1000).then(()=>{
-          expect(criticalError.toString()).to.eq("TypeError: Cannot read property 'forEach' of undefined")
+          expect(criticalError.toString()).to.eq("You need to set the amount!")
           expect(criticalCalled).to.eq(true)
         })
       })
@@ -127,18 +148,13 @@ describe('Payment widget error', () => {
     let errorCalled
     let passedError
     
-    mock({ provider: provider(blockchain), blockchain, call: { to: DEPAY, api: Token[blockchain].DEFAULT, method: 'symbol', return: Error('something failed') } })
+    mock({ provider: provider(blockchain), blockchain, call: { to: DAI, api: Token[blockchain].DEFAULT, method: 'symbol', return: Error('something failed') } })
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Payment({
+        DePayWidgets.Sale({
           document,
-          accept: [{
-            blockchain: 'ethereum',
-            amount: 20,
-            token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-            receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-          }],
+          ...defaultArguments,
           error: (error)=> {
             errorCalled = true
             passedError = error

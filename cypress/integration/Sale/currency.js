@@ -10,7 +10,7 @@ import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
-describe('currency Payment widget', () => {
+describe('currency Sale widget', () => {
   
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -35,15 +35,16 @@ describe('currency Payment widget', () => {
   let ETH = CONSTANTS[blockchain].NATIVE
   let WETH = CONSTANTS[blockchain].WRAPPED
   let fromAddress = accounts[0]
-  let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  let toAddress = fromAddress
   let amount = 20
   let defaultArguments = {
-    accept: [{
-      blockchain,
-      amount,
-      token: DEPAY,
-      receiver: toAddress
-    }]
+    amount: {
+      start: 20,
+      min: 1,
+      step: 1
+    },
+    token: DEPAY,
+    blockchains: [blockchain]
   }
   let exchange
   let WRAPPED_AmountInBN
@@ -99,6 +100,7 @@ describe('currency Payment widget', () => {
       TOKEN_B_Symbol: 'DAI',
       TOKEN_B_Amount: 33,
       TOKEN_B_Balance: 50,
+      TOKEN_B_Allowance: CONSTANTS[blockchain].MAXINT,
 
       TOKEN_A_TOKEN_B_Pair: CONSTANTS[blockchain].ZERO,
       TOKEN_B_WRAPPED_Pair: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
@@ -126,11 +128,11 @@ describe('currency Payment widget', () => {
     it('enforces displayed currency ', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
-          DePayWidgets.Payment({ ...defaultArguments, currency: 'USD', document })
+          DePayWidgets.Sale({ ...defaultArguments, currency: 'USD', document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '$33.00')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay $33.00')
         })
       })
     })
-  })
+  })  
 })

@@ -53,7 +53,6 @@ export default (props)=>{
     })
   }
   const pay = ()=> {
-    console.log(payment.route)
     setClosable(false)
     setState('paying')
     setUpdate(false)
@@ -173,7 +172,7 @@ export default (props)=>{
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
           <div 
             className={["Card", (state == 'overview' ? '' : 'disabled')].join(' ')}
-            title={state == 'overview' ? "Change payment" : undefined}
+            title={state == 'overview' ? "Change amount" : undefined}
             onClick={ ()=>{
               if(state != 'overview') { return }
               navigate('ChangeAmount')
