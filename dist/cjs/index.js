@@ -2355,9 +2355,9 @@ var PaymentValueProvider = (function (props) {
 
     Promise.all([depayWeb3Exchanges.route({
       blockchain: payment.route.blockchain,
-      tokenIn: payment.route.toToken.address,
+      tokenIn: payment.route.fromToken.address,
       tokenOut: depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD,
-      amountIn: payment.route.toAmount,
+      amountIn: payment.route.fromAmount,
       fromAddress: account,
       toAddress: account
     }), new depayWeb3Tokens.Token({
@@ -2371,16 +2371,19 @@ var PaymentValueProvider = (function (props) {
       var USDRoute = USDExchangeRoutes[0];
       var USDAmount;
 
-      if (payment.route.toToken.address.toLowerCase() == depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
-        USDAmount = payment.route.toAmount.toString();
+      if (payment.route.fromToken.address.toLowerCase() == depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+        USDAmount = payment.route.fromAmount.toString();
+        console.log('USD TOKEN', USDAmount);
       } else if (USDRoute == undefined) {
         setPaymentValue('');
         return;
       } else {
         USDAmount = USDRoute.amountOut.toString();
+        console.log('CONVERTED USD AMOUNT', USDAmount);
       }
 
       var USDValue = ethers$1.ethers.utils.formatUnits(USDAmount, USDDecimals);
+      console.log('USDValue', USDValue);
       depayLocalCurrency.Currency.fromUSD({
         amount: USDValue,
         code: currency,

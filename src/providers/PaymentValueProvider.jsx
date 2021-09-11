@@ -26,9 +26,9 @@ export default (props)=>{
     Promise.all([
       route({
         blockchain: payment.route.blockchain,
-        tokenIn: payment.route.toToken.address,
+        tokenIn: payment.route.fromToken.address,
         tokenOut: CONSTANTS[payment.route.blockchain].USD,
-        amountIn: payment.route.toAmount,
+        amountIn: payment.route.fromAmount,
         fromAddress: account,
         toAddress: account
       }),
@@ -37,16 +37,19 @@ export default (props)=>{
       let USDRoute = USDExchangeRoutes[0]
 
       let USDAmount
-      if(payment.route.toToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
-        USDAmount = payment.route.toAmount.toString()
+      if(payment.route.fromToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+        USDAmount = payment.route.fromAmount.toString()
+        console.log('USD TOKEN', USDAmount)
       } else if (USDRoute == undefined) {
         setPaymentValue('')
         return
       } else {
         USDAmount = USDRoute.amountOut.toString()
+        console.log('CONVERTED USD AMOUNT', USDAmount)
       }
 
       let USDValue = ethers.utils.formatUnits(USDAmount, USDDecimals)
+      console.log('USDValue', USDValue)
       Currency.fromUSD({ amount: USDValue, code: currency, apiKey })
         .then(setPaymentValue)
         .catch(setError)

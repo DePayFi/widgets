@@ -2,13 +2,11 @@
 
 var require$$0 = require('buffer');
 var require$$0$1 = require('util');
-var Slider = require('react-rangeslider');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var require$$0__default = /*#__PURE__*/_interopDefaultLegacy(require$$0);
 var require$$0__default$1 = /*#__PURE__*/_interopDefaultLegacy(require$$0$1);
-var Slider__default = /*#__PURE__*/_interopDefaultLegacy(Slider);
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
@@ -1481,7 +1479,7 @@ function _assertThisInitialized(self) {
   return self;
 }
 
-function _inherits(subClass, superClass) {
+function _inherits$1(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
   }
@@ -1496,7 +1494,7 @@ function _inherits(subClass, superClass) {
   if (superClass) _setPrototypeOf(subClass, superClass);
 }
 
-function _possibleConstructorReturn(self, call) {
+function _possibleConstructorReturn$1(self, call) {
   if (call && (_typeof(call) === "object" || typeof call === "function")) {
     return call;
   } else if (call !== void 0) {
@@ -1506,7 +1504,7 @@ function _possibleConstructorReturn(self, call) {
   return _assertThisInitialized(self);
 }
 
-function _classCallCheck(instance, Constructor) {
+function _classCallCheck$1(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
@@ -1522,7 +1520,7 @@ function _defineProperties(target, props) {
   }
 }
 
-function _createClass(Constructor, protoProps, staticProps) {
+function _createClass$1(Constructor, protoProps, staticProps) {
   if (protoProps) _defineProperties(Constructor.prototype, protoProps);
   if (staticProps) _defineProperties(Constructor, staticProps);
   return Constructor;
@@ -5225,7 +5223,7 @@ var ErrorCode$2;
 var HEX$2 = "0123456789abcdef";
 var Logger$2 = /*#__PURE__*/function () {
   function Logger(version) {
-    _classCallCheck(this, Logger);
+    _classCallCheck$1(this, Logger);
 
     Object.defineProperty(this, "version", {
       enumerable: true,
@@ -5234,7 +5232,7 @@ var Logger$2 = /*#__PURE__*/function () {
     });
   }
 
-  _createClass(Logger, [{
+  _createClass$1(Logger, [{
     key: "_log",
     value: function _log(logLevel, args) {
       var level = logLevel.toLowerCase();
@@ -5964,7 +5962,7 @@ function isBigNumberish(value) {
 var _warnedToStringRadix$2 = false;
 var BigNumber$2 = /*#__PURE__*/function () {
   function BigNumber(constructorGuard, hex) {
-    _classCallCheck(this, BigNumber);
+    _classCallCheck$1(this, BigNumber);
 
     logger$G.checkNew(this instanceof BigNumber ? this.constructor : void 0, BigNumber);
 
@@ -5979,7 +5977,7 @@ var BigNumber$2 = /*#__PURE__*/function () {
     Object.freeze(this);
   }
 
-  _createClass(BigNumber, [{
+  _createClass$1(BigNumber, [{
     key: "fromTwos",
     value: function fromTwos(value) {
       return toBigNumber$2(toBN$2(this).fromTwos(value));
@@ -6496,7 +6494,7 @@ function parseFixed(value, decimals) {
 }
 var FixedFormat = /*#__PURE__*/function () {
   function FixedFormat(constructorGuard, signed, width, decimals) {
-    _classCallCheck(this, FixedFormat);
+    _classCallCheck$1(this, FixedFormat);
 
     if (constructorGuard !== _constructorGuard$5) {
       logger$F.throwError("cannot use FixedFormat constructor; use FixedFormat.from", Logger$2.errors.UNSUPPORTED_OPERATION, {
@@ -6512,7 +6510,7 @@ var FixedFormat = /*#__PURE__*/function () {
     Object.freeze(this);
   }
 
-  _createClass(FixedFormat, null, [{
+  _createClass$1(FixedFormat, null, [{
     key: "from",
     value: function from(value) {
       if (value instanceof FixedFormat) {
@@ -6575,7 +6573,7 @@ var FixedFormat = /*#__PURE__*/function () {
 }();
 var FixedNumber = /*#__PURE__*/function () {
   function FixedNumber(constructorGuard, hex, value, format) {
-    _classCallCheck(this, FixedNumber);
+    _classCallCheck$1(this, FixedNumber);
 
     logger$F.checkNew(this instanceof FixedNumber ? this.constructor : void 0, FixedNumber);
 
@@ -6592,7 +6590,7 @@ var FixedNumber = /*#__PURE__*/function () {
     Object.freeze(this);
   }
 
-  _createClass(FixedNumber, [{
+  _createClass$1(FixedNumber, [{
     key: "_checkFormat",
     value: function _checkFormat(other) {
       if (this.format.name !== other.format.name) {
@@ -7030,7 +7028,7 @@ function deepCopy$1(object) {
   return _deepCopy$1(object);
 }
 var Description$1 = function Description(info) {
-  _classCallCheck(this, Description);
+  _classCallCheck$1(this, Description);
 
   for (var key in info) {
     this[key] = deepCopy$1(info[key]);
@@ -7039,7 +7037,7 @@ var Description$1 = function Description(info) {
 
 var version$v = "abi/5.4.1";
 
-function _createSuper$m(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$m(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$m(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$m(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$m() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 var logger$D = new Logger$2(version$v);
@@ -7302,7 +7300,7 @@ var FormatTypes = Object.freeze({
 var paramTypeArray = new RegExp(/^(.*)\[([0-9]*)\]$/);
 var ParamType = /*#__PURE__*/function () {
   function ParamType(constructorGuard, params) {
-    _classCallCheck(this, ParamType);
+    _classCallCheck$1(this, ParamType);
 
     if (constructorGuard !== _constructorGuard$4) {
       logger$D.throwError("use fromString", Logger$2.errors.UNSUPPORTED_OPERATION, {
@@ -7338,7 +7336,7 @@ var ParamType = /*#__PURE__*/function () {
   //   - full:    "tuple(uint256 foo, addres bar) indexed baz"
 
 
-  _createClass(ParamType, [{
+  _createClass$1(ParamType, [{
     key: "format",
     value: function format(_format) {
       if (!_format) {
@@ -7452,9 +7450,9 @@ function parseParams(value, allowIndex) {
   });
 }
 
-var Fragment = /*#__PURE__*/function () {
+var Fragment$1 = /*#__PURE__*/function () {
   function Fragment(constructorGuard, params) {
-    _classCallCheck(this, Fragment);
+    _classCallCheck$1(this, Fragment);
 
     if (constructorGuard !== _constructorGuard$4) {
       logger$D.throwError("use a static from method", Logger$2.errors.UNSUPPORTED_OPERATION, {
@@ -7467,7 +7465,7 @@ var Fragment = /*#__PURE__*/function () {
     Object.freeze(this);
   }
 
-  _createClass(Fragment, null, [{
+  _createClass$1(Fragment, null, [{
     key: "from",
     value: function from(value) {
       if (Fragment.isFragment(value)) {
@@ -7538,17 +7536,17 @@ var Fragment = /*#__PURE__*/function () {
   return Fragment;
 }();
 var EventFragment = /*#__PURE__*/function (_Fragment) {
-  _inherits(EventFragment, _Fragment);
+  _inherits$1(EventFragment, _Fragment);
 
   var _super = _createSuper$m(EventFragment);
 
   function EventFragment() {
-    _classCallCheck(this, EventFragment);
+    _classCallCheck$1(this, EventFragment);
 
     return _super.apply(this, arguments);
   }
 
-  _createClass(EventFragment, [{
+  _createClass$1(EventFragment, [{
     key: "format",
     value: function format(_format2) {
       if (!_format2) {
@@ -7654,7 +7652,7 @@ var EventFragment = /*#__PURE__*/function (_Fragment) {
   }]);
 
   return EventFragment;
-}(Fragment);
+}(Fragment$1);
 
 function parseGas(value, params) {
   params.gas = null;
@@ -7773,17 +7771,17 @@ function verifyState(value) {
 }
 
 var ConstructorFragment = /*#__PURE__*/function (_Fragment2) {
-  _inherits(ConstructorFragment, _Fragment2);
+  _inherits$1(ConstructorFragment, _Fragment2);
 
   var _super2 = _createSuper$m(ConstructorFragment);
 
   function ConstructorFragment() {
-    _classCallCheck(this, ConstructorFragment);
+    _classCallCheck$1(this, ConstructorFragment);
 
     return _super2.apply(this, arguments);
   }
 
-  _createClass(ConstructorFragment, [{
+  _createClass$1(ConstructorFragment, [{
     key: "format",
     value: function format(_format3) {
       if (!_format3) {
@@ -7883,19 +7881,19 @@ var ConstructorFragment = /*#__PURE__*/function (_Fragment2) {
   }]);
 
   return ConstructorFragment;
-}(Fragment);
+}(Fragment$1);
 var FunctionFragment = /*#__PURE__*/function (_ConstructorFragment) {
-  _inherits(FunctionFragment, _ConstructorFragment);
+  _inherits$1(FunctionFragment, _ConstructorFragment);
 
   var _super3 = _createSuper$m(FunctionFragment);
 
   function FunctionFragment() {
-    _classCallCheck(this, FunctionFragment);
+    _classCallCheck$1(this, FunctionFragment);
 
     return _super3.apply(this, arguments);
   }
 
-  _createClass(FunctionFragment, [{
+  _createClass$1(FunctionFragment, [{
     key: "format",
     value: function format(_format4) {
       if (!_format4) {
@@ -8052,17 +8050,17 @@ function checkForbidden(fragment) {
 }
 
 var ErrorFragment = /*#__PURE__*/function (_Fragment3) {
-  _inherits(ErrorFragment, _Fragment3);
+  _inherits$1(ErrorFragment, _Fragment3);
 
   var _super4 = _createSuper$m(ErrorFragment);
 
   function ErrorFragment() {
-    _classCallCheck(this, ErrorFragment);
+    _classCallCheck$1(this, ErrorFragment);
 
     return _super4.apply(this, arguments);
   }
 
-  _createClass(ErrorFragment, [{
+  _createClass$1(ErrorFragment, [{
     key: "format",
     value: function format(_format5) {
       if (!_format5) {
@@ -8150,7 +8148,7 @@ var ErrorFragment = /*#__PURE__*/function (_Fragment3) {
   }]);
 
   return ErrorFragment;
-}(Fragment);
+}(Fragment$1);
 
 function verifyType(type) {
   // These need to be transformed to their full description
@@ -8241,7 +8239,7 @@ function checkResultErrors(result) {
 }
 var Coder = /*#__PURE__*/function () {
   function Coder(name, type, localName, dynamic) {
-    _classCallCheck(this, Coder);
+    _classCallCheck$1(this, Coder);
 
     // @TODO: defineReadOnly these
     this.name = name;
@@ -8250,7 +8248,7 @@ var Coder = /*#__PURE__*/function () {
     this.dynamic = dynamic;
   }
 
-  _createClass(Coder, [{
+  _createClass$1(Coder, [{
     key: "_throwError",
     value: function _throwError(message, value) {
       logger$C.throwArgumentError(message, this.localName, value);
@@ -8261,7 +8259,7 @@ var Coder = /*#__PURE__*/function () {
 }();
 var Writer = /*#__PURE__*/function () {
   function Writer(wordSize) {
-    _classCallCheck(this, Writer);
+    _classCallCheck$1(this, Writer);
 
     defineReadOnly$1(this, "wordSize", wordSize || 32);
     this._data = [];
@@ -8269,7 +8267,7 @@ var Writer = /*#__PURE__*/function () {
     this._padding = new Uint8Array(wordSize);
   }
 
-  _createClass(Writer, [{
+  _createClass$1(Writer, [{
     key: "data",
     get: function get() {
       return hexConcat$1(this._data);
@@ -8349,7 +8347,7 @@ var Writer = /*#__PURE__*/function () {
 }();
 var Reader = /*#__PURE__*/function () {
   function Reader(data, wordSize, coerceFunc, allowLoose) {
-    _classCallCheck(this, Reader);
+    _classCallCheck$1(this, Reader);
 
     defineReadOnly$1(this, "_data", arrayify$1(data));
     defineReadOnly$1(this, "wordSize", wordSize || 32);
@@ -8358,7 +8356,7 @@ var Reader = /*#__PURE__*/function () {
     this._offset = 0;
   }
 
-  _createClass(Reader, [{
+  _createClass$1(Reader, [{
     key: "data",
     get: function get() {
       return hexlify$2(this._data);
@@ -9266,21 +9264,21 @@ function getContractAddress$1(transaction) {
   return getAddress$1(hexDataSlice$1(keccak256$1(encode$5([from, nonce])), 12));
 }
 
-function _createSuper$l(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$l(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$l(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$l(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$l() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 var AddressCoder = /*#__PURE__*/function (_Coder) {
-  _inherits(AddressCoder, _Coder);
+  _inherits$1(AddressCoder, _Coder);
 
   var _super = _createSuper$l(AddressCoder);
 
   function AddressCoder(localName) {
-    _classCallCheck(this, AddressCoder);
+    _classCallCheck$1(this, AddressCoder);
 
     return _super.call(this, "address", "address", localName, false);
   }
 
-  _createClass(AddressCoder, [{
+  _createClass$1(AddressCoder, [{
     key: "defaultValue",
     value: function defaultValue() {
       return "0x0000000000000000000000000000000000000000";
@@ -9306,26 +9304,26 @@ var AddressCoder = /*#__PURE__*/function (_Coder) {
   return AddressCoder;
 }(Coder);
 
-function _createSuper$k(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$k(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$k(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$k(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$k() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 var AnonymousCoder = /*#__PURE__*/function (_Coder) {
-  _inherits(AnonymousCoder, _Coder);
+  _inherits$1(AnonymousCoder, _Coder);
 
   var _super = _createSuper$k(AnonymousCoder);
 
   function AnonymousCoder(coder) {
     var _this;
 
-    _classCallCheck(this, AnonymousCoder);
+    _classCallCheck$1(this, AnonymousCoder);
 
     _this = _super.call(this, coder.name, coder.type, undefined, coder.dynamic);
     _this.coder = coder;
     return _this;
   }
 
-  _createClass(AnonymousCoder, [{
+  _createClass$1(AnonymousCoder, [{
     key: "defaultValue",
     value: function defaultValue() {
       return this.coder.defaultValue();
@@ -9345,7 +9343,7 @@ var AnonymousCoder = /*#__PURE__*/function (_Coder) {
   return AnonymousCoder;
 }(Coder);
 
-function _createSuper$j(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$j(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$j(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$j(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$j() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 var logger$z = new Logger$2(version$v);
@@ -9522,14 +9520,14 @@ function unpack(reader, coders) {
   return Object.freeze(values);
 }
 var ArrayCoder = /*#__PURE__*/function (_Coder) {
-  _inherits(ArrayCoder, _Coder);
+  _inherits$1(ArrayCoder, _Coder);
 
   var _super = _createSuper$j(ArrayCoder);
 
   function ArrayCoder(coder, length, localName) {
     var _this;
 
-    _classCallCheck(this, ArrayCoder);
+    _classCallCheck$1(this, ArrayCoder);
 
     var type = coder.type + "[" + (length >= 0 ? length : "") + "]";
     var dynamic = length === -1 || coder.dynamic;
@@ -9539,7 +9537,7 @@ var ArrayCoder = /*#__PURE__*/function (_Coder) {
     return _this;
   }
 
-  _createClass(ArrayCoder, [{
+  _createClass$1(ArrayCoder, [{
     key: "defaultValue",
     value: function defaultValue() {
       // Verifies the child coder is valid (even if the array is dynamic or 0-length)
@@ -9608,21 +9606,21 @@ var ArrayCoder = /*#__PURE__*/function (_Coder) {
   return ArrayCoder;
 }(Coder);
 
-function _createSuper$i(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$i(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$i(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$i(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$i() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 var BooleanCoder = /*#__PURE__*/function (_Coder) {
-  _inherits(BooleanCoder, _Coder);
+  _inherits$1(BooleanCoder, _Coder);
 
   var _super = _createSuper$i(BooleanCoder);
 
   function BooleanCoder(localName) {
-    _classCallCheck(this, BooleanCoder);
+    _classCallCheck$1(this, BooleanCoder);
 
     return _super.call(this, "bool", "bool", localName, false);
   }
 
-  _createClass(BooleanCoder, [{
+  _createClass$1(BooleanCoder, [{
     key: "defaultValue",
     value: function defaultValue() {
       return false;
@@ -9642,21 +9640,21 @@ var BooleanCoder = /*#__PURE__*/function (_Coder) {
   return BooleanCoder;
 }(Coder);
 
-function _createSuper$h(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$h(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$h(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$h(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$h() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 var DynamicBytesCoder = /*#__PURE__*/function (_Coder) {
-  _inherits(DynamicBytesCoder, _Coder);
+  _inherits$1(DynamicBytesCoder, _Coder);
 
   var _super = _createSuper$h(DynamicBytesCoder);
 
   function DynamicBytesCoder(type, localName) {
-    _classCallCheck(this, DynamicBytesCoder);
+    _classCallCheck$1(this, DynamicBytesCoder);
 
     return _super.call(this, type, type, localName, true);
   }
 
-  _createClass(DynamicBytesCoder, [{
+  _createClass$1(DynamicBytesCoder, [{
     key: "defaultValue",
     value: function defaultValue() {
       return "0x";
@@ -9679,17 +9677,17 @@ var DynamicBytesCoder = /*#__PURE__*/function (_Coder) {
   return DynamicBytesCoder;
 }(Coder);
 var BytesCoder = /*#__PURE__*/function (_DynamicBytesCoder) {
-  _inherits(BytesCoder, _DynamicBytesCoder);
+  _inherits$1(BytesCoder, _DynamicBytesCoder);
 
   var _super2 = _createSuper$h(BytesCoder);
 
   function BytesCoder(localName) {
-    _classCallCheck(this, BytesCoder);
+    _classCallCheck$1(this, BytesCoder);
 
     return _super2.call(this, "bytes", localName);
   }
 
-  _createClass(BytesCoder, [{
+  _createClass$1(BytesCoder, [{
     key: "decode",
     value: function decode(reader) {
       return reader.coerce(this.name, hexlify$2(_get(_getPrototypeOf(BytesCoder.prototype), "decode", this).call(this, reader)));
@@ -9699,19 +9697,19 @@ var BytesCoder = /*#__PURE__*/function (_DynamicBytesCoder) {
   return BytesCoder;
 }(DynamicBytesCoder);
 
-function _createSuper$g(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$g(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$g(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$g(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$g() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 var FixedBytesCoder = /*#__PURE__*/function (_Coder) {
-  _inherits(FixedBytesCoder, _Coder);
+  _inherits$1(FixedBytesCoder, _Coder);
 
   var _super = _createSuper$g(FixedBytesCoder);
 
   function FixedBytesCoder(size, localName) {
     var _this;
 
-    _classCallCheck(this, FixedBytesCoder);
+    _classCallCheck$1(this, FixedBytesCoder);
 
     var name = "bytes" + String(size);
     _this = _super.call(this, name, name, localName, false);
@@ -9719,7 +9717,7 @@ var FixedBytesCoder = /*#__PURE__*/function (_Coder) {
     return _this;
   }
 
-  _createClass(FixedBytesCoder, [{
+  _createClass$1(FixedBytesCoder, [{
     key: "defaultValue",
     value: function defaultValue() {
       return "0x0000000000000000000000000000000000000000000000000000000000000000".substring(0, 2 + this.size * 2);
@@ -9745,21 +9743,21 @@ var FixedBytesCoder = /*#__PURE__*/function (_Coder) {
   return FixedBytesCoder;
 }(Coder);
 
-function _createSuper$f(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$f(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$f(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$f(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$f() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 var NullCoder = /*#__PURE__*/function (_Coder) {
-  _inherits(NullCoder, _Coder);
+  _inherits$1(NullCoder, _Coder);
 
   var _super = _createSuper$f(NullCoder);
 
   function NullCoder(localName) {
-    _classCallCheck(this, NullCoder);
+    _classCallCheck$1(this, NullCoder);
 
     return _super.call(this, "null", "", localName, false);
   }
 
-  _createClass(NullCoder, [{
+  _createClass$1(NullCoder, [{
     key: "defaultValue",
     value: function defaultValue() {
       return null;
@@ -9793,18 +9791,18 @@ var MaxUint256$2 = /*#__PURE__*/BigNumber$2.from("0xffffffffffffffffffffffffffff
 
 var HashZero$1 = "0x0000000000000000000000000000000000000000000000000000000000000000";
 
-function _createSuper$e(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$e(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$e(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$e(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$e() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 var NumberCoder = /*#__PURE__*/function (_Coder) {
-  _inherits(NumberCoder, _Coder);
+  _inherits$1(NumberCoder, _Coder);
 
   var _super = _createSuper$e(NumberCoder);
 
   function NumberCoder(size, signed, localName) {
     var _this;
 
-    _classCallCheck(this, NumberCoder);
+    _classCallCheck$1(this, NumberCoder);
 
     var name = (signed ? "int" : "uint") + size * 8;
     _this = _super.call(this, name, name, localName, false);
@@ -9813,7 +9811,7 @@ var NumberCoder = /*#__PURE__*/function (_Coder) {
     return _this;
   }
 
-  _createClass(NumberCoder, [{
+  _createClass$1(NumberCoder, [{
     key: "defaultValue",
     value: function defaultValue() {
       return 0;
@@ -10480,21 +10478,21 @@ function nameprep$1(value) {
   return name;
 }
 
-function _createSuper$d(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$d(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$d(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$d(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$d() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 var StringCoder = /*#__PURE__*/function (_DynamicBytesCoder) {
-  _inherits(StringCoder, _DynamicBytesCoder);
+  _inherits$1(StringCoder, _DynamicBytesCoder);
 
   var _super = _createSuper$d(StringCoder);
 
   function StringCoder(localName) {
-    _classCallCheck(this, StringCoder);
+    _classCallCheck$1(this, StringCoder);
 
     return _super.call(this, "string", localName);
   }
 
-  _createClass(StringCoder, [{
+  _createClass$1(StringCoder, [{
     key: "defaultValue",
     value: function defaultValue() {
       return "";
@@ -10514,18 +10512,18 @@ var StringCoder = /*#__PURE__*/function (_DynamicBytesCoder) {
   return StringCoder;
 }(DynamicBytesCoder);
 
-function _createSuper$c(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$c(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$c(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$c(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$c() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 var TupleCoder = /*#__PURE__*/function (_Coder) {
-  _inherits(TupleCoder, _Coder);
+  _inherits$1(TupleCoder, _Coder);
 
   var _super = _createSuper$c(TupleCoder);
 
   function TupleCoder(coders, localName) {
     var _this;
 
-    _classCallCheck(this, TupleCoder);
+    _classCallCheck$1(this, TupleCoder);
 
     var dynamic = false;
     var types = [];
@@ -10542,7 +10540,7 @@ var TupleCoder = /*#__PURE__*/function (_Coder) {
     return _this;
   }
 
-  _createClass(TupleCoder, [{
+  _createClass$1(TupleCoder, [{
     key: "defaultValue",
     value: function defaultValue() {
       var values = [];
@@ -10603,13 +10601,13 @@ var paramTypeBytes = new RegExp(/^bytes([0-9]*)$/);
 var paramTypeNumber = new RegExp(/^(u?int)([0-9]*)$/);
 var AbiCoder = /*#__PURE__*/function () {
   function AbiCoder(coerceFunc) {
-    _classCallCheck(this, AbiCoder);
+    _classCallCheck$1(this, AbiCoder);
 
     logger$x.checkNew(this instanceof AbiCoder ? this.constructor : void 0, AbiCoder);
     defineReadOnly$1(this, "coerceFunc", coerceFunc || null);
   }
 
-  _createClass(AbiCoder, [{
+  _createClass$1(AbiCoder, [{
     key: "_getCoder",
     value: function _getCoder(param) {
       var _this = this;
@@ -10959,7 +10957,7 @@ function encodeType$1(name, fields) {
 
 var TypedDataEncoder$1 = /*#__PURE__*/function () {
   function TypedDataEncoder(types) {
-    _classCallCheck(this, TypedDataEncoder);
+    _classCallCheck$1(this, TypedDataEncoder);
 
     defineReadOnly$1(this, "types", Object.freeze(deepCopy$1(types)));
     defineReadOnly$1(this, "_encoderCache", {});
@@ -11060,7 +11058,7 @@ var TypedDataEncoder$1 = /*#__PURE__*/function () {
     }
   }
 
-  _createClass(TypedDataEncoder, [{
+  _createClass$1(TypedDataEncoder, [{
     key: "getEncoder",
     value: function getEncoder(type) {
       var encoder = this._encoderCache[type];
@@ -11405,17 +11403,17 @@ var TypedDataEncoder$1 = /*#__PURE__*/function () {
   return TypedDataEncoder;
 }();
 
-function _createSuper$b(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$b(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$b(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$b(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$b() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 var logger$u = new Logger$2(version$v);
 var LogDescription = /*#__PURE__*/function (_Description) {
-  _inherits(LogDescription, _Description);
+  _inherits$1(LogDescription, _Description);
 
   var _super = _createSuper$b(LogDescription);
 
   function LogDescription() {
-    _classCallCheck(this, LogDescription);
+    _classCallCheck$1(this, LogDescription);
 
     return _super.apply(this, arguments);
   }
@@ -11423,12 +11421,12 @@ var LogDescription = /*#__PURE__*/function (_Description) {
   return LogDescription;
 }(Description$1);
 var TransactionDescription = /*#__PURE__*/function (_Description2) {
-  _inherits(TransactionDescription, _Description2);
+  _inherits$1(TransactionDescription, _Description2);
 
   var _super2 = _createSuper$b(TransactionDescription);
 
   function TransactionDescription() {
-    _classCallCheck(this, TransactionDescription);
+    _classCallCheck$1(this, TransactionDescription);
 
     return _super2.apply(this, arguments);
   }
@@ -11436,12 +11434,12 @@ var TransactionDescription = /*#__PURE__*/function (_Description2) {
   return TransactionDescription;
 }(Description$1);
 var ErrorDescription = /*#__PURE__*/function (_Description3) {
-  _inherits(ErrorDescription, _Description3);
+  _inherits$1(ErrorDescription, _Description3);
 
   var _super3 = _createSuper$b(ErrorDescription);
 
   function ErrorDescription() {
-    _classCallCheck(this, ErrorDescription);
+    _classCallCheck$1(this, ErrorDescription);
 
     return _super3.apply(this, arguments);
   }
@@ -11449,17 +11447,17 @@ var ErrorDescription = /*#__PURE__*/function (_Description3) {
   return ErrorDescription;
 }(Description$1);
 var Indexed = /*#__PURE__*/function (_Description4) {
-  _inherits(Indexed, _Description4);
+  _inherits$1(Indexed, _Description4);
 
   var _super4 = _createSuper$b(Indexed);
 
   function Indexed() {
-    _classCallCheck(this, Indexed);
+    _classCallCheck$1(this, Indexed);
 
     return _super4.apply(this, arguments);
   }
 
-  _createClass(Indexed, null, [{
+  _createClass$1(Indexed, null, [{
     key: "isIndexed",
     value: function isIndexed(value) {
       return !!(value && value._isIndexed);
@@ -11506,7 +11504,7 @@ var Interface = /*#__PURE__*/function () {
   function Interface(fragments) {
     var _this = this;
 
-    _classCallCheck(this, Interface);
+    _classCallCheck$1(this, Interface);
 
     logger$u.checkNew(this instanceof Interface ? this.constructor : void 0, Interface);
     var abi = [];
@@ -11518,7 +11516,7 @@ var Interface = /*#__PURE__*/function () {
     }
 
     defineReadOnly$1(this, "fragments", abi.map(function (fragment) {
-      return Fragment.from(fragment);
+      return Fragment$1.from(fragment);
     }).filter(function (fragment) {
       return fragment != null;
     }));
@@ -11581,7 +11579,7 @@ var Interface = /*#__PURE__*/function () {
     defineReadOnly$1(this, "_isInterface", true);
   }
 
-  _createClass(Interface, [{
+  _createClass$1(Interface, [{
     key: "format",
     value: function format(_format) {
       if (!_format) {
@@ -12229,7 +12227,7 @@ var Interface = /*#__PURE__*/function () {
 
 var version$q = "abstract-provider/5.4.1";
 
-function _createSuper$a(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$a(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$a(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$a(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$a() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
@@ -12269,17 +12267,17 @@ var logger$t = new Logger$2(version$q);
 //};
 
 var ForkEvent$1 = /*#__PURE__*/function (_Description) {
-  _inherits(ForkEvent, _Description);
+  _inherits$1(ForkEvent, _Description);
 
   var _super = _createSuper$a(ForkEvent);
 
   function ForkEvent() {
-    _classCallCheck(this, ForkEvent);
+    _classCallCheck$1(this, ForkEvent);
 
     return _super.apply(this, arguments);
   }
 
-  _createClass(ForkEvent, null, [{
+  _createClass$1(ForkEvent, null, [{
     key: "isForkEvent",
     value: function isForkEvent(value) {
       return !!(value && value._isForkEvent);
@@ -12292,13 +12290,13 @@ var ForkEvent$1 = /*#__PURE__*/function (_Description) {
 
 var Provider$1 = /*#__PURE__*/function () {
   function Provider() {
-    _classCallCheck(this, Provider);
+    _classCallCheck$1(this, Provider);
 
     logger$t.checkAbstract(this instanceof Provider ? this.constructor : void 0, Provider);
     defineReadOnly$1(this, "_isProvider", true);
   }
 
-  _createClass(Provider, [{
+  _createClass$1(Provider, [{
     key: "getFeeData",
     value: function getFeeData() {
       return __awaiter$e(this, void 0, void 0, /*#__PURE__*/regenerator.mark(function _callee() {
@@ -12370,7 +12368,7 @@ var Provider$1 = /*#__PURE__*/function () {
 
 var version$p = "abstract-signer/5.4.1";
 
-function _createSuper$9(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$9(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$9(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$9(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$9() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
@@ -12412,7 +12410,7 @@ var Signer$1 = /*#__PURE__*/function () {
   ///////////////////
   // Sub-classes MUST call super
   function Signer() {
-    _classCallCheck(this, Signer);
+    _classCallCheck$1(this, Signer);
 
     logger$s.checkAbstract(this instanceof Signer ? this.constructor : void 0, Signer);
     defineReadOnly$1(this, "_isSigner", true);
@@ -12420,7 +12418,7 @@ var Signer$1 = /*#__PURE__*/function () {
   // Sub-classes MAY override these
 
 
-  _createClass(Signer, [{
+  _createClass$1(Signer, [{
     key: "getBalance",
     value: function getBalance(blockTag) {
       return __awaiter$d(this, void 0, void 0, /*#__PURE__*/regenerator.mark(function _callee() {
@@ -12927,14 +12925,14 @@ var Signer$1 = /*#__PURE__*/function () {
   return Signer;
 }();
 var VoidSigner = /*#__PURE__*/function (_Signer) {
-  _inherits(VoidSigner, _Signer);
+  _inherits$1(VoidSigner, _Signer);
 
   var _super = _createSuper$9(VoidSigner);
 
   function VoidSigner(address, provider) {
     var _this2;
 
-    _classCallCheck(this, VoidSigner);
+    _classCallCheck$1(this, VoidSigner);
 
     logger$s.checkNew(this instanceof VoidSigner ? this.constructor : void 0, VoidSigner);
     _this2 = _super.call(this);
@@ -12943,7 +12941,7 @@ var VoidSigner = /*#__PURE__*/function (_Signer) {
     return _this2;
   }
 
-  _createClass(VoidSigner, [{
+  _createClass$1(VoidSigner, [{
     key: "getAddress",
     value: function getAddress() {
       return Promise.resolve(this.address);
@@ -13322,7 +13320,7 @@ function shr64_lo$3(ah, al, num) {
 }
 
 var shr64_lo_1$1 = shr64_lo$3;
-var utils$1 = {
+var utils$2 = {
   inherits: inherits_1$1,
   toArray: toArray_1$1,
   toHex: toHex_1$1,
@@ -13367,7 +13365,7 @@ var BlockHash_1$1 = BlockHash$9;
 
 BlockHash$9.prototype.update = function update(msg, enc) {
   // Convert message to array, pad it, and join into 32bit blocks
-  msg = utils$1.toArray(msg, enc);
+  msg = utils$2.toArray(msg, enc);
   if (!this.pending) this.pending = msg;else this.pending = this.pending.concat(msg);
   this.pendingTotal += msg.length; // Enough data, try updating
 
@@ -13377,7 +13375,7 @@ BlockHash$9.prototype.update = function update(msg, enc) {
     var r = msg.length % this._delta8;
     this.pending = msg.slice(msg.length - r, msg.length);
     if (this.pending.length === 0) this.pending = null;
-    msg = utils$1.join32(msg, 0, msg.length - r, this.endian);
+    msg = utils$2.join32(msg, 0, msg.length - r, this.endian);
 
     for (var i = 0; i < msg.length; i += this._delta32) {
       this._update(msg, i, i + this._delta32);
@@ -13442,7 +13440,7 @@ var common$3 = {
   BlockHash: BlockHash_1$1
 };
 
-var rotr32$2 = utils$1.rotr32;
+var rotr32$2 = utils$2.rotr32;
 
 function ft_1$3(s, x, y, z) {
   if (s === 0) return ch32$3(x, y, z);
@@ -13504,9 +13502,9 @@ var common$2 = {
   g1_256: g1_256_1$1
 };
 
-var rotl32$4 = utils$1.rotl32;
-var sum32$6 = utils$1.sum32;
-var sum32_5$4 = utils$1.sum32_5;
+var rotl32$4 = utils$2.rotl32;
+var sum32$6 = utils$2.sum32;
+var sum32_5$4 = utils$2.sum32_5;
 var ft_1$2 = common$2.ft_1;
 var BlockHash$8 = common$3.BlockHash;
 var sha1_K$1 = [0x5A827999, 0x6ED9EBA1, 0x8F1BBCDC, 0xCA62C1D6];
@@ -13518,7 +13516,7 @@ function SHA1$1() {
   this.W = new Array(80);
 }
 
-utils$1.inherits(SHA1$1, BlockHash$8);
+utils$2.inherits(SHA1$1, BlockHash$8);
 var _1$1 = SHA1$1;
 SHA1$1.blockSize = 512;
 SHA1$1.outSize = 160;
@@ -13560,12 +13558,12 @@ SHA1$1.prototype._update = function _update(msg, start) {
 };
 
 SHA1$1.prototype._digest = function digest(enc) {
-  if (enc === 'hex') return utils$1.toHex32(this.h, 'big');else return utils$1.split32(this.h, 'big');
+  if (enc === 'hex') return utils$2.toHex32(this.h, 'big');else return utils$2.split32(this.h, 'big');
 };
 
-var sum32$5 = utils$1.sum32;
-var sum32_4$4 = utils$1.sum32_4;
-var sum32_5$3 = utils$1.sum32_5;
+var sum32$5 = utils$2.sum32;
+var sum32_4$4 = utils$2.sum32_4;
+var sum32_5$3 = utils$2.sum32_5;
 var ch32$2 = common$2.ch32;
 var maj32$2 = common$2.maj32;
 var s0_256$2 = common$2.s0_256;
@@ -13583,7 +13581,7 @@ function SHA256$1() {
   this.W = new Array(64);
 }
 
-utils$1.inherits(SHA256$1, BlockHash$7);
+utils$2.inherits(SHA256$1, BlockHash$7);
 var _256$1 = SHA256$1;
 SHA256$1.blockSize = 512;
 SHA256$1.outSize = 256;
@@ -13635,7 +13633,7 @@ SHA256$1.prototype._update = function _update(msg, start) {
 };
 
 SHA256$1.prototype._digest = function digest(enc) {
-  if (enc === 'hex') return utils$1.toHex32(this.h, 'big');else return utils$1.split32(this.h, 'big');
+  if (enc === 'hex') return utils$2.toHex32(this.h, 'big');else return utils$2.split32(this.h, 'big');
 };
 
 function SHA224$1() {
@@ -13644,7 +13642,7 @@ function SHA224$1() {
   this.h = [0xc1059ed8, 0x367cd507, 0x3070dd17, 0xf70e5939, 0xffc00b31, 0x68581511, 0x64f98fa7, 0xbefa4fa4];
 }
 
-utils$1.inherits(SHA224$1, _256$1);
+utils$2.inherits(SHA224$1, _256$1);
 var _224$1 = SHA224$1;
 SHA224$1.blockSize = 512;
 SHA224$1.outSize = 224;
@@ -13653,20 +13651,20 @@ SHA224$1.padLength = 64;
 
 SHA224$1.prototype._digest = function digest(enc) {
   // Just truncate output
-  if (enc === 'hex') return utils$1.toHex32(this.h.slice(0, 7), 'big');else return utils$1.split32(this.h.slice(0, 7), 'big');
+  if (enc === 'hex') return utils$2.toHex32(this.h.slice(0, 7), 'big');else return utils$2.split32(this.h.slice(0, 7), 'big');
 };
 
-var rotr64_hi$2 = utils$1.rotr64_hi;
-var rotr64_lo$2 = utils$1.rotr64_lo;
-var shr64_hi$2 = utils$1.shr64_hi;
-var shr64_lo$2 = utils$1.shr64_lo;
-var sum64$2 = utils$1.sum64;
-var sum64_hi$2 = utils$1.sum64_hi;
-var sum64_lo$2 = utils$1.sum64_lo;
-var sum64_4_hi$2 = utils$1.sum64_4_hi;
-var sum64_4_lo$2 = utils$1.sum64_4_lo;
-var sum64_5_hi$2 = utils$1.sum64_5_hi;
-var sum64_5_lo$2 = utils$1.sum64_5_lo;
+var rotr64_hi$2 = utils$2.rotr64_hi;
+var rotr64_lo$2 = utils$2.rotr64_lo;
+var shr64_hi$2 = utils$2.shr64_hi;
+var shr64_lo$2 = utils$2.shr64_lo;
+var sum64$2 = utils$2.sum64;
+var sum64_hi$2 = utils$2.sum64_hi;
+var sum64_lo$2 = utils$2.sum64_lo;
+var sum64_4_hi$2 = utils$2.sum64_4_hi;
+var sum64_4_lo$2 = utils$2.sum64_4_lo;
+var sum64_5_hi$2 = utils$2.sum64_5_hi;
+var sum64_5_lo$2 = utils$2.sum64_5_lo;
 var BlockHash$6 = common$3.BlockHash;
 var sha512_K$1 = [0x428a2f98, 0xd728ae22, 0x71374491, 0x23ef65cd, 0xb5c0fbcf, 0xec4d3b2f, 0xe9b5dba5, 0x8189dbbc, 0x3956c25b, 0xf348b538, 0x59f111f1, 0xb605d019, 0x923f82a4, 0xaf194f9b, 0xab1c5ed5, 0xda6d8118, 0xd807aa98, 0xa3030242, 0x12835b01, 0x45706fbe, 0x243185be, 0x4ee4b28c, 0x550c7dc3, 0xd5ffb4e2, 0x72be5d74, 0xf27b896f, 0x80deb1fe, 0x3b1696b1, 0x9bdc06a7, 0x25c71235, 0xc19bf174, 0xcf692694, 0xe49b69c1, 0x9ef14ad2, 0xefbe4786, 0x384f25e3, 0x0fc19dc6, 0x8b8cd5b5, 0x240ca1cc, 0x77ac9c65, 0x2de92c6f, 0x592b0275, 0x4a7484aa, 0x6ea6e483, 0x5cb0a9dc, 0xbd41fbd4, 0x76f988da, 0x831153b5, 0x983e5152, 0xee66dfab, 0xa831c66d, 0x2db43210, 0xb00327c8, 0x98fb213f, 0xbf597fc7, 0xbeef0ee4, 0xc6e00bf3, 0x3da88fc2, 0xd5a79147, 0x930aa725, 0x06ca6351, 0xe003826f, 0x14292967, 0x0a0e6e70, 0x27b70a85, 0x46d22ffc, 0x2e1b2138, 0x5c26c926, 0x4d2c6dfc, 0x5ac42aed, 0x53380d13, 0x9d95b3df, 0x650a7354, 0x8baf63de, 0x766a0abb, 0x3c77b2a8, 0x81c2c92e, 0x47edaee6, 0x92722c85, 0x1482353b, 0xa2bfe8a1, 0x4cf10364, 0xa81a664b, 0xbc423001, 0xc24b8b70, 0xd0f89791, 0xc76c51a3, 0x0654be30, 0xd192e819, 0xd6ef5218, 0xd6990624, 0x5565a910, 0xf40e3585, 0x5771202a, 0x106aa070, 0x32bbd1b8, 0x19a4c116, 0xb8d2d0c8, 0x1e376c08, 0x5141ab53, 0x2748774c, 0xdf8eeb99, 0x34b0bcb5, 0xe19b48a8, 0x391c0cb3, 0xc5c95a63, 0x4ed8aa4a, 0xe3418acb, 0x5b9cca4f, 0x7763e373, 0x682e6ff3, 0xd6b2b8a3, 0x748f82ee, 0x5defb2fc, 0x78a5636f, 0x43172f60, 0x84c87814, 0xa1f0ab72, 0x8cc70208, 0x1a6439ec, 0x90befffa, 0x23631e28, 0xa4506ceb, 0xde82bde9, 0xbef9a3f7, 0xb2c67915, 0xc67178f2, 0xe372532b, 0xca273ece, 0xea26619c, 0xd186b8c7, 0x21c0c207, 0xeada7dd6, 0xcde0eb1e, 0xf57d4f7f, 0xee6ed178, 0x06f067aa, 0x72176fba, 0x0a637dc5, 0xa2c898a6, 0x113f9804, 0xbef90dae, 0x1b710b35, 0x131c471b, 0x28db77f5, 0x23047d84, 0x32caab7b, 0x40c72493, 0x3c9ebe0a, 0x15c9bebc, 0x431d67c4, 0x9c100d4c, 0x4cc5d4be, 0xcb3e42b6, 0x597f299c, 0xfc657e2a, 0x5fcb6fab, 0x3ad6faec, 0x6c44198c, 0x4a475817];
 
@@ -13678,7 +13676,7 @@ function SHA512$1() {
   this.W = new Array(160);
 }
 
-utils$1.inherits(SHA512$1, BlockHash$6);
+utils$2.inherits(SHA512$1, BlockHash$6);
 var _512$1 = SHA512$1;
 SHA512$1.blockSize = 1024;
 SHA512$1.outSize = 512;
@@ -13780,7 +13778,7 @@ SHA512$1.prototype._update = function _update(msg, start) {
 };
 
 SHA512$1.prototype._digest = function digest(enc) {
-  if (enc === 'hex') return utils$1.toHex32(this.h, 'big');else return utils$1.split32(this.h, 'big');
+  if (enc === 'hex') return utils$2.toHex32(this.h, 'big');else return utils$2.split32(this.h, 'big');
 };
 
 function ch64_hi$1(xh, xl, yh, yl, zh) {
@@ -13893,7 +13891,7 @@ function SHA384$1() {
   this.h = [0xcbbb9d5d, 0xc1059ed8, 0x629a292a, 0x367cd507, 0x9159015a, 0x3070dd17, 0x152fecd8, 0xf70e5939, 0x67332667, 0xffc00b31, 0x8eb44a87, 0x68581511, 0xdb0c2e0d, 0x64f98fa7, 0x47b5481d, 0xbefa4fa4];
 }
 
-utils$1.inherits(SHA384$1, _512$1);
+utils$2.inherits(SHA384$1, _512$1);
 var _384$1 = SHA384$1;
 SHA384$1.blockSize = 1024;
 SHA384$1.outSize = 384;
@@ -13901,7 +13899,7 @@ SHA384$1.hmacStrength = 192;
 SHA384$1.padLength = 128;
 
 SHA384$1.prototype._digest = function digest(enc) {
-  if (enc === 'hex') return utils$1.toHex32(this.h.slice(0, 12), 'big');else return utils$1.split32(this.h.slice(0, 12), 'big');
+  if (enc === 'hex') return utils$2.toHex32(this.h.slice(0, 12), 'big');else return utils$2.split32(this.h.slice(0, 12), 'big');
 };
 
 var sha1$1 = _1$1;
@@ -13917,10 +13915,10 @@ var sha$1 = {
   sha512: sha512$1
 };
 
-var rotl32$3 = utils$1.rotl32;
-var sum32$4 = utils$1.sum32;
-var sum32_3$2 = utils$1.sum32_3;
-var sum32_4$3 = utils$1.sum32_4;
+var rotl32$3 = utils$2.rotl32;
+var sum32$4 = utils$2.sum32;
+var sum32_3$2 = utils$2.sum32_3;
+var sum32_4$3 = utils$2.sum32_4;
 var BlockHash$5 = common$3.BlockHash;
 
 function RIPEMD160$1() {
@@ -13930,7 +13928,7 @@ function RIPEMD160$1() {
   this.endian = 'little';
 }
 
-utils$1.inherits(RIPEMD160$1, BlockHash$5);
+utils$2.inherits(RIPEMD160$1, BlockHash$5);
 var ripemd160$1 = RIPEMD160$1;
 RIPEMD160$1.blockSize = 512;
 RIPEMD160$1.outSize = 160;
@@ -13950,13 +13948,13 @@ RIPEMD160$1.prototype._update = function update(msg, start) {
   var Eh = E;
 
   for (var j = 0; j < 80; j++) {
-    var T = sum32$4(rotl32$3(sum32_4$3(A, f$1(j, B, C, D), msg[r$1[j] + start], K$1(j)), s$1[j]), E);
+    var T = sum32$4(rotl32$3(sum32_4$3(A, f$2(j, B, C, D), msg[r$2[j] + start], K$1(j)), s$1[j]), E);
     A = E;
     E = D;
     D = rotl32$3(C, 10);
     C = B;
     B = T;
-    T = sum32$4(rotl32$3(sum32_4$3(Ah, f$1(79 - j, Bh, Ch, Dh), msg[rh$2[j] + start], Kh$2(j)), sh$2[j]), Eh);
+    T = sum32$4(rotl32$3(sum32_4$3(Ah, f$2(79 - j, Bh, Ch, Dh), msg[rh$2[j] + start], Kh$2(j)), sh$2[j]), Eh);
     Ah = Eh;
     Eh = Dh;
     Dh = rotl32$3(Ch, 10);
@@ -13973,10 +13971,10 @@ RIPEMD160$1.prototype._update = function update(msg, start) {
 };
 
 RIPEMD160$1.prototype._digest = function digest(enc) {
-  if (enc === 'hex') return utils$1.toHex32(this.h, 'little');else return utils$1.split32(this.h, 'little');
+  if (enc === 'hex') return utils$2.toHex32(this.h, 'little');else return utils$2.split32(this.h, 'little');
 };
 
-function f$1(j, x, y, z) {
+function f$2(j, x, y, z) {
   if (j <= 15) return x ^ y ^ z;else if (j <= 31) return x & y | ~x & z;else if (j <= 47) return (x | ~y) ^ z;else if (j <= 63) return x & z | y & ~z;else return x ^ (y | ~z);
 }
 
@@ -13988,7 +13986,7 @@ function Kh$2(j) {
   if (j <= 15) return 0x50a28be6;else if (j <= 31) return 0x5c4dd124;else if (j <= 47) return 0x6d703ef3;else if (j <= 63) return 0x7a6d76e9;else return 0x00000000;
 }
 
-var r$1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 7, 4, 13, 1, 10, 6, 15, 3, 12, 0, 9, 5, 2, 14, 11, 8, 3, 10, 14, 4, 9, 15, 8, 1, 2, 7, 0, 6, 13, 11, 5, 12, 1, 9, 11, 10, 0, 8, 12, 4, 13, 3, 7, 15, 14, 5, 6, 2, 4, 0, 5, 9, 7, 12, 2, 10, 14, 1, 3, 8, 11, 6, 15, 13];
+var r$2 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 7, 4, 13, 1, 10, 6, 15, 3, 12, 0, 9, 5, 2, 14, 11, 8, 3, 10, 14, 4, 9, 15, 8, 1, 2, 7, 0, 6, 13, 11, 5, 12, 1, 9, 11, 10, 0, 8, 12, 4, 13, 3, 7, 15, 14, 5, 6, 2, 4, 0, 5, 9, 7, 12, 2, 10, 14, 1, 3, 8, 11, 6, 15, 13];
 var rh$2 = [5, 14, 7, 0, 9, 2, 11, 4, 13, 6, 15, 8, 1, 10, 3, 12, 6, 11, 3, 7, 0, 13, 5, 10, 14, 15, 8, 12, 4, 9, 1, 2, 15, 5, 1, 3, 7, 14, 6, 9, 11, 8, 12, 2, 10, 0, 4, 13, 8, 6, 4, 1, 3, 11, 15, 0, 5, 12, 2, 13, 9, 7, 10, 14, 12, 15, 10, 4, 1, 5, 8, 7, 6, 2, 13, 14, 0, 3, 9, 11];
 var s$1 = [11, 14, 15, 12, 5, 8, 7, 9, 11, 13, 14, 15, 6, 7, 9, 8, 7, 6, 8, 13, 11, 9, 7, 15, 7, 12, 15, 9, 11, 7, 13, 12, 11, 13, 6, 7, 14, 9, 13, 15, 14, 8, 13, 6, 5, 12, 7, 5, 11, 12, 14, 15, 14, 15, 9, 8, 9, 14, 5, 6, 8, 6, 5, 12, 9, 15, 5, 11, 6, 8, 13, 12, 5, 12, 13, 14, 11, 8, 5, 6];
 var sh$2 = [8, 9, 9, 11, 13, 15, 15, 5, 7, 7, 8, 11, 14, 14, 12, 6, 9, 13, 15, 7, 12, 8, 9, 11, 7, 7, 12, 7, 6, 15, 13, 11, 9, 7, 15, 11, 8, 6, 6, 14, 12, 13, 5, 14, 13, 13, 7, 5, 15, 5, 8, 11, 14, 14, 6, 14, 6, 9, 12, 9, 12, 5, 15, 8, 8, 5, 12, 9, 12, 5, 14, 6, 8, 13, 6, 5, 15, 13, 11, 11];
@@ -14004,7 +14002,7 @@ function Hmac$1(hash, key, enc) {
   this.inner = null;
   this.outer = null;
 
-  this._init(utils$1.toArray(key, enc));
+  this._init(utils$2.toArray(key, enc));
 }
 
 var hmac$1 = Hmac$1;
@@ -14043,7 +14041,7 @@ Hmac$1.prototype.digest = function digest(enc) {
 
 var hash_1$1 = createCommonjsModule$4(function (module, exports) {
   var hash = exports;
-  hash.utils = utils$1;
+  hash.utils = utils$2;
   hash.common = common$3;
   hash.sha = sha$1;
   hash.ripemd = ripemd$1;
@@ -16234,7 +16232,7 @@ function getCurve$1() {
 
 var SigningKey$1 = /*#__PURE__*/function () {
   function SigningKey(privateKey) {
-    _classCallCheck(this, SigningKey);
+    _classCallCheck$1(this, SigningKey);
 
     defineReadOnly$1(this, "curve", "secp256k1");
     defineReadOnly$1(this, "privateKey", hexlify$2(privateKey));
@@ -16244,7 +16242,7 @@ var SigningKey$1 = /*#__PURE__*/function () {
     defineReadOnly$1(this, "_isSigningKey", true);
   }
 
-  _createClass(SigningKey, [{
+  _createClass$1(SigningKey, [{
     key: "_addPoint",
     value: function _addPoint(other) {
       var p0 = getCurve$1().keyFromPublic(arrayify$1(this.publicKey));
@@ -16643,7 +16641,7 @@ function parse$1(rawTransaction) {
 
 var version$m = "contracts/5.4.1";
 
-function _createSuper$8(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$8(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$8(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$8(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$8() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
@@ -17246,14 +17244,14 @@ function getEventTag$2(filter) {
 
 var RunningEvent = /*#__PURE__*/function () {
   function RunningEvent(tag, filter) {
-    _classCallCheck(this, RunningEvent);
+    _classCallCheck$1(this, RunningEvent);
 
     defineReadOnly$1(this, "tag", tag);
     defineReadOnly$1(this, "filter", filter);
     this._listeners = [];
   }
 
-  _createClass(RunningEvent, [{
+  _createClass$1(RunningEvent, [{
     key: "addListener",
     value: function addListener(listener, once) {
       this._listeners.push({
@@ -17323,12 +17321,12 @@ var RunningEvent = /*#__PURE__*/function () {
 }();
 
 var ErrorRunningEvent = /*#__PURE__*/function (_RunningEvent) {
-  _inherits(ErrorRunningEvent, _RunningEvent);
+  _inherits$1(ErrorRunningEvent, _RunningEvent);
 
   var _super = _createSuper$8(ErrorRunningEvent);
 
   function ErrorRunningEvent() {
-    _classCallCheck(this, ErrorRunningEvent);
+    _classCallCheck$1(this, ErrorRunningEvent);
 
     return _super.call(this, "error", null);
   }
@@ -17342,14 +17340,14 @@ var ErrorRunningEvent = /*#__PURE__*/function (_RunningEvent) {
 
 
 var FragmentRunningEvent = /*#__PURE__*/function (_RunningEvent2) {
-  _inherits(FragmentRunningEvent, _RunningEvent2);
+  _inherits$1(FragmentRunningEvent, _RunningEvent2);
 
   var _super2 = _createSuper$8(FragmentRunningEvent);
 
   function FragmentRunningEvent(address, contractInterface, fragment, topics) {
     var _this3;
 
-    _classCallCheck(this, FragmentRunningEvent);
+    _classCallCheck$1(this, FragmentRunningEvent);
 
     var filter = {
       address: address
@@ -17373,7 +17371,7 @@ var FragmentRunningEvent = /*#__PURE__*/function (_RunningEvent2) {
     return _this3;
   }
 
-  _createClass(FragmentRunningEvent, [{
+  _createClass$1(FragmentRunningEvent, [{
     key: "prepareEvent",
     value: function prepareEvent(event) {
       var _this4 = this;
@@ -17418,14 +17416,14 @@ var FragmentRunningEvent = /*#__PURE__*/function (_RunningEvent2) {
 
 
 var WildcardRunningEvent = /*#__PURE__*/function (_RunningEvent3) {
-  _inherits(WildcardRunningEvent, _RunningEvent3);
+  _inherits$1(WildcardRunningEvent, _RunningEvent3);
 
   var _super3 = _createSuper$8(WildcardRunningEvent);
 
   function WildcardRunningEvent(address, contractInterface) {
     var _this5;
 
-    _classCallCheck(this, WildcardRunningEvent);
+    _classCallCheck$1(this, WildcardRunningEvent);
 
     _this5 = _super3.call(this, "*", {
       address: address
@@ -17435,7 +17433,7 @@ var WildcardRunningEvent = /*#__PURE__*/function (_RunningEvent3) {
     return _this5;
   }
 
-  _createClass(WildcardRunningEvent, [{
+  _createClass$1(WildcardRunningEvent, [{
     key: "prepareEvent",
     value: function prepareEvent(event) {
       var _this6 = this;
@@ -17464,7 +17462,7 @@ var BaseContract = /*#__PURE__*/function () {
   function BaseContract(addressOrName, contractInterface, signerOrProvider) {
     var _this7 = this;
 
-    _classCallCheck(this, BaseContract);
+    _classCallCheck$1(this, BaseContract);
 
     logger$p.checkNew(this instanceof BaseContract ? this.constructor : void 0, Contract); // @TODO: Maybe still check the addressOrName looks like a valid address or name?
     //address = getAddress(address);
@@ -17623,7 +17621,7 @@ var BaseContract = /*#__PURE__*/function () {
     });
   }
 
-  _createClass(BaseContract, [{
+  _createClass$1(BaseContract, [{
     key: "deployed",
     value: // @TODO: Allow timeout?
     function deployed() {
@@ -18045,12 +18043,12 @@ var BaseContract = /*#__PURE__*/function () {
   return BaseContract;
 }();
 var Contract = /*#__PURE__*/function (_BaseContract) {
-  _inherits(Contract, _BaseContract);
+  _inherits$1(Contract, _BaseContract);
 
   var _super4 = _createSuper$8(Contract);
 
   function Contract() {
-    _classCallCheck(this, Contract);
+    _classCallCheck$1(this, Contract);
 
     return _super4.apply(this, arguments);
   }
@@ -18060,7 +18058,7 @@ var Contract = /*#__PURE__*/function (_BaseContract) {
 
 var BaseX$1 = /*#__PURE__*/function () {
   function BaseX(alphabet) {
-    _classCallCheck(this, BaseX);
+    _classCallCheck$1(this, BaseX);
 
     defineReadOnly$1(this, "alphabet", alphabet);
     defineReadOnly$1(this, "base", alphabet.length);
@@ -18072,7 +18070,7 @@ var BaseX$1 = /*#__PURE__*/function () {
     }
   }
 
-  _createClass(BaseX, [{
+  _createClass$1(BaseX, [{
     key: "encode",
     value: function encode(value) {
       var source = arrayify$1(value);
@@ -19072,10 +19070,10 @@ var ALPHABET$1 = 'qpzry9x8gf2tvdw0s3jn54khce6mua7l'; // pre-compute lookup table
 
 var ALPHABET_MAP$1 = {};
 
-for (var z$1 = 0; z$1 < ALPHABET$1.length; z$1++) {
-  var x$1 = ALPHABET$1.charAt(z$1);
-  if (ALPHABET_MAP$1[x$1] !== undefined) throw new TypeError(x$1 + ' is ambiguous');
-  ALPHABET_MAP$1[x$1] = z$1;
+for (var z$2 = 0; z$2 < ALPHABET$1.length; z$2++) {
+  var x$2 = ALPHABET$1.charAt(z$2);
+  if (ALPHABET_MAP$1[x$2] !== undefined) throw new TypeError(x$2 + ' is ambiguous');
+  ALPHABET_MAP$1[x$2] = z$2;
 }
 
 function polymodStep$1(pre) {
@@ -19246,13 +19244,13 @@ var version$i = "providers/5.4.5";
 var logger$m = new Logger$2(version$i);
 var Formatter$1 = /*#__PURE__*/function () {
   function Formatter() {
-    _classCallCheck(this, Formatter);
+    _classCallCheck$1(this, Formatter);
 
     logger$m.checkNew(this instanceof Formatter ? this.constructor : void 0, Formatter);
     this.formats = this.getDefaultFormats();
   }
 
-  _createClass(Formatter, [{
+  _createClass$1(Formatter, [{
     key: "getDefaultFormats",
     value: function getDefaultFormats() {
       var _this = this;
@@ -19769,7 +19767,7 @@ var Formatter$1 = /*#__PURE__*/function () {
   return Formatter;
 }();
 
-function _createSuper$7(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$7(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$7(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$7(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$7() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
@@ -19914,14 +19912,14 @@ function stall$1(duration) {
 var PollableEvents$1 = ["block", "network", "pending", "poll"];
 var Event$1 = /*#__PURE__*/function () {
   function Event(tag, listener, once) {
-    _classCallCheck(this, Event);
+    _classCallCheck$1(this, Event);
 
     defineReadOnly$1(this, "tag", tag);
     defineReadOnly$1(this, "listener", listener);
     defineReadOnly$1(this, "once", once);
   }
 
-  _createClass(Event, [{
+  _createClass$1(Event, [{
     key: "event",
     get: function get() {
       switch (this.type) {
@@ -20026,14 +20024,14 @@ function base58Encode$1(data) {
 
 var Resolver$1 = /*#__PURE__*/function () {
   function Resolver(provider, address, name) {
-    _classCallCheck(this, Resolver);
+    _classCallCheck$1(this, Resolver);
 
     defineReadOnly$1(this, "provider", provider);
     defineReadOnly$1(this, "name", name);
     defineReadOnly$1(this, "address", provider.formatter.address(address));
   }
 
-  _createClass(Resolver, [{
+  _createClass$1(Resolver, [{
     key: "_fetchBytes",
     value: function _fetchBytes(selector, parameters) {
       return __awaiter$9(this, void 0, void 0, /*#__PURE__*/regenerator.mark(function _callee() {
@@ -20365,7 +20363,7 @@ var Resolver$1 = /*#__PURE__*/function () {
 var defaultFormatter$1 = null;
 var nextPollId$1 = 1;
 var BaseProvider$1 = /*#__PURE__*/function (_Provider) {
-  _inherits(BaseProvider, _Provider);
+  _inherits$1(BaseProvider, _Provider);
 
   var _super = _createSuper$7(BaseProvider);
 
@@ -20381,7 +20379,7 @@ var BaseProvider$1 = /*#__PURE__*/function (_Provider) {
   function BaseProvider(network) {
     var _this;
 
-    _classCallCheck(this, BaseProvider);
+    _classCallCheck$1(this, BaseProvider);
 
     logger$l.checkNew(this instanceof BaseProvider ? this.constructor : void 0, Provider$1);
     _this = _super.call(this); // Events being listened to
@@ -20425,7 +20423,7 @@ var BaseProvider$1 = /*#__PURE__*/function (_Provider) {
     return _this;
   }
 
-  _createClass(BaseProvider, [{
+  _createClass$1(BaseProvider, [{
     key: "_ready",
     value: function _ready() {
       return __awaiter$9(this, void 0, void 0, /*#__PURE__*/regenerator.mark(function _callee5() {
@@ -22961,7 +22959,7 @@ var BaseProvider$1 = /*#__PURE__*/function (_Provider) {
   return BaseProvider;
 }(Provider$1);
 
-function _createSuper$6(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$6(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$6(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$6(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$6() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
@@ -23102,14 +23100,14 @@ function getLowerCase$1(value) {
 
 var _constructorGuard$3 = {};
 var JsonRpcSigner$1 = /*#__PURE__*/function (_Signer) {
-  _inherits(JsonRpcSigner, _Signer);
+  _inherits$1(JsonRpcSigner, _Signer);
 
   var _super = _createSuper$6(JsonRpcSigner);
 
   function JsonRpcSigner(constructorGuard, provider, addressOrIndex) {
     var _this;
 
-    _classCallCheck(this, JsonRpcSigner);
+    _classCallCheck$1(this, JsonRpcSigner);
 
     logger$k.checkNew(this instanceof JsonRpcSigner ? this.constructor : void 0, JsonRpcSigner);
     _this = _super.call(this);
@@ -23137,7 +23135,7 @@ var JsonRpcSigner$1 = /*#__PURE__*/function (_Signer) {
     return _this;
   }
 
-  _createClass(JsonRpcSigner, [{
+  _createClass$1(JsonRpcSigner, [{
     key: "connect",
     value: function connect(provider) {
       return logger$k.throwError("cannot alter JSON-RPC Signer connection", Logger$2.errors.UNSUPPORTED_OPERATION, {
@@ -23432,17 +23430,17 @@ var JsonRpcSigner$1 = /*#__PURE__*/function (_Signer) {
 }(Signer$1);
 
 var UncheckedJsonRpcSigner$1 = /*#__PURE__*/function (_JsonRpcSigner) {
-  _inherits(UncheckedJsonRpcSigner, _JsonRpcSigner);
+  _inherits$1(UncheckedJsonRpcSigner, _JsonRpcSigner);
 
   var _super2 = _createSuper$6(UncheckedJsonRpcSigner);
 
   function UncheckedJsonRpcSigner() {
-    _classCallCheck(this, UncheckedJsonRpcSigner);
+    _classCallCheck$1(this, UncheckedJsonRpcSigner);
 
     return _super2.apply(this, arguments);
   }
 
-  _createClass(UncheckedJsonRpcSigner, [{
+  _createClass$1(UncheckedJsonRpcSigner, [{
     key: "sendTransaction",
     value: function sendTransaction(transaction) {
       var _this6 = this;
@@ -23483,14 +23481,14 @@ var allowedTransactionKeys$2 = {
   maxPriorityFeePerGas: true
 };
 var JsonRpcProvider$1 = /*#__PURE__*/function (_BaseProvider) {
-  _inherits(JsonRpcProvider, _BaseProvider);
+  _inherits$1(JsonRpcProvider, _BaseProvider);
 
   var _super3 = _createSuper$6(JsonRpcProvider);
 
   function JsonRpcProvider(url, network) {
     var _this7;
 
-    _classCallCheck(this, JsonRpcProvider);
+    _classCallCheck$1(this, JsonRpcProvider);
 
     logger$k.checkNew(this instanceof JsonRpcProvider ? this.constructor : void 0, JsonRpcProvider);
     var networkOrReady = network; // The network is unknown, query the JSON-RPC for it
@@ -23525,7 +23523,7 @@ var JsonRpcProvider$1 = /*#__PURE__*/function (_BaseProvider) {
     return _this7;
   }
 
-  _createClass(JsonRpcProvider, [{
+  _createClass$1(JsonRpcProvider, [{
     key: "_cache",
     get: function get() {
       if (this._eventLoopCache == null) {
@@ -23958,7 +23956,7 @@ var JsonRpcProvider$1 = /*#__PURE__*/function (_BaseProvider) {
   return JsonRpcProvider;
 }(BaseProvider$1);
 
-function _createSuper$5(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$5(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$5(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$5(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$5() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 var logger$j = new Logger$2(version$i);
@@ -24075,14 +24073,14 @@ function buildEip1193Fetcher(provider) {
 }
 
 var Web3Provider = /*#__PURE__*/function (_JsonRpcProvider) {
-  _inherits(Web3Provider, _JsonRpcProvider);
+  _inherits$1(Web3Provider, _JsonRpcProvider);
 
   var _super = _createSuper$5(Web3Provider);
 
   function Web3Provider(provider, network) {
     var _this3;
 
-    _classCallCheck(this, Web3Provider);
+    _classCallCheck$1(this, Web3Provider);
 
     logger$j.checkNew(this instanceof Web3Provider ? this.constructor : void 0, Web3Provider);
 
@@ -24131,7 +24129,7 @@ var Web3Provider = /*#__PURE__*/function (_JsonRpcProvider) {
     return _this3;
   }
 
-  _createClass(Web3Provider, [{
+  _createClass$1(Web3Provider, [{
     key: "send",
     value: function send(method, params) {
       return this.jsonRpcFetchFunc(method, params);
@@ -24172,20 +24170,20 @@ function parseUnits(value, unitName) {
   return parseFixed(value, unitName != null ? unitName : 18);
 }
 
-function _createSuper$4(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$4(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$4(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$4(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$4() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 var Wallet = /*#__PURE__*/function () {
   function Wallet() {
-    _classCallCheck(this, Wallet);
+    _classCallCheck$1(this, Wallet);
 
     Wallet.prototype.__init.call(this);
 
     Wallet.prototype.__init2.call(this);
   }
 
-  _createClass(Wallet, [{
+  _createClass$1(Wallet, [{
     key: "__init",
     value: function __init() {
       this.name = undefined;
@@ -24278,14 +24276,14 @@ var Wallet = /*#__PURE__*/function () {
 }();
 
 var EVMWallet = /*#__PURE__*/function (_Wallet) {
-  _inherits(EVMWallet, _Wallet);
+  _inherits$1(EVMWallet, _Wallet);
 
   var _super = _createSuper$4(EVMWallet);
 
   function EVMWallet() {
     var _this;
 
-    _classCallCheck(this, EVMWallet);
+    _classCallCheck$1(this, EVMWallet);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
@@ -24302,7 +24300,7 @@ var EVMWallet = /*#__PURE__*/function (_Wallet) {
     return _this;
   }
 
-  _createClass(EVMWallet, [{
+  _createClass$1(EVMWallet, [{
     key: "__init",
     value: function __init() {
       this.name = 'unknown';
@@ -24527,14 +24525,14 @@ var EVMWallet = /*#__PURE__*/function (_Wallet) {
 }(Wallet);
 
 var MetaMask = /*#__PURE__*/function (_EVMWallet) {
-  _inherits(MetaMask, _EVMWallet);
+  _inherits$1(MetaMask, _EVMWallet);
 
   var _super2 = _createSuper$4(MetaMask);
 
   function MetaMask() {
     var _this3;
 
-    _classCallCheck(this, MetaMask);
+    _classCallCheck$1(this, MetaMask);
 
     for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
       args[_key2] = arguments[_key2];
@@ -24551,7 +24549,7 @@ var MetaMask = /*#__PURE__*/function (_EVMWallet) {
     return _this3;
   }
 
-  _createClass(MetaMask, [{
+  _createClass$1(MetaMask, [{
     key: "__init",
     value: function __init() {
       this.name = 'MetaMask';
@@ -24581,9 +24579,9 @@ var getWallet = function getWallet() {
   }
 };
 
-function _wrapRegExp() { _wrapRegExp = function _wrapRegExp(re, groups) { return new BabelRegExp(re, undefined, groups); }; var _super = RegExp.prototype; var _groups = new WeakMap(); function BabelRegExp(re, flags, groups) { var _this = new RegExp(re, flags); _groups.set(_this, groups || _groups.get(re)); return _setPrototypeOf(_this, BabelRegExp.prototype); } _inherits(BabelRegExp, RegExp); BabelRegExp.prototype.exec = function (str) { var result = _super.exec.call(this, str); if (result) result.groups = buildGroups(result, this); return result; }; BabelRegExp.prototype[Symbol.replace] = function (str, substitution) { if (typeof substitution === "string") { var groups = _groups.get(this); return _super[Symbol.replace].call(this, str, substitution.replace(/\$<([^>]+)>/g, function (_, name) { return "$" + groups[name]; })); } else if (typeof substitution === "function") { var _this = this; return _super[Symbol.replace].call(this, str, function () { var args = arguments; if (_typeof(args[args.length - 1]) !== "object") { args = [].slice.call(args); args.push(buildGroups(args, _this)); } return substitution.apply(this, args); }); } else { return _super[Symbol.replace].call(this, str, substitution); } }; function buildGroups(result, re) { var g = _groups.get(re); return Object.keys(g).reduce(function (groups, name) { groups[name] = result[g[name]]; return groups; }, Object.create(null)); } return _wrapRegExp.apply(this, arguments); }
+function _wrapRegExp() { _wrapRegExp = function _wrapRegExp(re, groups) { return new BabelRegExp(re, undefined, groups); }; var _super = RegExp.prototype; var _groups = new WeakMap(); function BabelRegExp(re, flags, groups) { var _this = new RegExp(re, flags); _groups.set(_this, groups || _groups.get(re)); return _setPrototypeOf(_this, BabelRegExp.prototype); } _inherits$1(BabelRegExp, RegExp); BabelRegExp.prototype.exec = function (str) { var result = _super.exec.call(this, str); if (result) result.groups = buildGroups(result, this); return result; }; BabelRegExp.prototype[Symbol.replace] = function (str, substitution) { if (typeof substitution === "string") { var groups = _groups.get(this); return _super[Symbol.replace].call(this, str, substitution.replace(/\$<([^>]+)>/g, function (_, name) { return "$" + groups[name]; })); } else if (typeof substitution === "function") { var _this = this; return _super[Symbol.replace].call(this, str, function () { var args = arguments; if (_typeof(args[args.length - 1]) !== "object") { args = [].slice.call(args); args.push(buildGroups(args, _this)); } return substitution.apply(this, args); }); } else { return _super[Symbol.replace].call(this, str, substitution); } }; function buildGroups(result, re) { var g = _groups.get(re); return Object.keys(g).reduce(function (groups, name) { groups[name] = result[g[name]]; return groups; }, Object.create(null)); } return _wrapRegExp.apply(this, arguments); }
 
-function _createSuper$3(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$3(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$3(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$3(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$3() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
@@ -24893,7 +24891,7 @@ var HEX$1 = "0123456789abcdef";
 
 var Logger$1 = /*#__PURE__*/function () {
   function Logger(version) {
-    _classCallCheck(this, Logger);
+    _classCallCheck$1(this, Logger);
 
     Object.defineProperty(this, "version", {
       enumerable: true,
@@ -24902,7 +24900,7 @@ var Logger$1 = /*#__PURE__*/function () {
     });
   }
 
-  _createClass(Logger, [{
+  _createClass$1(Logger, [{
     key: "_log",
     value: function _log(logLevel, args) {
       var level = logLevel.toLowerCase();
@@ -25366,7 +25364,7 @@ function deepCopy(object) {
 }
 
 var Description = function Description(info) {
-  _classCallCheck(this, Description);
+  _classCallCheck$1(this, Description);
 
   for (var _key7 in info) {
     this[_key7] = deepCopy(info[_key7]);
@@ -29345,7 +29343,7 @@ var _warnedToStringRadix$1 = false;
 
 var BigNumber$1 = /*#__PURE__*/function () {
   function BigNumber(constructorGuard, hex) {
-    _classCallCheck(this, BigNumber);
+    _classCallCheck$1(this, BigNumber);
 
     logger$e.checkNew(this instanceof BigNumber ? this.constructor : void 0, BigNumber);
 
@@ -29360,7 +29358,7 @@ var BigNumber$1 = /*#__PURE__*/function () {
     Object.freeze(this);
   }
 
-  _createClass(BigNumber, [{
+  _createClass$1(BigNumber, [{
     key: "fromTwos",
     value: function fromTwos(value) {
       return toBigNumber$1(toBN$1(this).fromTwos(value));
@@ -31029,17 +31027,17 @@ var logger$b = new Logger$1(version$9); //export type CallTransactionable = {
 //};
 
 var ForkEvent = /*#__PURE__*/function (_Description) {
-  _inherits(ForkEvent, _Description);
+  _inherits$1(ForkEvent, _Description);
 
   var _super = _createSuper$3(ForkEvent);
 
   function ForkEvent() {
-    _classCallCheck(this, ForkEvent);
+    _classCallCheck$1(this, ForkEvent);
 
     return _super.apply(this, arguments);
   }
 
-  _createClass(ForkEvent, null, [{
+  _createClass$1(ForkEvent, null, [{
     key: "isForkEvent",
     value: function isForkEvent(value) {
       return !!(value && value._isForkEvent);
@@ -31053,13 +31051,13 @@ var ForkEvent = /*#__PURE__*/function (_Description) {
 
 var Provider = /*#__PURE__*/function () {
   function Provider() {
-    _classCallCheck(this, Provider);
+    _classCallCheck$1(this, Provider);
 
     logger$b.checkAbstract(this instanceof Provider ? this.constructor : void 0, Provider);
     defineReadOnly(this, "_isProvider", true);
   }
 
-  _createClass(Provider, [{
+  _createClass$1(Provider, [{
     key: "getFeeData",
     value: function getFeeData() {
       return __awaiter$4(this, void 0, void 0, /*#__PURE__*/regenerator.mark(function _callee4() {
@@ -31437,7 +31435,7 @@ function _getNetwork(network) {
 
 var BaseX = /*#__PURE__*/function () {
   function BaseX(alphabet) {
-    _classCallCheck(this, BaseX);
+    _classCallCheck$1(this, BaseX);
 
     defineReadOnly(this, "alphabet", alphabet);
     defineReadOnly(this, "base", alphabet.length);
@@ -31449,7 +31447,7 @@ var BaseX = /*#__PURE__*/function () {
     }
   }
 
-  _createClass(BaseX, [{
+  _createClass$1(BaseX, [{
     key: "encode",
     value: function encode(value) {
       var source = arrayify(value);
@@ -32605,7 +32603,7 @@ function encodeType(name, fields) {
 
 var TypedDataEncoder = /*#__PURE__*/function () {
   function TypedDataEncoder(types) {
-    _classCallCheck(this, TypedDataEncoder);
+    _classCallCheck$1(this, TypedDataEncoder);
 
     defineReadOnly(this, "types", Object.freeze(deepCopy(types)));
     defineReadOnly(this, "_encoderCache", {});
@@ -32706,7 +32704,7 @@ var TypedDataEncoder = /*#__PURE__*/function () {
     }
   }
 
-  _createClass(TypedDataEncoder, [{
+  _createClass$1(TypedDataEncoder, [{
     key: "getEncoder",
     value: function getEncoder(type) {
       var encoder = this._encoderCache[type];
@@ -33389,7 +33387,7 @@ function shr64_lo$1(ah, al, num) {
 }
 
 var shr64_lo_1 = shr64_lo$1;
-var utils = {
+var utils$1 = {
   inherits: inherits_1,
   toArray: toArray_1,
   toHex: toHex_1,
@@ -33434,7 +33432,7 @@ var BlockHash_1 = BlockHash$4;
 
 BlockHash$4.prototype.update = function update(msg, enc) {
   // Convert message to array, pad it, and join into 32bit blocks
-  msg = utils.toArray(msg, enc);
+  msg = utils$1.toArray(msg, enc);
   if (!this.pending) this.pending = msg;else this.pending = this.pending.concat(msg);
   this.pendingTotal += msg.length; // Enough data, try updating
 
@@ -33444,7 +33442,7 @@ BlockHash$4.prototype.update = function update(msg, enc) {
     var r = msg.length % this._delta8;
     this.pending = msg.slice(msg.length - r, msg.length);
     if (this.pending.length === 0) this.pending = null;
-    msg = utils.join32(msg, 0, msg.length - r, this.endian);
+    msg = utils$1.join32(msg, 0, msg.length - r, this.endian);
 
     for (var i = 0; i < msg.length; i += this._delta32) {
       this._update(msg, i, i + this._delta32);
@@ -33508,7 +33506,7 @@ BlockHash$4.prototype._pad = function pad() {
 var common$1 = {
   BlockHash: BlockHash_1
 };
-var rotr32 = utils.rotr32;
+var rotr32 = utils$1.rotr32;
 
 function ft_1$1(s, x, y, z) {
   if (s === 0) return ch32$1(x, y, z);
@@ -33569,9 +33567,9 @@ var common = {
   g0_256: g0_256_1,
   g1_256: g1_256_1
 };
-var rotl32$1 = utils.rotl32;
-var sum32$2 = utils.sum32;
-var sum32_5$1 = utils.sum32_5;
+var rotl32$1 = utils$1.rotl32;
+var sum32$2 = utils$1.sum32;
+var sum32_5$1 = utils$1.sum32_5;
 var ft_1 = common.ft_1;
 var BlockHash$3 = common$1.BlockHash;
 var sha1_K = [0x5A827999, 0x6ED9EBA1, 0x8F1BBCDC, 0xCA62C1D6];
@@ -33583,7 +33581,7 @@ function SHA1() {
   this.W = new Array(80);
 }
 
-utils.inherits(SHA1, BlockHash$3);
+utils$1.inherits(SHA1, BlockHash$3);
 var _1 = SHA1;
 SHA1.blockSize = 512;
 SHA1.outSize = 160;
@@ -33625,12 +33623,12 @@ SHA1.prototype._update = function _update(msg, start) {
 };
 
 SHA1.prototype._digest = function digest(enc) {
-  if (enc === 'hex') return utils.toHex32(this.h, 'big');else return utils.split32(this.h, 'big');
+  if (enc === 'hex') return utils$1.toHex32(this.h, 'big');else return utils$1.split32(this.h, 'big');
 };
 
-var sum32$1 = utils.sum32;
-var sum32_4$1 = utils.sum32_4;
-var sum32_5 = utils.sum32_5;
+var sum32$1 = utils$1.sum32;
+var sum32_4$1 = utils$1.sum32_4;
+var sum32_5 = utils$1.sum32_5;
 var ch32 = common.ch32;
 var maj32 = common.maj32;
 var s0_256 = common.s0_256;
@@ -33648,7 +33646,7 @@ function SHA256() {
   this.W = new Array(64);
 }
 
-utils.inherits(SHA256, BlockHash$2);
+utils$1.inherits(SHA256, BlockHash$2);
 var _256 = SHA256;
 SHA256.blockSize = 512;
 SHA256.outSize = 256;
@@ -33700,7 +33698,7 @@ SHA256.prototype._update = function _update(msg, start) {
 };
 
 SHA256.prototype._digest = function digest(enc) {
-  if (enc === 'hex') return utils.toHex32(this.h, 'big');else return utils.split32(this.h, 'big');
+  if (enc === 'hex') return utils$1.toHex32(this.h, 'big');else return utils$1.split32(this.h, 'big');
 };
 
 function SHA224() {
@@ -33711,7 +33709,7 @@ function SHA224() {
   this.h = [0xc1059ed8, 0x367cd507, 0x3070dd17, 0xf70e5939, 0xffc00b31, 0x68581511, 0x64f98fa7, 0xbefa4fa4];
 }
 
-utils.inherits(SHA224, _256);
+utils$1.inherits(SHA224, _256);
 var _224 = SHA224;
 SHA224.blockSize = 512;
 SHA224.outSize = 224;
@@ -33720,20 +33718,20 @@ SHA224.padLength = 64;
 
 SHA224.prototype._digest = function digest(enc) {
   // Just truncate output
-  if (enc === 'hex') return utils.toHex32(this.h.slice(0, 7), 'big');else return utils.split32(this.h.slice(0, 7), 'big');
+  if (enc === 'hex') return utils$1.toHex32(this.h.slice(0, 7), 'big');else return utils$1.split32(this.h.slice(0, 7), 'big');
 };
 
-var rotr64_hi = utils.rotr64_hi;
-var rotr64_lo = utils.rotr64_lo;
-var shr64_hi = utils.shr64_hi;
-var shr64_lo = utils.shr64_lo;
-var sum64 = utils.sum64;
-var sum64_hi = utils.sum64_hi;
-var sum64_lo = utils.sum64_lo;
-var sum64_4_hi = utils.sum64_4_hi;
-var sum64_4_lo = utils.sum64_4_lo;
-var sum64_5_hi = utils.sum64_5_hi;
-var sum64_5_lo = utils.sum64_5_lo;
+var rotr64_hi = utils$1.rotr64_hi;
+var rotr64_lo = utils$1.rotr64_lo;
+var shr64_hi = utils$1.shr64_hi;
+var shr64_lo = utils$1.shr64_lo;
+var sum64 = utils$1.sum64;
+var sum64_hi = utils$1.sum64_hi;
+var sum64_lo = utils$1.sum64_lo;
+var sum64_4_hi = utils$1.sum64_4_hi;
+var sum64_4_lo = utils$1.sum64_4_lo;
+var sum64_5_hi = utils$1.sum64_5_hi;
+var sum64_5_lo = utils$1.sum64_5_lo;
 var BlockHash$1 = common$1.BlockHash;
 var sha512_K = [0x428a2f98, 0xd728ae22, 0x71374491, 0x23ef65cd, 0xb5c0fbcf, 0xec4d3b2f, 0xe9b5dba5, 0x8189dbbc, 0x3956c25b, 0xf348b538, 0x59f111f1, 0xb605d019, 0x923f82a4, 0xaf194f9b, 0xab1c5ed5, 0xda6d8118, 0xd807aa98, 0xa3030242, 0x12835b01, 0x45706fbe, 0x243185be, 0x4ee4b28c, 0x550c7dc3, 0xd5ffb4e2, 0x72be5d74, 0xf27b896f, 0x80deb1fe, 0x3b1696b1, 0x9bdc06a7, 0x25c71235, 0xc19bf174, 0xcf692694, 0xe49b69c1, 0x9ef14ad2, 0xefbe4786, 0x384f25e3, 0x0fc19dc6, 0x8b8cd5b5, 0x240ca1cc, 0x77ac9c65, 0x2de92c6f, 0x592b0275, 0x4a7484aa, 0x6ea6e483, 0x5cb0a9dc, 0xbd41fbd4, 0x76f988da, 0x831153b5, 0x983e5152, 0xee66dfab, 0xa831c66d, 0x2db43210, 0xb00327c8, 0x98fb213f, 0xbf597fc7, 0xbeef0ee4, 0xc6e00bf3, 0x3da88fc2, 0xd5a79147, 0x930aa725, 0x06ca6351, 0xe003826f, 0x14292967, 0x0a0e6e70, 0x27b70a85, 0x46d22ffc, 0x2e1b2138, 0x5c26c926, 0x4d2c6dfc, 0x5ac42aed, 0x53380d13, 0x9d95b3df, 0x650a7354, 0x8baf63de, 0x766a0abb, 0x3c77b2a8, 0x81c2c92e, 0x47edaee6, 0x92722c85, 0x1482353b, 0xa2bfe8a1, 0x4cf10364, 0xa81a664b, 0xbc423001, 0xc24b8b70, 0xd0f89791, 0xc76c51a3, 0x0654be30, 0xd192e819, 0xd6ef5218, 0xd6990624, 0x5565a910, 0xf40e3585, 0x5771202a, 0x106aa070, 0x32bbd1b8, 0x19a4c116, 0xb8d2d0c8, 0x1e376c08, 0x5141ab53, 0x2748774c, 0xdf8eeb99, 0x34b0bcb5, 0xe19b48a8, 0x391c0cb3, 0xc5c95a63, 0x4ed8aa4a, 0xe3418acb, 0x5b9cca4f, 0x7763e373, 0x682e6ff3, 0xd6b2b8a3, 0x748f82ee, 0x5defb2fc, 0x78a5636f, 0x43172f60, 0x84c87814, 0xa1f0ab72, 0x8cc70208, 0x1a6439ec, 0x90befffa, 0x23631e28, 0xa4506ceb, 0xde82bde9, 0xbef9a3f7, 0xb2c67915, 0xc67178f2, 0xe372532b, 0xca273ece, 0xea26619c, 0xd186b8c7, 0x21c0c207, 0xeada7dd6, 0xcde0eb1e, 0xf57d4f7f, 0xee6ed178, 0x06f067aa, 0x72176fba, 0x0a637dc5, 0xa2c898a6, 0x113f9804, 0xbef90dae, 0x1b710b35, 0x131c471b, 0x28db77f5, 0x23047d84, 0x32caab7b, 0x40c72493, 0x3c9ebe0a, 0x15c9bebc, 0x431d67c4, 0x9c100d4c, 0x4cc5d4be, 0xcb3e42b6, 0x597f299c, 0xfc657e2a, 0x5fcb6fab, 0x3ad6faec, 0x6c44198c, 0x4a475817];
 
@@ -33745,7 +33743,7 @@ function SHA512() {
   this.W = new Array(160);
 }
 
-utils.inherits(SHA512, BlockHash$1);
+utils$1.inherits(SHA512, BlockHash$1);
 var _512 = SHA512;
 SHA512.blockSize = 1024;
 SHA512.outSize = 512;
@@ -33847,7 +33845,7 @@ SHA512.prototype._update = function _update(msg, start) {
 };
 
 SHA512.prototype._digest = function digest(enc) {
-  if (enc === 'hex') return utils.toHex32(this.h, 'big');else return utils.split32(this.h, 'big');
+  if (enc === 'hex') return utils$1.toHex32(this.h, 'big');else return utils$1.split32(this.h, 'big');
 };
 
 function ch64_hi(xh, xl, yh, yl, zh) {
@@ -33962,7 +33960,7 @@ function SHA384() {
   this.h = [0xcbbb9d5d, 0xc1059ed8, 0x629a292a, 0x367cd507, 0x9159015a, 0x3070dd17, 0x152fecd8, 0xf70e5939, 0x67332667, 0xffc00b31, 0x8eb44a87, 0x68581511, 0xdb0c2e0d, 0x64f98fa7, 0x47b5481d, 0xbefa4fa4];
 }
 
-utils.inherits(SHA384, _512);
+utils$1.inherits(SHA384, _512);
 var _384 = SHA384;
 SHA384.blockSize = 1024;
 SHA384.outSize = 384;
@@ -33970,7 +33968,7 @@ SHA384.hmacStrength = 192;
 SHA384.padLength = 128;
 
 SHA384.prototype._digest = function digest(enc) {
-  if (enc === 'hex') return utils.toHex32(this.h.slice(0, 12), 'big');else return utils.split32(this.h.slice(0, 12), 'big');
+  if (enc === 'hex') return utils$1.toHex32(this.h.slice(0, 12), 'big');else return utils$1.split32(this.h.slice(0, 12), 'big');
 };
 
 var sha1 = _1;
@@ -33985,10 +33983,10 @@ var sha = {
   sha384: sha384,
   sha512: sha512
 };
-var rotl32 = utils.rotl32;
-var sum32 = utils.sum32;
-var sum32_3 = utils.sum32_3;
-var sum32_4 = utils.sum32_4;
+var rotl32 = utils$1.rotl32;
+var sum32 = utils$1.sum32;
+var sum32_3 = utils$1.sum32_3;
+var sum32_4 = utils$1.sum32_4;
 var BlockHash = common$1.BlockHash;
 
 function RIPEMD160() {
@@ -33998,7 +33996,7 @@ function RIPEMD160() {
   this.endian = 'little';
 }
 
-utils.inherits(RIPEMD160, BlockHash);
+utils$1.inherits(RIPEMD160, BlockHash);
 var ripemd160 = RIPEMD160;
 RIPEMD160.blockSize = 512;
 RIPEMD160.outSize = 160;
@@ -34018,13 +34016,13 @@ RIPEMD160.prototype._update = function update(msg, start) {
   var Eh = E;
 
   for (var j = 0; j < 80; j++) {
-    var T = sum32(rotl32(sum32_4(A, f(j, B, C, D), msg[r[j] + start], K(j)), s[j]), E);
+    var T = sum32(rotl32(sum32_4(A, f$1(j, B, C, D), msg[r$1[j] + start], K(j)), s[j]), E);
     A = E;
     E = D;
     D = rotl32(C, 10);
     C = B;
     B = T;
-    T = sum32(rotl32(sum32_4(Ah, f(79 - j, Bh, Ch, Dh), msg[rh$1[j] + start], Kh$1(j)), sh$1[j]), Eh);
+    T = sum32(rotl32(sum32_4(Ah, f$1(79 - j, Bh, Ch, Dh), msg[rh$1[j] + start], Kh$1(j)), sh$1[j]), Eh);
     Ah = Eh;
     Eh = Dh;
     Dh = rotl32(Ch, 10);
@@ -34041,10 +34039,10 @@ RIPEMD160.prototype._update = function update(msg, start) {
 };
 
 RIPEMD160.prototype._digest = function digest(enc) {
-  if (enc === 'hex') return utils.toHex32(this.h, 'little');else return utils.split32(this.h, 'little');
+  if (enc === 'hex') return utils$1.toHex32(this.h, 'little');else return utils$1.split32(this.h, 'little');
 };
 
-function f(j, x, y, z) {
+function f$1(j, x, y, z) {
   if (j <= 15) return x ^ y ^ z;else if (j <= 31) return x & y | ~x & z;else if (j <= 47) return (x | ~y) ^ z;else if (j <= 63) return x & z | y & ~z;else return x ^ (y | ~z);
 }
 
@@ -34056,7 +34054,7 @@ function Kh$1(j) {
   if (j <= 15) return 0x50a28be6;else if (j <= 31) return 0x5c4dd124;else if (j <= 47) return 0x6d703ef3;else if (j <= 63) return 0x7a6d76e9;else return 0x00000000;
 }
 
-var r = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 7, 4, 13, 1, 10, 6, 15, 3, 12, 0, 9, 5, 2, 14, 11, 8, 3, 10, 14, 4, 9, 15, 8, 1, 2, 7, 0, 6, 13, 11, 5, 12, 1, 9, 11, 10, 0, 8, 12, 4, 13, 3, 7, 15, 14, 5, 6, 2, 4, 0, 5, 9, 7, 12, 2, 10, 14, 1, 3, 8, 11, 6, 15, 13];
+var r$1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 7, 4, 13, 1, 10, 6, 15, 3, 12, 0, 9, 5, 2, 14, 11, 8, 3, 10, 14, 4, 9, 15, 8, 1, 2, 7, 0, 6, 13, 11, 5, 12, 1, 9, 11, 10, 0, 8, 12, 4, 13, 3, 7, 15, 14, 5, 6, 2, 4, 0, 5, 9, 7, 12, 2, 10, 14, 1, 3, 8, 11, 6, 15, 13];
 var rh$1 = [5, 14, 7, 0, 9, 2, 11, 4, 13, 6, 15, 8, 1, 10, 3, 12, 6, 11, 3, 7, 0, 13, 5, 10, 14, 15, 8, 12, 4, 9, 1, 2, 15, 5, 1, 3, 7, 14, 6, 9, 11, 8, 12, 2, 10, 0, 4, 13, 8, 6, 4, 1, 3, 11, 15, 0, 5, 12, 2, 13, 9, 7, 10, 14, 12, 15, 10, 4, 1, 5, 8, 7, 6, 2, 13, 14, 0, 3, 9, 11];
 var s = [11, 14, 15, 12, 5, 8, 7, 9, 11, 13, 14, 15, 6, 7, 9, 8, 7, 6, 8, 13, 11, 9, 7, 15, 7, 12, 15, 9, 11, 7, 13, 12, 11, 13, 6, 7, 14, 9, 13, 15, 14, 8, 13, 6, 5, 12, 7, 5, 11, 12, 14, 15, 14, 15, 9, 8, 9, 14, 5, 6, 8, 6, 5, 12, 9, 15, 5, 11, 6, 8, 13, 12, 5, 12, 13, 14, 11, 8, 5, 6];
 var sh$1 = [8, 9, 9, 11, 13, 15, 15, 5, 7, 7, 8, 11, 14, 14, 12, 6, 9, 13, 15, 7, 12, 8, 9, 11, 7, 7, 12, 7, 6, 15, 13, 11, 9, 7, 15, 11, 8, 6, 6, 14, 12, 13, 5, 14, 13, 13, 7, 5, 15, 5, 8, 11, 14, 14, 6, 14, 6, 9, 12, 9, 12, 5, 15, 8, 8, 5, 12, 9, 12, 5, 14, 6, 8, 13, 6, 5, 15, 13, 11, 11];
@@ -34072,7 +34070,7 @@ function Hmac(hash, key, enc) {
   this.inner = null;
   this.outer = null;
 
-  this._init(utils.toArray(key, enc));
+  this._init(utils$1.toArray(key, enc));
 }
 
 var hmac = Hmac;
@@ -34111,7 +34109,7 @@ Hmac.prototype.digest = function digest(enc) {
 
 var hash_1 = createCommonjsModule$1(function (module, exports) {
   var hash = exports;
-  hash.utils = utils;
+  hash.utils = utils$1;
   hash.common = common$1;
   hash.sha = sha;
   hash.ripemd = ripemd;
@@ -34136,10 +34134,10 @@ var ALPHABET = 'qpzry9x8gf2tvdw0s3jn54khce6mua7l'; // pre-compute lookup table
 
 var ALPHABET_MAP = {};
 
-for (var z = 0; z < ALPHABET.length; z++) {
-  var x = ALPHABET.charAt(z);
-  if (ALPHABET_MAP[x] !== undefined) throw new TypeError(x + ' is ambiguous');
-  ALPHABET_MAP[x] = z;
+for (var z$1 = 0; z$1 < ALPHABET.length; z$1++) {
+  var x$1 = ALPHABET.charAt(z$1);
+  if (ALPHABET_MAP[x$1] !== undefined) throw new TypeError(x$1 + ' is ambiguous');
+  ALPHABET_MAP[x$1] = z$1;
 }
 
 function polymodStep(pre) {
@@ -36473,7 +36471,7 @@ function getCurve() {
 
 var SigningKey = /*#__PURE__*/function () {
   function SigningKey(privateKey) {
-    _classCallCheck(this, SigningKey);
+    _classCallCheck$1(this, SigningKey);
 
     defineReadOnly(this, "curve", "secp256k1");
     defineReadOnly(this, "privateKey", hexlify$1(privateKey));
@@ -36483,7 +36481,7 @@ var SigningKey = /*#__PURE__*/function () {
     defineReadOnly(this, "_isSigningKey", true);
   }
 
-  _createClass(SigningKey, [{
+  _createClass$1(SigningKey, [{
     key: "_addPoint",
     value: function _addPoint(other) {
       var p0 = getCurve().keyFromPublic(arrayify(this.publicKey));
@@ -36888,13 +36886,13 @@ var logger$3 = new Logger$1(version$3$1);
 
 var Formatter = /*#__PURE__*/function () {
   function Formatter() {
-    _classCallCheck(this, Formatter);
+    _classCallCheck$1(this, Formatter);
 
     logger$3.checkNew(this instanceof Formatter ? this.constructor : void 0, Formatter);
     this.formats = this.getDefaultFormats();
   }
 
-  _createClass(Formatter, [{
+  _createClass$1(Formatter, [{
     key: "getDefaultFormats",
     value: function getDefaultFormats() {
       var _this3 = this;
@@ -37554,14 +37552,14 @@ var PollableEvents = ["block", "network", "pending", "poll"];
 
 var Event = /*#__PURE__*/function () {
   function Event(tag, listener, once) {
-    _classCallCheck(this, Event);
+    _classCallCheck$1(this, Event);
 
     defineReadOnly(this, "tag", tag);
     defineReadOnly(this, "listener", listener);
     defineReadOnly(this, "once", once);
   }
 
-  _createClass(Event, [{
+  _createClass$1(Event, [{
     key: "event",
     get: function get() {
       switch (this.type) {
@@ -37667,14 +37665,14 @@ function base58Encode(data) {
 
 var Resolver = /*#__PURE__*/function () {
   function Resolver(provider, address, name) {
-    _classCallCheck(this, Resolver);
+    _classCallCheck$1(this, Resolver);
 
     defineReadOnly(this, "provider", provider);
     defineReadOnly(this, "name", name);
     defineReadOnly(this, "address", provider.formatter.address(address));
   }
 
-  _createClass(Resolver, [{
+  _createClass$1(Resolver, [{
     key: "_fetchBytes",
     value: function _fetchBytes(selector, parameters) {
       return __awaiter$2(this, void 0, void 0, /*#__PURE__*/regenerator.mark(function _callee6() {
@@ -38008,7 +38006,7 @@ var defaultFormatter = null;
 var nextPollId = 1;
 
 var BaseProvider = /*#__PURE__*/function (_Provider) {
-  _inherits(BaseProvider, _Provider);
+  _inherits$1(BaseProvider, _Provider);
 
   var _super2 = _createSuper$3(BaseProvider);
 
@@ -38024,7 +38022,7 @@ var BaseProvider = /*#__PURE__*/function (_Provider) {
   function BaseProvider(network) {
     var _this5;
 
-    _classCallCheck(this, BaseProvider);
+    _classCallCheck$1(this, BaseProvider);
 
     logger$2.checkNew(this instanceof BaseProvider ? this.constructor : void 0, Provider);
     _this5 = _super2.call(this); // Events being listened to
@@ -38068,7 +38066,7 @@ var BaseProvider = /*#__PURE__*/function (_Provider) {
     return _this5;
   }
 
-  _createClass(BaseProvider, [{
+  _createClass$1(BaseProvider, [{
     key: "_ready",
     value: function _ready() {
       return __awaiter$2(this, void 0, void 0, /*#__PURE__*/regenerator.mark(function _callee10() {
@@ -40648,7 +40646,7 @@ var Signer = /*#__PURE__*/function () {
   ///////////////////
   // Sub-classes MUST call super
   function Signer() {
-    _classCallCheck(this, Signer);
+    _classCallCheck$1(this, Signer);
 
     logger$1$1.checkAbstract(this instanceof Signer ? this.constructor : void 0, Signer);
     defineReadOnly(this, "_isSigner", true);
@@ -40656,7 +40654,7 @@ var Signer = /*#__PURE__*/function () {
   // Sub-classes MAY override these
 
 
-  _createClass(Signer, [{
+  _createClass$1(Signer, [{
     key: "getBalance",
     value: function getBalance(blockTag) {
       return __awaiter$1(this, void 0, void 0, /*#__PURE__*/regenerator.mark(function _callee45() {
@@ -41302,14 +41300,14 @@ function getLowerCase(value) {
 var _constructorGuard$2 = {};
 
 var JsonRpcSigner = /*#__PURE__*/function (_Signer) {
-  _inherits(JsonRpcSigner, _Signer);
+  _inherits$1(JsonRpcSigner, _Signer);
 
   var _super3 = _createSuper$3(JsonRpcSigner);
 
   function JsonRpcSigner(constructorGuard, provider, addressOrIndex) {
     var _this26;
 
-    _classCallCheck(this, JsonRpcSigner);
+    _classCallCheck$1(this, JsonRpcSigner);
 
     logger$h.checkNew(this instanceof JsonRpcSigner ? this.constructor : void 0, JsonRpcSigner);
     _this26 = _super3.call(this);
@@ -41337,7 +41335,7 @@ var JsonRpcSigner = /*#__PURE__*/function (_Signer) {
     return _this26;
   }
 
-  _createClass(JsonRpcSigner, [{
+  _createClass$1(JsonRpcSigner, [{
     key: "connect",
     value: function connect(provider) {
       return logger$h.throwError("cannot alter JSON-RPC Signer connection", Logger$1.errors.UNSUPPORTED_OPERATION, {
@@ -41633,17 +41631,17 @@ var JsonRpcSigner = /*#__PURE__*/function (_Signer) {
 }(Signer);
 
 var UncheckedJsonRpcSigner = /*#__PURE__*/function (_JsonRpcSigner) {
-  _inherits(UncheckedJsonRpcSigner, _JsonRpcSigner);
+  _inherits$1(UncheckedJsonRpcSigner, _JsonRpcSigner);
 
   var _super4 = _createSuper$3(UncheckedJsonRpcSigner);
 
   function UncheckedJsonRpcSigner() {
-    _classCallCheck(this, UncheckedJsonRpcSigner);
+    _classCallCheck$1(this, UncheckedJsonRpcSigner);
 
     return _super4.apply(this, arguments);
   }
 
-  _createClass(UncheckedJsonRpcSigner, [{
+  _createClass$1(UncheckedJsonRpcSigner, [{
     key: "sendTransaction",
     value: function sendTransaction(transaction) {
       var _this31 = this;
@@ -41685,14 +41683,14 @@ var allowedTransactionKeys = {
 };
 
 var JsonRpcProvider = /*#__PURE__*/function (_BaseProvider) {
-  _inherits(JsonRpcProvider, _BaseProvider);
+  _inherits$1(JsonRpcProvider, _BaseProvider);
 
   var _super5 = _createSuper$3(JsonRpcProvider);
 
   function JsonRpcProvider(url, network) {
     var _this32;
 
-    _classCallCheck(this, JsonRpcProvider);
+    _classCallCheck$1(this, JsonRpcProvider);
 
     logger$h.checkNew(this instanceof JsonRpcProvider ? this.constructor : void 0, JsonRpcProvider);
     var networkOrReady = network; // The network is unknown, query the JSON-RPC for it
@@ -41727,7 +41725,7 @@ var JsonRpcProvider = /*#__PURE__*/function (_BaseProvider) {
     return _this32;
   }
 
-  _createClass(JsonRpcProvider, [{
+  _createClass$1(JsonRpcProvider, [{
     key: "_cache",
     get: function get() {
       if (this._eventLoopCache == null) {
@@ -42162,17 +42160,17 @@ var JsonRpcProvider = /*#__PURE__*/function (_BaseProvider) {
 
 
 var JsonRpcBatchProvider = /*#__PURE__*/function (_JsonRpcProvider) {
-  _inherits(JsonRpcBatchProvider, _JsonRpcProvider);
+  _inherits$1(JsonRpcBatchProvider, _JsonRpcProvider);
 
   var _super6 = _createSuper$3(JsonRpcBatchProvider);
 
   function JsonRpcBatchProvider() {
-    _classCallCheck(this, JsonRpcBatchProvider);
+    _classCallCheck$1(this, JsonRpcBatchProvider);
 
     return _super6.apply(this, arguments);
   }
 
-  _createClass(JsonRpcBatchProvider, [{
+  _createClass$1(JsonRpcBatchProvider, [{
     key: "send",
     value: function send(method, params) {
       var _this36 = this;
@@ -42267,21 +42265,21 @@ new Logger$1(version$3$1);
 var BATCH_INTERVAL = 10;
 
 var StaticJsonRpcBatchProvider = /*#__PURE__*/function (_JsonRpcBatchProvider) {
-  _inherits(StaticJsonRpcBatchProvider, _JsonRpcBatchProvider);
+  _inherits$1(StaticJsonRpcBatchProvider, _JsonRpcBatchProvider);
 
   var _super7 = _createSuper$3(StaticJsonRpcBatchProvider);
 
   function StaticJsonRpcBatchProvider(url, network) {
     var _this37;
 
-    _classCallCheck(this, StaticJsonRpcBatchProvider);
+    _classCallCheck$1(this, StaticJsonRpcBatchProvider);
 
     _this37 = _super7.call(this, url);
     _this37._network = network;
     return _this37;
   }
 
-  _createClass(StaticJsonRpcBatchProvider, [{
+  _createClass$1(StaticJsonRpcBatchProvider, [{
     key: "detectNetwork",
     value: function detectNetwork() {
       return Promise.resolve(Blockchain.findByName(this._network).id);
@@ -43227,7 +43225,7 @@ var scheduler = createCommonjsModule$4(function (module) {
   }
 });
 
-function y(a) {
+function y$1(a) {
   for (var b = "https://reactjs.org/docs/error-decoder.html?invariant=" + a, c = 1; c < arguments.length; c++) {
     b += "&args[]=" + encodeURIComponent(arguments[c]);
   }
@@ -43235,7 +43233,7 @@ function y(a) {
   return "Minified React error #" + a + "; visit " + b + " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.";
 }
 
-if (!react) throw Error(y(227));
+if (!react) throw Error(y$1(227));
 var ba = new Set(),
     ca = {};
 
@@ -43782,7 +43780,7 @@ function fb(a, b, c, d) {
 }
 
 function gb(a, b) {
-  if (null != b.dangerouslySetInnerHTML) throw Error(y(91));
+  if (null != b.dangerouslySetInnerHTML) throw Error(y$1(91));
   return objectAssign({}, b, {
     value: void 0,
     defaultValue: void 0,
@@ -43798,10 +43796,10 @@ function hb(a, b) {
     b = b.defaultValue;
 
     if (null != c) {
-      if (null != b) throw Error(y(92));
+      if (null != b) throw Error(y$1(92));
 
       if (Array.isArray(c)) {
-        if (!(1 >= c.length)) throw Error(y(93));
+        if (!(1 >= c.length)) throw Error(y$1(93));
         c = c[0];
       }
 
@@ -43978,14 +43976,14 @@ var ub = objectAssign({
 
 function vb(a, b) {
   if (b) {
-    if (ub[a] && (null != b.children || null != b.dangerouslySetInnerHTML)) throw Error(y(137, a));
+    if (ub[a] && (null != b.children || null != b.dangerouslySetInnerHTML)) throw Error(y$1(137, a));
 
     if (null != b.dangerouslySetInnerHTML) {
-      if (null != b.children) throw Error(y(60));
-      if (!("object" === _typeof(b.dangerouslySetInnerHTML) && "__html" in b.dangerouslySetInnerHTML)) throw Error(y(61));
+      if (null != b.children) throw Error(y$1(60));
+      if (!("object" === _typeof(b.dangerouslySetInnerHTML) && "__html" in b.dangerouslySetInnerHTML)) throw Error(y$1(61));
     }
 
-    if (null != b.style && "object" !== _typeof(b.style)) throw Error(y(62));
+    if (null != b.style && "object" !== _typeof(b.style)) throw Error(y$1(62));
   }
 }
 
@@ -44020,7 +44018,7 @@ var yb = null,
 
 function Bb(a) {
   if (a = Cb(a)) {
-    if ("function" !== typeof yb) throw Error(y(280));
+    if ("function" !== typeof yb) throw Error(y$1(280));
     var b = a.stateNode;
     b && (b = Db(b), yb(a.stateNode, a.type, b));
   }
@@ -44099,7 +44097,7 @@ function Ob(a, b) {
   }
 
   if (a) return null;
-  if (c && "function" !== typeof c) throw Error(y(231, b, _typeof(c)));
+  if (c && "function" !== typeof c) throw Error(y$1(231, b, _typeof(c)));
   return c;
 }
 
@@ -44152,7 +44150,7 @@ function Yb(a, b, c, d, e, f, g, h, k) {
       var l = Tb;
       Sb = !1;
       Tb = null;
-    } else throw Error(y(198));
+    } else throw Error(y$1(198));
 
     Ub || (Ub = !0, Vb = l);
   }
@@ -44184,7 +44182,7 @@ function $b(a) {
 }
 
 function ac(a) {
-  if (Zb(a) !== a) throw Error(y(188));
+  if (Zb(a) !== a) throw Error(y$1(188));
 }
 
 function bc(a) {
@@ -44192,7 +44190,7 @@ function bc(a) {
 
   if (!b) {
     b = Zb(a);
-    if (null === b) throw Error(y(188));
+    if (null === b) throw Error(y$1(188));
     return b !== a ? null : a;
   }
 
@@ -44219,7 +44217,7 @@ function bc(a) {
         f = f.sibling;
       }
 
-      throw Error(y(188));
+      throw Error(y$1(188));
     }
 
     if (c["return"] !== d["return"]) c = e, d = f;else {
@@ -44260,13 +44258,13 @@ function bc(a) {
           h = h.sibling;
         }
 
-        if (!g) throw Error(y(189));
+        if (!g) throw Error(y$1(189));
       }
     }
-    if (c.alternate !== d) throw Error(y(190));
+    if (c.alternate !== d) throw Error(y$1(190));
   }
 
-  if (3 !== c.tag) throw Error(y(188));
+  if (3 !== c.tag) throw Error(y$1(188));
   return c.stateNode.current === c ? a : b;
 }
 
@@ -44617,7 +44615,7 @@ function Tc(a) {
       return 90;
 
     default:
-      throw Error(y(358, a));
+      throw Error(y$1(358, a));
   }
 }
 
@@ -44676,7 +44674,7 @@ function Xc(a, b) {
       return b = Yc(805306368 & ~b), 0 === b && (b = 268435456), b;
   }
 
-  throw Error(y(358, a));
+  throw Error(y$1(358, a));
 }
 
 function Yc(a) {
@@ -45907,7 +45905,7 @@ function Cb(a) {
 
 function ue(a) {
   if (5 === a.tag || 6 === a.tag) return a.stateNode;
-  throw Error(y(33));
+  throw Error(y$1(33));
 }
 
 function Db(a) {
@@ -45971,7 +45969,7 @@ function Gf() {
 }
 
 function Hf(a, b, c) {
-  if (M.current !== Cf) throw Error(y(168));
+  if (M.current !== Cf) throw Error(y$1(168));
   I(M, b);
   I(N, c);
 }
@@ -45983,7 +45981,7 @@ function If(a, b, c) {
   d = d.getChildContext();
 
   for (var e in d) {
-    if (!(e in a)) throw Error(y(108, Ra(b) || "Unknown", e));
+    if (!(e in a)) throw Error(y$1(108, Ra(b) || "Unknown", e));
   }
 
   return objectAssign({}, c, d);
@@ -45999,7 +45997,7 @@ function Jf(a) {
 
 function Kf(a, b, c) {
   var d = a.stateNode;
-  if (!d) throw Error(y(169));
+  if (!d) throw Error(y$1(169));
   c ? (a = If(a, b, Df), d.__reactInternalMemoizedMergedChildContext = a, H(N), H(M), I(M, a)) : H(N);
   I(N, c);
 }
@@ -46046,7 +46044,7 @@ function eg() {
       return 95;
 
     default:
-      throw Error(y(332));
+      throw Error(y$1(332));
   }
 }
 
@@ -46068,7 +46066,7 @@ function fg(a) {
       return Yf;
 
     default:
-      throw Error(y(332));
+      throw Error(y$1(332));
   }
 }
 
@@ -46176,7 +46174,7 @@ function vg(a, b) {
     };
 
     if (null === og) {
-      if (null === ng) throw Error(y(308));
+      if (null === ng) throw Error(y$1(308));
       og = b;
       ng.dependencies = {
         lanes: 0,
@@ -46387,7 +46385,7 @@ function Eg(a, b, c) {
     if (null !== e) {
       d.callback = null;
       d = c;
-      if ("function" !== typeof e) throw Error(y(191, e));
+      if ("function" !== typeof e) throw Error(y$1(191, e));
       e.call(d);
     }
   }
@@ -46492,11 +46490,11 @@ function Qg(a, b, c) {
       c = c._owner;
 
       if (c) {
-        if (1 !== c.tag) throw Error(y(309));
+        if (1 !== c.tag) throw Error(y$1(309));
         var d = c.stateNode;
       }
 
-      if (!d) throw Error(y(147, a));
+      if (!d) throw Error(y$1(147, a));
       var e = "" + a;
       if (null !== b && null !== b.ref && "function" === typeof b.ref && b.ref._stringRef === e) return b.ref;
 
@@ -46510,15 +46508,15 @@ function Qg(a, b, c) {
       return b;
     }
 
-    if ("string" !== typeof a) throw Error(y(284));
-    if (!c._owner) throw Error(y(290, a));
+    if ("string" !== typeof a) throw Error(y$1(284));
+    if (!c._owner) throw Error(y$1(290, a));
   }
 
   return a;
 }
 
 function Rg(a, b) {
-  if ("textarea" !== a.type) throw Error(y(31, "[object Object]" === Object.prototype.toString.call(b) ? "object with keys {" + Object.keys(b).join(", ") + "}" : b));
+  if ("textarea" !== a.type) throw Error(y$1(31, "[object Object]" === Object.prototype.toString.call(b) ? "object with keys {" + Object.keys(b).join(", ") + "}" : b));
 }
 
 function Sg(a) {
@@ -46696,9 +46694,9 @@ function Sg(a) {
 
   function w(e, g, h, k) {
     var l = La(h);
-    if ("function" !== typeof l) throw Error(y(150));
+    if ("function" !== typeof l) throw Error(y$1(150));
     h = l.call(h);
-    if (null == h) throw Error(y(151));
+    if (null == h) throw Error(y$1(151));
 
     for (var t = l = null, u = g, z = g = 0, q = null, n = h.next(); null !== u && !n.done; z++, n = h.next()) {
       u.index > z ? (q = u, u = null) : q = u.sibling;
@@ -46818,7 +46816,7 @@ function Sg(a) {
       case 0:
       case 11:
       case 15:
-        throw Error(y(152, Ra(a.type) || "Component"));
+        throw Error(y$1(152, Ra(a.type) || "Component"));
     }
     return c(a, d);
   };
@@ -46832,7 +46830,7 @@ var Yg = Sg(!0),
     ch = Bf($g);
 
 function dh(a) {
-  if (a === $g) throw Error(y(174));
+  if (a === $g) throw Error(y$1(174));
   return a;
 }
 
@@ -46980,7 +46978,7 @@ function rh(a) {
   if (13 === a.tag) {
     a = a.memoizedState;
     a = null !== a ? a.dehydrated : null;
-    if (!a) throw Error(y(317));
+    if (!a) throw Error(y$1(317));
 
     a: {
       a = a.nextSibling;
@@ -47034,7 +47032,7 @@ var vh = ra.ReactCurrentDispatcher,
     zh = !1;
 
 function Ah() {
-  throw Error(y(321));
+  throw Error(y$1(321));
 }
 
 function Bh(a, b) {
@@ -47061,7 +47059,7 @@ function Ch(a, b, c, d, e, f) {
 
     do {
       zh = !1;
-      if (!(25 > f)) throw Error(y(301));
+      if (!(25 > f)) throw Error(y$1(301));
       f += 1;
       T = S = null;
       b.updateQueue = null;
@@ -47075,7 +47073,7 @@ function Ch(a, b, c, d, e, f) {
   xh = 0;
   T = S = R = null;
   yh = !1;
-  if (b) throw Error(y(300));
+  if (b) throw Error(y$1(300));
   return a;
 }
 
@@ -47099,7 +47097,7 @@ function Ih() {
 
   var b = null === T ? R.memoizedState : T.next;
   if (null !== b) T = b, S = a;else {
-    if (null === a) throw Error(y(310));
+    if (null === a) throw Error(y$1(310));
     S = a;
     a = {
       memoizedState: S.memoizedState,
@@ -47120,7 +47118,7 @@ function Jh(a, b) {
 function Kh(a) {
   var b = Ih(),
       c = b.queue;
-  if (null === c) throw Error(y(311));
+  if (null === c) throw Error(y$1(311));
   c.lastRenderedReducer = a;
   var d = S,
       e = d.baseQueue,
@@ -47180,7 +47178,7 @@ function Kh(a) {
 function Lh(a) {
   var b = Ih(),
       c = b.queue;
-  if (null === c) throw Error(y(311));
+  if (null === c) throw Error(y$1(311));
   c.lastRenderedReducer = a;
   var d = c.dispatch,
       e = c.pending,
@@ -47210,12 +47208,12 @@ function Mh(a, b, c) {
   if (null !== e) a = e === d;else if (a = a.mutableReadLanes, a = (xh & a) === a) b._workInProgressVersionPrimary = d, th.push(b);
   if (a) return c(b._source);
   th.push(b);
-  throw Error(y(350));
+  throw Error(y$1(350));
 }
 
 function Nh(a, b, c, d) {
   var e = U;
-  if (null === e) throw Error(y(349));
+  if (null === e) throw Error(y$1(349));
   var f = b._getVersion,
       g = f(b._source),
       h = vh.current,
@@ -47537,7 +47535,7 @@ var Gh = {
       var a = !1,
           b = uf(function () {
         a || (a = !0, c("r:" + (tf++).toString(36)));
-        throw Error(y(355));
+        throw Error(y$1(355));
       }),
           c = Qh(b)[1];
       0 === (R.mode & 2) && (R.flags |= 516, Rh(5, function () {
@@ -47967,7 +47965,7 @@ function hi(a, b, c) {
   Dg |= b.lanes;
 
   if (0 !== (c & b.childLanes)) {
-    if (null !== a && b.child !== a.child) throw Error(y(153));
+    if (null !== a && b.child !== a.child) throw Error(y$1(153));
 
     if (null !== b.child) {
       a = b.child;
@@ -48150,7 +48148,7 @@ function Gi(a, b, c) {
       c = b.type;
       if (null !== a && null != b.stateNode) Di(a, b, c, d, e), a.ref !== b.ref && (b.flags |= 128);else {
         if (!d) {
-          if (null === b.stateNode) throw Error(y(166));
+          if (null === b.stateNode) throw Error(y$1(166));
           return null;
         }
 
@@ -48370,7 +48368,7 @@ function Gi(a, b, c) {
 
     case 6:
       if (a && null != b.stateNode) Ei(a, b, a.memoizedProps, d);else {
-        if ("string" !== typeof d && null === b.stateNode) throw Error(y(166));
+        if ("string" !== typeof d && null === b.stateNode) throw Error(y$1(166));
         c = dh(ch.current);
         dh(ah.current);
         rh(b) ? (d = b.stateNode, c = b.memoizedProps, d[wf] = b, d.nodeValue !== c && (b.flags |= 4)) : (d = (9 === c.nodeType ? c : c.ownerDocument).createTextNode(d), d[wf] = b, b.stateNode = d);
@@ -48448,7 +48446,7 @@ function Gi(a, b, c) {
       return Ki(), null !== a && null !== a.memoizedState !== (null !== b.memoizedState) && "unstable-defer-without-hiding" !== d.mode && (b.flags |= 4), null;
   }
 
-  throw Error(y(156, b.tag));
+  throw Error(y$1(156, b.tag));
 }
 
 function Li(a) {
@@ -48464,7 +48462,7 @@ function Li(a) {
       H(M);
       uh();
       b = a.flags;
-      if (0 !== (b & 64)) throw Error(y(285));
+      if (0 !== (b & 64)) throw Error(y$1(285));
       a.flags = b & -4097 | 64;
       return a;
 
@@ -48607,7 +48605,7 @@ function Xi(a, b) {
       return;
   }
 
-  throw Error(y(163));
+  throw Error(y$1(163));
 }
 
 function Yi(a, b, c) {
@@ -48701,7 +48699,7 @@ function Yi(a, b, c) {
       return;
   }
 
-  throw Error(y(163));
+  throw Error(y$1(163));
 }
 
 function aj(a, b) {
@@ -48810,7 +48808,7 @@ function fj(a) {
       b = b["return"];
     }
 
-    throw Error(y(160));
+    throw Error(y$1(160));
   }
 
   var c = b;
@@ -48832,7 +48830,7 @@ function fj(a) {
       break;
 
     default:
-      throw Error(y(161));
+      throw Error(y$1(161));
   }
 
   c.flags & 16 && (pb(b, ""), c.flags &= -17);
@@ -48885,7 +48883,7 @@ function cj(a, b) {
       d = c["return"];
 
       a: for (;;) {
-        if (null === d) throw Error(y(160));
+        if (null === d) throw Error(y$1(160));
         e = d.stateNode;
 
         switch (d.tag) {
@@ -49016,7 +49014,7 @@ function ij(a, b) {
       return;
 
     case 6:
-      if (null === b.stateNode) throw Error(y(162));
+      if (null === b.stateNode) throw Error(y$1(162));
       b.stateNode.nodeValue = b.memoizedProps;
       return;
 
@@ -49046,7 +49044,7 @@ function ij(a, b) {
       return;
   }
 
-  throw Error(y(163));
+  throw Error(y$1(163));
 }
 
 function kj(a) {
@@ -49133,7 +49131,7 @@ function Ig(a) {
 }
 
 function Jg(a, b, c) {
-  if (50 < Dj) throw Dj = 0, Ej = null, Error(y(185));
+  if (50 < Dj) throw Dj = 0, Ej = null, Error(y$1(185));
   a = Kj(a, b);
   if (null === a) return null;
   $c(a, b, c);
@@ -49191,7 +49189,7 @@ function Mj(a, b) {
 function Nj(a) {
   Fj = -1;
   Hj = Gj = 0;
-  if (0 !== (X & 48)) throw Error(y(327));
+  if (0 !== (X & 48)) throw Error(y$1(327));
   var b = a.callbackNode;
   if (Oj() && a.callbackNode !== b) return null;
   var c = Uc(a, a === U ? W : 0);
@@ -49224,7 +49222,7 @@ function Nj(a) {
     switch (d) {
       case 0:
       case 1:
-        throw Error(y(345));
+        throw Error(y$1(345));
 
       case 2:
         Uj(a);
@@ -49280,7 +49278,7 @@ function Nj(a) {
         break;
 
       default:
-        throw Error(y(329));
+        throw Error(y$1(329));
     }
   }
   Mj(a, O());
@@ -49302,7 +49300,7 @@ function Ii(a, b) {
 }
 
 function Lj(a) {
-  if (0 !== (X & 48)) throw Error(y(327));
+  if (0 !== (X & 48)) throw Error(y$1(327));
   Oj();
 
   if (a === U && 0 !== (a.expiredLanes & W)) {
@@ -49598,7 +49596,7 @@ function Tj(a, b) {
   qg();
   X = c;
   oj.current = d;
-  if (null !== Y) throw Error(y(261));
+  if (null !== Y) throw Error(y$1(261));
   U = null;
   W = 0;
   return V;
@@ -49685,12 +49683,12 @@ function dk(a, b) {
     Oj();
   } while (null !== yj);
 
-  if (0 !== (X & 48)) throw Error(y(327));
+  if (0 !== (X & 48)) throw Error(y$1(327));
   var c = a.finishedWork;
   if (null === c) return null;
   a.finishedWork = null;
   a.finishedLanes = 0;
-  if (c === a.current) throw Error(y(177));
+  if (c === a.current) throw Error(y$1(177));
   a.callbackNode = null;
   var d = c.lanes | c.childLanes,
       e = d,
@@ -49794,7 +49792,7 @@ function dk(a, b) {
       try {
         ek();
       } catch (va) {
-        if (null === Z) throw Error(y(330));
+        if (null === Z) throw Error(y$1(330));
         Wi(Z, va);
         Z = Z.nextEffect;
       }
@@ -49854,7 +49852,7 @@ function dk(a, b) {
           Z = Z.nextEffect;
         }
       } catch (va) {
-        if (null === Z) throw Error(y(330));
+        if (null === Z) throw Error(y$1(330));
         Wi(Z, va);
         Z = Z.nextEffect;
       }
@@ -49918,7 +49916,7 @@ function dk(a, b) {
           Z = Z.nextEffect;
         }
       } catch (va) {
-        if (null === Z) throw Error(y(330));
+        if (null === Z) throw Error(y$1(330));
         Wi(Z, va);
         Z = Z.nextEffect;
       }
@@ -49990,7 +49988,7 @@ function fk() {
   if (null === yj) return !1;
   var a = yj;
   yj = null;
-  if (0 !== (X & 48)) throw Error(y(331));
+  if (0 !== (X & 48)) throw Error(y$1(331));
   var b = X;
   X |= 32;
   var c = Bj;
@@ -50004,7 +50002,7 @@ function fk() {
     if ("function" === typeof g) try {
       g();
     } catch (k) {
-      if (null === f) throw Error(y(330));
+      if (null === f) throw Error(y$1(330));
       Wi(f, k);
     }
   }
@@ -50020,7 +50018,7 @@ function fk() {
       var h = e.create;
       e.destroy = h();
     } catch (k) {
-      if (null === f) throw Error(y(330));
+      if (null === f) throw Error(y$1(330));
       Wi(f, k);
     }
   }
@@ -50217,7 +50215,7 @@ ck = function ck(a, b, c) {
             break a;
         }
 
-        throw Error(y(306, e, ""));
+        throw Error(y$1(306, e, ""));
       }
 
       return b;
@@ -50231,7 +50229,7 @@ ck = function ck(a, b, c) {
     case 3:
       ri(b);
       d = b.updateQueue;
-      if (null === a || null === d) throw Error(y(282));
+      if (null === a || null === d) throw Error(y$1(282));
       d = b.pendingProps;
       e = b.memoizedState;
       e = null !== e ? e.element : null;
@@ -50363,7 +50361,7 @@ ck = function ck(a, b, c) {
       return mi(a, b, c);
   }
 
-  throw Error(y(156, b.tag));
+  throw Error(y$1(156, b.tag));
 };
 
 function ik(a, b, c, d) {
@@ -50481,7 +50479,7 @@ function Vg(a, b, c, d, e, f) {
           g = 22;
           break a;
       }
-      throw Error(y(130, null == a ? a : _typeof(a), ""));
+      throw Error(y$1(130, null == a ? a : _typeof(a), ""));
   }
   b = nh(g, c, b, e);
   b.elementType = a;
@@ -50556,7 +50554,7 @@ function lk(a, b, c, d) {
     c = c._reactInternals;
 
     b: {
-      if (Zb(c) !== c || 1 !== c.tag) throw Error(y(170));
+      if (Zb(c) !== c || 1 !== c.tag) throw Error(y$1(170));
       var h = c;
 
       do {
@@ -50576,7 +50574,7 @@ function lk(a, b, c, d) {
         h = h["return"];
       } while (null !== h);
 
-      throw Error(y(171));
+      throw Error(y$1(171));
     }
 
     if (1 === c.tag) {
@@ -50762,7 +50760,7 @@ yb = function yb(a, b, c) {
 
           if (d !== a && d.form === a.form) {
             var e = Db(d);
-            if (!e) throw Error(y(90));
+            if (!e) throw Error(y$1(90));
             Wa(d);
             ab(d, e);
           }
@@ -50810,7 +50808,7 @@ Jb = function Jb(a, b) {
 
 function uk(a, b) {
   var c = 2 < arguments.length && void 0 !== arguments[2] ? arguments[2] : null;
-  if (!rk(b)) throw Error(y(200));
+  if (!rk(b)) throw Error(y$1(200));
   return kk(a, b, null, c);
 }
 
@@ -50867,8 +50865,8 @@ var findDOMNode = function findDOMNode(a) {
   var b = a._reactInternals;
 
   if (void 0 === b) {
-    if ("function" === typeof a.render) throw Error(y(188));
-    throw Error(y(268, Object.keys(a)));
+    if ("function" === typeof a.render) throw Error(y$1(188));
+    throw Error(y$1(268, Object.keys(a)));
   }
 
   a = cc(b);
@@ -50889,17 +50887,17 @@ var flushSync = function flushSync(a, b) {
 };
 
 var hydrate = function hydrate(a, b, c) {
-  if (!rk(b)) throw Error(y(200));
+  if (!rk(b)) throw Error(y$1(200));
   return tk(null, a, b, !0, c);
 };
 
 var render = function render(a, b, c) {
-  if (!rk(b)) throw Error(y(200));
+  if (!rk(b)) throw Error(y$1(200));
   return tk(null, a, b, !1, c);
 };
 
 var unmountComponentAtNode = function unmountComponentAtNode(a) {
-  if (!rk(a)) throw Error(y(40));
+  if (!rk(a)) throw Error(y$1(40));
   return a._reactRootContainer ? (Xj(function () {
     tk(null, null, a, !1, function () {
       a._reactRootContainer = null;
@@ -50915,8 +50913,8 @@ var unstable_createPortal = function unstable_createPortal(a, b) {
 };
 
 var unstable_renderSubtreeIntoContainer = function unstable_renderSubtreeIntoContainer(a, b, c, d) {
-  if (!rk(c)) throw Error(y(200));
-  if (null == a || void 0 === a._reactInternals) throw Error(y(38));
+  if (!rk(c)) throw Error(y$1(200));
+  if (null == a || void 0 === a._reactInternals) throw Error(y$1(38));
   return tk(a, b, c, !1, d);
 };
 
@@ -50944,7 +50942,7 @@ var reactDom_production_min = {
  * LICENSE file in the root directory of this source tree.
  */
 
-var b = 0;
+var b$1 = 0;
 var __interactionsRef = null;
 var __subscriberRef = null;
 
@@ -50957,7 +50955,7 @@ var unstable_getCurrent = function unstable_getCurrent() {
 };
 
 var unstable_getThreadID = function unstable_getThreadID() {
-  return ++b;
+  return ++b$1;
 };
 
 var unstable_subscribe = function unstable_subscribe() {};
@@ -51030,7 +51028,7 @@ var reactDom = createCommonjsModule$4(function (module) {
   }
 });
 
-function _createSuper$2(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$2(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$2(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$2(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$2() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
@@ -51052,14 +51050,14 @@ function ReactDialogStyle(styles) {
 var _jsxFileName$2 = "/Users/sebastian/Work/DePay/depay-react-dialog/src/components/Dialog.jsx";
 
 var Dialog$1 = /*#__PURE__*/function (_React__default$defau) {
-  _inherits(Dialog, _React__default$defau);
+  _inherits$1(Dialog, _React__default$defau);
 
   var _super = _createSuper$2(Dialog);
 
   function Dialog(props) {
     var _this;
 
-    _classCallCheck(this, Dialog);
+    _classCallCheck$1(this, Dialog);
 
     _this = _super.call(this, props);
     _this.state = {
@@ -51068,7 +51066,7 @@ var Dialog$1 = /*#__PURE__*/function (_React__default$defau) {
     return _this;
   }
 
-  _createClass(Dialog, [{
+  _createClass$1(Dialog, [{
     key: "closeDialog",
     value: function closeDialog() {
       this.props.close();
@@ -51169,14 +51167,14 @@ var Dialog$1 = /*#__PURE__*/function (_React__default$defau) {
 var _jsxFileName$1$1 = "/Users/sebastian/Work/DePay/depay-react-dialog/src/index.jsx";
 
 var ReactDialog = /*#__PURE__*/function (_React__default$defau2) {
-  _inherits(ReactDialog, _React__default$defau2);
+  _inherits$1(ReactDialog, _React__default$defau2);
 
   var _super2 = _createSuper$2(ReactDialog);
 
   function ReactDialog(props) {
     var _this3;
 
-    _classCallCheck(this, ReactDialog);
+    _classCallCheck$1(this, ReactDialog);
 
     _this3 = _super2.call(this, props);
     _this3.state = {
@@ -51185,7 +51183,7 @@ var ReactDialog = /*#__PURE__*/function (_React__default$defau2) {
     return _this3;
   }
 
-  _createClass(ReactDialog, [{
+  _createClass$1(ReactDialog, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
       var _this4 = this;
@@ -51238,22 +51236,22 @@ var cjs = /*#__PURE__*/Object.defineProperty({
   value: true
 });
 
-function _createSuper$1(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$1(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$1(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$1(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct$1() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
-  _inherits(ErrorBoundary, _React$Component);
+  _inherits$1(ErrorBoundary, _React$Component);
 
   var _super = _createSuper$1(ErrorBoundary);
 
   function ErrorBoundary(props) {
-    _classCallCheck(this, ErrorBoundary);
+    _classCallCheck$1(this, ErrorBoundary);
 
     return _super.call(this, props);
   }
 
-  _createClass(ErrorBoundary, [{
+  _createClass$1(ErrorBoundary, [{
     key: "componentDidCatch",
     value: function componentDidCatch(error, errorInfo) {
       this.props.setError(error);
@@ -51633,7 +51631,7 @@ var PaymentProvider = (function (props) {
   }, props.children);
 });
 
-function _defineProperty(obj, key, value) {
+function _defineProperty$1(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
       value: value,
@@ -52375,13 +52373,13 @@ var Token = /*#__PURE__*/function () {
     var blockchain = _ref.blockchain,
         address = _ref.address;
 
-    _classCallCheck(this, Token);
+    _classCallCheck$1(this, Token);
 
     this.blockchain = blockchain;
     this.address = getAddress$1(address);
   }
 
-  _createClass(Token, [{
+  _createClass$1(Token, [{
     key: "decimals",
     value: function () {
       var _decimals = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
@@ -53059,7 +53057,7 @@ var Transaction = /*#__PURE__*/function () {
         ensured = _ref10.ensured;
         _ref10.failed;
 
-    _classCallCheck(this, Transaction);
+    _classCallCheck$1(this, Transaction);
 
     this.blockchain = blockchain;
     this.address = address;
@@ -53076,7 +53074,7 @@ var Transaction = /*#__PURE__*/function () {
     this._failed = false;
   }
 
-  _createClass(Transaction, [{
+  _createClass$1(Transaction, [{
     key: "bigNumberify",
     value: function bigNumberify(value) {
       if (typeof value === 'number') {
@@ -53355,7 +53353,7 @@ var Exchange = /*#__PURE__*/function () {
         contracts = _ref6.contracts,
         route = _ref6.route;
 
-    _classCallCheck(this, Exchange);
+    _classCallCheck$1(this, Exchange);
 
     this.name = name;
     this.blockchain = blockchain;
@@ -53366,7 +53364,7 @@ var Exchange = /*#__PURE__*/function () {
     this._route = route;
   }
 
-  _createClass(Exchange, [{
+  _createClass$1(Exchange, [{
     key: "route",
     value: function () {
       var _route = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref7) {
@@ -54961,7 +54959,7 @@ var Route = function Route(_ref8) {
       transaction = _ref8.transaction,
       exchange = _ref8.exchange;
 
-  _classCallCheck(this, Route);
+  _classCallCheck$1(this, Route);
 
   this.tokenIn = tokenIn;
   this.tokenOut = tokenOut;
@@ -62154,7 +62152,7 @@ var HEX = "0123456789abcdef";
 
 var Logger = /*#__PURE__*/function () {
   function Logger(version) {
-    _classCallCheck(this, Logger);
+    _classCallCheck$1(this, Logger);
 
     Object.defineProperty(this, "version", {
       enumerable: true,
@@ -62163,7 +62161,7 @@ var Logger = /*#__PURE__*/function () {
     });
   }
 
-  _createClass(Logger, [{
+  _createClass$1(Logger, [{
     key: "_log",
     value: function _log(logLevel, args) {
       var level = logLevel.toLowerCase();
@@ -62558,7 +62556,7 @@ var _warnedToStringRadix = false;
 
 var BigNumber = /*#__PURE__*/function () {
   function BigNumber(constructorGuard, hex) {
-    _classCallCheck(this, BigNumber);
+    _classCallCheck$1(this, BigNumber);
 
     logger.checkNew(this instanceof BigNumber ? this.constructor : void 0, BigNumber);
 
@@ -62573,7 +62571,7 @@ var BigNumber = /*#__PURE__*/function () {
     Object.freeze(this);
   }
 
-  _createClass(BigNumber, [{
+  _createClass$1(BigNumber, [{
     key: "fromTwos",
     value: function fromTwos(value) {
       return toBigNumber(toBN(this).fromTwos(value));
@@ -63126,7 +63124,7 @@ var PaymentRoute = function PaymentRoute(_ref11) {
       fromAddress = _ref11.fromAddress,
       toAddress = _ref11.toAddress;
 
-  _classCallCheck(this, PaymentRoute);
+  _classCallCheck$1(this, PaymentRoute);
 
   this.blockchain = blockchain;
   this.fromToken = fromToken;
@@ -63716,7 +63714,7 @@ var addTransactions = function addTransactions(_ref22) {
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var PaymentRoutingProvider = (function (props) {
   var _useState = react.useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -63744,7 +63742,7 @@ var PaymentRoutingProvider = (function (props) {
         selectedRoute = _ref.selectedRoute,
         update = _ref.update;
 
-    if (update == false || accept == undefined || account == undefined) {
+    if (update == false || props.accept == undefined || account == undefined) {
       return;
     }
 
@@ -63904,7 +63902,7 @@ var CloseIcon = (function () {
   }));
 });
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
@@ -63927,14 +63925,14 @@ var StackContext = React__default$1['default'].createContext();
 var _jsxFileName$1 = "/Users/sebastian/Work/DePay/depay-react-dialog-stack/src/index.jsx";
 
 var ReactDialogStack = /*#__PURE__*/function (_React__default$defau) {
-  _inherits(ReactDialogStack, _React__default$defau);
+  _inherits$1(ReactDialogStack, _React__default$defau);
 
   var _super = _createSuper(ReactDialogStack);
 
   function ReactDialogStack(props) {
     var _this;
 
-    _classCallCheck(this, ReactDialogStack);
+    _classCallCheck$1(this, ReactDialogStack);
 
     _this = _super.call(this, props);
     _this.state = {
@@ -63947,7 +63945,7 @@ var ReactDialogStack = /*#__PURE__*/function (_React__default$defau) {
     return _this;
   }
 
-  _createClass(ReactDialogStack, [{
+  _createClass$1(ReactDialogStack, [{
     key: "set",
     value: function set(stack) {
       this.setState({
@@ -64240,7 +64238,14 @@ var ChangePaymentSkeleton = (function (props) {
 var format = (function (input) {
   var _float = parseFloat(input);
 
-  return new Intl.NumberFormat().format(_float);
+  var floatToString = _float.toString();
+
+  if (new RegExp(/\./).test(floatToString)) {
+    var exploded = floatToString.split('.');
+    return new Intl.NumberFormat().format(parseInt(exploded[0])) + '.' + exploded[1];
+  } else {
+    return new Intl.NumberFormat().format(_float);
+  }
 });
 
 var depayWeb3Blockchains = /*@__PURE__*/getAugmentedNamespace(es$1);
@@ -65267,14 +65272,14 @@ var Currency = /*#__PURE__*/function () {
         _ref$timeZone = _ref.timeZone,
         timeZone = _ref$timeZone === void 0 ? Currency.timeZone() : _ref$timeZone;
 
-    _classCallCheck(this, Currency);
+    _classCallCheck$1(this, Currency);
 
     this.amount = amount;
     this.code = code || timezoneToCurrency[timeZone] || 'USD';
     this.timeZone = timeZone;
   }
 
-  _createClass(Currency, [{
+  _createClass$1(Currency, [{
     key: "toString",
     value: function toString() {
       return new Intl.NumberFormat(navigator.language, {
@@ -65683,6 +65688,1954 @@ var SaleRoutingProvider = (function (props) {
   }, /*#__PURE__*/react.createElement(PaymentProvider, null, /*#__PURE__*/react.createElement(PaymentValueProvider, null, props.children))));
 });
 
+var classnames = createCommonjsModule$4(function (module) {
+  /* global define */
+  (function () {
+
+    var hasOwn = {}.hasOwnProperty;
+
+    function classNames() {
+      var classes = [];
+
+      for (var i = 0; i < arguments.length; i++) {
+        var arg = arguments[i];
+        if (!arg) continue;
+
+        var argType = _typeof(arg);
+
+        if (argType === 'string' || argType === 'number') {
+          classes.push(arg);
+        } else if (Array.isArray(arg)) {
+          if (arg.length) {
+            var inner = classNames.apply(null, arg);
+
+            if (inner) {
+              classes.push(inner);
+            }
+          }
+        } else if (argType === 'object') {
+          if (arg.toString === Object.prototype.toString) {
+            for (var key in arg) {
+              if (hasOwn.call(arg, key) && arg[key]) {
+                classes.push(key);
+              }
+            }
+          } else {
+            classes.push(arg.toString());
+          }
+        }
+      }
+
+      return classes.join(' ');
+    }
+
+    if (module.exports) {
+      classNames["default"] = classNames;
+      module.exports = classNames;
+    } else {
+      window.classNames = classNames;
+    }
+  })();
+});
+
+/** @license React v16.13.1
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+var b = "function" === typeof Symbol && Symbol["for"],
+    c = b ? Symbol["for"]("react.element") : 60103,
+    d = b ? Symbol["for"]("react.portal") : 60106,
+    e = b ? Symbol["for"]("react.fragment") : 60107,
+    f = b ? Symbol["for"]("react.strict_mode") : 60108,
+    g = b ? Symbol["for"]("react.profiler") : 60114,
+    h = b ? Symbol["for"]("react.provider") : 60109,
+    k = b ? Symbol["for"]("react.context") : 60110,
+    l = b ? Symbol["for"]("react.async_mode") : 60111,
+    m = b ? Symbol["for"]("react.concurrent_mode") : 60111,
+    n = b ? Symbol["for"]("react.forward_ref") : 60112,
+    p = b ? Symbol["for"]("react.suspense") : 60113,
+    q = b ? Symbol["for"]("react.suspense_list") : 60120,
+    r = b ? Symbol["for"]("react.memo") : 60115,
+    t = b ? Symbol["for"]("react.lazy") : 60116,
+    v = b ? Symbol["for"]("react.block") : 60121,
+    w = b ? Symbol["for"]("react.fundamental") : 60117,
+    x = b ? Symbol["for"]("react.responder") : 60118,
+    y = b ? Symbol["for"]("react.scope") : 60119;
+
+function z(a) {
+  if ("object" === _typeof(a) && null !== a) {
+    var u = a.$$typeof;
+
+    switch (u) {
+      case c:
+        switch (a = a.type, a) {
+          case l:
+          case m:
+          case e:
+          case g:
+          case f:
+          case p:
+            return a;
+
+          default:
+            switch (a = a && a.$$typeof, a) {
+              case k:
+              case n:
+              case t:
+              case r:
+              case h:
+                return a;
+
+              default:
+                return u;
+            }
+
+        }
+
+      case d:
+        return u;
+    }
+  }
+}
+
+function A(a) {
+  return z(a) === m;
+}
+
+var AsyncMode = l;
+var ConcurrentMode = m;
+var ContextConsumer = k;
+var ContextProvider = h;
+var Element$1 = c;
+var ForwardRef = n;
+var Fragment = e;
+var Lazy = t;
+var Memo = r;
+var Portal = d;
+var Profiler = g;
+var StrictMode = f;
+var Suspense = p;
+
+var isAsyncMode = function isAsyncMode(a) {
+  return A(a) || z(a) === l;
+};
+
+var isConcurrentMode = A;
+
+var isContextConsumer = function isContextConsumer(a) {
+  return z(a) === k;
+};
+
+var isContextProvider = function isContextProvider(a) {
+  return z(a) === h;
+};
+
+var isElement = function isElement(a) {
+  return "object" === _typeof(a) && null !== a && a.$$typeof === c;
+};
+
+var isForwardRef = function isForwardRef(a) {
+  return z(a) === n;
+};
+
+var isFragment = function isFragment(a) {
+  return z(a) === e;
+};
+
+var isLazy = function isLazy(a) {
+  return z(a) === t;
+};
+
+var isMemo = function isMemo(a) {
+  return z(a) === r;
+};
+
+var isPortal = function isPortal(a) {
+  return z(a) === d;
+};
+
+var isProfiler = function isProfiler(a) {
+  return z(a) === g;
+};
+
+var isStrictMode = function isStrictMode(a) {
+  return z(a) === f;
+};
+
+var isSuspense = function isSuspense(a) {
+  return z(a) === p;
+};
+
+var isValidElementType = function isValidElementType(a) {
+  return "string" === typeof a || "function" === typeof a || a === e || a === m || a === g || a === f || a === p || a === q || "object" === _typeof(a) && null !== a && (a.$$typeof === t || a.$$typeof === r || a.$$typeof === h || a.$$typeof === k || a.$$typeof === n || a.$$typeof === w || a.$$typeof === x || a.$$typeof === y || a.$$typeof === v);
+};
+
+var typeOf = z;
+var reactIs_production_min = {
+  AsyncMode: AsyncMode,
+  ConcurrentMode: ConcurrentMode,
+  ContextConsumer: ContextConsumer,
+  ContextProvider: ContextProvider,
+  Element: Element$1,
+  ForwardRef: ForwardRef,
+  Fragment: Fragment,
+  Lazy: Lazy,
+  Memo: Memo,
+  Portal: Portal,
+  Profiler: Profiler,
+  StrictMode: StrictMode,
+  Suspense: Suspense,
+  isAsyncMode: isAsyncMode,
+  isConcurrentMode: isConcurrentMode,
+  isContextConsumer: isContextConsumer,
+  isContextProvider: isContextProvider,
+  isElement: isElement,
+  isForwardRef: isForwardRef,
+  isFragment: isFragment,
+  isLazy: isLazy,
+  isMemo: isMemo,
+  isPortal: isPortal,
+  isProfiler: isProfiler,
+  isStrictMode: isStrictMode,
+  isSuspense: isSuspense,
+  isValidElementType: isValidElementType,
+  typeOf: typeOf
+};
+
+createCommonjsModule$4(function (module, exports) {
+});
+
+createCommonjsModule$4(function (module) {
+
+  {
+    module.exports = reactIs_production_min;
+  }
+});
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+var ReactPropTypesSecret_1 = ReactPropTypesSecret;
+
+Function.call.bind(Object.prototype.hasOwnProperty);
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+function emptyFunction() {}
+
+function emptyFunctionWithReset() {}
+
+emptyFunctionWithReset.resetWarningCache = emptyFunction;
+
+var factoryWithThrowingShims = function factoryWithThrowingShims() {
+  function shim(props, propName, componentName, location, propFullName, secret) {
+    if (secret === ReactPropTypesSecret_1) {
+      // It is still safe when called from React.
+      return;
+    }
+
+    var err = new Error('Calling PropTypes validators directly is not supported by the `prop-types` package. ' + 'Use PropTypes.checkPropTypes() to call them. ' + 'Read more at http://fb.me/use-check-prop-types');
+    err.name = 'Invariant Violation';
+    throw err;
+  }
+  shim.isRequired = shim;
+
+  function getShim() {
+    return shim;
+  }
+  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
+
+  var ReactPropTypes = {
+    array: shim,
+    bool: shim,
+    func: shim,
+    number: shim,
+    object: shim,
+    string: shim,
+    symbol: shim,
+    any: shim,
+    arrayOf: getShim,
+    element: shim,
+    elementType: shim,
+    instanceOf: getShim,
+    node: shim,
+    objectOf: getShim,
+    oneOf: getShim,
+    oneOfType: getShim,
+    shape: getShim,
+    exact: getShim,
+    checkPropTypes: emptyFunctionWithReset,
+    resetWarningCache: emptyFunction
+  };
+  ReactPropTypes.PropTypes = ReactPropTypes;
+  return ReactPropTypes;
+};
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+var propTypes = createCommonjsModule$4(function (module) {
+  {
+    // By explicitly using `prop-types` you are opting into new production behavior.
+    // http://fb.me/prop-types-in-prod
+    module.exports = factoryWithThrowingShims();
+  }
+});
+
+/**
+ * A collection of shims that provide minimal functionality of the ES6 collections.
+ *
+ * These implementations are not meant to be used outside of the ResizeObserver
+ * modules as they cover only a limited range of use cases.
+ */
+
+/* eslint-disable require-jsdoc, valid-jsdoc */
+var MapShim = function () {
+  if (typeof Map !== 'undefined') {
+    return Map;
+  }
+  /**
+   * Returns index in provided array that matches the specified key.
+   *
+   * @param {Array<Array>} arr
+   * @param {*} key
+   * @returns {number}
+   */
+
+
+  function getIndex(arr, key) {
+    var result = -1;
+    arr.some(function (entry, index) {
+      if (entry[0] === key) {
+        result = index;
+        return true;
+      }
+
+      return false;
+    });
+    return result;
+  }
+
+  return function () {
+    function class_1() {
+      this.__entries__ = [];
+    }
+
+    Object.defineProperty(class_1.prototype, "size", {
+      /**
+       * @returns {boolean}
+       */
+      get: function get() {
+        return this.__entries__.length;
+      },
+      enumerable: true,
+      configurable: true
+    });
+    /**
+     * @param {*} key
+     * @returns {*}
+     */
+
+    class_1.prototype.get = function (key) {
+      var index = getIndex(this.__entries__, key);
+      var entry = this.__entries__[index];
+      return entry && entry[1];
+    };
+    /**
+     * @param {*} key
+     * @param {*} value
+     * @returns {void}
+     */
+
+
+    class_1.prototype.set = function (key, value) {
+      var index = getIndex(this.__entries__, key);
+
+      if (~index) {
+        this.__entries__[index][1] = value;
+      } else {
+        this.__entries__.push([key, value]);
+      }
+    };
+    /**
+     * @param {*} key
+     * @returns {void}
+     */
+
+
+    class_1.prototype["delete"] = function (key) {
+      var entries = this.__entries__;
+      var index = getIndex(entries, key);
+
+      if (~index) {
+        entries.splice(index, 1);
+      }
+    };
+    /**
+     * @param {*} key
+     * @returns {void}
+     */
+
+
+    class_1.prototype.has = function (key) {
+      return !!~getIndex(this.__entries__, key);
+    };
+    /**
+     * @returns {void}
+     */
+
+
+    class_1.prototype.clear = function () {
+      this.__entries__.splice(0);
+    };
+    /**
+     * @param {Function} callback
+     * @param {*} [ctx=null]
+     * @returns {void}
+     */
+
+
+    class_1.prototype.forEach = function (callback, ctx) {
+      if (ctx === void 0) {
+        ctx = null;
+      }
+
+      for (var _i = 0, _a = this.__entries__; _i < _a.length; _i++) {
+        var entry = _a[_i];
+        callback.call(ctx, entry[1], entry[0]);
+      }
+    };
+
+    return class_1;
+  }();
+}();
+/**
+ * Detects whether window and document objects are available in current environment.
+ */
+
+
+var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined' && window.document === document; // Returns global object of a current environment.
+
+var global$1 = function () {
+  if (typeof global !== 'undefined' && global.Math === Math) {
+    return global;
+  }
+
+  if (typeof self !== 'undefined' && self.Math === Math) {
+    return self;
+  }
+
+  if (typeof window !== 'undefined' && window.Math === Math) {
+    return window;
+  } // eslint-disable-next-line no-new-func
+
+
+  return Function('return this')();
+}();
+/**
+ * A shim for the requestAnimationFrame which falls back to the setTimeout if
+ * first one is not supported.
+ *
+ * @returns {number} Requests' identifier.
+ */
+
+
+var requestAnimationFrame$1 = function () {
+  if (typeof requestAnimationFrame === 'function') {
+    // It's required to use a bounded function because IE sometimes throws
+    // an "Invalid calling object" error if rAF is invoked without the global
+    // object on the left hand side.
+    return requestAnimationFrame.bind(global$1);
+  }
+
+  return function (callback) {
+    return setTimeout(function () {
+      return callback(Date.now());
+    }, 1000 / 60);
+  };
+}(); // Defines minimum timeout before adding a trailing call.
+
+
+var trailingTimeout = 2;
+/**
+ * Creates a wrapper function which ensures that provided callback will be
+ * invoked only once during the specified delay period.
+ *
+ * @param {Function} callback - Function to be invoked after the delay period.
+ * @param {number} delay - Delay after which to invoke callback.
+ * @returns {Function}
+ */
+
+function throttle(callback, delay) {
+  var leadingCall = false,
+      trailingCall = false,
+      lastCallTime = 0;
+  /**
+   * Invokes the original callback function and schedules new invocation if
+   * the "proxy" was called during current request.
+   *
+   * @returns {void}
+   */
+
+  function resolvePending() {
+    if (leadingCall) {
+      leadingCall = false;
+      callback();
+    }
+
+    if (trailingCall) {
+      proxy();
+    }
+  }
+  /**
+   * Callback invoked after the specified delay. It will further postpone
+   * invocation of the original function delegating it to the
+   * requestAnimationFrame.
+   *
+   * @returns {void}
+   */
+
+
+  function timeoutCallback() {
+    requestAnimationFrame$1(resolvePending);
+  }
+  /**
+   * Schedules invocation of the original function.
+   *
+   * @returns {void}
+   */
+
+
+  function proxy() {
+    var timeStamp = Date.now();
+
+    if (leadingCall) {
+      // Reject immediately following calls.
+      if (timeStamp - lastCallTime < trailingTimeout) {
+        return;
+      } // Schedule new call to be in invoked when the pending one is resolved.
+      // This is important for "transitions" which never actually start
+      // immediately so there is a chance that we might miss one if change
+      // happens amids the pending invocation.
+
+
+      trailingCall = true;
+    } else {
+      leadingCall = true;
+      trailingCall = false;
+      setTimeout(timeoutCallback, delay);
+    }
+
+    lastCallTime = timeStamp;
+  }
+
+  return proxy;
+} // Minimum delay before invoking the update of observers.
+
+
+var REFRESH_DELAY = 20; // A list of substrings of CSS properties used to find transition events that
+// might affect dimensions of observed elements.
+
+var transitionKeys = ['top', 'right', 'bottom', 'left', 'width', 'height', 'size', 'weight']; // Check if MutationObserver is available.
+
+var mutationObserverSupported = typeof MutationObserver !== 'undefined';
+/**
+ * Singleton controller class which handles updates of ResizeObserver instances.
+ */
+
+var ResizeObserverController = function () {
+  /**
+   * Creates a new instance of ResizeObserverController.
+   *
+   * @private
+   */
+  function ResizeObserverController() {
+    /**
+     * Indicates whether DOM listeners have been added.
+     *
+     * @private {boolean}
+     */
+    this.connected_ = false;
+    /**
+     * Tells that controller has subscribed for Mutation Events.
+     *
+     * @private {boolean}
+     */
+
+    this.mutationEventsAdded_ = false;
+    /**
+     * Keeps reference to the instance of MutationObserver.
+     *
+     * @private {MutationObserver}
+     */
+
+    this.mutationsObserver_ = null;
+    /**
+     * A list of connected observers.
+     *
+     * @private {Array<ResizeObserverSPI>}
+     */
+
+    this.observers_ = [];
+    this.onTransitionEnd_ = this.onTransitionEnd_.bind(this);
+    this.refresh = throttle(this.refresh.bind(this), REFRESH_DELAY);
+  }
+  /**
+   * Adds observer to observers list.
+   *
+   * @param {ResizeObserverSPI} observer - Observer to be added.
+   * @returns {void}
+   */
+
+
+  ResizeObserverController.prototype.addObserver = function (observer) {
+    if (!~this.observers_.indexOf(observer)) {
+      this.observers_.push(observer);
+    } // Add listeners if they haven't been added yet.
+
+
+    if (!this.connected_) {
+      this.connect_();
+    }
+  };
+  /**
+   * Removes observer from observers list.
+   *
+   * @param {ResizeObserverSPI} observer - Observer to be removed.
+   * @returns {void}
+   */
+
+
+  ResizeObserverController.prototype.removeObserver = function (observer) {
+    var observers = this.observers_;
+    var index = observers.indexOf(observer); // Remove observer if it's present in registry.
+
+    if (~index) {
+      observers.splice(index, 1);
+    } // Remove listeners if controller has no connected observers.
+
+
+    if (!observers.length && this.connected_) {
+      this.disconnect_();
+    }
+  };
+  /**
+   * Invokes the update of observers. It will continue running updates insofar
+   * it detects changes.
+   *
+   * @returns {void}
+   */
+
+
+  ResizeObserverController.prototype.refresh = function () {
+    var changesDetected = this.updateObservers_(); // Continue running updates if changes have been detected as there might
+    // be future ones caused by CSS transitions.
+
+    if (changesDetected) {
+      this.refresh();
+    }
+  };
+  /**
+   * Updates every observer from observers list and notifies them of queued
+   * entries.
+   *
+   * @private
+   * @returns {boolean} Returns "true" if any observer has detected changes in
+   *      dimensions of it's elements.
+   */
+
+
+  ResizeObserverController.prototype.updateObservers_ = function () {
+    // Collect observers that have active observations.
+    var activeObservers = this.observers_.filter(function (observer) {
+      return observer.gatherActive(), observer.hasActive();
+    }); // Deliver notifications in a separate cycle in order to avoid any
+    // collisions between observers, e.g. when multiple instances of
+    // ResizeObserver are tracking the same element and the callback of one
+    // of them changes content dimensions of the observed target. Sometimes
+    // this may result in notifications being blocked for the rest of observers.
+
+    activeObservers.forEach(function (observer) {
+      return observer.broadcastActive();
+    });
+    return activeObservers.length > 0;
+  };
+  /**
+   * Initializes DOM listeners.
+   *
+   * @private
+   * @returns {void}
+   */
+
+
+  ResizeObserverController.prototype.connect_ = function () {
+    // Do nothing if running in a non-browser environment or if listeners
+    // have been already added.
+    if (!isBrowser || this.connected_) {
+      return;
+    } // Subscription to the "Transitionend" event is used as a workaround for
+    // delayed transitions. This way it's possible to capture at least the
+    // final state of an element.
+
+
+    document.addEventListener('transitionend', this.onTransitionEnd_);
+    window.addEventListener('resize', this.refresh);
+
+    if (mutationObserverSupported) {
+      this.mutationsObserver_ = new MutationObserver(this.refresh);
+      this.mutationsObserver_.observe(document, {
+        attributes: true,
+        childList: true,
+        characterData: true,
+        subtree: true
+      });
+    } else {
+      document.addEventListener('DOMSubtreeModified', this.refresh);
+      this.mutationEventsAdded_ = true;
+    }
+
+    this.connected_ = true;
+  };
+  /**
+   * Removes DOM listeners.
+   *
+   * @private
+   * @returns {void}
+   */
+
+
+  ResizeObserverController.prototype.disconnect_ = function () {
+    // Do nothing if running in a non-browser environment or if listeners
+    // have been already removed.
+    if (!isBrowser || !this.connected_) {
+      return;
+    }
+
+    document.removeEventListener('transitionend', this.onTransitionEnd_);
+    window.removeEventListener('resize', this.refresh);
+
+    if (this.mutationsObserver_) {
+      this.mutationsObserver_.disconnect();
+    }
+
+    if (this.mutationEventsAdded_) {
+      document.removeEventListener('DOMSubtreeModified', this.refresh);
+    }
+
+    this.mutationsObserver_ = null;
+    this.mutationEventsAdded_ = false;
+    this.connected_ = false;
+  };
+  /**
+   * "Transitionend" event handler.
+   *
+   * @private
+   * @param {TransitionEvent} event
+   * @returns {void}
+   */
+
+
+  ResizeObserverController.prototype.onTransitionEnd_ = function (_a) {
+    var _b = _a.propertyName,
+        propertyName = _b === void 0 ? '' : _b; // Detect whether transition may affect dimensions of an element.
+
+    var isReflowProperty = transitionKeys.some(function (key) {
+      return !!~propertyName.indexOf(key);
+    });
+
+    if (isReflowProperty) {
+      this.refresh();
+    }
+  };
+  /**
+   * Returns instance of the ResizeObserverController.
+   *
+   * @returns {ResizeObserverController}
+   */
+
+
+  ResizeObserverController.getInstance = function () {
+    if (!this.instance_) {
+      this.instance_ = new ResizeObserverController();
+    }
+
+    return this.instance_;
+  };
+  /**
+   * Holds reference to the controller's instance.
+   *
+   * @private {ResizeObserverController}
+   */
+
+
+  ResizeObserverController.instance_ = null;
+  return ResizeObserverController;
+}();
+/**
+ * Defines non-writable/enumerable properties of the provided target object.
+ *
+ * @param {Object} target - Object for which to define properties.
+ * @param {Object} props - Properties to be defined.
+ * @returns {Object} Target object.
+ */
+
+
+var defineConfigurable = function defineConfigurable(target, props) {
+  for (var _i = 0, _a = Object.keys(props); _i < _a.length; _i++) {
+    var key = _a[_i];
+    Object.defineProperty(target, key, {
+      value: props[key],
+      enumerable: false,
+      writable: false,
+      configurable: true
+    });
+  }
+
+  return target;
+};
+/**
+ * Returns the global object associated with provided element.
+ *
+ * @param {Object} target
+ * @returns {Object}
+ */
+
+
+var getWindowOf = function getWindowOf(target) {
+  // Assume that the element is an instance of Node, which means that it
+  // has the "ownerDocument" property from which we can retrieve a
+  // corresponding global object.
+  var ownerGlobal = target && target.ownerDocument && target.ownerDocument.defaultView; // Return the local global object if it's not possible extract one from
+  // provided element.
+
+  return ownerGlobal || global$1;
+}; // Placeholder of an empty content rectangle.
+
+
+var emptyRect = createRectInit(0, 0, 0, 0);
+/**
+ * Converts provided string to a number.
+ *
+ * @param {number|string} value
+ * @returns {number}
+ */
+
+function toFloat(value) {
+  return parseFloat(value) || 0;
+}
+/**
+ * Extracts borders size from provided styles.
+ *
+ * @param {CSSStyleDeclaration} styles
+ * @param {...string} positions - Borders positions (top, right, ...)
+ * @returns {number}
+ */
+
+
+function getBordersSize(styles) {
+  var positions = [];
+
+  for (var _i = 1; _i < arguments.length; _i++) {
+    positions[_i - 1] = arguments[_i];
+  }
+
+  return positions.reduce(function (size, position) {
+    var value = styles['border-' + position + '-width'];
+    return size + toFloat(value);
+  }, 0);
+}
+/**
+ * Extracts paddings sizes from provided styles.
+ *
+ * @param {CSSStyleDeclaration} styles
+ * @returns {Object} Paddings box.
+ */
+
+
+function getPaddings(styles) {
+  var positions = ['top', 'right', 'bottom', 'left'];
+  var paddings = {};
+
+  for (var _i = 0, positions_1 = positions; _i < positions_1.length; _i++) {
+    var position = positions_1[_i];
+    var value = styles['padding-' + position];
+    paddings[position] = toFloat(value);
+  }
+
+  return paddings;
+}
+/**
+ * Calculates content rectangle of provided SVG element.
+ *
+ * @param {SVGGraphicsElement} target - Element content rectangle of which needs
+ *      to be calculated.
+ * @returns {DOMRectInit}
+ */
+
+
+function getSVGContentRect(target) {
+  var bbox = target.getBBox();
+  return createRectInit(0, 0, bbox.width, bbox.height);
+}
+/**
+ * Calculates content rectangle of provided HTMLElement.
+ *
+ * @param {HTMLElement} target - Element for which to calculate the content rectangle.
+ * @returns {DOMRectInit}
+ */
+
+
+function getHTMLElementContentRect(target) {
+  // Client width & height properties can't be
+  // used exclusively as they provide rounded values.
+  var clientWidth = target.clientWidth,
+      clientHeight = target.clientHeight; // By this condition we can catch all non-replaced inline, hidden and
+  // detached elements. Though elements with width & height properties less
+  // than 0.5 will be discarded as well.
+  //
+  // Without it we would need to implement separate methods for each of
+  // those cases and it's not possible to perform a precise and performance
+  // effective test for hidden elements. E.g. even jQuery's ':visible' filter
+  // gives wrong results for elements with width & height less than 0.5.
+
+  if (!clientWidth && !clientHeight) {
+    return emptyRect;
+  }
+
+  var styles = getWindowOf(target).getComputedStyle(target);
+  var paddings = getPaddings(styles);
+  var horizPad = paddings.left + paddings.right;
+  var vertPad = paddings.top + paddings.bottom; // Computed styles of width & height are being used because they are the
+  // only dimensions available to JS that contain non-rounded values. It could
+  // be possible to utilize the getBoundingClientRect if only it's data wasn't
+  // affected by CSS transformations let alone paddings, borders and scroll bars.
+
+  var width = toFloat(styles.width),
+      height = toFloat(styles.height); // Width & height include paddings and borders when the 'border-box' box
+  // model is applied (except for IE).
+
+  if (styles.boxSizing === 'border-box') {
+    // Following conditions are required to handle Internet Explorer which
+    // doesn't include paddings and borders to computed CSS dimensions.
+    //
+    // We can say that if CSS dimensions + paddings are equal to the "client"
+    // properties then it's either IE, and thus we don't need to subtract
+    // anything, or an element merely doesn't have paddings/borders styles.
+    if (Math.round(width + horizPad) !== clientWidth) {
+      width -= getBordersSize(styles, 'left', 'right') + horizPad;
+    }
+
+    if (Math.round(height + vertPad) !== clientHeight) {
+      height -= getBordersSize(styles, 'top', 'bottom') + vertPad;
+    }
+  } // Following steps can't be applied to the document's root element as its
+  // client[Width/Height] properties represent viewport area of the window.
+  // Besides, it's as well not necessary as the <html> itself neither has
+  // rendered scroll bars nor it can be clipped.
+
+
+  if (!isDocumentElement(target)) {
+    // In some browsers (only in Firefox, actually) CSS width & height
+    // include scroll bars size which can be removed at this step as scroll
+    // bars are the only difference between rounded dimensions + paddings
+    // and "client" properties, though that is not always true in Chrome.
+    var vertScrollbar = Math.round(width + horizPad) - clientWidth;
+    var horizScrollbar = Math.round(height + vertPad) - clientHeight; // Chrome has a rather weird rounding of "client" properties.
+    // E.g. for an element with content width of 314.2px it sometimes gives
+    // the client width of 315px and for the width of 314.7px it may give
+    // 314px. And it doesn't happen all the time. So just ignore this delta
+    // as a non-relevant.
+
+    if (Math.abs(vertScrollbar) !== 1) {
+      width -= vertScrollbar;
+    }
+
+    if (Math.abs(horizScrollbar) !== 1) {
+      height -= horizScrollbar;
+    }
+  }
+
+  return createRectInit(paddings.left, paddings.top, width, height);
+}
+/**
+ * Checks whether provided element is an instance of the SVGGraphicsElement.
+ *
+ * @param {Element} target - Element to be checked.
+ * @returns {boolean}
+ */
+
+
+var isSVGGraphicsElement = function () {
+  // Some browsers, namely IE and Edge, don't have the SVGGraphicsElement
+  // interface.
+  if (typeof SVGGraphicsElement !== 'undefined') {
+    return function (target) {
+      return target instanceof getWindowOf(target).SVGGraphicsElement;
+    };
+  } // If it's so, then check that element is at least an instance of the
+  // SVGElement and that it has the "getBBox" method.
+  // eslint-disable-next-line no-extra-parens
+
+
+  return function (target) {
+    return target instanceof getWindowOf(target).SVGElement && typeof target.getBBox === 'function';
+  };
+}();
+/**
+ * Checks whether provided element is a document element (<html>).
+ *
+ * @param {Element} target - Element to be checked.
+ * @returns {boolean}
+ */
+
+
+function isDocumentElement(target) {
+  return target === getWindowOf(target).document.documentElement;
+}
+/**
+ * Calculates an appropriate content rectangle for provided html or svg element.
+ *
+ * @param {Element} target - Element content rectangle of which needs to be calculated.
+ * @returns {DOMRectInit}
+ */
+
+
+function getContentRect(target) {
+  if (!isBrowser) {
+    return emptyRect;
+  }
+
+  if (isSVGGraphicsElement(target)) {
+    return getSVGContentRect(target);
+  }
+
+  return getHTMLElementContentRect(target);
+}
+/**
+ * Creates rectangle with an interface of the DOMRectReadOnly.
+ * Spec: https://drafts.fxtf.org/geometry/#domrectreadonly
+ *
+ * @param {DOMRectInit} rectInit - Object with rectangle's x/y coordinates and dimensions.
+ * @returns {DOMRectReadOnly}
+ */
+
+
+function createReadOnlyRect(_a) {
+  var x = _a.x,
+      y = _a.y,
+      width = _a.width,
+      height = _a.height; // If DOMRectReadOnly is available use it as a prototype for the rectangle.
+
+  var Constr = typeof DOMRectReadOnly !== 'undefined' ? DOMRectReadOnly : Object;
+  var rect = Object.create(Constr.prototype); // Rectangle's properties are not writable and non-enumerable.
+
+  defineConfigurable(rect, {
+    x: x,
+    y: y,
+    width: width,
+    height: height,
+    top: y,
+    right: x + width,
+    bottom: height + y,
+    left: x
+  });
+  return rect;
+}
+/**
+ * Creates DOMRectInit object based on the provided dimensions and the x/y coordinates.
+ * Spec: https://drafts.fxtf.org/geometry/#dictdef-domrectinit
+ *
+ * @param {number} x - X coordinate.
+ * @param {number} y - Y coordinate.
+ * @param {number} width - Rectangle's width.
+ * @param {number} height - Rectangle's height.
+ * @returns {DOMRectInit}
+ */
+
+
+function createRectInit(x, y, width, height) {
+  return {
+    x: x,
+    y: y,
+    width: width,
+    height: height
+  };
+}
+/**
+ * Class that is responsible for computations of the content rectangle of
+ * provided DOM element and for keeping track of it's changes.
+ */
+
+
+var ResizeObservation = function () {
+  /**
+   * Creates an instance of ResizeObservation.
+   *
+   * @param {Element} target - Element to be observed.
+   */
+  function ResizeObservation(target) {
+    /**
+     * Broadcasted width of content rectangle.
+     *
+     * @type {number}
+     */
+    this.broadcastWidth = 0;
+    /**
+     * Broadcasted height of content rectangle.
+     *
+     * @type {number}
+     */
+
+    this.broadcastHeight = 0;
+    /**
+     * Reference to the last observed content rectangle.
+     *
+     * @private {DOMRectInit}
+     */
+
+    this.contentRect_ = createRectInit(0, 0, 0, 0);
+    this.target = target;
+  }
+  /**
+   * Updates content rectangle and tells whether it's width or height properties
+   * have changed since the last broadcast.
+   *
+   * @returns {boolean}
+   */
+
+
+  ResizeObservation.prototype.isActive = function () {
+    var rect = getContentRect(this.target);
+    this.contentRect_ = rect;
+    return rect.width !== this.broadcastWidth || rect.height !== this.broadcastHeight;
+  };
+  /**
+   * Updates 'broadcastWidth' and 'broadcastHeight' properties with a data
+   * from the corresponding properties of the last observed content rectangle.
+   *
+   * @returns {DOMRectInit} Last observed content rectangle.
+   */
+
+
+  ResizeObservation.prototype.broadcastRect = function () {
+    var rect = this.contentRect_;
+    this.broadcastWidth = rect.width;
+    this.broadcastHeight = rect.height;
+    return rect;
+  };
+
+  return ResizeObservation;
+}();
+
+var ResizeObserverEntry = function () {
+  /**
+   * Creates an instance of ResizeObserverEntry.
+   *
+   * @param {Element} target - Element that is being observed.
+   * @param {DOMRectInit} rectInit - Data of the element's content rectangle.
+   */
+  function ResizeObserverEntry(target, rectInit) {
+    var contentRect = createReadOnlyRect(rectInit); // According to the specification following properties are not writable
+    // and are also not enumerable in the native implementation.
+    //
+    // Property accessors are not being used as they'd require to define a
+    // private WeakMap storage which may cause memory leaks in browsers that
+    // don't support this type of collections.
+
+    defineConfigurable(this, {
+      target: target,
+      contentRect: contentRect
+    });
+  }
+
+  return ResizeObserverEntry;
+}();
+
+var ResizeObserverSPI = function () {
+  /**
+   * Creates a new instance of ResizeObserver.
+   *
+   * @param {ResizeObserverCallback} callback - Callback function that is invoked
+   *      when one of the observed elements changes it's content dimensions.
+   * @param {ResizeObserverController} controller - Controller instance which
+   *      is responsible for the updates of observer.
+   * @param {ResizeObserver} callbackCtx - Reference to the public
+   *      ResizeObserver instance which will be passed to callback function.
+   */
+  function ResizeObserverSPI(callback, controller, callbackCtx) {
+    /**
+     * Collection of resize observations that have detected changes in dimensions
+     * of elements.
+     *
+     * @private {Array<ResizeObservation>}
+     */
+    this.activeObservations_ = [];
+    /**
+     * Registry of the ResizeObservation instances.
+     *
+     * @private {Map<Element, ResizeObservation>}
+     */
+
+    this.observations_ = new MapShim();
+
+    if (typeof callback !== 'function') {
+      throw new TypeError('The callback provided as parameter 1 is not a function.');
+    }
+
+    this.callback_ = callback;
+    this.controller_ = controller;
+    this.callbackCtx_ = callbackCtx;
+  }
+  /**
+   * Starts observing provided element.
+   *
+   * @param {Element} target - Element to be observed.
+   * @returns {void}
+   */
+
+
+  ResizeObserverSPI.prototype.observe = function (target) {
+    if (!arguments.length) {
+      throw new TypeError('1 argument required, but only 0 present.');
+    } // Do nothing if current environment doesn't have the Element interface.
+
+
+    if (typeof Element === 'undefined' || !(Element instanceof Object)) {
+      return;
+    }
+
+    if (!(target instanceof getWindowOf(target).Element)) {
+      throw new TypeError('parameter 1 is not of type "Element".');
+    }
+
+    var observations = this.observations_; // Do nothing if element is already being observed.
+
+    if (observations.has(target)) {
+      return;
+    }
+
+    observations.set(target, new ResizeObservation(target));
+    this.controller_.addObserver(this); // Force the update of observations.
+
+    this.controller_.refresh();
+  };
+  /**
+   * Stops observing provided element.
+   *
+   * @param {Element} target - Element to stop observing.
+   * @returns {void}
+   */
+
+
+  ResizeObserverSPI.prototype.unobserve = function (target) {
+    if (!arguments.length) {
+      throw new TypeError('1 argument required, but only 0 present.');
+    } // Do nothing if current environment doesn't have the Element interface.
+
+
+    if (typeof Element === 'undefined' || !(Element instanceof Object)) {
+      return;
+    }
+
+    if (!(target instanceof getWindowOf(target).Element)) {
+      throw new TypeError('parameter 1 is not of type "Element".');
+    }
+
+    var observations = this.observations_; // Do nothing if element is not being observed.
+
+    if (!observations.has(target)) {
+      return;
+    }
+
+    observations["delete"](target);
+
+    if (!observations.size) {
+      this.controller_.removeObserver(this);
+    }
+  };
+  /**
+   * Stops observing all elements.
+   *
+   * @returns {void}
+   */
+
+
+  ResizeObserverSPI.prototype.disconnect = function () {
+    this.clearActive();
+    this.observations_.clear();
+    this.controller_.removeObserver(this);
+  };
+  /**
+   * Collects observation instances the associated element of which has changed
+   * it's content rectangle.
+   *
+   * @returns {void}
+   */
+
+
+  ResizeObserverSPI.prototype.gatherActive = function () {
+    var _this = this;
+
+    this.clearActive();
+    this.observations_.forEach(function (observation) {
+      if (observation.isActive()) {
+        _this.activeObservations_.push(observation);
+      }
+    });
+  };
+  /**
+   * Invokes initial callback function with a list of ResizeObserverEntry
+   * instances collected from active resize observations.
+   *
+   * @returns {void}
+   */
+
+
+  ResizeObserverSPI.prototype.broadcastActive = function () {
+    // Do nothing if observer doesn't have active observations.
+    if (!this.hasActive()) {
+      return;
+    }
+
+    var ctx = this.callbackCtx_; // Create ResizeObserverEntry instance for every active observation.
+
+    var entries = this.activeObservations_.map(function (observation) {
+      return new ResizeObserverEntry(observation.target, observation.broadcastRect());
+    });
+    this.callback_.call(ctx, entries, ctx);
+    this.clearActive();
+  };
+  /**
+   * Clears the collection of active observations.
+   *
+   * @returns {void}
+   */
+
+
+  ResizeObserverSPI.prototype.clearActive = function () {
+    this.activeObservations_.splice(0);
+  };
+  /**
+   * Tells whether observer has active observations.
+   *
+   * @returns {boolean}
+   */
+
+
+  ResizeObserverSPI.prototype.hasActive = function () {
+    return this.activeObservations_.length > 0;
+  };
+
+  return ResizeObserverSPI;
+}(); // Registry of internal observers. If WeakMap is not available use current shim
+// for the Map collection as it has all required methods and because WeakMap
+// can't be fully polyfilled anyway.
+
+
+var observers = typeof WeakMap !== 'undefined' ? new WeakMap() : new MapShim();
+/**
+ * ResizeObserver API. Encapsulates the ResizeObserver SPI implementation
+ * exposing only those methods and properties that are defined in the spec.
+ */
+
+var ResizeObserver = function () {
+  /**
+   * Creates a new instance of ResizeObserver.
+   *
+   * @param {ResizeObserverCallback} callback - Callback that is invoked when
+   *      dimensions of the observed elements change.
+   */
+  function ResizeObserver(callback) {
+    if (!(this instanceof ResizeObserver)) {
+      throw new TypeError('Cannot call a class as a function.');
+    }
+
+    if (!arguments.length) {
+      throw new TypeError('1 argument required, but only 0 present.');
+    }
+
+    var controller = ResizeObserverController.getInstance();
+    var observer = new ResizeObserverSPI(callback, controller, this);
+    observers.set(this, observer);
+  }
+
+  return ResizeObserver;
+}(); // Expose public methods of ResizeObserver.
+
+
+['observe', 'unobserve', 'disconnect'].forEach(function (method) {
+  ResizeObserver.prototype[method] = function () {
+    var _a;
+
+    return (_a = observers.get(this))[method].apply(_a, arguments);
+  };
+});
+
+var index = function () {
+  // Export existing implementation if available.
+  if (typeof global$1.ResizeObserver !== 'undefined') {
+    return global$1.ResizeObserver;
+  }
+
+  return ResizeObserver;
+}();
+
+var ResizeObserver_es = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  'default': index
+});
+
+var capitalize_1 = capitalize;
+var clamp_1 = clamp;
+/**
+ * Capitalize first letter of string
+ * @private
+ * @param  {string} - String
+ * @return {string} - String with first letter capitalized
+ */
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.substr(1);
+}
+/**
+ * Clamp position between a range
+ * @param  {number} - Value to be clamped
+ * @param  {number} - Minimum value in range
+ * @param  {number} - Maximum value in range
+ * @return {number} - Clamped value
+ */
+
+
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+var utils = /*#__PURE__*/Object.defineProperty({
+  capitalize: capitalize_1,
+  clamp: clamp_1
+}, '__esModule', {
+  value: true
+});
+
+var _resizeObserverPolyfill = /*@__PURE__*/getAugmentedNamespace(ResizeObserver_es);
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+var _classnames2 = _interopRequireDefault$1(classnames);
+
+var _react2 = _interopRequireDefault$1(react);
+
+var _propTypes2 = _interopRequireDefault$1(propTypes);
+
+var _resizeObserverPolyfill2 = _interopRequireDefault$1(_resizeObserverPolyfill);
+
+function _interopRequireDefault$1(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return call && (_typeof(call) === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + _typeof(superClass));
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+/* eslint no-debugger: "warn" */
+
+/**
+ * Predefined constants
+ * @type {Object}
+ */
+
+
+var constants = {
+  orientation: {
+    horizontal: {
+      dimension: 'width',
+      direction: 'left',
+      reverseDirection: 'right',
+      coordinate: 'x'
+    },
+    vertical: {
+      dimension: 'height',
+      direction: 'top',
+      reverseDirection: 'bottom',
+      coordinate: 'y'
+    }
+  }
+};
+
+var Slider = function (_Component) {
+  _inherits(Slider, _Component);
+
+  function Slider(props, context) {
+    _classCallCheck(this, Slider);
+
+    var _this = _possibleConstructorReturn(this, (Slider.__proto__ || Object.getPrototypeOf(Slider)).call(this, props, context));
+
+    _this.handleFormat = function (value) {
+      var format = _this.props.format;
+      return format ? format(value) : value;
+    };
+
+    _this.handleUpdate = function () {
+      if (!_this.slider) {
+        // for shallow rendering
+        return;
+      }
+
+      var orientation = _this.props.orientation;
+      var dimension = (0, utils.capitalize)(constants.orientation[orientation].dimension);
+      var sliderPos = _this.slider['offset' + dimension];
+      var handlePos = _this.handle['offset' + dimension];
+
+      _this.setState({
+        limit: sliderPos - handlePos,
+        grab: handlePos / 2
+      });
+    };
+
+    _this.handleStart = function (e) {
+      var onChangeStart = _this.props.onChangeStart;
+      document.addEventListener('mousemove', _this.handleDrag);
+      document.addEventListener('mouseup', _this.handleEnd);
+
+      _this.setState({
+        active: true
+      }, function () {
+        onChangeStart && onChangeStart(e);
+      });
+    };
+
+    _this.handleDrag = function (e) {
+      e.stopPropagation();
+      var onChange = _this.props.onChange;
+      var _e$target = e.target,
+          className = _e$target.className,
+          classList = _e$target.classList,
+          dataset = _e$target.dataset;
+      if (!onChange || className === 'rangeslider__labels') return;
+
+      var value = _this.position(e);
+
+      if (classList && classList.contains('rangeslider__label-item') && dataset.value) {
+        value = parseFloat(dataset.value);
+      }
+
+      onChange && onChange(value, e);
+    };
+
+    _this.handleEnd = function (e) {
+      var onChangeComplete = _this.props.onChangeComplete;
+
+      _this.setState({
+        active: false
+      }, function () {
+        onChangeComplete && onChangeComplete(e);
+      });
+
+      document.removeEventListener('mousemove', _this.handleDrag);
+      document.removeEventListener('mouseup', _this.handleEnd);
+    };
+
+    _this.handleKeyDown = function (e) {
+      e.preventDefault();
+      var keyCode = e.keyCode;
+      var _this$props = _this.props,
+          value = _this$props.value,
+          min = _this$props.min,
+          max = _this$props.max,
+          step = _this$props.step,
+          onChange = _this$props.onChange;
+      var sliderValue = void 0;
+
+      switch (keyCode) {
+        case 38:
+        case 39:
+          sliderValue = value + step > max ? max : value + step;
+          onChange && onChange(sliderValue, e);
+          break;
+
+        case 37:
+        case 40:
+          sliderValue = value - step < min ? min : value - step;
+          onChange && onChange(sliderValue, e);
+          break;
+      }
+    };
+
+    _this.getPositionFromValue = function (value) {
+      var limit = _this.state.limit;
+      var _this$props2 = _this.props,
+          min = _this$props2.min,
+          max = _this$props2.max;
+      var diffMaxMin = max - min;
+      var diffValMin = value - min;
+      var percentage = diffValMin / diffMaxMin;
+      var pos = Math.round(percentage * limit);
+      return pos;
+    };
+
+    _this.getValueFromPosition = function (pos) {
+      var limit = _this.state.limit;
+      var _this$props3 = _this.props,
+          orientation = _this$props3.orientation,
+          min = _this$props3.min,
+          max = _this$props3.max,
+          step = _this$props3.step;
+      var percentage = (0, utils.clamp)(pos, 0, limit) / (limit || 1);
+      var baseVal = step * Math.round(percentage * (max - min) / step);
+      var value = orientation === 'horizontal' ? baseVal + min : max - baseVal;
+      return (0, utils.clamp)(value, min, max);
+    };
+
+    _this.position = function (e) {
+      var grab = _this.state.grab;
+      var _this$props4 = _this.props,
+          orientation = _this$props4.orientation,
+          reverse = _this$props4.reverse;
+      var node = _this.slider;
+      var coordinateStyle = constants.orientation[orientation].coordinate;
+      var directionStyle = reverse ? constants.orientation[orientation].reverseDirection : constants.orientation[orientation].direction;
+      var clientCoordinateStyle = 'client' + (0, utils.capitalize)(coordinateStyle);
+      var coordinate = !e.touches ? e[clientCoordinateStyle] : e.touches[0][clientCoordinateStyle];
+      var direction = node.getBoundingClientRect()[directionStyle];
+      var pos = reverse ? direction - coordinate - grab : coordinate - direction - grab;
+
+      var value = _this.getValueFromPosition(pos);
+
+      return value;
+    };
+
+    _this.coordinates = function (pos) {
+      var _this$state = _this.state,
+          limit = _this$state.limit,
+          grab = _this$state.grab;
+      var orientation = _this.props.orientation;
+
+      var value = _this.getValueFromPosition(pos);
+
+      var position = _this.getPositionFromValue(value);
+
+      var handlePos = orientation === 'horizontal' ? position + grab : position;
+      var fillPos = orientation === 'horizontal' ? handlePos : limit - handlePos;
+      return {
+        fill: fillPos,
+        handle: handlePos,
+        label: handlePos
+      };
+    };
+
+    _this.renderLabels = function (labels) {
+      return _react2["default"].createElement('ul', {
+        ref: function ref(sl) {
+          _this.labels = sl;
+        },
+        className: (0, _classnames2["default"])('rangeslider__labels')
+      }, labels);
+    };
+
+    _this.state = {
+      active: false,
+      limit: 0,
+      grab: 0
+    };
+    return _this;
+  }
+
+  _createClass(Slider, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.handleUpdate();
+      var resizeObserver = new _resizeObserverPolyfill2["default"](this.handleUpdate);
+      resizeObserver.observe(this.slider);
+    }
+    /**
+     * Format label/tooltip value
+     * @param  {Number} - value
+     * @return {Formatted Number}
+     */
+
+    /**
+     * Update slider state on change
+     * @return {void}
+     */
+
+    /**
+     * Attach event listeners to mousemove/mouseup events
+     * @return {void}
+     */
+
+    /**
+     * Handle drag/mousemove event
+     * @param  {Object} e - Event object
+     * @return {void}
+     */
+
+    /**
+     * Detach event listeners to mousemove/mouseup events
+     * @return {void}
+     */
+
+    /**
+     * Support for key events on the slider handle
+     * @param  {Object} e - Event object
+     * @return {void}
+     */
+
+    /**
+     * Calculate position of slider based on its value
+     * @param  {number} value - Current value of slider
+     * @return {position} pos - Calculated position of slider based on value
+     */
+
+    /**
+     * Translate position of slider to slider value
+     * @param  {number} pos - Current position/coordinates of slider
+     * @return {number} value - Slider value
+     */
+
+    /**
+     * Calculate position of slider based on value
+     * @param  {Object} e - Event object
+     * @return {number} value - Slider value
+     */
+
+    /**
+     * Grab coordinates of slider
+     * @param  {Object} pos - Position object
+     * @return {Object} - Slider fill/handle coordinates
+     */
+
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          value = _props.value,
+          orientation = _props.orientation,
+          className = _props.className,
+          tooltip = _props.tooltip,
+          reverse = _props.reverse,
+          labels = _props.labels,
+          min = _props.min,
+          max = _props.max,
+          handleLabel = _props.handleLabel;
+      var active = this.state.active;
+      var dimension = constants.orientation[orientation].dimension;
+      var direction = reverse ? constants.orientation[orientation].reverseDirection : constants.orientation[orientation].direction;
+      var position = this.getPositionFromValue(value);
+      var coords = this.coordinates(position);
+
+      var fillStyle = _defineProperty({}, dimension, coords.fill + 'px');
+
+      var handleStyle = _defineProperty({}, direction, coords.handle + 'px');
+
+      var showTooltip = tooltip && active;
+      var labelItems = [];
+      var labelKeys = Object.keys(labels);
+
+      if (labelKeys.length > 0) {
+        labelKeys = labelKeys.sort(function (a, b) {
+          return reverse ? a - b : b - a;
+        });
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = labelKeys[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var key = _step.value;
+            var labelPosition = this.getPositionFromValue(key);
+            var labelCoords = this.coordinates(labelPosition);
+
+            var labelStyle = _defineProperty({}, direction, labelCoords.label + 'px');
+
+            labelItems.push(_react2["default"].createElement('li', {
+              key: key,
+              className: (0, _classnames2["default"])('rangeslider__label-item'),
+              'data-value': key,
+              onMouseDown: this.handleDrag,
+              onTouchStart: this.handleStart,
+              onTouchEnd: this.handleEnd,
+              style: labelStyle
+            }, this.props.labels[key]));
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator["return"]) {
+              _iterator["return"]();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+      }
+
+      return _react2["default"].createElement('div', {
+        ref: function ref(s) {
+          _this2.slider = s;
+        },
+        className: (0, _classnames2["default"])('rangeslider', 'rangeslider-' + orientation, {
+          'rangeslider-reverse': reverse
+        }, className),
+        onMouseDown: this.handleDrag,
+        onMouseUp: this.handleEnd,
+        onTouchStart: this.handleStart,
+        onTouchEnd: this.handleEnd,
+        'aria-valuemin': min,
+        'aria-valuemax': max,
+        'aria-valuenow': value,
+        'aria-orientation': orientation
+      }, _react2["default"].createElement('div', {
+        className: 'rangeslider__fill',
+        style: fillStyle
+      }), _react2["default"].createElement('div', {
+        ref: function ref(sh) {
+          _this2.handle = sh;
+        },
+        className: 'rangeslider__handle',
+        onMouseDown: this.handleStart,
+        onTouchMove: this.handleDrag,
+        onTouchEnd: this.handleEnd,
+        onKeyDown: this.handleKeyDown,
+        style: handleStyle,
+        tabIndex: 0
+      }, showTooltip ? _react2["default"].createElement('div', {
+        ref: function ref(st) {
+          _this2.tooltip = st;
+        },
+        className: 'rangeslider__handle-tooltip'
+      }, _react2["default"].createElement('span', null, this.handleFormat(value))) : null, _react2["default"].createElement('div', {
+        className: 'rangeslider__handle-label'
+      }, handleLabel)), labels ? this.renderLabels(labelItems) : null);
+    }
+  }]);
+
+  return Slider;
+}(react.Component);
+
+Slider.propTypes = {
+  min: _propTypes2["default"].number,
+  max: _propTypes2["default"].number,
+  step: _propTypes2["default"].number,
+  value: _propTypes2["default"].number,
+  orientation: _propTypes2["default"].string,
+  tooltip: _propTypes2["default"].bool,
+  reverse: _propTypes2["default"].bool,
+  labels: _propTypes2["default"].object,
+  handleLabel: _propTypes2["default"].string,
+  format: _propTypes2["default"].func,
+  onChangeStart: _propTypes2["default"].func,
+  onChange: _propTypes2["default"].func,
+  onChangeComplete: _propTypes2["default"].func
+};
+Slider.defaultProps = {
+  min: 0,
+  max: 100,
+  step: 1,
+  value: 0,
+  orientation: 'horizontal',
+  tooltip: true,
+  reverse: false,
+  labels: {},
+  handleLabel: ''
+};
+var _default$1 = Slider;
+var Rangeslider = /*#__PURE__*/Object.defineProperty({
+  "default": _default$1
+}, '__esModule', {
+  value: true
+});
+
+var _Rangeslider2 = _interopRequireDefault(Rangeslider);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+var _default = _Rangeslider2["default"];
+
 var ChangeAmountDialog = (function (props) {
   var _useContext = react.useContext(ConfigurationContext),
       amount = _useContext.amount;
@@ -65802,7 +67755,7 @@ var ChangeAmountDialog = (function (props) {
       onChange: function onChange(event) {
         changeAmount(parseFloat(event.target.value));
       }
-    })), /*#__PURE__*/react.createElement(Slider__default['default'], {
+    })), /*#__PURE__*/react.createElement(_default, {
       min: parseFloat(amount.min),
       max: parseFloat(max),
       step: parseFloat(amount.step),

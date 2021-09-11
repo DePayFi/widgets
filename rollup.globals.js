@@ -14,5 +14,5 @@ export default {
   'depay-local-currency': 'LocalCurrency',
   'depay-react-token-image': 'ReactTokenImage',
   'react-error-boundary': 'ErrorBoundary',
-  'react-rangeslider': 'Slider'
+  'react-rangeslider': 'ReactRangeslider',
 }
