@@ -39,17 +39,14 @@ export default (props)=>{
       let USDAmount
       if(payment.route.fromToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
         USDAmount = payment.route.fromAmount.toString()
-        console.log('USD TOKEN', USDAmount)
       } else if (USDRoute == undefined) {
         setPaymentValue('')
         return
       } else {
         USDAmount = USDRoute.amountOut.toString()
-        console.log('CONVERTED USD AMOUNT', USDAmount)
       }
 
       let USDValue = ethers.utils.formatUnits(USDAmount, USDDecimals)
-      console.log('USDValue', USDValue)
       Currency.fromUSD({ amount: USDValue, code: currency, apiKey })
         .then(setPaymentValue)
         .catch(setError)
