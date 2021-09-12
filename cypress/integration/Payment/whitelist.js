@@ -103,7 +103,6 @@ describe('change Payment', () => {
   
   describe('whitelist fromTokens', () => {
 
-
     it('allows to whitelist fromTokens to only route those for payments', ()=> {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
