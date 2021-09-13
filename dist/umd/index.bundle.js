@@ -67731,6 +67731,10 @@
     };
 
     var changeAmount = function changeAmount(value) {
+      if (Number.isNaN(value)) {
+        return;
+      }
+
       setInputAmount(Math.min(value, max));
     };
 
