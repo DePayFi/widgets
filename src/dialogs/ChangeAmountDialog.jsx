@@ -74,6 +74,7 @@ export default (props)=>{
   }
 
   const changeAmount = (value)=>{
+    if(Number.isNaN(value)) { return }
     setInputAmount(Math.min(value, max))
   }
 

@@ -19,6 +19,17 @@ describe('change Sale amount', () => {
   beforeEach(()=>fetchMock.restore())
   beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
 
+   afterEach(()=>{
+    cy.wait(500).then(()=>{
+      cy.get('body').then((body) => {
+        if (body.find('.ReactShadowDOMOutsideContainer').length > 0) {
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+        }
+        cy.wait(1000)
+      })
+    })
+  })
+
   let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   let DAI = CONSTANTS[blockchain].USD
   let ETH = CONSTANTS[blockchain].NATIVE
@@ -110,12 +121,12 @@ describe('change Sale amount', () => {
       currencyToUSD: '0.85'
     }))
 
+    mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [ethers.utils.parseUnits('1', 18), [WETH, DEPAY]], return: [WRAPPED_AmountInBN, ethers.utils.parseUnits('2000', 18)] }})
   })
   
   describe('change amount', () => {
 
     it('allows me to change the amount freely by entering it into an input field', ()=> {
-      mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [ethers.utils.parseUnits('1', 18), [WETH, DEPAY]], return: [WRAPPED_AmountInBN, ethers.utils.parseUnits('2000', 18)] }})
       mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('10', 18), [WETH, DEPAY]], return: [ethers.utils.parseUnits('0.005', 18), ethers.utils.parseUnits('10', 18)] }})
       mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('10', 18), [DAI, WETH, DEPAY]], return: [ethers.utils.parseUnits('16.5', 18), ethers.utils.parseUnits('0.005', 18), ethers.utils.parseUnits('10', 18)] }})
       mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [ethers.utils.parseUnits('0.005', 18), [WETH, DAI]], return: [ethers.utils.parseUnits('0.005', 18), ethers.utils.parseUnits('16.5', 18)] }})
@@ -124,9 +135,8 @@ describe('change Sale amount', () => {
         cy.document().then((document)=>{
           DePayWidgets.Sale({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').clear()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('10')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('{selectall}')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('10', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
 
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountCell', '10').should('exist')
@@ -248,9 +258,8 @@ describe('change Sale amount', () => {
         cy.document().then((document)=>{
           DePayWidgets.Sale({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').clear()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('10')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('{selectall}')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('10', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
 
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountCell', '10').should('exist')
@@ -262,6 +271,7 @@ describe('change Sale amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.CardText small', '€14.03').should('exist')
           
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €14.03').click().then(()=>{
+            confirm(mockedTransaction)
             expect(mockedTransaction.calls.count()).to.eq(1)
           })
         })
