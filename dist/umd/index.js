@@ -2134,7 +2134,7 @@
       payment.route.transaction.submit({
         sent: function sent() {
           if (_sent) {
-            _sent(transaction);
+            _sent(payment.route.transaction);
           }
         },
         confirmed: function confirmed() {
@@ -2142,17 +2142,17 @@
           setState('confirmed');
 
           if (_confirmed) {
-            _confirmed(transaction);
+            _confirmed(payment.route.transaction);
           }
         },
         ensured: function ensured() {
           if (_ensured) {
-            _ensured(transaction);
+            _ensured(payment.route.transaction);
           }
         },
         failed: function failed(error) {
           if (_failed) {
-            _failed(transaction);
+            _failed(payment.route.transaction);
           }
 
           console.log('error', error);
@@ -2937,7 +2937,7 @@
       payment.route.transaction.submit({
         sent: function sent() {
           if (_sent) {
-            _sent(transaction);
+            _sent(payment.route.transaction);
           }
         },
         confirmed: function confirmed() {
@@ -2945,17 +2945,17 @@
           setState('confirmed');
 
           if (_confirmed) {
-            _confirmed(transaction);
+            _confirmed(payment.route.transaction);
           }
         },
         ensured: function ensured() {
           if (_ensured) {
-            _ensured(transaction);
+            _ensured(payment.route.transaction);
           }
         },
         failed: function failed(error) {
           if (_failed) {
-            _failed(transaction);
+            _failed(payment.route.transaction);
           }
 
           console.log('error', error);
