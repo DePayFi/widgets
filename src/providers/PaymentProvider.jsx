@@ -1,12 +1,12 @@
 import ErrorContext from '../contexts/ErrorContext'
 import PaymentContext from '../contexts/PaymentContext'
 import React, { useContext, useEffect, useState } from 'react'
-import RoutingContext from '../contexts/RoutingContext'
+import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 
 export default (props)=>{
 
   const { setError } = useContext(ErrorContext)
-  const { selectedRoute } = useContext(RoutingContext)
+  const { selectedRoute } = useContext(PaymentRoutingContext)
   const [ payment, setPayment ] = useState()
   const [ transaction, setTransaction ] = useState()
 
@@ -19,7 +19,7 @@ export default (props)=>{
         fromToken.symbol(),
         fromToken.readable(selectedRoute.fromAmount)
       ]).then(([name, symbol, amount])=>{
-        setPayment({ 
+        setPayment({
           route: selectedRoute,
           token: selectedRoute.fromToken.address,
           name,
@@ -27,6 +27,8 @@ export default (props)=>{
           amount
         })
       }).catch(setError)
+    } else {
+      setPayment(undefined)
     }
   }, [selectedRoute])
 

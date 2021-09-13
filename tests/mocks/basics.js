@@ -33,6 +33,7 @@ export default ({
   TOKEN_B_Symbol,
   TOKEN_B_Balance,
   TOKEN_B_Amount,
+  TOKEN_B_Allowance = CONSTANTS[blockchain].ZERO,
 
   TOKEN_B_WRAPPED_Pair,
   TOKEN_A_TOKEN_B_Pair,
@@ -96,13 +97,14 @@ export default ({
   mock({ provider, blockchain, call: { to: TOKEN_A, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: CONSTANTS[blockchain].MAXINT } })
   
   mock({ provider, blockchain, call: { to: TOKEN_B, api: Token[blockchain].DEFAULT, method: 'balanceOf', params: fromAddress, return: TOKEN_B_BalanceBN } })
-  mock({ provider, blockchain, call: { to: TOKEN_B, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: CONSTANTS[blockchain].ZERO } })
+  mock({ provider, blockchain, call: { to: TOKEN_B, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: TOKEN_B_Allowance } })
 
   mock({ provider, blockchain, call: { to: CONSTANTS[blockchain].USD, api: Token[blockchain].DEFAULT, method: 'decimals', return: CONSTANTS[blockchain].DECIMALS } })
   
   mock({ provider, blockchain, call: { to: exchange.contracts.factory.address, api: exchange.contracts.factory.api, method: 'getPair', params: [TOKEN_B, TOKEN_A], return: TOKEN_A_TOKEN_B_Pair }})
   mock({ provider, blockchain, call: { to: exchange.contracts.factory.address, api: exchange.contracts.factory.api, method: 'getPair', params: [TOKEN_A, TOKEN_B], return: TOKEN_A_TOKEN_B_Pair }})
   mock({ provider, blockchain, call: { to: exchange.contracts.factory.address, api: exchange.contracts.factory.api, method: 'getPair', params: [TOKEN_B, WRAPPED], return: TOKEN_B_WRAPPED_Pair }})
+  mock({ provider, blockchain, call: { to: exchange.contracts.factory.address, api: exchange.contracts.factory.api, method: 'getPair', params: [WRAPPED, TOKEN_B], return: TOKEN_B_WRAPPED_Pair }})
   mock({ provider, blockchain, call: { to: exchange.contracts.factory.address, api: exchange.contracts.factory.api, method: 'getPair', params: [TOKEN_A, TOKEN_B], return: TOKEN_A_TOKEN_B_Pair }})
   mock({ provider, blockchain, call: { to: exchange.contracts.factory.address, api: exchange.contracts.factory.api, method: 'getPair', params: [WRAPPED, TOKEN_A], return: TOKEN_A_WRAPPED_Pair }})
   mock({ provider, blockchain, call: { to: exchange.contracts.factory.address, api: exchange.contracts.factory.api, method: 'getPair', params: [TOKEN_A, WRAPPED], return: TOKEN_A_WRAPPED_Pair }})
@@ -111,6 +113,7 @@ export default ({
   mock({ provider, blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [TOKEN_B, WRAPPED, TOKEN_A]], return: [TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
   
   mock({ provider, blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [TOKEN_A_AmountBN, [TOKEN_A, WRAPPED, CONSTANTS[blockchain].USD]], return: [TOKEN_A_AmountBN, WRAPPED_AmountInBN, USD_AmountOutBN] }})
+  mock({ provider, blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [WRAPPED_AmountInBN, [WRAPPED, CONSTANTS[blockchain].USD]], return: [WRAPPED_AmountInBN, USD_AmountOutBN] }})
 
   return {
     exchange,

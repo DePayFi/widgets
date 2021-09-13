@@ -20,18 +20,19 @@ describe('insufficient balance for Payment', () => {
 
   let fromAddress = accounts[0]
   let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-  let TOKEN = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
+  let TOKEN = CONSTANTS[blockchain].USD
   let exchange = findByName('uniswap_v2')
   let amount = 20
   let decimals = 18
   let amountBN = ethers.utils.parseUnits(amount.toString(), decimals)
   let defaultArguments = {
-    accept: [{
-      blockchain,
-      amount,
-      token: TOKEN,
-      receiver: toAddress
-    }]
+    amount: {
+      start: 20,
+      min: 1,
+      step: 1
+    },
+    token: TOKEN,
+    blockchains: [blockchain]
   }
 
   let USDValueMock
@@ -41,6 +42,8 @@ describe('insufficient balance for Payment', () => {
     mock(blockchain)
     mock({ provider: provider(blockchain), blockchain, call: { to: TOKEN, api: Token[blockchain].DEFAULT } })
     mock({ provider: provider(blockchain), blockchain, call: { to: CONSTANTS[blockchain].USD, api: Token[blockchain].DEFAULT } })
+    mock({ provider: provider(blockchain), blockchain, call: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'name', return: 'DAI' } })
+    mock({ provider: provider(blockchain), blockchain, call: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'symbol', return: 'DAI' } })
     mock({ provider: provider(blockchain), blockchain, call: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'decimals', return: decimals } })
     mock({ provider: provider(blockchain), blockchain, call: { to: CONSTANTS[blockchain].USD, api: Token[blockchain].DEFAULT, method: 'decimals', return: decimals } })
     mock({ provider: provider(blockchain), blockchain, balance: { for: fromAddress, return: ethers.BigNumber.from('0') }})
@@ -69,7 +72,7 @@ describe('insufficient balance for Payment', () => {
   it('shows a dialog explaining that no payment route could be found', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, document })
+        DePayWidgets.Sale({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.')
       })
     })
@@ -80,7 +83,7 @@ describe('insufficient balance for Payment', () => {
     let TOKENRouteMock_count
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, document })
+        DePayWidgets.Sale({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.')
         cy.wait(2000).then(()=>{
           USDValueMock_count = USDValueMock.calls.count()

@@ -1,31 +1,36 @@
-import Checkmark from '../../components/Checkmark'
-import ChevronRight from '../../components/ChevronRight'
-import ClosableContext from '../../contexts/ClosableContext'
-import ConfigurationContext from '../../contexts/ConfigurationContext'
-import ConnectingWalletDialog from '../ConnectingWalletDialog'
-import Dialog from '../../components/Dialog'
-import LoadingText from '../../components/LoadingText'
-import PaymentContext from '../../contexts/PaymentContext'
-import PaymentOverviewSkeleton from '../../skeletons/PaymentOverviewSkeleton'
+import Checkmark from '../components/Checkmark'
+import ChevronRight from '../components/ChevronRight'
+import ClosableContext from '../contexts/ClosableContext'
+import ConfigurationContext from '../contexts/ConfigurationContext'
+import ConnectingWalletDialog from './ConnectingWalletDialog'
+import Dialog from '../components/Dialog'
+import format from '../helpers/format'
+import LoadingText from '../components/LoadingText'
+import PaymentContext from '../contexts/PaymentContext'
+import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
+import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
-import RoutingContext from '../../contexts/RoutingContext'
-import ToTokenContext from '../../contexts/ToTokenContext'
-import UpdateContext from '../../contexts/UpdateContext'
-import WalletContext from '../../contexts/WalletContext'
+import SaleOverviewSkeleton from '../skeletons/SaleOverviewSkeleton'
+import SaleRoutingContext from '../contexts/SaleRoutingContext'
+import UpdateContext from '../contexts/UpdateContext'
+import WalletContext from '../contexts/WalletContext'
+import { Currency } from 'depay-local-currency'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
 import { TokenImage } from 'depay-react-token-image'
 
 export default (props)=>{
 
+  const { purchasedToken, purchasedAmount } = useContext(SaleRoutingContext)
   const { sent, confirmed, ensured, failed } = useContext(ConfigurationContext)
   const { payment, setPayment, transaction, setTransaction } = useContext(PaymentContext)
-  const { allRoutes } = useContext(RoutingContext)
+  const { allRoutes } = useContext(PaymentRoutingContext)
   const { walletState } = useContext(WalletContext)
-  const { localValue } = useContext(ToTokenContext)
+  const { paymentValue } = useContext(PaymentValueContext)
   const { navigate, set } = useContext(NavigateStackContext)
   const { close, setClosable } = useContext(ClosableContext)
   const { update, setUpdate } = useContext(UpdateContext)
   const [state, setState] = useState('overview')
+  const [salePerTokenValue, setSalePerTokenValue] = useState()
   const [approvalTransaction, setApprovalTransaction] = useState()
   const approve = ()=> {
     setClosable(false)
@@ -92,7 +97,7 @@ export default (props)=>{
             pay()
           }}
         >
-          Pay { localValue != 0 ? localValue.toString() : `${payment.amount}` }
+          Pay { paymentValue.toString().length ? paymentValue.toString() : `${payment.amount}` }
         </button>
       )
     } else if (state == 'paying') {
@@ -142,19 +147,67 @@ export default (props)=>{
       setUpdate(false)
     }
   }, [allRoutes])
+  useEffect(()=>{
+    if(paymentValue) {
+      setSalePerTokenValue((new Currency({ amount: (paymentValue.amount / parseFloat(purchasedAmount)).toFixed(2), code: paymentValue.code })).toString())
+    }
+  }, [paymentValue])
 
   if(walletState == 'connecting') { return(<ConnectingWalletDialog/>) }
-  if(payment == undefined || localValue == undefined) { return(<PaymentOverviewSkeleton/>) }
+  if(
+    purchasedToken == undefined ||
+    purchasedAmount == undefined ||
+    payment == undefined ||
+    paymentValue == undefined
+  ) { return(<SaleOverviewSkeleton/>) }
 
   return(
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <h1 className="FontSizeL TextLeft">Payment</h1>
+          <h1 className="FontSizeL TextLeft">Purchase</h1>
         </div>
       }
       body={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
+          <div 
+            className={["Card", (state == 'overview' ? '' : 'disabled')].join(' ')}
+            title={state == 'overview' ? "Change amount" : undefined}
+            onClick={ ()=>{
+              if(state != 'overview') { return }
+              navigate('ChangeAmount')
+            } }
+          >
+            <div className="CardImage" title={ payment.name }>
+              <TokenImage
+                blockchain={ payment.route.blockchain }
+                address={ purchasedToken.address }
+              />
+            </div>
+            <div className="CardBody">
+              <div className="CardBodyWrapper">
+                <h2 className="CardText">
+                  <div className="TokenAmountRow">
+                    <span className="TokenSymbolCell">
+                      { purchasedToken.symbol }
+                    </span>
+                    <span>&nbsp;</span>
+                    <span className="TokenAmountCell">
+                    { format(purchasedAmount) }
+                    </span>
+                  </div>
+                </h2>
+                { salePerTokenValue &&
+                  <h3 className="CardText">
+                    <small>{ salePerTokenValue } per token</small>
+                  </h3>
+                }
+              </div>
+            </div>
+            <div className="CardAction">
+              <ChevronRight/>
+            </div>
+          </div>
           <div 
             className={["Card", (state == 'overview' ? '' : 'disabled')].join(' ')}
             title={state == 'overview' ? "Change payment" : undefined}
@@ -171,6 +224,9 @@ export default (props)=>{
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">
+                <h4 className="CardTitle">
+                  Payment
+                </h4>
                 <h2 className="CardText">
                   <div className="TokenAmountRow">
                     <span className="TokenSymbolCell">
@@ -178,13 +234,13 @@ export default (props)=>{
                     </span>
                     <span>&nbsp;</span>
                     <span className="TokenAmountCell">
-                      { payment.amount }
+                      { format(payment.amount) }
                     </span>
                   </div>
                 </h2>
-                { localValue != 0 &&
+                { paymentValue.toString().length &&
                   <h3 className="CardText">
-                    <small>{ localValue.toString() }</small>
+                    <small>{ paymentValue.toString() }</small>
                   </h3>
                 }
               </div>

@@ -7,11 +7,15 @@ import FooterStyle from '../styles/FooterStyle'
 import GraphicStyle from '../styles/GraphicStyle'
 import HeightStyle from '../styles/HeightStyle'
 import IconStyle from '../styles/IconStyle'
+import ImageStyle from '../styles/ImageStyle'
+import InputStyle from '../styles/InputStyle'
 import LabelStyle from '../styles/LabelStyle'
 import LoadingTextStyle from '../styles/LoadingTextStyle'
 import PaddingStyle from '../styles/PaddingStyle'
+import RangeSliderStyle from '../styles/RangeSliderStyle'
 import ResetStyle from '../styles/ResetStyle'
 import SkeletonStyle from '../styles/SkeletonStyle'
+import TextButtonStyle from '../styles/TextButtonStyle'
 import TextStyle from '../styles/TextStyle'
 import TokenAmountStyle from '../styles/TokenAmountStyle'
 
@@ -45,6 +49,10 @@ export default (style)=>{
       HeightStyle(style),
       LabelStyle(style),
       LoadingTextStyle(style),
+      RangeSliderStyle(style),
+      InputStyle(style),
+      TextButtonStyle(style),
+      ImageStyle(style),
     ].join('')
   )
 }

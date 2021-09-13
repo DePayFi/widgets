@@ -2,8 +2,8 @@ import apiKey from '../helpers/apiKey'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
 import PaymentContext from '../contexts/PaymentContext'
+import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useState, useEffect, useContext } from 'react'
-import ToTokenContext from '../contexts/ToTokenContext'
 import UpdateContext from '../contexts/UpdateContext'
 import WalletContext from '../contexts/WalletContext'
 import { CONSTANTS } from 'depay-web3-constants'
@@ -18,17 +18,17 @@ export default (props)=>{
   const { account } = useContext(WalletContext)
   const { update } = useContext(UpdateContext)
   const { payment } = useContext(PaymentContext)
+  const [ paymentValue, setPaymentValue ] = useState()
   const { currency } = useContext(ConfigurationContext)
-  const [ localValue, setLocalValue ] = useState()
   const [ reloadCount, setReloadCount ] = useState(0)
   const getToTokenLocalValue = ({ update, payment })=>{
     if(update == false || payment?.route == undefined) { return }
     Promise.all([
       route({
         blockchain: payment.route.blockchain,
-        tokenIn: payment.route.toToken.address,
+        tokenIn: payment.route.fromToken.address,
         tokenOut: CONSTANTS[payment.route.blockchain].USD,
-        amountIn: payment.route.toAmount,
+        amountIn: payment.route.fromAmount,
         fromAddress: account,
         toAddress: account
       }),
@@ -37,17 +37,18 @@ export default (props)=>{
       let USDRoute = USDExchangeRoutes[0]
 
       let USDAmount
-      if(payment.route.toToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
-        USDAmount = payment.route.toAmount.toString()
+      if(payment.route.fromToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+        USDAmount = payment.route.fromAmount.toString()
       } else if (USDRoute == undefined) {
-        return setLocalValue(0)
+        setPaymentValue('')
+        return
       } else {
         USDAmount = USDRoute.amountOut.toString()
       }
 
       let USDValue = ethers.utils.formatUnits(USDAmount, USDDecimals)
       Currency.fromUSD({ amount: USDValue, code: currency, apiKey })
-        .then(setLocalValue)
+        .then(setPaymentValue)
         .catch(setError)
     }).catch(setError)
   }
@@ -66,10 +67,10 @@ export default (props)=>{
   }, [reloadCount, update])
   
   return(
-    <ToTokenContext.Provider value={{
-      localValue
+    <PaymentValueContext.Provider value={{
+      paymentValue
     }}>
       { props.children }
-    </ToTokenContext.Provider>
+    </PaymentValueContext.Provider>
   )
 }

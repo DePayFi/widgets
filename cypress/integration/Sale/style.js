@@ -4,31 +4,19 @@ import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
-import { ethers } from 'ethers'
-import { mock, confirm, resetMocks, anything } from 'depay-web3-mock'
+import { mock, confirm, increaseBlock, resetMocks, anything } from 'depay-web3-mock'
 import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
-describe('currency Payment widget', () => {
-  
+describe('style Sale widget', () => {
+
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
   beforeEach(resetMocks)
   beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
   beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
-
-  afterEach(()=>{
-    cy.wait(500).then(()=>{
-      cy.get('body').then((body) => {
-        if (body.find('.ReactShadowDOMOutsideContainer').length > 0) {
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
-        }
-        cy.wait(1000)
-      })
-    })
-  })
 
   let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   let DAI = CONSTANTS[blockchain].USD
@@ -37,27 +25,21 @@ describe('currency Payment widget', () => {
   let fromAddress = accounts[0]
   let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   let amount = 20
-  let defaultArguments = {
-    accept: [{
-      blockchain,
-      amount,
-      token: DEPAY,
-      receiver: toAddress
-    }]
-  }
-  let exchange
-  let WRAPPED_AmountInBN
   let TOKEN_A_AmountBN
-  let TOKEN_B_AmountBN
+  let defaultArguments = {
+    amount: {
+      start: 20,
+      min: 1,
+      step: 1
+    },
+    token: DEPAY,
+    blockchains: [blockchain]
+  }
 
   beforeEach(()=>{
-    
-    ({ 
-      exchange,
-      TOKEN_A_AmountBN,
-      TOKEN_B_AmountBN,
-      WRAPPED_AmountInBN 
-    } = mockBasics({
+
+    ({ TOKEN_A_AmountBN } = mockBasics({
+      
       provider: provider(blockchain),
       blockchain,
 
@@ -68,23 +50,13 @@ describe('currency Payment widget', () => {
           "symbol": "ETH",
           "address": ETH,
           "type": "NATIVE"
-        }, {
-          "name": "Dai Stablecoin",
-          "symbol": "DAI",
-          "address": DAI,
-          "type": "ERC20"
-        }, {
-          "name": "DePay",
-          "symbol": "DEPAY",
-          "address": DEPAY,
-          "type": "ERC20"
         }
       ],
       
       toAddress,
 
       exchange: 'uniswap_v2',
-      NATIVE_Balance: 0,
+      NATIVE_Balance: 1.1,
 
       TOKEN_A: DEPAY,
       TOKEN_A_Decimals: 18,
@@ -116,20 +88,34 @@ describe('currency Payment widget', () => {
         })
       },
 
-      currency: 'USD',
-      currencyToUSD: '1.00'
+      currency: 'EUR',
+      currencyToUSD: '0.85'
     }))
   })
   
-  describe('currency', () => {
+  it('allows you to style the widget', () => {
 
-    it('enforces displayed currency ', () => {
-      cy.visit('cypress/test.html').then((contentWindow) => {
-        cy.document().then((document)=>{
-          DePayWidgets.Payment({ ...defaultArguments, currency: 'USD', document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '$33.00')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay $33.00')
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        DePayWidgets.Sale({ ...defaultArguments, document,
+          style: {
+            colors: {
+              primary: '#ffd265',
+              buttonText: '#000000',
+            },
+            css: `
+              @import url("https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap");
+
+              .Dialog {
+                border-radius: 0;
+              }
+            `
+          }
         })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('have.css', 'background-color', 'rgb(255, 210, 101)')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('have.css', 'color', 'rgb(0, 0, 0)')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('style').should('contain.text', 'https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('style').should('contain.text', 'border-radius: 0')
       })
     })
   })

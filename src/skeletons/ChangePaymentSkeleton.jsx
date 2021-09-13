@@ -1,10 +1,10 @@
 import Dialog from '../components/Dialog'
+import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext } from 'react'
-import ToTokenContext from '../contexts/ToTokenContext'
 
 export default (props)=>{
 
-  const { localValue } = useContext(ToTokenContext)
+  const { paymentValue } = useContext(PaymentValueContext)
 
   return(
     <Dialog
@@ -12,7 +12,9 @@ export default (props)=>{
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS">
           <h1 className="FontSizeL TextCenter">Change Payment</h1>
-          <div className="FontSizeL TextCenter FontWeightBold"><strong>{ localValue.toString() }</strong></div>
+          { paymentValue != undefined &&
+            <div className="FontSizeL TextCenter FontWeightBold"><strong>{ paymentValue.toString() }</strong></div>
+          }
         </div>
       }
       body={

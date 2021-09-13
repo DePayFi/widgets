@@ -1,24 +1,32 @@
+import ChangeAmountDialog from '../dialogs/ChangeAmountDialog'
 import ChangePaymentDialog from '../dialogs/ChangePaymentDialog'
 import ClosableContext from '../contexts/ClosableContext'
 import NoPaymentMethodFoundDialog from '../dialogs/NoPaymentMethodFoundDialog'
 import PaymentErrorDialog from '../dialogs/PaymentErrorDialog'
-import PaymentOverviewDialog from '../dialogs/PaymentOverviewDialog'
 import React, { useContext } from 'react'
+import SaleOverviewDialog from '../dialogs/SaleOverviewDialog'
+import SaleRoutingContext from '../contexts/SaleRoutingContext'
 import { ReactDialogStack } from 'depay-react-dialog-stack'
 
 export default (props)=>{
 
   const { open, close } = useContext(ClosableContext)
+  const { purchasedToken, purchasedAmount, setPurchaseAmount } = useContext(SaleRoutingContext)
 
   return(
     <ReactDialogStack
       open={ open }
       close={ close }
-      start='PaymentOverview'
+      start='SaleOverview'
       container={ props.container }
       document={ props.document }
       dialogs={{
-        PaymentOverview: <PaymentOverviewDialog/>,
+        SaleOverview: <SaleOverviewDialog/>,
+        ChangeAmount: <ChangeAmountDialog
+          token={ purchasedToken }
+          amount={ purchasedAmount }
+          setAmount= { setPurchaseAmount }
+        />,
         ChangePayment: <ChangePaymentDialog/>,
         NoPaymentMethodFound: <NoPaymentMethodFoundDialog/>,
         PaymentError: <PaymentErrorDialog/>,

@@ -1,5 +1,6 @@
 export default {
   'react': 'React',
+  'react-dom': 'ReactDOM',
   'ethers': 'ethers',
   'depay-react-dialog-stack': 'ReactDialogStack',
   'depay-react-dialog': 'ReactDialog',
@@ -12,5 +13,6 @@ export default {
   'depay-web3-constants': 'Web3Constants',
   'depay-local-currency': 'LocalCurrency',
   'depay-react-token-image': 'ReactTokenImage',
-  'react-error-boundary': 'ErrorBoundary'
+  'react-error-boundary': 'ErrorBoundary',
+  'react-rangeslider': 'ReactRangeslider',
 }
