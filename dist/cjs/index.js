@@ -1,5 +1,3 @@
-
-(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 'use strict';
 
 var React = require('react');
@@ -2492,23 +2490,23 @@ var preflight$1 = /*#__PURE__*/function () {
             accept = _ref.accept;
             accept.forEach(function (configuration) {
               if (typeof configuration.blockchain === 'undefined') {
-                throw 'DePayWidgets.Payment: You need to set the blockchain your want to receive the payment on!';
+                throw 'You need to set the blockchain your want to receive the payment on!';
               }
 
               if (!['ethereum', 'bsc'].includes(configuration.blockchain)) {
-                throw 'DePayWidgets.Payment: You need to set a supported blockchain!';
+                throw 'You need to set a supported blockchain!';
               }
 
               if (typeof configuration.amount === 'undefined') {
-                throw 'DePayWidgets.Payment: You need to set the amount you want to receive as payment!';
+                throw 'You need to set the amount you want to receive as payment!';
               }
 
               if (typeof configuration.token === 'undefined') {
-                throw 'DePayWidgets.Payment: You need to set the token you want to receive as payment!';
+                throw 'You need to set the token you want to receive as payment!';
               }
 
               if (typeof configuration.receiver === 'undefined') {
-                throw 'DePayWidgets.Payment: You need to set the receiver address that you want to receive the payment!';
+                throw 'You need to set the receiver address that you want to receive the payment!';
               }
             });
 
@@ -2940,7 +2938,6 @@ var SaleOverviewDialog = (function (props) {
   };
 
   var pay = function pay() {
-    console.log(payment.route);
     setClosable(false);
     setState('paying');
     setUpdate(false);
@@ -3071,7 +3068,7 @@ var SaleOverviewDialog = (function (props) {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
-      title: state == 'overview' ? "Change payment" : undefined,
+      title: state == 'overview' ? "Change amount" : undefined,
       onClick: function onClick() {
         if (state != 'overview') {
           return;
@@ -3174,12 +3171,68 @@ var SaleStack = (function (props) {
 
 var preflight = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+    var amount, token, blockchains;
     return regenerator.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            amount = _ref.amount, token = _ref.token, blockchains = _ref.blockchains;
 
-          case 1:
+            if (!(typeof amount === 'undefined')) {
+              _context.next = 3;
+              break;
+            }
+
+            throw 'You need to set the amount!';
+
+          case 3:
+            if (!(typeof amount.min === 'undefined')) {
+              _context.next = 5;
+              break;
+            }
+
+            throw 'You need to set amount.min!';
+
+          case 5:
+            if (!(typeof amount.step === 'undefined')) {
+              _context.next = 7;
+              break;
+            }
+
+            throw 'You need to set amount.step!';
+
+          case 7:
+            if (!(typeof amount.start === 'undefined')) {
+              _context.next = 9;
+              break;
+            }
+
+            throw 'You need to set amount.start!';
+
+          case 9:
+            if (!(typeof token == 'undefined')) {
+              _context.next = 11;
+              break;
+            }
+
+            throw 'You need to set a token!';
+
+          case 11:
+            if (!(typeof blockchains == 'undefined' || blockchains.length == 0)) {
+              _context.next = 13;
+              break;
+            }
+
+            throw 'You need to set blockchains!';
+
+          case 13:
+            blockchains.forEach(function (blockchain) {
+              if (!['ethereum', 'bsc'].includes(blockchain)) {
+                throw 'You need to set only supported blockchains!';
+              }
+            });
+
+          case 14:
           case "end":
             return _context.stop();
         }

@@ -63358,22 +63358,22 @@ function route(_x5) {
 
 function _route() {
   _route = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee11(_ref16) {
-    var accept, whitelist, apiKey, event, paymentRoutes;
+    var accept, whitelist, blacklist, apiKey, event, paymentRoutes;
     return regenerator.wrap(function _callee11$(_context11) {
       while (1) {
         switch (_context11.prev = _context11.next) {
           case 0:
-            accept = _ref16.accept, whitelist = _ref16.whitelist, apiKey = _ref16.apiKey, event = _ref16.event;
+            accept = _ref16.accept, whitelist = _ref16.whitelist, blacklist = _ref16.blacklist, apiKey = _ref16.apiKey, event = _ref16.event;
             paymentRoutes = getAllAssets({
               accept: accept,
               whitelist: whitelist,
               apiKey: apiKey
-            }).then(assetsToTokens).then(function (tokens) {
-              return filterWhitelistedTokens({
-                tokens: tokens,
-                whitelist: whitelist
+            }).then(function (assets) {
+              return filterBlacklistedAssets({
+                assets: assets,
+                blacklist: blacklist
               });
-            }).then(filterTransferableTokens).then(function (tokens) {
+            }).then(assetsToTokens).then(filterTransferableTokens).then(function (tokens) {
               return convertToRoutes({
                 tokens: tokens,
                 accept: accept
@@ -63450,19 +63450,19 @@ var assetsToTokens = /*#__PURE__*/function () {
   };
 }();
 
-var filterWhitelistedTokens = function filterWhitelistedTokens(_ref19) {
-  var tokens = _ref19.tokens,
-      whitelist = _ref19.whitelist;
+var filterBlacklistedAssets = function filterBlacklistedAssets(_ref19) {
+  var assets = _ref19.assets,
+      blacklist = _ref19.blacklist;
 
-  if (whitelist == undefined) {
-    return tokens;
+  if (blacklist == undefined) {
+    return assets;
   } else {
-    return tokens.filter(function (token) {
-      if (whitelist[token.blockchain] == undefined) {
+    return assets.filter(function (asset) {
+      if (blacklist[asset.blockchain] == undefined) {
         return true;
       } else {
-        return whitelist[token.blockchain].find(function (whiteListedTokenAddress) {
-          return whiteListedTokenAddress.toLowerCase() == token.address.toLowerCase();
+        return !blacklist[asset.blockchain].find(function (blacklistedAddress) {
+          return blacklistedAddress.toLowerCase() == asset.address.toLowerCase();
         });
       }
     });
@@ -63754,6 +63754,7 @@ var PaymentRoutingProvider = (function (props) {
         });
       }),
       whitelist: props.whitelist,
+      blacklist: props.blacklist,
       event: props.event,
       apiKey: apiKey
     }).then(function (routes) {
@@ -65378,9 +65379,9 @@ var PaymentValueProvider = (function (props) {
 
     Promise.all([route$8({
       blockchain: payment.route.blockchain,
-      tokenIn: payment.route.toToken.address,
+      tokenIn: payment.route.fromToken.address,
       tokenOut: CONSTANTS$2[payment.route.blockchain].USD,
-      amountIn: payment.route.toAmount,
+      amountIn: payment.route.fromAmount,
       fromAddress: account,
       toAddress: account
     }), new Token({
@@ -65394,8 +65395,8 @@ var PaymentValueProvider = (function (props) {
       var USDRoute = USDExchangeRoutes[0];
       var USDAmount;
 
-      if (payment.route.toToken.address.toLowerCase() == CONSTANTS$2[payment.route.blockchain].USD.toLowerCase()) {
-        USDAmount = payment.route.toAmount.toString();
+      if (payment.route.fromToken.address.toLowerCase() == CONSTANTS$2[payment.route.blockchain].USD.toLowerCase()) {
+        USDAmount = payment.route.fromAmount.toString();
       } else if (USDRoute == undefined) {
         setPaymentValue('');
         return;
@@ -65514,23 +65515,23 @@ var preflight$1 = /*#__PURE__*/function () {
             accept = _ref.accept;
             accept.forEach(function (configuration) {
               if (typeof configuration.blockchain === 'undefined') {
-                throw 'DePayWidgets.Payment: You need to set the blockchain your want to receive the payment on!';
+                throw 'You need to set the blockchain your want to receive the payment on!';
               }
 
               if (!['ethereum', 'bsc'].includes(configuration.blockchain)) {
-                throw 'DePayWidgets.Payment: You need to set a supported blockchain!';
+                throw 'You need to set a supported blockchain!';
               }
 
               if (typeof configuration.amount === 'undefined') {
-                throw 'DePayWidgets.Payment: You need to set the amount you want to receive as payment!';
+                throw 'You need to set the amount you want to receive as payment!';
               }
 
               if (typeof configuration.token === 'undefined') {
-                throw 'DePayWidgets.Payment: You need to set the token you want to receive as payment!';
+                throw 'You need to set the token you want to receive as payment!';
               }
 
               if (typeof configuration.receiver === 'undefined') {
-                throw 'DePayWidgets.Payment: You need to set the receiver address that you want to receive the payment!';
+                throw 'You need to set the receiver address that you want to receive the payment!';
               }
             });
 
@@ -65646,6 +65647,10 @@ var SaleRoutingProvider = (function (props) {
       accept = _useState6[0],
       setAccept = _useState6[1];
 
+  var blacklist = {};
+  blockchains.forEach(function (blockchain) {
+    blacklist[blockchain] = [token];
+  });
   react.useEffect(function () {
     if (account) {
       setAccept(blockchains.map(function (blockchain) {
@@ -65684,7 +65689,8 @@ var SaleRoutingProvider = (function (props) {
       purchasedToken: purchasedToken
     }
   }, /*#__PURE__*/react.createElement(PaymentRoutingProvider, {
-    accept: accept
+    accept: accept,
+    blacklist: blacklist
   }, /*#__PURE__*/react.createElement(PaymentProvider, null, /*#__PURE__*/react.createElement(PaymentValueProvider, null, props.children))));
 });
 
@@ -67889,7 +67895,6 @@ var SaleOverviewDialog = (function (props) {
   };
 
   var pay = function pay() {
-    console.log(payment.route);
     setClosable(false);
     setState('paying');
     setUpdate(false);
@@ -68020,7 +68025,7 @@ var SaleOverviewDialog = (function (props) {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
     }, /*#__PURE__*/react.createElement("div", {
       className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
-      title: state == 'overview' ? "Change payment" : undefined,
+      title: state == 'overview' ? "Change amount" : undefined,
       onClick: function onClick() {
         if (state != 'overview') {
           return;
@@ -68123,12 +68128,68 @@ var SaleStack = (function (props) {
 
 var preflight = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+    var amount, token, blockchains;
     return regenerator.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            amount = _ref.amount, token = _ref.token, blockchains = _ref.blockchains;
 
-          case 1:
+            if (!(typeof amount === 'undefined')) {
+              _context.next = 3;
+              break;
+            }
+
+            throw 'You need to set the amount!';
+
+          case 3:
+            if (!(typeof amount.min === 'undefined')) {
+              _context.next = 5;
+              break;
+            }
+
+            throw 'You need to set amount.min!';
+
+          case 5:
+            if (!(typeof amount.step === 'undefined')) {
+              _context.next = 7;
+              break;
+            }
+
+            throw 'You need to set amount.step!';
+
+          case 7:
+            if (!(typeof amount.start === 'undefined')) {
+              _context.next = 9;
+              break;
+            }
+
+            throw 'You need to set amount.start!';
+
+          case 9:
+            if (!(typeof token == 'undefined')) {
+              _context.next = 11;
+              break;
+            }
+
+            throw 'You need to set a token!';
+
+          case 11:
+            if (!(typeof blockchains == 'undefined' || blockchains.length == 0)) {
+              _context.next = 13;
+              break;
+            }
+
+            throw 'You need to set blockchains!';
+
+          case 13:
+            blockchains.forEach(function (blockchain) {
+              if (!['ethereum', 'bsc'].includes(blockchain)) {
+                throw 'You need to set only supported blockchains!';
+              }
+            });
+
+          case 14:
           case "end":
             return _context.stop();
         }
