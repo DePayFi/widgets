@@ -2,7 +2,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('depay-web3-client'), require('react-dom'), require('depay-react-shadow-dom'), require('depay-web3-constants'), require('ethers'), require('depay-web3-payments'), require('depay-react-dialog-stack'), require('depay-react-token-image'), require('depay-local-currency'), require('depay-web3-exchanges'), require('depay-web3-tokens'), require('depay-web3-wallets'), require('react-rangeslider')) :
   typeof define === 'function' && define.amd ? define(['react', 'depay-web3-client', 'react-dom', 'depay-react-shadow-dom', 'depay-web3-constants', 'ethers', 'depay-web3-payments', 'depay-react-dialog-stack', 'depay-react-token-image', 'depay-local-currency', 'depay-web3-exchanges', 'depay-web3-tokens', 'depay-web3-wallets', 'react-rangeslider'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.Web3Client, global.ReactDOM, global.ReactShadowDOM, global.Web3Constants, global.ethers, global.Web3Payments, global.ReactDialogStack, global.ReactTokenImage, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.Web3Wallets, global.ReactRangeslider));
-}(this, (function (React, depayWeb3Client, ReactDOM, depayReactShadowDom, depayWeb3Constants, ethers$1, depayWeb3Payments, depayReactDialogStack, depayReactTokenImage, depayLocalCurrency, depayWeb3Exchanges, depayWeb3Tokens, depayWeb3Wallets, Slider) { 'use strict';
+}(this, (function (React, depayWeb3Client, ReactDOM, depayReactShadowDom, depayWeb3Constants, ethers, depayWeb3Payments, depayReactDialogStack, depayReactTokenImage, depayLocalCurrency, depayWeb3Exchanges, depayWeb3Tokens, depayWeb3Wallets, Slider) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -2368,7 +2368,7 @@
           USDAmount = USDRoute.amountOut.toString();
         }
 
-        var USDValue = ethers$1.ethers.utils.formatUnits(USDAmount, USDDecimals);
+        var USDValue = ethers.ethers.utils.formatUnits(USDAmount, USDDecimals);
         depayLocalCurrency.Currency.fromUSD({
           amount: USDValue,
           code: currency,
@@ -2743,7 +2743,7 @@
               routes = _ref2[4];
 
           var SLIPPAGE = 1.01;
-          var max = round(parseFloat(ethers.utils.formatUnits(routes[0].amountOutMin, decimals)) / SLIPPAGE, 'down');
+          var max = round(parseFloat(ethers.ethers.utils.formatUnits(routes[0].amountOutMin, decimals)) / SLIPPAGE, 'down');
           setMax(max);
           setMaxRouteData({
             name: name,

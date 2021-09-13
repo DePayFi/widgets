@@ -5,7 +5,7 @@ var depayWeb3Client = require('depay-web3-client');
 var ReactDOM = require('react-dom');
 var depayReactShadowDom = require('depay-react-shadow-dom');
 var depayWeb3Constants = require('depay-web3-constants');
-var ethers$1 = require('ethers');
+var ethers = require('ethers');
 var depayWeb3Payments = require('depay-web3-payments');
 var depayReactDialogStack = require('depay-react-dialog-stack');
 var depayReactTokenImage = require('depay-react-token-image');
@@ -2379,7 +2379,7 @@ var PaymentValueProvider = (function (props) {
         USDAmount = USDRoute.amountOut.toString();
       }
 
-      var USDValue = ethers$1.ethers.utils.formatUnits(USDAmount, USDDecimals);
+      var USDValue = ethers.ethers.utils.formatUnits(USDAmount, USDDecimals);
       depayLocalCurrency.Currency.fromUSD({
         amount: USDValue,
         code: currency,
@@ -2754,7 +2754,7 @@ var ChangeAmountDialog = (function (props) {
             routes = _ref2[4];
 
         var SLIPPAGE = 1.01;
-        var max = round(parseFloat(ethers.utils.formatUnits(routes[0].amountOutMin, decimals)) / SLIPPAGE, 'down');
+        var max = round(parseFloat(ethers.ethers.utils.formatUnits(routes[0].amountOutMin, decimals)) / SLIPPAGE, 'down');
         setMax(max);
         setMaxRouteData({
           name: name,

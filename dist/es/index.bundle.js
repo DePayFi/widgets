@@ -67704,7 +67704,7 @@ var ChangeAmountDialog = (function (props) {
             routes = _ref2[4];
 
         var SLIPPAGE = 1.01;
-        var max = round(parseFloat(ethers.utils.formatUnits(routes[0].amountOutMin, decimals)) / SLIPPAGE, 'down');
+        var max = round(parseFloat(formatUnits(routes[0].amountOutMin, decimals)) / SLIPPAGE, 'down');
         setMax(max);
         setMaxRouteData({
           name: name,

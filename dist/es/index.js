@@ -3,7 +3,7 @@ import { setProvider } from 'depay-web3-client';
 import ReactDOM from 'react-dom';
 import { ReactShadowDOM } from 'depay-react-shadow-dom';
 import { CONSTANTS } from 'depay-web3-constants';
-import { ethers as ethers$1 } from 'ethers';
+import { ethers } from 'ethers';
 import { route } from 'depay-web3-payments';
 import { NavigateStackContext, ReactDialogStack } from 'depay-react-dialog-stack';
 import { TokenImage } from 'depay-react-token-image';
@@ -2371,7 +2371,7 @@ var PaymentValueProvider = (function (props) {
         USDAmount = USDRoute.amountOut.toString();
       }
 
-      var USDValue = ethers$1.utils.formatUnits(USDAmount, USDDecimals);
+      var USDValue = ethers.utils.formatUnits(USDAmount, USDDecimals);
       Currency.fromUSD({
         amount: USDValue,
         code: currency,
