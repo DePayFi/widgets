@@ -58,18 +58,18 @@ export default (props)=>{
     setUpdate(false)
     payment.route.transaction.submit({
       sent: ()=>{
-        if(sent) { sent(transaction) }
+        if(sent) { sent(payment.route.transaction) }
       },
       confirmed: ()=>{
         setClosable(true)
         setState('confirmed')
-        if(confirmed) { confirmed(transaction) }
+        if(confirmed) { confirmed(payment.route.transaction) }
       },
       ensured: ()=>{
-        if(ensured) { ensured(transaction) }
+        if(ensured) { ensured(payment.route.transaction) }
       },
       failed: (error)=> {
-        if(failed) { failed(transaction) }
+        if(failed) { failed(payment.route.transaction) }
         console.log('error', error)
         setState('overview')
         setClosable(true)

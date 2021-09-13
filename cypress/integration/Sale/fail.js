@@ -8,6 +8,7 @@ import { mock, resetMocks, fail, anything } from 'depay-web3-mock'
 import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
+import { Transaction } from 'depay-web3-transaction'
 
 describe('Sale execution fails', () => {
 
@@ -124,13 +125,13 @@ describe('Sale execution fails', () => {
       }
     })
 
-    let failedCalled = false
+    let failedCalledWith
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Sale({ ...defaultArguments,
           failed: (transaction)=> {
-            failedCalled = true
+            failedCalledWith = transaction
           },
         document})
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
@@ -144,7 +145,7 @@ describe('Sale execution fails', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'Unfortunately executing your payment failed. You can go back and try again.').then(()=>{
-              expect(failedCalled).to.equal(true)
+              expect(failedCalledWith).to.be.an.instanceof(Transaction)
             })
           })
         })

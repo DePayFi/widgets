@@ -8,6 +8,7 @@ import { mock, confirm, increaseBlock, resetMocks, anything } from 'depay-web3-m
 import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
+import { Transaction } from 'depay-web3-transaction'
 
 describe('executes Sale', () => {
 
@@ -209,30 +210,30 @@ describe('executes Sale', () => {
     })
 
 
-    let sentCalled = false
-    let confirmedCalled = false
-    let ensuredCalled = false
+    let sentCalledWith
+    let ensuredCalledWith
+    let confirmedCalledWith
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Sale({ ...defaultArguments, document,
-          sent: ()=>{ sentCalled = true },
-          confirmed: ()=>{ confirmedCalled = true },
-          ensured: ()=>{ ensuredCalled = true },
+          sent: (transaction)=>{ sentCalledWith = transaction },
+          confirmed: (transaction)=>{ confirmedCalledWith = transaction },
+          ensured: (transaction)=>{ ensuredCalledWith = transaction },
         })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
           cy.wait(1000).then(()=>{
-            expect(sentCalled).to.equal(true)
+            expect(sentCalledWith).to.be.an.instanceof(Transaction)
             expect(mockedTransaction.calls.count()).to.equal(1)
             confirm(mockedTransaction)
             cy.wait(5000).then(()=>{
-              expect(confirmedCalled).to.equal(true)
+              expect(confirmedCalledWith).to.be.an.instanceof(Transaction)
               increaseBlock(12)
               cy.wait(5000).then(()=>{
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.round .Checkmark.Icon').click().then(()=>{
-                  expect(ensuredCalled).to.equal(true)
+                  expect(ensuredCalledWith).to.be.an.instanceof(Transaction)
                 })
               })
             })
