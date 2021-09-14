@@ -52821,7 +52821,7 @@ var submitContractInteraction = function submitContractInteraction(_ref2) {
   var transaction = _ref2.transaction,
       signer = _ref2.signer,
       provider = _ref2.provider;
-  var contract = new Contract(transaction.address, transaction.api, provider);
+  var contract = new Contract(transaction.to, transaction.api, provider);
   return (_contract$connect = contract.connect(signer))[transaction.method].apply(_contract$connect, _toConsumableArray(argsFromTransaction({
     transaction: transaction,
     contract: contract
@@ -52834,7 +52834,7 @@ var submitSimpleTransfer = function submitSimpleTransfer(_ref3) {
   var transaction = _ref3.transaction,
       signer = _ref3.signer;
   return signer.sendTransaction({
-    to: transaction.address,
+    to: transaction.to,
     value: transaction.value
   });
 };
@@ -52947,11 +52947,16 @@ function submit(_ref6) {
             case 3:
               wallet = _context.sent;
               _context.next = 6;
-              return wallet.connectedTo(transaction.blockchain);
+              return signer.getAddress();
 
             case 6:
+              transaction.from = _context.sent;
+              _context.next = 9;
+              return wallet.connectedTo(transaction.blockchain);
+
+            case 9:
               if (!_context.sent) {
-                _context.next = 10;
+                _context.next = 13;
                 break;
               }
 
@@ -52966,10 +52971,10 @@ function submit(_ref6) {
                 resolve: resolve,
                 reject: reject
               });
-              _context.next = 11;
+              _context.next = 14;
               break;
 
-            case 10:
+            case 13:
               // connected to wrong network
               wallet.switchTo(transaction.blockchain).then(function () {
                 return executeSubmit({
@@ -52985,7 +52990,7 @@ function submit(_ref6) {
                 });
               })["catch"](reject);
 
-            case 11:
+            case 14:
             case "end":
               return _context.stop();
           }
@@ -53040,7 +53045,8 @@ function submitBsc(_ref9) {
 var Transaction = /*#__PURE__*/function () {
   function Transaction(_ref10) {
     var blockchain = _ref10.blockchain,
-        address = _ref10.address,
+        from = _ref10.from,
+        to = _ref10.to,
         api = _ref10.api,
         method = _ref10.method,
         params = _ref10.params,
@@ -53053,7 +53059,8 @@ var Transaction = /*#__PURE__*/function () {
     _classCallCheck$1(this, Transaction);
 
     this.blockchain = blockchain;
-    this.address = address;
+    this.from = from;
+    this.to = to;
     this.api = api;
     this.method = method;
     this.params = params;
@@ -55360,11 +55367,13 @@ var getTransaction$1 = function getTransaction$1(_ref16) {
       amountOutInput = _ref16.amountOutInput,
       amountInMaxInput = _ref16.amountInMaxInput,
       amountOutMinInput = _ref16.amountOutMinInput,
-      toAddress = _ref16.toAddress;
+      toAddress = _ref16.toAddress,
+      fromAddress = _ref16.fromAddress;
   var blockchain = 'bsc';
   var transaction = {
     blockchain: blockchain,
-    address: basics$3.contracts.router.address,
+    from: fromAddress,
+    to: basics$3.contracts.router.address,
     api: basics$3.contracts.router.api
   };
 
@@ -55499,7 +55508,8 @@ var route$6 = function route$6(_ref17) {
                 amountOutInput: amountOutInput,
                 amountInMaxInput: amountInMaxInput,
                 amountOutMinInput: amountOutMinInput,
-                toAddress: toAddress
+                toAddress: toAddress,
+                fromAddress: fromAddress
               });
               resolve(new Route({
                 tokenIn: tokenIn,
@@ -57425,10 +57435,12 @@ var getTransaction = function getTransaction(_ref26) {
       amountOutInput = _ref26.amountOutInput,
       amountInMaxInput = _ref26.amountInMaxInput,
       amountOutMinInput = _ref26.amountOutMinInput,
-      toAddress = _ref26.toAddress;
+      toAddress = _ref26.toAddress,
+      fromAddress = _ref26.fromAddress;
   var transaction = {
     blockchain: 'ethereum',
-    address: basics$2.contracts.router.address,
+    from: fromAddress,
+    to: basics$2.contracts.router.address,
     api: basics$2.contracts.router.api
   };
 
@@ -57563,7 +57575,8 @@ var route$4 = function route$4(_ref27) {
                 amountOutInput: amountOutInput,
                 amountInMaxInput: amountInMaxInput,
                 amountOutMinInput: amountOutMinInput,
-                toAddress: toAddress
+                toAddress: toAddress,
+                fromAddress: fromAddress
               });
               resolve(new Route({
                 tokenIn: tokenIn,
@@ -57879,7 +57892,8 @@ var route$2 = function route$2(_ref29) {
                   exchange: exchange,
                   transaction: new Transaction({
                     blockchain: 'ethereum',
-                    address: CONSTANTS$2.ethereum.WRAPPED,
+                    from: fromAddress,
+                    to: CONSTANTS$2.ethereum.WRAPPED,
                     api: WETH,
                     method: 'deposit',
                     value: amountOut
@@ -57899,7 +57913,8 @@ var route$2 = function route$2(_ref29) {
                   exchange: exchange,
                   transaction: new Transaction({
                     blockchain: 'ethereum',
-                    address: CONSTANTS$2.ethereum.WRAPPED,
+                    from: fromAddress,
+                    to: CONSTANTS$2.ethereum.WRAPPED,
                     api: WETH,
                     method: 'withdraw',
                     params: [amountOut]
@@ -58198,7 +58213,8 @@ var route$1 = function route$1(_ref31) {
                   exchange: exchange,
                   transaction: new Transaction({
                     blockchain: 'bsc',
-                    address: CONSTANTS$2.bsc.WRAPPED,
+                    from: fromAddress,
+                    to: CONSTANTS$2.bsc.WRAPPED,
                     api: WBNB,
                     method: 'deposit',
                     value: amountOut
@@ -58218,7 +58234,8 @@ var route$1 = function route$1(_ref31) {
                   exchange: exchange,
                   transaction: new Transaction({
                     blockchain: 'bsc',
-                    address: CONSTANTS$2.bsc.WRAPPED,
+                    from: fromAddress,
+                    to: CONSTANTS$2.bsc.WRAPPED,
                     api: WBNB,
                     method: 'withdraw',
                     params: [amountOut]
@@ -62940,7 +62957,7 @@ var routeToTransaction = function routeToTransaction(_ref) {
   var exchangeRoute = paymentRoute.exchangeRoutes[0];
   var transaction = new Transaction({
     blockchain: paymentRoute.blockchain,
-    address: transactionAddress({
+    to: transactionAddress({
       paymentRoute: paymentRoute
     }),
     api: transactionApi({
@@ -63578,7 +63595,7 @@ var addApproval = function addApproval(routes) {
             options = options || {};
             var approvalTransaction = new Transaction({
               blockchain: route.blockchain,
-              address: route.fromToken.address,
+              to: route.fromToken.address,
               api: Token[route.blockchain].DEFAULT,
               method: 'approve',
               params: [routers[route.blockchain].address, CONSTANTS$2[route.blockchain].MAXINT]
