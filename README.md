@@ -119,7 +119,7 @@ The address receiving the payment. Always double check that you've set the right
 
 A function that will be called once the payment has been sent to the network (but still needs to be mined/confirmed).
 
-The widget will call the `sent` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+The widget will call the `sent` callback-function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
 
 ```javascript
 DePayWidgets.Payment({
@@ -136,7 +136,7 @@ DePayWidgets.Payment({
 
 A function that will be called once the payment has been confirmed once by the network.
 
-The widget will call the `confirmed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+The widget will call the `confirmed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
 
 ```javascript
 DePayWidgets.Payment({
@@ -153,7 +153,7 @@ DePayWidgets.Payment({
 
 A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
 
-The widget will call the `ensured` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+The widget will call the `ensured` callback-function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
 
 ```javascript
 DePayWidgets.Payment({
@@ -170,7 +170,7 @@ DePayWidgets.Payment({
 
 A function that will be called if the payment execution failed on the blockchain (after it has been sent/submitted).
 
-The widget will call the `failed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+The widget will call the `failed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
 
 ```javascript
 DePayWidgets.Payment({
@@ -449,7 +449,7 @@ The address of the token you want to sell.
 
 A function that will be called once the payment has been sent to the network (but still needs to be mined/confirmed).
 
-The widget will call the `sent` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+The widget will call the `sent` callback-function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
 
 ```javascript
 DePayWidgets.Sale({
@@ -466,7 +466,7 @@ DePayWidgets.Sale({
 
 A function that will be called once the payment has been confirmed once by the network.
 
-The widget will call the `confirmed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+The widget will call the `confirmed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
 
 ```javascript
 DePayWidgets.Sale({
@@ -483,7 +483,7 @@ DePayWidgets.Sale({
 
 A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
 
-The widget will call the `ensured` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+The widget will call the `ensured` callback-function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
 
 ```javascript
 DePayWidgets.Sale({
@@ -500,7 +500,7 @@ DePayWidgets.Sale({
 
 A function that will be called if the payment execution failed on the blockchain (after it has been sent/submitted).
 
-The widget will call the `failed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](http://github.com/depayfi/depay-web3-transaction) for more details)
+The widget will call the `failed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
 
 ```javascript
 DePayWidgets.Sale({

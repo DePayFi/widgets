@@ -13,7 +13,7 @@ import { Transaction } from 'depay-web3-transaction'
 describe('execute Payment', () => {
 
   const blockchain = 'ethereum'
-  const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
+  const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
   beforeEach(resetMocks)
   beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
@@ -199,14 +199,17 @@ describe('execute Payment', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
           cy.wait(1000).then(()=>{
             expect(sentCalledWith).to.be.an.instanceof(Transaction)
+            expect(sentCalledWith.from).to.equal(accounts[0])
             expect(mockedTransaction.calls.count()).to.equal(1)
             confirm(mockedTransaction)
             cy.wait(5000).then(()=>{
             expect(confirmedCalledWith).to.be.an.instanceof(Transaction)
+            expect(confirmedCalledWith.from).to.equal(accounts[0])
               increaseBlock(12)
               cy.wait(5000).then(()=>{
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.round .Checkmark.Icon').click().then(()=>{
                   expect(ensuredCalledWith).to.be.an.instanceof(Transaction)
+                  expect(ensuredCalledWith.from).to.equal(accounts[0])
                 })
               })
             })
