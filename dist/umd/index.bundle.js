@@ -51576,7 +51576,7 @@
     }),
         unmount = _ReactShadowDOM.unmount;
 
-    return;
+    return unmount;
   });
 
   var PaymentContext = /*#__PURE__*/react.createContext();
@@ -65573,7 +65573,7 @@
 
   var Payment = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, providers, currency, connected, document;
+      var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, providers, currency, connected, document, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -65586,7 +65586,7 @@
               });
 
             case 4:
-              mount({
+              unmount = mount({
                 style: style,
                 document: ensureDocument(document)
               }, function (unmount) {
@@ -65621,11 +65621,12 @@
                   })))))))));
                 };
               });
-              _context2.next = 11;
-              break;
+              return _context2.abrupt("return", {
+                unmount: unmount
+              });
 
-            case 7:
-              _context2.prev = 7;
+            case 8:
+              _context2.prev = 8;
               _context2.t0 = _context2["catch"](1);
               console.log('critical error', _context2.t0);
 
@@ -65633,12 +65634,12 @@
                 critical(_context2.t0);
               }
 
-            case 11:
+            case 12:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[1, 7]]);
+      }, _callee2, null, [[1, 8]]);
     }));
 
     return function Payment(_x2) {
@@ -68233,7 +68234,7 @@
 
   var Sale = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var amount, token, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, providers, currency, connected, document;
+      var amount, token, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, providers, currency, connected, document, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -68248,7 +68249,7 @@
               });
 
             case 4:
-              mount({
+              unmount = mount({
                 style: style,
                 document: ensureDocument(document)
               }, function (unmount) {
@@ -68280,11 +68281,12 @@
                   })))))));
                 };
               });
-              _context2.next = 11;
-              break;
+              return _context2.abrupt("return", {
+                unmount: unmount
+              });
 
-            case 7:
-              _context2.prev = 7;
+            case 8:
+              _context2.prev = 8;
               _context2.t0 = _context2["catch"](1);
               console.log('critical error', _context2.t0);
 
@@ -68292,12 +68294,12 @@
                 critical(_context2.t0);
               }
 
-            case 11:
+            case 12:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[1, 7]]);
+      }, _callee2, null, [[1, 8]]);
     }));
 
     return function Sale(_x2) {

@@ -40,7 +40,7 @@ let Payment = async ({
 
   try {
     await preflight({ accept })
-    mount({ style, document: ensureDocument(document) }, (unmount)=> {
+    let unmount = mount({ style, document: ensureDocument(document) }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={ { accept, currency, event, sent, confirmed, ensured, failed, whitelist, providers } }>
@@ -63,6 +63,7 @@ let Payment = async ({
           </ConfigurationProvider>
         </ErrorProvider>
     })
+    return { unmount }
   } catch (error) {
     console.log('critical error', error)
     if(critical != undefined) {

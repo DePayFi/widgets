@@ -392,6 +392,18 @@ DePayWidgets.Payment({
 })
 ```
 
+#### unmount
+
+`unmount`
+
+Allows you to unmount (the React safe way) the entire widget from the outside:
+
+```javascript
+let { unmount } = await DePayWidgets.Payment({})
+
+unmount()
+```
+
 ## DePay Sales
 
 DePay Sales allows you to sell tokens directly from your website or dApp with automatic any-to-any conversion.
@@ -689,6 +701,18 @@ DePayWidgets.Sale({
     `
   }
 })
+```
+
+#### unmount
+
+`unmount`
+
+Allows you to unmount (the React safe way) the entire widget from the outside:
+
+```javascript
+let { unmount } = await DePayWidgets.Payment({})
+
+unmount()
 ```
 
 ## Development
