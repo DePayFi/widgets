@@ -1,3 +1,5 @@
+
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 'use strict';
 
 var React = require('react');
@@ -1306,7 +1308,7 @@ var ButtonPrimaryStyle = (function (style) {
 });
 
 var CardStyle = (function (style) {
-  return "\n\n    .Card {\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02); \n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText {\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ";
+  return "\n\n    .Card {\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n    }\n\n    .Card.small {\n      min-height: auto;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02); \n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText {\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ";
 });
 
 var DialogStyle = (function (style) {
@@ -1370,7 +1372,7 @@ var TextButtonStyle = (function (style) {
 });
 
 var TextStyle = (function () {
-  return "\n\n    .TextLeft, .TextLeft * {\n      text-align: left;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n  ";
+  return "\n\n    .TextLeft, .TextLeft * {\n      text-align: left;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n    .TextGrey {\n      color: grey;\n    }\n\n  ";
 });
 
 var TokenAmountStyle = (function () {
@@ -2428,6 +2430,52 @@ var UpdateProvider = (function (props) {
   }, props.children);
 });
 
+var WalletUnavailableDialog = (function (props) {
+  var _useState = React.useState(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      open = _useState2[0],
+      setOpen = _useState2[1];
+
+  var close = function close() {
+    setOpen(false);
+    setTimeout(props.unmount, 300);
+  };
+
+  return /*#__PURE__*/React__default$1['default'].createElement(ReactDialog_1, {
+    container: props.container,
+    close: close,
+    open: open
+  }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+    className: "Dialog ReactDialogAnimation"
+  }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+    className: "DialogHeader"
+  }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+    className: "PaddingTopS PaddingLeftM PaddingRightM"
+  }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
+    className: "FontSizeL TextLeft"
+  }, "Select a wallet"))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+    className: "DialogBody"
+  }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+    className: "Text PaddingTopS PaddingBottomXS PaddingLeftS PaddingRightS"
+  }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+    className: 'Card small',
+    title: '',
+    onClick: function onClick() {}
+  }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+    className: "CardBody"
+  }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+    className: "CardBodyWrapper PaddingLeftS"
+  }, /*#__PURE__*/React__default$1['default'].createElement("h2", {
+    className: "CardText"
+  }, "NAME"))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+    className: "CardImage PaddingRightM"
+  }, "IMG")))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+    className: "DialogFooter"
+  }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+    className: "FontSizeS FontWeightBold TextGrey PaddingBottomS"
+  }, /*#__PURE__*/React__default$1['default'].createElement("strong", null, "What is a wallet?")))));
+});
+
 var WalletProvider = (function (props) {
   var _useContext = React.useContext(ErrorContext),
       setError = _useContext.setError;
@@ -2452,7 +2500,14 @@ var WalletProvider = (function (props) {
     wallet.connect().then(function (accounts) {
       setWalletState('connected');
       setAccount(accounts[0]);
-    })["catch"](setError);
+    })["catch"](function (error) {
+      if ((error === null || error === void 0 ? void 0 : error.code) == 4001) {
+        return;
+      } // User rejected the request.
+
+
+      setError(error);
+    });
   };
 
   React.useEffect(function () {
@@ -2470,14 +2525,21 @@ var WalletProvider = (function (props) {
       connect();
     }
   }, [wallet]);
-  return /*#__PURE__*/React__default$1['default'].createElement(WalletContext.Provider, {
-    value: {
-      account: account,
-      wallet: wallet,
-      walletState: walletState,
-      connect: connect
-    }
-  }, props.children);
+
+  if (walletState == 'unavailable') {
+    return /*#__PURE__*/React__default$1['default'].createElement(WalletUnavailableDialog, {
+      container: props.container
+    });
+  } else {
+    return /*#__PURE__*/React__default$1['default'].createElement(WalletContext.Provider, {
+      value: {
+        account: account,
+        wallet: wallet,
+        walletState: walletState,
+        connect: connect
+      }
+    }, props.children);
+  }
 });
 
 var preflight$1 = /*#__PURE__*/function () {
@@ -2561,7 +2623,10 @@ var Payment = /*#__PURE__*/function () {
                   }
                 }, /*#__PURE__*/React__default$1['default'].createElement(ClosableProvider, {
                   unmount: unmount
-                }, /*#__PURE__*/React__default$1['default'].createElement(UpdateProvider, null, /*#__PURE__*/React__default$1['default'].createElement(WalletProvider, null, /*#__PURE__*/React__default$1['default'].createElement(PaymentRoutingProvider, {
+                }, /*#__PURE__*/React__default$1['default'].createElement(UpdateProvider, null, /*#__PURE__*/React__default$1['default'].createElement(WalletProvider, {
+                  container: container,
+                  unmount: unmount
+                }, /*#__PURE__*/React__default$1['default'].createElement(PaymentRoutingProvider, {
                   accept: accept,
                   whitelist: whitelist,
                   event: event
@@ -3290,7 +3355,10 @@ var Sale = /*#__PURE__*/function () {
                   }
                 }, /*#__PURE__*/React__default$1['default'].createElement(ClosableProvider, {
                   unmount: unmount
-                }, /*#__PURE__*/React__default$1['default'].createElement(UpdateProvider, null, /*#__PURE__*/React__default$1['default'].createElement(WalletProvider, null, /*#__PURE__*/React__default$1['default'].createElement(SaleRoutingProvider, null, /*#__PURE__*/React__default$1['default'].createElement(SaleStack, {
+                }, /*#__PURE__*/React__default$1['default'].createElement(UpdateProvider, null, /*#__PURE__*/React__default$1['default'].createElement(WalletProvider, {
+                  container: container,
+                  unmount: unmount
+                }, /*#__PURE__*/React__default$1['default'].createElement(SaleRoutingProvider, null, /*#__PURE__*/React__default$1['default'].createElement(SaleStack, {
                   document: document,
                   container: container
                 })))))));

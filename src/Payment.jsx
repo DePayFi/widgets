@@ -45,7 +45,7 @@ let Payment = async ({
           <ConfigurationProvider configuration={ { accept, currency, event, sent, confirmed, ensured, failed, whitelist, providers } }>
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
-                <WalletProvider>
+                <WalletProvider container={ container } unmount={ unmount }>
                   <PaymentRoutingProvider accept={ accept } whitelist={ whitelist } event={ event }>
                     <PaymentProvider>
                       <PaymentValueProvider>

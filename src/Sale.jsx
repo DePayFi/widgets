@@ -46,7 +46,7 @@ let Sale = async ({
           <ConfigurationProvider configuration={{ amount, token, blockchains, currency, event, sent, confirmed, ensured, failed, providers }}>
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
-                <WalletProvider>
+                <WalletProvider container={ container } unmount={ unmount }>
                   <SaleRoutingProvider>
                     <SaleStack
                       document={ document }

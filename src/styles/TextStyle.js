@@ -9,5 +9,9 @@ export default ()=>{
       text-align: center;
     }
 
+    .TextGrey {
+      color: grey;
+    }
+
   `)
 }

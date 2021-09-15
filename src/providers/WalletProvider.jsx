@@ -1,7 +1,9 @@
 import ErrorContext from '../contexts/ErrorContext'
 import React, { useState, useEffect, useContext } from 'react'
 import WalletContext from '../contexts/WalletContext'
+import WalletUnavailableDialog from '../dialogs/WalletUnavailableDialog'
 import { getWallet } from 'depay-web3-wallets'
+import { ReactDialog } from 'depay-react-dialog'
 
 export default (props)=>{
 
@@ -14,7 +16,10 @@ export default (props)=>{
     wallet.connect().then((accounts)=>{
       setWalletState('connected')
       setAccount(accounts[0])        
-    }).catch(setError)
+    }).catch((error)=>{
+      if(error?.code == 4001) { return } // User rejected the request.
+      setError(error)
+    })
   }
 
   useEffect(()=>{
@@ -33,14 +38,18 @@ export default (props)=>{
     }
   }, [wallet])
 
-  return(
-    <WalletContext.Provider value={{
-      account,
-      wallet,
-      walletState,
-      connect
-    }}>
-      { props.children }
-    </WalletContext.Provider>
-  )
+  if(walletState == 'unavailable') {
+    return(<WalletUnavailableDialog container={ props.container }/>)
+  } else {
+    return(
+      <WalletContext.Provider value={{
+        account,
+        wallet,
+        walletState,
+        connect
+      }}>
+        { props.children }
+      </WalletContext.Provider>
+    )
+  }
 }
