@@ -113,6 +113,24 @@ Use our [payment configurator](https://depay.fi/documentation/payments#payment-c
 
 The address receiving the payment. Always double check that you've set the right address.
 
+#### connected
+
+`connected`
+
+A function that will be called once the user connects a wallet.
+
+Will be called with the connected wallet address as the main argument:
+
+```javascript
+DePayWidgets.Payment({
+
+  connected: (address)=> {
+    // to something with address
+  }
+})
+
+```
+
 #### sent
 
 `sent`
@@ -442,6 +460,24 @@ by which number the amount increments/decrements when changed by the user (`step
 #### token
 
 The address of the token you want to sell.
+
+#### connected
+
+`connected`
+
+A function that will be called once the user connects a wallet.
+
+Will be called with the connected wallet address as the main argument:
+
+```javascript
+DePayWidgets.Sale({
+
+  connected: (address)=> {
+    // to something with address
+  }
+})
+
+```
 
 #### sent
 

@@ -109,14 +109,23 @@ describe('connect Sale widget', () => {
       wallet: 'metamask'
     })
 
-    mock({ blockchain, accounts: { return: accounts, delay: 5000 } })
+    mock({ blockchain, accounts: { return: accounts, delay: 2000 } })
+
+    let connectedCalledWith
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Sale({ ...defaultArguments, document })
+        DePayWidgets.Sale({ ...defaultArguments, document,
+          connected: (account)=>{
+            connectedCalledWith = account
+          }
+        })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Connect Wallet')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'This payment requires access to your wallet, please login and authorize access to your MetaMask account to continue.')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Connect')
+        cy.wait(2000).then(()=>{
+          expect(connectedCalledWith).to.equal(accounts[0])
+        })
       })
     })
   })
