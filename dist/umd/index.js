@@ -2440,6 +2440,11 @@
       setWalletState('connecting');
       wallet.connect().then(function (accounts) {
         setWalletState('connected');
+
+        if (props.connected) {
+          props.connected(accounts[0]);
+        }
+
         setAccount(accounts[0]);
       })["catch"](setError);
     };
@@ -2514,12 +2519,12 @@
 
   var Payment = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, providers, currency, document;
+      var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, providers, currency, connected, document;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, providers = _ref3.providers, currency = _ref3.currency, document = _ref3.document;
+              accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, document = _ref3.document;
               _context2.prev = 1;
               _context2.next = 4;
               return preflight$1({
@@ -2550,7 +2555,9 @@
                     }
                   }, /*#__PURE__*/React__default$1['default'].createElement(ClosableProvider, {
                     unmount: unmount
-                  }, /*#__PURE__*/React__default$1['default'].createElement(UpdateProvider, null, /*#__PURE__*/React__default$1['default'].createElement(WalletProvider, null, /*#__PURE__*/React__default$1['default'].createElement(PaymentRoutingProvider, {
+                  }, /*#__PURE__*/React__default$1['default'].createElement(UpdateProvider, null, /*#__PURE__*/React__default$1['default'].createElement(WalletProvider, {
+                    connected: connected
+                  }, /*#__PURE__*/React__default$1['default'].createElement(PaymentRoutingProvider, {
                     accept: accept,
                     whitelist: whitelist,
                     event: event
@@ -3240,12 +3247,12 @@
 
   var Sale = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var amount, token, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, providers, currency, document;
+      var amount, token, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, providers, currency, connected, document;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              amount = _ref3.amount, token = _ref3.token, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, providers = _ref3.providers, currency = _ref3.currency, document = _ref3.document;
+              amount = _ref3.amount, token = _ref3.token, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, document = _ref3.document;
               _context2.prev = 1;
               _context2.next = 4;
               return preflight({
@@ -3279,7 +3286,9 @@
                     }
                   }, /*#__PURE__*/React__default$1['default'].createElement(ClosableProvider, {
                     unmount: unmount
-                  }, /*#__PURE__*/React__default$1['default'].createElement(UpdateProvider, null, /*#__PURE__*/React__default$1['default'].createElement(WalletProvider, null, /*#__PURE__*/React__default$1['default'].createElement(SaleRoutingProvider, null, /*#__PURE__*/React__default$1['default'].createElement(SaleStack, {
+                  }, /*#__PURE__*/React__default$1['default'].createElement(UpdateProvider, null, /*#__PURE__*/React__default$1['default'].createElement(WalletProvider, {
+                    connected: connected
+                  }, /*#__PURE__*/React__default$1['default'].createElement(SaleRoutingProvider, null, /*#__PURE__*/React__default$1['default'].createElement(SaleStack, {
                     document: document,
                     container: container
                   })))))));
