@@ -24547,6 +24547,10 @@
 
       MetaMask.prototype.__init3.call(_assertThisInitialized(_this3));
 
+      MetaMask.prototype.__init4.call(_assertThisInitialized(_this3));
+
+      MetaMask.prototype.__init5.call(_assertThisInitialized(_this3));
+
       return _this3;
     }
 
@@ -24565,6 +24569,16 @@
       value: function __init3() {
         this.blockchains = ['ethereum', 'bsc'];
       }
+    }, {
+      key: "__init4",
+      value: function __init4() {
+        this.devices = ['desktop', 'mobile'];
+      }
+    }, {
+      key: "__init5",
+      value: function __init5() {
+        this.install = 'https://metamask.io/download.html';
+      }
     }]);
 
     return MetaMask;
@@ -24579,6 +24593,8 @@
       }
     }
   };
+
+  var supported = [new MetaMask()];
 
   function _wrapRegExp() { _wrapRegExp = function _wrapRegExp(re, groups) { return new BabelRegExp(re, undefined, groups); }; var _super = RegExp.prototype; var _groups = new WeakMap(); function BabelRegExp(re, flags, groups) { var _this = new RegExp(re, flags); _groups.set(_this, groups || _groups.get(re)); return _setPrototypeOf(_this, BabelRegExp.prototype); } _inherits$1(BabelRegExp, RegExp); BabelRegExp.prototype.exec = function (str) { var result = _super.exec.call(this, str); if (result) result.groups = buildGroups(result, this); return result; }; BabelRegExp.prototype[Symbol.replace] = function (str, substitution) { if (typeof substitution === "string") { var groups = _groups.get(this); return _super[Symbol.replace].call(this, str, substitution.replace(/\$<([^>]+)>/g, function (_, name) { return "$" + groups[name]; })); } else if (typeof substitution === "function") { var _this = this; return _super[Symbol.replace].call(this, str, function () { var args = arguments; if (_typeof(args[args.length - 1]) !== "object") { args = [].slice.call(args); args.push(buildGroups(args, _this)); } return substitution.apply(this, args); }); } else { return _super[Symbol.replace].call(this, str, substitution); } }; function buildGroups(result, re) { var g = _groups.get(re); return Object.keys(g).reduce(function (groups, name) { groups[name] = result[g[name]]; return groups; }, Object.create(null)); } return _wrapRegExp.apply(this, arguments); }
 
@@ -51350,7 +51366,7 @@
   });
 
   var CardStyle = (function (style) {
-    return "\n\n    .Card {\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02); \n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText {\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ";
+    return "\n\n    .Card {\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02); \n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText {\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ";
   });
 
   var DialogStyle = (function (style) {
@@ -51358,7 +51374,7 @@
   });
 
   var FontStyle = (function (style) {
-    return "\n\n    .Dialog, * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeM {\n      font-size: 1.2rem;\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontSizeXL {\n      font-size: 2.0rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
+    return "\n\n    .Dialog, * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeS {\n      font-size: 1rem;\n    }\n\n    .FontSizeM {\n      font-size: 1.2rem;\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontSizeXL {\n      font-size: 2.0rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
   });
 
   var FooterStyle = (function (style) {
@@ -51410,11 +51426,11 @@
   });
 
   var TextButtonStyle = (function (style) {
-    return "\n\n    .TextButton {\n      cursor: pointer;\n      font-size: 16px;\n      color: ".concat(style.colors.primary, "\n    }\n  ");
+    return "\n\n    .TextButton {\n      cursor: pointer;\n      font-size: 16px;\n      color: ".concat(style.colors.primary, "\n    }\n\n    .TextButton.TextGrey {\n      color: grey;\n    }\n    \n    .TextButton.TextGrey:hover {\n      color: ").concat(style.colors.primary, "\n    }\n  ");
   });
 
   var TextStyle = (function () {
-    return "\n\n    .TextLeft, .TextLeft * {\n      text-align: left;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n  ";
+    return "\n\n    .TextLeft, .TextLeft * {\n      text-align: left;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n    .TextGrey {\n      color: grey;\n    }\n\n  ";
   });
 
   var TokenAmountStyle = (function () {
@@ -65471,6 +65487,72 @@
     }, props.children);
   });
 
+  var WalletUnavailableDialog = (function (props) {
+    var _useState = react.useState(true),
+        _useState2 = _slicedToArray(_useState, 2),
+        open = _useState2[0],
+        setOpen = _useState2[1];
+
+    var _useState3 = react.useState(false),
+        _useState4 = _slicedToArray(_useState3, 2),
+        showExplanation = _useState4[0],
+        setShowExplanation = _useState4[1];
+
+    var close = function close() {
+      setOpen(false);
+      setTimeout(props.unmount, 300);
+    };
+
+    var walletCards = supported.map(function (wallet, index) {
+      return /*#__PURE__*/react.createElement("a", {
+        key: index,
+        className: "Card small",
+        title: "Install ".concat(wallet.name),
+        href: wallet.install,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardImage PaddingLeftM"
+      }, /*#__PURE__*/react.createElement("img", {
+        src: wallet.logo
+      })), /*#__PURE__*/react.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardBodyWrapper PaddingLeftXS"
+      }, /*#__PURE__*/react.createElement("h2", {
+        className: "CardText FontWeightBold"
+      }, wallet.name))));
+    });
+    return /*#__PURE__*/react.createElement(ReactDialog_1, {
+      container: props.container,
+      close: close,
+      open: open
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "Dialog ReactDialogAnimation"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "DialogHeader"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/react.createElement("h1", {
+      className: "FontSizeL TextLeft"
+    }, "Select a wallet"))), /*#__PURE__*/react.createElement("div", {
+      className: "DialogBody"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "PaddingTopS PaddingBottomXS PaddingLeftS PaddingRightS"
+    }, walletCards)), /*#__PURE__*/react.createElement("div", {
+      className: "DialogFooter"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "PaddingBottomS"
+    }, /*#__PURE__*/react.createElement("button", {
+      className: "FontSizeS FontWeightBold TextGrey TextButton",
+      onClick: function onClick() {
+        return setShowExplanation(!showExplanation);
+      }
+    }, /*#__PURE__*/react.createElement("strong", null, "What is a wallet?")), showExplanation && /*#__PURE__*/react.createElement("p", {
+      className: "PaddingLeftM PaddingRightM"
+    }, "Wallets are used to send, receive, and store digital assets. Wallets come in many forms. They are either built into your browser, an extension added to your browser, a piece of hardware plugged into your computer or even an app on your phone.")))));
+  });
+
   var WalletProvider = (function (props) {
     var _useContext = react.useContext(ErrorContext),
         setError = _useContext.setError;
@@ -65500,7 +65582,14 @@
         }
 
         setAccount(accounts[0]);
-      })["catch"](setError);
+      })["catch"](function (error) {
+        if ((error === null || error === void 0 ? void 0 : error.code) == 4001) {
+          return;
+        } // User rejected the request.
+
+
+        setError(error);
+      });
     };
 
     react.useEffect(function () {
@@ -65518,14 +65607,21 @@
         connect();
       }
     }, [wallet]);
-    return /*#__PURE__*/react.createElement(WalletContext.Provider, {
-      value: {
-        account: account,
-        wallet: wallet,
-        walletState: walletState,
-        connect: connect
-      }
-    }, props.children);
+
+    if (walletState == 'unavailable') {
+      return /*#__PURE__*/react.createElement(WalletUnavailableDialog, {
+        container: props.container
+      });
+    } else {
+      return /*#__PURE__*/react.createElement(WalletContext.Provider, {
+        value: {
+          account: account,
+          wallet: wallet,
+          walletState: walletState,
+          connect: connect
+        }
+      }, props.children);
+    }
   });
 
   var preflight$1 = /*#__PURE__*/function () {
@@ -65610,7 +65706,9 @@
                   }, /*#__PURE__*/react.createElement(ClosableProvider, {
                     unmount: unmount
                   }, /*#__PURE__*/react.createElement(UpdateProvider, null, /*#__PURE__*/react.createElement(WalletProvider, {
-                    connected: connected
+                    container: container,
+                    connected: connected,
+                    unmount: unmount
                   }, /*#__PURE__*/react.createElement(PaymentRoutingProvider, {
                     accept: accept,
                     whitelist: whitelist,
@@ -68274,7 +68372,9 @@
                   }, /*#__PURE__*/react.createElement(ClosableProvider, {
                     unmount: unmount
                   }, /*#__PURE__*/react.createElement(UpdateProvider, null, /*#__PURE__*/react.createElement(WalletProvider, {
-                    connected: connected
+                    container: container,
+                    connected: connected,
+                    unmount: unmount
                   }, /*#__PURE__*/react.createElement(SaleRoutingProvider, null, /*#__PURE__*/react.createElement(SaleStack, {
                     document: document,
                     container: container

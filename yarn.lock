@@ -2910,10 +2910,10 @@ depay-web3-transaction@^4.0.0:
   resolved "https://registry.yarnpkg.com/depay-web3-transaction/-/depay-web3-transaction-4.0.0.tgz#3db9de3d076fab5bf22746210d3c5237b0a2052b"
   integrity sha512-yE6kvbTE3NMJQfJ9wg+nnbRNiomj8ukHYFC2+DwEXOpfrfcyOKCrCzBEPogGpa+9j4dqTWovVh+bFuXteISJLQ==
 
-depay-web3-wallets@^5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/depay-web3-wallets/-/depay-web3-wallets-5.1.1.tgz#1befa5c85b41d5d68f67a8c733f9918cc8ee6012"
-  integrity sha512-bWoIWlulInLsKUIwhbVVylX8tpYU3q0FW3sMwvrlL+ZioAsPCB2ZzpzOBMGiODvO6X82Jixpv+49V9oTPc0SjQ==
+depay-web3-wallets@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/depay-web3-wallets/-/depay-web3-wallets-5.2.0.tgz#09d0929522f920d15a001486dd6219241df20e9e"
+  integrity sha512-5ya6cFm/6HaNbsNdZximHCEg5ELyKGYVfwcTSLosQLxjlt0U06D+6JOrB5f4ba0iZWNXsF+vnZcfxLZvwnNC2w==
 
 dir-glob@^3.0.1:
   version "3.0.1"

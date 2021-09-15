@@ -13,6 +13,15 @@ export default (style)=>{
       padding: 1rem 0.6rem;
     }
 
+    a.Card, a.Card * {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .Card.small {
+      min-height: auto;
+    }
+
     .Card.disabled {
       cursor: default;
     }

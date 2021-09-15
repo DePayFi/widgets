@@ -5,6 +5,10 @@ export default (style)=>{
       font-family: ${style.fontFamily};
     }
 
+    .FontSizeS {
+      font-size: 1rem;
+    }
+
     .FontSizeM {
       font-size: 1.2rem;
     }
