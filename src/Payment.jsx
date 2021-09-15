@@ -34,18 +34,19 @@ let Payment = async ({
   whitelist,
   providers,
   currency,
+  connected,
   document
 }) => {
 
   try {
     await preflight({ accept })
-    mount({ style, document: ensureDocument(document) }, (unmount)=> {
+    let unmount = mount({ style, document: ensureDocument(document) }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={ { accept, currency, event, sent, confirmed, ensured, failed, whitelist, providers } }>
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
-                <WalletProvider container={ container } unmount={ unmount }>
+                <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
                   <PaymentRoutingProvider accept={ accept } whitelist={ whitelist } event={ event }>
                     <PaymentProvider>
                       <PaymentValueProvider>
@@ -62,6 +63,7 @@ let Payment = async ({
           </ConfigurationProvider>
         </ErrorProvider>
     })
+    return { unmount }
   } catch (error) {
     console.log('critical error', error)
     if(critical != undefined) {

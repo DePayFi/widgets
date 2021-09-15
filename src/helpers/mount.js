@@ -25,5 +25,5 @@ export default ({ style, document }, content)=> {
     `,
   })
 
-  return 
+  return unmount
 }

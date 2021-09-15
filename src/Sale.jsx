@@ -35,18 +35,19 @@ let Sale = async ({
   style,
   providers,
   currency,
+  connected,
   document
 }) => {
 
   try {
     await preflight({ amount, token, blockchains })
-    mount({ style, document: ensureDocument(document) }, (unmount)=> {
+    let unmount = mount({ style, document: ensureDocument(document) }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={{ amount, token, blockchains, currency, event, sent, confirmed, ensured, failed, providers }}>
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
-                <WalletProvider container={ container } unmount={ unmount }>
+                <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
                   <SaleRoutingProvider>
                     <SaleStack
                       document={ document }
@@ -59,6 +60,7 @@ let Sale = async ({
           </ConfigurationProvider>
         </ErrorProvider>
     })
+    return { unmount }
   } catch (error) {
     console.log('critical error', error)
     if(critical != undefined) {

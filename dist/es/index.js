@@ -1,5 +1,3 @@
-
-(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 import React, { useState, useEffect, useContext } from 'react';
 import { setProvider } from 'depay-web3-client';
 import ReactDOM from 'react-dom';
@@ -12,7 +10,7 @@ import { TokenImage } from 'depay-react-token-image';
 import { Currency } from 'depay-local-currency';
 import { route as route$1 } from 'depay-web3-exchanges';
 import { Token } from 'depay-web3-tokens';
-import { getWallet } from 'depay-web3-wallets';
+import { supported, getWallet } from 'depay-web3-wallets';
 import Slider from 'react-rangeslider';
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
@@ -1300,7 +1298,7 @@ var ButtonPrimaryStyle = (function (style) {
 });
 
 var CardStyle = (function (style) {
-  return "\n\n    .Card {\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n    }\n\n    .Card.small {\n      min-height: auto;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02); \n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText {\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ";
+  return "\n\n    .Card {\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02); \n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText {\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ";
 });
 
 var DialogStyle = (function (style) {
@@ -1308,7 +1306,7 @@ var DialogStyle = (function (style) {
 });
 
 var FontStyle = (function (style) {
-  return "\n\n    .Dialog, * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeM {\n      font-size: 1.2rem;\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontSizeXL {\n      font-size: 2.0rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
+  return "\n\n    .Dialog, * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeS {\n      font-size: 1rem;\n    }\n\n    .FontSizeM {\n      font-size: 1.2rem;\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontSizeXL {\n      font-size: 2.0rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
 });
 
 var FooterStyle = (function (style) {
@@ -1360,7 +1358,7 @@ var SkeletonStyle = (function () {
 });
 
 var TextButtonStyle = (function (style) {
-  return "\n\n    .TextButton {\n      cursor: pointer;\n      font-size: 16px;\n      color: ".concat(style.colors.primary, "\n    }\n  ");
+  return "\n\n    .TextButton {\n      cursor: pointer;\n      font-size: 16px;\n      color: ".concat(style.colors.primary, "\n    }\n\n    .TextButton.TextGrey {\n      color: grey;\n    }\n    \n    .TextButton.TextGrey:hover {\n      color: ").concat(style.colors.primary, "\n    }\n  ");
 });
 
 var TextStyle = (function () {
@@ -1407,7 +1405,7 @@ var mount = (function (_ref, content) {
   }),
       unmount = _ReactShadowDOM.unmount;
 
-  return;
+  return unmount;
 });
 
 var PaymentContext = /*#__PURE__*/React.createContext();
@@ -2428,11 +2426,36 @@ var WalletUnavailableDialog = (function (props) {
       open = _useState2[0],
       setOpen = _useState2[1];
 
+  var _useState3 = useState(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      showExplanation = _useState4[0],
+      setShowExplanation = _useState4[1];
+
   var close = function close() {
     setOpen(false);
     setTimeout(props.unmount, 300);
   };
 
+  var walletCards = supported.map(function (wallet, index) {
+    return /*#__PURE__*/React.createElement("a", {
+      key: index,
+      className: "Card small",
+      title: "Install ".concat(wallet.name),
+      href: wallet.install,
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardImage PaddingLeftM"
+    }, /*#__PURE__*/React.createElement("img", {
+      src: wallet.logo
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardBodyWrapper PaddingLeftXS"
+    }, /*#__PURE__*/React.createElement("h2", {
+      className: "CardText FontWeightBold"
+    }, wallet.name))));
+  });
   return /*#__PURE__*/React.createElement(ReactDialog_1, {
     container: props.container,
     close: close,
@@ -2448,24 +2471,19 @@ var WalletUnavailableDialog = (function (props) {
   }, "Select a wallet"))), /*#__PURE__*/React.createElement("div", {
     className: "DialogBody"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "Text PaddingTopS PaddingBottomXS PaddingLeftS PaddingRightS"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: 'Card small',
-    title: '',
-    onClick: function onClick() {}
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "CardBody"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "CardBodyWrapper PaddingLeftS"
-  }, /*#__PURE__*/React.createElement("h2", {
-    className: "CardText"
-  }, "NAME"))), /*#__PURE__*/React.createElement("div", {
-    className: "CardImage PaddingRightM"
-  }, "IMG")))), /*#__PURE__*/React.createElement("div", {
+    className: "PaddingTopS PaddingBottomXS PaddingLeftS PaddingRightS"
+  }, walletCards)), /*#__PURE__*/React.createElement("div", {
     className: "DialogFooter"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "FontSizeS FontWeightBold TextGrey PaddingBottomS"
-  }, /*#__PURE__*/React.createElement("strong", null, "What is a wallet?")))));
+    className: "PaddingBottomS"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "FontSizeS FontWeightBold TextGrey TextButton",
+    onClick: function onClick() {
+      return setShowExplanation(!showExplanation);
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "What is a wallet?")), showExplanation && /*#__PURE__*/React.createElement("p", {
+    className: "PaddingLeftM PaddingRightM"
+  }, "Wallets are used to send, receive, and store digital assets. Wallets come in many forms. They are either built into your browser, an extension added to your browser, a piece of hardware plugged into your computer or even an app on your phone.")))));
 });
 
 var WalletProvider = (function (props) {
@@ -2491,6 +2509,11 @@ var WalletProvider = (function (props) {
     setWalletState('connecting');
     wallet.connect().then(function (accounts) {
       setWalletState('connected');
+
+      if (props.connected) {
+        props.connected(accounts[0]);
+      }
+
       setAccount(accounts[0]);
     })["catch"](function (error) {
       if ((error === null || error === void 0 ? void 0 : error.code) == 4001) {
@@ -2579,12 +2602,12 @@ var preflight$1 = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, providers, currency, document;
+    var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, providers, currency, connected, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, providers = _ref3.providers, currency = _ref3.currency, document = _ref3.document;
+            accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight$1({
@@ -2592,7 +2615,7 @@ var Payment = /*#__PURE__*/function () {
             });
 
           case 4:
-            mount({
+            unmount = mount({
               style: style,
               document: ensureDocument(document)
             }, function (unmount) {
@@ -2617,6 +2640,7 @@ var Payment = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/React.createElement(UpdateProvider, null, /*#__PURE__*/React.createElement(WalletProvider, {
                   container: container,
+                  connected: connected,
                   unmount: unmount
                 }, /*#__PURE__*/React.createElement(PaymentRoutingProvider, {
                   accept: accept,
@@ -2628,11 +2652,12 @@ var Payment = /*#__PURE__*/function () {
                 })))))))));
               };
             });
-            _context2.next = 11;
-            break;
+            return _context2.abrupt("return", {
+              unmount: unmount
+            });
 
-          case 7:
-            _context2.prev = 7;
+          case 8:
+            _context2.prev = 8;
             _context2.t0 = _context2["catch"](1);
             console.log('critical error', _context2.t0);
 
@@ -2640,12 +2665,12 @@ var Payment = /*#__PURE__*/function () {
               critical(_context2.t0);
             }
 
-          case 11:
+          case 12:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[1, 7]]);
+    }, _callee2, null, [[1, 8]]);
   }));
 
   return function Payment(_x2) {
@@ -3308,12 +3333,12 @@ var preflight = /*#__PURE__*/function () {
 
 var Sale = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, token, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, providers, currency, document;
+    var amount, token, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, providers, currency, connected, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, token = _ref3.token, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, providers = _ref3.providers, currency = _ref3.currency, document = _ref3.document;
+            amount = _ref3.amount, token = _ref3.token, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight({
@@ -3323,7 +3348,7 @@ var Sale = /*#__PURE__*/function () {
             });
 
           case 4:
-            mount({
+            unmount = mount({
               style: style,
               document: ensureDocument(document)
             }, function (unmount) {
@@ -3349,6 +3374,7 @@ var Sale = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/React.createElement(UpdateProvider, null, /*#__PURE__*/React.createElement(WalletProvider, {
                   container: container,
+                  connected: connected,
                   unmount: unmount
                 }, /*#__PURE__*/React.createElement(SaleRoutingProvider, null, /*#__PURE__*/React.createElement(SaleStack, {
                   document: document,
@@ -3356,11 +3382,12 @@ var Sale = /*#__PURE__*/function () {
                 })))))));
               };
             });
-            _context2.next = 11;
-            break;
+            return _context2.abrupt("return", {
+              unmount: unmount
+            });
 
-          case 7:
-            _context2.prev = 7;
+          case 8:
+            _context2.prev = 8;
             _context2.t0 = _context2["catch"](1);
             console.log('critical error', _context2.t0);
 
@@ -3368,12 +3395,12 @@ var Sale = /*#__PURE__*/function () {
               critical(_context2.t0);
             }
 
-          case 11:
+          case 12:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[1, 7]]);
+    }, _callee2, null, [[1, 8]]);
   }));
 
   return function Sale(_x2) {

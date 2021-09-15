@@ -15,6 +15,7 @@ export default (props)=>{
     setWalletState('connecting')
     wallet.connect().then((accounts)=>{
       setWalletState('connected')
+      if(props.connected) { props.connected(accounts[0]) }
       setAccount(accounts[0])        
     }).catch((error)=>{
       if(error?.code == 4001) { return } // User rejected the request.
