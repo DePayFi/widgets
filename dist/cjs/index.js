@@ -2688,10 +2688,6 @@ var Payment = /*#__PURE__*/function () {
   };
 }();
 
-function _readOnlyError(name) {
-  throw new TypeError("\"" + name + "\" is read-only");
-}
-
 var SaleRoutingContext = /*#__PURE__*/React__default$1['default'].createContext();
 
 var SaleRoutingProvider = (function (props) {
@@ -2720,7 +2716,7 @@ var SaleRoutingProvider = (function (props) {
       setAccept = _useState6[1];
 
   if (blacklist == undefined) {
-    _readOnlyError("blacklist");
+    blacklist = {};
   }
 
   blockchains.forEach(function (blockchain) {

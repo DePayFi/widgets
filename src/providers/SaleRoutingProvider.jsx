@@ -9,7 +9,7 @@ import { Token } from 'depay-web3-tokens'
 
 export default (props)=>{
 
-  const { amount, token, blockchains, blacklist } = useContext(ConfigurationContext)
+  let { amount, token, blockchains, blacklist } = useContext(ConfigurationContext)
   const { account } = useContext(WalletContext)
   const [purchasedAmount, setPurchaseAmount] = useState(amount.start)
   const [purchasedToken, setPurchasedToken] = useState()
