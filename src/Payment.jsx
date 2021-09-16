@@ -32,6 +32,7 @@ let Payment = async ({
   critical,
   style,
   whitelist,
+  blacklist,
   providers,
   currency,
   connected,
@@ -43,11 +44,11 @@ let Payment = async ({
     let unmount = mount({ style, document: ensureDocument(document) }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={ { accept, currency, event, sent, confirmed, ensured, failed, whitelist, providers } }>
+          <ConfigurationProvider configuration={ { accept, currency, event, sent, confirmed, ensured, failed, whitelist, blacklist, providers } }>
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
-                  <PaymentRoutingProvider accept={ accept } whitelist={ whitelist } event={ event }>
+                  <PaymentRoutingProvider accept={ accept } whitelist={ whitelist } blacklist={ blacklist } event={ event }>
                     <PaymentProvider>
                       <PaymentValueProvider>
                         <PaymentStack

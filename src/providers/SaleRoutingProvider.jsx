@@ -9,15 +9,19 @@ import { Token } from 'depay-web3-tokens'
 
 export default (props)=>{
 
-  const { amount, token, blockchains } = useContext(ConfigurationContext)
+  const { amount, token, blockchains, blacklist } = useContext(ConfigurationContext)
   const { account } = useContext(WalletContext)
   const [purchasedAmount, setPurchaseAmount] = useState(amount.start)
   const [purchasedToken, setPurchasedToken] = useState()
   const [accept, setAccept] = useState()
 
-  let blacklist = {}
+  if(blacklist == undefined) { blacklist = {} }
   blockchains.forEach((blockchain)=>{
-    blacklist[blockchain] = [token]
+    if(blacklist[blockchain] == undefined) {
+      blacklist[blockchain] = [token]
+    } else if (blacklist[blockchain] instanceof Array) {
+      blacklist[blockchain].push(token)
+    }
   })
 
   useEffect(()=>{

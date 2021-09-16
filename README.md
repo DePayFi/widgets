@@ -283,6 +283,41 @@ DePayWidgets.Payment({
 
 ```
 
+#### blacklist
+
+Allows to blacklist fromTokens (from the sender) so that they will not be suggested as means of payment:
+
+```javacript
+DePayWidgets.Payment({
+  
+  blacklist: {
+    ethereum: [
+      '0x82dfDB2ec1aa6003Ed4aCBa663403D7c2127Ff67',  // akSwap
+      '0x1368452Bfb5Cd127971C8DE22C58fBE89D35A6BF',  // JNTR/e
+      '0xC12D1c73eE7DC3615BA4e37E4ABFdbDDFA38907E',  // KICK
+    ],
+    bsc: [
+      '0x119e2ad8f0c85c6f61afdf0df69693028cdc10be', // Zepe
+      '0xb0557906c617f0048a700758606f64b33d0c41a6', // Zepe
+      '0x5190b01965b6e3d786706fd4a999978626c19880', // TheEver
+      '0x68d1569d1a6968f194b4d93f8d0b416c123a599f', // AABek
+      '0xa2295477a3433f1d06ba349cde9f89a8b24e7f8d', // AAX
+      '0xbc6675de91e3da8eac51293ecb87c359019621cf', // AIR
+      '0x5558447b06867ffebd87dd63426d61c868c45904', // BNBW
+      '0x569b2cf0b745ef7fad04e8ae226251814b3395f9', // BSCTOKEN
+      '0x373233a38ae21cf0c4f9de11570e7d5aa6824a1e', // ALPACA
+      '0x7269163f2b060fb90101f58cf724737a2759f0bb', // PUPDOGE
+      '0xb16600c510b0f323dee2cb212924d90e58864421', // FLUX
+      '0x2df0b14ee90671021b016dab59f2300fb08681fa', // SAFEMOON.is
+      '0xd22202d23fe7de9e3dbe11a2a88f42f4cb9507cf', // MNEB
+      '0xfc646d0b564bf191b3d3adf2b620a792e485e6da', // PIZA
+      '0xa58950f05fea2277d2608748412bf9f802ea4901', // WSG
+      '0x12e34cdf6a031a10fe241864c32fb03a4fdad739' // FREE
+    ]
+  }
+})
+```
+
 #### event
 
 `event`
@@ -617,6 +652,41 @@ DePayWidgets.Sale({
 
 })
 
+```
+
+#### blacklist
+
+Allows to blacklist fromTokens (from the sender) so that they will not be suggested as means of payment:
+
+```javacript
+DePayWidgets.Sale({
+  
+  blacklist: {
+    ethereum: [
+      '0x82dfDB2ec1aa6003Ed4aCBa663403D7c2127Ff67',  // akSwap
+      '0x1368452Bfb5Cd127971C8DE22C58fBE89D35A6BF',  // JNTR/e
+      '0xC12D1c73eE7DC3615BA4e37E4ABFdbDDFA38907E',  // KICK
+    ],
+    bsc: [
+      '0x119e2ad8f0c85c6f61afdf0df69693028cdc10be', // Zepe
+      '0xb0557906c617f0048a700758606f64b33d0c41a6', // Zepe
+      '0x5190b01965b6e3d786706fd4a999978626c19880', // TheEver
+      '0x68d1569d1a6968f194b4d93f8d0b416c123a599f', // AABek
+      '0xa2295477a3433f1d06ba349cde9f89a8b24e7f8d', // AAX
+      '0xbc6675de91e3da8eac51293ecb87c359019621cf', // AIR
+      '0x5558447b06867ffebd87dd63426d61c868c45904', // BNBW
+      '0x569b2cf0b745ef7fad04e8ae226251814b3395f9', // BSCTOKEN
+      '0x373233a38ae21cf0c4f9de11570e7d5aa6824a1e', // ALPACA
+      '0x7269163f2b060fb90101f58cf724737a2759f0bb', // PUPDOGE
+      '0xb16600c510b0f323dee2cb212924d90e58864421', // FLUX
+      '0x2df0b14ee90671021b016dab59f2300fb08681fa', // SAFEMOON.is
+      '0xd22202d23fe7de9e3dbe11a2a88f42f4cb9507cf', // MNEB
+      '0xfc646d0b564bf191b3d3adf2b620a792e485e6da', // PIZA
+      '0xa58950f05fea2277d2608748412bf9f802ea4901', // WSG
+      '0x12e34cdf6a031a10fe241864c32fb03a4fdad739' // FREE
+    ]
+  }
+})
 ```
 
 #### style

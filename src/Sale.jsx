@@ -33,6 +33,7 @@ let Sale = async ({
   error,
   critical,
   style,
+  blacklist,
   providers,
   currency,
   connected,
@@ -44,7 +45,7 @@ let Sale = async ({
     let unmount = mount({ style, document: ensureDocument(document) }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={{ amount, token, blockchains, currency, event, sent, confirmed, ensured, failed, providers }}>
+          <ConfigurationProvider configuration={{ amount, token, blockchains, currency, event, sent, confirmed, ensured, failed, blacklist, providers }}>
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
