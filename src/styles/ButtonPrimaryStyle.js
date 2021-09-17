@@ -27,6 +27,7 @@ export default (style)=>{
     .ButtonPrimary.round {
       padding: 0;
       width: 3.4rem;
+      min-width: 3.4rem;
       line-height: 3.2rem;
     }
 

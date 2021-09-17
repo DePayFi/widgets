@@ -1,6 +1,7 @@
 import ErrorContext from '../contexts/ErrorContext'
 import React, { useState, useEffect, useContext } from 'react'
 import WalletContext from '../contexts/WalletContext'
+import WalletRequestPendingDialog from '../dialogs/WalletRequestPendingDialog'
 import WalletUnavailableDialog from '../dialogs/WalletUnavailableDialog'
 import { getWallet } from 'depay-web3-wallets'
 import { ReactDialog } from 'depay-react-dialog'
@@ -18,7 +19,16 @@ export default (props)=>{
       if(props.connected) { props.connected(accounts[0]) }
       setAccount(accounts[0])        
     }).catch((error)=>{
-      if(error?.code == 4001) { return } // User rejected the request.
+      if(error?.code == 4001) { 
+        // User rejected the request.
+        setWalletState('connecting')
+        return 
+      } 
+      if(error?.code == -32002) { 
+        // Request of type 'wallet_requestPermissions' already pending...
+        setWalletState('requestPending')
+        return 
+      } 
       setError(error)
     })
   }
@@ -41,6 +51,8 @@ export default (props)=>{
 
   if(walletState == 'unavailable') {
     return(<WalletUnavailableDialog container={ props.container }/>)
+  } else if(walletState == 'requestPending') {
+    return(<WalletRequestPendingDialog wallet={ wallet } unmount={ props.unmount } container={ props.container }/>)
   } else {
     return(
       <WalletContext.Provider value={{

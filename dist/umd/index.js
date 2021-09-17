@@ -1291,7 +1291,7 @@
   });
 
   var ButtonPrimaryStyle = (function (style) {
-    return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 10px rgba(0,0,0,0.05);\n      color: ").concat(style.colors.buttonText, ";\n      display: inline-flex;\n      flex: 1;\n      font-size: 1.3rem;\n      font-weight: 400;\n      height: 2.8rem;\n      justify-content: center;\n      min-width: 12rem;\n      padding: 0 1.4rem;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      transition: background 0.1s;\n      vertical-align: middle;\n    }\n\n    .ButtonPrimary.round {\n      padding: 0;\n      width: 3.4rem;\n      line-height: 3.2rem;\n    }\n\n    .ButtonPrimary.wide {\n      border-radius: 0.8rem;\n      width: 100%;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n      color: rgb(140,140,140);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
+    return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 10px rgba(0,0,0,0.05);\n      color: ").concat(style.colors.buttonText, ";\n      display: inline-flex;\n      flex: 1;\n      font-size: 1.3rem;\n      font-weight: 400;\n      height: 2.8rem;\n      justify-content: center;\n      min-width: 12rem;\n      padding: 0 1.4rem;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      transition: background 0.1s;\n      vertical-align: middle;\n    }\n\n    .ButtonPrimary.round {\n      padding: 0;\n      width: 3.4rem;\n      min-width: 3.4rem;\n      line-height: 3.2rem;\n    }\n\n    .ButtonPrimary.wide {\n      border-radius: 0.8rem;\n      width: 100%;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n      color: rgb(140,140,140);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
   });
 
   var CardStyle = (function (style) {
@@ -2417,6 +2417,54 @@
     }, props.children);
   });
 
+  var WalletRequestPendingDialog = (function (props) {
+    var _props$wallet;
+
+    var walletLogo = (_props$wallet = props.wallet) !== null && _props$wallet !== void 0 && _props$wallet.logo ? props.wallet.logo : undefined;
+
+    var _useState = React.useState(true),
+        _useState2 = _slicedToArray(_useState, 2),
+        open = _useState2[0],
+        setOpen = _useState2[1];
+
+    var close = function close() {
+      setOpen(false);
+      setTimeout(props.unmount, 300);
+    };
+
+    return /*#__PURE__*/React__default$1['default'].createElement(ReactDialog_1, {
+      container: props.container,
+      close: close,
+      open: open
+    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "Dialog ReactDialogAnimation"
+    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "DialogHeader"
+    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "PaddingTopS PaddingLeftS PaddingRightS"
+    })), /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "DialogBody"
+    }, walletLogo && /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "GraphicWrapper"
+    }, /*#__PURE__*/React__default$1['default'].createElement("img", {
+      className: "Graphic",
+      src: walletLogo
+    })), /*#__PURE__*/React__default$1['default'].createElement("h1", {
+      className: "Text FontSizeL PaddingTopS FontWeightBold"
+    }, "Connect Wallet"), /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/React__default$1['default'].createElement("strong", {
+      className: "FontSizeM"
+    }, "Your wallet is already open and asking for permission to connect to this website. Please find your wallet dialog and confirm connecting."))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "DialogFooter"
+    }, /*#__PURE__*/React__default$1['default'].createElement("a", {
+      href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
+      rel: "noopener noreferrer",
+      target: "_blank",
+      className: "FooterLink"
+    }, "by DePay"))));
+  });
+
   var WalletUnavailableDialog = (function (props) {
     var _useState = React.useState(true),
         _useState2 = _slicedToArray(_useState, 2),
@@ -2514,9 +2562,16 @@
         setAccount(accounts[0]);
       })["catch"](function (error) {
         if ((error === null || error === void 0 ? void 0 : error.code) == 4001) {
+          // User rejected the request.
+          setWalletState('connecting');
           return;
-        } // User rejected the request.
+        }
 
+        if ((error === null || error === void 0 ? void 0 : error.code) == -32002) {
+          // Request of type 'wallet_requestPermissions' already pending...
+          setWalletState('requestPending');
+          return;
+        }
 
         setError(error);
       });
@@ -2540,6 +2595,12 @@
 
     if (walletState == 'unavailable') {
       return /*#__PURE__*/React__default$1['default'].createElement(WalletUnavailableDialog, {
+        container: props.container
+      });
+    } else if (walletState == 'requestPending') {
+      return /*#__PURE__*/React__default$1['default'].createElement(WalletRequestPendingDialog, {
+        wallet: wallet,
+        unmount: props.unmount,
         container: props.container
       });
     } else {
