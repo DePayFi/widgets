@@ -65,7 +65,7 @@ DePayWidgets.Payment({
 });
 ```
 
-You can also accept multiple payments of multiple blockchains:
+You can also accept multiple payments on multiple blockchains:
 
 ```javascript
 DePayWidgets.Payment({
@@ -119,13 +119,13 @@ The address receiving the payment. Always double check that you've set the right
 
 A function that will be called once the user connects a wallet.
 
-Will be called with the connected wallet address as the main argument:
+This function will be called with the connected wallet address as the main argument:
 
 ```javascript
 DePayWidgets.Payment({
 
   connected: (address)=> {
-    // to something with address
+    // do something with the address
   }
 })
 
@@ -137,7 +137,7 @@ DePayWidgets.Payment({
 
 A function that will be called once the payment has been sent to the network (but still needs to be mined/confirmed).
 
-The widget will call the `sent` callback-function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function with a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
 
 ```javascript
 DePayWidgets.Payment({
@@ -154,7 +154,7 @@ DePayWidgets.Payment({
 
 A function that will be called once the payment has been confirmed once by the network.
 
-The widget will call the `confirmed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
 
 ```javascript
 DePayWidgets.Payment({
@@ -171,7 +171,7 @@ DePayWidgets.Payment({
 
 A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
 
-The widget will call the `ensured` callback-function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
 
 ```javascript
 DePayWidgets.Payment({
@@ -188,7 +188,7 @@ DePayWidgets.Payment({
 
 A function that will be called if the payment execution failed on the blockchain (after it has been sent/submitted).
 
-The widget will call the `failed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
 
 ```javascript
 DePayWidgets.Payment({
@@ -261,7 +261,7 @@ DePayWidgets.Payment({
 
 #### whitelist
 
-Allows only fromTokens (from the sender) that are part of the whitelist:
+Allows only the configured tokens to be eligible as means of payment (from the sender):
 
 ```javacript
 DePayWidgets.Payment({
@@ -285,7 +285,7 @@ DePayWidgets.Payment({
 
 #### blacklist
 
-Allows to blacklist fromTokens (from the sender) so that they will not be suggested as means of payment:
+Allows to blacklist tokens so that they will not be suggested as means of payment (from the sender):
 
 ```javacript
 DePayWidgets.Payment({
@@ -329,18 +329,8 @@ Payments are routed through the DePayPaymentRouter if swapping tokens is require
 ```javascript
 DePayWidgets.Payment({
   
-  event: 'ifSwapped',
-  
-  accept: [
-    { blockchain: 'ethereum', token: '0xdAC17F958D2ee523a2206206994597C13D831ec7', amount, receiver },
-    { blockchain: 'ethereum', token: '0x6B175474E89094C44Da98b954EedeAC495271d0F', amount, receiver },
-    { blockchain: 'ethereum', token: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', amount, receiver },
-    { blockchain: 'ethereum', token: '0x4Fabb145d64652a948d72533023f6E7A623C7C53', amount, receiver },
-    { blockchain: 'bsc', token: '0x55d398326f99059fF775485246999027B3197955', amount, receiver },
-    { blockchain: 'bsc', token: '0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3', amount, receiver },
-    { blockchain: 'bsc', token: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d', amount, receiver },
-    { blockchain: 'bsc', token: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56', amount, receiver }
-  ]
+  event: 'ifSwapped'
+
 })
 ```
 
@@ -441,7 +431,7 @@ unmount()
 
 ## DePay Sales
 
-DePay Sales allows you to sell tokens directly from your website or dApp with automatic any-to-any conversion.
+DePay Sales allows you to sell tokens directly from your website or dApp with automatic any-to-any payment conversion (so people can use any token when buying your token directly off your website or dApp).
 
 ### Preparation
 
@@ -520,7 +510,7 @@ Will be called with the connected wallet address as the main argument:
 DePayWidgets.Sale({
 
   connected: (address)=> {
-    // to something with address
+    // do something with the address
   }
 })
 
@@ -532,7 +522,7 @@ DePayWidgets.Sale({
 
 A function that will be called once the payment has been sent to the network (but still needs to be mined/confirmed).
 
-The widget will call the `sent` callback-function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function with a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
 
 ```javascript
 DePayWidgets.Sale({
@@ -549,7 +539,7 @@ DePayWidgets.Sale({
 
 A function that will be called once the payment has been confirmed once by the network.
 
-The widget will call the `confirmed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
 
 ```javascript
 DePayWidgets.Sale({
@@ -566,7 +556,7 @@ DePayWidgets.Sale({
 
 A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
 
-The widget will call the `ensured` callback-function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
 
 ```javascript
 DePayWidgets.Sale({
@@ -583,7 +573,7 @@ DePayWidgets.Sale({
 
 A function that will be called if the payment execution failed on the blockchain (after it has been sent/submitted).
 
-The widget will call the `failed` callback-function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
 
 ```javascript
 DePayWidgets.Sale({
@@ -656,7 +646,7 @@ DePayWidgets.Sale({
 
 #### blacklist
 
-Allows to blacklist fromTokens (from the sender) so that they will not be suggested as means of payment:
+Allows to blacklist tokens so that they will not be suggested as means of payment (from the sender):
 
 ```javacript
 DePayWidgets.Sale({
