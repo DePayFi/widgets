@@ -18,7 +18,7 @@ export default ()=> {
       }
       body={
         <div>
-          <div className="GraphicWrapper">
+          <div className="GraphicWrapper PaddingTopM">
             <img className="Graphic" src={ ErrorGraphic }/>
           </div>
           <h1 className="Text FontSizeL PaddingTopS FontWeightBold">Payment Failed</h1>

@@ -13,7 +13,7 @@ export default ()=> {
       }
       body={
         <div>
-          <div className="GraphicWrapper">
+          <div className="GraphicWrapper PaddingTopM">
             <img className="Graphic" src={ QuestionsGraphic }/>
           </div>
           <h1 className="Text FontSizeL PaddingTopS FontWeightBold">Insufficient Balance</h1>
