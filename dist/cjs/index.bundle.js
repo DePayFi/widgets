@@ -24583,17 +24583,78 @@ var MetaMask = /*#__PURE__*/function (_EVMWallet) {
   return MetaMask;
 }(EVMWallet);
 
+var Coinbase = /*#__PURE__*/function (_EVMWallet2) {
+  _inherits$1(Coinbase, _EVMWallet2);
+
+  var _super3 = _createSuper$4(Coinbase);
+
+  function Coinbase() {
+    var _this4;
+
+    _classCallCheck$1(this, Coinbase);
+
+    for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+      args[_key3] = arguments[_key3];
+    }
+
+    _this4 = _super3.call.apply(_super3, [this].concat(args));
+
+    Coinbase.prototype.__init.call(_assertThisInitialized(_this4));
+
+    Coinbase.prototype.__init2.call(_assertThisInitialized(_this4));
+
+    Coinbase.prototype.__init3.call(_assertThisInitialized(_this4));
+
+    Coinbase.prototype.__init4.call(_assertThisInitialized(_this4));
+
+    Coinbase.prototype.__init5.call(_assertThisInitialized(_this4));
+
+    return _this4;
+  }
+
+  _createClass$1(Coinbase, [{
+    key: "__init",
+    value: function __init() {
+      this.name = 'Coinbase Wallet';
+    }
+  }, {
+    key: "__init2",
+    value: function __init2() {
+      this.logo = 'data:image/png;base64,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';
+    }
+  }, {
+    key: "__init3",
+    value: function __init3() {
+      this.blockchains = ['ethereum', 'bsc'];
+    }
+  }, {
+    key: "__init4",
+    value: function __init4() {
+      this.devices = ['desktop', 'mobile'];
+    }
+  }, {
+    key: "__init5",
+    value: function __init5() {
+      this.install = 'https://wallet.coinbase.com/';
+    }
+  }]);
+
+  return Coinbase;
+}(EVMWallet);
+
 var getWallet = function getWallet() {
   if (typeof window.ethereum !== 'undefined') {
     if (_typeof(window.ethereum) === 'object' && window.ethereum.isMetaMask) {
       return new MetaMask();
+    } else if (_typeof(window.ethereum) === 'object' && window.ethereum.isCoinbaseWallet) {
+      return new Coinbase();
     } else {
       return new EVMWallet();
     }
   }
 };
 
-var supported = [new MetaMask()];
+var supported = [new MetaMask(), new Coinbase()];
 
 function _wrapRegExp() { _wrapRegExp = function _wrapRegExp(re, groups) { return new BabelRegExp(re, undefined, groups); }; var _super = RegExp.prototype; var _groups = new WeakMap(); function BabelRegExp(re, flags, groups) { var _this = new RegExp(re, flags); _groups.set(_this, groups || _groups.get(re)); return _setPrototypeOf(_this, BabelRegExp.prototype); } _inherits$1(BabelRegExp, RegExp); BabelRegExp.prototype.exec = function (str) { var result = _super.exec.call(this, str); if (result) result.groups = buildGroups(result, this); return result; }; BabelRegExp.prototype[Symbol.replace] = function (str, substitution) { if (typeof substitution === "string") { var groups = _groups.get(this); return _super[Symbol.replace].call(this, str, substitution.replace(/\$<([^>]+)>/g, function (_, name) { return "$" + groups[name]; })); } else if (typeof substitution === "function") { var _this = this; return _super[Symbol.replace].call(this, str, function () { var args = arguments; if (_typeof(args[args.length - 1]) !== "object") { args = [].slice.call(args); args.push(buildGroups(args, _this)); } return substitution.apply(this, args); }); } else { return _super[Symbol.replace].call(this, str, substitution); } }; function buildGroups(result, re) { var g = _groups.get(re); return Object.keys(g).reduce(function (groups, name) { groups[name] = result[g[name]]; return groups; }, Object.create(null)); } return _wrapRegExp.apply(this, arguments); }
 
@@ -51365,7 +51426,7 @@ var ButtonPrimaryStyle = (function (style) {
 });
 
 var CardStyle = (function (style) {
-  return "\n\n    .Card {\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02); \n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText {\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ";
+  return "\n\n    .Card {\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.6rem 0.6rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02); \n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText {\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ";
 });
 
 var DialogStyle = (function (style) {
