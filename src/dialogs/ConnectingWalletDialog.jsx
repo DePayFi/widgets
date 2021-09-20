@@ -14,7 +14,7 @@ export default ()=> {
       body={
         <div>
           { walletLogo &&
-            <div className="GraphicWrapper">
+            <div className="GraphicWrapper PaddingTopM">
               <img className="Graphic" src={walletLogo}/>
             </div>
           }

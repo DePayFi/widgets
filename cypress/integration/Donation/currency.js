@@ -4,19 +4,31 @@ import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
-import { mock, confirm, increaseBlock, resetMocks, anything } from 'depay-web3-mock'
+import { ethers } from 'ethers'
+import { mock, confirm, resetMocks, anything } from 'depay-web3-mock'
 import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
-describe('unmount Sale widget', () => {
-
+describe('currency Donation widget', () => {
+  
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
   beforeEach(resetMocks)
   beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
   beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
+
+  afterEach(()=>{
+    cy.wait(500).then(()=>{
+      cy.get('body').then((body) => {
+        if (body.find('.ReactShadowDOMOutsideContainer').length > 0) {
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+        }
+        cy.wait(1000)
+      })
+    })
+  })
 
   let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   let DAI = CONSTANTS[blockchain].USD
@@ -25,7 +37,6 @@ describe('unmount Sale widget', () => {
   let fromAddress = accounts[0]
   let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   let amount = 20
-  let TOKEN_A_AmountBN
   let defaultArguments = {
     amount: {
       start: 20,
@@ -33,13 +44,22 @@ describe('unmount Sale widget', () => {
       step: 1
     },
     token: DEPAY,
-    blockchains: [blockchain]
+    blockchains: [blockchain],
+    receiver: toAddress
   }
+  let exchange
+  let WRAPPED_AmountInBN
+  let TOKEN_A_AmountBN
+  let TOKEN_B_AmountBN
 
   beforeEach(()=>{
-
-    ({ TOKEN_A_AmountBN } = mockBasics({
-      
+    
+    ({ 
+      exchange,
+      TOKEN_A_AmountBN,
+      TOKEN_B_AmountBN,
+      WRAPPED_AmountInBN 
+    } = mockBasics({
       provider: provider(blockchain),
       blockchain,
 
@@ -50,13 +70,23 @@ describe('unmount Sale widget', () => {
           "symbol": "ETH",
           "address": ETH,
           "type": "NATIVE"
+        }, {
+          "name": "Dai Stablecoin",
+          "symbol": "DAI",
+          "address": DAI,
+          "type": "ERC20"
+        }, {
+          "name": "DePay",
+          "symbol": "DEPAY",
+          "address": DEPAY,
+          "type": "ERC20"
         }
       ],
       
       toAddress,
 
       exchange: 'uniswap_v2',
-      NATIVE_Balance: 1.1,
+      NATIVE_Balance: 0,
 
       TOKEN_A: DEPAY,
       TOKEN_A_Decimals: 18,
@@ -71,6 +101,7 @@ describe('unmount Sale widget', () => {
       TOKEN_B_Symbol: 'DAI',
       TOKEN_B_Amount: 33,
       TOKEN_B_Balance: 50,
+      TOKEN_B_Allowance: CONSTANTS[blockchain].MAXINT,
 
       TOKEN_A_TOKEN_B_Pair: CONSTANTS[blockchain].ZERO,
       TOKEN_B_WRAPPED_Pair: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
@@ -88,21 +119,21 @@ describe('unmount Sale widget', () => {
         })
       },
 
-      currency: 'EUR',
-      currencyToUSD: '0.85'
+      currency: 'USD',
+      currencyToUSD: '1.00'
     }))
   })
   
-  it('unmount', () => {
+  describe('currency', () => {
 
-    cy.visit('cypress/test.html').then((contentWindow) => {
-      cy.document().then(async (document)=>{
-        let { unmount } = await DePayWidgets.Sale({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').then(()=>{
-          unmount()
-          cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+    it('enforces displayed currency ', () => {
+      cy.visit('cypress/test.html').then((contentWindow) => {
+        cy.document().then((document)=>{
+          DePayWidgets.Donation({ ...defaultArguments, currency: 'USD', document })
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '$33.00')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay $33.00')
         })
       })
     })
-  })
+  })  
 })

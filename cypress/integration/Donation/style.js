@@ -9,7 +9,7 @@ import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
-describe('unmount Sale widget', () => {
+describe('style Donation widget', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -33,7 +33,8 @@ describe('unmount Sale widget', () => {
       step: 1
     },
     token: DEPAY,
-    blockchains: [blockchain]
+    blockchains: [blockchain],
+    receiver: toAddress
   }
 
   beforeEach(()=>{
@@ -93,15 +94,29 @@ describe('unmount Sale widget', () => {
     }))
   })
   
-  it('unmount', () => {
+  it('allows you to style the widget', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
-      cy.document().then(async (document)=>{
-        let { unmount } = await DePayWidgets.Sale({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').then(()=>{
-          unmount()
-          cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+      cy.document().then((document)=>{
+        DePayWidgets.Donation({ ...defaultArguments, document,
+          style: {
+            colors: {
+              primary: '#ffd265',
+              buttonText: '#000000',
+            },
+            css: `
+              @import url("https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap");
+
+              .Dialog {
+                border-radius: 0;
+              }
+            `
+          }
         })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('have.css', 'background-color', 'rgb(255, 210, 101)')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('have.css', 'color', 'rgb(0, 0, 0)')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('style').should('contain.text', 'https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('style').should('contain.text', 'border-radius: 0')
       })
     })
   })

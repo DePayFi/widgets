@@ -4,19 +4,18 @@ import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
-import { mock, confirm, increaseBlock, resetMocks, anything } from 'depay-web3-mock'
+import { mock, confirm, resetMocks } from 'depay-web3-mock'
 import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
-describe('unmount Sale widget', () => {
+describe('connect Donation widget', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
   beforeEach(resetMocks)
   beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
-  beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
 
   let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   let DAI = CONSTANTS[blockchain].USD
@@ -33,7 +32,8 @@ describe('unmount Sale widget', () => {
       step: 1
     },
     token: DEPAY,
-    blockchains: [blockchain]
+    blockchains: [blockchain],
+    receiver: toAddress
   }
 
   beforeEach(()=>{
@@ -50,13 +50,23 @@ describe('unmount Sale widget', () => {
           "symbol": "ETH",
           "address": ETH,
           "type": "NATIVE"
+        }, {
+          "name": "Dai Stablecoin",
+          "symbol": "DAI",
+          "address": DAI,
+          "type": "ERC20"
+        }, {
+          "name": "DePay",
+          "symbol": "DEPAY",
+          "address": DEPAY,
+          "type": "ERC20"
         }
       ],
       
       toAddress,
 
       exchange: 'uniswap_v2',
-      NATIVE_Balance: 1.1,
+      NATIVE_Balance: 0,
 
       TOKEN_A: DEPAY,
       TOKEN_A_Decimals: 18,
@@ -93,14 +103,29 @@ describe('unmount Sale widget', () => {
     }))
   })
   
-  it('unmount', () => {
+  it('asks to connect the detected wallet', () => {
+    
+    mock({
+      blockchain: 'ethereum',
+      wallet: 'metamask'
+    })
+
+    mock({ blockchain, accounts: { return: accounts, delay: 2000 } })
+
+    let connectedCalledWith
 
     cy.visit('cypress/test.html').then((contentWindow) => {
-      cy.document().then(async (document)=>{
-        let { unmount } = await DePayWidgets.Sale({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').then(()=>{
-          unmount()
-          cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+      cy.document().then((document)=>{
+        DePayWidgets.Donation({ ...defaultArguments, document,
+          connected: (account)=>{
+            connectedCalledWith = account
+          }
+        })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Connect Wallet')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'This payment requires access to your wallet, please login and authorize access to your MetaMask account to continue.')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Connect')
+        cy.wait(2000).then(()=>{
+          expect(connectedCalledWith).to.equal(accounts[0])
         })
       })
     })

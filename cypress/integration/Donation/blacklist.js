@@ -9,7 +9,7 @@ import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
-describe('blacklist available means of payment for Sale', () => {
+describe('blacklist available means of payment for Donation', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -33,7 +33,8 @@ describe('blacklist available means of payment for Sale', () => {
       step: 1
     },
     token: DEPAY,
-    blockchains: [blockchain]
+    blockchains: [blockchain],
+    receiver: toAddress
   }
 
   beforeEach(()=>{
@@ -107,7 +108,7 @@ describe('blacklist available means of payment for Sale', () => {
     it('allows to blacklist fromTokens to only route those for payments', ()=> {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
-          DePayWidgets.Sale({ ...defaultArguments, document,
+          DePayWidgets.Donation({ ...defaultArguments, document,
             blacklist: {
               ethereum: [
                 DAI
