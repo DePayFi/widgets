@@ -1,5 +1,3 @@
-
-(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('depay-web3-client'), require('react-dom'), require('depay-react-shadow-dom'), require('depay-web3-constants'), require('ethers'), require('depay-web3-payments'), require('depay-react-dialog-stack'), require('depay-react-token-image'), require('depay-local-currency'), require('depay-web3-exchanges'), require('depay-web3-tokens'), require('depay-web3-wallets'), require('react-rangeslider')) :
   typeof define === 'function' && define.amd ? define(['react', 'depay-web3-client', 'react-dom', 'depay-react-shadow-dom', 'depay-web3-constants', 'ethers', 'depay-web3-payments', 'depay-react-dialog-stack', 'depay-react-token-image', 'depay-local-currency', 'depay-web3-exchanges', 'depay-web3-tokens', 'depay-web3-wallets', 'react-rangeslider'], factory) :
@@ -3887,12 +3885,12 @@
 
   var preflight = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-      var amount, token, blockchains;
+      var amount, token, blockchains, receiver;
       return regenerator.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              amount = _ref.amount, token = _ref.token, blockchains = _ref.blockchains;
+              amount = _ref.amount, token = _ref.token, blockchains = _ref.blockchains, receiver = _ref.receiver;
 
               if (!(typeof amount === 'undefined')) {
                 _context.next = 3;

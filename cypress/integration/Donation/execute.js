@@ -10,7 +10,7 @@ import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 import { Transaction } from 'depay-web3-transaction'
 
-describe('executes Sale', () => {
+describe('executes Donation', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
@@ -131,7 +131,7 @@ describe('executes Sale', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Sale({ ...defaultArguments, document })
+        DePayWidgets.Donation({ ...defaultArguments, document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
@@ -177,7 +177,7 @@ describe('executes Sale', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Sale({ ...defaultArguments, document })
+        DePayWidgets.Donation({ ...defaultArguments, document })
         cy.get('.Card[title="Change payment"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
@@ -217,7 +217,7 @@ describe('executes Sale', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Sale({ ...defaultArguments, document,
+        DePayWidgets.Donation({ ...defaultArguments, document,
           sent: (transaction)=>{ sentCalledWith = transaction },
           confirmed: (transaction)=>{ confirmedCalledWith = transaction },
           ensured: (transaction)=>{ ensuredCalledWith = transaction },

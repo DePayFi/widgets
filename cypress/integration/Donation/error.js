@@ -8,7 +8,7 @@ import { mock, resetMocks } from 'depay-web3-mock'
 import { provider, resetCache } from 'depay-web3-client'
 import { Token } from 'depay-web3-tokens'
 
-describe('Sale widget error', () => {
+describe('Donation widget error', () => {
   
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -129,7 +129,7 @@ describe('Sale widget error', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Sale({
+        DePayWidgets.Donation({
           document,
           critical: (error)=>{
             criticalError = error
@@ -153,7 +153,7 @@ describe('Sale widget error', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Sale({
+        DePayWidgets.Donation({
           document,
           ...defaultArguments,
           error: (error)=> {

@@ -10,7 +10,7 @@ import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
-describe('overview Sale', () => {
+describe('overview Donation payment', () => {
   
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -126,10 +126,10 @@ describe('overview Sale', () => {
   
   describe('basics', () => {
 
-    it('renders and opens a styled Sale dialog in a shadow dom', ()=> {
+    it('renders and opens a styled Donation dialog in a shadow dom', ()=> {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
-          DePayWidgets.Sale({ ...defaultArguments, document })
+          DePayWidgets.Donation({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('style').should('contain.text', '.Dialog')
         })
       })
@@ -149,7 +149,7 @@ describe('overview Sale', () => {
       it('shows an animated skeleton while loading data', ()=> {
         cy.visit('cypress/test.html').then((contentWindow) => {
           cy.document().then((document)=>{
-            DePayWidgets.Sale({ ...defaultArguments, document })
+            DePayWidgets.Donation({ ...defaultArguments, document })
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Skeleton')
           })
         })
@@ -158,7 +158,7 @@ describe('overview Sale', () => {
       it('allows me to close the container while its loading', () => {
         cy.visit('cypress/test.html').then((contentWindow) => {
           cy.document().then((document)=>{
-            DePayWidgets.Sale({ ...defaultArguments, document })
+            DePayWidgets.Donation({ ...defaultArguments, document })
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
             cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
           })
@@ -166,13 +166,12 @@ describe('overview Sale', () => {
       })
     })
     
-    it('loads the most cost-effective route to pay for a token sale', () => {
+    it('loads the most cost-effective route to pay for a token donation', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
-          DePayWidgets.Sale({ ...defaultArguments, document })
+          DePayWidgets.Donation({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"] .TokenAmountCell').should('contain', '20')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"] .TokenSymbolCell').should('contain', 'DEPAY')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"] .CardText small').should('contain', '€1.40 per token')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"] .CardImage img').invoke('attr', 'src').should('eq', 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb/logo.png')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"] .CardTitle').should('contain', 'Payment')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"] .TokenAmountCell').should('contain', '33')
@@ -187,7 +186,7 @@ describe('overview Sale', () => {
     it('allows me to close the container after it loaded', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
-          DePayWidgets.Sale({ ...defaultArguments, document })
+          DePayWidgets.Donation({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
@@ -198,7 +197,7 @@ describe('overview Sale', () => {
     it('contains a link to the DePay website in the footer', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
-          DePayWidgets.Sale({ ...defaultArguments, document })
+          DePayWidgets.Donation({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.DialogFooter a').invoke('attr', 'href').should('eq', 'https://depay.fi?utm_source=localhost&utm_medium=widget&utm_campaign=WidgetV2')
         })
       })
@@ -210,7 +209,7 @@ describe('overview Sale', () => {
     it('updates payment routes every 15s as prices can change', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
-          DePayWidgets.Sale({ ...defaultArguments, document })
+          DePayWidgets.Donation({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
           cy.wait(2000).then(()=>{
             let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('35', 18)
@@ -219,7 +218,6 @@ describe('overview Sale', () => {
           cy.wait(15000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '35')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"] .CardText small').should('contain', '€1.49 per token')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '€29.75')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €29.75')
           })
@@ -250,7 +248,7 @@ describe('overview Sale', () => {
 
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
-          DePayWidgets.Sale({ ...defaultArguments, document })
+          DePayWidgets.Donation({ ...defaultArguments, document })
           cy.wait(2000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
@@ -281,7 +279,7 @@ describe('overview Sale', () => {
         cy.document().then((document)=>{
           let NEW_TOKEN_B_AmountBN_mock_count
           let NEW_USD_AmountOutBN_mock_count
-          DePayWidgets.Sale({ ...defaultArguments, document })
+          DePayWidgets.Donation({ ...defaultArguments, document })
           let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('35', 18)
           let NEW_TOKEN_B_AmountBN_mock = mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
           let NEW_USD_AmountOutBN = ethers.utils.parseUnits('35', 18)

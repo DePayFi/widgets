@@ -9,7 +9,7 @@ import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
-describe('connect Sale widget', () => {
+describe('connect Donation widget', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -116,7 +116,7 @@ describe('connect Sale widget', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Sale({ ...defaultArguments, document,
+        DePayWidgets.Donation({ ...defaultArguments, document,
           connected: (account)=>{
             connectedCalledWith = account
           }

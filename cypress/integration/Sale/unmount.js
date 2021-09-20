@@ -9,7 +9,7 @@ import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
-describe('style Sale widget', () => {
+describe('unmount Sale widget', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -93,7 +93,7 @@ describe('style Sale widget', () => {
     }))
   })
   
-  it('allows you to style the widget', () => {
+  it('unmount', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then(async (document)=>{

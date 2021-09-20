@@ -1,5 +1,3 @@
-
-(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 'use strict';
 
 var React = require('react');
@@ -3898,12 +3896,12 @@ var DonationStack = (function (props) {
 
 var preflight = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-    var amount, token, blockchains;
+    var amount, token, blockchains, receiver;
     return regenerator.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            amount = _ref.amount, token = _ref.token, blockchains = _ref.blockchains;
+            amount = _ref.amount, token = _ref.token, blockchains = _ref.blockchains, receiver = _ref.receiver;
 
             if (!(typeof amount === 'undefined')) {
               _context.next = 3;

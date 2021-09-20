@@ -125,12 +125,13 @@ describe('Sale execution fails', () => {
         }
       }
     })
+    console.log('mockedTransaction', mockedTransaction)
 
     let failedCalledWith
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Sale({ ...defaultArguments,
+        DePayWidgets.Donation({ ...defaultArguments,
           failed: (transaction)=> {
             failedCalledWith = transaction
           },

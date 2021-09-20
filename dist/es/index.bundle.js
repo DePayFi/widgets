@@ -51313,7 +51313,7 @@ var ErrorProvider = (function (props) {
     })), /*#__PURE__*/react.createElement("div", {
       className: "DialogBody"
     }, /*#__PURE__*/react.createElement("div", {
-      className: "GraphicWrapper"
+      className: "GraphicWrapper PaddingTopM"
     }, /*#__PURE__*/react.createElement("img", {
       className: "Graphic",
       src: ErrorGraphic
@@ -53322,7 +53322,7 @@ var fixRouteParams = /*#__PURE__*/function () {
   };
 }();
 
-var preflight$2 = function preflight(_ref5) {
+var preflight$3 = function preflight(_ref5) {
   _ref5.fromAddress;
       _ref5.toAddress;
       _ref5.tokenIn;
@@ -53399,7 +53399,7 @@ var Exchange = /*#__PURE__*/function () {
                 return _context3.abrupt("return", Promise.resolve());
 
               case 3:
-                preflight$2({
+                preflight$3({
                   fromAddress: fromAddress,
                   toAddress: toAddress,
                   tokenIn: tokenIn,
@@ -64471,7 +64471,7 @@ var NoPaymentMethodFoundDialog = (function () {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }),
     body: /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
-      className: "GraphicWrapper"
+      className: "GraphicWrapper PaddingTopM"
     }, /*#__PURE__*/react.createElement("img", {
       className: "Graphic",
       src: QuestionsGraphic
@@ -64498,7 +64498,7 @@ var PaymentErrorDialog = (function () {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }),
     body: /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
-      className: "GraphicWrapper"
+      className: "GraphicWrapper PaddingTopM"
     }, /*#__PURE__*/react.createElement("img", {
       className: "Graphic",
       src: ErrorGraphic
@@ -64564,7 +64564,7 @@ var ConnectingWalletDialog = (function () {
   var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
   return /*#__PURE__*/react.createElement(Dialog, {
     body: /*#__PURE__*/react.createElement("div", null, walletLogo && /*#__PURE__*/react.createElement("div", {
-      className: "GraphicWrapper"
+      className: "GraphicWrapper PaddingTopM"
     }, /*#__PURE__*/react.createElement("img", {
       className: "Graphic",
       src: walletLogo
@@ -65507,7 +65507,7 @@ var WalletRequestPendingDialog = (function (props) {
   })), /*#__PURE__*/react.createElement("div", {
     className: "DialogBody"
   }, walletLogo && /*#__PURE__*/react.createElement("div", {
-    className: "GraphicWrapper"
+    className: "GraphicWrapper PaddingTopM"
   }, /*#__PURE__*/react.createElement("img", {
     className: "Graphic",
     src: walletLogo
@@ -65677,7 +65677,7 @@ var WalletProvider = (function (props) {
   }
 });
 
-var preflight$1 = /*#__PURE__*/function () {
+var preflight$2 = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
     var accept;
     return regenerator.wrap(function _callee$(_context) {
@@ -65730,7 +65730,7 @@ var Payment = /*#__PURE__*/function () {
             accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
-            return preflight$1({
+            return preflight$2({
               accept: accept
             });
 
@@ -68317,7 +68317,7 @@ var SaleStack = (function (props) {
   });
 });
 
-var preflight = /*#__PURE__*/function () {
+var preflight$1 = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
     var amount, token, blockchains;
     return regenerator.wrap(function _callee$(_context) {
@@ -68403,7 +68403,7 @@ var Sale = /*#__PURE__*/function () {
             amount = _ref3.amount, token = _ref3.token, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
-            return preflight({
+            return preflight$1({
               amount: amount,
               token: token,
               blockchains: blockchains
@@ -68471,9 +68471,579 @@ var Sale = /*#__PURE__*/function () {
   };
 }();
 
+var DonationRoutingContext = /*#__PURE__*/react.createContext();
+
+var DonationRoutingProvider = (function (props) {
+  var _useContext = react.useContext(ConfigurationContext),
+      amount = _useContext.amount,
+      receiver = _useContext.receiver,
+      token = _useContext.token,
+      blockchains = _useContext.blockchains,
+      blacklist = _useContext.blacklist;
+
+  var _useContext2 = react.useContext(WalletContext),
+      account = _useContext2.account;
+
+  var _useState = react.useState(amount.start),
+      _useState2 = _slicedToArray(_useState, 2),
+      donatedAmount = _useState2[0],
+      setDonatedAmount = _useState2[1];
+
+  var _useState3 = react.useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      donatedToken = _useState4[0],
+      setDonatedToken = _useState4[1];
+
+  var _useState5 = react.useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      accept = _useState6[0],
+      setAccept = _useState6[1];
+
+  if (blacklist == undefined) {
+    blacklist = {};
+  }
+
+  blockchains.forEach(function (blockchain) {
+    if (blacklist[blockchain] == undefined) {
+      blacklist[blockchain] = [token];
+    } else if (blacklist[blockchain] instanceof Array) {
+      blacklist[blockchain].push(token);
+    }
+  });
+  react.useEffect(function () {
+    if (account) {
+      setAccept(blockchains.map(function (blockchain) {
+        return {
+          blockchain: blockchain,
+          amount: donatedAmount,
+          token: token,
+          receiver: receiver
+        };
+      }));
+    }
+  }, [account, donatedAmount]);
+  react.useEffect(function () {
+    var tokenInstance = new Token({
+      blockchain: blockchains[0],
+      address: token
+    });
+    Promise.all([tokenInstance.name(), tokenInstance.symbol(), tokenInstance.decimals()]).then(function (_ref) {
+      var _ref2 = _slicedToArray(_ref, 3),
+          name = _ref2[0],
+          symbol = _ref2[1],
+          decimals = _ref2[2];
+
+      setDonatedToken({
+        address: token,
+        name: name,
+        symbol: symbol,
+        decimals: decimals
+      });
+    });
+  }, []);
+  return /*#__PURE__*/react.createElement(DonationRoutingContext.Provider, {
+    value: {
+      setDonatedAmount: setDonatedAmount,
+      donatedAmount: donatedAmount,
+      donatedToken: donatedToken
+    }
+  }, /*#__PURE__*/react.createElement(PaymentRoutingProvider, {
+    accept: accept,
+    blacklist: blacklist
+  }, /*#__PURE__*/react.createElement(PaymentProvider, null, /*#__PURE__*/react.createElement(PaymentValueProvider, null, props.children))));
+});
+
+var DonationOverviewSkeleton = (function (props) {
+  return /*#__PURE__*/react.createElement(Dialog, {
+    header: /*#__PURE__*/react.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/react.createElement("h1", {
+      className: "FontSizeL TextLeft"
+    }, "Donation")),
+    body: /*#__PURE__*/react.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "Card Skeleton"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "SkeletonBackground"
+    })), /*#__PURE__*/react.createElement("div", {
+      className: "Card Skeleton",
+      style: {
+        height: '100px'
+      }
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "SkeletonBackground"
+    }))),
+    footer: /*#__PURE__*/react.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "SkeletonWrapper"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "ButtonPrimary Skeleton"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "SkeletonBackground"
+    }))))
+  });
+});
+
+var DonationOverviewDialog = (function (props) {
+  var _useContext = react.useContext(DonationRoutingContext),
+      donatedToken = _useContext.donatedToken,
+      donatedAmount = _useContext.donatedAmount;
+
+  var _useContext2 = react.useContext(ConfigurationContext),
+      _sent = _useContext2.sent,
+      _confirmed = _useContext2.confirmed,
+      _ensured = _useContext2.ensured,
+      _failed = _useContext2.failed;
+
+  var _useContext3 = react.useContext(PaymentContext),
+      payment = _useContext3.payment,
+      setPayment = _useContext3.setPayment,
+      transaction = _useContext3.transaction,
+      setTransaction = _useContext3.setTransaction;
+
+  var _useContext4 = react.useContext(PaymentRoutingContext),
+      allRoutes = _useContext4.allRoutes;
+
+  var _useContext5 = react.useContext(WalletContext),
+      walletState = _useContext5.walletState;
+
+  var _useContext6 = react.useContext(PaymentValueContext),
+      paymentValue = _useContext6.paymentValue;
+
+  var _useContext7 = react.useContext(NavigateStackContext_1),
+      navigate = _useContext7.navigate,
+      set = _useContext7.set;
+
+  var _useContext8 = react.useContext(ClosableContext),
+      close = _useContext8.close,
+      setClosable = _useContext8.setClosable;
+
+  var _useContext9 = react.useContext(UpdateContext);
+      _useContext9.update;
+      var setUpdate = _useContext9.setUpdate;
+
+  var _useState = react.useState('overview'),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
+
+  var _useState3 = react.useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      approvalTransaction = _useState4[0],
+      setApprovalTransaction = _useState4[1];
+
+  var approve = function approve() {
+    setClosable(false);
+    setState('approving');
+    payment.route.approve({
+      confirmed: function confirmed() {
+        payment.route.approvalRequired = false;
+        setPayment(payment);
+        setClosable(true);
+        setState('overview');
+      }
+    }).then(function (sentTransaction) {
+      setApprovalTransaction(sentTransaction);
+    })["catch"](function (error) {
+      console.log('error', error);
+      setState('overview');
+      setClosable(true);
+    });
+  };
+
+  var pay = function pay() {
+    setClosable(false);
+    setState('paying');
+    setUpdate(false);
+    payment.route.transaction.submit({
+      sent: function sent() {
+        if (_sent) {
+          _sent(payment.route.transaction);
+        }
+      },
+      confirmed: function confirmed() {
+        setClosable(true);
+        setState('confirmed');
+
+        if (_confirmed) {
+          _confirmed(payment.route.transaction);
+        }
+      },
+      ensured: function ensured() {
+        if (_ensured) {
+          _ensured(payment.route.transaction);
+        }
+      },
+      failed: function failed(error) {
+        if (_failed) {
+          _failed(payment.route.transaction);
+        }
+
+        console.log('error', error);
+        setState('overview');
+        setClosable(true);
+        setUpdate(true);
+        navigate('PaymentError');
+      }
+    }).then(function (sentTransaction) {
+      setTransaction(sentTransaction);
+    })["catch"](function (error) {
+      console.log('error', error);
+      setState('overview');
+      setClosable(true);
+      setUpdate(true);
+    });
+  };
+
+  var mainAction = function mainAction() {
+    if (state == 'overview' || state == 'approving') {
+      return /*#__PURE__*/react.createElement("button", {
+        className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
+        onClick: function onClick() {
+          if (payment.route.approvalRequired && !payment.route.directTransfer) {
+            return;
+          }
+
+          pay();
+        }
+      }, "Pay ", paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
+    } else if (state == 'paying') {
+      return /*#__PURE__*/react.createElement("a", {
+        className: "ButtonPrimary",
+        title: "Performing the payment - please wait",
+        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, /*#__PURE__*/react.createElement(LoadingText, null, "Paying"));
+    } else if (state == 'confirmed') {
+      return /*#__PURE__*/react.createElement("button", {
+        className: "ButtonPrimary round",
+        title: "Done",
+        onClick: close
+      }, /*#__PURE__*/react.createElement(Checkmark, null));
+    }
+  };
+
+  var approvalAction = function approvalAction() {
+    if (state == 'overview') {
+      return /*#__PURE__*/react.createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/react.createElement("button", {
+        className: "ButtonPrimary wide",
+        onClick: approve
+      }, "Allow ", payment.symbol, " to be used as payment"));
+    } else if (state == 'approving') {
+      return /*#__PURE__*/react.createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/react.createElement("a", {
+        className: "ButtonPrimary wide",
+        title: "Approving payment token - please wait",
+        href: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, /*#__PURE__*/react.createElement(LoadingText, null, "Approving")));
+    }
+  };
+
+  var actions = function actions() {
+    return /*#__PURE__*/react.createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
+  };
+
+  react.useEffect(function () {
+    if (allRoutes && allRoutes.length == 0) {
+      set(['NoPaymentMethodFound']);
+      setUpdate(false);
+    }
+  }, [allRoutes]);
+
+  if (walletState == 'connecting') {
+    return /*#__PURE__*/react.createElement(ConnectingWalletDialog, null);
+  }
+
+  if (donatedToken == undefined || donatedAmount == undefined || payment == undefined || paymentValue == undefined) {
+    return /*#__PURE__*/react.createElement(DonationOverviewSkeleton, null);
+  }
+
+  return /*#__PURE__*/react.createElement(Dialog, {
+    header: /*#__PURE__*/react.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/react.createElement("h1", {
+      className: "FontSizeL TextLeft"
+    }, "Donation")),
+    body: /*#__PURE__*/react.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
+      title: state == 'overview' ? "Change amount" : undefined,
+      onClick: function onClick() {
+        if (state != 'overview') {
+          return;
+        }
+
+        navigate('ChangeAmount');
+      }
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "CardImage",
+      title: payment.name
+    }, /*#__PURE__*/react.createElement(TokenImage_1, {
+      blockchain: payment.route.blockchain,
+      address: donatedToken.address
+    })), /*#__PURE__*/react.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "CardBodyWrapper"
+    }, /*#__PURE__*/react.createElement("h4", {
+      className: "CardTitle"
+    }, "Amount"), /*#__PURE__*/react.createElement("h2", {
+      className: "CardText"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "TokenAmountRow"
+    }, /*#__PURE__*/react.createElement("span", {
+      className: "TokenSymbolCell"
+    }, donatedToken.symbol), /*#__PURE__*/react.createElement("span", null, "\xA0"), /*#__PURE__*/react.createElement("span", {
+      className: "TokenAmountCell"
+    }, format(donatedAmount)))))), /*#__PURE__*/react.createElement("div", {
+      className: "CardAction"
+    }, /*#__PURE__*/react.createElement(ChevronRight, null))), /*#__PURE__*/react.createElement("div", {
+      className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
+      title: state == 'overview' ? "Change payment" : undefined,
+      onClick: function onClick() {
+        if (state != 'overview') {
+          return;
+        }
+
+        navigate('ChangePayment');
+      }
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "CardImage",
+      title: payment.name
+    }, /*#__PURE__*/react.createElement(TokenImage_1, {
+      blockchain: payment.route.blockchain,
+      address: payment.token
+    })), /*#__PURE__*/react.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "CardBodyWrapper"
+    }, /*#__PURE__*/react.createElement("h4", {
+      className: "CardTitle"
+    }, "Payment"), /*#__PURE__*/react.createElement("h2", {
+      className: "CardText"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "TokenAmountRow"
+    }, /*#__PURE__*/react.createElement("span", {
+      className: "TokenSymbolCell"
+    }, payment.symbol), /*#__PURE__*/react.createElement("span", null, "\xA0"), /*#__PURE__*/react.createElement("span", {
+      className: "TokenAmountCell"
+    }, format(payment.amount)))), paymentValue.toString().length && /*#__PURE__*/react.createElement("h3", {
+      className: "CardText"
+    }, /*#__PURE__*/react.createElement("small", null, paymentValue.toString())))), /*#__PURE__*/react.createElement("div", {
+      className: "CardAction"
+    }, /*#__PURE__*/react.createElement(ChevronRight, null)))),
+    footer: /*#__PURE__*/react.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM"
+    }, actions())
+  });
+});
+
+var DonationStack = (function (props) {
+  var _useContext = react.useContext(ClosableContext),
+      open = _useContext.open,
+      close = _useContext.close;
+
+  var _useContext2 = react.useContext(DonationRoutingContext),
+      donatedToken = _useContext2.donatedToken,
+      donatedAmount = _useContext2.donatedAmount,
+      setDonatedAmount = _useContext2.setDonatedAmount;
+
+  return /*#__PURE__*/react.createElement(ReactDialogStack_1, {
+    open: open,
+    close: close,
+    start: "DonationOverview",
+    container: props.container,
+    document: props.document,
+    dialogs: {
+      DonationOverview: /*#__PURE__*/react.createElement(DonationOverviewDialog, null),
+      ChangeAmount: /*#__PURE__*/react.createElement(ChangeAmountDialog, {
+        token: donatedToken,
+        amount: donatedAmount,
+        setAmount: setDonatedAmount
+      }),
+      ChangePayment: /*#__PURE__*/react.createElement(ChangePaymentDialog, null),
+      NoPaymentMethodFound: /*#__PURE__*/react.createElement(NoPaymentMethodFoundDialog, null),
+      PaymentError: /*#__PURE__*/react.createElement(PaymentErrorDialog, null)
+    }
+  });
+});
+
+var preflight = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+    var amount, token, blockchains, receiver;
+    return regenerator.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            amount = _ref.amount, token = _ref.token, blockchains = _ref.blockchains, receiver = _ref.receiver;
+
+            if (!(typeof amount === 'undefined')) {
+              _context.next = 3;
+              break;
+            }
+
+            throw 'You need to set the amount!';
+
+          case 3:
+            if (!(typeof amount.min === 'undefined')) {
+              _context.next = 5;
+              break;
+            }
+
+            throw 'You need to set amount.min!';
+
+          case 5:
+            if (!(typeof amount.step === 'undefined')) {
+              _context.next = 7;
+              break;
+            }
+
+            throw 'You need to set amount.step!';
+
+          case 7:
+            if (!(typeof amount.start === 'undefined')) {
+              _context.next = 9;
+              break;
+            }
+
+            throw 'You need to set amount.start!';
+
+          case 9:
+            if (!(typeof token == 'undefined')) {
+              _context.next = 11;
+              break;
+            }
+
+            throw 'You need to set a token!';
+
+          case 11:
+            if (!(typeof blockchains == 'undefined' || blockchains.length == 0)) {
+              _context.next = 13;
+              break;
+            }
+
+            throw 'You need to set blockchains!';
+
+          case 13:
+            blockchains.forEach(function (blockchain) {
+              if (!['ethereum', 'bsc'].includes(blockchain)) {
+                throw 'You need to set only supported blockchains!';
+              }
+            });
+
+            if (!(typeof receiver == 'undefined' || receiver.length == 0)) {
+              _context.next = 16;
+              break;
+            }
+
+            throw 'You need to set a receiver!';
+
+          case 16:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function preflight(_x) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var Donation = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
+    var amount, token, receiver, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, document, unmount;
+    return regenerator.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            amount = _ref3.amount, token = _ref3.token, receiver = _ref3.receiver, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, document = _ref3.document;
+            _context2.prev = 1;
+            _context2.next = 4;
+            return preflight({
+              amount: amount,
+              token: token,
+              blockchains: blockchains,
+              receiver: receiver
+            });
+
+          case 4:
+            unmount = mount({
+              style: style,
+              document: ensureDocument(document)
+            }, function (unmount) {
+              return function (container) {
+                return /*#__PURE__*/react.createElement(ErrorProvider, {
+                  error: error,
+                  container: container,
+                  unmount: unmount
+                }, /*#__PURE__*/react.createElement(ConfigurationProvider, {
+                  configuration: {
+                    amount: amount,
+                    token: token,
+                    receiver: receiver,
+                    blockchains: blockchains,
+                    currency: currency,
+                    event: event,
+                    sent: sent,
+                    confirmed: confirmed,
+                    ensured: ensured,
+                    failed: failed,
+                    blacklist: blacklist,
+                    providers: providers
+                  }
+                }, /*#__PURE__*/react.createElement(ClosableProvider, {
+                  unmount: unmount
+                }, /*#__PURE__*/react.createElement(UpdateProvider, null, /*#__PURE__*/react.createElement(WalletProvider, {
+                  container: container,
+                  connected: connected,
+                  unmount: unmount
+                }, /*#__PURE__*/react.createElement(DonationRoutingProvider, null, /*#__PURE__*/react.createElement(DonationStack, {
+                  document: document,
+                  container: container
+                })))))));
+              };
+            });
+            return _context2.abrupt("return", {
+              unmount: unmount
+            });
+
+          case 8:
+            _context2.prev = 8;
+            _context2.t0 = _context2["catch"](1);
+            console.log('critical error', _context2.t0);
+
+            if (critical != undefined) {
+              critical(_context2.t0);
+            }
+
+          case 12:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[1, 8]]);
+  }));
+
+  return function Donation(_x2) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
 var DePayWidgets = {
   Payment: Payment,
-  Sale: Sale
+  Sale: Sale,
+  Donation: Donation
 };
 
 export { DePayWidgets as default };

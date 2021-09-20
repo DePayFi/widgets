@@ -9,7 +9,7 @@ import { mock, resetMocks } from 'depay-web3-mock'
 import { provider, resetCache } from 'depay-web3-client'
 import { Token } from 'depay-web3-tokens'
 
-describe('insufficient balance for Payment', () => {
+describe('insufficient balance for Donation payment', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -73,7 +73,7 @@ describe('insufficient balance for Payment', () => {
   it('shows a dialog explaining that no payment route could be found', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Sale({ ...defaultArguments, document })
+        DePayWidgets.Donation({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.')
       })
     })
@@ -84,7 +84,7 @@ describe('insufficient balance for Payment', () => {
     let TOKENRouteMock_count
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Sale({ ...defaultArguments, document })
+        DePayWidgets.Donation({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.')
         cy.wait(2000).then(()=>{
           USDValueMock_count = USDValueMock.calls.count()

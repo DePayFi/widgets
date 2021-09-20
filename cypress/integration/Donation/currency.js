@@ -10,7 +10,7 @@ import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
-describe('currency Sale widget', () => {
+describe('currency Donation widget', () => {
   
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -129,7 +129,7 @@ describe('currency Sale widget', () => {
     it('enforces displayed currency ', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
-          DePayWidgets.Sale({ ...defaultArguments, currency: 'USD', document })
+          DePayWidgets.Donation({ ...defaultArguments, currency: 'USD', document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '$33.00')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay $33.00')
         })
