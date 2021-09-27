@@ -2,6 +2,7 @@ export default (style)=>{
   return(`
 
     .Card {
+      align-items: center;
       background: rgb(255,255,255);
       border-radius: 0.8rem;
       box-shadow: 0 0 8px rgba(0,0,0,0.03);
@@ -11,6 +12,7 @@ export default (style)=>{
       margin-bottom: 0.5rem;
       min-height: 4.78rem;
       padding: 1rem 0.6rem;
+      width: 100%;
     }
 
     a.Card, a.Card * {
@@ -34,7 +36,8 @@ export default (style)=>{
 
     .Card:active:not(.disabled) {
       background: rgb(235,235,235);
-      box-shadow: inset 0 0 6px rgba(0,0,0,0.02); 
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);
+      color: inherit;
     }
 
     .Card:hover:not(.disabled) .CardAction {

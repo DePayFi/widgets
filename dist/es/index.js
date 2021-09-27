@@ -1,3 +1,5 @@
+
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 import React, { useState, useEffect, useContext } from 'react';
 import { setProvider } from 'depay-web3-client';
 import ReactDOM from 'react-dom';
@@ -1298,7 +1300,7 @@ var ButtonPrimaryStyle = (function (style) {
 });
 
 var CardStyle = (function (style) {
-  return "\n\n    .Card {\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.6rem 0.6rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02); \n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText {\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ";
+  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n      width: 100%;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.6rem 0.6rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText {\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ";
 });
 
 var DialogStyle = (function (style) {
@@ -1614,11 +1616,11 @@ var PaymentRoutingProvider = (function (props) {
 
                         case 7:
                           roundedAmountBN = _context.sent;
-                          route.fromAmount = roundedAmountBN;
-                          route.transaction.params.amounts[0] = roundedAmountBN;
+                          route.fromAmount = roundedAmountBN.toString();
+                          route.transaction.params.amounts[0] = roundedAmountBN.toString();
 
                           if (route.transaction.value && route.transaction.value.toString() != '0') {
-                            route.transaction.value = roundedAmountBN;
+                            route.transaction.value = roundedAmountBN.toString();
                           }
 
                           return _context.abrupt("return", route);
@@ -1667,6 +1669,9 @@ var PaymentRoutingProvider = (function (props) {
       setAllRoutes(undefined);
       setSelectedRoute(undefined);
       getPaymentRoutes({});
+    } else {
+      setAllRoutes(undefined);
+      setSelectedRoute(undefined);
     }
   }, [account, props.accept]);
   return /*#__PURE__*/React.createElement(PaymentRoutingContext.Provider, {
@@ -2084,6 +2089,7 @@ var PaymentOverviewDialog = (function (props) {
       allRoutes = _useContext3.allRoutes;
 
   var _useContext4 = useContext(WalletContext),
+      wallet = _useContext4.wallet,
       walletState = _useContext4.walletState;
 
   var _useContext5 = useContext(PaymentValueContext),
@@ -2114,14 +2120,14 @@ var PaymentOverviewDialog = (function (props) {
   var approve = function approve() {
     setClosable(false);
     setState('approving');
-    payment.route.approve({
+    wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
       confirmed: function confirmed() {
         payment.route.approvalRequired = false;
         setPayment(payment);
         setClosable(true);
         setState('overview');
       }
-    }).then(function (sentTransaction) {
+    })).then(function (sentTransaction) {
       setApprovalTransaction(sentTransaction);
     })["catch"](function (error) {
       console.log('error', error);
@@ -2134,13 +2140,17 @@ var PaymentOverviewDialog = (function (props) {
     setClosable(false);
     setState('paying');
     setUpdate(false);
-    payment.route.transaction.submit({
+    console.log('payment.route.transaction', payment.route.transaction);
+    wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
       sent: function sent() {
+        console.log('SENT');
+
         if (_sent) {
           _sent(payment.route.transaction);
         }
       },
       confirmed: function confirmed() {
+        console.log('CONFIRMED');
         setClosable(true);
         setState('confirmed');
 
@@ -2149,11 +2159,15 @@ var PaymentOverviewDialog = (function (props) {
         }
       },
       ensured: function ensured() {
+        console.log('ENSURED');
+
         if (_ensured) {
           _ensured(payment.route.transaction);
         }
       },
       failed: function failed(error) {
+        console.log('FAILED');
+
         if (_failed) {
           _failed(payment.route.transaction);
         }
@@ -2164,7 +2178,8 @@ var PaymentOverviewDialog = (function (props) {
         setUpdate(true);
         navigate('PaymentError');
       }
-    }).then(function (sentTransaction) {
+    })).then(function (sentTransaction) {
+      console.log('sentTransaction', sentTransaction);
       setTransaction(sentTransaction);
     })["catch"](function (error) {
       console.log('error', error);
@@ -2485,24 +2500,56 @@ var WalletUnavailableDialog = (function (props) {
   };
 
   var walletCards = supported.map(function (wallet, index) {
-    return /*#__PURE__*/React.createElement("a", {
-      key: index,
-      className: "Card small",
-      title: "Install ".concat(wallet.name),
-      href: wallet.install,
-      target: "_blank",
-      rel: "noopener noreferrer"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardImage PaddingLeftM"
-    }, /*#__PURE__*/React.createElement("img", {
-      src: wallet.logo
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "CardBody"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardBodyWrapper PaddingLeftXS"
-    }, /*#__PURE__*/React.createElement("h2", {
-      className: "CardText FontWeightBold"
-    }, wallet.name))));
+    if (wallet.install) {
+      return /*#__PURE__*/React.createElement("a", {
+        key: index,
+        className: "Card small",
+        title: "Install ".concat(wallet.name),
+        href: wallet.install,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage PaddingLeftM"
+      }, /*#__PURE__*/React.createElement("img", {
+        src: wallet.logo
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper PaddingLeftXS"
+      }, /*#__PURE__*/React.createElement("h2", {
+        className: "CardText FontWeightBold"
+      }, wallet.name))));
+    } else {
+      return /*#__PURE__*/React.createElement("button", {
+        key: index,
+        className: "Card small",
+        title: "Connect ".concat(wallet.name),
+        onClick: /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+          return regenerator.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  props.setWallet(wallet);
+
+                case 1:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }))
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage PaddingLeftM"
+      }, /*#__PURE__*/React.createElement("img", {
+        src: wallet.logo
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper PaddingLeftXS"
+      }, /*#__PURE__*/React.createElement("h2", {
+        className: "CardText FontWeightBold"
+      }, wallet.name))));
+    }
   });
   return /*#__PURE__*/React.createElement(ReactDialog_1, {
     container: props.container,
@@ -2556,6 +2603,11 @@ var WalletProvider = (function (props) {
   var connect = function connect() {
     setWalletState('connecting');
     wallet.connect().then(function (accounts) {
+      wallet.on('disconnect', function () {
+        setWallet(undefined);
+        setAccount(undefined);
+        setWalletState('unavailable');
+      });
       setWalletState('connected');
 
       if (props.connected) {
@@ -2598,6 +2650,8 @@ var WalletProvider = (function (props) {
 
   if (walletState == 'unavailable') {
     return /*#__PURE__*/React.createElement(WalletUnavailableDialog, {
+      connect: connect,
+      setWallet: setWallet,
       container: props.container
     });
   } else if (walletState == 'requestPending') {
@@ -3043,6 +3097,7 @@ var SaleOverviewDialog = (function (props) {
       allRoutes = _useContext4.allRoutes;
 
   var _useContext5 = useContext(WalletContext),
+      wallet = _useContext5.wallet,
       walletState = _useContext5.walletState;
 
   var _useContext6 = useContext(PaymentValueContext),
@@ -3078,14 +3133,14 @@ var SaleOverviewDialog = (function (props) {
   var approve = function approve() {
     setClosable(false);
     setState('approving');
-    payment.route.approve({
+    wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
       confirmed: function confirmed() {
         payment.route.approvalRequired = false;
         setPayment(payment);
         setClosable(true);
         setState('overview');
       }
-    }).then(function (sentTransaction) {
+    })).then(function (sentTransaction) {
       setApprovalTransaction(sentTransaction);
     })["catch"](function (error) {
       console.log('error', error);
@@ -3098,7 +3153,7 @@ var SaleOverviewDialog = (function (props) {
     setClosable(false);
     setState('paying');
     setUpdate(false);
-    payment.route.transaction.submit({
+    wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
       sent: function sent() {
         if (_sent) {
           _sent(payment.route.transaction);
@@ -3128,7 +3183,7 @@ var SaleOverviewDialog = (function (props) {
         setUpdate(true);
         navigate('PaymentError');
       }
-    }).then(function (sentTransaction) {
+    })).then(function (sentTransaction) {
       setTransaction(sentTransaction);
     })["catch"](function (error) {
       console.log('error', error);
@@ -3616,6 +3671,7 @@ var DonationOverviewDialog = (function (props) {
       allRoutes = _useContext4.allRoutes;
 
   var _useContext5 = useContext(WalletContext),
+      wallet = _useContext5.wallet,
       walletState = _useContext5.walletState;
 
   var _useContext6 = useContext(PaymentValueContext),
@@ -3646,14 +3702,14 @@ var DonationOverviewDialog = (function (props) {
   var approve = function approve() {
     setClosable(false);
     setState('approving');
-    payment.route.approve({
+    wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
       confirmed: function confirmed() {
         payment.route.approvalRequired = false;
         setPayment(payment);
         setClosable(true);
         setState('overview');
       }
-    }).then(function (sentTransaction) {
+    })).then(function (sentTransaction) {
       setApprovalTransaction(sentTransaction);
     })["catch"](function (error) {
       console.log('error', error);
@@ -3666,7 +3722,7 @@ var DonationOverviewDialog = (function (props) {
     setClosable(false);
     setState('paying');
     setUpdate(false);
-    payment.route.transaction.submit({
+    wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
       sent: function sent() {
         if (_sent) {
           _sent(payment.route.transaction);
@@ -3696,7 +3752,7 @@ var DonationOverviewDialog = (function (props) {
         setUpdate(true);
         navigate('PaymentError');
       }
-    }).then(function (sentTransaction) {
+    })).then(function (sentTransaction) {
       setTransaction(sentTransaction);
     })["catch"](function (error) {
       console.log('error', error);

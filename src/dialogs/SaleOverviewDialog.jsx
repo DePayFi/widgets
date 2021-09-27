@@ -24,7 +24,7 @@ export default (props)=>{
   const { sent, confirmed, ensured, failed } = useContext(ConfigurationContext)
   const { payment, setPayment, transaction, setTransaction } = useContext(PaymentContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
-  const { walletState } = useContext(WalletContext)
+  const { wallet, walletState } = useContext(WalletContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { navigate, set } = useContext(NavigateStackContext)
   const { close, setClosable } = useContext(ClosableContext)
@@ -35,28 +35,28 @@ export default (props)=>{
   const approve = ()=> {
     setClosable(false)
     setState('approving')
-    payment.route.approve({
+    wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
       confirmed: ()=>{
         payment.route.approvalRequired = false
         setPayment(payment)
         setClosable(true)
         setState('overview')
       }
-    })
-    .then((sentTransaction)=>{
-      setApprovalTransaction(sentTransaction)
-    })
-    .catch((error)=>{
-      console.log('error', error)
-      setState('overview')
-      setClosable(true)
-    })
+    }))
+      .then((sentTransaction)=>{
+        setApprovalTransaction(sentTransaction)
+      })
+      .catch((error)=>{
+        console.log('error', error)
+        setState('overview')
+        setClosable(true)
+      })
   }
   const pay = ()=> {
     setClosable(false)
     setState('paying')
     setUpdate(false)
-    payment.route.transaction.submit({
+    wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
       sent: ()=>{
         if(sent) { sent(payment.route.transaction) }
       },
@@ -76,7 +76,7 @@ export default (props)=>{
         setUpdate(true)
         navigate('PaymentError')
       }
-    })
+    }))
       .then((sentTransaction)=>{
         setTransaction(sentTransaction)
       })

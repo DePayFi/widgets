@@ -15,9 +15,14 @@ export default (props)=>{
   const connect = ()=>{
     setWalletState('connecting')
     wallet.connect().then((accounts)=>{
+      wallet.on('disconnect', ()=>{
+        setWallet(undefined)
+        setAccount(undefined)
+        setWalletState('unavailable')
+      })
       setWalletState('connected')
       if(props.connected) { props.connected(accounts[0]) }
-      setAccount(accounts[0])        
+      setAccount(accounts[0])
     }).catch((error)=>{
       if(error?.code == 4001) { 
         // User rejected the request.
@@ -50,7 +55,7 @@ export default (props)=>{
   }, [wallet])
 
   if(walletState == 'unavailable') {
-    return(<WalletUnavailableDialog container={ props.container }/>)
+    return(<WalletUnavailableDialog connect={ connect } setWallet={ setWallet } container={ props.container }/>)
   } else if(walletState == 'requestPending') {
     return(<WalletRequestPendingDialog wallet={ wallet } unmount={ props.unmount } container={ props.container }/>)
   } else {

@@ -15,4 +15,6 @@ export default {
   'depay-react-token-image': 'ReactTokenImage',
   'react-error-boundary': 'ErrorBoundary',
   'react-rangeslider': 'ReactRangeslider',
+  '@walletconnect/client': 'WalletConnect',
+  '@walletconnect/qrcode-modal': 'WalletConnectQRCodeModal'
 }
