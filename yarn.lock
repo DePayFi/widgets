@@ -3125,10 +3125,10 @@ depay-web3-tokens@^6.0.0:
   resolved "https://registry.yarnpkg.com/depay-web3-tokens/-/depay-web3-tokens-6.0.0.tgz#995cf9faeb1ca26e0d899d72fcef9f38e1c3740d"
   integrity sha512-+ynGBo1y3SpAZjJxkKmatGAh74C3b68qQFMDfM/N4eVDhpaUVbdllO/wGa/kMzFahPQXaA9DTFlVGwssFki0vg==
 
-depay-web3-wallets@^5.6.1:
-  version "5.6.1"
-  resolved "https://registry.yarnpkg.com/depay-web3-wallets/-/depay-web3-wallets-5.6.1.tgz#6c385bd7f0b19f3d6c1a86db4aca59f63198411a"
-  integrity sha512-GLh9DPDqtZd7bX2i1yaUVFxyaiwi4aJeKf4Bvh76x8bG8ZMVVz1frss4mkKA8jT4+axQbP8oDdNQ5CtjwR7Eew==
+depay-web3-wallets@^5.6.6:
+  version "5.6.6"
+  resolved "https://registry.yarnpkg.com/depay-web3-wallets/-/depay-web3-wallets-5.6.6.tgz#a91d83ecb7b7b86ef08c304a604a37c4f76aaef4"
+  integrity sha512-A6M1zC+IkzsfFbWQIwUvgACpf1bSiDjGl0r9gjMhhxemQ1nBA5U0jd2AsDuM18BqLhdr9zzE5TubR4Rq8nLVBg==
 
 detect-browser@5.2.0:
   version "5.2.0"

@@ -5,6 +5,7 @@ export default {
   'depay-react-dialog-stack': 'ReactDialogStack',
   'depay-react-dialog': 'ReactDialog',
   'depay-react-shadow-dom': 'ReactShadowDOM',
+  'depay-web3-blockchains': 'Web3Blockchains',
   'depay-web3-wallets': 'Web3Wallets',
   'depay-web3-payments': 'Web3Payments',
   'depay-web3-tokens': 'Web3Tokens',

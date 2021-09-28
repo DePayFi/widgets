@@ -39698,7 +39698,7 @@
       })), /*#__PURE__*/react.createElement("div", {
         className: "DialogBody"
       }, /*#__PURE__*/react.createElement("div", {
-        className: "GraphicWrapper PaddingTopM"
+        className: "GraphicWrapper"
       }, /*#__PURE__*/react.createElement("img", {
         className: "Graphic",
         src: ErrorGraphic
@@ -39755,11 +39755,11 @@
   });
 
   var FooterStyle = (function (style) {
-    return "\n\n    .FooterLink {\n      color: rgba(0,0,0,0.2);\n      display: inline-block;\n      font-size: 0.9rem;\n      text-decoration: none;\n      padding-top: 0.1rem;\n      padding-bottom: 0.1rem;\n    }\n\n    .FooterLink:hover, .FooterLink:active {\n      color: ".concat(style.colors.primary, ";\n    }\n  ");
+    return "\n\n    .FooterLink {\n      color: rgba(0,0,0,0.2);\n      display: inline-block;\n      font-size: 0.9rem;\n      text-decoration: none;\n      padding-top: 0;\n      padding-bottom: 0;\n    }\n\n    .FooterLink:hover, .FooterLink:active {\n      color: ".concat(style.colors.primary, ";\n    }\n  ");
   });
 
   var GraphicStyle = (function () {
-    return "\n\n    .GraphicWrapper {\n      display: block;\n    }\n\n    .Graphic {\n      width: 40%;\n      position: relative;\n    }\n  ";
+    return "\n\n    .GraphicWrapper {\n      display: block;\n    }\n\n    .Graphic {\n      width: 60%;\n      position: relative;\n    }\n  ";
   });
 
   var HeightStyle = (function () {
@@ -39972,16 +39972,398 @@
     return unmount;
   });
 
+  var ChevronLeft = (function () {
+    return /*#__PURE__*/react.createElement("svg", {
+      className: "ChevronLeft Icon",
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      viewBox: "0 0 16 16"
+    }, /*#__PURE__*/react.createElement("path", {
+      strokeWidth: "1",
+      fillRule: "evenodd",
+      d: "M10.4,1.6c0.2,0.2,0.2,0.5,0,0.7L4.7,8l5.6,5.6c0.2,0.2,0.2,0.5,0,0.7s-0.5,0.2-0.7,0l-6-6l0,0,c-0.2-0.2-0.2-0.5,0-0.7l6-6l0,0C9.8,1.5,10.2,1.5,10.4,1.6L10.4,1.6z"
+    }));
+  });
+
+  var CloseIcon = (function () {
+    return /*#__PURE__*/react.createElement("svg", {
+      className: "CloseIcon Icon",
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "24",
+      height: "24",
+      viewBox: "0 0 24 24",
+      strokeWidth: "2",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    }, /*#__PURE__*/react.createElement("line", {
+      x1: "18",
+      y1: "6",
+      x2: "6",
+      y2: "18"
+    }), /*#__PURE__*/react.createElement("line", {
+      x1: "6",
+      y1: "6",
+      x2: "18",
+      y2: "18"
+    }));
+  });
+
+  function _createSuper$7(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$7(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
+
+  function _isNativeReflectConstruct$7() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+  function _interopDefaultLegacy$2(e) {
+    return e && _typeof(e) === 'object' && 'default' in e ? e : {
+      'default': e
+    };
+  }
+
+  var React__default$1 = /*#__PURE__*/_interopDefaultLegacy$2(react);
+
+  var CloseStackContext = React__default$1['default'].createContext();
+  var NavigateStackContext = React__default$1['default'].createContext();
+
+  function ReactDialogStackStyle() {
+    return "\n\n    .ReactDialogStack {\n      bottom: 0;\n      display: table;\n      height: 100%;\n      position: absolute;\n      top: 0;\n      transition: left 0.1s ease, opacity 0.2s ease;\n      width: 100%;\n    }\n\n    .ReactDialogStackRow {\n      display: table-row;\n    }\n\n    .ReactDialogStackCell {\n      display: table-cell;\n      vertical-align: middle;\n      padding: 0 0.6rem;\n    }\n\n    .ReactDialogStack {\n      left: 0;\n      opacity: 1;\n    }\n\n    .ReactDialogStack.inactive {\n      display: none;\n    }\n\n    .ReactDialogStack.animating.stale {\n      display: none;\n    }\n\n    .ReactDialogStack.animating.previous.forward {\n      opacity: 0;\n      left: -5rem;\n    }\n\n    .ReactDialogStack.animating.previous.backward {\n      opacity: 0;\n      left: 5rem;\n    }\n\n    .ReactDialogStack.animating.next.forward {\n      opacity: 0;\n      left: 5rem;\n    }\n\n    .ReactDialogStack.animating.next.backward {\n      opacity: 0;\n      left: -5rem;\n    }\n  ";
+  }
+
+  var StackContext = React__default$1['default'].createContext();
+  var _jsxFileName$1 = "/Users/sebastian/Work/DePay/depay-react-dialog-stack/src/index.jsx";
+
+  var ReactDialogStack = /*#__PURE__*/function (_React__default$defau) {
+    _inherits$1(ReactDialogStack, _React__default$defau);
+
+    var _super = _createSuper$7(ReactDialogStack);
+
+    function ReactDialogStack(props) {
+      var _this;
+
+      _classCallCheck$1(this, ReactDialogStack);
+
+      _this = _super.call(this, props);
+      _this.state = {
+        stack: [props.start],
+        animating: false,
+        animation: null,
+        direction: 'forward',
+        animationSpeed: 200
+      };
+      return _this;
+    }
+
+    _createClass$1(ReactDialogStack, [{
+      key: "set",
+      value: function set(stack) {
+        this.setState({
+          stack: stack
+        });
+      }
+    }, {
+      key: "navigate",
+      value: function navigate(route) {
+        if (this.state.stack.indexOf(route) > -1) {
+          return;
+        }
+
+        if (route === 'back') {
+          return this.unstack();
+        }
+
+        this.setState({
+          stack: this.state.stack.concat(route),
+          animating: true,
+          direction: 'forward',
+          animation: setTimeout(function () {
+            this.setState({
+              animating: false
+            });
+          }.bind(this), this.state.animationSpeed)
+        });
+      }
+    }, {
+      key: "unstack",
+      value: function unstack() {
+        if (this.state.stack.length <= 1) {
+          return;
+        }
+
+        var newStack = _toConsumableArray(this.state.stack);
+
+        newStack.pop();
+        this.setState({
+          animating: true,
+          direction: 'backward',
+          animation: setTimeout(function () {
+            this.setState({
+              stack: newStack,
+              animating: false
+            });
+          }.bind(this), this.state.animationSpeed)
+        });
+      }
+    }, {
+      key: "classForState",
+      value: function classForState(index) {
+        if (this.state.animating) {
+          return;
+        }
+
+        if (this.state.stack.length === 1) {
+          return 'active';
+        } else {
+          if (this.state.stack.length === index + 1) {
+            return 'active';
+          } else {
+            return 'inactive';
+          }
+        }
+      }
+    }, {
+      key: "classForPosition",
+      value: function classForPosition(index) {
+        if (this.state.stack.length > 1) {
+          if (this.state.stack.length === index + 1) {
+            if (this.state.direction === 'forward') {
+              return 'next';
+            } else {
+              return 'previous';
+            }
+          } else if (this.state.stack.length - 1 === index + 1) {
+            if (this.state.direction === 'forward') {
+              return 'previous';
+            } else {
+              return 'next';
+            }
+          } else {
+            return 'stale';
+          }
+        }
+      }
+    }, {
+      key: "classForAnimation",
+      value: function classForAnimation() {
+        if (this.state.animating) {
+          return 'animating';
+        }
+      }
+    }, {
+      key: "classForDirection",
+      value: function classForDirection() {
+        return this.state.direction;
+      }
+    }, {
+      key: "renderStack",
+      value: function renderStack() {
+        return this.state.stack.map(function (route, index) {
+          var stackState = [this.classForState(index), this.classForPosition(index), this.classForAnimation(), this.classForDirection()];
+          return React__default$1['default'].createElement('div', {
+            key: index,
+            className: ['ReactDialogStack'].concat(stackState).join(' '),
+            __self: this,
+            __source: {
+              fileName: _jsxFileName$1,
+              lineNumber: 127
+            }
+          }, React__default$1['default'].createElement('div', {
+            className: "ReactDialogStackRow",
+            __self: this,
+            __source: {
+              fileName: _jsxFileName$1,
+              lineNumber: 128
+            }
+          }, React__default$1['default'].createElement('div', {
+            className: "ReactDialogStackCell",
+            onClick: this.onClick.bind(this),
+            __self: this,
+            __source: {
+              fileName: _jsxFileName$1,
+              lineNumber: 129
+            }
+          }, React__default$1['default'].createElement(NavigateStackContext.Provider, {
+            value: {
+              navigate: this.navigate.bind(this),
+              set: this.set.bind(this)
+            },
+            __self: this,
+            __source: {
+              fileName: _jsxFileName$1,
+              lineNumber: 130
+            }
+          }, React__default$1['default'].createElement(CloseStackContext.Provider, {
+            value: this.close.bind(this),
+            __self: this,
+            __source: {
+              fileName: _jsxFileName$1,
+              lineNumber: 133
+            }
+          }, React__default$1['default'].createElement(StackContext.Provider, {
+            value: this.state.stack,
+            __self: this,
+            __source: {
+              fileName: _jsxFileName$1,
+              lineNumber: 134
+            }
+          }, React__default$1['default'].createElement('div', {
+            className: "ReactDialogAnimation",
+            __self: this,
+            __source: {
+              fileName: _jsxFileName$1,
+              lineNumber: 135
+            }
+          }, this.props.dialogs[route])))))));
+        }.bind(this));
+      }
+    }, {
+      key: "onClick",
+      value: function onClick(event) {
+        if (event.target && event.target.className && event.target.className.match && event.target.className.match('ReactDialogStackCell') // clicked background
+        ) {
+          if (this.state.stack.length > 1) {
+            this.unstack();
+          } else {
+            this.close();
+          }
+        }
+      }
+    }, {
+      key: "close",
+      value: function close() {
+        if (this.state.stack.length > 1) {
+          this.unstack();
+        } else {
+          this.setState({
+            stack: this.state.stack.slice(0, 1)
+          });
+          this.props.close();
+        }
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        return React__default$1['default'].createElement(cjs$a.ReactDialog, {
+          close: this.close.bind(this),
+          open: this.props.open,
+          document: this.props.document,
+          container: this.props.container,
+          background: this.props.background,
+          __self: this,
+          __source: {
+            fileName: _jsxFileName$1,
+            lineNumber: 173
+          }
+        }, React__default$1['default'].createElement('style', {
+          __self: this,
+          __source: {
+            fileName: _jsxFileName$1,
+            lineNumber: 180
+          }
+        }, ReactDialogStackStyle()), this.renderStack());
+      }
+    }]);
+
+    return ReactDialogStack;
+  }(React__default$1['default'].Component);
+  var NavigateStackContext_1 = NavigateStackContext;
+  var ReactDialogStack_1 = ReactDialogStack;
+
+  var Dialog = (function (props) {
+    var _useContext = react.useContext(NavigateStackContext_1),
+        navigate = _useContext.navigate;
+
+    var _useContext2 = react.useContext(ClosableContext),
+        close = _useContext2.close,
+        closable = _useContext2.closable;
+
+    return /*#__PURE__*/react.createElement("div", {
+      className: "Dialog"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: ["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')
+    }, props.stacked && /*#__PURE__*/react.createElement("div", {
+      className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/react.createElement("button", {
+      onClick: function onClick() {
+        return navigate('back');
+      },
+      className: "ButtonCircular",
+      title: "Go back"
+    }, /*#__PURE__*/react.createElement(ChevronLeft, null))), /*#__PURE__*/react.createElement("div", {
+      className: "DialogHeaderTitle"
+    }, props.header), /*#__PURE__*/react.createElement("div", {
+      className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
+    }, closable && /*#__PURE__*/react.createElement("button", {
+      onClick: close,
+      className: "ButtonCircular",
+      title: "Close dialog"
+    }, /*#__PURE__*/react.createElement(CloseIcon, null)))), /*#__PURE__*/react.createElement("div", {
+      className: "DialogBody"
+    }, props.body), /*#__PURE__*/react.createElement("div", {
+      className: "DialogFooter"
+    }, props.footer, /*#__PURE__*/react.createElement("a", {
+      href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
+      rel: "noopener noreferrer",
+      target: "_blank",
+      className: "FooterLink"
+    }, "by DePay")));
+  });
+
+  var QuestionsGraphic = "data:image/png;base64,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";
+
+  var NoPaymentMethodFoundDialog = (function () {
+    return /*#__PURE__*/react.createElement(Dialog, {
+      header: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }),
+      body: /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/react.createElement("img", {
+        className: "Graphic",
+        src: QuestionsGraphic
+      })), /*#__PURE__*/react.createElement("h1", {
+        className: "Text FontSizeL PaddingTopS FontWeightBold"
+      }, "Insufficient Balance"), /*#__PURE__*/react.createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/react.createElement("strong", {
+        className: "FontSizeM"
+      }, "We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.")))
+    });
+  });
+
   var PaymentContext = /*#__PURE__*/react.createContext();
 
   var PaymentRoutingContext = /*#__PURE__*/react.createContext();
+
+  var UpdateContext = /*#__PURE__*/react.createContext();
+
+  var WalletContext = /*#__PURE__*/react.createContext();
 
   var PaymentProvider = (function (props) {
     var _useContext = react.useContext(ErrorContext),
         setError = _useContext.setError;
 
-    var _useContext2 = react.useContext(PaymentRoutingContext),
-        selectedRoute = _useContext2.selectedRoute;
+    var _useContext2 = react.useContext(ConfigurationContext),
+        _sent = _useContext2.sent,
+        _confirmed = _useContext2.confirmed,
+        _ensured = _useContext2.ensured,
+        _failed = _useContext2.failed;
+
+    var _useContext3 = react.useContext(PaymentRoutingContext),
+        selectedRoute = _useContext3.selectedRoute;
+
+    var _useContext4 = react.useContext(ClosableContext),
+        open = _useContext4.open,
+        close = _useContext4.close,
+        setClosable = _useContext4.setClosable;
+
+    var _useContext5 = react.useContext(PaymentRoutingContext),
+        allRoutes = _useContext5.allRoutes;
+
+    var _useContext6 = react.useContext(UpdateContext);
+        _useContext6.update;
+        var setUpdate = _useContext6.setUpdate;
+
+    var _useContext7 = react.useContext(WalletContext),
+        wallet = _useContext7.wallet;
 
     var _useState = react.useState(),
         _useState2 = _slicedToArray(_useState, 2),
@@ -39993,15 +40375,92 @@
         transaction = _useState4[0],
         setTransaction = _useState4[1];
 
+    var _useState5 = react.useState(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        approvalTransaction = _useState6[0],
+        setApprovalTransaction = _useState6[1];
+
+    var _useState7 = react.useState('initialized'),
+        _useState8 = _slicedToArray(_useState7, 2),
+        paymentState = _useState8[0],
+        setPaymentState = _useState8[1];
+
+    var pay = function pay(_ref) {
+      var navigate = _ref.navigate;
+      setClosable(false);
+      setPaymentState('paying');
+      setUpdate(false);
+      wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
+        sent: function sent(transaction) {
+          if (_sent) {
+            _sent(transaction);
+          }
+        },
+        confirmed: function confirmed(transaction) {
+          setClosable(true);
+          setPaymentState('confirmed');
+
+          if (_confirmed) {
+            _confirmed(transaction);
+          }
+        },
+        ensured: function ensured(transaction) {
+          if (_ensured) {
+            _ensured(transaction);
+          }
+        },
+        failed: function failed(transaction, error) {
+          if (_failed) {
+            _failed(transaction, error);
+          }
+
+          setPaymentState('initialized');
+          setClosable(true);
+          setUpdate(true);
+          navigate('PaymentError');
+        }
+      })).then(function (sentTransaction) {
+        setTransaction(sentTransaction);
+      })["catch"](function (error) {
+        console.log('error', error);
+        setPaymentState('initialized');
+        setClosable(true);
+        setUpdate(true);
+
+        if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK') {
+          navigate('WrongNetwork');
+        }
+      });
+    };
+
+    var approve = function approve() {
+      setClosable(false);
+      setPaymentState('approving');
+      wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
+        confirmed: function confirmed() {
+          payment.route.approvalRequired = false;
+          setPayment(payment);
+          setClosable(true);
+          setPaymentState('initialized');
+        }
+      })).then(function (sentTransaction) {
+        setApprovalTransaction(sentTransaction);
+      })["catch"](function (error) {
+        console.log('error', error);
+        setPaymentState('initialized');
+        setClosable(true);
+      });
+    };
+
     react.useEffect(function () {
       if (selectedRoute) {
         var fromToken = selectedRoute.fromToken;
         selectedRoute.transaction.params;
-        Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref) {
-          var _ref2 = _slicedToArray(_ref, 3),
-              name = _ref2[0],
-              symbol = _ref2[1],
-              amount = _ref2[2];
+        Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref2) {
+          var _ref3 = _slicedToArray(_ref2, 3),
+              name = _ref3[0],
+              symbol = _ref3[1],
+              amount = _ref3[2];
 
           setPayment({
             route: selectedRoute,
@@ -40015,14 +40474,30 @@
         setPayment(undefined);
       }
     }, [selectedRoute]);
-    return /*#__PURE__*/react.createElement(PaymentContext.Provider, {
-      value: {
-        setPayment: setPayment,
-        payment: payment,
-        setTransaction: setTransaction,
-        transaction: transaction
-      }
-    }, props.children);
+
+    if (allRoutes instanceof Array && allRoutes.length == 0) {
+      return /*#__PURE__*/react.createElement(ReactDialogStack_1, {
+        open: open,
+        close: close,
+        start: "NoPaymentMethodFound",
+        container: props.container,
+        document: props.document,
+        dialogs: {
+          NoPaymentMethodFound: /*#__PURE__*/react.createElement(NoPaymentMethodFoundDialog, null)
+        }
+      });
+    } else {
+      return /*#__PURE__*/react.createElement(PaymentContext.Provider, {
+        value: {
+          payment: payment,
+          paymentState: paymentState,
+          pay: pay,
+          transaction: transaction,
+          approve: approve,
+          approvalTransaction: approvalTransaction
+        }
+      }, props.children);
+    }
   });
 
   function _defineProperty$1(obj, key, value) {
@@ -40084,10 +40559,6 @@
       return parseFloat(parseFloat(input).toFixed(2));
     }
   });
-
-  var UpdateContext = /*#__PURE__*/react.createContext();
-
-  var WalletContext = /*#__PURE__*/react.createContext();
 
   var CONSTANTS = {
     ZERO: '0x0000000000000000000000000000000000000000',
@@ -53747,13 +54218,13 @@
     _classCallCheck$1(this, IEvents);
   };
 
-  function _createSuper$7(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$7(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
+  function _createSuper$6(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$6(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
-  function _isNativeReflectConstruct$7() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+  function _isNativeReflectConstruct$6() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
   var IJsonRpcConnection = /*#__PURE__*/function (_IEvents) {
     _inherits$1(IJsonRpcConnection, _IEvents);
 
-    var _super = _createSuper$7(IJsonRpcConnection);
+    var _super = _createSuper$6(IJsonRpcConnection);
 
     function IJsonRpcConnection(opts) {
       _classCallCheck$1(this, IJsonRpcConnection);
@@ -53766,7 +54237,7 @@
   var IBaseJsonRpcProvider = /*#__PURE__*/function (_IEvents2) {
     _inherits$1(IBaseJsonRpcProvider, _IEvents2);
 
-    var _super2 = _createSuper$7(IBaseJsonRpcProvider);
+    var _super2 = _createSuper$6(IBaseJsonRpcProvider);
 
     function IBaseJsonRpcProvider() {
       _classCallCheck$1(this, IBaseJsonRpcProvider);
@@ -53779,7 +54250,7 @@
   var IJsonRpcProvider = /*#__PURE__*/function (_IBaseJsonRpcProvider) {
     _inherits$1(IJsonRpcProvider, _IBaseJsonRpcProvider);
 
-    var _super3 = _createSuper$7(IJsonRpcProvider);
+    var _super3 = _createSuper$6(IJsonRpcProvider);
 
     function IJsonRpcProvider(connection) {
       _classCallCheck$1(this, IJsonRpcProvider);
@@ -55737,9 +56208,9 @@
     }
   });
 
-  function _createSuper$6(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$6(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
+  function _createSuper$5(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$5(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
-  function _isNativeReflectConstruct$6() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+  function _isNativeReflectConstruct$5() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
   var Writable = Stream__default['default'].Writable;
   var BINARY_TYPES$1 = constants$2.BINARY_TYPES,
@@ -55766,7 +56237,7 @@
   var Receiver = /*#__PURE__*/function (_Writable) {
     _inherits$1(Receiver, _Writable);
 
-    var _super = _createSuper$6(Receiver);
+    var _super = _createSuper$5(Receiver);
 
     /**
      * Creates a Receiver instance.
@@ -56688,9 +57159,9 @@
 
   var sender = Sender;
 
-  function _createSuper$5(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$5(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
+  function _createSuper$4(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$4(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
-  function _isNativeReflectConstruct$5() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+  function _isNativeReflectConstruct$4() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
   var Event$1 =
   /**
@@ -56717,7 +57188,7 @@
   var MessageEvent = /*#__PURE__*/function (_Event) {
     _inherits$1(MessageEvent, _Event);
 
-    var _super = _createSuper$5(MessageEvent);
+    var _super = _createSuper$4(MessageEvent);
 
     /**
      * Create a new `MessageEvent`.
@@ -56749,7 +57220,7 @@
   var CloseEvent = /*#__PURE__*/function (_Event2) {
     _inherits$1(CloseEvent, _Event2);
 
-    var _super2 = _createSuper$5(CloseEvent);
+    var _super2 = _createSuper$4(CloseEvent);
 
     /**
      * Create a new `CloseEvent`.
@@ -56786,7 +57257,7 @@
   var OpenEvent = /*#__PURE__*/function (_Event3) {
     _inherits$1(OpenEvent, _Event3);
 
-    var _super3 = _createSuper$5(OpenEvent);
+    var _super3 = _createSuper$4(OpenEvent);
 
     /**
      * Create a new `OpenEvent`.
@@ -56813,7 +57284,7 @@
   var ErrorEvent = /*#__PURE__*/function (_Event4) {
     _inherits$1(ErrorEvent, _Event4);
 
-    var _super4 = _createSuper$5(ErrorEvent);
+    var _super4 = _createSuper$4(ErrorEvent);
 
     /**
      * Create a new `ErrorEvent`.
@@ -57153,9 +57624,9 @@
 
   function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-  function _createSuper$4(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$4(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
+  function _createSuper$3(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$3(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
-  function _isNativeReflectConstruct$4() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+  function _isNativeReflectConstruct$3() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
   var randomBytes = require$$0__default$4['default'].randomBytes,
       createHash$1 = require$$0__default$4['default'].createHash;
@@ -57183,7 +57654,7 @@
   var WebSocket = /*#__PURE__*/function (_EventEmitter) {
     _inherits$1(WebSocket, _EventEmitter);
 
-    var _super = _createSuper$4(WebSocket);
+    var _super = _createSuper$3(WebSocket);
 
     /**
      * Create a new `WebSocket`.
@@ -58406,9 +58877,9 @@
 
   function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-  function _createSuper$3(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$3(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
+  function _createSuper$2(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$2(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
-  function _isNativeReflectConstruct$3() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+  function _isNativeReflectConstruct$2() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
   var createHash = require$$0__default$4['default'].createHash;
   var format$1 = extension.format,
@@ -58428,7 +58899,7 @@
   var WebSocketServer = /*#__PURE__*/function (_EventEmitter) {
     _inherits$1(WebSocketServer, _EventEmitter);
 
-    var _super = _createSuper$3(WebSocketServer);
+    var _super = _createSuper$2(WebSocketServer);
 
     /**
      * Create a `WebSocketServer` instance.
@@ -61866,9 +62337,9 @@
     exports.decrypt = decrypt;
   });
 
-  function _createSuper$2(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$2(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
+  function _createSuper$1(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$1(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
 
-  function _isNativeReflectConstruct$2() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+  function _isNativeReflectConstruct$1() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
   var core_1 = tslib_1.__importDefault(cjs$1);
 
@@ -61877,7 +62348,7 @@
   var WalletConnect = /*#__PURE__*/function (_core_1$default) {
     _inherits$1(WalletConnect, _core_1$default);
 
-    var _super = _createSuper$2(WalletConnect);
+    var _super = _createSuper$1(WalletConnect);
 
     function WalletConnect(connectorOpts, pushServerOpts) {
       _classCallCheck$1(this, WalletConnect);
@@ -61894,7 +62365,7 @@
 
   var _default$2 = WalletConnect;
 
-  function _createSuper$1(Derived){var hasNativeReflectConstruct=_isNativeReflectConstruct$1();return function _createSuperInternal(){var Super=_getPrototypeOf(Derived),result;if(hasNativeReflectConstruct){var NewTarget=_getPrototypeOf(this).constructor;result=Reflect.construct(Super,arguments,NewTarget);}else {result=Super.apply(this,arguments);}return _possibleConstructorReturn$1(this,result);};}function _isNativeReflectConstruct$1(){if(typeof Reflect==="undefined"||!Reflect.construct)return false;if(Reflect.construct.sham)return false;if(typeof Proxy==="function")return true;try{Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],function(){}));return true;}catch(e){return false;}}var commonjsGlobal$1=typeof globalThis!=='undefined'?globalThis:typeof window!=='undefined'?window:typeof global!=='undefined'?global:typeof self!=='undefined'?self:{};function createCommonjsModule$1(fn){var module={exports:{}};return fn(module,module.exports),module.exports;}var bn$1=createCommonjsModule$1(function(module){(function(module,exports){// Utils
+  function _createSuper(Derived){var hasNativeReflectConstruct=_isNativeReflectConstruct();return function _createSuperInternal(){var Super=_getPrototypeOf(Derived),result;if(hasNativeReflectConstruct){var NewTarget=_getPrototypeOf(this).constructor;result=Reflect.construct(Super,arguments,NewTarget);}else {result=Super.apply(this,arguments);}return _possibleConstructorReturn$1(this,result);};}function _isNativeReflectConstruct(){if(typeof Reflect==="undefined"||!Reflect.construct)return false;if(Reflect.construct.sham)return false;if(typeof Proxy==="function")return true;try{Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],function(){}));return true;}catch(e){return false;}}var commonjsGlobal$1=typeof globalThis!=='undefined'?globalThis:typeof window!=='undefined'?window:typeof global!=='undefined'?global:typeof self!=='undefined'?self:{};function createCommonjsModule$1(fn){var module={exports:{}};return fn(module,module.exports),module.exports;}var bn$1=createCommonjsModule$1(function(module){(function(module,exports){// Utils
   function assert(val,msg){if(!val)throw new Error(msg||'Assertion failed');}// Could use `inherits` module, but don't want to move from single file
   // architecture yet.
   function inherits(ctor,superCtor){ctor.super_=superCtor;var TempCtor=function TempCtor(){};TempCtor.prototype=superCtor.prototype;ctor.prototype=new TempCtor();ctor.prototype.constructor=ctor;}// BN
@@ -62225,13 +62696,13 @@
   _createClass$1(ParamType,[{key:"format",value:function format(_format){if(!_format){_format=FormatTypes.sighash;}if(!FormatTypes[_format]){logger$m.throwArgumentError("invalid format type","format",_format);}if(_format===FormatTypes.json){var _result2={type:this.baseType==="tuple"?"tuple":this.type,name:this.name||undefined};if(typeof this.indexed==="boolean"){_result2.indexed=this.indexed;}if(this.components){_result2.components=this.components.map(function(comp){return JSON.parse(comp.format(_format));});}return JSON.stringify(_result2);}var result="";// Array
   if(this.baseType==="array"){result+=this.arrayChildren.format(_format);result+="["+(this.arrayLength<0?"":String(this.arrayLength))+"]";}else {if(this.baseType==="tuple"){if(_format!==FormatTypes.sighash){result+=this.type;}result+="("+this.components.map(function(comp){return comp.format(_format);}).join(_format===FormatTypes.full?", ":",")+")";}else {result+=this.type;}}if(_format!==FormatTypes.sighash){if(this.indexed===true){result+=" indexed";}if(_format===FormatTypes.full&&this.name){result+=" "+this.name;}}return result;}}],[{key:"from",value:function from(value,allowIndexed){if(typeof value==="string"){return ParamType.fromString(value,allowIndexed);}return ParamType.fromObject(value);}},{key:"fromObject",value:function fromObject(value){if(ParamType.isParamType(value)){return value;}return new ParamType(_constructorGuard$2,{name:value.name||null,type:verifyType(value.type),indexed:value.indexed==null?null:!!value.indexed,components:value.components?value.components.map(ParamType.fromObject):null});}},{key:"fromString",value:function fromString(value,allowIndexed){function ParamTypify(node){return ParamType.fromObject({name:node.name,type:node.type,indexed:node.indexed,components:node.components});}return ParamTypify(parseParamType(value,!!allowIndexed));}},{key:"isParamType",value:function isParamType(value){return !!(value!=null&&value._isParamType);}}]);return ParamType;}();function parseParams(value,allowIndex){return splitNesting(value).map(function(param){return ParamType.fromString(param,allowIndex);});}var Fragment$1=/*#__PURE__*/function(){function Fragment(constructorGuard,params){_classCallCheck$1(this,Fragment);if(constructorGuard!==_constructorGuard$2){logger$m.throwError("use a static from method",Logger$1.errors.UNSUPPORTED_OPERATION,{operation:"new Fragment()"});}populate(this,params);this._isFragment=true;Object.freeze(this);}_createClass$1(Fragment,null,[{key:"from",value:function from(value){if(Fragment.isFragment(value)){return value;}if(typeof value==="string"){return Fragment.fromString(value);}return Fragment.fromObject(value);}},{key:"fromObject",value:function fromObject(value){if(Fragment.isFragment(value)){return value;}switch(value.type){case"function":return FunctionFragment.fromObject(value);case"event":return EventFragment.fromObject(value);case"constructor":return ConstructorFragment.fromObject(value);case"error":return ErrorFragment.fromObject(value);case"fallback":case"receive":// @TODO: Something? Maybe return a FunctionFragment? A custom DefaultFunctionFragment?
   return null;}return logger$m.throwArgumentError("invalid fragment object","value",value);}},{key:"fromString",value:function fromString(value){// Make sure the "returns" is surrounded by a space and all whitespace is exactly one space
-  value=value.replace(/\s/g," ");value=value.replace(/\(/g," (").replace(/\)/g,") ").replace(/\s+/g," ");value=value.trim();if(value.split(" ")[0]==="event"){return EventFragment.fromString(value.substring(5).trim());}else if(value.split(" ")[0]==="function"){return FunctionFragment.fromString(value.substring(8).trim());}else if(value.split("(")[0].trim()==="constructor"){return ConstructorFragment.fromString(value.trim());}else if(value.split(" ")[0]==="error"){return ErrorFragment.fromString(value.substring(5).trim());}return logger$m.throwArgumentError("unsupported fragment","value",value);}},{key:"isFragment",value:function isFragment(value){return !!(value&&value._isFragment);}}]);return Fragment;}();var EventFragment=/*#__PURE__*/function(_Fragment){_inherits$1(EventFragment,_Fragment);var _super=_createSuper$1(EventFragment);function EventFragment(){_classCallCheck$1(this,EventFragment);return _super.apply(this,arguments);}_createClass$1(EventFragment,[{key:"format",value:function format(_format2){if(!_format2){_format2=FormatTypes.sighash;}if(!FormatTypes[_format2]){logger$m.throwArgumentError("invalid format type","format",_format2);}if(_format2===FormatTypes.json){return JSON.stringify({type:"event",anonymous:this.anonymous,name:this.name,inputs:this.inputs.map(function(input){return JSON.parse(input.format(_format2));})});}var result="";if(_format2!==FormatTypes.sighash){result+="event ";}result+=this.name+"("+this.inputs.map(function(input){return input.format(_format2);}).join(_format2===FormatTypes.full?", ":",")+") ";if(_format2!==FormatTypes.sighash){if(this.anonymous){result+="anonymous ";}}return result.trim();}}],[{key:"from",value:function from(value){if(typeof value==="string"){return EventFragment.fromString(value);}return EventFragment.fromObject(value);}},{key:"fromObject",value:function fromObject(value){if(EventFragment.isEventFragment(value)){return value;}if(value.type!=="event"){logger$m.throwArgumentError("invalid event object","value",value);}var params={name:verifyIdentifier(value.name),anonymous:value.anonymous,inputs:value.inputs?value.inputs.map(ParamType.fromObject):[],type:"event"};return new EventFragment(_constructorGuard$2,params);}},{key:"fromString",value:function fromString(value){var match=value.match(regexParen);if(!match){logger$m.throwArgumentError("invalid event string","value",value);}var anonymous=false;match[3].split(" ").forEach(function(modifier){switch(modifier.trim()){case"anonymous":anonymous=true;break;case"":break;default:logger$m.warn("unknown modifier: "+modifier);}});return EventFragment.fromObject({name:match[1].trim(),anonymous:anonymous,inputs:parseParams(match[2],true),type:"event"});}},{key:"isEventFragment",value:function isEventFragment(value){return value&&value._isFragment&&value.type==="event";}}]);return EventFragment;}(Fragment$1);function parseGas(value,params){params.gas=null;var comps=value.split("@");if(comps.length!==1){if(comps.length>2){logger$m.throwArgumentError("invalid human-readable ABI signature","value",value);}if(!comps[1].match(/^[0-9]+$/)){logger$m.throwArgumentError("invalid human-readable ABI signature gas","value",value);}params.gas=BigNumber$1.from(comps[1]);return comps[0];}return value;}function parseModifiers(value,params){params.constant=false;params.payable=false;params.stateMutability="nonpayable";value.split(" ").forEach(function(modifier){switch(modifier.trim()){case"constant":params.constant=true;break;case"payable":params.payable=true;params.stateMutability="payable";break;case"nonpayable":params.payable=false;params.stateMutability="nonpayable";break;case"pure":params.constant=true;params.stateMutability="pure";break;case"view":params.constant=true;params.stateMutability="view";break;case"external":case"public":case"":break;default:console.log("unknown modifier: "+modifier);}});}function verifyState(value){var result={constant:false,payable:true,stateMutability:"payable"};if(value.stateMutability!=null){result.stateMutability=value.stateMutability;// Set (and check things are consistent) the constant property
+  value=value.replace(/\s/g," ");value=value.replace(/\(/g," (").replace(/\)/g,") ").replace(/\s+/g," ");value=value.trim();if(value.split(" ")[0]==="event"){return EventFragment.fromString(value.substring(5).trim());}else if(value.split(" ")[0]==="function"){return FunctionFragment.fromString(value.substring(8).trim());}else if(value.split("(")[0].trim()==="constructor"){return ConstructorFragment.fromString(value.trim());}else if(value.split(" ")[0]==="error"){return ErrorFragment.fromString(value.substring(5).trim());}return logger$m.throwArgumentError("unsupported fragment","value",value);}},{key:"isFragment",value:function isFragment(value){return !!(value&&value._isFragment);}}]);return Fragment;}();var EventFragment=/*#__PURE__*/function(_Fragment){_inherits$1(EventFragment,_Fragment);var _super=_createSuper(EventFragment);function EventFragment(){_classCallCheck$1(this,EventFragment);return _super.apply(this,arguments);}_createClass$1(EventFragment,[{key:"format",value:function format(_format2){if(!_format2){_format2=FormatTypes.sighash;}if(!FormatTypes[_format2]){logger$m.throwArgumentError("invalid format type","format",_format2);}if(_format2===FormatTypes.json){return JSON.stringify({type:"event",anonymous:this.anonymous,name:this.name,inputs:this.inputs.map(function(input){return JSON.parse(input.format(_format2));})});}var result="";if(_format2!==FormatTypes.sighash){result+="event ";}result+=this.name+"("+this.inputs.map(function(input){return input.format(_format2);}).join(_format2===FormatTypes.full?", ":",")+") ";if(_format2!==FormatTypes.sighash){if(this.anonymous){result+="anonymous ";}}return result.trim();}}],[{key:"from",value:function from(value){if(typeof value==="string"){return EventFragment.fromString(value);}return EventFragment.fromObject(value);}},{key:"fromObject",value:function fromObject(value){if(EventFragment.isEventFragment(value)){return value;}if(value.type!=="event"){logger$m.throwArgumentError("invalid event object","value",value);}var params={name:verifyIdentifier(value.name),anonymous:value.anonymous,inputs:value.inputs?value.inputs.map(ParamType.fromObject):[],type:"event"};return new EventFragment(_constructorGuard$2,params);}},{key:"fromString",value:function fromString(value){var match=value.match(regexParen);if(!match){logger$m.throwArgumentError("invalid event string","value",value);}var anonymous=false;match[3].split(" ").forEach(function(modifier){switch(modifier.trim()){case"anonymous":anonymous=true;break;case"":break;default:logger$m.warn("unknown modifier: "+modifier);}});return EventFragment.fromObject({name:match[1].trim(),anonymous:anonymous,inputs:parseParams(match[2],true),type:"event"});}},{key:"isEventFragment",value:function isEventFragment(value){return value&&value._isFragment&&value.type==="event";}}]);return EventFragment;}(Fragment$1);function parseGas(value,params){params.gas=null;var comps=value.split("@");if(comps.length!==1){if(comps.length>2){logger$m.throwArgumentError("invalid human-readable ABI signature","value",value);}if(!comps[1].match(/^[0-9]+$/)){logger$m.throwArgumentError("invalid human-readable ABI signature gas","value",value);}params.gas=BigNumber$1.from(comps[1]);return comps[0];}return value;}function parseModifiers(value,params){params.constant=false;params.payable=false;params.stateMutability="nonpayable";value.split(" ").forEach(function(modifier){switch(modifier.trim()){case"constant":params.constant=true;break;case"payable":params.payable=true;params.stateMutability="payable";break;case"nonpayable":params.payable=false;params.stateMutability="nonpayable";break;case"pure":params.constant=true;params.stateMutability="pure";break;case"view":params.constant=true;params.stateMutability="view";break;case"external":case"public":case"":break;default:console.log("unknown modifier: "+modifier);}});}function verifyState(value){var result={constant:false,payable:true,stateMutability:"payable"};if(value.stateMutability!=null){result.stateMutability=value.stateMutability;// Set (and check things are consistent) the constant property
   result.constant=result.stateMutability==="view"||result.stateMutability==="pure";if(value.constant!=null){if(!!value.constant!==result.constant){logger$m.throwArgumentError("cannot have constant function with mutability "+result.stateMutability,"value",value);}}// Set (and check things are consistent) the payable property
   result.payable=result.stateMutability==="payable";if(value.payable!=null){if(!!value.payable!==result.payable){logger$m.throwArgumentError("cannot have payable function with mutability "+result.stateMutability,"value",value);}}}else if(value.payable!=null){result.payable=!!value.payable;// If payable we can assume non-constant; otherwise we can't assume
-  if(value.constant==null&&!result.payable&&value.type!=="constructor"){logger$m.throwArgumentError("unable to determine stateMutability","value",value);}result.constant=!!value.constant;if(result.constant){result.stateMutability="view";}else {result.stateMutability=result.payable?"payable":"nonpayable";}if(result.payable&&result.constant){logger$m.throwArgumentError("cannot have constant payable function","value",value);}}else if(value.constant!=null){result.constant=!!value.constant;result.payable=!result.constant;result.stateMutability=result.constant?"view":"payable";}else if(value.type!=="constructor"){logger$m.throwArgumentError("unable to determine stateMutability","value",value);}return result;}var ConstructorFragment=/*#__PURE__*/function(_Fragment2){_inherits$1(ConstructorFragment,_Fragment2);var _super2=_createSuper$1(ConstructorFragment);function ConstructorFragment(){_classCallCheck$1(this,ConstructorFragment);return _super2.apply(this,arguments);}_createClass$1(ConstructorFragment,[{key:"format",value:function format(_format3){if(!_format3){_format3=FormatTypes.sighash;}if(!FormatTypes[_format3]){logger$m.throwArgumentError("invalid format type","format",_format3);}if(_format3===FormatTypes.json){return JSON.stringify({type:"constructor",stateMutability:this.stateMutability!=="nonpayable"?this.stateMutability:undefined,payable:this.payable,gas:this.gas?this.gas.toNumber():undefined,inputs:this.inputs.map(function(input){return JSON.parse(input.format(_format3));})});}if(_format3===FormatTypes.sighash){logger$m.throwError("cannot format a constructor for sighash",Logger$1.errors.UNSUPPORTED_OPERATION,{operation:"format(sighash)"});}var result="constructor("+this.inputs.map(function(input){return input.format(_format3);}).join(_format3===FormatTypes.full?", ":",")+") ";if(this.stateMutability&&this.stateMutability!=="nonpayable"){result+=this.stateMutability+" ";}return result.trim();}}],[{key:"from",value:function from(value){if(typeof value==="string"){return ConstructorFragment.fromString(value);}return ConstructorFragment.fromObject(value);}},{key:"fromObject",value:function fromObject(value){if(ConstructorFragment.isConstructorFragment(value)){return value;}if(value.type!=="constructor"){logger$m.throwArgumentError("invalid constructor object","value",value);}var state=verifyState(value);if(state.constant){logger$m.throwArgumentError("constructor cannot be constant","value",value);}var params={name:null,type:value.type,inputs:value.inputs?value.inputs.map(ParamType.fromObject):[],payable:state.payable,stateMutability:state.stateMutability,gas:value.gas?BigNumber$1.from(value.gas):null};return new ConstructorFragment(_constructorGuard$2,params);}},{key:"fromString",value:function fromString(value){var params={type:"constructor"};value=parseGas(value,params);var parens=value.match(regexParen);if(!parens||parens[1].trim()!=="constructor"){logger$m.throwArgumentError("invalid constructor string","value",value);}params.inputs=parseParams(parens[2].trim(),false);parseModifiers(parens[3].trim(),params);return ConstructorFragment.fromObject(params);}},{key:"isConstructorFragment",value:function isConstructorFragment(value){return value&&value._isFragment&&value.type==="constructor";}}]);return ConstructorFragment;}(Fragment$1);var FunctionFragment=/*#__PURE__*/function(_ConstructorFragment){_inherits$1(FunctionFragment,_ConstructorFragment);var _super3=_createSuper$1(FunctionFragment);function FunctionFragment(){_classCallCheck$1(this,FunctionFragment);return _super3.apply(this,arguments);}_createClass$1(FunctionFragment,[{key:"format",value:function format(_format4){if(!_format4){_format4=FormatTypes.sighash;}if(!FormatTypes[_format4]){logger$m.throwArgumentError("invalid format type","format",_format4);}if(_format4===FormatTypes.json){return JSON.stringify({type:"function",name:this.name,constant:this.constant,stateMutability:this.stateMutability!=="nonpayable"?this.stateMutability:undefined,payable:this.payable,gas:this.gas?this.gas.toNumber():undefined,inputs:this.inputs.map(function(input){return JSON.parse(input.format(_format4));}),outputs:this.outputs.map(function(output){return JSON.parse(output.format(_format4));})});}var result="";if(_format4!==FormatTypes.sighash){result+="function ";}result+=this.name+"("+this.inputs.map(function(input){return input.format(_format4);}).join(_format4===FormatTypes.full?", ":",")+") ";if(_format4!==FormatTypes.sighash){if(this.stateMutability){if(this.stateMutability!=="nonpayable"){result+=this.stateMutability+" ";}}else if(this.constant){result+="view ";}if(this.outputs&&this.outputs.length){result+="returns ("+this.outputs.map(function(output){return output.format(_format4);}).join(", ")+") ";}if(this.gas!=null){result+="@"+this.gas.toString()+" ";}}return result.trim();}}],[{key:"from",value:function from(value){if(typeof value==="string"){return FunctionFragment.fromString(value);}return FunctionFragment.fromObject(value);}},{key:"fromObject",value:function fromObject(value){if(FunctionFragment.isFunctionFragment(value)){return value;}if(value.type!=="function"){logger$m.throwArgumentError("invalid function object","value",value);}var state=verifyState(value);var params={type:value.type,name:verifyIdentifier(value.name),constant:state.constant,inputs:value.inputs?value.inputs.map(ParamType.fromObject):[],outputs:value.outputs?value.outputs.map(ParamType.fromObject):[],payable:state.payable,stateMutability:state.stateMutability,gas:value.gas?BigNumber$1.from(value.gas):null};return new FunctionFragment(_constructorGuard$2,params);}},{key:"fromString",value:function fromString(value){var params={type:"function"};value=parseGas(value,params);var comps=value.split(" returns ");if(comps.length>2){logger$m.throwArgumentError("invalid function string","value",value);}var parens=comps[0].match(regexParen);if(!parens){logger$m.throwArgumentError("invalid function signature","value",value);}params.name=parens[1].trim();if(params.name){verifyIdentifier(params.name);}params.inputs=parseParams(parens[2],false);parseModifiers(parens[3].trim(),params);// We have outputs
+  if(value.constant==null&&!result.payable&&value.type!=="constructor"){logger$m.throwArgumentError("unable to determine stateMutability","value",value);}result.constant=!!value.constant;if(result.constant){result.stateMutability="view";}else {result.stateMutability=result.payable?"payable":"nonpayable";}if(result.payable&&result.constant){logger$m.throwArgumentError("cannot have constant payable function","value",value);}}else if(value.constant!=null){result.constant=!!value.constant;result.payable=!result.constant;result.stateMutability=result.constant?"view":"payable";}else if(value.type!=="constructor"){logger$m.throwArgumentError("unable to determine stateMutability","value",value);}return result;}var ConstructorFragment=/*#__PURE__*/function(_Fragment2){_inherits$1(ConstructorFragment,_Fragment2);var _super2=_createSuper(ConstructorFragment);function ConstructorFragment(){_classCallCheck$1(this,ConstructorFragment);return _super2.apply(this,arguments);}_createClass$1(ConstructorFragment,[{key:"format",value:function format(_format3){if(!_format3){_format3=FormatTypes.sighash;}if(!FormatTypes[_format3]){logger$m.throwArgumentError("invalid format type","format",_format3);}if(_format3===FormatTypes.json){return JSON.stringify({type:"constructor",stateMutability:this.stateMutability!=="nonpayable"?this.stateMutability:undefined,payable:this.payable,gas:this.gas?this.gas.toNumber():undefined,inputs:this.inputs.map(function(input){return JSON.parse(input.format(_format3));})});}if(_format3===FormatTypes.sighash){logger$m.throwError("cannot format a constructor for sighash",Logger$1.errors.UNSUPPORTED_OPERATION,{operation:"format(sighash)"});}var result="constructor("+this.inputs.map(function(input){return input.format(_format3);}).join(_format3===FormatTypes.full?", ":",")+") ";if(this.stateMutability&&this.stateMutability!=="nonpayable"){result+=this.stateMutability+" ";}return result.trim();}}],[{key:"from",value:function from(value){if(typeof value==="string"){return ConstructorFragment.fromString(value);}return ConstructorFragment.fromObject(value);}},{key:"fromObject",value:function fromObject(value){if(ConstructorFragment.isConstructorFragment(value)){return value;}if(value.type!=="constructor"){logger$m.throwArgumentError("invalid constructor object","value",value);}var state=verifyState(value);if(state.constant){logger$m.throwArgumentError("constructor cannot be constant","value",value);}var params={name:null,type:value.type,inputs:value.inputs?value.inputs.map(ParamType.fromObject):[],payable:state.payable,stateMutability:state.stateMutability,gas:value.gas?BigNumber$1.from(value.gas):null};return new ConstructorFragment(_constructorGuard$2,params);}},{key:"fromString",value:function fromString(value){var params={type:"constructor"};value=parseGas(value,params);var parens=value.match(regexParen);if(!parens||parens[1].trim()!=="constructor"){logger$m.throwArgumentError("invalid constructor string","value",value);}params.inputs=parseParams(parens[2].trim(),false);parseModifiers(parens[3].trim(),params);return ConstructorFragment.fromObject(params);}},{key:"isConstructorFragment",value:function isConstructorFragment(value){return value&&value._isFragment&&value.type==="constructor";}}]);return ConstructorFragment;}(Fragment$1);var FunctionFragment=/*#__PURE__*/function(_ConstructorFragment){_inherits$1(FunctionFragment,_ConstructorFragment);var _super3=_createSuper(FunctionFragment);function FunctionFragment(){_classCallCheck$1(this,FunctionFragment);return _super3.apply(this,arguments);}_createClass$1(FunctionFragment,[{key:"format",value:function format(_format4){if(!_format4){_format4=FormatTypes.sighash;}if(!FormatTypes[_format4]){logger$m.throwArgumentError("invalid format type","format",_format4);}if(_format4===FormatTypes.json){return JSON.stringify({type:"function",name:this.name,constant:this.constant,stateMutability:this.stateMutability!=="nonpayable"?this.stateMutability:undefined,payable:this.payable,gas:this.gas?this.gas.toNumber():undefined,inputs:this.inputs.map(function(input){return JSON.parse(input.format(_format4));}),outputs:this.outputs.map(function(output){return JSON.parse(output.format(_format4));})});}var result="";if(_format4!==FormatTypes.sighash){result+="function ";}result+=this.name+"("+this.inputs.map(function(input){return input.format(_format4);}).join(_format4===FormatTypes.full?", ":",")+") ";if(_format4!==FormatTypes.sighash){if(this.stateMutability){if(this.stateMutability!=="nonpayable"){result+=this.stateMutability+" ";}}else if(this.constant){result+="view ";}if(this.outputs&&this.outputs.length){result+="returns ("+this.outputs.map(function(output){return output.format(_format4);}).join(", ")+") ";}if(this.gas!=null){result+="@"+this.gas.toString()+" ";}}return result.trim();}}],[{key:"from",value:function from(value){if(typeof value==="string"){return FunctionFragment.fromString(value);}return FunctionFragment.fromObject(value);}},{key:"fromObject",value:function fromObject(value){if(FunctionFragment.isFunctionFragment(value)){return value;}if(value.type!=="function"){logger$m.throwArgumentError("invalid function object","value",value);}var state=verifyState(value);var params={type:value.type,name:verifyIdentifier(value.name),constant:state.constant,inputs:value.inputs?value.inputs.map(ParamType.fromObject):[],outputs:value.outputs?value.outputs.map(ParamType.fromObject):[],payable:state.payable,stateMutability:state.stateMutability,gas:value.gas?BigNumber$1.from(value.gas):null};return new FunctionFragment(_constructorGuard$2,params);}},{key:"fromString",value:function fromString(value){var params={type:"function"};value=parseGas(value,params);var comps=value.split(" returns ");if(comps.length>2){logger$m.throwArgumentError("invalid function string","value",value);}var parens=comps[0].match(regexParen);if(!parens){logger$m.throwArgumentError("invalid function signature","value",value);}params.name=parens[1].trim();if(params.name){verifyIdentifier(params.name);}params.inputs=parseParams(parens[2],false);parseModifiers(parens[3].trim(),params);// We have outputs
   if(comps.length>1){var returns=comps[1].match(regexParen);if(returns[1].trim()!=""||returns[3].trim()!=""){logger$m.throwArgumentError("unexpected tokens","value",value);}params.outputs=parseParams(returns[2],false);}else {params.outputs=[];}return FunctionFragment.fromObject(params);}},{key:"isFunctionFragment",value:function isFunctionFragment(value){return value&&value._isFragment&&value.type==="function";}}]);return FunctionFragment;}(ConstructorFragment);//export class StructFragment extends Fragment {
   //}
-  function checkForbidden(fragment){var sig=fragment.format();if(sig==="Error(string)"||sig==="Panic(uint256)"){logger$m.throwArgumentError("cannot specify user defined ".concat(sig," error"),"fragment",fragment);}return fragment;}var ErrorFragment=/*#__PURE__*/function(_Fragment3){_inherits$1(ErrorFragment,_Fragment3);var _super4=_createSuper$1(ErrorFragment);function ErrorFragment(){_classCallCheck$1(this,ErrorFragment);return _super4.apply(this,arguments);}_createClass$1(ErrorFragment,[{key:"format",value:function format(_format5){if(!_format5){_format5=FormatTypes.sighash;}if(!FormatTypes[_format5]){logger$m.throwArgumentError("invalid format type","format",_format5);}if(_format5===FormatTypes.json){return JSON.stringify({type:"error",name:this.name,inputs:this.inputs.map(function(input){return JSON.parse(input.format(_format5));})});}var result="";if(_format5!==FormatTypes.sighash){result+="error ";}result+=this.name+"("+this.inputs.map(function(input){return input.format(_format5);}).join(_format5===FormatTypes.full?", ":",")+") ";return result.trim();}}],[{key:"from",value:function from(value){if(typeof value==="string"){return ErrorFragment.fromString(value);}return ErrorFragment.fromObject(value);}},{key:"fromObject",value:function fromObject(value){if(ErrorFragment.isErrorFragment(value)){return value;}if(value.type!=="error"){logger$m.throwArgumentError("invalid error object","value",value);}var params={type:value.type,name:verifyIdentifier(value.name),inputs:value.inputs?value.inputs.map(ParamType.fromObject):[]};return checkForbidden(new ErrorFragment(_constructorGuard$2,params));}},{key:"fromString",value:function fromString(value){var params={type:"error"};var parens=value.match(regexParen);if(!parens){logger$m.throwArgumentError("invalid error signature","value",value);}params.name=parens[1].trim();if(params.name){verifyIdentifier(params.name);}params.inputs=parseParams(parens[2],false);return checkForbidden(ErrorFragment.fromObject(params));}},{key:"isErrorFragment",value:function isErrorFragment(value){return value&&value._isFragment&&value.type==="error";}}]);return ErrorFragment;}(Fragment$1);function verifyType(type){// These need to be transformed to their full description
+  function checkForbidden(fragment){var sig=fragment.format();if(sig==="Error(string)"||sig==="Panic(uint256)"){logger$m.throwArgumentError("cannot specify user defined ".concat(sig," error"),"fragment",fragment);}return fragment;}var ErrorFragment=/*#__PURE__*/function(_Fragment3){_inherits$1(ErrorFragment,_Fragment3);var _super4=_createSuper(ErrorFragment);function ErrorFragment(){_classCallCheck$1(this,ErrorFragment);return _super4.apply(this,arguments);}_createClass$1(ErrorFragment,[{key:"format",value:function format(_format5){if(!_format5){_format5=FormatTypes.sighash;}if(!FormatTypes[_format5]){logger$m.throwArgumentError("invalid format type","format",_format5);}if(_format5===FormatTypes.json){return JSON.stringify({type:"error",name:this.name,inputs:this.inputs.map(function(input){return JSON.parse(input.format(_format5));})});}var result="";if(_format5!==FormatTypes.sighash){result+="error ";}result+=this.name+"("+this.inputs.map(function(input){return input.format(_format5);}).join(_format5===FormatTypes.full?", ":",")+") ";return result.trim();}}],[{key:"from",value:function from(value){if(typeof value==="string"){return ErrorFragment.fromString(value);}return ErrorFragment.fromObject(value);}},{key:"fromObject",value:function fromObject(value){if(ErrorFragment.isErrorFragment(value)){return value;}if(value.type!=="error"){logger$m.throwArgumentError("invalid error object","value",value);}var params={type:value.type,name:verifyIdentifier(value.name),inputs:value.inputs?value.inputs.map(ParamType.fromObject):[]};return checkForbidden(new ErrorFragment(_constructorGuard$2,params));}},{key:"fromString",value:function fromString(value){var params={type:"error"};var parens=value.match(regexParen);if(!parens){logger$m.throwArgumentError("invalid error signature","value",value);}params.name=parens[1].trim();if(params.name){verifyIdentifier(params.name);}params.inputs=parseParams(parens[2],false);return checkForbidden(ErrorFragment.fromObject(params));}},{key:"isErrorFragment",value:function isErrorFragment(value){return value&&value._isFragment&&value.type==="error";}}]);return ErrorFragment;}(Fragment$1);function verifyType(type){// These need to be transformed to their full description
   if(type.match(/^uint($|[^1-9])/)){type="uint256"+type.substring(4);}else if(type.match(/^int($|[^1-9])/)){type="int256"+type.substring(3);}// @TODO: more verification
   return type;}// See: https://github.com/ethereum/solidity/blob/1f8f1a3db93a548d0555e3e14cfc55a10e25b60e/docs/grammar/SolidityLexer.g4#L234
   var regexIdentifier=new RegExp("^[a-zA-Z$_][a-zA-Z0-9$_]*$");function verifyIdentifier(value){if(!value||!value.match(regexIdentifier)){logger$m.throwArgumentError("invalid identifier \"".concat(value,"\""),"value",value);}return value;}var regexParen=new RegExp("^([^)(]*)\\((.*)\\)([^)(]*)$");function splitNesting(value){value=value.trim();var result=[];var accum="";var depth=0;for(var offset=0;offset<value.length;offset++){var c=value[offset];if(c===","&&depth===0){result.push(accum);accum="";}else {accum+=c;if(c==="("){depth++;}else if(c===")"){depth--;if(depth===-1){logger$m.throwArgumentError("unbalanced parenthesis","value",value);}}}}if(accum){result.push(accum);}return result;}var logger$l=new Logger$1(version$f);function checkResultErrors(result){// Find the first error (if any)
@@ -62259,8 +62730,8 @@
   if(address.match(/([A-F].*[a-f])|([a-f].*[A-F])/)&&result!==address){logger$j.throwArgumentError("bad address checksum","address",address);}// Maybe ICAP? (we only support direct mode)
   }else if(address.match(/^XE[0-9]{2}[0-9A-Za-z]{30,31}$/)){// It is an ICAP address with a bad checksum
   if(address.substring(2,4)!==ibanChecksum(address)){logger$j.throwArgumentError("bad icap checksum","address",address);}result=_base36To16(address.substring(4));while(result.length<40){result="0"+result;}result=getChecksumAddress("0x"+result);}else {logger$j.throwArgumentError("invalid address","address",address);}return result;}// http://ethereum.stackexchange.com/questions/760/how-is-the-address-of-an-ethereum-contract-computed
-  function _getContractAddress(transaction){var from=null;try{from=_getAddress(transaction.from);}catch(error){logger$j.throwArgumentError("missing from address","transaction",transaction);}var nonce=stripZeros(arrayify(BigNumber$1.from(transaction.nonce).toHexString()));return _getAddress(hexDataSlice(keccak256(encode$2([from,nonce])),12));}var AddressCoder=/*#__PURE__*/function(_Coder){_inherits$1(AddressCoder,_Coder);var _super5=_createSuper$1(AddressCoder);function AddressCoder(localName){_classCallCheck$1(this,AddressCoder);return _super5.call(this,"address","address",localName,false);}_createClass$1(AddressCoder,[{key:"defaultValue",value:function defaultValue(){return "0x0000000000000000000000000000000000000000";}},{key:"encode",value:function encode(writer,value){try{value=_getAddress(value);}catch(error){this._throwError(error.message,value);}return writer.writeValue(value);}},{key:"decode",value:function decode(reader){return _getAddress(hexZeroPad(reader.readValue().toHexString(),20));}}]);return AddressCoder;}(Coder);// Clones the functionality of an existing Coder, but without a localName
-  var AnonymousCoder=/*#__PURE__*/function(_Coder2){_inherits$1(AnonymousCoder,_Coder2);var _super6=_createSuper$1(AnonymousCoder);function AnonymousCoder(coder){var _this2;_classCallCheck$1(this,AnonymousCoder);_this2=_super6.call(this,coder.name,coder.type,undefined,coder.dynamic);_this2.coder=coder;return _this2;}_createClass$1(AnonymousCoder,[{key:"defaultValue",value:function defaultValue(){return this.coder.defaultValue();}},{key:"encode",value:function encode(writer,value){return this.coder.encode(writer,value);}},{key:"decode",value:function decode(reader){return this.coder.decode(reader);}}]);return AnonymousCoder;}(Coder);var logger$i=new Logger$1(version$f);function pack(writer,coders,values){var arrayValues=null;if(Array.isArray(values)){arrayValues=values;}else if(values&&_typeof(values)==="object"){var unique={};arrayValues=coders.map(function(coder){var name=coder.localName;if(!name){logger$i.throwError("cannot encode object for signature with missing names",Logger$1.errors.INVALID_ARGUMENT,{argument:"values",coder:coder,value:values});}if(unique[name]){logger$i.throwError("cannot encode object for signature with duplicate names",Logger$1.errors.INVALID_ARGUMENT,{argument:"values",coder:coder,value:values});}unique[name]=true;return values[name];});}else {logger$i.throwArgumentError("invalid tuple value","tuple",values);}if(coders.length!==arrayValues.length){logger$i.throwArgumentError("types/value length mismatch","tuple",values);}var staticWriter=new Writer(writer.wordSize);var dynamicWriter=new Writer(writer.wordSize);var updateFuncs=[];coders.forEach(function(coder,index){var value=arrayValues[index];if(coder.dynamic){// Get current dynamic offset (for the future pointer)
+  function _getContractAddress(transaction){var from=null;try{from=_getAddress(transaction.from);}catch(error){logger$j.throwArgumentError("missing from address","transaction",transaction);}var nonce=stripZeros(arrayify(BigNumber$1.from(transaction.nonce).toHexString()));return _getAddress(hexDataSlice(keccak256(encode$2([from,nonce])),12));}var AddressCoder=/*#__PURE__*/function(_Coder){_inherits$1(AddressCoder,_Coder);var _super5=_createSuper(AddressCoder);function AddressCoder(localName){_classCallCheck$1(this,AddressCoder);return _super5.call(this,"address","address",localName,false);}_createClass$1(AddressCoder,[{key:"defaultValue",value:function defaultValue(){return "0x0000000000000000000000000000000000000000";}},{key:"encode",value:function encode(writer,value){try{value=_getAddress(value);}catch(error){this._throwError(error.message,value);}return writer.writeValue(value);}},{key:"decode",value:function decode(reader){return _getAddress(hexZeroPad(reader.readValue().toHexString(),20));}}]);return AddressCoder;}(Coder);// Clones the functionality of an existing Coder, but without a localName
+  var AnonymousCoder=/*#__PURE__*/function(_Coder2){_inherits$1(AnonymousCoder,_Coder2);var _super6=_createSuper(AnonymousCoder);function AnonymousCoder(coder){var _this2;_classCallCheck$1(this,AnonymousCoder);_this2=_super6.call(this,coder.name,coder.type,undefined,coder.dynamic);_this2.coder=coder;return _this2;}_createClass$1(AnonymousCoder,[{key:"defaultValue",value:function defaultValue(){return this.coder.defaultValue();}},{key:"encode",value:function encode(writer,value){return this.coder.encode(writer,value);}},{key:"decode",value:function decode(reader){return this.coder.decode(reader);}}]);return AnonymousCoder;}(Coder);var logger$i=new Logger$1(version$f);function pack(writer,coders,values){var arrayValues=null;if(Array.isArray(values)){arrayValues=values;}else if(values&&_typeof(values)==="object"){var unique={};arrayValues=coders.map(function(coder){var name=coder.localName;if(!name){logger$i.throwError("cannot encode object for signature with missing names",Logger$1.errors.INVALID_ARGUMENT,{argument:"values",coder:coder,value:values});}if(unique[name]){logger$i.throwError("cannot encode object for signature with duplicate names",Logger$1.errors.INVALID_ARGUMENT,{argument:"values",coder:coder,value:values});}unique[name]=true;return values[name];});}else {logger$i.throwArgumentError("invalid tuple value","tuple",values);}if(coders.length!==arrayValues.length){logger$i.throwArgumentError("types/value length mismatch","tuple",values);}var staticWriter=new Writer(writer.wordSize);var dynamicWriter=new Writer(writer.wordSize);var updateFuncs=[];coders.forEach(function(coder,index){var value=arrayValues[index];if(coder.dynamic){// Get current dynamic offset (for the future pointer)
   var dynamicOffset=dynamicWriter.length;// Encode the dynamic value into the dynamicWriter
   coder.encode(dynamicWriter,value);// Prepare to populate the correct offset once we are done
   var updateFunc=staticWriter.writeUpdatableValue();updateFuncs.push(function(baseOffset){updateFunc(baseOffset+dynamicOffset);});}else {coder.encode(staticWriter,value);}});// Backfill all the dynamic offsets, now that we know the static length
@@ -62269,14 +62740,14 @@
   if(error.code===Logger$1.errors.BUFFER_OVERRUN){throw error;}value=error;value.baseType=coder.name;value.name=coder.localName;value.type=coder.type;}}else {try{value=coder.decode(reader);}catch(error){// Cannot recover from this
   if(error.code===Logger$1.errors.BUFFER_OVERRUN){throw error;}value=error;value.baseType=coder.name;value.name=coder.localName;value.type=coder.type;}}if(value!=undefined){values.push(value);}});// We only output named properties for uniquely named coders
   var uniqueNames=coders.reduce(function(accum,coder){var name=coder.localName;if(name){if(!accum[name]){accum[name]=0;}accum[name]++;}return accum;},{});// Add any named parameters (i.e. tuples)
-  coders.forEach(function(coder,index){var name=coder.localName;if(!name||uniqueNames[name]!==1){return;}if(name==="length"){name="_length";}if(values[name]!=null){return;}var value=values[index];if(value instanceof Error){Object.defineProperty(values,name,{enumerable:true,get:function get(){throw value;}});}else {values[name]=value;}});var _loop=function _loop(_i3){var value=values[_i3];if(value instanceof Error){Object.defineProperty(values,_i3,{enumerable:true,get:function get(){throw value;}});}};for(var _i3=0;_i3<values.length;_i3++){_loop(_i3);}return Object.freeze(values);}var ArrayCoder=/*#__PURE__*/function(_Coder3){_inherits$1(ArrayCoder,_Coder3);var _super7=_createSuper$1(ArrayCoder);function ArrayCoder(coder,length,localName){var _this3;_classCallCheck$1(this,ArrayCoder);var type=coder.type+"["+(length>=0?length:"")+"]";var dynamic=length===-1||coder.dynamic;_this3=_super7.call(this,"array",type,localName,dynamic);_this3.coder=coder;_this3.length=length;return _this3;}_createClass$1(ArrayCoder,[{key:"defaultValue",value:function defaultValue(){// Verifies the child coder is valid (even if the array is dynamic or 0-length)
+  coders.forEach(function(coder,index){var name=coder.localName;if(!name||uniqueNames[name]!==1){return;}if(name==="length"){name="_length";}if(values[name]!=null){return;}var value=values[index];if(value instanceof Error){Object.defineProperty(values,name,{enumerable:true,get:function get(){throw value;}});}else {values[name]=value;}});var _loop=function _loop(_i3){var value=values[_i3];if(value instanceof Error){Object.defineProperty(values,_i3,{enumerable:true,get:function get(){throw value;}});}};for(var _i3=0;_i3<values.length;_i3++){_loop(_i3);}return Object.freeze(values);}var ArrayCoder=/*#__PURE__*/function(_Coder3){_inherits$1(ArrayCoder,_Coder3);var _super7=_createSuper(ArrayCoder);function ArrayCoder(coder,length,localName){var _this3;_classCallCheck$1(this,ArrayCoder);var type=coder.type+"["+(length>=0?length:"")+"]";var dynamic=length===-1||coder.dynamic;_this3=_super7.call(this,"array",type,localName,dynamic);_this3.coder=coder;_this3.length=length;return _this3;}_createClass$1(ArrayCoder,[{key:"defaultValue",value:function defaultValue(){// Verifies the child coder is valid (even if the array is dynamic or 0-length)
   var defaultChild=this.coder.defaultValue();var result=[];for(var _i4=0;_i4<this.length;_i4++){result.push(defaultChild);}return result;}},{key:"encode",value:function encode(writer,value){if(!Array.isArray(value)){this._throwError("expected array value",value);}var count=this.length;if(count===-1){count=value.length;writer.writeValue(value.length);}logger$i.checkArgumentCount(value.length,count,"coder array"+(this.localName?" "+this.localName:""));var coders=[];for(var _i5=0;_i5<value.length;_i5++){coders.push(this.coder);}return pack(writer,coders,value);}},{key:"decode",value:function decode(reader){var count=this.length;if(count===-1){count=reader.readValue().toNumber();// Check that there is *roughly* enough data to ensure
   // stray random data is not being read as a length. Each
   // slot requires at least 32 bytes for their value (or 32
   // bytes as a link to the data). This could use a much
   // tighter bound, but we are erroring on the side of safety.
-  if(count*32>reader._data.length){logger$i.throwError("insufficient data length",Logger$1.errors.BUFFER_OVERRUN,{length:reader._data.length,count:count});}}var coders=[];for(var _i6=0;_i6<count;_i6++){coders.push(new AnonymousCoder(this.coder));}return reader.coerce(this.name,unpack(reader,coders));}}]);return ArrayCoder;}(Coder);var BooleanCoder=/*#__PURE__*/function(_Coder4){_inherits$1(BooleanCoder,_Coder4);var _super8=_createSuper$1(BooleanCoder);function BooleanCoder(localName){_classCallCheck$1(this,BooleanCoder);return _super8.call(this,"bool","bool",localName,false);}_createClass$1(BooleanCoder,[{key:"defaultValue",value:function defaultValue(){return false;}},{key:"encode",value:function encode(writer,value){return writer.writeValue(value?1:0);}},{key:"decode",value:function decode(reader){return reader.coerce(this.type,!reader.readValue().isZero());}}]);return BooleanCoder;}(Coder);var DynamicBytesCoder=/*#__PURE__*/function(_Coder5){_inherits$1(DynamicBytesCoder,_Coder5);var _super9=_createSuper$1(DynamicBytesCoder);function DynamicBytesCoder(type,localName){_classCallCheck$1(this,DynamicBytesCoder);return _super9.call(this,type,type,localName,true);}_createClass$1(DynamicBytesCoder,[{key:"defaultValue",value:function defaultValue(){return "0x";}},{key:"encode",value:function encode(writer,value){value=arrayify(value);var length=writer.writeValue(value.length);length+=writer.writeBytes(value);return length;}},{key:"decode",value:function decode(reader){return reader.readBytes(reader.readValue().toNumber(),true);}}]);return DynamicBytesCoder;}(Coder);var BytesCoder=/*#__PURE__*/function(_DynamicBytesCoder){_inherits$1(BytesCoder,_DynamicBytesCoder);var _super10=_createSuper$1(BytesCoder);function BytesCoder(localName){_classCallCheck$1(this,BytesCoder);return _super10.call(this,"bytes",localName);}_createClass$1(BytesCoder,[{key:"decode",value:function decode(reader){return reader.coerce(this.name,hexlify$1(_get(_getPrototypeOf(BytesCoder.prototype),"decode",this).call(this,reader)));}}]);return BytesCoder;}(DynamicBytesCoder);// @TODO: Merge this with bytes
-  var FixedBytesCoder=/*#__PURE__*/function(_Coder6){_inherits$1(FixedBytesCoder,_Coder6);var _super11=_createSuper$1(FixedBytesCoder);function FixedBytesCoder(size,localName){var _this4;_classCallCheck$1(this,FixedBytesCoder);var name="bytes"+String(size);_this4=_super11.call(this,name,name,localName,false);_this4.size=size;return _this4;}_createClass$1(FixedBytesCoder,[{key:"defaultValue",value:function defaultValue(){return "0x0000000000000000000000000000000000000000000000000000000000000000".substring(0,2+this.size*2);}},{key:"encode",value:function encode(writer,value){var data=arrayify(value);if(data.length!==this.size){this._throwError("incorrect data length",value);}return writer.writeBytes(data);}},{key:"decode",value:function decode(reader){return reader.coerce(this.name,hexlify$1(reader.readBytes(this.size)));}}]);return FixedBytesCoder;}(Coder);var NullCoder=/*#__PURE__*/function(_Coder7){_inherits$1(NullCoder,_Coder7);var _super12=_createSuper$1(NullCoder);function NullCoder(localName){_classCallCheck$1(this,NullCoder);return _super12.call(this,"null","",localName,false);}_createClass$1(NullCoder,[{key:"defaultValue",value:function defaultValue(){return null;}},{key:"encode",value:function encode(writer,value){if(value!=null){this._throwError("not null",value);}return writer.writeBytes([]);}},{key:"decode",value:function decode(reader){reader.readBytes(0);return reader.coerce(this.name,null);}}]);return NullCoder;}(Coder);var AddressZero="0x0000000000000000000000000000000000000000";var NegativeOne$1=/*#__PURE__*/BigNumber$1.from(-1);var Zero$1=/*#__PURE__*/BigNumber$1.from(0);var One$1=/*#__PURE__*/BigNumber$1.from(1);var MaxUint256$1=/*#__PURE__*/BigNumber$1.from("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");var HashZero="0x0000000000000000000000000000000000000000000000000000000000000000";var NumberCoder=/*#__PURE__*/function(_Coder8){_inherits$1(NumberCoder,_Coder8);var _super13=_createSuper$1(NumberCoder);function NumberCoder(size,signed,localName){var _this5;_classCallCheck$1(this,NumberCoder);var name=(signed?"int":"uint")+size*8;_this5=_super13.call(this,name,name,localName,false);_this5.size=size;_this5.signed=signed;return _this5;}_createClass$1(NumberCoder,[{key:"defaultValue",value:function defaultValue(){return 0;}},{key:"encode",value:function encode(writer,value){var v=BigNumber$1.from(value);// Check bounds are safe for encoding
+  if(count*32>reader._data.length){logger$i.throwError("insufficient data length",Logger$1.errors.BUFFER_OVERRUN,{length:reader._data.length,count:count});}}var coders=[];for(var _i6=0;_i6<count;_i6++){coders.push(new AnonymousCoder(this.coder));}return reader.coerce(this.name,unpack(reader,coders));}}]);return ArrayCoder;}(Coder);var BooleanCoder=/*#__PURE__*/function(_Coder4){_inherits$1(BooleanCoder,_Coder4);var _super8=_createSuper(BooleanCoder);function BooleanCoder(localName){_classCallCheck$1(this,BooleanCoder);return _super8.call(this,"bool","bool",localName,false);}_createClass$1(BooleanCoder,[{key:"defaultValue",value:function defaultValue(){return false;}},{key:"encode",value:function encode(writer,value){return writer.writeValue(value?1:0);}},{key:"decode",value:function decode(reader){return reader.coerce(this.type,!reader.readValue().isZero());}}]);return BooleanCoder;}(Coder);var DynamicBytesCoder=/*#__PURE__*/function(_Coder5){_inherits$1(DynamicBytesCoder,_Coder5);var _super9=_createSuper(DynamicBytesCoder);function DynamicBytesCoder(type,localName){_classCallCheck$1(this,DynamicBytesCoder);return _super9.call(this,type,type,localName,true);}_createClass$1(DynamicBytesCoder,[{key:"defaultValue",value:function defaultValue(){return "0x";}},{key:"encode",value:function encode(writer,value){value=arrayify(value);var length=writer.writeValue(value.length);length+=writer.writeBytes(value);return length;}},{key:"decode",value:function decode(reader){return reader.readBytes(reader.readValue().toNumber(),true);}}]);return DynamicBytesCoder;}(Coder);var BytesCoder=/*#__PURE__*/function(_DynamicBytesCoder){_inherits$1(BytesCoder,_DynamicBytesCoder);var _super10=_createSuper(BytesCoder);function BytesCoder(localName){_classCallCheck$1(this,BytesCoder);return _super10.call(this,"bytes",localName);}_createClass$1(BytesCoder,[{key:"decode",value:function decode(reader){return reader.coerce(this.name,hexlify$1(_get(_getPrototypeOf(BytesCoder.prototype),"decode",this).call(this,reader)));}}]);return BytesCoder;}(DynamicBytesCoder);// @TODO: Merge this with bytes
+  var FixedBytesCoder=/*#__PURE__*/function(_Coder6){_inherits$1(FixedBytesCoder,_Coder6);var _super11=_createSuper(FixedBytesCoder);function FixedBytesCoder(size,localName){var _this4;_classCallCheck$1(this,FixedBytesCoder);var name="bytes"+String(size);_this4=_super11.call(this,name,name,localName,false);_this4.size=size;return _this4;}_createClass$1(FixedBytesCoder,[{key:"defaultValue",value:function defaultValue(){return "0x0000000000000000000000000000000000000000000000000000000000000000".substring(0,2+this.size*2);}},{key:"encode",value:function encode(writer,value){var data=arrayify(value);if(data.length!==this.size){this._throwError("incorrect data length",value);}return writer.writeBytes(data);}},{key:"decode",value:function decode(reader){return reader.coerce(this.name,hexlify$1(reader.readBytes(this.size)));}}]);return FixedBytesCoder;}(Coder);var NullCoder=/*#__PURE__*/function(_Coder7){_inherits$1(NullCoder,_Coder7);var _super12=_createSuper(NullCoder);function NullCoder(localName){_classCallCheck$1(this,NullCoder);return _super12.call(this,"null","",localName,false);}_createClass$1(NullCoder,[{key:"defaultValue",value:function defaultValue(){return null;}},{key:"encode",value:function encode(writer,value){if(value!=null){this._throwError("not null",value);}return writer.writeBytes([]);}},{key:"decode",value:function decode(reader){reader.readBytes(0);return reader.coerce(this.name,null);}}]);return NullCoder;}(Coder);var AddressZero="0x0000000000000000000000000000000000000000";var NegativeOne$1=/*#__PURE__*/BigNumber$1.from(-1);var Zero$1=/*#__PURE__*/BigNumber$1.from(0);var One$1=/*#__PURE__*/BigNumber$1.from(1);var MaxUint256$1=/*#__PURE__*/BigNumber$1.from("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");var HashZero="0x0000000000000000000000000000000000000000000000000000000000000000";var NumberCoder=/*#__PURE__*/function(_Coder8){_inherits$1(NumberCoder,_Coder8);var _super13=_createSuper(NumberCoder);function NumberCoder(size,signed,localName){var _this5;_classCallCheck$1(this,NumberCoder);var name=(signed?"int":"uint")+size*8;_this5=_super13.call(this,name,name,localName,false);_this5.size=size;_this5.signed=signed;return _this5;}_createClass$1(NumberCoder,[{key:"defaultValue",value:function defaultValue(){return 0;}},{key:"encode",value:function encode(writer,value){var v=BigNumber$1.from(value);// Check bounds are safe for encoding
   var maxUintValue=MaxUint256$1.mask(writer.wordSize*8);if(this.signed){var bounds=maxUintValue.mask(this.size*8-1);if(v.gt(bounds)||v.lt(bounds.add(One$1).mul(NegativeOne$1))){this._throwError("value out-of-bounds",value);}}else if(v.lt(Zero$1)||v.gt(maxUintValue.mask(this.size*8))){this._throwError("value out-of-bounds",value);}v=v.toTwos(this.size*8).mask(this.size*8);if(this.signed){v=v.fromTwos(this.size*8).toTwos(8*writer.wordSize);}return writer.writeValue(v);}},{key:"decode",value:function decode(reader){var value=reader.readValue().mask(this.size*8);if(this.signed){value=value.fromTwos(this.size*8);}return reader.coerce(this.name,value);}}]);return NumberCoder;}(Coder);var version$c="strings/5.4.0";var logger$h=new Logger$1(version$c);///////////////////////////////
   var UnicodeNormalizationForm;(function(UnicodeNormalizationForm){UnicodeNormalizationForm["current"]="";UnicodeNormalizationForm["NFC"]="NFC";UnicodeNormalizationForm["NFD"]="NFD";UnicodeNormalizationForm["NFKC"]="NFKC";UnicodeNormalizationForm["NFKD"]="NFKD";})(UnicodeNormalizationForm||(UnicodeNormalizationForm={}));var Utf8ErrorReason;(function(Utf8ErrorReason){// A continuation byte was present where there was nothing to continue
   // - offset = the index the codepoint began in
@@ -62333,7 +62804,7 @@
   codes.forEach(function(code){if(_nameprepTableA1(code)){throw new Error("STRINGPREP_CONTAINS_UNASSIGNED");}});// IDNA extras
   var name=_toUtf8String(codes);// IDNA: 4.2.3.1
   if(name.substring(0,1)==="-"||name.substring(2,4)==="--"||name.substring(name.length-1)==="-"){throw new Error("invalid hyphen");}// IDNA: 4.2.4
-  if(name.length>63){throw new Error("too long");}return name;}var StringCoder=/*#__PURE__*/function(_DynamicBytesCoder2){_inherits$1(StringCoder,_DynamicBytesCoder2);var _super14=_createSuper$1(StringCoder);function StringCoder(localName){_classCallCheck$1(this,StringCoder);return _super14.call(this,"string",localName);}_createClass$1(StringCoder,[{key:"defaultValue",value:function defaultValue(){return "";}},{key:"encode",value:function encode(writer,value){return _get(_getPrototypeOf(StringCoder.prototype),"encode",this).call(this,writer,toUtf8Bytes(value));}},{key:"decode",value:function decode(reader){return toUtf8String(_get(_getPrototypeOf(StringCoder.prototype),"decode",this).call(this,reader));}}]);return StringCoder;}(DynamicBytesCoder);var TupleCoder=/*#__PURE__*/function(_Coder9){_inherits$1(TupleCoder,_Coder9);var _super15=_createSuper$1(TupleCoder);function TupleCoder(coders,localName){var _this6;_classCallCheck$1(this,TupleCoder);var dynamic=false;var types=[];coders.forEach(function(coder){if(coder.dynamic){dynamic=true;}types.push(coder.type);});var type="tuple("+types.join(",")+")";_this6=_super15.call(this,"tuple",type,localName,dynamic);_this6.coders=coders;return _this6;}_createClass$1(TupleCoder,[{key:"defaultValue",value:function defaultValue(){var values=[];this.coders.forEach(function(coder){values.push(coder.defaultValue());});// We only output named properties for uniquely named coders
+  if(name.length>63){throw new Error("too long");}return name;}var StringCoder=/*#__PURE__*/function(_DynamicBytesCoder2){_inherits$1(StringCoder,_DynamicBytesCoder2);var _super14=_createSuper(StringCoder);function StringCoder(localName){_classCallCheck$1(this,StringCoder);return _super14.call(this,"string",localName);}_createClass$1(StringCoder,[{key:"defaultValue",value:function defaultValue(){return "";}},{key:"encode",value:function encode(writer,value){return _get(_getPrototypeOf(StringCoder.prototype),"encode",this).call(this,writer,toUtf8Bytes(value));}},{key:"decode",value:function decode(reader){return toUtf8String(_get(_getPrototypeOf(StringCoder.prototype),"decode",this).call(this,reader));}}]);return StringCoder;}(DynamicBytesCoder);var TupleCoder=/*#__PURE__*/function(_Coder9){_inherits$1(TupleCoder,_Coder9);var _super15=_createSuper(TupleCoder);function TupleCoder(coders,localName){var _this6;_classCallCheck$1(this,TupleCoder);var dynamic=false;var types=[];coders.forEach(function(coder){if(coder.dynamic){dynamic=true;}types.push(coder.type);});var type="tuple("+types.join(",")+")";_this6=_super15.call(this,"tuple",type,localName,dynamic);_this6.coders=coders;return _this6;}_createClass$1(TupleCoder,[{key:"defaultValue",value:function defaultValue(){var values=[];this.coders.forEach(function(coder){values.push(coder.defaultValue());});// We only output named properties for uniquely named coders
   var uniqueNames=this.coders.reduce(function(accum,coder){var name=coder.localName;if(name){if(!accum[name]){accum[name]=0;}accum[name]++;}return accum;},{});// Add named values
   this.coders.forEach(function(coder,index){var name=coder.localName;if(!name||uniqueNames[name]!==1){return;}if(name==="length"){name="_length";}if(values[name]!=null){return;}values[name]=values[index];});return Object.freeze(values);}},{key:"encode",value:function encode(writer,value){return pack(writer,this.coders,value);}},{key:"decode",value:function decode(reader){return reader.coerce(this.name,unpack(reader,this.coders));}}]);return TupleCoder;}(Coder);var logger$g=new Logger$1(version$f);var paramTypeBytes=new RegExp(/^bytes([0-9]*)$/);var paramTypeNumber=new RegExp(/^(u?int)([0-9]*)$/);var AbiCoder=/*#__PURE__*/function(){function AbiCoder(coerceFunc){_classCallCheck$1(this,AbiCoder);logger$g.checkNew(this instanceof AbiCoder?this.constructor:void 0,AbiCoder);defineReadOnly(this,"coerceFunc",coerceFunc||null);}_createClass$1(AbiCoder,[{key:"_getCoder",value:function _getCoder(param){var _this7=this;switch(param.baseType){case"address":return new AddressCoder(param.name);case"bool":return new BooleanCoder(param.name);case"string":return new StringCoder(param.name);case"bytes":return new BytesCoder(param.name);case"array":return new ArrayCoder(this._getCoder(param.arrayChildren),param.arrayLength,param.name);case"tuple":return new TupleCoder((param.components||[]).map(function(component){return _this7._getCoder(component);}),param.name);case"":return new NullCoder(param.name);}// u?int[0-9]*
   var match=param.type.match(paramTypeNumber);if(match){var size=parseInt(match[2]||"256");if(size===0||size>256||size%8!==0){logger$g.throwArgumentError("invalid "+match[1]+" bit length","param",param);}return new NumberCoder(size/8,match[1]==="int",param.name);}// bytes[0-9]+
@@ -62371,7 +62842,7 @@
   var domainValues={};var domainTypes=[];domainFieldNames.forEach(function(name){var value=domain[name];if(value==null){return;}domainValues[name]=domainChecks[name](value);domainTypes.push({name:name,type:domainFieldTypes[name]});});var encoder=TypedDataEncoder.from(types);var typesWithDomain=shallowCopy(types);if(typesWithDomain.EIP712Domain){logger$e.throwArgumentError("types must not contain EIP712Domain type","types.EIP712Domain",types);}else {typesWithDomain.EIP712Domain=domainTypes;}// Validate the data structures and types
   encoder.encode(value);return {types:typesWithDomain,domain:domainValues,primaryType:encoder.primaryType,message:encoder.visit(value,function(type,value){// bytes
   if(type.match(/^bytes(\d*)/)){return hexlify$1(arrayify(value));}// uint or int
-  if(type.match(/^u?int/)){return BigNumber$1.from(value).toString();}switch(type){case"address":return value.toLowerCase();case"bool":return !!value;case"string":if(typeof value!=="string"){logger$e.throwArgumentError("invalid string","value",value);}return value;}return logger$e.throwArgumentError("unsupported type","type",type);})};}}]);return TypedDataEncoder;}();var logger$d=new Logger$1(version$f);var LogDescription=/*#__PURE__*/function(_Description){_inherits$1(LogDescription,_Description);var _super16=_createSuper$1(LogDescription);function LogDescription(){_classCallCheck$1(this,LogDescription);return _super16.apply(this,arguments);}return LogDescription;}(Description);var TransactionDescription=/*#__PURE__*/function(_Description2){_inherits$1(TransactionDescription,_Description2);var _super17=_createSuper$1(TransactionDescription);function TransactionDescription(){_classCallCheck$1(this,TransactionDescription);return _super17.apply(this,arguments);}return TransactionDescription;}(Description);var ErrorDescription=/*#__PURE__*/function(_Description3){_inherits$1(ErrorDescription,_Description3);var _super18=_createSuper$1(ErrorDescription);function ErrorDescription(){_classCallCheck$1(this,ErrorDescription);return _super18.apply(this,arguments);}return ErrorDescription;}(Description);var Indexed=/*#__PURE__*/function(_Description4){_inherits$1(Indexed,_Description4);var _super19=_createSuper$1(Indexed);function Indexed(){_classCallCheck$1(this,Indexed);return _super19.apply(this,arguments);}_createClass$1(Indexed,null,[{key:"isIndexed",value:function isIndexed(value){return !!(value&&value._isIndexed);}}]);return Indexed;}(Description);var BuiltinErrors={"0x08c379a0":{signature:"Error(string)",name:"Error",inputs:["string"],reason:true},"0x4e487b71":{signature:"Panic(uint256)",name:"Panic",inputs:["uint256"]}};function wrapAccessError(property,error){var wrap=new Error("deferred error during ABI decoding triggered accessing ".concat(property));wrap.error=error;return wrap;}/*
+  if(type.match(/^u?int/)){return BigNumber$1.from(value).toString();}switch(type){case"address":return value.toLowerCase();case"bool":return !!value;case"string":if(typeof value!=="string"){logger$e.throwArgumentError("invalid string","value",value);}return value;}return logger$e.throwArgumentError("unsupported type","type",type);})};}}]);return TypedDataEncoder;}();var logger$d=new Logger$1(version$f);var LogDescription=/*#__PURE__*/function(_Description){_inherits$1(LogDescription,_Description);var _super16=_createSuper(LogDescription);function LogDescription(){_classCallCheck$1(this,LogDescription);return _super16.apply(this,arguments);}return LogDescription;}(Description);var TransactionDescription=/*#__PURE__*/function(_Description2){_inherits$1(TransactionDescription,_Description2);var _super17=_createSuper(TransactionDescription);function TransactionDescription(){_classCallCheck$1(this,TransactionDescription);return _super17.apply(this,arguments);}return TransactionDescription;}(Description);var ErrorDescription=/*#__PURE__*/function(_Description3){_inherits$1(ErrorDescription,_Description3);var _super18=_createSuper(ErrorDescription);function ErrorDescription(){_classCallCheck$1(this,ErrorDescription);return _super18.apply(this,arguments);}return ErrorDescription;}(Description);var Indexed=/*#__PURE__*/function(_Description4){_inherits$1(Indexed,_Description4);var _super19=_createSuper(Indexed);function Indexed(){_classCallCheck$1(this,Indexed);return _super19.apply(this,arguments);}_createClass$1(Indexed,null,[{key:"isIndexed",value:function isIndexed(value){return !!(value&&value._isIndexed);}}]);return Indexed;}(Description);var BuiltinErrors={"0x08c379a0":{signature:"Error(string)",name:"Error",inputs:["string"],reason:true},"0x4e487b71":{signature:"Panic(uint256)",name:"Panic",inputs:["uint256"]}};function wrapAccessError(property,error){var wrap=new Error("deferred error during ABI decoding triggered accessing ".concat(property));wrap.error=error;return wrap;}/*
   function checkNames(fragment: Fragment, type: "input" | "output", params: Array<ParamType>): void {
       params.reduce((accum, param) => {
           if (param.name) {
@@ -62436,7 +62907,7 @@
       */}],[{key:"getAbiCoder",value:function getAbiCoder(){return defaultAbiCoder;}},{key:"getAddress",value:function getAddress(address){return _getAddress(address);}},{key:"getSighash",value:function getSighash(fragment){return hexDataSlice(id(fragment.format()),0,4);}},{key:"getEventTopic",value:function getEventTopic(eventFragment){return id(eventFragment.format());}},{key:"isInterface",value:function isInterface(value){return !!(value&&value._isInterface);}}]);return Interface;}();var version$a="abstract-provider/5.4.1";var __awaiter$6=function(thisArg,_arguments,P,generator){function adopt(value){return value instanceof P?value:new P(function(resolve){resolve(value);});}return new(P||(P=Promise))(function(resolve,reject){function fulfilled(value){try{step(generator.next(value));}catch(e){reject(e);}}function rejected(value){try{step(generator["throw"](value));}catch(e){reject(e);}}function step(result){result.done?resolve(result.value):adopt(result.value).then(fulfilled,rejected);}step((generator=generator.apply(thisArg,_arguments||[])).next());});};var logger$c=new Logger$1(version$a);//export type CallTransactionable = {
   //    call(transaction: TransactionRequest): Promise<TransactionResponse>;
   //};
-  var ForkEvent=/*#__PURE__*/function(_Description5){_inherits$1(ForkEvent,_Description5);var _super20=_createSuper$1(ForkEvent);function ForkEvent(){_classCallCheck$1(this,ForkEvent);return _super20.apply(this,arguments);}_createClass$1(ForkEvent,null,[{key:"isForkEvent",value:function isForkEvent(value){return !!(value&&value._isForkEvent);}}]);return ForkEvent;}(Description);///////////////////////////////
+  var ForkEvent=/*#__PURE__*/function(_Description5){_inherits$1(ForkEvent,_Description5);var _super20=_createSuper(ForkEvent);function ForkEvent(){_classCallCheck$1(this,ForkEvent);return _super20.apply(this,arguments);}_createClass$1(ForkEvent,null,[{key:"isForkEvent",value:function isForkEvent(value){return !!(value&&value._isForkEvent);}}]);return ForkEvent;}(Description);///////////////////////////////
   // Exported Abstracts
   var Provider=/*#__PURE__*/function(){function Provider(){_classCallCheck$1(this,Provider);logger$c.checkAbstract(this instanceof Provider?this.constructor:void 0,Provider);defineReadOnly(this,"_isProvider",true);}_createClass$1(Provider,[{key:"getFeeData",value:function getFeeData(){return __awaiter$6(this,void 0,void 0,/*#__PURE__*/regenerator.mark(function _callee3(){var _yield$resolvePropert,block,gasPrice,maxFeePerGas,maxPriorityFeePerGas;return regenerator.wrap(function _callee3$(_context3){while(1){switch(_context3.prev=_context3.next){case 0:_context3.next=2;return resolveProperties({block:this.getBlock("latest"),gasPrice:this.getGasPrice()["catch"](function(error){// @TODO: Why is this now failing on Calaveras?
   //console.log(error);
@@ -62489,7 +62960,7 @@
   // Populate missing fee data
   if(tx.maxFeePerGas==null){tx.maxFeePerGas=feeData.maxFeePerGas;}if(tx.maxPriorityFeePerGas==null){tx.maxPriorityFeePerGas=feeData.maxPriorityFeePerGas;}}case 18:if(tx.nonce==null){tx.nonce=this.getTransactionCount("pending");}if(tx.gasLimit==null){tx.gasLimit=this.estimateGas(tx)["catch"](function(error){if(forwardErrors.indexOf(error.code)>=0){throw error;}return logger$b.throwError("cannot estimate gas; transaction may fail or may require manual gas limit",Logger$1.errors.UNPREDICTABLE_GAS_LIMIT,{error:error,tx:tx});});}if(tx.chainId==null){tx.chainId=this.getChainId();}else {tx.chainId=Promise.all([Promise.resolve(tx.chainId),this.getChainId()]).then(function(results){if(results[1]!==0&&results[0]!==results[1]){logger$b.throwArgumentError("chainId address mismatch","transaction",transaction);}return results[0];});}_context14.next=23;return resolveProperties(tx);case 23:return _context14.abrupt("return",_context14.sent);case 24:case"end":return _context14.stop();}}},_callee14,this);}));}///////////////////
   // Sub-classes SHOULD leave these alone
-  },{key:"_checkProvider",value:function _checkProvider(operation){if(!this.provider){logger$b.throwError("missing provider",Logger$1.errors.UNSUPPORTED_OPERATION,{operation:operation||"_checkProvider"});}}}],[{key:"isSigner",value:function isSigner(value){return !!(value&&value._isSigner);}}]);return Signer;}();var VoidSigner=/*#__PURE__*/function(_Signer){_inherits$1(VoidSigner,_Signer);var _super21=_createSuper$1(VoidSigner);function VoidSigner(address,provider){var _this17;_classCallCheck$1(this,VoidSigner);logger$b.checkNew(this instanceof VoidSigner?this.constructor:void 0,VoidSigner);_this17=_super21.call(this);defineReadOnly(_assertThisInitialized(_this17),"address",address);defineReadOnly(_assertThisInitialized(_this17),"provider",provider||null);return _this17;}_createClass$1(VoidSigner,[{key:"getAddress",value:function getAddress(){return Promise.resolve(this.address);}},{key:"_fail",value:function _fail(message,operation){return Promise.resolve().then(function(){logger$b.throwError(message,Logger$1.errors.UNSUPPORTED_OPERATION,{operation:operation});});}},{key:"signMessage",value:function signMessage(message){return this._fail("VoidSigner cannot sign messages","signMessage");}},{key:"signTransaction",value:function signTransaction(transaction){return this._fail("VoidSigner cannot sign transactions","signTransaction");}},{key:"_signTypedData",value:function _signTypedData(domain,types,value){return this._fail("VoidSigner cannot sign typed data","signTypedData");}},{key:"connect",value:function connect(provider){return new VoidSigner(this.address,provider);}}]);return VoidSigner;}(Signer);var minimalisticAssert$1=assert$6;function assert$6(val,msg){if(!val)throw new Error(msg||'Assertion failed');}assert$6.equal=function assertEqual(l,r,msg){if(l!=r)throw new Error(msg||'Assertion failed: '+l+' != '+r);};var inherits_browser$1=createCommonjsModule$1(function(module){if(typeof Object.create==='function'){// implementation from standard node.js 'util' module
+  },{key:"_checkProvider",value:function _checkProvider(operation){if(!this.provider){logger$b.throwError("missing provider",Logger$1.errors.UNSUPPORTED_OPERATION,{operation:operation||"_checkProvider"});}}}],[{key:"isSigner",value:function isSigner(value){return !!(value&&value._isSigner);}}]);return Signer;}();var VoidSigner=/*#__PURE__*/function(_Signer){_inherits$1(VoidSigner,_Signer);var _super21=_createSuper(VoidSigner);function VoidSigner(address,provider){var _this17;_classCallCheck$1(this,VoidSigner);logger$b.checkNew(this instanceof VoidSigner?this.constructor:void 0,VoidSigner);_this17=_super21.call(this);defineReadOnly(_assertThisInitialized(_this17),"address",address);defineReadOnly(_assertThisInitialized(_this17),"provider",provider||null);return _this17;}_createClass$1(VoidSigner,[{key:"getAddress",value:function getAddress(){return Promise.resolve(this.address);}},{key:"_fail",value:function _fail(message,operation){return Promise.resolve().then(function(){logger$b.throwError(message,Logger$1.errors.UNSUPPORTED_OPERATION,{operation:operation});});}},{key:"signMessage",value:function signMessage(message){return this._fail("VoidSigner cannot sign messages","signMessage");}},{key:"signTransaction",value:function signTransaction(transaction){return this._fail("VoidSigner cannot sign transactions","signTransaction");}},{key:"_signTypedData",value:function _signTypedData(domain,types,value){return this._fail("VoidSigner cannot sign typed data","signTypedData");}},{key:"connect",value:function connect(provider){return new VoidSigner(this.address,provider);}}]);return VoidSigner;}(Signer);var minimalisticAssert$1=assert$6;function assert$6(val,msg){if(!val)throw new Error(msg||'Assertion failed');}assert$6.equal=function assertEqual(l,r,msg){if(l!=r)throw new Error(msg||'Assertion failed: '+l+' != '+r);};var inherits_browser$1=createCommonjsModule$1(function(module){if(typeof Object.create==='function'){// implementation from standard node.js 'util' module
   module.exports=function inherits(ctor,superCtor){if(superCtor){ctor.super_=superCtor;ctor.prototype=Object.create(superCtor.prototype,{constructor:{value:ctor,enumerable:false,writable:true,configurable:true}});}};}else {// old school shim for old browsers
   module.exports=function inherits(ctor,superCtor){if(superCtor){ctor.super_=superCtor;var TempCtor=function TempCtor(){};TempCtor.prototype=superCtor.prototype;ctor.prototype=new TempCtor();ctor.prototype.constructor=ctor;}};}});var inherits=createCommonjsModule$1(function(module){try{var util=util__default['default'];/* istanbul ignore next */if(typeof util.inherits!=='function')throw '';module.exports=util.inherits;}catch(e){/* istanbul ignore next */module.exports=inherits_browser$1;}});var inherits_1=inherits;function isSurrogatePair(msg,i){if((msg.charCodeAt(i)&0xFC00)!==0xD800){return false;}if(i<0||i+1>=msg.length){return false;}return (msg.charCodeAt(i+1)&0xFC00)===0xDC00;}function toArray(msg,enc){if(Array.isArray(msg))return msg.slice();if(!msg)return [];var res=[];if(typeof msg==='string'){if(!enc){// Inspired by stringToUtf8ByteArray() in closure-library by Google
   // https://github.com/google/closure-library/blob/8598d87242af59aac233270742c8984e2b2bdbe0/closure/goog/crypt/crypt.js#L117-L143
@@ -62732,17 +63203,17 @@
   event.removeListener=function(){return contract.provider;};event.getBlock=function(){return contract.provider.getBlock(receipt.blockHash);};event.getTransaction=function(){return contract.provider.getTransaction(receipt.transactionHash);};event.getTransactionReceipt=function(){return Promise.resolve(receipt);};return event;});return receipt;});};return _context21.abrupt("return",tx);case 13:case"end":return _context21.stop();}}},_callee21);}));};}function buildDefault(contract,fragment,collapseSimple){if(fragment.constant){return buildCall(contract,fragment,collapseSimple);}return buildSend(contract,fragment);}function getEventTag$1(filter){if(filter.address&&(filter.topics==null||filter.topics.length===0)){return "*";}return (filter.address||"*")+"@"+(filter.topics?filter.topics.map(function(topic){if(Array.isArray(topic)){return topic.join("|");}return topic;}).join(":"):"");}var RunningEvent=/*#__PURE__*/function(){function RunningEvent(tag,filter){_classCallCheck$1(this,RunningEvent);defineReadOnly(this,"tag",tag);defineReadOnly(this,"filter",filter);this._listeners=[];}_createClass$1(RunningEvent,[{key:"addListener",value:function addListener(listener,once){this._listeners.push({listener:listener,once:once});}},{key:"removeListener",value:function removeListener(listener){var done=false;this._listeners=this._listeners.filter(function(item){if(done||item.listener!==listener){return true;}done=true;return false;});}},{key:"removeAllListeners",value:function removeAllListeners(){this._listeners=[];}},{key:"listeners",value:function listeners(){return this._listeners.map(function(i){return i.listener;});}},{key:"listenerCount",value:function listenerCount(){return this._listeners.length;}},{key:"run",value:function run(args){var _this19=this;var listenerCount=this.listenerCount();this._listeners=this._listeners.filter(function(item){var argsCopy=args.slice();// Call the callback in the next event loop
   setTimeout(function(){item.listener.apply(_this19,argsCopy);},0);// Reschedule it if it not "once"
   return !item.once;});return listenerCount;}},{key:"prepareEvent",value:function prepareEvent(event){}// Returns the array that will be applied to an emit
-  },{key:"getEmit",value:function getEmit(event){return [event];}}]);return RunningEvent;}();var ErrorRunningEvent=/*#__PURE__*/function(_RunningEvent){_inherits$1(ErrorRunningEvent,_RunningEvent);var _super22=_createSuper$1(ErrorRunningEvent);function ErrorRunningEvent(){_classCallCheck$1(this,ErrorRunningEvent);return _super22.call(this,"error",null);}return ErrorRunningEvent;}(RunningEvent);// @TODO Fragment should inherit Wildcard? and just override getEmit?
+  },{key:"getEmit",value:function getEmit(event){return [event];}}]);return RunningEvent;}();var ErrorRunningEvent=/*#__PURE__*/function(_RunningEvent){_inherits$1(ErrorRunningEvent,_RunningEvent);var _super22=_createSuper(ErrorRunningEvent);function ErrorRunningEvent(){_classCallCheck$1(this,ErrorRunningEvent);return _super22.call(this,"error",null);}return ErrorRunningEvent;}(RunningEvent);// @TODO Fragment should inherit Wildcard? and just override getEmit?
   //       or have a common abstract super class, with enough constructor
   //       options to configure both.
   // A Fragment Event will populate all the properties that Wildcard
   // will, and additioanlly dereference the arguments when emitting
-  var FragmentRunningEvent=/*#__PURE__*/function(_RunningEvent2){_inherits$1(FragmentRunningEvent,_RunningEvent2);var _super23=_createSuper$1(FragmentRunningEvent);function FragmentRunningEvent(address,contractInterface,fragment,topics){var _this20;_classCallCheck$1(this,FragmentRunningEvent);var filter={address:address};var topic=contractInterface.getEventTopic(fragment);if(topics){if(topic!==topics[0]){logger$8.throwArgumentError("topic mismatch","topics",topics);}filter.topics=topics.slice();}else {filter.topics=[topic];}_this20=_super23.call(this,getEventTag$1(filter),filter);defineReadOnly(_assertThisInitialized(_this20),"address",address);defineReadOnly(_assertThisInitialized(_this20),"interface",contractInterface);defineReadOnly(_assertThisInitialized(_this20),"fragment",fragment);return _this20;}_createClass$1(FragmentRunningEvent,[{key:"prepareEvent",value:function prepareEvent(event){var _this21=this;_get(_getPrototypeOf(FragmentRunningEvent.prototype),"prepareEvent",this).call(this,event);event.event=this.fragment.name;event.eventSignature=this.fragment.format();event.decode=function(data,topics){return _this21["interface"].decodeEventLog(_this21.fragment,data,topics);};try{event.args=this["interface"].decodeEventLog(this.fragment,event.data,event.topics);}catch(error){event.args=null;event.decodeError=error;}}},{key:"getEmit",value:function getEmit(event){var errors=checkResultErrors(event.args);if(errors.length){throw errors[0].error;}var args=(event.args||[]).slice();args.push(event);return args;}}]);return FragmentRunningEvent;}(RunningEvent);// A Wildard Event will attempt to populate:
+  var FragmentRunningEvent=/*#__PURE__*/function(_RunningEvent2){_inherits$1(FragmentRunningEvent,_RunningEvent2);var _super23=_createSuper(FragmentRunningEvent);function FragmentRunningEvent(address,contractInterface,fragment,topics){var _this20;_classCallCheck$1(this,FragmentRunningEvent);var filter={address:address};var topic=contractInterface.getEventTopic(fragment);if(topics){if(topic!==topics[0]){logger$8.throwArgumentError("topic mismatch","topics",topics);}filter.topics=topics.slice();}else {filter.topics=[topic];}_this20=_super23.call(this,getEventTag$1(filter),filter);defineReadOnly(_assertThisInitialized(_this20),"address",address);defineReadOnly(_assertThisInitialized(_this20),"interface",contractInterface);defineReadOnly(_assertThisInitialized(_this20),"fragment",fragment);return _this20;}_createClass$1(FragmentRunningEvent,[{key:"prepareEvent",value:function prepareEvent(event){var _this21=this;_get(_getPrototypeOf(FragmentRunningEvent.prototype),"prepareEvent",this).call(this,event);event.event=this.fragment.name;event.eventSignature=this.fragment.format();event.decode=function(data,topics){return _this21["interface"].decodeEventLog(_this21.fragment,data,topics);};try{event.args=this["interface"].decodeEventLog(this.fragment,event.data,event.topics);}catch(error){event.args=null;event.decodeError=error;}}},{key:"getEmit",value:function getEmit(event){var errors=checkResultErrors(event.args);if(errors.length){throw errors[0].error;}var args=(event.args||[]).slice();args.push(event);return args;}}]);return FragmentRunningEvent;}(RunningEvent);// A Wildard Event will attempt to populate:
   //  - event            The name of the event name
   //  - eventSignature   The full signature of the event
   //  - decode           A function to decode data and topics
   //  - args             The decoded data and topics
-  var WildcardRunningEvent=/*#__PURE__*/function(_RunningEvent3){_inherits$1(WildcardRunningEvent,_RunningEvent3);var _super24=_createSuper$1(WildcardRunningEvent);function WildcardRunningEvent(address,contractInterface){var _this22;_classCallCheck$1(this,WildcardRunningEvent);_this22=_super24.call(this,"*",{address:address});defineReadOnly(_assertThisInitialized(_this22),"address",address);defineReadOnly(_assertThisInitialized(_this22),"interface",contractInterface);return _this22;}_createClass$1(WildcardRunningEvent,[{key:"prepareEvent",value:function prepareEvent(event){var _this23=this;_get(_getPrototypeOf(WildcardRunningEvent.prototype),"prepareEvent",this).call(this,event);try{var parsed=this["interface"].parseLog(event);event.event=parsed.name;event.eventSignature=parsed.signature;event.decode=function(data,topics){return _this23["interface"].decodeEventLog(parsed.eventFragment,data,topics);};event.args=parsed.args;}catch(error){// No matching event
+  var WildcardRunningEvent=/*#__PURE__*/function(_RunningEvent3){_inherits$1(WildcardRunningEvent,_RunningEvent3);var _super24=_createSuper(WildcardRunningEvent);function WildcardRunningEvent(address,contractInterface){var _this22;_classCallCheck$1(this,WildcardRunningEvent);_this22=_super24.call(this,"*",{address:address});defineReadOnly(_assertThisInitialized(_this22),"address",address);defineReadOnly(_assertThisInitialized(_this22),"interface",contractInterface);return _this22;}_createClass$1(WildcardRunningEvent,[{key:"prepareEvent",value:function prepareEvent(event){var _this23=this;_get(_getPrototypeOf(WildcardRunningEvent.prototype),"prepareEvent",this).call(this,event);try{var parsed=this["interface"].parseLog(event);event.event=parsed.name;event.eventSignature=parsed.signature;event.decode=function(data,topics){return _this23["interface"].decodeEventLog(parsed.eventFragment,data,topics);};event.args=parsed.args;}catch(error){// No matching event
   }}}]);return WildcardRunningEvent;}(RunningEvent);var BaseContract=/*#__PURE__*/function(){function BaseContract(addressOrName,contractInterface,signerOrProvider){var _this24=this;_classCallCheck$1(this,BaseContract);logger$8.checkNew(this instanceof BaseContract?this.constructor:void 0,Contract);// @TODO: Maybe still check the addressOrName looks like a valid address or name?
   //address = getAddress(address);
   defineReadOnly(this,"interface",getStatic(this instanceof BaseContract?this.constructor:void 0,"getInterface")(contractInterface));if(signerOrProvider==null){defineReadOnly(this,"provider",null);defineReadOnly(this,"signer",null);}else if(Signer.isSigner(signerOrProvider)){defineReadOnly(this,"provider",signerOrProvider.provider||null);defineReadOnly(this,"signer",signerOrProvider);}else if(Provider.isProvider(signerOrProvider)){defineReadOnly(this,"provider",signerOrProvider);defineReadOnly(this,"signer",null);}else {logger$8.throwArgumentError("invalid signer or provider","signerOrProvider",signerOrProvider);}defineReadOnly(this,"callStatic",{});defineReadOnly(this,"estimateGas",{});defineReadOnly(this,"functions",{});defineReadOnly(this,"populateTransaction",{});defineReadOnly(this,"filters",{});{var uniqueFilters={};Object.keys(this["interface"].events).forEach(function(eventSignature){var event=_this24["interface"].events[eventSignature];defineReadOnly(_this24.filters,eventSignature,function(){for(var _len8=arguments.length,args=new Array(_len8),_key14=0;_key14<_len8;_key14++){args[_key14]=arguments[_key14];}return {address:_this24.address,topics:_this24["interface"].encodeFilterTopics(event,args)};});if(!uniqueFilters[event.name]){uniqueFilters[event.name]=[];}uniqueFilters[event.name].push(eventSignature);});Object.keys(uniqueFilters).forEach(function(name){var filters=uniqueFilters[name];if(filters.length===1){defineReadOnly(_this24.filters,name,_this24.filters[filters[0]]);}else {logger$8.warn("Duplicate definition of ".concat(name," (").concat(filters.join(", "),")"));}});}defineReadOnly(this,"_runningEvents",{});defineReadOnly(this,"_wrappedEmits",{});if(addressOrName==null){logger$8.throwArgumentError("invalid contract address or ENS name","addressOrName",addressOrName);}defineReadOnly(this,"address",addressOrName);if(this.provider){defineReadOnly(this,"resolvedAddress",resolveName(this.provider,addressOrName));}else {try{defineReadOnly(this,"resolvedAddress",Promise.resolve(_getAddress(addressOrName)));}catch(error){// Without a provider, we cannot use ENS names
@@ -62788,7 +63259,7 @@
   if(event.decodeError!=null){_this28.emit("error",event.decodeError,event);}};this._wrappedEmits[runningEvent.tag]=wrappedEmit;// Special events, like "error" do not have a filter
   if(runningEvent.filter!=null){this.provider.on(runningEvent.filter,wrappedEmit);}}}},{key:"queryFilter",value:function queryFilter(event,fromBlockOrBlockhash,toBlock){var _this29=this;var runningEvent=this._getRunningEvent(event);var filter=shallowCopy(runningEvent.filter);if(typeof fromBlockOrBlockhash==="string"&&isHexString$1(fromBlockOrBlockhash,32)){if(toBlock!=null){logger$8.throwArgumentError("cannot specify toBlock with blockhash","toBlock",toBlock);}filter.blockHash=fromBlockOrBlockhash;}else {filter.fromBlock=fromBlockOrBlockhash!=null?fromBlockOrBlockhash:0;filter.toBlock=toBlock!=null?toBlock:"latest";}return this.provider.getLogs(filter).then(function(logs){return logs.map(function(log){return _this29._wrapEvent(runningEvent,log,null);});});}},{key:"on",value:function on(event,listener){this._addEventListener(this._getRunningEvent(event),listener,false);return this;}},{key:"once",value:function once(event,listener){this._addEventListener(this._getRunningEvent(event),listener,true);return this;}},{key:"emit",value:function emit(eventName){if(!this.provider){return false;}var runningEvent=this._getRunningEvent(eventName);for(var _len9=arguments.length,args=new Array(_len9>1?_len9-1:0),_key15=1;_key15<_len9;_key15++){args[_key15-1]=arguments[_key15];}var result=runningEvent.run(args)>0;// May have drained all the "once" events; check for living events
   this._checkRunningEvents(runningEvent);return result;}},{key:"listenerCount",value:function listenerCount(eventName){var _this30=this;if(!this.provider){return 0;}if(eventName==null){return Object.keys(this._runningEvents).reduce(function(accum,key){return accum+_this30._runningEvents[key].listenerCount();},0);}return this._getRunningEvent(eventName).listenerCount();}},{key:"listeners",value:function listeners(eventName){var _this31=this;if(!this.provider){return [];}if(eventName==null){var _ret=function(){var result=[];for(var tag in _this31._runningEvents){_this31._runningEvents[tag].listeners().forEach(function(listener){result.push(listener);});}return {v:result};}();if(_typeof(_ret)==="object")return _ret.v;}return this._getRunningEvent(eventName).listeners();}},{key:"removeAllListeners",value:function removeAllListeners(eventName){if(!this.provider){return this;}if(eventName==null){for(var tag in this._runningEvents){var _runningEvent=this._runningEvents[tag];_runningEvent.removeAllListeners();this._checkRunningEvents(_runningEvent);}return this;}// Delete any listeners
-  var runningEvent=this._getRunningEvent(eventName);runningEvent.removeAllListeners();this._checkRunningEvents(runningEvent);return this;}},{key:"off",value:function off(eventName,listener){if(!this.provider){return this;}var runningEvent=this._getRunningEvent(eventName);runningEvent.removeListener(listener);this._checkRunningEvents(runningEvent);return this;}},{key:"removeListener",value:function removeListener(eventName,listener){return this.off(eventName,listener);}}],[{key:"getContractAddress",value:function getContractAddress(transaction){return _getContractAddress(transaction);}},{key:"getInterface",value:function getInterface(contractInterface){if(Interface.isInterface(contractInterface)){return contractInterface;}return new Interface(contractInterface);}},{key:"isIndexed",value:function isIndexed(value){return Indexed.isIndexed(value);}}]);return BaseContract;}();var Contract=/*#__PURE__*/function(_BaseContract){_inherits$1(Contract,_BaseContract);var _super25=_createSuper$1(Contract);function Contract(){_classCallCheck$1(this,Contract);return _super25.apply(this,arguments);}return Contract;}(BaseContract);var version$5="bignumber/5.4.2";var BN$2=bn$1.BN;var logger$7=new Logger$1(version$5);var _constructorGuard$1={};var MAX_SAFE$2=0x1fffffffffffff;// Only warn about passing 10 into radix once
+  var runningEvent=this._getRunningEvent(eventName);runningEvent.removeAllListeners();this._checkRunningEvents(runningEvent);return this;}},{key:"off",value:function off(eventName,listener){if(!this.provider){return this;}var runningEvent=this._getRunningEvent(eventName);runningEvent.removeListener(listener);this._checkRunningEvents(runningEvent);return this;}},{key:"removeListener",value:function removeListener(eventName,listener){return this.off(eventName,listener);}}],[{key:"getContractAddress",value:function getContractAddress(transaction){return _getContractAddress(transaction);}},{key:"getInterface",value:function getInterface(contractInterface){if(Interface.isInterface(contractInterface)){return contractInterface;}return new Interface(contractInterface);}},{key:"isIndexed",value:function isIndexed(value){return Indexed.isIndexed(value);}}]);return BaseContract;}();var Contract=/*#__PURE__*/function(_BaseContract){_inherits$1(Contract,_BaseContract);var _super25=_createSuper(Contract);function Contract(){_classCallCheck$1(this,Contract);return _super25.apply(this,arguments);}return Contract;}(BaseContract);var version$5="bignumber/5.4.2";var BN$2=bn$1.BN;var logger$7=new Logger$1(version$5);var _constructorGuard$1={};var MAX_SAFE$2=0x1fffffffffffff;// Only warn about passing 10 into radix once
   var _warnedToStringRadix$2=false;var BigNumber$2=/*#__PURE__*/function(){function BigNumber(constructorGuard,hex){_classCallCheck$1(this,BigNumber);logger$7.checkNew(this instanceof BigNumber?this.constructor:void 0,BigNumber);if(constructorGuard!==_constructorGuard$1){logger$7.throwError("cannot call constructor directly; use BigNumber.from",Logger$1.errors.UNSUPPORTED_OPERATION,{operation:"new (BigNumber)"});}this._hex=hex;this._isBigNumber=true;Object.freeze(this);}_createClass$1(BigNumber,[{key:"fromTwos",value:function fromTwos(value){return toBigNumber$2(toBN$2(this).fromTwos(value));}},{key:"toTwos",value:function toTwos(value){return toBigNumber$2(toBN$2(this).toTwos(value));}},{key:"abs",value:function abs(){if(this._hex[0]==="-"){return BigNumber.from(this._hex.substring(1));}return this;}},{key:"add",value:function add(other){return toBigNumber$2(toBN$2(this).add(toBN$2(other)));}},{key:"sub",value:function sub(other){return toBigNumber$2(toBN$2(this).sub(toBN$2(other)));}},{key:"div",value:function div(other){var o=BigNumber.from(other);if(o.isZero()){throwFault$3("division by zero","div");}return toBigNumber$2(toBN$2(this).div(toBN$2(other)));}},{key:"mul",value:function mul(other){return toBigNumber$2(toBN$2(this).mul(toBN$2(other)));}},{key:"mod",value:function mod(other){var value=toBN$2(other);if(value.isNeg()){throwFault$3("cannot modulo negative values","mod");}return toBigNumber$2(toBN$2(this).umod(value));}},{key:"pow",value:function pow(other){var value=toBN$2(other);if(value.isNeg()){throwFault$3("cannot raise to negative values","pow");}return toBigNumber$2(toBN$2(this).pow(value));}},{key:"and",value:function and(other){var value=toBN$2(other);if(this.isNegative()||value.isNeg()){throwFault$3("cannot 'and' negative values","and");}return toBigNumber$2(toBN$2(this).and(value));}},{key:"or",value:function or(other){var value=toBN$2(other);if(this.isNegative()||value.isNeg()){throwFault$3("cannot 'or' negative values","or");}return toBigNumber$2(toBN$2(this).or(value));}},{key:"xor",value:function xor(other){var value=toBN$2(other);if(this.isNegative()||value.isNeg()){throwFault$3("cannot 'xor' negative values","xor");}return toBigNumber$2(toBN$2(this).xor(value));}},{key:"mask",value:function mask(value){if(this.isNegative()||value<0){throwFault$3("cannot mask negative values","mask");}return toBigNumber$2(toBN$2(this).maskn(value));}},{key:"shl",value:function shl(value){if(this.isNegative()||value<0){throwFault$3("cannot shift negative values","shl");}return toBigNumber$2(toBN$2(this).shln(value));}},{key:"shr",value:function shr(value){if(this.isNegative()||value<0){throwFault$3("cannot shift negative values","shr");}return toBigNumber$2(toBN$2(this).shrn(value));}},{key:"eq",value:function eq(other){return toBN$2(this).eq(toBN$2(other));}},{key:"lt",value:function lt(other){return toBN$2(this).lt(toBN$2(other));}},{key:"lte",value:function lte(other){return toBN$2(this).lte(toBN$2(other));}},{key:"gt",value:function gt(other){return toBN$2(this).gt(toBN$2(other));}},{key:"gte",value:function gte(other){return toBN$2(this).gte(toBN$2(other));}},{key:"isNegative",value:function isNegative(){return this._hex[0]==="-";}},{key:"isZero",value:function isZero(){return toBN$2(this).isZero();}},{key:"toNumber",value:function toNumber(){try{return toBN$2(this).toNumber();}catch(error){throwFault$3("overflow","toNumber",this.toString());}return null;}},{key:"toBigInt",value:function toBigInt(){try{return BigInt(this.toString());}catch(e){}return logger$7.throwError("this platform does not support BigInt",Logger$1.errors.UNSUPPORTED_OPERATION,{value:this.toString()});}},{key:"toString",value:function toString(){// Lots of people expect this, which we do not support, so check (See: #889)
   if(arguments.length>0){if(arguments[0]===10){if(!_warnedToStringRadix$2){_warnedToStringRadix$2=true;logger$7.warn("BigNumber.toString does not accept any parameters; base-10 is assumed");}}else if(arguments[0]===16){logger$7.throwError("BigNumber.toString does not accept any parameters; use bigNumber.toHexString()",Logger$1.errors.UNEXPECTED_ARGUMENT,{});}else {logger$7.throwError("BigNumber.toString does not accept parameters",Logger$1.errors.UNEXPECTED_ARGUMENT,{});}}return toBN$2(this).toString(10);}},{key:"toHexString",value:function toHexString(){return this._hex;}},{key:"toJSON",value:function toJSON(key){return {type:"BigNumber",hex:this.toHexString()};}}],[{key:"from",value:function from(value){if(value instanceof BigNumber){return value;}if(typeof value==="string"){if(value.match(/^-?0x[0-9a-f]+$/i)){return new BigNumber(_constructorGuard$1,toHex$3(value));}if(value.match(/^-?[0-9]+$/)){return new BigNumber(_constructorGuard$1,toHex$3(new BN$2(value)));}return logger$7.throwArgumentError("invalid BigNumber string","value",value);}if(typeof value==="number"){if(value%1){throwFault$3("underflow","BigNumber.from",value);}if(value>=MAX_SAFE$2||value<=-MAX_SAFE$2){throwFault$3("overflow","BigNumber.from",value);}return BigNumber.from(String(value));}var anyValue=value;if(typeof anyValue==="bigint"){return BigNumber.from(anyValue.toString());}if(isBytes$1(anyValue)){return BigNumber.from(hexlify$1(anyValue));}if(anyValue){// Hexable interface (takes piority)
   if(anyValue.toHexString){var hex=anyValue.toHexString();if(typeof hex==="string"){return BigNumber.from(hex);}}else {// For now, handle legacy JSON-ified values (goes away in v6)
@@ -62952,7 +63423,7 @@
   keyBytes=toUtf8Bytes(key);// The nodehash consumes the first slot, so the string pointer targets
   // offset 64, with the length at offset 64 and data starting at offset 96
   keyBytes=concat([bytes32ify(64),bytes32ify(keyBytes.length),keyBytes]);// Pad to word-size (32 bytes)
-  if(keyBytes.length%32!==0){keyBytes=concat([keyBytes,hexZeroPad("0x",32-key.length%32)]);}_context27.next=5;return this._fetchBytes("0x59d1d43c",hexlify$1(keyBytes));case 5:hexBytes=_context27.sent;if(!(hexBytes==null||hexBytes==="0x")){_context27.next=8;break;}return _context27.abrupt("return",null);case 8:return _context27.abrupt("return",toUtf8String(hexBytes));case 9:case"end":return _context27.stop();}}},_callee27,this);}));}}]);return Resolver;}();var defaultFormatter=null;var nextPollId=1;var BaseProvider=/*#__PURE__*/function(_Provider){_inherits$1(BaseProvider,_Provider);var _super26=_createSuper$1(BaseProvider);/**
+  if(keyBytes.length%32!==0){keyBytes=concat([keyBytes,hexZeroPad("0x",32-key.length%32)]);}_context27.next=5;return this._fetchBytes("0x59d1d43c",hexlify$1(keyBytes));case 5:hexBytes=_context27.sent;if(!(hexBytes==null||hexBytes==="0x")){_context27.next=8;break;}return _context27.abrupt("return",null);case 8:return _context27.abrupt("return",toUtf8String(hexBytes));case 9:case"end":return _context27.stop();}}},_callee27,this);}));}}]);return Resolver;}();var defaultFormatter=null;var nextPollId=1;var BaseProvider=/*#__PURE__*/function(_Provider){_inherits$1(BaseProvider,_Provider);var _super26=_createSuper(BaseProvider);/**
        *  ready
        *
        *  A Promise<Network> that resolves only once the provider is ready.
@@ -63044,10 +63515,10 @@
   if(message.match(/nonce too low/)){logger$2.throwError("nonce has already been used",Logger$1.errors.NONCE_EXPIRED,{error:error,method:method,transaction:transaction});}// "replacement transaction underpriced"
   if(message.match(/replacement transaction underpriced/)){logger$2.throwError("replacement fee too low",Logger$1.errors.REPLACEMENT_UNDERPRICED,{error:error,method:method,transaction:transaction});}// "replacement transaction underpriced"
   if(message.match(/only replay-protected/)){logger$2.throwError("legacy pre-eip-155 transactions not supported",Logger$1.errors.UNSUPPORTED_OPERATION,{error:error,method:method,transaction:transaction});}if(errorGas.indexOf(method)>=0&&message.match(/gas required exceeds allowance|always failing transaction|execution reverted/)){logger$2.throwError("cannot estimate gas; transaction may fail or may require manual gas limit",Logger$1.errors.UNPREDICTABLE_GAS_LIMIT,{error:error,method:method,transaction:transaction});}throw error;}function timer(timeout){return new Promise(function(resolve){setTimeout(resolve,timeout);});}function getResult(payload){if(payload.error){// @TODO: not any
-  var error=new Error(payload.error.message);error.code=payload.error.code;error.data=payload.error.data;throw error;}return payload.result;}function getLowerCase(value){if(value){return value.toLowerCase();}return value;}var _constructorGuard$5={};var JsonRpcSigner=/*#__PURE__*/function(_Signer2){_inherits$1(JsonRpcSigner,_Signer2);var _super27=_createSuper$1(JsonRpcSigner);function JsonRpcSigner(constructorGuard,provider,addressOrIndex){var _this54;_classCallCheck$1(this,JsonRpcSigner);logger$2.checkNew(this instanceof JsonRpcSigner?this.constructor:void 0,JsonRpcSigner);_this54=_super27.call(this);if(constructorGuard!==_constructorGuard$5){throw new Error("do not call the JsonRpcSigner constructor directly; use provider.getSigner");}defineReadOnly(_assertThisInitialized(_this54),"provider",provider);if(addressOrIndex==null){addressOrIndex=0;}if(typeof addressOrIndex==="string"){defineReadOnly(_assertThisInitialized(_this54),"_address",_this54.provider.formatter.address(addressOrIndex));defineReadOnly(_assertThisInitialized(_this54),"_index",null);}else if(typeof addressOrIndex==="number"){defineReadOnly(_assertThisInitialized(_this54),"_index",addressOrIndex);defineReadOnly(_assertThisInitialized(_this54),"_address",null);}else {logger$2.throwArgumentError("invalid address or index","addressOrIndex",addressOrIndex);}return _this54;}_createClass$1(JsonRpcSigner,[{key:"connect",value:function connect(provider){return logger$2.throwError("cannot alter JSON-RPC Signer connection",Logger$1.errors.UNSUPPORTED_OPERATION,{operation:"connect"});}},{key:"connectUnchecked",value:function connectUnchecked(){return new UncheckedJsonRpcSigner(_constructorGuard$5,this.provider,this._address||this._index);}},{key:"getAddress",value:function getAddress(){var _this55=this;if(this._address){return Promise.resolve(this._address);}return this.provider.send("eth_accounts",[]).then(function(accounts){if(accounts.length<=_this55._index){logger$2.throwError("unknown account #"+_this55._index,Logger$1.errors.UNSUPPORTED_OPERATION,{operation:"getAddress"});}return _this55.provider.formatter.address(accounts[_this55._index]);});}},{key:"sendUncheckedTransaction",value:function sendUncheckedTransaction(transaction){var _this56=this;transaction=shallowCopy(transaction);var fromAddress=this.getAddress().then(function(address){if(address){address=address.toLowerCase();}return address;});// The JSON-RPC for eth_sendTransaction uses 90000 gas; if the user
+  var error=new Error(payload.error.message);error.code=payload.error.code;error.data=payload.error.data;throw error;}return payload.result;}function getLowerCase(value){if(value){return value.toLowerCase();}return value;}var _constructorGuard$5={};var JsonRpcSigner=/*#__PURE__*/function(_Signer2){_inherits$1(JsonRpcSigner,_Signer2);var _super27=_createSuper(JsonRpcSigner);function JsonRpcSigner(constructorGuard,provider,addressOrIndex){var _this54;_classCallCheck$1(this,JsonRpcSigner);logger$2.checkNew(this instanceof JsonRpcSigner?this.constructor:void 0,JsonRpcSigner);_this54=_super27.call(this);if(constructorGuard!==_constructorGuard$5){throw new Error("do not call the JsonRpcSigner constructor directly; use provider.getSigner");}defineReadOnly(_assertThisInitialized(_this54),"provider",provider);if(addressOrIndex==null){addressOrIndex=0;}if(typeof addressOrIndex==="string"){defineReadOnly(_assertThisInitialized(_this54),"_address",_this54.provider.formatter.address(addressOrIndex));defineReadOnly(_assertThisInitialized(_this54),"_index",null);}else if(typeof addressOrIndex==="number"){defineReadOnly(_assertThisInitialized(_this54),"_index",addressOrIndex);defineReadOnly(_assertThisInitialized(_this54),"_address",null);}else {logger$2.throwArgumentError("invalid address or index","addressOrIndex",addressOrIndex);}return _this54;}_createClass$1(JsonRpcSigner,[{key:"connect",value:function connect(provider){return logger$2.throwError("cannot alter JSON-RPC Signer connection",Logger$1.errors.UNSUPPORTED_OPERATION,{operation:"connect"});}},{key:"connectUnchecked",value:function connectUnchecked(){return new UncheckedJsonRpcSigner(_constructorGuard$5,this.provider,this._address||this._index);}},{key:"getAddress",value:function getAddress(){var _this55=this;if(this._address){return Promise.resolve(this._address);}return this.provider.send("eth_accounts",[]).then(function(accounts){if(accounts.length<=_this55._index){logger$2.throwError("unknown account #"+_this55._index,Logger$1.errors.UNSUPPORTED_OPERATION,{operation:"getAddress"});}return _this55.provider.formatter.address(accounts[_this55._index]);});}},{key:"sendUncheckedTransaction",value:function sendUncheckedTransaction(transaction){var _this56=this;transaction=shallowCopy(transaction);var fromAddress=this.getAddress().then(function(address){if(address){address=address.toLowerCase();}return address;});// The JSON-RPC for eth_sendTransaction uses 90000 gas; if the user
   // wishes to use this, it is easy to specify explicitly, otherwise
   // we look it up for them.
-  if(transaction.gasLimit==null){var _estimate=shallowCopy(transaction);_estimate.from=fromAddress;transaction.gasLimit=this.provider.estimateGas(_estimate);}if(transaction.to!=null){transaction.to=Promise.resolve(transaction.to).then(function(to){return __awaiter(_this56,void 0,void 0,/*#__PURE__*/regenerator.mark(function _callee63(){var address;return regenerator.wrap(function _callee63$(_context63){while(1){switch(_context63.prev=_context63.next){case 0:if(!(to==null)){_context63.next=2;break;}return _context63.abrupt("return",null);case 2:_context63.next=4;return this.provider.resolveName(to);case 4:address=_context63.sent;if(address==null){logger$2.throwArgumentError("provided ENS name resolves to null","tx.to",to);}return _context63.abrupt("return",address);case 7:case"end":return _context63.stop();}}},_callee63,this);}));});}return resolveProperties({tx:resolveProperties(transaction),sender:fromAddress}).then(function(_ref5){var tx=_ref5.tx,sender=_ref5.sender;if(tx.from!=null){if(tx.from.toLowerCase()!==sender){logger$2.throwArgumentError("from address mismatch","transaction",transaction);}}else {tx.from=sender;}var hexTx=_this56.provider.constructor.hexlifyTransaction(tx,{from:true});return _this56.provider.send("eth_sendTransaction",[hexTx]).then(function(hash){return hash;},function(error){return checkError("sendTransaction",error,hexTx);});});}},{key:"signTransaction",value:function signTransaction(transaction){return logger$2.throwError("signing transactions is unsupported",Logger$1.errors.UNSUPPORTED_OPERATION,{operation:"signTransaction"});}},{key:"sendTransaction",value:function sendTransaction(transaction){return __awaiter(this,void 0,void 0,/*#__PURE__*/regenerator.mark(function _callee65(){var _this57=this;var blockNumber,hash;return regenerator.wrap(function _callee65$(_context65){while(1){switch(_context65.prev=_context65.next){case 0:_context65.next=2;return this.provider._getInternalBlockNumber(100+2*this.provider.pollingInterval);case 2:blockNumber=_context65.sent;_context65.next=5;return this.sendUncheckedTransaction(transaction);case 5:hash=_context65.sent;_context65.prev=6;_context65.next=9;return poll(function(){return __awaiter(_this57,void 0,void 0,/*#__PURE__*/regenerator.mark(function _callee64(){var tx;return regenerator.wrap(function _callee64$(_context64){while(1){switch(_context64.prev=_context64.next){case 0:_context64.next=2;return this.provider.getTransaction(hash);case 2:tx=_context64.sent;if(!(tx===null)){_context64.next=5;break;}return _context64.abrupt("return",undefined);case 5:return _context64.abrupt("return",this.provider._wrapTransaction(tx,hash,blockNumber));case 6:case"end":return _context64.stop();}}},_callee64,this);}));},{oncePoll:this.provider});case 9:return _context65.abrupt("return",_context65.sent);case 12:_context65.prev=12;_context65.t0=_context65["catch"](6);_context65.t0.transactionHash=hash;throw _context65.t0;case 16:case"end":return _context65.stop();}}},_callee65,this,[[6,12]]);}));}},{key:"signMessage",value:function signMessage(message){return __awaiter(this,void 0,void 0,/*#__PURE__*/regenerator.mark(function _callee66(){var data,address;return regenerator.wrap(function _callee66$(_context66){while(1){switch(_context66.prev=_context66.next){case 0:data=typeof message==="string"?toUtf8Bytes(message):message;_context66.next=3;return this.getAddress();case 3:address=_context66.sent;_context66.next=6;return this.provider.send("eth_sign",[address.toLowerCase(),hexlify$1(data)]);case 6:return _context66.abrupt("return",_context66.sent);case 7:case"end":return _context66.stop();}}},_callee66,this);}));}},{key:"_signTypedData",value:function _signTypedData(domain,types,value){return __awaiter(this,void 0,void 0,/*#__PURE__*/regenerator.mark(function _callee67(){var _this58=this;var populated,address;return regenerator.wrap(function _callee67$(_context67){while(1){switch(_context67.prev=_context67.next){case 0:_context67.next=2;return TypedDataEncoder.resolveNames(domain,types,value,function(name){return _this58.provider.resolveName(name);});case 2:populated=_context67.sent;_context67.next=5;return this.getAddress();case 5:address=_context67.sent;_context67.next=8;return this.provider.send("eth_signTypedData_v4",[address.toLowerCase(),JSON.stringify(TypedDataEncoder.getPayload(populated.domain,types,populated.value))]);case 8:return _context67.abrupt("return",_context67.sent);case 9:case"end":return _context67.stop();}}},_callee67,this);}));}},{key:"unlock",value:function unlock(password){return __awaiter(this,void 0,void 0,/*#__PURE__*/regenerator.mark(function _callee68(){var provider,address;return regenerator.wrap(function _callee68$(_context68){while(1){switch(_context68.prev=_context68.next){case 0:provider=this.provider;_context68.next=3;return this.getAddress();case 3:address=_context68.sent;return _context68.abrupt("return",provider.send("personal_unlockAccount",[address.toLowerCase(),password,null]));case 5:case"end":return _context68.stop();}}},_callee68,this);}));}}]);return JsonRpcSigner;}(Signer);var UncheckedJsonRpcSigner=/*#__PURE__*/function(_JsonRpcSigner){_inherits$1(UncheckedJsonRpcSigner,_JsonRpcSigner);var _super28=_createSuper$1(UncheckedJsonRpcSigner);function UncheckedJsonRpcSigner(){_classCallCheck$1(this,UncheckedJsonRpcSigner);return _super28.apply(this,arguments);}_createClass$1(UncheckedJsonRpcSigner,[{key:"sendTransaction",value:function sendTransaction(transaction){var _this59=this;return this.sendUncheckedTransaction(transaction).then(function(hash){return {hash:hash,nonce:null,gasLimit:null,gasPrice:null,data:null,value:null,chainId:null,confirmations:0,from:null,wait:function wait(confirmations){return _this59.provider.waitForTransaction(hash,confirmations);}};});}}]);return UncheckedJsonRpcSigner;}(JsonRpcSigner);var allowedTransactionKeys={chainId:true,data:true,gasLimit:true,gasPrice:true,nonce:true,to:true,value:true,type:true,accessList:true,maxFeePerGas:true,maxPriorityFeePerGas:true};var JsonRpcProvider=/*#__PURE__*/function(_BaseProvider){_inherits$1(JsonRpcProvider,_BaseProvider);var _super29=_createSuper$1(JsonRpcProvider);function JsonRpcProvider(url,network){var _this60;_classCallCheck$1(this,JsonRpcProvider);logger$2.checkNew(this instanceof JsonRpcProvider?this.constructor:void 0,JsonRpcProvider);var networkOrReady=network;// The network is unknown, query the JSON-RPC for it
+  if(transaction.gasLimit==null){var _estimate=shallowCopy(transaction);_estimate.from=fromAddress;transaction.gasLimit=this.provider.estimateGas(_estimate);}if(transaction.to!=null){transaction.to=Promise.resolve(transaction.to).then(function(to){return __awaiter(_this56,void 0,void 0,/*#__PURE__*/regenerator.mark(function _callee63(){var address;return regenerator.wrap(function _callee63$(_context63){while(1){switch(_context63.prev=_context63.next){case 0:if(!(to==null)){_context63.next=2;break;}return _context63.abrupt("return",null);case 2:_context63.next=4;return this.provider.resolveName(to);case 4:address=_context63.sent;if(address==null){logger$2.throwArgumentError("provided ENS name resolves to null","tx.to",to);}return _context63.abrupt("return",address);case 7:case"end":return _context63.stop();}}},_callee63,this);}));});}return resolveProperties({tx:resolveProperties(transaction),sender:fromAddress}).then(function(_ref5){var tx=_ref5.tx,sender=_ref5.sender;if(tx.from!=null){if(tx.from.toLowerCase()!==sender){logger$2.throwArgumentError("from address mismatch","transaction",transaction);}}else {tx.from=sender;}var hexTx=_this56.provider.constructor.hexlifyTransaction(tx,{from:true});return _this56.provider.send("eth_sendTransaction",[hexTx]).then(function(hash){return hash;},function(error){return checkError("sendTransaction",error,hexTx);});});}},{key:"signTransaction",value:function signTransaction(transaction){return logger$2.throwError("signing transactions is unsupported",Logger$1.errors.UNSUPPORTED_OPERATION,{operation:"signTransaction"});}},{key:"sendTransaction",value:function sendTransaction(transaction){return __awaiter(this,void 0,void 0,/*#__PURE__*/regenerator.mark(function _callee65(){var _this57=this;var blockNumber,hash;return regenerator.wrap(function _callee65$(_context65){while(1){switch(_context65.prev=_context65.next){case 0:_context65.next=2;return this.provider._getInternalBlockNumber(100+2*this.provider.pollingInterval);case 2:blockNumber=_context65.sent;_context65.next=5;return this.sendUncheckedTransaction(transaction);case 5:hash=_context65.sent;_context65.prev=6;_context65.next=9;return poll(function(){return __awaiter(_this57,void 0,void 0,/*#__PURE__*/regenerator.mark(function _callee64(){var tx;return regenerator.wrap(function _callee64$(_context64){while(1){switch(_context64.prev=_context64.next){case 0:_context64.next=2;return this.provider.getTransaction(hash);case 2:tx=_context64.sent;if(!(tx===null)){_context64.next=5;break;}return _context64.abrupt("return",undefined);case 5:return _context64.abrupt("return",this.provider._wrapTransaction(tx,hash,blockNumber));case 6:case"end":return _context64.stop();}}},_callee64,this);}));},{oncePoll:this.provider});case 9:return _context65.abrupt("return",_context65.sent);case 12:_context65.prev=12;_context65.t0=_context65["catch"](6);_context65.t0.transactionHash=hash;throw _context65.t0;case 16:case"end":return _context65.stop();}}},_callee65,this,[[6,12]]);}));}},{key:"signMessage",value:function signMessage(message){return __awaiter(this,void 0,void 0,/*#__PURE__*/regenerator.mark(function _callee66(){var data,address;return regenerator.wrap(function _callee66$(_context66){while(1){switch(_context66.prev=_context66.next){case 0:data=typeof message==="string"?toUtf8Bytes(message):message;_context66.next=3;return this.getAddress();case 3:address=_context66.sent;_context66.next=6;return this.provider.send("eth_sign",[address.toLowerCase(),hexlify$1(data)]);case 6:return _context66.abrupt("return",_context66.sent);case 7:case"end":return _context66.stop();}}},_callee66,this);}));}},{key:"_signTypedData",value:function _signTypedData(domain,types,value){return __awaiter(this,void 0,void 0,/*#__PURE__*/regenerator.mark(function _callee67(){var _this58=this;var populated,address;return regenerator.wrap(function _callee67$(_context67){while(1){switch(_context67.prev=_context67.next){case 0:_context67.next=2;return TypedDataEncoder.resolveNames(domain,types,value,function(name){return _this58.provider.resolveName(name);});case 2:populated=_context67.sent;_context67.next=5;return this.getAddress();case 5:address=_context67.sent;_context67.next=8;return this.provider.send("eth_signTypedData_v4",[address.toLowerCase(),JSON.stringify(TypedDataEncoder.getPayload(populated.domain,types,populated.value))]);case 8:return _context67.abrupt("return",_context67.sent);case 9:case"end":return _context67.stop();}}},_callee67,this);}));}},{key:"unlock",value:function unlock(password){return __awaiter(this,void 0,void 0,/*#__PURE__*/regenerator.mark(function _callee68(){var provider,address;return regenerator.wrap(function _callee68$(_context68){while(1){switch(_context68.prev=_context68.next){case 0:provider=this.provider;_context68.next=3;return this.getAddress();case 3:address=_context68.sent;return _context68.abrupt("return",provider.send("personal_unlockAccount",[address.toLowerCase(),password,null]));case 5:case"end":return _context68.stop();}}},_callee68,this);}));}}]);return JsonRpcSigner;}(Signer);var UncheckedJsonRpcSigner=/*#__PURE__*/function(_JsonRpcSigner){_inherits$1(UncheckedJsonRpcSigner,_JsonRpcSigner);var _super28=_createSuper(UncheckedJsonRpcSigner);function UncheckedJsonRpcSigner(){_classCallCheck$1(this,UncheckedJsonRpcSigner);return _super28.apply(this,arguments);}_createClass$1(UncheckedJsonRpcSigner,[{key:"sendTransaction",value:function sendTransaction(transaction){var _this59=this;return this.sendUncheckedTransaction(transaction).then(function(hash){return {hash:hash,nonce:null,gasLimit:null,gasPrice:null,data:null,value:null,chainId:null,confirmations:0,from:null,wait:function wait(confirmations){return _this59.provider.waitForTransaction(hash,confirmations);}};});}}]);return UncheckedJsonRpcSigner;}(JsonRpcSigner);var allowedTransactionKeys={chainId:true,data:true,gasLimit:true,gasPrice:true,nonce:true,to:true,value:true,type:true,accessList:true,maxFeePerGas:true,maxPriorityFeePerGas:true};var JsonRpcProvider=/*#__PURE__*/function(_BaseProvider){_inherits$1(JsonRpcProvider,_BaseProvider);var _super29=_createSuper(JsonRpcProvider);function JsonRpcProvider(url,network){var _this60;_classCallCheck$1(this,JsonRpcProvider);logger$2.checkNew(this instanceof JsonRpcProvider?this.constructor:void 0,JsonRpcProvider);var networkOrReady=network;// The network is unknown, query the JSON-RPC for it
   if(networkOrReady==null){networkOrReady=new Promise(function(resolve,reject){setTimeout(function(){_this60.detectNetwork().then(function(network){resolve(network);},function(error){reject(error);});},0);});}_this60=_super29.call(this,networkOrReady);// Default URL
   if(!url){url=getStatic(_this60.constructor,"defaultUrl")();}if(typeof url==="string"){defineReadOnly(_assertThisInitialized(_this60),"connection",Object.freeze({url:url}));}else {defineReadOnly(_assertThisInitialized(_this60),"connection",Object.freeze(shallowCopy(url)));}_this60._nextId=42;return _this60;}_createClass$1(JsonRpcProvider,[{key:"_cache",get:function get(){if(this._eventLoopCache==null){this._eventLoopCache={};}return this._eventLoopCache;}},{key:"detectNetwork",value:function detectNetwork(){var _this61=this;if(!this._cache["detectNetwork"]){this._cache["detectNetwork"]=this._uncachedDetectNetwork();// Clear this cache at the beginning of the next event loop
   setTimeout(function(){_this61._cache["detectNetwork"]=null;},0);}return this._cache["detectNetwork"];}},{key:"_uncachedDetectNetwork",value:function _uncachedDetectNetwork(){return __awaiter(this,void 0,void 0,/*#__PURE__*/regenerator.mark(function _callee69(){var chainId,getNetwork;return regenerator.wrap(function _callee69$(_context69){while(1){switch(_context69.prev=_context69.next){case 0:_context69.next=2;return timer(0);case 2:chainId=null;_context69.prev=3;_context69.next=6;return this.send("eth_chainId",[]);case 6:chainId=_context69.sent;_context69.next=19;break;case 9:_context69.prev=9;_context69.t0=_context69["catch"](3);_context69.prev=11;_context69.next=14;return this.send("net_version",[]);case 14:chainId=_context69.sent;_context69.next=19;break;case 17:_context69.prev=17;_context69.t1=_context69["catch"](11);case 19:if(!(chainId!=null)){_context69.next=28;break;}getNetwork=getStatic(this.constructor,"getNetwork");_context69.prev=21;return _context69.abrupt("return",getNetwork(BigNumber$1.from(chainId).toNumber()));case 25:_context69.prev=25;_context69.t2=_context69["catch"](21);return _context69.abrupt("return",logger$2.throwError("could not detect network",Logger$1.errors.NETWORK_ERROR,{chainId:chainId,event:"invalidNetwork",serverError:_context69.t2}));case 28:return _context69.abrupt("return",logger$2.throwError("could not detect network",Logger$1.errors.NETWORK_ERROR,{event:"noNetwork"}));case 29:case"end":return _context69.stop();}}},_callee69,this,[[3,9],[11,17],[21,25]]);}));}},{key:"getSigner",value:function getSigner(addressOrIndex){return new JsonRpcSigner(_constructorGuard$5,this,addressOrIndex);}},{key:"getUncheckedSigner",value:function getUncheckedSigner(addressOrIndex){return this.getSigner(addressOrIndex).connectUnchecked();}},{key:"listAccounts",value:function listAccounts(){var _this62=this;return this.send("eth_accounts",[]).then(function(accounts){return accounts.map(function(a){return _this62.formatter.address(a);});});}},{key:"send",value:function send(method,params){var _this63=this;var request={method:method,params:params,id:this._nextId++,jsonrpc:"2.0"};this.emit("debug",{action:"request",request:deepCopy(request),provider:this});// We can expand this in the future to any call, but for now these
@@ -63070,8 +63541,8 @@
   if(method=="eth_sign"&&(provider.isMetaMask||provider.isStatus)){// https://github.com/ethereum/go-ethereum/wiki/Management-APIs#personal_sign
   method="personal_sign";params=[params[1],params[0]];}var request={method:method,params:params,id:_nextId++,jsonrpc:"2.0"};return new Promise(function(resolve,reject){_this64.emit("debug",{action:"request",fetcher:fetcher,request:deepCopy(request),provider:_this64});sendFunc(request,function(error,response){if(error){_this64.emit("debug",{action:"response",fetcher:fetcher,error:error,request:request,provider:_this64});return reject(error);}_this64.emit("debug",{action:"response",fetcher:fetcher,request:request,response:response,provider:_this64});if(response.error){var _error=new Error(response.error.message);_error.code=response.error.code;_error.data=response.error.data;return reject(_error);}resolve(response.result);});});};}function buildEip1193Fetcher(provider){return function(method,params){var _this65=this;if(params==null){params=[];}// Metamask complains about eth_sign (and on some versions hangs)
   if(method=="eth_sign"&&(provider.isMetaMask||provider.isStatus)){// https://github.com/ethereum/go-ethereum/wiki/Management-APIs#personal_sign
-  method="personal_sign";params=[params[1],params[0]];}var request={method:method,params:params};this.emit("debug",{action:"request",fetcher:"Eip1193Fetcher",request:deepCopy(request),provider:this});return provider.request(request).then(function(response){_this65.emit("debug",{action:"response",fetcher:"Eip1193Fetcher",request:request,response:response,provider:_this65});return response;},function(error){_this65.emit("debug",{action:"response",fetcher:"Eip1193Fetcher",request:request,error:error,provider:_this65});throw error;});};}var Web3Provider=/*#__PURE__*/function(_JsonRpcProvider){_inherits$1(Web3Provider,_JsonRpcProvider);var _super30=_createSuper$1(Web3Provider);function Web3Provider(provider,network){var _this66;_classCallCheck$1(this,Web3Provider);logger$1$1.checkNew(this instanceof Web3Provider?this.constructor:void 0,Web3Provider);if(provider==null){logger$1$1.throwArgumentError("missing provider","provider",provider);}var path=null;var jsonRpcFetchFunc=null;var subprovider=null;if(typeof provider==="function"){path="unknown:";jsonRpcFetchFunc=provider;}else {path=provider.host||provider.path||"";if(!path&&provider.isMetaMask){path="metamask";}subprovider=provider;if(provider.request){if(path===""){path="eip-1193:";}jsonRpcFetchFunc=buildEip1193Fetcher(provider);}else if(provider.sendAsync){jsonRpcFetchFunc=buildWeb3LegacyFetcher(provider,provider.sendAsync.bind(provider));}else if(provider.send){jsonRpcFetchFunc=buildWeb3LegacyFetcher(provider,provider.send.bind(provider));}else {logger$1$1.throwArgumentError("unsupported provider","provider",provider);}if(!path){path="unknown:";}}_this66=_super30.call(this,path,network);defineReadOnly(_assertThisInitialized(_this66),"jsonRpcFetchFunc",jsonRpcFetchFunc);defineReadOnly(_assertThisInitialized(_this66),"provider",subprovider);return _this66;}_createClass$1(Web3Provider,[{key:"send",value:function send(method,params){return this.jsonRpcFetchFunc(method,params);}}]);return Web3Provider;}(JsonRpcProvider);var version$k="units/5.4.0";var logger$r=new Logger$1(version$k);var names=["wei","kwei","mwei","gwei","szabo","finney","ether"];function parseUnits(value,unitName){if(typeof value!=="string"){logger$r.throwArgumentError("value must be a string","value",value);}if(typeof unitName==="string"){var index=names.indexOf(unitName);if(index!==-1){unitName=3*index;}}return parseFixed(value,unitName!=null?unitName:18);}function _optionalChain$4(ops){var lastAccessLHS=undefined;var value=ops[0];var i=1;while(i<ops.length){var op=ops[i];var fn=ops[i+1];i+=2;if((op==='optionalAccess'||op==='optionalCall')&&value==null){return undefined;}if(op==='access'||op==='optionalAccess'){lastAccessLHS=value;value=fn(value);}else if(op==='call'||op==='optionalCall'){value=fn(function(){var _value2;for(var _len11=arguments.length,args=new Array(_len11),_key20=0;_key20<_len11;_key20++){args[_key20]=arguments[_key20];}return (_value2=value).call.apply(_value2,[lastAccessLHS].concat(args));});lastAccessLHS=undefined;}}return value;}var Transaction=/*#__PURE__*/function(){function Transaction(_ref6){var blockchain=_ref6.blockchain,from=_ref6.from,to=_ref6.to,api=_ref6.api,method=_ref6.method,params=_ref6.params,value=_ref6.value,sent=_ref6.sent,confirmed=_ref6.confirmed,ensured=_ref6.ensured,failed=_ref6.failed;_classCallCheck$1(this,Transaction);this.blockchain=blockchain;this.from=from;this.to=to;this.api=api;this.method=method;this.params=params;this.value=_optionalChain$4([Transaction,'access',function(_){return _.bigNumberify;},'call',function(_2){return _2(value,blockchain);},'optionalAccess',function(_3){return _3.toString;},'call',function(_4){return _4();}]);this.sent=sent;this.confirmed=confirmed;this.ensured=ensured;this.failed=failed;this._confirmed=false;this._ensured=false;this._failed=false;}_createClass$1(Transaction,[{key:"prepare",value:function(){var _prepare=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee71(_ref7){var wallet;return regenerator.wrap(function _callee71$(_context71){while(1){switch(_context71.prev=_context71.next){case 0:wallet=_ref7.wallet;_context71.next=3;return wallet.account();case 3:this.from=_context71.sent;case 4:case"end":return _context71.stop();}}},_callee71,this);}));function prepare(_x){return _prepare.apply(this,arguments);}return prepare;}()},{key:"getContractArguments",value:function getContractArguments(_ref8){var _this67=this;var contract=_ref8.contract;var fragment=contract["interface"].fragments.find(function(fragment){return fragment.name==_this67.method;});if(this.params instanceof Array){return this.params;}else if(this.params instanceof Object){return fragment.inputs.map(function(input){return _this67.params[input.name];});}else {throw 'Contract params have wrong type!';}}},{key:"confirmation",value:function confirmation(){var _this68=this;if(this._confirmed){return Promise.resolve(this);}return new Promise(function(resolve,reject){var originalConfirmed=_this68.confirmed;_this68.confirmed=function(){if(originalConfirmed)originalConfirmed(_this68);resolve(_this68);};});}},{key:"ensurance",value:function ensurance(){var _this69=this;if(this._ensured){return Promise.resolve(this);}return new Promise(function(resolve,reject){var originalEnsured=_this69.ensured;_this69.ensured=function(){if(originalEnsured)originalEnsured(_this69);resolve(_this69);};});}},{key:"failure",value:function failure(){var _this70=this;if(this._failed){return Promise.resolve(this);}return new Promise(function(resolve,reject){var originalFailed=_this70.failed;_this70.failed=function(){if(originalFailed)originalFailed(_this70);resolve(_this70);};});}}],[{key:"bigNumberify",value:function bigNumberify(value,blockchain){if(typeof value==='number'){return parseUnits(value.toString(),CONSTANTS$2[blockchain].DECIMALS);}else if(value&&value.toString){return BigNumber$2.from(value.toString());}else {return value;}}}]);return Transaction;}();function _optionalChain$3$1(ops){var lastAccessLHS=undefined;var value=ops[0];var i=1;while(i<ops.length){var op=ops[i];var fn=ops[i+1];i+=2;if((op==='optionalAccess'||op==='optionalCall')&&value==null){return undefined;}if(op==='access'||op==='optionalAccess'){lastAccessLHS=value;value=fn(value);}else if(op==='call'||op==='optionalCall'){value=fn(function(){var _value3;for(var _len12=arguments.length,args=new Array(_len12),_key21=0;_key21<_len12;_key21++){args[_key21]=arguments[_key21];}return (_value3=value).call.apply(_value3,[lastAccessLHS].concat(args));});lastAccessLHS=undefined;}}return value;}var estimate$1=/*#__PURE__*/function(){var _ref10=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee72(_ref9){var _contract$connect$est;var transaction,wallet,provider,signer,contract;return regenerator.wrap(function _callee72$(_context72){while(1){switch(_context72.prev=_context72.next){case 0:transaction=_ref9.transaction,wallet=_ref9.wallet;transaction=new Transaction(transaction);_context72.next=4;return wallet.connectedTo(transaction.blockchain);case 4:_context72.t0=_context72.sent;if(!(_context72.t0==false)){_context72.next=8;break;}_context72.next=8;return wallet.switchTo(transaction.blockchain);case 8:provider=new Web3Provider(window.ethereum,'any');signer=provider.getSigner(0);contract=new Contract(transaction.to,_optionalChain$3$1([transaction,'optionalAccess',function(_){return _.api;}]),provider);return _context72.abrupt("return",(_contract$connect$est=contract.connect(signer).estimateGas)[transaction.method].apply(_contract$connect$est,_toConsumableArray(transaction.getContractArguments({contract:contract}))));case 12:case"end":return _context72.stop();}}},_callee72);}));return function estimate$1(_x2){return _ref10.apply(this,arguments);};}();var sendTransaction$1=/*#__PURE__*/function(){var _ref12=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee73(_ref11){var transaction,wallet,provider,signer;return regenerator.wrap(function _callee73$(_context73){while(1){switch(_context73.prev=_context73.next){case 0:transaction=_ref11.transaction,wallet=_ref11.wallet;transaction=new Transaction(transaction);_context73.next=4;return wallet.connectedTo(transaction.blockchain);case 4:_context73.t0=_context73.sent;if(!(_context73.t0==false)){_context73.next=8;break;}_context73.next=8;return wallet.switchTo(transaction.blockchain);case 8:_context73.next=10;return transaction.prepare({wallet:wallet});case 10:provider=new Web3Provider(window.ethereum,'any');signer=provider.getSigner(0);_context73.next=14;return executeSubmit$1({transaction:transaction,provider:provider,signer:signer}).then(function(sentTransaction){if(sentTransaction){transaction.id=sentTransaction.hash;transaction.url=Blockchain.findByName(transaction.blockchain).explorerUrlFor({transaction:transaction});if(transaction.sent)transaction.sent(transaction);sentTransaction.wait(1).then(function(){transaction._confirmed=true;if(transaction.confirmed)transaction.confirmed(transaction);})["catch"](function(error){transaction._failed=true;if(transaction.failed)transaction.failed(transaction);});sentTransaction.wait(12).then(function(){transaction._ensured=true;if(transaction.ensured)transaction.ensured(transaction);});}else {throw 'Submitting transaction failed!';}});case 14:return _context73.abrupt("return",transaction);case 15:case"end":return _context73.stop();}}},_callee73);}));return function sendTransaction$1(_x3){return _ref12.apply(this,arguments);};}();var executeSubmit$1=function executeSubmit$1(_ref13){var transaction=_ref13.transaction,provider=_ref13.provider,signer=_ref13.signer;if(transaction.method){return submitContractInteraction$1({transaction:transaction,signer:signer,provider:provider});}else {return submitSimpleTransfer$1({transaction:transaction,signer:signer});}};var submitContractInteraction$1=function submitContractInteraction$1(_ref14){var _contract$connect;var transaction=_ref14.transaction,signer=_ref14.signer,provider=_ref14.provider;var contract=new Contract(transaction.to,transaction.api,provider);return (_contract$connect=contract.connect(signer))[transaction.method].apply(_contract$connect,_toConsumableArray(transaction.getContractArguments({contract:contract})).concat([{value:Transaction.bigNumberify(transaction.value,transaction.blockchain)}]));};var submitSimpleTransfer$1=function submitSimpleTransfer$1(_ref15){var transaction=_ref15.transaction,signer=_ref15.signer;return signer.sendTransaction({to:transaction.to,value:Transaction.bigNumberify(transaction.value,transaction.blockchain)});};var Web3Wallet=/*#__PURE__*/function(){function Web3Wallet(){var _this71=this;_classCallCheck$1(this,Web3Wallet);Web3Wallet.prototype.__init.call(this);Web3Wallet.prototype.__init2.call(this);Web3Wallet.prototype.__init3.call(this);this.sendTransaction=function(transaction){return sendTransaction$1({wallet:_this71,transaction:transaction});};this.estimate=function(transaction){return estimate$1({wallet:_this71,transaction:transaction});};}_createClass$1(Web3Wallet,[{key:"__init",value:function __init(){this.name='Web3 Wallet';}},{key:"__init2",value:function __init2(){this.logo='data:image/png;base64,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';}},{key:"__init3",value:function __init3(){this.blockchains=['ethereum'];}},{key:"account",value:function(){var _account=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee74(){return regenerator.wrap(function _callee74$(_context74){while(1){switch(_context74.prev=_context74.next){case 0:_context74.next=2;return this.accounts();case 2:return _context74.abrupt("return",_context74.sent[0]);case 3:case"end":return _context74.stop();}}},_callee74,this);}));function account(){return _account.apply(this,arguments);}return account;}()},{key:"accounts",value:function(){var _accounts=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee75(){var accounts;return regenerator.wrap(function _callee75$(_context75){while(1){switch(_context75.prev=_context75.next){case 0:_context75.next=2;return window.ethereum.request({method:'eth_accounts'});case 2:accounts=_context75.sent;return _context75.abrupt("return",accounts);case 4:case"end":return _context75.stop();}}},_callee75);}));function accounts(){return _accounts.apply(this,arguments);}return accounts;}()},{key:"connect",value:function(){var _connect=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee76(){var accounts;return regenerator.wrap(function _callee76$(_context76){while(1){switch(_context76.prev=_context76.next){case 0:_context76.next=2;return window.ethereum.request({method:'eth_requestAccounts'});case 2:accounts=_context76.sent;return _context76.abrupt("return",accounts);case 4:case"end":return _context76.stop();}}},_callee76);}));function connect(){return _connect.apply(this,arguments);}return connect;}()},{key:"on",value:function on(event,callback){switch(event){case'account':window.ethereum.on('accountsChanged',function(accounts){return callback(accounts[0]);});break;case'accounts':window.ethereum.on('accountsChanged',function(accounts){return callback(accounts);});break;case'network':window.ethereum.on('chainChanged',function(chainId){return callback(Blockchain.findById(chainId).name);});break;case'disconnect':window.ethereum.on('disconnect',callback);break;}}},{key:"connectedTo",value:function(){var _connectedTo=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee77(input){var blockchain;return regenerator.wrap(function _callee77$(_context77){while(1){switch(_context77.prev=_context77.next){case 0:_context77.t0=Blockchain;_context77.next=3;return window.ethereum.request({method:'eth_chainId'});case 3:_context77.t1=_context77.sent;blockchain=_context77.t0.findById.call(_context77.t0,_context77.t1);if(!input){_context77.next=9;break;}return _context77.abrupt("return",input===blockchain.name);case 9:return _context77.abrupt("return",blockchain.name);case 10:case"end":return _context77.stop();}}},_callee77);}));function connectedTo(_x4){return _connectedTo.apply(this,arguments);}return connectedTo;}()},{key:"addNetwork",value:function addNetwork(blockchainName){return new Promise(function(resolve,reject){var blockchain=Blockchain.findByName(blockchainName);ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:blockchain.id,chainName:blockchain.fullName,nativeCurrency:{name:blockchain.currency.name,symbol:blockchain.currency.symbol,decimals:blockchain.currency.decimals},rpcUrls:[blockchain.rpc],blockExplorerUrls:[blockchain.explorer],iconUrls:[blockchain.logo]}]}).then(resolve)["catch"](reject);});}},{key:"switchTo",value:function switchTo(blockchainName){var _this72=this;return new Promise(function(resolve,reject){var blockchain=Blockchain.findByName(blockchainName);ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:blockchain.id}]}).then(resolve)["catch"](function(error){if(error.code===4902){// metamask chain not yet added {
-  _this72.addNetwork(blockchainName).then(function(){return _this72.switchTo(blockchainName).then(resolve);})["catch"](reject);}else {reject(error);}});});}}]);return Web3Wallet;}();var Coinbase=/*#__PURE__*/function(_Web3Wallet){_inherits$1(Coinbase,_Web3Wallet);var _super31=_createSuper$1(Coinbase);function Coinbase(){var _this73;_classCallCheck$1(this,Coinbase);for(var _len13=arguments.length,args=new Array(_len13),_key22=0;_key22<_len13;_key22++){args[_key22]=arguments[_key22];}_this73=_super31.call.apply(_super31,[this].concat(args));Coinbase.prototype.__init.call(_assertThisInitialized(_this73));Coinbase.prototype.__init2.call(_assertThisInitialized(_this73));Coinbase.prototype.__init3.call(_assertThisInitialized(_this73));Coinbase.prototype.__init4.call(_assertThisInitialized(_this73));return _this73;}_createClass$1(Coinbase,[{key:"__init",value:function __init(){this.name='Coinbase Wallet';}},{key:"__init2",value:function __init2(){this.logo='data:image/png;base64,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';}},{key:"__init3",value:function __init3(){this.blockchains=['ethereum','bsc'];}},{key:"__init4",value:function __init4(){this.install='https://wallet.coinbase.com';}}]);return Coinbase;}(Web3Wallet);var MetaMask=/*#__PURE__*/function(_Web3Wallet2){_inherits$1(MetaMask,_Web3Wallet2);var _super32=_createSuper$1(MetaMask);function MetaMask(){var _this74;_classCallCheck$1(this,MetaMask);for(var _len14=arguments.length,args=new Array(_len14),_key23=0;_key23<_len14;_key23++){args[_key23]=arguments[_key23];}_this74=_super32.call.apply(_super32,[this].concat(args));MetaMask.prototype.__init.call(_assertThisInitialized(_this74));MetaMask.prototype.__init2.call(_assertThisInitialized(_this74));MetaMask.prototype.__init3.call(_assertThisInitialized(_this74));MetaMask.prototype.__init4.call(_assertThisInitialized(_this74));MetaMask.prototype.__init5.call(_assertThisInitialized(_this74));return _this74;}_createClass$1(MetaMask,[{key:"__init",value:function __init(){this.name='MetaMask';}},{key:"__init2",value:function __init2(){this.logo='data:image/png;base64,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';}},{key:"__init3",value:function __init3(){this.blockchains=['ethereum','bsc'];}},{key:"__init4",value:function __init4(){this.devices=['desktop','mobile'];}},{key:"__init5",value:function __init5(){this.install='https://metamask.io/download.html';}}]);return MetaMask;}(Web3Wallet);function _optionalChain$2$1(ops){var lastAccessLHS=undefined;var value=ops[0];var i=1;while(i<ops.length){var op=ops[i];var fn=ops[i+1];i+=2;if((op==='optionalAccess'||op==='optionalCall')&&value==null){return undefined;}if(op==='access'||op==='optionalAccess'){lastAccessLHS=value;value=fn(value);}else if(op==='call'||op==='optionalCall'){value=fn(function(){var _value4;for(var _len15=arguments.length,args=new Array(_len15),_key24=0;_key24<_len15;_key24++){args[_key24]=arguments[_key24];}return (_value4=value).call.apply(_value4,[lastAccessLHS].concat(args));});lastAccessLHS=undefined;}}return value;}var estimate=/*#__PURE__*/function(){var _ref17=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee78(_ref16){var transaction,wallet,from,contract,populatedTransaction;return regenerator.wrap(function _callee78$(_context78){while(1){switch(_context78.prev=_context78.next){case 0:transaction=_ref16.transaction,wallet=_ref16.wallet;transaction=new Transaction(transaction);_context78.next=4;return wallet.connectedTo(transaction.blockchain);case 4:_context78.t0=_context78.sent;if(!(_context78.t0==false)){_context78.next=7;break;}throw {code:'WRONG_NETWORK'};case 7:_context78.next=9;return wallet.account();case 9:from=_context78.sent;contract=new Contract(transaction.to,transaction.api);_context78.next=13;return contract.populateTransaction[transaction.method].apply(null,transaction.getContractArguments({contract:contract}));case 13:populatedTransaction=_context78.sent;return _context78.abrupt("return",wallet.connector.sendCustomRequest({method:'eth_estimateGas',params:[{from:from,to:transaction.to,value:_optionalChain$2$1([transaction,'access',function(_){return _.value;},'optionalAccess',function(_2){return _2.toString;},'call',function(_3){return _3();}]),data:populatedTransaction.data}]}));case 15:case"end":return _context78.stop();}}},_callee78);}));return function estimate(_x5){return _ref17.apply(this,arguments);};}();function _optionalChain$1$1(ops){var lastAccessLHS=undefined;var value=ops[0];var i=1;while(i<ops.length){var op=ops[i];var fn=ops[i+1];i+=2;if((op==='optionalAccess'||op==='optionalCall')&&value==null){return undefined;}if(op==='access'||op==='optionalAccess'){lastAccessLHS=value;value=fn(value);}else if(op==='call'||op==='optionalCall'){value=fn(function(){var _value5;for(var _len16=arguments.length,args=new Array(_len16),_key25=0;_key25<_len16;_key25++){args[_key25]=arguments[_key25];}return (_value5=value).call.apply(_value5,[lastAccessLHS].concat(args));});lastAccessLHS=undefined;}}return value;}var sendTransaction=/*#__PURE__*/function(){var _ref19=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee80(_ref18){var transaction,wallet;return regenerator.wrap(function _callee80$(_context80){while(1){switch(_context80.prev=_context80.next){case 0:transaction=_ref18.transaction,wallet=_ref18.wallet;transaction=new Transaction(transaction);_context80.next=4;return transaction.prepare({wallet:wallet});case 4:_context80.next=6;return wallet.connectedTo(transaction.blockchain);case 6:_context80.t0=_context80.sent;if(!(_context80.t0==false)){_context80.next=9;break;}throw {code:'WRONG_NETWORK'};case 9:_context80.next=11;return executeSubmit({transaction:transaction,wallet:wallet}).then(/*#__PURE__*/function(){var _ref20=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee79(tx){var blockchain,sentTransaction;return regenerator.wrap(function _callee79$(_context79){while(1){switch(_context79.prev=_context79.next){case 0:if(!tx){_context79.next=12;break;}blockchain=Blockchain.findByName(transaction.blockchain);transaction.id=tx;transaction.url=blockchain.explorerUrlFor({transaction:transaction});if(transaction.sent)transaction.sent(transaction);_context79.next=7;return provider(transaction.blockchain).getTransaction(tx);case 7:sentTransaction=_context79.sent;sentTransaction.wait(1).then(function(){transaction._confirmed=true;if(transaction.confirmed)transaction.confirmed(transaction);})["catch"](function(error){transaction._failed=true;if(transaction.failed)transaction.failed(transaction);});sentTransaction.wait(12).then(function(){transaction._ensured=true;if(transaction.ensured)transaction.ensured(transaction);});_context79.next=13;break;case 12:throw 'Submitting transaction failed!';case 13:case"end":return _context79.stop();}}},_callee79);}));return function(_x7){return _ref20.apply(this,arguments);};}());case 11:return _context80.abrupt("return",transaction);case 12:case"end":return _context80.stop();}}},_callee80);}));return function sendTransaction(_x6){return _ref19.apply(this,arguments);};}();var executeSubmit=function executeSubmit(_ref21){var transaction=_ref21.transaction,wallet=_ref21.wallet;if(transaction.method){return submitContractInteraction({transaction:transaction,wallet:wallet});}else {return submitSimpleTransfer({transaction:transaction,wallet:wallet});}};var submitContractInteraction=/*#__PURE__*/function(){var _ref23=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee81(_ref22){var transaction,wallet,contract,populatedTransaction;return regenerator.wrap(function _callee81$(_context81){while(1){switch(_context81.prev=_context81.next){case 0:transaction=_ref22.transaction,wallet=_ref22.wallet;contract=new Contract(transaction.to,transaction.api);_context81.next=4;return contract.populateTransaction[transaction.method].apply(null,transaction.getContractArguments({contract:contract}));case 4:populatedTransaction=_context81.sent;return _context81.abrupt("return",wallet.connector.sendTransaction({from:transaction.from,to:transaction.to,value:_optionalChain$1$1([transaction,'access',function(_){return _.value;},'optionalAccess',function(_2){return _2.toString;},'call',function(_3){return _3();}]),data:populatedTransaction.data}));case 6:case"end":return _context81.stop();}}},_callee81);}));return function submitContractInteraction(_x8){return _ref23.apply(this,arguments);};}();var submitSimpleTransfer=function submitSimpleTransfer(_ref24){var transaction=_ref24.transaction,wallet=_ref24.wallet;return wallet.connector.sendTransaction({from:transaction.from,to:transaction.to,value:_optionalChain$1$1([transaction,'access',function(_4){return _4.value;},'optionalAccess',function(_5){return _5.toString;},'call',function(_6){return _6();}])});};function _optionalChain$5(ops){var lastAccessLHS=undefined;var value=ops[0];var i=1;while(i<ops.length){var op=ops[i];var fn=ops[i+1];i+=2;if((op==='optionalAccess'||op==='optionalCall')&&value==null){return undefined;}if(op==='access'||op==='optionalAccess'){lastAccessLHS=value;value=fn(value);}else if(op==='call'||op==='optionalCall'){value=fn(function(){var _value6;for(var _len17=arguments.length,args=new Array(_len17),_key26=0;_key26<_len17;_key26++){args[_key26]=arguments[_key26];}return (_value6=value).call.apply(_value6,[lastAccessLHS].concat(args));});lastAccessLHS=undefined;}}return value;}var connectedInstance;var WalletConnectWallet=/*#__PURE__*/function(){function WalletConnectWallet(){var _this75=this;_classCallCheck$1(this,WalletConnectWallet);WalletConnectWallet.prototype.__init.call(this);WalletConnectWallet.prototype.__init2.call(this);WalletConnectWallet.prototype.__init3.call(this);this.connector=this.newWalletConnectInstance();this.sendTransaction=function(transaction){return sendTransaction({wallet:_this75,transaction:transaction});};this.estimate=function(transaction){return estimate({wallet:_this75,transaction:transaction});};}_createClass$1(WalletConnectWallet,[{key:"__init",value:function __init(){this.name='WalletConnect';}},{key:"__init2",value:function __init2(){this.logo='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAIVBMVEVHcEzA3v+32f6n0f6Rxv5/vP5ss/1bqv1Kof0zlfw7mfxjyhOQAAAACXRSTlMAGTlZfaC81e2kc52PAAAFE0lEQVR42u3azXMTNxgGcMeJh6s7BLg6eBhyNKSUDKdlMG3JCUILNbekB8iR8NGEU4G21LnixV5dY0q0f2VTZ3dfvK+0zyvZmQ6DnhOzrEf67YderZRaSEhISEhISEhISEhIyP+Zb9pr3dsPfu7eWltp1k4lC+3be2meoxe3VmpzT/3ab/1EpUUS9e7F1dpcU7/2Kk3S6WiVzrWZS3tZC+V2Rs9btfmk/gMpmObTzdo8svgka8KC2azNnuVXWRtWzPOZH+dzfZWCJLO2cum/NmArf8zUynI/lUTPYlncP3FgyzP/Z3cnawNHbfsOVo+KNnBGnu/LdYc2Uv2h5fXw6tQleuxzQ/ZTt2iP2/JjdrEcbkvnlC/WhPLxtC/W5G3ZcmtkXaUeGbacXvV+6hP9xqWRjQxymvd+qequV/7foQPEemuPC9jfB6lObFIViSGJuQV99PKn7trF9rfdB3uJuR09kDZyx1xm391fadJc8uGBWRMJIaZfq9H90vPZ/kWZThz4Q9RfV3gp+M5Ymzuil910qX5tmmcymp/7WtJIg3dvZBtgzz7hJ7+XNHKGX6tNO5tXz/deErVdPQ/wuVx1XfrVMzCjKZ0ue4ZvqKkfoZnb8nSnYuEQrN2G73VVDcG/Su4JpmefNTL2qCZ67DZoq8ijLo46buePPQqj3pXNCPruEOraB+Fs/bKavrguXdNb0mnzTg5xyaqiZ142TGQQZ4q+e/wvB4o6fkocKROIC0Ufus+3JxA5pecCoQcmdjq/kRx6fDo8jtx+0O3UvposfC/9FK8/3JQuAry8Wb7Nya50Lq4i4fOZDFvlb55RS/o+xNI3Te9OQ6QfFz3pSFDvF2WVDsgoDRrT8ECedZxk+REMySi4JFHHCUJlEM/JYgkk6zhBTo68FUAKCoYQhSCYcq6o5bEAklEIklMgpKBgCFHoAKacV3CiSJNQ6nguoyOo+hEFQajj5Ump6mBIPpGBEOr4qip9iGNINpOBM0q6Kzv4Q5wgiELrGdNX9gAuwBGkRJGuZ/xeNEIUBCEKgFAjvfJvx5UQTFk6/q/y5bqgMIUgnIIhw+akXmHKQnYWp2DI7qRg4eWR3Mv7yCF8Oc/YyQGAUCefgoUZOucCOx7ZIJjSs5yCKfy+2b7EGiaIhXK3PGGSrp/2+BNofQdiBCEKgGzRS2CjUFWzUyAEUKg8V1EwBFM4pDSQA0gVBUKKmQKCYApBMKXHeppB7CeUIJjSsHfUesY9giBK9SXHFL7/8A+noCuO7tq6YhsL/FCrEoJeJA7Rb03HqiCYcoNDjDo7BFMWNe+0iXeYQXi9wPVmm0NaxidudJVBBtKdgJHlQaozypEVgim2t3sVnjlAmxp4yMXDQAS2Z0Dx4LXScatmA0DEO6pR5U4TgjCKx/bZBoDIKCry3sYcNqenYv5bmvT68ekinlTSNyHe18AQomAIpvB6TRRfCFFMA3+Z4gUhCoZQmTIUAy8Kh1DBZcXAZV+DQzjFF0I1iUM4xRNCFA7hFA9IMZBXQMDE843bFo1oSahnqGqelBiu5blttNFAziGYMmx5/5VPjNdXCeJBweuNvRLEkxLjpWIqBr4UsAb86PNi4JaFfel2bsMbQgM53i3ZcIcQRbqduwSWC6uXmnMI3hwqDz0OO63yTf8M4kXJIZhyAvGiqLxeY0qy5f0HyZ+E1eG6/tP7j3nbV6TotXn9VXpISEhISEhISEhISEhISEjIl5R/AceNSyX32CxyAAAAAElFTkSuQmCC';}},{key:"__init3",value:function __init3(){this.blockchains=['ethereum','bsc'];}},{key:"newWalletConnectInstance",value:function newWalletConnectInstance(){var _this76=this;var instance=new _default$2({bridge:"https://bridge.walletconnect.org",qrcodeModal:cjs$6});instance.on("connect",function(error,payload){if(error){throw error;}var _payload$params$=payload.params[0],accounts=_payload$params$.accounts,chainId=_payload$params$.chainId;_this76.connectedAccounts=accounts;_this76.connectedChainId=chainId;});instance.on("session_update",function(error,payload){if(error){throw error;}var _payload$params$2=payload.params[0],accounts=_payload$params$2.accounts,chainId=_payload$params$2.chainId;_this76.connectedAccounts=accounts;_this76.connectedChainId=chainId;});instance.on("disconnect",function(error,payload){connectedInstance=undefined;if(error){throw error;}});instance.on("modal_closed",function(){connectedInstance=undefined;_this76.connector=_this76.newWalletConnectInstance();});return instance;}},{key:"account",value:function(){var _account2=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee82(){return regenerator.wrap(function _callee82$(_context82){while(1){switch(_context82.prev=_context82.next){case 0:if(!(this.connectedAccounts==undefined)){_context82.next=2;break;}return _context82.abrupt("return");case 2:return _context82.abrupt("return",this.connectedAccounts[0]);case 3:case"end":return _context82.stop();}}},_callee82,this);}));function account(){return _account2.apply(this,arguments);}return account;}()},{key:"accounts",value:function(){var _accounts2=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee83(){return regenerator.wrap(function _callee83$(_context83){while(1){switch(_context83.prev=_context83.next){case 0:if(!(this.connectedAccounts==undefined)){_context83.next=2;break;}return _context83.abrupt("return");case 2:return _context83.abrupt("return",this.connectedAccounts);case 3:case"end":return _context83.stop();}}},_callee83,this);}));function accounts(){return _accounts2.apply(this,arguments);}return accounts;}()},{key:"connect",value:function(){var _connect2=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee84(options){var _yield$this$connector,accounts,chainId;return regenerator.wrap(function _callee84$(_context84){while(1){switch(_context84.prev=_context84.next){case 0:if(!this.connector.connected){_context84.next=5;break;}_context84.next=3;return this.connector.killSession();case 3:connectedInstance=undefined;this.connector=this.newWalletConnectInstance();case 5:_context84.next=7;return this.connector.connect({chainId:_optionalChain$5([options,'optionalAccess',function(_){return _.chainId;}])});case 7:_yield$this$connector=_context84.sent;accounts=_yield$this$connector.accounts;chainId=_yield$this$connector.chainId;if(accounts instanceof Array&&accounts.length){connectedInstance=this;}this.connectedAccounts=accounts;this.connectedChainId=chainId;return _context84.abrupt("return",accounts);case 14:case"end":return _context84.stop();}}},_callee84,this);}));function connect(_x9){return _connect2.apply(this,arguments);}return connect;}()},{key:"connectedTo",value:function(){var _connectedTo2=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee85(input){var chainId,blockchain;return regenerator.wrap(function _callee85$(_context85){while(1){switch(_context85.prev=_context85.next){case 0:_context85.next=2;return this.connector.sendCustomRequest({method:'eth_chainId'});case 2:chainId=_context85.sent;blockchain=Blockchain.findById(chainId);if(!input){_context85.next=8;break;}return _context85.abrupt("return",input===blockchain.name);case 8:return _context85.abrupt("return",blockchain.name);case 9:case"end":return _context85.stop();}}},_callee85,this);}));function connectedTo(_x10){return _connectedTo2.apply(this,arguments);}return connectedTo;}()},{key:"switchTo",value:function switchTo(blockchainName){return new Promise(function(resolve,reject){reject({code:'NOT_SUPPORTED'});});}},{key:"addNetwork",value:function addNetwork(blockchainName){return new Promise(function(resolve,reject){reject({code:'NOT_SUPPORTED'});});}},{key:"on",value:function on(event,callback){switch(event){case'account':this.connector.on("session_update",function(error,payload){var accounts=payload.params[0].accounts;if(accounts instanceof Array){callback(accounts[0]);}});break;case'accounts':this.connector.on("session_update",function(error,payload){var accounts=payload.params[0].accounts;callback(accounts);});break;case'network':this.connector.on("session_update",function(error,payload){var chainId=payload.params[0].chainId;if(chainId){callback(Blockchain.findByNetworkId(chainId).name);}});break;case'disconnect':this.connector.on('disconnect',callback);break;}}}]);return WalletConnectWallet;}();var wallets={MetaMask:new MetaMask(),Coinbase:new Coinbase(),Web3Wallet:new Web3Wallet(),WalletConnect:new WalletConnectWallet()};var getWallet=function getWallet(){if(connectedInstance){return connectedInstance;}else if(_typeof(window.ethereum)==='object'&&window.ethereum.isMetaMask){return wallets.MetaMask;}else if(_typeof(window.ethereum)==='object'&&window.ethereum.isCoinbaseWallet){return wallets.Coinbase;}else if(typeof window.ethereum!=='undefined'){return wallets.Web3Wallet;}};var supported=[wallets.WalletConnect,wallets.MetaMask,wallets.Coinbase];
+  method="personal_sign";params=[params[1],params[0]];}var request={method:method,params:params};this.emit("debug",{action:"request",fetcher:"Eip1193Fetcher",request:deepCopy(request),provider:this});return provider.request(request).then(function(response){_this65.emit("debug",{action:"response",fetcher:"Eip1193Fetcher",request:request,response:response,provider:_this65});return response;},function(error){_this65.emit("debug",{action:"response",fetcher:"Eip1193Fetcher",request:request,error:error,provider:_this65});throw error;});};}var Web3Provider=/*#__PURE__*/function(_JsonRpcProvider){_inherits$1(Web3Provider,_JsonRpcProvider);var _super30=_createSuper(Web3Provider);function Web3Provider(provider,network){var _this66;_classCallCheck$1(this,Web3Provider);logger$1$1.checkNew(this instanceof Web3Provider?this.constructor:void 0,Web3Provider);if(provider==null){logger$1$1.throwArgumentError("missing provider","provider",provider);}var path=null;var jsonRpcFetchFunc=null;var subprovider=null;if(typeof provider==="function"){path="unknown:";jsonRpcFetchFunc=provider;}else {path=provider.host||provider.path||"";if(!path&&provider.isMetaMask){path="metamask";}subprovider=provider;if(provider.request){if(path===""){path="eip-1193:";}jsonRpcFetchFunc=buildEip1193Fetcher(provider);}else if(provider.sendAsync){jsonRpcFetchFunc=buildWeb3LegacyFetcher(provider,provider.sendAsync.bind(provider));}else if(provider.send){jsonRpcFetchFunc=buildWeb3LegacyFetcher(provider,provider.send.bind(provider));}else {logger$1$1.throwArgumentError("unsupported provider","provider",provider);}if(!path){path="unknown:";}}_this66=_super30.call(this,path,network);defineReadOnly(_assertThisInitialized(_this66),"jsonRpcFetchFunc",jsonRpcFetchFunc);defineReadOnly(_assertThisInitialized(_this66),"provider",subprovider);return _this66;}_createClass$1(Web3Provider,[{key:"send",value:function send(method,params){return this.jsonRpcFetchFunc(method,params);}}]);return Web3Provider;}(JsonRpcProvider);var version$k="units/5.4.0";var logger$r=new Logger$1(version$k);var names=["wei","kwei","mwei","gwei","szabo","finney","ether"];function parseUnits(value,unitName){if(typeof value!=="string"){logger$r.throwArgumentError("value must be a string","value",value);}if(typeof unitName==="string"){var index=names.indexOf(unitName);if(index!==-1){unitName=3*index;}}return parseFixed(value,unitName!=null?unitName:18);}function _optionalChain$4(ops){var lastAccessLHS=undefined;var value=ops[0];var i=1;while(i<ops.length){var op=ops[i];var fn=ops[i+1];i+=2;if((op==='optionalAccess'||op==='optionalCall')&&value==null){return undefined;}if(op==='access'||op==='optionalAccess'){lastAccessLHS=value;value=fn(value);}else if(op==='call'||op==='optionalCall'){value=fn(function(){var _value2;for(var _len11=arguments.length,args=new Array(_len11),_key20=0;_key20<_len11;_key20++){args[_key20]=arguments[_key20];}return (_value2=value).call.apply(_value2,[lastAccessLHS].concat(args));});lastAccessLHS=undefined;}}return value;}var Transaction=/*#__PURE__*/function(){function Transaction(_ref6){var blockchain=_ref6.blockchain,from=_ref6.from,to=_ref6.to,api=_ref6.api,method=_ref6.method,params=_ref6.params,value=_ref6.value,sent=_ref6.sent,confirmed=_ref6.confirmed,ensured=_ref6.ensured,failed=_ref6.failed;_classCallCheck$1(this,Transaction);this.blockchain=blockchain;this.from=from;this.to=to;this.api=api;this.method=method;this.params=params;this.value=_optionalChain$4([Transaction,'access',function(_){return _.bigNumberify;},'call',function(_2){return _2(value,blockchain);},'optionalAccess',function(_3){return _3.toString;},'call',function(_4){return _4();}]);this.sent=sent;this.confirmed=confirmed;this.ensured=ensured;this.failed=failed;this._confirmed=false;this._ensured=false;this._failed=false;}_createClass$1(Transaction,[{key:"prepare",value:function(){var _prepare=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee71(_ref7){var wallet;return regenerator.wrap(function _callee71$(_context71){while(1){switch(_context71.prev=_context71.next){case 0:wallet=_ref7.wallet;_context71.next=3;return wallet.account();case 3:this.from=_context71.sent;case 4:case"end":return _context71.stop();}}},_callee71,this);}));function prepare(_x){return _prepare.apply(this,arguments);}return prepare;}()},{key:"getContractArguments",value:function getContractArguments(_ref8){var _this67=this;var contract=_ref8.contract;var fragment=contract["interface"].fragments.find(function(fragment){return fragment.name==_this67.method;});if(this.params instanceof Array){return this.params;}else if(this.params instanceof Object){return fragment.inputs.map(function(input){return _this67.params[input.name];});}else {throw 'Contract params have wrong type!';}}},{key:"confirmation",value:function confirmation(){var _this68=this;if(this._confirmed){return Promise.resolve(this);}return new Promise(function(resolve,reject){var originalConfirmed=_this68.confirmed;_this68.confirmed=function(){if(originalConfirmed)originalConfirmed(_this68);resolve(_this68);};});}},{key:"ensurance",value:function ensurance(){var _this69=this;if(this._ensured){return Promise.resolve(this);}return new Promise(function(resolve,reject){var originalEnsured=_this69.ensured;_this69.ensured=function(){if(originalEnsured)originalEnsured(_this69);resolve(_this69);};});}},{key:"failure",value:function failure(){var _this70=this;if(this._failed){return Promise.resolve(this);}return new Promise(function(resolve,reject){var originalFailed=_this70.failed;_this70.failed=function(){if(originalFailed)originalFailed(_this70);resolve(_this70);};});}}],[{key:"bigNumberify",value:function bigNumberify(value,blockchain){if(typeof value==='number'){return parseUnits(value.toString(),CONSTANTS$2[blockchain].DECIMALS);}else if(value&&value.toString){return BigNumber$2.from(value.toString());}else {return value;}}}]);return Transaction;}();function _optionalChain$3$1(ops){var lastAccessLHS=undefined;var value=ops[0];var i=1;while(i<ops.length){var op=ops[i];var fn=ops[i+1];i+=2;if((op==='optionalAccess'||op==='optionalCall')&&value==null){return undefined;}if(op==='access'||op==='optionalAccess'){lastAccessLHS=value;value=fn(value);}else if(op==='call'||op==='optionalCall'){value=fn(function(){var _value3;for(var _len12=arguments.length,args=new Array(_len12),_key21=0;_key21<_len12;_key21++){args[_key21]=arguments[_key21];}return (_value3=value).call.apply(_value3,[lastAccessLHS].concat(args));});lastAccessLHS=undefined;}}return value;}var estimate$1=/*#__PURE__*/function(){var _ref10=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee72(_ref9){var _contract$connect$est;var transaction,wallet,provider,signer,contract;return regenerator.wrap(function _callee72$(_context72){while(1){switch(_context72.prev=_context72.next){case 0:transaction=_ref9.transaction,wallet=_ref9.wallet;transaction=new Transaction(transaction);_context72.next=4;return wallet.connectedTo(transaction.blockchain);case 4:_context72.t0=_context72.sent;if(!(_context72.t0==false)){_context72.next=8;break;}_context72.next=8;return wallet.switchTo(transaction.blockchain);case 8:provider=new Web3Provider(window.ethereum,'any');signer=provider.getSigner(0);contract=new Contract(transaction.to,_optionalChain$3$1([transaction,'optionalAccess',function(_){return _.api;}]),provider);return _context72.abrupt("return",(_contract$connect$est=contract.connect(signer).estimateGas)[transaction.method].apply(_contract$connect$est,_toConsumableArray(transaction.getContractArguments({contract:contract}))));case 12:case"end":return _context72.stop();}}},_callee72);}));return function estimate$1(_x2){return _ref10.apply(this,arguments);};}();var sendTransaction$1=/*#__PURE__*/function(){var _ref12=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee73(_ref11){var transaction,wallet,provider,signer;return regenerator.wrap(function _callee73$(_context73){while(1){switch(_context73.prev=_context73.next){case 0:transaction=_ref11.transaction,wallet=_ref11.wallet;transaction=new Transaction(transaction);_context73.next=4;return wallet.connectedTo(transaction.blockchain);case 4:_context73.t0=_context73.sent;if(!(_context73.t0==false)){_context73.next=8;break;}_context73.next=8;return wallet.switchTo(transaction.blockchain);case 8:_context73.next=10;return transaction.prepare({wallet:wallet});case 10:provider=new Web3Provider(window.ethereum,'any');signer=provider.getSigner(0);_context73.next=14;return executeSubmit$1({transaction:transaction,provider:provider,signer:signer}).then(function(sentTransaction){if(sentTransaction){transaction.id=sentTransaction.hash;transaction.url=Blockchain.findByName(transaction.blockchain).explorerUrlFor({transaction:transaction});if(transaction.sent)transaction.sent(transaction);sentTransaction.wait(1).then(function(){transaction._confirmed=true;if(transaction.confirmed)transaction.confirmed(transaction);})["catch"](function(error){transaction._failed=true;if(transaction.failed)transaction.failed(transaction);});sentTransaction.wait(12).then(function(){transaction._ensured=true;if(transaction.ensured)transaction.ensured(transaction);});}else {throw 'Submitting transaction failed!';}});case 14:return _context73.abrupt("return",transaction);case 15:case"end":return _context73.stop();}}},_callee73);}));return function sendTransaction$1(_x3){return _ref12.apply(this,arguments);};}();var executeSubmit$1=function executeSubmit$1(_ref13){var transaction=_ref13.transaction,provider=_ref13.provider,signer=_ref13.signer;if(transaction.method){return submitContractInteraction$1({transaction:transaction,signer:signer,provider:provider});}else {return submitSimpleTransfer$1({transaction:transaction,signer:signer});}};var submitContractInteraction$1=function submitContractInteraction$1(_ref14){var _contract$connect;var transaction=_ref14.transaction,signer=_ref14.signer,provider=_ref14.provider;var contract=new Contract(transaction.to,transaction.api,provider);return (_contract$connect=contract.connect(signer))[transaction.method].apply(_contract$connect,_toConsumableArray(transaction.getContractArguments({contract:contract})).concat([{value:Transaction.bigNumberify(transaction.value,transaction.blockchain)}]));};var submitSimpleTransfer$1=function submitSimpleTransfer$1(_ref15){var transaction=_ref15.transaction,signer=_ref15.signer;return signer.sendTransaction({to:transaction.to,value:Transaction.bigNumberify(transaction.value,transaction.blockchain)});};var Web3Wallet=/*#__PURE__*/function(){function Web3Wallet(){var _this71=this;_classCallCheck$1(this,Web3Wallet);Web3Wallet.prototype.__init.call(this);Web3Wallet.prototype.__init2.call(this);Web3Wallet.prototype.__init3.call(this);this.sendTransaction=function(transaction){return sendTransaction$1({wallet:_this71,transaction:transaction});};this.estimate=function(transaction){return estimate$1({wallet:_this71,transaction:transaction});};}_createClass$1(Web3Wallet,[{key:"__init",value:function __init(){this.name='Web3 Wallet';}},{key:"__init2",value:function __init2(){this.logo='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAMAAACahl6sAAAAnFBMVEVHcEyOV0UTERHPfGEyFBTSfmNQKSPSfWMuEhLUgWUvEhLQfWIuEhLUgWWhXEkxFBPSfmQvEhLUgGSVWUkvEhKwZ1LWhGfOfWI9HBkvEhJRKiRkNy96RTmLUEGbWkmqZE+3Y068aVLAb1fGdVvOd1/TgWXXhWimmZnYkmnhl37noov1r5rIwMDlxGHqvq7/u6nx3mnz3M/78ev////cZCVdAAAAGXRSTlMACA0gLjpOVF9pcYOJnaetu8fX4eLs7f7+7naaIgAAChZJREFUeNrtXIdyozoUjbsd47is14DBBQQ8l01x8v//9q4EKrRQjA3M6MzsuKB1dHSr2n2RkJCQkJCQkJCQkJCQkJCQkJCQkJCQiKHT6w+Hbxh//vwlsDEQQFVVLwZXxYCnpNlfEX844Oemo9Gg9/JAdHqDyXT2toAeQ1+9x8C1DzvTMMz938VsMui8VI3BdLHxngf1YGqasbOdxXTwUh0Gs2eSoLBNTd/ukLOaVqRno5VXE9z9VtdMy3EWo5e70VuU6IDrBtbtss8lAVR00wYqg3u1Kk2peEddBK7KhVfreDw68HoE2PAAf7awjuAvoIGDP6u4oWXZDn4AbxC8OvAD8DkZO13Xdg5Q6d2lVkn9dxD8Wdq/4BX6gwgBTCQgcAwaWPhVhQZBQydo4JIGQkPHghGJ2woIZQv6pY4q4+Gqbrh/fKBdLhlPBaIuYcxekSqKDoFE8BfI9iWDLEyMMo6PnAFC2YNQZp1K9Aod+Z+zWT+rhGoHQ2M7MfXSiXqVY9IR3RXXGNettvshkN/GAnIqZDIN/w2ELfIpIEYUHi0TmOxLMul5tQGsCEW+MoDJAdvJ3QJ5PlTRVFwNLB4Bk1FhC6kjLeHw/bsglwOIxAAiatF4MvHqhkoCbNxMChJZeLUDjN4SeGHlcgCDYprlNQAuchN88Oru5KRmcJG0ymdRIBS3kpaZCLV4xsQOHJdTxHF5TYElBPktMLGByLRsWL/cvn++L14tQFwk3NxL2vrth6AmJhYPJgiIbIvp1jTO4+f75NUCollct3CeMslNZMb/8/WH4sOrG8xvlXBap29G5ObVBCaTPRAxccKVmwifU338MHx79cBm5q4WNhL+K9/1E7F4ykWD+6iw9z3/CPDqgY1DCZ9fWQUiyYBrVgOIQBaslrT2keB761ctWMmjEtkXDIlT0UTq91och8BtOXnDSFOJIJo3dnKHEU6kAQHRdekb5n/LEak12YLuc2svOLlacWNvgK1jIkjItpz82daGu99GaBYnYgRp4zT3ykM8INaU/GIwIjwiFp5W3eoXCN54cISIeMy9dDoQfuPcAB4CTLoGXHx+eCGG3hAe3o7mKCWWS88fH7U53kqJNADq0YokW4t2rc4JSyluJGtsO5FDISKzyO/UGEGSiJjliJwguN9qtnYXbKQMkYXI47vehDFlQqIWJnKrO2MMwypEZCWEw9pz+DBsOkUsSuSjCakWmbWXIbJpWM6I83hHmOu2lojrtJ6ICyeIjgxwvut4OJB3dq/gdtVHncbu2sd0TIsROdU4YYczeb/hrdge+0dtmgU8fseo2GGBW11rc/YxA38Lnnr4uNWSaqnHTAyae1IrRSCWlWzvrTiHwrprv399fb2fEri8tYGIQ3urfvl4t+NG0gYitNv2F8V7XCRtIEI1CevV9zdhcooR6bSHiAUEcDxOFkmvPUSQT+SHiOQpRNDONPdqda2TiDxBtVxTJ9gVaa3tfzN2rlo3yCyIaj3ea8E5/ABmnuZ5WiNm7BRxY3+r/NTZTmc4VNRazXK/PLL3x8NONURUPLj//pGB3maLT8Ot/9NI62z/iygPKzn97czhd9avcyWBzKboBSLoEU6RySCjHEtTBrT+l9EasUTr9I5TlITsl3RdodJ9vZ+ICVb+AyCDfMihWX9waMjSxKgEUjRrTYksKyGyJWOcl4iRp7WTNR3xo4j+C5FVCVs3/vO1XrdzKKJuQutM2ihrghiWiHI/EUvn0PIsFnK4peeIdKf9lf7U8H4isI3PsMsfRrLDDsozYZ9TiXTuP4bNB3mbPMTu4SC01pj41CzHnmLxlphljZdgIHP417+biHfQAh6q0PkdXIJGeFzhCnFo8K2gtWbnuddjxWmg0GI8V7HXiFBmJZYKTHzvcR8y6qC3VFah1hp8sVPzng2yLbjDaGHAHfG0fZ4+mP163AkTqQI+EW4O0d7dsz2ySMwRFRzjlf5dm6Gny/Xz8/N6TjScmFs+k8aXU7kNq/Td6T4x/PVcGY+H41dlviv8By6fAcQVMHI1Vd3p+zPa6obw4Epbn8ucYN79doKjr6xFLSjDI943dbslI4+/3qu/ts7ywnbk4MNvK1r9sTKfL5dzkEth1frkuIoduLBvT9mts08w8zM1owddsErt2oUp3D1EjkwiRmAjg7znlwvimq4s58vlnK6IlxLnznQDOb0HESlovucMHvGcy+W5EI5A9uPuG5+v18/r9ZzbO1wBIKqiwIH1qOlav0W3KdPm1IYDxRPWiUzun1k9GG4ksNtrfd1N6HYFefxDYbPrYvsgjEzW+rLTOiLCqV8zuIg46Gu60qZ7oXR25QhJj3/Ef6zryWZydx7/OAAR4WaSEaSMc33ZtrOAauiu2C7ItPq6Pn5AjvIcHIJj2IMXXySPCO1PgembyMZPcsFKWhURHVdcrDH4ZGSpK23yv/bREuP6gae+ir5ukdtSYc1EXCsXFh6Gut5tj7XbQn0nww/rI6r/sLjYHiOx+LV8xAVCV33H7YntLmJvd9FZ7lJ/bWMkcbXoQtBcV9pQOgivliLh046XDuJEWpGl4KV4sbzLlhVz4kTaUM0Jb1gJEjG2/NYet5E2XOsh2TvDIcajO9aI1yrsuNQHlp5LvJsrlupDphPm0VE0He+IFC+mh7Ckn8MFseo0vEhrcK01sk2Vc+re24RUNtDZRxYF5DuHbjiY4EA4EPWK7YAWLdTo14kM6l/aj+GCK1PiUpyxP0DUKrTY0KXbR+ucK3WruNwDybhQRrmqcodQ+pHKHP9kdJhwGBzEt6d85C18NouHKQSXOTghjxT2vOe+vWP5lT9tUks03ii5tuySSiQvRpu0A/gWGT9HKCZrERvyS5lGRpZ9wWubolDRVvx9kmNUkwoX8yMo8wLV6KbpA0oJIVYrlhdrRcEAq7C74VfHPYYbklfc4JcS25vUUtJ9n0i/UA3NaUaU9zUE6xhzOgEhR6iOGy2jq6KsGuFhlYpZCYsjBaQyWRTR/KCgMVQ/DarjEi+EAORBvrKui0nWomi3W6qm9OSZU5TFpKKK3slyeUrR9c1i+oB68QmSGU1mi9VD+Gyg5v1ja/gnl/UfjKCwfxWkNitgMHqKGLKk1KOkGKvszkPvZ1Pof68BBFJkBcKaG28TgimF/3E0Gm63vcb2PQ4lNeS+wtpzizAOJ0GRiXaLAAlEivosYX7aJqRlQR38oE1gAx8XVXss3bd2Jdl42mXrxDmlurNWoa9r7H10Ua1V6KYY9Rr2NFqDvjJXhsHmRdzWh/C06WQ6BGN/VSDR2oe6Fhz/bqrv6nQp+uwaRBf3lnPEDxX6cOw3bhydLge7PbDuxrGkD+fsq5dGQejrkPc1Bi4RBT40UShiZ/HlgfVS6XeTAI5gDY+VbkOJ+DYSRydA9HFjefj2HGaQ1EREYx2XhISEhISEhISEhISEhISEhISEhISERDX4H93cCIo3lGjAAAAAAElFTkSuQmCC';}},{key:"__init3",value:function __init3(){this.blockchains=['ethereum'];}},{key:"account",value:function(){var _account=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee74(){return regenerator.wrap(function _callee74$(_context74){while(1){switch(_context74.prev=_context74.next){case 0:_context74.next=2;return this.accounts();case 2:return _context74.abrupt("return",_context74.sent[0]);case 3:case"end":return _context74.stop();}}},_callee74,this);}));function account(){return _account.apply(this,arguments);}return account;}()},{key:"accounts",value:function(){var _accounts=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee75(){var accounts;return regenerator.wrap(function _callee75$(_context75){while(1){switch(_context75.prev=_context75.next){case 0:_context75.next=2;return window.ethereum.request({method:'eth_accounts'});case 2:accounts=_context75.sent;return _context75.abrupt("return",accounts);case 4:case"end":return _context75.stop();}}},_callee75);}));function accounts(){return _accounts.apply(this,arguments);}return accounts;}()},{key:"connect",value:function(){var _connect=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee76(){var accounts;return regenerator.wrap(function _callee76$(_context76){while(1){switch(_context76.prev=_context76.next){case 0:_context76.next=2;return window.ethereum.request({method:'eth_requestAccounts'});case 2:accounts=_context76.sent;return _context76.abrupt("return",accounts);case 4:case"end":return _context76.stop();}}},_callee76);}));function connect(){return _connect.apply(this,arguments);}return connect;}()},{key:"on",value:function on(event,callback){switch(event){case'account':window.ethereum.on('accountsChanged',function(accounts){return callback(accounts[0]);});break;case'accounts':window.ethereum.on('accountsChanged',function(accounts){return callback(accounts);});break;case'network':window.ethereum.on('chainChanged',function(chainId){return callback(Blockchain.findById(chainId).name);});break;case'disconnect':window.ethereum.on('disconnect',callback);break;}}},{key:"connectedTo",value:function(){var _connectedTo=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee77(input){var blockchain;return regenerator.wrap(function _callee77$(_context77){while(1){switch(_context77.prev=_context77.next){case 0:_context77.t0=Blockchain;_context77.next=3;return window.ethereum.request({method:'eth_chainId'});case 3:_context77.t1=_context77.sent;blockchain=_context77.t0.findById.call(_context77.t0,_context77.t1);if(!input){_context77.next=9;break;}return _context77.abrupt("return",input===blockchain.name);case 9:return _context77.abrupt("return",blockchain.name);case 10:case"end":return _context77.stop();}}},_callee77);}));function connectedTo(_x4){return _connectedTo.apply(this,arguments);}return connectedTo;}()},{key:"addNetwork",value:function addNetwork(blockchainName){return new Promise(function(resolve,reject){var blockchain=Blockchain.findByName(blockchainName);ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:blockchain.id,chainName:blockchain.fullName,nativeCurrency:{name:blockchain.currency.name,symbol:blockchain.currency.symbol,decimals:blockchain.currency.decimals},rpcUrls:[blockchain.rpc],blockExplorerUrls:[blockchain.explorer],iconUrls:[blockchain.logo]}]}).then(resolve)["catch"](reject);});}},{key:"switchTo",value:function switchTo(blockchainName){var _this72=this;return new Promise(function(resolve,reject){var blockchain=Blockchain.findByName(blockchainName);ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:blockchain.id}]}).then(resolve)["catch"](function(error){if(error.code===4902){// metamask chain not yet added {
+  _this72.addNetwork(blockchainName).then(function(){return _this72.switchTo(blockchainName).then(resolve);})["catch"](reject);}else {reject(error);}});});}}]);return Web3Wallet;}();var Coinbase=/*#__PURE__*/function(_Web3Wallet){_inherits$1(Coinbase,_Web3Wallet);var _super31=_createSuper(Coinbase);function Coinbase(){var _this73;_classCallCheck$1(this,Coinbase);for(var _len13=arguments.length,args=new Array(_len13),_key22=0;_key22<_len13;_key22++){args[_key22]=arguments[_key22];}_this73=_super31.call.apply(_super31,[this].concat(args));Coinbase.prototype.__init.call(_assertThisInitialized(_this73));Coinbase.prototype.__init2.call(_assertThisInitialized(_this73));Coinbase.prototype.__init3.call(_assertThisInitialized(_this73));Coinbase.prototype.__init4.call(_assertThisInitialized(_this73));return _this73;}_createClass$1(Coinbase,[{key:"__init",value:function __init(){this.name='Coinbase Wallet';}},{key:"__init2",value:function __init2(){this.logo='data:image/png;base64,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';}},{key:"__init3",value:function __init3(){this.blockchains=['ethereum','bsc'];}},{key:"__init4",value:function __init4(){this.install='https://wallet.coinbase.com';}}]);return Coinbase;}(Web3Wallet);var MetaMask=/*#__PURE__*/function(_Web3Wallet2){_inherits$1(MetaMask,_Web3Wallet2);var _super32=_createSuper(MetaMask);function MetaMask(){var _this74;_classCallCheck$1(this,MetaMask);for(var _len14=arguments.length,args=new Array(_len14),_key23=0;_key23<_len14;_key23++){args[_key23]=arguments[_key23];}_this74=_super32.call.apply(_super32,[this].concat(args));MetaMask.prototype.__init.call(_assertThisInitialized(_this74));MetaMask.prototype.__init2.call(_assertThisInitialized(_this74));MetaMask.prototype.__init3.call(_assertThisInitialized(_this74));MetaMask.prototype.__init4.call(_assertThisInitialized(_this74));MetaMask.prototype.__init5.call(_assertThisInitialized(_this74));return _this74;}_createClass$1(MetaMask,[{key:"__init",value:function __init(){this.name='MetaMask';}},{key:"__init2",value:function __init2(){this.logo='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAMAAACahl6sAAAAclBMVEVHcEyBTif0snbypF3nhijulD7cq4Hv1b/wrW3dvqSieVvWyL2PXjvJuazndgD5hQB3PQ/PYQDkdADCrp3YwrPsegAVFRZyOg7ZawDzgQD/iQAeMklxNQMMDQ+3XwiLRw2hVAyCdmxPQz7dqoAyKiSgkoj9gMFYAAAADnRSTlMA8X2g78dnGzZPp57O1Hi2/psAAApFSURBVHja7Z2LVqM6FIZ7pUUrtbQRqEyLHX3/Vzy5soHcICSd41r5z3EcFUL+7m/vXKDOIioqKioqKioqKioqKioqKioqKioqKurXKnlJd4t/rB3uxGKuXur7Zr1f/EPt15t7/TK3ld2yKN5vaLv6R2HZrbbo9l4Uy7nXT+t33EyTZ5ttsls8Wbtku8nypihwH9LZZL1jFfcS5fmTEcNI5XlW3gvSg/plNlnvRASvDDf7NMQwUuR6GCvegeVuNllYDC+UkbafgNguwS6wEMWKqU49kPUu8MqwleCIUaRyEo7TndmYz5YgC/DCYogF8kKRYj4ygZUHtjhZPbywQiEmkBJYvfeunvohi+N1QhkXQSxdeFTKkBpg5YUtQZaMl3fEMFLUwRArP2wBWTJePhEDpDL6gUqOlS+2OFlqvLwhJpASVgArX2wJsmS8qAMviAFSGTXRxcobW5wsWQKvIWIzqpT4rMSqHRN9kqXESwyUqSNSGf2jh5VHtgRZOrzACnjBiI3Uatt3MahWPtlKWZNavMiMRfZSHUepkmxkBKtuOLzVLSDLjhc4QeOMIAETWAGs/LIlyLLgJWmcEdLxYUQajpVnthJjQGBCPFQ1lqy+lT5WPuvWC23XFpQTcmILiTDwP2EF5Z8tGhG7k0bCayRZEJF2BWU3kvgcDi14jalbFSDVxSoMWvpklyfEU9lCeadedbEKkeyLg611mBBnaFK6V1l3xt5iZb/SIcQ4MsBrCltIpHnWxSpQrotsn46Xna1MtYIKlet4N0PfomW9VdlTPZtQrUB775NGA172kCB5YR4y13G2E7ac8LKSBSuoCaoP3tcjNrwqI1nD/Z7AuS6yfSJedrbQAKvQuS6y3Qkv8yDSwyp4rpNsnxISWM6bh5KqXZhPDQjJ9WdkO6y3jGyhLlZPyXWW7Y54VfqAAFZPynWR7U54IW1AMgVW4aa+ItvJJZ3w0kaEYeUU6RnbzHRsd8NL46SajBWM6x5vK0y47O2q8nG9MRvPTRGeJI55oo5Ih6tnDYdEqbOPe642Uro7SefcuHCOh24koTMsN9Hh8JlDIkkQ7SwF/4A4eepwSNDCZct1wqWZaLG9Bpeilc7I9elXhE27SmcEz1Dc2k3ciy+5nstU3myEbDi4tOxcgPeH2sGHcXFVsZ+h3MFJfdg7F62XYuL1YIsrVxvJuZPJKV8UL7MeBFwW09PcbmR6yhfLxMfzWlPS3G4EnDxpgoLZOtTTllS2LWAERiYur+rDbs4wUk8sV2ONOBSvesZAktTFtMX6NCPZpPlKUSdzJo31lFnJVCNT5iv1rEnjYr+sx5arSUYmp3y9FIOI86A49laig5Hx85XiMPtxKlv9LfCYSdJ8uhFIedJI0OpLZykWF/fmVBIfsjSzeIWT8tTccVOB5id8PWIOxa2srldsw8kIWLleq/JGAxNoPULKliEU2fF6FbjIqnRzRhWGpKWMBSZE0SJO5IZ5KI5X0bl5RuDYNjCKcjL7OdCkloBqbjm+Jty2mW+krQyk3fzWkMv420KRyxZuHQOF8NW6dchHRKgT8IJODQ6Mr8ewwUk/t+1dg+mvPPm12u5D5uWtCjAFhtyWBwY/RuRhB7K/Psx+IFfc8GlDIfvwFZHWiRwYXz4Wi1XrQmbel5EWLtmLh0TnWhvuPhle4vnHM60XnrTb6H34M6J3svGFVqq9P5v5NKK/Xzd7MBRkVbonGPwayTVOKk9s6ciqTlhlq84jWEwqI6LLreB80loVlK1Ul4T5SaPyRJ0pziDfJz9XKz8GZaslSy6mJ5NKxW0e4wmkYAdkqyVLhbxPI4anDDYLD0qNj5WYOiafYDqcpnpItoAsVfLmk0gxHU2LQ0i2KFn6kSSfYKQyHExHkZBspZan+vROoGfgW1uv2LATkq1VZX6CV4pJKT6bjJQDH9an7laLudraHrRkTsDG8rEszUbK+2N5K7s+7A90bhdByWIhASflbfn5+fkQVUhX5R74oI6Vks+zgrKFybKFBJxgG1R30kf8nJx8LDmwbNhRj+bEQ8cDEpSt7XFMSGgHmwftHw2JzkjGAyKsUB88IEHZ2kNLlsXV7fEJakrcP6WRkgWktXIb/Q6H/TyyRrwXhK9r89uyExK9EQgISXk8tox8P9MqLFmicOF9R7y6PgkvjRgZ5FGnaV0gfAoxwo4MytZu1Bu/aETafcLm8cDd1Bt50OQo8bHsbD6GhGXLRhb0T3SFBAbdlph9tZHshkOR4YPal6F1XGn/Zx+rwGSxGRcabOFkSF1+UTbYWqrwihJ/CsvW7jhOik5fK42Rq+5cu9wXvMnYN94qMNIYqRS48RMM7fMxMTBZtDeyEXWOVKZTK9WHB7Z2x9FSrIrURhRrs3FBn8NWMt4IQpYowbfkM9vXPdR8a30cL3cjVdvPzqeq/UvX5tb79oni1ZK/ozKiOKz3RZC6lRwdZDdiP9H3fCtBWmWdnVK+V1qNKAAo071zDDfTKkO6/1DiiFauk2ITQTFCIPk71n0VOm3WyXUPeG3YOy9V+1J2I/Z9sdKwW791Lb+m+0uqDZ2q/2pLRoYHqDaTTNdcuQ6I+OTRIWnvb9iNwNiPzxkdEHzs3nmKkpudyB2ozEZ6X6ibCUAWXo4Yb/kNeiAvvuXtoF4pVhkxXnDtvqmVjYarhNtnRiOAlboVk5F0xgZ2PtZJ2b8RaJ/3qxsxiBdf/wW4D1fveV77rF/XSBiyoADbQ9I5sK3DV0ngAw62BAQOTObsomRjneTSfeYrak4DNegqsIJjLT5AlKwgBbjbC+mO+fX0/edjoD/fpysezDVN4O+HKb68AI8LyfDXbG02H5KPD/ytzSYfNNkLSIBhnWlPG7E7KQc2/l5+iA/Zyc/lL7Mit2ARLb6hCnBLRjmwcbl8qY184R/93SiM2K7D7iKGKsBtP8q+DbORC42K3ECw4kuU5qPgKjs2mB5qIw/2U7AC54crvnx1ZbtEC0aecRt2I2AFzg82rANb9pDk3AboW23km/8YrOQ8ICGLryjAdif5wMbl/P2h1Pf50rOCaWQ+ghZfUYDtcAkbYORDI2EErJB4WjX77SNkcLeHZGjjAsOIPJBchlbK7Alk2djKCVTr1/NoI1/DI8+va/qrWQOTZSzAxAT7BbnpeWDl649GXwMb55Twu1pviJkQaypbAc7pb/lt/yWM9K1v5fH9pdT3o2/jLRWX2bPfTx6o+EIBlnnq/37f3du5a+Xr56zS5acTEfz1W7+NhAXG+7AuVldDF5QnSa+sq9BLtZXuAa/yK40DQ3Y4/Q7r7eqqx9Oa8aRzctb6kH78qrlg2kt/fHkvZNECDDwpCzokCpXNCPvLmymD95wyb8WXFWDOk/Ufudm98t6ajOAPJVY6yvwUX769te2lti0odsnh0FM2e00F6vFkD4pRcjisgfGT6j15Csqbt5c4rHav/sLxj/Vq9LH4Rdq9abH6PeHgQVHrV4UjKioqKioqKioqKioqKioqKioqKioqKirq/6z/AMhLOEXbTKvCAAAAAElFTkSuQmCC';}},{key:"__init3",value:function __init3(){this.blockchains=['ethereum','bsc'];}},{key:"__init4",value:function __init4(){this.devices=['desktop','mobile'];}},{key:"__init5",value:function __init5(){this.install='https://metamask.io/download.html';}}]);return MetaMask;}(Web3Wallet);function _optionalChain$2$1(ops){var lastAccessLHS=undefined;var value=ops[0];var i=1;while(i<ops.length){var op=ops[i];var fn=ops[i+1];i+=2;if((op==='optionalAccess'||op==='optionalCall')&&value==null){return undefined;}if(op==='access'||op==='optionalAccess'){lastAccessLHS=value;value=fn(value);}else if(op==='call'||op==='optionalCall'){value=fn(function(){var _value4;for(var _len15=arguments.length,args=new Array(_len15),_key24=0;_key24<_len15;_key24++){args[_key24]=arguments[_key24];}return (_value4=value).call.apply(_value4,[lastAccessLHS].concat(args));});lastAccessLHS=undefined;}}return value;}var estimate=/*#__PURE__*/function(){var _ref17=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee78(_ref16){var transaction,wallet,from,contract,populatedTransaction;return regenerator.wrap(function _callee78$(_context78){while(1){switch(_context78.prev=_context78.next){case 0:transaction=_ref16.transaction,wallet=_ref16.wallet;transaction=new Transaction(transaction);_context78.next=4;return wallet.connectedTo(transaction.blockchain);case 4:_context78.t0=_context78.sent;if(!(_context78.t0==false)){_context78.next=7;break;}throw {code:'WRONG_NETWORK'};case 7:_context78.next=9;return wallet.account();case 9:from=_context78.sent;contract=new Contract(transaction.to,transaction.api);_context78.next=13;return contract.populateTransaction[transaction.method].apply(null,transaction.getContractArguments({contract:contract}));case 13:populatedTransaction=_context78.sent;return _context78.abrupt("return",wallet.connector.sendCustomRequest({method:'eth_estimateGas',params:[{from:from,to:transaction.to,value:_optionalChain$2$1([transaction,'access',function(_){return _.value;},'optionalAccess',function(_2){return _2.toString;},'call',function(_3){return _3();}]),data:populatedTransaction.data}]}));case 15:case"end":return _context78.stop();}}},_callee78);}));return function estimate(_x5){return _ref17.apply(this,arguments);};}();function _optionalChain$1$1(ops){var lastAccessLHS=undefined;var value=ops[0];var i=1;while(i<ops.length){var op=ops[i];var fn=ops[i+1];i+=2;if((op==='optionalAccess'||op==='optionalCall')&&value==null){return undefined;}if(op==='access'||op==='optionalAccess'){lastAccessLHS=value;value=fn(value);}else if(op==='call'||op==='optionalCall'){value=fn(function(){var _value5;for(var _len16=arguments.length,args=new Array(_len16),_key25=0;_key25<_len16;_key25++){args[_key25]=arguments[_key25];}return (_value5=value).call.apply(_value5,[lastAccessLHS].concat(args));});lastAccessLHS=undefined;}}return value;}var sendTransaction=/*#__PURE__*/function(){var _ref19=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee80(_ref18){var transaction,wallet;return regenerator.wrap(function _callee80$(_context80){while(1){switch(_context80.prev=_context80.next){case 0:transaction=_ref18.transaction,wallet=_ref18.wallet;transaction=new Transaction(transaction);_context80.next=4;return transaction.prepare({wallet:wallet});case 4:_context80.next=6;return wallet.connectedTo(transaction.blockchain);case 6:_context80.t0=_context80.sent;if(!(_context80.t0==false)){_context80.next=9;break;}throw {code:'WRONG_NETWORK'};case 9:_context80.next=11;return executeSubmit({transaction:transaction,wallet:wallet}).then(/*#__PURE__*/function(){var _ref20=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee79(tx){var blockchain,sentTransaction;return regenerator.wrap(function _callee79$(_context79){while(1){switch(_context79.prev=_context79.next){case 0:if(!tx){_context79.next=12;break;}blockchain=Blockchain.findByName(transaction.blockchain);transaction.id=tx;transaction.url=blockchain.explorerUrlFor({transaction:transaction});if(transaction.sent)transaction.sent(transaction);_context79.next=7;return provider(transaction.blockchain).getTransaction(tx);case 7:sentTransaction=_context79.sent;sentTransaction.wait(1).then(function(){transaction._confirmed=true;if(transaction.confirmed)transaction.confirmed(transaction);})["catch"](function(error){transaction._failed=true;if(transaction.failed)transaction.failed(transaction);});sentTransaction.wait(12).then(function(){transaction._ensured=true;if(transaction.ensured)transaction.ensured(transaction);});_context79.next=13;break;case 12:throw 'Submitting transaction failed!';case 13:case"end":return _context79.stop();}}},_callee79);}));return function(_x7){return _ref20.apply(this,arguments);};}());case 11:return _context80.abrupt("return",transaction);case 12:case"end":return _context80.stop();}}},_callee80);}));return function sendTransaction(_x6){return _ref19.apply(this,arguments);};}();var executeSubmit=function executeSubmit(_ref21){var transaction=_ref21.transaction,wallet=_ref21.wallet;if(transaction.method){return submitContractInteraction({transaction:transaction,wallet:wallet});}else {return submitSimpleTransfer({transaction:transaction,wallet:wallet});}};var submitContractInteraction=/*#__PURE__*/function(){var _ref23=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee81(_ref22){var transaction,wallet,contract,populatedTransaction;return regenerator.wrap(function _callee81$(_context81){while(1){switch(_context81.prev=_context81.next){case 0:transaction=_ref22.transaction,wallet=_ref22.wallet;contract=new Contract(transaction.to,transaction.api);_context81.next=4;return contract.populateTransaction[transaction.method].apply(null,transaction.getContractArguments({contract:contract}));case 4:populatedTransaction=_context81.sent;return _context81.abrupt("return",wallet.connector.sendTransaction({from:transaction.from,to:transaction.to,value:_optionalChain$1$1([transaction,'access',function(_){return _.value;},'optionalAccess',function(_2){return _2.toString;},'call',function(_3){return _3();}]),data:populatedTransaction.data}));case 6:case"end":return _context81.stop();}}},_callee81);}));return function submitContractInteraction(_x8){return _ref23.apply(this,arguments);};}();var submitSimpleTransfer=function submitSimpleTransfer(_ref24){var transaction=_ref24.transaction,wallet=_ref24.wallet;return wallet.connector.sendTransaction({from:transaction.from,to:transaction.to,value:_optionalChain$1$1([transaction,'access',function(_4){return _4.value;},'optionalAccess',function(_5){return _5.toString;},'call',function(_6){return _6();}])});};function _optionalChain$5(ops){var lastAccessLHS=undefined;var value=ops[0];var i=1;while(i<ops.length){var op=ops[i];var fn=ops[i+1];i+=2;if((op==='optionalAccess'||op==='optionalCall')&&value==null){return undefined;}if(op==='access'||op==='optionalAccess'){lastAccessLHS=value;value=fn(value);}else if(op==='call'||op==='optionalCall'){value=fn(function(){var _value6;for(var _len17=arguments.length,args=new Array(_len17),_key26=0;_key26<_len17;_key26++){args[_key26]=arguments[_key26];}return (_value6=value).call.apply(_value6,[lastAccessLHS].concat(args));});lastAccessLHS=undefined;}}return value;}var connectedInstance;var WalletConnectWallet=/*#__PURE__*/function(){function WalletConnectWallet(){var _this75=this;_classCallCheck$1(this,WalletConnectWallet);WalletConnectWallet.prototype.__init.call(this);WalletConnectWallet.prototype.__init2.call(this);WalletConnectWallet.prototype.__init3.call(this);this.connector=this.newWalletConnectInstance();this.sendTransaction=function(transaction){return sendTransaction({wallet:_this75,transaction:transaction});};this.estimate=function(transaction){return estimate({wallet:_this75,transaction:transaction});};}_createClass$1(WalletConnectWallet,[{key:"__init",value:function __init(){this.name='WalletConnect';}},{key:"__init2",value:function __init2(){this.logo='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAIVBMVEVHcEzA3v+32f6n0f6Rxv5/vP5ss/1bqv1Kof0zlfw7mfxjyhOQAAAACXRSTlMAGTlZfaC81e2kc52PAAAFE0lEQVR42u3azXMTNxgGcMeJh6s7BLg6eBhyNKSUDKdlMG3JCUILNbekB8iR8NGEU4G21LnixV5dY0q0f2VTZ3dfvK+0zyvZmQ6DnhOzrEf67YderZRaSEhISEhISEhISEhIyP+Zb9pr3dsPfu7eWltp1k4lC+3be2meoxe3VmpzT/3ab/1EpUUS9e7F1dpcU7/2Kk3S6WiVzrWZS3tZC+V2Rs9btfmk/gMpmObTzdo8svgka8KC2azNnuVXWRtWzPOZH+dzfZWCJLO2cum/NmArf8zUynI/lUTPYlncP3FgyzP/Z3cnawNHbfsOVo+KNnBGnu/LdYc2Uv2h5fXw6tQleuxzQ/ZTt2iP2/JjdrEcbkvnlC/WhPLxtC/W5G3ZcmtkXaUeGbacXvV+6hP9xqWRjQxymvd+qequV/7foQPEemuPC9jfB6lObFIViSGJuQV99PKn7trF9rfdB3uJuR09kDZyx1xm391fadJc8uGBWRMJIaZfq9H90vPZ/kWZThz4Q9RfV3gp+M5Ymzuil910qX5tmmcymp/7WtJIg3dvZBtgzz7hJ7+XNHKGX6tNO5tXz/deErVdPQ/wuVx1XfrVMzCjKZ0ue4ZvqKkfoZnb8nSnYuEQrN2G73VVDcG/Su4JpmefNTL2qCZ67DZoq8ijLo46buePPQqj3pXNCPruEOraB+Fs/bKavrguXdNb0mnzTg5xyaqiZ142TGQQZ4q+e/wvB4o6fkocKROIC0Ufus+3JxA5pecCoQcmdjq/kRx6fDo8jtx+0O3UvposfC/9FK8/3JQuAry8Wb7Nya50Lq4i4fOZDFvlb55RS/o+xNI3Te9OQ6QfFz3pSFDvF2WVDsgoDRrT8ECedZxk+REMySi4JFHHCUJlEM/JYgkk6zhBTo68FUAKCoYQhSCYcq6o5bEAklEIklMgpKBgCFHoAKacV3CiSJNQ6nguoyOo+hEFQajj5Ump6mBIPpGBEOr4qip9iGNINpOBM0q6Kzv4Q5wgiELrGdNX9gAuwBGkRJGuZ/xeNEIUBCEKgFAjvfJvx5UQTFk6/q/y5bqgMIUgnIIhw+akXmHKQnYWp2DI7qRg4eWR3Mv7yCF8Oc/YyQGAUCefgoUZOucCOx7ZIJjSs5yCKfy+2b7EGiaIhXK3PGGSrp/2+BNofQdiBCEKgGzRS2CjUFWzUyAEUKg8V1EwBFM4pDSQA0gVBUKKmQKCYApBMKXHeppB7CeUIJjSsHfUesY9giBK9SXHFL7/8A+noCuO7tq6YhsL/FCrEoJeJA7Rb03HqiCYcoNDjDo7BFMWNe+0iXeYQXi9wPVmm0NaxidudJVBBtKdgJHlQaozypEVgim2t3sVnjlAmxp4yMXDQAS2Z0Dx4LXScatmA0DEO6pR5U4TgjCKx/bZBoDIKCry3sYcNqenYv5bmvT68ekinlTSNyHe18AQomAIpvB6TRRfCFFMA3+Z4gUhCoZQmTIUAy8Kh1DBZcXAZV+DQzjFF0I1iUM4xRNCFA7hFA9IMZBXQMDE843bFo1oSahnqGqelBiu5blttNFAziGYMmx5/5VPjNdXCeJBweuNvRLEkxLjpWIqBr4UsAb86PNi4JaFfel2bsMbQgM53i3ZcIcQRbqduwSWC6uXmnMI3hwqDz0OO63yTf8M4kXJIZhyAvGiqLxeY0qy5f0HyZ+E1eG6/tP7j3nbV6TotXn9VXpISEhISEhISEhISEhISEjIl5R/AceNSyX32CxyAAAAAElFTkSuQmCC';}},{key:"__init3",value:function __init3(){this.blockchains=['ethereum','bsc'];}},{key:"newWalletConnectInstance",value:function newWalletConnectInstance(){var _this76=this;var instance=new _default$2({bridge:"https://bridge.walletconnect.org",qrcodeModal:cjs$6});instance.on("connect",function(error,payload){if(error){throw error;}var _payload$params$=payload.params[0],accounts=_payload$params$.accounts,chainId=_payload$params$.chainId;_this76.connectedAccounts=accounts;_this76.connectedChainId=chainId;});instance.on("session_update",function(error,payload){if(error){throw error;}var _payload$params$2=payload.params[0],accounts=_payload$params$2.accounts,chainId=_payload$params$2.chainId;_this76.connectedAccounts=accounts;_this76.connectedChainId=chainId;});instance.on("disconnect",function(error,payload){connectedInstance=undefined;if(error){throw error;}});instance.on("modal_closed",function(){connectedInstance=undefined;_this76.connector=_this76.newWalletConnectInstance();});return instance;}},{key:"account",value:function(){var _account2=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee82(){return regenerator.wrap(function _callee82$(_context82){while(1){switch(_context82.prev=_context82.next){case 0:if(!(this.connectedAccounts==undefined)){_context82.next=2;break;}return _context82.abrupt("return");case 2:return _context82.abrupt("return",this.connectedAccounts[0]);case 3:case"end":return _context82.stop();}}},_callee82,this);}));function account(){return _account2.apply(this,arguments);}return account;}()},{key:"accounts",value:function(){var _accounts2=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee83(){return regenerator.wrap(function _callee83$(_context83){while(1){switch(_context83.prev=_context83.next){case 0:if(!(this.connectedAccounts==undefined)){_context83.next=2;break;}return _context83.abrupt("return");case 2:return _context83.abrupt("return",this.connectedAccounts);case 3:case"end":return _context83.stop();}}},_callee83,this);}));function accounts(){return _accounts2.apply(this,arguments);}return accounts;}()},{key:"connect",value:function(){var _connect2=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee84(options){var _yield$this$connector,accounts,chainId;return regenerator.wrap(function _callee84$(_context84){while(1){switch(_context84.prev=_context84.next){case 0:if(!this.connector.connected){_context84.next=5;break;}_context84.next=3;return this.connector.killSession();case 3:connectedInstance=undefined;this.connector=this.newWalletConnectInstance();case 5:_context84.next=7;return this.connector.connect({chainId:_optionalChain$5([options,'optionalAccess',function(_){return _.chainId;}])});case 7:_yield$this$connector=_context84.sent;accounts=_yield$this$connector.accounts;chainId=_yield$this$connector.chainId;if(accounts instanceof Array&&accounts.length){connectedInstance=this;}this.connectedAccounts=accounts;this.connectedChainId=chainId;return _context84.abrupt("return",accounts);case 14:case"end":return _context84.stop();}}},_callee84,this);}));function connect(_x9){return _connect2.apply(this,arguments);}return connect;}()},{key:"connectedTo",value:function(){var _connectedTo2=_asyncToGenerator(/*#__PURE__*/regenerator.mark(function _callee85(input){var chainId,blockchain;return regenerator.wrap(function _callee85$(_context85){while(1){switch(_context85.prev=_context85.next){case 0:_context85.next=2;return this.connector.sendCustomRequest({method:'eth_chainId'});case 2:chainId=_context85.sent;blockchain=Blockchain.findById(chainId);if(!input){_context85.next=8;break;}return _context85.abrupt("return",input===blockchain.name);case 8:return _context85.abrupt("return",blockchain.name);case 9:case"end":return _context85.stop();}}},_callee85,this);}));function connectedTo(_x10){return _connectedTo2.apply(this,arguments);}return connectedTo;}()},{key:"switchTo",value:function switchTo(blockchainName){return new Promise(function(resolve,reject){reject({code:'NOT_SUPPORTED'});});}},{key:"addNetwork",value:function addNetwork(blockchainName){return new Promise(function(resolve,reject){reject({code:'NOT_SUPPORTED'});});}},{key:"on",value:function on(event,callback){switch(event){case'account':this.connector.on("session_update",function(error,payload){var accounts=payload.params[0].accounts;if(accounts instanceof Array){callback(accounts[0]);}});break;case'accounts':this.connector.on("session_update",function(error,payload){var accounts=payload.params[0].accounts;callback(accounts);});break;case'network':this.connector.on("session_update",function(error,payload){var chainId=payload.params[0].chainId;if(chainId){callback(Blockchain.findByNetworkId(chainId).name);}});break;case'disconnect':this.connector.on('disconnect',callback);break;}}}]);return WalletConnectWallet;}();var wallets={MetaMask:new MetaMask(),Coinbase:new Coinbase(),Web3Wallet:new Web3Wallet(),WalletConnect:new WalletConnectWallet()};var getWallet=function getWallet(){if(connectedInstance){return connectedInstance;}else if(_typeof(window.ethereum)==='object'&&window.ethereum.isMetaMask){return wallets.MetaMask;}else if(_typeof(window.ethereum)==='object'&&window.ethereum.isCoinbaseWallet){return wallets.Coinbase;}else if(typeof window.ethereum!=='undefined'){return wallets.Web3Wallet;}};var supported=[wallets.WalletConnect,wallets.MetaMask,wallets.Coinbase];
 
   var ensureNativeTokenAsset = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
@@ -74858,341 +75329,6 @@
     }, props.children);
   });
 
-  var ChevronLeft = (function () {
-    return /*#__PURE__*/react.createElement("svg", {
-      className: "ChevronLeft Icon",
-      xmlns: "http://www.w3.org/2000/svg",
-      width: "16",
-      height: "16",
-      viewBox: "0 0 16 16"
-    }, /*#__PURE__*/react.createElement("path", {
-      strokeWidth: "1",
-      fillRule: "evenodd",
-      d: "M10.4,1.6c0.2,0.2,0.2,0.5,0,0.7L4.7,8l5.6,5.6c0.2,0.2,0.2,0.5,0,0.7s-0.5,0.2-0.7,0l-6-6l0,0,c-0.2-0.2-0.2-0.5,0-0.7l6-6l0,0C9.8,1.5,10.2,1.5,10.4,1.6L10.4,1.6z"
-    }));
-  });
-
-  var CloseIcon = (function () {
-    return /*#__PURE__*/react.createElement("svg", {
-      className: "CloseIcon Icon",
-      xmlns: "http://www.w3.org/2000/svg",
-      width: "24",
-      height: "24",
-      viewBox: "0 0 24 24",
-      strokeWidth: "2",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    }, /*#__PURE__*/react.createElement("line", {
-      x1: "18",
-      y1: "6",
-      x2: "6",
-      y2: "18"
-    }), /*#__PURE__*/react.createElement("line", {
-      x1: "6",
-      y1: "6",
-      x2: "18",
-      y2: "18"
-    }));
-  });
-
-  function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
-
-  function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-  function _interopDefaultLegacy$2(e) {
-    return e && _typeof(e) === 'object' && 'default' in e ? e : {
-      'default': e
-    };
-  }
-
-  var React__default$1 = /*#__PURE__*/_interopDefaultLegacy$2(react);
-
-  var CloseStackContext = React__default$1['default'].createContext();
-  var NavigateStackContext = React__default$1['default'].createContext();
-
-  function ReactDialogStackStyle() {
-    return "\n\n    .ReactDialogStack {\n      bottom: 0;\n      display: table;\n      height: 100%;\n      position: absolute;\n      top: 0;\n      transition: left 0.1s ease, opacity 0.2s ease;\n      width: 100%;\n    }\n\n    .ReactDialogStackRow {\n      display: table-row;\n    }\n\n    .ReactDialogStackCell {\n      display: table-cell;\n      vertical-align: middle;\n      padding: 0 0.6rem;\n    }\n\n    .ReactDialogStack {\n      left: 0;\n      opacity: 1;\n    }\n\n    .ReactDialogStack.inactive {\n      display: none;\n    }\n\n    .ReactDialogStack.animating.stale {\n      display: none;\n    }\n\n    .ReactDialogStack.animating.previous.forward {\n      opacity: 0;\n      left: -5rem;\n    }\n\n    .ReactDialogStack.animating.previous.backward {\n      opacity: 0;\n      left: 5rem;\n    }\n\n    .ReactDialogStack.animating.next.forward {\n      opacity: 0;\n      left: 5rem;\n    }\n\n    .ReactDialogStack.animating.next.backward {\n      opacity: 0;\n      left: -5rem;\n    }\n  ";
-  }
-
-  var StackContext = React__default$1['default'].createContext();
-  var _jsxFileName$1 = "/Users/sebastian/Work/DePay/depay-react-dialog-stack/src/index.jsx";
-
-  var ReactDialogStack = /*#__PURE__*/function (_React__default$defau) {
-    _inherits$1(ReactDialogStack, _React__default$defau);
-
-    var _super = _createSuper(ReactDialogStack);
-
-    function ReactDialogStack(props) {
-      var _this;
-
-      _classCallCheck$1(this, ReactDialogStack);
-
-      _this = _super.call(this, props);
-      _this.state = {
-        stack: [props.start],
-        animating: false,
-        animation: null,
-        direction: 'forward',
-        animationSpeed: 200
-      };
-      return _this;
-    }
-
-    _createClass$1(ReactDialogStack, [{
-      key: "set",
-      value: function set(stack) {
-        this.setState({
-          stack: stack
-        });
-      }
-    }, {
-      key: "navigate",
-      value: function navigate(route) {
-        if (this.state.stack.indexOf(route) > -1) {
-          return;
-        }
-
-        if (route === 'back') {
-          return this.unstack();
-        }
-
-        this.setState({
-          stack: this.state.stack.concat(route),
-          animating: true,
-          direction: 'forward',
-          animation: setTimeout(function () {
-            this.setState({
-              animating: false
-            });
-          }.bind(this), this.state.animationSpeed)
-        });
-      }
-    }, {
-      key: "unstack",
-      value: function unstack() {
-        if (this.state.stack.length <= 1) {
-          return;
-        }
-
-        var newStack = _toConsumableArray(this.state.stack);
-
-        newStack.pop();
-        this.setState({
-          animating: true,
-          direction: 'backward',
-          animation: setTimeout(function () {
-            this.setState({
-              stack: newStack,
-              animating: false
-            });
-          }.bind(this), this.state.animationSpeed)
-        });
-      }
-    }, {
-      key: "classForState",
-      value: function classForState(index) {
-        if (this.state.animating) {
-          return;
-        }
-
-        if (this.state.stack.length === 1) {
-          return 'active';
-        } else {
-          if (this.state.stack.length === index + 1) {
-            return 'active';
-          } else {
-            return 'inactive';
-          }
-        }
-      }
-    }, {
-      key: "classForPosition",
-      value: function classForPosition(index) {
-        if (this.state.stack.length > 1) {
-          if (this.state.stack.length === index + 1) {
-            if (this.state.direction === 'forward') {
-              return 'next';
-            } else {
-              return 'previous';
-            }
-          } else if (this.state.stack.length - 1 === index + 1) {
-            if (this.state.direction === 'forward') {
-              return 'previous';
-            } else {
-              return 'next';
-            }
-          } else {
-            return 'stale';
-          }
-        }
-      }
-    }, {
-      key: "classForAnimation",
-      value: function classForAnimation() {
-        if (this.state.animating) {
-          return 'animating';
-        }
-      }
-    }, {
-      key: "classForDirection",
-      value: function classForDirection() {
-        return this.state.direction;
-      }
-    }, {
-      key: "renderStack",
-      value: function renderStack() {
-        return this.state.stack.map(function (route, index) {
-          var stackState = [this.classForState(index), this.classForPosition(index), this.classForAnimation(), this.classForDirection()];
-          return React__default$1['default'].createElement('div', {
-            key: index,
-            className: ['ReactDialogStack'].concat(stackState).join(' '),
-            __self: this,
-            __source: {
-              fileName: _jsxFileName$1,
-              lineNumber: 127
-            }
-          }, React__default$1['default'].createElement('div', {
-            className: "ReactDialogStackRow",
-            __self: this,
-            __source: {
-              fileName: _jsxFileName$1,
-              lineNumber: 128
-            }
-          }, React__default$1['default'].createElement('div', {
-            className: "ReactDialogStackCell",
-            onClick: this.onClick.bind(this),
-            __self: this,
-            __source: {
-              fileName: _jsxFileName$1,
-              lineNumber: 129
-            }
-          }, React__default$1['default'].createElement(NavigateStackContext.Provider, {
-            value: {
-              navigate: this.navigate.bind(this),
-              set: this.set.bind(this)
-            },
-            __self: this,
-            __source: {
-              fileName: _jsxFileName$1,
-              lineNumber: 130
-            }
-          }, React__default$1['default'].createElement(CloseStackContext.Provider, {
-            value: this.close.bind(this),
-            __self: this,
-            __source: {
-              fileName: _jsxFileName$1,
-              lineNumber: 133
-            }
-          }, React__default$1['default'].createElement(StackContext.Provider, {
-            value: this.state.stack,
-            __self: this,
-            __source: {
-              fileName: _jsxFileName$1,
-              lineNumber: 134
-            }
-          }, React__default$1['default'].createElement('div', {
-            className: "ReactDialogAnimation",
-            __self: this,
-            __source: {
-              fileName: _jsxFileName$1,
-              lineNumber: 135
-            }
-          }, this.props.dialogs[route])))))));
-        }.bind(this));
-      }
-    }, {
-      key: "onClick",
-      value: function onClick(event) {
-        if (event.target && event.target.className && event.target.className.match && event.target.className.match('ReactDialogStackCell') // clicked background
-        ) {
-          if (this.state.stack.length > 1) {
-            this.unstack();
-          } else {
-            this.close();
-          }
-        }
-      }
-    }, {
-      key: "close",
-      value: function close() {
-        if (this.state.stack.length > 1) {
-          this.unstack();
-        } else {
-          this.setState({
-            stack: this.state.stack.slice(0, 1)
-          });
-          this.props.close();
-        }
-      }
-    }, {
-      key: "render",
-      value: function render() {
-        return React__default$1['default'].createElement(cjs$a.ReactDialog, {
-          close: this.close.bind(this),
-          open: this.props.open,
-          document: this.props.document,
-          container: this.props.container,
-          background: this.props.background,
-          __self: this,
-          __source: {
-            fileName: _jsxFileName$1,
-            lineNumber: 173
-          }
-        }, React__default$1['default'].createElement('style', {
-          __self: this,
-          __source: {
-            fileName: _jsxFileName$1,
-            lineNumber: 180
-          }
-        }, ReactDialogStackStyle()), this.renderStack());
-      }
-    }]);
-
-    return ReactDialogStack;
-  }(React__default$1['default'].Component);
-  var NavigateStackContext_1 = NavigateStackContext;
-  var ReactDialogStack_1 = ReactDialogStack;
-
-  var Dialog = (function (props) {
-    var _useContext = react.useContext(NavigateStackContext_1),
-        navigate = _useContext.navigate;
-
-    var _useContext2 = react.useContext(ClosableContext),
-        close = _useContext2.close,
-        closable = _useContext2.closable;
-
-    return /*#__PURE__*/react.createElement("div", {
-      className: "Dialog"
-    }, /*#__PURE__*/react.createElement("div", {
-      className: ["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')
-    }, props.stacked && /*#__PURE__*/react.createElement("div", {
-      className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/react.createElement("button", {
-      onClick: function onClick() {
-        return navigate('back');
-      },
-      className: "ButtonCircular",
-      title: "Go back"
-    }, /*#__PURE__*/react.createElement(ChevronLeft, null))), /*#__PURE__*/react.createElement("div", {
-      className: "DialogHeaderTitle"
-    }, props.header), /*#__PURE__*/react.createElement("div", {
-      className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
-    }, closable && /*#__PURE__*/react.createElement("button", {
-      onClick: close,
-      className: "ButtonCircular",
-      title: "Close dialog"
-    }, /*#__PURE__*/react.createElement(CloseIcon, null)))), /*#__PURE__*/react.createElement("div", {
-      className: "DialogBody"
-    }, props.body), /*#__PURE__*/react.createElement("div", {
-      className: "DialogFooter"
-    }, props.footer, /*#__PURE__*/react.createElement("a", {
-      href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
-      rel: "noopener noreferrer",
-      target: "_blank",
-      className: "FooterLink"
-    }, "by DePay")));
-  });
-
   var PaymentValueContext = /*#__PURE__*/react.createContext();
 
   var ChangePaymentSkeleton = (function (props) {
@@ -75429,28 +75565,6 @@
     });
   });
 
-  var QuestionsGraphic = "data:image/png;base64,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";
-
-  var NoPaymentMethodFoundDialog = (function () {
-    return /*#__PURE__*/react.createElement(Dialog, {
-      header: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }),
-      body: /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
-        className: "GraphicWrapper PaddingTopM"
-      }, /*#__PURE__*/react.createElement("img", {
-        className: "Graphic",
-        src: QuestionsGraphic
-      })), /*#__PURE__*/react.createElement("h1", {
-        className: "Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Insufficient Balance"), /*#__PURE__*/react.createElement("div", {
-        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/react.createElement("strong", {
-        className: "FontSizeM"
-      }, "We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.")))
-    });
-  });
-
   var PaymentErrorDialog = (function () {
     var _useContext = react.useContext(NavigateStackContext_1),
         navigate = _useContext.navigate;
@@ -75464,7 +75578,7 @@
         className: "PaddingTopS PaddingLeftM PaddingRightM"
       }),
       body: /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
-        className: "GraphicWrapper PaddingTopM"
+        className: "GraphicWrapper"
       }, /*#__PURE__*/react.createElement("img", {
         className: "Graphic",
         src: ErrorGraphic
@@ -75530,7 +75644,7 @@
     var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
     return /*#__PURE__*/react.createElement(Dialog, {
       body: /*#__PURE__*/react.createElement("div", null, walletLogo && /*#__PURE__*/react.createElement("div", {
-        className: "GraphicWrapper PaddingTopM"
+        className: "GraphicWrapper"
       }, /*#__PURE__*/react.createElement("img", {
         className: "Graphic",
         src: walletLogo
@@ -75589,124 +75703,28 @@
   });
 
   var PaymentOverviewDialog = (function (props) {
-    var _useContext = react.useContext(ConfigurationContext),
-        _sent = _useContext.sent,
-        _confirmed = _useContext.confirmed,
-        _ensured = _useContext.ensured,
-        _failed = _useContext.failed;
+    var _useContext = react.useContext(PaymentContext),
+        payment = _useContext.payment,
+        paymentState = _useContext.paymentState,
+        pay = _useContext.pay,
+        transaction = _useContext.transaction,
+        approve = _useContext.approve,
+        approvalTransaction = _useContext.approvalTransaction;
 
-    var _useContext2 = react.useContext(PaymentContext),
-        payment = _useContext2.payment,
-        setPayment = _useContext2.setPayment,
-        transaction = _useContext2.transaction,
-        setTransaction = _useContext2.setTransaction;
+    var _useContext2 = react.useContext(WalletContext),
+        walletState = _useContext2.walletState;
 
-    var _useContext3 = react.useContext(PaymentRoutingContext),
-        allRoutes = _useContext3.allRoutes;
+    var _useContext3 = react.useContext(PaymentValueContext),
+        paymentValue = _useContext3.paymentValue;
 
-    var _useContext4 = react.useContext(WalletContext),
-        wallet = _useContext4.wallet,
-        walletState = _useContext4.walletState;
+    var _useContext4 = react.useContext(NavigateStackContext_1),
+        navigate = _useContext4.navigate;
 
-    var _useContext5 = react.useContext(PaymentValueContext),
-        paymentValue = _useContext5.paymentValue;
-
-    var _useContext6 = react.useContext(NavigateStackContext_1),
-        navigate = _useContext6.navigate,
-        set = _useContext6.set;
-
-    var _useContext7 = react.useContext(ClosableContext),
-        close = _useContext7.close,
-        setClosable = _useContext7.setClosable;
-
-    var _useContext8 = react.useContext(UpdateContext);
-        _useContext8.update;
-        var setUpdate = _useContext8.setUpdate;
-
-    var _useState = react.useState('overview'),
-        _useState2 = _slicedToArray(_useState, 2),
-        state = _useState2[0],
-        setState = _useState2[1];
-
-    var _useState3 = react.useState(),
-        _useState4 = _slicedToArray(_useState3, 2),
-        approvalTransaction = _useState4[0],
-        setApprovalTransaction = _useState4[1];
-
-    var approve = function approve() {
-      setClosable(false);
-      setState('approving');
-      wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
-        confirmed: function confirmed() {
-          payment.route.approvalRequired = false;
-          setPayment(payment);
-          setClosable(true);
-          setState('overview');
-        }
-      })).then(function (sentTransaction) {
-        setApprovalTransaction(sentTransaction);
-      })["catch"](function (error) {
-        console.log('error', error);
-        setState('overview');
-        setClosable(true);
-      });
-    };
-
-    var pay = function pay() {
-      setClosable(false);
-      setState('paying');
-      setUpdate(false);
-      console.log('payment.route.transaction', payment.route.transaction);
-      wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
-        sent: function sent() {
-          console.log('SENT');
-
-          if (_sent) {
-            _sent(payment.route.transaction);
-          }
-        },
-        confirmed: function confirmed() {
-          console.log('CONFIRMED');
-          setClosable(true);
-          setState('confirmed');
-
-          if (_confirmed) {
-            _confirmed(payment.route.transaction);
-          }
-        },
-        ensured: function ensured() {
-          console.log('ENSURED');
-
-          if (_ensured) {
-            _ensured(payment.route.transaction);
-          }
-        },
-        failed: function failed(error) {
-          console.log('FAILED');
-
-          if (_failed) {
-            _failed(payment.route.transaction);
-          }
-
-          console.log('error', error);
-          setState('overview');
-          setClosable(true);
-          setUpdate(true);
-          navigate('PaymentError');
-        }
-      })).then(function (sentTransaction) {
-        console.log('sentTransaction', sentTransaction);
-        setTransaction(sentTransaction);
-      })["catch"](function (error) {
-        console.log('error', error);
-        setState('overview');
-        setClosable(true);
-        setUpdate(true);
-      });
-    };
+    var _useContext5 = react.useContext(ClosableContext),
+        close = _useContext5.close;
 
     var mainAction = function mainAction() {
-      if (state == 'overview' || state == 'approving') {
+      if (paymentState == 'initialized' || paymentState == 'approving') {
         return /*#__PURE__*/react.createElement("button", {
           className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
           onClick: function onClick() {
@@ -75714,10 +75732,12 @@
               return;
             }
 
-            pay();
+            pay({
+              navigate: navigate
+            });
           }
         }, "Pay ", paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
-      } else if (state == 'paying') {
+      } else if (paymentState == 'paying') {
         return /*#__PURE__*/react.createElement("a", {
           className: "ButtonPrimary",
           title: "Performing the payment - please wait",
@@ -75725,7 +75745,7 @@
           target: "_blank",
           rel: "noopener noreferrer"
         }, /*#__PURE__*/react.createElement(LoadingText, null, "Paying"));
-      } else if (state == 'confirmed') {
+      } else if (paymentState == 'confirmed') {
         return /*#__PURE__*/react.createElement("button", {
           className: "ButtonPrimary round",
           title: "Done",
@@ -75735,14 +75755,14 @@
     };
 
     var approvalAction = function approvalAction() {
-      if (state == 'overview') {
+      if (paymentState == 'initialized') {
         return /*#__PURE__*/react.createElement("div", {
           className: "PaddingBottomS"
         }, /*#__PURE__*/react.createElement("button", {
           className: "ButtonPrimary wide",
           onClick: approve
         }, "Allow ", payment.symbol, " to be used as payment"));
-      } else if (state == 'approving') {
+      } else if (paymentState == 'approving') {
         return /*#__PURE__*/react.createElement("div", {
           className: "PaddingBottomS"
         }, /*#__PURE__*/react.createElement("a", {
@@ -75758,13 +75778,6 @@
     var actions = function actions() {
       return /*#__PURE__*/react.createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
     };
-
-    react.useEffect(function () {
-      if (allRoutes && allRoutes.length == 0) {
-        set(['NoPaymentMethodFound']);
-        setUpdate(false);
-      }
-    }, [allRoutes]);
 
     if (walletState == 'connecting') {
       return /*#__PURE__*/react.createElement(ConnectingWalletDialog, null);
@@ -75783,10 +75796,10 @@
       body: /*#__PURE__*/react.createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
       }, /*#__PURE__*/react.createElement("div", {
-        className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
-        title: state == 'overview' ? "Change payment" : undefined,
+        className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+        title: paymentState == 'initialized' ? "Change payment" : undefined,
         onClick: function onClick() {
-          if (state != 'overview') {
+          if (paymentState != 'initialized') {
             return;
           }
 
@@ -75821,6 +75834,48 @@
     });
   });
 
+  var ConnectGraphic = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAHQCAMAAADgcCJ6AAAAilBMVEVHcEwtKDzTf2QsJztDIBzTf2TTf2QmHh7RgGXTf2TSfmMsLEQsJzotKDwvEhLXhWi3Y04vEhIvL0jOd1////8rK0T/u6nx3mYeHjNiYXmurrjEdVy9bFZPTmhCQFqaXExcMClxPzaHTkFfQUeda2N3V1rflHvxsp/v1sLpo4337OSWk53kw2DTnVnpxQaGAAAAD3RSTlMArVg1/tmCDf6tLtddhNBDtzWlAAAmFUlEQVR42uyby5KqMBCGLUoluoFUZpdUcVnMeOb9H/BwR0gwiUITx/9b9jCI9J++JR4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB8ieP4WhM1nCsuLaceVpE8D+s4jXSfUH9Y86nNA8TxAWxF4+TewefOu5VbQ4UtcZow6KgREQTU0vm6dnTr6eRPUstBzKglUYnho6Qwuvsve9uiBKFxqoRwPfxV4srltcM/0d3LMhBmGfypaHCt/Q6v+6rgT8SCODpfwi3aAmJBBO8dCaIzlr2XCIRJBOf3DARxdEnAx2oA3v9kDcSI/Fto4BId3oLrOQEvsxAGwi8JY7h/JZgwcQk8E0Ro+dbj/SRwRe5flzeTQCjRv3ttjE2MsqEyzy6tbeFuMJolEGQtENN3fkwqpdI0VUqy0ZiOyMEq7qzCZFV3d6jv2d1Wl9BMLWIirPHitTTFqlsbCK8j2Db8z1ytOzUdzPVluq/T+bW6NRmsRgmpe7FYrLI3SZG8jEyNHUFgeSBK1kJI1XD/8pjd1XK41N0qJlZhtDKTVSXu1hUiQZYZ88AhIFbzPzOuX2V8zyu7urfKqQAeWtXEuvS4/S1Uqp6LCSovww4C5+ecXS/2+Uuyu3q0vhrsmdEqjFbpYVWP76ue0EBxzAIOAs+tf3nvVL+1rl+rLOUeU3qu1q/V7ys9gr1cVrF+W18yfkwNHWEQ7cBz/heWxaO/Ub3WMq8pIVvEvKFqi/iZtbt2Vobo9xVLjzA+7ag2a2gS/uvlyAsVZBp45H/9XSceMfXuPauhrk62abecv4AuIdG0gckjCelh7ImPzzkvA2wIr07LffTgQpzUV7WcvWhKX2+BMAvA41sVnOcquEJguf9/HBLFPKyPb+Ttfb00zDAEN+lTFZac8ywwBdjmf/psRpuWqBWmJW9CNdCaJgbRZwp3BRRSKwUP+xH59vYpu/tDyFP47bj/zmoMgo7NAK/agXAUEDt94Wm2B3d414Ulr8iCUYAlAYwyH4t4sJQdlbsCykDqgMir/lXyA+O9jwKYYy9QUYShgJNzCyTg+wWk93QorxWQhzAPCOUEyHszdoeu/3A0KoB+JhgnYB2E8to4lq0C5N5TYQSA9ag6Yq+dIVMMOB1oQQDYCmE9NFC2Cti3EEQA2AjlMBfKGwUUuxaCmx4C/GCkS0sgOTfNAyiPB6x2CgxMcWsKy1YB2X4TQfpT4B+CGhVgTwJHtVcSuCZgG4TbYEhxUyF4IksCKAE3Q46zYYckUOzUCaAE3I5xj9gyEGzIdhkIIgNsiXQKAVkrgKPcow5EBtgU6bQ/eOySwB51IDLAtgiXMyIZb8noJ8LIAFvDpMNZybxLAvQhABkgCFLeUpKHAEyBwiDvFKCoQ0ACgqCvAgriEIASIBSOnQJS2lkASgBKmLCOA3lOOwtACUBH87s6sfhXvksISAAZ6vFEqOhDAOWOAEoAOphlV0ANIYCwDMRZEDqYbWs47xsBwk4QNSAh/dagrRPkiq4MRA1IiLCEANELoKQ7HejxM6/v7wSsc0bQlgOOZDkgdvT9z+33q+L2LwErbA0LWw7IqHKAUxPw7/Y18IswsEIVIG2jgJwqB0QOq//2NQFB4PUqQNlyAJdEOeBsX/6Vz6GA1ZCdAGw5oCTKAdYm4Kd3O7LAOjz+8bA054DDZpzs/te5JeCln4sy+5YgVyT7AbGT/5EE6CiHHECyH3C11H9fZn4TsBHpkANI9gMsTUDV+yME0MJ4j6RoBB83AW3/hyqAlKERzCgawbOtAUQOoGYoAgqKIuDilwBG0AluxVAEHCkmASe/DmDkJwH/2Tu33dZVIIBuRU5L+gKI6FQqSL60TVw3/f/fO3Ycm2bbgE8zAz7NrMf9UmmzzFwYyE0wxUJJgIjQCQhtAJQE4KBEiwokARV+J+DJuwGQAGj4rouW8kKBnwVuAhsAZYE4MN+ZYD4mAfhZ4MbXAyIB0PBOhxo5YNBbQZ4qsCYBEBE9zJ8F5uhZoKcK3AfgBL95LkT5z4NK9Cxw624CkQCYaHFGp84C3QLUJAAm3sGgSg6gZ4GeGoAEwISJHn8vUArkXuCTpwYgAVAxHgG0HMiRywC3AB8kAC7KCjBFDpTIZcDG1wakMhAVM80BpmVAgVwGPLhzQBIAGWYmPyQwLQMy5DLgwZsD0lkALowFRwKkxi0Ddu42EAmQkFwOCFwBtj8X4B9OoCHkQI5bBzJ/FUgDIYnQcqDCrQNDbQAaCUuEHChQBaA+0FqxdSBqI8AjAFWBSSnGOhC1EbBxC0BFQFJKObBWASgHBEAZY1SgEWAwO0EPbgEoB8SHiQ7lFyDHFGDHnVAKgI/nqYjcCoDZCfII0FAbCB0tzvg7QRVmJ2jLndQUAdAx7sFQIwfKVQpAEQACz2CoitMJ4m4+qAZAZxgMTdYKfORuDtQGRGciwFwrMENsBT5xDw11gbBRSwSQiAJsuIcjpYDYMI8AhRxAfCfGK8CBMgB0Fglg8HrBgfeBqATAxkyrgOlhgEglwAc9EIYNc18QLWP0gnfcS00BABumjWE82WFAQIADVQDpsAJUeAIEnwmm9U9GbgXAOw3a8gA1rX8qrAAlngCMh2go/idCxBCAh6mvPn9qAEXDRBDgkS/gSMufBC0HCrTz4Ce+iGPdcqTVj8uKBCBSwORAhiYA/WhwerTzoSgS4B5QokP5BUCbCCEBkmNEh/EPBKAJQD8bnhwjzpAA94pIKgD9bnxyFgmgsWbCSIDkeJ6MLkiAO2CRAAZLgC0nEjNJAmcFwJoKJQGSs0gAkVqAw/FIRwE4aHEm0VTowrOgph8FplEABJjoMIGp0JQCfBsNbmgXgOe8Bag0AjzyMDXNgyOjtFZ8tQLUdCUsGRW6AE/h9ac7QemwAlSpBDjSUHhC0gtwoHvBKcEXYBMKAPQ4VEqsACXS1aBNYAOgm8FJwb8bFhCgprchkpKj7wCBeRB6HCIOjDkEQN8BAq8D0PNAMWCm6wSucQeoSYAYaNHB/kcCUBYIijijVyhAQwLEQJwxSe6H77gPeiEqBowEuG/URYAkDwSQAOlZsQCUA2DBlNJnTIvo6f9BtbCWPjhkWVEUZUtljNFaRxaAykAMlDbi5xgdUYAjCQAN0+JmtoDHgVt/J5BawbAwI0DYgSkQmAqnh8IhgVr+DqhmUECAmnJAOJSABOidkIAAB4oAYAAEfwQDtqGJIIoAQECvvxAgxUBIgA+qAWAADP+geQAPUdMGAAH8998BcEuUhzg0lAHcDmz+BxkEeJAPCgA3wwQSt7cDeJgjrT9fYQIAtAXwBRxp/VcZADr+/IkggM0DGroa/BMEHjcXAnwZH3XTNDUt/4oqAJhu0CMn0BGYkACrBzEDuL0OIAHwMSKAMenqABIAHeZd+6/T6bnldPoySZIAEgAdLZzodvEtJ50gCSAB0DHOr39YfquAiZ4EkADoOD//5xl07E4ACYCNEvOw51m+SADO8qroxuErwXhkTFUW7V8uc82h0J7vH2QPePhlAohCWkrD48GqTI4UOYfBzMf/ZycmahmwNgFMIa8pFY9Ev/yWDEYBMcuY/005if/G9jcJUMkJmeAxUIWcUAKEIBYMAPUkDYhZB65KAFbKOWC+RD86kzNkt6cCzL8B1P0Z+/UWcLcCFFImMqBbfxwDlHcD6I7ZpwboOxWglC6wowDLpIOMYQjwZb//OQO+7lOAXDrJkDPBUjopOUIVOESA/UhzFQPuUgAtJd4yLFEPJ/7MCjCs9N5yFQPuUoBS+kDtB5wDAFIQmBPA2AgwHwN0PAH+8JWg5cj758vL21+LUnA88u9/+vMddguYW0tNAng2gOylD4qv8oqb03E3xbj8zfkvv0O6pxYK8HzvAmTD+o//K9cGVBwLPa7//sIboHvK1wcGEWD7KwQQ8sKn3RQBv8Ml3cdsP1LAuad8SWAzqQJ6TLyzgLUIMFmFyRbAsShG9UY+AUsQbyNwsgH0RDwNXIsApex53Vve4DbiJcGn3js2nwxcgEsjyGYBfx0H3aEAhY3DVoA43UA5JwDc5mP8Z0HNuP9bWMSBkLUIkM3sAO+A1ZgbJi+01cfAi7yCQdeBYwyYJ+ZM4NoEkN/yIshy3A2bpJ+TMkCBZ4GXGAAyFYb8REwkCnnhza5CHAH4GOobqx7gDsCQB0J2v0yAcSf+jNUMzqQNP0MPCjAH4IGJkAks5kjgagQo5chb9yXW7xLyM1zm3mt9TgBaIwCrAG7EbBAACgBi8zsEqK7+x4t2DWBXYeEpVPb6Cn4UqcS8ATDrf/M7Uf+yd67NceJKGJ4kJOlcXBJWORVH8ggE2OXy2f//9464DM0YdBmQNNjJsx/W3rU9w/SrvqkROxGAyDXX2RCW+ZxwnUANNSggiP2/Hd6HAE6R+ApDQSzP86hb0dx4Z+D2mwI2R4DDN7IPVD4lYQQgpIj80kCpnxP4T1zhpMC9CIDnecS5HCsy9ksLapbA/8bq7z+R/ubwHQmAlBHHchwUkV+aURuCA3BxrTOi9iMAnl0lA2gRcR1AxGMC6WEzuxEAkdcoARYSkJDzQLFPCdruAHYkAHMQKGDrLb+lYvYgEHkgPZILEIftfCH7oYwQhXmZeUQRKGLdGRT1rODtJwXvSwBEmda/+7burFBzEzNZeK5lKGLaP9JZkV8OAdiVAIjMLH04t+0KJQU7PZxNltkl2ZyKc3dwxCDw+RCCfQmAgMrPKIS329jaTBZFzPvSIwSBEAFgdwIghKliNEEpyOZG3oi66HCSIqj5YyggjP0PH8n+ACqVUpKH2UU4Ib1eWZWaKKcTBa4FA1SAuxVA2G2k6GPFV1FAKPu/AwGchYDIHZ3dKCCQ/9+pAB6fnzqeHwPsI2IK4OSxfeFfv349PT/HeTBaKAWEfHj0d7IzHrUJkKfn7bMkPczrhZEoGgiTCQap/3cqgOdfM56DxIDS1/zIUwwJBOgHBAv/+xPA468lni5wAVmpTmVkUQPUZT7A3MKbE+MJiYxuQ2wfAditAGaL0NMOJXaNe59RaiW0Yuq/blEu+xuI4QT4FvMzFlgA+zkjBu1vUIDzkK96/IW6wD/W/t/Caf+UClgtAcE0QTOA/dwbZrGCOw/guSZ7NMmnyLgr8iRWAGF8lfnfswAef9l4dJ8vYf4DT9zP9STLAzqAcUG9EZwNhM0B9zMXbrOCuxSQObeoxym99C5gALiHCmSZUcbeuQAef9khDmz2d8YeK/GflgmMc7GsA6n6u6QEGwnYBHpPAsBCfl7NuwVwlRgwA4AxfoJp8hEWTwA7GQp83iAA25943vzS6QTwGr4ogENgdiKAxwBWeHyaL//t2osfAkzQ/ESWWgAqC/S8jFACePTdRlrTzr+CAKDM3MNOckkAYQbBHAKQmw9GCVwFPF2yldjuJbYbeoHCD4mBwmlnHwEUbCB4I3B5JqyMfzfOHroxKL7UDoAUPp+wupoAihC3xQdUQGT7awWE8D0XjzFJ7/skSqaJ0whcnAgpU9yPZVJAmm3ZVzwnXf+E5OgBmBB8bwJQ15mhenxKaYPXr53S9XCcUmRUIxyDDipeI3BRADLIwQgreH5thqc05u8lkE56Mm+ZTIhw+7irjNcHWhwIoNvPR9wwD4jWjzKWZX/xNK+txhUG1CyA/GoCYGFvyqdKXmYHPZ35+BjTAPYXj//axRhjmVkAkI/QeH2gRQGQLFwZwGRVKUH+sfz5crMAeD4i4vWBlkeCilBZIFNVFfBR3O8EjrcqCdrBrJ3gPGIjcHkiRIXJAkFWpYTVv83releug5cyTF4ksQhAAdg6wRH7QMsCkEFupuJlJWGV4WVTHW87qgh36a0FVKBoVuL6oj1gbwRGbAMsDwSwEEdkykrxSy3fNNXtOccdKYAALatyuwQybLTRnkWZXFEAJNueBKhKEm9a0/drfkZDdoVQWtchziZVEwEIRyMwYh9IbweaXxw2ucva8ydrvept7MkFtAgd2QKkAGLSB2KORmDENoAWgPk9yi3rf1A1V9S28HHdG4kwmdDml3xTcGNbuwDZ9EYh4t0I3Hw0rOcZIbDxfD5ZibEOECbj48K3UpHQ1Peah9tj1ciaw6r0tuQbI0B5+k5QsaymNH0ggwBIsSkG1FVtrwNw5XvASVha+7f0f33QwYVGLCuv39jgXVmaPpBJAGpLDOBDkKRVyRetf3sRNQnKyf7aB0ypmlqAO7Whpy98FLBlbYl8JGobwHBEBN9yrEZZwhAqYX5dDuv71wEA69R5PzJ/qWMj7SoYawAoK0Yc+H+y9j5Q1Crw8NGmU74uAeD9v+S8NTjx/MeHB1yDNo74+5zXmqZpHlpWuYZ7ZPbyoy8Adw0AZUkc+PtWex8oahV4+G4ToFofAOb25w3a9P7lT4eXBE42n1FvcADoAgwiMPe3FZyucwWZIQJY2gBRq0CTAGD14zK4gi7+y5n5x6V//2fEywV01g4jgNopABSBwRGIqmR9qivIxVBDfWVrA0StAo0nBJSbWgG8Uud6asa1/+eM+7QCgPspR9MLaiwa4GWvAFXCyhSQkhmWNkDUIuBwsEq1IBvyQKQ+ovnDCeAeNjgAcxJw7MPTS6uPVgOLCoB1QUC8cqzmK8hHeNQiwLAZ4NaqOw+cL39t/jAC0CmBTgyARBHAC7653hE0YHBwtVUAbr8KglJD1cFSFQFmAcj1LgDOlgavcGXN8MoC0eY150A2cH/O4ov9QVo/0EmAz/IAs+3dDgBO35pHgmmqIsBye2i2OguQ0218fsQPdsbL6WNPsx8Evdnvbi0CWI5SDcyb3ZdTnNVWzDwMQGSqIsAiAHmS6wYHgPa/N9rfDQlFFwHuNL+NArgzxSlJzlDl6vt92fmhgWCvAlXUnQDNF8fpW2rFVgCbiGFm/9G5PmhtpPUAdRv4OwEcjWXAcUmo7Q+eN3+5Y7/b/YEC7QF7FUgjFwFmARC58pztcqKZZtH/v7TZ1RW2g/oA8Fv/c4cCmCeBplylPu8Kw7pH4gBGAMtmcKKdAPt50dmqPJBXAr/GVXWWWF1pO6iPABgDUABOBWAYwEC36sQPNX5vGQcCLAJi54A2AdB8TR4oq5kDeJmaXy+mKwkAeg/QuQBbJ0jHh5dlBTTrswAoznIq60QwEelyQOtpscWaB2grhV8fMQEwF/7JhoL4/ZgDPKAAjN2Hl5kCzrQoKrEiAOC1UFsRkKwPaBcAz1dUApSj6k8B4CyWhtoQXtkGOmr7D3WgIxN55Qe6n+ZkpDQJ02LS4vXZ8cKxFSRipwCHr3bZbukIQ3MKAPgZXl8Auvp4MGwG2CXw8uq9yPLiBCDjrwXAyBJFsj6gxmdTSpEV1H2dd5zafw8C6HELYDl8oQmF/1QQy+bplKAtjp2AInoK4DgrkmerFdAMe2oPlvifdi70/jVefeizAHb2ZiT4J4DzbWAwOwCRn1DRUwBsBdpHk+Qa+/cCQBcaUgDAIYkATh4Mg8DKTeB5LsU4uObBaPQUwPnwyHKdAnhr//MQcNwggNlIWEudRADnMawtDzhZUQBeUk2V6boAmo8u+a5SQN0LoOXFEQDcFuhtPocnEUCXB+A1HC9UAFg/QHsfsIg7DdTz3d3C7pErBXB8sQcAN2FGgto+UN8JGqoA75r05UwAGr7C/or4wjAFSBABsAxwJYK5WhMC+qaKLggiCICv2QzGPhAKwDcIPAwCeCC+8Mz24DJXCiASRACPI+NFhg/z9+bYcXcbAoP9G7JCAK39DVsB7iDQqaHl5HuifHSYAiQoAjXf/C8j48SXh94FBGE2DdiNB3GyQgDHdivQIABnEHgYBeCpPZlb7O9OAcoERaDmi7+Q3YkAzoGFFUCAkbBBAOgBLkpEx4jh7wGgMNkfOPN5UACN3wbELNAOn6hy+WKFYNMe8F1IAYSZCIF+Lwg9wLqSpAPICDed9UrxM1t6fCQ43UaWogbQfL1MzZlceM/d/y3EUAG0idbdMZwCwkyE9DkADgSt2pgaLmvsAqvWytnCTfBsMtW1ZH8qnClAmaQGwCzQDuAFFcIkddFNStzd7VIA5L53AaZpADd6muh3d1Va4X1DUJkco8zGBUMJYtwIRiBxDWDLAk3XlJd8+QnuBSGiXf6dAMIpYPvBTNNGkE4iDQJwm38QQHt97WwAz0cysfxRFdz05FBn4pgmBcReoBNe5HMJQJlPAHk7mL8OWAcEGgmy9wHd5m/pcoDhGiuQ+QR5FhCNvROgPcIVAWSaFNCdBS4pGyVQ5FMG99/tmPBgCggkAPt9QW7rnxxAo6+yv8wynyJnn1HBzY+QZ6YiMHEK6EgC5qkNUtBBr8iw/EWv9fohjAKiCMD7femkYaQLbFw3unsB5OdQAm1SaEuXCXM4AJq2DYxJgC+iyJEMv0EJ9PkRUukPTv/Xq5eBhBsigNP4yNgEatowkL+mPPtm8W0LewpIyrRdQHsS4I4DCCpgtl4rXECaqzkAAhdFgLZcRNABPMCw2ZFbKU3dgR5ueo/XcABtJyCgBOR8OGT2QWopaNLanxC/CNB1CpbRu1o1YGPETCGIAXsAIOoaDgBjgC+AEvBSgLj9bQL10DKXRROoCdBSWx1Af8eIDUGQwsP85hAAzumLlA7ALwbMm39G+MKPowT8ua1koPDfAzMHMNwn5EdNEGV1/hbAan+RcBjUEQPciDI3UC7+eOOrAe0Eqvb4xqDG72hGB2A1utv+kBvIlPNdMw7OnWCRrAewMgY44iBYTumtheAcTvAe0cJbwlt9yQXM7O9WpZi36+bIECeJnw0DR+8B+MQAi2BnhH3iVGiGLODyeIT3AlszABHgeWIJTgVZYO0bnhHiYRMRqdf4/7vZLSCZl+tbeYJAFv9+MPtUiD/8zQmgO6vYafCB9ks8NNIhgO0P2SAq/nMCA+wHnJG9PQG0tM8laiqk0Uip0xMOEOe6gVPKnQ4g+pNig6eBKkoutH8MOQAjBhi2/8yo6A+LD58GQhYhFL4BlL38NY8AuA8S58krAMuWoBsZIRS+AXi+QGbQPQg6AO7HyYnECcDXjsCVYKAJnj2zdNnUZX/qPEQuE+kSgE8/bz78uB3a7z8+3Hz6HKoZtPcUMAQLsU867c9ceWVGExwI0fL154cfd69pO+8hPor3HwBaROaZ+HJ6gruyikykSQA/fRgW/oIGVnjv29+vMqG/A36mgEwQA37rn3d/I+pjosfFr9e+hYslUOtfQgkUf0H8P6EynIIhRjABtFF09o9fAJybX0f+m5+amxuMCDjR5UnV/Q5VZVGWf9uz4rurztrtS0LsJaBwlpUFT2D/ifl/3Hz6ei6NMTBcNIMD7W+Fmtp7k3QfANGYk0DBnMdIlyy+/T/9mFjf6h4auCACaEId4/QmQQEYAHCnEyq+/b/enBb4B219Azf9vHO7/WWDCSE4YAQIN7b3BlkQAONCMOJNkVGGfItj/3H5f7D+/W/DrT3W+/E47RHsXwToBXAkCHDM+rwoC86i138/hwCPq9/AZ171ChCWsbYRIf/6CAD9JzDv+wjih5KMRe//3Qyx/5M7UnwmjUMBjCL/IgA/E4CgCPGCCoZ8jtT/H+x/4xNdvrc3+GMUcAjgXwToBNAs2F/4/TqLH/4PP/sljcvfpQDRKwCc3U01lT8A/IVSqCcCADqBEQ+Asfjt/08G9+9UQGWuAmYR4KR+EXeud390WZCcZ0d+9k/g/g+fbjv7o3fxjwKNZcRJ9BFAA6+931/UD2SsmWZBM/PbgQTL/3D4YbC/QwF3rvQOGO9rgLn3+zs2BBgXJyd4umBucIJO+3+LtfzbBBDjv78C2lrAnd816P6AGuIfY+xdBgUQkyjIUBT+Vwvo/SMVfxgAfl7cN/w87PJYr+AUAVroFD6pGN5parC5Dkpi/sPhQ9f+WTMmzDvz1r77ACAWPABQRLxlCbD+9jUOs1rY7ijd9v8cL/j3FYAhAXDzsbPv0XJtWANgYnieA3BDZsC45s3Ehqm24ZUAVrZCIY35dQZoDABuvlcY4n13goGf1slcAJScEPQtRQa2FNwABYCB0htI4fzRAaz+bXt88xA/WxQAN+WLvOX/7Z1dl5s2EIbRyrawQeuCj6/gpDlN8v//YoUgHmMEwmiEBqOn7UXaXWo8r+ZLIwjqFxoBv9ay9VAAcBP/wSKZTeo98+9nALlbBfHbEgEmudWGEFAPAsNkFyW93fy0GNM0fbly1Tf1aHoLjU9oA8wmbX2/p7ZvD1GCA1j2+xNrvNbpzxtrKp0WQG32C9VIcyW1dJ5tP1xBHEqNDqs2CiA1rYLqOp9UW3+Fxf/YBMhdmwjVRBPgz/y7vj6o7N9zdZ3eXqkeScStLzZNdUuNpq7SoV+3u6bbVCXzA1bBLFa0fhcBSuGaQ8jzWApo1749MKRGAdQQF564TcviZnTV9ZhRgUkBQG6SWsZB7KxqfeXBdQ/AuYpgycUggT9uoyDprVmt4NdHUsP0n5EU3PqzqdHUKfzPbNlp+uY0gJ3j1xpxHzMCdD4kSYYSSEv0UZCqNqw+o6lvb/zbyi6AehhZ5tanv2fHQe8V/1gE5+4a0roFCYAD+HFFJr3pJ0ZVI4XkddID3EY8gPUKKc5m8BRn7xX/2PLNEBoJeRdRTkefDmAyWLxkYNVoHTlc1bW5iKtqSBiXMrcKXKPiN5E5pwCJ6EeRr7NXB7BAFc+ySGtTup7ewNZXbNoqkFbk7xtPIojo7zXADVTrOYAFzZ0VR9N+WarAdbP+F7h7Dmj0IpfT8dfup8Gfq0CS1scSAHsIYDBluo+5nxmHAkha36cARKYbDCoY7J3KXAUez8Hi/ioCYPeuw3j5Ou9bBNAGeDZ+8KXvWQBNAIALi6/T+bpX/tW5MNj+RGLlexYALwcdZuUKTrv0BboargnaHq8MBAFAAjCyxST2JwNdDZ3I+PxXSvdGEPQBwP6WBvNF6eB0/nwlHM/nk/4yErJk7q1gLSLZ8wjz/YpQWmjF8FFqUJZXi178/YbLhCxS7+S4h5G8Z/+FbmX7Yjg2gb7v7kuEJeYRhO1g3vP3Qtl/MGb+6WJo7K5WvDHOuw9ceEXcnQWaawEg238DYSJt/Hyz3oXniRu/MOeBAAlBTuV/+PY3iiGMGo7Hv0a/iPVGrvySO39AGClQ9b9n+79wUXJo9aAEgayI9FbVytzK4MrijckvywIkRqHtE6FtxlGqQHlf1/5GD3E4HH7+ZF8tpwfnEU7AV8NFI2TRwBNnyAugtVqGUASo8K9hAe2vOBSK78QRVjQg3Al9AbRhWzrngM1T5ijc7HfRgHIVZxltQgCwceOQAjyWf5kngWEYzlsUDRi52wYE0G3dcpdmsiy78I8QNV31XDTkjmYrGjDstgUBdHs3fPENKkiEfzzboahoMwJQ1Rt470U5JJnlj+W9UeLIdgSgErjFCxheLyAJLH+s/A0nk0TbcPdPqwBYw/PfLkJr+WNVcAWCiDbSCezg8Kjw2XBZPsyPES6RQOjhcIwwso3NIMPLAvjsxQ/mJ+L9Nbl7FoiXA+JMXKyCYPC2GGFd++q2yAV/vCwQwYloNjAQYnICurDnoz/1/EZJ981kD7g3gzHSCLzt1vUQENSb9wbJvPfWMPF4kyzgPk7iAfcUHqOQ+Isk+R3ZJACUWZYx9c+T5SFUlIH3/jw5cIQgsrVGQO/lgPdJ4LVyVMXtnMKhNBMRZ67WRsiRNwdDdNBpv6DpANztJwu8IkBlge5zt+sj+IgIykxlBjiPmPRH28ahkQNuLQnoRwOV9bGshTH5khTmZH2bzuEO4X6/D99KK2j1WTJvdCs4mAd5ge4X5V7f0hR2F8OD5RAvyI3VAfPIQ49/+rOgcxVhigElza9qMZyyX+vq+GB9hIGz/DwXwEvS99R28sJ1EgcugPBqWThERjcBcM8C3fcSBp+HcLxcZn/iN9Q58SABxFwx0V4wi3YNS8IurRsJCPDLI0gSRyaQ4CVN+6tdjG+F2smGReziPrhsr4cy7sA+RwE5TfsLVjz4ziGML00g8u/iAcK0u8jIzM0nGHND5OzPD8Uz7Z8cigAAqSnAS2Kzs6tOD6MjXsgLE3xxDjhUgFAkwl0B4c/OOWd/IR2ZMNO0/lDWLWhpICbxzDa/PVfzs3vQ879iHPDaPdhsUwlAFka+xYD38wBqRyjeC/5hT4CICXhhMdroRYeXhWRyGAScNSCpjlHOnxUswyz/EctbbHYQE8z3JuBOnDXAs6BO1Nn8wY4ALLNZgSkA5U4QJNA40q11BcH8LIz3TxKbzdbwAN8CRQGqkNpWKsgZgeOfFpuxt2y28GIMSQAJ31BPSB0AJHH802IzXthLt/kcxpJALAWIbBtRQPXWyZz+FSNMlG4HKRYiTVFAotk/uAJyMdv6oWO/RQDAo3MP2wFiOermh5dDFIBSQMhaQJ/qEVMfr3f4twxvfsUMm3UaOKj9u1w40+wFHjrrM3U9VAEoBQTsB3ROXX1NQ8vq85/qv9I7+j/LaAqBSndFbPs3Cgg3JnZ/Qh/40OgjIIPzf0E+4AhupkS/4IPNTVXcRyBtfY0vC61t/E4BoebqVLjMbMZnOTnrv2+s5N3yLPF1ZSN5yFJAQKwf2F5SCfsT+DePQqi/u7+wLklsUJDzXMX+Fn34M+c+btQzG/zIHSxgKRAhgCA/Xh3xS7hEMEKDoIlghADhE8FIWGIiuHNiIrh3YiK4d/Lg79qLhEXGUmDnfNDR4YhiYwNCkfBEBeydqIC9w8uogH3Dy1gL7Btexn7AvuFZ6BN4kbBs9Ox4BI1tP0IkgoDsTmOFeg5DJDR5SeM0biQUPCNyIDsSiscDWUp6Z7MiayAYHMzfwCGdCD46DsA7Gt9/6V90HVsnzxYd1eT6fH/sKH8CnL28sRNe5m1Y8Xlj+EY023sKXWT8+Xxg0eeXeTNF+0QHhXqrNzzLJwrg04CH9UwRBfDJcHicgwUIFrF+/DDa1M5ueCY3ecA/Mre4a1/mDVG/VH9on+zAo+EjVv4Hb1pRc1A6sKoAAAAASUVORK5CYII=";
+
+  var WrongNetworkDialog = (function (props) {
+    var _useContext = react.useContext(PaymentContext),
+        payment = _useContext.payment;
+
+    var _useContext2 = react.useContext(NavigateStackContext_1),
+        navigate = _useContext2.navigate;
+
+    var blockchain = Blockchain.findByName(payment.route.blockchain);
+    return /*#__PURE__*/react.createElement(Dialog, {
+      stacked: true,
+      header: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/react.createElement("h1", {
+        className: "FontSizeL TextLeft"
+      }, "Wrong Network")),
+      body: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/react.createElement("img", {
+        className: "Graphic",
+        src: ConnectGraphic
+      })), /*#__PURE__*/react.createElement("h1", {
+        className: "Text FontSizeL PaddingTopS FontWeightBold"
+      }, "Connect to ", blockchain.label), /*#__PURE__*/react.createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/react.createElement("strong", {
+        className: "FontSizeM"
+      }, "Please make sure you connect your wallet to the correct network before you try again!"))),
+      footer: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      }, /*#__PURE__*/react.createElement("button", {
+        className: "ButtonPrimary",
+        onClick: function onClick() {
+          return navigate('back');
+        }
+      }, "Try again"))
+    });
+  });
+
   var PaymentStack = (function (props) {
     var _useContext = react.useContext(ClosableContext),
         open = _useContext.open,
@@ -75835,8 +75890,8 @@
       dialogs: {
         PaymentOverview: /*#__PURE__*/react.createElement(PaymentOverviewDialog, null),
         ChangePayment: /*#__PURE__*/react.createElement(ChangePaymentDialog, null),
-        NoPaymentMethodFound: /*#__PURE__*/react.createElement(NoPaymentMethodFoundDialog, null),
-        PaymentError: /*#__PURE__*/react.createElement(PaymentErrorDialog, null)
+        PaymentError: /*#__PURE__*/react.createElement(PaymentErrorDialog, null),
+        WrongNetwork: /*#__PURE__*/react.createElement(WrongNetworkDialog, null)
       }
     });
   });
@@ -76483,7 +76538,7 @@
     })), /*#__PURE__*/react.createElement("div", {
       className: "DialogBody"
     }, walletLogo && /*#__PURE__*/react.createElement("div", {
-      className: "GraphicWrapper PaddingTopM"
+      className: "GraphicWrapper"
     }, /*#__PURE__*/react.createElement("img", {
       className: "Graphic",
       src: walletLogo
@@ -76783,7 +76838,10 @@
                     whitelist: whitelist,
                     blacklist: blacklist,
                     event: event
-                  }, /*#__PURE__*/react.createElement(PaymentProvider, null, /*#__PURE__*/react.createElement(PaymentValueProvider, null, /*#__PURE__*/react.createElement(PaymentStack, {
+                  }, /*#__PURE__*/react.createElement(PaymentProvider, {
+                    container: container,
+                    document: document
+                  }, /*#__PURE__*/react.createElement(PaymentValueProvider, null, /*#__PURE__*/react.createElement(PaymentStack, {
                     document: document,
                     container: container
                   })))))))));
@@ -76893,7 +76951,10 @@
     }, /*#__PURE__*/react.createElement(PaymentRoutingProvider, {
       accept: accept,
       blacklist: blacklist
-    }, /*#__PURE__*/react.createElement(PaymentProvider, null, /*#__PURE__*/react.createElement(PaymentValueProvider, null, props.children))));
+    }, /*#__PURE__*/react.createElement(PaymentProvider, {
+      container: props.container,
+      document: props.document
+    }, /*#__PURE__*/react.createElement(PaymentValueProvider, null, props.children))));
   });
 
   var classnames = createCommonjsModule$4(function (module) {
@@ -78897,7 +78958,7 @@
     }, []);
     react.useEffect(function () {
       if (maxRoute) {
-        return Promise.all([maxRoute.fromToken.name(), maxRoute.fromToken.symbol(), maxRoute.fromToken.decimals(), maxRoute.fromToken.readable(maxRoute.fromBalance), route$8({
+        return Promise.all([maxRoute.fromToken.name(), maxRoute.fromToken.symbol(), maxRoute.toToken.decimals(), maxRoute.fromToken.readable(maxRoute.fromBalance), route$8({
           blockchain: maxRoute.blockchain,
           tokenIn: maxRoute.fromToken.address,
           tokenOut: maxRoute.toToken.address,
@@ -79029,124 +79090,37 @@
   });
 
   var SaleOverviewDialog = (function (props) {
-    var _useContext = react.useContext(SaleRoutingContext),
-        purchasedToken = _useContext.purchasedToken,
-        purchasedAmount = _useContext.purchasedAmount;
+    var _useContext = react.useContext(PaymentContext),
+        payment = _useContext.payment,
+        paymentState = _useContext.paymentState,
+        pay = _useContext.pay,
+        transaction = _useContext.transaction,
+        approve = _useContext.approve,
+        approvalTransaction = _useContext.approvalTransaction;
 
-    var _useContext2 = react.useContext(ConfigurationContext),
-        _sent = _useContext2.sent,
-        _confirmed = _useContext2.confirmed,
-        _ensured = _useContext2.ensured,
-        _failed = _useContext2.failed;
+    var _useContext2 = react.useContext(WalletContext),
+        walletState = _useContext2.walletState;
 
-    var _useContext3 = react.useContext(PaymentContext),
-        payment = _useContext3.payment,
-        setPayment = _useContext3.setPayment,
-        transaction = _useContext3.transaction,
-        setTransaction = _useContext3.setTransaction;
+    var _useContext3 = react.useContext(PaymentValueContext),
+        paymentValue = _useContext3.paymentValue;
 
-    var _useContext4 = react.useContext(PaymentRoutingContext),
-        allRoutes = _useContext4.allRoutes;
+    var _useContext4 = react.useContext(NavigateStackContext_1),
+        navigate = _useContext4.navigate;
 
-    var _useContext5 = react.useContext(WalletContext),
-        wallet = _useContext5.wallet,
-        walletState = _useContext5.walletState;
+    var _useContext5 = react.useContext(ClosableContext),
+        close = _useContext5.close;
 
-    var _useContext6 = react.useContext(PaymentValueContext),
-        paymentValue = _useContext6.paymentValue;
+    var _useContext6 = react.useContext(SaleRoutingContext),
+        purchasedToken = _useContext6.purchasedToken,
+        purchasedAmount = _useContext6.purchasedAmount;
 
-    var _useContext7 = react.useContext(NavigateStackContext_1),
-        navigate = _useContext7.navigate,
-        set = _useContext7.set;
-
-    var _useContext8 = react.useContext(ClosableContext),
-        close = _useContext8.close,
-        setClosable = _useContext8.setClosable;
-
-    var _useContext9 = react.useContext(UpdateContext);
-        _useContext9.update;
-        var setUpdate = _useContext9.setUpdate;
-
-    var _useState = react.useState('overview'),
+    var _useState = react.useState(),
         _useState2 = _slicedToArray(_useState, 2),
-        state = _useState2[0],
-        setState = _useState2[1];
-
-    var _useState3 = react.useState(),
-        _useState4 = _slicedToArray(_useState3, 2),
-        salePerTokenValue = _useState4[0],
-        setSalePerTokenValue = _useState4[1];
-
-    var _useState5 = react.useState(),
-        _useState6 = _slicedToArray(_useState5, 2),
-        approvalTransaction = _useState6[0],
-        setApprovalTransaction = _useState6[1];
-
-    var approve = function approve() {
-      setClosable(false);
-      setState('approving');
-      wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
-        confirmed: function confirmed() {
-          payment.route.approvalRequired = false;
-          setPayment(payment);
-          setClosable(true);
-          setState('overview');
-        }
-      })).then(function (sentTransaction) {
-        setApprovalTransaction(sentTransaction);
-      })["catch"](function (error) {
-        console.log('error', error);
-        setState('overview');
-        setClosable(true);
-      });
-    };
-
-    var pay = function pay() {
-      setClosable(false);
-      setState('paying');
-      setUpdate(false);
-      wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
-        sent: function sent() {
-          if (_sent) {
-            _sent(payment.route.transaction);
-          }
-        },
-        confirmed: function confirmed() {
-          setClosable(true);
-          setState('confirmed');
-
-          if (_confirmed) {
-            _confirmed(payment.route.transaction);
-          }
-        },
-        ensured: function ensured() {
-          if (_ensured) {
-            _ensured(payment.route.transaction);
-          }
-        },
-        failed: function failed(error) {
-          if (_failed) {
-            _failed(payment.route.transaction);
-          }
-
-          console.log('error', error);
-          setState('overview');
-          setClosable(true);
-          setUpdate(true);
-          navigate('PaymentError');
-        }
-      })).then(function (sentTransaction) {
-        setTransaction(sentTransaction);
-      })["catch"](function (error) {
-        console.log('error', error);
-        setState('overview');
-        setClosable(true);
-        setUpdate(true);
-      });
-    };
+        salePerTokenValue = _useState2[0],
+        setSalePerTokenValue = _useState2[1];
 
     var mainAction = function mainAction() {
-      if (state == 'overview' || state == 'approving') {
+      if (paymentState == 'initialized' || paymentState == 'approving') {
         return /*#__PURE__*/react.createElement("button", {
           className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
           onClick: function onClick() {
@@ -79154,10 +79128,12 @@
               return;
             }
 
-            pay();
+            pay({
+              navigate: navigate
+            });
           }
         }, "Pay ", paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
-      } else if (state == 'paying') {
+      } else if (paymentState == 'paying') {
         return /*#__PURE__*/react.createElement("a", {
           className: "ButtonPrimary",
           title: "Performing the payment - please wait",
@@ -79165,7 +79141,7 @@
           target: "_blank",
           rel: "noopener noreferrer"
         }, /*#__PURE__*/react.createElement(LoadingText, null, "Paying"));
-      } else if (state == 'confirmed') {
+      } else if (paymentState == 'confirmed') {
         return /*#__PURE__*/react.createElement("button", {
           className: "ButtonPrimary round",
           title: "Done",
@@ -79175,14 +79151,14 @@
     };
 
     var approvalAction = function approvalAction() {
-      if (state == 'overview') {
+      if (paymentState == 'initialized') {
         return /*#__PURE__*/react.createElement("div", {
           className: "PaddingBottomS"
         }, /*#__PURE__*/react.createElement("button", {
           className: "ButtonPrimary wide",
           onClick: approve
         }, "Allow ", payment.symbol, " to be used as payment"));
-      } else if (state == 'approving') {
+      } else if (paymentState == 'approving') {
         return /*#__PURE__*/react.createElement("div", {
           className: "PaddingBottomS"
         }, /*#__PURE__*/react.createElement("a", {
@@ -79199,12 +79175,6 @@
       return /*#__PURE__*/react.createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
     };
 
-    react.useEffect(function () {
-      if (allRoutes && allRoutes.length == 0) {
-        set(['NoPaymentMethodFound']);
-        setUpdate(false);
-      }
-    }, [allRoutes]);
     react.useEffect(function () {
       if (paymentValue) {
         setSalePerTokenValue(new Currency({
@@ -79231,10 +79201,10 @@
       body: /*#__PURE__*/react.createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
       }, /*#__PURE__*/react.createElement("div", {
-        className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
-        title: state == 'overview' ? "Change amount" : undefined,
+        className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+        title: paymentState == 'initialized' ? "Change amount" : undefined,
         onClick: function onClick() {
-          if (state != 'overview') {
+          if (paymentState != 'initialized') {
             return;
           }
 
@@ -79263,10 +79233,10 @@
       }, /*#__PURE__*/react.createElement("small", null, salePerTokenValue, " per token")))), /*#__PURE__*/react.createElement("div", {
         className: "CardAction"
       }, /*#__PURE__*/react.createElement(ChevronRight, null))), /*#__PURE__*/react.createElement("div", {
-        className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
-        title: state == 'overview' ? "Change payment" : undefined,
+        className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+        title: paymentState == 'initialized' ? "Change payment" : undefined,
         onClick: function onClick() {
-          if (state != 'overview') {
+          if (paymentState != 'initialized') {
             return;
           }
 
@@ -79328,7 +79298,8 @@
         }),
         ChangePayment: /*#__PURE__*/react.createElement(ChangePaymentDialog, null),
         NoPaymentMethodFound: /*#__PURE__*/react.createElement(NoPaymentMethodFoundDialog, null),
-        PaymentError: /*#__PURE__*/react.createElement(PaymentErrorDialog, null)
+        PaymentError: /*#__PURE__*/react.createElement(PaymentErrorDialog, null),
+        WrongNetwork: /*#__PURE__*/react.createElement(WrongNetworkDialog, null)
       }
     });
   });
@@ -79455,7 +79426,10 @@
                     container: container,
                     connected: connected,
                     unmount: unmount
-                  }, /*#__PURE__*/react.createElement(SaleRoutingProvider, null, /*#__PURE__*/react.createElement(SaleStack, {
+                  }, /*#__PURE__*/react.createElement(SaleRoutingProvider, {
+                    container: container,
+                    document: document
+                  }, /*#__PURE__*/react.createElement(SaleStack, {
                     document: document,
                     container: container
                   })))))));
@@ -79566,7 +79540,10 @@
     }, /*#__PURE__*/react.createElement(PaymentRoutingProvider, {
       accept: accept,
       blacklist: blacklist
-    }, /*#__PURE__*/react.createElement(PaymentProvider, null, /*#__PURE__*/react.createElement(PaymentValueProvider, null, props.children))));
+    }, /*#__PURE__*/react.createElement(PaymentProvider, {
+      container: props.container,
+      document: props.document
+    }, /*#__PURE__*/react.createElement(PaymentValueProvider, null, props.children))));
   });
 
   var DonationOverviewSkeleton = (function (props) {
@@ -79603,119 +79580,32 @@
   });
 
   var DonationOverviewDialog = (function (props) {
-    var _useContext = react.useContext(DonationRoutingContext),
-        donatedToken = _useContext.donatedToken,
-        donatedAmount = _useContext.donatedAmount;
+    var _useContext = react.useContext(PaymentContext),
+        payment = _useContext.payment,
+        paymentState = _useContext.paymentState,
+        pay = _useContext.pay,
+        transaction = _useContext.transaction,
+        approve = _useContext.approve,
+        approvalTransaction = _useContext.approvalTransaction;
 
-    var _useContext2 = react.useContext(ConfigurationContext),
-        _sent = _useContext2.sent,
-        _confirmed = _useContext2.confirmed,
-        _ensured = _useContext2.ensured,
-        _failed = _useContext2.failed;
+    var _useContext2 = react.useContext(WalletContext),
+        walletState = _useContext2.walletState;
 
-    var _useContext3 = react.useContext(PaymentContext),
-        payment = _useContext3.payment,
-        setPayment = _useContext3.setPayment,
-        transaction = _useContext3.transaction,
-        setTransaction = _useContext3.setTransaction;
+    var _useContext3 = react.useContext(PaymentValueContext),
+        paymentValue = _useContext3.paymentValue;
 
-    var _useContext4 = react.useContext(PaymentRoutingContext),
-        allRoutes = _useContext4.allRoutes;
+    var _useContext4 = react.useContext(NavigateStackContext_1),
+        navigate = _useContext4.navigate;
 
-    var _useContext5 = react.useContext(WalletContext),
-        wallet = _useContext5.wallet,
-        walletState = _useContext5.walletState;
+    var _useContext5 = react.useContext(ClosableContext),
+        close = _useContext5.close;
 
-    var _useContext6 = react.useContext(PaymentValueContext),
-        paymentValue = _useContext6.paymentValue;
-
-    var _useContext7 = react.useContext(NavigateStackContext_1),
-        navigate = _useContext7.navigate,
-        set = _useContext7.set;
-
-    var _useContext8 = react.useContext(ClosableContext),
-        close = _useContext8.close,
-        setClosable = _useContext8.setClosable;
-
-    var _useContext9 = react.useContext(UpdateContext);
-        _useContext9.update;
-        var setUpdate = _useContext9.setUpdate;
-
-    var _useState = react.useState('overview'),
-        _useState2 = _slicedToArray(_useState, 2),
-        state = _useState2[0],
-        setState = _useState2[1];
-
-    var _useState3 = react.useState(),
-        _useState4 = _slicedToArray(_useState3, 2),
-        approvalTransaction = _useState4[0],
-        setApprovalTransaction = _useState4[1];
-
-    var approve = function approve() {
-      setClosable(false);
-      setState('approving');
-      wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
-        confirmed: function confirmed() {
-          payment.route.approvalRequired = false;
-          setPayment(payment);
-          setClosable(true);
-          setState('overview');
-        }
-      })).then(function (sentTransaction) {
-        setApprovalTransaction(sentTransaction);
-      })["catch"](function (error) {
-        console.log('error', error);
-        setState('overview');
-        setClosable(true);
-      });
-    };
-
-    var pay = function pay() {
-      setClosable(false);
-      setState('paying');
-      setUpdate(false);
-      wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
-        sent: function sent() {
-          if (_sent) {
-            _sent(payment.route.transaction);
-          }
-        },
-        confirmed: function confirmed() {
-          setClosable(true);
-          setState('confirmed');
-
-          if (_confirmed) {
-            _confirmed(payment.route.transaction);
-          }
-        },
-        ensured: function ensured() {
-          if (_ensured) {
-            _ensured(payment.route.transaction);
-          }
-        },
-        failed: function failed(error) {
-          if (_failed) {
-            _failed(payment.route.transaction);
-          }
-
-          console.log('error', error);
-          setState('overview');
-          setClosable(true);
-          setUpdate(true);
-          navigate('PaymentError');
-        }
-      })).then(function (sentTransaction) {
-        setTransaction(sentTransaction);
-      })["catch"](function (error) {
-        console.log('error', error);
-        setState('overview');
-        setClosable(true);
-        setUpdate(true);
-      });
-    };
+    var _useContext6 = react.useContext(DonationRoutingContext),
+        donatedToken = _useContext6.donatedToken,
+        donatedAmount = _useContext6.donatedAmount;
 
     var mainAction = function mainAction() {
-      if (state == 'overview' || state == 'approving') {
+      if (paymentState == 'initialized' || paymentState == 'approving') {
         return /*#__PURE__*/react.createElement("button", {
           className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
           onClick: function onClick() {
@@ -79723,10 +79613,12 @@
               return;
             }
 
-            pay();
+            pay({
+              navigate: navigate
+            });
           }
         }, "Pay ", paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
-      } else if (state == 'paying') {
+      } else if (paymentState == 'paying') {
         return /*#__PURE__*/react.createElement("a", {
           className: "ButtonPrimary",
           title: "Performing the payment - please wait",
@@ -79734,7 +79626,7 @@
           target: "_blank",
           rel: "noopener noreferrer"
         }, /*#__PURE__*/react.createElement(LoadingText, null, "Paying"));
-      } else if (state == 'confirmed') {
+      } else if (paymentState == 'confirmed') {
         return /*#__PURE__*/react.createElement("button", {
           className: "ButtonPrimary round",
           title: "Done",
@@ -79744,14 +79636,14 @@
     };
 
     var approvalAction = function approvalAction() {
-      if (state == 'overview') {
+      if (paymentState == 'initialized') {
         return /*#__PURE__*/react.createElement("div", {
           className: "PaddingBottomS"
         }, /*#__PURE__*/react.createElement("button", {
           className: "ButtonPrimary wide",
           onClick: approve
         }, "Allow ", payment.symbol, " to be used as payment"));
-      } else if (state == 'approving') {
+      } else if (paymentState == 'approving') {
         return /*#__PURE__*/react.createElement("div", {
           className: "PaddingBottomS"
         }, /*#__PURE__*/react.createElement("a", {
@@ -79767,13 +79659,6 @@
     var actions = function actions() {
       return /*#__PURE__*/react.createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
     };
-
-    react.useEffect(function () {
-      if (allRoutes && allRoutes.length == 0) {
-        set(['NoPaymentMethodFound']);
-        setUpdate(false);
-      }
-    }, [allRoutes]);
 
     if (walletState == 'connecting') {
       return /*#__PURE__*/react.createElement(ConnectingWalletDialog, null);
@@ -79792,10 +79677,10 @@
       body: /*#__PURE__*/react.createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
       }, /*#__PURE__*/react.createElement("div", {
-        className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
-        title: state == 'overview' ? "Change amount" : undefined,
+        className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+        title: paymentState == 'initialized' ? "Change amount" : undefined,
         onClick: function onClick() {
-          if (state != 'overview') {
+          if (paymentState != 'initialized') {
             return;
           }
 
@@ -79824,10 +79709,10 @@
       }, format(donatedAmount)))))), /*#__PURE__*/react.createElement("div", {
         className: "CardAction"
       }, /*#__PURE__*/react.createElement(ChevronRight, null))), /*#__PURE__*/react.createElement("div", {
-        className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
-        title: state == 'overview' ? "Change payment" : undefined,
+        className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+        title: paymentState == 'initialized' ? "Change payment" : undefined,
         onClick: function onClick() {
-          if (state != 'overview') {
+          if (paymentState != 'initialized') {
             return;
           }
 
@@ -79888,8 +79773,8 @@
           setAmount: setDonatedAmount
         }),
         ChangePayment: /*#__PURE__*/react.createElement(ChangePaymentDialog, null),
-        NoPaymentMethodFound: /*#__PURE__*/react.createElement(NoPaymentMethodFoundDialog, null),
-        PaymentError: /*#__PURE__*/react.createElement(PaymentErrorDialog, null)
+        PaymentError: /*#__PURE__*/react.createElement(PaymentErrorDialog, null),
+        WrongNetwork: /*#__PURE__*/react.createElement(WrongNetworkDialog, null)
       }
     });
   });
@@ -80025,7 +79910,10 @@
                     container: container,
                     connected: connected,
                     unmount: unmount
-                  }, /*#__PURE__*/react.createElement(DonationRoutingProvider, null, /*#__PURE__*/react.createElement(DonationStack, {
+                  }, /*#__PURE__*/react.createElement(DonationRoutingProvider, {
+                    container: container,
+                    document: document
+                  }, /*#__PURE__*/react.createElement(DonationStack, {
                     document: document,
                     container: container
                   })))))));
