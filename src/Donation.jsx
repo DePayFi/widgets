@@ -51,7 +51,7 @@ let Donation = async ({
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
-                  <DonationRoutingProvider>
+                  <DonationRoutingProvider container={ container } document={ document }>
                     <DonationStack
                       document={ document }
                       container={ container }

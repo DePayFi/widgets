@@ -59,7 +59,7 @@ export default (props)=>{
       donatedToken
     }}>
       <PaymentRoutingProvider accept={ accept } blacklist={ blacklist }>
-        <PaymentProvider>
+        <PaymentProvider container={ props.container } document={ props.document } >
           <PaymentValueProvider>
             { props.children }
           </PaymentValueProvider>

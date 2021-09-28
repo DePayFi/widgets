@@ -21,7 +21,7 @@ export default (props)=> {
 
         <div className="DialogBody">
           { walletLogo &&
-            <div className="GraphicWrapper PaddingTopM">
+            <div className="GraphicWrapper">
               <img className="Graphic" src={walletLogo}/>
             </div>
           }

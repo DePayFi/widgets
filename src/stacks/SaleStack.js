@@ -6,6 +6,7 @@ import PaymentErrorDialog from '../dialogs/PaymentErrorDialog'
 import React, { useContext } from 'react'
 import SaleOverviewDialog from '../dialogs/SaleOverviewDialog'
 import SaleRoutingContext from '../contexts/SaleRoutingContext'
+import WrongNetworkDialog from '../dialogs/WrongNetworkDialog'
 import { ReactDialogStack } from 'depay-react-dialog-stack'
 
 export default (props)=>{
@@ -30,6 +31,7 @@ export default (props)=>{
         ChangePayment: <ChangePaymentDialog/>,
         NoPaymentMethodFound: <NoPaymentMethodFoundDialog/>,
         PaymentError: <PaymentErrorDialog/>,
+        WrongNetwork: <WrongNetworkDialog/>,
       }}
     />
   )

@@ -1,44 +1,40 @@
+import ConnectGraphic from '../graphics/connect'
 import Dialog from '../components/Dialog'
-import ErrorGraphic from '../graphics/error'
 import PaymentContext from '../contexts/PaymentContext'
 import React, { useContext } from 'react'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
+import { Blockchain } from 'depay-web3-blockchains'
 
-export default ()=> {
+export default (props)=>{
 
+  const { payment } = useContext(PaymentContext)
   const { navigate } = useContext(NavigateStackContext)
-  const { transaction } = useContext(PaymentContext)
+  const blockchain = Blockchain.findByName(payment.route.blockchain)
 
   return(
     <Dialog
       stacked={ true }
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
+          <h1 className="FontSizeL TextLeft">Wrong Network</h1>
         </div>
       }
       body={
-        <div>
+        <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
           <div className="GraphicWrapper">
-            <img className="Graphic" src={ ErrorGraphic }/>
+            <img className="Graphic" src={ ConnectGraphic }/>
           </div>
-          <h1 className="Text FontSizeL PaddingTopS FontWeightBold">Payment Failed</h1>
+          <h1 className="Text FontSizeL PaddingTopS FontWeightBold">Connect to { blockchain.label }</h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
             <strong className="FontSizeM">
-              Unfortunately executing your payment failed. You can go back and try again.
+              Please make sure you connect your wallet to the correct network before you try again!
             </strong>
-            { transaction && 
-              <div className="PaddingTopS">
-                <a className="Link" title="Check your transaction on a block explorer" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
-                  View on explorer
-                </a>
-              </div>
-            }
           </div>
         </div>
       }
       footer={
         <div className="PaddingTopXS PaddingRightM PaddingLeftM">
-          <button className='ButtonPrimary wide' onClick={()=>navigate('back')}>
+          <button className="ButtonPrimary" onClick={()=>navigate('back')}>
             Try again
           </button>
         </div>

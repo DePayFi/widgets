@@ -1,18 +1,20 @@
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
+import NoPaymentMethodFoundDialog from '../dialogs/NoPaymentMethodFoundDialog'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import React, { useContext, useEffect, useState } from 'react'
 import UpdateContext from '../contexts/UpdateContext'
 import WalletContext from '../contexts/WalletContext'
+import { ReactDialogStack } from 'depay-react-dialog-stack'
 
 export default (props)=>{
 
   const { setError } = useContext(ErrorContext)
   const { sent, confirmed, ensured, failed } = useContext(ConfigurationContext)
   const { selectedRoute } = useContext(PaymentRoutingContext)
-  const { setClosable } = useContext(ClosableContext)
+  const { open, close, setClosable } = useContext(ClosableContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
   const { update, setUpdate } = useContext(UpdateContext)
   const { wallet } = useContext(WalletContext)
@@ -53,6 +55,9 @@ export default (props)=>{
         setPaymentState('initialized')
         setClosable(true)
         setUpdate(true)
+        if(error?.code == 'WRONG_NETWORK') {
+          navigate('WrongNetwork')
+        }
       })
   }
 
@@ -99,16 +104,31 @@ export default (props)=>{
     }
   }, [selectedRoute])
 
-  return(
-    <PaymentContext.Provider value={{
-      payment,
-      paymentState,
-      pay,
-      transaction,
-      approve,
-      approvalTransaction
-    }}>
-      { props.children }
-    </PaymentContext.Provider>
-  )
+  if(allRoutes instanceof Array && allRoutes.length == 0) {
+    return(
+      <ReactDialogStack
+        open={ open }
+        close={ close }
+        start='NoPaymentMethodFound'
+        container={ props.container }
+        document={ props.document }
+        dialogs={{
+          NoPaymentMethodFound: <NoPaymentMethodFoundDialog/>,
+        }}
+      />
+    )
+  } else {
+    return(
+      <PaymentContext.Provider value={{
+        payment,
+        paymentState,
+        pay,
+        transaction,
+        approve,
+        approvalTransaction
+      }}>
+        { props.children }
+      </PaymentContext.Provider>
+    )
+  }
 }

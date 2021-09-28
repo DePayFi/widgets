@@ -6,7 +6,7 @@ export default ()=>{
     }
 
     .Graphic {
-      width: 40%;
+      width: 60%;
       position: relative;
     }
   `)

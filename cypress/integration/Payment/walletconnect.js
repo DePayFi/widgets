@@ -363,37 +363,13 @@ describe('WalletConnect Payment', () => {
 
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect WalletConnect"]').click()
           cy.wait(1000).then(()=>{
-            
-            // cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click().then(()=>{
-              // cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-              // cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
-              // cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
-              // cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
-              //   expect(sentCalledWith.from).to.equal(accounts[0])
-              //   expect(sentCalledWith.id).to.equal(mockedTransaction.transaction._id)
-              //   expect(sentCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
-              //   cy.wait(1000).then(()=>{
-              //     cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
-              //       confirm(mockedTransaction)
-              //       cy.wait(3000).then(()=>{
-              //         increaseBlock(12)
-              //         expect(confirmedCalledWith.from).to.equal(accounts[0])
-              //         expect(confirmedCalledWith.id).to.equal(mockedTransaction.transaction._id)
-              //         expect(confirmedCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
-              //         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-              //         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.round .Checkmark.Icon').click()
-              //         cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
-              //           cy.wait(4000).then(()=>{
-              //             expect(ensuredCalledWith.from).to.equal(accounts[0])
-              //             expect(ensuredCalledWith.id).to.equal(mockedTransaction.transaction._id)
-              //             expect(ensuredCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
-              //           })
-              //         })
-              //       })
-              //     })
-              //   })
-              // })
-            // })
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click().then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Connect to Binance Smart Chain')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'Please make sure you connect your wallet to the correct network before you try again!')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click().then(()=>{
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary')
+              })
+            })
           })
         })
       })
