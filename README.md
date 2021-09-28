@@ -1150,7 +1150,7 @@ test:cypress:debug
 Test and debug single cypress file:
 
 ```
-yarn test:cypress:debug --spec "cypress/integration/Payment/event.js"
+yarn test:cypress:debug --spec "cypress/integration/Payment/approve.js"
 ```
 
 ### Release new versions to npm
