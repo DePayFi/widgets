@@ -23,8 +23,8 @@ export default (props)=>{
 
   useEffect(()=>{
     let sortedLowToHigh = [...allRoutes].sort((a,b)=>{
-      let aAmountsAvailable = a.fromBalance.div(a.fromAmount);
-      let bAmountsAvailable = b.fromBalance.div(b.fromAmount);
+      let aAmountsAvailable = ethers.BigNumber.from(a.fromBalance).div(ethers.BigNumber.from(a.fromAmount));
+      let bAmountsAvailable = ethers.BigNumber.from(b.fromBalance).div(ethers.BigNumber.from(b.fromAmount));
 
       if (aAmountsAvailable.lt(bAmountsAvailable)) {
         return -1;
