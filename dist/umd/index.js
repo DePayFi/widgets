@@ -2922,8 +2922,8 @@
 
     React.useEffect(function () {
       var sortedLowToHigh = _toConsumableArray(allRoutes).sort(function (a, b) {
-        var aAmountsAvailable = a.fromBalance.div(a.fromAmount);
-        var bAmountsAvailable = b.fromBalance.div(b.fromAmount);
+        var aAmountsAvailable = ethers.ethers.BigNumber.from(a.fromBalance).div(ethers.ethers.BigNumber.from(a.fromAmount));
+        var bAmountsAvailable = ethers.ethers.BigNumber.from(b.fromBalance).div(ethers.ethers.BigNumber.from(b.fromAmount));
 
         if (aAmountsAvailable.lt(bAmountsAvailable)) {
           return -1;

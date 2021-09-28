@@ -78891,8 +78891,8 @@ var ChangeAmountDialog = (function (props) {
 
   react.useEffect(function () {
     var sortedLowToHigh = _toConsumableArray(allRoutes).sort(function (a, b) {
-      var aAmountsAvailable = a.fromBalance.div(a.fromAmount);
-      var bAmountsAvailable = b.fromBalance.div(b.fromAmount);
+      var aAmountsAvailable = BigNumber$4.from(a.fromBalance).div(BigNumber$4.from(a.fromAmount));
+      var bAmountsAvailable = BigNumber$4.from(b.fromBalance).div(BigNumber$4.from(b.fromAmount));
 
       if (aAmountsAvailable.lt(bAmountsAvailable)) {
         return -1;

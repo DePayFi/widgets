@@ -54,23 +54,19 @@ export default (props)=>{
     setUpdate(false)
     console.log('payment.route.transaction', payment.route.transaction)
     wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
-      sent: ()=>{
-        console.log('SENT')
-        if(sent) { sent(payment.route.transaction) }
+      sent: (transaction)=>{
+        if(sent) { sent(transaction) }
       },
-      confirmed: ()=>{
-        console.log('CONFIRMED')
+      confirmed: (transaction)=>{
         setClosable(true)
         setState('confirmed')
-        if(confirmed) { confirmed(payment.route.transaction) }
+        if(confirmed) { confirmed(transaction) }
       },
-      ensured: ()=>{
-        console.log('ENSURED')
-        if(ensured) { ensured(payment.route.transaction) }
+      ensured: (transaction)=>{
+        if(ensured) { ensured(transaction) }
       },
-      failed: (error)=> {
-        console.log('FAILED')
-        if(failed) { failed(payment.route.transaction) }
+      failed: (transaction, error)=> {
+        if(failed) { failed(transaction, error) }
         console.log('error', error)
         setState('overview')
         setClosable(true)
@@ -79,7 +75,6 @@ export default (props)=>{
       }
     }))
       .then((sentTransaction)=>{
-        console.log('sentTransaction', sentTransaction)
         setTransaction(sentTransaction)
       })
       .catch((error)=>{

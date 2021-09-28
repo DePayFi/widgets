@@ -8,7 +8,6 @@ import { mock, resetMocks, fail } from 'depay-web3-mock'
 import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
-import { Transaction } from 'depay-web3-transaction'
 
 describe('Payment execution fails', () => {
 
@@ -135,7 +134,9 @@ describe('Payment execution fails', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'Unfortunately executing your payment failed. You can go back and try again.').then(()=>{
-              expect(failedCalledWith).to.be.an.instanceof(Transaction)
+              expect(failedCalledWith.from).to.equal(accounts[0])
+              expect(failedCalledWith.id).to.equal(mockedTransaction.transaction._id)
+              expect(failedCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
             })
           })
         })
