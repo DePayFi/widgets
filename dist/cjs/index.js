@@ -1,3 +1,5 @@
+
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 'use strict';
 
 var React = require('react');
@@ -1318,7 +1320,7 @@ var FontStyle = (function (style) {
 });
 
 var FooterStyle = (function (style) {
-  return "\n\n    .FooterLink {\n      color: rgba(0,0,0,0.2);\n      display: inline-block;\n      font-size: 0.9rem;\n      text-decoration: none;\n      padding-top: 0.1rem;\n      padding-bottom: 0.1rem;\n    }\n\n    .FooterLink:hover, .FooterLink:active {\n      color: ".concat(style.colors.primary, ";\n    }\n  ");
+  return "\n\n    .FooterLink {\n      color: rgba(0,0,0,0.2);\n      display: inline-block;\n      font-size: 0.9rem;\n      text-decoration: none;\n      padding-top: 0;\n      padding-bottom: 0;\n    }\n\n    .FooterLink:hover, .FooterLink:active {\n      color: ".concat(style.colors.primary, ";\n    }\n  ");
 });
 
 var GraphicStyle = (function () {
@@ -1420,12 +1422,35 @@ var PaymentContext = /*#__PURE__*/React__default$1['default'].createContext();
 
 var PaymentRoutingContext = /*#__PURE__*/React__default$1['default'].createContext();
 
+var UpdateContext = /*#__PURE__*/React__default$1['default'].createContext();
+
+var WalletContext = /*#__PURE__*/React__default$1['default'].createContext();
+
 var PaymentProvider = (function (props) {
   var _useContext = React.useContext(ErrorContext),
       setError = _useContext.setError;
 
-  var _useContext2 = React.useContext(PaymentRoutingContext),
-      selectedRoute = _useContext2.selectedRoute;
+  var _useContext2 = React.useContext(ConfigurationContext),
+      _sent = _useContext2.sent,
+      _confirmed = _useContext2.confirmed,
+      _ensured = _useContext2.ensured,
+      _failed = _useContext2.failed;
+
+  var _useContext3 = React.useContext(PaymentRoutingContext),
+      selectedRoute = _useContext3.selectedRoute;
+
+  var _useContext4 = React.useContext(ClosableContext),
+      setClosable = _useContext4.setClosable;
+
+  var _useContext5 = React.useContext(PaymentRoutingContext);
+      _useContext5.allRoutes;
+
+  var _useContext6 = React.useContext(UpdateContext);
+      _useContext6.update;
+      var setUpdate = _useContext6.setUpdate;
+
+  var _useContext7 = React.useContext(WalletContext),
+      wallet = _useContext7.wallet;
 
   var _useState = React.useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -1437,15 +1462,88 @@ var PaymentProvider = (function (props) {
       transaction = _useState4[0],
       setTransaction = _useState4[1];
 
+  var _useState5 = React.useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      approvalTransaction = _useState6[0],
+      setApprovalTransaction = _useState6[1];
+
+  var _useState7 = React.useState('initialized'),
+      _useState8 = _slicedToArray(_useState7, 2),
+      paymentState = _useState8[0],
+      setPaymentState = _useState8[1];
+
+  var pay = function pay(_ref) {
+    var navigate = _ref.navigate;
+    setClosable(false);
+    setPaymentState('paying');
+    setUpdate(false);
+    wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
+      sent: function sent(transaction) {
+        if (_sent) {
+          _sent(transaction);
+        }
+      },
+      confirmed: function confirmed(transaction) {
+        setClosable(true);
+        setPaymentState('confirmed');
+
+        if (_confirmed) {
+          _confirmed(transaction);
+        }
+      },
+      ensured: function ensured(transaction) {
+        if (_ensured) {
+          _ensured(transaction);
+        }
+      },
+      failed: function failed(transaction, error) {
+        if (_failed) {
+          _failed(transaction, error);
+        }
+
+        setPaymentState('initialized');
+        setClosable(true);
+        setUpdate(true);
+        navigate('PaymentError');
+      }
+    })).then(function (sentTransaction) {
+      setTransaction(sentTransaction);
+    })["catch"](function (error) {
+      console.log('error', error);
+      setPaymentState('initialized');
+      setClosable(true);
+      setUpdate(true);
+    });
+  };
+
+  var approve = function approve() {
+    setClosable(false);
+    setPaymentState('approving');
+    wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
+      confirmed: function confirmed() {
+        payment.route.approvalRequired = false;
+        setPayment(payment);
+        setClosable(true);
+        setPaymentState('initialized');
+      }
+    })).then(function (sentTransaction) {
+      setApprovalTransaction(sentTransaction);
+    })["catch"](function (error) {
+      console.log('error', error);
+      setPaymentState('initialized');
+      setClosable(true);
+    });
+  };
+
   React.useEffect(function () {
     if (selectedRoute) {
       var fromToken = selectedRoute.fromToken;
       selectedRoute.transaction.params;
-      Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 3),
-            name = _ref2[0],
-            symbol = _ref2[1],
-            amount = _ref2[2];
+      Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref2) {
+        var _ref3 = _slicedToArray(_ref2, 3),
+            name = _ref3[0],
+            symbol = _ref3[1],
+            amount = _ref3[2];
 
         setPayment({
           route: selectedRoute,
@@ -1461,10 +1559,12 @@ var PaymentProvider = (function (props) {
   }, [selectedRoute]);
   return /*#__PURE__*/React__default$1['default'].createElement(PaymentContext.Provider, {
     value: {
-      setPayment: setPayment,
       payment: payment,
-      setTransaction: setTransaction,
-      transaction: transaction
+      paymentState: paymentState,
+      pay: pay,
+      transaction: transaction,
+      approve: approve,
+      approvalTransaction: approvalTransaction
     }
   }, props.children);
 });
@@ -1528,10 +1628,6 @@ var round = (function (input) {
     return parseFloat(parseFloat(input).toFixed(2));
   }
 });
-
-var UpdateContext = /*#__PURE__*/React__default$1['default'].createContext();
-
-var WalletContext = /*#__PURE__*/React__default$1['default'].createContext();
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
@@ -2079,124 +2175,28 @@ var PaymentOverviewSkeleton = (function (props) {
 });
 
 var PaymentOverviewDialog = (function (props) {
-  var _useContext = React.useContext(ConfigurationContext),
-      _sent = _useContext.sent,
-      _confirmed = _useContext.confirmed,
-      _ensured = _useContext.ensured,
-      _failed = _useContext.failed;
+  var _useContext = React.useContext(PaymentContext),
+      payment = _useContext.payment,
+      paymentState = _useContext.paymentState,
+      pay = _useContext.pay,
+      transaction = _useContext.transaction,
+      approve = _useContext.approve,
+      approvalTransaction = _useContext.approvalTransaction;
 
-  var _useContext2 = React.useContext(PaymentContext),
-      payment = _useContext2.payment,
-      setPayment = _useContext2.setPayment,
-      transaction = _useContext2.transaction,
-      setTransaction = _useContext2.setTransaction;
+  var _useContext2 = React.useContext(WalletContext),
+      walletState = _useContext2.walletState;
 
-  var _useContext3 = React.useContext(PaymentRoutingContext),
-      allRoutes = _useContext3.allRoutes;
+  var _useContext3 = React.useContext(PaymentValueContext),
+      paymentValue = _useContext3.paymentValue;
 
-  var _useContext4 = React.useContext(WalletContext),
-      wallet = _useContext4.wallet,
-      walletState = _useContext4.walletState;
+  var _useContext4 = React.useContext(depayReactDialogStack.NavigateStackContext),
+      navigate = _useContext4.navigate;
 
-  var _useContext5 = React.useContext(PaymentValueContext),
-      paymentValue = _useContext5.paymentValue;
-
-  var _useContext6 = React.useContext(depayReactDialogStack.NavigateStackContext),
-      navigate = _useContext6.navigate,
-      set = _useContext6.set;
-
-  var _useContext7 = React.useContext(ClosableContext),
-      close = _useContext7.close,
-      setClosable = _useContext7.setClosable;
-
-  var _useContext8 = React.useContext(UpdateContext);
-      _useContext8.update;
-      var setUpdate = _useContext8.setUpdate;
-
-  var _useState = React.useState('overview'),
-      _useState2 = _slicedToArray(_useState, 2),
-      state = _useState2[0],
-      setState = _useState2[1];
-
-  var _useState3 = React.useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      approvalTransaction = _useState4[0],
-      setApprovalTransaction = _useState4[1];
-
-  var approve = function approve() {
-    setClosable(false);
-    setState('approving');
-    wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
-      confirmed: function confirmed() {
-        payment.route.approvalRequired = false;
-        setPayment(payment);
-        setClosable(true);
-        setState('overview');
-      }
-    })).then(function (sentTransaction) {
-      setApprovalTransaction(sentTransaction);
-    })["catch"](function (error) {
-      console.log('error', error);
-      setState('overview');
-      setClosable(true);
-    });
-  };
-
-  var pay = function pay() {
-    setClosable(false);
-    setState('paying');
-    setUpdate(false);
-    console.log('payment.route.transaction', payment.route.transaction);
-    wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
-      sent: function sent() {
-        console.log('SENT');
-
-        if (_sent) {
-          _sent(payment.route.transaction);
-        }
-      },
-      confirmed: function confirmed() {
-        console.log('CONFIRMED');
-        setClosable(true);
-        setState('confirmed');
-
-        if (_confirmed) {
-          _confirmed(payment.route.transaction);
-        }
-      },
-      ensured: function ensured() {
-        console.log('ENSURED');
-
-        if (_ensured) {
-          _ensured(payment.route.transaction);
-        }
-      },
-      failed: function failed(error) {
-        console.log('FAILED');
-
-        if (_failed) {
-          _failed(payment.route.transaction);
-        }
-
-        console.log('error', error);
-        setState('overview');
-        setClosable(true);
-        setUpdate(true);
-        navigate('PaymentError');
-      }
-    })).then(function (sentTransaction) {
-      console.log('sentTransaction', sentTransaction);
-      setTransaction(sentTransaction);
-    })["catch"](function (error) {
-      console.log('error', error);
-      setState('overview');
-      setClosable(true);
-      setUpdate(true);
-    });
-  };
+  var _useContext5 = React.useContext(ClosableContext),
+      close = _useContext5.close;
 
   var mainAction = function mainAction() {
-    if (state == 'overview' || state == 'approving') {
+    if (paymentState == 'initialized' || paymentState == 'approving') {
       return /*#__PURE__*/React__default$1['default'].createElement("button", {
         className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
         onClick: function onClick() {
@@ -2204,10 +2204,12 @@ var PaymentOverviewDialog = (function (props) {
             return;
           }
 
-          pay();
+          pay({
+            navigate: navigate
+          });
         }
       }, "Pay ", paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
-    } else if (state == 'paying') {
+    } else if (paymentState == 'paying') {
       return /*#__PURE__*/React__default$1['default'].createElement("a", {
         className: "ButtonPrimary",
         title: "Performing the payment - please wait",
@@ -2215,7 +2217,7 @@ var PaymentOverviewDialog = (function (props) {
         target: "_blank",
         rel: "noopener noreferrer"
       }, /*#__PURE__*/React__default$1['default'].createElement(LoadingText, null, "Paying"));
-    } else if (state == 'confirmed') {
+    } else if (paymentState == 'confirmed') {
       return /*#__PURE__*/React__default$1['default'].createElement("button", {
         className: "ButtonPrimary round",
         title: "Done",
@@ -2225,14 +2227,14 @@ var PaymentOverviewDialog = (function (props) {
   };
 
   var approvalAction = function approvalAction() {
-    if (state == 'overview') {
+    if (paymentState == 'initialized') {
       return /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "PaddingBottomS"
       }, /*#__PURE__*/React__default$1['default'].createElement("button", {
         className: "ButtonPrimary wide",
         onClick: approve
       }, "Allow ", payment.symbol, " to be used as payment"));
-    } else if (state == 'approving') {
+    } else if (paymentState == 'approving') {
       return /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "PaddingBottomS"
       }, /*#__PURE__*/React__default$1['default'].createElement("a", {
@@ -2248,13 +2250,6 @@ var PaymentOverviewDialog = (function (props) {
   var actions = function actions() {
     return /*#__PURE__*/React__default$1['default'].createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
   };
-
-  React.useEffect(function () {
-    if (allRoutes && allRoutes.length == 0) {
-      set(['NoPaymentMethodFound']);
-      setUpdate(false);
-    }
-  }, [allRoutes]);
 
   if (walletState == 'connecting') {
     return /*#__PURE__*/React__default$1['default'].createElement(ConnectingWalletDialog, null);
@@ -2273,10 +2268,10 @@ var PaymentOverviewDialog = (function (props) {
     body: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
-      title: state == 'overview' ? "Change payment" : undefined,
+      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+      title: paymentState == 'initialized' ? "Change payment" : undefined,
       onClick: function onClick() {
-        if (state != 'overview') {
+        if (paymentState != 'initialized') {
           return;
         }
 
@@ -2951,7 +2946,7 @@ var ChangeAmountDialog = (function (props) {
   }, []);
   React.useEffect(function () {
     if (maxRoute) {
-      return Promise.all([maxRoute.fromToken.name(), maxRoute.fromToken.symbol(), maxRoute.fromToken.decimals(), maxRoute.fromToken.readable(maxRoute.fromBalance), depayWeb3Exchanges.route({
+      return Promise.all([maxRoute.fromToken.name(), maxRoute.fromToken.symbol(), maxRoute.toToken.decimals(), maxRoute.fromToken.readable(maxRoute.fromBalance), depayWeb3Exchanges.route({
         blockchain: maxRoute.blockchain,
         tokenIn: maxRoute.fromToken.address,
         tokenOut: maxRoute.toToken.address,
@@ -3083,124 +3078,37 @@ var SaleOverviewSkeleton = (function (props) {
 });
 
 var SaleOverviewDialog = (function (props) {
-  var _useContext = React.useContext(SaleRoutingContext),
-      purchasedToken = _useContext.purchasedToken,
-      purchasedAmount = _useContext.purchasedAmount;
+  var _useContext = React.useContext(PaymentContext),
+      payment = _useContext.payment,
+      paymentState = _useContext.paymentState,
+      pay = _useContext.pay,
+      transaction = _useContext.transaction,
+      approve = _useContext.approve,
+      approvalTransaction = _useContext.approvalTransaction;
 
-  var _useContext2 = React.useContext(ConfigurationContext),
-      _sent = _useContext2.sent,
-      _confirmed = _useContext2.confirmed,
-      _ensured = _useContext2.ensured,
-      _failed = _useContext2.failed;
+  var _useContext2 = React.useContext(WalletContext),
+      walletState = _useContext2.walletState;
 
-  var _useContext3 = React.useContext(PaymentContext),
-      payment = _useContext3.payment,
-      setPayment = _useContext3.setPayment,
-      transaction = _useContext3.transaction,
-      setTransaction = _useContext3.setTransaction;
+  var _useContext3 = React.useContext(PaymentValueContext),
+      paymentValue = _useContext3.paymentValue;
 
-  var _useContext4 = React.useContext(PaymentRoutingContext),
-      allRoutes = _useContext4.allRoutes;
+  var _useContext4 = React.useContext(depayReactDialogStack.NavigateStackContext),
+      navigate = _useContext4.navigate;
 
-  var _useContext5 = React.useContext(WalletContext),
-      wallet = _useContext5.wallet,
-      walletState = _useContext5.walletState;
+  var _useContext5 = React.useContext(ClosableContext),
+      close = _useContext5.close;
 
-  var _useContext6 = React.useContext(PaymentValueContext),
-      paymentValue = _useContext6.paymentValue;
+  var _useContext6 = React.useContext(SaleRoutingContext),
+      purchasedToken = _useContext6.purchasedToken,
+      purchasedAmount = _useContext6.purchasedAmount;
 
-  var _useContext7 = React.useContext(depayReactDialogStack.NavigateStackContext),
-      navigate = _useContext7.navigate,
-      set = _useContext7.set;
-
-  var _useContext8 = React.useContext(ClosableContext),
-      close = _useContext8.close,
-      setClosable = _useContext8.setClosable;
-
-  var _useContext9 = React.useContext(UpdateContext);
-      _useContext9.update;
-      var setUpdate = _useContext9.setUpdate;
-
-  var _useState = React.useState('overview'),
+  var _useState = React.useState(),
       _useState2 = _slicedToArray(_useState, 2),
-      state = _useState2[0],
-      setState = _useState2[1];
-
-  var _useState3 = React.useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      salePerTokenValue = _useState4[0],
-      setSalePerTokenValue = _useState4[1];
-
-  var _useState5 = React.useState(),
-      _useState6 = _slicedToArray(_useState5, 2),
-      approvalTransaction = _useState6[0],
-      setApprovalTransaction = _useState6[1];
-
-  var approve = function approve() {
-    setClosable(false);
-    setState('approving');
-    wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
-      confirmed: function confirmed() {
-        payment.route.approvalRequired = false;
-        setPayment(payment);
-        setClosable(true);
-        setState('overview');
-      }
-    })).then(function (sentTransaction) {
-      setApprovalTransaction(sentTransaction);
-    })["catch"](function (error) {
-      console.log('error', error);
-      setState('overview');
-      setClosable(true);
-    });
-  };
-
-  var pay = function pay() {
-    setClosable(false);
-    setState('paying');
-    setUpdate(false);
-    wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
-      sent: function sent() {
-        if (_sent) {
-          _sent(payment.route.transaction);
-        }
-      },
-      confirmed: function confirmed() {
-        setClosable(true);
-        setState('confirmed');
-
-        if (_confirmed) {
-          _confirmed(payment.route.transaction);
-        }
-      },
-      ensured: function ensured() {
-        if (_ensured) {
-          _ensured(payment.route.transaction);
-        }
-      },
-      failed: function failed(error) {
-        if (_failed) {
-          _failed(payment.route.transaction);
-        }
-
-        console.log('error', error);
-        setState('overview');
-        setClosable(true);
-        setUpdate(true);
-        navigate('PaymentError');
-      }
-    })).then(function (sentTransaction) {
-      setTransaction(sentTransaction);
-    })["catch"](function (error) {
-      console.log('error', error);
-      setState('overview');
-      setClosable(true);
-      setUpdate(true);
-    });
-  };
+      salePerTokenValue = _useState2[0],
+      setSalePerTokenValue = _useState2[1];
 
   var mainAction = function mainAction() {
-    if (state == 'overview' || state == 'approving') {
+    if (paymentState == 'initialized' || paymentState == 'approving') {
       return /*#__PURE__*/React__default$1['default'].createElement("button", {
         className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
         onClick: function onClick() {
@@ -3208,10 +3116,12 @@ var SaleOverviewDialog = (function (props) {
             return;
           }
 
-          pay();
+          pay({
+            navigate: navigate
+          });
         }
       }, "Pay ", paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
-    } else if (state == 'paying') {
+    } else if (paymentState == 'paying') {
       return /*#__PURE__*/React__default$1['default'].createElement("a", {
         className: "ButtonPrimary",
         title: "Performing the payment - please wait",
@@ -3219,7 +3129,7 @@ var SaleOverviewDialog = (function (props) {
         target: "_blank",
         rel: "noopener noreferrer"
       }, /*#__PURE__*/React__default$1['default'].createElement(LoadingText, null, "Paying"));
-    } else if (state == 'confirmed') {
+    } else if (paymentState == 'confirmed') {
       return /*#__PURE__*/React__default$1['default'].createElement("button", {
         className: "ButtonPrimary round",
         title: "Done",
@@ -3229,14 +3139,14 @@ var SaleOverviewDialog = (function (props) {
   };
 
   var approvalAction = function approvalAction() {
-    if (state == 'overview') {
+    if (paymentState == 'initialized') {
       return /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "PaddingBottomS"
       }, /*#__PURE__*/React__default$1['default'].createElement("button", {
         className: "ButtonPrimary wide",
         onClick: approve
       }, "Allow ", payment.symbol, " to be used as payment"));
-    } else if (state == 'approving') {
+    } else if (paymentState == 'approving') {
       return /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "PaddingBottomS"
       }, /*#__PURE__*/React__default$1['default'].createElement("a", {
@@ -3253,12 +3163,6 @@ var SaleOverviewDialog = (function (props) {
     return /*#__PURE__*/React__default$1['default'].createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
   };
 
-  React.useEffect(function () {
-    if (allRoutes && allRoutes.length == 0) {
-      set(['NoPaymentMethodFound']);
-      setUpdate(false);
-    }
-  }, [allRoutes]);
   React.useEffect(function () {
     if (paymentValue) {
       setSalePerTokenValue(new depayLocalCurrency.Currency({
@@ -3285,10 +3189,10 @@ var SaleOverviewDialog = (function (props) {
     body: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
-      title: state == 'overview' ? "Change amount" : undefined,
+      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+      title: paymentState == 'initialized' ? "Change amount" : undefined,
       onClick: function onClick() {
-        if (state != 'overview') {
+        if (paymentState != 'initialized') {
           return;
         }
 
@@ -3317,10 +3221,10 @@ var SaleOverviewDialog = (function (props) {
     }, /*#__PURE__*/React__default$1['default'].createElement("small", null, salePerTokenValue, " per token")))), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardAction"
     }, /*#__PURE__*/React__default$1['default'].createElement(ChevronRight, null))), /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
-      title: state == 'overview' ? "Change payment" : undefined,
+      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+      title: paymentState == 'initialized' ? "Change payment" : undefined,
       onClick: function onClick() {
-        if (state != 'overview') {
+        if (paymentState != 'initialized') {
           return;
         }
 
@@ -3657,119 +3561,32 @@ var DonationOverviewSkeleton = (function (props) {
 });
 
 var DonationOverviewDialog = (function (props) {
-  var _useContext = React.useContext(DonationRoutingContext),
-      donatedToken = _useContext.donatedToken,
-      donatedAmount = _useContext.donatedAmount;
+  var _useContext = React.useContext(PaymentContext),
+      payment = _useContext.payment,
+      paymentState = _useContext.paymentState,
+      pay = _useContext.pay,
+      transaction = _useContext.transaction,
+      approve = _useContext.approve,
+      approvalTransaction = _useContext.approvalTransaction;
 
-  var _useContext2 = React.useContext(ConfigurationContext),
-      _sent = _useContext2.sent,
-      _confirmed = _useContext2.confirmed,
-      _ensured = _useContext2.ensured,
-      _failed = _useContext2.failed;
+  var _useContext2 = React.useContext(WalletContext),
+      walletState = _useContext2.walletState;
 
-  var _useContext3 = React.useContext(PaymentContext),
-      payment = _useContext3.payment,
-      setPayment = _useContext3.setPayment,
-      transaction = _useContext3.transaction,
-      setTransaction = _useContext3.setTransaction;
+  var _useContext3 = React.useContext(PaymentValueContext),
+      paymentValue = _useContext3.paymentValue;
 
-  var _useContext4 = React.useContext(PaymentRoutingContext),
-      allRoutes = _useContext4.allRoutes;
+  var _useContext4 = React.useContext(depayReactDialogStack.NavigateStackContext),
+      navigate = _useContext4.navigate;
 
-  var _useContext5 = React.useContext(WalletContext),
-      wallet = _useContext5.wallet,
-      walletState = _useContext5.walletState;
+  var _useContext5 = React.useContext(ClosableContext),
+      close = _useContext5.close;
 
-  var _useContext6 = React.useContext(PaymentValueContext),
-      paymentValue = _useContext6.paymentValue;
-
-  var _useContext7 = React.useContext(depayReactDialogStack.NavigateStackContext),
-      navigate = _useContext7.navigate,
-      set = _useContext7.set;
-
-  var _useContext8 = React.useContext(ClosableContext),
-      close = _useContext8.close,
-      setClosable = _useContext8.setClosable;
-
-  var _useContext9 = React.useContext(UpdateContext);
-      _useContext9.update;
-      var setUpdate = _useContext9.setUpdate;
-
-  var _useState = React.useState('overview'),
-      _useState2 = _slicedToArray(_useState, 2),
-      state = _useState2[0],
-      setState = _useState2[1];
-
-  var _useState3 = React.useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      approvalTransaction = _useState4[0],
-      setApprovalTransaction = _useState4[1];
-
-  var approve = function approve() {
-    setClosable(false);
-    setState('approving');
-    wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
-      confirmed: function confirmed() {
-        payment.route.approvalRequired = false;
-        setPayment(payment);
-        setClosable(true);
-        setState('overview');
-      }
-    })).then(function (sentTransaction) {
-      setApprovalTransaction(sentTransaction);
-    })["catch"](function (error) {
-      console.log('error', error);
-      setState('overview');
-      setClosable(true);
-    });
-  };
-
-  var pay = function pay() {
-    setClosable(false);
-    setState('paying');
-    setUpdate(false);
-    wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
-      sent: function sent() {
-        if (_sent) {
-          _sent(payment.route.transaction);
-        }
-      },
-      confirmed: function confirmed() {
-        setClosable(true);
-        setState('confirmed');
-
-        if (_confirmed) {
-          _confirmed(payment.route.transaction);
-        }
-      },
-      ensured: function ensured() {
-        if (_ensured) {
-          _ensured(payment.route.transaction);
-        }
-      },
-      failed: function failed(error) {
-        if (_failed) {
-          _failed(payment.route.transaction);
-        }
-
-        console.log('error', error);
-        setState('overview');
-        setClosable(true);
-        setUpdate(true);
-        navigate('PaymentError');
-      }
-    })).then(function (sentTransaction) {
-      setTransaction(sentTransaction);
-    })["catch"](function (error) {
-      console.log('error', error);
-      setState('overview');
-      setClosable(true);
-      setUpdate(true);
-    });
-  };
+  var _useContext6 = React.useContext(DonationRoutingContext),
+      donatedToken = _useContext6.donatedToken,
+      donatedAmount = _useContext6.donatedAmount;
 
   var mainAction = function mainAction() {
-    if (state == 'overview' || state == 'approving') {
+    if (paymentState == 'initialized' || paymentState == 'approving') {
       return /*#__PURE__*/React__default$1['default'].createElement("button", {
         className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
         onClick: function onClick() {
@@ -3777,10 +3594,12 @@ var DonationOverviewDialog = (function (props) {
             return;
           }
 
-          pay();
+          pay({
+            navigate: navigate
+          });
         }
       }, "Pay ", paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
-    } else if (state == 'paying') {
+    } else if (paymentState == 'paying') {
       return /*#__PURE__*/React__default$1['default'].createElement("a", {
         className: "ButtonPrimary",
         title: "Performing the payment - please wait",
@@ -3788,7 +3607,7 @@ var DonationOverviewDialog = (function (props) {
         target: "_blank",
         rel: "noopener noreferrer"
       }, /*#__PURE__*/React__default$1['default'].createElement(LoadingText, null, "Paying"));
-    } else if (state == 'confirmed') {
+    } else if (paymentState == 'confirmed') {
       return /*#__PURE__*/React__default$1['default'].createElement("button", {
         className: "ButtonPrimary round",
         title: "Done",
@@ -3798,14 +3617,14 @@ var DonationOverviewDialog = (function (props) {
   };
 
   var approvalAction = function approvalAction() {
-    if (state == 'overview') {
+    if (paymentState == 'initialized') {
       return /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "PaddingBottomS"
       }, /*#__PURE__*/React__default$1['default'].createElement("button", {
         className: "ButtonPrimary wide",
         onClick: approve
       }, "Allow ", payment.symbol, " to be used as payment"));
-    } else if (state == 'approving') {
+    } else if (paymentState == 'approving') {
       return /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "PaddingBottomS"
       }, /*#__PURE__*/React__default$1['default'].createElement("a", {
@@ -3821,13 +3640,6 @@ var DonationOverviewDialog = (function (props) {
   var actions = function actions() {
     return /*#__PURE__*/React__default$1['default'].createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
   };
-
-  React.useEffect(function () {
-    if (allRoutes && allRoutes.length == 0) {
-      set(['NoPaymentMethodFound']);
-      setUpdate(false);
-    }
-  }, [allRoutes]);
 
   if (walletState == 'connecting') {
     return /*#__PURE__*/React__default$1['default'].createElement(ConnectingWalletDialog, null);
@@ -3846,10 +3658,10 @@ var DonationOverviewDialog = (function (props) {
     body: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
-      title: state == 'overview' ? "Change amount" : undefined,
+      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+      title: paymentState == 'initialized' ? "Change amount" : undefined,
       onClick: function onClick() {
-        if (state != 'overview') {
+        if (paymentState != 'initialized') {
           return;
         }
 
@@ -3878,10 +3690,10 @@ var DonationOverviewDialog = (function (props) {
     }, format(donatedAmount)))))), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardAction"
     }, /*#__PURE__*/React__default$1['default'].createElement(ChevronRight, null))), /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: ["Card", state == 'overview' ? '' : 'disabled'].join(' '),
-      title: state == 'overview' ? "Change payment" : undefined,
+      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+      title: paymentState == 'initialized' ? "Change payment" : undefined,
       onClick: function onClick() {
-        if (state != 'overview') {
+        if (paymentState != 'initialized') {
           return;
         }
 

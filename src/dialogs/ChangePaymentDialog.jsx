@@ -105,9 +105,7 @@ export default (props)=>{
           </div>
         </div>
       }
-      footer={
-        <div></div>
-      }
+      footer={<div></div>}
     />
   )
 }

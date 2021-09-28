@@ -101,7 +101,7 @@ describe('execute Payment', () => {
     }))
   })
   
-  it('executes a payment', () => {
+  it('executes', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
