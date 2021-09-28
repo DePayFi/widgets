@@ -45,7 +45,7 @@
     "depay-web3-exchanges": "^6.2.0",
     "depay-web3-payments": "^6.1.0",
     "depay-web3-tokens": "^6.0.0",
-    "depay-web3-wallets": "^5.6.6",
+    "depay-web3-wallets": "^5.6.7",
     "react-rangeslider": "^2.2.0"
   },
   "peerDependencies": {

@@ -22,6 +22,28 @@ and load the DePayWidgets package wherever you need it:
 import DePayWidgets from 'depay-widgets'
 ```
 
+## Support
+
+This library supports the following blockchains:
+
+- [Ethereum](https://ethereum.org)
+- [Binance Smart Chain](https://www.binance.org/en/smartChain)
+
+This library supports the following wallets:
+
+- [MetaMask](https://metamask.io)
+- [Coinbase Wallet](https://wallet.coinbase.com)
+- [WalletConnect](https://walletconnect.org)
+
+via WalletConnect:
+
+- [Trust Wallet](https://trustwallet.com)
+- [imToken Wallet](https://www.token.im)
+- [Argent Wallet](https://www.argent.xyz)
+- [Unstoppable Wallet](https://unstoppable.money)
+- [Atomic Wallet](https://atomicwallet.io)
+- and more...
+
 ## DePay Payments
 
 DePay Payments allows you to accept and perform crypto payments.
