@@ -49,7 +49,7 @@ let Payment = async ({
               <UpdateProvider>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
                   <PaymentRoutingProvider accept={ accept } whitelist={ whitelist } blacklist={ blacklist } event={ event }>
-                    <PaymentProvider>
+                    <PaymentProvider container={ container } document={ document }>
                       <PaymentValueProvider>
                         <PaymentStack
                           document={ document }

@@ -126,7 +126,7 @@ describe('approve Donation payment', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.wide').should('contain.text', 'Approving...').then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.wide').invoke('attr', 'title').should('eq', 'Approving payment token - please wait')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.wide').invoke('attr', 'href').should('include', 'https://etherscan.com/tx/')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.wide').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
           confirm(mockedTransaction)
           cy.wait(1000).then(()=>{
             cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')

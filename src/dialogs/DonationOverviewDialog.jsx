@@ -1,13 +1,11 @@
 import Checkmark from '../components/Checkmark'
 import ChevronRight from '../components/ChevronRight'
 import ClosableContext from '../contexts/ClosableContext'
-import ConfigurationContext from '../contexts/ConfigurationContext'
 import ConnectingWalletDialog from './ConnectingWalletDialog'
 import Dialog from '../components/Dialog'
 import format from '../helpers/format'
 import LoadingText from '../components/LoadingText'
 import PaymentContext from '../contexts/PaymentContext'
-import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
 import DonationOverviewSkeleton from '../skeletons/DonationOverviewSkeleton'
@@ -20,92 +18,33 @@ import { TokenImage } from 'depay-react-token-image'
 
 export default (props)=>{
 
-  const { donatedToken, donatedAmount } = useContext(DonationRoutingContext)
-  const { sent, confirmed, ensured, failed } = useContext(ConfigurationContext)
-  const { payment, setPayment, transaction, setTransaction } = useContext(PaymentContext)
-  const { allRoutes } = useContext(PaymentRoutingContext)
+  const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
   const { walletState } = useContext(WalletContext)
   const { paymentValue } = useContext(PaymentValueContext)
-  const { navigate, set } = useContext(NavigateStackContext)
-  const { close, setClosable } = useContext(ClosableContext)
-  const { update, setUpdate } = useContext(UpdateContext)
-  const [state, setState] = useState('overview')
-  const [approvalTransaction, setApprovalTransaction] = useState()
-  const approve = ()=> {
-    setClosable(false)
-    setState('approving')
-    payment.route.approve({
-      confirmed: ()=>{
-        payment.route.approvalRequired = false
-        setPayment(payment)
-        setClosable(true)
-        setState('overview')
-      }
-    })
-    .then((sentTransaction)=>{
-      setApprovalTransaction(sentTransaction)
-    })
-    .catch((error)=>{
-      console.log('error', error)
-      setState('overview')
-      setClosable(true)
-    })
-  }
-  const pay = ()=> {
-    setClosable(false)
-    setState('paying')
-    setUpdate(false)
-    payment.route.transaction.submit({
-      sent: ()=>{
-        if(sent) { sent(payment.route.transaction) }
-      },
-      confirmed: ()=>{
-        setClosable(true)
-        setState('confirmed')
-        if(confirmed) { confirmed(payment.route.transaction) }
-      },
-      ensured: ()=>{
-        if(ensured) { ensured(payment.route.transaction) }
-      },
-      failed: (error)=> {
-        if(failed) { failed(payment.route.transaction) }
-        console.log('error', error)
-        setState('overview')
-        setClosable(true)
-        setUpdate(true)
-        navigate('PaymentError')
-      }
-    })
-      .then((sentTransaction)=>{
-        setTransaction(sentTransaction)
-      })
-      .catch((error)=>{
-        console.log('error', error)
-        setState('overview')
-        setClosable(true)
-        setUpdate(true)
-      })
-  }
+  const { navigate } = useContext(NavigateStackContext)
+  const { close } = useContext(ClosableContext)
+  const { donatedToken, donatedAmount } = useContext(DonationRoutingContext)
+
   const mainAction = ()=> {
-    if(state == 'overview' || state == 'approving') {
+    if(paymentState == 'initialized' || paymentState == 'approving') {
       return(
         <button 
           className={["ButtonPrimary", (payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled': '')].join(' ')}
           onClick={()=>{
             if(payment.route.approvalRequired && !payment.route.directTransfer) { return }
-            pay()
+            pay({ navigate })
           }}
         >
           Pay { paymentValue.toString().length ? paymentValue.toString() : `${payment.amount}` }
         </button>
       )
-    } else if (state == 'paying') {
+    } else if (paymentState == 'paying') {
       return(
         <a className="ButtonPrimary" title="Performing the payment - please wait" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
           <LoadingText>Paying</LoadingText>
         </a>
       )
-    } else if (state == 'confirmed') {
+    } else if (paymentState == 'confirmed') {
       return(
         <button className="ButtonPrimary round" title="Done" onClick={ close }>
           <Checkmark/>
@@ -114,7 +53,7 @@ export default (props)=>{
     }
   }
   const approvalAction = ()=> {
-    if(state == 'overview') {
+    if(paymentState == 'initialized') {
       return(
         <div className="PaddingBottomS">
           <button className="ButtonPrimary wide" onClick={ approve }>
@@ -122,7 +61,7 @@ export default (props)=>{
           </button>
         </div>
       )
-    } else if (state == 'approving') {
+    } else if (paymentState == 'approving') {
       return(
         <div className="PaddingBottomS">
           <a className="ButtonPrimary wide" title="Approving payment token - please wait" href={ approvalTransaction?.url } target="_blank" rel="noopener noreferrer">
@@ -132,20 +71,14 @@ export default (props)=>{
       )
     }
   }
-  const actions = ()=> {
-    return(
+  const actions = ()=>{
+    return (
       <div>
         { payment.route.approvalRequired && !payment.route.directTransfer && approvalAction() }
         { mainAction() }
       </div>
     )
   }
-  useEffect(()=>{
-    if(allRoutes && allRoutes.length == 0) {
-      set(['NoPaymentMethodFound'])
-      setUpdate(false)
-    }
-  }, [allRoutes])
 
   if(walletState == 'connecting') { return(<ConnectingWalletDialog/>) }
   if(
@@ -165,10 +98,10 @@ export default (props)=>{
       body={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
           <div 
-            className={["Card", (state == 'overview' ? '' : 'disabled')].join(' ')}
-            title={state == 'overview' ? "Change amount" : undefined}
+            className={["Card", (paymentState == 'initialized' ? '' : 'disabled')].join(' ')}
+            title={paymentState == 'initialized' ? "Change amount" : undefined}
             onClick={ ()=>{
-              if(state != 'overview') { return }
+              if(paymentState != 'initialized') { return }
               navigate('ChangeAmount')
             } }
           >
@@ -201,10 +134,10 @@ export default (props)=>{
             </div>
           </div>
           <div 
-            className={["Card", (state == 'overview' ? '' : 'disabled')].join(' ')}
-            title={state == 'overview' ? "Change payment" : undefined}
+            className={["Card", (paymentState == 'initialized' ? '' : 'disabled')].join(' ')}
+            title={paymentState == 'initialized' ? "Change payment" : undefined}
             onClick={ ()=>{
-              if(state != 'overview') { return }
+              if(paymentState != 'initialized') { return }
               navigate('ChangePayment')
             } }
           >

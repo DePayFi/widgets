@@ -49,7 +49,7 @@ let Sale = async ({
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
-                  <SaleRoutingProvider>
+                  <SaleRoutingProvider container={ container } document={ document }>
                     <SaleStack
                       document={ document }
                       container={ container }

@@ -8,7 +8,6 @@ import { mock, confirm, increaseBlock, resetMocks } from 'depay-web3-mock'
 import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
-import { Transaction } from 'depay-web3-transaction'
 
 describe('execute Payment', () => {
 
@@ -102,7 +101,7 @@ describe('execute Payment', () => {
     }))
   })
   
-  it('executes a payment', () => {
+  it('executes', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
@@ -120,7 +119,7 @@ describe('execute Payment', () => {
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.com/tx/')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
@@ -198,18 +197,21 @@ describe('execute Payment', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
           cy.wait(1000).then(()=>{
-            expect(sentCalledWith).to.be.an.instanceof(Transaction)
             expect(sentCalledWith.from).to.equal(accounts[0])
+            expect(sentCalledWith.id).to.equal(mockedTransaction.transaction._id)
+            expect(sentCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
             expect(mockedTransaction.calls.count()).to.equal(1)
             confirm(mockedTransaction)
             cy.wait(5000).then(()=>{
-            expect(confirmedCalledWith).to.be.an.instanceof(Transaction)
-            expect(confirmedCalledWith.from).to.equal(accounts[0])
+              expect(confirmedCalledWith.from).to.equal(accounts[0])
+              expect(confirmedCalledWith.id).to.equal(mockedTransaction.transaction._id)
+              expect(confirmedCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
               increaseBlock(12)
               cy.wait(5000).then(()=>{
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.round .Checkmark.Icon').click().then(()=>{
-                  expect(ensuredCalledWith).to.be.an.instanceof(Transaction)
                   expect(ensuredCalledWith.from).to.equal(accounts[0])
+                  expect(ensuredCalledWith.id).to.equal(mockedTransaction.transaction._id)
+                  expect(ensuredCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
                 })
               })
             })

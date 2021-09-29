@@ -23,8 +23,8 @@ export default (props)=>{
 
   useEffect(()=>{
     let sortedLowToHigh = [...allRoutes].sort((a,b)=>{
-      let aAmountsAvailable = a.fromBalance.div(a.fromAmount);
-      let bAmountsAvailable = b.fromBalance.div(b.fromAmount);
+      let aAmountsAvailable = ethers.BigNumber.from(a.fromBalance).div(ethers.BigNumber.from(a.fromAmount));
+      let bAmountsAvailable = ethers.BigNumber.from(b.fromBalance).div(ethers.BigNumber.from(b.fromAmount));
 
       if (aAmountsAvailable.lt(bAmountsAvailable)) {
         return -1;
@@ -43,7 +43,7 @@ export default (props)=>{
       return Promise.all([
         maxRoute.fromToken.name(),
         maxRoute.fromToken.symbol(),
-        maxRoute.fromToken.decimals(),
+        maxRoute.toToken.decimals(),
         maxRoute.fromToken.readable(maxRoute.fromBalance),
         route({
           blockchain: maxRoute.blockchain,
@@ -52,7 +52,7 @@ export default (props)=>{
           amountIn: maxRoute.fromBalance,
           fromAddress: account,
           toAddress: account
-        })
+        }),
       ]).then(([name, symbol, decimals, balance, routes])=>{
         let SLIPPAGE = 1.01
         let max = round(parseFloat(ethers.utils.formatUnits(routes[0].amountOutMin, decimals))/SLIPPAGE, 'down')

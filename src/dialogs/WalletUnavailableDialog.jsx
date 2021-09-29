@@ -14,27 +14,51 @@ export default (props)=>{
   }
 
   let walletCards = supported.map((wallet, index)=>{
-    return(
-      <a
-        key={index}
-        className="Card small"
-        title={`Install ${wallet.name}`}
-        href={wallet.install}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <div className="CardImage PaddingLeftM">
-          <img src={wallet.logo}/>
-        </div>
-        <div className="CardBody">
-          <div className="CardBodyWrapper PaddingLeftXS">
-            <h2 className="CardText FontWeightBold">
-              { wallet.name }
-            </h2>
+    if(wallet.install) {
+      return(
+        <a
+          key={index}
+          className="Card small"
+          title={`Install ${wallet.name}`}
+          href={wallet.install}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div className="CardImage PaddingLeftM">
+            <img src={wallet.logo}/>
           </div>
-        </div>
-      </a>
-    )
+          <div className="CardBody">
+            <div className="CardBodyWrapper PaddingLeftXS">
+              <h2 className="CardText FontWeightBold">
+                { wallet.name }
+              </h2>
+            </div>
+          </div>
+        </a>
+      )
+    } else {
+      return(
+        <button
+          key={index}
+          className="Card small"
+          title={`Connect ${wallet.name}`}
+          onClick={async()=>{ 
+            props.setWallet(wallet)
+          }}
+        >
+          <div className="CardImage PaddingLeftM">
+            <img src={wallet.logo}/>
+          </div>
+          <div className="CardBody">
+            <div className="CardBodyWrapper PaddingLeftXS">
+              <h2 className="CardText FontWeightBold">
+                { wallet.name }
+              </h2>
+            </div>
+          </div>
+        </button>
+      )
+    }
   })
 
   return(

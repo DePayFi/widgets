@@ -8,7 +8,6 @@ import { mock, resetMocks, fail, anything } from 'depay-web3-mock'
 import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
-import { Transaction } from 'depay-web3-transaction'
 
 describe('Sale execution fails', () => {
 
@@ -125,7 +124,6 @@ describe('Sale execution fails', () => {
         }
       }
     })
-    console.log('mockedTransaction', mockedTransaction)
 
     let failedCalledWith
 
@@ -140,14 +138,16 @@ describe('Sale execution fails', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
           fail(mockedTransaction)
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('a').invoke('attr', 'href').should('include', 'https://etherscan.com/tx/')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('a').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
           cy.wait(2000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('h1').should('contain.text', 'Payment Failed')
             cy.get('button[title="Go back"]', { includeShadowDom: true }).should('exist')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'Unfortunately executing your payment failed. You can go back and try again.').then(()=>{
-              expect(failedCalledWith).to.be.an.instanceof(Transaction)
+              expect(failedCalledWith.from).to.equal(accounts[0])
+              expect(failedCalledWith.id).to.equal(mockedTransaction.transaction._id)
+              expect(failedCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
             })
           })
         })

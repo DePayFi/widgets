@@ -14,6 +14,7 @@ describe('approve Payment', () => {
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
   beforeEach(resetMocks)
+  afterEach(resetMocks)
   beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
   beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
@@ -124,7 +125,7 @@ describe('approve Payment', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.wide').should('contain.text', 'Approving...').then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.wide').invoke('attr', 'title').should('eq', 'Approving payment token - please wait')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.wide').invoke('attr', 'href').should('include', 'https://etherscan.com/tx/')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.wide').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
           confirm(mockedTransaction)
           cy.wait(1000).then(()=>{
             cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')

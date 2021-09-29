@@ -22,6 +22,28 @@ and load the DePayWidgets package wherever you need it:
 import DePayWidgets from 'depay-widgets'
 ```
 
+## Support
+
+This library supports the following blockchains:
+
+- [Ethereum](https://ethereum.org)
+- [Binance Smart Chain](https://www.binance.org/en/smartChain)
+
+This library supports the following wallets:
+
+- [MetaMask](https://metamask.io)
+- [Coinbase Wallet](https://wallet.coinbase.com)
+- [WalletConnect](https://walletconnect.org)
+
+via WalletConnect:
+
+- [Trust Wallet](https://trustwallet.com)
+- [imToken Wallet](https://www.token.im)
+- [Argent Wallet](https://www.argent.xyz)
+- [Unstoppable Wallet](https://unstoppable.money)
+- [Atomic Wallet](https://atomicwallet.io)
+- and more...
+
 ## DePay Payments
 
 DePay Payments allows you to accept and perform crypto payments.
@@ -137,7 +159,7 @@ DePayWidgets.Payment({
 
 A function that will be called once the payment has been sent to the network (but still needs to be mined/confirmed).
 
-The widget will call this function with a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function with a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Payment({
@@ -154,7 +176,7 @@ DePayWidgets.Payment({
 
 A function that will be called once the payment has been confirmed once by the network.
 
-The widget will call this function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Payment({
@@ -171,7 +193,7 @@ DePayWidgets.Payment({
 
 A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
 
-The widget will call this function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Payment({
@@ -188,7 +210,7 @@ DePayWidgets.Payment({
 
 A function that will be called if the payment execution failed on the blockchain (after it has been sent/submitted).
 
-The widget will call this function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Payment({
@@ -522,7 +544,7 @@ DePayWidgets.Sale({
 
 A function that will be called once the payment has been sent to the network (but still needs to be mined/confirmed).
 
-The widget will call this function with a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function with a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Sale({
@@ -539,7 +561,7 @@ DePayWidgets.Sale({
 
 A function that will be called once the payment has been confirmed once by the network.
 
-The widget will call this function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Sale({
@@ -556,7 +578,7 @@ DePayWidgets.Sale({
 
 A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
 
-The widget will call this function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Sale({
@@ -573,7 +595,7 @@ DePayWidgets.Sale({
 
 A function that will be called if the payment execution failed on the blockchain (after it has been sent/submitted).
 
-The widget will call this function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Sale({
@@ -875,7 +897,7 @@ DePayWidgets.Donation({
 
 A function that will be called once the payment has been sent to the network (but still needs to be mined/confirmed).
 
-The widget will call this function with a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function with a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Donation({
@@ -892,7 +914,7 @@ DePayWidgets.Donation({
 
 A function that will be called once the payment has been confirmed once by the network.
 
-The widget will call this function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Donation({
@@ -909,7 +931,7 @@ DePayWidgets.Donation({
 
 A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
 
-The widget will call this function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Donation({
@@ -926,7 +948,7 @@ DePayWidgets.Donation({
 
 A function that will be called if the payment execution failed on the blockchain (after it has been sent/submitted).
 
-The widget will call this function passing a transaction as single argument (see: [depay-web3-transaction](https://github.com/depayfi/depay-web3-transaction#data-structure) for more details)
+The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Donation({
@@ -1150,7 +1172,7 @@ test:cypress:debug
 Test and debug single cypress file:
 
 ```
-yarn test:cypress:debug --spec "cypress/integration/Payment/event.js"
+yarn test:cypress:debug --spec "cypress/integration/Payment/approve.js"
 ```
 
 ### Release new versions to npm
