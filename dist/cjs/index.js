@@ -1,5 +1,3 @@
-
-(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 'use strict';
 
 var React = require('react');
@@ -1663,6 +1661,13 @@ var PaymentProvider = (function (props) {
       setPayment(undefined);
     }
   }, [selectedRoute]);
+  React.useEffect(function () {
+    if (allRoutes && allRoutes.length == 0) {
+      setUpdate(false);
+    } else if (allRoutes && allRoutes.length > 0) {
+      setUpdate(true);
+    }
+  }, [allRoutes]);
 
   if (allRoutes instanceof Array && allRoutes.length == 0) {
     return /*#__PURE__*/React__default$1['default'].createElement(depayReactDialogStack.ReactDialogStack, {
