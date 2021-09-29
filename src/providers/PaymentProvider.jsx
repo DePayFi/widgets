@@ -104,6 +104,14 @@ export default (props)=>{
     }
   }, [selectedRoute])
 
+  useEffect(()=>{
+    if(allRoutes && allRoutes.length == 0) {
+      setUpdate(false)
+    } else if(allRoutes && allRoutes.length > 0) {
+      setUpdate(true)
+    }
+  }, [allRoutes])
+
   if(allRoutes instanceof Array && allRoutes.length == 0) {
     return(
       <ReactDialogStack
