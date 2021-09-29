@@ -1,7 +1,7 @@
 {
   "name": "depay-widgets",
   "moduleName": "DePayWidgets",
-  "version": "2.18.0",
+  "version": "2.18.4",
   "description": "Accept and perform crypto payments with DePay widgets. Simple Decentralized Payments.",
   "main": "./dist/cjs/index.js",
   "files": [
@@ -32,8 +32,7 @@
     "test": "yarn test:jest && yarn test:cypress"
   },
   "dependencies": {
-    "@walletconnect/client": "^1.6.5",
-    "@walletconnect/qrcode-modal": "^1.6.5",
+    "@depay/walletconnect": "^1.0.2",
     "depay-local-currency": "^1.1.0",
     "depay-react-dialog-stack": "^2.0.0",
     "depay-react-shadow-dom": "^2.0.2",
@@ -45,7 +44,7 @@
     "depay-web3-exchanges": "^6.2.0",
     "depay-web3-payments": "^6.1.0",
     "depay-web3-tokens": "^6.0.0",
-    "depay-web3-wallets": "^5.6.7",
+    "depay-web3-wallets": "^5.6.9",
     "react-rangeslider": "^2.2.0"
   },
   "peerDependencies": {
@@ -82,6 +81,7 @@
     "rollup": "^2.34.2",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-polyfill-node": "^0.7.0",
     "rollup-plugin-serve": "^1.1.0",
     "rollup-plugin-terser": "^7.0.2"
   }

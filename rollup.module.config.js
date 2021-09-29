@@ -29,21 +29,24 @@ export default {
   ],
   external: [
     ...Object.keys(pkg.dependencies || {}),
-    ...Object.keys(pkg.peerDependencies || {}),
+    ...Object.keys(pkg.peerDependencies || {})
   ],
   plugins: [
-    nodeResolve(),
-    commonjs({
-      include: 'node_modules/**'
+    resolve({
+      extensions: ['.js', '.ts', '.jsx'],
+      modulesOnly: true,
+      preferBuiltins: false
     }),
     babel({ 
       babelHelpers: 'runtime',
       plugins: [
         '@babel/transform-runtime'
-      ]
+      ],
+      exclude: ['node_modules/**'] // only transpile our source code
     }),
-    resolve({
-      extensions: ['.js', '.ts', '.jsx']
+    nodeResolve({ preferBuiltins: false }),
+    commonjs({
+      include: 'node_modules/**',
     }),
     replace({
       'process.env.NODE_ENV': JSON.stringify( 'production' ),

@@ -1,4 +1,6 @@
+import nodePolyfills from 'rollup-plugin-polyfill-node'
 import pkg from './package.json'
+import replace from '@rollup/plugin-replace'
 import rollup from './rollup.module.config.js'
 
 export default Object.assign({}, rollup, {
@@ -18,5 +20,8 @@ export default Object.assign({}, rollup, {
       name: pkg.moduleName,
       file: 'dist/umd/index.bundle.js'
     }
+  ],
+  plugins: [...rollup.plugins,
+    nodePolyfills()
   ]
 })
