@@ -109,7 +109,8 @@ export default (style)=>{
       color: rgb(150,150,150);
     }
     
-    .CardText {
+    .CardText, a .CardText {
+      color: ${style.colors.text};
       flex: 1;
       font-size: 1.3rem;
     }
