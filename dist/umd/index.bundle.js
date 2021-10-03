@@ -60142,7 +60142,8 @@
   var DePayWidgets = {
     Payment: Payment,
     Sale: Sale,
-    Donation: Donation
+    Donation: Donation,
+    provider: provider
   };
 
   return DePayWidgets;

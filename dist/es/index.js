@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { setProvider } from 'depay-web3-client';
+import { setProvider, provider } from 'depay-web3-client';
 import ReactDOM from 'react-dom';
 import { ReactShadowDOM } from 'depay-react-shadow-dom';
 import { NavigateStackContext, ReactDialogStack } from 'depay-react-dialog-stack';
@@ -4018,7 +4018,8 @@ var Donation = /*#__PURE__*/function () {
 var DePayWidgets = {
   Payment: Payment,
   Sale: Sale,
-  Donation: Donation
+  Donation: Donation,
+  provider: provider
 };
 
 export { DePayWidgets as default };

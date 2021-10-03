@@ -60136,7 +60136,8 @@ var Donation = /*#__PURE__*/function () {
 var DePayWidgets = {
   Payment: Payment,
   Sale: Sale,
-  Donation: Donation
+  Donation: Donation,
+  provider: provider
 };
 
 export { DePayWidgets as default };

@@ -4014,7 +4014,8 @@
   var DePayWidgets = {
     Payment: Payment,
     Sale: Sale,
-    Donation: Donation
+    Donation: Donation,
+    provider: depayWeb3Client.provider
   };
 
   return DePayWidgets;

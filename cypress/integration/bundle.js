@@ -1,11 +1,11 @@
-import DePayWidgets from 'dist/umd/index.bundle'
+import DePayWidgets from '../../dist/umd/index.bundle'
 import fetchMock from 'fetch-mock'
-import mockBasics from '../../../tests/mocks/basics'
+import mockBasics from '../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
 import { mock, confirm, increaseBlock, resetMocks } from 'depay-web3-mock'
-import { resetCache, provider } from 'depay-web3-client'
+import { resetCache } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
@@ -38,7 +38,7 @@ describe('library bundle', () => {
   beforeEach(()=>{
 
     ({ TOKEN_A_AmountBN } = mockBasics({
-      provider: provider(blockchain),
+      provider: DePayWidgets.provider(blockchain),
       blockchain,
 
       fromAddress,
