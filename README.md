@@ -135,6 +135,32 @@ Use our [payment configurator](https://depay.fi/documentation/payments#payment-c
 
 The address receiving the payment. Always double check that you've set the right address.
 
+#### receiver
+
+Payment receivers can either be wallet addresses, but also smart contracts.
+
+In order to have smart contracts receive the payments you will need to pass an object as receiver containing the following attributes.
+
+```javascript
+DePayWidgets.Payment({
+  accept: [
+    receiver: {
+      address: toAddress,
+      signature: 'claim(address,uint256,bool)',
+      params: ['true']
+    }
+  ]
+});
+```
+
+`address`: The address of the smart contract.
+
+`signature`: The signature of the smart contract method you want to call as part of the payment.
+
+`params`: Additional params forwarded to the smart contract method.
+
+Checkout the [DePay Router Smart Contract]() for more details.
+
 #### connected
 
 `connected`

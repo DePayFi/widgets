@@ -15,10 +15,20 @@ export default (props)=>{
   const [reloadCount, setReloadCount] = useState(0)
   const { account } = useContext(WalletContext)
   const { update } = useContext(UpdateContext)
+  const prepareAcceptedPayments = (accept)=>{
+    let toAddress = typeof accept.receiver == 'object' ? accept.receiver.address : accept.receiver
+    let toContract = typeof accept.receiver == 'object' ? accept.receiver : undefined
+    return({ 
+      ...accept, 
+      toAddress,
+      toContract,
+      fromAddress: account
+    })
+  } 
   const getPaymentRoutes = ({ allRoutes, selectedRoute, update })=>{
     if(update == false || props.accept == undefined || account == undefined) { return }
     route({
-      accept: props.accept.map((configuration)=>({ ...configuration, fromAddress: account, toAddress: configuration.receiver })),
+      accept: props.accept.map(prepareAcceptedPayments),
       whitelist: props.whitelist,
       blacklist: props.blacklist,
       event: props.event,
