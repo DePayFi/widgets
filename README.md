@@ -159,7 +159,7 @@ DePayWidgets.Payment({
 
 `params`: Additional params forwarded to the smart contract method.
 
-Checkout the [DePay Router Smart Contract](https://github.com/DePayFi/depay-evm-router) for more details.
+Checkout [DePay Web3 Payments](https://github.com/DePayFi/depay-web3-payments#pay-into-smart-contracts) and [DePay Router Smart Contract](https://github.com/DePayFi/depay-evm-router) for more details.
 
 #### connected
 
