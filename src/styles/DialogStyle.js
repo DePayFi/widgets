@@ -5,6 +5,8 @@ export default (style)=>{
       margin: 0 auto;
       position: relative;
       width: 420px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      border-radius: 0.8rem;
     }
 
     .Dialog .Text {

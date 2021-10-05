@@ -4,6 +4,7 @@ import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
+import { ethers } from 'ethers'
 import { mock, confirm, increaseBlock, resetMocks, anything } from 'depay-web3-mock'
 import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
@@ -93,7 +94,7 @@ describe('pay smart contracts', () => {
     }))
   })
   
-  it('executes payment into a smart contract', () => {
+  it('executes payment into a smart contract with address, amount and bool', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
@@ -102,7 +103,7 @@ describe('pay smart contracts', () => {
         method: 'route',
         params: {
           path: [DEPAY],
-          amounts: [TOKEN_A_AmountBN],
+          amounts: [TOKEN_A_AmountBN, TOKEN_A_AmountBN],
           addresses: [fromAddress, toAddress],
           plugins: [plugins[blockchain].contractCall.approveAndCallContractAddressAmountBoolean.address],
           data: ['claim(address,uint256,bool)', 'true']
@@ -122,6 +123,64 @@ describe('pay smart contracts', () => {
               address: toAddress,
               signature: 'claim(address,uint256,bool)',
               params: ['true']
+            }
+          }]
+        })
+        cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
+          expect(mockedTransaction.calls.count()).to.equal(1)
+          cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
+          confirm(mockedTransaction)
+          cy.wait(1000).then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
+              cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.round .Checkmark.Icon').click()
+              cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+            })
+          })
+        })
+      })
+    })
+  })
+
+  it('executes payment into a smart contract with address, passed amount and bool', () => {
+    let PASSED_AMOUNT = TOKEN_A_AmountBN.mul(ethers.utils.parseUnits('2', 18))
+    let mockedTransaction = mock({
+      blockchain,
+      transaction: {
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'route',
+        params: {
+          path: [DEPAY],
+          amounts: [TOKEN_A_AmountBN, TOKEN_A_AmountBN, '0', '0', '0', PASSED_AMOUNT],
+          addresses: [fromAddress, toAddress],
+          plugins: [plugins[blockchain].contractCall.approveAndCallContractAddressPassedAmountBoolean.address],
+          data: ['claim(address,uint256,bool)', 'true']
+        }
+      }
+    })
+
+    console.log('mockedTransaction', mockedTransaction)
+
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        DePayWidgets.Payment({
+          document,
+          accept: [{
+            blockchain,
+            amount,
+            token: DEPAY,
+            receiver: {
+              address: toAddress,
+              signature: 'claim(address,uint256,bool)',
+              params: [PASSED_AMOUNT.toString(), 'true']
             }
           }]
         })

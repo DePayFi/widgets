@@ -96,6 +96,33 @@
       <div class="col-4"></div>
     </div><!-- Payment -->
 
+    <div class="container pb-4"><!-- Payment -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <h2 class="pt-5">Payment Into Smart Contract</h2>
+        <button id="payIntoSmartContractButton" class="btn-lg mt-2">Pay into Smart Contract</button>
+        <script>
+          var button = document.getElementById("payIntoSmartContractButton");
+          button.addEventListener("click",function(e){
+            DePayWidgets.Payment({
+              accept: [{
+                blockchain: 'bsc',
+                amount: 20,
+                token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+                receiver: {
+                  address: '0xdE955610314b52Fd80F6C5ebdE36c94f4c99ea72',
+                  signature: 'claim(address,uint256,bool)',
+                  params: ['12903225806451612000', 'true']
+                }
+              }]
+            });
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Payment -->
+
     <div class="container pb-4"><!-- Sale -->
       <div class="row">
       <div class="col-4"></div>
