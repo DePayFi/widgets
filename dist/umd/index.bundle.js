@@ -30202,7 +30202,7 @@
   });
 
   var DialogStyle = (function (style) {
-    return "\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n    }\n\n    .Dialog .Text {\n      color: ".concat(style.colors.text, ";\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 700px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n        max-height: 40vh !important;\n      }\n\n      .FooterLink {\n        bottom: 0;\n        left: 0;\n        position: absolute;\n        right: 0;\n        width: 100%;\n      }\n\n      .DialogFooter {\n        padding-bottom: 50px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        max-height: 66vh !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .ReactShadowDOMInsideContainer > .ReactDialog {\n      display: table;\n    }\n\n  ");
+    return "\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n    }\n\n    .Dialog .Text {\n      color: ".concat(style.colors.text, ";\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 700px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n        max-height: 40vh !important;\n      }\n\n      .FooterLink {\n        bottom: 0;\n        left: 0;\n        position: absolute;\n        right: 0;\n        width: 100%;\n      }\n\n      .DialogFooter {\n        padding-bottom: 50px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        max-height: 66vh !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .ReactShadowDOMInsideContainer > .ReactDialog {\n      display: table;\n    }\n\n  ");
   });
 
   var FontStyle = (function (style) {
@@ -50700,7 +50700,7 @@
     return { amountOut, amountIn, amountInMax, amountOutMin }
   };
 
-  let getTransaction = ({
+  let getTransaction$2 = ({
     path,
     amountIn,
     amountInMax,
@@ -50777,7 +50777,7 @@
       ({ amountIn, amountInMax, amountOut, amountOutMin } = await getAmounts({ path, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin }));
       if([amountIn, amountInMax, amountOut, amountOutMin].every((amount)=>{ return amount == undefined })) { return resolve() }
 
-      let transaction = getTransaction({
+      let transaction = getTransaction$2({
         path,
         amountIn,
         amountInMax,
@@ -51047,6 +51047,48 @@
     .then((routes)=>routes.filter(Boolean))
   };
 
+  const prepareUniswapTransaction = (transaction)=>{
+    transaction.params.path = transaction.params.path.filter((token, index, path)=>{
+      if(
+        index == 1 &&
+        token == CONSTANTS$2[transaction.blockchain].WRAPPED &&
+        path[0] == CONSTANTS$2[transaction.blockchain].NATIVE
+      ) { 
+        return false
+      } else if (
+        index == path.length-2 &&
+        token == CONSTANTS$2[transaction.blockchain].WRAPPED &&
+        path[path.length-1] == CONSTANTS$2[transaction.blockchain].NATIVE
+      ) {
+        return false
+      } else {
+        return true
+      }
+    });
+    return transaction
+  };
+
+  const prepareContractCallAddressAmountBooleanTransaction = (transaction, toContract)=> {
+    transaction.params.data = [
+      toContract.signature,
+      toContract.params[0]
+    ];
+    return transaction
+  };
+
+  const prepareContractCallAddressPassedAmountBooleanTransaction = (transaction, toContract)=> {
+    transaction.params.data = [
+      toContract.signature,
+      toContract.params[1]
+    ];
+    if(!transaction.params.amounts[1]) { transaction.params.amounts[1] = '0'; }
+    if(!transaction.params.amounts[2]) { transaction.params.amounts[2] = '0'; }
+    if(!transaction.params.amounts[3]) { transaction.params.amounts[3] = '0'; }
+    if(!transaction.params.amounts[4]) { transaction.params.amounts[4] = '0'; }
+    transaction.params.amounts[5] = toContract.params[0];
+    return transaction
+  };
+
   var plugins = {
     ethereum: {
       payment: {
@@ -51054,29 +51096,20 @@
       },
       uniswap_v2: {
         address: '0xe04b08Dfc6CaA0F4Ec523a3Ae283Ece7efE00019',
-        prepareTransaction: (transaction)=> {
-          transaction.params.path = transaction.params.path.filter((token, index, path)=>{
-            if(
-              index == 1 &&
-              token == CONSTANTS$2[transaction.blockchain].WRAPPED &&
-              path[0] == CONSTANTS$2[transaction.blockchain].NATIVE
-            ) { 
-              return false
-            } else if (
-              index == path.length-2 &&
-              token == CONSTANTS$2[transaction.blockchain].WRAPPED &&
-              path[path.length-1] == CONSTANTS$2[transaction.blockchain].NATIVE
-            ) {
-              return false
-            } else {
-              return true
-            }
-          });
-          return transaction
-        }
+        prepareTransaction: prepareUniswapTransaction
       },
       paymentWithEvent: {
         address: '0xD8fBC10787b019fE4059Eb5AA5fB11a5862229EF'
+      },
+      contractCall: {
+        approveAndCallContractAddressAmountBoolean: {
+          address: '0xF984eb8b466AD6c728E0aCc7b69Af6f69B32437F',
+          prepareTransaction: prepareContractCallAddressAmountBooleanTransaction
+        },
+        approveAndCallContractAddressPassedAmountBoolean: {
+          address: '0x2D18c5A46cc1780d2460DD51B5d0996e55Fd2446',
+          prepareTransaction: prepareContractCallAddressPassedAmountBooleanTransaction
+        }
       }
     },
     bsc: {
@@ -51085,29 +51118,20 @@
       },
       pancakeswap: {
         address: '0xAC3Ec4e420DD78bA86d932501E1f3867dbbfb77B',
-        prepareTransaction: (transaction)=> {
-          transaction.params.path = transaction.params.path.filter((token, index, path)=>{
-            if(
-              index == 1 &&
-              token == CONSTANTS$2[transaction.blockchain].WRAPPED &&
-              path[0] == CONSTANTS$2[transaction.blockchain].NATIVE
-            ) { 
-              return false
-            } else if (
-              index == path.length-2 &&
-              token == CONSTANTS$2[transaction.blockchain].WRAPPED &&
-              path[path.length-1] == CONSTANTS$2[transaction.blockchain].NATIVE
-            ) {
-              return false
-            } else {
-              return true
-            }
-          });
-          return transaction
-        }
+        prepareTransaction: prepareUniswapTransaction
       },
       paymentWithEvent: {
         address: '0x1869E236c03eE67B9FfEd3aCA139f4AeBA79Dc21'
+      },
+      contractCall: {
+        approveAndCallContractAddressAmountBoolean: {
+          address: '0xd73dFeF8F9c213b449fB39B84c2b33FBBc2C8eD3',
+          prepareTransaction: prepareContractCallAddressAmountBooleanTransaction
+        },
+        approveAndCallContractAddressPassedAmountBoolean: {
+          address: '0x7E655088214d0657251A51aDccE9109CFd23B5B5',
+          prepareTransaction: prepareContractCallAddressPassedAmountBooleanTransaction
+        }
       }
     } 
   };
@@ -55263,7 +55287,7 @@
       return logger.throwError(fault, Logger.errors.NUMERIC_FAULT, params);
   }
 
-  let routeToTransaction = ({ paymentRoute, event })=> {
+  let getTransaction = ({ paymentRoute, event })=> {
     let exchangeRoute = paymentRoute.exchangeRoutes[0];
 
     let transaction = {
@@ -55276,10 +55300,13 @@
     };
 
     if(exchangeRoute) {
-      let exchangePlugin = plugins[paymentRoute.blockchain][exchangeRoute.exchange.name];
-      if(exchangePlugin) {
-        transaction = exchangePlugin.prepareTransaction(transaction);
+      if(paymentRoute.exchangePlugin) {
+        transaction = paymentRoute.exchangePlugin.prepareTransaction(transaction);
       }
+    }
+
+    if(paymentRoute.contractCallPlugin) {
+      transaction = paymentRoute.contractCallPlugin.prepareTransaction(transaction, paymentRoute.toContract);
     }
 
     return transaction
@@ -55355,7 +55382,7 @@
         exchangeRoute.transaction.params.deadline
       ]
     } else {
-      return [paymentRoute.toAmount]
+      return [paymentRoute.toAmount, paymentRoute.toAmount]
     }
   };
 
@@ -55367,10 +55394,24 @@
     let paymentPlugins = [];
 
     if(exchangeRoute) {
-      paymentPlugins.push(plugins[paymentRoute.blockchain][exchangeRoute.exchange.name].address);
+      paymentRoute.exchangePlugin = plugins[paymentRoute.blockchain][exchangeRoute.exchange.name];
+      paymentPlugins.push(paymentRoute.exchangePlugin.address);
     }
 
-    if(event == 'ifSwapped' && !paymentRoute.directTransfer) {
+    if(paymentRoute.toContract) {
+      let signature = paymentRoute.toContract.signature.match(/(?<=\().*(?=\))/);
+      if(signature) {
+        let splitSignature = signature[0].split(',');
+        if(splitSignature[0] == 'address' && splitSignature[1].match('uint') && splitSignature[2] == 'bool' && Number.isNaN(parseInt(paymentRoute.toContract.params[0]))) {
+          paymentRoute.contractCallPlugin = plugins[paymentRoute.blockchain].contractCall.approveAndCallContractAddressAmountBoolean;
+        } else if(splitSignature[0] == 'address' && splitSignature[1].match('uint') && splitSignature[2] == 'bool' && !Number.isNaN(parseInt(paymentRoute.toContract.params[0]))) {
+          paymentRoute.contractCallPlugin = plugins[paymentRoute.blockchain].contractCall.approveAndCallContractAddressPassedAmountBoolean;
+        } else {
+          throw(signature)
+        }
+        paymentPlugins.push(paymentRoute.contractCallPlugin.address);
+      }
+    } else if(event == 'ifSwapped' && !paymentRoute.directTransfer) {
       paymentPlugins.push(plugins[paymentRoute.blockchain].paymentWithEvent.address);
     } else {
       paymentPlugins.push(plugins[paymentRoute.blockchain].payment.address);
@@ -55393,7 +55434,7 @@
 
   function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   class PaymentRoute {
-    constructor({ blockchain, fromToken, toToken, toAmount, fromAddress, toAddress }) {
+    constructor({ blockchain, fromToken, toToken, toAmount, fromAddress, toAddress, toContract }) {
       this.blockchain = blockchain;
       this.fromToken = fromToken;
       this.fromBalance = 0;
@@ -55401,6 +55442,7 @@
       this.toAmount = _optionalChain([toAmount, 'optionalAccess', _ => _.toString, 'call', _2 => _2()]);
       this.fromAddress = fromAddress;
       this.toAddress = toAddress;
+      this.toContract = toContract;
       this.exchangeRoutes = [];
       this.transaction = undefined;
       this.approvalRequired = undefined;
@@ -55467,7 +55509,8 @@
           toToken: toToken,
           toAmount: configuration.amount,
           fromAddress: configuration.fromAddress,
-          toAddress: configuration.toAddress
+          toAddress: configuration.toAddress,
+          toContract: configuration.toContract
         })
       })
     }).flat()
@@ -55584,8 +55627,10 @@
       (allowances) => {
         routes.forEach((route, index) => {
           if(
-            route.directTransfer ||
-            route.fromToken.address.toLowerCase() == CONSTANTS$2[route.blockchain].NATIVE.toLowerCase()
+            (
+              route.directTransfer ||
+              route.fromToken.address.toLowerCase() == CONSTANTS$2[route.blockchain].NATIVE.toLowerCase()
+            ) && route.toContract == undefined
           ) {
             routes[index].approvalRequired = false;
           } else {
@@ -55608,7 +55653,7 @@
 
   let addDirectTransferStatus = (routes) => {
     return routes.map((route)=>{
-      route.directTransfer = route.fromToken.address.toLowerCase() == route.toToken.address.toLowerCase();
+      route.directTransfer = route.fromToken.address.toLowerCase() == route.toToken.address.toLowerCase() && route.toContract == undefined;
       return route
     })
   };
@@ -55691,7 +55736,7 @@
 
   let addTransactions = ({ routes, event }) => {
     return routes.map((route)=>{
-      route.transaction = routeToTransaction({ paymentRoute: route, event });
+      route.transaction = getTransaction({ paymentRoute: route, event });
       route.event = !route.directTransfer;
       return route
     })
@@ -55722,6 +55767,16 @@
     var _useContext2 = react.useContext(UpdateContext),
         update = _useContext2.update;
 
+    var prepareAcceptedPayments = function prepareAcceptedPayments(accept) {
+      var toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
+      var toContract = _typeof(accept.receiver) == 'object' ? accept.receiver : undefined;
+      return _objectSpread(_objectSpread({}, accept), {}, {
+        toAddress: toAddress,
+        toContract: toContract,
+        fromAddress: account
+      });
+    };
+
     var getPaymentRoutes = function getPaymentRoutes(_ref) {
       var allRoutes = _ref.allRoutes,
           selectedRoute = _ref.selectedRoute,
@@ -55732,12 +55787,7 @@
       }
 
       route({
-        accept: props.accept.map(function (configuration) {
-          return _objectSpread(_objectSpread({}, configuration), {}, {
-            fromAddress: account,
-            toAddress: configuration.receiver
-          });
-        }),
+        accept: props.accept.map(prepareAcceptedPayments),
         whitelist: props.whitelist,
         blacklist: props.blacklist,
         event: props.event,
