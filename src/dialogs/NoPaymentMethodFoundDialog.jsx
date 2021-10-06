@@ -1,9 +1,11 @@
+import ClosableContext from '../contexts/ClosableContext'
 import Dialog from '../components/Dialog'
 import QuestionsGraphic from '../graphics/questions'
-import React from 'react'
+import React, { useContext } from 'react'
 
 export default ()=> {
 
+  const { close } = useContext(ClosableContext)
 
   return(
     <Dialog
@@ -17,11 +19,18 @@ export default ()=> {
             <img className="Graphic" src={ QuestionsGraphic }/>
           </div>
           <h1 className="Text FontSizeL PaddingTopS FontWeightBold">Insufficient Balance</h1>
-          <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
+          <div className="Text PaddingTopS PaddingBottomM PaddingLeftM PaddingRightM">
             <strong className="FontSizeM">
               We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.
             </strong>
           </div>
+        </div>
+      }
+      footer={
+        <div>
+          <button className="ButtonPrimary" onClick={close}>
+            Ok
+          </button>
         </div>
       }
     />
