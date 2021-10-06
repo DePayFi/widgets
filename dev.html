@@ -8,7 +8,7 @@
     <script src="https://cdn.ethers.io/lib/ethers-5.4.umd.min.js" type="application/javascript"></script>
     <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <script crossorigin src="https://unpkg.com/depay-react-dialog@9/dist/umd/index.js"></script>
+    <script crossorigin src="https://unpkg.com/depay-react-dialog@10/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-react-dialog-stack@2/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-react-shadow-dom@2/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-web3-blockchains@2/dist/umd/index.js"></script>
@@ -245,8 +245,24 @@
       <div class="col-4"></div>
     </div><!-- Donation -->
 
-    
+    <div class="container pb-4"><!-- Connect -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <h2 class="pt-5">Connect</h2>
 
+        <button id="connectButton" class="btn-lg mt-2">Connect</button>
+        <script>
+          var button = document.getElementById("connectButton");
+          button.addEventListener("click",async function(e){
+            let { account, accounts, wallet } = await DePayWidgets.Connect()
+            alert(`${wallet.name} ${account}`)
+            console.log(account, accounts)
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Payment -->
 
   </body>
 </html>

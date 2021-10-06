@@ -1,7 +1,6 @@
 import Checkmark from '../components/Checkmark'
 import ChevronRight from '../components/ChevronRight'
 import ClosableContext from '../contexts/ClosableContext'
-import ConnectingWalletDialog from './ConnectingWalletDialog'
 import Dialog from '../components/Dialog'
 import format from '../helpers/format'
 import LoadingText from '../components/LoadingText'
@@ -17,7 +16,6 @@ import { TokenImage } from 'depay-react-token-image'
 export default (props)=>{
 
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
-  const { walletState } = useContext(WalletContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
@@ -77,7 +75,6 @@ export default (props)=>{
     )
   }
 
-  if(walletState == 'connecting') { return(<ConnectingWalletDialog/>) }
   if(payment == undefined || paymentValue == undefined) { return(<PaymentOverviewSkeleton/>) }
 
   return(

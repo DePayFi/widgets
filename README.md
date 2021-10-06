@@ -1176,6 +1176,22 @@ let { unmount } = await DePayWidgets.Payment({})
 unmount()
 ```
 
+## DePay Connect
+
+DePay Connect allows you to have your users connect their crypto wallet to your dApp or website.
+
+Returns connected `account`, `accounts` and `wallet` in return. 
+
+```
+<script src="https://depay.fi/integrate/widgets/v2.js"/>
+```
+
+```javascript
+let { account, accounts, wallet }  = await DePayWidgets.Connect()
+```
+
+See [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets) for more details about the returned `wallet`.
+
 ## Development
 
 ### Quick start

@@ -1,8 +1,9 @@
+import ConnectingWalletDialog from '../dialogs/ConnectingWalletDialog'
+import ConnectStack from '../stacks/ConnectStack'
 import ErrorContext from '../contexts/ErrorContext'
 import React, { useState, useEffect, useContext } from 'react'
 import WalletContext from '../contexts/WalletContext'
 import WalletRequestPendingDialog from '../dialogs/WalletRequestPendingDialog'
-import WalletUnavailableDialog from '../dialogs/WalletUnavailableDialog'
 import { getWallet } from 'depay-web3-wallets'
 import { ReactDialog } from 'depay-react-dialog'
 
@@ -12,6 +13,9 @@ export default (props)=>{
   const [wallet, setWallet] = useState()
   const [account, setAccount] = useState()
   const [walletState, setWalletState] = useState()
+  const connected = ({ wallet })=> {
+    setWallet(wallet)
+  }
   const connect = ()=>{
     setWalletState('connecting')
     wallet.connect().then((accounts)=>{
@@ -41,21 +45,29 @@ export default (props)=>{
   useEffect(()=>{
     let _wallet = getWallet()
     if(_wallet) {
-      setWalletState('found')
       setWallet(_wallet)
     } else {
       setWalletState('unavailable')
     }
   }, [])
 
-  useEffect(()=>{
+  useEffect(async ()=>{
     if(wallet) { 
-      connect()
+      let accounts = await wallet.accounts()
+      if(accounts == undefined || accounts.length == 0) {
+        connect()
+      } else {
+        setWalletState('connected')
+        if(props.connected) { props.connected(accounts[0]) }
+        setAccount(accounts[0])
+      }
     }
   }, [wallet])
 
-  if(walletState == 'unavailable') {
-    return(<WalletUnavailableDialog connect={ connect } setWallet={ setWallet } container={ props.container }/>)
+  if(wallet && walletState == 'connecting') { 
+    return(<ConnectingWalletDialog wallet={ wallet } unmount={ props.unmount } container={ props.container } connect={ connect }/>) 
+  } else if(walletState == 'unavailable') {
+    return(<ConnectStack document={ props.document } container={ props.container } connected={ connected } />)
   } else if(walletState == 'requestPending') {
     return(<WalletRequestPendingDialog wallet={ wallet } unmount={ props.unmount } container={ props.container }/>)
   } else {
