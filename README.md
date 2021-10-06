@@ -1187,7 +1187,7 @@ Returns connected `account`, `accounts` and `wallet` in return.
 ```
 
 ```javascript
-let { account, accounts, wallet }  = DePayWidgets.Connect()''
+let { account, accounts, wallet }  = await DePayWidgets.Connect()
 ```
 
 See [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets) for more details about the returned `wallet`.
