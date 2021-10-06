@@ -3078,17 +3078,17 @@ depay-local-currency@^1.1.0:
   resolved "https://registry.yarnpkg.com/depay-local-currency/-/depay-local-currency-1.1.0.tgz#4bac293874ca4d550057f7e78c6051ddafb96534"
   integrity sha512-S9hNB+mKw3JWOHg0Mw14CqkwoTRFYMkxjavhILaV1klcYgRMZVBF2GedxoMJtt2bwU3zqElhGv2uOlWYhdrtWA==
 
-depay-react-dialog-stack@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/depay-react-dialog-stack/-/depay-react-dialog-stack-2.0.0.tgz#95da18e16b0ee070aa7286367ed1e359c0f3caf0"
-  integrity sha512-IkBIR6PHQ8upo78YNN7ia8pXtEYX6+IM9ZYPs9TQyA5LTFWXhf6h29W9XzqiP5cnr49EFA23AOEv8jQZ/01Buw==
+depay-react-dialog-stack@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/depay-react-dialog-stack/-/depay-react-dialog-stack-2.1.0.tgz#08cd68ba9e6972b151da970d8f6e53edfcadf563"
+  integrity sha512-XKEf+LEpSgIwhpx453EVRPcnuxTL7WFJuffDFTnooHhyIIF34zyC4BdBeH//gdm07RXCzyy8TQ0SzvU8+jc0Kw==
   dependencies:
-    depay-react-dialog "^9.1.0"
+    depay-react-dialog "^10.0.1"
 
-depay-react-dialog@^9.1.0:
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/depay-react-dialog/-/depay-react-dialog-9.1.0.tgz#0f76733a447844d186380508348129640cd14e8e"
-  integrity sha512-ZXNHBiDfmF3Y9ORuTGStdTwSTHvN/ES/lxbPeXQPmM729NtTBTtJbXRbhyezDFi+ktfl3mwatUVc8nv6Ii5bCg==
+depay-react-dialog@^10.0.1:
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/depay-react-dialog/-/depay-react-dialog-10.0.1.tgz#6b71104973dd1f1d979773943408bfe934be8549"
+  integrity sha512-SziAbCY6cCr6hZUoKJQ6yZxddSsBMZmPg4UmRw7d+HaSbouVBxf6s4wfxc0FC/wnVlF210SVw4cU9qb1fiyM9A==
   dependencies:
     react-dom "^17.0.1"
 
@@ -3142,10 +3142,10 @@ depay-web3-tokens@^6.0.0:
   resolved "https://registry.yarnpkg.com/depay-web3-tokens/-/depay-web3-tokens-6.0.0.tgz#995cf9faeb1ca26e0d899d72fcef9f38e1c3740d"
   integrity sha512-+ynGBo1y3SpAZjJxkKmatGAh74C3b68qQFMDfM/N4eVDhpaUVbdllO/wGa/kMzFahPQXaA9DTFlVGwssFki0vg==
 
-depay-web3-wallets@^5.6.9:
-  version "5.6.9"
-  resolved "https://registry.yarnpkg.com/depay-web3-wallets/-/depay-web3-wallets-5.6.9.tgz#1be7ca96335d9cc3f4ef1826ace9e275a170ab3f"
-  integrity sha512-RnO8AthrmjMbcPTtG2HcBCyzq37DjmPzcgj1AoYfMHzGpBR6wzMeB4GZPbPkrdmuYSHuRHJuNc1/C9pi0tmGPQ==
+depay-web3-wallets@^5.6.11:
+  version "5.6.11"
+  resolved "https://registry.yarnpkg.com/depay-web3-wallets/-/depay-web3-wallets-5.6.11.tgz#8c8c179b1574a7aef7941a30a5eac82cea5e8d2d"
+  integrity sha512-Y/L3ZxcH87m2ZZtvTxcHdelK09qOt7c0m4jU6FtAuxqJqVl9Q/0uLqZ+in7jYda8nTdNS4fJxOIA/01XlPqquw==
 
 detect-browser@5.2.0:
   version "5.2.0"

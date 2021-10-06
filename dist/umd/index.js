@@ -1,14 +1,125 @@
+
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('depay-web3-client'), require('react-dom'), require('depay-react-shadow-dom'), require('depay-react-dialog-stack'), require('depay-web3-constants'), require('ethers'), require('depay-web3-payments'), require('depay-react-token-image'), require('depay-web3-blockchains'), require('depay-local-currency'), require('depay-web3-exchanges'), require('depay-web3-tokens'), require('depay-web3-wallets'), require('react-rangeslider')) :
-  typeof define === 'function' && define.amd ? define(['react', 'depay-web3-client', 'react-dom', 'depay-react-shadow-dom', 'depay-react-dialog-stack', 'depay-web3-constants', 'ethers', 'depay-web3-payments', 'depay-react-token-image', 'depay-web3-blockchains', 'depay-local-currency', 'depay-web3-exchanges', 'depay-web3-tokens', 'depay-web3-wallets', 'react-rangeslider'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.Web3Client, global.ReactDOM, global.ReactShadowDOM, global.ReactDialogStack, global.Web3Constants, global.ethers, global.Web3Payments, global.ReactTokenImage, global.Web3Blockchains, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.Web3Wallets, global.ReactRangeslider));
-}(this, (function (React, depayWeb3Client, ReactDOM, depayReactShadowDom, depayReactDialogStack, depayWeb3Constants, ethers, depayWeb3Payments, depayReactTokenImage, depayWeb3Blockchains, depayLocalCurrency, depayWeb3Exchanges, depayWeb3Tokens, depayWeb3Wallets, Slider) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('depay-react-dialog-stack'), require('depay-web3-wallets'), require('depay-react-shadow-dom'), require('depay-web3-client'), require('depay-web3-constants'), require('ethers'), require('depay-web3-payments'), require('depay-local-currency'), require('depay-web3-exchanges'), require('depay-web3-tokens'), require('react-rangeslider'), require('depay-react-token-image'), require('depay-web3-blockchains'), require('react-dom')) :
+  typeof define === 'function' && define.amd ? define(['react', 'depay-react-dialog-stack', 'depay-web3-wallets', 'depay-react-shadow-dom', 'depay-web3-client', 'depay-web3-constants', 'ethers', 'depay-web3-payments', 'depay-local-currency', 'depay-web3-exchanges', 'depay-web3-tokens', 'react-rangeslider', 'depay-react-token-image', 'depay-web3-blockchains', 'react-dom'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.ReactDialogStack, global.Web3Wallets, global.ReactShadowDOM, global.Web3Client, global.Web3Constants, global.ethers, global.Web3Payments, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.ReactRangeslider, global.ReactTokenImage, global.Web3Blockchains, global.ReactDOM));
+}(this, (function (React, depayReactDialogStack, depayWeb3Wallets, depayReactShadowDom, depayWeb3Client, depayWeb3Constants, ethers, depayWeb3Payments, depayLocalCurrency, depayWeb3Exchanges, depayWeb3Tokens, Slider, depayReactTokenImage, depayWeb3Blockchains, ReactDOM) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
   var React__default$1 = /*#__PURE__*/_interopDefaultLegacy(React);
-  var ReactDOM__default$1 = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
   var Slider__default = /*#__PURE__*/_interopDefaultLegacy(Slider);
+  var ReactDOM__default$1 = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
+
+  function _typeof(obj) {
+    "@babel/helpers - typeof";
+
+    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+      _typeof = function _typeof(obj) {
+        return typeof obj;
+      };
+    } else {
+      _typeof = function _typeof(obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      };
+    }
+
+    return _typeof(obj);
+  }
+
+  function _arrayWithHoles(arr) {
+    if (Array.isArray(arr)) return arr;
+  }
+
+  function _iterableToArrayLimit(arr, i) {
+    var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+    if (_i == null) return;
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+
+    var _s, _e;
+
+    try {
+      for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
+
+        if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"] != null) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+
+    return _arr;
+  }
+
+  function _arrayLikeToArray(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
+
+    for (var i = 0, arr2 = new Array(len); i < len; i++) {
+      arr2[i] = arr[i];
+    }
+
+    return arr2;
+  }
+
+  function _unsupportedIterableToArray(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+  }
+
+  function _nonIterableRest() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  function _slicedToArray(arr, i) {
+    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+  }
+
+  var ClosableContext = /*#__PURE__*/React__default$1['default'].createContext();
+
+  var ClosableProvider = (function (props) {
+    var _useState = React.useState(true),
+        _useState2 = _slicedToArray(_useState, 2),
+        closable = _useState2[0],
+        setClosable = _useState2[1];
+
+    var _useState3 = React.useState(true),
+        _useState4 = _slicedToArray(_useState3, 2),
+        open = _useState4[0],
+        setOpen = _useState4[1];
+
+    var close = function close() {
+      if (!closable) {
+        return;
+      }
+
+      setOpen(false);
+      setTimeout(props.unmount, 300);
+    };
+
+    return /*#__PURE__*/React__default$1['default'].createElement(ClosableContext.Provider, {
+      value: {
+        closable: closable,
+        setClosable: setClosable,
+        close: close,
+        open: open
+      }
+    }, props.children);
+  });
 
   function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
     try {
@@ -809,112 +920,210 @@
 
   var regenerator = runtime_1;
 
-  function _arrayWithHoles(arr) {
-    if (Array.isArray(arr)) return arr;
-  }
-
-  function _iterableToArrayLimit(arr, i) {
-    var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
-
-    if (_i == null) return;
-    var _arr = [];
-    var _n = true;
-    var _d = false;
-
-    var _s, _e;
-
-    try {
-      for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
-        _arr.push(_s.value);
-
-        if (i && _arr.length === i) break;
-      }
-    } catch (err) {
-      _d = true;
-      _e = err;
-    } finally {
-      try {
-        if (!_n && _i["return"] != null) _i["return"]();
-      } finally {
-        if (_d) throw _e;
-      }
-    }
-
-    return _arr;
-  }
-
-  function _arrayLikeToArray(arr, len) {
-    if (len == null || len > arr.length) len = arr.length;
-
-    for (var i = 0, arr2 = new Array(len); i < len; i++) {
-      arr2[i] = arr[i];
-    }
-
-    return arr2;
-  }
-
-  function _unsupportedIterableToArray(o, minLen) {
-    if (!o) return;
-    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-    var n = Object.prototype.toString.call(o).slice(8, -1);
-    if (n === "Object" && o.constructor) n = o.constructor.name;
-    if (n === "Map" || n === "Set") return Array.from(o);
-    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-  }
-
-  function _nonIterableRest() {
-    throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-  }
-
-  function _slicedToArray(arr, i) {
-    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-  }
-
-  var ClosableContext = /*#__PURE__*/React__default$1['default'].createContext();
-
-  var ClosableProvider = (function (props) {
-    var _useState = React.useState(true),
-        _useState2 = _slicedToArray(_useState, 2),
-        closable = _useState2[0],
-        setClosable = _useState2[1];
-
-    var _useState3 = React.useState(true),
-        _useState4 = _slicedToArray(_useState3, 2),
-        open = _useState4[0],
-        setOpen = _useState4[1];
-
-    var close = function close() {
-      if (!closable) {
-        return;
-      }
-
-      setOpen(false);
-      setTimeout(props.unmount, 300);
-    };
-
-    return /*#__PURE__*/React__default$1['default'].createElement(ClosableContext.Provider, {
-      value: {
-        closable: closable,
-        setClosable: setClosable,
-        close: close,
-        open: open
-      }
-    }, props.children);
+  var ChevronRight = (function () {
+    return /*#__PURE__*/React__default$1['default'].createElement("svg", {
+      className: "ChevronRight Icon",
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      viewBox: "0 0 16 16"
+    }, /*#__PURE__*/React__default$1['default'].createElement("path", {
+      strokeWidth: "1",
+      fillRule: "evenodd",
+      d: "M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+    }));
   });
 
-  var ConfigurationContext = /*#__PURE__*/React__default$1['default'].createContext();
+  var ChevronLeft = (function () {
+    return /*#__PURE__*/React__default$1['default'].createElement("svg", {
+      className: "ChevronLeft Icon",
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      viewBox: "0 0 16 16"
+    }, /*#__PURE__*/React__default$1['default'].createElement("path", {
+      strokeWidth: "1",
+      fillRule: "evenodd",
+      d: "M10.4,1.6c0.2,0.2,0.2,0.5,0,0.7L4.7,8l5.6,5.6c0.2,0.2,0.2,0.5,0,0.7s-0.5,0.2-0.7,0l-6-6l0,0,c-0.2-0.2-0.2-0.5,0-0.7l6-6l0,0C9.8,1.5,10.2,1.5,10.4,1.6L10.4,1.6z"
+    }));
+  });
 
-  var ConfigurationProvider = (function (props) {
-    React.useEffect(function () {
-      if (props.configuration.providers != undefined) {
-        Object.entries(props.configuration.providers).forEach(function (entry) {
-          depayWeb3Client.setProvider(entry[0], entry[1]);
-        });
+  var CloseIcon = (function () {
+    return /*#__PURE__*/React__default$1['default'].createElement("svg", {
+      className: "CloseIcon Icon",
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "24",
+      height: "24",
+      viewBox: "0 0 24 24",
+      strokeWidth: "2",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    }, /*#__PURE__*/React__default$1['default'].createElement("line", {
+      x1: "18",
+      y1: "6",
+      x2: "6",
+      y2: "18"
+    }), /*#__PURE__*/React__default$1['default'].createElement("line", {
+      x1: "6",
+      y1: "6",
+      x2: "18",
+      y2: "18"
+    }));
+  });
+
+  var Dialog$1 = (function (props) {
+    var _useContext = React.useContext(depayReactDialogStack.NavigateStackContext),
+        navigate = _useContext.navigate;
+
+    var _useContext2 = React.useContext(ClosableContext),
+        close = _useContext2.close,
+        closable = _useContext2.closable;
+
+    return /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "Dialog"
+    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: ["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')
+    }, props.stacked && /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/React__default$1['default'].createElement("button", {
+      onClick: function onClick() {
+        return navigate('back');
+      },
+      className: "ButtonCircular",
+      title: "Go back"
+    }, /*#__PURE__*/React__default$1['default'].createElement(ChevronLeft, null))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "DialogHeaderTitle"
+    }, props.header), /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
+    }, closable && /*#__PURE__*/React__default$1['default'].createElement("button", {
+      onClick: close,
+      className: "ButtonCircular",
+      title: "Close dialog"
+    }, /*#__PURE__*/React__default$1['default'].createElement(CloseIcon, null)))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "DialogBody"
+    }, props.body), /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "DialogFooter"
+    }, props.footer, /*#__PURE__*/React__default$1['default'].createElement("a", {
+      href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
+      rel: "noopener noreferrer",
+      target: "_blank",
+      className: "FooterLink"
+    }, "by DePay")));
+  });
+
+  var SelectWalletDialog = (function (props) {
+    var _useState = React.useState(false),
+        _useState2 = _slicedToArray(_useState, 2),
+        showExplanation = _useState2[0],
+        setShowExplanation = _useState2[1];
+
+    var walletCards = depayWeb3Wallets.supported.map(function (wallet, index) {
+      return /*#__PURE__*/React__default$1['default'].createElement("button", {
+        key: index,
+        className: "Card small",
+        title: "Connect ".concat(wallet.name),
+        onClick: /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+          return regenerator.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  props.setWallet(wallet);
+
+                case 1:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }))
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "CardImage PaddingLeftM"
+      }, /*#__PURE__*/React__default$1['default'].createElement("img", {
+        src: wallet.logo
+      })), /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "CardBodyWrapper PaddingLeftXS"
+      }, /*#__PURE__*/React__default$1['default'].createElement("h2", {
+        className: "CardText FontWeightBold"
+      }, wallet.name))));
+    });
+    return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
+      header: /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
+        className: "FontSizeL TextLeft"
+      }, "Select a wallet")),
+      body: /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopS PaddingBottomXS PaddingLeftS PaddingRightS"
+      }, walletCards),
+      footer: /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/React__default$1['default'].createElement("button", {
+        className: "FontSizeS FontWeightBold TextGrey TextButton",
+        onClick: function onClick() {
+          return setShowExplanation(!showExplanation);
+        }
+      }, /*#__PURE__*/React__default$1['default'].createElement("strong", null, "What is a wallet?")), showExplanation && /*#__PURE__*/React__default$1['default'].createElement("p", {
+        className: "PaddingLeftM PaddingRightM"
+      }, "Wallets are used to send, receive, and store digital assets. Wallets come in many forms. They are either built into your browser, an extension added to your browser, a piece of hardware plugged into your computer or even an app on your phone."))
+    });
+  });
+
+  var ConnectStack = (function (props) {
+    var _useContext = React.useContext(ClosableContext),
+        open = _useContext.open,
+        close = _useContext.close;
+
+    var setWallet = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(wallet) {
+        var accounts;
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return wallet.connect();
+
+              case 2:
+                accounts = _context.sent;
+
+                if (accounts == undefined || accounts.length == 0) ; else {
+                  props.connected({
+                    accounts: accounts,
+                    wallet: wallet
+                  });
+
+                  if (props.autoClose) {
+                    close();
+                  }
+                }
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function setWallet(_x) {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    return /*#__PURE__*/React__default$1['default'].createElement(depayReactDialogStack.ReactDialogStack, {
+      open: open,
+      close: close,
+      start: "SelectWallet",
+      container: props.container,
+      document: props.document,
+      dialogs: {
+        SelectWallet: /*#__PURE__*/React__default$1['default'].createElement(SelectWalletDialog, {
+          setWallet: setWallet
+        })
       }
-    }, [props.configuration]);
-    return /*#__PURE__*/React__default$1['default'].createElement(ConfigurationContext.Provider, {
-      value: props.configuration
-    }, props.children);
+    });
   });
 
   var ensureDocument = (function (document) {
@@ -922,383 +1131,6 @@
       return window.document;
     } else {
       return document;
-    }
-  });
-
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
-
-  function _defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  function _createClass(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties(Constructor, staticProps);
-    return Constructor;
-  }
-
-  function _setPrototypeOf(o, p) {
-    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-      o.__proto__ = p;
-      return o;
-    };
-
-    return _setPrototypeOf(o, p);
-  }
-
-  function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-      throw new TypeError("Super expression must either be null or a function");
-    }
-
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-      constructor: {
-        value: subClass,
-        writable: true,
-        configurable: true
-      }
-    });
-    if (superClass) _setPrototypeOf(subClass, superClass);
-  }
-
-  function _typeof(obj) {
-    "@babel/helpers - typeof";
-
-    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-      _typeof = function _typeof(obj) {
-        return typeof obj;
-      };
-    } else {
-      _typeof = function _typeof(obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-      };
-    }
-
-    return _typeof(obj);
-  }
-
-  function _assertThisInitialized(self) {
-    if (self === void 0) {
-      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-
-    return self;
-  }
-
-  function _possibleConstructorReturn(self, call) {
-    if (call && (_typeof(call) === "object" || typeof call === "function")) {
-      return call;
-    } else if (call !== void 0) {
-      throw new TypeError("Derived constructors may only return object or undefined");
-    }
-
-    return _assertThisInitialized(self);
-  }
-
-  function _getPrototypeOf(o) {
-    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-      return o.__proto__ || Object.getPrototypeOf(o);
-    };
-    return _getPrototypeOf(o);
-  }
-
-  var ErrorContext = /*#__PURE__*/React__default$1['default'].createContext();
-
-  var ErrorGraphic = "data:image/png;base64,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";
-
-  function _interopDefaultLegacy$1 (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-  var React__default = /*#__PURE__*/_interopDefaultLegacy$1(React__default$1['default']);
-  var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy$1(ReactDOM__default$1['default']);
-
-  function ReactDialogStyle (styles) {
-    let background =
-      typeof styles === 'object' && styles.background ? styles.background : 'rgba(0,0,0,0.4)';
-
-    return (
-      `
-    .ReactDialog {
-      bottom: 0;
-      display: table-row-group;
-      height: 100%;
-      left: 0;
-      overflow: hidden;
-      position: absolute;
-      right: 0;
-      top: 0;
-      user-select: none;
-      width: 100%;
-    }
-
-    .ReactDialogRow {
-      display: table-row;
-      height: 100%;
-      width: 100%;
-    }
-
-    .ReactDialogCell {
-      display: table-cell;
-      height: 100%;
-      vertical-align: middle;
-      width: 100%;
-      text-align: center;
-    }
-
-    .ReactDialogBackground {
-      background: ` +
-      background +
-      `;
-      bottom: 0;
-      display: block;
-      height: 100vh;
-      left: 0;
-      opacity: 0;
-      position: absolute;
-      right: 0;
-      top: 0;
-      transition: opacity 0.4s ease;
-      width: 100vw;
-    }
-
-    .ReactDialog.ReactDialogOpen .ReactDialogBackground {
-      opacity: 1;
-    }
-
-    .ReactDialogAnimation {
-      display: inline-block;
-      position: relative;
-      opacity: 0;
-      top: -17vh;
-      transition: opacity 0.4s ease, top 0.4s ease;
-    }
-
-    .ReactDialog.ReactDialogOpen .ReactDialogAnimation {
-      opacity: 1.0;
-      top: -5vh;
-    }
-  `
-    )
-  }
-
-  const _jsxFileName = "/Users/sebastian/Work/DePay/depay-react-dialog/src/components/Dialog.jsx";
-
-
-  class Dialog$1 extends React__default['default'].Component {
-    constructor(props) {
-      super(props);
-
-      this.state = {
-        open: true,
-      };
-    }
-
-    closeDialog() {
-      this.props.close();
-    }
-
-    onKeyDown(event) {
-      if (event.key === 'Escape') {
-        this.closeDialog();
-      }
-    }
-
-    componentDidUpdate(prevProps) {
-      if (this.props.open === false && prevProps.open === true) {
-        this.setState({ open: false });
-      }
-    }
-
-    onClickBackground(event) {
-      this.closeDialog();
-    }
-
-    componentDidMount() {
-      this.setState({ open: false }, () => {
-        // make sure state is false first before opening the dialog
-        // to ensure opening is animated
-        setTimeout(() => {
-          this.setState({ open: true });
-        }, 10);
-      });
-      this.props.document.addEventListener('keydown', this.onKeyDown.bind(this), false);
-    }
-
-    componentWillUnmount() {
-      this.props.document.addEventListener('keydown', this.onKeyDown.bind(this), false);
-    }
-
-    render() {
-      const classNames = ['ReactDialog', this.state.open ? 'ReactDialogOpen' : ''];
-      const style = ReactDialogStyle({ background: this.props.background });
-      return (
-        React__default['default'].createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName, lineNumber: 54}}
-          , React__default['default'].createElement('style', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 55}}, style)
-          , React__default['default'].createElement('div', { className: "ReactDialogRow", __self: this, __source: {fileName: _jsxFileName, lineNumber: 56}}
-            , React__default['default'].createElement('div', { className: "ReactDialogCell", __self: this, __source: {fileName: _jsxFileName, lineNumber: 57}}
-              , React__default['default'].createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName, lineNumber: 58}} )
-              , this.props.children
-            )
-          )
-        )
-      )
-    }
-  }
-
-  const _jsxFileName$1 = "/Users/sebastian/Work/DePay/depay-react-dialog/src/index.jsx";
-  class ReactDialog extends React__default['default'].Component {
-    constructor(props) {
-      super(props);
-
-      this.state = {
-        open: props.open,
-      };
-    }
-
-    componentDidUpdate(prevProps) {
-      if (this.props.open === false && prevProps.open === true) {
-        setTimeout(() => {
-          this.setState({ open: false });
-        }, 400);
-      } else if (this.props.open === true && prevProps.open === false) {
-        this.setState({ open: true });
-      }
-    }
-
-    render() {
-      let _document = this.props.document || document;
-      let container = this.props.container || _document.body;
-      if (this.state.open) {
-        return ReactDOM__default['default'].createPortal(
-          React__default['default'].createElement(Dialog$1, {
-            background: this.props.background,
-            close: this.props.close,
-            document: _document,
-            open: this.props.open, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 29}}
-          
-            , this.props.children
-          ),
-          container,
-        )
-      } else {
-        // enforces unmount
-        return null
-      }
-    }
-  }
-
-  var ReactDialog_1 = ReactDialog;
-
-  function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-  function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-  var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
-    _inherits(ErrorBoundary, _React$Component);
-
-    var _super = _createSuper(ErrorBoundary);
-
-    function ErrorBoundary(props) {
-      _classCallCheck(this, ErrorBoundary);
-
-      return _super.call(this, props);
-    }
-
-    _createClass(ErrorBoundary, [{
-      key: "componentDidCatch",
-      value: function componentDidCatch(error, errorInfo) {
-        this.props.setError(error);
-      }
-    }, {
-      key: "render",
-      value: function render() {
-        return this.props.children;
-      }
-    }]);
-
-    return ErrorBoundary;
-  }(React__default$1['default'].Component);
-
-  var ErrorProvider = (function (props) {
-    var _useState = React.useState(),
-        _useState2 = _slicedToArray(_useState, 2),
-        error = _useState2[0],
-        setError = _useState2[1];
-
-    var _useState3 = React.useState(true),
-        _useState4 = _slicedToArray(_useState3, 2),
-        open = _useState4[0],
-        setOpen = _useState4[1];
-
-    var setErrorFromChildren = function setErrorFromChildren(error) {
-      setError(error);
-
-      if (props.error) {
-        props.error(error);
-      }
-    };
-
-    var close = function close() {
-      setOpen(false);
-      setTimeout(props.unmount, 300);
-    };
-
-    if (error) {
-      return /*#__PURE__*/React__default$1['default'].createElement(ReactDialog_1, {
-        container: props.container,
-        close: close,
-        open: open
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "Dialog ReactDialogAnimation"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "DialogHeader"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftS PaddingRightS"
-      })), /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "DialogBody"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "GraphicWrapper"
-      }, /*#__PURE__*/React__default$1['default'].createElement("img", {
-        className: "Graphic",
-        src: ErrorGraphic
-      })), /*#__PURE__*/React__default$1['default'].createElement("h1", {
-        className: "Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Oops, Something Went Wrong"), /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", null, /*#__PURE__*/React__default$1['default'].createElement("strong", {
-        className: "FontSizeM FontItalic"
-      }, error.toString())), /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "PaddingTopS PaddingBottomS"
-      }, /*#__PURE__*/React__default$1['default'].createElement("strong", {
-        className: "FontSizeM PaddingTopS"
-      }, "If this keeps happening, please report it.")))), /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "DialogFooter"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", null, /*#__PURE__*/React__default$1['default'].createElement("button", {
-        className: "ButtonPrimary",
-        onClick: close
-      }, "Try again")), /*#__PURE__*/React__default$1['default'].createElement("a", {
-        href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
-        rel: "noopener noreferrer",
-        target: "_blank",
-        className: "FooterLink"
-      }, "by DePay"))));
-    } else {
-      return /*#__PURE__*/React__default$1['default'].createElement(ErrorContext.Provider, {
-        value: {
-          setError: setErrorFromChildren
-        }
-      }, /*#__PURE__*/React__default$1['default'].createElement(ErrorBoundary, {
-        setError: setErrorFromChildren
-      }, props.children));
     }
   });
 
@@ -1421,82 +1253,59 @@
     return unmount;
   });
 
-  var ChevronLeft = (function () {
-    return /*#__PURE__*/React__default$1['default'].createElement("svg", {
-      className: "ChevronLeft Icon",
-      xmlns: "http://www.w3.org/2000/svg",
-      width: "16",
-      height: "16",
-      viewBox: "0 0 16 16"
-    }, /*#__PURE__*/React__default$1['default'].createElement("path", {
-      strokeWidth: "1",
-      fillRule: "evenodd",
-      d: "M10.4,1.6c0.2,0.2,0.2,0.5,0,0.7L4.7,8l5.6,5.6c0.2,0.2,0.2,0.5,0,0.7s-0.5,0.2-0.7,0l-6-6l0,0,c-0.2-0.2-0.2-0.5,0-0.7l6-6l0,0C9.8,1.5,10.2,1.5,10.4,1.6L10.4,1.6z"
-    }));
+  var Connect = function Connect(options) {
+    var style, document;
+
+    if (_typeof(options) == 'object') {
+      style = options.style;
+      document = options.document;
+    }
+
+    return new Promise(function (resolve, reject) {
+      var connected = function connected(_ref) {
+        var accounts = _ref.accounts,
+            wallet = _ref.wallet;
+        resolve({
+          account: accounts[0],
+          accounts: accounts,
+          wallet: wallet
+        });
+      };
+
+      mount({
+        style: style,
+        document: ensureDocument(document)
+      }, function (unmount) {
+        return function (container) {
+          return /*#__PURE__*/React__default$1['default'].createElement(ClosableProvider, {
+            unmount: unmount
+          }, /*#__PURE__*/React__default$1['default'].createElement(ConnectStack, {
+            document: document,
+            container: container,
+            connected: connected,
+            autoClose: true
+          }));
+        };
+      });
+    });
+  };
+
+  var ConfigurationContext = /*#__PURE__*/React__default$1['default'].createContext();
+
+  var ConfigurationProvider = (function (props) {
+    React.useEffect(function () {
+      if (props.configuration.providers != undefined) {
+        Object.entries(props.configuration.providers).forEach(function (entry) {
+          depayWeb3Client.setProvider(entry[0], entry[1]);
+        });
+      }
+    }, [props.configuration]);
+    return /*#__PURE__*/React__default$1['default'].createElement(ConfigurationContext.Provider, {
+      value: props.configuration
+    }, props.children);
   });
 
-  var CloseIcon = (function () {
-    return /*#__PURE__*/React__default$1['default'].createElement("svg", {
-      className: "CloseIcon Icon",
-      xmlns: "http://www.w3.org/2000/svg",
-      width: "24",
-      height: "24",
-      viewBox: "0 0 24 24",
-      strokeWidth: "2",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    }, /*#__PURE__*/React__default$1['default'].createElement("line", {
-      x1: "18",
-      y1: "6",
-      x2: "6",
-      y2: "18"
-    }), /*#__PURE__*/React__default$1['default'].createElement("line", {
-      x1: "6",
-      y1: "6",
-      x2: "18",
-      y2: "18"
-    }));
-  });
-
-  var Dialog = (function (props) {
-    var _useContext = React.useContext(depayReactDialogStack.NavigateStackContext),
-        navigate = _useContext.navigate;
-
-    var _useContext2 = React.useContext(ClosableContext),
-        close = _useContext2.close,
-        closable = _useContext2.closable;
-
-    return /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "Dialog"
-    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: ["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')
-    }, props.stacked && /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/React__default$1['default'].createElement("button", {
-      onClick: function onClick() {
-        return navigate('back');
-      },
-      className: "ButtonCircular",
-      title: "Go back"
-    }, /*#__PURE__*/React__default$1['default'].createElement(ChevronLeft, null))), /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "DialogHeaderTitle"
-    }, props.header), /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
-    }, closable && /*#__PURE__*/React__default$1['default'].createElement("button", {
-      onClick: close,
-      className: "ButtonCircular",
-      title: "Close dialog"
-    }, /*#__PURE__*/React__default$1['default'].createElement(CloseIcon, null)))), /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "DialogBody"
-    }, props.body), /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "DialogFooter"
-    }, props.footer, /*#__PURE__*/React__default$1['default'].createElement("a", {
-      href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
-      rel: "noopener noreferrer",
-      target: "_blank",
-      className: "FooterLink"
-    }, "by DePay")));
-  });
+  var ErrorContext = /*#__PURE__*/React__default$1['default'].createContext();
 
   var QuestionsGraphic = "data:image/png;base64,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";
 
@@ -1504,7 +1313,7 @@
     var _useContext = React.useContext(ClosableContext),
         close = _useContext.close;
 
-    return /*#__PURE__*/React__default$1['default'].createElement(Dialog, {
+    return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM"
       }),
@@ -1929,11 +1738,372 @@
 
   var PaymentValueContext = /*#__PURE__*/React__default$1['default'].createContext();
 
+  var PaymentValueProvider = (function (props) {
+    var _useContext = React.useContext(ErrorContext),
+        setError = _useContext.setError;
+
+    var _useContext2 = React.useContext(WalletContext),
+        account = _useContext2.account;
+
+    var _useContext3 = React.useContext(UpdateContext),
+        update = _useContext3.update;
+
+    var _useContext4 = React.useContext(PaymentContext),
+        payment = _useContext4.payment;
+
+    var _useState = React.useState(),
+        _useState2 = _slicedToArray(_useState, 2),
+        paymentValue = _useState2[0],
+        setPaymentValue = _useState2[1];
+
+    var _useContext5 = React.useContext(ConfigurationContext),
+        currency = _useContext5.currency;
+
+    var _useState3 = React.useState(0),
+        _useState4 = _slicedToArray(_useState3, 2),
+        reloadCount = _useState4[0],
+        setReloadCount = _useState4[1];
+
+    var getToTokenLocalValue = function getToTokenLocalValue(_ref) {
+      var update = _ref.update,
+          payment = _ref.payment;
+
+      if (update == false || (payment === null || payment === void 0 ? void 0 : payment.route) == undefined) {
+        return;
+      }
+
+      Promise.all([depayWeb3Exchanges.route({
+        blockchain: payment.route.blockchain,
+        tokenIn: payment.route.fromToken.address,
+        tokenOut: depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD,
+        amountIn: payment.route.fromAmount,
+        fromAddress: account,
+        toAddress: account
+      }), new depayWeb3Tokens.Token({
+        blockchain: payment.route.blockchain,
+        address: depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD
+      }).decimals()]).then(function (_ref2) {
+        var _ref3 = _slicedToArray(_ref2, 2),
+            USDExchangeRoutes = _ref3[0],
+            USDDecimals = _ref3[1];
+
+        var USDRoute = USDExchangeRoutes[0];
+        var USDAmount;
+
+        if (payment.route.fromToken.address.toLowerCase() == depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+          USDAmount = payment.route.fromAmount.toString();
+        } else if (USDRoute == undefined) {
+          setPaymentValue('');
+          return;
+        } else {
+          USDAmount = USDRoute.amountOut.toString();
+        }
+
+        var USDValue = ethers.ethers.utils.formatUnits(USDAmount, USDDecimals);
+        depayLocalCurrency.Currency.fromUSD({
+          amount: USDValue,
+          code: currency,
+          apiKey: apiKey
+        }).then(setPaymentValue)["catch"](setError);
+      })["catch"](setError);
+    };
+
+    React.useEffect(function () {
+      if (account && payment) {
+        getToTokenLocalValue({
+          update: update,
+          payment: payment
+        });
+      }
+    }, [payment, account]);
+    React.useEffect(function () {
+      var timeout = setTimeout(function () {
+        setReloadCount(reloadCount + 1);
+        getToTokenLocalValue({
+          update: update
+        });
+      }, 15000);
+      return function () {
+        return clearTimeout(timeout);
+      };
+    }, [reloadCount, update]);
+    return /*#__PURE__*/React__default$1['default'].createElement(PaymentValueContext.Provider, {
+      value: {
+        paymentValue: paymentValue
+      }
+    }, props.children);
+  });
+
+  var DonationRoutingContext = /*#__PURE__*/React__default$1['default'].createContext();
+
+  var DonationRoutingProvider = (function (props) {
+    var _useContext = React.useContext(ConfigurationContext),
+        amount = _useContext.amount,
+        receiver = _useContext.receiver,
+        token = _useContext.token,
+        blockchains = _useContext.blockchains,
+        blacklist = _useContext.blacklist;
+
+    var _useContext2 = React.useContext(WalletContext),
+        account = _useContext2.account;
+
+    var _useState = React.useState(amount.start),
+        _useState2 = _slicedToArray(_useState, 2),
+        donatedAmount = _useState2[0],
+        setDonatedAmount = _useState2[1];
+
+    var _useState3 = React.useState(),
+        _useState4 = _slicedToArray(_useState3, 2),
+        donatedToken = _useState4[0],
+        setDonatedToken = _useState4[1];
+
+    var _useState5 = React.useState(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        accept = _useState6[0],
+        setAccept = _useState6[1];
+
+    if (blacklist == undefined) {
+      blacklist = {};
+    }
+
+    blockchains.forEach(function (blockchain) {
+      if (blacklist[blockchain] == undefined) {
+        blacklist[blockchain] = [token];
+      } else if (blacklist[blockchain] instanceof Array) {
+        blacklist[blockchain].push(token);
+      }
+    });
+    React.useEffect(function () {
+      if (account) {
+        setAccept(blockchains.map(function (blockchain) {
+          return {
+            blockchain: blockchain,
+            amount: donatedAmount,
+            token: token,
+            receiver: receiver
+          };
+        }));
+      }
+    }, [account, donatedAmount]);
+    React.useEffect(function () {
+      var tokenInstance = new depayWeb3Tokens.Token({
+        blockchain: blockchains[0],
+        address: token
+      });
+      Promise.all([tokenInstance.name(), tokenInstance.symbol(), tokenInstance.decimals()]).then(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 3),
+            name = _ref2[0],
+            symbol = _ref2[1],
+            decimals = _ref2[2];
+
+        setDonatedToken({
+          address: token,
+          name: name,
+          symbol: symbol,
+          decimals: decimals
+        });
+      });
+    }, []);
+    return /*#__PURE__*/React__default$1['default'].createElement(DonationRoutingContext.Provider, {
+      value: {
+        setDonatedAmount: setDonatedAmount,
+        donatedAmount: donatedAmount,
+        donatedToken: donatedToken
+      }
+    }, /*#__PURE__*/React__default$1['default'].createElement(PaymentRoutingProvider, {
+      accept: accept,
+      blacklist: blacklist
+    }, /*#__PURE__*/React__default$1['default'].createElement(PaymentProvider, {
+      container: props.container,
+      document: props.document
+    }, /*#__PURE__*/React__default$1['default'].createElement(PaymentValueProvider, null, props.children))));
+  });
+
+  function _arrayWithoutHoles(arr) {
+    if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+  }
+
+  function _iterableToArray(iter) {
+    if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+  }
+
+  function _nonIterableSpread() {
+    throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  function _toConsumableArray(arr) {
+    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+  }
+
+  var format = (function (input) {
+    var _float = parseFloat(input);
+
+    var floatToString = _float.toString();
+
+    if (new RegExp(/\./).test(floatToString)) {
+      var exploded = floatToString.split('.');
+      return new Intl.NumberFormat().format(parseInt(exploded[0])) + '.' + exploded[1];
+    } else {
+      return new Intl.NumberFormat().format(_float);
+    }
+  });
+
+  var ChangeAmountDialog = (function (props) {
+    var _useContext = React.useContext(ConfigurationContext),
+        amount = _useContext.amount;
+
+    var _useContext2 = React.useContext(depayReactDialogStack.NavigateStackContext),
+        navigate = _useContext2.navigate;
+
+    var _useContext3 = React.useContext(WalletContext),
+        account = _useContext3.account;
+
+    var _useState = React.useState(props.amount),
+        _useState2 = _slicedToArray(_useState, 2),
+        inputAmount = _useState2[0],
+        setInputAmount = _useState2[1];
+
+    var _useContext4 = React.useContext(PaymentRoutingContext),
+        allRoutes = _useContext4.allRoutes;
+
+    var _useState3 = React.useState(),
+        _useState4 = _slicedToArray(_useState3, 2),
+        maxRoute = _useState4[0],
+        setMaxRoute = _useState4[1];
+
+    var _useState5 = React.useState(parseFloat(amount.start) * 10),
+        _useState6 = _slicedToArray(_useState5, 2),
+        max = _useState6[0],
+        setMax = _useState6[1];
+
+    var _useState7 = React.useState(),
+        _useState8 = _slicedToArray(_useState7, 2),
+        maxRouteData = _useState8[0],
+        setMaxRouteData = _useState8[1];
+
+    React.useEffect(function () {
+      var sortedLowToHigh = _toConsumableArray(allRoutes).sort(function (a, b) {
+        var aAmountsAvailable = ethers.ethers.BigNumber.from(a.fromBalance).div(ethers.ethers.BigNumber.from(a.fromAmount));
+        var bAmountsAvailable = ethers.ethers.BigNumber.from(b.fromBalance).div(ethers.ethers.BigNumber.from(b.fromAmount));
+
+        if (aAmountsAvailable.lt(bAmountsAvailable)) {
+          return -1;
+        }
+
+        if (bAmountsAvailable.lt(aAmountsAvailable)) {
+          return 1;
+        }
+
+        return 0; // equal
+      });
+
+      setMaxRoute(sortedLowToHigh[sortedLowToHigh.length - 1]);
+    }, []);
+    React.useEffect(function () {
+      if (maxRoute) {
+        return Promise.all([maxRoute.fromToken.name(), maxRoute.fromToken.symbol(), maxRoute.toToken.decimals(), maxRoute.fromToken.readable(maxRoute.fromBalance), depayWeb3Exchanges.route({
+          blockchain: maxRoute.blockchain,
+          tokenIn: maxRoute.fromToken.address,
+          tokenOut: maxRoute.toToken.address,
+          amountIn: maxRoute.fromBalance,
+          fromAddress: account,
+          toAddress: account
+        })]).then(function (_ref) {
+          var _ref2 = _slicedToArray(_ref, 5),
+              name = _ref2[0],
+              symbol = _ref2[1],
+              decimals = _ref2[2],
+              balance = _ref2[3],
+              routes = _ref2[4];
+
+          var SLIPPAGE = 1.01;
+          var max = round(parseFloat(ethers.ethers.utils.formatUnits(routes[0].amountOutMin, decimals)) / SLIPPAGE, 'down');
+          setMax(max);
+          setMaxRouteData({
+            name: name,
+            symbol: symbol,
+            balance: balance,
+            blockchain: maxRoute.blockchain,
+            address: maxRoute.fromToken.address
+          });
+        });
+      }
+    }, [maxRoute]);
+
+    var changeAmountAndGoBack = function changeAmountAndGoBack() {
+      props.setAmount(inputAmount);
+      navigate('back');
+    };
+
+    var changeAmount = function changeAmount(value) {
+      if (Number.isNaN(value)) {
+        return;
+      }
+
+      setInputAmount(Math.min(value, max));
+    };
+
+    return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
+      stacked: true,
+      header: /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
+      }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
+        className: "FontSizeL TextCenter"
+      }, "Change Amount"), /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "FontSizeL TextCenter FontWeightBold"
+      }, /*#__PURE__*/React__default$1['default'].createElement("strong", null, props.token.symbol))),
+      body: /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "MaxHeight PaddingTopXS"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopS TextCenter PaddingBottomL"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "FontSizeL"
+      }, /*#__PURE__*/React__default$1['default'].createElement("input", {
+        max: parseFloat(max),
+        min: parseFloat(amount.min),
+        step: parseFloat(amount.step),
+        className: "Input FontSizeXL TextAlignCenter",
+        type: "number",
+        name: "amount",
+        value: parseFloat(inputAmount),
+        onChange: function onChange(event) {
+          changeAmount(parseFloat(event.target.value));
+        }
+      })), /*#__PURE__*/React__default$1['default'].createElement(Slider__default['default'], {
+        min: parseFloat(amount.min),
+        max: parseFloat(max),
+        step: parseFloat(amount.step),
+        value: parseFloat(inputAmount),
+        onChange: function onChange(value) {
+          changeAmount(parseFloat(value));
+        }
+      }), maxRouteData && /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", null, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "MaxAmountImage"
+      }, /*#__PURE__*/React__default$1['default'].createElement(depayReactTokenImage.TokenImage, {
+        blockchain: maxRouteData.blockchain,
+        address: maxRouteData.address
+      })), maxRouteData.symbol, " ", format(round(maxRouteData.balance, 'down')), /*#__PURE__*/React__default$1['default'].createElement("button", {
+        className: "TextButton",
+        onClick: function onClick() {
+          changeAmount(max);
+        }
+      }, "(Max)")))))),
+      footer: /*#__PURE__*/React__default$1['default'].createElement("div", null, /*#__PURE__*/React__default$1['default'].createElement("button", {
+        className: "ButtonPrimary",
+        onClick: changeAmountAndGoBack
+      }, "Done"))
+    });
+  });
+
   var ChangePaymentSkeleton = (function (props) {
     var _useContext = React.useContext(PaymentValueContext),
         paymentValue = _useContext.paymentValue;
 
-    return /*#__PURE__*/React__default$1['default'].createElement(Dialog, {
+    return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
       stacked: true,
       header: /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
@@ -1960,19 +2130,6 @@
         className: "SkeletonBackground"
       }))))
     });
-  });
-
-  var format = (function (input) {
-    var _float = parseFloat(input);
-
-    var floatToString = _float.toString();
-
-    if (new RegExp(/\./).test(floatToString)) {
-      var exploded = floatToString.split('.');
-      return new Intl.NumberFormat().format(parseInt(exploded[0])) + '.' + exploded[1];
-    } else {
-      return new Intl.NumberFormat().format(_float);
-    }
   });
 
   var ChangePaymentDialog = (function (props) {
@@ -2061,7 +2218,7 @@
       return /*#__PURE__*/React__default$1['default'].createElement(ChangePaymentSkeleton, null);
     }
 
-    return /*#__PURE__*/React__default$1['default'].createElement(Dialog, {
+    return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
       stacked: true,
       header: /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
@@ -2079,6 +2236,265 @@
     });
   });
 
+  var Checkmark = (function () {
+    return /*#__PURE__*/React__default$1['default'].createElement("svg", {
+      className: "Checkmark Icon",
+      version: "1.1",
+      xmlns: "http://www.w3.org/2000/svg",
+      x: "0px",
+      y: "0px",
+      viewBox: "0 0 24 24"
+    }, /*#__PURE__*/React__default$1['default'].createElement("path", {
+      d: "M20,4.9L9.2,16l-5.4-3.9c-0.7-0.5-1.6-0.3-2.1,0.3c-0.5,0.7-0.3,1.6,0.3,2.1l6.4,4.7c0.3,0.2,0.6,0.3,0.9,0.3 c0.4,0,0.8-0.2,1.1-0.5l11.7-12c0.6-0.6,0.6-1.6,0-2.2C21.6,4.3,20.6,4.3,20,4.9z"
+    }));
+  });
+
+  var ConnectingWalletDialog = (function () {
+    var _useContext = React.useContext(WalletContext),
+        wallet = _useContext.wallet,
+        connect = _useContext.connect;
+
+    var walletName = wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
+    var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
+    return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
+      body: /*#__PURE__*/React__default$1['default'].createElement("div", null, walletLogo && /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/React__default$1['default'].createElement("img", {
+        className: "Graphic",
+        src: walletLogo
+      })), /*#__PURE__*/React__default$1['default'].createElement("h1", {
+        className: "Text FontSizeL PaddingTopS FontWeightBold"
+      }, "Connect Wallet"), /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/React__default$1['default'].createElement("strong", {
+        className: "FontSizeM"
+      }, "This payment requires access to your wallet, please login and authorize access to your ", walletName, " account to continue."))),
+      footer: /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      }, /*#__PURE__*/React__default$1['default'].createElement("button", {
+        className: "ButtonPrimary wide",
+        onClick: connect
+      }, "Connect"))
+    });
+  });
+
+  var LoadingText = (function (props) {
+    return /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "LoadingText"
+    }, props.children, /*#__PURE__*/React__default$1['default'].createElement("span", {
+      className: "dot"
+    }, "."), /*#__PURE__*/React__default$1['default'].createElement("span", {
+      className: "dot"
+    }, "."), /*#__PURE__*/React__default$1['default'].createElement("span", {
+      className: "dot"
+    }, "."));
+  });
+
+  var DonationOverviewSkeleton = (function (props) {
+    return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
+      header: /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
+        className: "FontSizeL TextLeft"
+      }, "Donation")),
+      body: /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "Card Skeleton"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "SkeletonBackground"
+      })), /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "Card Skeleton",
+        style: {
+          height: '100px'
+        }
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "SkeletonBackground"
+      }))),
+      footer: /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "SkeletonWrapper"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "ButtonPrimary Skeleton"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "SkeletonBackground"
+      }))))
+    });
+  });
+
+  var DonationOverviewDialog = (function (props) {
+    var _useContext = React.useContext(PaymentContext),
+        payment = _useContext.payment,
+        paymentState = _useContext.paymentState,
+        pay = _useContext.pay,
+        transaction = _useContext.transaction,
+        approve = _useContext.approve,
+        approvalTransaction = _useContext.approvalTransaction;
+
+    var _useContext2 = React.useContext(WalletContext),
+        walletState = _useContext2.walletState;
+
+    var _useContext3 = React.useContext(PaymentValueContext),
+        paymentValue = _useContext3.paymentValue;
+
+    var _useContext4 = React.useContext(depayReactDialogStack.NavigateStackContext),
+        navigate = _useContext4.navigate;
+
+    var _useContext5 = React.useContext(ClosableContext),
+        close = _useContext5.close;
+
+    var _useContext6 = React.useContext(DonationRoutingContext),
+        donatedToken = _useContext6.donatedToken,
+        donatedAmount = _useContext6.donatedAmount;
+
+    var mainAction = function mainAction() {
+      if (paymentState == 'initialized' || paymentState == 'approving') {
+        return /*#__PURE__*/React__default$1['default'].createElement("button", {
+          className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
+          onClick: function onClick() {
+            if (payment.route.approvalRequired && !payment.route.directTransfer) {
+              return;
+            }
+
+            pay({
+              navigate: navigate
+            });
+          }
+        }, "Pay ", paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
+      } else if (paymentState == 'paying') {
+        return /*#__PURE__*/React__default$1['default'].createElement("a", {
+          className: "ButtonPrimary",
+          title: "Performing the payment - please wait",
+          href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+          target: "_blank",
+          rel: "noopener noreferrer"
+        }, /*#__PURE__*/React__default$1['default'].createElement(LoadingText, null, "Paying"));
+      } else if (paymentState == 'confirmed') {
+        return /*#__PURE__*/React__default$1['default'].createElement("button", {
+          className: "ButtonPrimary round",
+          title: "Done",
+          onClick: close
+        }, /*#__PURE__*/React__default$1['default'].createElement(Checkmark, null));
+      }
+    };
+
+    var approvalAction = function approvalAction() {
+      if (paymentState == 'initialized') {
+        return /*#__PURE__*/React__default$1['default'].createElement("div", {
+          className: "PaddingBottomS"
+        }, /*#__PURE__*/React__default$1['default'].createElement("button", {
+          className: "ButtonPrimary wide",
+          onClick: approve
+        }, "Allow ", payment.symbol, " to be used as payment"));
+      } else if (paymentState == 'approving') {
+        return /*#__PURE__*/React__default$1['default'].createElement("div", {
+          className: "PaddingBottomS"
+        }, /*#__PURE__*/React__default$1['default'].createElement("a", {
+          className: "ButtonPrimary wide",
+          title: "Approving payment token - please wait",
+          href: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
+          target: "_blank",
+          rel: "noopener noreferrer"
+        }, /*#__PURE__*/React__default$1['default'].createElement(LoadingText, null, "Approving")));
+      }
+    };
+
+    var actions = function actions() {
+      return /*#__PURE__*/React__default$1['default'].createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
+    };
+
+    if (walletState == 'connecting') {
+      return /*#__PURE__*/React__default$1['default'].createElement(ConnectingWalletDialog, null);
+    }
+
+    if (donatedToken == undefined || donatedAmount == undefined || payment == undefined || paymentValue == undefined) {
+      return /*#__PURE__*/React__default$1['default'].createElement(DonationOverviewSkeleton, null);
+    }
+
+    return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
+      header: /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
+        className: "FontSizeL TextLeft"
+      }, "Donation")),
+      body: /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+        title: paymentState == 'initialized' ? "Change amount" : undefined,
+        onClick: function onClick() {
+          if (paymentState != 'initialized') {
+            return;
+          }
+
+          navigate('ChangeAmount');
+        }
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "CardImage",
+        title: payment.name
+      }, /*#__PURE__*/React__default$1['default'].createElement(depayReactTokenImage.TokenImage, {
+        blockchain: payment.route.blockchain,
+        address: donatedToken.address
+      })), /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React__default$1['default'].createElement("h4", {
+        className: "CardTitle"
+      }, "Amount"), /*#__PURE__*/React__default$1['default'].createElement("h2", {
+        className: "CardText"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "TokenAmountRow"
+      }, /*#__PURE__*/React__default$1['default'].createElement("span", {
+        className: "TokenSymbolCell"
+      }, donatedToken.symbol), /*#__PURE__*/React__default$1['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default$1['default'].createElement("span", {
+        className: "TokenAmountCell"
+      }, format(donatedAmount)))))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "CardAction"
+      }, /*#__PURE__*/React__default$1['default'].createElement(ChevronRight, null))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+        title: paymentState == 'initialized' ? "Change payment" : undefined,
+        onClick: function onClick() {
+          if (paymentState != 'initialized') {
+            return;
+          }
+
+          navigate('ChangePayment');
+        }
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "CardImage",
+        title: payment.name
+      }, /*#__PURE__*/React__default$1['default'].createElement(depayReactTokenImage.TokenImage, {
+        blockchain: payment.route.blockchain,
+        address: payment.token
+      })), /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React__default$1['default'].createElement("h4", {
+        className: "CardTitle"
+      }, "Payment"), /*#__PURE__*/React__default$1['default'].createElement("h2", {
+        className: "CardText"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "TokenAmountRow"
+      }, /*#__PURE__*/React__default$1['default'].createElement("span", {
+        className: "TokenSymbolCell"
+      }, payment.symbol), /*#__PURE__*/React__default$1['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default$1['default'].createElement("span", {
+        className: "TokenAmountCell"
+      }, format(payment.amount)))), paymentValue.toString().length && /*#__PURE__*/React__default$1['default'].createElement("h3", {
+        className: "CardText"
+      }, /*#__PURE__*/React__default$1['default'].createElement("small", null, paymentValue.toString())))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "CardAction"
+      }, /*#__PURE__*/React__default$1['default'].createElement(ChevronRight, null)))),
+      footer: /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      }, actions())
+    });
+  });
+
+  var ErrorGraphic = "data:image/png;base64,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";
+
   var PaymentErrorDialog = (function () {
     var _useContext = React.useContext(depayReactDialogStack.NavigateStackContext),
         navigate = _useContext.navigate;
@@ -2086,7 +2502,7 @@
     var _useContext2 = React.useContext(PaymentContext),
         transaction = _useContext2.transaction;
 
-    return /*#__PURE__*/React__default$1['default'].createElement(Dialog, {
+    return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
       stacked: true,
       header: /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM"
@@ -2122,76 +2538,790 @@
     });
   });
 
-  var Checkmark = (function () {
-    return /*#__PURE__*/React__default$1['default'].createElement("svg", {
-      className: "Checkmark Icon",
-      version: "1.1",
-      xmlns: "http://www.w3.org/2000/svg",
-      x: "0px",
-      y: "0px",
-      viewBox: "0 0 24 24"
-    }, /*#__PURE__*/React__default$1['default'].createElement("path", {
-      d: "M20,4.9L9.2,16l-5.4-3.9c-0.7-0.5-1.6-0.3-2.1,0.3c-0.5,0.7-0.3,1.6,0.3,2.1l6.4,4.7c0.3,0.2,0.6,0.3,0.9,0.3 c0.4,0,0.8-0.2,1.1-0.5l11.7-12c0.6-0.6,0.6-1.6,0-2.2C21.6,4.3,20.6,4.3,20,4.9z"
-    }));
-  });
+  var ConnectGraphic = "data:image/png;base64,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";
 
-  var ChevronRight = (function () {
-    return /*#__PURE__*/React__default$1['default'].createElement("svg", {
-      className: "ChevronRight Icon",
-      xmlns: "http://www.w3.org/2000/svg",
-      width: "16",
-      height: "16",
-      viewBox: "0 0 16 16"
-    }, /*#__PURE__*/React__default$1['default'].createElement("path", {
-      strokeWidth: "1",
-      fillRule: "evenodd",
-      d: "M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
-    }));
-  });
+  var WrongNetworkDialog = (function (props) {
+    var _useContext = React.useContext(PaymentContext),
+        payment = _useContext.payment;
 
-  var ConnectingWalletDialog = (function () {
-    var _useContext = React.useContext(WalletContext),
-        wallet = _useContext.wallet,
-        connect = _useContext.connect;
+    var _useContext2 = React.useContext(depayReactDialogStack.NavigateStackContext),
+        navigate = _useContext2.navigate;
 
-    var walletName = wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
-    var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
-    return /*#__PURE__*/React__default$1['default'].createElement(Dialog, {
-      body: /*#__PURE__*/React__default$1['default'].createElement("div", null, walletLogo && /*#__PURE__*/React__default$1['default'].createElement("div", {
+    var blockchain = depayWeb3Blockchains.Blockchain.findByName(payment.route.blockchain);
+    return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
+      stacked: true,
+      header: /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
+        className: "FontSizeL TextLeft"
+      }, "Wrong Network")),
+      body: /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "GraphicWrapper"
       }, /*#__PURE__*/React__default$1['default'].createElement("img", {
         className: "Graphic",
-        src: walletLogo
+        src: ConnectGraphic
       })), /*#__PURE__*/React__default$1['default'].createElement("h1", {
         className: "Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Connect Wallet"), /*#__PURE__*/React__default$1['default'].createElement("div", {
+      }, "Connect to ", blockchain.label), /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
       }, /*#__PURE__*/React__default$1['default'].createElement("strong", {
         className: "FontSizeM"
-      }, "This payment requires access to your wallet, please login and authorize access to your ", walletName, " account to continue."))),
+      }, "Please make sure you connect your wallet to the correct network before you try again!"))),
       footer: /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM"
       }, /*#__PURE__*/React__default$1['default'].createElement("button", {
-        className: "ButtonPrimary wide",
-        onClick: connect
-      }, "Connect"))
+        className: "ButtonPrimary",
+        onClick: function onClick() {
+          return navigate('back');
+        }
+      }, "Try again"))
     });
   });
 
-  var LoadingText = (function (props) {
-    return /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "LoadingText"
-    }, props.children, /*#__PURE__*/React__default$1['default'].createElement("span", {
-      className: "dot"
-    }, "."), /*#__PURE__*/React__default$1['default'].createElement("span", {
-      className: "dot"
-    }, "."), /*#__PURE__*/React__default$1['default'].createElement("span", {
-      className: "dot"
-    }, "."));
+  var DonationStack = (function (props) {
+    var _useContext = React.useContext(ClosableContext),
+        open = _useContext.open,
+        close = _useContext.close;
+
+    var _useContext2 = React.useContext(DonationRoutingContext),
+        donatedToken = _useContext2.donatedToken,
+        donatedAmount = _useContext2.donatedAmount,
+        setDonatedAmount = _useContext2.setDonatedAmount;
+
+    return /*#__PURE__*/React__default$1['default'].createElement(depayReactDialogStack.ReactDialogStack, {
+      open: open,
+      close: close,
+      start: "DonationOverview",
+      container: props.container,
+      document: props.document,
+      dialogs: {
+        DonationOverview: /*#__PURE__*/React__default$1['default'].createElement(DonationOverviewDialog, null),
+        ChangeAmount: /*#__PURE__*/React__default$1['default'].createElement(ChangeAmountDialog, {
+          token: donatedToken,
+          amount: donatedAmount,
+          setAmount: setDonatedAmount
+        }),
+        ChangePayment: /*#__PURE__*/React__default$1['default'].createElement(ChangePaymentDialog, null),
+        PaymentError: /*#__PURE__*/React__default$1['default'].createElement(PaymentErrorDialog, null),
+        WrongNetwork: /*#__PURE__*/React__default$1['default'].createElement(WrongNetworkDialog, null)
+      }
+    });
   });
 
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  function _defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  function _createClass(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+  }
+
+  function _setPrototypeOf(o, p) {
+    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+      o.__proto__ = p;
+      return o;
+    };
+
+    return _setPrototypeOf(o, p);
+  }
+
+  function _inherits(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+      throw new TypeError("Super expression must either be null or a function");
+    }
+
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+      constructor: {
+        value: subClass,
+        writable: true,
+        configurable: true
+      }
+    });
+    if (superClass) _setPrototypeOf(subClass, superClass);
+  }
+
+  function _assertThisInitialized(self) {
+    if (self === void 0) {
+      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+
+    return self;
+  }
+
+  function _possibleConstructorReturn(self, call) {
+    if (call && (_typeof(call) === "object" || typeof call === "function")) {
+      return call;
+    } else if (call !== void 0) {
+      throw new TypeError("Derived constructors may only return object or undefined");
+    }
+
+    return _assertThisInitialized(self);
+  }
+
+  function _getPrototypeOf(o) {
+    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+      return o.__proto__ || Object.getPrototypeOf(o);
+    };
+    return _getPrototypeOf(o);
+  }
+
+  function _interopDefaultLegacy$1 (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+  var React__default = /*#__PURE__*/_interopDefaultLegacy$1(React__default$1['default']);
+  var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy$1(ReactDOM__default$1['default']);
+
+  function ReactDialogStyle (styles) {
+    let background =
+      typeof styles === 'object' && styles.background ? styles.background : 'rgba(0,0,0,0.4)';
+
+    return (
+      `
+    .ReactDialog {
+      bottom: 0;
+      display: table;
+      height: 100%;
+      left: 0;
+      overflow: hidden;
+      position: absolute;
+      right: 0;
+      top: 0;
+      user-select: none;
+      width: 100%;
+    }
+
+    .ReactDialogRow {
+      display: table-row;
+      height: 100%;
+      width: 100%;
+    }
+
+    .ReactDialogCell {
+      display: table-cell;
+      height: 100%;
+      vertical-align: middle;
+      width: 100%;
+      text-align: center;
+    }
+
+    .ReactDialogBackground {
+      background: ${background};
+      bottom: 0;
+      display: block;
+      height: 100%;
+      left: 0;
+      opacity: 0;
+      position: fixed;
+      right: 0;
+      top: 0;
+      transition: opacity 0.4s ease;
+      width: 100%;
+    }
+
+    .ReactDialog.ReactDialogOpen .ReactDialogBackground {
+      opacity: 1;
+    }
+
+    .ReactDialogAnimation {
+      display: inline-block;
+      position: relative;
+      opacity: 0;
+      top: -17vh;
+      transition: opacity 0.4s ease, top 0.4s ease;
+    }
+
+    .ReactDialog.ReactDialogOpen .ReactDialogAnimation {
+      opacity: 1.0;
+      top: -5vh;
+    }
+  `
+    )
+  }
+
+  const _jsxFileName = "/Users/sebastian/Work/DePay/depay-react-dialog/src/components/Dialog.jsx";
+
+
+  class Dialog extends React__default['default'].Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        open: true,
+      };
+    }
+
+    closeDialog() {
+      this.props.close();
+    }
+
+    onKeyDown(event) {
+      if (event.key === 'Escape') {
+        this.closeDialog();
+      }
+    }
+
+    componentDidUpdate(prevProps) {
+      if (this.props.open === false && prevProps.open === true) {
+        this.setState({ open: false });
+      }
+    }
+
+    onClickBackground(event) {
+      this.closeDialog();
+    }
+
+    componentDidMount() {
+      this.setState({ open: false }, () => {
+        // make sure state is false first before opening the dialog
+        // to ensure opening is animated
+        setTimeout(() => {
+          this.setState({ open: true });
+        }, 10);
+      });
+      this.props.document.addEventListener('keydown', this.onKeyDown.bind(this), false);
+    }
+
+    componentWillUnmount() {
+      this.props.document.addEventListener('keydown', this.onKeyDown.bind(this), false);
+    }
+
+    render() {
+      const classNames = ['ReactDialog', this.state.open ? 'ReactDialogOpen' : ''];
+      const style = ReactDialogStyle({ background: this.props.background });
+      return (
+        React__default['default'].createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName, lineNumber: 54}}
+          , React__default['default'].createElement('style', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 55}}, style)
+          , React__default['default'].createElement('div', { className: "ReactDialogRow", __self: this, __source: {fileName: _jsxFileName, lineNumber: 56}}
+            , React__default['default'].createElement('div', { className: "ReactDialogCell", __self: this, __source: {fileName: _jsxFileName, lineNumber: 57}}
+              , React__default['default'].createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName, lineNumber: 58}} )
+              , this.props.children
+            )
+          )
+        )
+      )
+    }
+  }
+
+  const _jsxFileName$1 = "/Users/sebastian/Work/DePay/depay-react-dialog/src/index.jsx";
+  class ReactDialog extends React__default['default'].Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        open: props.open,
+      };
+    }
+
+    componentDidUpdate(prevProps) {
+      if (this.props.open === false && prevProps.open === true) {
+        setTimeout(() => {
+          this.setState({ open: false });
+        }, 400);
+      } else if (this.props.open === true && prevProps.open === false) {
+        this.setState({ open: true });
+      }
+    }
+
+    render() {
+      let _document = this.props.document || document;
+      let container = this.props.container || _document.body;
+      if (this.state.open) {
+        return ReactDOM__default['default'].createPortal(
+          React__default['default'].createElement(Dialog, {
+            background: this.props.background,
+            close: this.props.close,
+            document: _document,
+            open: this.props.open, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 29}}
+          
+            , this.props.children
+          ),
+          container,
+        )
+      } else {
+        // enforces unmount
+        return null
+      }
+    }
+  }
+
+  var ReactDialog_1 = ReactDialog;
+
+  function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+  function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+  var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
+    _inherits(ErrorBoundary, _React$Component);
+
+    var _super = _createSuper(ErrorBoundary);
+
+    function ErrorBoundary(props) {
+      _classCallCheck(this, ErrorBoundary);
+
+      return _super.call(this, props);
+    }
+
+    _createClass(ErrorBoundary, [{
+      key: "componentDidCatch",
+      value: function componentDidCatch(error, errorInfo) {
+        this.props.setError(error);
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        return this.props.children;
+      }
+    }]);
+
+    return ErrorBoundary;
+  }(React__default$1['default'].Component);
+
+  var ErrorProvider = (function (props) {
+    var _useState = React.useState(),
+        _useState2 = _slicedToArray(_useState, 2),
+        error = _useState2[0],
+        setError = _useState2[1];
+
+    var _useState3 = React.useState(true),
+        _useState4 = _slicedToArray(_useState3, 2),
+        open = _useState4[0],
+        setOpen = _useState4[1];
+
+    var setErrorFromChildren = function setErrorFromChildren(error) {
+      setError(error);
+
+      if (props.error) {
+        props.error(error);
+      }
+    };
+
+    var close = function close() {
+      setOpen(false);
+      setTimeout(props.unmount, 300);
+    };
+
+    if (error) {
+      return /*#__PURE__*/React__default$1['default'].createElement(ReactDialog_1, {
+        container: props.container,
+        close: close,
+        open: open
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "Dialog ReactDialogAnimation"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "DialogHeader"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftS PaddingRightS"
+      })), /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "DialogBody"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/React__default$1['default'].createElement("img", {
+        className: "Graphic",
+        src: ErrorGraphic
+      })), /*#__PURE__*/React__default$1['default'].createElement("h1", {
+        className: "Text FontSizeL PaddingTopS FontWeightBold"
+      }, "Oops, Something Went Wrong"), /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", null, /*#__PURE__*/React__default$1['default'].createElement("strong", {
+        className: "FontSizeM FontItalic"
+      }, error.toString())), /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopS PaddingBottomS"
+      }, /*#__PURE__*/React__default$1['default'].createElement("strong", {
+        className: "FontSizeM PaddingTopS"
+      }, "If this keeps happening, please report it.")))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "DialogFooter"
+      }, /*#__PURE__*/React__default$1['default'].createElement("div", null, /*#__PURE__*/React__default$1['default'].createElement("button", {
+        className: "ButtonPrimary",
+        onClick: close
+      }, "Try again")), /*#__PURE__*/React__default$1['default'].createElement("a", {
+        href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
+        rel: "noopener noreferrer",
+        target: "_blank",
+        className: "FooterLink"
+      }, "by DePay"))));
+    } else {
+      return /*#__PURE__*/React__default$1['default'].createElement(ErrorContext.Provider, {
+        value: {
+          setError: setErrorFromChildren
+        }
+      }, /*#__PURE__*/React__default$1['default'].createElement(ErrorBoundary, {
+        setError: setErrorFromChildren
+      }, props.children));
+    }
+  });
+
+  var UpdateProvider = (function (props) {
+    var _useState = React.useState(true),
+        _useState2 = _slicedToArray(_useState, 2),
+        update = _useState2[0],
+        setUpdate = _useState2[1];
+
+    return /*#__PURE__*/React__default$1['default'].createElement(UpdateContext.Provider, {
+      value: {
+        update: update,
+        setUpdate: setUpdate
+      }
+    }, props.children);
+  });
+
+  var WalletRequestPendingDialog = (function (props) {
+    var _props$wallet;
+
+    var walletLogo = (_props$wallet = props.wallet) !== null && _props$wallet !== void 0 && _props$wallet.logo ? props.wallet.logo : undefined;
+
+    var _useState = React.useState(true),
+        _useState2 = _slicedToArray(_useState, 2),
+        open = _useState2[0],
+        setOpen = _useState2[1];
+
+    var close = function close() {
+      setOpen(false);
+      setTimeout(props.unmount, 300);
+    };
+
+    return /*#__PURE__*/React__default$1['default'].createElement(ReactDialog_1, {
+      container: props.container,
+      close: close,
+      open: open
+    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "Dialog ReactDialogAnimation"
+    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "DialogHeader"
+    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "PaddingTopS PaddingLeftS PaddingRightS"
+    })), /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "DialogBody"
+    }, walletLogo && /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "GraphicWrapper"
+    }, /*#__PURE__*/React__default$1['default'].createElement("img", {
+      className: "Graphic",
+      src: walletLogo
+    })), /*#__PURE__*/React__default$1['default'].createElement("h1", {
+      className: "Text FontSizeL PaddingTopS FontWeightBold"
+    }, "Connect Wallet"), /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/React__default$1['default'].createElement("strong", {
+      className: "FontSizeM"
+    }, "Your wallet is already open and asking for permission to connect to this website. Please find your wallet dialog and confirm connecting."))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "DialogFooter"
+    }, /*#__PURE__*/React__default$1['default'].createElement("a", {
+      href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
+      rel: "noopener noreferrer",
+      target: "_blank",
+      className: "FooterLink"
+    }, "by DePay"))));
+  });
+
+  var WalletProvider = (function (props) {
+    var _useContext = React.useContext(ErrorContext),
+        setError = _useContext.setError;
+
+    var _useState = React.useState(),
+        _useState2 = _slicedToArray(_useState, 2),
+        wallet = _useState2[0],
+        setWallet = _useState2[1];
+
+    var _useState3 = React.useState(),
+        _useState4 = _slicedToArray(_useState3, 2),
+        account = _useState4[0],
+        setAccount = _useState4[1];
+
+    var _useState5 = React.useState(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        walletState = _useState6[0],
+        setWalletState = _useState6[1];
+
+    var connected = function connected(_ref) {
+      var wallet = _ref.wallet;
+      setWallet(wallet);
+    };
+
+    var connect = function connect() {
+      setWalletState('connecting');
+      wallet.connect().then(function (accounts) {
+        wallet.on('disconnect', function () {
+          setWallet(undefined);
+          setAccount(undefined);
+          setWalletState('unavailable');
+        });
+        setWalletState('connected');
+
+        if (props.connected) {
+          props.connected(accounts[0]);
+        }
+
+        setAccount(accounts[0]);
+      })["catch"](function (error) {
+        if ((error === null || error === void 0 ? void 0 : error.code) == 4001) {
+          // User rejected the request.
+          setWalletState('connecting');
+          return;
+        }
+
+        if ((error === null || error === void 0 ? void 0 : error.code) == -32002) {
+          // Request of type 'wallet_requestPermissions' already pending...
+          setWalletState('requestPending');
+          return;
+        }
+
+        setError(error);
+      });
+    };
+
+    React.useEffect(function () {
+      var _wallet = depayWeb3Wallets.getWallet();
+
+      if (_wallet) {
+        setWalletState('found');
+        setWallet(_wallet);
+      } else {
+        setWalletState('unavailable');
+      }
+    }, []);
+    React.useEffect( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+      var accounts;
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!wallet) {
+                _context.next = 5;
+                break;
+              }
+
+              _context.next = 3;
+              return wallet.accounts();
+
+            case 3:
+              accounts = _context.sent;
+
+              if (accounts == undefined || accounts.length == 0) {
+                connect();
+              } else {
+                setWalletState('connected');
+
+                if (props.connected) {
+                  props.connected(accounts[0]);
+                }
+
+                setAccount(accounts[0]);
+              }
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    })), [wallet]);
+
+    if (walletState == 'unavailable') {
+      return /*#__PURE__*/React__default$1['default'].createElement(ConnectStack, {
+        document: props.document,
+        container: props.container,
+        connected: connected
+      });
+    } else if (walletState == 'requestPending') {
+      return /*#__PURE__*/React__default$1['default'].createElement(WalletRequestPendingDialog, {
+        wallet: wallet,
+        unmount: props.unmount,
+        container: props.container
+      });
+    } else {
+      return /*#__PURE__*/React__default$1['default'].createElement(WalletContext.Provider, {
+        value: {
+          account: account,
+          wallet: wallet,
+          walletState: walletState,
+          connect: connect
+        }
+      }, props.children);
+    }
+  });
+
+  var preflight$2 = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+      var amount, token, blockchains, receiver;
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              amount = _ref.amount, token = _ref.token, blockchains = _ref.blockchains, receiver = _ref.receiver;
+
+              if (!(typeof amount === 'undefined')) {
+                _context.next = 3;
+                break;
+              }
+
+              throw 'You need to set the amount!';
+
+            case 3:
+              if (!(typeof amount.min === 'undefined')) {
+                _context.next = 5;
+                break;
+              }
+
+              throw 'You need to set amount.min!';
+
+            case 5:
+              if (!(typeof amount.step === 'undefined')) {
+                _context.next = 7;
+                break;
+              }
+
+              throw 'You need to set amount.step!';
+
+            case 7:
+              if (!(typeof amount.start === 'undefined')) {
+                _context.next = 9;
+                break;
+              }
+
+              throw 'You need to set amount.start!';
+
+            case 9:
+              if (!(typeof token == 'undefined')) {
+                _context.next = 11;
+                break;
+              }
+
+              throw 'You need to set a token!';
+
+            case 11:
+              if (!(typeof blockchains == 'undefined' || blockchains.length == 0)) {
+                _context.next = 13;
+                break;
+              }
+
+              throw 'You need to set blockchains!';
+
+            case 13:
+              blockchains.forEach(function (blockchain) {
+                if (!['ethereum', 'bsc'].includes(blockchain)) {
+                  throw 'You need to set only supported blockchains!';
+                }
+              });
+
+              if (!(typeof receiver == 'undefined' || receiver.length == 0)) {
+                _context.next = 16;
+                break;
+              }
+
+              throw 'You need to set a receiver!';
+
+            case 16:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function preflight(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  var Donation = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
+      var amount, token, receiver, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, document, unmount;
+      return regenerator.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              amount = _ref3.amount, token = _ref3.token, receiver = _ref3.receiver, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, document = _ref3.document;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return preflight$2({
+                amount: amount,
+                token: token,
+                blockchains: blockchains,
+                receiver: receiver
+              });
+
+            case 4:
+              unmount = mount({
+                style: style,
+                document: ensureDocument(document)
+              }, function (unmount) {
+                return function (container) {
+                  return /*#__PURE__*/React__default$1['default'].createElement(ErrorProvider, {
+                    error: error,
+                    container: container,
+                    unmount: unmount
+                  }, /*#__PURE__*/React__default$1['default'].createElement(ConfigurationProvider, {
+                    configuration: {
+                      amount: amount,
+                      token: token,
+                      receiver: receiver,
+                      blockchains: blockchains,
+                      currency: currency,
+                      event: event,
+                      sent: sent,
+                      confirmed: confirmed,
+                      ensured: ensured,
+                      failed: failed,
+                      blacklist: blacklist,
+                      providers: providers
+                    }
+                  }, /*#__PURE__*/React__default$1['default'].createElement(ClosableProvider, {
+                    unmount: unmount
+                  }, /*#__PURE__*/React__default$1['default'].createElement(UpdateProvider, null, /*#__PURE__*/React__default$1['default'].createElement(WalletProvider, {
+                    container: container,
+                    connected: connected,
+                    unmount: unmount
+                  }, /*#__PURE__*/React__default$1['default'].createElement(DonationRoutingProvider, {
+                    container: container,
+                    document: document
+                  }, /*#__PURE__*/React__default$1['default'].createElement(DonationStack, {
+                    document: document,
+                    container: container
+                  })))))));
+                };
+              });
+              return _context2.abrupt("return", {
+                unmount: unmount
+              });
+
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](1);
+              console.log('critical error', _context2.t0);
+
+              if (critical != undefined) {
+                critical(_context2.t0);
+              }
+
+            case 12:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 8]]);
+    }));
+
+    return function Donation(_x2) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+
   var PaymentOverviewSkeleton = (function (props) {
-    return /*#__PURE__*/React__default$1['default'].createElement(Dialog, {
+    return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM"
       }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
@@ -2301,7 +3431,7 @@
       return /*#__PURE__*/React__default$1['default'].createElement(PaymentOverviewSkeleton, null);
     }
 
-    return /*#__PURE__*/React__default$1['default'].createElement(Dialog, {
+    return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM"
       }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
@@ -2348,48 +3478,6 @@
     });
   });
 
-  var ConnectGraphic = "data:image/png;base64,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";
-
-  var WrongNetworkDialog = (function (props) {
-    var _useContext = React.useContext(PaymentContext),
-        payment = _useContext.payment;
-
-    var _useContext2 = React.useContext(depayReactDialogStack.NavigateStackContext),
-        navigate = _useContext2.navigate;
-
-    var blockchain = depayWeb3Blockchains.Blockchain.findByName(payment.route.blockchain);
-    return /*#__PURE__*/React__default$1['default'].createElement(Dialog, {
-      stacked: true,
-      header: /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
-        className: "FontSizeL TextLeft"
-      }, "Wrong Network")),
-      body: /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "GraphicWrapper"
-      }, /*#__PURE__*/React__default$1['default'].createElement("img", {
-        className: "Graphic",
-        src: ConnectGraphic
-      })), /*#__PURE__*/React__default$1['default'].createElement("h1", {
-        className: "Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Connect to ", blockchain.label), /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/React__default$1['default'].createElement("strong", {
-        className: "FontSizeM"
-      }, "Please make sure you connect your wallet to the correct network before you try again!"))),
-      footer: /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM"
-      }, /*#__PURE__*/React__default$1['default'].createElement("button", {
-        className: "ButtonPrimary",
-        onClick: function onClick() {
-          return navigate('back');
-        }
-      }, "Try again"))
-    });
-  });
-
   var PaymentStack = (function (props) {
     var _useContext = React.useContext(ClosableContext),
         open = _useContext.open,
@@ -2410,354 +3498,7 @@
     });
   });
 
-  var PaymentValueProvider = (function (props) {
-    var _useContext = React.useContext(ErrorContext),
-        setError = _useContext.setError;
-
-    var _useContext2 = React.useContext(WalletContext),
-        account = _useContext2.account;
-
-    var _useContext3 = React.useContext(UpdateContext),
-        update = _useContext3.update;
-
-    var _useContext4 = React.useContext(PaymentContext),
-        payment = _useContext4.payment;
-
-    var _useState = React.useState(),
-        _useState2 = _slicedToArray(_useState, 2),
-        paymentValue = _useState2[0],
-        setPaymentValue = _useState2[1];
-
-    var _useContext5 = React.useContext(ConfigurationContext),
-        currency = _useContext5.currency;
-
-    var _useState3 = React.useState(0),
-        _useState4 = _slicedToArray(_useState3, 2),
-        reloadCount = _useState4[0],
-        setReloadCount = _useState4[1];
-
-    var getToTokenLocalValue = function getToTokenLocalValue(_ref) {
-      var update = _ref.update,
-          payment = _ref.payment;
-
-      if (update == false || (payment === null || payment === void 0 ? void 0 : payment.route) == undefined) {
-        return;
-      }
-
-      Promise.all([depayWeb3Exchanges.route({
-        blockchain: payment.route.blockchain,
-        tokenIn: payment.route.fromToken.address,
-        tokenOut: depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD,
-        amountIn: payment.route.fromAmount,
-        fromAddress: account,
-        toAddress: account
-      }), new depayWeb3Tokens.Token({
-        blockchain: payment.route.blockchain,
-        address: depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD
-      }).decimals()]).then(function (_ref2) {
-        var _ref3 = _slicedToArray(_ref2, 2),
-            USDExchangeRoutes = _ref3[0],
-            USDDecimals = _ref3[1];
-
-        var USDRoute = USDExchangeRoutes[0];
-        var USDAmount;
-
-        if (payment.route.fromToken.address.toLowerCase() == depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
-          USDAmount = payment.route.fromAmount.toString();
-        } else if (USDRoute == undefined) {
-          setPaymentValue('');
-          return;
-        } else {
-          USDAmount = USDRoute.amountOut.toString();
-        }
-
-        var USDValue = ethers.ethers.utils.formatUnits(USDAmount, USDDecimals);
-        depayLocalCurrency.Currency.fromUSD({
-          amount: USDValue,
-          code: currency,
-          apiKey: apiKey
-        }).then(setPaymentValue)["catch"](setError);
-      })["catch"](setError);
-    };
-
-    React.useEffect(function () {
-      if (account && payment) {
-        getToTokenLocalValue({
-          update: update,
-          payment: payment
-        });
-      }
-    }, [payment, account]);
-    React.useEffect(function () {
-      var timeout = setTimeout(function () {
-        setReloadCount(reloadCount + 1);
-        getToTokenLocalValue({
-          update: update
-        });
-      }, 15000);
-      return function () {
-        return clearTimeout(timeout);
-      };
-    }, [reloadCount, update]);
-    return /*#__PURE__*/React__default$1['default'].createElement(PaymentValueContext.Provider, {
-      value: {
-        paymentValue: paymentValue
-      }
-    }, props.children);
-  });
-
-  var UpdateProvider = (function (props) {
-    var _useState = React.useState(true),
-        _useState2 = _slicedToArray(_useState, 2),
-        update = _useState2[0],
-        setUpdate = _useState2[1];
-
-    return /*#__PURE__*/React__default$1['default'].createElement(UpdateContext.Provider, {
-      value: {
-        update: update,
-        setUpdate: setUpdate
-      }
-    }, props.children);
-  });
-
-  var WalletRequestPendingDialog = (function (props) {
-    var _props$wallet;
-
-    var walletLogo = (_props$wallet = props.wallet) !== null && _props$wallet !== void 0 && _props$wallet.logo ? props.wallet.logo : undefined;
-
-    var _useState = React.useState(true),
-        _useState2 = _slicedToArray(_useState, 2),
-        open = _useState2[0],
-        setOpen = _useState2[1];
-
-    var close = function close() {
-      setOpen(false);
-      setTimeout(props.unmount, 300);
-    };
-
-    return /*#__PURE__*/React__default$1['default'].createElement(ReactDialog_1, {
-      container: props.container,
-      close: close,
-      open: open
-    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "Dialog ReactDialogAnimation"
-    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "DialogHeader"
-    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "PaddingTopS PaddingLeftS PaddingRightS"
-    })), /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "DialogBody"
-    }, walletLogo && /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "GraphicWrapper"
-    }, /*#__PURE__*/React__default$1['default'].createElement("img", {
-      className: "Graphic",
-      src: walletLogo
-    })), /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "Text FontSizeL PaddingTopS FontWeightBold"
-    }, "Connect Wallet"), /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/React__default$1['default'].createElement("strong", {
-      className: "FontSizeM"
-    }, "Your wallet is already open and asking for permission to connect to this website. Please find your wallet dialog and confirm connecting."))), /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "DialogFooter"
-    }, /*#__PURE__*/React__default$1['default'].createElement("a", {
-      href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
-      rel: "noopener noreferrer",
-      target: "_blank",
-      className: "FooterLink"
-    }, "by DePay"))));
-  });
-
-  var WalletUnavailableDialog = (function (props) {
-    var _useState = React.useState(true),
-        _useState2 = _slicedToArray(_useState, 2),
-        open = _useState2[0],
-        setOpen = _useState2[1];
-
-    var _useState3 = React.useState(false),
-        _useState4 = _slicedToArray(_useState3, 2),
-        showExplanation = _useState4[0],
-        setShowExplanation = _useState4[1];
-
-    var close = function close() {
-      setOpen(false);
-      setTimeout(props.unmount, 300);
-    };
-
-    var walletCards = depayWeb3Wallets.supported.map(function (wallet, index) {
-      if (wallet.install) {
-        return /*#__PURE__*/React__default$1['default'].createElement("a", {
-          key: index,
-          className: "Card small",
-          title: "Install ".concat(wallet.name),
-          href: wallet.install,
-          target: "_blank",
-          rel: "noopener noreferrer"
-        }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-          className: "CardImage PaddingLeftM"
-        }, /*#__PURE__*/React__default$1['default'].createElement("img", {
-          src: wallet.logo
-        })), /*#__PURE__*/React__default$1['default'].createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-          className: "CardBodyWrapper PaddingLeftXS"
-        }, /*#__PURE__*/React__default$1['default'].createElement("h2", {
-          className: "CardText FontWeightBold"
-        }, wallet.name))));
-      } else {
-        return /*#__PURE__*/React__default$1['default'].createElement("button", {
-          key: index,
-          className: "Card small",
-          title: "Connect ".concat(wallet.name),
-          onClick: /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-            return regenerator.wrap(function _callee$(_context) {
-              while (1) {
-                switch (_context.prev = _context.next) {
-                  case 0:
-                    props.setWallet(wallet);
-
-                  case 1:
-                  case "end":
-                    return _context.stop();
-                }
-              }
-            }, _callee);
-          }))
-        }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-          className: "CardImage PaddingLeftM"
-        }, /*#__PURE__*/React__default$1['default'].createElement("img", {
-          src: wallet.logo
-        })), /*#__PURE__*/React__default$1['default'].createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-          className: "CardBodyWrapper PaddingLeftXS"
-        }, /*#__PURE__*/React__default$1['default'].createElement("h2", {
-          className: "CardText FontWeightBold"
-        }, wallet.name))));
-      }
-    });
-    return /*#__PURE__*/React__default$1['default'].createElement(ReactDialog_1, {
-      container: props.container,
-      close: close,
-      open: open
-    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "Dialog ReactDialogAnimation"
-    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "DialogHeader"
-    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "FontSizeL TextLeft"
-    }, "Select a wallet"))), /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "DialogBody"
-    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "PaddingTopS PaddingBottomXS PaddingLeftS PaddingRightS"
-    }, walletCards)), /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "DialogFooter"
-    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "PaddingBottomS"
-    }, /*#__PURE__*/React__default$1['default'].createElement("button", {
-      className: "FontSizeS FontWeightBold TextGrey TextButton",
-      onClick: function onClick() {
-        return setShowExplanation(!showExplanation);
-      }
-    }, /*#__PURE__*/React__default$1['default'].createElement("strong", null, "What is a wallet?")), showExplanation && /*#__PURE__*/React__default$1['default'].createElement("p", {
-      className: "PaddingLeftM PaddingRightM"
-    }, "Wallets are used to send, receive, and store digital assets. Wallets come in many forms. They are either built into your browser, an extension added to your browser, a piece of hardware plugged into your computer or even an app on your phone.")))));
-  });
-
-  var WalletProvider = (function (props) {
-    var _useContext = React.useContext(ErrorContext),
-        setError = _useContext.setError;
-
-    var _useState = React.useState(),
-        _useState2 = _slicedToArray(_useState, 2),
-        wallet = _useState2[0],
-        setWallet = _useState2[1];
-
-    var _useState3 = React.useState(),
-        _useState4 = _slicedToArray(_useState3, 2),
-        account = _useState4[0],
-        setAccount = _useState4[1];
-
-    var _useState5 = React.useState(),
-        _useState6 = _slicedToArray(_useState5, 2),
-        walletState = _useState6[0],
-        setWalletState = _useState6[1];
-
-    var connect = function connect() {
-      setWalletState('connecting');
-      wallet.connect().then(function (accounts) {
-        wallet.on('disconnect', function () {
-          setWallet(undefined);
-          setAccount(undefined);
-          setWalletState('unavailable');
-        });
-        setWalletState('connected');
-
-        if (props.connected) {
-          props.connected(accounts[0]);
-        }
-
-        setAccount(accounts[0]);
-      })["catch"](function (error) {
-        if ((error === null || error === void 0 ? void 0 : error.code) == 4001) {
-          // User rejected the request.
-          setWalletState('connecting');
-          return;
-        }
-
-        if ((error === null || error === void 0 ? void 0 : error.code) == -32002) {
-          // Request of type 'wallet_requestPermissions' already pending...
-          setWalletState('requestPending');
-          return;
-        }
-
-        setError(error);
-      });
-    };
-
-    React.useEffect(function () {
-      var _wallet = depayWeb3Wallets.getWallet();
-
-      if (_wallet) {
-        setWalletState('found');
-        setWallet(_wallet);
-      } else {
-        setWalletState('unavailable');
-      }
-    }, []);
-    React.useEffect(function () {
-      if (wallet) {
-        connect();
-      }
-    }, [wallet]);
-
-    if (walletState == 'unavailable') {
-      return /*#__PURE__*/React__default$1['default'].createElement(WalletUnavailableDialog, {
-        connect: connect,
-        setWallet: setWallet,
-        container: props.container
-      });
-    } else if (walletState == 'requestPending') {
-      return /*#__PURE__*/React__default$1['default'].createElement(WalletRequestPendingDialog, {
-        wallet: wallet,
-        unmount: props.unmount,
-        container: props.container
-      });
-    } else {
-      return /*#__PURE__*/React__default$1['default'].createElement(WalletContext.Provider, {
-        value: {
-          account: account,
-          wallet: wallet,
-          walletState: walletState,
-          connect: connect
-        }
-      }, props.children);
-    }
-  });
-
-  var preflight$2 = /*#__PURE__*/function () {
+  var preflight$1 = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
       var accept;
       return regenerator.wrap(function _callee$(_context) {
@@ -2810,7 +3551,7 @@
               accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, document = _ref3.document;
               _context2.prev = 1;
               _context2.next = 4;
-              return preflight$2({
+              return preflight$1({
                 accept: accept
               });
 
@@ -2840,6 +3581,7 @@
                   }, /*#__PURE__*/React__default$1['default'].createElement(ClosableProvider, {
                     unmount: unmount
                   }, /*#__PURE__*/React__default$1['default'].createElement(UpdateProvider, null, /*#__PURE__*/React__default$1['default'].createElement(WalletProvider, {
+                    document: document,
                     container: container,
                     connected: connected,
                     unmount: unmount
@@ -2967,175 +3709,8 @@
     }, /*#__PURE__*/React__default$1['default'].createElement(PaymentValueProvider, null, props.children))));
   });
 
-  function _arrayWithoutHoles(arr) {
-    if (Array.isArray(arr)) return _arrayLikeToArray(arr);
-  }
-
-  function _iterableToArray(iter) {
-    if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
-  }
-
-  function _nonIterableSpread() {
-    throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-  }
-
-  function _toConsumableArray(arr) {
-    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
-  }
-
-  var ChangeAmountDialog = (function (props) {
-    var _useContext = React.useContext(ConfigurationContext),
-        amount = _useContext.amount;
-
-    var _useContext2 = React.useContext(depayReactDialogStack.NavigateStackContext),
-        navigate = _useContext2.navigate;
-
-    var _useContext3 = React.useContext(WalletContext),
-        account = _useContext3.account;
-
-    var _useState = React.useState(props.amount),
-        _useState2 = _slicedToArray(_useState, 2),
-        inputAmount = _useState2[0],
-        setInputAmount = _useState2[1];
-
-    var _useContext4 = React.useContext(PaymentRoutingContext),
-        allRoutes = _useContext4.allRoutes;
-
-    var _useState3 = React.useState(),
-        _useState4 = _slicedToArray(_useState3, 2),
-        maxRoute = _useState4[0],
-        setMaxRoute = _useState4[1];
-
-    var _useState5 = React.useState(parseFloat(amount.start) * 10),
-        _useState6 = _slicedToArray(_useState5, 2),
-        max = _useState6[0],
-        setMax = _useState6[1];
-
-    var _useState7 = React.useState(),
-        _useState8 = _slicedToArray(_useState7, 2),
-        maxRouteData = _useState8[0],
-        setMaxRouteData = _useState8[1];
-
-    React.useEffect(function () {
-      var sortedLowToHigh = _toConsumableArray(allRoutes).sort(function (a, b) {
-        var aAmountsAvailable = ethers.ethers.BigNumber.from(a.fromBalance).div(ethers.ethers.BigNumber.from(a.fromAmount));
-        var bAmountsAvailable = ethers.ethers.BigNumber.from(b.fromBalance).div(ethers.ethers.BigNumber.from(b.fromAmount));
-
-        if (aAmountsAvailable.lt(bAmountsAvailable)) {
-          return -1;
-        }
-
-        if (bAmountsAvailable.lt(aAmountsAvailable)) {
-          return 1;
-        }
-
-        return 0; // equal
-      });
-
-      setMaxRoute(sortedLowToHigh[sortedLowToHigh.length - 1]);
-    }, []);
-    React.useEffect(function () {
-      if (maxRoute) {
-        return Promise.all([maxRoute.fromToken.name(), maxRoute.fromToken.symbol(), maxRoute.toToken.decimals(), maxRoute.fromToken.readable(maxRoute.fromBalance), depayWeb3Exchanges.route({
-          blockchain: maxRoute.blockchain,
-          tokenIn: maxRoute.fromToken.address,
-          tokenOut: maxRoute.toToken.address,
-          amountIn: maxRoute.fromBalance,
-          fromAddress: account,
-          toAddress: account
-        })]).then(function (_ref) {
-          var _ref2 = _slicedToArray(_ref, 5),
-              name = _ref2[0],
-              symbol = _ref2[1],
-              decimals = _ref2[2],
-              balance = _ref2[3],
-              routes = _ref2[4];
-
-          var SLIPPAGE = 1.01;
-          var max = round(parseFloat(ethers.ethers.utils.formatUnits(routes[0].amountOutMin, decimals)) / SLIPPAGE, 'down');
-          setMax(max);
-          setMaxRouteData({
-            name: name,
-            symbol: symbol,
-            balance: balance,
-            blockchain: maxRoute.blockchain,
-            address: maxRoute.fromToken.address
-          });
-        });
-      }
-    }, [maxRoute]);
-
-    var changeAmountAndGoBack = function changeAmountAndGoBack() {
-      props.setAmount(inputAmount);
-      navigate('back');
-    };
-
-    var changeAmount = function changeAmount(value) {
-      if (Number.isNaN(value)) {
-        return;
-      }
-
-      setInputAmount(Math.min(value, max));
-    };
-
-    return /*#__PURE__*/React__default$1['default'].createElement(Dialog, {
-      stacked: true,
-      header: /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
-      }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
-        className: "FontSizeL TextCenter"
-      }, "Change Amount"), /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "FontSizeL TextCenter FontWeightBold"
-      }, /*#__PURE__*/React__default$1['default'].createElement("strong", null, props.token.symbol))),
-      body: /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "MaxHeight PaddingTopXS"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "PaddingTopS TextCenter PaddingBottomL"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "FontSizeL"
-      }, /*#__PURE__*/React__default$1['default'].createElement("input", {
-        max: parseFloat(max),
-        min: parseFloat(amount.min),
-        step: parseFloat(amount.step),
-        className: "Input FontSizeXL TextAlignCenter",
-        type: "number",
-        name: "amount",
-        value: parseFloat(inputAmount),
-        onChange: function onChange(event) {
-          changeAmount(parseFloat(event.target.value));
-        }
-      })), /*#__PURE__*/React__default$1['default'].createElement(Slider__default['default'], {
-        min: parseFloat(amount.min),
-        max: parseFloat(max),
-        step: parseFloat(amount.step),
-        value: parseFloat(inputAmount),
-        onChange: function onChange(value) {
-          changeAmount(parseFloat(value));
-        }
-      }), maxRouteData && /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "PaddingBottomS"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", null, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "MaxAmountImage"
-      }, /*#__PURE__*/React__default$1['default'].createElement(depayReactTokenImage.TokenImage, {
-        blockchain: maxRouteData.blockchain,
-        address: maxRouteData.address
-      })), maxRouteData.symbol, " ", format(round(maxRouteData.balance, 'down')), /*#__PURE__*/React__default$1['default'].createElement("button", {
-        className: "TextButton",
-        onClick: function onClick() {
-          changeAmount(max);
-        }
-      }, "(Max)")))))),
-      footer: /*#__PURE__*/React__default$1['default'].createElement("div", null, /*#__PURE__*/React__default$1['default'].createElement("button", {
-        className: "ButtonPrimary",
-        onClick: changeAmountAndGoBack
-      }, "Done"))
-    });
-  });
-
   var SaleOverviewSkeleton = (function (props) {
-    return /*#__PURE__*/React__default$1['default'].createElement(Dialog, {
+    return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM"
       }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
@@ -3270,7 +3845,7 @@
       return /*#__PURE__*/React__default$1['default'].createElement(SaleOverviewSkeleton, null);
     }
 
-    return /*#__PURE__*/React__default$1['default'].createElement(Dialog, {
+    return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM"
       }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
@@ -3382,7 +3957,7 @@
     });
   });
 
-  var preflight$1 = /*#__PURE__*/function () {
+  var preflight = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
       var amount, token, blockchains;
       return regenerator.wrap(function _callee$(_context) {
@@ -3468,7 +4043,7 @@
               amount = _ref3.amount, token = _ref3.token, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, document = _ref3.document;
               _context2.prev = 1;
               _context2.next = 4;
-              return preflight$1({
+              return preflight({
                 amount: amount,
                 token: token,
                 blockchains: blockchains
@@ -3539,491 +4114,8 @@
     };
   }();
 
-  var DonationRoutingContext = /*#__PURE__*/React__default$1['default'].createContext();
-
-  var DonationRoutingProvider = (function (props) {
-    var _useContext = React.useContext(ConfigurationContext),
-        amount = _useContext.amount,
-        receiver = _useContext.receiver,
-        token = _useContext.token,
-        blockchains = _useContext.blockchains,
-        blacklist = _useContext.blacklist;
-
-    var _useContext2 = React.useContext(WalletContext),
-        account = _useContext2.account;
-
-    var _useState = React.useState(amount.start),
-        _useState2 = _slicedToArray(_useState, 2),
-        donatedAmount = _useState2[0],
-        setDonatedAmount = _useState2[1];
-
-    var _useState3 = React.useState(),
-        _useState4 = _slicedToArray(_useState3, 2),
-        donatedToken = _useState4[0],
-        setDonatedToken = _useState4[1];
-
-    var _useState5 = React.useState(),
-        _useState6 = _slicedToArray(_useState5, 2),
-        accept = _useState6[0],
-        setAccept = _useState6[1];
-
-    if (blacklist == undefined) {
-      blacklist = {};
-    }
-
-    blockchains.forEach(function (blockchain) {
-      if (blacklist[blockchain] == undefined) {
-        blacklist[blockchain] = [token];
-      } else if (blacklist[blockchain] instanceof Array) {
-        blacklist[blockchain].push(token);
-      }
-    });
-    React.useEffect(function () {
-      if (account) {
-        setAccept(blockchains.map(function (blockchain) {
-          return {
-            blockchain: blockchain,
-            amount: donatedAmount,
-            token: token,
-            receiver: receiver
-          };
-        }));
-      }
-    }, [account, donatedAmount]);
-    React.useEffect(function () {
-      var tokenInstance = new depayWeb3Tokens.Token({
-        blockchain: blockchains[0],
-        address: token
-      });
-      Promise.all([tokenInstance.name(), tokenInstance.symbol(), tokenInstance.decimals()]).then(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 3),
-            name = _ref2[0],
-            symbol = _ref2[1],
-            decimals = _ref2[2];
-
-        setDonatedToken({
-          address: token,
-          name: name,
-          symbol: symbol,
-          decimals: decimals
-        });
-      });
-    }, []);
-    return /*#__PURE__*/React__default$1['default'].createElement(DonationRoutingContext.Provider, {
-      value: {
-        setDonatedAmount: setDonatedAmount,
-        donatedAmount: donatedAmount,
-        donatedToken: donatedToken
-      }
-    }, /*#__PURE__*/React__default$1['default'].createElement(PaymentRoutingProvider, {
-      accept: accept,
-      blacklist: blacklist
-    }, /*#__PURE__*/React__default$1['default'].createElement(PaymentProvider, {
-      container: props.container,
-      document: props.document
-    }, /*#__PURE__*/React__default$1['default'].createElement(PaymentValueProvider, null, props.children))));
-  });
-
-  var DonationOverviewSkeleton = (function (props) {
-    return /*#__PURE__*/React__default$1['default'].createElement(Dialog, {
-      header: /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
-        className: "FontSizeL TextLeft"
-      }, "Donation")),
-      body: /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "Card Skeleton"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "SkeletonBackground"
-      })), /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "Card Skeleton",
-        style: {
-          height: '100px'
-        }
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "SkeletonBackground"
-      }))),
-      footer: /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "SkeletonWrapper"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "ButtonPrimary Skeleton"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "SkeletonBackground"
-      }))))
-    });
-  });
-
-  var DonationOverviewDialog = (function (props) {
-    var _useContext = React.useContext(PaymentContext),
-        payment = _useContext.payment,
-        paymentState = _useContext.paymentState,
-        pay = _useContext.pay,
-        transaction = _useContext.transaction,
-        approve = _useContext.approve,
-        approvalTransaction = _useContext.approvalTransaction;
-
-    var _useContext2 = React.useContext(WalletContext),
-        walletState = _useContext2.walletState;
-
-    var _useContext3 = React.useContext(PaymentValueContext),
-        paymentValue = _useContext3.paymentValue;
-
-    var _useContext4 = React.useContext(depayReactDialogStack.NavigateStackContext),
-        navigate = _useContext4.navigate;
-
-    var _useContext5 = React.useContext(ClosableContext),
-        close = _useContext5.close;
-
-    var _useContext6 = React.useContext(DonationRoutingContext),
-        donatedToken = _useContext6.donatedToken,
-        donatedAmount = _useContext6.donatedAmount;
-
-    var mainAction = function mainAction() {
-      if (paymentState == 'initialized' || paymentState == 'approving') {
-        return /*#__PURE__*/React__default$1['default'].createElement("button", {
-          className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
-          onClick: function onClick() {
-            if (payment.route.approvalRequired && !payment.route.directTransfer) {
-              return;
-            }
-
-            pay({
-              navigate: navigate
-            });
-          }
-        }, "Pay ", paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
-      } else if (paymentState == 'paying') {
-        return /*#__PURE__*/React__default$1['default'].createElement("a", {
-          className: "ButtonPrimary",
-          title: "Performing the payment - please wait",
-          href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-          target: "_blank",
-          rel: "noopener noreferrer"
-        }, /*#__PURE__*/React__default$1['default'].createElement(LoadingText, null, "Paying"));
-      } else if (paymentState == 'confirmed') {
-        return /*#__PURE__*/React__default$1['default'].createElement("button", {
-          className: "ButtonPrimary round",
-          title: "Done",
-          onClick: close
-        }, /*#__PURE__*/React__default$1['default'].createElement(Checkmark, null));
-      }
-    };
-
-    var approvalAction = function approvalAction() {
-      if (paymentState == 'initialized') {
-        return /*#__PURE__*/React__default$1['default'].createElement("div", {
-          className: "PaddingBottomS"
-        }, /*#__PURE__*/React__default$1['default'].createElement("button", {
-          className: "ButtonPrimary wide",
-          onClick: approve
-        }, "Allow ", payment.symbol, " to be used as payment"));
-      } else if (paymentState == 'approving') {
-        return /*#__PURE__*/React__default$1['default'].createElement("div", {
-          className: "PaddingBottomS"
-        }, /*#__PURE__*/React__default$1['default'].createElement("a", {
-          className: "ButtonPrimary wide",
-          title: "Approving payment token - please wait",
-          href: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
-          target: "_blank",
-          rel: "noopener noreferrer"
-        }, /*#__PURE__*/React__default$1['default'].createElement(LoadingText, null, "Approving")));
-      }
-    };
-
-    var actions = function actions() {
-      return /*#__PURE__*/React__default$1['default'].createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
-    };
-
-    if (walletState == 'connecting') {
-      return /*#__PURE__*/React__default$1['default'].createElement(ConnectingWalletDialog, null);
-    }
-
-    if (donatedToken == undefined || donatedAmount == undefined || payment == undefined || paymentValue == undefined) {
-      return /*#__PURE__*/React__default$1['default'].createElement(DonationOverviewSkeleton, null);
-    }
-
-    return /*#__PURE__*/React__default$1['default'].createElement(Dialog, {
-      header: /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
-        className: "FontSizeL TextLeft"
-      }, "Donation")),
-      body: /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
-        title: paymentState == 'initialized' ? "Change amount" : undefined,
-        onClick: function onClick() {
-          if (paymentState != 'initialized') {
-            return;
-          }
-
-          navigate('ChangeAmount');
-        }
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "CardImage",
-        title: payment.name
-      }, /*#__PURE__*/React__default$1['default'].createElement(depayReactTokenImage.TokenImage, {
-        blockchain: payment.route.blockchain,
-        address: donatedToken.address
-      })), /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React__default$1['default'].createElement("h4", {
-        className: "CardTitle"
-      }, "Amount"), /*#__PURE__*/React__default$1['default'].createElement("h2", {
-        className: "CardText"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "TokenAmountRow"
-      }, /*#__PURE__*/React__default$1['default'].createElement("span", {
-        className: "TokenSymbolCell"
-      }, donatedToken.symbol), /*#__PURE__*/React__default$1['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default$1['default'].createElement("span", {
-        className: "TokenAmountCell"
-      }, format(donatedAmount)))))), /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "CardAction"
-      }, /*#__PURE__*/React__default$1['default'].createElement(ChevronRight, null))), /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
-        title: paymentState == 'initialized' ? "Change payment" : undefined,
-        onClick: function onClick() {
-          if (paymentState != 'initialized') {
-            return;
-          }
-
-          navigate('ChangePayment');
-        }
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "CardImage",
-        title: payment.name
-      }, /*#__PURE__*/React__default$1['default'].createElement(depayReactTokenImage.TokenImage, {
-        blockchain: payment.route.blockchain,
-        address: payment.token
-      })), /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React__default$1['default'].createElement("h4", {
-        className: "CardTitle"
-      }, "Payment"), /*#__PURE__*/React__default$1['default'].createElement("h2", {
-        className: "CardText"
-      }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "TokenAmountRow"
-      }, /*#__PURE__*/React__default$1['default'].createElement("span", {
-        className: "TokenSymbolCell"
-      }, payment.symbol), /*#__PURE__*/React__default$1['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default$1['default'].createElement("span", {
-        className: "TokenAmountCell"
-      }, format(payment.amount)))), paymentValue.toString().length && /*#__PURE__*/React__default$1['default'].createElement("h3", {
-        className: "CardText"
-      }, /*#__PURE__*/React__default$1['default'].createElement("small", null, paymentValue.toString())))), /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "CardAction"
-      }, /*#__PURE__*/React__default$1['default'].createElement(ChevronRight, null)))),
-      footer: /*#__PURE__*/React__default$1['default'].createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM"
-      }, actions())
-    });
-  });
-
-  var DonationStack = (function (props) {
-    var _useContext = React.useContext(ClosableContext),
-        open = _useContext.open,
-        close = _useContext.close;
-
-    var _useContext2 = React.useContext(DonationRoutingContext),
-        donatedToken = _useContext2.donatedToken,
-        donatedAmount = _useContext2.donatedAmount,
-        setDonatedAmount = _useContext2.setDonatedAmount;
-
-    return /*#__PURE__*/React__default$1['default'].createElement(depayReactDialogStack.ReactDialogStack, {
-      open: open,
-      close: close,
-      start: "DonationOverview",
-      container: props.container,
-      document: props.document,
-      dialogs: {
-        DonationOverview: /*#__PURE__*/React__default$1['default'].createElement(DonationOverviewDialog, null),
-        ChangeAmount: /*#__PURE__*/React__default$1['default'].createElement(ChangeAmountDialog, {
-          token: donatedToken,
-          amount: donatedAmount,
-          setAmount: setDonatedAmount
-        }),
-        ChangePayment: /*#__PURE__*/React__default$1['default'].createElement(ChangePaymentDialog, null),
-        PaymentError: /*#__PURE__*/React__default$1['default'].createElement(PaymentErrorDialog, null),
-        WrongNetwork: /*#__PURE__*/React__default$1['default'].createElement(WrongNetworkDialog, null)
-      }
-    });
-  });
-
-  var preflight = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-      var amount, token, blockchains, receiver;
-      return regenerator.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              amount = _ref.amount, token = _ref.token, blockchains = _ref.blockchains, receiver = _ref.receiver;
-
-              if (!(typeof amount === 'undefined')) {
-                _context.next = 3;
-                break;
-              }
-
-              throw 'You need to set the amount!';
-
-            case 3:
-              if (!(typeof amount.min === 'undefined')) {
-                _context.next = 5;
-                break;
-              }
-
-              throw 'You need to set amount.min!';
-
-            case 5:
-              if (!(typeof amount.step === 'undefined')) {
-                _context.next = 7;
-                break;
-              }
-
-              throw 'You need to set amount.step!';
-
-            case 7:
-              if (!(typeof amount.start === 'undefined')) {
-                _context.next = 9;
-                break;
-              }
-
-              throw 'You need to set amount.start!';
-
-            case 9:
-              if (!(typeof token == 'undefined')) {
-                _context.next = 11;
-                break;
-              }
-
-              throw 'You need to set a token!';
-
-            case 11:
-              if (!(typeof blockchains == 'undefined' || blockchains.length == 0)) {
-                _context.next = 13;
-                break;
-              }
-
-              throw 'You need to set blockchains!';
-
-            case 13:
-              blockchains.forEach(function (blockchain) {
-                if (!['ethereum', 'bsc'].includes(blockchain)) {
-                  throw 'You need to set only supported blockchains!';
-                }
-              });
-
-              if (!(typeof receiver == 'undefined' || receiver.length == 0)) {
-                _context.next = 16;
-                break;
-              }
-
-              throw 'You need to set a receiver!';
-
-            case 16:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function preflight(_x) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-
-  var Donation = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var amount, token, receiver, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, document, unmount;
-      return regenerator.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              amount = _ref3.amount, token = _ref3.token, receiver = _ref3.receiver, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, document = _ref3.document;
-              _context2.prev = 1;
-              _context2.next = 4;
-              return preflight({
-                amount: amount,
-                token: token,
-                blockchains: blockchains,
-                receiver: receiver
-              });
-
-            case 4:
-              unmount = mount({
-                style: style,
-                document: ensureDocument(document)
-              }, function (unmount) {
-                return function (container) {
-                  return /*#__PURE__*/React__default$1['default'].createElement(ErrorProvider, {
-                    error: error,
-                    container: container,
-                    unmount: unmount
-                  }, /*#__PURE__*/React__default$1['default'].createElement(ConfigurationProvider, {
-                    configuration: {
-                      amount: amount,
-                      token: token,
-                      receiver: receiver,
-                      blockchains: blockchains,
-                      currency: currency,
-                      event: event,
-                      sent: sent,
-                      confirmed: confirmed,
-                      ensured: ensured,
-                      failed: failed,
-                      blacklist: blacklist,
-                      providers: providers
-                    }
-                  }, /*#__PURE__*/React__default$1['default'].createElement(ClosableProvider, {
-                    unmount: unmount
-                  }, /*#__PURE__*/React__default$1['default'].createElement(UpdateProvider, null, /*#__PURE__*/React__default$1['default'].createElement(WalletProvider, {
-                    container: container,
-                    connected: connected,
-                    unmount: unmount
-                  }, /*#__PURE__*/React__default$1['default'].createElement(DonationRoutingProvider, {
-                    container: container,
-                    document: document
-                  }, /*#__PURE__*/React__default$1['default'].createElement(DonationStack, {
-                    document: document,
-                    container: container
-                  })))))));
-                };
-              });
-              return _context2.abrupt("return", {
-                unmount: unmount
-              });
-
-            case 8:
-              _context2.prev = 8;
-              _context2.t0 = _context2["catch"](1);
-              console.log('critical error', _context2.t0);
-
-              if (critical != undefined) {
-                critical(_context2.t0);
-              }
-
-            case 12:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2, null, [[1, 8]]);
-    }));
-
-    return function Donation(_x2) {
-      return _ref4.apply(this, arguments);
-    };
-  }();
-
   var DePayWidgets = {
+    Connect: Connect,
     Payment: Payment,
     Sale: Sale,
     Donation: Donation,
