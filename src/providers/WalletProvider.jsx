@@ -1,3 +1,4 @@
+import ConnectingWalletDialog from '../dialogs/ConnectingWalletDialog'
 import ConnectStack from '../stacks/ConnectStack'
 import ErrorContext from '../contexts/ErrorContext'
 import React, { useState, useEffect, useContext } from 'react'
@@ -44,7 +45,6 @@ export default (props)=>{
   useEffect(()=>{
     let _wallet = getWallet()
     if(_wallet) {
-      setWalletState('found')
       setWallet(_wallet)
     } else {
       setWalletState('unavailable')
@@ -64,7 +64,9 @@ export default (props)=>{
     }
   }, [wallet])
 
-  if(walletState == 'unavailable') {
+  if(wallet && walletState == 'connecting') { 
+    return(<ConnectingWalletDialog wallet={ wallet } unmount={ props.unmount } container={ props.container } connect={ connect }/>) 
+  } else if(walletState == 'unavailable') {
     return(<ConnectStack document={ props.document } container={ props.container } connected={ connected } />)
   } else if(walletState == 'requestPending') {
     return(<WalletRequestPendingDialog wallet={ wallet } unmount={ props.unmount } container={ props.container }/>)

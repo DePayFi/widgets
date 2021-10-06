@@ -255,14 +255,14 @@
         <script>
           var button = document.getElementById("connectButton");
           button.addEventListener("click",async function(e){
-            let { account, accounts } = await DePayWidgets.Connect()
+            let { account, accounts, wallet } = await DePayWidgets.Connect()
+            alert(`${wallet.name} ${account}`)
             console.log(account, accounts)
           });
         </script>
       </div>
       <div class="col-4"></div>
     </div><!-- Payment -->
-
 
   </body>
 </html>

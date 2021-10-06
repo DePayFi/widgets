@@ -1,7 +1,6 @@
 import Checkmark from '../components/Checkmark'
 import ChevronRight from '../components/ChevronRight'
 import ClosableContext from '../contexts/ClosableContext'
-import ConnectingWalletDialog from './ConnectingWalletDialog'
 import Dialog from '../components/Dialog'
 import format from '../helpers/format'
 import LoadingText from '../components/LoadingText'
@@ -11,7 +10,6 @@ import React, { useContext, useState, useEffect } from 'react'
 import DonationOverviewSkeleton from '../skeletons/DonationOverviewSkeleton'
 import DonationRoutingContext from '../contexts/DonationRoutingContext'
 import UpdateContext from '../contexts/UpdateContext'
-import WalletContext from '../contexts/WalletContext'
 import { Currency } from 'depay-local-currency'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
 import { TokenImage } from 'depay-react-token-image'
@@ -19,7 +17,6 @@ import { TokenImage } from 'depay-react-token-image'
 export default (props)=>{
 
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
-  const { walletState } = useContext(WalletContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
@@ -80,7 +77,6 @@ export default (props)=>{
     )
   }
 
-  if(walletState == 'connecting') { return(<ConnectingWalletDialog/>) }
   if(
     donatedToken == undefined ||
     donatedAmount == undefined ||

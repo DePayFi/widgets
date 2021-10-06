@@ -1,23 +1,33 @@
-import WalletContext from '../contexts/WalletContext'
-import Dialog from '../components/Dialog'
-import React, { useContext } from 'react'
+import { ReactDialog } from 'depay-react-dialog'
+import React, { useState } from 'react'
 
-export default ()=> {
+export default (props)=> {
 
-  const { wallet, connect } = useContext(WalletContext)
-
+  let wallet = props.wallet
   let walletName = wallet?.name ? wallet.name : 'wallet'
   let walletLogo = wallet?.logo ? wallet.logo : undefined
+  const [open, setOpen] = useState(true)
+  let close = ()=>{
+    setOpen(false)
+    setTimeout(props.unmount, 300)
+  }
 
   return(
-    <Dialog
-      body={
-        <div>
+    <ReactDialog container={ props.container } close={ close } open={ open }>
+      <div className="Dialog ReactDialogAnimation">
+        
+        <div className="DialogHeader">
+          <div className="PaddingTopS PaddingLeftS PaddingRightS">
+          </div>
+        </div>
+
+        <div className="DialogBody">
           { walletLogo &&
             <div className="GraphicWrapper">
               <img className="Graphic" src={walletLogo}/>
             </div>
           }
+
           <h1 className="Text FontSizeL PaddingTopS FontWeightBold">Connect Wallet</h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
             <strong className="FontSizeM">
@@ -25,14 +35,16 @@ export default ()=> {
             </strong>
           </div>
         </div>
-      }
-      footer={
-        <div className="PaddingTopXS PaddingRightM PaddingLeftM">
-          <button className='ButtonPrimary wide' onClick={connect}>
-            Connect
-          </button>
+
+        <div className="DialogFooter">
+          <div className="PaddingTopXS PaddingRightM PaddingLeftM">
+            <button className='ButtonPrimary wide' onClick={props.connect}>
+              Connect
+            </button>
+          </div>
+          <a href={'https://depay.fi?utm_source='+window.location.hostname+'&utm_medium=widget&utm_campaign=WidgetV2'} rel="noopener noreferrer" target="_blank" className="FooterLink">by DePay</a>
         </div>
-      }
-    />
+      </div>
+    </ReactDialog>
   )
 }

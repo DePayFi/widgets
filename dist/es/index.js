@@ -2253,35 +2253,6 @@ var Checkmark = (function () {
   }));
 });
 
-var ConnectingWalletDialog = (function () {
-  var _useContext = useContext(WalletContext),
-      wallet = _useContext.wallet,
-      connect = _useContext.connect;
-
-  var walletName = wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
-  var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    body: /*#__PURE__*/React.createElement("div", null, walletLogo && /*#__PURE__*/React.createElement("div", {
-      className: "GraphicWrapper"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "Graphic",
-      src: walletLogo
-    })), /*#__PURE__*/React.createElement("h1", {
-      className: "Text FontSizeL PaddingTopS FontWeightBold"
-    }, "Connect Wallet"), /*#__PURE__*/React.createElement("div", {
-      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/React.createElement("strong", {
-      className: "FontSizeM"
-    }, "This payment requires access to your wallet, please login and authorize access to your ", walletName, " account to continue."))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM"
-    }, /*#__PURE__*/React.createElement("button", {
-      className: "ButtonPrimary wide",
-      onClick: connect
-    }, "Connect"))
-  });
-});
-
 var LoadingText = (function (props) {
   return /*#__PURE__*/React.createElement("div", {
     className: "LoadingText"
@@ -2336,21 +2307,18 @@ var DonationOverviewDialog = (function (props) {
       approve = _useContext.approve,
       approvalTransaction = _useContext.approvalTransaction;
 
-  var _useContext2 = useContext(WalletContext),
-      walletState = _useContext2.walletState;
+  var _useContext2 = useContext(PaymentValueContext),
+      paymentValue = _useContext2.paymentValue;
 
-  var _useContext3 = useContext(PaymentValueContext),
-      paymentValue = _useContext3.paymentValue;
+  var _useContext3 = useContext(NavigateStackContext),
+      navigate = _useContext3.navigate;
 
-  var _useContext4 = useContext(NavigateStackContext),
-      navigate = _useContext4.navigate;
+  var _useContext4 = useContext(ClosableContext),
+      close = _useContext4.close;
 
-  var _useContext5 = useContext(ClosableContext),
-      close = _useContext5.close;
-
-  var _useContext6 = useContext(DonationRoutingContext),
-      donatedToken = _useContext6.donatedToken,
-      donatedAmount = _useContext6.donatedAmount;
+  var _useContext5 = useContext(DonationRoutingContext),
+      donatedToken = _useContext5.donatedToken,
+      donatedAmount = _useContext5.donatedAmount;
 
   var mainAction = function mainAction() {
     if (paymentState == 'initialized' || paymentState == 'approving') {
@@ -2407,10 +2375,6 @@ var DonationOverviewDialog = (function (props) {
   var actions = function actions() {
     return /*#__PURE__*/React.createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
   };
-
-  if (walletState == 'connecting') {
-    return /*#__PURE__*/React.createElement(ConnectingWalletDialog, null);
-  }
 
   if (donatedToken == undefined || donatedAmount == undefined || payment == undefined || paymentValue == undefined) {
     return /*#__PURE__*/React.createElement(DonationOverviewSkeleton, null);
@@ -2983,6 +2947,59 @@ var UpdateProvider = (function (props) {
   }, props.children);
 });
 
+var ConnectingWalletDialog = (function (props) {
+  var wallet = props.wallet;
+  var walletName = wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
+  var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
+
+  var _useState = useState(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      open = _useState2[0],
+      setOpen = _useState2[1];
+
+  var close = function close() {
+    setOpen(false);
+    setTimeout(props.unmount, 300);
+  };
+
+  return /*#__PURE__*/React.createElement(ReactDialog_1, {
+    container: props.container,
+    close: close,
+    open: open
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "Dialog ReactDialogAnimation"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "DialogHeader"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "PaddingTopS PaddingLeftS PaddingRightS"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "DialogBody"
+  }, walletLogo && /*#__PURE__*/React.createElement("div", {
+    className: "GraphicWrapper"
+  }, /*#__PURE__*/React.createElement("img", {
+    className: "Graphic",
+    src: walletLogo
+  })), /*#__PURE__*/React.createElement("h1", {
+    className: "Text FontSizeL PaddingTopS FontWeightBold"
+  }, "Connect Wallet"), /*#__PURE__*/React.createElement("div", {
+    className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+  }, /*#__PURE__*/React.createElement("strong", {
+    className: "FontSizeM"
+  }, "This payment requires access to your wallet, please login and authorize access to your ", walletName, " account to continue."))), /*#__PURE__*/React.createElement("div", {
+    className: "DialogFooter"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "PaddingTopXS PaddingRightM PaddingLeftM"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "ButtonPrimary wide",
+    onClick: props.connect
+  }, "Connect")), /*#__PURE__*/React.createElement("a", {
+    href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
+    rel: "noopener noreferrer",
+    target: "_blank",
+    className: "FooterLink"
+  }, "by DePay"))));
+});
+
 var WalletRequestPendingDialog = (function (props) {
   var _props$wallet;
 
@@ -3091,7 +3108,6 @@ var WalletProvider = (function (props) {
     var _wallet = getWallet();
 
     if (_wallet) {
-      setWalletState('found');
       setWallet(_wallet);
     } else {
       setWalletState('unavailable');
@@ -3134,7 +3150,14 @@ var WalletProvider = (function (props) {
     }, _callee);
   })), [wallet]);
 
-  if (walletState == 'unavailable') {
+  if (wallet && walletState == 'connecting') {
+    return /*#__PURE__*/React.createElement(ConnectingWalletDialog, {
+      wallet: wallet,
+      unmount: props.unmount,
+      container: props.container,
+      connect: connect
+    });
+  } else if (walletState == 'unavailable') {
     return /*#__PURE__*/React.createElement(ConnectStack, {
       document: props.document,
       container: props.container,
@@ -3359,17 +3382,14 @@ var PaymentOverviewDialog = (function (props) {
       approve = _useContext.approve,
       approvalTransaction = _useContext.approvalTransaction;
 
-  var _useContext2 = useContext(WalletContext),
-      walletState = _useContext2.walletState;
+  var _useContext2 = useContext(PaymentValueContext),
+      paymentValue = _useContext2.paymentValue;
 
-  var _useContext3 = useContext(PaymentValueContext),
-      paymentValue = _useContext3.paymentValue;
+  var _useContext3 = useContext(NavigateStackContext),
+      navigate = _useContext3.navigate;
 
-  var _useContext4 = useContext(NavigateStackContext),
-      navigate = _useContext4.navigate;
-
-  var _useContext5 = useContext(ClosableContext),
-      close = _useContext5.close;
+  var _useContext4 = useContext(ClosableContext),
+      close = _useContext4.close;
 
   var mainAction = function mainAction() {
     if (paymentState == 'initialized' || paymentState == 'approving') {
@@ -3426,10 +3446,6 @@ var PaymentOverviewDialog = (function (props) {
   var actions = function actions() {
     return /*#__PURE__*/React.createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
   };
-
-  if (walletState == 'connecting') {
-    return /*#__PURE__*/React.createElement(ConnectingWalletDialog, null);
-  }
 
   if (payment == undefined || paymentValue == undefined) {
     return /*#__PURE__*/React.createElement(PaymentOverviewSkeleton, null);
@@ -3755,21 +3771,18 @@ var SaleOverviewDialog = (function (props) {
       approve = _useContext.approve,
       approvalTransaction = _useContext.approvalTransaction;
 
-  var _useContext2 = useContext(WalletContext),
-      walletState = _useContext2.walletState;
+  var _useContext2 = useContext(PaymentValueContext),
+      paymentValue = _useContext2.paymentValue;
 
-  var _useContext3 = useContext(PaymentValueContext),
-      paymentValue = _useContext3.paymentValue;
+  var _useContext3 = useContext(NavigateStackContext),
+      navigate = _useContext3.navigate;
 
-  var _useContext4 = useContext(NavigateStackContext),
-      navigate = _useContext4.navigate;
+  var _useContext4 = useContext(ClosableContext),
+      close = _useContext4.close;
 
-  var _useContext5 = useContext(ClosableContext),
-      close = _useContext5.close;
-
-  var _useContext6 = useContext(SaleRoutingContext),
-      purchasedToken = _useContext6.purchasedToken,
-      purchasedAmount = _useContext6.purchasedAmount;
+  var _useContext5 = useContext(SaleRoutingContext),
+      purchasedToken = _useContext5.purchasedToken,
+      purchasedAmount = _useContext5.purchasedAmount;
 
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -3840,10 +3853,6 @@ var SaleOverviewDialog = (function (props) {
       }).toString());
     }
   }, [paymentValue]);
-
-  if (walletState == 'connecting') {
-    return /*#__PURE__*/React.createElement(ConnectingWalletDialog, null);
-  }
 
   if (purchasedToken == undefined || purchasedAmount == undefined || payment == undefined || paymentValue == undefined) {
     return /*#__PURE__*/React.createElement(SaleOverviewSkeleton, null);
