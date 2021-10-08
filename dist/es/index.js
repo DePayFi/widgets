@@ -1,6 +1,8 @@
+
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 import React, { useState, useContext, useEffect } from 'react';
 import { NavigateStackContext, ReactDialogStack } from 'depay-react-dialog-stack';
-import { supported, getWallet } from 'depay-web3-wallets';
+import { getWallet, supported } from 'depay-web3-wallets';
 import { ReactShadowDOM } from 'depay-react-shadow-dom';
 import { setProvider, provider } from 'depay-web3-client';
 import { CONSTANTS } from 'depay-web3-constants';
@@ -13,115 +15,6 @@ import Slider from 'react-rangeslider';
 import { TokenImage } from 'depay-react-token-image';
 import { Blockchain } from 'depay-web3-blockchains';
 import ReactDOM from 'react-dom';
-
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArrayLimit(arr, i) {
-  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
-
-  if (_i == null) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-
-  var _s, _e;
-
-  try {
-    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-}
-
-var ClosableContext = /*#__PURE__*/React.createContext();
-
-var ClosableProvider = (function (props) {
-  var _useState = useState(true),
-      _useState2 = _slicedToArray(_useState, 2),
-      closable = _useState2[0],
-      setClosable = _useState2[1];
-
-  var _useState3 = useState(true),
-      _useState4 = _slicedToArray(_useState3, 2),
-      open = _useState4[0],
-      setOpen = _useState4[1];
-
-  var close = function close() {
-    if (!closable) {
-      return;
-    }
-
-    setOpen(false);
-    setTimeout(props.unmount, 300);
-  };
-
-  return /*#__PURE__*/React.createElement(ClosableContext.Provider, {
-    value: {
-      closable: closable,
-      setClosable: setClosable,
-      close: close,
-      open: open
-    }
-  }, props.children);
-});
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
@@ -157,6 +50,22 @@ function _asyncToGenerator(fn) {
       _next(undefined);
     });
   };
+}
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
 }
 
 function createCommonjsModule(fn) {
@@ -922,18 +831,97 @@ try {
 
 var regenerator = runtime_1;
 
-var ChevronRight = (function () {
-  return /*#__PURE__*/React.createElement("svg", {
-    className: "ChevronRight Icon",
-    xmlns: "http://www.w3.org/2000/svg",
-    width: "16",
-    height: "16",
-    viewBox: "0 0 16 16"
-  }, /*#__PURE__*/React.createElement("path", {
-    strokeWidth: "1",
-    fillRule: "evenodd",
-    d: "M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
-  }));
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+var ClosableContext = /*#__PURE__*/React.createContext();
+
+var ClosableProvider = (function (props) {
+  var _useState = useState(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      closable = _useState2[0],
+      setClosable = _useState2[1];
+
+  var _useState3 = useState(true),
+      _useState4 = _slicedToArray(_useState3, 2),
+      open = _useState4[0],
+      setOpen = _useState4[1];
+
+  var close = function close() {
+    if (!closable) {
+      return;
+    }
+
+    setOpen(false);
+    setTimeout(props.unmount, 300);
+  };
+
+  return /*#__PURE__*/React.createElement(ClosableContext.Provider, {
+    value: {
+      closable: closable,
+      setClosable: setClosable,
+      close: close,
+      open: open
+    }
+  }, props.children);
 });
 
 var ChevronLeft = (function () {
@@ -1013,30 +1001,122 @@ var Dialog$1 = (function (props) {
   }, "by DePay")));
 });
 
+var ConnectingWalletDialog = (function (props) {
+  var wallet = getWallet();
+  var walletName = wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
+  var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
+
+  if (props.pending) {
+    return /*#__PURE__*/React.createElement(Dialog$1, {
+      stacked: true,
+      body: /*#__PURE__*/React.createElement("div", null, walletLogo && /*#__PURE__*/React.createElement("div", {
+        className: "GraphicWrapper PaddingTopS PaddingBottomS"
+      }, /*#__PURE__*/React.createElement("img", {
+        className: "Graphic",
+        src: walletLogo
+      })), /*#__PURE__*/React.createElement("h1", {
+        className: "Text FontSizeL FontWeightBold PaddingTopS"
+      }, "Connect Wallet"), /*#__PURE__*/React.createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/React.createElement("strong", {
+        className: "FontSizeM PaddingLeftM PaddingRightM"
+      }, "Your wallet is already open and asking for permission to connect. Please find your wallet dialog and confirm this connection.")))
+    });
+  } else {
+    return /*#__PURE__*/React.createElement(Dialog$1, {
+      stacked: true,
+      body: /*#__PURE__*/React.createElement("div", null, walletLogo && /*#__PURE__*/React.createElement("div", {
+        className: "GraphicWrapper PaddingTopS PaddingBottomS"
+      }, /*#__PURE__*/React.createElement("img", {
+        className: "Graphic",
+        src: walletLogo
+      })), /*#__PURE__*/React.createElement("h1", {
+        className: "Text FontSizeL FontWeightBold PaddingTopS"
+      }, "Connect Wallet"), /*#__PURE__*/React.createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/React.createElement("p", {
+        className: "FontSizeM PaddingLeftM PaddingRightM"
+      }, "Access to your wallet is required. Please login and authorize access to your ", walletName, " account to continue."))),
+      footer: /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      }, /*#__PURE__*/React.createElement("button", {
+        className: "ButtonPrimary wide",
+        onClick: props.connect
+      }, "Connect"))
+    });
+  }
+});
+
+var ChevronRight = (function () {
+  return /*#__PURE__*/React.createElement("svg", {
+    className: "ChevronRight Icon",
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "16",
+    height: "16",
+    viewBox: "0 0 16 16"
+  }, /*#__PURE__*/React.createElement("path", {
+    strokeWidth: "1",
+    fillRule: "evenodd",
+    d: "M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+  }));
+});
+
 var SelectWalletDialog = (function (props) {
   var _useState = useState(false),
       _useState2 = _slicedToArray(_useState, 2),
       showExplanation = _useState2[0],
       setShowExplanation = _useState2[1];
 
+  var _useContext = useContext(NavigateStackContext),
+      navigate = _useContext.navigate;
+
+  var wallet = getWallet();
+  useEffect( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+    var accounts;
+    return regenerator.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (!wallet) {
+              _context.next = 5;
+              break;
+            }
+
+            _context.next = 3;
+            return wallet.accounts();
+
+          case 3:
+            accounts = _context.sent;
+
+            if (accounts == undefined || accounts.length == 0) {
+              navigate('ConnectingWallet');
+            }
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  })), [wallet]);
   var walletCards = supported.map(function (wallet, index) {
     return /*#__PURE__*/React.createElement("button", {
       key: index,
       className: "Card small",
       title: "Connect ".concat(wallet.name),
-      onClick: /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-        return regenerator.wrap(function _callee$(_context) {
+      onClick: /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
+        return regenerator.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 props.setWallet(wallet);
 
               case 1:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }))
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardImage PaddingLeftM"
@@ -1077,43 +1157,93 @@ var ConnectStack = (function (props) {
       open = _useContext.open,
       close = _useContext.close;
 
-  var setWallet = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(wallet) {
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      pending = _useState2[0],
+      setPending = _useState2[1];
+
+  var wallet = getWallet();
+
+  var connect = function connect() {
+    console.log('CONNECT');
+    wallet.connect().then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
       var accounts;
       return regenerator.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return wallet.connect();
+              console.log('THEN');
+              _context.next = 3;
+              return wallet.accounts();
 
-            case 2:
+            case 3:
               accounts = _context.sent;
+              console.log('ACCOUNTS?', accounts);
 
-              if (accounts == undefined || accounts.length == 0) ; else {
-                props.connected({
-                  accounts: accounts,
-                  wallet: wallet
+              if (accounts instanceof Array && accounts.length > 0) {
+                if (props.autoClose) close();
+                if (props.resolve) props.resolve({
+                  wallet: wallet,
+                  account: accounts[0],
+                  accounts: accounts
                 });
-
-                if (props.autoClose) {
-                  close();
-                }
+              } else {
+                console.log('NOTHING CONNECTED');
               }
 
-            case 4:
+            case 6:
             case "end":
               return _context.stop();
           }
         }
       }, _callee);
-    }));
+    })))["catch"](function (error) {
+      console.log('ERROR');
+      setPending(false);
 
-    return function setWallet(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
+      if ((error === null || error === void 0 ? void 0 : error.code) == 4001) {
+        // User rejected the request.
+        return;
+      } else if ((error === null || error === void 0 ? void 0 : error.code) == -32002) {
+        // Request of type 'wallet_requestPermissions' already pending...
+        setPending(true);
+        return;
+      } else {
+        if (props.reject) props.reject(error);
+      }
+    });
+  };
 
+  useEffect( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
+    var accounts;
+    return regenerator.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            if (!wallet) {
+              _context2.next = 5;
+              break;
+            }
+
+            _context2.next = 3;
+            return wallet.accounts();
+
+          case 3:
+            accounts = _context2.sent;
+
+            if (accounts instanceof Array && accounts.length > 0) {
+              console.log('CONNECTED');
+            } else {
+              connect();
+            }
+
+          case 5:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  })), [wallet]);
   return /*#__PURE__*/React.createElement(ReactDialogStack, {
     open: open,
     close: close,
@@ -1121,8 +1251,10 @@ var ConnectStack = (function (props) {
     container: props.container,
     document: props.document,
     dialogs: {
-      SelectWallet: /*#__PURE__*/React.createElement(SelectWalletDialog, {
-        setWallet: setWallet
+      SelectWallet: /*#__PURE__*/React.createElement(SelectWalletDialog, null),
+      ConnectingWallet: /*#__PURE__*/React.createElement(ConnectingWalletDialog, {
+        pending: pending,
+        connect: connect
       })
     }
   });
@@ -1145,7 +1277,7 @@ var ButtonPrimaryStyle = (function (style) {
 });
 
 var CardStyle = (function (style) {
-  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n      width: 100%;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.6rem 0.6rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n      width: 100%;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.6rem 0.6rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
 });
 
 var DialogStyle = (function (style) {
@@ -1161,7 +1293,7 @@ var FooterStyle = (function (style) {
 });
 
 var GraphicStyle = (function () {
-  return "\n\n    .GraphicWrapper {\n      display: block;\n    }\n\n    .Graphic {\n      width: 60%;\n      position: relative;\n    }\n  ";
+  return "\n\n    .GraphicWrapper {\n      display: block;\n    }\n\n    .Graphic {\n      width: 50%;\n      position: relative;\n    }\n  ";
 });
 
 var HeightStyle = (function () {
@@ -1263,33 +1395,66 @@ var Connect = function Connect(options) {
     document = options.document;
   }
 
-  return new Promise(function (resolve, reject) {
-    var connected = function connected(_ref) {
-      var accounts = _ref.accounts,
-          wallet = _ref.wallet;
-      resolve({
-        account: accounts[0],
-        accounts: accounts,
-        wallet: wallet
-      });
-    };
+  return new Promise( /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(resolve, reject) {
+      var wallet, accounts;
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              wallet = getWallet();
+              _context.next = 3;
+              return wallet.accounts();
 
-    mount({
-      style: style,
-      document: ensureDocument(document)
-    }, function (unmount) {
-      return function (container) {
-        return /*#__PURE__*/React.createElement(ClosableProvider, {
-          unmount: unmount
-        }, /*#__PURE__*/React.createElement(ConnectStack, {
-          document: document,
-          container: container,
-          connected: connected,
-          autoClose: true
-        }));
-      };
-    });
-  });
+            case 3:
+              accounts = _context.sent;
+
+              if (!(accounts instanceof Array && accounts.length > 0)) {
+                _context.next = 6;
+                break;
+              }
+
+              return _context.abrupt("return", resolve({
+                wallet: wallet,
+                accounts: accounts,
+                account: accounts[0]
+              }));
+
+            case 6:
+              mount({
+                style: style,
+                document: ensureDocument(document)
+              }, function (unmount) {
+                var rejectBeforeUnmount = function rejectBeforeUnmount() {
+                  reject('USER_CLOSED_DIALOG');
+                  unmount();
+                };
+
+                return function (container) {
+                  return /*#__PURE__*/React.createElement(ClosableProvider, {
+                    unmount: rejectBeforeUnmount
+                  }, /*#__PURE__*/React.createElement(ConnectStack, {
+                    document: document,
+                    container: container,
+                    resolve: resolve,
+                    reject: reject,
+                    autoClose: true
+                  }));
+                };
+              });
+
+            case 7:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }());
 };
 
 var ConfigurationContext = /*#__PURE__*/React.createContext();
@@ -2945,110 +3110,9 @@ var UpdateProvider = (function (props) {
   }, props.children);
 });
 
-var ConnectingWalletDialog = (function (props) {
-  var wallet = props.wallet;
-  var walletName = wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
-  var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
-
-  var _useState = useState(true),
-      _useState2 = _slicedToArray(_useState, 2),
-      open = _useState2[0],
-      setOpen = _useState2[1];
-
-  var close = function close() {
-    setOpen(false);
-    setTimeout(props.unmount, 300);
-  };
-
-  return /*#__PURE__*/React.createElement(ReactDialog_1, {
-    container: props.container,
-    close: close,
-    open: open
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "Dialog ReactDialogAnimation"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "DialogHeader"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "PaddingTopS PaddingLeftS PaddingRightS"
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "DialogBody"
-  }, walletLogo && /*#__PURE__*/React.createElement("div", {
-    className: "GraphicWrapper"
-  }, /*#__PURE__*/React.createElement("img", {
-    className: "Graphic",
-    src: walletLogo
-  })), /*#__PURE__*/React.createElement("h1", {
-    className: "Text FontSizeL PaddingTopS FontWeightBold"
-  }, "Connect Wallet"), /*#__PURE__*/React.createElement("div", {
-    className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-  }, /*#__PURE__*/React.createElement("strong", {
-    className: "FontSizeM"
-  }, "This payment requires access to your wallet, please login and authorize access to your ", walletName, " account to continue."))), /*#__PURE__*/React.createElement("div", {
-    className: "DialogFooter"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "PaddingTopXS PaddingRightM PaddingLeftM"
-  }, /*#__PURE__*/React.createElement("button", {
-    className: "ButtonPrimary wide",
-    onClick: props.connect
-  }, "Connect")), /*#__PURE__*/React.createElement("a", {
-    href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
-    rel: "noopener noreferrer",
-    target: "_blank",
-    className: "FooterLink"
-  }, "by DePay"))));
-});
-
-var WalletRequestPendingDialog = (function (props) {
-  var _props$wallet;
-
-  var walletLogo = (_props$wallet = props.wallet) !== null && _props$wallet !== void 0 && _props$wallet.logo ? props.wallet.logo : undefined;
-
-  var _useState = useState(true),
-      _useState2 = _slicedToArray(_useState, 2),
-      open = _useState2[0],
-      setOpen = _useState2[1];
-
-  var close = function close() {
-    setOpen(false);
-    setTimeout(props.unmount, 300);
-  };
-
-  return /*#__PURE__*/React.createElement(ReactDialog_1, {
-    container: props.container,
-    close: close,
-    open: open
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "Dialog ReactDialogAnimation"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "DialogHeader"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "PaddingTopS PaddingLeftS PaddingRightS"
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "DialogBody"
-  }, walletLogo && /*#__PURE__*/React.createElement("div", {
-    className: "GraphicWrapper"
-  }, /*#__PURE__*/React.createElement("img", {
-    className: "Graphic",
-    src: walletLogo
-  })), /*#__PURE__*/React.createElement("h1", {
-    className: "Text FontSizeL PaddingTopS FontWeightBold"
-  }, "Connect Wallet"), /*#__PURE__*/React.createElement("div", {
-    className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-  }, /*#__PURE__*/React.createElement("strong", {
-    className: "FontSizeM"
-  }, "Your wallet is already open and asking for permission to connect to this website. Please find your wallet dialog and confirm connecting."))), /*#__PURE__*/React.createElement("div", {
-    className: "DialogFooter"
-  }, /*#__PURE__*/React.createElement("a", {
-    href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
-    rel: "noopener noreferrer",
-    target: "_blank",
-    className: "FooterLink"
-  }, "by DePay"))));
-});
-
 var WalletProvider = (function (props) {
-  var _useContext = useContext(ErrorContext),
-      setError = _useContext.setError;
+  var _useContext = useContext(ErrorContext);
+      _useContext.setError;
 
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -3066,108 +3130,18 @@ var WalletProvider = (function (props) {
       setWalletState = _useState6[1];
 
   var connected = function connected(_ref) {
-    var wallet = _ref.wallet;
+    var account = _ref.account,
+        wallet = _ref.wallet;
+    setAccount(account);
     setWallet(wallet);
-  };
+    setWalletState('connected');
 
-  var connect = function connect() {
-    setWalletState('connecting');
-    wallet.connect().then(function (accounts) {
-      wallet.on('disconnect', function () {
-        setWallet(undefined);
-        setAccount(undefined);
-        setWalletState('unavailable');
-      });
-      setWalletState('connected');
-
-      if (props.connected) {
-        props.connected(accounts[0]);
-      }
-
-      setAccount(accounts[0]);
-    })["catch"](function (error) {
-      if ((error === null || error === void 0 ? void 0 : error.code) == 4001) {
-        // User rejected the request.
-        setWalletState('connecting');
-        return;
-      }
-
-      if ((error === null || error === void 0 ? void 0 : error.code) == -32002) {
-        // Request of type 'wallet_requestPermissions' already pending...
-        setWalletState('requestPending');
-        return;
-      }
-
-      setError(error);
-    });
-  };
-
-  useEffect(function () {
-    var _wallet = getWallet();
-
-    if (_wallet) {
-      setWallet(_wallet);
-    } else {
-      setWalletState('unavailable');
+    if (props.connected) {
+      props.connected(accounts[0]);
     }
-  }, []);
-  useEffect( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-    var accounts;
-    return regenerator.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (!wallet) {
-              _context.next = 5;
-              break;
-            }
+  };
 
-            _context.next = 3;
-            return wallet.accounts();
-
-          case 3:
-            accounts = _context.sent;
-
-            if (accounts == undefined || accounts.length == 0) {
-              connect();
-            } else {
-              setWalletState('connected');
-
-              if (props.connected) {
-                props.connected(accounts[0]);
-              }
-
-              setAccount(accounts[0]);
-            }
-
-          case 5:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  })), [wallet]);
-
-  if (wallet && walletState == 'connecting') {
-    return /*#__PURE__*/React.createElement(ConnectingWalletDialog, {
-      wallet: wallet,
-      unmount: props.unmount,
-      container: props.container,
-      connect: connect
-    });
-  } else if (walletState == 'unavailable') {
-    return /*#__PURE__*/React.createElement(ConnectStack, {
-      document: props.document,
-      container: props.container,
-      connected: connected
-    });
-  } else if (walletState == 'requestPending') {
-    return /*#__PURE__*/React.createElement(WalletRequestPendingDialog, {
-      wallet: wallet,
-      unmount: props.unmount,
-      container: props.container
-    });
-  } else {
+  if (walletState == 'connected') {
     return /*#__PURE__*/React.createElement(WalletContext.Provider, {
       value: {
         account: account,
@@ -3176,6 +3150,12 @@ var WalletProvider = (function (props) {
         connect: connect
       }
     }, props.children);
+  } else {
+    return /*#__PURE__*/React.createElement(ConnectStack, {
+      document: props.document,
+      container: props.container,
+      resolve: connected
+    });
   }
 });
 

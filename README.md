@@ -1192,6 +1192,18 @@ let { account, accounts, wallet }  = await DePayWidgets.Connect()
 
 See [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets) for more details about the returned `wallet`.
 
+### Rejections
+
+1. Rejects if user just closes the dialog without connecting any wallet:
+
+```javascript
+
+DePayWidgets.Connect().then(()=>{}).catch((error)=>{
+  error // "USER_CLOSED_DIALOG"
+})
+
+```
+
 ## Development
 
 ### Quick start

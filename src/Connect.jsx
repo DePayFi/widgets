@@ -3,25 +3,35 @@ import ConnectStack from './stacks/ConnectStack'
 import ensureDocument from './helpers/ensureDocument'
 import mount from './helpers/mount'
 import React from 'react'
+import { getWallet } from 'depay-web3-wallets'
 
 let Connect = (options) => {
 
   let style, document
   if(typeof options == 'object') ({ style, document } = options)
 
-  return new Promise((resolve, reject)=>{
+  return new Promise(async (resolve, reject)=>{
 
-    let connected = ({ accounts, wallet })=>{
-      resolve({ account: accounts[0], accounts, wallet })
+    let wallet = getWallet()
+    if(wallet) {
+      let accounts = await wallet.accounts()
+      if(accounts instanceof Array && accounts.length > 0) {
+        return resolve({ wallet, accounts, account: accounts[0] })
+      }
     }
-    
+
     let unmount = mount({ style, document: ensureDocument(document) }, (unmount)=> {
+      const rejectBeforeUnmount = ()=>{
+        reject('USER_CLOSED_DIALOG')
+        unmount()
+      }
       return (container)=>
-        <ClosableProvider unmount={ unmount }>
+        <ClosableProvider unmount={ rejectBeforeUnmount }>
           <ConnectStack
             document={ document }
             container={ container }
-            connected={ connected }
+            resolve={ resolve }
+            reject={ reject }
             autoClose={ true }
           />
         </ClosableProvider>
