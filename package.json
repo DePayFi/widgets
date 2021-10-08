@@ -1,7 +1,7 @@
 {
   "name": "depay-widgets",
   "moduleName": "DePayWidgets",
-  "version": "2.21.0",
+  "version": "2.21.1",
   "description": "Accept and perform crypto payments with DePay widgets. Simple Decentralized Payments.",
   "main": "./dist/cjs/index.js",
   "files": [
@@ -42,7 +42,7 @@
     "depay-web3-client": "^6.0.0",
     "depay-web3-constants": "^3.0.1",
     "depay-web3-exchanges": "^6.2.0",
-    "depay-web3-payments": "^6.3.3",
+    "depay-web3-payments": "^6.3.4",
     "depay-web3-tokens": "^6.0.0",
     "depay-web3-wallets": "^5.6.11",
     "react-rangeslider": "^2.2.0"
