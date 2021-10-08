@@ -6,8 +6,6 @@ export default (style)=>{
       display: inline-block;
       font-size: 0.9rem;
       text-decoration: none;
-      padding-top: 0;
-      padding-bottom: 0;
     }
 
     .FooterLink:hover, .FooterLink:active {
