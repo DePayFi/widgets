@@ -11,6 +11,7 @@ export default (props)=>{
   const [account, setAccount] = useState()
   const [walletState, setWalletState] = useState()
   const connected = ({ account, wallet })=> {
+    console.log('connected')
     setAccount(account)
     setWallet(wallet)
     setWalletState('connected')
@@ -22,8 +23,7 @@ export default (props)=>{
       <WalletContext.Provider value={{
         account,
         wallet,
-        walletState,
-        connect
+        walletState
       }}>
         { props.children }
       </WalletContext.Provider>

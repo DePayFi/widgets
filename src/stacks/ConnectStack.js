@@ -48,7 +48,7 @@ export default (props)=>{
     if(wallet) {
       let accounts = await wallet.accounts()
       if(accounts instanceof Array && accounts.length > 0) {
-        console.log('CONNECTED')
+        if(props.resolve) props.resolve({ wallet, account: accounts[0], accounts })
       } else {
         connect()
       }

@@ -1162,7 +1162,10 @@ var ConnectStack = (function (props) {
       pending = _useState2[0],
       setPending = _useState2[1];
 
-  var wallet = getWallet();
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      wallet = _useState4[0],
+      setWallet = _useState4[1];
 
   var connect = function connect() {
     console.log('CONNECT');
@@ -1214,6 +1217,13 @@ var ConnectStack = (function (props) {
     });
   };
 
+  useEffect(function () {
+    var wallet = getWallet();
+
+    if (wallet) {
+      setWallet(wallet);
+    }
+  }, []);
   useEffect( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
     var accounts;
     return regenerator.wrap(function _callee2$(_context2) {
@@ -1232,7 +1242,11 @@ var ConnectStack = (function (props) {
             accounts = _context2.sent;
 
             if (accounts instanceof Array && accounts.length > 0) {
-              console.log('CONNECTED');
+              if (props.resolve) props.resolve({
+                wallet: wallet,
+                account: accounts[0],
+                accounts: accounts
+              });
             } else {
               connect();
             }
@@ -1251,7 +1265,9 @@ var ConnectStack = (function (props) {
     container: props.container,
     document: props.document,
     dialogs: {
-      SelectWallet: /*#__PURE__*/React.createElement(SelectWalletDialog, null),
+      SelectWallet: /*#__PURE__*/React.createElement(SelectWalletDialog, {
+        setWallet: setWallet
+      }),
       ConnectingWallet: /*#__PURE__*/React.createElement(ConnectingWalletDialog, {
         pending: pending,
         connect: connect
@@ -1403,14 +1419,20 @@ var Connect = function Connect(options) {
           switch (_context.prev = _context.next) {
             case 0:
               wallet = getWallet();
-              _context.next = 3;
+
+              if (!wallet) {
+                _context.next = 7;
+                break;
+              }
+
+              _context.next = 4;
               return wallet.accounts();
 
-            case 3:
+            case 4:
               accounts = _context.sent;
 
               if (!(accounts instanceof Array && accounts.length > 0)) {
-                _context.next = 6;
+                _context.next = 7;
                 break;
               }
 
@@ -1420,7 +1442,7 @@ var Connect = function Connect(options) {
                 account: accounts[0]
               }));
 
-            case 6:
+            case 7:
               mount({
                 style: style,
                 document: ensureDocument(document)
@@ -1443,7 +1465,7 @@ var Connect = function Connect(options) {
                 };
               });
 
-            case 7:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -3132,6 +3154,7 @@ var WalletProvider = (function (props) {
   var connected = function connected(_ref) {
     var account = _ref.account,
         wallet = _ref.wallet;
+    console.log('connected');
     setAccount(account);
     setWallet(wallet);
     setWalletState('connected');
@@ -3146,8 +3169,7 @@ var WalletProvider = (function (props) {
       value: {
         account: account,
         wallet: wallet,
-        walletState: walletState,
-        connect: connect
+        walletState: walletState
       }
     }, props.children);
   } else {
