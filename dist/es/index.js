@@ -2,7 +2,7 @@
 (function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 import React, { useState, useContext, useEffect } from 'react';
 import { NavigateStackContext, ReactDialogStack } from 'depay-react-dialog-stack';
-import { getWallet, supported } from 'depay-web3-wallets';
+import { getWallet, wallets } from 'depay-web3-wallets';
 import { ReactShadowDOM } from 'depay-react-shadow-dom';
 import { setProvider, provider } from 'depay-web3-client';
 import { CONSTANTS } from 'depay-web3-constants';
@@ -1099,7 +1099,7 @@ var SelectWalletDialog = (function (props) {
       }
     }, _callee);
   })), [wallet]);
-  var walletCards = supported.map(function (wallet, index) {
+  var walletCards = [wallets.WalletConnect].map(function (wallet, index) {
     return /*#__PURE__*/React.createElement("button", {
       key: index,
       className: "Card small",

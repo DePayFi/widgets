@@ -121,7 +121,7 @@ describe('approve Donation payment', () => {
         DePayWidgets.Donation({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Allow DAI to be used as payment').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary[title="Allow DAI to be used as payment"]', 'Allow DAI to be used as payment')
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.wide').should('contain.text', 'Approving...').then(()=>{

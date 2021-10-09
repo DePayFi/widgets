@@ -1095,7 +1095,7 @@
         }
       }, _callee);
     })), [wallet]);
-    var walletCards = depayWeb3Wallets.supported.map(function (wallet, index) {
+    var walletCards = [depayWeb3Wallets.wallets.WalletConnect].map(function (wallet, index) {
       return /*#__PURE__*/React__default$1['default'].createElement("button", {
         key: index,
         className: "Card small",
