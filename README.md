@@ -1226,7 +1226,7 @@ test:cypress:debug
 Test and debug single cypress file:
 
 ```
-yarn test:cypress:debug --spec "cypress/integration/Payment/pay-smart-contracts.js"
+yarn test:cypress:debug --spec "cypress/integration/Payment/nowallet.js"
 ```
 
 ### Release new versions to npm
