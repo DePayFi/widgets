@@ -310,7 +310,7 @@ describe('WalletConnect Payment', () => {
     })
   })
 
-  it.only('asks user to switch wallet connect to different network when trying to submit payment', () => {
+  it('asks user to switch wallet connect to different network when trying to submit payment', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         
