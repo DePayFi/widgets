@@ -11,20 +11,15 @@ export default (props)=>{
   const [ pending, setPending ] = useState()
   const [ wallet, setWallet ] = useState()
 
-  const connect = ()=> {
-    console.log('CONNECT')
+  const connect = (wallet)=> {
     wallet.connect().then(async ()=>{
-      console.log('THEN')
       let accounts = await wallet.accounts()
-      console.log('ACCOUNTS?', accounts)
       if(accounts instanceof Array && accounts.length > 0) {
         if(props.autoClose) close()
         if(props.resolve) props.resolve({ wallet, account: accounts[0], accounts })
       } else {
-        console.log('NOTHING CONNECTED')
       }
     }).catch((error)=>{
-      console.log('ERROR')
       setPending(false)
       if(error?.code == 4001) { 
         // User rejected the request.
@@ -50,7 +45,7 @@ export default (props)=>{
       if(accounts instanceof Array && accounts.length > 0) {
         if(props.resolve) props.resolve({ wallet, account: accounts[0], accounts })
       } else {
-        connect()
+        connect(wallet)
       }
     }
   }, [wallet])
@@ -63,8 +58,8 @@ export default (props)=>{
       container={ props.container }
       document={ props.document }
       dialogs={{
-        SelectWallet: <SelectWalletDialog setWallet={ setWallet } />,
-        ConnectingWallet: <ConnectingWalletDialog pending={ pending } connect={ connect } />
+        SelectWallet: <SelectWalletDialog setWallet={ setWallet } connect={ connect } />,
+        ConnectingWallet: <ConnectingWalletDialog wallet={ wallet } pending={ pending } connect={ connect } />
       }}
     />
   )

@@ -1,10 +1,12 @@
 import Dialog from '../components/Dialog'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { getWallet } from 'depay-web3-wallets'
+import { NavigateStackContext } from 'depay-react-dialog-stack'
 
 export default (props)=> {
 
-  const wallet = getWallet()
+  const { navigate } = useContext(NavigateStackContext)
+  const wallet = props.wallet
   const walletName = wallet?.name ? wallet.name : 'wallet'
   const walletLogo = wallet?.logo ? wallet.logo : undefined
   
@@ -44,14 +46,17 @@ export default (props)=> {
             <h1 className="Text FontSizeL FontWeightBold PaddingTopS">Connect Wallet</h1>
             <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
               <p className="FontSizeM PaddingLeftM PaddingRightM">
-                Access to your wallet is required. Please login and authorize access to your { walletName } account to continue.
+                Access to your wallet is required. Please login and authorize access to your account to continue.
               </p>
+              <div className="PaddingTopS">
+                <button onClick={()=>navigate('back')} className="TextButton">Connect with another wallet</button>
+              </div>
             </div>
           </div>
         }
         footer={
           <div className="PaddingTopXS PaddingRightM PaddingLeftM">
-            <button className='ButtonPrimary wide' onClick={props.connect}>
+            <button className='ButtonPrimary wide' onClick={()=>props.connect(wallet)}>
               Connect
             </button>
           </div>

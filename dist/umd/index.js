@@ -998,8 +998,11 @@
   });
 
   var ConnectingWalletDialog = (function (props) {
-    var wallet = depayWeb3Wallets.getWallet();
-    var walletName = wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
+    var _useContext = React.useContext(depayReactDialogStack.NavigateStackContext),
+        navigate = _useContext.navigate;
+
+    var wallet = props.wallet;
+    wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
     var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
 
     if (props.pending) {
@@ -1032,12 +1035,21 @@
           className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
         }, /*#__PURE__*/React__default$1['default'].createElement("p", {
           className: "FontSizeM PaddingLeftM PaddingRightM"
-        }, "Access to your wallet is required. Please login and authorize access to your ", walletName, " account to continue."))),
+        }, "Access to your wallet is required. Please login and authorize access to your account to continue."), /*#__PURE__*/React__default$1['default'].createElement("div", {
+          className: "PaddingTopS"
+        }, /*#__PURE__*/React__default$1['default'].createElement("button", {
+          onClick: function onClick() {
+            return navigate('back');
+          },
+          className: "TextButton"
+        }, "Connect with another wallet")))),
         footer: /*#__PURE__*/React__default$1['default'].createElement("div", {
           className: "PaddingTopXS PaddingRightM PaddingLeftM"
         }, /*#__PURE__*/React__default$1['default'].createElement("button", {
           className: "ButtonPrimary wide",
-          onClick: props.connect
+          onClick: function onClick() {
+            return props.connect(wallet);
+          }
         }, "Connect"))
       });
     }
@@ -1095,25 +1107,27 @@
         }
       }, _callee);
     })), [wallet]);
-    var walletCards = [depayWeb3Wallets.wallets.WalletConnect].map(function (wallet, index) {
+
+    var connect = function connect(wallet) {
+      props.setWallet(wallet);
+      navigate('ConnectingWallet');
+      props.connect(wallet);
+    };
+
+    var availableWallets = [depayWeb3Wallets.wallets.WalletConnect];
+
+    if (wallet) {
+      availableWallets.unshift(wallet);
+    }
+
+    var walletCards = availableWallets.map(function (wallet, index) {
       return /*#__PURE__*/React__default$1['default'].createElement("button", {
         key: index,
         className: "Card small",
         title: "Connect ".concat(wallet.name),
-        onClick: /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
-          return regenerator.wrap(function _callee2$(_context2) {
-            while (1) {
-              switch (_context2.prev = _context2.next) {
-                case 0:
-                  props.setWallet(wallet);
-
-                case 1:
-                case "end":
-                  return _context2.stop();
-              }
-            }
-          }, _callee2);
-        }))
+        onClick: function onClick() {
+          return connect(wallet);
+        }
       }, /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "CardImage PaddingLeftM"
       }, /*#__PURE__*/React__default$1['default'].createElement("img", {
@@ -1163,21 +1177,18 @@
         wallet = _useState4[0],
         setWallet = _useState4[1];
 
-    var connect = function connect() {
-      console.log('CONNECT');
+    var connect = function connect(wallet) {
       wallet.connect().then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
         var accounts;
         return regenerator.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log('THEN');
-                _context.next = 3;
+                _context.next = 2;
                 return wallet.accounts();
 
-              case 3:
+              case 2:
                 accounts = _context.sent;
-                console.log('ACCOUNTS?', accounts);
 
                 if (accounts instanceof Array && accounts.length > 0) {
                   if (props.autoClose) close();
@@ -1186,18 +1197,15 @@
                     account: accounts[0],
                     accounts: accounts
                   });
-                } else {
-                  console.log('NOTHING CONNECTED');
                 }
 
-              case 6:
+              case 4:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
       })))["catch"](function (error) {
-        console.log('ERROR');
         setPending(false);
 
         if ((error === null || error === void 0 ? void 0 : error.code) == 4001) {
@@ -1244,7 +1252,7 @@
                   accounts: accounts
                 });
               } else {
-                connect();
+                connect(wallet);
               }
 
             case 5:
@@ -1262,9 +1270,11 @@
       document: props.document,
       dialogs: {
         SelectWallet: /*#__PURE__*/React__default$1['default'].createElement(SelectWalletDialog, {
-          setWallet: setWallet
+          setWallet: setWallet,
+          connect: connect
         }),
         ConnectingWallet: /*#__PURE__*/React__default$1['default'].createElement(ConnectingWalletDialog, {
+          wallet: wallet,
           pending: pending,
           connect: connect
         })

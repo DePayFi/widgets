@@ -47,7 +47,7 @@ describe('Connect wallet', () => {
         walletReturned = wallet
       }).catch(()=>{})
       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Connect Wallet')
-      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('p', 'Access to your wallet is required. Please login and authorize access to your MetaMask account to continue.')
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('p', 'Access to your wallet is required. Please login and authorize access to your account to continue.')
       cy.wait(2000).then(()=>{
         mock({ blockchain, wallet: 'metamask', accounts: { return: accounts } }) // now connected
         cy.wait(1000).then(()=>{
@@ -62,7 +62,7 @@ describe('Connect wallet', () => {
     })
   })
 
-  it('opens a select wallet screen if widget was not able to autodetect a wallet', () => {
+  it('opens wallet connect if widget was not able to autodetect any wallet', () => {
     cy.document().then(async (document)=>{
       let accountsReturned, accountReturned, walletReturned
       DePayWidgets.Connect({ document }).then(({ accounts, account, wallet })=>{
@@ -92,7 +92,7 @@ describe('Connect wallet', () => {
     })
   })
 
-  it('allows you to return to the list of available wallets even if it autodetected one', () => {
+  it('allows you to return to the list of available wallets even if it autodetected one (and still suggests the autodetected one)', () => {
      cy.document().then(async (document)=>{
       let accountsReturned, accountReturned, walletReturned
       mock({ blockchain, wallet: 'metamask', accounts: { return: [] } }) // initialy no accounts connected
@@ -102,10 +102,13 @@ describe('Connect wallet', () => {
         walletReturned = wallet
       }).catch(()=>{})
       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Connect Wallet')
-      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('p', 'Access to your wallet is required. Please login and authorize access to your MetaMask account to continue.')
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('p', 'Access to your wallet is required. Please login and authorize access to your account to continue.')
       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Go back"]').click()
       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Select a wallet')
-      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect WalletConnect"]')      
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect WalletConnect"]')
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect MetaMask"]').click()
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('button', 'Connect with another wallet').click()
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Select a wallet')
     })
   })
 })
