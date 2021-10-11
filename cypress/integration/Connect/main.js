@@ -71,7 +71,7 @@ describe('Connect wallet', () => {
         walletReturned = wallet
       }).catch(()=>{})
       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Select a wallet')
-      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect MetaMask"]')
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect WalletConnect"]')
     })
   })
 
@@ -105,7 +105,7 @@ describe('Connect wallet', () => {
       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('p', 'Access to your wallet is required. Please login and authorize access to your MetaMask account to continue.')
       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Go back"]').click()
       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Select a wallet')
-      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect MetaMask"]')      
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect WalletConnect"]')      
     })
   })
 })
