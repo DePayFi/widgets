@@ -1,21 +1,40 @@
 import ChevronRight from '../components/ChevronRight'
 import Dialog from '../components/Dialog'
-import React, { useState } from 'react'
-import { supported } from 'depay-web3-wallets'
+import React, { useState, useEffect, useContext } from 'react'
+import { getWallet, supported, wallets } from 'depay-web3-wallets'
+import { NavigateStackContext } from 'depay-react-dialog-stack'
 
 export default (props)=>{
 
   const [showExplanation, setShowExplanation] = useState(false)
+  const { navigate } = useContext(NavigateStackContext)
+  const wallet = getWallet()
+  
+  useEffect(async ()=>{
+    if(wallet) {
+      let accounts = await wallet.accounts()
+      if(accounts == undefined || accounts.length == 0) {
+        navigate('ConnectingWallet')
+      }
+    }
+  }, [wallet])
 
-  let walletCards = supported.map((wallet, index)=>{
+  const connect = (wallet)=>{
+    props.setWallet(wallet)
+    navigate('ConnectingWallet')
+    props.connect(wallet)
+  }
+
+  let availableWallets = [wallets.WalletConnect]
+  if(wallet) { availableWallets.unshift(wallet) }
+
+  let walletCards = availableWallets.map((wallet, index)=>{
     return(
       <button
         key={index}
         className="Card small"
         title={`Connect ${wallet.name}`}
-        onClick={async()=>{ 
-          props.setWallet(wallet)
-        }}
+        onClick={()=>connect(wallet)}
       >
         <div className="CardImage PaddingLeftM">
           <img src={wallet.logo}/>

@@ -94,7 +94,7 @@ export default (style)=>{
     }
 
     .CardImage img {
-      background: rgb(240,240,240);
+      background: white;
       border-radius: 99rem;
       border: 1px solid white;
       box-shadow: 0 2px 8px rgb(0 0 0 / 10%);

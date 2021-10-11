@@ -9,19 +9,22 @@ export default (style)=>{
       border: 1px solid transparent;
       box-shadow: 0 0 10px rgba(0,0,0,0.05);
       color: ${style.colors.buttonText};
-      display: inline-flex;
-      flex: 1;
       font-size: 1.3rem;
       font-weight: 400;
       height: 2.8rem;
+      line-height: 2.8rem;
       justify-content: center;
       min-width: 12rem;
+      overflow: hidden;
       padding: 0 1.4rem;
       position: relative;
       text-align: center;
       text-decoration: none;
+      text-overflow: ellipsis;
       transition: background 0.1s;
       vertical-align: middle;
+      white-space: nowrap;
+      display: inline-block;
     }
 
     .ButtonPrimary.round {
@@ -34,6 +37,7 @@ export default (style)=>{
     .ButtonPrimary.wide {
       border-radius: 0.8rem;
       width: 100%;
+      display: block;
     }
 
     .ButtonPrimary.disabled {

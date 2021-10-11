@@ -256,8 +256,7 @@
           var button = document.getElementById("connectButton");
           button.addEventListener("click",async function(e){
             let { account, accounts, wallet } = await DePayWidgets.Connect()
-            alert(`${wallet.name} ${account}`)
-            console.log(account, accounts)
+            console.log({ account, accounts, wallet })
           });
         </script>
       </div>

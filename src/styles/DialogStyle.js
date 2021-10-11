@@ -21,7 +21,7 @@ export default (style)=>{
 
     }
 
-    @media (orientation: portrait) and (max-width: 700px) {
+    @media (orientation: portrait) and (max-width: 900px) {
 
       .Dialog {
         align-content: stretch;
@@ -40,6 +40,7 @@ export default (style)=>{
         bottom: 0;
         left: 0;
         position: absolute;
+        padding-bottom: 1rem;
         right: 0;
         width: 100%;
       }

@@ -51,7 +51,7 @@ export default (props)=>{
     if(paymentState == 'initialized') {
       return(
         <div className="PaddingBottomS">
-          <button className="ButtonPrimary wide" onClick={ approve }>
+          <button className="ButtonPrimary wide" onClick={ approve } title={`Allow ${payment.symbol} to be used as payment`}>
             Allow { payment.symbol } to be used as payment
           </button>
         </div>

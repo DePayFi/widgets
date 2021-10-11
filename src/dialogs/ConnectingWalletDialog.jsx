@@ -1,50 +1,67 @@
-import { ReactDialog } from 'depay-react-dialog'
-import React, { useState } from 'react'
+import Dialog from '../components/Dialog'
+import React, { useState, useContext } from 'react'
+import { getWallet } from 'depay-web3-wallets'
+import { NavigateStackContext } from 'depay-react-dialog-stack'
 
 export default (props)=> {
 
-  let wallet = props.wallet
-  let walletName = wallet?.name ? wallet.name : 'wallet'
-  let walletLogo = wallet?.logo ? wallet.logo : undefined
-  const [open, setOpen] = useState(true)
-  let close = ()=>{
-    setOpen(false)
-    setTimeout(props.unmount, 300)
-  }
-
-  return(
-    <ReactDialog container={ props.container } close={ close } open={ open }>
-      <div className="Dialog ReactDialogAnimation">
-        
-        <div className="DialogHeader">
-          <div className="PaddingTopS PaddingLeftS PaddingRightS">
-          </div>
-        </div>
-
-        <div className="DialogBody">
-          { walletLogo &&
-            <div className="GraphicWrapper">
-              <img className="Graphic" src={walletLogo}/>
+  const { navigate } = useContext(NavigateStackContext)
+  const wallet = props.wallet
+  const walletName = wallet?.name ? wallet.name : 'wallet'
+  const walletLogo = wallet?.logo ? wallet.logo : undefined
+  
+  if(props.pending) {
+    return(
+      <Dialog
+        stacked={ true }
+        body={
+          <div>
+            { walletLogo &&
+              <div className="GraphicWrapper PaddingTopS PaddingBottomS">
+                <img className="Graphic" src={walletLogo}/>
+              </div>
+            }
+            <h1 className="Text FontSizeL FontWeightBold PaddingTopS">Connect Wallet</h1>
+            <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
+              <strong className="FontSizeM PaddingLeftM PaddingRightM">
+                Your wallet is already open and asking for permission to connect.
+                Please find your wallet dialog and confirm this connection.
+              </strong>
             </div>
-          }
-
-          <h1 className="Text FontSizeL PaddingTopS FontWeightBold">Connect Wallet</h1>
-          <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
-            <strong className="FontSizeM">
-              This payment requires access to your wallet, please login and authorize access to your { walletName } account to continue.
-            </strong>
           </div>
-        </div>
-
-        <div className="DialogFooter">
+        }
+      />
+    )
+  } else {
+    return(
+      <Dialog
+        stacked={ true }
+        body={
+          <div>
+            { walletLogo &&
+              <div className="GraphicWrapper PaddingTopS PaddingBottomS">
+                <img className="Graphic" src={walletLogo}/>
+              </div>
+            }
+            <h1 className="Text FontSizeL FontWeightBold PaddingTopS">Connect Wallet</h1>
+            <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
+              <p className="FontSizeM PaddingLeftM PaddingRightM">
+                Access to your wallet is required. Please login and authorize access to your account to continue.
+              </p>
+              <div className="PaddingTopS">
+                <button onClick={()=>navigate('back')} className="TextButton">Connect with another wallet</button>
+              </div>
+            </div>
+          </div>
+        }
+        footer={
           <div className="PaddingTopXS PaddingRightM PaddingLeftM">
-            <button className='ButtonPrimary wide' onClick={props.connect}>
+            <button className='ButtonPrimary wide' onClick={()=>props.connect(wallet)}>
               Connect
             </button>
           </div>
-          <a href={'https://depay.fi?utm_source='+window.location.hostname+'&utm_medium=widget&utm_campaign=WidgetV2'} rel="noopener noreferrer" target="_blank" className="FooterLink">by DePay</a>
-        </div>
-      </div>
-    </ReactDialog>
-  )
+        }
+      />
+    )
+  }
 }
