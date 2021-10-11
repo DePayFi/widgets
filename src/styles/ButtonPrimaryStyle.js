@@ -12,6 +12,7 @@ export default (style)=>{
       font-size: 1.3rem;
       font-weight: 400;
       height: 2.8rem;
+      line-height: 2.8rem;
       justify-content: center;
       min-width: 12rem;
       overflow: hidden;
@@ -23,7 +24,7 @@ export default (style)=>{
       transition: background 0.1s;
       vertical-align: middle;
       white-space: nowrap;
-      width: 100%;
+      display: inline-block;
     }
 
     .ButtonPrimary.round {
@@ -36,6 +37,7 @@ export default (style)=>{
     .ButtonPrimary.wide {
       border-radius: 0.8rem;
       width: 100%;
+      display: block;
     }
 
     .ButtonPrimary.disabled {

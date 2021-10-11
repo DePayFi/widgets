@@ -1285,7 +1285,7 @@
   });
 
   var ButtonPrimaryStyle = (function (style) {
-    return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 10px rgba(0,0,0,0.05);\n      color: ").concat(style.colors.buttonText, ";\n      display: inline-flex;\n      flex: 1;\n      font-size: 1.3rem;\n      font-weight: 400;\n      height: 2.8rem;\n      justify-content: center;\n      min-width: 12rem;\n      padding: 0 1.4rem;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      transition: background 0.1s;\n      vertical-align: middle;\n    }\n\n    .ButtonPrimary.round {\n      padding: 0;\n      width: 3.4rem;\n      min-width: 3.4rem;\n      line-height: 3.2rem;\n    }\n\n    .ButtonPrimary.wide {\n      border-radius: 0.8rem;\n      width: 100%;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n      color: rgb(140,140,140);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
+    return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 10px rgba(0,0,0,0.05);\n      color: ").concat(style.colors.buttonText, ";\n      font-size: 1.3rem;\n      font-weight: 400;\n      height: 2.8rem;\n      line-height: 2.8rem;\n      justify-content: center;\n      min-width: 12rem;\n      overflow: hidden;\n      padding: 0 1.4rem;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      white-space: nowrap;\n      display: inline-block;\n    }\n\n    .ButtonPrimary.round {\n      padding: 0;\n      width: 3.4rem;\n      min-width: 3.4rem;\n      line-height: 3.2rem;\n    }\n\n    .ButtonPrimary.wide {\n      border-radius: 0.8rem;\n      width: 100%;\n      display: block;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n      color: rgb(140,140,140);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
   });
 
   var CardStyle = (function (style) {
@@ -2538,7 +2538,8 @@
           className: "PaddingBottomS"
         }, /*#__PURE__*/React__default$1['default'].createElement("button", {
           className: "ButtonPrimary wide",
-          onClick: approve
+          onClick: approve,
+          title: "Allow ".concat(payment.symbol, " to be used as payment")
         }, "Allow ", payment.symbol, " to be used as payment"));
       } else if (paymentState == 'approving') {
         return /*#__PURE__*/React__default$1['default'].createElement("div", {
@@ -3424,7 +3425,8 @@
           className: "PaddingBottomS"
         }, /*#__PURE__*/React__default$1['default'].createElement("button", {
           className: "ButtonPrimary wide",
-          onClick: approve
+          onClick: approve,
+          title: "Allow ".concat(payment.symbol, " to be used as payment")
         }, "Allow ", payment.symbol, " to be used as payment"));
       } else if (paymentState == 'approving') {
         return /*#__PURE__*/React__default$1['default'].createElement("div", {
@@ -3822,7 +3824,8 @@
           className: "PaddingBottomS"
         }, /*#__PURE__*/React__default$1['default'].createElement("button", {
           className: "ButtonPrimary wide",
-          onClick: approve
+          onClick: approve,
+          title: "Allow ".concat(payment.symbol, " to be used as payment")
         }, "Allow ", payment.symbol, " to be used as payment"));
       } else if (paymentState == 'approving') {
         return /*#__PURE__*/React__default$1['default'].createElement("div", {
