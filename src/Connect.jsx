@@ -1,14 +1,15 @@
 import ClosableProvider from './providers/ClosableProvider'
 import ConnectStack from './stacks/ConnectStack'
 import ensureDocument from './helpers/ensureDocument'
+import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
 import React from 'react'
 import { getWallet } from 'depay-web3-wallets'
 
 let Connect = (options) => {
 
-  let style, document
-  if(typeof options == 'object') ({ style, document } = options)
+  let style, error, document
+  if(typeof options == 'object') ({ style, error, document } = options)
 
   return new Promise(async (resolve, reject)=>{
 
@@ -26,15 +27,17 @@ let Connect = (options) => {
         unmount()
       }
       return (container)=>
-        <ClosableProvider unmount={ rejectBeforeUnmount }>
-          <ConnectStack
-            document={ document }
-            container={ container }
-            resolve={ resolve }
-            reject={ reject }
-            autoClose={ true }
-          />
-        </ClosableProvider>
+        <ErrorProvider error={ error } container={ container } unmount={ unmount }>
+          <ClosableProvider unmount={ rejectBeforeUnmount }>
+            <ConnectStack
+              document={ document }
+              container={ container }
+              resolve={ resolve }
+              reject={ reject }
+              autoClose={ true }
+            />
+          </ClosableProvider>
+        </ErrorProvider>
     })
   })
 }

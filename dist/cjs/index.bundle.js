@@ -1,271 +1,5 @@
 'use strict';
 
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArrayLimit(arr, i) {
-  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
-
-  if (_i == null) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-
-  var _s, _e;
-
-  try {
-    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-}
-
-var commonjsGlobal$3 = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-function getAugmentedNamespace(n) {
-	if (n.__esModule) return n;
-	var a = Object.defineProperty({}, '__esModule', {value: true});
-	Object.keys(n).forEach(function (k) {
-		var d = Object.getOwnPropertyDescriptor(n, k);
-		Object.defineProperty(a, k, d.get ? d : {
-			enumerable: true,
-			get: function () {
-				return n[k];
-			}
-		});
-	});
-	return a;
-}
-
-function createCommonjsModule$4(fn) {
-  var module = { exports: {} };
-	return fn(module, module.exports), module.exports;
-}
-
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-/* eslint-disable no-unused-vars */
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var hasOwnProperty$1 = Object.prototype.hasOwnProperty;
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-function toObject(val) {
-	if (val === null || val === undefined) {
-		throw new TypeError('Object.assign cannot be called with null or undefined');
-	}
-
-	return Object(val);
-}
-
-function shouldUseNative() {
-	try {
-		if (!Object.assign) {
-			return false;
-		}
-
-		// Detect buggy property enumeration order in older V8 versions.
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
-		test1[5] = 'de';
-		if (Object.getOwnPropertyNames(test1)[0] === '5') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test2 = {};
-		for (var i = 0; i < 10; i++) {
-			test2['_' + String.fromCharCode(i)] = i;
-		}
-		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-			return test2[n];
-		});
-		if (order2.join('') !== '0123456789') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test3 = {};
-		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-			test3[letter] = letter;
-		});
-		if (Object.keys(Object.assign({}, test3)).join('') !==
-				'abcdefghijklmnopqrst') {
-			return false;
-		}
-
-		return true;
-	} catch (err) {
-		// We don't expect any of the above to throw, but better to be safe.
-		return false;
-	}
-}
-
-var objectAssign = shouldUseNative() ? Object.assign : function (target, source) {
-	var from;
-	var to = toObject(target);
-	var symbols;
-
-	for (var s = 1; s < arguments.length; s++) {
-		from = Object(arguments[s]);
-
-		for (var key in from) {
-			if (hasOwnProperty$1.call(from, key)) {
-				to[key] = from[key];
-			}
-		}
-
-		if (getOwnPropertySymbols) {
-			symbols = getOwnPropertySymbols(from);
-			for (var i = 0; i < symbols.length; i++) {
-				if (propIsEnumerable.call(from, symbols[i])) {
-					to[symbols[i]] = from[symbols[i]];
-				}
-			}
-		}
-	}
-
-	return to;
-};
-
-/** @license React v17.0.2
- * react.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-var react_production_min = createCommonjsModule$4(function (module, exports) {
-var n=60103,p=60106;exports.Fragment=60107;exports.StrictMode=60108;exports.Profiler=60114;var q=60109,r=60110,t=60112;exports.Suspense=60113;var u=60115,v=60116;
-if("function"===typeof Symbol&&Symbol.for){var w=Symbol.for;n=w("react.element");p=w("react.portal");exports.Fragment=w("react.fragment");exports.StrictMode=w("react.strict_mode");exports.Profiler=w("react.profiler");q=w("react.provider");r=w("react.context");t=w("react.forward_ref");exports.Suspense=w("react.suspense");u=w("react.memo");v=w("react.lazy");}var x="function"===typeof Symbol&&Symbol.iterator;
-function y(a){if(null===a||"object"!==typeof a)return null;a=x&&a[x]||a["@@iterator"];return "function"===typeof a?a:null}function z(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return "Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}
-var A={isMounted:function(){return !1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}},B={};function C(a,b,c){this.props=a;this.context=b;this.refs=B;this.updater=c||A;}C.prototype.isReactComponent={};C.prototype.setState=function(a,b){if("object"!==typeof a&&"function"!==typeof a&&null!=a)throw Error(z(85));this.updater.enqueueSetState(this,a,b,"setState");};C.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate");};
-function D(){}D.prototype=C.prototype;function E(a,b,c){this.props=a;this.context=b;this.refs=B;this.updater=c||A;}var F=E.prototype=new D;F.constructor=E;objectAssign(F,C.prototype);F.isPureReactComponent=!0;var G={current:null},H=Object.prototype.hasOwnProperty,I={key:!0,ref:!0,__self:!0,__source:!0};
-function J(a,b,c){var e,d={},k=null,h=null;if(null!=b)for(e in void 0!==b.ref&&(h=b.ref),void 0!==b.key&&(k=""+b.key),b)H.call(b,e)&&!I.hasOwnProperty(e)&&(d[e]=b[e]);var g=arguments.length-2;if(1===g)d.children=c;else if(1<g){for(var f=Array(g),m=0;m<g;m++)f[m]=arguments[m+2];d.children=f;}if(a&&a.defaultProps)for(e in g=a.defaultProps,g)void 0===d[e]&&(d[e]=g[e]);return {$$typeof:n,type:a,key:k,ref:h,props:d,_owner:G.current}}
-function K(a,b){return {$$typeof:n,type:a.type,key:b,ref:a.ref,props:a.props,_owner:a._owner}}function L(a){return "object"===typeof a&&null!==a&&a.$$typeof===n}function escape(a){var b={"=":"=0",":":"=2"};return "$"+a.replace(/[=:]/g,function(a){return b[a]})}var M=/\/+/g;function N(a,b){return "object"===typeof a&&null!==a&&null!=a.key?escape(""+a.key):b.toString(36)}
-function O(a,b,c,e,d){var k=typeof a;if("undefined"===k||"boolean"===k)a=null;var h=!1;if(null===a)h=!0;else switch(k){case "string":case "number":h=!0;break;case "object":switch(a.$$typeof){case n:case p:h=!0;}}if(h)return h=a,d=d(h),a=""===e?"."+N(h,0):e,Array.isArray(d)?(c="",null!=a&&(c=a.replace(M,"$&/")+"/"),O(d,b,c,"",function(a){return a})):null!=d&&(L(d)&&(d=K(d,c+(!d.key||h&&h.key===d.key?"":(""+d.key).replace(M,"$&/")+"/")+a)),b.push(d)),1;h=0;e=""===e?".":e+":";if(Array.isArray(a))for(var g=
-0;g<a.length;g++){k=a[g];var f=e+N(k,g);h+=O(k,b,c,f,d);}else if(f=y(a),"function"===typeof f)for(a=f.call(a),g=0;!(k=a.next()).done;)k=k.value,f=e+N(k,g++),h+=O(k,b,c,f,d);else if("object"===k)throw b=""+a,Error(z(31,"[object Object]"===b?"object with keys {"+Object.keys(a).join(", ")+"}":b));return h}function P(a,b,c){if(null==a)return a;var e=[],d=0;O(a,e,"","",function(a){return b.call(c,a,d++)});return e}
-function Q(a){if(-1===a._status){var b=a._result;b=b();a._status=0;a._result=b;b.then(function(b){0===a._status&&(b=b.default,a._status=1,a._result=b);},function(b){0===a._status&&(a._status=2,a._result=b);});}if(1===a._status)return a._result;throw a._result;}var R={current:null};function S(){var a=R.current;if(null===a)throw Error(z(321));return a}var T={ReactCurrentDispatcher:R,ReactCurrentBatchConfig:{transition:0},ReactCurrentOwner:G,IsSomeRendererActing:{current:!1},assign:objectAssign};
-exports.Children={map:P,forEach:function(a,b,c){P(a,function(){b.apply(this,arguments);},c);},count:function(a){var b=0;P(a,function(){b++;});return b},toArray:function(a){return P(a,function(a){return a})||[]},only:function(a){if(!L(a))throw Error(z(143));return a}};exports.Component=C;exports.PureComponent=E;exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED=T;
-exports.cloneElement=function(a,b,c){if(null===a||void 0===a)throw Error(z(267,a));var e=objectAssign({},a.props),d=a.key,k=a.ref,h=a._owner;if(null!=b){void 0!==b.ref&&(k=b.ref,h=G.current);void 0!==b.key&&(d=""+b.key);if(a.type&&a.type.defaultProps)var g=a.type.defaultProps;for(f in b)H.call(b,f)&&!I.hasOwnProperty(f)&&(e[f]=void 0===b[f]&&void 0!==g?g[f]:b[f]);}var f=arguments.length-2;if(1===f)e.children=c;else if(1<f){g=Array(f);for(var m=0;m<f;m++)g[m]=arguments[m+2];e.children=g;}return {$$typeof:n,type:a.type,
-key:d,ref:k,props:e,_owner:h}};exports.createContext=function(a,b){void 0===b&&(b=null);a={$$typeof:r,_calculateChangedBits:b,_currentValue:a,_currentValue2:a,_threadCount:0,Provider:null,Consumer:null};a.Provider={$$typeof:q,_context:a};return a.Consumer=a};exports.createElement=J;exports.createFactory=function(a){var b=J.bind(null,a);b.type=a;return b};exports.createRef=function(){return {current:null}};exports.forwardRef=function(a){return {$$typeof:t,render:a}};exports.isValidElement=L;
-exports.lazy=function(a){return {$$typeof:v,_payload:{_status:-1,_result:a},_init:Q}};exports.memo=function(a,b){return {$$typeof:u,type:a,compare:void 0===b?null:b}};exports.useCallback=function(a,b){return S().useCallback(a,b)};exports.useContext=function(a,b){return S().useContext(a,b)};exports.useDebugValue=function(){};exports.useEffect=function(a,b){return S().useEffect(a,b)};exports.useImperativeHandle=function(a,b,c){return S().useImperativeHandle(a,b,c)};
-exports.useLayoutEffect=function(a,b){return S().useLayoutEffect(a,b)};exports.useMemo=function(a,b){return S().useMemo(a,b)};exports.useReducer=function(a,b,c){return S().useReducer(a,b,c)};exports.useRef=function(a){return S().useRef(a)};exports.useState=function(a){return S().useState(a)};exports.version="17.0.2";
-});
-
-/** @license React v17.0.2
- * react.development.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-createCommonjsModule$4(function (module, exports) {
-});
-
-var react = createCommonjsModule$4(function (module) {
-
-{
-  module.exports = react_production_min;
-}
-});
-
-var ClosableContext = /*#__PURE__*/react.createContext();
-
-var ClosableProvider = (function (props) {
-  var _useState = react.useState(true),
-      _useState2 = _slicedToArray(_useState, 2),
-      closable = _useState2[0],
-      setClosable = _useState2[1];
-
-  var _useState3 = react.useState(true),
-      _useState4 = _slicedToArray(_useState3, 2),
-      open = _useState4[0],
-      setOpen = _useState4[1];
-
-  var close = function close() {
-    if (!closable) {
-      return;
-    }
-
-    setOpen(false);
-    setTimeout(props.unmount, 300);
-  };
-
-  return /*#__PURE__*/react.createElement(ClosableContext.Provider, {
-    value: {
-      closable: closable,
-      setClosable: setClosable,
-      close: close,
-      open: open
-    }
-  }, props.children);
-});
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
     var info = gen[key](arg);
@@ -300,6 +34,44 @@ function _asyncToGenerator(fn) {
       _next(undefined);
     });
   };
+}
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
+var commonjsGlobal$3 = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+function getAugmentedNamespace(n) {
+	if (n.__esModule) return n;
+	var a = Object.defineProperty({}, '__esModule', {value: true});
+	Object.keys(n).forEach(function (k) {
+		var d = Object.getOwnPropertyDescriptor(n, k);
+		Object.defineProperty(a, k, d.get ? d : {
+			enumerable: true,
+			get: function () {
+				return n[k];
+			}
+		});
+	});
+	return a;
+}
+
+function createCommonjsModule$4(fn) {
+  var module = { exports: {} };
+	return fn(module, module.exports), module.exports;
 }
 
 /**
@@ -1060,18 +832,232 @@ try {
 
 var regenerator = runtime_1;
 
-var ChevronRight = (function () {
-  return /*#__PURE__*/react.createElement("svg", {
-    className: "ChevronRight Icon",
-    xmlns: "http://www.w3.org/2000/svg",
-    width: "16",
-    height: "16",
-    viewBox: "0 0 16 16"
-  }, /*#__PURE__*/react.createElement("path", {
-    strokeWidth: "1",
-    fillRule: "evenodd",
-    d: "M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
-  }));
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty$1 = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (err) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+var objectAssign = shouldUseNative() ? Object.assign : function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty$1.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols) {
+			symbols = getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+/** @license React v17.0.2
+ * react.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var react_production_min = createCommonjsModule$4(function (module, exports) {
+var n=60103,p=60106;exports.Fragment=60107;exports.StrictMode=60108;exports.Profiler=60114;var q=60109,r=60110,t=60112;exports.Suspense=60113;var u=60115,v=60116;
+if("function"===typeof Symbol&&Symbol.for){var w=Symbol.for;n=w("react.element");p=w("react.portal");exports.Fragment=w("react.fragment");exports.StrictMode=w("react.strict_mode");exports.Profiler=w("react.profiler");q=w("react.provider");r=w("react.context");t=w("react.forward_ref");exports.Suspense=w("react.suspense");u=w("react.memo");v=w("react.lazy");}var x="function"===typeof Symbol&&Symbol.iterator;
+function y(a){if(null===a||"object"!==typeof a)return null;a=x&&a[x]||a["@@iterator"];return "function"===typeof a?a:null}function z(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return "Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}
+var A={isMounted:function(){return !1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}},B={};function C(a,b,c){this.props=a;this.context=b;this.refs=B;this.updater=c||A;}C.prototype.isReactComponent={};C.prototype.setState=function(a,b){if("object"!==typeof a&&"function"!==typeof a&&null!=a)throw Error(z(85));this.updater.enqueueSetState(this,a,b,"setState");};C.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate");};
+function D(){}D.prototype=C.prototype;function E(a,b,c){this.props=a;this.context=b;this.refs=B;this.updater=c||A;}var F=E.prototype=new D;F.constructor=E;objectAssign(F,C.prototype);F.isPureReactComponent=!0;var G={current:null},H=Object.prototype.hasOwnProperty,I={key:!0,ref:!0,__self:!0,__source:!0};
+function J(a,b,c){var e,d={},k=null,h=null;if(null!=b)for(e in void 0!==b.ref&&(h=b.ref),void 0!==b.key&&(k=""+b.key),b)H.call(b,e)&&!I.hasOwnProperty(e)&&(d[e]=b[e]);var g=arguments.length-2;if(1===g)d.children=c;else if(1<g){for(var f=Array(g),m=0;m<g;m++)f[m]=arguments[m+2];d.children=f;}if(a&&a.defaultProps)for(e in g=a.defaultProps,g)void 0===d[e]&&(d[e]=g[e]);return {$$typeof:n,type:a,key:k,ref:h,props:d,_owner:G.current}}
+function K(a,b){return {$$typeof:n,type:a.type,key:b,ref:a.ref,props:a.props,_owner:a._owner}}function L(a){return "object"===typeof a&&null!==a&&a.$$typeof===n}function escape(a){var b={"=":"=0",":":"=2"};return "$"+a.replace(/[=:]/g,function(a){return b[a]})}var M=/\/+/g;function N(a,b){return "object"===typeof a&&null!==a&&null!=a.key?escape(""+a.key):b.toString(36)}
+function O(a,b,c,e,d){var k=typeof a;if("undefined"===k||"boolean"===k)a=null;var h=!1;if(null===a)h=!0;else switch(k){case "string":case "number":h=!0;break;case "object":switch(a.$$typeof){case n:case p:h=!0;}}if(h)return h=a,d=d(h),a=""===e?"."+N(h,0):e,Array.isArray(d)?(c="",null!=a&&(c=a.replace(M,"$&/")+"/"),O(d,b,c,"",function(a){return a})):null!=d&&(L(d)&&(d=K(d,c+(!d.key||h&&h.key===d.key?"":(""+d.key).replace(M,"$&/")+"/")+a)),b.push(d)),1;h=0;e=""===e?".":e+":";if(Array.isArray(a))for(var g=
+0;g<a.length;g++){k=a[g];var f=e+N(k,g);h+=O(k,b,c,f,d);}else if(f=y(a),"function"===typeof f)for(a=f.call(a),g=0;!(k=a.next()).done;)k=k.value,f=e+N(k,g++),h+=O(k,b,c,f,d);else if("object"===k)throw b=""+a,Error(z(31,"[object Object]"===b?"object with keys {"+Object.keys(a).join(", ")+"}":b));return h}function P(a,b,c){if(null==a)return a;var e=[],d=0;O(a,e,"","",function(a){return b.call(c,a,d++)});return e}
+function Q(a){if(-1===a._status){var b=a._result;b=b();a._status=0;a._result=b;b.then(function(b){0===a._status&&(b=b.default,a._status=1,a._result=b);},function(b){0===a._status&&(a._status=2,a._result=b);});}if(1===a._status)return a._result;throw a._result;}var R={current:null};function S(){var a=R.current;if(null===a)throw Error(z(321));return a}var T={ReactCurrentDispatcher:R,ReactCurrentBatchConfig:{transition:0},ReactCurrentOwner:G,IsSomeRendererActing:{current:!1},assign:objectAssign};
+exports.Children={map:P,forEach:function(a,b,c){P(a,function(){b.apply(this,arguments);},c);},count:function(a){var b=0;P(a,function(){b++;});return b},toArray:function(a){return P(a,function(a){return a})||[]},only:function(a){if(!L(a))throw Error(z(143));return a}};exports.Component=C;exports.PureComponent=E;exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED=T;
+exports.cloneElement=function(a,b,c){if(null===a||void 0===a)throw Error(z(267,a));var e=objectAssign({},a.props),d=a.key,k=a.ref,h=a._owner;if(null!=b){void 0!==b.ref&&(k=b.ref,h=G.current);void 0!==b.key&&(d=""+b.key);if(a.type&&a.type.defaultProps)var g=a.type.defaultProps;for(f in b)H.call(b,f)&&!I.hasOwnProperty(f)&&(e[f]=void 0===b[f]&&void 0!==g?g[f]:b[f]);}var f=arguments.length-2;if(1===f)e.children=c;else if(1<f){g=Array(f);for(var m=0;m<f;m++)g[m]=arguments[m+2];e.children=g;}return {$$typeof:n,type:a.type,
+key:d,ref:k,props:e,_owner:h}};exports.createContext=function(a,b){void 0===b&&(b=null);a={$$typeof:r,_calculateChangedBits:b,_currentValue:a,_currentValue2:a,_threadCount:0,Provider:null,Consumer:null};a.Provider={$$typeof:q,_context:a};return a.Consumer=a};exports.createElement=J;exports.createFactory=function(a){var b=J.bind(null,a);b.type=a;return b};exports.createRef=function(){return {current:null}};exports.forwardRef=function(a){return {$$typeof:t,render:a}};exports.isValidElement=L;
+exports.lazy=function(a){return {$$typeof:v,_payload:{_status:-1,_result:a},_init:Q}};exports.memo=function(a,b){return {$$typeof:u,type:a,compare:void 0===b?null:b}};exports.useCallback=function(a,b){return S().useCallback(a,b)};exports.useContext=function(a,b){return S().useContext(a,b)};exports.useDebugValue=function(){};exports.useEffect=function(a,b){return S().useEffect(a,b)};exports.useImperativeHandle=function(a,b,c){return S().useImperativeHandle(a,b,c)};
+exports.useLayoutEffect=function(a,b){return S().useLayoutEffect(a,b)};exports.useMemo=function(a,b){return S().useMemo(a,b)};exports.useReducer=function(a,b,c){return S().useReducer(a,b,c)};exports.useRef=function(a){return S().useRef(a)};exports.useState=function(a){return S().useState(a)};exports.version="17.0.2";
+});
+
+/** @license React v17.0.2
+ * react.development.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+createCommonjsModule$4(function (module, exports) {
+});
+
+var react = createCommonjsModule$4(function (module) {
+
+{
+  module.exports = react_production_min;
+}
+});
+
+var ClosableContext = /*#__PURE__*/react.createContext();
+
+var ClosableProvider = (function (props) {
+  var _useState = react.useState(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      closable = _useState2[0],
+      setClosable = _useState2[1];
+
+  var _useState3 = react.useState(true),
+      _useState4 = _slicedToArray(_useState3, 2),
+      open = _useState4[0],
+      setOpen = _useState4[1];
+
+  var close = function close() {
+    if (!closable) {
+      return;
+    }
+
+    setOpen(false);
+    setTimeout(props.unmount, 300);
+  };
+
+  return /*#__PURE__*/react.createElement(ClosableContext.Provider, {
+    value: {
+      closable: closable,
+      setClosable: setClosable,
+      close: close,
+      open: open
+    }
+  }, props.children);
 });
 
 var ChevronLeft = (function () {
@@ -48290,8 +48276,8 @@ function _optionalChain$3$1(ops) { let lastAccessLHS = undefined; let value = op
 class Web3Wallet {
   __init() {this.name = 'Web3 Wallet';}
   __init2() {this.logo =
-    'data:image/png;base64,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';}
-  __init3() {this.blockchains = ['ethereum'];}
+    "data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 446.42 376.77'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23828487;%7D%3C/style%3E%3C/defs%3E%3Cpath class='cls-1' d='M408.69,171.4H473.4V107.77a46.55,46.55,0,0,0-46.55-46.55H73.53A46.55,46.55,0,0,0,27,107.77v65.09H62.7L89.56,146a9.46,9.46,0,0,1,5.73-2.73h0l.41,0h78.59a47.2,47.2,0,1,1,82.63,39.56q-1.41,1.71-3,3.31t-3.31,3a47.21,47.21,0,0,1-76.31-26.9H100.21L73.34,189.07a9.43,9.43,0,0,1-5.73,2.73h0l-.41,0h-.07l-.48,0H27v74H55.83l18.25-18.24a9.39,9.39,0,0,1,5.73-2.74h0l.41,0h29.9a47.16,47.16,0,1,1,0,19H84.72L66.48,282.11a9.42,9.42,0,0,1-5.72,2.74h0l-.39,0H27V319H83.29a4,4,0,0,1,.49,0h.06l.41,0h0A9.41,9.41,0,0,1,90,321.78l28,28h57.66a47.2,47.2,0,1,1,81.48,40.9c-.6.67-1.22,1.32-1.86,2s-1.3,1.26-2,1.86a47.22,47.22,0,0,1-77.65-25.73H114.09a9.5,9.5,0,0,1-3.09-.52l-.08,0-.29-.11-.17-.07-.19-.08-.27-.12-.08,0a9.38,9.38,0,0,1-2.55-1.81l-28-28H27v53.46A46.55,46.55,0,0,0,73.53,438H426.86a46.55,46.55,0,0,0,46.54-46.55V327.82H408.69a78.22,78.22,0,0,1-78.21-78.21h0A78.22,78.22,0,0,1,408.69,171.4Z' transform='translate(-26.98 -61.22)'/%3E%3Cpath class='cls-1' d='M247.91,359.29a26,26,0,1,0-26,26A26,26,0,0,0,247.91,359.29Z' transform='translate(-26.98 -61.22)'/%3E%3Cpath class='cls-1' d='M246.55,152.71a26,26,0,1,0-26,26A26,26,0,0,0,246.55,152.71Z' transform='translate(-26.98 -61.22)'/%3E%3Ccircle class='cls-1' cx='129.39' cy='193.15' r='25.99'/%3E%3Cpath class='cls-1' d='M409.17,190h-.48a59.57,59.57,0,0,0-59.57,59.57h0a59.57,59.57,0,0,0,59.57,59.57h.48a59.58,59.58,0,0,0,59.58-59.57h0A59.58,59.58,0,0,0,409.17,190Zm14.45,90.61h-31l8.88-32.53a15.5,15.5,0,1,1,13.29,0Z' transform='translate(-26.98 -61.22)'/%3E%3C/svg%3E";}
+  __init3() {this.blockchains = ['ethereum', 'bsc'];}
 
   constructor () {Web3Wallet.prototype.__init.call(this);Web3Wallet.prototype.__init2.call(this);Web3Wallet.prototype.__init3.call(this);
     this.sendTransaction = (transaction)=>{ 
@@ -48393,18 +48379,17 @@ class Web3Wallet {
 class Coinbase extends Web3Wallet {constructor(...args) { super(...args); Coinbase.prototype.__init.call(this);Coinbase.prototype.__init2.call(this);Coinbase.prototype.__init3.call(this);Coinbase.prototype.__init4.call(this); }
   __init() {this.name = 'Coinbase Wallet';}
   __init2() {this.logo =
-    'data:image/png;base64,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';}
+    "data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 488.96 488.96'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:url(%23linear-gradient);%7D.cls-2%7Bfill:%234361ad;%7D%3C/style%3E%3ClinearGradient id='linear-gradient' x1='250' y1='7.35' x2='250' y2='496.32' gradientTransform='matrix(1, 0, 0, -1, 0, 502)' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%233d5ba9'/%3E%3Cstop offset='1' stop-color='%234868b1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath class='cls-1' d='M250,5.68C114.87,5.68,5.52,115,5.52,250.17S114.87,494.65,250,494.65,494.48,385.29,494.48,250.17,385.13,5.68,250,5.68Zm0,387.54A143.06,143.06,0,1,1,393.05,250.17,143.11,143.11,0,0,1,250,393.22Z' transform='translate(-5.52 -5.68)'/%3E%3Cpath class='cls-2' d='M284.69,296.09H215.31a11,11,0,0,1-10.9-10.9V215.48a11,11,0,0,1,10.9-10.91H285a11,11,0,0,1,10.9,10.91v69.71A11.07,11.07,0,0,1,284.69,296.09Z' transform='translate(-5.52 -5.68)'/%3E%3C/svg%3E";}
   __init3() {this.blockchains = ['ethereum', 'bsc'];}
   __init4() {this.install = 'https://wallet.coinbase.com';}
 }
 
-class MetaMask extends Web3Wallet {constructor(...args) { super(...args); MetaMask.prototype.__init.call(this);MetaMask.prototype.__init2.call(this);MetaMask.prototype.__init3.call(this);MetaMask.prototype.__init4.call(this);MetaMask.prototype.__init5.call(this); }
+class MetaMask extends Web3Wallet {constructor(...args) { super(...args); MetaMask.prototype.__init.call(this);MetaMask.prototype.__init2.call(this);MetaMask.prototype.__init3.call(this);MetaMask.prototype.__init4.call(this); }
   __init() {this.name = 'MetaMask';}
   __init2() {this.logo =
-    'data:image/png;base64,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';}
+    "data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 485.93 450.56'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23828487;%7D.cls-2%7Bfill:%23e27726;stroke:%23e27726;%7D.cls-10,.cls-11,.cls-2,.cls-3,.cls-4,.cls-5,.cls-6,.cls-7,.cls-8,.cls-9%7Bstroke-linecap:round;stroke-linejoin:round;%7D.cls-3%7Bfill:%23e37725;stroke:%23e37725;%7D.cls-4%7Bfill:%23d6c0b3;stroke:%23d6c0b3;%7D.cls-5%7Bfill:%23243447;stroke:%23243447;%7D.cls-6%7Bfill:%23cd6328;stroke:%23cd6328;%7D.cls-7%7Bfill:%23e37525;stroke:%23e37525;%7D.cls-8%7Bfill:%23f6851f;stroke:%23f6851f;%7D.cls-9%7Bfill:%23c1ae9e;stroke:%23c1ae9e;%7D.cls-10%7Bfill:%23171717;stroke:%23171717;%7D.cls-11%7Bfill:%23763e1a;stroke:%23763e1a;%7D%3C/style%3E%3C/defs%3E%3Cpath class='cls-1' d='M247.91,356.29a26,26,0,1,0-26,26A26,26,0,0,0,247.91,356.29Z' transform='translate(-7.97 -21.33)'/%3E%3Cpath class='cls-1' d='M246.55,149.71a26,26,0,1,0-26,26A26,26,0,0,0,246.55,149.71Z' transform='translate(-7.97 -21.33)'/%3E%3Ccircle class='cls-1' cx='148.4' cy='230.05' r='25.99'/%3E%3Cpolygon class='cls-2' points='461.28 0.5 272.06 141.03 307.05 58.12 461.28 0.5'/%3E%3Cpolygon class='cls-3' points='24.46 0.5 212.16 142.37 178.88 58.12 24.46 0.5'/%3E%3Cpolygon class='cls-3' points='393.2 326.26 342.81 403.47 450.63 433.14 481.63 327.97 393.2 326.26'/%3E%3Cpolygon class='cls-3' points='4.49 327.97 35.3 433.14 143.13 403.47 92.73 326.26 4.49 327.97'/%3E%3Cpolygon class='cls-3' points='137.04 195.8 107 241.25 214.06 246.01 210.26 130.96 137.04 195.8'/%3E%3Cpolygon class='cls-3' points='348.7 195.8 274.53 129.63 272.06 246.01 378.94 241.25 348.7 195.8'/%3E%3Cpolygon class='cls-3' points='143.13 403.47 207.41 372.09 151.88 328.73 143.13 403.47'/%3E%3Cpolygon class='cls-3' points='278.34 372.09 342.81 403.47 333.87 328.73 278.34 372.09'/%3E%3Cpolygon class='cls-4' points='342.81 403.47 278.34 372.09 283.47 414.12 282.9 431.81 342.81 403.47'/%3E%3Cpolygon class='cls-4' points='143.13 403.47 203.03 431.81 202.65 414.12 207.41 372.09 143.13 403.47'/%3E%3Cpolygon class='cls-5' points='203.98 300.97 150.35 285.18 188.2 267.88 203.98 300.97'/%3E%3Cpolygon class='cls-5' points='281.76 300.97 297.55 267.88 335.58 285.18 281.76 300.97'/%3E%3Cpolygon class='cls-6' points='143.13 403.47 152.25 326.26 92.73 327.97 143.13 403.47'/%3E%3Cpolygon class='cls-6' points='333.68 326.26 342.81 403.47 393.2 327.97 333.68 326.26'/%3E%3Cpolygon class='cls-6' points='378.94 241.25 272.06 246.01 281.95 300.97 297.74 267.88 335.77 285.18 378.94 241.25'/%3E%3Cpolygon class='cls-6' points='150.35 285.18 188.39 267.88 203.98 300.97 214.06 246.01 107 241.25 150.35 285.18'/%3E%3Cpolygon class='cls-7' points='107 241.25 151.88 328.73 150.35 285.18 107 241.25'/%3E%3Cpolygon class='cls-7' points='335.77 285.18 333.87 328.73 378.94 241.25 335.77 285.18'/%3E%3Cpolygon class='cls-7' points='214.06 246.01 203.98 300.97 216.53 365.82 219.38 280.43 214.06 246.01'/%3E%3Cpolygon class='cls-7' points='272.06 246.01 266.93 280.24 269.21 365.82 281.95 300.97 272.06 246.01'/%3E%3Cpolygon class='cls-8' points='281.95 300.97 269.21 365.82 278.34 372.09 333.87 328.73 335.77 285.18 281.95 300.97'/%3E%3Cpolygon class='cls-8' points='150.35 285.18 151.88 328.73 207.41 372.09 216.53 365.82 203.98 300.97 150.35 285.18'/%3E%3Cpolygon class='cls-9' points='282.9 431.81 283.47 414.12 278.72 409.94 207.02 409.94 202.65 414.12 203.03 431.81 143.13 403.47 164.05 420.58 206.45 450.06 279.29 450.06 321.89 420.58 342.81 403.47 282.9 431.81'/%3E%3Cpolygon class='cls-10' points='278.34 372.09 269.21 365.82 216.53 365.82 207.41 372.09 202.65 414.12 207.02 409.94 278.72 409.94 283.47 414.12 278.34 372.09'/%3E%3Cpolygon class='cls-11' points='469.27 150.16 485.43 72.57 461.28 0.5 278.34 136.28 348.7 195.8 448.16 224.9 470.22 199.23 460.71 192.38 475.92 178.5 464.13 169.37 479.35 157.77 469.27 150.16'/%3E%3Cpolygon class='cls-11' points='0.5 72.57 16.66 150.16 6.39 157.77 21.61 169.37 10.01 178.5 25.22 192.38 15.71 199.23 37.58 224.9 137.04 195.8 207.41 136.28 24.46 0.5 0.5 72.57'/%3E%3Cpolygon class='cls-8' points='448.16 224.9 348.7 195.8 378.94 241.25 333.87 328.73 393.2 327.97 481.63 327.97 448.16 224.9'/%3E%3Cpolygon class='cls-8' points='137.04 195.8 37.58 224.9 4.49 327.97 92.73 327.97 151.88 328.73 107 241.25 137.04 195.8'/%3E%3Cpolygon class='cls-8' points='272.06 246.01 278.34 136.28 307.24 58.12 178.88 58.12 207.41 136.28 214.06 246.01 216.34 280.62 216.53 365.82 269.21 365.82 269.59 280.62 272.06 246.01'/%3E%3C/svg%3E";}
   __init3() {this.blockchains = ['ethereum', 'bsc'];}
-  __init4() {this.devices = ['desktop', 'mobile'];}
-  __init5() {this.install = 'https://metamask.io/download.html';}
+  __init4() {this.install = 'https://metamask.io/download.html';}
 }
 
 function _optionalChain$2$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
@@ -48429,7 +48414,7 @@ const estimate = async ({ transaction, wallet })=> {
   })
 };
 
-function _optionalChain$1$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+function _optionalChain$1$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 const sendTransaction = async ({ transaction, wallet })=> {
   transaction = new Transaction(transaction);
   await transaction.prepare({ wallet });
@@ -48498,7 +48483,7 @@ const submitContractInteraction = async ({ transaction, wallet })=>{
   return wallet.connector.sendTransaction({
     from: transaction.from,
     to: transaction.to,
-    value: _optionalChain$1$1([transaction, 'access', _ => _.value, 'optionalAccess', _2 => _2.toString, 'call', _3 => _3()]),
+    value: _optionalChain$1$2([transaction, 'access', _ => _.value, 'optionalAccess', _2 => _2.toString, 'call', _3 => _3()]),
     data: populatedTransaction.data
   })
 };
@@ -48507,7 +48492,7 @@ const submitSimpleTransfer = ({ transaction, wallet })=>{
   return wallet.connector.sendTransaction({
     from: transaction.from,
     to: transaction.to,
-    value: _optionalChain$1$1([transaction, 'access', _4 => _4.value, 'optionalAccess', _5 => _5.toString, 'call', _6 => _6()])
+    value: _optionalChain$1$2([transaction, 'access', _4 => _4.value, 'optionalAccess', _5 => _5.toString, 'call', _6 => _6()])
   })
 };
 
@@ -48517,7 +48502,7 @@ let connectedInstance;
 class WalletConnectWallet {
   __init() {this.name = 'WalletConnect';}
   __init2() {this.logo =
-    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAAIVBMVEVHcEzA3v+32f6n0f6Rxv5/vP5ss/1bqv1Kof0zlfw7mfxjyhOQAAAACXRSTlMAGTlZfaC81e2kc52PAAAFE0lEQVR42u3azXMTNxgGcMeJh6s7BLg6eBhyNKSUDKdlMG3JCUILNbekB8iR8NGEU4G21LnixV5dY0q0f2VTZ3dfvK+0zyvZmQ6DnhOzrEf67YderZRaSEhISEhISEhISEhIyP+Zb9pr3dsPfu7eWltp1k4lC+3be2meoxe3VmpzT/3ab/1EpUUS9e7F1dpcU7/2Kk3S6WiVzrWZS3tZC+V2Rs9btfmk/gMpmObTzdo8svgka8KC2azNnuVXWRtWzPOZH+dzfZWCJLO2cum/NmArf8zUynI/lUTPYlncP3FgyzP/Z3cnawNHbfsOVo+KNnBGnu/LdYc2Uv2h5fXw6tQleuxzQ/ZTt2iP2/JjdrEcbkvnlC/WhPLxtC/W5G3ZcmtkXaUeGbacXvV+6hP9xqWRjQxymvd+qequV/7foQPEemuPC9jfB6lObFIViSGJuQV99PKn7trF9rfdB3uJuR09kDZyx1xm391fadJc8uGBWRMJIaZfq9H90vPZ/kWZThz4Q9RfV3gp+M5Ymzuil910qX5tmmcymp/7WtJIg3dvZBtgzz7hJ7+XNHKGX6tNO5tXz/deErVdPQ/wuVx1XfrVMzCjKZ0ue4ZvqKkfoZnb8nSnYuEQrN2G73VVDcG/Su4JpmefNTL2qCZ67DZoq8ijLo46buePPQqj3pXNCPruEOraB+Fs/bKavrguXdNb0mnzTg5xyaqiZ142TGQQZ4q+e/wvB4o6fkocKROIC0Ufus+3JxA5pecCoQcmdjq/kRx6fDo8jtx+0O3UvposfC/9FK8/3JQuAry8Wb7Nya50Lq4i4fOZDFvlb55RS/o+xNI3Te9OQ6QfFz3pSFDvF2WVDsgoDRrT8ECedZxk+REMySi4JFHHCUJlEM/JYgkk6zhBTo68FUAKCoYQhSCYcq6o5bEAklEIklMgpKBgCFHoAKacV3CiSJNQ6nguoyOo+hEFQajj5Ump6mBIPpGBEOr4qip9iGNINpOBM0q6Kzv4Q5wgiELrGdNX9gAuwBGkRJGuZ/xeNEIUBCEKgFAjvfJvx5UQTFk6/q/y5bqgMIUgnIIhw+akXmHKQnYWp2DI7qRg4eWR3Mv7yCF8Oc/YyQGAUCefgoUZOucCOx7ZIJjSs5yCKfy+2b7EGiaIhXK3PGGSrp/2+BNofQdiBCEKgGzRS2CjUFWzUyAEUKg8V1EwBFM4pDSQA0gVBUKKmQKCYApBMKXHeppB7CeUIJjSsHfUesY9giBK9SXHFL7/8A+noCuO7tq6YhsL/FCrEoJeJA7Rb03HqiCYcoNDjDo7BFMWNe+0iXeYQXi9wPVmm0NaxidudJVBBtKdgJHlQaozypEVgim2t3sVnjlAmxp4yMXDQAS2Z0Dx4LXScatmA0DEO6pR5U4TgjCKx/bZBoDIKCry3sYcNqenYv5bmvT68ekinlTSNyHe18AQomAIpvB6TRRfCFFMA3+Z4gUhCoZQmTIUAy8Kh1DBZcXAZV+DQzjFF0I1iUM4xRNCFA7hFA9IMZBXQMDE843bFo1oSahnqGqelBiu5blttNFAziGYMmx5/5VPjNdXCeJBweuNvRLEkxLjpWIqBr4UsAb86PNi4JaFfel2bsMbQgM53i3ZcIcQRbqduwSWC6uXmnMI3hwqDz0OO63yTf8M4kXJIZhyAvGiqLxeY0qy5f0HyZ+E1eG6/tP7j3nbV6TotXn9VXpISEhISEhISEhISEhISEjIl5R/AceNSyX32CxyAAAAAElFTkSuQmCC';}
+    "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 25.4.1, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 500 500' style='enable-background:new 0 0 500 500;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%235991CD;%7D%0A%3C/style%3E%3Cg id='Page-1'%3E%3Cg id='walletconnect-logo-alt'%3E%3Cpath id='WalletConnect' class='st0' d='M102.7,162c81.5-79.8,213.6-79.8,295.1,0l9.8,9.6c4.1,4,4.1,10.5,0,14.4L374,218.9 c-2,2-5.3,2-7.4,0l-13.5-13.2c-56.8-55.7-149-55.7-205.8,0l-14.5,14.1c-2,2-5.3,2-7.4,0L91.9,187c-4.1-4-4.1-10.5,0-14.4 L102.7,162z M467.1,229.9l29.9,29.2c4.1,4,4.1,10.5,0,14.4L362.3,405.4c-4.1,4-10.7,4-14.8,0c0,0,0,0,0,0L252,311.9 c-1-1-2.7-1-3.7,0h0l-95.5,93.5c-4.1,4-10.7,4-14.8,0c0,0,0,0,0,0L3.4,273.6c-4.1-4-4.1-10.5,0-14.4l29.9-29.2 c4.1-4,10.7-4,14.8,0l95.5,93.5c1,1,2.7,1,3.7,0c0,0,0,0,0,0l95.5-93.5c4.1-4,10.7-4,14.8,0c0,0,0,0,0,0l95.5,93.5 c1,1,2.7,1,3.7,0l95.5-93.5C456.4,225.9,463,225.9,467.1,229.9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A";}
   __init3() {this.blockchains = ['ethereum', 'bsc'];}
 
   constructor() {WalletConnectWallet.prototype.__init.call(this);WalletConnectWallet.prototype.__init2.call(this);WalletConnectWallet.prototype.__init3.call(this);
@@ -48663,18 +48648,84 @@ let getWallet = function () {
     return connectedInstance
   } else if (typeof window.ethereum === 'object' && window.ethereum.isMetaMask) {
     return wallets.MetaMask
-  } else if (typeof window.ethereum === 'object' && window.ethereum.isCoinbaseWallet) {
+  } else if (typeof window.ethereum === 'object' && (window.ethereum.isCoinbaseWallet || window.ethereum.isWalletLink)) {
     return wallets.Coinbase
   } else if (typeof window.ethereum !== 'undefined') {
     return wallets.Web3Wallet
   }
 };
 
-const supported = [
-  wallets.WalletConnect,
-  wallets.MetaMask,
-  wallets.Coinbase
-];
+var ConnectingWalletDialog = (function (props) {
+  var _useContext = react.useContext(NavigateStackContext_1),
+      navigate = _useContext.navigate;
+
+  var wallet = props.wallet;
+  wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
+  var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
+
+  if (props.pending) {
+    return /*#__PURE__*/react.createElement(Dialog, {
+      stacked: true,
+      body: /*#__PURE__*/react.createElement("div", null, walletLogo && /*#__PURE__*/react.createElement("div", {
+        className: "GraphicWrapper PaddingTopS PaddingBottomS"
+      }, /*#__PURE__*/react.createElement("img", {
+        className: "Graphic",
+        src: walletLogo
+      })), /*#__PURE__*/react.createElement("h1", {
+        className: "Text FontSizeL FontWeightBold PaddingTopS"
+      }, "Connect Wallet"), /*#__PURE__*/react.createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/react.createElement("strong", {
+        className: "FontSizeM PaddingLeftM PaddingRightM"
+      }, "Your wallet is already open and asking for permission to connect. Please find your wallet dialog and confirm this connection.")))
+    });
+  } else {
+    return /*#__PURE__*/react.createElement(Dialog, {
+      stacked: true,
+      body: /*#__PURE__*/react.createElement("div", null, walletLogo && /*#__PURE__*/react.createElement("div", {
+        className: "GraphicWrapper PaddingTopS PaddingBottomS"
+      }, /*#__PURE__*/react.createElement("img", {
+        className: "Graphic",
+        src: walletLogo
+      })), /*#__PURE__*/react.createElement("h1", {
+        className: "Text FontSizeL FontWeightBold PaddingTopS"
+      }, "Connect Wallet"), /*#__PURE__*/react.createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/react.createElement("p", {
+        className: "FontSizeM PaddingLeftM PaddingRightM"
+      }, "Access to your wallet is required. Please login and authorize access to your account to continue."), /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS"
+      }, /*#__PURE__*/react.createElement("button", {
+        onClick: function onClick() {
+          return navigate('back');
+        },
+        className: "TextButton"
+      }, "Connect with another wallet")))),
+      footer: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      }, /*#__PURE__*/react.createElement("button", {
+        className: "ButtonPrimary wide",
+        onClick: function onClick() {
+          return props.connect(wallet);
+        }
+      }, "Connect"))
+    });
+  }
+});
+
+var ChevronRight = (function () {
+  return /*#__PURE__*/react.createElement("svg", {
+    className: "ChevronRight Icon",
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "16",
+    height: "16",
+    viewBox: "0 0 16 16"
+  }, /*#__PURE__*/react.createElement("path", {
+    strokeWidth: "1",
+    fillRule: "evenodd",
+    d: "M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+  }));
+});
 
 var SelectWalletDialog = (function (props) {
   var _useState = react.useState(false),
@@ -48682,25 +48733,59 @@ var SelectWalletDialog = (function (props) {
       showExplanation = _useState2[0],
       setShowExplanation = _useState2[1];
 
-  var walletCards = supported.map(function (wallet, index) {
+  var _useContext = react.useContext(NavigateStackContext_1),
+      navigate = _useContext.navigate;
+
+  var wallet = getWallet();
+  react.useEffect( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+    var accounts;
+    return regenerator.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (!wallet) {
+              _context.next = 5;
+              break;
+            }
+
+            _context.next = 3;
+            return wallet.accounts();
+
+          case 3:
+            accounts = _context.sent;
+
+            if (accounts == undefined || accounts.length == 0) {
+              navigate('ConnectingWallet');
+            }
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  })), [wallet]);
+
+  var connect = function connect(wallet) {
+    props.setWallet(wallet);
+    navigate('ConnectingWallet');
+    props.connect(wallet);
+  };
+
+  var availableWallets = [wallets.WalletConnect];
+
+  if (wallet) {
+    availableWallets.unshift(wallet);
+  }
+
+  var walletCards = availableWallets.map(function (wallet, index) {
     return /*#__PURE__*/react.createElement("button", {
       key: index,
       className: "Card small",
       title: "Connect ".concat(wallet.name),
-      onClick: /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-        return regenerator.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                props.setWallet(wallet);
-
-              case 1:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))
+      onClick: function onClick() {
+        return connect(wallet);
+      }
     }, /*#__PURE__*/react.createElement("div", {
       className: "CardImage PaddingLeftM"
     }, /*#__PURE__*/react.createElement("img", {
@@ -48740,28 +48825,36 @@ var ConnectStack = (function (props) {
       open = _useContext.open,
       close = _useContext.close;
 
-  var setWallet = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(wallet) {
+  var _useState = react.useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      pending = _useState2[0],
+      setPending = _useState2[1];
+
+  var _useState3 = react.useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      wallet = _useState4[0],
+      setWallet = _useState4[1];
+
+  var connect = function connect(wallet) {
+    wallet.connect().then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
       var accounts;
       return regenerator.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return wallet.connect();
+              return wallet.accounts();
 
             case 2:
               accounts = _context.sent;
 
-              if (accounts == undefined || accounts.length == 0) ; else {
-                props.connected({
-                  accounts: accounts,
-                  wallet: wallet
+              if (accounts instanceof Array && accounts.length > 0) {
+                if (props.autoClose) close();
+                if (props.resolve) props.resolve({
+                  wallet: wallet,
+                  account: accounts[0],
+                  accounts: accounts
                 });
-
-                if (props.autoClose) {
-                  close();
-                }
               }
 
             case 4:
@@ -48770,13 +48863,63 @@ var ConnectStack = (function (props) {
           }
         }
       }, _callee);
-    }));
+    })))["catch"](function (error) {
+      setPending(false);
 
-    return function setWallet(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
+      if ((error === null || error === void 0 ? void 0 : error.code) == 4001) {
+        // User rejected the request.
+        return;
+      } else if ((error === null || error === void 0 ? void 0 : error.code) == -32002) {
+        // Request of type 'wallet_requestPermissions' already pending...
+        setPending(true);
+        return;
+      } else {
+        if (props.reject) props.reject(error);
+      }
+    });
+  };
 
+  react.useEffect(function () {
+    var wallet = getWallet();
+
+    if (wallet) {
+      setWallet(wallet);
+    }
+  }, []);
+  react.useEffect( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
+    var accounts;
+    return regenerator.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            if (!wallet) {
+              _context2.next = 5;
+              break;
+            }
+
+            _context2.next = 3;
+            return wallet.accounts();
+
+          case 3:
+            accounts = _context2.sent;
+
+            if (accounts instanceof Array && accounts.length > 0) {
+              if (props.resolve) props.resolve({
+                wallet: wallet,
+                account: accounts[0],
+                accounts: accounts
+              });
+            } else {
+              connect(wallet);
+            }
+
+          case 5:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  })), [wallet]);
   return /*#__PURE__*/react.createElement(ReactDialogStack_1, {
     open: open,
     close: close,
@@ -48785,7 +48928,13 @@ var ConnectStack = (function (props) {
     document: props.document,
     dialogs: {
       SelectWallet: /*#__PURE__*/react.createElement(SelectWalletDialog, {
-        setWallet: setWallet
+        setWallet: setWallet,
+        connect: connect
+      }),
+      ConnectingWallet: /*#__PURE__*/react.createElement(ConnectingWalletDialog, {
+        wallet: wallet,
+        pending: pending,
+        connect: connect
       })
     }
   });
@@ -48799,20 +48948,199 @@ var ensureDocument = (function (document) {
   }
 });
 
+function _classCallCheck$1(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass$1(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _inherits$1(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _possibleConstructorReturn$1(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+var ErrorContext = /*#__PURE__*/react.createContext();
+
+var ErrorGraphic = "data:image/png;base64,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";
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn$1(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
+  _inherits$1(ErrorBoundary, _React$Component);
+
+  var _super = _createSuper(ErrorBoundary);
+
+  function ErrorBoundary(props) {
+    _classCallCheck$1(this, ErrorBoundary);
+
+    return _super.call(this, props);
+  }
+
+  _createClass$1(ErrorBoundary, [{
+    key: "componentDidCatch",
+    value: function componentDidCatch(error, errorInfo) {
+      this.props.setError(error);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return this.props.children;
+    }
+  }]);
+
+  return ErrorBoundary;
+}(react.Component);
+
+var ErrorProvider = (function (props) {
+  var _useState = react.useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      error = _useState2[0],
+      setError = _useState2[1];
+
+  var _useState3 = react.useState(true),
+      _useState4 = _slicedToArray(_useState3, 2),
+      open = _useState4[0],
+      setOpen = _useState4[1];
+
+  var setErrorFromChildren = function setErrorFromChildren(error) {
+    setError(error);
+
+    if (props.error) {
+      props.error(error);
+    }
+  };
+
+  var close = function close() {
+    setOpen(false);
+    setTimeout(props.unmount, 300);
+  };
+
+  if (error) {
+    return /*#__PURE__*/react.createElement(ReactDialog_1, {
+      container: props.container,
+      close: close,
+      open: open
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "Dialog ReactDialogAnimation"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "DialogHeader"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "PaddingTopS PaddingLeftS PaddingRightS"
+    })), /*#__PURE__*/react.createElement("div", {
+      className: "DialogBody"
+    }, /*#__PURE__*/react.createElement("div", {
+      className: "GraphicWrapper"
+    }, /*#__PURE__*/react.createElement("img", {
+      className: "Graphic",
+      src: ErrorGraphic
+    })), /*#__PURE__*/react.createElement("h1", {
+      className: "Text FontSizeL PaddingTopS FontWeightBold"
+    }, "Oops, Something Went Wrong"), /*#__PURE__*/react.createElement("div", {
+      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("strong", {
+      className: "FontSizeM FontItalic"
+    }, error.toString())), /*#__PURE__*/react.createElement("div", {
+      className: "PaddingTopS PaddingBottomS"
+    }, /*#__PURE__*/react.createElement("strong", {
+      className: "FontSizeM PaddingTopS"
+    }, "If this keeps happening, please report it.")))), /*#__PURE__*/react.createElement("div", {
+      className: "DialogFooter"
+    }, /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: close
+    }, "Try again")), /*#__PURE__*/react.createElement("a", {
+      href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
+      rel: "noopener noreferrer",
+      target: "_blank",
+      className: "FooterLink"
+    }, "by DePay"))));
+  } else {
+    return /*#__PURE__*/react.createElement(ErrorContext.Provider, {
+      value: {
+        setError: setErrorFromChildren
+      }
+    }, /*#__PURE__*/react.createElement(ErrorBoundary, {
+      setError: setErrorFromChildren
+    }, props.children));
+  }
+});
+
 var ButtonCircularStyle = (function () {
   return "\n\n    .ButtonCircular {\n      border-radius: 99rem;\n      cursor: pointer;\n      height: 34px;\n      opacity: 0.5;\n      padding: 5px 4px 4px 4px;\n      width: 34px;\n    }\n\n    .ButtonCircular:hover {\n      background: rgba(0,0,0,0.1);\n      opacity: 1;\n    }\n\n    .ButtonCircular:active {\n      background: rgba(0,0,0,0.25);\n      opacity: 1;\n    }\n  ";
 });
 
 var ButtonPrimaryStyle = (function (style) {
-  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 10px rgba(0,0,0,0.05);\n      color: ").concat(style.colors.buttonText, ";\n      display: inline-flex;\n      flex: 1;\n      font-size: 1.3rem;\n      font-weight: 400;\n      height: 2.8rem;\n      justify-content: center;\n      min-width: 12rem;\n      padding: 0 1.4rem;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      transition: background 0.1s;\n      vertical-align: middle;\n    }\n\n    .ButtonPrimary.round {\n      padding: 0;\n      width: 3.4rem;\n      min-width: 3.4rem;\n      line-height: 3.2rem;\n    }\n\n    .ButtonPrimary.wide {\n      border-radius: 0.8rem;\n      width: 100%;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n      color: rgb(140,140,140);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
+  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 10px rgba(0,0,0,0.05);\n      color: ").concat(style.colors.buttonText, ";\n      font-size: 1.3rem;\n      font-weight: 400;\n      height: 2.8rem;\n      line-height: 2.8rem;\n      justify-content: center;\n      min-width: 12rem;\n      overflow: hidden;\n      padding: 0 1.4rem;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      white-space: nowrap;\n      display: inline-block;\n    }\n\n    .ButtonPrimary.round {\n      padding: 0;\n      width: 3.4rem;\n      min-width: 3.4rem;\n      line-height: 3.2rem;\n    }\n\n    .ButtonPrimary.wide {\n      border-radius: 0.8rem;\n      width: 100%;\n      display: block;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n      color: rgb(140,140,140);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
 });
 
 var CardStyle = (function (style) {
-  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n      width: 100%;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.6rem 0.6rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: rgb(240,240,240);\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n      width: 100%;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.6rem 0.6rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
 });
 
 var DialogStyle = (function (style) {
-  return "\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n    }\n\n    .Dialog .Text {\n      color: ".concat(style.colors.text, ";\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 700px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n        max-height: 40vh !important;\n      }\n\n      .FooterLink {\n        bottom: 0;\n        left: 0;\n        position: absolute;\n        right: 0;\n        width: 100%;\n      }\n\n      .DialogFooter {\n        padding-bottom: 50px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        max-height: 66vh !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .ReactShadowDOMInsideContainer > .ReactDialog {\n      display: table;\n    }\n\n  ");
+  return "\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n    }\n\n    .Dialog .Text {\n      color: ".concat(style.colors.text, ";\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 900px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n        max-height: 40vh !important;\n      }\n\n      .FooterLink {\n        bottom: 0;\n        left: 0;\n        position: absolute;\n        padding-bottom: 1rem;\n        right: 0;\n        width: 100%;\n      }\n\n      .DialogFooter {\n        padding-bottom: 50px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        max-height: 66vh !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .ReactShadowDOMInsideContainer > .ReactDialog {\n      display: table;\n    }\n\n  ");
 });
 
 var FontStyle = (function (style) {
@@ -48820,11 +49148,11 @@ var FontStyle = (function (style) {
 });
 
 var FooterStyle = (function (style) {
-  return "\n\n    .FooterLink {\n      color: rgba(0,0,0,0.2);\n      display: inline-block;\n      font-size: 0.9rem;\n      text-decoration: none;\n      padding-top: 0;\n      padding-bottom: 0;\n    }\n\n    .FooterLink:hover, .FooterLink:active {\n      color: ".concat(style.colors.primary, ";\n    }\n  ");
+  return "\n\n    .FooterLink {\n      color: rgba(0,0,0,0.2);\n      display: inline-block;\n      font-size: 0.9rem;\n      text-decoration: none;\n    }\n\n    .FooterLink:hover, .FooterLink:active {\n      color: ".concat(style.colors.primary, ";\n    }\n  ");
 });
 
 var GraphicStyle = (function () {
-  return "\n\n    .GraphicWrapper {\n      display: block;\n    }\n\n    .Graphic {\n      width: 60%;\n      position: relative;\n    }\n  ";
+  return "\n\n    .GraphicWrapper {\n      display: block;\n    }\n\n    .Graphic {\n      width: 50%;\n      position: relative;\n    }\n  ";
 });
 
 var HeightStyle = (function () {
@@ -49011,40 +49339,84 @@ var mount = (function (_ref, content) {
 });
 
 var Connect = function Connect(options) {
-  var style, document;
+  var style, error, document;
 
   if (_typeof(options) == 'object') {
     style = options.style;
+    error = options.error;
     document = options.document;
   }
 
-  return new Promise(function (resolve, reject) {
-    var connected = function connected(_ref) {
-      var accounts = _ref.accounts,
-          wallet = _ref.wallet;
-      resolve({
-        account: accounts[0],
-        accounts: accounts,
-        wallet: wallet
-      });
-    };
+  return new Promise( /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(resolve, reject) {
+      var wallet, accounts;
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              wallet = getWallet();
 
-    mount({
-      style: style,
-      document: ensureDocument(document)
-    }, function (unmount) {
-      return function (container) {
-        return /*#__PURE__*/react.createElement(ClosableProvider, {
-          unmount: unmount
-        }, /*#__PURE__*/react.createElement(ConnectStack, {
-          document: document,
-          container: container,
-          connected: connected,
-          autoClose: true
-        }));
-      };
-    });
-  });
+              if (!wallet) {
+                _context.next = 7;
+                break;
+              }
+
+              _context.next = 4;
+              return wallet.accounts();
+
+            case 4:
+              accounts = _context.sent;
+
+              if (!(accounts instanceof Array && accounts.length > 0)) {
+                _context.next = 7;
+                break;
+              }
+
+              return _context.abrupt("return", resolve({
+                wallet: wallet,
+                accounts: accounts,
+                account: accounts[0]
+              }));
+
+            case 7:
+              mount({
+                style: style,
+                document: ensureDocument(document)
+              }, function (unmount) {
+                var rejectBeforeUnmount = function rejectBeforeUnmount() {
+                  reject('USER_CLOSED_DIALOG');
+                  unmount();
+                };
+
+                return function (container) {
+                  return /*#__PURE__*/react.createElement(ErrorProvider, {
+                    error: error,
+                    container: container,
+                    unmount: unmount
+                  }, /*#__PURE__*/react.createElement(ClosableProvider, {
+                    unmount: rejectBeforeUnmount
+                  }, /*#__PURE__*/react.createElement(ConnectStack, {
+                    document: document,
+                    container: container,
+                    resolve: resolve,
+                    reject: reject,
+                    autoClose: true
+                  })));
+                };
+              });
+
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }());
 };
 
 var ConfigurationContext = /*#__PURE__*/react.createContext();
@@ -49061,8 +49433,6 @@ var ConfigurationProvider = (function (props) {
     value: props.configuration
   }, props.children);
 });
-
-var ErrorContext = /*#__PURE__*/react.createContext();
 
 var QuestionsGraphic = "data:image/png;base64,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";
 
@@ -50245,7 +50615,7 @@ function _optionalChain$2(ops) { let lastAccessLHS = undefined; let value = ops[
   }
 }
 
-function _optionalChain$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+function _optionalChain$1$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 // Uniswap replaces 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE with
 // the wrapped token 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2 and implies wrapping.
 //
@@ -50308,9 +50678,9 @@ let findPath$1 = async ({ tokenIn, tokenOut }) => {
 
   // Add WRAPPED to route path if things start or end with NATIVE
   // because that actually reflects how things are routed in reality:
-  if(_optionalChain$1([path, 'optionalAccess', _ => _.length]) && path[0] == CONSTANTS$2.bsc.NATIVE) {
+  if(_optionalChain$1$1([path, 'optionalAccess', _ => _.length]) && path[0] == CONSTANTS$2.bsc.NATIVE) {
     path.splice(1, 0, CONSTANTS$2.bsc.WRAPPED);
-  } else if(_optionalChain$1([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == CONSTANTS$2.bsc.NATIVE) {
+  } else if(_optionalChain$1$1([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == CONSTANTS$2.bsc.NATIVE) {
     path.splice(path.length-1, 0, CONSTANTS$2.bsc.WRAPPED);
   }
 
@@ -55283,6 +55653,7 @@ function throwFault(fault, operation, value) {
     return logger.throwError(fault, Logger.errors.NUMERIC_FAULT, params);
 }
 
+function _optionalChain$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 let getTransaction = ({ paymentRoute, event })=> {
   let exchangeRoute = paymentRoute.exchangeRoutes[0];
 
@@ -55395,9 +55766,10 @@ let transactionPlugins = ({ paymentRoute, exchangeRoute, event })=> {
   }
 
   if(paymentRoute.toContract) {
-    let signature = paymentRoute.toContract.signature.match(/(?<=\().*(?=\))/);
-    if(signature) {
-      let splitSignature = signature[0].split(',');
+    let signature = paymentRoute.toContract.signature.match(/\(.*\)/);
+    if(signature && _optionalChain$1([signature, 'optionalAccess', _ => _.length])) {
+      signature = signature[0].replace(/[\(\)]/g, '');
+      let splitSignature = signature.split(',');
       if(splitSignature[0] == 'address' && splitSignature[1].match('uint') && splitSignature[2] == 'bool' && Number.isNaN(parseInt(paymentRoute.toContract.params[0]))) {
         paymentRoute.contractCallPlugin = plugins[paymentRoute.blockchain].contractCall.approveAndCallContractAddressAmountBoolean;
       } else if(splitSignature[0] == 'address' && splitSignature[1].match('uint') && splitSignature[2] == 'bool' && !Number.isNaN(parseInt(paymentRoute.toContract.params[0]))) {
@@ -57754,7 +58126,7 @@ var utils = /*#__PURE__*/Object.defineProperty({
 
 var _resizeObserverPolyfill = /*@__PURE__*/getAugmentedNamespace(ResizeObserver_es);
 
-var _createClass$1 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 
 
@@ -57778,11 +58150,11 @@ function _interopRequireDefault$1(obj) { return obj && obj.__esModule ? obj : { 
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint no-debugger: "warn" */
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint no-debugger: "warn" */
 
 
 /**
@@ -57807,12 +58179,12 @@ var constants = {
 };
 
 var Slider = function (_Component) {
-  _inherits$1(Slider, _Component);
+  _inherits(Slider, _Component);
 
   function Slider(props, context) {
-    _classCallCheck$1(this, Slider);
+    _classCallCheck(this, Slider);
 
-    var _this = _possibleConstructorReturn$1(this, (Slider.__proto__ || Object.getPrototypeOf(Slider)).call(this, props, context));
+    var _this = _possibleConstructorReturn(this, (Slider.__proto__ || Object.getPrototypeOf(Slider)).call(this, props, context));
 
     _this.handleFormat = function (value) {
       var format = _this.props.format;
@@ -57993,7 +58365,7 @@ var Slider = function (_Component) {
     return _this;
   }
 
-  _createClass$1(Slider, [{
+  _createClass(Slider, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.handleUpdate();
@@ -58706,7 +59078,8 @@ var DonationOverviewDialog = (function (props) {
         className: "PaddingBottomS"
       }, /*#__PURE__*/react.createElement("button", {
         className: "ButtonPrimary wide",
-        onClick: approve
+        onClick: approve,
+        title: "Allow ".concat(payment.symbol, " to be used as payment")
       }, "Allow ", payment.symbol, " to be used as payment"));
     } else if (paymentState == 'approving') {
       return /*#__PURE__*/react.createElement("div", {
@@ -58809,8 +59182,6 @@ var DonationOverviewDialog = (function (props) {
     }, actions())
   });
 });
-
-var ErrorGraphic = "data:image/png;base64,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";
 
 var PaymentErrorDialog = (function () {
   var _useContext = react.useContext(NavigateStackContext_1),
@@ -58927,181 +59298,6 @@ var DonationStack = (function (props) {
   });
 });
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
-    return call;
-  } else if (call !== void 0) {
-    throw new TypeError("Derived constructors may only return object or undefined");
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
-  _inherits(ErrorBoundary, _React$Component);
-
-  var _super = _createSuper(ErrorBoundary);
-
-  function ErrorBoundary(props) {
-    _classCallCheck(this, ErrorBoundary);
-
-    return _super.call(this, props);
-  }
-
-  _createClass(ErrorBoundary, [{
-    key: "componentDidCatch",
-    value: function componentDidCatch(error, errorInfo) {
-      this.props.setError(error);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return this.props.children;
-    }
-  }]);
-
-  return ErrorBoundary;
-}(react.Component);
-
-var ErrorProvider = (function (props) {
-  var _useState = react.useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      error = _useState2[0],
-      setError = _useState2[1];
-
-  var _useState3 = react.useState(true),
-      _useState4 = _slicedToArray(_useState3, 2),
-      open = _useState4[0],
-      setOpen = _useState4[1];
-
-  var setErrorFromChildren = function setErrorFromChildren(error) {
-    setError(error);
-
-    if (props.error) {
-      props.error(error);
-    }
-  };
-
-  var close = function close() {
-    setOpen(false);
-    setTimeout(props.unmount, 300);
-  };
-
-  if (error) {
-    return /*#__PURE__*/react.createElement(ReactDialog_1, {
-      container: props.container,
-      close: close,
-      open: open
-    }, /*#__PURE__*/react.createElement("div", {
-      className: "Dialog ReactDialogAnimation"
-    }, /*#__PURE__*/react.createElement("div", {
-      className: "DialogHeader"
-    }, /*#__PURE__*/react.createElement("div", {
-      className: "PaddingTopS PaddingLeftS PaddingRightS"
-    })), /*#__PURE__*/react.createElement("div", {
-      className: "DialogBody"
-    }, /*#__PURE__*/react.createElement("div", {
-      className: "GraphicWrapper"
-    }, /*#__PURE__*/react.createElement("img", {
-      className: "Graphic",
-      src: ErrorGraphic
-    })), /*#__PURE__*/react.createElement("h1", {
-      className: "Text FontSizeL PaddingTopS FontWeightBold"
-    }, "Oops, Something Went Wrong"), /*#__PURE__*/react.createElement("div", {
-      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("strong", {
-      className: "FontSizeM FontItalic"
-    }, error.toString())), /*#__PURE__*/react.createElement("div", {
-      className: "PaddingTopS PaddingBottomS"
-    }, /*#__PURE__*/react.createElement("strong", {
-      className: "FontSizeM PaddingTopS"
-    }, "If this keeps happening, please report it.")))), /*#__PURE__*/react.createElement("div", {
-      className: "DialogFooter"
-    }, /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("button", {
-      className: "ButtonPrimary",
-      onClick: close
-    }, "Try again")), /*#__PURE__*/react.createElement("a", {
-      href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
-      rel: "noopener noreferrer",
-      target: "_blank",
-      className: "FooterLink"
-    }, "by DePay"))));
-  } else {
-    return /*#__PURE__*/react.createElement(ErrorContext.Provider, {
-      value: {
-        setError: setErrorFromChildren
-      }
-    }, /*#__PURE__*/react.createElement(ErrorBoundary, {
-      setError: setErrorFromChildren
-    }, props.children));
-  }
-});
-
 var UpdateProvider = (function (props) {
   var _useState = react.useState(true),
       _useState2 = _slicedToArray(_useState, 2),
@@ -59116,110 +59312,9 @@ var UpdateProvider = (function (props) {
   }, props.children);
 });
 
-var ConnectingWalletDialog = (function (props) {
-  var wallet = props.wallet;
-  var walletName = wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
-  var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
-
-  var _useState = react.useState(true),
-      _useState2 = _slicedToArray(_useState, 2),
-      open = _useState2[0],
-      setOpen = _useState2[1];
-
-  var close = function close() {
-    setOpen(false);
-    setTimeout(props.unmount, 300);
-  };
-
-  return /*#__PURE__*/react.createElement(ReactDialog_1, {
-    container: props.container,
-    close: close,
-    open: open
-  }, /*#__PURE__*/react.createElement("div", {
-    className: "Dialog ReactDialogAnimation"
-  }, /*#__PURE__*/react.createElement("div", {
-    className: "DialogHeader"
-  }, /*#__PURE__*/react.createElement("div", {
-    className: "PaddingTopS PaddingLeftS PaddingRightS"
-  })), /*#__PURE__*/react.createElement("div", {
-    className: "DialogBody"
-  }, walletLogo && /*#__PURE__*/react.createElement("div", {
-    className: "GraphicWrapper"
-  }, /*#__PURE__*/react.createElement("img", {
-    className: "Graphic",
-    src: walletLogo
-  })), /*#__PURE__*/react.createElement("h1", {
-    className: "Text FontSizeL PaddingTopS FontWeightBold"
-  }, "Connect Wallet"), /*#__PURE__*/react.createElement("div", {
-    className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-  }, /*#__PURE__*/react.createElement("strong", {
-    className: "FontSizeM"
-  }, "This payment requires access to your wallet, please login and authorize access to your ", walletName, " account to continue."))), /*#__PURE__*/react.createElement("div", {
-    className: "DialogFooter"
-  }, /*#__PURE__*/react.createElement("div", {
-    className: "PaddingTopXS PaddingRightM PaddingLeftM"
-  }, /*#__PURE__*/react.createElement("button", {
-    className: "ButtonPrimary wide",
-    onClick: props.connect
-  }, "Connect")), /*#__PURE__*/react.createElement("a", {
-    href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
-    rel: "noopener noreferrer",
-    target: "_blank",
-    className: "FooterLink"
-  }, "by DePay"))));
-});
-
-var WalletRequestPendingDialog = (function (props) {
-  var _props$wallet;
-
-  var walletLogo = (_props$wallet = props.wallet) !== null && _props$wallet !== void 0 && _props$wallet.logo ? props.wallet.logo : undefined;
-
-  var _useState = react.useState(true),
-      _useState2 = _slicedToArray(_useState, 2),
-      open = _useState2[0],
-      setOpen = _useState2[1];
-
-  var close = function close() {
-    setOpen(false);
-    setTimeout(props.unmount, 300);
-  };
-
-  return /*#__PURE__*/react.createElement(ReactDialog_1, {
-    container: props.container,
-    close: close,
-    open: open
-  }, /*#__PURE__*/react.createElement("div", {
-    className: "Dialog ReactDialogAnimation"
-  }, /*#__PURE__*/react.createElement("div", {
-    className: "DialogHeader"
-  }, /*#__PURE__*/react.createElement("div", {
-    className: "PaddingTopS PaddingLeftS PaddingRightS"
-  })), /*#__PURE__*/react.createElement("div", {
-    className: "DialogBody"
-  }, walletLogo && /*#__PURE__*/react.createElement("div", {
-    className: "GraphicWrapper"
-  }, /*#__PURE__*/react.createElement("img", {
-    className: "Graphic",
-    src: walletLogo
-  })), /*#__PURE__*/react.createElement("h1", {
-    className: "Text FontSizeL PaddingTopS FontWeightBold"
-  }, "Connect Wallet"), /*#__PURE__*/react.createElement("div", {
-    className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-  }, /*#__PURE__*/react.createElement("strong", {
-    className: "FontSizeM"
-  }, "Your wallet is already open and asking for permission to connect to this website. Please find your wallet dialog and confirm connecting."))), /*#__PURE__*/react.createElement("div", {
-    className: "DialogFooter"
-  }, /*#__PURE__*/react.createElement("a", {
-    href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
-    rel: "noopener noreferrer",
-    target: "_blank",
-    className: "FooterLink"
-  }, "by DePay"))));
-});
-
 var WalletProvider = (function (props) {
-  var _useContext = react.useContext(ErrorContext),
-      setError = _useContext.setError;
+  var _useContext = react.useContext(ErrorContext);
+      _useContext.setError;
 
   var _useState = react.useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -59237,116 +59332,32 @@ var WalletProvider = (function (props) {
       setWalletState = _useState6[1];
 
   var connected = function connected(_ref) {
-    var wallet = _ref.wallet;
+    var account = _ref.account,
+        wallet = _ref.wallet;
+    console.log('connected');
+    setAccount(account);
     setWallet(wallet);
-  };
+    setWalletState('connected');
 
-  var connect = function connect() {
-    setWalletState('connecting');
-    wallet.connect().then(function (accounts) {
-      wallet.on('disconnect', function () {
-        setWallet(undefined);
-        setAccount(undefined);
-        setWalletState('unavailable');
-      });
-      setWalletState('connected');
-
-      if (props.connected) {
-        props.connected(accounts[0]);
-      }
-
-      setAccount(accounts[0]);
-    })["catch"](function (error) {
-      if ((error === null || error === void 0 ? void 0 : error.code) == 4001) {
-        // User rejected the request.
-        setWalletState('connecting');
-        return;
-      }
-
-      if ((error === null || error === void 0 ? void 0 : error.code) == -32002) {
-        // Request of type 'wallet_requestPermissions' already pending...
-        setWalletState('requestPending');
-        return;
-      }
-
-      setError(error);
-    });
-  };
-
-  react.useEffect(function () {
-    var _wallet = getWallet();
-
-    if (_wallet) {
-      setWallet(_wallet);
-    } else {
-      setWalletState('unavailable');
+    if (props.connected) {
+      props.connected(accounts[0]);
     }
-  }, []);
-  react.useEffect( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-    var accounts;
-    return regenerator.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (!wallet) {
-              _context.next = 5;
-              break;
-            }
+  };
 
-            _context.next = 3;
-            return wallet.accounts();
-
-          case 3:
-            accounts = _context.sent;
-
-            if (accounts == undefined || accounts.length == 0) {
-              connect();
-            } else {
-              setWalletState('connected');
-
-              if (props.connected) {
-                props.connected(accounts[0]);
-              }
-
-              setAccount(accounts[0]);
-            }
-
-          case 5:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  })), [wallet]);
-
-  if (wallet && walletState == 'connecting') {
-    return /*#__PURE__*/react.createElement(ConnectingWalletDialog, {
-      wallet: wallet,
-      unmount: props.unmount,
-      container: props.container,
-      connect: connect
-    });
-  } else if (walletState == 'unavailable') {
-    return /*#__PURE__*/react.createElement(ConnectStack, {
-      document: props.document,
-      container: props.container,
-      connected: connected
-    });
-  } else if (walletState == 'requestPending') {
-    return /*#__PURE__*/react.createElement(WalletRequestPendingDialog, {
-      wallet: wallet,
-      unmount: props.unmount,
-      container: props.container
-    });
-  } else {
+  if (walletState == 'connected') {
     return /*#__PURE__*/react.createElement(WalletContext.Provider, {
       value: {
         account: account,
         wallet: wallet,
-        walletState: walletState,
-        connect: connect
+        walletState: walletState
       }
     }, props.children);
+  } else {
+    return /*#__PURE__*/react.createElement(ConnectStack, {
+      document: props.document,
+      container: props.container,
+      resolve: connected
+    });
   }
 });
 
@@ -59597,7 +59608,8 @@ var PaymentOverviewDialog = (function (props) {
         className: "PaddingBottomS"
       }, /*#__PURE__*/react.createElement("button", {
         className: "ButtonPrimary wide",
-        onClick: approve
+        onClick: approve,
+        title: "Allow ".concat(payment.symbol, " to be used as payment")
       }, "Allow ", payment.symbol, " to be used as payment"));
     } else if (paymentState == 'approving') {
       return /*#__PURE__*/react.createElement("div", {
@@ -59995,7 +60007,8 @@ var SaleOverviewDialog = (function (props) {
         className: "PaddingBottomS"
       }, /*#__PURE__*/react.createElement("button", {
         className: "ButtonPrimary wide",
-        onClick: approve
+        onClick: approve,
+        title: "Allow ".concat(payment.symbol, " to be used as payment")
       }, "Allow ", payment.symbol, " to be used as payment"));
     } else if (paymentState == 'approving') {
       return /*#__PURE__*/react.createElement("div", {
