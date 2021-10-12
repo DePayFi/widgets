@@ -3122,20 +3122,20 @@ depay-web3-constants@^3.0.1:
   resolved "https://registry.yarnpkg.com/depay-web3-constants/-/depay-web3-constants-3.0.1.tgz#c8979b063de9b875eb7692e8d93b0c9da80232b9"
   integrity sha512-bRHj8mLnXuPWORZ6eE/2qKry3C9k7W7z4EHPKc5cruTJuBLnhN/zqmZWo/3nbEMaqd6n2tI/ObwW6bzA+E4rlg==
 
-depay-web3-exchanges@^6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/depay-web3-exchanges/-/depay-web3-exchanges-6.2.0.tgz#05c0ad910567e421ef97d2294c8538995c424d9c"
-  integrity sha512-ilWqufXvqdrlhLBbpE7xIMdiNjGE68YnR0NTl9FB3Y0s2Fup3odvHJ39nYd7QF3n6gc1ZEJFuZc2+z1RvDAfDA==
+depay-web3-exchanges@^6.2.2:
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/depay-web3-exchanges/-/depay-web3-exchanges-6.2.2.tgz#55991a7656921f5c6b5d70315f6306adefc559c1"
+  integrity sha512-GS+LKvWR/Pe7zGhp5u0nwfShxKIsZHP2WRXYqCkN9OsPDrsXdiMjOy6Bgvr/8vIsLomH0kW+Fv7MdIkXBpyq1w==
 
-depay-web3-mock@^8.2.6:
-  version "8.2.6"
-  resolved "https://registry.yarnpkg.com/depay-web3-mock/-/depay-web3-mock-8.2.6.tgz#57d4ee0220d112378a4f969dc97725d5c5433853"
-  integrity sha512-Y5IOphsKorzsYUJByjuhRVlriJipHcRplTkJfBqUBU+Kz6LJiwMS+fL3kp+kxuaSXpxmSnTdyes1ESm10JujxA==
+depay-web3-mock@^8.2.7:
+  version "8.2.7"
+  resolved "https://registry.yarnpkg.com/depay-web3-mock/-/depay-web3-mock-8.2.7.tgz#cf3df2ce8876d10b5c23b23cd47b290af835bde7"
+  integrity sha512-eQXS4QC0TpFWZnrRpgj4JXcwaoXMlL2L1eM59UWFb7hQLU6XRfpK/dGIzB2e4JehiDfHayeT0+QN9j+KT0SJng==
 
-depay-web3-payments@^6.3.4:
-  version "6.3.4"
-  resolved "https://registry.yarnpkg.com/depay-web3-payments/-/depay-web3-payments-6.3.4.tgz#2f52ba2e4ab68bb7040b089d7902f0b31fdd3d9a"
-  integrity sha512-ZWyydanVkWG7UxCkzPg76E6fjp9skT8gRzyjeIABQcwRxIG8Qzb57Ka9Y8saqtAw+wa5wMCowXues46F21rg3g==
+depay-web3-payments@^6.3.5:
+  version "6.3.5"
+  resolved "https://registry.yarnpkg.com/depay-web3-payments/-/depay-web3-payments-6.3.5.tgz#231cd21b49887a05b6b71962d0c5a6c349c9c101"
+  integrity sha512-t+0IOqysSEMTRz1oLCImei7Au+7v76WfsSZQHN8ohN5WUbTnIQgPnJF4rvGBVgGZ53s4usZGFy0OyVVZOGFH4w==
 
 depay-web3-tokens@^6.0.0:
   version "6.0.0"
