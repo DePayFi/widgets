@@ -49314,7 +49314,8 @@ var ReactShadowDOM_1 = ReactShadowDOM;
 
 var mount = (function (_ref, content) {
   var style = _ref.style,
-      document = _ref.document;
+      document = _ref.document,
+      closed = _ref.closed;
   var insideStyle = styleRenderer(style);
 
   if (style && style.css) {
@@ -49323,7 +49324,13 @@ var mount = (function (_ref, content) {
 
   var unmountShadowDOM = function unmountShadowDOM() {
     // setTimeout to allow dialog to animate out first
-    setTimeout(unmount, 300);
+    setTimeout(function () {
+      unmount();
+
+      if (typeof closed == 'function') {
+        closed();
+      }
+    }, 300);
   };
 
   var _ReactShadowDOM = ReactShadowDOM_1({
@@ -64084,12 +64091,12 @@ var preflight$2 = /*#__PURE__*/function () {
 
 var Donation = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, token, receiver, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, document, unmount;
+    var amount, token, receiver, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, token = _ref3.token, receiver = _ref3.receiver, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, document = _ref3.document;
+            amount = _ref3.amount, token = _ref3.token, receiver = _ref3.receiver, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight$2({
@@ -64102,7 +64109,8 @@ var Donation = /*#__PURE__*/function () {
           case 4:
             unmount = mount({
               style: style,
-              document: ensureDocument(document)
+              document: ensureDocument(document),
+              closed: closed
             }, function (unmount) {
               return function (container) {
                 return /*#__PURE__*/react.createElement(ErrorProvider, {
@@ -64382,12 +64390,12 @@ var preflight$1 = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, document, unmount;
+    var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, document = _ref3.document;
+            accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight$1({
@@ -64397,7 +64405,8 @@ var Payment = /*#__PURE__*/function () {
           case 4:
             unmount = mount({
               style: style,
-              document: ensureDocument(document)
+              document: ensureDocument(document),
+              closed: closed
             }, function (unmount) {
               return function (container) {
                 return /*#__PURE__*/react.createElement(ErrorProvider, {
@@ -64868,12 +64877,12 @@ var preflight = /*#__PURE__*/function () {
 
 var Sale = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, token, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, document, unmount;
+    var amount, token, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, token = _ref3.token, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, document = _ref3.document;
+            amount = _ref3.amount, token = _ref3.token, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight({
@@ -64885,7 +64894,8 @@ var Sale = /*#__PURE__*/function () {
           case 4:
             unmount = mount({
               style: style,
-              document: ensureDocument(document)
+              document: ensureDocument(document),
+              closed: closed
             }, function (unmount) {
               return function (container) {
                 return /*#__PURE__*/react.createElement(ErrorProvider, {

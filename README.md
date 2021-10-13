@@ -179,6 +179,22 @@ DePayWidgets.Payment({
 
 ```
 
+#### closed
+
+`closed`
+
+A function that will be called once the user closes the widget (no matter if before or after the payment).
+
+```javascript
+DePayWidgets.Payment({
+
+  closed: ()=> {
+    // do something if user closed the widget
+  }
+})
+
+```
+
 #### sent
 
 `sent`
@@ -564,6 +580,22 @@ DePayWidgets.Sale({
 
 ```
 
+#### closed
+
+`closed`
+
+A function that will be called once the user closes the widget (no matter if before or after the payment).
+
+```javascript
+DePayWidgets.Sale({
+
+  closed: ()=> {
+    // do something if user closed the widget
+  }
+})
+
+```
+
 #### sent
 
 `sent`
@@ -912,6 +944,22 @@ DePayWidgets.Donation({
 
   connected: (address)=> {
     // do something with the address
+  }
+})
+
+```
+
+#### closed
+
+`closed`
+
+A function that will be called once the user closes the widget (no matter if before or after the payment).
+
+```javascript
+DePayWidgets.Donation({
+
+  closed: ()=> {
+    // do something if user closed the widget
   }
 })
 

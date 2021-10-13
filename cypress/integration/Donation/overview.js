@@ -204,6 +204,21 @@ describe('overview Donation payment', () => {
     })
   })
 
+  it('calls the closed callback if user closes the dialog', () => {
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        let closedCalled
+        DePayWidgets.Donation({ ...defaultArguments, document,
+          closed: ()=>{ closedCalled = true } 
+        })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+        cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
+          expect(closedCalled).to.equal(true)
+        })
+      })
+    })
+  })
+
   describe('updating', () => {
 
     it('updates payment routes every 15s as prices can change', () => {

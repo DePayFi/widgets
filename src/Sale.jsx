@@ -37,12 +37,13 @@ let Sale = async ({
   providers,
   currency,
   connected,
+  closed,
   document
 }) => {
 
   try {
     await preflight({ amount, token, blockchains })
-    let unmount = mount({ style, document: ensureDocument(document) }, (unmount)=> {
+    let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={{ amount, token, blockchains, currency, event, sent, confirmed, ensured, failed, blacklist, providers }}>

@@ -36,12 +36,13 @@ let Payment = async ({
   providers,
   currency,
   connected,
+  closed,
   document
 }) => {
 
   try {
     await preflight({ accept })
-    let unmount = mount({ style, document: ensureDocument(document) }, (unmount)=> {
+    let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={ { accept, currency, event, sent, confirmed, ensured, failed, whitelist, blacklist, providers } }>
