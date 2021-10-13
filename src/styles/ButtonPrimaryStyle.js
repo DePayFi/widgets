@@ -31,7 +31,6 @@ export default (style)=>{
       padding: 0;
       width: 3.4rem;
       min-width: 3.4rem;
-      line-height: 3.2rem;
     }
 
     .ButtonPrimary.wide {
