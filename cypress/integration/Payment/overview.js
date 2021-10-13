@@ -120,6 +120,23 @@ describe('overview Payment', () => {
       currencyToUSD: '0.85'
     }))
   })
+
+  it('calls the closed callback if user closes the dialog', () => {
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        let closedCalled
+        DePayWidgets.Payment({ ...defaultArguments, document,
+          closed: ()=>{ closedCalled = true } 
+        })
+        cy.wait(500).then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+          cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
+            expect(closedCalled).to.equal(true)
+          })
+        })
+      })
+    })
+  })
   
   describe('basics', () => {
 
@@ -163,21 +180,6 @@ describe('overview Payment', () => {
       })
     })
 
-    it('calls the closed callback if user closes the dialog', () => {
-      cy.visit('cypress/test.html').then((contentWindow) => {
-        cy.document().then((document)=>{
-          let closedCalled
-          DePayWidgets.Payment({ ...defaultArguments, document,
-            closed: ()=>{ closedCalled = true } 
-          })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
-            expect(closedCalled).to.equal(true)
-          })
-        })
-      })
-    })
-    
     it('loads the most cost-effective route and suggests that as a payment', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{

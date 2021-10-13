@@ -122,6 +122,23 @@ describe('overview Sale', () => {
       currencyToUSD: '0.85'
     }))
   })
+
+  it('calls the closed callback if user closes the dialog', () => {
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        let closedCalled
+        DePayWidgets.Sale({ ...defaultArguments, document,
+          closed: ()=>{ closedCalled = true } 
+        })
+        cy.wait(500).then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+          cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
+            expect(closedCalled).to.equal(true)
+          })
+        })
+      })
+    })
+  })
   
   describe('basics', () => {
 
@@ -199,21 +216,6 @@ describe('overview Sale', () => {
         cy.document().then((document)=>{
           DePayWidgets.Sale({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.DialogFooter a').invoke('attr', 'href').should('eq', 'https://depay.fi?utm_source=localhost&utm_medium=widget&utm_campaign=WidgetV2')
-        })
-      })
-    })
-  })
-
-  it('calls the closed callback if user closes the dialog', () => {
-    cy.visit('cypress/test.html').then((contentWindow) => {
-      cy.document().then((document)=>{
-        let closedCalled
-        DePayWidgets.Sale({ ...defaultArguments, document,
-          closed: ()=>{ closedCalled = true } 
-        })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
-        cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
-          expect(closedCalled).to.equal(true)
         })
       })
     })
