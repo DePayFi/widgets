@@ -23,7 +23,6 @@ export default (style)=>{
       text-overflow: ellipsis;
       transition: background 0.1s;
       vertical-align: middle;
-      white-space: nowrap;
       display: inline-block;
     }
 
