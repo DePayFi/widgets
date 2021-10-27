@@ -9,11 +9,11 @@
   ],
   "repository": "git@github.com:depayfi/depay-widgets.git",
   "keywords": [
+    "web3",
+    "payments",
     "blockchain",
-    "payment",
     "widgets",
     "react",
-    "web3",
     "crypto",
     "cryptocurrencies"
   ],
