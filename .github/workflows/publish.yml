@@ -16,18 +16,19 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm install
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
       
-      - uses: shallwefootball/s3-upload-action@master
-        name: Upload version to S3 (depay-libraries)
-        with:
-          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_bucket: depay-libraries
-          source_dir: '../dist/umd/index.bundle.js'
-          destination_dir: widgets/${{ steps.package-version.outputs.current-version }}.js
+      - name: Upload version to S3 (depay-libraries)
+        run: aws s3 cp dist/umd/index.bundle.js s3://depay-libraries/widgets${{ steps.package-version.outputs.current-version }}.js
 
       - run: npm publish --access public
         env:
