@@ -1,25 +1,25 @@
 ## Installation
 
-You can either load the depay-widgets package via CDN:
+You can either load the `@depay/widgets` package via CDN:
 
 ```
-<script src="https://depay.fi/integrate/widgets/v2.js"></script>
+<script src="https://integrate.depay.fi/widgets/v2.js"></script>
 ```
 
-or you install depay-widgets via the package manager of your choice and ship it as part of your application bundle:
+or you install `@depay/widgets` via the package manager of your choice and ship it as part of your application bundle:
 
 ```
-yarn add depay-widgets
+yarn add @depay/widgets
 ```
 
 ```
-npm install depay-widgets --save
+npm install @depay/widgets --save
 ```
 
 and load the DePayWidgets package wherever you need it:
 
 ```
-import DePayWidgets from 'depay-widgets'
+import DePayWidgets from '@depay/widgets'
 ```
 
 ## Support

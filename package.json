@@ -1,5 +1,5 @@
 {
-  "name": "depay-widgets",
+  "name": "@depay/widgets",
   "moduleName": "DePayWidgets",
   "version": "2.22.3",
   "description": "Web3 Payments with any token. DePay simplifies and improves Web3 Payments with the power of DeFi. Accept any token with on-the-fly conversion.",
@@ -7,7 +7,7 @@
   "files": [
     "dist"
   ],
-  "repository": "git@github.com:depayfi/depay-widgets.git",
+  "repository": "git@github.com:depayfi/widgets.git",
   "keywords": [
     "web3",
     "payments",
