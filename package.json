@@ -1,19 +1,19 @@
 {
   "name": "depay-widgets",
   "moduleName": "DePayWidgets",
-  "version": "2.22.2",
-  "description": "Accept and perform crypto payments with DePay widgets. Simple Decentralized Payments.",
+  "version": "2.22.3",
+  "description": "Web3 Payments with any token. DePay simplifies and improves Web3 Payments with the power of DeFi. Accept any token with on-the-fly conversion.",
   "main": "./dist/cjs/index.js",
   "files": [
     "dist"
   ],
   "repository": "git@github.com:depayfi/depay-widgets.git",
   "keywords": [
+    "web3",
+    "payments",
     "blockchain",
-    "payment",
     "widgets",
     "react",
-    "web3",
     "crypto",
     "cryptocurrencies"
   ],
