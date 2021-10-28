@@ -28,7 +28,7 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@master
       
       - name: Upload version to S3 (depay-libraries)
-        run: aws s3 cp dist/umd/index.bundle.js s3://depay-libraries/widgets/${{ steps.package-version.outputs.current-version }}.js
+        run: aws s3 cp dist/umd/index.bundle.js s3://depay-libraries/widgets/v${{ steps.package-version.outputs.current-version }}.js
 
       - run: npm publish --access public
         env:
