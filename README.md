@@ -3,7 +3,7 @@
 You can either load the `@depay/widgets` package via CDN:
 
 ```
-<script src="https://integrate.depay.fi/widgets/v2.js"></script>
+<script src="https://integrate.depay.fi/widgets/v3.js"></script>
 ```
 
 or you install `@depay/widgets` via the package manager of your choice and ship it as part of your application bundle:
@@ -58,7 +58,7 @@ In order to receive decentralized payments on any blockchain you need to have yo
 ### Quick start
 
 ```
-<script src="https://depay.fi/integrate/widgets/v2.js"/>
+<script src="https://integrate.depay.fi/widgets/v3.js"/>
 ```
 
 ```
@@ -507,7 +507,7 @@ In order to sell tokens in a decentralized way, that token needs to have a liqui
 ### Quick start
 
 ```
-<script src="https://depay.fi/integrate/widgets/v2.js"/>
+<script src="https://integrate.depay.fi/widgets/v3.js"/>
 ```
 
 ```javascript
@@ -869,7 +869,7 @@ In order to receive decentralized donation payments on any blockchain you need t
 ### Quick start
 
 ```
-<script src="https://depay.fi/integrate/widgets/v2.js"/>
+<script src="https://integrate.depay.fi/widgets/v3.js"/>
 ```
 
 ```javascript
@@ -1231,7 +1231,7 @@ DePay Connect allows you to have your users connect their crypto wallet to your 
 Returns connected `account`, `accounts` and `wallet` in return. 
 
 ```
-<script src="https://depay.fi/integrate/widgets/v2.js"/>
+<script src="https://integrate.depay.fi/widgets/v3.js"/>
 ```
 
 ```javascript
