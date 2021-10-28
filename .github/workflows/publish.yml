@@ -1,6 +1,9 @@
-name: Publish node.js package
+name: Publish
 
 on:
+  push:
+    tags:
+      - 'v*'
   release:
     types: [created]
 
