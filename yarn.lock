@@ -3092,10 +3092,10 @@ depay-react-dialog@^10.0.1:
   dependencies:
     react-dom "^17.0.1"
 
-depay-react-shadow-dom@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/depay-react-shadow-dom/-/depay-react-shadow-dom-2.0.3.tgz#d9565e8e7eb35506c6b987fc0995e280f4321b09"
-  integrity sha512-e7V82duvLzXWCzp9LqZYdpYYWvzlIvuBX9Soqi+NbVVE2MK6PDiU35g/RhiPhGXponsPmmZzqzsWuRX2d6lzvQ==
+depay-react-shadow-dom@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/depay-react-shadow-dom/-/depay-react-shadow-dom-2.0.4.tgz#fae7bc1c6459f80589f51bb670c251dc178091ab"
+  integrity sha512-Rrm3vVpjuPlglawqCLDbGdeRbXSUS2bDcRx2m7ZSs8pGjsrw2XHIKRqQo+6YhWrvc1Yp1K/lkowarr0Bco3o2A==
 
 depay-react-token-image@^1.1.3:
   version "1.1.3"

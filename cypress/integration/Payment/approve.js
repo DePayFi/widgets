@@ -36,6 +36,17 @@ describe('approve Payment', () => {
     }]
   }
 
+  afterEach(()=>{
+    cy.wait(500).then(()=>{
+      cy.get('body').then((body) => {
+        if (body.find('.ReactShadowDOMOutsideContainer').length > 0) {
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+        }
+        cy.wait(1000)
+      })
+    })
+  })
+
   beforeEach(()=>{
 
     ({ TOKEN_A_AmountBN } = mockBasics({
