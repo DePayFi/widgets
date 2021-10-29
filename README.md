@@ -519,7 +519,7 @@ DePayWidgets.Sale({
   },
   token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
   blockchains: ['ethereum']
-);
+});
 ```
 
 ### Configuration
@@ -535,7 +535,7 @@ DePayWidgets.Sale({
   },
   token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
   blockchains: ['ethereum']
-);
+});
 ```
 
 You can also sell the same token on multiple blockchains:
@@ -549,7 +549,7 @@ DePayWidgets.Sale({
   },
   token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
   blockchains: ['ethereum', 'bsc']
-);
+});
 ```
 
 #### amount
@@ -576,8 +576,7 @@ DePayWidgets.Sale({
   connected: (address)=> {
     // do something with the address
   }
-})
-
+});
 ```
 
 #### closed
@@ -592,8 +591,7 @@ DePayWidgets.Sale({
   closed: ()=> {
     // do something if user closed the widget
   }
-})
-
+});
 ```
 
 #### sent
@@ -610,7 +608,7 @@ DePayWidgets.Sale({
   sent: (transaction)=> {
     // called when payment transaction has been sent to the network
   }
-})
+});
 ```
 
 #### confirmed
@@ -627,7 +625,7 @@ DePayWidgets.Sale({
   confirmed: (transaction)=> {
     // called when payment transaction has been confirmed once by the network
   }
-})
+});
 ```
 
 #### ensured
@@ -644,7 +642,7 @@ DePayWidgets.Sale({
   ensured: (transaction)=> {
     // called when payment transaction has been confirmed X times by the network
   }
-})
+});
 ```
 
 #### failed
@@ -662,7 +660,7 @@ DePayWidgets.Sale({
     // called when payment transaction failed on the blockchain
     // handled by the widget, no need to display anything
   }
-})
+});
 ```
 
 #### critical
@@ -677,7 +675,7 @@ DePayWidgets.Sale({
   critical: (error)=> {
     // render and display the error with error.toString()
   }
-})
+});
 ```
 
 #### error
@@ -693,7 +691,7 @@ DePayWidgets.Sale({
     // maybe do some internal tracking with error.toString()
     // no need to display anything as widget takes care of displaying the error
   }
-})
+});
 ```
 
 #### providers
@@ -707,7 +705,7 @@ DePayWidgets.Sale({
     ethereum: ['http://localhost:8545'],
     bsc: ['http://localhost:8545']
   }
-})
+});
 ```
 
 #### currency
@@ -715,13 +713,11 @@ DePayWidgets.Sale({
 Allows you to enforce displayed local currency (instead of automatically detecting it):
 
 ```javascript
-
 DePayWidgets.Sale({
 
   currency: 'USD'
 
-})
-
+});
 ```
 
 #### blacklist
@@ -756,7 +752,7 @@ DePayWidgets.Sale({
       '0x12e34cdf6a031a10fe241864c32fb03a4fdad739' // FREE
     ]
   }
-})
+});
 ```
 
 #### style
@@ -784,7 +780,7 @@ DePayWidgets.Sale({
       }
     `
   }
-})
+});
 ```
 
 ##### colors
@@ -804,7 +800,7 @@ DePayWidgets.Sale({
       icons: '#ffd265'
     }
   }
-})
+});
 ```
 
 ##### fontFamily
@@ -819,7 +815,7 @@ DePayWidgets.Sale({
   style: {
     fontFamily: '"Cardo", serif !important'
   }
-})
+});
 ```
 
 ##### css
@@ -840,7 +836,7 @@ DePayWidgets.Sale({
       }
     `
   }
-})
+});
 ```
 
 #### unmount
@@ -882,7 +878,7 @@ DePayWidgets.Donation({
   token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
   blockchains: ['ethereum'],
   receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-);
+});
 ```
 
 ### Configuration
@@ -899,7 +895,7 @@ DePayWidgets.Donation({
   token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
   blockchains: ['ethereum'],
   receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-);
+});
 ```
 
 You can also accept donations on multiple blockchains:
@@ -914,7 +910,7 @@ DePayWidgets.Donation({
   token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
   blockchains: ['ethereum', 'bsc'],
   receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-);
+});
 ```
 
 #### amount
@@ -945,8 +941,7 @@ DePayWidgets.Donation({
   connected: (address)=> {
     // do something with the address
   }
-})
-
+});
 ```
 
 #### closed
@@ -961,8 +956,7 @@ DePayWidgets.Donation({
   closed: ()=> {
     // do something if user closed the widget
   }
-})
-
+});
 ```
 
 #### sent
@@ -979,7 +973,7 @@ DePayWidgets.Donation({
   sent: (transaction)=> {
     // called when payment transaction has been sent to the network
   }
-})
+});
 ```
 
 #### confirmed
@@ -996,7 +990,7 @@ DePayWidgets.Donation({
   confirmed: (transaction)=> {
     // called when payment transaction has been confirmed once by the network
   }
-})
+});
 ```
 
 #### ensured
@@ -1013,7 +1007,7 @@ DePayWidgets.Donation({
   ensured: (transaction)=> {
     // called when payment transaction has been confirmed X times by the network
   }
-})
+});
 ```
 
 #### failed
@@ -1031,7 +1025,7 @@ DePayWidgets.Donation({
     // called when payment transaction failed on the blockchain
     // handled by the widget, no need to display anything
   }
-})
+});
 ```
 
 #### critical
@@ -1046,7 +1040,7 @@ DePayWidgets.Donation({
   critical: (error)=> {
     // render and display the error with error.toString()
   }
-})
+});
 ```
 
 #### error
@@ -1062,7 +1056,7 @@ DePayWidgets.Donation({
     // maybe do some internal tracking with error.toString()
     // no need to display anything as widget takes care of displaying the error
   }
-})
+});
 ```
 
 #### providers
@@ -1076,7 +1070,7 @@ DePayWidgets.Donation({
     ethereum: ['http://localhost:8545'],
     bsc: ['http://localhost:8545']
   }
-})
+});
 ```
 
 #### currency
@@ -1084,13 +1078,11 @@ DePayWidgets.Donation({
 Allows you to enforce displayed local currency (instead of automatically detecting it):
 
 ```javascript
-
 DePayWidgets.Donation({
 
   currency: 'USD'
 
-})
-
+});
 ```
 
 #### blacklist
@@ -1153,7 +1145,7 @@ DePayWidgets.Donation({
       }
     `
   }
-})
+});
 ```
 
 ##### colors
@@ -1173,7 +1165,7 @@ DePayWidgets.Donation({
       icons: '#ffd265'
     }
   }
-})
+});
 ```
 
 ##### fontFamily
@@ -1188,7 +1180,7 @@ DePayWidgets.Donation({
   style: {
     fontFamily: '"Cardo", serif !important'
   }
-})
+});
 ```
 
 ##### css
@@ -1209,7 +1201,7 @@ DePayWidgets.Donation({
       }
     `
   }
-})
+});
 ```
 
 #### unmount
