@@ -214,7 +214,6 @@ describe('overview Payment', () => {
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
           cy.wait(2000).then(()=>{
-            let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('35', 18)
             let NEW_USD_AmountOutBN = ethers.utils.parseUnits('35', 18)
             mockPaymentValue({
               provider: provider(blockchain),
@@ -228,11 +227,8 @@ describe('overview Payment', () => {
                 NEW_USD_AmountOutBN
               ]
             })
-            mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
           })
           cy.wait(15000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '35')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '€29.75')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €29.75')
           })

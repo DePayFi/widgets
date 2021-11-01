@@ -145,7 +145,7 @@ describe('Payment widget error', () => {
           }
         })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Oops, Something Went Wrong')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong.FontItalic', 'Error: something failed')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ErrorSnippetText', 'Error: something failed')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'If this keeps happening, please report it.')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
         cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
