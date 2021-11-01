@@ -2,6 +2,7 @@ import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/basics'
+import mockPaymentValue from '../../../tests/mocks/paymentValue'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
@@ -226,8 +227,9 @@ describe('overview Donation payment', () => {
           cy.wait(15000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '35')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '€29.75')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €29.75')
+            // Payment value (toAmount) stays the same:
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '€28.05')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
           })
         })
       })
@@ -269,7 +271,18 @@ describe('overview Donation payment', () => {
               let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('35', 18)
               mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
               let NEW_USD_AmountOutBN = ethers.utils.parseUnits('35', 18)
-              mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [TOKEN_A_AmountBN, [DEPAY, CONSTANTS[blockchain].WRAPPED, DAI]], return: [TOKEN_A_AmountBN, WRAPPED_AmountInBN, NEW_USD_AmountOutBN] }})
+              mockPaymentValue({
+                provider: provider(blockchain),
+                blockchain,
+                exchange,
+                amountInBN: TOKEN_A_AmountBN,
+                path: [DEPAY, WETH, DAI],
+                amountsOut: [
+                  TOKEN_A_AmountBN,
+                  WRAPPED_AmountInBN,
+                  NEW_USD_AmountOutBN
+                ]
+              })
             })
             cy.wait(15000).then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33')

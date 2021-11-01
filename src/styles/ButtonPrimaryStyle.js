@@ -7,7 +7,7 @@ export default (style)=>{
       background: ${style.colors.primary};
       border-radius: 9999rem;
       border: 1px solid transparent;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      box-shadow: 0 0 16px rgba(0,0,0,0.1);
       color: ${style.colors.buttonText};
       font-size: 1.3rem;
       font-weight: 400;
