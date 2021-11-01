@@ -2,6 +2,7 @@ import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/basics'
+import mockPaymentValue from '../../../tests/mocks/paymentValue'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
@@ -120,7 +121,30 @@ describe('change Sale amount', () => {
     it('allows me to change the amount freely by entering it into an input field', ()=> {
       mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('10', 18), [WETH, DEPAY]], return: [ethers.utils.parseUnits('0.005', 18), ethers.utils.parseUnits('10', 18)] }})
       mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('10', 18), [DAI, WETH, DEPAY]], return: [ethers.utils.parseUnits('16.5', 18), ethers.utils.parseUnits('0.005', 18), ethers.utils.parseUnits('10', 18)] }})
-      mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [ethers.utils.parseUnits('0.005', 18), [WETH, DAI]], return: [ethers.utils.parseUnits('0.005', 18), ethers.utils.parseUnits('16.5', 18)] }})
+      mockPaymentValue({
+        provider: provider(blockchain),
+        blockchain,
+        exchange,
+        amountInBN: ethers.utils.parseUnits('10', 18),
+        path: [DEPAY, WETH, DAI],
+        amountsOut: [
+          ethers.utils.parseUnits('10', 18),
+          ethers.utils.parseUnits('0.005', 18),
+          ethers.utils.parseUnits('16.5', 18)
+        ]
+      })
+      mockPaymentValue({
+        provider: provider(blockchain),
+        blockchain,
+        exchange,
+        amountInBN: ethers.utils.parseUnits('99', 18),
+        path: [DEPAY, WETH, DAI],
+        amountsOut: [
+          ethers.utils.parseUnits('99', 18),
+          ethers.utils.parseUnits('0.0495', 18),
+          ethers.utils.parseUnits('163.35', 18)
+        ]
+      })
 
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
@@ -147,7 +171,18 @@ describe('change Sale amount', () => {
       mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [ethers.utils.parseUnits('1', 18), [WETH, DEPAY]], return: [WRAPPED_AmountInBN, ethers.utils.parseUnits('2000', 18)] }})
       mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('990', 18), [WETH, DEPAY]], return: [ethers.utils.parseUnits('0.495', 18), ethers.utils.parseUnits('990', 18)] }})
       mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('990', 18), [DAI, WETH, DEPAY]], return: [ethers.utils.parseUnits('1633.5', 18), ethers.utils.parseUnits('0.495', 18), ethers.utils.parseUnits('990', 18)] }})
-      mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [ethers.utils.parseUnits('0.5', 18), [WETH, DAI]], return: [ethers.utils.parseUnits('0.5', 18), ethers.utils.parseUnits('1633.5', 18)] }})
+      mockPaymentValue({
+        provider: provider(blockchain),
+        blockchain,
+        exchange,
+        amountInBN: ethers.utils.parseUnits('990', 18),
+        path: [DEPAY, WETH, DAI],
+        amountsOut: [
+          ethers.utils.parseUnits('990', 18),
+          ethers.utils.parseUnits('0.495', 18),
+          ethers.utils.parseUnits('1633.50', 18)
+        ]
+      })
 
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
@@ -173,7 +208,19 @@ describe('change Sale amount', () => {
       mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [ethers.utils.parseUnits('1', 18), [WETH, DEPAY]], return: [WRAPPED_AmountInBN, ethers.utils.parseUnits('2000', 18)] }})
       mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('1980.19', 18), [WETH, DEPAY]], return: [ethers.utils.parseUnits('1', 18), ethers.utils.parseUnits('1980.19', 18)] }})
       mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('1980.19', 18), [DAI, WETH, DEPAY]], return: [ethers.utils.parseUnits('3267', 18), ethers.utils.parseUnits('1', 18), ethers.utils.parseUnits('1980.19', 18)] }})
-      mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [ethers.utils.parseUnits('1', 18), [WETH, DAI]], return: [ethers.utils.parseUnits('1', 18), ethers.utils.parseUnits('3267', 18)] }})
+      mockPaymentValue({
+        provider: provider(blockchain),
+        blockchain,
+        exchange,
+        amountInBN: ethers.utils.parseUnits('1980.19', 18),
+        path: [DEPAY, WETH, DAI],
+        amountsOut: [
+          ethers.utils.parseUnits('1980.19', 18),
+          ethers.utils.parseUnits('0.99', 18),
+          ethers.utils.parseUnits('3267', 18)
+        ]
+        
+      })
 
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
@@ -243,7 +290,18 @@ describe('change Sale amount', () => {
       mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [ethers.utils.parseUnits('1', 18), [WETH, DEPAY]], return: [WRAPPED_AmountInBN, ethers.utils.parseUnits('2000', 18)] }})
       mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('10', 18), [WETH, DEPAY]], return: [ethers.utils.parseUnits('0.005', 18), ethers.utils.parseUnits('10', 18)] }})
       mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('10', 18), [DAI, WETH, DEPAY]], return: [ethers.utils.parseUnits('16.5', 18), ethers.utils.parseUnits('0.005', 18), ethers.utils.parseUnits('10', 18)] }})
-      mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [ethers.utils.parseUnits('0.005', 18), [WETH, DAI]], return: [ethers.utils.parseUnits('0.005', 18), ethers.utils.parseUnits('16.5', 18)] }})
+      mockPaymentValue({
+        provider: provider(blockchain),
+        blockchain,
+        exchange,
+        amountInBN: ethers.utils.parseUnits('10', 18),
+        path: [DEPAY, WETH, DAI],
+        amountsOut: [
+          ethers.utils.parseUnits('10', 18),
+          ethers.utils.parseUnits('0.005', 18),
+          ethers.utils.parseUnits('16.5', 18)
+        ]
+      })
 
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
