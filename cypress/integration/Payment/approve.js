@@ -1,3 +1,4 @@
+import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/basics'
@@ -14,10 +15,11 @@ describe('approve Payment', () => {
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
   beforeEach(resetMocks)
-  afterEach(resetMocks)
   beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
   beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
+  afterEach(resetMocks)
+  afterEach(closeWidget)
 
   let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   let DAI = CONSTANTS[blockchain].USD
@@ -36,16 +38,6 @@ describe('approve Payment', () => {
     }]
   }
 
-  afterEach(()=>{
-    cy.wait(500).then(()=>{
-      cy.get('body').then((body) => {
-        if (body.find('.ReactShadowDOMOutsideContainer').length > 0) {
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
-        }
-        cy.wait(1000)
-      })
-    })
-  })
 
   beforeEach(()=>{
 

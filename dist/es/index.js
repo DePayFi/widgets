@@ -2340,9 +2340,9 @@ var PaymentValueProvider = (function (props) {
 
     Promise.all([route$1({
       blockchain: payment.route.blockchain,
-      tokenIn: payment.route.fromToken.address,
+      tokenIn: payment.route.toToken.address,
       tokenOut: CONSTANTS[payment.route.blockchain].USD,
-      amountIn: payment.route.fromAmount,
+      amountIn: payment.route.toAmount,
       fromAddress: account,
       toAddress: account
     }), new Token({
@@ -2356,8 +2356,8 @@ var PaymentValueProvider = (function (props) {
       var USDRoute = USDExchangeRoutes[0];
       var USDAmount;
 
-      if (payment.route.fromToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
-        USDAmount = payment.route.fromAmount.toString();
+      if (payment.route.toToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+        USDAmount = payment.route.toAmount.toString();
       } else if (USDRoute == undefined) {
         setPaymentValue('');
         return;

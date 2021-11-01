@@ -1,3 +1,4 @@
+import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/basics'
@@ -16,17 +17,7 @@ describe('Sale widget error', () => {
   beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
   beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
-
-  afterEach(()=>{
-    cy.wait(500).then(()=>{
-      cy.get('body').then((body) => {
-        if (body.find('.ReactShadowDOMOutsideContainer').length > 0) {
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
-        }
-        cy.wait(1000)
-      })
-    })
-  })
+  afterEach(closeWidget)
 
   let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   let DAI = CONSTANTS[blockchain].USD
@@ -161,7 +152,7 @@ describe('Sale widget error', () => {
           }
         })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Oops, Something Went Wrong')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong.FontItalic', 'Error: something failed')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ErrorSnippetText', 'Error: something failed')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'If this keeps happening, please report it.')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
         cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{

@@ -1,3 +1,4 @@
+import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -8,17 +9,7 @@ describe('Connect wallet', () => {
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
   beforeEach(resetMocks)
-
-  afterEach(()=>{
-    cy.wait(1000).then(()=>{
-      cy.get('body').then((body) => {
-        if (body.find('.ReactShadowDOMOutsideContainer').length > 0) {
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
-        }
-        cy.wait(1000)
-      })
-    })
-  })
+  afterEach(closeWidget)
 
   it('directly resolves if a wallet is already connected', () => {
     cy.document().then(async (document)=>{

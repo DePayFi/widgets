@@ -49,10 +49,10 @@ export default (props)=>{
             </div>
             <h1 className="Text FontSizeL PaddingTopS FontWeightBold">Oops, Something Went Wrong</h1>
             <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
-              <div>
-                <strong className="FontSizeM FontItalic">
+              <div className="PaddingLeftS PaddingRightS">
+                <pre className="ErrorSnippetText">
                   { error.toString() }
-                </strong>
+                </pre>
               </div>
               <div className="PaddingTopS PaddingBottomS">
                 <strong className="FontSizeM PaddingTopS">

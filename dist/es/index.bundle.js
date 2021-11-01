@@ -49241,10 +49241,6 @@ function createInsideContainer({ document, shadow, style }) {
 
 const outsideContainerClass = 'ReactShadowDOMOutsideContainer';
 
-function getOutsideContainer(element) {
-  return element.getElementsByClassName(outsideContainerClass)[0]
-}
-
 function createOutsideContainer({ document, element, style }) {
   const container = document.createElement('div');
   container.setAttribute('class', outsideContainerClass);
@@ -49269,8 +49265,7 @@ function trimStyle(style) {
   return style.replace(/\s*[\r\n]\s*/g, '')
 }
 
-function unmount(element) {
-  const outsideContainer = getOutsideContainer(element);
+function unmount(outsideContainer) {
 
   if (outsideContainer && outsideContainer.shadowRoot) {
     const shadowRoot = outsideContainer.shadowRoot;
@@ -49287,8 +49282,6 @@ function unmount(element) {
 }
 
 function ReactShadowDOM({ document, element, content, outsideStyle = '', insideStyle = '' }) {
-  unmount(element);
-
   const outsideContainer = createOutsideContainer({
     document,
     element,
@@ -49305,7 +49298,7 @@ function ReactShadowDOM({ document, element, content, outsideStyle = '', insideS
 
   ReactDOM__default['default'].render(content, insideContainer);
 
-  return { content, unmount: () => unmount(element) }
+  return { content, unmount: () => unmount(outsideContainer) }
 }
 
 var ReactShadowDOM_1 = ReactShadowDOM;
@@ -61410,9 +61403,9 @@ var PaymentValueProvider = (function (props) {
 
     Promise.all([route$8({
       blockchain: payment.route.blockchain,
-      tokenIn: payment.route.fromToken.address,
+      tokenIn: payment.route.toToken.address,
       tokenOut: CONSTANTS$2[payment.route.blockchain].USD,
-      amountIn: payment.route.fromAmount,
+      amountIn: payment.route.toAmount,
       fromAddress: account,
       toAddress: account
     }), new Token({
@@ -61426,8 +61419,8 @@ var PaymentValueProvider = (function (props) {
       var USDRoute = USDExchangeRoutes[0];
       var USDAmount;
 
-      if (payment.route.fromToken.address.toLowerCase() == CONSTANTS$2[payment.route.blockchain].USD.toLowerCase()) {
-        USDAmount = payment.route.fromAmount.toString();
+      if (payment.route.toToken.address.toLowerCase() == CONSTANTS$2[payment.route.blockchain].USD.toLowerCase()) {
+        USDAmount = payment.route.toAmount.toString();
       } else if (USDRoute == undefined) {
         setPaymentValue('');
         return;
