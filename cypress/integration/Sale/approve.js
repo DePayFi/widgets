@@ -1,3 +1,4 @@
+import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/basics'
