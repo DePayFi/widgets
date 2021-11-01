@@ -2348,9 +2348,9 @@ var PaymentValueProvider = (function (props) {
 
     Promise.all([depayWeb3Exchanges.route({
       blockchain: payment.route.blockchain,
-      tokenIn: payment.route.fromToken.address,
+      tokenIn: payment.route.toToken.address,
       tokenOut: depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD,
-      amountIn: payment.route.fromAmount,
+      amountIn: payment.route.toAmount,
       fromAddress: account,
       toAddress: account
     }), new depayWeb3Tokens.Token({
@@ -2364,8 +2364,8 @@ var PaymentValueProvider = (function (props) {
       var USDRoute = USDExchangeRoutes[0];
       var USDAmount;
 
-      if (payment.route.fromToken.address.toLowerCase() == depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
-        USDAmount = payment.route.fromAmount.toString();
+      if (payment.route.toToken.address.toLowerCase() == depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+        USDAmount = payment.route.toAmount.toString();
       } else if (USDRoute == undefined) {
         setPaymentValue('');
         return;
