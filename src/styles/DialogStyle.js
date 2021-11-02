@@ -1,6 +1,10 @@
 export default (style)=>{
   return(`
 
+    .ReactDialogBackground {
+      background: rgba(0,0,0,0.7);
+    }
+
     .Dialog {
       margin: 0 auto;
       position: relative;
