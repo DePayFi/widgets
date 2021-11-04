@@ -56,8 +56,6 @@ export default (props)=>{
           })
         })).then((amounts)=>{
           setAcceptWithAmount(accept.map((configuration, index)=>{
-            console.log('amount', amounts[index])
-            console.log('round', round(amounts[index]))
             return(
               {
                 blockchain: configuration.blockchain,
