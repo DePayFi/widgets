@@ -2,44 +2,64 @@ import round from 'src/helpers/round'
 
 describe('round', () => {
 
-  it('it rounds values for 2 digits that are not 0 post decimal point', () => {
-    expect(round(1)).toEqual(1.00)
-    expect(round(1, 'down')).toEqual(1.00)
-    expect(round(1.9)).toEqual(1.9)
-    expect(round(1.9, 'down')).toEqual(1.9)
-    expect(round(1231.23)).toEqual(1231.23)
-    expect(round(1231.23, 'down')).toEqual(1231.23)
-    expect(round(1231.29)).toEqual(1231.29)
-    expect(round(1231.29, 'down')).toEqual(1231.29)
-    expect(round(1231.221)).toEqual(1231.23)
-    expect(round(1231.221, 'down')).toEqual(1231.22)
-    expect(round(1231.221421)).toEqual(1231.23)
-    expect(round(1231.221421, 'down')).toEqual(1231.22)
-    expect(round(0.003987268811872672)).toEqual(0.004)
-    expect(round(0.003987268811872672, 'down')).toEqual(0.0039)
-    expect(round(0.003097268811872672)).toEqual(0.0031)
-    expect(round(0.003097268811872672, 'down')).toEqual(0.0030)
-    expect(round(0.3)).toEqual(0.3)
-    expect(round(0.3, 'down')).toEqual(0.3)
-    expect(round(0.31)).toEqual(0.31)
-    expect(round(0.31, 'down')).toEqual(0.31)
-    expect(round(0.313)).toEqual(0.32)
-    expect(round(0.313, 'down')).toEqual(0.31)
-    expect(round(0.3134)).toEqual(0.32)
-    expect(round(0.3131, 'down')).toEqual(0.31)
-    expect(round(0.03)).toEqual(0.03)
-    expect(round(0.03, 'down')).toEqual(0.03)
-    expect(round(0.031)).toEqual(0.031)
-    expect(round(0.031, 'down')).toEqual(0.031)
-    expect(round(0.0313)).toEqual(0.032)
-    expect(round(0.0313, 'down')).toEqual(0.031)
-    expect(round(0.003)).toEqual(0.003)
-    expect(round(0.003, 'down')).toEqual(0.003)
-    expect(round(0.0031)).toEqual(0.0031)
-    expect(round(0.0031, 'down')).toEqual(0.0031)
-    expect(round(0.00313)).toEqual(0.0032)
-    expect(round(0.00313, 'down')).toEqual(0.0031)
-    expect(round(0.00003)).toEqual(0.00003)
-    expect(round(0.00003, 'down')).toEqual(0.00003)
-  });
+  [
+    [1, 1.00],
+    [1, 1.00, 'down'],
+    [1.9, 1.9],
+    [1.9, 1.9, 'down'],
+    [1.99, 1.99],
+    [1.99, 1.99, 'down'],
+    [1.999, 2.00],
+    [1.999, 1.99, 'down'],
+    [10.99, 10.99],
+    [10.99, 10.99, 'down'],
+    [10.999, 11.00],
+    [10.999, 10.99, 'down'],
+    [100.99, 100.99],
+    [100.99, 100.99, 'down'],
+    [100.998, 101.00],
+    [100.998, 100.99, 'down'],
+    [1231.23, 1231.23],
+    [1231.23, 1231.23, 'down'],
+    [1231.29, 1231.29],
+    [1231.29, 1231.29, 'down'],
+    [1231.221, 1231.23],
+    [1231.221, 1231.22, 'down'],
+    [1231.221421, 1231.23],
+    [1231.221421, 1231.22, 'down'],
+    [0.003987268811872672, 0.004],
+    [0.003987268811872672, 0.0039, 'down'],
+    [0.003097268811872672, 0.0031],
+    [0.003097268811872672, 0.0030, 'down'],
+    [0.3, 0.3],
+    [0.3, 0.3, 'down'],
+    [0.31, 0.31],
+    [0.31, 0.31, 'down'],
+    [0.313, 0.32],
+    [0.313, 0.31, 'down'],
+    [0.3134, 0.32],
+    [0.3131, 0.31, 'down'],
+    [0.998657, 1.00],
+    [0.998657, 0.99, 'down'],
+    [0.098657, 0.099],
+    [0.098657, 0.098, 'down'],
+    [0.03, 0.03],
+    [0.03, 0.03, 'down'],
+    [0.031, 0.031],
+    [0.031, 0.031, 'down'],
+    [0.0313, 0.032],
+    [0.0313, 0.031, 'down'],
+    [0.003, 0.003],
+    [0.003, 0.003, 'down'],
+    [0.0031, 0.0031],
+    [0.0031, 0.0031, 'down'],
+    [0.00313, 0.0032],
+    [0.00313, 0.0031, 'down'],
+    [0.00003, 0.00003],
+    [0.00003, 0.00003, 'down']
+  ].forEach((example)=>{
+    it(`rounds ${example[0]} to ${example[1]} (${example[2]})`, ()=>{
+      expect(round(example[0], example[2])).toEqual(example[1])
+    })
+  })
 });

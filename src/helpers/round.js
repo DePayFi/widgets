@@ -24,11 +24,15 @@ export default (input, direction = 'up')=>{
       }
       focusToFixed = parseFloat(float).toFixed(1).replace('.', '')
     }
-    return(
-      parseFloat(
-        digitsAfterDecimal.replace(/\d{3}$/, focusToFixed)
+    if(focusToFixed.toString()[0] != 0 && focusToFixed.toString().length > 2) {
+      return(parseInt(input.toFixed(0)))
+    } else {
+      return(
+        parseFloat(
+          digitsAfterDecimal.replace(/\d{3}$/, focusToFixed)
+        )
       )
-    )
+    }
   } else {
     return(parseFloat(parseFloat(input).toFixed(2)))
   }
