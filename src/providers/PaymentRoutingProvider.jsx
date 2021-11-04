@@ -9,7 +9,6 @@ import { ethers } from 'ethers'
 import { route } from 'depay-web3-payments'
 
 export default (props)=>{
-
   const [allRoutes, setAllRoutes] = useState()
   const [selectedRoute, setSelectedRoute] = useState()
   const [reloadCount, setReloadCount] = useState(0)
@@ -26,7 +25,7 @@ export default (props)=>{
     })
   } 
   const getPaymentRoutes = ({ allRoutes, selectedRoute, update })=>{
-    if(update == false || props.accept == undefined || account == undefined) { return }
+    if(update == false || !props.accept || !account) { return }
     route({
       accept: props.accept.map(prepareAcceptedPayments),
       whitelist: props.whitelist,

@@ -33,9 +33,11 @@ describe('executes Donation', () => {
       min: 1,
       step: 1
     },
-    token: DEPAY,
-    blockchains: [blockchain],
-    receiver: toAddress
+    accept: [{
+      blockchain,
+      token: DEPAY,
+      receiver: toAddress
+    }]
   }
 
   beforeEach(()=>{

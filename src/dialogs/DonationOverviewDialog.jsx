@@ -20,7 +20,6 @@ export default (props)=>{
   const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
-  const { donatedToken, donatedAmount } = useContext(DonationRoutingContext)
 
   const mainAction = ()=> {
     if(paymentState == 'initialized' || paymentState == 'approving') {
@@ -78,8 +77,6 @@ export default (props)=>{
   }
 
   if(
-    donatedToken == undefined ||
-    donatedAmount == undefined ||
     payment == undefined ||
     paymentValue == undefined
   ) { return(<DonationOverviewSkeleton/>) }
@@ -101,12 +98,6 @@ export default (props)=>{
               navigate('ChangeAmount')
             } }
           >
-            <div className="CardImage" title={ payment.name }>
-              <TokenImage
-                blockchain={ payment.route.blockchain }
-                address={ donatedToken.address }
-              />
-            </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">
                 <h4 className="CardTitle">
@@ -114,13 +105,7 @@ export default (props)=>{
                 </h4>
                 <h2 className="CardText">
                   <div className="TokenAmountRow">
-                    <span className="TokenSymbolCell">
-                      { donatedToken.symbol }
-                    </span>
-                    <span>&nbsp;</span>
-                    <span className="TokenAmountCell">
-                    { format(donatedAmount) }
-                    </span>
+                    { paymentValue.toString() }
                   </div>
                 </h2>
               </div>

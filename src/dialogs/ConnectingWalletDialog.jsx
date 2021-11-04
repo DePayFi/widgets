@@ -1,6 +1,5 @@
 import Dialog from '../components/Dialog'
 import React, { useState, useContext } from 'react'
-import { getWallet } from 'depay-web3-wallets'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
 
 export default (props)=> {

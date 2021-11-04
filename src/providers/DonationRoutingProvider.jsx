@@ -1,39 +1,34 @@
+import apiKey from '../helpers/apiKey'
 import ConfigurationContext from '../contexts/ConfigurationContext'
+import DonationRoutingContext from '../contexts/DonationRoutingContext'
 import PaymentProvider from '../providers/PaymentProvider'
 import PaymentRoutingProvider from '../providers/PaymentRoutingProvider'
 import PaymentValueProvider from '../providers/PaymentValueProvider'
 import React, { useState, useContext, useEffect } from 'react'
-import DonationRoutingContext from '../contexts/DonationRoutingContext'
+import round from '../helpers/round'
 import WalletContext from '../contexts/WalletContext'
+import { CONSTANTS } from 'depay-web3-constants'
+import { route } from 'depay-web3-exchanges'
 import { Token } from 'depay-web3-tokens'
 
 export default (props)=>{
 
-  let { amount, receiver, token, blockchains, blacklist } = useContext(ConfigurationContext)
+  let { accept, blacklist } = useContext(ConfigurationContext)
   const { account } = useContext(WalletContext)
-  const [donatedAmount, setDonatedAmount] = useState(amount.start)
+  const [donatedAmount, setDonatedAmount] = useState()
   const [donatedToken, setDonatedToken] = useState()
-  const [accept, setAccept] = useState()
-
-  if(blacklist == undefined) { blacklist = {} }
-  blockchains.forEach((blockchain)=>{
-    if(blacklist[blockchain] == undefined) {
-      blacklist[blockchain] = [token]
-    } else if (blacklist[blockchain] instanceof Array) {
-      blacklist[blockchain].push(token)
-    }
-  })
+  const [acceptWithAmount, setAcceptWithAmount] = useState()
 
   useEffect(()=>{
-    if(account) {
-      setAccept(
-        blockchains.map((blockchain)=>{
+    if(account && donatedAmount) {
+      setAcceptWithAmount(
+        accept.map((configuration)=>{
           return(
             {
-              blockchain,
+              blockchain: configuration.blockchain,
               amount: donatedAmount,
-              token: token,
-              receiver
+              token: configuration.token,
+              receiver: configuration.receiver
             }
           )
         })
@@ -42,23 +37,47 @@ export default (props)=>{
   }, [account, donatedAmount])
 
   useEffect(()=>{
-    let tokenInstance = new Token({ blockchain: blockchains[0], address: token })
-    Promise.all([
-      tokenInstance.name(),
-      tokenInstance.symbol(),
-      tokenInstance.decimals()
-    ]).then(([name, symbol, decimals])=>{
-      setDonatedToken({ address: token, name, symbol, decimals })
-    })
-  }, [])
+    if(account) {
+      Promise.all(accept.map((configuration)=>{
+        return route({
+          blockchain: configuration.blockchain,
+          tokenIn: CONSTANTS[configuration.blockchain].USD,
+          tokenOut: configuration.token,
+          amountIn: 1,
+          fromAddress: account,
+          toAddress: account
+        })
+      })).then((routes)=>{
+        Promise.all(routes.map((routes, index)=>{
+          return Token.readable({
+            blockchain: accept[index].blockchain,
+            amount: routes[0].amountOut,
+            address: routes[0].tokenOut
+          })
+        })).then((amounts)=>{
+          setAcceptWithAmount(accept.map((configuration, index)=>{
+            console.log('amount', amounts[index])
+            console.log('round', round(amounts[index]))
+            return(
+              {
+                blockchain: configuration.blockchain,
+                amount: round(amounts[index]),
+                token: configuration.token,
+                receiver: configuration.receiver
+              }
+            )
+          }))
+        })
+      })
+    }
+  }, [account])
 
   return(
     <DonationRoutingContext.Provider value={{
       setDonatedAmount,
-      donatedAmount,
-      donatedToken
+      donatedAmount
     }}>
-      <PaymentRoutingProvider accept={ accept } blacklist={ blacklist }>
+      <PaymentRoutingProvider accept={ acceptWithAmount } blacklist={ blacklist }>
         <PaymentProvider container={ props.container } document={ props.document } >
           <PaymentValueProvider>
             { props.children }

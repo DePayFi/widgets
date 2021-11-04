@@ -167,8 +167,6 @@ describe('pay smart contracts', () => {
       }
     })
 
-    console.log('mockedTransaction', mockedTransaction)
-
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({

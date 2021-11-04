@@ -9,24 +9,17 @@ import React from 'react'
 import UpdateProvider from './providers/UpdateProvider'
 import WalletProvider from './providers/WalletProvider'
 
-let preflight = async({ amount, token, blockchains, receiver }) => {
-  if(typeof amount === 'undefined') { throw('You need to set the amount!') }
-  if(typeof amount.min === 'undefined') { throw('You need to set amount.min!') }
-  if(typeof amount.step === 'undefined') { throw('You need to set amount.step!') }
-  if(typeof amount.start === 'undefined') { throw('You need to set amount.start!') }
-  if(typeof token == 'undefined') { throw('You need to set a token!') }
-  if((typeof blockchains == 'undefined') || blockchains.length == 0) { throw('You need to set blockchains!') }
-  blockchains.forEach((blockchain)=>{
-    if(!['ethereum', 'bsc'].includes(blockchain)) { throw('You need to set only supported blockchains!') }  
+let preflight = async({ accept }) => {
+  accept.forEach((configuration)=>{
+    if(typeof configuration.blockchain === 'undefined') { throw('You need to set the blockchain your want to receive the payment on!') }
+    if(!['ethereum', 'bsc'].includes(configuration.blockchain)) { throw('You need to set a supported blockchain!') }
+    if(typeof configuration.token === 'undefined') { throw('You need to set the token you want to receive as payment!') }
+    if(typeof configuration.receiver === 'undefined') { throw('You need to set the receiver address that you want to receive the payment!') }
   })
-  if((typeof receiver == 'undefined') || receiver.length == 0) { throw('You need to set a receiver!') }
 }
 
 let Donation = async ({
-  amount,
-  token,
-  receiver,
-  blockchains,
+  accept,
   event,
   sent,
   confirmed,
@@ -44,11 +37,11 @@ let Donation = async ({
 }) => {
 
   try {
-    await preflight({ amount, token, blockchains, receiver })
+    await preflight({ accept })
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={{ amount, token, receiver, blockchains, currency, event, sent, confirmed, ensured, failed, blacklist, providers }}>
+          <ConfigurationProvider configuration={{ accept, currency, event, sent, confirmed, ensured, failed, blacklist, providers }}>
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
