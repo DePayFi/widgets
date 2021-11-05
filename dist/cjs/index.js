@@ -1883,6 +1883,10 @@ var ConfigurationProvider = (function (props) {
   }, props.children);
 });
 
+var apiKey = 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c';
+
+var DonationRoutingContext = /*#__PURE__*/React__default$1['default'].createContext();
+
 var QuestionsGraphic = "data:image/png;base64,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";
 
 var NoPaymentMethodFoundDialog = (function () {
@@ -2105,8 +2109,6 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-var apiKey = 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c';
-
 var round = (function (input) {
   var _digitsAfterDecimal;
 
@@ -2144,7 +2146,11 @@ var round = (function (input) {
       focusToFixed = parseFloat(_float).toFixed(1).replace('.', '');
     }
 
-    return parseFloat(digitsAfterDecimal.replace(/\d{3}$/, focusToFixed));
+    if (focusToFixed.toString()[0] != 0 && focusToFixed.toString().length > 2) {
+      return parseInt(input.toFixed(0));
+    } else {
+      return parseFloat(digitsAfterDecimal.replace(/\d{3}$/, focusToFixed));
+    }
   } else {
     return parseFloat(parseFloat(input).toFixed(2));
   }
@@ -2190,7 +2196,7 @@ var PaymentRoutingProvider = (function (props) {
         selectedRoute = _ref.selectedRoute,
         update = _ref.update;
 
-    if (update == false || props.accept == undefined || account == undefined) {
+    if (update == false || !props.accept || !account) {
       return;
     }
 
@@ -2410,84 +2416,79 @@ var PaymentValueProvider = (function (props) {
   }, props.children);
 });
 
-var DonationRoutingContext = /*#__PURE__*/React__default$1['default'].createContext();
-
 var DonationRoutingProvider = (function (props) {
   var _useContext = React.useContext(ConfigurationContext),
-      amount = _useContext.amount,
-      receiver = _useContext.receiver,
-      token = _useContext.token,
-      blockchains = _useContext.blockchains,
+      accept = _useContext.accept,
       blacklist = _useContext.blacklist;
 
   var _useContext2 = React.useContext(WalletContext),
       account = _useContext2.account;
 
-  var _useState = React.useState(amount.start),
+  var _useState = React.useState(),
       _useState2 = _slicedToArray(_useState, 2),
       donatedAmount = _useState2[0],
       setDonatedAmount = _useState2[1];
 
   var _useState3 = React.useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      donatedToken = _useState4[0],
-      setDonatedToken = _useState4[1];
+      _useState4 = _slicedToArray(_useState3, 2);
+      _useState4[0];
+      _useState4[1];
 
   var _useState5 = React.useState(),
       _useState6 = _slicedToArray(_useState5, 2),
-      accept = _useState6[0],
-      setAccept = _useState6[1];
+      acceptWithAmount = _useState6[0],
+      setAcceptWithAmount = _useState6[1];
 
-  if (blacklist == undefined) {
-    blacklist = {};
-  }
-
-  blockchains.forEach(function (blockchain) {
-    if (blacklist[blockchain] == undefined) {
-      blacklist[blockchain] = [token];
-    } else if (blacklist[blockchain] instanceof Array) {
-      blacklist[blockchain].push(token);
-    }
-  });
   React.useEffect(function () {
-    if (account) {
-      setAccept(blockchains.map(function (blockchain) {
+    if (account && donatedAmount) {
+      setAcceptWithAmount(accept.map(function (configuration) {
         return {
-          blockchain: blockchain,
+          blockchain: configuration.blockchain,
           amount: donatedAmount,
-          token: token,
-          receiver: receiver
+          token: configuration.token,
+          receiver: configuration.receiver
         };
       }));
     }
   }, [account, donatedAmount]);
   React.useEffect(function () {
-    var tokenInstance = new depayWeb3Tokens.Token({
-      blockchain: blockchains[0],
-      address: token
-    });
-    Promise.all([tokenInstance.name(), tokenInstance.symbol(), tokenInstance.decimals()]).then(function (_ref) {
-      var _ref2 = _slicedToArray(_ref, 3),
-          name = _ref2[0],
-          symbol = _ref2[1],
-          decimals = _ref2[2];
-
-      setDonatedToken({
-        address: token,
-        name: name,
-        symbol: symbol,
-        decimals: decimals
+    if (account) {
+      Promise.all(accept.map(function (configuration) {
+        return depayWeb3Exchanges.route({
+          blockchain: configuration.blockchain,
+          tokenIn: depayWeb3Constants.CONSTANTS[configuration.blockchain].USD,
+          tokenOut: configuration.token,
+          amountIn: 1,
+          fromAddress: account,
+          toAddress: account
+        });
+      })).then(function (routes) {
+        Promise.all(routes.map(function (routes, index) {
+          return depayWeb3Tokens.Token.readable({
+            blockchain: accept[index].blockchain,
+            amount: routes[0].amountOut,
+            address: routes[0].tokenOut
+          });
+        })).then(function (amounts) {
+          setAcceptWithAmount(accept.map(function (configuration, index) {
+            return {
+              blockchain: configuration.blockchain,
+              amount: round(amounts[index]),
+              token: configuration.token,
+              receiver: configuration.receiver
+            };
+          }));
+        });
       });
-    });
-  }, []);
+    }
+  }, [account]);
   return /*#__PURE__*/React__default$1['default'].createElement(DonationRoutingContext.Provider, {
     value: {
       setDonatedAmount: setDonatedAmount,
-      donatedAmount: donatedAmount,
-      donatedToken: donatedToken
+      donatedAmount: donatedAmount
     }
   }, /*#__PURE__*/React__default$1['default'].createElement(PaymentRoutingProvider, {
-    accept: accept,
+    accept: acceptWithAmount,
     blacklist: blacklist
   }, /*#__PURE__*/React__default$1['default'].createElement(PaymentProvider, {
     container: props.container,
@@ -2888,10 +2889,6 @@ var DonationOverviewDialog = (function (props) {
   var _useContext4 = React.useContext(ClosableContext),
       close = _useContext4.close;
 
-  var _useContext5 = React.useContext(DonationRoutingContext),
-      donatedToken = _useContext5.donatedToken,
-      donatedAmount = _useContext5.donatedAmount;
-
   var mainAction = function mainAction() {
     if (paymentState == 'initialized' || paymentState == 'approving') {
       return /*#__PURE__*/React__default$1['default'].createElement("button", {
@@ -2949,7 +2946,7 @@ var DonationOverviewDialog = (function (props) {
     return /*#__PURE__*/React__default$1['default'].createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
   };
 
-  if (donatedToken == undefined || donatedAmount == undefined || payment == undefined || paymentValue == undefined) {
+  if (payment == undefined || paymentValue == undefined) {
     return /*#__PURE__*/React__default$1['default'].createElement(DonationOverviewSkeleton, null);
   }
 
@@ -2972,12 +2969,6 @@ var DonationOverviewDialog = (function (props) {
         navigate('ChangeAmount');
       }
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "CardImage",
-      title: payment.name
-    }, /*#__PURE__*/React__default$1['default'].createElement(depayReactTokenImage.TokenImage, {
-      blockchain: payment.route.blockchain,
-      address: donatedToken.address
-    })), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardBody"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardBodyWrapper"
@@ -2987,11 +2978,7 @@ var DonationOverviewDialog = (function (props) {
       className: "CardText"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "TokenAmountRow"
-    }, /*#__PURE__*/React__default$1['default'].createElement("span", {
-      className: "TokenSymbolCell"
-    }, donatedToken.symbol), /*#__PURE__*/React__default$1['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default$1['default'].createElement("span", {
-      className: "TokenAmountCell"
-    }, format(donatedAmount)))))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+    }, paymentValue.toString())))), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardAction"
     }, /*#__PURE__*/React__default$1['default'].createElement(ChevronRight, null))), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
@@ -3185,7 +3172,6 @@ var WalletProvider = (function (props) {
   var connected = function connected(_ref) {
     var account = _ref.account,
         wallet = _ref.wallet;
-    console.log('connected');
     setAccount(account);
     setWallet(wallet);
     setWalletState('connected');
@@ -3214,75 +3200,31 @@ var WalletProvider = (function (props) {
 
 var preflight$2 = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-    var amount, token, blockchains, receiver;
+    var accept;
     return regenerator.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            amount = _ref.amount, token = _ref.token, blockchains = _ref.blockchains, receiver = _ref.receiver;
+            accept = _ref.accept;
+            accept.forEach(function (configuration) {
+              if (typeof configuration.blockchain === 'undefined') {
+                throw 'You need to set the blockchain your want to receive the payment on!';
+              }
 
-            if (!(typeof amount === 'undefined')) {
-              _context.next = 3;
-              break;
-            }
+              if (!['ethereum', 'bsc'].includes(configuration.blockchain)) {
+                throw 'You need to set a supported blockchain!';
+              }
 
-            throw 'You need to set the amount!';
+              if (typeof configuration.token === 'undefined') {
+                throw 'You need to set the token you want to receive as payment!';
+              }
 
-          case 3:
-            if (!(typeof amount.min === 'undefined')) {
-              _context.next = 5;
-              break;
-            }
-
-            throw 'You need to set amount.min!';
-
-          case 5:
-            if (!(typeof amount.step === 'undefined')) {
-              _context.next = 7;
-              break;
-            }
-
-            throw 'You need to set amount.step!';
-
-          case 7:
-            if (!(typeof amount.start === 'undefined')) {
-              _context.next = 9;
-              break;
-            }
-
-            throw 'You need to set amount.start!';
-
-          case 9:
-            if (!(typeof token == 'undefined')) {
-              _context.next = 11;
-              break;
-            }
-
-            throw 'You need to set a token!';
-
-          case 11:
-            if (!(typeof blockchains == 'undefined' || blockchains.length == 0)) {
-              _context.next = 13;
-              break;
-            }
-
-            throw 'You need to set blockchains!';
-
-          case 13:
-            blockchains.forEach(function (blockchain) {
-              if (!['ethereum', 'bsc'].includes(blockchain)) {
-                throw 'You need to set only supported blockchains!';
+              if (typeof configuration.receiver === 'undefined') {
+                throw 'You need to set the receiver address that you want to receive the payment!';
               }
             });
 
-            if (!(typeof receiver == 'undefined' || receiver.length == 0)) {
-              _context.next = 16;
-              break;
-            }
-
-            throw 'You need to set a receiver!';
-
-          case 16:
+          case 2:
           case "end":
             return _context.stop();
         }
@@ -3297,19 +3239,16 @@ var preflight$2 = /*#__PURE__*/function () {
 
 var Donation = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, token, receiver, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, unmount;
+    var accept, event, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, token = _ref3.token, receiver = _ref3.receiver, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
+            accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight$2({
-              amount: amount,
-              token: token,
-              blockchains: blockchains,
-              receiver: receiver
+              accept: accept
             });
 
           case 4:
@@ -3325,10 +3264,7 @@ var Donation = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/React__default$1['default'].createElement(ConfigurationProvider, {
                   configuration: {
-                    amount: amount,
-                    token: token,
-                    receiver: receiver,
-                    blockchains: blockchains,
+                    accept: accept,
                     currency: currency,
                     event: event,
                     sent: sent,

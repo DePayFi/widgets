@@ -15,7 +15,7 @@ export default (props)=>{
           <div className="Card Skeleton">
             <div className="SkeletonBackground"/>
           </div>
-          <div className="Card Skeleton" style={{ height: '100px' }}>
+          <div className="Card Skeleton">
             <div className="SkeletonBackground"/>
           </div>
         </div>

@@ -6,7 +6,7 @@ export default (style)=>{
       border: 1px solid transparent;
       margin: 0;
       outline: none !important;
-      padding: 0;
+      padding: 0 0 0 14px;
       width: 100%;
     }
 

@@ -11,7 +11,7 @@ import { ReactDialogStack } from 'depay-react-dialog-stack'
 export default (props)=>{
 
   const { open, close } = useContext(ClosableContext)
-  const { donatedToken, donatedAmount, setDonatedAmount } = useContext(DonationRoutingContext)
+  const { amount, setAmount, maxAmount } = useContext(DonationRoutingContext)
 
   return(
     <ReactDialogStack
@@ -23,9 +23,9 @@ export default (props)=>{
       dialogs={{
         DonationOverview: <DonationOverviewDialog/>,
         ChangeAmount: <ChangeAmountDialog
-          token={ donatedToken }
-          amount={ donatedAmount }
-          setAmount= { setDonatedAmount }
+          amount={ amount }
+          setAmount={ setAmount }
+          maxAmount={ maxAmount }
         />,
         ChangePayment: <ChangePaymentDialog/>,
         PaymentError: <PaymentErrorDialog/>,

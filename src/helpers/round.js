@@ -1,11 +1,12 @@
 export default (input, direction = 'up')=>{
+  let inputAsFloat = parseFloat(input)
 
-  let digitsAfterDecimal = parseFloat(input).toString().match(/\d+\.0*(\d{3})/)
+  let digitsAfterDecimal = inputAsFloat.toString().match(/\d+\.0*(\d{3})/)
 
   if(digitsAfterDecimal?.length) {
     digitsAfterDecimal = digitsAfterDecimal[0]
     let focus = digitsAfterDecimal.match(/\d{3}$/)[0]
-    if(focus.match(/^00/)) { return input }
+    if(focus.match(/^00/)) { return inputAsFloat }
     let float 
     let focusToFixed
     if(focus.match(/^0/)) {
@@ -25,7 +26,7 @@ export default (input, direction = 'up')=>{
       focusToFixed = parseFloat(float).toFixed(1).replace('.', '')
     }
     if(focusToFixed.toString()[0] != 0 && focusToFixed.toString().length > 2) {
-      return(parseInt(input.toFixed(0)))
+      return(parseInt(inputAsFloat.toFixed(0)))
     } else {
       return(
         parseFloat(
@@ -34,6 +35,6 @@ export default (input, direction = 'up')=>{
       )
     }
   } else {
-    return(parseFloat(parseFloat(input).toFixed(2)))
+    return(parseFloat(inputAsFloat.toFixed(2)))
   }
 }

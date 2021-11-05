@@ -1,21 +1,23 @@
 import Checkmark from '../components/Checkmark'
 import ChevronRight from '../components/ChevronRight'
 import ClosableContext from '../contexts/ClosableContext'
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
+import DonationOverviewSkeleton from '../skeletons/DonationOverviewSkeleton'
+import DonationRoutingContext from '../contexts/DonationRoutingContext'
 import format from '../helpers/format'
 import LoadingText from '../components/LoadingText'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
-import DonationOverviewSkeleton from '../skeletons/DonationOverviewSkeleton'
-import DonationRoutingContext from '../contexts/DonationRoutingContext'
 import UpdateContext from '../contexts/UpdateContext'
 import { Currency } from 'depay-local-currency'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
 import { TokenImage } from 'depay-react-token-image'
 
 export default (props)=>{
-
+  const { currencyCode } = useContext(ConfigurationContext)
+  const { amount } = useContext(DonationRoutingContext)
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
@@ -31,7 +33,7 @@ export default (props)=>{
             pay({ navigate })
           }}
         >
-          Pay { paymentValue.toString().length ? paymentValue.toString() : `${payment.amount}` }
+          Pay { new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString() }
         </button>
       )
     } else if (paymentState == 'paying') {
@@ -105,7 +107,7 @@ export default (props)=>{
                 </h4>
                 <h2 className="CardText">
                   <div className="TokenAmountRow">
-                    { paymentValue.toString() }
+                    { new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString() }
                   </div>
                 </h2>
               </div>
@@ -144,11 +146,6 @@ export default (props)=>{
                     </span>
                   </div>
                 </h2>
-                { paymentValue.toString().length &&
-                  <h3 className="CardText">
-                    <small>{ paymentValue.toString() }</small>
-                  </h3>
-                }
               </div>
             </div>
             <div className="CardAction">
