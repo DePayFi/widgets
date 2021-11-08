@@ -1,5 +1,5 @@
 import fetchMock from 'fetch-mock'
-import mockPaymentValue from './paymentValue'
+import mockAmountsOut from './amountsOut'
 import { CONSTANTS } from 'depay-web3-constants'
 import { ethers } from 'ethers'
 import { findByName } from 'depay-web3-exchanges'
@@ -123,7 +123,7 @@ export default ({
   mock({ provider, blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [WRAPPED, TOKEN_A]], return: [WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
   mock({ provider, blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [TOKEN_B, WRAPPED, TOKEN_A]], return: [TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
   
-  mockPaymentValue({
+  mockAmountsOut({
     provider,
     blockchain,
     exchange,

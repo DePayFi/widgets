@@ -1,7 +1,5 @@
 import { mock } from 'depay-web3-mock'
 
-// mocks the getAmountsOut request called by PaymentValueProvider
-// to determine the displayed payment value in USD
 export default ({ amountInBN, path, amountsOut, provider, blockchain, exchange })=>{
 
   mock({
