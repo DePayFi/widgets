@@ -42,7 +42,6 @@ describe('overview Donation payment', () => {
   let TOKEN_B_AmountBN
 
   beforeEach(()=>{
-    
     ({ 
       exchange,
       TOKEN_A_AmountBN,
@@ -51,7 +50,6 @@ describe('overview Donation payment', () => {
     } = mockBasics({
       provider: provider(blockchain),
       blockchain,
-
       fromAddress,
       fromAddressAssets: [
         {
