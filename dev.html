@@ -129,55 +129,17 @@
       <div class="col-4">
         <h2 class="pt-5">Sale</h2>
         <div class="form-group pt-3">
-          <label for="saleBlockchainInput">Blockchain</label>
-          <select class="form-control text-center" id="saleBlockchainInput">
-            <option value='ethereum'>Ethereum</option>
-            <option value='bsc'>Binance Smart Chain</option>
-          </select>
-          <small id="paymentAmount" class="form-text text-muted">On which blockchain do you want to receive the payment?</small>
-        </div>
-        <div class="form-group pt-3">
-          <label for="salesStartAmountInput">Start Amount</label>
-          <input class="form-control text-center" id="salesStartAmountInput" aria-describedby="salesAmount" placeholder="10" value="10">
-          <small id="salesAmount" class="form-text text-muted">The start amount selected by the widget?</small>
-        </div>
-        <div class="form-group pt-3">
-          <label for="salesMinAmountInput">Min. Amount</label>
-          <input class="form-control text-center" id="salesMinAmountInput" aria-describedby="salesAmount" placeholder="1" value="1">
-          <small id="salesAmount" class="form-text text-muted">Min. amount you want to enforce by the widget?</small>
-        </div>
-        <div class="form-group pt-1">
-          <label for="salesStepAmountInput">Step Amount</label>
-          <input class="form-control text-center" id="salesStepAmountInput" aria-describedby="salesAmount" placeholder="1" value="1">
-          <small id="salesAmount" class="form-text text-muted">Selectable in which steps?</small>
-        </div>
-        <div class="form-group pt-1">
-          <label for="salesTokenInput">Token</label>
-          (<a id="salesSwitchToken" href="#">Switch</a>)
-          <script>
-            var button = document.getElementById("salesSwitchToken");
-            button.addEventListener("click",function(e){
-              DePayWidgets.Selector(function(token){
-                document.getElementById("salesTokenInput").value = token.address;
-              });
-            });
-          </script>  
-          <input class="form-control text-center" id="salesTokenInput" aria-describedby="salesToken" placeholder="0xa0bed124a09ac2bd941b10349d8d224fe3c955eb" value="0xa0bed124a09ac2bd941b10349d8d224fe3c955eb">
-          <small id="salesToken" class="form-text text-muted">Which token do you want to sell?</small>
-        </div>
         
         <button id="buyButton" class="btn-lg mt-2">Buy</button>
         <script>
           var button = document.getElementById("buyButton");
           button.addEventListener("click",function(e){
             DePayWidgets.Sale({
-              amount: {
-                start: document.getElementById("salesStartAmountInput").value,
-                min: document.getElementById("salesMinAmountInput").value,
-                step: document.getElementById("salesStepAmountInput").value
-              },
-              token: document.getElementById("salesTokenInput").value,
-              blockchains: [document.getElementById("saleBlockchainInput").value]
+              currency: 'USD',
+              sell: {
+                'ethereum': '0x5a666c7d92e5fa7edcb6390e4efd6d0cdd69cf37',
+                'bsc': '0x2fa5daf6fe0708fbd63b1a7d1592577284f52256'
+              }
             });
           });
         </script>

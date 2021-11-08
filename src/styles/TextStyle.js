@@ -20,7 +20,8 @@ export default ()=>{
       color: #00FF41;
       font-size: 0.9rem;
       font-style: italic;
-      height: 100px;
+      max-height: 100px;
+      padding: 6px;
       overflow-wrap: break-word;
       overflow-y: auto;
       white-space: pre-wrap;

@@ -512,10 +512,9 @@ In order to sell tokens in a decentralized way, that token needs to have a liqui
 
 ```javascript
 DePayWidgets.Sale({
-  sell: [{
-    blockchain: 'ethereum',
-    token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-  }]
+  sell: {
+    'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
+  }
 });
 ```
 
@@ -525,10 +524,9 @@ You need to pass a configuration object to `DePayWidgets.Sale` which needs to at
 
 ```javascript
 DePayWidgets.Sale({
-  sell: [{
-    blockchain: 'ethereum',
-    token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  }]
+  sell: {
+    'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
+  }
 });
 ```
 
@@ -536,19 +534,16 @@ You can also sell on multiple blockchains:
 
 ```javascript
 DePayWidgets.Sale({
-  sell: [{
-    blockchain: 'ethereum',
-    token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  },{
-    blockchain: 'bsc',
-    token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  }]
+  sell: {
+    'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+    'bsc': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
+  }
 });
 ```
 
 #### sell
 
-`blockchain`
+`"blockchain": "token"`
 
 The blockchain you want to receive the payment on.
 

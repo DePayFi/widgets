@@ -1,4 +1,6 @@
 import ClosableProvider from './providers/ClosableProvider'
+import ConversionRateProvider from './providers/ConversionRateProvider'
+import ChangableAmountProvider from './providers/ChangableAmountProvider'
 import ConfigurationProvider from './providers/ConfigurationProvider'
 import ensureDocument from './helpers/ensureDocument'
 import ErrorProvider from './providers/ErrorProvider'
@@ -9,23 +11,13 @@ import SaleStack from './stacks/SaleStack'
 import UpdateProvider from './providers/UpdateProvider'
 import WalletProvider from './providers/WalletProvider'
 
-let preflight = async({ amount, token, blockchains }) => {
-  if(typeof amount === 'undefined') { throw('You need to set the amount!') }
-  if(typeof amount.min === 'undefined') { throw('You need to set amount.min!') }
-  if(typeof amount.step === 'undefined') { throw('You need to set amount.step!') }
-  if(typeof amount.start === 'undefined') { throw('You need to set amount.start!') }
-  if(typeof token == 'undefined') { throw('You need to set a token!') }
-  if((typeof blockchains == 'undefined') || blockchains.length == 0) { throw('You need to set blockchains!') }
-  blockchains.forEach((blockchain)=>{
-    if(!['ethereum', 'bsc'].includes(blockchain)) { throw('You need to set only supported blockchains!') }  
-  })
+let preflight = async({ sell }) => {
+  if(Object.keys(sell).length == 0) { throw('You need to configure at least 1 "blockchain": "token"') }
+  if(Object.values(sell).length == 0) { throw('You need to configure at least 1 "blockchain": "token"') }
 }
 
 let Sale = async ({
-  amount,
-  token,
-  blockchains,
-  event,
+  sell,
   sent,
   confirmed,
   ensured,
@@ -40,22 +32,26 @@ let Sale = async ({
   closed,
   document
 }) => {
-
   try {
-    await preflight({ amount, token, blockchains })
+    await preflight({ sell })
+    const accept = Object.keys(sell).map((key)=>({ blockchain: key, token: sell[key] }))
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={{ amount, token, blockchains, currency, event, sent, confirmed, ensured, failed, blacklist, providers }}>
+          <ConfigurationProvider configuration={{ sell, currency, sent, confirmed, ensured, failed, blacklist, providers }}>
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
-                  <SaleRoutingProvider container={ container } document={ document }>
-                    <SaleStack
-                      document={ document }
-                      container={ container }
-                    />
-                  </SaleRoutingProvider>
+                  <ConversionRateProvider>
+                    <ChangableAmountProvider accept={ accept }>
+                      <SaleRoutingProvider container={ container } document={ document }>
+                        <SaleStack
+                          document={ document }
+                          container={ container }
+                        />
+                      </SaleRoutingProvider>
+                    </ChangableAmountProvider>
+                  </ConversionRateProvider>
                 </WalletProvider>
               </UpdateProvider>
             </ClosableProvider>

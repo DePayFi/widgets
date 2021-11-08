@@ -34,6 +34,7 @@ export default (props)=>{
   }
 
   if(error) {
+    console.log(error)
     return(
       <ReactDialog container={ props.container } close={ close } open={ open }>
         <div className="Dialog ReactDialogAnimation">

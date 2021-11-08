@@ -1,5 +1,7 @@
+import ChangableAmountProvider from './providers/ChangableAmountProvider'
 import ClosableProvider from './providers/ClosableProvider'
 import ConfigurationProvider from './providers/ConfigurationProvider'
+import ConversionRateProvider from './providers/ConversionRateProvider'
 import DonationRoutingProvider from './providers/DonationRoutingProvider'
 import DonationStack from './stacks/DonationStack'
 import ensureDocument from './helpers/ensureDocument'
@@ -45,12 +47,16 @@ let Donation = async ({
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
-                  <DonationRoutingProvider container={ container } document={ document }>
-                    <DonationStack
-                      document={ document }
-                      container={ container }
-                    />
-                  </DonationRoutingProvider>
+                  <ConversionRateProvider>
+                    <ChangableAmountProvider accept={ accept }>
+                      <DonationRoutingProvider container={ container } document={ document }>
+                        <DonationStack
+                          document={ document }
+                          container={ container }
+                        />
+                      </DonationRoutingProvider>
+                    </ChangableAmountProvider>
+                  </ConversionRateProvider>
                 </WalletProvider>
               </UpdateProvider>
             </ClosableProvider>

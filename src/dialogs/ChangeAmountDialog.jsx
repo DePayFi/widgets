@@ -1,4 +1,5 @@
 import apiKey from '../helpers/apiKey'
+import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import ErrorContext from '../contexts/ErrorContext'
@@ -19,20 +20,19 @@ export default (props)=>{
   const { navigate } = useContext(NavigateStackContext)
   const { setError } = useContext(ErrorContext)
   const { account } = useContext(WalletContext)
-  const [ inputAmount, setInputAmount ] = useState(props.amount)
+  const { amount, setAmount, maxAmount } = useContext(ChangableAmountContext)
+  const [ inputAmount, setInputAmount ] = useState(amount)
   const { currencyCode } = useContext(ConfigurationContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
-  const [ maxRoute, setMaxRoute ] = useState()
-  const [ max, setMax ] = useState(props.maxAmount)
 
   const changeAmountAndGoBack = ()=>{
-    props.setAmount(parseInt(inputAmount, 10))
+    setAmount(parseInt(inputAmount, 10))
     navigate('back')
   }
 
   const changeAmount = (value)=>{
     if(Number.isNaN(value)) { return }
-    setInputAmount(Math.min(value, max))
+    setInputAmount(Math.min(value, maxAmount))
   }
 
   return(
@@ -51,7 +51,7 @@ export default (props)=>{
               
               <div className='FontSizeL'>
                 <input
-                  max={ parseFloat(max) }
+                  max={ parseFloat(maxAmount) }
                   min={ 1 }
                   step={ 1 }
                   className='Input FontSizeXL TextAlignCenter'
@@ -64,7 +64,7 @@ export default (props)=>{
 
               <Slider
                 min={ 1 }
-                max={ parseFloat(max) }
+                max={ parseFloat(maxAmount) }
                 step={ 1 }
                 value={ parseFloat(inputAmount) }
                 onChange={(value)=>{ changeAmount(parseInt(value, 10)) }}
@@ -72,10 +72,10 @@ export default (props)=>{
               
               <div style={{ height: '40px' }}>
                 <div>
-                  { format(max) }
+                  { format(maxAmount) }
                   <button 
                     className="TextButton"
-                    onClick={()=>{ changeAmount(max) }}
+                    onClick={()=>{ changeAmount(maxAmount) }}
                   >
                     (Max)
                   </button>
