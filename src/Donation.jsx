@@ -12,6 +12,7 @@ import UpdateProvider from './providers/UpdateProvider'
 import WalletProvider from './providers/WalletProvider'
 
 let preflight = async({ accept }) => {
+  if(!accept) { throw('You need to set the tokens you accept as donation!') }
   accept.forEach((configuration)=>{
     if(typeof configuration.blockchain === 'undefined') { throw('You need to set the blockchain your want to receive the payment on!') }
     if(!['ethereum', 'bsc'].includes(configuration.blockchain)) { throw('You need to set a supported blockchain!') }

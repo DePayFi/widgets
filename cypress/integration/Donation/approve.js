@@ -2,6 +2,7 @@ import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/basics'
+import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
@@ -27,22 +28,24 @@ describe('approve Donation payment', () => {
   let fromAddress = accounts[0]
   let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   let amount = 20
+  let exchange
+  let WRAPPED_AmountInBN
   let TOKEN_A_AmountBN
   let defaultArguments = {
-    amount: {
-      start: 20,
-      min: 1,
-      step: 1
-    },
-    token: DEPAY,
-    blockchains: [blockchain],
-    receiver: toAddress
+    accept:[{
+      blockchain,
+      token: DEPAY,
+      receiver: toAddress
+    }]
   }
-
 
   beforeEach(()=>{
 
-    ({ TOKEN_A_AmountBN } = mockBasics({
+    ({ 
+      WRAPPED_AmountInBN,
+      TOKEN_A_AmountBN,
+      exchange
+    } = mockBasics({
       
       provider: provider(blockchain),
       blockchain,
@@ -105,6 +108,19 @@ describe('approve Donation payment', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    mockAmountsOut({
+      provider: provider(blockchain),
+      blockchain,
+      exchange,
+      amountInBN: '1176470588235294200',
+      path: [DAI, WETH, DEPAY],
+      amountsOut: [
+        '1176470588235294200',
+        WRAPPED_AmountInBN,
+        TOKEN_A_AmountBN
+      ]
+    })
   })
   
   it('asks me to approve the token for the payment router before I can execute it', () => {
