@@ -329,7 +329,7 @@ describe('change Donation amount', () => {
       })
     })
 
-    it.only('allows me to submit a changed amount for a token sale', ()=> {
+    it('allows me to submit a changed amount for a token sale', ()=> {
       let fromAddress = accounts[0]
       let mockedTransaction = mock({
         blockchain,
