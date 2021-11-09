@@ -1,5 +1,9 @@
-export default ()=>{
+export default (style)=>{
   return(`
+
+    * {
+      color: ${style.colors.text};
+    }
 
     .TextLeft, .TextLeft * {
       text-align: left;
