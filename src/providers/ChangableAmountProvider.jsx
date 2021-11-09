@@ -31,6 +31,7 @@ export default (props)=>{
         })
       })).then((routes)=>{
         Promise.all(routes.map((routes, index)=>{
+          if(routes[0] == undefined){ return }
           return Token.readable({
             blockchain: props.accept[index].blockchain,
             amount: routes[0].amountOut,
@@ -41,7 +42,7 @@ export default (props)=>{
             return(
               {
                 blockchain: configuration.blockchain,
-                amount: round(amounts[index]),
+                amount: round(amounts[index]) || 1,
                 token: configuration.token,
                 receiver: configuration.receiver || account
               }

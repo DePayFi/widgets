@@ -27,14 +27,11 @@ describe('style Donation widget', () => {
   let amount = 20
   let TOKEN_A_AmountBN
   let defaultArguments = {
-    amount: {
-      start: 20,
-      min: 1,
-      step: 1
-    },
-    token: DEPAY,
-    blockchains: [blockchain],
-    receiver: toAddress
+    accept:[{
+      blockchain,
+      token: DEPAY,
+      receiver: toAddress
+    }]
   }
 
   beforeEach(()=>{

@@ -26,14 +26,11 @@ describe('insufficient balance for Donation payment', () => {
   let decimals = 18
   let amountBN = ethers.utils.parseUnits(amount.toString(), decimals)
   let defaultArguments = {
-    amount: {
-      start: 20,
-      min: 1,
-      step: 1
-    },
-    token: TOKEN,
-    blockchains: [blockchain],
-    receiver: toAddress
+    accept:[{
+      blockchain,
+      token: TOKEN,
+      receiver: toAddress
+    }]
   }
 
   let USDValueMock

@@ -12,12 +12,12 @@ import UpdateProvider from './providers/UpdateProvider'
 import WalletProvider from './providers/WalletProvider'
 
 let preflight = async({ accept }) => {
-  if(!accept) { throw('You need to set the tokens you accept as donation!') }
+  if(!(accept instanceof Array) || accept.length == 0) { throw('You need to set the tokens you accept as donation!') }
   accept.forEach((configuration)=>{
-    if(typeof configuration.blockchain === 'undefined') { throw('You need to set the blockchain your want to receive the payment on!') }
+    if(typeof configuration.blockchain === 'undefined') { throw('You need to set the blockchain you want to receive the donation on!') }
     if(!['ethereum', 'bsc'].includes(configuration.blockchain)) { throw('You need to set a supported blockchain!') }
-    if(typeof configuration.token === 'undefined') { throw('You need to set the token you want to receive as payment!') }
-    if(typeof configuration.receiver === 'undefined') { throw('You need to set the receiver address that you want to receive the payment!') }
+    if(typeof configuration.token === 'undefined') { throw('You need to set the token you want to receive as donation!') }
+    if(typeof configuration.receiver === 'undefined') { throw('You need to set the receiver address that you want to receive the donation!') }
   })
 }
 
