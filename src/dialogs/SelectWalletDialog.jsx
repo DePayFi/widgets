@@ -54,7 +54,7 @@ export default (props)=>{
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <h1 className="FontSizeL TextLeft">Select a wallet</h1>
+          <h1 className="LineHeightL FontSizeL TextLeft">Select a wallet</h1>
         </div>
       }
       body={

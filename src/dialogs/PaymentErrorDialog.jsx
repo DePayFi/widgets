@@ -21,7 +21,7 @@ export default ()=> {
           <div className="GraphicWrapper">
             <img className="Graphic" src={ ErrorGraphic }/>
           </div>
-          <h1 className="Text FontSizeL PaddingTopS FontWeightBold">Payment Failed</h1>
+          <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Payment Failed</h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
             <strong className="FontSizeM">
               Unfortunately executing your payment failed. You can go back and try again.

@@ -16,7 +16,7 @@ export default (props)=>{
       stacked={ true }
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <h1 className="FontSizeL TextLeft">Wrong Network</h1>
+          <h1 className="LineHeightL FontSizeL TextLeft">Wrong Network</h1>
         </div>
       }
       body={
@@ -24,7 +24,7 @@ export default (props)=>{
           <div className="GraphicWrapper">
             <img className="Graphic" src={ ConnectGraphic }/>
           </div>
-          <h1 className="Text FontSizeL PaddingTopS FontWeightBold">Connect to { blockchain.label }</h1>
+          <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Connect to { blockchain.label }</h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
             <strong className="FontSizeM">
               Please make sure you connect your wallet to the correct network before you try again!

@@ -85,13 +85,11 @@ describe('insufficient balance for Donation', () => {
     })
   })
 
-  it('shows a dialog explaining that no payment route could be found', () => {
+  it.only('shows a dialog explaining that no payment route could be found', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Donation({ ...defaultArguments, document })
-        cy.wait(2000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.')
-        })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.')
       })
     })
   })
@@ -102,16 +100,14 @@ describe('insufficient balance for Donation', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Donation({ ...defaultArguments, document })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.')
         cy.wait(2000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.')
-          cy.wait(2000).then(()=>{
-            USDValueMock_count = USDValueMock.calls.count()
-            TOKENRouteMock_count = TOKENRouteMock.calls.count()
-          })
-          cy.wait(16000).then(()=>{
-            expect(USDValueMock.calls.count()).to.eq(USDValueMock_count)
-            expect(TOKENRouteMock.calls.count()).to.eq(TOKENRouteMock_count)
-          })
+          USDValueMock_count = USDValueMock.calls.count()
+          TOKENRouteMock_count = TOKENRouteMock.calls.count()
+        })
+        cy.wait(16000).then(()=>{
+          expect(USDValueMock.calls.count()).to.eq(USDValueMock_count)
+          expect(TOKENRouteMock.calls.count()).to.eq(TOKENRouteMock_count)
         })
       })
     })

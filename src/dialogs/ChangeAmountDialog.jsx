@@ -40,7 +40,7 @@ export default (props)=>{
       stacked={ true }
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS">
-          <h1 className="FontSizeL TextCenter">Change Amount</h1>
+          <h1 className="LineHeightL FontSizeL TextCenter">Change Amount</h1>
           <div className="FontSizeL TextCenter FontWeightBold"><strong>{ currencyCode }</strong></div>
         </div>
       }

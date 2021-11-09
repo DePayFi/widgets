@@ -48,7 +48,7 @@ export default (props)=>{
             <div className="GraphicWrapper">
               <img className="Graphic" src={ ErrorGraphic }/>
             </div>
-            <h1 className="Text FontSizeL PaddingTopS FontWeightBold">Oops, Something Went Wrong</h1>
+            <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Oops, Something Went Wrong</h1>
             <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
               <div className="PaddingLeftS PaddingRightS">
                 <pre className="ErrorSnippetText">

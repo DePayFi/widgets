@@ -17,6 +17,10 @@ export default (style)=>{
       color: grey;
     }
 
+    .LineHeightL {
+      line-height: 2.0rem;
+    }
+
     .ErrorSnippetText {
       background: rgb(30, 30, 20);
       border-radius: 1.2rem;
