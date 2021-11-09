@@ -545,9 +545,9 @@ DePayWidgets.Sale({
 
 `"blockchain": "token"`
 
-The blockchain you want to receive the payment on.
+`blockchain`
 
-Currently supported:
+Currently supported blockchains:
 
 - `ethereum`
 - `bsc` (Binance Smart Chain)
