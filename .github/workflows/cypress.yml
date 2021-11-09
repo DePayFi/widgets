@@ -65,6 +65,13 @@ jobs:
       - name: Run Cypress Tests cypress/integration/Donation/**.js
         run: |
           yarn test:cypress --spec "cypress/integration/Donation/**.js"
+      - name: 'Upload screenshots and videos to Slack'
+        uses: trymbill/cypress-slack-video-upload-action@v1.3.0
+        if: failure()
+        with:
+          token: ${{ secrets.SLACK_TOKEN }}
+          channels: 'cypress-failing-test-assets'
+          message-text: 'Cypress tests failed! Recording and screenshots have been uploaded in this thread - good luck.'
 
   cypress-sales-widget:
     
@@ -96,6 +103,13 @@ jobs:
       - name: Run Cypress Tests cypress/integration/Sale/**.js
         run: |
           yarn test:cypress --spec "cypress/integration/Sale/**.js"
+      - name: 'Upload screenshots and videos to Slack'
+        uses: trymbill/cypress-slack-video-upload-action@v1.3.0
+        if: failure()
+        with:
+          token: ${{ secrets.SLACK_TOKEN }}
+          channels: 'cypress-failing-test-assets'
+          message-text: 'Cypress tests failed! Recording and screenshots have been uploaded in this thread - good luck.'
 
   cypress-payment-widget:
     
@@ -127,6 +141,13 @@ jobs:
       - name: Run Cypress Tests cypress/integration/Payment/**.js
         run: |
           yarn test:cypress --spec "cypress/integration/Payment/**.js"
+      - name: 'Upload screenshots and videos to Slack'
+        uses: trymbill/cypress-slack-video-upload-action@v1.3.0
+        if: failure()
+        with:
+          token: ${{ secrets.SLACK_TOKEN }}
+          channels: 'cypress-failing-test-assets'
+          message-text: 'Cypress tests failed! Recording and screenshots have been uploaded in this thread - good luck.'
 
   cypress-connect-widget:
     
@@ -158,3 +179,10 @@ jobs:
       - name: Run Cypress Tests cypress/integration/Connect/**.js
         run: |
           yarn test:cypress --spec "cypress/integration/Connect/**.js"
+      - name: 'Upload screenshots and videos to Slack'
+        uses: trymbill/cypress-slack-video-upload-action@v1.3.0
+        if: failure()
+        with:
+          token: ${{ secrets.SLACK_TOKEN }}
+          channels: 'cypress-failing-test-assets'
+          message-text: 'Cypress tests failed! Recording and screenshots have been uploaded in this thread - good luck.'

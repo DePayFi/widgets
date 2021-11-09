@@ -81,7 +81,7 @@ describe('insufficient balance for Purchase', () => {
     })
   })
 
-  it.only('shows a dialog explaining that no payment route could be found', () => {
+  it('shows a dialog explaining that no payment route could be found', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Sale({ ...defaultArguments, document })
