@@ -2,6 +2,7 @@ import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/basics'
+import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
@@ -124,7 +125,7 @@ describe('Donation widget error', () => {
           }
         })
         cy.wait(1000).then(()=>{
-          expect(criticalError.toString()).to.eq("You need to set the tokens you accept as donation")
+          expect(criticalError.toString()).to.eq("You need to set the tokens you accept as donation!")
           expect(criticalCalled).to.eq(true)
         })
       })
@@ -134,8 +135,28 @@ describe('Donation widget error', () => {
   it('renders an error dialog if internal error was not critical and can be handled by the widget', ()=> {
     let errorCalled
     let passedError
-    
-    mock({ provider: provider(blockchain), blockchain, call: { to: DAI, api: Token[blockchain].DEFAULT, method: 'symbol', return: Error('something failed') } })
+    mockAmountsOut({
+      provider: provider(blockchain),
+      blockchain,
+      exchange,
+      amountInBN: '1176470588235294200',
+      path: [DAI, WETH, DEPAY],
+      amountsOut: [
+        '1176470588235294200',
+        WRAPPED_AmountInBN,
+        TOKEN_A_AmountBN
+      ]
+    })
+    mock({
+      provider: provider(blockchain),
+      blockchain,
+      call: {
+        to: DEPAY,
+        api: Token[blockchain].DEFAULT,
+        method: 'symbol',
+        return: Error('something failed') 
+      } 
+    })
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
@@ -151,6 +172,7 @@ describe('Donation widget error', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ErrorSnippetText', 'Error: something failed')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'If this keeps happening, please report it.')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
+        cy.wait(5000)
         cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
           expect(errorCalled).to.eq(true)
           expect(passedError.toString()).to.eq('Error: something failed')
