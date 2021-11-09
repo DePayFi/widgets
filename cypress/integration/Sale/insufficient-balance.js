@@ -27,6 +27,7 @@ describe('insufficient balance for Purchase', () => {
   let decimals = 18
   let amountBN = ethers.utils.parseUnits(amount.toString(), decimals)
   let defaultArguments = {
+    currency: 'USD',
     sell: { [blockchain]: TOKEN }
   }
 
