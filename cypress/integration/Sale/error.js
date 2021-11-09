@@ -2,6 +2,7 @@ import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/basics'
+import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
@@ -24,16 +25,10 @@ describe('Sale widget error', () => {
   let ETH = CONSTANTS[blockchain].NATIVE
   let WETH = CONSTANTS[blockchain].WRAPPED
   let fromAddress = accounts[0]
-  let toAddress = fromAddress
+  let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   let amount = 20
   let defaultArguments = {
-    amount: {
-      start: 20,
-      min: 1,
-      step: 1
-    },
-    token: DEPAY,
-    blockchains: [blockchain]
+    sell: { [blockchain]: DEPAY }
   }
   let exchange
   let WRAPPED_AmountInBN
@@ -113,7 +108,6 @@ describe('Sale widget error', () => {
   })
 
   it('calls error callback with a critical error if widgets fails initialization', () => {
-
     let criticalCalled
     let criticalError
 
@@ -127,7 +121,29 @@ describe('Sale widget error', () => {
           }
         })
         cy.wait(1000).then(()=>{
-          expect(criticalError.toString()).to.eq("You need to set the amount!")
+          expect(criticalError.toString()).to.eq('You need to configure at least 1 "blockchain": "token"')
+          expect(criticalCalled).to.eq(true)
+        })
+      })
+    })
+  })
+
+  it('calls error callback with a critical error if widgets fails initialization', () => {
+    let criticalCalled
+    let criticalError
+
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        DePayWidgets.Sale({
+          document,
+          sell: {},
+          critical: (error)=>{
+            criticalError = error
+            criticalCalled = true
+          }
+        })
+        cy.wait(1000).then(()=>{
+          expect(criticalError.toString()).to.eq('You need to configure at least 1 "blockchain": "token"')
           expect(criticalCalled).to.eq(true)
         })
       })
@@ -135,11 +151,30 @@ describe('Sale widget error', () => {
   })
 
   it('renders an error dialog if internal error was not critical and can be handled by the widget', ()=> {
-
     let errorCalled
     let passedError
-    
-    mock({ provider: provider(blockchain), blockchain, call: { to: DAI, api: Token[blockchain].DEFAULT, method: 'symbol', return: Error('something failed') } })
+    mockAmountsOut({
+      provider: provider(blockchain),
+      blockchain,
+      exchange,
+      amountInBN: '1176470588235294200',
+      path: [DAI, WETH, DEPAY],
+      amountsOut: [
+        '1176470588235294200',
+        WRAPPED_AmountInBN,
+        TOKEN_A_AmountBN
+      ]
+    })
+    mock({
+      provider: provider(blockchain),
+      blockchain,
+      call: {
+        to: DEPAY,
+        api: Token[blockchain].DEFAULT,
+        method: 'symbol',
+        return: Error('something failed') 
+      } 
+    })
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
@@ -155,6 +190,7 @@ describe('Sale widget error', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ErrorSnippetText', 'Error: something failed')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'If this keeps happening, please report it.')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
+        cy.wait(5000)
         cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
           expect(errorCalled).to.eq(true)
           expect(passedError.toString()).to.eq('Error: something failed')

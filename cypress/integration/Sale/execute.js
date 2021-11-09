@@ -1,6 +1,7 @@
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/basics'
+import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
@@ -23,25 +24,23 @@ describe('executes Sale', () => {
   let ETH = CONSTANTS[blockchain].NATIVE
   let WETH = CONSTANTS[blockchain].WRAPPED
   let fromAddress = accounts[0]
-  let toAddress = fromAddress
+  let toAddress = accounts[0]
   let amount = 20
+  let exchange
   let TOKEN_A_AmountBN
   let TOKEN_B_AmountBN
+  let WRAPPED_AmountInBN
   let defaultArguments = {
-    amount: {
-      start: 20,
-      min: 1,
-      step: 1
-    },
-    token: DEPAY,
-    blockchains: [blockchain]
+    sell: { [blockchain]: DEPAY }
   }
 
   beforeEach(()=>{
 
     ({ 
       TOKEN_A_AmountBN,
-      TOKEN_B_AmountBN
+      TOKEN_B_AmountBN,
+      WRAPPED_AmountInBN,
+      exchange
     } = mockBasics({
       
       provider: provider(blockchain),
@@ -77,13 +76,13 @@ describe('executes Sale', () => {
       TOKEN_A_Name: 'DePay',
       TOKEN_A_Symbol: 'DEPAY',
       TOKEN_A_Amount: amount,
-      TOKEN_A_Balance: 30,
+      TOKEN_A_Balance: 0,
       
       TOKEN_B: DAI,
       TOKEN_B_Decimals: 18,
       TOKEN_B_Name: 'Dai Stablecoin',
       TOKEN_B_Symbol: 'DAI',
-      TOKEN_B_Amount: 33,
+      TOKEN_B_Amount: 1.16,
       TOKEN_B_Balance: 50,
       TOKEN_B_Allowance: CONSTANTS[blockchain].MAXINT,
 
@@ -92,7 +91,7 @@ describe('executes Sale', () => {
       TOKEN_A_WRAPPED_Pair: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d',
 
       WRAPPED_AmountIn: 0.01,
-      USD_AmountOut: 33,
+      USD_AmountOut: 1.16,
 
       timeZone: 'Europe/Berlin',
       stubTimeZone: (timeZone)=> {
@@ -106,6 +105,19 @@ describe('executes Sale', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    mockAmountsOut({
+      provider: provider(blockchain),
+      blockchain,
+      exchange,
+      amountInBN: '1176470588235294200',
+      path: [DAI, WETH, DEPAY],
+      amountsOut: [
+        '1176470588235294200',
+        WRAPPED_AmountInBN,
+        TOKEN_A_AmountBN
+      ]
+    })
   })
   
   it('executes', () => {
@@ -131,7 +143,7 @@ describe('executes Sale', () => {
       cy.document().then((document)=>{
         DePayWidgets.Sale({ ...defaultArguments, document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
@@ -177,12 +189,12 @@ describe('executes Sale', () => {
       cy.document().then((document)=>{
         DePayWidgets.Sale({ ...defaultArguments, document })
         cy.get('.Card[title="Change payment"]', { includeShadowDom: true }).should('exist')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.Card[title="Change payment"]', { includeShadowDom: true }).should('not.exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...')
         // sent fails:
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]')
         cy.get('.Card[title="Change payment"]', { includeShadowDom: true }).should('exist')
       })
@@ -220,7 +232,7 @@ describe('executes Sale', () => {
           confirmed: (transaction)=>{ confirmedCalledWith = transaction },
           ensured: (transaction)=>{ ensuredCalledWith = transaction },
         })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
           cy.wait(1000).then(()=>{

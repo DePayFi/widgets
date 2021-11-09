@@ -9,7 +9,7 @@ import { mock, resetMocks } from 'depay-web3-mock'
 import { provider, resetCache } from 'depay-web3-client'
 import { Token } from 'depay-web3-tokens'
 
-describe('insufficient balance for Payment', () => {
+describe('insufficient balance for Sale payment', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -26,13 +26,7 @@ describe('insufficient balance for Payment', () => {
   let decimals = 18
   let amountBN = ethers.utils.parseUnits(amount.toString(), decimals)
   let defaultArguments = {
-    amount: {
-      start: 20,
-      min: 1,
-      step: 1
-    },
-    token: TOKEN,
-    blockchains: [blockchain]
+    sell: { [blockchain]: TOKEN }
   }
 
   let USDValueMock

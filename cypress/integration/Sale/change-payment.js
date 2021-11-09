@@ -1,9 +1,11 @@
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
+import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
+import { ethers } from 'ethers'
 import { mock, confirm, resetMocks, anything } from 'depay-web3-mock'
 import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
@@ -25,16 +27,11 @@ describe('change Sale payment', () => {
   let WRAPPED_AmountInBN
   let TOKEN_A_AmountBN
   let TOKEN_B_AmountBN
+  let exchange
   let toAddress = accounts[0]
   let amount = 20
   let defaultArguments = {
-    amount: {
-      start: 20,
-      min: 1,
-      step: 1
-    },
-    token: DEPAY,
-    blockchains: [blockchain]
+    sell: { [blockchain]: DEPAY }
   }
 
   beforeEach(()=>{
@@ -42,7 +39,8 @@ describe('change Sale payment', () => {
     ({
       WRAPPED_AmountInBN,
       TOKEN_A_AmountBN,
-      TOKEN_B_AmountBN
+      TOKEN_B_AmountBN,
+      exchange
     } = mockBasics({
       provider: provider(blockchain),
       blockchain,
@@ -106,6 +104,41 @@ describe('change Sale payment', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    mockAmountsOut({
+      provider: provider(blockchain),
+      blockchain,
+      exchange,
+      amountInBN: '1176470588235294200',
+      path: [DAI, WETH, DEPAY],
+      amountsOut: [
+        '1176470588235294200',
+        WRAPPED_AmountInBN,
+        TOKEN_A_AmountBN
+      ]
+    })
+    mockAmountsOut({
+      provider: provider(blockchain),
+      blockchain,
+      exchange,
+      amountInBN: ethers.utils.parseUnits('1', 18),
+      path: [WETH, DEPAY],
+      amountsOut: [
+        ethers.utils.parseUnits('1', 18),
+        TOKEN_A_AmountBN
+      ]
+    })
+    mockAmountsOut({
+      provider: provider(blockchain),
+      blockchain,
+      exchange,
+      amountInBN: ethers.utils.parseUnits('1', 18),
+      path: [WETH, DAI],
+      amountsOut: [
+        ethers.utils.parseUnits('1', 18),
+        ethers.utils.parseUnits('4700', 18)
+      ]
+    })
   })
   
   describe('change payment', () => {
@@ -166,11 +199,8 @@ describe('change Sale payment', () => {
       })
     })
 
-    it('allows me to submit a changed payment for a token sale', ()=> {
-
+    it('allows me to submit a changed payment for a token donation', ()=> {
       let fromAddress = accounts[0]
-      let toAddress = fromAddress
-      
       let mockedTransaction = mock({
         blockchain,
         transaction: {
@@ -194,7 +224,7 @@ describe('change Sale payment', () => {
           DePayWidgets.Sale({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
             confirm(mockedTransaction)

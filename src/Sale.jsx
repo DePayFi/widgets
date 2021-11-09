@@ -12,6 +12,7 @@ import UpdateProvider from './providers/UpdateProvider'
 import WalletProvider from './providers/WalletProvider'
 
 let preflight = async({ sell }) => {
+  if(typeof sell != 'object') { throw('You need to configure at least 1 "blockchain": "token"') }
   if(Object.keys(sell).length == 0) { throw('You need to configure at least 1 "blockchain": "token"') }
   if(Object.values(sell).length == 0) { throw('You need to configure at least 1 "blockchain": "token"') }
 }

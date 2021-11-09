@@ -1,6 +1,7 @@
 import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
+import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -26,21 +27,15 @@ describe('currency Sale widget', () => {
   let ETH = CONSTANTS[blockchain].NATIVE
   let WETH = CONSTANTS[blockchain].WRAPPED
   let fromAddress = accounts[0]
-  let toAddress = fromAddress
+  let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   let amount = 20
-  let defaultArguments = {
-    amount: {
-      start: 20,
-      min: 1,
-      step: 1
-    },
-    token: DEPAY,
-    blockchains: [blockchain]
-  }
   let exchange
   let WRAPPED_AmountInBN
   let TOKEN_A_AmountBN
   let TOKEN_B_AmountBN
+  let defaultArguments = {
+    sell: { [blockchain]: DEPAY }
+  }
 
   beforeEach(()=>{
     
@@ -83,7 +78,7 @@ describe('currency Sale widget', () => {
       TOKEN_A_Name: 'DePay',
       TOKEN_A_Symbol: 'DEPAY',
       TOKEN_A_Amount: amount,
-      TOKEN_A_Balance: 30,
+      TOKEN_A_Balance: 0,
       
       TOKEN_B: DAI,
       TOKEN_B_Decimals: 18,
@@ -112,6 +107,31 @@ describe('currency Sale widget', () => {
       currency: 'USD',
       currencyToUSD: '1.00'
     }))
+
+    mockAmountsOut({
+      provider: provider(blockchain),
+      blockchain,
+      exchange,
+      amountInBN: '1176470588235294200',
+      path: [DAI, WETH, DEPAY],
+      amountsOut: [
+        '1176470588235294200',
+        WRAPPED_AmountInBN,
+        TOKEN_A_AmountBN
+      ]
+    })
+    mockAmountsOut({
+      provider: provider(blockchain),
+      blockchain,
+      exchange,
+      amountInBN: ethers.utils.parseUnits('1', 18),
+      path: [DAI, WETH, DEPAY],
+      amountsOut: [
+        ethers.utils.parseUnits('1', 18),
+        WRAPPED_AmountInBN,
+        TOKEN_A_AmountBN
+      ]
+    })
   })
   
   describe('currency', () => {
@@ -120,8 +140,12 @@ describe('currency Sale widget', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Sale({ ...defaultArguments, currency: 'USD', document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '$33.00')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay $33.00')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardTitle', 'Amount').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountCell', '20').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenSymbolCell', 'DEPAY').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '33').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay $1.00').should('exist')
         })
       })
     })

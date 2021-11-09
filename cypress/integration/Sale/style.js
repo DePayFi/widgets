@@ -9,7 +9,7 @@ import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
-describe('style Sale widget', () => {
+describe('style Donation widget', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -27,13 +27,7 @@ describe('style Sale widget', () => {
   let amount = 20
   let TOKEN_A_AmountBN
   let defaultArguments = {
-    amount: {
-      start: 20,
-      min: 1,
-      step: 1
-    },
-    token: DEPAY,
-    blockchains: [blockchain]
+    sell: { [blockchain]: DEPAY }
   }
 
   beforeEach(()=>{
