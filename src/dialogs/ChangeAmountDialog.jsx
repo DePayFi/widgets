@@ -1,81 +1,38 @@
+import apiKey from '../helpers/apiKey'
+import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
+import ErrorContext from '../contexts/ErrorContext'
 import format from '../helpers/format'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import React, { useContext, useState, useEffect } from 'react'
 import round from '../helpers/round'
 import Slider from 'react-rangeslider'
 import WalletContext from '../contexts/WalletContext'
+import { CONSTANTS } from 'depay-web3-constants'
+import { Currency } from 'depay-local-currency'
 import { ethers } from 'ethers'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
 import { route } from 'depay-web3-exchanges'
 import { TokenImage } from 'depay-react-token-image'
 
 export default (props)=>{
-  const { amount } = useContext(ConfigurationContext)
   const { navigate } = useContext(NavigateStackContext)
+  const { setError } = useContext(ErrorContext)
   const { account } = useContext(WalletContext)
-  const [ inputAmount, setInputAmount ] = useState(props.amount)
+  const { amount, setAmount, maxAmount } = useContext(ChangableAmountContext)
+  const [ inputAmount, setInputAmount ] = useState(amount)
+  const { currencyCode } = useContext(ConfigurationContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
-  const [ maxRoute, setMaxRoute ] = useState()
-  const [ max, setMax ] = useState(parseFloat(amount.start)*10)
-  const [ maxRouteData, setMaxRouteData ] = useState()
-
-  useEffect(()=>{
-    let sortedLowToHigh = [...allRoutes].sort((a,b)=>{
-      let aAmountsAvailable = ethers.BigNumber.from(a.fromBalance).div(ethers.BigNumber.from(a.fromAmount));
-      let bAmountsAvailable = ethers.BigNumber.from(b.fromBalance).div(ethers.BigNumber.from(b.fromAmount));
-
-      if (aAmountsAvailable.lt(bAmountsAvailable)) {
-        return -1;
-      }
-      if (bAmountsAvailable.lt(aAmountsAvailable)) {
-        return 1;
-      }
-      return 0; // equal
-    })
-
-    setMaxRoute(sortedLowToHigh[sortedLowToHigh.length-1]);
-  }, [])
-
-  useEffect(()=>{
-    if(maxRoute) {
-      return Promise.all([
-        maxRoute.fromToken.name(),
-        maxRoute.fromToken.symbol(),
-        maxRoute.toToken.decimals(),
-        maxRoute.fromToken.readable(maxRoute.fromBalance),
-        route({
-          blockchain: maxRoute.blockchain,
-          tokenIn: maxRoute.fromToken.address,
-          tokenOut: maxRoute.toToken.address,
-          amountIn: maxRoute.fromBalance,
-          fromAddress: account,
-          toAddress: account
-        }),
-      ]).then(([name, symbol, decimals, balance, routes])=>{
-        let SLIPPAGE = 1.01
-        let max = round(parseFloat(ethers.utils.formatUnits(routes[0].amountOutMin, decimals))/SLIPPAGE, 'down')
-        setMax(max)
-        setMaxRouteData({
-          name,
-          symbol,
-          balance,
-          blockchain: maxRoute.blockchain,
-          address: maxRoute.fromToken.address
-        })
-      })
-    }
-  }, [maxRoute])
 
   const changeAmountAndGoBack = ()=>{
-    props.setAmount(inputAmount)
+    setAmount(parseInt(inputAmount, 10))
     navigate('back')
   }
 
   const changeAmount = (value)=>{
     if(Number.isNaN(value)) { return }
-    setInputAmount(Math.min(value, max))
+    setInputAmount(Math.min(value, maxAmount))
   }
 
   return(
@@ -83,8 +40,8 @@ export default (props)=>{
       stacked={ true }
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS">
-          <h1 className="FontSizeL TextCenter">Change Amount</h1>
-          <div className="FontSizeL TextCenter FontWeightBold"><strong>{ props.token.symbol }</strong></div>
+          <h1 className="LineHeightL FontSizeL TextCenter">Change Amount</h1>
+          <div className="FontSizeL TextCenter FontWeightBold"><strong>{ currencyCode }</strong></div>
         </div>
       }
       body={
@@ -94,44 +51,36 @@ export default (props)=>{
               
               <div className='FontSizeL'>
                 <input
-                  max={ parseFloat(max) }
-                  min={ parseFloat(amount.min) }
-                  step={ parseFloat(amount.step) }
+                  max={ parseFloat(maxAmount) }
+                  min={ 1 }
+                  step={ 1 }
                   className='Input FontSizeXL TextAlignCenter'
                   type="number"
                   name="amount"
                   value={ parseFloat(inputAmount) }
-                  onChange={(event)=>{ changeAmount(parseFloat(event.target.value)) }}
+                  onChange={(event)=>{ changeAmount(parseInt(event.target.value, 10)) }}
                 />
               </div>
 
               <Slider
-                min={ parseFloat(amount.min) }
-                max={ parseFloat(max) }
-                step={ parseFloat(amount.step) }
+                min={ 1 }
+                max={ parseFloat(maxAmount) }
+                step={ 1 }
                 value={ parseFloat(inputAmount) }
-                onChange={(value)=>{ changeAmount(parseFloat(value)) }}
+                onChange={(value)=>{ changeAmount(parseInt(value, 10)) }}
               />
               
-              { maxRouteData &&
-                <div className="PaddingBottomS">
-                  <div>
-                    <div className="MaxAmountImage">
-                      <TokenImage
-                        blockchain={ maxRouteData.blockchain }
-                        address={ maxRouteData.address }
-                      />
-                    </div>
-                    {maxRouteData.symbol} {format(round(maxRouteData.balance, 'down'))}
-                    <button 
-                      className="TextButton"
-                      onClick={()=>{ changeAmount(max) }}
-                    >
-                      (Max)
-                    </button>
-                  </div>
+              <div style={{ height: '40px' }}>
+                <div>
+                  { format(maxAmount) }
+                  <button 
+                    className="TextButton"
+                    onClick={()=>{ changeAmount(maxAmount) }}
+                  >
+                    (Max)
+                  </button>
                 </div>
-              }
+              </div>
             </div>
           </div>
         </div>

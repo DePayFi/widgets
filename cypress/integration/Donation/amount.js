@@ -2,7 +2,7 @@ import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/basics'
-import mockPaymentValue from '../../../tests/mocks/paymentValue'
+import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
@@ -30,21 +30,17 @@ describe('change Donation amount', () => {
   let TOKEN_A_AmountBN
   let TOKEN_B_AmountBN
   let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-  let amount = 20
+  let amount = 1.8
   let exchange
   let defaultArguments = {
-    amount: {
-      start: 20,
-      min: 1,
-      step: 1
-    },
-    token: DEPAY,
-    blockchains: [blockchain],
-    receiver: toAddress
+    accept:[{
+      blockchain,
+      token: DEPAY,
+      receiver: toAddress
+    }]
   }
 
   beforeEach(()=>{
-    
     ({
       WRAPPED_AmountInBN,
       TOKEN_A_AmountBN,
@@ -53,7 +49,6 @@ describe('change Donation amount', () => {
     } = mockBasics({
       provider: provider(blockchain),
       blockchain,
-
       fromAddress: accounts[0],
       fromAddressAssets: [
         {
@@ -77,20 +72,20 @@ describe('change Donation amount', () => {
       toAddress,
 
       exchange: 'uniswap_v2',
-      NATIVE_Balance: 1,
+      NATIVE_Balance: 0,
 
       TOKEN_A: DEPAY,
       TOKEN_A_Decimals: 18,
       TOKEN_A_Name: 'DePay',
       TOKEN_A_Symbol: 'DEPAY',
       TOKEN_A_Amount: amount,
-      TOKEN_A_Balance: 30,
+      TOKEN_A_Balance: 0,
       
       TOKEN_B: DAI,
       TOKEN_B_Decimals: 18,
       TOKEN_B_Name: 'Dai Stablecoin',
       TOKEN_B_Symbol: 'DAI',
-      TOKEN_B_Amount: 33,
+      TOKEN_B_Amount: 1.16,
       TOKEN_B_Balance: 50,
       TOKEN_B_Allowance: CONSTANTS[blockchain].MAXINT,
 
@@ -99,7 +94,7 @@ describe('change Donation amount', () => {
       TOKEN_A_WRAPPED_Pair: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d',
 
       WRAPPED_AmountIn: 0.01,
-      USD_AmountOut: 33,
+      USD_AmountOut: 1.16,
 
       timeZone: 'Europe/Berlin',
       stubTimeZone: (timeZone)=> {
@@ -114,36 +109,56 @@ describe('change Donation amount', () => {
       currencyToUSD: '0.85'
     }))
 
-    mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [ethers.utils.parseUnits('1', 18), [WETH, DEPAY]], return: [WRAPPED_AmountInBN, ethers.utils.parseUnits('2000', 18)] }})
+    mockAmountsOut({
+      provider: provider(blockchain),
+      blockchain,
+      exchange,
+      amountInBN: '1176470588235294200',
+      path: [DAI, WETH, DEPAY],
+      amountsOut: [
+        '1176470588235294200',
+        WRAPPED_AmountInBN,
+        TOKEN_A_AmountBN
+      ]
+    })
   })
   
   describe('change amount', () => {
 
     it('allows me to change the amount freely by entering it into an input field', ()=> {
-      mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('10', 18), [WETH, DEPAY]], return: [ethers.utils.parseUnits('0.005', 18), ethers.utils.parseUnits('10', 18)] }})
-      mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('10', 18), [DAI, WETH, DEPAY]], return: [ethers.utils.parseUnits('16.5', 18), ethers.utils.parseUnits('0.005', 18), ethers.utils.parseUnits('10', 18)] }})
-      mockPaymentValue({
+      mockAmountsOut({
         provider: provider(blockchain),
         blockchain,
         exchange,
-        amountInBN: ethers.utils.parseUnits('10', 18),
-        path: [DEPAY, WETH, DAI],
+        amountInBN: '11764705882352942000',
+        path: [DAI, WETH, DEPAY],
         amountsOut: [
-          ethers.utils.parseUnits('10', 18),
-          ethers.utils.parseUnits('0.005', 18),
-          ethers.utils.parseUnits('16.5', 18)
+          '11764705882352942000',
+          WRAPPED_AmountInBN.mul(10),
+          TOKEN_A_AmountBN.mul(10)
         ]
       })
-      mockPaymentValue({
+      mock({
+        provider: provider(blockchain),
+        blockchain,
+        call: {
+          to: exchange.contracts.router.address,
+          api: exchange.contracts.router.api,
+          method: 'getAmountsIn',
+          params: [ethers.utils.parseUnits('18', 18), [DAI, WETH, DEPAY]],
+          return: [ethers.utils.parseUnits('18', 18), ethers.utils.parseUnits('0.05', 18), ethers.utils.parseUnits('11.6', 18)]
+        }
+      })
+      mockAmountsOut({
         provider: provider(blockchain),
         blockchain,
         exchange,
-        amountInBN: ethers.utils.parseUnits('99', 18),
+        amountInBN: ethers.utils.parseUnits('18', 18),
         path: [DEPAY, WETH, DAI],
         amountsOut: [
-          ethers.utils.parseUnits('99', 18),
-          ethers.utils.parseUnits('0.0495', 18),
-          ethers.utils.parseUnits('163.35', 18)
+          ethers.utils.parseUnits('18', 18),
+          ethers.utils.parseUnits('0.05', 18),
+          ethers.utils.parseUnits('11.6', 18)
         ]
       })
 
@@ -154,34 +169,60 @@ describe('change Donation amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('{selectall}')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('10', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
-
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardTitle', 'Amount').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountCell', '10').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenSymbolCell', 'DEPAY').should('exist')
-
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '0.005').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'ETH').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.CardText small', '€14.03').should('exist')
-          
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €14.03').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountRow', '€10.00').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '18').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €10.00').should('exist')
         })
       })
     })
 
     it('allows me to change the amount freely by using a range slider', ()=> {
-      mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('990', 18), [WETH, DEPAY]], return: [ethers.utils.parseUnits('0.495', 18), ethers.utils.parseUnits('990', 18)] }})
-      mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('990', 18), [DAI, WETH, DEPAY]], return: [ethers.utils.parseUnits('1633.5', 18), ethers.utils.parseUnits('0.495', 18), ethers.utils.parseUnits('990', 18)] }})
-      mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [ethers.utils.parseUnits('1', 18), [WETH, DEPAY]], return: [WRAPPED_AmountInBN, ethers.utils.parseUnits('2000', 18)] }})
-      mockPaymentValue({
+      mockAmountsOut({
         provider: provider(blockchain),
         blockchain,
         exchange,
-        amountInBN: ethers.utils.parseUnits('990', 18),
+        amountInBN: '25882352941176470000',
+        path: [DAI, WETH, DEPAY],
+        amountsOut: [
+          '25882352941176470000',
+          WRAPPED_AmountInBN.mul(20),
+          TOKEN_A_AmountBN.mul(20)
+        ]
+      })
+      mock({
+        provider: provider(blockchain),
+        blockchain,
+        call: {
+          to: exchange.contracts.router.address,
+          api: exchange.contracts.router.api,
+          method: 'getAmountsIn',
+          params: [ethers.utils.parseUnits('36', 18), [WETH, DEPAY]],
+          return: [ethers.utils.parseUnits('36', 18), ethers.utils.parseUnits('0.1', 18)]
+        }
+      })
+      mock({
+        provider: provider(blockchain),
+        blockchain,
+        call: {
+          to: exchange.contracts.router.address,
+          api: exchange.contracts.router.api,
+          method: 'getAmountsIn',
+          params: [ethers.utils.parseUnits('36', 18), [DAI, WETH, DEPAY]],
+          return: [ethers.utils.parseUnits('36', 18), ethers.utils.parseUnits('0.1', 18), ethers.utils.parseUnits('36', 18)]
+        }
+      })
+      mockAmountsOut({
+        provider: provider(blockchain),
+        blockchain,
+        exchange,
+        amountInBN: ethers.utils.parseUnits('36', 18),
         path: [DEPAY, WETH, DAI],
         amountsOut: [
-          ethers.utils.parseUnits('990', 18),
-          ethers.utils.parseUnits('0.495', 18),
-          ethers.utils.parseUnits('1633.50', 18)
+          ethers.utils.parseUnits('36', 18),
+          ethers.utils.parseUnits('0.1', 18),
+          ethers.utils.parseUnits('21.1', 18)
         ]
       })
 
@@ -193,32 +234,59 @@ describe('change Donation amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
 
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardTitle', 'Amount').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountCell', '990').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenSymbolCell', 'DEPAY').should('exist')
-
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '0.5').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'ETH').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.CardText small', '€1,388.48').should('exist')
-          
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €1,388.48').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountRow', '€22.00').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '36').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €22.00').should('exist')
         })
       })
     })
 
     it('allows me to quickly select the max amount that I can buy', ()=> {
-      mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [ethers.utils.parseUnits('1', 18), [WETH, DEPAY]], return: [WRAPPED_AmountInBN, ethers.utils.parseUnits('2000', 18)] }})
-      mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('1980.19', 18), [WETH, DEPAY]], return: [ethers.utils.parseUnits('1', 18), ethers.utils.parseUnits('1980.19', 18)] }})
-      mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('1980.19', 18), [DAI, WETH, DEPAY]], return: [ethers.utils.parseUnits('3267', 18), ethers.utils.parseUnits('1', 18), ethers.utils.parseUnits('1980.19', 18)] }})
-      mockPaymentValue({
+      mockAmountsOut({
         provider: provider(blockchain),
         blockchain,
         exchange,
-        amountInBN: ethers.utils.parseUnits('1980.19', 18),
+        amountInBN: '50588235294117650000',
+        path: [DAI, WETH, DEPAY],
+        amountsOut: [
+          '50588235294117650000',
+          WRAPPED_AmountInBN.mul(5),
+          TOKEN_A_AmountBN.mul(5)
+        ]
+      })
+      mock({
+        provider: provider(blockchain),
+        blockchain,
+        call: {
+          to: exchange.contracts.router.address,
+          api: exchange.contracts.router.api,
+          method: 'getAmountsIn',
+          params: [ethers.utils.parseUnits('9', 18), [WETH, DEPAY]],
+          return: [ethers.utils.parseUnits('9', 18), ethers.utils.parseUnits('0.03', 18)]
+        }
+      })
+      mock({
+        provider: provider(blockchain),
+        blockchain,
+        call: {
+          to: exchange.contracts.router.address,
+          api: exchange.contracts.router.api,
+          method: 'getAmountsIn',
+          params: [ethers.utils.parseUnits('9', 18), [DAI, WETH, DEPAY]],
+          return: [ethers.utils.parseUnits('9', 18), ethers.utils.parseUnits('0.03', 18), ethers.utils.parseUnits('9', 18)]
+        }
+      })
+      mockAmountsOut({
+        provider: provider(blockchain),
+        blockchain,
+        exchange,
+        amountInBN: ethers.utils.parseUnits('9', 18),
         path: [DEPAY, WETH, DAI],
         amountsOut: [
-          ethers.utils.parseUnits('1980.19', 18),
-          ethers.utils.parseUnits('0.99', 18),
-          ethers.utils.parseUnits('3267', 18)
+          ethers.utils.parseUnits('36', 18),
+          ethers.utils.parseUnits('0.1', 18),
+          ethers.utils.parseUnits('5.25', 18)
         ]
       })
 
@@ -230,19 +298,15 @@ describe('change Donation amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
 
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardTitle', 'Amount').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountCell', '1,980.19').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenSymbolCell', 'DEPAY').should('exist')
-
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '1').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'ETH').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.CardText small', '€2,776.95').should('exist')
-          
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €2,776.95').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountRow', '€43.00').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '9').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €43.00').should('exist')
         })
       })
     })
 
-    it('allows me to navigate back to the sale overview', ()=> {
+    it('allows me to navigate back to the overview', ()=> {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Donation({ ...defaultArguments, document })
@@ -266,9 +330,7 @@ describe('change Donation amount', () => {
     })
 
     it('allows me to submit a changed amount for a token sale', ()=> {
-
       let fromAddress = accounts[0]
-      
       let mockedTransaction = mock({
         blockchain,
         transaction: {
@@ -277,28 +339,47 @@ describe('change Donation amount', () => {
           api: routers[blockchain].api,
           method: 'route',
           params: {
-            path: [CONSTANTS[blockchain].NATIVE, DEPAY],
-            amounts: [ethers.utils.parseUnits('0.005', 18), ethers.utils.parseUnits('10', 18), anything],
+            path: [DAI, WETH, DEPAY],
+            amounts: [ethers.utils.parseUnits('18', 18), ethers.utils.parseUnits('18', 18), anything],
             addresses: [fromAddress, toAddress],
             plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
             data: []
           }
         }
       })
-
-      mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsOut', params: [ethers.utils.parseUnits('1', 18), [WETH, DEPAY]], return: [WRAPPED_AmountInBN, ethers.utils.parseUnits('2000', 18)] }})
-      mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('10', 18), [WETH, DEPAY]], return: [ethers.utils.parseUnits('0.005', 18), ethers.utils.parseUnits('10', 18)] }})
-      mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('10', 18), [DAI, WETH, DEPAY]], return: [ethers.utils.parseUnits('16.5', 18), ethers.utils.parseUnits('0.005', 18), ethers.utils.parseUnits('10', 18)] }})
-      mockPaymentValue({
+      mockAmountsOut({
         provider: provider(blockchain),
         blockchain,
         exchange,
-        amountInBN: ethers.utils.parseUnits('10', 18),
+        amountInBN: '11764705882352942000',
+        path: [DAI, WETH, DEPAY],
+        amountsOut: [
+          '11764705882352942000',
+          WRAPPED_AmountInBN.mul(10),
+          TOKEN_A_AmountBN.mul(10)
+        ]
+      })
+      mock({
+        provider: provider(blockchain),
+        blockchain,
+        call: {
+          to: exchange.contracts.router.address,
+          api: exchange.contracts.router.api,
+          method: 'getAmountsIn',
+          params: [ethers.utils.parseUnits('18', 18), [DAI, WETH, DEPAY]],
+          return: [ethers.utils.parseUnits('18', 18), ethers.utils.parseUnits('0.05', 18), ethers.utils.parseUnits('11.6', 18)]
+        }
+      })
+      mockAmountsOut({
+        provider: provider(blockchain),
+        blockchain,
+        exchange,
+        amountInBN: ethers.utils.parseUnits('18', 18),
         path: [DEPAY, WETH, DAI],
         amountsOut: [
-          ethers.utils.parseUnits('10', 18),
-          ethers.utils.parseUnits('0.005', 18),
-          ethers.utils.parseUnits('16.5', 18)
+          ethers.utils.parseUnits('18', 18),
+          ethers.utils.parseUnits('0.05', 18),
+          ethers.utils.parseUnits('11.6', 18)
         ]
       })
 
@@ -311,14 +392,12 @@ describe('change Donation amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
 
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardTitle', 'Amount').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountCell', '10').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenSymbolCell', 'DEPAY').should('exist')
-
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '0.005').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'ETH').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.CardText small', '€14.03').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountRow', '€10.00').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '18').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €10.00').should('exist')
           
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €14.03').click().then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €10.00').click().then(()=>{
             confirm(mockedTransaction)
             expect(mockedTransaction.calls.count()).to.eq(1)
           })

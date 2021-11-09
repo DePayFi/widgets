@@ -1,7 +1,7 @@
 import ChevronRight from '../components/ChevronRight'
 import Dialog from '../components/Dialog'
 import React, { useState, useEffect, useContext } from 'react'
-import { getWallet, supported, wallets } from 'depay-web3-wallets'
+import { getWallet, wallets } from 'depay-web3-wallets'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
 
 export default (props)=>{
@@ -54,7 +54,7 @@ export default (props)=>{
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <h1 className="FontSizeL TextLeft">Select a wallet</h1>
+          <h1 className="LineHeightL FontSizeL TextLeft">Select a wallet</h1>
         </div>
       }
       body={

@@ -27,13 +27,7 @@ describe('unmount Sale widget', () => {
   let amount = 20
   let TOKEN_A_AmountBN
   let defaultArguments = {
-    amount: {
-      start: 20,
-      min: 1,
-      step: 1
-    },
-    token: DEPAY,
-    blockchains: [blockchain]
+    sell: { [blockchain]: DEPAY }
   }
 
   beforeEach(()=>{
@@ -93,7 +87,7 @@ describe('unmount Sale widget', () => {
     }))
   })
   
-  it('unmount', () => {
+  it('allows you to unmount the widget', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then(async (document)=>{

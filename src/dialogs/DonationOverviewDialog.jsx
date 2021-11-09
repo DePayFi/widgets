@@ -1,26 +1,25 @@
+import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import Checkmark from '../components/Checkmark'
 import ChevronRight from '../components/ChevronRight'
 import ClosableContext from '../contexts/ClosableContext'
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
+import DonationOverviewSkeleton from '../skeletons/DonationOverviewSkeleton'
 import format from '../helpers/format'
 import LoadingText from '../components/LoadingText'
 import PaymentContext from '../contexts/PaymentContext'
-import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
-import DonationOverviewSkeleton from '../skeletons/DonationOverviewSkeleton'
-import DonationRoutingContext from '../contexts/DonationRoutingContext'
 import UpdateContext from '../contexts/UpdateContext'
 import { Currency } from 'depay-local-currency'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
 import { TokenImage } from 'depay-react-token-image'
 
 export default (props)=>{
-
+  const { currencyCode } = useContext(ConfigurationContext)
+  const { amount } = useContext(ChangableAmountContext)
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
-  const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
-  const { donatedToken, donatedAmount } = useContext(DonationRoutingContext)
 
   const mainAction = ()=> {
     if(paymentState == 'initialized' || paymentState == 'approving') {
@@ -32,7 +31,7 @@ export default (props)=>{
             pay({ navigate })
           }}
         >
-          Pay { paymentValue.toString().length ? paymentValue.toString() : `${payment.amount}` }
+          Pay { new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString() }
         </button>
       )
     } else if (paymentState == 'paying') {
@@ -78,17 +77,14 @@ export default (props)=>{
   }
 
   if(
-    donatedToken == undefined ||
-    donatedAmount == undefined ||
-    payment == undefined ||
-    paymentValue == undefined
+    payment == undefined
   ) { return(<DonationOverviewSkeleton/>) }
 
   return(
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <h1 className="FontSizeL TextLeft">Donation</h1>
+          <h1 className="LineHeightL FontSizeL TextLeft">Donation</h1>
         </div>
       }
       body={
@@ -101,12 +97,6 @@ export default (props)=>{
               navigate('ChangeAmount')
             } }
           >
-            <div className="CardImage" title={ payment.name }>
-              <TokenImage
-                blockchain={ payment.route.blockchain }
-                address={ donatedToken.address }
-              />
-            </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">
                 <h4 className="CardTitle">
@@ -114,13 +104,7 @@ export default (props)=>{
                 </h4>
                 <h2 className="CardText">
                   <div className="TokenAmountRow">
-                    <span className="TokenSymbolCell">
-                      { donatedToken.symbol }
-                    </span>
-                    <span>&nbsp;</span>
-                    <span className="TokenAmountCell">
-                    { format(donatedAmount) }
-                    </span>
+                    { new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString() }
                   </div>
                 </h2>
               </div>
@@ -159,11 +143,6 @@ export default (props)=>{
                     </span>
                   </div>
                 </h2>
-                { paymentValue.toString().length &&
-                  <h3 className="CardText">
-                    <small>{ paymentValue.toString() }</small>
-                  </h3>
-                }
               </div>
             </div>
             <div className="CardAction">

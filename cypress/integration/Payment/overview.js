@@ -2,7 +2,7 @@ import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/basics'
-import mockPaymentValue from '../../../tests/mocks/paymentValue'
+import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
@@ -215,7 +215,7 @@ describe('overview Payment', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
           cy.wait(2000).then(()=>{
             let NEW_USD_AmountOutBN = ethers.utils.parseUnits('35', 18)
-            mockPaymentValue({
+            mockAmountsOut({
               provider: provider(blockchain),
               blockchain,
               exchange,
@@ -244,7 +244,7 @@ describe('overview Payment', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
           cy.wait(2000).then(()=>{
             let NEW_USD_AmountOutBN = ethers.utils.parseUnits('35', 18)
-            mockPaymentValue({
+            mockAmountsOut({
               provider: provider(blockchain),
               blockchain,
               exchange,

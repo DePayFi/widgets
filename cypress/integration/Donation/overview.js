@@ -2,7 +2,7 @@ import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/basics'
-import mockPaymentValue from '../../../tests/mocks/paymentValue'
+import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
@@ -28,16 +28,13 @@ describe('overview Donation payment', () => {
   let WETH = CONSTANTS[blockchain].WRAPPED
   let fromAddress = accounts[0]
   let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-  let amount = 20
+  let amount = 1.8
   let defaultArguments = {
-    amount: {
-      start: 20,
-      min: 1,
-      step: 1
-    },
-    token: DEPAY,
-    blockchains: [blockchain],
-    receiver: toAddress
+    accept:[{
+      blockchain,
+      token: DEPAY,
+      receiver: toAddress
+    }]
   }
   let exchange
   let WRAPPED_AmountInBN
@@ -45,7 +42,6 @@ describe('overview Donation payment', () => {
   let TOKEN_B_AmountBN
 
   beforeEach(()=>{
-    
     ({ 
       exchange,
       TOKEN_A_AmountBN,
@@ -54,7 +50,6 @@ describe('overview Donation payment', () => {
     } = mockBasics({
       provider: provider(blockchain),
       blockchain,
-
       fromAddress,
       fromAddressAssets: [
         {
@@ -85,13 +80,13 @@ describe('overview Donation payment', () => {
       TOKEN_A_Name: 'DePay',
       TOKEN_A_Symbol: 'DEPAY',
       TOKEN_A_Amount: amount,
-      TOKEN_A_Balance: 30,
+      TOKEN_A_Balance: 0,
       
       TOKEN_B: DAI,
       TOKEN_B_Decimals: 18,
       TOKEN_B_Name: 'Dai Stablecoin',
       TOKEN_B_Symbol: 'DAI',
-      TOKEN_B_Amount: 33,
+      TOKEN_B_Amount: 1.16,
       TOKEN_B_Balance: 50,
       TOKEN_B_Allowance: CONSTANTS[blockchain].MAXINT,
 
@@ -100,7 +95,7 @@ describe('overview Donation payment', () => {
       TOKEN_A_WRAPPED_Pair: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d',
 
       WRAPPED_AmountIn: 0.01,
-      USD_AmountOut: 33,
+      USD_AmountOut: 1.16,
 
       timeZone: 'Europe/Berlin',
       stubTimeZone: (timeZone)=> {
@@ -114,6 +109,19 @@ describe('overview Donation payment', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    mockAmountsOut({
+      provider: provider(blockchain),
+      blockchain,
+      exchange,
+      amountInBN: '1176470588235294200',
+      path: [DAI, WETH, DEPAY],
+      amountsOut: [
+        '1176470588235294200',
+        WRAPPED_AmountInBN,
+        TOKEN_A_AmountBN
+      ]
+    })
   })
 
   it('calls the closed callback if user closes the dialog', () => {
@@ -175,19 +183,16 @@ describe('overview Donation payment', () => {
       })
     })
     
-    it('loads the most cost-effective route to pay for a token donation', () => {
+    it('shows an overview of the donation using the most cost-effective payment route', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Donation({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"] .TokenAmountCell').should('contain', '20')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"] .TokenSymbolCell').should('contain', 'DEPAY')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"] .CardImage img').invoke('attr', 'src').should('eq', 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb/logo.png')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"] .CardTitle').should('contain', 'Amount')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"] .TokenAmountRow').should('contain', '€1.00')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"] .CardTitle').should('contain', 'Payment')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"] .TokenAmountCell').should('contain', '33')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"] .TokenAmountCell').should('contain', '1.16')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"] .TokenSymbolCell').should('contain', 'DAI')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"] .CardText small').should('contain', '€28.05')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"] .CardImage img').invoke('attr', 'src').should('eq', 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €1.00')
         })
       })
     })
@@ -196,7 +201,7 @@ describe('overview Donation payment', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Donation({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €1.00')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
         })
@@ -215,15 +220,17 @@ describe('overview Donation payment', () => {
 
   describe('updating', () => {
 
-    it('updates payment routes every 15s as prices can change', () => {
+    it('updates payment routes every 15s as prices can change, but selected donation amount in local currency stays the same', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Donation({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €1.00')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"] .TokenAmountCell').should('contain', '1.16')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"] .TokenSymbolCell').should('contain', 'DAI')
           cy.wait(2000).then(()=>{
-            let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('35', 18)
-            let NEW_USD_AmountOutBN = ethers.utils.parseUnits('35', 18)
-            mockPaymentValue({
+            let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('1.40', 18)
+            let NEW_USD_AmountOutBN = ethers.utils.parseUnits('1.40', 18)
+            mockAmountsOut({
               provider: provider(blockchain),
               blockchain,
               exchange,
@@ -238,10 +245,11 @@ describe('overview Donation payment', () => {
             mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
           })
           cy.wait(15000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '35')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"] .CardTitle').should('contain', 'Amount')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '1.4')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '€29.75')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €29.75')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"] .TokenAmountRow').should('contain', '€1.00')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €1.00')
           })
         })
       })
@@ -274,16 +282,15 @@ describe('overview Donation payment', () => {
           cy.wait(2000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '1.16')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '€28.05')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €28.05').click()
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €1.00')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €1.00').click()
             cy.wait(2000).then(()=>{
-              let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('35', 18)
+              let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('1.40', 18)
               mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
-              let NEW_USD_AmountOutBN = ethers.utils.parseUnits('35', 18)
-              mockPaymentValue({
+              let NEW_USD_AmountOutBN = ethers.utils.parseUnits('1.40', 18)
+              mockAmountsOut({
                 provider: provider(blockchain),
                 blockchain,
                 exchange,
@@ -297,9 +304,8 @@ describe('overview Donation payment', () => {
               })
             })
             cy.wait(15000).then(()=>{
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '1.16') // it is not supposed to update after payment execution
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '€28.05')
               confirm(mockedTransaction)
             })
           })

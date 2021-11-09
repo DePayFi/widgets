@@ -9,7 +9,7 @@ import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
 import { Token } from 'depay-web3-tokens'
 
-describe('having no wallet and opening the Payment widget', () => {
+describe('having no wallet and opening the Sale widget', () => {
 
   beforeEach(resetMocks)
   beforeEach(()=>fetchMock.restore())
@@ -19,13 +19,7 @@ describe('having no wallet and opening the Payment widget', () => {
   let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   let amount = 20
   let defaultArguments = {
-    amount: {
-      start: 20,
-      min: 1,
-      step: 1
-    },
-    token: DEPAY,
-    blockchains: [blockchain]
+    sell: { [blockchain]: DEPAY }
   }
 
   it('shows you a list of wallets and allows to connect them', () => {

@@ -1,9 +1,11 @@
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
+import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
+import { ethers } from 'ethers'
 import { mock, confirm, resetMocks, anything } from 'depay-web3-mock'
 import { resetCache, provider } from 'depay-web3-client'
 import { routers, plugins } from 'depay-web3-payments'
@@ -24,21 +26,20 @@ describe('blacklist available means of payment for Sale', () => {
   let WETH = CONSTANTS[blockchain].WRAPPED
   let WRAPPED_AmountInBN
   let TOKEN_A_AmountBN
+  let exchange
   let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-  let amount = 20
+  let amount = 1.8
   let defaultArguments = {
-   amount: {
-      start: 20,
-      min: 1,
-      step: 1
-    },
-    token: DEPAY,
-    blockchains: [blockchain]
+    sell: { [blockchain]: DEPAY }
   }
 
   beforeEach(()=>{
     
-    ({ WRAPPED_AmountInBN, TOKEN_A_AmountBN } = mockBasics({
+    ({ 
+      WRAPPED_AmountInBN,
+      TOKEN_A_AmountBN,
+      exchange
+    } = mockBasics({
       provider: provider(blockchain),
       blockchain,
 
@@ -72,13 +73,13 @@ describe('blacklist available means of payment for Sale', () => {
       TOKEN_A_Name: 'DePay',
       TOKEN_A_Symbol: 'DEPAY',
       TOKEN_A_Amount: amount,
-      TOKEN_A_Balance: 30,
+      TOKEN_A_Balance: 0,
       
       TOKEN_B: DAI,
       TOKEN_B_Decimals: 18,
       TOKEN_B_Name: 'Dai Stablecoin',
       TOKEN_B_Symbol: 'DAI',
-      TOKEN_B_Amount: 33,
+      TOKEN_B_Amount: 1.16,
       TOKEN_B_Balance: 50,
 
       TOKEN_A_TOKEN_B_Pair: CONSTANTS[blockchain].ZERO,
@@ -100,11 +101,47 @@ describe('blacklist available means of payment for Sale', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    mockAmountsOut({
+      provider: provider(blockchain),
+      blockchain,
+      exchange,
+      amountInBN: '1176470588235294200',
+      path: [DAI, WETH, DEPAY],
+      amountsOut: [
+        '1176470588235294200',
+        WRAPPED_AmountInBN,
+        TOKEN_A_AmountBN
+      ]
+    })
   })
   
   describe('blacklist fromTokens', () => {
 
     it('allows to blacklist fromTokens to only route those for payments', ()=> {
+      mockAmountsOut({
+        provider: provider(blockchain),
+        blockchain,
+        exchange,
+        amountInBN: ethers.utils.parseUnits('1', 18),
+        path: [WETH, DEPAY],
+        amountsOut: [
+          ethers.utils.parseUnits('1', 18),
+          TOKEN_A_AmountBN
+        ]
+      })
+      mockAmountsOut({
+        provider: provider(blockchain),
+        blockchain,
+        exchange,
+        amountInBN: ethers.utils.parseUnits('1', 18),
+        path: [WETH, DAI],
+        amountsOut: [
+          ethers.utils.parseUnits('1', 18),
+          ethers.utils.parseUnits('4700', 18)
+        ]
+      })
+
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Sale({ ...defaultArguments, document,

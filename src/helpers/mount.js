@@ -25,6 +25,7 @@ export default ({ style, document, closed }, content)=> {
       left: 0;
       bottom: 0;
       right: 0;
+      z-index: 99999;
     `,
   })
 

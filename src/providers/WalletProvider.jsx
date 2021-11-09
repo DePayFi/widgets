@@ -11,7 +11,6 @@ export default (props)=>{
   const [account, setAccount] = useState()
   const [walletState, setWalletState] = useState()
   const connected = ({ account, wallet })=> {
-    console.log('connected')
     setAccount(account)
     setWallet(wallet)
     setWalletState('connected')

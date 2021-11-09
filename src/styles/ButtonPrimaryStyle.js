@@ -8,7 +8,6 @@ export default (style)=>{
       border-radius: 9999rem;
       border: 1px solid transparent;
       box-shadow: 0 0 16px rgba(0,0,0,0.1);
-      color: ${style.colors.buttonText};
       font-size: 1.3rem;
       font-weight: 400;
       height: 2.8rem;
@@ -24,6 +23,10 @@ export default (style)=>{
       transition: background 0.1s;
       vertical-align: middle;
       display: inline-block;
+    }
+
+    .ButtonPrimary, .ButtonPrimary * {
+      color: ${style.colors.buttonText};
     }
 
     .ButtonPrimary.round {

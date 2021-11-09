@@ -1,6 +1,5 @@
 import Dialog from '../components/Dialog'
 import React, { useState, useContext } from 'react'
-import { getWallet } from 'depay-web3-wallets'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
 
 export default (props)=> {
@@ -21,7 +20,7 @@ export default (props)=> {
                 <img className="Graphic" src={walletLogo}/>
               </div>
             }
-            <h1 className="Text FontSizeL FontWeightBold PaddingTopS">Connect Wallet</h1>
+            <h1 className="LineHeightL Text FontSizeL FontWeightBold PaddingTopS">Connect Wallet</h1>
             <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
               <strong className="FontSizeM PaddingLeftM PaddingRightM">
                 Your wallet is already open and asking for permission to connect.
@@ -43,7 +42,7 @@ export default (props)=> {
                 <img className="Graphic" src={walletLogo}/>
               </div>
             }
-            <h1 className="Text FontSizeL FontWeightBold PaddingTopS">Connect Wallet</h1>
+            <h1 className="LineHeightL Text FontSizeL FontWeightBold PaddingTopS">Connect Wallet</h1>
             <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
               <p className="FontSizeM PaddingLeftM PaddingRightM">
                 Access to your wallet is required. Please login and authorize access to your account to continue.

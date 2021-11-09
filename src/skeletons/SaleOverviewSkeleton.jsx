@@ -7,15 +7,15 @@ export default (props)=>{
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <h1 className="FontSizeL TextLeft">Purchase</h1>
+          <h1 className="LineHeightL FontSizeL TextLeft">Purchase</h1>
         </div>
       }
       body={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
-          <div className="Card Skeleton">
+          <div className="Card Skeleton" style={{ height: '100px' }}>
             <div className="SkeletonBackground"/>
           </div>
-          <div className="Card Skeleton" style={{ height: '100px' }}>
+          <div className="Card Skeleton">
             <div className="SkeletonBackground"/>
           </div>
         </div>

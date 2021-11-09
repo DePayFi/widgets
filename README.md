@@ -512,55 +512,51 @@ In order to sell tokens in a decentralized way, that token needs to have a liqui
 
 ```javascript
 DePayWidgets.Sale({
-  amount: {
-    start: 10,
-    min: 1,
-    step: 1
-  },
-  token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-  blockchains: ['ethereum']
+  sell: {
+    'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
+  }
 });
 ```
 
 ### Configuration
 
-You need to pass a configuration object to `DePayWidgets.Sale` which needs to at least contain `amount.start`, `amount.min`, `amount.step`, `token` and `blockchains`:
+You need to pass a configuration object to `DePayWidgets.Sale` which needs to at least contain the `sell` field:
 
 ```javascript
 DePayWidgets.Sale({
-  amount: {
-    start: 10,
-    min: 1,
-    step: 1
-  },
-  token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-  blockchains: ['ethereum']
+  sell: {
+    'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
+  }
 });
 ```
 
-You can also sell the same token on multiple blockchains:
+You can also sell on multiple blockchains:
 
 ```javascript
 DePayWidgets.Sale({
-  amount: {
-    start: 10,
-    min: 1,
-    step: 1
-  },
-  token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-  blockchains: ['ethereum', 'bsc']
+  sell: {
+    'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+    'bsc': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
+  }
 });
 ```
 
-#### amount
+#### sell
 
-The amount object contains the amount of preselected tokens when the widget opens (`start`),
-the minimum amount of tokens the user can select in the widget (`min`) and
-by which number the amount increments/decrements when changed by the user (`step`).
+`"blockchain": "token"`
 
-#### token
+The blockchain you want to receive the payment on.
+
+Currently supported:
+
+- `ethereum`
+- `bsc` (Binance Smart Chain)
+
+`token`
 
 The address of the token you want to sell.
+
+Use our [sale configurator](https://depay.fi/documentation/sales#sale-configurator) in order to simplify configuring this.
 
 #### connected
 
@@ -870,31 +866,25 @@ In order to receive decentralized donation payments on any blockchain you need t
 
 ```javascript
 DePayWidgets.Donation({
-  amount: {
-    start: 10,
-    min: 1,
-    step: 1
-  },
-  token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-  blockchains: ['ethereum'],
-  receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  accept: [{
+    blockchain: 'ethereum',
+    token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+    receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  }]
 });
 ```
 
 ### Configuration
 
-You need to pass a configuration object to `DePayWidgets.Donation` which needs to at least contain `amount.start`, `amount.min`, `amount.step`, `token`, `blockchains` and `receiver`:
+You need to pass a configuration object to `DePayWidgets.Donation` which needs to at least contain the `accept` field:
 
 ```javascript
 DePayWidgets.Donation({
-  amount: {
-    start: 10,
-    min: 1,
-    step: 1
-  },
-  token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-  blockchains: ['ethereum'],
-  receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  accept: [{
+    blockchain: 'ethereum',
+    token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+    receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  }]
 });
 ```
 
@@ -902,30 +892,38 @@ You can also accept donations on multiple blockchains:
 
 ```javascript
 DePayWidgets.Donation({
-  amount: {
-    start: 10,
-    min: 1,
-    step: 1
-  },
-  token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-  blockchains: ['ethereum', 'bsc'],
-  receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  accept: [{
+    blockchain: 'ethereum',
+    token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+    receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  },{
+    blockchain: 'bsc',
+    token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+    receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  }]
 });
 ```
 
-#### amount
+#### accept
 
-The amount object contains the amount of preselected tokens when the widget opens (`start`),
-the minimum amount of tokens the user can select in the widget (`min`) and
-by which number the amount increments/decrements when changed by the user (`step`).
+`blockchain`
 
-#### token
+The blockchain you want to receive the payment on.
 
-The address of the token you want to sell.
+Currently supported:
 
-#### receiver
+- `ethereum`
+- `bsc` (Binance Smart Chain)
 
-The address supposed to receive the donation.
+`token`
+
+The address of the token you want to receive.
+
+Use our [donation configurator](https://depay.fi/documentation/donations#donation-configurator) in order to simplify configuring this.
+
+`receiver`
+
+The address receiving the donation. Always double check that you've set the right address.
 
 #### connected
 
@@ -1266,7 +1264,7 @@ test:cypress:debug
 Test and debug single cypress file:
 
 ```
-yarn test:cypress:debug --spec "cypress/integration/Payment/nowallet.js"
+yarn test:cypress:debug --spec "cypress/integration/Donation/overview.js"
 ```
 
 ### Release new versions to npm

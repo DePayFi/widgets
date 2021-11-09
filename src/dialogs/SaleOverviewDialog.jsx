@@ -1,6 +1,8 @@
+import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import Checkmark from '../components/Checkmark'
 import ChevronRight from '../components/ChevronRight'
 import ClosableContext from '../contexts/ClosableContext'
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import format from '../helpers/format'
 import LoadingText from '../components/LoadingText'
@@ -8,20 +10,21 @@ import PaymentContext from '../contexts/PaymentContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
 import SaleOverviewSkeleton from '../skeletons/SaleOverviewSkeleton'
-import SaleRoutingContext from '../contexts/SaleRoutingContext'
+import ToTokenContext from '../contexts/ToTokenContext'
 import { Currency } from 'depay-local-currency'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
 import { TokenImage } from 'depay-react-token-image'
 
 export default (props)=>{
-
-  const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
+  const { amount } = useContext(ChangableAmountContext)
+  const { currencyCode } = useContext(ConfigurationContext)
   const { paymentValue } = useContext(PaymentValueContext)
+  const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
-  const { purchasedToken, purchasedAmount } = useContext(SaleRoutingContext)
+  const { toToken, toTokenReadableAmount } = useContext(ToTokenContext)
   const [ salePerTokenValue, setSalePerTokenValue ] = useState()
-  
+
   const mainAction = ()=> {
     if(paymentState == 'initialized' || paymentState == 'approving') {
       return(
@@ -32,7 +35,7 @@ export default (props)=>{
             pay({ navigate })
           }}
         >
-          Pay { paymentValue.toString().length ? paymentValue.toString() : `${payment.amount}` }
+          Pay { new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString() }
         </button>
       )
     } else if (paymentState == 'paying') {
@@ -79,13 +82,13 @@ export default (props)=>{
   
   useEffect(()=>{
     if(paymentValue) {
-      setSalePerTokenValue((new Currency({ amount: (paymentValue.amount / parseFloat(purchasedAmount)).toFixed(2), code: paymentValue.code })).toString())
+      setSalePerTokenValue((new Currency({ amount: (paymentValue.amount / parseFloat(toTokenReadableAmount)).toFixed(2), code: paymentValue.code })).toString())
     }
   }, [paymentValue])
 
   if(
-    purchasedToken == undefined ||
-    purchasedAmount == undefined ||
+    toToken == undefined ||
+    toTokenReadableAmount == undefined ||
     payment == undefined ||
     paymentValue == undefined
   ) { return(<SaleOverviewSkeleton/>) }
@@ -94,7 +97,7 @@ export default (props)=>{
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <h1 className="FontSizeL TextLeft">Purchase</h1>
+          <h1 className="LineHeightL FontSizeL TextLeft">Purchase</h1>
         </div>
       }
       body={
@@ -110,19 +113,22 @@ export default (props)=>{
             <div className="CardImage" title={ payment.name }>
               <TokenImage
                 blockchain={ payment.route.blockchain }
-                address={ purchasedToken.address }
+                address={ toToken.address }
               />
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">
+                <h4 className="CardTitle">
+                  Amount
+                </h4>
                 <h2 className="CardText">
                   <div className="TokenAmountRow">
                     <span className="TokenSymbolCell">
-                      { purchasedToken.symbol }
+                      { toToken.symbol }
                     </span>
                     <span>&nbsp;</span>
                     <span className="TokenAmountCell">
-                    { format(purchasedAmount) }
+                    { format(toTokenReadableAmount) }
                     </span>
                   </div>
                 </h2>
@@ -167,11 +173,6 @@ export default (props)=>{
                     </span>
                   </div>
                 </h2>
-                { paymentValue.toString().length &&
-                  <h3 className="CardText">
-                    <small>{ paymentValue.toString() }</small>
-                  </h3>
-                }
               </div>
             </div>
             <div className="CardAction">

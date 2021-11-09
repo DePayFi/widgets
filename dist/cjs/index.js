@@ -5,13 +5,13 @@ var depayReactDialogStack = require('depay-react-dialog-stack');
 var depayWeb3Wallets = require('depay-web3-wallets');
 var ReactDOM = require('react-dom');
 var depayReactShadowDom = require('depay-react-shadow-dom');
-var depayWeb3Client = require('depay-web3-client');
-var depayWeb3Constants = require('depay-web3-constants');
 var ethers = require('ethers');
-var depayWeb3Payments = require('depay-web3-payments');
-var depayLocalCurrency = require('depay-local-currency');
+var depayWeb3Constants = require('depay-web3-constants');
 var depayWeb3Exchanges = require('depay-web3-exchanges');
 var depayWeb3Tokens = require('depay-web3-tokens');
+var depayLocalCurrency = require('depay-local-currency');
+var depayWeb3Client = require('depay-web3-client');
+var depayWeb3Payments = require('depay-web3-payments');
 var Slider = require('react-rangeslider');
 var depayReactTokenImage = require('depay-react-token-image');
 var depayWeb3Blockchains = require('depay-web3-blockchains');
@@ -1024,7 +1024,7 @@ var ConnectingWalletDialog = (function (props) {
         className: "Graphic",
         src: walletLogo
       })), /*#__PURE__*/React__default$1['default'].createElement("h1", {
-        className: "Text FontSizeL FontWeightBold PaddingTopS"
+        className: "LineHeightL Text FontSizeL FontWeightBold PaddingTopS"
       }, "Connect Wallet"), /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
       }, /*#__PURE__*/React__default$1['default'].createElement("strong", {
@@ -1040,7 +1040,7 @@ var ConnectingWalletDialog = (function (props) {
         className: "Graphic",
         src: walletLogo
       })), /*#__PURE__*/React__default$1['default'].createElement("h1", {
-        className: "Text FontSizeL FontWeightBold PaddingTopS"
+        className: "LineHeightL Text FontSizeL FontWeightBold PaddingTopS"
       }, "Connect Wallet"), /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
       }, /*#__PURE__*/React__default$1['default'].createElement("p", {
@@ -1154,7 +1154,7 @@ var SelectWalletDialog = (function (props) {
     header: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "FontSizeL TextLeft"
+      className: "LineHeightL FontSizeL TextLeft"
     }, "Select a wallet")),
     body: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingBottomXS PaddingLeftS PaddingRightS"
@@ -1610,6 +1610,7 @@ var ErrorProvider = (function (props) {
   };
 
   if (error) {
+    console.log(error);
     return /*#__PURE__*/React__default$1['default'].createElement(ReactDialog_1, {
       container: props.container,
       close: close,
@@ -1628,7 +1629,7 @@ var ErrorProvider = (function (props) {
       className: "Graphic",
       src: ErrorGraphic
     })), /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "Text FontSizeL PaddingTopS FontWeightBold"
+      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
     }, "Oops, Something Went Wrong"), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
@@ -1666,7 +1667,7 @@ var ButtonCircularStyle = (function () {
 });
 
 var ButtonPrimaryStyle = (function (style) {
-  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 16px rgba(0,0,0,0.1);\n      color: ").concat(style.colors.buttonText, ";\n      font-size: 1.3rem;\n      font-weight: 400;\n      height: 2.8rem;\n      line-height: 2.8rem;\n      justify-content: center;\n      min-width: 12rem;\n      overflow: hidden;\n      padding: 0 1.4rem;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      display: inline-block;\n    }\n\n    .ButtonPrimary.round {\n      padding: 0;\n      width: 3.4rem;\n      min-width: 3.4rem;\n    }\n\n    .ButtonPrimary.wide {\n      border-radius: 0.8rem;\n      width: 100%;\n      display: block;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n      color: rgb(140,140,140);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
+  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 16px rgba(0,0,0,0.1);\n      font-size: 1.3rem;\n      font-weight: 400;\n      height: 2.8rem;\n      line-height: 2.8rem;\n      justify-content: center;\n      min-width: 12rem;\n      overflow: hidden;\n      padding: 0 1.4rem;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      display: inline-block;\n    }\n\n    .ButtonPrimary, .ButtonPrimary * {\n      color: ").concat(style.colors.buttonText, ";\n    }\n\n    .ButtonPrimary.round {\n      padding: 0;\n      width: 3.4rem;\n      min-width: 3.4rem;\n    }\n\n    .ButtonPrimary.wide {\n      border-radius: 0.8rem;\n      width: 100%;\n      display: block;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n      color: rgb(140,140,140);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
 });
 
 var CardStyle = (function (style) {
@@ -1674,7 +1675,7 @@ var CardStyle = (function (style) {
 });
 
 var DialogStyle = (function (style) {
-  return "\n\n    .ReactDialogBackground {\n      background: rgba(0,0,0,0.7);\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n    }\n\n    .Dialog .Text {\n      color: ".concat(style.colors.text, ";\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 900px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n        max-height: 40vh !important;\n      }\n\n      .FooterLink {\n        bottom: 0;\n        left: 0;\n        position: absolute;\n        padding-bottom: 1rem;\n        right: 0;\n        width: 100%;\n      }\n\n      .DialogFooter {\n        padding-bottom: 50px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        max-height: 66vh !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .ReactShadowDOMInsideContainer > .ReactDialog {\n      display: table;\n    }\n\n  ");
+  return "\n\n    .ReactDialogBackground {\n      background: rgba(0,0,0,0.7);\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 900px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n        max-height: 40vh !important;\n      }\n\n      .FooterLink {\n        bottom: 0;\n        left: 0;\n        position: absolute;\n        padding-bottom: 1rem;\n        right: 0;\n        width: 100%;\n      }\n\n      .DialogFooter {\n        padding-bottom: 50px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        max-height: 66vh !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .ReactShadowDOMInsideContainer > .ReactDialog {\n      display: table;\n    }\n\n  ";
 });
 
 var FontStyle = (function (style) {
@@ -1702,7 +1703,7 @@ var ImageStyle = (function (style) {
 });
 
 var InputStyle = (function (style) {
-  return "\n\n    .Input {\n      background: none;\n      border: 1px solid transparent;\n      margin: 0;\n      outline: none !important;\n      padding: 0;\n      width: 100%;\n    }\n\n    .Input::placeholder {\n      color: rgb(210,210,210);\n    }\n    \n  ";
+  return "\n\n    .Input {\n      background: none;\n      border: 1px solid transparent;\n      margin: 0;\n      outline: none !important;\n      padding: 0 0 0 14px;\n      width: 100%;\n    }\n\n    .Input::placeholder {\n      color: rgb(210,210,210);\n    }\n    \n  ";
 });
 
 var LabelStyle = (function (style) {
@@ -1733,8 +1734,8 @@ var TextButtonStyle = (function (style) {
   return "\n\n    .TextButton {\n      cursor: pointer;\n      font-size: 16px;\n      color: ".concat(style.colors.primary, "\n    }\n\n    .TextButton.TextGrey {\n      color: grey;\n    }\n    \n    .TextButton.TextGrey:hover {\n      color: ").concat(style.colors.primary, "\n    }\n  ");
 });
 
-var TextStyle = (function () {
-  return "\n\n    .TextLeft, .TextLeft * {\n      text-align: left;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n    .TextGrey {\n      color: grey;\n    }\n\n    .ErrorSnippetText {\n      background: rgb(30, 30, 20);\n      border-radius: 1.2rem;\n      border: 0.5rem solid rgb(30, 30, 20);\n      color: #00FF41;\n      font-size: 0.9rem;\n      font-style: italic;\n      height: 100px;\n      overflow-wrap: break-word;\n      overflow-y: auto;\n      white-space: pre-wrap;\n      word-wrap: break-word;\n    }\n  ";
+var TextStyle = (function (style) {
+  return "\n\n    * {\n      color: ".concat(style.colors.text, ";\n    }\n\n    .TextLeft, .TextLeft * {\n      text-align: left;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n    .TextGrey {\n      color: grey;\n    }\n\n    .LineHeightL {\n      line-height: 2.0rem;\n    }\n\n    .ErrorSnippetText {\n      background: rgb(30, 30, 20);\n      border-radius: 1.2rem;\n      border: 0.5rem solid rgb(30, 30, 20);\n      color: #00FF41;\n      font-size: 0.9rem;\n      font-style: italic;\n      max-height: 100px;\n      padding: 6px;\n      overflow-wrap: break-word;\n      overflow-y: auto;\n      white-space: pre-wrap;\n      word-wrap: break-word;\n    }\n  ");
 });
 
 var TokenAmountStyle = (function () {
@@ -1751,7 +1752,7 @@ var styleRenderer = (function (style) {
     },
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
   }, style);
-  return [ResetStyle(), FontStyle(style), DialogStyle(style), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(style), FooterStyle(style), GraphicStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(), IconStyle(style), PaddingStyle(), HeightStyle(), LabelStyle(style), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle()].join('');
+  return [ResetStyle(), FontStyle(style), DialogStyle(), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(style), FooterStyle(style), GraphicStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), IconStyle(style), PaddingStyle(), HeightStyle(), LabelStyle(style), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle()].join('');
 });
 
 var mount = (function (_ref, content) {
@@ -1780,7 +1781,7 @@ var mount = (function (_ref, content) {
     element: document.body,
     content: content(unmountShadowDOM),
     insideStyle: insideStyle,
-    outsideStyle: "\n      position: fixed;\n      top: 0;\n      left: 0;\n      bottom: 0;\n      right: 0;\n    "
+    outsideStyle: "\n      position: fixed;\n      top: 0;\n      left: 0;\n      bottom: 0;\n      right: 0;\n      z-index: 99999;\n    "
   }),
       unmount = _ReactShadowDOM.unmount;
 
@@ -1868,9 +1869,206 @@ var Connect = function Connect(options) {
   }());
 };
 
+var ChangableAmountContext = /*#__PURE__*/React__default$1['default'].createContext();
+
+var ConversionRateContext = /*#__PURE__*/React__default$1['default'].createContext();
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+
+var findMaxRoute = (function (routes) {
+  var sortedLowToHigh = _toConsumableArray(routes).sort(function (a, b) {
+    var aAmountsAvailable = ethers.ethers.BigNumber.from(a.fromBalance).div(ethers.ethers.BigNumber.from(a.fromAmount));
+    var bAmountsAvailable = ethers.ethers.BigNumber.from(b.fromBalance).div(ethers.ethers.BigNumber.from(b.fromAmount));
+
+    if (aAmountsAvailable.lt(bAmountsAvailable)) {
+      return -1;
+    }
+
+    if (bAmountsAvailable.lt(aAmountsAvailable)) {
+      return 1;
+    }
+
+    return 0; // equal
+  });
+
+  return sortedLowToHigh[sortedLowToHigh.length - 1];
+});
+
+var round = (function (input) {
+  var _digitsAfterDecimal;
+
+  var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'up';
+  var inputAsFloat = parseFloat(input);
+  var digitsAfterDecimal = inputAsFloat.toString().match(/\d+\.0*(\d{3})/);
+
+  if ((_digitsAfterDecimal = digitsAfterDecimal) !== null && _digitsAfterDecimal !== void 0 && _digitsAfterDecimal.length) {
+    digitsAfterDecimal = digitsAfterDecimal[0];
+    var focus = digitsAfterDecimal.match(/\d{3}$/)[0];
+
+    if (focus.match(/^00/)) {
+      return inputAsFloat;
+    }
+
+    var _float;
+
+    var focusToFixed;
+
+    if (focus.match(/^0/)) {
+      if (direction == 'up') {
+        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]));
+      } else {
+        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]));
+      }
+
+      focusToFixed = parseFloat(_float).toFixed(1);
+      focusToFixed = "0".concat(focusToFixed).replace('.', '');
+    } else {
+      if (direction == 'up') {
+        _float = parseFloat("".concat(focus[0], ".").concat(focus[1], "9"));
+      } else {
+        _float = parseFloat("".concat(focus[0], ".").concat(focus[1], "1"));
+      }
+
+      focusToFixed = parseFloat(_float).toFixed(1).replace('.', '');
+    }
+
+    if (focusToFixed.toString()[0] != 0 && focusToFixed.toString().length > 2) {
+      return parseInt(inputAsFloat.toFixed(0));
+    } else {
+      return parseFloat(digitsAfterDecimal.replace(/\d{3}$/, focusToFixed));
+    }
+  } else {
+    return parseFloat(inputAsFloat.toFixed(2));
+  }
+});
+
+var WalletContext = /*#__PURE__*/React__default$1['default'].createContext();
+
+var ChangableAmountProvider = (function (props) {
+  var _useContext = React.useContext(WalletContext),
+      account = _useContext.account;
+
+  var _useContext2 = React.useContext(ConversionRateContext),
+      conversionRate = _useContext2.conversionRate;
+
+  var _useContext3 = React.useContext(ErrorContext),
+      setError = _useContext3.setError;
+
+  var _useState = React.useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      acceptWithAmount = _useState2[0],
+      setAcceptWithAmount = _useState2[1];
+
+  var _useState3 = React.useState(1),
+      _useState4 = _slicedToArray(_useState3, 2),
+      amount = _useState4[0],
+      setAmount = _useState4[1];
+
+  var _useState5 = React.useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      maxRoute = _useState6[0],
+      setMaxRoute = _useState6[1];
+
+  var _useState7 = React.useState(100),
+      _useState8 = _slicedToArray(_useState7, 2),
+      maxAmount = _useState8[0],
+      setMaxAmount = _useState8[1];
+
+  React.useEffect(function () {
+    if (account && conversionRate) {
+      Promise.all(props.accept.map(function (configuration) {
+        return depayWeb3Exchanges.route({
+          blockchain: configuration.blockchain,
+          tokenIn: depayWeb3Constants.CONSTANTS[configuration.blockchain].USD,
+          amountIn: 1.00 / conversionRate * amount,
+          tokenOut: configuration.token,
+          fromAddress: account,
+          toAddress: account
+        });
+      })).then(function (routes) {
+        Promise.all(routes.map(function (routes, index) {
+          if (routes[0] == undefined) {
+            return;
+          }
+
+          return depayWeb3Tokens.Token.readable({
+            blockchain: props.accept[index].blockchain,
+            amount: routes[0].amountOut,
+            address: routes[0].tokenOut
+          });
+        })).then(function (amounts) {
+          setAcceptWithAmount(props.accept.map(function (configuration, index) {
+            return {
+              blockchain: configuration.blockchain,
+              amount: round(amounts[index]) || 1,
+              token: configuration.token,
+              receiver: configuration.receiver || account
+            };
+          }));
+        })["catch"](setError);
+      })["catch"](setError);
+    }
+  }, [account, conversionRate, amount]);
+  React.useEffect(function () {
+    if (maxRoute) {
+      maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
+        if (maxRoute.fromToken.address == depayWeb3Constants.CONSTANTS[maxRoute.blockchain].USD) {
+          setMaxAmount(parseInt((parseFloat(readableMaxAmount) * conversionRate).toFixed(0), 10));
+        } else {
+          depayWeb3Exchanges.route({
+            blockchain: maxRoute.blockchain,
+            tokenIn: maxRoute.fromToken.address,
+            tokenOut: depayWeb3Constants.CONSTANTS[maxRoute.blockchain].USD,
+            amountIn: parseFloat(readableMaxAmount),
+            fromAddress: account,
+            toAddress: account
+          }).then(function (routes) {
+            depayWeb3Tokens.Token.readable({
+              amount: routes[0].amountOut,
+              blockchain: maxRoute.blockchain,
+              address: depayWeb3Constants.CONSTANTS[maxRoute.blockchain].USD
+            }).then(function (readableMaxAmount) {
+              var slippage = 1.01;
+              setMaxAmount(parseInt((parseFloat(readableMaxAmount) / slippage * conversionRate).toFixed(0), 10));
+            })["catch"](setError);
+          })["catch"](setError);
+        }
+      })["catch"](setError);
+    } else {
+      setMaxAmount(100);
+    }
+  }, [account, maxRoute]);
+  return /*#__PURE__*/React__default$1['default'].createElement(ChangableAmountContext.Provider, {
+    value: {
+      acceptWithAmount: acceptWithAmount,
+      amount: amount,
+      setAmount: setAmount,
+      setMaxRoute: setMaxRoute,
+      maxAmount: maxAmount
+    }
+  }, props.children);
+});
+
 var ConfigurationContext = /*#__PURE__*/React__default$1['default'].createContext();
 
 var ConfigurationProvider = (function (props) {
+  var currencyCode = new depayLocalCurrency.Currency({
+    code: props.configuration.currency
+  }).code;
   React.useEffect(function () {
     if (props.configuration.providers != undefined) {
       Object.entries(props.configuration.providers).forEach(function (entry) {
@@ -1879,9 +2077,43 @@ var ConfigurationProvider = (function (props) {
     }
   }, [props.configuration]);
   return /*#__PURE__*/React__default$1['default'].createElement(ConfigurationContext.Provider, {
-    value: props.configuration
+    value: Object.assign({}, props.configuration, {
+      currencyCode: currencyCode
+    })
   }, props.children);
 });
+
+var apiKey = 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c';
+
+var ConversionRateProvider = (function (props) {
+  var _useContext = React.useContext(ErrorContext),
+      setError = _useContext.setError;
+
+  var _useContext2 = React.useContext(ConfigurationContext),
+      currency = _useContext2.currency;
+
+  var _useState = React.useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      conversionRate = _useState2[0],
+      setConversionRate = _useState2[1];
+
+  React.useEffect(function () {
+    depayLocalCurrency.Currency.fromUSD({
+      amount: 1,
+      code: currency,
+      apiKey: apiKey
+    }).then(function (conversion) {
+      return setConversionRate(conversion.amount);
+    })["catch"](setError);
+  }, []);
+  return /*#__PURE__*/React__default$1['default'].createElement(ConversionRateContext.Provider, {
+    value: {
+      conversionRate: conversionRate
+    }
+  }, props.children);
+});
+
+var DonationRoutingContext = /*#__PURE__*/React__default$1['default'].createContext();
 
 var QuestionsGraphic = "data:image/png;base64,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";
 
@@ -1899,7 +2131,7 @@ var NoPaymentMethodFoundDialog = (function () {
       className: "Graphic",
       src: QuestionsGraphic
     })), /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "Text FontSizeL PaddingTopS FontWeightBold"
+      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
     }, "Insufficient Balance"), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "Text PaddingTopS PaddingBottomM PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React__default$1['default'].createElement("strong", {
@@ -1917,8 +2149,6 @@ var PaymentContext = /*#__PURE__*/React__default$1['default'].createContext();
 var PaymentRoutingContext = /*#__PURE__*/React__default$1['default'].createContext();
 
 var UpdateContext = /*#__PURE__*/React__default$1['default'].createContext();
-
-var WalletContext = /*#__PURE__*/React__default$1['default'].createContext();
 
 var PaymentProvider = (function (props) {
   var _useContext = React.useContext(ErrorContext),
@@ -2105,55 +2335,6 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-var apiKey = 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c';
-
-var round = (function (input) {
-  var _digitsAfterDecimal;
-
-  var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'up';
-  var digitsAfterDecimal = parseFloat(input).toString().match(/\d+\.0*(\d{3})/);
-
-  if ((_digitsAfterDecimal = digitsAfterDecimal) !== null && _digitsAfterDecimal !== void 0 && _digitsAfterDecimal.length) {
-    digitsAfterDecimal = digitsAfterDecimal[0];
-    var focus = digitsAfterDecimal.match(/\d{3}$/)[0];
-
-    if (focus.match(/^00/)) {
-      return input;
-    }
-
-    var _float;
-
-    var focusToFixed;
-
-    if (focus.match(/^0/)) {
-      if (direction == 'up') {
-        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]));
-      } else {
-        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]));
-      }
-
-      focusToFixed = parseFloat(_float).toFixed(1);
-      focusToFixed = "0".concat(focusToFixed).replace('.', '');
-    } else {
-      if (direction == 'up') {
-        _float = parseFloat("".concat(focus[0], ".").concat(focus[1], "9"));
-      } else {
-        _float = parseFloat("".concat(focus[0], ".").concat(focus[1], "1"));
-      }
-
-      focusToFixed = parseFloat(_float).toFixed(1).replace('.', '');
-    }
-
-    if (focusToFixed.toString()[0] != 0 && focusToFixed.toString().length > 2) {
-      return parseInt(input.toFixed(0));
-    } else {
-      return parseFloat(digitsAfterDecimal.replace(/\d{3}$/, focusToFixed));
-    }
-  } else {
-    return parseFloat(parseFloat(input).toFixed(2));
-  }
-});
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2194,7 +2375,7 @@ var PaymentRoutingProvider = (function (props) {
         selectedRoute = _ref.selectedRoute,
         update = _ref.update;
 
-    if (update == false || props.accept == undefined || account == undefined) {
+    if (update == false || !props.accept || !account) {
       return;
     }
 
@@ -2207,11 +2388,19 @@ var PaymentRoutingProvider = (function (props) {
     }).then(function (routes) {
       if (routes.length == 0) {
         setAllRoutes([]);
+
+        if (props.setMaxRoute) {
+          props.setMaxRoute(null);
+        }
       } else {
         roundAmounts(routes).then(function (roundedRoutes) {
           var selected = selectedRoute ? roundedRoutes[allRoutes.indexOf(selectedRoute)] || roundedRoutes[0] : roundedRoutes[0];
           setSelectedRoute(selected);
           setAllRoutes(roundedRoutes);
+
+          if (props.setMaxRoute) {
+            props.setMaxRoute(findMaxRoute(roundedRoutes));
+          }
         });
       }
     });
@@ -2414,106 +2603,25 @@ var PaymentValueProvider = (function (props) {
   }, props.children);
 });
 
-var DonationRoutingContext = /*#__PURE__*/React__default$1['default'].createContext();
-
 var DonationRoutingProvider = (function (props) {
-  var _useContext = React.useContext(ConfigurationContext),
-      amount = _useContext.amount,
-      receiver = _useContext.receiver,
-      token = _useContext.token,
-      blockchains = _useContext.blockchains,
-      blacklist = _useContext.blacklist;
+  var _useContext = React.useContext(ChangableAmountContext),
+      acceptWithAmount = _useContext.acceptWithAmount,
+      setMaxRoute = _useContext.setMaxRoute;
 
-  var _useContext2 = React.useContext(WalletContext),
-      account = _useContext2.account;
+  var _useContext2 = React.useContext(ConfigurationContext),
+      blacklist = _useContext2.blacklist;
 
-  var _useState = React.useState(amount.start),
-      _useState2 = _slicedToArray(_useState, 2),
-      donatedAmount = _useState2[0],
-      setDonatedAmount = _useState2[1];
-
-  var _useState3 = React.useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      donatedToken = _useState4[0],
-      setDonatedToken = _useState4[1];
-
-  var _useState5 = React.useState(),
-      _useState6 = _slicedToArray(_useState5, 2),
-      accept = _useState6[0],
-      setAccept = _useState6[1];
-
-  if (blacklist == undefined) {
-    blacklist = {};
-  }
-
-  blockchains.forEach(function (blockchain) {
-    if (blacklist[blockchain] == undefined) {
-      blacklist[blockchain] = [token];
-    } else if (blacklist[blockchain] instanceof Array) {
-      blacklist[blockchain].push(token);
-    }
-  });
-  React.useEffect(function () {
-    if (account) {
-      setAccept(blockchains.map(function (blockchain) {
-        return {
-          blockchain: blockchain,
-          amount: donatedAmount,
-          token: token,
-          receiver: receiver
-        };
-      }));
-    }
-  }, [account, donatedAmount]);
-  React.useEffect(function () {
-    var tokenInstance = new depayWeb3Tokens.Token({
-      blockchain: blockchains[0],
-      address: token
-    });
-    Promise.all([tokenInstance.name(), tokenInstance.symbol(), tokenInstance.decimals()]).then(function (_ref) {
-      var _ref2 = _slicedToArray(_ref, 3),
-          name = _ref2[0],
-          symbol = _ref2[1],
-          decimals = _ref2[2];
-
-      setDonatedToken({
-        address: token,
-        name: name,
-        symbol: symbol,
-        decimals: decimals
-      });
-    });
-  }, []);
   return /*#__PURE__*/React__default$1['default'].createElement(DonationRoutingContext.Provider, {
-    value: {
-      setDonatedAmount: setDonatedAmount,
-      donatedAmount: donatedAmount,
-      donatedToken: donatedToken
-    }
+    value: {}
   }, /*#__PURE__*/React__default$1['default'].createElement(PaymentRoutingProvider, {
-    accept: accept,
-    blacklist: blacklist
+    accept: acceptWithAmount,
+    blacklist: blacklist,
+    setMaxRoute: setMaxRoute
   }, /*#__PURE__*/React__default$1['default'].createElement(PaymentProvider, {
     container: props.container,
     document: props.document
   }, /*#__PURE__*/React__default$1['default'].createElement(PaymentValueProvider, null, props.children))));
 });
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
-}
-
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
-}
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
-}
 
 var format = (function (input) {
   var _float = parseFloat(input);
@@ -2529,89 +2637,33 @@ var format = (function (input) {
 });
 
 var ChangeAmountDialog = (function (props) {
-  var _useContext = React.useContext(ConfigurationContext),
-      amount = _useContext.amount;
+  var _useContext = React.useContext(depayReactDialogStack.NavigateStackContext),
+      navigate = _useContext.navigate;
 
-  var _useContext2 = React.useContext(depayReactDialogStack.NavigateStackContext),
-      navigate = _useContext2.navigate;
+  var _useContext2 = React.useContext(ErrorContext);
+      _useContext2.setError;
 
-  var _useContext3 = React.useContext(WalletContext),
-      account = _useContext3.account;
+  var _useContext3 = React.useContext(WalletContext);
+      _useContext3.account;
 
-  var _useState = React.useState(props.amount),
+  var _useContext4 = React.useContext(ChangableAmountContext),
+      amount = _useContext4.amount,
+      setAmount = _useContext4.setAmount,
+      maxAmount = _useContext4.maxAmount;
+
+  var _useState = React.useState(amount),
       _useState2 = _slicedToArray(_useState, 2),
       inputAmount = _useState2[0],
       setInputAmount = _useState2[1];
 
-  var _useContext4 = React.useContext(PaymentRoutingContext),
-      allRoutes = _useContext4.allRoutes;
+  var _useContext5 = React.useContext(ConfigurationContext),
+      currencyCode = _useContext5.currencyCode;
 
-  var _useState3 = React.useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      maxRoute = _useState4[0],
-      setMaxRoute = _useState4[1];
-
-  var _useState5 = React.useState(parseFloat(amount.start) * 10),
-      _useState6 = _slicedToArray(_useState5, 2),
-      max = _useState6[0],
-      setMax = _useState6[1];
-
-  var _useState7 = React.useState(),
-      _useState8 = _slicedToArray(_useState7, 2),
-      maxRouteData = _useState8[0],
-      setMaxRouteData = _useState8[1];
-
-  React.useEffect(function () {
-    var sortedLowToHigh = _toConsumableArray(allRoutes).sort(function (a, b) {
-      var aAmountsAvailable = ethers.ethers.BigNumber.from(a.fromBalance).div(ethers.ethers.BigNumber.from(a.fromAmount));
-      var bAmountsAvailable = ethers.ethers.BigNumber.from(b.fromBalance).div(ethers.ethers.BigNumber.from(b.fromAmount));
-
-      if (aAmountsAvailable.lt(bAmountsAvailable)) {
-        return -1;
-      }
-
-      if (bAmountsAvailable.lt(aAmountsAvailable)) {
-        return 1;
-      }
-
-      return 0; // equal
-    });
-
-    setMaxRoute(sortedLowToHigh[sortedLowToHigh.length - 1]);
-  }, []);
-  React.useEffect(function () {
-    if (maxRoute) {
-      return Promise.all([maxRoute.fromToken.name(), maxRoute.fromToken.symbol(), maxRoute.toToken.decimals(), maxRoute.fromToken.readable(maxRoute.fromBalance), depayWeb3Exchanges.route({
-        blockchain: maxRoute.blockchain,
-        tokenIn: maxRoute.fromToken.address,
-        tokenOut: maxRoute.toToken.address,
-        amountIn: maxRoute.fromBalance,
-        fromAddress: account,
-        toAddress: account
-      })]).then(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 5),
-            name = _ref2[0],
-            symbol = _ref2[1],
-            decimals = _ref2[2],
-            balance = _ref2[3],
-            routes = _ref2[4];
-
-        var SLIPPAGE = 1.01;
-        var max = round(parseFloat(ethers.ethers.utils.formatUnits(routes[0].amountOutMin, decimals)) / SLIPPAGE, 'down');
-        setMax(max);
-        setMaxRouteData({
-          name: name,
-          symbol: symbol,
-          balance: balance,
-          blockchain: maxRoute.blockchain,
-          address: maxRoute.fromToken.address
-        });
-      });
-    }
-  }, [maxRoute]);
+  var _useContext6 = React.useContext(PaymentRoutingContext);
+      _useContext6.allRoutes;
 
   var changeAmountAndGoBack = function changeAmountAndGoBack() {
-    props.setAmount(inputAmount);
+    setAmount(parseInt(inputAmount, 10));
     navigate('back');
   };
 
@@ -2620,7 +2672,7 @@ var ChangeAmountDialog = (function (props) {
       return;
     }
 
-    setInputAmount(Math.min(value, max));
+    setInputAmount(Math.min(value, maxAmount));
   };
 
   return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
@@ -2628,10 +2680,10 @@ var ChangeAmountDialog = (function (props) {
     header: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
     }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "FontSizeL TextCenter"
+      className: "LineHeightL FontSizeL TextCenter"
     }, "Change Amount"), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "FontSizeL TextCenter FontWeightBold"
-    }, /*#__PURE__*/React__default$1['default'].createElement("strong", null, props.token.symbol))),
+    }, /*#__PURE__*/React__default$1['default'].createElement("strong", null, currencyCode))),
     body: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "MaxHeight PaddingTopXS"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
@@ -2641,35 +2693,32 @@ var ChangeAmountDialog = (function (props) {
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "FontSizeL"
     }, /*#__PURE__*/React__default$1['default'].createElement("input", {
-      max: parseFloat(max),
-      min: parseFloat(amount.min),
-      step: parseFloat(amount.step),
+      max: parseFloat(maxAmount),
+      min: 1,
+      step: 1,
       className: "Input FontSizeXL TextAlignCenter",
       type: "number",
       name: "amount",
       value: parseFloat(inputAmount),
       onChange: function onChange(event) {
-        changeAmount(parseFloat(event.target.value));
+        changeAmount(parseInt(event.target.value, 10));
       }
     })), /*#__PURE__*/React__default$1['default'].createElement(Slider__default['default'], {
-      min: parseFloat(amount.min),
-      max: parseFloat(max),
-      step: parseFloat(amount.step),
+      min: 1,
+      max: parseFloat(maxAmount),
+      step: 1,
       value: parseFloat(inputAmount),
       onChange: function onChange(value) {
-        changeAmount(parseFloat(value));
+        changeAmount(parseInt(value, 10));
       }
-    }), maxRouteData && /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "PaddingBottomS"
-    }, /*#__PURE__*/React__default$1['default'].createElement("div", null, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "MaxAmountImage"
-    }, /*#__PURE__*/React__default$1['default'].createElement(depayReactTokenImage.TokenImage, {
-      blockchain: maxRouteData.blockchain,
-      address: maxRouteData.address
-    })), maxRouteData.symbol, " ", format(round(maxRouteData.balance, 'down')), /*#__PURE__*/React__default$1['default'].createElement("button", {
+    }), /*#__PURE__*/React__default$1['default'].createElement("div", {
+      style: {
+        height: '40px'
+      }
+    }, /*#__PURE__*/React__default$1['default'].createElement("div", null, format(maxAmount), /*#__PURE__*/React__default$1['default'].createElement("button", {
       className: "TextButton",
       onClick: function onClick() {
-        changeAmount(max);
+        changeAmount(maxAmount);
       }
     }, "(Max)")))))),
     footer: /*#__PURE__*/React__default$1['default'].createElement("div", null, /*#__PURE__*/React__default$1['default'].createElement("button", {
@@ -2688,7 +2737,7 @@ var ChangePaymentSkeleton = (function (props) {
     header: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
     }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "FontSizeL TextCenter"
+      className: "LineHeightL FontSizeL TextCenter"
     }, "Change Payment"), paymentValue != undefined && /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "FontSizeL TextCenter FontWeightBold"
     }, /*#__PURE__*/React__default$1['default'].createElement("strong", null, paymentValue.toString()))),
@@ -2803,7 +2852,7 @@ var ChangePaymentDialog = (function (props) {
     header: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
     }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "FontSizeL TextCenter"
+      className: "LineHeightL FontSizeL TextCenter"
     }, "Change Payment"), paymentValue != undefined && /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "FontSizeL TextCenter FontWeightBold"
     }, /*#__PURE__*/React__default$1['default'].createElement("strong", null, paymentValue.toString()))),
@@ -2829,24 +2878,12 @@ var Checkmark = (function () {
   }));
 });
 
-var LoadingText = (function (props) {
-  return /*#__PURE__*/React__default$1['default'].createElement("div", {
-    className: "LoadingText"
-  }, props.children, /*#__PURE__*/React__default$1['default'].createElement("span", {
-    className: "dot"
-  }, "."), /*#__PURE__*/React__default$1['default'].createElement("span", {
-    className: "dot"
-  }, "."), /*#__PURE__*/React__default$1['default'].createElement("span", {
-    className: "dot"
-  }, "."));
-});
-
 var DonationOverviewSkeleton = (function (props) {
   return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
     header: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "FontSizeL TextLeft"
+      className: "LineHeightL FontSizeL TextLeft"
     }, "Donation")),
     body: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
@@ -2855,10 +2892,7 @@ var DonationOverviewSkeleton = (function (props) {
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "SkeletonBackground"
     })), /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "Card Skeleton",
-      style: {
-        height: '100px'
-      }
+      className: "Card Skeleton"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "SkeletonBackground"
     }))),
@@ -2874,27 +2908,38 @@ var DonationOverviewSkeleton = (function (props) {
   });
 });
 
+var LoadingText = (function (props) {
+  return /*#__PURE__*/React__default$1['default'].createElement("div", {
+    className: "LoadingText"
+  }, props.children, /*#__PURE__*/React__default$1['default'].createElement("span", {
+    className: "dot"
+  }, "."), /*#__PURE__*/React__default$1['default'].createElement("span", {
+    className: "dot"
+  }, "."), /*#__PURE__*/React__default$1['default'].createElement("span", {
+    className: "dot"
+  }, "."));
+});
+
 var DonationOverviewDialog = (function (props) {
-  var _useContext = React.useContext(PaymentContext),
-      payment = _useContext.payment,
-      paymentState = _useContext.paymentState,
-      pay = _useContext.pay,
-      transaction = _useContext.transaction,
-      approve = _useContext.approve,
-      approvalTransaction = _useContext.approvalTransaction;
+  var _useContext = React.useContext(ConfigurationContext),
+      currencyCode = _useContext.currencyCode;
 
-  var _useContext2 = React.useContext(PaymentValueContext),
-      paymentValue = _useContext2.paymentValue;
+  var _useContext2 = React.useContext(ChangableAmountContext),
+      amount = _useContext2.amount;
 
-  var _useContext3 = React.useContext(depayReactDialogStack.NavigateStackContext),
-      navigate = _useContext3.navigate;
+  var _useContext3 = React.useContext(PaymentContext),
+      payment = _useContext3.payment,
+      paymentState = _useContext3.paymentState,
+      pay = _useContext3.pay,
+      transaction = _useContext3.transaction,
+      approve = _useContext3.approve,
+      approvalTransaction = _useContext3.approvalTransaction;
 
-  var _useContext4 = React.useContext(ClosableContext),
-      close = _useContext4.close;
+  var _useContext4 = React.useContext(depayReactDialogStack.NavigateStackContext),
+      navigate = _useContext4.navigate;
 
-  var _useContext5 = React.useContext(DonationRoutingContext),
-      donatedToken = _useContext5.donatedToken,
-      donatedAmount = _useContext5.donatedAmount;
+  var _useContext5 = React.useContext(ClosableContext),
+      close = _useContext5.close;
 
   var mainAction = function mainAction() {
     if (paymentState == 'initialized' || paymentState == 'approving') {
@@ -2909,7 +2954,10 @@ var DonationOverviewDialog = (function (props) {
             navigate: navigate
           });
         }
-      }, "Pay ", paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
+      }, "Pay ", new depayLocalCurrency.Currency({
+        amount: amount.toFixed(2),
+        code: currencyCode
+      }).toString());
     } else if (paymentState == 'paying') {
       return /*#__PURE__*/React__default$1['default'].createElement("a", {
         className: "ButtonPrimary",
@@ -2953,7 +3001,7 @@ var DonationOverviewDialog = (function (props) {
     return /*#__PURE__*/React__default$1['default'].createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
   };
 
-  if (donatedToken == undefined || donatedAmount == undefined || payment == undefined || paymentValue == undefined) {
+  if (payment == undefined) {
     return /*#__PURE__*/React__default$1['default'].createElement(DonationOverviewSkeleton, null);
   }
 
@@ -2961,7 +3009,7 @@ var DonationOverviewDialog = (function (props) {
     header: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "FontSizeL TextLeft"
+      className: "LineHeightL FontSizeL TextLeft"
     }, "Donation")),
     body: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
@@ -2976,12 +3024,6 @@ var DonationOverviewDialog = (function (props) {
         navigate('ChangeAmount');
       }
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "CardImage",
-      title: payment.name
-    }, /*#__PURE__*/React__default$1['default'].createElement(depayReactTokenImage.TokenImage, {
-      blockchain: payment.route.blockchain,
-      address: donatedToken.address
-    })), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardBody"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardBodyWrapper"
@@ -2991,11 +3033,10 @@ var DonationOverviewDialog = (function (props) {
       className: "CardText"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "TokenAmountRow"
-    }, /*#__PURE__*/React__default$1['default'].createElement("span", {
-      className: "TokenSymbolCell"
-    }, donatedToken.symbol), /*#__PURE__*/React__default$1['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default$1['default'].createElement("span", {
-      className: "TokenAmountCell"
-    }, format(donatedAmount)))))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+    }, new depayLocalCurrency.Currency({
+      amount: amount.toFixed(2),
+      code: currencyCode
+    }).toString())))), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardAction"
     }, /*#__PURE__*/React__default$1['default'].createElement(ChevronRight, null))), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
@@ -3027,9 +3068,7 @@ var DonationOverviewDialog = (function (props) {
       className: "TokenSymbolCell"
     }, payment.symbol), /*#__PURE__*/React__default$1['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default$1['default'].createElement("span", {
       className: "TokenAmountCell"
-    }, format(payment.amount)))), paymentValue.toString().length && /*#__PURE__*/React__default$1['default'].createElement("h3", {
-      className: "CardText"
-    }, /*#__PURE__*/React__default$1['default'].createElement("small", null, paymentValue.toString())))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+    }, format(payment.amount)))))), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardAction"
     }, /*#__PURE__*/React__default$1['default'].createElement(ChevronRight, null)))),
     footer: /*#__PURE__*/React__default$1['default'].createElement("div", {
@@ -3056,7 +3095,7 @@ var PaymentErrorDialog = (function () {
       className: "Graphic",
       src: ErrorGraphic
     })), /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "Text FontSizeL PaddingTopS FontWeightBold"
+      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
     }, "Payment Failed"), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
     }, /*#__PURE__*/React__default$1['default'].createElement("strong", {
@@ -3096,7 +3135,7 @@ var WrongNetworkDialog = (function (props) {
     header: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "FontSizeL TextLeft"
+      className: "LineHeightL FontSizeL TextLeft"
     }, "Wrong Network")),
     body: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
@@ -3106,7 +3145,7 @@ var WrongNetworkDialog = (function (props) {
       className: "Graphic",
       src: ConnectGraphic
     })), /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "Text FontSizeL PaddingTopS FontWeightBold"
+      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
     }, "Connect to ", blockchain.label), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
     }, /*#__PURE__*/React__default$1['default'].createElement("strong", {
@@ -3128,11 +3167,6 @@ var DonationStack = (function (props) {
       open = _useContext.open,
       close = _useContext.close;
 
-  var _useContext2 = React.useContext(DonationRoutingContext),
-      donatedToken = _useContext2.donatedToken,
-      donatedAmount = _useContext2.donatedAmount,
-      setDonatedAmount = _useContext2.setDonatedAmount;
-
   return /*#__PURE__*/React__default$1['default'].createElement(depayReactDialogStack.ReactDialogStack, {
     open: open,
     close: close,
@@ -3141,11 +3175,7 @@ var DonationStack = (function (props) {
     document: props.document,
     dialogs: {
       DonationOverview: /*#__PURE__*/React__default$1['default'].createElement(DonationOverviewDialog, null),
-      ChangeAmount: /*#__PURE__*/React__default$1['default'].createElement(ChangeAmountDialog, {
-        token: donatedToken,
-        amount: donatedAmount,
-        setAmount: setDonatedAmount
-      }),
+      ChangeAmount: /*#__PURE__*/React__default$1['default'].createElement(ChangeAmountDialog, null),
       ChangePayment: /*#__PURE__*/React__default$1['default'].createElement(ChangePaymentDialog, null),
       PaymentError: /*#__PURE__*/React__default$1['default'].createElement(PaymentErrorDialog, null),
       WrongNetwork: /*#__PURE__*/React__default$1['default'].createElement(WrongNetworkDialog, null)
@@ -3189,7 +3219,6 @@ var WalletProvider = (function (props) {
   var connected = function connected(_ref) {
     var account = _ref.account,
         wallet = _ref.wallet;
-    console.log('connected');
     setAccount(account);
     setWallet(wallet);
     setWalletState('connected');
@@ -3218,75 +3247,40 @@ var WalletProvider = (function (props) {
 
 var preflight$2 = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-    var amount, token, blockchains, receiver;
+    var accept;
     return regenerator.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            amount = _ref.amount, token = _ref.token, blockchains = _ref.blockchains, receiver = _ref.receiver;
+            accept = _ref.accept;
 
-            if (!(typeof amount === 'undefined')) {
+            if (!(!(accept instanceof Array) || accept.length == 0)) {
               _context.next = 3;
               break;
             }
 
-            throw 'You need to set the amount!';
+            throw 'You need to set the tokens you accept as donation!';
 
           case 3:
-            if (!(typeof amount.min === 'undefined')) {
-              _context.next = 5;
-              break;
-            }
+            accept.forEach(function (configuration) {
+              if (typeof configuration.blockchain === 'undefined') {
+                throw 'You need to set the blockchain you want to receive the donation on!';
+              }
 
-            throw 'You need to set amount.min!';
+              if (!['ethereum', 'bsc'].includes(configuration.blockchain)) {
+                throw 'You need to set a supported blockchain!';
+              }
 
-          case 5:
-            if (!(typeof amount.step === 'undefined')) {
-              _context.next = 7;
-              break;
-            }
+              if (typeof configuration.token === 'undefined') {
+                throw 'You need to set the token you want to receive as donation!';
+              }
 
-            throw 'You need to set amount.step!';
-
-          case 7:
-            if (!(typeof amount.start === 'undefined')) {
-              _context.next = 9;
-              break;
-            }
-
-            throw 'You need to set amount.start!';
-
-          case 9:
-            if (!(typeof token == 'undefined')) {
-              _context.next = 11;
-              break;
-            }
-
-            throw 'You need to set a token!';
-
-          case 11:
-            if (!(typeof blockchains == 'undefined' || blockchains.length == 0)) {
-              _context.next = 13;
-              break;
-            }
-
-            throw 'You need to set blockchains!';
-
-          case 13:
-            blockchains.forEach(function (blockchain) {
-              if (!['ethereum', 'bsc'].includes(blockchain)) {
-                throw 'You need to set only supported blockchains!';
+              if (typeof configuration.receiver === 'undefined') {
+                throw 'You need to set the receiver address that you want to receive the donation!';
               }
             });
 
-            if (!(typeof receiver == 'undefined' || receiver.length == 0)) {
-              _context.next = 16;
-              break;
-            }
-
-            throw 'You need to set a receiver!';
-
-          case 16:
+          case 4:
           case "end":
             return _context.stop();
         }
@@ -3301,19 +3295,16 @@ var preflight$2 = /*#__PURE__*/function () {
 
 var Donation = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, token, receiver, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, unmount;
+    var accept, event, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, token = _ref3.token, receiver = _ref3.receiver, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
+            accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight$2({
-              amount: amount,
-              token: token,
-              blockchains: blockchains,
-              receiver: receiver
+              accept: accept
             });
 
           case 4:
@@ -3329,10 +3320,7 @@ var Donation = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/React__default$1['default'].createElement(ConfigurationProvider, {
                   configuration: {
-                    amount: amount,
-                    token: token,
-                    receiver: receiver,
-                    blockchains: blockchains,
+                    accept: accept,
                     currency: currency,
                     event: event,
                     sent: sent,
@@ -3348,13 +3336,15 @@ var Donation = /*#__PURE__*/function () {
                   container: container,
                   connected: connected,
                   unmount: unmount
+                }, /*#__PURE__*/React__default$1['default'].createElement(ConversionRateProvider, null, /*#__PURE__*/React__default$1['default'].createElement(ChangableAmountProvider, {
+                  accept: accept
                 }, /*#__PURE__*/React__default$1['default'].createElement(DonationRoutingProvider, {
                   container: container,
                   document: document
                 }, /*#__PURE__*/React__default$1['default'].createElement(DonationStack, {
                   document: document,
                   container: container
-                })))))));
+                })))))))));
               };
             });
             return _context2.abrupt("return", {
@@ -3388,7 +3378,7 @@ var PaymentOverviewSkeleton = (function (props) {
     header: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "FontSizeL TextLeft"
+      className: "LineHeightL FontSizeL TextLeft"
     }, "Payment")),
     body: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
@@ -3492,7 +3482,7 @@ var PaymentOverviewDialog = (function (props) {
     header: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "FontSizeL TextLeft"
+      className: "LineHeightL FontSizeL TextLeft"
     }, "Payment")),
     body: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
@@ -3685,86 +3675,75 @@ var Payment = /*#__PURE__*/function () {
 
 var SaleRoutingContext = /*#__PURE__*/React__default$1['default'].createContext();
 
-var SaleRoutingProvider = (function (props) {
-  var _useContext = React.useContext(ConfigurationContext),
-      amount = _useContext.amount,
-      token = _useContext.token,
-      blockchains = _useContext.blockchains,
-      blacklist = _useContext.blacklist;
+var ToTokenContext = /*#__PURE__*/React__default$1['default'].createContext();
 
-  var _useContext2 = React.useContext(WalletContext),
-      account = _useContext2.account;
+var ToTokenProvider = (function (props) {
+  var _useContext = React.useContext(PaymentContext),
+      payment = _useContext.payment;
 
-  var _useState = React.useState(amount.start),
+  var _useState = React.useState(),
       _useState2 = _slicedToArray(_useState, 2),
-      purchasedAmount = _useState2[0],
-      setPurchaseAmount = _useState2[1];
+      toToken = _useState2[0],
+      setToToken = _useState2[1];
 
   var _useState3 = React.useState(),
       _useState4 = _slicedToArray(_useState3, 2),
-      purchasedToken = _useState4[0],
-      setPurchasedToken = _useState4[1];
+      toTokenReadableAmount = _useState4[0],
+      setToTokenReadableAmount = _useState4[1];
 
-  var _useState5 = React.useState(),
-      _useState6 = _slicedToArray(_useState5, 2),
-      accept = _useState6[0],
-      setAccept = _useState6[1];
+  React.useEffect(function () {
+    if (payment) {
+      Promise.all([payment.route.toToken.symbol(), payment.route.toToken.readable(payment.route.toAmount)]).then(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            symbol = _ref2[0],
+            readableAmount = _ref2[1];
+
+        setToToken({
+          address: payment.route.toToken.address,
+          symbol: symbol
+        });
+        setToTokenReadableAmount(readableAmount);
+      });
+    }
+  }, [payment]);
+  return /*#__PURE__*/React__default$1['default'].createElement(ToTokenContext.Provider, {
+    value: {
+      toToken: toToken,
+      toTokenReadableAmount: toTokenReadableAmount
+    }
+  }, props.children);
+});
+
+var SaleRoutingProvider = (function (props) {
+  var _useContext = React.useContext(ChangableAmountContext),
+      acceptWithAmount = _useContext.acceptWithAmount,
+      setMaxRoute = _useContext.setMaxRoute;
+
+  var _useContext2 = React.useContext(ConfigurationContext),
+      sell = _useContext2.sell;
+
+  var _useContext3 = React.useContext(ConfigurationContext),
+      blacklist = _useContext3.blacklist;
 
   if (blacklist == undefined) {
     blacklist = {};
   }
 
-  blockchains.forEach(function (blockchain) {
-    if (blacklist[blockchain] == undefined) {
-      blacklist[blockchain] = [token];
-    } else if (blacklist[blockchain] instanceof Array) {
-      blacklist[blockchain].push(token);
-    }
-  });
-  React.useEffect(function () {
-    if (account) {
-      setAccept(blockchains.map(function (blockchain) {
-        return {
-          blockchain: blockchain,
-          amount: purchasedAmount,
-          token: token,
-          receiver: account
-        };
-      }));
-    }
-  }, [account, purchasedAmount]);
-  React.useEffect(function () {
-    var tokenInstance = new depayWeb3Tokens.Token({
-      blockchain: blockchains[0],
-      address: token
-    });
-    Promise.all([tokenInstance.name(), tokenInstance.symbol(), tokenInstance.decimals()]).then(function (_ref) {
-      var _ref2 = _slicedToArray(_ref, 3),
-          name = _ref2[0],
-          symbol = _ref2[1],
-          decimals = _ref2[2];
+  for (var blockchain in sell) {
+    var token = sell[blockchain];
+    blacklist[blockchain] = [token];
+  }
 
-      setPurchasedToken({
-        address: token,
-        name: name,
-        symbol: symbol,
-        decimals: decimals
-      });
-    });
-  }, []);
   return /*#__PURE__*/React__default$1['default'].createElement(SaleRoutingContext.Provider, {
-    value: {
-      setPurchaseAmount: setPurchaseAmount,
-      purchasedAmount: purchasedAmount,
-      purchasedToken: purchasedToken
-    }
+    value: {}
   }, /*#__PURE__*/React__default$1['default'].createElement(PaymentRoutingProvider, {
-    accept: accept,
-    blacklist: blacklist
+    accept: acceptWithAmount,
+    blacklist: blacklist,
+    setMaxRoute: setMaxRoute
   }, /*#__PURE__*/React__default$1['default'].createElement(PaymentProvider, {
     container: props.container,
     document: props.document
-  }, /*#__PURE__*/React__default$1['default'].createElement(PaymentValueProvider, null, props.children))));
+  }, /*#__PURE__*/React__default$1['default'].createElement(PaymentValueProvider, null, /*#__PURE__*/React__default$1['default'].createElement(ToTokenProvider, null, props.children)))));
 });
 
 var SaleOverviewSkeleton = (function (props) {
@@ -3772,19 +3751,19 @@ var SaleOverviewSkeleton = (function (props) {
     header: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "FontSizeL TextLeft"
+      className: "LineHeightL FontSizeL TextLeft"
     }, "Purchase")),
     body: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "Card Skeleton"
-    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
-      className: "SkeletonBackground"
-    })), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "Card Skeleton",
       style: {
         height: '100px'
       }
+    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "SkeletonBackground"
+    })), /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "Card Skeleton"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "SkeletonBackground"
     }))),
@@ -3801,26 +3780,32 @@ var SaleOverviewSkeleton = (function (props) {
 });
 
 var SaleOverviewDialog = (function (props) {
-  var _useContext = React.useContext(PaymentContext),
-      payment = _useContext.payment,
-      paymentState = _useContext.paymentState,
-      pay = _useContext.pay,
-      transaction = _useContext.transaction,
-      approve = _useContext.approve,
-      approvalTransaction = _useContext.approvalTransaction;
+  var _useContext = React.useContext(ChangableAmountContext),
+      amount = _useContext.amount;
 
-  var _useContext2 = React.useContext(PaymentValueContext),
-      paymentValue = _useContext2.paymentValue;
+  var _useContext2 = React.useContext(ConfigurationContext),
+      currencyCode = _useContext2.currencyCode;
 
-  var _useContext3 = React.useContext(depayReactDialogStack.NavigateStackContext),
-      navigate = _useContext3.navigate;
+  var _useContext3 = React.useContext(PaymentValueContext),
+      paymentValue = _useContext3.paymentValue;
 
-  var _useContext4 = React.useContext(ClosableContext),
-      close = _useContext4.close;
+  var _useContext4 = React.useContext(PaymentContext),
+      payment = _useContext4.payment,
+      paymentState = _useContext4.paymentState,
+      pay = _useContext4.pay,
+      transaction = _useContext4.transaction,
+      approve = _useContext4.approve,
+      approvalTransaction = _useContext4.approvalTransaction;
 
-  var _useContext5 = React.useContext(SaleRoutingContext),
-      purchasedToken = _useContext5.purchasedToken,
-      purchasedAmount = _useContext5.purchasedAmount;
+  var _useContext5 = React.useContext(depayReactDialogStack.NavigateStackContext),
+      navigate = _useContext5.navigate;
+
+  var _useContext6 = React.useContext(ClosableContext),
+      close = _useContext6.close;
+
+  var _useContext7 = React.useContext(ToTokenContext),
+      toToken = _useContext7.toToken,
+      toTokenReadableAmount = _useContext7.toTokenReadableAmount;
 
   var _useState = React.useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -3840,7 +3825,10 @@ var SaleOverviewDialog = (function (props) {
             navigate: navigate
           });
         }
-      }, "Pay ", paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
+      }, "Pay ", new depayLocalCurrency.Currency({
+        amount: amount.toFixed(2),
+        code: currencyCode
+      }).toString());
     } else if (paymentState == 'paying') {
       return /*#__PURE__*/React__default$1['default'].createElement("a", {
         className: "ButtonPrimary",
@@ -3887,13 +3875,13 @@ var SaleOverviewDialog = (function (props) {
   React.useEffect(function () {
     if (paymentValue) {
       setSalePerTokenValue(new depayLocalCurrency.Currency({
-        amount: (paymentValue.amount / parseFloat(purchasedAmount)).toFixed(2),
+        amount: (paymentValue.amount / parseFloat(toTokenReadableAmount)).toFixed(2),
         code: paymentValue.code
       }).toString());
     }
   }, [paymentValue]);
 
-  if (purchasedToken == undefined || purchasedAmount == undefined || payment == undefined || paymentValue == undefined) {
+  if (toToken == undefined || toTokenReadableAmount == undefined || payment == undefined || paymentValue == undefined) {
     return /*#__PURE__*/React__default$1['default'].createElement(SaleOverviewSkeleton, null);
   }
 
@@ -3901,7 +3889,7 @@ var SaleOverviewDialog = (function (props) {
     header: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React__default$1['default'].createElement("h1", {
-      className: "FontSizeL TextLeft"
+      className: "LineHeightL FontSizeL TextLeft"
     }, "Purchase")),
     body: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
@@ -3920,20 +3908,22 @@ var SaleOverviewDialog = (function (props) {
       title: payment.name
     }, /*#__PURE__*/React__default$1['default'].createElement(depayReactTokenImage.TokenImage, {
       blockchain: payment.route.blockchain,
-      address: purchasedToken.address
+      address: toToken.address
     })), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardBody"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardBodyWrapper"
-    }, /*#__PURE__*/React__default$1['default'].createElement("h2", {
+    }, /*#__PURE__*/React__default$1['default'].createElement("h4", {
+      className: "CardTitle"
+    }, "Amount"), /*#__PURE__*/React__default$1['default'].createElement("h2", {
       className: "CardText"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "TokenAmountRow"
     }, /*#__PURE__*/React__default$1['default'].createElement("span", {
       className: "TokenSymbolCell"
-    }, purchasedToken.symbol), /*#__PURE__*/React__default$1['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default$1['default'].createElement("span", {
+    }, toToken.symbol), /*#__PURE__*/React__default$1['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default$1['default'].createElement("span", {
       className: "TokenAmountCell"
-    }, format(purchasedAmount)))), salePerTokenValue && /*#__PURE__*/React__default$1['default'].createElement("h3", {
+    }, format(toTokenReadableAmount)))), salePerTokenValue && /*#__PURE__*/React__default$1['default'].createElement("h3", {
       className: "CardText"
     }, /*#__PURE__*/React__default$1['default'].createElement("small", null, salePerTokenValue, " per token")))), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardAction"
@@ -3967,9 +3957,7 @@ var SaleOverviewDialog = (function (props) {
       className: "TokenSymbolCell"
     }, payment.symbol), /*#__PURE__*/React__default$1['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default$1['default'].createElement("span", {
       className: "TokenAmountCell"
-    }, format(payment.amount)))), paymentValue.toString().length && /*#__PURE__*/React__default$1['default'].createElement("h3", {
-      className: "CardText"
-    }, /*#__PURE__*/React__default$1['default'].createElement("small", null, paymentValue.toString())))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+    }, format(payment.amount)))))), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardAction"
     }, /*#__PURE__*/React__default$1['default'].createElement(ChevronRight, null)))),
     footer: /*#__PURE__*/React__default$1['default'].createElement("div", {
@@ -4011,68 +3999,37 @@ var SaleStack = (function (props) {
 
 var preflight = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-    var amount, token, blockchains;
+    var sell;
     return regenerator.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            amount = _ref.amount, token = _ref.token, blockchains = _ref.blockchains;
+            sell = _ref.sell;
 
-            if (!(typeof amount === 'undefined')) {
+            if (!(_typeof(sell) != 'object')) {
               _context.next = 3;
               break;
             }
 
-            throw 'You need to set the amount!';
+            throw 'You need to configure at least 1 "blockchain": "token"';
 
           case 3:
-            if (!(typeof amount.min === 'undefined')) {
+            if (!(Object.keys(sell).length == 0)) {
               _context.next = 5;
               break;
             }
 
-            throw 'You need to set amount.min!';
+            throw 'You need to configure at least 1 "blockchain": "token"';
 
           case 5:
-            if (!(typeof amount.step === 'undefined')) {
+            if (!(Object.values(sell).length == 0)) {
               _context.next = 7;
               break;
             }
 
-            throw 'You need to set amount.step!';
+            throw 'You need to configure at least 1 "blockchain": "token"';
 
           case 7:
-            if (!(typeof amount.start === 'undefined')) {
-              _context.next = 9;
-              break;
-            }
-
-            throw 'You need to set amount.start!';
-
-          case 9:
-            if (!(typeof token == 'undefined')) {
-              _context.next = 11;
-              break;
-            }
-
-            throw 'You need to set a token!';
-
-          case 11:
-            if (!(typeof blockchains == 'undefined' || blockchains.length == 0)) {
-              _context.next = 13;
-              break;
-            }
-
-            throw 'You need to set blockchains!';
-
-          case 13:
-            blockchains.forEach(function (blockchain) {
-              if (!['ethereum', 'bsc'].includes(blockchain)) {
-                throw 'You need to set only supported blockchains!';
-              }
-            });
-
-          case 14:
           case "end":
             return _context.stop();
         }
@@ -4087,21 +4044,25 @@ var preflight = /*#__PURE__*/function () {
 
 var Sale = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, token, blockchains, event, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, unmount;
+    var sell, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, accept, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, token = _ref3.token, blockchains = _ref3.blockchains, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
+            sell = _ref3.sell, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight({
-              amount: amount,
-              token: token,
-              blockchains: blockchains
+              sell: sell
             });
 
           case 4:
+            accept = Object.keys(sell).map(function (key) {
+              return {
+                blockchain: key,
+                token: sell[key]
+              };
+            });
             unmount = mount({
               style: style,
               document: ensureDocument(document),
@@ -4114,11 +4075,8 @@ var Sale = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/React__default$1['default'].createElement(ConfigurationProvider, {
                   configuration: {
-                    amount: amount,
-                    token: token,
-                    blockchains: blockchains,
+                    sell: sell,
                     currency: currency,
-                    event: event,
                     sent: sent,
                     confirmed: confirmed,
                     ensured: ensured,
@@ -4132,21 +4090,23 @@ var Sale = /*#__PURE__*/function () {
                   container: container,
                   connected: connected,
                   unmount: unmount
+                }, /*#__PURE__*/React__default$1['default'].createElement(ConversionRateProvider, null, /*#__PURE__*/React__default$1['default'].createElement(ChangableAmountProvider, {
+                  accept: accept
                 }, /*#__PURE__*/React__default$1['default'].createElement(SaleRoutingProvider, {
                   container: container,
                   document: document
                 }, /*#__PURE__*/React__default$1['default'].createElement(SaleStack, {
                   document: document,
                   container: container
-                })))))));
+                })))))))));
               };
             });
             return _context2.abrupt("return", {
               unmount: unmount
             });
 
-          case 8:
-            _context2.prev = 8;
+          case 9:
+            _context2.prev = 9;
             _context2.t0 = _context2["catch"](1);
             console.log('critical error', _context2.t0);
 
@@ -4154,12 +4114,12 @@ var Sale = /*#__PURE__*/function () {
               critical(_context2.t0);
             }
 
-          case 12:
+          case 13:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[1, 8]]);
+    }, _callee2, null, [[1, 9]]);
   }));
 
   return function Sale(_x2) {

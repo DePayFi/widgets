@@ -11,7 +11,7 @@ export default (props)=>{
       stacked={ true }
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS">
-          <h1 className="FontSizeL TextCenter">Change Payment</h1>
+          <h1 className="LineHeightL FontSizeL TextCenter">Change Payment</h1>
           { paymentValue != undefined &&
             <div className="FontSizeL TextCenter FontWeightBold"><strong>{ paymentValue.toString() }</strong></div>
           }

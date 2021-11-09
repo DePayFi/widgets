@@ -15,13 +15,7 @@ describe('sets RPC providers for Sale widget', () => {
             bsc: ['http://localhost:8545']
           },
 
-          amount: {
-            start: 20,
-            min: 1,
-            step: 1
-          },
-          token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-          blockchains: ['ethereum']
+          sell: { 'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb' }
         })
 
         cy.wait(200).then(()=>{

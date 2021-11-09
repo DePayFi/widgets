@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 
 describe('Donation widget preflight', () => {
   
-  it('requires you to set the amount', ()=> {
+  it('requires you to set accept', ()=> {
     let criticalError
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
@@ -15,142 +15,104 @@ describe('Donation widget preflight', () => {
         })
       })
       cy.wait(200).then(()=>{
-        expect(criticalError.toString()).to.eq('You need to set the amount!')
+        expect(criticalError.toString()).to.eq('You need to set the tokens you accept as donation!')
       })
     })
   })
 
-  it('requires you to set the amount.min', ()=> {
+  it('requires you to set accept', ()=> {
     let criticalError
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Donation({
           document,
-          amount: {},
+          amount: undefined,
+          accept: [],
           critical: (error)=>{ criticalError = error }
         })
       })
       cy.wait(200).then(()=>{
-        expect(criticalError.toString()).to.eq('You need to set amount.min!')
+        expect(criticalError.toString()).to.eq('You need to set the tokens you accept as donation!')
       })
     })
   })
 
-  it('requires you to set the amount.step', ()=> {
+  it('requires you to set the blockchain for each accept configuration', ()=> {
     let criticalError
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Donation({
           document,
-          amount: { min: 1 },
+          accept: [{}],
           critical: (error)=>{ criticalError = error }
         })
       })
       cy.wait(200).then(()=>{
-        expect(criticalError.toString()).to.eq('You need to set amount.step!')
+        expect(criticalError.toString()).to.eq('You need to set the blockchain you want to receive the donation on!')
       })
     })
   })
 
-  it('requires you to set the amount.start', ()=> {
+  it('requires you to set a supported blockchain for each accept configuration', ()=> {
     let criticalError
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Donation({
           document,
-          amount: { min: 1, step: 1 },
+          accept: [{ blockchain: 'muqh' }],
           critical: (error)=>{ criticalError = error }
         })
       })
       cy.wait(200).then(()=>{
-        expect(criticalError.toString()).to.eq('You need to set amount.start!')
+        expect(criticalError.toString()).to.eq('You need to set a supported blockchain!')
       })
     })
   })
 
-  it('requires you to set the token', ()=> {
+  it('requires you to set a supported blockchain for each accept configuration', ()=> {
     let criticalError
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Donation({
           document,
-          amount: { min: 1, step: 1, start: 10 },
+          accept: [{ blockchain: 'muqh' }],
           critical: (error)=>{ criticalError = error }
         })
       })
       cy.wait(200).then(()=>{
-        expect(criticalError.toString()).to.eq('You need to set a token!')
+        expect(criticalError.toString()).to.eq('You need to set a supported blockchain!')
       })
     })
   })
 
-  it('requires you to set blockchains', ()=> {
+  it('requires you to set the token for each accept configuration', ()=> {
     let criticalError
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Donation({
           document,
-          amount: { min: 1, step: 1, start: 10 },
-          token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+          accept: [{ blockchain: 'ethereum' }],
           critical: (error)=>{ criticalError = error }
         })
       })
       cy.wait(200).then(()=>{
-        expect(criticalError.toString()).to.eq('You need to set blockchains!')
+        expect(criticalError.toString()).to.eq('You need to set the token you want to receive as donation!')
       })
     })
   })
 
-  it('requires you to set blockchains', ()=> {
+  it('requires you to set the receiver for each accept configuration', ()=> {
     let criticalError
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Donation({
           document,
-          amount: { min: 1, step: 1, start: 10 },
-          token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-          blockchain: [],
+          accept: [{ blockchain: 'ethereum', token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb' }],
           critical: (error)=>{ criticalError = error }
         })
       })
       cy.wait(200).then(()=>{
-        expect(criticalError.toString()).to.eq('You need to set blockchains!')
-      })
-    })
-  })
-
-  it('requires you to set only blockchains that are supported', ()=> {
-    let criticalError
-    cy.visit('cypress/test.html').then((contentWindow) => {
-      cy.document().then((document)=>{
-        DePayWidgets.Donation({
-          document,
-          amount: { min: 1, step: 1, start: 10 },
-          token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-          blockchains: ['notexisting'],
-          critical: (error)=>{ criticalError = error }
-        })
-      })
-      cy.wait(200).then(()=>{
-        expect(criticalError.toString()).to.eq('You need to set only supported blockchains!')
-      })
-    })
-  })
-
-  it('requires you to set a receiver of the donation', ()=> {
-    let criticalError
-    cy.visit('cypress/test.html').then((contentWindow) => {
-      cy.document().then((document)=>{
-        DePayWidgets.Donation({
-          document,
-          amount: { min: 1, step: 1, start: 10 },
-          token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-          blockchains: ['bsc'],
-          critical: (error)=>{ criticalError = error }
-        })
-      })
-      cy.wait(200).then(()=>{
-        expect(criticalError.toString()).to.eq('You need to set a receiver!')
+        expect(criticalError.toString()).to.eq('You need to set the receiver address that you want to receive the donation!')
       })
     })
   })

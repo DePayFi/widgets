@@ -129,55 +129,17 @@
       <div class="col-4">
         <h2 class="pt-5">Sale</h2>
         <div class="form-group pt-3">
-          <label for="saleBlockchainInput">Blockchain</label>
-          <select class="form-control text-center" id="saleBlockchainInput">
-            <option value='ethereum'>Ethereum</option>
-            <option value='bsc'>Binance Smart Chain</option>
-          </select>
-          <small id="paymentAmount" class="form-text text-muted">On which blockchain do you want to receive the payment?</small>
-        </div>
-        <div class="form-group pt-3">
-          <label for="salesStartAmountInput">Start Amount</label>
-          <input class="form-control text-center" id="salesStartAmountInput" aria-describedby="salesAmount" placeholder="10" value="10">
-          <small id="salesAmount" class="form-text text-muted">The start amount selected by the widget?</small>
-        </div>
-        <div class="form-group pt-3">
-          <label for="salesMinAmountInput">Min. Amount</label>
-          <input class="form-control text-center" id="salesMinAmountInput" aria-describedby="salesAmount" placeholder="1" value="1">
-          <small id="salesAmount" class="form-text text-muted">Min. amount you want to enforce by the widget?</small>
-        </div>
-        <div class="form-group pt-1">
-          <label for="salesStepAmountInput">Step Amount</label>
-          <input class="form-control text-center" id="salesStepAmountInput" aria-describedby="salesAmount" placeholder="1" value="1">
-          <small id="salesAmount" class="form-text text-muted">Selectable in which steps?</small>
-        </div>
-        <div class="form-group pt-1">
-          <label for="salesTokenInput">Token</label>
-          (<a id="salesSwitchToken" href="#">Switch</a>)
-          <script>
-            var button = document.getElementById("salesSwitchToken");
-            button.addEventListener("click",function(e){
-              DePayWidgets.Selector(function(token){
-                document.getElementById("salesTokenInput").value = token.address;
-              });
-            });
-          </script>  
-          <input class="form-control text-center" id="salesTokenInput" aria-describedby="salesToken" placeholder="0xa0bed124a09ac2bd941b10349d8d224fe3c955eb" value="0xa0bed124a09ac2bd941b10349d8d224fe3c955eb">
-          <small id="salesToken" class="form-text text-muted">Which token do you want to sell?</small>
-        </div>
         
         <button id="buyButton" class="btn-lg mt-2">Buy</button>
         <script>
           var button = document.getElementById("buyButton");
           button.addEventListener("click",function(e){
             DePayWidgets.Sale({
-              amount: {
-                start: document.getElementById("salesStartAmountInput").value,
-                min: document.getElementById("salesMinAmountInput").value,
-                step: document.getElementById("salesStepAmountInput").value
-              },
-              token: document.getElementById("salesTokenInput").value,
-              blockchains: [document.getElementById("saleBlockchainInput").value]
+              currency: 'USD',
+              sell: {
+                'ethereum': '0x5a666c7d92e5fa7edcb6390e4efd6d0cdd69cf37',
+                'bsc': '0x2fa5daf6fe0708fbd63b1a7d1592577284f52256'
+              }
             });
           });
         </script>
@@ -190,54 +152,23 @@
       <div class="col-4"></div>
       <div class="col-4">
         <h2 class="pt-5">Donation</h2>
-        <div class="form-group pt-3">
-          <label for="donationStartAmountInput">Start Amount</label>
-          <input class="form-control text-center" id="donationStartAmountInput" aria-describedby="donationAmount" placeholder="10" value="10">
-          <small id="donationAmount" class="form-text text-muted">The start amount selected by the widget?</small>
-        </div>
-        <div class="form-group pt-3">
-          <label for="donationMinAmountInput">Min. Amount</label>
-          <input class="form-control text-center" id="donationMinAmountInput" aria-describedby="donationAmount" placeholder="1" value="1">
-          <small id="donationAmount" class="form-text text-muted">Min. amount you want to enforce by the widget?</small>
-        </div>
-        <div class="form-group pt-1">
-          <label for="donationStepAmountInput">Step Amount</label>
-          <input class="form-control text-center" id="donationStepAmountInput" aria-describedby="donationAmount" placeholder="1" value="1">
-          <small id="donationAmount" class="form-text text-muted">Selectable in which steps?</small>
-        </div>
-        <div class="form-group pt-1">
-          <label for="donationTokenInput">Token</label>
-          (<a id="donationSwitchToken" href="#">Switch</a>)
-          <script>
-            var button = document.getElementById("donationSwitchToken");
-            button.addEventListener("click",function(e){
-              DePayWidgets.Selector(function(token){
-                document.getElementById("donationTokenInput").value = token.address;
-              });
-            });
-          </script>  
-          <input class="form-control text-center" id="donationTokenInput" aria-describedby="donationToken" placeholder="0xdac17f958d2ee523a2206206994597c13d831ec7" value="0xdac17f958d2ee523a2206206994597c13d831ec7">
-          <small id="donationToken" class="form-text text-muted">Which token do you want to receive?</small>
-        </div>
-        <div class="form-group pt-1">
-          <label for="donationReceiverInput">Receiver</label>
-          <input class="form-control text-center" id="donationReceiverInput" aria-describedby="donationReceiver" placeholder="0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02" value="0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02">
-          <small id="donationReceiver" class="form-text text-muted">Which address should receive the payment?</small>
-        </div>
         
         <button id="donationButton" class="btn-lg mt-2">Donate</button>
         <script>
           var button = document.getElementById("donationButton");
           button.addEventListener("click",function(e){
             DePayWidgets.Donation({
-              amount: {
-                start: document.getElementById("donationStartAmountInput").value,
-                min: document.getElementById("donationMinAmountInput").value,
-                step: document.getElementById("donationStepAmountInput").value
-              },
-              token: document.getElementById("donationTokenInput").value,
-              receiver: document.getElementById("donationReceiverInput").value,
-              blockchains: ['ethereum']
+              accept:[
+                {
+                  blockchain: 'ethereum',
+                  token: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+                  receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+                },{
+                  blockchain: 'bsc',
+                  token: '0x55d398326f99059ff775485246999027b3197955',
+                  receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+                }
+              ]
             });
           });
         </script>

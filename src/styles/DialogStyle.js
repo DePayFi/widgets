@@ -13,10 +13,6 @@ export default (style)=>{
       border-radius: 0.8rem;
     }
 
-    .Dialog .Text {
-      color: ${style.colors.text};
-    }
-
     @media screen and (max-width: 450px) {
       
       .Dialog, .ReactDialogAnimation {
