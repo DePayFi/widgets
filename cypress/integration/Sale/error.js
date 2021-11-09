@@ -169,9 +169,9 @@ describe('Sale widget error', () => {
       provider: provider(blockchain),
       blockchain,
       call: {
-        to: DEPAY,
+        to: DAI,
         api: Token[blockchain].DEFAULT,
-        method: 'symbol',
+        method: 'decimals',
         return: Error('something failed') 
       } 
     })
@@ -190,7 +190,6 @@ describe('Sale widget error', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ErrorSnippetText', 'Error: something failed')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'If this keeps happening, please report it.')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
-        cy.wait(5000)
         cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
           expect(errorCalled).to.eq(true)
           expect(passedError.toString()).to.eq('Error: something failed')

@@ -15,7 +15,11 @@ export default (props)=>{
   if(blacklist == undefined) { blacklist = {} }
   for(let blockchain in sell) {
     let token = sell[blockchain]
-    blacklist[blockchain] = [token]
+    if(blacklist[blockchain] instanceof Array) {
+      blacklist[blockchain].push(token)
+    } else {
+      blacklist[blockchain] = [token]
+    }
   }
 
   return(
