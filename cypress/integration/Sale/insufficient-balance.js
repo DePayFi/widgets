@@ -1,5 +1,6 @@
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
+import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from 'depay-web3-constants'
@@ -9,7 +10,7 @@ import { mock, resetMocks } from 'depay-web3-mock'
 import { provider, resetCache } from 'depay-web3-client'
 import { Token } from 'depay-web3-tokens'
 
-describe('insufficient balance for Sale payment', () => {
+describe('insufficient balance for Purchase', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -20,7 +21,7 @@ describe('insufficient balance for Sale payment', () => {
 
   let fromAddress = accounts[0]
   let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-  let TOKEN = CONSTANTS[blockchain].USD
+  let TOKEN = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   let exchange = findByName('uniswap_v2')
   let amount = 20
   let decimals = 18
@@ -36,12 +37,11 @@ describe('insufficient balance for Sale payment', () => {
     mock(blockchain)
     mock({ provider: provider(blockchain), blockchain, call: { to: TOKEN, api: Token[blockchain].DEFAULT } })
     mock({ provider: provider(blockchain), blockchain, call: { to: CONSTANTS[blockchain].USD, api: Token[blockchain].DEFAULT } })
-    mock({ provider: provider(blockchain), blockchain, call: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'name', return: 'DAI' } })
-    mock({ provider: provider(blockchain), blockchain, call: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'symbol', return: 'DAI' } })
     mock({ provider: provider(blockchain), blockchain, call: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'decimals', return: decimals } })
     mock({ provider: provider(blockchain), blockchain, call: { to: CONSTANTS[blockchain].USD, api: Token[blockchain].DEFAULT, method: 'decimals', return: decimals } })
     mock({ provider: provider(blockchain), blockchain, balance: { for: fromAddress, return: ethers.BigNumber.from('0') }})
     mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.factory.address, api: exchange.contracts.factory.api, method: 'getPair', params: [TOKEN, CONSTANTS[blockchain].USD], return: CONSTANTS[blockchain].ZERO }})
+    mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.factory.address, api: exchange.contracts.factory.api, method: 'getPair', params: [CONSTANTS[blockchain].USD, TOKEN], return: CONSTANTS[blockchain].ZERO }})
     mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.factory.address, api: exchange.contracts.factory.api, method: 'getPair', params: [TOKEN, CONSTANTS[blockchain].WRAPPED], return: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d'}})
     mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.factory.address, api: exchange.contracts.factory.api, method: 'getPair', params: [CONSTANTS[blockchain].WRAPPED, TOKEN], return: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d'}})
     mock({ provider: provider(blockchain), blockchain, call: { to: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d', api: exchange.contracts.pair.api, method: 'getReserves', return: [ethers.utils.parseUnits('1000', 18), ethers.utils.parseUnits('1000', 18), '1629804922'] }})
@@ -53,6 +53,18 @@ describe('insufficient balance for Sale payment', () => {
     mock({ provider: provider(blockchain), blockchain, call: { to: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11', api: exchange.contracts.pair.api, method: 'token1', return: CONSTANTS[blockchain].WRAPPED }})
     USDValueMock = mock({provider: provider(blockchain), blockchain, "call":{"to":"0x7a250d5630b4cf539739df2c5dacb4c659f2488d","api":exchange.contracts.router.api,"method":"getAmountsOut","return":"Your Value","params":["20000000000000000000",["0xa0bed124a09ac2bd941b10349d8d224fe3c955eb","0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2","0x6b175474e89094c44da98b954eedeac495271d0f"]]}})
     TOKENRouteMock = mock({provider: provider(blockchain), blockchain, "call":{"to":"0x7a250d5630b4cf539739df2c5dacb4c659f2488d","api":exchange.contracts.router.api,"method":"getAmountsIn","return":"Your Value","params":["20000000000000000000",["0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2","0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"]]}})
+    mockAmountsOut({
+      provider: provider(blockchain),
+      blockchain,
+      exchange,
+      amountInBN: '1176470588235294200',
+      path: [CONSTANTS[blockchain].USD, CONSTANTS[blockchain].WRAPPED, TOKEN],
+      amountsOut: [
+        '1176470588235294200',
+        ethers.utils.parseUnits('1000', 18),
+        ethers.utils.parseUnits('1000', 18)
+      ]
+    })
     
     fetchMock.get({
       url: `https://api.depay.pro/v1/assets?account=${fromAddress}&blockchain=${blockchain}`,
