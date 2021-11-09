@@ -9,7 +9,14 @@ import ToTokenProvider from '../providers/ToTokenProvider'
 
 export default (props)=>{
   const { acceptWithAmount, setMaxRoute } = useContext(ChangableAmountContext)
-  const { blacklist } = useContext(ConfigurationContext)
+  const { sell } = useContext(ConfigurationContext)
+  let { blacklist } = useContext(ConfigurationContext)
+
+  if(blacklist == undefined) { blacklist = {} }
+  for(let blockchain in sell) {
+    let token = sell[blockchain]
+    blacklist[blockchain] = [token]
+  }
 
   return(
     <SaleRoutingContext.Provider value={{}}>

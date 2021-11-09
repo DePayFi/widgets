@@ -172,6 +172,8 @@ describe('change Sale payment', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').contains('.TokenAmountCell', '33').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').contains('.CardText small', '50').should('exist')
+
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]').should('not.exist')
         })
       })
     })
