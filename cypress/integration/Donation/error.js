@@ -151,7 +151,7 @@ describe('Donation widget error', () => {
       provider: provider(blockchain),
       blockchain,
       call: {
-        to: DAI,
+        to: DEPAY,
         api: Token[blockchain].DEFAULT,
         method: 'symbol',
         return: Error('something failed') 
