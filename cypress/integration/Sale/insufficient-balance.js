@@ -74,7 +74,7 @@ describe('insufficient balance for Purchase', () => {
     }, [])
 
     fetchMock.get({
-      url: `https://api.depay.pro/v1/fiat?symbol=CHF`,
+      url: `https://api.depay.pro/v1/fiat?symbol=USD`,
       headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
       overwriteRoutes: true
     }, {
