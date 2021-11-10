@@ -18,7 +18,7 @@ export default (props)=>{
   const { conversionRate } = useContext(ConversionRateContext)
   const { setError } = useContext(ErrorContext)
   const [ acceptWithAmount, setAcceptWithAmount ] = useState()
-  const [ amount, setAmount ] = useState(1)
+  const [ amount, setAmount ] = useState(amountsMissing ? 1 : null)
   const [ maxRoute, setMaxRoute ] = useState()
   const [ maxAmount, setMaxAmount ] = useState(100)
 

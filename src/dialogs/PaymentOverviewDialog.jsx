@@ -18,8 +18,7 @@ import { TokenImage } from 'depay-react-token-image'
 
 export default (props)=>{
   const { currencyCode } = useContext(ConfigurationContext)
-  const { amountsMissing } = useContext(ChangableAmountContext)
-  const { amount } = useContext(ChangableAmountContext)
+  const { amount, amountsMissing } = useContext(ChangableAmountContext)
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
@@ -35,7 +34,7 @@ export default (props)=>{
             pay({ navigate })
           }}
         >
-          Pay { (paymentValue.toString().length) ? paymentValue.toString() : `${payment.amount}` }
+          Pay { amount ? new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString() : ((paymentValue.toString().length) ? paymentValue.toString() : `${payment.amount}`) }
         </button>
       )
     } else if (paymentState == 'paying') {
@@ -133,6 +132,9 @@ export default (props)=>{
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">
+                <h4 className="CardTitle">
+                  Payment
+                </h4>
                 <h2 className="CardText">
                   <div className="TokenAmountRow">
                     <span className="TokenSymbolCell">
@@ -144,11 +146,6 @@ export default (props)=>{
                     </span>
                   </div>
                 </h2>
-                { paymentValue.toString().length &&
-                  <h3 className="CardText">
-                    <small>{ paymentValue.toString() }</small>
-                  </h3>
-                }
               </div>
             </div>
             <div className="CardAction">
