@@ -132,9 +132,11 @@ export default (props)=>{
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">
-                <h4 className="CardTitle">
-                  Payment
-                </h4>
+                { amountsMissing &&
+                  <h4 className="CardTitle">
+                    Payment
+                  </h4>
+                }
                 <h2 className="CardText">
                   <div className="TokenAmountRow">
                     <span className="TokenSymbolCell">
