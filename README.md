@@ -118,18 +118,20 @@ Currently supported:
 - `ethereum`
 - `bsc` (Binance Smart Chain)
 
-`amount`
-
-The amount of tokens you want to receive. Needs to be passed as a number e.g. `20`. If passed as string the widget will asume it's a `BigNumber`.
-
-The `BigNumber` of that amount will be calculated internally including finding the right amount of decimals for the given token.
-So please just pass the amount in a human readable form as Number/Decimal: e.g. `20` for 20 USDT or `20.25` etc.
-
 `token`
 
 The address of the token you want to receive.
 
 Use our [payment configurator](https://depay.fi/documentation/payments#payment-configurator) in order to simplify configuring this.
+
+`amount` (Optional)
+
+The amount of tokens you want to receive. Needs to be passed as a human readable number e.g. `20`.
+
+The `BigNumber` of that amount will be calculated internally including finding the right amount of decimals for the given token.
+So please just pass the amount in a human readable form as Number/Decimal: e.g. `20` for 20 USDT or `20.25` etc.
+
+If you do not pass an amount, the user will be able to select an amount within the widget.
 
 `receiver`
 
