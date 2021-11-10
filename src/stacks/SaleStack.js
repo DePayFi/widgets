@@ -12,7 +12,6 @@ import { ReactDialogStack } from 'depay-react-dialog-stack'
 export default (props)=>{
 
   const { open, close } = useContext(ClosableContext)
-  const { purchasedToken, purchasedAmount, setPurchaseAmount } = useContext(SaleRoutingContext)
 
   return(
     <ReactDialogStack
@@ -23,11 +22,7 @@ export default (props)=>{
       document={ props.document }
       dialogs={{
         SaleOverview: <SaleOverviewDialog/>,
-        ChangeAmount: <ChangeAmountDialog
-          token={ purchasedToken }
-          amount={ purchasedAmount }
-          setAmount= { setPurchaseAmount }
-        />,
+        ChangeAmount: <ChangeAmountDialog/>,
         ChangePayment: <ChangePaymentDialog/>,
         NoPaymentMethodFound: <NoPaymentMethodFoundDialog/>,
         PaymentError: <PaymentErrorDialog/>,

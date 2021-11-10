@@ -1727,7 +1727,7 @@ var ResetStyle = (function () {
 });
 
 var SkeletonStyle = (function () {
-  return "\n        \n    .Skeleton {\n      background: rgb(230,230,230) !important;\n      border: 1px solid transparent;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ";
+  return "\n        \n    .Skeleton {\n      background: rgb(230,230,230) !important;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ";
 });
 
 var TextButtonStyle = (function (style) {
@@ -1959,6 +1959,17 @@ var round = (function (input) {
 var WalletContext = /*#__PURE__*/React__default$1['default'].createContext();
 
 var ChangableAmountProvider = (function (props) {
+  var configurationsMissAmounts = function configurationsMissAmounts(configurations) {
+    return !configurations.every(function (configuration) {
+      return typeof configuration.amount != 'undefined';
+    });
+  };
+
+  var _useState = React.useState(configurationsMissAmounts(props.accept)),
+      _useState2 = _slicedToArray(_useState, 2),
+      amountsMissing = _useState2[0],
+      setAmountsMissing = _useState2[1];
+
   var _useContext = React.useContext(WalletContext),
       account = _useContext.account;
 
@@ -1968,28 +1979,31 @@ var ChangableAmountProvider = (function (props) {
   var _useContext3 = React.useContext(ErrorContext),
       setError = _useContext3.setError;
 
-  var _useState = React.useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      acceptWithAmount = _useState2[0],
-      setAcceptWithAmount = _useState2[1];
-
-  var _useState3 = React.useState(1),
+  var _useState3 = React.useState(),
       _useState4 = _slicedToArray(_useState3, 2),
-      amount = _useState4[0],
-      setAmount = _useState4[1];
+      acceptWithAmount = _useState4[0],
+      setAcceptWithAmount = _useState4[1];
 
-  var _useState5 = React.useState(),
+  var _useState5 = React.useState(amountsMissing ? 1 : null),
       _useState6 = _slicedToArray(_useState5, 2),
-      maxRoute = _useState6[0],
-      setMaxRoute = _useState6[1];
+      amount = _useState6[0],
+      setAmount = _useState6[1];
 
-  var _useState7 = React.useState(100),
+  var _useState7 = React.useState(),
       _useState8 = _slicedToArray(_useState7, 2),
-      maxAmount = _useState8[0],
-      setMaxAmount = _useState8[1];
+      maxRoute = _useState8[0],
+      setMaxRoute = _useState8[1];
+
+  var _useState9 = React.useState(100),
+      _useState10 = _slicedToArray(_useState9, 2),
+      maxAmount = _useState10[0],
+      setMaxAmount = _useState10[1];
 
   React.useEffect(function () {
-    if (account && conversionRate) {
+    setAmountsMissing(configurationsMissAmounts(props.accept));
+  }, [props.accept]);
+  React.useEffect(function () {
+    if (amountsMissing && account && conversionRate) {
       Promise.all(props.accept.map(function (configuration) {
         return depayWeb3Exchanges.route({
           blockchain: configuration.blockchain,
@@ -2024,7 +2038,7 @@ var ChangableAmountProvider = (function (props) {
     }
   }, [account, conversionRate, amount]);
   React.useEffect(function () {
-    if (maxRoute) {
+    if (amountsMissing && maxRoute) {
       maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
         if (maxRoute.fromToken.address == depayWeb3Constants.CONSTANTS[maxRoute.blockchain].USD) {
           setMaxAmount(parseInt((parseFloat(readableMaxAmount) * conversionRate).toFixed(0), 10));
@@ -2054,6 +2068,7 @@ var ChangableAmountProvider = (function (props) {
   }, [account, maxRoute]);
   return /*#__PURE__*/React__default$1['default'].createElement(ChangableAmountContext.Provider, {
     value: {
+      amountsMissing: amountsMissing,
       acceptWithAmount: acceptWithAmount,
       amount: amount,
       setAmount: setAmount,
@@ -3373,7 +3388,43 @@ var Donation = /*#__PURE__*/function () {
   };
 }();
 
+var PaymentAmountRoutingContext = /*#__PURE__*/React__default$1['default'].createContext();
+
+var PaymentAmountRoutingProvider = (function (props) {
+  var _useContext = React.useContext(ChangableAmountContext),
+      amountsMissing = _useContext.amountsMissing,
+      acceptWithAmount = _useContext.acceptWithAmount,
+      setMaxRoute = _useContext.setMaxRoute;
+
+  var _useState = React.useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      accept = _useState2[0],
+      setAccept = _useState2[1];
+
+  React.useEffect(function () {
+    if (amountsMissing) {
+      if (acceptWithAmount) {
+        setAccept(acceptWithAmount);
+      }
+    } else {
+      setAccept(props.accept);
+    }
+  }, [amountsMissing, acceptWithAmount]);
+  return /*#__PURE__*/React__default$1['default'].createElement(PaymentAmountRoutingContext.Provider, {
+    value: {}
+  }, /*#__PURE__*/React__default$1['default'].createElement(PaymentRoutingProvider, {
+    accept: accept,
+    whitelist: props.whitelist,
+    blacklist: props.blacklist,
+    event: props.event,
+    setMaxRoute: setMaxRoute
+  }, props.children));
+});
+
 var PaymentOverviewSkeleton = (function (props) {
+  var _useContext = React.useContext(ChangableAmountContext),
+      amountsMissing = _useContext.amountsMissing;
+
   return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
     header: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
@@ -3382,7 +3433,11 @@ var PaymentOverviewSkeleton = (function (props) {
     }, "Payment")),
     body: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+    }, amountsMissing && /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "Card Skeleton"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "SkeletonBackground"
+    })), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "Card Skeleton"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "SkeletonBackground"
@@ -3400,22 +3455,29 @@ var PaymentOverviewSkeleton = (function (props) {
 });
 
 var PaymentOverviewDialog = (function (props) {
-  var _useContext = React.useContext(PaymentContext),
-      payment = _useContext.payment,
-      paymentState = _useContext.paymentState,
-      pay = _useContext.pay,
-      transaction = _useContext.transaction,
-      approve = _useContext.approve,
-      approvalTransaction = _useContext.approvalTransaction;
+  var _useContext = React.useContext(ConfigurationContext),
+      currencyCode = _useContext.currencyCode;
 
-  var _useContext2 = React.useContext(PaymentValueContext),
-      paymentValue = _useContext2.paymentValue;
+  var _useContext2 = React.useContext(ChangableAmountContext),
+      amount = _useContext2.amount,
+      amountsMissing = _useContext2.amountsMissing;
 
-  var _useContext3 = React.useContext(depayReactDialogStack.NavigateStackContext),
-      navigate = _useContext3.navigate;
+  var _useContext3 = React.useContext(PaymentContext),
+      payment = _useContext3.payment,
+      paymentState = _useContext3.paymentState,
+      pay = _useContext3.pay,
+      transaction = _useContext3.transaction,
+      approve = _useContext3.approve,
+      approvalTransaction = _useContext3.approvalTransaction;
 
-  var _useContext4 = React.useContext(ClosableContext),
-      close = _useContext4.close;
+  var _useContext4 = React.useContext(PaymentValueContext),
+      paymentValue = _useContext4.paymentValue;
+
+  var _useContext5 = React.useContext(depayReactDialogStack.NavigateStackContext),
+      navigate = _useContext5.navigate;
+
+  var _useContext6 = React.useContext(ClosableContext),
+      close = _useContext6.close;
 
   var mainAction = function mainAction() {
     if (paymentState == 'initialized' || paymentState == 'approving') {
@@ -3430,7 +3492,10 @@ var PaymentOverviewDialog = (function (props) {
             navigate: navigate
           });
         }
-      }, "Pay ", paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
+      }, "Pay ", amount ? new depayLocalCurrency.Currency({
+        amount: amount.toFixed(2),
+        code: currencyCode
+      }).toString() : paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
     } else if (paymentState == 'paying') {
       return /*#__PURE__*/React__default$1['default'].createElement("a", {
         className: "ButtonPrimary",
@@ -3486,7 +3551,32 @@ var PaymentOverviewDialog = (function (props) {
     }, "Payment")),
     body: /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+    }, amountsMissing && /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+      title: paymentState == 'initialized' ? "Change amount" : undefined,
+      onClick: function onClick() {
+        if (paymentState != 'initialized') {
+          return;
+        }
+
+        navigate('ChangeAmount');
+      }
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "CardBodyWrapper"
+    }, /*#__PURE__*/React__default$1['default'].createElement("h4", {
+      className: "CardTitle"
+    }, "Amount"), /*#__PURE__*/React__default$1['default'].createElement("h2", {
+      className: "CardText"
+    }, /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "TokenAmountRow"
+    }, new depayLocalCurrency.Currency({
+      amount: amount.toFixed(2),
+      code: currencyCode
+    }).toString())))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+      className: "CardAction"
+    }, /*#__PURE__*/React__default$1['default'].createElement(ChevronRight, null))), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
       title: paymentState == 'initialized' ? "Change payment" : undefined,
       onClick: function onClick() {
@@ -3506,7 +3596,9 @@ var PaymentOverviewDialog = (function (props) {
       className: "CardBody"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardBodyWrapper"
-    }, /*#__PURE__*/React__default$1['default'].createElement("h2", {
+    }, amountsMissing && /*#__PURE__*/React__default$1['default'].createElement("h4", {
+      className: "CardTitle"
+    }, "Payment"), /*#__PURE__*/React__default$1['default'].createElement("h2", {
       className: "CardText"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "TokenAmountRow"
@@ -3514,9 +3606,7 @@ var PaymentOverviewDialog = (function (props) {
       className: "TokenSymbolCell"
     }, payment.symbol), /*#__PURE__*/React__default$1['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default$1['default'].createElement("span", {
       className: "TokenAmountCell"
-    }, format(payment.amount)))), paymentValue.toString().length && /*#__PURE__*/React__default$1['default'].createElement("h3", {
-      className: "CardText"
-    }, /*#__PURE__*/React__default$1['default'].createElement("small", null, paymentValue.toString())))), /*#__PURE__*/React__default$1['default'].createElement("div", {
+    }, format(payment.amount)))))), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardAction"
     }, /*#__PURE__*/React__default$1['default'].createElement(ChevronRight, null)))),
     footer: /*#__PURE__*/React__default$1['default'].createElement("div", {
@@ -3538,6 +3628,7 @@ var PaymentStack = (function (props) {
     document: props.document,
     dialogs: {
       PaymentOverview: /*#__PURE__*/React__default$1['default'].createElement(PaymentOverviewDialog, null),
+      ChangeAmount: /*#__PURE__*/React__default$1['default'].createElement(ChangeAmountDialog, null),
       ChangePayment: /*#__PURE__*/React__default$1['default'].createElement(ChangePaymentDialog, null),
       PaymentError: /*#__PURE__*/React__default$1['default'].createElement(PaymentErrorDialog, null),
       WrongNetwork: /*#__PURE__*/React__default$1['default'].createElement(WrongNetworkDialog, null)
@@ -3560,10 +3651,6 @@ var preflight$1 = /*#__PURE__*/function () {
 
               if (!['ethereum', 'bsc'].includes(configuration.blockchain)) {
                 throw 'You need to set a supported blockchain!';
-              }
-
-              if (typeof configuration.amount === 'undefined') {
-                throw 'You need to set the amount you want to receive as payment!';
               }
 
               if (typeof configuration.token === 'undefined') {
@@ -3633,7 +3720,9 @@ var Payment = /*#__PURE__*/function () {
                   container: container,
                   connected: connected,
                   unmount: unmount
-                }, /*#__PURE__*/React__default$1['default'].createElement(PaymentRoutingProvider, {
+                }, /*#__PURE__*/React__default$1['default'].createElement(ConversionRateProvider, null, /*#__PURE__*/React__default$1['default'].createElement(ChangableAmountProvider, {
+                  accept: accept
+                }, /*#__PURE__*/React__default$1['default'].createElement(PaymentAmountRoutingProvider, {
                   accept: accept,
                   whitelist: whitelist,
                   blacklist: blacklist,
@@ -3644,7 +3733,7 @@ var Payment = /*#__PURE__*/function () {
                 }, /*#__PURE__*/React__default$1['default'].createElement(PaymentValueProvider, null, /*#__PURE__*/React__default$1['default'].createElement(PaymentStack, {
                   document: document,
                   container: container
-                })))))))));
+                })))))))))));
               };
             });
             return _context2.abrupt("return", {
@@ -3731,7 +3820,12 @@ var SaleRoutingProvider = (function (props) {
 
   for (var blockchain in sell) {
     var token = sell[blockchain];
-    blacklist[blockchain] = [token];
+
+    if (blacklist[blockchain] instanceof Array) {
+      blacklist[blockchain].push(token);
+    } else {
+      blacklist[blockchain] = [token];
+    }
   }
 
   return /*#__PURE__*/React__default$1['default'].createElement(SaleRoutingContext.Provider, {
@@ -3971,11 +4065,6 @@ var SaleStack = (function (props) {
       open = _useContext.open,
       close = _useContext.close;
 
-  var _useContext2 = React.useContext(SaleRoutingContext),
-      purchasedToken = _useContext2.purchasedToken,
-      purchasedAmount = _useContext2.purchasedAmount,
-      setPurchaseAmount = _useContext2.setPurchaseAmount;
-
   return /*#__PURE__*/React__default$1['default'].createElement(depayReactDialogStack.ReactDialogStack, {
     open: open,
     close: close,
@@ -3984,11 +4073,7 @@ var SaleStack = (function (props) {
     document: props.document,
     dialogs: {
       SaleOverview: /*#__PURE__*/React__default$1['default'].createElement(SaleOverviewDialog, null),
-      ChangeAmount: /*#__PURE__*/React__default$1['default'].createElement(ChangeAmountDialog, {
-        token: purchasedToken,
-        amount: purchasedAmount,
-        setAmount: setPurchaseAmount
-      }),
+      ChangeAmount: /*#__PURE__*/React__default$1['default'].createElement(ChangeAmountDialog, null),
       ChangePayment: /*#__PURE__*/React__default$1['default'].createElement(ChangePaymentDialog, null),
       NoPaymentMethodFound: /*#__PURE__*/React__default$1['default'].createElement(NoPaymentMethodFoundDialog, null),
       PaymentError: /*#__PURE__*/React__default$1['default'].createElement(PaymentErrorDialog, null),

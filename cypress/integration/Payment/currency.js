@@ -118,7 +118,6 @@ describe('currency Payment widget', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, currency: 'USD', document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardText small').should('contain', '$33.00')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay $33.00')
         })
       })

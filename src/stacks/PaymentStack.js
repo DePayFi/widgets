@@ -1,3 +1,4 @@
+import ChangeAmountDialog from '../dialogs/ChangeAmountDialog'
 import ChangePaymentDialog from '../dialogs/ChangePaymentDialog'
 import ClosableContext from '../contexts/ClosableContext'
 import PaymentErrorDialog from '../dialogs/PaymentErrorDialog'
@@ -19,6 +20,7 @@ export default (props)=>{
       document={ props.document }
       dialogs={{
         PaymentOverview: <PaymentOverviewDialog/>,
+        ChangeAmount: <ChangeAmountDialog/>,
         ChangePayment: <ChangePaymentDialog/>,
         PaymentError: <PaymentErrorDialog/>,
         WrongNetwork: <WrongNetworkDialog/>,

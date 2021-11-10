@@ -3,7 +3,6 @@ export default ()=>{
         
     .Skeleton {
       background: rgb(230,230,230) !important;
-      border: 1px solid transparent;
       box-shadow: none !important;
       cursor: inherit !important;
       line-height: 0;

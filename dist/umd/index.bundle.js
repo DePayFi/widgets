@@ -49199,7 +49199,7 @@
   });
 
   var SkeletonStyle = (function () {
-    return "\n        \n    .Skeleton {\n      background: rgb(230,230,230) !important;\n      border: 1px solid transparent;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ";
+    return "\n        \n    .Skeleton {\n      background: rgb(230,230,230) !important;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ";
   });
 
   var TextButtonStyle = (function (style) {
@@ -55807,6 +55807,17 @@
   };
 
   var ChangableAmountProvider = (function (props) {
+    var configurationsMissAmounts = function configurationsMissAmounts(configurations) {
+      return !configurations.every(function (configuration) {
+        return typeof configuration.amount != 'undefined';
+      });
+    };
+
+    var _useState = react.useState(configurationsMissAmounts(props.accept)),
+        _useState2 = _slicedToArray(_useState, 2),
+        amountsMissing = _useState2[0],
+        setAmountsMissing = _useState2[1];
+
     var _useContext = react.useContext(WalletContext),
         account = _useContext.account;
 
@@ -55816,28 +55827,31 @@
     var _useContext3 = react.useContext(ErrorContext),
         setError = _useContext3.setError;
 
-    var _useState = react.useState(),
-        _useState2 = _slicedToArray(_useState, 2),
-        acceptWithAmount = _useState2[0],
-        setAcceptWithAmount = _useState2[1];
-
-    var _useState3 = react.useState(1),
+    var _useState3 = react.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
-        amount = _useState4[0],
-        setAmount = _useState4[1];
+        acceptWithAmount = _useState4[0],
+        setAcceptWithAmount = _useState4[1];
 
-    var _useState5 = react.useState(),
+    var _useState5 = react.useState(amountsMissing ? 1 : null),
         _useState6 = _slicedToArray(_useState5, 2),
-        maxRoute = _useState6[0],
-        setMaxRoute = _useState6[1];
+        amount = _useState6[0],
+        setAmount = _useState6[1];
 
-    var _useState7 = react.useState(100),
+    var _useState7 = react.useState(),
         _useState8 = _slicedToArray(_useState7, 2),
-        maxAmount = _useState8[0],
-        setMaxAmount = _useState8[1];
+        maxRoute = _useState8[0],
+        setMaxRoute = _useState8[1];
+
+    var _useState9 = react.useState(100),
+        _useState10 = _slicedToArray(_useState9, 2),
+        maxAmount = _useState10[0],
+        setMaxAmount = _useState10[1];
 
     react.useEffect(function () {
-      if (account && conversionRate) {
+      setAmountsMissing(configurationsMissAmounts(props.accept));
+    }, [props.accept]);
+    react.useEffect(function () {
+      if (amountsMissing && account && conversionRate) {
         Promise.all(props.accept.map(function (configuration) {
           return route$8({
             blockchain: configuration.blockchain,
@@ -55872,7 +55886,7 @@
       }
     }, [account, conversionRate, amount]);
     react.useEffect(function () {
-      if (maxRoute) {
+      if (amountsMissing && maxRoute) {
         maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
           if (maxRoute.fromToken.address == CONSTANTS$2[maxRoute.blockchain].USD) {
             setMaxAmount(parseInt((parseFloat(readableMaxAmount) * conversionRate).toFixed(0), 10));
@@ -55902,6 +55916,7 @@
     }, [account, maxRoute]);
     return /*#__PURE__*/react.createElement(ChangableAmountContext.Provider, {
       value: {
+        amountsMissing: amountsMissing,
         acceptWithAmount: acceptWithAmount,
         amount: amount,
         setAmount: setAmount,
@@ -64166,7 +64181,43 @@
     };
   }();
 
+  var PaymentAmountRoutingContext = /*#__PURE__*/react.createContext();
+
+  var PaymentAmountRoutingProvider = (function (props) {
+    var _useContext = react.useContext(ChangableAmountContext),
+        amountsMissing = _useContext.amountsMissing,
+        acceptWithAmount = _useContext.acceptWithAmount,
+        setMaxRoute = _useContext.setMaxRoute;
+
+    var _useState = react.useState(),
+        _useState2 = _slicedToArray(_useState, 2),
+        accept = _useState2[0],
+        setAccept = _useState2[1];
+
+    react.useEffect(function () {
+      if (amountsMissing) {
+        if (acceptWithAmount) {
+          setAccept(acceptWithAmount);
+        }
+      } else {
+        setAccept(props.accept);
+      }
+    }, [amountsMissing, acceptWithAmount]);
+    return /*#__PURE__*/react.createElement(PaymentAmountRoutingContext.Provider, {
+      value: {}
+    }, /*#__PURE__*/react.createElement(PaymentRoutingProvider, {
+      accept: accept,
+      whitelist: props.whitelist,
+      blacklist: props.blacklist,
+      event: props.event,
+      setMaxRoute: setMaxRoute
+    }, props.children));
+  });
+
   var PaymentOverviewSkeleton = (function (props) {
+    var _useContext = react.useContext(ChangableAmountContext),
+        amountsMissing = _useContext.amountsMissing;
+
     return /*#__PURE__*/react.createElement(Dialog, {
       header: /*#__PURE__*/react.createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM"
@@ -64175,7 +64226,11 @@
       }, "Payment")),
       body: /*#__PURE__*/react.createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      }, amountsMissing && /*#__PURE__*/react.createElement("div", {
+        className: "Card Skeleton"
       }, /*#__PURE__*/react.createElement("div", {
+        className: "SkeletonBackground"
+      })), /*#__PURE__*/react.createElement("div", {
         className: "Card Skeleton"
       }, /*#__PURE__*/react.createElement("div", {
         className: "SkeletonBackground"
@@ -64193,22 +64248,29 @@
   });
 
   var PaymentOverviewDialog = (function (props) {
-    var _useContext = react.useContext(PaymentContext),
-        payment = _useContext.payment,
-        paymentState = _useContext.paymentState,
-        pay = _useContext.pay,
-        transaction = _useContext.transaction,
-        approve = _useContext.approve,
-        approvalTransaction = _useContext.approvalTransaction;
+    var _useContext = react.useContext(ConfigurationContext),
+        currencyCode = _useContext.currencyCode;
 
-    var _useContext2 = react.useContext(PaymentValueContext),
-        paymentValue = _useContext2.paymentValue;
+    var _useContext2 = react.useContext(ChangableAmountContext),
+        amount = _useContext2.amount,
+        amountsMissing = _useContext2.amountsMissing;
 
-    var _useContext3 = react.useContext(NavigateStackContext_1),
-        navigate = _useContext3.navigate;
+    var _useContext3 = react.useContext(PaymentContext),
+        payment = _useContext3.payment,
+        paymentState = _useContext3.paymentState,
+        pay = _useContext3.pay,
+        transaction = _useContext3.transaction,
+        approve = _useContext3.approve,
+        approvalTransaction = _useContext3.approvalTransaction;
 
-    var _useContext4 = react.useContext(ClosableContext),
-        close = _useContext4.close;
+    var _useContext4 = react.useContext(PaymentValueContext),
+        paymentValue = _useContext4.paymentValue;
+
+    var _useContext5 = react.useContext(NavigateStackContext_1),
+        navigate = _useContext5.navigate;
+
+    var _useContext6 = react.useContext(ClosableContext),
+        close = _useContext6.close;
 
     var mainAction = function mainAction() {
       if (paymentState == 'initialized' || paymentState == 'approving') {
@@ -64223,7 +64285,10 @@
               navigate: navigate
             });
           }
-        }, "Pay ", paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
+        }, "Pay ", amount ? new Currency({
+          amount: amount.toFixed(2),
+          code: currencyCode
+        }).toString() : paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
       } else if (paymentState == 'paying') {
         return /*#__PURE__*/react.createElement("a", {
           className: "ButtonPrimary",
@@ -64279,7 +64344,32 @@
       }, "Payment")),
       body: /*#__PURE__*/react.createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      }, amountsMissing && /*#__PURE__*/react.createElement("div", {
+        className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+        title: paymentState == 'initialized' ? "Change amount" : undefined,
+        onClick: function onClick() {
+          if (paymentState != 'initialized') {
+            return;
+          }
+
+          navigate('ChangeAmount');
+        }
       }, /*#__PURE__*/react.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/react.createElement("h4", {
+        className: "CardTitle"
+      }, "Amount"), /*#__PURE__*/react.createElement("h2", {
+        className: "CardText"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "TokenAmountRow"
+      }, new Currency({
+        amount: amount.toFixed(2),
+        code: currencyCode
+      }).toString())))), /*#__PURE__*/react.createElement("div", {
+        className: "CardAction"
+      }, /*#__PURE__*/react.createElement(ChevronRight, null))), /*#__PURE__*/react.createElement("div", {
         className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
         title: paymentState == 'initialized' ? "Change payment" : undefined,
         onClick: function onClick() {
@@ -64299,7 +64389,9 @@
         className: "CardBody"
       }, /*#__PURE__*/react.createElement("div", {
         className: "CardBodyWrapper"
-      }, /*#__PURE__*/react.createElement("h2", {
+      }, amountsMissing && /*#__PURE__*/react.createElement("h4", {
+        className: "CardTitle"
+      }, "Payment"), /*#__PURE__*/react.createElement("h2", {
         className: "CardText"
       }, /*#__PURE__*/react.createElement("div", {
         className: "TokenAmountRow"
@@ -64307,9 +64399,7 @@
         className: "TokenSymbolCell"
       }, payment.symbol), /*#__PURE__*/react.createElement("span", null, "\xA0"), /*#__PURE__*/react.createElement("span", {
         className: "TokenAmountCell"
-      }, format(payment.amount)))), paymentValue.toString().length && /*#__PURE__*/react.createElement("h3", {
-        className: "CardText"
-      }, /*#__PURE__*/react.createElement("small", null, paymentValue.toString())))), /*#__PURE__*/react.createElement("div", {
+      }, format(payment.amount)))))), /*#__PURE__*/react.createElement("div", {
         className: "CardAction"
       }, /*#__PURE__*/react.createElement(ChevronRight, null)))),
       footer: /*#__PURE__*/react.createElement("div", {
@@ -64331,6 +64421,7 @@
       document: props.document,
       dialogs: {
         PaymentOverview: /*#__PURE__*/react.createElement(PaymentOverviewDialog, null),
+        ChangeAmount: /*#__PURE__*/react.createElement(ChangeAmountDialog, null),
         ChangePayment: /*#__PURE__*/react.createElement(ChangePaymentDialog, null),
         PaymentError: /*#__PURE__*/react.createElement(PaymentErrorDialog, null),
         WrongNetwork: /*#__PURE__*/react.createElement(WrongNetworkDialog, null)
@@ -64353,10 +64444,6 @@
 
                 if (!['ethereum', 'bsc'].includes(configuration.blockchain)) {
                   throw 'You need to set a supported blockchain!';
-                }
-
-                if (typeof configuration.amount === 'undefined') {
-                  throw 'You need to set the amount you want to receive as payment!';
                 }
 
                 if (typeof configuration.token === 'undefined') {
@@ -64426,7 +64513,9 @@
                     container: container,
                     connected: connected,
                     unmount: unmount
-                  }, /*#__PURE__*/react.createElement(PaymentRoutingProvider, {
+                  }, /*#__PURE__*/react.createElement(ConversionRateProvider, null, /*#__PURE__*/react.createElement(ChangableAmountProvider, {
+                    accept: accept
+                  }, /*#__PURE__*/react.createElement(PaymentAmountRoutingProvider, {
                     accept: accept,
                     whitelist: whitelist,
                     blacklist: blacklist,
@@ -64437,7 +64526,7 @@
                   }, /*#__PURE__*/react.createElement(PaymentValueProvider, null, /*#__PURE__*/react.createElement(PaymentStack, {
                     document: document,
                     container: container
-                  })))))))));
+                  })))))))))));
                 };
               });
               return _context2.abrupt("return", {
@@ -64524,7 +64613,12 @@
 
     for (var blockchain in sell) {
       var token = sell[blockchain];
-      blacklist[blockchain] = [token];
+
+      if (blacklist[blockchain] instanceof Array) {
+        blacklist[blockchain].push(token);
+      } else {
+        blacklist[blockchain] = [token];
+      }
     }
 
     return /*#__PURE__*/react.createElement(SaleRoutingContext.Provider, {
@@ -64764,11 +64858,6 @@
         open = _useContext.open,
         close = _useContext.close;
 
-    var _useContext2 = react.useContext(SaleRoutingContext),
-        purchasedToken = _useContext2.purchasedToken,
-        purchasedAmount = _useContext2.purchasedAmount,
-        setPurchaseAmount = _useContext2.setPurchaseAmount;
-
     return /*#__PURE__*/react.createElement(ReactDialogStack_1, {
       open: open,
       close: close,
@@ -64777,11 +64866,7 @@
       document: props.document,
       dialogs: {
         SaleOverview: /*#__PURE__*/react.createElement(SaleOverviewDialog, null),
-        ChangeAmount: /*#__PURE__*/react.createElement(ChangeAmountDialog, {
-          token: purchasedToken,
-          amount: purchasedAmount,
-          setAmount: setPurchaseAmount
-        }),
+        ChangeAmount: /*#__PURE__*/react.createElement(ChangeAmountDialog, null),
         ChangePayment: /*#__PURE__*/react.createElement(ChangePaymentDialog, null),
         NoPaymentMethodFound: /*#__PURE__*/react.createElement(NoPaymentMethodFoundDialog, null),
         PaymentError: /*#__PURE__*/react.createElement(PaymentErrorDialog, null),

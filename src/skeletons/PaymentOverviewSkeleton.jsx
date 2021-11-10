@@ -1,7 +1,9 @@
+import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import Dialog from '../components/Dialog'
-import React from 'react'
+import React, { useContext } from 'react'
 
 export default (props)=>{
+  const { amountsMissing } = useContext(ChangableAmountContext)
 
   return(
     <Dialog
@@ -12,6 +14,11 @@ export default (props)=>{
       }
       body={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
+          { amountsMissing &&
+            <div className="Card Skeleton">
+              <div className="SkeletonBackground"/>
+            </div>
+          }
           <div className="Card Skeleton">
             <div className="SkeletonBackground"/>
           </div>

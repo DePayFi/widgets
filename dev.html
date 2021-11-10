@@ -123,6 +123,28 @@
       <div class="col-4"></div>
     </div><!-- Payment -->
 
+    <div class="container pb-4"><!-- Payment without amount -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <h2 class="pt-5">Payment Without Amoung</h2>
+        <button id="payWithoutAmount" class="btn-lg mt-2">Pay without amount</button>
+        <script>
+          var button = document.getElementById("payWithoutAmount");
+          button.addEventListener("click",function(e){
+            DePayWidgets.Payment({
+              accept: [{
+                blockchain: 'bsc',
+                token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+                receiver: '0xdE955610314b52Fd80F6C5ebdE36c94f4c99ea72'
+              }]
+            });
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Payment -->
+
     <div class="container pb-4"><!-- Sale -->
       <div class="row">
       <div class="col-4"></div>
