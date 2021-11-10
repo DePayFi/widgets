@@ -36,22 +36,6 @@ describe('Payment widget preflight', () => {
     })
   })
 
-  it('requires you to set an amount', ()=> {
-    let criticalError
-    cy.visit('cypress/test.html').then((contentWindow) => {
-      cy.document().then((document)=>{
-        DePayWidgets.Payment({
-          document,
-          accept: [{ blockchain: 'ethereum', amount: undefined }],
-          critical: (error)=>{ criticalError = error }
-        })
-      })
-      cy.wait(200).then(()=>{
-        expect(criticalError.toString()).to.eq('You need to set the amount you want to receive as payment!')
-      })
-    })
-  })
-
   it('requires you to set a token', ()=> {
     let criticalError
     cy.visit('cypress/test.html').then((contentWindow) => {
