@@ -1,10 +1,12 @@
+import ChangableAmountProvider from './providers/ChangableAmountProvider'
 import ClosableProvider from './providers/ClosableProvider'
 import ConfigurationProvider from './providers/ConfigurationProvider'
+import ConversionRateProvider from './providers/ConversionRateProvider'
 import ensureDocument from './helpers/ensureDocument'
 import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
+import PaymentAmountRoutingProvider from './providers/PaymentAmountRoutingProvider'
 import PaymentProvider from './providers/PaymentProvider'
-import PaymentRoutingProvider from './providers/PaymentRoutingProvider'
 import PaymentStack from './stacks/PaymentStack'
 import PaymentValueProvider from './providers/PaymentValueProvider'
 import React from 'react'
@@ -15,7 +17,6 @@ let preflight = async({ accept }) => {
   accept.forEach((configuration)=>{
     if(typeof configuration.blockchain === 'undefined') { throw('You need to set the blockchain your want to receive the payment on!') }
     if(!['ethereum', 'bsc'].includes(configuration.blockchain)) { throw('You need to set a supported blockchain!') }
-    if(typeof configuration.amount === 'undefined') { throw('You need to set the amount you want to receive as payment!') }
     if(typeof configuration.token === 'undefined') { throw('You need to set the token you want to receive as payment!') }
     if(typeof configuration.receiver === 'undefined') { throw('You need to set the receiver address that you want to receive the payment!') }
   })
@@ -49,16 +50,20 @@ let Payment = async ({
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
                 <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>
-                  <PaymentRoutingProvider accept={ accept } whitelist={ whitelist } blacklist={ blacklist } event={ event }>
-                    <PaymentProvider container={ container } document={ document }>
-                      <PaymentValueProvider>
-                        <PaymentStack
-                          document={ document }
-                          container={ container }
-                        />
-                      </PaymentValueProvider>
-                    </PaymentProvider>
-                  </PaymentRoutingProvider>
+                  <ConversionRateProvider>
+                    <ChangableAmountProvider accept={ accept }>
+                      <PaymentAmountRoutingProvider accept={ accept } whitelist={ whitelist } blacklist={ blacklist } event={ event }>
+                        <PaymentProvider container={ container } document={ document }>
+                          <PaymentValueProvider>
+                            <PaymentStack
+                              document={ document }
+                              container={ container }
+                            />
+                          </PaymentValueProvider>
+                        </PaymentProvider>
+                      </PaymentAmountRoutingProvider>
+                    </ChangableAmountProvider>
+                  </ConversionRateProvider>
                 </WalletProvider>
               </UpdateProvider>
             </ClosableProvider>

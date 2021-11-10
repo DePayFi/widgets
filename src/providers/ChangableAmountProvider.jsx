@@ -10,6 +10,10 @@ import { route } from 'depay-web3-exchanges'
 import { Token } from 'depay-web3-tokens'
 
 export default (props)=>{
+  const configurationsMissAmounts = (configurations)=>{
+    return !configurations.every((configuration)=>(typeof configuration.amount != 'undefined'))
+  }
+  const [ amountsMissing, setAmountsMissing ] = useState(configurationsMissAmounts(props.accept))
   const { account } = useContext(WalletContext)
   const { conversionRate } = useContext(ConversionRateContext)
   const { setError } = useContext(ErrorContext)
@@ -17,9 +21,13 @@ export default (props)=>{
   const [ amount, setAmount ] = useState(1)
   const [ maxRoute, setMaxRoute ] = useState()
   const [ maxAmount, setMaxAmount ] = useState(100)
-  
+
   useEffect(()=>{
-    if(account && conversionRate) {
+    setAmountsMissing(configurationsMissAmounts(props.accept))
+  }, [props.accept])
+
+  useEffect(()=>{
+    if(amountsMissing && account && conversionRate) {
       Promise.all(props.accept.map((configuration)=>{
         return route({
           blockchain: configuration.blockchain,
@@ -54,7 +62,7 @@ export default (props)=>{
   }, [account, conversionRate, amount])
 
   useEffect(()=>{
-    if(maxRoute) {
+    if(amountsMissing && maxRoute) {
       maxRoute.fromToken.readable(maxRoute.fromBalance)
         .then((readableMaxAmount)=>{
           if(maxRoute.fromToken.address == CONSTANTS[maxRoute.blockchain].USD) {
@@ -94,6 +102,7 @@ export default (props)=>{
 
   return(
     <ChangableAmountContext.Provider value={{
+      amountsMissing,
       acceptWithAmount,
       amount,
       setAmount,
