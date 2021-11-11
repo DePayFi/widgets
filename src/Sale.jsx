@@ -18,6 +18,7 @@ let preflight = async({ sell }) => {
 }
 
 let Sale = async ({
+  amount,
   sell,
   sent,
   confirmed,
@@ -39,7 +40,7 @@ let Sale = async ({
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={{ sell, currency, sent, confirmed, ensured, failed, blacklist, providers }}>
+          <ConfigurationProvider configuration={{ amount, sell, currency, sent, confirmed, ensured, failed, blacklist, providers }}>
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>

@@ -137,6 +137,17 @@ If you do not pass an amount, the user will be able to select an amount within t
 
 The address receiving the payment. Always double check that you've set the right address.
 
+#### amount
+
+When you want to control how the amount selection behaves, pass the `amount` configuration object,
+alongside values for `start`, `min` and `step`.
+
+`start`: The amount that is initially selected.
+
+`min`: The minimum amount selectable.
+
+`step`: The number by wich to increment/decremten changes to the amount.
+
 #### receiver
 
 Payment receivers can either be wallet addresses, but also smart contracts.
@@ -560,6 +571,17 @@ The address of the token you want to sell.
 
 Use our [sale configurator](https://depay.fi/documentation/sales#sale-configurator) in order to simplify configuring this.
 
+#### amount
+
+When you want to control how the amount selection behaves, pass the `amount` configuration object,
+alongside values for `start`, `min` and `step`.
+
+`start`: The amount that is initially selected.
+
+`min`: The minimum amount selectable.
+
+`step`: The number by wich to increment/decremten changes to the amount.
+
 #### connected
 
 `connected`
@@ -926,6 +948,17 @@ Use our [donation configurator](https://depay.fi/documentation/donations#donatio
 `receiver`
 
 The address receiving the donation. Always double check that you've set the right address.
+
+#### amount
+
+When you want to control how the amount selection behaves, pass the `amount` configuration object,
+alongside values for `start`, `min` and `step`.
+
+`start`: The amount that is initially selected.
+
+`min`: The minimum amount selectable.
+
+`step`: The number by wich to increment/decremten changes to the amount.
 
 #### connected
 

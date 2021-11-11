@@ -22,17 +22,34 @@ export default (props)=>{
   const { account } = useContext(WalletContext)
   const { amount, setAmount, maxAmount } = useContext(ChangableAmountContext)
   const [ inputAmount, setInputAmount ] = useState(amount)
-  const { currencyCode } = useContext(ConfigurationContext)
+  const { currencyCode, amount: configuredAmount } = useContext(ConfigurationContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
+  const min = typeof configuredAmount == "object" && configuredAmount.min ? configuredAmount.min : 1
+  const step = typeof configuredAmount == "object" && configuredAmount.step ? configuredAmount.step : 1
 
   const changeAmountAndGoBack = ()=>{
-    setAmount(parseInt(inputAmount, 10))
+    setAmount(toValidValue(parseFloat(inputAmount)))
     navigate('back')
   }
 
   const changeAmount = (value)=>{
     if(Number.isNaN(value)) { return }
-    setInputAmount(Math.min(value, maxAmount))
+    setInputAmount(value)
+  }
+
+  const toValidValue = (value)=> {
+    if(step) {
+      value = Math.round(value/step)*step
+    }
+    value = Math.max(
+      min,
+      Math.min(value, maxAmount)
+    )
+    return value
+  }
+
+  const ensureValidity = (value)=> {
+    setInputAmount(toValidValue(value))
   }
 
   return(
@@ -52,22 +69,24 @@ export default (props)=>{
               <div className='FontSizeL'>
                 <input
                   max={ parseFloat(maxAmount) }
-                  min={ 1 }
-                  step={ 1 }
+                  min={ min }
+                  step={ step }
                   className='Input FontSizeXL TextAlignCenter'
                   type="number"
                   name="amount"
                   value={ parseFloat(inputAmount) }
-                  onChange={(event)=>{ changeAmount(parseInt(event.target.value, 10)) }}
+                  onChange={(event)=>{ changeAmount(event.target.value) }}
+                  onBlur={(event)=>{ ensureValidity(event.target.value) }}
                 />
               </div>
 
               <Slider
-                min={ 1 }
                 max={ parseFloat(maxAmount) }
-                step={ 1 }
+                min={ min }
+                step={ step }
                 value={ parseFloat(inputAmount) }
-                onChange={(value)=>{ changeAmount(parseInt(value, 10)) }}
+                onChange={(value)=>{ changeAmount(value) }}
+                onChangeComplete={()=>{ ensureValidity(inputAmount) }}
               />
               
               <div style={{ height: '40px' }}>

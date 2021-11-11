@@ -22,6 +22,7 @@ let preflight = async({ accept }) => {
 }
 
 let Donation = async ({
+  amount,
   accept,
   event,
   sent,
@@ -44,7 +45,7 @@ let Donation = async ({
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={{ accept, currency, event, sent, confirmed, ensured, failed, blacklist, providers }}>
+          <ConfigurationProvider configuration={{ amount, accept, currency, event, sent, confirmed, ensured, failed, blacklist, providers }}>
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
