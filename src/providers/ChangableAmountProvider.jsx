@@ -1,4 +1,5 @@
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import ConversionRateContext from '../contexts/ConversionRateContext'
 import ErrorContext from '../contexts/ErrorContext'
 import findMaxRoute from '../helpers/findMaxRoute'
@@ -15,10 +16,11 @@ export default (props)=>{
   }
   const [ amountsMissing, setAmountsMissing ] = useState(configurationsMissAmounts(props.accept))
   const { account } = useContext(WalletContext)
+  const { amount: configuredAmount } = useContext(ConfigurationContext)
   const { conversionRate } = useContext(ConversionRateContext)
   const { setError } = useContext(ErrorContext)
   const [ acceptWithAmount, setAcceptWithAmount ] = useState()
-  const [ amount, setAmount ] = useState(amountsMissing ? 1 : null)
+  const [ amount, setAmount ] = useState(amountsMissing ? (typeof configuredAmount == "object" && configuredAmount.start ? configuredAmount.start : 1) : null)
   const [ maxRoute, setMaxRoute ] = useState()
   const [ maxAmount, setMaxAmount ] = useState(100)
 
