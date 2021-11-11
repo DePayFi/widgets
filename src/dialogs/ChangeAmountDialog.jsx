@@ -28,7 +28,7 @@ export default (props)=>{
   const step = typeof configuredAmount == "object" && configuredAmount.step ? configuredAmount.step : 1
 
   const changeAmountAndGoBack = ()=>{
-    setAmount(inputAmount)
+    setAmount(toValidValue(parseFloat(inputAmount)))
     navigate('back')
   }
 
@@ -37,7 +37,7 @@ export default (props)=>{
     setInputAmount(value)
   }
 
-  const ensureValidity = (value)=> {
+  const toValidValue = (value)=> {
     if(step) {
       value = Math.round(value/step)*step
     }
@@ -45,7 +45,11 @@ export default (props)=>{
       min,
       Math.min(value, maxAmount)
     )
-    setInputAmount(value)
+    return value
+  }
+
+  const ensureValidity = (value)=> {
+    setInputAmount(toValidValue(value))
   }
 
   return(
