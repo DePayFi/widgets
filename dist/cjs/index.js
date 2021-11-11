@@ -1871,6 +1871,8 @@ var Connect = function Connect(options) {
 
 var ChangableAmountContext = /*#__PURE__*/React__default$1['default'].createContext();
 
+var ConfigurationContext = /*#__PURE__*/React__default$1['default'].createContext();
+
 var ConversionRateContext = /*#__PURE__*/React__default$1['default'].createContext();
 
 function _arrayWithoutHoles(arr) {
@@ -1973,18 +1975,21 @@ var ChangableAmountProvider = (function (props) {
   var _useContext = React.useContext(WalletContext),
       account = _useContext.account;
 
-  var _useContext2 = React.useContext(ConversionRateContext),
-      conversionRate = _useContext2.conversionRate;
+  var _useContext2 = React.useContext(ConfigurationContext),
+      configuredAmount = _useContext2.amount;
 
-  var _useContext3 = React.useContext(ErrorContext),
-      setError = _useContext3.setError;
+  var _useContext3 = React.useContext(ConversionRateContext),
+      conversionRate = _useContext3.conversionRate;
+
+  var _useContext4 = React.useContext(ErrorContext),
+      setError = _useContext4.setError;
 
   var _useState3 = React.useState(),
       _useState4 = _slicedToArray(_useState3, 2),
       acceptWithAmount = _useState4[0],
       setAcceptWithAmount = _useState4[1];
 
-  var _useState5 = React.useState(amountsMissing ? 1 : null),
+  var _useState5 = React.useState(amountsMissing ? _typeof(configuredAmount) == "object" && configuredAmount.start ? configuredAmount.start : 1 : null),
       _useState6 = _slicedToArray(_useState5, 2),
       amount = _useState6[0],
       setAmount = _useState6[1];
@@ -2077,8 +2082,6 @@ var ChangableAmountProvider = (function (props) {
     }
   }, props.children);
 });
-
-var ConfigurationContext = /*#__PURE__*/React__default$1['default'].createContext();
 
 var ConfigurationProvider = (function (props) {
   var currencyCode = new depayLocalCurrency.Currency({
@@ -2672,13 +2675,17 @@ var ChangeAmountDialog = (function (props) {
       setInputAmount = _useState2[1];
 
   var _useContext5 = React.useContext(ConfigurationContext),
-      currencyCode = _useContext5.currencyCode;
+      currencyCode = _useContext5.currencyCode,
+      configuredAmount = _useContext5.amount;
 
   var _useContext6 = React.useContext(PaymentRoutingContext);
       _useContext6.allRoutes;
 
+  var min = _typeof(configuredAmount) == "object" && configuredAmount.min ? configuredAmount.min : 1;
+  var step = _typeof(configuredAmount) == "object" && configuredAmount.step ? configuredAmount.step : 1;
+
   var changeAmountAndGoBack = function changeAmountAndGoBack() {
-    setAmount(parseInt(inputAmount, 10));
+    setAmount(toValidValue(parseFloat(inputAmount)));
     navigate('back');
   };
 
@@ -2687,7 +2694,20 @@ var ChangeAmountDialog = (function (props) {
       return;
     }
 
-    setInputAmount(Math.min(value, maxAmount));
+    setInputAmount(value);
+  };
+
+  var toValidValue = function toValidValue(value) {
+    if (step) {
+      value = Math.round(value / step) * step;
+    }
+
+    value = Math.max(min, Math.min(value, maxAmount));
+    return value;
+  };
+
+  var ensureValidity = function ensureValidity(value) {
+    setInputAmount(toValidValue(value));
   };
 
   return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
@@ -2709,22 +2729,28 @@ var ChangeAmountDialog = (function (props) {
       className: "FontSizeL"
     }, /*#__PURE__*/React__default$1['default'].createElement("input", {
       max: parseFloat(maxAmount),
-      min: 1,
-      step: 1,
+      min: min,
+      step: step,
       className: "Input FontSizeXL TextAlignCenter",
       type: "number",
       name: "amount",
       value: parseFloat(inputAmount),
       onChange: function onChange(event) {
-        changeAmount(parseInt(event.target.value, 10));
+        changeAmount(event.target.value);
+      },
+      onBlur: function onBlur(event) {
+        ensureValidity(event.target.value);
       }
     })), /*#__PURE__*/React__default$1['default'].createElement(Slider__default['default'], {
-      min: 1,
       max: parseFloat(maxAmount),
-      step: 1,
+      min: min,
+      step: step,
       value: parseFloat(inputAmount),
       onChange: function onChange(value) {
-        changeAmount(parseInt(value, 10));
+        changeAmount(value);
+      },
+      onChangeComplete: function onChangeComplete() {
+        ensureValidity(inputAmount);
       }
     }), /*#__PURE__*/React__default$1['default'].createElement("div", {
       style: {
@@ -3310,12 +3336,12 @@ var preflight$2 = /*#__PURE__*/function () {
 
 var Donation = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, event, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, unmount;
+    var amount, accept, event, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
+            amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight$2({
@@ -3335,6 +3361,7 @@ var Donation = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/React__default$1['default'].createElement(ConfigurationProvider, {
                   configuration: {
+                    amount: amount,
                     accept: accept,
                     currency: currency,
                     event: event,
@@ -3677,12 +3704,12 @@ var preflight$1 = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, document, unmount;
+    var accept, amount, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
+            accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight$1({
@@ -3702,6 +3729,7 @@ var Payment = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/React__default$1['default'].createElement(ConfigurationProvider, {
                   configuration: {
+                    amount: amount,
                     accept: accept,
                     currency: currency,
                     event: event,
@@ -4129,12 +4157,12 @@ var preflight = /*#__PURE__*/function () {
 
 var Sale = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var sell, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, accept, unmount;
+    var amount, sell, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, accept, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            sell = _ref3.sell, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
+            amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight({
@@ -4160,6 +4188,7 @@ var Sale = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/React__default$1['default'].createElement(ConfigurationProvider, {
                   configuration: {
+                    amount: amount,
                     sell: sell,
                     currency: currency,
                     sent: sent,
