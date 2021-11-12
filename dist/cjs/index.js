@@ -2051,7 +2051,6 @@ var ChangableAmountProvider = (function (props) {
 
           setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount) : _maxAmount);
         } else {
-          console.log('MAX AMOUNT ROUTE', maxRoute);
           depayWeb3Exchanges.route({
             blockchain: maxRoute.blockchain,
             tokenIn: maxRoute.fromToken.address,
@@ -2067,7 +2066,7 @@ var ChangableAmountProvider = (function (props) {
             }).then(function (readableMaxAmount) {
               var slippage = 1.01;
               var maxAmount = parseFloat(new decimal_js.Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
-              setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : maxAmount);
+              setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : round(maxAmount));
             })["catch"](setError);
           })["catch"](setError);
         }
@@ -2704,7 +2703,7 @@ var ChangeAmountDialog = (function (props) {
 
   var toValidStep = function toValidStep(value) {
     if (step) {
-      value = parseFloat(new decimal_js.Decimal(Math.round(new decimal_js.Decimal(value).div(step))).mul(step).toString());
+      value = parseFloat(new decimal_js.Decimal(Math.floor(new decimal_js.Decimal(value).div(step))).mul(step).toString());
     }
 
     return value;
@@ -2713,6 +2712,7 @@ var ChangeAmountDialog = (function (props) {
   var toValidValue = function toValidValue(value) {
     value = toValidStep(value);
     value = Math.max(min, Math.min(value, maxAmount));
+    value = toValidStep(value);
     return value;
   };
 
@@ -2766,10 +2766,10 @@ var ChangeAmountDialog = (function (props) {
       style: {
         height: '40px'
       }
-    }, /*#__PURE__*/React__default$1['default'].createElement("div", null, format(maxAmount), /*#__PURE__*/React__default$1['default'].createElement("button", {
+    }, /*#__PURE__*/React__default$1['default'].createElement("div", null, format(toValidStep(maxAmount)), /*#__PURE__*/React__default$1['default'].createElement("button", {
       className: "TextButton",
       onClick: function onClick() {
-        changeAmount(maxAmount);
+        changeAmount(toValidValue(maxAmount));
       }
     }, "(Max)")))))),
     footer: /*#__PURE__*/React__default$1['default'].createElement("div", null, /*#__PURE__*/React__default$1['default'].createElement("button", {

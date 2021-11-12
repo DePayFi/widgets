@@ -60800,7 +60800,6 @@
 
             setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount) : _maxAmount);
           } else {
-            console.log('MAX AMOUNT ROUTE', maxRoute);
             route$8({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,
@@ -60816,7 +60815,7 @@
               }).then(function (readableMaxAmount) {
                 var slippage = 1.01;
                 var maxAmount = parseFloat(new Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
-                setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : maxAmount);
+                setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : round$1(maxAmount));
               })["catch"](setError);
             })["catch"](setError);
           }
@@ -68398,7 +68397,7 @@
 
     var toValidStep = function toValidStep(value) {
       if (step) {
-        value = parseFloat(new Decimal(Math.round(new Decimal(value).div(step))).mul(step).toString());
+        value = parseFloat(new Decimal(Math.floor(new Decimal(value).div(step))).mul(step).toString());
       }
 
       return value;
@@ -68407,6 +68406,7 @@
     var toValidValue = function toValidValue(value) {
       value = toValidStep(value);
       value = Math.max(min, Math.min(value, maxAmount));
+      value = toValidStep(value);
       return value;
     };
 
@@ -68460,10 +68460,10 @@
         style: {
           height: '40px'
         }
-      }, /*#__PURE__*/react.createElement("div", null, format(maxAmount), /*#__PURE__*/react.createElement("button", {
+      }, /*#__PURE__*/react.createElement("div", null, format(toValidStep(maxAmount)), /*#__PURE__*/react.createElement("button", {
         className: "TextButton",
         onClick: function onClick() {
-          changeAmount(maxAmount);
+          changeAmount(toValidValue(maxAmount));
         }
       }, "(Max)")))))),
       footer: /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("button", {
