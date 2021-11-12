@@ -74,7 +74,6 @@ export default (props)=>{
             )
             setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : maxAmount)
           } else {
-            console.log('MAX AMOUNT ROUTE', maxRoute)
             route({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,
@@ -92,7 +91,7 @@ export default (props)=>{
                 let maxAmount = parseFloat(
                   new Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString()
                 )
-                setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : maxAmount)
+                setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : round(maxAmount))
               }).catch(setError)
             }).catch(setError)
           }

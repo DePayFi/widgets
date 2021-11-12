@@ -42,7 +42,7 @@ export default (props)=>{
     if(step) {
       value = parseFloat(
         new Decimal(
-          Math.round(
+          Math.floor(
             new Decimal(value).div(step)
           )
         ).mul(step).toString()
@@ -57,6 +57,7 @@ export default (props)=>{
       min,
       Math.min(value, maxAmount)
     )
+    value = toValidStep(value)
     return value
   }
 
@@ -105,10 +106,10 @@ export default (props)=>{
               
               <div style={{ height: '40px' }}>
                 <div>
-                  { format(maxAmount) }
+                  { format(toValidStep(maxAmount)) }
                   <button 
                     className="TextButton"
-                    onClick={()=>{ changeAmount(maxAmount) }}
+                    onClick={()=>{ changeAmount(toValidValue(maxAmount)) }}
                   >
                     (Max)
                   </button>
