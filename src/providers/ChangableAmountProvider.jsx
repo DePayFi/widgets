@@ -7,6 +7,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import round from '../helpers/round'
 import WalletContext from '../contexts/WalletContext'
 import { CONSTANTS } from 'depay-web3-constants'
+import { Decimal } from 'decimal.js'
 import { route } from 'depay-web3-exchanges'
 import { Token } from 'depay-web3-tokens'
 
@@ -68,11 +69,10 @@ export default (props)=>{
       maxRoute.fromToken.readable(maxRoute.fromBalance)
         .then((readableMaxAmount)=>{
           if(maxRoute.fromToken.address == CONSTANTS[maxRoute.blockchain].USD) {
-            setMaxAmount(
-              parseInt(
-                (parseFloat(readableMaxAmount)*conversionRate).toFixed(0)
-              , 10)
+            let maxAmount = parseFloat(
+              new Decimal(readableMaxAmount).mul(conversionRate).toString()
             )
+            setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : maxAmount)
           } else {
             route({
               blockchain: maxRoute.blockchain,
@@ -88,11 +88,10 @@ export default (props)=>{
                 address: CONSTANTS[maxRoute.blockchain].USD
               }).then((readableMaxAmount)=>{
                 let slippage = 1.01
-                setMaxAmount(
-                  parseInt(
-                    (parseFloat(readableMaxAmount)/slippage*conversionRate).toFixed(0)
-                  , 10)
+                let maxAmount = parseFloat(
+                  new Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString()
                 )
+                setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : round(maxAmount))
               }).catch(setError)
             }).catch(setError)
           }

@@ -3010,6 +3010,11 @@ decamelize@^1.2.0:
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
   integrity sha1-9lNNFRSCabIDUue+4m9QH5oZEpA=
 
+decimal.js@^10.3.1:
+  version "10.3.1"
+  resolved "https://registry.yarnpkg.com/decimal.js/-/decimal.js-10.3.1.tgz#d8c3a444a9c6774ba60ca6ad7261c3a94fd5e783"
+  integrity sha512-V0pfhfr8suzyPGOx3nmq4aHqabehUZn6Ch9kyFpV79TGDTWFmHqUqXdabR7QHqxzrYolF4+tVmJhUG4OURg5dQ==
+
 decode-uri-component@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
@@ -3137,10 +3142,10 @@ depay-web3-payments@^6.3.5:
   resolved "https://registry.yarnpkg.com/depay-web3-payments/-/depay-web3-payments-6.3.5.tgz#231cd21b49887a05b6b71962d0c5a6c349c9c101"
   integrity sha512-t+0IOqysSEMTRz1oLCImei7Au+7v76WfsSZQHN8ohN5WUbTnIQgPnJF4rvGBVgGZ53s4usZGFy0OyVVZOGFH4w==
 
-depay-web3-tokens@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/depay-web3-tokens/-/depay-web3-tokens-6.0.0.tgz#995cf9faeb1ca26e0d899d72fcef9f38e1c3740d"
-  integrity sha512-+ynGBo1y3SpAZjJxkKmatGAh74C3b68qQFMDfM/N4eVDhpaUVbdllO/wGa/kMzFahPQXaA9DTFlVGwssFki0vg==
+depay-web3-tokens@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/depay-web3-tokens/-/depay-web3-tokens-6.0.1.tgz#b649089fb1c683abdb3c2c588fc2635fc92102dc"
+  integrity sha512-PcPViQcXDWC/hwej4PoAmeX9lJddUBs3GBKvboyfjjYHNAM/jrhBBenHqTWAWlhXgYTwZrodMPOW+qVgiwPEZA==
 
 depay-web3-wallets@^5.7.3:
   version "5.7.3"

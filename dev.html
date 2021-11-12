@@ -16,13 +16,14 @@
     <script crossorigin src="https://unpkg.com/@depay/walletconnect@1"></script>
     <script crossorigin src="https://unpkg.com/depay-web3-client@6/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-web3-wallets@5/dist/umd/index.js"></script>
-    <script crossorigin src="https://unpkg.com/depay-web3-tokens@4/dist/umd/index.js"></script>
+    <script crossorigin src="https://unpkg.com/depay-web3-tokens@6/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-web3-assets@2/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-web3-exchanges@6/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-web3-payments@6/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-local-currency@1/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/depay-react-token-image@1/dist/umd/index.js"></script>
     <script crossorigin src="https://unpkg.com/react-rangeslider@2/umd/rangeslider.js"></script>
+    <script crossorigin src="https://unpkg.com/decimal.js@10/decimal.js"></script>
     <script src="tmp/index.dev.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.css">
     <style>
@@ -155,14 +156,15 @@
           var button = document.getElementById("payWithAmountConfiguration");
           button.addEventListener("click",function(e){
             DePayWidgets.Payment({
+              currency: 'ETH',
               amount: {
-                start: 10.5,
-                min: 0.5,
-                step: 0.5
+                start: 0.09,
+                min: 0.09,
+                step: 0.09
               },
               accept: [{
                 blockchain: 'bsc',
-                token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+                token: '0x83d809cb8ba2116cbb847b760657087dce1d33ad',
                 receiver: '0xdE955610314b52Fd80F6C5ebdE36c94f4c99ea72'
               }]
             });

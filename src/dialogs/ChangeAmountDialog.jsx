@@ -11,6 +11,7 @@ import Slider from 'react-rangeslider'
 import WalletContext from '../contexts/WalletContext'
 import { CONSTANTS } from 'depay-web3-constants'
 import { Currency } from 'depay-local-currency'
+import { Decimal } from 'decimal.js'
 import { ethers } from 'ethers'
 import { NavigateStackContext } from 'depay-react-dialog-stack'
 import { route } from 'depay-web3-exchanges'
@@ -37,19 +38,33 @@ export default (props)=>{
     setInputAmount(value)
   }
 
-  const toValidValue = (value)=> {
+  const toValidStep = (value)=> {
     if(step) {
-      value = Math.round(value/step)*step
+      value = parseFloat(
+        new Decimal(
+          Math.floor(
+            new Decimal(value).div(step)
+          )
+        ).mul(step).toString()
+      )
     }
+    return value
+  }
+
+  const toValidValue = (value)=> {
+    value = toValidStep(value)
     value = Math.max(
       min,
       Math.min(value, maxAmount)
     )
+    value = toValidStep(value)
     return value
   }
 
-  const ensureValidity = (value)=> {
-    setInputAmount(toValidValue(value))
+  const setValidValue = (value)=> {
+    setInputAmount(
+      toValidValue(value)
+    )
   }
 
   return(
@@ -76,7 +91,7 @@ export default (props)=>{
                   name="amount"
                   value={ parseFloat(inputAmount) }
                   onChange={(event)=>{ changeAmount(event.target.value) }}
-                  onBlur={(event)=>{ ensureValidity(event.target.value) }}
+                  onBlur={(event)=>{ setValidValue(event.target.value) }}
                 />
               </div>
 
@@ -85,16 +100,16 @@ export default (props)=>{
                 min={ min }
                 step={ step }
                 value={ parseFloat(inputAmount) }
-                onChange={(value)=>{ changeAmount(value) }}
-                onChangeComplete={()=>{ ensureValidity(inputAmount) }}
+                onChange={(value)=>{ changeAmount(toValidStep(value)) }}
+                onChangeComplete={()=>{ setValidValue(inputAmount) }}
               />
               
               <div style={{ height: '40px' }}>
                 <div>
-                  { format(maxAmount) }
+                  { format(toValidStep(maxAmount)) }
                   <button 
                     className="TextButton"
-                    onClick={()=>{ changeAmount(maxAmount) }}
+                    onClick={()=>{ changeAmount(toValidValue(maxAmount)) }}
                   >
                     (Max)
                   </button>
