@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import { ReactShadowDOM } from 'depay-react-shadow-dom';
 import { ethers } from 'ethers';
 import { CONSTANTS } from 'depay-web3-constants';
+import { Decimal } from 'decimal.js';
 import { route } from 'depay-web3-exchanges';
 import { Token } from 'depay-web3-tokens';
 import { Currency } from 'depay-local-currency';
@@ -2038,8 +2039,11 @@ var ChangableAmountProvider = (function (props) {
     if (amountsMissing && maxRoute) {
       maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
         if (maxRoute.fromToken.address == CONSTANTS[maxRoute.blockchain].USD) {
-          setMaxAmount(parseInt((parseFloat(readableMaxAmount) * conversionRate).toFixed(0), 10));
+          var _maxAmount = parseFloat(new Decimal(readableMaxAmount).mul(conversionRate).toString());
+
+          setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount) : _maxAmount);
         } else {
+          console.log('MAX AMOUNT ROUTE', maxRoute);
           route({
             blockchain: maxRoute.blockchain,
             tokenIn: maxRoute.fromToken.address,
@@ -2054,7 +2058,8 @@ var ChangableAmountProvider = (function (props) {
               address: CONSTANTS[maxRoute.blockchain].USD
             }).then(function (readableMaxAmount) {
               var slippage = 1.01;
-              setMaxAmount(parseInt((parseFloat(readableMaxAmount) / slippage * conversionRate).toFixed(0), 10));
+              var maxAmount = parseFloat(new Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
+              setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : maxAmount);
             })["catch"](setError);
           })["catch"](setError);
         }
@@ -2689,16 +2694,21 @@ var ChangeAmountDialog = (function (props) {
     setInputAmount(value);
   };
 
-  var toValidValue = function toValidValue(value) {
+  var toValidStep = function toValidStep(value) {
     if (step) {
-      value = Math.round(value / step) * step;
+      value = parseFloat(new Decimal(Math.round(new Decimal(value).div(step))).mul(step).toString());
     }
 
+    return value;
+  };
+
+  var toValidValue = function toValidValue(value) {
+    value = toValidStep(value);
     value = Math.max(min, Math.min(value, maxAmount));
     return value;
   };
 
-  var ensureValidity = function ensureValidity(value) {
+  var setValidValue = function setValidValue(value) {
     setInputAmount(toValidValue(value));
   };
 
@@ -2731,7 +2741,7 @@ var ChangeAmountDialog = (function (props) {
         changeAmount(event.target.value);
       },
       onBlur: function onBlur(event) {
-        ensureValidity(event.target.value);
+        setValidValue(event.target.value);
       }
     })), /*#__PURE__*/React.createElement(Slider, {
       max: parseFloat(maxAmount),
@@ -2739,10 +2749,10 @@ var ChangeAmountDialog = (function (props) {
       step: step,
       value: parseFloat(inputAmount),
       onChange: function onChange(value) {
-        changeAmount(value);
+        changeAmount(toValidStep(value));
       },
       onChangeComplete: function onChangeComplete() {
-        ensureValidity(inputAmount);
+        setValidValue(inputAmount);
       }
     }), /*#__PURE__*/React.createElement("div", {
       style: {

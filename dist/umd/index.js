@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('depay-react-dialog-stack'), require('depay-web3-wallets'), require('react-dom'), require('depay-react-shadow-dom'), require('ethers'), require('depay-web3-constants'), require('depay-web3-exchanges'), require('depay-web3-tokens'), require('depay-local-currency'), require('depay-web3-client'), require('depay-web3-payments'), require('react-rangeslider'), require('depay-react-token-image'), require('depay-web3-blockchains')) :
-  typeof define === 'function' && define.amd ? define(['react', 'depay-react-dialog-stack', 'depay-web3-wallets', 'react-dom', 'depay-react-shadow-dom', 'ethers', 'depay-web3-constants', 'depay-web3-exchanges', 'depay-web3-tokens', 'depay-local-currency', 'depay-web3-client', 'depay-web3-payments', 'react-rangeslider', 'depay-react-token-image', 'depay-web3-blockchains'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.ReactDialogStack, global.Web3Wallets, global.ReactDOM, global.ReactShadowDOM, global.ethers, global.Web3Constants, global.Web3Exchanges, global.Web3Tokens, global.LocalCurrency, global.Web3Client, global.Web3Payments, global.ReactRangeslider, global.ReactTokenImage, global.Web3Blockchains));
-}(this, (function (React, depayReactDialogStack, depayWeb3Wallets, ReactDOM, depayReactShadowDom, ethers, depayWeb3Constants, depayWeb3Exchanges, depayWeb3Tokens, depayLocalCurrency, depayWeb3Client, depayWeb3Payments, Slider, depayReactTokenImage, depayWeb3Blockchains) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('depay-react-dialog-stack'), require('depay-web3-wallets'), require('react-dom'), require('depay-react-shadow-dom'), require('ethers'), require('depay-web3-constants'), require('decimal.js'), require('depay-web3-exchanges'), require('depay-web3-tokens'), require('depay-local-currency'), require('depay-web3-client'), require('depay-web3-payments'), require('react-rangeslider'), require('depay-react-token-image'), require('depay-web3-blockchains')) :
+  typeof define === 'function' && define.amd ? define(['react', 'depay-react-dialog-stack', 'depay-web3-wallets', 'react-dom', 'depay-react-shadow-dom', 'ethers', 'depay-web3-constants', 'decimal.js', 'depay-web3-exchanges', 'depay-web3-tokens', 'depay-local-currency', 'depay-web3-client', 'depay-web3-payments', 'react-rangeslider', 'depay-react-token-image', 'depay-web3-blockchains'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.ReactDialogStack, global.Web3Wallets, global.ReactDOM, global.ReactShadowDOM, global.ethers, global.Web3Constants, global.Decimal, global.Web3Exchanges, global.Web3Tokens, global.LocalCurrency, global.Web3Client, global.Web3Payments, global.ReactRangeslider, global.ReactTokenImage, global.Web3Blockchains));
+}(this, (function (React, depayReactDialogStack, depayWeb3Wallets, ReactDOM, depayReactShadowDom, ethers, depayWeb3Constants, decimal_js, depayWeb3Exchanges, depayWeb3Tokens, depayLocalCurrency, depayWeb3Client, depayWeb3Payments, Slider, depayReactTokenImage, depayWeb3Blockchains) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -2034,8 +2034,11 @@
       if (amountsMissing && maxRoute) {
         maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
           if (maxRoute.fromToken.address == depayWeb3Constants.CONSTANTS[maxRoute.blockchain].USD) {
-            setMaxAmount(parseInt((parseFloat(readableMaxAmount) * conversionRate).toFixed(0), 10));
+            var _maxAmount = parseFloat(new decimal_js.Decimal(readableMaxAmount).mul(conversionRate).toString());
+
+            setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount) : _maxAmount);
           } else {
+            console.log('MAX AMOUNT ROUTE', maxRoute);
             depayWeb3Exchanges.route({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,
@@ -2050,7 +2053,8 @@
                 address: depayWeb3Constants.CONSTANTS[maxRoute.blockchain].USD
               }).then(function (readableMaxAmount) {
                 var slippage = 1.01;
-                setMaxAmount(parseInt((parseFloat(readableMaxAmount) / slippage * conversionRate).toFixed(0), 10));
+                var maxAmount = parseFloat(new decimal_js.Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
+                setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : maxAmount);
               })["catch"](setError);
             })["catch"](setError);
           }
@@ -2685,16 +2689,21 @@
       setInputAmount(value);
     };
 
-    var toValidValue = function toValidValue(value) {
+    var toValidStep = function toValidStep(value) {
       if (step) {
-        value = Math.round(value / step) * step;
+        value = parseFloat(new decimal_js.Decimal(Math.round(new decimal_js.Decimal(value).div(step))).mul(step).toString());
       }
 
+      return value;
+    };
+
+    var toValidValue = function toValidValue(value) {
+      value = toValidStep(value);
       value = Math.max(min, Math.min(value, maxAmount));
       return value;
     };
 
-    var ensureValidity = function ensureValidity(value) {
+    var setValidValue = function setValidValue(value) {
       setInputAmount(toValidValue(value));
     };
 
@@ -2727,7 +2736,7 @@
           changeAmount(event.target.value);
         },
         onBlur: function onBlur(event) {
-          ensureValidity(event.target.value);
+          setValidValue(event.target.value);
         }
       })), /*#__PURE__*/React__default$1['default'].createElement(Slider__default['default'], {
         max: parseFloat(maxAmount),
@@ -2735,10 +2744,10 @@
         step: step,
         value: parseFloat(inputAmount),
         onChange: function onChange(value) {
-          changeAmount(value);
+          changeAmount(toValidStep(value));
         },
         onChangeComplete: function onChangeComplete() {
-          ensureValidity(inputAmount);
+          setValidValue(inputAmount);
         }
       }), /*#__PURE__*/React__default$1['default'].createElement("div", {
         style: {

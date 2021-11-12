@@ -7,6 +7,7 @@ var ReactDOM = require('react-dom');
 var depayReactShadowDom = require('depay-react-shadow-dom');
 var ethers = require('ethers');
 var depayWeb3Constants = require('depay-web3-constants');
+var decimal_js = require('decimal.js');
 var depayWeb3Exchanges = require('depay-web3-exchanges');
 var depayWeb3Tokens = require('depay-web3-tokens');
 var depayLocalCurrency = require('depay-local-currency');
@@ -2046,8 +2047,11 @@ var ChangableAmountProvider = (function (props) {
     if (amountsMissing && maxRoute) {
       maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
         if (maxRoute.fromToken.address == depayWeb3Constants.CONSTANTS[maxRoute.blockchain].USD) {
-          setMaxAmount(parseInt((parseFloat(readableMaxAmount) * conversionRate).toFixed(0), 10));
+          var _maxAmount = parseFloat(new decimal_js.Decimal(readableMaxAmount).mul(conversionRate).toString());
+
+          setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount) : _maxAmount);
         } else {
+          console.log('MAX AMOUNT ROUTE', maxRoute);
           depayWeb3Exchanges.route({
             blockchain: maxRoute.blockchain,
             tokenIn: maxRoute.fromToken.address,
@@ -2062,7 +2066,8 @@ var ChangableAmountProvider = (function (props) {
               address: depayWeb3Constants.CONSTANTS[maxRoute.blockchain].USD
             }).then(function (readableMaxAmount) {
               var slippage = 1.01;
-              setMaxAmount(parseInt((parseFloat(readableMaxAmount) / slippage * conversionRate).toFixed(0), 10));
+              var maxAmount = parseFloat(new decimal_js.Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
+              setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : maxAmount);
             })["catch"](setError);
           })["catch"](setError);
         }
@@ -2697,16 +2702,21 @@ var ChangeAmountDialog = (function (props) {
     setInputAmount(value);
   };
 
-  var toValidValue = function toValidValue(value) {
+  var toValidStep = function toValidStep(value) {
     if (step) {
-      value = Math.round(value / step) * step;
+      value = parseFloat(new decimal_js.Decimal(Math.round(new decimal_js.Decimal(value).div(step))).mul(step).toString());
     }
 
+    return value;
+  };
+
+  var toValidValue = function toValidValue(value) {
+    value = toValidStep(value);
     value = Math.max(min, Math.min(value, maxAmount));
     return value;
   };
 
-  var ensureValidity = function ensureValidity(value) {
+  var setValidValue = function setValidValue(value) {
     setInputAmount(toValidValue(value));
   };
 
@@ -2739,7 +2749,7 @@ var ChangeAmountDialog = (function (props) {
         changeAmount(event.target.value);
       },
       onBlur: function onBlur(event) {
-        ensureValidity(event.target.value);
+        setValidValue(event.target.value);
       }
     })), /*#__PURE__*/React__default$1['default'].createElement(Slider__default['default'], {
       max: parseFloat(maxAmount),
@@ -2747,10 +2757,10 @@ var ChangeAmountDialog = (function (props) {
       step: step,
       value: parseFloat(inputAmount),
       onChange: function onChange(value) {
-        changeAmount(value);
+        changeAmount(toValidStep(value));
       },
       onChangeComplete: function onChangeComplete() {
-        ensureValidity(inputAmount);
+        setValidValue(inputAmount);
       }
     }), /*#__PURE__*/React__default$1['default'].createElement("div", {
       style: {
