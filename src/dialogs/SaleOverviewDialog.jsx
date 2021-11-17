@@ -17,7 +17,7 @@ import { TokenImage } from 'depay-react-token-image'
 
 export default (props)=>{
   const { amount } = useContext(ChangableAmountContext)
-  const { currencyCode } = useContext(ConfigurationContext)
+  const { currencyCode, tokenImage } = useContext(ConfigurationContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
   const { navigate } = useContext(NavigateStackContext)
@@ -93,6 +93,20 @@ export default (props)=>{
     paymentValue == undefined
   ) { return(<SaleOverviewSkeleton/>) }
 
+  let tokenImageElement
+  if(tokenImage) {
+    tokenImageElement = (
+      <img src={ tokenImage }/>
+    )
+  } else {
+    tokenImageElement = (
+      <TokenImage
+        blockchain={ payment.route.blockchain }
+        address={ toToken.address }
+      />
+    )
+  }
+
   return(
     <Dialog
       header={
@@ -111,10 +125,7 @@ export default (props)=>{
             } }
           >
             <div className="CardImage" title={ payment.name }>
-              <TokenImage
-                blockchain={ payment.route.blockchain }
-                address={ toToken.address }
-              />
+              { tokenImageElement }
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">

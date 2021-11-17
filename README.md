@@ -775,6 +775,20 @@ DePayWidgets.Sale({
 });
 ```
 
+#### tokenImage
+
+`tokenImage`
+
+Allows to set the token image used in the widget to represent the purchased token:
+
+```javascript
+DePayWidgets.Sale({
+  
+  tokenImage: 'https://depay.fi/favicon.png'
+
+});
+```
+
 #### style
 
 `style`
