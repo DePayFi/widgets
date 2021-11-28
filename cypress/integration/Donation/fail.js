@@ -5,11 +5,11 @@ import mockBasics from '../../../tests/mocks/basics'
 import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { CONSTANTS } from 'depay-web3-constants'
-import { mock, resetMocks, fail, anything } from 'depay-web3-mock'
+import { CONSTANTS } from '@depay/web3-constants'
+import { mock, resetMocks, fail, anything } from '@depay/web3-mock'
 import { resetCache, provider } from '@depay/web3-client'
-import { routers, plugins } from 'depay-web3-payments'
-import { Token } from 'depay-web3-tokens'
+import { routers, plugins } from '@depay/web3-payments'
+import { Token } from '@depay/web3-tokens'
 
 describe('Donation execution fails', () => {
 

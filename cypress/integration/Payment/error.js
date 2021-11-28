@@ -3,10 +3,10 @@ import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { CONSTANTS } from 'depay-web3-constants'
-import { mock, resetMocks } from 'depay-web3-mock'
+import { CONSTANTS } from '@depay/web3-constants'
+import { mock, resetMocks } from '@depay/web3-mock'
 import { provider, resetCache } from '@depay/web3-client'
-import { Token } from 'depay-web3-tokens'
+import { Token } from '@depay/web3-tokens'
 
 describe('Payment widget error', () => {
   

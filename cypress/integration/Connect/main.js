@@ -2,7 +2,7 @@ import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { mock, resetMocks } from 'depay-web3-mock'
+import { mock, resetMocks } from '@depay/web3-mock'
 
 describe('Connect wallet', () => {
 
