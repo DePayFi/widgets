@@ -1,4 +1,4 @@
-import { mock } from 'depay-web3-mock'
+import { mock } from '@depay/web3-mock'
 
 export default ({ amountInBN, path, amountsOut, provider, blockchain, exchange })=>{
 

@@ -1,6 +1,6 @@
 import Dialog from '../components/Dialog'
 import React, { useState, useContext } from 'react'
-import { NavigateStackContext } from 'depay-react-dialog-stack'
+import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default (props)=> {
 

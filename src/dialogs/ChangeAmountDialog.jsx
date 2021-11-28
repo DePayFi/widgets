@@ -9,13 +9,13 @@ import React, { useContext, useState, useEffect } from 'react'
 import round from '../helpers/round'
 import Slider from 'react-rangeslider'
 import WalletContext from '../contexts/WalletContext'
-import { CONSTANTS } from 'depay-web3-constants'
-import { Currency } from 'depay-local-currency'
+import { CONSTANTS } from '@depay/web3-constants'
+import { Currency } from '@depay/local-currency'
 import { Decimal } from 'decimal.js'
 import { ethers } from 'ethers'
-import { NavigateStackContext } from 'depay-react-dialog-stack'
-import { route } from 'depay-web3-exchanges'
-import { TokenImage } from 'depay-react-token-image'
+import { NavigateStackContext } from '@depay/react-dialog-stack'
+import { route } from '@depay/web3-exchanges'
+import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=>{
   const { navigate } = useContext(NavigateStackContext)

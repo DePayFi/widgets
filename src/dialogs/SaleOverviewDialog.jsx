@@ -11,9 +11,9 @@ import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
 import SaleOverviewSkeleton from '../skeletons/SaleOverviewSkeleton'
 import ToTokenContext from '../contexts/ToTokenContext'
-import { Currency } from 'depay-local-currency'
-import { NavigateStackContext } from 'depay-react-dialog-stack'
-import { TokenImage } from 'depay-react-token-image'
+import { Currency } from '@depay/local-currency'
+import { NavigateStackContext } from '@depay/react-dialog-stack'
+import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=>{
   const { amount } = useContext(ChangableAmountContext)

@@ -1,5 +1,5 @@
 import styleRenderer from './style'
-import { ReactShadowDOM } from 'depay-react-shadow-dom'
+import { ReactShadowDOM } from '@depay/react-shadow-dom'
 
 export default ({ style, document, closed }, content)=> {
   

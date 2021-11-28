@@ -7,7 +7,7 @@ import React, { useContext } from 'react'
 import SaleOverviewDialog from '../dialogs/SaleOverviewDialog'
 import SaleRoutingContext from '../contexts/SaleRoutingContext'
 import WrongNetworkDialog from '../dialogs/WrongNetworkDialog'
-import { ReactDialogStack } from 'depay-react-dialog-stack'
+import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{
 

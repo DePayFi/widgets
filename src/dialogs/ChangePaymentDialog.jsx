@@ -6,8 +6,8 @@ import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useEffect, useState } from 'react'
 import round from '../helpers/round'
-import { NavigateStackContext } from 'depay-react-dialog-stack'
-import { TokenImage } from 'depay-react-token-image'
+import { NavigateStackContext } from '@depay/react-dialog-stack'
+import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=>{
 

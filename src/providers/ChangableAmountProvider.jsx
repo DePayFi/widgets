@@ -6,10 +6,10 @@ import findMaxRoute from '../helpers/findMaxRoute'
 import React, { useState, useEffect, useContext } from 'react'
 import round from '../helpers/round'
 import WalletContext from '../contexts/WalletContext'
-import { CONSTANTS } from 'depay-web3-constants'
+import { CONSTANTS } from '@depay/web3-constants'
 import { Decimal } from 'decimal.js'
-import { route } from 'depay-web3-exchanges'
-import { Token } from 'depay-web3-tokens'
+import { route } from '@depay/web3-exchanges'
+import { Token } from '@depay/web3-tokens'
 
 export default (props)=>{
   const configurationsMissAmounts = (configurations)=>{

@@ -1,7 +1,7 @@
 import ErrorContext from '../contexts/ErrorContext'
 import ErrorGraphic from '../graphics/error'
 import React, { useState } from 'react'
-import { ReactDialog } from 'depay-react-dialog'
+import { ReactDialog } from '@depay/react-dialog'
 
 class ErrorBoundary extends React.Component {
   

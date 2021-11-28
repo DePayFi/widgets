@@ -1,7 +1,7 @@
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import React, { useEffect } from 'react'
-import { Currency } from 'depay-local-currency'
-import { setProvider } from 'depay-web3-client'
+import { Currency } from '@depay/local-currency'
+import { setProvider } from '@depay/web3-client'
 
 export default (props)=>{
   const currencyCode = new Currency({ code: props.configuration.currency }).code

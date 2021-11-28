@@ -1,11 +1,11 @@
 import fetchMock from 'fetch-mock'
 import mockAmountsOut from './amountsOut'
-import { CONSTANTS } from 'depay-web3-constants'
+import { CONSTANTS } from '@depay/web3-constants'
 import { ethers } from 'ethers'
-import { findByName } from 'depay-web3-exchanges'
-import { mock } from 'depay-web3-mock'
-import { routers } from 'depay-web3-payments'
-import { Token } from 'depay-web3-tokens'
+import { findByName } from '@depay/web3-exchanges'
+import { mock } from '@depay/web3-mock'
+import { routers } from '@depay/web3-payments'
+import { Token } from '@depay/web3-tokens'
 
 export default ({
 

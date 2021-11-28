@@ -5,9 +5,9 @@ import React, { useState, useContext, useEffect } from 'react'
 import round from '../helpers/round'
 import UpdateContext from '../contexts/UpdateContext'
 import WalletContext from '../contexts/WalletContext'
-import { CONSTANTS } from 'depay-web3-constants'
+import { CONSTANTS } from '@depay/web3-constants'
 import { ethers } from 'ethers'
-import { route } from 'depay-web3-payments'
+import { route } from '@depay/web3-payments'
 
 export default (props)=>{
   const [ allRoutes, setAllRoutes ] = useState()

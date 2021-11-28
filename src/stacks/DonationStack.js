@@ -5,7 +5,7 @@ import DonationOverviewDialog from '../dialogs/DonationOverviewDialog'
 import PaymentErrorDialog from '../dialogs/PaymentErrorDialog'
 import React, { useContext } from 'react'
 import WrongNetworkDialog from '../dialogs/WrongNetworkDialog'
-import { ReactDialogStack } from 'depay-react-dialog-stack'
+import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{
 

@@ -2,7 +2,7 @@ import ConnectStack from '../stacks/ConnectStack'
 import ErrorContext from '../contexts/ErrorContext'
 import React, { useState, useEffect, useContext } from 'react'
 import WalletContext from '../contexts/WalletContext'
-import { ReactDialog } from 'depay-react-dialog'
+import { ReactDialog } from '@depay/react-dialog'
 
 export default (props)=>{
 

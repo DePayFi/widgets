@@ -2,8 +2,8 @@ import ConnectGraphic from '../graphics/connect'
 import Dialog from '../components/Dialog'
 import PaymentContext from '../contexts/PaymentContext'
 import React, { useContext } from 'react'
-import { NavigateStackContext } from 'depay-react-dialog-stack'
-import { Blockchain } from 'depay-web3-blockchains'
+import { NavigateStackContext } from '@depay/react-dialog-stack'
+import { Blockchain } from '@depay/web3-blockchains'
 
 export default (props)=>{
 

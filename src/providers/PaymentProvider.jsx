@@ -7,7 +7,7 @@ import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import React, { useContext, useEffect, useState } from 'react'
 import UpdateContext from '../contexts/UpdateContext'
 import WalletContext from '../contexts/WalletContext'
-import { ReactDialogStack } from 'depay-react-dialog-stack'
+import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{
 
