@@ -6,11 +6,11 @@ import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useState, useEffect, useContext } from 'react'
 import UpdateContext from '../contexts/UpdateContext'
 import WalletContext from '../contexts/WalletContext'
-import { CONSTANTS } from 'depay-web3-constants'
-import { Currency } from 'depay-local-currency'
+import { CONSTANTS } from '@depay/web3-constants'
+import { Currency } from '@depay/local-currency'
 import { ethers } from 'ethers'
-import { route } from 'depay-web3-exchanges'
-import { Token } from 'depay-web3-tokens'
+import { route } from '@depay/web3-exchanges'
+import { Token } from '@depay/web3-tokens'
 
 export default (props)=>{
 

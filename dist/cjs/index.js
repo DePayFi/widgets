@@ -1,21 +1,21 @@
 'use strict';
 
 var React = require('react');
-var depayReactDialogStack = require('depay-react-dialog-stack');
-var depayWeb3Wallets = require('depay-web3-wallets');
+var reactDialogStack = require('@depay/react-dialog-stack');
+var web3Wallets = require('@depay/web3-wallets');
 var ReactDOM = require('react-dom');
-var depayReactShadowDom = require('depay-react-shadow-dom');
+var reactShadowDom = require('@depay/react-shadow-dom');
 var ethers = require('ethers');
-var depayWeb3Constants = require('depay-web3-constants');
+var web3Constants = require('@depay/web3-constants');
 var decimal_js = require('decimal.js');
-var depayWeb3Exchanges = require('depay-web3-exchanges');
-var depayWeb3Tokens = require('depay-web3-tokens');
-var depayLocalCurrency = require('depay-local-currency');
-var depayWeb3Client = require('depay-web3-client');
-var depayWeb3Payments = require('depay-web3-payments');
+var web3Exchanges = require('@depay/web3-exchanges');
+var web3Tokens = require('@depay/web3-tokens');
+var localCurrency = require('@depay/local-currency');
+var web3Client = require('@depay/web3-client');
+var web3Payments = require('@depay/web3-payments');
 var Slider = require('react-rangeslider');
-var depayReactTokenImage = require('depay-react-token-image');
-var depayWeb3Blockchains = require('depay-web3-blockchains');
+var reactTokenImage = require('@depay/react-token-image');
+var web3Blockchains = require('@depay/web3-blockchains');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -969,7 +969,7 @@ var CloseIcon = (function () {
 });
 
 var Dialog$1 = (function (props) {
-  var _useContext = React.useContext(depayReactDialogStack.NavigateStackContext),
+  var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
       navigate = _useContext.navigate;
 
   var _useContext2 = React.useContext(ClosableContext),
@@ -1009,7 +1009,7 @@ var Dialog$1 = (function (props) {
 });
 
 var ConnectingWalletDialog = (function (props) {
-  var _useContext = React.useContext(depayReactDialogStack.NavigateStackContext),
+  var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
       navigate = _useContext.navigate;
 
   var wallet = props.wallet;
@@ -1086,10 +1086,10 @@ var SelectWalletDialog = (function (props) {
       showExplanation = _useState2[0],
       setShowExplanation = _useState2[1];
 
-  var _useContext = React.useContext(depayReactDialogStack.NavigateStackContext),
+  var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
       navigate = _useContext.navigate;
 
-  var wallet = depayWeb3Wallets.getWallet();
+  var wallet = web3Wallets.getWallet();
   React.useEffect( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
     var accounts;
     return regenerator.wrap(function _callee$(_context) {
@@ -1125,7 +1125,7 @@ var SelectWalletDialog = (function (props) {
     props.connect(wallet);
   };
 
-  var availableWallets = [depayWeb3Wallets.wallets.WalletConnect];
+  var availableWallets = [web3Wallets.wallets.WalletConnect];
 
   if (wallet) {
     availableWallets.unshift(wallet);
@@ -1233,7 +1233,7 @@ var ConnectStack = (function (props) {
   };
 
   React.useEffect(function () {
-    var wallet = depayWeb3Wallets.getWallet();
+    var wallet = web3Wallets.getWallet();
 
     if (wallet) {
       setWallet(wallet);
@@ -1273,7 +1273,7 @@ var ConnectStack = (function (props) {
       }
     }, _callee2);
   })), [wallet]);
-  return /*#__PURE__*/React__default$1['default'].createElement(depayReactDialogStack.ReactDialogStack, {
+  return /*#__PURE__*/React__default$1['default'].createElement(reactDialogStack.ReactDialogStack, {
     open: open,
     close: close,
     start: "SelectWallet",
@@ -1385,8 +1385,7 @@ function ReactDialogStyle (styles) {
   let background =
     typeof styles === 'object' && styles.background ? styles.background : 'rgba(0,0,0,0.4)';
 
-  return (
-    `
+  return `
     .ReactDialog {
       bottom: 0;
       display: table;
@@ -1445,12 +1444,9 @@ function ReactDialogStyle (styles) {
       top: -5vh;
     }
   `
-  )
 }
 
-const _jsxFileName = "/Users/sebastian/Work/DePay/depay-react-dialog/src/components/Dialog.jsx";
-
-
+const _jsxFileName = "/home/runner/work/react-dialog/react-dialog/src/components/Dialog.jsx";
 class Dialog extends React__default['default'].Component {
   constructor(props) {
     super(props);
@@ -1512,7 +1508,7 @@ class Dialog extends React__default['default'].Component {
   }
 }
 
-const _jsxFileName$1 = "/Users/sebastian/Work/DePay/depay-react-dialog/src/index.jsx";
+const _jsxFileName$1 = "/home/runner/work/react-dialog/react-dialog/src/index.jsx";
 class ReactDialog extends React__default['default'].Component {
   constructor(props) {
     super(props);
@@ -1777,7 +1773,7 @@ var mount = (function (_ref, content) {
     }, 300);
   };
 
-  var _ReactShadowDOM = depayReactShadowDom.ReactShadowDOM({
+  var _ReactShadowDOM = reactShadowDom.ReactShadowDOM({
     document: document,
     element: document.body,
     content: content(unmountShadowDOM),
@@ -1805,7 +1801,7 @@ var Connect = function Connect(options) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              wallet = depayWeb3Wallets.getWallet();
+              wallet = web3Wallets.getWallet();
 
               if (!wallet) {
                 _context.next = 7;
@@ -2011,9 +2007,9 @@ var ChangableAmountProvider = (function (props) {
   React.useEffect(function () {
     if (amountsMissing && account && conversionRate) {
       Promise.all(props.accept.map(function (configuration) {
-        return depayWeb3Exchanges.route({
+        return web3Exchanges.route({
           blockchain: configuration.blockchain,
-          tokenIn: depayWeb3Constants.CONSTANTS[configuration.blockchain].USD,
+          tokenIn: web3Constants.CONSTANTS[configuration.blockchain].USD,
           amountIn: 1.00 / conversionRate * amount,
           tokenOut: configuration.token,
           fromAddress: account,
@@ -2025,7 +2021,7 @@ var ChangableAmountProvider = (function (props) {
             return;
           }
 
-          return depayWeb3Tokens.Token.readable({
+          return web3Tokens.Token.readable({
             blockchain: props.accept[index].blockchain,
             amount: routes[0].amountOut,
             address: routes[0].tokenOut
@@ -2046,23 +2042,23 @@ var ChangableAmountProvider = (function (props) {
   React.useEffect(function () {
     if (amountsMissing && maxRoute) {
       maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
-        if (maxRoute.fromToken.address == depayWeb3Constants.CONSTANTS[maxRoute.blockchain].USD) {
+        if (maxRoute.fromToken.address == web3Constants.CONSTANTS[maxRoute.blockchain].USD) {
           var _maxAmount = parseFloat(new decimal_js.Decimal(readableMaxAmount).mul(conversionRate).toString());
 
           setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount) : _maxAmount);
         } else {
-          depayWeb3Exchanges.route({
+          web3Exchanges.route({
             blockchain: maxRoute.blockchain,
             tokenIn: maxRoute.fromToken.address,
-            tokenOut: depayWeb3Constants.CONSTANTS[maxRoute.blockchain].USD,
+            tokenOut: web3Constants.CONSTANTS[maxRoute.blockchain].USD,
             amountIn: parseFloat(readableMaxAmount),
             fromAddress: account,
             toAddress: account
           }).then(function (routes) {
-            depayWeb3Tokens.Token.readable({
+            web3Tokens.Token.readable({
               amount: routes[0].amountOut,
               blockchain: maxRoute.blockchain,
-              address: depayWeb3Constants.CONSTANTS[maxRoute.blockchain].USD
+              address: web3Constants.CONSTANTS[maxRoute.blockchain].USD
             }).then(function (readableMaxAmount) {
               var slippage = 1.01;
               var maxAmount = parseFloat(new decimal_js.Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
@@ -2088,13 +2084,13 @@ var ChangableAmountProvider = (function (props) {
 });
 
 var ConfigurationProvider = (function (props) {
-  var currencyCode = new depayLocalCurrency.Currency({
+  var currencyCode = new localCurrency.Currency({
     code: props.configuration.currency
   }).code;
   React.useEffect(function () {
     if (props.configuration.providers != undefined) {
       Object.entries(props.configuration.providers).forEach(function (entry) {
-        depayWeb3Client.setProvider(entry[0], entry[1]);
+        web3Client.setProvider(entry[0], entry[1]);
       });
     }
   }, [props.configuration]);
@@ -2120,7 +2116,7 @@ var ConversionRateProvider = (function (props) {
       setConversionRate = _useState2[1];
 
   React.useEffect(function () {
-    depayLocalCurrency.Currency.fromUSD({
+    localCurrency.Currency.fromUSD({
       amount: 1,
       code: currency,
       apiKey: apiKey
@@ -2318,7 +2314,7 @@ var PaymentProvider = (function (props) {
   }, [allRoutes]);
 
   if (allRoutes instanceof Array && allRoutes.length == 0) {
-    return /*#__PURE__*/React__default$1['default'].createElement(depayReactDialogStack.ReactDialogStack, {
+    return /*#__PURE__*/React__default$1['default'].createElement(reactDialogStack.ReactDialogStack, {
       open: open,
       close: close,
       start: "NoPaymentMethodFound",
@@ -2401,7 +2397,7 @@ var PaymentRoutingProvider = (function (props) {
       return;
     }
 
-    depayWeb3Payments.route({
+    web3Payments.route({
       accept: props.accept.map(prepareAcceptedPayments),
       whitelist: props.whitelist,
       blacklist: props.blacklist,
@@ -2563,16 +2559,16 @@ var PaymentValueProvider = (function (props) {
       return;
     }
 
-    Promise.all([depayWeb3Exchanges.route({
+    Promise.all([web3Exchanges.route({
       blockchain: payment.route.blockchain,
       tokenIn: payment.route.toToken.address,
-      tokenOut: depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD,
+      tokenOut: web3Constants.CONSTANTS[payment.route.blockchain].USD,
       amountIn: payment.route.toAmount,
       fromAddress: account,
       toAddress: account
-    }), new depayWeb3Tokens.Token({
+    }), new web3Tokens.Token({
       blockchain: payment.route.blockchain,
-      address: depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD
+      address: web3Constants.CONSTANTS[payment.route.blockchain].USD
     }).decimals()]).then(function (_ref2) {
       var _ref3 = _slicedToArray(_ref2, 2),
           USDExchangeRoutes = _ref3[0],
@@ -2581,7 +2577,7 @@ var PaymentValueProvider = (function (props) {
       var USDRoute = USDExchangeRoutes[0];
       var USDAmount;
 
-      if (payment.route.toToken.address.toLowerCase() == depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+      if (payment.route.toToken.address.toLowerCase() == web3Constants.CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
         USDAmount = payment.route.toAmount.toString();
       } else if (USDRoute == undefined) {
         setPaymentValue('');
@@ -2591,7 +2587,7 @@ var PaymentValueProvider = (function (props) {
       }
 
       var USDValue = ethers.ethers.utils.formatUnits(USDAmount, USDDecimals);
-      depayLocalCurrency.Currency.fromUSD({
+      localCurrency.Currency.fromUSD({
         amount: USDValue,
         code: currency,
         apiKey: apiKey
@@ -2659,7 +2655,7 @@ var format = (function (input) {
 });
 
 var ChangeAmountDialog = (function (props) {
-  var _useContext = React.useContext(depayReactDialogStack.NavigateStackContext),
+  var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
       navigate = _useContext.navigate;
 
   var _useContext2 = React.useContext(ErrorContext);
@@ -2823,7 +2819,7 @@ var ChangePaymentDialog = (function (props) {
   var _useContext3 = React.useContext(PaymentValueContext),
       paymentValue = _useContext3.paymentValue;
 
-  var _useContext4 = React.useContext(depayReactDialogStack.NavigateStackContext),
+  var _useContext4 = React.useContext(reactDialogStack.NavigateStackContext),
       navigate = _useContext4.navigate;
 
   var _useState = React.useState([]),
@@ -2869,7 +2865,7 @@ var ChangePaymentDialog = (function (props) {
         }
       }, /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "CardImage"
-      }, /*#__PURE__*/React__default$1['default'].createElement(depayReactTokenImage.TokenImage, {
+      }, /*#__PURE__*/React__default$1['default'].createElement(reactTokenImage.TokenImage, {
         blockchain: payment.route.blockchain,
         address: payment.route.fromToken.address
       })), /*#__PURE__*/React__default$1['default'].createElement("div", {
@@ -2986,7 +2982,7 @@ var DonationOverviewDialog = (function (props) {
       approve = _useContext3.approve,
       approvalTransaction = _useContext3.approvalTransaction;
 
-  var _useContext4 = React.useContext(depayReactDialogStack.NavigateStackContext),
+  var _useContext4 = React.useContext(reactDialogStack.NavigateStackContext),
       navigate = _useContext4.navigate;
 
   var _useContext5 = React.useContext(ClosableContext),
@@ -3005,7 +3001,7 @@ var DonationOverviewDialog = (function (props) {
             navigate: navigate
           });
         }
-      }, "Pay ", new depayLocalCurrency.Currency({
+      }, "Pay ", new localCurrency.Currency({
         amount: amount.toFixed(2),
         code: currencyCode
       }).toString());
@@ -3084,7 +3080,7 @@ var DonationOverviewDialog = (function (props) {
       className: "CardText"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "TokenAmountRow"
-    }, new depayLocalCurrency.Currency({
+    }, new localCurrency.Currency({
       amount: amount.toFixed(2),
       code: currencyCode
     }).toString())))), /*#__PURE__*/React__default$1['default'].createElement("div", {
@@ -3102,7 +3098,7 @@ var DonationOverviewDialog = (function (props) {
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardImage",
       title: payment.name
-    }, /*#__PURE__*/React__default$1['default'].createElement(depayReactTokenImage.TokenImage, {
+    }, /*#__PURE__*/React__default$1['default'].createElement(reactTokenImage.TokenImage, {
       blockchain: payment.route.blockchain,
       address: payment.token
     })), /*#__PURE__*/React__default$1['default'].createElement("div", {
@@ -3129,7 +3125,7 @@ var DonationOverviewDialog = (function (props) {
 });
 
 var PaymentErrorDialog = (function () {
-  var _useContext = React.useContext(depayReactDialogStack.NavigateStackContext),
+  var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
       navigate = _useContext.navigate;
 
   var _useContext2 = React.useContext(PaymentContext),
@@ -3177,10 +3173,10 @@ var WrongNetworkDialog = (function (props) {
   var _useContext = React.useContext(PaymentContext),
       payment = _useContext.payment;
 
-  var _useContext2 = React.useContext(depayReactDialogStack.NavigateStackContext),
+  var _useContext2 = React.useContext(reactDialogStack.NavigateStackContext),
       navigate = _useContext2.navigate;
 
-  var blockchain = depayWeb3Blockchains.Blockchain.findByName(payment.route.blockchain);
+  var blockchain = web3Blockchains.Blockchain.findByName(payment.route.blockchain);
   return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
     stacked: true,
     header: /*#__PURE__*/React__default$1['default'].createElement("div", {
@@ -3218,7 +3214,7 @@ var DonationStack = (function (props) {
       open = _useContext.open,
       close = _useContext.close;
 
-  return /*#__PURE__*/React__default$1['default'].createElement(depayReactDialogStack.ReactDialogStack, {
+  return /*#__PURE__*/React__default$1['default'].createElement(reactDialogStack.ReactDialogStack, {
     open: open,
     close: close,
     start: "DonationOverview",
@@ -3510,7 +3506,7 @@ var PaymentOverviewDialog = (function (props) {
   var _useContext4 = React.useContext(PaymentValueContext),
       paymentValue = _useContext4.paymentValue;
 
-  var _useContext5 = React.useContext(depayReactDialogStack.NavigateStackContext),
+  var _useContext5 = React.useContext(reactDialogStack.NavigateStackContext),
       navigate = _useContext5.navigate;
 
   var _useContext6 = React.useContext(ClosableContext),
@@ -3529,7 +3525,7 @@ var PaymentOverviewDialog = (function (props) {
             navigate: navigate
           });
         }
-      }, "Pay ", amount ? new depayLocalCurrency.Currency({
+      }, "Pay ", amount ? new localCurrency.Currency({
         amount: amount.toFixed(2),
         code: currencyCode
       }).toString() : paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
@@ -3608,7 +3604,7 @@ var PaymentOverviewDialog = (function (props) {
       className: "CardText"
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "TokenAmountRow"
-    }, new depayLocalCurrency.Currency({
+    }, new localCurrency.Currency({
       amount: amount.toFixed(2),
       code: currencyCode
     }).toString())))), /*#__PURE__*/React__default$1['default'].createElement("div", {
@@ -3626,7 +3622,7 @@ var PaymentOverviewDialog = (function (props) {
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardImage",
       title: payment.name
-    }, /*#__PURE__*/React__default$1['default'].createElement(depayReactTokenImage.TokenImage, {
+    }, /*#__PURE__*/React__default$1['default'].createElement(reactTokenImage.TokenImage, {
       blockchain: payment.route.blockchain,
       address: payment.token
     })), /*#__PURE__*/React__default$1['default'].createElement("div", {
@@ -3657,7 +3653,7 @@ var PaymentStack = (function (props) {
       open = _useContext.open,
       close = _useContext.close;
 
-  return /*#__PURE__*/React__default$1['default'].createElement(depayReactDialogStack.ReactDialogStack, {
+  return /*#__PURE__*/React__default$1['default'].createElement(reactDialogStack.ReactDialogStack, {
     open: open,
     close: close,
     start: "PaymentOverview",
@@ -3930,7 +3926,7 @@ var SaleOverviewDialog = (function (props) {
       approve = _useContext4.approve,
       approvalTransaction = _useContext4.approvalTransaction;
 
-  var _useContext5 = React.useContext(depayReactDialogStack.NavigateStackContext),
+  var _useContext5 = React.useContext(reactDialogStack.NavigateStackContext),
       navigate = _useContext5.navigate;
 
   var _useContext6 = React.useContext(ClosableContext),
@@ -3958,7 +3954,7 @@ var SaleOverviewDialog = (function (props) {
             navigate: navigate
           });
         }
-      }, "Pay ", new depayLocalCurrency.Currency({
+      }, "Pay ", new localCurrency.Currency({
         amount: amount.toFixed(2),
         code: currencyCode
       }).toString());
@@ -4007,7 +4003,7 @@ var SaleOverviewDialog = (function (props) {
 
   React.useEffect(function () {
     if (paymentValue) {
-      setSalePerTokenValue(new depayLocalCurrency.Currency({
+      setSalePerTokenValue(new localCurrency.Currency({
         amount: (paymentValue.amount / parseFloat(toTokenReadableAmount)).toFixed(2),
         code: paymentValue.code
       }).toString());
@@ -4025,7 +4021,7 @@ var SaleOverviewDialog = (function (props) {
       src: tokenImage
     });
   } else {
-    tokenImageElement = /*#__PURE__*/React__default$1['default'].createElement(depayReactTokenImage.TokenImage, {
+    tokenImageElement = /*#__PURE__*/React__default$1['default'].createElement(reactTokenImage.TokenImage, {
       blockchain: payment.route.blockchain,
       address: toToken.address
     });
@@ -4083,7 +4079,7 @@ var SaleOverviewDialog = (function (props) {
     }, /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "CardImage",
       title: payment.name
-    }, /*#__PURE__*/React__default$1['default'].createElement(depayReactTokenImage.TokenImage, {
+    }, /*#__PURE__*/React__default$1['default'].createElement(reactTokenImage.TokenImage, {
       blockchain: payment.route.blockchain,
       address: payment.token
     })), /*#__PURE__*/React__default$1['default'].createElement("div", {
@@ -4114,7 +4110,7 @@ var SaleStack = (function (props) {
       open = _useContext.open,
       close = _useContext.close;
 
-  return /*#__PURE__*/React__default$1['default'].createElement(depayReactDialogStack.ReactDialogStack, {
+  return /*#__PURE__*/React__default$1['default'].createElement(reactDialogStack.ReactDialogStack, {
     open: open,
     close: close,
     start: "SaleOverview",
@@ -4268,7 +4264,7 @@ var DePayWidgets = {
   Payment: Payment,
   Sale: Sale,
   Donation: Donation,
-  provider: depayWeb3Client.provider
+  provider: web3Client.provider
 };
 
 module.exports = DePayWidgets;

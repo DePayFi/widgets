@@ -1,8 +1,8 @@
 import DePayWidgets from '../../../src'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { mock, resetMocks } from 'depay-web3-mock'
-import { wallets } from 'depay-web3-wallets'
+import { mock, resetMocks } from '@depay/web3-mock'
+import { wallets } from '@depay/web3-wallets'
 
 describe('WalletConnect Payment', () => {
 

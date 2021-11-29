@@ -1,19 +1,19 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { NavigateStackContext, ReactDialogStack } from 'depay-react-dialog-stack';
-import { getWallet, wallets } from 'depay-web3-wallets';
+import { NavigateStackContext, ReactDialogStack } from '@depay/react-dialog-stack';
+import { getWallet, wallets } from '@depay/web3-wallets';
 import ReactDOM from 'react-dom';
-import { ReactShadowDOM } from 'depay-react-shadow-dom';
+import { ReactShadowDOM } from '@depay/react-shadow-dom';
 import { ethers } from 'ethers';
-import { CONSTANTS } from 'depay-web3-constants';
+import { CONSTANTS } from '@depay/web3-constants';
 import { Decimal } from 'decimal.js';
-import { route } from 'depay-web3-exchanges';
-import { Token } from 'depay-web3-tokens';
-import { Currency } from 'depay-local-currency';
-import { setProvider, provider } from 'depay-web3-client';
-import { route as route$1 } from 'depay-web3-payments';
+import { route } from '@depay/web3-exchanges';
+import { Token } from '@depay/web3-tokens';
+import { Currency } from '@depay/local-currency';
+import { setProvider, provider } from '@depay/web3-client';
+import { route as route$1 } from '@depay/web3-payments';
 import Slider from 'react-rangeslider';
-import { TokenImage } from 'depay-react-token-image';
-import { Blockchain } from 'depay-web3-blockchains';
+import { TokenImage } from '@depay/react-token-image';
+import { Blockchain } from '@depay/web3-blockchains';
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
@@ -1377,8 +1377,7 @@ function ReactDialogStyle (styles) {
   let background =
     typeof styles === 'object' && styles.background ? styles.background : 'rgba(0,0,0,0.4)';
 
-  return (
-    `
+  return `
     .ReactDialog {
       bottom: 0;
       display: table;
@@ -1437,12 +1436,9 @@ function ReactDialogStyle (styles) {
       top: -5vh;
     }
   `
-  )
 }
 
-const _jsxFileName = "/Users/sebastian/Work/DePay/depay-react-dialog/src/components/Dialog.jsx";
-
-
+const _jsxFileName = "/home/runner/work/react-dialog/react-dialog/src/components/Dialog.jsx";
 class Dialog extends React__default['default'].Component {
   constructor(props) {
     super(props);
@@ -1504,7 +1500,7 @@ class Dialog extends React__default['default'].Component {
   }
 }
 
-const _jsxFileName$1 = "/Users/sebastian/Work/DePay/depay-react-dialog/src/index.jsx";
+const _jsxFileName$1 = "/home/runner/work/react-dialog/react-dialog/src/index.jsx";
 class ReactDialog extends React__default['default'].Component {
   constructor(props) {
     super(props);

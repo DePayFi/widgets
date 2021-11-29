@@ -2,8 +2,8 @@ import ClosableContext from '../contexts/ClosableContext'
 import ConnectingWalletDialog from '../dialogs/ConnectingWalletDialog'
 import React, { useState, useContext, useEffect } from 'react'
 import SelectWalletDialog from '../dialogs/SelectWalletDialog'
-import { ReactDialogStack } from 'depay-react-dialog-stack'
-import { getWallet } from 'depay-web3-wallets'
+import { ReactDialogStack } from '@depay/react-dialog-stack'
+import { getWallet } from '@depay/web3-wallets'
 
 export default (props)=>{
 

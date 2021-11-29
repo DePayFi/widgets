@@ -4,12 +4,12 @@ import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { CONSTANTS } from 'depay-web3-constants'
+import { CONSTANTS } from '@depay/web3-constants'
 import { ethers } from 'ethers'
-import { mock, confirm, resetMocks, anything } from 'depay-web3-mock'
-import { resetCache, provider } from 'depay-web3-client'
-import { routers, plugins } from 'depay-web3-payments'
-import { Token } from 'depay-web3-tokens'
+import { mock, confirm, resetMocks, anything } from '@depay/web3-mock'
+import { resetCache, provider } from '@depay/web3-client'
+import { routers, plugins } from '@depay/web3-payments'
+import { Token } from '@depay/web3-tokens'
 
 describe('change Donation payment', () => {
 

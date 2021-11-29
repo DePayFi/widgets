@@ -2,12 +2,12 @@ import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { CONSTANTS } from 'depay-web3-constants'
+import { CONSTANTS } from '@depay/web3-constants'
 import { ethers } from 'ethers'
-import { findByName } from 'depay-web3-exchanges'
-import { mock, resetMocks } from 'depay-web3-mock'
-import { provider, resetCache } from 'depay-web3-client'
-import { Token } from 'depay-web3-tokens'
+import { findByName } from '@depay/web3-exchanges'
+import { mock, resetMocks } from '@depay/web3-mock'
+import { provider, resetCache } from '@depay/web3-client'
+import { Token } from '@depay/web3-tokens'
 
 describe('insufficient balance for Payment', () => {
 

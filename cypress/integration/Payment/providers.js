@@ -1,7 +1,7 @@
 import DePayWidgets from '../../../src'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { provider } from 'depay-web3-client'
+import { provider } from '@depay/web3-client'
 
 describe('set RPC providers', () => {
 

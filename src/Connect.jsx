@@ -4,7 +4,7 @@ import ensureDocument from './helpers/ensureDocument'
 import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
 import React from 'react'
-import { getWallet } from 'depay-web3-wallets'
+import { getWallet } from '@depay/web3-wallets'
 
 let Connect = (options) => {
 

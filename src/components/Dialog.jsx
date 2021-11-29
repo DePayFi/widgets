@@ -2,7 +2,7 @@ import ChevronLeft from './ChevronLeft'
 import ClosableContext from '../contexts/ClosableContext'
 import CloseIcon from './CloseIcon'
 import React, { useContext } from 'react'
-import { NavigateStackContext } from 'depay-react-dialog-stack'
+import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default (props)=>{
 
