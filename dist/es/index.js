@@ -9,7 +9,7 @@ import { Decimal } from 'decimal.js';
 import { route } from '@depay/web3-exchanges';
 import { Token } from '@depay/web3-tokens';
 import { Currency } from '@depay/local-currency';
-import { setProvider, provider } from '@depay/web3-client';
+import { setProviderEndpoints, provider } from '@depay/web3-client';
 import { route as route$1 } from '@depay/web3-payments';
 import Slider from 'react-rangeslider';
 import { TokenImage } from '@depay/react-token-image';
@@ -2082,7 +2082,7 @@ var ConfigurationProvider = (function (props) {
   useEffect(function () {
     if (props.configuration.providers != undefined) {
       Object.entries(props.configuration.providers).forEach(function (entry) {
-        setProvider(entry[0], entry[1]);
+        setProviderEndpoints(entry[0], entry[1]);
       });
     }
   }, [props.configuration]);

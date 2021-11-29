@@ -2077,7 +2077,7 @@
     React.useEffect(function () {
       if (props.configuration.providers != undefined) {
         Object.entries(props.configuration.providers).forEach(function (entry) {
-          web3Client.setProvider(entry[0], entry[1]);
+          web3Client.setProviderEndpoints(entry[0], entry[1]);
         });
       }
     }, [props.configuration]);

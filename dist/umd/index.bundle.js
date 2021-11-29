@@ -30429,15 +30429,15 @@
     }
   };
 
-  const setProvider = (blockchain, provider)=>{
+  const setProviderEndpoints = (blockchain, endpoints)=>{
 
     switch (blockchain) {
       
       case 'ethereum':
-        return setProvider$2(provider)
+        return setProviderEndpoints$2(endpoints)
 
       case 'bsc':
-        return setProvider$1(provider)
+        return setProviderEndpoints$1(endpoints)
       
       default:
         throw 'Unknown blockchain: ' + blockchain
@@ -64512,7 +64512,7 @@
     react.useEffect(function () {
       if (props.configuration.providers != undefined) {
         Object.entries(props.configuration.providers).forEach(function (entry) {
-          setProvider(entry[0], entry[1]);
+          setProviderEndpoints(entry[0], entry[1]);
         });
       }
     }, [props.configuration]);
