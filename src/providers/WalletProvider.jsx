@@ -8,7 +8,7 @@ export default (props)=>{
 
   const { setError } = useContext(ErrorContext)
   const [wallet, setWallet] = useState()
-  const [account, setAccount] = useState()
+  let [account, setAccount] = useState()
   const [walletState, setWalletState] = useState()
   const connected = ({ account, wallet })=> {
     setAccount(account)

@@ -2,6 +2,7 @@ export default (style)=>{
   return(`
 
     .ReactDialogBackground {
+      backdrop-filter: blur(5px);
       background: rgba(0,0,0,0.7);
     }
 

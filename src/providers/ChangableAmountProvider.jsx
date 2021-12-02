@@ -16,7 +16,7 @@ export default (props)=>{
     return !configurations.every((configuration)=>(typeof configuration.amount != 'undefined'))
   }
   const [ amountsMissing, setAmountsMissing ] = useState(configurationsMissAmounts(props.accept))
-  const { account } = useContext(WalletContext)
+  let { account } = useContext(WalletContext)
   const { amount: configuredAmount } = useContext(ConfigurationContext)
   const { conversionRate } = useContext(ConversionRateContext)
   const { setError } = useContext(ErrorContext)
@@ -50,14 +50,17 @@ export default (props)=>{
           })
         })).then((amounts)=>{
           setAcceptWithAmount(props.accept.map((configuration, index)=>{
+            if(amounts[index] == undefined) { return }
             return(
               {
                 blockchain: configuration.blockchain,
-                amount: round(amounts[index]) || 1,
+                amount: round(amounts[index]),
                 token: configuration.token,
                 receiver: configuration.receiver || account
               }
             )
+          }).filter((configuration)=>{
+            return !!configuration
           }))
         }).catch(setError)
       }).catch(setError)

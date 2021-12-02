@@ -76,9 +76,6 @@ export default (props)=>{
                 </h3>
               </div>
             </div>
-            <div className="CardInfo">
-              { payment.route.approvalRequired && <span className="Label">Requires Approval</span> }
-            </div>
           </div>
         )
       })
