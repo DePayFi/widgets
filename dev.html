@@ -263,6 +263,31 @@
       <div class="col-4">
         <h2 class="pt-5">Donation</h2>
         
+        <button id="donateBNB" class="btn-lg mt-2">Donate BNB</button>
+        <script>
+          var button = document.getElementById("donateBNB");
+          button.addEventListener("click",function(e){
+            DePayWidgets.Donation({
+              accept:[
+                {
+                  blockchain: 'bsc',
+                  token: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+                  receiver: '0x07AEb9039bEd9B964745a3EF53E2D45F5E8D4428'
+                }
+              ]
+            });
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Donation -->
+
+    <div class="container pb-4"><!-- Donation -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <h2 class="pt-5">Donation</h2>
+        
         <button id="donationButtonWithAmountConfig" class="btn-lg mt-2">Donate with amountConfig</button>
         <script>
           var button = document.getElementById("donationButtonWithAmountConfig");
