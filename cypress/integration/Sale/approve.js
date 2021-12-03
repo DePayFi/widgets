@@ -147,7 +147,7 @@ describe('approve Donation payment', () => {
             cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
             cy.get('.Card.disabled', { includeShadowDom: true }).should('not.exist')
             cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).should('not.exist')
-            cy.get('.ButtonPrimary', { includeShadowDom: true }).should('not.exist')
+            cy.contains('.ButtonPrimary', 'Approve', { includeShadowDom: true }).should('not.exist')
           })
         })
       })

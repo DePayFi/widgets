@@ -134,7 +134,7 @@ describe('approve Payment', () => {
             cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
             cy.get('.Card.disabled', { includeShadowDom: true }).should('not.exist')
             cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).should('not.exist')
-            cy.get('.ButtonPrimary', { includeShadowDom: true }).should('not.exist')
+            cy.contains('.ButtonPrimary', 'Approve', { includeShadowDom: true }).should('not.exist')
           })
         })
       })
@@ -149,7 +149,7 @@ describe('approve Payment', () => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').then(()=>{
-          cy.get('.ButtonPrimary', { includeShadowDom: true }).should('not.exist')
+          cy.contains('.ButtonPrimary', 'Approve', { includeShadowDom: true }).should('not.exist')
         })
       })
     })

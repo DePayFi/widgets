@@ -133,7 +133,7 @@ describe('track Payment', () => {
         // cy.wait(1000).then(()=>{
         //   cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
         //     cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-        //     cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.round .Checkmark.Icon').click()
+        //     cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         //     cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
         //   })
         // })

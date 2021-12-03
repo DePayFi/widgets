@@ -215,7 +215,7 @@ describe('overview Sale', () => {
       })
     })
 
-    it.only('allows to set the token image of the token sold', () => {
+    it('allows to set the token image of the token sold', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Sale({ ...defaultArguments, tokenImage: 'https://depay.fi/favicon.png', document })
