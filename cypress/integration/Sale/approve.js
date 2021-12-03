@@ -139,15 +139,15 @@ describe('approve Donation payment', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary[title="Allow DAI to be used as payment"]', 'Allow DAI to be used as payment').click()
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.wide').should('contain.text', 'Approving...').then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.wide').invoke('attr', 'title').should('eq', 'Approving payment token - please wait')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.wide').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Approving...').then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'title').should('eq', 'Approving payment token - please wait')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
           confirm(mockedTransaction)
           cy.wait(1000).then(()=>{
             cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
             cy.get('.Card.disabled', { includeShadowDom: true }).should('not.exist')
             cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).should('not.exist')
-            cy.get('.ButtonPrimary.wide', { includeShadowDom: true }).should('not.exist')
+            cy.get('.ButtonPrimary', { includeShadowDom: true }).should('not.exist')
           })
         })
       })
@@ -173,12 +173,12 @@ describe('approve Donation payment', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Allow DAI to be used as payment').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary.wide').should('contain.text', 'Approving...').then(()=>{
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Approving...').then(()=>{
           cy.wait(1000).then(()=>{
             cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
             cy.get('.Card.disabled', { includeShadowDom: true }).should('not.exist')
             cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).should('exist')
-            cy.get('.ButtonPrimary.wide', { includeShadowDom: true }).should('exist')
+            cy.get('.ButtonPrimary', { includeShadowDom: true }).should('exist')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Allow DAI to be used as payment')
           })
         })

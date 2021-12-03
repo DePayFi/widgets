@@ -1,16 +1,12 @@
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
-import Checkmark from '../components/Checkmark'
 import ChevronRight from '../components/ChevronRight'
-import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import DonationOverviewSkeleton from '../skeletons/DonationOverviewSkeleton'
 import Footer from '../components/Footer'
 import format from '../helpers/format'
-import LoadingText from '../components/LoadingText'
 import PaymentContext from '../contexts/PaymentContext'
 import React, { useContext, useState, useEffect } from 'react'
-import UpdateContext from '../contexts/UpdateContext'
 import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { TokenImage } from '@depay/react-token-image'
@@ -18,9 +14,8 @@ import { TokenImage } from '@depay/react-token-image'
 export default (props)=>{
   const { currencyCode } = useContext(ConfigurationContext)
   const { amount } = useContext(ChangableAmountContext)
-  const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
+  const { payment, paymentState } = useContext(PaymentContext)
   const { navigate } = useContext(NavigateStackContext)
-  const { close } = useContext(ClosableContext)
 
   if(
     payment == undefined

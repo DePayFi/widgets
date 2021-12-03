@@ -1,6 +1,5 @@
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import ChevronRight from '../components/ChevronRight'
-import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import Footer from '../components/Footer'
@@ -9,8 +8,6 @@ import PaymentContext from '../contexts/PaymentContext'
 import PaymentOverviewSkeleton from '../skeletons/PaymentOverviewSkeleton'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
-import UpdateContext from '../contexts/UpdateContext'
-import WalletContext from '../contexts/WalletContext'
 import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { TokenImage } from '@depay/react-token-image'
@@ -21,7 +18,6 @@ export default (props)=>{
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
-  const { close } = useContext(ClosableContext)
 
   if(payment == undefined || paymentValue == undefined) { return(<PaymentOverviewSkeleton/>) }
 

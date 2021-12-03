@@ -1,5 +1,6 @@
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import Checkmark from '../components/Checkmark'
+import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import DigitalWalletIcon from '../components/DigitalWalletIcon'
 import LoadingText from '../components/LoadingText'
@@ -15,6 +16,7 @@ export default ()=>{
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
+  const { close } = useContext(ClosableContext)
 
   const additionalPaymentInformation = ()=> {
     if (paymentState == 'paying' && transaction == undefined) {

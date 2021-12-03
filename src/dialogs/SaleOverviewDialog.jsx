@@ -1,12 +1,9 @@
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
-import Checkmark from '../components/Checkmark'
 import ChevronRight from '../components/ChevronRight'
-import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import Footer from '../components/Footer'
 import format from '../helpers/format'
-import LoadingText from '../components/LoadingText'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
@@ -18,11 +15,10 @@ import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=>{
   const { amount } = useContext(ChangableAmountContext)
-  const { currencyCode, tokenImage } = useContext(ConfigurationContext)
+  const { tokenImage } = useContext(ConfigurationContext)
   const { paymentValue } = useContext(PaymentValueContext)
-  const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
+  const { payment, paymentState } = useContext(PaymentContext)
   const { navigate } = useContext(NavigateStackContext)
-  const { close } = useContext(ClosableContext)
   const { toToken, toTokenReadableAmount } = useContext(ToTokenContext)
   const [ salePerTokenValue, setSalePerTokenValue ] = useState()
 
