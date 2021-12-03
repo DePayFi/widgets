@@ -45,7 +45,7 @@ export default (props)=>{
           </div>
 
           <div className="DialogBody">
-            <div className="GraphicWrapper">
+            <div className="GraphicWrapper PaddingTopS">
               <img className="Graphic" src={ ErrorGraphic }/>
             </div>
             <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Oops, Something Went Wrong</h1>
@@ -64,7 +64,7 @@ export default (props)=>{
           </div>
 
           <div className="DialogFooter">
-            <div>
+            <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
               <button 
                 className={"ButtonPrimary"}
                 onClick={ close }
@@ -72,7 +72,6 @@ export default (props)=>{
                 Try again
               </button>
             </div>
-            <a href={'https://depay.fi?utm_source='+window.location.hostname+'&utm_medium=widget&utm_campaign=WidgetV2'} rel="noopener noreferrer" target="_blank" className="FooterLink">by DePay</a>
           </div>
         </div>
       </ReactDialog>

@@ -3,6 +3,7 @@ import ConnectStack from './stacks/ConnectStack'
 import ensureDocument from './helpers/ensureDocument'
 import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
+import PoweredBy from './components/PoweredBy'
 import React from 'react'
 import { getWallet } from '@depay/web3-wallets'
 
@@ -36,6 +37,7 @@ let Connect = (options) => {
               reject={ reject }
               autoClose={ true }
             />
+            <PoweredBy/>
           </ClosableProvider>
         </ErrorProvider>
     })

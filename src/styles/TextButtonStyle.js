@@ -7,12 +7,8 @@ export default (style)=>{
       color: ${style.colors.primary}
     }
 
-    .TextButton.TextGrey {
-      color: grey;
-    }
-    
-    .TextButton.TextGrey:hover {
-      color: ${style.colors.primary}
+    .TextButton:hover * {
+      opacity: 1.0;
     }
   `)
 }

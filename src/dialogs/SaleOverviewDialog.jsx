@@ -4,6 +4,7 @@ import ChevronRight from '../components/ChevronRight'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
+import Footer from '../components/Footer'
 import format from '../helpers/format'
 import LoadingText from '../components/LoadingText'
 import PaymentContext from '../contexts/PaymentContext'
@@ -25,61 +26,6 @@ export default (props)=>{
   const { toToken, toTokenReadableAmount } = useContext(ToTokenContext)
   const [ salePerTokenValue, setSalePerTokenValue ] = useState()
 
-  const mainAction = ()=> {
-    if(paymentState == 'initialized' || paymentState == 'approving') {
-      return(
-        <button 
-          className={["ButtonPrimary", (payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled': '')].join(' ')}
-          onClick={()=>{
-            if(payment.route.approvalRequired && !payment.route.directTransfer) { return }
-            pay({ navigate })
-          }}
-        >
-          Pay { new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString() }
-        </button>
-      )
-    } else if (paymentState == 'paying') {
-      return(
-        <a className="ButtonPrimary" title="Performing the payment - please wait" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
-          <LoadingText>Paying</LoadingText>
-        </a>
-      )
-    } else if (paymentState == 'confirmed') {
-      return(
-        <button className="ButtonPrimary round" title="Done" onClick={ close }>
-          <Checkmark/>
-        </button>
-      )
-    }
-  }
-  const approvalAction = ()=> {
-    if(paymentState == 'initialized') {
-      return(
-        <div className="PaddingBottomS">
-          <button className="ButtonPrimary wide" onClick={ approve } title={`Allow ${payment.symbol} to be used as payment`}>
-            Allow { payment.symbol } to be used as payment
-          </button>
-        </div>
-      )
-    } else if (paymentState == 'approving') {
-      return(
-        <div className="PaddingBottomS">
-          <a className="ButtonPrimary wide" title="Approving payment token - please wait" href={ approvalTransaction?.url } target="_blank" rel="noopener noreferrer">
-            <LoadingText>Approving</LoadingText>
-          </a>
-        </div>
-      )
-    }
-  }
-  const actions = ()=> {
-    return(
-      <div>
-        { payment.route.approvalRequired && !payment.route.directTransfer && approvalAction() }
-        { mainAction() }
-      </div>
-    )
-  }
-  
   useEffect(()=>{
     if(paymentValue) {
       setSalePerTokenValue((new Currency({ amount: (paymentValue.amount / parseFloat(toTokenReadableAmount)).toFixed(2), code: paymentValue.code })).toString())
@@ -110,8 +56,8 @@ export default (props)=>{
   return(
     <Dialog
       header={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <h1 className="LineHeightL FontSizeL TextLeft">Purchase</h1>
+        <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
+          <h1 className="LineHeightL FontSizeL">Purchase</h1>
         </div>
       }
       body={
@@ -193,8 +139,8 @@ export default (props)=>{
         </div>
       }
       footer={
-        <div className="PaddingTopXS PaddingRightM PaddingLeftM">
-          { actions() }
+        <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
+          <Footer/>
         </div>
       }
     />

@@ -9,7 +9,9 @@ import PaymentAmountRoutingProvider from './providers/PaymentAmountRoutingProvid
 import PaymentProvider from './providers/PaymentProvider'
 import PaymentStack from './stacks/PaymentStack'
 import PaymentValueProvider from './providers/PaymentValueProvider'
+import PoweredBy from './components/PoweredBy'
 import React from 'react'
+import TrackingProvider from './providers/TrackingProvider'
 import UpdateProvider from './providers/UpdateProvider'
 import WalletProvider from './providers/WalletProvider'
 
@@ -39,6 +41,7 @@ let Payment = async ({
   currency,
   connected,
   closed,
+  track,
   document
 }) => {
 
@@ -47,21 +50,24 @@ let Payment = async ({
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={ { amount, accept, currency, event, sent, confirmed, ensured, failed, whitelist, blacklist, providers } }>
+          <ConfigurationProvider configuration={ { amount, accept, currency, event, sent, confirmed, ensured, failed, whitelist, blacklist, providers, track } }>
             <ClosableProvider unmount={ unmount }>
               <UpdateProvider>
                 <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>
                   <ConversionRateProvider>
                     <ChangableAmountProvider accept={ accept }>
                       <PaymentAmountRoutingProvider accept={ accept } whitelist={ whitelist } blacklist={ blacklist } event={ event }>
-                        <PaymentProvider container={ container } document={ document }>
-                          <PaymentValueProvider>
-                            <PaymentStack
-                              document={ document }
-                              container={ container }
-                            />
-                          </PaymentValueProvider>
-                        </PaymentProvider>
+                        <TrackingProvider>
+                          <PaymentProvider container={ container } document={ document }>
+                            <PaymentValueProvider>
+                                <PaymentStack
+                                  document={ document }
+                                  container={ container }
+                                />
+                                <PoweredBy/>
+                            </PaymentValueProvider>
+                          </PaymentProvider>
+                        </TrackingProvider>
                       </PaymentAmountRoutingProvider>
                     </ChangableAmountProvider>
                   </ConversionRateProvider>

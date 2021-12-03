@@ -101,6 +101,32 @@
       <div class="row">
       <div class="col-4"></div>
       <div class="col-4">
+        <h2 class="pt-5">Payment with tracking</h2>
+        <button id="payWithTracking" class="btn-lg mt-2">Pay with tracking</button>
+        <script>
+          var button = document.getElementById("payWithTracking");
+          button.addEventListener("click",function(e){
+            DePayWidgets.Payment({
+              accept: [{
+                blockchain: 'bsc',
+                amount: 0.0001,
+                token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+              }],
+              track: {
+                endpoint: '/track'
+              }
+            });
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Payment -->
+
+    <div class="container pb-4"><!-- Payment -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
         <h2 class="pt-5">Payment Into Smart Contract</h2>
         <button id="payIntoSmartContractButton" class="btn-lg mt-2">Pay into Smart Contract</button>
         <script>
@@ -272,7 +298,7 @@
                 {
                   blockchain: 'bsc',
                   token: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
-                  receiver: '0x07AEb9039bEd9B964745a3EF53E2D45F5E8D4428'
+                  receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
                 }
               ]
             });

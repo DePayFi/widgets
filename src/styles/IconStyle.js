@@ -19,10 +19,22 @@ export default (style)=>{
       width: 1.4rem;
     }
 
+    .CheckMark.small {
+      height: 0.9rem;
+      width: 0.9rem;
+    }
+
+    .DigitalWalletIcon {
+      height: 1.4rem;
+      position: relative;
+      top: -1px;
+      vertical-align: middle;
+      width: 1.4rem;
+    }
+
     .ButtonPrimary .Icon {
       fill : ${style.colors.buttonText};
       stroke : ${style.colors.buttonText};
     }
-    
   `)
 }

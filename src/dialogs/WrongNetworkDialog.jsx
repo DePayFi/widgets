@@ -15,8 +15,8 @@ export default (props)=>{
     <Dialog
       stacked={ true }
       header={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <h1 className="LineHeightL FontSizeL TextLeft">Wrong Network</h1>
+        <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
+          <h1 className="LineHeightL FontSizeL">Wrong Network</h1>
         </div>
       }
       body={
@@ -33,7 +33,7 @@ export default (props)=>{
         </div>
       }
       footer={
-        <div className="PaddingTopXS PaddingRightM PaddingLeftM">
+        <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
           <button className="ButtonPrimary" onClick={()=>navigate('back')}>
             Try again
           </button>

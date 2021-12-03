@@ -54,8 +54,8 @@ export default (props)=> {
           </div>
         }
         footer={
-          <div className="PaddingTopXS PaddingRightM PaddingLeftM">
-            <button className='ButtonPrimary wide' onClick={()=>props.connect(wallet)}>
+          <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
+            <button className='ButtonPrimary' onClick={()=>props.connect(wallet)}>
               Connect
             </button>
           </div>

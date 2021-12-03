@@ -1,13 +1,15 @@
-import ClosableProvider from './providers/ClosableProvider'
-import ConversionRateProvider from './providers/ConversionRateProvider'
 import ChangableAmountProvider from './providers/ChangableAmountProvider'
+import ClosableProvider from './providers/ClosableProvider'
 import ConfigurationProvider from './providers/ConfigurationProvider'
+import ConversionRateProvider from './providers/ConversionRateProvider'
 import ensureDocument from './helpers/ensureDocument'
 import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
+import PoweredBy from './components/PoweredBy'
 import React from 'react'
 import SaleRoutingProvider from './providers/SaleRoutingProvider'
 import SaleStack from './stacks/SaleStack'
+import TrackingProvider from './providers/TrackingProvider'
 import UpdateProvider from './providers/UpdateProvider'
 import WalletProvider from './providers/WalletProvider'
 
@@ -47,12 +49,15 @@ let Sale = async ({
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
                   <ConversionRateProvider>
                     <ChangableAmountProvider accept={ accept }>
-                      <SaleRoutingProvider container={ container } document={ document }>
-                        <SaleStack
-                          document={ document }
-                          container={ container }
-                        />
-                      </SaleRoutingProvider>
+                      <TrackingProvider>
+                        <SaleRoutingProvider container={ container } document={ document }>
+                          <SaleStack
+                            document={ document }
+                            container={ container }
+                          />
+                          <PoweredBy/>
+                        </SaleRoutingProvider>
+                      </TrackingProvider>
                     </ChangableAmountProvider>
                   </ConversionRateProvider>
                 </WalletProvider>

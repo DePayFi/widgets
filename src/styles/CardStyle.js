@@ -20,6 +20,11 @@ export default (style)=>{
       text-decoration: none;
     }
 
+    .Card.transparent {
+      background: none;
+      box-shadow: none;
+    }
+
     .Card.small {
       min-height: auto;
       padding: 0.6rem 0.6rem;
@@ -53,8 +58,10 @@ export default (style)=>{
 
     .CardImage {
       flex-basis: auto;
-      flex-shrink: 0;
       flex-grow: 0;
+      flex-shrink: 0;
+      justify-content: center;
+      width: 3.6rem;
     }
 
     .CardBody {

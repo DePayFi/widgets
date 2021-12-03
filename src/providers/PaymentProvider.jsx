@@ -5,6 +5,7 @@ import NoPaymentMethodFoundDialog from '../dialogs/NoPaymentMethodFoundDialog'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import React, { useContext, useEffect, useState } from 'react'
+import TrackingContext from '../contexts/TrackingContext'
 import UpdateContext from '../contexts/UpdateContext'
 import WalletContext from '../contexts/WalletContext'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
@@ -18,6 +19,7 @@ export default (props)=>{
   const { allRoutes } = useContext(PaymentRoutingContext)
   const { update, setUpdate } = useContext(UpdateContext)
   const { wallet } = useContext(WalletContext)
+  const { tracking, initializeTracking } = useContext(TrackingContext)
   const [ payment, setPayment ] = useState()
   const [ transaction, setTransaction ] = useState()
   const [ approvalTransaction, setApprovalTransaction ] = useState()
@@ -48,6 +50,7 @@ export default (props)=>{
       }
     }))
       .then((sentTransaction)=>{
+        if(tracking){ initializeTracking(sentTransaction) }
         setTransaction(sentTransaction)
       })
       .catch((error)=>{

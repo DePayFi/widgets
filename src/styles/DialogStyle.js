@@ -37,15 +37,6 @@ export default (style)=>{
         max-height: 40vh !important;
       }
 
-      .FooterLink {
-        bottom: 0;
-        left: 0;
-        position: absolute;
-        padding-bottom: 1rem;
-        right: 0;
-        width: 100%;
-      }
-
       .DialogFooter {
         padding-bottom: 50px;
       }

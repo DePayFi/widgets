@@ -7,7 +7,9 @@ import DonationStack from './stacks/DonationStack'
 import ensureDocument from './helpers/ensureDocument'
 import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
+import PoweredBy from './components/PoweredBy'
 import React from 'react'
+import TrackingProvider from './providers/TrackingProvider'
 import UpdateProvider from './providers/UpdateProvider'
 import WalletProvider from './providers/WalletProvider'
 
@@ -51,12 +53,15 @@ let Donation = async ({
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
                   <ConversionRateProvider>
                     <ChangableAmountProvider accept={ accept }>
-                      <DonationRoutingProvider container={ container } document={ document }>
-                        <DonationStack
-                          document={ document }
-                          container={ container }
-                        />
-                      </DonationRoutingProvider>
+                      <TrackingProvider>
+                        <DonationRoutingProvider container={ container } document={ document }>
+                          <DonationStack
+                            document={ document }
+                            container={ container }
+                          />
+                          <PoweredBy/>
+                        </DonationRoutingProvider>
+                      </TrackingProvider>
                     </ChangableAmountProvider>
                   </ConversionRateProvider>
                 </WalletProvider>

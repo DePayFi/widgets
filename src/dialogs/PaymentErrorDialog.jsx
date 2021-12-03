@@ -37,8 +37,8 @@ export default ()=> {
         </div>
       }
       footer={
-        <div className="PaddingTopXS PaddingRightM PaddingLeftM">
-          <button className='ButtonPrimary wide' onClick={()=>navigate('back')}>
+        <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
+          <button className='ButtonPrimary' onClick={()=>navigate('back')}>
             Try again
           </button>
         </div>
