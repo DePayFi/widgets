@@ -10,7 +10,7 @@ import React from 'react'
 import SaleRoutingProvider from './providers/SaleRoutingProvider'
 import SaleStack from './stacks/SaleStack'
 import TrackingProvider from './providers/TrackingProvider'
-import UpdateProvider from './providers/UpdateProvider'
+import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 
 let preflight = async({ sell }) => {
@@ -44,7 +44,7 @@ let Sale = async ({
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={{ tokenImage, amount, sell, currency, sent, confirmed, ensured, failed, blacklist, providers }}>
-            <UpdateProvider>
+            <UpdatableProvider>
               <ClosableProvider unmount={ unmount }>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
                   <ConversionRateProvider>
@@ -62,7 +62,7 @@ let Sale = async ({
                   </ConversionRateProvider>
                 </WalletProvider>
               </ClosableProvider>
-            </UpdateProvider>
+            </UpdatableProvider>
           </ConfigurationProvider>
         </ErrorProvider>
     })

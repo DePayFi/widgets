@@ -10,7 +10,7 @@ import mount from './helpers/mount'
 import PoweredBy from './components/PoweredBy'
 import React from 'react'
 import TrackingProvider from './providers/TrackingProvider'
-import UpdateProvider from './providers/UpdateProvider'
+import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 
 let preflight = async({ accept }) => {
@@ -48,7 +48,7 @@ let Donation = async ({
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={{ amount, accept, currency, event, sent, confirmed, ensured, failed, blacklist, providers }}>
-            <UpdateProvider>
+            <UpdatableProvider>
               <ClosableProvider unmount={ unmount }>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
                   <ConversionRateProvider>
@@ -66,7 +66,7 @@ let Donation = async ({
                   </ConversionRateProvider>
                 </WalletProvider>
               </ClosableProvider>
-            </UpdateProvider>
+            </UpdatableProvider>
           </ConfigurationProvider>
         </ErrorProvider>
     })

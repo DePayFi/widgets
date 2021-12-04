@@ -3,11 +3,12 @@ export default (style)=>{
 
     .PoweredByWrapper {
       display: block;
-      position: fixed;
-      top: 0;
-      padding-top: 0.2rem;
       left: 0;
+      padding-top: 0.2rem;
+      position: fixed;
       right: 0;
+      text-align: center;
+      top: 0;
     }
 
     .PoweredByLink {

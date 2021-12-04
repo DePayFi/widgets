@@ -3,7 +3,7 @@ import findMaxRoute from '../helpers/findMaxRoute'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import React, { useState, useContext, useEffect } from 'react'
 import round from '../helpers/round'
-import UpdateContext from '../contexts/UpdateContext'
+import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
 import { CONSTANTS } from '@depay/web3-constants'
 import { ethers } from 'ethers'
@@ -14,7 +14,7 @@ export default (props)=>{
   const [ selectedRoute, setSelectedRoute ] = useState()
   const [ reloadCount, setReloadCount ] = useState(0)
   const { account } = useContext(WalletContext)
-  const { update } = useContext(UpdateContext)
+  const { updatable } = useContext(UpdatableContext)
   const prepareAcceptedPayments = (accept)=>{
     let toAddress = typeof accept.receiver == 'object' ? accept.receiver.address : accept.receiver
     let toContract = typeof accept.receiver == 'object' ? accept.receiver : undefined
@@ -25,8 +25,8 @@ export default (props)=>{
       fromAddress: account
     })
   } 
-  const getPaymentRoutes = ({ allRoutes, selectedRoute, update })=>{
-    if(update == false || !props.accept || !account) { return }
+  const getPaymentRoutes = ({ allRoutes, selectedRoute, updatable })=>{
+    if(updatable == false || !props.accept || !account) { return }
     route({
       accept: props.accept.map(prepareAcceptedPayments),
       whitelist: props.whitelist,
@@ -64,11 +64,11 @@ export default (props)=>{
   useEffect(() => {
     const timeout = setTimeout(() => {
       setReloadCount(reloadCount + 1)
-      getPaymentRoutes({ allRoutes, selectedRoute, update })  
+      getPaymentRoutes({ allRoutes, selectedRoute, updatable })  
     }, 15000);
 
     return () => clearTimeout(timeout)
-  }, [reloadCount, allRoutes, selectedRoute, update])
+  }, [reloadCount, allRoutes, selectedRoute, updatable])
 
   useEffect(() => {
     if(account && props.accept) {

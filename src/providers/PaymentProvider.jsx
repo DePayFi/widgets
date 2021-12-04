@@ -6,7 +6,7 @@ import PaymentContext from '../contexts/PaymentContext'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import React, { useContext, useEffect, useState } from 'react'
 import TrackingContext from '../contexts/TrackingContext'
-import UpdateContext from '../contexts/UpdateContext'
+import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 
@@ -17,7 +17,7 @@ export default (props)=>{
   const { selectedRoute } = useContext(PaymentRoutingContext)
   const { open, close, setClosable } = useContext(ClosableContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
-  const { update, setUpdate } = useContext(UpdateContext)
+  const { setUpdatable } = useContext(UpdatableContext)
   const { wallet } = useContext(WalletContext)
   const { tracking, initializeTracking } = useContext(TrackingContext)
   const [ payment, setPayment ] = useState()
@@ -28,7 +28,7 @@ export default (props)=>{
   const pay = ({ navigate })=> {
     setClosable(false)
     setPaymentState('paying')
-    setUpdate(false)
+    setUpdatable(false)
     wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
       sent: (transaction)=>{
         if(sent) { sent(transaction) }
@@ -45,7 +45,7 @@ export default (props)=>{
         if(failed) { failed(transaction, error) }
         setPaymentState('initialized')
         setClosable(true)
-        setUpdate(true)
+        setUpdatable(true)
         navigate('PaymentError')
       }
     }))
@@ -57,7 +57,7 @@ export default (props)=>{
         console.log('error', error)
         setPaymentState('initialized')
         setClosable(true)
-        setUpdate(true)
+        setUpdatable(true)
         if(error?.code == 'WRONG_NETWORK') {
           navigate('WrongNetwork')
         }
@@ -109,9 +109,9 @@ export default (props)=>{
 
   useEffect(()=>{
     if(allRoutes && allRoutes.length == 0) {
-      setUpdate(false)
+      setUpdatable(false)
     } else if(allRoutes && allRoutes.length > 0) {
-      setUpdate(true)
+      setUpdatable(true)
     }
   }, [allRoutes])
 

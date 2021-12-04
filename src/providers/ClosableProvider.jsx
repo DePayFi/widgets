@@ -1,16 +1,16 @@
 import ClosableContext from '../contexts/ClosableContext'
 import React, { useState, useEffect, useContext } from 'react'
-import UpdateContext from '../contexts/UpdateContext'
+import UpdatableContext from '../contexts/UpdatableContext'
 
 export default (props)=>{
   
   const [closable, setClosable] = useState(true)
   const [open, setOpen] = useState(true)
-  const { setUpdate } = useContext(UpdateContext)
+  const { setUpdatable } = useContext(UpdatableContext)
 
   let close = ()=>{
     if(!closable) { return }
-    setUpdate(false)
+    setUpdatable(false)
     setOpen(false)
     setTimeout(props.unmount, 300)
   }
