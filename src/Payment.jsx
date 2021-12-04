@@ -51,8 +51,8 @@ let Payment = async ({
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={ { amount, accept, currency, event, sent, confirmed, ensured, failed, whitelist, blacklist, providers, track } }>
-            <ClosableProvider unmount={ unmount }>
-              <UpdateProvider>
+            <UpdateProvider>
+              <ClosableProvider unmount={ unmount }>
                 <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>
                   <ConversionRateProvider>
                     <ChangableAmountProvider accept={ accept }>
@@ -72,8 +72,8 @@ let Payment = async ({
                     </ChangableAmountProvider>
                   </ConversionRateProvider>
                 </WalletProvider>
-              </UpdateProvider>
-            </ClosableProvider>
+              </ClosableProvider>
+            </UpdateProvider>
           </ConfigurationProvider>
         </ErrorProvider>
     })

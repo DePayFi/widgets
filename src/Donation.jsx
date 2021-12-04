@@ -48,8 +48,8 @@ let Donation = async ({
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={{ amount, accept, currency, event, sent, confirmed, ensured, failed, blacklist, providers }}>
-            <ClosableProvider unmount={ unmount }>
-              <UpdateProvider>
+            <UpdateProvider>
+              <ClosableProvider unmount={ unmount }>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
                   <ConversionRateProvider>
                     <ChangableAmountProvider accept={ accept }>
@@ -65,8 +65,8 @@ let Donation = async ({
                     </ChangableAmountProvider>
                   </ConversionRateProvider>
                 </WalletProvider>
-              </UpdateProvider>
-            </ClosableProvider>
+              </ClosableProvider>
+            </UpdateProvider>
           </ConfigurationProvider>
         </ErrorProvider>
     })

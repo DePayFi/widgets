@@ -44,8 +44,8 @@ let Sale = async ({
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={{ tokenImage, amount, sell, currency, sent, confirmed, ensured, failed, blacklist, providers }}>
-            <ClosableProvider unmount={ unmount }>
-              <UpdateProvider>
+            <UpdateProvider>
+              <ClosableProvider unmount={ unmount }>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
                   <ConversionRateProvider>
                     <ChangableAmountProvider accept={ accept }>
@@ -61,8 +61,8 @@ let Sale = async ({
                     </ChangableAmountProvider>
                   </ConversionRateProvider>
                 </WalletProvider>
-              </UpdateProvider>
-            </ClosableProvider>
+              </ClosableProvider>
+            </UpdateProvider>
           </ConfigurationProvider>
         </ErrorProvider>
     })

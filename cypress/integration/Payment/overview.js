@@ -195,11 +195,11 @@ describe('overview Payment', () => {
       })
     })
     
-    it('contains a link to the DePay website in the footer', () => {
+    it('contains a link to the DePay website', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.DialogFooter a').invoke('attr', 'href').should('eq', 'https://depay.fi?utm_source=localhost&utm_medium=widget&utm_campaign=WidgetV2')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('a').invoke('attr', 'href').should('eq', 'https://depay.fi?utm_source=localhost&utm_medium=widget&utm_campaign=WidgetV2')
         })
       })
     })
