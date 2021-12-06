@@ -205,7 +205,7 @@ describe('executes Donation', () => {
     })
   })
 
-  it('calls all callbacks (sent, confirmed, ensured)', () => {
+  it('calls all callbacks (sent, confirmed)', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
@@ -226,7 +226,6 @@ describe('executes Donation', () => {
 
 
     let sentCalledWith
-    let ensuredCalledWith
     let confirmedCalledWith
 
     cy.visit('cypress/test.html').then((contentWindow) => {
@@ -234,7 +233,6 @@ describe('executes Donation', () => {
         DePayWidgets.Donation({ ...defaultArguments, document,
           sent: (transaction)=>{ sentCalledWith = transaction },
           confirmed: (transaction)=>{ confirmedCalledWith = transaction },
-          ensured: (transaction)=>{ ensuredCalledWith = transaction },
         })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
@@ -249,14 +247,6 @@ describe('executes Donation', () => {
               expect(confirmedCalledWith.from).to.equal(accounts[0])
               expect(confirmedCalledWith.id).to.equal(mockedTransaction.transaction._id)
               expect(confirmedCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
-              increaseBlock(12)
-              cy.wait(5000).then(()=>{
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click().then(()=>{
-                  expect(ensuredCalledWith.from).to.equal(accounts[0])
-                  expect(ensuredCalledWith.id).to.equal(mockedTransaction.transaction._id)
-                  expect(ensuredCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
-                })
-              })
             })
           })
         })
