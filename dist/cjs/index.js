@@ -3495,7 +3495,6 @@ var TrackingProvider = (function (props) {
     var socket = new WebSocket('wss://integrate.depay.fi/cable');
 
     socket.onopen = function (event) {
-      console.log('WebSocket is connected.');
       var msg = {
         command: 'subscribe',
         identifier: JSON.stringify({
@@ -3508,9 +3507,7 @@ var TrackingProvider = (function (props) {
       socket.send(JSON.stringify(msg));
     };
 
-    socket.onclose = function (event) {
-      console.log('WebSocket is closed.');
-    };
+    socket.onclose = function (event) {};
 
     socket.onmessage = function (event) {
       var item = JSON.parse(event.data);
@@ -3520,10 +3517,13 @@ var TrackingProvider = (function (props) {
       }
 
       if (item.message && item.message.forward) {
-        setClosable(true);
+        setClosable(!item.message.forward_to);
         setForwardTo(item.message.forward_to);
         setForward(item.message.forward);
         socket.close();
+        setTimeout(function () {
+          props.document.location.href = item.message.forward_to;
+        }, 500);
       }
     };
 
@@ -3705,7 +3705,9 @@ var Donation = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/React__default$1['default'].createElement(ConversionRateProvider, null, /*#__PURE__*/React__default$1['default'].createElement(ChangableAmountProvider, {
                   accept: accept
-                }, /*#__PURE__*/React__default$1['default'].createElement(TrackingProvider, null, /*#__PURE__*/React__default$1['default'].createElement(DonationRoutingProvider, {
+                }, /*#__PURE__*/React__default$1['default'].createElement(TrackingProvider, {
+                  document: ensureDocument(document)
+                }, /*#__PURE__*/React__default$1['default'].createElement(DonationRoutingProvider, {
                   container: container,
                   document: document
                 }, /*#__PURE__*/React__default$1['default'].createElement(DonationStack, {
@@ -4013,7 +4015,9 @@ var Payment = /*#__PURE__*/function () {
                   whitelist: whitelist,
                   blacklist: blacklist,
                   event: event
-                }, /*#__PURE__*/React__default$1['default'].createElement(TrackingProvider, null, /*#__PURE__*/React__default$1['default'].createElement(PaymentProvider, {
+                }, /*#__PURE__*/React__default$1['default'].createElement(TrackingProvider, {
+                  document: ensureDocument(document)
+                }, /*#__PURE__*/React__default$1['default'].createElement(PaymentProvider, {
                   container: container,
                   document: document
                 }, /*#__PURE__*/React__default$1['default'].createElement(PaymentValueProvider, null, /*#__PURE__*/React__default$1['default'].createElement(PaymentStack, {
@@ -4407,7 +4411,9 @@ var Sale = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/React__default$1['default'].createElement(ConversionRateProvider, null, /*#__PURE__*/React__default$1['default'].createElement(ChangableAmountProvider, {
                   accept: accept
-                }, /*#__PURE__*/React__default$1['default'].createElement(TrackingProvider, null, /*#__PURE__*/React__default$1['default'].createElement(SaleRoutingProvider, {
+                }, /*#__PURE__*/React__default$1['default'].createElement(TrackingProvider, {
+                  document: ensureDocument(document)
+                }, /*#__PURE__*/React__default$1['default'].createElement(SaleRoutingProvider, {
                   container: container,
                   document: document
                 }, /*#__PURE__*/React__default$1['default'].createElement(SaleStack, {

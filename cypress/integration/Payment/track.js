@@ -176,8 +176,7 @@ describe('track Payment', () => {
                     mockedWebsocket.send(JSON.stringify({
                       identifier: JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: 0, channel: 'PaymentChannel' }),
                       message: {
-                        forward: true,
-                        forward_to: null
+                        forward: true
                       }
                     }))
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').then(()=>{
@@ -285,21 +284,4 @@ describe('track Payment', () => {
       })
     })
   })
-
-  // context('failed tracking request', () => {
-    
-  //   context('repeats tracking up to 3 times', () => {
-      
-  //     it('tracks payments', () => {
-
-  //     })
-  //   })
-    
-  //   context('tracking failed 3 times', () => {
-
-  //     it('shows warning that tracking failed', () => {
-        
-  //     })
-  //   })
-  // })
 })
