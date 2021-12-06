@@ -72999,6 +72999,9 @@
         forwardTo = _useState6[0],
         setForwardTo = _useState6[1];
 
+    var _useContext2 = react.useContext(ClosableContext),
+        setClosable = _useContext2.setClosable;
+
     react.useEffect(function () {
       setTracking(track && !!track.endpoint);
     }, [track]);
@@ -73032,6 +73035,7 @@
         }
 
         if (item.message && item.message.forward) {
+          setClosable(true);
           setForwardTo(item.message.forward_to);
           setForward(item.message.forward);
           socket.close();
