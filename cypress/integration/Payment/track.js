@@ -169,6 +169,7 @@ describe('track Payment', () => {
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
                   cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Close').should('not.exist')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Storing payment confirmation').find('.Loading')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
