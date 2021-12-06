@@ -17,7 +17,6 @@ export default (props)=>{
   const openSocket = (transaction)=>{
     let socket = new WebSocket('wss://integrate.depay.fi/cable')
     socket.onopen = function(event) {
-      console.log('WebSocket is connected.')
       const msg = {
         command: 'subscribe',
         identifier: JSON.stringify({
@@ -30,18 +29,19 @@ export default (props)=>{
       socket.send(JSON.stringify(msg))
     }
     
-    socket.onclose = function(event) {
-      console.log('WebSocket is closed.')
-    }
+    socket.onclose = function(event) {}
 
     socket.onmessage = function(event) {
       const item = JSON.parse(event.data)
       if(item.type === "ping") { return }
       if(item.message && item.message.forward) {
-        setClosable(true)
+        setClosable(!item.message.forward_to)
         setForwardTo(item.message.forward_to)
         setForward(item.message.forward)
         socket.close()
+        setTimeout(()=>{
+          props.document.location.href = item.message.forward_to
+        },500)
       }
     }
     

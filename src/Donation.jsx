@@ -52,7 +52,7 @@ let Donation = async ({
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
                   <ConversionRateProvider>
                     <ChangableAmountProvider accept={ accept }>
-                      <TrackingProvider>
+                      <TrackingProvider document={ ensureDocument(document) }>
                         <DonationRoutingProvider container={ container } document={ document }>
                           <DonationStack
                             document={ document }

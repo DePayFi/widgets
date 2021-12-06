@@ -56,7 +56,7 @@ let Payment = async ({
                   <ConversionRateProvider>
                     <ChangableAmountProvider accept={ accept }>
                       <PaymentAmountRoutingProvider accept={ accept } whitelist={ whitelist } blacklist={ blacklist } event={ event }>
-                        <TrackingProvider>
+                        <TrackingProvider document={ ensureDocument(document) }>
                           <PaymentProvider container={ container } document={ document }>
                             <PaymentValueProvider>
                                 <PaymentStack

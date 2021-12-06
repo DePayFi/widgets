@@ -197,6 +197,95 @@ describe('track Payment', () => {
     })
   })
 
+  it('tracks payments and forwards directly if forwardTo was specified by the backend end without allowing to close the widget', () => {
+    let mockedTransaction = mock({
+      blockchain,
+      transaction: {
+        from: fromAddress,
+        to: DEPAY,
+        api: Token[blockchain].DEFAULT,
+        method: 'transfer',
+        params: [toAddress, TOKEN_A_AmountBN]
+      }
+    })
+
+    let trackingRequestMock = fetchMock.post({
+      url: "/track/payments",
+      body: {
+        "blockchain": blockchain,
+        "sender": fromAddress.toLowerCase(),
+        "nonce": 0,
+        "after_block": 1
+      },
+      matchPartialBody: true
+    }, 200)
+
+    mockedWebsocketServer.on('connection', socket => {
+      mockedWebsocket = socket
+      mockedWebsocket.on('message', data => {
+        websocketMessages.push(data)
+      })
+    })
+
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        DePayWidgets.Payment({ ...defaultArguments, document })
+        cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click().then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying').then(()=>{
+              expect(
+                fetchMock.called('/track/payments', {
+                  body: {
+                    "blockchain": blockchain,
+                    "sender": fromAddress.toLowerCase(),
+                    "nonce": 0,
+                    "after_block": 1
+                  },
+                  matchPartialBody: true
+                })
+              ).to.equal(true)
+              confirm(mockedTransaction)
+              cy.wait(1000).then(()=>{
+                expect(!!websocketMessages.find((rawMessage)=>{
+                  let message = JSON.parse(rawMessage)
+                  return(
+                    message.command == 'subscribe' &&
+                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: 0, channel: 'PaymentChannel' })
+                  )
+                })).to.equal(true)
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
+                  cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Close').should('not.exist')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Storing payment confirmation').find('.Loading')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
+                    mockedWebsocket.send(JSON.stringify({
+                      identifier: JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: 0, channel: 'PaymentChannel' }),
+                      message: {
+                        forward: true,
+                        forward_to: '/somethingelse'
+                      }
+                    }))
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').then(()=>{
+                      cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').find('.Checkmark')
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').invoke('attr', 'href').should('include', '/somethingelse')
+                      cy.location('href').should('include', '/somethingelse')
+                    })
+                  })
+                })
+              })
+            })
+          })
+        })
+      })
+    })
+  })
+
   // context('failed tracking request', () => {
     
   //   context('repeats tracking up to 3 times', () => {

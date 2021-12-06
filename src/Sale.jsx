@@ -48,7 +48,7 @@ let Sale = async ({
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
                   <ConversionRateProvider>
                     <ChangableAmountProvider accept={ accept }>
-                      <TrackingProvider>
+                      <TrackingProvider document={ ensureDocument(document) }>
                         <SaleRoutingProvider container={ container } document={ document }>
                           <SaleStack
                             document={ document }
