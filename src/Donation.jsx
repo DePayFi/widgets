@@ -29,7 +29,6 @@ let Donation = async ({
   event,
   sent,
   confirmed,
-  ensured,
   failed,
   error,
   critical,
@@ -47,7 +46,7 @@ let Donation = async ({
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={{ amount, accept, currency, event, sent, confirmed, ensured, failed, blacklist, providers }}>
+          <ConfigurationProvider configuration={{ amount, accept, currency, event, sent, confirmed, failed, blacklist, providers }}>
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount }>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>

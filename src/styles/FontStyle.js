@@ -1,7 +1,7 @@
 export default (style)=>{
   return(`
 
-    * {
+    *, div, div * {
       font-family: ${style.fontFamily};
     }
 

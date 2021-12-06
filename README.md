@@ -242,23 +242,6 @@ DePayWidgets.Payment({
 })
 ```
 
-#### ensured
-
-`ensured`
-
-A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
-
-The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
-
-```javascript
-DePayWidgets.Payment({
-
-  ensured: (transaction)=> {
-    // called when payment transaction has been confirmed X times by the network
-  }
-})
-```
-
 #### failed
 
 `failed`
@@ -648,23 +631,6 @@ DePayWidgets.Sale({
 });
 ```
 
-#### ensured
-
-`ensured`
-
-A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
-
-The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
-
-```javascript
-DePayWidgets.Sale({
-
-  ensured: (transaction)=> {
-    // called when payment transaction has been confirmed X times by the network
-  }
-});
-```
-
 #### failed
 
 `failed`
@@ -1036,23 +1002,6 @@ DePayWidgets.Donation({
 
   confirmed: (transaction)=> {
     // called when payment transaction has been confirmed once by the network
-  }
-});
-```
-
-#### ensured
-
-`ensured`
-
-A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
-
-The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
-
-```javascript
-DePayWidgets.Donation({
-
-  ensured: (transaction)=> {
-    // called when payment transaction has been confirmed X times by the network
   }
 });
 ```

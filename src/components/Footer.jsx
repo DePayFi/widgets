@@ -7,39 +7,25 @@ import LoadingText from '../components/LoadingText'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext } from 'react'
+import TrackingContext from '../contexts/TrackingContext'
 import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default ()=>{
   const { currencyCode } = useContext(ConfigurationContext)
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
+  const { tracking, forward, forwardTo } = useContext(TrackingContext)
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
 
-  const additionalPaymentInformation = ()=> {
-    if (paymentState == 'paying' && transaction == undefined) {
-      return(
-        <div className="Card transparent disabled small">
-          <div className="CardImage">
-            <div className="TextCenter Opacity05">
-              <DigitalWalletIcon className="small"/>
-            </div>
-          </div>
-          <div className="CardBody">
-            <div className="CardBodyWrapper">
-              <div className="Opacity05">
-                Confirm transaction in your wallet
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    } else if (paymentState == 'confirmed') {
+  const trackingInfo = ()=> {
+    if(tracking != true) { return null }
+    if(forward) {
       return(
         <div>
-          <a className="Card transparent small" title="Payment has been confirmed by the network" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
+          <a className="Card transparent small disabled">
             <div className="CardImage">
               <div className="TextCenter Opacity05">
                 <Checkmark className="small"/>
@@ -48,11 +34,75 @@ export default ()=>{
             <div className="CardBody">
               <div className="CardBodyWrapper">
                 <div className="Opacity05">
-                  Payment has been confirmed
+                  Payment confirmation has been stored
                 </div>
               </div>
             </div>
           </a>
+        </div>
+      )
+    } else {
+      return(
+        <div>
+          <a className="Card transparent small disabled">
+            <div className="CardImage">
+              <div className="TextCenter">
+                <div className="Loading Icon"></div>
+              </div>
+            </div>
+            <div className="CardBody">
+              <div className="CardBodyWrapper">
+                <div className="Opacity05">
+                  Storing payment confirmation
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      )
+    }
+  }
+
+  const additionalPaymentInformation = ()=> {
+    if (paymentState == 'paying' && transaction == undefined) {
+      return(
+        <div className="PaddingBottomS">
+          <div className="Card transparent disabled small">
+            <div className="CardImage">
+              <div className="TextCenter Opacity05">
+                <DigitalWalletIcon className="small"/>
+              </div>
+            </div>
+            <div className="CardBody">
+              <div className="CardBodyWrapper">
+                <div className="Opacity05">
+                  Confirm transaction in your wallet
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    } else if (paymentState == 'confirmed') {
+      return(
+        <div className="PaddingBottomS">
+          <div>
+            <a className="Card transparent small" title="Payment has been confirmed by the network" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
+              <div className="CardImage">
+                <div className="TextCenter Opacity05">
+                  <Checkmark className="small"/>
+                </div>
+              </div>
+              <div className="CardBody">
+                <div className="CardBodyWrapper">
+                  <div className="Opacity05">
+                    Payment has been confirmed
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          { trackingInfo() }
         </div>
       )
     }
@@ -100,11 +150,35 @@ export default ()=>{
         </a>
       )
     } else if (paymentState == 'confirmed') {
-      return(
-        <button className="ButtonPrimary" title="Close" onClick={ close }>
-          Close
-        </button>
-      )
+      if(tracking == true) {
+        if(forward) {
+          if(forwardTo) {
+            return(
+              <a className="ButtonPrimary" href={ forwardTo } rel="noopener noreferrer">
+                Continue
+              </a>
+            )
+          } else {
+            return(
+              <button className="ButtonPrimary" onClick={ close }>
+                Continue
+              </button>
+            )
+          }
+        } else {
+          return(
+            <button className="ButtonPrimary disabled" onClick={ ()=>{} }>
+              Continue
+            </button>
+          )
+        }
+      } else {
+        return(
+          <button className="ButtonPrimary" onClick={ close }>
+            Close
+          </button>
+        )
+      }
     }
   }
 

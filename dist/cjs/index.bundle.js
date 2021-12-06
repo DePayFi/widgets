@@ -1030,6 +1030,8 @@ var react = createCommonjsModule$4(function (module) {
 
 var ClosableContext = /*#__PURE__*/react.createContext();
 
+var UpdatableContext = /*#__PURE__*/react.createContext();
+
 var ClosableProvider = (function (props) {
   var _useState = react.useState(true),
       _useState2 = _slicedToArray(_useState, 2),
@@ -1041,11 +1043,15 @@ var ClosableProvider = (function (props) {
       open = _useState4[0],
       setOpen = _useState4[1];
 
+  var _useContext = react.useContext(UpdatableContext),
+      setUpdatable = _useContext.setUpdatable;
+
   var close = function close() {
     if (!closable) {
       return;
     }
 
+    setUpdatable(false);
     setOpen(false);
     setTimeout(props.unmount, 300);
   };
@@ -30323,6 +30329,8 @@ let balance = ({ address, provider }) => {
 var request$1 = async ({ provider, address, api, method, params }) => {
   if (api) {
     return contractCall({ address, api, method, params, provider })
+  } else if (method === 'latestBlockNumber') {
+    return provider.getBlockNumber()
   } else if (method === 'balance') {
     return balance({ address, provider })
   }
@@ -30379,8 +30387,20 @@ var parseUrl = (url) => {
   if (typeof url == 'object') {
     return url
   }
-  let deconstructed = url.match(/(?<blockchain>\w+):\/\/(?<address>[\w\d]+)\/(?<method>[\w\d]+)/);
-  return deconstructed.groups
+  let deconstructed = url.match(/(?<blockchain>\w+):\/\/(?<part1>[\w\d]+)(\/(?<part2>[\w\d]+))?/);
+
+  if(deconstructed.groups.part2 == undefined) {
+    return {
+      blockchain: deconstructed.groups.blockchain,
+      method: deconstructed.groups.part1
+    }
+  } else {
+    return {
+      blockchain: deconstructed.groups.blockchain,
+      address: deconstructed.groups.part1,
+      method: deconstructed.groups.part2
+    }
+  }
 };
 
 let request = async function (url, options) {
@@ -51361,10 +51381,11 @@ function parseUnits$1(value, unitName) {
 function _optionalChain$5(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 class Transaction {
 
-  constructor({ blockchain, from, to, api, method, params, value, sent, confirmed, ensured, failed }) {
+  constructor({ blockchain, from, nonce, to, api, method, params, value, sent, confirmed, ensured, failed }) {
 
     this.blockchain = blockchain;
     this.from = from;
+    this.nonce = nonce;
     this.to = to;
     this.api = api;
     this.method = method;
@@ -51472,6 +51493,7 @@ const sendTransaction$1 = async ({ transaction, wallet })=> {
   await executeSubmit$1({ transaction, provider, signer }).then((sentTransaction)=>{
     if (sentTransaction) {
       transaction.id = sentTransaction.hash;
+      transaction.nonce = sentTransaction.nonce;
       transaction.url = Blockchain.findByName(transaction.blockchain).explorerUrlFor({ transaction });
       if (transaction.sent) transaction.sent(transaction);
       sentTransaction.wait(1).then(() => {
@@ -51672,6 +51694,7 @@ const sendTransaction = async ({ transaction, wallet })=> {
       transaction.url = blockchain.explorerUrlFor({ transaction });
       if (transaction.sent) transaction.sent(transaction);
       let sentTransaction = await retrieveTransaction(tx, transaction.blockchain);
+      transaction.nonce = sentTransaction.nonce;
       if(!sentTransaction) {
         transaction._failed = true;
         console.log('Error retrieving transaction');
@@ -52310,7 +52333,7 @@ var ButtonPrimaryStyle = (function (style) {
 });
 
 var CardStyle = (function (style) {
-  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n      width: 100%;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.6rem 0.6rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      width: 3.6rem;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n      width: 100%;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.5rem 0.5rem;\n      margin: 0;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      width: 3.6rem;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
 });
 
 var DialogStyle = (function (style) {
@@ -52318,7 +52341,7 @@ var DialogStyle = (function (style) {
 });
 
 var FontStyle = (function (style) {
-  return "\n\n    .Dialog, * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeS {\n      font-size: 1rem;\n    }\n\n    .FontSizeM {\n      font-size: 1.2rem;\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontSizeXL {\n      font-size: 2.0rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
+  return "\n\n    *, div, div * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeS {\n      font-size: 1rem;\n    }\n\n    .FontSizeM {\n      font-size: 1.2rem;\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontSizeXL {\n      font-size: 2.0rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
 });
 
 var GraphicStyle = (function () {
@@ -52330,7 +52353,7 @@ var HeightStyle = (function () {
 });
 
 var IconStyle = (function (style) {
-  return "\n\n    .Icon {\n      fill : ".concat(style.colors.icons, ";\n      stroke : ").concat(style.colors.icons, ";\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 1.4rem;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 1.4rem;\n    }\n\n    .CheckMark.small {\n      height: 0.9rem;\n      width: 0.9rem;\n    }\n\n    .DigitalWalletIcon {\n      height: 1.4rem;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 1.4rem;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n  ");
+  return "\n\n    .Icon {\n      fill : ".concat(style.colors.icons, ";\n      stroke : ").concat(style.colors.icons, ";\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .CheckMark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      border-radius: 100%;\n      position: relative;\n      left: -1px;\n      width: 18px;\n      height: 18px;\n      animation: spin 1.5s linear infinite;\n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
 });
 
 var ImageStyle = (function (style) {
@@ -52358,7 +52381,7 @@ var PaddingStyle = (function () {
 });
 
 var PoweredByStyle = (function (style) {
-  return "\n\n    .PoweredByWrapper {\n      display: block;\n      position: fixed;\n      top: 0;\n      padding-top: 0.2rem;\n      left: 0;\n      right: 0;\n    }\n\n    .PoweredByLink {\n      color: white;\n      opacity: 0.4;\n      display: inline-block;\n      font-size: 0.78rem;\n      font-style: italic;\n      font-weight: bold;\n      letter-spacing: -0.2px;\n      margin-left: 0.5rem;\n      text-decoration: none;\n    }\n\n    .PoweredByLink:hover, .PoweredByLink:active {\n      opacity: 1.0;\n      color: ".concat(style.colors.primary, ";\n    }\n  ");
+  return "\n\n    .PoweredByWrapper {\n      display: block;\n      left: 0;\n      padding-top: 0.2rem;\n      position: fixed;\n      right: 0;\n      text-align: center;\n      top: 0;\n    }\n\n    .PoweredByLink {\n      color: white;\n      opacity: 0.4;\n      display: inline-block;\n      font-size: 0.78rem;\n      font-style: italic;\n      font-weight: bold;\n      letter-spacing: -0.2px;\n      margin-left: 0.5rem;\n      text-decoration: none;\n    }\n\n    .PoweredByLink:hover, .PoweredByLink:active {\n      opacity: 1.0;\n      color: ".concat(style.colors.primary, ";\n    }\n  ");
 });
 
 var RangeSliderStyle = (function (style) {
@@ -52370,7 +52393,7 @@ var ResetStyle = (function () {
 });
 
 var SkeletonStyle = (function () {
-  return "\n        \n    .Skeleton {\n      background: rgb(230,230,230) !important;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ";
+  return "\n        \n    .Skeleton {\n      background: rgb(230,230,230) !important;\n      border: 0px solid transparent !important;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ";
 });
 
 var TextButtonStyle = (function (style) {
@@ -52526,6 +52549,20 @@ var PoweredBy = (function () {
   }, "by DePay"));
 });
 
+var UpdatableProvider = (function (props) {
+  var _useState = react.useState(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      updatable = _useState2[0],
+      setUpdatable = _useState2[1];
+
+  return /*#__PURE__*/react.createElement(UpdatableContext.Provider, {
+    value: {
+      updatable: updatable,
+      setUpdatable: setUpdatable
+    }
+  }, props.children);
+});
+
 var Connect = function Connect(options) {
   var style, error, document;
 
@@ -52581,7 +52618,7 @@ var Connect = function Connect(options) {
                     error: error,
                     container: container,
                     unmount: unmount
-                  }, /*#__PURE__*/react.createElement(ClosableProvider, {
+                  }, /*#__PURE__*/react.createElement(UpdatableProvider, null, /*#__PURE__*/react.createElement(ClosableProvider, {
                     unmount: rejectBeforeUnmount
                   }, /*#__PURE__*/react.createElement(ConnectStack, {
                     document: document,
@@ -52589,7 +52626,7 @@ var Connect = function Connect(options) {
                     resolve: resolve,
                     reject: reject,
                     autoClose: true
-                  }), /*#__PURE__*/react.createElement(PoweredBy, null)));
+                  }), /*#__PURE__*/react.createElement(PoweredBy, null))));
                 };
               });
 
@@ -65191,8 +65228,6 @@ var PaymentRoutingContext = /*#__PURE__*/react.createContext();
 
 var TrackingContext = /*#__PURE__*/react.createContext();
 
-var UpdateContext = /*#__PURE__*/react.createContext();
-
 var PaymentProvider = (function (props) {
   var _useContext = react.useContext(ErrorContext),
       setError = _useContext.setError;
@@ -65200,7 +65235,6 @@ var PaymentProvider = (function (props) {
   var _useContext2 = react.useContext(ConfigurationContext),
       _sent = _useContext2.sent,
       _confirmed = _useContext2.confirmed,
-      _ensured = _useContext2.ensured,
       _failed = _useContext2.failed;
 
   var _useContext3 = react.useContext(PaymentRoutingContext),
@@ -65214,9 +65248,8 @@ var PaymentProvider = (function (props) {
   var _useContext5 = react.useContext(PaymentRoutingContext),
       allRoutes = _useContext5.allRoutes;
 
-  var _useContext6 = react.useContext(UpdateContext);
-      _useContext6.update;
-      var setUpdate = _useContext6.setUpdate;
+  var _useContext6 = react.useContext(UpdatableContext),
+      setUpdatable = _useContext6.setUpdatable;
 
   var _useContext7 = react.useContext(WalletContext),
       wallet = _useContext7.wallet;
@@ -65245,57 +65278,81 @@ var PaymentProvider = (function (props) {
       paymentState = _useState8[0],
       setPaymentState = _useState8[1];
 
-  var pay = function pay(_ref) {
-    var navigate = _ref.navigate;
-    setClosable(false);
-    setPaymentState('paying');
-    setUpdate(false);
-    wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
-      sent: function sent(transaction) {
-        if (_sent) {
-          _sent(transaction);
-        }
-      },
-      confirmed: function confirmed(transaction) {
-        setClosable(true);
-        setPaymentState('confirmed');
+  var pay = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+      var navigate, currentBlock;
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              navigate = _ref.navigate;
+              setClosable(false);
+              setPaymentState('paying');
+              setUpdatable(false);
+              _context.next = 6;
+              return request({
+                blockchain: payment.route.transaction.blockchain,
+                method: 'latestBlockNumber'
+              });
 
-        if (_confirmed) {
-          _confirmed(transaction);
-        }
-      },
-      ensured: function ensured(transaction) {
-        if (_ensured) {
-          _ensured(transaction);
-        }
-      },
-      failed: function failed(transaction, error) {
-        if (_failed) {
-          _failed(transaction, error);
-        }
+            case 6:
+              currentBlock = _context.sent;
+              wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
+                sent: function sent(transaction) {
+                  if (_sent) {
+                    _sent(transaction);
+                  }
+                },
+                confirmed: function confirmed(transaction) {
+                  if (tracking != true) {
+                    setClosable(true);
+                  }
 
-        setPaymentState('initialized');
-        setClosable(true);
-        setUpdate(true);
-        navigate('PaymentError');
-      }
-    })).then(function (sentTransaction) {
-      if (tracking) {
-        initializeTracking(sentTransaction);
-      }
+                  setPaymentState('confirmed');
 
-      setTransaction(sentTransaction);
-    })["catch"](function (error) {
-      console.log('error', error);
-      setPaymentState('initialized');
-      setClosable(true);
-      setUpdate(true);
+                  if (_confirmed) {
+                    _confirmed(transaction);
+                  }
+                },
+                failed: function failed(transaction, error) {
+                  if (_failed) {
+                    _failed(transaction, error);
+                  }
 
-      if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK') {
-        navigate('WrongNetwork');
-      }
-    });
-  };
+                  setPaymentState('initialized');
+                  setClosable(true);
+                  setUpdatable(true);
+                  navigate('PaymentError');
+                }
+              })).then(function (sentTransaction) {
+                if (tracking) {
+                  initializeTracking(sentTransaction, currentBlock);
+                }
+
+                setTransaction(sentTransaction);
+              })["catch"](function (error) {
+                console.log('error', error);
+                setPaymentState('initialized');
+                setClosable(true);
+                setUpdatable(true);
+
+                if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK') {
+                  navigate('WrongNetwork');
+                }
+              });
+
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function pay(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
 
   var approve = function approve() {
     setClosable(false);
@@ -65320,11 +65377,11 @@ var PaymentProvider = (function (props) {
     if (selectedRoute) {
       var fromToken = selectedRoute.fromToken;
       selectedRoute.transaction.params;
-      Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref2) {
-        var _ref3 = _slicedToArray(_ref2, 3),
-            name = _ref3[0],
-            symbol = _ref3[1],
-            amount = _ref3[2];
+      Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref3) {
+        var _ref4 = _slicedToArray(_ref3, 3),
+            name = _ref4[0],
+            symbol = _ref4[1],
+            amount = _ref4[2];
 
         setPayment({
           route: selectedRoute,
@@ -65340,9 +65397,9 @@ var PaymentProvider = (function (props) {
   }, [selectedRoute]);
   react.useEffect(function () {
     if (allRoutes && allRoutes.length == 0) {
-      setUpdate(false);
+      setUpdatable(false);
     } else if (allRoutes && allRoutes.length > 0) {
-      setUpdate(true);
+      setUpdatable(true);
     }
   }, [allRoutes]);
 
@@ -70164,8 +70221,8 @@ var PaymentRoutingProvider = (function (props) {
   var _useContext = react.useContext(WalletContext),
       account = _useContext.account;
 
-  var _useContext2 = react.useContext(UpdateContext),
-      update = _useContext2.update;
+  var _useContext2 = react.useContext(UpdatableContext),
+      updatable = _useContext2.updatable;
 
   var prepareAcceptedPayments = function prepareAcceptedPayments(accept) {
     var toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
@@ -70180,9 +70237,9 @@ var PaymentRoutingProvider = (function (props) {
   var getPaymentRoutes = function getPaymentRoutes(_ref) {
     var allRoutes = _ref.allRoutes,
         selectedRoute = _ref.selectedRoute,
-        update = _ref.update;
+        updatable = _ref.updatable;
 
-    if (update == false || !props.accept || !account) {
+    if (updatable == false || !props.accept || !account) {
       return;
     }
 
@@ -70285,13 +70342,13 @@ var PaymentRoutingProvider = (function (props) {
       getPaymentRoutes({
         allRoutes: allRoutes,
         selectedRoute: selectedRoute,
-        update: update
+        updatable: updatable
       });
     }, 15000);
     return function () {
       return clearTimeout(timeout);
     };
-  }, [reloadCount, allRoutes, selectedRoute, update]);
+  }, [reloadCount, allRoutes, selectedRoute, updatable]);
   react.useEffect(function () {
     if (account && props.accept) {
       setAllRoutes(undefined);
@@ -70321,8 +70378,8 @@ var PaymentValueProvider = (function (props) {
   var _useContext2 = react.useContext(WalletContext),
       account = _useContext2.account;
 
-  var _useContext3 = react.useContext(UpdateContext),
-      update = _useContext3.update;
+  var _useContext3 = react.useContext(UpdatableContext),
+      updatable = _useContext3.updatable;
 
   var _useContext4 = react.useContext(PaymentContext),
       payment = _useContext4.payment;
@@ -70341,10 +70398,10 @@ var PaymentValueProvider = (function (props) {
       setReloadCount = _useState4[1];
 
   var getToTokenLocalValue = function getToTokenLocalValue(_ref) {
-    var update = _ref.update,
+    var updatable = _ref.updatable,
         payment = _ref.payment;
 
-    if (update == false || (payment === null || payment === void 0 ? void 0 : payment.route) == undefined) {
+    if (updatable == false || (payment === null || payment === void 0 ? void 0 : payment.route) == undefined) {
       return;
     }
 
@@ -70387,7 +70444,7 @@ var PaymentValueProvider = (function (props) {
   react.useEffect(function () {
     if (account && payment) {
       getToTokenLocalValue({
-        update: update,
+        updatable: updatable,
         payment: payment
       });
     }
@@ -70396,13 +70453,13 @@ var PaymentValueProvider = (function (props) {
     var timeout = setTimeout(function () {
       setReloadCount(reloadCount + 1);
       getToTokenLocalValue({
-        update: update
+        updatable: updatable
       });
     }, 15000);
     return function () {
       return clearTimeout(timeout);
     };
-  }, [reloadCount, update]);
+  }, [reloadCount, updatable]);
   return /*#__PURE__*/react.createElement(PaymentValueContext.Provider, {
     value: {
       paymentValue: paymentValue
@@ -72535,26 +72592,73 @@ var Footer = (function () {
       amount = _useContext2.amount;
       _useContext2.amountsMissing;
 
-  var _useContext3 = react.useContext(PaymentContext),
-      payment = _useContext3.payment,
-      paymentState = _useContext3.paymentState,
-      pay = _useContext3.pay,
-      transaction = _useContext3.transaction,
-      approve = _useContext3.approve,
-      approvalTransaction = _useContext3.approvalTransaction;
+  var _useContext3 = react.useContext(TrackingContext),
+      tracking = _useContext3.tracking,
+      forward = _useContext3.forward,
+      forwardTo = _useContext3.forwardTo;
 
-  var _useContext4 = react.useContext(PaymentValueContext),
-      paymentValue = _useContext4.paymentValue;
+  var _useContext4 = react.useContext(PaymentContext),
+      payment = _useContext4.payment,
+      paymentState = _useContext4.paymentState,
+      pay = _useContext4.pay,
+      transaction = _useContext4.transaction,
+      approve = _useContext4.approve,
+      approvalTransaction = _useContext4.approvalTransaction;
 
-  var _useContext5 = react.useContext(NavigateStackContext_1),
-      navigate = _useContext5.navigate;
+  var _useContext5 = react.useContext(PaymentValueContext),
+      paymentValue = _useContext5.paymentValue;
 
-  var _useContext6 = react.useContext(ClosableContext),
-      close = _useContext6.close;
+  var _useContext6 = react.useContext(NavigateStackContext_1),
+      navigate = _useContext6.navigate;
+
+  var _useContext7 = react.useContext(ClosableContext),
+      close = _useContext7.close;
+
+  var trackingInfo = function trackingInfo() {
+    if (tracking != true) {
+      return null;
+    }
+
+    if (forward) {
+      return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("a", {
+        className: "Card transparent small disabled"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "TextCenter Opacity05"
+      }, /*#__PURE__*/react.createElement(Checkmark, {
+        className: "small"
+      }))), /*#__PURE__*/react.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "Opacity05"
+      }, "Payment confirmation has been stored")))));
+    } else {
+      return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("a", {
+        className: "Card transparent small disabled"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "TextCenter"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "Loading Icon"
+      }))), /*#__PURE__*/react.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "Opacity05"
+      }, "Storing payment confirmation")))));
+    }
+  };
 
   var additionalPaymentInformation = function additionalPaymentInformation() {
     if (paymentState == 'paying' && transaction == undefined) {
       return /*#__PURE__*/react.createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/react.createElement("div", {
         className: "Card transparent disabled small"
       }, /*#__PURE__*/react.createElement("div", {
         className: "CardImage"
@@ -72568,9 +72672,11 @@ var Footer = (function () {
         className: "CardBodyWrapper"
       }, /*#__PURE__*/react.createElement("div", {
         className: "Opacity05"
-      }, "Confirm transaction in your wallet"))));
+      }, "Confirm transaction in your wallet")))));
     } else if (paymentState == 'confirmed') {
-      return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("a", {
+      return /*#__PURE__*/react.createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("a", {
         className: "Card transparent small",
         title: "Payment has been confirmed by the network",
         href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
@@ -72588,7 +72694,7 @@ var Footer = (function () {
         className: "CardBodyWrapper"
       }, /*#__PURE__*/react.createElement("div", {
         className: "Opacity05"
-      }, "Payment has been confirmed")))));
+      }, "Payment has been confirmed"))))), trackingInfo());
     }
   };
 
@@ -72642,11 +72748,32 @@ var Footer = (function () {
         rel: "noopener noreferrer"
       }, /*#__PURE__*/react.createElement(LoadingText, null, "Paying"));
     } else if (paymentState == 'confirmed') {
-      return /*#__PURE__*/react.createElement("button", {
-        className: "ButtonPrimary",
-        title: "Close",
-        onClick: close
-      }, "Close");
+      if (tracking == true) {
+        if (forward) {
+          if (forwardTo) {
+            return /*#__PURE__*/react.createElement("a", {
+              className: "ButtonPrimary",
+              href: forwardTo,
+              rel: "noopener noreferrer"
+            }, "Continue");
+          } else {
+            return /*#__PURE__*/react.createElement("button", {
+              className: "ButtonPrimary",
+              onClick: close
+            }, "Continue");
+          }
+        } else {
+          return /*#__PURE__*/react.createElement("button", {
+            className: "ButtonPrimary disabled",
+            onClick: function onClick() {}
+          }, "Continue");
+        }
+      } else {
+        return /*#__PURE__*/react.createElement("button", {
+          className: "ButtonPrimary",
+          onClick: close
+        }, "Close");
+      }
     }
   };
 
@@ -72858,32 +72985,88 @@ var TrackingProvider = (function (props) {
       tracking = _useState2[0],
       setTracking = _useState2[1];
 
+  var _useState3 = react.useState(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      forward = _useState4[0],
+      setForward = _useState4[1];
+
+  var _useState5 = react.useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      forwardTo = _useState6[0],
+      setForwardTo = _useState6[1];
+
   react.useEffect(function () {
     setTracking(track && !!track.endpoint);
   }, [track]);
 
-  var initializeTracking = function initializeTracking() {
-    console.log('initializeTracking');
+  var openSocket = function openSocket(transaction) {
+    var socket = new WebSocket('wss://integrate.depay.fi/cable');
+
+    socket.onopen = function (event) {
+      console.log('WebSocket is connected.');
+      var msg = {
+        command: 'subscribe',
+        identifier: JSON.stringify({
+          blockchain: transaction.blockchain,
+          sender: transaction.from.toLowerCase(),
+          nonce: transaction.nonce,
+          channel: 'PaymentChannel'
+        })
+      };
+      socket.send(JSON.stringify(msg));
+    };
+
+    socket.onclose = function (event) {
+      console.log('WebSocket is closed.');
+    };
+
+    socket.onmessage = function (event) {
+      var item = JSON.parse(event.data);
+
+      if (item.type === "ping") {
+        return;
+      }
+
+      if (item.message && item.message.forward) {
+        setForwardTo(item.message.forward_to);
+        setForward(item.message.forward);
+        socket.close();
+      }
+    };
+
+    socket.onerror = function (error) {
+      console.log('WebSocket Error: ' + error);
+    };
+  };
+
+  var startTracking = function startTracking(transaction, afterBlock) {
+    fetch(track.endpoint, {
+      method: 'POST',
+      body: JSON.stringify({
+        blockchain: transaction.blockchain,
+        transaction: transaction.id.toLowerCase(),
+        sender: transaction.from.toLowerCase(),
+        nonce: transaction.nonce,
+        after_block: afterBlock
+      })
+    }).then(function () {
+      console.log('TRACKING INITIALIZED');
+    })["catch"](function (error) {
+      console.log('TRACKING FAILED', error);
+    });
+  };
+
+  var initializeTracking = function initializeTracking(transaction, afterBlock) {
+    openSocket(transaction);
+    startTracking(transaction, afterBlock);
   };
 
   return /*#__PURE__*/react.createElement(TrackingContext.Provider, {
     value: {
       tracking: tracking,
-      initializeTracking: initializeTracking
-    }
-  }, props.children);
-});
-
-var UpdateProvider = (function (props) {
-  var _useState = react.useState(true),
-      _useState2 = _slicedToArray(_useState, 2),
-      update = _useState2[0],
-      setUpdate = _useState2[1];
-
-  return /*#__PURE__*/react.createElement(UpdateContext.Provider, {
-    value: {
-      update: update,
-      setUpdate: setUpdate
+      initializeTracking: initializeTracking,
+      forward: forward,
+      forwardTo: forwardTo
     }
   }, props.children);
 });
@@ -72986,12 +73169,12 @@ var preflight$2 = /*#__PURE__*/function () {
 
 var Donation = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, accept, event, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, unmount;
+    var amount, accept, event, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
+            amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight$2({
@@ -73017,14 +73200,13 @@ var Donation = /*#__PURE__*/function () {
                     event: event,
                     sent: sent,
                     confirmed: confirmed,
-                    ensured: ensured,
                     failed: failed,
                     blacklist: blacklist,
                     providers: providers
                   }
-                }, /*#__PURE__*/react.createElement(ClosableProvider, {
+                }, /*#__PURE__*/react.createElement(UpdatableProvider, null, /*#__PURE__*/react.createElement(ClosableProvider, {
                   unmount: unmount
-                }, /*#__PURE__*/react.createElement(UpdateProvider, null, /*#__PURE__*/react.createElement(WalletProvider, {
+                }, /*#__PURE__*/react.createElement(WalletProvider, {
                   container: container,
                   connected: connected,
                   unmount: unmount
@@ -73287,12 +73469,12 @@ var preflight$1 = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, amount, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, document, unmount;
+    var accept, amount, event, sent, confirmed, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, document = _ref3.document;
+            accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight$1({
@@ -73318,16 +73500,15 @@ var Payment = /*#__PURE__*/function () {
                     event: event,
                     sent: sent,
                     confirmed: confirmed,
-                    ensured: ensured,
                     failed: failed,
                     whitelist: whitelist,
                     blacklist: blacklist,
                     providers: providers,
                     track: track
                   }
-                }, /*#__PURE__*/react.createElement(ClosableProvider, {
+                }, /*#__PURE__*/react.createElement(UpdatableProvider, null, /*#__PURE__*/react.createElement(ClosableProvider, {
                   unmount: unmount
-                }, /*#__PURE__*/react.createElement(UpdateProvider, null, /*#__PURE__*/react.createElement(WalletProvider, {
+                }, /*#__PURE__*/react.createElement(WalletProvider, {
                   document: document,
                   container: container,
                   connected: connected,
@@ -73684,12 +73865,12 @@ var preflight = /*#__PURE__*/function () {
 
 var Sale = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, sell, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, closed, tokenImage, document, accept, unmount;
+    var amount, sell, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, tokenImage, document, accept, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, document = _ref3.document;
+            amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight({
@@ -73721,14 +73902,13 @@ var Sale = /*#__PURE__*/function () {
                     currency: currency,
                     sent: sent,
                     confirmed: confirmed,
-                    ensured: ensured,
                     failed: failed,
                     blacklist: blacklist,
                     providers: providers
                   }
-                }, /*#__PURE__*/react.createElement(ClosableProvider, {
+                }, /*#__PURE__*/react.createElement(UpdatableProvider, null, /*#__PURE__*/react.createElement(ClosableProvider, {
                   unmount: unmount
-                }, /*#__PURE__*/react.createElement(UpdateProvider, null, /*#__PURE__*/react.createElement(WalletProvider, {
+                }, /*#__PURE__*/react.createElement(WalletProvider, {
                   container: container,
                   connected: connected,
                   unmount: unmount

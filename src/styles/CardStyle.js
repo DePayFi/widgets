@@ -27,7 +27,8 @@ export default (style)=>{
 
     .Card.small {
       min-height: auto;
-      padding: 0.6rem 0.6rem;
+      padding: 0.5rem 0.5rem;
+      margin: 0;
     }
 
     .Card.disabled {

@@ -9,11 +9,12 @@ import TrackingContext from '../contexts/TrackingContext'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
+import { request } from '@depay/web3-client'
 
 export default (props)=>{
 
   const { setError } = useContext(ErrorContext)
-  const { sent, confirmed, ensured, failed } = useContext(ConfigurationContext)
+  const { sent, confirmed, failed } = useContext(ConfigurationContext)
   const { selectedRoute } = useContext(PaymentRoutingContext)
   const { open, close, setClosable } = useContext(ClosableContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
@@ -25,21 +26,19 @@ export default (props)=>{
   const [ approvalTransaction, setApprovalTransaction ] = useState()
   const [ paymentState, setPaymentState ] = useState('initialized')
 
-  const pay = ({ navigate })=> {
+  const pay = async ({ navigate })=> {
     setClosable(false)
     setPaymentState('paying')
     setUpdatable(false)
+    let currentBlock = await request({ blockchain: payment.route.transaction.blockchain, method: 'latestBlockNumber' })
     wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
       sent: (transaction)=>{
         if(sent) { sent(transaction) }
       },
       confirmed: (transaction)=>{
-        setClosable(true)
+        if(tracking != true) { setClosable(true) }
         setPaymentState('confirmed')
         if(confirmed) { confirmed(transaction) }
-      },
-      ensured: (transaction)=>{
-        if(ensured) { ensured(transaction) }
       },
       failed: (transaction, error)=> {
         if(failed) { failed(transaction, error) }
@@ -50,7 +49,7 @@ export default (props)=>{
       }
     }))
       .then((sentTransaction)=>{
-        if(tracking){ initializeTracking(sentTransaction) }
+        if(tracking){ initializeTracking(sentTransaction, currentBlock) }
         setTransaction(sentTransaction)
       })
       .catch((error)=>{
