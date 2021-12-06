@@ -171,6 +171,38 @@ describe('executes Donation', () => {
     })
   })
 
+  it('asks to confirm transaction in your wallet after handing over to the wallet', () => {
+    let mockedTransaction = mock({
+      blockchain,
+      transaction: {
+        delay: 2000,
+        from: fromAddress,
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'route',
+        params: {
+          path: [DAI, WETH, DEPAY],
+          amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
+          addresses: [fromAddress, toAddress],
+          plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
+          data: []
+        }
+      }
+    })
+
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        DePayWidgets.Donation({ ...defaultArguments, document })
+        cy.wait(2000).then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click().then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Confirm transaction in your wallet')
+            confirm(mockedTransaction)
+          })
+        })
+      })
+    })
+  })
+
   it('resets the payment if anything goes wrong during submission (like user denying signature)', () => {
     let mockedTransaction = mock({
       blockchain,

@@ -141,6 +141,32 @@ describe('execute Payment', () => {
     })
   })
 
+  it('asks to confirm transaction in your wallet after handing over to the wallet', () => {
+    let mockedTransaction = mock({
+      blockchain,
+      transaction: {
+        delay: 2000,
+        from: fromAddress,
+        to: DEPAY,
+        api: Token[blockchain].DEFAULT,
+        method: 'transfer',
+        params: [toAddress, TOKEN_A_AmountBN]
+      }
+    })
+
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        DePayWidgets.Payment({ ...defaultArguments, document })
+        cy.wait(2000).then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click().then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Confirm transaction in your wallet')
+            confirm(mockedTransaction)
+          })
+        })
+      })
+    })
+  })
+
   it('resets the payment if anything goes wrong during submission (like user denying signature)', () => {
     let mockedTransaction = mock({
       blockchain,
