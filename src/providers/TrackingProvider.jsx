@@ -39,9 +39,9 @@ export default (props)=>{
         setForwardTo(item.message.forward_to)
         setForward(item.message.forward)
         socket.close()
-        setTimeout(()=>{
-          props.document.location.href = item.message.forward_to
-        },500)
+        if(!!item.message.forward_to) {
+          setTimeout(()=>{ props.document.location.href = item.message.forward_to }, 500)
+        }
       }
     }
     
