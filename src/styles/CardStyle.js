@@ -62,6 +62,7 @@ export default (style)=>{
       flex-grow: 0;
       flex-shrink: 0;
       justify-content: center;
+      position: relative;
       width: 3.6rem;
     }
 
@@ -110,6 +111,12 @@ export default (style)=>{
       position: relative;
       vertical-align: middle;
       width: 2.8rem;
+    }
+
+    .CardImage .BlockchainLogo {
+      position: absolute;
+      bottom: 0;
+      right: 0;
     }
 
     .CardTitle {

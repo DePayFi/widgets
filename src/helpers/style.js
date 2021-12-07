@@ -1,3 +1,4 @@
+import BlockchainLogoStyle from '../styles/BlockchainLogoStyle'
 import ButtonCircularStyle from '../styles/ButtonCircularStyle'
 import ButtonPrimaryStyle from '../styles/ButtonPrimaryStyle'
 import CardStyle from '../styles/CardStyle'
@@ -55,6 +56,7 @@ export default (style)=>{
       InputStyle(style),
       TextButtonStyle(style),
       ImageStyle(style),
+      BlockchainLogoStyle(style),
     ].join('')
   )
 }
