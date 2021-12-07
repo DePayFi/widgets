@@ -12,7 +12,6 @@ import { ReactDialogStack } from '@depay/react-dialog-stack'
 import { request } from '@depay/web3-client'
 
 export default (props)=>{
-
   const { setError } = useContext(ErrorContext)
   const { sent, confirmed, failed } = useContext(ConfigurationContext)
   const { selectedRoute } = useContext(PaymentRoutingContext)
@@ -20,7 +19,7 @@ export default (props)=>{
   const { allRoutes } = useContext(PaymentRoutingContext)
   const { setUpdatable } = useContext(UpdatableContext)
   const { wallet } = useContext(WalletContext)
-  const { tracking, initializeTracking } = useContext(TrackingContext)
+  const { forward, tracking, initializeTracking } = useContext(TrackingContext)
   const [ payment, setPayment ] = useState()
   const [ transaction, setTransaction ] = useState()
   const [ approvalTransaction, setApprovalTransaction ] = useState()
@@ -83,6 +82,12 @@ export default (props)=>{
         setClosable(true)
       })
   }
+
+  useEffect(()=>{
+    if(forward){
+      setPaymentState('confirmed')
+    }
+  }, [forward])
 
   useEffect(()=>{
     if(selectedRoute) {
