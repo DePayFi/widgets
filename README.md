@@ -3,7 +3,7 @@
 You can either load the `@depay/widgets` package via CDN:
 
 ```
-<script src="https://integrate.depay.fi/widgets/v3.js"></script>
+<script src="https://integrate.depay.fi/widgets/v5.js"></script>
 ```
 
 or you install `@depay/widgets` via the package manager of your choice and ship it as part of your application bundle:
@@ -58,7 +58,7 @@ In order to receive decentralized payments on any blockchain you need to have yo
 ### Quick start
 
 ```
-<script src="https://integrate.depay.fi/widgets/v3.js"/>
+<script src="https://integrate.depay.fi/widgets/v5.js"/>
 ```
 
 ```
@@ -205,7 +205,7 @@ BODY:
 
 Your endpoint needs to make sure to forward this to the [payment tracking api](https://depay.fi/documentation/api#payments).
 
-Also make sure that you need to add `token`, `amount` and `confirmations` when forwarding the request to the payments api.
+Also make sure to add `token`, `amount` and `confirmations` when forwarding the request to the payments api.
 Those values are supposed to be set by your backend not the widget nor the fronted because any user could set these values to their liking otherwise, having you confirm payment amounts and tokens that you didn't intend to receive!
 
 Make sure you read the [Payment Tracking API](https://depay.fi/documentation/api#payments) for further details on how to integrate payment tracking.
@@ -539,7 +539,7 @@ In order to sell tokens in a decentralized way, that token needs to have a liqui
 ### Quick start
 
 ```
-<script src="https://integrate.depay.fi/widgets/v3.js"/>
+<script src="https://integrate.depay.fi/widgets/v5.js"/>
 ```
 
 ```javascript
@@ -901,7 +901,7 @@ In order to receive decentralized donation payments on any blockchain you need t
 ### Quick start
 
 ```
-<script src="https://integrate.depay.fi/widgets/v3.js"/>
+<script src="https://integrate.depay.fi/widgets/v5.js"/>
 ```
 
 ```javascript
@@ -1255,7 +1255,7 @@ DePay Connect allows you to have your users connect their crypto wallet to your 
 Returns connected `account`, `accounts` and `wallet` in return. 
 
 ```
-<script src="https://integrate.depay.fi/widgets/v3.js"/>
+<script src="https://integrate.depay.fi/widgets/v5.js"/>
 ```
 
 ```javascript
