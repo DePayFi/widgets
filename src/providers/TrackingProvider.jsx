@@ -50,7 +50,19 @@ export default (props)=>{
     }
   }
 
-  const startTracking = (transaction, afterBlock)=> {
+  const retryStartTracking = (transaction, afterBlock, attempt)=> {
+    attempt = parseInt(attempt || 1, 10)
+    console.log('RETRY TRACKING ATTEMPT ', attempt)
+    if(attempt < 3) {
+      setTimeout(()=>{
+        startTracking(transaction, afterBlock, attempt+1)
+      }, 3000)
+    } else {
+      console.log('TRACKING FAILED AFTER 3 ATTEMPTS!')
+    }
+  }
+
+  const startTracking = (transaction, afterBlock, attempt)=> {
     fetch(track.endpoint, {
       method: 'POST',
       body: JSON.stringify({
@@ -61,11 +73,16 @@ export default (props)=>{
         after_block: afterBlock
       })
     })
-      .then(()=>{
-        console.log('TRACKING INITIALIZED')
+      .then((response)=>{
+        if(response.status == 200) {
+          console.log('TRACKING INITIALIZED')
+        } else {
+          retryStartTracking(transaction, afterBlock, attempt)
+        }
       })
       .catch((error)=>{
         console.log('TRACKING FAILED', error)
+        retryStartTracking(transaction, afterBlock, attempt)
       })
   }
 
