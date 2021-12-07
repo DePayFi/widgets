@@ -9,7 +9,7 @@ import { Decimal } from 'decimal.js';
 import { route } from '@depay/web3-exchanges';
 import { Token } from '@depay/web3-tokens';
 import { Currency } from '@depay/local-currency';
-import { setProviderEndpoints, provider } from '@depay/web3-client';
+import { setProviderEndpoints, request, provider } from '@depay/web3-client';
 import { route as route$1 } from '@depay/web3-payments';
 import Slider from 'react-rangeslider';
 import { TokenImage } from '@depay/react-token-image';
@@ -893,6 +893,8 @@ function _slicedToArray(arr, i) {
 
 var ClosableContext = /*#__PURE__*/React.createContext();
 
+var UpdatableContext = /*#__PURE__*/React.createContext();
+
 var ClosableProvider = (function (props) {
   var _useState = useState(true),
       _useState2 = _slicedToArray(_useState, 2),
@@ -904,11 +906,15 @@ var ClosableProvider = (function (props) {
       open = _useState4[0],
       setOpen = _useState4[1];
 
+  var _useContext = useContext(UpdatableContext),
+      setUpdatable = _useContext.setUpdatable;
+
   var close = function close() {
     if (!closable) {
       return;
     }
 
+    setUpdatable(false);
     setOpen(false);
     setTimeout(props.unmount, 300);
   };
@@ -992,12 +998,7 @@ var Dialog$1 = (function (props) {
     className: "DialogBody"
   }, props.body), /*#__PURE__*/React.createElement("div", {
     className: "DialogFooter"
-  }, props.footer, /*#__PURE__*/React.createElement("a", {
-    href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
-    rel: "noopener noreferrer",
-    target: "_blank",
-    className: "FooterLink"
-  }, "by DePay")));
+  }, props.footer));
 });
 
 var ConnectingWalletDialog = (function (props) {
@@ -1047,9 +1048,9 @@ var ConnectingWalletDialog = (function (props) {
         className: "TextButton"
       }, "Connect with another wallet")))),
       footer: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM"
+        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
       }, /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary wide",
+        className: "ButtonPrimary",
         onClick: function onClick() {
           return props.connect(wallet);
         }
@@ -1132,7 +1133,7 @@ var SelectWalletDialog = (function (props) {
         return connect(wallet);
       }
     }, /*#__PURE__*/React.createElement("div", {
-      className: "CardImage PaddingLeftM"
+      className: "CardImage"
     }, /*#__PURE__*/React.createElement("img", {
       src: wallet.logo
     })), /*#__PURE__*/React.createElement("div", {
@@ -1145,9 +1146,9 @@ var SelectWalletDialog = (function (props) {
   });
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL TextLeft"
+      className: "LineHeightL FontSizeL"
     }, "Select a wallet")),
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingBottomXS PaddingLeftS PaddingRightS"
@@ -1155,11 +1156,13 @@ var SelectWalletDialog = (function (props) {
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomS"
     }, /*#__PURE__*/React.createElement("button", {
-      className: "FontSizeS FontWeightBold TextGrey TextButton",
+      className: "FontSizeS FontWeightBold TextButton",
       onClick: function onClick() {
         return setShowExplanation(!showExplanation);
       }
-    }, /*#__PURE__*/React.createElement("strong", null, "What is a wallet?")), showExplanation && /*#__PURE__*/React.createElement("p", {
+    }, /*#__PURE__*/React.createElement("strong", {
+      className: "Opacity05"
+    }, "What is a wallet?")), showExplanation && /*#__PURE__*/React.createElement("p", {
       className: "PaddingLeftM PaddingRightM"
     }, "Wallets are used to send, receive, and store digital assets. Wallets come in many forms. They are either built into your browser, an extension added to your browser, a piece of hardware plugged into your computer or even an app on your phone."))
   });
@@ -1613,7 +1616,7 @@ var ErrorProvider = (function (props) {
     })), /*#__PURE__*/React.createElement("div", {
       className: "DialogBody"
     }, /*#__PURE__*/React.createElement("div", {
-      className: "GraphicWrapper"
+      className: "GraphicWrapper PaddingTopS"
     }, /*#__PURE__*/React.createElement("img", {
       className: "Graphic",
       src: ErrorGraphic
@@ -1631,15 +1634,12 @@ var ErrorProvider = (function (props) {
       className: "FontSizeM PaddingTopS"
     }, "If this keeps happening, please report it.")))), /*#__PURE__*/React.createElement("div", {
       className: "DialogFooter"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
       className: "ButtonPrimary",
       onClick: close
-    }, "Try again")), /*#__PURE__*/React.createElement("a", {
-      href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
-      rel: "noopener noreferrer",
-      target: "_blank",
-      className: "FooterLink"
-    }, "by DePay"))));
+    }, "Try again")))));
   } else {
     return /*#__PURE__*/React.createElement(ErrorContext.Provider, {
       value: {
@@ -1651,28 +1651,28 @@ var ErrorProvider = (function (props) {
   }
 });
 
+var BlockchainLogoStyle = (function (style) {
+  return "\n\n    .BlockchainLogo {\n      border-radius: 999px;\n    }\n\n    .BlockchainLogo.small {\n      height: 18px;\n      width: 18px;\n    }\n  ";
+});
+
 var ButtonCircularStyle = (function () {
   return "\n\n    .ButtonCircular {\n      border-radius: 99rem;\n      cursor: pointer;\n      height: 34px;\n      opacity: 0.5;\n      padding: 5px 4px 4px 4px;\n      width: 34px;\n    }\n\n    .ButtonCircular:hover {\n      background: rgba(0,0,0,0.1);\n      opacity: 1;\n    }\n\n    .ButtonCircular:active {\n      background: rgba(0,0,0,0.25);\n      opacity: 1;\n    }\n  ";
 });
 
 var ButtonPrimaryStyle = (function (style) {
-  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 9999rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 16px rgba(0,0,0,0.1);\n      font-size: 1.3rem;\n      font-weight: 400;\n      height: 2.8rem;\n      line-height: 2.8rem;\n      justify-content: center;\n      min-width: 12rem;\n      overflow: hidden;\n      padding: 0 1.4rem;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      display: inline-block;\n    }\n\n    .ButtonPrimary, .ButtonPrimary * {\n      color: ").concat(style.colors.buttonText, ";\n    }\n\n    .ButtonPrimary.round {\n      padding: 0;\n      width: 3.4rem;\n      min-width: 3.4rem;\n    }\n\n    .ButtonPrimary.wide {\n      border-radius: 0.8rem;\n      width: 100%;\n      display: block;\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n      color: rgb(140,140,140);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
+  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 0.8rem;\n      border: 1px solid transparent;\n      box-shadow: 0 0 16px rgba(0,0,0,0.1);\n      font-size: 1.3rem;\n      font-weight: 400;\n      line-height: 2.8rem;\n      height: 3.6rem;\n      justify-content: center;\n      width: 100%;\n      overflow: hidden;\n      padding: 0.4rem 0;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      display: inline-block;\n    }\n\n    .ButtonPrimary, .ButtonPrimary * {\n      color: ").concat(style.colors.buttonText, ";\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n      color: rgb(140,140,140);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
 });
 
 var CardStyle = (function (style) {
-  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n      width: 100%;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.6rem 0.6rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n      width: 100%;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.5rem 0.5rem;\n      margin: 0;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 3.6rem;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardImage .BlockchainLogo {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
 });
 
 var DialogStyle = (function (style) {
-  return "\n\n    .ReactDialogBackground {\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 900px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n        max-height: 40vh !important;\n      }\n\n      .FooterLink {\n        bottom: 0;\n        left: 0;\n        position: absolute;\n        padding-bottom: 1rem;\n        right: 0;\n        width: 100%;\n      }\n\n      .DialogFooter {\n        padding-bottom: 50px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        max-height: 66vh !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .ReactShadowDOMInsideContainer > .ReactDialog {\n      display: table;\n    }\n\n  ";
+  return "\n\n    .ReactDialogBackground {\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 900px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n        max-height: 40vh !important;\n      }\n\n      .DialogFooter {\n        padding-bottom: 50px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        max-height: 66vh !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .ReactShadowDOMInsideContainer > .ReactDialog {\n      display: table;\n    }\n\n  ";
 });
 
 var FontStyle = (function (style) {
-  return "\n\n    .Dialog, * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeS {\n      font-size: 1rem;\n    }\n\n    .FontSizeM {\n      font-size: 1.2rem;\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontSizeXL {\n      font-size: 2.0rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
-});
-
-var FooterStyle = (function (style) {
-  return "\n\n    .FooterLink {\n      color: rgba(0,0,0,0.2);\n      display: inline-block;\n      font-size: 0.9rem;\n      text-decoration: none;\n    }\n\n    .FooterLink:hover, .FooterLink:active {\n      color: ".concat(style.colors.primary, ";\n    }\n  ");
+  return "\n\n    *, div, div * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeS {\n      font-size: 1rem;\n    }\n\n    .FontSizeM {\n      font-size: 1.2rem;\n    }\n\n    .FontSizeL {\n      font-size: 1.4rem;\n    }\n\n    .FontSizeXL {\n      font-size: 2.0rem;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
 });
 
 var GraphicStyle = (function () {
@@ -1684,7 +1684,7 @@ var HeightStyle = (function () {
 });
 
 var IconStyle = (function (style) {
-  return "\n\n    .Icon {\n      fill : ".concat(style.colors.icons, ";\n      stroke : ").concat(style.colors.icons, ";\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 1.4rem;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 1.4rem;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n    \n  ");
+  return "\n\n    .Icon {\n      fill : ".concat(style.colors.icons, ";\n      stroke : ").concat(style.colors.icons, ";\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .CheckMark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      border-radius: 100%;\n      position: relative;\n      left: -1px;\n      width: 18px;\n      height: 18px;\n      animation: spin 1.5s linear infinite;\n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
 });
 
 var ImageStyle = (function (style) {
@@ -1703,8 +1703,16 @@ var LoadingTextStyle = (function (style) {
   return "\n\n    .LoadingText {\n      color: ".concat(style.colors.buttonText, ";\n      display: inline-block;\n      text-decoration: none;\n    }\n\n    @keyframes blink {\n      0% { opacity: .2; }\n      20% { opacity: 1; }\n      100% { opacity: .2; }\n    }\n    \n    .LoadingText .dot {\n      animation-name: blink;\n      animation-duration: 1.4s;\n      animation-iteration-count: infinite;\n      animation-fill-mode: both;\n    }\n    \n    .LoadingText .dot:nth-child(2) {\n      animation-delay: .2s;\n    }\n    \n    .LoadingText .dot:nth-child(3) {\n      animation-delay: .4s;\n    }\n  ");
 });
 
+var OpacityStyle = (function (style) {
+  return "\n\n    .Opacity05 {\n      opacity: 0.5;\n    }\n  ";
+});
+
 var PaddingStyle = (function () {
   return "\n\n    .PaddingTopXS {\n      padding-top: 0.2rem;\n    }\n\n    .PaddingRightXS {\n      padding-right: 0.2rem;\n    }\n\n    .PaddingBottomXS {\n      padding-bottom: 0.2rem;\n    }\n\n    .PaddingLeftXS {\n      padding-left: 0.2rem; \n    }\n\n    .PaddingTopS {\n      padding-top: 0.8rem;\n    }\n\n    .PaddingRightS {\n      padding-right: 0.8rem;\n    }\n\n    .PaddingBottomS {\n      padding-bottom: 0.8rem;\n    }\n\n    .PaddingLeftS {\n      padding-left: 0.8rem; \n    }\n\n    .PaddingTopM {\n      padding-top: 1.2rem;\n    }\n\n    .PaddingRightM {\n      padding-right: 1.2rem;\n    }\n\n    .PaddingBottomM {\n      padding-bottom: 1.2rem;\n    }\n\n    .PaddingLeftM {\n      padding-left: 1.2rem; \n    }\n\n    .PaddingTopL {\n      padding-top: 1.8rem;\n    }\n\n    .PaddingRightL {\n      padding-right: 1.8rem;\n    }\n\n    .PaddingBottomL {\n      padding-bottom: 1.8rem;\n    }\n\n    .PaddingLeftL {\n      padding-left: 1.28em; \n    }\n  ";
+});
+
+var PoweredByStyle = (function (style) {
+  return "\n\n    .PoweredByWrapper {\n      display: block;\n      left: 0;\n      padding-top: 0.2rem;\n      position: fixed;\n      right: 0;\n      text-align: center;\n      top: 0;\n    }\n\n    .PoweredByLink {\n      color: white;\n      opacity: 0.4;\n      display: inline-block;\n      font-size: 0.78rem;\n      font-style: italic;\n      font-weight: bold;\n      letter-spacing: -0.2px;\n      margin-left: 0.5rem;\n      text-decoration: none;\n    }\n\n    .PoweredByLink:hover, .PoweredByLink:active {\n      opacity: 1.0;\n      color: ".concat(style.colors.primary, ";\n    }\n  ");
 });
 
 var RangeSliderStyle = (function (style) {
@@ -1716,15 +1724,15 @@ var ResetStyle = (function () {
 });
 
 var SkeletonStyle = (function () {
-  return "\n        \n    .Skeleton {\n      background: rgb(230,230,230) !important;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ";
+  return "\n        \n    .Skeleton {\n      background: rgb(230,230,230) !important;\n      border: 0px solid transparent !important;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ";
 });
 
 var TextButtonStyle = (function (style) {
-  return "\n\n    .TextButton {\n      cursor: pointer;\n      font-size: 16px;\n      color: ".concat(style.colors.primary, "\n    }\n\n    .TextButton.TextGrey {\n      color: grey;\n    }\n    \n    .TextButton.TextGrey:hover {\n      color: ").concat(style.colors.primary, "\n    }\n  ");
+  return "\n\n    .TextButton {\n      cursor: pointer;\n      font-size: 16px;\n      color: ".concat(style.colors.primary, "\n    }\n\n    .TextButton:hover * {\n      opacity: 1.0;\n    }\n  ");
 });
 
 var TextStyle = (function (style) {
-  return "\n\n    * {\n      color: ".concat(style.colors.text, ";\n    }\n\n    .TextLeft, .TextLeft * {\n      text-align: left;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n    .TextGrey {\n      color: grey;\n    }\n\n    .LineHeightL {\n      line-height: 2.0rem;\n    }\n\n    .ErrorSnippetText {\n      background: rgb(30, 30, 20);\n      border-radius: 1.2rem;\n      border: 0.5rem solid rgb(30, 30, 20);\n      color: #00FF41;\n      font-size: 0.9rem;\n      font-style: italic;\n      max-height: 100px;\n      padding: 6px;\n      overflow-wrap: break-word;\n      overflow-y: auto;\n      white-space: pre-wrap;\n      word-wrap: break-word;\n    }\n  ");
+  return "\n\n    * {\n      color: ".concat(style.colors.text, ";\n    }\n\n    h1, h2, h3, h4, h5, h6 {\n      display: block;\n    }\n\n    .TextLeft, .TextLeft * {\n      text-align: left;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n    .LineHeightL {\n      line-height: 2.0rem;\n    }\n\n    .ErrorSnippetText {\n      background: rgb(30, 30, 20);\n      border-radius: 1.2rem;\n      border: 0.5rem solid rgb(30, 30, 20);\n      color: #00FF41;\n      font-size: 0.9rem;\n      font-style: italic;\n      max-height: 100px;\n      padding: 6px;\n      overflow-wrap: break-word;\n      overflow-y: auto;\n      white-space: pre-wrap;\n      word-wrap: break-word;\n    }\n  ");
 });
 
 var TokenAmountStyle = (function () {
@@ -1741,7 +1749,7 @@ var styleRenderer = (function (style) {
     },
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
   }, style);
-  return [ResetStyle(), FontStyle(style), DialogStyle(), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(style), FooterStyle(style), GraphicStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), IconStyle(style), PaddingStyle(), HeightStyle(), LabelStyle(style), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle()].join('');
+  return [ResetStyle(), FontStyle(style), DialogStyle(), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(style), GraphicStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LabelStyle(style), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle(), BlockchainLogoStyle()].join('');
 });
 
 var mount = (function (_ref, content) {
@@ -1775,6 +1783,31 @@ var mount = (function (_ref, content) {
       unmount = _ReactShadowDOM.unmount;
 
   return unmount;
+});
+
+var PoweredBy = (function () {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "PoweredByWrapper"
+  }, /*#__PURE__*/React.createElement("a", {
+    href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
+    rel: "noopener noreferrer",
+    target: "_blank",
+    className: "PoweredByLink"
+  }, "by DePay"));
+});
+
+var UpdatableProvider = (function (props) {
+  var _useState = useState(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      updatable = _useState2[0],
+      setUpdatable = _useState2[1];
+
+  return /*#__PURE__*/React.createElement(UpdatableContext.Provider, {
+    value: {
+      updatable: updatable,
+      setUpdatable: setUpdatable
+    }
+  }, props.children);
 });
 
 var Connect = function Connect(options) {
@@ -1832,7 +1865,7 @@ var Connect = function Connect(options) {
                     error: error,
                     container: container,
                     unmount: unmount
-                  }, /*#__PURE__*/React.createElement(ClosableProvider, {
+                  }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                     unmount: rejectBeforeUnmount
                   }, /*#__PURE__*/React.createElement(ConnectStack, {
                     document: document,
@@ -1840,7 +1873,7 @@ var Connect = function Connect(options) {
                     resolve: resolve,
                     reject: reject,
                     autoClose: true
-                  })));
+                  }), /*#__PURE__*/React.createElement(PoweredBy, null))));
                 };
               });
 
@@ -2153,7 +2186,9 @@ var NoPaymentMethodFoundDialog = (function () {
     }, /*#__PURE__*/React.createElement("strong", {
       className: "FontSizeM"
     }, "We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment."))),
-    footer: /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
       className: "ButtonPrimary",
       onClick: close
     }, "Ok"))
@@ -2164,7 +2199,7 @@ var PaymentContext = /*#__PURE__*/React.createContext();
 
 var PaymentRoutingContext = /*#__PURE__*/React.createContext();
 
-var UpdateContext = /*#__PURE__*/React.createContext();
+var TrackingContext = /*#__PURE__*/React.createContext();
 
 var PaymentProvider = (function (props) {
   var _useContext = useContext(ErrorContext),
@@ -2173,7 +2208,6 @@ var PaymentProvider = (function (props) {
   var _useContext2 = useContext(ConfigurationContext),
       _sent = _useContext2.sent,
       _confirmed = _useContext2.confirmed,
-      _ensured = _useContext2.ensured,
       _failed = _useContext2.failed;
 
   var _useContext3 = useContext(PaymentRoutingContext),
@@ -2187,12 +2221,16 @@ var PaymentProvider = (function (props) {
   var _useContext5 = useContext(PaymentRoutingContext),
       allRoutes = _useContext5.allRoutes;
 
-  var _useContext6 = useContext(UpdateContext);
-      _useContext6.update;
-      var setUpdate = _useContext6.setUpdate;
+  var _useContext6 = useContext(UpdatableContext),
+      setUpdatable = _useContext6.setUpdatable;
 
   var _useContext7 = useContext(WalletContext),
       wallet = _useContext7.wallet;
+
+  var _useContext8 = useContext(TrackingContext),
+      forward = _useContext8.forward,
+      tracking = _useContext8.tracking,
+      initializeTracking = _useContext8.initializeTracking;
 
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -2214,53 +2252,81 @@ var PaymentProvider = (function (props) {
       paymentState = _useState8[0],
       setPaymentState = _useState8[1];
 
-  var pay = function pay(_ref) {
-    var navigate = _ref.navigate;
-    setClosable(false);
-    setPaymentState('paying');
-    setUpdate(false);
-    wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
-      sent: function sent(transaction) {
-        if (_sent) {
-          _sent(transaction);
-        }
-      },
-      confirmed: function confirmed(transaction) {
-        setClosable(true);
-        setPaymentState('confirmed');
+  var pay = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+      var navigate, currentBlock;
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              navigate = _ref.navigate;
+              setClosable(false);
+              setPaymentState('paying');
+              setUpdatable(false);
+              _context.next = 6;
+              return request({
+                blockchain: payment.route.transaction.blockchain,
+                method: 'latestBlockNumber'
+              });
 
-        if (_confirmed) {
-          _confirmed(transaction);
-        }
-      },
-      ensured: function ensured(transaction) {
-        if (_ensured) {
-          _ensured(transaction);
-        }
-      },
-      failed: function failed(transaction, error) {
-        if (_failed) {
-          _failed(transaction, error);
-        }
+            case 6:
+              currentBlock = _context.sent;
+              wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
+                sent: function sent(transaction) {
+                  if (_sent) {
+                    _sent(transaction);
+                  }
+                },
+                confirmed: function confirmed(transaction) {
+                  if (tracking != true) {
+                    setClosable(true);
+                  }
 
-        setPaymentState('initialized');
-        setClosable(true);
-        setUpdate(true);
-        navigate('PaymentError');
-      }
-    })).then(function (sentTransaction) {
-      setTransaction(sentTransaction);
-    })["catch"](function (error) {
-      console.log('error', error);
-      setPaymentState('initialized');
-      setClosable(true);
-      setUpdate(true);
+                  setPaymentState('confirmed');
 
-      if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK') {
-        navigate('WrongNetwork');
-      }
-    });
-  };
+                  if (_confirmed) {
+                    _confirmed(transaction);
+                  }
+                },
+                failed: function failed(transaction, error) {
+                  if (_failed) {
+                    _failed(transaction, error);
+                  }
+
+                  setPaymentState('initialized');
+                  setClosable(true);
+                  setUpdatable(true);
+                  navigate('PaymentError');
+                }
+              })).then(function (sentTransaction) {
+                if (tracking) {
+                  initializeTracking(sentTransaction, currentBlock);
+                }
+
+                setTransaction(sentTransaction);
+              })["catch"](function (error) {
+                console.log('error', error);
+                setPaymentState('initialized');
+                setClosable(true);
+                setUpdatable(true);
+
+                if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK') {
+                  navigate('WrongNetwork');
+                }
+              });
+
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function pay(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
 
   var approve = function approve() {
     setClosable(false);
@@ -2282,14 +2348,19 @@ var PaymentProvider = (function (props) {
   };
 
   useEffect(function () {
+    if (forward) {
+      setPaymentState('confirmed');
+    }
+  }, [forward]);
+  useEffect(function () {
     if (selectedRoute) {
       var fromToken = selectedRoute.fromToken;
       selectedRoute.transaction.params;
-      Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref2) {
-        var _ref3 = _slicedToArray(_ref2, 3),
-            name = _ref3[0],
-            symbol = _ref3[1],
-            amount = _ref3[2];
+      Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref3) {
+        var _ref4 = _slicedToArray(_ref3, 3),
+            name = _ref4[0],
+            symbol = _ref4[1],
+            amount = _ref4[2];
 
         setPayment({
           route: selectedRoute,
@@ -2305,9 +2376,9 @@ var PaymentProvider = (function (props) {
   }, [selectedRoute]);
   useEffect(function () {
     if (allRoutes && allRoutes.length == 0) {
-      setUpdate(false);
+      setUpdatable(false);
     } else if (allRoutes && allRoutes.length > 0) {
-      setUpdate(true);
+      setUpdatable(true);
     }
   }, [allRoutes]);
 
@@ -2373,8 +2444,8 @@ var PaymentRoutingProvider = (function (props) {
   var _useContext = useContext(WalletContext),
       account = _useContext.account;
 
-  var _useContext2 = useContext(UpdateContext),
-      update = _useContext2.update;
+  var _useContext2 = useContext(UpdatableContext),
+      updatable = _useContext2.updatable;
 
   var prepareAcceptedPayments = function prepareAcceptedPayments(accept) {
     var toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
@@ -2389,9 +2460,9 @@ var PaymentRoutingProvider = (function (props) {
   var getPaymentRoutes = function getPaymentRoutes(_ref) {
     var allRoutes = _ref.allRoutes,
         selectedRoute = _ref.selectedRoute,
-        update = _ref.update;
+        updatable = _ref.updatable;
 
-    if (update == false || !props.accept || !account) {
+    if (updatable == false || !props.accept || !account) {
       return;
     }
 
@@ -2494,13 +2565,13 @@ var PaymentRoutingProvider = (function (props) {
       getPaymentRoutes({
         allRoutes: allRoutes,
         selectedRoute: selectedRoute,
-        update: update
+        updatable: updatable
       });
     }, 15000);
     return function () {
       return clearTimeout(timeout);
     };
-  }, [reloadCount, allRoutes, selectedRoute, update]);
+  }, [reloadCount, allRoutes, selectedRoute, updatable]);
   useEffect(function () {
     if (account && props.accept) {
       setAllRoutes(undefined);
@@ -2530,8 +2601,8 @@ var PaymentValueProvider = (function (props) {
   var _useContext2 = useContext(WalletContext),
       account = _useContext2.account;
 
-  var _useContext3 = useContext(UpdateContext),
-      update = _useContext3.update;
+  var _useContext3 = useContext(UpdatableContext),
+      updatable = _useContext3.updatable;
 
   var _useContext4 = useContext(PaymentContext),
       payment = _useContext4.payment;
@@ -2550,10 +2621,10 @@ var PaymentValueProvider = (function (props) {
       setReloadCount = _useState4[1];
 
   var getToTokenLocalValue = function getToTokenLocalValue(_ref) {
-    var update = _ref.update,
+    var updatable = _ref.updatable,
         payment = _ref.payment;
 
-    if (update == false || (payment === null || payment === void 0 ? void 0 : payment.route) == undefined) {
+    if (updatable == false || (payment === null || payment === void 0 ? void 0 : payment.route) == undefined) {
       return;
     }
 
@@ -2596,7 +2667,7 @@ var PaymentValueProvider = (function (props) {
   useEffect(function () {
     if (account && payment) {
       getToTokenLocalValue({
-        update: update,
+        updatable: updatable,
         payment: payment
       });
     }
@@ -2605,13 +2676,13 @@ var PaymentValueProvider = (function (props) {
     var timeout = setTimeout(function () {
       setReloadCount(reloadCount + 1);
       getToTokenLocalValue({
-        update: update
+        updatable: updatable
       });
     }, 15000);
     return function () {
       return clearTimeout(timeout);
     };
-  }, [reloadCount, update]);
+  }, [reloadCount, updatable]);
   return /*#__PURE__*/React.createElement(PaymentValueContext.Provider, {
     value: {
       paymentValue: paymentValue
@@ -2766,7 +2837,9 @@ var ChangeAmountDialog = (function (props) {
         changeAmount(toValidValue(maxAmount));
       }
     }, "(Max)")))))),
-    footer: /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
       className: "ButtonPrimary",
       onClick: changeAmountAndGoBack
     }, "Done"))
@@ -2853,6 +2926,7 @@ var ChangePaymentDialog = (function (props) {
   }, [allRoutes]);
   useEffect(function () {
     setCards(allPaymentRoutesWithData.map(function (payment, index) {
+      var blockchain = Blockchain.findByName(payment.route.blockchain);
       return /*#__PURE__*/React.createElement("div", {
         key: index,
         className: "Card",
@@ -2866,6 +2940,11 @@ var ChangePaymentDialog = (function (props) {
       }, /*#__PURE__*/React.createElement(TokenImage, {
         blockchain: payment.route.blockchain,
         address: payment.route.fromToken.address
+      }), /*#__PURE__*/React.createElement("img", {
+        className: "BlockchainLogo small",
+        src: blockchain.logo,
+        alt: blockchain.label,
+        title: blockchain.label
       })), /*#__PURE__*/React.createElement("div", {
         className: "CardBody"
       }, /*#__PURE__*/React.createElement("div", {
@@ -2906,25 +2985,12 @@ var ChangePaymentDialog = (function (props) {
   });
 });
 
-var Checkmark = (function () {
-  return /*#__PURE__*/React.createElement("svg", {
-    className: "Checkmark Icon",
-    version: "1.1",
-    xmlns: "http://www.w3.org/2000/svg",
-    x: "0px",
-    y: "0px",
-    viewBox: "0 0 24 24"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M20,4.9L9.2,16l-5.4-3.9c-0.7-0.5-1.6-0.3-2.1,0.3c-0.5,0.7-0.3,1.6,0.3,2.1l6.4,4.7c0.3,0.2,0.6,0.3,0.9,0.3 c0.4,0,0.8-0.2,1.1-0.5l11.7-12c0.6-0.6,0.6-1.6,0-2.2C21.6,4.3,20.6,4.3,20,4.9z"
-  }));
-});
-
 var DonationOverviewSkeleton = (function (props) {
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL TextLeft"
+      className: "LineHeightL FontSizeL"
     }, "Donation")),
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
@@ -2938,7 +3004,7 @@ var DonationOverviewSkeleton = (function (props) {
       className: "SkeletonBackground"
     }))),
     footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
     }, /*#__PURE__*/React.createElement("div", {
       className: "SkeletonWrapper"
     }, /*#__PURE__*/React.createElement("div", {
@@ -2947,6 +3013,60 @@ var DonationOverviewSkeleton = (function (props) {
       className: "SkeletonBackground"
     }))))
   });
+});
+
+var Checkmark = (function (props) {
+  return /*#__PURE__*/React.createElement("svg", {
+    className: "Checkmark Icon " + props.className,
+    version: "1.1",
+    xmlns: "http://www.w3.org/2000/svg",
+    x: "0px",
+    y: "0px",
+    viewBox: "0 0 24 24"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M20,4.9L9.2,16l-5.4-3.9c-0.7-0.5-1.6-0.3-2.1,0.3c-0.5,0.7-0.3,1.6,0.3,2.1l6.4,4.7c0.3,0.2,0.6,0.3,0.9,0.3 c0.4,0,0.8-0.2,1.1-0.5l11.7-12c0.6-0.6,0.6-1.6,0-2.2C21.6,4.3,20.6,4.3,20,4.9z"
+  }));
+});
+
+var DigitalWalletIcon = (function (props) {
+  return /*#__PURE__*/React.createElement("svg", {
+    className: "DigitalWalletIcon Icon " + props.className,
+    version: "1.1",
+    xmlns: "http://www.w3.org/2000/svg",
+    height: "24",
+    width: "24",
+    viewBox: "0 0 24 24"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M8.51,4.84l-.39-.53,4-2.89a2.2,2.2,0,0,1,3.06.48l.4.56-.53.39-.4-.56A1.54,1.54,0,0,0,12.5,2Z",
+    transform: "translate(-0.81 -1)"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M9.77,4.89l-.21-.62,6.31-2.13h0a2.18,2.18,0,0,1,.67-.1h0a2.21,2.21,0,0,1,2.08,1.49l.32.95-.63.21L18,3.73a1.53,1.53,0,0,0-1.45-1h0a1.61,1.61,0,0,0-.48.08h0Z",
+    transform: "translate(-0.81 -1)"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M19.72,16.2H18.27a3.28,3.28,0,1,1,0-6.56h1.45a3.21,3.21,0,0,1,1.33.28h0a3.28,3.28,0,0,1,0,6A3.21,3.21,0,0,1,19.72,16.2Zm-1.45-5.9a2.63,2.63,0,0,0,0,5.25h1.45a2.56,2.56,0,0,0,1.06-.23,2.62,2.62,0,0,0,0-4.8,2.55,2.55,0,0,0-1.06-.22ZM19,14.53a1.61,1.61,0,1,1,1.61-1.61A1.62,1.62,0,0,1,19,14.53ZM19,12a1,1,0,1,0,.95.95A1,1,0,0,0,19,12Z",
+    transform: "translate(-0.81 -1)"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M10.49,19.69a1.58,1.58,0,1,1,1.58-1.57A1.57,1.57,0,0,1,10.49,19.69Zm0-2.49a.92.92,0,1,0,.92.92A.92.92,0,0,0,10.49,17.2Z",
+    transform: "translate(-0.81 -1)"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M19.09,22.14H2.79a2,2,0,0,1-2-2V6.25a2.1,2.1,0,0,1,0-.43,2,2,0,0,1,.48-.92,2,2,0,0,1,1.48-.65H19.09a2,2,0,0,1,.64.1,2,2,0,0,1,1.36,1.79v0a.28.28,0,0,1,0,.09v3.91h-.66v-4a1.49,1.49,0,0,0-.23-.69A1.35,1.35,0,0,0,19.52,5a1.26,1.26,0,0,0-.43-.08H2.82a1.34,1.34,0,0,0-1,.44A1.49,1.49,0,0,0,1.5,6a1.5,1.5,0,0,0,0,.29V20.13a1.36,1.36,0,0,0,1.34,1.35H19.09a1.35,1.35,0,0,0,1.35-1.35V15.68h.66v4.45A2,2,0,0,1,19.09,22.14Z",
+    transform: "translate(-0.81 -1)"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M9.27,9.31a1.58,1.58,0,1,1,0-3.15,1.58,1.58,0,0,1,0,3.15Zm0-2.5a.92.92,0,1,0,.92.92A.92.92,0,0,0,9.27,6.81Z",
+    transform: "translate(-0.81 -1)"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M7.11,14.67A1.58,1.58,0,1,1,8.69,13.1,1.57,1.57,0,0,1,7.11,14.67Zm0-2.49A.92.92,0,1,0,8,13.1.92.92,0,0,0,7.11,12.18Z",
+    transform: "translate(-0.81 -1)"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "0.33",
+    y: "11.77",
+    width: "4.72",
+    height: "0.66"
+  }), /*#__PURE__*/React.createElement("polygon", {
+    points: "2.08 9.53 0.33 9.53 0.33 8.87 1.8 8.87 4.28 6.39 7.21 6.39 7.21 7.05 4.55 7.05 2.08 9.53"
+  }), /*#__PURE__*/React.createElement("polygon", {
+    points: "8.43 17.45 4.53 17.45 2.63 15.55 0.33 15.55 0.33 14.89 2.9 14.89 4.8 16.79 8.43 16.79 8.43 17.45"
+  }));
 });
 
 var LoadingText = (function (props) {
@@ -2961,26 +3081,143 @@ var LoadingText = (function (props) {
   }, "."));
 });
 
-var DonationOverviewDialog = (function (props) {
+var Footer = (function () {
   var _useContext = useContext(ConfigurationContext),
       currencyCode = _useContext.currencyCode;
 
   var _useContext2 = useContext(ChangableAmountContext),
       amount = _useContext2.amount;
+      _useContext2.amountsMissing;
 
-  var _useContext3 = useContext(PaymentContext),
-      payment = _useContext3.payment,
-      paymentState = _useContext3.paymentState,
-      pay = _useContext3.pay,
-      transaction = _useContext3.transaction,
-      approve = _useContext3.approve,
-      approvalTransaction = _useContext3.approvalTransaction;
+  var _useContext3 = useContext(TrackingContext),
+      tracking = _useContext3.tracking,
+      forward = _useContext3.forward,
+      forwardTo = _useContext3.forwardTo;
 
-  var _useContext4 = useContext(NavigateStackContext),
-      navigate = _useContext4.navigate;
+  var _useContext4 = useContext(PaymentContext),
+      payment = _useContext4.payment,
+      paymentState = _useContext4.paymentState,
+      pay = _useContext4.pay,
+      transaction = _useContext4.transaction,
+      approve = _useContext4.approve,
+      approvalTransaction = _useContext4.approvalTransaction;
 
-  var _useContext5 = useContext(ClosableContext),
-      close = _useContext5.close;
+  var _useContext5 = useContext(PaymentValueContext),
+      paymentValue = _useContext5.paymentValue;
+
+  var _useContext6 = useContext(NavigateStackContext),
+      navigate = _useContext6.navigate;
+
+  var _useContext7 = useContext(ClosableContext),
+      close = _useContext7.close;
+
+  var trackingInfo = function trackingInfo() {
+    if (tracking != true) {
+      return null;
+    }
+
+    if (forward) {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
+        className: "Card transparent small disabled"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter Opacity05"
+      }, /*#__PURE__*/React.createElement(Checkmark, {
+        className: "small"
+      }))), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05"
+      }, "Payment confirmation has been stored")))));
+    } else {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
+        className: "Card transparent small disabled"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Loading Icon"
+      }))), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05"
+      }, "Storing payment confirmation")))));
+    }
+  };
+
+  var additionalPaymentInformation = function additionalPaymentInformation() {
+    if (paymentState == 'paying' && transaction == undefined) {
+      return /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Card transparent disabled small"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter Opacity05"
+      }, /*#__PURE__*/React.createElement(DigitalWalletIcon, {
+        className: "small"
+      }))), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05"
+      }, "Confirm transaction in your wallet")))));
+    } else if (paymentState == 'confirmed') {
+      return /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
+        className: "Card transparent small",
+        title: "Payment has been confirmed by the network",
+        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter Opacity05"
+      }, /*#__PURE__*/React.createElement(Checkmark, {
+        className: "small"
+      }))), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05"
+      }, "Payment has been confirmed"))))), trackingInfo());
+    }
+  };
+
+  var approvalButton = function approvalButton() {
+    if (!payment.route.approvalRequired || payment.route.directTransfer) {
+      return null;
+    } else if (paymentState == 'initialized') {
+      return /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/React.createElement("button", {
+        className: "ButtonPrimary",
+        onClick: approve,
+        title: "Allow ".concat(payment.symbol, " to be used as payment")
+      }, "Allow ", payment.symbol, " to be used as payment"));
+    } else if (paymentState == 'approving') {
+      return /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/React.createElement("a", {
+        className: "ButtonPrimary",
+        title: "Approving payment token - please wait",
+        href: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, /*#__PURE__*/React.createElement(LoadingText, null, "Approving")));
+    }
+  };
 
   var mainAction = function mainAction() {
     if (paymentState == 'initialized' || paymentState == 'approving') {
@@ -2995,10 +3232,10 @@ var DonationOverviewDialog = (function (props) {
             navigate: navigate
           });
         }
-      }, "Pay ", new Currency({
+      }, "Pay ", amount ? new Currency({
         amount: amount.toFixed(2),
         code: currencyCode
-      }).toString());
+      }).toString() : paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
     } else if (paymentState == 'paying') {
       return /*#__PURE__*/React.createElement("a", {
         className: "ButtonPrimary",
@@ -3008,39 +3245,51 @@ var DonationOverviewDialog = (function (props) {
         rel: "noopener noreferrer"
       }, /*#__PURE__*/React.createElement(LoadingText, null, "Paying"));
     } else if (paymentState == 'confirmed') {
-      return /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary round",
-        title: "Done",
-        onClick: close
-      }, /*#__PURE__*/React.createElement(Checkmark, null));
+      if (tracking == true) {
+        if (forward) {
+          if (forwardTo) {
+            return /*#__PURE__*/React.createElement("a", {
+              className: "ButtonPrimary",
+              href: forwardTo,
+              rel: "noopener noreferrer"
+            }, "Continue");
+          } else {
+            return /*#__PURE__*/React.createElement("button", {
+              className: "ButtonPrimary",
+              onClick: close
+            }, "Continue");
+          }
+        } else {
+          return /*#__PURE__*/React.createElement("button", {
+            className: "ButtonPrimary disabled",
+            onClick: function onClick() {}
+          }, "Continue");
+        }
+      } else {
+        return /*#__PURE__*/React.createElement("button", {
+          className: "ButtonPrimary",
+          onClick: close
+        }, "Close");
+      }
     }
   };
 
-  var approvalAction = function approvalAction() {
-    if (paymentState == 'initialized') {
-      return /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
-      }, /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary wide",
-        onClick: approve,
-        title: "Allow ".concat(payment.symbol, " to be used as payment")
-      }, "Allow ", payment.symbol, " to be used as payment"));
-    } else if (paymentState == 'approving') {
-      return /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
-      }, /*#__PURE__*/React.createElement("a", {
-        className: "ButtonPrimary wide",
-        title: "Approving payment token - please wait",
-        href: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
-        target: "_blank",
-        rel: "noopener noreferrer"
-      }, /*#__PURE__*/React.createElement(LoadingText, null, "Approving")));
-    }
-  };
+  return /*#__PURE__*/React.createElement("div", null, approvalButton(), additionalPaymentInformation(), mainAction());
+});
 
-  var actions = function actions() {
-    return /*#__PURE__*/React.createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
-  };
+var DonationOverviewDialog = (function (props) {
+  var _useContext = useContext(ConfigurationContext),
+      currencyCode = _useContext.currencyCode;
+
+  var _useContext2 = useContext(ChangableAmountContext),
+      amount = _useContext2.amount;
+
+  var _useContext3 = useContext(PaymentContext),
+      payment = _useContext3.payment,
+      paymentState = _useContext3.paymentState;
+
+  var _useContext4 = useContext(NavigateStackContext),
+      navigate = _useContext4.navigate;
 
   if (payment == undefined) {
     return /*#__PURE__*/React.createElement(DonationOverviewSkeleton, null);
@@ -3048,9 +3297,9 @@ var DonationOverviewDialog = (function (props) {
 
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL TextLeft"
+      className: "LineHeightL FontSizeL"
     }, "Donation")),
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
@@ -3113,8 +3362,8 @@ var DonationOverviewDialog = (function (props) {
       className: "CardAction"
     }, /*#__PURE__*/React.createElement(ChevronRight, null)))),
     footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM"
-    }, actions())
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement(Footer, null))
   });
 });
 
@@ -3151,9 +3400,9 @@ var PaymentErrorDialog = (function () {
       rel: "noopener noreferrer"
     }, "View on explorer")))),
     footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
     }, /*#__PURE__*/React.createElement("button", {
-      className: "ButtonPrimary wide",
+      className: "ButtonPrimary",
       onClick: function onClick() {
         return navigate('back');
       }
@@ -3174,9 +3423,9 @@ var WrongNetworkDialog = (function (props) {
   return /*#__PURE__*/React.createElement(Dialog$1, {
     stacked: true,
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL TextLeft"
+      className: "LineHeightL FontSizeL"
     }, "Wrong Network")),
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
@@ -3193,7 +3442,7 @@ var WrongNetworkDialog = (function (props) {
       className: "FontSizeM"
     }, "Please make sure you connect your wallet to the correct network before you try again!"))),
     footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
     }, /*#__PURE__*/React.createElement("button", {
       className: "ButtonPrimary",
       onClick: function onClick() {
@@ -3224,16 +3473,122 @@ var DonationStack = (function (props) {
   });
 });
 
-var UpdateProvider = (function (props) {
-  var _useState = useState(true),
-      _useState2 = _slicedToArray(_useState, 2),
-      update = _useState2[0],
-      setUpdate = _useState2[1];
+var TrackingProvider = (function (props) {
+  var _useContext = useContext(ConfigurationContext),
+      track = _useContext.track;
 
-  return /*#__PURE__*/React.createElement(UpdateContext.Provider, {
+  var _useState = useState(track && !!track.endpoint),
+      _useState2 = _slicedToArray(_useState, 2),
+      tracking = _useState2[0],
+      setTracking = _useState2[1];
+
+  var _useState3 = useState(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      forward = _useState4[0],
+      setForward = _useState4[1];
+
+  var _useState5 = useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      forwardTo = _useState6[0],
+      setForwardTo = _useState6[1];
+
+  var _useContext2 = useContext(ClosableContext),
+      setClosable = _useContext2.setClosable;
+
+  useEffect(function () {
+    setTracking(track && !!track.endpoint);
+  }, [track]);
+
+  var openSocket = function openSocket(transaction) {
+    var socket = new WebSocket('wss://integrate.depay.fi/cable');
+
+    socket.onopen = function (event) {
+      var msg = {
+        command: 'subscribe',
+        identifier: JSON.stringify({
+          blockchain: transaction.blockchain,
+          sender: transaction.from.toLowerCase(),
+          nonce: transaction.nonce,
+          channel: 'PaymentChannel'
+        })
+      };
+      socket.send(JSON.stringify(msg));
+    };
+
+    socket.onclose = function (event) {};
+
+    socket.onmessage = function (event) {
+      var item = JSON.parse(event.data);
+
+      if (item.type === "ping") {
+        return;
+      }
+
+      if (item.message && item.message.forward) {
+        setClosable(!item.message.forward_to);
+        setForwardTo(item.message.forward_to);
+        setForward(item.message.forward);
+        socket.close();
+
+        if (!!item.message.forward_to) {
+          setTimeout(function () {
+            props.document.location.href = item.message.forward_to;
+          }, 500);
+        }
+      }
+    };
+
+    socket.onerror = function (error) {
+      console.log('WebSocket Error: ' + error);
+    };
+  };
+
+  var retryStartTracking = function retryStartTracking(transaction, afterBlock, attempt) {
+    attempt = parseInt(attempt || 1, 10);
+    console.log('RETRY TRACKING ATTEMPT ', attempt);
+
+    if (attempt < 3) {
+      setTimeout(function () {
+        startTracking(transaction, afterBlock, attempt + 1);
+      }, 3000);
+    } else {
+      console.log('TRACKING FAILED AFTER 3 ATTEMPTS!');
+    }
+  };
+
+  var startTracking = function startTracking(transaction, afterBlock, attempt) {
+    fetch(track.endpoint, {
+      method: 'POST',
+      body: JSON.stringify({
+        blockchain: transaction.blockchain,
+        transaction: transaction.id.toLowerCase(),
+        sender: transaction.from.toLowerCase(),
+        nonce: transaction.nonce,
+        after_block: afterBlock
+      })
+    }).then(function (response) {
+      if (response.status == 200) {
+        console.log('TRACKING INITIALIZED');
+      } else {
+        retryStartTracking(transaction, afterBlock, attempt);
+      }
+    })["catch"](function (error) {
+      console.log('TRACKING FAILED', error);
+      retryStartTracking(transaction, afterBlock, attempt);
+    });
+  };
+
+  var initializeTracking = function initializeTracking(transaction, afterBlock) {
+    openSocket(transaction);
+    startTracking(transaction, afterBlock);
+  };
+
+  return /*#__PURE__*/React.createElement(TrackingContext.Provider, {
     value: {
-      update: update,
-      setUpdate: setUpdate
+      tracking: tracking,
+      initializeTracking: initializeTracking,
+      forward: forward,
+      forwardTo: forwardTo
     }
   }, props.children);
 });
@@ -3336,12 +3691,12 @@ var preflight$2 = /*#__PURE__*/function () {
 
 var Donation = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, accept, event, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, unmount;
+    var amount, accept, event, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
+            amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight$2({
@@ -3367,26 +3722,27 @@ var Donation = /*#__PURE__*/function () {
                     event: event,
                     sent: sent,
                     confirmed: confirmed,
-                    ensured: ensured,
                     failed: failed,
                     blacklist: blacklist,
                     providers: providers
                   }
-                }, /*#__PURE__*/React.createElement(ClosableProvider, {
+                }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                   unmount: unmount
-                }, /*#__PURE__*/React.createElement(UpdateProvider, null, /*#__PURE__*/React.createElement(WalletProvider, {
+                }, /*#__PURE__*/React.createElement(WalletProvider, {
                   container: container,
                   connected: connected,
                   unmount: unmount
                 }, /*#__PURE__*/React.createElement(ConversionRateProvider, null, /*#__PURE__*/React.createElement(ChangableAmountProvider, {
                   accept: accept
+                }, /*#__PURE__*/React.createElement(TrackingProvider, {
+                  document: ensureDocument(document)
                 }, /*#__PURE__*/React.createElement(DonationRoutingProvider, {
                   container: container,
                   document: document
                 }, /*#__PURE__*/React.createElement(DonationStack, {
                   document: document,
                   container: container
-                })))))))));
+                }), /*#__PURE__*/React.createElement(PoweredBy, null))))))))));
               };
             });
             return _context2.abrupt("return", {
@@ -3454,9 +3810,9 @@ var PaymentOverviewSkeleton = (function (props) {
 
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL TextLeft"
+      className: "LineHeightL FontSizeL"
     }, "Payment")),
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
@@ -3470,7 +3826,7 @@ var PaymentOverviewSkeleton = (function (props) {
       className: "SkeletonBackground"
     }))),
     footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
     }, /*#__PURE__*/React.createElement("div", {
       className: "SkeletonWrapper"
     }, /*#__PURE__*/React.createElement("div", {
@@ -3485,17 +3841,13 @@ var PaymentOverviewDialog = (function (props) {
   var _useContext = useContext(ConfigurationContext),
       currencyCode = _useContext.currencyCode;
 
-  var _useContext2 = useContext(ChangableAmountContext),
-      amount = _useContext2.amount,
-      amountsMissing = _useContext2.amountsMissing;
+  var _useContext2 = useContext(PaymentContext),
+      payment = _useContext2.payment,
+      paymentState = _useContext2.paymentState;
 
-  var _useContext3 = useContext(PaymentContext),
-      payment = _useContext3.payment,
-      paymentState = _useContext3.paymentState,
-      pay = _useContext3.pay,
-      transaction = _useContext3.transaction,
-      approve = _useContext3.approve,
-      approvalTransaction = _useContext3.approvalTransaction;
+  var _useContext3 = useContext(ChangableAmountContext),
+      amount = _useContext3.amount,
+      amountsMissing = _useContext3.amountsMissing;
 
   var _useContext4 = useContext(PaymentValueContext),
       paymentValue = _useContext4.paymentValue;
@@ -3503,78 +3855,15 @@ var PaymentOverviewDialog = (function (props) {
   var _useContext5 = useContext(NavigateStackContext),
       navigate = _useContext5.navigate;
 
-  var _useContext6 = useContext(ClosableContext),
-      close = _useContext6.close;
-
-  var mainAction = function mainAction() {
-    if (paymentState == 'initialized' || paymentState == 'approving') {
-      return /*#__PURE__*/React.createElement("button", {
-        className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
-        onClick: function onClick() {
-          if (payment.route.approvalRequired && !payment.route.directTransfer) {
-            return;
-          }
-
-          pay({
-            navigate: navigate
-          });
-        }
-      }, "Pay ", amount ? new Currency({
-        amount: amount.toFixed(2),
-        code: currencyCode
-      }).toString() : paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
-    } else if (paymentState == 'paying') {
-      return /*#__PURE__*/React.createElement("a", {
-        className: "ButtonPrimary",
-        title: "Performing the payment - please wait",
-        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-        target: "_blank",
-        rel: "noopener noreferrer"
-      }, /*#__PURE__*/React.createElement(LoadingText, null, "Paying"));
-    } else if (paymentState == 'confirmed') {
-      return /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary round",
-        title: "Done",
-        onClick: close
-      }, /*#__PURE__*/React.createElement(Checkmark, null));
-    }
-  };
-
-  var approvalAction = function approvalAction() {
-    if (paymentState == 'initialized') {
-      return /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
-      }, /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary wide",
-        onClick: approve,
-        title: "Allow ".concat(payment.symbol, " to be used as payment")
-      }, "Allow ", payment.symbol, " to be used as payment"));
-    } else if (paymentState == 'approving') {
-      return /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
-      }, /*#__PURE__*/React.createElement("a", {
-        className: "ButtonPrimary wide",
-        title: "Approving payment token - please wait",
-        href: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
-        target: "_blank",
-        rel: "noopener noreferrer"
-      }, /*#__PURE__*/React.createElement(LoadingText, null, "Approving")));
-    }
-  };
-
-  var actions = function actions() {
-    return /*#__PURE__*/React.createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
-  };
-
   if (payment == undefined || paymentValue == undefined) {
     return /*#__PURE__*/React.createElement(PaymentOverviewSkeleton, null);
   }
 
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL TextLeft"
+      className: "LineHeightL FontSizeL"
     }, "Payment")),
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
@@ -3637,8 +3926,8 @@ var PaymentOverviewDialog = (function (props) {
       className: "CardAction"
     }, /*#__PURE__*/React.createElement(ChevronRight, null)))),
     footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM"
-    }, actions())
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement(Footer, null))
   });
 });
 
@@ -3704,12 +3993,12 @@ var preflight$1 = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, amount, event, sent, confirmed, ensured, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, document, unmount;
+    var accept, amount, event, sent, confirmed, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
+            accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight$1({
@@ -3735,15 +4024,15 @@ var Payment = /*#__PURE__*/function () {
                     event: event,
                     sent: sent,
                     confirmed: confirmed,
-                    ensured: ensured,
                     failed: failed,
                     whitelist: whitelist,
                     blacklist: blacklist,
-                    providers: providers
+                    providers: providers,
+                    track: track
                   }
-                }, /*#__PURE__*/React.createElement(ClosableProvider, {
+                }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                   unmount: unmount
-                }, /*#__PURE__*/React.createElement(UpdateProvider, null, /*#__PURE__*/React.createElement(WalletProvider, {
+                }, /*#__PURE__*/React.createElement(WalletProvider, {
                   document: document,
                   container: container,
                   connected: connected,
@@ -3755,13 +4044,15 @@ var Payment = /*#__PURE__*/function () {
                   whitelist: whitelist,
                   blacklist: blacklist,
                   event: event
+                }, /*#__PURE__*/React.createElement(TrackingProvider, {
+                  document: ensureDocument(document)
                 }, /*#__PURE__*/React.createElement(PaymentProvider, {
                   container: container,
                   document: document
                 }, /*#__PURE__*/React.createElement(PaymentValueProvider, null, /*#__PURE__*/React.createElement(PaymentStack, {
                   document: document,
                   container: container
-                })))))))))));
+                }), /*#__PURE__*/React.createElement(PoweredBy, null))))))))))));
               };
             });
             return _context2.abrupt("return", {
@@ -3871,9 +4162,9 @@ var SaleRoutingProvider = (function (props) {
 var SaleOverviewSkeleton = (function (props) {
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL TextLeft"
+      className: "LineHeightL FontSizeL"
     }, "Purchase")),
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
@@ -3890,7 +4181,7 @@ var SaleOverviewSkeleton = (function (props) {
       className: "SkeletonBackground"
     }))),
     footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM"
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
     }, /*#__PURE__*/React.createElement("div", {
       className: "SkeletonWrapper"
     }, /*#__PURE__*/React.createElement("div", {
@@ -3902,11 +4193,10 @@ var SaleOverviewSkeleton = (function (props) {
 });
 
 var SaleOverviewDialog = (function (props) {
-  var _useContext = useContext(ChangableAmountContext),
-      amount = _useContext.amount;
+  var _useContext = useContext(ChangableAmountContext);
+      _useContext.amount;
 
   var _useContext2 = useContext(ConfigurationContext),
-      currencyCode = _useContext2.currencyCode,
       tokenImage = _useContext2.tokenImage;
 
   var _useContext3 = useContext(PaymentValueContext),
@@ -3914,86 +4204,19 @@ var SaleOverviewDialog = (function (props) {
 
   var _useContext4 = useContext(PaymentContext),
       payment = _useContext4.payment,
-      paymentState = _useContext4.paymentState,
-      pay = _useContext4.pay,
-      transaction = _useContext4.transaction,
-      approve = _useContext4.approve,
-      approvalTransaction = _useContext4.approvalTransaction;
+      paymentState = _useContext4.paymentState;
 
   var _useContext5 = useContext(NavigateStackContext),
       navigate = _useContext5.navigate;
 
-  var _useContext6 = useContext(ClosableContext),
-      close = _useContext6.close;
-
-  var _useContext7 = useContext(ToTokenContext),
-      toToken = _useContext7.toToken,
-      toTokenReadableAmount = _useContext7.toTokenReadableAmount;
+  var _useContext6 = useContext(ToTokenContext),
+      toToken = _useContext6.toToken,
+      toTokenReadableAmount = _useContext6.toTokenReadableAmount;
 
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
       salePerTokenValue = _useState2[0],
       setSalePerTokenValue = _useState2[1];
-
-  var mainAction = function mainAction() {
-    if (paymentState == 'initialized' || paymentState == 'approving') {
-      return /*#__PURE__*/React.createElement("button", {
-        className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
-        onClick: function onClick() {
-          if (payment.route.approvalRequired && !payment.route.directTransfer) {
-            return;
-          }
-
-          pay({
-            navigate: navigate
-          });
-        }
-      }, "Pay ", new Currency({
-        amount: amount.toFixed(2),
-        code: currencyCode
-      }).toString());
-    } else if (paymentState == 'paying') {
-      return /*#__PURE__*/React.createElement("a", {
-        className: "ButtonPrimary",
-        title: "Performing the payment - please wait",
-        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-        target: "_blank",
-        rel: "noopener noreferrer"
-      }, /*#__PURE__*/React.createElement(LoadingText, null, "Paying"));
-    } else if (paymentState == 'confirmed') {
-      return /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary round",
-        title: "Done",
-        onClick: close
-      }, /*#__PURE__*/React.createElement(Checkmark, null));
-    }
-  };
-
-  var approvalAction = function approvalAction() {
-    if (paymentState == 'initialized') {
-      return /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
-      }, /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary wide",
-        onClick: approve,
-        title: "Allow ".concat(payment.symbol, " to be used as payment")
-      }, "Allow ", payment.symbol, " to be used as payment"));
-    } else if (paymentState == 'approving') {
-      return /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
-      }, /*#__PURE__*/React.createElement("a", {
-        className: "ButtonPrimary wide",
-        title: "Approving payment token - please wait",
-        href: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
-        target: "_blank",
-        rel: "noopener noreferrer"
-      }, /*#__PURE__*/React.createElement(LoadingText, null, "Approving")));
-    }
-  };
-
-  var actions = function actions() {
-    return /*#__PURE__*/React.createElement("div", null, payment.route.approvalRequired && !payment.route.directTransfer && approvalAction(), mainAction());
-  };
 
   useEffect(function () {
     if (paymentValue) {
@@ -4023,9 +4246,9 @@ var SaleOverviewDialog = (function (props) {
 
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL TextLeft"
+      className: "LineHeightL FontSizeL"
     }, "Purchase")),
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
@@ -4094,8 +4317,8 @@ var SaleOverviewDialog = (function (props) {
       className: "CardAction"
     }, /*#__PURE__*/React.createElement(ChevronRight, null)))),
     footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM"
-    }, actions())
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement(Footer, null))
   });
 });
 
@@ -4168,12 +4391,12 @@ var preflight = /*#__PURE__*/function () {
 
 var Sale = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, sell, sent, confirmed, ensured, failed, error, critical, style, blacklist, providers, currency, connected, closed, tokenImage, document, accept, unmount;
+    var amount, sell, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, tokenImage, document, accept, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, confirmed = _ref3.confirmed, ensured = _ref3.ensured, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, document = _ref3.document;
+            amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight({
@@ -4205,26 +4428,27 @@ var Sale = /*#__PURE__*/function () {
                     currency: currency,
                     sent: sent,
                     confirmed: confirmed,
-                    ensured: ensured,
                     failed: failed,
                     blacklist: blacklist,
                     providers: providers
                   }
-                }, /*#__PURE__*/React.createElement(ClosableProvider, {
+                }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                   unmount: unmount
-                }, /*#__PURE__*/React.createElement(UpdateProvider, null, /*#__PURE__*/React.createElement(WalletProvider, {
+                }, /*#__PURE__*/React.createElement(WalletProvider, {
                   container: container,
                   connected: connected,
                   unmount: unmount
                 }, /*#__PURE__*/React.createElement(ConversionRateProvider, null, /*#__PURE__*/React.createElement(ChangableAmountProvider, {
                   accept: accept
+                }, /*#__PURE__*/React.createElement(TrackingProvider, {
+                  document: ensureDocument(document)
                 }, /*#__PURE__*/React.createElement(SaleRoutingProvider, {
                   container: container,
                   document: document
                 }, /*#__PURE__*/React.createElement(SaleStack, {
                   document: document,
                   container: container
-                })))))))));
+                }), /*#__PURE__*/React.createElement(PoweredBy, null))))))))));
               };
             });
             return _context2.abrupt("return", {

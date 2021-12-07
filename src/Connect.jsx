@@ -3,7 +3,9 @@ import ConnectStack from './stacks/ConnectStack'
 import ensureDocument from './helpers/ensureDocument'
 import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
+import PoweredBy from './components/PoweredBy'
 import React from 'react'
+import UpdatableProvider from './providers/UpdatableProvider'
 import { getWallet } from '@depay/web3-wallets'
 
 let Connect = (options) => {
@@ -28,15 +30,18 @@ let Connect = (options) => {
       }
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
-          <ClosableProvider unmount={ rejectBeforeUnmount }>
-            <ConnectStack
-              document={ document }
-              container={ container }
-              resolve={ resolve }
-              reject={ reject }
-              autoClose={ true }
-            />
-          </ClosableProvider>
+          <UpdatableProvider>
+            <ClosableProvider unmount={ rejectBeforeUnmount }>
+              <ConnectStack
+                document={ document }
+                container={ container }
+                resolve={ resolve }
+                reject={ reject }
+                autoClose={ true }
+              />
+              <PoweredBy/>
+            </ClosableProvider>
+          </UpdatableProvider>
         </ErrorProvider>
     })
   })

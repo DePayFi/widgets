@@ -5,16 +5,16 @@ export default (style)=>{
       color: ${style.colors.text};
     }
 
+    h1, h2, h3, h4, h5, h6 {
+      display: block;
+    }
+
     .TextLeft, .TextLeft * {
       text-align: left;
     }
 
     .TextCenter, .TextCenter * {
       text-align: center;
-    }
-
-    .TextGrey {
-      color: grey;
     }
 
     .LineHeightL {

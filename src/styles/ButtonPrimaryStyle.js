@@ -5,17 +5,17 @@ export default (style)=>{
       align-items: center;
       align-self: center;
       background: ${style.colors.primary};
-      border-radius: 9999rem;
+      border-radius: 0.8rem;
       border: 1px solid transparent;
       box-shadow: 0 0 16px rgba(0,0,0,0.1);
       font-size: 1.3rem;
       font-weight: 400;
-      height: 2.8rem;
       line-height: 2.8rem;
+      height: 3.6rem;
       justify-content: center;
-      min-width: 12rem;
+      width: 100%;
       overflow: hidden;
-      padding: 0 1.4rem;
+      padding: 0.4rem 0;
       position: relative;
       text-align: center;
       text-decoration: none;
@@ -27,18 +27,6 @@ export default (style)=>{
 
     .ButtonPrimary, .ButtonPrimary * {
       color: ${style.colors.buttonText};
-    }
-
-    .ButtonPrimary.round {
-      padding: 0;
-      width: 3.4rem;
-      min-width: 3.4rem;
-    }
-
-    .ButtonPrimary.wide {
-      border-radius: 0.8rem;
-      width: 100%;
-      display: block;
     }
 
     .ButtonPrimary.disabled {

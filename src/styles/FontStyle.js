@@ -1,7 +1,7 @@
 export default (style)=>{
   return(`
 
-    .Dialog, * {
+    *, div, div * {
       font-family: ${style.fontFamily};
     }
 

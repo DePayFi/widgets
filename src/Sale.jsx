@@ -1,14 +1,16 @@
-import ClosableProvider from './providers/ClosableProvider'
-import ConversionRateProvider from './providers/ConversionRateProvider'
 import ChangableAmountProvider from './providers/ChangableAmountProvider'
+import ClosableProvider from './providers/ClosableProvider'
 import ConfigurationProvider from './providers/ConfigurationProvider'
+import ConversionRateProvider from './providers/ConversionRateProvider'
 import ensureDocument from './helpers/ensureDocument'
 import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
+import PoweredBy from './components/PoweredBy'
 import React from 'react'
 import SaleRoutingProvider from './providers/SaleRoutingProvider'
 import SaleStack from './stacks/SaleStack'
-import UpdateProvider from './providers/UpdateProvider'
+import TrackingProvider from './providers/TrackingProvider'
+import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 
 let preflight = async({ sell }) => {
@@ -22,7 +24,6 @@ let Sale = async ({
   sell,
   sent,
   confirmed,
-  ensured,
   failed,
   error,
   critical,
@@ -41,23 +42,26 @@ let Sale = async ({
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={{ tokenImage, amount, sell, currency, sent, confirmed, ensured, failed, blacklist, providers }}>
-            <ClosableProvider unmount={ unmount }>
-              <UpdateProvider>
+          <ConfigurationProvider configuration={{ tokenImage, amount, sell, currency, sent, confirmed, failed, blacklist, providers }}>
+            <UpdatableProvider>
+              <ClosableProvider unmount={ unmount }>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
                   <ConversionRateProvider>
                     <ChangableAmountProvider accept={ accept }>
-                      <SaleRoutingProvider container={ container } document={ document }>
-                        <SaleStack
-                          document={ document }
-                          container={ container }
-                        />
-                      </SaleRoutingProvider>
+                      <TrackingProvider document={ ensureDocument(document) }>
+                        <SaleRoutingProvider container={ container } document={ document }>
+                          <SaleStack
+                            document={ document }
+                            container={ container }
+                          />
+                          <PoweredBy/>
+                        </SaleRoutingProvider>
+                      </TrackingProvider>
                     </ChangableAmountProvider>
                   </ConversionRateProvider>
                 </WalletProvider>
-              </UpdateProvider>
-            </ClosableProvider>
+              </ClosableProvider>
+            </UpdatableProvider>
           </ConfigurationProvider>
         </ErrorProvider>
     })

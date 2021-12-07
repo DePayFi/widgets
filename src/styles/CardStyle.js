@@ -20,9 +20,15 @@ export default (style)=>{
       text-decoration: none;
     }
 
+    .Card.transparent {
+      background: none;
+      box-shadow: none;
+    }
+
     .Card.small {
       min-height: auto;
-      padding: 0.6rem 0.6rem;
+      padding: 0.5rem 0.5rem;
+      margin: 0;
     }
 
     .Card.disabled {
@@ -53,8 +59,11 @@ export default (style)=>{
 
     .CardImage {
       flex-basis: auto;
-      flex-shrink: 0;
       flex-grow: 0;
+      flex-shrink: 0;
+      justify-content: center;
+      position: relative;
+      width: 3.6rem;
     }
 
     .CardBody {
@@ -102,6 +111,12 @@ export default (style)=>{
       position: relative;
       vertical-align: middle;
       width: 2.8rem;
+    }
+
+    .CardImage .BlockchainLogo {
+      position: absolute;
+      bottom: 0;
+      right: 0;
     }
 
     .CardTitle {

@@ -4,7 +4,7 @@ import ErrorContext from '../contexts/ErrorContext'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useState, useEffect, useContext } from 'react'
-import UpdateContext from '../contexts/UpdateContext'
+import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
 import { CONSTANTS } from '@depay/web3-constants'
 import { Currency } from '@depay/local-currency'
@@ -16,13 +16,13 @@ export default (props)=>{
 
   const { setError } = useContext(ErrorContext)
   const { account } = useContext(WalletContext)
-  const { update } = useContext(UpdateContext)
+  const { updatable } = useContext(UpdatableContext)
   const { payment } = useContext(PaymentContext)
   const [ paymentValue, setPaymentValue ] = useState()
   const { currency } = useContext(ConfigurationContext)
   const [ reloadCount, setReloadCount ] = useState(0)
-  const getToTokenLocalValue = ({ update, payment })=>{
-    if(update == false || payment?.route == undefined) { return }
+  const getToTokenLocalValue = ({ updatable, payment })=>{
+    if(updatable == false || payment?.route == undefined) { return }
     Promise.all([
       route({
         blockchain: payment.route.blockchain,
@@ -54,17 +54,17 @@ export default (props)=>{
   }
   
   useEffect(()=>{
-    if(account && payment) { getToTokenLocalValue({ update, payment }) }
+    if(account && payment) { getToTokenLocalValue({ updatable, payment }) }
   }, [payment, account])
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       setReloadCount(reloadCount + 1)
-      getToTokenLocalValue({ update })
+      getToTokenLocalValue({ updatable })
     }, 15000);
 
     return () => clearTimeout(timeout)
-  }, [reloadCount, update])
+  }, [reloadCount, updatable])
   
   return(
     <PaymentValueContext.Provider value={{

@@ -6,8 +6,8 @@ export default (props)=>{
   return(
     <Dialog
       header={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <h1 className="LineHeightL FontSizeL TextLeft">Donation</h1>
+        <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
+          <h1 className="LineHeightL FontSizeL">Donation</h1>
         </div>
       }
       body={
@@ -21,7 +21,7 @@ export default (props)=>{
         </div>
       }
       footer={
-        <div className="PaddingTopXS PaddingRightM PaddingLeftM">
+        <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
           <div className="SkeletonWrapper">
             <div className="ButtonPrimary Skeleton">
               <div className="SkeletonBackground"/>

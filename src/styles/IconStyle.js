@@ -12,17 +12,45 @@ export default (style)=>{
     }
 
     .Checkmark {
-      height: 1.4rem;
+      height: 24px;
       position: relative;
       top: -1px;
       vertical-align: middle;
-      width: 1.4rem;
+      width: 24px;
+    }
+
+    .CheckMark.small {
+      height: 16px;
+      width: 16px;
+    }
+
+    .DigitalWalletIcon {
+      height: 24px;
+      position: relative;
+      top: -1px;
+      vertical-align: middle;
+      width: 24px;
     }
 
     .ButtonPrimary .Icon {
       fill : ${style.colors.buttonText};
       stroke : ${style.colors.buttonText};
     }
-    
+
+    .Loading {
+      border: 3px solid ${style.colors.primary};
+      border-top: 3px solid rgba(0,0,0,0.1);
+      border-radius: 100%;
+      position: relative;
+      left: -1px;
+      width: 18px;
+      height: 18px;
+      animation: spin 1.5s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   `)
 }

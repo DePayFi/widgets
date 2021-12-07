@@ -7,8 +7,10 @@ import DonationStack from './stacks/DonationStack'
 import ensureDocument from './helpers/ensureDocument'
 import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
+import PoweredBy from './components/PoweredBy'
 import React from 'react'
-import UpdateProvider from './providers/UpdateProvider'
+import TrackingProvider from './providers/TrackingProvider'
+import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 
 let preflight = async({ accept }) => {
@@ -27,7 +29,6 @@ let Donation = async ({
   event,
   sent,
   confirmed,
-  ensured,
   failed,
   error,
   critical,
@@ -45,23 +46,26 @@ let Donation = async ({
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider error={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={{ amount, accept, currency, event, sent, confirmed, ensured, failed, blacklist, providers }}>
-            <ClosableProvider unmount={ unmount }>
-              <UpdateProvider>
+          <ConfigurationProvider configuration={{ amount, accept, currency, event, sent, confirmed, failed, blacklist, providers }}>
+            <UpdatableProvider>
+              <ClosableProvider unmount={ unmount }>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
                   <ConversionRateProvider>
                     <ChangableAmountProvider accept={ accept }>
-                      <DonationRoutingProvider container={ container } document={ document }>
-                        <DonationStack
-                          document={ document }
-                          container={ container }
-                        />
-                      </DonationRoutingProvider>
+                      <TrackingProvider document={ ensureDocument(document) }>
+                        <DonationRoutingProvider container={ container } document={ document }>
+                          <DonationStack
+                            document={ document }
+                            container={ container }
+                          />
+                          <PoweredBy/>
+                        </DonationRoutingProvider>
+                      </TrackingProvider>
                     </ChangableAmountProvider>
                   </ConversionRateProvider>
                 </WalletProvider>
-              </UpdateProvider>
-            </ClosableProvider>
+              </ClosableProvider>
+            </UpdatableProvider>
           </ConfigurationProvider>
         </ErrorProvider>
     })

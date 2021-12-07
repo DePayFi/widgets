@@ -20,7 +20,9 @@ export default (props)=>{
             </button>
           </div>
         }
-        <div className="DialogHeaderTitle">{ props.header }</div>
+        <div className="DialogHeaderTitle">
+          { props.header }
+        </div>
         <div className="DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS">
           { closable &&
             <button onClick={ close } className="ButtonCircular" title="Close dialog">
@@ -36,7 +38,6 @@ export default (props)=>{
 
       <div className="DialogFooter">
         { props.footer }
-        <a href={'https://depay.fi?utm_source='+window.location.hostname+'&utm_medium=widget&utm_campaign=WidgetV2'} rel="noopener noreferrer" target="_blank" className="FooterLink">by DePay</a>
       </div>
     </div>
   )

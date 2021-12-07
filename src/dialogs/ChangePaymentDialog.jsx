@@ -6,6 +6,7 @@ import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useEffect, useState } from 'react'
 import round from '../helpers/round'
+import { Blockchain } from '@depay/web3-blockchains'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { TokenImage } from '@depay/react-token-image'
 
@@ -47,6 +48,7 @@ export default (props)=>{
   useEffect(()=>{
     setCards(
       allPaymentRoutesWithData.map((payment, index)=>{
+        let blockchain = Blockchain.findByName(payment.route.blockchain)
         return(
           <div key={ index } className="Card" title={ `Select ${payment.symbol} as payment` } onClick={()=>{
             setSelectedRoute(payment.route)
@@ -57,6 +59,7 @@ export default (props)=>{
                 blockchain={ payment.route.blockchain }
                 address={ payment.route.fromToken.address }
               />
+              <img className="BlockchainLogo small" src={blockchain.logo} alt={blockchain.label} title={blockchain.label}/>
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">

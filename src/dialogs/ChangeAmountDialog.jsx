@@ -120,7 +120,7 @@ export default (props)=>{
         </div>
       }
       footer={
-        <div>
+        <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
           <button className="ButtonPrimary" onClick={changeAmountAndGoBack}>
             Done
           </button>

@@ -36,7 +36,7 @@ export default (props)=>{
         title={`Connect ${wallet.name}`}
         onClick={()=>connect(wallet)}
       >
-        <div className="CardImage PaddingLeftM">
+        <div className="CardImage">
           <img src={wallet.logo}/>
         </div>
         <div className="CardBody">
@@ -53,8 +53,8 @@ export default (props)=>{
   return(
     <Dialog
       header={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <h1 className="LineHeightL FontSizeL TextLeft">Select a wallet</h1>
+        <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
+          <h1 className="LineHeightL FontSizeL">Select a wallet</h1>
         </div>
       }
       body={
@@ -64,8 +64,8 @@ export default (props)=>{
       }
       footer={
         <div className="PaddingBottomS">
-          <button className="FontSizeS FontWeightBold TextGrey TextButton" onClick={()=>setShowExplanation(!showExplanation)}>
-            <strong>What is a wallet?</strong>
+          <button className="FontSizeS FontWeightBold TextButton" onClick={()=>setShowExplanation(!showExplanation)}>
+            <strong className="Opacity05">What is a wallet?</strong>
           </button>
           {showExplanation &&
             <p className="PaddingLeftM PaddingRightM">

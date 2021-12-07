@@ -5,56 +5,57 @@ import NoPaymentMethodFoundDialog from '../dialogs/NoPaymentMethodFoundDialog'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import React, { useContext, useEffect, useState } from 'react'
-import UpdateContext from '../contexts/UpdateContext'
+import TrackingContext from '../contexts/TrackingContext'
+import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
+import { request } from '@depay/web3-client'
 
 export default (props)=>{
-
   const { setError } = useContext(ErrorContext)
-  const { sent, confirmed, ensured, failed } = useContext(ConfigurationContext)
+  const { sent, confirmed, failed } = useContext(ConfigurationContext)
   const { selectedRoute } = useContext(PaymentRoutingContext)
   const { open, close, setClosable } = useContext(ClosableContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
-  const { update, setUpdate } = useContext(UpdateContext)
+  const { setUpdatable } = useContext(UpdatableContext)
   const { wallet } = useContext(WalletContext)
+  const { forward, tracking, initializeTracking } = useContext(TrackingContext)
   const [ payment, setPayment ] = useState()
   const [ transaction, setTransaction ] = useState()
   const [ approvalTransaction, setApprovalTransaction ] = useState()
   const [ paymentState, setPaymentState ] = useState('initialized')
 
-  const pay = ({ navigate })=> {
+  const pay = async ({ navigate })=> {
     setClosable(false)
     setPaymentState('paying')
-    setUpdate(false)
+    setUpdatable(false)
+    let currentBlock = await request({ blockchain: payment.route.transaction.blockchain, method: 'latestBlockNumber' })
     wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
       sent: (transaction)=>{
         if(sent) { sent(transaction) }
       },
       confirmed: (transaction)=>{
-        setClosable(true)
+        if(tracking != true) { setClosable(true) }
         setPaymentState('confirmed')
         if(confirmed) { confirmed(transaction) }
-      },
-      ensured: (transaction)=>{
-        if(ensured) { ensured(transaction) }
       },
       failed: (transaction, error)=> {
         if(failed) { failed(transaction, error) }
         setPaymentState('initialized')
         setClosable(true)
-        setUpdate(true)
+        setUpdatable(true)
         navigate('PaymentError')
       }
     }))
       .then((sentTransaction)=>{
+        if(tracking){ initializeTracking(sentTransaction, currentBlock) }
         setTransaction(sentTransaction)
       })
       .catch((error)=>{
         console.log('error', error)
         setPaymentState('initialized')
         setClosable(true)
-        setUpdate(true)
+        setUpdatable(true)
         if(error?.code == 'WRONG_NETWORK') {
           navigate('WrongNetwork')
         }
@@ -83,6 +84,12 @@ export default (props)=>{
   }
 
   useEffect(()=>{
+    if(forward){
+      setPaymentState('confirmed')
+    }
+  }, [forward])
+
+  useEffect(()=>{
     if(selectedRoute) {
       let fromToken = selectedRoute.fromToken
       let transactionParams = selectedRoute.transaction.params
@@ -106,9 +113,9 @@ export default (props)=>{
 
   useEffect(()=>{
     if(allRoutes && allRoutes.length == 0) {
-      setUpdate(false)
+      setUpdatable(false)
     } else if(allRoutes && allRoutes.length > 0) {
-      setUpdate(true)
+      setUpdatable(true)
     }
   }, [allRoutes])
 

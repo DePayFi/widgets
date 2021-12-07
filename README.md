@@ -174,6 +174,42 @@ DePayWidgets.Payment({
 
 Checkout [DePay Web3 Payments](https://github.com/DePayFi/depay-web3-payments#pay-into-smart-contracts) and [DePay Router Smart Contract](https://github.com/DePayFi/depay-evm-router) for more details.
 
+#### track
+
+`track`
+
+Allows to track payment confirmation via DePay to enable integration into web applications.
+
+```javascript
+DePayWidgets.Payment({
+
+  track: {
+    endpoint: '/track/payments' // your endpoint to forward the payment tracking to the payments api
+  }
+})
+```
+
+Once the payment has been submitted by the widget, it will call the configured endpoint with:
+
+```
+POST /track/payments
+BODY:
+  {
+    "blockchain": "ethereum",
+    "transaction": "0x4311a9820195c2a5af99c45c72c88848ed403a4020863c913feed81d15855ae4",
+    "sender": "0x769794c94e9f113e357023dab73e81dbd6db201c",
+    "nonce": 103,
+    "after_block": 13230369
+  }
+```
+
+Your endpoint needs to make sure to forward this to the [payment tracking api](https://depay.fi/documentation/api#payments).
+
+Also make sure that you need to add `token`, `amount` and `confirmations` when forwarding the request to the payments api.
+Those values are supposed to be set by your backend not the widget nor the fronted because any user could set these values to their liking otherwise, having you confirm payment amounts and tokens that you didn't intend to receive!
+
+Make sure you read the [Payment Tracking API](https://depay.fi/documentation/api#payments) for further details on how to integrate payment tracking.
+
 #### connected
 
 `connected`
@@ -238,23 +274,6 @@ DePayWidgets.Payment({
 
   confirmed: (transaction)=> {
     // called when payment transaction has been confirmed once by the network
-  }
-})
-```
-
-#### ensured
-
-`ensured`
-
-A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
-
-The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
-
-```javascript
-DePayWidgets.Payment({
-
-  ensured: (transaction)=> {
-    // called when payment transaction has been confirmed X times by the network
   }
 })
 ```
@@ -648,23 +667,6 @@ DePayWidgets.Sale({
 });
 ```
 
-#### ensured
-
-`ensured`
-
-A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
-
-The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
-
-```javascript
-DePayWidgets.Sale({
-
-  ensured: (transaction)=> {
-    // called when payment transaction has been confirmed X times by the network
-  }
-});
-```
-
 #### failed
 
 `failed`
@@ -1040,23 +1042,6 @@ DePayWidgets.Donation({
 });
 ```
 
-#### ensured
-
-`ensured`
-
-A function that will be called once the payment has been confirmed enough times to consider it's "ensured" (e.g. 12 confirmations on Ethereum).
-
-The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
-
-```javascript
-DePayWidgets.Donation({
-
-  ensured: (transaction)=> {
-    // called when payment transaction has been confirmed X times by the network
-  }
-});
-```
-
 #### failed
 
 `failed`
@@ -1313,7 +1298,7 @@ test:cypress:debug
 Test and debug single cypress file:
 
 ```
-yarn test:cypress:debug --spec "cypress/integration/Payment/whitelist.js"
+yarn test:cypress:debug --spec "cypress/integration/Payment/approve.js"
 ```
 
 ### Release new versions to npm
