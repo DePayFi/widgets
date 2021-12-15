@@ -12,6 +12,7 @@ export default (style)=>{
     }
 
     .PoweredByLink {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
       color: white;
       opacity: 0.4;
       display: inline-block;

@@ -160,6 +160,7 @@
           var button = document.getElementById("payWithoutAmount");
           button.addEventListener("click",function(e){
             DePayWidgets.Payment({
+              currency: 'USD',
               accept: [{
                 blockchain: 'bsc',
                 token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
@@ -182,15 +183,9 @@
           var button = document.getElementById("payWithAmountConfiguration");
           button.addEventListener("click",function(e){
             DePayWidgets.Payment({
-              currency: 'ETH',
-              amount: {
-                start: 0.09,
-                min: 0.09,
-                step: 0.09
-              },
               accept: [{
                 blockchain: 'bsc',
-                token: '0x83d809cb8ba2116cbb847b760657087dce1d33ad',
+                token: '0x8f0528ce5ef7b51152a59745befdd91d97091d2f',
                 receiver: '0xdE955610314b52Fd80F6C5ebdE36c94f4c99ea72'
               }]
             });
@@ -207,16 +202,13 @@
         <h2 class="pt-5">Sale</h2>
         <div class="form-group pt-3">
         
-        <button id="buyButton" class="btn-lg mt-2">Buy</button>
+        <button id="buyButton" class="btn-lg mt-2">Buy ALPACA</button>
         <script>
           var button = document.getElementById("buyButton");
           button.addEventListener("click",function(e){
             DePayWidgets.Sale({
-              currency: 'USD',
-              tokenImage: 'https://depay.fi/favicon.png',
               sell: {
-                'ethereum': '0xa0bed124a09ac2bd941b10349d8d224fe3c955eb',
-                'bsc': '0xa0bed124a09ac2bd941b10349d8d224fe3c955eb'
+                'bsc': '0x8F0528cE5eF7B51152A59745bEfDD91D97091d2F'
               }
             });
           });
