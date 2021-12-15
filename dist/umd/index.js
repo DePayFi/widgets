@@ -1707,7 +1707,7 @@
   });
 
   var PoweredByStyle = (function (style) {
-    return "\n\n    .PoweredByWrapper {\n      display: block;\n      left: 0;\n      padding-top: 0.2rem;\n      position: fixed;\n      right: 0;\n      text-align: center;\n      top: 0;\n    }\n\n    .PoweredByLink {\n      color: white;\n      opacity: 0.4;\n      display: inline-block;\n      font-size: 0.78rem;\n      font-style: italic;\n      font-weight: bold;\n      letter-spacing: -0.2px;\n      margin-left: 0.5rem;\n      text-decoration: none;\n    }\n\n    .PoweredByLink:hover, .PoweredByLink:active {\n      opacity: 1.0;\n      color: ".concat(style.colors.primary, ";\n    }\n  ");
+    return "\n\n    .PoweredByWrapper {\n      display: block;\n      left: 0;\n      padding-top: 0.2rem;\n      position: fixed;\n      right: 0;\n      text-align: center;\n      top: 0;\n    }\n\n    .PoweredByLink {\n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\" !important;\n      color: white;\n      opacity: 0.4;\n      display: inline-block;\n      font-size: 0.78rem;\n      font-style: italic;\n      font-weight: bold;\n      letter-spacing: -0.2px;\n      margin-left: 0.5rem;\n      text-decoration: none;\n    }\n\n    .PoweredByLink:hover, .PoweredByLink:active {\n      opacity: 1.0;\n      color: ".concat(style.colors.primary, ";\n    }\n  ");
   });
 
   var RangeSliderStyle = (function (style) {
