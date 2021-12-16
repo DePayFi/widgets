@@ -63799,7 +63799,8 @@ let getAmountsOut$1 = ({ path, amountIn, tokenIn, tokenOut }) => {
     })
     .then((amountsOut)=>{
       resolve(amountsOut[amountsOut.length - 1]);
-    }).catch(resolve);
+    })
+    .catch(()=>resolve());
   })
 };
 
@@ -64144,7 +64145,8 @@ let getAmountsOut = ({ path, amountIn, tokenIn, tokenOut }) => {
     })
     .then((amountsOut)=>{
       resolve(amountsOut[amountsOut.length - 1]);
-    }).catch(resolve);
+    })
+    .catch(()=>resolve());
   })
 };
 

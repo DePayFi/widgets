@@ -63803,7 +63803,8 @@
       })
       .then((amountsOut)=>{
         resolve(amountsOut[amountsOut.length - 1]);
-      }).catch(resolve);
+      })
+      .catch(()=>resolve());
     })
   };
 
@@ -64148,7 +64149,8 @@
       })
       .then((amountsOut)=>{
         resolve(amountsOut[amountsOut.length - 1]);
-      }).catch(resolve);
+      })
+      .catch(()=>resolve());
     })
   };
 
