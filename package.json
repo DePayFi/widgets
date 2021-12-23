@@ -1,7 +1,7 @@
 {
   "name": "@depay/widgets",
   "moduleName": "DePayWidgets",
-  "version": "5.0.3",
+  "version": "5.1.0",
   "description": "Web3 Payments with any token. DePay simplifies and improves Web3 Payments with the power of DeFi. Accept any token with on-the-fly conversion.",
   "main": "./dist/cjs/index.js",
   "files": [
@@ -32,17 +32,17 @@
     "test": "yarn test:jest && yarn test:cypress"
   },
   "dependencies": {
-    "@depay/local-currency": "^2.0.0",
+    "@depay/local-currency": "^2.1.0",
     "@depay/react-dialog-stack": "^3.0.1",
     "@depay/react-shadow-dom": "^3.0.0",
-    "@depay/react-token-image": "^2.0.0",
+    "@depay/react-token-image": "^2.1.0",
     "@depay/walletconnect": "^1.0.2",
-    "@depay/web3-assets": "^3.0.0",
+    "@depay/web3-assets": "^4.0.0",
     "@depay/web3-blockchains": "^3.0.0",
     "@depay/web3-client": "^7.2.0",
     "@depay/web3-constants": "^4.0.1",
     "@depay/web3-exchanges": "^7.1.2",
-    "@depay/web3-payments": "^7.0.2",
+    "@depay/web3-payments": "^8.0.0",
     "@depay/web3-tokens": "^7.2.0",
     "@depay/web3-wallets": "^6.1.0",
     "decimal.js": "^10.3.1",

@@ -65124,11 +65124,11 @@ class Currency {
 
   static async fromUSD({ amount, code, timeZone, apiKey }) {
     let currency = new Currency({ amount, code, timeZone });
-    let rate = await fetch('https://api.depay.pro/v1/fiat?symbol=' + currency.code, {
+    let rate = await fetch('https://api.depay.fi/v2/currencies/' + currency.code, {
       headers: { 'X-Api-Key': apiKey },
     })
       .then((response) => response.json())
-      .then((data) => parseFloat(data.usd));
+      .then((data) => parseFloat(data));
     currency.amount = currency.amount * rate;
     return currency
   }
@@ -65495,8 +65495,8 @@ const getAssets = async (options) => {
   let assets = Promise.all(
     (options.blockchain ? [options.blockchain] : wallet.blockchains).map((blockchain) =>{
       
-      return fetch('https://api.depay.pro/v1/assets?account=' + account + '&blockchain=' + blockchain, {
-        headers: { 'X-Api-Key': options.apiKey }
+      return fetch(`https://api.depay.fi/v2/accounts/${blockchain}/${account}/assets`, {
+        headers: { 'x-api-key': options.apiKey }
       })
         .then((response) => response.json())
         .then(async (assets) => {
@@ -70077,7 +70077,7 @@ let filterNotRoutable = (routes) => {
   })
 };
 
-let filterInsufficientBalance = (routes) => {
+let filterInsufficientBalance = async(routes) => {
   return routes.filter((route) => {
     if (route.fromToken.address.toLowerCase() == route.toToken.address.toLowerCase()) {
       return BigNumber.from(route.fromBalance).gte(BigNumber.from(route.toAmount))
@@ -72223,7 +72223,7 @@ let TokenImage = function(props){
   const handleLoadError = (error)=> {
     if(source == 'trustwallet') {
       setSource('depay');
-      setSrc(`https://api.depay.pro/v1/images/tokens/${blockchain}/${address}`);
+      setSrc(`https://integrate.depay.fi/tokens/${blockchain}/${address}/image`);
     } else {
       setSource('unknown');
       setSrc('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAGFBMVEVHcEz///////////////////////////8dS1W+AAAAB3RSTlMAHklzmMLqCsLrGwAAAQ9JREFUeNrtlrsOgkAQRRdFbDcae4IFrZEYazXRVitqQ2Hrk/19BVdX7XYuiQX3VDZzMsxrVYQQQkibGIyzLNHi8OHaVJRLWXgwMy8KLYnfGEchEFTxjp2/wHxRalBg9v4CNAXzwxYVXCSC2ypJstx+g6/ATaAdqImvoHxHzEVFcPGqWwtOnoLFx++6DGdgq9NnG+T0K8EVEPTqnrZbEKGCFO1CDs2BG2UZbpnABEwMJIA1IRSeZfdCgV8wsjdVnEBuLyKyBu51Fb+xpfhPRgdsgYqeM6DlQwQmoA62AvISgIsc2j0EaxgDL0ojx/CCCs4KPGYnVHCk4CEg7SbIKqbqfyeRAgoaERBCCCGESLgDeRfMNogh3QMAAAAASUVORK5CYII=');
