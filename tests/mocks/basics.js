@@ -80,9 +80,7 @@ export default ({
     url: `https://api.depay.fi/v2/currencies/${currency}`,
     headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
     overwriteRoutes: true
-  }, {
-    "usd": currencyToUSD
-  })
+  }, currencyToUSD.toString())
 
   mock({ provider, blockchain, balance: { for: fromAddress, return: NATIVE_BalanceBN }})
 
