@@ -4,8 +4,6 @@ export default {
   '@depay/react-dialog-stack': 'ReactDialogStack',
   '@depay/react-shadow-dom': 'ReactShadowDOM',
   '@depay/react-token-image': 'ReactTokenImage',
-  '@depay/walletconnect': 'WalletConnect',
-  '@depay/walletconnect': 'QRCodeModal',
   '@depay/web3-blockchains': 'Web3Blockchains',
   '@depay/web3-client': 'Web3Client',
   '@depay/web3-constants': 'Web3Constants',
