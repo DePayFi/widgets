@@ -987,7 +987,7 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@depay/local-currency@^2.0.0":
+"@depay/local-currency@=2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@depay/local-currency/-/local-currency-2.0.0.tgz#0f843283043229fdc73efff15a98405ca8a6d532"
   integrity sha512-rgjSgIB6ESxr3vjfAdg9lNtNuv9TzAZbhoJmkK+ACo14k3yzYqRDeed6RSKm6PHRuCePmh5NxzDl4FANQwFYhA==
