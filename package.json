@@ -44,7 +44,7 @@
     "@depay/web3-exchanges": "^7.1.2",
     "@depay/web3-payments": "^7.0.2",
     "@depay/web3-tokens": "^7.2.0",
-    "@depay/web3-wallets": "^6.1.0",
+    "@depay/web3-wallets": "^6.1.2",
     "decimal.js": "^10.3.1",
     "react-rangeslider": "^2.2.0"
   },
