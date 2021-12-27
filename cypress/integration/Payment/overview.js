@@ -120,7 +120,7 @@ describe('overview Payment', () => {
         DePayWidgets.Payment({ ...defaultArguments, document,
           closed: ()=>{ closedCalled = true } 
         })
-        cy.wait(500).then(()=>{
+        cy.wait(1000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
             expect(closedCalled).to.equal(true)
