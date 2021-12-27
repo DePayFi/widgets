@@ -30,23 +30,24 @@ export default (props)=>{
 
   let walletCards = availableWallets.map((wallet, index)=>{
     return(
-      <button
-        key={index}
-        className="Card small"
-        title={`Connect ${wallet.name}`}
-        onClick={()=>connect(wallet)}
-      >
-        <div className="CardImage">
-          <img src={wallet.logo}/>
-        </div>
-        <div className="CardBody">
-          <div className="CardBodyWrapper PaddingLeftXS">
-            <h2 className="CardText FontWeightBold">
-              { wallet.name }
-            </h2>
+      <div key={index} className="PaddingBottomXS">
+        <button
+          className="Card small"
+          title={`Connect ${wallet.name}`}
+          onClick={()=>connect(wallet)}
+        >
+          <div className="CardImage">
+            <img src={wallet.logo}/>
           </div>
-        </div>
-      </button>
+          <div className="CardBody">
+            <div className="CardBodyWrapper PaddingLeftXS">
+              <h2 className="CardText FontWeightBold">
+                { wallet.name }
+              </h2>
+            </div>
+          </div>
+        </button>
+      </div>
     )
   })
 
