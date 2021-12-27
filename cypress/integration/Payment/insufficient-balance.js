@@ -59,18 +59,16 @@ describe('insufficient balance for Payment', () => {
     TOKENRouteMock = mock({provider: provider(blockchain), blockchain, "call":{"to":"0x7a250d5630b4cf539739df2c5dacb4c659f2488d","api":exchange.contracts.router.api,"method":"getAmountsIn","return":"Your Value","params":["20000000000000000000",["0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2","0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"]]}})
     
     fetchMock.get({
-      url: `https://api.depay.pro/v1/assets?account=${fromAddress}&blockchain=${blockchain}`,
+      url: `https://api.depay.fi/v2/accounts/${blockchain}/${fromAddress}/assets`,
       headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
       overwriteRoutes: true
     }, [])
 
     fetchMock.get({
-      url: `https://api.depay.pro/v1/fiat?symbol=USD`,
+      url: `https://api.depay.fi/v2/currencies/USD`,
       headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
       overwriteRoutes: true
-    }, {
-      "usd": 0.85
-    })
+    }, "0.85")
   })
 
   it('shows a dialog explaining that no payment route could be found', () => {

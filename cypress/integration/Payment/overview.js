@@ -64,12 +64,12 @@ describe('overview Payment', () => {
           "name": "Dai Stablecoin",
           "symbol": "DAI",
           "address": DAI,
-          "type": "ERC20"
+          "type": "20"
         }, {
           "name": "DePay",
           "symbol": "DEPAY",
           "address": DEPAY,
-          "type": "ERC20"
+          "type": "20"
         }
       ],
       
@@ -145,7 +145,7 @@ describe('overview Payment', () => {
 
       beforeEach(()=>{
         fetchMock.get({
-          url: 'https://api.depay.pro/v1/assets?account=0xd8da6bf26964af9d7eed9e03e53415d37aa96045&blockchain=ethereum',
+          url: 'https://api.depay.fi/v2/accounts/ethereum/0xd8da6bf26964af9d7eed9e03e53415d37aa96045/assets',
           headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
           overwriteRoutes: true,
           delay: 5000

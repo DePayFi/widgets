@@ -68,18 +68,16 @@ describe('insufficient balance for Purchase', () => {
     })
     
     fetchMock.get({
-      url: `https://api.depay.pro/v1/assets?account=${fromAddress}&blockchain=${blockchain}`,
+      url: `https://api.depay.fi/v2/accounts/${blockchain}/${fromAddress}/assets`,
       headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
       overwriteRoutes: true
     }, [])
 
     fetchMock.get({
-      url: `https://api.depay.pro/v1/fiat?symbol=USD`,
+      url: `https://api.depay.fi/v2/currencies/USD`,
       headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
       overwriteRoutes: true
-    }, {
-      "usd": 0.85
-    })
+    }, "0.85")
   })
 
   it('shows a dialog explaining that no payment route could be found', () => {

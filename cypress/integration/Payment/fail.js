@@ -53,12 +53,12 @@ describe('Payment execution fails', () => {
           "name": "Dai Stablecoin",
           "symbol": "DAI",
           "address": DAI,
-          "type": "ERC20"
+          "type": "20"
         }, {
           "name": "DePay",
           "symbol": "DEPAY",
           "address": DEPAY,
-          "type": "ERC20"
+          "type": "20"
         }
       ],
       

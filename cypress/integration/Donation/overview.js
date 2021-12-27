@@ -61,12 +61,12 @@ describe('overview Donation payment', () => {
           "name": "Dai Stablecoin",
           "symbol": "DAI",
           "address": DAI,
-          "type": "ERC20"
+          "type": "20"
         }, {
           "name": "DePay",
           "symbol": "DEPAY",
           "address": DEPAY,
-          "type": "ERC20"
+          "type": "20"
         }
       ],
       
@@ -131,7 +131,7 @@ describe('overview Donation payment', () => {
         DePayWidgets.Donation({ ...defaultArguments, document,
           closed: ()=>{ closedCalled = true } 
         })
-        cy.wait(500).then(()=>{
+        cy.wait(1000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
             expect(closedCalled).to.equal(true)
@@ -156,7 +156,7 @@ describe('overview Donation payment', () => {
 
       beforeEach(()=>{
         fetchMock.get({
-          url: 'https://api.depay.pro/v1/assets?account=0xd8da6bf26964af9d7eed9e03e53415d37aa96045&blockchain=ethereum',
+          url: 'https://api.depay.fi/v2/assets/ethereum/0xd8da6bf26964af9d7eed9e03e53415d37aa96045/assets',
           headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
           overwriteRoutes: true,
           delay: 5000
@@ -176,8 +176,10 @@ describe('overview Donation payment', () => {
         cy.visit('cypress/test.html').then((contentWindow) => {
           cy.document().then((document)=>{
             DePayWidgets.Donation({ ...defaultArguments, document })
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
-            cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+            cy.wait(1000).then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+              cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+            })
           })
         })
       })
