@@ -1120,8 +1120,10 @@
     }
 
     var walletCards = availableWallets.map(function (wallet, index) {
-      return /*#__PURE__*/React__default$1['default'].createElement("button", {
+      return /*#__PURE__*/React__default$1['default'].createElement("div", {
         key: index,
+        className: "PaddingBottomXS"
+      }, /*#__PURE__*/React__default$1['default'].createElement("button", {
         className: "Card small",
         title: "Connect ".concat(wallet.name),
         onClick: function onClick() {
@@ -1137,7 +1139,7 @@
         className: "CardBodyWrapper PaddingLeftXS"
       }, /*#__PURE__*/React__default$1['default'].createElement("h2", {
         className: "CardText FontWeightBold"
-      }, wallet.name))));
+      }, wallet.name)))));
     });
     return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default$1['default'].createElement("div", {

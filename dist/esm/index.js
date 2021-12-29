@@ -1125,8 +1125,10 @@ var SelectWalletDialog = (function (props) {
   }
 
   var walletCards = availableWallets.map(function (wallet, index) {
-    return /*#__PURE__*/React.createElement("button", {
+    return /*#__PURE__*/React.createElement("div", {
       key: index,
+      className: "PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("button", {
       className: "Card small",
       title: "Connect ".concat(wallet.name),
       onClick: function onClick() {
@@ -1142,7 +1144,7 @@ var SelectWalletDialog = (function (props) {
       className: "CardBodyWrapper PaddingLeftXS"
     }, /*#__PURE__*/React.createElement("h2", {
       className: "CardText FontWeightBold"
-    }, wallet.name))));
+    }, wallet.name)))));
   });
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
