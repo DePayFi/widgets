@@ -16,12 +16,6 @@ let Connect = (options) => {
   return new Promise(async (resolve, reject)=>{
 
     let wallet = getWallet()
-    if(wallet) {
-      let accounts = await wallet.accounts()
-      if(accounts instanceof Array && accounts.length > 0) {
-        return resolve({ wallet, accounts, account: accounts[0] })
-      }
-    }
 
     let unmount = mount({ style, document: ensureDocument(document) }, (unmount)=> {
       const rejectBeforeUnmount = ()=>{

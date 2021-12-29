@@ -11,19 +11,15 @@ describe('Connect wallet', () => {
   beforeEach(resetMocks)
   afterEach(closeWidget)
 
-  it('directly resolves if a wallet is already connected', () => {
+  it('does not directly resolves if a wallet is already connected', () => {
     cy.document().then(async (document)=>{
       let accountsReturned, accountReturned, walletReturned
-      mock({ blockchain, wallet: 'metamask', accounts: { return: accounts } })
-      DePayWidgets.Connect({ document }).then(({ accounts, account, wallet })=>{
-        accountsReturned = accounts
-        accountReturned = account
-        walletReturned = wallet
-      }).catch(()=>{})
+      mock({ blockchain, wallet: 'metamask', accounts: { return: [] } })
+      DePayWidgets.Connect({ document })
       cy.wait(1000).then(()=>{
-        expect(accountsReturned).to.eq(accounts)
-        expect(accountReturned).to.eq(accounts[0])
-        expect(walletReturned.name).to.eq('MetaMask')
+        mock({ blockchain, wallet: 'metamask', accounts: { return: accounts } }) // now connected
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Connect').click()
+        cy.wait(1000)
       })
     })
   })
