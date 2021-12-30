@@ -41,7 +41,8 @@ describe('Connect wallet', () => {
       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('p', 'Access to your wallet is required. Please login and authorize access to your account to continue.')
       cy.wait(2000).then(()=>{
         mock({ blockchain, wallet: 'metamask', accounts: { return: accounts } }) // now connected
-        cy.wait(1000).then(()=>{
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary', 'Connect').should('not.exist')
+        cy.wait(10000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Connect').click().then(()=>{
             expect(accountsReturned).to.eq(accounts)
             expect(accountReturned).to.eq(accounts[0])

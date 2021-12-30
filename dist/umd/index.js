@@ -997,12 +997,25 @@
   });
 
   var ConnectingWalletDialog = (function (props) {
+    var _useState = React.useState(false),
+        _useState2 = _slicedToArray(_useState, 2),
+        showConnectButton = _useState2[0],
+        setShowConnectButton = _useState2[1];
+
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext.navigate;
 
     var wallet = props.wallet;
     wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
     var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
+    React.useEffect(function () {
+      var timeout = setTimeout(function () {
+        return setShowConnectButton(true);
+      }, 10000);
+      return function () {
+        return clearTimeout(timeout);
+      };
+    }, []);
 
     if (props.pending) {
       return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
@@ -1042,7 +1055,7 @@
           },
           className: "TextButton"
         }, "Connect with another wallet")))),
-        footer: /*#__PURE__*/React__default$1['default'].createElement("div", {
+        footer: showConnectButton && /*#__PURE__*/React__default$1['default'].createElement("div", {
           className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
         }, /*#__PURE__*/React__default$1['default'].createElement("button", {
           className: "ButtonPrimary",
@@ -1665,7 +1678,7 @@
   });
 
   var DialogStyle = (function (style) {
-    return "\n\n    .ReactDialogBackground {\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 900px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n        max-height: 40vh !important;\n      }\n\n      .DialogFooter {\n        padding-bottom: 50px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        max-height: 66vh !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .ReactShadowDOMInsideContainer > .ReactDialog {\n      display: table;\n    }\n\n  ";
+    return "\n\n    .ReactDialogBackground {\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 900px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n        max-height: 60vh !important;\n      }\n\n      .DialogFooter {\n        padding-bottom: 20px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        max-height: 66vh !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .ReactShadowDOMInsideContainer > .ReactDialog {\n      display: table;\n    }\n\n  ";
   });
 
   var FontStyle = (function (style) {
@@ -3768,6 +3781,167 @@
     };
   }();
 
+  var SignLoginDialog = (function (props) {
+    var _useContext = React.useContext(ErrorContext),
+        setError = _useContext.setError;
+
+    var _useState = React.useState(false),
+        _useState2 = _slicedToArray(_useState, 2),
+        showSignButton = _useState2[0],
+        setShowSignButton = _useState2[1];
+
+    var _useContext2 = React.useContext(ConfigurationContext),
+        message = _useContext2.message,
+        endpoint = _useContext2.endpoint;
+
+    var wallet = web3Wallets.getWallet();
+    wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
+    var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
+
+    var login = function login() {
+      wallet.sign(message).then(function (signature) {
+        fetch(endpoint, {
+          method: 'POST',
+          body: JSON.stringify({
+            message: message,
+            signature: signature
+          })
+        }).then(function (response) {
+          if (response.status == 200) {
+            response.text().then(function (account) {
+              props.resolve(account);
+            })["catch"](setError);
+          } else {
+            response.text().then(function (text) {
+              setError(text || 'Recovering login signature failed!');
+            });
+          }
+        })["catch"](setError);
+      })["catch"](setError);
+    };
+
+    React.useEffect(login, []);
+    React.useEffect(function () {
+      var timeout = setTimeout(function () {
+        return setShowSignButton(true);
+      }, 10000);
+      return function () {
+        return clearTimeout(timeout);
+      };
+    }, []);
+    return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
+      stacked: true,
+      body: /*#__PURE__*/React__default$1['default'].createElement("div", null, walletLogo && /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "GraphicWrapper PaddingTopS PaddingBottomS"
+      }, /*#__PURE__*/React__default$1['default'].createElement("img", {
+        className: "Graphic",
+        src: walletLogo
+      })), /*#__PURE__*/React__default$1['default'].createElement("h1", {
+        className: "LineHeightL Text FontSizeL FontWeightBold PaddingTopS"
+      }, "Wallet Login"), /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/React__default$1['default'].createElement("p", {
+        className: "FontSizeM PaddingLeftM PaddingRightM"
+      }, "Please sign the login message with your connected wallet."))),
+      footer: showSignButton && /*#__PURE__*/React__default$1['default'].createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+      }, /*#__PURE__*/React__default$1['default'].createElement("button", {
+        className: "ButtonPrimary",
+        onClick: login
+      }, "Log in"))
+    });
+  });
+
+  var LoginStack = (function (props) {
+    var _useContext = React.useContext(ClosableContext),
+        open = _useContext.open,
+        close = _useContext.close;
+
+    var _useState = React.useState(true),
+        _useState2 = _slicedToArray(_useState, 2);
+        _useState2[0];
+        _useState2[1];
+
+    return /*#__PURE__*/React__default$1['default'].createElement(reactDialogStack.ReactDialogStack, {
+      open: open,
+      close: close,
+      start: "SignLogin",
+      container: props.container,
+      document: props.document,
+      dialogs: {
+        SignLogin: /*#__PURE__*/React__default$1['default'].createElement(SignLoginDialog, {
+          resolve: props.resolve
+        })
+      }
+    });
+  });
+
+  var Login = function Login(options) {
+    var style, error, document, message, endpoint;
+
+    if (_typeof(options) == 'object') {
+      style = options.style;
+      error = options.error;
+      document = options.document;
+      message = options.message;
+      endpoint = options.endpoint;
+    }
+
+    return new Promise( /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_resolve, reject) {
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                Connect().then(function () {
+                  mount({
+                    style: style,
+                    document: ensureDocument(document)
+                  }, function (unmount) {
+                    var rejectBeforeUnmount = function rejectBeforeUnmount() {
+                      reject('USER_CLOSED_DIALOG');
+                      unmount();
+                    };
+
+                    return function (container) {
+                      return /*#__PURE__*/React__default$1['default'].createElement(ErrorProvider, {
+                        error: error,
+                        container: container,
+                        unmount: unmount
+                      }, /*#__PURE__*/React__default$1['default'].createElement(ConfigurationProvider, {
+                        configuration: {
+                          message: message,
+                          endpoint: endpoint || '/login'
+                        }
+                      }, /*#__PURE__*/React__default$1['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default$1['default'].createElement(ClosableProvider, {
+                        unmount: rejectBeforeUnmount
+                      }, /*#__PURE__*/React__default$1['default'].createElement(LoginStack, {
+                        document: document,
+                        container: container,
+                        resolve: function resolve(account) {
+                          unmount();
+
+                          _resolve(account);
+                        }
+                      }), /*#__PURE__*/React__default$1['default'].createElement(PoweredBy, null)))));
+                    };
+                  });
+                })["catch"](reject);
+
+              case 1:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x, _x2) {
+        return _ref.apply(this, arguments);
+      };
+    }());
+  };
+
   var PaymentAmountRoutingContext = /*#__PURE__*/React__default$1['default'].createContext();
 
   var PaymentAmountRoutingProvider = (function (props) {
@@ -4476,9 +4650,10 @@
 
   var DePayWidgets = {
     Connect: Connect,
+    Donation: Donation,
+    Login: Login,
     Payment: Payment,
     Sale: Sale,
-    Donation: Donation,
     provider: web3Client.provider
   };
 

@@ -34,11 +34,11 @@ export default (style)=>{
       .DialogBody {
         flex: 1;
         align-items: flex-end;
-        max-height: 40vh !important;
+        max-height: 60vh !important;
       }
 
       .DialogFooter {
-        padding-bottom: 50px;
+        padding-bottom: 20px;
       }
 
       .ReactDialogStackCell {

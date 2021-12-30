@@ -1276,6 +1276,58 @@ DePayWidgets.Connect().then(()=>{}).catch((error)=>{
 
 ```
 
+## DePay Login
+
+DePay Login allows you to perform web3 wallet logins with ease.
+
+Returns `account` if succesfully signed and recovered log in message.
+
+```
+<script src="https://integrate.depay.fi/widgets/v6.js"/>
+```
+
+```javascript
+let message = "Sign to login"
+let account = await DePayWidgets.Login({ message })
+```
+
+Connects wallet and instructs connected wallet to sign `message`, afterwards sends `signature` and `message` to `POST /login` (or `endpoint` if defined):
+
+```
+POST /login
+BODY
+  {
+    "message": "Sign to login",
+    "signature": "0x123456" // raw signature
+  }
+```
+
+The `/login` endpoint needs to recover the address for `message` and `signature` and needs to return it in the response:
+
+```
+POST /login
+RESPONSE
+  "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+```
+
+Which will resolve the `DePayWidgets.Login` request to the resolved account:
+
+```javascript
+account // 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
+```
+
+### Rejections
+
+1. Rejects if user just closes the dialog without connecting any wallet:
+
+```javascript
+
+DePayWidgets.Login().then(()=>{}).catch((error)=>{
+  error // "USER_CLOSED_DIALOG"
+})
+
+```
+
 ## Development
 
 ### Quick start

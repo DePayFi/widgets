@@ -350,7 +350,29 @@
         </script>
       </div>
       <div class="col-4"></div>
-    </div><!-- Payment -->
+    </div><!-- Connect -->
+
+
+    <div class="container pb-4"><!-- Login -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <h2 class="pt-5">Login</h2>
+
+        <button id="loginButton" class="btn-lg mt-2">Login</button>
+        <script>
+          var button = document.getElementById("loginButton");
+          button.addEventListener("click",async function(e){
+            let dateTime = new Date().toISOString().slice(0, 19);
+            let account = await DePayWidgets.Login({
+              message: `Click to log in to DePay and to accept DePay's Terms of Service: https://depay.fi/legal/terms\n${dateTime}`
+            })
+            console.log("Logged in via signature", account)
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Login -->
 
   </body>
 </html>

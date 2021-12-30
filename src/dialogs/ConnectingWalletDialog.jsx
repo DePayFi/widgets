@@ -1,13 +1,19 @@
 import Dialog from '../components/Dialog'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default (props)=> {
 
+  const [ showConnectButton, setShowConnectButton ] = useState(false)
   const { navigate } = useContext(NavigateStackContext)
   const wallet = props.wallet
   const walletName = wallet?.name ? wallet.name : 'wallet'
   const walletLogo = wallet?.logo ? wallet.logo : undefined
+
+  useEffect(()=> {
+    let timeout = setTimeout(()=>setShowConnectButton(true), 10000)
+    return ()=>clearTimeout(timeout)
+  }, [])
   
   if(props.pending) {
     return(
@@ -54,11 +60,12 @@ export default (props)=> {
           </div>
         }
         footer={
-          <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
-            <button className='ButtonPrimary' onClick={()=>props.connect(wallet)}>
-              Connect
-            </button>
-          </div>
+          showConnectButton &&
+            <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
+              <button className='ButtonPrimary' onClick={()=>props.connect(wallet)}>
+                Connect
+              </button>
+            </div>
         }
       />
     )
