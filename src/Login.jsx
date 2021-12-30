@@ -11,8 +11,8 @@ import UpdatableProvider from './providers/UpdatableProvider'
 
 let Login = (options) => {
 
-  let style, error, document, message, endpoint
-  if(typeof options == 'object') ({ style, error, document, message, endpoint } = options)
+  let style, error, document, message, endpoint, recover
+  if(typeof options == 'object') ({ style, error, document, message, endpoint, recover } = options)
 
   return new Promise(async (resolve, reject)=>{
 
@@ -24,7 +24,7 @@ let Login = (options) => {
         }
         return (container)=>
           <ErrorProvider error={ error } container={ container } unmount={ unmount }>
-            <ConfigurationProvider configuration={{ message, endpoint: (endpoint || '/login') }}>
+            <ConfigurationProvider configuration={{ message, endpoint: (endpoint || '/login'), recover }}>
               <UpdatableProvider>
                 <ClosableProvider unmount={ rejectBeforeUnmount }>
                   <LoginStack

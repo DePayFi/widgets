@@ -70213,29 +70213,45 @@ var SignLoginDialog = (function (props) {
       message = _useContext2.message,
       endpoint = _useContext2.endpoint;
 
+  var _useContext3 = react.useContext(ConfigurationContext),
+      recover = _useContext3.recover;
+
   var wallet = getWallet();
   wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
   var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
 
+  if (typeof recover != 'function') {
+    recover = function recover(_ref) {
+      var message = _ref.message,
+          signature = _ref.signature;
+      return new Promise(function (resolve, reject) {
+        fetch(endpoint, {
+          method: 'POST',
+          body: JSON.stringify({
+            message: message,
+            signature: signature
+          })
+        }).then(function (response) {
+          if (response.status == 200) {
+            response.text().then(function (account) {
+              resolve(account);
+            })["catch"](setError);
+          } else {
+            response.text().then(function (text) {
+              setError(text || 'Recovering login signature failed!');
+            });
+          }
+        });
+      });
+    };
+  }
+
   var login = function login() {
     wallet.sign(message).then(function (signature) {
-      fetch(endpoint, {
-        method: 'POST',
-        body: JSON.stringify({
-          message: message,
-          signature: signature
-        })
-      }).then(function (response) {
-        if (response.status == 200) {
-          response.text().then(function (account) {
-            props.resolve(account);
-          })["catch"](setError);
-        } else {
-          response.text().then(function (text) {
-            setError(text || 'Recovering login signature failed!');
-          });
-        }
-      })["catch"](setError);
+      recover({
+        message: message,
+        signature: signature
+      }).then(props.resolve)["catch"](setError);
     })["catch"](setError);
   };
 
@@ -70296,7 +70312,7 @@ var LoginStack = (function (props) {
 });
 
 var Login = function Login(options) {
-  var style, error, document, message, endpoint;
+  var style, error, document, message, endpoint, recover;
 
   if (_typeof(options) == 'object') {
     style = options.style;
@@ -70304,6 +70320,7 @@ var Login = function Login(options) {
     document = options.document;
     message = options.message;
     endpoint = options.endpoint;
+    recover = options.recover;
   }
 
   return new Promise( /*#__PURE__*/function () {
@@ -70330,7 +70347,8 @@ var Login = function Login(options) {
                     }, /*#__PURE__*/react.createElement(ConfigurationProvider, {
                       configuration: {
                         message: message,
-                        endpoint: endpoint || '/login'
+                        endpoint: endpoint || '/login',
+                        recover: recover
                       }
                     }, /*#__PURE__*/react.createElement(UpdatableProvider, null, /*#__PURE__*/react.createElement(ClosableProvider, {
                       unmount: rejectBeforeUnmount

@@ -1316,6 +1316,31 @@ Which will resolve the `DePayWidgets.Login` request to the resolved account:
 account // 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
 ```
 
+You can also pass a `recover` function that takes care of signature recovery:
+
+```javascript
+DePayWidgets.Login({ message, recover: ({ message, signature })=>{
+    return new Promise((resolve, reject)=>{
+      fetch('https://example.com/login', {
+        method: 'POST',
+        body: JSON.stringify({ message, signature })
+      })
+        .then((response)=>{
+          if(response.status == 200) {
+            response.text().then((account)=>{
+              resolve(account)
+            }).catch(reject)
+          } else {
+            response.text().then((text)=>{
+              reject(text || 'Recovering login signature failed!')
+            }).catch(reject)
+          }
+        })
+    })
+  }
+})
+```
+
 ### Rejections
 
 1. Rejects if user just closes the dialog without connecting any wallet:

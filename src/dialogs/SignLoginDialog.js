@@ -10,27 +10,35 @@ export default (props)=> {
   const { setError } = useContext(ErrorContext)
   const [ showSignButton, setShowSignButton ] = useState(false)
   const { message, endpoint } = useContext(ConfigurationContext)
+  let { recover } = useContext(ConfigurationContext)
   const wallet = getWallet()
   const walletName = wallet?.name ? wallet.name : 'wallet'
   const walletLogo = wallet?.logo ? wallet.logo : undefined
+  if(typeof recover != 'function') {
+    recover = ({ message, signature })=> {
+      return new Promise((resolve, reject)=>{
+        fetch(endpoint, {
+          method: 'POST',
+          body: JSON.stringify({ message, signature })
+        })
+          .then((response)=>{
+            if(response.status == 200) {
+              response.text().then((account)=>{
+                resolve(account)
+              }).catch(setError)
+            } else {
+              response.text().then((text)=>{
+                setError(text || 'Recovering login signature failed!')
+              })
+            }
+          })
+      })
+    }
+  }
+
   const login = ()=> {
     wallet.sign(message).then((signature)=>{
-      fetch(endpoint, {
-        method: 'POST',
-        body: JSON.stringify({ message, signature })
-      })
-        .then((response)=>{
-          if(response.status == 200) {
-            response.text().then((account)=>{
-              props.resolve(account)
-            }).catch(setError)
-          } else {
-            response.text().then((text)=>{
-              setError(text || 'Recovering login signature failed!')
-            })
-          }
-        })
-        .catch(setError)
+      recover({ message, signature }).then(props.resolve).catch(setError)
     }).catch(setError)
   }
 
