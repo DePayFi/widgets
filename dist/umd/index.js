@@ -3836,7 +3836,9 @@
       })["catch"](setError);
     };
 
-    React.useEffect(login, []);
+    React.useEffect(function () {
+      return setTimeout(login, 1000);
+    }, []);
     React.useEffect(function () {
       var timeout = setTimeout(function () {
         return setShowSignButton(true);
@@ -3846,7 +3848,6 @@
       };
     }, []);
     return /*#__PURE__*/React__default$1['default'].createElement(Dialog$1, {
-      stacked: true,
       body: /*#__PURE__*/React__default$1['default'].createElement("div", null, walletLogo && /*#__PURE__*/React__default$1['default'].createElement("div", {
         className: "GraphicWrapper PaddingTopS PaddingBottomS"
       }, /*#__PURE__*/React__default$1['default'].createElement("img", {

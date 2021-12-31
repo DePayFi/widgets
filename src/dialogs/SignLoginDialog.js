@@ -42,7 +42,7 @@ export default (props)=> {
     }).catch(setError)
   }
 
-  useEffect(login, [])
+  useEffect(()=>setTimeout(login, 1000), [])
   useEffect(()=> {
     let timeout = setTimeout(()=>setShowSignButton(true), 10000)
     return ()=>clearTimeout(timeout)
@@ -50,7 +50,6 @@ export default (props)=> {
   
   return(
     <Dialog
-      stacked={ true }
       body={
         <div>
           { walletLogo &&

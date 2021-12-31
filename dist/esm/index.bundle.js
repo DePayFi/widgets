@@ -70255,7 +70255,9 @@ var SignLoginDialog = (function (props) {
     })["catch"](setError);
   };
 
-  react.useEffect(login, []);
+  react.useEffect(function () {
+    return setTimeout(login, 1000);
+  }, []);
   react.useEffect(function () {
     var timeout = setTimeout(function () {
       return setShowSignButton(true);
@@ -70265,7 +70267,6 @@ var SignLoginDialog = (function (props) {
     };
   }, []);
   return /*#__PURE__*/react.createElement(Dialog, {
-    stacked: true,
     body: /*#__PURE__*/react.createElement("div", null, walletLogo && /*#__PURE__*/react.createElement("div", {
       className: "GraphicWrapper PaddingTopS PaddingBottomS"
     }, /*#__PURE__*/react.createElement("img", {
