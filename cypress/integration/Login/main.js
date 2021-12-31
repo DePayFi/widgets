@@ -36,38 +36,10 @@ describe('Wallet Login', () => {
         accountLoggedIn = account
       })
       cy.wait(1000).then(()=>{
-        expect(accountLoggedIn).to.eq(accounts[0])
-      })
-    })
-  })
-
-  it('shows instructions how to login and a log in button after 10 seconds to allow users to initalize signature request again', () => {
-    let message = "Sign to login"
-    let rawSignature = "0x123456"
-    let loginRequestMock = fetchMock.post({
-      url: "/login",
-      body: {
-        message,
-        signature: rawSignature
-      }
-    }, accounts[0])
-
-    cy.document().then(async (document)=>{
-      let accountLoggedIn
-      mock({
-        blockchain,
-        accounts: { return: accounts },
-        signature: {
-          params: [accounts[0], "0x5369676e20746f206c6f67696e"],
-          return: rawSignature,
-          delay: 12000
-        }
-      })
-      DePayWidgets.Login({ document, message})
-      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Wallet Login')
-      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('p', 'Please sign the login message with your connected wallet.')
-      cy.wait(11000).then(()=>{
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Log in')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Log in').click()
+        cy.wait(1000).then(()=>{
+          expect(accountLoggedIn).to.eq(accounts[0])
+        })
       })
     })
   })
@@ -97,7 +69,10 @@ describe('Wallet Login', () => {
         accountLoggedIn = account
       })
       cy.wait(1000).then(()=>{
-        expect(accountLoggedIn).to.eq(accounts[0])
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Log in').click()
+        cy.wait(1000).then(()=>{
+          expect(accountLoggedIn).to.eq(accounts[0])
+        })
       })
     })
   })
@@ -145,7 +120,10 @@ describe('Wallet Login', () => {
         accountLoggedIn = account
       })
       cy.wait(1000).then(()=>{
-        expect(accountLoggedIn).to.eq(accounts[0])
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Log in').click()
+        cy.wait(1000).then(()=>{
+          expect(accountLoggedIn).to.eq(accounts[0])
+        })
       })
     })
   })
@@ -177,10 +155,13 @@ describe('Wallet Login', () => {
           accountLoggedIn = account
         })
         cy.wait(1000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Oops, Something Went Wrong')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ErrorSnippetText', 'Recovering login signature failed!')  
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Log in').click()
           cy.wait(1000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Oops, Something Went Wrong')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ErrorSnippetText', 'Recovering login signature failed!')  
+            cy.wait(1000).then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
+            })
           })
         })
       })      

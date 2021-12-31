@@ -18,7 +18,7 @@ let Login = (options) => {
 
     Connect().then(()=>{
       let unmount = mount({ style, document: ensureDocument(document) }, (unmount)=> {
-        const rejectBeforeUnmount = ()=>{
+        const userClosedDialog = ()=>{
           reject('USER_CLOSED_DIALOG')
           unmount()
         }
@@ -26,7 +26,7 @@ let Login = (options) => {
           <ErrorProvider error={ error } container={ container } unmount={ unmount }>
             <ConfigurationProvider configuration={{ message, endpoint: (endpoint || '/login'), recover }}>
               <UpdatableProvider>
-                <ClosableProvider unmount={ rejectBeforeUnmount }>
+                <ClosableProvider unmount={ userClosedDialog }>
                   <LoginStack
                     document={ document }
                     container={ container }

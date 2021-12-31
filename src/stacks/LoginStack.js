@@ -17,7 +17,7 @@ export default (props)=>{
       container={ props.container }
       document={ props.document }
       dialogs={{
-        SignLogin: <SignLoginDialog resolve={ props.resolve }/>,
+        SignLogin: <SignLoginDialog resolve={ props.resolve } userClosedDialog={ props.userClosedDialog }/>,
       }}
     />
   )

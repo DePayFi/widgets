@@ -8,7 +8,6 @@ import { NavigateStackContext } from '@depay/react-dialog-stack'
 export default (props)=> {
 
   const { setError } = useContext(ErrorContext)
-  const [ showSignButton, setShowSignButton ] = useState(false)
   const { message, endpoint } = useContext(ConfigurationContext)
   let { recover } = useContext(ConfigurationContext)
   const wallet = getWallet()
@@ -39,15 +38,15 @@ export default (props)=> {
   const login = ()=> {
     wallet.sign(message).then((signature)=>{
       recover({ message, signature }).then(props.resolve).catch(setError)
-    }).catch(setError)
+    }).catch((error)=>{
+      if(error && error.code && error.code == 4001) {
+        // nothing happens
+      } else {
+        setError(error)
+      }
+    })
   }
 
-  useEffect(()=>setTimeout(login, 1000), [])
-  useEffect(()=> {
-    let timeout = setTimeout(()=>setShowSignButton(true), 10000)
-    return ()=>clearTimeout(timeout)
-  }, [])
-  
   return(
     <Dialog
       body={
@@ -62,18 +61,17 @@ export default (props)=> {
           </h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
             <p className="FontSizeM PaddingLeftM PaddingRightM">
-              Please sign the login message with your connected wallet.
+              Please click "Log in" and sign the message with your connected wallet.
             </p>
           </div>
         </div>
       }
       footer={
-        showSignButton &&
-          <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
-            <button className='ButtonPrimary' onClick={ login }>
-              Log in
-            </button>
-          </div>
+        <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
+          <button className='ButtonPrimary' onClick={ login }>
+            Log in
+          </button>
+        </div>
       }
     />
   )
