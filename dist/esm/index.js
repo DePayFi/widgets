@@ -3790,11 +3790,6 @@ var SignLoginDialog = (function (props) {
   var _useContext = useContext(ErrorContext),
       setError = _useContext.setError;
 
-  var _useState = useState(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      showSignButton = _useState2[0],
-      setShowSignButton = _useState2[1];
-
   var _useContext2 = useContext(ConfigurationContext),
       message = _useContext2.message,
       endpoint = _useContext2.endpoint;
@@ -3838,20 +3833,13 @@ var SignLoginDialog = (function (props) {
         message: message,
         signature: signature
       }).then(props.resolve)["catch"](setError);
-    })["catch"](setError);
+    })["catch"](function (error) {
+      if (error && error.code && error.code == 4001) ; else {
+        setError(error);
+      }
+    });
   };
 
-  useEffect(function () {
-    return setTimeout(login, 1000);
-  }, []);
-  useEffect(function () {
-    var timeout = setTimeout(function () {
-      return setShowSignButton(true);
-    }, 10000);
-    return function () {
-      return clearTimeout(timeout);
-    };
-  }, []);
   return /*#__PURE__*/React.createElement(Dialog$1, {
     body: /*#__PURE__*/React.createElement("div", null, walletLogo && /*#__PURE__*/React.createElement("div", {
       className: "GraphicWrapper PaddingTopS PaddingBottomS"
@@ -3864,8 +3852,8 @@ var SignLoginDialog = (function (props) {
       className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
     }, /*#__PURE__*/React.createElement("p", {
       className: "FontSizeM PaddingLeftM PaddingRightM"
-    }, "Please sign the login message with your connected wallet."))),
-    footer: showSignButton && /*#__PURE__*/React.createElement("div", {
+    }, "Please click \"Log in\" and sign the message with your connected wallet."))),
+    footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
     }, /*#__PURE__*/React.createElement("button", {
       className: "ButtonPrimary",
@@ -3892,7 +3880,8 @@ var LoginStack = (function (props) {
     document: props.document,
     dialogs: {
       SignLogin: /*#__PURE__*/React.createElement(SignLoginDialog, {
-        resolve: props.resolve
+        resolve: props.resolve,
+        userClosedDialog: props.userClosedDialog
       })
     }
   });
@@ -3921,7 +3910,7 @@ var Login = function Login(options) {
                   style: style,
                   document: ensureDocument(document)
                 }, function (unmount) {
-                  var rejectBeforeUnmount = function rejectBeforeUnmount() {
+                  var userClosedDialog = function userClosedDialog() {
                     reject('USER_CLOSED_DIALOG');
                     unmount();
                   };
@@ -3938,7 +3927,7 @@ var Login = function Login(options) {
                         recover: recover
                       }
                     }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
-                      unmount: rejectBeforeUnmount
+                      unmount: userClosedDialog
                     }, /*#__PURE__*/React.createElement(LoginStack, {
                       document: document,
                       container: container,
