@@ -19,30 +19,31 @@ export default (props)=>{
     }
   }, [wallet])
 
-  const connect = (wallet)=>{
+  const connect = (walletClass)=>{
+    let wallet = new walletClass()
     props.setWallet(wallet)
     navigate('ConnectingWallet')
     props.connect(wallet)
   }
 
   let availableWallets = [wallets.WalletConnect]
-  if(wallet) { availableWallets.unshift(wallet) }
+  if(wallet) { availableWallets.unshift(wallet.constructor) }
 
   let walletCards = availableWallets.map((wallet, index)=>{
     return(
       <div key={index} className="PaddingBottomXS">
         <button
           className="Card small"
-          title={`Connect ${wallet.name}`}
+          title={`Connect ${wallet.info.name}`}
           onClick={()=>connect(wallet)}
         >
           <div className="CardImage">
-            <img src={wallet.logo}/>
+            <img src={wallet.info.logo}/>
           </div>
           <div className="CardBody">
             <div className="CardBodyWrapper PaddingLeftXS">
               <h2 className="CardText FontWeightBold">
-                { wallet.name }
+                { wallet.info.name }
               </h2>
             </div>
           </div>
