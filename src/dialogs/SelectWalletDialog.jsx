@@ -19,7 +19,8 @@ export default (props)=>{
     }
   }, [wallet])
 
-  const connect = (wallet)=>{
+  const connect = (walletClass)=>{
+    let wallet = new walletClass()
     props.setWallet(wallet)
     navigate('ConnectingWallet')
     props.connect(wallet)

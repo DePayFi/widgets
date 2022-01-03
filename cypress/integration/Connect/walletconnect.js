@@ -23,7 +23,7 @@ describe('WalletConnect Payment', () => {
             blockchain,
             accounts: { return: accounts },
             wallet: 'walletconnect',
-            connector: wallets.WalletConnect.connector
+            connector: wallets.WalletConnect
           })
 
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect WalletConnect"]').click().then(()=>{
