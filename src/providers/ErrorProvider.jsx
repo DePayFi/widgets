@@ -25,7 +25,7 @@ export default (props)=>{
 
   let setErrorFromChildren = (error)=>{
     setError(error)
-    if(props.error) { props.errorCallback(error) }
+    if(props.errorCallback) { props.errorCallback(error) }
   }
 
   let close = ()=>{
