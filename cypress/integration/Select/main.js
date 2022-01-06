@@ -11,7 +11,7 @@ describe('Select Widget', () => {
   beforeEach(resetMocks)
   beforeEach(()=>fetchMock.restore())
 
-  it.only('shows a widget allowing you to select a token and resolves with the selected token', () => {
+  it('shows a widget allowing you to select a token and resolves with the selected token', () => {
     let selectedToken
     
     cy.document().then(async (document)=>{
