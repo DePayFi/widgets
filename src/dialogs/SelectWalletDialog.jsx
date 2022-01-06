@@ -38,7 +38,7 @@ export default (props)=>{
           onClick={()=>connect(wallet)}
         >
           <div className="CardImage">
-            <img src={wallet.info.logo}/>
+            <img className="transparent" src={wallet.info.logo}/>
           </div>
           <div className="CardBody">
             <div className="CardBodyWrapper PaddingLeftXS">
@@ -60,7 +60,7 @@ export default (props)=>{
         </div>
       }
       body={
-        <div className="PaddingTopS PaddingBottomXS PaddingLeftS PaddingRightS">
+        <div className="PaddingBottomS PaddingLeftS PaddingRightS">
           { walletCards }
         </div>
       }

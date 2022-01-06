@@ -12,6 +12,7 @@ export default (style)=>{
       width: 420px;
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
       border-radius: 0.8rem;
+      background: rgb(248,248,248);
     }
 
     @media screen and (max-width: 450px) {
@@ -34,7 +35,6 @@ export default (style)=>{
       .DialogBody {
         flex: 1;
         align-items: flex-end;
-        max-height: 60vh !important;
       }
 
       .DialogFooter {
@@ -47,7 +47,6 @@ export default (style)=>{
 
       .ReactDialogAnimation {
         bottom: -100px !important;
-        max-height: 66vh !important;
         top: inherit !important;
         transition: opacity 0.4s ease, bottom 0.4s ease;
       }
@@ -68,25 +67,31 @@ export default (style)=>{
       overflow-y: auto;
     }
 
-    .DialogBody.HeightAuto {
-      height: auto;
+    .DialogBody.ScrollHeight {
+      height: 30vh !important;
+      max-height: 30vh !important;
     }
 
     .DialogHeader {
       background: rgb(248,248,248);
       border-top-left-radius: 0.8rem;
       border-top-right-radius: 0.8rem;
-      display: flex;
-      flex-direction: row;
+      min-height: 3.4rem;
       position: relative;
+      width: 100%;
     }
 
-    .DialogHeaderTitle {
-      flex-basis: auto;
-      flex-grow: 1;
+    .DialogHeaderActionRight {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 3rem;
     }
-    
-    .DialogHeaderAction {
+
+    .DialogHeaderActionLeft {
+      position: absolute;
+      top: 0;
+      left: 0;
       height: 3rem;
     }
 

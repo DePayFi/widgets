@@ -15,6 +15,50 @@ export default (style)=>{
       width: 100%;
     }
 
+    .Card.Row {
+      border-radius: 0;
+      margin-bottom: 0;
+      box-shadow: none;
+      min-height: 4.3rem;
+      padding: 0.4rem 1.3rem;
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .Card.Row .CardText {
+      font-size: 1.2rem;
+    }
+
+    .CardTokenSymbol {
+      width: 40%;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .CardTokenName {
+      text-align: right;
+      opacity: 0.5;
+      width: 60%;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .Card.Row .CardTokenName .CardText {
+      font-size: 1rem;
+    }
+
+    .Card.Row .CardImage {
+      width: 2.5rem;
+    }
+
+    .Card.Row .CardImage img {
+      height: 1.9rem;
+      width: 1.9rem;
+    }
+
     a.Card, a.Card * {
       color: inherit;
       text-decoration: none;
@@ -29,6 +73,15 @@ export default (style)=>{
       min-height: auto;
       padding: 0.5rem 0.5rem;
       margin: 0;
+    }
+
+    .CardImage.small {
+      width: 1.7rem;
+    }
+
+    .CardImage.small img {
+      height: 1.4rem;
+      width: 1.4rem;
     }
 
     .Card.disabled {
@@ -106,6 +159,7 @@ export default (style)=>{
       background: white;
       border-radius: 99rem;
       border: 1px solid white;
+      background: rgba(0,0,0,0.1);
       box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
       height: 2.8rem;
       position: relative;
@@ -113,6 +167,12 @@ export default (style)=>{
       width: 2.8rem;
     }
 
+    .CardImage img.transparent {
+      border: none;
+      background: none;
+      box-shadow: none;
+    }
+    
     .CardImage .BlockchainLogo {
       position: absolute;
       bottom: 0;

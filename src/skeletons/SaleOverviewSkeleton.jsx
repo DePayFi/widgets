@@ -11,7 +11,7 @@ export default (props)=>{
         </div>
       }
       body={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
+        <div className="PaddingLeftM PaddingRightM PaddingBottomXS">
           <div className="Card Skeleton" style={{ height: '100px' }}>
             <div className="SkeletonBackground"/>
           </div>

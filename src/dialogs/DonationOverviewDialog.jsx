@@ -29,7 +29,7 @@ export default (props)=>{
         </div>
       }
       body={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
+        <div className="PaddingLeftM PaddingRightM PaddingBottomXS">
           <div 
             className={["Card", (paymentState == 'initialized' ? '' : 'disabled')].join(' ')}
             title={paymentState == 'initialized' ? "Change amount" : undefined}

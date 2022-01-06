@@ -1,3 +1,4 @@
+import AlertStyle from '../styles/AlertStyle'
 import BlockchainLogoStyle from '../styles/BlockchainLogoStyle'
 import ButtonCircularStyle from '../styles/ButtonCircularStyle'
 import ButtonPrimaryStyle from '../styles/ButtonPrimaryStyle'
@@ -10,16 +11,21 @@ import IconStyle from '../styles/IconStyle'
 import ImageStyle from '../styles/ImageStyle'
 import InputStyle from '../styles/InputStyle'
 import LabelStyle from '../styles/LabelStyle'
+import LinkStyle from '../styles/LinkStyle'
 import LoadingTextStyle from '../styles/LoadingTextStyle'
 import OpacityStyle from '../styles/OpacityStyle'
 import PaddingStyle from '../styles/PaddingStyle'
 import PoweredByStyle from '../styles/PoweredByStyle'
 import RangeSliderStyle from '../styles/RangeSliderStyle'
 import ResetStyle from '../styles/ResetStyle'
+import SearchStyle from '../styles/SearchStyle'
 import SkeletonStyle from '../styles/SkeletonStyle'
+import TableStyle from '../styles/TableStyle'
 import TextButtonStyle from '../styles/TextButtonStyle'
 import TextStyle from '../styles/TextStyle'
 import TokenAmountStyle from '../styles/TokenAmountStyle'
+import TokenImageStyle from '../styles/TokenImageStyle'
+import TooltipStyle from '../styles/TooltipStyle'
 
 export default (style)=>{
 
@@ -57,6 +63,12 @@ export default (style)=>{
       TextButtonStyle(style),
       ImageStyle(style),
       BlockchainLogoStyle(style),
+      SearchStyle(style),
+      TokenImageStyle(style),
+      AlertStyle(style),
+      TableStyle(style),
+      LinkStyle(style),
+      TooltipStyle(style),
     ].join('')
   )
 }

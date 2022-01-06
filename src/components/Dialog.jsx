@@ -14,16 +14,14 @@ export default (props)=>{
       
       <div className={["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')}>
         { props.stacked &&
-          <div className="DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS">
+          <div className="DialogHeaderActionLeft PaddingTopS PaddingLeftS PaddingRightS">
             <button onClick={ ()=>navigate('back') } className="ButtonCircular" title="Go back">
               <ChevronLeft/>
             </button>
           </div>
         }
-        <div className="DialogHeaderTitle">
-          { props.header }
-        </div>
-        <div className="DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS">
+        { props.header }
+        <div className="DialogHeaderActionRight PaddingTopS PaddingLeftS PaddingRightS">
           { closable &&
             <button onClick={ close } className="ButtonCircular" title="Close dialog">
               <CloseIcon/>
@@ -32,7 +30,7 @@ export default (props)=>{
         </div>
       </div>
 
-      <div className="DialogBody">
+      <div className={["DialogBody", props.bodyClassName].join(' ')}>
         { props.body }
       </div>
 

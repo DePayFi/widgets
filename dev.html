@@ -374,6 +374,24 @@
       <div class="col-4"></div>
     </div><!-- Login -->
 
+    <div class="container pb-4"><!-- Select -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <h2 class="pt-5">Select</h2>
+
+        <button id="selectButton" class="btn-lg mt-2">Select</button>
+        <script>
+          var button = document.getElementById("selectButton");
+          button.addEventListener("click",async function(e){
+            let token = await DePayWidgets.Select({ what: 'token' })
+            console.log("SELECTED TOKEN", token)
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Select -->
+
   </body>
 </html>
 

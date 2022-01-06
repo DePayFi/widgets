@@ -11,7 +11,7 @@ export default (props)=>{
         </div>
       }
       body={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
+        <div className="PaddingLeftM PaddingRightM PaddingBottomXS">
           <div className="Card Skeleton">
             <div className="SkeletonBackground"/>
           </div>

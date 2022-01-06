@@ -1,4 +1,3 @@
-import apiKey from '../helpers/apiKey'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
