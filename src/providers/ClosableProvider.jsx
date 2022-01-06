@@ -20,7 +20,8 @@ export default (props)=>{
       closable,
       setClosable,
       close,
-      open
+      open,
+      setOpen
     }}>
       { props.children }
     </ClosableContext.Provider>

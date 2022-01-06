@@ -41,7 +41,7 @@ let Sale = async ({
     const accept = Object.keys(sell).map((key)=>({ blockchain: key, token: sell[key] }))
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
-        <ErrorProvider error={ error } container={ container } unmount={ unmount }>
+        <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={{ tokenImage, amount, sell, currency, sent, confirmed, failed, blacklist, providers }}>
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount }>

@@ -13,7 +13,7 @@ export default (props)=>{
         </div>
       }
       body={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
+        <div className="PaddingLeftM PaddingRightM PaddingBottomXS">
           { amountsMissing &&
             <div className="Card Skeleton">
               <div className="SkeletonBackground"/>
