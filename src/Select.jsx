@@ -13,6 +13,13 @@ let Select = (options) => {
 
   let style, error, document, what
   if(typeof options == 'object') ({ style, error, document, what } = options)
+  
+  let startupError
+  if(what == undefined) {
+    startupError = '"what" needs to be configured!'
+  } else if (['token'].indexOf(what) < 0) {
+    startupError = `Unknown "what" configured: ${what}!`
+  }
 
   return new Promise(async (resolve, reject)=>{
 
@@ -22,7 +29,7 @@ let Select = (options) => {
         unmount()
       }
       return (container)=>
-        <ErrorProvider error={ error } container={ container } unmount={ unmount }>
+        <ErrorProvider error={ startupError } errorCallback={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={{ what }}>
             <UpdatableProvider>
               <ClosableProvider unmount={ userClosedDialog }>

@@ -54,7 +54,9 @@ export default (props)=> {
     let term = event.target.value
     if(term.match(/^0x/)) {
       setTokens([])
-      let token = new Token({ blockchain: blockchain.name, address: term })
+      let token
+      try { token = new Token({ blockchain: blockchain.name, address: term }) } catch {}
+      if(token == undefined){ return }
       Promise.all([
         token.name(),
         token.symbol(),
@@ -79,14 +81,23 @@ export default (props)=> {
             setTokens(tokens)
           })
         }
-      })
+      }).catch(()=>{})
+    } else {
+      setTokens(props.selection.blockchain.tokens)
     }
   }
 
   const select = (token)=> {
     if(blockchain.tokens.find((majorToken)=>{ return majorToken.address.toLowerCase() == (token.address || token.external_id).toLowerCase() })) {
       setOpen(false)
-      props.resolve(token)
+      props.resolve({
+        blockchain: blockchain.name,
+        address: token.address || token.external_id,
+        logo: token.logo || token.image,
+        name: token.name,
+        symbol: token.symbol,
+        decimals: token.decimals
+      })
       setTimeout(props.unmount, 300)
     } else {
       setSelection(Object.assign(props.selection, { token }))

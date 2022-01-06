@@ -20,12 +20,12 @@ class ErrorBoundary extends React.Component {
 
 export default (props)=>{
 
-  const [error, setError] = useState()
+  const [error, setError] = useState(props.error)
   const [open, setOpen] = useState(true)
 
   let setErrorFromChildren = (error)=>{
     setError(error)
-    if(props.error) { props.error(error) }
+    if(props.error) { props.errorCallback(error) }
   }
 
   let close = ()=>{

@@ -195,7 +195,7 @@ export default (style)=>{
     }
 
     .CardText small {
-      font-size: 1.1rem;
+      font-size: 1.26rem;
       color: rgb(150,150,150);
     }
 
