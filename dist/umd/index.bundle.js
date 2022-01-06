@@ -1065,7 +1065,8 @@
         closable: closable,
         setClosable: setClosable,
         close: close,
-        open: open
+        open: open,
+        setOpen: setOpen
       }
     }, props.children);
   });
@@ -1540,11 +1541,6 @@
   }
   });
 
-  function _interopDefaultLegacy$4 (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-  var React__default$2 = /*#__PURE__*/_interopDefaultLegacy$4(react);
-  var ReactDOM__default$1 = /*#__PURE__*/_interopDefaultLegacy$4(reactDom);
-
   function ReactDialogStyle (styles) {
     let background =
       typeof styles === 'object' && styles.background ? styles.background : 'rgba(0,0,0,0.4)';
@@ -1611,7 +1607,7 @@
   }
 
   const _jsxFileName$2 = "/home/runner/work/react-dialog/react-dialog/src/components/Dialog.jsx";
-  class Dialog$1 extends React__default$2['default'].Component {
+  class Dialog$1 extends react.Component {
     constructor(props) {
       super(props);
 
@@ -1659,11 +1655,11 @@
       const classNames = ['ReactDialog', this.state.open ? 'ReactDialogOpen' : ''];
       const style = ReactDialogStyle({ background: this.props.background });
       return (
-        React__default$2['default'].createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 54}}
-          , React__default$2['default'].createElement('style', {__self: this, __source: {fileName: _jsxFileName$2, lineNumber: 55}}, style)
-          , React__default$2['default'].createElement('div', { className: "ReactDialogRow", __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 56}}
-            , React__default$2['default'].createElement('div', { className: "ReactDialogCell", __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 57}}
-              , React__default$2['default'].createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 58}} )
+        react.createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 54}}
+          , react.createElement('style', {__self: this, __source: {fileName: _jsxFileName$2, lineNumber: 55}}, style)
+          , react.createElement('div', { className: "ReactDialogRow", __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 56}}
+            , react.createElement('div', { className: "ReactDialogCell", __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 57}}
+              , react.createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 58}} )
               , this.props.children
             )
           )
@@ -1673,7 +1669,7 @@
   }
 
   const _jsxFileName$1$1 = "/home/runner/work/react-dialog/react-dialog/src/index.jsx";
-  class ReactDialog extends React__default$2['default'].Component {
+  class ReactDialog extends react.Component {
     constructor(props) {
       super(props);
 
@@ -1696,8 +1692,8 @@
       let _document = this.props.document || document;
       let container = this.props.container || _document.body;
       if (this.state.open) {
-        return ReactDOM__default$1['default'].createPortal(
-          React__default$2['default'].createElement(Dialog$1, {
+        return reactDom.createPortal(
+          react.createElement(Dialog$1, {
             background: this.props.background,
             close: this.props.close,
             document: _document,
@@ -1714,19 +1710,9 @@
     }
   }
 
-  var ReactDialog_1 = ReactDialog;
+  var CloseStackContext = react.createContext();
 
-  var cjs = /*#__PURE__*/Object.defineProperty({
-  	ReactDialog: ReactDialog_1
-  }, '__esModule', {value: true});
-
-  function _interopDefaultLegacy$3 (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-  var React__default$1 = /*#__PURE__*/_interopDefaultLegacy$3(react);
-
-  var CloseStackContext = React__default$1['default'].createContext();
-
-  var NavigateStackContext = React__default$1['default'].createContext();
+  var NavigateStackContext = react.createContext();
 
   function ReactDialogStackStyle () {
     return `
@@ -1786,10 +1772,10 @@
   `
   }
 
-  var StackContext = React__default$1['default'].createContext();
+  var StackContext = react.createContext();
 
   const _jsxFileName$1 = "/home/runner/work/react-dialog-stack/react-dialog-stack/src/index.jsx";
-  class ReactDialogStack extends React__default$1['default'].Component {
+  class ReactDialogStack extends react.Component {
     constructor(props) {
       super(props);
 
@@ -1907,15 +1893,15 @@
             this.classForDirection(),
           ];
           return (
-            React__default$1['default'].createElement('div', { key: index, className: ['ReactDialogStack'].concat(stackState).join(' '), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 127}}
-              , React__default$1['default'].createElement('div', { className: "ReactDialogStackRow", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 128}}
-                , React__default$1['default'].createElement('div', { className: "ReactDialogStackCell", onClick: this.onClick.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 129}}
-                  , React__default$1['default'].createElement(NavigateStackContext.Provider, {
+            react.createElement('div', { key: index, className: ['ReactDialogStack'].concat(stackState).join(' '), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 127}}
+              , react.createElement('div', { className: "ReactDialogStackRow", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 128}}
+                , react.createElement('div', { className: "ReactDialogStackCell", onClick: this.onClick.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 129}}
+                  , react.createElement(NavigateStackContext.Provider, {
                     value: { navigate: this.navigate.bind(this), set: this.set.bind(this) }, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 130}}
                   
-                    , React__default$1['default'].createElement(CloseStackContext.Provider, { value: this.close.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 133}}
-                      , React__default$1['default'].createElement(StackContext.Provider, { value: this.state.stack, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 134}}
-                        , React__default$1['default'].createElement('div', { className: "ReactDialogAnimation", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 135}}, this.props.dialogs[route])
+                    , react.createElement(CloseStackContext.Provider, { value: this.close.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 133}}
+                      , react.createElement(StackContext.Provider, { value: this.state.stack, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 134}}
+                        , react.createElement('div', { className: "ReactDialogAnimation", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 135}}, this.props.dialogs[route])
                       )
                     )
                   )
@@ -1953,24 +1939,22 @@
 
     render() {
       return (
-        React__default$1['default'].createElement(cjs.ReactDialog, {
+        react.createElement(ReactDialog, {
           close: this.close.bind(this),
           open: this.props.open,
           document: this.props.document,
           container: this.props.container,
           background: this.props.background, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 173}}
         
-          , React__default$1['default'].createElement('style', {__self: this, __source: {fileName: _jsxFileName$1, lineNumber: 180}}, ReactDialogStackStyle())
+          , react.createElement('style', {__self: this, __source: {fileName: _jsxFileName$1, lineNumber: 180}}, ReactDialogStackStyle())
           , this.renderStack()
         )
       )
     }
   }
-  var NavigateStackContext_1 = NavigateStackContext;
-  var ReactDialogStack_1 = ReactDialogStack;
 
   var Dialog = (function (props) {
-    var _useContext = react.useContext(NavigateStackContext_1),
+    var _useContext = react.useContext(NavigateStackContext),
         navigate = _useContext.navigate;
 
     var _useContext2 = react.useContext(ClosableContext),
@@ -1982,23 +1966,21 @@
     }, /*#__PURE__*/react.createElement("div", {
       className: ["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')
     }, props.stacked && /*#__PURE__*/react.createElement("div", {
-      className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
+      className: "DialogHeaderActionLeft PaddingTopS PaddingLeftS PaddingRightS"
     }, /*#__PURE__*/react.createElement("button", {
       onClick: function onClick() {
         return navigate('back');
       },
       className: "ButtonCircular",
       title: "Go back"
-    }, /*#__PURE__*/react.createElement(ChevronLeft, null))), /*#__PURE__*/react.createElement("div", {
-      className: "DialogHeaderTitle"
-    }, props.header), /*#__PURE__*/react.createElement("div", {
-      className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/react.createElement(ChevronLeft, null))), props.header, /*#__PURE__*/react.createElement("div", {
+      className: "DialogHeaderActionRight PaddingTopS PaddingLeftS PaddingRightS"
     }, closable && /*#__PURE__*/react.createElement("button", {
       onClick: close,
       className: "ButtonCircular",
       title: "Close dialog"
     }, /*#__PURE__*/react.createElement(CloseIcon, null)))), /*#__PURE__*/react.createElement("div", {
-      className: "DialogBody"
+      className: ["DialogBody", props.bodyClassName].join(' ')
     }, props.body), /*#__PURE__*/react.createElement("div", {
       className: "DialogFooter"
     }, props.footer));
@@ -2010,7 +1992,7 @@
         showConnectButton = _useState2[0],
         setShowConnectButton = _useState2[1];
 
-    var _useContext = react.useContext(NavigateStackContext_1),
+    var _useContext = react.useContext(NavigateStackContext),
         navigate = _useContext.navigate;
 
     var wallet = props.wallet;
@@ -2331,10 +2313,23 @@
       decimals: 18
     },
     explorer: 'https://etherscan.io',
-    explorerUrlFor: ({ transaction })=>{
+    explorerUrlFor: ({ transaction, token })=>{
       if(transaction) { return `https://etherscan.io/tx/${transaction.id}` }
+      if(token) { return `https://etherscan.io/token/${token}` }
     },
-    rpc: ['https://mainnet.infura.io/v3/9aa3d95b3bc4', '40fa88ea12eaa4456161'].join('')
+    rpc: ['https://mainnet.infura.io/v3/9aa3d95b3bc4', '40fa88ea12eaa4456161'].join(''),
+    tokens: [ // only major tokens
+      {"address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "symbol": "ETH", "name": "Ether", "decimals": 18, "logo": "data:image/png;base64,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"},
+      {"address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", "symbol": "USDC", "name": "USD Coin", "decimals": 6, "logo": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"},
+      {"address": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599", "symbol": "WBTC", "name": "Wrapped BTC", "decimals": 8, "logo": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png"},
+      {"address": "0xdAC17F958D2ee523a2206206994597C13D831ec7", "symbol": "USDT", "name": "Tether USD", "decimals": 6, "logo": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png"},
+      {"address": "0x6B175474E89094C44Da98b954EedeAC495271d0F", "symbol": "DAI", "name": "Dai Stablecoin", "decimals": 18, "logo": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"},
+      {"address": "0x853d955aCEf822Db058eb8505911ED77F175b99e", "symbol": "FRAX", "name": "Frax", "decimals": 18, "logo": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x853d955aCEf822Db058eb8505911ED77F175b99e/logo.png"},
+      {"address": "0x4Fabb145d64652a948d72533023f6E7A623C7C53", "symbol": "BUSD", "name": "Binance USD", "decimals": 18, "logo": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x4Fabb145d64652a948d72533023f6E7A623C7C53/logo.png"},
+      {"address": "0x8E870D67F660D95d5be530380D0eC0bd388289E1", "symbol": "USDP", "name": "Pax Dollar", "decimals": 18, "logo": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x8E870D67F660D95d5be530380D0eC0bd388289E1/logo.png"},
+      {"address": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984", "symbol": "UNI", "name": "Uniswap", "decimals": 18, "logo": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png"},
+      {"address": "0x956F47F50A910163D8BF957Cf5846D573E7f87CA", "symbol": "FEI", "name": "Fei USD", "decimals": 18, "logo": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x956F47F50A910163D8BF957Cf5846D573E7f87CA/logo.png"}
+    ]
   };
 
   var bsc = {
@@ -2351,10 +2346,20 @@
       decimals: 18
     },
     explorer: 'https://bscscan.com',
-    explorerUrlFor: ({ transaction })=>{
+    explorerUrlFor: ({ transaction, token })=>{
       if(transaction) { return `https://bscscan.com/tx/${transaction.id}` }
+      if(token) { return `https://bscscan.com/token/${token}` }
     },
-    rpc: 'https://bsc-dataseed1.binance.org'
+    rpc: 'https://bsc-dataseed1.binance.org',
+    tokens: [ // only major tokens
+      {"address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "symbol": "BNB", "name": "Binance Coin", "decimals": 18, "logo": "https://assets.trustwalletapp.com/blockchains/smartchain/assets/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c/logo.png"},
+      {"address": "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56", "symbol": "BUSD", "name": "BUSD Token", "decimals": 18, "logo": "https://assets.trustwalletapp.com/blockchains/smartchain/assets/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56/logo.png"},
+      {"address": "0x55d398326f99059fF775485246999027B3197955", "symbol": "USDT", "name": "Binance-Peg BSC-USD", "decimals": 18, "logo": "https://assets.trustwalletapp.com/blockchains/smartchain/assets/0x55d398326f99059fF775485246999027B3197955/logo.png"},
+      {"address": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82", "symbol": "Cake", "name": "PancakeSwap Token", "decimals": 18, "logo": "https://assets.trustwalletapp.com/blockchains/smartchain/assets/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82/logo.png"},
+      {"address": "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d", "symbol": "USDC", "name": "USD Coin", "decimals": 18, "logo": "https://assets.trustwalletapp.com/blockchains/smartchain/assets/0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d/logo.png"},
+      {"address": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8", "symbol": "ETH", "name": "Ethereum Token", "decimals": 18, "logo": "https://assets.trustwalletapp.com/blockchains/smartchain/assets/0x2170Ed0880ac9A755fd29B2688956BD959F933F8/logo.png"},
+      {"address": "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c", "symbol": "BTCB", "name": "BTCB Token", "decimals": 18, "logo": "https://assets.trustwalletapp.com/blockchains/smartchain/assets/0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c/logo.png"}
+    ]
   };
 
   var polygon = {
@@ -2371,8 +2376,9 @@
       decimals: 18
     },
     explorer: 'https://polygonscan.com',
-    explorerUrlFor: ({ transaction })=>{
+    explorerUrlFor: ({ transaction, token })=>{
       if(transaction) { return `https://polygonscan.com/tx/${transaction.id}` }
+      if(token) { return `https://polygonscan.com/token/${token}` }
     },
     rpc: 'https://rpc-mainnet.matic.network'
   };
@@ -2421,11 +2427,6 @@
     },
   };
 
-  var es$1 = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    Blockchain: Blockchain
-  });
-
   let CONSTANTS = {
     ZERO: '0x0000000000000000000000000000000000000000',
     MAXINT: '115792089237316195423570985008687907853269984665640564039457584007913129639935',
@@ -2454,11 +2455,6 @@
 
   CONSTANTS$2['ethereum'] = CONSTANTS;
   CONSTANTS$2['bsc'] = CONSTANTS$1;
-
-  var es = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    CONSTANTS: CONSTANTS$2
-  });
 
   var byteLength_1 = byteLength$1;
   var toByteArray_1 = toByteArray$1;
@@ -48387,12 +48383,18 @@
 
   function _optionalChain$3$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   class Web3Wallet {
-    __init() {this.name = 'Web3 Wallet';}
-    __init2() {this.logo =
-      "data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 446.42 376.77'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23828487;%7D%3C/style%3E%3C/defs%3E%3Cpath class='cls-1' d='M408.69,171.4H473.4V107.77a46.55,46.55,0,0,0-46.55-46.55H73.53A46.55,46.55,0,0,0,27,107.77v65.09H62.7L89.56,146a9.46,9.46,0,0,1,5.73-2.73h0l.41,0h78.59a47.2,47.2,0,1,1,82.63,39.56q-1.41,1.71-3,3.31t-3.31,3a47.21,47.21,0,0,1-76.31-26.9H100.21L73.34,189.07a9.43,9.43,0,0,1-5.73,2.73h0l-.41,0h-.07l-.48,0H27v74H55.83l18.25-18.24a9.39,9.39,0,0,1,5.73-2.74h0l.41,0h29.9a47.16,47.16,0,1,1,0,19H84.72L66.48,282.11a9.42,9.42,0,0,1-5.72,2.74h0l-.39,0H27V319H83.29a4,4,0,0,1,.49,0h.06l.41,0h0A9.41,9.41,0,0,1,90,321.78l28,28h57.66a47.2,47.2,0,1,1,81.48,40.9c-.6.67-1.22,1.32-1.86,2s-1.3,1.26-2,1.86a47.22,47.22,0,0,1-77.65-25.73H114.09a9.5,9.5,0,0,1-3.09-.52l-.08,0-.29-.11-.17-.07-.19-.08-.27-.12-.08,0a9.38,9.38,0,0,1-2.55-1.81l-28-28H27v53.46A46.55,46.55,0,0,0,73.53,438H426.86a46.55,46.55,0,0,0,46.54-46.55V327.82H408.69a78.22,78.22,0,0,1-78.21-78.21h0A78.22,78.22,0,0,1,408.69,171.4Z' transform='translate(-26.98 -61.22)'/%3E%3Cpath class='cls-1' d='M247.91,359.29a26,26,0,1,0-26,26A26,26,0,0,0,247.91,359.29Z' transform='translate(-26.98 -61.22)'/%3E%3Cpath class='cls-1' d='M246.55,152.71a26,26,0,1,0-26,26A26,26,0,0,0,246.55,152.71Z' transform='translate(-26.98 -61.22)'/%3E%3Ccircle class='cls-1' cx='129.39' cy='193.15' r='25.99'/%3E%3Cpath class='cls-1' d='M409.17,190h-.48a59.57,59.57,0,0,0-59.57,59.57h0a59.57,59.57,0,0,0,59.57,59.57h.48a59.58,59.58,0,0,0,59.58-59.57h0A59.58,59.58,0,0,0,409.17,190Zm14.45,90.61h-31l8.88-32.53a15.5,15.5,0,1,1,13.29,0Z' transform='translate(-26.98 -61.22)'/%3E%3C/svg%3E";}
-    __init3() {this.blockchains = ['ethereum', 'bsc'];}
 
-    constructor () {Web3Wallet.prototype.__init.call(this);Web3Wallet.prototype.__init2.call(this);Web3Wallet.prototype.__init3.call(this);
+    static __initStatic() {this.info = {
+      name: 'Web3 Wallet',
+      logo: "data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 446.42 376.77'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23828487;%7D%3C/style%3E%3C/defs%3E%3Cpath class='cls-1' d='M408.69,171.4H473.4V107.77a46.55,46.55,0,0,0-46.55-46.55H73.53A46.55,46.55,0,0,0,27,107.77v65.09H62.7L89.56,146a9.46,9.46,0,0,1,5.73-2.73h0l.41,0h78.59a47.2,47.2,0,1,1,82.63,39.56q-1.41,1.71-3,3.31t-3.31,3a47.21,47.21,0,0,1-76.31-26.9H100.21L73.34,189.07a9.43,9.43,0,0,1-5.73,2.73h0l-.41,0h-.07l-.48,0H27v74H55.83l18.25-18.24a9.39,9.39,0,0,1,5.73-2.74h0l.41,0h29.9a47.16,47.16,0,1,1,0,19H84.72L66.48,282.11a9.42,9.42,0,0,1-5.72,2.74h0l-.39,0H27V319H83.29a4,4,0,0,1,.49,0h.06l.41,0h0A9.41,9.41,0,0,1,90,321.78l28,28h57.66a47.2,47.2,0,1,1,81.48,40.9c-.6.67-1.22,1.32-1.86,2s-1.3,1.26-2,1.86a47.22,47.22,0,0,1-77.65-25.73H114.09a9.5,9.5,0,0,1-3.09-.52l-.08,0-.29-.11-.17-.07-.19-.08-.27-.12-.08,0a9.38,9.38,0,0,1-2.55-1.81l-28-28H27v53.46A46.55,46.55,0,0,0,73.53,438H426.86a46.55,46.55,0,0,0,46.54-46.55V327.82H408.69a78.22,78.22,0,0,1-78.21-78.21h0A78.22,78.22,0,0,1,408.69,171.4Z' transform='translate(-26.98 -61.22)'/%3E%3Cpath class='cls-1' d='M247.91,359.29a26,26,0,1,0-26,26A26,26,0,0,0,247.91,359.29Z' transform='translate(-26.98 -61.22)'/%3E%3Cpath class='cls-1' d='M246.55,152.71a26,26,0,1,0-26,26A26,26,0,0,0,246.55,152.71Z' transform='translate(-26.98 -61.22)'/%3E%3Ccircle class='cls-1' cx='129.39' cy='193.15' r='25.99'/%3E%3Cpath class='cls-1' d='M409.17,190h-.48a59.57,59.57,0,0,0-59.57,59.57h0a59.57,59.57,0,0,0,59.57,59.57h.48a59.58,59.58,0,0,0,59.58-59.57h0A59.58,59.58,0,0,0,409.17,190Zm14.45,90.61h-31l8.88-32.53a15.5,15.5,0,1,1,13.29,0Z' transform='translate(-26.98 -61.22)'/%3E%3C/svg%3E",
+      blockchains: ['ethereum', 'bsc']
+    };}
+    
+    constructor () {
+      this.name = this.constructor.info.name;
+      this.logo = this.constructor.info.logo;
+      this.blockchains = this.constructor.info.blockchains;
+      this.install = this.constructor.info.install;
       this.sendTransaction = (transaction)=>{ 
         return sendTransaction$1({
           wallet: this,
@@ -48519,23 +48521,27 @@
       let signature = await signer.signMessage(message);
       return signature
     }
-  }
+  } Web3Wallet.__initStatic();
 
-  class Coinbase extends Web3Wallet {constructor(...args) { super(...args); Coinbase.prototype.__init.call(this);Coinbase.prototype.__init2.call(this);Coinbase.prototype.__init3.call(this);Coinbase.prototype.__init4.call(this); }
-    __init() {this.name = 'Coinbase Wallet';}
-    __init2() {this.logo =
-      "data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 488.96 488.96'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:url(%23linear-gradient);%7D.cls-2%7Bfill:%234361ad;%7D%3C/style%3E%3ClinearGradient id='linear-gradient' x1='250' y1='7.35' x2='250' y2='496.32' gradientTransform='matrix(1, 0, 0, -1, 0, 502)' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%233d5ba9'/%3E%3Cstop offset='1' stop-color='%234868b1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath class='cls-1' d='M250,5.68C114.87,5.68,5.52,115,5.52,250.17S114.87,494.65,250,494.65,494.48,385.29,494.48,250.17,385.13,5.68,250,5.68Zm0,387.54A143.06,143.06,0,1,1,393.05,250.17,143.11,143.11,0,0,1,250,393.22Z' transform='translate(-5.52 -5.68)'/%3E%3Cpath class='cls-2' d='M284.69,296.09H215.31a11,11,0,0,1-10.9-10.9V215.48a11,11,0,0,1,10.9-10.91H285a11,11,0,0,1,10.9,10.91v69.71A11.07,11.07,0,0,1,284.69,296.09Z' transform='translate(-5.52 -5.68)'/%3E%3C/svg%3E";}
-    __init3() {this.blockchains = ['ethereum', 'bsc'];}
-    __init4() {this.install = 'https://wallet.coinbase.com';}
-  }
+  class Coinbase extends Web3Wallet {
 
-  class MetaMask extends Web3Wallet {constructor(...args) { super(...args); MetaMask.prototype.__init.call(this);MetaMask.prototype.__init2.call(this);MetaMask.prototype.__init3.call(this);MetaMask.prototype.__init4.call(this); }
-    __init() {this.name = 'MetaMask';}
-    __init2() {this.logo =
-      "data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 485.93 450.56'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23828487;%7D.cls-2%7Bfill:%23e27726;stroke:%23e27726;%7D.cls-10,.cls-11,.cls-2,.cls-3,.cls-4,.cls-5,.cls-6,.cls-7,.cls-8,.cls-9%7Bstroke-linecap:round;stroke-linejoin:round;%7D.cls-3%7Bfill:%23e37725;stroke:%23e37725;%7D.cls-4%7Bfill:%23d6c0b3;stroke:%23d6c0b3;%7D.cls-5%7Bfill:%23243447;stroke:%23243447;%7D.cls-6%7Bfill:%23cd6328;stroke:%23cd6328;%7D.cls-7%7Bfill:%23e37525;stroke:%23e37525;%7D.cls-8%7Bfill:%23f6851f;stroke:%23f6851f;%7D.cls-9%7Bfill:%23c1ae9e;stroke:%23c1ae9e;%7D.cls-10%7Bfill:%23171717;stroke:%23171717;%7D.cls-11%7Bfill:%23763e1a;stroke:%23763e1a;%7D%3C/style%3E%3C/defs%3E%3Cpath class='cls-1' d='M247.91,356.29a26,26,0,1,0-26,26A26,26,0,0,0,247.91,356.29Z' transform='translate(-7.97 -21.33)'/%3E%3Cpath class='cls-1' d='M246.55,149.71a26,26,0,1,0-26,26A26,26,0,0,0,246.55,149.71Z' transform='translate(-7.97 -21.33)'/%3E%3Ccircle class='cls-1' cx='148.4' cy='230.05' r='25.99'/%3E%3Cpolygon class='cls-2' points='461.28 0.5 272.06 141.03 307.05 58.12 461.28 0.5'/%3E%3Cpolygon class='cls-3' points='24.46 0.5 212.16 142.37 178.88 58.12 24.46 0.5'/%3E%3Cpolygon class='cls-3' points='393.2 326.26 342.81 403.47 450.63 433.14 481.63 327.97 393.2 326.26'/%3E%3Cpolygon class='cls-3' points='4.49 327.97 35.3 433.14 143.13 403.47 92.73 326.26 4.49 327.97'/%3E%3Cpolygon class='cls-3' points='137.04 195.8 107 241.25 214.06 246.01 210.26 130.96 137.04 195.8'/%3E%3Cpolygon class='cls-3' points='348.7 195.8 274.53 129.63 272.06 246.01 378.94 241.25 348.7 195.8'/%3E%3Cpolygon class='cls-3' points='143.13 403.47 207.41 372.09 151.88 328.73 143.13 403.47'/%3E%3Cpolygon class='cls-3' points='278.34 372.09 342.81 403.47 333.87 328.73 278.34 372.09'/%3E%3Cpolygon class='cls-4' points='342.81 403.47 278.34 372.09 283.47 414.12 282.9 431.81 342.81 403.47'/%3E%3Cpolygon class='cls-4' points='143.13 403.47 203.03 431.81 202.65 414.12 207.41 372.09 143.13 403.47'/%3E%3Cpolygon class='cls-5' points='203.98 300.97 150.35 285.18 188.2 267.88 203.98 300.97'/%3E%3Cpolygon class='cls-5' points='281.76 300.97 297.55 267.88 335.58 285.18 281.76 300.97'/%3E%3Cpolygon class='cls-6' points='143.13 403.47 152.25 326.26 92.73 327.97 143.13 403.47'/%3E%3Cpolygon class='cls-6' points='333.68 326.26 342.81 403.47 393.2 327.97 333.68 326.26'/%3E%3Cpolygon class='cls-6' points='378.94 241.25 272.06 246.01 281.95 300.97 297.74 267.88 335.77 285.18 378.94 241.25'/%3E%3Cpolygon class='cls-6' points='150.35 285.18 188.39 267.88 203.98 300.97 214.06 246.01 107 241.25 150.35 285.18'/%3E%3Cpolygon class='cls-7' points='107 241.25 151.88 328.73 150.35 285.18 107 241.25'/%3E%3Cpolygon class='cls-7' points='335.77 285.18 333.87 328.73 378.94 241.25 335.77 285.18'/%3E%3Cpolygon class='cls-7' points='214.06 246.01 203.98 300.97 216.53 365.82 219.38 280.43 214.06 246.01'/%3E%3Cpolygon class='cls-7' points='272.06 246.01 266.93 280.24 269.21 365.82 281.95 300.97 272.06 246.01'/%3E%3Cpolygon class='cls-8' points='281.95 300.97 269.21 365.82 278.34 372.09 333.87 328.73 335.77 285.18 281.95 300.97'/%3E%3Cpolygon class='cls-8' points='150.35 285.18 151.88 328.73 207.41 372.09 216.53 365.82 203.98 300.97 150.35 285.18'/%3E%3Cpolygon class='cls-9' points='282.9 431.81 283.47 414.12 278.72 409.94 207.02 409.94 202.65 414.12 203.03 431.81 143.13 403.47 164.05 420.58 206.45 450.06 279.29 450.06 321.89 420.58 342.81 403.47 282.9 431.81'/%3E%3Cpolygon class='cls-10' points='278.34 372.09 269.21 365.82 216.53 365.82 207.41 372.09 202.65 414.12 207.02 409.94 278.72 409.94 283.47 414.12 278.34 372.09'/%3E%3Cpolygon class='cls-11' points='469.27 150.16 485.43 72.57 461.28 0.5 278.34 136.28 348.7 195.8 448.16 224.9 470.22 199.23 460.71 192.38 475.92 178.5 464.13 169.37 479.35 157.77 469.27 150.16'/%3E%3Cpolygon class='cls-11' points='0.5 72.57 16.66 150.16 6.39 157.77 21.61 169.37 10.01 178.5 25.22 192.38 15.71 199.23 37.58 224.9 137.04 195.8 207.41 136.28 24.46 0.5 0.5 72.57'/%3E%3Cpolygon class='cls-8' points='448.16 224.9 348.7 195.8 378.94 241.25 333.87 328.73 393.2 327.97 481.63 327.97 448.16 224.9'/%3E%3Cpolygon class='cls-8' points='137.04 195.8 37.58 224.9 4.49 327.97 92.73 327.97 151.88 328.73 107 241.25 137.04 195.8'/%3E%3Cpolygon class='cls-8' points='272.06 246.01 278.34 136.28 307.24 58.12 178.88 58.12 207.41 136.28 214.06 246.01 216.34 280.62 216.53 365.82 269.21 365.82 269.59 280.62 272.06 246.01'/%3E%3C/svg%3E";}
-    __init3() {this.blockchains = ['ethereum', 'bsc'];}
-    __init4() {this.install = 'https://metamask.io/download.html';}
-  }
+    static __initStatic() {this.info = {
+      name: 'Coinbase Wallet',
+      logo: "data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 488.96 488.96'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:url(%23linear-gradient);%7D.cls-2%7Bfill:%234361ad;%7D%3C/style%3E%3ClinearGradient id='linear-gradient' x1='250' y1='7.35' x2='250' y2='496.32' gradientTransform='matrix(1, 0, 0, -1, 0, 502)' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%233d5ba9'/%3E%3Cstop offset='1' stop-color='%234868b1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath class='cls-1' d='M250,5.68C114.87,5.68,5.52,115,5.52,250.17S114.87,494.65,250,494.65,494.48,385.29,494.48,250.17,385.13,5.68,250,5.68Zm0,387.54A143.06,143.06,0,1,1,393.05,250.17,143.11,143.11,0,0,1,250,393.22Z' transform='translate(-5.52 -5.68)'/%3E%3Cpath class='cls-2' d='M284.69,296.09H215.31a11,11,0,0,1-10.9-10.9V215.48a11,11,0,0,1,10.9-10.91H285a11,11,0,0,1,10.9,10.91v69.71A11.07,11.07,0,0,1,284.69,296.09Z' transform='translate(-5.52 -5.68)'/%3E%3C/svg%3E",
+      blockchains: ['ethereum', 'bsc'],
+      install: 'https://wallet.coinbase.com'
+    };}
+  } Coinbase.__initStatic();
+
+  class MetaMask extends Web3Wallet {
+
+    static __initStatic() {this.info = {
+      name: 'MetaMask',
+      logo: "data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 485.93 450.56'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23828487;%7D.cls-2%7Bfill:%23e27726;stroke:%23e27726;%7D.cls-10,.cls-11,.cls-2,.cls-3,.cls-4,.cls-5,.cls-6,.cls-7,.cls-8,.cls-9%7Bstroke-linecap:round;stroke-linejoin:round;%7D.cls-3%7Bfill:%23e37725;stroke:%23e37725;%7D.cls-4%7Bfill:%23d6c0b3;stroke:%23d6c0b3;%7D.cls-5%7Bfill:%23243447;stroke:%23243447;%7D.cls-6%7Bfill:%23cd6328;stroke:%23cd6328;%7D.cls-7%7Bfill:%23e37525;stroke:%23e37525;%7D.cls-8%7Bfill:%23f6851f;stroke:%23f6851f;%7D.cls-9%7Bfill:%23c1ae9e;stroke:%23c1ae9e;%7D.cls-10%7Bfill:%23171717;stroke:%23171717;%7D.cls-11%7Bfill:%23763e1a;stroke:%23763e1a;%7D%3C/style%3E%3C/defs%3E%3Cpath class='cls-1' d='M247.91,356.29a26,26,0,1,0-26,26A26,26,0,0,0,247.91,356.29Z' transform='translate(-7.97 -21.33)'/%3E%3Cpath class='cls-1' d='M246.55,149.71a26,26,0,1,0-26,26A26,26,0,0,0,246.55,149.71Z' transform='translate(-7.97 -21.33)'/%3E%3Ccircle class='cls-1' cx='148.4' cy='230.05' r='25.99'/%3E%3Cpolygon class='cls-2' points='461.28 0.5 272.06 141.03 307.05 58.12 461.28 0.5'/%3E%3Cpolygon class='cls-3' points='24.46 0.5 212.16 142.37 178.88 58.12 24.46 0.5'/%3E%3Cpolygon class='cls-3' points='393.2 326.26 342.81 403.47 450.63 433.14 481.63 327.97 393.2 326.26'/%3E%3Cpolygon class='cls-3' points='4.49 327.97 35.3 433.14 143.13 403.47 92.73 326.26 4.49 327.97'/%3E%3Cpolygon class='cls-3' points='137.04 195.8 107 241.25 214.06 246.01 210.26 130.96 137.04 195.8'/%3E%3Cpolygon class='cls-3' points='348.7 195.8 274.53 129.63 272.06 246.01 378.94 241.25 348.7 195.8'/%3E%3Cpolygon class='cls-3' points='143.13 403.47 207.41 372.09 151.88 328.73 143.13 403.47'/%3E%3Cpolygon class='cls-3' points='278.34 372.09 342.81 403.47 333.87 328.73 278.34 372.09'/%3E%3Cpolygon class='cls-4' points='342.81 403.47 278.34 372.09 283.47 414.12 282.9 431.81 342.81 403.47'/%3E%3Cpolygon class='cls-4' points='143.13 403.47 203.03 431.81 202.65 414.12 207.41 372.09 143.13 403.47'/%3E%3Cpolygon class='cls-5' points='203.98 300.97 150.35 285.18 188.2 267.88 203.98 300.97'/%3E%3Cpolygon class='cls-5' points='281.76 300.97 297.55 267.88 335.58 285.18 281.76 300.97'/%3E%3Cpolygon class='cls-6' points='143.13 403.47 152.25 326.26 92.73 327.97 143.13 403.47'/%3E%3Cpolygon class='cls-6' points='333.68 326.26 342.81 403.47 393.2 327.97 333.68 326.26'/%3E%3Cpolygon class='cls-6' points='378.94 241.25 272.06 246.01 281.95 300.97 297.74 267.88 335.77 285.18 378.94 241.25'/%3E%3Cpolygon class='cls-6' points='150.35 285.18 188.39 267.88 203.98 300.97 214.06 246.01 107 241.25 150.35 285.18'/%3E%3Cpolygon class='cls-7' points='107 241.25 151.88 328.73 150.35 285.18 107 241.25'/%3E%3Cpolygon class='cls-7' points='335.77 285.18 333.87 328.73 378.94 241.25 335.77 285.18'/%3E%3Cpolygon class='cls-7' points='214.06 246.01 203.98 300.97 216.53 365.82 219.38 280.43 214.06 246.01'/%3E%3Cpolygon class='cls-7' points='272.06 246.01 266.93 280.24 269.21 365.82 281.95 300.97 272.06 246.01'/%3E%3Cpolygon class='cls-8' points='281.95 300.97 269.21 365.82 278.34 372.09 333.87 328.73 335.77 285.18 281.95 300.97'/%3E%3Cpolygon class='cls-8' points='150.35 285.18 151.88 328.73 207.41 372.09 216.53 365.82 203.98 300.97 150.35 285.18'/%3E%3Cpolygon class='cls-9' points='282.9 431.81 283.47 414.12 278.72 409.94 207.02 409.94 202.65 414.12 203.03 431.81 143.13 403.47 164.05 420.58 206.45 450.06 279.29 450.06 321.89 420.58 342.81 403.47 282.9 431.81'/%3E%3Cpolygon class='cls-10' points='278.34 372.09 269.21 365.82 216.53 365.82 207.41 372.09 202.65 414.12 207.02 409.94 278.72 409.94 283.47 414.12 278.34 372.09'/%3E%3Cpolygon class='cls-11' points='469.27 150.16 485.43 72.57 461.28 0.5 278.34 136.28 348.7 195.8 448.16 224.9 470.22 199.23 460.71 192.38 475.92 178.5 464.13 169.37 479.35 157.77 469.27 150.16'/%3E%3Cpolygon class='cls-11' points='0.5 72.57 16.66 150.16 6.39 157.77 21.61 169.37 10.01 178.5 25.22 192.38 15.71 199.23 37.58 224.9 137.04 195.8 207.41 136.28 24.46 0.5 0.5 72.57'/%3E%3Cpolygon class='cls-8' points='448.16 224.9 348.7 195.8 378.94 241.25 333.87 328.73 393.2 327.97 481.63 327.97 448.16 224.9'/%3E%3Cpolygon class='cls-8' points='137.04 195.8 37.58 224.9 4.49 327.97 92.73 327.97 151.88 328.73 107 241.25 137.04 195.8'/%3E%3Cpolygon class='cls-8' points='272.06 246.01 278.34 136.28 307.24 58.12 178.88 58.12 207.41 136.28 214.06 246.01 216.34 280.62 216.53 365.82 269.21 365.82 269.59 280.62 272.06 246.01'/%3E%3C/svg%3E",
+      blockchains: ['ethereum', 'bsc'],
+      install: 'https://metamask.io/download.html'
+    };}
+  } MetaMask.__initStatic();
 
   function _optionalChain$2$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   const estimate = async ({ transaction, wallet })=> {
@@ -48649,13 +48655,18 @@
   let connectedInstance;
 
   class WalletConnectWallet {
-    __init() {this.name = 'WalletConnect';}
-    __init2() {this.logo =
-      "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 25.4.1, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 500 500' style='enable-background:new 0 0 500 500;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%235991CD;%7D%0A%3C/style%3E%3Cg id='Page-1'%3E%3Cg id='walletconnect-logo-alt'%3E%3Cpath id='WalletConnect' class='st0' d='M102.7,162c81.5-79.8,213.6-79.8,295.1,0l9.8,9.6c4.1,4,4.1,10.5,0,14.4L374,218.9 c-2,2-5.3,2-7.4,0l-13.5-13.2c-56.8-55.7-149-55.7-205.8,0l-14.5,14.1c-2,2-5.3,2-7.4,0L91.9,187c-4.1-4-4.1-10.5,0-14.4 L102.7,162z M467.1,229.9l29.9,29.2c4.1,4,4.1,10.5,0,14.4L362.3,405.4c-4.1,4-10.7,4-14.8,0c0,0,0,0,0,0L252,311.9 c-1-1-2.7-1-3.7,0h0l-95.5,93.5c-4.1,4-10.7,4-14.8,0c0,0,0,0,0,0L3.4,273.6c-4.1-4-4.1-10.5,0-14.4l29.9-29.2 c4.1-4,10.7-4,14.8,0l95.5,93.5c1,1,2.7,1,3.7,0c0,0,0,0,0,0l95.5-93.5c4.1-4,10.7-4,14.8,0c0,0,0,0,0,0l95.5,93.5 c1,1,2.7,1,3.7,0l95.5-93.5C456.4,225.9,463,225.9,467.1,229.9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A";}
-    __init3() {this.blockchains = ['ethereum', 'bsc'];}
 
-    constructor() {WalletConnectWallet.prototype.__init.call(this);WalletConnectWallet.prototype.__init2.call(this);WalletConnectWallet.prototype.__init3.call(this);
-      this.connector = this.newWalletConnectInstance();
+    static __initStatic() {this.info = {
+      name: 'WalletConnect',
+      logo: "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 25.4.1, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 500 500' style='enable-background:new 0 0 500 500;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%235991CD;%7D%0A%3C/style%3E%3Cg id='Page-1'%3E%3Cg id='walletconnect-logo-alt'%3E%3Cpath id='WalletConnect' class='st0' d='M102.7,162c81.5-79.8,213.6-79.8,295.1,0l9.8,9.6c4.1,4,4.1,10.5,0,14.4L374,218.9 c-2,2-5.3,2-7.4,0l-13.5-13.2c-56.8-55.7-149-55.7-205.8,0l-14.5,14.1c-2,2-5.3,2-7.4,0L91.9,187c-4.1-4-4.1-10.5,0-14.4 L102.7,162z M467.1,229.9l29.9,29.2c4.1,4,4.1,10.5,0,14.4L362.3,405.4c-4.1,4-10.7,4-14.8,0c0,0,0,0,0,0L252,311.9 c-1-1-2.7-1-3.7,0h0l-95.5,93.5c-4.1,4-10.7,4-14.8,0c0,0,0,0,0,0L3.4,273.6c-4.1-4-4.1-10.5,0-14.4l29.9-29.2 c4.1-4,10.7-4,14.8,0l95.5,93.5c1,1,2.7,1,3.7,0c0,0,0,0,0,0l95.5-93.5c4.1-4,10.7-4,14.8,0c0,0,0,0,0,0l95.5,93.5 c1,1,2.7,1,3.7,0l95.5-93.5C456.4,225.9,463,225.9,467.1,229.9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A",
+      blockchains: ['ethereum', 'bsc']
+    };}
+    
+    constructor() {
+      this.name = this.constructor.info.name;
+      this.logo = this.constructor.info.logo;
+      this.blockchains = this.constructor.info.blockchains;
+      this.connector = WalletConnectWallet.instance || this.newWalletConnectInstance();
       this.sendTransaction = (transaction)=>{ 
         return sendTransaction({
           wallet: this,
@@ -48697,7 +48708,7 @@
 
       instance.on("modal_closed", ()=>{
         connectedInstance = undefined;
-        this.connector = this.newWalletConnectInstance();
+        this.connector = undefined;
       });
 
       return instance
@@ -48813,18 +48824,20 @@
       let signature = await this.connector.signPersonalMessage(params);
       return signature
     }
-  }
+  } WalletConnectWallet.__initStatic();
 
   const wallets = {
-    MetaMask: new MetaMask(),
-    Coinbase: new Coinbase(),
-    Web3Wallet: new Web3Wallet(),
-    WalletConnect: new WalletConnectWallet()
+    MetaMask,
+    Coinbase,
+    Web3Wallet,
+    WalletConnect: WalletConnectWallet
   };
 
-  let getWallet = function () {
+  const instances = {};
+
+  const getWalletClass = function(){
     if(connectedInstance) {
-      return connectedInstance
+      return wallets.WalletConnect
     } else if (typeof window.ethereum === 'object' && window.ethereum.isMetaMask) {
       return wallets.MetaMask
     } else if (typeof window.ethereum === 'object' && (window.ethereum.isCoinbaseWallet || window.ethereum.isWalletLink)) {
@@ -48834,13 +48847,27 @@
     }
   };
 
+  const getWallet = function () {
+    const walletClass = getWalletClass();
+    const existingInstance = instances[walletClass];
+
+    if(connectedInstance) {
+      return connectedInstance
+    } else if(existingInstance) {
+      return existingInstance
+    } else if(walletClass) {
+      instances[walletClass] = new walletClass();
+      return instances[walletClass]
+    }
+  };
+
   var SelectWalletDialog = (function (props) {
     var _useState = react.useState(false),
         _useState2 = _slicedToArray(_useState, 2),
         showExplanation = _useState2[0],
         setShowExplanation = _useState2[1];
 
-    var _useContext = react.useContext(NavigateStackContext_1),
+    var _useContext = react.useContext(NavigateStackContext),
         navigate = _useContext.navigate;
 
     var wallet = getWallet();
@@ -48873,7 +48900,8 @@
       }, _callee);
     })), [wallet]);
 
-    var connect = function connect(wallet) {
+    var connect = function connect(walletClass) {
+      var wallet = new walletClass();
       props.setWallet(wallet);
       navigate('ConnectingWallet');
       props.connect(wallet);
@@ -48882,7 +48910,7 @@
     var availableWallets = [wallets.WalletConnect];
 
     if (wallet) {
-      availableWallets.unshift(wallet);
+      availableWallets.unshift(wallet.constructor);
     }
 
     var walletCards = availableWallets.map(function (wallet, index) {
@@ -48891,21 +48919,22 @@
         className: "PaddingBottomXS"
       }, /*#__PURE__*/react.createElement("button", {
         className: "Card small",
-        title: "Connect ".concat(wallet.name),
+        title: "Connect ".concat(wallet.info.name),
         onClick: function onClick() {
           return connect(wallet);
         }
       }, /*#__PURE__*/react.createElement("div", {
         className: "CardImage"
       }, /*#__PURE__*/react.createElement("img", {
-        src: wallet.logo
+        className: "transparent",
+        src: wallet.info.logo
       })), /*#__PURE__*/react.createElement("div", {
         className: "CardBody"
       }, /*#__PURE__*/react.createElement("div", {
         className: "CardBodyWrapper PaddingLeftXS"
       }, /*#__PURE__*/react.createElement("h2", {
         className: "CardText FontWeightBold"
-      }, wallet.name)))));
+      }, wallet.info.name)))));
     });
     return /*#__PURE__*/react.createElement(Dialog, {
       header: /*#__PURE__*/react.createElement("div", {
@@ -48914,7 +48943,7 @@
         className: "LineHeightL FontSizeL"
       }, "Select a wallet")),
       body: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS PaddingBottomXS PaddingLeftS PaddingRightS"
+        className: "PaddingBottomS PaddingLeftS PaddingRightS"
       }, walletCards),
       footer: /*#__PURE__*/react.createElement("div", {
         className: "PaddingBottomS"
@@ -49031,7 +49060,7 @@
         }
       }, _callee2);
     })), [wallet]);
-    return /*#__PURE__*/react.createElement(ReactDialogStack_1, {
+    return /*#__PURE__*/react.createElement(ReactDialogStack, {
       open: open,
       close: close,
       start: "SelectWallet",
@@ -49165,7 +49194,7 @@
   }(react.Component);
 
   var ErrorProvider = (function (props) {
-    var _useState = react.useState(),
+    var _useState = react.useState(props.error),
         _useState2 = _slicedToArray(_useState, 2),
         error = _useState2[0],
         setError = _useState2[1];
@@ -49178,8 +49207,8 @@
     var setErrorFromChildren = function setErrorFromChildren(error) {
       setError(error);
 
-      if (props.error) {
-        props.error(error);
+      if (props.errorCallback) {
+        props.errorCallback(error);
       }
     };
 
@@ -49190,7 +49219,7 @@
 
     if (error) {
       console.log(error);
-      return /*#__PURE__*/react.createElement(ReactDialog_1, {
+      return /*#__PURE__*/react.createElement(ReactDialog, {
         container: props.container,
         close: close,
         open: open
@@ -49238,6 +49267,10 @@
     }
   });
 
+  var AlertStyle = (function (style) {
+    return "\n\n    .Alert {\n      background: rgba(0,0,0,0.08);\n      border-radius: 0.4rem;\n      font-weight: 500;\n      padding: 0.5rem;\n    }\n  ";
+  });
+
   var BlockchainLogoStyle = (function (style) {
     return "\n\n    .BlockchainLogo {\n      border-radius: 999px;\n    }\n\n    .BlockchainLogo.small {\n      height: 18px;\n      width: 18px;\n    }\n  ";
   });
@@ -49251,11 +49284,11 @@
   });
 
   var CardStyle = (function (style) {
-    return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n      width: 100%;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.5rem 0.5rem;\n      margin: 0;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 3.6rem;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardImage .BlockchainLogo {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+    return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n      width: 100%;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 4.3rem;\n      padding: 0.4rem 1.3rem;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 1.2rem;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 1rem;\n    }\n\n    .Card.Row .CardImage {\n      width: 2.5rem;\n    }\n\n    .Card.Row .CardImage img {\n      height: 1.9rem;\n      width: 1.9rem;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.5rem 0.5rem;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 1.7rem;\n    }\n\n    .CardImage.small img {\n      height: 1.4rem;\n      width: 1.4rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 3.6rem;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 99rem;\n      border: 1px solid white;\n      background: rgba(0,0,0,0.1);\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardImage .BlockchainLogo {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.26rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
   });
 
   var DialogStyle = (function (style) {
-    return "\n\n    .ReactDialogBackground {\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 900px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n        max-height: 60vh !important;\n      }\n\n      .DialogFooter {\n        padding-bottom: 20px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        max-height: 66vh !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .ReactShadowDOMInsideContainer > .ReactDialog {\n      display: table;\n    }\n\n  ";
+    return "\n\n    .ReactDialogBackground {\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n      background: rgb(248,248,248);\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 900px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n      }\n\n      .DialogFooter {\n        padding-bottom: 20px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.ScrollHeight {\n      height: 30vh !important;\n      max-height: 30vh !important;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      min-height: 3.4rem;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogHeaderActionRight {\n      position: absolute;\n      top: 0;\n      right: 0;\n      height: 3rem;\n    }\n\n    .DialogHeaderActionLeft {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .ReactShadowDOMInsideContainer > .ReactDialog {\n      display: table;\n    }\n\n  ";
   });
 
   var FontStyle = (function (style) {
@@ -49286,6 +49319,10 @@
     return "\n\n    .Label {\n      background: rgb(248,248,248);\n      border-radius: 999px;\n      color: ".concat(style.colors.primary, ";\n      font-size: 0.8rem;\n      padding: 0.1rem 0.5rem;\n      margin: 0.1rem;\n    }\n\n  ");
   });
 
+  var LinkStyle = (function (style) {
+    return "\n\n    .Link {\n      color: ".concat(style.colors.primary, ";\n      cursor: pointer;\n      text-decoration: none;\n    }\n\n    .Link:hover {\n      filter: brightness(0.8);\n    }\n\n    .Link:active {\n      filter: brightness(1.0);\n    }\n  ");
+  });
+
   var LoadingTextStyle = (function (style) {
     return "\n\n    .LoadingText {\n      color: ".concat(style.colors.buttonText, ";\n      display: inline-block;\n      text-decoration: none;\n    }\n\n    @keyframes blink {\n      0% { opacity: .2; }\n      20% { opacity: 1; }\n      100% { opacity: .2; }\n    }\n    \n    .LoadingText .dot {\n      animation-name: blink;\n      animation-duration: 1.4s;\n      animation-iteration-count: infinite;\n      animation-fill-mode: both;\n    }\n    \n    .LoadingText .dot:nth-child(2) {\n      animation-delay: .2s;\n    }\n    \n    .LoadingText .dot:nth-child(3) {\n      animation-delay: .4s;\n    }\n  ");
   });
@@ -49310,8 +49347,16 @@
     return "\n\n      html, body, div, span, applet, object, iframe,\n      h1, h2, h3, h4, h5, h6, p, blockquote, pre,\n      a, abbr, acronym, address, big, cite, code,\n      del, dfn, em, img, ins, kbd, q, s, samp,\n      small, strike, strong, sub, sup, tt, var,\n      b, u, i, center,\n      dl, dt, dd, ol, ul, li,\n      fieldset, form, label, legend,\n      table, caption, tbody, tfoot, thead, tr, th, td,\n      article, aside, canvas, details, embed, \n      figure, figcaption, footer, header, hgroup, \n      menu, nav, output, ruby, section, summary,\n      time, mark, audio, video {\n        margin: 0;\n        padding: 0;\n        border: 0;\n        font-size: 100%;\n        font: inherit;\n        text-align: inherit;\n        vertical-align: baseline;\n      }\n\n      article, aside, details, figcaption, figure, \n      footer, header, hgroup, menu, nav, section {\n        display: block;\n      }\n\n      body {\n        line-height: 1;\n      }\n\n      ol, ul {\n        list-style: none;\n      }\n\n      blockquote, q {\n        quotes: none;\n      }\n\n      blockquote:before, blockquote:after,\n      q:before, q:after {\n        content: '';\n        content: none;\n      }\n      \n      table {\n        border-collapse: collapse;\n        border-spacing: 0;\n      }\n\n      * {\n        box-sizing: border-box;\n      }\n\n      button {\n        border: 0;\n        background: none;\n        outline: none;\n      }\n\n  ";
   });
 
+  var SearchStyle = (function (style) {
+    return "\n\n    .Search {\n      border-radius: 0.8rem;\n      border: 1px solid rgba(0,0,0,0.2);\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 1.2rem;\n      padding: 0.8rem;\n      width: 100%;\n    }\n\n    .Search::placeholder {\n      color: rgb(180,180,180);\n    } \n\n    .Search:focus, .Search:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n  ");
+  });
+
   var SkeletonStyle = (function () {
     return "\n        \n    .Skeleton {\n      background: rgb(230,230,230) !important;\n      border: 0px solid transparent !important;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ";
+  });
+
+  var TableStyle = (function (style) {
+    return "\n\n    .Table {\n      border-collapse: separate;\n      border-radius: 0.4rem;\n      border-style: hidden;\n      border: 1px solid rgba(0,0,0,0.1);\n      font-size: 94%;\n      width: 100%;\n    }\n\n    .Table tr.small td {\n      font-size: 90%;\n    }\n\n    .Table tr td {\n      border-bottom: 1px solid rgba(0,0,0,0.1);\n      word-break: break-all;\n    }\n    \n    .Table tr:last-child td {\n      border-bottom: none;\n    }\n    \n    .Table tr td {\n      padding: 0.5rem 0.9rem;\n      text-align: left;\n    }\n    \n    .Table tr td:first-child {\n      width: 30%\n    }\n\n    .Table tr td:last-child {\n      width: 70%\n    }\n    \n    .Table .TableSubTitle {\n      font-weight: 300;\n      opacity: 0.7;\n    }\n\n    .Table tr td:last-child {\n      font-weight: 500;\n    }\n  ";
   });
 
   var TextButtonStyle = (function (style) {
@@ -49323,7 +49368,15 @@
   });
 
   var TokenAmountStyle = (function () {
-    return "\n        \n    .TokenAmountRow {\n      min-width: 0;\n      width: 100%;\n      display: flex;\n      flex-direction: row;\n    }\n\n    .TokenAmountCell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .TokenSymbolCell {\n      \n    }\n  ";
+    return "\n        \n    .TokenAmountRow {\n      min-width: 0;\n      width: 100%;\n      display: flex;\n      flex-direction: row;\n    }\n\n    .TokenAmountCell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .TokenSymbolCell {\n    }\n  ";
+  });
+
+  var TokenImageStyle = (function (style) {
+    return "\n\n    .TokenImage img {\n      background: white;\n      border-radius: 99rem;\n      border: 1px solid white;\n      background: rgba(0,0,0,0.1);\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .TokenImage.medium img {\n      height: 5.8rem;\n      width: 5.8rem;\n    }\n  ";
+  });
+
+  var TooltipStyle = (function (style) {
+    return "\n\n    .Tooltip {\n      background: ".concat(style.colors.primary, ";\n      border-radius: 0.6rem;\n      color: ").concat(style.colors.buttonText, ";\n      padding: 0.6rem 0.8rem;\n      position: relative;\n      box-shadow: 0 0 8px rgba(0,0,0,0.2);\n    }\n\n    .TooltipArrowUp {\n      border-bottom: 10px solid ").concat(style.colors.primary, ";\n      border-left: 10px solid transparent;\n      border-right: 10px solid transparent;\n      height: 0; \n      left: 12px;\n      position: absolute;\n      top: -8px;\n      width: 0; \n    }\n  ");
   });
 
   var styleRenderer = (function (style) {
@@ -49336,12 +49389,8 @@
       },
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
     }, style);
-    return [ResetStyle(), FontStyle(style), DialogStyle(), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(style), GraphicStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LabelStyle(style), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle(), BlockchainLogoStyle()].join('');
+    return [ResetStyle(), FontStyle(style), DialogStyle(), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(style), GraphicStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LabelStyle(style), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle(), BlockchainLogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style)].join('');
   });
-
-  function _interopDefaultLegacy$2 (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-  var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy$2(reactDom);
 
   const insideContainerClass = 'ReactShadowDOMInsideContainer';
 
@@ -49393,7 +49442,7 @@
       if (shadowRoot) {
         const insideContainer = shadowRoot.childNodes[0];
         if (insideContainer) {
-          ReactDOM__default['default'].unmountComponentAtNode(insideContainer);
+          reactDom.unmountComponentAtNode(insideContainer);
         }
       }
 
@@ -49416,12 +49465,10 @@
       content = content(insideContainer);
     }
 
-    ReactDOM__default['default'].render(content, insideContainer);
+    reactDom.render(content, insideContainer);
 
     return { content, unmount: () => unmount(outsideContainer) }
   }
-
-  var ReactShadowDOM_1 = ReactShadowDOM;
 
   var mount = (function (_ref, content) {
     var style = _ref.style,
@@ -49444,7 +49491,7 @@
       }, 300);
     };
 
-    var _ReactShadowDOM = ReactShadowDOM_1({
+    var _ReactShadowDOM = ReactShadowDOM({
       document: document,
       element: document.body,
       content: content(unmountShadowDOM),
@@ -49533,7 +49580,7 @@
 
                   return function (container) {
                     return /*#__PURE__*/react.createElement(ErrorProvider, {
-                      error: error,
+                      errorCallback: error,
                       container: container,
                       unmount: unmount
                     }, /*#__PURE__*/react.createElement(UpdatableProvider, null, /*#__PURE__*/react.createElement(ClosableProvider, {
@@ -62330,7 +62377,7 @@
     }, [allRoutes]);
 
     if (allRoutes instanceof Array && allRoutes.length == 0) {
-      return /*#__PURE__*/react.createElement(ReactDialogStack_1, {
+      return /*#__PURE__*/react.createElement(ReactDialogStack, {
         open: open,
         close: close,
         start: "NoPaymentMethodFound",
@@ -69096,14 +69143,6 @@
 
   var _default = _Rangeslider2.default;
 
-  var web3Blockchains = /*@__PURE__*/getAugmentedNamespace(es$1);
-
-  var web3Constants = /*@__PURE__*/getAugmentedNamespace(es);
-
-  function _interopDefaultLegacy$1 (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-  var React__default = /*#__PURE__*/_interopDefaultLegacy$1(react);
-
   const _jsxFileName = "/home/runner/work/react-token-image/react-token-image/src/index.jsx";
   let TokenImage = function(props){
 
@@ -69114,8 +69153,8 @@
     const address = props.address;
 
     react.useEffect(()=>{
-      if(web3Constants.CONSTANTS[blockchain].NATIVE.toLowerCase() == address.toLowerCase()) {
-        setSrc(web3Blockchains.Blockchain.findByName(blockchain).logo);
+      if(CONSTANTS$2[blockchain].NATIVE.toLowerCase() == address.toLowerCase()) {
+        setSrc(Blockchain.findByName(blockchain).logo);
       } else {
         setSrc(trustWalletAddress({ blockchain, address }));
       }
@@ -69149,17 +69188,15 @@
     if(src == undefined) { return null }
 
     return(
-      React__default['default'].createElement('img', {
+      react.createElement('img', {
         src:  src ,
         onError:  handleLoadError , __self: this, __source: {fileName: _jsxFileName, lineNumber: 51}}
       )
     )
   };
 
-  var TokenImage_1 = TokenImage;
-
   var ChangeAmountDialog = (function (props) {
-    var _useContext = react.useContext(NavigateStackContext_1),
+    var _useContext = react.useContext(NavigateStackContext),
         navigate = _useContext.navigate;
 
     var _useContext2 = react.useContext(ErrorContext);
@@ -69325,7 +69362,7 @@
     var _useContext3 = react.useContext(PaymentValueContext),
         paymentValue = _useContext3.paymentValue;
 
-    var _useContext4 = react.useContext(NavigateStackContext_1),
+    var _useContext4 = react.useContext(NavigateStackContext),
         navigate = _useContext4.navigate;
 
     var _useState = react.useState([]),
@@ -69372,7 +69409,7 @@
           }
         }, /*#__PURE__*/react.createElement("div", {
           className: "CardImage"
-        }, /*#__PURE__*/react.createElement(TokenImage_1, {
+        }, /*#__PURE__*/react.createElement(TokenImage, {
           blockchain: payment.route.blockchain,
           address: payment.route.fromToken.address
         }), /*#__PURE__*/react.createElement("img", {
@@ -69428,7 +69465,7 @@
         className: "LineHeightL FontSizeL"
       }, "Donation")),
       body: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+        className: "PaddingLeftM PaddingRightM PaddingBottomXS"
       }, /*#__PURE__*/react.createElement("div", {
         className: "Card Skeleton"
       }, /*#__PURE__*/react.createElement("div", {
@@ -69540,7 +69577,7 @@
     var _useContext5 = react.useContext(PaymentValueContext),
         paymentValue = _useContext5.paymentValue;
 
-    var _useContext6 = react.useContext(NavigateStackContext_1),
+    var _useContext6 = react.useContext(NavigateStackContext),
         navigate = _useContext6.navigate;
 
     var _useContext7 = react.useContext(ClosableContext),
@@ -69723,7 +69760,7 @@
         payment = _useContext3.payment,
         paymentState = _useContext3.paymentState;
 
-    var _useContext4 = react.useContext(NavigateStackContext_1),
+    var _useContext4 = react.useContext(NavigateStackContext),
         navigate = _useContext4.navigate;
 
     if (payment == undefined) {
@@ -69737,7 +69774,7 @@
         className: "LineHeightL FontSizeL"
       }, "Donation")),
       body: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+        className: "PaddingLeftM PaddingRightM PaddingBottomXS"
       }, /*#__PURE__*/react.createElement("div", {
         className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
         title: paymentState == 'initialized' ? "Change amount" : undefined,
@@ -69776,7 +69813,7 @@
       }, /*#__PURE__*/react.createElement("div", {
         className: "CardImage",
         title: payment.name
-      }, /*#__PURE__*/react.createElement(TokenImage_1, {
+      }, /*#__PURE__*/react.createElement(TokenImage, {
         blockchain: payment.route.blockchain,
         address: payment.token
       })), /*#__PURE__*/react.createElement("div", {
@@ -69803,7 +69840,7 @@
   });
 
   var PaymentErrorDialog = (function () {
-    var _useContext = react.useContext(NavigateStackContext_1),
+    var _useContext = react.useContext(NavigateStackContext),
         navigate = _useContext.navigate;
 
     var _useContext2 = react.useContext(PaymentContext),
@@ -69851,7 +69888,7 @@
     var _useContext = react.useContext(PaymentContext),
         payment = _useContext.payment;
 
-    var _useContext2 = react.useContext(NavigateStackContext_1),
+    var _useContext2 = react.useContext(NavigateStackContext),
         navigate = _useContext2.navigate;
 
     var blockchain = Blockchain.findByName(payment.route.blockchain);
@@ -69892,7 +69929,7 @@
         open = _useContext.open,
         close = _useContext.close;
 
-    return /*#__PURE__*/react.createElement(ReactDialogStack_1, {
+    return /*#__PURE__*/react.createElement(ReactDialogStack, {
       open: open,
       close: close,
       start: "DonationOverview",
@@ -70146,7 +70183,7 @@
               }, function (unmount) {
                 return function (container) {
                   return /*#__PURE__*/react.createElement(ErrorProvider, {
-                    error: error,
+                    errorCallback: error,
                     container: container,
                     unmount: unmount
                   }, /*#__PURE__*/react.createElement(ConfigurationProvider, {
@@ -70292,7 +70329,7 @@
         _useState2[0];
         _useState2[1];
 
-    return /*#__PURE__*/react.createElement(ReactDialogStack_1, {
+    return /*#__PURE__*/react.createElement(ReactDialogStack, {
       open: open,
       close: close,
       start: "SignLogin",
@@ -70337,7 +70374,7 @@
 
                     return function (container) {
                       return /*#__PURE__*/react.createElement(ErrorProvider, {
-                        error: error,
+                        errorCallback: error,
                         container: container,
                         unmount: unmount
                       }, /*#__PURE__*/react.createElement(ConfigurationProvider, {
@@ -70419,7 +70456,7 @@
         className: "LineHeightL FontSizeL"
       }, "Payment")),
       body: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+        className: "PaddingLeftM PaddingRightM PaddingBottomXS"
       }, amountsMissing && /*#__PURE__*/react.createElement("div", {
         className: "Card Skeleton"
       }, /*#__PURE__*/react.createElement("div", {
@@ -70456,7 +70493,7 @@
     var _useContext4 = react.useContext(PaymentValueContext),
         paymentValue = _useContext4.paymentValue;
 
-    var _useContext5 = react.useContext(NavigateStackContext_1),
+    var _useContext5 = react.useContext(NavigateStackContext),
         navigate = _useContext5.navigate;
 
     if (payment == undefined || paymentValue == undefined) {
@@ -70470,7 +70507,7 @@
         className: "LineHeightL FontSizeL"
       }, "Payment")),
       body: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+        className: "PaddingLeftM PaddingRightM PaddingBottomXS"
       }, amountsMissing && /*#__PURE__*/react.createElement("div", {
         className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
         title: paymentState == 'initialized' ? "Change amount" : undefined,
@@ -70509,7 +70546,7 @@
       }, /*#__PURE__*/react.createElement("div", {
         className: "CardImage",
         title: payment.name
-      }, /*#__PURE__*/react.createElement(TokenImage_1, {
+      }, /*#__PURE__*/react.createElement(TokenImage, {
         blockchain: payment.route.blockchain,
         address: payment.token
       })), /*#__PURE__*/react.createElement("div", {
@@ -70540,7 +70577,7 @@
         open = _useContext.open,
         close = _useContext.close;
 
-    return /*#__PURE__*/react.createElement(ReactDialogStack_1, {
+    return /*#__PURE__*/react.createElement(ReactDialogStack, {
       open: open,
       close: close,
       start: "PaymentOverview",
@@ -70617,7 +70654,7 @@
               }, function (unmount) {
                 return function (container) {
                   return /*#__PURE__*/react.createElement(ErrorProvider, {
-                    error: error,
+                    errorCallback: error,
                     container: container,
                     unmount: unmount
                   }, /*#__PURE__*/react.createElement(ConfigurationProvider, {
@@ -70771,7 +70808,7 @@
         className: "LineHeightL FontSizeL"
       }, "Purchase")),
       body: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+        className: "PaddingLeftM PaddingRightM PaddingBottomXS"
       }, /*#__PURE__*/react.createElement("div", {
         className: "Card Skeleton",
         style: {
@@ -70810,7 +70847,7 @@
         payment = _useContext4.payment,
         paymentState = _useContext4.paymentState;
 
-    var _useContext5 = react.useContext(NavigateStackContext_1),
+    var _useContext5 = react.useContext(NavigateStackContext),
         navigate = _useContext5.navigate;
 
     var _useContext6 = react.useContext(ToTokenContext),
@@ -70842,7 +70879,7 @@
         src: tokenImage
       });
     } else {
-      tokenImageElement = /*#__PURE__*/react.createElement(TokenImage_1, {
+      tokenImageElement = /*#__PURE__*/react.createElement(TokenImage, {
         blockchain: payment.route.blockchain,
         address: toToken.address
       });
@@ -70855,7 +70892,7 @@
         className: "LineHeightL FontSizeL"
       }, "Purchase")),
       body: /*#__PURE__*/react.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+        className: "PaddingLeftM PaddingRightM PaddingBottomXS"
       }, /*#__PURE__*/react.createElement("div", {
         className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
         title: paymentState == 'initialized' ? "Change amount" : undefined,
@@ -70900,7 +70937,7 @@
       }, /*#__PURE__*/react.createElement("div", {
         className: "CardImage",
         title: payment.name
-      }, /*#__PURE__*/react.createElement(TokenImage_1, {
+      }, /*#__PURE__*/react.createElement(TokenImage, {
         blockchain: payment.route.blockchain,
         address: payment.token
       })), /*#__PURE__*/react.createElement("div", {
@@ -70931,7 +70968,7 @@
         open = _useContext.open,
         close = _useContext.close;
 
-    return /*#__PURE__*/react.createElement(ReactDialogStack_1, {
+    return /*#__PURE__*/react.createElement(ReactDialogStack, {
       open: open,
       close: close,
       start: "SaleOverview",
@@ -71021,7 +71058,7 @@
               }, function (unmount) {
                 return function (container) {
                   return /*#__PURE__*/react.createElement(ErrorProvider, {
-                    error: error,
+                    errorCallback: error,
                     container: container,
                     unmount: unmount
                   }, /*#__PURE__*/react.createElement(ConfigurationProvider, {
@@ -71081,12 +71118,552 @@
     };
   }();
 
+  var SelectionContext = /*#__PURE__*/react.createContext();
+
+  var SelectionProvider = (function (props) {
+    var _useState = react.useState({}),
+        _useState2 = _slicedToArray(_useState, 2),
+        selection = _useState2[0],
+        setSelection = _useState2[1];
+
+    return /*#__PURE__*/react.createElement(SelectionContext.Provider, {
+      value: {
+        selection: selection,
+        setSelection: setSelection
+      }
+    }, props.children);
+  });
+
+  var msToTime = (function (ms) {
+    var year, month, day, hour, minute, second;
+    second = Math.floor(ms / 1000);
+    minute = Math.floor(second / 60);
+    second = second % 60;
+    hour = Math.floor(minute / 60);
+    minute = minute % 60;
+    day = Math.floor(hour / 24);
+    hour = hour % 24;
+    month = Math.floor(day / 30);
+    day = day % 30;
+    year = Math.floor(month / 12);
+    month = month % 12;
+    return {
+      year: year,
+      month: month,
+      day: day,
+      hour: hour,
+      minute: minute,
+      second: second
+    };
+  });
+
+  var ConfirmTokenSelectionDialog = (function (props) {
+    var _useContext = react.useContext(SelectionContext),
+        selection = _useContext.selection;
+
+    var _useContext2 = react.useContext(ClosableContext),
+        setOpen = _useContext2.setOpen;
+
+    var token = selection.token;
+    var address = token.address || token.external_id;
+    var logo = token.logo || token.image;
+    var blockchain = Blockchain.findByName(token.blockchain);
+    var age = token.first_transfer ? msToTime(new Date() - new Date(token.first_transfer)) : undefined;
+
+    if (age) {
+      age = [age.year && age.year >= 1 ? age.year >= 2 ? "".concat(age.year, " years") : "1 year" : undefined, age.month && age.month >= 1 ? age.month >= 2 ? "".concat(age.month, " months") : "1 month" : undefined, age.day && age.day >= 1 && age.month <= 1 && age.year < 1 ? age.day >= 2 ? "".concat(age.day, " days !!!") : "1 day !!!" : undefined].filter(function (n) {
+        return n;
+      }).join(' ');
+    }
+
+    var holders = token.unique_senders ? token.unique_senders : undefined;
+
+    if (holders) {
+      if (holders > 1000000) {
+        holders = "Millions";
+      } else if (holders > 100000) {
+        holders = "Hundreds of Thousands";
+      } else if (holders > 2000) {
+        holders = "Thousands";
+      } else if (holders > 100) {
+        holders = "Hundreds";
+      } else {
+        holders = "Only a Few!!!";
+      }
+    }
+
+    var onClickConfirm = function onClickConfirm() {
+      setOpen(false);
+      props.resolve({
+        blockchain: token.blockchain,
+        address: token.external_id,
+        symbol: token.symbol,
+        name: token.name,
+        decimals: token.decimals,
+        logo: token.image
+      });
+      setTimeout(props.unmount, 300);
+    };
+
+    return /*#__PURE__*/react.createElement(Dialog, {
+      header: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+      }, /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("h1", {
+        className: "LineHeightL FontSizeL"
+      }, "Confirm Selection"))),
+      stacked: true,
+      body: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "TokenImage medium"
+      }, logo && /*#__PURE__*/react.createElement("img", {
+        src: logo
+      }), !logo && /*#__PURE__*/react.createElement(TokenImage, {
+        blockchain: token.blockchain,
+        address: address
+      })), /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "Alert"
+      }, /*#__PURE__*/react.createElement("strong", null, "Please review this information"))), /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopXS"
+      }, /*#__PURE__*/react.createElement("table", {
+        className: "Table"
+      }, /*#__PURE__*/react.createElement("tbody", null, /*#__PURE__*/react.createElement("tr", {
+        className: "small"
+      }, /*#__PURE__*/react.createElement("td", {
+        colSpan: "2"
+      }, /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("a", {
+        className: "Link",
+        href: blockchain.explorerUrlFor({
+          token: address
+        }),
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, address)))), /*#__PURE__*/react.createElement("tr", null, /*#__PURE__*/react.createElement("td", null, /*#__PURE__*/react.createElement("div", {
+        className: "TableSubTitle"
+      }, "Blockchain")), /*#__PURE__*/react.createElement("td", null, /*#__PURE__*/react.createElement("div", null, blockchain.label))), /*#__PURE__*/react.createElement("tr", null, /*#__PURE__*/react.createElement("td", null, /*#__PURE__*/react.createElement("div", {
+        className: "TableSubTitle"
+      }, "Symbol")), /*#__PURE__*/react.createElement("td", null, /*#__PURE__*/react.createElement("div", null, token.symbol))), /*#__PURE__*/react.createElement("tr", null, /*#__PURE__*/react.createElement("td", null, /*#__PURE__*/react.createElement("div", {
+        className: "TableSubTitle"
+      }, "Name")), /*#__PURE__*/react.createElement("td", null, /*#__PURE__*/react.createElement("div", null, token.name))), age && /*#__PURE__*/react.createElement("tr", null, /*#__PURE__*/react.createElement("td", null, /*#__PURE__*/react.createElement("div", {
+        className: "TableSubTitle"
+      }, "Age")), /*#__PURE__*/react.createElement("td", null, /*#__PURE__*/react.createElement("div", null, age))), holders && /*#__PURE__*/react.createElement("tr", null, /*#__PURE__*/react.createElement("td", null, /*#__PURE__*/react.createElement("div", {
+        className: "TableSubTitle"
+      }, "Holders")), /*#__PURE__*/react.createElement("td", null, /*#__PURE__*/react.createElement("div", null, holders))))))),
+      footer: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
+      }, /*#__PURE__*/react.createElement("button", {
+        className: "ButtonPrimary",
+        onClick: onClickConfirm
+      }, "Confirm"))
+    });
+  });
+
+  var SelectBlockchainDialog = (function (props) {
+    var _useContext = react.useContext(SelectionContext),
+        setSelection = _useContext.setSelection;
+
+    var _useContext2 = react.useContext(NavigateStackContext),
+        navigate = _useContext2.navigate;
+
+    var stacked = Object.keys(props.selection).length > 1;
+    var blockchains = [Blockchain.findByName('ethereum'), Blockchain.findByName('bsc')];
+
+    var selectBlockchain = function selectBlockchain(blockchain) {
+      setSelection(Object.assign(props.selection, {
+        blockchain: blockchain
+      }));
+
+      if (stacked) {
+        navigate('back');
+      } else {
+        props.resolve(blockchain);
+      }
+    };
+
+    var elements = blockchains.map(function (blockchain, index) {
+      return /*#__PURE__*/react.createElement("div", {
+        key: index,
+        className: "Card Row",
+        onClick: function onClick() {
+          return selectBlockchain(blockchain);
+        }
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/react.createElement("img", {
+        className: "transparent",
+        src: blockchain.logo
+      })), /*#__PURE__*/react.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/react.createElement("span", {
+        className: "CardText"
+      }, blockchain.label)));
+    });
+    return /*#__PURE__*/react.createElement(Dialog, {
+      header: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+      }, /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("h1", {
+        className: "LineHeightL FontSizeL"
+      }, "Select Blockchain"))),
+      stacked: stacked,
+      bodyClassName: "ScrollHeight",
+      body: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS"
+      }, elements),
+      footer: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
+      })
+    });
+  });
+
+  var SelectTokenDialog = (function (props) {
+    var _useContext = react.useContext(NavigateStackContext),
+        navigate = _useContext.navigate;
+
+    var _useContext2 = react.useContext(ClosableContext),
+        setOpen = _useContext2.setOpen;
+
+    var _useContext3 = react.useContext(SelectionContext),
+        setSelection = _useContext3.setSelection;
+
+    var _useState = react.useState(Blockchain.findByName('ethereum')),
+        _useState2 = _slicedToArray(_useState, 2),
+        blockchain = _useState2[0],
+        setBlockchain = _useState2[1];
+
+    var _useState3 = react.useState(),
+        _useState4 = _slicedToArray(_useState3, 2),
+        requestController = _useState4[0],
+        setRequestController = _useState4[1];
+
+    var _useState5 = react.useState(false),
+        _useState6 = _slicedToArray(_useState5, 2),
+        showAddToken = _useState6[0],
+        setShowAddToken = _useState6[1];
+
+    var _useState7 = react.useState([]),
+        _useState8 = _slicedToArray(_useState7, 2),
+        tokens = _useState8[0],
+        setTokens = _useState8[1];
+
+    var _useState9 = react.useState(),
+        _useState10 = _slicedToArray(_useState9, 2);
+        _useState10[0];
+        _useState10[1];
+
+    var searchElement = react.useRef();
+    react.useEffect(function () {
+      setSelection(Object.assign(props.selection, {
+        blockchain: blockchain,
+        token: undefined
+      }));
+    }, []);
+    react.useEffect(function () {
+      setBlockchain(props.selection.blockchain);
+      setTokens(props.selection.blockchain.tokens);
+
+      if (searchElement.current) {
+        searchElement.current.value = '';
+        searchElement.current.focus();
+      }
+    }, [props.selection.blockchain]);
+
+    var onClickChangeBlockchain = function onClickChangeBlockchain() {
+      navigate('SelectBlockchain');
+    };
+
+    var onClickAddToken = function onClickAddToken() {
+      setShowAddToken(true);
+
+      if (searchElement.current) {
+        searchElement.current.value = '';
+        searchElement.current.focus();
+      }
+    };
+
+    var onChangeSearch = function onChangeSearch(event) {
+      if (requestController) {
+        requestController.abort();
+      }
+
+      var newRequestController = new AbortController();
+      setRequestController(newRequestController);
+      var signal = newRequestController.signal;
+      var term = event.target.value;
+
+      if (term.match(/^0x/)) {
+        setTokens([]);
+        var token;
+
+        try {
+          token = new Token({
+            blockchain: blockchain.name,
+            address: term
+          });
+        } catch (_unused) {}
+
+        if (token == undefined) {
+          return;
+        }
+
+        Promise.all([token.name(), token.symbol(), token.decimals()]).then(function (_ref) {
+          var _ref2 = _slicedToArray(_ref, 3),
+              name = _ref2[0],
+              symbol = _ref2[1],
+              decimals = _ref2[2];
+
+          setTokens([{
+            name: name,
+            symbol: symbol,
+            decimals: decimals,
+            address: term,
+            blockchain: blockchain.name
+          }]);
+        });
+      } else if (term && term.length) {
+        setTokens([]);
+        fetch("https://api.depay.fi/v2/tokens/search?blockchain=".concat(blockchain.name, "&term=").concat(term), {
+          signal: signal,
+          headers: {
+            'X-Api-Key': apiKey
+          }
+        }).then(function (response) {
+          if (response.status == 200) {
+            response.json().then(function (tokens) {
+              setTokens(tokens);
+            });
+          }
+        })["catch"](function () {});
+      } else {
+        setTokens(props.selection.blockchain.tokens);
+      }
+    };
+
+    var select = function select(token) {
+      if (blockchain.tokens.find(function (majorToken) {
+        return majorToken.address.toLowerCase() == (token.address || token.external_id).toLowerCase();
+      })) {
+        setOpen(false);
+        props.resolve({
+          blockchain: blockchain.name,
+          address: token.address || token.external_id,
+          logo: token.logo || token.image,
+          name: token.name,
+          symbol: token.symbol,
+          decimals: token.decimals
+        });
+        setTimeout(props.unmount, 300);
+      } else {
+        setSelection(Object.assign(props.selection, {
+          token: token
+        }));
+        navigate('ConfirmTokenSelection');
+      }
+    };
+
+    var elements = tokens.map(function (token, index) {
+      return /*#__PURE__*/react.createElement("div", {
+        key: "".concat(index, "-").concat(token.address),
+        className: "Card Row",
+        onClick: function onClick() {
+          return select(token);
+        }
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardImage"
+      }, token.logo && /*#__PURE__*/react.createElement("img", {
+        src: token.logo
+      }), token.image && /*#__PURE__*/react.createElement("img", {
+        src: token.image
+      }), !(token.logo || token.image) && /*#__PURE__*/react.createElement(TokenImage, {
+        blockchain: token.blockchain,
+        address: token.external_id || token.address
+      })), /*#__PURE__*/react.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardTokenSymbol",
+        title: token.symbol
+      }, /*#__PURE__*/react.createElement("span", {
+        className: "CardText"
+      }, token.symbol)), /*#__PURE__*/react.createElement("div", {
+        className: "CardTokenName",
+        title: token.name
+      }, /*#__PURE__*/react.createElement("span", {
+        className: "CardText"
+      }, token.name))));
+    });
+
+    if (props.selection.blockchain == undefined) {
+      return null;
+    }
+
+    return /*#__PURE__*/react.createElement(Dialog, {
+      header: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+      }, /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("h1", {
+        className: "LineHeightL FontSizeL"
+      }, "Select Token")), /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingBottomXS"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "Card small",
+        onClick: onClickChangeBlockchain
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "CardImage small"
+      }, /*#__PURE__*/react.createElement("img", {
+        className: "transparent",
+        src: props.selection.blockchain.logo
+      })), /*#__PURE__*/react.createElement("div", {
+        className: "CardBody"
+      }, props.selection.blockchain.label), /*#__PURE__*/react.createElement("div", {
+        className: "CardAction"
+      }, /*#__PURE__*/react.createElement(ChevronRight, null)))), /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopXS PaddingBottomS"
+      }, /*#__PURE__*/react.createElement("input", {
+        onChange: onChangeSearch,
+        className: "Search",
+        autoFocus: true,
+        placeholder: "Search name or paste address",
+        ref: searchElement
+      }), showAddToken && /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopXS PaddingRightXS PaddingLeftXS"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "Tooltip"
+      }, /*#__PURE__*/react.createElement("span", {
+        className: "TooltipArrowUp"
+      }), "Paste or enter token address here!")))),
+      bodyClassName: "ScrollHeight",
+      body: /*#__PURE__*/react.createElement("div", {
+        className: ""
+      }, elements),
+      footer: /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "PaddingTopXS PaddingBottomXS"
+      }, /*#__PURE__*/react.createElement("div", {
+        className: "Link",
+        onClick: onClickAddToken
+      }, "Token missing? Add it.")))
+    });
+  });
+
+  var SelectStack = (function (props) {
+    var _useContext = react.useContext(ConfigurationContext),
+        what = _useContext.what;
+
+    var _useContext2 = react.useContext(ClosableContext),
+        open = _useContext2.open,
+        close = _useContext2.close;
+
+    var _useContext3 = react.useContext(SelectionContext),
+        selection = _useContext3.selection;
+
+    var start;
+
+    switch (what) {
+      default:
+        start = 'SelectToken';
+    }
+
+    return /*#__PURE__*/react.createElement(ReactDialogStack, {
+      open: open,
+      close: close,
+      start: start,
+      container: props.container,
+      document: props.document,
+      dialogs: {
+        SelectToken: /*#__PURE__*/react.createElement(SelectTokenDialog, {
+          selection: selection,
+          resolve: props.resolve,
+          unmount: props.unmount
+        }),
+        SelectBlockchain: /*#__PURE__*/react.createElement(SelectBlockchainDialog, {
+          selection: selection,
+          resolve: props.resolve
+        }),
+        ConfirmTokenSelection: /*#__PURE__*/react.createElement(ConfirmTokenSelectionDialog, {
+          selection: selection,
+          resolve: props.resolve,
+          unmount: props.unmount
+        })
+      }
+    });
+  });
+
+  var Select = function Select(options) {
+    var style, error, document, what;
+
+    if (_typeof(options) == 'object') {
+      style = options.style;
+      error = options.error;
+      document = options.document;
+      what = options.what;
+    }
+
+    var startupError;
+
+    if (what == undefined) {
+      startupError = '"what" needs to be configured!';
+    } else if (['token'].indexOf(what) < 0) {
+      startupError = "Unknown \"what\" configured: ".concat(what, "!");
+    }
+
+    return new Promise( /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(resolve, reject) {
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                mount({
+                  style: style,
+                  document: ensureDocument(document)
+                }, function (unmount) {
+                  var userClosedDialog = function userClosedDialog() {
+                    reject('USER_CLOSED_DIALOG');
+                    unmount();
+                  };
+
+                  return function (container) {
+                    return /*#__PURE__*/react.createElement(ErrorProvider, {
+                      error: startupError,
+                      errorCallback: error,
+                      container: container,
+                      unmount: unmount
+                    }, /*#__PURE__*/react.createElement(ConfigurationProvider, {
+                      configuration: {
+                        what: what
+                      }
+                    }, /*#__PURE__*/react.createElement(UpdatableProvider, null, /*#__PURE__*/react.createElement(ClosableProvider, {
+                      unmount: userClosedDialog
+                    }, /*#__PURE__*/react.createElement(SelectionProvider, null, /*#__PURE__*/react.createElement(SelectStack, {
+                      document: document,
+                      container: container,
+                      unmount: unmount,
+                      resolve: resolve
+                    })), /*#__PURE__*/react.createElement(PoweredBy, null)))));
+                  };
+                });
+
+              case 1:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x, _x2) {
+        return _ref.apply(this, arguments);
+      };
+    }());
+  };
+
   var DePayWidgets = {
     Connect: Connect,
     Donation: Donation,
     Login: Login,
     Payment: Payment,
     Sale: Sale,
+    Select: Select,
     provider: provider
   };
 

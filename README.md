@@ -1353,6 +1353,30 @@ DePayWidgets.Login().then(()=>{}).catch((error)=>{
 
 ```
 
+## DePay Select
+
+DePay Select widget allows you to open a dialog that allows you to select things like tokens, etc.
+
+Resolves with what has been selected by the user:
+
+```
+<script src="https://integrate.depay.fi/widgets/v6.js"/>
+```
+
+```javascript
+let token = await DePayWidgets.Select({ what: 'token' })
+
+// token
+// {
+//   address: "0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"
+//   blockchain: "ethereum"
+//   decimals: 18
+//   logo: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb/logo.png"
+//   name: "DePay"
+//   symbol: "DEPAY"
+// }
+```
+
 ## Development
 
 ### Quick start

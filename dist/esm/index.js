@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { NavigateStackContext, ReactDialogStack } from '@depay/react-dialog-stack';
 import { getWallet, wallets } from '@depay/web3-wallets';
 import ReactDOM from 'react-dom';
@@ -924,7 +924,8 @@ var ClosableProvider = (function (props) {
       closable: closable,
       setClosable: setClosable,
       close: close,
-      open: open
+      open: open,
+      setOpen: setOpen
     }
   }, props.children);
 });
@@ -979,23 +980,21 @@ var Dialog$1 = (function (props) {
   }, /*#__PURE__*/React.createElement("div", {
     className: ["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')
   }, props.stacked && /*#__PURE__*/React.createElement("div", {
-    className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
+    className: "DialogHeaderActionLeft PaddingTopS PaddingLeftS PaddingRightS"
   }, /*#__PURE__*/React.createElement("button", {
     onClick: function onClick() {
       return navigate('back');
     },
     className: "ButtonCircular",
     title: "Go back"
-  }, /*#__PURE__*/React.createElement(ChevronLeft, null))), /*#__PURE__*/React.createElement("div", {
-    className: "DialogHeaderTitle"
-  }, props.header), /*#__PURE__*/React.createElement("div", {
-    className: "DialogHeaderAction PaddingTopS PaddingLeftS PaddingRightS"
+  }, /*#__PURE__*/React.createElement(ChevronLeft, null))), props.header, /*#__PURE__*/React.createElement("div", {
+    className: "DialogHeaderActionRight PaddingTopS PaddingLeftS PaddingRightS"
   }, closable && /*#__PURE__*/React.createElement("button", {
     onClick: close,
     className: "ButtonCircular",
     title: "Close dialog"
   }, /*#__PURE__*/React.createElement(CloseIcon, null)))), /*#__PURE__*/React.createElement("div", {
-    className: "DialogBody"
+    className: ["DialogBody", props.bodyClassName].join(' ')
   }, props.body), /*#__PURE__*/React.createElement("div", {
     className: "DialogFooter"
   }, props.footer));
@@ -1125,7 +1124,8 @@ var SelectWalletDialog = (function (props) {
     }, _callee);
   })), [wallet]);
 
-  var connect = function connect(wallet) {
+  var connect = function connect(walletClass) {
+    var wallet = new walletClass();
     props.setWallet(wallet);
     navigate('ConnectingWallet');
     props.connect(wallet);
@@ -1134,7 +1134,7 @@ var SelectWalletDialog = (function (props) {
   var availableWallets = [wallets.WalletConnect];
 
   if (wallet) {
-    availableWallets.unshift(wallet);
+    availableWallets.unshift(wallet.constructor);
   }
 
   var walletCards = availableWallets.map(function (wallet, index) {
@@ -1143,21 +1143,22 @@ var SelectWalletDialog = (function (props) {
       className: "PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("button", {
       className: "Card small",
-      title: "Connect ".concat(wallet.name),
+      title: "Connect ".concat(wallet.info.name),
       onClick: function onClick() {
         return connect(wallet);
       }
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardImage"
     }, /*#__PURE__*/React.createElement("img", {
-      src: wallet.logo
+      className: "transparent",
+      src: wallet.info.logo
     })), /*#__PURE__*/React.createElement("div", {
       className: "CardBody"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardBodyWrapper PaddingLeftXS"
     }, /*#__PURE__*/React.createElement("h2", {
       className: "CardText FontWeightBold"
-    }, wallet.name)))));
+    }, wallet.info.name)))));
   });
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
@@ -1166,7 +1167,7 @@ var SelectWalletDialog = (function (props) {
       className: "LineHeightL FontSizeL"
     }, "Select a wallet")),
     body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingBottomXS PaddingLeftS PaddingRightS"
+      className: "PaddingBottomS PaddingLeftS PaddingRightS"
     }, walletCards),
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomS"
@@ -1386,11 +1387,6 @@ var ErrorContext = /*#__PURE__*/React.createContext();
 
 var ErrorGraphic = "data:image/png;base64,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";
 
-function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
-var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
-
 function ReactDialogStyle (styles) {
   let background =
     typeof styles === 'object' && styles.background ? styles.background : 'rgba(0,0,0,0.4)';
@@ -1457,7 +1453,7 @@ function ReactDialogStyle (styles) {
 }
 
 const _jsxFileName = "/home/runner/work/react-dialog/react-dialog/src/components/Dialog.jsx";
-class Dialog extends React__default['default'].Component {
+class Dialog extends React.Component {
   constructor(props) {
     super(props);
 
@@ -1505,11 +1501,11 @@ class Dialog extends React__default['default'].Component {
     const classNames = ['ReactDialog', this.state.open ? 'ReactDialogOpen' : ''];
     const style = ReactDialogStyle({ background: this.props.background });
     return (
-      React__default['default'].createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName, lineNumber: 54}}
-        , React__default['default'].createElement('style', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 55}}, style)
-        , React__default['default'].createElement('div', { className: "ReactDialogRow", __self: this, __source: {fileName: _jsxFileName, lineNumber: 56}}
-          , React__default['default'].createElement('div', { className: "ReactDialogCell", __self: this, __source: {fileName: _jsxFileName, lineNumber: 57}}
-            , React__default['default'].createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName, lineNumber: 58}} )
+      React.createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName, lineNumber: 54}}
+        , React.createElement('style', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 55}}, style)
+        , React.createElement('div', { className: "ReactDialogRow", __self: this, __source: {fileName: _jsxFileName, lineNumber: 56}}
+          , React.createElement('div', { className: "ReactDialogCell", __self: this, __source: {fileName: _jsxFileName, lineNumber: 57}}
+            , React.createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName, lineNumber: 58}} )
             , this.props.children
           )
         )
@@ -1519,7 +1515,7 @@ class Dialog extends React__default['default'].Component {
 }
 
 const _jsxFileName$1 = "/home/runner/work/react-dialog/react-dialog/src/index.jsx";
-class ReactDialog extends React__default['default'].Component {
+class ReactDialog extends React.Component {
   constructor(props) {
     super(props);
 
@@ -1542,8 +1538,8 @@ class ReactDialog extends React__default['default'].Component {
     let _document = this.props.document || document;
     let container = this.props.container || _document.body;
     if (this.state.open) {
-      return ReactDOM__default['default'].createPortal(
-        React__default['default'].createElement(Dialog, {
+      return ReactDOM.createPortal(
+        React.createElement(Dialog, {
           background: this.props.background,
           close: this.props.close,
           document: _document,
@@ -1559,8 +1555,6 @@ class ReactDialog extends React__default['default'].Component {
     }
   }
 }
-
-var ReactDialog_1 = ReactDialog;
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
@@ -1593,7 +1587,7 @@ var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
 }(React.Component);
 
 var ErrorProvider = (function (props) {
-  var _useState = useState(),
+  var _useState = useState(props.error),
       _useState2 = _slicedToArray(_useState, 2),
       error = _useState2[0],
       setError = _useState2[1];
@@ -1606,8 +1600,8 @@ var ErrorProvider = (function (props) {
   var setErrorFromChildren = function setErrorFromChildren(error) {
     setError(error);
 
-    if (props.error) {
-      props.error(error);
+    if (props.errorCallback) {
+      props.errorCallback(error);
     }
   };
 
@@ -1618,7 +1612,7 @@ var ErrorProvider = (function (props) {
 
   if (error) {
     console.log(error);
-    return /*#__PURE__*/React.createElement(ReactDialog_1, {
+    return /*#__PURE__*/React.createElement(ReactDialog, {
       container: props.container,
       close: close,
       open: open
@@ -1666,6 +1660,10 @@ var ErrorProvider = (function (props) {
   }
 });
 
+var AlertStyle = (function (style) {
+  return "\n\n    .Alert {\n      background: rgba(0,0,0,0.08);\n      border-radius: 0.4rem;\n      font-weight: 500;\n      padding: 0.5rem;\n    }\n  ";
+});
+
 var BlockchainLogoStyle = (function (style) {
   return "\n\n    .BlockchainLogo {\n      border-radius: 999px;\n    }\n\n    .BlockchainLogo.small {\n      height: 18px;\n      width: 18px;\n    }\n  ";
 });
@@ -1679,11 +1677,11 @@ var ButtonPrimaryStyle = (function (style) {
 });
 
 var CardStyle = (function (style) {
-  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n      width: 100%;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.5rem 0.5rem;\n      margin: 0;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 3.6rem;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardImage .BlockchainLogo {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n      width: 100%;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 4.3rem;\n      padding: 0.4rem 1.3rem;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 1.2rem;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 1rem;\n    }\n\n    .Card.Row .CardImage {\n      width: 2.5rem;\n    }\n\n    .Card.Row .CardImage img {\n      height: 1.9rem;\n      width: 1.9rem;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.5rem 0.5rem;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 1.7rem;\n    }\n\n    .CardImage.small img {\n      height: 1.4rem;\n      width: 1.4rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 3.6rem;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 99rem;\n      border: 1px solid white;\n      background: rgba(0,0,0,0.1);\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardImage .BlockchainLogo {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.26rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
 });
 
 var DialogStyle = (function (style) {
-  return "\n\n    .ReactDialogBackground {\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 900px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n        max-height: 60vh !important;\n      }\n\n      .DialogFooter {\n        padding-bottom: 20px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        max-height: 66vh !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.HeightAuto {\n      height: auto;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      display: flex;\n      flex-direction: row;\n      position: relative;\n    }\n\n    .DialogHeaderTitle {\n      flex-basis: auto;\n      flex-grow: 1;\n    }\n    \n    .DialogHeaderAction {\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .ReactShadowDOMInsideContainer > .ReactDialog {\n      display: table;\n    }\n\n  ";
+  return "\n\n    .ReactDialogBackground {\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n      background: rgb(248,248,248);\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 900px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n      }\n\n      .DialogFooter {\n        padding-bottom: 20px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.ScrollHeight {\n      height: 30vh !important;\n      max-height: 30vh !important;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      min-height: 3.4rem;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogHeaderActionRight {\n      position: absolute;\n      top: 0;\n      right: 0;\n      height: 3rem;\n    }\n\n    .DialogHeaderActionLeft {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .ReactShadowDOMInsideContainer > .ReactDialog {\n      display: table;\n    }\n\n  ";
 });
 
 var FontStyle = (function (style) {
@@ -1714,6 +1712,10 @@ var LabelStyle = (function (style) {
   return "\n\n    .Label {\n      background: rgb(248,248,248);\n      border-radius: 999px;\n      color: ".concat(style.colors.primary, ";\n      font-size: 0.8rem;\n      padding: 0.1rem 0.5rem;\n      margin: 0.1rem;\n    }\n\n  ");
 });
 
+var LinkStyle = (function (style) {
+  return "\n\n    .Link {\n      color: ".concat(style.colors.primary, ";\n      cursor: pointer;\n      text-decoration: none;\n    }\n\n    .Link:hover {\n      filter: brightness(0.8);\n    }\n\n    .Link:active {\n      filter: brightness(1.0);\n    }\n  ");
+});
+
 var LoadingTextStyle = (function (style) {
   return "\n\n    .LoadingText {\n      color: ".concat(style.colors.buttonText, ";\n      display: inline-block;\n      text-decoration: none;\n    }\n\n    @keyframes blink {\n      0% { opacity: .2; }\n      20% { opacity: 1; }\n      100% { opacity: .2; }\n    }\n    \n    .LoadingText .dot {\n      animation-name: blink;\n      animation-duration: 1.4s;\n      animation-iteration-count: infinite;\n      animation-fill-mode: both;\n    }\n    \n    .LoadingText .dot:nth-child(2) {\n      animation-delay: .2s;\n    }\n    \n    .LoadingText .dot:nth-child(3) {\n      animation-delay: .4s;\n    }\n  ");
 });
@@ -1738,8 +1740,16 @@ var ResetStyle = (function () {
   return "\n\n      html, body, div, span, applet, object, iframe,\n      h1, h2, h3, h4, h5, h6, p, blockquote, pre,\n      a, abbr, acronym, address, big, cite, code,\n      del, dfn, em, img, ins, kbd, q, s, samp,\n      small, strike, strong, sub, sup, tt, var,\n      b, u, i, center,\n      dl, dt, dd, ol, ul, li,\n      fieldset, form, label, legend,\n      table, caption, tbody, tfoot, thead, tr, th, td,\n      article, aside, canvas, details, embed, \n      figure, figcaption, footer, header, hgroup, \n      menu, nav, output, ruby, section, summary,\n      time, mark, audio, video {\n        margin: 0;\n        padding: 0;\n        border: 0;\n        font-size: 100%;\n        font: inherit;\n        text-align: inherit;\n        vertical-align: baseline;\n      }\n\n      article, aside, details, figcaption, figure, \n      footer, header, hgroup, menu, nav, section {\n        display: block;\n      }\n\n      body {\n        line-height: 1;\n      }\n\n      ol, ul {\n        list-style: none;\n      }\n\n      blockquote, q {\n        quotes: none;\n      }\n\n      blockquote:before, blockquote:after,\n      q:before, q:after {\n        content: '';\n        content: none;\n      }\n      \n      table {\n        border-collapse: collapse;\n        border-spacing: 0;\n      }\n\n      * {\n        box-sizing: border-box;\n      }\n\n      button {\n        border: 0;\n        background: none;\n        outline: none;\n      }\n\n  ";
 });
 
+var SearchStyle = (function (style) {
+  return "\n\n    .Search {\n      border-radius: 0.8rem;\n      border: 1px solid rgba(0,0,0,0.2);\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 1.2rem;\n      padding: 0.8rem;\n      width: 100%;\n    }\n\n    .Search::placeholder {\n      color: rgb(180,180,180);\n    } \n\n    .Search:focus, .Search:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n  ");
+});
+
 var SkeletonStyle = (function () {
   return "\n        \n    .Skeleton {\n      background: rgb(230,230,230) !important;\n      border: 0px solid transparent !important;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ";
+});
+
+var TableStyle = (function (style) {
+  return "\n\n    .Table {\n      border-collapse: separate;\n      border-radius: 0.4rem;\n      border-style: hidden;\n      border: 1px solid rgba(0,0,0,0.1);\n      font-size: 94%;\n      width: 100%;\n    }\n\n    .Table tr.small td {\n      font-size: 90%;\n    }\n\n    .Table tr td {\n      border-bottom: 1px solid rgba(0,0,0,0.1);\n      word-break: break-all;\n    }\n    \n    .Table tr:last-child td {\n      border-bottom: none;\n    }\n    \n    .Table tr td {\n      padding: 0.5rem 0.9rem;\n      text-align: left;\n    }\n    \n    .Table tr td:first-child {\n      width: 30%\n    }\n\n    .Table tr td:last-child {\n      width: 70%\n    }\n    \n    .Table .TableSubTitle {\n      font-weight: 300;\n      opacity: 0.7;\n    }\n\n    .Table tr td:last-child {\n      font-weight: 500;\n    }\n  ";
 });
 
 var TextButtonStyle = (function (style) {
@@ -1751,7 +1761,15 @@ var TextStyle = (function (style) {
 });
 
 var TokenAmountStyle = (function () {
-  return "\n        \n    .TokenAmountRow {\n      min-width: 0;\n      width: 100%;\n      display: flex;\n      flex-direction: row;\n    }\n\n    .TokenAmountCell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .TokenSymbolCell {\n      \n    }\n  ";
+  return "\n        \n    .TokenAmountRow {\n      min-width: 0;\n      width: 100%;\n      display: flex;\n      flex-direction: row;\n    }\n\n    .TokenAmountCell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .TokenSymbolCell {\n    }\n  ";
+});
+
+var TokenImageStyle = (function (style) {
+  return "\n\n    .TokenImage img {\n      background: white;\n      border-radius: 99rem;\n      border: 1px solid white;\n      background: rgba(0,0,0,0.1);\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .TokenImage.medium img {\n      height: 5.8rem;\n      width: 5.8rem;\n    }\n  ";
+});
+
+var TooltipStyle = (function (style) {
+  return "\n\n    .Tooltip {\n      background: ".concat(style.colors.primary, ";\n      border-radius: 0.6rem;\n      color: ").concat(style.colors.buttonText, ";\n      padding: 0.6rem 0.8rem;\n      position: relative;\n      box-shadow: 0 0 8px rgba(0,0,0,0.2);\n    }\n\n    .TooltipArrowUp {\n      border-bottom: 10px solid ").concat(style.colors.primary, ";\n      border-left: 10px solid transparent;\n      border-right: 10px solid transparent;\n      height: 0; \n      left: 12px;\n      position: absolute;\n      top: -8px;\n      width: 0; \n    }\n  ");
 });
 
 var styleRenderer = (function (style) {
@@ -1764,7 +1782,7 @@ var styleRenderer = (function (style) {
     },
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
   }, style);
-  return [ResetStyle(), FontStyle(style), DialogStyle(), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(style), GraphicStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LabelStyle(style), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle(), BlockchainLogoStyle()].join('');
+  return [ResetStyle(), FontStyle(style), DialogStyle(), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(style), GraphicStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LabelStyle(style), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle(), BlockchainLogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style)].join('');
 });
 
 var mount = (function (_ref, content) {
@@ -1877,7 +1895,7 @@ var Connect = function Connect(options) {
 
                 return function (container) {
                   return /*#__PURE__*/React.createElement(ErrorProvider, {
-                    error: error,
+                    errorCallback: error,
                     container: container,
                     unmount: unmount
                   }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
@@ -3008,7 +3026,7 @@ var DonationOverviewSkeleton = (function (props) {
       className: "LineHeightL FontSizeL"
     }, "Donation")),
     body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "Card Skeleton"
     }, /*#__PURE__*/React.createElement("div", {
@@ -3317,7 +3335,7 @@ var DonationOverviewDialog = (function (props) {
       className: "LineHeightL FontSizeL"
     }, "Donation")),
     body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
       title: paymentState == 'initialized' ? "Change amount" : undefined,
@@ -3726,7 +3744,7 @@ var Donation = /*#__PURE__*/function () {
             }, function (unmount) {
               return function (container) {
                 return /*#__PURE__*/React.createElement(ErrorProvider, {
-                  error: error,
+                  errorCallback: error,
                   container: container,
                   unmount: unmount
                 }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
@@ -3917,7 +3935,7 @@ var Login = function Login(options) {
 
                   return function (container) {
                     return /*#__PURE__*/React.createElement(ErrorProvider, {
-                      error: error,
+                      errorCallback: error,
                       container: container,
                       unmount: unmount
                     }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
@@ -3999,7 +4017,7 @@ var PaymentOverviewSkeleton = (function (props) {
       className: "LineHeightL FontSizeL"
     }, "Payment")),
     body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
     }, amountsMissing && /*#__PURE__*/React.createElement("div", {
       className: "Card Skeleton"
     }, /*#__PURE__*/React.createElement("div", {
@@ -4050,7 +4068,7 @@ var PaymentOverviewDialog = (function (props) {
       className: "LineHeightL FontSizeL"
     }, "Payment")),
     body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
     }, amountsMissing && /*#__PURE__*/React.createElement("div", {
       className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
       title: paymentState == 'initialized' ? "Change amount" : undefined,
@@ -4197,7 +4215,7 @@ var Payment = /*#__PURE__*/function () {
             }, function (unmount) {
               return function (container) {
                 return /*#__PURE__*/React.createElement(ErrorProvider, {
-                  error: error,
+                  errorCallback: error,
                   container: container,
                   unmount: unmount
                 }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
@@ -4351,7 +4369,7 @@ var SaleOverviewSkeleton = (function (props) {
       className: "LineHeightL FontSizeL"
     }, "Purchase")),
     body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "Card Skeleton",
       style: {
@@ -4435,7 +4453,7 @@ var SaleOverviewDialog = (function (props) {
       className: "LineHeightL FontSizeL"
     }, "Purchase")),
     body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
       title: paymentState == 'initialized' ? "Change amount" : undefined,
@@ -4601,7 +4619,7 @@ var Sale = /*#__PURE__*/function () {
             }, function (unmount) {
               return function (container) {
                 return /*#__PURE__*/React.createElement(ErrorProvider, {
-                  error: error,
+                  errorCallback: error,
                   container: container,
                   unmount: unmount
                 }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
@@ -4661,12 +4679,552 @@ var Sale = /*#__PURE__*/function () {
   };
 }();
 
+var SelectionContext = /*#__PURE__*/React.createContext();
+
+var SelectionProvider = (function (props) {
+  var _useState = useState({}),
+      _useState2 = _slicedToArray(_useState, 2),
+      selection = _useState2[0],
+      setSelection = _useState2[1];
+
+  return /*#__PURE__*/React.createElement(SelectionContext.Provider, {
+    value: {
+      selection: selection,
+      setSelection: setSelection
+    }
+  }, props.children);
+});
+
+var msToTime = (function (ms) {
+  var year, month, day, hour, minute, second;
+  second = Math.floor(ms / 1000);
+  minute = Math.floor(second / 60);
+  second = second % 60;
+  hour = Math.floor(minute / 60);
+  minute = minute % 60;
+  day = Math.floor(hour / 24);
+  hour = hour % 24;
+  month = Math.floor(day / 30);
+  day = day % 30;
+  year = Math.floor(month / 12);
+  month = month % 12;
+  return {
+    year: year,
+    month: month,
+    day: day,
+    hour: hour,
+    minute: minute,
+    second: second
+  };
+});
+
+var ConfirmTokenSelectionDialog = (function (props) {
+  var _useContext = useContext(SelectionContext),
+      selection = _useContext.selection;
+
+  var _useContext2 = useContext(ClosableContext),
+      setOpen = _useContext2.setOpen;
+
+  var token = selection.token;
+  var address = token.address || token.external_id;
+  var logo = token.logo || token.image;
+  var blockchain = Blockchain.findByName(token.blockchain);
+  var age = token.first_transfer ? msToTime(new Date() - new Date(token.first_transfer)) : undefined;
+
+  if (age) {
+    age = [age.year && age.year >= 1 ? age.year >= 2 ? "".concat(age.year, " years") : "1 year" : undefined, age.month && age.month >= 1 ? age.month >= 2 ? "".concat(age.month, " months") : "1 month" : undefined, age.day && age.day >= 1 && age.month <= 1 && age.year < 1 ? age.day >= 2 ? "".concat(age.day, " days !!!") : "1 day !!!" : undefined].filter(function (n) {
+      return n;
+    }).join(' ');
+  }
+
+  var holders = token.unique_senders ? token.unique_senders : undefined;
+
+  if (holders) {
+    if (holders > 1000000) {
+      holders = "Millions";
+    } else if (holders > 100000) {
+      holders = "Hundreds of Thousands";
+    } else if (holders > 2000) {
+      holders = "Thousands";
+    } else if (holders > 100) {
+      holders = "Hundreds";
+    } else {
+      holders = "Only a Few!!!";
+    }
+  }
+
+  var onClickConfirm = function onClickConfirm() {
+    setOpen(false);
+    props.resolve({
+      blockchain: token.blockchain,
+      address: token.external_id,
+      symbol: token.symbol,
+      name: token.name,
+      decimals: token.decimals,
+      logo: token.image
+    });
+    setTimeout(props.unmount, 300);
+  };
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Confirm Selection"))),
+    stacked: true,
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "TokenImage medium"
+    }, logo && /*#__PURE__*/React.createElement("img", {
+      src: logo
+    }), !logo && /*#__PURE__*/React.createElement(TokenImage, {
+      blockchain: token.blockchain,
+      address: address
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Alert"
+    }, /*#__PURE__*/React.createElement("strong", null, "Please review this information"))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("table", {
+      className: "Table"
+    }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", {
+      className: "small"
+    }, /*#__PURE__*/React.createElement("td", {
+      colSpan: "2"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
+      className: "Link",
+      href: blockchain.explorerUrlFor({
+        token: address
+      }),
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }, address)))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "TableSubTitle"
+    }, "Blockchain")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, blockchain.label))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "TableSubTitle"
+    }, "Symbol")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, token.symbol))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "TableSubTitle"
+    }, "Name")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, token.name))), age && /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "TableSubTitle"
+    }, "Age")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, age))), holders && /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "TableSubTitle"
+    }, "Holders")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, holders))))))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: onClickConfirm
+    }, "Confirm"))
+  });
+});
+
+var SelectBlockchainDialog = (function (props) {
+  var _useContext = useContext(SelectionContext),
+      setSelection = _useContext.setSelection;
+
+  var _useContext2 = useContext(NavigateStackContext),
+      navigate = _useContext2.navigate;
+
+  var stacked = Object.keys(props.selection).length > 1;
+  var blockchains = [Blockchain.findByName('ethereum'), Blockchain.findByName('bsc')];
+
+  var selectBlockchain = function selectBlockchain(blockchain) {
+    setSelection(Object.assign(props.selection, {
+      blockchain: blockchain
+    }));
+
+    if (stacked) {
+      navigate('back');
+    } else {
+      props.resolve(blockchain);
+    }
+  };
+
+  var elements = blockchains.map(function (blockchain, index) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: index,
+      className: "Card Row",
+      onClick: function onClick() {
+        return selectBlockchain(blockchain);
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardImage"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "transparent",
+      src: blockchain.logo
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "CardText"
+    }, blockchain.label)));
+  });
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Select Blockchain"))),
+    stacked: stacked,
+    bodyClassName: "ScrollHeight",
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS"
+    }, elements),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
+    })
+  });
+});
+
+var SelectTokenDialog = (function (props) {
+  var _useContext = useContext(NavigateStackContext),
+      navigate = _useContext.navigate;
+
+  var _useContext2 = useContext(ClosableContext),
+      setOpen = _useContext2.setOpen;
+
+  var _useContext3 = useContext(SelectionContext),
+      setSelection = _useContext3.setSelection;
+
+  var _useState = useState(Blockchain.findByName('ethereum')),
+      _useState2 = _slicedToArray(_useState, 2),
+      blockchain = _useState2[0],
+      setBlockchain = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      requestController = _useState4[0],
+      setRequestController = _useState4[1];
+
+  var _useState5 = useState(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      showAddToken = _useState6[0],
+      setShowAddToken = _useState6[1];
+
+  var _useState7 = useState([]),
+      _useState8 = _slicedToArray(_useState7, 2),
+      tokens = _useState8[0],
+      setTokens = _useState8[1];
+
+  var _useState9 = useState(),
+      _useState10 = _slicedToArray(_useState9, 2);
+      _useState10[0];
+      _useState10[1];
+
+  var searchElement = useRef();
+  useEffect(function () {
+    setSelection(Object.assign(props.selection, {
+      blockchain: blockchain,
+      token: undefined
+    }));
+  }, []);
+  useEffect(function () {
+    setBlockchain(props.selection.blockchain);
+    setTokens(props.selection.blockchain.tokens);
+
+    if (searchElement.current) {
+      searchElement.current.value = '';
+      searchElement.current.focus();
+    }
+  }, [props.selection.blockchain]);
+
+  var onClickChangeBlockchain = function onClickChangeBlockchain() {
+    navigate('SelectBlockchain');
+  };
+
+  var onClickAddToken = function onClickAddToken() {
+    setShowAddToken(true);
+
+    if (searchElement.current) {
+      searchElement.current.value = '';
+      searchElement.current.focus();
+    }
+  };
+
+  var onChangeSearch = function onChangeSearch(event) {
+    if (requestController) {
+      requestController.abort();
+    }
+
+    var newRequestController = new AbortController();
+    setRequestController(newRequestController);
+    var signal = newRequestController.signal;
+    var term = event.target.value;
+
+    if (term.match(/^0x/)) {
+      setTokens([]);
+      var token;
+
+      try {
+        token = new Token({
+          blockchain: blockchain.name,
+          address: term
+        });
+      } catch (_unused) {}
+
+      if (token == undefined) {
+        return;
+      }
+
+      Promise.all([token.name(), token.symbol(), token.decimals()]).then(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 3),
+            name = _ref2[0],
+            symbol = _ref2[1],
+            decimals = _ref2[2];
+
+        setTokens([{
+          name: name,
+          symbol: symbol,
+          decimals: decimals,
+          address: term,
+          blockchain: blockchain.name
+        }]);
+      });
+    } else if (term && term.length) {
+      setTokens([]);
+      fetch("https://api.depay.fi/v2/tokens/search?blockchain=".concat(blockchain.name, "&term=").concat(term), {
+        signal: signal,
+        headers: {
+          'X-Api-Key': apiKey
+        }
+      }).then(function (response) {
+        if (response.status == 200) {
+          response.json().then(function (tokens) {
+            setTokens(tokens);
+          });
+        }
+      })["catch"](function () {});
+    } else {
+      setTokens(props.selection.blockchain.tokens);
+    }
+  };
+
+  var select = function select(token) {
+    if (blockchain.tokens.find(function (majorToken) {
+      return majorToken.address.toLowerCase() == (token.address || token.external_id).toLowerCase();
+    })) {
+      setOpen(false);
+      props.resolve({
+        blockchain: blockchain.name,
+        address: token.address || token.external_id,
+        logo: token.logo || token.image,
+        name: token.name,
+        symbol: token.symbol,
+        decimals: token.decimals
+      });
+      setTimeout(props.unmount, 300);
+    } else {
+      setSelection(Object.assign(props.selection, {
+        token: token
+      }));
+      navigate('ConfirmTokenSelection');
+    }
+  };
+
+  var elements = tokens.map(function (token, index) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: "".concat(index, "-").concat(token.address),
+      className: "Card Row",
+      onClick: function onClick() {
+        return select(token);
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardImage"
+    }, token.logo && /*#__PURE__*/React.createElement("img", {
+      src: token.logo
+    }), token.image && /*#__PURE__*/React.createElement("img", {
+      src: token.image
+    }), !(token.logo || token.image) && /*#__PURE__*/React.createElement(TokenImage, {
+      blockchain: token.blockchain,
+      address: token.external_id || token.address
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardTokenSymbol",
+      title: token.symbol
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "CardText"
+    }, token.symbol)), /*#__PURE__*/React.createElement("div", {
+      className: "CardTokenName",
+      title: token.name
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "CardText"
+    }, token.name))));
+  });
+
+  if (props.selection.blockchain == undefined) {
+    return null;
+  }
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Select Token")), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Card small",
+      onClick: onClickChangeBlockchain
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardImage small"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "transparent",
+      src: props.selection.blockchain.logo
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, props.selection.blockchain.label), /*#__PURE__*/React.createElement("div", {
+      className: "CardAction"
+    }, /*#__PURE__*/React.createElement(ChevronRight, null)))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("input", {
+      onChange: onChangeSearch,
+      className: "Search",
+      autoFocus: true,
+      placeholder: "Search name or paste address",
+      ref: searchElement
+    }), showAddToken && /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightXS PaddingLeftXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Tooltip"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "TooltipArrowUp"
+    }), "Paste or enter token address here!")))),
+    bodyClassName: "ScrollHeight",
+    body: /*#__PURE__*/React.createElement("div", {
+      className: ""
+    }, elements),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Link",
+      onClick: onClickAddToken
+    }, "Token missing? Add it.")))
+  });
+});
+
+var SelectStack = (function (props) {
+  var _useContext = useContext(ConfigurationContext),
+      what = _useContext.what;
+
+  var _useContext2 = useContext(ClosableContext),
+      open = _useContext2.open,
+      close = _useContext2.close;
+
+  var _useContext3 = useContext(SelectionContext),
+      selection = _useContext3.selection;
+
+  var start;
+
+  switch (what) {
+    default:
+      start = 'SelectToken';
+  }
+
+  return /*#__PURE__*/React.createElement(ReactDialogStack, {
+    open: open,
+    close: close,
+    start: start,
+    container: props.container,
+    document: props.document,
+    dialogs: {
+      SelectToken: /*#__PURE__*/React.createElement(SelectTokenDialog, {
+        selection: selection,
+        resolve: props.resolve,
+        unmount: props.unmount
+      }),
+      SelectBlockchain: /*#__PURE__*/React.createElement(SelectBlockchainDialog, {
+        selection: selection,
+        resolve: props.resolve
+      }),
+      ConfirmTokenSelection: /*#__PURE__*/React.createElement(ConfirmTokenSelectionDialog, {
+        selection: selection,
+        resolve: props.resolve,
+        unmount: props.unmount
+      })
+    }
+  });
+});
+
+var Select = function Select(options) {
+  var style, error, document, what;
+
+  if (_typeof(options) == 'object') {
+    style = options.style;
+    error = options.error;
+    document = options.document;
+    what = options.what;
+  }
+
+  var startupError;
+
+  if (what == undefined) {
+    startupError = '"what" needs to be configured!';
+  } else if (['token'].indexOf(what) < 0) {
+    startupError = "Unknown \"what\" configured: ".concat(what, "!");
+  }
+
+  return new Promise( /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(resolve, reject) {
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              mount({
+                style: style,
+                document: ensureDocument(document)
+              }, function (unmount) {
+                var userClosedDialog = function userClosedDialog() {
+                  reject('USER_CLOSED_DIALOG');
+                  unmount();
+                };
+
+                return function (container) {
+                  return /*#__PURE__*/React.createElement(ErrorProvider, {
+                    error: startupError,
+                    errorCallback: error,
+                    container: container,
+                    unmount: unmount
+                  }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
+                    configuration: {
+                      what: what
+                    }
+                  }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
+                    unmount: userClosedDialog
+                  }, /*#__PURE__*/React.createElement(SelectionProvider, null, /*#__PURE__*/React.createElement(SelectStack, {
+                    document: document,
+                    container: container,
+                    unmount: unmount,
+                    resolve: resolve
+                  })), /*#__PURE__*/React.createElement(PoweredBy, null)))));
+                };
+              });
+
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }());
+};
+
 var DePayWidgets = {
   Connect: Connect,
   Donation: Donation,
   Login: Login,
   Payment: Payment,
   Sale: Sale,
+  Select: Select,
   provider: provider
 };
 
