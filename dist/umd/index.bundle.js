@@ -71196,11 +71196,11 @@
       setOpen(false);
       props.resolve({
         blockchain: token.blockchain,
-        address: token.external_id,
+        address: token.external_id || token.address,
         symbol: token.symbol,
         name: token.name,
         decimals: token.decimals,
-        logo: token.image
+        logo: token.image || token.logo
       });
       setTimeout(props.unmount, 300);
     };
