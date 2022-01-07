@@ -71327,15 +71327,15 @@
     var _useContext3 = react.useContext(SelectionContext),
         setSelection = _useContext3.setSelection;
 
-    var _useState = react.useState(Blockchain.findByName('ethereum')),
+    var _useState = react.useState(),
         _useState2 = _slicedToArray(_useState, 2),
-        blockchain = _useState2[0],
-        setBlockchain = _useState2[1];
+        requestController = _useState2[0],
+        setRequestController = _useState2[1];
 
     var _useState3 = react.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
-        requestController = _useState4[0],
-        setRequestController = _useState4[1];
+        blockchain = _useState4[0],
+        setBlockchain = _useState4[1];
 
     var _useState5 = react.useState(false),
         _useState6 = _slicedToArray(_useState5, 2),
@@ -71353,21 +71353,41 @@
         _useState10[1];
 
     var searchElement = react.useRef();
+    var wallet = getWallet();
     react.useEffect(function () {
-      setSelection(Object.assign(props.selection, {
-        blockchain: blockchain,
-        token: undefined
-      }));
+      var blockchain;
+
+      if (wallet) {
+        wallet.connectedTo().then(function (name) {
+          blockchain = Blockchain.findByName(name);
+          setBlockchain(blockchain);
+          setSelection(Object.assign(props.selection, {
+            blockchain: blockchain,
+            token: undefined
+          }));
+          setTokens(blockchain.tokens);
+        });
+      } else {
+        blockchain = Blockchain.findByName('ethereum');
+        setBlockchain(blockchain);
+        setSelection(Object.assign(props.selection, {
+          blockchain: blockchain,
+          token: undefined
+        }));
+        setTokens(blockchain.tokens);
+      }
     }, []);
     react.useEffect(function () {
-      setBlockchain(props.selection.blockchain);
-      setTokens(props.selection.blockchain.tokens);
+      if (props.selection.blockchain) {
+        setBlockchain(props.selection.blockchain);
+        setTokens(props.selection.blockchain.tokens);
 
-      if (searchElement.current) {
-        searchElement.current.value = '';
-        searchElement.current.focus();
+        if (searchElement.current) {
+          searchElement.current.value = '';
+          searchElement.current.focus();
+        }
       }
-    }, [props.selection.blockchain]);
+    }, [props.selection, props.selection.blockchain]);
 
     var onClickChangeBlockchain = function onClickChangeBlockchain() {
       navigate('SelectBlockchain');
@@ -71436,7 +71456,7 @@
           }
         })["catch"](function () {});
       } else {
-        setTokens(props.selection.blockchain.tokens);
+        setTokens(blockchain.tokens);
       }
     };
 
@@ -71493,7 +71513,7 @@
       }, token.name))));
     });
 
-    if (props.selection.blockchain == undefined) {
+    if (blockchain == undefined) {
       return null;
     }
 
@@ -71511,10 +71531,10 @@
         className: "CardImage small"
       }, /*#__PURE__*/react.createElement("img", {
         className: "transparent",
-        src: props.selection.blockchain.logo
+        src: blockchain.logo
       })), /*#__PURE__*/react.createElement("div", {
         className: "CardBody"
-      }, props.selection.blockchain.label), /*#__PURE__*/react.createElement("div", {
+      }, blockchain.label), /*#__PURE__*/react.createElement("div", {
         className: "CardAction"
       }, /*#__PURE__*/react.createElement(ChevronRight, null)))), /*#__PURE__*/react.createElement("div", {
         className: "PaddingTopXS PaddingBottomS"

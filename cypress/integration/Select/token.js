@@ -23,7 +23,6 @@ describe('Select Widget', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.Row .CardTokenSymbol .CardText', 'ETH')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.Row .CardTokenSymbol .CardText', 'USDC')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.Row .CardTokenSymbol .CardText', 'ETH').click().then(()=>{
-          console.log(selectedToken)
           expect(selectedToken['blockchain']).to.equal('ethereum')
           expect(selectedToken['name']).to.equal('Ether')
           expect(selectedToken['symbol']).to.equal('ETH')
@@ -232,6 +231,23 @@ describe('Select Widget', () => {
               })
             })
           })
+        })
+      })
+    })
+  })
+
+  describe('intially selected blockchain', ()=> {
+
+    beforeEach(()=>{
+      const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
+      mock({ blockchain: 'bsc', wallet: 'metamask', accounts: { return: accounts } })
+    })
+
+    it.only('automatically selects the currently connected blockchain when widget opens', async()=>{
+      cy.document().then(async (document)=>{
+        DePayWidgets.Select({ document, what: 'token' })
+        cy.wait(1000).then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.small', 'Binance Smart Chain')
         })
       })
     })

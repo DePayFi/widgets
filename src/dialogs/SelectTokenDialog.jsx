@@ -5,6 +5,7 @@ import Dialog from '../components/Dialog'
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import SelectionContext from '../contexts/SelectionContext'
 import { Blockchain } from '@depay/web3-blockchains'
+import { getWallet } from '@depay/web3-wallets'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { Token } from '@depay/web3-tokens'
 import { TokenImage } from '@depay/react-token-image'
@@ -14,25 +15,41 @@ export default (props)=> {
   const { navigate } = useContext(NavigateStackContext)
   const { setOpen } = useContext(ClosableContext)
   const { setSelection } = useContext(SelectionContext)
-  const [ blockchain, setBlockchain ] = useState(Blockchain.findByName('ethereum'))
   const [ requestController, setRequestController ] = useState()
+  const [ blockchain, setBlockchain ] = useState()
   const [ showAddToken, setShowAddToken ] = useState(false)
   const [ tokens, setTokens ] = useState([])
   const [ mainResolve, setMainResolve ] = useState()
-  const searchElement = useRef();
+  const searchElement = useRef()
+  const wallet = getWallet()
 
   useEffect(()=>{
-    setSelection(Object.assign(props.selection, { blockchain, token: undefined }))
+    let blockchain
+    if(wallet) {
+      wallet.connectedTo().then((name)=>{
+        blockchain = Blockchain.findByName(name)
+        setBlockchain(blockchain)
+        setSelection(Object.assign(props.selection, { blockchain, token: undefined }))
+        setTokens(blockchain.tokens)
+      })
+    } else {
+      blockchain = Blockchain.findByName('ethereum')
+      setBlockchain(blockchain)
+      setSelection(Object.assign(props.selection, { blockchain, token: undefined }))
+      setTokens(blockchain.tokens)
+    }
   }, [])
 
   useEffect(()=>{
-    setBlockchain(props.selection.blockchain)
-    setTokens(props.selection.blockchain.tokens)
-    if (searchElement.current) { 
-      searchElement.current.value = ''
-      searchElement.current.focus() 
+    if(props.selection.blockchain) {
+      setBlockchain(props.selection.blockchain)
+      setTokens(props.selection.blockchain.tokens)
+      if (searchElement.current) { 
+        searchElement.current.value = ''
+        searchElement.current.focus() 
+      }
     }
-  }, [props.selection.blockchain])
+  }, [props.selection, props.selection.blockchain])
 
   const onClickChangeBlockchain = ()=> {
     navigate('SelectBlockchain')
@@ -83,7 +100,7 @@ export default (props)=> {
         }
       }).catch(()=>{})
     } else {
-      setTokens(props.selection.blockchain.tokens)
+      setTokens(blockchain.tokens)
     }
   }
 
@@ -129,7 +146,7 @@ export default (props)=> {
     )
   })
 
-  if(props.selection.blockchain == undefined) { return null }
+  if(blockchain == undefined) { return null }
 
   return(
     <Dialog
@@ -141,10 +158,10 @@ export default (props)=> {
           <div className="PaddingTopS PaddingBottomXS">
             <div className="Card small" onClick={ onClickChangeBlockchain }>
               <div className="CardImage small">
-                <img className="transparent" src={ props.selection.blockchain.logo }/>
+                <img className="transparent" src={ blockchain.logo }/>
               </div>
               <div className="CardBody">
-                { props.selection.blockchain.label }
+                { blockchain.label }
               </div>
               <div className="CardAction">
                 <ChevronRight/>
