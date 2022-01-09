@@ -4915,27 +4915,30 @@ var SelectTokenDialog = (function (props) {
 
   var searchElement = useRef();
   var wallet = getWallet();
-  useEffect(function () {
-    var blockchain;
 
+  var startWithBlockchain = function startWithBlockchain(name) {
+    var blockchain = Blockchain.findByName(name);
+    setBlockchain(blockchain);
+    setSelection(Object.assign(props.selection, {
+      blockchain: blockchain,
+      token: undefined
+    }));
+    setTokens(blockchain.tokens);
+  };
+
+  useEffect(function () {
     if (wallet) {
       wallet.connectedTo().then(function (name) {
-        blockchain = Blockchain.findByName(name);
-        setBlockchain(blockchain);
-        setSelection(Object.assign(props.selection, {
-          blockchain: blockchain,
-          token: undefined
-        }));
-        setTokens(blockchain.tokens);
+        var blockchain = Blockchain.findByName(name);
+
+        if (name && name.length && blockchain && blockchain.tokens && blockchain.tokens.length) {
+          startWithBlockchain(name);
+        } else {
+          startWithBlockchain('ethereum');
+        }
       });
     } else {
-      blockchain = Blockchain.findByName('ethereum');
-      setBlockchain(blockchain);
-      setSelection(Object.assign(props.selection, {
-        blockchain: blockchain,
-        token: undefined
-      }));
-      setTokens(blockchain.tokens);
+      startWithBlockchain('ethereum');
     }
   }, []);
   useEffect(function () {

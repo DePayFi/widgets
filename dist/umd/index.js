@@ -4910,27 +4910,30 @@
 
     var searchElement = React.useRef();
     var wallet = web3Wallets.getWallet();
-    React.useEffect(function () {
-      var blockchain;
 
+    var startWithBlockchain = function startWithBlockchain(name) {
+      var blockchain = web3Blockchains.Blockchain.findByName(name);
+      setBlockchain(blockchain);
+      setSelection(Object.assign(props.selection, {
+        blockchain: blockchain,
+        token: undefined
+      }));
+      setTokens(blockchain.tokens);
+    };
+
+    React.useEffect(function () {
       if (wallet) {
         wallet.connectedTo().then(function (name) {
-          blockchain = web3Blockchains.Blockchain.findByName(name);
-          setBlockchain(blockchain);
-          setSelection(Object.assign(props.selection, {
-            blockchain: blockchain,
-            token: undefined
-          }));
-          setTokens(blockchain.tokens);
+          var blockchain = web3Blockchains.Blockchain.findByName(name);
+
+          if (name && name.length && blockchain && blockchain.tokens && blockchain.tokens.length) {
+            startWithBlockchain(name);
+          } else {
+            startWithBlockchain('ethereum');
+          }
         });
       } else {
-        blockchain = web3Blockchains.Blockchain.findByName('ethereum');
-        setBlockchain(blockchain);
-        setSelection(Object.assign(props.selection, {
-          blockchain: blockchain,
-          token: undefined
-        }));
-        setTokens(blockchain.tokens);
+        startWithBlockchain('ethereum');
       }
     }, []);
     React.useEffect(function () {

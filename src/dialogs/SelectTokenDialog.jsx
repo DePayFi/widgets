@@ -23,20 +23,25 @@ export default (props)=> {
   const searchElement = useRef()
   const wallet = getWallet()
 
+  const startWithBlockchain = (name)=> {
+    let blockchain = Blockchain.findByName(name)
+    setBlockchain(blockchain)
+    setSelection(Object.assign(props.selection, { blockchain, token: undefined }))
+    setTokens(blockchain.tokens)
+  }
+
   useEffect(()=>{
-    let blockchain
     if(wallet) {
       wallet.connectedTo().then((name)=>{
-        blockchain = Blockchain.findByName(name)
-        setBlockchain(blockchain)
-        setSelection(Object.assign(props.selection, { blockchain, token: undefined }))
-        setTokens(blockchain.tokens)
+        let blockchain = Blockchain.findByName(name)
+        if(name && name.length && blockchain && blockchain.tokens && blockchain.tokens.length) {
+          startWithBlockchain(name)
+        } else {
+          startWithBlockchain('ethereum')
+        }
       })
     } else {
-      blockchain = Blockchain.findByName('ethereum')
-      setBlockchain(blockchain)
-      setSelection(Object.assign(props.selection, { blockchain, token: undefined }))
-      setTokens(blockchain.tokens)
+      startWithBlockchain('ethereum')
     }
   }, [])
 
