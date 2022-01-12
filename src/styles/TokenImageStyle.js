@@ -2,10 +2,9 @@ export default (style)=>{
   return(`
 
     .TokenImage img {
-      background: white;
       border-radius: 99rem;
       border: 1px solid white;
-      background: rgba(0,0,0,0.1);
+      background: white;
       box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
       height: 2.8rem;
       position: relative;
