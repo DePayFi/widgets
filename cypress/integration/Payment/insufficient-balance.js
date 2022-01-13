@@ -75,7 +75,7 @@ describe('insufficient balance for Payment', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset with enough value in your wallet. Please top up your account in order to proceed with this payment.')
       })
     })
   })
@@ -86,7 +86,7 @@ describe('insufficient balance for Payment', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset with enough value in your wallet. Please top up your account in order to proceed with this payment.')
         cy.wait(2000).then(()=>{
           USDValueMock_count = USDValueMock.calls.count()
           TOKENRouteMock_count = TOKENRouteMock.calls.count()
