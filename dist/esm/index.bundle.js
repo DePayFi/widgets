@@ -62173,7 +62173,7 @@ var NoPaymentMethodFoundDialog = (function () {
       className: "Text PaddingTopS PaddingBottomM PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/react.createElement("strong", {
       className: "FontSizeM"
-    }, "We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment."))),
+    }, "We were not able to find any asset with enough value in your wallet. Please top up your account in order to proceed with this payment."))),
     footer: /*#__PURE__*/react.createElement("div", {
       className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
     }, /*#__PURE__*/react.createElement("button", {

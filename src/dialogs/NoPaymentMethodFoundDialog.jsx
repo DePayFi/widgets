@@ -21,7 +21,7 @@ export default ()=> {
           <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Insufficient Balance</h1>
           <div className="Text PaddingTopS PaddingBottomM PaddingLeftM PaddingRightM">
             <strong className="FontSizeM">
-              We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment.
+              We were not able to find any asset with enough value in your wallet. Please top up your account in order to proceed with this payment.
             </strong>
           </div>
         </div>

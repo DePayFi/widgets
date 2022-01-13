@@ -2213,7 +2213,7 @@
         className: "Text PaddingTopS PaddingBottomM PaddingLeftM PaddingRightM"
       }, /*#__PURE__*/React__default['default'].createElement("strong", {
         className: "FontSizeM"
-      }, "We were not able to find any asset of value in your wallet. Please top up your account in order to proceed with this payment."))),
+      }, "We were not able to find any asset with enough value in your wallet. Please top up your account in order to proceed with this payment."))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
       }, /*#__PURE__*/React__default['default'].createElement("button", {
