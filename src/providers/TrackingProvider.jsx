@@ -1,12 +1,15 @@
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
+import ErrorContext from '../contexts/ErrorContext'
 import React, { useEffect, useContext, useState } from 'react'
 import TrackingContext from '../contexts/TrackingContext'
 
 export default (props)=>{
+  const { errorCallback } = useContext(ErrorContext)
   const { track } = useContext(ConfigurationContext)
   const [ tracking, setTracking ] = useState(track && !!track.endpoint)
   const [ forward, setForward ] = useState(false)
+  const [ trackingFailed, setTrackingFailed ] = useState(false)
   const [ forwardTo, setForwardTo ] = useState()
   const { setClosable } = useContext(ClosableContext)
 
@@ -59,6 +62,10 @@ export default (props)=>{
       }, 3000)
     } else {
       console.log('TRACKING FAILED AFTER 3 ATTEMPTS!')
+      setTrackingFailed(true)
+      if(typeof errorCallback == 'function') {
+        errorCallback({ code: 'TRACKING_FAILED' })
+      }
     }
   }
 
@@ -97,6 +104,7 @@ export default (props)=>{
       initializeTracking,
       forward,
       forwardTo,
+      trackingFailed
     }}>
       { props.children }
     </TrackingContext.Provider>

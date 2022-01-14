@@ -79,7 +79,8 @@ export default (props)=>{
   } else {
     return(
       <ErrorContext.Provider value={{
-        setError: setErrorFromChildren
+        setError: setErrorFromChildren,
+        errorCallback: props.errorCallback
       }}>
         <ErrorBoundary setError={ setErrorFromChildren }>
           { props.children }

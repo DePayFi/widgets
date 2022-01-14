@@ -19,6 +19,16 @@ export default (style)=>{
       width: 24px;
     }
 
+    .AlertIcon {
+      height: 20px;
+      position: relative;
+      top: -1px;
+      vertical-align: middle;
+      width: 20px;
+      fill: #e42626;
+      stroke: transparent;
+    }
+
     .CheckMark.small {
       height: 16px;
       width: 16px;

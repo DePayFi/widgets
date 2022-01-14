@@ -1,3 +1,4 @@
+import AlertIcon from '../components/AlertIcon'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import Checkmark from '../components/Checkmark'
 import ClosableContext from '../contexts/ClosableContext'
@@ -14,7 +15,7 @@ import { NavigateStackContext } from '@depay/react-dialog-stack'
 export default ()=>{
   const { currencyCode } = useContext(ConfigurationContext)
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
-  const { tracking, forward, forwardTo } = useContext(TrackingContext)
+  const { tracking, forward, forwardTo, trackingFailed } = useContext(TrackingContext)
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
@@ -25,7 +26,7 @@ export default ()=>{
     if(forward) {
       return(
         <div>
-          <a className="Card transparent small disabled">
+          <div className="Card transparent small disabled">
             <div className="CardImage">
               <div className="TextCenter Opacity05">
                 <Checkmark className="small"/>
@@ -38,28 +39,49 @@ export default ()=>{
                 </div>
               </div>
             </div>
-          </a>
+          </div>
         </div>
       )
     } else {
-      return(
-        <div>
-          <a className="Card transparent small disabled">
-            <div className="CardImage">
-              <div className="TextCenter">
-                <div className="Loading Icon"></div>
+      if(trackingFailed) {
+        return(
+          <div>
+            <div className="Card transparent small">
+              <div className="CardImage">
+                <div className="TextCenter">
+                  <AlertIcon className="small"/>
+                </div>
               </div>
-            </div>
-            <div className="CardBody">
-              <div className="CardBodyWrapper">
-                <div className="Opacity05">
-                  Storing payment confirmation
+              <div className="CardBody">
+                <div className="CardBodyWrapper">
+                  <div>
+                    Tracking payment failed!
+                  </div>
                 </div>
               </div>
             </div>
-          </a>
-        </div>
-      )
+          </div> 
+        )
+      } else {
+        return(
+          <div>
+            <div className="Card transparent small disabled">
+              <div className="CardImage">
+                <div className="TextCenter">
+                  <div className="Loading Icon"></div>
+                </div>
+              </div>
+              <div className="CardBody">
+                <div className="CardBodyWrapper">
+                  <div className="Opacity05">
+                    Storing payment confirmation
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      }
     }
   }
 

@@ -49259,7 +49259,8 @@
     } else {
       return /*#__PURE__*/react.createElement(ErrorContext.Provider, {
         value: {
-          setError: setErrorFromChildren
+          setError: setErrorFromChildren,
+          errorCallback: props.errorCallback
         }
       }, /*#__PURE__*/react.createElement(ErrorBoundary, {
         setError: setErrorFromChildren
@@ -49304,7 +49305,7 @@
   });
 
   var IconStyle = (function (style) {
-    return "\n\n    .Icon {\n      fill : ".concat(style.colors.icons, ";\n      stroke : ").concat(style.colors.icons, ";\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .CheckMark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      border-radius: 100%;\n      position: relative;\n      left: -1px;\n      width: 18px;\n      height: 18px;\n      animation: spin 1.5s linear infinite;\n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
+    return "\n\n    .Icon {\n      fill : ".concat(style.colors.icons, ";\n      stroke : ").concat(style.colors.icons, ";\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .AlertIcon {\n      height: 20px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 20px;\n      fill: #e42626;\n      stroke: transparent;\n    }\n\n    .CheckMark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      border-radius: 100%;\n      position: relative;\n      left: -1px;\n      width: 18px;\n      height: 18px;\n      animation: spin 1.5s linear infinite;\n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
   });
 
   var ImageStyle = (function (style) {
@@ -69487,6 +69488,19 @@
     });
   });
 
+  var AlertIcon = (function (props) {
+    return /*#__PURE__*/react.createElement("svg", {
+      className: "AlertIcon Icon " + props.className,
+      version: "1.1",
+      xmlns: "http://www.w3.org/2000/svg",
+      x: "0px",
+      y: "0px",
+      viewBox: "0 0 20 20"
+    }, /*#__PURE__*/react.createElement("path", {
+      d: "M19.64 16.36L11.53 2.3A1.85 1.85 0 0 0 10 1.21 1.85 1.85 0 0 0 8.48 2.3L.36 16.36C-.48 17.81.21 19 1.88 19h16.24c1.67 0 2.36-1.19 1.52-2.64zM11 16H9v-2h2zm0-4H9V6h2z"
+    }));
+  });
+
   var Checkmark = (function (props) {
     return /*#__PURE__*/react.createElement("svg", {
       className: "Checkmark Icon " + props.className,
@@ -69564,7 +69578,8 @@
     var _useContext3 = react.useContext(TrackingContext),
         tracking = _useContext3.tracking,
         forward = _useContext3.forward,
-        forwardTo = _useContext3.forwardTo;
+        forwardTo = _useContext3.forwardTo,
+        trackingFailed = _useContext3.trackingFailed;
 
     var _useContext4 = react.useContext(PaymentContext),
         payment = _useContext4.payment,
@@ -69589,7 +69604,7 @@
       }
 
       if (forward) {
-        return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("a", {
+        return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
           className: "Card transparent small disabled"
         }, /*#__PURE__*/react.createElement("div", {
           className: "CardImage"
@@ -69605,21 +69620,37 @@
           className: "Opacity05"
         }, "Payment confirmation has been stored")))));
       } else {
-        return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("a", {
-          className: "Card transparent small disabled"
-        }, /*#__PURE__*/react.createElement("div", {
-          className: "CardImage"
-        }, /*#__PURE__*/react.createElement("div", {
-          className: "TextCenter"
-        }, /*#__PURE__*/react.createElement("div", {
-          className: "Loading Icon"
-        }))), /*#__PURE__*/react.createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/react.createElement("div", {
-          className: "CardBodyWrapper"
-        }, /*#__PURE__*/react.createElement("div", {
-          className: "Opacity05"
-        }, "Storing payment confirmation")))));
+        if (trackingFailed) {
+          return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
+            className: "Card transparent small"
+          }, /*#__PURE__*/react.createElement("div", {
+            className: "CardImage"
+          }, /*#__PURE__*/react.createElement("div", {
+            className: "TextCenter"
+          }, /*#__PURE__*/react.createElement(AlertIcon, {
+            className: "small"
+          }))), /*#__PURE__*/react.createElement("div", {
+            className: "CardBody"
+          }, /*#__PURE__*/react.createElement("div", {
+            className: "CardBodyWrapper"
+          }, /*#__PURE__*/react.createElement("div", null, "Tracking payment failed!")))));
+        } else {
+          return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
+            className: "Card transparent small disabled"
+          }, /*#__PURE__*/react.createElement("div", {
+            className: "CardImage"
+          }, /*#__PURE__*/react.createElement("div", {
+            className: "TextCenter"
+          }, /*#__PURE__*/react.createElement("div", {
+            className: "Loading Icon"
+          }))), /*#__PURE__*/react.createElement("div", {
+            className: "CardBody"
+          }, /*#__PURE__*/react.createElement("div", {
+            className: "CardBodyWrapper"
+          }, /*#__PURE__*/react.createElement("div", {
+            className: "Opacity05"
+          }, "Storing payment confirmation")))));
+        }
       }
     };
 
@@ -69946,8 +69977,11 @@
   });
 
   var TrackingProvider = (function (props) {
-    var _useContext = react.useContext(ConfigurationContext),
-        track = _useContext.track;
+    var _useContext = react.useContext(ErrorContext),
+        errorCallback = _useContext.errorCallback;
+
+    var _useContext2 = react.useContext(ConfigurationContext),
+        track = _useContext2.track;
 
     var _useState = react.useState(track && !!track.endpoint),
         _useState2 = _slicedToArray(_useState, 2),
@@ -69959,13 +69993,18 @@
         forward = _useState4[0],
         setForward = _useState4[1];
 
-    var _useState5 = react.useState(),
+    var _useState5 = react.useState(false),
         _useState6 = _slicedToArray(_useState5, 2),
-        forwardTo = _useState6[0],
-        setForwardTo = _useState6[1];
+        trackingFailed = _useState6[0],
+        setTrackingFailed = _useState6[1];
 
-    var _useContext2 = react.useContext(ClosableContext),
-        setClosable = _useContext2.setClosable;
+    var _useState7 = react.useState(),
+        _useState8 = _slicedToArray(_useState7, 2),
+        forwardTo = _useState8[0],
+        setForwardTo = _useState8[1];
+
+    var _useContext3 = react.useContext(ClosableContext),
+        setClosable = _useContext3.setClosable;
 
     react.useEffect(function () {
       setTracking(track && !!track.endpoint);
@@ -70025,6 +70064,13 @@
         }, 3000);
       } else {
         console.log('TRACKING FAILED AFTER 3 ATTEMPTS!');
+        setTrackingFailed(true);
+
+        if (typeof errorCallback == 'function') {
+          errorCallback({
+            code: 'TRACKING_FAILED'
+          });
+        }
       }
     };
 
@@ -70060,7 +70106,8 @@
         tracking: tracking,
         initializeTracking: initializeTracking,
         forward: forward,
-        forwardTo: forwardTo
+        forwardTo: forwardTo,
+        trackingFailed: trackingFailed
       }
     }, props.children);
   });

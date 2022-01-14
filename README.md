@@ -210,6 +210,10 @@ Those values are supposed to be set by your backend not the widget nor the front
 
 Make sure you read the [Payment Tracking API](https://depay.fi/documentation/api#payments) for further details on how to integrate payment tracking.
 
+Payment tracking requests will be attempted up to 3 times by the widget and will display "Payment tracking failed!" to the user if the widget was not able to start payment tracking via the given endpoint after 3 attempts.
+
+A failed payment tracking will also call the [error callback](#https://github.com/depayfi/widgets#error) with `{code: "TRACKING_FAILED"}`.
+
 #### connected
 
 `connected`
