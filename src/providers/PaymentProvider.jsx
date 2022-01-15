@@ -48,7 +48,7 @@ export default (props)=>{
       }
     }))
       .then((sentTransaction)=>{
-        if(tracking){ initializeTracking(sentTransaction, currentBlock) }
+        if(tracking){ initializeTracking(sentTransaction, currentBlock, payment.route) }
         setTransaction(sentTransaction)
       })
       .catch((error)=>{

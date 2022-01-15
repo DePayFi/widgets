@@ -199,7 +199,8 @@ BODY:
     "transaction": "0x4311a9820195c2a5af99c45c72c88848ed403a4020863c913feed81d15855ae4",
     "sender": "0x769794c94e9f113e357023dab73e81dbd6db201c",
     "nonce": 103,
-    "after_block": 13230369
+    "after_block": 13230369,
+    "to_token": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
   }
 ```
 
@@ -212,7 +213,7 @@ Make sure you read the [Payment Tracking API](https://depay.fi/documentation/api
 
 Payment tracking requests will be attempted up to 3 times by the widget and will display "Payment tracking failed!" to the user if the widget was not able to start payment tracking via the given endpoint after 3 attempts.
 
-A failed payment tracking will also call the [error callback](#https://github.com/depayfi/widgets#error) with `{code: "TRACKING_FAILED"}`.
+A failed payment tracking will also call the [error callback](#error) with `{code: "TRACKING_FAILED"}`.
 
 #### connected
 

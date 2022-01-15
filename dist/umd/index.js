@@ -2329,7 +2329,7 @@
                   }
                 })).then(function (sentTransaction) {
                   if (tracking) {
-                    initializeTracking(sentTransaction, currentBlock);
+                    initializeTracking(sentTransaction, currentBlock, payment.route);
                   }
 
                   setTransaction(sentTransaction);
@@ -3610,13 +3610,13 @@
       };
     };
 
-    var retryStartTracking = function retryStartTracking(transaction, afterBlock, attempt) {
+    var retryStartTracking = function retryStartTracking(transaction, afterBlock, paymentRoute, attempt) {
       attempt = parseInt(attempt || 1, 10);
       console.log('RETRY TRACKING ATTEMPT ', attempt);
 
       if (attempt < 3) {
         setTimeout(function () {
-          startTracking(transaction, afterBlock, attempt + 1);
+          startTracking(transaction, afterBlock, paymentRoute, attempt + 1);
         }, 3000);
       } else {
         console.log('TRACKING FAILED AFTER 3 ATTEMPTS!');
@@ -3630,7 +3630,7 @@
       }
     };
 
-    var startTracking = function startTracking(transaction, afterBlock, attempt) {
+    var startTracking = function startTracking(transaction, afterBlock, paymentRoute, attempt) {
       fetch(track.endpoint, {
         method: 'POST',
         body: JSON.stringify({
@@ -3638,23 +3638,24 @@
           transaction: transaction.id.toLowerCase(),
           sender: transaction.from.toLowerCase(),
           nonce: transaction.nonce,
-          after_block: afterBlock
+          after_block: afterBlock,
+          to_token: paymentRoute.toToken.address
         })
       }).then(function (response) {
         if (response.status == 200) {
           console.log('TRACKING INITIALIZED');
         } else {
-          retryStartTracking(transaction, afterBlock, attempt);
+          retryStartTracking(transaction, afterBlock, paymentRoute, attempt);
         }
       })["catch"](function (error) {
         console.log('TRACKING FAILED', error);
-        retryStartTracking(transaction, afterBlock, attempt);
+        retryStartTracking(transaction, afterBlock, paymentRoute, attempt);
       });
     };
 
-    var initializeTracking = function initializeTracking(transaction, afterBlock) {
+    var initializeTracking = function initializeTracking(transaction, afterBlock, paymentRoute) {
       openSocket(transaction);
-      startTracking(transaction, afterBlock);
+      startTracking(transaction, afterBlock, paymentRoute);
     };
 
     return /*#__PURE__*/React__default['default'].createElement(TrackingContext.Provider, {
