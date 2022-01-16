@@ -69983,10 +69983,10 @@
     var _useContext2 = react.useContext(ConfigurationContext),
         track = _useContext2.track;
 
-    var _useState = react.useState(track && !!track.endpoint),
+    var _useState = react.useState(track && !!(track.endpoint || typeof track.method == 'function')),
         _useState2 = _slicedToArray(_useState, 2),
-        tracking = _useState2[0],
-        setTracking = _useState2[1];
+        tracking = _useState2[0];
+        _useState2[1];
 
     var _useState3 = react.useState(false),
         _useState4 = _slicedToArray(_useState3, 2),
@@ -70005,10 +70005,6 @@
 
     var _useContext3 = react.useContext(ClosableContext),
         setClosable = _useContext3.setClosable;
-
-    react.useEffect(function () {
-      setTracking(track && !!track.endpoint);
-    }, [track]);
 
     var openSocket = function openSocket(transaction) {
       var socket = new WebSocket('wss://integrate.depay.fi/cable');
@@ -70074,17 +70070,27 @@
       }
     };
 
+    var callTracking = function callTracking(payment) {
+      if (track.endpoint) {
+        return fetch(track.endpoint, {
+          method: 'POST',
+          body: JSON.stringify(payment)
+        });
+      } else if (track.method) {
+        return track.method(payment);
+      } else {
+        throw 'No tracking defined!';
+      }
+    };
+
     var startTracking = function startTracking(transaction, afterBlock, paymentRoute, attempt) {
-      fetch(track.endpoint, {
-        method: 'POST',
-        body: JSON.stringify({
-          blockchain: transaction.blockchain,
-          transaction: transaction.id.toLowerCase(),
-          sender: transaction.from.toLowerCase(),
-          nonce: transaction.nonce,
-          after_block: afterBlock,
-          to_token: paymentRoute.toToken.address
-        })
+      callTracking({
+        blockchain: transaction.blockchain,
+        transaction: transaction.id.toLowerCase(),
+        sender: transaction.from.toLowerCase(),
+        nonce: transaction.nonce,
+        after_block: afterBlock,
+        to_token: paymentRoute.toToken.address
       }).then(function (response) {
         if (response.status == 200) {
           console.log('TRACKING INITIALIZED');

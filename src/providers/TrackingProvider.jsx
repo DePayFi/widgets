@@ -7,15 +7,11 @@ import TrackingContext from '../contexts/TrackingContext'
 export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
   const { track } = useContext(ConfigurationContext)
-  const [ tracking, setTracking ] = useState(track && !!track.endpoint)
+  const [ tracking, setTracking ] = useState(track && !!(track.endpoint || typeof track.method == 'function'))
   const [ forward, setForward ] = useState(false)
   const [ trackingFailed, setTrackingFailed ] = useState(false)
   const [ forwardTo, setForwardTo ] = useState()
   const { setClosable } = useContext(ClosableContext)
-
-  useEffect(()=>{
-    setTracking(track && !!track.endpoint)
-  }, [track])
 
   const openSocket = (transaction)=>{
     let socket = new WebSocket('wss://integrate.depay.fi/cable')
@@ -69,17 +65,27 @@ export default (props)=>{
     }
   }
 
-  const startTracking = (transaction, afterBlock, paymentRoute, attempt)=> {
-    fetch(track.endpoint, {
-      method: 'POST',
-      body: JSON.stringify({
-        blockchain: transaction.blockchain,
-        transaction: transaction.id.toLowerCase(),
-        sender: transaction.from.toLowerCase(),
-        nonce: transaction.nonce,
-        after_block: afterBlock,
-        to_token: paymentRoute.toToken.address
+  const callTracking = (payment)=>{
+    if(track.endpoint){
+      return fetch(track.endpoint, {
+        method: 'POST',
+        body: JSON.stringify(payment)
       })
+    } else if (track.method) {
+      return track.method(payment)
+    } else {
+      throw('No tracking defined!')
+    }
+  }
+
+  const startTracking = (transaction, afterBlock, paymentRoute, attempt)=> {
+    callTracking({
+      blockchain: transaction.blockchain,
+      transaction: transaction.id.toLowerCase(),
+      sender: transaction.from.toLowerCase(),
+      nonce: transaction.nonce,
+      after_block: afterBlock,
+      to_token: paymentRoute.toToken.address
     })
       .then((response)=>{
         if(response.status == 200) {

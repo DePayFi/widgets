@@ -204,6 +204,25 @@ BODY:
   }
 ```
 
+Alternatively you can pass a method to track that performs the tracking request to your backend if you need to handle the request yourself (e.g. to add additional headers etc.):
+
+```javascript
+DePayWidgets.Payment({
+
+  track: {
+    method: (payment)=>{
+      return fetch('/track/payments', {
+        method: 'POST',
+        body: JSON.stringify(payment),
+        headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": document.querySelector('[name=csrf-token]').content }
+      })
+    }
+  }
+})
+```
+
+In case you pass a tracking method it needs to return a promise.
+
 Your endpoint needs to make sure to forward this to the [payment tracking api](https://depay.fi/documentation/api#payments).
 
 Also make sure to add `token`, `amount` and `confirmations` when forwarding the request to the payments api.
