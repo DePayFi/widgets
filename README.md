@@ -234,6 +234,24 @@ Payment tracking requests will be attempted up to 3 times by the widget and will
 
 A failed payment tracking will also call the [error callback](#error) with `{code: "TRACKING_FAILED"}`.
 
+##### Additional Polling
+
+In order to ensure a 100% payment tracking coverage, you cant entirely rely on websockets initiated with `track`.
+
+Hence, if you require better payment tracking coverage, you will also need to implement polling.
+
+The `track.poll` configuration either takes an `enpoint` or a `method` (similiar to track itself).
+
+It will use the endpoint or the method to request a payment status every 5 seconds.
+
+You need to make sure to respond to this request with `404` in case the payment has not been finished yet (as reported from the tracking callback)
+or `200` if the payment has been finished (as reported from the tracking callback).
+
+In case you want to redirect the user to the next step in your system, the polling needs to respond with `{ forward_to: 'https://example.com/next_step_url' }`.
+
+It is not enough to rely on setting `forward_to` initially with the tracking request (if you also implement polling),
+as the entire reason polling exist is because websockets might fail to report the initially configured `forward_to` to your clients.
+
 #### connected
 
 `connected`

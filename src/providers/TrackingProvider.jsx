@@ -7,7 +7,11 @@ import TrackingContext from '../contexts/TrackingContext'
 export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
   const { track } = useContext(ConfigurationContext)
-  const [ tracking, setTracking ] = useState(track && !!(track.endpoint || typeof track.method == 'function'))
+  const [ transaction, setTransaction ] = useState()
+  const [ afterBlock, setAfterBlock ] = useState()
+  const [ paymentRoute, setPaymentRoute ] = useState()
+  const [ tracking ] = useState(track && !!(track.endpoint || typeof track.method == 'function'))
+  const [ polling ] = useState(track && track.poll && !!(track.poll.endpoint || typeof track.poll.method == 'function'))
   const [ release, setRelease ] = useState(false)
   const [ trackingFailed, setTrackingFailed ] = useState(false)
   const [ forwardTo, setForwardTo ] = useState()
@@ -100,7 +104,55 @@ export default (props)=>{
       })
   }
 
+  const pollStatus = (polling, transaction, afterBlock, paymentRoute, pollingInterval)=>{
+    if(
+      !polling ||
+      transaction == undefined ||
+      afterBlock == undefined ||
+      paymentRoute == undefined
+    ) { return }
+
+    const payment = {
+      blockchain: transaction.blockchain,
+      transaction: transaction.id.toLowerCase(),
+      sender: transaction.from.toLowerCase(),
+      nonce: transaction.nonce,
+      after_block: afterBlock,
+      to_token: paymentRoute.toToken.address
+    }
+
+    const handleResponse = (response)=>{
+      if(response.status == 200) {
+        response.json().then((data)=>{
+          if(data && data.forward_to) {
+            setForwardTo(data.forward_to)
+          }
+        })
+        clearInterval(pollingInterval)
+        setRelease(true)
+      }
+    }
+
+    if(track.poll.endpoint) {
+      fetch(track.poll.endpoint, {
+        method: 'POST',
+        body: JSON.stringify(payment)
+      }).then(handleResponse)
+    } else if(track.poll.method) {
+      track.poll.method(payment).then(handleResponse)
+    }
+  }
+
+  useEffect(()=>{
+    if(!polling) { return }
+    let pollingInterval = setInterval(()=>pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval), 5000)
+    return ()=>{ clearInterval(pollingInterval) }
+  }, [polling, transaction, afterBlock, paymentRoute])
+
   const initializeTracking = (transaction, afterBlock, paymentRoute)=>{
+    setTransaction(transaction)
+    setAfterBlock(afterBlock)
+    setPaymentRoute(paymentRoute)
     openSocket(transaction)
     startTracking(transaction, afterBlock, paymentRoute)
   }
