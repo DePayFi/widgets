@@ -19,7 +19,7 @@ export default (props)=>{
   const { allRoutes } = useContext(PaymentRoutingContext)
   const { setUpdatable } = useContext(UpdatableContext)
   const { wallet } = useContext(WalletContext)
-  const { forward, tracking, initializeTracking } = useContext(TrackingContext)
+  const { release, tracking, initializeTracking } = useContext(TrackingContext)
   const [ payment, setPayment ] = useState()
   const [ transaction, setTransaction ] = useState()
   const [ approvalTransaction, setApprovalTransaction ] = useState()
@@ -84,10 +84,10 @@ export default (props)=>{
   }
 
   useEffect(()=>{
-    if(forward){
+    if(release){
       setPaymentState('confirmed')
     }
-  }, [forward])
+  }, [release])
 
   useEffect(()=>{
     if(selectedRoute) {

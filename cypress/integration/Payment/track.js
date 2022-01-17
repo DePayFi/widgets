@@ -339,13 +339,12 @@ describe('track Payment', () => {
                   matchPartialBody: true
                 })
               ).to.equal(true)
-              // confirm(mockedTransaction)
-              mockedWebsocket.send(JSON.stringify({
-                message: {
-                  release: true
-                }
-              }))
               cy.wait(1000).then(()=>{
+                mockedWebsocket.send(JSON.stringify({
+                  message: {
+                    release: true
+                  }
+                }))
                 expect(!!websocketMessages.find((rawMessage)=>{
                   let message = JSON.parse(rawMessage)
                   return(

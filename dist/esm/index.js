@@ -2262,7 +2262,7 @@ var PaymentProvider = (function (props) {
       wallet = _useContext7.wallet;
 
   var _useContext8 = useContext(TrackingContext),
-      forward = _useContext8.forward,
+      release = _useContext8.release,
       tracking = _useContext8.tracking,
       initializeTracking = _useContext8.initializeTracking;
 
@@ -2382,10 +2382,10 @@ var PaymentProvider = (function (props) {
   };
 
   useEffect(function () {
-    if (forward) {
+    if (release) {
       setPaymentState('confirmed');
     }
-  }, [forward]);
+  }, [release]);
   useEffect(function () {
     if (selectedRoute) {
       var fromToken = selectedRoute.fromToken;

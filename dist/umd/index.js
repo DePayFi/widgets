@@ -2257,7 +2257,7 @@
         wallet = _useContext7.wallet;
 
     var _useContext8 = React.useContext(TrackingContext),
-        forward = _useContext8.forward,
+        release = _useContext8.release,
         tracking = _useContext8.tracking,
         initializeTracking = _useContext8.initializeTracking;
 
@@ -2377,10 +2377,10 @@
     };
 
     React.useEffect(function () {
-      if (forward) {
+      if (release) {
         setPaymentState('confirmed');
       }
-    }, [forward]);
+    }, [release]);
     React.useEffect(function () {
       if (selectedRoute) {
         var fromToken = selectedRoute.fromToken;
