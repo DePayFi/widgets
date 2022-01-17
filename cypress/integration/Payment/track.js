@@ -177,7 +177,7 @@ describe('track Payment', () => {
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
                     mockedWebsocket.send(JSON.stringify({
                       message: {
-                        forward: true
+                        release: true
                       }
                     }))
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').then(()=>{
@@ -267,7 +267,7 @@ describe('track Payment', () => {
                     mockedWebsocket.send(JSON.stringify({
                       identifier: JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: 0, channel: 'PaymentChannel' }),
                       message: {
-                        forward: true,
+                        release: true,
                         forward_to: '/somethingelse'
                       }
                     }))
@@ -342,7 +342,7 @@ describe('track Payment', () => {
               // confirm(mockedTransaction)
               mockedWebsocket.send(JSON.stringify({
                 message: {
-                  forward: true
+                  release: true
                 }
               }))
               cy.wait(1000).then(()=>{
@@ -447,7 +447,7 @@ describe('track Payment', () => {
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
                       mockedWebsocket.send(JSON.stringify({
                         message: {
-                          forward: true
+                          release: true
                         }
                       }))
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').then(()=>{
@@ -628,7 +628,7 @@ describe('track Payment', () => {
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
                         mockedWebsocket.send(JSON.stringify({
                           message: {
-                            forward: true
+                            release: true
                           }
                         }))
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').then(()=>{

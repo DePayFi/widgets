@@ -3133,7 +3133,7 @@
 
     var _useContext3 = React.useContext(TrackingContext),
         tracking = _useContext3.tracking,
-        forward = _useContext3.forward,
+        release = _useContext3.release,
         forwardTo = _useContext3.forwardTo,
         trackingFailed = _useContext3.trackingFailed;
 
@@ -3159,7 +3159,7 @@
         return null;
       }
 
-      if (forward) {
+      if (release) {
         return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "Card transparent small disabled"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -3305,7 +3305,7 @@
         }, /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Paying"));
       } else if (paymentState == 'confirmed') {
         if (tracking == true) {
-          if (forward) {
+          if (release) {
             if (forwardTo) {
               return /*#__PURE__*/React__default['default'].createElement("a", {
                 className: "ButtonPrimary",
@@ -3546,8 +3546,8 @@
 
     var _useState3 = React.useState(false),
         _useState4 = _slicedToArray(_useState3, 2),
-        forward = _useState4[0],
-        setForward = _useState4[1];
+        release = _useState4[0],
+        setRelease = _useState4[1];
 
     var _useState5 = React.useState(false),
         _useState6 = _slicedToArray(_useState5, 2),
@@ -3587,10 +3587,10 @@
           return;
         }
 
-        if (item.message && item.message.forward) {
+        if (item.message && item.message.release) {
           setClosable(!item.message.forward_to);
           setForwardTo(item.message.forward_to);
-          setForward(item.message.forward);
+          setRelease(item.message.release);
           socket.close();
 
           if (!!item.message.forward_to) {
@@ -3668,7 +3668,7 @@
       value: {
         tracking: tracking,
         initializeTracking: initializeTracking,
-        forward: forward,
+        release: release,
         forwardTo: forwardTo,
         trackingFailed: trackingFailed
       }

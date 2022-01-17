@@ -8,7 +8,7 @@ export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
   const { track } = useContext(ConfigurationContext)
   const [ tracking, setTracking ] = useState(track && !!(track.endpoint || typeof track.method == 'function'))
-  const [ forward, setForward ] = useState(false)
+  const [ release, setRelease ] = useState(false)
   const [ trackingFailed, setTrackingFailed ] = useState(false)
   const [ forwardTo, setForwardTo ] = useState()
   const { setClosable } = useContext(ClosableContext)
@@ -33,10 +33,10 @@ export default (props)=>{
     socket.onmessage = function(event) {
       const item = JSON.parse(event.data)
       if(item.type === "ping") { return }
-      if(item.message && item.message.forward) {
+      if(item.message && item.message.release) {
         setClosable(!item.message.forward_to)
         setForwardTo(item.message.forward_to)
-        setForward(item.message.forward)
+        setRelease(item.message.release)
         socket.close()
         if(!!item.message.forward_to) {
           setTimeout(()=>{ props.document.location.href = item.message.forward_to }, 500)
@@ -109,7 +109,7 @@ export default (props)=>{
     <TrackingContext.Provider value={{
       tracking,
       initializeTracking,
-      forward,
+      release,
       forwardTo,
       trackingFailed
     }}>

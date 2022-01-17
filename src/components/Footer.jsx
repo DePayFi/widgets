@@ -15,7 +15,7 @@ import { NavigateStackContext } from '@depay/react-dialog-stack'
 export default ()=>{
   const { currencyCode } = useContext(ConfigurationContext)
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
-  const { tracking, forward, forwardTo, trackingFailed } = useContext(TrackingContext)
+  const { tracking, release, forwardTo, trackingFailed } = useContext(TrackingContext)
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
@@ -23,7 +23,7 @@ export default ()=>{
 
   const trackingInfo = ()=> {
     if(tracking != true) { return null }
-    if(forward) {
+    if(release) {
       return(
         <div>
           <div className="Card transparent small disabled">
@@ -173,7 +173,7 @@ export default ()=>{
       )
     } else if (paymentState == 'confirmed') {
       if(tracking == true) {
-        if(forward) {
+        if(release) {
           if(forwardTo) {
             return(
               <a className="ButtonPrimary" href={ forwardTo } rel="noopener noreferrer">

@@ -69571,7 +69571,7 @@ var Footer = (function () {
 
   var _useContext3 = react.useContext(TrackingContext),
       tracking = _useContext3.tracking,
-      forward = _useContext3.forward,
+      release = _useContext3.release,
       forwardTo = _useContext3.forwardTo,
       trackingFailed = _useContext3.trackingFailed;
 
@@ -69597,7 +69597,7 @@ var Footer = (function () {
       return null;
     }
 
-    if (forward) {
+    if (release) {
       return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
         className: "Card transparent small disabled"
       }, /*#__PURE__*/react.createElement("div", {
@@ -69743,7 +69743,7 @@ var Footer = (function () {
       }, /*#__PURE__*/react.createElement(LoadingText, null, "Paying"));
     } else if (paymentState == 'confirmed') {
       if (tracking == true) {
-        if (forward) {
+        if (release) {
           if (forwardTo) {
             return /*#__PURE__*/react.createElement("a", {
               className: "ButtonPrimary",
@@ -69984,8 +69984,8 @@ var TrackingProvider = (function (props) {
 
   var _useState3 = react.useState(false),
       _useState4 = _slicedToArray(_useState3, 2),
-      forward = _useState4[0],
-      setForward = _useState4[1];
+      release = _useState4[0],
+      setRelease = _useState4[1];
 
   var _useState5 = react.useState(false),
       _useState6 = _slicedToArray(_useState5, 2),
@@ -70025,10 +70025,10 @@ var TrackingProvider = (function (props) {
         return;
       }
 
-      if (item.message && item.message.forward) {
+      if (item.message && item.message.release) {
         setClosable(!item.message.forward_to);
         setForwardTo(item.message.forward_to);
-        setForward(item.message.forward);
+        setRelease(item.message.release);
         socket.close();
 
         if (!!item.message.forward_to) {
@@ -70106,7 +70106,7 @@ var TrackingProvider = (function (props) {
     value: {
       tracking: tracking,
       initializeTracking: initializeTracking,
-      forward: forward,
+      release: release,
       forwardTo: forwardTo,
       trackingFailed: trackingFailed
     }
