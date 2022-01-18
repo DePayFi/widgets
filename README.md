@@ -236,21 +236,19 @@ A failed payment tracking will also call the [error callback](#error) with `{cod
 
 ##### Additional Polling
 
-In order to ensure a 100% payment tracking coverage, you cant entirely rely on websockets initiated with `track`.
-
-Hence, if you require better payment tracking coverage, you will also need to implement polling.
+In order to ensure a 100% coverage that users are released and forwarded within your payment flow, you will need to implement polling in addition to tracking.
 
 The `track.poll` configuration either takes an `enpoint` or a `method` (similiar to track itself).
 
-It will use the endpoint or the method to request a payment status every 5 seconds.
+It will use the endpoint or the method to request a release every 5 seconds.
 
-You need to make sure to respond to this request with `404` in case the payment has not been finished yet (as reported from the tracking callback)
-or `200` if the payment has been finished (as reported from the tracking callback).
+You need to make sure to respond to this request with a status `404` in case the user is not to be released just yet (payment and processing on your side are not complete yet)
+or `200` if the payment has been completed and the processing on your side is done and the user can be released and forwarded withing your payment flow.
 
-In case you want to redirect the user to the next step in your system, the polling needs to respond with `{ forward_to: 'https://example.com/next_step_url' }`.
+In case you want to redirect the user to the next step in your system the poll endpoint needs to respond with a body containing json like: `{ forward_to: 'https://example.com/next_step_url' }`.
 
-It is not enough to rely on setting `forward_to` initially with the tracking request (if you also implement polling),
-as the entire reason polling exist is because websockets might fail to report the initially configured `forward_to` to your clients.
+It is not enough to rely on setting `forward_to` initially with the tracking request, you will also need to respond with `forward_to` when implementing polling
+as the entire reason for polling is to cover cases where websockets fail and the initial `forward_to` can not be communicated to the client.
 
 #### connected
 
