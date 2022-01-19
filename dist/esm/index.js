@@ -3544,25 +3544,43 @@ var TrackingProvider = (function (props) {
   var _useContext2 = useContext(ConfigurationContext),
       track = _useContext2.track;
 
-  var _useState = useState(track && !!(track.endpoint || typeof track.method == 'function')),
+  var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
-      tracking = _useState2[0];
-      _useState2[1];
+      transaction = _useState2[0],
+      setTransaction = _useState2[1];
 
-  var _useState3 = useState(false),
+  var _useState3 = useState(),
       _useState4 = _slicedToArray(_useState3, 2),
-      release = _useState4[0],
-      setRelease = _useState4[1];
+      afterBlock = _useState4[0],
+      setAfterBlock = _useState4[1];
 
-  var _useState5 = useState(false),
+  var _useState5 = useState(),
       _useState6 = _slicedToArray(_useState5, 2),
-      trackingFailed = _useState6[0],
-      setTrackingFailed = _useState6[1];
+      paymentRoute = _useState6[0],
+      setPaymentRoute = _useState6[1];
 
-  var _useState7 = useState(),
-      _useState8 = _slicedToArray(_useState7, 2),
-      forwardTo = _useState8[0],
-      setForwardTo = _useState8[1];
+  var _useState7 = useState(track && !!(track.endpoint || typeof track.method == 'function')),
+      _useState8 = _slicedToArray(_useState7, 1),
+      tracking = _useState8[0];
+
+  var _useState9 = useState(track && track.poll && !!(track.poll.endpoint || typeof track.poll.method == 'function')),
+      _useState10 = _slicedToArray(_useState9, 1),
+      polling = _useState10[0];
+
+  var _useState11 = useState(false),
+      _useState12 = _slicedToArray(_useState11, 2),
+      release = _useState12[0],
+      setRelease = _useState12[1];
+
+  var _useState13 = useState(false),
+      _useState14 = _slicedToArray(_useState13, 2),
+      trackingFailed = _useState14[0],
+      setTrackingFailed = _useState14[1];
+
+  var _useState15 = useState(),
+      _useState16 = _slicedToArray(_useState15, 2),
+      forwardTo = _useState16[0],
+      setForwardTo = _useState16[1];
 
   var _useContext3 = useContext(ClosableContext),
       setClosable = _useContext3.setClosable;
@@ -3601,7 +3619,7 @@ var TrackingProvider = (function (props) {
         if (!!item.message.forward_to) {
           setTimeout(function () {
             props.document.location.href = item.message.forward_to;
-          }, 500);
+          }, 200);
         }
       }
     };
@@ -3664,7 +3682,62 @@ var TrackingProvider = (function (props) {
     });
   };
 
+  var pollStatus = function pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval) {
+    if (!polling || transaction == undefined || afterBlock == undefined || paymentRoute == undefined) {
+      return;
+    }
+
+    var payment = {
+      blockchain: transaction.blockchain,
+      transaction: transaction.id.toLowerCase(),
+      sender: transaction.from.toLowerCase(),
+      nonce: transaction.nonce,
+      after_block: afterBlock,
+      to_token: paymentRoute.toToken.address
+    };
+
+    var handleResponse = function handleResponse(response) {
+      if (response.status == 200) {
+        response.json().then(function (data) {
+          if (data && data.forward_to) {
+            setForwardTo(data.forward_to);
+            setTimeout(function () {
+              props.document.location.href = data.forward_to;
+            }, 100);
+          }
+        });
+        clearInterval(pollingInterval);
+        setRelease(true);
+      }
+    };
+
+    if (track.poll.endpoint) {
+      fetch(track.poll.endpoint, {
+        method: 'POST',
+        body: JSON.stringify(payment)
+      }).then(handleResponse);
+    } else if (track.poll.method) {
+      track.poll.method(payment).then(handleResponse);
+    }
+  };
+
+  useEffect(function () {
+    if (!polling) {
+      return;
+    }
+
+    var pollingInterval = setInterval(function () {
+      return pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval);
+    }, 5000);
+    return function () {
+      clearInterval(pollingInterval);
+    };
+  }, [polling, transaction, afterBlock, paymentRoute]);
+
   var initializeTracking = function initializeTracking(transaction, afterBlock, paymentRoute) {
+    setTransaction(transaction);
+    setAfterBlock(afterBlock);
+    setPaymentRoute(paymentRoute);
     openSocket(transaction);
     startTracking(transaction, afterBlock, paymentRoute);
   };

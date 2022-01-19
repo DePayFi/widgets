@@ -43,7 +43,7 @@ export default (props)=>{
         setRelease(item.message.release)
         socket.close()
         if(!!item.message.forward_to) {
-          setTimeout(()=>{ props.document.location.href = item.message.forward_to }, 500)
+          setTimeout(()=>{ props.document.location.href = item.message.forward_to }, 200)
         }
       }
     }
@@ -126,6 +126,7 @@ export default (props)=>{
         response.json().then((data)=>{
           if(data && data.forward_to) {
             setForwardTo(data.forward_to)
+            setTimeout(()=>{ props.document.location.href = data.forward_to }, 100)
           }
         })
         clearInterval(pollingInterval)

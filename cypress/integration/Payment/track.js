@@ -731,10 +731,8 @@ describe('track Payment', () => {
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').find('.Checkmark')
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').click().then(()=>{
-                          cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
-                          cy.location('href').should('include', '/somethingelse')
-                        })
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').invoke('attr', 'href').should('include', '/somethingelse')
+                        cy.location('href').should('include', '/somethingelse')
                       })
                     })
                   })
@@ -832,10 +830,8 @@ describe('track Payment', () => {
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').find('.Checkmark')
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').click().then(()=>{
-                          cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
-                          cy.location('href').should('include', '/somethingelse')
-                        })
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').invoke('attr', 'href').should('include', '/somethingelse')
+                        cy.location('href').should('include', '/somethingelse')
                       })
                     })
                   })
