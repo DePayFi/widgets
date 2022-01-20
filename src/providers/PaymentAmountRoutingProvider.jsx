@@ -19,7 +19,7 @@ export default (props)=>{
 
   return(
     <PaymentAmountRoutingContext.Provider value={{}}>
-      <PaymentRoutingProvider accept={ accept } whitelist={ props.whitelist } blacklist={ props.blacklist } event={ props.event } setMaxRoute={ setMaxRoute }>
+      <PaymentRoutingProvider accept={ accept } whitelist={ props.whitelist } blacklist={ props.blacklist } event={ props.event } setMaxRoute={ setMaxRoute } fee={ props.fee }>
         { props.children }
       </PaymentRoutingProvider>
     </PaymentAmountRoutingContext.Provider>
