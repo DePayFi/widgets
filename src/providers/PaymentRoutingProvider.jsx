@@ -32,6 +32,7 @@ export default (props)=>{
       whitelist: props.whitelist,
       blacklist: props.blacklist,
       event: props.event,
+      fee: props.fee,
       apiKey
     }).then((routes)=>{
       if(routes.length == 0) {

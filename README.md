@@ -174,6 +174,27 @@ DePayWidgets.Payment({
 
 Checkout [DePay Web3 Payments](https://github.com/DePayFi/depay-web3-payments#pay-into-smart-contracts) and [DePay Router Smart Contract](https://github.com/DePayFi/depay-evm-router) for more details.
 
+#### fee
+
+You can configure a fee which will be applied onto every payment with it's own dedicated receiver address.
+
+The fee will be taken from the target token and target amount (after swap, depending on your `accept` configuration).
+
+`amount`: Either percentage (e.g. `5%`, or absolute amount as BigNumber string ('100000000000000000') or pure number (2.5)
+
+`receiver`: The address that is supposed to receive the fee.
+
+```javascript
+DePayWidgets.Payment({
+  accept: [...],
+  fee: {
+    amount: '3%',
+    receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  }
+});
+```
+
+
 #### track
 
 `track`
