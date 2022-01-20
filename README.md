@@ -176,7 +176,7 @@ Checkout [DePay Web3 Payments](https://github.com/DePayFi/depay-web3-payments#pa
 
 #### fee
 
-You can configure a fee which will be applied onto every payment with it's own dedicated receiver address.
+You can configure a fee which will be applied to every payment with it's own dedicated fee receiver address.
 
 The fee will be taken from the target token and target amount (after swap, depending on your `accept` configuration).
 
