@@ -2500,6 +2500,7 @@
         whitelist: props.whitelist,
         blacklist: props.blacklist,
         event: props.event,
+        fee: props.fee,
         apiKey: apiKey
       }).then(function (routes) {
         if (routes.length == 0) {
@@ -4124,7 +4125,8 @@
       whitelist: props.whitelist,
       blacklist: props.blacklist,
       event: props.event,
-      setMaxRoute: setMaxRoute
+      setMaxRoute: setMaxRoute,
+      fee: props.fee
     }, props.children));
   });
 
@@ -4317,12 +4319,12 @@
 
   var Payment = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var accept, amount, event, sent, confirmed, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, document, unmount;
+      var accept, amount, event, sent, confirmed, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, document, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, document = _ref3.document;
+              accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, document = _ref3.document;
               _context2.prev = 1;
               _context2.next = 4;
               return preflight$1({
@@ -4352,7 +4354,8 @@
                       whitelist: whitelist,
                       blacklist: blacklist,
                       providers: providers,
-                      track: track
+                      track: track,
+                      fee: fee
                     }
                   }, /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
                     unmount: unmount
@@ -4367,7 +4370,8 @@
                     accept: accept,
                     whitelist: whitelist,
                     blacklist: blacklist,
-                    event: event
+                    event: event,
+                    fee: fee
                   }, /*#__PURE__*/React__default['default'].createElement(TrackingProvider, {
                     document: ensureDocument(document)
                   }, /*#__PURE__*/React__default['default'].createElement(PaymentProvider, {
