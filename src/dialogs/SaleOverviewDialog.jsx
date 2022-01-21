@@ -15,7 +15,7 @@ import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=>{
   const { amount } = useContext(ChangableAmountContext)
-  const { tokenImage } = useContext(ConfigurationContext)
+  const { tokenImage, amount: amountConfiguration } = useContext(ConfigurationContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { payment, paymentState } = useContext(PaymentContext)
   const { navigate } = useContext(NavigateStackContext)
@@ -23,7 +23,7 @@ export default (props)=>{
   const [ salePerTokenValue, setSalePerTokenValue ] = useState()
 
   useEffect(()=>{
-    if(paymentValue) {
+    if(paymentValue && (amountConfiguration == undefined || amountConfiguration.token == false)) {
       setSalePerTokenValue((new Currency({ amount: (paymentValue.amount / parseFloat(toTokenReadableAmount)).toFixed(2), code: paymentValue.code })).toString())
     }
   }, [paymentValue])

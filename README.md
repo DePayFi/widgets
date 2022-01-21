@@ -662,6 +662,17 @@ alongside values for `start`, `min` and `step`.
 
 `step`: The number by wich to increment/decremten changes to the amount.
 
+`token`: Set to `true` if you want amount selection to be denominated in the token you're selling, e.g.:
+
+```javascript
+DePayWidgets.Sale({
+  sell: {...},
+  amount: {
+    token: true
+  }
+});
+```
+
 #### connected
 
 `connected`
