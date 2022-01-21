@@ -13,7 +13,7 @@ import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default ()=>{
-  const { currencyCode } = useContext(ConfigurationContext)
+  const { currencyCode, amount: configuredAmount } = useContext(ConfigurationContext)
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
   const { tracking, release, forwardTo, trackingFailed } = useContext(TrackingContext)
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
@@ -153,6 +153,15 @@ export default ()=>{
   }
 
   const mainAction = ()=> {
+    let displayedAmount
+    if(amount && (configuredAmount == undefined || configuredAmount.token != true)) {
+      displayedAmount = new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString()
+    } else if(paymentValue && paymentValue.toString().length) {
+      displayedAmount = paymentValue.toString()
+    } else {
+      displayedAmount = `${payment.symbol} ${payment.amount}`
+    }
+
     if(paymentState == 'initialized' || paymentState == 'approving') {
       return(
         <button 
@@ -162,7 +171,7 @@ export default ()=>{
             pay({ navigate })
           }}
         >
-          Pay { amount ? new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString() : ((paymentValue.toString().length) ? paymentValue.toString() : `${payment.amount}`) }
+          Pay { displayedAmount }
         </button>
       )
     } else if (paymentState == 'paying') {

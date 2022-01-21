@@ -22,10 +22,11 @@ export default (props)=>{
   const { account } = useContext(WalletContext)
   const { amount, setAmount, maxAmount } = useContext(ChangableAmountContext)
   const [ inputAmount, setInputAmount ] = useState(amount)
-  const { currencyCode, amount: configuredAmount } = useContext(ConfigurationContext)
+  const { currencyCode, amount: amountConfiguration } = useContext(ConfigurationContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
-  const min = typeof configuredAmount == "object" && configuredAmount.min ? configuredAmount.min : 1
-  const step = typeof configuredAmount == "object" && configuredAmount.step ? configuredAmount.step : 1
+  const min = typeof amountConfiguration == "object" && amountConfiguration.min ? amountConfiguration.min : 1
+  const step = typeof amountConfiguration == "object" && amountConfiguration.step ? amountConfiguration.step : 1
+  let displayedCurrencyCode = (amountConfiguration != undefined && amountConfiguration.token) ? null : currencyCode
 
   const changeAmountAndGoBack = ()=>{
     setAmount(toValidValue(parseFloat(inputAmount)))
@@ -72,7 +73,7 @@ export default (props)=>{
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS">
           <h1 className="LineHeightL FontSizeL TextCenter">Change Amount</h1>
-          <div className="FontSizeL TextCenter FontWeightBold"><strong>{ currencyCode }</strong></div>
+          <div className="FontSizeL TextCenter FontWeightBold"><strong>{ displayedCurrencyCode }</strong></div>
         </div>
       }
       body={
