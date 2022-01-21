@@ -154,10 +154,10 @@ export default ()=>{
 
   const mainAction = ()=> {
     let displayedAmount
-    if(amount && (configuredAmount == undefined || configuredAmount.token == false)) {
+    if(amount && (configuredAmount == undefined || configuredAmount.token != true)) {
       displayedAmount = new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString()
     } else {
-      displayedAmount = ((paymentValue.toString().length) ? paymentValue.toString() : `${payment.amount}`)
+      displayedAmount = ((paymentValue && paymentValue.toString().length) ? paymentValue.toString() : `${payment.amount}`)
     }
 
     if(paymentState == 'initialized' || paymentState == 'approving') {

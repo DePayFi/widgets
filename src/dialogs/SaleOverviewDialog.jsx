@@ -23,7 +23,7 @@ export default (props)=>{
   const [ salePerTokenValue, setSalePerTokenValue ] = useState()
 
   useEffect(()=>{
-    if(paymentValue && (amountConfiguration == undefined || amountConfiguration.token == false)) {
+    if(paymentValue && (amountConfiguration == undefined || amountConfiguration.token != true)) {
       setSalePerTokenValue((new Currency({ amount: (paymentValue.amount / parseFloat(toTokenReadableAmount)).toFixed(2), code: paymentValue.code })).toString())
     }
   }, [paymentValue])
