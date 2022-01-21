@@ -210,6 +210,28 @@
               sell: {
                 'bsc': '0x8F0528cE5eF7B51152A59745bEfDD91D97091d2F'
               },
+            });
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Sale -->
+
+    <div class="container pb-4"><!-- Sale -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <h2 class="pt-5">Sale</h2>
+        <div class="form-group pt-3">
+        
+        <button id="buyButtonBYG" class="btn-lg mt-2">Buy BYG</button>
+        <script>
+          var button = document.getElementById("buyButtonBYG");
+          button.addEventListener("click",function(e){
+            DePayWidgets.Sale({
+              sell: {
+                'bsc': '0x4f7b627b88651e3dddca0240bca68a3062632c8c'
+              },
               amount: {
                 token: true
               }
