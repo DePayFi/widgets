@@ -1673,7 +1673,7 @@
   });
 
   var CardStyle = (function (style) {
-    return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n      width: 100%;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 4.3rem;\n      padding: 0.4rem 1.3rem;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 1.2rem;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 1rem;\n    }\n\n    .Card.Row .CardImage {\n      width: 2.5rem;\n    }\n\n    .Card.Row .CardImage img {\n      height: 1.9rem;\n      width: 1.9rem;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.5rem 0.5rem;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 1.7rem;\n    }\n\n    .CardImage.small img {\n      height: 1.4rem;\n      width: 1.4rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 3.6rem;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardImage .BlockchainLogo {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.26rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+    return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 0.8rem;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 0.5rem;\n      min-height: 4.78rem;\n      padding: 1rem 0.6rem;\n      width: 100%;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 4.3rem;\n      padding: 0.4rem 1.3rem;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 1.2rem;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 1rem;\n    }\n\n    .Card.Row .CardImage {\n      width: 2.5rem;\n    }\n\n    .Card.Row .CardImage img {\n      height: 1.9rem;\n      width: 1.9rem;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 0.5rem 0.5rem;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 1.7rem;\n    }\n\n    .CardImage.small img {\n      height: 1.4rem;\n      width: 1.4rem;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 0.4rem;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 3.6rem;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 1.4rem;\n      padding-left: 0.6rem;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 99rem;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 2.8rem;\n      position: relative;\n      vertical-align: middle;\n      width: 2.8rem;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardImage .BlockchainLogo {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .CardTitle {\n      font-size: 0.9rem;\n      color: rgb(150,150,150);\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 1.3rem;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText small {\n      font-size: 1.1rem;\n      color: rgb(150,150,150);\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
   });
 
   var DialogStyle = (function (style) {
@@ -2027,7 +2027,7 @@
         account = _useContext.account;
 
     var _useContext2 = React.useContext(ConfigurationContext),
-        configuredAmount = _useContext2.amount;
+        amountConfiguration = _useContext2.amount;
 
     var _useContext3 = React.useContext(ConversionRateContext),
         conversionRate = _useContext3.conversionRate;
@@ -2040,7 +2040,7 @@
         acceptWithAmount = _useState4[0],
         setAcceptWithAmount = _useState4[1];
 
-    var _useState5 = React.useState(amountsMissing ? _typeof(configuredAmount) == "object" && configuredAmount.start ? configuredAmount.start : 1 : null),
+    var _useState5 = React.useState(amountsMissing ? _typeof(amountConfiguration) == "object" && amountConfiguration.start ? amountConfiguration.start : 1 : null),
         _useState6 = _slicedToArray(_useState5, 2),
         amount = _useState6[0],
         setAmount = _useState6[1];
@@ -2058,51 +2058,83 @@
     React.useEffect(function () {
       setAmountsMissing(configurationsMissAmounts(props.accept));
     }, [props.accept]);
-    React.useEffect(function () {
-      if (amountsMissing && account && conversionRate) {
-        Promise.all(props.accept.map(function (configuration) {
-          return web3Exchanges.route({
-            blockchain: configuration.blockchain,
-            tokenIn: web3Constants.CONSTANTS[configuration.blockchain].USD,
-            amountIn: 1.00 / conversionRate * amount,
-            tokenOut: configuration.token,
-            fromAddress: account,
-            toAddress: account
-          });
-        })).then(function (routes) {
-          Promise.all(routes.map(function (routes, index) {
-            if (routes[0] == undefined) {
-              return;
-            }
 
-            return web3Tokens.Token.readable({
-              blockchain: props.accept[index].blockchain,
-              amount: routes[0].amountOut,
-              address: routes[0].tokenOut
+    var getAmounts = function getAmounts() {
+      return new Promise(function (resolve, reject) {
+        if (amountConfiguration && amountConfiguration.token) {
+          resolve(props.accept.map(function () {
+            return amount;
+          }));
+        } else {
+          Promise.all(props.accept.map(function (configuration) {
+            return web3Exchanges.route({
+              blockchain: configuration.blockchain,
+              tokenIn: web3Constants.CONSTANTS[configuration.blockchain].USD,
+              amountIn: 1.00 / conversionRate * amount,
+              tokenOut: configuration.token,
+              fromAddress: account,
+              toAddress: account
             });
-          })).then(function (amounts) {
-            setAcceptWithAmount(props.accept.map(function (configuration, index) {
-              if (amounts[index] == undefined) {
+          })).then(function (routes) {
+            Promise.all(routes.map(function (routes, index) {
+              if (routes[0] == undefined) {
                 return;
               }
 
-              return {
-                blockchain: configuration.blockchain,
-                amount: round(amounts[index]),
-                token: configuration.token,
-                receiver: configuration.receiver || account
-              };
-            }).filter(function (configuration) {
-              return !!configuration;
-            }));
+              return web3Tokens.Token.readable({
+                blockchain: props.accept[index].blockchain,
+                amount: routes[0].amountOut,
+                address: routes[0].tokenOut
+              });
+            })).then(resolve)["catch"](setError);
           })["catch"](setError);
+        }
+      });
+    };
+
+    React.useEffect(function () {
+      if (amountsMissing && account && conversionRate) {
+        getAmounts().then(function (amounts) {
+          setAcceptWithAmount(props.accept.map(function (configuration, index) {
+            if (amounts[index] == undefined) {
+              return;
+            }
+
+            return {
+              blockchain: configuration.blockchain,
+              amount: round(amounts[index]),
+              token: configuration.token,
+              receiver: configuration.receiver || account
+            };
+          }).filter(function (configuration) {
+            return !!configuration;
+          }));
         })["catch"](setError);
       }
-    }, [account, conversionRate, amount]);
+    }, [amountsMissing, account, conversionRate, amount]);
     React.useEffect(function () {
       if (amountsMissing && maxRoute) {
         maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
-          if (maxRoute.fromToken.address == web3Constants.CONSTANTS[maxRoute.blockchain].USD) {
+          if (amountConfiguration && amountConfiguration.token) {
+            web3Exchanges.route({
+              blockchain: maxRoute.blockchain,
+              tokenIn: maxRoute.fromToken.address,
+              tokenOut: maxRoute.toToken.address,
+              amountIn: parseFloat(readableMaxAmount),
+              fromAddress: account,
+              toAddress: account
+            }).then(function (routes) {
+              web3Tokens.Token.readable({
+                amount: routes[0].amountOut,
+                blockchain: maxRoute.blockchain,
+                address: maxRoute.toToken.address
+              }).then(function (readableMaxAmount) {
+                var slippage = 1.01;
+                var maxAmount = parseFloat(new decimal_js.Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
+                setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : round(maxAmount));
+              })["catch"](setError);
+            })["catch"](setError);
+          } else if (maxRoute.fromToken.address == web3Constants.CONSTANTS[maxRoute.blockchain].USD) {
             var _maxAmount = parseFloat(new decimal_js.Decimal(readableMaxAmount).mul(conversionRate).toString());
 
             setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount) : _maxAmount);
@@ -2775,13 +2807,14 @@
 
     var _useContext5 = React.useContext(ConfigurationContext),
         currencyCode = _useContext5.currencyCode,
-        configuredAmount = _useContext5.amount;
+        amountConfiguration = _useContext5.amount;
 
     var _useContext6 = React.useContext(PaymentRoutingContext);
         _useContext6.allRoutes;
 
-    var min = _typeof(configuredAmount) == "object" && configuredAmount.min ? configuredAmount.min : 1;
-    var step = _typeof(configuredAmount) == "object" && configuredAmount.step ? configuredAmount.step : 1;
+    var min = _typeof(amountConfiguration) == "object" && amountConfiguration.min ? amountConfiguration.min : 1;
+    var step = _typeof(amountConfiguration) == "object" && amountConfiguration.step ? amountConfiguration.step : 1;
+    var displayedCurrencyCode = amountConfiguration != undefined && amountConfiguration.token ? null : currencyCode;
 
     var changeAmountAndGoBack = function changeAmountAndGoBack() {
       setAmount(toValidValue(parseFloat(inputAmount)));
@@ -2823,7 +2856,7 @@
         className: "LineHeightL FontSizeL TextCenter"
       }, "Change Amount"), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "FontSizeL TextCenter FontWeightBold"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", null, currencyCode))),
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, displayedCurrencyCode))),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "MaxHeight PaddingTopXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -3126,7 +3159,8 @@
 
   var Footer = (function () {
     var _useContext = React.useContext(ConfigurationContext),
-        currencyCode = _useContext.currencyCode;
+        currencyCode = _useContext.currencyCode,
+        configuredAmount = _useContext.amount;
 
     var _useContext2 = React.useContext(ChangableAmountContext),
         amount = _useContext2.amount;
@@ -3280,6 +3314,19 @@
     };
 
     var mainAction = function mainAction() {
+      var displayedAmount;
+
+      if (amount && (configuredAmount == undefined || configuredAmount.token != true)) {
+        displayedAmount = new localCurrency.Currency({
+          amount: amount.toFixed(2),
+          code: currencyCode
+        }).toString();
+      } else if (paymentValue && paymentValue.toString().length) {
+        displayedAmount = paymentValue.toString();
+      } else {
+        displayedAmount = "".concat(payment.symbol, " ").concat(payment.amount);
+      }
+
       if (paymentState == 'initialized' || paymentState == 'approving') {
         return /*#__PURE__*/React__default['default'].createElement("button", {
           className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
@@ -3292,10 +3339,7 @@
               navigate: navigate
             });
           }
-        }, "Pay ", amount ? new localCurrency.Currency({
-          amount: amount.toFixed(2),
-          code: currencyCode
-        }).toString() : paymentValue.toString().length ? paymentValue.toString() : "".concat(payment.amount));
+        }, "Pay ", displayedAmount);
       } else if (paymentState == 'paying') {
         return /*#__PURE__*/React__default['default'].createElement("a", {
           className: "ButtonPrimary",
@@ -4525,7 +4569,8 @@
         _useContext.amount;
 
     var _useContext2 = React.useContext(ConfigurationContext),
-        tokenImage = _useContext2.tokenImage;
+        tokenImage = _useContext2.tokenImage,
+        amountConfiguration = _useContext2.amount;
 
     var _useContext3 = React.useContext(PaymentValueContext),
         paymentValue = _useContext3.paymentValue;
@@ -4547,7 +4592,7 @@
         setSalePerTokenValue = _useState2[1];
 
     React.useEffect(function () {
-      if (paymentValue) {
+      if (paymentValue && (amountConfiguration == undefined || amountConfiguration.token != true)) {
         setSalePerTokenValue(new localCurrency.Currency({
           amount: (paymentValue.amount / parseFloat(toTokenReadableAmount)).toFixed(2),
           code: paymentValue.code
