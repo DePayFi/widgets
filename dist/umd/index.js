@@ -2773,7 +2773,7 @@
   });
 
   var format = (function (input) {
-    var _float = parseFloat(input);
+    var _float = round(input);
 
     var floatToString = _float.toString();
 
