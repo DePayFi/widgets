@@ -1,6 +1,8 @@
+import round from './round'
+
 export default (input)=>{
 
-  let float = parseFloat(input)
+  let float = round(input)
   let floatToString = float.toString()
 
   if(new RegExp(/\./).test(floatToString)) {
