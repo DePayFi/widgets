@@ -25,7 +25,7 @@ export default (input, direction = 'up')=>{
       }
       focusToFixed = parseFloat(float).toFixed(1).replace('.', '')
     }
-    if(focusToFixed.toString()[0] != 0 && focusToFixed.toString().length > 2) {
+    if(focusToFixed.toString()[0] != "0" && focusToFixed.toString().length > 2) {
       return(parseInt(inputAsFloat.toFixed(0)))
     } else {
       return(
