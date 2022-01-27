@@ -54,23 +54,7 @@ export default (props)=>{
         if(sent) { sent(transaction) }
       },
       confirmed: paymentConfirmed,
-      failed: (transaction, error)=> {
-        console.log("FAILED TRANSACTION transaction", transaction)
-        console.log("FAILED TRANSACTION error", error)
-        if(error && error.code && error.code == 'TRANSACTION_REPLACED') {
-          if(error.replacement && error.replacement.hash && error.receipt && error.receipt.status == 1) {
-            let newTransaction = Object.assign({}, transaction, { id: error.replacement.hash })
-            setTransaction(newTransaction)
-            paymentConfirmed(newTransaction)
-          } else if(error.replacement && error.replacement.hash && error.receipt && error.receipt.status == 0) {
-            let newTransaction = Object.assign({}, transaction, { id: error.replacement.hash })
-            setTransaction(newTransaction)
-            paymentFailed(newTransaction)
-          }
-          return
-        }
-        paymentFailed(transaction, error)
-      }
+      failed: paymentFailed
     }))
       .then((sentTransaction)=>{
         if(tracking){ initializeTracking(sentTransaction, currentBlock, payment.route) }
