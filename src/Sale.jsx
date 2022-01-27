@@ -9,7 +9,7 @@ import PoweredBy from './components/PoweredBy'
 import React from 'react'
 import SaleRoutingProvider from './providers/SaleRoutingProvider'
 import SaleStack from './stacks/SaleStack'
-import TrackingProvider from './providers/TrackingProvider'
+import PaymentTrackingProvider from './providers/PaymentTrackingProvider'
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 
@@ -48,7 +48,7 @@ let Sale = async ({
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
                   <ConversionRateProvider>
                     <ChangableAmountProvider accept={ accept }>
-                      <TrackingProvider document={ ensureDocument(document) }>
+                      <PaymentTrackingProvider document={ ensureDocument(document) }>
                         <SaleRoutingProvider container={ container } document={ document }>
                           <SaleStack
                             document={ document }
@@ -56,7 +56,7 @@ let Sale = async ({
                           />
                           <PoweredBy/>
                         </SaleRoutingProvider>
-                      </TrackingProvider>
+                      </PaymentTrackingProvider>
                     </ChangableAmountProvider>
                   </ConversionRateProvider>
                 </WalletProvider>

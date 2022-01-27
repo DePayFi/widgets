@@ -8,10 +8,11 @@ import mount from './helpers/mount'
 import PaymentAmountRoutingProvider from './providers/PaymentAmountRoutingProvider'
 import PaymentProvider from './providers/PaymentProvider'
 import PaymentStack from './stacks/PaymentStack'
+import PaymentTrackingProvider from './providers/PaymentTrackingProvider'
 import PaymentValueProvider from './providers/PaymentValueProvider'
 import PoweredBy from './components/PoweredBy'
 import React from 'react'
-import TrackingProvider from './providers/TrackingProvider'
+import TransactionTrackingProvider from './providers/TransactionTrackingProvider'
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 
@@ -56,17 +57,19 @@ let Payment = async ({
                   <ConversionRateProvider>
                     <ChangableAmountProvider accept={ accept }>
                       <PaymentAmountRoutingProvider accept={ accept } whitelist={ whitelist } blacklist={ blacklist } event={ event } fee={ fee }>
-                        <TrackingProvider document={ ensureDocument(document) }>
-                          <PaymentProvider container={ container } document={ document }>
-                            <PaymentValueProvider>
-                                <PaymentStack
-                                  document={ document }
-                                  container={ container }
-                                />
-                                <PoweredBy/>
-                            </PaymentValueProvider>
-                          </PaymentProvider>
-                        </TrackingProvider>
+                        <TransactionTrackingProvider>
+                          <PaymentTrackingProvider document={ ensureDocument(document) }>
+                            <PaymentProvider container={ container } document={ document }>
+                              <PaymentValueProvider>
+                                  <PaymentStack
+                                    document={ document }
+                                    container={ container }
+                                  />
+                                  <PoweredBy/>
+                              </PaymentValueProvider>
+                            </PaymentProvider>
+                          </PaymentTrackingProvider>
+                        </TransactionTrackingProvider>
                       </PaymentAmountRoutingProvider>
                     </ChangableAmountProvider>
                   </ConversionRateProvider>

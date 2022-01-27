@@ -49683,7 +49683,7 @@ var round$1 = (function (input) {
       focusToFixed = parseFloat(_float).toFixed(1).replace('.', '');
     }
 
-    if (focusToFixed.toString()[0] != 0 && focusToFixed.toString().length > 2) {
+    if (focusToFixed.toString()[0] != "0" && focusToFixed.toString().length > 2) {
       return parseInt(inputAsFloat.toFixed(0));
     } else {
       return parseFloat(digitsAfterDecimal.replace(/\d{3}$/, focusToFixed));
@@ -62220,7 +62220,9 @@ var PaymentContext = /*#__PURE__*/react.createContext();
 
 var PaymentRoutingContext = /*#__PURE__*/react.createContext();
 
-var TrackingContext = /*#__PURE__*/react.createContext();
+var PaymentTrackingContext = /*#__PURE__*/react.createContext();
+
+var TransactionTrackingContext = /*#__PURE__*/react.createContext();
 
 var PaymentProvider = (function (props) {
   var _useContext = react.useContext(ErrorContext),
@@ -62228,8 +62230,8 @@ var PaymentProvider = (function (props) {
 
   var _useContext2 = react.useContext(ConfigurationContext),
       _sent = _useContext2.sent,
-      _confirmed = _useContext2.confirmed,
-      _failed = _useContext2.failed;
+      confirmed = _useContext2.confirmed,
+      failed = _useContext2.failed;
 
   var _useContext3 = react.useContext(PaymentRoutingContext),
       selectedRoute = _useContext3.selectedRoute;
@@ -62248,10 +62250,14 @@ var PaymentProvider = (function (props) {
   var _useContext7 = react.useContext(WalletContext),
       wallet = _useContext7.wallet;
 
-  var _useContext8 = react.useContext(TrackingContext),
+  var _useContext8 = react.useContext(PaymentTrackingContext),
       release = _useContext8.release,
       tracking = _useContext8.tracking,
       initializeTracking = _useContext8.initializeTracking;
+
+  var _useContext9 = react.useContext(TransactionTrackingContext),
+      foundTransaction = _useContext9.foundTransaction,
+      initializeTransactionTracking = _useContext9.initializeTracking;
 
   var _useState = react.useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -62272,6 +62278,29 @@ var PaymentProvider = (function (props) {
       _useState8 = _slicedToArray(_useState7, 2),
       paymentState = _useState8[0],
       setPaymentState = _useState8[1];
+
+  var paymentConfirmed = function paymentConfirmed(transaction) {
+    if (tracking != true) {
+      setClosable(true);
+    }
+
+    setPaymentState('confirmed');
+
+    if (confirmed) {
+      confirmed(transaction);
+    }
+  };
+
+  var paymentFailed = function paymentFailed(transaction, error) {
+    if (failed) {
+      failed(transaction, error);
+    }
+
+    setPaymentState('initialized');
+    setClosable(true);
+    setUpdatable(true);
+    navigate('PaymentError');
+  };
 
   var pay = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
@@ -62294,30 +62323,34 @@ var PaymentProvider = (function (props) {
               currentBlock = _context.sent;
               wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
                 sent: function sent(transaction) {
+                  initializeTransactionTracking(transaction, currentBlock);
+
                   if (_sent) {
                     _sent(transaction);
                   }
                 },
-                confirmed: function confirmed(transaction) {
-                  if (tracking != true) {
-                    setClosable(true);
-                  }
-
-                  setPaymentState('confirmed');
-
-                  if (_confirmed) {
-                    _confirmed(transaction);
-                  }
-                },
+                confirmed: paymentConfirmed,
                 failed: function failed(transaction, error) {
-                  if (_failed) {
-                    _failed(transaction, error);
+                  if (error && error.code && error.code == 'TRANSACTION_REPLACED') {
+                    if (error.replacement && error.replacement.hash && error.receipt && error.receipt.status == 1) {
+                      var newTransaction = Object.assign({}, transaction, {
+                        id: error.replacement.hash
+                      });
+                      setTransaction(newTransaction);
+                      paymentConfirmed(newTransaction);
+                    } else if (error.replacement && error.replacement.hash && error.receipt && error.receipt.status == 0) {
+                      var _newTransaction = Object.assign({}, transaction, {
+                        id: error.replacement.hash
+                      });
+
+                      setTransaction(_newTransaction);
+                      paymentFailed(_newTransaction);
+                    }
+
+                    return;
                   }
 
-                  setPaymentState('initialized');
-                  setClosable(true);
-                  setUpdatable(true);
-                  navigate('PaymentError');
+                  paymentFailed(transaction, error);
                 }
               })).then(function (sentTransaction) {
                 if (tracking) {
@@ -62373,6 +62406,24 @@ var PaymentProvider = (function (props) {
       setPaymentState('confirmed');
     }
   }, [release]);
+  react.useEffect(function () {
+    if (foundTransaction && foundTransaction.id && foundTransaction.status) {
+      var newTransaction;
+
+      if (foundTransaction.id.toLowerCase() != transaction.id.toLowerCase()) {
+        newTransaction = Object.assign({}, transaction, {
+          id: foundTransaction.id
+        });
+        setTransaction(newTransaction);
+      }
+
+      if (foundTransaction.status == 'success') {
+        paymentConfirmed(newTransaction || transaction);
+      } else if (foundTransaction.status == 'failed') {
+        paymentFailed(newTransaction || transaction);
+      }
+    }
+  }, [foundTransaction, transaction]);
   react.useEffect(function () {
     if (selectedRoute) {
       var fromToken = selectedRoute.fromToken;
@@ -70106,7 +70157,7 @@ var Footer = (function () {
       amount = _useContext2.amount;
       _useContext2.amountsMissing;
 
-  var _useContext3 = react.useContext(TrackingContext),
+  var _useContext3 = react.useContext(PaymentTrackingContext),
       tracking = _useContext3.tracking,
       release = _useContext3.release,
       forwardTo = _useContext3.forwardTo,
@@ -70517,7 +70568,7 @@ var DonationStack = (function (props) {
   });
 });
 
-var TrackingProvider = (function (props) {
+var PaymentTrackingProvider = (function (props) {
   var _useContext = react.useContext(ErrorContext),
       errorCallback = _useContext.errorCallback;
 
@@ -70611,14 +70662,14 @@ var TrackingProvider = (function (props) {
 
   var retryStartTracking = function retryStartTracking(transaction, afterBlock, paymentRoute, attempt) {
     attempt = parseInt(attempt || 1, 10);
-    console.log('RETRY TRACKING ATTEMPT ', attempt);
+    console.log('RETRYING PAYMENT TRACKING ATTEMPT ', attempt);
 
     if (attempt < 3) {
       setTimeout(function () {
         startTracking(transaction, afterBlock, paymentRoute, attempt + 1);
       }, 3000);
     } else {
-      console.log('TRACKING FAILED AFTER 3 ATTEMPTS!');
+      console.log('PAYMENT TRACKING FAILED AFTER 3 ATTEMPTS!');
       setTrackingFailed(true);
 
       if (typeof errorCallback == 'function') {
@@ -70633,6 +70684,9 @@ var TrackingProvider = (function (props) {
     if (track.endpoint) {
       return fetch(track.endpoint, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(payment)
       });
     } else if (track.method) {
@@ -70652,12 +70706,12 @@ var TrackingProvider = (function (props) {
       to_token: paymentRoute.toToken.address
     }).then(function (response) {
       if (response.status == 200) {
-        console.log('TRACKING INITIALIZED');
+        console.log('PAYMENT TRACKING INITIALIZED');
       } else {
         retryStartTracking(transaction, afterBlock, paymentRoute, attempt);
       }
     })["catch"](function (error) {
-      console.log('TRACKING FAILED', error);
+      console.log('PAYMENT TRACKING FAILED', error);
       retryStartTracking(transaction, afterBlock, paymentRoute, attempt);
     });
   };
@@ -70694,6 +70748,9 @@ var TrackingProvider = (function (props) {
     if (track.poll.endpoint) {
       fetch(track.poll.endpoint, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(payment)
       }).then(handleResponse);
     } else if (track.poll.method) {
@@ -70722,7 +70779,7 @@ var TrackingProvider = (function (props) {
     startTracking(transaction, afterBlock, paymentRoute);
   };
 
-  return /*#__PURE__*/react.createElement(TrackingContext.Provider, {
+  return /*#__PURE__*/react.createElement(PaymentTrackingContext.Provider, {
     value: {
       tracking: tracking,
       initializeTracking: initializeTracking,
@@ -70874,7 +70931,7 @@ var Donation = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/react.createElement(ConversionRateProvider, null, /*#__PURE__*/react.createElement(ChangableAmountProvider, {
                   accept: accept
-                }, /*#__PURE__*/react.createElement(TrackingProvider, {
+                }, /*#__PURE__*/react.createElement(PaymentTrackingProvider, {
                   document: ensureDocument(document)
                 }, /*#__PURE__*/react.createElement(DonationRoutingProvider, {
                   container: container,
@@ -70933,6 +70990,9 @@ var SignLoginDialog = (function (props) {
       return new Promise(function (resolve, reject) {
         fetch(endpoint, {
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify({
             message: message,
             signature: signature
@@ -71262,6 +71322,132 @@ var PaymentStack = (function (props) {
   });
 });
 
+var TransactionTrackingProvider = (function (props) {
+  var _useState = react.useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      givenTransaction = _useState2[0],
+      setGivenTransaction = _useState2[1];
+
+  var _useState3 = react.useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      foundTransaction = _useState4[0],
+      setFoundTransaction = _useState4[1];
+
+  var _useState5 = react.useState(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      polling = _useState6[0],
+      setPolling = _useState6[1];
+
+  var _useContext = react.useContext(ErrorContext);
+      _useContext.errorCallback;
+
+  react.useEffect(function () {
+    if (polling) {
+      var pollingInterval = setInterval(function () {
+        fetch("https://api.depay.fi/v2/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from.toLowerCase(), "/").concat(givenTransaction.nonce)).then(function (response) {
+          response.json().then(function (data) {
+            if (data.status != 'pending') {
+              setFoundTransaction({
+                id: data.external_id,
+                status: data.status
+              });
+              setPolling(false);
+            }
+          });
+        });
+      }, 5000);
+      return function () {
+        clearInterval(pollingInterval);
+      };
+    }
+  }, [polling]);
+
+  var createTracking = function createTracking(transaction, afterBlock, attempt) {
+    if (attempt > 3) {
+      console.log('TRANSACTION TRACKING FAILED AFTER 3 ATTEMPTS!');
+      return;
+    }
+
+    fetch('https://api.depay.fi/v2/transactions', {
+      method: 'POST',
+      headers: {
+        'X-Api-Key': apiKey,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: transaction.id,
+        after_block: afterBlock,
+        blockchain: transaction.blockchain,
+        sender: transaction.from.toLowerCase(),
+        nonce: transaction.nonce
+      })
+    }).then(function (response) {
+      if (response.status == 200 || response.status == 201) {
+        console.log('TRANSACTION TRACKING INITIALIZED');
+      } else {
+        console.log('TRANSACTION TRACKING FAILED', response);
+        setTimeout(function () {
+          createTracking(transaction, afterBlock, attempt + 1);
+        }, 3000);
+      }
+    })["catch"](function (error) {
+      console.log('TRANSACTION TRACKING FAILED', error);
+      setTimeout(function () {
+        createTracking(transaction, afterBlock, attempt + 1);
+      }, 3000);
+    });
+  };
+
+  var openSocket = function openSocket(transaction) {
+    var socket = new WebSocket('wss://integrate.depay.fi/cable');
+
+    socket.onopen = function (event) {
+      var msg = {
+        command: 'subscribe',
+        identifier: JSON.stringify({
+          blockchain: transaction.blockchain,
+          sender: transaction.from.toLowerCase(),
+          nonce: transaction.nonce,
+          channel: 'TransactionChannel'
+        })
+      };
+      socket.send(JSON.stringify(msg));
+    };
+
+    socket.onclose = function (event) {};
+
+    socket.onmessage = function (event) {
+      var item = JSON.parse(event.data);
+
+      if (item.type === "ping") {
+        return;
+      }
+
+      if (item.message && item.message.status && item.message.status != 'pending') {
+        setFoundTransaction(item.message);
+      }
+    };
+
+    socket.onerror = function (error) {
+      console.log('WebSocket Error: ' + error);
+    };
+  };
+
+  var initializeTracking = function initializeTracking(transaction, afterBlock) {
+    setGivenTransaction(transaction);
+    createTracking(transaction, afterBlock, 1);
+    openSocket(transaction);
+    setPolling(true);
+  };
+
+  return /*#__PURE__*/react.createElement(TransactionTrackingContext.Provider, {
+    value: {
+      initializeTracking: initializeTracking,
+      foundTransaction: foundTransaction
+    }
+  }, props.children);
+});
+
 var preflight$1 = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
     var accept;
@@ -71356,7 +71542,7 @@ var Payment = /*#__PURE__*/function () {
                   blacklist: blacklist,
                   event: event,
                   fee: fee
-                }, /*#__PURE__*/react.createElement(TrackingProvider, {
+                }, /*#__PURE__*/react.createElement(TransactionTrackingProvider, null, /*#__PURE__*/react.createElement(PaymentTrackingProvider, {
                   document: ensureDocument(document)
                 }, /*#__PURE__*/react.createElement(PaymentProvider, {
                   container: container,
@@ -71364,7 +71550,7 @@ var Payment = /*#__PURE__*/function () {
                 }, /*#__PURE__*/react.createElement(PaymentValueProvider, null, /*#__PURE__*/react.createElement(PaymentStack, {
                   document: document,
                   container: container
-                }), /*#__PURE__*/react.createElement(PoweredBy, null))))))))))));
+                }), /*#__PURE__*/react.createElement(PoweredBy, null)))))))))))));
               };
             });
             return _context2.abrupt("return", {
@@ -71753,7 +71939,7 @@ var Sale = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/react.createElement(ConversionRateProvider, null, /*#__PURE__*/react.createElement(ChangableAmountProvider, {
                   accept: accept
-                }, /*#__PURE__*/react.createElement(TrackingProvider, {
+                }, /*#__PURE__*/react.createElement(PaymentTrackingProvider, {
                   document: ensureDocument(document)
                 }, /*#__PURE__*/react.createElement(SaleRoutingProvider, {
                   container: container,
