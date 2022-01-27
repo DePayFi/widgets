@@ -82,6 +82,17 @@ export default ({
     overwriteRoutes: true
   }, currencyToUSD.toString())
 
+  fetchMock.post({
+    url: `https://api.depay.fi/v2/transactions`,
+    headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
+    overwriteRoutes: true
+  }, { status: 201 })
+
+  fetchMock.get({
+    url: /https\:\/\/api\.depay\.fi\/v2\/transactions.*?$/,
+    overwriteRoutes: true
+  }, { status: 404 })
+
   mock({ provider, blockchain, balance: { for: fromAddress, return: NATIVE_BalanceBN }})
 
   mock({ provider, blockchain, call: { to: TOKEN_A, api: Token[blockchain].DEFAULT, method: 'decimals', return: TOKEN_A_Decimals } })

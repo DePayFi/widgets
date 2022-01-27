@@ -1,6 +1,7 @@
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
+import NavigateContext from '../contexts/NavigateContext'
 import NoPaymentMethodFoundDialog from '../dialogs/NoPaymentMethodFoundDialog'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
@@ -19,6 +20,7 @@ export default (props)=>{
   const { open, close, setClosable } = useContext(ClosableContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
   const { setUpdatable } = useContext(UpdatableContext)
+  const { navigate } = useContext(NavigateContext)
   const { wallet } = useContext(WalletContext)
   const { release, tracking, initializeTracking } = useContext(PaymentTrackingContext)
   const { foundTransaction, initializeTracking: initializeTransactionTracking } = useContext(TransactionTrackingContext)
@@ -41,7 +43,7 @@ export default (props)=>{
     navigate('PaymentError')
   }
 
-  const pay = async ({ navigate })=> {
+  const pay = async ()=> {
     setClosable(false)
     setPaymentState('paying')
     setUpdatable(false)
@@ -53,6 +55,8 @@ export default (props)=>{
       },
       confirmed: paymentConfirmed,
       failed: (transaction, error)=> {
+        console.log("FAILED TRANSACTION transaction", transaction)
+        console.log("FAILED TRANSACTION error", error)
         if(error && error.code && error.code == 'TRANSACTION_REPLACED') {
           if(error.replacement && error.replacement.hash && error.receipt && error.receipt.status == 1) {
             let newTransaction = Object.assign({}, transaction, { id: error.replacement.hash })

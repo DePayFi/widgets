@@ -168,7 +168,7 @@ export default ()=>{
           className={["ButtonPrimary", (payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled': '')].join(' ')}
           onClick={()=>{
             if(payment.route.approvalRequired && !payment.route.directTransfer) { return }
-            pay({ navigate })
+            pay()
           }}
         >
           Pay { displayedAmount }

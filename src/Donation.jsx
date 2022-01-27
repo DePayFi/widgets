@@ -7,9 +7,10 @@ import DonationStack from './stacks/DonationStack'
 import ensureDocument from './helpers/ensureDocument'
 import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
+import NavigateProvider from './providers/NavigateProvider'
+import PaymentTrackingProvider from './providers/PaymentTrackingProvider'
 import PoweredBy from './components/PoweredBy'
 import React from 'react'
-import PaymentTrackingProvider from './providers/PaymentTrackingProvider'
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 
@@ -50,19 +51,21 @@ let Donation = async ({
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount }>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
-                  <ConversionRateProvider>
-                    <ChangableAmountProvider accept={ accept }>
-                      <PaymentTrackingProvider document={ ensureDocument(document) }>
-                        <DonationRoutingProvider container={ container } document={ document }>
-                          <DonationStack
-                            document={ document }
-                            container={ container }
-                          />
-                          <PoweredBy/>
-                        </DonationRoutingProvider>
-                      </PaymentTrackingProvider>
-                    </ChangableAmountProvider>
-                  </ConversionRateProvider>
+                  <NavigateProvider>
+                    <ConversionRateProvider>
+                      <ChangableAmountProvider accept={ accept }>
+                        <PaymentTrackingProvider document={ ensureDocument(document) }>
+                          <DonationRoutingProvider container={ container } document={ document }>
+                            <DonationStack
+                              document={ document }
+                              container={ container }
+                            />
+                            <PoweredBy/>
+                          </DonationRoutingProvider>
+                        </PaymentTrackingProvider>
+                      </ChangableAmountProvider>
+                    </ConversionRateProvider>
+                  </NavigateProvider>
                 </WalletProvider>
               </ClosableProvider>
             </UpdatableProvider>

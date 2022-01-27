@@ -5,6 +5,7 @@ import ConversionRateProvider from './providers/ConversionRateProvider'
 import ensureDocument from './helpers/ensureDocument'
 import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
+import NavigateProvider from './providers/NavigateProvider'
 import PaymentAmountRoutingProvider from './providers/PaymentAmountRoutingProvider'
 import PaymentProvider from './providers/PaymentProvider'
 import PaymentStack from './stacks/PaymentStack'
@@ -54,25 +55,27 @@ let Payment = async ({
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount }>
                 <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>
-                  <ConversionRateProvider>
-                    <ChangableAmountProvider accept={ accept }>
-                      <PaymentAmountRoutingProvider accept={ accept } whitelist={ whitelist } blacklist={ blacklist } event={ event } fee={ fee }>
-                        <TransactionTrackingProvider>
-                          <PaymentTrackingProvider document={ ensureDocument(document) }>
-                            <PaymentProvider container={ container } document={ document }>
-                              <PaymentValueProvider>
-                                  <PaymentStack
-                                    document={ document }
-                                    container={ container }
-                                  />
-                                  <PoweredBy/>
-                              </PaymentValueProvider>
-                            </PaymentProvider>
-                          </PaymentTrackingProvider>
-                        </TransactionTrackingProvider>
-                      </PaymentAmountRoutingProvider>
-                    </ChangableAmountProvider>
-                  </ConversionRateProvider>
+                  <NavigateProvider>
+                    <ConversionRateProvider>
+                      <ChangableAmountProvider accept={ accept }>
+                        <PaymentAmountRoutingProvider accept={ accept } whitelist={ whitelist } blacklist={ blacklist } event={ event } fee={ fee }>
+                          <TransactionTrackingProvider>
+                            <PaymentTrackingProvider document={ ensureDocument(document) }>
+                              <PaymentProvider container={ container } document={ document }>
+                                <PaymentValueProvider>
+                                    <PaymentStack
+                                      document={ document }
+                                      container={ container }
+                                    />
+                                    <PoweredBy/>
+                                </PaymentValueProvider>
+                              </PaymentProvider>
+                            </PaymentTrackingProvider>
+                          </TransactionTrackingProvider>
+                        </PaymentAmountRoutingProvider>
+                      </ChangableAmountProvider>
+                    </ConversionRateProvider>
+                  </NavigateProvider>
                 </WalletProvider>
               </ClosableProvider>
             </UpdatableProvider>
