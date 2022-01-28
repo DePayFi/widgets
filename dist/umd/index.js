@@ -3859,6 +3859,134 @@
     }, props.children);
   });
 
+  var TransactionTrackingProvider = (function (props) {
+    var _useState = React.useState(),
+        _useState2 = _slicedToArray(_useState, 2),
+        givenTransaction = _useState2[0],
+        setGivenTransaction = _useState2[1];
+
+    var _useState3 = React.useState(),
+        _useState4 = _slicedToArray(_useState3, 2),
+        foundTransaction = _useState4[0],
+        setFoundTransaction = _useState4[1];
+
+    var _useState5 = React.useState(false),
+        _useState6 = _slicedToArray(_useState5, 2),
+        polling = _useState6[0],
+        setPolling = _useState6[1];
+
+    var _useContext = React.useContext(ErrorContext);
+        _useContext.errorCallback;
+
+    React.useEffect(function () {
+      if (polling) {
+        var pollingInterval = setInterval(function () {
+          fetch("https://api.depay.fi/v2/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from.toLowerCase(), "/").concat(givenTransaction.nonce)).then(function (response) {
+            if (response.status == 200) {
+              response.json().then(function (data) {
+                if (data.status != 'pending') {
+                  setFoundTransaction({
+                    id: data.external_id,
+                    status: data.status
+                  });
+                  setPolling(false);
+                }
+              });
+            }
+          });
+        }, 5000);
+        return function () {
+          clearInterval(pollingInterval);
+        };
+      }
+    }, [polling]);
+
+    var createTracking = function createTracking(transaction, afterBlock, attempt) {
+      if (attempt > 3) {
+        console.log('TRANSACTION TRACKING FAILED AFTER 3 ATTEMPTS!');
+        return;
+      }
+
+      fetch('https://api.depay.fi/v2/transactions', {
+        method: 'POST',
+        headers: {
+          'X-Api-Key': apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: transaction.id,
+          after_block: afterBlock,
+          blockchain: transaction.blockchain,
+          sender: transaction.from.toLowerCase(),
+          nonce: transaction.nonce
+        })
+      }).then(function (response) {
+        if (response.status == 200 || response.status == 201) {
+          console.log('TRANSACTION TRACKING INITIALIZED');
+        } else {
+          console.log('TRANSACTION TRACKING FAILED', response);
+          setTimeout(function () {
+            createTracking(transaction, afterBlock, attempt + 1);
+          }, 3000);
+        }
+      })["catch"](function (error) {
+        console.log('TRANSACTION TRACKING FAILED', error);
+        setTimeout(function () {
+          createTracking(transaction, afterBlock, attempt + 1);
+        }, 3000);
+      });
+    };
+
+    var openSocket = function openSocket(transaction) {
+      var socket = new WebSocket('wss://integrate.depay.fi/cable');
+
+      socket.onopen = function (event) {
+        var msg = {
+          command: 'subscribe',
+          identifier: JSON.stringify({
+            blockchain: transaction.blockchain,
+            sender: transaction.from.toLowerCase(),
+            nonce: transaction.nonce,
+            channel: 'TransactionChannel'
+          })
+        };
+        socket.send(JSON.stringify(msg));
+      };
+
+      socket.onclose = function (event) {};
+
+      socket.onmessage = function (event) {
+        var item = JSON.parse(event.data);
+
+        if (item.type === "ping") {
+          return;
+        }
+
+        if (item.message && item.message.status && item.message.status != 'pending') {
+          setFoundTransaction(item.message);
+        }
+      };
+
+      socket.onerror = function (error) {
+        console.log('WebSocket Error: ' + error);
+      };
+    };
+
+    var initializeTracking = function initializeTracking(transaction, afterBlock) {
+      setGivenTransaction(transaction);
+      createTracking(transaction, afterBlock, 1);
+      openSocket(transaction);
+      setPolling(true);
+    };
+
+    return /*#__PURE__*/React__default['default'].createElement(TransactionTrackingContext.Provider, {
+      value: {
+        initializeTracking: initializeTracking,
+        foundTransaction: foundTransaction
+      }
+    }, props.children);
+  });
+
   var WalletProvider = (function (props) {
     var _useContext = React.useContext(ErrorContext);
         _useContext.setError;
@@ -4000,7 +4128,7 @@
                     unmount: unmount
                   }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(ConversionRateProvider, null, /*#__PURE__*/React__default['default'].createElement(ChangableAmountProvider, {
                     accept: accept
-                  }, /*#__PURE__*/React__default['default'].createElement(PaymentTrackingProvider, {
+                  }, /*#__PURE__*/React__default['default'].createElement(TransactionTrackingProvider, null, /*#__PURE__*/React__default['default'].createElement(PaymentTrackingProvider, {
                     document: ensureDocument(document)
                   }, /*#__PURE__*/React__default['default'].createElement(DonationRoutingProvider, {
                     container: container,
@@ -4008,7 +4136,7 @@
                   }, /*#__PURE__*/React__default['default'].createElement(DonationStack, {
                     document: document,
                     container: container
-                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null)))))))))));
+                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null))))))))))));
                 };
               });
               return _context2.abrupt("return", {
@@ -4393,134 +4521,6 @@
         WrongNetwork: /*#__PURE__*/React__default['default'].createElement(WrongNetworkDialog, null)
       }
     });
-  });
-
-  var TransactionTrackingProvider = (function (props) {
-    var _useState = React.useState(),
-        _useState2 = _slicedToArray(_useState, 2),
-        givenTransaction = _useState2[0],
-        setGivenTransaction = _useState2[1];
-
-    var _useState3 = React.useState(),
-        _useState4 = _slicedToArray(_useState3, 2),
-        foundTransaction = _useState4[0],
-        setFoundTransaction = _useState4[1];
-
-    var _useState5 = React.useState(false),
-        _useState6 = _slicedToArray(_useState5, 2),
-        polling = _useState6[0],
-        setPolling = _useState6[1];
-
-    var _useContext = React.useContext(ErrorContext);
-        _useContext.errorCallback;
-
-    React.useEffect(function () {
-      if (polling) {
-        var pollingInterval = setInterval(function () {
-          fetch("https://api.depay.fi/v2/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from.toLowerCase(), "/").concat(givenTransaction.nonce)).then(function (response) {
-            if (response.status == 200) {
-              response.json().then(function (data) {
-                if (data.status != 'pending') {
-                  setFoundTransaction({
-                    id: data.external_id,
-                    status: data.status
-                  });
-                  setPolling(false);
-                }
-              });
-            }
-          });
-        }, 5000);
-        return function () {
-          clearInterval(pollingInterval);
-        };
-      }
-    }, [polling]);
-
-    var createTracking = function createTracking(transaction, afterBlock, attempt) {
-      if (attempt > 3) {
-        console.log('TRANSACTION TRACKING FAILED AFTER 3 ATTEMPTS!');
-        return;
-      }
-
-      fetch('https://api.depay.fi/v2/transactions', {
-        method: 'POST',
-        headers: {
-          'X-Api-Key': apiKey,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          id: transaction.id,
-          after_block: afterBlock,
-          blockchain: transaction.blockchain,
-          sender: transaction.from.toLowerCase(),
-          nonce: transaction.nonce
-        })
-      }).then(function (response) {
-        if (response.status == 200 || response.status == 201) {
-          console.log('TRANSACTION TRACKING INITIALIZED');
-        } else {
-          console.log('TRANSACTION TRACKING FAILED', response);
-          setTimeout(function () {
-            createTracking(transaction, afterBlock, attempt + 1);
-          }, 3000);
-        }
-      })["catch"](function (error) {
-        console.log('TRANSACTION TRACKING FAILED', error);
-        setTimeout(function () {
-          createTracking(transaction, afterBlock, attempt + 1);
-        }, 3000);
-      });
-    };
-
-    var openSocket = function openSocket(transaction) {
-      var socket = new WebSocket('wss://integrate.depay.fi/cable');
-
-      socket.onopen = function (event) {
-        var msg = {
-          command: 'subscribe',
-          identifier: JSON.stringify({
-            blockchain: transaction.blockchain,
-            sender: transaction.from.toLowerCase(),
-            nonce: transaction.nonce,
-            channel: 'TransactionChannel'
-          })
-        };
-        socket.send(JSON.stringify(msg));
-      };
-
-      socket.onclose = function (event) {};
-
-      socket.onmessage = function (event) {
-        var item = JSON.parse(event.data);
-
-        if (item.type === "ping") {
-          return;
-        }
-
-        if (item.message && item.message.status && item.message.status != 'pending') {
-          setFoundTransaction(item.message);
-        }
-      };
-
-      socket.onerror = function (error) {
-        console.log('WebSocket Error: ' + error);
-      };
-    };
-
-    var initializeTracking = function initializeTracking(transaction, afterBlock) {
-      setGivenTransaction(transaction);
-      createTracking(transaction, afterBlock, 1);
-      openSocket(transaction);
-      setPolling(true);
-    };
-
-    return /*#__PURE__*/React__default['default'].createElement(TransactionTrackingContext.Provider, {
-      value: {
-        initializeTracking: initializeTracking,
-        foundTransaction: foundTransaction
-      }
-    }, props.children);
   });
 
   var preflight$1 = /*#__PURE__*/function () {
@@ -5018,7 +5018,7 @@
                     unmount: unmount
                   }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(ConversionRateProvider, null, /*#__PURE__*/React__default['default'].createElement(ChangableAmountProvider, {
                     accept: accept
-                  }, /*#__PURE__*/React__default['default'].createElement(PaymentTrackingProvider, {
+                  }, /*#__PURE__*/React__default['default'].createElement(TransactionTrackingProvider, null, /*#__PURE__*/React__default['default'].createElement(PaymentTrackingProvider, {
                     document: ensureDocument(document)
                   }, /*#__PURE__*/React__default['default'].createElement(SaleRoutingProvider, {
                     container: container,
@@ -5026,7 +5026,7 @@
                   }, /*#__PURE__*/React__default['default'].createElement(SaleStack, {
                     document: document,
                     container: container
-                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null)))))))))));
+                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null))))))))))));
                 };
               });
               return _context2.abrupt("return", {
