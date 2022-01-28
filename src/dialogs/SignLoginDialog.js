@@ -18,6 +18,7 @@ export default (props)=> {
       return new Promise((resolve, reject)=>{
         fetch(endpoint, {
           method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message, signature })
         })
           .then((response)=>{

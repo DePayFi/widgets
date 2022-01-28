@@ -2,7 +2,7 @@ import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
 import React, { useEffect, useContext, useState } from 'react'
-import TrackingContext from '../contexts/TrackingContext'
+import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 
 export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
@@ -55,13 +55,13 @@ export default (props)=>{
 
   const retryStartTracking = (transaction, afterBlock, paymentRoute, attempt)=> {
     attempt = parseInt(attempt || 1, 10)
-    console.log('RETRY TRACKING ATTEMPT ', attempt)
+    console.log('RETRYING PAYMENT TRACKING ATTEMPT ', attempt)
     if(attempt < 3) {
       setTimeout(()=>{
         startTracking(transaction, afterBlock, paymentRoute, attempt+1)
       }, 3000)
     } else {
-      console.log('TRACKING FAILED AFTER 3 ATTEMPTS!')
+      console.log('PAYMENT TRACKING FAILED AFTER 3 ATTEMPTS!')
       setTrackingFailed(true)
       if(typeof errorCallback == 'function') {
         errorCallback({ code: 'TRACKING_FAILED' })
@@ -73,6 +73,7 @@ export default (props)=>{
     if(track.endpoint){
       return fetch(track.endpoint, {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payment)
       })
     } else if (track.method) {
@@ -93,13 +94,13 @@ export default (props)=>{
     })
       .then((response)=>{
         if(response.status == 200) {
-          console.log('TRACKING INITIALIZED')
+          console.log('PAYMENT TRACKING INITIALIZED')
         } else {
           retryStartTracking(transaction, afterBlock, paymentRoute, attempt)
         }
       })
       .catch((error)=>{
-        console.log('TRACKING FAILED', error)
+        console.log('PAYMENT TRACKING FAILED', error)
         retryStartTracking(transaction, afterBlock, paymentRoute, attempt)
       })
   }
@@ -137,6 +138,7 @@ export default (props)=>{
     if(track.poll.endpoint) {
       fetch(track.poll.endpoint, {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payment)
       }).then(handleResponse)
     } else if(track.poll.method) {
@@ -159,7 +161,7 @@ export default (props)=>{
   }
 
   return(
-    <TrackingContext.Provider value={{
+    <PaymentTrackingContext.Provider value={{
       tracking,
       initializeTracking,
       release,
@@ -167,6 +169,6 @@ export default (props)=>{
       trackingFailed
     }}>
       { props.children }
-    </TrackingContext.Provider>
+    </PaymentTrackingContext.Provider>
   )
 }

@@ -8,14 +8,14 @@ import LoadingText from '../components/LoadingText'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext } from 'react'
-import TrackingContext from '../contexts/TrackingContext'
+import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default ()=>{
   const { currencyCode, amount: configuredAmount } = useContext(ConfigurationContext)
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
-  const { tracking, release, forwardTo, trackingFailed } = useContext(TrackingContext)
+  const { tracking, release, forwardTo, trackingFailed } = useContext(PaymentTrackingContext)
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
@@ -168,7 +168,7 @@ export default ()=>{
           className={["ButtonPrimary", (payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled': '')].join(' ')}
           onClick={()=>{
             if(payment.route.approvalRequired && !payment.route.directTransfer) { return }
-            pay({ navigate })
+            pay()
           }}
         >
           Pay { displayedAmount }

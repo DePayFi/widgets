@@ -7,9 +7,11 @@ import DonationStack from './stacks/DonationStack'
 import ensureDocument from './helpers/ensureDocument'
 import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
+import NavigateProvider from './providers/NavigateProvider'
+import PaymentTrackingProvider from './providers/PaymentTrackingProvider'
 import PoweredBy from './components/PoweredBy'
 import React from 'react'
-import TrackingProvider from './providers/TrackingProvider'
+import TransactionTrackingProvider from './providers/TransactionTrackingProvider'
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 
@@ -50,19 +52,23 @@ let Donation = async ({
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount }>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
-                  <ConversionRateProvider>
-                    <ChangableAmountProvider accept={ accept }>
-                      <TrackingProvider document={ ensureDocument(document) }>
-                        <DonationRoutingProvider container={ container } document={ document }>
-                          <DonationStack
-                            document={ document }
-                            container={ container }
-                          />
-                          <PoweredBy/>
-                        </DonationRoutingProvider>
-                      </TrackingProvider>
-                    </ChangableAmountProvider>
-                  </ConversionRateProvider>
+                  <NavigateProvider>
+                    <ConversionRateProvider>
+                      <ChangableAmountProvider accept={ accept }>
+                        <TransactionTrackingProvider>
+                          <PaymentTrackingProvider document={ ensureDocument(document) }>
+                            <DonationRoutingProvider container={ container } document={ document }>
+                              <DonationStack
+                                document={ document }
+                                container={ container }
+                              />
+                              <PoweredBy/>
+                            </DonationRoutingProvider>
+                          </PaymentTrackingProvider>
+                        </TransactionTrackingProvider>
+                      </ChangableAmountProvider>
+                    </ConversionRateProvider>
+                  </NavigateProvider>
                 </WalletProvider>
               </ClosableProvider>
             </UpdatableProvider>

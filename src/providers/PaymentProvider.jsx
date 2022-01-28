@@ -1,13 +1,16 @@
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
+import NavigateContext from '../contexts/NavigateContext'
 import NoPaymentMethodFoundDialog from '../dialogs/NoPaymentMethodFoundDialog'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
+import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useContext, useEffect, useState } from 'react'
-import TrackingContext from '../contexts/TrackingContext'
+import TransactionTrackingContext from '../contexts/TransactionTrackingContext'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
+import { Blockchain } from '@depay/web3-blockchains'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 import { request } from '@depay/web3-client'
 
@@ -18,34 +21,41 @@ export default (props)=>{
   const { open, close, setClosable } = useContext(ClosableContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
   const { setUpdatable } = useContext(UpdatableContext)
+  const { navigate } = useContext(NavigateContext)
   const { wallet } = useContext(WalletContext)
-  const { release, tracking, initializeTracking } = useContext(TrackingContext)
+  const { release, tracking, initializeTracking } = useContext(PaymentTrackingContext)
+  const { foundTransaction, initializeTracking: initializeTransactionTracking } = useContext(TransactionTrackingContext)
   const [ payment, setPayment ] = useState()
   const [ transaction, setTransaction ] = useState()
   const [ approvalTransaction, setApprovalTransaction ] = useState()
   const [ paymentState, setPaymentState ] = useState('initialized')
 
-  const pay = async ({ navigate })=> {
+  const paymentConfirmed = (transaction)=>{
+    if(tracking != true) { setClosable(true) }
+    setPaymentState('confirmed')
+    if(confirmed) { confirmed(transaction) }
+  }
+
+  const paymentFailed = (transaction, error)=> {
+    if(failed) { failed(transaction, error) }
+    setPaymentState('initialized')
+    setClosable(true)
+    setUpdatable(true)
+    navigate('PaymentError')
+  }
+
+  const pay = async ()=> {
     setClosable(false)
     setPaymentState('paying')
     setUpdatable(false)
     let currentBlock = await request({ blockchain: payment.route.transaction.blockchain, method: 'latestBlockNumber' })
     wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
       sent: (transaction)=>{
+        initializeTransactionTracking(transaction, currentBlock)
         if(sent) { sent(transaction) }
       },
-      confirmed: (transaction)=>{
-        if(tracking != true) { setClosable(true) }
-        setPaymentState('confirmed')
-        if(confirmed) { confirmed(transaction) }
-      },
-      failed: (transaction, error)=> {
-        if(failed) { failed(transaction, error) }
-        setPaymentState('initialized')
-        setClosable(true)
-        setUpdatable(true)
-        navigate('PaymentError')
-      }
+      confirmed: paymentConfirmed,
+      failed: paymentFailed
     }))
       .then((sentTransaction)=>{
         if(tracking){ initializeTracking(sentTransaction, currentBlock, payment.route) }
@@ -88,6 +98,24 @@ export default (props)=>{
       setPaymentState('confirmed')
     }
   }, [release])
+
+  useEffect(()=>{
+    if(foundTransaction && foundTransaction.id && foundTransaction.status) {
+      let newTransaction
+      if(foundTransaction.id.toLowerCase() != transaction.id.toLowerCase()) {
+        newTransaction = Object.assign({}, transaction, { 
+          id: foundTransaction.id,
+          url: Blockchain.findByName(transaction.blockchain).explorerUrlFor({ transaction: foundTransaction })
+        })
+        setTransaction(newTransaction)
+      }
+      if(foundTransaction.status == 'success') {
+        paymentConfirmed(newTransaction || transaction)
+      } else if(foundTransaction.status == 'failed'){
+        paymentFailed(newTransaction || transaction)
+      }
+    }
+  }, [foundTransaction, transaction])
 
   useEffect(()=>{
     if(selectedRoute) {

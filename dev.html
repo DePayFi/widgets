@@ -15,7 +15,7 @@
     <script crossorigin src="https://unpkg.com/@depay/web3-constants@5"></script>
     <script crossorigin src="https://unpkg.com/@depay/walletconnect-v1@1"></script>
     <script crossorigin src="https://unpkg.com/@depay/web3-client@8"></script>
-    <script crossorigin src="https://unpkg.com/@depay/web3-wallets@8"></script>
+    <script crossorigin src="https://unpkg.com/@depay/web3-wallets@9"></script>
     <script crossorigin src="https://unpkg.com/@depay/web3-tokens@8"></script>
     <script crossorigin src="https://unpkg.com/@depay/web3-assets@5"></script>
     <script crossorigin src="https://unpkg.com/@depay/web3-exchanges@8"></script>
@@ -90,6 +90,29 @@
                 receiver: document.getElementById("paymentReceiverInput").value
               }],
               currency: 'USD'
+            });
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Payment -->
+
+    <div class="container pb-4"><!-- Payment -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <h2 class="pt-5">Pay test transaction tracking</h2>
+        <button id="payTransactionTracking" class="btn-lg mt-2">Pay test transaction tracking</button>
+        <script>
+          var button = document.getElementById("payTransactionTracking");
+          button.addEventListener("click",function(e){
+            DePayWidgets.Payment({
+              accept: [{
+                blockchain: 'ethereum',
+                amount: 0.0001,
+                token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+              }]
             });
           });
         </script>
