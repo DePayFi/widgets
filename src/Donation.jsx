@@ -11,6 +11,7 @@ import NavigateProvider from './providers/NavigateProvider'
 import PaymentTrackingProvider from './providers/PaymentTrackingProvider'
 import PoweredBy from './components/PoweredBy'
 import React from 'react'
+import TransactionTrackingProvider from './providers/TransactionTrackingProvider'
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 
@@ -54,15 +55,17 @@ let Donation = async ({
                   <NavigateProvider>
                     <ConversionRateProvider>
                       <ChangableAmountProvider accept={ accept }>
-                        <PaymentTrackingProvider document={ ensureDocument(document) }>
-                          <DonationRoutingProvider container={ container } document={ document }>
-                            <DonationStack
-                              document={ document }
-                              container={ container }
-                            />
-                            <PoweredBy/>
-                          </DonationRoutingProvider>
-                        </PaymentTrackingProvider>
+                        <TransactionTrackingProvider>
+                          <PaymentTrackingProvider document={ ensureDocument(document) }>
+                            <DonationRoutingProvider container={ container } document={ document }>
+                              <DonationStack
+                                document={ document }
+                                container={ container }
+                              />
+                              <PoweredBy/>
+                            </DonationRoutingProvider>
+                          </PaymentTrackingProvider>
+                        </TransactionTrackingProvider>
                       </ChangableAmountProvider>
                     </ConversionRateProvider>
                   </NavigateProvider>

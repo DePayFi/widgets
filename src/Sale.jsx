@@ -11,6 +11,7 @@ import PoweredBy from './components/PoweredBy'
 import React from 'react'
 import SaleRoutingProvider from './providers/SaleRoutingProvider'
 import SaleStack from './stacks/SaleStack'
+import TransactionTrackingProvider from './providers/TransactionTrackingProvider'
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 
@@ -50,15 +51,17 @@ let Sale = async ({
                   <NavigateProvider>
                     <ConversionRateProvider>
                       <ChangableAmountProvider accept={ accept }>
-                        <PaymentTrackingProvider document={ ensureDocument(document) }>
-                          <SaleRoutingProvider container={ container } document={ document }>
-                            <SaleStack
-                              document={ document }
-                              container={ container }
-                            />
-                            <PoweredBy/>
-                          </SaleRoutingProvider>
-                        </PaymentTrackingProvider>
+                        <TransactionTrackingProvider>
+                          <PaymentTrackingProvider document={ ensureDocument(document) }>
+                            <SaleRoutingProvider container={ container } document={ document }>
+                              <SaleStack
+                                document={ document }
+                                container={ container }
+                              />
+                              <PoweredBy/>
+                            </SaleRoutingProvider>
+                          </PaymentTrackingProvider>
+                        </TransactionTrackingProvider>
                       </ChangableAmountProvider>
                     </ConversionRateProvider>
                   </NavigateProvider>
