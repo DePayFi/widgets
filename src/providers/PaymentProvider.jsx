@@ -16,7 +16,7 @@ import { request } from '@depay/web3-client'
 
 export default (props)=>{
   const { setError } = useContext(ErrorContext)
-  const { sent, confirmed, failed } = useContext(ConfigurationContext)
+  const { sent, confirmed, failed, recover } = useContext(ConfigurationContext)
   const { selectedRoute } = useContext(PaymentRoutingContext)
   const { open, close, setClosable } = useContext(ClosableContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
@@ -98,6 +98,18 @@ export default (props)=>{
       setPaymentState('confirmed')
     }
   }, [release])
+
+  useEffect(()=>{
+    if(recover){
+      setClosable(false)
+      setUpdatable(false)
+      setPaymentState('paying')
+      setTransaction({
+        id: recover.transaction,
+        url: Blockchain.findByName(recover.blockchain).explorerUrlFor({ transaction: {id: recover.transaction } })
+      })
+    }
+  }, [recover])
 
   useEffect(()=>{
     if(foundTransaction && foundTransaction.id && foundTransaction.status) {
