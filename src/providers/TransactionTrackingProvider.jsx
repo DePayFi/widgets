@@ -1,4 +1,5 @@
 import apiKey from '../helpers/apiKey'
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
 import React, { useState, useEffect, useContext } from 'react'
 import TransactionTrackingContext from '../contexts/TransactionTrackingContext'
@@ -9,10 +10,11 @@ export default (props)=>{
   const [ foundTransaction, setFoundTransaction ] = useState()
   const [ polling, setPolling ] = useState(false)
   const { errorCallback } = useContext(ErrorContext)
+  const { recover } = useContext(ConfigurationContext)
 
   useEffect(()=>{
     if(polling) {
-      let pollingInterval = setInterval(()=>{
+      let poll = ()=> {
         fetch(`https://api.depay.fi/v2/transactions/${givenTransaction.blockchain}/${givenTransaction.from.toLowerCase()}/${givenTransaction.nonce}`)
           .then((response)=>{
             if(response.status == 200) {
@@ -27,7 +29,9 @@ export default (props)=>{
               })
             }
           })
-      }, 5000)
+      }
+      let pollingInterval = setInterval(poll, 5000)
+      poll()
       return ()=>{ clearInterval(pollingInterval) }
     }
   }, [polling])
@@ -94,10 +98,21 @@ export default (props)=>{
 
   const initializeTracking = (transaction, afterBlock)=>{
     setGivenTransaction(transaction)
-    createTracking(transaction, afterBlock, 1)
+    if(recover == undefined) { createTracking(transaction, afterBlock, 1) }
     openSocket(transaction)
     setPolling(true)
   }
+
+  useEffect(()=>{
+    if(recover){
+      initializeTracking({
+        blockchain: recover.blockchain,
+        id: recover.transaction,
+        from: recover.sender,
+        nonce: recover.nonce
+      }, recover.afterBlock)
+    }
+  }, [recover])
 
   return(
     <TransactionTrackingContext.Provider value={{

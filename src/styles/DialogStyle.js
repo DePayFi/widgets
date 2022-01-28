@@ -29,7 +29,10 @@ export default (style)=>{
         align-content: stretch;
         display: flex;
         flex-direction: column;
-        height: 100%;
+      }
+
+      .ReactDialogCell {
+        vertical-align: bottom;
       }
 
       .DialogBody {

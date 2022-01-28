@@ -13,13 +13,13 @@ import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=>{
-  const { currencyCode } = useContext(ConfigurationContext)
+  const { currencyCode, recover } = useContext(ConfigurationContext)
   const { payment, paymentState } = useContext(PaymentContext)
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
 
-  if(payment == undefined || paymentValue == undefined) { return(<PaymentOverviewSkeleton/>) }
+  if(payment == undefined || (recover == undefined && paymentValue == undefined)) { return(<PaymentOverviewSkeleton/>) }
 
   return(
     <Dialog
@@ -66,7 +66,7 @@ export default (props)=>{
           >
             <div className="CardImage" title={ payment.name }>
               <TokenImage
-                blockchain={ payment.route.blockchain }
+                blockchain={ payment.blockchain }
                 address={ payment.token }
               />
             </div>

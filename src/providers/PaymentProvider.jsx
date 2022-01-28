@@ -13,11 +13,12 @@ import WalletContext from '../contexts/WalletContext'
 import { Blockchain } from '@depay/web3-blockchains'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 import { request } from '@depay/web3-client'
+import { Token } from '@depay/web3-tokens'
 
 export default (props)=>{
   const { setError } = useContext(ErrorContext)
   const { sent, confirmed, failed, recover } = useContext(ConfigurationContext)
-  const { selectedRoute } = useContext(PaymentRoutingContext)
+  const { selectedRoute, getPaymentRoutes } = useContext(PaymentRoutingContext)
   const { open, close, setClosable } = useContext(ClosableContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
   const { setUpdatable } = useContext(UpdatableContext)
@@ -39,8 +40,10 @@ export default (props)=>{
   const paymentFailed = (transaction, error)=> {
     if(failed) { failed(transaction, error) }
     setPaymentState('initialized')
+    setPayment(null)
     setClosable(true)
     setUpdatable(true)
+    getPaymentRoutes({})
     navigate('PaymentError')
   }
 
@@ -108,6 +111,19 @@ export default (props)=>{
         id: recover.transaction,
         url: Blockchain.findByName(recover.blockchain).explorerUrlFor({ transaction: {id: recover.transaction } })
       })
+      let paymentToken = new Token({ blockchain: recover.blockchain, address: recover.token })
+      Promise.all([
+        paymentToken.name(),
+        paymentToken.symbol()
+      ]).then(([name, symbol])=>{
+        setPayment({
+          blockchain: recover.blockchain,
+          token: recover.token,
+          name,
+          symbol: symbol.toUpperCase(),
+          amount: recover.amount
+        })
+      }).catch(setError)
     }
   }, [recover])
 
@@ -132,15 +148,15 @@ export default (props)=>{
   useEffect(()=>{
     if(selectedRoute) {
       let fromToken = selectedRoute.fromToken
-      let transactionParams = selectedRoute.transaction.params
       Promise.all([
         fromToken.name(),
         fromToken.symbol(),
         fromToken.readable(selectedRoute.fromAmount)
       ]).then(([name, symbol, amount])=>{
         setPayment({
+          blockchain: selectedRoute.blockchain,
           route: selectedRoute,
-          token: selectedRoute.fromToken.address,
+          token: fromToken.address,
           name,
           symbol: symbol.toUpperCase(),
           amount
