@@ -1611,6 +1611,8 @@
     constructor(props) {
       super(props);
 
+      this.handler = this.onKeyDown.bind(this);
+
       this.state = {
         open: true,
       };
@@ -1644,22 +1646,22 @@
           this.setState({ open: true });
         }, 10);
       });
-      this.props.document.addEventListener('keydown', this.onKeyDown.bind(this), false);
+      this.props.document.addEventListener('keydown', this.handler, true);
     }
 
     componentWillUnmount() {
-      this.props.document.addEventListener('keydown', this.onKeyDown.bind(this), false);
+      this.props.document.removeEventListener('keydown', this.handler, true);
     }
 
     render() {
       const classNames = ['ReactDialog', this.state.open ? 'ReactDialogOpen' : ''];
       const style = ReactDialogStyle({ background: this.props.background });
       return (
-        react.createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 54}}
-          , react.createElement('style', {__self: this, __source: {fileName: _jsxFileName$2, lineNumber: 55}}, style)
-          , react.createElement('div', { className: "ReactDialogRow", __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 56}}
-            , react.createElement('div', { className: "ReactDialogCell", __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 57}}
-              , react.createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 58}} )
+        react.createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 56}}
+          , react.createElement('style', {__self: this, __source: {fileName: _jsxFileName$2, lineNumber: 57}}, style)
+          , react.createElement('div', { className: "ReactDialogRow", __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 58}}
+            , react.createElement('div', { className: "ReactDialogCell", __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 59}}
+              , react.createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 60}} )
               , this.props.children
             )
           )
