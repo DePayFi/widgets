@@ -89,7 +89,7 @@ export default ({
   }, { status: 201 })
 
   fetchMock.get({
-    url: /https\:\/\/api\.depay\.fi\/v2\/transactions.*?$/,
+    url: `https://api.depay.fi/v2/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
     overwriteRoutes: true
   }, { status: 404 })
 

@@ -15,15 +15,17 @@ export default (props)=>{
       let pollingInterval = setInterval(()=>{
         fetch(`https://api.depay.fi/v2/transactions/${givenTransaction.blockchain}/${givenTransaction.from.toLowerCase()}/${givenTransaction.nonce}`)
           .then((response)=>{
-            response.json().then((data)=>{
-              if(data.status != 'pending') {
-                setFoundTransaction({
-                  id: data.external_id,
-                  status: data.status
-                })
-                setPolling(false)
-              }
-            })
+            if(response.status == 200) {
+              response.json().then((data)=>{
+                if(data.status != 'pending') {
+                  setFoundTransaction({
+                    id: data.external_id,
+                    status: data.status
+                  })
+                  setPolling(false)
+                }
+              })
+            }
           })
       }, 5000)
       return ()=>{ clearInterval(pollingInterval) }

@@ -10,6 +10,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import TransactionTrackingContext from '../contexts/TransactionTrackingContext'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
+import { Blockchain } from '@depay/web3-blockchains'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 import { request } from '@depay/web3-client'
 
@@ -102,7 +103,10 @@ export default (props)=>{
     if(foundTransaction && foundTransaction.id && foundTransaction.status) {
       let newTransaction
       if(foundTransaction.id.toLowerCase() != transaction.id.toLowerCase()) {
-        newTransaction = Object.assign({}, transaction, { id: foundTransaction.id })
+        newTransaction = Object.assign({}, transaction, { 
+          id: foundTransaction.id,
+          url: Blockchain.findByName(transaction.blockchain).explorerUrlFor({ transaction: foundTransaction })
+        })
         setTransaction(newTransaction)
       }
       if(foundTransaction.status == 'success') {

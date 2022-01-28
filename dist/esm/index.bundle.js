@@ -1773,6 +1773,10 @@ class ReactDialogStack extends react.Component {
   constructor(props) {
     super(props);
 
+    if (props.setNavigate) {
+      props.setNavigate(this.navigate.bind(this));
+    }
+
     this.state = {
       stack: [props.start],
       animating: false,
@@ -1887,15 +1891,15 @@ class ReactDialogStack extends react.Component {
           this.classForDirection(),
         ];
         return (
-          react.createElement('div', { key: index, className: ['ReactDialogStack'].concat(stackState).join(' '), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 127}}
-            , react.createElement('div', { className: "ReactDialogStackRow", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 128}}
-              , react.createElement('div', { className: "ReactDialogStackCell", onClick: this.onClick.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 129}}
+          react.createElement('div', { key: index, className: ['ReactDialogStack'].concat(stackState).join(' '), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 131}}
+            , react.createElement('div', { className: "ReactDialogStackRow", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 132}}
+              , react.createElement('div', { className: "ReactDialogStackCell", onClick: this.onClick.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 133}}
                 , react.createElement(NavigateStackContext.Provider, {
-                  value: { navigate: this.navigate.bind(this), set: this.set.bind(this) }, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 130}}
+                  value: { navigate: this.navigate.bind(this), set: this.set.bind(this) }, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 134}}
                 
-                  , react.createElement(CloseStackContext.Provider, { value: this.close.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 133}}
-                    , react.createElement(StackContext.Provider, { value: this.state.stack, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 134}}
-                      , react.createElement('div', { className: "ReactDialogAnimation", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 135}}, this.props.dialogs[route])
+                  , react.createElement(CloseStackContext.Provider, { value: this.close.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 137}}
+                    , react.createElement(StackContext.Provider, { value: this.state.stack, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 138}}
+                      , react.createElement('div', { className: "ReactDialogAnimation", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 139}}, this.props.dialogs[route])
                     )
                   )
                 )
@@ -1938,9 +1942,9 @@ class ReactDialogStack extends react.Component {
         open: this.props.open,
         document: this.props.document,
         container: this.props.container,
-        background: this.props.background, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 173}}
+        background: this.props.background, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 177}}
       
-        , react.createElement('style', {__self: this, __source: {fileName: _jsxFileName$1, lineNumber: 180}}, ReactDialogStackStyle())
+        , react.createElement('style', {__self: this, __source: {fileName: _jsxFileName$1, lineNumber: 184}}, ReactDialogStackStyle())
         , this.renderStack()
       )
     )
@@ -48215,7 +48219,7 @@ function parseUnits$2(value, unitName) {
 function _optionalChain$5(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 class Transaction {
 
-  constructor({ blockchain, from, nonce, to, api, method, params, value, sent, confirmed, ensured, failed }) {
+  constructor({ blockchain, from, nonce, to, api, method, params, value, sent, confirmed, failed }) {
 
     this.blockchain = blockchain;
     this.from = from;
@@ -48227,10 +48231,8 @@ class Transaction {
     this.value = _optionalChain$5([Transaction, 'access', _ => _.bigNumberify, 'call', _2 => _2(value, blockchain), 'optionalAccess', _3 => _3.toString, 'call', _4 => _4()]);
     this.sent = sent;
     this.confirmed = confirmed;
-    this.ensured = ensured;
     this.failed = failed;
     this._confirmed = false;
-    this._ensured = false;
     this._failed = false;
   }
 
@@ -48272,19 +48274,6 @@ class Transaction {
       let originalConfirmed = this.confirmed;
       this.confirmed = () => {
         if (originalConfirmed) originalConfirmed(this);
-        resolve(this);
-      };
-    })
-  }
-
-  ensurance() {
-    if (this._ensured) {
-      return Promise.resolve(this)
-    }
-    return new Promise((resolve, reject) => {
-      let originalEnsured = this.ensured;
-      this.ensured = () => {
-        if (originalEnsured) originalEnsured(this);
         resolve(this);
       };
     })
@@ -48334,15 +48323,22 @@ const sendTransaction$1 = async ({ transaction, wallet })=> {
         transaction._confirmed = true;
         if (transaction.confirmed) transaction.confirmed(transaction);
       }).catch((error)=>{
-        transaction._failed = true;
-        if(transaction.failed) transaction.failed(transaction, error);
-      });
-      sentTransaction.wait(12).then(() => {
-        transaction._ensured = true;
-        if (transaction.ensured) transaction.ensured(transaction);
-      }).catch((error)=>{
-        transaction._failed = true;
-        if(transaction.failed) transaction.failed(transaction, error);
+        if(error && error.code && error.code == 'TRANSACTION_REPLACED') {
+          if(error.replacement && error.replacement.hash) {
+            transaction.id = error.replacement.hash;
+            transaction.url = Blockchain.findByName(transaction.blockchain).explorerUrlFor({ transaction });
+          }
+          if(error.replacement && error.replacement.hash && error.receipt && error.receipt.status == 1) {
+            transaction._confirmed = true;
+            if (transaction.confirmed) transaction.confirmed(transaction);
+          } else if(error.replacement && error.replacement.hash && error.receipt && error.receipt.status == 0) {
+            transaction._failed = true;
+            if(transaction.failed) transaction.failed(transaction, error);  
+          }
+        } else {
+          transaction._failed = true;
+          if(transaction.failed) transaction.failed(transaction, error);
+        }
       });
     } else {
       throw('Submitting transaction failed!')
@@ -48583,15 +48579,20 @@ const sendTransaction = async ({ transaction, wallet })=> {
           transaction._confirmed = true;
           if (transaction.confirmed) transaction.confirmed(transaction);
         }).catch((error)=>{
-          transaction._failed = true;
-          if(transaction.failed) transaction.failed(transaction, error);
-        });
-        sentTransaction.wait(12).then(() => {
-          transaction._ensured = true;
-          if (transaction.ensured) transaction.ensured(transaction);
-        }).catch((error)=>{
-          transaction._failed = true;
-          if(transaction.failed) transaction.failed(transaction, error);
+          if(error && error.code && error.code == 'TRANSACTION_REPLACED') {
+            if(error.replacement && error.replacement.hash && error.receipt && error.receipt.status == 1) {
+              transaction.id = error.replacement.hash;
+              transaction._confirmed = true;
+              if (transaction.confirmed) transaction.confirmed(transaction);
+            } else if(error.replacement && error.replacement.hash && error.receipt && error.receipt.status == 0) {
+              transaction.id = error.replacement.hash;
+              transaction._failed = true;
+              if(transaction.failed) transaction.failed(transaction, error);  
+            }
+          } else {
+            transaction._failed = true;
+            if(transaction.failed) transaction.failed(transaction, error);
+          }
         });
       }
     } else {
@@ -62185,6 +62186,8 @@ var ConversionRateProvider = (function (props) {
 
 var DonationRoutingContext = /*#__PURE__*/react.createContext();
 
+var NavigateContext = /*#__PURE__*/react.createContext();
+
 var QuestionsGraphic = "data:image/png;base64,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";
 
 var NoPaymentMethodFoundDialog = (function () {
@@ -62247,17 +62250,20 @@ var PaymentProvider = (function (props) {
   var _useContext6 = react.useContext(UpdatableContext),
       setUpdatable = _useContext6.setUpdatable;
 
-  var _useContext7 = react.useContext(WalletContext),
-      wallet = _useContext7.wallet;
+  var _useContext7 = react.useContext(NavigateContext),
+      navigate = _useContext7.navigate;
 
-  var _useContext8 = react.useContext(PaymentTrackingContext),
-      release = _useContext8.release,
-      tracking = _useContext8.tracking,
-      initializeTracking = _useContext8.initializeTracking;
+  var _useContext8 = react.useContext(WalletContext),
+      wallet = _useContext8.wallet;
 
-  var _useContext9 = react.useContext(TransactionTrackingContext),
-      foundTransaction = _useContext9.foundTransaction,
-      initializeTransactionTracking = _useContext9.initializeTracking;
+  var _useContext9 = react.useContext(PaymentTrackingContext),
+      release = _useContext9.release,
+      tracking = _useContext9.tracking,
+      initializeTracking = _useContext9.initializeTracking;
+
+  var _useContext10 = react.useContext(TransactionTrackingContext),
+      foundTransaction = _useContext10.foundTransaction,
+      initializeTransactionTracking = _useContext10.initializeTracking;
 
   var _useState = react.useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -62303,23 +62309,22 @@ var PaymentProvider = (function (props) {
   };
 
   var pay = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-      var navigate, currentBlock;
+    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+      var currentBlock;
       return regenerator.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              navigate = _ref.navigate;
               setClosable(false);
               setPaymentState('paying');
               setUpdatable(false);
-              _context.next = 6;
+              _context.next = 5;
               return request({
                 blockchain: payment.route.transaction.blockchain,
                 method: 'latestBlockNumber'
               });
 
-            case 6:
+            case 5:
               currentBlock = _context.sent;
               wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
                 sent: function sent(transaction) {
@@ -62330,28 +62335,7 @@ var PaymentProvider = (function (props) {
                   }
                 },
                 confirmed: paymentConfirmed,
-                failed: function failed(transaction, error) {
-                  if (error && error.code && error.code == 'TRANSACTION_REPLACED') {
-                    if (error.replacement && error.replacement.hash && error.receipt && error.receipt.status == 1) {
-                      var newTransaction = Object.assign({}, transaction, {
-                        id: error.replacement.hash
-                      });
-                      setTransaction(newTransaction);
-                      paymentConfirmed(newTransaction);
-                    } else if (error.replacement && error.replacement.hash && error.receipt && error.receipt.status == 0) {
-                      var _newTransaction = Object.assign({}, transaction, {
-                        id: error.replacement.hash
-                      });
-
-                      setTransaction(_newTransaction);
-                      paymentFailed(_newTransaction);
-                    }
-
-                    return;
-                  }
-
-                  paymentFailed(transaction, error);
-                }
+                failed: paymentFailed
               })).then(function (sentTransaction) {
                 if (tracking) {
                   initializeTracking(sentTransaction, currentBlock, payment.route);
@@ -62369,7 +62353,7 @@ var PaymentProvider = (function (props) {
                 }
               });
 
-            case 8:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -62377,8 +62361,8 @@ var PaymentProvider = (function (props) {
       }, _callee);
     }));
 
-    return function pay(_x) {
-      return _ref2.apply(this, arguments);
+    return function pay() {
+      return _ref.apply(this, arguments);
     };
   }();
 
@@ -62412,7 +62396,10 @@ var PaymentProvider = (function (props) {
 
       if (foundTransaction.id.toLowerCase() != transaction.id.toLowerCase()) {
         newTransaction = Object.assign({}, transaction, {
-          id: foundTransaction.id
+          id: foundTransaction.id,
+          url: Blockchain.findByName(transaction.blockchain).explorerUrlFor({
+            transaction: foundTransaction
+          })
         });
         setTransaction(newTransaction);
       }
@@ -62428,11 +62415,11 @@ var PaymentProvider = (function (props) {
     if (selectedRoute) {
       var fromToken = selectedRoute.fromToken;
       selectedRoute.transaction.params;
-      Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref3) {
-        var _ref4 = _slicedToArray(_ref3, 3),
-            name = _ref4[0],
-            symbol = _ref4[1],
-            amount = _ref4[2];
+      Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref2) {
+        var _ref3 = _slicedToArray(_ref2, 3),
+            name = _ref3[0],
+            symbol = _ref3[1],
+            amount = _ref3[2];
 
         setPayment({
           route: selectedRoute,
@@ -70174,8 +70161,8 @@ var Footer = (function () {
   var _useContext5 = react.useContext(PaymentValueContext),
       paymentValue = _useContext5.paymentValue;
 
-  var _useContext6 = react.useContext(NavigateStackContext),
-      navigate = _useContext6.navigate;
+  var _useContext6 = react.useContext(NavigateStackContext);
+      _useContext6.navigate;
 
   var _useContext7 = react.useContext(ClosableContext),
       close = _useContext7.close;
@@ -70326,9 +70313,7 @@ var Footer = (function () {
             return;
           }
 
-          pay({
-            navigate: navigate
-          });
+          pay();
         }
       }, "Pay ", displayedAmount);
     } else if (paymentState == 'paying') {
@@ -70552,7 +70537,11 @@ var DonationStack = (function (props) {
       open = _useContext.open,
       close = _useContext.close;
 
+  var _useContext2 = react.useContext(NavigateContext),
+      setNavigate = _useContext2.setNavigate;
+
   return /*#__PURE__*/react.createElement(ReactDialogStack, {
+    setNavigate: setNavigate,
     open: open,
     close: close,
     start: "DonationOverview",
@@ -70566,6 +70555,27 @@ var DonationStack = (function (props) {
       WrongNetwork: /*#__PURE__*/react.createElement(WrongNetworkDialog, null)
     }
   });
+});
+
+var NavigateProvider = (function (props) {
+  var navigator;
+
+  var setNavigate = function setNavigate(_navigator) {
+    navigator = _navigator;
+  };
+
+  var navigate = function navigate(dialog) {
+    if (navigator) {
+      navigator(dialog);
+    }
+  };
+
+  return /*#__PURE__*/react.createElement(NavigateContext.Provider, {
+    value: {
+      navigate: navigate,
+      setNavigate: setNavigate
+    }
+  }, props.children);
 });
 
 var PaymentTrackingProvider = (function (props) {
@@ -70929,7 +70939,7 @@ var Donation = /*#__PURE__*/function () {
                   container: container,
                   connected: connected,
                   unmount: unmount
-                }, /*#__PURE__*/react.createElement(ConversionRateProvider, null, /*#__PURE__*/react.createElement(ChangableAmountProvider, {
+                }, /*#__PURE__*/react.createElement(NavigateProvider, null, /*#__PURE__*/react.createElement(ConversionRateProvider, null, /*#__PURE__*/react.createElement(ChangableAmountProvider, {
                   accept: accept
                 }, /*#__PURE__*/react.createElement(PaymentTrackingProvider, {
                   document: ensureDocument(document)
@@ -70939,7 +70949,7 @@ var Donation = /*#__PURE__*/function () {
                 }, /*#__PURE__*/react.createElement(DonationStack, {
                   document: document,
                   container: container
-                }), /*#__PURE__*/react.createElement(PoweredBy, null))))))))));
+                }), /*#__PURE__*/react.createElement(PoweredBy, null)))))))))));
               };
             });
             return _context2.abrupt("return", {
@@ -71306,7 +71316,11 @@ var PaymentStack = (function (props) {
       open = _useContext.open,
       close = _useContext.close;
 
+  var _useContext2 = react.useContext(NavigateContext),
+      setNavigate = _useContext2.setNavigate;
+
   return /*#__PURE__*/react.createElement(ReactDialogStack, {
+    setNavigate: setNavigate,
     open: open,
     close: close,
     start: "PaymentOverview",
@@ -71345,15 +71359,17 @@ var TransactionTrackingProvider = (function (props) {
     if (polling) {
       var pollingInterval = setInterval(function () {
         fetch("https://api.depay.fi/v2/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from.toLowerCase(), "/").concat(givenTransaction.nonce)).then(function (response) {
-          response.json().then(function (data) {
-            if (data.status != 'pending') {
-              setFoundTransaction({
-                id: data.external_id,
-                status: data.status
-              });
-              setPolling(false);
-            }
-          });
+          if (response.status == 200) {
+            response.json().then(function (data) {
+              if (data.status != 'pending') {
+                setFoundTransaction({
+                  id: data.external_id,
+                  status: data.status
+                });
+                setPolling(false);
+              }
+            });
+          }
         });
       }, 5000);
       return function () {
@@ -71534,7 +71550,7 @@ var Payment = /*#__PURE__*/function () {
                   container: container,
                   connected: connected,
                   unmount: unmount
-                }, /*#__PURE__*/react.createElement(ConversionRateProvider, null, /*#__PURE__*/react.createElement(ChangableAmountProvider, {
+                }, /*#__PURE__*/react.createElement(NavigateProvider, null, /*#__PURE__*/react.createElement(ConversionRateProvider, null, /*#__PURE__*/react.createElement(ChangableAmountProvider, {
                   accept: accept
                 }, /*#__PURE__*/react.createElement(PaymentAmountRoutingProvider, {
                   accept: accept,
@@ -71550,7 +71566,7 @@ var Payment = /*#__PURE__*/function () {
                 }, /*#__PURE__*/react.createElement(PaymentValueProvider, null, /*#__PURE__*/react.createElement(PaymentStack, {
                   document: document,
                   container: container
-                }), /*#__PURE__*/react.createElement(PoweredBy, null)))))))))))));
+                }), /*#__PURE__*/react.createElement(PoweredBy, null))))))))))))));
               };
             });
             return _context2.abrupt("return", {
@@ -71826,7 +71842,11 @@ var SaleStack = (function (props) {
       open = _useContext.open,
       close = _useContext.close;
 
+  var _useContext2 = react.useContext(NavigateContext),
+      setNavigate = _useContext2.setNavigate;
+
   return /*#__PURE__*/react.createElement(ReactDialogStack, {
+    setNavigate: setNavigate,
     open: open,
     close: close,
     start: "SaleOverview",
@@ -71937,7 +71957,7 @@ var Sale = /*#__PURE__*/function () {
                   container: container,
                   connected: connected,
                   unmount: unmount
-                }, /*#__PURE__*/react.createElement(ConversionRateProvider, null, /*#__PURE__*/react.createElement(ChangableAmountProvider, {
+                }, /*#__PURE__*/react.createElement(NavigateProvider, null, /*#__PURE__*/react.createElement(ConversionRateProvider, null, /*#__PURE__*/react.createElement(ChangableAmountProvider, {
                   accept: accept
                 }, /*#__PURE__*/react.createElement(PaymentTrackingProvider, {
                   document: ensureDocument(document)
@@ -71947,7 +71967,7 @@ var Sale = /*#__PURE__*/function () {
                 }, /*#__PURE__*/react.createElement(SaleStack, {
                   document: document,
                   container: container
-                }), /*#__PURE__*/react.createElement(PoweredBy, null))))))))));
+                }), /*#__PURE__*/react.createElement(PoweredBy, null)))))))))));
               };
             });
             return _context2.abrupt("return", {
