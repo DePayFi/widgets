@@ -108,6 +108,7 @@ export default (props)=>{
       setUpdatable(false)
       setPaymentState('paying')
       setTransaction({
+        blockchain: recover.blockchain,
         id: recover.transaction,
         url: Blockchain.findByName(recover.blockchain).explorerUrlFor({ transaction: {id: recover.transaction } })
       })
