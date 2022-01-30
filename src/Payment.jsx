@@ -17,7 +17,8 @@ import TransactionTrackingProvider from './providers/TransactionTrackingProvider
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 
-let preflight = async({ accept }) => {
+let preflight = async({ accept, recover }) => {
+  if(recover){ return }
   accept.forEach((configuration)=>{
     if(typeof configuration.blockchain === 'undefined') { throw('You need to set the blockchain your want to receive the payment on!') }
     if(!['ethereum', 'bsc'].includes(configuration.blockchain)) { throw('You need to set a supported blockchain!') }
@@ -44,14 +45,15 @@ let Payment = async ({
   closed,
   track,
   fee,
+  recover,
   document
 }) => {
   try {
-    await preflight({ accept })
+    await preflight({ accept, recover })
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={ { amount, accept, currency, event, sent, confirmed, failed, whitelist, blacklist, providers, track, fee } }>
+          <ConfigurationProvider configuration={ { amount, accept, currency, event, sent, confirmed, failed, whitelist, blacklist, providers, track, fee, recover } }>
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount }>
                 <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>

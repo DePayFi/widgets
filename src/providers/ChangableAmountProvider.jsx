@@ -15,9 +15,9 @@ export default (props)=>{
   const configurationsMissAmounts = (configurations)=>{
     return !configurations.every((configuration)=>(typeof configuration.amount != 'undefined'))
   }
-  const [ amountsMissing, setAmountsMissing ] = useState(configurationsMissAmounts(props.accept))
+  const { amount: amountConfiguration, recover } = useContext(ConfigurationContext)
+  const [ amountsMissing, setAmountsMissing ] = useState(recover == undefined ? configurationsMissAmounts(props.accept) : false)
   let { account } = useContext(WalletContext)
-  const { amount: amountConfiguration } = useContext(ConfigurationContext)
   const { conversionRate } = useContext(ConversionRateContext)
   const { setError } = useContext(ErrorContext)
   const [ acceptWithAmount, setAcceptWithAmount ] = useState()
@@ -26,8 +26,9 @@ export default (props)=>{
   const [ maxAmount, setMaxAmount ] = useState(100)
 
   useEffect(()=>{
+    if(recover) { return }
     setAmountsMissing(configurationsMissAmounts(props.accept))
-  }, [props.accept])
+  }, [props.accept, recover])
 
   const getAmounts = ()=>{
     return new Promise((resolve, reject)=>{
@@ -58,6 +59,7 @@ export default (props)=>{
   }
 
   useEffect(()=>{
+    if(recover) { return }
     if(amountsMissing && account && conversionRate) {
       getAmounts().then((amounts)=>{
         setAcceptWithAmount(props.accept.map((configuration, index)=>{
@@ -75,7 +77,7 @@ export default (props)=>{
         }))
       }).catch(setError)
     }
-  }, [amountsMissing, account, conversionRate, amount])
+  }, [amountsMissing, account, conversionRate, amount, recover])
 
   useEffect(()=>{
     if(amountsMissing && maxRoute) {

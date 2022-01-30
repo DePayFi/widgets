@@ -124,6 +124,64 @@
       <div class="row">
       <div class="col-4"></div>
       <div class="col-4">
+        <h2 class="pt-5">Recover Confirmed Transaction</h2>
+        <button id="recoverConfirmedTransaction" class="btn-lg mt-2">Recover Confirmed Transaction</button>
+        <script>
+          var button = document.getElementById("recoverConfirmedTransaction");
+          button.addEventListener("click",function(e){
+            DePayWidgets.Payment({
+              recover: {
+                blockchain: 'ethereum',
+                transaction: '0x081ae81229b2c7df586835e9e4c16aa89f8a15dc118fac31b7521477c53ed2a9',
+                sender: '0x317d875ca3b9f8d14f960486c0d1d1913be74e90',
+                nonce: 2865,
+                afterBlock: 14088130,
+                token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                amount: 0.0001
+              },
+              confirmed: ()=> {
+                console.log('confirmed')
+              }
+            });
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Payment -->
+
+    <div class="container pb-4"><!-- Payment -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <h2 class="pt-5">Recover Failed Transaction</h2>
+        <button id="recoverFailedTransaction" class="btn-lg mt-2">Recover Failed Transaction</button>
+        <script>
+          var button = document.getElementById("recoverFailedTransaction");
+          button.addEventListener("click",function(e){
+            DePayWidgets.Payment({
+              recover: {
+                blockchain: 'ethereum',
+                transaction: '0x5f6a9a5c360b55a1b7358943ad188e09ed03bc6af23db14672a6efa3b9b583b5',
+                sender: '0x317d875ca3b9f8d14f960486c0d1d1913be74e90',
+                nonce: 2866,
+                afterBlock: 14088160,
+                token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                amount: 0.0001
+              },
+              failed: ()=> {
+                console.log('failed')
+              }
+            });
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Payment -->
+
+    <div class="container pb-4"><!-- Payment -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
         <h2 class="pt-5">Payment with tracking</h2>
         <button id="payWithTracking" class="btn-lg mt-2">Pay with tracking</button>
         <script>

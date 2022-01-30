@@ -131,7 +131,7 @@ export default ()=>{
   }
 
   const approvalButton = ()=> {
-    if(!payment.route.approvalRequired || payment.route.directTransfer) {
+    if(payment.route == undefined || (!payment.route.approvalRequired || payment.route.directTransfer)) {
       return(null)
     } else if(paymentState == 'initialized') {
       return(
@@ -162,7 +162,7 @@ export default ()=>{
       displayedAmount = `${payment.symbol} ${payment.amount}`
     }
 
-    if(paymentState == 'initialized' || paymentState == 'approving') {
+    if((paymentState == 'initialized' || paymentState == 'approving') && payment.route) {
       return(
         <button 
           className={["ButtonPrimary", (payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled': '')].join(' ')}

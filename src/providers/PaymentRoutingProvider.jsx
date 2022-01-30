@@ -1,4 +1,5 @@
 import apiKey from '../helpers/apiKey'
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import findMaxRoute from '../helpers/findMaxRoute'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import React, { useState, useContext, useEffect } from 'react'
@@ -15,6 +16,7 @@ export default (props)=>{
   const [ reloadCount, setReloadCount ] = useState(0)
   const { account } = useContext(WalletContext)
   const { updatable } = useContext(UpdatableContext)
+  const { recover } = useContext(ConfigurationContext)
   const prepareAcceptedPayments = (accept)=>{
     let toAddress = typeof accept.receiver == 'object' ? accept.receiver.address : accept.receiver
     let toContract = typeof accept.receiver == 'object' ? accept.receiver : undefined
@@ -72,7 +74,7 @@ export default (props)=>{
   }, [reloadCount, allRoutes, selectedRoute, updatable])
 
   useEffect(() => {
-    if(account && props.accept) {
+    if(account && props.accept && recover == undefined) {
       setAllRoutes(undefined)
       setSelectedRoute(undefined)
       getPaymentRoutes({})
@@ -86,6 +88,7 @@ export default (props)=>{
     <PaymentRoutingContext.Provider value={{
       selectedRoute,
       setSelectedRoute,
+      getPaymentRoutes,
       allRoutes,
       setAllRoutes
     }}>
