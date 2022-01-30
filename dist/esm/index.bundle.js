@@ -71004,8 +71004,11 @@ var TransactionTrackingProvider = (function (props) {
 });
 
 var WalletProvider = (function (props) {
-  var _useContext = react.useContext(ErrorContext);
-      _useContext.setError;
+  var _useContext = react.useContext(ConfigurationContext),
+      recover = _useContext.recover;
+
+  var _useContext2 = react.useContext(ErrorContext);
+      _useContext2.setError;
 
   var _useState = react.useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -71034,7 +71037,7 @@ var WalletProvider = (function (props) {
     }
   };
 
-  if (walletState == 'connected') {
+  if (walletState == 'connected' || recover != undefined) {
     return /*#__PURE__*/react.createElement(WalletContext.Provider, {
       value: {
         account: account,

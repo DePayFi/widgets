@@ -4063,8 +4063,11 @@
   });
 
   var WalletProvider = (function (props) {
-    var _useContext = React.useContext(ErrorContext);
-        _useContext.setError;
+    var _useContext = React.useContext(ConfigurationContext),
+        recover = _useContext.recover;
+
+    var _useContext2 = React.useContext(ErrorContext);
+        _useContext2.setError;
 
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
@@ -4093,7 +4096,7 @@
       }
     };
 
-    if (walletState == 'connected') {
+    if (walletState == 'connected' || recover != undefined) {
       return /*#__PURE__*/React__default['default'].createElement(WalletContext.Provider, {
         value: {
           account: account,

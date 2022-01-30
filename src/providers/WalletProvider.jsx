@@ -1,3 +1,4 @@
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import ConnectStack from '../stacks/ConnectStack'
 import ErrorContext from '../contexts/ErrorContext'
 import React, { useState, useEffect, useContext } from 'react'
@@ -6,6 +7,7 @@ import { ReactDialog } from '@depay/react-dialog'
 
 export default (props)=>{
 
+  const { recover } = useContext(ConfigurationContext)
   const { setError } = useContext(ErrorContext)
   const [wallet, setWallet] = useState()
   let [account, setAccount] = useState()
@@ -17,7 +19,7 @@ export default (props)=>{
     if(props.connected) { props.connected(accounts[0]) }
   }
 
-  if(walletState == 'connected') { 
+  if(walletState == 'connected' || recover != undefined) {
     return(
       <WalletContext.Provider value={{
         account,

@@ -17,7 +17,6 @@ describe('recovers a previously made payment transaction', () => {
   beforeEach(resetMocks)
   beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
-  beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
 
   let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   let DAI = CONSTANTS[blockchain].USD
