@@ -49292,7 +49292,7 @@
   });
 
   var DialogStyle = (function (style) {
-    return "\n\n    .ReactDialogBackground {\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n      background: rgb(248,248,248);\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 900px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n        height: 100%;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n      }\n\n      .DialogFooter {\n        padding-bottom: 20px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.ScrollHeight {\n      height: 30vh !important;\n      max-height: 30vh !important;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      min-height: 3.4rem;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogHeaderActionRight {\n      position: absolute;\n      top: 0;\n      right: 0;\n      height: 3rem;\n    }\n\n    .DialogHeaderActionLeft {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .ReactShadowDOMInsideContainer > .ReactDialog {\n      display: table;\n    }\n\n  ";
+    return "\n\n    .ReactDialogBackground {\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n      background: rgb(248,248,248);\n    }\n\n    @media screen and (max-width: 450px) {\n      \n      .Dialog, .ReactDialogAnimation {\n        width: 100%;\n      }\n\n    }\n\n    @media (orientation: portrait) and (max-width: 900px) {\n\n      .Dialog {\n        align-content: stretch;\n        display: flex;\n        flex-direction: column;\n      }\n\n      .ReactDialogCell {\n        vertical-align: bottom;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n      }\n\n      .DialogFooter {\n        padding-bottom: 20px;\n      }\n\n      .ReactDialogStackCell {\n        vertical-align: bottom;\n      }\n\n      .ReactDialogAnimation {\n        bottom: -100px !important;\n        top: inherit !important;\n        transition: opacity 0.4s ease, bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.ScrollHeight {\n      height: 30vh !important;\n      max-height: 30vh !important;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      min-height: 3.4rem;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogHeaderActionRight {\n      position: absolute;\n      top: 0;\n      right: 0;\n      height: 3rem;\n    }\n\n    .DialogHeaderActionLeft {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n    .ReactShadowDOMInsideContainer > .ReactDialog {\n      display: table;\n    }\n\n  ";
   });
 
   var FontStyle = (function (style) {
@@ -61530,16 +61530,17 @@
       });
     };
 
-    var _useState = react.useState(configurationsMissAmounts(props.accept)),
+    var _useContext = react.useContext(ConfigurationContext),
+        amountConfiguration = _useContext.amount,
+        recover = _useContext.recover;
+
+    var _useState = react.useState(recover == undefined ? configurationsMissAmounts(props.accept) : false),
         _useState2 = _slicedToArray(_useState, 2),
         amountsMissing = _useState2[0],
         setAmountsMissing = _useState2[1];
 
-    var _useContext = react.useContext(WalletContext),
-        account = _useContext.account;
-
-    var _useContext2 = react.useContext(ConfigurationContext),
-        amountConfiguration = _useContext2.amount;
+    var _useContext2 = react.useContext(WalletContext),
+        account = _useContext2.account;
 
     var _useContext3 = react.useContext(ConversionRateContext),
         conversionRate = _useContext3.conversionRate;
@@ -61568,8 +61569,12 @@
         setMaxAmount = _useState10[1];
 
     react.useEffect(function () {
+      if (recover) {
+        return;
+      }
+
       setAmountsMissing(configurationsMissAmounts(props.accept));
-    }, [props.accept]);
+    }, [props.accept, recover]);
 
     var getAmounts = function getAmounts() {
       return new Promise(function (resolve, reject) {
@@ -61605,6 +61610,10 @@
     };
 
     react.useEffect(function () {
+      if (recover) {
+        return;
+      }
+
       if (amountsMissing && account && conversionRate) {
         getAmounts().then(function (amounts) {
           setAcceptWithAmount(props.accept.map(function (configuration, index) {
@@ -61623,7 +61632,7 @@
           }));
         })["catch"](setError);
       }
-    }, [amountsMissing, account, conversionRate, amount]);
+    }, [amountsMissing, account, conversionRate, amount, recover]);
     react.useEffect(function () {
       if (amountsMissing && maxRoute) {
         maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
@@ -62242,10 +62251,12 @@
     var _useContext2 = react.useContext(ConfigurationContext),
         _sent = _useContext2.sent,
         confirmed = _useContext2.confirmed,
-        failed = _useContext2.failed;
+        failed = _useContext2.failed,
+        recover = _useContext2.recover;
 
     var _useContext3 = react.useContext(PaymentRoutingContext),
-        selectedRoute = _useContext3.selectedRoute;
+        selectedRoute = _useContext3.selectedRoute,
+        getPaymentRoutes = _useContext3.getPaymentRoutes;
 
     var _useContext4 = react.useContext(ClosableContext),
         open = _useContext4.open,
@@ -62311,8 +62322,10 @@
       }
 
       setPaymentState('initialized');
+      setPayment(null);
       setClosable(true);
       setUpdatable(true);
+      getPaymentRoutes({});
       navigate('PaymentError');
     };
 
@@ -62399,6 +62412,39 @@
       }
     }, [release]);
     react.useEffect(function () {
+      if (recover) {
+        setClosable(false);
+        setUpdatable(false);
+        setPaymentState('paying');
+        setTransaction({
+          blockchain: recover.blockchain,
+          id: recover.transaction,
+          url: Blockchain.findByName(recover.blockchain).explorerUrlFor({
+            transaction: {
+              id: recover.transaction
+            }
+          })
+        });
+        var paymentToken = new Token({
+          blockchain: recover.blockchain,
+          address: recover.token
+        });
+        Promise.all([paymentToken.name(), paymentToken.symbol()]).then(function (_ref2) {
+          var _ref3 = _slicedToArray(_ref2, 2),
+              name = _ref3[0],
+              symbol = _ref3[1];
+
+          setPayment({
+            blockchain: recover.blockchain,
+            token: recover.token,
+            name: name,
+            symbol: symbol.toUpperCase(),
+            amount: recover.amount
+          });
+        })["catch"](setError);
+      }
+    }, [recover]);
+    react.useEffect(function () {
       if (foundTransaction && foundTransaction.id && foundTransaction.status) {
         var newTransaction;
 
@@ -62422,16 +62468,16 @@
     react.useEffect(function () {
       if (selectedRoute) {
         var fromToken = selectedRoute.fromToken;
-        selectedRoute.transaction.params;
-        Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref2) {
-          var _ref3 = _slicedToArray(_ref2, 3),
-              name = _ref3[0],
-              symbol = _ref3[1],
-              amount = _ref3[2];
+        Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref4) {
+          var _ref5 = _slicedToArray(_ref4, 3),
+              name = _ref5[0],
+              symbol = _ref5[1],
+              amount = _ref5[2];
 
           setPayment({
+            blockchain: selectedRoute.blockchain,
             route: selectedRoute,
-            token: selectedRoute.fromToken.address,
+            token: fromToken.address,
             name: name,
             symbol: symbol.toUpperCase(),
             amount: amount
@@ -67772,6 +67818,9 @@
     var _useContext2 = react.useContext(UpdatableContext),
         updatable = _useContext2.updatable;
 
+    var _useContext3 = react.useContext(ConfigurationContext),
+        recover = _useContext3.recover;
+
     var prepareAcceptedPayments = function prepareAcceptedPayments(accept) {
       var toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
       var toContract = _typeof(accept.receiver) == 'object' ? accept.receiver : undefined;
@@ -67899,7 +67948,7 @@
       };
     }, [reloadCount, allRoutes, selectedRoute, updatable]);
     react.useEffect(function () {
-      if (account && props.accept) {
+      if (account && props.accept && recover == undefined) {
         setAllRoutes(undefined);
         setSelectedRoute(undefined);
         getPaymentRoutes({});
@@ -67912,6 +67961,7 @@
       value: {
         selectedRoute: selectedRoute,
         setSelectedRoute: setSelectedRoute,
+        getPaymentRoutes: getPaymentRoutes,
         allRoutes: allRoutes,
         setAllRoutes: setAllRoutes
       }
@@ -70276,7 +70326,7 @@
     };
 
     var approvalButton = function approvalButton() {
-      if (!payment.route.approvalRequired || payment.route.directTransfer) {
+      if (payment.route == undefined || !payment.route.approvalRequired || payment.route.directTransfer) {
         return null;
       } else if (paymentState == 'initialized') {
         return /*#__PURE__*/react.createElement("div", {
@@ -70313,7 +70363,7 @@
         displayedAmount = "".concat(payment.symbol, " ").concat(payment.amount);
       }
 
-      if (paymentState == 'initialized' || paymentState == 'approving') {
+      if ((paymentState == 'initialized' || paymentState == 'approving') && payment.route) {
         return /*#__PURE__*/react.createElement("button", {
           className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
           onClick: function onClick() {
@@ -70462,8 +70512,11 @@
     var _useContext2 = react.useContext(PaymentContext),
         transaction = _useContext2.transaction;
 
+    var _useContext3 = react.useContext(ConfigurationContext),
+        recover = _useContext3.recover;
+
     return /*#__PURE__*/react.createElement(Dialog, {
-      stacked: true,
+      stacked: recover ? false : true,
       header: /*#__PURE__*/react.createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM"
       }),
@@ -70476,7 +70529,7 @@
         className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
       }, "Payment Failed"), /*#__PURE__*/react.createElement("div", {
         className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/react.createElement("strong", {
+      }, recover == undefined && /*#__PURE__*/react.createElement("strong", {
         className: "FontSizeM"
       }, "Unfortunately executing your payment failed. You can go back and try again."), transaction && /*#__PURE__*/react.createElement("div", {
         className: "PaddingTopS"
@@ -70489,7 +70542,7 @@
       }, "View on explorer")))),
       footer: /*#__PURE__*/react.createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-      }, /*#__PURE__*/react.createElement("button", {
+      }, recover == undefined && /*#__PURE__*/react.createElement("button", {
         className: "ButtonPrimary",
         onClick: function onClick() {
           return navigate('back');
@@ -70827,9 +70880,12 @@
     var _useContext = react.useContext(ErrorContext);
         _useContext.errorCallback;
 
+    var _useContext2 = react.useContext(ConfigurationContext),
+        recover = _useContext2.recover;
+
     react.useEffect(function () {
       if (polling) {
-        var pollingInterval = setInterval(function () {
+        var poll = function poll() {
           fetch("https://api.depay.fi/v2/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from.toLowerCase(), "/").concat(givenTransaction.nonce)).then(function (response) {
             if (response.status == 200) {
               response.json().then(function (data) {
@@ -70843,7 +70899,10 @@
               });
             }
           });
-        }, 5000);
+        };
+
+        var pollingInterval = setInterval(poll, 5000);
+        poll();
         return function () {
           clearInterval(pollingInterval);
         };
@@ -70923,11 +70982,25 @@
 
     var initializeTracking = function initializeTracking(transaction, afterBlock) {
       setGivenTransaction(transaction);
-      createTracking(transaction, afterBlock, 1);
+
+      if (recover == undefined) {
+        createTracking(transaction, afterBlock, 1);
+      }
+
       openSocket(transaction);
       setPolling(true);
     };
 
+    react.useEffect(function () {
+      if (recover) {
+        initializeTracking({
+          blockchain: recover.blockchain,
+          id: recover.transaction,
+          from: recover.sender,
+          nonce: recover.nonce
+        }, recover.afterBlock);
+      }
+    }, [recover]);
     return /*#__PURE__*/react.createElement(TransactionTrackingContext.Provider, {
       value: {
         initializeTracking: initializeTracking,
@@ -71355,7 +71428,8 @@
 
   var PaymentOverviewDialog = (function (props) {
     var _useContext = react.useContext(ConfigurationContext),
-        currencyCode = _useContext.currencyCode;
+        currencyCode = _useContext.currencyCode,
+        recover = _useContext.recover;
 
     var _useContext2 = react.useContext(PaymentContext),
         payment = _useContext2.payment,
@@ -71371,7 +71445,7 @@
     var _useContext5 = react.useContext(NavigateStackContext),
         navigate = _useContext5.navigate;
 
-    if (payment == undefined || paymentValue == undefined) {
+    if (payment == undefined || recover == undefined && paymentValue == undefined) {
       return /*#__PURE__*/react.createElement(PaymentOverviewSkeleton, null);
     }
 
@@ -71422,7 +71496,7 @@
         className: "CardImage",
         title: payment.name
       }, /*#__PURE__*/react.createElement(TokenImage, {
-        blockchain: payment.route.blockchain,
+        blockchain: payment.blockchain,
         address: payment.token
       })), /*#__PURE__*/react.createElement("div", {
         className: "CardBody"
@@ -71474,12 +71548,21 @@
 
   var preflight$1 = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-      var accept;
+      var accept, recover;
       return regenerator.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              accept = _ref.accept;
+              accept = _ref.accept, recover = _ref.recover;
+
+              if (!recover) {
+                _context.next = 3;
+                break;
+              }
+
+              return _context.abrupt("return");
+
+            case 3:
               accept.forEach(function (configuration) {
                 if (typeof configuration.blockchain === 'undefined') {
                   throw 'You need to set the blockchain your want to receive the payment on!';
@@ -71498,7 +71581,7 @@
                 }
               });
 
-            case 2:
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -71513,16 +71596,17 @@
 
   var Payment = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var accept, amount, event, sent, confirmed, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, document, unmount;
+      var accept, amount, event, sent, confirmed, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, document, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, document = _ref3.document;
+              accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, document = _ref3.document;
               _context2.prev = 1;
               _context2.next = 4;
               return preflight$1({
-                accept: accept
+                accept: accept,
+                recover: recover
               });
 
             case 4:
@@ -71549,7 +71633,8 @@
                       blacklist: blacklist,
                       providers: providers,
                       track: track,
-                      fee: fee
+                      fee: fee,
+                      recover: recover
                     }
                   }, /*#__PURE__*/react.createElement(UpdatableProvider, null, /*#__PURE__*/react.createElement(ClosableProvider, {
                     unmount: unmount
