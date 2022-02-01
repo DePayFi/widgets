@@ -194,6 +194,25 @@ DePayWidgets.Payment({
 });
 ```
 
+#### fromToken, fromAmount + toToken
+
+In case where you want to configure payments based on the source token + amount, rather than target token and amount, you can pass `fromToken`, `fromAmount` and `toToken` to `accept`.
+
+In those cases make sure to NOT configure `token` nor `amount`!
+
+```javascript
+DePayWidgets.Payment({
+  accept: [{
+    blockchain: 'bsc',
+    fromToken: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+    fromAmount: 0.1,
+    toToken: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+    receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+  }]
+});
+
+// This will open a payment widget to send 0.1 BUSD to the receiver, converting it to BNB along the way.
+```
 
 #### track
 
