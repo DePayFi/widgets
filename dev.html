@@ -101,6 +101,30 @@
       <div class="row">
       <div class="col-4"></div>
       <div class="col-4">
+        <h2 class="pt-5">Pay fromToken + fromAmount</h2>
+        <button id="payFromAmountFromToken" class="btn-lg mt-2">Pay fromAmount/fromToken</button>
+        <script>
+          var button = document.getElementById("payFromAmountFromToken");
+          button.addEventListener("click",function(e){
+            DePayWidgets.Payment({
+              accept: [{
+                blockchain: 'bsc',
+                fromToken: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+                fromAmount: 0.1,
+                toToken: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+              }]
+            });
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Payment -->
+
+    <div class="container pb-4"><!-- Payment -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
         <h2 class="pt-5">Pay test transaction tracking</h2>
         <button id="payTransactionTracking" class="btn-lg mt-2">Pay test transaction tracking</button>
         <script>
@@ -132,10 +156,10 @@
             DePayWidgets.Payment({
               recover: {
                 blockchain: 'ethereum',
-                transaction: '0x081ae81229b2c7df586835e9e4c16aa89f8a15dc118fac31b7521477c53ed2a9',
+                transaction: '0x88c8a8c8b2382a52fce142c47788ea11aa16f5bbbfc034a81e6bc89919a9c705',
                 sender: '0x317d875ca3b9f8d14f960486c0d1d1913be74e90',
-                nonce: 2865,
-                afterBlock: 14088130,
+                nonce: 2869,
+                afterBlock: 14114340,
                 token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                 amount: 0.0001
               },

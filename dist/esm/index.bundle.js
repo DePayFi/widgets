@@ -61520,13 +61520,14 @@ let route$8 = ({
 var ChangableAmountProvider = (function (props) {
   var configurationsMissAmounts = function configurationsMissAmounts(configurations) {
     return !configurations.every(function (configuration) {
-      return typeof configuration.amount != 'undefined';
+      return typeof configuration.amount != 'undefined' || typeof configuration.fromAmount != 'undefined';
     });
   };
 
   var _useContext = react.useContext(ConfigurationContext),
-      amountConfiguration = _useContext.amount,
-      recover = _useContext.recover;
+      amountConfiguration = _useContext.amount;
+      _useContext.toAmount;
+      var recover = _useContext.recover;
 
   var _useState = react.useState(recover == undefined ? configurationsMissAmounts(props.accept) : false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -67483,14 +67484,16 @@ let transactionValue = ({ paymentRoute, exchangeRoute })=> {
 
 function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 class PaymentRoute {
-  constructor({ blockchain, fromToken, toToken, toDecimals, toAmount, fromAddress, toAddress, toContract }) {
+  constructor({ blockchain, fromAddress, fromToken, fromDecimals, fromAmount, toToken, toDecimals, toAmount, toAddress, toContract }) {
     this.blockchain = blockchain;
+    this.fromAddress = fromAddress;
     this.fromToken = fromToken;
+    this.fromAmount = _optionalChain([fromAmount, 'optionalAccess', _ => _.toString, 'call', _2 => _2()]);
+    this.fromDecimals = _optionalChain([fromDecimals, 'optionalAccess', _3 => _3.toString, 'call', _4 => _4()]);
     this.fromBalance = 0;
     this.toToken = toToken;
+    this.toAmount = _optionalChain([toAmount, 'optionalAccess', _5 => _5.toString, 'call', _6 => _6()]);
     this.toDecimals = toDecimals;
-    this.toAmount = _optionalChain([toAmount, 'optionalAccess', _ => _.toString, 'call', _2 => _2()]);
-    this.fromAddress = fromAddress;
     this.toAddress = toAddress;
     this.toContract = toContract;
     this.exchangeRoutes = [];
@@ -67550,22 +67553,43 @@ function convertToRoutes({ tokens, accept }) {
   return Promise.all(tokens.map(async (fromToken)=>{
     let relevantConfigurations = accept.filter((configuration)=>(configuration.blockchain == fromToken.blockchain));
     return Promise.all(relevantConfigurations.map(async (configuration)=>{
-      let blockchain = configuration.blockchain;
-      let toToken = new Token({ blockchain, address: configuration.token });
-      let toDecimals = await toToken.decimals();
-      let toAmount = (await toToken.BigNumber(configuration.amount)).toString();
-      return new PaymentRoute({
-        blockchain,
-        fromToken: fromToken,
-        toToken: toToken,
-        toAmount: toAmount,
-        toDecimals: toDecimals,
-        fromAddress: configuration.fromAddress,
-        toAddress: configuration.toAddress,
-        toContract: configuration.toContract
-      })
+      if(configuration.token && configuration.amount) {
+        let blockchain = configuration.blockchain;
+        let toToken = new Token({ blockchain, address: configuration.token });
+        let toDecimals = await toToken.decimals();
+        let toAmount = (await toToken.BigNumber(configuration.amount)).toString();
+
+        return new PaymentRoute({
+          blockchain,
+          fromToken,
+          toToken,
+          toAmount,
+          toDecimals,
+          fromAddress: configuration.fromAddress,
+          toAddress: configuration.toAddress,
+          toContract: configuration.toContract
+        })
+      } else if(configuration.fromToken && configuration.fromAmount && fromToken.address.toLowerCase() == configuration.fromToken.toLowerCase()) {
+        let blockchain = configuration.blockchain;
+        let fromAmount = (await fromToken.BigNumber(configuration.fromAmount)).toString();
+        let fromDecimals = await fromToken.decimals();
+        let toToken = new Token({ blockchain, address: configuration.toToken });
+        let toDecimals = await toToken.decimals();
+        
+        return new PaymentRoute({
+          blockchain,
+          fromToken,
+          fromAmount,
+          fromDecimals,
+          toToken,
+          toDecimals,
+          fromAddress: configuration.fromAddress,
+          toAddress: configuration.toAddress,
+          toContract: configuration.toContract
+        })
+      }
     }))
-  })).then((routes)=> routes.flat())
+  })).then((routes)=> routes.flat().filter(el => el))
 }
 
 async function route({ accept, whitelist, blacklist, apiKey, event, fee }) {
@@ -67621,14 +67645,25 @@ let addExchangeRoutes = async (routes) => {
   return await Promise.all(
     routes.map((route) => {
       if(route.directTransfer) { return [] }
-      return route$8({
-        blockchain: route.blockchain,
-        tokenIn: route.fromToken.address,
-        tokenOut: route.toToken.address,
-        amountOutMin: route.toAmount,
-        fromAddress: route.fromAddress,
-        toAddress: route.toAddress
-      })
+      if(route.toToken && route.toAmount) {
+        return route$8({
+          blockchain: route.blockchain,
+          tokenIn: route.fromToken.address,
+          tokenOut: route.toToken.address,
+          amountOutMin: route.toAmount,
+          fromAddress: route.fromAddress,
+          toAddress: route.toAddress
+        })
+      } else if(route.fromToken && route.fromAmount) {
+        return route$8({
+          blockchain: route.blockchain,
+          tokenIn: route.fromToken.address,
+          tokenOut: route.toToken.address,
+          amountIn: route.fromAmount,
+          fromAddress: route.fromAddress,
+          toAddress: route.toAddress
+        })
+      }
     }),
   ).then((exchangeRoutes) => {
     return routes.map((route, index) => {
@@ -67658,8 +67693,10 @@ let filterInsufficientBalance = async(routes) => {
   return routes.filter((route) => {
     if (route.fromToken.address.toLowerCase() == route.toToken.address.toLowerCase()) {
       return BigNumber.from(route.fromBalance).gte(BigNumber.from(route.toAmount))
-    } else {
+    } else if(route.fromAmount && route.toAmount) {
       return BigNumber.from(route.fromBalance).gte(BigNumber.from(route.exchangeRoutes[0].amountInMax))
+    } else if(route.exchangeRoutes[0] && route.exchangeRoutes[0].amountIn) {
+      return BigNumber.from(route.fromBalance).gte(BigNumber.from(route.exchangeRoutes[0].amountIn))
     }
   })
 };
@@ -71569,8 +71606,12 @@ var preflight$1 = /*#__PURE__*/function () {
                 throw 'You need to set a supported blockchain!';
               }
 
-              if (typeof configuration.token === 'undefined') {
+              if (typeof configuration.token === 'undefined' && typeof configuration.fromToken === 'undefined' && typeof configuration.fromAmount === 'undefined' && typeof configuration.toToken === 'undefined') {
                 throw 'You need to set the token you want to receive as payment!';
+              }
+
+              if (typeof configuration.token === 'undefined' && typeof configuration.fromToken !== 'undefined' && typeof configuration.fromAmount === 'undefined' && typeof configuration.toToken === 'undefined') {
+                throw 'You need to set the fromToken, fromAmount and toToken!';
               }
 
               if (typeof configuration.receiver === 'undefined') {

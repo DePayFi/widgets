@@ -13,9 +13,13 @@ import { Token } from '@depay/web3-tokens'
 
 export default (props)=>{
   const configurationsMissAmounts = (configurations)=>{
-    return !configurations.every((configuration)=>(typeof configuration.amount != 'undefined'))
+    return !configurations.every((configuration)=>{
+      return(
+        typeof configuration.amount != 'undefined' || typeof configuration.fromAmount != 'undefined'
+      )
+    })
   }
-  const { amount: amountConfiguration, recover } = useContext(ConfigurationContext)
+  const { amount: amountConfiguration, toAmount, recover } = useContext(ConfigurationContext)
   const [ amountsMissing, setAmountsMissing ] = useState(recover == undefined ? configurationsMissAmounts(props.accept) : false)
   let { account } = useContext(WalletContext)
   const { conversionRate } = useContext(ConversionRateContext)

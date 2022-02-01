@@ -2016,13 +2016,14 @@
   var ChangableAmountProvider = (function (props) {
     var configurationsMissAmounts = function configurationsMissAmounts(configurations) {
       return !configurations.every(function (configuration) {
-        return typeof configuration.amount != 'undefined';
+        return typeof configuration.amount != 'undefined' || typeof configuration.fromAmount != 'undefined';
       });
     };
 
     var _useContext = React.useContext(ConfigurationContext),
-        amountConfiguration = _useContext.amount,
-        recover = _useContext.recover;
+        amountConfiguration = _useContext.amount;
+        _useContext.toAmount;
+        var recover = _useContext.recover;
 
     var _useState = React.useState(recover == undefined ? configurationsMissAmounts(props.accept) : false),
         _useState2 = _slicedToArray(_useState, 2),
@@ -4628,8 +4629,12 @@
                   throw 'You need to set a supported blockchain!';
                 }
 
-                if (typeof configuration.token === 'undefined') {
+                if (typeof configuration.token === 'undefined' && typeof configuration.fromToken === 'undefined' && typeof configuration.fromAmount === 'undefined' && typeof configuration.toToken === 'undefined') {
                   throw 'You need to set the token you want to receive as payment!';
+                }
+
+                if (typeof configuration.token === 'undefined' && typeof configuration.fromToken !== 'undefined' && typeof configuration.fromAmount === 'undefined' && typeof configuration.toToken === 'undefined') {
+                  throw 'You need to set the fromToken, fromAmount and toToken!';
                 }
 
                 if (typeof configuration.receiver === 'undefined') {
