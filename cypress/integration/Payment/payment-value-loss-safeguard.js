@@ -171,7 +171,9 @@ describe('change Payment amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('10', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', "Payment token would lose 36% of it's value!").should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled').should('exist')
+          cy.wait(1000).then(()=>{
+            cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).should('exist')
+          })
         })
       })
     })
