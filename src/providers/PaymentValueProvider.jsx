@@ -19,9 +19,11 @@ export default (props)=>{
   const { updatable } = useContext(UpdatableContext)
   const { payment } = useContext(PaymentContext)
   const [ paymentValue, setPaymentValue ] = useState()
+  const [ paymentValueLoss, setPaymentValueLoss ] = useState()
   const { currency } = useContext(ConfigurationContext)
   const [ reloadCount, setReloadCount ] = useState(0)
-  const getToTokenLocalValue = ({ updatable, payment })=>{
+  
+  const updatePaymentValue = ({ updatable, payment })=>{
     if(updatable == false || payment?.route == undefined) { return }
     Promise.all([
       route({
@@ -32,35 +34,55 @@ export default (props)=>{
         fromAddress: account,
         toAddress: account
       }),
+      !payment.route.directTransfer ? route({
+        blockchain: payment.route.blockchain,
+        tokenIn: payment.route.toToken.address,
+        tokenOut: payment.route.fromToken.address,
+        amountIn: payment.route.toAmount,
+        fromAddress: account,
+        toAddress: account
+      }) : Promise.resolve([]),
       (new Token({ blockchain: payment.route.blockchain, address: CONSTANTS[payment.route.blockchain].USD })).decimals()
-    ]).then(([USDExchangeRoutes, USDDecimals])=>{
-      let USDRoute = USDExchangeRoutes[0]
+    ]).then(([toTokenUSDExchangeRoutes, reverseRoutes, USDDecimals])=>{
+      let toTokenUSDRoute = toTokenUSDExchangeRoutes[0]
+      let reverseRoute = reverseRoutes[0]
 
-      let USDAmount
+      if(reverseRoute) {
+        let reverseAmountOutBN = ethers.BigNumber.from(reverseRoute.amountOut)
+        let paymentAmountInBN = ethers.BigNumber.from(payment.route.fromAmount)
+        let divPercent = 100-reverseAmountOutBN.mul(ethers.BigNumber.from('100')).div(paymentAmountInBN).abs().toString()
+        if(divPercent >= 5) {
+          setPaymentValueLoss(divPercent)
+        } else {
+          setPaymentValueLoss(null)
+        }
+      }
+
+      let toTokenUSDAmount
       if(payment.route.toToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
-        USDAmount = payment.route.toAmount.toString()
-      } else if (USDRoute == undefined) {
+        toTokenUSDAmount = payment.route.toAmount.toString()
+      } else if (toTokenUSDRoute == undefined) {
         setPaymentValue('')
         return
       } else {
-        USDAmount = USDRoute.amountOut.toString()
+        toTokenUSDAmount = toTokenUSDRoute.amountOut.toString()
       }
 
-      let USDValue = ethers.utils.formatUnits(USDAmount, USDDecimals)
-      Currency.fromUSD({ amount: USDValue, code: currency, apiKey })
+      let toTokenUSDValue = ethers.utils.formatUnits(toTokenUSDAmount, USDDecimals)
+      Currency.fromUSD({ amount: toTokenUSDValue, code: currency, apiKey })
         .then(setPaymentValue)
         .catch(setError)
     }).catch(setError)
   }
   
   useEffect(()=>{
-    if(account && payment) { getToTokenLocalValue({ updatable, payment }) }
+    if(account && payment) { updatePaymentValue({ updatable, payment }) }
   }, [payment, account])
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       setReloadCount(reloadCount + 1)
-      getToTokenLocalValue({ updatable })
+      updatePaymentValue({ updatable })
     }, 15000);
 
     return () => clearTimeout(timeout)
@@ -68,7 +90,8 @@ export default (props)=>{
   
   return(
     <PaymentValueContext.Provider value={{
-      paymentValue
+      paymentValue,
+      paymentValueLoss
     }}>
       { props.children }
     </PaymentValueContext.Provider>

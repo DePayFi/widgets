@@ -2764,15 +2764,20 @@
         paymentValue = _useState2[0],
         setPaymentValue = _useState2[1];
 
+    var _useState3 = React.useState(),
+        _useState4 = _slicedToArray(_useState3, 2),
+        paymentValueLoss = _useState4[0],
+        setPaymentValueLoss = _useState4[1];
+
     var _useContext5 = React.useContext(ConfigurationContext),
         currency = _useContext5.currency;
 
-    var _useState3 = React.useState(0),
-        _useState4 = _slicedToArray(_useState3, 2),
-        reloadCount = _useState4[0],
-        setReloadCount = _useState4[1];
+    var _useState5 = React.useState(0),
+        _useState6 = _slicedToArray(_useState5, 2),
+        reloadCount = _useState6[0],
+        setReloadCount = _useState6[1];
 
-    var getToTokenLocalValue = function getToTokenLocalValue(_ref) {
+    var updatePaymentValue = function updatePaymentValue(_ref) {
       var updatable = _ref.updatable,
           payment = _ref.payment;
 
@@ -2787,29 +2792,51 @@
         amountIn: payment.route.toAmount,
         fromAddress: account,
         toAddress: account
-      }), new web3Tokens.Token({
+      }), !payment.route.directTransfer ? web3Exchanges.route({
+        blockchain: payment.route.blockchain,
+        tokenIn: payment.route.toToken.address,
+        tokenOut: payment.route.fromToken.address,
+        amountIn: payment.route.toAmount,
+        fromAddress: account,
+        toAddress: account
+      }) : Promise.resolve([]), new web3Tokens.Token({
         blockchain: payment.route.blockchain,
         address: web3Constants.CONSTANTS[payment.route.blockchain].USD
       }).decimals()]).then(function (_ref2) {
-        var _ref3 = _slicedToArray(_ref2, 2),
-            USDExchangeRoutes = _ref3[0],
-            USDDecimals = _ref3[1];
+        var _ref3 = _slicedToArray(_ref2, 3),
+            toTokenUSDExchangeRoutes = _ref3[0],
+            reverseRoutes = _ref3[1],
+            USDDecimals = _ref3[2];
 
-        var USDRoute = USDExchangeRoutes[0];
-        var USDAmount;
+        var toTokenUSDRoute = toTokenUSDExchangeRoutes[0];
+        var reverseRoute = reverseRoutes[0];
+
+        if (reverseRoute) {
+          var reverseAmountOutBN = ethers.ethers.BigNumber.from(reverseRoute.amountOut);
+          var paymentAmountInBN = ethers.ethers.BigNumber.from(payment.route.fromAmount);
+          var divPercent = 100 - reverseAmountOutBN.mul(ethers.ethers.BigNumber.from('100')).div(paymentAmountInBN).abs().toString();
+
+          if (divPercent >= 5) {
+            setPaymentValueLoss(divPercent);
+          } else {
+            setPaymentValueLoss(null);
+          }
+        }
+
+        var toTokenUSDAmount;
 
         if (payment.route.toToken.address.toLowerCase() == web3Constants.CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
-          USDAmount = payment.route.toAmount.toString();
-        } else if (USDRoute == undefined) {
+          toTokenUSDAmount = payment.route.toAmount.toString();
+        } else if (toTokenUSDRoute == undefined) {
           setPaymentValue('');
           return;
         } else {
-          USDAmount = USDRoute.amountOut.toString();
+          toTokenUSDAmount = toTokenUSDRoute.amountOut.toString();
         }
 
-        var USDValue = ethers.ethers.utils.formatUnits(USDAmount, USDDecimals);
+        var toTokenUSDValue = ethers.ethers.utils.formatUnits(toTokenUSDAmount, USDDecimals);
         localCurrency.Currency.fromUSD({
-          amount: USDValue,
+          amount: toTokenUSDValue,
           code: currency,
           apiKey: apiKey
         }).then(setPaymentValue)["catch"](setError);
@@ -2818,7 +2845,7 @@
 
     React.useEffect(function () {
       if (account && payment) {
-        getToTokenLocalValue({
+        updatePaymentValue({
           updatable: updatable,
           payment: payment
         });
@@ -2827,7 +2854,7 @@
     React.useEffect(function () {
       var timeout = setTimeout(function () {
         setReloadCount(reloadCount + 1);
-        getToTokenLocalValue({
+        updatePaymentValue({
           updatable: updatable
         });
       }, 15000);
@@ -2837,7 +2864,8 @@
     }, [reloadCount, updatable]);
     return /*#__PURE__*/React__default['default'].createElement(PaymentValueContext.Provider, {
       value: {
-        paymentValue: paymentValue
+        paymentValue: paymentValue,
+        paymentValueLoss: paymentValueLoss
       }
     }, props.children);
   });
@@ -3271,7 +3299,8 @@
         approvalTransaction = _useContext4.approvalTransaction;
 
     var _useContext5 = React.useContext(PaymentValueContext),
-        paymentValue = _useContext5.paymentValue;
+        paymentValue = _useContext5.paymentValue,
+        paymentValueLoss = _useContext5.paymentValueLoss;
 
     var _useContext6 = React.useContext(reactDialogStack.NavigateStackContext);
         _useContext6.navigate;
@@ -3417,7 +3446,16 @@
         displayedAmount = "".concat(payment.symbol, " ").concat(payment.amount);
       }
 
-      if ((paymentState == 'initialized' || paymentState == 'approving') && payment.route) {
+      if (paymentValueLoss) {
+        return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingBottomXS"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "Alert"
+        }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Payment token would lose ", paymentValueLoss, "% of it's value!"))), /*#__PURE__*/React__default['default'].createElement("button", {
+          className: "ButtonPrimary disabled",
+          onClick: function onClick() {}
+        }, "Pay ", displayedAmount));
+      } else if ((paymentState == 'initialized' || paymentState == 'approving') && payment.route) {
         return /*#__PURE__*/React__default['default'].createElement("button", {
           className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
           onClick: function onClick() {
