@@ -206,6 +206,29 @@
       <div class="row">
       <div class="col-4"></div>
       <div class="col-4">
+        <h2 class="pt-5">Payment with Parsiq</h2>
+        <button id="payWithParsiq" class="btn-lg mt-2">Pay with Parsiq</button>
+        <script>
+          var button = document.getElementById("payWithParsiq");
+          button.addEventListener("click",function(e){
+            DePayWidgets.Payment({
+              accept: [{
+                blockchain: 'bsc',
+                amount: 30,
+                token: '0xd21d29b38374528675c34936bf7d5dd693d2a577',
+                receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+              }]
+            });
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Payment -->
+
+    <div class="container pb-4"><!-- Payment -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
         <h2 class="pt-5">Payment with tracking</h2>
         <button id="payWithTracking" class="btn-lg mt-2">Pay with tracking</button>
         <script>
@@ -218,6 +241,63 @@
                 token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                 receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
               }],
+              track: {
+                endpoint: '/track'
+              }
+            });
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Payment -->
+
+    <div class="container pb-4"><!-- Payment -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <h2 class="pt-5">Payment with fee</h2>
+        <button id="payWithFee" class="btn-lg mt-2">Pay with fee</button>
+        <script>
+          var button = document.getElementById("payWithFee");
+          button.addEventListener("click",function(e){
+            DePayWidgets.Payment({
+              accept: [{
+                blockchain: 'bsc',
+                amount: 0.0001,
+                token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+              }],
+              fee: {
+                amount: '1%',
+                receiver: '0x317D875cA3B9f8d14f960486C0d1D1913be74e90'
+              }
+            });
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Payment -->
+
+    <div class="container pb-4"><!-- Payment -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <h2 class="pt-5">Payment with fee and tracking</h2>
+        <button id="payWithFeeAndTracking" class="btn-lg mt-2">Pay with fee and tracking</button>
+        <script>
+          var button = document.getElementById("payWithFeeAndTracking");
+          button.addEventListener("click",function(e){
+            DePayWidgets.Payment({
+              accept: [{
+                blockchain: 'bsc',
+                amount: 0.0001,
+                token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+              }],
+              fee: {
+                amount: '1%',
+                receiver: '0x317D875cA3B9f8d14f960486C0d1D1913be74e90'
+              },
               track: {
                 endpoint: '/track'
               }

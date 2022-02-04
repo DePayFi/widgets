@@ -369,7 +369,7 @@ describe('change Purchase amount', () => {
           api: exchange.contracts.router.api,
           method: 'getAmountsIn',
           params: [ethers.utils.parseUnits('18', 18), [DAI, WETH, DEPAY]],
-          return: [ethers.utils.parseUnits('18', 18), ethers.utils.parseUnits('0.05', 18), ethers.utils.parseUnits('11.6', 18)]
+          return: [ethers.utils.parseUnits('18', 18), ethers.utils.parseUnits('0.05', 18), ethers.utils.parseUnits('18', 18)]
         }
       })
       mockAmountsOut({
@@ -381,7 +381,7 @@ describe('change Purchase amount', () => {
         amountsOut: [
           ethers.utils.parseUnits('18', 18),
           ethers.utils.parseUnits('0.05', 18),
-          ethers.utils.parseUnits('11.6', 18)
+          ethers.utils.parseUnits('18', 18)
         ]
       })
 

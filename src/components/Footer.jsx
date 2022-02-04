@@ -17,7 +17,7 @@ export default ()=>{
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
   const { tracking, release, forwardTo, trackingFailed } = useContext(PaymentTrackingContext)
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
-  const { paymentValue } = useContext(PaymentValueContext)
+  const { paymentValue, paymentValueLoss } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
 
@@ -162,7 +162,20 @@ export default ()=>{
       displayedAmount = `${payment.symbol} ${payment.amount}`
     }
 
-    if((paymentState == 'initialized' || paymentState == 'approving') && payment.route) {
+    if(paymentValueLoss){
+      return(
+        <div>
+          <div className="PaddingBottomXS">
+            <div className="Alert">
+              <strong>Payment token would lose {paymentValueLoss}% of it's value!</strong>
+            </div>
+          </div>
+          <button className={"ButtonPrimary disabled"} onClick={()=>{}}>
+            Pay { displayedAmount }
+          </button>
+        </div>
+      )
+    } else if((paymentState == 'initialized' || paymentState == 'approving') && payment.route) {
       return(
         <button 
           className={["ButtonPrimary", (payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled': '')].join(' ')}
