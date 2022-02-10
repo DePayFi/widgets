@@ -1,8 +1,9 @@
+import apiKey from '../helpers/apiKey'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
-import React, { useEffect, useContext, useState } from 'react'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
+import React, { useEffect, useContext, useState } from 'react'
 
 export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
@@ -152,7 +153,49 @@ export default (props)=>{
     return ()=>{ clearInterval(pollingInterval) }
   }, [polling, transaction, afterBlock, paymentRoute])
 
+  const storePayment = (transaction, afterBlock, paymentRoute, attempt)=>{
+    console.log('STORE PAYMENT paymentRoute', paymentRoute)
+    if(attempt > 3) { return }
+    fetch('https://api.depay.fi/v2/payments', {
+      method: 'POST',
+      headers: { 'X-Api-Key': apiKey, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        blockchain: transaction.blockchain,
+        transaction: transaction.id,
+        sender: transaction.from.toLowerCase(),
+        nonce: transaction.nonce,
+        receiver: paymentRoute.toAddress,
+        token: paymentRoute.toToken.address,
+        amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
+        confirmations: 1,
+        after_block: afterBlock,
+        uuid: transaction.id,
+        payload: {
+          sender_id: transaction.from.toLowerCase(),
+          sender_token_id: paymentRoute.fromToken.address,
+          sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals)
+        },
+        fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
+        fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
+      })
+    })
+    .then((response)=>{
+      if(response.status == 200 || response.status == 201) {
+        console.log('PAYMENT STORED')
+      } else {
+        console.log('STORING PAYMENT FAILED', response)
+        setTimeout(()=>{ storePayment(transaction, afterBlock, paymentRoute, attempt+1) }, 3000)
+      }
+    })
+    .catch((error)=>{
+      console.log('STORING PAYMENT FAILED', error)
+      setTimeout(()=>{ storePayment(transaction, afterBlock, paymentRoute, attempt+1) }, 3000)
+    })
+  }
+
   const initializeTracking = (transaction, afterBlock, paymentRoute)=>{
+    storePayment(transaction, afterBlock, paymentRoute, 1)
+    if(tracking == false) { return }
     setTransaction(transaction)
     setAfterBlock(afterBlock)
     setPaymentRoute(paymentRoute)
