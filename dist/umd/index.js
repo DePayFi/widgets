@@ -2312,7 +2312,7 @@
     var _useContext9 = React.useContext(PaymentTrackingContext),
         release = _useContext9.release,
         tracking = _useContext9.tracking,
-        initializeTracking = _useContext9.initializeTracking;
+        initializePaymentTracking = _useContext9.initializeTracking;
 
     var _useContext10 = React.useContext(TransactionTrackingContext),
         foundTransaction = _useContext10.foundTransaction,
@@ -2392,10 +2392,7 @@
                   confirmed: paymentConfirmed,
                   failed: paymentFailed
                 })).then(function (sentTransaction) {
-                  if (tracking) {
-                    initializeTracking(sentTransaction, currentBlock, payment.route);
-                  }
-
+                  initializePaymentTracking(sentTransaction, currentBlock, payment.route);
                   setTransaction(sentTransaction);
                 })["catch"](function (error) {
                   console.log('error', error);
@@ -3753,11 +3750,11 @@
         paymentRoute = _useState6[0],
         setPaymentRoute = _useState6[1];
 
-    var _useState7 = React.useState(track && !!(track.endpoint || typeof track.method == 'function')),
+    var _useState7 = React.useState(!!(track && (track.endpoint || typeof track.method == 'function'))),
         _useState8 = _slicedToArray(_useState7, 1),
         tracking = _useState8[0];
 
-    var _useState9 = React.useState(track && track.poll && !!(track.poll.endpoint || typeof track.poll.method == 'function')),
+    var _useState9 = React.useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function'))),
         _useState10 = _slicedToArray(_useState9, 1),
         polling = _useState10[0];
 
@@ -3825,7 +3822,6 @@
 
     var retryStartTracking = function retryStartTracking(transaction, afterBlock, paymentRoute, attempt) {
       attempt = parseInt(attempt || 1, 10);
-      console.log('RETRYING PAYMENT TRACKING ATTEMPT ', attempt);
 
       if (attempt < 3) {
         setTimeout(function () {
@@ -3868,9 +3864,7 @@
         after_block: afterBlock,
         to_token: paymentRoute.toToken.address
       }).then(function (response) {
-        if (response.status == 200) {
-          console.log('PAYMENT TRACKING INITIALIZED');
-        } else {
+        if (response.status != 200) {
           retryStartTracking(transaction, afterBlock, paymentRoute, attempt);
         }
       })["catch"](function (error) {
@@ -3934,7 +3928,77 @@
       };
     }, [polling, transaction, afterBlock, paymentRoute]);
 
+    var storePayment = function storePayment(transaction, afterBlock, paymentRoute, attempt) {
+      console.log('STORE PAYMENT paymentRoute', paymentRoute);
+      console.log('STORE PAYMENT', {
+        blockchain: transaction.blockchain,
+        transaction: transaction.id,
+        sender: transaction.from.toLowerCase(),
+        nonce: transaction.nonce,
+        receiver: paymentRoute.toAddress,
+        token: paymentRoute.toToken.address,
+        amount: paymentRoute.fee ? ethers.ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
+        confirmations: 1,
+        after_block: afterBlock,
+        uuid: transaction.id,
+        payload: {
+          sender_id: transaction.from.toLowerCase(),
+          sender_token_id: paymentRoute.fromToken.address,
+          sender_amount: ethers.ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals)
+        },
+        fee_amount: paymentRoute.fee ? ethers.ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
+        fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
+      });
+
+      if (attempt > 3) {
+        return;
+      }
+
+      fetch('https://api.depay.fi/v2/payments', {
+        method: 'POST',
+        headers: {
+          'X-Api-Key': apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          blockchain: transaction.blockchain,
+          transaction: transaction.id,
+          sender: transaction.from.toLowerCase(),
+          nonce: transaction.nonce,
+          receiver: paymentRoute.toAddress,
+          token: paymentRoute.toToken.address,
+          amount: paymentRoute.fee ? ethers.ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
+          confirmations: 1,
+          after_block: afterBlock,
+          uuid: transaction.id,
+          payload: {
+            sender_id: transaction.from.toLowerCase(),
+            sender_token_id: paymentRoute.fromToken.address,
+            sender_amount: ethers.ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals)
+          },
+          fee_amount: paymentRoute.fee ? ethers.ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
+          fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
+        })
+      }).then(function (response) {
+        if (response.status == 200 || response.status == 201) ; else {
+          setTimeout(function () {
+            storePayment(transaction, afterBlock, paymentRoute, attempt + 1);
+          }, 3000);
+        }
+      })["catch"](function (error) {
+        setTimeout(function () {
+          storePayment(transaction, afterBlock, paymentRoute, attempt + 1);
+        }, 3000);
+      });
+    };
+
     var initializeTracking = function initializeTracking(transaction, afterBlock, paymentRoute) {
+      storePayment(transaction, afterBlock, paymentRoute, 1);
+
+      if (tracking == false) {
+        return;
+      }
+
       setTransaction(transaction);
       setAfterBlock(afterBlock);
       setPaymentRoute(paymentRoute);

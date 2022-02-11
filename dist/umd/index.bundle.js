@@ -55123,17 +55123,21 @@
       if (this.address == CONSTANTS$2[this.blockchain].NATIVE) {
         return CONSTANTS$2[this.blockchain].DECIMALS
       }
-      return await request(
-        {
-          blockchain: this.blockchain,
-          address: this.address,
-          method: 'decimals',
-        },
-        {
-          api: Token[this.blockchain].DEFAULT,
-          cache: 86400000, // 1 day
-        },
-      )
+      let decimals = 0;
+      try {
+        decimals = await request(
+          {
+            blockchain: this.blockchain,
+            address: this.address,
+            method: 'decimals',
+          },
+          {
+            api: Token[this.blockchain].DEFAULT,
+            cache: 86400000, // 1 day
+          },
+        );
+      } catch (e) {}
+      return decimals
     }
 
     async symbol() {
@@ -62279,7 +62283,7 @@
     var _useContext9 = react.useContext(PaymentTrackingContext),
         release = _useContext9.release,
         tracking = _useContext9.tracking,
-        initializeTracking = _useContext9.initializeTracking;
+        initializePaymentTracking = _useContext9.initializeTracking;
 
     var _useContext10 = react.useContext(TransactionTrackingContext),
         foundTransaction = _useContext10.foundTransaction,
@@ -62359,10 +62363,7 @@
                   confirmed: paymentConfirmed,
                   failed: paymentFailed
                 })).then(function (sentTransaction) {
-                  if (tracking) {
-                    initializeTracking(sentTransaction, currentBlock, payment.route);
-                  }
-
+                  initializePaymentTracking(sentTransaction, currentBlock, payment.route);
                   setTransaction(sentTransaction);
                 })["catch"](function (error) {
                   console.log('error', error);
@@ -67495,10 +67496,10 @@
       this.fromAddress = fromAddress;
       this.fromToken = fromToken;
       this.fromAmount = _optionalChain([fromAmount, 'optionalAccess', _ => _.toString, 'call', _2 => _2()]);
-      this.fromDecimals = _optionalChain([fromDecimals, 'optionalAccess', _3 => _3.toString, 'call', _4 => _4()]);
+      this.fromDecimals = fromDecimals;
       this.fromBalance = 0;
       this.toToken = toToken;
-      this.toAmount = _optionalChain([toAmount, 'optionalAccess', _5 => _5.toString, 'call', _6 => _6()]);
+      this.toAmount = _optionalChain([toAmount, 'optionalAccess', _3 => _3.toString, 'call', _4 => _4()]);
       this.toDecimals = toDecimals;
       this.toAddress = toAddress;
       this.toContract = toContract;
@@ -67562,12 +67563,14 @@
         if(configuration.token && configuration.amount) {
           let blockchain = configuration.blockchain;
           let toToken = new Token({ blockchain, address: configuration.token });
+          let fromDecimals = await fromToken.decimals();
           let toDecimals = await toToken.decimals();
           let toAmount = (await toToken.BigNumber(configuration.amount)).toString();
 
           return new PaymentRoute({
             blockchain,
             fromToken,
+            fromDecimals,
             toToken,
             toAmount,
             toDecimals,
@@ -67612,7 +67615,7 @@
       .then(addApproval)
       .then(sortPaymentRoutes)
       .then((routes)=>addTransactions({ routes, event, fee }))
-      .then(addFromAmount)
+      .then(addRouteAmounts)
       .then(filterDuplicateFromTokens);
 
     return paymentRoutes
@@ -67745,16 +67748,19 @@
     })
   };
 
-  let addFromAmount = (routes)=> {
+  let addRouteAmounts = (routes)=> {
     return routes.map((route)=>{
       if(route.directTransfer && !route.fee) {
         if(route.fromToken.address.toLowerCase() == CONSTANTS$2[route.blockchain].NATIVE.toLowerCase()) {
           route.fromAmount = route.transaction.value;
+          route.toAmount = route.transaction.value;
         } else {
           route.fromAmount = route.transaction.params[1];
+          route.toAmount = route.transaction.params[1];
         }
       } else {
         route.fromAmount = route.transaction.params.amounts[0];
+        route.toAmount = route.transaction.params.amounts[1];
       }
       return route
     })
@@ -70736,11 +70742,11 @@
         paymentRoute = _useState6[0],
         setPaymentRoute = _useState6[1];
 
-    var _useState7 = react.useState(track && !!(track.endpoint || typeof track.method == 'function')),
+    var _useState7 = react.useState(!!(track && (track.endpoint || typeof track.method == 'function'))),
         _useState8 = _slicedToArray(_useState7, 1),
         tracking = _useState8[0];
 
-    var _useState9 = react.useState(track && track.poll && !!(track.poll.endpoint || typeof track.poll.method == 'function')),
+    var _useState9 = react.useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function'))),
         _useState10 = _slicedToArray(_useState9, 1),
         polling = _useState10[0];
 
@@ -70808,7 +70814,6 @@
 
     var retryStartTracking = function retryStartTracking(transaction, afterBlock, paymentRoute, attempt) {
       attempt = parseInt(attempt || 1, 10);
-      console.log('RETRYING PAYMENT TRACKING ATTEMPT ', attempt);
 
       if (attempt < 3) {
         setTimeout(function () {
@@ -70851,9 +70856,7 @@
         after_block: afterBlock,
         to_token: paymentRoute.toToken.address
       }).then(function (response) {
-        if (response.status == 200) {
-          console.log('PAYMENT TRACKING INITIALIZED');
-        } else {
+        if (response.status != 200) {
           retryStartTracking(transaction, afterBlock, paymentRoute, attempt);
         }
       })["catch"](function (error) {
@@ -70917,7 +70920,77 @@
       };
     }, [polling, transaction, afterBlock, paymentRoute]);
 
+    var storePayment = function storePayment(transaction, afterBlock, paymentRoute, attempt) {
+      console.log('STORE PAYMENT paymentRoute', paymentRoute);
+      console.log('STORE PAYMENT', {
+        blockchain: transaction.blockchain,
+        transaction: transaction.id,
+        sender: transaction.from.toLowerCase(),
+        nonce: transaction.nonce,
+        receiver: paymentRoute.toAddress,
+        token: paymentRoute.toToken.address,
+        amount: paymentRoute.fee ? formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
+        confirmations: 1,
+        after_block: afterBlock,
+        uuid: transaction.id,
+        payload: {
+          sender_id: transaction.from.toLowerCase(),
+          sender_token_id: paymentRoute.fromToken.address,
+          sender_amount: formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals)
+        },
+        fee_amount: paymentRoute.fee ? formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
+        fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
+      });
+
+      if (attempt > 3) {
+        return;
+      }
+
+      fetch('https://api.depay.fi/v2/payments', {
+        method: 'POST',
+        headers: {
+          'X-Api-Key': apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          blockchain: transaction.blockchain,
+          transaction: transaction.id,
+          sender: transaction.from.toLowerCase(),
+          nonce: transaction.nonce,
+          receiver: paymentRoute.toAddress,
+          token: paymentRoute.toToken.address,
+          amount: paymentRoute.fee ? formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
+          confirmations: 1,
+          after_block: afterBlock,
+          uuid: transaction.id,
+          payload: {
+            sender_id: transaction.from.toLowerCase(),
+            sender_token_id: paymentRoute.fromToken.address,
+            sender_amount: formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals)
+          },
+          fee_amount: paymentRoute.fee ? formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
+          fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
+        })
+      }).then(function (response) {
+        if (response.status == 200 || response.status == 201) ; else {
+          setTimeout(function () {
+            storePayment(transaction, afterBlock, paymentRoute, attempt + 1);
+          }, 3000);
+        }
+      })["catch"](function (error) {
+        setTimeout(function () {
+          storePayment(transaction, afterBlock, paymentRoute, attempt + 1);
+        }, 3000);
+      });
+    };
+
     var initializeTracking = function initializeTracking(transaction, afterBlock, paymentRoute) {
+      storePayment(transaction, afterBlock, paymentRoute, 1);
+
+      if (tracking == false) {
+        return;
+      }
+
       setTransaction(transaction);
       setAfterBlock(afterBlock);
       setPaymentRoute(paymentRoute);
