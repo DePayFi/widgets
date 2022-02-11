@@ -70915,27 +70915,6 @@ var PaymentTrackingProvider = (function (props) {
   }, [polling, transaction, afterBlock, paymentRoute]);
 
   var storePayment = function storePayment(transaction, afterBlock, paymentRoute, attempt) {
-    console.log('STORE PAYMENT paymentRoute', paymentRoute);
-    console.log('STORE PAYMENT', {
-      blockchain: transaction.blockchain,
-      transaction: transaction.id,
-      sender: transaction.from.toLowerCase(),
-      nonce: transaction.nonce,
-      receiver: paymentRoute.toAddress,
-      token: paymentRoute.toToken.address,
-      amount: paymentRoute.fee ? formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
-      confirmations: 1,
-      after_block: afterBlock,
-      uuid: transaction.id,
-      payload: {
-        sender_id: transaction.from.toLowerCase(),
-        sender_token_id: paymentRoute.fromToken.address,
-        sender_amount: formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals)
-      },
-      fee_amount: paymentRoute.fee ? formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
-      fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
-    });
-
     if (attempt > 3) {
       return;
     }
