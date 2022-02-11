@@ -269,7 +269,7 @@
               }],
               fee: {
                 amount: '1%',
-                receiver: '0x317D875cA3B9f8d14f960486C0d1D1913be74e90'
+                receiver: '0x8a4aDA571ab235BF7d586d02E534D08552B3dedb'
               }
             });
           });
@@ -296,7 +296,37 @@
               }],
               fee: {
                 amount: '1%',
-                receiver: '0x317D875cA3B9f8d14f960486C0d1D1913be74e90'
+                receiver: '0x8a4aDA571ab235BF7d586d02E534D08552B3dedb'
+              },
+              track: {
+                endpoint: '/track'
+              }
+            });
+          });
+        </script>
+      </div>
+      <div class="col-4"></div>
+    </div><!-- Payment -->
+
+    <div class="container pb-4"><!-- Payment -->
+      <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <h2 class="pt-5">Payment with fee and tracking token</h2>
+        <button id="payWithFeeAndTrackingToken" class="btn-lg mt-2">Pay with fee and tracking token</button>
+        <script>
+          var button = document.getElementById("payWithFeeAndTrackingToken");
+          button.addEventListener("click",function(e){
+            DePayWidgets.Payment({
+              accept: [{
+                blockchain: 'bsc',
+                amount: 0.1,
+                token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+                receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+              }],
+              fee: {
+                amount: '1%',
+                receiver: '0x8a4aDA571ab235BF7d586d02E534D08552B3dedb'
               },
               track: {
                 endpoint: '/track'

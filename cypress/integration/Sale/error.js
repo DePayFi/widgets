@@ -157,6 +157,18 @@ describe('Sale widget error', () => {
       provider: provider(blockchain),
       blockchain,
       exchange,
+      amountInBN: '1',
+      path: [DAI, WETH, DEPAY],
+      amountsOut: [
+        '1',
+        WRAPPED_AmountInBN,
+        TOKEN_A_AmountBN
+      ]
+    })
+    mockAmountsOut({
+      provider: provider(blockchain),
+      blockchain,
+      exchange,
       amountInBN: '1176470588235294200',
       path: [DAI, WETH, DEPAY],
       amountsOut: [
@@ -171,7 +183,7 @@ describe('Sale widget error', () => {
       call: {
         to: DAI,
         api: Token[blockchain].DEFAULT,
-        method: 'decimals',
+        method: 'name',
         return: Error('something failed') 
       } 
     })

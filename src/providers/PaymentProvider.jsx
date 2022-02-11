@@ -24,7 +24,7 @@ export default (props)=>{
   const { setUpdatable } = useContext(UpdatableContext)
   const { navigate } = useContext(NavigateContext)
   const { wallet } = useContext(WalletContext)
-  const { release, tracking, initializeTracking } = useContext(PaymentTrackingContext)
+  const { release, tracking, initializeTracking: initializePaymentTracking } = useContext(PaymentTrackingContext)
   const { foundTransaction, initializeTracking: initializeTransactionTracking } = useContext(TransactionTrackingContext)
   const [ payment, setPayment ] = useState()
   const [ transaction, setTransaction ] = useState()
@@ -61,7 +61,7 @@ export default (props)=>{
       failed: paymentFailed
     }))
       .then((sentTransaction)=>{
-        if(tracking){ initializeTracking(sentTransaction, currentBlock, payment.route) }
+        initializePaymentTracking(sentTransaction, currentBlock, payment.route)
         setTransaction(sentTransaction)
       })
       .catch((error)=>{

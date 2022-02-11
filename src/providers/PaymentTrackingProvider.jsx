@@ -1,8 +1,10 @@
+import apiKey from '../helpers/apiKey'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
-import React, { useEffect, useContext, useState } from 'react'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
+import React, { useEffect, useContext, useState } from 'react'
+import { ethers } from 'ethers'
 
 export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
@@ -10,8 +12,8 @@ export default (props)=>{
   const [ transaction, setTransaction ] = useState()
   const [ afterBlock, setAfterBlock ] = useState()
   const [ paymentRoute, setPaymentRoute ] = useState()
-  const [ tracking ] = useState(track && !!(track.endpoint || typeof track.method == 'function'))
-  const [ polling ] = useState(track && track.poll && !!(track.poll.endpoint || typeof track.poll.method == 'function'))
+  const [ tracking ] = useState( !!(track && (track.endpoint || typeof track.method == 'function')) )
+  const [ polling ] = useState( !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function')) )
   const [ release, setRelease ] = useState(false)
   const [ trackingFailed, setTrackingFailed ] = useState(false)
   const [ forwardTo, setForwardTo ] = useState()
@@ -55,7 +57,6 @@ export default (props)=>{
 
   const retryStartTracking = (transaction, afterBlock, paymentRoute, attempt)=> {
     attempt = parseInt(attempt || 1, 10)
-    console.log('RETRYING PAYMENT TRACKING ATTEMPT ', attempt)
     if(attempt < 3) {
       setTimeout(()=>{
         startTracking(transaction, afterBlock, paymentRoute, attempt+1)
@@ -93,9 +94,7 @@ export default (props)=>{
       to_token: paymentRoute.toToken.address
     })
       .then((response)=>{
-        if(response.status == 200) {
-          console.log('PAYMENT TRACKING INITIALIZED')
-        } else {
+        if(response.status != 200) {
           retryStartTracking(transaction, afterBlock, paymentRoute, attempt)
         }
       })
@@ -152,7 +151,45 @@ export default (props)=>{
     return ()=>{ clearInterval(pollingInterval) }
   }, [polling, transaction, afterBlock, paymentRoute])
 
+  const storePayment = (transaction, afterBlock, paymentRoute, attempt)=>{
+    if(attempt > 3) { return }
+    fetch('https://api.depay.fi/v2/payments', {
+      method: 'POST',
+      headers: { 'X-Api-Key': apiKey, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        blockchain: transaction.blockchain,
+        transaction: transaction.id,
+        sender: transaction.from.toLowerCase(),
+        nonce: transaction.nonce,
+        receiver: paymentRoute.toAddress,
+        token: paymentRoute.toToken.address,
+        amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
+        confirmations: 1,
+        after_block: afterBlock,
+        uuid: transaction.id,
+        payload: {
+          sender_id: transaction.from.toLowerCase(),
+          sender_token_id: paymentRoute.fromToken.address,
+          sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals)
+        },
+        fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
+        fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
+      })
+    })
+    .then((response)=>{
+      if(response.status == 200 || response.status == 201) {
+      } else {
+        setTimeout(()=>{ storePayment(transaction, afterBlock, paymentRoute, attempt+1) }, 3000)
+      }
+    })
+    .catch((error)=>{
+      setTimeout(()=>{ storePayment(transaction, afterBlock, paymentRoute, attempt+1) }, 3000)
+    })
+  }
+
   const initializeTracking = (transaction, afterBlock, paymentRoute)=>{
+    storePayment(transaction, afterBlock, paymentRoute, 1)
+    if(tracking == false) { return }
     setTransaction(transaction)
     setAfterBlock(afterBlock)
     setPaymentRoute(paymentRoute)

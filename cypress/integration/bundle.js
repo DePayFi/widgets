@@ -113,6 +113,29 @@ describe('library bundle', () => {
       }
     })
 
+    fetchMock.post({
+      url: "https://api.depay.fi/v2/payments",
+      body: {
+        after_block: 1,
+        amount: "20.0",
+        blockchain: "ethereum",
+        confirmations: 1,
+        fee_amount: null,
+        fee_receiver: null,
+        nonce: 0,
+        payload: {
+          sender_amount: "20.0",
+          sender_id: fromAddress.toLowerCase(),
+          sender_token_id: DEPAY,
+        },
+        receiver: toAddress,
+        sender: fromAddress.toLowerCase(),
+        token: DEPAY,
+        transaction: mockedTransaction.transaction._id,
+        uuid: mockedTransaction.transaction._id
+      },
+    }, 201)
+
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
