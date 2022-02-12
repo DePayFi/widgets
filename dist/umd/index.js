@@ -2813,7 +2813,7 @@
           var paymentAmountInBN = ethers.ethers.BigNumber.from(payment.route.fromAmount);
           var divPercent = 100 - reverseAmountOutBN.mul(ethers.ethers.BigNumber.from('100')).div(paymentAmountInBN).abs().toString();
 
-          if (divPercent >= 5) {
+          if (divPercent > 5) {
             setPaymentValueLoss(divPercent);
           } else {
             setPaymentValueLoss(null);

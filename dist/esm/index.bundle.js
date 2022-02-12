@@ -68077,7 +68077,7 @@ var PaymentValueProvider = (function (props) {
         var paymentAmountInBN = BigNumber$4.from(payment.route.fromAmount);
         var divPercent = 100 - reverseAmountOutBN.mul(BigNumber$4.from('100')).div(paymentAmountInBN).abs().toString();
 
-        if (divPercent >= 5) {
+        if (divPercent > 5) {
           setPaymentValueLoss(divPercent);
         } else {
           setPaymentValueLoss(null);
