@@ -48657,6 +48657,10 @@
   function _optionalChain$6(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   let connectedInstance;
 
+  const getConnectedInstance = ()=>{
+    return connectedInstance
+  };
+
   class WalletConnectWallet {
 
     static __initStatic() {this.info = {
@@ -48839,7 +48843,7 @@
   const instances = {};
 
   const getWalletClass = function(){
-    if(connectedInstance) {
+    if(getConnectedInstance()) {
       return wallets.WalletConnect
     } else if (typeof window.ethereum === 'object' && window.ethereum.isMetaMask) {
       return wallets.MetaMask
@@ -48854,8 +48858,8 @@
     const walletClass = getWalletClass();
     const existingInstance = instances[walletClass];
 
-    if(connectedInstance) {
-      return connectedInstance
+    if(getConnectedInstance()) {
+      return getConnectedInstance()
     } else if(existingInstance) {
       return existingInstance
     } else if(walletClass) {
