@@ -48649,10 +48649,12 @@ const submitSimpleTransfer = ({ transaction, wallet })=>{
 };
 
 function _optionalChain$6(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-let connectedInstance;
+const setConnectedInstance = (value)=>{
+  window._connectedWalletConnectInstance = value;
+};
 
 const getConnectedInstance = ()=>{
-  return connectedInstance
+  return window._connectedWalletConnectInstance
 };
 
 class WalletConnectWallet {
@@ -48703,12 +48705,12 @@ class WalletConnectWallet {
     });
 
     instance.on("disconnect", (error, payload) => {
-      connectedInstance = undefined;
+      setConnectedInstance(undefined);
       if (error) { throw error }
     });
 
     instance.on("modal_closed", ()=>{
-      connectedInstance = undefined;
+      setConnectedInstance(undefined);
       this.connector = undefined;
     });
 
@@ -48733,14 +48735,14 @@ class WalletConnectWallet {
 
       if(this.connector.connected) {
         await this.connector.killSession();
-        connectedInstance = undefined;
+        setConnectedInstance(undefined);
         this.connector = this.newWalletConnectInstance();
       }
 
       const { accounts, chainId } = await this.connector.connect({ chainId: _optionalChain$6([options, 'optionalAccess', _ => _.chainId]) });
 
       if(accounts instanceof Array && accounts.length) {
-        connectedInstance = this;
+        setConnectedInstance(this);
       }
 
       this.connectedAccounts = accounts;
