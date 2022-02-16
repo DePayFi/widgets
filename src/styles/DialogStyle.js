@@ -16,23 +16,21 @@ export default (style)=>{
     }
 
     @media screen and (max-width: 450px) {
-      
       .Dialog, .ReactDialogAnimation {
         width: 100%;
       }
-
     }
 
     @media (orientation: portrait) and (max-width: 900px) {
+
+      .ReactDialogStack {
+        align-items: flex-end;
+      }
 
       .Dialog {
         align-content: stretch;
         display: flex;
         flex-direction: column;
-      }
-
-      .ReactDialogCell {
-        vertical-align: bottom;
       }
 
       .DialogBody {
@@ -44,23 +42,29 @@ export default (style)=>{
         padding-bottom: 20px;
       }
 
-      .ReactDialogStackCell {
-        vertical-align: bottom;
-      }
-
       .ReactDialogAnimation {
-        bottom: -100px !important;
+        margin-bottom: -100px !important;
         top: inherit !important;
-        transition: opacity 0.4s ease, bottom 0.4s ease;
+        position: relative;
+        transition: opacity 0.4s ease, margin-bottom 0.4s ease;
       }
 
       .ReactDialog.ReactDialogOpen .ReactDialogAnimation {
-        bottom: 0px !important;
+        margin-bottom: 0px !important;
+      }
+
+      .DialogHeader {
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
       }
 
       .DialogFooter {
         border-bottom-left-radius: 0 !important;
         border-bottom-right-radius: 0 !important;
+      }
+
+      .ReactShadowDOMInsideContainer > .ReactDialog {
+        align-items: flex-end;
       }
     }
 
@@ -106,10 +110,6 @@ export default (style)=>{
       min-height: 2rem;
       position: relative;
       text-align: center;
-    }
-
-    .ReactShadowDOMInsideContainer > .ReactDialog {
-      display: table;
     }
 
   `)
