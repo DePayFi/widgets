@@ -23,6 +23,11 @@ export default (style)=>{
 
     @media (orientation: portrait) and (max-width: 900px) {
 
+      .ReactDialog {
+        height: 100%;
+        min-height: 100%;
+      }
+
       .ReactDialogStack {
         align-items: flex-end;
       }
