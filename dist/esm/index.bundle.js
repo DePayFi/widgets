@@ -1542,29 +1542,22 @@ function ReactDialogStyle (styles) {
   return `
     .ReactDialog {
       bottom: 0;
-      display: table;
+      display: flex;
       height: 100%;
       left: 0;
+      min-height: 100%;
       overflow: hidden;
-      position: absolute;
+      position: fixed;
       right: 0;
       top: 0;
-      user-select: none;
       width: 100%;
     }
 
-    .ReactDialogRow {
-      display: table-row;
-      height: 100%;
-      width: 100%;
-    }
-
-    .ReactDialogCell {
-      display: table-cell;
-      height: 100%;
-      vertical-align: middle;
-      width: 100%;
-      text-align: center;
+    .ReactDialogInner {
+      align-items: center;
+      display: flex;
+      flex: 1;
+      justify-content: center;
     }
 
     .ReactDialogBackground {
@@ -1653,11 +1646,9 @@ class Dialog$1 extends react.Component {
     return (
       react.createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 56}}
         , react.createElement('style', {__self: this, __source: {fileName: _jsxFileName$2, lineNumber: 57}}, style)
-        , react.createElement('div', { className: "ReactDialogRow", __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 58}}
-          , react.createElement('div', { className: "ReactDialogCell", __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 59}}
-            , react.createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 60}} )
-            , this.props.children
-          )
+        , react.createElement('div', { className: "ReactDialogInner", __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 58}}
+          , react.createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 59}} )
+          , this.props.children
         )
       )
     )
@@ -1714,9 +1705,12 @@ function ReactDialogStackStyle () {
   return `
 
     .ReactDialogStack {
+      align-items: center;
       bottom: 0;
-      display: table;
+      display: flex;
+      flex: 1;
       height: 100%;
+      justify-content: center;
       position: absolute;
       top: 0;
       transition: left 0.1s ease, opacity 0.2s ease;
@@ -1893,17 +1887,17 @@ class ReactDialogStack extends react.Component {
           this.classForDirection(),
         ];
         return (
-          react.createElement('div', { key: index, className: ['ReactDialogStack'].concat(stackState).join(' '), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 131}}
-            , react.createElement('div', { className: "ReactDialogStackRow", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 132}}
-              , react.createElement('div', { className: "ReactDialogStackCell", onClick: this.onClick.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 133}}
-                , react.createElement(NavigateStackContext.Provider, {
-                  value: { navigate: this.navigate.bind(this), set: this.set.bind(this) }, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 134}}
-                
-                  , react.createElement(CloseStackContext.Provider, { value: this.close.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 137}}
-                    , react.createElement(StackContext.Provider, { value: this.state.stack, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 138}}
-                      , react.createElement('div', { className: "ReactDialogAnimation", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 139}}, this.props.dialogs[route])
-                    )
-                  )
+          react.createElement('div', {
+            key: index,
+            className: ['ReactDialogStack'].concat(stackState).join(' '),
+            onClick: this.onClick.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 131}}
+          
+            , react.createElement(NavigateStackContext.Provider, {
+              value: { navigate: this.navigate.bind(this), set: this.set.bind(this) }, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 136}}
+            
+              , react.createElement(CloseStackContext.Provider, { value: this.close.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 139}}
+                , react.createElement(StackContext.Provider, { value: this.state.stack, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 140}}
+                  , react.createElement('div', { className: "ReactDialogAnimation", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 141}}, this.props.dialogs[route])
                 )
               )
             )
@@ -1918,7 +1912,7 @@ class ReactDialogStack extends react.Component {
       event.target &&
       event.target.className &&
       event.target.className.match &&
-      event.target.className.match('ReactDialogStackCell') // clicked background
+      event.target.className.match('ReactDialogStack') // clicked background
     ) {
       if (this.state.stack.length > 1) {
         this.unstack();

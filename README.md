@@ -22,6 +22,10 @@ and load the DePayWidgets package wherever you need it:
 import DePayWidgets from '@depay/widgets'
 ```
 
+## Demo
+
+https://depayfi.github.io/widgets/demo.html
+
 ## Support
 
 This library supports the following blockchains:

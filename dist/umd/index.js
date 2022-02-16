@@ -1389,29 +1389,22 @@
     return `
     .ReactDialog {
       bottom: 0;
-      display: table;
+      display: flex;
       height: 100%;
       left: 0;
+      min-height: 100%;
       overflow: hidden;
-      position: absolute;
+      position: fixed;
       right: 0;
       top: 0;
-      user-select: none;
       width: 100%;
     }
 
-    .ReactDialogRow {
-      display: table-row;
-      height: 100%;
-      width: 100%;
-    }
-
-    .ReactDialogCell {
-      display: table-cell;
-      height: 100%;
-      vertical-align: middle;
-      width: 100%;
-      text-align: center;
+    .ReactDialogInner {
+      align-items: center;
+      display: flex;
+      flex: 1;
+      justify-content: center;
     }
 
     .ReactDialogBackground {
@@ -1500,11 +1493,9 @@
       return (
         React__default['default'].createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName, lineNumber: 56}}
           , React__default['default'].createElement('style', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 57}}, style)
-          , React__default['default'].createElement('div', { className: "ReactDialogRow", __self: this, __source: {fileName: _jsxFileName, lineNumber: 58}}
-            , React__default['default'].createElement('div', { className: "ReactDialogCell", __self: this, __source: {fileName: _jsxFileName, lineNumber: 59}}
-              , React__default['default'].createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName, lineNumber: 60}} )
-              , this.props.children
-            )
+          , React__default['default'].createElement('div', { className: "ReactDialogInner", __self: this, __source: {fileName: _jsxFileName, lineNumber: 58}}
+            , React__default['default'].createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName, lineNumber: 59}} )
+            , this.props.children
           )
         )
       )
