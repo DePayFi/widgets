@@ -88,6 +88,12 @@ export default ({
     overwriteRoutes: true
   }, { status: 201 })
 
+  fetchMock.post({
+    url: `https://api.depay.fi/v2/payments`,
+    headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
+    overwriteRoutes: true
+  }, { status: 201 })
+
   fetchMock.get({
     url: `https://api.depay.fi/v2/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
     overwriteRoutes: true
