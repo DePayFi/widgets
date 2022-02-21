@@ -15,13 +15,25 @@ export default (style)=>{
       background: rgb(248,248,248);
     }
 
-    @media screen and (max-width: 450px) {
-      .Dialog, .ReactDialogAnimation {
+    @media (max-width: 450px) {
+
+      .Dialog {
+        border-radius: 0;
         width: 100%;
+      }
+
+
+      .DialogHeader {
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
       }
     }
 
-    @media (orientation: portrait) and (max-width: 900px) {
+    @media (orientation: portrait) and (max-width: 800px) {
+
+      .ReactDialogAnimation {
+        width: 100%;
+      }
 
       .ReactDialog {
         height: 100%;
@@ -34,6 +46,8 @@ export default (style)=>{
 
       .Dialog {
         align-content: stretch;
+        border-radius: 0.8rem;
+        border-top-radius: 0.8rem;
         display: flex;
         flex-direction: column;
       }
@@ -56,11 +70,6 @@ export default (style)=>{
 
       .ReactDialog.ReactDialogOpen .ReactDialogAnimation {
         margin-bottom: 0px !important;
-      }
-
-      .DialogHeader {
-        border-top-left-radius: 0 !important;
-        border-top-right-radius: 0 !important;
       }
 
       .DialogFooter {
