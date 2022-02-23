@@ -51,7 +51,7 @@ export default (props)=> {
   return(
     <Dialog
       body={
-        <div>
+        <div className="TextCenter">
           { walletLogo &&
             <div className="GraphicWrapper PaddingTopS PaddingBottomS">
               <img className="Graphic" src={walletLogo}/>

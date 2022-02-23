@@ -1024,7 +1024,9 @@ var ConnectingWalletDialog = (function (props) {
   if (props.pending) {
     return /*#__PURE__*/React.createElement(Dialog$1, {
       stacked: true,
-      body: /*#__PURE__*/React.createElement("div", null, walletLogo && /*#__PURE__*/React.createElement("div", {
+      body: /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter"
+      }, walletLogo && /*#__PURE__*/React.createElement("div", {
         className: "GraphicWrapper PaddingTopS PaddingBottomS"
       }, /*#__PURE__*/React.createElement("img", {
         className: "Graphic",
@@ -4382,7 +4384,9 @@ var SignLoginDialog = (function (props) {
   };
 
   return /*#__PURE__*/React.createElement(Dialog$1, {
-    body: /*#__PURE__*/React.createElement("div", null, walletLogo && /*#__PURE__*/React.createElement("div", {
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter"
+    }, walletLogo && /*#__PURE__*/React.createElement("div", {
       className: "GraphicWrapper PaddingTopS PaddingBottomS"
     }, /*#__PURE__*/React.createElement("img", {
       className: "Graphic",

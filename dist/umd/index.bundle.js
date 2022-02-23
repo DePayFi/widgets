@@ -2013,7 +2013,9 @@
     if (props.pending) {
       return /*#__PURE__*/react.createElement(Dialog, {
         stacked: true,
-        body: /*#__PURE__*/react.createElement("div", null, walletLogo && /*#__PURE__*/react.createElement("div", {
+        body: /*#__PURE__*/react.createElement("div", {
+          className: "TextCenter"
+        }, walletLogo && /*#__PURE__*/react.createElement("div", {
           className: "GraphicWrapper PaddingTopS PaddingBottomS"
         }, /*#__PURE__*/react.createElement("img", {
           className: "Graphic",
@@ -71383,7 +71385,9 @@
     };
 
     return /*#__PURE__*/react.createElement(Dialog, {
-      body: /*#__PURE__*/react.createElement("div", null, walletLogo && /*#__PURE__*/react.createElement("div", {
+      body: /*#__PURE__*/react.createElement("div", {
+        className: "TextCenter"
+      }, walletLogo && /*#__PURE__*/react.createElement("div", {
         className: "GraphicWrapper PaddingTopS PaddingBottomS"
       }, /*#__PURE__*/react.createElement("img", {
         className: "Graphic",

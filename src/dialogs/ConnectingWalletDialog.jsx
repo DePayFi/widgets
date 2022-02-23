@@ -20,7 +20,7 @@ export default (props)=> {
       <Dialog
         stacked={ true }
         body={
-          <div>
+          <div className="TextCenter">
             { walletLogo &&
               <div className="GraphicWrapper PaddingTopS PaddingBottomS">
                 <img className="Graphic" src={walletLogo}/>
