@@ -9,6 +9,7 @@ export default (props)=>{
   const { setUpdatable } = useContext(UpdatableContext)
 
   let close = ()=>{
+    if(props.closable === false) { return }
     if(!closable) { return }
     setUpdatable(false)
     setOpen(false)

@@ -632,6 +632,19 @@ A recovered payment still results in a confirmed or failed payment, and also cal
 
 ```
 
+#### closable
+
+`closable`
+
+Makes the widget unclosable:
+
+```javascript
+DePayWidgets.Payment({
+  closable: false
+})
+
+```
+
 ## DePay Sales
 
 DePay Sales allows you to sell tokens directly from your website or dApp with automatic any-to-any payment conversion (so people can use any token when buying your token directly off your website or dApp).
@@ -1000,9 +1013,22 @@ DePayWidgets.Sale({
 Allows you to unmount (the React safe way) the entire widget from the outside:
 
 ```javascript
-let { unmount } = await DePayWidgets.Payment({})
+let { unmount } = await DePayWidgets.Sale({})
 
 unmount()
+```
+
+#### closable
+
+`closable`
+
+Makes the widget unclosable:
+
+```javascript
+DePayWidgets.Sale({
+  closable: false
+})
+
 ```
 
 ## DePay Donations
@@ -1361,9 +1387,22 @@ DePayWidgets.Donation({
 Allows you to unmount (the React safe way) the entire widget from the outside:
 
 ```javascript
-let { unmount } = await DePayWidgets.Payment({})
+let { unmount } = await DePayWidgets.Donation({})
 
 unmount()
+```
+
+#### closable
+
+`closable`
+
+Makes the widget unclosable:
+
+```javascript
+DePayWidgets.Donation({
+  closable: false
+})
+
 ```
 
 ## DePay Connect

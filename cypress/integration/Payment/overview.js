@@ -129,6 +129,22 @@ describe('overview Payment', () => {
       })
     })
   })
+
+  it('does not allow to close the widget if set to unclosable', () => {
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then(async(document)=>{
+        let { unmount } = await DePayWidgets.Payment({ ...defaultArguments, document,
+          closable: false
+        })
+        cy.wait(1000).then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+          cy.get('.ReactShadowDOMOutsideContainer').should('exist').then(()=>{
+            unmount()
+          })
+        })
+      })
+    })
+  })
   
   describe('basics', () => {
 

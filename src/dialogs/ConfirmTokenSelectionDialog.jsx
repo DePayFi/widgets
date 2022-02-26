@@ -63,19 +63,19 @@ export default (props)=> {
       stacked={ true }
       body={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <div className="TokenImage medium">
+          <div className="TokenImage medium TextCenter">
             { logo && <img src={ logo }/> }
             { !logo && <TokenImage blockchain={ token.blockchain } address={ address }/> }
           </div>
-          <div className="PaddingTopS">
+          <div className="PaddingTopS TextCenter">
             <div className="Alert">
               <strong>Please review this information</strong>
             </div>
           </div>
           <div className="PaddingTopXS">
-            <table className="Table">
+            <table className="Table TextLeft">
               <tbody>
-                <tr className="small">
+                <tr className="small TextCenter">
                   <td colSpan="2">
                     <div><a className="Link" href={ blockchain.explorerUrlFor({ token: address }) } target="_blank" rel="noopener noreferrer">{ address }</a></div>
                   </td>

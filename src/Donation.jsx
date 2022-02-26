@@ -40,6 +40,7 @@ let Donation = async ({
   currency,
   connected,
   closed,
+  closable,
   document
 }) => {
 
@@ -50,7 +51,7 @@ let Donation = async ({
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={{ amount, accept, currency, event, sent, confirmed, failed, blacklist, providers }}>
             <UpdatableProvider>
-              <ClosableProvider unmount={ unmount }>
+              <ClosableProvider unmount={ unmount } closable={ closable }>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
                   <NavigateProvider>
                     <ConversionRateProvider>

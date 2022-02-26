@@ -14,7 +14,7 @@ export default ()=> {
         </div>
       }
       body={
-        <div>
+        <div className="TextCenter">
           <div className="GraphicWrapper">
             <img className="Graphic" src={ QuestionsGraphic }/>
           </div>

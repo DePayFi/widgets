@@ -36,6 +36,7 @@ let Sale = async ({
   connected,
   closed,
   tokenImage,
+  closable,
   document
 }) => {
   try {
@@ -46,7 +47,7 @@ let Sale = async ({
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={{ tokenImage, amount, sell, currency, sent, confirmed, failed, blacklist, providers }}>
             <UpdatableProvider>
-              <ClosableProvider unmount={ unmount }>
+              <ClosableProvider unmount={ unmount } closable={ closable }>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
                   <NavigateProvider>
                     <ConversionRateProvider>

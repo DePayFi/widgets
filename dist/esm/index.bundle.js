@@ -1045,6 +1045,10 @@ var ClosableProvider = (function (props) {
       setUpdatable = _useContext.setUpdatable;
 
   var close = function close() {
+    if (props.closable === false) {
+      return;
+    }
+
     if (!closable) {
       return;
     }
@@ -2025,7 +2029,9 @@ var ConnectingWalletDialog = (function (props) {
   } else {
     return /*#__PURE__*/react.createElement(Dialog, {
       stacked: true,
-      body: /*#__PURE__*/react.createElement("div", null, walletLogo && /*#__PURE__*/react.createElement("div", {
+      body: /*#__PURE__*/react.createElement("div", {
+        className: "TextCenter"
+      }, walletLogo && /*#__PURE__*/react.createElement("div", {
         className: "GraphicWrapper PaddingTopS PaddingBottomS"
       }, /*#__PURE__*/react.createElement("img", {
         className: "Graphic",
@@ -62224,7 +62230,9 @@ var NoPaymentMethodFoundDialog = (function () {
     header: /*#__PURE__*/react.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }),
-    body: /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
+    body: /*#__PURE__*/react.createElement("div", {
+      className: "TextCenter"
+    }, /*#__PURE__*/react.createElement("div", {
       className: "GraphicWrapper"
     }, /*#__PURE__*/react.createElement("img", {
       className: "Graphic",
@@ -70605,7 +70613,9 @@ var PaymentErrorDialog = (function () {
     header: /*#__PURE__*/react.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }),
-    body: /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
+    body: /*#__PURE__*/react.createElement("div", {
+      className: "TextCenter"
+    }, /*#__PURE__*/react.createElement("div", {
       className: "GraphicWrapper"
     }, /*#__PURE__*/react.createElement("img", {
       className: "Graphic",
@@ -71241,12 +71251,12 @@ var preflight$2 = /*#__PURE__*/function () {
 
 var Donation = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, accept, event, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, document, unmount;
+    var amount, accept, event, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, closable, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, document = _ref3.document;
+            amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, closable = _ref3.closable, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight$2({
@@ -71277,7 +71287,8 @@ var Donation = /*#__PURE__*/function () {
                     providers: providers
                   }
                 }, /*#__PURE__*/react.createElement(UpdatableProvider, null, /*#__PURE__*/react.createElement(ClosableProvider, {
-                  unmount: unmount
+                  unmount: unmount,
+                  closable: closable
                 }, /*#__PURE__*/react.createElement(WalletProvider, {
                   container: container,
                   connected: connected,
@@ -71736,12 +71747,12 @@ var preflight$1 = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, amount, event, sent, confirmed, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, document, unmount;
+    var accept, amount, event, sent, confirmed, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, document = _ref3.document;
+            accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight$1({
@@ -71777,7 +71788,8 @@ var Payment = /*#__PURE__*/function () {
                     recover: recover
                   }
                 }, /*#__PURE__*/react.createElement(UpdatableProvider, null, /*#__PURE__*/react.createElement(ClosableProvider, {
-                  unmount: unmount
+                  unmount: unmount,
+                  closable: closable
                 }, /*#__PURE__*/react.createElement(WalletProvider, {
                   document: document,
                   container: container,
@@ -72143,12 +72155,12 @@ var preflight = /*#__PURE__*/function () {
 
 var Sale = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, sell, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, tokenImage, document, accept, unmount;
+    var amount, sell, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, tokenImage, closable, document, accept, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, document = _ref3.document;
+            amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, closable = _ref3.closable, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight({
@@ -72185,7 +72197,8 @@ var Sale = /*#__PURE__*/function () {
                     providers: providers
                   }
                 }, /*#__PURE__*/react.createElement(UpdatableProvider, null, /*#__PURE__*/react.createElement(ClosableProvider, {
-                  unmount: unmount
+                  unmount: unmount,
+                  closable: closable
                 }, /*#__PURE__*/react.createElement(WalletProvider, {
                   container: container,
                   connected: connected,
@@ -72326,22 +72339,22 @@ var ConfirmTokenSelectionDialog = (function (props) {
     body: /*#__PURE__*/react.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/react.createElement("div", {
-      className: "TokenImage medium"
+      className: "TokenImage medium TextCenter"
     }, logo && /*#__PURE__*/react.createElement("img", {
       src: logo
     }), !logo && /*#__PURE__*/react.createElement(TokenImage, {
       blockchain: token.blockchain,
       address: address
     })), /*#__PURE__*/react.createElement("div", {
-      className: "PaddingTopS"
+      className: "PaddingTopS TextCenter"
     }, /*#__PURE__*/react.createElement("div", {
       className: "Alert"
     }, /*#__PURE__*/react.createElement("strong", null, "Please review this information"))), /*#__PURE__*/react.createElement("div", {
       className: "PaddingTopXS"
     }, /*#__PURE__*/react.createElement("table", {
-      className: "Table"
+      className: "Table TextLeft"
     }, /*#__PURE__*/react.createElement("tbody", null, /*#__PURE__*/react.createElement("tr", {
-      className: "small"
+      className: "small TextCenter"
     }, /*#__PURE__*/react.createElement("td", {
       colSpan: "2"
     }, /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("a", {

@@ -47,6 +47,7 @@ let Payment = async ({
   track,
   fee,
   recover,
+  closable,
   document
 }) => {
   try {
@@ -56,7 +57,7 @@ let Payment = async ({
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={ { amount, accept, currency, event, sent, confirmed, failed, whitelist, blacklist, providers, track, fee, recover } }>
             <UpdatableProvider>
-              <ClosableProvider unmount={ unmount }>
+              <ClosableProvider unmount={ unmount } closable={ closable }>
                 <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>
                   <NavigateProvider>
                     <ConversionRateProvider>
