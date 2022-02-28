@@ -8,7 +8,7 @@ import { ethers } from 'ethers'
 
 export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
-  const { track } = useContext(ConfigurationContext)
+  const { track, integration } = useContext(ConfigurationContext)
   const [ transaction, setTransaction ] = useState()
   const [ afterBlock, setAfterBlock ] = useState()
   const [ paymentRoute, setPaymentRoute ] = useState()
@@ -170,7 +170,8 @@ export default (props)=>{
         payload: {
           sender_id: transaction.from.toLowerCase(),
           sender_token_id: paymentRoute.fromToken.address,
-          sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals)
+          sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
+          integration
         },
         fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
         fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null

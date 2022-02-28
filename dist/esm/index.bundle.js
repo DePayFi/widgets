@@ -70739,7 +70739,8 @@ var PaymentTrackingProvider = (function (props) {
       errorCallback = _useContext.errorCallback;
 
   var _useContext2 = react.useContext(ConfigurationContext),
-      track = _useContext2.track;
+      track = _useContext2.track,
+      integration = _useContext2.integration;
 
   var _useState = react.useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -70959,7 +70960,8 @@ var PaymentTrackingProvider = (function (props) {
         payload: {
           sender_id: transaction.from.toLowerCase(),
           sender_token_id: paymentRoute.fromToken.address,
-          sender_amount: formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals)
+          sender_amount: formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
+          integration: integration
         },
         fee_amount: paymentRoute.fee ? formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
         fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
@@ -71251,12 +71253,12 @@ var preflight$2 = /*#__PURE__*/function () {
 
 var Donation = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, accept, event, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, closable, document, unmount;
+    var amount, accept, event, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, closable, integration, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, closable = _ref3.closable, document = _ref3.document;
+            amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, closable = _ref3.closable, integration = _ref3.integration, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight$2({
@@ -71284,7 +71286,8 @@ var Donation = /*#__PURE__*/function () {
                     confirmed: confirmed,
                     failed: failed,
                     blacklist: blacklist,
-                    providers: providers
+                    providers: providers,
+                    integration: integration
                   }
                 }, /*#__PURE__*/react.createElement(UpdatableProvider, null, /*#__PURE__*/react.createElement(ClosableProvider, {
                   unmount: unmount,
@@ -71747,12 +71750,12 @@ var preflight$1 = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, amount, event, sent, confirmed, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, document, unmount;
+    var accept, amount, event, sent, confirmed, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, document = _ref3.document;
+            accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight$1({
@@ -71785,7 +71788,8 @@ var Payment = /*#__PURE__*/function () {
                     providers: providers,
                     track: track,
                     fee: fee,
-                    recover: recover
+                    recover: recover,
+                    integration: integration
                   }
                 }, /*#__PURE__*/react.createElement(UpdatableProvider, null, /*#__PURE__*/react.createElement(ClosableProvider, {
                   unmount: unmount,
@@ -72155,12 +72159,12 @@ var preflight = /*#__PURE__*/function () {
 
 var Sale = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, sell, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, tokenImage, closable, document, accept, unmount;
+    var amount, sell, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, tokenImage, closable, integration, document, accept, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, closable = _ref3.closable, document = _ref3.document;
+            amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, closable = _ref3.closable, integration = _ref3.integration, document = _ref3.document;
             _context2.prev = 1;
             _context2.next = 4;
             return preflight({
@@ -72194,7 +72198,8 @@ var Sale = /*#__PURE__*/function () {
                     confirmed: confirmed,
                     failed: failed,
                     blacklist: blacklist,
-                    providers: providers
+                    providers: providers,
+                    integration: integration
                   }
                 }, /*#__PURE__*/react.createElement(UpdatableProvider, null, /*#__PURE__*/react.createElement(ClosableProvider, {
                   unmount: unmount,

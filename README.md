@@ -645,6 +645,18 @@ DePayWidgets.Payment({
 
 ```
 
+#### integration
+
+`integration`
+
+Labels payments to track them per integration.
+
+```javascript
+DePayWidgets.Payment({
+  integration: 'fe690fbc-1740-4894-b12c-23a72abec54d'
+})
+```
+
 ## DePay Sales
 
 DePay Sales allows you to sell tokens directly from your website or dApp with automatic any-to-any payment conversion (so people can use any token when buying your token directly off your website or dApp).
@@ -1031,6 +1043,18 @@ DePayWidgets.Sale({
 
 ```
 
+#### integration
+
+`integration`
+
+Labels sales to track them per integration.
+
+```javascript
+DePayWidgets.Sale({
+  integration: 'fe690fbc-1740-4894-b12c-23a72abec54d'
+})
+```
+
 ## DePay Donations
 
 DePay Donations allows you to accept donation payments made with thousands of different crypto currencies.
@@ -1403,6 +1427,18 @@ DePayWidgets.Donation({
   closable: false
 })
 
+```
+
+#### integration
+
+`integration`
+
+Labels donations to track them per integration.
+
+```javascript
+DePayWidgets.Donation({
+  integration: 'fe690fbc-1740-4894-b12c-23a72abec54d'
+})
 ```
 
 ## DePay Connect

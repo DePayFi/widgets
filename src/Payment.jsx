@@ -48,6 +48,7 @@ let Payment = async ({
   fee,
   recover,
   closable,
+  integration,
   document
 }) => {
   try {
@@ -55,7 +56,7 @@ let Payment = async ({
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={ { amount, accept, currency, event, sent, confirmed, failed, whitelist, blacklist, providers, track, fee, recover } }>
+          <ConfigurationProvider configuration={ { amount, accept, currency, event, sent, confirmed, failed, whitelist, blacklist, providers, track, fee, recover, integration } }>
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount } closable={ closable }>
                 <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>
