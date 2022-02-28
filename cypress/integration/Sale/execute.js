@@ -190,6 +190,77 @@ describe('executes Sale', () => {
     })
   })
 
+  it('stores integration', () => {
+    let mockedTransaction = mock({
+      blockchain,
+      transaction: {
+        delay: 1000,
+        from: fromAddress,
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'route',
+        params: {
+          path: [DAI, WETH, DEPAY],
+          amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
+          addresses: [fromAddress, toAddress],
+          plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
+          data: []
+        }
+      }
+    })
+
+    fetchMock.post({
+      url: "https://api.depay.fi/v2/payments",
+      body: {
+        after_block: 1,
+        amount: "20.0",
+        blockchain: "ethereum",
+        confirmations: 1,
+        fee_amount: null,
+        fee_receiver: null,
+        nonce: 0,
+        payload: {
+          sender_amount: "1.16",
+          sender_id: fromAddress.toLowerCase(),
+          sender_token_id: DAI,
+          integration: '123'
+        },
+        receiver: toAddress,
+        sender: fromAddress.toLowerCase(),
+        token: DEPAY,
+        transaction: mockedTransaction.transaction._id,
+        uuid: mockedTransaction.transaction._id
+      },
+    }, 201)
+
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        DePayWidgets.Sale({ ...defaultArguments, integration: '123', document })
+        cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
+          expect(mockedTransaction.calls.count()).to.equal(1)
+          cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
+          confirm(mockedTransaction)
+          cy.wait(1000).then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+              cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+              cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+            })
+          })
+        })
+      })
+    })
+  })
+
   it('asks to confirm transaction in your wallet after handing over to the wallet', () => {
     let mockedTransaction = mock({
       blockchain,
