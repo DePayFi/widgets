@@ -51,7 +51,7 @@ export default (props)=>{
         let reverseAmountOutBN = ethers.BigNumber.from(reverseRoute.amountOut)
         let paymentAmountInBN = ethers.BigNumber.from(payment.route.fromAmount)
         let divPercent = 100-reverseAmountOutBN.mul(ethers.BigNumber.from('100')).div(paymentAmountInBN).abs().toString()
-        if(divPercent > 5) {
+        if(divPercent >= 10) {
           setPaymentValueLoss(divPercent)
         } else {
           setPaymentValueLoss(null)
