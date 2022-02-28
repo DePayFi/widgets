@@ -3669,7 +3669,7 @@ var WrongNetworkDialog = (function (props) {
       className: "LineHeightL FontSizeL"
     }, "Wrong Network")),
     body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS TextCenter"
     }, /*#__PURE__*/React.createElement("div", {
       className: "GraphicWrapper"
     }, /*#__PURE__*/React.createElement("img", {

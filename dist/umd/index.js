@@ -3664,7 +3664,7 @@
         className: "LineHeightL FontSizeL"
       }, "Wrong Network")),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS TextCenter"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "GraphicWrapper"
       }, /*#__PURE__*/React__default['default'].createElement("img", {

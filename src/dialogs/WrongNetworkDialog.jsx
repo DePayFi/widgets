@@ -20,7 +20,7 @@ export default (props)=>{
         </div>
       }
       body={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
+        <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS TextCenter">
           <div className="GraphicWrapper">
             <img className="Graphic" src={ ConnectGraphic }/>
           </div>
