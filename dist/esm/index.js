@@ -1627,7 +1627,7 @@ var ErrorProvider = (function (props) {
     }, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftS PaddingRightS"
     })), /*#__PURE__*/React.createElement("div", {
-      className: "DialogBody"
+      className: "DialogBody TextCenter"
     }, /*#__PURE__*/React.createElement("div", {
       className: "GraphicWrapper PaddingTopS"
     }, /*#__PURE__*/React.createElement("img", {

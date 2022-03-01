@@ -49249,7 +49249,7 @@
       }, /*#__PURE__*/react.createElement("div", {
         className: "PaddingTopS PaddingLeftS PaddingRightS"
       })), /*#__PURE__*/react.createElement("div", {
-        className: "DialogBody"
+        className: "DialogBody TextCenter"
       }, /*#__PURE__*/react.createElement("div", {
         className: "GraphicWrapper PaddingTopS"
       }, /*#__PURE__*/react.createElement("img", {
