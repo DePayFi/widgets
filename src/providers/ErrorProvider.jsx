@@ -44,7 +44,7 @@ export default (props)=>{
             </div>
           </div>
 
-          <div className="DialogBody">
+          <div className="DialogBody TextCenter">
             <div className="GraphicWrapper PaddingTopS">
               <img className="Graphic" src={ ErrorGraphic }/>
             </div>
