@@ -1,4 +1,3 @@
-import apiKey from '../helpers/apiKey'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
@@ -8,7 +7,7 @@ import { ethers } from 'ethers'
 
 export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
-  const { track, integration } = useContext(ConfigurationContext)
+  const { track, integration, type } = useContext(ConfigurationContext)
   const [ transaction, setTransaction ] = useState()
   const [ afterBlock, setAfterBlock ] = useState()
   const [ paymentRoute, setPaymentRoute ] = useState()
@@ -153,9 +152,9 @@ export default (props)=>{
 
   const storePayment = (transaction, afterBlock, paymentRoute, attempt)=>{
     if(attempt > 3) { return }
-    fetch('https://api.depay.fi/v2/payments', {
+    fetch('https://public.depay.fi/payments', {
+      headers: { 'Content-Type': 'application/json' },
       method: 'POST',
-      headers: { 'X-Api-Key': apiKey, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         blockchain: transaction.blockchain,
         transaction: transaction.id,
@@ -171,7 +170,8 @@ export default (props)=>{
           sender_id: transaction.from.toLowerCase(),
           sender_token_id: paymentRoute.fromToken.address,
           sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
-          integration
+          integration,
+          type
         },
         fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
         fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null

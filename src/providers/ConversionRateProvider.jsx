@@ -1,4 +1,3 @@
-import apiKey from '../helpers/apiKey'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ConversionRateContext from '../contexts/ConversionRateContext'
 import ErrorContext from '../contexts/ErrorContext'
@@ -11,7 +10,7 @@ export default (props)=>{
   const [ conversionRate, setConversionRate ] = useState()
 
   useEffect(()=>{
-    Currency.fromUSD({ amount: 1, code: currency, apiKey })
+    Currency.fromUSD({ amount: 1, code: currency })
       .then((conversion)=>setConversionRate(conversion.amount))
       .catch(setError)
   }, [])

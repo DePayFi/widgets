@@ -3940,7 +3940,7 @@
         return;
       }
 
-      fetch('https://api.depay.fi/v2/payments', {
+      fetch('https://public.depay.fi/payments', {
         method: 'POST',
         headers: {
           'X-Api-Key': apiKey,
@@ -4029,7 +4029,7 @@
     React.useEffect(function () {
       if (polling) {
         var poll = function poll() {
-          fetch("https://api.depay.fi/v2/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from.toLowerCase(), "/").concat(givenTransaction.nonce)).then(function (response) {
+          fetch("https://public.depay.fi/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from.toLowerCase(), "/").concat(givenTransaction.nonce)).then(function (response) {
             if (response.status == 200) {
               response.json().then(function (data) {
                 if (data.status != 'pending') {
@@ -4058,7 +4058,7 @@
         return;
       }
 
-      fetch('https://api.depay.fi/v2/transactions', {
+      fetch('https://public.depay.fi/transactions', {
         method: 'POST',
         headers: {
           'X-Api-Key': apiKey,
@@ -5575,7 +5575,7 @@
         });
       } else if (term && term.length) {
         setTokens([]);
-        fetch("https://api.depay.fi/v2/tokens/search?blockchain=".concat(blockchain.name, "&term=").concat(term), {
+        fetch("https://public.depay.fi/tokens/search?blockchain=".concat(blockchain.name, "&term=").concat(term), {
           signal: signal,
           headers: {
             'X-Api-Key': apiKey

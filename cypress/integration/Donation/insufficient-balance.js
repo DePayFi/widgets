@@ -72,13 +72,13 @@ describe('insufficient balance for Donation', () => {
     })
     
     fetchMock.get({
-      url: `https://api.depay.fi/v2/accounts/${blockchain}/${fromAddress}/assets`,
+      url: `https://public.depay.fi/accounts/${blockchain}/${fromAddress}/assets`,
       headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
       overwriteRoutes: true
     }, [])
 
     fetchMock.get({
-      url: `https://api.depay.fi/v2/currencies/USD`,
+      url: `https://public.depay.fi/currencies/USD`,
       headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
       overwriteRoutes: true
     }, "0.85")

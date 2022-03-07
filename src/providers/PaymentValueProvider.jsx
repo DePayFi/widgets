@@ -1,4 +1,3 @@
-import apiKey from '../helpers/apiKey'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
 import PaymentContext from '../contexts/PaymentContext'
@@ -69,7 +68,7 @@ export default (props)=>{
       }
 
       let toTokenUSDValue = ethers.utils.formatUnits(toTokenUSDAmount, USDDecimals)
-      Currency.fromUSD({ amount: toTokenUSDValue, code: currency, apiKey })
+      Currency.fromUSD({ amount: toTokenUSDValue, code: currency })
         .then(setPaymentValue)
         .catch(setError)
     }).catch(setError)

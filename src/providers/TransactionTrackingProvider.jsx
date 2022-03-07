@@ -1,4 +1,3 @@
-import apiKey from '../helpers/apiKey'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
 import React, { useState, useEffect, useContext } from 'react'
@@ -15,7 +14,7 @@ export default (props)=>{
   useEffect(()=>{
     if(polling) {
       let poll = ()=> {
-        fetch(`https://api.depay.fi/v2/transactions/${givenTransaction.blockchain}/${givenTransaction.from.toLowerCase()}/${givenTransaction.nonce}`)
+        fetch(`https://public.depay.fi/transactions/${givenTransaction.blockchain}/${givenTransaction.from.toLowerCase()}/${givenTransaction.nonce}`)
           .then((response)=>{
             if(response.status == 200) {
               response.json().then((data)=>{
@@ -41,9 +40,9 @@ export default (props)=>{
       console.log('TRANSACTION TRACKING FAILED AFTER 3 ATTEMPTS!')
       return
     }
-    fetch('https://api.depay.fi/v2/transactions', {
+    fetch('https://public.depay.fi/transactions', {
       method: 'POST',
-      headers: { 'X-Api-Key': apiKey, 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         id: transaction.id,
         after_block: afterBlock,

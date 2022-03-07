@@ -117,7 +117,7 @@ describe('detects replaced Payment transaction', () => {
     })
 
     fetchMock.post({
-      url: "https://api.depay.fi/v2/payments",
+      url: "https://public.depay.fi/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -185,7 +185,7 @@ describe('detects replaced Payment transaction', () => {
     })
 
     fetchMock.post({
-      url: "https://api.depay.fi/v2/payments",
+      url: "https://public.depay.fi/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -265,7 +265,7 @@ describe('detects replaced Payment transaction', () => {
       })
 
       fetchMock.post({
-        url: "https://api.depay.fi/v2/payments",
+        url: "https://public.depay.fi/payments",
         body: {
           after_block: 1,
           amount: "20.0",
@@ -344,7 +344,7 @@ describe('detects replaced Payment transaction', () => {
       })
 
       fetchMock.post({
-        url: "https://api.depay.fi/v2/payments",
+        url: "https://public.depay.fi/payments",
         body: {
           after_block: 1,
           amount: "20.0",
@@ -424,7 +424,7 @@ describe('detects replaced Payment transaction', () => {
       })
 
       fetchMock.post({
-        url: "https://api.depay.fi/v2/payments",
+        url: "https://public.depay.fi/payments",
         body: {
           after_block: 1,
           amount: "20.0",
@@ -461,7 +461,7 @@ describe('detects replaced Payment transaction', () => {
             let replacingTransactionId = '0x782cf9983541087548c717dc1a4e2687ef8928e758316cd600ebb0652f57bafe'
             cy.wait(1000).then(()=>{
               fetchMock.get({
-                url: `https://api.depay.fi/v2/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
+                url: `https://public.depay.fi/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
                 overwriteRoutes: true
               }, { "external_id": replacingTransactionId, "status":"success" })
               cy.wait(5000).then(()=>{
@@ -494,7 +494,7 @@ describe('detects replaced Payment transaction', () => {
       })
 
       fetchMock.post({
-        url: "https://api.depay.fi/v2/payments",
+        url: "https://public.depay.fi/payments",
         body: {
           after_block: 1,
           amount: "20.0",
@@ -531,7 +531,7 @@ describe('detects replaced Payment transaction', () => {
             let replacingTransactionId = '0x782cf9983541087548c717dc1a4e2687ef8928e758316cd600ebb0652f57bafe'
             cy.wait(1000).then(()=>{
               fetchMock.get({
-                url: `https://api.depay.fi/v2/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
+                url: `https://public.depay.fi/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
                 overwriteRoutes: true
               }, { "external_id": replacingTransactionId, "status":"failed" })
               cy.wait(5000).then(()=>{

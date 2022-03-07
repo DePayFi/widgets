@@ -62153,7 +62153,7 @@
 
     static async fromUSD({ amount, code, timeZone, apiKey }) {
       let currency = new Currency({ amount, code, timeZone });
-      let rate = await fetch('https://api.depay.fi/v2/currencies/' + currency.code, {
+      let rate = await fetch('https://public.depay.fi/currencies/' + currency.code, {
         headers: { 'X-Api-Key': apiKey },
       })
         .then((response) => response.json())
@@ -62597,7 +62597,7 @@
     let assets = Promise.all(
       (options.blockchain ? [options.blockchain] : wallet.blockchains).map((blockchain) =>{
         
-        return fetch(`https://api.depay.fi/v2/accounts/${blockchain}/${account}/assets`, {
+        return fetch(`https://public.depay.fi/accounts/${blockchain}/${account}/assets`, {
           headers: { 'x-api-key': options.apiKey }
         })
           .then((response) => response.json())
@@ -70946,7 +70946,7 @@
         return;
       }
 
-      fetch('https://api.depay.fi/v2/payments', {
+      fetch('https://public.depay.fi/payments', {
         method: 'POST',
         headers: {
           'X-Api-Key': apiKey,
@@ -71035,7 +71035,7 @@
     react.useEffect(function () {
       if (polling) {
         var poll = function poll() {
-          fetch("https://api.depay.fi/v2/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from.toLowerCase(), "/").concat(givenTransaction.nonce)).then(function (response) {
+          fetch("https://public.depay.fi/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from.toLowerCase(), "/").concat(givenTransaction.nonce)).then(function (response) {
             if (response.status == 200) {
               response.json().then(function (data) {
                 if (data.status != 'pending') {
@@ -71064,7 +71064,7 @@
         return;
       }
 
-      fetch('https://api.depay.fi/v2/transactions', {
+      fetch('https://public.depay.fi/transactions', {
         method: 'POST',
         headers: {
           'X-Api-Key': apiKey,
@@ -72581,7 +72581,7 @@
         });
       } else if (term && term.length) {
         setTokens([]);
-        fetch("https://api.depay.fi/v2/tokens/search?blockchain=".concat(blockchain.name, "&term=").concat(term), {
+        fetch("https://public.depay.fi/tokens/search?blockchain=".concat(blockchain.name, "&term=").concat(term), {
           signal: signal,
           headers: {
             'X-Api-Key': apiKey
