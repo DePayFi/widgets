@@ -71271,7 +71271,7 @@ var Donation = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/react.createElement(ConfigurationProvider, {
                   configuration: {
-                    type: 'Donation',
+                    type: 'donation',
                     amount: amount,
                     accept: accept,
                     currency: currency,
@@ -71770,7 +71770,7 @@ var Payment = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/react.createElement(ConfigurationProvider, {
                   configuration: {
-                    type: 'Payment',
+                    type: 'payment',
                     amount: amount,
                     accept: accept,
                     currency: currency,
@@ -72185,7 +72185,7 @@ var Sale = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/react.createElement(ConfigurationProvider, {
                   configuration: {
-                    type: 'Sale',
+                    type: 'sale',
                     tokenImage: tokenImage,
                     amount: amount,
                     sell: sell,

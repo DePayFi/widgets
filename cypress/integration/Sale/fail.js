@@ -150,12 +150,13 @@ describe('Sale execution fails', () => {
           sender_amount: "33.0",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DAI,
+          type: 'payment'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
-        uuid: mockedTransaction.transaction._id
+        uuid: mockedTransaction.transaction._id,
       },
     }, 201)
 

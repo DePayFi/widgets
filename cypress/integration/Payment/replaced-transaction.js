@@ -130,12 +130,13 @@ describe('detects replaced Payment transaction', () => {
           sender_amount: "20.0",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DEPAY,
+          type: 'payment'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
-        uuid: mockedTransaction.transaction._id
+        uuid: mockedTransaction.transaction._id,
       },
     }, 201)
 
@@ -198,12 +199,13 @@ describe('detects replaced Payment transaction', () => {
           sender_amount: "20.0",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DEPAY,
+          type: 'payment'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
-        uuid: mockedTransaction.transaction._id
+        uuid: mockedTransaction.transaction._id,
       },
     }, 201)
 
@@ -278,12 +280,13 @@ describe('detects replaced Payment transaction', () => {
             sender_amount: "20.0",
             sender_id: fromAddress.toLowerCase(),
             sender_token_id: DEPAY,
+            type: 'payment'
           },
           receiver: toAddress,
           sender: fromAddress.toLowerCase(),
           token: DEPAY,
           transaction: mockedTransaction.transaction._id,
-          uuid: mockedTransaction.transaction._id
+          uuid: mockedTransaction.transaction._id,
         },
       }, 201)
 
@@ -357,12 +360,13 @@ describe('detects replaced Payment transaction', () => {
             sender_amount: "20.0",
             sender_id: fromAddress.toLowerCase(),
             sender_token_id: DEPAY,
+            type: 'payment'
           },
           receiver: toAddress,
           sender: fromAddress.toLowerCase(),
           token: DEPAY,
           transaction: mockedTransaction.transaction._id,
-          uuid: mockedTransaction.transaction._id
+          uuid: mockedTransaction.transaction._id,
         },
       }, 201)
 
@@ -437,12 +441,13 @@ describe('detects replaced Payment transaction', () => {
             sender_amount: "20.0",
             sender_id: fromAddress.toLowerCase(),
             sender_token_id: DEPAY,
+            type: 'payment'
           },
           receiver: toAddress,
           sender: fromAddress.toLowerCase(),
           token: DEPAY,
           transaction: mockedTransaction.transaction._id,
-          uuid: mockedTransaction.transaction._id
+          uuid: mockedTransaction.transaction._id,
         },
       }, 201)
 
@@ -507,12 +512,13 @@ describe('detects replaced Payment transaction', () => {
             sender_amount: "20.0",
             sender_id: fromAddress.toLowerCase(),
             sender_token_id: DEPAY,
+            type: 'payment'
           },
           receiver: toAddress,
           sender: fromAddress.toLowerCase(),
           token: DEPAY,
           transaction: mockedTransaction.transaction._id,
-          uuid: mockedTransaction.transaction._id
+          uuid: mockedTransaction.transaction._id,
         },
       }, 201)
 

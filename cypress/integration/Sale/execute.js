@@ -153,12 +153,13 @@ describe('executes Sale', () => {
           sender_amount: "1.16",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DAI,
+          type: 'payment'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
-        uuid: mockedTransaction.transaction._id
+        uuid: mockedTransaction.transaction._id,
       },
     }, 201)
 
@@ -224,12 +225,13 @@ describe('executes Sale', () => {
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DAI,
           integration: '123'
+          type: 'payment'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
-        uuid: mockedTransaction.transaction._id
+        uuid: mockedTransaction.transaction._id,
       },
     }, 201)
 
