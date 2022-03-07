@@ -150,7 +150,7 @@ describe('Sale Widget: failures', () => {
           sender_amount: "33.0",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DAI,
-          type: 'payment'
+          type: 'sale'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
