@@ -69,13 +69,11 @@ describe('insufficient balance for Purchase', () => {
     
     fetchMock.get({
       url: `https://public.depay.fi/accounts/${blockchain}/${fromAddress}/assets`,
-      headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
       overwriteRoutes: true
     }, [])
 
     fetchMock.get({
       url: `https://public.depay.fi/currencies/USD`,
-      headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
       overwriteRoutes: true
     }, "0.85")
   })

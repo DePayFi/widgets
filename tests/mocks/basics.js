@@ -70,7 +70,6 @@ export default ({
 
   fetchMock.get({
     url: `https://public.depay.fi/accounts/${blockchain}/${fromAddress}/assets`,
-    headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
     overwriteRoutes: true
   }, fromAddressAssets)
 
@@ -78,13 +77,11 @@ export default ({
 
   fetchMock.get({
     url: `https://public.depay.fi/currencies/${currency}`,
-    headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
     overwriteRoutes: true
   }, currencyToUSD.toString())
 
   fetchMock.post({
     url: `https://public.depay.fi/transactions`,
-    headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
     overwriteRoutes: true
   }, { status: 201 })
 

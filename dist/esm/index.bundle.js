@@ -62147,7 +62147,7 @@ class Currency {
 
   static async fromUSD({ amount, code, timeZone, apiKey }) {
     let currency = new Currency({ amount, code, timeZone });
-    let rate = await fetch('https://public.depay.fi/currencies/' + currency.code, {
+    let rate = await fetch('https://api.depay.fi/v2/currencies/' + currency.code, {
       headers: { 'X-Api-Key': apiKey },
     })
       .then((response) => response.json())
@@ -62186,8 +62186,6 @@ var ConfigurationProvider = (function (props) {
   }, props.children);
 });
 
-var apiKey = 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c';
-
 var ConversionRateProvider = (function (props) {
   var _useContext = react.useContext(ErrorContext),
       setError = _useContext.setError;
@@ -62203,8 +62201,7 @@ var ConversionRateProvider = (function (props) {
   react.useEffect(function () {
     Currency.fromUSD({
       amount: 1,
-      code: currency,
-      apiKey: apiKey
+      code: currency
     }).then(function (conversion) {
       return setConversionRate(conversion.amount);
     })["catch"](setError);
@@ -62591,7 +62588,7 @@ const getAssets = async (options) => {
   let assets = Promise.all(
     (options.blockchain ? [options.blockchain] : wallet.blockchains).map((blockchain) =>{
       
-      return fetch(`https://public.depay.fi/accounts/${blockchain}/${account}/assets`, {
+      return fetch(`https://api.depay.fi/v2/accounts/${blockchain}/${account}/assets`, {
         headers: { 'x-api-key': options.apiKey }
       })
         .then((response) => response.json())
@@ -67900,8 +67897,7 @@ var PaymentRoutingProvider = (function (props) {
       whitelist: props.whitelist,
       blacklist: props.blacklist,
       event: props.event,
-      fee: props.fee,
-      apiKey: apiKey
+      fee: props.fee
     }).then(function (routes) {
       if (routes.length == 0) {
         setAllRoutes([]);
@@ -68116,8 +68112,7 @@ var PaymentValueProvider = (function (props) {
       var toTokenUSDValue = formatUnits(toTokenUSDAmount, USDDecimals);
       Currency.fromUSD({
         amount: toTokenUSDValue,
-        code: currency,
-        apiKey: apiKey
+        code: currency
       }).then(setPaymentValue)["catch"](setError);
     })["catch"](setError);
   };
@@ -70740,7 +70735,8 @@ var PaymentTrackingProvider = (function (props) {
 
   var _useContext2 = react.useContext(ConfigurationContext),
       track = _useContext2.track,
-      integration = _useContext2.integration;
+      integration = _useContext2.integration,
+      type = _useContext2.type;
 
   var _useState = react.useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -70941,11 +70937,10 @@ var PaymentTrackingProvider = (function (props) {
     }
 
     fetch('https://public.depay.fi/payments', {
-      method: 'POST',
       headers: {
-        'X-Api-Key': apiKey,
         'Content-Type': 'application/json'
       },
+      method: 'POST',
       body: JSON.stringify({
         blockchain: transaction.blockchain,
         transaction: transaction.id,
@@ -70961,7 +70956,8 @@ var PaymentTrackingProvider = (function (props) {
           sender_id: transaction.from.toLowerCase(),
           sender_token_id: paymentRoute.fromToken.address,
           sender_amount: formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
-          integration: integration
+          integration: integration,
+          type: type
         },
         fee_amount: paymentRoute.fee ? formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
         fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
@@ -71061,7 +71057,6 @@ var TransactionTrackingProvider = (function (props) {
     fetch('https://public.depay.fi/transactions', {
       method: 'POST',
       headers: {
-        'X-Api-Key': apiKey,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -71278,6 +71273,7 @@ var Donation = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/react.createElement(ConfigurationProvider, {
                   configuration: {
+                    type: 'Donation',
                     amount: amount,
                     accept: accept,
                     currency: currency,
@@ -71776,6 +71772,7 @@ var Payment = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/react.createElement(ConfigurationProvider, {
                   configuration: {
+                    type: 'Payment',
                     amount: amount,
                     accept: accept,
                     currency: currency,
@@ -72190,6 +72187,7 @@ var Sale = /*#__PURE__*/function () {
                   unmount: unmount
                 }, /*#__PURE__*/react.createElement(ConfigurationProvider, {
                   configuration: {
+                    type: 'Sale',
                     tokenImage: tokenImage,
                     amount: amount,
                     sell: sell,
@@ -72576,10 +72574,7 @@ var SelectTokenDialog = (function (props) {
     } else if (term && term.length) {
       setTokens([]);
       fetch("https://public.depay.fi/tokens/search?blockchain=".concat(blockchain.name, "&term=").concat(term), {
-        signal: signal,
-        headers: {
-          'X-Api-Key': apiKey
-        }
+        signal: signal
       }).then(function (response) {
         if (response.status == 200) {
           response.json().then(function (tokens) {

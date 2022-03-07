@@ -99,7 +99,6 @@ describe('Select Widget', () => {
         typing += letter
         fetchMock.get({
           url: `https://public.depay.fi/tokens/search?blockchain=ethereum&term=${typing}`,
-          headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
           overwriteRoutes: true
         }, [{"id":"a24c61a4-f106-4fc4-af9f-9efdd7ef4cc4","blockchain":"ethereum","external_id":"0xa0bed124a09ac2bd941b10349d8d224fe3c955eb","decimals":18,"created_at":"2021-11-15T07:18:00.103Z","updated_at":"2021-12-27T15:21:14.611Z","name":"DePay","symbol":"DEPAY","reserve_usd_k":208,"volume_usd_k":1,"image":"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb/logo.png","project_name":"DePay","website":"http://depay.fi","telegram":"DePayNews","twitter":"DePayFi","github":"DePayFi","description":"DePay simplifies and improves Web3 Payments with the power of DeFi. Accept any token with on-the-fly conversion. The first truly decentralized payment protocol which addresses the downside of centralization. It's built on top of decentralized finance using state-of-the art Web3 technologies in order to offer a seamless payment experience. ETHOnline Finalist 2020, made in Switzerland (Crypto Valley). DePay tools include: - Payments: Accept Cryptocurrencies - Sales: Sell your Token - Donations: Receive Crypto support - Subscriptions: Recurring payments - Swap: Best price swap - Payroll: Payroll streams - Wallet: Payments \u0026 DeFi - Credit: Streams as collateral - DePay PRO: Analytics \u0026 Insights The DePay difference - Chain Agnostic (Multichain) DePay is extensible around any blockchain, ensuring a competitive cross-chain future. - Permissionless No one can be technically excluded from using DePay and no registration is required. - Trustless Every intermediate step is replaced by smart contracts which are connected to decentralized liquidity pools. - Easy to use Our ambition was to create an even easier user experience than you're used to from shopping in current non-crypto e-commerce stores. - Open Source The DePay protocol will always remain open source. - Multinetwork DePay automatically detects \u0026 switches the network if required.","discord":"https://discord.com/invite/smDs5zK","reddit":"https://www.reddit.com/r/DePayFi/","routable":true,"holders":null,"transfers":11700,"latest_transfer":"2021-12-27T00:00:00.000Z","first_transfer":"2020-09-14T00:00:00.000Z","unique_senders":2717,"unique_receivers":3857}])
       })
@@ -163,7 +162,6 @@ describe('Select Widget', () => {
           typing += letter
           fetchMock.get({
             url: `https://public.depay.fi/tokens/search?blockchain=ethereum&term=${typing}`,
-            headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
             overwriteRoutes: true
           }, [{
             blockchain: 'ethereum',

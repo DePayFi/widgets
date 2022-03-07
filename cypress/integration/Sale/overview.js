@@ -169,7 +169,6 @@ describe('overview Sale', () => {
       beforeEach(()=>{
         fetchMock.get({
           url: 'https://public.depay.fi/accounts/ethereum/0xd8da6bf26964af9d7eed9e03e53415d37aa96045/assets',
-          headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
           overwriteRoutes: true,
           delay: 5000
         }, [])
