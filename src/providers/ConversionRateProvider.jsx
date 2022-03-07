@@ -12,7 +12,7 @@ export default (props)=>{
   useEffect(()=>{
     Currency.fromUSD({ amount: 1, code: currency })
       .then((conversion)=>setConversionRate(conversion.amount))
-      .catch(setError)
+      .catch(setConversionRate(1))
   }, [])
 
   return(

@@ -123,4 +123,23 @@ describe('Payment Widget: currency conversion', () => {
       })
     })
   })
+
+  describe('currency conversion request fails', ()=>{
+
+    beforeEach(()=>{
+      fetchMock.get({
+        url: `https://public.depay.fi/currencies/EUR`,
+        overwriteRoutes: true
+      }, 500)
+    })
+
+    it('falls back to displaying currencies in USD ', () => {
+      cy.visit('cypress/test.html').then((contentWindow) => {
+        cy.document().then((document)=>{
+          DePayWidgets.Payment({ ...defaultArguments, document })
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay US$33.00')
+        })
+      })
+    })
+  })
 })

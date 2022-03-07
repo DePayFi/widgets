@@ -70,7 +70,6 @@ export default (props)=>{
       let toTokenUSDValue = ethers.utils.formatUnits(toTokenUSDAmount, USDDecimals)
       Currency.fromUSD({ amount: toTokenUSDValue, code: currency })
         .then(setPaymentValue)
-        .catch(setError)
     }).catch(setError)
   }
   

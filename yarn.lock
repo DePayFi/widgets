@@ -987,10 +987,10 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@depay/local-currency@^3.2.1":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@depay/local-currency/-/local-currency-3.2.1.tgz#4c758d584f6a097afd2c2c1f5202b46c1d473762"
-  integrity sha512-eujUH3zUNYtbEywBGGOghxBN5XvxaUAnNuTiHDLxc8cQo9WkLehzBpSkvFimXid3ESy7kcmxLvSLsP9GsTeHeg==
+"@depay/local-currency@^3.2.2":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@depay/local-currency/-/local-currency-3.2.2.tgz#b96aa8a361f864afd943baab014e8e4d2b492aa3"
+  integrity sha512-Y5INhuahlByYD1Flqs3PI0hnolK1RoZ90O0dQeoqgOAjvL+8JEkfWskKnVicEhlF2HHneQkeR0hVJxnePqKzng==
 
 "@depay/react-dialog-stack@^5.0.1":
   version "5.0.1"

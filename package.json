@@ -33,7 +33,7 @@
     "test": "yarn test:jest && yarn test:cypress"
   },
   "dependencies": {
-    "@depay/local-currency": "^3.2.1",
+    "@depay/local-currency": "^3.2.2",
     "@depay/react-dialog-stack": "^5.0.1",
     "@depay/react-shadow-dom": "^4.0.0",
     "@depay/react-token-image": "^3.0.0",
