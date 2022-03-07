@@ -10,7 +10,7 @@ import { resetCache, provider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Token } from '@depay/web3-tokens'
 
-describe('pay smart contracts', () => {
+describe('Payment Widget: pay smart contracts', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
@@ -112,7 +112,7 @@ describe('pay smart contracts', () => {
     })
 
     fetchMock.post({
-      url: "https://api.depay.fi/v2/payments",
+      url: "https://public.depay.fi/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -125,12 +125,13 @@ describe('pay smart contracts', () => {
           sender_amount: "20.0",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DEPAY,
+          type: 'payment'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
-        uuid: mockedTransaction.transaction._id
+        uuid: mockedTransaction.transaction._id,
       },
     }, 201)
 
@@ -190,7 +191,7 @@ describe('pay smart contracts', () => {
       }
     })
     fetchMock.post({
-      url: "https://api.depay.fi/v2/payments",
+      url: "https://public.depay.fi/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -203,12 +204,13 @@ describe('pay smart contracts', () => {
           sender_amount: "20.0",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DEPAY,
+          type: 'payment'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
-        uuid: mockedTransaction.transaction._id
+        uuid: mockedTransaction.transaction._id,
       },
     }, 201)
 

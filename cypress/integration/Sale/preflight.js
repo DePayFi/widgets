@@ -2,7 +2,7 @@ import DePayWidgets from '../../../src'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-describe('Sale widget preflight', () => {
+describe('Sale Widget: preflight', () => {
   
   it('requires you to set accept', ()=> {
     let criticalError

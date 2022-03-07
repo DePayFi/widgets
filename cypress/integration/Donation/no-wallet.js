@@ -9,7 +9,7 @@ import { resetCache, provider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Token } from '@depay/web3-tokens'
 
-describe('having no wallet and opening the Donation widget', () => {
+describe('Donation Widget: no wallet connected', () => {
 
   beforeEach(resetMocks)
   beforeEach(()=>fetchMock.restore())

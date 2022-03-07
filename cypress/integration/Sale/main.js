@@ -10,7 +10,7 @@ import { resetCache, provider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Token } from '@depay/web3-tokens'
 
-describe('executes Sale', () => {
+describe('Sale Widget: main functionality', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
@@ -140,7 +140,7 @@ describe('executes Sale', () => {
     })
 
     fetchMock.post({
-      url: "https://api.depay.fi/v2/payments",
+      url: "https://public.depay.fi/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -153,12 +153,13 @@ describe('executes Sale', () => {
           sender_amount: "1.16",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DAI,
+          type: 'sale'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
-        uuid: mockedTransaction.transaction._id
+        uuid: mockedTransaction.transaction._id,
       },
     }, 201)
 
@@ -210,7 +211,7 @@ describe('executes Sale', () => {
     })
 
     fetchMock.post({
-      url: "https://api.depay.fi/v2/payments",
+      url: "https://public.depay.fi/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -223,13 +224,14 @@ describe('executes Sale', () => {
           sender_amount: "1.16",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DAI,
-          integration: '123'
+          integration: '123',
+          type: 'sale'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
-        uuid: mockedTransaction.transaction._id
+        uuid: mockedTransaction.transaction._id,
       },
     }, 201)
 

@@ -1,4 +1,3 @@
-import apiKey from '../helpers/apiKey'
 import ChevronRight from '../components/ChevronRight'
 import ClosableContext from '../contexts/ClosableContext'
 import Dialog from '../components/Dialog'
@@ -94,9 +93,8 @@ export default (props)=> {
       })
     } else if(term && term.length) {
       setTokens([])
-      fetch(`https://api.depay.fi/v2/tokens/search?blockchain=${blockchain.name}&term=${term}`, {
-        signal,
-        headers: { 'X-Api-Key': apiKey }
+      fetch(`https://public.depay.fi/tokens/search?blockchain=${blockchain.name}&term=${term}`, {
+        signal
       }).then((response)=>{
         if(response.status == 200) {
           response.json().then((tokens)=>{

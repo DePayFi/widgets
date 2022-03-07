@@ -10,7 +10,7 @@ import { routers, plugins } from '@depay/web3-payments'
 import { Server } from 'mock-socket'
 import { Token } from '@depay/web3-tokens'
 
-describe('detects replaced Payment transaction', () => {
+describe('Payment Widget: detects replaced transaction', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
@@ -117,7 +117,7 @@ describe('detects replaced Payment transaction', () => {
     })
 
     fetchMock.post({
-      url: "https://api.depay.fi/v2/payments",
+      url: "https://public.depay.fi/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -130,12 +130,13 @@ describe('detects replaced Payment transaction', () => {
           sender_amount: "20.0",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DEPAY,
+          type: 'payment'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
-        uuid: mockedTransaction.transaction._id
+        uuid: mockedTransaction.transaction._id,
       },
     }, 201)
 
@@ -185,7 +186,7 @@ describe('detects replaced Payment transaction', () => {
     })
 
     fetchMock.post({
-      url: "https://api.depay.fi/v2/payments",
+      url: "https://public.depay.fi/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -198,12 +199,13 @@ describe('detects replaced Payment transaction', () => {
           sender_amount: "20.0",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DEPAY,
+          type: 'payment'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
-        uuid: mockedTransaction.transaction._id
+        uuid: mockedTransaction.transaction._id,
       },
     }, 201)
 
@@ -265,7 +267,7 @@ describe('detects replaced Payment transaction', () => {
       })
 
       fetchMock.post({
-        url: "https://api.depay.fi/v2/payments",
+        url: "https://public.depay.fi/payments",
         body: {
           after_block: 1,
           amount: "20.0",
@@ -278,12 +280,13 @@ describe('detects replaced Payment transaction', () => {
             sender_amount: "20.0",
             sender_id: fromAddress.toLowerCase(),
             sender_token_id: DEPAY,
+            type: 'payment'
           },
           receiver: toAddress,
           sender: fromAddress.toLowerCase(),
           token: DEPAY,
           transaction: mockedTransaction.transaction._id,
-          uuid: mockedTransaction.transaction._id
+          uuid: mockedTransaction.transaction._id,
         },
       }, 201)
 
@@ -344,7 +347,7 @@ describe('detects replaced Payment transaction', () => {
       })
 
       fetchMock.post({
-        url: "https://api.depay.fi/v2/payments",
+        url: "https://public.depay.fi/payments",
         body: {
           after_block: 1,
           amount: "20.0",
@@ -357,12 +360,13 @@ describe('detects replaced Payment transaction', () => {
             sender_amount: "20.0",
             sender_id: fromAddress.toLowerCase(),
             sender_token_id: DEPAY,
+            type: 'payment'
           },
           receiver: toAddress,
           sender: fromAddress.toLowerCase(),
           token: DEPAY,
           transaction: mockedTransaction.transaction._id,
-          uuid: mockedTransaction.transaction._id
+          uuid: mockedTransaction.transaction._id,
         },
       }, 201)
 
@@ -424,7 +428,7 @@ describe('detects replaced Payment transaction', () => {
       })
 
       fetchMock.post({
-        url: "https://api.depay.fi/v2/payments",
+        url: "https://public.depay.fi/payments",
         body: {
           after_block: 1,
           amount: "20.0",
@@ -437,12 +441,13 @@ describe('detects replaced Payment transaction', () => {
             sender_amount: "20.0",
             sender_id: fromAddress.toLowerCase(),
             sender_token_id: DEPAY,
+            type: 'payment'
           },
           receiver: toAddress,
           sender: fromAddress.toLowerCase(),
           token: DEPAY,
           transaction: mockedTransaction.transaction._id,
-          uuid: mockedTransaction.transaction._id
+          uuid: mockedTransaction.transaction._id,
         },
       }, 201)
 
@@ -461,7 +466,7 @@ describe('detects replaced Payment transaction', () => {
             let replacingTransactionId = '0x782cf9983541087548c717dc1a4e2687ef8928e758316cd600ebb0652f57bafe'
             cy.wait(1000).then(()=>{
               fetchMock.get({
-                url: `https://api.depay.fi/v2/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
+                url: `https://public.depay.fi/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
                 overwriteRoutes: true
               }, { "external_id": replacingTransactionId, "status":"success" })
               cy.wait(5000).then(()=>{
@@ -494,7 +499,7 @@ describe('detects replaced Payment transaction', () => {
       })
 
       fetchMock.post({
-        url: "https://api.depay.fi/v2/payments",
+        url: "https://public.depay.fi/payments",
         body: {
           after_block: 1,
           amount: "20.0",
@@ -507,12 +512,13 @@ describe('detects replaced Payment transaction', () => {
             sender_amount: "20.0",
             sender_id: fromAddress.toLowerCase(),
             sender_token_id: DEPAY,
+            type: 'payment'
           },
           receiver: toAddress,
           sender: fromAddress.toLowerCase(),
           token: DEPAY,
           transaction: mockedTransaction.transaction._id,
-          uuid: mockedTransaction.transaction._id
+          uuid: mockedTransaction.transaction._id,
         },
       }, 201)
 
@@ -531,7 +537,7 @@ describe('detects replaced Payment transaction', () => {
             let replacingTransactionId = '0x782cf9983541087548c717dc1a4e2687ef8928e758316cd600ebb0652f57bafe'
             cy.wait(1000).then(()=>{
               fetchMock.get({
-                url: `https://api.depay.fi/v2/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
+                url: `https://public.depay.fi/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
                 overwriteRoutes: true
               }, { "external_id": replacingTransactionId, "status":"failed" })
               cy.wait(5000).then(()=>{

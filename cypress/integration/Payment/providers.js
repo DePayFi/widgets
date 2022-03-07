@@ -3,7 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { provider } from '@depay/web3-client'
 
-describe('set RPC providers', () => {
+describe('Payment Widget: set providers', () => {
 
   it('allows to set RPC providers to use', ()=> {
     cy.visit('cypress/test.html').then((contentWindow) => {

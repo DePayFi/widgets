@@ -2,7 +2,7 @@ import DePayWidgets from '../../../src'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-describe('Payment widget preflight', () => {
+describe('Payment Widget: preflight', () => {
   
   it('requires you to set a blockchain', ()=> {
     let criticalError

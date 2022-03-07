@@ -8,7 +8,7 @@ import { mock, resetMocks } from '@depay/web3-mock'
 import { provider, resetCache } from '@depay/web3-client'
 import { Token } from '@depay/web3-tokens'
 
-describe('Payment widget error', () => {
+describe('Payment Widget: errors', () => {
   
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']

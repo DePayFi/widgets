@@ -11,7 +11,7 @@ import { resetCache, provider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Token } from '@depay/web3-tokens'
 
-describe('currency Payment widget', () => {
+describe('Payment Widget: currency conversion', () => {
   
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -118,6 +118,25 @@ describe('currency Payment widget', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, currency: 'USD', document })
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay $33.00')
+        })
+      })
+    })
+  })
+
+  describe('currency conversion request fails', ()=>{
+
+    beforeEach(()=>{
+      fetchMock.get({
+        url: `https://public.depay.fi/currencies/EUR`,
+        overwriteRoutes: true
+      }, 500)
+    })
+
+    it('falls back to displaying currencies in USD ', () => {
+      cy.visit('cypress/test.html').then((contentWindow) => {
+        cy.document().then((document)=>{
+          DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay $33.00')
         })
       })

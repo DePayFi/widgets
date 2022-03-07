@@ -9,7 +9,7 @@ import { resetCache, provider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Token } from '@depay/web3-tokens'
 
-describe('execute Payment', () => {
+describe('Payment Widget: payment event', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -114,7 +114,7 @@ describe('execute Payment', () => {
     })
 
     fetchMock.post({
-      url: "https://api.depay.fi/v2/payments",
+      url: "https://public.depay.fi/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -127,12 +127,13 @@ describe('execute Payment', () => {
           sender_amount: "0.01",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: ETH,
+          type: 'payment'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
-        uuid: mockedTransaction.transaction._id
+        uuid: mockedTransaction.transaction._id,
       },
     }, 201)
 

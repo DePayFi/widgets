@@ -69,27 +69,24 @@ export default ({
   exchange = findByName(exchange)
 
   fetchMock.get({
-    url: `https://api.depay.fi/v2/accounts/${blockchain}/${fromAddress}/assets`,
-    headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
+    url: `https://public.depay.fi/accounts/${blockchain}/${fromAddress}/assets`,
     overwriteRoutes: true
   }, fromAddressAssets)
 
   stubTimeZone(timeZone)
 
   fetchMock.get({
-    url: `https://api.depay.fi/v2/currencies/${currency}`,
-    headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
+    url: `https://public.depay.fi/currencies/${currency}`,
     overwriteRoutes: true
   }, currencyToUSD.toString())
 
   fetchMock.post({
-    url: `https://api.depay.fi/v2/transactions`,
-    headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
+    url: `https://public.depay.fi/transactions`,
     overwriteRoutes: true
   }, { status: 201 })
 
   fetchMock.get({
-    url: `https://api.depay.fi/v2/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
+    url: `https://public.depay.fi/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
     overwriteRoutes: true
   }, { status: 404 })
 

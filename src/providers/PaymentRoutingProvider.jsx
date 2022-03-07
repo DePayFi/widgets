@@ -1,4 +1,3 @@
-import apiKey from '../helpers/apiKey'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import findMaxRoute from '../helpers/findMaxRoute'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
@@ -34,8 +33,7 @@ export default (props)=>{
       whitelist: props.whitelist,
       blacklist: props.blacklist,
       event: props.event,
-      fee: props.fee,
-      apiKey
+      fee: props.fee
     }).then((routes)=>{
       if(routes.length == 0) {
         setAllRoutes([])

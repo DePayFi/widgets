@@ -12,7 +12,7 @@ import { resetCache, provider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Token } from '@depay/web3-tokens'
 
-describe('overview Donation payment', () => {
+describe('Donation Widget: overview', () => {
   
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -172,8 +172,7 @@ describe('overview Donation payment', () => {
 
       beforeEach(()=>{
         fetchMock.get({
-          url: 'https://api.depay.fi/v2/accounts/ethereum/0xd8da6bf26964af9d7eed9e03e53415d37aa96045/assets',
-          headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
+          url: 'https://public.depay.fi/accounts/ethereum/0xd8da6bf26964af9d7eed9e03e53415d37aa96045/assets',
           overwriteRoutes: true,
           delay: 5000
         }, [])

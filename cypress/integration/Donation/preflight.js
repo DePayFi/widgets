@@ -2,7 +2,7 @@ import DePayWidgets from '../../../src'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-describe('Donation widget preflight', () => {
+describe('Donation Widget: preflight', () => {
   
   it('requires you to set accept', ()=> {
     let criticalError

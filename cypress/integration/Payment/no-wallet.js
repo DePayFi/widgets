@@ -9,7 +9,7 @@ import { resetCache, provider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Token } from '@depay/web3-tokens'
 
-describe('having no wallet and opening the Payment widget', () => {
+describe('Payment Widget: no wallet', () => {
 
   beforeEach(resetMocks)
   beforeEach(()=>fetchMock.restore())

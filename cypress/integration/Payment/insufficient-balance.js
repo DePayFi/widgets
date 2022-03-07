@@ -9,7 +9,7 @@ import { mock, resetMocks } from '@depay/web3-mock'
 import { provider, resetCache } from '@depay/web3-client'
 import { Token } from '@depay/web3-tokens'
 
-describe('insufficient balance for Payment', () => {
+describe('Payment Widget: insufficient balance', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
@@ -59,14 +59,12 @@ describe('insufficient balance for Payment', () => {
     TOKENRouteMock = mock({provider: provider(blockchain), blockchain, "call":{"to":"0x7a250d5630b4cf539739df2c5dacb4c659f2488d","api":exchange.contracts.router.api,"method":"getAmountsIn","return":"Your Value","params":["20000000000000000000",["0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2","0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"]]}})
     
     fetchMock.get({
-      url: `https://api.depay.fi/v2/accounts/${blockchain}/${fromAddress}/assets`,
-      headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
+      url: `https://public.depay.fi/accounts/${blockchain}/${fromAddress}/assets`,
       overwriteRoutes: true
     }, [])
 
     fetchMock.get({
-      url: `https://api.depay.fi/v2/currencies/USD`,
-      headers: { 'X-Api-Key': 'M5dZeHFfIp3J7h9H9fs4i4wmkUo1HjAF3EmMy32c' },
+      url: `https://public.depay.fi/currencies/USD`,
       overwriteRoutes: true
     }, "0.85")
   })
