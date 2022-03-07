@@ -62141,15 +62141,17 @@ var timezoneToCurrency = {
 class Currency {
   constructor({ amount, code, timeZone = Currency.timeZone() }) {
     this.amount = amount;
-    this.code = code || timezoneToCurrency[timeZone] || 'USD';
+    this.code = code || Currency.getCode(timeZone);
     this.timeZone = timeZone;
   }
 
-  static async fromUSD({ amount, code, timeZone, apiKey }) {
+  static getCode(timeZone) {
+    return timezoneToCurrency[timeZone || Currency.timeZone()] || 'USD'
+  }
+
+  static async fromUSD({ amount, code, timeZone }) {
     let currency = new Currency({ amount, code, timeZone });
-    let rate = await fetch('https://api.depay.fi/v2/currencies/' + currency.code, {
-      headers: { 'X-Api-Key': apiKey },
-    })
+    let rate = await fetch('https://public.depay.fi/currencies/' + currency.code)
       .then((response) => response.json())
       .then((data) => parseFloat(data));
     currency.amount = currency.amount * rate;
@@ -62583,14 +62585,10 @@ const getAssets = async (options) => {
   }
   if (!account) { return }
 
-  if(options.apiKey == undefined) { throw 'Web3Wallets: Please pass an apiKey. See documentation.' }
-  
   let assets = Promise.all(
     (options.blockchain ? [options.blockchain] : wallet.blockchains).map((blockchain) =>{
       
-      return fetch(`https://api.depay.fi/v2/accounts/${blockchain}/${account}/assets`, {
-        headers: { 'x-api-key': options.apiKey }
-      })
+      return fetch(`https://public.depay.fi/accounts/${blockchain}/${account}/assets`)
         .then((response) => response.json())
         .then(async (assets) => {
           return await ensureNativeTokenAsset({

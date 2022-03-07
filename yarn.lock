@@ -987,10 +987,10 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@depay/local-currency@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@depay/local-currency/-/local-currency-3.0.0.tgz#e489c1909b562e05fdcbee76197653b4465109ac"
-  integrity sha512-VeSZ33SyFeurWsssaFilbw9W7Xv504fzjUtBdYVdPskesO/XnUqgog9hIXVZieA5nRZ61lV6woiZCUIl9RtzvA==
+"@depay/local-currency@^3.2.1":
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@depay/local-currency/-/local-currency-3.2.1.tgz#4c758d584f6a097afd2c2c1f5202b46c1d473762"
+  integrity sha512-eujUH3zUNYtbEywBGGOghxBN5XvxaUAnNuTiHDLxc8cQo9WkLehzBpSkvFimXid3ESy7kcmxLvSLsP9GsTeHeg==
 
 "@depay/react-dialog-stack@^5.0.1":
   version "5.0.1"
@@ -1022,10 +1022,10 @@
     "@walletconnect/client" "^1.7.1"
     "@walletconnect/qrcode-modal" "^1.7.1"
 
-"@depay/web3-assets@^5.2.0":
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/@depay/web3-assets/-/web3-assets-5.2.0.tgz#b03364543a880a7bd2beadb3d738decf552d09e8"
-  integrity sha512-eAkkhk3pCGsQZOtxHsIFXwZjsMeZfXVqJ0+x+n4QNkeJcfjfu/Rdo7Bn4gEgYNSvaY21TxdBZG5R6LA+IcTRyQ==
+"@depay/web3-assets@^5.3.1":
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/@depay/web3-assets/-/web3-assets-5.3.1.tgz#409fd73d62ef57da1075ab81f6e978c31a69fb47"
+  integrity sha512-bdehPlCt6kY9Lzf8Ybet7LH2QsF6HNUlAEy5p7Lnw0f2YbXg5u30p6IKFqFb9FBFaeWsUGkrHO4Zj4n6tXDb2A==
 
 "@depay/web3-blockchains@^4.2.0":
   version "4.2.0"
