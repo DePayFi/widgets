@@ -10,7 +10,7 @@ import { resetCache, provider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Token } from '@depay/web3-tokens'
 
-describe('pay smart contracts', () => {
+describe('Payment Widget: pay smart contracts', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']

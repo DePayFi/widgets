@@ -1,15 +1,16 @@
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/basics'
+import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from '@depay/web3-constants'
-import { mock, confirm, increaseBlock, resetMocks } from '@depay/web3-mock'
+import { mock, confirm, increaseBlock, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, provider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Token } from '@depay/web3-tokens'
 
-describe('execute Payment', () => {
+describe('Donation Widget: main functionality', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
@@ -25,11 +26,13 @@ describe('execute Payment', () => {
   let fromAddress = accounts[0]
   let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   let amount = 20
+  let exchange
   let TOKEN_A_AmountBN
+  let TOKEN_B_AmountBN
+  let WRAPPED_AmountInBN
   let defaultArguments = {
-    accept: [{
+    accept:[{
       blockchain,
-      amount,
       token: DEPAY,
       receiver: toAddress
     }]
@@ -37,7 +40,13 @@ describe('execute Payment', () => {
 
   beforeEach(()=>{
 
-    ({ TOKEN_A_AmountBN } = mockBasics({
+    ({ 
+      TOKEN_A_AmountBN,
+      TOKEN_B_AmountBN,
+      WRAPPED_AmountInBN,
+      exchange
+    } = mockBasics({
+      
       provider: provider(blockchain),
       blockchain,
 
@@ -71,21 +80,22 @@ describe('execute Payment', () => {
       TOKEN_A_Name: 'DePay',
       TOKEN_A_Symbol: 'DEPAY',
       TOKEN_A_Amount: amount,
-      TOKEN_A_Balance: 30,
+      TOKEN_A_Balance: 0,
       
       TOKEN_B: DAI,
       TOKEN_B_Decimals: 18,
       TOKEN_B_Name: 'Dai Stablecoin',
       TOKEN_B_Symbol: 'DAI',
-      TOKEN_B_Amount: 33,
+      TOKEN_B_Amount: 1.16,
       TOKEN_B_Balance: 50,
+      TOKEN_B_Allowance: CONSTANTS[blockchain].MAXINT,
 
       TOKEN_A_TOKEN_B_Pair: CONSTANTS[blockchain].ZERO,
       TOKEN_B_WRAPPED_Pair: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
       TOKEN_A_WRAPPED_Pair: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d',
 
       WRAPPED_AmountIn: 0.01,
-      USD_AmountOut: 33,
+      USD_AmountOut: 1.16,
 
       timeZone: 'Europe/Berlin',
       stubTimeZone: (timeZone)=> {
@@ -99,17 +109,37 @@ describe('execute Payment', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    mockAmountsOut({
+      provider: provider(blockchain),
+      blockchain,
+      exchange,
+      amountInBN: '1176470588235294200',
+      path: [DAI, WETH, DEPAY],
+      amountsOut: [
+        '1176470588235294200',
+        WRAPPED_AmountInBN,
+        TOKEN_A_AmountBN
+      ]
+    })
   })
   
   it('executes', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
+        delay: 1000,
         from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN]
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'route',
+        params: {
+          path: [DAI, WETH, DEPAY],
+          amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
+          addresses: [fromAddress, toAddress],
+          plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
+          data: []
+        }
       }
     })
 
@@ -124,10 +154,10 @@ describe('execute Payment', () => {
         fee_receiver: null,
         nonce: 0,
         payload: {
-          sender_amount: "20.0",
+          sender_amount: "1.16",
           sender_id: fromAddress.toLowerCase(),
-          sender_token_id: DEPAY,
-          type: 'payment'
+          sender_token_id: DAI,
+          type: 'donation'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
@@ -139,9 +169,9 @@ describe('execute Payment', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, document })
+        DePayWidgets.Donation({ ...defaultArguments, document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
@@ -169,11 +199,18 @@ describe('execute Payment', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
+        delay: 1000,
         from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN]
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'route',
+        params: {
+          path: [DAI, WETH, DEPAY],
+          amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
+          addresses: [fromAddress, toAddress],
+          plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
+          data: []
+        }
       }
     })
 
@@ -188,11 +225,11 @@ describe('execute Payment', () => {
         fee_receiver: null,
         nonce: 0,
         payload: {
-          sender_amount: "20.0",
+          sender_amount: "1.16",
           sender_id: fromAddress.toLowerCase(),
-          sender_token_id: DEPAY,
-          integration: '123'
-          type: 'payment'
+          sender_token_id: DAI,
+          integration: '123',
+          type: 'donation'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
@@ -204,9 +241,9 @@ describe('execute Payment', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, integration: '123', document })
+        DePayWidgets.Donation({ ...defaultArguments, integration: '123', document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
@@ -236,16 +273,22 @@ describe('execute Payment', () => {
       transaction: {
         delay: 2000,
         from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN]
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'route',
+        params: {
+          path: [DAI, WETH, DEPAY],
+          amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
+          addresses: [fromAddress, toAddress],
+          plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
+          data: []
+        }
       }
     })
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, document })
+        DePayWidgets.Donation({ ...defaultArguments, document })
         cy.wait(2000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click().then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Confirm transaction in your wallet')
@@ -262,24 +305,30 @@ describe('execute Payment', () => {
       transaction: {
         delay: 1000,
         from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN],
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'route',
+        params: {
+          path: [DAI, WETH, DEPAY],
+          amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
+          addresses: [fromAddress, toAddress],
+          plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
+          data: []
+        },
         return: Error('MetaMask Tx Signature: User denied transaction signature.')
       }
     })
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, document })
+        DePayWidgets.Donation({ ...defaultArguments, document })
         cy.get('.Card[title="Change payment"]', { includeShadowDom: true }).should('exist')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.Card[title="Change payment"]', { includeShadowDom: true }).should('not.exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...')
         // sent fails:
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]')
         cy.get('.Card[title="Change payment"]', { includeShadowDom: true }).should('exist')
       })
@@ -292,23 +341,30 @@ describe('execute Payment', () => {
       transaction: {
         delay: 1000,
         from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN],
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'route',
+        params: {
+          path: [DAI, WETH, DEPAY],
+          amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
+          addresses: [fromAddress, toAddress],
+          plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
+          data: []
+        }
       }
     })
+
 
     let sentCalledWith
     let confirmedCalledWith
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, document,
+        DePayWidgets.Donation({ ...defaultArguments, document,
           sent: (transaction)=>{ sentCalledWith = transaction },
           confirmed: (transaction)=>{ confirmedCalledWith = transaction },
         })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
           cy.wait(1000).then(()=>{

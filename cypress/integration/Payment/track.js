@@ -11,7 +11,7 @@ import { routers, plugins } from '@depay/web3-payments'
 import { Server } from 'mock-socket'
 import { Token } from '@depay/web3-tokens'
 
-describe('track Payment', () => {
+describe('Payment Widget: track', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']

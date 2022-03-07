@@ -10,7 +10,7 @@ import { resetCache, provider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Token } from '@depay/web3-tokens'
 
-describe('executes Donation', () => {
+describe('Sale Widget: main functionality', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
@@ -24,18 +24,14 @@ describe('executes Donation', () => {
   let ETH = CONSTANTS[blockchain].NATIVE
   let WETH = CONSTANTS[blockchain].WRAPPED
   let fromAddress = accounts[0]
-  let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  let toAddress = accounts[0]
   let amount = 20
   let exchange
   let TOKEN_A_AmountBN
   let TOKEN_B_AmountBN
   let WRAPPED_AmountInBN
   let defaultArguments = {
-    accept:[{
-      blockchain,
-      token: DEPAY,
-      receiver: toAddress
-    }]
+    sell: { [blockchain]: DEPAY }
   }
 
   beforeEach(()=>{
@@ -157,7 +153,7 @@ describe('executes Donation', () => {
           sender_amount: "1.16",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DAI,
-          type: 'donation'
+          type: 'sale'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
@@ -169,7 +165,7 @@ describe('executes Donation', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Donation({ ...defaultArguments, document })
+        DePayWidgets.Sale({ ...defaultArguments, document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
@@ -182,9 +178,9 @@ describe('executes Donation', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
           confirm(mockedTransaction)
           cy.wait(1000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
               cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
               cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
@@ -228,8 +224,8 @@ describe('executes Donation', () => {
           sender_amount: "1.16",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DAI,
-          integration: '123'
-          type: 'donation'
+          integration: '123',
+          type: 'sale'
         },
         receiver: toAddress,
         sender: fromAddress.toLowerCase(),
@@ -241,7 +237,7 @@ describe('executes Donation', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Donation({ ...defaultArguments, integration: '123', document })
+        DePayWidgets.Sale({ ...defaultArguments, integration: '123', document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
@@ -254,9 +250,9 @@ describe('executes Donation', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
           confirm(mockedTransaction)
           cy.wait(1000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
               cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
               cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
@@ -288,7 +284,7 @@ describe('executes Donation', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Donation({ ...defaultArguments, document })
+        DePayWidgets.Sale({ ...defaultArguments, document })
         cy.wait(2000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click().then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Confirm transaction in your wallet')
@@ -321,7 +317,7 @@ describe('executes Donation', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Donation({ ...defaultArguments, document })
+        DePayWidgets.Sale({ ...defaultArguments, document })
         cy.get('.Card[title="Change payment"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
@@ -360,7 +356,7 @@ describe('executes Donation', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Donation({ ...defaultArguments, document,
+        DePayWidgets.Sale({ ...defaultArguments, document,
           sent: (transaction)=>{ sentCalledWith = transaction },
           confirmed: (transaction)=>{ confirmedCalledWith = transaction },
         })
