@@ -2213,8 +2213,8 @@ var ConfigurationProvider = (function (props) {
 });
 
 var ConversionRateProvider = (function (props) {
-  var _useContext = useContext(ErrorContext),
-      setError = _useContext.setError;
+  var _useContext = useContext(ErrorContext);
+      _useContext.setError;
 
   var _useContext2 = useContext(ConfigurationContext),
       currency = _useContext2.currency;
@@ -2230,7 +2230,7 @@ var ConversionRateProvider = (function (props) {
       code: currency
     }).then(function (conversion) {
       return setConversionRate(conversion.amount);
-    })["catch"](setError);
+    })["catch"](setConversionRate(1));
   }, []);
   return /*#__PURE__*/React.createElement(ConversionRateContext.Provider, {
     value: {
@@ -2840,7 +2840,7 @@ var PaymentValueProvider = (function (props) {
       Currency.fromUSD({
         amount: toTokenUSDValue,
         code: currency
-      }).then(setPaymentValue)["catch"](setError);
+      }).then(setPaymentValue);
     })["catch"](setError);
   };
 

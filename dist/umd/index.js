@@ -2208,8 +2208,8 @@
   });
 
   var ConversionRateProvider = (function (props) {
-    var _useContext = React.useContext(ErrorContext),
-        setError = _useContext.setError;
+    var _useContext = React.useContext(ErrorContext);
+        _useContext.setError;
 
     var _useContext2 = React.useContext(ConfigurationContext),
         currency = _useContext2.currency;
@@ -2225,7 +2225,7 @@
         code: currency
       }).then(function (conversion) {
         return setConversionRate(conversion.amount);
-      })["catch"](setError);
+      })["catch"](setConversionRate(1));
     }, []);
     return /*#__PURE__*/React__default['default'].createElement(ConversionRateContext.Provider, {
       value: {
@@ -2835,7 +2835,7 @@
         localCurrency.Currency.fromUSD({
           amount: toTokenUSDValue,
           code: currency
-        }).then(setPaymentValue)["catch"](setError);
+        }).then(setPaymentValue);
       })["catch"](setError);
     };
 

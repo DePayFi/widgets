@@ -62159,7 +62159,11 @@
       let currency = new Currency({ amount, code, timeZone });
       let rate = await fetch('https://public.depay.fi/currencies/' + currency.code)
         .then((response) => response.json())
-        .then((data) => parseFloat(data));
+        .then((data) => parseFloat(data))
+        .catch(()=>{
+          currency.code = "USD";
+          return 1
+        });
       currency.amount = currency.amount * rate;
       return currency
     }
@@ -62195,8 +62199,8 @@
   });
 
   var ConversionRateProvider = (function (props) {
-    var _useContext = react.useContext(ErrorContext),
-        setError = _useContext.setError;
+    var _useContext = react.useContext(ErrorContext);
+        _useContext.setError;
 
     var _useContext2 = react.useContext(ConfigurationContext),
         currency = _useContext2.currency;
@@ -62212,7 +62216,7 @@
         code: currency
       }).then(function (conversion) {
         return setConversionRate(conversion.amount);
-      })["catch"](setError);
+      })["catch"](setConversionRate(1));
     }, []);
     return /*#__PURE__*/react.createElement(ConversionRateContext.Provider, {
       value: {
@@ -68117,7 +68121,7 @@
         Currency.fromUSD({
           amount: toTokenUSDValue,
           code: currency
-        }).then(setPaymentValue)["catch"](setError);
+        }).then(setPaymentValue);
       })["catch"](setError);
     };
 
