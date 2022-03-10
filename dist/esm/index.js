@@ -2143,6 +2143,10 @@ var ChangableAmountProvider = (function (props) {
             fromAddress: account,
             toAddress: account
           }).then(function (routes) {
+            if (routes[0] == undefined) {
+              return;
+            }
+
             Token.readable({
               amount: routes[0].amountOut,
               blockchain: maxRoute.blockchain,
@@ -2166,6 +2170,10 @@ var ChangableAmountProvider = (function (props) {
             fromAddress: account,
             toAddress: account
           }).then(function (routes) {
+            if (routes[0] == undefined) {
+              return;
+            }
+
             Token.readable({
               amount: routes[0].amountOut,
               blockchain: maxRoute.blockchain,

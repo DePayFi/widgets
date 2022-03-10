@@ -2138,6 +2138,10 @@
               fromAddress: account,
               toAddress: account
             }).then(function (routes) {
+              if (routes[0] == undefined) {
+                return;
+              }
+
               web3Tokens.Token.readable({
                 amount: routes[0].amountOut,
                 blockchain: maxRoute.blockchain,
@@ -2161,6 +2165,10 @@
               fromAddress: account,
               toAddress: account
             }).then(function (routes) {
+              if (routes[0] == undefined) {
+                return;
+              }
+
               web3Tokens.Token.readable({
                 amount: routes[0].amountOut,
                 blockchain: maxRoute.blockchain,

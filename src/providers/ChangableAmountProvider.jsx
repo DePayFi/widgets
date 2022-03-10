@@ -96,6 +96,7 @@ export default (props)=>{
               fromAddress: account,
               toAddress: account
             }).then((routes)=>{
+              if(routes[0] == undefined){ return }
               Token.readable({
                 amount: routes[0].amountOut,
                 blockchain: maxRoute.blockchain,
@@ -122,6 +123,7 @@ export default (props)=>{
               fromAddress: account,
               toAddress: account
             }).then((routes)=>{
+              if(routes[0] == undefined){ return }
               Token.readable({
                 amount: routes[0].amountOut,
                 blockchain: maxRoute.blockchain,
