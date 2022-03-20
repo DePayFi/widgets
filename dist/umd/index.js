@@ -3332,7 +3332,7 @@
           className: "CardBodyWrapper"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "Opacity05"
-        }, "Payment confirmation has been stored")))));
+        }, "Payment validated")))));
       } else {
         if (trackingFailed) {
           return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {

@@ -70348,7 +70348,7 @@
           className: "CardBodyWrapper"
         }, /*#__PURE__*/react.createElement("div", {
           className: "Opacity05"
-        }, "Payment confirmation has been stored")))));
+        }, "Payment validated")))));
       } else {
         if (trackingFailed) {
           return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {

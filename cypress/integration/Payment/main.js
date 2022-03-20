@@ -153,7 +153,7 @@ describe('Payment Widget: main functionality', () => {
           confirm(mockedTransaction)
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
               cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
@@ -218,7 +218,7 @@ describe('Payment Widget: main functionality', () => {
           confirm(mockedTransaction)
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
               cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()

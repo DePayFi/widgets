@@ -199,7 +199,7 @@ describe('Payment Widget: track', () => {
                   cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Close').should('not.exist')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Validating payment').find('.Loading')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
                     mockedWebsocket.send(JSON.stringify({
@@ -207,8 +207,8 @@ describe('Payment Widget: track', () => {
                         release: true
                       }
                     }))
-                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').then(()=>{
-                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').find('.Checkmark')
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').then(()=>{
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').find('.Checkmark')
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').click().then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
@@ -312,7 +312,7 @@ describe('Payment Widget: track', () => {
                   cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Close').should('not.exist')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Validating payment').find('.Loading')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
                     mockedWebsocket.send(JSON.stringify({
@@ -322,9 +322,9 @@ describe('Payment Widget: track', () => {
                         forward_to: '/somethingelse'
                       }
                     }))
-                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').then(()=>{
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').then(()=>{
                       cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
-                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').find('.Checkmark')
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').find('.Checkmark')
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').invoke('attr', 'href').should('include', '/somethingelse')
                       cy.location('href').should('include', '/somethingelse')
@@ -431,9 +431,9 @@ describe('Payment Widget: track', () => {
                   cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Continue').should('exist')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored')
-                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').find('.Checkmark')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').find('.Checkmark')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').click().then(()=>{
                     cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
@@ -540,7 +540,7 @@ describe('Payment Widget: track', () => {
                     cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Close').should('not.exist')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Validating payment').find('.Loading')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
                       mockedWebsocket.send(JSON.stringify({
@@ -548,8 +548,8 @@ describe('Payment Widget: track', () => {
                           release: true
                         }
                       }))
-                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').then(()=>{
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').find('.Checkmark')
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').then(()=>{
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').find('.Checkmark')
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').click().then(()=>{
                           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
@@ -647,7 +647,7 @@ describe('Payment Widget: track', () => {
                     cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Close').should('not.exist')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Tracking payment failed!').then(()=>{
                         expect(errorCallbackError.code).to.equal("TRACKING_FAILED")
@@ -773,7 +773,7 @@ describe('Payment Widget: track', () => {
                     cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Close').should('not.exist')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Validating payment').find('.Loading')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
                       mockedWebsocket.send(JSON.stringify({
@@ -781,8 +781,8 @@ describe('Payment Widget: track', () => {
                           release: true
                         }
                       }))
-                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').then(()=>{
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').find('.Checkmark')
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').then(()=>{
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').find('.Checkmark')
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').click().then(()=>{
                           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
@@ -894,10 +894,10 @@ describe('Payment Widget: track', () => {
                     cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Close').should('not.exist')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
-                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').then(()=>{
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').find('.Checkmark')
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').then(()=>{
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').find('.Checkmark')
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').invoke('attr', 'href').should('include', '/somethingelse')
                         cy.location('href').should('include', '/somethingelse')
@@ -1017,10 +1017,10 @@ describe('Payment Widget: track', () => {
                     cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Close').should('not.exist')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment has been confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
-                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').then(()=>{
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmation has been stored').find('.Checkmark')
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').then(()=>{
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').find('.Checkmark')
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').invoke('attr', 'href').should('include', '/somethingelse')
                         cy.location('href').should('include', '/somethingelse')
