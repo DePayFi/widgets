@@ -74,7 +74,7 @@ export default ()=>{
               <div className="CardBody">
                 <div className="CardBodyWrapper">
                   <div className="Opacity05">
-                    Storing payment confirmation
+                    Validating payment
                   </div>
                 </div>
               </div>
@@ -118,7 +118,7 @@ export default ()=>{
               <div className="CardBody">
                 <div className="CardBodyWrapper">
                   <div className="Opacity05">
-                    Payment has been confirmed
+                    Payment confirmed
                   </div>
                 </div>
               </div>

@@ -70379,7 +70379,7 @@
             className: "CardBodyWrapper"
           }, /*#__PURE__*/react.createElement("div", {
             className: "Opacity05"
-          }, "Storing payment confirmation")))));
+          }, "Validating payment")))));
         }
       }
     };
@@ -70424,7 +70424,7 @@
           className: "CardBodyWrapper"
         }, /*#__PURE__*/react.createElement("div", {
           className: "Opacity05"
-        }, "Payment has been confirmed"))))), trackingInfo());
+        }, "Payment confirmed"))))), trackingInfo());
       }
     };
 
