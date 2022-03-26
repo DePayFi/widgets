@@ -9,6 +9,7 @@ import NavigateProvider from './providers/NavigateProvider'
 import PaymentTrackingProvider from './providers/PaymentTrackingProvider'
 import PoweredBy from './components/PoweredBy'
 import React from 'react'
+import requireReactVersion from './helpers/requireReactVersion'
 import SaleRoutingProvider from './providers/SaleRoutingProvider'
 import SaleStack from './stacks/SaleStack'
 import TransactionTrackingProvider from './providers/TransactionTrackingProvider'
@@ -40,6 +41,7 @@ let Sale = async ({
   integration,
   document
 }) => {
+  requireReactVersion()
   try {
     await preflight({ sell })
     const accept = Object.keys(sell).map((key)=>({ blockchain: key, token: sell[key] }))

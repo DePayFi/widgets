@@ -7,10 +7,11 @@ import LoginStack from './stacks/LoginStack'
 import mount from './helpers/mount'
 import PoweredBy from './components/PoweredBy'
 import React from 'react'
+import requireReactVersion from './helpers/requireReactVersion'
 import UpdatableProvider from './providers/UpdatableProvider'
 
 let Login = (options) => {
-
+  requireReactVersion()
   let style, error, document, message, endpoint, recover
   if(typeof options == 'object') ({ style, error, document, message, endpoint, recover } = options)
 

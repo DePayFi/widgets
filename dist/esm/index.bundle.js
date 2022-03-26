@@ -49528,6 +49528,12 @@ var PoweredBy = (function () {
   }, "by DePay"));
 });
 
+var requireReactVersion = (function () {
+  if (parseInt(react.version.split('.')[0]) < 17) {
+    throw 'depay/widgets require at least React v17';
+  }
+});
+
 var UpdatableProvider = (function (props) {
   var _useState = react.useState(true),
       _useState2 = _slicedToArray(_useState, 2),
@@ -49543,6 +49549,7 @@ var UpdatableProvider = (function (props) {
 });
 
 var Connect = function Connect(options) {
+  requireReactVersion();
   var style, error, document;
 
   if (_typeof(options) == 'object') {
@@ -71272,13 +71279,14 @@ var Donation = /*#__PURE__*/function () {
         switch (_context2.prev = _context2.next) {
           case 0:
             amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, closable = _ref3.closable, integration = _ref3.integration, document = _ref3.document;
-            _context2.prev = 1;
-            _context2.next = 4;
+            requireReactVersion();
+            _context2.prev = 2;
+            _context2.next = 5;
             return preflight$2({
               accept: accept
             });
 
-          case 4:
+          case 5:
             unmount = mount({
               style: style,
               document: ensureDocument(document),
@@ -71327,21 +71335,21 @@ var Donation = /*#__PURE__*/function () {
               unmount: unmount
             });
 
-          case 8:
-            _context2.prev = 8;
-            _context2.t0 = _context2["catch"](1);
+          case 9:
+            _context2.prev = 9;
+            _context2.t0 = _context2["catch"](2);
             console.log('critical error', _context2.t0);
 
             if (critical != undefined) {
               critical(_context2.t0);
             }
 
-          case 12:
+          case 13:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[1, 8]]);
+    }, _callee2, null, [[2, 9]]);
   }));
 
   return function Donation(_x2) {
@@ -71456,6 +71464,7 @@ var LoginStack = (function (props) {
 });
 
 var Login = function Login(options) {
+  requireReactVersion();
   var style, error, document, message, endpoint, recover;
 
   if (_typeof(options) == 'object') {
@@ -71770,14 +71779,15 @@ var Payment = /*#__PURE__*/function () {
         switch (_context2.prev = _context2.next) {
           case 0:
             accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, document = _ref3.document;
-            _context2.prev = 1;
-            _context2.next = 4;
+            requireReactVersion();
+            _context2.prev = 2;
+            _context2.next = 5;
             return preflight$1({
               accept: accept,
               recover: recover
             });
 
-          case 4:
+          case 5:
             unmount = mount({
               style: style,
               document: ensureDocument(document),
@@ -71837,21 +71847,21 @@ var Payment = /*#__PURE__*/function () {
               unmount: unmount
             });
 
-          case 8:
-            _context2.prev = 8;
-            _context2.t0 = _context2["catch"](1);
+          case 9:
+            _context2.prev = 9;
+            _context2.t0 = _context2["catch"](2);
             console.log('critical error', _context2.t0);
 
             if (critical != undefined) {
               critical(_context2.t0);
             }
 
-          case 12:
+          case 13:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[1, 8]]);
+    }, _callee2, null, [[2, 9]]);
   }));
 
   return function Payment(_x2) {
@@ -72180,13 +72190,14 @@ var Sale = /*#__PURE__*/function () {
         switch (_context2.prev = _context2.next) {
           case 0:
             amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, closable = _ref3.closable, integration = _ref3.integration, document = _ref3.document;
-            _context2.prev = 1;
-            _context2.next = 4;
+            requireReactVersion();
+            _context2.prev = 2;
+            _context2.next = 5;
             return preflight({
               sell: sell
             });
 
-          case 4:
+          case 5:
             accept = Object.keys(sell).map(function (key) {
               return {
                 blockchain: key,
@@ -72241,21 +72252,21 @@ var Sale = /*#__PURE__*/function () {
               unmount: unmount
             });
 
-          case 9:
-            _context2.prev = 9;
-            _context2.t0 = _context2["catch"](1);
+          case 10:
+            _context2.prev = 10;
+            _context2.t0 = _context2["catch"](2);
             console.log('critical error', _context2.t0);
 
             if (critical != undefined) {
               critical(_context2.t0);
             }
 
-          case 13:
+          case 14:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[1, 9]]);
+    }, _callee2, null, [[2, 10]]);
   }));
 
   return function Sale(_x2) {
@@ -72755,6 +72766,7 @@ var SelectStack = (function (props) {
 });
 
 var Select = function Select(options) {
+  requireReactVersion();
   var style, error, document, what;
 
   if (_typeof(options) == 'object') {

@@ -5,11 +5,12 @@ import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
 import PoweredBy from './components/PoweredBy'
 import React from 'react'
+import requireReactVersion from './helpers/requireReactVersion'
 import UpdatableProvider from './providers/UpdatableProvider'
 import { getWallet } from '@depay/web3-wallets'
 
 let Connect = (options) => {
-
+  requireReactVersion()
   let style, error, document
   if(typeof options == 'object') ({ style, error, document } = options)
 

@@ -13,6 +13,7 @@ import PaymentTrackingProvider from './providers/PaymentTrackingProvider'
 import PaymentValueProvider from './providers/PaymentValueProvider'
 import PoweredBy from './components/PoweredBy'
 import React from 'react'
+import requireReactVersion from './helpers/requireReactVersion'
 import TransactionTrackingProvider from './providers/TransactionTrackingProvider'
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
@@ -51,6 +52,7 @@ let Payment = async ({
   integration,
   document
 }) => {
+  requireReactVersion()
   try {
     await preflight({ accept, recover })
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {

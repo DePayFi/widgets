@@ -5,12 +5,13 @@ import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
 import PoweredBy from './components/PoweredBy'
 import React from 'react'
+import requireReactVersion from './helpers/requireReactVersion'
 import SelectionProvider from './providers/SelectionProvider'
 import SelectStack from './stacks/SelectStack'
 import UpdatableProvider from './providers/UpdatableProvider'
 
 let Select = (options) => {
-
+  requireReactVersion()
   let style, error, document, what
   if(typeof options == 'object') ({ style, error, document, what } = options)
   
