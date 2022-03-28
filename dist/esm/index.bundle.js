@@ -49208,12 +49208,18 @@ var SelectWalletDialog = (function (props) {
   }
 
   var walletCards = availableWallets.map(function (wallet, index) {
+    var name = wallet.info.name;
+
+    if (name == 'WalletConnect') {
+      name = 'via WalletConnect';
+    }
+
     return /*#__PURE__*/react.createElement("div", {
       key: index,
       className: "PaddingBottomXS"
     }, /*#__PURE__*/react.createElement("button", {
       className: "Card small",
-      title: "Connect ".concat(wallet.info.name),
+      title: "Connect ".concat(name),
       onClick: function onClick() {
         return connect(wallet);
       }
@@ -49228,7 +49234,7 @@ var SelectWalletDialog = (function (props) {
       className: "CardBodyWrapper PaddingLeftXS"
     }, /*#__PURE__*/react.createElement("h2", {
       className: "CardText FontWeightBold"
-    }, wallet.info.name)))));
+    }, name)))));
   });
   return /*#__PURE__*/react.createElement(Dialog, {
     header: /*#__PURE__*/react.createElement("div", {
