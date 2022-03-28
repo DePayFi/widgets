@@ -1,9 +1,10 @@
 import ChevronRight from '../components/ChevronRight'
 import ClosableContext from '../contexts/ClosableContext'
 import Dialog from '../components/Dialog'
-import React, { useState, useEffect, useContext, useRef } from 'react'
+import React, { useCallback, useState, useEffect, useContext, useRef } from 'react'
 import SelectionContext from '../contexts/SelectionContext'
 import { Blockchain } from '@depay/web3-blockchains'
+import { debounce } from 'lodash'
 import { getWallet } from '@depay/web3-wallets'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { Token } from '@depay/web3-tokens'
@@ -14,7 +15,7 @@ export default (props)=> {
   const { navigate } = useContext(NavigateStackContext)
   const { setOpen } = useContext(ClosableContext)
   const { setSelection } = useContext(SelectionContext)
-  const [ requestController, setRequestController ] = useState()
+  const [ searchTerm, setSearchTerm ] = useState('')
   const [ blockchain, setBlockchain ] = useState()
   const [ showAddToken, setShowAddToken ] = useState(false)
   const [ tokens, setTokens ] = useState([])
@@ -67,12 +68,19 @@ export default (props)=> {
     }
   }
 
+  const searchTokens = useCallback(debounce((term, blockchainName)=>{
+    fetch(`https://public.depay.fi/tokens/search?blockchain=${blockchainName}&term=${term}`).then((response)=>{
+      if(response.status == 200) {
+        response.json().then((tokens)=>{
+          setTokens(tokens)
+        }).catch(()=>reject)
+      } else { reject() }
+    }).catch(()=>reject)
+  }, 300), [])
+
   const onChangeSearch = (event)=>{
-    if(requestController) { requestController.abort() }
-    let newRequestController = new AbortController()
-    setRequestController(newRequestController)
-    const signal = newRequestController.signal
     let term = event.target.value
+    setSearchTerm(term)
     if(term.match(/^0x/)) {
       setTokens([])
       let token
@@ -93,15 +101,7 @@ export default (props)=> {
       })
     } else if(term && term.length) {
       setTokens([])
-      fetch(`https://public.depay.fi/tokens/search?blockchain=${blockchain.name}&term=${term}`, {
-        signal
-      }).then((response)=>{
-        if(response.status == 200) {
-          response.json().then((tokens)=>{
-            setTokens(tokens)
-          })
-        }
-      }).catch(()=>{})
+      searchTokens(term, blockchain.name)
     } else {
       setTokens(blockchain.tokens)
     }
@@ -172,7 +172,7 @@ export default (props)=> {
             </div>
           </div>
           <div className="PaddingTopXS PaddingBottomS">
-            <input onChange={ onChangeSearch } className="Search" autoFocus placeholder="Search name or paste address" ref={searchElement}/>
+            <input value={ searchTerm } onChange={ onChangeSearch } className="Search" autoFocus placeholder="Search name or paste address" ref={searchElement}/>
             { showAddToken &&
               <div className="PaddingTopXS PaddingRightXS PaddingLeftXS">
                 <div className="Tooltip"> 

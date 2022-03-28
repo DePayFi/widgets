@@ -54,7 +54,7 @@ describe('Connect wallet', () => {
     })
   })
 
-  it('opens wallet connect if widget was not able to autodetect any wallet', () => {
+  it('opens suggests alternatives if widget was not able to autodetect any wallet', () => {
     cy.document().then(async (document)=>{
       let accountsReturned, accountReturned, walletReturned
       DePayWidgets.Connect({ document }).then(({ accounts, account, wallet })=>{

@@ -35,6 +35,7 @@ describe('Payment Widget: no wallet', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Select a wallet')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.CardText', 'WalletConnect')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect WalletConnect"]').find('.CardImage img')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.CardText', 'Coinbase WalletLink')
       })
     })
   })

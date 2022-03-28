@@ -26,7 +26,7 @@ export default (props)=>{
     props.connect(wallet)
   }
 
-  let availableWallets = [wallets.WalletConnect]
+  let availableWallets = [wallets.WalletConnect, wallets.WalletLink]
   if(wallet) { availableWallets.unshift(wallet.constructor) }
 
   let walletCards = availableWallets.map((wallet, index)=>{
@@ -37,7 +37,7 @@ export default (props)=>{
           title={`Connect ${wallet.info.name}`}
           onClick={()=>connect(wallet)}
         >
-          <div className="CardImage">
+          <div className="CardImage square">
             <img className="transparent" src={wallet.info.logo}/>
           </div>
           <div className="CardBody">
