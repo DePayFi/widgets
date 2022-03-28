@@ -30,11 +30,13 @@ export default (props)=>{
   if(wallet) { availableWallets.unshift(wallet.constructor) }
 
   let walletCards = availableWallets.map((wallet, index)=>{
+    let name = wallet.info.name
+    if(name == 'WalletConnect') { name = 'via WalletConnect' }
     return(
       <div key={index} className="PaddingBottomXS">
         <button
           className="Card small"
-          title={`Connect ${wallet.info.name}`}
+          title={`Connect ${name}`}
           onClick={()=>connect(wallet)}
         >
           <div className="CardImage square">
@@ -43,7 +45,7 @@ export default (props)=>{
           <div className="CardBody">
             <div className="CardBodyWrapper PaddingLeftXS">
               <h2 className="CardText FontWeightBold">
-                { wallet.info.name }
+                { name }
               </h2>
             </div>
           </div>
