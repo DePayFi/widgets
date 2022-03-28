@@ -1,4 +1,6 @@
 import DePayWidgets from '../../dist/umd/index.bundle'
+import { Crypto } from "@peculiar/webcrypto"
+import fetch from 'cross-fetch'
 import fetchMock from 'fetch-mock'
 import mockBasics from '../../tests/mocks/basics'
 import React from 'react'

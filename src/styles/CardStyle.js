@@ -166,6 +166,10 @@ export default (style)=>{
       width: 2.8rem;
     }
 
+    .CardImage.square img {
+      border-radius: 0;
+    }
+
     .CardImage img.transparent {
       border: none;
       background: none;

@@ -24,7 +24,7 @@ import DePayWidgets from '@depay/widgets'
 
 ## Demo
 
-https://depayfi.github.io/widgets/demo.html
+Use the DePay Configurator here: https://app.depay.fi/ (Integrations -> New Integration)
 
 ## Support
 

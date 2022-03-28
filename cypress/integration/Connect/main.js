@@ -54,7 +54,7 @@ describe('Connect wallet', () => {
     })
   })
 
-  it('opens wallet connect if widget was not able to autodetect any wallet', () => {
+  it('opens suggests alternatives if widget was not able to autodetect any wallet', () => {
     cy.document().then(async (document)=>{
       let accountsReturned, accountReturned, walletReturned
       DePayWidgets.Connect({ document }).then(({ accounts, account, wallet })=>{
@@ -63,7 +63,7 @@ describe('Connect wallet', () => {
         walletReturned = wallet
       }).catch(()=>{})
       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Select a wallet')
-      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect WalletConnect"]')
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect via WalletConnect"]')
     })
   })
 
@@ -97,7 +97,8 @@ describe('Connect wallet', () => {
       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('p', 'Access to your wallet is required. Please login and authorize access to your account to continue.')
       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Go back"]').click()
       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Select a wallet')
-      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect WalletConnect"]')
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect via WalletConnect"]')
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect Coinbase"]')
       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect MetaMask"]').click()
       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('button', 'Connect with another wallet').click()
       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Select a wallet')
