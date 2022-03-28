@@ -26,7 +26,7 @@ describe('WalletConnect Payment', () => {
             connector: wallets.WalletConnect
           })
 
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect WalletConnect"]').click().then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect via WalletConnect"]').click().then(()=>{
             cy.wait(1000).then(()=>{
               expect(connectedAccount).to.equal(accounts[0])
               expect(connectedWallet.name).to.equal('WalletConnect')
