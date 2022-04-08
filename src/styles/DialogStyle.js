@@ -21,12 +21,6 @@ export default (style)=>{
         border-radius: 0;
         width: 100%;
       }
-
-
-      .DialogHeader {
-        border-top-left-radius: 0 !important;
-        border-top-right-radius: 0 !important;
-      }
     }
 
     @media (orientation: portrait) and (max-width: 800px) {
