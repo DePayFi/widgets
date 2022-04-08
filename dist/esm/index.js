@@ -4205,7 +4205,7 @@ var WalletProvider = (function (props) {
     setWalletState('connected');
 
     if (props.connected) {
-      props.connected(accounts[0]);
+      props.connected(account);
     }
   };
 

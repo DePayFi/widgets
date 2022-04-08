@@ -3,6 +3,7 @@ import livereload from 'rollup-plugin-livereload'
 import pkg from './package.json'
 import rollup from './rollup.module.config.js'
 import serve from 'rollup-plugin-serve'
+import dev from 'rollup-plugin-dev'
 
 export default Object.assign({}, rollup, {
   output: [
@@ -16,7 +17,10 @@ export default Object.assign({}, rollup, {
   plugins: [...rollup.plugins,
     serve({
       open: 'true',
-      openPage: '/dev.html'
+      openPage: 'http://127.0.0.1:8080/dev.html'
+    }),
+    dev({
+      proxy: [{ from: '/track', to:'http://example.com' }],
     }),
     livereload({
       watch: ['dist', 'src']

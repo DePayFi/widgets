@@ -16,7 +16,7 @@ export default (props)=>{
     setAccount(account)
     setWallet(wallet)
     setWalletState('connected')
-    if(props.connected) { props.connected(accounts[0]) }
+    if(props.connected) { props.connected(account) }
   }
 
   if(walletState == 'connected' || recover != undefined) {
