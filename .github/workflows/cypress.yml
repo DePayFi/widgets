@@ -70,7 +70,7 @@ jobs:
         if: failure()
         with:
           token: ${{ secrets.SLACK_TOKEN }}
-          channels: 'cypress-failing-test-assets'
+          channels: 'cypress-failing-tests'
           message-text: 'Cypress tests failed! Recording and screenshots have been uploaded in this thread - good luck.'
 
   cypress-sales-widget:
@@ -108,7 +108,7 @@ jobs:
         if: failure()
         with:
           token: ${{ secrets.SLACK_TOKEN }}
-          channels: 'cypress-failing-test-assets'
+          channels: 'cypress-failing-tests'
           message-text: 'Cypress tests failed! Recording and screenshots have been uploaded in this thread - good luck.'
 
   cypress-payment-widget:
@@ -146,7 +146,7 @@ jobs:
         if: failure()
         with:
           token: ${{ secrets.SLACK_TOKEN }}
-          channels: 'cypress-failing-test-assets'
+          channels: 'cypress-failing-tests'
           message-text: 'Cypress tests failed! Recording and screenshots have been uploaded in this thread - good luck.'
 
   cypress-connect-widget:
@@ -184,7 +184,7 @@ jobs:
         if: failure()
         with:
           token: ${{ secrets.SLACK_TOKEN }}
-          channels: 'cypress-failing-test-assets'
+          channels: 'cypress-failing-tests'
           message-text: 'Cypress tests failed! Recording and screenshots have been uploaded in this thread - good luck.'
 
   cypress-login-widget:
@@ -222,7 +222,7 @@ jobs:
         if: failure()
         with:
           token: ${{ secrets.SLACK_TOKEN }}
-          channels: 'cypress-failing-test-assets'
+          channels: 'cypress-failing-tests'
           message-text: 'Cypress tests failed! Recording and screenshots have been uploaded in this thread - good luck.'
 
   cypress-select-widget:
@@ -260,5 +260,5 @@ jobs:
         if: failure()
         with:
           token: ${{ secrets.SLACK_TOKEN }}
-          channels: 'cypress-failing-test-assets'
+          channels: 'cypress-failing-tests'
           message-text: 'Cypress tests failed! Recording and screenshots have been uploaded in this thread - good luck.'
