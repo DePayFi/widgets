@@ -8,6 +8,13 @@ import WalletContext from '../contexts/WalletContext'
 import { CONSTANTS } from '@depay/web3-constants'
 import { ethers } from 'ethers'
 import { route } from '@depay/web3-payments'
+import { getWallet } from '@depay/web3-wallets'
+
+const preload = ()=>{
+  console.log('PRELOAD ROUTING')
+}
+setInterval(preload, 20000)
+preload()
 
 export default (props)=>{
   const [ allRoutes, setAllRoutes ] = useState()
@@ -23,13 +30,20 @@ export default (props)=>{
       ...accept, 
       toAddress,
       toContract,
-      fromAddress: account
     })
   } 
+  const mergeFromAccounts = (accept)=>{
+    let from = {}
+    accept.forEach((accept)=>{
+      from[accept.blockchain] = account
+    })
+    return from
+  }
   const getPaymentRoutes = ({ allRoutes, selectedRoute, updatable })=>{
     if(updatable == false || !props.accept || !account) { return }
     route({
       accept: props.accept.map(prepareAcceptedPayments),
+      from: mergeFromAccounts(props.accept),
       whitelist: props.whitelist,
       blacklist: props.blacklist,
       event: props.event,
