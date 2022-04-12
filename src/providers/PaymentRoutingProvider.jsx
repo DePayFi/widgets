@@ -10,12 +10,6 @@ import { ethers } from 'ethers'
 import { route } from '@depay/web3-payments'
 import { getWallet } from '@depay/web3-wallets'
 
-const preload = ()=>{
-  console.log('PRELOAD ROUTING')
-}
-setInterval(preload, 20000)
-preload()
-
 export default (props)=>{
   const [ allRoutes, setAllRoutes ] = useState()
   const [ selectedRoute, setSelectedRoute ] = useState()
@@ -27,7 +21,7 @@ export default (props)=>{
     let toAddress = typeof accept.receiver == 'object' ? accept.receiver.address : accept.receiver
     let toContract = typeof accept.receiver == 'object' ? accept.receiver : undefined
     return({ 
-      ...accept, 
+      ...accept,
       toAddress,
       toContract,
     })
