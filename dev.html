@@ -484,6 +484,38 @@
           <div class="px-0 py-4 rounded-lg bg-white border">
             <div class="col px-0">
               <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Payment: preload</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Preload payment right after wallet has been connected</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="connectButton">Try it</button>
+                <script>
+                    var button = document.getElementById("connectButton");
+                    button.addEventListener("click",async function(e){
+                      let { account, accounts, wallet } = await DePayWidgets.Connect()
+                      DePayWidgets.Payment.preload({
+                        account,
+                        accept: [{
+                          blockchain: document.getElementById("paymentBlockchainInput").value,
+                          amount: parseFloat(document.getElementById("paymentAmountInput").value),
+                          token: document.getElementById("paymentTokenInput").value,
+                          receiver: document.getElementById("paymentReceiverInput").value
+                        }]
+                      })
+                    });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
                 <h5 class="px-4">Sale: Buy ALPACA</h5>
                 <div class="px-4">
                   <div class="text-secondary "></div>

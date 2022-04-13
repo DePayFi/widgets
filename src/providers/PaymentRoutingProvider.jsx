@@ -3,11 +3,11 @@ import findMaxRoute from '../helpers/findMaxRoute'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import React, { useState, useContext, useEffect } from 'react'
 import round from '../helpers/round'
+import routePayments from '../helpers/routePayments'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
 import { CONSTANTS } from '@depay/web3-constants'
 import { ethers } from 'ethers'
-import { route } from '@depay/web3-payments'
 import { getWallet } from '@depay/web3-wallets'
 
 export default (props)=>{
@@ -16,45 +16,29 @@ export default (props)=>{
   const [ reloadCount, setReloadCount ] = useState(0)
   const { account } = useContext(WalletContext)
   const { updatable } = useContext(UpdatableContext)
-  const { recover } = useContext(ConfigurationContext)
-  const prepareAcceptedPayments = (accept)=>{
-    let toAddress = typeof accept.receiver == 'object' ? accept.receiver.address : accept.receiver
-    let toContract = typeof accept.receiver == 'object' ? accept.receiver : undefined
-    return({ 
-      ...accept,
-      toAddress,
-      toContract,
-    })
-  } 
-  const mergeFromAccounts = (accept)=>{
-    let from = {}
-    accept.forEach((accept)=>{
-      from[accept.blockchain] = account
-    })
-    return from
+  const { recover } = useContext(ConfigurationContext)  
+  const onRoutesUpdate = (routes)=>{
+    if(routes.length == 0) {
+      setAllRoutes([])
+      if(props.setMaxRoute) { props.setMaxRoute(null) }
+    } else {
+      roundAmounts(routes).then((roundedRoutes)=>{
+        let selected
+        if(selectedRoute) {
+          selected = roundedRoutes[allRoutes.findIndex((route)=>(route.fromToken == selectedRoute.fromToken && route.blockchain == selectedRoute.blockchain))]
+        }
+        if(selected == undefined) {
+          selected = roundedRoutes[0]
+        }
+        setSelectedRoute(selected)
+        setAllRoutes(roundedRoutes)
+        if(props.setMaxRoute) { props.setMaxRoute(findMaxRoute(roundedRoutes)) }
+      })
+    }
   }
   const getPaymentRoutes = ({ allRoutes, selectedRoute, updatable })=>{
     if(updatable == false || !props.accept || !account) { return }
-    route({
-      accept: props.accept.map(prepareAcceptedPayments),
-      from: mergeFromAccounts(props.accept),
-      whitelist: props.whitelist,
-      blacklist: props.blacklist,
-      event: props.event,
-      fee: props.fee
-    }).then((routes)=>{
-      if(routes.length == 0) {
-        setAllRoutes([])
-        if(props.setMaxRoute) { props.setMaxRoute(null) }
-      } else {
-        roundAmounts(routes).then((roundedRoutes)=>{
-          let selected = selectedRoute ? (roundedRoutes[allRoutes.indexOf(selectedRoute)] || roundedRoutes[0]) : roundedRoutes[0]
-          setSelectedRoute(selected)
-          setAllRoutes(roundedRoutes)
-          if(props.setMaxRoute) { props.setMaxRoute(findMaxRoute(roundedRoutes)) }
-        })
-      }
-    })
+    routePayments(Object.assign({}, props, { account })).then(onRoutesUpdate)
   }
   const roundAmounts = async (routes)=> {
     return Promise.all(routes.map(async (route)=>{

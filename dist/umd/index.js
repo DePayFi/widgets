@@ -2635,10 +2635,41 @@
       return from;
     };
 
+    var onRoutesUpdate = function onRoutesUpdate(routes) {
+      if (routes.length == 0) {
+        setAllRoutes([]);
+
+        if (props.setMaxRoute) {
+          props.setMaxRoute(null);
+        }
+      } else {
+        roundAmounts(routes).then(function (roundedRoutes) {
+          var selected;
+
+          if (selectedRoute) {
+            selected = roundedRoutes[allRoutes.findIndex(function (route) {
+              return route.fromToken == selectedRoute.fromToken && route.blockchain == selectedRoute.blockchain;
+            })];
+          }
+
+          if (selected == undefined) {
+            selected = roundedRoutes[0];
+          }
+
+          setSelectedRoute(selected);
+          setAllRoutes(roundedRoutes);
+
+          if (props.setMaxRoute) {
+            props.setMaxRoute(findMaxRoute(roundedRoutes));
+          }
+        });
+      }
+    };
+
     var getPaymentRoutes = function getPaymentRoutes(_ref) {
-      var allRoutes = _ref.allRoutes,
-          selectedRoute = _ref.selectedRoute,
-          updatable = _ref.updatable;
+      _ref.allRoutes;
+          _ref.selectedRoute;
+          var updatable = _ref.updatable;
 
       if (updatable == false || !props.accept || !account) {
         return;
@@ -2651,25 +2682,7 @@
         blacklist: props.blacklist,
         event: props.event,
         fee: props.fee
-      }).then(function (routes) {
-        if (routes.length == 0) {
-          setAllRoutes([]);
-
-          if (props.setMaxRoute) {
-            props.setMaxRoute(null);
-          }
-        } else {
-          roundAmounts(routes).then(function (roundedRoutes) {
-            var selected = selectedRoute ? roundedRoutes[allRoutes.indexOf(selectedRoute)] || roundedRoutes[0] : roundedRoutes[0];
-            setSelectedRoute(selected);
-            setAllRoutes(roundedRoutes);
-
-            if (props.setMaxRoute) {
-              props.setMaxRoute(findMaxRoute(roundedRoutes));
-            }
-          });
-        }
-      });
+      }).then(onRoutesUpdate);
     };
 
     var roundAmounts = /*#__PURE__*/function () {
