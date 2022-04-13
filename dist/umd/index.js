@@ -2593,6 +2593,41 @@
   function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
   function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+  var prepareAcceptedPayments = function prepareAcceptedPayments(accept) {
+    var toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
+    var toContract = _typeof(accept.receiver) == 'object' ? accept.receiver : undefined;
+    return _objectSpread(_objectSpread({}, accept), {}, {
+      toAddress: toAddress,
+      toContract: toContract
+    });
+  };
+
+  var mergeFromAccounts = function mergeFromAccounts(accept, account) {
+    var from = {};
+    accept.forEach(function (accept) {
+      from[accept.blockchain] = account;
+    });
+    return from;
+  };
+
+  var routePayments = (function (_ref) {
+    var accept = _ref.accept,
+        account = _ref.account,
+        whitelist = _ref.whitelist,
+        blacklist = _ref.blacklist,
+        event = _ref.event,
+        fee = _ref.fee;
+    return web3Payments.route({
+      accept: accept.map(prepareAcceptedPayments),
+      from: mergeFromAccounts(accept, account),
+      whitelist: whitelist,
+      blacklist: blacklist,
+      event: event,
+      fee: fee
+    });
+  });
+
   var PaymentRoutingProvider = (function (props) {
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
@@ -2617,23 +2652,6 @@
 
     var _useContext3 = React.useContext(ConfigurationContext),
         recover = _useContext3.recover;
-
-    var prepareAcceptedPayments = function prepareAcceptedPayments(accept) {
-      var toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
-      var toContract = _typeof(accept.receiver) == 'object' ? accept.receiver : undefined;
-      return _objectSpread(_objectSpread({}, accept), {}, {
-        toAddress: toAddress,
-        toContract: toContract
-      });
-    };
-
-    var mergeFromAccounts = function mergeFromAccounts(accept) {
-      var from = {};
-      accept.forEach(function (accept) {
-        from[accept.blockchain] = account;
-      });
-      return from;
-    };
 
     var onRoutesUpdate = function onRoutesUpdate(routes) {
       if (routes.length == 0) {
@@ -2675,14 +2693,9 @@
         return;
       }
 
-      web3Payments.route({
-        accept: props.accept.map(prepareAcceptedPayments),
-        from: mergeFromAccounts(props.accept),
-        whitelist: props.whitelist,
-        blacklist: props.blacklist,
-        event: props.event,
-        fee: props.fee
-      }).then(onRoutesUpdate);
+      routePayments(Object.assign({}, props, {
+        account: account
+      })).then(onRoutesUpdate);
     };
 
     var roundAmounts = /*#__PURE__*/function () {
@@ -3797,11 +3810,11 @@
         paymentRoute = _useState6[0],
         setPaymentRoute = _useState6[1];
 
-    var _useState7 = React.useState(!!(track && (track.endpoint || typeof track.method == 'function'))),
+    var _useState7 = React.useState(!!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
         _useState8 = _slicedToArray(_useState7, 1),
         tracking = _useState8[0];
 
-    var _useState9 = React.useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function'))),
+    var _useState9 = React.useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
         _useState10 = _slicedToArray(_useState9, 1),
         polling = _useState10[0];
 
@@ -3967,6 +3980,10 @@
         return;
       }
 
+      if (!tracking) {
+        return;
+      }
+
       var pollingInterval = setInterval(function () {
         return pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval);
       }, 5000);
@@ -4022,6 +4039,10 @@
     var initializeTracking = function initializeTracking(transaction, afterBlock, paymentRoute) {
       storePayment(transaction, afterBlock, paymentRoute, 1);
 
+      if (tracking || track && track.async == true) {
+        startTracking(transaction, afterBlock, paymentRoute);
+      }
+
       if (tracking == false) {
         return;
       }
@@ -4030,7 +4051,6 @@
       setAfterBlock(afterBlock);
       setPaymentRoute(paymentRoute);
       openSocket(transaction);
-      startTracking(transaction, afterBlock, paymentRoute);
     };
 
     return /*#__PURE__*/React__default['default'].createElement(PaymentTrackingContext.Provider, {
@@ -4887,6 +4907,23 @@
       return _ref4.apply(this, arguments);
     };
   }();
+
+  Payment.preload = function (_ref5) {
+    var account = _ref5.account,
+        accept = _ref5.accept,
+        whitelist = _ref5.whitelist,
+        blacklist = _ref5.blacklist,
+        event = _ref5.event,
+        fee = _ref5.fee;
+    routePayments({
+      account: account,
+      accept: accept,
+      whitelist: whitelist,
+      blacklist: blacklist,
+      event: event,
+      fee: fee
+    });
+  };
 
   var SaleRoutingContext = /*#__PURE__*/React__default['default'].createContext();
 
