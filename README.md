@@ -222,7 +222,7 @@ DePayWidgets.Payment({
 
 To optimize initialization speed of the Payment Widget you can preload payment routes as soon as you become aware of the users wallet address. 
 
-Typically right after he conncets his wallet, or in cases he has his wallet already connected you can preload immediatelly:
+Typically right after the users conncets his wallet, or in cases the user has his wallet already connected you can preload immediatelly:
 
 ```javascript
 let address = '0x4aD374e0836c26BeC213a19D3e030F8b3A8AcDE4' // e.g. retrieve it right when you perform wallet connect
@@ -243,14 +243,13 @@ DePayWidgets.Payment.preload({
     }
   ]
 });
-````
-
+```
 
 #### track (DePay Payments)
 
 `track`
 
-Allows to track payment confirmation via DePay to enable integration into web applications.
+Allows to track payment confirmation/validation via DePay API to trigger callbacks into your existing systems:
 
 ```javascript
 DePayWidgets.Payment({
@@ -305,6 +304,28 @@ Make sure you read the [Payment Tracking API](https://depay.fi/documentation/api
 Payment tracking requests will be attempted up to 3 times by the widget and will display "Payment tracking failed!" to the user if the widget was not able to start payment tracking via the given endpoint after 3 attempts.
 
 A failed payment tracking will also call the [error callback](#error) with `{code: "TRACKING_FAILED"}`.
+
+##### Asynchronous Validation
+
+For improving user experience, we recommend performing payment validation asynchronously as in certain situation in can take up to multiple minutes.
+
+You can configure the widget to track/validate the payment asynchronously:
+
+```javascript
+DePayWidgets.Payment({
+
+  track: {
+    endpoint: '/track',
+    async: true
+  }
+})
+```
+
+Which will release the user right after the payment has been confirmed on the user's machine.
+
+It still tracks and validates the payment asynchronously and calls back your endpoints as soon as it has been validated.
+
+This allows you to release the user immediately, showing him some confirmation and reconfirming his payment in an asynchronous step (like a notification or email).
 
 ##### Additional Polling
 

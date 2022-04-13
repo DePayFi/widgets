@@ -32,6 +32,7 @@ export default (props)=>{
   const [ paymentState, setPaymentState ] = useState('initialized')
 
   const paymentConfirmed = (transaction)=>{
+    console.log('payment CONFIRMED', tracking)
     if(tracking != true) { setClosable(true) }
     setPaymentState('confirmed')
     if(confirmed) { confirmed(transaction) }
