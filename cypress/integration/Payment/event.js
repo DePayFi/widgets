@@ -62,7 +62,7 @@ describe('Payment Widget: payment event', () => {
       TOKEN_A_Name: 'DePay',
       TOKEN_A_Symbol: 'DEPAY',
       TOKEN_A_Amount: amount,
-      TOKEN_A_Balance: 30,
+      TOKEN_A_Balance: 0,
       
       TOKEN_B: DAI,
       TOKEN_B_Decimals: 18,

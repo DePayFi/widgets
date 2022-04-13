@@ -14,6 +14,7 @@ import PaymentValueProvider from './providers/PaymentValueProvider'
 import PoweredBy from './components/PoweredBy'
 import React from 'react'
 import requireReactVersion from './helpers/requireReactVersion'
+import routePayments from './helpers/routePayments'
 import TransactionTrackingProvider from './providers/TransactionTrackingProvider'
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
@@ -97,5 +98,7 @@ let Payment = async ({
     }
   }
 }
+
+Payment.preload = ({ account, accept, whitelist, blacklist, event, fee }) => { routePayments({ account, accept, whitelist, blacklist, event, fee }) }
 
 export default Payment

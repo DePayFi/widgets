@@ -1,5 +1,6 @@
 import fetchMock from 'fetch-mock'
 import mockAmountsOut from './amountsOut'
+import { Blockchain } from '@depay/web3-blockchains'
 import { CONSTANTS } from '@depay/web3-constants'
 import { ethers } from 'ethers'
 import { findByName } from '@depay/web3-exchanges'
@@ -89,6 +90,12 @@ export default ({
     url: `https://public.depay.fi/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
     overwriteRoutes: true
   }, { status: 404 })
+
+  Blockchain.findByName(blockchain).tokens.forEach((token)=>{
+    if(token.type == '20') {
+      mock({ call: { return: '0', to: token.address, api: Token[blockchain].DEFAULT, method: 'balanceOf', params: fromAddress }, provider, blockchain })
+    }
+  })
 
   mock({ provider, blockchain, balance: { for: fromAddress, return: NATIVE_BalanceBN }})
 

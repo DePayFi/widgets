@@ -52,14 +52,14 @@ via WalletConnect:
 
 DePay Payments allows you to accept and perform crypto payments.
 
-### Preparation
+### Preparation (DePay Payments)
 
 In order to receive decentralized payments on any blockchain you need to have your own wallet on that particular blockchain first:
 
 - [Create an Ethereum wallet](https://ethereum.org/en/wallets/)
 - [Create an BSC wallet](https://academy.binance.com/en/articles/how-to-get-started-with-binance-smart-chain-bsc)
 
-### Quick start
+### Quick start (DePay Payments)
 
 ```
 <script src="https://integrate.depay.fi/widgets/v6.js"/>
@@ -76,7 +76,7 @@ DePayWidgets.Payment({
 });
 ```
 
-### Configuration
+### Configuration (DePay Payments)
 
 You need to pass a configuration object to `DePayWidgets.Payment` which needs to at least contain the `accept` field:
 
@@ -111,7 +111,7 @@ DePayWidgets.Payment({
 });
 ```
 
-#### accept
+#### accept (DePay Payments)
 
 `blockchain`
 
@@ -141,7 +141,7 @@ If you do not pass an amount, the user will be able to select an amount within t
 
 The address receiving the payment. Always double check that you've set the right address.
 
-#### amount
+#### amount (DePay Payments)
 
 When you want to control how the amount selection behaves, pass the `amount` configuration object,
 alongside values for `start`, `min` and `step`.
@@ -152,7 +152,7 @@ alongside values for `start`, `min` and `step`.
 
 `step`: The number by wich to increment/decremten changes to the amount.
 
-#### receiver
+#### receiver (DePay Payments)
 
 Payment receivers can either be wallet addresses, but also smart contracts.
 
@@ -178,7 +178,7 @@ DePayWidgets.Payment({
 
 Checkout [DePay Web3 Payments](https://github.com/DePayFi/depay-web3-payments#pay-into-smart-contracts) and [DePay Router Smart Contract](https://github.com/DePayFi/depay-evm-router) for more details.
 
-#### fee
+#### fee (DePay Payments)
 
 You can configure a fee which will be applied to every payment with it's own dedicated fee receiver address.
 
@@ -198,7 +198,7 @@ DePayWidgets.Payment({
 });
 ```
 
-#### fromToken, fromAmount + toToken
+#### fromToken, fromAmount + toToken (DePay Payments)
 
 In case where you want to configure payments based on the source token + amount, rather than target token and amount, you can pass `fromToken`, `fromAmount` and `toToken` to `accept`.
 
@@ -218,11 +218,38 @@ DePayWidgets.Payment({
 // This will open a payment widget to send 0.1 BUSD to the receiver, converting it to BNB along the way.
 ```
 
-#### track
+#### preload (DePay Payments)
+
+To optimize initialization speed of the Payment Widget you can preload payment routes as soon as you become aware of the users wallet address. 
+
+Typically right after the users conncets his wallet, or in cases the user has his wallet already connected you can preload immediatelly:
+
+```javascript
+let address = '0x4aD374e0836c26BeC213a19D3e030F8b3A8AcDE4' // e.g. retrieve it right when you perform wallet connect
+
+DePayWidgets.Payment.preload({
+  account: address,
+  accept: [
+    {
+      blockchain: 'ethereum',
+      amount: 10,
+      token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+      receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+    },{
+      blockchain: 'bsc',
+      amount: 10,
+      token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+      receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+    }
+  ]
+});
+```
+
+#### track (DePay Payments)
 
 `track`
 
-Allows to track payment confirmation via DePay to enable integration into web applications.
+Allows to track payment confirmation/validation via DePay API to trigger callbacks into your existing systems:
 
 ```javascript
 DePayWidgets.Payment({
@@ -278,6 +305,28 @@ Payment tracking requests will be attempted up to 3 times by the widget and will
 
 A failed payment tracking will also call the [error callback](#error) with `{code: "TRACKING_FAILED"}`.
 
+##### Asynchronous Validation
+
+For improving user experience, we recommend performing payment validation asynchronously as in certain situation in can take up to multiple minutes.
+
+You can configure the widget to track/validate the payment asynchronously:
+
+```javascript
+DePayWidgets.Payment({
+
+  track: {
+    endpoint: '/track',
+    async: true
+  }
+})
+```
+
+Which will release the user right after the payment has been confirmed on the user's machine.
+
+It still tracks and validates the payment asynchronously and calls back your endpoints as soon as it has been validated.
+
+This allows you to release the user immediately, showing him some confirmation and reconfirming his payment in an asynchronous step (like a notification or email).
+
 ##### Additional Polling
 
 In order to ensure a 100% coverage that users are released and forwarded within your payment flow, you will need to implement polling in addition to tracking.
@@ -294,7 +343,7 @@ In case you want to redirect the user to the next step in your system the poll e
 It is not enough to rely on setting `forward_to` initially with the tracking request, you will also need to respond with `forward_to` when implementing polling
 as the entire reason for polling is to cover cases where websockets fail and the initial `forward_to` can not be communicated to the client.
 
-#### connected
+#### connected (DePay Payments)
 
 `connected`
 
@@ -312,7 +361,7 @@ DePayWidgets.Payment({
 
 ```
 
-#### closed
+#### closed (DePay Payments)
 
 `closed`
 
@@ -328,7 +377,7 @@ DePayWidgets.Payment({
 
 ```
 
-#### sent
+#### sent (DePay Payments)
 
 `sent`
 
@@ -345,7 +394,7 @@ DePayWidgets.Payment({
 })
 ```
 
-#### confirmed
+#### confirmed (DePay Payments)
 
 `confirmed`
 
@@ -362,7 +411,7 @@ DePayWidgets.Payment({
 })
 ```
 
-#### failed
+#### failed (DePay Payments)
 
 `failed`
 
@@ -380,7 +429,7 @@ DePayWidgets.Payment({
 })
 ```
 
-#### critical
+#### critical (DePay Payments)
 
 `critical`
 
@@ -395,7 +444,7 @@ DePayWidgets.Payment({
 })
 ```
 
-#### error
+#### error (DePay Payments)
 
 `error`
 
@@ -411,7 +460,7 @@ DePayWidgets.Payment({
 })
 ```
 
-#### providers
+#### providers (DePay Payments)
 
 Allows to set providers to be used for making RPC calls to the individiual blockchains:
 
@@ -425,7 +474,7 @@ DePayWidgets.Payment({
 })
 ```
 
-#### currency
+#### currency (DePay Payments)
 
 Allows you to enforce displayed local currency (instead of automatically detecting it):
 
@@ -439,7 +488,7 @@ DePayWidgets.Payment({
 
 ```
 
-#### whitelist
+#### whitelist (DePay Payments)
 
 Allows only the configured tokens to be eligible as means of payment (from the sender):
 
@@ -463,7 +512,7 @@ DePayWidgets.Payment({
 
 ```
 
-#### blacklist
+#### blacklist (DePay Payments)
 
 Allows to blacklist tokens so that they will not be suggested as means of payment (from the sender):
 
@@ -498,7 +547,7 @@ DePayWidgets.Payment({
 })
 ```
 
-#### event
+#### event (DePay Payments)
 
 `event`
 
@@ -514,7 +563,7 @@ DePayWidgets.Payment({
 })
 ```
 
-#### style
+#### style (DePay Payments)
 
 `style`
 
@@ -541,7 +590,7 @@ DePayWidgets.Payment({
 })
 ```
 
-##### colors
+##### colors (DePay Payments)
 
 `colors`
 
@@ -561,7 +610,7 @@ DePayWidgets.Payment({
 })
 ```
 
-##### fontFamily
+##### fontFamily (DePay Payments)
 
 `fontFamily`
 
@@ -576,7 +625,7 @@ DePayWidgets.Payment({
 })
 ```
 
-##### css
+##### css (DePay Payments)
 
 `css`
 
@@ -597,7 +646,7 @@ DePayWidgets.Payment({
 })
 ```
 
-#### unmount
+#### unmount (DePay Payments)
 
 `unmount`
 
@@ -609,7 +658,7 @@ let { unmount } = await DePayWidgets.Payment({})
 unmount()
 ```
 
-#### recover
+#### recover (DePay Payments)
 
 `recover`
 
@@ -632,7 +681,7 @@ A recovered payment still results in a confirmed or failed payment, and also cal
 
 ```
 
-#### closable
+#### closable (DePay Payments)
 
 `closable`
 
@@ -645,7 +694,7 @@ DePayWidgets.Payment({
 
 ```
 
-#### integration
+#### integration (DePay Payments)
 
 `integration`
 
@@ -661,14 +710,14 @@ DePayWidgets.Payment({
 
 DePay Sales allows you to sell tokens directly from your website or dApp with automatic any-to-any payment conversion (so people can use any token when buying your token directly off your website or dApp).
 
-### Preparation
+### Preparation (DePay Sales)
 
 In order to sell tokens in a decentralized way, that token needs to have a liquidity pool on a decentralized exchange:
 
 - [Create Uniswap v2 Liquidity Pool](https://app.uniswap.org/#/add/v2/ETH)
 - [Create Pancakeswap Liquidity Pool](https://pancakeswap.finance/add)
 
-### Quick start
+### Quick start (DePay Sales)
 
 ```
 <script src="https://integrate.depay.fi/widgets/v6.js"/>
@@ -682,7 +731,7 @@ DePayWidgets.Sale({
 });
 ```
 
-### Configuration
+### Configuration (DePay Sales)
 
 You need to pass a configuration object to `DePayWidgets.Sale` which needs to at least contain the `sell` field:
 
@@ -705,7 +754,7 @@ DePayWidgets.Sale({
 });
 ```
 
-#### sell
+#### sell (DePay Sales)
 
 `"blockchain": "token"`
 
@@ -722,7 +771,7 @@ The address of the token you want to sell.
 
 Use our [sale configurator](https://depay.fi/documentation/sales#sale-configurator) in order to simplify configuring this.
 
-#### amount
+#### amount (DePay Sales)
 
 When you want to control how the amount selection behaves, pass the `amount` configuration object,
 alongside values for `start`, `min` and `step`.
@@ -744,7 +793,7 @@ DePayWidgets.Sale({
 });
 ```
 
-#### connected
+#### connected (DePay Sales)
 
 `connected`
 
@@ -761,7 +810,7 @@ DePayWidgets.Sale({
 });
 ```
 
-#### closed
+#### closed (DePay Sales)
 
 `closed`
 
@@ -776,7 +825,7 @@ DePayWidgets.Sale({
 });
 ```
 
-#### sent
+#### sent (DePay Sales)
 
 `sent`
 
@@ -793,7 +842,7 @@ DePayWidgets.Sale({
 });
 ```
 
-#### confirmed
+#### confirmed (DePay Sales)
 
 `confirmed`
 
@@ -810,7 +859,7 @@ DePayWidgets.Sale({
 });
 ```
 
-#### failed
+#### failed (DePay Sales)
 
 `failed`
 
@@ -828,7 +877,7 @@ DePayWidgets.Sale({
 });
 ```
 
-#### critical
+#### critical (DePay Sales)
 
 `critical`
 
@@ -843,7 +892,7 @@ DePayWidgets.Sale({
 });
 ```
 
-#### error
+#### error (DePay Sales)
 
 `error`
 
@@ -859,7 +908,7 @@ DePayWidgets.Sale({
 });
 ```
 
-#### providers
+#### providers (DePay Sales)
 
 Allows to set providers to be used for making RPC calls to the individiual blockchains:
 
@@ -873,7 +922,7 @@ DePayWidgets.Sale({
 });
 ```
 
-#### currency
+#### currency (DePay Sales)
 
 Allows you to enforce displayed local currency (instead of automatically detecting it):
 
@@ -885,7 +934,7 @@ DePayWidgets.Sale({
 });
 ```
 
-#### blacklist
+#### blacklist (DePay Sales)
 
 Allows to blacklist tokens so that they will not be suggested as means of payment (from the sender):
 
@@ -920,7 +969,7 @@ DePayWidgets.Sale({
 });
 ```
 
-#### tokenImage
+#### tokenImage (DePay Sales)
 
 `tokenImage`
 
@@ -934,7 +983,7 @@ DePayWidgets.Sale({
 });
 ```
 
-#### style
+#### style (DePay Sales)
 
 `style`
 
@@ -962,7 +1011,7 @@ DePayWidgets.Sale({
 });
 ```
 
-##### colors
+##### colors (DePay Sales)
 
 `colors`
 
@@ -982,7 +1031,7 @@ DePayWidgets.Sale({
 });
 ```
 
-##### fontFamily
+##### fontFamily (DePay Sales)
 
 `fontFamily`
 
@@ -997,7 +1046,7 @@ DePayWidgets.Sale({
 });
 ```
 
-##### css
+##### css (DePay Sales)
 
 `css`
 
@@ -1018,7 +1067,7 @@ DePayWidgets.Sale({
 });
 ```
 
-#### unmount
+#### unmount (DePay Sales)
 
 `unmount`
 
@@ -1030,7 +1079,7 @@ let { unmount } = await DePayWidgets.Sale({})
 unmount()
 ```
 
-#### closable
+#### closable (DePay Sales)
 
 `closable`
 
@@ -1043,7 +1092,7 @@ DePayWidgets.Sale({
 
 ```
 
-#### integration
+#### integration (DePay Sales)
 
 `integration`
 
@@ -1059,14 +1108,14 @@ DePayWidgets.Sale({
 
 DePay Donations allows you to accept donation payments made with thousands of different crypto currencies.
 
-### Preparation
+### Preparation (DePay Donations)
 
 In order to receive decentralized donation payments on any blockchain you need to have your own wallet on that particular blockchain first:
 
 - [Create an Ethereum wallet](https://ethereum.org/en/wallets/)
 - [Create an BSC wallet](https://academy.binance.com/en/articles/how-to-get-started-with-binance-smart-chain-bsc)
 
-### Quick start
+### Quick start (DePay Donations)
 
 ```
 <script src="https://integrate.depay.fi/widgets/v6.js"/>
@@ -1082,7 +1131,7 @@ DePayWidgets.Donation({
 });
 ```
 
-### Configuration
+### Configuration (DePay Donations)
 
 You need to pass a configuration object to `DePayWidgets.Donation` which needs to at least contain the `accept` field:
 
@@ -1112,7 +1161,7 @@ DePayWidgets.Donation({
 });
 ```
 
-#### accept
+#### accept (DePay Donations)
 
 `blockchain`
 
@@ -1133,7 +1182,7 @@ Use our [donation configurator](https://depay.fi/documentation/donations#donatio
 
 The address receiving the donation. Always double check that you've set the right address.
 
-#### amount
+#### amount (DePay Donations)
 
 When you want to control how the amount selection behaves, pass the `amount` configuration object,
 alongside values for `start`, `min` and `step`.
@@ -1144,7 +1193,7 @@ alongside values for `start`, `min` and `step`.
 
 `step`: The number by wich to increment/decremten changes to the amount.
 
-#### connected
+#### connected (DePay Donations)
 
 `connected`
 
@@ -1161,7 +1210,7 @@ DePayWidgets.Donation({
 });
 ```
 
-#### closed
+#### closed (DePay Donations)
 
 `closed`
 
@@ -1176,7 +1225,7 @@ DePayWidgets.Donation({
 });
 ```
 
-#### sent
+#### sent (DePay Donations)
 
 `sent`
 
@@ -1193,7 +1242,7 @@ DePayWidgets.Donation({
 });
 ```
 
-#### confirmed
+#### confirmed (DePay Donations)
 
 `confirmed`
 
@@ -1210,7 +1259,7 @@ DePayWidgets.Donation({
 });
 ```
 
-#### failed
+#### failed (DePay Donations)
 
 `failed`
 
@@ -1228,7 +1277,7 @@ DePayWidgets.Donation({
 });
 ```
 
-#### critical
+#### critical (DePay Donations)
 
 `critical`
 
@@ -1243,7 +1292,7 @@ DePayWidgets.Donation({
 });
 ```
 
-#### error
+#### error (DePay Donations)
 
 `error`
 
@@ -1259,7 +1308,7 @@ DePayWidgets.Donation({
 });
 ```
 
-#### providers
+#### providers (DePay Donations)
 
 Allows to set providers to be used for making RPC calls to the individiual blockchains:
 
@@ -1273,7 +1322,7 @@ DePayWidgets.Donation({
 });
 ```
 
-#### currency
+#### currency (DePay Donations)
 
 Allows you to enforce displayed local currency (instead of automatically detecting it):
 
@@ -1285,7 +1334,7 @@ DePayWidgets.Donation({
 });
 ```
 
-#### blacklist
+#### blacklist (DePay Donations)
 
 Allows to blacklist tokens so that they will not be suggested as means of payment (from the sender):
 
@@ -1320,7 +1369,7 @@ DePayWidgets.Donation({
 })
 ```
 
-#### style
+#### style (DePay Donations)
 
 `style`
 
@@ -1348,7 +1397,7 @@ DePayWidgets.Donation({
 });
 ```
 
-##### colors
+##### colors (DePay Donations)
 
 `colors`
 
@@ -1368,7 +1417,7 @@ DePayWidgets.Donation({
 });
 ```
 
-##### fontFamily
+##### fontFamily (DePay Donations)
 
 `fontFamily`
 
@@ -1383,7 +1432,7 @@ DePayWidgets.Donation({
 });
 ```
 
-##### css
+##### css (DePay Donations)
 
 `css`
 
@@ -1404,7 +1453,7 @@ DePayWidgets.Donation({
 });
 ```
 
-#### unmount
+#### unmount (DePay Donations)
 
 `unmount`
 
@@ -1416,7 +1465,7 @@ let { unmount } = await DePayWidgets.Donation({})
 unmount()
 ```
 
-#### closable
+#### closable (DePay Donations)
 
 `closable`
 
@@ -1429,7 +1478,7 @@ DePayWidgets.Donation({
 
 ```
 
-#### integration
+#### integration (DePay Donations)
 
 `integration`
 
@@ -1441,7 +1490,7 @@ DePayWidgets.Donation({
 })
 ```
 
-## DePay Connect
+## DePay Connect (DePay Donations)
 
 DePay Connect allows you to have your users connect their crypto wallet to your dApp or website.
 
@@ -1457,7 +1506,7 @@ let { account, accounts, wallet }  = await DePayWidgets.Connect()
 
 See [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets) for more details about the returned `wallet`.
 
-### Rejections
+### Rejections (DePay Donations)
 
 1. Rejects if user just closes the dialog without connecting any wallet:
 
@@ -1534,7 +1583,7 @@ DePayWidgets.Login({ message, recover: ({ message, signature })=>{
 })
 ```
 
-### Rejections
+### Rejections (DePay Login)
 
 1. Rejects if user just closes the dialog without connecting any wallet:
 
