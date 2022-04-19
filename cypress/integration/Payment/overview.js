@@ -163,15 +163,18 @@ describe('Payment Widget: overview', () => {
         fetchMock.get({
           url: 'https://public.depay.fi/accounts/ethereum/0xd8da6bf26964af9d7eed9e03e53415d37aa96045/assets',
           overwriteRoutes: true,
-          delay: 5000
+          delay: 10000
         }, [])
       })
 
-      it('shows an animated skeleton while loading data', ()=> {
+      it('shows an animated skeleton while loading data and a sentence after 4s that balances are still loading', ()=> {
         cy.visit('cypress/test.html').then((contentWindow) => {
           cy.document().then((document)=>{
             DePayWidgets.Payment({ ...defaultArguments, document })
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Skeleton')
+            cy.wait(4000).then(()=> {
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('strong').should('contain.text', 'Still loading your wallet balances...')
+            })
           })
         })
       })

@@ -1,9 +1,11 @@
+import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import Dialog from '../components/Dialog'
 import React, { useContext } from 'react'
 
 export default (props)=>{
   const { amountsMissing } = useContext(ChangableAmountContext)
+  const { slowRouting, selectedRoute } = useContext(PaymentRoutingContext)
 
   return(
     <Dialog
@@ -31,6 +33,11 @@ export default (props)=>{
               <div className="SkeletonBackground"/>
             </div>
           </div>
+          { selectedRoute == undefined && slowRouting &&
+            <div className="TextCenter Opacity05 PaddingTopS">
+              <strong>Still loading your wallet balances...</strong>
+            </div>
+          }
         </div>
       }
     />

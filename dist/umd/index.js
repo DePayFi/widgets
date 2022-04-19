@@ -2639,10 +2639,15 @@
         selectedRoute = _useState4[0],
         setSelectedRoute = _useState4[1];
 
-    var _useState5 = React.useState(0),
+    var _useState5 = React.useState(false),
         _useState6 = _slicedToArray(_useState5, 2),
-        reloadCount = _useState6[0],
-        setReloadCount = _useState6[1];
+        slowRouting = _useState6[0],
+        setSlowRouting = _useState6[1];
+
+    var _useState7 = React.useState(0),
+        _useState8 = _slicedToArray(_useState7, 2),
+        reloadCount = _useState8[0],
+        setReloadCount = _useState8[1];
 
     var _useContext = React.useContext(WalletContext),
         account = _useContext.account;
@@ -2693,9 +2698,15 @@
         return;
       }
 
+      var slowRoutingTimeout = setTimeout(function () {
+        setSlowRouting(true);
+      }, 4000);
       routePayments(Object.assign({}, props, {
         account: account
-      })).then(onRoutesUpdate);
+      })).then(function (routes) {
+        clearInterval(slowRoutingTimeout);
+        onRoutesUpdate(routes);
+      });
     };
 
     var roundAmounts = /*#__PURE__*/function () {
@@ -2793,7 +2804,8 @@
         setSelectedRoute: setSelectedRoute,
         getPaymentRoutes: getPaymentRoutes,
         allRoutes: allRoutes,
-        setAllRoutes: setAllRoutes
+        setAllRoutes: setAllRoutes,
+        slowRouting: slowRouting
       }
     }, props.children);
   });
@@ -4609,6 +4621,10 @@
     var _useContext = React.useContext(ChangableAmountContext),
         amountsMissing = _useContext.amountsMissing;
 
+    var _useContext2 = React.useContext(PaymentRoutingContext),
+        slowRouting = _useContext2.slowRouting,
+        selectedRoute = _useContext2.selectedRoute;
+
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
@@ -4634,7 +4650,9 @@
         className: "ButtonPrimary Skeleton"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "SkeletonBackground"
-      }))))
+      }))), selectedRoute == undefined && slowRouting && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TextCenter Opacity05 PaddingTopS"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Still loading your wallet balances...")))
     });
   });
 

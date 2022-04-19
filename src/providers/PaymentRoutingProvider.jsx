@@ -13,6 +13,7 @@ import { getWallet } from '@depay/web3-wallets'
 export default (props)=>{
   const [ allRoutes, setAllRoutes ] = useState()
   const [ selectedRoute, setSelectedRoute ] = useState()
+  const [ slowRouting, setSlowRouting ] = useState(false)
   const [ reloadCount, setReloadCount ] = useState(0)
   const { account } = useContext(WalletContext)
   const { updatable } = useContext(UpdatableContext)
@@ -38,7 +39,11 @@ export default (props)=>{
   }
   const getPaymentRoutes = ({ allRoutes, selectedRoute, updatable })=>{
     if(updatable == false || !props.accept || !account) { return }
-    routePayments(Object.assign({}, props, { account })).then(onRoutesUpdate)
+    let slowRoutingTimeout = setTimeout(() => { setSlowRouting(true) }, 4000)
+    routePayments(Object.assign({}, props, { account })).then((routes)=>{
+      clearInterval(slowRoutingTimeout)
+      onRoutesUpdate(routes)
+    })
   }
   const roundAmounts = async (routes)=> {
     return Promise.all(routes.map(async (route)=>{
@@ -80,7 +85,8 @@ export default (props)=>{
       setSelectedRoute,
       getPaymentRoutes,
       allRoutes,
-      setAllRoutes
+      setAllRoutes,
+      slowRouting
     }}>
       { props.children }
     </PaymentRoutingContext.Provider>
