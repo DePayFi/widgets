@@ -563,6 +563,18 @@ DePayWidgets.Payment({
 })
 ```
 
+#### container (DePay Payments)
+
+`container`
+
+Allows you to pass a container element that is supposed to contain the widget:
+
+```javascript
+DePayWidgets.Payment({
+  container: document.getElementById('my-container')
+})
+```
+
 #### style (DePay Payments)
 
 `style`
@@ -1366,6 +1378,18 @@ DePayWidgets.Donation({
       '0x12e34cdf6a031a10fe241864c32fb03a4fdad739' // FREE
     ]
   }
+})
+```
+
+#### container (DePay Donations)
+
+`container`
+
+Allows you to pass a container element that is supposed to contain the widget:
+
+```javascript
+DePayWidgets.Dontaion({
+  container: document.getElementById('my-container')
 })
 ```
 

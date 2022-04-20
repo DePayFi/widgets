@@ -6,6 +6,18 @@ export default (style)=>{
       background: rgba(0,0,0,0.7);
     }
 
+    .contained .ReactDialog {
+      position: absolute;
+      height: 100%;
+      min-height: 100%;
+      width: 100%;
+      min-width: 100%;
+    }
+
+    .contained .ReactDialogBackground {
+      position: absolute;
+    }
+
     .Dialog {
       margin: 0 auto;
       position: relative;

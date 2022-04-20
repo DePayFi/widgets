@@ -1689,7 +1689,7 @@
   });
 
   var DialogStyle = (function (style) {
-    return "\n\n    .ReactDialogBackground {\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n      background: rgb(248,248,248);\n    }\n\n    @media (max-width: 450px) {\n\n      .Dialog {\n        border-radius: 0;\n        width: 100%;\n      }\n    }\n\n    @media (orientation: portrait) and (max-width: 800px) {\n\n      .ReactDialogAnimation {\n        width: 100%;\n      }\n\n      .ReactDialog {\n        height: 100%;\n        min-height: 100%;\n      }\n\n      .ReactDialogStack {\n        align-items: flex-end;\n      }\n\n      .Dialog {\n        align-content: stretch;\n        border-radius: 0.8rem;\n        border-top-radius: 0.8rem;\n        display: flex;\n        flex-direction: column;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n      }\n\n      .DialogFooter {\n        padding-bottom: 20px;\n      }\n\n      .ReactDialogAnimation {\n        margin-bottom: -100px !important;\n        top: inherit !important;\n        position: relative;\n        transition: opacity 0.4s ease, margin-bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        margin-bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n\n      .ReactShadowDOMInsideContainer > .ReactDialog {\n        align-items: flex-end;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.ScrollHeight {\n      height: 30vh !important;\n      max-height: 30vh !important;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      min-height: 3.4rem;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogHeaderActionRight {\n      position: absolute;\n      top: 0;\n      right: 0;\n      height: 3rem;\n    }\n\n    .DialogHeaderActionLeft {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
+    return "\n\n    .ReactDialogBackground {\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .contained .ReactDialog {\n      position: absolute;\n      height: 100%;\n      min-height: 100%;\n      width: 100%;\n      min-width: 100%;\n    }\n\n    .contained .ReactDialogBackground {\n      position: absolute;\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 0.8rem;\n      background: rgb(248,248,248);\n    }\n\n    @media (max-width: 450px) {\n\n      .Dialog {\n        border-radius: 0;\n        width: 100%;\n      }\n    }\n\n    @media (orientation: portrait) and (max-width: 800px) {\n\n      .ReactDialogAnimation {\n        width: 100%;\n      }\n\n      .ReactDialog {\n        height: 100%;\n        min-height: 100%;\n      }\n\n      .ReactDialogStack {\n        align-items: flex-end;\n      }\n\n      .Dialog {\n        align-content: stretch;\n        border-radius: 0.8rem;\n        border-top-radius: 0.8rem;\n        display: flex;\n        flex-direction: column;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n      }\n\n      .DialogFooter {\n        padding-bottom: 20px;\n      }\n\n      .ReactDialogAnimation {\n        margin-bottom: -100px !important;\n        top: inherit !important;\n        position: relative;\n        transition: opacity 0.4s ease, margin-bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        margin-bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n\n      .ReactShadowDOMInsideContainer > .ReactDialog {\n        align-items: flex-end;\n      }\n    }\n\n    .DialogBody {\n      background: rgb(248,248,248);\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.ScrollHeight {\n      height: 30vh !important;\n      max-height: 30vh !important;\n    }\n\n    .DialogHeader {\n      background: rgb(248,248,248);\n      border-top-left-radius: 0.8rem;\n      border-top-right-radius: 0.8rem;\n      min-height: 3.4rem;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogHeaderActionRight {\n      position: absolute;\n      top: 0;\n      right: 0;\n      height: 3rem;\n    }\n\n    .DialogHeaderActionLeft {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 3rem;\n    }\n\n    .DialogFooter {\n      background: rgb(248,248,248);\n      border-bottom-left-radius: 0.8rem;\n      border-bottom-right-radius: 0.8rem;\n      line-height: 1.5rem;\n      min-height: 2rem;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
   });
 
   var FontStyle = (function (style) {
@@ -1795,6 +1795,7 @@
 
   var mount = (function (_ref, content) {
     var style = _ref.style,
+        container = _ref.container,
         document = _ref.document,
         closed = _ref.closed;
     var insideStyle = styleRenderer(style);
@@ -1814,12 +1815,21 @@
       }, 300);
     };
 
+    var outsideStyle;
+
+    if (container) {
+      outsideStyle = "\n      position: absolute;\n      top: 0;\n      left: 0;\n      bottom: 0;\n      right: 0;\n      z-index: 99999;\n    ";
+    } else {
+      outsideStyle = "\n      position: fixed;\n      top: 0;\n      left: 0;\n      bottom: 0;\n      right: 0;\n      z-index: 99999;\n    ";
+    }
+
     var _ReactShadowDOM = reactShadowDom.ReactShadowDOM({
       document: document,
-      element: document.body,
+      element: container || document.body,
       content: content(unmountShadowDOM),
+      outsideStyle: outsideStyle,
       insideStyle: insideStyle,
-      outsideStyle: "\n      position: fixed;\n      top: 0;\n      left: 0;\n      bottom: 0;\n      right: 0;\n      z-index: 99999;\n    "
+      insideClasses: ['contained']
     }),
         unmount = _ReactShadowDOM.unmount;
 
@@ -4324,12 +4334,12 @@
 
   var Donation = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var amount, accept, event, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, closable, integration, document, unmount;
+      var amount, accept, event, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, closable, integration, container, document, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, closable = _ref3.closable, integration = _ref3.integration, document = _ref3.document;
+              amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, closable = _ref3.closable, integration = _ref3.integration, container = _ref3.container, document = _ref3.document;
               requireReactVersion();
               _context2.prev = 2;
               _context2.next = 5;
@@ -4340,6 +4350,7 @@
             case 5:
               unmount = mount({
                 style: style,
+                container: container,
                 document: ensureDocument(document),
                 closed: closed
               }, function (unmount) {
@@ -4830,12 +4841,12 @@
 
   var Payment = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var accept, amount, event, sent, confirmed, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, document, unmount;
+      var accept, amount, event, sent, confirmed, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, container, document, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, document = _ref3.document;
+              accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, container = _ref3.container, document = _ref3.document;
               requireReactVersion();
               _context2.prev = 2;
               _context2.next = 5;
@@ -4847,6 +4858,7 @@
             case 5:
               unmount = mount({
                 style: style,
+                container: container,
                 document: ensureDocument(document),
                 closed: closed
               }, function (unmount) {

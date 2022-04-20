@@ -43,12 +43,13 @@ let Donation = async ({
   closed,
   closable,
   integration,
+  container,
   document
 }) => {
   requireReactVersion()
   try {
     await preflight({ accept })
-    let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
+    let unmount = mount({ style, container, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={{ type: 'donation', amount, accept, currency, event, sent, confirmed, failed, blacklist, providers, integration }}>

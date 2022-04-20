@@ -170,6 +170,37 @@
           </div>
         </div>
 
+        <div id="testContainer" class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Payment: render into container</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Renders into a given container element.</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button id="payRenderIntoContainer" class="btn btn-primary">Try it</button>
+                <script>
+                  var button = document.getElementById("payRenderIntoContainer");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      container: document.getElementById('testContainer'),
+                      accept: [{
+                        blockchain: 'bsc',
+                        fromToken: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+                        fromAmount: 0.1,
+                        toToken: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                        receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                      }]
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
           <div class="px-0 py-4 rounded-lg bg-white border">

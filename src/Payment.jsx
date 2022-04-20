@@ -51,12 +51,13 @@ let Payment = async ({
   recover,
   closable,
   integration,
+  container,
   document
 }) => {
   requireReactVersion()
   try {
     await preflight({ accept, recover })
-    let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
+    let unmount = mount({ style, container, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={ { type: 'payment', amount, accept, currency, event, sent, confirmed, failed, whitelist, blacklist, providers, track, fee, recover, integration } }>
