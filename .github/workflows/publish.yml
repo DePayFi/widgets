@@ -25,7 +25,7 @@ jobs:
 
       - name: get-npm-version
         id: package-version
-        uses: martinbeentjes/npm-get-version-action@master
+        uses: martinbeentjes/npm-get-version-action@main
       
       - name: Upload version to S3 (depay-libraries)
         run: aws s3 cp dist/umd/index.bundle.js s3://depay-libraries/widgets/v${{ steps.package-version.outputs.current-version }}.js
