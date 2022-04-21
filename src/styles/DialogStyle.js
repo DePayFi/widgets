@@ -18,6 +18,10 @@ export default (style)=>{
       position: absolute;
     }
 
+    .contained .ReactDialog.ReactDialogOpen .ReactDialogAnimation {
+      top: 0;
+    }
+
     .Dialog {
       margin: 0 auto;
       position: relative;
