@@ -41,7 +41,7 @@ export default ({ style, container, document, closed }, content)=> {
     content: content(unmountShadowDOM),
     outsideStyle,
     insideStyle,
-    insideClasses: ['contained']
+    insideClasses: container ? ['contained'] : []
   })
 
   return unmount

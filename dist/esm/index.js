@@ -1834,7 +1834,7 @@ var mount = (function (_ref, content) {
     content: content(unmountShadowDOM),
     outsideStyle: outsideStyle,
     insideStyle: insideStyle,
-    insideClasses: ['contained']
+    insideClasses: container ? ['contained'] : []
   }),
       unmount = _ReactShadowDOM.unmount;
 
