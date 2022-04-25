@@ -2669,6 +2669,8 @@
         recover = _useContext3.recover;
 
     var onRoutesUpdate = function onRoutesUpdate(routes) {
+      console.log('routes', routes);
+
       if (routes.length == 0) {
         setAllRoutes([]);
 

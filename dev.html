@@ -668,6 +668,37 @@
           </div>
         </div>
 
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Donate: with fee</h5>
+                <div class="px-4">
+                  <div class="text-secondary "></div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="donationButtonWithFee">Try it</button>
+                <script>
+                  var button = document.getElementById("donationButtonWithFee");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Donation({
+                      accept:[
+                        {
+                          blockchain: 'ethereum',
+                          token: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        }
+                      ],
+                      fee: { amount: '1%', receiver: '0x8a4aDA571ab235BF7d586d02E534D08552B3dedb' }
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
           <div class="px-0 py-4 rounded-lg bg-white border">

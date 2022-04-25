@@ -19,6 +19,7 @@ export default (props)=>{
   const { updatable } = useContext(UpdatableContext)
   const { recover } = useContext(ConfigurationContext)  
   const onRoutesUpdate = (routes)=>{
+    console.log('routes', routes)
     if(routes.length == 0) {
       setAllRoutes([])
       if(props.setMaxRoute) { props.setMaxRoute(null) }
