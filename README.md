@@ -1222,6 +1222,26 @@ DePayWidgets.Donation({
 });
 ```
 
+#### fee (DePay Donations)
+
+You can configure a fee which will be applied to every payment with it's own dedicated fee receiver address.
+
+The fee will be taken from the target token and target amount (after swap, depending on your `accept` configuration).
+
+`amount`: Either percentage (e.g. `5%`, or absolute amount as BigNumber string ('100000000000000000') or pure number (2.5)
+
+`receiver`: The address that is supposed to receive the fee.
+
+```javascript
+DePayWidgets.Donation({
+  accept: [...],
+  fee: {
+    amount: '3%',
+    receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  }
+});
+```
+
 #### closed (DePay Donations)
 
 `closed`

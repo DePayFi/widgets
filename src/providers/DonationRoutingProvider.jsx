@@ -8,11 +8,11 @@ import React, { useContext } from 'react'
 
 export default (props)=>{
   const { acceptWithAmount, setMaxRoute } = useContext(ChangableAmountContext)
-  const { blacklist } = useContext(ConfigurationContext)
+  const { blacklist, fee } = useContext(ConfigurationContext)
 
   return(
     <DonationRoutingContext.Provider value={{}}>
-      <PaymentRoutingProvider accept={ acceptWithAmount } blacklist={ blacklist } setMaxRoute={ setMaxRoute }>
+      <PaymentRoutingProvider accept={ acceptWithAmount } blacklist={ blacklist } setMaxRoute={ setMaxRoute } fee={ fee }>
         <PaymentProvider container={ props.container } document={ props.document } >
           <PaymentValueProvider>
             { props.children }
