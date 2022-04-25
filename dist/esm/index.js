@@ -2107,6 +2107,10 @@ var ChangableAmountProvider = (function (props) {
         }));
       } else {
         Promise.all(props.accept.map(function (configuration) {
+          if (CONSTANTS[configuration.blockchain].USD.toLowerCase() == configuration.token.toLowerCase()) {
+            return 1.00 / conversionRate;
+          }
+
           return route({
             blockchain: configuration.blockchain,
             tokenIn: CONSTANTS[configuration.blockchain].USD,
@@ -2115,17 +2119,19 @@ var ChangableAmountProvider = (function (props) {
             fromAddress: account,
             toAddress: account
           });
-        })).then(function (routes) {
-          Promise.all(routes.map(function (routes, index) {
-            if (routes[0] == undefined) {
+        })).then(function (results) {
+          Promise.all(results.map(function (result, index) {
+            if (typeof result == 'number') {
+              return result;
+            } else if (result[0] == undefined) {
               return;
+            } else {
+              return Token.readable({
+                blockchain: props.accept[index].blockchain,
+                amount: result[0].amountOut,
+                address: result[0].tokenOut
+              });
             }
-
-            return Token.readable({
-              blockchain: props.accept[index].blockchain,
-              amount: routes[0].amountOut,
-              address: routes[0].tokenOut
-            });
           })).then(resolve)["catch"](setError);
         })["catch"](setError);
       }
@@ -2674,8 +2680,6 @@ var PaymentRoutingProvider = (function (props) {
       recover = _useContext3.recover;
 
   var onRoutesUpdate = function onRoutesUpdate(routes) {
-    console.log('routes', routes);
-
     if (routes.length == 0) {
       setAllRoutes([]);
 

@@ -40,6 +40,9 @@ export default (props)=>{
         resolve(props.accept.map(()=>amount))
       } else {
         Promise.all(props.accept.map((configuration)=>{
+          if(CONSTANTS[configuration.blockchain].USD.toLowerCase() == configuration.token.toLowerCase()) {
+            return 1.00/conversionRate
+          }
           return route({
             blockchain: configuration.blockchain,
             tokenIn: CONSTANTS[configuration.blockchain].USD,
@@ -48,14 +51,19 @@ export default (props)=>{
             fromAddress: account,
             toAddress: account
           })
-        })).then((routes)=>{
-          Promise.all(routes.map((routes, index)=>{
-            if(routes[0] == undefined){ return }
-            return Token.readable({
-              blockchain: props.accept[index].blockchain,
-              amount: routes[0].amountOut,
-              address: routes[0].tokenOut
-            })
+        })).then((results)=>{
+          Promise.all(results.map((result, index)=>{
+            if(typeof result == 'number'){
+              return result
+            } else if(result[0] == undefined){ 
+              return
+            } else {
+              return Token.readable({
+                blockchain: props.accept[index].blockchain,
+                amount: result[0].amountOut,
+                address: result[0].tokenOut
+              })
+            }
           })).then(resolve).catch(setError)
         }).catch(setError)
       }
