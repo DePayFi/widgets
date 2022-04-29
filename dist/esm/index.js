@@ -4677,7 +4677,7 @@ var PaymentOverviewSkeleton = (function (props) {
       className: "SkeletonBackground"
     }))), selectedRoute == undefined && slowRouting && /*#__PURE__*/React.createElement("div", {
       className: "TextCenter Opacity05 PaddingTopS"
-    }, /*#__PURE__*/React.createElement("strong", null, "Still loading your wallet balances...")))
+    }, /*#__PURE__*/React.createElement("strong", null, "Loading payment routes...")))
   });
 });
 
@@ -23008,7 +23008,7 @@ var SelectTokenDialog = (function (props) {
       className: "Tooltip"
     }, /*#__PURE__*/React.createElement("span", {
       className: "TooltipArrowUp"
-    }), "Paste or enter token address here!")))),
+    }), "Enter token address here")))),
     bodyClassName: "ScrollHeight",
     body: /*#__PURE__*/React.createElement("div", {
       className: ""

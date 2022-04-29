@@ -177,7 +177,7 @@ export default (props)=> {
               <div className="PaddingTopXS PaddingRightXS PaddingLeftXS">
                 <div className="Tooltip"> 
                   <span className="TooltipArrowUp"/>
-                  Paste or enter token address here!
+                  Enter token address here
                 </div> 
               </div> 
             }

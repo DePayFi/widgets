@@ -35,7 +35,7 @@ export default (props)=>{
           </div>
           { selectedRoute == undefined && slowRouting &&
             <div className="TextCenter Opacity05 PaddingTopS">
-              <strong>Still loading your wallet balances...</strong>
+              <strong>Loading payment routes...</strong>
             </div>
           }
         </div>

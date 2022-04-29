@@ -4672,7 +4672,7 @@
         className: "SkeletonBackground"
       }))), selectedRoute == undefined && slowRouting && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TextCenter Opacity05 PaddingTopS"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Still loading your wallet balances...")))
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Loading payment routes...")))
     });
   });
 
@@ -23003,7 +23003,7 @@
         className: "Tooltip"
       }, /*#__PURE__*/React__default['default'].createElement("span", {
         className: "TooltipArrowUp"
-      }), "Paste or enter token address here!")))),
+      }), "Enter token address here")))),
       bodyClassName: "ScrollHeight",
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: ""

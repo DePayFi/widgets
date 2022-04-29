@@ -173,7 +173,7 @@ describe('Payment Widget: overview', () => {
             DePayWidgets.Payment({ ...defaultArguments, document })
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Skeleton')
             cy.wait(4000).then(()=> {
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('strong').should('contain.text', 'Still loading your wallet balances...')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('strong').should('contain.text', 'Loading payment routes...')
             })
           })
         })
