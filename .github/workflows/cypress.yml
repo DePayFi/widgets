@@ -65,13 +65,17 @@ jobs:
       - name: Run Cypress Tests cypress/integration/Donation/**.js
         run: |
           yarn test:cypress --spec "cypress/integration/Donation/**.js"
-      - name: 'Upload screenshots and videos to Slack'
-        uses: trymbill/cypress-slack-video-upload-action@v1.3.0
+      - uses: actions/upload-artifact@v3
         if: failure()
         with:
-          token: ${{ secrets.SLACK_TOKEN }}
-          channels: 'cypress-failing-tests'
-          message-text: 'Cypress tests failed! Recording and screenshots have been uploaded in this thread - good luck.'
+          name: cypress-screenshots
+          path: ${{ github.workspace }}/cypress/screenshots
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-videos
+          path: ${{ github.workspace }}/cypress/videos
+      
 
   cypress-sales-widget:
     
@@ -103,13 +107,17 @@ jobs:
       - name: Run Cypress Tests cypress/integration/Sale/**.js
         run: |
           yarn test:cypress --spec "cypress/integration/Sale/**.js"
-      - name: 'Upload screenshots and videos to Slack'
-        uses: trymbill/cypress-slack-video-upload-action@v1.3.0
+      - uses: actions/upload-artifact@v3
         if: failure()
         with:
-          token: ${{ secrets.SLACK_TOKEN }}
-          channels: 'cypress-failing-tests'
-          message-text: 'Cypress tests failed! Recording and screenshots have been uploaded in this thread - good luck.'
+          name: cypress-screenshots
+          path: ${{ github.workspace }}/cypress/screenshots
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-videos
+          path: ${{ github.workspace }}/cypress/videos
+      
 
   cypress-payment-widget:
     
@@ -141,13 +149,17 @@ jobs:
       - name: Run Cypress Tests cypress/integration/Payment/**.js
         run: |
           yarn test:cypress --spec "cypress/integration/Payment/**.js"
-      - name: 'Upload screenshots and videos to Slack'
-        uses: trymbill/cypress-slack-video-upload-action@v1.3.0
+      - uses: actions/upload-artifact@v3
         if: failure()
         with:
-          token: ${{ secrets.SLACK_TOKEN }}
-          channels: 'cypress-failing-tests'
-          message-text: 'Cypress tests failed! Recording and screenshots have been uploaded in this thread - good luck.'
+          name: cypress-screenshots
+          path: ${{ github.workspace }}/cypress/screenshots
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-videos
+          path: ${{ github.workspace }}/cypress/videos
+      
 
   cypress-connect-widget:
     
@@ -179,13 +191,17 @@ jobs:
       - name: Run Cypress Tests cypress/integration/Connect/**.js
         run: |
           yarn test:cypress --spec "cypress/integration/Connect/**.js"
-      - name: 'Upload screenshots and videos to Slack'
-        uses: trymbill/cypress-slack-video-upload-action@v1.3.0
+      - uses: actions/upload-artifact@v3
         if: failure()
         with:
-          token: ${{ secrets.SLACK_TOKEN }}
-          channels: 'cypress-failing-tests'
-          message-text: 'Cypress tests failed! Recording and screenshots have been uploaded in this thread - good luck.'
+          name: cypress-screenshots
+          path: ${{ github.workspace }}/cypress/screenshots
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-videos
+          path: ${{ github.workspace }}/cypress/videos
+      
 
   cypress-login-widget:
     
@@ -217,13 +233,17 @@ jobs:
       - name: Run Cypress Tests cypress/integration/Login/**.js
         run: |
           yarn test:cypress --spec "cypress/integration/Login/**.js"
-      - name: 'Upload screenshots and videos to Slack'
-        uses: trymbill/cypress-slack-video-upload-action@v1.3.0
+      - uses: actions/upload-artifact@v3
         if: failure()
         with:
-          token: ${{ secrets.SLACK_TOKEN }}
-          channels: 'cypress-failing-tests'
-          message-text: 'Cypress tests failed! Recording and screenshots have been uploaded in this thread - good luck.'
+          name: cypress-screenshots
+          path: ${{ github.workspace }}/cypress/screenshots
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-videos
+          path: ${{ github.workspace }}/cypress/videos
+      
 
   cypress-select-widget:
     
@@ -255,10 +275,14 @@ jobs:
       - name: Run Cypress Tests cypress/integration/Select/**.js
         run: |
           yarn test:cypress --spec "cypress/integration/Select/**.js"
-      - name: 'Upload screenshots and videos to Slack'
-        uses: trymbill/cypress-slack-video-upload-action@v1.3.0
+      - uses: actions/upload-artifact@v3
         if: failure()
         with:
-          token: ${{ secrets.SLACK_TOKEN }}
-          channels: 'cypress-failing-tests'
-          message-text: 'Cypress tests failed! Recording and screenshots have been uploaded in this thread - good luck.'
+          name: cypress-screenshots
+          path: ${{ github.workspace }}/cypress/screenshots
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-videos
+          path: ${{ github.workspace }}/cypress/videos
+      
