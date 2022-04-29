@@ -23,10 +23,15 @@ export default (props)=>{
   const [ salePerTokenValue, setSalePerTokenValue ] = useState()
 
   useEffect(()=>{
-    if(paymentValue && (amountConfiguration == undefined || amountConfiguration.token != true)) {
-      setSalePerTokenValue((new Currency({ amount: (paymentValue.amount / parseFloat(toTokenReadableAmount)).toFixed(2), code: paymentValue.code })).toString())
+    if(paymentValue && (amountConfiguration == undefined || amountConfiguration.token != true) && toTokenReadableAmount) {
+      let UsdAmountPerToken = paymentValue.amount / parseFloat(toTokenReadableAmount)
+      let readableLocalizedAmountPerToken = (new Currency({ amount: UsdAmountPerToken, code: paymentValue.code })).toString()
+      let zero = (new Currency({ amount: 0, code: paymentValue.code })).toString()
+      if(readableLocalizedAmountPerToken != zero){
+        setSalePerTokenValue(readableLocalizedAmountPerToken)
+      }
     }
-  }, [paymentValue])
+  }, [paymentValue, toTokenReadableAmount])
 
   if(
     toToken == undefined ||

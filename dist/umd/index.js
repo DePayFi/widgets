@@ -5103,13 +5103,22 @@
         setSalePerTokenValue = _useState2[1];
 
     React.useEffect(function () {
-      if (paymentValue && (amountConfiguration == undefined || amountConfiguration.token != true)) {
-        setSalePerTokenValue(new localCurrency.Currency({
-          amount: (paymentValue.amount / parseFloat(toTokenReadableAmount)).toFixed(2),
+      if (paymentValue && (amountConfiguration == undefined || amountConfiguration.token != true) && toTokenReadableAmount) {
+        var UsdAmountPerToken = paymentValue.amount / parseFloat(toTokenReadableAmount);
+        var readableLocalizedAmountPerToken = new localCurrency.Currency({
+          amount: UsdAmountPerToken,
           code: paymentValue.code
-        }).toString());
+        }).toString();
+        var zero = new localCurrency.Currency({
+          amount: 0,
+          code: paymentValue.code
+        }).toString();
+
+        if (readableLocalizedAmountPerToken != zero) {
+          setSalePerTokenValue(readableLocalizedAmountPerToken);
+        }
       }
-    }, [paymentValue]);
+    }, [paymentValue, toTokenReadableAmount]);
 
     if (toToken == undefined || toTokenReadableAmount == undefined || payment == undefined || paymentValue == undefined) {
       return /*#__PURE__*/React__default['default'].createElement(SaleOverviewSkeleton, null);
