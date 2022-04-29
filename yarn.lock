@@ -1136,10 +1136,10 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-mock/-/web3-mock-11.7.0.tgz#587b2ab7de4b7728360f351c9d827cf921a30270"
   integrity sha512-MDdkiNXCZtibWTt/W9kylzdE/Ft8OnDX/W5gCzncZrA1hGZbZgX9ySlvQ2avvngWBw89I8WAlY4EUHUWn/UM0g==
 
-"@depay/web3-payments@^10.1.2":
-  version "10.1.2"
-  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-10.1.2.tgz#189f245c6f568fd81a6395551a2f8ae81ca6c204"
-  integrity sha512-HJ7oSvK12w+oL6NSecpi4tc69Kg7Irh81J9tNESfobiz7quR4lBDhAw8jT0FAhrQ9J8kuZp/045JnkLO62k2vA==
+"@depay/web3-payments@^10.1.3":
+  version "10.1.3"
+  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-10.1.3.tgz#251a219c5a70d5d9efe5a926f261e25b15a6dd31"
+  integrity sha512-gWHeW6YFIKZ/no4pNNoCgMQBLKiZfHwXjW5qf7h+a4LXEQnItS76hyNqKLwxy4lXh83oZoA+fJMSD/MprMre5g==
 
 "@depay/web3-tokens@^8.0.1":
   version "8.0.1"
