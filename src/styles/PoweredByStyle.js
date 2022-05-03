@@ -4,7 +4,7 @@ export default (style)=>{
     .PoweredByWrapper {
       display: block;
       left: 0;
-      padding-top: 0.2rem;
+      padding-top: 3px;
       position: fixed;
       right: 0;
       text-align: center;
@@ -20,11 +20,11 @@ export default (style)=>{
       color: white;
       opacity: 0.4;
       display: inline-block;
-      font-size: 0.78rem;
+      font-size: 14px;
       font-style: italic;
       font-weight: bold;
       letter-spacing: -0.2px;
-      margin-left: 0.5rem;
+      margin-left: 8px;
       text-decoration: none;
     }
 

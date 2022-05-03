@@ -9,6 +9,11 @@ export default (style)=>{
       display: block;
     }
 
+    .Text {
+      font-size: 16px;
+      line-height: 24px
+    }
+
     .TextLeft, .TextLeft * {
       text-align: left;
     }
@@ -18,15 +23,15 @@ export default (style)=>{
     }
 
     .LineHeightL {
-      line-height: 2.0rem;
+      line-height: 32px;
     }
 
     .ErrorSnippetText {
       background: rgb(30, 30, 20);
-      border-radius: 1.2rem;
-      border: 0.5rem solid rgb(30, 30, 20);
+      border-radius: 19px;
+      border: 8px solid rgb(30, 30, 20);
       color: #00FF41;
-      font-size: 0.9rem;
+      font-size: 15px;
       font-style: italic;
       max-height: 100px;
       padding: 6px;

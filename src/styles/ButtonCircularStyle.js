@@ -2,7 +2,7 @@ export default ()=>{
   return(`
 
     .ButtonCircular {
-      border-radius: 99rem;
+      border-radius: 9999px;
       cursor: pointer;
       height: 34px;
       opacity: 0.5;

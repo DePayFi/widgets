@@ -61,7 +61,7 @@ export default (props)=> {
             Wallet Login
           </h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
-            <p className="FontSizeM PaddingLeftM PaddingRightM">
+            <p className="FontSizeM PaddingLeftM PaddingRightM PaddingBottomS">
               Please click "Log in" and sign the message with your connected wallet.
             </p>
           </div>

@@ -105,7 +105,7 @@ export default (props)=>{
               />
               
               <div style={{ height: '40px' }}>
-                <div>
+                <div className='FontSizeS'>
                   { format(toValidStep(maxAmount)) }
                   <button 
                     className="TextButton"

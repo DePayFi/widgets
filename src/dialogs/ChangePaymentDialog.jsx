@@ -74,7 +74,7 @@ export default (props)=>{
                     </span>
                   </div>
                 </h2>
-                <h3 className="CardText">
+                <h3 className="CardText small">
                   <small>{ format(round(parseFloat(payment.route.fromBalance.toString())/10**payment.decimals, 'down')) }</small>
                 </h3>
               </div>
