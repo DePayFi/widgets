@@ -163,7 +163,7 @@ export default (props)=> {
               <div className="CardImage small">
                 <img className="transparent" src={ blockchain.logo }/>
               </div>
-              <div className="CardBody">
+              <div className="CardBody FontSizeS">
                 { blockchain.label }
               </div>
               <div className="CardAction">
@@ -193,7 +193,7 @@ export default (props)=> {
       footer={
         <div className="PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS">
           <div className="PaddingTopXS PaddingBottomXS">
-            <div className="Link" onClick={ onClickAddToken }>
+            <div className="Link FontSizeS" onClick={ onClickAddToken }>
               Token missing? Add it.
             </div>
           </div>

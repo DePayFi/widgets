@@ -91,7 +91,7 @@ export default (props)=>{
                   </div>
                 </h2>
                 { salePerTokenValue &&
-                  <h3 className="CardText">
+                  <h3 className="CardText small">
                     <small>{ salePerTokenValue } per token</small>
                   </h3>
                 }

@@ -4,14 +4,14 @@ export default (style)=>{
     .Card {
       align-items: center;
       background: rgb(255,255,255);
-      border-radius: 0.8rem;
+      border-radius: 13px;
       box-shadow: 0 0 8px rgba(0,0,0,0.03);
       cursor: pointer;
       display: flex;
       flex-direction: row;
-      margin-bottom: 0.5rem;
-      min-height: 4.78rem;
-      padding: 1rem 0.6rem;
+      margin-bottom: 8px;
+      min-height: 76px;
+      padding: 16px 10px;
       width: 100%;
     }
 
@@ -19,13 +19,14 @@ export default (style)=>{
       border-radius: 0;
       margin-bottom: 0;
       box-shadow: none;
-      min-height: 4.3rem;
-      padding: 0.4rem 1.3rem;
+      min-height: 69px;
+      padding: 7px 21px;
       border-top: 1px solid rgba(0,0,0,0.05);
     }
 
     .Card.Row .CardText {
-      font-size: 1.2rem;
+      font-size: 19px;
+      line-height: 40px;
     }
 
     .CardTokenSymbol {
@@ -47,16 +48,16 @@ export default (style)=>{
     }
     
     .Card.Row .CardTokenName .CardText {
-      font-size: 1rem;
+      font-size: 17px;
     }
 
     .Card.Row .CardImage {
-      width: 2.5rem;
+      width: 40px;
     }
 
     .Card.Row .CardImage img {
-      height: 1.9rem;
-      width: 1.9rem;
+      height: 30px;
+      width: 30px;
     }
 
     a.Card, a.Card * {
@@ -71,17 +72,17 @@ export default (style)=>{
 
     .Card.small {
       min-height: auto;
-      padding: 0.5rem 0.5rem;
+      padding: 8px 8px;
       margin: 0;
     }
 
     .CardImage.small {
-      width: 1.7rem;
+      width: 27px;
     }
 
     .CardImage.small img {
-      height: 1.4rem;
-      width: 1.4rem;
+      height: 27px;
+      width: 27px;
     }
 
     .Card.disabled {
@@ -107,7 +108,7 @@ export default (style)=>{
       align-items: center;
       display: flex;
       min-width: 0;
-      padding: 0 0.4rem;
+      padding: 0 7px;
     }
 
     .CardImage {
@@ -116,15 +117,15 @@ export default (style)=>{
       flex-shrink: 0;
       justify-content: center;
       position: relative;
-      width: 3.6rem;
+      width: 58px;
     }
 
     .CardBody {
       flex-basis: auto;
       flex-grow: 1;
       flex-shrink: 1;
-      line-height: 1.4rem;
-      padding-left: 0.6rem;
+      line-height: 27px;
+      padding-left: 10px;
       text-align: left;
     }
 
@@ -157,13 +158,13 @@ export default (style)=>{
 
     .CardImage img {
       background: white;
-      border-radius: 99rem;
+      border-radius: 9999px;
       border: 1px solid white;
       box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
-      height: 2.8rem;
+      height: 45px;
       position: relative;
       vertical-align: middle;
-      width: 2.8rem;
+      width: 45px;
     }
 
     .CardImage.square img {
@@ -183,23 +184,26 @@ export default (style)=>{
     }
 
     .CardTitle {
-      font-size: 0.9rem;
+      font-size: 15px;
       color: rgb(150,150,150);
+      line-height: 20px;
     }
     
     .CardText, a .CardText {
       color: ${style.colors.text};
       flex: 1;
-      font-size: 1.3rem;
+      font-size: 21px;
+      line-height: 26px;
     }
 
     .CardText strong {
       font-weight: 500;
     }
 
-    .CardText small {
-      font-size: 1.1rem;
+    .CardText.small, .CardText.small small {
+      font-size: 18px;
       color: rgb(150,150,150);
+      line-height: 20px;
     }
 
     .CardAction {

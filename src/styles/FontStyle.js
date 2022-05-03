@@ -6,19 +6,19 @@ export default (style)=>{
     }
 
     .FontSizeS {
-      font-size: 1rem;
+      font-size: 16px;
     }
 
     .FontSizeM {
-      font-size: 1.2rem;
+      font-size: 19px;
     }
 
     .FontSizeL {
-      font-size: 1.4rem;
+      font-size: 23px;
     }
 
     .FontSizeXL {
-      font-size: 2.0rem;
+      font-size: 32px;
     }
 
     .FontWeightBold {

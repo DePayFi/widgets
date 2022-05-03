@@ -3,15 +3,14 @@ export default (style)=>{
 
     .Table {
       border-collapse: separate;
-      border-radius: 0.4rem;
+      border-radius: 7px;
       border-style: hidden;
       border: 1px solid rgba(0,0,0,0.1);
-      font-size: 94%;
       width: 100%;
     }
 
     .Table tr.small td {
-      font-size: 90%;
+      font-size: 14px;
     }
 
     .Table tr td {
@@ -24,7 +23,7 @@ export default (style)=>{
     }
     
     .Table tr td {
-      padding: 0.5rem 0.9rem;
+      padding: 8px 15px;
       text-align: left;
     }
     

@@ -68,12 +68,12 @@ export default (props)=> {
             { !logo && <TokenImage blockchain={ token.blockchain } address={ address }/> }
           </div>
           <div className="PaddingTopS TextCenter">
-            <div className="Alert">
+            <div className="Alert FontSizeS">
               <strong>Please review this information</strong>
             </div>
           </div>
           <div className="PaddingTopXS">
-            <table className="Table TextLeft">
+            <table className="Table TextLeft FontSizeS">
               <tbody>
                 <tr className="small TextCenter">
                   <td colSpan="2">

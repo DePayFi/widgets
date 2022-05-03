@@ -2,67 +2,67 @@ export default ()=>{
   return(`
 
     .PaddingTopXS {
-      padding-top: 0.2rem;
+      padding-top: 3px;
     }
 
     .PaddingRightXS {
-      padding-right: 0.2rem;
+      padding-right: 3px;
     }
 
     .PaddingBottomXS {
-      padding-bottom: 0.2rem;
+      padding-bottom: 3px;
     }
 
     .PaddingLeftXS {
-      padding-left: 0.2rem; 
+      padding-left: 3px; 
     }
 
     .PaddingTopS {
-      padding-top: 0.8rem;
+      padding-top: 13px;
     }
 
     .PaddingRightS {
-      padding-right: 0.8rem;
+      padding-right: 13px;
     }
 
     .PaddingBottomS {
-      padding-bottom: 0.8rem;
+      padding-bottom: 13px;
     }
 
     .PaddingLeftS {
-      padding-left: 0.8rem; 
+      padding-left: 13px; 
     }
 
     .PaddingTopM {
-      padding-top: 1.2rem;
+      padding-top: 19px;
     }
 
     .PaddingRightM {
-      padding-right: 1.2rem;
+      padding-right: 19px;
     }
 
     .PaddingBottomM {
-      padding-bottom: 1.2rem;
+      padding-bottom: 19px;
     }
 
     .PaddingLeftM {
-      padding-left: 1.2rem; 
+      padding-left: 19px; 
     }
 
     .PaddingTopL {
-      padding-top: 1.8rem;
+      padding-top: 29px;
     }
 
     .PaddingRightL {
-      padding-right: 1.8rem;
+      padding-right: 29px;
     }
 
     .PaddingBottomL {
-      padding-bottom: 1.8rem;
+      padding-bottom: 29px;
     }
 
     .PaddingLeftL {
-      padding-left: 1.28em; 
+      padding-left: 29px; 
     }
   `)
 }

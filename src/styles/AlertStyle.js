@@ -3,9 +3,9 @@ export default (style)=>{
 
     .Alert {
       background: rgba(0,0,0,0.08);
-      border-radius: 0.4rem;
+      border-radius: 7px;
       font-weight: 500;
-      padding: 0.5rem;
+      padding: 8px;
     }
   `)
 }

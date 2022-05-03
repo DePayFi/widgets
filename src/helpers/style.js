@@ -10,7 +10,6 @@ import HeightStyle from '../styles/HeightStyle'
 import IconStyle from '../styles/IconStyle'
 import ImageStyle from '../styles/ImageStyle'
 import InputStyle from '../styles/InputStyle'
-import LabelStyle from '../styles/LabelStyle'
 import LinkStyle from '../styles/LinkStyle'
 import LoadingTextStyle from '../styles/LoadingTextStyle'
 import OpacityStyle from '../styles/OpacityStyle'
@@ -42,7 +41,6 @@ export default (style)=>{
   return(
     [
       ResetStyle(style),
-      FontStyle(style),
       DialogStyle(style),
       ButtonCircularStyle(style),
       ButtonPrimaryStyle(style),
@@ -52,11 +50,11 @@ export default (style)=>{
       SkeletonStyle(style),
       TokenAmountStyle(style),
       TextStyle(style),
+      FontStyle(style),
       IconStyle(style),
       OpacityStyle(style),
       PaddingStyle(style),
       HeightStyle(style),
-      LabelStyle(style),
       LoadingTextStyle(style),
       RangeSliderStyle(style),
       InputStyle(style),

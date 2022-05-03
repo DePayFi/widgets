@@ -3,9 +3,9 @@ export default (style)=>{
 
     .Tooltip {
       background: ${style.colors.primary};
-      border-radius: 0.6rem;
+      border-radius: 10px;
       color: ${style.colors.buttonText};
-      padding: 0.6rem 0.8rem;
+      padding: 10px 13px;
       position: relative;
       box-shadow: 0 0 8px rgba(0,0,0,0.2);
     }

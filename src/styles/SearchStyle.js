@@ -2,12 +2,12 @@ export default (style)=>{
   return(`
 
     .Search {
-      border-radius: 0.8rem;
+      border-radius: 13px;
       border: 1px solid rgba(0,0,0,0.2);
       outline: none !important;
       color: ${style.colors.text};
-      font-size: 1.2rem;
-      padding: 0.8rem;
+      font-size: 19px;
+      padding: 13px;
       width: 100%;
     }
 

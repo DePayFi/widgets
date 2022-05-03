@@ -27,7 +27,7 @@ export default (style)=>{
       position: relative;
       width: 420px;
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
-      border-radius: 0.8rem;
+      border-radius: 13px;
       background: rgb(248,248,248);
     }
 
@@ -56,8 +56,8 @@ export default (style)=>{
 
       .Dialog {
         align-content: stretch;
-        border-radius: 0.8rem;
-        border-top-radius: 0.8rem;
+        border-radius: 13px;
+        border-top-radius: 13px;
         display: flex;
         flex-direction: column;
       }
@@ -93,7 +93,6 @@ export default (style)=>{
     }
 
     .DialogBody {
-      background: rgb(248,248,248);
       overflow-x: hidden;
       overflow-y: auto;
     }
@@ -104,10 +103,9 @@ export default (style)=>{
     }
 
     .DialogHeader {
-      background: rgb(248,248,248);
-      border-top-left-radius: 0.8rem;
-      border-top-right-radius: 0.8rem;
-      min-height: 3.4rem;
+      border-top-left-radius: 13px;
+      border-top-right-radius: 13px;
+      min-height: 54px;
       position: relative;
       width: 100%;
     }
@@ -116,22 +114,21 @@ export default (style)=>{
       position: absolute;
       top: 0;
       right: 0;
-      height: 3rem;
+      height: 48px;
     }
 
     .DialogHeaderActionLeft {
       position: absolute;
       top: 0;
       left: 0;
-      height: 3rem;
+      height: 48px;
     }
 
     .DialogFooter {
-      background: rgb(248,248,248);
-      border-bottom-left-radius: 0.8rem;
-      border-bottom-right-radius: 0.8rem;
-      line-height: 1.5rem;
-      min-height: 2rem;
+      border-bottom-left-radius: 13px;
+      border-bottom-right-radius: 13px;
+      line-height: 24px;
+      min-height: 32px;
       position: relative;
       text-align: center;
     }
