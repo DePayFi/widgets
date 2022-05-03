@@ -196,12 +196,12 @@ describe('Payment Widget: configure amount', () => {
         provider: provider(blockchain),
         blockchain,
         exchange,
-        amountInBN: '25294117647058826000',
+        amountInBN: '2000000000000000000',
         path: [DAI, WETH, DEPAY],
         amountsOut: [
-          '25294117647058826000',
-          WRAPPED_AmountInBN.mul(10),
-          TOKEN_A_AmountBN.mul(10)
+          '2000000000000000000',
+          WRAPPED_AmountInBN,
+          TOKEN_A_AmountBN
         ]
       })
       mock({
@@ -227,17 +227,65 @@ describe('Payment Widget: configure amount', () => {
           ethers.utils.parseUnits('11.6', 18)
         ]
       })
+      mockAmountsOut({
+        provider: provider(blockchain),
+        blockchain,
+        exchange,
+        amountInBN: '25200000000000000000',
+        path: [DAI, WETH, DEPAY],
+        amountsOut: [
+          '25200000000000000000',
+          WRAPPED_AmountInBN.mul(14),
+          TOKEN_A_AmountBN.mul(14)
+        ]
+      })
+      mockAmountsOut({
+        provider: provider(blockchain),
+        blockchain,
+        exchange,
+        amountInBN: '25200000000000000000',
+        path: [DEPAY, WETH, DAI],
+        amountsOut: [
+          '25200000000000000000',
+          WRAPPED_AmountInBN.mul(14),
+          TOKEN_A_AmountBN.mul(14)
+        ]
+      })
+      mock({
+        provider: provider(blockchain),
+        blockchain,
+        call: {
+          to: exchange.contracts.router.address,
+          api: exchange.contracts.router.api,
+          method: 'getAmountsIn',
+          params: [ethers.utils.parseUnits('25.2', 18), [DAI, WETH, DEPAY]],
+          return: [ethers.utils.parseUnits('25.2', 18), ethers.utils.parseUnits('0.07', 18), ethers.utils.parseUnits('16.24', 18)]
+        }
+      })
+      mockAmountsOut({
+        provider: provider(blockchain),
+        blockchain,
+        exchange,
+        amountInBN: '25882352941176470000',
+        path: [DAI, WETH, DEPAY],
+        amountsOut: [
+          '25882352941176470000',
+          WRAPPED_AmountInBN.mul(14),
+          TOKEN_A_AmountBN.mul(14)
+        ]
+      })
 
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
+
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.rangeslider').click({ force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
 
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardTitle', 'Amount').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountRow', '€21.50').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €21.50').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountRow', '€22.00').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €22.00').should('exist')
         })
       })
     })
