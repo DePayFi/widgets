@@ -4317,7 +4317,7 @@ var preflight$2 = /*#__PURE__*/function () {
                 throw 'You need to set the blockchain you want to receive the donation on!';
               }
 
-              if (!['ethereum', 'bsc'].includes(configuration.blockchain)) {
+              if (!['ethereum', 'bsc', 'polygon'].includes(configuration.blockchain)) {
                 throw 'You need to set a supported blockchain!';
               }
 
@@ -4821,7 +4821,7 @@ var preflight$1 = /*#__PURE__*/function () {
                 throw 'You need to set the blockchain your want to receive the payment on!';
               }
 
-              if (!['ethereum', 'bsc'].includes(configuration.blockchain)) {
+              if (!['ethereum', 'bsc', 'polygon'].includes(configuration.blockchain)) {
                 throw 'You need to set a supported blockchain!';
               }
 
