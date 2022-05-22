@@ -9,6 +9,7 @@ import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
 import SaleOverviewSkeleton from '../skeletons/SaleOverviewSkeleton'
 import ToTokenContext from '../contexts/ToTokenContext'
+import { Blockchain } from '@depay/web3-blockchains'
 import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { TokenImage } from '@depay/react-token-image'
@@ -54,6 +55,8 @@ export default (props)=>{
     )
   }
 
+  const blockchain = Blockchain.findByName(payment.blockchain)
+
   return(
     <Dialog
       header={
@@ -73,6 +76,7 @@ export default (props)=>{
           >
             <div className="CardImage" title={ payment.name }>
               { tokenImageElement }
+              <img className="BlockchainLogo small" src={ blockchain.logo } alt={ blockchain.label } title={ blockchain.label }/>
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">
