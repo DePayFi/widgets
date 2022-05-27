@@ -2,6 +2,7 @@ import nodePolyfills from 'rollup-plugin-polyfill-node'
 import pkg from './package.json'
 import replace from '@rollup/plugin-replace'
 import rollup from './rollup.module.config.js'
+import { terser } from "rollup-plugin-terser";
 
 export default Object.assign({}, rollup, {
   external: [], // no externals, bundle everything!
@@ -17,6 +18,7 @@ export default Object.assign({}, rollup, {
     }
   ],
   plugins: [...rollup.plugins,
-    nodePolyfills()
+    nodePolyfills(),
+    terser()
   ]
 })
