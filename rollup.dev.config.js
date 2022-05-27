@@ -20,7 +20,7 @@ export default Object.assign({}, rollup, {
       openPage: 'http://127.0.0.1:8080/dev.html'
     }),
     dev({
-      proxy: [{ from: '/track', to:'http://example.com' }],
+      proxy: [{ from: '/track', to:'https://reqbin.com/sample/post/json' }],
     }),
     livereload({
       watch: ['dist', 'src']
