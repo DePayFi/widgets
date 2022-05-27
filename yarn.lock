@@ -1093,10 +1093,10 @@
   resolved "https://registry.yarnpkg.com/@depay/react-shadow-dom/-/react-shadow-dom-4.2.0.tgz#83e2f956e83410eb738820a19b6eac9382e74138"
   integrity sha512-rUlA/TpzUYw3RgIDZIDZFX65vtjbuAoM3xan5u6LER+8O8/lMY7Ixjc2wIQ8ifLe6PEddR47GxHmiStP0ncVgA==
 
-"@depay/react-token-image@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@depay/react-token-image/-/react-token-image-3.0.0.tgz#e965478a87c10caef41a6a895032a8da9ad83818"
-  integrity sha512-AUeAJEnRDDoHRaOZp+iPGjoqNugDY0iZRO2WSaICg6ac90ceN9VshxIT8R8C+AASp8b6xLVQPYI/EYGLtHFPVw==
+"@depay/react-token-image@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@depay/react-token-image/-/react-token-image-4.0.0.tgz#c44af132b9e2ed4e3a4d30be8f6c9ef094978153"
+  integrity sha512-bhLP5NFRpkqn8UTwXgHl/A9OCt/eNFGzSlTj6JPcWkdIUvrUwDVY38GUzUl3/bmtjo5mzHIcvH+FBxqJsigPOw==
 
 "@depay/walletconnect-v1@^1.1.0":
   version "1.1.0"
@@ -1111,10 +1111,10 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-assets/-/web3-assets-6.3.0.tgz#762ea331a47a6a4b911a18b2c42d48227ef828ce"
   integrity sha512-AaF1GKTjzu0uCElaKn8xCiLXlI/prVPSUJ+e/Yp1d6RleJmx1pBpWd5lSHrhFbXrAehRhhoCP17louplgJ+7xg==
 
-"@depay/web3-blockchains@^4.5.0":
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/@depay/web3-blockchains/-/web3-blockchains-4.5.0.tgz#b959b3cb57300a4d163b26ea42aee792ad89d3ce"
-  integrity sha512-UhHb+uRjEnQRNC65Jdnq9dP9ANg/gzO8IE5eXx3uG6rr1rTAmq0jRmB447JtPDgestZ/BDOryhHSWUlGT6ak7Q==
+"@depay/web3-blockchains@^4.5.1":
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/@depay/web3-blockchains/-/web3-blockchains-4.5.1.tgz#72a7259c2f0f31b02fb72a7a8373ad654d8b2936"
+  integrity sha512-or5+vaOsTZeOUrOf7mTXpGXAGgIizoO1NqDjU6EqTTMv2PTli0HPriIiuFcFwsouK7V1XxdYNMIKnl+W7k2Aaw==
 
 "@depay/web3-client@^8.2.1":
   version "8.2.1"

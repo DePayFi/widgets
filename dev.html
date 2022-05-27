@@ -111,6 +111,49 @@
           </div>
         </div>
 
+         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Payment: multichain</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Accept payments on multiple blockchains.</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="payMultichain">Try it</button>
+                <script>
+                  var button = document.getElementById("payMultichain");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      accept: [
+                        {
+                          blockchain: 'polygon',
+                          amount: 1,
+                          token: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },
+                        {
+                          blockchain: 'bsc',
+                          amount: 1,
+                          token: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },
+                        {
+                          blockchain: 'ethereum',
+                          amount: 1,
+                          token: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },
+                      ]
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
        
         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
           <div class="px-0 py-4 rounded-lg bg-white border">

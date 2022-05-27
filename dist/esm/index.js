@@ -3611,6 +3611,7 @@ var DonationOverviewDialog = (function (props) {
     return /*#__PURE__*/React.createElement(DonationOverviewSkeleton, null);
   }
 
+  var blockchain = Blockchain.findByName(payment.blockchain);
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
@@ -3660,6 +3661,11 @@ var DonationOverviewDialog = (function (props) {
     }, /*#__PURE__*/React.createElement(TokenImage, {
       blockchain: payment.route.blockchain,
       address: payment.token
+    }), /*#__PURE__*/React.createElement("img", {
+      className: "BlockchainLogo small",
+      src: blockchain.logo,
+      alt: blockchain.label,
+      title: blockchain.label
     })), /*#__PURE__*/React.createElement("div", {
       className: "CardBody"
     }, /*#__PURE__*/React.createElement("div", {
@@ -4702,6 +4708,7 @@ var PaymentOverviewDialog = (function (props) {
     return /*#__PURE__*/React.createElement(PaymentOverviewSkeleton, null);
   }
 
+  var blockchain = Blockchain.findByName(payment.blockchain);
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
@@ -4751,6 +4758,11 @@ var PaymentOverviewDialog = (function (props) {
     }, /*#__PURE__*/React.createElement(TokenImage, {
       blockchain: payment.blockchain,
       address: payment.token
+    }), /*#__PURE__*/React.createElement("img", {
+      className: "BlockchainLogo small",
+      src: blockchain.logo,
+      alt: blockchain.label,
+      title: blockchain.label
     })), /*#__PURE__*/React.createElement("div", {
       className: "CardBody"
     }, /*#__PURE__*/React.createElement("div", {
@@ -5140,6 +5152,7 @@ var SaleOverviewDialog = (function (props) {
     });
   }
 
+  var blockchain = Blockchain.findByName(payment.blockchain);
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
@@ -5161,7 +5174,12 @@ var SaleOverviewDialog = (function (props) {
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardImage",
       title: payment.name
-    }, tokenImageElement), /*#__PURE__*/React.createElement("div", {
+    }, tokenImageElement, /*#__PURE__*/React.createElement("img", {
+      className: "BlockchainLogo small",
+      src: blockchain.logo,
+      alt: blockchain.label,
+      title: blockchain.label
+    })), /*#__PURE__*/React.createElement("div", {
       className: "CardBody"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardBodyWrapper"
@@ -5531,7 +5549,7 @@ var SelectBlockchainDialog = (function (props) {
       navigate = _useContext2.navigate;
 
   var stacked = Object.keys(props.selection).length > 1;
-  var blockchains = [Blockchain.findByName('ethereum'), Blockchain.findByName('bsc')];
+  var blockchains = [Blockchain.findByName('ethereum'), Blockchain.findByName('bsc'), Blockchain.findByName('polygon')];
 
   var selectBlockchain = function selectBlockchain(blockchain) {
     setSelection(Object.assign(props.selection, {
