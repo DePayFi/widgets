@@ -10,13 +10,17 @@ export default (props)=>{
   const { navigate } = useContext(NavigateStackContext)
   const wallet = getWallet()
   
-  useEffect(async ()=>{
-    if(wallet) {
-      let accounts = await wallet.accounts()
-      if(accounts == undefined || accounts.length == 0) {
-        navigate('ConnectingWallet')
+  useEffect(()=>{
+    (
+      async ()=>{
+        if(wallet) {
+          let accounts = await wallet.accounts()
+          if(accounts == undefined || accounts.length == 0) {
+            navigate('ConnectingWallet')
+          }
+        }
       }
-    }
+    )()
   }, [wallet])
 
   const connect = (walletClass)=>{

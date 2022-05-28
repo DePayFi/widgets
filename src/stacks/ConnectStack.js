@@ -39,15 +39,19 @@ export default (props)=>{
     if(wallet) { setWallet(wallet) }
   }, [])
 
-  useEffect(async ()=>{
-    if(wallet) {
-      let accounts = await wallet.accounts()
-      if(accounts instanceof Array && accounts.length > 0) {
-        if(props.resolve) props.resolve({ wallet, account: accounts[0], accounts })
-      } else {
-        connect(wallet)
+  useEffect(()=>{
+    (
+      async ()=>{
+        if(wallet) {
+          let accounts = await wallet.accounts()
+          if(accounts instanceof Array && accounts.length > 0) {
+            if(props.resolve) props.resolve({ wallet, account: accounts[0], accounts })
+          } else {
+            connect(wallet)
+          }
+        }
       }
-    }
+    )()
   }, [wallet])
 
   return(
