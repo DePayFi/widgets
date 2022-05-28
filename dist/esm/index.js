@@ -1464,7 +1464,7 @@ function ReactDialogStyle (styles) {
   `
 }
 
-const _jsxFileName = "/home/runner/work/react-dialog/react-dialog/src/components/Dialog.jsx";
+const _jsxFileName$1 = "/home/runner/work/react-dialog/react-dialog/src/components/Dialog.jsx";
 class Dialog extends React.Component {
   constructor(props) {
     super(props);
@@ -1515,10 +1515,10 @@ class Dialog extends React.Component {
     const classNames = ['ReactDialog', this.state.open ? 'ReactDialogOpen' : ''];
     const style = ReactDialogStyle({ background: this.props.background });
     return (
-      React.createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName, lineNumber: 56}}
-        , React.createElement('style', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 57}}, style)
-        , React.createElement('div', { className: "ReactDialogInner", __self: this, __source: {fileName: _jsxFileName, lineNumber: 58}}
-          , React.createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName, lineNumber: 59}} )
+      React.createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 55}}
+        , React.createElement('style', {__self: this, __source: {fileName: _jsxFileName$1, lineNumber: 56}}, style)
+        , React.createElement('div', { className: "ReactDialogInner", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 57}}
+          , React.createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 58}} )
           , this.props.children
         )
       )
@@ -1526,7 +1526,7 @@ class Dialog extends React.Component {
   }
 }
 
-const _jsxFileName$1 = "/home/runner/work/react-dialog/react-dialog/src/index.jsx";
+const _jsxFileName = "/home/runner/work/react-dialog/react-dialog/src/index.jsx";
 class ReactDialog extends React.Component {
   constructor(props) {
     super(props);
@@ -1555,7 +1555,7 @@ class ReactDialog extends React.Component {
           background: this.props.background,
           close: this.props.close,
           document: _document,
-          open: this.props.open, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 29}}
+          open: this.props.open, __self: this, __source: {fileName: _jsxFileName, lineNumber: 29}}
         
           , this.props.children
         ),
@@ -2104,7 +2104,7 @@ var ChangableAmountProvider = (function (props) {
       } else {
         Promise.all(props.accept.map(function (configuration) {
           if (CONSTANTS[configuration.blockchain].USD.toLowerCase() == configuration.token.toLowerCase()) {
-            return 1.00 / conversionRate;
+            return 1.00 / conversionRate * amount;
           }
 
           return route({

@@ -41,7 +41,7 @@ export default (props)=>{
       } else {
         Promise.all(props.accept.map((configuration)=>{
           if(CONSTANTS[configuration.blockchain].USD.toLowerCase() == configuration.token.toLowerCase()) {
-            return 1.00/conversionRate
+            return 1.00/conversionRate * amount
           }
           return route({
             blockchain: configuration.blockchain,
