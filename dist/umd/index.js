@@ -1459,7 +1459,7 @@
   `
   }
 
-  const _jsxFileName$1 = "/home/runner/work/react-dialog/react-dialog/src/components/Dialog.jsx";
+  const _jsxFileName = "/home/runner/work/react-dialog/react-dialog/src/components/Dialog.jsx";
   class Dialog extends React__default['default'].Component {
     constructor(props) {
       super(props);
@@ -1510,10 +1510,10 @@
       const classNames = ['ReactDialog', this.state.open ? 'ReactDialogOpen' : ''];
       const style = ReactDialogStyle({ background: this.props.background });
       return (
-        React__default['default'].createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 55}}
-          , React__default['default'].createElement('style', {__self: this, __source: {fileName: _jsxFileName$1, lineNumber: 56}}, style)
-          , React__default['default'].createElement('div', { className: "ReactDialogInner", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 57}}
-            , React__default['default'].createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 58}} )
+        React__default['default'].createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName, lineNumber: 56}}
+          , React__default['default'].createElement('style', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 57}}, style)
+          , React__default['default'].createElement('div', { className: "ReactDialogInner", __self: this, __source: {fileName: _jsxFileName, lineNumber: 58}}
+            , React__default['default'].createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName, lineNumber: 59}} )
             , this.props.children
           )
         )
@@ -1521,7 +1521,7 @@
     }
   }
 
-  const _jsxFileName = "/home/runner/work/react-dialog/react-dialog/src/index.jsx";
+  const _jsxFileName$1 = "/home/runner/work/react-dialog/react-dialog/src/index.jsx";
   class ReactDialog extends React__default['default'].Component {
     constructor(props) {
       super(props);
@@ -1550,7 +1550,7 @@
             background: this.props.background,
             close: this.props.close,
             document: _document,
-            open: this.props.open, __self: this, __source: {fileName: _jsxFileName, lineNumber: 29}}
+            open: this.props.open, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 29}}
           
             , this.props.children
           ),

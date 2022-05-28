@@ -1136,10 +1136,10 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-mock/-/web3-mock-11.8.1.tgz#86dc23dc5d16f1eb56f8e7f5d27f1706d96529b4"
   integrity sha512-PO2qCObc1Ityk5nxKGLX23htSF7KSLq1VfXNI8CYwC9KRIgLrp6hyRLZ+2evtbiTHpfC7JAOu8RQImVK7yrseA==
 
-"@depay/web3-payments@^10.3.0":
-  version "10.3.0"
-  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-10.3.0.tgz#2dc23d7d5518b77f1a280fdaea9e7932caf1825f"
-  integrity sha512-eDICop+ZpqrCRwq5RTnaBBhlrvkZgnQjuUQ9SQYAmc1/43owOM6QfTMYq1FX3KKtu2WAbrwk/c1UOsGrMiJKvg==
+"@depay/web3-payments@^10.3.1":
+  version "10.3.1"
+  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-10.3.1.tgz#5a2b37cfa1d20bb3ea078842908770b52b59ba9a"
+  integrity sha512-1iYDPYPqKuG7w59ZjgIFvz6m+HM+yioIvTupQxnFS+YpailkZ+PiuFLKgrgZg/VZHSou2HleJt4NjN5RetOC2g==
 
 "@depay/web3-tokens@^8.1.0":
   version "8.1.0"
@@ -6409,7 +6409,7 @@ react-rangeslider@^2.2.0:
     classnames "^2.2.3"
     resize-observer-polyfill "^1.4.2"
 
-react@^17.0.1:
+react@^17:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
   integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
