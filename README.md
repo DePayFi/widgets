@@ -28,24 +28,33 @@ Use the DePay Configurator here: https://app.depay.fi/ (Integrations -> New Inte
 
 ## Support
 
-This library supports the following blockchains:
+### Blockchains
 
 - [Ethereum](https://ethereum.org)
-- [Binance Smart Chain](https://www.binance.org/en/smartChain)
+- [BNB Smart Chain](https://www.binance.org/smartChain)
+- [Polygon](https://polygon.technology)
 
-This library supports the following wallets:
+### Wallets
+
+DePay supports the most popular crypto wallets:
 
 - [MetaMask](https://metamask.io)
 - [Coinbase Wallet](https://wallet.coinbase.com)
-- [WalletConnect](https://walletconnect.org)
 
-via WalletConnect:
-
+100+ different wallets via [WalletConnect](https://walletconnect.org), such as:
 - [Trust Wallet](https://trustwallet.com)
+- [DeFi Wallet by crypto.com](https://crypto.com/defi-wallet)
+- [1inch Wallet](https://1inch.io/wallet/)
 - [imToken Wallet](https://www.token.im)
+- [TokenPocket](https://www.tokenpocket.pro/en)
+- [Pillar](https://www.pillar.fi/)
+- [Math Wallet](https://mathwallet.org/)
+- [Ledger Live](https://www.ledger.com/ledger-live)
 - [Argent Wallet](https://www.argent.xyz)
+- [AlphaWallet](https://alphawallet.com/)
 - [Unstoppable Wallet](https://unstoppable.money)
 - [Atomic Wallet](https://atomicwallet.io)
+- [Rainbow](https://rainbow.me/)
 - and more...
 
 ## DePay Payments
