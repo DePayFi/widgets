@@ -54,22 +54,25 @@ export default (props)=>{
     let currentBlock = await request({ blockchain: payment.route.transaction.blockchain, method: 'latestBlockNumber' })
     wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
       sent: (transaction)=>{
-        setTransaction(transaction)
-        initializePaymentTracking(transaction, currentBlock, payment.route)
         initializeTransactionTracking(transaction, currentBlock)
         if(sent) { sent(transaction) }
       },
       confirmed: paymentConfirmed,
       failed: paymentFailed
-    })).catch((error)=>{
-      console.log('error', error)
-      setPaymentState('initialized')
-      setClosable(true)
-      setUpdatable(true)
-      if(error?.code == 'WRONG_NETWORK') {
-        navigate('WrongNetwork')
-      }
-    })
+    }))
+      .then((sentTransaction)=>{
+        initializePaymentTracking(sentTransaction, currentBlock, payment.route)
+        setTransaction(sentTransaction)
+      })
+      .catch((error)=>{
+        console.log('error', error)
+        setPaymentState('initialized')
+        setClosable(true)
+        setUpdatable(true)
+        if(error?.code == 'WRONG_NETWORK') {
+          navigate('WrongNetwork')
+        }
+      })
   }
 
   const approve = ()=> {
