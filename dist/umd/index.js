@@ -2419,6 +2419,8 @@
                 currentBlock = _context.sent;
                 wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
                   sent: function sent(transaction) {
+                    setTransaction(transaction);
+                    initializePaymentTracking(transaction, currentBlock, payment.route);
                     initializeTransactionTracking(transaction, currentBlock);
 
                     if (_sent) {
@@ -2427,10 +2429,7 @@
                   },
                   confirmed: paymentConfirmed,
                   failed: paymentFailed
-                })).then(function (sentTransaction) {
-                  initializePaymentTracking(sentTransaction, currentBlock, payment.route);
-                  setTransaction(sentTransaction);
-                })["catch"](function (error) {
+                }))["catch"](function (error) {
                   console.log('error', error);
                   setPaymentState('initialized');
                   setClosable(true);
