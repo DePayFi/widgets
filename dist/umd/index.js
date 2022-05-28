@@ -3606,6 +3606,7 @@
       return /*#__PURE__*/React__default['default'].createElement(DonationOverviewSkeleton, null);
     }
 
+    var blockchain = web3Blockchains.Blockchain.findByName(payment.blockchain);
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
@@ -3655,6 +3656,11 @@
       }, /*#__PURE__*/React__default['default'].createElement(reactTokenImage.TokenImage, {
         blockchain: payment.route.blockchain,
         address: payment.token
+      }), /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "BlockchainLogo small",
+        src: blockchain.logo,
+        alt: blockchain.label,
+        title: blockchain.label
       })), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardBody"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -4312,7 +4318,7 @@
                   throw 'You need to set the blockchain you want to receive the donation on!';
                 }
 
-                if (!['ethereum', 'bsc'].includes(configuration.blockchain)) {
+                if (!['ethereum', 'bsc', 'polygon'].includes(configuration.blockchain)) {
                   throw 'You need to set a supported blockchain!';
                 }
 
@@ -4697,6 +4703,7 @@
       return /*#__PURE__*/React__default['default'].createElement(PaymentOverviewSkeleton, null);
     }
 
+    var blockchain = web3Blockchains.Blockchain.findByName(payment.blockchain);
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
@@ -4746,6 +4753,11 @@
       }, /*#__PURE__*/React__default['default'].createElement(reactTokenImage.TokenImage, {
         blockchain: payment.blockchain,
         address: payment.token
+      }), /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "BlockchainLogo small",
+        src: blockchain.logo,
+        alt: blockchain.label,
+        title: blockchain.label
       })), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardBody"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -4816,7 +4828,7 @@
                   throw 'You need to set the blockchain your want to receive the payment on!';
                 }
 
-                if (!['ethereum', 'bsc'].includes(configuration.blockchain)) {
+                if (!['ethereum', 'bsc', 'polygon'].includes(configuration.blockchain)) {
                   throw 'You need to set a supported blockchain!';
                 }
 
@@ -5135,6 +5147,7 @@
       });
     }
 
+    var blockchain = web3Blockchains.Blockchain.findByName(payment.blockchain);
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
@@ -5156,7 +5169,12 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardImage",
         title: payment.name
-      }, tokenImageElement), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, tokenImageElement, /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "BlockchainLogo small",
+        src: blockchain.logo,
+        alt: blockchain.label,
+        title: blockchain.label
+      })), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardBody"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardBodyWrapper"
@@ -5526,7 +5544,7 @@
         navigate = _useContext2.navigate;
 
     var stacked = Object.keys(props.selection).length > 1;
-    var blockchains = [web3Blockchains.Blockchain.findByName('ethereum'), web3Blockchains.Blockchain.findByName('bsc')];
+    var blockchains = [web3Blockchains.Blockchain.findByName('ethereum'), web3Blockchains.Blockchain.findByName('bsc'), web3Blockchains.Blockchain.findByName('polygon')];
 
     var selectBlockchain = function selectBlockchain(blockchain) {
       setSelection(Object.assign(props.selection, {

@@ -20,7 +20,7 @@ let preflight = async({ accept }) => {
   if(!(accept instanceof Array) || accept.length == 0) { throw('You need to set the tokens you accept as donation!') }
   accept.forEach((configuration)=>{
     if(typeof configuration.blockchain === 'undefined') { throw('You need to set the blockchain you want to receive the donation on!') }
-    if(!['ethereum', 'bsc'].includes(configuration.blockchain)) { throw('You need to set a supported blockchain!') }
+    if(!['ethereum', 'bsc', 'polygon'].includes(configuration.blockchain)) { throw('You need to set a supported blockchain!') }
     if(typeof configuration.token === 'undefined') { throw('You need to set the token you want to receive as donation!') }
     if(typeof configuration.receiver === 'undefined') { throw('You need to set the receiver address that you want to receive the donation!') }
   })

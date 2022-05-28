@@ -8,6 +8,7 @@ import PaymentContext from '../contexts/PaymentContext'
 import PaymentOverviewSkeleton from '../skeletons/PaymentOverviewSkeleton'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
+import { Blockchain } from '@depay/web3-blockchains'
 import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { TokenImage } from '@depay/react-token-image'
@@ -20,6 +21,8 @@ export default (props)=>{
   const { navigate } = useContext(NavigateStackContext)
 
   if(payment == undefined || (recover == undefined && paymentValue == undefined)) { return(<PaymentOverviewSkeleton/>) }
+
+  const blockchain = Blockchain.findByName(payment.blockchain)
 
   return(
     <Dialog
@@ -69,6 +72,7 @@ export default (props)=>{
                 blockchain={ payment.blockchain }
                 address={ payment.token }
               />
+              <img className="BlockchainLogo small" src={ blockchain.logo } alt={ blockchain.label } title={ blockchain.label }/>
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">

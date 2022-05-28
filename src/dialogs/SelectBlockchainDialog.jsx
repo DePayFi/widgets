@@ -13,6 +13,7 @@ export default (props)=> {
   const blockchains = [
     Blockchain.findByName('ethereum'),
     Blockchain.findByName('bsc'),
+    Blockchain.findByName('polygon'),
   ]
 
   const selectBlockchain = (blockchain)=>{
