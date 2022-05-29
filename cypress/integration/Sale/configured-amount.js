@@ -176,7 +176,7 @@ describe('Sale Widget: configure amount', () => {
         cy.document().then((document)=>{
           DePayWidgets.Sale({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('{selectall}')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input[name="amount"]').type('{selectall}', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('2.5', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €2.50').should('exist')
@@ -225,7 +225,7 @@ describe('Sale Widget: configure amount', () => {
         cy.document().then((document)=>{
           DePayWidgets.Sale({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('{selectall}')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input[name="amount"]').type('{selectall}', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('0.1', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €0.50').should('exist')
@@ -274,7 +274,7 @@ describe('Sale Widget: configure amount', () => {
         cy.document().then((document)=>{
           DePayWidgets.Sale({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('{selectall}')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input[name="amount"]').type('{selectall}', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('1000', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €43.00').should('exist')

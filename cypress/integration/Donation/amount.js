@@ -20,7 +20,7 @@ describe('Donation Widget: amount', () => {
   beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
   beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
-  afterEach(closeWidget)
+  // afterEach(closeWidget)
 
   let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   let DAI = CONSTANTS[blockchain].USD
@@ -166,7 +166,7 @@ describe('Donation Widget: amount', () => {
         cy.document().then((document)=>{
           DePayWidgets.Donation({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('{selectall}')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input[name="amount"]').type('{selectall}', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('10', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').then(()=>{
@@ -323,7 +323,7 @@ describe('Donation Widget: amount', () => {
         cy.document().then((document)=>{
           DePayWidgets.Donation({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('{selectall}')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input[name="amount"]').type('{selectall}', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('10', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
 
