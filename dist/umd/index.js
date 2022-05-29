@@ -1,14 +1,13 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('@depay/react-dialog-stack'), require('@depay/web3-wallets'), require('react-dom'), require('@depay/react-shadow-dom'), require('ethers'), require('@depay/web3-constants'), require('decimal.js'), require('@depay/web3-exchanges'), require('@depay/web3-tokens'), require('@depay/local-currency'), require('@depay/web3-client'), require('@depay/web3-blockchains'), require('@depay/web3-payments'), require('react-rangeslider'), require('@depay/react-token-image')) :
-  typeof define === 'function' && define.amd ? define(['react', '@depay/react-dialog-stack', '@depay/web3-wallets', 'react-dom', '@depay/react-shadow-dom', 'ethers', '@depay/web3-constants', 'decimal.js', '@depay/web3-exchanges', '@depay/web3-tokens', '@depay/local-currency', '@depay/web3-client', '@depay/web3-blockchains', '@depay/web3-payments', 'react-rangeslider', '@depay/react-token-image'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.ReactDialogStack, global.Web3Wallets, global.ReactDOM, global.ReactShadowDOM, global.ethers, global.Web3Constants, global.Decimal, global.Web3Exchanges, global.Web3Tokens, global.LocalCurrency, global.Web3Client, global.Web3Blockchains, global.Web3Payments, global.ReactRangeslider, global.ReactTokenImage));
-}(this, (function (React, reactDialogStack, web3Wallets, ReactDOM, reactShadowDom, ethers, web3Constants, decimal_js, web3Exchanges, web3Tokens, localCurrency, web3Client, web3Blockchains, web3Payments, Slider, reactTokenImage) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('@depay/react-dialog-stack'), require('@depay/web3-wallets'), require('react-dom'), require('@depay/react-shadow-dom'), require('ethers'), require('@depay/web3-constants'), require('decimal.js'), require('@depay/web3-exchanges'), require('@depay/web3-tokens'), require('@depay/local-currency'), require('@depay/web3-client'), require('@depay/web3-blockchains'), require('@depay/web3-payments'), require('@depay/react-token-image')) :
+  typeof define === 'function' && define.amd ? define(['react', '@depay/react-dialog-stack', '@depay/web3-wallets', 'react-dom', '@depay/react-shadow-dom', 'ethers', '@depay/web3-constants', 'decimal.js', '@depay/web3-exchanges', '@depay/web3-tokens', '@depay/local-currency', '@depay/web3-client', '@depay/web3-blockchains', '@depay/web3-payments', '@depay/react-token-image'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.ReactDialogStack, global.Web3Wallets, global.ReactDOM, global.ReactShadowDOM, global.ethers, global.Web3Constants, global.Decimal, global.Web3Exchanges, global.Web3Tokens, global.LocalCurrency, global.Web3Client, global.Web3Blockchains, global.Web3Payments, global.ReactTokenImage));
+}(this, (function (React, reactDialogStack, web3Wallets, ReactDOM, reactShadowDom, ethers, web3Constants, decimal_js, web3Exchanges, web3Tokens, localCurrency, web3Client, web3Blockchains, web3Payments, reactTokenImage) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
   var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
   var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
-  var Slider__default = /*#__PURE__*/_interopDefaultLegacy(Slider);
 
   function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
     try {
@@ -1697,7 +1696,7 @@
   });
 
   var FontStyle = (function (style) {
-    return "\n\n    *, div, div * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeS {\n      font-size: 16px;\n    }\n\n    .FontSizeM {\n      font-size: 19px;\n    }\n\n    .FontSizeL {\n      font-size: 23px;\n    }\n\n    .FontSizeXL {\n      font-size: 32px;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
+    return "\n\n    *, div, div * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeS {\n      font-size: 16px;\n    }\n\n    .FontSizeM {\n      font-size: 19px;\n    }\n\n    .FontSizeL {\n      font-size: 23px;\n    }\n\n    .FontSizeXL {\n      font-size: 32px;\n    }\n\n    .FontSizeXXL {\n      font-size: 42px;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
   });
 
   var GraphicStyle = (function () {
@@ -3064,15 +3063,14 @@
         className: "PaddingLeftM PaddingRightM"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS TextCenter PaddingBottomL"
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "FontSizeL"
-      }, /*#__PURE__*/React__default['default'].createElement("input", {
+      }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("input", {
         max: parseFloat(maxAmount),
         min: min,
         step: step,
-        className: "Input FontSizeXL TextAlignCenter",
+        className: "Input FontSizeXXL TextAlignCenter",
         type: "number",
         name: "amount",
+        autoFocus: true,
         value: parseFloat(inputAmount),
         onChange: function onChange(event) {
           changeAmount(event.target.value);
@@ -3080,18 +3078,7 @@
         onBlur: function onBlur(event) {
           setValidValue(event.target.value);
         }
-      })), /*#__PURE__*/React__default['default'].createElement(Slider__default['default'], {
-        max: parseFloat(maxAmount),
-        min: min,
-        step: step,
-        value: parseFloat(inputAmount),
-        onChange: function onChange(value) {
-          changeAmount(toValidStep(value));
-        },
-        onChangeComplete: function onChangeComplete() {
-          setValidValue(inputAmount);
-        }
-      }), /*#__PURE__*/React__default['default'].createElement("div", {
+      })), /*#__PURE__*/React__default['default'].createElement("div", {
         style: {
           height: '40px'
         }

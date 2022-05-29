@@ -12,7 +12,6 @@ import { Currency } from '@depay/local-currency';
 import { setProviderEndpoints, request, provider } from '@depay/web3-client';
 import { Blockchain } from '@depay/web3-blockchains';
 import { route as route$1 } from '@depay/web3-payments';
-import Slider from 'react-rangeslider';
 import { TokenImage } from '@depay/react-token-image';
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
@@ -1702,7 +1701,7 @@ var DialogStyle = (function (style) {
 });
 
 var FontStyle = (function (style) {
-  return "\n\n    *, div, div * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeS {\n      font-size: 16px;\n    }\n\n    .FontSizeM {\n      font-size: 19px;\n    }\n\n    .FontSizeL {\n      font-size: 23px;\n    }\n\n    .FontSizeXL {\n      font-size: 32px;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
+  return "\n\n    *, div, div * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    .FontSizeS {\n      font-size: 16px;\n    }\n\n    .FontSizeM {\n      font-size: 19px;\n    }\n\n    .FontSizeL {\n      font-size: 23px;\n    }\n\n    .FontSizeXL {\n      font-size: 32px;\n    }\n\n    .FontSizeXXL {\n      font-size: 42px;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
 });
 
 var GraphicStyle = (function () {
@@ -3069,15 +3068,14 @@ var ChangeAmountDialog = (function (props) {
       className: "PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS TextCenter PaddingBottomL"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "FontSizeL"
-    }, /*#__PURE__*/React.createElement("input", {
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("input", {
       max: parseFloat(maxAmount),
       min: min,
       step: step,
-      className: "Input FontSizeXL TextAlignCenter",
+      className: "Input FontSizeXXL TextAlignCenter",
       type: "number",
       name: "amount",
+      autoFocus: true,
       value: parseFloat(inputAmount),
       onChange: function onChange(event) {
         changeAmount(event.target.value);
@@ -3085,18 +3083,7 @@ var ChangeAmountDialog = (function (props) {
       onBlur: function onBlur(event) {
         setValidValue(event.target.value);
       }
-    })), /*#__PURE__*/React.createElement(Slider, {
-      max: parseFloat(maxAmount),
-      min: min,
-      step: step,
-      value: parseFloat(inputAmount),
-      onChange: function onChange(value) {
-        changeAmount(toValidStep(value));
-      },
-      onChangeComplete: function onChangeComplete() {
-        setValidValue(inputAmount);
-      }
-    }), /*#__PURE__*/React.createElement("div", {
+    })), /*#__PURE__*/React.createElement("div", {
       style: {
         height: '40px'
       }
