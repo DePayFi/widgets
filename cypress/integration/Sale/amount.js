@@ -247,7 +247,6 @@ describe('Sale Widget: amount', () => {
         cy.document().then((document)=>{
           DePayWidgets.Sale({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.rangeslider')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Go back"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]')
         })

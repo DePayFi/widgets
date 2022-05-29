@@ -121,7 +121,7 @@ describe('Payment Widget: overview', () => {
           closed: ()=>{ closedCalled = true } 
         })
         cy.wait(1000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click({ force: true })
           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
             expect(closedCalled).to.equal(true)
           })
@@ -326,7 +326,7 @@ describe('Payment Widget: overview', () => {
       })
     })
 
-    it('unmounts the update intervals if dialog is closed', () => {
+    it.only('unmounts the update intervals if dialog is closed', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           let NEW_TOKEN_B_AmountBN_mock_count
@@ -339,7 +339,7 @@ describe('Payment Widget: overview', () => {
           cy.wait(2000).then(()=>{
             NEW_TOKEN_B_AmountBN_mock_count = NEW_TOKEN_B_AmountBN_mock.calls.count()
             NEW_USD_AmountOutBN_mock_count = NEW_USD_AmountOutBN_mock.calls.count()
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click({ force: true })
             cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
           })
           cy.wait(16000).then(()=>{

@@ -115,7 +115,7 @@ describe('Payment Widget: errors', () => {
           }
         })
         cy.wait(1000).then(()=>{
-          expect(criticalError.toString()).to.eq("TypeError: Cannot read property 'forEach' of undefined")
+          expect(criticalError.toString()).to.eq("TypeError: Cannot read properties of undefined (reading \'forEach\')")
           expect(criticalCalled).to.eq(true)
         })
       })
