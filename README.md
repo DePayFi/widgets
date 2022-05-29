@@ -3,7 +3,7 @@
 You can either load the `@depay/widgets` package via CDN:
 
 ```
-<script src="https://integrate.depay.fi/widgets/v6.js"></script>
+<script src="https://integrate.depay.fi/widgets/v7.js"></script>
 ```
 
 or you install `@depay/widgets` via the package manager of your choice and ship it as part of your application bundle:
@@ -24,7 +24,7 @@ import DePayWidgets from '@depay/widgets'
 
 ## Demo
 
-Use the DePay Configurator here: https://app.depay.fi/ (Integrations -> New Integration)
+Use the DePay Configurator here: https://app.depay.fi/integrations/new
 
 ## Support
 
@@ -71,7 +71,7 @@ In order to receive decentralized payments on any blockchain you need to have yo
 ### Quick start (DePay Payments)
 
 ```
-<script src="https://integrate.depay.fi/widgets/v6.js"/>
+<script src="https://integrate.depay.fi/widgets/v7.js"/>
 ```
 
 ```
@@ -741,7 +741,7 @@ In order to sell tokens in a decentralized way, that token needs to have a liqui
 ### Quick start (DePay Sales)
 
 ```
-<script src="https://integrate.depay.fi/widgets/v6.js"/>
+<script src="https://integrate.depay.fi/widgets/v7.js"/>
 ```
 
 ```javascript
@@ -1139,7 +1139,7 @@ In order to receive decentralized donation payments on any blockchain you need t
 ### Quick start (DePay Donations)
 
 ```
-<script src="https://integrate.depay.fi/widgets/v6.js"/>
+<script src="https://integrate.depay.fi/widgets/v7.js"/>
 ```
 
 ```javascript
@@ -1550,7 +1550,7 @@ DePay Connect allows you to have your users connect their crypto wallet to your 
 Returns connected `account`, `accounts` and `wallet` in return. 
 
 ```
-<script src="https://integrate.depay.fi/widgets/v6.js"/>
+<script src="https://integrate.depay.fi/widgets/v7.js"/>
 ```
 
 ```javascript
@@ -1578,7 +1578,7 @@ DePay Login allows you to perform web3 wallet logins with ease.
 Returns `account` if succesfully signed and recovered log in message.
 
 ```
-<script src="https://integrate.depay.fi/widgets/v6.js"/>
+<script src="https://integrate.depay.fi/widgets/v7.js"/>
 ```
 
 ```javascript
@@ -1655,7 +1655,7 @@ DePay Select widget allows you to open a dialog that allows you to select things
 Resolves with what has been selected by the user:
 
 ```
-<script src="https://integrate.depay.fi/widgets/v6.js"/>
+<script src="https://integrate.depay.fi/widgets/v7.js"/>
 ```
 
 ```javascript
