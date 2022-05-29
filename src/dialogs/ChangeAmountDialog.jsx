@@ -6,7 +6,6 @@ import format from '../helpers/format'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import React, { useContext, useState, useEffect } from 'react'
 import round from '../helpers/round'
-import Slider from 'react-rangeslider'
 import WalletContext from '../contexts/WalletContext'
 import { CONSTANTS } from '@depay/web3-constants'
 import { Currency } from '@depay/local-currency'
@@ -81,29 +80,21 @@ export default (props)=>{
           <div className="PaddingLeftM PaddingRightM">
             <div className='PaddingTopS TextCenter PaddingBottomL'>
               
-              <div className='FontSizeL'>
+              <div>
                 <input
                   max={ parseFloat(maxAmount) }
                   min={ min }
                   step={ step }
-                  className='Input FontSizeXL TextAlignCenter'
+                  className='Input FontSizeXXL TextAlignCenter'
                   type="number"
                   name="amount"
+                  autoFocus={ true }
                   value={ parseFloat(inputAmount) }
                   onChange={(event)=>{ changeAmount(event.target.value) }}
                   onBlur={(event)=>{ setValidValue(event.target.value) }}
                 />
               </div>
 
-              <Slider
-                max={ parseFloat(maxAmount) }
-                min={ min }
-                step={ step }
-                value={ parseFloat(inputAmount) }
-                onChange={(value)=>{ changeAmount(toValidStep(value)) }}
-                onChangeComplete={()=>{ setValidValue(inputAmount) }}
-              />
-              
               <div style={{ height: '40px' }}>
                 <div className='FontSizeS'>
                   { format(toValidStep(maxAmount)) }

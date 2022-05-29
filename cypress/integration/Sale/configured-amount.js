@@ -176,106 +176,10 @@ describe('Sale Widget: configure amount', () => {
         cy.document().then((document)=>{
           DePayWidgets.Sale({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('{selectall}')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input[name="amount"]').type('{selectall}', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('2.5', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €2.50').should('exist')
-        })
-      })
-    })
-
-    it('allows me to change the amount by using a range slider according to the amount.step configured', ()=> {
-      mockAmountsOut({
-        provider: provider(blockchain),
-        blockchain,
-        exchange,
-        amountInBN: '2000000000000000000',
-        path: [DAI, WETH, DEPAY],
-        amountsOut: [
-          '2000000000000000000',
-          WRAPPED_AmountInBN,
-          TOKEN_A_AmountBN
-        ]
-      })
-      mock({
-        provider: provider(blockchain),
-        blockchain,
-        call: {
-          to: exchange.contracts.router.address,
-          api: exchange.contracts.router.api,
-          method: 'getAmountsIn',
-          params: [ethers.utils.parseUnits('18', 18), [DAI, WETH, DEPAY]],
-          return: [ethers.utils.parseUnits('18', 18), ethers.utils.parseUnits('0.05', 18), ethers.utils.parseUnits('11.6', 18)]
-        }
-      })
-      mockAmountsOut({
-        provider: provider(blockchain),
-        blockchain,
-        exchange,
-        amountInBN: ethers.utils.parseUnits('18', 18),
-        path: [DEPAY, WETH, DAI],
-        amountsOut: [
-          ethers.utils.parseUnits('18', 18),
-          ethers.utils.parseUnits('0.05', 18),
-          ethers.utils.parseUnits('11.6', 18)
-        ]
-      })
-      mockAmountsOut({
-        provider: provider(blockchain),
-        blockchain,
-        exchange,
-        amountInBN: '25200000000000000000',
-        path: [DAI, WETH, DEPAY],
-        amountsOut: [
-          '25200000000000000000',
-          WRAPPED_AmountInBN.mul(14),
-          TOKEN_A_AmountBN.mul(14)
-        ]
-      })
-      mockAmountsOut({
-        provider: provider(blockchain),
-        blockchain,
-        exchange,
-        amountInBN: '25200000000000000000',
-        path: [DEPAY, WETH, DAI],
-        amountsOut: [
-          '25200000000000000000',
-          WRAPPED_AmountInBN.mul(14),
-          TOKEN_A_AmountBN.mul(14)
-        ]
-      })
-      mock({
-        provider: provider(blockchain),
-        blockchain,
-        call: {
-          to: exchange.contracts.router.address,
-          api: exchange.contracts.router.api,
-          method: 'getAmountsIn',
-          params: [ethers.utils.parseUnits('25.2', 18), [DAI, WETH, DEPAY]],
-          return: [ethers.utils.parseUnits('25.2', 18), ethers.utils.parseUnits('0.07', 18), ethers.utils.parseUnits('16.24', 18)]
-        }
-      })
-      mockAmountsOut({
-        provider: provider(blockchain),
-        blockchain,
-        exchange,
-        amountInBN: '25882352941176470000',
-        path: [DAI, WETH, DEPAY],
-        amountsOut: [
-          '25882352941176470000',
-          WRAPPED_AmountInBN.mul(14),
-          TOKEN_A_AmountBN.mul(14)
-        ]
-      })
-
-      cy.visit('cypress/test.html').then((contentWindow) => {
-        cy.document().then((document)=>{
-          DePayWidgets.Sale({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.rangeslider').click({ force: true })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
-
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €22.00').should('exist')
         })
       })
     })
@@ -321,7 +225,7 @@ describe('Sale Widget: configure amount', () => {
         cy.document().then((document)=>{
           DePayWidgets.Sale({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('{selectall}')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input[name="amount"]').type('{selectall}', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('0.1', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €0.50').should('exist')
@@ -370,7 +274,7 @@ describe('Sale Widget: configure amount', () => {
         cy.document().then((document)=>{
           DePayWidgets.Sale({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('{selectall}')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input[name="amount"]').type('{selectall}', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('1000', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €43.00').should('exist')

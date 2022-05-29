@@ -1100,34 +1100,36 @@
         navigate = _useContext.navigate;
 
     var wallet = web3Wallets.getWallet();
-    React.useEffect( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-      var accounts;
-      return regenerator.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              if (!wallet) {
-                _context.next = 5;
-                break;
-              }
+    React.useEffect(function () {
+      _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+        var accounts;
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!wallet) {
+                  _context.next = 5;
+                  break;
+                }
 
-              _context.next = 3;
-              return wallet.accounts();
+                _context.next = 3;
+                return wallet.accounts();
 
-            case 3:
-              accounts = _context.sent;
+              case 3:
+                accounts = _context.sent;
 
-              if (accounts == undefined || accounts.length == 0) {
-                navigate('ConnectingWallet');
-              }
+                if (accounts == undefined || accounts.length == 0) {
+                  navigate('ConnectingWallet');
+                }
 
-            case 5:
-            case "end":
-              return _context.stop();
+              case 5:
+              case "end":
+                return _context.stop();
+            }
           }
-        }
-      }, _callee);
-    })), [wallet]);
+        }, _callee);
+      }))();
+    }, [wallet]);
 
     var connect = function connect(walletClass) {
       var wallet = new walletClass();
@@ -1261,40 +1263,42 @@
         setWallet(wallet);
       }
     }, []);
-    React.useEffect( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
-      var accounts;
-      return regenerator.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              if (!wallet) {
-                _context2.next = 5;
-                break;
-              }
+    React.useEffect(function () {
+      _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
+        var accounts;
+        return regenerator.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!wallet) {
+                  _context2.next = 5;
+                  break;
+                }
 
-              _context2.next = 3;
-              return wallet.accounts();
+                _context2.next = 3;
+                return wallet.accounts();
 
-            case 3:
-              accounts = _context2.sent;
+              case 3:
+                accounts = _context2.sent;
 
-              if (accounts instanceof Array && accounts.length > 0) {
-                if (props.resolve) props.resolve({
-                  wallet: wallet,
-                  account: accounts[0],
-                  accounts: accounts
-                });
-              } else {
-                connect(wallet);
-              }
+                if (accounts instanceof Array && accounts.length > 0) {
+                  if (props.resolve) props.resolve({
+                    wallet: wallet,
+                    account: accounts[0],
+                    accounts: accounts
+                  });
+                } else {
+                  connect(wallet);
+                }
 
-            case 5:
-            case "end":
-              return _context2.stop();
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
           }
-        }
-      }, _callee2);
-    })), [wallet]);
+        }, _callee2);
+      }))();
+    }, [wallet]);
     return /*#__PURE__*/React__default['default'].createElement(reactDialogStack.ReactDialogStack, {
       open: open,
       close: close,
@@ -1459,7 +1463,7 @@
   `
   }
 
-  const _jsxFileName = "/home/runner/work/react-dialog/react-dialog/src/components/Dialog.jsx";
+  const _jsxFileName$1 = "/home/runner/work/react-dialog/react-dialog/src/components/Dialog.jsx";
   class Dialog extends React__default['default'].Component {
     constructor(props) {
       super(props);
@@ -1510,10 +1514,10 @@
       const classNames = ['ReactDialog', this.state.open ? 'ReactDialogOpen' : ''];
       const style = ReactDialogStyle({ background: this.props.background });
       return (
-        React__default['default'].createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName, lineNumber: 56}}
-          , React__default['default'].createElement('style', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 57}}, style)
-          , React__default['default'].createElement('div', { className: "ReactDialogInner", __self: this, __source: {fileName: _jsxFileName, lineNumber: 58}}
-            , React__default['default'].createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName, lineNumber: 59}} )
+        React__default['default'].createElement('div', { className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 55}}
+          , React__default['default'].createElement('style', {__self: this, __source: {fileName: _jsxFileName$1, lineNumber: 56}}, style)
+          , React__default['default'].createElement('div', { className: "ReactDialogInner", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 57}}
+            , React__default['default'].createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 58}} )
             , this.props.children
           )
         )
@@ -1521,7 +1525,7 @@
     }
   }
 
-  const _jsxFileName$1 = "/home/runner/work/react-dialog/react-dialog/src/index.jsx";
+  const _jsxFileName = "/home/runner/work/react-dialog/react-dialog/src/index.jsx";
   class ReactDialog extends React__default['default'].Component {
     constructor(props) {
       super(props);
@@ -1550,7 +1554,7 @@
             background: this.props.background,
             close: this.props.close,
             document: _document,
-            open: this.props.open, __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 29}}
+            open: this.props.open, __self: this, __source: {fileName: _jsxFileName, lineNumber: 29}}
           
             , this.props.children
           ),

@@ -132,7 +132,7 @@ describe('Donation Widget: overview', () => {
           closed: ()=>{ closedCalled = true } 
         })
         cy.wait(1000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click({ force: true })
           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
             expect(closedCalled).to.equal(true)
           })
@@ -148,7 +148,7 @@ describe('Donation Widget: overview', () => {
           closable: false
         })
         cy.wait(1000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click({ force: true })
           cy.get('.ReactShadowDOMOutsideContainer').should('exist').then(()=>{
             unmount()
           })
@@ -192,7 +192,7 @@ describe('Donation Widget: overview', () => {
           cy.document().then((document)=>{
             DePayWidgets.Donation({ ...defaultArguments, document })
             cy.wait(1000).then(()=>{
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click({ force: true })
               cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
             })
           })
@@ -219,7 +219,7 @@ describe('Donation Widget: overview', () => {
         cy.document().then((document)=>{
           DePayWidgets.Donation({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €1.00')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click({ force: true })
           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
         })
       })
@@ -343,7 +343,7 @@ describe('Donation Widget: overview', () => {
           cy.wait(2000).then(()=>{
             NEW_TOKEN_B_AmountBN_mock_count = NEW_TOKEN_B_AmountBN_mock.calls.count()
             NEW_USD_AmountOutBN_mock_count = NEW_USD_AmountOutBN_mock.calls.count()
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click({ force: true })
             cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
           })
           cy.wait(16000).then(()=>{
