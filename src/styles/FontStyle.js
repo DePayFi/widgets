@@ -21,6 +21,10 @@ export default (style)=>{
       font-size: 32px;
     }
 
+    .FontSizeXXL {
+      font-size: 42px;
+    }
+
     .FontWeightBold {
       font-weight: bold;
     }

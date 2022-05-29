@@ -47,8 +47,7 @@
     "@depay/web3-payments": "^10.3.1",
     "@depay/web3-tokens": "^8.1.0",
     "@depay/web3-wallets": "^11.0.1",
-    "decimal.js": "^10.3.1",
-    "react-rangeslider": "^2.2.0"
+    "decimal.js": "^10.3.1"
   },
   "peerDependencies": {
     "ethers": "^5.6.5",
@@ -72,7 +71,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "cross-fetch": "^3.1.5",
-    "cypress": "^7.6.0",
+    "cypress": "^9.7.0",
     "eslint": "^7.15.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.22.1",
