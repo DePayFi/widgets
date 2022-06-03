@@ -17,6 +17,7 @@ export default (props)=>{
           let accounts = await wallet.accounts()
           if(accounts == undefined || accounts.length == 0) {
             navigate('ConnectingWallet')
+            props.connect(wallet)
           }
         }
       }

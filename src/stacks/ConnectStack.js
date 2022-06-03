@@ -12,6 +12,7 @@ export default (props)=>{
   const [ wallet, setWallet ] = useState()
 
   const connect = (wallet)=> {
+    console.log('CONNECT')
     wallet.connect().then(async ()=>{
       let accounts = await wallet.accounts()
       if(accounts instanceof Array && accounts.length > 0) {
@@ -46,8 +47,6 @@ export default (props)=>{
           let accounts = await wallet.accounts()
           if(accounts instanceof Array && accounts.length > 0) {
             if(props.resolve) props.resolve({ wallet, account: accounts[0], accounts })
-          } else {
-            connect(wallet)
           }
         }
       }

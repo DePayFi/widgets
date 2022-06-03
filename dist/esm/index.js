@@ -1124,6 +1124,7 @@ var SelectWalletDialog = (function (props) {
 
               if (accounts == undefined || accounts.length == 0) {
                 navigate('ConnectingWallet');
+                props.connect(wallet);
               }
 
             case 5:
@@ -1217,6 +1218,7 @@ var ConnectStack = (function (props) {
       setWallet = _useState4[1];
 
   var connect = function connect(wallet) {
+    console.log('CONNECT');
     wallet.connect().then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
       var accounts;
       return regenerator.wrap(function _callee$(_context) {
@@ -1291,8 +1293,6 @@ var ConnectStack = (function (props) {
                   account: accounts[0],
                   accounts: accounts
                 });
-              } else {
-                connect(wallet);
               }
 
             case 5:
