@@ -79,6 +79,10 @@ export default (props)=>{
     }
   }, [account, props.accept])
 
+  useEffect(()=> {
+    console.log('SELECTED ROUTE', selectedRoute)
+  }, [selectedRoute])
+
   return(
     <PaymentRoutingContext.Provider value={{
       selectedRoute,
