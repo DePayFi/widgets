@@ -69,6 +69,7 @@ In order to receive decentralized payments on any blockchain you need to have yo
 
 - [Create an Ethereum wallet](https://ethereum.org/en/wallets/)
 - [Create an BSC wallet](https://academy.binance.com/en/articles/how-to-get-started-with-binance-smart-chain-bsc)
+- [Create a Polygon wallet](https://wallet.polygon.technology/)
 
 ### Quick start (DePay Payments)
 
@@ -117,6 +118,11 @@ DePayWidgets.Payment({
       amount: 20,
       token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
       receiver: '0x552C2a5a774CcaEeC036d41c983808E3c76477e6'
+    },{ // 20 USDC on polygon
+      blockchain: 'polygon',
+      amount: 20,
+      token: '0x2791bca1f2de4661ed88a30c99a7a9449aa84174',
+      receiver: '0x552C2a5a774CcaEeC036d41c983808E3c76477e6'
     }
   ]
 });
@@ -132,6 +138,7 @@ Currently supported:
 
 - `ethereum`
 - `bsc` (Binance Smart Chain)
+- `polygon`
 
 `token`
 
@@ -480,7 +487,8 @@ DePayWidgets.Payment({
 
   providers: {
     ethereum: ['http://localhost:8545'],
-    bsc: ['http://localhost:8545']
+    bsc: ['http://localhost:8545'],
+    polygon: ['http://localhost:8545']
   }
 })
 ```
@@ -516,6 +524,10 @@ DePayWidgets.Payment({
       '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', // BNB
       '0xe9e7cea3dedca5984780bafc599bd69add087d56', // BUSD
       '0x55d398326f99059ff775485246999027b3197955'  // BSC-USD
+    ],
+    polygon: [
+      '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', // MATIC
+      '0x2791bca1f2de4661ed88a30c99a7a9449aa84174', // USDC
     ]
   }
 
@@ -738,6 +750,7 @@ DePay Sales allows you to sell tokens directly from your website or dApp with au
 In order to sell tokens in a decentralized way, that token needs to have a liquidity pool on a decentralized exchange:
 
 - [Create Uniswap v2 Liquidity Pool](https://app.uniswap.org/#/add/v2/ETH)
+- [Create Uniswap v2 Liquidity Pool (Polygon)](https://app.uniswap.org/#/add/v2/ETH?chain=polygon)
 - [Create Pancakeswap Liquidity Pool](https://pancakeswap.finance/add)
 
 ### Quick start (DePay Sales)
