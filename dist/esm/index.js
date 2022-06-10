@@ -1697,7 +1697,7 @@ var CardStyle = (function (style) {
 });
 
 var DialogStyle = (function (style) {
-  return "\n\n    .ReactDialogBackground {\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .contained .ReactDialog {\n      position: absolute;\n      height: 100%;\n      min-height: 100%;\n      width: 100%;\n      min-width: 100%;\n    }\n\n    .contained .ReactDialogBackground {\n      position: absolute;\n    }\n\n    .contained .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n      top: 0;\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 13px;\n      background: rgb(248,248,248);\n    }\n\n    @media (max-width: 450px) {\n\n      .Dialog {\n        border-radius: 0;\n        width: 100%;\n      }\n    }\n\n    @media (orientation: portrait) and (max-width: 800px) {\n\n      .ReactDialogAnimation {\n        width: 100%;\n      }\n\n      .ReactDialog {\n        height: 100%;\n        min-height: 100%;\n      }\n\n      .ReactDialogStack {\n        align-items: flex-end;\n      }\n\n      .Dialog {\n        align-content: stretch;\n        border-radius: 13px;\n        border-top-radius: 13px;\n        display: flex;\n        flex-direction: column;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n      }\n\n      .DialogFooter {\n        padding-bottom: 20px;\n      }\n\n      .ReactDialogAnimation {\n        margin-bottom: -100px !important;\n        top: inherit !important;\n        position: relative;\n        transition: opacity 0.4s ease, margin-bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        margin-bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n\n      .ReactShadowDOMInsideContainer > .ReactDialog {\n        align-items: flex-end;\n      }\n    }\n\n    .DialogBody {\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.ScrollHeight {\n      height: 30vh !important;\n      max-height: 30vh !important;\n    }\n\n    .DialogHeader {\n      border-top-left-radius: 13px;\n      border-top-right-radius: 13px;\n      min-height: 54px;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogHeaderActionRight {\n      position: absolute;\n      top: 0;\n      right: 0;\n      height: 48px;\n    }\n\n    .DialogHeaderActionLeft {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 48px;\n    }\n\n    .DialogFooter {\n      border-bottom-left-radius: 13px;\n      border-bottom-right-radius: 13px;\n      line-height: 24px;\n      min-height: 32px;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
+  return "\n\n    .ReactDialogBackground {\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .contained .ReactDialog {\n      position: absolute;\n      height: 100%;\n      min-height: 100%;\n      width: 100%;\n      min-width: 100%;\n    }\n\n    .contained .ReactDialogBackground {\n      position: absolute;\n    }\n\n    .contained .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n      top: 0;\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.1);\n      border-radius: 13px;\n      background: rgb(248,248,248);\n    }\n\n    @media (max-width: 450px) {\n\n      .Dialog {\n        border-radius: 0;\n        width: 100%;\n      }\n    }\n\n    @media (orientation: portrait) and (max-width: 800px) {\n\n      .ReactDialogAnimation {\n        width: 100%;\n      }\n\n      .ReactDialog {\n        height: 100%;\n        min-height: 100%;\n      }\n\n      .ReactDialogStack {\n        align-items: flex-end;\n      }\n\n      .Dialog {\n        align-content: stretch;\n        border-radius: 13px;\n        border-top-radius: 13px;\n        display: flex;\n        flex-direction: column;\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n      }\n\n      .DialogFooter {\n        padding-bottom: 20px;\n      }\n\n      .ReactDialogAnimation {\n        margin-bottom: -100px !important;\n        top: inherit !important;\n        position: relative;\n        transition: opacity 0.4s ease, margin-bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        margin-bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n\n      .ReactShadowDOMInsideContainer > .ReactDialog {\n        align-items: flex-end;\n      }\n    }\n\n    .DialogBody {\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.ScrollHeight {\n      height: 30vh !important;\n      max-height: 30vh !important;\n    }\n\n    .DialogHeader {\n      border-top-left-radius: 13px;\n      border-top-right-radius: 13px;\n      min-height: 54px;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogHeaderActionRight {\n      position: absolute;\n      top: 0;\n      right: 0;\n      height: 48px;\n    }\n\n    .DialogHeaderActionLeft {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 48px;\n    }\n\n    .DialogFooter {\n      border-bottom-left-radius: 13px;\n      border-bottom-right-radius: 13px;\n      line-height: 24px;\n      min-height: 32px;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
 });
 
 var FontStyle = (function (style) {
@@ -2678,41 +2678,163 @@ var PaymentRoutingProvider = (function (props) {
   var _useContext3 = useContext(ConfigurationContext),
       recover = _useContext3.recover;
 
-  var onRoutesUpdate = function onRoutesUpdate(routes) {
-    if (routes.length == 0) {
-      setAllRoutes([]);
+  var addSlippageTo = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(route) {
+      var currentBlock, blocks, i, lastAmountsIn;
+      return regenerator.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              if (!route.directTransfer) {
+                _context2.next = 2;
+                break;
+              }
 
-      if (props.setMaxRoute) {
-        props.setMaxRoute(null);
-      }
-    } else {
-      roundAmounts(routes).then(function (roundedRoutes) {
-        var selected;
+              return _context2.abrupt("return");
 
-        if (selectedRoute) {
-          selected = roundedRoutes[allRoutes.findIndex(function (route) {
-            return route.fromToken == selectedRoute.fromToken && route.blockchain == selectedRoute.blockchain;
-          })];
+            case 2:
+              _context2.next = 4;
+              return request({
+                blockchain: route.blockchain,
+                method: 'latestBlockNumber'
+              });
+
+            case 4:
+              currentBlock = _context2.sent;
+              blocks = [];
+
+              for (i = 1; i <= 10; i++) {
+                blocks.push(currentBlock - i);
+              }
+
+              _context2.next = 9;
+              return Promise.all(blocks.map( /*#__PURE__*/function () {
+                var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(block) {
+                  var exchangeRoute, amountIn;
+                  return regenerator.wrap(function _callee$(_context) {
+                    while (1) {
+                      switch (_context.prev = _context.next) {
+                        case 0:
+                          exchangeRoute = route.exchangeRoutes[0];
+                          console.log(block);
+                          _context.next = 4;
+                          return exchangeRoute.exchange.getAmountIn({
+                            path: exchangeRoute.path,
+                            amountOut: exchangeRoute.amountOutMin,
+                            block: block
+                          });
+
+                        case 4:
+                          amountIn = _context.sent;
+                          return _context.abrupt("return", amountIn.toString());
+
+                        case 6:
+                        case "end":
+                          return _context.stop();
+                      }
+                    }
+                  }, _callee);
+                }));
+
+                return function (_x2) {
+                  return _ref2.apply(this, arguments);
+                };
+              }()));
+
+            case 9:
+              lastAmountsIn = _context2.sent;
+              console.log('lastAmountsIn', lastAmountsIn);
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
         }
+      }, _callee2);
+    }));
 
-        if (selected == undefined) {
-          selected = roundedRoutes[0];
+    return function addSlippageTo(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  var onRoutesUpdate = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(routes) {
+      return regenerator.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              if (routes.length == 0) {
+                setAllRoutes([]);
+
+                if (props.setMaxRoute) {
+                  props.setMaxRoute(null);
+                }
+              } else {
+                roundAmounts(routes).then( /*#__PURE__*/function () {
+                  var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(roundedRoutes) {
+                    var selectRoute;
+                    return regenerator.wrap(function _callee3$(_context3) {
+                      while (1) {
+                        switch (_context3.prev = _context3.next) {
+                          case 0:
+                            if (selectedRoute) {
+                              selectRoute = roundedRoutes[allRoutes.findIndex(function (route) {
+                                return route.fromToken == selectedRoute.fromToken && route.blockchain == selectedRoute.blockchain;
+                              })];
+                            }
+
+                            if (selectRoute == undefined) {
+                              selectRoute = roundedRoutes[0];
+                            }
+
+                            _context3.next = 4;
+                            return addSlippageTo(selectRoute);
+
+                          case 4:
+                            roundedRoutes.forEach(function (route, index) {
+                              if (index > 0) {
+                                addSlippageTo(route);
+                              }
+                            });
+                            setSelectedRoute(selectRoute);
+                            setAllRoutes(roundedRoutes);
+
+                            if (props.setMaxRoute) {
+                              props.setMaxRoute(findMaxRoute(roundedRoutes));
+                            }
+
+                          case 8:
+                          case "end":
+                            return _context3.stop();
+                        }
+                      }
+                    }, _callee3);
+                  }));
+
+                  return function (_x4) {
+                    return _ref4.apply(this, arguments);
+                  };
+                }());
+              }
+
+            case 1:
+            case "end":
+              return _context4.stop();
+          }
         }
+      }, _callee4);
+    }));
 
-        setSelectedRoute(selected);
-        setAllRoutes(roundedRoutes);
+    return function onRoutesUpdate(_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
 
-        if (props.setMaxRoute) {
-          props.setMaxRoute(findMaxRoute(roundedRoutes));
-        }
-      });
-    }
-  };
-
-  var getPaymentRoutes = function getPaymentRoutes(_ref) {
-    _ref.allRoutes;
-        _ref.selectedRoute;
-        var updatable = _ref.updatable;
+  var getPaymentRoutes = function getPaymentRoutes(_ref5) {
+    _ref5.allRoutes;
+        _ref5.selectedRoute;
+        var updatable = _ref5.updatable;
 
     if (updatable == false || !props.accept || !account) {
       return;
@@ -2729,72 +2851,79 @@ var PaymentRoutingProvider = (function (props) {
     });
   };
 
-  var roundAmounts = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(routes) {
-      return regenerator.wrap(function _callee2$(_context2) {
+  var roundAmount = /*#__PURE__*/function () {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(route) {
+      var readableAmount, roundedAmountBN;
+      return regenerator.wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
-              return _context2.abrupt("return", Promise.all(routes.map( /*#__PURE__*/function () {
-                var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(route) {
-                  var readableAmount, roundedAmountBN;
-                  return regenerator.wrap(function _callee$(_context) {
-                    while (1) {
-                      switch (_context.prev = _context.next) {
-                        case 0:
-                          if (!route.directTransfer) {
-                            _context.next = 2;
-                            break;
-                          }
+              if (!route.directTransfer) {
+                _context5.next = 2;
+                break;
+              }
 
-                          return _context.abrupt("return", route);
+              return _context5.abrupt("return", route);
 
-                        case 2:
-                          _context.next = 4;
-                          return route.fromToken.readable(route.transaction.params.amounts[0]);
+            case 2:
+              _context5.next = 4;
+              return route.fromToken.readable(route.transaction.params.amounts[0]);
 
-                        case 4:
-                          readableAmount = _context.sent;
-                          _context.next = 7;
-                          return route.fromToken.BigNumber(round(readableAmount));
+            case 4:
+              readableAmount = _context5.sent;
+              _context5.next = 7;
+              return route.fromToken.BigNumber(round(readableAmount));
 
-                        case 7:
-                          roundedAmountBN = _context.sent;
-                          route.fromAmount = roundedAmountBN.toString();
-                          route.transaction.params.amounts[0] = roundedAmountBN.toString();
+            case 7:
+              roundedAmountBN = _context5.sent;
+              route.fromAmount = roundedAmountBN.toString();
+              route.transaction.params.amounts[0] = roundedAmountBN.toString();
 
-                          if (route.transaction.value && route.transaction.value.toString() != '0') {
-                            route.transaction.value = roundedAmountBN.toString();
-                          }
+              if (route.transaction.value && route.transaction.value.toString() != '0') {
+                route.transaction.value = roundedAmountBN.toString();
+              }
 
-                          return _context.abrupt("return", route);
+              return _context5.abrupt("return", route);
 
-                        case 12:
-                        case "end":
-                          return _context.stop();
-                      }
-                    }
-                  }, _callee);
-                }));
-
-                return function (_x2) {
-                  return _ref3.apply(this, arguments);
-                };
-              }())));
-
-            case 1:
+            case 12:
             case "end":
-              return _context2.stop();
+              return _context5.stop();
           }
         }
-      }, _callee2);
+      }, _callee5);
     }));
 
-    return function roundAmounts(_x) {
-      return _ref2.apply(this, arguments);
+    return function roundAmount(_x5) {
+      return _ref6.apply(this, arguments);
     };
   }();
 
+  var roundAmounts = /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(routes) {
+      return regenerator.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              return _context6.abrupt("return", Promise.all(routes.map(roundAmount)));
+
+            case 1:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
+
+    return function roundAmounts(_x6) {
+      return _ref7.apply(this, arguments);
+    };
+  }();
+
+  useEffect(function () {
+    if (selectedRoute) {
+      addSlippageTo(selectedRoute);
+    }
+  }, [selectedRoute]);
   useEffect(function () {
     var timeout = setTimeout(function () {
       setReloadCount(reloadCount + 1);

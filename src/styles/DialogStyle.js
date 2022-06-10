@@ -60,6 +60,8 @@ export default (style)=>{
         border-top-radius: 13px;
         display: flex;
         flex-direction: column;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
       }
 
       .DialogBody {
