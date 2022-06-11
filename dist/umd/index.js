@@ -2673,9 +2673,9 @@
     var _useContext3 = React.useContext(ConfigurationContext),
         recover = _useContext3.recover;
 
-    var addSlippageTo = /*#__PURE__*/function () {
+    var calculateAmountInWithSlippage = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(route) {
-        var currentBlock, blocks, i, lastAmountsIn;
+        var currentBlock, blocks, i, exchangeRoute, lastAmountsIn, currentAmountIn, difference1, difference2, slippage;
         return regenerator.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -2698,32 +2698,31 @@
                 currentBlock = _context2.sent;
                 blocks = [];
 
-                for (i = 1; i <= 10; i++) {
+                for (i = 1; i <= 2; i++) {
                   blocks.push(currentBlock - i);
                 }
 
-                _context2.next = 9;
+                exchangeRoute = route.exchangeRoutes[0];
+                _context2.next = 10;
                 return Promise.all(blocks.map( /*#__PURE__*/function () {
                   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(block) {
-                    var exchangeRoute, amountIn;
+                    var amountIn;
                     return regenerator.wrap(function _callee$(_context) {
                       while (1) {
                         switch (_context.prev = _context.next) {
                           case 0:
-                            exchangeRoute = route.exchangeRoutes[0];
-                            console.log(block);
-                            _context.next = 4;
+                            _context.next = 2;
                             return exchangeRoute.exchange.getAmountIn({
                               path: exchangeRoute.path,
                               amountOut: exchangeRoute.amountOutMin,
                               block: block
                             });
 
-                          case 4:
+                          case 2:
                             amountIn = _context.sent;
-                            return _context.abrupt("return", amountIn.toString());
+                            return _context.abrupt("return", amountIn);
 
-                          case 6:
+                          case 4:
                           case "end":
                             return _context.stop();
                         }
@@ -2736,11 +2735,27 @@
                   };
                 }()));
 
-              case 9:
+              case 10:
                 lastAmountsIn = _context2.sent;
-                console.log('lastAmountsIn', lastAmountsIn);
+                currentAmountIn = ethers.ethers.BigNumber.from(exchangeRoute.amountIn);
 
-              case 11:
+                if (!(currentAmountIn.gt(lastAmountsIn[0]) && lastAmountsIn[0].gt(lastAmountsIn[1]))) {
+                  _context2.next = 17;
+                  break;
+                }
+
+                difference1 = currentAmountIn.sub(lastAmountsIn[0]);
+                difference2 = lastAmountsIn[0].sub(lastAmountsIn[1]);
+
+                if (difference1.lt(difference2)) {
+                  slippage = difference2.add(difference2.sub(difference1));
+                } else {
+                  slippage = difference1.add(difference1.sub(difference2));
+                }
+
+                return _context2.abrupt("return", currentAmountIn.add(slippage));
+
+              case 17:
               case "end":
                 return _context2.stop();
             }
@@ -2748,16 +2763,16 @@
         }, _callee2);
       }));
 
-      return function addSlippageTo(_x) {
+      return function calculateAmountInWithSlippage(_x) {
         return _ref.apply(this, arguments);
       };
     }();
 
     var onRoutesUpdate = /*#__PURE__*/function () {
-      var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(routes) {
-        return regenerator.wrap(function _callee4$(_context4) {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
+        return regenerator.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 if (routes.length == 0) {
                   setAllRoutes([]);
@@ -2767,11 +2782,11 @@
                   }
                 } else {
                   roundAmounts(routes).then( /*#__PURE__*/function () {
-                    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(roundedRoutes) {
-                      var selectRoute;
-                      return regenerator.wrap(function _callee3$(_context3) {
+                    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(roundedRoutes) {
+                      var selectRoute, amountInWithSlippage;
+                      return regenerator.wrap(function _callee4$(_context4) {
                         while (1) {
-                          switch (_context3.prev = _context3.next) {
+                          switch (_context4.prev = _context4.next) {
                             case 0:
                               if (selectedRoute) {
                                 selectRoute = roundedRoutes[allRoutes.findIndex(function (route) {
@@ -2783,28 +2798,68 @@
                                 selectRoute = roundedRoutes[0];
                               }
 
-                              _context3.next = 4;
-                              return addSlippageTo(selectRoute);
+                              _context4.next = 4;
+                              return calculateAmountInWithSlippage(selectRoute);
 
                             case 4:
-                              roundedRoutes.forEach(function (route, index) {
-                                if (index > 0) {
-                                  addSlippageTo(route);
-                                }
-                              });
+                              amountInWithSlippage = _context4.sent;
+
+                              if (amountInWithSlippage) {
+                                updateRouteAmount(route, amountInWithSlippage);
+                              }
+
                               setSelectedRoute(selectRoute);
-                              setAllRoutes(roundedRoutes);
+                              Promise.all(roundedRoutes.map( /*#__PURE__*/function () {
+                                var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(route, index) {
+                                  var _amountInWithSlippage;
+
+                                  return regenerator.wrap(function _callee3$(_context3) {
+                                    while (1) {
+                                      switch (_context3.prev = _context3.next) {
+                                        case 0:
+                                          if (!(index > 0)) {
+                                            _context3.next = 8;
+                                            break;
+                                          }
+
+                                          _context3.next = 3;
+                                          return calculateAmountInWithSlippage(route);
+
+                                        case 3:
+                                          _amountInWithSlippage = _context3.sent;
+
+                                          if (_amountInWithSlippage) {
+                                            updateRouteAmount(route, _amountInWithSlippage);
+                                          }
+
+                                          return _context3.abrupt("return", route);
+
+                                        case 8:
+                                          return _context3.abrupt("return", route);
+
+                                        case 9:
+                                        case "end":
+                                          return _context3.stop();
+                                      }
+                                    }
+                                  }, _callee3);
+                                }));
+
+                                return function (_x5, _x6) {
+                                  return _ref5.apply(this, arguments);
+                                };
+                              }())).then(setAllRoutes);
 
                               if (props.setMaxRoute) {
                                 props.setMaxRoute(findMaxRoute(roundedRoutes));
                               }
 
-                            case 8:
+                            case 9:
                             case "end":
-                              return _context3.stop();
+                              return _context4.stop();
                           }
                         }
-                      }, _callee3);
+                      }, _callee4);
                     }));
 
                     return function (_x4) {
@@ -2815,10 +2870,10 @@
 
               case 1:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4);
+        }, _callee5);
       }));
 
       return function onRoutesUpdate(_x3) {
@@ -2826,10 +2881,10 @@
       };
     }();
 
-    var getPaymentRoutes = function getPaymentRoutes(_ref5) {
-      _ref5.allRoutes;
-          _ref5.selectedRoute;
-          var updatable = _ref5.updatable;
+    var getPaymentRoutes = function getPaymentRoutes(_ref6) {
+      _ref6.allRoutes;
+          _ref6.selectedRoute;
+          var updatable = _ref6.updatable;
 
       if (updatable == false || !props.accept || !account) {
         return;
@@ -2846,62 +2901,44 @@
       });
     };
 
+    var updateRouteAmount = function updateRouteAmount(route, amountBN) {
+      route.fromAmount = amountBN.toString();
+      route.transaction.params.amounts[0] = amountBN.toString();
+
+      if (route.transaction.value && route.transaction.value.toString() != '0') {
+        route.transaction.value = amountBN.toString();
+      }
+    };
+
     var roundAmount = /*#__PURE__*/function () {
-      var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(route) {
+      var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(route) {
         var readableAmount, roundedAmountBN;
-        return regenerator.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                if (!route.directTransfer) {
-                  _context5.next = 2;
-                  break;
-                }
-
-                return _context5.abrupt("return", route);
-
-              case 2:
-                _context5.next = 4;
-                return route.fromToken.readable(route.transaction.params.amounts[0]);
-
-              case 4:
-                readableAmount = _context5.sent;
-                _context5.next = 7;
-                return route.fromToken.BigNumber(round(readableAmount));
-
-              case 7:
-                roundedAmountBN = _context5.sent;
-                route.fromAmount = roundedAmountBN.toString();
-                route.transaction.params.amounts[0] = roundedAmountBN.toString();
-
-                if (route.transaction.value && route.transaction.value.toString() != '0') {
-                  route.transaction.value = roundedAmountBN.toString();
-                }
-
-                return _context5.abrupt("return", route);
-
-              case 12:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5);
-      }));
-
-      return function roundAmount(_x5) {
-        return _ref6.apply(this, arguments);
-      };
-    }();
-
-    var roundAmounts = /*#__PURE__*/function () {
-      var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(routes) {
         return regenerator.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                return _context6.abrupt("return", Promise.all(routes.map(roundAmount)));
+                if (!route.directTransfer) {
+                  _context6.next = 2;
+                  break;
+                }
 
-              case 1:
+                return _context6.abrupt("return", route);
+
+              case 2:
+                _context6.next = 4;
+                return route.fromToken.readable(route.transaction.params.amounts[0]);
+
+              case 4:
+                readableAmount = _context6.sent;
+                _context6.next = 7;
+                return route.fromToken.BigNumber(round(readableAmount));
+
+              case 7:
+                roundedAmountBN = _context6.sent;
+                updateRouteAmount(route, roundedAmountBN);
+                return _context6.abrupt("return", route);
+
+              case 10:
               case "end":
                 return _context6.stop();
             }
@@ -2909,14 +2946,67 @@
         }, _callee6);
       }));
 
-      return function roundAmounts(_x6) {
+      return function roundAmount(_x7) {
         return _ref7.apply(this, arguments);
       };
     }();
 
+    var roundAmounts = /*#__PURE__*/function () {
+      var _ref8 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee7(routes) {
+        return regenerator.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                return _context7.abrupt("return", Promise.all(routes.map(roundAmount)));
+
+              case 1:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
+      }));
+
+      return function roundAmounts(_x8) {
+        return _ref8.apply(this, arguments);
+      };
+    }();
+
     React.useEffect(function () {
+      function updateRouteWithAmountInWithSlippage() {
+        return _updateRouteWithAmountInWithSlippage.apply(this, arguments);
+      }
+
+      function _updateRouteWithAmountInWithSlippage() {
+        _updateRouteWithAmountInWithSlippage = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee8() {
+          var amountInWithSlippage;
+          return regenerator.wrap(function _callee8$(_context8) {
+            while (1) {
+              switch (_context8.prev = _context8.next) {
+                case 0:
+                  _context8.next = 2;
+                  return calculateAmountInWithSlippage(selectedRoute);
+
+                case 2:
+                  amountInWithSlippage = _context8.sent;
+
+                  if (amountInWithSlippage) {
+                    updateRouteAmount(selectedRoute, amountInWithSlippage);
+                    setSelectedRoute(selectedRoute);
+                  }
+
+                case 4:
+                case "end":
+                  return _context8.stop();
+              }
+            }
+          }, _callee8);
+        }));
+        return _updateRouteWithAmountInWithSlippage.apply(this, arguments);
+      }
+
       if (selectedRoute) {
-        addSlippageTo(selectedRoute);
+        updateRouteWithAmountInWithSlippage();
       }
     }, [selectedRoute]);
     React.useEffect(function () {
