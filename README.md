@@ -24,7 +24,9 @@ import DePayWidgets from '@depay/widgets'
 
 ## Demo
 
-Use the DePay Configurator here: https://app.depay.fi/integrations/new
+To easily configure DePay Payment Widgets please use our configurator here: https://app.depay.fi/integrations/new
+
+For a more low-key technical example/demo page have a look at: https://depayfi.github.io/widgets/dev.bundle.html
 
 ## Support
 

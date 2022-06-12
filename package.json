@@ -46,7 +46,7 @@
     "@depay/web3-exchanges": "^9.1.1",
     "@depay/web3-payments": "^10.4.1",
     "@depay/web3-tokens": "^8.1.0",
-    "@depay/web3-wallets": "^11.0.2",
+    "@depay/web3-wallets": "^11.0.3",
     "decimal.js": "^10.3.1"
   },
   "peerDependencies": {
@@ -77,7 +77,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "ethers": "^5.6.5",
+    "ethers": "^5.6.8",
     "fetch-mock": "^9.11.0",
     "mock-socket": "^9.0.8",
     "react": "^18",
