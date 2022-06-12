@@ -1696,7 +1696,7 @@ test:cypress:debug
 Test and debug single cypress file:
 
 ```
-yarn test:cypress:debug --spec "cypress/integration/Payment/overview.js"
+yarn test:cypress:debug --spec "cypress/e2e/Payment/overview.js"
 ```
 
 ### Release new versions to npm

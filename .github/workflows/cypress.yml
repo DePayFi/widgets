@@ -31,9 +31,9 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/integration/bundle.js
+      - name: Run Cypress Tests cypress/e2e/bundle.js
         run: |
-          yarn test:cypress --spec "cypress/integration/bundle.js"
+          yarn test:cypress --spec "cypress/e2e/bundle.js"
   
   cypress-donation-widget:
     
@@ -62,9 +62,9 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/integration/Donation/**.js
+      - name: Run Cypress Tests cypress/e2e/Donation/**.js
         run: |
-          yarn test:cypress --spec "cypress/integration/Donation/**.js"
+          yarn test:cypress --spec "cypress/e2e/Donation/**.js"
       - uses: actions/upload-artifact@v3
         if: failure()
         with:
@@ -104,9 +104,9 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/integration/Sale/**.js
+      - name: Run Cypress Tests cypress/e2e/Sale/**.js
         run: |
-          yarn test:cypress --spec "cypress/integration/Sale/**.js"
+          yarn test:cypress --spec "cypress/e2e/Sale/**.js"
       - uses: actions/upload-artifact@v3
         if: failure()
         with:
@@ -146,9 +146,9 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/integration/Payment/**.js
+      - name: Run Cypress Tests cypress/e2e/Payment/**.js
         run: |
-          yarn test:cypress --spec "cypress/integration/Payment/**.js"
+          yarn test:cypress --spec "cypress/e2e/Payment/**.js"
       - uses: actions/upload-artifact@v3
         if: failure()
         with:
@@ -188,9 +188,9 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/integration/Connect/**.js
+      - name: Run Cypress Tests cypress/e2e/Connect/**.js
         run: |
-          yarn test:cypress --spec "cypress/integration/Connect/**.js"
+          yarn test:cypress --spec "cypress/e2e/Connect/**.js"
       - uses: actions/upload-artifact@v3
         if: failure()
         with:
@@ -230,9 +230,9 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/integration/Login/**.js
+      - name: Run Cypress Tests cypress/e2e/Login/**.js
         run: |
-          yarn test:cypress --spec "cypress/integration/Login/**.js"
+          yarn test:cypress --spec "cypress/e2e/Login/**.js"
       - uses: actions/upload-artifact@v3
         if: failure()
         with:
@@ -272,9 +272,9 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/integration/Select/**.js
+      - name: Run Cypress Tests cypress/e2e/Select/**.js
         run: |
-          yarn test:cypress --spec "cypress/integration/Select/**.js"
+          yarn test:cypress --spec "cypress/e2e/Select/**.js"
       - uses: actions/upload-artifact@v3
         if: failure()
         with:
