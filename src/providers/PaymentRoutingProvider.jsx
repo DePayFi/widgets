@@ -27,6 +27,7 @@ export default (props)=>{
       blocks.push(currentBlock-i)
     }
     let exchangeRoute = route.exchangeRoutes[0]
+    if(typeof exchangeRoute == 'undefined' || typeof exchangeRoute.exchange == 'undefined') { return }
     const lastAmountsIn = await Promise.all(blocks.map(async (block)=>{
       let amountIn = await exchangeRoute.exchange.getAmountIn({
         path: exchangeRoute.path,

@@ -2703,7 +2703,16 @@
                 }
 
                 exchangeRoute = route.exchangeRoutes[0];
-                _context2.next = 10;
+
+                if (!(typeof exchangeRoute == 'undefined' || typeof exchangeRoute.exchange == 'undefined')) {
+                  _context2.next = 10;
+                  break;
+                }
+
+                return _context2.abrupt("return");
+
+              case 10:
+                _context2.next = 12;
                 return Promise.all(blocks.map( /*#__PURE__*/function () {
                   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(block) {
                     var amountIn;
@@ -2735,12 +2744,12 @@
                   };
                 }()));
 
-              case 10:
+              case 12:
                 lastAmountsIn = _context2.sent;
                 currentAmountIn = ethers.ethers.BigNumber.from(exchangeRoute.amountIn);
 
                 if (!(currentAmountIn.gt(lastAmountsIn[0]) && lastAmountsIn[0].gt(lastAmountsIn[1]))) {
-                  _context2.next = 17;
+                  _context2.next = 19;
                   break;
                 }
 
@@ -2755,7 +2764,7 @@
 
                 return _context2.abrupt("return", currentAmountIn.add(slippage));
 
-              case 17:
+              case 19:
               case "end":
                 return _context2.stop();
             }
