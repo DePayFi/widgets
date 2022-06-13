@@ -36,7 +36,7 @@
     "@depay/coinbase-wallet-sdk": "^1.0.5",
     "@depay/local-currency": "^3.2.2",
     "@depay/react-dialog-stack": "^6.0.0",
-    "@depay/react-shadow-dom": "^5.0.0",
+    "@depay/react-shadow-dom": "^5.0.1",
     "@depay/react-token-image": "^4.0.0",
     "@depay/walletconnect-v1": "^1.7.8",
     "@depay/web3-assets": "^6.3.0",

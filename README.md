@@ -1696,7 +1696,7 @@ test:cypress:debug
 Test and debug single cypress file:
 
 ```
-yarn test:cypress:debug --spec "cypress/e2e/Payment/pay-smart-contracts.js"
+yarn test:cypress:debug --spec "cypress/e2e/Payment/replaced-transaction.js"
 ```
 
 ### Release new versions to npm
