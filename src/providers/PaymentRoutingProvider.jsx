@@ -13,17 +13,19 @@ import { request } from '@depay/web3-client'
 
 export default (props)=>{
   const [ allRoutes, setAllRoutes ] = useState()
+  const [ updatedRouteWithNewPrice, setUpdatedRouteWithNewPrice ] = useState()
   const [ selectedRoute, setSelectedRoute ] = useState()
   const [ slowRouting, setSlowRouting ] = useState(false)
   const [ reloadCount, setReloadCount ] = useState(0)
   const { account } = useContext(WalletContext)
   const { updatable } = useContext(UpdatableContext)
   const { recover } = useContext(ConfigurationContext)
+  
   const calculateAmountInWithSlippage = async (route)=>{
     if(route.directTransfer) { return }
     const currentBlock = await request({ blockchain: route.blockchain, method: 'latestBlockNumber' })
     let blocks = []
-    for(var i = 1; i <= 2; i++){
+    for(var i = 0; i <= 2; i++){
       blocks.push(currentBlock-i)
     }
     let exchangeRoute = route.exchangeRoutes[0]
@@ -37,21 +39,24 @@ export default (props)=>{
       return amountIn
     }))
 
-    let currentAmountIn = ethers.BigNumber.from(exchangeRoute.amountIn)
-
     if(
-      (currentAmountIn.gt(lastAmountsIn[0])) &&
-      (lastAmountsIn[0].gt(lastAmountsIn[1]))
+      (lastAmountsIn[0].gt(lastAmountsIn[1])) &&
+      (lastAmountsIn[1].gt(lastAmountsIn[2]))
     ) {
-      const difference1 = currentAmountIn.sub(lastAmountsIn[0])
-      const difference2 = lastAmountsIn[0].sub(lastAmountsIn[1])
+      const difference1 = lastAmountsIn[0].sub(lastAmountsIn[1])
+      const difference2 = lastAmountsIn[1].sub(lastAmountsIn[2])
       let slippage
       if(difference1.lt(difference2)) {
         slippage = difference2.add(difference2.sub(difference1))
       } else {
         slippage = difference1.add(difference1.sub(difference2))
       }
-      return currentAmountIn.add(slippage)
+
+      let newAmountBN = lastAmountsIn[0].add(slippage)
+      let readableAmount = await route.fromToken.readable(newAmountBN)
+      let roundedAmountBN = await route.fromToken.BigNumber(round(readableAmount))
+      if(route.fromAmount == roundedAmountBN.toString()) { return }
+      return newAmountBN
     }
   }
   const onRoutesUpdate = async (routes)=>{
@@ -68,13 +73,15 @@ export default (props)=>{
           selectRoute = roundedRoutes[0]
         }
         const amountInWithSlippage = await calculateAmountInWithSlippage(selectRoute)
-        if(amountInWithSlippage) { updateRouteAmount(route, amountInWithSlippage) }
+        if(amountInWithSlippage) {
+          await roundAmount(selectRoute, amountInWithSlippage)
+        }
         setSelectedRoute(selectRoute)
         Promise.all(roundedRoutes.map(async (route, index)=>{
           if(index > 0){
             let amountInWithSlippage = await calculateAmountInWithSlippage(route)
             if(amountInWithSlippage) { 
-              updateRouteAmount(route, amountInWithSlippage) 
+              await roundAmount(route, amountInWithSlippage) 
             }
             return route
           } else {
@@ -103,24 +110,29 @@ export default (props)=>{
     }
   }
 
-  const roundAmount = async (route)=> {
+  const roundAmount = async (route, amountBN)=> {
     if(route.directTransfer){ return route }
-    let readableAmount = await route.fromToken.readable(route.transaction.params.amounts[0])
+    let readableAmount = await route.fromToken.readable(amountBN || route.transaction.params.amounts[0])
     let roundedAmountBN = await route.fromToken.BigNumber(round(readableAmount))
     updateRouteAmount(route, roundedAmountBN)
     return route
   }
 
   const roundAmounts = async (routes)=> {
-    return Promise.all(routes.map(roundAmount))
+    return Promise.all(routes.map((route)=>roundAmount(route)))
+  }
+
+  const updateRouteWithNewPrice = async ()=> {
+    setSelectedRoute({...updatedRouteWithNewPrice})
+    setUpdatedRouteWithNewPrice(null)
   }
 
   useEffect(()=>{
     async function updateRouteWithAmountInWithSlippage() {
       const amountInWithSlippage = await calculateAmountInWithSlippage(selectedRoute)
-      if(amountInWithSlippage) { 
-        updateRouteAmount(selectedRoute, amountInWithSlippage)
-        setSelectedRoute(selectedRoute)
+      if(amountInWithSlippage) {
+        await roundAmount(selectedRoute, amountInWithSlippage)
+        setUpdatedRouteWithNewPrice(selectedRoute)
       }
     }
 
@@ -154,7 +166,9 @@ export default (props)=>{
       getPaymentRoutes,
       allRoutes,
       setAllRoutes,
-      slowRouting
+      slowRouting,
+      updatedRouteWithNewPrice,
+      updateRouteWithNewPrice
     }}>
       { props.children }
     </PaymentRoutingContext.Provider>

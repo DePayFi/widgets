@@ -2707,17 +2707,18 @@ var PaymentRoutingProvider = (function (props) {
                 blocks.push(currentBlock - i);
               }
 
+              console.log('blocks', blocks);
               exchangeRoute = route.exchangeRoutes[0];
 
               if (!(typeof exchangeRoute == 'undefined' || typeof exchangeRoute.exchange == 'undefined')) {
-                _context2.next = 10;
+                _context2.next = 11;
                 break;
               }
 
               return _context2.abrupt("return");
 
-            case 10:
-              _context2.next = 12;
+            case 11:
+              _context2.next = 13;
               return Promise.all(blocks.map( /*#__PURE__*/function () {
                 var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(block) {
                   var amountIn;
@@ -2749,12 +2750,15 @@ var PaymentRoutingProvider = (function (props) {
                 };
               }()));
 
-            case 12:
+            case 13:
               lastAmountsIn = _context2.sent;
               currentAmountIn = ethers.BigNumber.from(exchangeRoute.amountIn);
+              console.log('lastAmountsIn', lastAmountsIn.map(function (amount) {
+                return amount.toString();
+              }));
 
               if (!(currentAmountIn.gt(lastAmountsIn[0]) && lastAmountsIn[0].gt(lastAmountsIn[1]))) {
-                _context2.next = 19;
+                _context2.next = 21;
                 break;
               }
 
@@ -2769,7 +2773,7 @@ var PaymentRoutingProvider = (function (props) {
 
               return _context2.abrupt("return", currentAmountIn.add(slippage));
 
-            case 19:
+            case 21:
             case "end":
               return _context2.stop();
           }
@@ -4255,6 +4259,27 @@ var PaymentTrackingProvider = (function (props) {
       return;
     }
 
+    console.log('storePayment', {
+      blockchain: transaction.blockchain,
+      transaction: transaction.id,
+      sender: transaction.from.toLowerCase(),
+      nonce: transaction.nonce,
+      receiver: paymentRoute.toAddress,
+      token: paymentRoute.toToken.address,
+      amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
+      confirmations: 1,
+      after_block: afterBlock,
+      uuid: transaction.id,
+      payload: {
+        sender_id: transaction.from.toLowerCase(),
+        sender_token_id: paymentRoute.fromToken.address,
+        sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
+        integration: integration,
+        type: type
+      },
+      fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
+      fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
+    });
     fetch('https://public.depay.fi/payments', {
       headers: {
         'Content-Type': 'application/json'
