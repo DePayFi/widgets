@@ -2395,7 +2395,6 @@
       }
 
       setPaymentState('initialized');
-      setPayment(null);
       setClosable(true);
       setUpdatable(true);
       getPaymentRoutes({});
@@ -2605,14 +2604,14 @@
     return obj;
   }
 
-  function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+  function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-  function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
   var prepareAcceptedPayments = function prepareAcceptedPayments(accept) {
     var toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
     var toContract = _typeof(accept.receiver) == 'object' ? accept.receiver : undefined;
-    return _objectSpread(_objectSpread({}, accept), {}, {
+    return _objectSpread$1(_objectSpread$1({}, accept), {}, {
       toAddress: toAddress,
       toContract: toContract
     });
@@ -2643,6 +2642,9 @@
     });
   });
 
+  function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+  function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
   var PaymentRoutingProvider = (function (props) {
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
@@ -2651,18 +2653,23 @@
 
     var _useState3 = React.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
-        selectedRoute = _useState4[0],
-        setSelectedRoute = _useState4[1];
+        updatedRouteWithNewPrice = _useState4[0],
+        setUpdatedRouteWithNewPrice = _useState4[1];
 
-    var _useState5 = React.useState(false),
+    var _useState5 = React.useState(),
         _useState6 = _slicedToArray(_useState5, 2),
-        slowRouting = _useState6[0],
-        setSlowRouting = _useState6[1];
+        selectedRoute = _useState6[0],
+        setSelectedRoute = _useState6[1];
 
-    var _useState7 = React.useState(0),
+    var _useState7 = React.useState(false),
         _useState8 = _slicedToArray(_useState7, 2),
-        reloadCount = _useState8[0],
-        setReloadCount = _useState8[1];
+        slowRouting = _useState8[0],
+        setSlowRouting = _useState8[1];
+
+    var _useState9 = React.useState(0),
+        _useState10 = _slicedToArray(_useState9, 2),
+        reloadCount = _useState10[0],
+        setReloadCount = _useState10[1];
 
     var _useContext = React.useContext(WalletContext),
         account = _useContext.account;
@@ -2675,7 +2682,7 @@
 
     var calculateAmountInWithSlippage = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(route) {
-        var currentBlock, blocks, i, exchangeRoute, lastAmountsIn, currentAmountIn, difference1, difference2, slippage;
+        var currentBlock, blocks, i, exchangeRoute, lastAmountsIn, difference1, difference2, slippage, newAmountBN, readableAmount, roundedAmountBN;
         return regenerator.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -2698,22 +2705,21 @@
                 currentBlock = _context2.sent;
                 blocks = [];
 
-                for (i = 1; i <= 2; i++) {
+                for (i = 0; i <= 2; i++) {
                   blocks.push(currentBlock - i);
                 }
 
-                console.log('blocks', blocks);
                 exchangeRoute = route.exchangeRoutes[0];
 
                 if (!(typeof exchangeRoute == 'undefined' || typeof exchangeRoute.exchange == 'undefined')) {
-                  _context2.next = 11;
+                  _context2.next = 10;
                   break;
                 }
 
                 return _context2.abrupt("return");
 
-              case 11:
-                _context2.next = 13;
+              case 10:
+                _context2.next = 12;
                 return Promise.all(blocks.map( /*#__PURE__*/function () {
                   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(block) {
                     var amountIn;
@@ -2745,20 +2751,24 @@
                   };
                 }()));
 
-              case 13:
+              case 12:
                 lastAmountsIn = _context2.sent;
-                currentAmountIn = ethers.ethers.BigNumber.from(exchangeRoute.amountIn);
-                console.log('lastAmountsIn', lastAmountsIn.map(function (amount) {
-                  return amount.toString();
-                }));
 
-                if (!(currentAmountIn.gt(lastAmountsIn[0]) && lastAmountsIn[0].gt(lastAmountsIn[1]))) {
-                  _context2.next = 21;
+                if (!(!lastAmountsIn[0] || !lastAmountsIn[1] || !lastAmountsIn[2])) {
+                  _context2.next = 15;
                   break;
                 }
 
-                difference1 = currentAmountIn.sub(lastAmountsIn[0]);
-                difference2 = lastAmountsIn[0].sub(lastAmountsIn[1]);
+                return _context2.abrupt("return");
+
+              case 15:
+                if (!(lastAmountsIn[0].gt(lastAmountsIn[1]) && lastAmountsIn[1].gt(lastAmountsIn[2]))) {
+                  _context2.next = 29;
+                  break;
+                }
+
+                difference1 = lastAmountsIn[0].sub(lastAmountsIn[1]);
+                difference2 = lastAmountsIn[1].sub(lastAmountsIn[2]);
 
                 if (difference1.lt(difference2)) {
                   slippage = difference2.add(difference2.sub(difference1));
@@ -2766,9 +2776,29 @@
                   slippage = difference1.add(difference1.sub(difference2));
                 }
 
-                return _context2.abrupt("return", currentAmountIn.add(slippage));
+                newAmountBN = lastAmountsIn[0].add(slippage);
+                _context2.next = 22;
+                return route.fromToken.readable(newAmountBN);
 
-              case 21:
+              case 22:
+                readableAmount = _context2.sent;
+                _context2.next = 25;
+                return route.fromToken.BigNumber(round(readableAmount));
+
+              case 25:
+                roundedAmountBN = _context2.sent;
+
+                if (!(route.fromAmount == roundedAmountBN.toString())) {
+                  _context2.next = 28;
+                  break;
+                }
+
+                return _context2.abrupt("return");
+
+              case 28:
+                return _context2.abrupt("return", newAmountBN);
+
+              case 29:
               case "end":
                 return _context2.stop();
             }
@@ -2796,61 +2826,98 @@
                 } else {
                   roundAmounts(routes).then( /*#__PURE__*/function () {
                     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(roundedRoutes) {
-                      var selectRoute, amountInWithSlippage;
+                      var selectRoute, newSelectRoute, amountInWithSlippage, _amountInWithSlippage;
+
                       return regenerator.wrap(function _callee4$(_context4) {
                         while (1) {
                           switch (_context4.prev = _context4.next) {
                             case 0:
-                              if (selectedRoute) {
-                                selectRoute = roundedRoutes[allRoutes.findIndex(function (route) {
-                                  return route.fromToken == selectedRoute.fromToken && route.blockchain == selectedRoute.blockchain;
-                                })];
+                              if (!(typeof selectedRoute == 'undefined')) {
+                                _context4.next = 4;
+                                break;
                               }
 
-                              if (selectRoute == undefined) {
-                                selectRoute = roundedRoutes[0];
-                              }
-
-                              _context4.next = 4;
-                              return calculateAmountInWithSlippage(selectRoute);
+                              selectRoute = roundedRoutes[0];
+                              _context4.next = 13;
+                              break;
 
                             case 4:
-                              amountInWithSlippage = _context4.sent;
+                              newSelectRoute = roundedRoutes[allRoutes.findIndex(function (route) {
+                                return route.fromToken == selectedRoute.fromToken && route.blockchain == selectedRoute.blockchain;
+                              })];
 
-                              if (amountInWithSlippage) {
-                                updateRouteAmount(route, amountInWithSlippage);
+                              if (!(newSelectRoute && selectedRoute.fromAmount !== newSelectRoute.fromAmount)) {
+                                _context4.next = 13;
+                                break;
                               }
 
-                              setSelectedRoute(selectRoute);
-                              Promise.all(roundedRoutes.map( /*#__PURE__*/function () {
-                                var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(route, index) {
-                                  var _amountInWithSlippage;
+                              _context4.next = 8;
+                              return calculateAmountInWithSlippage(newSelectRoute);
 
+                            case 8:
+                              amountInWithSlippage = _context4.sent;
+
+                              if (!amountInWithSlippage) {
+                                _context4.next = 12;
+                                break;
+                              }
+
+                              _context4.next = 12;
+                              return roundAmount(newSelectRoute, amountInWithSlippage);
+
+                            case 12:
+                              setUpdatedRouteWithNewPrice(newSelectRoute);
+
+                            case 13:
+                              if (!selectRoute) {
+                                _context4.next = 21;
+                                break;
+                              }
+
+                              _context4.next = 16;
+                              return calculateAmountInWithSlippage(selectRoute);
+
+                            case 16:
+                              _amountInWithSlippage = _context4.sent;
+
+                              if (!_amountInWithSlippage) {
+                                _context4.next = 20;
+                                break;
+                              }
+
+                              _context4.next = 20;
+                              return roundAmount(selectRoute, _amountInWithSlippage);
+
+                            case 20:
+                              setSelectedRoute(selectRoute);
+
+                            case 21:
+                              _context4.next = 23;
+                              return Promise.all(roundedRoutes.map( /*#__PURE__*/function () {
+                                var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(route, index) {
+                                  var amountInWithSlippage;
                                   return regenerator.wrap(function _callee3$(_context3) {
                                     while (1) {
                                       switch (_context3.prev = _context3.next) {
                                         case 0:
-                                          if (!(index > 0)) {
-                                            _context3.next = 8;
+                                          _context3.next = 2;
+                                          return calculateAmountInWithSlippage(route);
+
+                                        case 2:
+                                          amountInWithSlippage = _context3.sent;
+
+                                          if (!amountInWithSlippage) {
+                                            _context3.next = 6;
                                             break;
                                           }
 
-                                          _context3.next = 3;
-                                          return calculateAmountInWithSlippage(route);
+                                          _context3.next = 6;
+                                          return roundAmount(route, amountInWithSlippage);
 
-                                        case 3:
-                                          _amountInWithSlippage = _context3.sent;
-
-                                          if (_amountInWithSlippage) {
-                                            updateRouteAmount(route, _amountInWithSlippage);
-                                          }
-
+                                        case 6:
                                           return _context3.abrupt("return", route);
 
-                                        case 8:
-                                          return _context3.abrupt("return", route);
-
-                                        case 9:
+                                        case 7:
                                         case "end":
                                           return _context3.stop();
                                       }
@@ -2863,11 +2930,12 @@
                                 };
                               }())).then(setAllRoutes);
 
+                            case 23:
                               if (props.setMaxRoute) {
                                 props.setMaxRoute(findMaxRoute(roundedRoutes));
                               }
 
-                            case 9:
+                            case 24:
                             case "end":
                               return _context4.stop();
                           }
@@ -2924,7 +2992,7 @@
     };
 
     var roundAmount = /*#__PURE__*/function () {
-      var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(route) {
+      var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(route, amountBN) {
         var readableAmount, roundedAmountBN;
         return regenerator.wrap(function _callee6$(_context6) {
           while (1) {
@@ -2939,7 +3007,7 @@
 
               case 2:
                 _context6.next = 4;
-                return route.fromToken.readable(route.transaction.params.amounts[0]);
+                return route.fromToken.readable(amountBN || route.transaction.params.amounts[0]);
 
               case 4:
                 readableAmount = _context6.sent;
@@ -2959,7 +3027,7 @@
         }, _callee6);
       }));
 
-      return function roundAmount(_x7) {
+      return function roundAmount(_x7, _x8) {
         return _ref7.apply(this, arguments);
       };
     }();
@@ -2970,7 +3038,9 @@
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                return _context7.abrupt("return", Promise.all(routes.map(roundAmount)));
+                return _context7.abrupt("return", Promise.all(routes.map(function (route) {
+                  return roundAmount(route);
+                })));
 
               case 1:
               case "end":
@@ -2980,8 +3050,30 @@
         }, _callee7);
       }));
 
-      return function roundAmounts(_x8) {
+      return function roundAmounts(_x9) {
         return _ref8.apply(this, arguments);
+      };
+    }();
+
+    var updateRouteWithNewPrice = /*#__PURE__*/function () {
+      var _ref9 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee8() {
+        return regenerator.wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                setSelectedRoute(_objectSpread({}, updatedRouteWithNewPrice));
+                setUpdatedRouteWithNewPrice(null);
+
+              case 2:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
+      }));
+
+      return function updateRouteWithNewPrice() {
+        return _ref9.apply(this, arguments);
       };
     }();
 
@@ -2991,29 +3083,35 @@
       }
 
       function _updateRouteWithAmountInWithSlippage() {
-        _updateRouteWithAmountInWithSlippage = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee8() {
+        _updateRouteWithAmountInWithSlippage = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee9() {
           var amountInWithSlippage;
-          return regenerator.wrap(function _callee8$(_context8) {
+          return regenerator.wrap(function _callee9$(_context9) {
             while (1) {
-              switch (_context8.prev = _context8.next) {
+              switch (_context9.prev = _context9.next) {
                 case 0:
-                  _context8.next = 2;
+                  _context9.next = 2;
                   return calculateAmountInWithSlippage(selectedRoute);
 
                 case 2:
-                  amountInWithSlippage = _context8.sent;
+                  amountInWithSlippage = _context9.sent;
 
-                  if (amountInWithSlippage) {
-                    updateRouteAmount(selectedRoute, amountInWithSlippage);
-                    setSelectedRoute(selectedRoute);
+                  if (!amountInWithSlippage) {
+                    _context9.next = 7;
+                    break;
                   }
 
-                case 4:
+                  _context9.next = 6;
+                  return roundAmount(selectedRoute, amountInWithSlippage);
+
+                case 6:
+                  setUpdatedRouteWithNewPrice(selectedRoute);
+
+                case 7:
                 case "end":
-                  return _context8.stop();
+                  return _context9.stop();
               }
             }
-          }, _callee8);
+          }, _callee9);
         }));
         return _updateRouteWithAmountInWithSlippage.apply(this, arguments);
       }
@@ -3037,12 +3135,7 @@
     }, [reloadCount, allRoutes, selectedRoute, updatable]);
     React.useEffect(function () {
       if (account && props.accept && recover == undefined) {
-        setAllRoutes(undefined);
-        setSelectedRoute(undefined);
         getPaymentRoutes({});
-      } else {
-        setAllRoutes(undefined);
-        setSelectedRoute(undefined);
       }
     }, [account, props.accept]);
     return /*#__PURE__*/React__default['default'].createElement(PaymentRoutingContext.Provider, {
@@ -3052,7 +3145,9 @@
         getPaymentRoutes: getPaymentRoutes,
         allRoutes: allRoutes,
         setAllRoutes: setAllRoutes,
-        slowRouting: slowRouting
+        slowRouting: slowRouting,
+        updatedRouteWithNewPrice: updatedRouteWithNewPrice,
+        updateRouteWithNewPrice: updateRouteWithNewPrice
       }
     }, props.children);
   });
@@ -3243,12 +3338,15 @@
 
     var _useContext6 = React.useContext(PaymentRoutingContext);
         _useContext6.allRoutes;
+        var setSelectedRoute = _useContext6.setSelectedRoute;
 
     var min = _typeof(amountConfiguration) == "object" && amountConfiguration.min ? amountConfiguration.min : 1;
     var step = _typeof(amountConfiguration) == "object" && amountConfiguration.step ? amountConfiguration.step : 1;
     var displayedCurrencyCode = amountConfiguration != undefined && amountConfiguration.token ? null : currencyCode;
 
     var changeAmountAndGoBack = function changeAmountAndGoBack() {
+      console.log('setSelectedRoute(undefined) 3');
+      setSelectedRoute(undefined);
       setAmount(toValidValue(parseFloat(inputAmount)));
       navigate('back');
     };
@@ -3606,11 +3704,15 @@
         paymentValue = _useContext5.paymentValue,
         paymentValueLoss = _useContext5.paymentValueLoss;
 
-    var _useContext6 = React.useContext(reactDialogStack.NavigateStackContext);
-        _useContext6.navigate;
+    var _useContext6 = React.useContext(PaymentRoutingContext),
+        updatedRouteWithNewPrice = _useContext6.updatedRouteWithNewPrice,
+        updateRouteWithNewPrice = _useContext6.updateRouteWithNewPrice;
 
-    var _useContext7 = React.useContext(ClosableContext),
-        close = _useContext7.close;
+    var _useContext7 = React.useContext(reactDialogStack.NavigateStackContext);
+        _useContext7.navigate;
+
+    var _useContext8 = React.useContext(ClosableContext),
+        close = _useContext8.close;
 
     var trackingInfo = function trackingInfo() {
       if (tracking != true) {
@@ -3750,7 +3852,18 @@
         displayedAmount = "".concat(payment.symbol, " ").concat(payment.amount);
       }
 
-      if (paymentValueLoss) {
+      if (updatedRouteWithNewPrice) {
+        return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingBottomXS"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "Alert"
+        }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Price updated!"))), /*#__PURE__*/React__default['default'].createElement("button", {
+          className: "ButtonPrimary",
+          onClick: function onClick() {
+            updateRouteWithNewPrice();
+          }
+        }, "Reload"));
+      } else if (paymentValueLoss) {
         return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "PaddingBottomXS"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -4254,27 +4367,6 @@
         return;
       }
 
-      console.log('storePayment', {
-        blockchain: transaction.blockchain,
-        transaction: transaction.id,
-        sender: transaction.from.toLowerCase(),
-        nonce: transaction.nonce,
-        receiver: paymentRoute.toAddress,
-        token: paymentRoute.toToken.address,
-        amount: paymentRoute.fee ? ethers.ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
-        confirmations: 1,
-        after_block: afterBlock,
-        uuid: transaction.id,
-        payload: {
-          sender_id: transaction.from.toLowerCase(),
-          sender_token_id: paymentRoute.fromToken.address,
-          sender_amount: ethers.ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
-          integration: integration,
-          type: type
-        },
-        fee_amount: paymentRoute.fee ? ethers.ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
-        fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
-      });
       fetch('https://public.depay.fi/payments', {
         headers: {
           'Content-Type': 'application/json'
