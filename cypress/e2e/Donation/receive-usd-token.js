@@ -20,7 +20,7 @@ describe('Donation Widget: amount in USD token', () => {
   beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
   beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
-  // afterEach(closeWidget)
+  afterEach(closeWidget)
 
   let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   let DAI = CONSTANTS[blockchain].USD
@@ -108,62 +108,16 @@ describe('Donation Widget: amount in USD token', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
-
-    mockAmountsOut({
-      provider: provider(blockchain),
-      blockchain,
-      exchange,
-      amountInBN: '1176470588235294200',
-      path: [DAI, WETH, DEPAY],
-      amountsOut: [
-        '1176470588235294200',
-        WRAPPED_AmountInBN,
-        TOKEN_A_AmountBN
-      ]
-    })
   })
   
   it('allows me to perform donations also for USD tokens', ()=> {
-    mockAmountsOut({
-      provider: provider(blockchain),
-      blockchain,
-      exchange,
-      amountInBN: '11764705882352942000',
-      path: [DAI, WETH, DEPAY],
-      amountsOut: [
-        '11764705882352942000',
-        WRAPPED_AmountInBN.mul(10),
-        TOKEN_A_AmountBN.mul(10)
-      ]
-    })
-    mock({
-      provider: provider(blockchain),
-      blockchain,
-      call: {
-        to: exchange.contracts.router.address,
-        api: exchange.contracts.router.api,
-        method: 'getAmountsIn',
-        params: [ethers.utils.parseUnits('18', 18), [DAI, WETH, DEPAY]],
-        return: [ethers.utils.parseUnits('18', 18), ethers.utils.parseUnits('0.05', 18), ethers.utils.parseUnits('11.6', 18)]
-      }
-    })
-    mockAmountsOut({
-      provider: provider(blockchain),
-      blockchain,
-      exchange,
-      amountInBN: ethers.utils.parseUnits('18', 18),
-      path: [DEPAY, WETH, DAI],
-      amountsOut: [
-        ethers.utils.parseUnits('18', 18),
-        ethers.utils.parseUnits('0.05', 18),
-        ethers.utils.parseUnits('11.6', 18)
-      ]
-    })
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Donation({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
+        cy.wait(3000).then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"] .TokenSymbolCell').should('contain', 'DAI')
+        })
       })
     })
   })

@@ -6,9 +6,10 @@ import ConfigurationContext from '../contexts/ConfigurationContext'
 import DigitalWalletIcon from '../components/DigitalWalletIcon'
 import LoadingText from '../components/LoadingText'
 import PaymentContext from '../contexts/PaymentContext'
+import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
+import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext } from 'react'
-import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
@@ -18,6 +19,7 @@ export default ()=>{
   const { tracking, release, forwardTo, trackingFailed } = useContext(PaymentTrackingContext)
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
   const { paymentValue, paymentValueLoss } = useContext(PaymentValueContext)
+  const { updatedRouteWithNewPrice, updateRouteWithNewPrice } = useContext(PaymentRoutingContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
 
@@ -162,7 +164,20 @@ export default ()=>{
       displayedAmount = `${payment.symbol} ${payment.amount}`
     }
 
-    if(paymentValueLoss){
+    if(updatedRouteWithNewPrice) {
+      return(
+        <div>
+          <div className="PaddingBottomXS">
+            <div className="Alert">
+              <strong>Price updated!</strong>
+            </div>
+          </div>
+          <button className={"ButtonPrimary"} onClick={()=>{ updateRouteWithNewPrice() }}>
+            Reload
+          </button>
+        </div>
+      )
+    } else if(paymentValueLoss){
       return(
         <div>
           <div className="PaddingBottomXS">

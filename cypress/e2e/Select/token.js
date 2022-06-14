@@ -218,7 +218,6 @@ describe('Select Widget', () => {
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('td', 'DEPAY')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('td', 'DePay')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Confirm').click().then(()=>{
-                console.log('selectedToken', selectedToken)
                 expect(selectedToken['address']).to.equal("0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb")
                 expect(selectedToken['blockchain']).to.equal("ethereum")
                 expect(selectedToken['decimals']).to.equal(18)

@@ -22,12 +22,14 @@ export default (props)=>{
   const { amount, setAmount, maxAmount } = useContext(ChangableAmountContext)
   const [ inputAmount, setInputAmount ] = useState(amount)
   const { currencyCode, amount: amountConfiguration } = useContext(ConfigurationContext)
-  const { allRoutes } = useContext(PaymentRoutingContext)
+  const { allRoutes, setSelectedRoute } = useContext(PaymentRoutingContext)
   const min = typeof amountConfiguration == "object" && amountConfiguration.min ? amountConfiguration.min : 1
   const step = typeof amountConfiguration == "object" && amountConfiguration.step ? amountConfiguration.step : 1
   let displayedCurrencyCode = (amountConfiguration != undefined && amountConfiguration.token) ? null : currencyCode
 
   const changeAmountAndGoBack = ()=>{
+    console.log('setSelectedRoute(undefined) 3')
+    setSelectedRoute(undefined)
     setAmount(toValidValue(parseFloat(inputAmount)))
     navigate('back')
   }
