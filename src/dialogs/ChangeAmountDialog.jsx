@@ -28,7 +28,6 @@ export default (props)=>{
   let displayedCurrencyCode = (amountConfiguration != undefined && amountConfiguration.token) ? null : currencyCode
 
   const changeAmountAndGoBack = ()=>{
-    console.log('setSelectedRoute(undefined) 3')
     setSelectedRoute(undefined)
     setAmount(toValidValue(parseFloat(inputAmount)))
     navigate('back')

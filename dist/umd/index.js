@@ -3345,7 +3345,6 @@
     var displayedCurrencyCode = amountConfiguration != undefined && amountConfiguration.token ? null : currencyCode;
 
     var changeAmountAndGoBack = function changeAmountAndGoBack() {
-      console.log('setSelectedRoute(undefined) 3');
       setSelectedRoute(undefined);
       setAmount(toValidValue(parseFloat(inputAmount)));
       navigate('back');
