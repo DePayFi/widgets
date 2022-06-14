@@ -156,12 +156,7 @@ export default (props)=>{
 
   useEffect(() => {
     if(account && props.accept && recover == undefined) {
-      setAllRoutes(undefined)
-      setSelectedRoute(undefined)
       getPaymentRoutes({})
-    } else {
-      setAllRoutes(undefined)
-      setSelectedRoute(undefined)
     }
   }, [account, props.accept])
 

@@ -17,7 +17,7 @@ export default (props)=>{
   const { amount } = useContext(ChangableAmountContext)
   const { payment, paymentState } = useContext(PaymentContext)
   const { navigate } = useContext(NavigateStackContext)
-
+  
   if(payment == undefined) { return(<DonationOverviewSkeleton/>) }
 
   const blockchain = Blockchain.findByName(payment.blockchain)
