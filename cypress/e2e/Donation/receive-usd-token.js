@@ -20,7 +20,7 @@ describe('Donation Widget: amount in USD token', () => {
   beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
   beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
-  // afterEach(closeWidget)
+  afterEach(closeWidget)
 
   let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   let DAI = CONSTANTS[blockchain].USD
@@ -163,7 +163,9 @@ describe('Donation Widget: amount in USD token', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Donation({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
+        cy.wait(1000).then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
+        })
       })
     })
   })
