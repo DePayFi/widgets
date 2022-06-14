@@ -24,7 +24,6 @@ export default (props)=>{
   const calculateAmountInWithSlippage = async (route)=>{
     if(route.directTransfer) { return }
     const currentBlock = await request({ blockchain: route.blockchain, method: 'latestBlockNumber' })
-    console.log('calculateAmountInWithSlippage currentBlock', currentBlock)
     let blocks = []
     for(var i = 0; i <= 2; i++){
       blocks.push(currentBlock-i)
