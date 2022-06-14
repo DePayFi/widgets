@@ -40,7 +40,6 @@ export default (props)=>{
   const paymentFailed = (transaction, error)=> {
     if(failed) { failed(transaction, error) }
     setPaymentState('initialized')
-    setPayment(null)
     setClosable(true)
     setUpdatable(true)
     getPaymentRoutes({})
