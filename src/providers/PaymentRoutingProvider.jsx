@@ -39,6 +39,8 @@ export default (props)=>{
       return amountIn
     }))
 
+    if(!lastAmountsIn[0] || !lastAmountsIn[1] || !lastAmountsIn[2]) { return }
+
     if(
       (lastAmountsIn[0].gt(lastAmountsIn[1])) &&
       (lastAmountsIn[1].gt(lastAmountsIn[2]))
