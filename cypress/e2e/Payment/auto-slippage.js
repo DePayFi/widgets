@@ -7,7 +7,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from '@depay/web3-constants'
 import { ethers } from 'ethers'
-import { mock, confirm, increaseBlock, resetMocks, anything } from '@depay/web3-mock'
+import { mock, confirm, increaseBlock, getCurrentBlock, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, provider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Token } from '@depay/web3-tokens'
@@ -128,7 +128,6 @@ describe('Payment Widget: auto slippage', () => {
   })
 
   it('adds slippage automatically for preselected payment method if price is projected downwards and transaction would fail otherwise', () => {
-
     increaseBlock(9)
     
     let mockedTransaction = mock({
@@ -196,7 +195,6 @@ describe('Payment Widget: auto slippage', () => {
   })
 
   it('adds slippage automatically for all other payment means in the background', () => {
-
     increaseBlock(9)
 
     mock({ provider: provider(blockchain), blockchain, call: { to: DAI, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: CONSTANTS[blockchain].MAXINT } })
@@ -283,7 +281,7 @@ describe('Payment Widget: auto slippage', () => {
         method: 'route',
         params: {
           path: [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY],
-          amounts: [TOKEN_B_AmountBN.add(ethers.BigNumber.from('10000000000000000')), TOKEN_A_AmountBN, anything],
+          amounts: [TOKEN_B_AmountBN.add(ethers.BigNumber.from('20000000000000000')), TOKEN_A_AmountBN, anything],
           addresses: [fromAddress, toAddress],
           plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
           data: []
@@ -302,7 +300,7 @@ describe('Payment Widget: auto slippage', () => {
         fee_receiver: null,
         nonce: 0,
         payload: {
-          sender_amount: "33.01",
+          sender_amount: "33.02",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DAI,
           type: 'payment'
@@ -323,15 +321,95 @@ describe('Payment Widget: auto slippage', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
           mock({ block: 10, provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
-          mock({ block: 9, provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [TOKEN_B_AmountBN.sub(ethers.BigNumber.from('10000000000000000')), WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
-          mock({ block: 8, provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [TOKEN_B_AmountBN.sub(ethers.BigNumber.from('20000000000000000')), WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
+          mock({ block: 9, provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [TOKEN_B_AmountBN.sub(ethers.BigNumber.from('20000000000000000')), WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
+          mock({ block: 8, provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [TOKEN_B_AmountBN.sub(ethers.BigNumber.from('40000000000000000')), WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
-          cy.wait(1000).then(()=>{
+          cy.wait(2000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Alert').should('contain', 'Price updated!')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Reload').click()
             cy.wait(1000).then(()=>{
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33.01')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33.02')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €28.05').click()
+              confirm(mockedTransaction)
+              cy.wait(1000).then(()=>{
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed')
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
+                  cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+                  cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+                })
+              })
+            })
+          })
+        })
+      })
+    })
+  })
+
+  it('adds slippage automatically for currently selected payment method on reload if price is projected downwards and transaction would fail otherwise', () => {
+
+    increaseBlock(9)
+    
+    let mockedTransaction = mock({
+      blockchain,
+      transaction: {
+        from: fromAddress,
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'route',
+        params: {
+          path: [CONSTANTS[blockchain].NATIVE, DEPAY],
+          amounts: [WRAPPED_AmountInBN.add(ethers.BigNumber.from('2000000000000000')), TOKEN_A_AmountBN, anything],
+          addresses: [fromAddress, toAddress],
+          plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
+          data: []
+        }
+      }
+    })
+
+    fetchMock.post({
+      url: "https://public.depay.fi/payments",
+      body: {
+        after_block: 10,
+        amount: "20.0",
+        blockchain: "ethereum",
+        confirmations: 1,
+        fee_amount: null,
+        fee_receiver: null,
+        nonce: 0,
+        payload: {
+          sender_amount: "0.012",
+          sender_id: fromAddress.toLowerCase(),
+          sender_token_id: ETH,
+          type: 'payment'
+        },
+        receiver: toAddress,
+        sender: fromAddress.toLowerCase(),
+        token: DEPAY,
+        transaction: mockedTransaction.transaction._id,
+        uuid: mockedTransaction.transaction._id,
+      },
+    }, 201)
+
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        DePayWidgets.Payment({ ...defaultArguments, document })
+        cy.wait(3000).then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '0.011')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'ETH')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
+          mock({ provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
+          mock({ block: 11, provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
+          mock({ block: 10, provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
+          mock({ block: 9, provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [WRAPPED_AmountInBN.sub(ethers.BigNumber.from('2000000000000000')), TOKEN_A_AmountBN] }})
+          mock({ block: 8, provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [WRAPPED_AmountInBN.sub(ethers.BigNumber.from('4000000000000000')), TOKEN_A_AmountBN] }})
+          cy.wait(17000).then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Alert').should('contain', 'Price updated!')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Reload').click()
+            cy.wait(1000).then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '0.012')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €28.05').click()
               confirm(mockedTransaction)
               cy.wait(1000).then(()=>{

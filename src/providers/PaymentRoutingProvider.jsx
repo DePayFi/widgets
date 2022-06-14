@@ -24,6 +24,7 @@ export default (props)=>{
   const calculateAmountInWithSlippage = async (route)=>{
     if(route.directTransfer) { return }
     const currentBlock = await request({ blockchain: route.blockchain, method: 'latestBlockNumber' })
+    console.log('calculateAmountInWithSlippage currentBlock', currentBlock)
     let blocks = []
     for(var i = 0; i <= 2; i++){
       blocks.push(currentBlock-i)
@@ -68,27 +69,31 @@ export default (props)=>{
     } else {
       roundAmounts(routes).then(async (roundedRoutes)=>{
         let selectRoute
-        if(selectedRoute) {
-          selectRoute = roundedRoutes[allRoutes.findIndex((route)=>(route.fromToken == selectedRoute.fromToken && route.blockchain == selectedRoute.blockchain))]
-        }
-        if(selectRoute == undefined) {
+        if(typeof selectedRoute == 'undefined') {
           selectRoute = roundedRoutes[0]
-        }
-        const amountInWithSlippage = await calculateAmountInWithSlippage(selectRoute)
-        if(amountInWithSlippage) {
-          await roundAmount(selectRoute, amountInWithSlippage)
-        }
-        setSelectedRoute(selectRoute)
-        Promise.all(roundedRoutes.map(async (route, index)=>{
-          if(index > 0){
-            let amountInWithSlippage = await calculateAmountInWithSlippage(route)
-            if(amountInWithSlippage) { 
-              await roundAmount(route, amountInWithSlippage) 
+        } else {
+          const newSelectRoute = roundedRoutes[allRoutes.findIndex((route)=>(route.fromToken == selectedRoute.fromToken && route.blockchain == selectedRoute.blockchain))]
+          if(newSelectRoute && selectedRoute.fromAmount !== newSelectRoute.fromAmount) {
+            const amountInWithSlippage = await calculateAmountInWithSlippage(newSelectRoute)
+            if(amountInWithSlippage) {
+              await roundAmount(newSelectRoute, amountInWithSlippage)
             }
-            return route
-          } else {
-            return route
+            setUpdatedRouteWithNewPrice(newSelectRoute)
           }
+        }
+        if(selectRoute) {
+          const amountInWithSlippage = await calculateAmountInWithSlippage(selectRoute)
+          if(amountInWithSlippage) {
+            await roundAmount(selectRoute, amountInWithSlippage)
+          }
+          setSelectedRoute(selectRoute)
+        }
+        await Promise.all(roundedRoutes.map(async (route, index)=>{
+          let amountInWithSlippage = await calculateAmountInWithSlippage(route)
+          if(amountInWithSlippage) { 
+            await roundAmount(route, amountInWithSlippage) 
+          }
+          return route
         })).then(setAllRoutes)
         if(props.setMaxRoute) { props.setMaxRoute(findMaxRoute(roundedRoutes)) }
       })
