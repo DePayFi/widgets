@@ -1082,10 +1082,10 @@
   resolved "https://registry.yarnpkg.com/@depay/react-shadow-dom/-/react-shadow-dom-5.0.2.tgz#045346e76c1a2400995f9ba85c6d70875755278c"
   integrity sha512-MzsWL8eRr59vn0G6kDnl2ql4g0iSva28tPMCdwAXnaLVFHU34yHAyc3/EhYoWWhgppHDcD1SdEi47TfCSyVl5A==
 
-"@depay/react-token-image@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@depay/react-token-image/-/react-token-image-4.0.0.tgz#c44af132b9e2ed4e3a4d30be8f6c9ef094978153"
-  integrity sha512-bhLP5NFRpkqn8UTwXgHl/A9OCt/eNFGzSlTj6JPcWkdIUvrUwDVY38GUzUl3/bmtjo5mzHIcvH+FBxqJsigPOw==
+"@depay/react-token-image@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@depay/react-token-image/-/react-token-image-4.1.0.tgz#e4796c35a65d517d0e1ecbda2a62160398830f56"
+  integrity sha512-t/gxLyte3eIXSJiPd4jl8jVOzK9KJVYhwSLFPk1y3W4TyLN1bJXzObr3N2R6yqV0wCP1+I9Sn6/VL7UGaTpAkg==
 
 "@depay/walletconnect-v1@^1.7.8":
   version "1.7.8"
