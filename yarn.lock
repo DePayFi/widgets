@@ -1077,10 +1077,10 @@
   resolved "https://registry.yarnpkg.com/@depay/react-dialog/-/react-dialog-14.0.0.tgz#9fe64781912a37d6557290f8124890d56f9ba8ab"
   integrity sha512-D9IB8C9J9WERjFa7cL8p/c8b4IOfPQMp7amapQK1I2SUWd1oT1z2H0wbnVXluuCNAdDEvQ1INz9qwXP74SXZ6Q==
 
-"@depay/react-shadow-dom@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@depay/react-shadow-dom/-/react-shadow-dom-5.0.1.tgz#ead82800ab30ba1b82741d6f0f3144b0303a2e60"
-  integrity sha512-Ej6yZ/jsfq81w3H1o9R7xjGYiG1jctGW69uqlZRUi7rvcPFW1KVh/WfuahsFgENWbaGXhmWxpjnyqe4drbyAtw==
+"@depay/react-shadow-dom@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@depay/react-shadow-dom/-/react-shadow-dom-5.0.2.tgz#045346e76c1a2400995f9ba85c6d70875755278c"
+  integrity sha512-MzsWL8eRr59vn0G6kDnl2ql4g0iSva28tPMCdwAXnaLVFHU34yHAyc3/EhYoWWhgppHDcD1SdEi47TfCSyVl5A==
 
 "@depay/react-token-image@^4.0.0":
   version "4.0.0"
