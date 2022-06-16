@@ -28,8 +28,8 @@ export default (props)=>{
   const [ acceptWithAmount, setAcceptWithAmount ] = useState()
   const [ fixedAmount ] = useState((typeof amountConfiguration == 'object' && amountConfiguration.fix && amountConfiguration.currency) ? amountConfiguration.fix : null)
   const [ fixedCurrency ] = useState((typeof amountConfiguration == 'object' && amountConfiguration.fix && amountConfiguration.currency) ? amountConfiguration.currency : null)
-  let startAmount
-  if(amountsMissing && (typeof amountConfiguration == "object" && amountConfiguration.start && amountConfiguration.start) && typeof fixedAmount == 'undefined') {
+  let startAmount = 1
+  if(amountsMissing && (typeof amountConfiguration == "object" && amountConfiguration.start && amountConfiguration.start)) {
     startAmount = amountConfiguration.start
   }
   const [ amount, setAmount ] = useState(startAmount)
@@ -41,7 +41,7 @@ export default (props)=>{
     setAmountsMissing(configurationsMissAmounts(props.accept))
   }, [props.accept, recover])
 
-  const getAmounts = ({ fixedCurrencyConversionRate })=>{
+  const getAmounts = ({ amount, conversionRate, fixedCurrencyConversionRate })=>{
     return new Promise((resolve, reject)=>{
       if(amountConfiguration && amountConfiguration.token) {
         resolve(props.accept.map(()=>amount))
@@ -93,8 +93,8 @@ export default (props)=>{
     })
   }
 
-  const updateAmounts = useCallback(debounce(({ account, fixedCurrencyConversionRate })=>{
-    getAmounts({ fixedCurrencyConversionRate }).then((amounts)=>{
+  const updateAmounts = useCallback(debounce(({ account, amount, conversionRate, fixedCurrencyConversionRate })=>{
+    getAmounts({ amount, conversionRate, fixedCurrencyConversionRate }).then((amounts)=>{
       setAcceptWithAmount(props.accept.map((configuration, index)=>{
         if(amounts[index] == undefined) { return }
         return(
@@ -114,8 +114,7 @@ export default (props)=>{
   useEffect(()=>{
     if(recover) { return }
     if(amountsMissing && account && conversionRate && (fixedAmount ? fixedCurrencyConversionRate : true)) {
-      console.log('UPDATE AMOUNTS')
-      updateAmounts({ account, fixedCurrencyConversionRate })
+      updateAmounts({ account, amount, conversionRate, fixedCurrencyConversionRate })
     }
   }, [amountsMissing, account, conversionRate, fixedAmount, fixedCurrencyConversionRate, amount, recover])
 

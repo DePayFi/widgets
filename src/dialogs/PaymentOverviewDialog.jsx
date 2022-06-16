@@ -33,7 +33,7 @@ export default (props)=>{
       }
       body={
         <div className="PaddingLeftM PaddingRightM PaddingBottomXS">
-          { amountsMissing && typeof fixedAmount == 'undefined' &&
+          { amountsMissing && !fixedAmount &&
             <div 
               className={["Card", (paymentState == 'initialized' ? '' : 'disabled')].join(' ')}
               title={paymentState == 'initialized' ? "Change amount" : undefined}
