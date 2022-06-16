@@ -3345,8 +3345,13 @@
     var displayedCurrencyCode = amountConfiguration != undefined && amountConfiguration.token ? null : currencyCode;
 
     var changeAmountAndGoBack = function changeAmountAndGoBack() {
-      setSelectedRoute(undefined);
-      setAmount(toValidValue(parseFloat(inputAmount)));
+      var newAmount = toValidValue(parseFloat(inputAmount));
+
+      if (newAmount != amount) {
+        setSelectedRoute(undefined);
+        setAmount(newAmount);
+      }
+
       navigate('back');
     };
 
