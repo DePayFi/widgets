@@ -3,10 +3,11 @@ import ConfigurationContext from '../contexts/ConfigurationContext'
 import ConversionRateContext from '../contexts/ConversionRateContext'
 import ErrorContext from '../contexts/ErrorContext'
 import findMaxRoute from '../helpers/findMaxRoute'
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useCallback, useState, useEffect, useContext } from 'react'
 import round from '../helpers/round'
 import WalletContext from '../contexts/WalletContext'
 import { CONSTANTS } from '@depay/web3-constants'
+import { debounce } from 'lodash'
 import { Decimal } from 'decimal.js'
 import { route } from '@depay/web3-exchanges'
 import { Token } from '@depay/web3-tokens'
@@ -22,10 +23,16 @@ export default (props)=>{
   const { amount: amountConfiguration, toAmount, recover } = useContext(ConfigurationContext)
   const [ amountsMissing, setAmountsMissing ] = useState(recover == undefined ? configurationsMissAmounts(props.accept) : false)
   let { account } = useContext(WalletContext)
-  const { conversionRate } = useContext(ConversionRateContext)
+  const { conversionRate, fixedCurrencyConversionRate } = useContext(ConversionRateContext)
   const { setError } = useContext(ErrorContext)
   const [ acceptWithAmount, setAcceptWithAmount ] = useState()
-  const [ amount, setAmount ] = useState(amountsMissing ? (typeof amountConfiguration == "object" && amountConfiguration.start ? amountConfiguration.start : 1) : null)
+  const [ fixedAmount ] = useState((typeof amountConfiguration == 'object' && amountConfiguration.fix && amountConfiguration.currency) ? amountConfiguration.fix : null)
+  const [ fixedCurrency ] = useState((typeof amountConfiguration == 'object' && amountConfiguration.fix && amountConfiguration.currency) ? amountConfiguration.currency : null)
+  let startAmount
+  if(amountsMissing && (typeof amountConfiguration == "object" && amountConfiguration.start && amountConfiguration.start) && typeof fixedAmount == 'undefined') {
+    startAmount = amountConfiguration.start
+  }
+  const [ amount, setAmount ] = useState(startAmount)
   const [ maxRoute, setMaxRoute ] = useState()
   const [ maxAmount, setMaxAmount ] = useState(100)
 
@@ -34,23 +41,39 @@ export default (props)=>{
     setAmountsMissing(configurationsMissAmounts(props.accept))
   }, [props.accept, recover])
 
-  const getAmounts = ()=>{
+  const getAmounts = ({ fixedCurrencyConversionRate })=>{
     return new Promise((resolve, reject)=>{
       if(amountConfiguration && amountConfiguration.token) {
         resolve(props.accept.map(()=>amount))
       } else {
         Promise.all(props.accept.map((configuration)=>{
-          if(CONSTANTS[configuration.blockchain].USD.toLowerCase() == configuration.token.toLowerCase()) {
-            return 1.00/conversionRate * amount
+          if(fixedAmount) {
+            if(CONSTANTS[configuration.blockchain].USD.toLowerCase() == configuration.token.toLowerCase()) {
+              return 1.00/fixedCurrencyConversionRate * fixedAmount
+            } else {
+              return route({
+                blockchain: configuration.blockchain,
+                tokenIn: CONSTANTS[configuration.blockchain].USD,
+                amountIn: (1.00/fixedCurrencyConversionRate) * fixedAmount,
+                tokenOut: configuration.token,
+                fromAddress: account,
+                toAddress: account
+              })
+            }
+          } else {
+            if(CONSTANTS[configuration.blockchain].USD.toLowerCase() == configuration.token.toLowerCase()) {
+              return 1.00/conversionRate * amount
+            } else {
+              return route({
+                blockchain: configuration.blockchain,
+                tokenIn: CONSTANTS[configuration.blockchain].USD,
+                amountIn: (1.00/conversionRate) * amount,
+                tokenOut: configuration.token,
+                fromAddress: account,
+                toAddress: account
+              })
+            }
           }
-          return route({
-            blockchain: configuration.blockchain,
-            tokenIn: CONSTANTS[configuration.blockchain].USD,
-            amountIn: (1.00/conversionRate) * amount,
-            tokenOut: configuration.token,
-            fromAddress: account,
-            toAddress: account
-          })
         })).then((results)=>{
           Promise.all(results.map((result, index)=>{
             if(typeof result == 'number'){
@@ -70,26 +93,31 @@ export default (props)=>{
     })
   }
 
+  const updateAmounts = useCallback(debounce(({ account, fixedCurrencyConversionRate })=>{
+    getAmounts({ fixedCurrencyConversionRate }).then((amounts)=>{
+      setAcceptWithAmount(props.accept.map((configuration, index)=>{
+        if(amounts[index] == undefined) { return }
+        return(
+          {
+            blockchain: configuration.blockchain,
+            amount: round(amounts[index]),
+            token: configuration.token,
+            receiver: configuration.receiver || account
+          }
+        )
+      }).filter((configuration)=>{
+        return !!configuration
+      }))
+    }).catch(setError)
+  }, 500), [])
+
   useEffect(()=>{
     if(recover) { return }
-    if(amountsMissing && account && conversionRate) {
-      getAmounts().then((amounts)=>{
-        setAcceptWithAmount(props.accept.map((configuration, index)=>{
-          if(amounts[index] == undefined) { return }
-          return(
-            {
-              blockchain: configuration.blockchain,
-              amount: round(amounts[index]),
-              token: configuration.token,
-              receiver: configuration.receiver || account
-            }
-          )
-        }).filter((configuration)=>{
-          return !!configuration
-        }))
-      }).catch(setError)
+    if(amountsMissing && account && conversionRate && (fixedAmount ? fixedCurrencyConversionRate : true)) {
+      console.log('UPDATE AMOUNTS')
+      updateAmounts({ account, fixedCurrencyConversionRate })
     }
-  }, [amountsMissing, account, conversionRate, amount, recover])
+  }, [amountsMissing, account, conversionRate, fixedAmount, fixedCurrencyConversionRate, amount, recover])
 
   useEffect(()=>{
     if(amountsMissing && maxRoute) {
@@ -154,6 +182,8 @@ export default (props)=>{
   return(
     <ChangableAmountContext.Provider value={{
       amountsMissing,
+      fixedAmount,
+      fixedCurrency,
       acceptWithAmount,
       amount,
       setAmount,
