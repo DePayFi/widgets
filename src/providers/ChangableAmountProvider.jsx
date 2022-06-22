@@ -35,7 +35,7 @@ export default (props)=>{
     } else {
       startAmount = 1
     }
-  } else if()
+  }
   const [ amount, setAmount ] = useState(startAmount)
   const [ maxRoute, setMaxRoute ] = useState()
   const [ maxAmount, setMaxAmount ] = useState(100)

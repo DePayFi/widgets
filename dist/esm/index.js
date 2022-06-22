@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
 import { NavigateStackContext, ReactDialogStack } from '@depay/react-dialog-stack';
 import { getWallet, wallets } from '@depay/web3-wallets';
 import ReactDOM from 'react-dom';
@@ -2043,3900 +2043,6 @@ var round = (function (input) {
 });
 
 var WalletContext = /*#__PURE__*/React.createContext();
-
-var ChangableAmountProvider = (function (props) {
-  var configurationsMissAmounts = function configurationsMissAmounts(configurations) {
-    return !configurations.every(function (configuration) {
-      return typeof configuration.amount != 'undefined' || typeof configuration.fromAmount != 'undefined';
-    });
-  };
-
-  var _useContext = useContext(ConfigurationContext),
-      amountConfiguration = _useContext.amount;
-      _useContext.toAmount;
-      var recover = _useContext.recover;
-
-  var _useState = useState(recover == undefined ? configurationsMissAmounts(props.accept) : false),
-      _useState2 = _slicedToArray(_useState, 2),
-      amountsMissing = _useState2[0],
-      setAmountsMissing = _useState2[1];
-
-  var _useContext2 = useContext(WalletContext),
-      account = _useContext2.account;
-
-  var _useContext3 = useContext(ConversionRateContext),
-      conversionRate = _useContext3.conversionRate;
-
-  var _useContext4 = useContext(ErrorContext),
-      setError = _useContext4.setError;
-
-  var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      acceptWithAmount = _useState4[0],
-      setAcceptWithAmount = _useState4[1];
-
-  var _useState5 = useState(amountsMissing ? _typeof(amountConfiguration) == "object" && amountConfiguration.start ? amountConfiguration.start : 1 : null),
-      _useState6 = _slicedToArray(_useState5, 2),
-      amount = _useState6[0],
-      setAmount = _useState6[1];
-
-  var _useState7 = useState(),
-      _useState8 = _slicedToArray(_useState7, 2),
-      maxRoute = _useState8[0],
-      setMaxRoute = _useState8[1];
-
-  var _useState9 = useState(100),
-      _useState10 = _slicedToArray(_useState9, 2),
-      maxAmount = _useState10[0],
-      setMaxAmount = _useState10[1];
-
-  useEffect(function () {
-    if (recover) {
-      return;
-    }
-
-    setAmountsMissing(configurationsMissAmounts(props.accept));
-  }, [props.accept, recover]);
-
-  var getAmounts = function getAmounts() {
-    return new Promise(function (resolve, reject) {
-      if (amountConfiguration && amountConfiguration.token) {
-        resolve(props.accept.map(function () {
-          return amount;
-        }));
-      } else {
-        Promise.all(props.accept.map(function (configuration) {
-          if (CONSTANTS[configuration.blockchain].USD.toLowerCase() == configuration.token.toLowerCase()) {
-            return 1.00 / conversionRate * amount;
-          }
-
-          return route({
-            blockchain: configuration.blockchain,
-            tokenIn: CONSTANTS[configuration.blockchain].USD,
-            amountIn: 1.00 / conversionRate * amount,
-            tokenOut: configuration.token,
-            fromAddress: account,
-            toAddress: account
-          });
-        })).then(function (results) {
-          Promise.all(results.map(function (result, index) {
-            if (typeof result == 'number') {
-              return result;
-            } else if (result[0] == undefined) {
-              return;
-            } else {
-              return Token.readable({
-                blockchain: props.accept[index].blockchain,
-                amount: result[0].amountOut,
-                address: result[0].tokenOut
-              });
-            }
-          })).then(resolve)["catch"](setError);
-        })["catch"](setError);
-      }
-    });
-  };
-
-  useEffect(function () {
-    if (recover) {
-      return;
-    }
-
-    if (amountsMissing && account && conversionRate) {
-      getAmounts().then(function (amounts) {
-        setAcceptWithAmount(props.accept.map(function (configuration, index) {
-          if (amounts[index] == undefined) {
-            return;
-          }
-
-          return {
-            blockchain: configuration.blockchain,
-            amount: round(amounts[index]),
-            token: configuration.token,
-            receiver: configuration.receiver || account
-          };
-        }).filter(function (configuration) {
-          return !!configuration;
-        }));
-      })["catch"](setError);
-    }
-  }, [amountsMissing, account, conversionRate, amount, recover]);
-  useEffect(function () {
-    if (amountsMissing && maxRoute) {
-      maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
-        if (amountConfiguration && amountConfiguration.token) {
-          route({
-            blockchain: maxRoute.blockchain,
-            tokenIn: maxRoute.fromToken.address,
-            tokenOut: maxRoute.toToken.address,
-            amountIn: parseFloat(readableMaxAmount),
-            fromAddress: account,
-            toAddress: account
-          }).then(function (routes) {
-            if (routes[0] == undefined) {
-              return;
-            }
-
-            Token.readable({
-              amount: routes[0].amountOut,
-              blockchain: maxRoute.blockchain,
-              address: maxRoute.toToken.address
-            }).then(function (readableMaxAmount) {
-              var slippage = 1.01;
-              var maxAmount = parseFloat(new Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
-              setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : round(maxAmount));
-            })["catch"](setError);
-          })["catch"](setError);
-        } else if (maxRoute.fromToken.address == CONSTANTS[maxRoute.blockchain].USD) {
-          var _maxAmount = parseFloat(new Decimal(readableMaxAmount).mul(conversionRate).toString());
-
-          setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount) : _maxAmount);
-        } else {
-          route({
-            blockchain: maxRoute.blockchain,
-            tokenIn: maxRoute.fromToken.address,
-            tokenOut: CONSTANTS[maxRoute.blockchain].USD,
-            amountIn: parseFloat(readableMaxAmount),
-            fromAddress: account,
-            toAddress: account
-          }).then(function (routes) {
-            if (routes[0] == undefined) {
-              return;
-            }
-
-            Token.readable({
-              amount: routes[0].amountOut,
-              blockchain: maxRoute.blockchain,
-              address: CONSTANTS[maxRoute.blockchain].USD
-            }).then(function (readableMaxAmount) {
-              var slippage = 1.01;
-              var maxAmount = parseFloat(new Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
-              setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : round(maxAmount));
-            })["catch"](setError);
-          })["catch"](setError);
-        }
-      })["catch"](setError);
-    } else {
-      setMaxAmount(100);
-    }
-  }, [account, maxRoute]);
-  return /*#__PURE__*/React.createElement(ChangableAmountContext.Provider, {
-    value: {
-      amountsMissing: amountsMissing,
-      acceptWithAmount: acceptWithAmount,
-      amount: amount,
-      setAmount: setAmount,
-      setMaxRoute: setMaxRoute,
-      maxAmount: maxAmount
-    }
-  }, props.children);
-});
-
-var ConfigurationProvider = (function (props) {
-  var currencyCode = new Currency({
-    code: props.configuration.currency
-  }).code;
-  useEffect(function () {
-    if (props.configuration.providers != undefined) {
-      Object.entries(props.configuration.providers).forEach(function (entry) {
-        setProviderEndpoints(entry[0], entry[1]);
-      });
-    }
-  }, [props.configuration]);
-  return /*#__PURE__*/React.createElement(ConfigurationContext.Provider, {
-    value: Object.assign({}, props.configuration, {
-      currencyCode: currencyCode
-    })
-  }, props.children);
-});
-
-var ConversionRateProvider = (function (props) {
-  var _useContext = useContext(ErrorContext);
-      _useContext.setError;
-
-  var _useContext2 = useContext(ConfigurationContext),
-      currency = _useContext2.currency;
-
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      conversionRate = _useState2[0],
-      setConversionRate = _useState2[1];
-
-  useEffect(function () {
-    Currency.fromUSD({
-      amount: 1,
-      code: currency
-    }).then(function (conversion) {
-      return setConversionRate(conversion.amount);
-    })["catch"](setConversionRate(1));
-  }, []);
-  return /*#__PURE__*/React.createElement(ConversionRateContext.Provider, {
-    value: {
-      conversionRate: conversionRate
-    }
-  }, props.children);
-});
-
-var DonationRoutingContext = /*#__PURE__*/React.createContext();
-
-var NavigateContext = /*#__PURE__*/React.createContext();
-
-var QuestionsGraphic = "data:image/png;base64,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";
-
-var NoPaymentMethodFoundDialog = (function () {
-  var _useContext = useContext(ClosableContext),
-      close = _useContext.close;
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
-    }),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "GraphicWrapper"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "Graphic",
-      src: QuestionsGraphic
-    })), /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-    }, "Insufficient Balance"), /*#__PURE__*/React.createElement("div", {
-      className: "Text PaddingTopS PaddingBottomM PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React.createElement("strong", {
-      className: "FontSizeM"
-    }, "We were not able to find any asset with enough value in your wallet. Please top up your account in order to proceed with this payment."))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("button", {
-      className: "ButtonPrimary",
-      onClick: close
-    }, "Ok"))
-  });
-});
-
-var PaymentContext = /*#__PURE__*/React.createContext();
-
-var PaymentRoutingContext = /*#__PURE__*/React.createContext();
-
-var PaymentTrackingContext = /*#__PURE__*/React.createContext();
-
-var TransactionTrackingContext = /*#__PURE__*/React.createContext();
-
-var PaymentProvider = (function (props) {
-  var _useContext = useContext(ErrorContext),
-      setError = _useContext.setError;
-
-  var _useContext2 = useContext(ConfigurationContext),
-      _sent = _useContext2.sent,
-      confirmed = _useContext2.confirmed,
-      failed = _useContext2.failed,
-      recover = _useContext2.recover;
-
-  var _useContext3 = useContext(PaymentRoutingContext),
-      selectedRoute = _useContext3.selectedRoute,
-      getPaymentRoutes = _useContext3.getPaymentRoutes;
-
-  var _useContext4 = useContext(ClosableContext),
-      open = _useContext4.open,
-      close = _useContext4.close,
-      setClosable = _useContext4.setClosable;
-
-  var _useContext5 = useContext(PaymentRoutingContext),
-      allRoutes = _useContext5.allRoutes;
-
-  var _useContext6 = useContext(UpdatableContext),
-      setUpdatable = _useContext6.setUpdatable;
-
-  var _useContext7 = useContext(NavigateContext),
-      navigate = _useContext7.navigate;
-
-  var _useContext8 = useContext(WalletContext),
-      wallet = _useContext8.wallet;
-
-  var _useContext9 = useContext(PaymentTrackingContext),
-      release = _useContext9.release,
-      tracking = _useContext9.tracking,
-      initializePaymentTracking = _useContext9.initializeTracking;
-
-  var _useContext10 = useContext(TransactionTrackingContext),
-      foundTransaction = _useContext10.foundTransaction,
-      initializeTransactionTracking = _useContext10.initializeTracking;
-
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      payment = _useState2[0],
-      setPayment = _useState2[1];
-
-  var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      transaction = _useState4[0],
-      setTransaction = _useState4[1];
-
-  var _useState5 = useState(),
-      _useState6 = _slicedToArray(_useState5, 2),
-      approvalTransaction = _useState6[0],
-      setApprovalTransaction = _useState6[1];
-
-  var _useState7 = useState('initialized'),
-      _useState8 = _slicedToArray(_useState7, 2),
-      paymentState = _useState8[0],
-      setPaymentState = _useState8[1];
-
-  var paymentConfirmed = function paymentConfirmed(transaction) {
-    if (tracking != true) {
-      setClosable(true);
-    }
-
-    setPaymentState('confirmed');
-
-    if (confirmed) {
-      confirmed(transaction);
-    }
-  };
-
-  var paymentFailed = function paymentFailed(transaction, error) {
-    if (failed) {
-      failed(transaction, error);
-    }
-
-    setPaymentState('initialized');
-    setClosable(true);
-    setUpdatable(true);
-    getPaymentRoutes({});
-    navigate('PaymentError');
-  };
-
-  var pay = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-      var currentBlock;
-      return regenerator.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              setClosable(false);
-              setPaymentState('paying');
-              setUpdatable(false);
-              _context.next = 5;
-              return request({
-                blockchain: payment.route.transaction.blockchain,
-                method: 'latestBlockNumber'
-              });
-
-            case 5:
-              currentBlock = _context.sent;
-              wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
-                sent: function sent(transaction) {
-                  initializeTransactionTracking(transaction, currentBlock);
-
-                  if (_sent) {
-                    _sent(transaction);
-                  }
-                },
-                confirmed: paymentConfirmed,
-                failed: paymentFailed
-              })).then(function (sentTransaction) {
-                initializePaymentTracking(sentTransaction, currentBlock, payment.route);
-                setTransaction(sentTransaction);
-              })["catch"](function (error) {
-                console.log('error', error);
-                setPaymentState('initialized');
-                setClosable(true);
-                setUpdatable(true);
-
-                if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK') {
-                  navigate('WrongNetwork');
-                }
-              });
-
-            case 7:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function pay() {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  var approve = function approve() {
-    setClosable(false);
-    setPaymentState('approving');
-    wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
-      confirmed: function confirmed() {
-        payment.route.approvalRequired = false;
-        setPayment(payment);
-        setClosable(true);
-        setPaymentState('initialized');
-      }
-    })).then(function (sentTransaction) {
-      setApprovalTransaction(sentTransaction);
-    })["catch"](function (error) {
-      console.log('error', error);
-      setPaymentState('initialized');
-      setClosable(true);
-    });
-  };
-
-  useEffect(function () {
-    if (release) {
-      setPaymentState('confirmed');
-    }
-  }, [release]);
-  useEffect(function () {
-    if (recover) {
-      setClosable(false);
-      setUpdatable(false);
-      setPaymentState('paying');
-      setTransaction({
-        blockchain: recover.blockchain,
-        id: recover.transaction,
-        url: Blockchain.findByName(recover.blockchain).explorerUrlFor({
-          transaction: {
-            id: recover.transaction
-          }
-        })
-      });
-      var paymentToken = new Token({
-        blockchain: recover.blockchain,
-        address: recover.token
-      });
-      Promise.all([paymentToken.name(), paymentToken.symbol()]).then(function (_ref2) {
-        var _ref3 = _slicedToArray(_ref2, 2),
-            name = _ref3[0],
-            symbol = _ref3[1];
-
-        setPayment({
-          blockchain: recover.blockchain,
-          token: recover.token,
-          name: name,
-          symbol: symbol.toUpperCase(),
-          amount: recover.amount
-        });
-      })["catch"](setError);
-    }
-  }, [recover]);
-  useEffect(function () {
-    if (foundTransaction && foundTransaction.id && foundTransaction.status) {
-      var newTransaction;
-
-      if (foundTransaction.id.toLowerCase() != transaction.id.toLowerCase()) {
-        newTransaction = Object.assign({}, transaction, {
-          id: foundTransaction.id,
-          url: Blockchain.findByName(transaction.blockchain).explorerUrlFor({
-            transaction: foundTransaction
-          })
-        });
-        setTransaction(newTransaction);
-      }
-
-      if (foundTransaction.status == 'success') {
-        paymentConfirmed(newTransaction || transaction);
-      } else if (foundTransaction.status == 'failed') {
-        paymentFailed(newTransaction || transaction);
-      }
-    }
-  }, [foundTransaction, transaction]);
-  useEffect(function () {
-    if (selectedRoute) {
-      var fromToken = selectedRoute.fromToken;
-      Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref4) {
-        var _ref5 = _slicedToArray(_ref4, 3),
-            name = _ref5[0],
-            symbol = _ref5[1],
-            amount = _ref5[2];
-
-        setPayment({
-          blockchain: selectedRoute.blockchain,
-          route: selectedRoute,
-          token: fromToken.address,
-          name: name,
-          symbol: symbol.toUpperCase(),
-          amount: amount
-        });
-      })["catch"](setError);
-    } else {
-      setPayment(undefined);
-    }
-  }, [selectedRoute]);
-  useEffect(function () {
-    if (allRoutes && allRoutes.length == 0) {
-      setUpdatable(false);
-    } else if (allRoutes && allRoutes.length > 0) {
-      setUpdatable(true);
-    }
-  }, [allRoutes]);
-
-  if (allRoutes instanceof Array && allRoutes.length == 0) {
-    return /*#__PURE__*/React.createElement(ReactDialogStack, {
-      open: open,
-      close: close,
-      start: "NoPaymentMethodFound",
-      container: props.container,
-      document: props.document,
-      dialogs: {
-        NoPaymentMethodFound: /*#__PURE__*/React.createElement(NoPaymentMethodFoundDialog, null)
-      }
-    });
-  } else {
-    return /*#__PURE__*/React.createElement(PaymentContext.Provider, {
-      value: {
-        payment: payment,
-        paymentState: paymentState,
-        pay: pay,
-        transaction: transaction,
-        approve: approve,
-        approvalTransaction: approvalTransaction
-      }
-    }, props.children);
-  }
-});
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-var prepareAcceptedPayments = function prepareAcceptedPayments(accept) {
-  var toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
-  var toContract = _typeof(accept.receiver) == 'object' ? accept.receiver : undefined;
-  return _objectSpread$1(_objectSpread$1({}, accept), {}, {
-    toAddress: toAddress,
-    toContract: toContract
-  });
-};
-
-var mergeFromAccounts = function mergeFromAccounts(accept, account) {
-  var from = {};
-  accept.forEach(function (accept) {
-    from[accept.blockchain] = account;
-  });
-  return from;
-};
-
-var routePayments = (function (_ref) {
-  var accept = _ref.accept,
-      account = _ref.account,
-      whitelist = _ref.whitelist,
-      blacklist = _ref.blacklist,
-      event = _ref.event,
-      fee = _ref.fee;
-  return route$1({
-    accept: accept.map(prepareAcceptedPayments),
-    from: mergeFromAccounts(accept, account),
-    whitelist: whitelist,
-    blacklist: blacklist,
-    event: event,
-    fee: fee
-  });
-});
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var PaymentRoutingProvider = (function (props) {
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      allRoutes = _useState2[0],
-      setAllRoutes = _useState2[1];
-
-  var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      updatedRouteWithNewPrice = _useState4[0],
-      setUpdatedRouteWithNewPrice = _useState4[1];
-
-  var _useState5 = useState(),
-      _useState6 = _slicedToArray(_useState5, 2),
-      selectedRoute = _useState6[0],
-      setSelectedRoute = _useState6[1];
-
-  var _useState7 = useState(false),
-      _useState8 = _slicedToArray(_useState7, 2),
-      slowRouting = _useState8[0],
-      setSlowRouting = _useState8[1];
-
-  var _useState9 = useState(0),
-      _useState10 = _slicedToArray(_useState9, 2),
-      reloadCount = _useState10[0],
-      setReloadCount = _useState10[1];
-
-  var _useContext = useContext(WalletContext),
-      account = _useContext.account;
-
-  var _useContext2 = useContext(UpdatableContext),
-      updatable = _useContext2.updatable;
-
-  var _useContext3 = useContext(ConfigurationContext),
-      recover = _useContext3.recover;
-
-  var calculateAmountInWithSlippage = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(route) {
-      var currentBlock, blocks, i, exchangeRoute, lastAmountsIn, difference1, difference2, slippage, newAmountBN, readableAmount, roundedAmountBN;
-      return regenerator.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              if (!route.directTransfer) {
-                _context2.next = 2;
-                break;
-              }
-
-              return _context2.abrupt("return");
-
-            case 2:
-              _context2.next = 4;
-              return request({
-                blockchain: route.blockchain,
-                method: 'latestBlockNumber'
-              });
-
-            case 4:
-              currentBlock = _context2.sent;
-              blocks = [];
-
-              for (i = 0; i <= 2; i++) {
-                blocks.push(currentBlock - i);
-              }
-
-              exchangeRoute = route.exchangeRoutes[0];
-
-              if (!(typeof exchangeRoute == 'undefined' || typeof exchangeRoute.exchange == 'undefined')) {
-                _context2.next = 10;
-                break;
-              }
-
-              return _context2.abrupt("return");
-
-            case 10:
-              _context2.next = 12;
-              return Promise.all(blocks.map( /*#__PURE__*/function () {
-                var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(block) {
-                  var amountIn;
-                  return regenerator.wrap(function _callee$(_context) {
-                    while (1) {
-                      switch (_context.prev = _context.next) {
-                        case 0:
-                          _context.next = 2;
-                          return exchangeRoute.exchange.getAmountIn({
-                            path: exchangeRoute.path,
-                            amountOut: exchangeRoute.amountOutMin,
-                            block: block
-                          });
-
-                        case 2:
-                          amountIn = _context.sent;
-                          return _context.abrupt("return", amountIn);
-
-                        case 4:
-                        case "end":
-                          return _context.stop();
-                      }
-                    }
-                  }, _callee);
-                }));
-
-                return function (_x2) {
-                  return _ref2.apply(this, arguments);
-                };
-              }()));
-
-            case 12:
-              lastAmountsIn = _context2.sent;
-
-              if (!(!lastAmountsIn[0] || !lastAmountsIn[1] || !lastAmountsIn[2])) {
-                _context2.next = 15;
-                break;
-              }
-
-              return _context2.abrupt("return");
-
-            case 15:
-              if (!(lastAmountsIn[0].gt(lastAmountsIn[1]) && lastAmountsIn[1].gt(lastAmountsIn[2]))) {
-                _context2.next = 29;
-                break;
-              }
-
-              difference1 = lastAmountsIn[0].sub(lastAmountsIn[1]);
-              difference2 = lastAmountsIn[1].sub(lastAmountsIn[2]);
-
-              if (difference1.lt(difference2)) {
-                slippage = difference2.add(difference2.sub(difference1));
-              } else {
-                slippage = difference1.add(difference1.sub(difference2));
-              }
-
-              newAmountBN = lastAmountsIn[0].add(slippage);
-              _context2.next = 22;
-              return route.fromToken.readable(newAmountBN);
-
-            case 22:
-              readableAmount = _context2.sent;
-              _context2.next = 25;
-              return route.fromToken.BigNumber(round(readableAmount));
-
-            case 25:
-              roundedAmountBN = _context2.sent;
-
-              if (!(route.fromAmount == roundedAmountBN.toString())) {
-                _context2.next = 28;
-                break;
-              }
-
-              return _context2.abrupt("return");
-
-            case 28:
-              return _context2.abrupt("return", newAmountBN);
-
-            case 29:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    return function calculateAmountInWithSlippage(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  var onRoutesUpdate = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
-      return regenerator.wrap(function _callee5$(_context5) {
-        while (1) {
-          switch (_context5.prev = _context5.next) {
-            case 0:
-              if (routes.length == 0) {
-                setAllRoutes([]);
-
-                if (props.setMaxRoute) {
-                  props.setMaxRoute(null);
-                }
-              } else {
-                roundAmounts(routes).then( /*#__PURE__*/function () {
-                  var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(roundedRoutes) {
-                    var selectRoute, newSelectRoute, amountInWithSlippage, _amountInWithSlippage;
-
-                    return regenerator.wrap(function _callee4$(_context4) {
-                      while (1) {
-                        switch (_context4.prev = _context4.next) {
-                          case 0:
-                            if (!(typeof selectedRoute == 'undefined')) {
-                              _context4.next = 4;
-                              break;
-                            }
-
-                            selectRoute = roundedRoutes[0];
-                            _context4.next = 13;
-                            break;
-
-                          case 4:
-                            newSelectRoute = roundedRoutes[allRoutes.findIndex(function (route) {
-                              return route.fromToken == selectedRoute.fromToken && route.blockchain == selectedRoute.blockchain;
-                            })];
-
-                            if (!(newSelectRoute && selectedRoute.fromAmount !== newSelectRoute.fromAmount)) {
-                              _context4.next = 13;
-                              break;
-                            }
-
-                            _context4.next = 8;
-                            return calculateAmountInWithSlippage(newSelectRoute);
-
-                          case 8:
-                            amountInWithSlippage = _context4.sent;
-
-                            if (!amountInWithSlippage) {
-                              _context4.next = 12;
-                              break;
-                            }
-
-                            _context4.next = 12;
-                            return roundAmount(newSelectRoute, amountInWithSlippage);
-
-                          case 12:
-                            setUpdatedRouteWithNewPrice(newSelectRoute);
-
-                          case 13:
-                            if (!selectRoute) {
-                              _context4.next = 21;
-                              break;
-                            }
-
-                            _context4.next = 16;
-                            return calculateAmountInWithSlippage(selectRoute);
-
-                          case 16:
-                            _amountInWithSlippage = _context4.sent;
-
-                            if (!_amountInWithSlippage) {
-                              _context4.next = 20;
-                              break;
-                            }
-
-                            _context4.next = 20;
-                            return roundAmount(selectRoute, _amountInWithSlippage);
-
-                          case 20:
-                            setSelectedRoute(selectRoute);
-
-                          case 21:
-                            _context4.next = 23;
-                            return Promise.all(roundedRoutes.map( /*#__PURE__*/function () {
-                              var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(route, index) {
-                                var amountInWithSlippage;
-                                return regenerator.wrap(function _callee3$(_context3) {
-                                  while (1) {
-                                    switch (_context3.prev = _context3.next) {
-                                      case 0:
-                                        _context3.next = 2;
-                                        return calculateAmountInWithSlippage(route);
-
-                                      case 2:
-                                        amountInWithSlippage = _context3.sent;
-
-                                        if (!amountInWithSlippage) {
-                                          _context3.next = 6;
-                                          break;
-                                        }
-
-                                        _context3.next = 6;
-                                        return roundAmount(route, amountInWithSlippage);
-
-                                      case 6:
-                                        return _context3.abrupt("return", route);
-
-                                      case 7:
-                                      case "end":
-                                        return _context3.stop();
-                                    }
-                                  }
-                                }, _callee3);
-                              }));
-
-                              return function (_x5, _x6) {
-                                return _ref5.apply(this, arguments);
-                              };
-                            }())).then(setAllRoutes);
-
-                          case 23:
-                            if (props.setMaxRoute) {
-                              props.setMaxRoute(findMaxRoute(roundedRoutes));
-                            }
-
-                          case 24:
-                          case "end":
-                            return _context4.stop();
-                        }
-                      }
-                    }, _callee4);
-                  }));
-
-                  return function (_x4) {
-                    return _ref4.apply(this, arguments);
-                  };
-                }());
-              }
-
-            case 1:
-            case "end":
-              return _context5.stop();
-          }
-        }
-      }, _callee5);
-    }));
-
-    return function onRoutesUpdate(_x3) {
-      return _ref3.apply(this, arguments);
-    };
-  }();
-
-  var getPaymentRoutes = function getPaymentRoutes(_ref6) {
-    _ref6.allRoutes;
-        _ref6.selectedRoute;
-        var updatable = _ref6.updatable;
-
-    if (updatable == false || !props.accept || !account) {
-      return;
-    }
-
-    var slowRoutingTimeout = setTimeout(function () {
-      setSlowRouting(true);
-    }, 4000);
-    routePayments(Object.assign({}, props, {
-      account: account
-    })).then(function (routes) {
-      clearInterval(slowRoutingTimeout);
-      onRoutesUpdate(routes);
-    });
-  };
-
-  var updateRouteAmount = function updateRouteAmount(route, amountBN) {
-    route.fromAmount = amountBN.toString();
-    route.transaction.params.amounts[0] = amountBN.toString();
-
-    if (route.transaction.value && route.transaction.value.toString() != '0') {
-      route.transaction.value = amountBN.toString();
-    }
-  };
-
-  var roundAmount = /*#__PURE__*/function () {
-    var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(route, amountBN) {
-      var readableAmount, roundedAmountBN;
-      return regenerator.wrap(function _callee6$(_context6) {
-        while (1) {
-          switch (_context6.prev = _context6.next) {
-            case 0:
-              if (!route.directTransfer) {
-                _context6.next = 2;
-                break;
-              }
-
-              return _context6.abrupt("return", route);
-
-            case 2:
-              _context6.next = 4;
-              return route.fromToken.readable(amountBN || route.transaction.params.amounts[0]);
-
-            case 4:
-              readableAmount = _context6.sent;
-              _context6.next = 7;
-              return route.fromToken.BigNumber(round(readableAmount));
-
-            case 7:
-              roundedAmountBN = _context6.sent;
-              updateRouteAmount(route, roundedAmountBN);
-              return _context6.abrupt("return", route);
-
-            case 10:
-            case "end":
-              return _context6.stop();
-          }
-        }
-      }, _callee6);
-    }));
-
-    return function roundAmount(_x7, _x8) {
-      return _ref7.apply(this, arguments);
-    };
-  }();
-
-  var roundAmounts = /*#__PURE__*/function () {
-    var _ref8 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee7(routes) {
-      return regenerator.wrap(function _callee7$(_context7) {
-        while (1) {
-          switch (_context7.prev = _context7.next) {
-            case 0:
-              return _context7.abrupt("return", Promise.all(routes.map(function (route) {
-                return roundAmount(route);
-              })));
-
-            case 1:
-            case "end":
-              return _context7.stop();
-          }
-        }
-      }, _callee7);
-    }));
-
-    return function roundAmounts(_x9) {
-      return _ref8.apply(this, arguments);
-    };
-  }();
-
-  var updateRouteWithNewPrice = /*#__PURE__*/function () {
-    var _ref9 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee8() {
-      return regenerator.wrap(function _callee8$(_context8) {
-        while (1) {
-          switch (_context8.prev = _context8.next) {
-            case 0:
-              setSelectedRoute(_objectSpread({}, updatedRouteWithNewPrice));
-              setUpdatedRouteWithNewPrice(null);
-
-            case 2:
-            case "end":
-              return _context8.stop();
-          }
-        }
-      }, _callee8);
-    }));
-
-    return function updateRouteWithNewPrice() {
-      return _ref9.apply(this, arguments);
-    };
-  }();
-
-  useEffect(function () {
-    function updateRouteWithAmountInWithSlippage() {
-      return _updateRouteWithAmountInWithSlippage.apply(this, arguments);
-    }
-
-    function _updateRouteWithAmountInWithSlippage() {
-      _updateRouteWithAmountInWithSlippage = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee9() {
-        var amountInWithSlippage;
-        return regenerator.wrap(function _callee9$(_context9) {
-          while (1) {
-            switch (_context9.prev = _context9.next) {
-              case 0:
-                _context9.next = 2;
-                return calculateAmountInWithSlippage(selectedRoute);
-
-              case 2:
-                amountInWithSlippage = _context9.sent;
-
-                if (!amountInWithSlippage) {
-                  _context9.next = 7;
-                  break;
-                }
-
-                _context9.next = 6;
-                return roundAmount(selectedRoute, amountInWithSlippage);
-
-              case 6:
-                setUpdatedRouteWithNewPrice(selectedRoute);
-
-              case 7:
-              case "end":
-                return _context9.stop();
-            }
-          }
-        }, _callee9);
-      }));
-      return _updateRouteWithAmountInWithSlippage.apply(this, arguments);
-    }
-
-    if (selectedRoute) {
-      updateRouteWithAmountInWithSlippage();
-    }
-  }, [selectedRoute]);
-  useEffect(function () {
-    var timeout = setTimeout(function () {
-      setReloadCount(reloadCount + 1);
-      getPaymentRoutes({
-        allRoutes: allRoutes,
-        selectedRoute: selectedRoute,
-        updatable: updatable
-      });
-    }, 15000);
-    return function () {
-      return clearTimeout(timeout);
-    };
-  }, [reloadCount, allRoutes, selectedRoute, updatable]);
-  useEffect(function () {
-    if (account && props.accept && recover == undefined) {
-      getPaymentRoutes({});
-    }
-  }, [account, props.accept]);
-  return /*#__PURE__*/React.createElement(PaymentRoutingContext.Provider, {
-    value: {
-      selectedRoute: selectedRoute,
-      setSelectedRoute: setSelectedRoute,
-      getPaymentRoutes: getPaymentRoutes,
-      allRoutes: allRoutes,
-      setAllRoutes: setAllRoutes,
-      slowRouting: slowRouting,
-      updatedRouteWithNewPrice: updatedRouteWithNewPrice,
-      updateRouteWithNewPrice: updateRouteWithNewPrice
-    }
-  }, props.children);
-});
-
-var PaymentValueContext = /*#__PURE__*/React.createContext();
-
-var PaymentValueProvider = (function (props) {
-  var _useContext = useContext(ErrorContext),
-      setError = _useContext.setError;
-
-  var _useContext2 = useContext(WalletContext),
-      account = _useContext2.account;
-
-  var _useContext3 = useContext(UpdatableContext),
-      updatable = _useContext3.updatable;
-
-  var _useContext4 = useContext(PaymentContext),
-      payment = _useContext4.payment;
-
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      paymentValue = _useState2[0],
-      setPaymentValue = _useState2[1];
-
-  var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      paymentValueLoss = _useState4[0],
-      setPaymentValueLoss = _useState4[1];
-
-  var _useContext5 = useContext(ConfigurationContext),
-      currency = _useContext5.currency;
-
-  var _useState5 = useState(0),
-      _useState6 = _slicedToArray(_useState5, 2),
-      reloadCount = _useState6[0],
-      setReloadCount = _useState6[1];
-
-  var updatePaymentValue = function updatePaymentValue(_ref) {
-    var updatable = _ref.updatable,
-        payment = _ref.payment;
-
-    if (updatable == false || (payment === null || payment === void 0 ? void 0 : payment.route) == undefined) {
-      return;
-    }
-
-    Promise.all([route({
-      blockchain: payment.route.blockchain,
-      tokenIn: payment.route.toToken.address,
-      tokenOut: CONSTANTS[payment.route.blockchain].USD,
-      amountIn: payment.route.toAmount,
-      fromAddress: account,
-      toAddress: account
-    }), !payment.route.directTransfer ? route({
-      blockchain: payment.route.blockchain,
-      tokenIn: payment.route.toToken.address,
-      tokenOut: payment.route.fromToken.address,
-      amountIn: payment.route.toAmount,
-      fromAddress: account,
-      toAddress: account
-    }) : Promise.resolve([]), new Token({
-      blockchain: payment.route.blockchain,
-      address: CONSTANTS[payment.route.blockchain].USD
-    }).decimals()]).then(function (_ref2) {
-      var _ref3 = _slicedToArray(_ref2, 3),
-          toTokenUSDExchangeRoutes = _ref3[0],
-          reverseRoutes = _ref3[1],
-          USDDecimals = _ref3[2];
-
-      var toTokenUSDRoute = toTokenUSDExchangeRoutes[0];
-      var reverseRoute = reverseRoutes[0];
-
-      if (reverseRoute) {
-        var reverseAmountOutBN = ethers.BigNumber.from(reverseRoute.amountOut);
-        var paymentAmountInBN = ethers.BigNumber.from(payment.route.fromAmount);
-        var divPercent = 100 - reverseAmountOutBN.mul(ethers.BigNumber.from('100')).div(paymentAmountInBN).abs().toString();
-
-        if (divPercent >= 10) {
-          setPaymentValueLoss(divPercent);
-        } else {
-          setPaymentValueLoss(null);
-        }
-      }
-
-      var toTokenUSDAmount;
-
-      if (payment.route.toToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
-        toTokenUSDAmount = payment.route.toAmount.toString();
-      } else if (toTokenUSDRoute == undefined) {
-        setPaymentValue('');
-        return;
-      } else {
-        toTokenUSDAmount = toTokenUSDRoute.amountOut.toString();
-      }
-
-      var toTokenUSDValue = ethers.utils.formatUnits(toTokenUSDAmount, USDDecimals);
-      Currency.fromUSD({
-        amount: toTokenUSDValue,
-        code: currency
-      }).then(setPaymentValue);
-    })["catch"](setError);
-  };
-
-  useEffect(function () {
-    if (account && payment) {
-      updatePaymentValue({
-        updatable: updatable,
-        payment: payment
-      });
-    }
-  }, [payment, account]);
-  useEffect(function () {
-    var timeout = setTimeout(function () {
-      setReloadCount(reloadCount + 1);
-      updatePaymentValue({
-        updatable: updatable
-      });
-    }, 15000);
-    return function () {
-      return clearTimeout(timeout);
-    };
-  }, [reloadCount, updatable]);
-  return /*#__PURE__*/React.createElement(PaymentValueContext.Provider, {
-    value: {
-      paymentValue: paymentValue,
-      paymentValueLoss: paymentValueLoss
-    }
-  }, props.children);
-});
-
-var DonationRoutingProvider = (function (props) {
-  var _useContext = useContext(ChangableAmountContext),
-      acceptWithAmount = _useContext.acceptWithAmount,
-      setMaxRoute = _useContext.setMaxRoute;
-
-  var _useContext2 = useContext(ConfigurationContext),
-      blacklist = _useContext2.blacklist,
-      fee = _useContext2.fee;
-
-  return /*#__PURE__*/React.createElement(DonationRoutingContext.Provider, {
-    value: {}
-  }, /*#__PURE__*/React.createElement(PaymentRoutingProvider, {
-    accept: acceptWithAmount,
-    blacklist: blacklist,
-    setMaxRoute: setMaxRoute,
-    fee: fee
-  }, /*#__PURE__*/React.createElement(PaymentProvider, {
-    container: props.container,
-    document: props.document
-  }, /*#__PURE__*/React.createElement(PaymentValueProvider, null, props.children))));
-});
-
-var format = (function (input) {
-  var _float = round(input);
-
-  var floatToString = _float.toString();
-
-  if (new RegExp(/\./).test(floatToString)) {
-    var exploded = floatToString.split('.');
-    return new Intl.NumberFormat().format(parseInt(exploded[0])) + '.' + exploded[1];
-  } else {
-    return new Intl.NumberFormat().format(_float);
-  }
-});
-
-var ChangeAmountDialog = (function (props) {
-  var _useContext = useContext(NavigateStackContext),
-      navigate = _useContext.navigate;
-
-  var _useContext2 = useContext(ErrorContext);
-      _useContext2.setError;
-
-  var _useContext3 = useContext(WalletContext);
-      _useContext3.account;
-
-  var _useContext4 = useContext(ChangableAmountContext),
-      amount = _useContext4.amount,
-      setAmount = _useContext4.setAmount,
-      maxAmount = _useContext4.maxAmount;
-
-  var _useState = useState(amount),
-      _useState2 = _slicedToArray(_useState, 2),
-      inputAmount = _useState2[0],
-      setInputAmount = _useState2[1];
-
-  var _useContext5 = useContext(ConfigurationContext),
-      currencyCode = _useContext5.currencyCode,
-      amountConfiguration = _useContext5.amount;
-
-  var _useContext6 = useContext(PaymentRoutingContext);
-      _useContext6.allRoutes;
-      var setSelectedRoute = _useContext6.setSelectedRoute;
-
-  var min = _typeof(amountConfiguration) == "object" && amountConfiguration.min ? amountConfiguration.min : 1;
-  var step = _typeof(amountConfiguration) == "object" && amountConfiguration.step ? amountConfiguration.step : 1;
-  var displayedCurrencyCode = amountConfiguration != undefined && amountConfiguration.token ? null : currencyCode;
-
-  var changeAmountAndGoBack = function changeAmountAndGoBack() {
-    var newAmount = toValidValue(parseFloat(inputAmount));
-
-    if (newAmount != amount) {
-      setSelectedRoute(undefined);
-      setAmount(newAmount);
-    }
-
-    navigate('back');
-  };
-
-  var changeAmount = function changeAmount(value) {
-    if (Number.isNaN(value)) {
-      return;
-    }
-
-    setInputAmount(value);
-  };
-
-  var toValidStep = function toValidStep(value) {
-    if (step) {
-      value = parseFloat(new Decimal(Math.floor(new Decimal(value).div(step))).mul(step).toString());
-    }
-
-    return value;
-  };
-
-  var toValidValue = function toValidValue(value) {
-    value = toValidStep(value);
-    value = Math.max(min, Math.min(value, maxAmount));
-    value = toValidStep(value);
-    return value;
-  };
-
-  var setValidValue = function setValidValue(value) {
-    setInputAmount(toValidValue(value));
-  };
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    stacked: true,
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL TextCenter"
-    }, "Change Amount"), /*#__PURE__*/React.createElement("div", {
-      className: "FontSizeL TextCenter FontWeightBold"
-    }, /*#__PURE__*/React.createElement("strong", null, displayedCurrencyCode))),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "MaxHeight PaddingTopXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS TextCenter PaddingBottomL"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("input", {
-      max: parseFloat(maxAmount),
-      min: min,
-      step: step,
-      className: "Input FontSizeXXL TextAlignCenter",
-      type: "number",
-      name: "amount",
-      autoFocus: true,
-      value: parseFloat(inputAmount),
-      onChange: function onChange(event) {
-        changeAmount(event.target.value);
-      },
-      onBlur: function onBlur(event) {
-        setValidValue(event.target.value);
-      }
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        height: '40px'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "FontSizeS"
-    }, format(toValidStep(maxAmount)), /*#__PURE__*/React.createElement("button", {
-      className: "TextButton",
-      onClick: function onClick() {
-        changeAmount(toValidValue(maxAmount));
-      }
-    }, "(Max)")))))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("button", {
-      className: "ButtonPrimary",
-      onClick: changeAmountAndGoBack
-    }, "Done"))
-  });
-});
-
-var ChangePaymentSkeleton = (function (props) {
-  var _useContext = useContext(PaymentValueContext),
-      paymentValue = _useContext.paymentValue;
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    stacked: true,
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL TextCenter"
-    }, "Change Payment"), paymentValue != undefined && /*#__PURE__*/React.createElement("div", {
-      className: "FontSizeL TextCenter FontWeightBold"
-    }, /*#__PURE__*/React.createElement("strong", null, paymentValue.toString()))),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "MaxHeight PaddingTopXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "Card Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "Card Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "Card Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    }))))
-  });
-});
-
-var ChangePaymentDialog = (function (props) {
-  var _useContext = useContext(ErrorContext),
-      setError = _useContext.setError;
-
-  var _useContext2 = useContext(PaymentRoutingContext),
-      allRoutes = _useContext2.allRoutes,
-      setSelectedRoute = _useContext2.setSelectedRoute;
-
-  var _useContext3 = useContext(PaymentValueContext),
-      paymentValue = _useContext3.paymentValue;
-
-  var _useContext4 = useContext(NavigateStackContext),
-      navigate = _useContext4.navigate;
-
-  var _useState = useState([]),
-      _useState2 = _slicedToArray(_useState, 2),
-      allPaymentRoutesWithData = _useState2[0],
-      setAllPaymentRoutesWithData = _useState2[1];
-
-  var _useState3 = useState([]),
-      _useState4 = _slicedToArray(_useState3, 2),
-      cards = _useState4[0],
-      setCards = _useState4[1];
-
-  useEffect(function () {
-    if (allRoutes == undefined) {
-      return;
-    }
-
-    Promise.all(allRoutes.map(function (route) {
-      route.exchangeRoutes[0];
-      route.fromToken;
-      return Promise.all([route.fromToken.name(), route.fromToken.symbol(), route.fromToken.decimals(), route.fromToken.readable(route.fromAmount)]);
-    })).then(function (allPaymentRoutesWithData) {
-      setAllPaymentRoutesWithData(allRoutes.map(function (route, index) {
-        return {
-          name: allPaymentRoutesWithData[index][0],
-          symbol: allPaymentRoutesWithData[index][1].toUpperCase(),
-          decimals: allPaymentRoutesWithData[index][2],
-          amount: allPaymentRoutesWithData[index][3],
-          route: route
-        };
-      }));
-    })["catch"](setError);
-  }, [allRoutes]);
-  useEffect(function () {
-    setCards(allPaymentRoutesWithData.map(function (payment, index) {
-      var blockchain = Blockchain.findByName(payment.route.blockchain);
-      return /*#__PURE__*/React.createElement("div", {
-        key: index,
-        className: "Card",
-        title: "Select ".concat(payment.symbol, " as payment"),
-        onClick: function onClick() {
-          setSelectedRoute(payment.route);
-          navigate('back');
-        }
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement(TokenImage, {
-        blockchain: payment.route.blockchain,
-        address: payment.route.fromToken.address
-      }), /*#__PURE__*/React.createElement("img", {
-        className: "BlockchainLogo small",
-        src: blockchain.logo,
-        alt: blockchain.label,
-        title: blockchain.label
-      })), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React.createElement("h2", {
-        className: "CardText"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "TokenAmountRow"
-      }, /*#__PURE__*/React.createElement("span", {
-        className: "TokenSymbolCell"
-      }, payment.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
-        className: "TokenAmountCell"
-      }, format(payment.amount)))), /*#__PURE__*/React.createElement("h3", {
-        className: "CardText small"
-      }, /*#__PURE__*/React.createElement("small", null, format(round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals), 'down')))))));
-    }));
-  }, [allPaymentRoutesWithData]);
-
-  if (allPaymentRoutesWithData.length == 0 || cards.length == 0) {
-    return /*#__PURE__*/React.createElement(ChangePaymentSkeleton, null);
-  }
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    stacked: true,
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL TextCenter"
-    }, "Change Payment"), paymentValue != undefined && /*#__PURE__*/React.createElement("div", {
-      className: "FontSizeL TextCenter FontWeightBold"
-    }, /*#__PURE__*/React.createElement("strong", null, paymentValue.toString()))),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "MaxHeight PaddingTopXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftM PaddingRightM"
-    }, cards)),
-    footer: /*#__PURE__*/React.createElement("div", null)
-  });
-});
-
-var DonationOverviewSkeleton = (function (props) {
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Donation")),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "Card Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "Card Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    }))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonWrapper"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "ButtonPrimary Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    }))))
-  });
-});
-
-var AlertIcon = (function (props) {
-  return /*#__PURE__*/React.createElement("svg", {
-    className: "AlertIcon Icon " + props.className,
-    version: "1.1",
-    xmlns: "http://www.w3.org/2000/svg",
-    x: "0px",
-    y: "0px",
-    viewBox: "0 0 20 20"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M19.64 16.36L11.53 2.3A1.85 1.85 0 0 0 10 1.21 1.85 1.85 0 0 0 8.48 2.3L.36 16.36C-.48 17.81.21 19 1.88 19h16.24c1.67 0 2.36-1.19 1.52-2.64zM11 16H9v-2h2zm0-4H9V6h2z"
-  }));
-});
-
-var Checkmark = (function (props) {
-  return /*#__PURE__*/React.createElement("svg", {
-    className: "Checkmark Icon " + props.className,
-    version: "1.1",
-    xmlns: "http://www.w3.org/2000/svg",
-    x: "0px",
-    y: "0px",
-    viewBox: "0 0 24 24"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M20,4.9L9.2,16l-5.4-3.9c-0.7-0.5-1.6-0.3-2.1,0.3c-0.5,0.7-0.3,1.6,0.3,2.1l6.4,4.7c0.3,0.2,0.6,0.3,0.9,0.3 c0.4,0,0.8-0.2,1.1-0.5l11.7-12c0.6-0.6,0.6-1.6,0-2.2C21.6,4.3,20.6,4.3,20,4.9z"
-  }));
-});
-
-var DigitalWalletIcon = (function (props) {
-  return /*#__PURE__*/React.createElement("svg", {
-    className: "DigitalWalletIcon Icon " + props.className,
-    version: "1.1",
-    xmlns: "http://www.w3.org/2000/svg",
-    height: "24",
-    width: "24",
-    viewBox: "0 0 24 24"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M8.51,4.84l-.39-.53,4-2.89a2.2,2.2,0,0,1,3.06.48l.4.56-.53.39-.4-.56A1.54,1.54,0,0,0,12.5,2Z",
-    transform: "translate(-0.81 -1)"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M9.77,4.89l-.21-.62,6.31-2.13h0a2.18,2.18,0,0,1,.67-.1h0a2.21,2.21,0,0,1,2.08,1.49l.32.95-.63.21L18,3.73a1.53,1.53,0,0,0-1.45-1h0a1.61,1.61,0,0,0-.48.08h0Z",
-    transform: "translate(-0.81 -1)"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M19.72,16.2H18.27a3.28,3.28,0,1,1,0-6.56h1.45a3.21,3.21,0,0,1,1.33.28h0a3.28,3.28,0,0,1,0,6A3.21,3.21,0,0,1,19.72,16.2Zm-1.45-5.9a2.63,2.63,0,0,0,0,5.25h1.45a2.56,2.56,0,0,0,1.06-.23,2.62,2.62,0,0,0,0-4.8,2.55,2.55,0,0,0-1.06-.22ZM19,14.53a1.61,1.61,0,1,1,1.61-1.61A1.62,1.62,0,0,1,19,14.53ZM19,12a1,1,0,1,0,.95.95A1,1,0,0,0,19,12Z",
-    transform: "translate(-0.81 -1)"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M10.49,19.69a1.58,1.58,0,1,1,1.58-1.57A1.57,1.57,0,0,1,10.49,19.69Zm0-2.49a.92.92,0,1,0,.92.92A.92.92,0,0,0,10.49,17.2Z",
-    transform: "translate(-0.81 -1)"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M19.09,22.14H2.79a2,2,0,0,1-2-2V6.25a2.1,2.1,0,0,1,0-.43,2,2,0,0,1,.48-.92,2,2,0,0,1,1.48-.65H19.09a2,2,0,0,1,.64.1,2,2,0,0,1,1.36,1.79v0a.28.28,0,0,1,0,.09v3.91h-.66v-4a1.49,1.49,0,0,0-.23-.69A1.35,1.35,0,0,0,19.52,5a1.26,1.26,0,0,0-.43-.08H2.82a1.34,1.34,0,0,0-1,.44A1.49,1.49,0,0,0,1.5,6a1.5,1.5,0,0,0,0,.29V20.13a1.36,1.36,0,0,0,1.34,1.35H19.09a1.35,1.35,0,0,0,1.35-1.35V15.68h.66v4.45A2,2,0,0,1,19.09,22.14Z",
-    transform: "translate(-0.81 -1)"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M9.27,9.31a1.58,1.58,0,1,1,0-3.15,1.58,1.58,0,0,1,0,3.15Zm0-2.5a.92.92,0,1,0,.92.92A.92.92,0,0,0,9.27,6.81Z",
-    transform: "translate(-0.81 -1)"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M7.11,14.67A1.58,1.58,0,1,1,8.69,13.1,1.57,1.57,0,0,1,7.11,14.67Zm0-2.49A.92.92,0,1,0,8,13.1.92.92,0,0,0,7.11,12.18Z",
-    transform: "translate(-0.81 -1)"
-  }), /*#__PURE__*/React.createElement("rect", {
-    x: "0.33",
-    y: "11.77",
-    width: "4.72",
-    height: "0.66"
-  }), /*#__PURE__*/React.createElement("polygon", {
-    points: "2.08 9.53 0.33 9.53 0.33 8.87 1.8 8.87 4.28 6.39 7.21 6.39 7.21 7.05 4.55 7.05 2.08 9.53"
-  }), /*#__PURE__*/React.createElement("polygon", {
-    points: "8.43 17.45 4.53 17.45 2.63 15.55 0.33 15.55 0.33 14.89 2.9 14.89 4.8 16.79 8.43 16.79 8.43 17.45"
-  }));
-});
-
-var LoadingText = (function (props) {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "LoadingText"
-  }, props.children, /*#__PURE__*/React.createElement("span", {
-    className: "dot"
-  }, "."), /*#__PURE__*/React.createElement("span", {
-    className: "dot"
-  }, "."), /*#__PURE__*/React.createElement("span", {
-    className: "dot"
-  }, "."));
-});
-
-var Footer = (function () {
-  var _useContext = useContext(ConfigurationContext),
-      currencyCode = _useContext.currencyCode,
-      configuredAmount = _useContext.amount;
-
-  var _useContext2 = useContext(ChangableAmountContext),
-      amount = _useContext2.amount;
-      _useContext2.amountsMissing;
-
-  var _useContext3 = useContext(PaymentTrackingContext),
-      tracking = _useContext3.tracking,
-      release = _useContext3.release,
-      forwardTo = _useContext3.forwardTo,
-      trackingFailed = _useContext3.trackingFailed;
-
-  var _useContext4 = useContext(PaymentContext),
-      payment = _useContext4.payment,
-      paymentState = _useContext4.paymentState,
-      pay = _useContext4.pay,
-      transaction = _useContext4.transaction,
-      approve = _useContext4.approve,
-      approvalTransaction = _useContext4.approvalTransaction;
-
-  var _useContext5 = useContext(PaymentValueContext),
-      paymentValue = _useContext5.paymentValue,
-      paymentValueLoss = _useContext5.paymentValueLoss;
-
-  var _useContext6 = useContext(PaymentRoutingContext),
-      updatedRouteWithNewPrice = _useContext6.updatedRouteWithNewPrice,
-      updateRouteWithNewPrice = _useContext6.updateRouteWithNewPrice;
-
-  var _useContext7 = useContext(NavigateStackContext);
-      _useContext7.navigate;
-
-  var _useContext8 = useContext(ClosableContext),
-      close = _useContext8.close;
-
-  var trackingInfo = function trackingInfo() {
-    if (tracking != true) {
-      return null;
-    }
-
-    if (release) {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-        className: "Card transparent small disabled"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter Opacity05"
-      }, /*#__PURE__*/React.createElement(Checkmark, {
-        className: "small"
-      }))), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05"
-      }, "Payment validated")))));
-    } else {
-      if (trackingFailed) {
-        return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-          className: "Card transparent small"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "CardImage"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "TextCenter"
-        }, /*#__PURE__*/React.createElement(AlertIcon, {
-          className: "small"
-        }))), /*#__PURE__*/React.createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "CardBodyWrapper"
-        }, /*#__PURE__*/React.createElement("div", null, "Tracking payment failed!")))));
-      } else {
-        return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-          className: "Card transparent small disabled"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "CardImage"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "TextCenter"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "Loading Icon"
-        }))), /*#__PURE__*/React.createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "CardBodyWrapper"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "Opacity05"
-        }, "Validating payment")))));
-      }
-    }
-  };
-
-  var additionalPaymentInformation = function additionalPaymentInformation() {
-    if (paymentState == 'paying' && transaction == undefined) {
-      return /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Card transparent disabled small"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter Opacity05"
-      }, /*#__PURE__*/React.createElement(DigitalWalletIcon, {
-        className: "small"
-      }))), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05"
-      }, "Confirm transaction in your wallet")))));
-    } else if (paymentState == 'confirmed') {
-      return /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
-      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
-        className: "Card transparent small",
-        title: "Payment has been confirmed by the network",
-        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-        target: "_blank",
-        rel: "noopener noreferrer"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter Opacity05"
-      }, /*#__PURE__*/React.createElement(Checkmark, {
-        className: "small"
-      }))), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05"
-      }, "Payment confirmed"))))), trackingInfo());
-    }
-  };
-
-  var approvalButton = function approvalButton() {
-    if (payment.route == undefined || !payment.route.approvalRequired || payment.route.directTransfer) {
-      return null;
-    } else if (paymentState == 'initialized') {
-      return /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
-      }, /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary",
-        onClick: approve,
-        title: "Allow ".concat(payment.symbol, " to be used as payment")
-      }, "Allow ", payment.symbol, " to be used as payment"));
-    } else if (paymentState == 'approving') {
-      return /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
-      }, /*#__PURE__*/React.createElement("a", {
-        className: "ButtonPrimary",
-        title: "Approving payment token - please wait",
-        href: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
-        target: "_blank",
-        rel: "noopener noreferrer"
-      }, /*#__PURE__*/React.createElement(LoadingText, null, "Approving")));
-    }
-  };
-
-  var mainAction = function mainAction() {
-    var displayedAmount;
-
-    if (amount && (configuredAmount == undefined || configuredAmount.token != true)) {
-      displayedAmount = new Currency({
-        amount: amount.toFixed(2),
-        code: currencyCode
-      }).toString();
-    } else if (paymentValue && paymentValue.toString().length) {
-      displayedAmount = paymentValue.toString();
-    } else {
-      displayedAmount = "".concat(payment.symbol, " ").concat(payment.amount);
-    }
-
-    if (updatedRouteWithNewPrice) {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomXS"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Alert"
-      }, /*#__PURE__*/React.createElement("strong", null, "Price updated!"))), /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary",
-        onClick: function onClick() {
-          updateRouteWithNewPrice();
-        }
-      }, "Reload"));
-    } else if (paymentValueLoss) {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomXS"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Alert"
-      }, /*#__PURE__*/React.createElement("strong", null, "Payment token would lose ", paymentValueLoss, "% of it's value!"))), /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary disabled",
-        onClick: function onClick() {}
-      }, "Pay ", displayedAmount));
-    } else if ((paymentState == 'initialized' || paymentState == 'approving') && payment.route) {
-      return /*#__PURE__*/React.createElement("button", {
-        className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
-        onClick: function onClick() {
-          if (payment.route.approvalRequired && !payment.route.directTransfer) {
-            return;
-          }
-
-          pay();
-        }
-      }, "Pay ", displayedAmount);
-    } else if (paymentState == 'paying') {
-      return /*#__PURE__*/React.createElement("a", {
-        className: "ButtonPrimary",
-        title: "Performing the payment - please wait",
-        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-        target: "_blank",
-        rel: "noopener noreferrer"
-      }, /*#__PURE__*/React.createElement(LoadingText, null, "Paying"));
-    } else if (paymentState == 'confirmed') {
-      if (tracking == true) {
-        if (release) {
-          if (forwardTo) {
-            return /*#__PURE__*/React.createElement("a", {
-              className: "ButtonPrimary",
-              href: forwardTo,
-              rel: "noopener noreferrer"
-            }, "Continue");
-          } else {
-            return /*#__PURE__*/React.createElement("button", {
-              className: "ButtonPrimary",
-              onClick: close
-            }, "Continue");
-          }
-        } else {
-          return /*#__PURE__*/React.createElement("button", {
-            className: "ButtonPrimary disabled",
-            onClick: function onClick() {}
-          }, "Continue");
-        }
-      } else {
-        return /*#__PURE__*/React.createElement("button", {
-          className: "ButtonPrimary",
-          onClick: close
-        }, "Close");
-      }
-    }
-  };
-
-  return /*#__PURE__*/React.createElement("div", null, approvalButton(), additionalPaymentInformation(), mainAction());
-});
-
-var DonationOverviewDialog = (function (props) {
-  var _useContext = useContext(ConfigurationContext),
-      currencyCode = _useContext.currencyCode;
-
-  var _useContext2 = useContext(ChangableAmountContext),
-      amount = _useContext2.amount;
-
-  var _useContext3 = useContext(PaymentContext),
-      payment = _useContext3.payment,
-      paymentState = _useContext3.paymentState;
-
-  var _useContext4 = useContext(NavigateStackContext),
-      navigate = _useContext4.navigate;
-
-  if (payment == undefined) {
-    return /*#__PURE__*/React.createElement(DonationOverviewSkeleton, null);
-  }
-
-  var blockchain = Blockchain.findByName(payment.blockchain);
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Donation")),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
-      title: paymentState == 'initialized' ? "Change amount" : undefined,
-      onClick: function onClick() {
-        if (paymentState != 'initialized') {
-          return;
-        }
-
-        navigate('ChangeAmount');
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardBody"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardBodyWrapper"
-    }, /*#__PURE__*/React.createElement("h4", {
-      className: "CardTitle"
-    }, "Amount"), /*#__PURE__*/React.createElement("h2", {
-      className: "CardText"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "TokenAmountRow"
-    }, new Currency({
-      amount: amount.toFixed(2),
-      code: currencyCode
-    }).toString())))), /*#__PURE__*/React.createElement("div", {
-      className: "CardAction"
-    }, /*#__PURE__*/React.createElement(ChevronRight, null))), /*#__PURE__*/React.createElement("div", {
-      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
-      title: paymentState == 'initialized' ? "Change payment" : undefined,
-      onClick: function onClick() {
-        if (paymentState != 'initialized') {
-          return;
-        }
-
-        navigate('ChangePayment');
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardImage",
-      title: payment.name
-    }, /*#__PURE__*/React.createElement(TokenImage, {
-      blockchain: payment.route.blockchain,
-      address: payment.token
-    }), /*#__PURE__*/React.createElement("img", {
-      className: "BlockchainLogo small",
-      src: blockchain.logo,
-      alt: blockchain.label,
-      title: blockchain.label
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "CardBody"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardBodyWrapper"
-    }, /*#__PURE__*/React.createElement("h4", {
-      className: "CardTitle"
-    }, "Payment"), /*#__PURE__*/React.createElement("h2", {
-      className: "CardText"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "TokenAmountRow"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "TokenSymbolCell"
-    }, payment.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
-      className: "TokenAmountCell"
-    }, format(payment.amount)))))), /*#__PURE__*/React.createElement("div", {
-      className: "CardAction"
-    }, /*#__PURE__*/React.createElement(ChevronRight, null)))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement(Footer, null))
-  });
-});
-
-var PaymentErrorDialog = (function () {
-  var _useContext = useContext(NavigateStackContext),
-      navigate = _useContext.navigate;
-
-  var _useContext2 = useContext(PaymentContext),
-      transaction = _useContext2.transaction;
-
-  var _useContext3 = useContext(ConfigurationContext),
-      recover = _useContext3.recover;
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    stacked: recover ? false : true,
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
-    }),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "GraphicWrapper"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "Graphic",
-      src: ErrorGraphic
-    })), /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-    }, "Payment Failed"), /*#__PURE__*/React.createElement("div", {
-      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-    }, recover == undefined && /*#__PURE__*/React.createElement("strong", {
-      className: "FontSizeM"
-    }, "Unfortunately executing your payment failed. You can go back and try again."), transaction && /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS"
-    }, /*#__PURE__*/React.createElement("a", {
-      className: "Link",
-      title: "Check your transaction on a block explorer",
-      href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-      target: "_blank",
-      rel: "noopener noreferrer"
-    }, "View on explorer")))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, recover == undefined && /*#__PURE__*/React.createElement("button", {
-      className: "ButtonPrimary",
-      onClick: function onClick() {
-        return navigate('back');
-      }
-    }, "Try again"))
-  });
-});
-
-var ConnectGraphic = "data:image/png;base64,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";
-
-var WrongNetworkDialog = (function (props) {
-  var _useContext = useContext(PaymentContext),
-      payment = _useContext.payment;
-
-  var _useContext2 = useContext(NavigateStackContext),
-      navigate = _useContext2.navigate;
-
-  var blockchain = Blockchain.findByName(payment.route.blockchain);
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    stacked: true,
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Wrong Network")),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS TextCenter"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "GraphicWrapper"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "Graphic",
-      src: ConnectGraphic
-    })), /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-    }, "Connect to ", blockchain.label), /*#__PURE__*/React.createElement("div", {
-      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/React.createElement("strong", {
-      className: "FontSizeM"
-    }, "Please make sure you connect your wallet to the correct network before you try again!"))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("button", {
-      className: "ButtonPrimary",
-      onClick: function onClick() {
-        return navigate('back');
-      }
-    }, "Try again"))
-  });
-});
-
-var DonationStack = (function (props) {
-  var _useContext = useContext(ClosableContext),
-      open = _useContext.open,
-      close = _useContext.close;
-
-  var _useContext2 = useContext(NavigateContext),
-      setNavigate = _useContext2.setNavigate;
-
-  return /*#__PURE__*/React.createElement(ReactDialogStack, {
-    setNavigate: setNavigate,
-    open: open,
-    close: close,
-    start: "DonationOverview",
-    container: props.container,
-    document: props.document,
-    dialogs: {
-      DonationOverview: /*#__PURE__*/React.createElement(DonationOverviewDialog, null),
-      ChangeAmount: /*#__PURE__*/React.createElement(ChangeAmountDialog, null),
-      ChangePayment: /*#__PURE__*/React.createElement(ChangePaymentDialog, null),
-      PaymentError: /*#__PURE__*/React.createElement(PaymentErrorDialog, null),
-      WrongNetwork: /*#__PURE__*/React.createElement(WrongNetworkDialog, null)
-    }
-  });
-});
-
-var NavigateProvider = (function (props) {
-  var navigator;
-
-  var setNavigate = function setNavigate(_navigator) {
-    navigator = _navigator;
-  };
-
-  var navigate = function navigate(dialog) {
-    if (navigator) {
-      navigator(dialog);
-    }
-  };
-
-  return /*#__PURE__*/React.createElement(NavigateContext.Provider, {
-    value: {
-      navigate: navigate,
-      setNavigate: setNavigate
-    }
-  }, props.children);
-});
-
-var PaymentTrackingProvider = (function (props) {
-  var _useContext = useContext(ErrorContext),
-      errorCallback = _useContext.errorCallback;
-
-  var _useContext2 = useContext(ConfigurationContext),
-      track = _useContext2.track,
-      integration = _useContext2.integration,
-      type = _useContext2.type;
-
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      transaction = _useState2[0],
-      setTransaction = _useState2[1];
-
-  var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      afterBlock = _useState4[0],
-      setAfterBlock = _useState4[1];
-
-  var _useState5 = useState(),
-      _useState6 = _slicedToArray(_useState5, 2),
-      paymentRoute = _useState6[0],
-      setPaymentRoute = _useState6[1];
-
-  var _useState7 = useState(!!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
-      _useState8 = _slicedToArray(_useState7, 1),
-      tracking = _useState8[0];
-
-  var _useState9 = useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
-      _useState10 = _slicedToArray(_useState9, 1),
-      polling = _useState10[0];
-
-  var _useState11 = useState(false),
-      _useState12 = _slicedToArray(_useState11, 2),
-      release = _useState12[0],
-      setRelease = _useState12[1];
-
-  var _useState13 = useState(false),
-      _useState14 = _slicedToArray(_useState13, 2),
-      trackingFailed = _useState14[0],
-      setTrackingFailed = _useState14[1];
-
-  var _useState15 = useState(),
-      _useState16 = _slicedToArray(_useState15, 2),
-      forwardTo = _useState16[0],
-      setForwardTo = _useState16[1];
-
-  var _useContext3 = useContext(ClosableContext),
-      setClosable = _useContext3.setClosable;
-
-  var openSocket = function openSocket(transaction) {
-    var socket = new WebSocket('wss://integrate.depay.fi/cable');
-
-    socket.onopen = function (event) {
-      var msg = {
-        command: 'subscribe',
-        identifier: JSON.stringify({
-          blockchain: transaction.blockchain,
-          sender: transaction.from.toLowerCase(),
-          nonce: transaction.nonce,
-          channel: 'PaymentChannel'
-        })
-      };
-      socket.send(JSON.stringify(msg));
-    };
-
-    socket.onclose = function (event) {};
-
-    socket.onmessage = function (event) {
-      var item = JSON.parse(event.data);
-
-      if (item.type === "ping") {
-        return;
-      }
-
-      if (item.message && item.message.release) {
-        setClosable(!item.message.forward_to);
-        setForwardTo(item.message.forward_to);
-        setRelease(item.message.release);
-        socket.close();
-
-        if (!!item.message.forward_to) {
-          setTimeout(function () {
-            props.document.location.href = item.message.forward_to;
-          }, 200);
-        }
-      }
-    };
-
-    socket.onerror = function (error) {
-      console.log('WebSocket Error: ' + error);
-    };
-  };
-
-  var retryStartTracking = function retryStartTracking(transaction, afterBlock, paymentRoute, attempt) {
-    attempt = parseInt(attempt || 1, 10);
-
-    if (attempt < 3) {
-      setTimeout(function () {
-        startTracking(transaction, afterBlock, paymentRoute, attempt + 1);
-      }, 3000);
-    } else {
-      console.log('PAYMENT TRACKING FAILED AFTER 3 ATTEMPTS!');
-      setTrackingFailed(true);
-
-      if (typeof errorCallback == 'function') {
-        errorCallback({
-          code: 'TRACKING_FAILED'
-        });
-      }
-    }
-  };
-
-  var callTracking = function callTracking(payment) {
-    if (track.endpoint) {
-      return fetch(track.endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payment)
-      });
-    } else if (track.method) {
-      return track.method(payment);
-    } else {
-      throw 'No tracking defined!';
-    }
-  };
-
-  var startTracking = function startTracking(transaction, afterBlock, paymentRoute, attempt) {
-    callTracking({
-      blockchain: transaction.blockchain,
-      transaction: transaction.id.toLowerCase(),
-      sender: transaction.from.toLowerCase(),
-      nonce: transaction.nonce,
-      after_block: afterBlock,
-      to_token: paymentRoute.toToken.address
-    }).then(function (response) {
-      if (response.status != 200) {
-        retryStartTracking(transaction, afterBlock, paymentRoute, attempt);
-      }
-    })["catch"](function (error) {
-      console.log('PAYMENT TRACKING FAILED', error);
-      retryStartTracking(transaction, afterBlock, paymentRoute, attempt);
-    });
-  };
-
-  var pollStatus = function pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval) {
-    if (!polling || transaction == undefined || afterBlock == undefined || paymentRoute == undefined) {
-      return;
-    }
-
-    var payment = {
-      blockchain: transaction.blockchain,
-      transaction: transaction.id.toLowerCase(),
-      sender: transaction.from.toLowerCase(),
-      nonce: transaction.nonce,
-      after_block: afterBlock,
-      to_token: paymentRoute.toToken.address
-    };
-
-    var handleResponse = function handleResponse(response) {
-      if (response.status == 200) {
-        response.json().then(function (data) {
-          if (data && data.forward_to) {
-            setForwardTo(data.forward_to);
-            setTimeout(function () {
-              props.document.location.href = data.forward_to;
-            }, 100);
-          }
-        });
-        clearInterval(pollingInterval);
-        setRelease(true);
-      }
-    };
-
-    if (track.poll.endpoint) {
-      fetch(track.poll.endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payment)
-      }).then(handleResponse);
-    } else if (track.poll.method) {
-      track.poll.method(payment).then(handleResponse);
-    }
-  };
-
-  useEffect(function () {
-    if (!polling) {
-      return;
-    }
-
-    if (!tracking) {
-      return;
-    }
-
-    var pollingInterval = setInterval(function () {
-      return pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval);
-    }, 5000);
-    return function () {
-      clearInterval(pollingInterval);
-    };
-  }, [polling, transaction, afterBlock, paymentRoute]);
-
-  var storePayment = function storePayment(transaction, afterBlock, paymentRoute, attempt) {
-    if (attempt > 3) {
-      return;
-    }
-
-    fetch('https://public.depay.fi/payments', {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        blockchain: transaction.blockchain,
-        transaction: transaction.id,
-        sender: transaction.from.toLowerCase(),
-        nonce: transaction.nonce,
-        receiver: paymentRoute.toAddress,
-        token: paymentRoute.toToken.address,
-        amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
-        confirmations: 1,
-        after_block: afterBlock,
-        uuid: transaction.id,
-        payload: {
-          sender_id: transaction.from.toLowerCase(),
-          sender_token_id: paymentRoute.fromToken.address,
-          sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
-          integration: integration,
-          type: type
-        },
-        fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
-        fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
-      })
-    }).then(function (response) {
-      if (response.status == 200 || response.status == 201) ; else {
-        setTimeout(function () {
-          storePayment(transaction, afterBlock, paymentRoute, attempt + 1);
-        }, 3000);
-      }
-    })["catch"](function (error) {
-      setTimeout(function () {
-        storePayment(transaction, afterBlock, paymentRoute, attempt + 1);
-      }, 3000);
-    });
-  };
-
-  var initializeTracking = function initializeTracking(transaction, afterBlock, paymentRoute) {
-    storePayment(transaction, afterBlock, paymentRoute, 1);
-
-    if (tracking || track && track.async == true) {
-      startTracking(transaction, afterBlock, paymentRoute);
-    }
-
-    if (tracking == false) {
-      return;
-    }
-
-    setTransaction(transaction);
-    setAfterBlock(afterBlock);
-    setPaymentRoute(paymentRoute);
-    openSocket(transaction);
-  };
-
-  return /*#__PURE__*/React.createElement(PaymentTrackingContext.Provider, {
-    value: {
-      tracking: tracking,
-      initializeTracking: initializeTracking,
-      release: release,
-      forwardTo: forwardTo,
-      trackingFailed: trackingFailed
-    }
-  }, props.children);
-});
-
-var TransactionTrackingProvider = (function (props) {
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      givenTransaction = _useState2[0],
-      setGivenTransaction = _useState2[1];
-
-  var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      foundTransaction = _useState4[0],
-      setFoundTransaction = _useState4[1];
-
-  var _useState5 = useState(false),
-      _useState6 = _slicedToArray(_useState5, 2),
-      polling = _useState6[0],
-      setPolling = _useState6[1];
-
-  var _useContext = useContext(ErrorContext);
-      _useContext.errorCallback;
-
-  var _useContext2 = useContext(ConfigurationContext),
-      recover = _useContext2.recover;
-
-  useEffect(function () {
-    if (polling) {
-      var poll = function poll() {
-        fetch("https://public.depay.fi/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from.toLowerCase(), "/").concat(givenTransaction.nonce)).then(function (response) {
-          if (response.status == 200) {
-            response.json().then(function (data) {
-              if (data.status != 'pending') {
-                setFoundTransaction({
-                  id: data.external_id,
-                  status: data.status
-                });
-                setPolling(false);
-              }
-            });
-          }
-        });
-      };
-
-      var pollingInterval = setInterval(poll, 5000);
-      poll();
-      return function () {
-        clearInterval(pollingInterval);
-      };
-    }
-  }, [polling]);
-
-  var createTracking = function createTracking(transaction, afterBlock, attempt) {
-    if (attempt > 3) {
-      console.log('TRANSACTION TRACKING FAILED AFTER 3 ATTEMPTS!');
-      return;
-    }
-
-    fetch('https://public.depay.fi/transactions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: transaction.id,
-        after_block: afterBlock,
-        blockchain: transaction.blockchain,
-        sender: transaction.from.toLowerCase(),
-        nonce: transaction.nonce
-      })
-    }).then(function (response) {
-      if (response.status == 200 || response.status == 201) {
-        console.log('TRANSACTION TRACKING INITIALIZED');
-      } else {
-        console.log('TRANSACTION TRACKING FAILED', response);
-        setTimeout(function () {
-          createTracking(transaction, afterBlock, attempt + 1);
-        }, 3000);
-      }
-    })["catch"](function (error) {
-      console.log('TRANSACTION TRACKING FAILED', error);
-      setTimeout(function () {
-        createTracking(transaction, afterBlock, attempt + 1);
-      }, 3000);
-    });
-  };
-
-  var openSocket = function openSocket(transaction) {
-    var socket = new WebSocket('wss://integrate.depay.fi/cable');
-
-    socket.onopen = function (event) {
-      var msg = {
-        command: 'subscribe',
-        identifier: JSON.stringify({
-          blockchain: transaction.blockchain,
-          sender: transaction.from.toLowerCase(),
-          nonce: transaction.nonce,
-          channel: 'TransactionChannel'
-        })
-      };
-      socket.send(JSON.stringify(msg));
-    };
-
-    socket.onclose = function (event) {};
-
-    socket.onmessage = function (event) {
-      var item = JSON.parse(event.data);
-
-      if (item.type === "ping") {
-        return;
-      }
-
-      if (item.message && item.message.status && item.message.status != 'pending') {
-        setFoundTransaction(item.message);
-      }
-    };
-
-    socket.onerror = function (error) {
-      console.log('WebSocket Error: ' + error);
-    };
-  };
-
-  var initializeTracking = function initializeTracking(transaction, afterBlock) {
-    setGivenTransaction(transaction);
-
-    if (recover == undefined) {
-      createTracking(transaction, afterBlock, 1);
-    }
-
-    openSocket(transaction);
-    setPolling(true);
-  };
-
-  useEffect(function () {
-    if (recover) {
-      initializeTracking({
-        blockchain: recover.blockchain,
-        id: recover.transaction,
-        from: recover.sender,
-        nonce: recover.nonce
-      }, recover.afterBlock);
-    }
-  }, [recover]);
-  return /*#__PURE__*/React.createElement(TransactionTrackingContext.Provider, {
-    value: {
-      initializeTracking: initializeTracking,
-      foundTransaction: foundTransaction
-    }
-  }, props.children);
-});
-
-var WalletProvider = (function (props) {
-  var _useContext = useContext(ConfigurationContext),
-      recover = _useContext.recover;
-
-  var _useContext2 = useContext(ErrorContext);
-      _useContext2.setError;
-
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      wallet = _useState2[0],
-      setWallet = _useState2[1];
-
-  var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      account = _useState4[0],
-      setAccount = _useState4[1];
-
-  var _useState5 = useState(),
-      _useState6 = _slicedToArray(_useState5, 2),
-      walletState = _useState6[0],
-      setWalletState = _useState6[1];
-
-  var connected = function connected(_ref) {
-    var account = _ref.account,
-        wallet = _ref.wallet;
-    setAccount(account);
-    setWallet(wallet);
-    setWalletState('connected');
-
-    if (props.connected) {
-      props.connected(account);
-    }
-  };
-
-  if (walletState == 'connected' || recover != undefined) {
-    return /*#__PURE__*/React.createElement(WalletContext.Provider, {
-      value: {
-        account: account,
-        wallet: wallet,
-        walletState: walletState
-      }
-    }, props.children);
-  } else {
-    return /*#__PURE__*/React.createElement(ConnectStack, {
-      document: props.document,
-      container: props.container,
-      resolve: connected
-    });
-  }
-});
-
-var preflight$2 = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-    var accept;
-    return regenerator.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            accept = _ref.accept;
-
-            if (!(!(accept instanceof Array) || accept.length == 0)) {
-              _context.next = 3;
-              break;
-            }
-
-            throw 'You need to set the tokens you accept as donation!';
-
-          case 3:
-            accept.forEach(function (configuration) {
-              if (typeof configuration.blockchain === 'undefined') {
-                throw 'You need to set the blockchain you want to receive the donation on!';
-              }
-
-              if (!['ethereum', 'bsc', 'polygon'].includes(configuration.blockchain)) {
-                throw 'You need to set a supported blockchain!';
-              }
-
-              if (typeof configuration.token === 'undefined') {
-                throw 'You need to set the token you want to receive as donation!';
-              }
-
-              if (typeof configuration.receiver === 'undefined') {
-                throw 'You need to set the receiver address that you want to receive the donation!';
-              }
-            });
-
-          case 4:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function preflight(_x) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-var Donation = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, accept, event, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, fee, closable, integration, container, document, unmount;
-    return regenerator.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, fee = _ref3.fee, closable = _ref3.closable, integration = _ref3.integration, container = _ref3.container, document = _ref3.document;
-            requireReactVersion();
-            _context2.prev = 2;
-            _context2.next = 5;
-            return preflight$2({
-              accept: accept
-            });
-
-          case 5:
-            unmount = mount({
-              style: style,
-              container: container,
-              document: ensureDocument(document),
-              closed: closed
-            }, function (unmount) {
-              return function (container) {
-                return /*#__PURE__*/React.createElement(ErrorProvider, {
-                  errorCallback: error,
-                  container: container,
-                  unmount: unmount
-                }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
-                  configuration: {
-                    type: 'donation',
-                    amount: amount,
-                    accept: accept,
-                    currency: currency,
-                    event: event,
-                    fee: fee,
-                    sent: sent,
-                    confirmed: confirmed,
-                    failed: failed,
-                    blacklist: blacklist,
-                    providers: providers,
-                    integration: integration
-                  }
-                }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
-                  unmount: unmount,
-                  closable: closable
-                }, /*#__PURE__*/React.createElement(WalletProvider, {
-                  container: container,
-                  connected: connected,
-                  unmount: unmount
-                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(ConversionRateProvider, null, /*#__PURE__*/React.createElement(ChangableAmountProvider, {
-                  accept: accept
-                }, /*#__PURE__*/React.createElement(TransactionTrackingProvider, null, /*#__PURE__*/React.createElement(PaymentTrackingProvider, {
-                  document: ensureDocument(document)
-                }, /*#__PURE__*/React.createElement(DonationRoutingProvider, {
-                  container: container,
-                  document: document
-                }, /*#__PURE__*/React.createElement(DonationStack, {
-                  document: document,
-                  container: container
-                }), /*#__PURE__*/React.createElement(PoweredBy, null))))))))))));
-              };
-            });
-            return _context2.abrupt("return", {
-              unmount: unmount
-            });
-
-          case 9:
-            _context2.prev = 9;
-            _context2.t0 = _context2["catch"](2);
-            console.log('critical error', _context2.t0);
-
-            if (critical != undefined) {
-              critical(_context2.t0);
-            }
-
-          case 13:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2, null, [[2, 9]]);
-  }));
-
-  return function Donation(_x2) {
-    return _ref4.apply(this, arguments);
-  };
-}();
-
-var SignLoginDialog = (function (props) {
-  var _useContext = useContext(ErrorContext),
-      setError = _useContext.setError;
-
-  var _useContext2 = useContext(ConfigurationContext),
-      message = _useContext2.message,
-      endpoint = _useContext2.endpoint;
-
-  var _useContext3 = useContext(ConfigurationContext),
-      recover = _useContext3.recover;
-
-  var wallet = getWallet();
-  wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
-  var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
-
-  if (typeof recover != 'function') {
-    recover = function recover(_ref) {
-      var message = _ref.message,
-          signature = _ref.signature;
-      return new Promise(function (resolve, reject) {
-        fetch(endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            message: message,
-            signature: signature
-          })
-        }).then(function (response) {
-          if (response.status == 200) {
-            response.text().then(function (account) {
-              resolve(account);
-            })["catch"](setError);
-          } else {
-            response.text().then(function (text) {
-              setError(text || 'Recovering login signature failed!');
-            });
-          }
-        });
-      });
-    };
-  }
-
-  var login = function login() {
-    wallet.sign(message).then(function (signature) {
-      recover({
-        message: message,
-        signature: signature
-      }).then(props.resolve)["catch"](setError);
-    })["catch"](function (error) {
-      if (error && error.code && error.code == 4001) ; else {
-        setError(error);
-      }
-    });
-  };
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter"
-    }, walletLogo && /*#__PURE__*/React.createElement("div", {
-      className: "GraphicWrapper PaddingTopS PaddingBottomS"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "Graphic",
-      src: walletLogo
-    })), /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL Text FontSizeL FontWeightBold PaddingTopS"
-    }, "Wallet Login"), /*#__PURE__*/React.createElement("div", {
-      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/React.createElement("p", {
-      className: "FontSizeM PaddingLeftM PaddingRightM PaddingBottomS"
-    }, "Please click \"Log in\" and sign the message with your connected wallet."))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("button", {
-      className: "ButtonPrimary",
-      onClick: login
-    }, "Log in"))
-  });
-});
-
-var LoginStack = (function (props) {
-  var _useContext = useContext(ClosableContext),
-      open = _useContext.open,
-      close = _useContext.close;
-
-  var _useState = useState(true),
-      _useState2 = _slicedToArray(_useState, 2);
-      _useState2[0];
-      _useState2[1];
-
-  return /*#__PURE__*/React.createElement(ReactDialogStack, {
-    open: open,
-    close: close,
-    start: "SignLogin",
-    container: props.container,
-    document: props.document,
-    dialogs: {
-      SignLogin: /*#__PURE__*/React.createElement(SignLoginDialog, {
-        resolve: props.resolve,
-        userClosedDialog: props.userClosedDialog
-      })
-    }
-  });
-});
-
-var Login = function Login(options) {
-  requireReactVersion();
-  var style, error, document, message, endpoint, recover;
-
-  if (_typeof(options) == 'object') {
-    style = options.style;
-    error = options.error;
-    document = options.document;
-    message = options.message;
-    endpoint = options.endpoint;
-    recover = options.recover;
-  }
-
-  return new Promise( /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_resolve, reject) {
-      return regenerator.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              Connect().then(function () {
-                mount({
-                  style: style,
-                  document: ensureDocument(document)
-                }, function (unmount) {
-                  var userClosedDialog = function userClosedDialog() {
-                    reject('USER_CLOSED_DIALOG');
-                    unmount();
-                  };
-
-                  return function (container) {
-                    return /*#__PURE__*/React.createElement(ErrorProvider, {
-                      errorCallback: error,
-                      container: container,
-                      unmount: unmount
-                    }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
-                      configuration: {
-                        message: message,
-                        endpoint: endpoint || '/login',
-                        recover: recover
-                      }
-                    }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
-                      unmount: userClosedDialog
-                    }, /*#__PURE__*/React.createElement(LoginStack, {
-                      document: document,
-                      container: container,
-                      resolve: function resolve(account) {
-                        unmount();
-
-                        _resolve(account);
-                      }
-                    }), /*#__PURE__*/React.createElement(PoweredBy, null)))));
-                  };
-                });
-              })["catch"](reject);
-
-            case 1:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function (_x, _x2) {
-      return _ref.apply(this, arguments);
-    };
-  }());
-};
-
-var PaymentAmountRoutingContext = /*#__PURE__*/React.createContext();
-
-var PaymentAmountRoutingProvider = (function (props) {
-  var _useContext = useContext(ChangableAmountContext),
-      amountsMissing = _useContext.amountsMissing,
-      acceptWithAmount = _useContext.acceptWithAmount,
-      setMaxRoute = _useContext.setMaxRoute;
-
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      accept = _useState2[0],
-      setAccept = _useState2[1];
-
-  useEffect(function () {
-    if (amountsMissing) {
-      if (acceptWithAmount) {
-        setAccept(acceptWithAmount);
-      }
-    } else {
-      setAccept(props.accept);
-    }
-  }, [amountsMissing, acceptWithAmount]);
-  return /*#__PURE__*/React.createElement(PaymentAmountRoutingContext.Provider, {
-    value: {}
-  }, /*#__PURE__*/React.createElement(PaymentRoutingProvider, {
-    accept: accept,
-    whitelist: props.whitelist,
-    blacklist: props.blacklist,
-    event: props.event,
-    setMaxRoute: setMaxRoute,
-    fee: props.fee
-  }, props.children));
-});
-
-var PaymentOverviewSkeleton = (function (props) {
-  var _useContext = useContext(ChangableAmountContext),
-      amountsMissing = _useContext.amountsMissing;
-
-  var _useContext2 = useContext(PaymentRoutingContext),
-      slowRouting = _useContext2.slowRouting,
-      selectedRoute = _useContext2.selectedRoute;
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Payment")),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
-    }, amountsMissing && /*#__PURE__*/React.createElement("div", {
-      className: "Card Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "Card Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    }))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonWrapper"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "ButtonPrimary Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    }))), selectedRoute == undefined && slowRouting && /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter Opacity05 PaddingTopS"
-    }, /*#__PURE__*/React.createElement("strong", null, "Loading payment routes...")))
-  });
-});
-
-var PaymentOverviewDialog = (function (props) {
-  var _useContext = useContext(ConfigurationContext),
-      currencyCode = _useContext.currencyCode,
-      recover = _useContext.recover;
-
-  var _useContext2 = useContext(PaymentContext),
-      payment = _useContext2.payment,
-      paymentState = _useContext2.paymentState;
-
-  var _useContext3 = useContext(ChangableAmountContext),
-      amount = _useContext3.amount,
-      amountsMissing = _useContext3.amountsMissing;
-
-  var _useContext4 = useContext(PaymentValueContext),
-      paymentValue = _useContext4.paymentValue;
-
-  var _useContext5 = useContext(NavigateStackContext),
-      navigate = _useContext5.navigate;
-
-  if (payment == undefined || recover == undefined && paymentValue == undefined) {
-    return /*#__PURE__*/React.createElement(PaymentOverviewSkeleton, null);
-  }
-
-  var blockchain = Blockchain.findByName(payment.blockchain);
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Payment")),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
-    }, amountsMissing && /*#__PURE__*/React.createElement("div", {
-      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
-      title: paymentState == 'initialized' ? "Change amount" : undefined,
-      onClick: function onClick() {
-        if (paymentState != 'initialized') {
-          return;
-        }
-
-        navigate('ChangeAmount');
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardBody"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardBodyWrapper"
-    }, /*#__PURE__*/React.createElement("h4", {
-      className: "CardTitle"
-    }, "Amount"), /*#__PURE__*/React.createElement("h2", {
-      className: "CardText"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "TokenAmountRow"
-    }, new Currency({
-      amount: amount.toFixed(2),
-      code: currencyCode
-    }).toString())))), /*#__PURE__*/React.createElement("div", {
-      className: "CardAction"
-    }, /*#__PURE__*/React.createElement(ChevronRight, null))), /*#__PURE__*/React.createElement("div", {
-      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
-      title: paymentState == 'initialized' ? "Change payment" : undefined,
-      onClick: function onClick() {
-        if (paymentState != 'initialized') {
-          return;
-        }
-
-        navigate('ChangePayment');
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardImage",
-      title: payment.name
-    }, /*#__PURE__*/React.createElement(TokenImage, {
-      blockchain: payment.blockchain,
-      address: payment.token
-    }), /*#__PURE__*/React.createElement("img", {
-      className: "BlockchainLogo small",
-      src: blockchain.logo,
-      alt: blockchain.label,
-      title: blockchain.label
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "CardBody"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardBodyWrapper"
-    }, amountsMissing && /*#__PURE__*/React.createElement("h4", {
-      className: "CardTitle"
-    }, "Payment"), /*#__PURE__*/React.createElement("h2", {
-      className: "CardText"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "TokenAmountRow"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "TokenSymbolCell"
-    }, payment.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
-      className: "TokenAmountCell"
-    }, format(payment.amount)))))), /*#__PURE__*/React.createElement("div", {
-      className: "CardAction"
-    }, /*#__PURE__*/React.createElement(ChevronRight, null)))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement(Footer, null))
-  });
-});
-
-var PaymentStack = (function (props) {
-  var _useContext = useContext(ClosableContext),
-      open = _useContext.open,
-      close = _useContext.close;
-
-  var _useContext2 = useContext(NavigateContext),
-      setNavigate = _useContext2.setNavigate;
-
-  return /*#__PURE__*/React.createElement(ReactDialogStack, {
-    setNavigate: setNavigate,
-    open: open,
-    close: close,
-    start: "PaymentOverview",
-    container: props.container,
-    document: props.document,
-    dialogs: {
-      PaymentOverview: /*#__PURE__*/React.createElement(PaymentOverviewDialog, null),
-      ChangeAmount: /*#__PURE__*/React.createElement(ChangeAmountDialog, null),
-      ChangePayment: /*#__PURE__*/React.createElement(ChangePaymentDialog, null),
-      PaymentError: /*#__PURE__*/React.createElement(PaymentErrorDialog, null),
-      WrongNetwork: /*#__PURE__*/React.createElement(WrongNetworkDialog, null)
-    }
-  });
-});
-
-var preflight$1 = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-    var accept, recover;
-    return regenerator.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            accept = _ref.accept, recover = _ref.recover;
-
-            if (!recover) {
-              _context.next = 3;
-              break;
-            }
-
-            return _context.abrupt("return");
-
-          case 3:
-            accept.forEach(function (configuration) {
-              if (typeof configuration.blockchain === 'undefined') {
-                throw 'You need to set the blockchain your want to receive the payment on!';
-              }
-
-              if (!['ethereum', 'bsc', 'polygon'].includes(configuration.blockchain)) {
-                throw 'You need to set a supported blockchain!';
-              }
-
-              if (typeof configuration.token === 'undefined' && typeof configuration.fromToken === 'undefined' && typeof configuration.fromAmount === 'undefined' && typeof configuration.toToken === 'undefined') {
-                throw 'You need to set the token you want to receive as payment!';
-              }
-
-              if (typeof configuration.token === 'undefined' && typeof configuration.fromToken !== 'undefined' && typeof configuration.fromAmount === 'undefined' && typeof configuration.toToken === 'undefined') {
-                throw 'You need to set the fromToken, fromAmount and toToken!';
-              }
-
-              if (typeof configuration.receiver === 'undefined') {
-                throw 'You need to set the receiver address that you want to receive the payment!';
-              }
-            });
-
-          case 4:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function preflight(_x) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-var Payment = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, amount, event, sent, confirmed, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, container, document, unmount;
-    return regenerator.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, container = _ref3.container, document = _ref3.document;
-            requireReactVersion();
-            _context2.prev = 2;
-            _context2.next = 5;
-            return preflight$1({
-              accept: accept,
-              recover: recover
-            });
-
-          case 5:
-            unmount = mount({
-              style: style,
-              container: container,
-              document: ensureDocument(document),
-              closed: closed
-            }, function (unmount) {
-              return function (container) {
-                return /*#__PURE__*/React.createElement(ErrorProvider, {
-                  errorCallback: error,
-                  container: container,
-                  unmount: unmount
-                }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
-                  configuration: {
-                    type: 'payment',
-                    amount: amount,
-                    accept: accept,
-                    currency: currency,
-                    event: event,
-                    sent: sent,
-                    confirmed: confirmed,
-                    failed: failed,
-                    whitelist: whitelist,
-                    blacklist: blacklist,
-                    providers: providers,
-                    track: track,
-                    fee: fee,
-                    recover: recover,
-                    integration: integration
-                  }
-                }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
-                  unmount: unmount,
-                  closable: closable
-                }, /*#__PURE__*/React.createElement(WalletProvider, {
-                  document: document,
-                  container: container,
-                  connected: connected,
-                  unmount: unmount
-                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(ConversionRateProvider, null, /*#__PURE__*/React.createElement(ChangableAmountProvider, {
-                  accept: accept
-                }, /*#__PURE__*/React.createElement(PaymentAmountRoutingProvider, {
-                  accept: accept,
-                  whitelist: whitelist,
-                  blacklist: blacklist,
-                  event: event,
-                  fee: fee
-                }, /*#__PURE__*/React.createElement(TransactionTrackingProvider, null, /*#__PURE__*/React.createElement(PaymentTrackingProvider, {
-                  document: ensureDocument(document)
-                }, /*#__PURE__*/React.createElement(PaymentProvider, {
-                  container: container,
-                  document: document
-                }, /*#__PURE__*/React.createElement(PaymentValueProvider, null, /*#__PURE__*/React.createElement(PaymentStack, {
-                  document: document,
-                  container: container
-                }), /*#__PURE__*/React.createElement(PoweredBy, null))))))))))))));
-              };
-            });
-            return _context2.abrupt("return", {
-              unmount: unmount
-            });
-
-          case 9:
-            _context2.prev = 9;
-            _context2.t0 = _context2["catch"](2);
-            console.log('critical error', _context2.t0);
-
-            if (critical != undefined) {
-              critical(_context2.t0);
-            }
-
-          case 13:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2, null, [[2, 9]]);
-  }));
-
-  return function Payment(_x2) {
-    return _ref4.apply(this, arguments);
-  };
-}();
-
-Payment.preload = function (_ref5) {
-  var account = _ref5.account,
-      accept = _ref5.accept,
-      whitelist = _ref5.whitelist,
-      blacklist = _ref5.blacklist,
-      event = _ref5.event,
-      fee = _ref5.fee;
-  routePayments({
-    account: account,
-    accept: accept,
-    whitelist: whitelist,
-    blacklist: blacklist,
-    event: event,
-    fee: fee
-  });
-};
-
-var SaleRoutingContext = /*#__PURE__*/React.createContext();
-
-var ToTokenContext = /*#__PURE__*/React.createContext();
-
-var ToTokenProvider = (function (props) {
-  var _useContext = useContext(PaymentContext),
-      payment = _useContext.payment;
-
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      toToken = _useState2[0],
-      setToToken = _useState2[1];
-
-  var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      toTokenReadableAmount = _useState4[0],
-      setToTokenReadableAmount = _useState4[1];
-
-  useEffect(function () {
-    if (payment) {
-      Promise.all([payment.route.toToken.symbol(), payment.route.toToken.readable(payment.route.toAmount)]).then(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            symbol = _ref2[0],
-            readableAmount = _ref2[1];
-
-        setToToken({
-          address: payment.route.toToken.address,
-          symbol: symbol
-        });
-        setToTokenReadableAmount(readableAmount);
-      });
-    }
-  }, [payment]);
-  return /*#__PURE__*/React.createElement(ToTokenContext.Provider, {
-    value: {
-      toToken: toToken,
-      toTokenReadableAmount: toTokenReadableAmount
-    }
-  }, props.children);
-});
-
-var SaleRoutingProvider = (function (props) {
-  var _useContext = useContext(ChangableAmountContext),
-      acceptWithAmount = _useContext.acceptWithAmount,
-      setMaxRoute = _useContext.setMaxRoute;
-
-  var _useContext2 = useContext(ConfigurationContext),
-      sell = _useContext2.sell;
-
-  var _useContext3 = useContext(ConfigurationContext),
-      blacklist = _useContext3.blacklist;
-
-  if (blacklist == undefined) {
-    blacklist = {};
-  }
-
-  for (var blockchain in sell) {
-    var token = sell[blockchain];
-
-    if (blacklist[blockchain] instanceof Array) {
-      blacklist[blockchain].push(token);
-    } else {
-      blacklist[blockchain] = [token];
-    }
-  }
-
-  return /*#__PURE__*/React.createElement(SaleRoutingContext.Provider, {
-    value: {}
-  }, /*#__PURE__*/React.createElement(PaymentRoutingProvider, {
-    accept: acceptWithAmount,
-    blacklist: blacklist,
-    setMaxRoute: setMaxRoute
-  }, /*#__PURE__*/React.createElement(PaymentProvider, {
-    container: props.container,
-    document: props.document
-  }, /*#__PURE__*/React.createElement(PaymentValueProvider, null, /*#__PURE__*/React.createElement(ToTokenProvider, null, props.children)))));
-});
-
-var SaleOverviewSkeleton = (function (props) {
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Purchase")),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "Card Skeleton",
-      style: {
-        height: '100px'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "Card Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    }))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonWrapper"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "ButtonPrimary Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    }))))
-  });
-});
-
-var SaleOverviewDialog = (function (props) {
-  var _useContext = useContext(ChangableAmountContext);
-      _useContext.amount;
-
-  var _useContext2 = useContext(ConfigurationContext),
-      tokenImage = _useContext2.tokenImage,
-      amountConfiguration = _useContext2.amount;
-
-  var _useContext3 = useContext(PaymentValueContext),
-      paymentValue = _useContext3.paymentValue;
-
-  var _useContext4 = useContext(PaymentContext),
-      payment = _useContext4.payment,
-      paymentState = _useContext4.paymentState;
-
-  var _useContext5 = useContext(NavigateStackContext),
-      navigate = _useContext5.navigate;
-
-  var _useContext6 = useContext(ToTokenContext),
-      toToken = _useContext6.toToken,
-      toTokenReadableAmount = _useContext6.toTokenReadableAmount;
-
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      salePerTokenValue = _useState2[0],
-      setSalePerTokenValue = _useState2[1];
-
-  useEffect(function () {
-    if (paymentValue && (amountConfiguration == undefined || amountConfiguration.token != true) && toTokenReadableAmount) {
-      var UsdAmountPerToken = paymentValue.amount / parseFloat(toTokenReadableAmount);
-      var readableLocalizedAmountPerToken = new Currency({
-        amount: UsdAmountPerToken,
-        code: paymentValue.code
-      }).toString();
-      var zero = new Currency({
-        amount: 0,
-        code: paymentValue.code
-      }).toString();
-
-      if (readableLocalizedAmountPerToken != zero) {
-        setSalePerTokenValue(readableLocalizedAmountPerToken);
-      }
-    }
-  }, [paymentValue, toTokenReadableAmount]);
-
-  if (toToken == undefined || toTokenReadableAmount == undefined || payment == undefined || paymentValue == undefined) {
-    return /*#__PURE__*/React.createElement(SaleOverviewSkeleton, null);
-  }
-
-  var tokenImageElement;
-
-  if (tokenImage) {
-    tokenImageElement = /*#__PURE__*/React.createElement("img", {
-      src: tokenImage
-    });
-  } else {
-    tokenImageElement = /*#__PURE__*/React.createElement(TokenImage, {
-      blockchain: payment.route.blockchain,
-      address: toToken.address
-    });
-  }
-
-  var blockchain = Blockchain.findByName(payment.blockchain);
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Purchase")),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
-      title: paymentState == 'initialized' ? "Change amount" : undefined,
-      onClick: function onClick() {
-        if (paymentState != 'initialized') {
-          return;
-        }
-
-        navigate('ChangeAmount');
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardImage",
-      title: payment.name
-    }, tokenImageElement, /*#__PURE__*/React.createElement("img", {
-      className: "BlockchainLogo small",
-      src: blockchain.logo,
-      alt: blockchain.label,
-      title: blockchain.label
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "CardBody"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardBodyWrapper"
-    }, /*#__PURE__*/React.createElement("h4", {
-      className: "CardTitle"
-    }, "Amount"), /*#__PURE__*/React.createElement("h2", {
-      className: "CardText"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "TokenAmountRow"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "TokenSymbolCell"
-    }, toToken.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
-      className: "TokenAmountCell"
-    }, format(toTokenReadableAmount)))), salePerTokenValue && /*#__PURE__*/React.createElement("h3", {
-      className: "CardText small"
-    }, /*#__PURE__*/React.createElement("small", null, salePerTokenValue, " per token")))), /*#__PURE__*/React.createElement("div", {
-      className: "CardAction"
-    }, /*#__PURE__*/React.createElement(ChevronRight, null))), /*#__PURE__*/React.createElement("div", {
-      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
-      title: paymentState == 'initialized' ? "Change payment" : undefined,
-      onClick: function onClick() {
-        if (paymentState != 'initialized') {
-          return;
-        }
-
-        navigate('ChangePayment');
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardImage",
-      title: payment.name
-    }, /*#__PURE__*/React.createElement(TokenImage, {
-      blockchain: payment.route.blockchain,
-      address: payment.token
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "CardBody"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardBodyWrapper"
-    }, /*#__PURE__*/React.createElement("h4", {
-      className: "CardTitle"
-    }, "Payment"), /*#__PURE__*/React.createElement("h2", {
-      className: "CardText"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "TokenAmountRow"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "TokenSymbolCell"
-    }, payment.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
-      className: "TokenAmountCell"
-    }, format(payment.amount)))))), /*#__PURE__*/React.createElement("div", {
-      className: "CardAction"
-    }, /*#__PURE__*/React.createElement(ChevronRight, null)))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement(Footer, null))
-  });
-});
-
-var SaleStack = (function (props) {
-  var _useContext = useContext(ClosableContext),
-      open = _useContext.open,
-      close = _useContext.close;
-
-  var _useContext2 = useContext(NavigateContext),
-      setNavigate = _useContext2.setNavigate;
-
-  return /*#__PURE__*/React.createElement(ReactDialogStack, {
-    setNavigate: setNavigate,
-    open: open,
-    close: close,
-    start: "SaleOverview",
-    container: props.container,
-    document: props.document,
-    dialogs: {
-      SaleOverview: /*#__PURE__*/React.createElement(SaleOverviewDialog, null),
-      ChangeAmount: /*#__PURE__*/React.createElement(ChangeAmountDialog, null),
-      ChangePayment: /*#__PURE__*/React.createElement(ChangePaymentDialog, null),
-      NoPaymentMethodFound: /*#__PURE__*/React.createElement(NoPaymentMethodFoundDialog, null),
-      PaymentError: /*#__PURE__*/React.createElement(PaymentErrorDialog, null),
-      WrongNetwork: /*#__PURE__*/React.createElement(WrongNetworkDialog, null)
-    }
-  });
-});
-
-var preflight = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-    var sell;
-    return regenerator.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            sell = _ref.sell;
-
-            if (!(_typeof(sell) != 'object')) {
-              _context.next = 3;
-              break;
-            }
-
-            throw 'You need to configure at least 1 "blockchain": "token"';
-
-          case 3:
-            if (!(Object.keys(sell).length == 0)) {
-              _context.next = 5;
-              break;
-            }
-
-            throw 'You need to configure at least 1 "blockchain": "token"';
-
-          case 5:
-            if (!(Object.values(sell).length == 0)) {
-              _context.next = 7;
-              break;
-            }
-
-            throw 'You need to configure at least 1 "blockchain": "token"';
-
-          case 7:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function preflight(_x) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-var Sale = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, sell, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, tokenImage, closable, integration, document, accept, unmount;
-    return regenerator.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, closable = _ref3.closable, integration = _ref3.integration, document = _ref3.document;
-            requireReactVersion();
-            _context2.prev = 2;
-            _context2.next = 5;
-            return preflight({
-              sell: sell
-            });
-
-          case 5:
-            accept = Object.keys(sell).map(function (key) {
-              return {
-                blockchain: key,
-                token: sell[key]
-              };
-            });
-            unmount = mount({
-              style: style,
-              document: ensureDocument(document),
-              closed: closed
-            }, function (unmount) {
-              return function (container) {
-                return /*#__PURE__*/React.createElement(ErrorProvider, {
-                  errorCallback: error,
-                  container: container,
-                  unmount: unmount
-                }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
-                  configuration: {
-                    type: 'sale',
-                    tokenImage: tokenImage,
-                    amount: amount,
-                    sell: sell,
-                    currency: currency,
-                    sent: sent,
-                    confirmed: confirmed,
-                    failed: failed,
-                    blacklist: blacklist,
-                    providers: providers,
-                    integration: integration
-                  }
-                }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
-                  unmount: unmount,
-                  closable: closable
-                }, /*#__PURE__*/React.createElement(WalletProvider, {
-                  container: container,
-                  connected: connected,
-                  unmount: unmount
-                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(ConversionRateProvider, null, /*#__PURE__*/React.createElement(ChangableAmountProvider, {
-                  accept: accept
-                }, /*#__PURE__*/React.createElement(TransactionTrackingProvider, null, /*#__PURE__*/React.createElement(PaymentTrackingProvider, {
-                  document: ensureDocument(document)
-                }, /*#__PURE__*/React.createElement(SaleRoutingProvider, {
-                  container: container,
-                  document: document
-                }, /*#__PURE__*/React.createElement(SaleStack, {
-                  document: document,
-                  container: container
-                }), /*#__PURE__*/React.createElement(PoweredBy, null))))))))))));
-              };
-            });
-            return _context2.abrupt("return", {
-              unmount: unmount
-            });
-
-          case 10:
-            _context2.prev = 10;
-            _context2.t0 = _context2["catch"](2);
-            console.log('critical error', _context2.t0);
-
-            if (critical != undefined) {
-              critical(_context2.t0);
-            }
-
-          case 14:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2, null, [[2, 10]]);
-  }));
-
-  return function Sale(_x2) {
-    return _ref4.apply(this, arguments);
-  };
-}();
-
-var SelectionContext = /*#__PURE__*/React.createContext();
-
-var SelectionProvider = (function (props) {
-  var _useState = useState({}),
-      _useState2 = _slicedToArray(_useState, 2),
-      selection = _useState2[0],
-      setSelection = _useState2[1];
-
-  return /*#__PURE__*/React.createElement(SelectionContext.Provider, {
-    value: {
-      selection: selection,
-      setSelection: setSelection
-    }
-  }, props.children);
-});
-
-var msToTime = (function (ms) {
-  var year, month, day, hour, minute, second;
-  second = Math.floor(ms / 1000);
-  minute = Math.floor(second / 60);
-  second = second % 60;
-  hour = Math.floor(minute / 60);
-  minute = minute % 60;
-  day = Math.floor(hour / 24);
-  hour = hour % 24;
-  month = Math.floor(day / 30);
-  day = day % 30;
-  year = Math.floor(month / 12);
-  month = month % 12;
-  return {
-    year: year,
-    month: month,
-    day: day,
-    hour: hour,
-    minute: minute,
-    second: second
-  };
-});
-
-var ConfirmTokenSelectionDialog = (function (props) {
-  var _useContext = useContext(SelectionContext),
-      selection = _useContext.selection;
-
-  var _useContext2 = useContext(ClosableContext),
-      setOpen = _useContext2.setOpen;
-
-  var token = selection.token;
-  var address = token.address || token.external_id;
-  var logo = token.logo || token.image;
-  var blockchain = Blockchain.findByName(token.blockchain);
-  var age = token.first_transfer ? msToTime(new Date() - new Date(token.first_transfer)) : undefined;
-
-  if (age) {
-    age = [age.year && age.year >= 1 ? age.year >= 2 ? "".concat(age.year, " years") : "1 year" : undefined, age.month && age.month >= 1 ? age.month >= 2 ? "".concat(age.month, " months") : "1 month" : undefined, age.day && age.day >= 1 && age.month <= 1 && age.year < 1 ? age.day >= 2 ? "".concat(age.day, " days !!!") : "1 day !!!" : undefined].filter(function (n) {
-      return n;
-    }).join(' ');
-  }
-
-  var holders = token.unique_senders ? token.unique_senders : undefined;
-
-  if (holders) {
-    if (holders > 1000000) {
-      holders = "Millions";
-    } else if (holders > 100000) {
-      holders = "Hundreds of Thousands";
-    } else if (holders > 2000) {
-      holders = "Thousands";
-    } else if (holders > 100) {
-      holders = "Hundreds";
-    } else {
-      holders = "Only a Few!!!";
-    }
-  }
-
-  var onClickConfirm = function onClickConfirm() {
-    setOpen(false);
-    props.resolve({
-      blockchain: token.blockchain,
-      address: token.external_id || token.address,
-      symbol: token.symbol,
-      name: token.name,
-      decimals: token.decimals,
-      logo: token.image || token.logo
-    });
-    setTimeout(props.unmount, 300);
-  };
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Confirm Selection"))),
-    stacked: true,
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "TokenImage medium TextCenter"
-    }, logo && /*#__PURE__*/React.createElement("img", {
-      src: logo
-    }), !logo && /*#__PURE__*/React.createElement(TokenImage, {
-      blockchain: token.blockchain,
-      address: address
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS TextCenter"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "Alert FontSizeS"
-    }, /*#__PURE__*/React.createElement("strong", null, "Please review this information"))), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS"
-    }, /*#__PURE__*/React.createElement("table", {
-      className: "Table TextLeft FontSizeS"
-    }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", {
-      className: "small TextCenter"
-    }, /*#__PURE__*/React.createElement("td", {
-      colSpan: "2"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
-      className: "Link",
-      href: blockchain.explorerUrlFor({
-        token: address
-      }),
-      target: "_blank",
-      rel: "noopener noreferrer"
-    }, address)))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
-      className: "TableSubTitle"
-    }, "Blockchain")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, blockchain.label))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
-      className: "TableSubTitle"
-    }, "Symbol")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, token.symbol))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
-      className: "TableSubTitle"
-    }, "Name")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, token.name))), age && /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
-      className: "TableSubTitle"
-    }, "Age")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, age))), holders && /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
-      className: "TableSubTitle"
-    }, "Holders")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, holders))))))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
-    }, /*#__PURE__*/React.createElement("button", {
-      className: "ButtonPrimary",
-      onClick: onClickConfirm
-    }, "Confirm"))
-  });
-});
-
-var SelectBlockchainDialog = (function (props) {
-  var _useContext = useContext(SelectionContext),
-      setSelection = _useContext.setSelection;
-
-  var _useContext2 = useContext(NavigateStackContext),
-      navigate = _useContext2.navigate;
-
-  var stacked = Object.keys(props.selection).length > 1;
-  var blockchains = [Blockchain.findByName('ethereum'), Blockchain.findByName('bsc'), Blockchain.findByName('polygon')];
-
-  var selectBlockchain = function selectBlockchain(blockchain) {
-    setSelection(Object.assign(props.selection, {
-      blockchain: blockchain
-    }));
-
-    if (stacked) {
-      navigate('back');
-    } else {
-      props.resolve(blockchain);
-    }
-  };
-
-  var elements = blockchains.map(function (blockchain, index) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: index,
-      className: "Card Row",
-      onClick: function onClick() {
-        return selectBlockchain(blockchain);
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardImage"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "transparent",
-      src: blockchain.logo
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "CardBody"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "CardText"
-    }, blockchain.label)));
-  });
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Select Blockchain"))),
-    stacked: stacked,
-    bodyClassName: "ScrollHeight",
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS"
-    }, elements),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
-    })
-  });
-});
 
 /**
  * @license
@@ -23135,6 +19241,3974 @@ var lodash = createCommonjsModule(function (module, exports) {
     root._ = _;
   }
 }.call(commonjsGlobal));
+});
+
+var ChangableAmountProvider = (function (props) {
+  var configurationsMissAmounts = function configurationsMissAmounts(configurations) {
+    return !configurations.every(function (configuration) {
+      return typeof configuration.amount != 'undefined' || typeof configuration.fromAmount != 'undefined';
+    });
+  };
+
+  var _useContext = useContext(ConfigurationContext),
+      amountConfiguration = _useContext.amount;
+      _useContext.toAmount;
+      var recover = _useContext.recover;
+
+  var _useState = useState(recover == undefined ? configurationsMissAmounts(props.accept) : false),
+      _useState2 = _slicedToArray(_useState, 2),
+      amountsMissing = _useState2[0],
+      setAmountsMissing = _useState2[1];
+
+  var _useContext2 = useContext(WalletContext),
+      account = _useContext2.account;
+
+  var _useContext3 = useContext(ConversionRateContext),
+      conversionRate = _useContext3.conversionRate,
+      fixedCurrencyConversionRate = _useContext3.fixedCurrencyConversionRate;
+
+  var _useContext4 = useContext(ErrorContext),
+      setError = _useContext4.setError;
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      acceptWithAmount = _useState4[0],
+      setAcceptWithAmount = _useState4[1];
+
+  var _useState5 = useState(_typeof(amountConfiguration) == 'object' && amountConfiguration.fix && amountConfiguration.currency ? amountConfiguration.fix : null),
+      _useState6 = _slicedToArray(_useState5, 1),
+      fixedAmount = _useState6[0];
+
+  var _useState7 = useState(_typeof(amountConfiguration) == 'object' && amountConfiguration.fix && amountConfiguration.currency ? amountConfiguration.currency : null),
+      _useState8 = _slicedToArray(_useState7, 1),
+      fixedCurrency = _useState8[0];
+
+  var startAmount;
+
+  if (amountsMissing) {
+    if (_typeof(amountConfiguration) == "object" && amountConfiguration.start && amountConfiguration.start) {
+      startAmount = amountConfiguration.start;
+    } else {
+      startAmount = 1;
+    }
+  }
+
+  var _useState9 = useState(startAmount),
+      _useState10 = _slicedToArray(_useState9, 2),
+      amount = _useState10[0],
+      setAmount = _useState10[1];
+
+  var _useState11 = useState(),
+      _useState12 = _slicedToArray(_useState11, 2),
+      maxRoute = _useState12[0],
+      setMaxRoute = _useState12[1];
+
+  var _useState13 = useState(100),
+      _useState14 = _slicedToArray(_useState13, 2),
+      maxAmount = _useState14[0],
+      setMaxAmount = _useState14[1];
+
+  useEffect(function () {
+    if (recover) {
+      return;
+    }
+
+    setAmountsMissing(configurationsMissAmounts(props.accept));
+  }, [props.accept, recover]);
+
+  var getAmounts = function getAmounts(_ref) {
+    var amount = _ref.amount,
+        conversionRate = _ref.conversionRate,
+        fixedCurrencyConversionRate = _ref.fixedCurrencyConversionRate;
+    return new Promise(function (resolve, reject) {
+      if (amountConfiguration && amountConfiguration.token) {
+        resolve(props.accept.map(function () {
+          return amount;
+        }));
+      } else {
+        Promise.all(props.accept.map(function (configuration) {
+          if (fixedAmount) {
+            if (CONSTANTS[configuration.blockchain].USD.toLowerCase() == configuration.token.toLowerCase()) {
+              return 1.00 / fixedCurrencyConversionRate * fixedAmount;
+            } else {
+              return route({
+                blockchain: configuration.blockchain,
+                tokenIn: CONSTANTS[configuration.blockchain].USD,
+                amountIn: 1.00 / fixedCurrencyConversionRate * fixedAmount,
+                tokenOut: configuration.token,
+                fromAddress: account,
+                toAddress: account
+              });
+            }
+          } else {
+            if (CONSTANTS[configuration.blockchain].USD.toLowerCase() == configuration.token.toLowerCase()) {
+              return 1.00 / conversionRate * amount;
+            } else {
+              return route({
+                blockchain: configuration.blockchain,
+                tokenIn: CONSTANTS[configuration.blockchain].USD,
+                amountIn: 1.00 / conversionRate * amount,
+                tokenOut: configuration.token,
+                fromAddress: account,
+                toAddress: account
+              });
+            }
+          }
+        })).then(function (results) {
+          Promise.all(results.map(function (result, index) {
+            if (typeof result == 'number') {
+              return result;
+            } else if (result[0] == undefined) {
+              return;
+            } else {
+              return Token.readable({
+                blockchain: props.accept[index].blockchain,
+                amount: result[0].amountOut,
+                address: result[0].tokenOut
+              });
+            }
+          })).then(resolve)["catch"](setError);
+        })["catch"](setError);
+      }
+    });
+  };
+
+  var updateAmounts = useCallback(lodash.debounce(function (_ref2) {
+    var account = _ref2.account,
+        amount = _ref2.amount,
+        conversionRate = _ref2.conversionRate,
+        fixedCurrencyConversionRate = _ref2.fixedCurrencyConversionRate;
+    getAmounts({
+      amount: amount,
+      conversionRate: conversionRate,
+      fixedCurrencyConversionRate: fixedCurrencyConversionRate
+    }).then(function (amounts) {
+      setAcceptWithAmount(props.accept.map(function (configuration, index) {
+        if (amounts[index] == undefined) {
+          return;
+        }
+
+        return {
+          blockchain: configuration.blockchain,
+          amount: round(amounts[index]),
+          token: configuration.token,
+          receiver: configuration.receiver || account
+        };
+      }).filter(function (configuration) {
+        return !!configuration;
+      }));
+    })["catch"](setError);
+  }, 500), []);
+  useEffect(function () {
+    if (recover) {
+      return;
+    }
+
+    if (amountsMissing && account && conversionRate && (fixedAmount ? fixedCurrencyConversionRate : true)) {
+      updateAmounts({
+        account: account,
+        amount: amount,
+        conversionRate: conversionRate,
+        fixedCurrencyConversionRate: fixedCurrencyConversionRate
+      });
+    }
+  }, [amountsMissing, account, conversionRate, fixedAmount, fixedCurrencyConversionRate, amount, recover]);
+  useEffect(function () {
+    if (amountsMissing && maxRoute) {
+      maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
+        if (amountConfiguration && amountConfiguration.token) {
+          route({
+            blockchain: maxRoute.blockchain,
+            tokenIn: maxRoute.fromToken.address,
+            tokenOut: maxRoute.toToken.address,
+            amountIn: parseFloat(readableMaxAmount),
+            fromAddress: account,
+            toAddress: account
+          }).then(function (routes) {
+            if (routes[0] == undefined) {
+              return;
+            }
+
+            Token.readable({
+              amount: routes[0].amountOut,
+              blockchain: maxRoute.blockchain,
+              address: maxRoute.toToken.address
+            }).then(function (readableMaxAmount) {
+              var slippage = 1.01;
+              var maxAmount = parseFloat(new Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
+              setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : round(maxAmount));
+            })["catch"](setError);
+          })["catch"](setError);
+        } else if (maxRoute.fromToken.address == CONSTANTS[maxRoute.blockchain].USD) {
+          var _maxAmount = parseFloat(new Decimal(readableMaxAmount).mul(conversionRate).toString());
+
+          setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount) : _maxAmount);
+        } else {
+          route({
+            blockchain: maxRoute.blockchain,
+            tokenIn: maxRoute.fromToken.address,
+            tokenOut: CONSTANTS[maxRoute.blockchain].USD,
+            amountIn: parseFloat(readableMaxAmount),
+            fromAddress: account,
+            toAddress: account
+          }).then(function (routes) {
+            if (routes[0] == undefined) {
+              return;
+            }
+
+            Token.readable({
+              amount: routes[0].amountOut,
+              blockchain: maxRoute.blockchain,
+              address: CONSTANTS[maxRoute.blockchain].USD
+            }).then(function (readableMaxAmount) {
+              var slippage = 1.01;
+              var maxAmount = parseFloat(new Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
+              setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : round(maxAmount));
+            })["catch"](setError);
+          })["catch"](setError);
+        }
+      })["catch"](setError);
+    } else {
+      setMaxAmount(100);
+    }
+  }, [account, maxRoute]);
+  return /*#__PURE__*/React.createElement(ChangableAmountContext.Provider, {
+    value: {
+      amountsMissing: amountsMissing,
+      fixedAmount: fixedAmount,
+      fixedCurrency: fixedCurrency,
+      acceptWithAmount: acceptWithAmount,
+      amount: amount,
+      setAmount: setAmount,
+      setMaxRoute: setMaxRoute,
+      maxAmount: maxAmount
+    }
+  }, props.children);
+});
+
+var ConfigurationProvider = (function (props) {
+  var currencyCode = new Currency({
+    code: props.configuration.currency
+  }).code;
+  useEffect(function () {
+    if (props.configuration.providers != undefined) {
+      Object.entries(props.configuration.providers).forEach(function (entry) {
+        setProviderEndpoints(entry[0], entry[1]);
+      });
+    }
+  }, [props.configuration]);
+  return /*#__PURE__*/React.createElement(ConfigurationContext.Provider, {
+    value: Object.assign({}, props.configuration, {
+      currencyCode: currencyCode
+    })
+  }, props.children);
+});
+
+var ConversionRateProvider = (function (props) {
+  var _useContext = useContext(ErrorContext);
+      _useContext.setError;
+
+  var _useContext2 = useContext(ConfigurationContext),
+      amount = _useContext2.amount,
+      currency = _useContext2.currency;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      conversionRate = _useState2[0],
+      setConversionRate = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      fixedCurrencyConversionRate = _useState4[0],
+      setFixedCurrencyConversionRate = _useState4[1];
+
+  useEffect(function () {
+    if (_typeof(amount) == 'object' && amount.currency) {
+      Currency.fromUSD({
+        amount: 1,
+        code: amount.currency
+      }).then(function (conversion) {
+        return setFixedCurrencyConversionRate(conversion.amount);
+      });
+    }
+
+    Currency.fromUSD({
+      amount: 1,
+      code: currency
+    }).then(function (conversion) {
+      return setConversionRate(conversion.amount);
+    })["catch"](setConversionRate(1));
+  }, []);
+  return /*#__PURE__*/React.createElement(ConversionRateContext.Provider, {
+    value: {
+      conversionRate: conversionRate,
+      fixedCurrencyConversionRate: fixedCurrencyConversionRate
+    }
+  }, props.children);
+});
+
+var DonationRoutingContext = /*#__PURE__*/React.createContext();
+
+var NavigateContext = /*#__PURE__*/React.createContext();
+
+var QuestionsGraphic = "data:image/png;base64,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";
+
+var NoPaymentMethodFoundDialog = (function () {
+  var _useContext = useContext(ClosableContext),
+      close = _useContext.close;
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "GraphicWrapper"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "Graphic",
+      src: QuestionsGraphic
+    })), /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+    }, "Insufficient Balance"), /*#__PURE__*/React.createElement("div", {
+      className: "Text PaddingTopS PaddingBottomM PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("strong", {
+      className: "FontSizeM"
+    }, "We were not able to find any asset with enough value in your wallet. Please top up your account in order to proceed with this payment."))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: close
+    }, "Ok"))
+  });
+});
+
+var PaymentContext = /*#__PURE__*/React.createContext();
+
+var PaymentRoutingContext = /*#__PURE__*/React.createContext();
+
+var PaymentTrackingContext = /*#__PURE__*/React.createContext();
+
+var TransactionTrackingContext = /*#__PURE__*/React.createContext();
+
+var PaymentProvider = (function (props) {
+  var _useContext = useContext(ErrorContext),
+      setError = _useContext.setError;
+
+  var _useContext2 = useContext(ConfigurationContext),
+      _sent = _useContext2.sent,
+      confirmed = _useContext2.confirmed,
+      failed = _useContext2.failed,
+      recover = _useContext2.recover;
+
+  var _useContext3 = useContext(PaymentRoutingContext),
+      selectedRoute = _useContext3.selectedRoute,
+      getPaymentRoutes = _useContext3.getPaymentRoutes;
+
+  var _useContext4 = useContext(ClosableContext),
+      open = _useContext4.open,
+      close = _useContext4.close,
+      setClosable = _useContext4.setClosable;
+
+  var _useContext5 = useContext(PaymentRoutingContext),
+      allRoutes = _useContext5.allRoutes;
+
+  var _useContext6 = useContext(UpdatableContext),
+      setUpdatable = _useContext6.setUpdatable;
+
+  var _useContext7 = useContext(NavigateContext),
+      navigate = _useContext7.navigate;
+
+  var _useContext8 = useContext(WalletContext),
+      wallet = _useContext8.wallet;
+
+  var _useContext9 = useContext(PaymentTrackingContext),
+      release = _useContext9.release,
+      tracking = _useContext9.tracking,
+      initializePaymentTracking = _useContext9.initializeTracking;
+
+  var _useContext10 = useContext(TransactionTrackingContext),
+      foundTransaction = _useContext10.foundTransaction,
+      initializeTransactionTracking = _useContext10.initializeTracking;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      payment = _useState2[0],
+      setPayment = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      transaction = _useState4[0],
+      setTransaction = _useState4[1];
+
+  var _useState5 = useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      approvalTransaction = _useState6[0],
+      setApprovalTransaction = _useState6[1];
+
+  var _useState7 = useState('initialized'),
+      _useState8 = _slicedToArray(_useState7, 2),
+      paymentState = _useState8[0],
+      setPaymentState = _useState8[1];
+
+  var paymentConfirmed = function paymentConfirmed(transaction) {
+    if (tracking != true) {
+      setClosable(true);
+    }
+
+    setPaymentState('confirmed');
+
+    if (confirmed) {
+      confirmed(transaction);
+    }
+  };
+
+  var paymentFailed = function paymentFailed(transaction, error) {
+    if (failed) {
+      failed(transaction, error);
+    }
+
+    setPaymentState('initialized');
+    setClosable(true);
+    setUpdatable(true);
+    getPaymentRoutes({});
+    navigate('PaymentError');
+  };
+
+  var pay = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+      var currentBlock;
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              setClosable(false);
+              setPaymentState('paying');
+              setUpdatable(false);
+              _context.next = 5;
+              return request({
+                blockchain: payment.route.transaction.blockchain,
+                method: 'latestBlockNumber'
+              });
+
+            case 5:
+              currentBlock = _context.sent;
+              wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
+                sent: function sent(transaction) {
+                  initializeTransactionTracking(transaction, currentBlock);
+
+                  if (_sent) {
+                    _sent(transaction);
+                  }
+                },
+                confirmed: paymentConfirmed,
+                failed: paymentFailed
+              })).then(function (sentTransaction) {
+                initializePaymentTracking(sentTransaction, currentBlock, payment.route);
+                setTransaction(sentTransaction);
+              })["catch"](function (error) {
+                console.log('error', error);
+                setPaymentState('initialized');
+                setClosable(true);
+                setUpdatable(true);
+
+                if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK') {
+                  navigate('WrongNetwork');
+                }
+              });
+
+            case 7:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function pay() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  var approve = function approve() {
+    setClosable(false);
+    setPaymentState('approving');
+    wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
+      confirmed: function confirmed() {
+        payment.route.approvalRequired = false;
+        setPayment(payment);
+        setClosable(true);
+        setPaymentState('initialized');
+      }
+    })).then(function (sentTransaction) {
+      setApprovalTransaction(sentTransaction);
+    })["catch"](function (error) {
+      console.log('error', error);
+      setPaymentState('initialized');
+      setClosable(true);
+    });
+  };
+
+  useEffect(function () {
+    if (release) {
+      setPaymentState('confirmed');
+    }
+  }, [release]);
+  useEffect(function () {
+    if (recover) {
+      setClosable(false);
+      setUpdatable(false);
+      setPaymentState('paying');
+      setTransaction({
+        blockchain: recover.blockchain,
+        id: recover.transaction,
+        url: Blockchain.findByName(recover.blockchain).explorerUrlFor({
+          transaction: {
+            id: recover.transaction
+          }
+        })
+      });
+      var paymentToken = new Token({
+        blockchain: recover.blockchain,
+        address: recover.token
+      });
+      Promise.all([paymentToken.name(), paymentToken.symbol()]).then(function (_ref2) {
+        var _ref3 = _slicedToArray(_ref2, 2),
+            name = _ref3[0],
+            symbol = _ref3[1];
+
+        setPayment({
+          blockchain: recover.blockchain,
+          token: recover.token,
+          name: name,
+          symbol: symbol.toUpperCase(),
+          amount: recover.amount
+        });
+      })["catch"](setError);
+    }
+  }, [recover]);
+  useEffect(function () {
+    if (foundTransaction && foundTransaction.id && foundTransaction.status) {
+      var newTransaction;
+
+      if (foundTransaction.id.toLowerCase() != transaction.id.toLowerCase()) {
+        newTransaction = Object.assign({}, transaction, {
+          id: foundTransaction.id,
+          url: Blockchain.findByName(transaction.blockchain).explorerUrlFor({
+            transaction: foundTransaction
+          })
+        });
+        setTransaction(newTransaction);
+      }
+
+      if (foundTransaction.status == 'success') {
+        paymentConfirmed(newTransaction || transaction);
+      } else if (foundTransaction.status == 'failed') {
+        paymentFailed(newTransaction || transaction);
+      }
+    }
+  }, [foundTransaction, transaction]);
+  useEffect(function () {
+    if (selectedRoute) {
+      var fromToken = selectedRoute.fromToken;
+      Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref4) {
+        var _ref5 = _slicedToArray(_ref4, 3),
+            name = _ref5[0],
+            symbol = _ref5[1],
+            amount = _ref5[2];
+
+        setPayment({
+          blockchain: selectedRoute.blockchain,
+          route: selectedRoute,
+          token: fromToken.address,
+          name: name,
+          symbol: symbol.toUpperCase(),
+          amount: amount
+        });
+      })["catch"](setError);
+    } else {
+      setPayment(undefined);
+    }
+  }, [selectedRoute]);
+  useEffect(function () {
+    if (allRoutes && allRoutes.length == 0) {
+      setUpdatable(false);
+    } else if (allRoutes && allRoutes.length > 0) {
+      setUpdatable(true);
+    }
+  }, [allRoutes]);
+
+  if (allRoutes instanceof Array && allRoutes.length == 0) {
+    return /*#__PURE__*/React.createElement(ReactDialogStack, {
+      open: open,
+      close: close,
+      start: "NoPaymentMethodFound",
+      container: props.container,
+      document: props.document,
+      dialogs: {
+        NoPaymentMethodFound: /*#__PURE__*/React.createElement(NoPaymentMethodFoundDialog, null)
+      }
+    });
+  } else {
+    return /*#__PURE__*/React.createElement(PaymentContext.Provider, {
+      value: {
+        payment: payment,
+        paymentState: paymentState,
+        pay: pay,
+        transaction: transaction,
+        approve: approve,
+        approvalTransaction: approvalTransaction
+      }
+    }, props.children);
+  }
+});
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var prepareAcceptedPayments = function prepareAcceptedPayments(accept) {
+  var toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
+  var toContract = _typeof(accept.receiver) == 'object' ? accept.receiver : undefined;
+  return _objectSpread$1(_objectSpread$1({}, accept), {}, {
+    toAddress: toAddress,
+    toContract: toContract
+  });
+};
+
+var mergeFromAccounts = function mergeFromAccounts(accept, account) {
+  var from = {};
+  accept.forEach(function (accept) {
+    from[accept.blockchain] = account;
+  });
+  return from;
+};
+
+var routePayments = (function (_ref) {
+  var accept = _ref.accept,
+      account = _ref.account,
+      whitelist = _ref.whitelist,
+      blacklist = _ref.blacklist,
+      event = _ref.event,
+      fee = _ref.fee;
+  return route$1({
+    accept: accept.map(prepareAcceptedPayments),
+    from: mergeFromAccounts(accept, account),
+    whitelist: whitelist,
+    blacklist: blacklist,
+    event: event,
+    fee: fee
+  });
+});
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var PaymentRoutingProvider = (function (props) {
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      allRoutes = _useState2[0],
+      setAllRoutes = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      updatedRouteWithNewPrice = _useState4[0],
+      setUpdatedRouteWithNewPrice = _useState4[1];
+
+  var _useState5 = useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      selectedRoute = _useState6[0],
+      setSelectedRoute = _useState6[1];
+
+  var _useState7 = useState(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      slowRouting = _useState8[0],
+      setSlowRouting = _useState8[1];
+
+  var _useState9 = useState(0),
+      _useState10 = _slicedToArray(_useState9, 2),
+      reloadCount = _useState10[0],
+      setReloadCount = _useState10[1];
+
+  var _useContext = useContext(WalletContext),
+      account = _useContext.account;
+
+  var _useContext2 = useContext(UpdatableContext),
+      updatable = _useContext2.updatable;
+
+  var _useContext3 = useContext(ConfigurationContext),
+      recover = _useContext3.recover;
+
+  var calculateAmountInWithSlippage = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(route) {
+      var currentBlock, blocks, i, exchangeRoute, lastAmountsIn, difference1, difference2, slippage, newAmountBN, readableAmount, roundedAmountBN;
+      return regenerator.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              if (!route.directTransfer) {
+                _context2.next = 2;
+                break;
+              }
+
+              return _context2.abrupt("return");
+
+            case 2:
+              _context2.next = 4;
+              return request({
+                blockchain: route.blockchain,
+                method: 'latestBlockNumber'
+              });
+
+            case 4:
+              currentBlock = _context2.sent;
+              blocks = [];
+
+              for (i = 0; i <= 2; i++) {
+                blocks.push(currentBlock - i);
+              }
+
+              exchangeRoute = route.exchangeRoutes[0];
+
+              if (!(typeof exchangeRoute == 'undefined' || typeof exchangeRoute.exchange == 'undefined')) {
+                _context2.next = 10;
+                break;
+              }
+
+              return _context2.abrupt("return");
+
+            case 10:
+              _context2.next = 12;
+              return Promise.all(blocks.map( /*#__PURE__*/function () {
+                var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(block) {
+                  var amountIn;
+                  return regenerator.wrap(function _callee$(_context) {
+                    while (1) {
+                      switch (_context.prev = _context.next) {
+                        case 0:
+                          _context.next = 2;
+                          return exchangeRoute.exchange.getAmountIn({
+                            path: exchangeRoute.path,
+                            amountOut: exchangeRoute.amountOutMin,
+                            block: block
+                          });
+
+                        case 2:
+                          amountIn = _context.sent;
+                          return _context.abrupt("return", amountIn);
+
+                        case 4:
+                        case "end":
+                          return _context.stop();
+                      }
+                    }
+                  }, _callee);
+                }));
+
+                return function (_x2) {
+                  return _ref2.apply(this, arguments);
+                };
+              }()));
+
+            case 12:
+              lastAmountsIn = _context2.sent;
+
+              if (!(!lastAmountsIn[0] || !lastAmountsIn[1] || !lastAmountsIn[2])) {
+                _context2.next = 15;
+                break;
+              }
+
+              return _context2.abrupt("return");
+
+            case 15:
+              if (!(lastAmountsIn[0].gt(lastAmountsIn[1]) && lastAmountsIn[1].gt(lastAmountsIn[2]))) {
+                _context2.next = 29;
+                break;
+              }
+
+              difference1 = lastAmountsIn[0].sub(lastAmountsIn[1]);
+              difference2 = lastAmountsIn[1].sub(lastAmountsIn[2]);
+
+              if (difference1.lt(difference2)) {
+                slippage = difference2.add(difference2.sub(difference1));
+              } else {
+                slippage = difference1.add(difference1.sub(difference2));
+              }
+
+              newAmountBN = lastAmountsIn[0].add(slippage);
+              _context2.next = 22;
+              return route.fromToken.readable(newAmountBN);
+
+            case 22:
+              readableAmount = _context2.sent;
+              _context2.next = 25;
+              return route.fromToken.BigNumber(round(readableAmount));
+
+            case 25:
+              roundedAmountBN = _context2.sent;
+
+              if (!(route.fromAmount == roundedAmountBN.toString())) {
+                _context2.next = 28;
+                break;
+              }
+
+              return _context2.abrupt("return");
+
+            case 28:
+              return _context2.abrupt("return", newAmountBN);
+
+            case 29:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function calculateAmountInWithSlippage(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  var onRoutesUpdate = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
+      return regenerator.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              if (routes.length == 0) {
+                setAllRoutes([]);
+
+                if (props.setMaxRoute) {
+                  props.setMaxRoute(null);
+                }
+              } else {
+                roundAmounts(routes).then( /*#__PURE__*/function () {
+                  var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(roundedRoutes) {
+                    var selectRoute, newSelectRoute, amountInWithSlippage, _amountInWithSlippage;
+
+                    return regenerator.wrap(function _callee4$(_context4) {
+                      while (1) {
+                        switch (_context4.prev = _context4.next) {
+                          case 0:
+                            if (!(typeof selectedRoute == 'undefined')) {
+                              _context4.next = 4;
+                              break;
+                            }
+
+                            selectRoute = roundedRoutes[0];
+                            _context4.next = 13;
+                            break;
+
+                          case 4:
+                            newSelectRoute = roundedRoutes[allRoutes.findIndex(function (route) {
+                              return route.fromToken == selectedRoute.fromToken && route.blockchain == selectedRoute.blockchain;
+                            })];
+
+                            if (!(newSelectRoute && selectedRoute.fromAmount !== newSelectRoute.fromAmount)) {
+                              _context4.next = 13;
+                              break;
+                            }
+
+                            _context4.next = 8;
+                            return calculateAmountInWithSlippage(newSelectRoute);
+
+                          case 8:
+                            amountInWithSlippage = _context4.sent;
+
+                            if (!amountInWithSlippage) {
+                              _context4.next = 12;
+                              break;
+                            }
+
+                            _context4.next = 12;
+                            return roundAmount(newSelectRoute, amountInWithSlippage);
+
+                          case 12:
+                            setUpdatedRouteWithNewPrice(newSelectRoute);
+
+                          case 13:
+                            if (!selectRoute) {
+                              _context4.next = 21;
+                              break;
+                            }
+
+                            _context4.next = 16;
+                            return calculateAmountInWithSlippage(selectRoute);
+
+                          case 16:
+                            _amountInWithSlippage = _context4.sent;
+
+                            if (!_amountInWithSlippage) {
+                              _context4.next = 20;
+                              break;
+                            }
+
+                            _context4.next = 20;
+                            return roundAmount(selectRoute, _amountInWithSlippage);
+
+                          case 20:
+                            setSelectedRoute(selectRoute);
+
+                          case 21:
+                            _context4.next = 23;
+                            return Promise.all(roundedRoutes.map( /*#__PURE__*/function () {
+                              var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(route, index) {
+                                var amountInWithSlippage;
+                                return regenerator.wrap(function _callee3$(_context3) {
+                                  while (1) {
+                                    switch (_context3.prev = _context3.next) {
+                                      case 0:
+                                        _context3.next = 2;
+                                        return calculateAmountInWithSlippage(route);
+
+                                      case 2:
+                                        amountInWithSlippage = _context3.sent;
+
+                                        if (!amountInWithSlippage) {
+                                          _context3.next = 6;
+                                          break;
+                                        }
+
+                                        _context3.next = 6;
+                                        return roundAmount(route, amountInWithSlippage);
+
+                                      case 6:
+                                        return _context3.abrupt("return", route);
+
+                                      case 7:
+                                      case "end":
+                                        return _context3.stop();
+                                    }
+                                  }
+                                }, _callee3);
+                              }));
+
+                              return function (_x5, _x6) {
+                                return _ref5.apply(this, arguments);
+                              };
+                            }())).then(setAllRoutes);
+
+                          case 23:
+                            if (props.setMaxRoute) {
+                              props.setMaxRoute(findMaxRoute(roundedRoutes));
+                            }
+
+                          case 24:
+                          case "end":
+                            return _context4.stop();
+                        }
+                      }
+                    }, _callee4);
+                  }));
+
+                  return function (_x4) {
+                    return _ref4.apply(this, arguments);
+                  };
+                }());
+              }
+
+            case 1:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    return function onRoutesUpdate(_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  var getPaymentRoutes = function getPaymentRoutes(_ref6) {
+    _ref6.allRoutes;
+        _ref6.selectedRoute;
+        var updatable = _ref6.updatable;
+
+    if (updatable == false || !props.accept || !account) {
+      return;
+    }
+
+    var slowRoutingTimeout = setTimeout(function () {
+      setSlowRouting(true);
+    }, 4000);
+    routePayments(Object.assign({}, props, {
+      account: account
+    })).then(function (routes) {
+      clearInterval(slowRoutingTimeout);
+      onRoutesUpdate(routes);
+    });
+  };
+
+  var updateRouteAmount = function updateRouteAmount(route, amountBN) {
+    route.fromAmount = amountBN.toString();
+    route.transaction.params.amounts[0] = amountBN.toString();
+
+    if (route.transaction.value && route.transaction.value.toString() != '0') {
+      route.transaction.value = amountBN.toString();
+    }
+  };
+
+  var roundAmount = /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(route, amountBN) {
+      var readableAmount, roundedAmountBN;
+      return regenerator.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              if (!route.directTransfer) {
+                _context6.next = 2;
+                break;
+              }
+
+              return _context6.abrupt("return", route);
+
+            case 2:
+              _context6.next = 4;
+              return route.fromToken.readable(amountBN || route.transaction.params.amounts[0]);
+
+            case 4:
+              readableAmount = _context6.sent;
+              _context6.next = 7;
+              return route.fromToken.BigNumber(round(readableAmount));
+
+            case 7:
+              roundedAmountBN = _context6.sent;
+              updateRouteAmount(route, roundedAmountBN);
+              return _context6.abrupt("return", route);
+
+            case 10:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
+
+    return function roundAmount(_x7, _x8) {
+      return _ref7.apply(this, arguments);
+    };
+  }();
+
+  var roundAmounts = /*#__PURE__*/function () {
+    var _ref8 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee7(routes) {
+      return regenerator.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              return _context7.abrupt("return", Promise.all(routes.map(function (route) {
+                return roundAmount(route);
+              })));
+
+            case 1:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7);
+    }));
+
+    return function roundAmounts(_x9) {
+      return _ref8.apply(this, arguments);
+    };
+  }();
+
+  var updateRouteWithNewPrice = /*#__PURE__*/function () {
+    var _ref9 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee8() {
+      return regenerator.wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              setSelectedRoute(_objectSpread({}, updatedRouteWithNewPrice));
+              setUpdatedRouteWithNewPrice(null);
+
+            case 2:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      }, _callee8);
+    }));
+
+    return function updateRouteWithNewPrice() {
+      return _ref9.apply(this, arguments);
+    };
+  }();
+
+  useEffect(function () {
+    function updateRouteWithAmountInWithSlippage() {
+      return _updateRouteWithAmountInWithSlippage.apply(this, arguments);
+    }
+
+    function _updateRouteWithAmountInWithSlippage() {
+      _updateRouteWithAmountInWithSlippage = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee9() {
+        var amountInWithSlippage;
+        return regenerator.wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                _context9.next = 2;
+                return calculateAmountInWithSlippage(selectedRoute);
+
+              case 2:
+                amountInWithSlippage = _context9.sent;
+
+                if (!amountInWithSlippage) {
+                  _context9.next = 7;
+                  break;
+                }
+
+                _context9.next = 6;
+                return roundAmount(selectedRoute, amountInWithSlippage);
+
+              case 6:
+                setUpdatedRouteWithNewPrice(selectedRoute);
+
+              case 7:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, _callee9);
+      }));
+      return _updateRouteWithAmountInWithSlippage.apply(this, arguments);
+    }
+
+    if (selectedRoute) {
+      updateRouteWithAmountInWithSlippage();
+    }
+  }, [selectedRoute]);
+  useEffect(function () {
+    var timeout = setTimeout(function () {
+      setReloadCount(reloadCount + 1);
+      getPaymentRoutes({
+        allRoutes: allRoutes,
+        selectedRoute: selectedRoute,
+        updatable: updatable
+      });
+    }, 15000);
+    return function () {
+      return clearTimeout(timeout);
+    };
+  }, [reloadCount, allRoutes, selectedRoute, updatable]);
+  useEffect(function () {
+    if (account && props.accept && recover == undefined) {
+      getPaymentRoutes({});
+    }
+  }, [account, props.accept]);
+  return /*#__PURE__*/React.createElement(PaymentRoutingContext.Provider, {
+    value: {
+      selectedRoute: selectedRoute,
+      setSelectedRoute: setSelectedRoute,
+      getPaymentRoutes: getPaymentRoutes,
+      allRoutes: allRoutes,
+      setAllRoutes: setAllRoutes,
+      slowRouting: slowRouting,
+      updatedRouteWithNewPrice: updatedRouteWithNewPrice,
+      updateRouteWithNewPrice: updateRouteWithNewPrice
+    }
+  }, props.children);
+});
+
+var PaymentValueContext = /*#__PURE__*/React.createContext();
+
+var PaymentValueProvider = (function (props) {
+  var _useContext = useContext(ErrorContext),
+      setError = _useContext.setError;
+
+  var _useContext2 = useContext(WalletContext),
+      account = _useContext2.account;
+
+  var _useContext3 = useContext(UpdatableContext),
+      updatable = _useContext3.updatable;
+
+  var _useContext4 = useContext(PaymentContext),
+      payment = _useContext4.payment;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      paymentValue = _useState2[0],
+      setPaymentValue = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      paymentValueLoss = _useState4[0],
+      setPaymentValueLoss = _useState4[1];
+
+  var _useContext5 = useContext(ConfigurationContext),
+      currency = _useContext5.currency;
+
+  var _useState5 = useState(0),
+      _useState6 = _slicedToArray(_useState5, 2),
+      reloadCount = _useState6[0],
+      setReloadCount = _useState6[1];
+
+  var updatePaymentValue = function updatePaymentValue(_ref) {
+    var updatable = _ref.updatable,
+        payment = _ref.payment;
+
+    if (updatable == false || (payment === null || payment === void 0 ? void 0 : payment.route) == undefined) {
+      return;
+    }
+
+    Promise.all([route({
+      blockchain: payment.route.blockchain,
+      tokenIn: payment.route.toToken.address,
+      tokenOut: CONSTANTS[payment.route.blockchain].USD,
+      amountIn: payment.route.toAmount,
+      fromAddress: account,
+      toAddress: account
+    }), !payment.route.directTransfer ? route({
+      blockchain: payment.route.blockchain,
+      tokenIn: payment.route.toToken.address,
+      tokenOut: payment.route.fromToken.address,
+      amountIn: payment.route.toAmount,
+      fromAddress: account,
+      toAddress: account
+    }) : Promise.resolve([]), new Token({
+      blockchain: payment.route.blockchain,
+      address: CONSTANTS[payment.route.blockchain].USD
+    }).decimals()]).then(function (_ref2) {
+      var _ref3 = _slicedToArray(_ref2, 3),
+          toTokenUSDExchangeRoutes = _ref3[0],
+          reverseRoutes = _ref3[1],
+          USDDecimals = _ref3[2];
+
+      var toTokenUSDRoute = toTokenUSDExchangeRoutes[0];
+      var reverseRoute = reverseRoutes[0];
+
+      if (reverseRoute) {
+        var reverseAmountOutBN = ethers.BigNumber.from(reverseRoute.amountOut);
+        var paymentAmountInBN = ethers.BigNumber.from(payment.route.fromAmount);
+        var divPercent = 100 - reverseAmountOutBN.mul(ethers.BigNumber.from('100')).div(paymentAmountInBN).abs().toString();
+
+        if (divPercent >= 10) {
+          setPaymentValueLoss(divPercent);
+        } else {
+          setPaymentValueLoss(null);
+        }
+      }
+
+      var toTokenUSDAmount;
+
+      if (payment.route.toToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+        toTokenUSDAmount = payment.route.toAmount.toString();
+      } else if (toTokenUSDRoute == undefined) {
+        setPaymentValue('');
+        return;
+      } else {
+        toTokenUSDAmount = toTokenUSDRoute.amountOut.toString();
+      }
+
+      var toTokenUSDValue = ethers.utils.formatUnits(toTokenUSDAmount, USDDecimals);
+      Currency.fromUSD({
+        amount: toTokenUSDValue,
+        code: currency
+      }).then(setPaymentValue);
+    })["catch"](setError);
+  };
+
+  useEffect(function () {
+    if (account && payment) {
+      updatePaymentValue({
+        updatable: updatable,
+        payment: payment
+      });
+    }
+  }, [payment, account]);
+  useEffect(function () {
+    var timeout = setTimeout(function () {
+      setReloadCount(reloadCount + 1);
+      updatePaymentValue({
+        updatable: updatable
+      });
+    }, 15000);
+    return function () {
+      return clearTimeout(timeout);
+    };
+  }, [reloadCount, updatable]);
+  return /*#__PURE__*/React.createElement(PaymentValueContext.Provider, {
+    value: {
+      paymentValue: paymentValue,
+      paymentValueLoss: paymentValueLoss
+    }
+  }, props.children);
+});
+
+var DonationRoutingProvider = (function (props) {
+  var _useContext = useContext(ChangableAmountContext),
+      acceptWithAmount = _useContext.acceptWithAmount,
+      setMaxRoute = _useContext.setMaxRoute;
+
+  var _useContext2 = useContext(ConfigurationContext),
+      blacklist = _useContext2.blacklist,
+      fee = _useContext2.fee;
+
+  return /*#__PURE__*/React.createElement(DonationRoutingContext.Provider, {
+    value: {}
+  }, /*#__PURE__*/React.createElement(PaymentRoutingProvider, {
+    accept: acceptWithAmount,
+    blacklist: blacklist,
+    setMaxRoute: setMaxRoute,
+    fee: fee
+  }, /*#__PURE__*/React.createElement(PaymentProvider, {
+    container: props.container,
+    document: props.document
+  }, /*#__PURE__*/React.createElement(PaymentValueProvider, null, props.children))));
+});
+
+var format = (function (input) {
+  var _float = round(input);
+
+  var floatToString = _float.toString();
+
+  if (new RegExp(/\./).test(floatToString)) {
+    var exploded = floatToString.split('.');
+    return new Intl.NumberFormat().format(parseInt(exploded[0])) + '.' + exploded[1];
+  } else {
+    return new Intl.NumberFormat().format(_float);
+  }
+});
+
+var ChangeAmountDialog = (function (props) {
+  var _useContext = useContext(NavigateStackContext),
+      navigate = _useContext.navigate;
+
+  var _useContext2 = useContext(ErrorContext);
+      _useContext2.setError;
+
+  var _useContext3 = useContext(WalletContext);
+      _useContext3.account;
+
+  var _useContext4 = useContext(ChangableAmountContext),
+      amount = _useContext4.amount,
+      setAmount = _useContext4.setAmount,
+      maxAmount = _useContext4.maxAmount;
+
+  var _useState = useState(amount),
+      _useState2 = _slicedToArray(_useState, 2),
+      inputAmount = _useState2[0],
+      setInputAmount = _useState2[1];
+
+  var _useContext5 = useContext(ConfigurationContext),
+      currencyCode = _useContext5.currencyCode,
+      amountConfiguration = _useContext5.amount;
+
+  var _useContext6 = useContext(PaymentRoutingContext);
+      _useContext6.allRoutes;
+      var setSelectedRoute = _useContext6.setSelectedRoute;
+
+  var min = _typeof(amountConfiguration) == "object" && amountConfiguration.min ? amountConfiguration.min : 1;
+  var step = _typeof(amountConfiguration) == "object" && amountConfiguration.step ? amountConfiguration.step : 1;
+  var displayedCurrencyCode = amountConfiguration != undefined && amountConfiguration.token ? null : currencyCode;
+
+  var changeAmountAndGoBack = function changeAmountAndGoBack() {
+    var newAmount = toValidValue(parseFloat(inputAmount));
+
+    if (newAmount != amount) {
+      setSelectedRoute(undefined);
+      setAmount(newAmount);
+    }
+
+    navigate('back');
+  };
+
+  var changeAmount = function changeAmount(value) {
+    if (Number.isNaN(value)) {
+      return;
+    }
+
+    setInputAmount(value);
+  };
+
+  var toValidStep = function toValidStep(value) {
+    if (step) {
+      value = parseFloat(new Decimal(Math.floor(new Decimal(value).div(step))).mul(step).toString());
+    }
+
+    return value;
+  };
+
+  var toValidValue = function toValidValue(value) {
+    value = toValidStep(value);
+    value = Math.max(min, Math.min(value, maxAmount));
+    value = toValidStep(value);
+    return value;
+  };
+
+  var setValidValue = function setValidValue(value) {
+    setInputAmount(toValidValue(value));
+  };
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    stacked: true,
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL TextCenter"
+    }, "Change Amount"), /*#__PURE__*/React.createElement("div", {
+      className: "FontSizeL TextCenter FontWeightBold"
+    }, /*#__PURE__*/React.createElement("strong", null, displayedCurrencyCode))),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "MaxHeight PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS TextCenter PaddingBottomL"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("input", {
+      max: parseFloat(maxAmount),
+      min: min,
+      step: step,
+      className: "Input FontSizeXXL TextAlignCenter",
+      type: "number",
+      name: "amount",
+      autoFocus: true,
+      value: parseFloat(inputAmount),
+      onChange: function onChange(event) {
+        changeAmount(event.target.value);
+      },
+      onBlur: function onBlur(event) {
+        setValidValue(event.target.value);
+      }
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        height: '40px'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "FontSizeS"
+    }, format(toValidStep(maxAmount)), /*#__PURE__*/React.createElement("button", {
+      className: "TextButton",
+      onClick: function onClick() {
+        changeAmount(toValidValue(maxAmount));
+      }
+    }, "(Max)")))))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: changeAmountAndGoBack
+    }, "Done"))
+  });
+});
+
+var ChangePaymentSkeleton = (function (props) {
+  var _useContext = useContext(PaymentValueContext),
+      paymentValue = _useContext.paymentValue;
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    stacked: true,
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL TextCenter"
+    }, "Change Payment"), paymentValue != undefined && /*#__PURE__*/React.createElement("div", {
+      className: "FontSizeL TextCenter FontWeightBold"
+    }, /*#__PURE__*/React.createElement("strong", null, paymentValue.toString()))),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "MaxHeight PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Card Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "Card Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "Card Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    }))))
+  });
+});
+
+var ChangePaymentDialog = (function (props) {
+  var _useContext = useContext(ErrorContext),
+      setError = _useContext.setError;
+
+  var _useContext2 = useContext(PaymentRoutingContext),
+      allRoutes = _useContext2.allRoutes,
+      setSelectedRoute = _useContext2.setSelectedRoute;
+
+  var _useContext3 = useContext(PaymentValueContext),
+      paymentValue = _useContext3.paymentValue;
+
+  var _useContext4 = useContext(NavigateStackContext),
+      navigate = _useContext4.navigate;
+
+  var _useState = useState([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      allPaymentRoutesWithData = _useState2[0],
+      setAllPaymentRoutesWithData = _useState2[1];
+
+  var _useState3 = useState([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      cards = _useState4[0],
+      setCards = _useState4[1];
+
+  useEffect(function () {
+    if (allRoutes == undefined) {
+      return;
+    }
+
+    Promise.all(allRoutes.map(function (route) {
+      route.exchangeRoutes[0];
+      route.fromToken;
+      return Promise.all([route.fromToken.name(), route.fromToken.symbol(), route.fromToken.decimals(), route.fromToken.readable(route.fromAmount)]);
+    })).then(function (allPaymentRoutesWithData) {
+      setAllPaymentRoutesWithData(allRoutes.map(function (route, index) {
+        return {
+          name: allPaymentRoutesWithData[index][0],
+          symbol: allPaymentRoutesWithData[index][1].toUpperCase(),
+          decimals: allPaymentRoutesWithData[index][2],
+          amount: allPaymentRoutesWithData[index][3],
+          route: route
+        };
+      }));
+    })["catch"](setError);
+  }, [allRoutes]);
+  useEffect(function () {
+    setCards(allPaymentRoutesWithData.map(function (payment, index) {
+      var blockchain = Blockchain.findByName(payment.route.blockchain);
+      return /*#__PURE__*/React.createElement("div", {
+        key: index,
+        className: "Card",
+        title: "Select ".concat(payment.symbol, " as payment"),
+        onClick: function onClick() {
+          setSelectedRoute(payment.route);
+          navigate('back');
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement(TokenImage, {
+        blockchain: payment.route.blockchain,
+        address: payment.route.fromToken.address
+      }), /*#__PURE__*/React.createElement("img", {
+        className: "BlockchainLogo small",
+        src: blockchain.logo,
+        alt: blockchain.label,
+        title: blockchain.label
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("h2", {
+        className: "CardText"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TokenAmountRow"
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "TokenSymbolCell"
+      }, payment.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
+        className: "TokenAmountCell"
+      }, format(payment.amount)))), /*#__PURE__*/React.createElement("h3", {
+        className: "CardText small"
+      }, /*#__PURE__*/React.createElement("small", null, format(round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals), 'down')))))));
+    }));
+  }, [allPaymentRoutesWithData]);
+
+  if (allPaymentRoutesWithData.length == 0 || cards.length == 0) {
+    return /*#__PURE__*/React.createElement(ChangePaymentSkeleton, null);
+  }
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    stacked: true,
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL TextCenter"
+    }, "Change Payment"), paymentValue != undefined && /*#__PURE__*/React.createElement("div", {
+      className: "FontSizeL TextCenter FontWeightBold"
+    }, /*#__PURE__*/React.createElement("strong", null, paymentValue.toString()))),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "MaxHeight PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftM PaddingRightM"
+    }, cards)),
+    footer: /*#__PURE__*/React.createElement("div", null)
+  });
+});
+
+var DonationOverviewSkeleton = (function (props) {
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Donation")),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Card Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "Card Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    }))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonWrapper"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ButtonPrimary Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    }))))
+  });
+});
+
+var AlertIcon = (function (props) {
+  return /*#__PURE__*/React.createElement("svg", {
+    className: "AlertIcon Icon " + props.className,
+    version: "1.1",
+    xmlns: "http://www.w3.org/2000/svg",
+    x: "0px",
+    y: "0px",
+    viewBox: "0 0 20 20"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M19.64 16.36L11.53 2.3A1.85 1.85 0 0 0 10 1.21 1.85 1.85 0 0 0 8.48 2.3L.36 16.36C-.48 17.81.21 19 1.88 19h16.24c1.67 0 2.36-1.19 1.52-2.64zM11 16H9v-2h2zm0-4H9V6h2z"
+  }));
+});
+
+var Checkmark = (function (props) {
+  return /*#__PURE__*/React.createElement("svg", {
+    className: "Checkmark Icon " + props.className,
+    version: "1.1",
+    xmlns: "http://www.w3.org/2000/svg",
+    x: "0px",
+    y: "0px",
+    viewBox: "0 0 24 24"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M20,4.9L9.2,16l-5.4-3.9c-0.7-0.5-1.6-0.3-2.1,0.3c-0.5,0.7-0.3,1.6,0.3,2.1l6.4,4.7c0.3,0.2,0.6,0.3,0.9,0.3 c0.4,0,0.8-0.2,1.1-0.5l11.7-12c0.6-0.6,0.6-1.6,0-2.2C21.6,4.3,20.6,4.3,20,4.9z"
+  }));
+});
+
+var DigitalWalletIcon = (function (props) {
+  return /*#__PURE__*/React.createElement("svg", {
+    className: "DigitalWalletIcon Icon " + props.className,
+    version: "1.1",
+    xmlns: "http://www.w3.org/2000/svg",
+    height: "24",
+    width: "24",
+    viewBox: "0 0 24 24"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M8.51,4.84l-.39-.53,4-2.89a2.2,2.2,0,0,1,3.06.48l.4.56-.53.39-.4-.56A1.54,1.54,0,0,0,12.5,2Z",
+    transform: "translate(-0.81 -1)"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M9.77,4.89l-.21-.62,6.31-2.13h0a2.18,2.18,0,0,1,.67-.1h0a2.21,2.21,0,0,1,2.08,1.49l.32.95-.63.21L18,3.73a1.53,1.53,0,0,0-1.45-1h0a1.61,1.61,0,0,0-.48.08h0Z",
+    transform: "translate(-0.81 -1)"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M19.72,16.2H18.27a3.28,3.28,0,1,1,0-6.56h1.45a3.21,3.21,0,0,1,1.33.28h0a3.28,3.28,0,0,1,0,6A3.21,3.21,0,0,1,19.72,16.2Zm-1.45-5.9a2.63,2.63,0,0,0,0,5.25h1.45a2.56,2.56,0,0,0,1.06-.23,2.62,2.62,0,0,0,0-4.8,2.55,2.55,0,0,0-1.06-.22ZM19,14.53a1.61,1.61,0,1,1,1.61-1.61A1.62,1.62,0,0,1,19,14.53ZM19,12a1,1,0,1,0,.95.95A1,1,0,0,0,19,12Z",
+    transform: "translate(-0.81 -1)"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M10.49,19.69a1.58,1.58,0,1,1,1.58-1.57A1.57,1.57,0,0,1,10.49,19.69Zm0-2.49a.92.92,0,1,0,.92.92A.92.92,0,0,0,10.49,17.2Z",
+    transform: "translate(-0.81 -1)"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M19.09,22.14H2.79a2,2,0,0,1-2-2V6.25a2.1,2.1,0,0,1,0-.43,2,2,0,0,1,.48-.92,2,2,0,0,1,1.48-.65H19.09a2,2,0,0,1,.64.1,2,2,0,0,1,1.36,1.79v0a.28.28,0,0,1,0,.09v3.91h-.66v-4a1.49,1.49,0,0,0-.23-.69A1.35,1.35,0,0,0,19.52,5a1.26,1.26,0,0,0-.43-.08H2.82a1.34,1.34,0,0,0-1,.44A1.49,1.49,0,0,0,1.5,6a1.5,1.5,0,0,0,0,.29V20.13a1.36,1.36,0,0,0,1.34,1.35H19.09a1.35,1.35,0,0,0,1.35-1.35V15.68h.66v4.45A2,2,0,0,1,19.09,22.14Z",
+    transform: "translate(-0.81 -1)"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M9.27,9.31a1.58,1.58,0,1,1,0-3.15,1.58,1.58,0,0,1,0,3.15Zm0-2.5a.92.92,0,1,0,.92.92A.92.92,0,0,0,9.27,6.81Z",
+    transform: "translate(-0.81 -1)"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M7.11,14.67A1.58,1.58,0,1,1,8.69,13.1,1.57,1.57,0,0,1,7.11,14.67Zm0-2.49A.92.92,0,1,0,8,13.1.92.92,0,0,0,7.11,12.18Z",
+    transform: "translate(-0.81 -1)"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "0.33",
+    y: "11.77",
+    width: "4.72",
+    height: "0.66"
+  }), /*#__PURE__*/React.createElement("polygon", {
+    points: "2.08 9.53 0.33 9.53 0.33 8.87 1.8 8.87 4.28 6.39 7.21 6.39 7.21 7.05 4.55 7.05 2.08 9.53"
+  }), /*#__PURE__*/React.createElement("polygon", {
+    points: "8.43 17.45 4.53 17.45 2.63 15.55 0.33 15.55 0.33 14.89 2.9 14.89 4.8 16.79 8.43 16.79 8.43 17.45"
+  }));
+});
+
+var LoadingText = (function (props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "LoadingText"
+  }, props.children, /*#__PURE__*/React.createElement("span", {
+    className: "dot"
+  }, "."), /*#__PURE__*/React.createElement("span", {
+    className: "dot"
+  }, "."), /*#__PURE__*/React.createElement("span", {
+    className: "dot"
+  }, "."));
+});
+
+var Footer = (function () {
+  var _useContext = useContext(ConfigurationContext),
+      currencyCode = _useContext.currencyCode,
+      configuredAmount = _useContext.amount;
+
+  var _useContext2 = useContext(ChangableAmountContext),
+      amount = _useContext2.amount;
+      _useContext2.amountsMissing;
+
+  var _useContext3 = useContext(PaymentTrackingContext),
+      tracking = _useContext3.tracking,
+      release = _useContext3.release,
+      forwardTo = _useContext3.forwardTo,
+      trackingFailed = _useContext3.trackingFailed;
+
+  var _useContext4 = useContext(PaymentContext),
+      payment = _useContext4.payment,
+      paymentState = _useContext4.paymentState,
+      pay = _useContext4.pay,
+      transaction = _useContext4.transaction,
+      approve = _useContext4.approve,
+      approvalTransaction = _useContext4.approvalTransaction;
+
+  var _useContext5 = useContext(PaymentValueContext),
+      paymentValue = _useContext5.paymentValue,
+      paymentValueLoss = _useContext5.paymentValueLoss;
+
+  var _useContext6 = useContext(PaymentRoutingContext),
+      updatedRouteWithNewPrice = _useContext6.updatedRouteWithNewPrice,
+      updateRouteWithNewPrice = _useContext6.updateRouteWithNewPrice;
+
+  var _useContext7 = useContext(NavigateStackContext);
+      _useContext7.navigate;
+
+  var _useContext8 = useContext(ClosableContext),
+      close = _useContext8.close;
+
+  var trackingInfo = function trackingInfo() {
+    if (tracking != true) {
+      return null;
+    }
+
+    if (release) {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+        className: "Card transparent small disabled"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter Opacity05"
+      }, /*#__PURE__*/React.createElement(Checkmark, {
+        className: "small"
+      }))), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05"
+      }, "Payment validated")))));
+    } else {
+      if (trackingFailed) {
+        return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+          className: "Card transparent small"
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "CardImage"
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "TextCenter"
+        }, /*#__PURE__*/React.createElement(AlertIcon, {
+          className: "small"
+        }))), /*#__PURE__*/React.createElement("div", {
+          className: "CardBody"
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "CardBodyWrapper"
+        }, /*#__PURE__*/React.createElement("div", null, "Tracking payment failed!")))));
+      } else {
+        return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+          className: "Card transparent small disabled"
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "CardImage"
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "TextCenter"
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "Loading Icon"
+        }))), /*#__PURE__*/React.createElement("div", {
+          className: "CardBody"
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "CardBodyWrapper"
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "Opacity05"
+        }, "Validating payment")))));
+      }
+    }
+  };
+
+  var additionalPaymentInformation = function additionalPaymentInformation() {
+    if (paymentState == 'paying' && transaction == undefined) {
+      return /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Card transparent disabled small"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter Opacity05"
+      }, /*#__PURE__*/React.createElement(DigitalWalletIcon, {
+        className: "small"
+      }))), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05"
+      }, "Confirm transaction in your wallet")))));
+    } else if (paymentState == 'confirmed') {
+      return /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
+        className: "Card transparent small",
+        title: "Payment has been confirmed by the network",
+        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter Opacity05"
+      }, /*#__PURE__*/React.createElement(Checkmark, {
+        className: "small"
+      }))), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05"
+      }, "Payment confirmed"))))), trackingInfo());
+    }
+  };
+
+  var approvalButton = function approvalButton() {
+    if (payment.route == undefined || !payment.route.approvalRequired || payment.route.directTransfer) {
+      return null;
+    } else if (paymentState == 'initialized') {
+      return /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/React.createElement("button", {
+        className: "ButtonPrimary",
+        onClick: approve,
+        title: "Allow ".concat(payment.symbol, " to be used as payment")
+      }, "Allow ", payment.symbol, " to be used as payment"));
+    } else if (paymentState == 'approving') {
+      return /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/React.createElement("a", {
+        className: "ButtonPrimary",
+        title: "Approving payment token - please wait",
+        href: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, /*#__PURE__*/React.createElement(LoadingText, null, "Approving")));
+    }
+  };
+
+  var mainAction = function mainAction() {
+    var displayedAmount;
+
+    if (amount && (configuredAmount == undefined || configuredAmount.token != true)) {
+      displayedAmount = new Currency({
+        amount: amount.toFixed(2),
+        code: currencyCode
+      }).toString();
+    } else if (paymentValue && paymentValue.toString().length) {
+      displayedAmount = paymentValue.toString();
+    } else {
+      displayedAmount = "".concat(payment.symbol, " ").concat(payment.amount);
+    }
+
+    if (updatedRouteWithNewPrice) {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomXS"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Alert"
+      }, /*#__PURE__*/React.createElement("strong", null, "Price updated!"))), /*#__PURE__*/React.createElement("button", {
+        className: "ButtonPrimary",
+        onClick: function onClick() {
+          updateRouteWithNewPrice();
+        }
+      }, "Reload"));
+    } else if (paymentValueLoss) {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomXS"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Alert"
+      }, /*#__PURE__*/React.createElement("strong", null, "Payment token would lose ", paymentValueLoss, "% of it's value!"))), /*#__PURE__*/React.createElement("button", {
+        className: "ButtonPrimary disabled",
+        onClick: function onClick() {}
+      }, "Pay ", displayedAmount));
+    } else if ((paymentState == 'initialized' || paymentState == 'approving') && payment.route) {
+      return /*#__PURE__*/React.createElement("button", {
+        className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
+        onClick: function onClick() {
+          if (payment.route.approvalRequired && !payment.route.directTransfer) {
+            return;
+          }
+
+          pay();
+        }
+      }, "Pay ", displayedAmount);
+    } else if (paymentState == 'paying') {
+      return /*#__PURE__*/React.createElement("a", {
+        className: "ButtonPrimary",
+        title: "Performing the payment - please wait",
+        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, /*#__PURE__*/React.createElement(LoadingText, null, "Paying"));
+    } else if (paymentState == 'confirmed') {
+      if (tracking == true) {
+        if (release) {
+          if (forwardTo) {
+            return /*#__PURE__*/React.createElement("a", {
+              className: "ButtonPrimary",
+              href: forwardTo,
+              rel: "noopener noreferrer"
+            }, "Continue");
+          } else {
+            return /*#__PURE__*/React.createElement("button", {
+              className: "ButtonPrimary",
+              onClick: close
+            }, "Continue");
+          }
+        } else {
+          return /*#__PURE__*/React.createElement("button", {
+            className: "ButtonPrimary disabled",
+            onClick: function onClick() {}
+          }, "Continue");
+        }
+      } else {
+        return /*#__PURE__*/React.createElement("button", {
+          className: "ButtonPrimary",
+          onClick: close
+        }, "Close");
+      }
+    }
+  };
+
+  return /*#__PURE__*/React.createElement("div", null, approvalButton(), additionalPaymentInformation(), mainAction());
+});
+
+var DonationOverviewDialog = (function (props) {
+  var _useContext = useContext(ConfigurationContext),
+      currencyCode = _useContext.currencyCode;
+
+  var _useContext2 = useContext(ChangableAmountContext),
+      amount = _useContext2.amount;
+
+  var _useContext3 = useContext(PaymentContext),
+      payment = _useContext3.payment,
+      paymentState = _useContext3.paymentState;
+
+  var _useContext4 = useContext(NavigateStackContext),
+      navigate = _useContext4.navigate;
+
+  if (payment == undefined) {
+    return /*#__PURE__*/React.createElement(DonationOverviewSkeleton, null);
+  }
+
+  var blockchain = Blockchain.findByName(payment.blockchain);
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Donation")),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+      title: paymentState == 'initialized' ? "Change amount" : undefined,
+      onClick: function onClick() {
+        if (paymentState != 'initialized') {
+          return;
+        }
+
+        navigate('ChangeAmount');
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardBodyWrapper"
+    }, /*#__PURE__*/React.createElement("h4", {
+      className: "CardTitle"
+    }, "Amount"), /*#__PURE__*/React.createElement("h2", {
+      className: "CardText"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "TokenAmountRow"
+    }, new Currency({
+      amount: amount.toFixed(2),
+      code: currencyCode
+    }).toString())))), /*#__PURE__*/React.createElement("div", {
+      className: "CardAction"
+    }, /*#__PURE__*/React.createElement(ChevronRight, null))), /*#__PURE__*/React.createElement("div", {
+      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+      title: paymentState == 'initialized' ? "Change payment" : undefined,
+      onClick: function onClick() {
+        if (paymentState != 'initialized') {
+          return;
+        }
+
+        navigate('ChangePayment');
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardImage",
+      title: payment.name
+    }, /*#__PURE__*/React.createElement(TokenImage, {
+      blockchain: payment.route.blockchain,
+      address: payment.token
+    }), /*#__PURE__*/React.createElement("img", {
+      className: "BlockchainLogo small",
+      src: blockchain.logo,
+      alt: blockchain.label,
+      title: blockchain.label
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardBodyWrapper"
+    }, /*#__PURE__*/React.createElement("h4", {
+      className: "CardTitle"
+    }, "Payment"), /*#__PURE__*/React.createElement("h2", {
+      className: "CardText"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "TokenAmountRow"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "TokenSymbolCell"
+    }, payment.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
+      className: "TokenAmountCell"
+    }, format(payment.amount)))))), /*#__PURE__*/React.createElement("div", {
+      className: "CardAction"
+    }, /*#__PURE__*/React.createElement(ChevronRight, null)))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement(Footer, null))
+  });
+});
+
+var PaymentErrorDialog = (function () {
+  var _useContext = useContext(NavigateStackContext),
+      navigate = _useContext.navigate;
+
+  var _useContext2 = useContext(PaymentContext),
+      transaction = _useContext2.transaction;
+
+  var _useContext3 = useContext(ConfigurationContext),
+      recover = _useContext3.recover;
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    stacked: recover ? false : true,
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "GraphicWrapper"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "Graphic",
+      src: ErrorGraphic
+    })), /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+    }, "Payment Failed"), /*#__PURE__*/React.createElement("div", {
+      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+    }, recover == undefined && /*#__PURE__*/React.createElement("strong", {
+      className: "FontSizeM"
+    }, "Unfortunately executing your payment failed. You can go back and try again."), transaction && /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS"
+    }, /*#__PURE__*/React.createElement("a", {
+      className: "Link",
+      title: "Check your transaction on a block explorer",
+      href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }, "View on explorer")))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, recover == undefined && /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: function onClick() {
+        return navigate('back');
+      }
+    }, "Try again"))
+  });
+});
+
+var ConnectGraphic = "data:image/png;base64,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";
+
+var WrongNetworkDialog = (function (props) {
+  var _useContext = useContext(PaymentContext),
+      payment = _useContext.payment;
+
+  var _useContext2 = useContext(NavigateStackContext),
+      navigate = _useContext2.navigate;
+
+  var blockchain = Blockchain.findByName(payment.route.blockchain);
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    stacked: true,
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Wrong Network")),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS TextCenter"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "GraphicWrapper"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "Graphic",
+      src: ConnectGraphic
+    })), /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+    }, "Connect to ", blockchain.label), /*#__PURE__*/React.createElement("div", {
+      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/React.createElement("strong", {
+      className: "FontSizeM"
+    }, "Please make sure you connect your wallet to the correct network before you try again!"))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: function onClick() {
+        return navigate('back');
+      }
+    }, "Try again"))
+  });
+});
+
+var DonationStack = (function (props) {
+  var _useContext = useContext(ClosableContext),
+      open = _useContext.open,
+      close = _useContext.close;
+
+  var _useContext2 = useContext(NavigateContext),
+      setNavigate = _useContext2.setNavigate;
+
+  return /*#__PURE__*/React.createElement(ReactDialogStack, {
+    setNavigate: setNavigate,
+    open: open,
+    close: close,
+    start: "DonationOverview",
+    container: props.container,
+    document: props.document,
+    dialogs: {
+      DonationOverview: /*#__PURE__*/React.createElement(DonationOverviewDialog, null),
+      ChangeAmount: /*#__PURE__*/React.createElement(ChangeAmountDialog, null),
+      ChangePayment: /*#__PURE__*/React.createElement(ChangePaymentDialog, null),
+      PaymentError: /*#__PURE__*/React.createElement(PaymentErrorDialog, null),
+      WrongNetwork: /*#__PURE__*/React.createElement(WrongNetworkDialog, null)
+    }
+  });
+});
+
+var NavigateProvider = (function (props) {
+  var navigator;
+
+  var setNavigate = function setNavigate(_navigator) {
+    navigator = _navigator;
+  };
+
+  var navigate = function navigate(dialog) {
+    if (navigator) {
+      navigator(dialog);
+    }
+  };
+
+  return /*#__PURE__*/React.createElement(NavigateContext.Provider, {
+    value: {
+      navigate: navigate,
+      setNavigate: setNavigate
+    }
+  }, props.children);
+});
+
+var PaymentTrackingProvider = (function (props) {
+  var _useContext = useContext(ErrorContext),
+      errorCallback = _useContext.errorCallback;
+
+  var _useContext2 = useContext(ConfigurationContext),
+      track = _useContext2.track,
+      integration = _useContext2.integration,
+      type = _useContext2.type;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      transaction = _useState2[0],
+      setTransaction = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      afterBlock = _useState4[0],
+      setAfterBlock = _useState4[1];
+
+  var _useState5 = useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      paymentRoute = _useState6[0],
+      setPaymentRoute = _useState6[1];
+
+  var _useState7 = useState(!!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
+      _useState8 = _slicedToArray(_useState7, 1),
+      tracking = _useState8[0];
+
+  var _useState9 = useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+      _useState10 = _slicedToArray(_useState9, 1),
+      polling = _useState10[0];
+
+  var _useState11 = useState(false),
+      _useState12 = _slicedToArray(_useState11, 2),
+      release = _useState12[0],
+      setRelease = _useState12[1];
+
+  var _useState13 = useState(false),
+      _useState14 = _slicedToArray(_useState13, 2),
+      trackingFailed = _useState14[0],
+      setTrackingFailed = _useState14[1];
+
+  var _useState15 = useState(),
+      _useState16 = _slicedToArray(_useState15, 2),
+      forwardTo = _useState16[0],
+      setForwardTo = _useState16[1];
+
+  var _useContext3 = useContext(ClosableContext),
+      setClosable = _useContext3.setClosable;
+
+  var openSocket = function openSocket(transaction) {
+    var socket = new WebSocket('wss://integrate.depay.fi/cable');
+
+    socket.onopen = function (event) {
+      var msg = {
+        command: 'subscribe',
+        identifier: JSON.stringify({
+          blockchain: transaction.blockchain,
+          sender: transaction.from.toLowerCase(),
+          nonce: transaction.nonce,
+          channel: 'PaymentChannel'
+        })
+      };
+      socket.send(JSON.stringify(msg));
+    };
+
+    socket.onclose = function (event) {};
+
+    socket.onmessage = function (event) {
+      var item = JSON.parse(event.data);
+
+      if (item.type === "ping") {
+        return;
+      }
+
+      if (item.message && item.message.release) {
+        setClosable(!item.message.forward_to);
+        setForwardTo(item.message.forward_to);
+        setRelease(item.message.release);
+        socket.close();
+
+        if (!!item.message.forward_to) {
+          setTimeout(function () {
+            props.document.location.href = item.message.forward_to;
+          }, 200);
+        }
+      }
+    };
+
+    socket.onerror = function (error) {
+      console.log('WebSocket Error: ' + error);
+    };
+  };
+
+  var retryStartTracking = function retryStartTracking(transaction, afterBlock, paymentRoute, attempt) {
+    attempt = parseInt(attempt || 1, 10);
+
+    if (attempt < 3) {
+      setTimeout(function () {
+        startTracking(transaction, afterBlock, paymentRoute, attempt + 1);
+      }, 3000);
+    } else {
+      console.log('PAYMENT TRACKING FAILED AFTER 3 ATTEMPTS!');
+      setTrackingFailed(true);
+
+      if (typeof errorCallback == 'function') {
+        errorCallback({
+          code: 'TRACKING_FAILED'
+        });
+      }
+    }
+  };
+
+  var callTracking = function callTracking(payment) {
+    if (track.endpoint) {
+      return fetch(track.endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payment)
+      });
+    } else if (track.method) {
+      return track.method(payment);
+    } else {
+      throw 'No tracking defined!';
+    }
+  };
+
+  var startTracking = function startTracking(transaction, afterBlock, paymentRoute, attempt) {
+    callTracking({
+      blockchain: transaction.blockchain,
+      transaction: transaction.id.toLowerCase(),
+      sender: transaction.from.toLowerCase(),
+      nonce: transaction.nonce,
+      after_block: afterBlock,
+      to_token: paymentRoute.toToken.address
+    }).then(function (response) {
+      if (response.status != 200) {
+        retryStartTracking(transaction, afterBlock, paymentRoute, attempt);
+      }
+    })["catch"](function (error) {
+      console.log('PAYMENT TRACKING FAILED', error);
+      retryStartTracking(transaction, afterBlock, paymentRoute, attempt);
+    });
+  };
+
+  var pollStatus = function pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval) {
+    if (!polling || transaction == undefined || afterBlock == undefined || paymentRoute == undefined) {
+      return;
+    }
+
+    var payment = {
+      blockchain: transaction.blockchain,
+      transaction: transaction.id.toLowerCase(),
+      sender: transaction.from.toLowerCase(),
+      nonce: transaction.nonce,
+      after_block: afterBlock,
+      to_token: paymentRoute.toToken.address
+    };
+
+    var handleResponse = function handleResponse(response) {
+      if (response.status == 200) {
+        response.json().then(function (data) {
+          if (data && data.forward_to) {
+            setForwardTo(data.forward_to);
+            setTimeout(function () {
+              props.document.location.href = data.forward_to;
+            }, 100);
+          }
+        });
+        clearInterval(pollingInterval);
+        setRelease(true);
+      }
+    };
+
+    if (track.poll.endpoint) {
+      fetch(track.poll.endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payment)
+      }).then(handleResponse);
+    } else if (track.poll.method) {
+      track.poll.method(payment).then(handleResponse);
+    }
+  };
+
+  useEffect(function () {
+    if (!polling) {
+      return;
+    }
+
+    if (!tracking) {
+      return;
+    }
+
+    var pollingInterval = setInterval(function () {
+      return pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval);
+    }, 5000);
+    return function () {
+      clearInterval(pollingInterval);
+    };
+  }, [polling, transaction, afterBlock, paymentRoute]);
+
+  var storePayment = function storePayment(transaction, afterBlock, paymentRoute, attempt) {
+    if (attempt > 3) {
+      return;
+    }
+
+    fetch('https://public.depay.fi/payments', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        blockchain: transaction.blockchain,
+        transaction: transaction.id,
+        sender: transaction.from.toLowerCase(),
+        nonce: transaction.nonce,
+        receiver: paymentRoute.toAddress,
+        token: paymentRoute.toToken.address,
+        amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
+        confirmations: 1,
+        after_block: afterBlock,
+        uuid: transaction.id,
+        payload: {
+          sender_id: transaction.from.toLowerCase(),
+          sender_token_id: paymentRoute.fromToken.address,
+          sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
+          integration: integration,
+          type: type
+        },
+        fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
+        fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
+      })
+    }).then(function (response) {
+      if (response.status == 200 || response.status == 201) ; else {
+        setTimeout(function () {
+          storePayment(transaction, afterBlock, paymentRoute, attempt + 1);
+        }, 3000);
+      }
+    })["catch"](function (error) {
+      setTimeout(function () {
+        storePayment(transaction, afterBlock, paymentRoute, attempt + 1);
+      }, 3000);
+    });
+  };
+
+  var initializeTracking = function initializeTracking(transaction, afterBlock, paymentRoute) {
+    storePayment(transaction, afterBlock, paymentRoute, 1);
+
+    if (tracking || track && track.async == true) {
+      startTracking(transaction, afterBlock, paymentRoute);
+    }
+
+    if (tracking == false) {
+      return;
+    }
+
+    setTransaction(transaction);
+    setAfterBlock(afterBlock);
+    setPaymentRoute(paymentRoute);
+    openSocket(transaction);
+  };
+
+  return /*#__PURE__*/React.createElement(PaymentTrackingContext.Provider, {
+    value: {
+      tracking: tracking,
+      initializeTracking: initializeTracking,
+      release: release,
+      forwardTo: forwardTo,
+      trackingFailed: trackingFailed
+    }
+  }, props.children);
+});
+
+var TransactionTrackingProvider = (function (props) {
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      givenTransaction = _useState2[0],
+      setGivenTransaction = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      foundTransaction = _useState4[0],
+      setFoundTransaction = _useState4[1];
+
+  var _useState5 = useState(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      polling = _useState6[0],
+      setPolling = _useState6[1];
+
+  var _useContext = useContext(ErrorContext);
+      _useContext.errorCallback;
+
+  var _useContext2 = useContext(ConfigurationContext),
+      recover = _useContext2.recover;
+
+  useEffect(function () {
+    if (polling) {
+      var poll = function poll() {
+        fetch("https://public.depay.fi/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from.toLowerCase(), "/").concat(givenTransaction.nonce)).then(function (response) {
+          if (response.status == 200) {
+            response.json().then(function (data) {
+              if (data.status != 'pending') {
+                setFoundTransaction({
+                  id: data.external_id,
+                  status: data.status
+                });
+                setPolling(false);
+              }
+            });
+          }
+        });
+      };
+
+      var pollingInterval = setInterval(poll, 5000);
+      poll();
+      return function () {
+        clearInterval(pollingInterval);
+      };
+    }
+  }, [polling]);
+
+  var createTracking = function createTracking(transaction, afterBlock, attempt) {
+    if (attempt > 3) {
+      console.log('TRANSACTION TRACKING FAILED AFTER 3 ATTEMPTS!');
+      return;
+    }
+
+    fetch('https://public.depay.fi/transactions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: transaction.id,
+        after_block: afterBlock,
+        blockchain: transaction.blockchain,
+        sender: transaction.from.toLowerCase(),
+        nonce: transaction.nonce
+      })
+    }).then(function (response) {
+      if (response.status == 200 || response.status == 201) {
+        console.log('TRANSACTION TRACKING INITIALIZED');
+      } else {
+        console.log('TRANSACTION TRACKING FAILED', response);
+        setTimeout(function () {
+          createTracking(transaction, afterBlock, attempt + 1);
+        }, 3000);
+      }
+    })["catch"](function (error) {
+      console.log('TRANSACTION TRACKING FAILED', error);
+      setTimeout(function () {
+        createTracking(transaction, afterBlock, attempt + 1);
+      }, 3000);
+    });
+  };
+
+  var openSocket = function openSocket(transaction) {
+    var socket = new WebSocket('wss://integrate.depay.fi/cable');
+
+    socket.onopen = function (event) {
+      var msg = {
+        command: 'subscribe',
+        identifier: JSON.stringify({
+          blockchain: transaction.blockchain,
+          sender: transaction.from.toLowerCase(),
+          nonce: transaction.nonce,
+          channel: 'TransactionChannel'
+        })
+      };
+      socket.send(JSON.stringify(msg));
+    };
+
+    socket.onclose = function (event) {};
+
+    socket.onmessage = function (event) {
+      var item = JSON.parse(event.data);
+
+      if (item.type === "ping") {
+        return;
+      }
+
+      if (item.message && item.message.status && item.message.status != 'pending') {
+        setFoundTransaction(item.message);
+      }
+    };
+
+    socket.onerror = function (error) {
+      console.log('WebSocket Error: ' + error);
+    };
+  };
+
+  var initializeTracking = function initializeTracking(transaction, afterBlock) {
+    setGivenTransaction(transaction);
+
+    if (recover == undefined) {
+      createTracking(transaction, afterBlock, 1);
+    }
+
+    openSocket(transaction);
+    setPolling(true);
+  };
+
+  useEffect(function () {
+    if (recover) {
+      initializeTracking({
+        blockchain: recover.blockchain,
+        id: recover.transaction,
+        from: recover.sender,
+        nonce: recover.nonce
+      }, recover.afterBlock);
+    }
+  }, [recover]);
+  return /*#__PURE__*/React.createElement(TransactionTrackingContext.Provider, {
+    value: {
+      initializeTracking: initializeTracking,
+      foundTransaction: foundTransaction
+    }
+  }, props.children);
+});
+
+var WalletProvider = (function (props) {
+  var _useContext = useContext(ConfigurationContext),
+      recover = _useContext.recover;
+
+  var _useContext2 = useContext(ErrorContext);
+      _useContext2.setError;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      wallet = _useState2[0],
+      setWallet = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      account = _useState4[0],
+      setAccount = _useState4[1];
+
+  var _useState5 = useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      walletState = _useState6[0],
+      setWalletState = _useState6[1];
+
+  var connected = function connected(_ref) {
+    var account = _ref.account,
+        wallet = _ref.wallet;
+    setAccount(account);
+    setWallet(wallet);
+    setWalletState('connected');
+
+    if (props.connected) {
+      props.connected(account);
+    }
+  };
+
+  if (walletState == 'connected' || recover != undefined) {
+    return /*#__PURE__*/React.createElement(WalletContext.Provider, {
+      value: {
+        account: account,
+        wallet: wallet,
+        walletState: walletState
+      }
+    }, props.children);
+  } else {
+    return /*#__PURE__*/React.createElement(ConnectStack, {
+      document: props.document,
+      container: props.container,
+      resolve: connected
+    });
+  }
+});
+
+var preflight$2 = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+    var accept;
+    return regenerator.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            accept = _ref.accept;
+
+            if (!(!(accept instanceof Array) || accept.length == 0)) {
+              _context.next = 3;
+              break;
+            }
+
+            throw 'You need to set the tokens you accept as donation!';
+
+          case 3:
+            accept.forEach(function (configuration) {
+              if (typeof configuration.blockchain === 'undefined') {
+                throw 'You need to set the blockchain you want to receive the donation on!';
+              }
+
+              if (!['ethereum', 'bsc', 'polygon'].includes(configuration.blockchain)) {
+                throw 'You need to set a supported blockchain!';
+              }
+
+              if (typeof configuration.token === 'undefined') {
+                throw 'You need to set the token you want to receive as donation!';
+              }
+
+              if (typeof configuration.receiver === 'undefined') {
+                throw 'You need to set the receiver address that you want to receive the donation!';
+              }
+            });
+
+          case 4:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function preflight(_x) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var Donation = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
+    var amount, accept, event, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, fee, closable, integration, container, document, unmount;
+    return regenerator.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, fee = _ref3.fee, closable = _ref3.closable, integration = _ref3.integration, container = _ref3.container, document = _ref3.document;
+            requireReactVersion();
+            _context2.prev = 2;
+            _context2.next = 5;
+            return preflight$2({
+              accept: accept
+            });
+
+          case 5:
+            unmount = mount({
+              style: style,
+              container: container,
+              document: ensureDocument(document),
+              closed: closed
+            }, function (unmount) {
+              return function (container) {
+                return /*#__PURE__*/React.createElement(ErrorProvider, {
+                  errorCallback: error,
+                  container: container,
+                  unmount: unmount
+                }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
+                  configuration: {
+                    type: 'donation',
+                    amount: amount,
+                    accept: accept,
+                    currency: currency,
+                    event: event,
+                    fee: fee,
+                    sent: sent,
+                    confirmed: confirmed,
+                    failed: failed,
+                    blacklist: blacklist,
+                    providers: providers,
+                    integration: integration
+                  }
+                }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
+                  unmount: unmount,
+                  closable: closable
+                }, /*#__PURE__*/React.createElement(WalletProvider, {
+                  container: container,
+                  connected: connected,
+                  unmount: unmount
+                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(ConversionRateProvider, null, /*#__PURE__*/React.createElement(ChangableAmountProvider, {
+                  accept: accept
+                }, /*#__PURE__*/React.createElement(TransactionTrackingProvider, null, /*#__PURE__*/React.createElement(PaymentTrackingProvider, {
+                  document: ensureDocument(document)
+                }, /*#__PURE__*/React.createElement(DonationRoutingProvider, {
+                  container: container,
+                  document: document
+                }, /*#__PURE__*/React.createElement(DonationStack, {
+                  document: document,
+                  container: container
+                }), /*#__PURE__*/React.createElement(PoweredBy, null))))))))))));
+              };
+            });
+            return _context2.abrupt("return", {
+              unmount: unmount
+            });
+
+          case 9:
+            _context2.prev = 9;
+            _context2.t0 = _context2["catch"](2);
+            console.log('critical error', _context2.t0);
+
+            if (critical != undefined) {
+              critical(_context2.t0);
+            }
+
+          case 13:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[2, 9]]);
+  }));
+
+  return function Donation(_x2) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+var SignLoginDialog = (function (props) {
+  var _useContext = useContext(ErrorContext),
+      setError = _useContext.setError;
+
+  var _useContext2 = useContext(ConfigurationContext),
+      message = _useContext2.message,
+      endpoint = _useContext2.endpoint;
+
+  var _useContext3 = useContext(ConfigurationContext),
+      recover = _useContext3.recover;
+
+  var wallet = getWallet();
+  wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
+  var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
+
+  if (typeof recover != 'function') {
+    recover = function recover(_ref) {
+      var message = _ref.message,
+          signature = _ref.signature;
+      return new Promise(function (resolve, reject) {
+        fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: message,
+            signature: signature
+          })
+        }).then(function (response) {
+          if (response.status == 200) {
+            response.text().then(function (account) {
+              resolve(account);
+            })["catch"](setError);
+          } else {
+            response.text().then(function (text) {
+              setError(text || 'Recovering login signature failed!');
+            });
+          }
+        });
+      });
+    };
+  }
+
+  var login = function login() {
+    wallet.sign(message).then(function (signature) {
+      recover({
+        message: message,
+        signature: signature
+      }).then(props.resolve)["catch"](setError);
+    })["catch"](function (error) {
+      if (error && error.code && error.code == 4001) ; else {
+        setError(error);
+      }
+    });
+  };
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter"
+    }, walletLogo && /*#__PURE__*/React.createElement("div", {
+      className: "GraphicWrapper PaddingTopS PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "Graphic",
+      src: walletLogo
+    })), /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL Text FontSizeL FontWeightBold PaddingTopS"
+    }, "Wallet Login"), /*#__PURE__*/React.createElement("div", {
+      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/React.createElement("p", {
+      className: "FontSizeM PaddingLeftM PaddingRightM PaddingBottomS"
+    }, "Please click \"Log in\" and sign the message with your connected wallet."))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: login
+    }, "Log in"))
+  });
+});
+
+var LoginStack = (function (props) {
+  var _useContext = useContext(ClosableContext),
+      open = _useContext.open,
+      close = _useContext.close;
+
+  var _useState = useState(true),
+      _useState2 = _slicedToArray(_useState, 2);
+      _useState2[0];
+      _useState2[1];
+
+  return /*#__PURE__*/React.createElement(ReactDialogStack, {
+    open: open,
+    close: close,
+    start: "SignLogin",
+    container: props.container,
+    document: props.document,
+    dialogs: {
+      SignLogin: /*#__PURE__*/React.createElement(SignLoginDialog, {
+        resolve: props.resolve,
+        userClosedDialog: props.userClosedDialog
+      })
+    }
+  });
+});
+
+var Login = function Login(options) {
+  requireReactVersion();
+  var style, error, document, message, endpoint, recover;
+
+  if (_typeof(options) == 'object') {
+    style = options.style;
+    error = options.error;
+    document = options.document;
+    message = options.message;
+    endpoint = options.endpoint;
+    recover = options.recover;
+  }
+
+  return new Promise( /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_resolve, reject) {
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              Connect().then(function () {
+                mount({
+                  style: style,
+                  document: ensureDocument(document)
+                }, function (unmount) {
+                  var userClosedDialog = function userClosedDialog() {
+                    reject('USER_CLOSED_DIALOG');
+                    unmount();
+                  };
+
+                  return function (container) {
+                    return /*#__PURE__*/React.createElement(ErrorProvider, {
+                      errorCallback: error,
+                      container: container,
+                      unmount: unmount
+                    }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
+                      configuration: {
+                        message: message,
+                        endpoint: endpoint || '/login',
+                        recover: recover
+                      }
+                    }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
+                      unmount: userClosedDialog
+                    }, /*#__PURE__*/React.createElement(LoginStack, {
+                      document: document,
+                      container: container,
+                      resolve: function resolve(account) {
+                        unmount();
+
+                        _resolve(account);
+                      }
+                    }), /*#__PURE__*/React.createElement(PoweredBy, null)))));
+                  };
+                });
+              })["catch"](reject);
+
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }());
+};
+
+var PaymentAmountRoutingContext = /*#__PURE__*/React.createContext();
+
+var PaymentAmountRoutingProvider = (function (props) {
+  var _useContext = useContext(ChangableAmountContext),
+      amountsMissing = _useContext.amountsMissing,
+      acceptWithAmount = _useContext.acceptWithAmount,
+      setMaxRoute = _useContext.setMaxRoute;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      accept = _useState2[0],
+      setAccept = _useState2[1];
+
+  useEffect(function () {
+    if (amountsMissing) {
+      if (acceptWithAmount) {
+        setAccept(acceptWithAmount);
+      }
+    } else {
+      setAccept(props.accept);
+    }
+  }, [amountsMissing, acceptWithAmount]);
+  return /*#__PURE__*/React.createElement(PaymentAmountRoutingContext.Provider, {
+    value: {}
+  }, /*#__PURE__*/React.createElement(PaymentRoutingProvider, {
+    accept: accept,
+    whitelist: props.whitelist,
+    blacklist: props.blacklist,
+    event: props.event,
+    setMaxRoute: setMaxRoute,
+    fee: props.fee
+  }, props.children));
+});
+
+var PaymentOverviewSkeleton = (function (props) {
+  var _useContext = useContext(ChangableAmountContext),
+      amountsMissing = _useContext.amountsMissing,
+      fixedAmount = _useContext.fixedAmount;
+
+  var _useContext2 = useContext(PaymentRoutingContext),
+      slowRouting = _useContext2.slowRouting,
+      selectedRoute = _useContext2.selectedRoute;
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Payment")),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
+    }, amountsMissing && !fixedAmount && /*#__PURE__*/React.createElement("div", {
+      className: "Card Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "Card Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    }))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonWrapper"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ButtonPrimary Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    }))), selectedRoute == undefined && slowRouting && /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter Opacity05 PaddingTopS"
+    }, /*#__PURE__*/React.createElement("strong", null, "Loading payment routes...")))
+  });
+});
+
+var PaymentOverviewDialog = (function (props) {
+  var _useContext = useContext(ConfigurationContext),
+      currencyCode = _useContext.currencyCode,
+      recover = _useContext.recover;
+
+  var _useContext2 = useContext(PaymentContext),
+      payment = _useContext2.payment,
+      paymentState = _useContext2.paymentState;
+
+  var _useContext3 = useContext(ChangableAmountContext),
+      amount = _useContext3.amount,
+      amountsMissing = _useContext3.amountsMissing,
+      fixedAmount = _useContext3.fixedAmount;
+      _useContext3.fixedCurrency;
+
+  var _useContext4 = useContext(PaymentValueContext),
+      paymentValue = _useContext4.paymentValue;
+
+  var _useContext5 = useContext(NavigateStackContext),
+      navigate = _useContext5.navigate;
+
+  if (payment == undefined || recover == undefined && paymentValue == undefined) {
+    return /*#__PURE__*/React.createElement(PaymentOverviewSkeleton, null);
+  }
+
+  var blockchain = Blockchain.findByName(payment.blockchain);
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Payment")),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
+    }, amountsMissing && !fixedAmount && /*#__PURE__*/React.createElement("div", {
+      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+      title: paymentState == 'initialized' ? "Change amount" : undefined,
+      onClick: function onClick() {
+        if (paymentState != 'initialized') {
+          return;
+        }
+
+        navigate('ChangeAmount');
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardBodyWrapper"
+    }, /*#__PURE__*/React.createElement("h4", {
+      className: "CardTitle"
+    }, "Amount"), /*#__PURE__*/React.createElement("h2", {
+      className: "CardText"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "TokenAmountRow"
+    }, new Currency({
+      amount: amount.toFixed(2),
+      code: currencyCode
+    }).toString())))), /*#__PURE__*/React.createElement("div", {
+      className: "CardAction"
+    }, /*#__PURE__*/React.createElement(ChevronRight, null))), /*#__PURE__*/React.createElement("div", {
+      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+      title: paymentState == 'initialized' ? "Change payment" : undefined,
+      onClick: function onClick() {
+        if (paymentState != 'initialized') {
+          return;
+        }
+
+        navigate('ChangePayment');
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardImage",
+      title: payment.name
+    }, /*#__PURE__*/React.createElement(TokenImage, {
+      blockchain: payment.blockchain,
+      address: payment.token
+    }), /*#__PURE__*/React.createElement("img", {
+      className: "BlockchainLogo small",
+      src: blockchain.logo,
+      alt: blockchain.label,
+      title: blockchain.label
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardBodyWrapper"
+    }, amountsMissing && /*#__PURE__*/React.createElement("h4", {
+      className: "CardTitle"
+    }, "Payment"), /*#__PURE__*/React.createElement("h2", {
+      className: "CardText"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "TokenAmountRow"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "TokenSymbolCell"
+    }, payment.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
+      className: "TokenAmountCell"
+    }, format(payment.amount)))))), /*#__PURE__*/React.createElement("div", {
+      className: "CardAction"
+    }, /*#__PURE__*/React.createElement(ChevronRight, null)))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement(Footer, null))
+  });
+});
+
+var PaymentStack = (function (props) {
+  var _useContext = useContext(ClosableContext),
+      open = _useContext.open,
+      close = _useContext.close;
+
+  var _useContext2 = useContext(NavigateContext),
+      setNavigate = _useContext2.setNavigate;
+
+  return /*#__PURE__*/React.createElement(ReactDialogStack, {
+    setNavigate: setNavigate,
+    open: open,
+    close: close,
+    start: "PaymentOverview",
+    container: props.container,
+    document: props.document,
+    dialogs: {
+      PaymentOverview: /*#__PURE__*/React.createElement(PaymentOverviewDialog, null),
+      ChangeAmount: /*#__PURE__*/React.createElement(ChangeAmountDialog, null),
+      ChangePayment: /*#__PURE__*/React.createElement(ChangePaymentDialog, null),
+      PaymentError: /*#__PURE__*/React.createElement(PaymentErrorDialog, null),
+      WrongNetwork: /*#__PURE__*/React.createElement(WrongNetworkDialog, null)
+    }
+  });
+});
+
+var preflight$1 = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+    var accept, recover;
+    return regenerator.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            accept = _ref.accept, recover = _ref.recover;
+
+            if (!recover) {
+              _context.next = 3;
+              break;
+            }
+
+            return _context.abrupt("return");
+
+          case 3:
+            accept.forEach(function (configuration) {
+              if (typeof configuration.blockchain === 'undefined') {
+                throw 'You need to set the blockchain your want to receive the payment on!';
+              }
+
+              if (!['ethereum', 'bsc', 'polygon'].includes(configuration.blockchain)) {
+                throw 'You need to set a supported blockchain!';
+              }
+
+              if (typeof configuration.token === 'undefined' && typeof configuration.fromToken === 'undefined' && typeof configuration.fromAmount === 'undefined' && typeof configuration.toToken === 'undefined') {
+                throw 'You need to set the token you want to receive as payment!';
+              }
+
+              if (typeof configuration.token === 'undefined' && typeof configuration.fromToken !== 'undefined' && typeof configuration.fromAmount === 'undefined' && typeof configuration.toToken === 'undefined') {
+                throw 'You need to set the fromToken, fromAmount and toToken!';
+              }
+
+              if (typeof configuration.receiver === 'undefined') {
+                throw 'You need to set the receiver address that you want to receive the payment!';
+              }
+            });
+
+          case 4:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function preflight(_x) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var Payment = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
+    var accept, amount, event, sent, confirmed, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, container, document, unmount;
+    return regenerator.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, container = _ref3.container, document = _ref3.document;
+            requireReactVersion();
+            _context2.prev = 2;
+            _context2.next = 5;
+            return preflight$1({
+              accept: accept,
+              recover: recover
+            });
+
+          case 5:
+            unmount = mount({
+              style: style,
+              container: container,
+              document: ensureDocument(document),
+              closed: closed
+            }, function (unmount) {
+              return function (container) {
+                return /*#__PURE__*/React.createElement(ErrorProvider, {
+                  errorCallback: error,
+                  container: container,
+                  unmount: unmount
+                }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
+                  configuration: {
+                    type: 'payment',
+                    amount: amount,
+                    accept: accept,
+                    currency: currency,
+                    event: event,
+                    sent: sent,
+                    confirmed: confirmed,
+                    failed: failed,
+                    whitelist: whitelist,
+                    blacklist: blacklist,
+                    providers: providers,
+                    track: track,
+                    fee: fee,
+                    recover: recover,
+                    integration: integration
+                  }
+                }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
+                  unmount: unmount,
+                  closable: closable
+                }, /*#__PURE__*/React.createElement(WalletProvider, {
+                  document: document,
+                  container: container,
+                  connected: connected,
+                  unmount: unmount
+                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(ConversionRateProvider, null, /*#__PURE__*/React.createElement(ChangableAmountProvider, {
+                  accept: accept
+                }, /*#__PURE__*/React.createElement(PaymentAmountRoutingProvider, {
+                  accept: accept,
+                  whitelist: whitelist,
+                  blacklist: blacklist,
+                  event: event,
+                  fee: fee
+                }, /*#__PURE__*/React.createElement(TransactionTrackingProvider, null, /*#__PURE__*/React.createElement(PaymentTrackingProvider, {
+                  document: ensureDocument(document)
+                }, /*#__PURE__*/React.createElement(PaymentProvider, {
+                  container: container,
+                  document: document
+                }, /*#__PURE__*/React.createElement(PaymentValueProvider, null, /*#__PURE__*/React.createElement(PaymentStack, {
+                  document: document,
+                  container: container
+                }), /*#__PURE__*/React.createElement(PoweredBy, null))))))))))))));
+              };
+            });
+            return _context2.abrupt("return", {
+              unmount: unmount
+            });
+
+          case 9:
+            _context2.prev = 9;
+            _context2.t0 = _context2["catch"](2);
+            console.log('critical error', _context2.t0);
+
+            if (critical != undefined) {
+              critical(_context2.t0);
+            }
+
+          case 13:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[2, 9]]);
+  }));
+
+  return function Payment(_x2) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+Payment.preload = function (_ref5) {
+  var account = _ref5.account,
+      accept = _ref5.accept,
+      whitelist = _ref5.whitelist,
+      blacklist = _ref5.blacklist,
+      event = _ref5.event,
+      fee = _ref5.fee;
+  routePayments({
+    account: account,
+    accept: accept,
+    whitelist: whitelist,
+    blacklist: blacklist,
+    event: event,
+    fee: fee
+  });
+};
+
+var SaleRoutingContext = /*#__PURE__*/React.createContext();
+
+var ToTokenContext = /*#__PURE__*/React.createContext();
+
+var ToTokenProvider = (function (props) {
+  var _useContext = useContext(PaymentContext),
+      payment = _useContext.payment;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      toToken = _useState2[0],
+      setToToken = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      toTokenReadableAmount = _useState4[0],
+      setToTokenReadableAmount = _useState4[1];
+
+  useEffect(function () {
+    if (payment) {
+      Promise.all([payment.route.toToken.symbol(), payment.route.toToken.readable(payment.route.toAmount)]).then(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            symbol = _ref2[0],
+            readableAmount = _ref2[1];
+
+        setToToken({
+          address: payment.route.toToken.address,
+          symbol: symbol
+        });
+        setToTokenReadableAmount(readableAmount);
+      });
+    }
+  }, [payment]);
+  return /*#__PURE__*/React.createElement(ToTokenContext.Provider, {
+    value: {
+      toToken: toToken,
+      toTokenReadableAmount: toTokenReadableAmount
+    }
+  }, props.children);
+});
+
+var SaleRoutingProvider = (function (props) {
+  var _useContext = useContext(ChangableAmountContext),
+      acceptWithAmount = _useContext.acceptWithAmount,
+      setMaxRoute = _useContext.setMaxRoute;
+
+  var _useContext2 = useContext(ConfigurationContext),
+      sell = _useContext2.sell;
+
+  var _useContext3 = useContext(ConfigurationContext),
+      blacklist = _useContext3.blacklist;
+
+  if (blacklist == undefined) {
+    blacklist = {};
+  }
+
+  for (var blockchain in sell) {
+    var token = sell[blockchain];
+
+    if (blacklist[blockchain] instanceof Array) {
+      blacklist[blockchain].push(token);
+    } else {
+      blacklist[blockchain] = [token];
+    }
+  }
+
+  return /*#__PURE__*/React.createElement(SaleRoutingContext.Provider, {
+    value: {}
+  }, /*#__PURE__*/React.createElement(PaymentRoutingProvider, {
+    accept: acceptWithAmount,
+    blacklist: blacklist,
+    setMaxRoute: setMaxRoute
+  }, /*#__PURE__*/React.createElement(PaymentProvider, {
+    container: props.container,
+    document: props.document
+  }, /*#__PURE__*/React.createElement(PaymentValueProvider, null, /*#__PURE__*/React.createElement(ToTokenProvider, null, props.children)))));
+});
+
+var SaleOverviewSkeleton = (function (props) {
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Purchase")),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Card Skeleton",
+      style: {
+        height: '100px'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "Card Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    }))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonWrapper"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ButtonPrimary Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    }))))
+  });
+});
+
+var SaleOverviewDialog = (function (props) {
+  var _useContext = useContext(ChangableAmountContext);
+      _useContext.amount;
+
+  var _useContext2 = useContext(ConfigurationContext),
+      tokenImage = _useContext2.tokenImage,
+      amountConfiguration = _useContext2.amount;
+
+  var _useContext3 = useContext(PaymentValueContext),
+      paymentValue = _useContext3.paymentValue;
+
+  var _useContext4 = useContext(PaymentContext),
+      payment = _useContext4.payment,
+      paymentState = _useContext4.paymentState;
+
+  var _useContext5 = useContext(NavigateStackContext),
+      navigate = _useContext5.navigate;
+
+  var _useContext6 = useContext(ToTokenContext),
+      toToken = _useContext6.toToken,
+      toTokenReadableAmount = _useContext6.toTokenReadableAmount;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      salePerTokenValue = _useState2[0],
+      setSalePerTokenValue = _useState2[1];
+
+  useEffect(function () {
+    if (paymentValue && (amountConfiguration == undefined || amountConfiguration.token != true) && toTokenReadableAmount) {
+      var UsdAmountPerToken = paymentValue.amount / parseFloat(toTokenReadableAmount);
+      var readableLocalizedAmountPerToken = new Currency({
+        amount: UsdAmountPerToken,
+        code: paymentValue.code
+      }).toString();
+      var zero = new Currency({
+        amount: 0,
+        code: paymentValue.code
+      }).toString();
+
+      if (readableLocalizedAmountPerToken != zero) {
+        setSalePerTokenValue(readableLocalizedAmountPerToken);
+      }
+    }
+  }, [paymentValue, toTokenReadableAmount]);
+
+  if (toToken == undefined || toTokenReadableAmount == undefined || payment == undefined || paymentValue == undefined) {
+    return /*#__PURE__*/React.createElement(SaleOverviewSkeleton, null);
+  }
+
+  var tokenImageElement;
+
+  if (tokenImage) {
+    tokenImageElement = /*#__PURE__*/React.createElement("img", {
+      src: tokenImage
+    });
+  } else {
+    tokenImageElement = /*#__PURE__*/React.createElement(TokenImage, {
+      blockchain: payment.route.blockchain,
+      address: toToken.address
+    });
+  }
+
+  var blockchain = Blockchain.findByName(payment.blockchain);
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Purchase")),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+      title: paymentState == 'initialized' ? "Change amount" : undefined,
+      onClick: function onClick() {
+        if (paymentState != 'initialized') {
+          return;
+        }
+
+        navigate('ChangeAmount');
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardImage",
+      title: payment.name
+    }, tokenImageElement, /*#__PURE__*/React.createElement("img", {
+      className: "BlockchainLogo small",
+      src: blockchain.logo,
+      alt: blockchain.label,
+      title: blockchain.label
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardBodyWrapper"
+    }, /*#__PURE__*/React.createElement("h4", {
+      className: "CardTitle"
+    }, "Amount"), /*#__PURE__*/React.createElement("h2", {
+      className: "CardText"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "TokenAmountRow"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "TokenSymbolCell"
+    }, toToken.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
+      className: "TokenAmountCell"
+    }, format(toTokenReadableAmount)))), salePerTokenValue && /*#__PURE__*/React.createElement("h3", {
+      className: "CardText small"
+    }, /*#__PURE__*/React.createElement("small", null, salePerTokenValue, " per token")))), /*#__PURE__*/React.createElement("div", {
+      className: "CardAction"
+    }, /*#__PURE__*/React.createElement(ChevronRight, null))), /*#__PURE__*/React.createElement("div", {
+      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+      title: paymentState == 'initialized' ? "Change payment" : undefined,
+      onClick: function onClick() {
+        if (paymentState != 'initialized') {
+          return;
+        }
+
+        navigate('ChangePayment');
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardImage",
+      title: payment.name
+    }, /*#__PURE__*/React.createElement(TokenImage, {
+      blockchain: payment.route.blockchain,
+      address: payment.token
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardBodyWrapper"
+    }, /*#__PURE__*/React.createElement("h4", {
+      className: "CardTitle"
+    }, "Payment"), /*#__PURE__*/React.createElement("h2", {
+      className: "CardText"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "TokenAmountRow"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "TokenSymbolCell"
+    }, payment.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
+      className: "TokenAmountCell"
+    }, format(payment.amount)))))), /*#__PURE__*/React.createElement("div", {
+      className: "CardAction"
+    }, /*#__PURE__*/React.createElement(ChevronRight, null)))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement(Footer, null))
+  });
+});
+
+var SaleStack = (function (props) {
+  var _useContext = useContext(ClosableContext),
+      open = _useContext.open,
+      close = _useContext.close;
+
+  var _useContext2 = useContext(NavigateContext),
+      setNavigate = _useContext2.setNavigate;
+
+  return /*#__PURE__*/React.createElement(ReactDialogStack, {
+    setNavigate: setNavigate,
+    open: open,
+    close: close,
+    start: "SaleOverview",
+    container: props.container,
+    document: props.document,
+    dialogs: {
+      SaleOverview: /*#__PURE__*/React.createElement(SaleOverviewDialog, null),
+      ChangeAmount: /*#__PURE__*/React.createElement(ChangeAmountDialog, null),
+      ChangePayment: /*#__PURE__*/React.createElement(ChangePaymentDialog, null),
+      NoPaymentMethodFound: /*#__PURE__*/React.createElement(NoPaymentMethodFoundDialog, null),
+      PaymentError: /*#__PURE__*/React.createElement(PaymentErrorDialog, null),
+      WrongNetwork: /*#__PURE__*/React.createElement(WrongNetworkDialog, null)
+    }
+  });
+});
+
+var preflight = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+    var sell;
+    return regenerator.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            sell = _ref.sell;
+
+            if (!(_typeof(sell) != 'object')) {
+              _context.next = 3;
+              break;
+            }
+
+            throw 'You need to configure at least 1 "blockchain": "token"';
+
+          case 3:
+            if (!(Object.keys(sell).length == 0)) {
+              _context.next = 5;
+              break;
+            }
+
+            throw 'You need to configure at least 1 "blockchain": "token"';
+
+          case 5:
+            if (!(Object.values(sell).length == 0)) {
+              _context.next = 7;
+              break;
+            }
+
+            throw 'You need to configure at least 1 "blockchain": "token"';
+
+          case 7:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function preflight(_x) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var Sale = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
+    var amount, sell, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, tokenImage, closable, integration, document, accept, unmount;
+    return regenerator.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, closable = _ref3.closable, integration = _ref3.integration, document = _ref3.document;
+            requireReactVersion();
+            _context2.prev = 2;
+            _context2.next = 5;
+            return preflight({
+              sell: sell
+            });
+
+          case 5:
+            accept = Object.keys(sell).map(function (key) {
+              return {
+                blockchain: key,
+                token: sell[key]
+              };
+            });
+            unmount = mount({
+              style: style,
+              document: ensureDocument(document),
+              closed: closed
+            }, function (unmount) {
+              return function (container) {
+                return /*#__PURE__*/React.createElement(ErrorProvider, {
+                  errorCallback: error,
+                  container: container,
+                  unmount: unmount
+                }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
+                  configuration: {
+                    type: 'sale',
+                    tokenImage: tokenImage,
+                    amount: amount,
+                    sell: sell,
+                    currency: currency,
+                    sent: sent,
+                    confirmed: confirmed,
+                    failed: failed,
+                    blacklist: blacklist,
+                    providers: providers,
+                    integration: integration
+                  }
+                }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
+                  unmount: unmount,
+                  closable: closable
+                }, /*#__PURE__*/React.createElement(WalletProvider, {
+                  container: container,
+                  connected: connected,
+                  unmount: unmount
+                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(ConversionRateProvider, null, /*#__PURE__*/React.createElement(ChangableAmountProvider, {
+                  accept: accept
+                }, /*#__PURE__*/React.createElement(TransactionTrackingProvider, null, /*#__PURE__*/React.createElement(PaymentTrackingProvider, {
+                  document: ensureDocument(document)
+                }, /*#__PURE__*/React.createElement(SaleRoutingProvider, {
+                  container: container,
+                  document: document
+                }, /*#__PURE__*/React.createElement(SaleStack, {
+                  document: document,
+                  container: container
+                }), /*#__PURE__*/React.createElement(PoweredBy, null))))))))))));
+              };
+            });
+            return _context2.abrupt("return", {
+              unmount: unmount
+            });
+
+          case 10:
+            _context2.prev = 10;
+            _context2.t0 = _context2["catch"](2);
+            console.log('critical error', _context2.t0);
+
+            if (critical != undefined) {
+              critical(_context2.t0);
+            }
+
+          case 14:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[2, 10]]);
+  }));
+
+  return function Sale(_x2) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+var SelectionContext = /*#__PURE__*/React.createContext();
+
+var SelectionProvider = (function (props) {
+  var _useState = useState({}),
+      _useState2 = _slicedToArray(_useState, 2),
+      selection = _useState2[0],
+      setSelection = _useState2[1];
+
+  return /*#__PURE__*/React.createElement(SelectionContext.Provider, {
+    value: {
+      selection: selection,
+      setSelection: setSelection
+    }
+  }, props.children);
+});
+
+var msToTime = (function (ms) {
+  var year, month, day, hour, minute, second;
+  second = Math.floor(ms / 1000);
+  minute = Math.floor(second / 60);
+  second = second % 60;
+  hour = Math.floor(minute / 60);
+  minute = minute % 60;
+  day = Math.floor(hour / 24);
+  hour = hour % 24;
+  month = Math.floor(day / 30);
+  day = day % 30;
+  year = Math.floor(month / 12);
+  month = month % 12;
+  return {
+    year: year,
+    month: month,
+    day: day,
+    hour: hour,
+    minute: minute,
+    second: second
+  };
+});
+
+var ConfirmTokenSelectionDialog = (function (props) {
+  var _useContext = useContext(SelectionContext),
+      selection = _useContext.selection;
+
+  var _useContext2 = useContext(ClosableContext),
+      setOpen = _useContext2.setOpen;
+
+  var token = selection.token;
+  var address = token.address || token.external_id;
+  var logo = token.logo || token.image;
+  var blockchain = Blockchain.findByName(token.blockchain);
+  var age = token.first_transfer ? msToTime(new Date() - new Date(token.first_transfer)) : undefined;
+
+  if (age) {
+    age = [age.year && age.year >= 1 ? age.year >= 2 ? "".concat(age.year, " years") : "1 year" : undefined, age.month && age.month >= 1 ? age.month >= 2 ? "".concat(age.month, " months") : "1 month" : undefined, age.day && age.day >= 1 && age.month <= 1 && age.year < 1 ? age.day >= 2 ? "".concat(age.day, " days !!!") : "1 day !!!" : undefined].filter(function (n) {
+      return n;
+    }).join(' ');
+  }
+
+  var holders = token.unique_senders ? token.unique_senders : undefined;
+
+  if (holders) {
+    if (holders > 1000000) {
+      holders = "Millions";
+    } else if (holders > 100000) {
+      holders = "Hundreds of Thousands";
+    } else if (holders > 2000) {
+      holders = "Thousands";
+    } else if (holders > 100) {
+      holders = "Hundreds";
+    } else {
+      holders = "Only a Few!!!";
+    }
+  }
+
+  var onClickConfirm = function onClickConfirm() {
+    setOpen(false);
+    props.resolve({
+      blockchain: token.blockchain,
+      address: token.external_id || token.address,
+      symbol: token.symbol,
+      name: token.name,
+      decimals: token.decimals,
+      logo: token.image || token.logo
+    });
+    setTimeout(props.unmount, 300);
+  };
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Confirm Selection"))),
+    stacked: true,
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "TokenImage medium TextCenter"
+    }, logo && /*#__PURE__*/React.createElement("img", {
+      src: logo
+    }), !logo && /*#__PURE__*/React.createElement(TokenImage, {
+      blockchain: token.blockchain,
+      address: address
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS TextCenter"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Alert FontSizeS"
+    }, /*#__PURE__*/React.createElement("strong", null, "Please review this information"))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("table", {
+      className: "Table TextLeft FontSizeS"
+    }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", {
+      className: "small TextCenter"
+    }, /*#__PURE__*/React.createElement("td", {
+      colSpan: "2"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
+      className: "Link",
+      href: blockchain.explorerUrlFor({
+        token: address
+      }),
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }, address)))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "TableSubTitle"
+    }, "Blockchain")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, blockchain.label))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "TableSubTitle"
+    }, "Symbol")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, token.symbol))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "TableSubTitle"
+    }, "Name")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, token.name))), age && /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "TableSubTitle"
+    }, "Age")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, age))), holders && /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "TableSubTitle"
+    }, "Holders")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, holders))))))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: onClickConfirm
+    }, "Confirm"))
+  });
+});
+
+var SelectBlockchainDialog = (function (props) {
+  var _useContext = useContext(SelectionContext),
+      setSelection = _useContext.setSelection;
+
+  var _useContext2 = useContext(NavigateStackContext),
+      navigate = _useContext2.navigate;
+
+  var stacked = Object.keys(props.selection).length > 1;
+  var blockchains = [Blockchain.findByName('ethereum'), Blockchain.findByName('bsc'), Blockchain.findByName('polygon')];
+
+  var selectBlockchain = function selectBlockchain(blockchain) {
+    setSelection(Object.assign(props.selection, {
+      blockchain: blockchain
+    }));
+
+    if (stacked) {
+      navigate('back');
+    } else {
+      props.resolve(blockchain);
+    }
+  };
+
+  var elements = blockchains.map(function (blockchain, index) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: index,
+      className: "Card Row",
+      onClick: function onClick() {
+        return selectBlockchain(blockchain);
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardImage"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "transparent",
+      src: blockchain.logo
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "CardText"
+    }, blockchain.label)));
+  });
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Select Blockchain"))),
+    stacked: stacked,
+    bodyClassName: "ScrollHeight",
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS"
+    }, elements),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
+    })
+  });
 });
 
 var SelectTokenDialog = (function (props) {
