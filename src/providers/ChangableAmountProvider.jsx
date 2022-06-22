@@ -28,10 +28,14 @@ export default (props)=>{
   const [ acceptWithAmount, setAcceptWithAmount ] = useState()
   const [ fixedAmount ] = useState((typeof amountConfiguration == 'object' && amountConfiguration.fix && amountConfiguration.currency) ? amountConfiguration.fix : null)
   const [ fixedCurrency ] = useState((typeof amountConfiguration == 'object' && amountConfiguration.fix && amountConfiguration.currency) ? amountConfiguration.currency : null)
-  let startAmount = 1
-  if(amountsMissing && (typeof amountConfiguration == "object" && amountConfiguration.start && amountConfiguration.start)) {
-    startAmount = amountConfiguration.start
-  }
+  let startAmount
+  if(amountsMissing) {
+    if((typeof amountConfiguration == "object" && amountConfiguration.start && amountConfiguration.start)) {
+      startAmount = amountConfiguration.start
+    } else {
+      startAmount = 1
+    }
+  } else if()
   const [ amount, setAmount ] = useState(startAmount)
   const [ maxRoute, setMaxRoute ] = useState()
   const [ maxAmount, setMaxAmount ] = useState(100)

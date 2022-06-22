@@ -23,7 +23,7 @@ export default (props)=>{
   if(payment == undefined || (recover == undefined && paymentValue == undefined)) { return(<PaymentOverviewSkeleton/>) }
 
   const blockchain = Blockchain.findByName(payment.blockchain)
-
+  
   return(
     <Dialog
       header={
