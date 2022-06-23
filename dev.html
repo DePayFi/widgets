@@ -538,8 +538,9 @@
                   var button = document.getElementById("payWithFixedCurrencyAmount");
                   button.addEventListener("click",function(e){
                     DePayWidgets.Payment({
+                      currency: 'EUR',
                       amount: {
-                        fix: 1,
+                        fix: 5,
                         currency: 'EUR'
                       },
                       accept: [

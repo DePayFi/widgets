@@ -32,6 +32,8 @@ export default (props)=>{
   if(amountsMissing) {
     if((typeof amountConfiguration == "object" && amountConfiguration.start && amountConfiguration.start)) {
       startAmount = amountConfiguration.start
+    } else if (typeof amountConfiguration == "object" && amountConfiguration.fix) {
+      startAmount = amountConfiguration.fix
     } else {
       startAmount = 1
     }

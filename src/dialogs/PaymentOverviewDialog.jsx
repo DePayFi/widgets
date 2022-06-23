@@ -76,7 +76,7 @@ export default (props)=>{
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">
-                { amountsMissing &&
+                { amountsMissing && !fixedCurrency &&
                   <h4 className="CardTitle">
                     Payment
                   </h4>
