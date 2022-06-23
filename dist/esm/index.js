@@ -19288,6 +19288,8 @@ var ChangableAmountProvider = (function (props) {
   if (amountsMissing) {
     if (_typeof(amountConfiguration) == "object" && amountConfiguration.start && amountConfiguration.start) {
       startAmount = amountConfiguration.start;
+    } else if (_typeof(amountConfiguration) == "object" && amountConfiguration.fix) {
+      startAmount = amountConfiguration.fix;
     } else {
       startAmount = 1;
     }
@@ -22308,8 +22310,8 @@ var PaymentOverviewDialog = (function (props) {
   var _useContext3 = useContext(ChangableAmountContext),
       amount = _useContext3.amount,
       amountsMissing = _useContext3.amountsMissing,
-      fixedAmount = _useContext3.fixedAmount;
-      _useContext3.fixedCurrency;
+      fixedAmount = _useContext3.fixedAmount,
+      fixedCurrency = _useContext3.fixedCurrency;
 
   var _useContext4 = useContext(PaymentValueContext),
       paymentValue = _useContext4.paymentValue;
@@ -22380,7 +22382,7 @@ var PaymentOverviewDialog = (function (props) {
       className: "CardBody"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardBodyWrapper"
-    }, amountsMissing && /*#__PURE__*/React.createElement("h4", {
+    }, amountsMissing && !fixedCurrency && /*#__PURE__*/React.createElement("h4", {
       className: "CardTitle"
     }, "Payment"), /*#__PURE__*/React.createElement("h2", {
       className: "CardText"

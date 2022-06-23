@@ -19283,6 +19283,8 @@
     if (amountsMissing) {
       if (_typeof(amountConfiguration) == "object" && amountConfiguration.start && amountConfiguration.start) {
         startAmount = amountConfiguration.start;
+      } else if (_typeof(amountConfiguration) == "object" && amountConfiguration.fix) {
+        startAmount = amountConfiguration.fix;
       } else {
         startAmount = 1;
       }
@@ -22303,8 +22305,8 @@
     var _useContext3 = React.useContext(ChangableAmountContext),
         amount = _useContext3.amount,
         amountsMissing = _useContext3.amountsMissing,
-        fixedAmount = _useContext3.fixedAmount;
-        _useContext3.fixedCurrency;
+        fixedAmount = _useContext3.fixedAmount,
+        fixedCurrency = _useContext3.fixedCurrency;
 
     var _useContext4 = React.useContext(PaymentValueContext),
         paymentValue = _useContext4.paymentValue;
@@ -22375,7 +22377,7 @@
         className: "CardBody"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardBodyWrapper"
-      }, amountsMissing && /*#__PURE__*/React__default['default'].createElement("h4", {
+      }, amountsMissing && !fixedCurrency && /*#__PURE__*/React__default['default'].createElement("h4", {
         className: "CardTitle"
       }, "Payment"), /*#__PURE__*/React__default['default'].createElement("h2", {
         className: "CardText"
