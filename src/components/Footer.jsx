@@ -156,7 +156,9 @@ export default ()=>{
 
   const mainAction = ()=> {
     let displayedAmount
-    if(amount && (configuredAmount == undefined || configuredAmount.token != true)) {
+    if(amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
+      displayedAmount = paymentValue.toString()
+    } else if(amount && (configuredAmount == undefined || configuredAmount.token != true)) {
       displayedAmount = new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString()
     } else if(paymentValue && paymentValue.toString().length) {
       displayedAmount = paymentValue.toString()

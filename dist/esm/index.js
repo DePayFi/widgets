@@ -21122,7 +21122,9 @@ var Footer = (function () {
   var mainAction = function mainAction() {
     var displayedAmount;
 
-    if (amount && (configuredAmount == undefined || configuredAmount.token != true)) {
+    if (amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
+      displayedAmount = paymentValue.toString();
+    } else if (amount && (configuredAmount == undefined || configuredAmount.token != true)) {
       displayedAmount = new Currency({
         amount: amount.toFixed(2),
         code: currencyCode

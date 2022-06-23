@@ -21117,7 +21117,9 @@
     var mainAction = function mainAction() {
       var displayedAmount;
 
-      if (amount && (configuredAmount == undefined || configuredAmount.token != true)) {
+      if (amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
+        displayedAmount = paymentValue.toString();
+      } else if (amount && (configuredAmount == undefined || configuredAmount.token != true)) {
         displayedAmount = new localCurrency.Currency({
           amount: amount.toFixed(2),
           code: currencyCode
