@@ -16,14 +16,14 @@ import { TokenImage } from '@depay/react-token-image'
 export default (props)=>{
   const { currencyCode, recover } = useContext(ConfigurationContext)
   const { payment, paymentState } = useContext(PaymentContext)
-  const { amount, amountsMissing } = useContext(ChangableAmountContext)
+  const { amount, amountsMissing, fixedAmount, fixedCurrency } = useContext(ChangableAmountContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
 
   if(payment == undefined || (recover == undefined && paymentValue == undefined)) { return(<PaymentOverviewSkeleton/>) }
 
   const blockchain = Blockchain.findByName(payment.blockchain)
-
+  
   return(
     <Dialog
       header={
@@ -33,7 +33,7 @@ export default (props)=>{
       }
       body={
         <div className="PaddingLeftM PaddingRightM PaddingBottomXS">
-          { amountsMissing &&
+          { amountsMissing && !fixedAmount &&
             <div 
               className={["Card", (paymentState == 'initialized' ? '' : 'disabled')].join(' ')}
               title={paymentState == 'initialized' ? "Change amount" : undefined}
@@ -76,7 +76,7 @@ export default (props)=>{
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">
-                { amountsMissing &&
+                { amountsMissing && !fixedCurrency &&
                   <h4 className="CardTitle">
                     Payment
                   </h4>

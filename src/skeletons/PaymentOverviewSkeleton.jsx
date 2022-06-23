@@ -4,7 +4,7 @@ import Dialog from '../components/Dialog'
 import React, { useContext } from 'react'
 
 export default (props)=>{
-  const { amountsMissing } = useContext(ChangableAmountContext)
+  const { amountsMissing, fixedAmount } = useContext(ChangableAmountContext)
   const { slowRouting, selectedRoute } = useContext(PaymentRoutingContext)
 
   return(
@@ -16,7 +16,7 @@ export default (props)=>{
       }
       body={
         <div className="PaddingLeftM PaddingRightM PaddingBottomXS">
-          { amountsMissing &&
+          { amountsMissing && !fixedAmount &&
             <div className="Card Skeleton">
               <div className="SkeletonBackground"/>
             </div>

@@ -161,6 +161,29 @@ The address receiving the payment. Always double check that you've set the right
 
 #### amount (DePay Payments)
 
+##### fixed currency amounts
+
+If you want the widget to fix a payment amount in a currency, use `currency` and `fix`:
+
+`currency`: 
+
+Example (charge US$5.20):
+
+```
+{
+  amount: {
+    currency: 'USD',
+    fix: 5.20
+  }
+}
+```
+
+Make sure to not pass any amounts to `accept` if you use fix currency amounts.
+
+The widget will still display local currency conversions to users. If you want to change this see `currency` configuration.
+
+##### amount selection (changable amounts)
+
 When you want to control how the amount selection behaves, pass the `amount` configuration object,
 alongside values for `start`, `min` and `step`.
 
