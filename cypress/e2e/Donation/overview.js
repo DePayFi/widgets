@@ -229,7 +229,9 @@ describe('Donation Widget: overview', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Donation({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('a').invoke('attr', 'href').should('eq', 'https://depay.fi?utm_source=localhost&utm_medium=widget&utm_campaign=WidgetV2')
+          cy.wait(2000).then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('a').invoke('attr', 'href').should('eq', 'https://depay.fi?utm_source=localhost&utm_medium=widget&utm_campaign=WidgetV2')
+          })
         })
       })
     })
