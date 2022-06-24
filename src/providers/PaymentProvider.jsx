@@ -17,7 +17,7 @@ import { Token } from '@depay/web3-tokens'
 
 export default (props)=>{
   const { setError } = useContext(ErrorContext)
-  const { sent, confirmed, failed, recover } = useContext(ConfigurationContext)
+  const { sent, confirmed, failed, recover, before } = useContext(ConfigurationContext)
   const { selectedRoute, getPaymentRoutes } = useContext(PaymentRoutingContext)
   const { open, close, setClosable } = useContext(ClosableContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
@@ -47,6 +47,10 @@ export default (props)=>{
   }
 
   const pay = async ()=> {
+    if(before) {
+      let stop = before(payment.route.transaction)
+      if(stop === false){ return }
+    }
     setClosable(false)
     setPaymentState('paying')
     setUpdatable(false)

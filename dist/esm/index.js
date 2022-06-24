@@ -19602,7 +19602,8 @@ var PaymentProvider = (function (props) {
       _sent = _useContext2.sent,
       confirmed = _useContext2.confirmed,
       failed = _useContext2.failed,
-      recover = _useContext2.recover;
+      recover = _useContext2.recover,
+      before = _useContext2.before;
 
   var _useContext3 = useContext(PaymentRoutingContext),
       selectedRoute = _useContext3.selectedRoute,
@@ -19680,21 +19681,36 @@ var PaymentProvider = (function (props) {
 
   var pay = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-      var currentBlock;
+      var stop, currentBlock;
       return regenerator.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              if (!before) {
+                _context.next = 4;
+                break;
+              }
+
+              stop = before(payment.route.transaction);
+
+              if (!(stop === false)) {
+                _context.next = 4;
+                break;
+              }
+
+              return _context.abrupt("return");
+
+            case 4:
               setClosable(false);
               setPaymentState('paying');
               setUpdatable(false);
-              _context.next = 5;
+              _context.next = 9;
               return request({
                 blockchain: payment.route.transaction.blockchain,
                 method: 'latestBlockNumber'
               });
 
-            case 5:
+            case 9:
               currentBlock = _context.sent;
               wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
                 sent: function sent(transaction) {
@@ -19720,7 +19736,7 @@ var PaymentProvider = (function (props) {
                 }
               });
 
-            case 7:
+            case 11:
             case "end":
               return _context.stop();
           }
@@ -22482,12 +22498,12 @@ var preflight$1 = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, amount, event, sent, confirmed, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, container, document, unmount;
+    var accept, amount, event, sent, confirmed, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, container, before, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, container = _ref3.container, document = _ref3.document;
+            accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, container = _ref3.container, before = _ref3.before, document = _ref3.document;
             requireReactVersion();
             _context2.prev = 2;
             _context2.next = 5;
@@ -22511,6 +22527,7 @@ var Payment = /*#__PURE__*/function () {
                 }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
                   configuration: {
                     type: 'payment',
+                    before: before,
                     amount: amount,
                     accept: accept,
                     currency: currency,

@@ -418,6 +418,24 @@ DePayWidgets.Payment({
 
 ```
 
+#### before (DePay Payments)
+
+`before`
+
+A function that will be called before the payment is handed over to the wallet.
+
+Allows you to stop the payment if this methods returns false.
+
+```javascript
+DePayWidgets.Payment({
+
+  before: (payment)=> {
+    alert('Something went wrong')
+    return false // stops payment
+  }
+})
+```
+
 #### sent (DePay Payments)
 
 `sent`
