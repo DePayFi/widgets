@@ -20483,16 +20483,16 @@
 
       Promise.all([web3Exchanges.route({
         blockchain: payment.route.blockchain,
-        tokenIn: payment.route.toToken.address,
+        tokenIn: payment.route.fromToken.address,
         tokenOut: web3Constants.CONSTANTS[payment.route.blockchain].USD,
-        amountIn: payment.route.toAmount,
+        amountIn: payment.route.fromAmount,
         fromAddress: account,
         toAddress: account
       }), !payment.route.directTransfer ? web3Exchanges.route({
         blockchain: payment.route.blockchain,
-        tokenIn: payment.route.toToken.address,
+        tokenIn: payment.route.fromToken.address,
         tokenOut: payment.route.fromToken.address,
-        amountIn: payment.route.toAmount,
+        amountIn: payment.route.fromAmount,
         fromAddress: account,
         toAddress: account
       }) : Promise.resolve([]), new web3Tokens.Token({
@@ -20500,11 +20500,11 @@
         address: web3Constants.CONSTANTS[payment.route.blockchain].USD
       }).decimals()]).then(function (_ref2) {
         var _ref3 = _slicedToArray(_ref2, 3),
-            toTokenUSDExchangeRoutes = _ref3[0],
+            fromTokenUSDExchangeRoutes = _ref3[0],
             reverseRoutes = _ref3[1],
             USDDecimals = _ref3[2];
 
-        var toTokenUSDRoute = toTokenUSDExchangeRoutes[0];
+        var fromTokenUSDRoute = fromTokenUSDExchangeRoutes[0];
         var reverseRoute = reverseRoutes[0];
 
         if (reverseRoute) {
@@ -20519,20 +20519,20 @@
           }
         }
 
-        var toTokenUSDAmount;
+        var fromTokenUSDAmount;
 
-        if (payment.route.toToken.address.toLowerCase() == web3Constants.CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
-          toTokenUSDAmount = payment.route.toAmount.toString();
-        } else if (toTokenUSDRoute == undefined) {
+        if (payment.route.fromToken.address.toLowerCase() == web3Constants.CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+          fromTokenUSDAmount = payment.route.fromAmount.toString();
+        } else if (fromTokenUSDRoute == undefined) {
           setPaymentValue('');
           return;
         } else {
-          toTokenUSDAmount = toTokenUSDRoute.amountOut.toString();
+          fromTokenUSDAmount = fromTokenUSDAmount.amountOut.toString();
         }
 
-        var toTokenUSDValue = ethers.ethers.utils.formatUnits(toTokenUSDAmount, USDDecimals);
+        var fromTokenUSDValue = ethers.ethers.utils.formatUnits(fromTokenUSDAmount, USDDecimals);
         localCurrency.Currency.fromUSD({
-          amount: toTokenUSDValue,
+          amount: fromTokenUSDValue,
           code: currency
         }).then(setPaymentValue);
       })["catch"](setError);

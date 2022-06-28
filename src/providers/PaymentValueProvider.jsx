@@ -27,23 +27,23 @@ export default (props)=>{
     Promise.all([
       route({
         blockchain: payment.route.blockchain,
-        tokenIn: payment.route.toToken.address,
+        tokenIn: payment.route.fromToken.address,
         tokenOut: CONSTANTS[payment.route.blockchain].USD,
-        amountIn: payment.route.toAmount,
+        amountIn: payment.route.fromAmount,
         fromAddress: account,
         toAddress: account
       }),
       !payment.route.directTransfer ? route({
         blockchain: payment.route.blockchain,
-        tokenIn: payment.route.toToken.address,
+        tokenIn: payment.route.fromToken.address,
         tokenOut: payment.route.fromToken.address,
-        amountIn: payment.route.toAmount,
+        amountIn: payment.route.fromAmount,
         fromAddress: account,
         toAddress: account
       }) : Promise.resolve([]),
       (new Token({ blockchain: payment.route.blockchain, address: CONSTANTS[payment.route.blockchain].USD })).decimals()
-    ]).then(([toTokenUSDExchangeRoutes, reverseRoutes, USDDecimals])=>{
-      let toTokenUSDRoute = toTokenUSDExchangeRoutes[0]
+    ]).then(([fromTokenUSDExchangeRoutes, reverseRoutes, USDDecimals])=>{
+      let fromTokenUSDRoute = fromTokenUSDExchangeRoutes[0]
       let reverseRoute = reverseRoutes[0]
 
       if(reverseRoute) {
@@ -57,18 +57,18 @@ export default (props)=>{
         }
       }
 
-      let toTokenUSDAmount
-      if(payment.route.toToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
-        toTokenUSDAmount = payment.route.toAmount.toString()
-      } else if (toTokenUSDRoute == undefined) {
+      let fromTokenUSDAmount
+      if(payment.route.fromToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+        fromTokenUSDAmount = payment.route.fromAmount.toString()
+      } else if (fromTokenUSDRoute == undefined) {
         setPaymentValue('')
         return
       } else {
-        toTokenUSDAmount = toTokenUSDRoute.amountOut.toString()
+        fromTokenUSDAmount = fromTokenUSDAmount.amountOut.toString()
       }
 
-      let toTokenUSDValue = ethers.utils.formatUnits(toTokenUSDAmount, USDDecimals)
-      Currency.fromUSD({ amount: toTokenUSDValue, code: currency })
+      let fromTokenUSDValue = ethers.utils.formatUnits(fromTokenUSDAmount, USDDecimals)
+      Currency.fromUSD({ amount: fromTokenUSDValue, code: currency })
         .then(setPaymentValue)
     }).catch(setError)
   }
