@@ -20508,6 +20508,7 @@
         var reverseRoute = reverseRoutes[0];
 
         if (reverseRoute) {
+          console.log('reverseRoute', reverseRoute);
           var reverseAmountOutBN = ethers.ethers.BigNumber.from(reverseRoute.amountOut);
           var paymentAmountInBN = ethers.ethers.BigNumber.from(payment.route.fromAmount);
           var divPercent = 100 - reverseAmountOutBN.mul(ethers.ethers.BigNumber.from('100')).div(paymentAmountInBN).abs().toString();
@@ -20527,7 +20528,8 @@
           setPaymentValue('');
           return;
         } else {
-          fromTokenUSDAmount = fromTokenUSDAmount.amountOut.toString();
+          console.log('fromTokenUSDRoute', fromTokenUSDRoute);
+          fromTokenUSDAmount = fromTokenUSDRoute.amountOut.toString();
         }
 
         var fromTokenUSDValue = ethers.ethers.utils.formatUnits(fromTokenUSDAmount, USDDecimals);

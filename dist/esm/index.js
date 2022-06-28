@@ -20513,6 +20513,7 @@ var PaymentValueProvider = (function (props) {
       var reverseRoute = reverseRoutes[0];
 
       if (reverseRoute) {
+        console.log('reverseRoute', reverseRoute);
         var reverseAmountOutBN = ethers.BigNumber.from(reverseRoute.amountOut);
         var paymentAmountInBN = ethers.BigNumber.from(payment.route.fromAmount);
         var divPercent = 100 - reverseAmountOutBN.mul(ethers.BigNumber.from('100')).div(paymentAmountInBN).abs().toString();
@@ -20532,7 +20533,8 @@ var PaymentValueProvider = (function (props) {
         setPaymentValue('');
         return;
       } else {
-        fromTokenUSDAmount = fromTokenUSDAmount.amountOut.toString();
+        console.log('fromTokenUSDRoute', fromTokenUSDRoute);
+        fromTokenUSDAmount = fromTokenUSDRoute.amountOut.toString();
       }
 
       var fromTokenUSDValue = ethers.utils.formatUnits(fromTokenUSDAmount, USDDecimals);

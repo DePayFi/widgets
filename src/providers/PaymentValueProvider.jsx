@@ -64,7 +64,7 @@ export default (props)=>{
         setPaymentValue('')
         return
       } else {
-        fromTokenUSDAmount = fromTokenUSDAmount.amountOut.toString()
+        fromTokenUSDAmount = fromTokenUSDRoute.amountOut.toString()
       }
 
       let fromTokenUSDValue = ethers.utils.formatUnits(fromTokenUSDAmount, USDDecimals)
