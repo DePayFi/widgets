@@ -1060,10 +1060,10 @@
   dependencies:
     "@coinbase/wallet-sdk" "^3.0.5"
 
-"@depay/local-currency@^3.2.2":
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/@depay/local-currency/-/local-currency-3.2.2.tgz#b96aa8a361f864afd943baab014e8e4d2b492aa3"
-  integrity sha512-Y5INhuahlByYD1Flqs3PI0hnolK1RoZ90O0dQeoqgOAjvL+8JEkfWskKnVicEhlF2HHneQkeR0hVJxnePqKzng==
+"@depay/local-currency@^3.5.2":
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/@depay/local-currency/-/local-currency-3.5.2.tgz#e582ccc219983479f9b29bfed94d5f5401d4b85c"
+  integrity sha512-eqXiIN6LNavQBCygT0jkl7zIAvrupYzWFMwWZhh05zKxk34fc+Cj+CBj4BLF+H1VbJL6HX9FcYmttOdnVPkidw==
 
 "@depay/react-dialog-stack@^6.0.0":
   version "6.0.0"
