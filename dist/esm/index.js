@@ -20495,9 +20495,9 @@ var PaymentValueProvider = (function (props) {
       toAddress: account
     }), !payment.route.directTransfer ? route({
       blockchain: payment.route.blockchain,
-      tokenIn: payment.route.fromToken.address,
+      tokenIn: payment.route.toToken.address,
       tokenOut: payment.route.fromToken.address,
-      amountIn: payment.route.fromAmount,
+      amountIn: payment.route.toAmount,
       fromAddress: account,
       toAddress: account
     }) : Promise.resolve([]), new Token({
@@ -20513,7 +20513,6 @@ var PaymentValueProvider = (function (props) {
       var reverseRoute = reverseRoutes[0];
 
       if (reverseRoute) {
-        console.log('reverseRoute', reverseRoute);
         var reverseAmountOutBN = ethers.BigNumber.from(reverseRoute.amountOut);
         var paymentAmountInBN = ethers.BigNumber.from(payment.route.fromAmount);
         var divPercent = 100 - reverseAmountOutBN.mul(ethers.BigNumber.from('100')).div(paymentAmountInBN).abs().toString();
@@ -20533,7 +20532,6 @@ var PaymentValueProvider = (function (props) {
         setPaymentValue('');
         return;
       } else {
-        console.log('fromTokenUSDRoute', fromTokenUSDRoute);
         fromTokenUSDAmount = fromTokenUSDRoute.amountOut.toString();
       }
 
@@ -21142,12 +21140,12 @@ var Footer = (function () {
 
     if (amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
       displayedAmount = paymentValue.toString();
-    } else if (amount && (configuredAmount == undefined || configuredAmount.token != true)) {
+    } else if (amount && (configuredAmount == undefined || (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true)) {
       displayedAmount = new Currency({
         amount: amount.toFixed(2),
         code: currencyCode
       }).toString();
-    } else if (paymentValue && paymentValue.toString().length) {
+    } else if (paymentValue && paymentValue.toString().length && (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true) {
       displayedAmount = paymentValue.toString();
     } else {
       displayedAmount = "".concat(payment.symbol, " ").concat(payment.amount);

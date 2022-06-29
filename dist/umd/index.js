@@ -20490,9 +20490,9 @@
         toAddress: account
       }), !payment.route.directTransfer ? web3Exchanges.route({
         blockchain: payment.route.blockchain,
-        tokenIn: payment.route.fromToken.address,
+        tokenIn: payment.route.toToken.address,
         tokenOut: payment.route.fromToken.address,
-        amountIn: payment.route.fromAmount,
+        amountIn: payment.route.toAmount,
         fromAddress: account,
         toAddress: account
       }) : Promise.resolve([]), new web3Tokens.Token({
@@ -20508,7 +20508,6 @@
         var reverseRoute = reverseRoutes[0];
 
         if (reverseRoute) {
-          console.log('reverseRoute', reverseRoute);
           var reverseAmountOutBN = ethers.ethers.BigNumber.from(reverseRoute.amountOut);
           var paymentAmountInBN = ethers.ethers.BigNumber.from(payment.route.fromAmount);
           var divPercent = 100 - reverseAmountOutBN.mul(ethers.ethers.BigNumber.from('100')).div(paymentAmountInBN).abs().toString();
@@ -20528,7 +20527,6 @@
           setPaymentValue('');
           return;
         } else {
-          console.log('fromTokenUSDRoute', fromTokenUSDRoute);
           fromTokenUSDAmount = fromTokenUSDRoute.amountOut.toString();
         }
 
@@ -21137,12 +21135,12 @@
 
       if (amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
         displayedAmount = paymentValue.toString();
-      } else if (amount && (configuredAmount == undefined || configuredAmount.token != true)) {
+      } else if (amount && (configuredAmount == undefined || (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true)) {
         displayedAmount = new localCurrency.Currency({
           amount: amount.toFixed(2),
           code: currencyCode
         }).toString();
-      } else if (paymentValue && paymentValue.toString().length) {
+      } else if (paymentValue && paymentValue.toString().length && (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true) {
         displayedAmount = paymentValue.toString();
       } else {
         displayedAmount = "".concat(payment.symbol, " ").concat(payment.amount);
