@@ -158,9 +158,9 @@ export default ()=>{
     let displayedAmount
     if(amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
       displayedAmount = paymentValue.toString()
-    } else if(amount && (configuredAmount == undefined || configuredAmount.token != true)) {
+    } else if(amount && (configuredAmount == undefined || configuredAmount?.token != true)) {
       displayedAmount = new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString()
-    } else if(paymentValue && paymentValue.toString().length) {
+    } else if(paymentValue && paymentValue.toString().length && configuredAmount?.token != true) {
       displayedAmount = paymentValue.toString()
     } else {
       displayedAmount = `${payment.symbol} ${payment.amount}`

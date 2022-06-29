@@ -20488,9 +20488,9 @@ var PaymentValueProvider = (function (props) {
 
     Promise.all([route({
       blockchain: payment.route.blockchain,
-      tokenIn: payment.route.toToken.address,
+      tokenIn: payment.route.fromToken.address,
       tokenOut: CONSTANTS[payment.route.blockchain].USD,
-      amountIn: payment.route.toAmount,
+      amountIn: payment.route.fromAmount,
       fromAddress: account,
       toAddress: account
     }), !payment.route.directTransfer ? route({
@@ -20505,11 +20505,11 @@ var PaymentValueProvider = (function (props) {
       address: CONSTANTS[payment.route.blockchain].USD
     }).decimals()]).then(function (_ref2) {
       var _ref3 = _slicedToArray(_ref2, 3),
-          toTokenUSDExchangeRoutes = _ref3[0],
+          fromTokenUSDExchangeRoutes = _ref3[0],
           reverseRoutes = _ref3[1],
           USDDecimals = _ref3[2];
 
-      var toTokenUSDRoute = toTokenUSDExchangeRoutes[0];
+      var fromTokenUSDRoute = fromTokenUSDExchangeRoutes[0];
       var reverseRoute = reverseRoutes[0];
 
       if (reverseRoute) {
@@ -20524,20 +20524,20 @@ var PaymentValueProvider = (function (props) {
         }
       }
 
-      var toTokenUSDAmount;
+      var fromTokenUSDAmount;
 
-      if (payment.route.toToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
-        toTokenUSDAmount = payment.route.toAmount.toString();
-      } else if (toTokenUSDRoute == undefined) {
+      if (payment.route.fromToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+        fromTokenUSDAmount = payment.route.fromAmount.toString();
+      } else if (fromTokenUSDRoute == undefined) {
         setPaymentValue('');
         return;
       } else {
-        toTokenUSDAmount = toTokenUSDRoute.amountOut.toString();
+        fromTokenUSDAmount = fromTokenUSDRoute.amountOut.toString();
       }
 
-      var toTokenUSDValue = ethers.utils.formatUnits(toTokenUSDAmount, USDDecimals);
+      var fromTokenUSDValue = ethers.utils.formatUnits(fromTokenUSDAmount, USDDecimals);
       Currency.fromUSD({
-        amount: toTokenUSDValue,
+        amount: fromTokenUSDValue,
         code: currency
       }).then(setPaymentValue);
     })["catch"](setError);
@@ -21140,12 +21140,12 @@ var Footer = (function () {
 
     if (amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
       displayedAmount = paymentValue.toString();
-    } else if (amount && (configuredAmount == undefined || configuredAmount.token != true)) {
+    } else if (amount && (configuredAmount == undefined || (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true)) {
       displayedAmount = new Currency({
         amount: amount.toFixed(2),
         code: currencyCode
       }).toString();
-    } else if (paymentValue && paymentValue.toString().length) {
+    } else if (paymentValue && paymentValue.toString().length && (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true) {
       displayedAmount = paymentValue.toString();
     } else {
       displayedAmount = "".concat(payment.symbol, " ").concat(payment.amount);

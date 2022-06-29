@@ -1,5 +1,6 @@
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
+import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -26,6 +27,7 @@ describe('Payment Widget: change payment', () => {
   let TOKEN_A_AmountBN
   let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   let amount = 20
+  let exchange
   let defaultArguments = {
     accept: [{
       blockchain,
@@ -37,7 +39,7 @@ describe('Payment Widget: change payment', () => {
 
   beforeEach(()=>{
     
-    ({ WRAPPED_AmountInBN, TOKEN_A_AmountBN } = mockBasics({
+    ({ WRAPPED_AmountInBN, TOKEN_A_AmountBN, exchange } = mockBasics({
       provider: provider(blockchain),
       blockchain,
 
@@ -189,12 +191,24 @@ describe('Payment Widget: change payment', () => {
         }
       })
 
+      mockAmountsOut({
+        provider: provider(blockchain),
+        blockchain,
+        exchange,
+        amountInBN: '10000000000000000',
+        path: [WETH, DAI],
+        amountsOut: [
+          '10000000000000000',
+          '27000000000000000000'
+        ]
+      })
+
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €22.95')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
             confirm(mockedTransaction)

@@ -1,5 +1,6 @@
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
+import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -25,6 +26,7 @@ describe('Payment Widget: payment event', () => {
   let fromAddress = accounts[0]
   let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   let amount = 20
+  let exchange
   let TOKEN_A_AmountBN
   let defaultArguments = {
     accept: [{
@@ -37,7 +39,7 @@ describe('Payment Widget: payment event', () => {
 
   beforeEach(()=>{
 
-    ({ TOKEN_A_AmountBN } = mockBasics({
+    ({ TOKEN_A_AmountBN, exchange } = mockBasics({
       
       provider: provider(blockchain),
       blockchain,
@@ -93,6 +95,18 @@ describe('Payment Widget: payment event', () => {
   })
   
   it('emits an event if payment transaction goes through the router', () => {
+    
+    mockAmountsOut({
+      provider: provider(blockchain),
+      blockchain,
+      exchange,
+      amountInBN: '10000000000000000',
+      path: [WETH, DAI],
+      amountsOut: [
+        '10000000000000000',
+        '27000000000000000000'
+      ]
+    })
 
     let mockedTransaction = mock({
       blockchain,
@@ -141,7 +155,7 @@ describe('Payment Widget: payment event', () => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, event: 'ifSwapped', document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €22.95')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
