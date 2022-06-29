@@ -35,9 +35,9 @@ export default (props)=>{
       }),
       !payment.route.directTransfer ? route({
         blockchain: payment.route.blockchain,
-        tokenIn: payment.route.fromToken.address,
+        tokenIn: payment.route.toToken.address,
         tokenOut: payment.route.fromToken.address,
-        amountIn: payment.route.fromAmount,
+        amountIn: payment.route.toAmount,
         fromAddress: account,
         toAddress: account
       }) : Promise.resolve([]),
