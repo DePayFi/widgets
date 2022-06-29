@@ -220,7 +220,7 @@ describe('Sale Widget: amount', () => {
         amountsOut: [
           ethers.utils.parseUnits('36', 18),
           ethers.utils.parseUnits('0.1', 18),
-          ethers.utils.parseUnits('5.25', 18)
+          ethers.utils.parseUnits('36', 18)
         ]
       })
 
@@ -234,7 +234,7 @@ describe('Sale Widget: amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardTitle', 'Amount').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountCell', '9').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenSymbolCell', 'DEPAY').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardText small', '€0.50 per token').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardText small', '€0.85 per token').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '9').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €43.00').should('exist')
