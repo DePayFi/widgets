@@ -21619,7 +21619,11 @@
               setTimeout(function () {
                 props.document.location.href = data.forward_to;
               }, 100);
+            } else {
+              setClosable(true);
             }
+          })["catch"](function () {
+            setClosable(true);
           });
           clearInterval(pollingInterval);
           setRelease(true);

@@ -126,8 +126,10 @@ export default (props)=>{
           if(data && data.forward_to) {
             setForwardTo(data.forward_to)
             setTimeout(()=>{ props.document.location.href = data.forward_to }, 100)
+          } else {
+            setClosable(true)
           }
-        })
+        }).catch(()=>{ setClosable(true) })
         clearInterval(pollingInterval)
         setRelease(true)
       }

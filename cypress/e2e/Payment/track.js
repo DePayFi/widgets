@@ -1129,4 +1129,125 @@ describe('Payment Widget: track', () => {
       })
     })
   })
+
+  it.only('allows to configure additional polling method to retrieve payment status in case socket communication fails without forward_to', () => {
+    let mockedTransaction = mock({
+      blockchain,
+      transaction: {
+        from: fromAddress,
+        to: DEPAY,
+        api: Token[blockchain].DEFAULT,
+        method: 'transfer',
+        params: [toAddress, TOKEN_A_AmountBN]
+      }
+    })
+
+    fetchMock.post({
+      url: "https://public.depay.fi/payments",
+      body: {
+        after_block: 1,
+        amount: "20.0",
+        blockchain: "ethereum",
+        confirmations: 1,
+        fee_amount: null,
+        fee_receiver: null,
+        nonce: 0,
+        payload: {
+          sender_amount: "20.0",
+          sender_id: fromAddress.toLowerCase(),
+          sender_token_id: DEPAY,
+          type: 'payment'
+        },
+        receiver: toAddress,
+        sender: fromAddress.toLowerCase(),
+        token: DEPAY,
+        transaction: mockedTransaction.transaction._id,
+        uuid: mockedTransaction.transaction._id,
+      },
+    }, 201)
+
+    fetchMock.post({
+      url: "/track/payments",
+      body: {
+        "blockchain": blockchain,
+        "sender": fromAddress.toLowerCase(),
+        "nonce": 0,
+        "after_block": 1,
+        "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
+      },
+      matchPartialBody: true,
+      overwriteRoutes: false
+    }, 200)
+
+    let attempt = 0
+    fetchMock.post({
+      url: "/payments/status",
+      body: {
+        "blockchain": blockchain,
+        "sender": fromAddress.toLowerCase(),
+        "nonce": 0,
+        "after_block": 1,
+        "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
+      },
+      headers: {
+        'x-custom-header': '1'
+      },
+      matchPartialBody: true,
+      overwriteRoutes: false
+    }, ()=>{
+      attempt += 1
+      if(attempt <= 2) {
+        return 404
+      } else {
+        return {}
+      }
+    })
+
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        let errorCallbackError
+        DePayWidgets.Payment({ ...defaultArguments, document,
+          track: {
+            endpoint: '/track/payments',
+            poll: {
+              method: (payment)=>{
+                return fetch('/payments/status', {
+                  method: 'POST',
+                  body: JSON.stringify(payment),
+                  headers: { "Content-Type": "application/json", "x-custom-header": "1" }
+                })
+              }
+            }
+          }
+        })
+        cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click().then(()=>{
+            cy.wait(9000).then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying').then(()=>{
+                confirm(mockedTransaction)
+                cy.wait(1000).then(()=>{
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
+                    cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Close').should('not.exist')
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
+                      cy.wait(5000).then(()=>{
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+                        cy.wait(1000).then(()=>{
+                          cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+                        })
+                      })
+                    })
+                  })
+                })
+              })
+            })
+          })
+        })
+      })
+    })
+  })
 })
