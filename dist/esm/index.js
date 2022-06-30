@@ -1218,7 +1218,6 @@ var ConnectStack = (function (props) {
       setWallet = _useState4[1];
 
   var connect = function connect(wallet) {
-    console.log('CONNECT');
     wallet.connect().then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
       var accounts;
       return regenerator.wrap(function _callee$(_context) {
@@ -21569,8 +21568,6 @@ var PaymentTrackingProvider = (function (props) {
   };
 
   var callTracking = function callTracking(payment) {
-    console.log('TRACK !!!', payment);
-
     if (track.endpoint) {
       return fetch(track.endpoint, {
         method: 'POST',
@@ -21589,7 +21586,6 @@ var PaymentTrackingProvider = (function (props) {
   var startTracking = function startTracking(transaction, afterBlock, paymentRoute, attempt) {
     var _paymentRoute$feeAmou;
 
-    console.log('paymentRoute', paymentRoute);
     callTracking({
       blockchain: transaction.blockchain,
       transaction: transaction.id.toLowerCase(),

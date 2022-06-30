@@ -12,7 +12,6 @@ export default (props)=>{
   const [ wallet, setWallet ] = useState()
 
   const connect = (wallet)=> {
-    console.log('CONNECT')
     wallet.connect().then(async ()=>{
       let accounts = await wallet.accounts()
       if(accounts instanceof Array && accounts.length > 0) {
