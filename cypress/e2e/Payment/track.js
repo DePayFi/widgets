@@ -5,7 +5,7 @@ import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from '@depay/web3-constants'
-import { mock, confirm, increaseBlock, resetMocks } from '@depay/web3-mock'
+import { mock, confirm, increaseBlock, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, provider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Server } from 'mock-socket'
@@ -15,6 +15,7 @@ describe('Payment Widget: track', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
+  const feeReceiver = '0xe7a2Ee8EdaD975D2EcCb04A53Cb020b64Edd0762'
   beforeEach(resetMocks)
   beforeEach(resetCache)
   beforeEach(()=>fetchMock.restore())
@@ -182,6 +183,134 @@ describe('Payment Widget: track', () => {
                     "nonce": 0,
                     "after_block": 1,
                     "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
+                  },
+                  matchPartialBody: true
+                })
+              ).to.equal(true)
+              confirm(mockedTransaction)
+              cy.wait(1000).then(()=>{
+                expect(!!websocketMessages.find((rawMessage)=>{
+                  let message = JSON.parse(rawMessage)
+                  return(
+                    message.command == 'subscribe' &&
+                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: 0, channel: 'PaymentChannel' })
+                  )
+                })).to.equal(true)
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
+                  cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Close').should('not.exist')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Validating payment').find('.Loading')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
+                    mockedWebsocket.send(JSON.stringify({
+                      message: {
+                        release: true
+                      }
+                    }))
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').then(()=>{
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').find('.Checkmark')
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').click().then(()=>{
+                        cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+                      })
+                    })
+                  })
+                })
+              })
+            })
+          })
+        })
+      })
+    })
+  })
+
+  it('tracks payments with fees', () => {
+    let mockedTransaction = mock({
+      blockchain,
+      transaction: {
+        to: "0xae60ac8e69414c2dc362d0e6a03af643d1d85b92",
+        api: routers[blockchain].api,
+        method: 'route',
+        params: {
+          path: ["0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"],
+          amounts: ["20000000000000000000", "19800000000000000000", anything, '0', '200000000000000000'],
+          addresses: [fromAddress, feeReceiver, toAddress],
+          plugins: [
+            plugins[blockchain].payment.address,
+            plugins[blockchain].paymentFee.address
+          ],
+          data:[]
+        }
+      }
+    })
+
+    fetchMock.post({
+      url: "https://public.depay.fi/payments",
+      body: {
+        after_block: 1,
+        amount: "19.8",
+        blockchain: "ethereum",
+        confirmations: 1,
+        fee_amount: '0.2',
+        fee_receiver: feeReceiver,
+        nonce: 0,
+        payload: {
+          sender_amount: "20.0",
+          sender_id: fromAddress.toLowerCase(),
+          sender_token_id: DEPAY,
+          type: 'payment'
+        },
+        receiver: toAddress,
+        sender: fromAddress.toLowerCase(),
+        token: DEPAY,
+        transaction: mockedTransaction.transaction._id,
+        uuid: mockedTransaction.transaction._id,
+      },
+    }, 201)
+
+    let trackingRequestMock = fetchMock.post({
+      url: "/track/payments",
+      body: {
+        "blockchain": blockchain,
+        "sender": fromAddress.toLowerCase(),
+        "nonce": 0,
+        "after_block": 1,
+        "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
+        "to_amount": "19800000000000000000",
+        "fee_amount": "200000000000000000",
+      },
+      matchPartialBody: true
+    }, 200)
+
+    mockedWebsocketServer.on('connection', socket => {
+      mockedWebsocket = socket
+      mockedWebsocket.on('message', data => {
+        websocketMessages.push(data)
+      })
+    })
+
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        DePayWidgets.Payment({ ...defaultArguments, fee: {
+          amount: '1%',
+          receiver: feeReceiver
+        }, document })
+        cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click().then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying').then(()=>{
+              expect(
+                fetchMock.called('/track/payments', {
+                  body: {
+                    "blockchain": blockchain,
+                    "sender": fromAddress.toLowerCase(),
+                    "nonce": 0,
+                    "after_block": 1,
+                    "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
+                    "to_amount": "19800000000000000000",
+                    "fee_amount": "200000000000000000",
                   },
                   matchPartialBody: true
                 })
@@ -1130,7 +1259,7 @@ describe('Payment Widget: track', () => {
     })
   })
 
-  it.only('allows to configure additional polling method to retrieve payment status in case socket communication fails without forward_to', () => {
+  it('allows to configure additional polling method to retrieve payment status in case socket communication fails without forward_to', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {

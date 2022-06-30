@@ -70,6 +70,7 @@ export default (props)=>{
   }
 
   const callTracking = (payment)=>{
+    console.log('TRACK !!!', payment)
     if(track.endpoint){
       return fetch(track.endpoint, {
         method: 'POST',
@@ -84,6 +85,7 @@ export default (props)=>{
   }
 
   const startTracking = (transaction, afterBlock, paymentRoute, attempt)=> {
+    console.log('paymentRoute', paymentRoute)
     callTracking({
       blockchain: transaction.blockchain,
       transaction: transaction.id.toLowerCase(),
@@ -91,7 +93,8 @@ export default (props)=>{
       nonce: transaction.nonce,
       after_block: afterBlock,
       to_token: paymentRoute.toToken.address,
-      to_amount: paymentRoute.toAmount.toString()
+      to_amount: paymentRoute.toAmount.toString(),
+      fee_amount: paymentRoute?.feeAmount?.toString()
     })
       .then((response)=>{
         if(response.status != 200) {

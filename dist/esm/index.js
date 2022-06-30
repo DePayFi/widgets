@@ -21569,6 +21569,8 @@ var PaymentTrackingProvider = (function (props) {
   };
 
   var callTracking = function callTracking(payment) {
+    console.log('TRACK !!!', payment);
+
     if (track.endpoint) {
       return fetch(track.endpoint, {
         method: 'POST',
@@ -21585,6 +21587,9 @@ var PaymentTrackingProvider = (function (props) {
   };
 
   var startTracking = function startTracking(transaction, afterBlock, paymentRoute, attempt) {
+    var _paymentRoute$feeAmou;
+
+    console.log('paymentRoute', paymentRoute);
     callTracking({
       blockchain: transaction.blockchain,
       transaction: transaction.id.toLowerCase(),
@@ -21592,7 +21597,8 @@ var PaymentTrackingProvider = (function (props) {
       nonce: transaction.nonce,
       after_block: afterBlock,
       to_token: paymentRoute.toToken.address,
-      to_amount: paymentRoute.toAmount.toString()
+      to_amount: paymentRoute.toAmount.toString(),
+      fee_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou === void 0 ? void 0 : _paymentRoute$feeAmou.toString()
     }).then(function (response) {
       if (response.status != 200) {
         retryStartTracking(transaction, afterBlock, paymentRoute, attempt);
