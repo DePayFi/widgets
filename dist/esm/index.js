@@ -21591,7 +21591,8 @@ var PaymentTrackingProvider = (function (props) {
       sender: transaction.from.toLowerCase(),
       nonce: transaction.nonce,
       after_block: afterBlock,
-      to_token: paymentRoute.toToken.address
+      to_token: paymentRoute.toToken.address,
+      to_amount: paymentRoute.toAmount.toString()
     }).then(function (response) {
       if (response.status != 200) {
         retryStartTracking(transaction, afterBlock, paymentRoute, attempt);

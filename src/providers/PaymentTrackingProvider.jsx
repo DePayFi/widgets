@@ -90,7 +90,8 @@ export default (props)=>{
       sender: transaction.from.toLowerCase(),
       nonce: transaction.nonce,
       after_block: afterBlock,
-      to_token: paymentRoute.toToken.address
+      to_token: paymentRoute.toToken.address,
+      to_amount: paymentRoute.toAmount.toString()
     })
       .then((response)=>{
         if(response.status != 200) {
