@@ -21980,12 +21980,12 @@
 
   var Donation = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var amount, accept, event, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, fee, closable, integration, container, document, unmount;
+      var amount, accept, event, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, track, fee, closable, integration, container, document, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, fee = _ref3.fee, closable = _ref3.closable, integration = _ref3.integration, container = _ref3.container, document = _ref3.document;
+              amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, closable = _ref3.closable, integration = _ref3.integration, container = _ref3.container, document = _ref3.document;
               requireReactVersion();
               _context2.prev = 2;
               _context2.next = 5;
@@ -22012,6 +22012,7 @@
                       accept: accept,
                       currency: currency,
                       event: event,
+                      track: track,
                       fee: fee,
                       sent: sent,
                       confirmed: confirmed,
