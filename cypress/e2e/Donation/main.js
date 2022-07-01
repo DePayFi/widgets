@@ -195,7 +195,7 @@ describe('Donation Widget: main functionality', () => {
     })
   })
 
-  it('stores integration', () => {
+  it('stores integration & link', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
@@ -229,6 +229,7 @@ describe('Donation Widget: main functionality', () => {
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DAI,
           integration: '123',
+          link: '456',
           type: 'donation'
         },
         receiver: toAddress,
@@ -241,7 +242,7 @@ describe('Donation Widget: main functionality', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Donation({ ...defaultArguments, integration: '123', document })
+        DePayWidgets.Donation({ ...defaultArguments, integration: '123', link: '456', document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
