@@ -21593,6 +21593,8 @@ var PaymentTrackingProvider = (function (props) {
       sender: transaction.from.toLowerCase(),
       nonce: transaction.nonce,
       after_block: afterBlock,
+      from_token: paymentRoute.fromToken.address,
+      from_amount: paymentRoute.fromAmount.toString(),
       to_token: paymentRoute.toToken.address,
       to_amount: paymentRoute.toAmount.toString(),
       fee_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou === void 0 ? void 0 : _paymentRoute$feeAmou.toString()
