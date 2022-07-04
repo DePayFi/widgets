@@ -36,6 +36,7 @@ let Payment = async ({
   event,
   sent,
   confirmed,
+  validated,
   failed,
   error,
   critical,
@@ -62,7 +63,7 @@ let Payment = async ({
     let unmount = mount({ style, container, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={ { type: 'payment', before, amount, accept, currency, event, sent, confirmed, failed, whitelist, blacklist, providers, track, fee, recover, integration, link } }>
+          <ConfigurationProvider configuration={ { type: 'payment', before, amount, accept, currency, event, sent, confirmed, validated, failed, whitelist, blacklist, providers, track, fee, recover, integration, link } }>
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount } closable={ closable }>
                 <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>

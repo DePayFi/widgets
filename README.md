@@ -461,7 +461,7 @@ DePayWidgets.Payment({
 
 `confirmed`
 
-A function that will be called once the payment has been confirmed once by the network.
+A function that will be called once the payment has been confirmed once by the network (client-side).
 
 The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
@@ -470,6 +470,21 @@ DePayWidgets.Payment({
 
   confirmed: (transaction)=> {
     // called when payment transaction has been confirmed once by the network
+  }
+})
+```
+
+#### validated (DePay Payments)
+
+`validated`
+
+A function that will be called once the payment has been validated by DePay Apis (server-side).
+
+```javascript
+DePayWidgets.Payment({
+
+  validated: (successful)=> {
+    // successful (true or false)
   }
 })
 ```
@@ -1347,7 +1362,7 @@ DePayWidgets.Donation({
 
 `confirmed`
 
-A function that will be called once the payment has been confirmed once by the network.
+A function that will be called once the payment has been confirmed once by the network (client-side).
 
 The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
@@ -1358,6 +1373,21 @@ DePayWidgets.Donation({
     // called when payment transaction has been confirmed once by the network
   }
 });
+```
+
+#### validated (DePay Donations)
+
+`validated`
+
+A function that will be called once the payment has been validated by DePay Apis (server-side).
+
+```javascript
+DePayWidgets.Payment({
+
+  validated: (successful)=> {
+    // successful (true or false)
+  }
+})
 ```
 
 #### failed (DePay Donations)

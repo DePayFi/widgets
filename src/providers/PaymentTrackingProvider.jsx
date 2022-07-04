@@ -7,7 +7,7 @@ import { ethers } from 'ethers'
 
 export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
-  const { track, integration, link, type } = useContext(ConfigurationContext)
+  const { track, validated, integration, link, type } = useContext(ConfigurationContext)
   const [ transaction, setTransaction ] = useState()
   const [ afterBlock, setAfterBlock ] = useState()
   const [ paymentRoute, setPaymentRoute ] = useState()
@@ -39,9 +39,10 @@ export default (props)=>{
       const item = JSON.parse(event.data)
       if(item.type === "ping") { return }
       if(item.message && item.message.release) {
+        if(validated) { validated(item.message.status == 'success') }
+        setRelease(true)
         setClosable(!item.message.forward_to)
         setForwardTo(item.message.forward_to)
-        setRelease(item.message.release)
         socket.close()
         if(!!item.message.forward_to) {
           setTimeout(()=>{ props.document.location.href = item.message.forward_to }, 200)
