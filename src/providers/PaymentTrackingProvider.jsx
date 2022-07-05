@@ -93,8 +93,10 @@ export default (props)=>{
       after_block: afterBlock,
       from_token: paymentRoute.fromToken.address,
       from_amount: paymentRoute.fromAmount.toString(),
+      from_decimals: paymentRoute.fromDecimals,
       to_token: paymentRoute.toToken.address,
       to_amount: paymentRoute.toAmount.toString(),
+      to_decimals: paymentRoute.toDecimals,
       fee_amount: paymentRoute?.feeAmount?.toString()
     })
       .then((response)=>{

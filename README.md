@@ -314,8 +314,10 @@ BODY:
     "after_block": 13230369,
     "from_token": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
     "from_amount": "1100000000000000000",
+    "from_decimals": 18,
     "to_token": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
     "to_amount": "1000000000000000000",
+    "to_decimals": 18,
     "fee_amount": "100000000000000000"
   }
 ```

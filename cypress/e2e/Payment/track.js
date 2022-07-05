@@ -184,8 +184,10 @@ describe('Payment Widget: track', () => {
                     "after_block": 1,
                     "from_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
                     "from_amount": TOKEN_A_AmountBN.toString(),
+                    "from_decimals": 18,
                     "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
                     "to_amount": TOKEN_A_AmountBN.toString(),
+                    "to_decimals": 18
                   },
                   matchPartialBody: true
                 })
