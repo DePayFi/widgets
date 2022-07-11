@@ -20741,7 +20741,6 @@ var ChangeAmountDialog = (function (props) {
       className: "Input FontSizeXXL TextAlignCenter",
       type: "number",
       name: "amount",
-      autoFocus: true,
       value: parseFloat(inputAmount),
       onChange: function onChange(event) {
         changeAmount(event.target.value);

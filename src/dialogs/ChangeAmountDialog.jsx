@@ -92,7 +92,6 @@ export default (props)=>{
                   className='Input FontSizeXXL TextAlignCenter'
                   type="number"
                   name="amount"
-                  autoFocus={ true }
                   value={ parseFloat(inputAmount) }
                   onChange={(event)=>{ changeAmount(event.target.value) }}
                   onBlur={(event)=>{ setValidValue(event.target.value) }}
