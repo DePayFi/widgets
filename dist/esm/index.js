@@ -21319,8 +21319,8 @@ var DonationOverviewDialog = (function (props) {
 });
 
 var PaymentErrorDialog = (function () {
-  var _useContext = useContext(NavigateStackContext),
-      navigate = _useContext.navigate;
+  var _useContext = useContext(ClosableContext),
+      close = _useContext.close;
 
   var _useContext2 = useContext(PaymentContext),
       transaction = _useContext2.transaction;
@@ -21329,7 +21329,7 @@ var PaymentErrorDialog = (function () {
       recover = _useContext3.recover;
 
   return /*#__PURE__*/React.createElement(Dialog$1, {
-    stacked: recover ? false : true,
+    stacked: false,
     header: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }),
@@ -21360,7 +21360,7 @@ var PaymentErrorDialog = (function () {
     }, recover == undefined && /*#__PURE__*/React.createElement("button", {
       className: "ButtonPrimary",
       onClick: function onClick() {
-        return navigate('back');
+        return close();
       }
     }, "Try again"))
   });

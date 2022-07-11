@@ -21314,8 +21314,8 @@
   });
 
   var PaymentErrorDialog = (function () {
-    var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
-        navigate = _useContext.navigate;
+    var _useContext = React.useContext(ClosableContext),
+        close = _useContext.close;
 
     var _useContext2 = React.useContext(PaymentContext),
         transaction = _useContext2.transaction;
@@ -21324,7 +21324,7 @@
         recover = _useContext3.recover;
 
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
-      stacked: recover ? false : true,
+      stacked: false,
       header: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM"
       }),
@@ -21355,7 +21355,7 @@
       }, recover == undefined && /*#__PURE__*/React__default['default'].createElement("button", {
         className: "ButtonPrimary",
         onClick: function onClick() {
-          return navigate('back');
+          return close();
         }
       }, "Try again"))
     });

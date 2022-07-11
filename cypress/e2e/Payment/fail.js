@@ -154,55 +154,8 @@ describe('Payment Widget: failures', () => {
           cy.wait(2000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('h1').should('contain.text', 'Payment Failed')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('a').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-            cy.get('button[title="Go back"]', { includeShadowDom: true }).should('exist')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'Unfortunately executing your payment failed. You can go back and try again.').then(()=>{
-              expect(failedCalledWith.from).to.equal(accounts[0])
-              expect(failedCalledWith.id).to.equal(mockedTransaction.transaction._id)
-              expect(failedCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
-              mockedTransaction = mock({
-                blockchain,
-                transaction: {
-                  from: fromAddress,
-                  to: DEPAY,
-                  api: Token[blockchain].DEFAULT,
-                  method: 'transfer',
-                  params: [toAddress, TOKEN_A_AmountBN]
-                }
-              })
-              fetchMock.post({
-                url: "https://public.depay.fi/payments",
-                body: {
-                  after_block: 2,
-                  amount: "20.0",
-                  blockchain: "ethereum",
-                  confirmations: 1,
-                  fee_amount: null,
-                  fee_receiver: null,
-                  nonce: 0,
-                  payload: {
-                    sender_amount: "20.0",
-                    sender_id: fromAddress.toLowerCase(),
-                    sender_token_id: DEPAY,
-                    type: 'payment'
-                  },
-                  receiver: toAddress,
-                  sender: fromAddress.toLowerCase(),
-                  token: DEPAY,
-                  transaction: mockedTransaction.transaction._id,
-                  uuid: mockedTransaction.transaction._id,
-                },
-                overwriteRoutes: true
-              }, 201)
-              cy.wait(1000).then(()=>{
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
-                  confirm(mockedTransaction)
-                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed')
-                })
-              })
-            })
+            cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
           })
         })
       })

@@ -182,12 +182,7 @@ describe('Donation Widget: failures', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('a').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
             cy.get('button[title="Go back"]', { includeShadowDom: true }).should('exist')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'Unfortunately executing your payment failed. You can go back and try again.').then(()=>{
-              expect(failedCalledWith.from).to.equal(accounts[0])
-              expect(failedCalledWith.id).to.equal(mockedTransaction.transaction._id)
-              expect(failedCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
-            })
+            cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
           })
         })
       })

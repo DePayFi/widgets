@@ -229,9 +229,8 @@ describe('Payment Widget: detects replaced transaction', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a', 'View on explorer').invoke('attr', 'href').should('include', `https://etherscan.io/tx/${replacingTransactionMock.transaction._id}`)
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('h1').should('contain.text', 'Payment Failed')
-            cy.get('button[title="Go back"]', { includeShadowDom: true }).should('exist')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+            cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
           })
         })
       })
@@ -360,9 +359,8 @@ describe('Payment Widget: detects replaced transaction', () => {
               cy.wait(1000).then(()=>{
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a', 'View on explorer').invoke('attr', 'href').should('include', `https://etherscan.io/tx/${replacingTransactionId}`)
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('h1').should('contain.text', 'Payment Failed')
-                cy.get('button[title="Go back"]', { includeShadowDom: true }).should('exist')
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+                cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
               })
             })
           })
@@ -463,9 +461,8 @@ describe('Payment Widget: detects replaced transaction', () => {
               cy.wait(5000).then(()=>{
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a', 'View on explorer').invoke('attr', 'href').should('include', `https://etherscan.io/tx/${replacingTransactionId}`)
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('h1').should('contain.text', 'Payment Failed')
-                cy.get('button[title="Go back"]', { includeShadowDom: true }).should('exist')
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
+                cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
               })
             })
           })

@@ -1,19 +1,19 @@
+import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import ErrorGraphic from '../graphics/error'
 import PaymentContext from '../contexts/PaymentContext'
 import React, { useContext } from 'react'
-import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default ()=> {
 
-  const { navigate } = useContext(NavigateStackContext)
+  const { close } = useContext(ClosableContext)
   const { transaction } = useContext(PaymentContext)
   const { recover } = useContext(ConfigurationContext)
 
   return(
     <Dialog
-      stacked={ recover ? false : true }
+      stacked={ false }
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
         </div>
@@ -43,7 +43,7 @@ export default ()=> {
       footer={
         <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
           { recover == undefined &&
-            <button className='ButtonPrimary' onClick={()=>navigate('back')}>
+            <button className='ButtonPrimary' onClick={()=>close()}>
               Try again
             </button>
           }
