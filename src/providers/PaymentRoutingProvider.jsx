@@ -44,7 +44,7 @@ export default (props)=>{
     if(
       (lastAmountsIn[0].gt(lastAmountsIn[1])) &&
       (lastAmountsIn[1].gt(lastAmountsIn[2]))
-    ) {
+    ) { // directional slippage
       const difference1 = lastAmountsIn[0].sub(lastAmountsIn[1])
       const difference2 = lastAmountsIn[1].sub(lastAmountsIn[2])
       let slippage
@@ -55,6 +55,31 @@ export default (props)=>{
       }
 
       let newAmountBN = lastAmountsIn[0].add(slippage)
+      let readableAmount = await route.fromToken.readable(newAmountBN)
+      let roundedAmountBN = await route.fromToken.BigNumber(round(readableAmount))
+      if(route.fromAmount == roundedAmountBN.toString()) { return }
+      return newAmountBN
+    } else if(!(
+      lastAmountsIn[0].eq(lastAmountsIn[1]) &&
+      lastAmountsIn[1].eq(lastAmountsIn[2])
+    )) { // base slippage
+      const difference1 = lastAmountsIn[0].sub(lastAmountsIn[1]).abs()
+      const difference2 = lastAmountsIn[1].sub(lastAmountsIn[2]).abs()
+      let slippage
+      if(difference1.lt(difference2)) {
+        slippage = difference1
+      } else {
+        slippage = difference2
+      }
+      let highestAmountBN
+      if(lastAmountsIn[0].gt(lastAmountsIn[1]) && lastAmountsIn[0].gt(lastAmountsIn[2])) {
+        highestAmountBN = lastAmountsIn[0]
+      } else if(lastAmountsIn[1].gt(lastAmountsIn[2]) && lastAmountsIn[1].gt(lastAmountsIn[0])) {
+        highestAmountBN = lastAmountsIn[1]
+      } else {
+        highestAmountBN = lastAmountsIn[2]
+      }
+      let newAmountBN = highestAmountBN.add(slippage)
       let readableAmount = await route.fromToken.readable(newAmountBN)
       let roundedAmountBN = await route.fromToken.BigNumber(round(readableAmount))
       if(route.fromAmount == roundedAmountBN.toString()) { return }

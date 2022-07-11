@@ -19966,7 +19966,8 @@
 
     var calculateAmountInWithSlippage = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(route) {
-        var currentBlock, blocks, i, exchangeRoute, lastAmountsIn, difference1, difference2, slippage, newAmountBN, readableAmount, roundedAmountBN;
+        var currentBlock, blocks, i, exchangeRoute, lastAmountsIn, difference1, difference2, slippage, newAmountBN, readableAmount, roundedAmountBN, _difference, _difference2, _slippage, highestAmountBN, _newAmountBN, _readableAmount, _roundedAmountBN;
+
         return regenerator.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -20047,10 +20048,11 @@
 
               case 15:
                 if (!(lastAmountsIn[0].gt(lastAmountsIn[1]) && lastAmountsIn[1].gt(lastAmountsIn[2]))) {
-                  _context2.next = 29;
+                  _context2.next = 31;
                   break;
                 }
 
+                // directional slippage
                 difference1 = lastAmountsIn[0].sub(lastAmountsIn[1]);
                 difference2 = lastAmountsIn[1].sub(lastAmountsIn[2]);
 
@@ -20082,7 +20084,53 @@
               case 28:
                 return _context2.abrupt("return", newAmountBN);
 
-              case 29:
+              case 31:
+                if (lastAmountsIn[0].eq(lastAmountsIn[1]) && lastAmountsIn[1].eq(lastAmountsIn[2])) {
+                  _context2.next = 46;
+                  break;
+                }
+
+                // base slippage
+                _difference = lastAmountsIn[0].sub(lastAmountsIn[1]).abs();
+                _difference2 = lastAmountsIn[1].sub(lastAmountsIn[2]).abs();
+
+                if (_difference.lt(_difference2)) {
+                  _slippage = _difference;
+                } else {
+                  _slippage = _difference2;
+                }
+
+                if (lastAmountsIn[0].gt(lastAmountsIn[1]) && lastAmountsIn[0].gt(lastAmountsIn[2])) {
+                  highestAmountBN = lastAmountsIn[0];
+                } else if (lastAmountsIn[1].gt(lastAmountsIn[2]) && lastAmountsIn[1].gt(lastAmountsIn[0])) {
+                  highestAmountBN = lastAmountsIn[1];
+                } else {
+                  highestAmountBN = lastAmountsIn[2];
+                }
+
+                _newAmountBN = highestAmountBN.add(_slippage);
+                _context2.next = 39;
+                return route.fromToken.readable(_newAmountBN);
+
+              case 39:
+                _readableAmount = _context2.sent;
+                _context2.next = 42;
+                return route.fromToken.BigNumber(round(_readableAmount));
+
+              case 42:
+                _roundedAmountBN = _context2.sent;
+
+                if (!(route.fromAmount == _roundedAmountBN.toString())) {
+                  _context2.next = 45;
+                  break;
+                }
+
+                return _context2.abrupt("return");
+
+              case 45:
+                return _context2.abrupt("return", _newAmountBN);
+
+              case 46:
               case "end":
                 return _context2.stop();
             }
@@ -21451,9 +21499,9 @@
         errorCallback = _useContext.errorCallback;
 
     var _useContext2 = React.useContext(ConfigurationContext),
-        track = _useContext2.track;
-        _useContext2.validated;
-        var integration = _useContext2.integration,
+        track = _useContext2.track,
+        validated = _useContext2.validated,
+        integration = _useContext2.integration,
         link = _useContext2.link,
         type = _useContext2.type;
 
@@ -21522,16 +21570,20 @@
       socket.onmessage = function (event) {
         var item = JSON.parse(event.data);
 
-        if (item.type === "ping") {
+        if (item.type === "ping" || !item.message) {
           return;
         }
 
-        if (item.message && item.message.status == 'failed') {
+        if (item.message.status == 'failed') {
           setClosable(true);
           navigate('PaymentError');
         }
 
-        if (item.message && item.message.release) {
+        if (validated) {
+          validated(item.message.status == 'success');
+        }
+
+        if (item.message.release) {
           setRelease(true);
           setClosable(!item.message.forward_to);
           setForwardTo(item.message.forward_to);
