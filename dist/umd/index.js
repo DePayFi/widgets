@@ -19600,8 +19600,8 @@
         before = _useContext2.before;
 
     var _useContext3 = React.useContext(PaymentRoutingContext),
-        selectedRoute = _useContext3.selectedRoute,
-        getPaymentRoutes = _useContext3.getPaymentRoutes;
+        selectedRoute = _useContext3.selectedRoute;
+        _useContext3.getPaymentRoutes;
 
     var _useContext4 = React.useContext(ClosableContext),
         open = _useContext4.open,
@@ -19666,10 +19666,7 @@
         failed(transaction, error);
       }
 
-      setPaymentState('initialized');
       setClosable(true);
-      setUpdatable(true);
-      getPaymentRoutes({});
       navigate('PaymentError');
     };
 
@@ -21454,9 +21451,9 @@
         errorCallback = _useContext.errorCallback;
 
     var _useContext2 = React.useContext(ConfigurationContext),
-        track = _useContext2.track,
-        validated = _useContext2.validated,
-        integration = _useContext2.integration,
+        track = _useContext2.track;
+        _useContext2.validated;
+        var integration = _useContext2.integration,
         link = _useContext2.link,
         type = _useContext2.type;
 
@@ -21501,6 +21498,9 @@
     var _useContext3 = React.useContext(ClosableContext),
         setClosable = _useContext3.setClosable;
 
+    var _useContext4 = React.useContext(NavigateContext),
+        navigate = _useContext4.navigate;
+
     var openSocket = function openSocket(transaction) {
       var socket = new WebSocket('wss://integrate.depay.fi/cable');
 
@@ -21526,11 +21526,12 @@
           return;
         }
 
-        if (item.message && item.message.release) {
-          if (validated) {
-            validated(item.message.status == 'success');
-          }
+        if (item.message && item.message.status == 'failed') {
+          setClosable(true);
+          navigate('PaymentError');
+        }
 
+        if (item.message && item.message.release) {
           setRelease(true);
           setClosable(!item.message.forward_to);
           setForwardTo(item.message.forward_to);

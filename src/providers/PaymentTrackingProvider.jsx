@@ -1,6 +1,7 @@
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
+import NavigateContext from '../contexts/NavigateContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useEffect, useContext, useState } from 'react'
 import { ethers } from 'ethers'
@@ -17,6 +18,7 @@ export default (props)=>{
   const [ trackingFailed, setTrackingFailed ] = useState(false)
   const [ forwardTo, setForwardTo ] = useState()
   const { setClosable } = useContext(ClosableContext)
+  const { navigate } = useContext(NavigateContext)
 
   const openSocket = (transaction)=>{
     let socket = new WebSocket('wss://integrate.depay.fi/cable')
@@ -38,8 +40,11 @@ export default (props)=>{
     socket.onmessage = function(event) {
       const item = JSON.parse(event.data)
       if(item.type === "ping") { return }
+      if(item.message && item.message.status == 'failed') {
+        setClosable(true)
+        navigate('PaymentError')
+      }
       if(item.message && item.message.release) {
-        if(validated) { validated(item.message.status == 'success') }
         setRelease(true)
         setClosable(!item.message.forward_to)
         setForwardTo(item.message.forward_to)
