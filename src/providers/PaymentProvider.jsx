@@ -22,7 +22,7 @@ export default (props)=>{
   const { open, close, setClosable } = useContext(ClosableContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
   const { setUpdatable } = useContext(UpdatableContext)
-  const { navigate } = useContext(NavigateContext)
+  const { navigate, set } = useContext(NavigateContext)
   const { wallet } = useContext(WalletContext)
   const { release, tracking, initializeTracking: initializePaymentTracking } = useContext(PaymentTrackingContext)
   const { foundTransaction, initializeTracking: initializeTransactionTracking } = useContext(TransactionTrackingContext)
@@ -40,7 +40,7 @@ export default (props)=>{
   const paymentFailed = (transaction, error)=> {
     if(failed) { failed(transaction, error) }
     setClosable(true)
-    navigate('PaymentError')
+    set(['PaymentError'])
   }
 
   const pay = async ()=> {

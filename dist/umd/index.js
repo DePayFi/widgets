@@ -19615,7 +19615,8 @@
         setUpdatable = _useContext6.setUpdatable;
 
     var _useContext7 = React.useContext(NavigateContext),
-        navigate = _useContext7.navigate;
+        navigate = _useContext7.navigate,
+        set = _useContext7.set;
 
     var _useContext8 = React.useContext(WalletContext),
         wallet = _useContext8.wallet;
@@ -19667,7 +19668,7 @@
       }
 
       setClosable(true);
-      navigate('PaymentError');
+      set(['PaymentError']);
     };
 
     var pay = /*#__PURE__*/function () {
@@ -21364,9 +21365,6 @@
     var _useContext2 = React.useContext(PaymentContext),
         transaction = _useContext2.transaction;
 
-    var _useContext3 = React.useContext(ConfigurationContext),
-        recover = _useContext3.recover;
-
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       stacked: false,
       header: /*#__PURE__*/React__default['default'].createElement("div", {
@@ -21383,7 +21381,7 @@
         className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
       }, "Payment Failed"), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, recover == undefined && /*#__PURE__*/React__default['default'].createElement("strong", {
+      }, /*#__PURE__*/React__default['default'].createElement("strong", {
         className: "FontSizeM"
       }, "Unfortunately executing your payment failed. You can go back and try again."), transaction && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS"
@@ -21396,7 +21394,7 @@
       }, "View on explorer")))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-      }, recover == undefined && /*#__PURE__*/React__default['default'].createElement("button", {
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
         className: "ButtonPrimary",
         onClick: function onClick() {
           return close();
@@ -21453,10 +21451,10 @@
         close = _useContext.close;
 
     var _useContext2 = React.useContext(NavigateContext),
-        setNavigate = _useContext2.setNavigate;
+        setNavigator = _useContext2.setNavigator;
 
     return /*#__PURE__*/React__default['default'].createElement(reactDialogStack.ReactDialogStack, {
-      setNavigate: setNavigate,
+      setNavigator: setNavigator,
       open: open,
       close: close,
       start: "DonationOverview",
@@ -21475,20 +21473,27 @@
   var NavigateProvider = (function (props) {
     var navigator;
 
-    var setNavigate = function setNavigate(_navigator) {
+    var setNavigator = function setNavigator(_navigator) {
       navigator = _navigator;
     };
 
     var navigate = function navigate(dialog) {
       if (navigator) {
-        navigator(dialog);
+        navigator.navigate(dialog);
+      }
+    };
+
+    var set = function set(dialogs) {
+      if (navigator) {
+        navigator.set(dialogs);
       }
     };
 
     return /*#__PURE__*/React__default['default'].createElement(NavigateContext.Provider, {
       value: {
         navigate: navigate,
-        setNavigate: setNavigate
+        set: set,
+        setNavigator: setNavigator
       }
     }, props.children);
   });
@@ -21546,7 +21551,7 @@
         setClosable = _useContext3.setClosable;
 
     var _useContext4 = React.useContext(NavigateContext),
-        navigate = _useContext4.navigate;
+        set = _useContext4.set;
 
     var openSocket = function openSocket(transaction) {
       var socket = new WebSocket('wss://integrate.depay.fi/cable');
@@ -21575,7 +21580,7 @@
 
         if (item.message.status == 'failed') {
           setClosable(true);
-          navigate('PaymentError');
+          set(['PaymentError']);
         }
 
         if (validated) {
@@ -22493,10 +22498,10 @@
         close = _useContext.close;
 
     var _useContext2 = React.useContext(NavigateContext),
-        setNavigate = _useContext2.setNavigate;
+        setNavigator = _useContext2.setNavigator;
 
     return /*#__PURE__*/React__default['default'].createElement(reactDialogStack.ReactDialogStack, {
-      setNavigate: setNavigate,
+      setNavigator: setNavigator,
       open: open,
       close: close,
       start: "PaymentOverview",
@@ -22946,10 +22951,10 @@
         close = _useContext.close;
 
     var _useContext2 = React.useContext(NavigateContext),
-        setNavigate = _useContext2.setNavigate;
+        setNavigator = _useContext2.setNavigator;
 
     return /*#__PURE__*/React__default['default'].createElement(reactDialogStack.ReactDialogStack, {
-      setNavigate: setNavigate,
+      setNavigator: setNavigator,
       open: open,
       close: close,
       start: "SaleOverview",

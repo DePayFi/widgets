@@ -9,7 +9,6 @@ export default ()=> {
 
   const { close } = useContext(ClosableContext)
   const { transaction } = useContext(PaymentContext)
-  const { recover } = useContext(ConfigurationContext)
 
   return(
     <Dialog
@@ -25,11 +24,9 @@ export default ()=> {
           </div>
           <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Payment Failed</h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
-            { recover == undefined &&
-              <strong className="FontSizeM">
-                Unfortunately executing your payment failed. You can go back and try again.
-              </strong>
-            }
+            <strong className="FontSizeM">
+              Unfortunately executing your payment failed. You can go back and try again.
+            </strong>
             { transaction && 
               <div className="PaddingTopS">
                 <a className="Link" title="Check your transaction on a block explorer" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
@@ -42,11 +39,9 @@ export default ()=> {
       }
       footer={
         <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
-          { recover == undefined &&
-            <button className='ButtonPrimary' onClick={()=>close()}>
-              Try again
-            </button>
-          }
+          <button className='ButtonPrimary' onClick={()=>close()}>
+            Try again
+          </button>
         </div>
       }
     />

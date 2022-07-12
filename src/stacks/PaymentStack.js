@@ -11,11 +11,11 @@ import { ReactDialogStack } from '@depay/react-dialog-stack'
 export default (props)=>{
 
   const { open, close } = useContext(ClosableContext)
-  const { setNavigate } = useContext(NavigateContext)
+  const { setNavigator } = useContext(NavigateContext)
 
   return(
     <ReactDialogStack
-      setNavigate={ setNavigate }
+      setNavigator={ setNavigator }
       open={ open }
       close={ close }
       start='PaymentOverview'

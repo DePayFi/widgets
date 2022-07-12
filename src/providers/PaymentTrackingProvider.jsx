@@ -18,7 +18,7 @@ export default (props)=>{
   const [ trackingFailed, setTrackingFailed ] = useState(false)
   const [ forwardTo, setForwardTo ] = useState()
   const { setClosable } = useContext(ClosableContext)
-  const { navigate } = useContext(NavigateContext)
+  const { set } = useContext(NavigateContext)
 
   const openSocket = (transaction)=>{
     let socket = new WebSocket('wss://integrate.depay.fi/cable')
@@ -42,7 +42,7 @@ export default (props)=>{
       if(item.type === "ping" || !item.message) { return }
       if(item.message.status == 'failed') {
         setClosable(true)
-        navigate('PaymentError')
+        set(['PaymentError'])
       }
       if(validated) { validated(item.message.status == 'success') }
       if(item.message.release) {

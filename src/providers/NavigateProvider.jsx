@@ -5,18 +5,23 @@ export default (props)=>{
   
   let navigator
 
-  const setNavigate = (_navigator)=>{
+  const setNavigator = (_navigator)=>{
     navigator = _navigator
   }
 
   const navigate = (dialog)=>{
-    if(navigator) { navigator(dialog) }
+    if(navigator) { navigator.navigate(dialog) }
+  }
+
+  const set = (dialogs)=>{
+    if(navigator) { navigator.set(dialogs) }
   }
 
   return(
     <NavigateContext.Provider value={{
       navigate,
-      setNavigate,
+      set,
+      setNavigator,
     }}>
       { props.children }
     </NavigateContext.Provider>

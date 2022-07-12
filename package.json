@@ -1,7 +1,7 @@
 {
   "name": "@depay/widgets",
   "moduleName": "DePayWidgets",
-  "version": "7.13.1",
+  "version": "7.13.2",
   "description": "Web3 Payments with any token. DePay simplifies and improves Web3 Payments with the power of DeFi. Accept any token with on-the-fly conversion.",
   "main": "./dist/umd/index.js",
   "module": "./dist/esm/index.js",
@@ -35,7 +35,7 @@
   "dependencies": {
     "@depay/coinbase-wallet-sdk": "^1.0.5",
     "@depay/local-currency": "^3.5.2",
-    "@depay/react-dialog-stack": "^6.0.0",
+    "@depay/react-dialog-stack": "^7.0.0",
     "@depay/react-shadow-dom": "^5.0.2",
     "@depay/react-token-image": "^4.1.0",
     "@depay/walletconnect-v1": "^1.7.8",
@@ -88,6 +88,7 @@
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-polyfill-node": "^0.7.0",
     "rollup-plugin-serve": "^1.1.0",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup-plugin-terser": "^7.0.2",
+    "webpack": "^5.73.0"
   }
 }
