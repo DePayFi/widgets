@@ -84,7 +84,7 @@ export default (props)=>{
           <div className="PaddingLeftM PaddingRightM">
             <div className='PaddingTopS TextCenter PaddingBottomL'>
               
-              <div>
+              <div className="PaddingBottomM">
                 <input
                   max={ parseFloat(maxAmount) }
                   min={ min }
@@ -101,12 +101,14 @@ export default (props)=>{
               <div style={{ height: '40px' }}>
                 <div className='FontSizeS'>
                   { format(toValidStep(maxAmount)) }
-                  <button 
-                    className="TextButton"
-                    onClick={()=>{ changeAmount(toValidValue(maxAmount)) }}
-                  >
-                    (Max)
-                  </button>
+                  <div>
+                    <button 
+                      className="TextButton"
+                      onClick={()=>{ changeAmount(toValidValue(maxAmount)) }}
+                    >
+                      (Max)
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

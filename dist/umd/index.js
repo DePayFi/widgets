@@ -19432,13 +19432,13 @@
               }).then(function (readableMaxAmount) {
                 var slippage = 1.01;
                 var maxAmount = parseFloat(new decimal_js.Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
-                setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : round(maxAmount));
+                setMaxAmount(maxAmount > 10 ? Math.round(maxAmount - 1) : round(maxAmount - 1));
               })["catch"](setError);
             })["catch"](setError);
           } else if (maxRoute.fromToken.address == web3Constants.CONSTANTS[maxRoute.blockchain].USD) {
             var _maxAmount = parseFloat(new decimal_js.Decimal(readableMaxAmount).mul(conversionRate).toString());
 
-            setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount) : _maxAmount);
+            setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount - 1) : _maxAmount - 1);
           } else {
             web3Exchanges.route({
               blockchain: maxRoute.blockchain,
@@ -20730,7 +20730,9 @@
         className: "PaddingLeftM PaddingRightM"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS TextCenter PaddingBottomL"
-      }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("input", {
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingBottomM"
+      }, /*#__PURE__*/React__default['default'].createElement("input", {
         max: parseFloat(maxAmount),
         min: min,
         step: step,
@@ -20750,12 +20752,12 @@
         }
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "FontSizeS"
-      }, format(toValidStep(maxAmount)), /*#__PURE__*/React__default['default'].createElement("button", {
+      }, format(toValidStep(maxAmount)), /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("button", {
         className: "TextButton",
         onClick: function onClick() {
           changeAmount(toValidValue(maxAmount));
         }
-      }, "(Max)")))))),
+      }, "(Max)"))))))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
       }, /*#__PURE__*/React__default['default'].createElement("button", {
@@ -20905,12 +20907,15 @@
   });
 
   var DonationOverviewSkeleton = (function (props) {
+    var _useContext = React.useContext(ConfigurationContext),
+        title = _useContext.title;
+
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL"
-      }, "Donation")),
+      }, title || 'Donation')),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -21264,7 +21269,8 @@
 
   var DonationOverviewDialog = (function (props) {
     var _useContext = React.useContext(ConfigurationContext),
-        currencyCode = _useContext.currencyCode;
+        currencyCode = _useContext.currencyCode,
+        title = _useContext.title;
 
     var _useContext2 = React.useContext(ChangableAmountContext),
         amount = _useContext2.amount;
@@ -21286,7 +21292,7 @@
         className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL"
-      }, "Donation")),
+      }, title || 'Donation')),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -22051,12 +22057,12 @@
 
   var Donation = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var amount, accept, event, sent, confirmed, validated, failed, error, critical, style, blacklist, providers, currency, connected, closed, track, fee, closable, integration, link, container, document, unmount;
+      var amount, accept, event, sent, confirmed, validated, failed, error, critical, style, blacklist, providers, currency, connected, closed, track, fee, closable, integration, link, container, title, document, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, document = _ref3.document;
+              amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, title = _ref3.title, document = _ref3.document;
               requireReactVersion();
               _context2.prev = 2;
               _context2.next = 5;
@@ -22092,7 +22098,8 @@
                       blacklist: blacklist,
                       providers: providers,
                       integration: integration,
-                      link: link
+                      link: link,
+                      title: title
                     }
                   }, /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
                     unmount: unmount,

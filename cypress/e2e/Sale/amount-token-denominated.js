@@ -235,8 +235,8 @@ describe('Sale Widget: amount denominated in token', () => {
           to: exchange.contracts.router.address,
           api: exchange.contracts.router.api,
           method: 'getAmountsIn',
-          params: [ethers.utils.parseUnits('42', 18), [DAI, WETH, DEPAY]],
-          return: [ethers.utils.parseUnits('42', 18), ethers.utils.parseUnits('0.02', 18), ethers.utils.parseUnits('42', 18)]
+          params: [ethers.utils.parseUnits('41', 18), [DAI, WETH, DEPAY]],
+          return: [ethers.utils.parseUnits('41', 18), ethers.utils.parseUnits('0.02', 18), ethers.utils.parseUnits('41', 18)]
         }
       })
 
@@ -249,11 +249,11 @@ describe('Sale Widget: amount denominated in token', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
 
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardTitle', 'Amount').should('exist')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountCell', '42').should('exist')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountCell', '41').should('exist')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenSymbolCell', 'DEPAY').should('exist')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '42').should('exist')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '41').should('exist')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay DAI 42').should('exist')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay DAI 41').should('exist')
           })
         })
       })

@@ -1,13 +1,16 @@
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
-import React from 'react'
+import React, { useContext } from 'react'
 
 export default (props)=>{
+
+  const { title } = useContext(ConfigurationContext)
 
   return(
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
-          <h1 className="LineHeightL FontSizeL">Donation</h1>
+          <h1 className="LineHeightL FontSizeL">{ title || 'Donation' }</h1>
         </div>
       }
       body={

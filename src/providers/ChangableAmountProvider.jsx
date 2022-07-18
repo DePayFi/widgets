@@ -147,14 +147,14 @@ export default (props)=>{
                 let maxAmount = parseFloat(
                   new Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString()
                 )
-                setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : round(maxAmount))
+                setMaxAmount(maxAmount > 10 ? Math.round(maxAmount-1) : round(maxAmount-1))
               }).catch(setError)
             }).catch(setError)
           } else if(maxRoute.fromToken.address == CONSTANTS[maxRoute.blockchain].USD) {
             let maxAmount = parseFloat(
               new Decimal(readableMaxAmount).mul(conversionRate).toString()
             )
-            setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : maxAmount)
+            setMaxAmount(maxAmount > 10 ? Math.round(maxAmount-1) : maxAmount-1)
           } else {
             route({
               blockchain: maxRoute.blockchain,

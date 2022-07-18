@@ -183,10 +183,10 @@ describe('Sale Widget: amount', () => {
         provider: provider(blockchain),
         blockchain,
         exchange,
-        amountInBN: '50588235294117650000',
+        amountInBN: '49411764705882355000',
         path: [DAI, WETH, DEPAY],
         amountsOut: [
-          '50588235294117650000',
+          '49411764705882355000',
           WRAPPED_AmountInBN.mul(5),
           TOKEN_A_AmountBN.mul(5)
         ]
@@ -239,7 +239,7 @@ describe('Sale Widget: amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardText small', '€0.85 per token').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '9').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €43.00').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €42.00').should('exist')
         })
       })
     })
