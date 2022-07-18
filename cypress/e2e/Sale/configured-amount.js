@@ -238,10 +238,10 @@ describe('Sale Widget: configure amount', () => {
         provider: provider(blockchain),
         blockchain,
         exchange,
-        amountInBN: '50588235294117650000',
+        amountInBN: '49411764705882355000',
         path: [DAI, WETH, DEPAY],
         amountsOut: [
-          '50588235294117650000',
+          '49411764705882355000',
           WRAPPED_AmountInBN.mul(10),
           TOKEN_A_AmountBN.mul(10)
         ]
@@ -277,7 +277,7 @@ describe('Sale Widget: configure amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input[name="amount"]').type('{selectall}', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('1000', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €43.00').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €42.00').should('exist')
         })
       })
     })
