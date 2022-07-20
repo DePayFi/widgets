@@ -28,16 +28,17 @@ import TooltipStyle from '../styles/TooltipStyle'
 
 export default (style)=>{
 
-  style = Object.assign({
-    colors: {
+
+  style = {
+    colors: Object.assign({
       primary: '#ea357a',
       buttonText: '#ffffff',
       icons: '#000000',
       text: '#212529',
-    },
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
-  }, style);
-  
+    }, style?.colors || {}),
+    fontFamily: style?.fontFamily || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
+  }
+
   return(
     [
       ResetStyle(style),

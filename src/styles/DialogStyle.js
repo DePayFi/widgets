@@ -26,7 +26,7 @@ export default (style)=>{
       margin: 0 auto;
       position: relative;
       width: 420px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
       border-radius: 13px;
       background: rgb(248,248,248);
     }

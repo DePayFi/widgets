@@ -16,16 +16,17 @@ export default (style)=>{
     }
 
     .PoweredByLink {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
       color: white;
-      opacity: 0.4;
       display: inline-block;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
       font-size: 14px;
       font-style: italic;
       font-weight: bold;
       letter-spacing: -0.2px;
       margin-left: 8px;
+      opacity: 0.5;
       text-decoration: none;
+      text-shadow: black 0 0 2px;
     }
 
     .PoweredByLink:hover, .PoweredByLink:active {
