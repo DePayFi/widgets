@@ -31,7 +31,6 @@ export default (style)=>{
 
     .PoweredByLink:hover, .PoweredByLink:active {
       opacity: 1.0;
-      color: ${style.colors.primary};
     }
   `)
 }
