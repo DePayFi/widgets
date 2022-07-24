@@ -1764,6 +1764,44 @@ let token = await DePayWidgets.Select({ what: 'token' })
 // }
 ```
 
+## Examples
+
+### React
+
+#### DePay Payments
+
+```javascript
+
+import React from 'react'
+import DePayWidgets from '@depay/widgets'
+
+export default (props)=>{
+
+  let unmount
+
+  const openPaymentWidget = ()=>{
+    (
+      { unmount } = DePayWidgets.Payment({...})
+    )
+  }
+
+  useEffect(() => {
+    return ()=>{
+      // make sure an open widgets gets closed/unmounted as part of this component
+      if(unmount) { unmount() }
+    }
+  }, [])
+
+  return(
+    <button onClick={ openPaymentWidget } type="button">
+      Pay
+    </button>
+  )
+}
+
+```
+
+
 ## Development
 
 ### Quick start
