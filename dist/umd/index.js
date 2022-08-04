@@ -2028,7 +2028,12 @@
         focusToFixed = parseFloat(_float).toFixed(1).replace('.', '');
       }
 
-      if (focusToFixed.toString()[0] != "0" && focusToFixed.toString().length > 2) {
+      if (focusToFixed == '099' && parseInt(inputAsFloat.toFixed(0)) == 0) {
+        focusToFixed = direction == 'up' ? '100' : '990';
+        return parseFloat(digitsAfterDecimal.replace(/\d{3}$/, focusToFixed));
+      } else if (focusToFixed == '100' && parseInt(inputAsFloat.toFixed(0)) == 0) {
+        return parseFloat(digitsAfterDecimal.replace(/\d{4}$/, focusToFixed));
+      } else if (focusToFixed.toString()[0] != "0" && focusToFixed.toString().length > 2) {
         return parseInt(inputAsFloat.toFixed(0));
       } else {
         return parseFloat(digitsAfterDecimal.replace(/\d{3}$/, focusToFixed));
