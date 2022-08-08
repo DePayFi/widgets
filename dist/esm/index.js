@@ -1845,7 +1845,7 @@ var PoweredBy = (function () {
   return /*#__PURE__*/React.createElement("div", {
     className: "PoweredByWrapper"
   }, /*#__PURE__*/React.createElement("a", {
-    href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
+    href: 'https://depay.com',
     rel: "noopener noreferrer",
     target: "_blank",
     className: "PoweredByLink"
@@ -21572,7 +21572,7 @@ var PaymentTrackingProvider = (function (props) {
       set = _useContext4.set;
 
   var openSocket = function openSocket(transaction) {
-    var socket = new WebSocket('wss://integrate.depay.fi/cable');
+    var socket = new WebSocket('wss://integrate.depay.com/cable');
 
     socket.onopen = function (event) {
       var msg = {
@@ -21753,7 +21753,7 @@ var PaymentTrackingProvider = (function (props) {
       return;
     }
 
-    fetch('https://public.depay.fi/payments', {
+    fetch('https://public.depay.com/payments', {
       headers: {
         'Content-Type': 'application/json'
       },
@@ -21846,7 +21846,7 @@ var TransactionTrackingProvider = (function (props) {
   useEffect(function () {
     if (polling) {
       var poll = function poll() {
-        fetch("https://public.depay.fi/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from.toLowerCase(), "/").concat(givenTransaction.nonce)).then(function (response) {
+        fetch("https://public.depay.com/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from.toLowerCase(), "/").concat(givenTransaction.nonce)).then(function (response) {
           if (response.status == 200) {
             response.json().then(function (data) {
               if (data.status != 'pending') {
@@ -21875,7 +21875,7 @@ var TransactionTrackingProvider = (function (props) {
       return;
     }
 
-    fetch('https://public.depay.fi/transactions', {
+    fetch('https://public.depay.com/transactions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -21905,7 +21905,7 @@ var TransactionTrackingProvider = (function (props) {
   };
 
   var openSocket = function openSocket(transaction) {
-    var socket = new WebSocket('wss://integrate.depay.fi/cable');
+    var socket = new WebSocket('wss://integrate.depay.com/cable');
 
     socket.onopen = function (event) {
       var msg = {
@@ -23415,7 +23415,7 @@ var SelectTokenDialog = (function (props) {
   };
 
   var searchTokens = useCallback(lodash.debounce(function (term, blockchainName) {
-    fetch("https://public.depay.fi/tokens/search?blockchain=".concat(blockchainName, "&term=").concat(term)).then(function (response) {
+    fetch("https://public.depay.com/tokens/search?blockchain=".concat(blockchainName, "&term=").concat(term)).then(function (response) {
       if (response.status == 200) {
         response.json().then(function (tokens) {
           setTokens(tokens);
