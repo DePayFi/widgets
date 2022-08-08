@@ -1,7 +1,7 @@
 {
   "name": "@depay/widgets",
   "moduleName": "DePayWidgets",
-  "version": "7.14.3",
+  "version": "7.14.4",
   "description": "Web3 Payments with any token. DePay simplifies and improves Web3 Payments with the power of DeFi. Accept any token with on-the-fly conversion.",
   "main": "./dist/umd/index.js",
   "module": "./dist/esm/index.js",
@@ -18,7 +18,7 @@
     "crypto",
     "cryptocurrencies"
   ],
-  "author": "DePay",
+  "author": "depay.com",
   "license": "MIT",
   "scripts": {
     "build": "rm -rf dist && npx rollup --config rollup.module.config.js && npx rollup --config rollup.bundle.config.js",
