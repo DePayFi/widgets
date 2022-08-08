@@ -117,7 +117,7 @@ describe('Payment Widget: detects replaced transaction', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -186,7 +186,7 @@ describe('Payment Widget: detects replaced transaction', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -238,7 +238,7 @@ describe('Payment Widget: detects replaced transaction', () => {
   })
 
   describe("replaced transaction detected by tracker via websockets", ()=>{
-    let mockedWebsocketServer = new Server('wss://integrate.depay.fi/cable')
+    let mockedWebsocketServer = new Server('wss://integrate.depay.com/cable')
     let websocketMessages = []
     let mockedWebsocket
 
@@ -266,7 +266,7 @@ describe('Payment Widget: detects replaced transaction', () => {
       })
 
       fetchMock.post({
-        url: "https://public.depay.fi/payments"
+        url: "https://public.depay.com/payments"
       }, 201)
 
       cy.visit('cypress/test.html').then((contentWindow) => {
@@ -326,7 +326,7 @@ describe('Payment Widget: detects replaced transaction', () => {
       })
 
       fetchMock.post({
-        url: "https://public.depay.fi/payments"
+        url: "https://public.depay.com/payments"
       }, 201)
 
       cy.visit('cypress/test.html').then((contentWindow) => {
@@ -386,7 +386,7 @@ describe('Payment Widget: detects replaced transaction', () => {
       })
 
       fetchMock.post({
-        url: "https://public.depay.fi/payments",
+        url: "https://public.depay.com/payments",
       }, 201)
 
       cy.visit('cypress/test.html').then((contentWindow) => {
@@ -404,7 +404,7 @@ describe('Payment Widget: detects replaced transaction', () => {
             let replacingTransactionId = '0x782cf9983541087548c717dc1a4e2687ef8928e758316cd600ebb0652f57bafe'
             cy.wait(1000).then(()=>{
               fetchMock.get({
-                url: `https://public.depay.fi/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
+                url: `https://public.depay.com/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
                 overwriteRoutes: true
               }, { "external_id": replacingTransactionId, "status":"success" })
               cy.wait(5000).then(()=>{
@@ -437,7 +437,7 @@ describe('Payment Widget: detects replaced transaction', () => {
       })
 
       fetchMock.post({
-        url: "https://public.depay.fi/payments",
+        url: "https://public.depay.com/payments",
       }, 201)
 
       cy.visit('cypress/test.html').then((contentWindow) => {
@@ -455,7 +455,7 @@ describe('Payment Widget: detects replaced transaction', () => {
             let replacingTransactionId = '0x782cf9983541087548c717dc1a4e2687ef8928e758316cd600ebb0652f57bafe'
             cy.wait(1000).then(()=>{
               fetchMock.get({
-                url: `https://public.depay.fi/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
+                url: `https://public.depay.com/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
                 overwriteRoutes: true
               }, { "external_id": replacingTransactionId, "status":"failed" })
               cy.wait(5000).then(()=>{

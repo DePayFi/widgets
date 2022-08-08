@@ -21,7 +21,7 @@ export default (props)=>{
   const { set } = useContext(NavigateContext)
 
   const openSocket = (transaction)=>{
-    let socket = new WebSocket('wss://integrate.depay.fi/cable')
+    let socket = new WebSocket('wss://integrate.depay.com/cable')
     socket.onopen = function(event) {
       const msg = {
         command: 'subscribe',
@@ -106,7 +106,7 @@ export default (props)=>{
       fee_amount: paymentRoute?.feeAmount?.toString()
     })
       .then((response)=>{
-        if(response.status != 200) {
+        if(response.status != 200 && response.status != 201) {
           retryStartTracking(transaction, afterBlock, paymentRoute, attempt)
         }
       })
@@ -134,7 +134,7 @@ export default (props)=>{
     }
 
     const handleResponse = (response)=>{
-      if(response.status == 200) {
+      if(response.status == 200 || response.status == 201) {
         response.json().then((data)=>{
           if(data && data.forward_to) {
             setForwardTo(data.forward_to)
@@ -168,7 +168,7 @@ export default (props)=>{
 
   const storePayment = (transaction, afterBlock, paymentRoute, attempt)=>{
     if(attempt > 3) { return }
-    fetch('https://public.depay.fi/payments', {
+    fetch('https://public.depay.com/payments', {
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
       body: JSON.stringify({

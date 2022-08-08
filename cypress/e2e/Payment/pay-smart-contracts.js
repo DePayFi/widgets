@@ -112,7 +112,7 @@ describe('Payment Widget: pay smart contracts', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -191,7 +191,7 @@ describe('Payment Widget: pay smart contracts', () => {
       }
     })
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",

@@ -128,7 +128,7 @@ describe('Payment Widget: currency conversion', () => {
 
     beforeEach(()=>{
       fetchMock.get({
-        url: `https://public.depay.fi/currencies/EUR`,
+        url: `https://public.depay.com/currencies/EUR`,
         overwriteRoutes: true
       }, 500)
     })

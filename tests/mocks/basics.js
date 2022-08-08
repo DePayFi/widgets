@@ -70,24 +70,24 @@ export default ({
   exchange = findByName(exchange)
 
   fetchMock.get({
-    url: `https://public.depay.fi/accounts/${blockchain}/${fromAddress}/assets`,
+    url: `https://public.depay.com/accounts/${blockchain}/${fromAddress}/assets`,
     overwriteRoutes: true
   }, fromAddressAssets)
 
   stubTimeZone(timeZone)
 
   fetchMock.get({
-    url: `https://public.depay.fi/currencies/${currency}`,
+    url: `https://public.depay.com/currencies/${currency}`,
     overwriteRoutes: true
   }, currencyToUSD.toString())
 
   fetchMock.post({
-    url: `https://public.depay.fi/transactions`,
+    url: `https://public.depay.com/transactions`,
     overwriteRoutes: true
   }, { status: 201 })
 
   fetchMock.get({
-    url: `https://public.depay.fi/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
+    url: `https://public.depay.com/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
     overwriteRoutes: true
   }, { status: 404 })
 

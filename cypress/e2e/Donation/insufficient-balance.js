@@ -72,12 +72,12 @@ describe('Donation Widget: insufficient balance', () => {
     })
     
     fetchMock.get({
-      url: `https://public.depay.fi/accounts/${blockchain}/${fromAddress}/assets`,
+      url: `https://public.depay.com/accounts/${blockchain}/${fromAddress}/assets`,
       overwriteRoutes: true
     }, [])
 
     fetchMock.get({
-      url: `https://public.depay.fi/currencies/USD`,
+      url: `https://public.depay.com/currencies/USD`,
       overwriteRoutes: true
     }, "0.85")
   })

@@ -161,7 +161,7 @@ describe('Payment Widget: overview', () => {
 
       beforeEach(()=>{
         fetchMock.get({
-          url: 'https://public.depay.fi/accounts/ethereum/0xd8da6bf26964af9d7eed9e03e53415d37aa96045/assets',
+          url: 'https://public.depay.com/accounts/ethereum/0xd8da6bf26964af9d7eed9e03e53415d37aa96045/assets',
           overwriteRoutes: true,
           delay: 10000
         }, [])
@@ -217,7 +217,7 @@ describe('Payment Widget: overview', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('a').invoke('attr', 'href').should('eq', 'https://depay.fi?utm_source=localhost&utm_medium=widget&utm_campaign=WidgetV2')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('a').invoke('attr', 'href').should('eq', 'https://depay.com')
         })
       })
     })

@@ -14,7 +14,7 @@ export default (props)=>{
   useEffect(()=>{
     if(polling) {
       let poll = ()=> {
-        fetch(`https://public.depay.fi/transactions/${givenTransaction.blockchain}/${givenTransaction.from.toLowerCase()}/${givenTransaction.nonce}`)
+        fetch(`https://public.depay.com/transactions/${givenTransaction.blockchain}/${givenTransaction.from.toLowerCase()}/${givenTransaction.nonce}`)
           .then((response)=>{
             if(response.status == 200) {
               response.json().then((data)=>{
@@ -40,7 +40,7 @@ export default (props)=>{
       console.log('TRANSACTION TRACKING FAILED AFTER 3 ATTEMPTS!')
       return
     }
-    fetch('https://public.depay.fi/transactions', {
+    fetch('https://public.depay.com/transactions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -66,7 +66,7 @@ export default (props)=>{
   }
 
   const openSocket = (transaction)=>{
-    let socket = new WebSocket('wss://integrate.depay.fi/cable')
+    let socket = new WebSocket('wss://integrate.depay.com/cable')
     socket.onopen = function(event) {
       const msg = {
         command: 'subscribe',

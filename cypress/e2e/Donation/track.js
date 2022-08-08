@@ -43,7 +43,7 @@ describe('Donation Widget: track', () => {
       endpoint: '/track/payments'
     }
   }
-  let mockedWebsocketServer = new Server('wss://integrate.depay.fi/cable')
+  let mockedWebsocketServer = new Server('wss://integrate.depay.com/cable')
   let websocketMessages = []
   let mockedWebsocket
 
@@ -139,7 +139,7 @@ describe('Donation Widget: track', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",
