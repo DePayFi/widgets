@@ -20,7 +20,7 @@ export default Object.assign({}, rollup, {
       openPage: 'http://127.0.0.1:8080/dev.html'
     }),
     dev({
-      proxy: [{ from: '/track', to:'https://reqbin.com/sample/post/json' }],
+      proxy: [{ from: '/track', to:'https://jsonplaceholder.typicode.com/posts' }],
     }),
     livereload({
       watch: ['dist', 'src']

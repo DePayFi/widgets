@@ -106,7 +106,7 @@ export default (props)=>{
       fee_amount: paymentRoute?.feeAmount?.toString()
     })
       .then((response)=>{
-        if(response.status != 200) {
+        if(response.status != 200 && response.status != 201) {
           retryStartTracking(transaction, afterBlock, paymentRoute, attempt)
         }
       })
@@ -134,7 +134,7 @@ export default (props)=>{
     }
 
     const handleResponse = (response)=>{
-      if(response.status == 200) {
+      if(response.status == 200 || response.status == 201) {
         response.json().then((data)=>{
           if(data && data.forward_to) {
             setForwardTo(data.forward_to)

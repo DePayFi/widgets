@@ -21676,7 +21676,7 @@ var PaymentTrackingProvider = (function (props) {
       to_decimals: paymentRoute.toDecimals,
       fee_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou === void 0 ? void 0 : _paymentRoute$feeAmou.toString()
     }).then(function (response) {
-      if (response.status != 200) {
+      if (response.status != 200 && response.status != 201) {
         retryStartTracking(transaction, afterBlock, paymentRoute, attempt);
       }
     })["catch"](function (error) {
@@ -21700,7 +21700,7 @@ var PaymentTrackingProvider = (function (props) {
     };
 
     var handleResponse = function handleResponse(response) {
-      if (response.status == 200) {
+      if (response.status == 200 || response.status == 201) {
         response.json().then(function (data) {
           if (data && data.forward_to) {
             setForwardTo(data.forward_to);
