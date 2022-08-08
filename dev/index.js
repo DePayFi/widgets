@@ -990,7 +990,7 @@
     }, props.body), /*#__PURE__*/React__default$1['default'].createElement("div", {
       className: "DialogFooter"
     }, props.footer, /*#__PURE__*/React__default$1['default'].createElement("a", {
-      href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
+      href: 'https://depay.com?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
       rel: "noopener noreferrer",
       target: "_blank",
       className: "FooterLink"
@@ -1633,7 +1633,7 @@
         className: "ButtonPrimary",
         onClick: close
       }, "Try again")), /*#__PURE__*/React__default$1['default'].createElement("a", {
-        href: 'https://depay.fi?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
+        href: 'https://depay.com?utm_source=' + window.location.hostname + '&utm_medium=widget&utm_campaign=WidgetV2',
         rel: "noopener noreferrer",
         target: "_blank",
         className: "FooterLink"

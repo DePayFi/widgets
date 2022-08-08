@@ -69,7 +69,7 @@ export default (props)=> {
   }
 
   const searchTokens = useCallback(debounce((term, blockchainName)=>{
-    fetch(`https://public.depay.fi/tokens/search?blockchain=${blockchainName}&term=${term}`).then((response)=>{
+    fetch(`https://public.depay.com/tokens/search?blockchain=${blockchainName}&term=${term}`).then((response)=>{
       if(response.status == 200) {
         response.json().then((tokens)=>{
           setTokens(tokens)

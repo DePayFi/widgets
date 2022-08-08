@@ -135,7 +135,7 @@ describe('Payment Widget: fee', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "19.0",

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="https://depay.fi/favicon.png"/>
+    <link rel="icon" type="image/png" href="https://depay.com/favicon.png"/>
     <title>Development</title>
     <script defer async src="dist/umd/index.bundle.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.css">
@@ -25,8 +25,8 @@
     <div class="container py-4">
 
       <div class="py-2 pb-3 text-center">
-        <a href="https://depay.fi" target="_blank">
-          <img alt="DePay Logo" class="navbar-logo shadow-sm" src="https://depay.fi/logo.svg" style="height: 50px; width: 50px; border-radius: 999px;"/>
+        <a href="https://depay.com" target="_blank">
+          <img alt="DePay Logo" class="navbar-logo shadow-sm" src="https://depay.com/logo.svg" style="height: 50px; width: 50px; border-radius: 999px;"/>
         </a>
       </div>
 
@@ -764,7 +764,7 @@
                     button.addEventListener("click",async function(e){
                       let dateTime = new Date().toISOString().slice(0, 19);
                       let account = await DePayWidgets.Login({
-                        message: `Click to log in to DePay and to accept DePay's Terms of Service: https://depay.fi/legal/terms\n${dateTime}`
+                        message: `Click to log in to DePay and to accept DePay's Terms of Service: https://depay.com/legal/terms\n${dateTime}`
                       })
                       console.log("Logged in via signature", account)
                     });

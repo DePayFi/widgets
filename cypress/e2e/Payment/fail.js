@@ -35,7 +35,7 @@ describe('Payment Widget: failures', () => {
       receiver: toAddress
     }]
   }
-  let mockedWebsocketServer = new Server('wss://integrate.depay.fi/cable')
+  let mockedWebsocketServer = new Server('wss://integrate.depay.com/cable')
   let websocketMessages = []
   let mockedWebsocket
 
@@ -119,7 +119,7 @@ describe('Payment Widget: failures', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -186,7 +186,7 @@ describe('Payment Widget: failures', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",

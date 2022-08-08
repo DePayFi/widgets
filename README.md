@@ -3,7 +3,7 @@
 You can either load the `@depay/widgets` package via CDN:
 
 ```
-<script defer async src="https://integrate.depay.fi/widgets/v7.js"></script>
+<script defer async src="https://integrate.depay.com/widgets/v7.js"></script>
 ```
 
 or you install `@depay/widgets` via the package manager of your choice and ship it as part of your application bundle:
@@ -24,7 +24,7 @@ import DePayWidgets from '@depay/widgets'
 
 ## Demo
 
-To easily configure DePay Payment Widgets please use our configurator here: https://app.depay.fi/integrations/new
+To easily configure DePay Payment Widgets please use our configurator here: https://app.depay.com/integrations/new
 
 For a more low-key technical example/demo page have a look at: https://depayfi.github.io/widgets/dev.bundle.html
 
@@ -74,7 +74,7 @@ In order to receive decentralized payments on any blockchain you need to have yo
 ### Quick start (DePay Payments)
 
 ```
-<script defer async src="https://integrate.depay.fi/widgets/v7.js"/>
+<script defer async src="https://integrate.depay.com/widgets/v7.js"/>
 ```
 
 ```
@@ -144,7 +144,7 @@ Currently supported:
 
 The address of the token you want to receive.
 
-Use our [payment configurator](https://depay.fi/documentation/payments#payment-configurator) in order to simplify configuring this.
+Use our [payment configurator](https://depay.com/documentation/payments#payment-configurator) in order to simplify configuring this.
 
 `amount` (Optional)
 
@@ -341,12 +341,12 @@ DePayWidgets.Payment({
 
 In case you pass a tracking method it needs to return a promise.
 
-Your endpoint needs to make sure to forward this to the [payment tracking api](https://depay.fi/documentation/api#payments).
+Your endpoint needs to make sure to forward this to the [payment tracking api](https://depay.com/documentation/api#payments).
 
 Also make sure to add `token`, `amount` and `confirmations` when forwarding the request to the payments api.
 Those values are supposed to be set by your backend not the widget nor the fronted because any user could set these values to their liking otherwise, having you confirm payment amounts and tokens that you didn't intend to receive!
 
-Make sure you read the [Payment Tracking API](https://depay.fi/documentation/api#payments) for further details on how to integrate payment tracking.
+Make sure you read the [Payment Tracking API](https://depay.com/documentation/api#payments) for further details on how to integrate payment tracking.
 
 Payment tracking requests will be attempted up to 3 times by the widget and will display "Payment tracking failed!" to the user if the widget was not able to start payment tracking via the given endpoint after 3 attempts.
 
@@ -818,7 +818,7 @@ In order to sell tokens in a decentralized way, that token needs to have a liqui
 ### Quick start (DePay Sales)
 
 ```
-<script defer async src="https://integrate.depay.fi/widgets/v7.js"/>
+<script defer async src="https://integrate.depay.com/widgets/v7.js"/>
 ```
 
 ```javascript
@@ -867,7 +867,7 @@ Currently supported blockchains:
 
 The address of the token you want to sell.
 
-Use our [sale configurator](https://depay.fi/documentation/sales#sale-configurator) in order to simplify configuring this.
+Use our [sale configurator](https://depay.com/documentation/sales#sale-configurator) in order to simplify configuring this.
 
 #### amount (DePay Sales)
 
@@ -1076,7 +1076,7 @@ Allows to set the token image used in the widget to represent the purchased toke
 ```javascript
 DePayWidgets.Sale({
   
-  tokenImage: 'https://depay.fi/favicon.png'
+  tokenImage: 'https://depay.com/favicon.png'
 
 });
 ```
@@ -1216,7 +1216,7 @@ In order to receive decentralized donation payments on any blockchain you need t
 ### Quick start (DePay Donations)
 
 ```
-<script defer async src="https://integrate.depay.fi/widgets/v7.js"/>
+<script defer async src="https://integrate.depay.com/widgets/v7.js"/>
 ```
 
 ```javascript
@@ -1274,7 +1274,7 @@ Currently supported:
 
 The address of the token you want to receive.
 
-Use our [donation configurator](https://depay.fi/documentation/donations#donation-configurator) in order to simplify configuring this.
+Use our [donation configurator](https://depay.com/documentation/donations#donation-configurator) in order to simplify configuring this.
 
 `receiver`
 
@@ -1642,7 +1642,7 @@ DePay Connect allows you to have your users connect their crypto wallet to your 
 Returns connected `account`, `accounts` and `wallet` in return. 
 
 ```
-<script defer async src="https://integrate.depay.fi/widgets/v7.js"/>
+<script defer async src="https://integrate.depay.com/widgets/v7.js"/>
 ```
 
 ```javascript
@@ -1670,7 +1670,7 @@ DePay Login allows you to perform web3 wallet logins with ease.
 Returns `account` if succesfully signed and recovered log in message.
 
 ```
-<script defer async src="https://integrate.depay.fi/widgets/v7.js"/>
+<script defer async src="https://integrate.depay.com/widgets/v7.js"/>
 ```
 
 ```javascript
@@ -1747,7 +1747,7 @@ DePay Select widget allows you to open a dialog that allows you to select things
 Resolves with what has been selected by the user:
 
 ```
-<script defer async src="https://integrate.depay.fi/widgets/v7.js"/>
+<script defer async src="https://integrate.depay.com/widgets/v7.js"/>
 ```
 
 ```javascript

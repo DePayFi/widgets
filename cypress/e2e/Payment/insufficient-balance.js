@@ -59,12 +59,12 @@ describe('Payment Widget: insufficient balance', () => {
     TOKENRouteMock = mock({provider: provider(blockchain), blockchain, "call":{"to":"0x7a250d5630b4cf539739df2c5dacb4c659f2488d","api":exchange.contracts.router.api,"method":"getAmountsIn","return":"Your Value","params":["20000000000000000000",["0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2","0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"]]}})
     
     fetchMock.get({
-      url: `https://public.depay.fi/accounts/${blockchain}/${fromAddress}/assets`,
+      url: `https://public.depay.com/accounts/${blockchain}/${fromAddress}/assets`,
       overwriteRoutes: true
     }, [])
 
     fetchMock.get({
-      url: `https://public.depay.fi/currencies/USD`,
+      url: `https://public.depay.com/currencies/USD`,
       overwriteRoutes: true
     }, "0.85")
   })

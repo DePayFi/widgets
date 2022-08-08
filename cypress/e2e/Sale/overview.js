@@ -168,7 +168,7 @@ describe('Sale Widget: overview', () => {
 
       beforeEach(()=>{
         fetchMock.get({
-          url: 'https://public.depay.fi/accounts/ethereum/0xd8da6bf26964af9d7eed9e03e53415d37aa96045/assets',
+          url: 'https://public.depay.com/accounts/ethereum/0xd8da6bf26964af9d7eed9e03e53415d37aa96045/assets',
           overwriteRoutes: true,
           delay: 5000
         }, [])
@@ -225,7 +225,7 @@ describe('Sale Widget: overview', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Sale({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('a').invoke('attr', 'href').should('eq', 'https://depay.fi?utm_source=localhost&utm_medium=widget&utm_campaign=WidgetV2')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('a').invoke('attr', 'href').should('eq', 'https://depay.com?utm_source=localhost&utm_medium=widget&utm_campaign=WidgetV2')
         })
       })
     })
@@ -233,8 +233,8 @@ describe('Sale Widget: overview', () => {
     it('allows to set the token image of the token sold', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
-          DePayWidgets.Sale({ ...defaultArguments, tokenImage: 'https://depay.fi/favicon.png', document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('img[src="https://depay.fi/favicon.png"]').invoke('attr', 'src').should('eq', 'https://depay.fi/favicon.png')
+          DePayWidgets.Sale({ ...defaultArguments, tokenImage: 'https://depay.com/favicon.png', document })
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('img[src="https://depay.com/favicon.png"]').invoke('attr', 'src').should('eq', 'https://depay.com/favicon.png')
         })
       })
     })

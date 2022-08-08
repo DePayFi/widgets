@@ -42,7 +42,7 @@ describe('Payment Widget: track', () => {
       endpoint: '/track/payments'
     }
   }
-  let mockedWebsocketServer = new Server('wss://integrate.depay.fi/cable')
+  let mockedWebsocketServer = new Server('wss://integrate.depay.com/cable')
   let websocketMessages = []
   let mockedWebsocket
 
@@ -125,7 +125,7 @@ describe('Payment Widget: track', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -243,7 +243,7 @@ describe('Payment Widget: track', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -375,7 +375,7 @@ describe('Payment Widget: track', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "19.8",
@@ -495,7 +495,7 @@ describe('Payment Widget: track', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -589,7 +589,7 @@ describe('Payment Widget: track', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -704,7 +704,7 @@ describe('Payment Widget: track', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -812,7 +812,7 @@ describe('Payment Widget: track', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -931,7 +931,7 @@ describe('Payment Widget: track', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -1034,7 +1034,7 @@ describe('Payment Widget: track', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -1164,7 +1164,7 @@ describe('Payment Widget: track', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -1278,7 +1278,7 @@ describe('Payment Widget: track', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",
@@ -1401,7 +1401,7 @@ describe('Payment Widget: track', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",

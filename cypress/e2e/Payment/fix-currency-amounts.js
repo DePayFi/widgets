@@ -133,7 +133,7 @@ describe('Payment Widget: fix currency amounts', () => {
     })
 
     fetchMock.post({
-      url: "https://public.depay.fi/payments",
+      url: "https://public.depay.com/payments",
       body: {
         after_block: 1,
         amount: "20.0",
