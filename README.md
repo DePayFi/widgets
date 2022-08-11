@@ -47,7 +47,7 @@ DePay supports the most popular crypto wallets:
 - [MetaMask](https://metamask.io)
 - [Coinbase Wallet](https://wallet.coinbase.com)
 
-100+ different wallets via [WalletConnect](https://walletconnect.org), such as:
+100+ additional wallets via [WalletConnect](https://walletconnect.org), such as:
 - [Trust Wallet](https://trustwallet.com)
 - [DeFi Wallet by crypto.com](https://crypto.com/defi-wallet)
 - [1inch Wallet](https://1inch.io/wallet/)
