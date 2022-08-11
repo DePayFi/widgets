@@ -1467,6 +1467,32 @@ DePayWidgets.Donation({
 });
 ```
 
+#### whitelist (DePay Donations)
+
+Allows only the configured tokens to be eligible as means of payment (from the sender):
+
+```javacript
+DePayWidgets.Donation({
+  
+  whitelist: {
+    ethereum: [
+      '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', // ETH
+      '0xdac17f958d2ee523a2206206994597c13d831ec7', // USDT
+      '0x6b175474e89094c44da98b954eedeac495271d0f'  // DAI
+    ],
+    bsc: [
+      '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', // BNB
+      '0xe9e7cea3dedca5984780bafc599bd69add087d56', // BUSD
+      '0x55d398326f99059ff775485246999027b3197955'  // BSC-USD
+    ],
+    polygon: [
+      '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', // MATIC
+      '0x2791bca1f2de4661ed88a30c99a7a9449aa84174', // USDC
+    ]
+  }
+})
+```
+
 #### blacklist (DePay Donations)
 
 Allows to blacklist tokens so that they will not be suggested as means of payment (from the sender):
