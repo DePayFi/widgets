@@ -78,10 +78,6 @@ In order to receive decentralized payments on any blockchain you need to have yo
 ### Quick start (DePay Payments)
 
 ```
-<script defer async src="https://integrate.depay.com/widgets/v7.js"/>
-```
-
-```
 DePayWidgets.Payment({
   accept: [{
     blockchain: 'ethereum',
@@ -821,10 +817,6 @@ In order to sell tokens in a decentralized way, that token needs to have a liqui
 
 ### Quick start (DePay Sales)
 
-```
-<script defer async src="https://integrate.depay.com/widgets/v7.js"/>
-```
-
 ```javascript
 DePayWidgets.Sale({
   sell: {
@@ -1218,10 +1210,6 @@ In order to receive decentralized donation payments on any blockchain you need t
 - [Create an BSC wallet](https://academy.binance.com/en/articles/how-to-get-started-with-binance-smart-chain-bsc)
 
 ### Quick start (DePay Donations)
-
-```
-<script defer async src="https://integrate.depay.com/widgets/v7.js"/>
-```
 
 ```javascript
 DePayWidgets.Donation({
@@ -1671,10 +1659,6 @@ DePay Connect allows you to have your users connect their crypto wallet to your 
 
 Returns connected `account`, `accounts` and `wallet` in return. 
 
-```
-<script defer async src="https://integrate.depay.com/widgets/v7.js"/>
-```
-
 ```javascript
 let { account, accounts, wallet }  = await DePayWidgets.Connect()
 ```
@@ -1698,10 +1682,6 @@ DePayWidgets.Connect().then(()=>{}).catch((error)=>{
 DePay Login allows you to perform web3 wallet logins with ease.
 
 Returns `account` if succesfully signed and recovered log in message.
-
-```
-<script defer async src="https://integrate.depay.com/widgets/v7.js"/>
-```
 
 ```javascript
 let message = "Sign to login"
@@ -1775,10 +1755,6 @@ DePayWidgets.Login().then(()=>{}).catch((error)=>{
 DePay Select widget allows you to open a dialog that allows you to select things like tokens, etc.
 
 Resolves with what has been selected by the user:
-
-```
-<script defer async src="https://integrate.depay.com/widgets/v7.js"/>
-```
 
 ```javascript
 let token = await DePayWidgets.Select({ what: 'token' })
