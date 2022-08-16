@@ -20603,6 +20603,10 @@
     };
 
     React.useEffect(function () {
+      if (!paymentValue) {
+        return;
+      }
+
       if (amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
         setDisplayedPaymentValue(paymentValue.toString());
       } else if (amount && (configuredAmount == undefined || (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true)) {
@@ -20612,7 +20616,7 @@
         }).toString());
       } else if (paymentValue && paymentValue.toString().length && (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true) {
         setDisplayedPaymentValue(paymentValue.toString());
-      } else {
+      } else if (payment) {
         setDisplayedPaymentValue("".concat(payment.symbol, " ").concat(payment.amount));
       }
     }, [paymentValue]);

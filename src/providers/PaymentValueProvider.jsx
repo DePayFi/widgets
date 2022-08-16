@@ -78,13 +78,14 @@ export default (props)=>{
   }
 
   useEffect(()=>{
+    if(!paymentValue){ return }
     if(amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
       setDisplayedPaymentValue(paymentValue.toString())
     } else if(amount && (configuredAmount == undefined || configuredAmount?.token != true)) {
       setDisplayedPaymentValue(new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString())
     } else if(paymentValue && paymentValue.toString().length && configuredAmount?.token != true) {
       setDisplayedPaymentValue(paymentValue.toString())
-    } else {
+    } else if(payment) {
       setDisplayedPaymentValue(`${payment.symbol} ${payment.amount}`)
     }
   }, [paymentValue])
