@@ -1,3 +1,4 @@
+import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
 import PaymentContext from '../contexts/PaymentContext'
@@ -16,8 +17,11 @@ export default (props)=>{
   const { setError } = useContext(ErrorContext)
   const { account } = useContext(WalletContext)
   const { updatable } = useContext(UpdatableContext)
+  const { amount: configuredAmount, currencyCode } = useContext(ConfigurationContext)
+  const { amount } = useContext(ChangableAmountContext)
   const { payment } = useContext(PaymentContext)
   const [ paymentValue, setPaymentValue ] = useState()
+  const [ displayedPaymentValue, setDisplayedPaymentValue ] = useState()
   const [ paymentValueLoss, setPaymentValueLoss ] = useState()
   const { currency } = useContext(ConfigurationContext)
   const [ reloadCount, setReloadCount ] = useState(0)
@@ -72,6 +76,18 @@ export default (props)=>{
         .then(setPaymentValue)
     }).catch(setError)
   }
+
+  useEffect(()=>{
+    if(amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
+      setDisplayedPaymentValue(paymentValue.toString())
+    } else if(amount && (configuredAmount == undefined || configuredAmount?.token != true)) {
+      setDisplayedPaymentValue(new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString())
+    } else if(paymentValue && paymentValue.toString().length && configuredAmount?.token != true) {
+      setDisplayedPaymentValue(paymentValue.toString())
+    } else {
+      setDisplayedPaymentValue(`${payment.symbol} ${payment.amount}`)
+    }
+  }, [paymentValue])
   
   useEffect(()=>{
     if(account && payment) { updatePaymentValue({ updatable, payment }) }
@@ -89,7 +105,8 @@ export default (props)=>{
   return(
     <PaymentValueContext.Provider value={{
       paymentValue,
-      paymentValueLoss
+      paymentValueLoss,
+      displayedPaymentValue,
     }}>
       { props.children }
     </PaymentValueContext.Provider>

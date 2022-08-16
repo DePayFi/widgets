@@ -19252,7 +19252,7 @@
     };
 
     var _useContext = React.useContext(ConfigurationContext),
-        amountConfiguration = _useContext.amount;
+        configuredAmount = _useContext.amount;
         _useContext.toAmount;
         var recover = _useContext.recover;
 
@@ -19276,21 +19276,21 @@
         acceptWithAmount = _useState4[0],
         setAcceptWithAmount = _useState4[1];
 
-    var _useState5 = React.useState(_typeof(amountConfiguration) == 'object' && amountConfiguration.fix && amountConfiguration.currency ? amountConfiguration.fix : null),
+    var _useState5 = React.useState(_typeof(configuredAmount) == 'object' && configuredAmount.fix && configuredAmount.currency ? configuredAmount.fix : null),
         _useState6 = _slicedToArray(_useState5, 1),
         fixedAmount = _useState6[0];
 
-    var _useState7 = React.useState(_typeof(amountConfiguration) == 'object' && amountConfiguration.fix && amountConfiguration.currency ? amountConfiguration.currency : null),
+    var _useState7 = React.useState(_typeof(configuredAmount) == 'object' && configuredAmount.fix && configuredAmount.currency ? configuredAmount.currency : null),
         _useState8 = _slicedToArray(_useState7, 1),
         fixedCurrency = _useState8[0];
 
     var startAmount;
 
     if (amountsMissing) {
-      if (_typeof(amountConfiguration) == "object" && amountConfiguration.start && amountConfiguration.start) {
-        startAmount = amountConfiguration.start;
-      } else if (_typeof(amountConfiguration) == "object" && amountConfiguration.fix) {
-        startAmount = amountConfiguration.fix;
+      if (_typeof(configuredAmount) == "object" && configuredAmount.start && configuredAmount.start) {
+        startAmount = configuredAmount.start;
+      } else if (_typeof(configuredAmount) == "object" && configuredAmount.fix) {
+        startAmount = configuredAmount.fix;
       } else {
         startAmount = 1;
       }
@@ -19324,7 +19324,7 @@
           conversionRate = _ref.conversionRate,
           fixedCurrencyConversionRate = _ref.fixedCurrencyConversionRate;
       return new Promise(function (resolve, reject) {
-        if (amountConfiguration && amountConfiguration.token) {
+        if (configuredAmount && configuredAmount.token) {
           resolve(props.accept.map(function () {
             return amount;
           }));
@@ -19419,7 +19419,7 @@
     React.useEffect(function () {
       if (amountsMissing && maxRoute) {
         maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
-          if (amountConfiguration && amountConfiguration.token) {
+          if (configuredAmount && configuredAmount.token) {
             web3Exchanges.route({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,
@@ -20504,8 +20504,15 @@
     var _useContext3 = React.useContext(UpdatableContext),
         updatable = _useContext3.updatable;
 
-    var _useContext4 = React.useContext(PaymentContext),
-        payment = _useContext4.payment;
+    var _useContext4 = React.useContext(ConfigurationContext),
+        configuredAmount = _useContext4.amount,
+        currencyCode = _useContext4.currencyCode;
+
+    var _useContext5 = React.useContext(ChangableAmountContext),
+        amount = _useContext5.amount;
+
+    var _useContext6 = React.useContext(PaymentContext),
+        payment = _useContext6.payment;
 
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
@@ -20514,16 +20521,21 @@
 
     var _useState3 = React.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
-        paymentValueLoss = _useState4[0],
-        setPaymentValueLoss = _useState4[1];
+        displayedPaymentValue = _useState4[0],
+        setDisplayedPaymentValue = _useState4[1];
 
-    var _useContext5 = React.useContext(ConfigurationContext),
-        currency = _useContext5.currency;
-
-    var _useState5 = React.useState(0),
+    var _useState5 = React.useState(),
         _useState6 = _slicedToArray(_useState5, 2),
-        reloadCount = _useState6[0],
-        setReloadCount = _useState6[1];
+        paymentValueLoss = _useState6[0],
+        setPaymentValueLoss = _useState6[1];
+
+    var _useContext7 = React.useContext(ConfigurationContext),
+        currency = _useContext7.currency;
+
+    var _useState7 = React.useState(0),
+        _useState8 = _slicedToArray(_useState7, 2),
+        reloadCount = _useState8[0],
+        setReloadCount = _useState8[1];
 
     var updatePaymentValue = function updatePaymentValue(_ref) {
       var updatable = _ref.updatable,
@@ -20591,6 +20603,20 @@
     };
 
     React.useEffect(function () {
+      if (amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
+        setDisplayedPaymentValue(paymentValue.toString());
+      } else if (amount && (configuredAmount == undefined || (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true)) {
+        setDisplayedPaymentValue(new localCurrency.Currency({
+          amount: amount.toFixed(2),
+          code: currencyCode
+        }).toString());
+      } else if (paymentValue && paymentValue.toString().length && (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true) {
+        setDisplayedPaymentValue(paymentValue.toString());
+      } else {
+        setDisplayedPaymentValue("".concat(payment.symbol, " ").concat(payment.amount));
+      }
+    }, [paymentValue]);
+    React.useEffect(function () {
       if (account && payment) {
         updatePaymentValue({
           updatable: updatable,
@@ -20612,7 +20638,8 @@
     return /*#__PURE__*/React__default['default'].createElement(PaymentValueContext.Provider, {
       value: {
         paymentValue: paymentValue,
-        paymentValueLoss: paymentValueLoss
+        paymentValueLoss: paymentValueLoss,
+        displayedPaymentValue: displayedPaymentValue
       }
     }, props.children);
   });
@@ -20669,18 +20696,21 @@
         setAmount = _useContext4.setAmount,
         maxAmount = _useContext4.maxAmount;
 
+    var _useContext5 = React.useContext(PaymentValueContext);
+        _useContext5.displayedPaymentValue;
+
     var _useState = React.useState(amount),
         _useState2 = _slicedToArray(_useState, 2),
         inputAmount = _useState2[0],
         setInputAmount = _useState2[1];
 
-    var _useContext5 = React.useContext(ConfigurationContext),
-        currencyCode = _useContext5.currencyCode,
-        amountConfiguration = _useContext5.amount;
+    var _useContext6 = React.useContext(ConfigurationContext),
+        currencyCode = _useContext6.currencyCode,
+        amountConfiguration = _useContext6.amount;
 
-    var _useContext6 = React.useContext(PaymentRoutingContext);
-        _useContext6.allRoutes;
-        var setSelectedRoute = _useContext6.setSelectedRoute;
+    var _useContext7 = React.useContext(PaymentRoutingContext);
+        _useContext7.allRoutes;
+        var setSelectedRoute = _useContext7.setSelectedRoute;
 
     var min = _typeof(amountConfiguration) == "object" && amountConfiguration.min ? amountConfiguration.min : 1;
     var step = _typeof(amountConfiguration) == "object" && amountConfiguration.step ? amountConfiguration.step : 1;
@@ -20817,8 +20847,9 @@
         allRoutes = _useContext2.allRoutes,
         setSelectedRoute = _useContext2.setSelectedRoute;
 
-    var _useContext3 = React.useContext(PaymentValueContext),
-        paymentValue = _useContext3.paymentValue;
+    var _useContext3 = React.useContext(PaymentValueContext);
+        _useContext3.paymentValue;
+        var displayedPaymentValue = _useContext3.displayedPaymentValue;
 
     var _useContext4 = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext4.navigate;
@@ -20903,9 +20934,9 @@
         className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL TextCenter"
-      }, "Change Payment"), paymentValue != undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Change Payment"), displayedPaymentValue != undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "FontSizeL TextCenter FontWeightBold"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", null, paymentValue.toString()))),
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, displayedPaymentValue.toString()))),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "MaxHeight PaddingTopXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -21028,41 +21059,38 @@
   });
 
   var Footer = (function () {
-    var _useContext = React.useContext(ConfigurationContext),
-        currencyCode = _useContext.currencyCode,
-        configuredAmount = _useContext.amount;
+    var _useContext = React.useContext(ChangableAmountContext);
+        _useContext.amount;
+        _useContext.amountsMissing;
 
-    var _useContext2 = React.useContext(ChangableAmountContext),
-        amount = _useContext2.amount;
-        _useContext2.amountsMissing;
+    var _useContext2 = React.useContext(PaymentTrackingContext),
+        tracking = _useContext2.tracking,
+        release = _useContext2.release,
+        forwardTo = _useContext2.forwardTo,
+        trackingFailed = _useContext2.trackingFailed;
 
-    var _useContext3 = React.useContext(PaymentTrackingContext),
-        tracking = _useContext3.tracking,
-        release = _useContext3.release,
-        forwardTo = _useContext3.forwardTo,
-        trackingFailed = _useContext3.trackingFailed;
+    var _useContext3 = React.useContext(PaymentContext),
+        payment = _useContext3.payment,
+        paymentState = _useContext3.paymentState,
+        pay = _useContext3.pay,
+        transaction = _useContext3.transaction,
+        approve = _useContext3.approve,
+        approvalTransaction = _useContext3.approvalTransaction;
 
-    var _useContext4 = React.useContext(PaymentContext),
-        payment = _useContext4.payment,
-        paymentState = _useContext4.paymentState,
-        pay = _useContext4.pay,
-        transaction = _useContext4.transaction,
-        approve = _useContext4.approve,
-        approvalTransaction = _useContext4.approvalTransaction;
+    var _useContext4 = React.useContext(PaymentValueContext);
+        _useContext4.paymentValue;
+        var displayedPaymentValue = _useContext4.displayedPaymentValue,
+        paymentValueLoss = _useContext4.paymentValueLoss;
 
-    var _useContext5 = React.useContext(PaymentValueContext),
-        paymentValue = _useContext5.paymentValue,
-        paymentValueLoss = _useContext5.paymentValueLoss;
+    var _useContext5 = React.useContext(PaymentRoutingContext),
+        updatedRouteWithNewPrice = _useContext5.updatedRouteWithNewPrice,
+        updateRouteWithNewPrice = _useContext5.updateRouteWithNewPrice;
 
-    var _useContext6 = React.useContext(PaymentRoutingContext),
-        updatedRouteWithNewPrice = _useContext6.updatedRouteWithNewPrice,
-        updateRouteWithNewPrice = _useContext6.updateRouteWithNewPrice;
+    var _useContext6 = React.useContext(reactDialogStack.NavigateStackContext);
+        _useContext6.navigate;
 
-    var _useContext7 = React.useContext(reactDialogStack.NavigateStackContext);
-        _useContext7.navigate;
-
-    var _useContext8 = React.useContext(ClosableContext),
-        close = _useContext8.close;
+    var _useContext7 = React.useContext(ClosableContext),
+        close = _useContext7.close;
 
     var trackingInfo = function trackingInfo() {
       if (tracking != true) {
@@ -21189,21 +21217,6 @@
     };
 
     var mainAction = function mainAction() {
-      var displayedAmount;
-
-      if (amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
-        displayedAmount = paymentValue.toString();
-      } else if (amount && (configuredAmount == undefined || (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true)) {
-        displayedAmount = new localCurrency.Currency({
-          amount: amount.toFixed(2),
-          code: currencyCode
-        }).toString();
-      } else if (paymentValue && paymentValue.toString().length && (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true) {
-        displayedAmount = paymentValue.toString();
-      } else {
-        displayedAmount = "".concat(payment.symbol, " ").concat(payment.amount);
-      }
-
       if (updatedRouteWithNewPrice) {
         return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "PaddingBottomXS"
@@ -21223,7 +21236,7 @@
         }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Payment token would lose ", paymentValueLoss, "% of it's value!"))), /*#__PURE__*/React__default['default'].createElement("button", {
           className: "ButtonPrimary disabled",
           onClick: function onClick() {}
-        }, "Pay ", displayedAmount));
+        }, "Pay ", displayedPaymentValue));
       } else if ((paymentState == 'initialized' || paymentState == 'approving') && payment.route) {
         return /*#__PURE__*/React__default['default'].createElement("button", {
           className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
@@ -21234,7 +21247,7 @@
 
             pay();
           }
-        }, "Pay ", displayedAmount);
+        }, "Pay ", displayedPaymentValue);
       } else if (paymentState == 'paying') {
         return /*#__PURE__*/React__default['default'].createElement("a", {
           className: "ButtonPrimary",

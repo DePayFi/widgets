@@ -4,6 +4,7 @@ import Dialog from '../components/Dialog'
 import ErrorContext from '../contexts/ErrorContext'
 import format from '../helpers/format'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
+import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
 import round from '../helpers/round'
 import WalletContext from '../contexts/WalletContext'
@@ -20,6 +21,7 @@ export default (props)=>{
   const { setError } = useContext(ErrorContext)
   const { account } = useContext(WalletContext)
   const { amount, setAmount, maxAmount } = useContext(ChangableAmountContext)
+  const { displayedPaymentValue } = useContext(PaymentValueContext)
   const [ inputAmount, setInputAmount ] = useState(amount)
   const { currencyCode, amount: amountConfiguration } = useContext(ConfigurationContext)
   const { allRoutes, setSelectedRoute } = useContext(PaymentRoutingContext)

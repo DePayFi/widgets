@@ -20,20 +20,20 @@ export default (props)=>{
       )
     })
   }
-  const { amount: amountConfiguration, toAmount, recover } = useContext(ConfigurationContext)
+  const { amount: configuredAmount, toAmount, recover } = useContext(ConfigurationContext)
   const [ amountsMissing, setAmountsMissing ] = useState(recover == undefined ? configurationsMissAmounts(props.accept) : false)
   let { account } = useContext(WalletContext)
   const { conversionRate, fixedCurrencyConversionRate } = useContext(ConversionRateContext)
   const { setError } = useContext(ErrorContext)
   const [ acceptWithAmount, setAcceptWithAmount ] = useState()
-  const [ fixedAmount ] = useState((typeof amountConfiguration == 'object' && amountConfiguration.fix && amountConfiguration.currency) ? amountConfiguration.fix : null)
-  const [ fixedCurrency ] = useState((typeof amountConfiguration == 'object' && amountConfiguration.fix && amountConfiguration.currency) ? amountConfiguration.currency : null)
+  const [ fixedAmount ] = useState((typeof configuredAmount == 'object' && configuredAmount.fix && configuredAmount.currency) ? configuredAmount.fix : null)
+  const [ fixedCurrency ] = useState((typeof configuredAmount == 'object' && configuredAmount.fix && configuredAmount.currency) ? configuredAmount.currency : null)
   let startAmount
   if(amountsMissing) {
-    if((typeof amountConfiguration == "object" && amountConfiguration.start && amountConfiguration.start)) {
-      startAmount = amountConfiguration.start
-    } else if (typeof amountConfiguration == "object" && amountConfiguration.fix) {
-      startAmount = amountConfiguration.fix
+    if((typeof configuredAmount == "object" && configuredAmount.start && configuredAmount.start)) {
+      startAmount = configuredAmount.start
+    } else if (typeof configuredAmount == "object" && configuredAmount.fix) {
+      startAmount = configuredAmount.fix
     } else {
       startAmount = 1
     }
@@ -49,7 +49,7 @@ export default (props)=>{
 
   const getAmounts = ({ amount, conversionRate, fixedCurrencyConversionRate })=>{
     return new Promise((resolve, reject)=>{
-      if(amountConfiguration && amountConfiguration.token) {
+      if(configuredAmount && configuredAmount.token) {
         resolve(props.accept.map(()=>amount))
       } else {
         Promise.all(props.accept.map((configuration)=>{
@@ -128,7 +128,7 @@ export default (props)=>{
     if(amountsMissing && maxRoute) {
       maxRoute.fromToken.readable(maxRoute.fromBalance)
         .then((readableMaxAmount)=>{
-          if(amountConfiguration && amountConfiguration.token) {
+          if(configuredAmount && configuredAmount.token) {
             route({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,

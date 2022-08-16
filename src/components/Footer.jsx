@@ -2,7 +2,6 @@ import AlertIcon from '../components/AlertIcon'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import Checkmark from '../components/Checkmark'
 import ClosableContext from '../contexts/ClosableContext'
-import ConfigurationContext from '../contexts/ConfigurationContext'
 import DigitalWalletIcon from '../components/DigitalWalletIcon'
 import LoadingText from '../components/LoadingText'
 import PaymentContext from '../contexts/PaymentContext'
@@ -14,11 +13,10 @@ import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default ()=>{
-  const { currencyCode, amount: configuredAmount } = useContext(ConfigurationContext)
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
   const { tracking, release, forwardTo, trackingFailed } = useContext(PaymentTrackingContext)
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
-  const { paymentValue, paymentValueLoss } = useContext(PaymentValueContext)
+  const { paymentValue, displayedPaymentValue, paymentValueLoss } = useContext(PaymentValueContext)
   const { updatedRouteWithNewPrice, updateRouteWithNewPrice } = useContext(PaymentRoutingContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
@@ -155,17 +153,6 @@ export default ()=>{
   }
 
   const mainAction = ()=> {
-    let displayedAmount
-    if(amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
-      displayedAmount = paymentValue.toString()
-    } else if(amount && (configuredAmount == undefined || configuredAmount?.token != true)) {
-      displayedAmount = new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString()
-    } else if(paymentValue && paymentValue.toString().length && configuredAmount?.token != true) {
-      displayedAmount = paymentValue.toString()
-    } else {
-      displayedAmount = `${payment.symbol} ${payment.amount}`
-    }
-
     if(updatedRouteWithNewPrice) {
       return(
         <div>
@@ -188,7 +175,7 @@ export default ()=>{
             </div>
           </div>
           <button className={"ButtonPrimary disabled"} onClick={()=>{}}>
-            Pay { displayedAmount }
+            Pay { displayedPaymentValue }
           </button>
         </div>
       )
@@ -201,7 +188,7 @@ export default ()=>{
             pay()
           }}
         >
-          Pay { displayedAmount }
+          Pay { displayedPaymentValue }
         </button>
       )
     } else if (paymentState == 'paying') {

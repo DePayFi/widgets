@@ -14,7 +14,7 @@ export default (props)=>{
 
   const { setError } = useContext(ErrorContext)
   const { allRoutes, setSelectedRoute } = useContext(PaymentRoutingContext)
-  const { paymentValue } = useContext(PaymentValueContext)
+  const { paymentValue, displayedPaymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
   const [ allPaymentRoutesWithData, setAllPaymentRoutesWithData ] = useState([])
   const [ cards, setCards ] = useState([])
@@ -93,8 +93,8 @@ export default (props)=>{
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS">
           <h1 className="LineHeightL FontSizeL TextCenter">Change Payment</h1>
-          { paymentValue != undefined &&
-            <div className="FontSizeL TextCenter FontWeightBold"><strong>{ paymentValue.toString() }</strong></div>
+          { displayedPaymentValue != undefined &&
+            <div className="FontSizeL TextCenter FontWeightBold"><strong>{ displayedPaymentValue.toString() }</strong></div>
           }
         </div>
       }
