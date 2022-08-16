@@ -20608,11 +20608,7 @@ var PaymentValueProvider = (function (props) {
   };
 
   useEffect(function () {
-    if (!paymentValue) {
-      return;
-    }
-
-    if (amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
+    if (paymentValue && amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
       setDisplayedPaymentValue(paymentValue.toString());
     } else if (amount && (configuredAmount == undefined || (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true)) {
       setDisplayedPaymentValue(new Currency({
@@ -20624,7 +20620,7 @@ var PaymentValueProvider = (function (props) {
     } else if (payment) {
       setDisplayedPaymentValue("".concat(payment.symbol, " ").concat(payment.amount));
     }
-  }, [paymentValue]);
+  }, [paymentValue, payment, amount, configuredAmount]);
   useEffect(function () {
     if (account && payment) {
       updatePaymentValue({
