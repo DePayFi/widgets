@@ -660,6 +660,28 @@ DePayWidgets.Payment({
 })
 ```
 
+Make sure to set the css value `position: relative;` for the container element. Otherwise it can not contain the widget.
+
+React example:
+
+```javascript
+let CustomComponentWithWidget = (props)=>{
+    let container = useRef()
+
+    useEffect(()=>{
+      if(container.current) {
+        DePayWidgets.Payment({ ...defaultArguments, document,
+          container: container.current
+        })
+      }
+    }, [container])
+
+    return(
+      <div ref={container} style={{ position: 'relative', border: '1px solid black', width: "600px", height: "600px" }}></div>
+    )
+  }
+```
+
 #### style
 
 `style`
@@ -1530,6 +1552,28 @@ Allows you to pass a container element that is supposed to contain the widget:
 DePayWidgets.Dontaion({
   container: document.getElementById('my-container')
 })
+```
+
+Make sure to set the css value `position: relative;` for the container element. Otherwise it can not contain the widget.
+
+React example:
+
+```javascript
+let CustomComponentWithWidget = (props)=>{
+    let container = useRef()
+
+    useEffect(()=>{
+      if(container.current) {
+        DePayWidgets.Payment({ ...defaultArguments, document,
+          container: container.current
+        })
+      }
+    }, [container])
+
+    return(
+      <div ref={container} style={{ position: 'relative', border: '1px solid black', width: "600px", height: "600px" }}></div>
+    )
+  }
 ```
 
 #### style
