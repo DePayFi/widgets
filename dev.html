@@ -807,6 +807,37 @@
           </div>
         </div>
 
+         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Donate: denominate in token</h5>
+                <div class="px-4">
+                  <div class="text-secondary "></div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="donationButtonDenominatedInToken">Try it</button>
+                <script>
+                  var button = document.getElementById("donationButtonDenominatedInToken");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Donation({
+                      amount: { token: true },
+                      accept:[
+                        {
+                          blockchain: 'ethereum',
+                          token: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+                          receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+                        }
+                      ]
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
           <div class="px-0 py-4 rounded-lg bg-white border">
             <div class="col px-0">

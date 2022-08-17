@@ -21295,19 +21295,22 @@ var Footer = (function () {
 });
 
 var DonationOverviewDialog = (function (props) {
-  var _useContext = useContext(ConfigurationContext),
-      currencyCode = _useContext.currencyCode,
-      title = _useContext.title;
+  var _useContext = useContext(ConfigurationContext);
+      _useContext.currencyCode;
+      var title = _useContext.title;
 
-  var _useContext2 = useContext(ChangableAmountContext),
-      amount = _useContext2.amount;
+  var _useContext2 = useContext(ChangableAmountContext);
+      _useContext2.amount;
 
   var _useContext3 = useContext(PaymentContext),
       payment = _useContext3.payment,
       paymentState = _useContext3.paymentState;
 
-  var _useContext4 = useContext(NavigateStackContext),
-      navigate = _useContext4.navigate;
+  var _useContext4 = useContext(PaymentValueContext),
+      displayedPaymentValue = _useContext4.displayedPaymentValue;
+
+  var _useContext5 = useContext(NavigateStackContext),
+      navigate = _useContext5.navigate;
 
   if (payment == undefined) {
     return /*#__PURE__*/React.createElement(DonationOverviewSkeleton, null);
@@ -21342,10 +21345,7 @@ var DonationOverviewDialog = (function (props) {
       className: "CardText"
     }, /*#__PURE__*/React.createElement("div", {
       className: "TokenAmountRow"
-    }, new Currency({
-      amount: amount.toFixed(2),
-      code: currencyCode
-    }).toString())))), /*#__PURE__*/React.createElement("div", {
+    }, displayedPaymentValue)))), /*#__PURE__*/React.createElement("div", {
       className: "CardAction"
     }, /*#__PURE__*/React.createElement(ChevronRight, null))), /*#__PURE__*/React.createElement("div", {
       className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),

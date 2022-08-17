@@ -265,7 +265,7 @@ describe('Donation Widget: amount', () => {
       })
     })
 
-    it('allows me to submit a changed amount for a token sale', ()=> {
+    it('allows me to submit a changed amount', ()=> {
       let fromAddress = accounts[0]
       let mockedTransaction = mock({
         blockchain,
@@ -337,6 +337,25 @@ describe('Donation Widget: amount', () => {
             confirm(mockedTransaction)
             expect(mockedTransaction.calls.count()).to.eq(1)
           })
+        })
+      })
+    })
+
+    it.only('allows me to denominate a donation completly in a token', ()=> {
+      
+      cy.visit('cypress/test.html').then((contentWindow) => {
+        cy.document().then((document)=>{
+          DePayWidgets.Donation({ ...defaultArguments, document,
+            amount: { token: true },
+            accept:[{
+              blockchain,
+              token: DAI,
+              receiver: toAddress
+            }]
+          })
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountRow', 'DAI 1').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.CardText', 'DAI 1').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay DAI 1').should('exist')
         })
       })
     })

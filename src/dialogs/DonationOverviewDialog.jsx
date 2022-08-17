@@ -6,6 +6,7 @@ import DonationOverviewSkeleton from '../skeletons/DonationOverviewSkeleton'
 import Footer from '../components/Footer'
 import format from '../helpers/format'
 import PaymentContext from '../contexts/PaymentContext'
+import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
 import { Blockchain } from '@depay/web3-blockchains'
 import { Currency } from '@depay/local-currency'
@@ -16,6 +17,7 @@ export default (props)=>{
   const { currencyCode, title } = useContext(ConfigurationContext)
   const { amount } = useContext(ChangableAmountContext)
   const { payment, paymentState } = useContext(PaymentContext)
+  const { displayedPaymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
   
   if(payment == undefined) { return(<DonationOverviewSkeleton/>) }
@@ -46,7 +48,7 @@ export default (props)=>{
                 </h4>
                 <h2 className="CardText">
                   <div className="TokenAmountRow">
-                    { new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString() }
+                    { displayedPaymentValue }
                   </div>
                 </h2>
               </div>
