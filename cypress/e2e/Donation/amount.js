@@ -341,7 +341,7 @@ describe('Donation Widget: amount', () => {
       })
     })
 
-    it.only('allows me to denominate a donation completly in a token', ()=> {
+    it('allows me to denominate a donation completly in a token', ()=> {
       
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
@@ -356,6 +356,8 @@ describe('Donation Widget: amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountRow', 'DAI 1').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.CardText', 'DAI 1').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay DAI 1').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.FontSizeS', '50').should('exist')
         })
       })
     })

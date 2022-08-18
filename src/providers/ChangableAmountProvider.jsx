@@ -40,7 +40,7 @@ export default (props)=>{
   }
   const [ amount, setAmount ] = useState(startAmount)
   const [ maxRoute, setMaxRoute ] = useState()
-  const [ maxAmount, setMaxAmount ] = useState(100)
+  const [ maxAmount, setMaxAmount ] = useState()
 
   useEffect(()=>{
     if(recover) { return }
@@ -137,7 +137,14 @@ export default (props)=>{
               fromAddress: account,
               toAddress: account
             }).then((routes)=>{
-              if(routes[0] == undefined){ return }
+              if(routes[0] == undefined){
+                Token.readable({
+                  amount: maxRoute.fromBalance,
+                  blockchain: maxRoute.blockchain,
+                  address: maxRoute.toToken.address
+                }).then(setMaxAmount)
+                return
+              }
               Token.readable({
                 amount: routes[0].amountOut,
                 blockchain: maxRoute.blockchain,

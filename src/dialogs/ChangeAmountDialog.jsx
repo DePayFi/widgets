@@ -58,10 +58,12 @@ export default (props)=>{
 
   const toValidValue = (value)=> {
     value = toValidStep(value)
-    value = Math.max(
-      min,
-      Math.min(value, maxAmount)
-    )
+    if(maxAmount) {
+      value = Math.max(
+        min,
+        Math.min(value, maxAmount)
+      )
+    }
     value = toValidStep(value)
     return value
   }
@@ -88,7 +90,7 @@ export default (props)=>{
               
               <div className="PaddingBottomM">
                 <input
-                  max={ parseFloat(maxAmount) }
+                  max={ maxAmount ? parseFloat(maxAmount) : null }
                   min={ min }
                   step={ step }
                   className='Input FontSizeXXL TextAlignCenter'
@@ -100,19 +102,21 @@ export default (props)=>{
                 />
               </div>
 
-              <div style={{ height: '40px' }}>
-                <div className='FontSizeS'>
-                  { format(toValidStep(maxAmount)) }
-                  <div>
-                    <button 
-                      className="TextButton"
-                      onClick={()=>{ changeAmount(toValidValue(maxAmount)) }}
-                    >
-                      (Max)
-                    </button>
+              { maxAmount && 
+                <div style={{ height: '40px' }}>
+                  <div className='FontSizeS'>
+                    { format(toValidStep(maxAmount)) }
+                    <div>
+                      <button 
+                        className="TextButton"
+                        onClick={()=>{ changeAmount(toValidValue(maxAmount)) }}
+                      >
+                        (Max)
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              }
             </div>
           </div>
         </div>

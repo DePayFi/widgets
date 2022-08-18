@@ -19311,7 +19311,7 @@ var ChangableAmountProvider = (function (props) {
       maxRoute = _useState12[0],
       setMaxRoute = _useState12[1];
 
-  var _useState13 = useState(100),
+  var _useState13 = useState(),
       _useState14 = _slicedToArray(_useState13, 2),
       maxAmount = _useState14[0],
       setMaxAmount = _useState14[1];
@@ -19434,6 +19434,11 @@ var ChangableAmountProvider = (function (props) {
             toAddress: account
           }).then(function (routes) {
             if (routes[0] == undefined) {
+              Token.readable({
+                amount: maxRoute.fromBalance,
+                blockchain: maxRoute.blockchain,
+                address: maxRoute.toToken.address
+              }).then(setMaxAmount);
               return;
             }
 
@@ -20750,7 +20755,11 @@ var ChangeAmountDialog = (function (props) {
 
   var toValidValue = function toValidValue(value) {
     value = toValidStep(value);
-    value = Math.max(min, Math.min(value, maxAmount));
+
+    if (maxAmount) {
+      value = Math.max(min, Math.min(value, maxAmount));
+    }
+
     value = toValidStep(value);
     return value;
   };
@@ -20777,7 +20786,7 @@ var ChangeAmountDialog = (function (props) {
     }, /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomM"
     }, /*#__PURE__*/React.createElement("input", {
-      max: parseFloat(maxAmount),
+      max: maxAmount ? parseFloat(maxAmount) : null,
       min: min,
       step: step,
       className: "Input FontSizeXXL TextAlignCenter",
@@ -20790,7 +20799,7 @@ var ChangeAmountDialog = (function (props) {
       onBlur: function onBlur(event) {
         setValidValue(event.target.value);
       }
-    })), /*#__PURE__*/React.createElement("div", {
+    })), maxAmount && /*#__PURE__*/React.createElement("div", {
       style: {
         height: '40px'
       }

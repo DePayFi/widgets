@@ -19306,7 +19306,7 @@
         maxRoute = _useState12[0],
         setMaxRoute = _useState12[1];
 
-    var _useState13 = React.useState(100),
+    var _useState13 = React.useState(),
         _useState14 = _slicedToArray(_useState13, 2),
         maxAmount = _useState14[0],
         setMaxAmount = _useState14[1];
@@ -19429,6 +19429,11 @@
               toAddress: account
             }).then(function (routes) {
               if (routes[0] == undefined) {
+                web3Tokens.Token.readable({
+                  amount: maxRoute.fromBalance,
+                  blockchain: maxRoute.blockchain,
+                  address: maxRoute.toToken.address
+                }).then(setMaxAmount);
                 return;
               }
 
@@ -20745,7 +20750,11 @@
 
     var toValidValue = function toValidValue(value) {
       value = toValidStep(value);
-      value = Math.max(min, Math.min(value, maxAmount));
+
+      if (maxAmount) {
+        value = Math.max(min, Math.min(value, maxAmount));
+      }
+
       value = toValidStep(value);
       return value;
     };
@@ -20772,7 +20781,7 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomM"
       }, /*#__PURE__*/React__default['default'].createElement("input", {
-        max: parseFloat(maxAmount),
+        max: maxAmount ? parseFloat(maxAmount) : null,
         min: min,
         step: step,
         className: "Input FontSizeXXL TextAlignCenter",
@@ -20785,7 +20794,7 @@
         onBlur: function onBlur(event) {
           setValidValue(event.target.value);
         }
-      })), /*#__PURE__*/React__default['default'].createElement("div", {
+      })), maxAmount && /*#__PURE__*/React__default['default'].createElement("div", {
         style: {
           height: '40px'
         }
