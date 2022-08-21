@@ -19696,30 +19696,34 @@ var PaymentProvider = (function (props) {
           switch (_context.prev = _context.next) {
             case 0:
               if (!before) {
-                _context.next = 4;
+                _context.next = 6;
                 break;
               }
 
-              stop = before(payment.route.transaction);
+              _context.next = 3;
+              return before(payment.route.transaction);
+
+            case 3:
+              stop = _context.sent;
 
               if (!(stop === false)) {
-                _context.next = 4;
+                _context.next = 6;
                 break;
               }
 
               return _context.abrupt("return");
 
-            case 4:
+            case 6:
               setClosable(false);
               setPaymentState('paying');
               setUpdatable(false);
-              _context.next = 9;
+              _context.next = 11;
               return request({
                 blockchain: payment.route.transaction.blockchain,
                 method: 'latestBlockNumber'
               });
 
-            case 9:
+            case 11:
               currentBlock = _context.sent;
               wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
                 sent: function sent(transaction) {
@@ -19745,7 +19749,7 @@ var PaymentProvider = (function (props) {
                 }
               });
 
-            case 11:
+            case 13:
             case "end":
               return _context.stop();
           }
@@ -20993,19 +20997,6 @@ var DonationOverviewSkeleton = (function (props) {
   });
 });
 
-var AlertIcon = (function (props) {
-  return /*#__PURE__*/React.createElement("svg", {
-    className: "AlertIcon Icon " + props.className,
-    version: "1.1",
-    xmlns: "http://www.w3.org/2000/svg",
-    x: "0px",
-    y: "0px",
-    viewBox: "0 0 20 20"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M19.64 16.36L11.53 2.3A1.85 1.85 0 0 0 10 1.21 1.85 1.85 0 0 0 8.48 2.3L.36 16.36C-.48 17.81.21 19 1.88 19h16.24c1.67 0 2.36-1.19 1.52-2.64zM11 16H9v-2h2zm0-4H9V6h2z"
-  }));
-});
-
 var Checkmark = (function (props) {
   return /*#__PURE__*/React.createElement("svg", {
     className: "Checkmark Icon " + props.className,
@@ -21080,8 +21071,7 @@ var Footer = (function () {
   var _useContext2 = useContext(PaymentTrackingContext),
       tracking = _useContext2.tracking,
       release = _useContext2.release,
-      forwardTo = _useContext2.forwardTo,
-      trackingFailed = _useContext2.trackingFailed;
+      forwardTo = _useContext2.forwardTo;
 
   var _useContext3 = useContext(PaymentContext),
       payment = _useContext3.payment,
@@ -21128,37 +21118,21 @@ var Footer = (function () {
         className: "Opacity05"
       }, "Payment validated")))));
     } else {
-      if (trackingFailed) {
-        return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-          className: "Card transparent small"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "CardImage"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "TextCenter"
-        }, /*#__PURE__*/React.createElement(AlertIcon, {
-          className: "small"
-        }))), /*#__PURE__*/React.createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "CardBodyWrapper"
-        }, /*#__PURE__*/React.createElement("div", null, "Tracking payment failed!")))));
-      } else {
-        return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-          className: "Card transparent small disabled"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "CardImage"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "TextCenter"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "Loading Icon"
-        }))), /*#__PURE__*/React.createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "CardBodyWrapper"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "Opacity05"
-        }, "Validating payment")))));
-      }
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+        className: "Card transparent small disabled"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Loading Icon"
+      }))), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05"
+      }, "Validating payment")))));
     }
   };
 
@@ -21541,8 +21515,8 @@ var NavigateProvider = (function (props) {
 });
 
 var PaymentTrackingProvider = (function (props) {
-  var _useContext = useContext(ErrorContext),
-      errorCallback = _useContext.errorCallback;
+  var _useContext = useContext(ErrorContext);
+      _useContext.errorCallback;
 
   var _useContext2 = useContext(ConfigurationContext),
       track = _useContext2.track,
@@ -21579,20 +21553,16 @@ var PaymentTrackingProvider = (function (props) {
       release = _useState12[0],
       setRelease = _useState12[1];
 
-  var _useState13 = useState(false),
+  var _useState13 = useState(),
       _useState14 = _slicedToArray(_useState13, 2),
-      trackingFailed = _useState14[0],
-      setTrackingFailed = _useState14[1];
-
-  var _useState15 = useState(),
-      _useState16 = _slicedToArray(_useState15, 2),
-      forwardTo = _useState16[0],
-      setForwardTo = _useState16[1];
+      forwardTo = _useState14[0],
+      setForwardTo = _useState14[1];
 
   var _useContext3 = useContext(ClosableContext),
       setClosable = _useContext3.setClosable;
 
   var _useContext4 = useContext(NavigateContext),
+      navigate = _useContext4.navigate,
       set = _useContext4.set;
 
   var openSocket = function openSocket(transaction) {
@@ -21650,21 +21620,21 @@ var PaymentTrackingProvider = (function (props) {
 
   var retryStartTracking = function retryStartTracking(transaction, afterBlock, paymentRoute, attempt) {
     attempt = parseInt(attempt || 1, 10);
+    console.log('attempt', attempt);
+    console.log('track.attempts', track === null || track === void 0 ? void 0 : track.attempts);
 
-    if (attempt < 3) {
+    if (attempt < ((track === null || track === void 0 ? void 0 : track.attempts) || 40)) {
       setTimeout(function () {
         startTracking(transaction, afterBlock, paymentRoute, attempt + 1);
       }, 3000);
     } else {
-      console.log('PAYMENT TRACKING FAILED AFTER 3 ATTEMPTS!');
-      setTrackingFailed(true);
-
-      if (typeof errorCallback == 'function') {
-        errorCallback({
-          code: 'TRACKING_FAILED'
-        });
-      }
+      console.log('navigate TrackingFailed');
+      navigate('TrackingFailed');
     }
+  };
+
+  var continueTryTracking = function continueTryTracking() {
+    retryStartTracking(transaction, afterBlock, paymentRoute, 1);
   };
 
   var callTracking = function callTracking(payment) {
@@ -21773,10 +21743,6 @@ var PaymentTrackingProvider = (function (props) {
   }, [polling, transaction, afterBlock, paymentRoute]);
 
   var storePayment = function storePayment(transaction, afterBlock, paymentRoute, attempt) {
-    if (attempt > 3) {
-      return;
-    }
-
     fetch('https://public.depay.com/payments', {
       headers: {
         'Content-Type': 'application/json'
@@ -21807,18 +21773,18 @@ var PaymentTrackingProvider = (function (props) {
     }).then(function (response) {
       if (response.status == 200 || response.status == 201) ; else {
         setTimeout(function () {
-          storePayment(transaction, afterBlock, paymentRoute, attempt + 1);
+          storePayment(transaction, afterBlock, paymentRoute);
         }, 3000);
       }
     })["catch"](function (error) {
       setTimeout(function () {
-        storePayment(transaction, afterBlock, paymentRoute, attempt + 1);
+        storePayment(transaction, afterBlock, paymentRoute);
       }, 3000);
     });
   };
 
   var initializeTracking = function initializeTracking(transaction, afterBlock, paymentRoute) {
-    storePayment(transaction, afterBlock, paymentRoute, 1);
+    storePayment(transaction, afterBlock, paymentRoute);
 
     if (tracking || track && track.async == true) {
       startTracking(transaction, afterBlock, paymentRoute);
@@ -21838,9 +21804,9 @@ var PaymentTrackingProvider = (function (props) {
     value: {
       tracking: tracking,
       initializeTracking: initializeTracking,
+      continueTryTracking: continueTryTracking,
       release: release,
-      forwardTo: forwardTo,
-      trackingFailed: trackingFailed
+      forwardTo: forwardTo
     }
   }, props.children);
 });
@@ -22536,6 +22502,54 @@ var PaymentOverviewDialog = (function (props) {
   });
 });
 
+var TrackingFailedDialog = (function () {
+  var _useContext = useContext(PaymentTrackingContext),
+      continueTryTracking = _useContext.continueTryTracking;
+
+  var _useContext2 = useContext(PaymentContext),
+      transaction = _useContext2.transaction;
+
+  var _useContext3 = useContext(NavigateStackContext),
+      navigate = _useContext3.navigate;
+
+  var tryAgain = function tryAgain() {
+    continueTryTracking();
+    navigate('back');
+  };
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    stacked: false,
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "GraphicWrapper"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "Graphic",
+      src: ErrorGraphic
+    })), /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+    }, "Tracking payment failed"), /*#__PURE__*/React.createElement("div", {
+      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/React.createElement("strong", {
+      className: "FontSizeM"
+    }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS"
+    }, /*#__PURE__*/React.createElement("span", null, "If this keeps happening, "), /*#__PURE__*/React.createElement("a", {
+      className: "Link",
+      href: "mailto:support@depay.com?subject=Payment%20tracking%20failed&body=Tracking%20my%20payment%20failed%0A%0ATransaction:%20".concat(transaction.url)
+    }, "please report it"), "."))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: tryAgain
+    }, "Try again"))
+  });
+});
+
 var PaymentStack = (function (props) {
   var _useContext = useContext(ClosableContext),
       open = _useContext.open,
@@ -22556,7 +22570,8 @@ var PaymentStack = (function (props) {
       ChangeAmount: /*#__PURE__*/React.createElement(ChangeAmountDialog, null),
       ChangePayment: /*#__PURE__*/React.createElement(ChangePaymentDialog, null),
       PaymentError: /*#__PURE__*/React.createElement(PaymentErrorDialog, null),
-      WrongNetwork: /*#__PURE__*/React.createElement(WrongNetworkDialog, null)
+      WrongNetwork: /*#__PURE__*/React.createElement(WrongNetworkDialog, null),
+      TrackingFailed: /*#__PURE__*/React.createElement(TrackingFailedDialog, null)
     }
   });
 });

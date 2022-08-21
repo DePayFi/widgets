@@ -45,7 +45,7 @@ export default (props)=>{
 
   const pay = async ()=> {
     if(before) {
-      let stop = before(payment.route.transaction)
+      let stop = await before(payment.route.transaction)
       if(stop === false){ return }
     }
     setClosable(false)

@@ -15,10 +15,9 @@ export default (props)=>{
   const [ tracking ] = useState( !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true) )
   const [ polling ] = useState( !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true) )
   const [ release, setRelease ] = useState(false)
-  const [ trackingFailed, setTrackingFailed ] = useState(false)
   const [ forwardTo, setForwardTo ] = useState()
   const { setClosable } = useContext(ClosableContext)
-  const { set } = useContext(NavigateContext)
+  const { navigate, set } = useContext(NavigateContext)
 
   const openSocket = (transaction)=>{
     let socket = new WebSocket('wss://integrate.depay.com/cable')
@@ -63,17 +62,20 @@ export default (props)=>{
 
   const retryStartTracking = (transaction, afterBlock, paymentRoute, attempt)=> {
     attempt = parseInt(attempt || 1, 10)
-    if(attempt < 3) {
+    console.log('attempt', attempt)
+    console.log('track.attempts', track?.attempts)
+    if(attempt < (track?.attempts || 40)) {
       setTimeout(()=>{
         startTracking(transaction, afterBlock, paymentRoute, attempt+1)
       }, 3000)
     } else {
-      console.log('PAYMENT TRACKING FAILED AFTER 3 ATTEMPTS!')
-      setTrackingFailed(true)
-      if(typeof errorCallback == 'function') {
-        errorCallback({ code: 'TRACKING_FAILED' })
-      }
+      console.log('navigate TrackingFailed')
+      navigate('TrackingFailed')
     }
+  }
+
+  const continueTryTracking = ()=>{
+    retryStartTracking(transaction, afterBlock, paymentRoute, 1)
   }
 
   const callTracking = (payment)=>{
@@ -167,7 +169,6 @@ export default (props)=>{
   }, [polling, transaction, afterBlock, paymentRoute])
 
   const storePayment = (transaction, afterBlock, paymentRoute, attempt)=>{
-    if(attempt > 3) { return }
     fetch('https://public.depay.com/payments', {
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
@@ -221,9 +222,9 @@ export default (props)=>{
     <PaymentTrackingContext.Provider value={{
       tracking,
       initializeTracking,
+      continueTryTracking,
       release,
-      forwardTo,
-      trackingFailed
+      forwardTo
     }}>
       { props.children }
     </PaymentTrackingContext.Provider>

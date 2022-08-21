@@ -14,7 +14,7 @@ import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default ()=>{
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
-  const { tracking, release, forwardTo, trackingFailed } = useContext(PaymentTrackingContext)
+  const { tracking, release, forwardTo } = useContext(PaymentTrackingContext)
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
   const { paymentValue, displayedPaymentValue, paymentValueLoss } = useContext(PaymentValueContext)
   const { updatedRouteWithNewPrice, updateRouteWithNewPrice } = useContext(PaymentRoutingContext)
@@ -43,45 +43,24 @@ export default ()=>{
         </div>
       )
     } else {
-      if(trackingFailed) {
-        return(
-          <div>
-            <div className="Card transparent small">
-              <div className="CardImage">
-                <div className="TextCenter">
-                  <AlertIcon className="small"/>
-                </div>
-              </div>
-              <div className="CardBody">
-                <div className="CardBodyWrapper">
-                  <div>
-                    Tracking payment failed!
-                  </div>
-                </div>
+      return(
+        <div>
+          <div className="Card transparent small disabled">
+            <div className="CardImage">
+              <div className="TextCenter">
+                <div className="Loading Icon"></div>
               </div>
             </div>
-          </div> 
-        )
-      } else {
-        return(
-          <div>
-            <div className="Card transparent small disabled">
-              <div className="CardImage">
-                <div className="TextCenter">
-                  <div className="Loading Icon"></div>
-                </div>
-              </div>
-              <div className="CardBody">
-                <div className="CardBodyWrapper">
-                  <div className="Opacity05">
-                    Validating payment
-                  </div>
+            <div className="CardBody">
+              <div className="CardBodyWrapper">
+                <div className="Opacity05">
+                  Validating payment
                 </div>
               </div>
             </div>
           </div>
-        )
-      }
+        </div>
+      )
     }
   }
 

@@ -5,6 +5,7 @@ import NavigateContext from '../contexts/NavigateContext'
 import PaymentErrorDialog from '../dialogs/PaymentErrorDialog'
 import PaymentOverviewDialog from '../dialogs/PaymentOverviewDialog'
 import React, { useContext } from 'react'
+import TrackingFailedDialog from '../dialogs/TrackingFailedDialog'
 import WrongNetworkDialog from '../dialogs/WrongNetworkDialog'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 
@@ -27,6 +28,7 @@ export default (props)=>{
         ChangePayment: <ChangePaymentDialog/>,
         PaymentError: <PaymentErrorDialog/>,
         WrongNetwork: <WrongNetworkDialog/>,
+        TrackingFailed: <TrackingFailedDialog/>,
       }}
     />
   )
