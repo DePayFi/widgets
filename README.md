@@ -1829,9 +1829,9 @@ export default (props)=>{
 
   let unmount
 
-  const openPaymentWidget = ()=>{
+  const openPaymentWidget = async ()=>{
     (
-      { unmount } = DePayWidgets.Payment({...})
+      { unmount } = await DePayWidgets.Payment({...})
     )
   }
 
