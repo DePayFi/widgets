@@ -1125,10 +1125,10 @@
   resolved "https://registry.npmjs.org/@depay/web3-mock/-/web3-mock-11.11.0.tgz"
   integrity sha512-Ngaf2/sRiypqlW4WXzH4hVuFCTb2IhgxAb430/UfcmOFnmAEdGznd6aa9HgSAJ8HfIAW5isLvGyyQ1M+dmqgfA==
 
-"@depay/web3-payments@^10.6.1":
-  version "10.6.1"
-  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-10.6.1.tgz#ad5d7a614a623e0628a5384eb5b7d8bd7b24b971"
-  integrity sha512-v/oHQubIVVZkutbJTHci2CSLa9TUBh+Ya+sHgqxLz+6tR4z9L3tngVkqNmfFVSiQYntjqKosyZctoosVqM/CZw==
+"@depay/web3-payments@^10.6.2":
+  version "10.6.2"
+  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-10.6.2.tgz#384b688007525fb62aa7cec7ed6ebb58bdbb4b42"
+  integrity sha512-R22QwdJPXgBVTx/MhjiAYpUGlrDFQFuridDmHxSsrOO14ccxhcMamDFOFi1IVtf8JXOxU+urhvS4eMGjWTuf1A==
 
 "@depay/web3-tokens@^8.2.0":
   version "8.2.0"
