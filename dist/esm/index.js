@@ -2000,11 +2000,11 @@ var round = (function (input) {
 
   var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'up';
   var inputAsFloat = parseFloat(input);
-  var digitsAfterDecimal = inputAsFloat.toString().match(/\d+\.0*(\d{3})/);
+  var digitsAfterDecimal = inputAsFloat.toString().match(/\d+\.0*(\d{5})/);
 
   if ((_digitsAfterDecimal = digitsAfterDecimal) !== null && _digitsAfterDecimal !== void 0 && _digitsAfterDecimal.length) {
     digitsAfterDecimal = digitsAfterDecimal[0];
-    var focus = digitsAfterDecimal.match(/\d{3}$/)[0];
+    var focus = digitsAfterDecimal.match(/\d{5}$/)[0];
 
     if (focus.match(/^00/)) {
       return inputAsFloat;
@@ -2016,35 +2016,35 @@ var round = (function (input) {
 
     if (focus.match(/^0/)) {
       if (direction == 'up') {
-        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]));
+        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]).concat(focus[3]).concat(focus[4]));
       } else {
-        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]));
+        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]).concat(focus[3]).concat(focus[4]));
       }
 
-      focusToFixed = parseFloat(_float).toFixed(1);
+      focusToFixed = parseFloat(_float).toFixed(3);
       focusToFixed = "0".concat(focusToFixed).replace('.', '');
     } else {
       if (direction == 'up') {
-        _float = parseFloat("".concat(focus[0], ".").concat(focus[1], "9"));
+        _float = parseFloat("".concat(focus[0], ".").concat(focus[1]).concat(focus[2]).concat(focus[3], "9"));
       } else {
-        _float = parseFloat("".concat(focus[0], ".").concat(focus[1], "1"));
+        _float = parseFloat("".concat(focus[0], ".").concat(focus[1]).concat(focus[2]).concat(focus[3], "1"));
       }
 
-      focusToFixed = parseFloat(_float).toFixed(1).replace('.', '');
+      focusToFixed = parseFloat(_float).toFixed(3).replace('.', '');
     }
 
-    if (focusToFixed == '099' && parseInt(inputAsFloat.toFixed(0)) == 0) {
-      focusToFixed = direction == 'up' ? '100' : '990';
+    if (focusToFixed == '00099' && parseInt(inputAsFloat.toFixed(0)) == 0) {
+      focusToFixed = direction == 'up' ? '10000' : '99000';
       return parseFloat(digitsAfterDecimal.replace(/\d{3}$/, focusToFixed));
-    } else if (focusToFixed == '100' && parseInt(inputAsFloat.toFixed(0)) == 0) {
-      return parseFloat(digitsAfterDecimal.replace(/\d{4}$/, focusToFixed));
-    } else if (focusToFixed.toString()[0] != "0" && focusToFixed.toString().length > 2) {
+    } else if (focusToFixed == '10000' && parseInt(inputAsFloat.toFixed(0)) == 0) {
+      return parseFloat(digitsAfterDecimal.replace(/\d{6}$/, focusToFixed));
+    } else if (focusToFixed.toString()[0] != "0" && focusToFixed.toString().length > 4) {
       return parseInt(inputAsFloat.toFixed(0));
     } else {
-      return parseFloat(digitsAfterDecimal.replace(/\d{3}$/, focusToFixed));
+      return parseFloat(digitsAfterDecimal.replace(/\d{5}$/, focusToFixed));
     }
   } else {
-    return parseFloat(inputAsFloat.toFixed(2));
+    return parseFloat(inputAsFloat.toFixed(4));
   }
 });
 
