@@ -2001,10 +2001,6 @@
       digitsAfterDecimal = digitsAfterDecimal[0];
       var focus = digitsAfterDecimal.match(/\d{5}$/)[0];
 
-      if (focus.match(/^00/)) {
-        return inputAsFloat;
-      }
-
       var _float;
 
       var focusToFixed;

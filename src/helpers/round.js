@@ -6,7 +6,6 @@ export default (input, direction = 'up')=>{
   if(digitsAfterDecimal?.length) {
     digitsAfterDecimal = digitsAfterDecimal[0]
     let focus = digitsAfterDecimal.match(/\d{5}$/)[0]
-    if(focus.match(/^00/)) { return inputAsFloat }
     let float 
     let focusToFixed
     if(focus.match(/^0/)) {
