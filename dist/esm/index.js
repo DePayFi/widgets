@@ -2029,9 +2029,9 @@ var round = (function (input) {
       focusToFixed = parseFloat(_float).toFixed(3).replace('.', '');
     }
 
-    if (focusToFixed == '00099' && parseInt(inputAsFloat.toFixed(0)) == 0) {
-      focusToFixed = direction == 'up' ? '10000' : '99000';
-      return parseFloat(digitsAfterDecimal.replace(/\d{3}$/, focusToFixed));
+    if (focusToFixed == '09999' && parseInt(inputAsFloat.toFixed(0)) == 0) {
+      focusToFixed = direction == 'up' ? '10000' : '09999';
+      return parseFloat(digitsAfterDecimal.replace(/\d{5}$/, focusToFixed));
     } else if (focusToFixed == '10000' && parseInt(inputAsFloat.toFixed(0)) == 0) {
       return parseFloat(digitsAfterDecimal.replace(/\d{6}$/, focusToFixed));
     } else if (focusToFixed.toString()[0] != "0" && focusToFixed.toString().length > 4) {
