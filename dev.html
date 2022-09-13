@@ -96,11 +96,6 @@
                   var button = document.getElementById("payButton");
                   button.addEventListener("click",function(e){
                     DePayWidgets.Payment({
-                      style: {
-                        colors: {
-                          primary: 'blue'
-                        }
-                      },
                       accept: [{
                         blockchain: document.getElementById("paymentBlockchainInput").value,
                         amount: parseFloat(document.getElementById("paymentAmountInput").value),
