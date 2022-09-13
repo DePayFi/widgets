@@ -20215,73 +20215,68 @@
                 } else {
                   roundAmounts(routes).then( /*#__PURE__*/function () {
                     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(roundedRoutes) {
-                      var selectRoute, newSelectRoute, amountInWithSlippage, _amountInWithSlippage;
+                      var selectRoute, amountInWithSlippage, newSelectRoute, _amountInWithSlippage;
 
                       return regenerator.wrap(function _callee4$(_context4) {
                         while (1) {
                           switch (_context4.prev = _context4.next) {
                             case 0:
                               if (!(typeof selectedRoute == 'undefined')) {
-                                _context4.next = 4;
+                                _context4.next = 11;
                                 break;
                               }
 
                               selectRoute = roundedRoutes[0];
-                              _context4.next = 13;
-                              break;
+                              _context4.next = 4;
+                              return calculateAmountInWithSlippage(selectRoute);
 
                             case 4:
-                              newSelectRoute = roundedRoutes[allRoutes.findIndex(function (route) {
-                                return route.fromToken == selectedRoute.fromToken && route.blockchain == selectedRoute.blockchain;
-                              })];
+                              amountInWithSlippage = _context4.sent;
 
-                              if (!(newSelectRoute && selectedRoute.fromAmount !== newSelectRoute.fromAmount)) {
-                                _context4.next = 13;
+                              if (!amountInWithSlippage) {
+                                _context4.next = 8;
                                 break;
                               }
 
                               _context4.next = 8;
-                              return calculateAmountInWithSlippage(newSelectRoute);
+                              return roundAmount(selectRoute, amountInWithSlippage);
 
                             case 8:
-                              amountInWithSlippage = _context4.sent;
+                              setSelectedRoute(selectRoute);
+                              _context4.next = 20;
+                              break;
 
-                              if (!amountInWithSlippage) {
-                                _context4.next = 12;
-                                break;
-                              }
+                            case 11:
+                              newSelectRoute = roundedRoutes[roundedRoutes.findIndex(function (route) {
+                                return route.fromToken.address == selectedRoute.fromToken.address && route.blockchain == selectedRoute.blockchain;
+                              })];
 
-                              _context4.next = 12;
-                              return roundAmount(newSelectRoute, amountInWithSlippage);
-
-                            case 12:
-                              setUpdatedRouteWithNewPrice(newSelectRoute);
-
-                            case 13:
-                              if (!selectRoute) {
-                                _context4.next = 21;
-                                break;
-                              }
-
-                              _context4.next = 16;
-                              return calculateAmountInWithSlippage(selectRoute);
-
-                            case 16:
-                              _amountInWithSlippage = _context4.sent;
-
-                              if (!_amountInWithSlippage) {
+                              if (!newSelectRoute) {
                                 _context4.next = 20;
                                 break;
                               }
 
-                              _context4.next = 20;
-                              return roundAmount(selectRoute, _amountInWithSlippage);
+                              _context4.next = 15;
+                              return calculateAmountInWithSlippage(newSelectRoute);
+
+                            case 15:
+                              _amountInWithSlippage = _context4.sent;
+
+                              if (!_amountInWithSlippage) {
+                                _context4.next = 19;
+                                break;
+                              }
+
+                              _context4.next = 19;
+                              return roundAmount(newSelectRoute, _amountInWithSlippage);
+
+                            case 19:
+                              if (_amountInWithSlippage == undefined || selectedRoute.fromAmount != _amountInWithSlippage.toString()) {
+                                setUpdatedRouteWithNewPrice(newSelectRoute);
+                              }
 
                             case 20:
-                              setSelectedRoute(selectRoute);
-
-                            case 21:
-                              _context4.next = 23;
+                              _context4.next = 22;
                               return Promise.all(roundedRoutes.map( /*#__PURE__*/function () {
                                 var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(route, index) {
                                   var amountInWithSlippage;
@@ -20319,12 +20314,12 @@
                                 };
                               }())).then(setAllRoutes);
 
-                            case 23:
+                            case 22:
                               if (props.setMaxRoute) {
                                 props.setMaxRoute(findMaxRoute(roundedRoutes));
                               }
 
-                            case 24:
+                            case 23:
                             case "end":
                               return _context4.stop();
                           }
