@@ -41,10 +41,23 @@ export default (props)=>{
 
     if(!lastAmountsIn[0] || !lastAmountsIn[1] || !lastAmountsIn[2]) { return }
 
+    let defaultSlippage = '0.5' // %
+    if(
+      ethers.BigNumber.from(route.fromAmount).mul(10000).div(ethers.BigNumber.from(route.toAmount).add(ethers.BigNumber.from(route.feeAmount || '0'))).sub(10000).toString()
+      <= 100
+    ) { // stable coin swap
+      defaultSlippage = '0.1' // %
+    }
+    let defaultSlippageNewAmountBN = lastAmountsIn[2].add(lastAmountsIn[2].mul(parseFloat(defaultSlippage)*100).div(10000))
+    let defaultReadableAmount = await route.fromToken.readable(defaultSlippageNewAmountBN)
+    let defaultSlippageRoundedAmountBN = await route.fromToken.BigNumber(round(defaultReadableAmount))
+    let newAmountBN, readableAmount, roundedAmountBN
+
     if(
       (lastAmountsIn[0].gt(lastAmountsIn[1])) &&
       (lastAmountsIn[1].gt(lastAmountsIn[2]))
-    ) { // directional slippage
+    ) { 
+      // EXTREME DIRETIONAL SLIPPAGE
       const difference1 = lastAmountsIn[0].sub(lastAmountsIn[1])
       const difference2 = lastAmountsIn[1].sub(lastAmountsIn[2])
       let slippage
@@ -54,15 +67,18 @@ export default (props)=>{
         slippage = difference1.add(difference1.sub(difference2))
       }
 
-      let newAmountBN = lastAmountsIn[0].add(slippage)
-      let readableAmount = await route.fromToken.readable(newAmountBN)
-      let roundedAmountBN = await route.fromToken.BigNumber(round(readableAmount))
-      if(route.fromAmount == roundedAmountBN.toString()) { return }
-      return newAmountBN
+      newAmountBN = lastAmountsIn[0].add(slippage)
+      readableAmount = await route.fromToken.readable(newAmountBN)
+      roundedAmountBN = await route.fromToken.BigNumber(round(readableAmount))
+      if(roundedAmountBN.gt(defaultSlippageRoundedAmountBN)) {
+        if(route.fromAmount == roundedAmountBN.toString()) { return }
+        return roundedAmountBN
+      }
     } else if(!(
       lastAmountsIn[0].eq(lastAmountsIn[1]) &&
       lastAmountsIn[1].eq(lastAmountsIn[2])
-    )) { // base slippage
+    )) { 
+      // BASE NOISE SLIPPAGE
       const difference1 = lastAmountsIn[0].sub(lastAmountsIn[1]).abs()
       const difference2 = lastAmountsIn[1].sub(lastAmountsIn[2]).abs()
       let slippage
@@ -79,12 +95,18 @@ export default (props)=>{
       } else {
         highestAmountBN = lastAmountsIn[2]
       }
-      let newAmountBN = highestAmountBN.add(slippage)
-      let readableAmount = await route.fromToken.readable(newAmountBN)
-      let roundedAmountBN = await route.fromToken.BigNumber(round(readableAmount))
-      if(route.fromAmount == roundedAmountBN.toString()) { return }
-      return newAmountBN
+      newAmountBN = highestAmountBN.add(slippage)
+      readableAmount = await route.fromToken.readable(newAmountBN)
+      roundedAmountBN = await route.fromToken.BigNumber(round(readableAmount))
+      if(roundedAmountBN.gt(defaultSlippageRoundedAmountBN)) {
+        if(route.fromAmount == roundedAmountBN.toString()) { return }
+        return roundedAmountBN
+      }
     }
+
+    // DEFAULT SLIPPAGE
+    if(route.fromAmount == defaultSlippageRoundedAmountBN.toString()) { return }
+    return defaultSlippageRoundedAmountBN
   }
   const onRoutesUpdate = async (routes)=>{
     if(routes.length == 0) {

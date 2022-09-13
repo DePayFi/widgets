@@ -1995,11 +1995,11 @@
 
     var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'up';
     var inputAsFloat = parseFloat(input);
-    var digitsAfterDecimal = inputAsFloat.toString().match(/\d+\.0*(\d{5})/);
+    var digitsAfterDecimal = inputAsFloat.toString().match(/\d+\.0*(\d{4})/);
 
     if ((_digitsAfterDecimal = digitsAfterDecimal) !== null && _digitsAfterDecimal !== void 0 && _digitsAfterDecimal.length) {
       digitsAfterDecimal = digitsAfterDecimal[0];
-      var focus = digitsAfterDecimal.match(/\d{5}$/)[0];
+      var focus = digitsAfterDecimal.match(/\d{4}$/)[0];
 
       var _float;
 
@@ -2007,35 +2007,35 @@
 
       if (focus.match(/^0/)) {
         if (direction == 'up') {
-          _float = parseFloat("".concat(focus[1], ".").concat(focus[2]).concat(focus[3]).concat(focus[4]));
+          _float = parseFloat("".concat(focus[1], ".").concat(focus[2]).concat(focus[3]));
         } else {
-          _float = parseFloat("".concat(focus[1], ".").concat(focus[2]).concat(focus[3]).concat(focus[4]));
+          _float = parseFloat("".concat(focus[1], ".").concat(focus[2]).concat(focus[3]));
         }
 
-        focusToFixed = parseFloat(_float).toFixed(3);
+        focusToFixed = parseFloat(_float).toFixed(2);
         focusToFixed = "0".concat(focusToFixed).replace('.', '');
       } else {
         if (direction == 'up') {
-          _float = parseFloat("".concat(focus[0], ".").concat(focus[1]).concat(focus[2]).concat(focus[3], "9"));
+          _float = parseFloat("".concat(focus[0], ".").concat(focus[1]).concat(focus[2], "9"));
         } else {
-          _float = parseFloat("".concat(focus[0], ".").concat(focus[1]).concat(focus[2]).concat(focus[3], "1"));
+          _float = parseFloat("".concat(focus[0], ".").concat(focus[1]).concat(focus[2], "1"));
         }
 
-        focusToFixed = parseFloat(_float).toFixed(3).replace('.', '');
+        focusToFixed = parseFloat(_float).toFixed(2).replace('.', '');
       }
 
-      if (focusToFixed == '09999' && parseInt(inputAsFloat.toFixed(0)) == 0) {
-        focusToFixed = direction == 'up' ? '10000' : '09999';
+      if (focusToFixed == '0999' && parseInt(inputAsFloat.toFixed(0)) == 0) {
+        focusToFixed = direction == 'up' ? '1000' : '0999';
+        return parseFloat(digitsAfterDecimal.replace(/\d{4}$/, focusToFixed));
+      } else if (focusToFixed == '1000' && parseInt(inputAsFloat.toFixed(0)) == 0) {
         return parseFloat(digitsAfterDecimal.replace(/\d{5}$/, focusToFixed));
-      } else if (focusToFixed == '10000' && parseInt(inputAsFloat.toFixed(0)) == 0) {
-        return parseFloat(digitsAfterDecimal.replace(/\d{6}$/, focusToFixed));
-      } else if (focusToFixed.toString()[0] != "0" && focusToFixed.toString().length > 4) {
+      } else if (focusToFixed.toString()[0] != "0" && focusToFixed.toString().length > 3) {
         return parseInt(inputAsFloat.toFixed(0));
       } else {
-        return parseFloat(digitsAfterDecimal.replace(/\d{5}$/, focusToFixed));
+        return parseFloat(digitsAfterDecimal.replace(/\d{4}$/, focusToFixed));
       }
     } else {
-      return parseFloat(inputAsFloat.toFixed(4));
+      return parseFloat(inputAsFloat.toFixed(3));
     }
   });
 
@@ -19979,7 +19979,7 @@
 
     var calculateAmountInWithSlippage = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(route) {
-        var currentBlock, blocks, i, exchangeRoute, lastAmountsIn, difference1, difference2, slippage, newAmountBN, readableAmount, roundedAmountBN, _difference, _difference2, _slippage, highestAmountBN, _newAmountBN, _readableAmount, _roundedAmountBN;
+        var currentBlock, blocks, i, exchangeRoute, lastAmountsIn, defaultSlippage, defaultSlippageNewAmountBN, defaultReadableAmount, defaultSlippageRoundedAmountBN, newAmountBN, readableAmount, roundedAmountBN, difference1, difference2, slippage, _difference, _difference2, _slippage, highestAmountBN;
 
         return regenerator.wrap(function _callee2$(_context2) {
           while (1) {
@@ -20060,12 +20060,31 @@
                 return _context2.abrupt("return");
 
               case 15:
+                defaultSlippage = '0.5'; // %
+
+                if (ethers.ethers.BigNumber.from(route.fromAmount).mul(10000).div(ethers.ethers.BigNumber.from(route.toAmount).add(ethers.ethers.BigNumber.from(route.feeAmount || '0'))).sub(10000).toString() <= 100) {
+                  // stable coin swap
+                  defaultSlippage = '0.1'; // %
+                }
+
+                defaultSlippageNewAmountBN = lastAmountsIn[2].add(lastAmountsIn[2].mul(parseFloat(defaultSlippage) * 100).div(10000));
+                _context2.next = 20;
+                return route.fromToken.readable(defaultSlippageNewAmountBN);
+
+              case 20:
+                defaultReadableAmount = _context2.sent;
+                _context2.next = 23;
+                return route.fromToken.BigNumber(round(defaultReadableAmount));
+
+              case 23:
+                defaultSlippageRoundedAmountBN = _context2.sent;
+
                 if (!(lastAmountsIn[0].gt(lastAmountsIn[1]) && lastAmountsIn[1].gt(lastAmountsIn[2]))) {
-                  _context2.next = 31;
+                  _context2.next = 41;
                   break;
                 }
 
-                // directional slippage
+                // EXTREME DIRETIONAL SLIPPAGE
                 difference1 = lastAmountsIn[0].sub(lastAmountsIn[1]);
                 difference2 = lastAmountsIn[1].sub(lastAmountsIn[2]);
 
@@ -20076,34 +20095,43 @@
                 }
 
                 newAmountBN = lastAmountsIn[0].add(slippage);
-                _context2.next = 22;
+                _context2.next = 31;
                 return route.fromToken.readable(newAmountBN);
 
-              case 22:
+              case 31:
                 readableAmount = _context2.sent;
-                _context2.next = 25;
+                _context2.next = 34;
                 return route.fromToken.BigNumber(round(readableAmount));
 
-              case 25:
+              case 34:
                 roundedAmountBN = _context2.sent;
 
+                if (!roundedAmountBN.gt(defaultSlippageRoundedAmountBN)) {
+                  _context2.next = 39;
+                  break;
+                }
+
                 if (!(route.fromAmount == roundedAmountBN.toString())) {
-                  _context2.next = 28;
+                  _context2.next = 38;
                   break;
                 }
 
                 return _context2.abrupt("return");
 
-              case 28:
-                return _context2.abrupt("return", newAmountBN);
+              case 38:
+                return _context2.abrupt("return", roundedAmountBN);
 
-              case 31:
+              case 39:
+                _context2.next = 57;
+                break;
+
+              case 41:
                 if (lastAmountsIn[0].eq(lastAmountsIn[1]) && lastAmountsIn[1].eq(lastAmountsIn[2])) {
-                  _context2.next = 46;
+                  _context2.next = 57;
                   break;
                 }
 
-                // base slippage
+                // BASE NOISE SLIPPAGE
                 _difference = lastAmountsIn[0].sub(lastAmountsIn[1]).abs();
                 _difference2 = lastAmountsIn[1].sub(lastAmountsIn[2]).abs();
 
@@ -20121,29 +20149,45 @@
                   highestAmountBN = lastAmountsIn[2];
                 }
 
-                _newAmountBN = highestAmountBN.add(_slippage);
-                _context2.next = 39;
-                return route.fromToken.readable(_newAmountBN);
+                newAmountBN = highestAmountBN.add(_slippage);
+                _context2.next = 49;
+                return route.fromToken.readable(newAmountBN);
 
-              case 39:
-                _readableAmount = _context2.sent;
-                _context2.next = 42;
-                return route.fromToken.BigNumber(round(_readableAmount));
+              case 49:
+                readableAmount = _context2.sent;
+                _context2.next = 52;
+                return route.fromToken.BigNumber(round(readableAmount));
 
-              case 42:
-                _roundedAmountBN = _context2.sent;
+              case 52:
+                roundedAmountBN = _context2.sent;
 
-                if (!(route.fromAmount == _roundedAmountBN.toString())) {
-                  _context2.next = 45;
+                if (!roundedAmountBN.gt(defaultSlippageRoundedAmountBN)) {
+                  _context2.next = 57;
+                  break;
+                }
+
+                if (!(route.fromAmount == roundedAmountBN.toString())) {
+                  _context2.next = 56;
                   break;
                 }
 
                 return _context2.abrupt("return");
 
-              case 45:
-                return _context2.abrupt("return", _newAmountBN);
+              case 56:
+                return _context2.abrupt("return", roundedAmountBN);
 
-              case 46:
+              case 57:
+                if (!(route.fromAmount == defaultSlippageRoundedAmountBN.toString())) {
+                  _context2.next = 59;
+                  break;
+                }
+
+                return _context2.abrupt("return");
+
+              case 59:
+                return _context2.abrupt("return", defaultSlippageRoundedAmountBN);
+
+              case 60:
               case "end":
                 return _context2.stop();
             }
