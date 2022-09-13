@@ -220,7 +220,7 @@ describe('Payment Widget: auto slippage', () => {
         method: 'route',
         params: {
           path: [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY],
-          amounts: [TOKEN_B_AmountBN.add(ethers.BigNumber.from('10000000000000000')), TOKEN_A_AmountBN, anything],
+          amounts: ['33145000000000000000', TOKEN_A_AmountBN, anything],
           addresses: [fromAddress, toAddress],
           plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
           data: []
@@ -239,7 +239,7 @@ describe('Payment Widget: auto slippage', () => {
         fee_receiver: null,
         nonce: 0,
         payload: {
-          sender_amount: "33.01",
+          sender_amount: "33.145",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DAI,
           type: 'payment'
@@ -255,13 +255,13 @@ describe('Payment Widget: auto slippage', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.wait(3000).then(()=>{
+        cy.wait(6000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33.01')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33.145')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
           cy.wait(1000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €28.06').click()
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €28.17').click()
             confirm(mockedTransaction)
             cy.wait(1000).then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
@@ -293,7 +293,7 @@ describe('Payment Widget: auto slippage', () => {
         method: 'route',
         params: {
           path: [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY],
-          amounts: [TOKEN_B_AmountBN.add(ethers.BigNumber.from('20000000000000000')), TOKEN_A_AmountBN, anything],
+          amounts: ['33125000000000000000', TOKEN_A_AmountBN, anything],
           addresses: [fromAddress, toAddress],
           plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
           data: []
@@ -328,9 +328,9 @@ describe('Payment Widget: auto slippage', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.wait(3000).then(()=>{
+        cy.wait(2000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33.145')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
           mock({ block: 10, provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
           mock({ block: 9, provider: provider(blockchain), blockchain, call: { to: exchange.contracts.router.address, api: exchange.contracts.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [TOKEN_B_AmountBN.sub(ethers.BigNumber.from('20000000000000000')), WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
@@ -340,9 +340,9 @@ describe('Payment Widget: auto slippage', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Alert').should('contain', 'Price updated!')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Reload').click()
             cy.wait(1000).then(()=>{
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33.02')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33.125')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €28.07').click()
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €28.16').click()
               confirm(mockedTransaction)
               cy.wait(1000).then(()=>{
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
