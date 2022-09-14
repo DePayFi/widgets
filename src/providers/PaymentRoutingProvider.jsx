@@ -128,7 +128,7 @@ export default (props)=>{
             if(amountInWithSlippage) {
               await roundAmount(newSelectRoute, amountInWithSlippage)
             }
-            if(amountInWithSlippage == undefined || selectedRoute.fromAmount != amountInWithSlippage.toString()) {
+            if(selectedRoute.fromAmount != newSelectRoute.fromAmount) {
               setUpdatedRouteWithNewPrice(newSelectRoute)
             }
           }
@@ -184,6 +184,7 @@ export default (props)=>{
       const amountInWithSlippage = await calculateAmountInWithSlippage(selectedRoute)
       if(amountInWithSlippage) {
         await roundAmount(selectedRoute, amountInWithSlippage)
+        console.log(222222)
         setUpdatedRouteWithNewPrice(selectedRoute)
       }
     }

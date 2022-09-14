@@ -20276,7 +20276,7 @@ var PaymentRoutingProvider = (function (props) {
                             return roundAmount(newSelectRoute, _amountInWithSlippage);
 
                           case 19:
-                            if (_amountInWithSlippage == undefined || selectedRoute.fromAmount != _amountInWithSlippage.toString()) {
+                            if (selectedRoute.fromAmount != newSelectRoute.fromAmount) {
                               setUpdatedRouteWithNewPrice(newSelectRoute);
                             }
 
@@ -20485,7 +20485,7 @@ var PaymentRoutingProvider = (function (props) {
                 amountInWithSlippage = _context9.sent;
 
                 if (!amountInWithSlippage) {
-                  _context9.next = 7;
+                  _context9.next = 8;
                   break;
                 }
 
@@ -20493,9 +20493,10 @@ var PaymentRoutingProvider = (function (props) {
                 return roundAmount(selectedRoute, amountInWithSlippage);
 
               case 6:
+                console.log(222222);
                 setUpdatedRouteWithNewPrice(selectedRoute);
 
-              case 7:
+              case 8:
               case "end":
                 return _context9.stop();
             }
