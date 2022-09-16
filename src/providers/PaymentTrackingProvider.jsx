@@ -62,8 +62,6 @@ export default (props)=>{
 
   const retryStartTracking = (transaction, afterBlock, paymentRoute, attempt)=> {
     attempt = parseInt(attempt || 1, 10)
-    console.log('attempt', attempt)
-    console.log('track.attempts', track?.attempts)
     if(attempt < (track?.attempts || 40)) {
       setTimeout(()=>{
         startTracking(transaction, afterBlock, paymentRoute, attempt+1)
