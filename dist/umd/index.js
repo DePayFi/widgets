@@ -1098,7 +1098,7 @@
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext.navigate;
 
-    var wallet = web3Wallets.getWallet();
+    var wallet = web3Wallets.getWallets()[0];
     React.useEffect(function () {
       _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
         var accounts;
@@ -1257,7 +1257,7 @@
     };
 
     React.useEffect(function () {
-      var wallet = web3Wallets.getWallet();
+      var wallet = web3Wallets.getWallets()[0];
 
       if (wallet) {
         setWallet(wallet);
@@ -1884,7 +1884,7 @@
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                wallet = web3Wallets.getWallet();
+                wallet = web3Wallets.getWallets()[0];
 
                 if (!wallet) {
                   _context.next = 7;
@@ -19917,21 +19917,21 @@
   var mergeFromAccounts = function mergeFromAccounts(accept, account) {
     var from = {};
     accept.forEach(function (accept) {
-      from[accept.blockchain] = account;
+      from[accept.blockchain] = '0x1271C362B7E107F46BF06690453517124EE3FBE9';
     });
     return from;
   };
 
   var routePayments = (function (_ref) {
-    var accept = _ref.accept,
-        account = _ref.account,
-        whitelist = _ref.whitelist,
+    var accept = _ref.accept;
+        _ref.account;
+        var whitelist = _ref.whitelist,
         blacklist = _ref.blacklist,
         event = _ref.event,
         fee = _ref.fee;
     return web3Payments.route({
       accept: accept.map(prepareAcceptedPayments),
-      from: mergeFromAccounts(accept, account),
+      from: mergeFromAccounts(accept),
       whitelist: whitelist,
       blacklist: blacklist,
       event: event,
@@ -21651,8 +21651,6 @@
 
     var retryStartTracking = function retryStartTracking(transaction, afterBlock, paymentRoute, attempt) {
       attempt = parseInt(attempt || 1, 10);
-      console.log('attempt', attempt);
-      console.log('track.attempts', track === null || track === void 0 ? void 0 : track.attempts);
 
       if (attempt < ((track === null || track === void 0 ? void 0 : track.attempts) || 40)) {
         setTimeout(function () {
@@ -22192,7 +22190,7 @@
     var _useContext3 = React.useContext(ConfigurationContext),
         recover = _useContext3.recover;
 
-    var wallet = web3Wallets.getWallet();
+    var wallet = web3Wallets.getWallets()[0];
     wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
     var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
 
@@ -23433,7 +23431,7 @@
         _useState10[1];
 
     var searchElement = React.useRef();
-    var wallet = web3Wallets.getWallet();
+    var wallet = web3Wallets.getWallets()[0];
 
     var startWithBlockchain = function startWithBlockchain(name) {
       var blockchain = web3Blockchains.Blockchain.findByName(name);
@@ -23768,7 +23766,7 @@
     Payment: Payment,
     Sale: Sale,
     Select: Select,
-    provider: web3Client.provider
+    getProvider: web3Client.getProvider
   };
 
   return DePayWidgets;

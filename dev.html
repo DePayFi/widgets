@@ -5,23 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="https://depay.com/favicon.png"/>
     <title>Development</title>
-    <script src="https://cdn.ethers.io/lib/ethers-5.6.umd.min.js" type="application/javascript"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js" type="application/javascript"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/@depay/solana-web3.js@1"></script>
     <script crossorigin src="https://unpkg.com/@depay/local-currency@3"></script>
     <script crossorigin src="https://unpkg.com/@depay/react-dialog@14"></script>
     <script crossorigin src="https://unpkg.com/@depay/react-dialog-stack@7"></script>
     <script crossorigin src="https://unpkg.com/@depay/react-shadow-dom@5"></script>
-    <script crossorigin src="https://unpkg.com/@depay/web3-blockchains@5"></script>
+    <script crossorigin src="https://unpkg.com/@depay/web3-blockchains@6"></script>
     <script crossorigin src="https://unpkg.com/@depay/web3-constants@6"></script>
     <script crossorigin src="https://unpkg.com/@depay/react-token-image@4"></script>
     <script crossorigin src="https://unpkg.com/@depay/coinbase-wallet-sdk@1"></script>
     <script crossorigin src="https://unpkg.com/@depay/walletconnect-v1@1"></script>
-    <script crossorigin src="https://unpkg.com/@depay/web3-client@8"></script>
-    <script crossorigin src="https://unpkg.com/@depay/web3-wallets@11"></script>
-    <script crossorigin src="https://unpkg.com/@depay/web3-tokens@8"></script>
+    <script crossorigin src="https://unpkg.com/@depay/web3-client@10"></script>
+    <script crossorigin src="https://unpkg.com/@depay/web3-wallets@12"></script>
+    <script crossorigin src="https://unpkg.com/@depay/web3-tokens@9"></script>
     <script crossorigin src="https://unpkg.com/@depay/web3-assets@6"></script>
-    <script crossorigin src="https://unpkg.com/@depay/web3-exchanges@9"></script>
+    <script crossorigin src="https://unpkg.com/@depay/web3-exchanges@11"></script>
     <script crossorigin src="https://unpkg.com/@depay/web3-payments@10"></script>
     <script crossorigin src="https://unpkg.com/react-rangeslider@2/umd/rangeslider.js"></script>
     <script crossorigin src="https://unpkg.com/decimal.js@10/decimal.js"></script>
@@ -91,17 +92,29 @@
                 </div>
               </div>
               <div class="px-4 pt-3">
-                <button class='btn btn-primary' id="payButton">Try it</button>
+                <button class='btn btn-primary' id="payButton">Try it!!!</button>
                 <script>
                   var button = document.getElementById("payButton");
                   button.addEventListener("click",function(e){
                     DePayWidgets.Payment({
-                      accept: [{
-                        blockchain: document.getElementById("paymentBlockchainInput").value,
-                        amount: parseFloat(document.getElementById("paymentAmountInput").value),
-                        token: document.getElementById("paymentTokenInput").value,
-                        receiver: document.getElementById("paymentReceiverInput").value
-                      }],
+                      accept: [
+                        {
+                          blockchain: 'bsc',
+                          amount: 0.01,
+                          token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+                          receiver: '0x1B2Ee3B09E9A48685Fa9e229c8D3660b3828737E'
+                        },{
+                          blockchain: 'bsc',
+                          amount: 0.01,
+                          token: '0x55d398326f99059fF775485246999027B3197955',
+                          receiver: '0x1B2Ee3B09E9A48685Fa9e229c8D3660b3828737E'
+                        },{
+                          blockchain: 'bsc',
+                          amount: 0.01,
+                          token: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
+                          receiver: '0x1B2Ee3B09E9A48685Fa9e229c8D3660b3828737E'
+                        }
+                      ],
                       currency: 'USD'
                     });
                   });
@@ -465,9 +478,9 @@
                   button.addEventListener("click",function(e){
                     DePayWidgets.Payment({
                       accept: [{
-                        blockchain: 'polygon',
-                        amount: 1,
-                        token: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
+                        blockchain: 'ethereum',
+                        amount: 0.0001,
+                        token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                         receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
                       }],
                       fee: {

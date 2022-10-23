@@ -3,7 +3,7 @@ import ConnectingWalletDialog from '../dialogs/ConnectingWalletDialog'
 import React, { useState, useContext, useEffect } from 'react'
 import SelectWalletDialog from '../dialogs/SelectWalletDialog'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
-import { getWallet } from '@depay/web3-wallets'
+import { getWallets } from '@depay/web3-wallets'
 
 export default (props)=>{
 
@@ -13,10 +13,10 @@ export default (props)=>{
 
   const connect = (wallet)=> {
     wallet.connect().then(async ()=>{
-      let accounts = await wallet.accounts()
-      if(accounts instanceof Array && accounts.length > 0) {
+      let account = await wallet.account()
+      if(account) {
         if(props.autoClose) close()
-        if(props.resolve) props.resolve({ wallet, account: accounts[0], accounts })
+        if(props.resolve) props.resolve({ wallet, account })
       } else {
       }
     }).catch((error)=>{
@@ -35,7 +35,7 @@ export default (props)=>{
   }
 
   useEffect(()=> {
-    let wallet = getWallet()
+    let wallet = getWallets()[0]
     if(wallet) { setWallet(wallet) }
   }, [])
 
@@ -43,9 +43,9 @@ export default (props)=>{
     (
       async ()=>{
         if(wallet) {
-          let accounts = await wallet.accounts()
-          if(accounts instanceof Array && accounts.length > 0) {
-            if(props.resolve) props.resolve({ wallet, account: accounts[0], accounts })
+          let account = await wallet.account()
+          if(account) {
+            if(props.resolve) props.resolve({ wallet, account })
           }
         }
       }

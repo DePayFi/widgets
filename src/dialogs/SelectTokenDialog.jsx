@@ -5,7 +5,7 @@ import React, { useCallback, useState, useEffect, useContext, useRef } from 'rea
 import SelectionContext from '../contexts/SelectionContext'
 import { Blockchain } from '@depay/web3-blockchains'
 import { debounce } from 'lodash'
-import { getWallet } from '@depay/web3-wallets'
+import { getWallets } from '@depay/web3-wallets'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { Token } from '@depay/web3-tokens'
 import { TokenImage } from '@depay/react-token-image'
@@ -21,7 +21,7 @@ export default (props)=> {
   const [ tokens, setTokens ] = useState([])
   const [ mainResolve, setMainResolve ] = useState()
   const searchElement = useRef()
-  const wallet = getWallet()
+  const wallet = getWallets()[0]
 
   const startWithBlockchain = (name)=> {
     let blockchain = Blockchain.findByName(name)

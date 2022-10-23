@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
 import { NavigateStackContext, ReactDialogStack } from '@depay/react-dialog-stack';
-import { getWallet, wallets } from '@depay/web3-wallets';
+import { getWallets, wallets } from '@depay/web3-wallets';
 import ReactDOM from 'react-dom';
 import { ReactShadowDOM } from '@depay/react-shadow-dom';
 import { ethers } from 'ethers';
@@ -9,7 +9,7 @@ import { Decimal } from 'decimal.js';
 import { route } from '@depay/web3-exchanges';
 import { Token } from '@depay/web3-tokens';
 import { Currency } from '@depay/local-currency';
-import { setProviderEndpoints, request, provider } from '@depay/web3-client';
+import { setProviderEndpoints, request, getProvider } from '@depay/web3-client';
 import { Blockchain } from '@depay/web3-blockchains';
 import { route as route$1 } from '@depay/web3-payments';
 import { TokenImage } from '@depay/react-token-image';
@@ -1103,7 +1103,7 @@ var SelectWalletDialog = (function (props) {
   var _useContext = useContext(NavigateStackContext),
       navigate = _useContext.navigate;
 
-  var wallet = getWallet();
+  var wallet = getWallets()[0];
   useEffect(function () {
     _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
       var accounts;
@@ -1262,7 +1262,7 @@ var ConnectStack = (function (props) {
   };
 
   useEffect(function () {
-    var wallet = getWallet();
+    var wallet = getWallets()[0];
 
     if (wallet) {
       setWallet(wallet);
@@ -1889,7 +1889,7 @@ var Connect = function Connect(options) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              wallet = getWallet();
+              wallet = getWallets()[0];
 
               if (!wallet) {
                 _context.next = 7;
@@ -19922,21 +19922,21 @@ var prepareAcceptedPayments = function prepareAcceptedPayments(accept) {
 var mergeFromAccounts = function mergeFromAccounts(accept, account) {
   var from = {};
   accept.forEach(function (accept) {
-    from[accept.blockchain] = account;
+    from[accept.blockchain] = '0x1271C362B7E107F46BF06690453517124EE3FBE9';
   });
   return from;
 };
 
 var routePayments = (function (_ref) {
-  var accept = _ref.accept,
-      account = _ref.account,
-      whitelist = _ref.whitelist,
+  var accept = _ref.accept;
+      _ref.account;
+      var whitelist = _ref.whitelist,
       blacklist = _ref.blacklist,
       event = _ref.event,
       fee = _ref.fee;
   return route$1({
     accept: accept.map(prepareAcceptedPayments),
-    from: mergeFromAccounts(accept, account),
+    from: mergeFromAccounts(accept),
     whitelist: whitelist,
     blacklist: blacklist,
     event: event,
@@ -21656,8 +21656,6 @@ var PaymentTrackingProvider = (function (props) {
 
   var retryStartTracking = function retryStartTracking(transaction, afterBlock, paymentRoute, attempt) {
     attempt = parseInt(attempt || 1, 10);
-    console.log('attempt', attempt);
-    console.log('track.attempts', track === null || track === void 0 ? void 0 : track.attempts);
 
     if (attempt < ((track === null || track === void 0 ? void 0 : track.attempts) || 40)) {
       setTimeout(function () {
@@ -22197,7 +22195,7 @@ var SignLoginDialog = (function (props) {
   var _useContext3 = useContext(ConfigurationContext),
       recover = _useContext3.recover;
 
-  var wallet = getWallet();
+  var wallet = getWallets()[0];
   wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
   var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
 
@@ -23438,7 +23436,7 @@ var SelectTokenDialog = (function (props) {
       _useState10[1];
 
   var searchElement = useRef();
-  var wallet = getWallet();
+  var wallet = getWallets()[0];
 
   var startWithBlockchain = function startWithBlockchain(name) {
     var blockchain = Blockchain.findByName(name);
@@ -23773,7 +23771,7 @@ var DePayWidgets = {
   Payment: Payment,
   Sale: Sale,
   Select: Select,
-  provider: provider
+  getProvider: getProvider
 };
 
 export { DePayWidgets as default };

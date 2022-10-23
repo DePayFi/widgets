@@ -5,7 +5,6 @@ import React, { useState, useContext, useEffect } from 'react'
 import SelectBlockchainDialog from '../dialogs/SelectBlockchainDialog'
 import SelectionContext from '../contexts/SelectionContext'
 import SelectTokenDialog from '../dialogs/SelectTokenDialog'
-import { getWallet } from '@depay/web3-wallets'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{

@@ -2,7 +2,7 @@ import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import ErrorContext from '../contexts/ErrorContext'
 import React, { useState, useEffect, useContext } from 'react'
-import { getWallet } from '@depay/web3-wallets'
+import { getWallets } from '@depay/web3-wallets'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default (props)=> {
@@ -10,7 +10,7 @@ export default (props)=> {
   const { setError } = useContext(ErrorContext)
   const { message, endpoint } = useContext(ConfigurationContext)
   let { recover } = useContext(ConfigurationContext)
-  const wallet = getWallet()
+  const wallet = getWallets()[0]
   const walletName = wallet?.name ? wallet.name : 'wallet'
   const walletLogo = wallet?.logo ? wallet.logo : undefined
   if(typeof recover != 'function') {
