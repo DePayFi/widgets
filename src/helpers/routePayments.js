@@ -13,7 +13,7 @@ const prepareAcceptedPayments = (accept)=>{
 const mergeFromAccounts = (accept, account)=>{
   let from = {}
   accept.forEach((accept)=>{
-    from[accept.blockchain] = '0x1271C362B7E107F46BF06690453517124EE3FBE9'
+    from[accept.blockchain] = account
   })
   return from
 }

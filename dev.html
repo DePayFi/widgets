@@ -92,29 +92,17 @@
                 </div>
               </div>
               <div class="px-4 pt-3">
-                <button class='btn btn-primary' id="payButton">Try it!!!</button>
+                <button class='btn btn-primary' id="payButton">Try it</button>
                 <script>
                   var button = document.getElementById("payButton");
                   button.addEventListener("click",function(e){
                     DePayWidgets.Payment({
-                      accept: [
-                        {
-                          blockchain: 'bsc',
-                          amount: 0.01,
-                          token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
-                          receiver: '0x1B2Ee3B09E9A48685Fa9e229c8D3660b3828737E'
-                        },{
-                          blockchain: 'bsc',
-                          amount: 0.01,
-                          token: '0x55d398326f99059fF775485246999027B3197955',
-                          receiver: '0x1B2Ee3B09E9A48685Fa9e229c8D3660b3828737E'
-                        },{
-                          blockchain: 'bsc',
-                          amount: 0.01,
-                          token: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
-                          receiver: '0x1B2Ee3B09E9A48685Fa9e229c8D3660b3828737E'
-                        }
-                      ],
+                      accept: [{
+                        blockchain: document.getElementById("paymentBlockchainInput").value,
+                        amount: parseFloat(document.getElementById("paymentAmountInput").value),
+                        token: document.getElementById("paymentTokenInput").value,
+                        receiver: document.getElementById("paymentReceiverInput").value
+                      }],
                       currency: 'USD'
                     });
                   });
