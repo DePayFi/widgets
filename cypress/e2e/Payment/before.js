@@ -40,8 +40,8 @@ describe('Payment Widget: main functionality', () => {
   beforeEach(async()=>{
     resetMocks()
     resetCache()
-    ()=>fetchMock.restore()
-    ()=>mock({ blockchain, accounts: { return: accounts } })
+    fetchMock.restore()
+    mock({ blockchain, accounts: { return: accounts } })
     provider = await getProvider(blockchain)
 
     ;({ TOKEN_A_AmountBN } = mockBasics({
