@@ -126,7 +126,7 @@ describe('Donation Widget: approval', () => {
     })
   })
   
-  it('asks me to approve the token for the payment router before I can execute it', () => {
+  it.only('asks me to approve the token for the payment router before I can execute it', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {

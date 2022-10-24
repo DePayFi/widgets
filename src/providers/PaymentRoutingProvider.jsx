@@ -37,6 +37,7 @@ export default (props)=>{
             }
           }
         }
+        setAllRoutes(roundedRoutes)
         if(props.setMaxRoute) { props.setMaxRoute(findMaxRoute(roundedRoutes)) }
       })
     }
