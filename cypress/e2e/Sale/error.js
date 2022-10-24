@@ -7,43 +7,46 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from '@depay/web3-constants'
 import { mock, resetMocks } from '@depay/web3-mock'
-import { provider, resetCache } from '@depay/web3-client'
+import { getProvider, resetCache } from '@depay/web3-client'
 import { Token } from '@depay/web3-tokens'
 
 describe('Sale Widget: error', () => {
   
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
-  beforeEach(resetMocks)
-  beforeEach(resetCache)
-  beforeEach(()=>fetchMock.restore())
-  beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
-  afterEach(closeWidget)
-
-  let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  let DAI = CONSTANTS[blockchain].USD
-  let ETH = CONSTANTS[blockchain].NATIVE
-  let WETH = CONSTANTS[blockchain].WRAPPED
-  let fromAddress = accounts[0]
-  let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-  let amount = 20
-  let defaultArguments = {
+  const DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
+  const DAI = CONSTANTS[blockchain].USD
+  const ETH = CONSTANTS[blockchain].NATIVE
+  const WETH = CONSTANTS[blockchain].WRAPPED
+  const fromAddress = accounts[0]
+  const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  const amount = 20
+  const defaultArguments = {
     sell: { [blockchain]: DEPAY }
   }
+
+  let provider
   let exchange
   let WRAPPED_AmountInBN
   let TOKEN_A_AmountBN
   let TOKEN_B_AmountBN
 
-  beforeEach(()=>{
+  afterEach(closeWidget)
+
+  beforeEach(async()=>{
+    resetMocks()
+    resetCache()
+    fetchMock.restore()
+    mock({ blockchain, accounts: { return: accounts } })
+    provider = await getProvider(blockchain)
     
-    ({ 
+    ;({ 
       exchange,
       TOKEN_A_AmountBN,
       TOKEN_B_AmountBN,
       WRAPPED_AmountInBN 
     } = mockBasics({
-      provider: provider(blockchain),
+      provider,
       blockchain,
 
       fromAddress,
@@ -154,7 +157,7 @@ describe('Sale Widget: error', () => {
     let errorCalled
     let passedError
     mockAmountsOut({
-      provider: provider(blockchain),
+      provider,
       blockchain,
       exchange,
       amountInBN: '1',
@@ -166,7 +169,7 @@ describe('Sale Widget: error', () => {
       ]
     })
     mockAmountsOut({
-      provider: provider(blockchain),
+      provider,
       blockchain,
       exchange,
       amountInBN: '1176470588235294200',
@@ -178,9 +181,9 @@ describe('Sale Widget: error', () => {
       ]
     })
     mock({
-      provider: provider(blockchain),
+      provider,
       blockchain,
-      call: {
+      request: {
         to: DAI,
         api: Token[blockchain].DEFAULT,
         method: 'name',

@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom'
 import { CONSTANTS } from '@depay/web3-constants'
 import { ethers } from 'ethers'
 import { mock, confirm, resetMocks, anything } from '@depay/web3-mock'
-import { resetCache, provider } from '@depay/web3-client'
+import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Token } from '@depay/web3-tokens'
 
@@ -16,23 +16,13 @@ describe('Payment Widget: value loss safeguard', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
-  beforeEach(resetMocks)
-  beforeEach(resetCache)
-  beforeEach(()=>fetchMock.restore())
-  beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
-  afterEach(closeWidget)
-
-  let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  let DAI = CONSTANTS[blockchain].USD
-  let ETH = CONSTANTS[blockchain].NATIVE
-  let WETH = CONSTANTS[blockchain].WRAPPED
-  let WRAPPED_AmountInBN
-  let TOKEN_A_AmountBN
-  let TOKEN_B_AmountBN
-  let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-  let amount = 1.8
-  let exchange
-  let defaultArguments = {
+  const DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
+  const DAI = CONSTANTS[blockchain].USD
+  const ETH = CONSTANTS[blockchain].NATIVE
+  const WETH = CONSTANTS[blockchain].WRAPPED
+  const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  const amount = 1.8
+  const defaultArguments = {
     accept:[{
       blockchain,
       token: DEPAY,
@@ -40,14 +30,28 @@ describe('Payment Widget: value loss safeguard', () => {
     }]
   }
 
-  beforeEach(()=>{
-    ({
+  let WRAPPED_AmountInBN
+  let TOKEN_A_AmountBN
+  let TOKEN_B_AmountBN
+  let exchange
+  let provider
+
+  afterEach(closeWidget)
+
+  beforeEach(async()=>{
+    resetMocks()
+    resetCache()
+    fetchMock.restore()
+    mock({ blockchain, accounts: { return: accounts } })
+    provider = await getProvider(blockchain)
+
+    ;({
       WRAPPED_AmountInBN,
       TOKEN_A_AmountBN,
       TOKEN_B_AmountBN,
       exchange
     } = mockBasics({
-      provider: provider(blockchain),
+      provider,
       blockchain,
       fromAddress: accounts[0],
       fromAddressAssets: [
@@ -110,7 +114,7 @@ describe('Payment Widget: value loss safeguard', () => {
     }))
 
     mockAmountsOut({
-      provider: provider(blockchain),
+      provider,
       blockchain,
       exchange,
       amountInBN: '1176470588235294200',
@@ -128,7 +132,7 @@ describe('Payment Widget: value loss safeguard', () => {
     it('shows a warning and prevents payment', ()=> {
       let fromAddress = accounts[0]
       mockAmountsOut({
-        provider: provider(blockchain),
+        provider,
         blockchain,
         exchange,
         amountInBN: '11764705882352942000',
@@ -140,18 +144,18 @@ describe('Payment Widget: value loss safeguard', () => {
         ]
       })
       mock({
-        provider: provider(blockchain),
+        provider,
         blockchain,
-        call: {
-          to: exchange.contracts.router.address,
-          api: exchange.contracts.router.api,
+        request: {
+          to: exchange.router.address,
+          api: exchange.router.api,
           method: 'getAmountsIn',
           params: [ethers.utils.parseUnits('18', 18), [DAI, WETH, DEPAY]],
           return: [ethers.utils.parseUnits('18', 18), ethers.utils.parseUnits('0.05', 18), ethers.utils.parseUnits('11.6', 18)]
         }
       })
       mockAmountsOut({
-        provider: provider(blockchain),
+        provider,
         blockchain,
         exchange,
         amountInBN: ethers.utils.parseUnits('18', 18),

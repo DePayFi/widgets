@@ -1,7 +1,7 @@
 import DePayWidgets from '../../../src'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { provider } from '@depay/web3-client'
+import { getProvider } from '@depay/web3-client'
 
 describe('Sale Widget: providers', () => {
 
@@ -19,8 +19,13 @@ describe('Sale Widget: providers', () => {
         })
 
         cy.wait(200).then(()=>{
-          expect(provider('ethereum').connection.url).to.equal('http://localhost:8545')
-          expect(provider('bsc').connection.url).to.equal('http://localhost:8545')
+         let provider
+
+          provider = await getProvider('ethereum')
+          expect(provider.connection.url).to.equal('http://localhost:8545')
+
+          provider = await getProvider('bsc')
+          expect(provider.connection.url).to.equal('http://localhost:8545')
         })
       })
     })

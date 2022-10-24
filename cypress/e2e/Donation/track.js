@@ -7,7 +7,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from '@depay/web3-constants'
 import { mock, confirm, increaseBlock, resetMocks } from '@depay/web3-mock'
-import { resetCache, provider } from '@depay/web3-client'
+import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Server } from 'mock-socket'
 import { Token } from '@depay/web3-tokens'
@@ -16,24 +16,14 @@ describe('Donation Widget: track', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
-  beforeEach(resetMocks)
-  beforeEach(resetCache)
-  beforeEach(()=>fetchMock.restore())
-  afterEach(()=>fetchMock.restore())
-  beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
-  afterEach(closeWidget)
-
-  let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  let DAI = CONSTANTS[blockchain].USD
-  let ETH = CONSTANTS[blockchain].NATIVE
-  let WETH = CONSTANTS[blockchain].WRAPPED
-  let fromAddress = accounts[0]
-  let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-  let amount = 20
-  let exchange
-  let WRAPPED_AmountInBN
-  let TOKEN_A_AmountBN
-  let defaultArguments = {
+  const DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
+  const DAI = CONSTANTS[blockchain].USD
+  const ETH = CONSTANTS[blockchain].NATIVE
+  const WETH = CONSTANTS[blockchain].WRAPPED
+  const fromAddress = accounts[0]
+  const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  const amount = 20
+  const defaultArguments = {
     accept: [{
       blockchain,
       token: DEPAY,
@@ -43,14 +33,26 @@ describe('Donation Widget: track', () => {
       endpoint: '/track/payments'
     }
   }
-  let mockedWebsocketServer = new Server('wss://integrate.depay.com/cable')
-  let websocketMessages = []
+  const mockedWebsocketServer = new Server('wss://integrate.depay.com/cable')
+  const websocketMessages = []
+  
+  let provider
+  let exchange
+  let WRAPPED_AmountInBN
+  let TOKEN_A_AmountBN
   let mockedWebsocket
 
-  beforeEach(()=>{
+  afterEach(closeWidget)
 
-    ({ WRAPPED_AmountInBN, TOKEN_A_AmountBN, exchange } = mockBasics({
-      provider: provider(blockchain),
+  beforeEach(async()=>{
+    resetMocks()
+    resetCache()
+    fetchMock.restore()
+    mock({ blockchain, accounts: { return: accounts } })
+    provider = await getProvider(blockchain)
+
+    ;({ WRAPPED_AmountInBN, TOKEN_A_AmountBN, exchange } = mockBasics({
+      provider,
       blockchain,
 
       fromAddress,
@@ -113,7 +115,7 @@ describe('Donation Widget: track', () => {
     }))
 
     mockAmountsOut({
-      provider: provider(blockchain),
+      provider,
       blockchain,
       exchange,
       amountInBN: '1176470588235294200',
