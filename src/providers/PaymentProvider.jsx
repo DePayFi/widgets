@@ -17,7 +17,7 @@ import { Token } from '@depay/web3-tokens'
 
 export default (props)=>{
   const { setError } = useContext(ErrorContext)
-  const { sent, confirmed, failed, recover, before } = useContext(ConfigurationContext)
+  const { sent, succeeded, failed, recover, before } = useContext(ConfigurationContext)
   const { selectedRoute, getPaymentRoutes } = useContext(PaymentRoutingContext)
   const { open, close, setClosable } = useContext(ClosableContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
@@ -31,10 +31,10 @@ export default (props)=>{
   const [ approvalTransaction, setApprovalTransaction ] = useState()
   const [ paymentState, setPaymentState ] = useState('initialized')
 
-  const paymentConfirmed = (transaction)=>{
+  const paymentSucceeded = (transaction)=>{
     if(tracking != true) { setClosable(true) }
-    setPaymentState('confirmed')
-    if(confirmed) { confirmed(transaction) }
+    setPaymentState('success')
+    if(succeeded) { succeeded(transaction) }
   }
 
   const paymentFailed = (transaction, error)=> {
@@ -57,7 +57,7 @@ export default (props)=>{
         initializeTransactionTracking(transaction, currentBlock)
         if(sent) { sent(transaction) }
       },
-      confirmed: paymentConfirmed,
+      succeeded: paymentSucceeded,
       failed: paymentFailed
     }))
       .then((sentTransaction)=>{
@@ -79,7 +79,7 @@ export default (props)=>{
     setClosable(false)
     setPaymentState('approving')
     wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
-      confirmed: ()=>{
+      succeeded: ()=>{
         payment.route.approvalRequired = false
         setPayment(payment)
         setClosable(true)
@@ -98,7 +98,7 @@ export default (props)=>{
 
   useEffect(()=>{
     if(release){
-      setPaymentState('confirmed')
+      setPaymentState('success')
     }
   }, [release])
 
@@ -139,7 +139,7 @@ export default (props)=>{
         setTransaction(newTransaction)
       }
       if(foundTransaction.status == 'success') {
-        paymentConfirmed(newTransaction || transaction)
+        paymentSucceeded(newTransaction || transaction)
       } else if(foundTransaction.status == 'failed'){
         paymentFailed(newTransaction || transaction)
       }

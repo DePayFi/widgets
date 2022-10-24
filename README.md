@@ -459,18 +459,18 @@ DePayWidgets.Payment({
 })
 ```
 
-#### confirmed
+#### succeeded
 
-`confirmed`
+`succeeded`
 
-A function that will be called once the payment has been confirmed once by the network (client-side).
+A function that will be called once the payment has succeeded on the network (checked client-side).
 
 The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Payment({
 
-  confirmed: (transaction)=> {
+  succeeded: (transaction)=> {
     // called when payment transaction has been confirmed once by the network
   }
 })
@@ -958,18 +958,18 @@ DePayWidgets.Sale({
 });
 ```
 
-#### confirmed
+#### succeeded
 
-`confirmed`
+`succeeded`
 
-A function that will be called once the payment has been confirmed once by the network.
+A function that will be called once the payment has succeeded on the network (checked client-side).
 
 The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Sale({
 
-  confirmed: (transaction)=> {
+  succeeded: (transaction)=> {
     // called when payment transaction has been confirmed once by the network
   }
 });
@@ -1374,18 +1374,18 @@ DePayWidgets.Donation({
 });
 ```
 
-#### confirmed
+#### succeeded
 
-`confirmed`
+`succeeded`
 
-A function that will be called once the payment has been confirmed once by the network (client-side).
+A function that will be called once the payment has succeeded on the network (checked client-side).
 
 The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Donation({
 
-  confirmed: (transaction)=> {
+  succeeded: (transaction)=> {
     // called when payment transaction has been confirmed once by the network
   }
 });

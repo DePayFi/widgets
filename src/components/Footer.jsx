@@ -84,7 +84,7 @@ export default ()=>{
           </div>
         </div>
       )
-    } else if (paymentState == 'confirmed') {
+    } else if (paymentState == 'success') {
       return(
         <div className="PaddingBottomS">
           <div>
@@ -176,7 +176,7 @@ export default ()=>{
           <LoadingText>Paying</LoadingText>
         </a>
       )
-    } else if (paymentState == 'confirmed') {
+    } else if (paymentState == 'success') {
       if(tracking == true) {
         if(release) {
           if(forwardTo) {

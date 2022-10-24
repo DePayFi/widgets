@@ -5,9 +5,9 @@ export default ({ amountInBN, path, amountsOut, provider, blockchain, exchange }
   mock({
     provider,
     blockchain,
-    call: {
-      to: exchange.contracts.router.address,
-      api: exchange.contracts.router.api,
+    request: {
+      to: exchange.router.address,
+      api: exchange.router.api,
       method: 'getAmountsOut',
       params: [
         amountInBN,
