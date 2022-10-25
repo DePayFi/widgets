@@ -39,7 +39,7 @@ describe('Donation Widget: configure amount', () => {
   let TOKEN_A_AmountBN
   let TOKEN_B_AmountBN
   let exchange
-  let
+  let provider
 
   afterEach(closeWidget)
 
@@ -161,8 +161,8 @@ describe('Donation Widget: configure amount', () => {
         provider,
         blockchain,
         request: {
-          to: exchange.contracts.router.address,
-          api: exchange.contracts.router.api,
+          to: exchange.router.address,
+          api: exchange.router.api,
           method: 'getAmountsIn',
           params: [ethers.utils.parseUnits('18', 18), [DAI, WETH, DEPAY]],
           return: [ethers.utils.parseUnits('18', 18), ethers.utils.parseUnits('0.05', 18), ethers.utils.parseUnits('11.6', 18)]
@@ -212,8 +212,8 @@ describe('Donation Widget: configure amount', () => {
         provider,
         blockchain,
         request: {
-          to: exchange.contracts.router.address,
-          api: exchange.contracts.router.api,
+          to: exchange.router.address,
+          api: exchange.router.api,
           method: 'getAmountsIn',
           params: [ethers.utils.parseUnits('18', 18), [DAI, WETH, DEPAY]],
           return: [ethers.utils.parseUnits('18', 18), ethers.utils.parseUnits('0.05', 18), ethers.utils.parseUnits('11.6', 18)]
@@ -263,8 +263,8 @@ describe('Donation Widget: configure amount', () => {
         provider,
         blockchain,
         request: {
-          to: exchange.contracts.router.address,
-          api: exchange.contracts.router.api,
+          to: exchange.router.address,
+          api: exchange.router.api,
           method: 'getAmountsIn',
           params: [ethers.utils.parseUnits('18', 18), [DAI, WETH, DEPAY]],
           return: [ethers.utils.parseUnits('18', 18), ethers.utils.parseUnits('0.05', 18), ethers.utils.parseUnits('11.6', 18)]

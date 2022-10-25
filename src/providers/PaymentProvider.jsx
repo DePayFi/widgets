@@ -40,7 +40,7 @@ export default (props)=>{
   const paymentFailed = (transaction, error)=> {
     if(failed) { failed(transaction, error) }
     setClosable(true)
-    set(['PaymentError'])
+    set(['PaymentFailed'])
   }
 
   const pay = async ()=> {
@@ -61,8 +61,8 @@ export default (props)=>{
       failed: paymentFailed
     }))
       .then((sentTransaction)=>{
-        initializePaymentTracking(sentTransaction, currentBlock, payment.route)
         setTransaction(sentTransaction)
+        initializePaymentTracking(sentTransaction, currentBlock, payment.route)
       })
       .catch((error)=>{
         console.log('error', error)

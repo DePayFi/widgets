@@ -10,6 +10,7 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
+    if(error.error){ error = error.error }
     this.props.setError(error);
   }
 
@@ -24,8 +25,9 @@ export default (props)=>{
   const [open, setOpen] = useState(true)
 
   let setErrorFromChildren = (error)=>{
+    if(error.error){ error = error.error }
     setError(error)
-    if(props.errorCallback) { props.errorCallback(error) }
+    if(props.errorCallback) { props.errorCallback(error.message || error.toString()) }
   }
 
   let close = ()=>{
@@ -34,7 +36,7 @@ export default (props)=>{
   }
 
   if(error) {
-    console.log(error)
+
     return(
       <ReactDialog container={ props.container } close={ close } open={ open }>
         <div className="Dialog ReactDialogAnimation">
@@ -52,7 +54,7 @@ export default (props)=>{
             <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
               <div className="PaddingLeftS PaddingRightS">
                 <pre className="ErrorSnippetText">
-                  { error.toString() }
+                  { error.message || error.toString() }
                 </pre>
               </div>
               <div className="PaddingTopS PaddingBottomS">

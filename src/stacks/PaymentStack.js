@@ -2,7 +2,7 @@ import ChangeAmountDialog from '../dialogs/ChangeAmountDialog'
 import ChangePaymentDialog from '../dialogs/ChangePaymentDialog'
 import ClosableContext from '../contexts/ClosableContext'
 import NavigateContext from '../contexts/NavigateContext'
-import PaymentErrorDialog from '../dialogs/PaymentErrorDialog'
+import PaymentFailedDialog from '../dialogs/PaymentFailedDialog'
 import PaymentOverviewDialog from '../dialogs/PaymentOverviewDialog'
 import React, { useContext } from 'react'
 import TrackingFailedDialog from '../dialogs/TrackingFailedDialog'
@@ -26,7 +26,7 @@ export default (props)=>{
         PaymentOverview: <PaymentOverviewDialog/>,
         ChangeAmount: <ChangeAmountDialog/>,
         ChangePayment: <ChangePaymentDialog/>,
-        PaymentError: <PaymentErrorDialog/>,
+        PaymentFailed: <PaymentFailedDialog/>,
         WrongNetwork: <WrongNetworkDialog/>,
         TrackingFailed: <TrackingFailedDialog/>,
       }}

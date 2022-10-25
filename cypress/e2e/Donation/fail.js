@@ -7,7 +7,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from '@depay/web3-constants'
 import { mock, resetMocks, fail, anything } from '@depay/web3-mock'
-import { resetCache, provider } from '@depay/web3-client'
+import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Token } from '@depay/web3-tokens'
 
@@ -135,7 +135,7 @@ describe('Donation Widget: failures', () => {
         method: 'route',
         params: {
           path: [DAI, WETH, DEPAY],
-          amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
+          amounts: ['33165000000000000000', TOKEN_A_AmountBN, anything],
           addresses: [fromAddress, toAddress],
           plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
           data: []
@@ -154,7 +154,7 @@ describe('Donation Widget: failures', () => {
         fee_receiver: null,
         nonce: 0,
         payload: {
-          sender_amount: "33.0",
+          sender_amount: "33.165",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DAI,
           type: 'donation'

@@ -3,7 +3,7 @@ import ChangePaymentDialog from '../dialogs/ChangePaymentDialog'
 import ClosableContext from '../contexts/ClosableContext'
 import NavigateContext from '../contexts/NavigateContext'
 import DonationOverviewDialog from '../dialogs/DonationOverviewDialog'
-import PaymentErrorDialog from '../dialogs/PaymentErrorDialog'
+import PaymentFailedDialog from '../dialogs/PaymentFailedDialog'
 import React, { useContext } from 'react'
 import WrongNetworkDialog from '../dialogs/WrongNetworkDialog'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
@@ -25,7 +25,7 @@ export default (props)=>{
         DonationOverview: <DonationOverviewDialog/>,
         ChangeAmount: <ChangeAmountDialog/>,
         ChangePayment: <ChangePaymentDialog/>,
-        PaymentError: <PaymentErrorDialog/>,
+        PaymentFailed: <PaymentFailedDialog/>,
         WrongNetwork: <WrongNetworkDialog/>,
       }}
     />

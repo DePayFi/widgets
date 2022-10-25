@@ -50,7 +50,7 @@ describe('Donation Widget: error', () => {
       TOKEN_B_AmountBN,
       WRAPPED_AmountInBN 
     } = mockBasics({
-      provider: provider(blockchain),
+      provider,
       blockchain,
 
       fromAddress,
@@ -139,7 +139,7 @@ describe('Donation Widget: error', () => {
     let errorCalled
     let passedError
     mockAmountsOut({
-      provider: provider(blockchain),
+      provider,
       blockchain,
       exchange,
       amountInBN: '1176470588235294200',
@@ -151,7 +151,7 @@ describe('Donation Widget: error', () => {
       ]
     })
     mock({
-      provider: provider(blockchain),
+      provider,
       blockchain,
       request: {
         to: DEPAY,

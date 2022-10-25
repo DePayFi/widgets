@@ -41,7 +41,7 @@ export default (props)=>{
       if(item.type === "ping" || !item.message) { return }
       if(item.message.status == 'failed') {
         setClosable(true)
-        set(['PaymentError'])
+        set(['PaymentFailed'])
       }
       if(validated) { validated(item.message.status == 'success') }
       if(item.message.release) {

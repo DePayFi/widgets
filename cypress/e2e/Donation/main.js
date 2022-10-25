@@ -137,7 +137,7 @@ describe('Donation Widget: main functionality', () => {
         method: 'route',
         params: {
           path: [DAI, WETH, DEPAY],
-          amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
+          amounts: ['1166000000000000000', TOKEN_A_AmountBN, anything],
           addresses: [fromAddress, toAddress],
           plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
           data: []
@@ -156,7 +156,7 @@ describe('Donation Widget: main functionality', () => {
         fee_receiver: null,
         nonce: 0,
         payload: {
-          sender_amount: "1.16",
+          sender_amount: "1.166",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DAI,
           type: 'donation'
@@ -208,7 +208,7 @@ describe('Donation Widget: main functionality', () => {
         method: 'route',
         params: {
           path: [DAI, WETH, DEPAY],
-          amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
+          amounts: ['1166000000000000000', TOKEN_A_AmountBN, anything],
           addresses: [fromAddress, toAddress],
           plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
           data: []
@@ -227,7 +227,7 @@ describe('Donation Widget: main functionality', () => {
         fee_receiver: null,
         nonce: 0,
         payload: {
-          sender_amount: "1.16",
+          sender_amount: "1.166",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: DAI,
           integration: '123',
@@ -281,7 +281,7 @@ describe('Donation Widget: main functionality', () => {
         method: 'route',
         params: {
           path: [DAI, WETH, DEPAY],
-          amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
+          amounts: ['1166000000000000000', TOKEN_A_AmountBN, anything],
           addresses: [fromAddress, toAddress],
           plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
           data: []
@@ -313,7 +313,7 @@ describe('Donation Widget: main functionality', () => {
         method: 'route',
         params: {
           path: [DAI, WETH, DEPAY],
-          amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
+          amounts: ['1166000000000000000', TOKEN_A_AmountBN, anything],
           addresses: [fromAddress, toAddress],
           plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
           data: []
@@ -338,7 +338,7 @@ describe('Donation Widget: main functionality', () => {
     })
   })
 
-  it('calls all callbacks (sent, confirmed)', () => {
+  it('calls all callbacks (sent, succeeded)', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
@@ -349,7 +349,7 @@ describe('Donation Widget: main functionality', () => {
         method: 'route',
         params: {
           path: [DAI, WETH, DEPAY],
-          amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
+          amounts: ['1166000000000000000', TOKEN_A_AmountBN, anything],
           addresses: [fromAddress, toAddress],
           plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
           data: []
@@ -357,29 +357,30 @@ describe('Donation Widget: main functionality', () => {
       }
     })
 
+    fetchMock.post({ url: "https://public.depay.com/payments" }, 201)
 
     let sentCalledWith
-    let confirmedCalledWith
+    let succeededCalledWith
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Donation({ ...defaultArguments, document,
           sent: (transaction)=>{ sentCalledWith = transaction },
-          confirmed: (transaction)=>{ confirmedCalledWith = transaction },
+          succeeded: (transaction)=>{ succeededCalledWith = transaction },
         })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
-          cy.wait(1000).then(()=>{
+          cy.wait(2000).then(()=>{
             expect(sentCalledWith.from).to.equal(accounts[0])
             expect(sentCalledWith.id).to.equal(mockedTransaction.transaction._id)
             expect(sentCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
             expect(mockedTransaction.calls.count()).to.equal(1)
             confirm(mockedTransaction)
             cy.wait(5000).then(()=>{
-              expect(confirmedCalledWith.from).to.equal(accounts[0])
-              expect(confirmedCalledWith.id).to.equal(mockedTransaction.transaction._id)
-              expect(confirmedCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
+              expect(succeededCalledWith.from).to.equal(accounts[0])
+              expect(succeededCalledWith.id).to.equal(mockedTransaction.transaction._id)
+              expect(succeededCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
             })
           })
         })
