@@ -109,7 +109,7 @@ describe('Payment Widget: fee', () => {
         method: 'route',
         params: {
           path: ["0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee","0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"],
-          amounts: ["10000000000000000", "19000000000000000000", anything, '0', '1000000000000000000'],
+          amounts: ["10100000000000000", "19000000000000000000", anything, '0', '1000000000000000000'],
           addresses: [fromAddress, feeReceiver, toAddress],
           plugins: [
             plugins[blockchain].uniswap_v2.address,
@@ -132,7 +132,7 @@ describe('Payment Widget: fee', () => {
         fee_receiver: feeReceiver,
         nonce: 0,
         payload: {
-          sender_amount: "0.01",
+          sender_amount: "0.0101",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: ETH,
           type: 'payment'
@@ -149,7 +149,7 @@ describe('Payment Widget: fee', () => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay ETH 0.01')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay ETH 0.0101')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')

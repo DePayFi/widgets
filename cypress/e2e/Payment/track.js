@@ -843,8 +843,6 @@ describe('Payment Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress.toLowerCase(),
-        "nonce": 0,
-        "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
       matchPartialBody: true,
@@ -880,9 +878,8 @@ describe('Payment Widget: track', () => {
                 expect(
                   fetchMock.calls().filter((call)=>{ return call[0] == '/track/payments' && call.response.status == 200 }).length
                 ).to.equal(1)
-
                 confirm(mockedTransaction)
-                cy.wait(1000).then(()=>{
+                cy.wait(5000).then(()=>{
                   expect(!!websocketMessages.find((rawMessage)=>{
                     let message = JSON.parse(rawMessage)
                     return(

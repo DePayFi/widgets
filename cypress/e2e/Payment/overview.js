@@ -257,7 +257,7 @@ describe('Payment Widget: overview', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Alert').should('contain', 'Price updated!')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Reload').click()
             cy.wait(1000).then(()=>{
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €29.75')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €29.90')
             })
           })
         })
@@ -293,8 +293,8 @@ describe('Payment Widget: overview', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €28.05').click()
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.19')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €28.19').click()
             cy.wait(2000).then(()=>{
               let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('35', 18)
               mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
@@ -302,7 +302,7 @@ describe('Payment Widget: overview', () => {
               mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsOut', params: [TOKEN_A_AmountBN, [DEPAY, CONSTANTS[blockchain].WRAPPED, DAI]], return: [TOKEN_A_AmountBN, WRAPPED_AmountInBN, NEW_USD_AmountOutBN] }})
             })
             cy.wait(15000).then(()=>{
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33.165')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
               confirm(mockedTransaction)
             })
@@ -320,7 +320,7 @@ describe('Payment Widget: overview', () => {
           let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('35', 18)
           let NEW_TOKEN_B_AmountBN_mock = mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
           let NEW_USD_AmountOutBN = ethers.utils.parseUnits('35', 18)
-          let NEW_USD_AmountOutBN_mock = mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsOut', params: [TOKEN_A_AmountBN, [DEPAY, CONSTANTS[blockchain].WRAPPED, DAI]], return: [TOKEN_A_AmountBN, WRAPPED_AmountInBN, NEW_USD_AmountOutBN] }})
+          let NEW_USD_AmountOutBN_mock = mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsOut', params: ['33165000000000000000', [DEPAY, CONSTANTS[blockchain].WRAPPED, DAI]], return: [TOKEN_A_AmountBN, WRAPPED_AmountInBN, NEW_USD_AmountOutBN] }})
           cy.wait(2000).then(()=>{
             NEW_TOKEN_B_AmountBN_mock_count = NEW_TOKEN_B_AmountBN_mock.calls.count()
             NEW_USD_AmountOutBN_mock_count = NEW_USD_AmountOutBN_mock.calls.count()

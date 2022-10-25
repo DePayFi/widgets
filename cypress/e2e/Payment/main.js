@@ -289,7 +289,7 @@ describe('Payment Widget: main functionality', () => {
     })
   })
 
-  it('calls all callbacks (sent, confirmed)', () => {
+  it('calls all callbacks (sent, succeeded)', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
@@ -303,27 +303,27 @@ describe('Payment Widget: main functionality', () => {
     })
 
     let sentCalledWith
-    let confirmedCalledWith
+    let succeededCalledWith
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document,
           sent: (transaction)=>{ sentCalledWith = transaction },
-          confirmed: (transaction)=>{ confirmedCalledWith = transaction },
+          succeeded: (transaction)=>{ succeededCalledWith = transaction },
         })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
-          cy.wait(1000).then(()=>{
+          cy.wait(3000).then(()=>{
             expect(sentCalledWith.from).to.equal(accounts[0])
             expect(sentCalledWith.id).to.equal(mockedTransaction.transaction._id)
             expect(sentCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
             expect(mockedTransaction.calls.count()).to.equal(1)
             confirm(mockedTransaction)
             cy.wait(5000).then(()=>{
-              expect(confirmedCalledWith.from).to.equal(accounts[0])
-              expect(confirmedCalledWith.id).to.equal(mockedTransaction.transaction._id)
-              expect(confirmedCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
+              expect(succeededCalledWith.from).to.equal(accounts[0])
+              expect(succeededCalledWith.id).to.equal(mockedTransaction.transaction._id)
+              expect(succeededCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
             })
           })
         })

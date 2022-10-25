@@ -102,10 +102,10 @@ describe('Payment Widget: payment event', () => {
       provider,
       blockchain,
       exchange,
-      amountInBN: '10000000000000000',
+      amountInBN: '10100000000000000',
       path: [WETH, DAI],
       amountsOut: [
-        '10000000000000000',
+        '10100000000000000',
         '27000000000000000000'
       ]
     })
@@ -118,7 +118,7 @@ describe('Payment Widget: payment event', () => {
         method: 'route',
         params: {
           path: ["0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee","0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"],
-          amounts: ["10000000000000000", "20000000000000000000", anything],
+          amounts: ["10100000000000000", "20000000000000000000", anything],
           addresses: [fromAddress, toAddress],
           plugins: [
             plugins[blockchain].uniswap_v2.address,
@@ -140,7 +140,7 @@ describe('Payment Widget: payment event', () => {
         fee_receiver: null,
         nonce: 0,
         payload: {
-          sender_amount: "0.01",
+          sender_amount: "0.0101",
           sender_id: fromAddress.toLowerCase(),
           sender_token_id: ETH,
           type: 'payment'

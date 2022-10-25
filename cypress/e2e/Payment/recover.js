@@ -127,7 +127,7 @@ describe('Payment Widget: recover a previously made payment transaction', () => 
         overwriteRoutes: true
       }, { status: 404 })
 
-      let confirmedCalledWith
+      let succeededCalledWith
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({
@@ -140,8 +140,8 @@ describe('Payment Widget: recover a previously made payment transaction', () => 
               token: DEPAY,
               amount: amount
             },
-            confirmed: (transaction)=> {
-              confirmedCalledWith = transaction
+            succeeded: (transaction)=> {
+              succeededCalledWith = transaction
             },
             document
           })
@@ -170,7 +170,7 @@ describe('Payment Widget: recover a previously made payment transaction', () => 
               cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
               cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
-              expect(confirmedCalledWith.id).to.equal(transactionId)
+              expect(succeededCalledWith.id).to.equal(transactionId)
             })
           })
         })
@@ -263,7 +263,7 @@ describe('Payment Widget: recover a previously made payment transaction', () => 
       overwriteRoutes: true
     }, { status: 404 })
 
-    let confirmedCalledWith
+    let succeededCalledWith
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({
@@ -276,8 +276,8 @@ describe('Payment Widget: recover a previously made payment transaction', () => 
             token: DEPAY,
             amount: amount
           },
-          confirmed: (transaction)=> {
-            confirmedCalledWith = transaction
+          succeeded: (transaction)=> {
+            succeededCalledWith = transaction
           },
           document
         })
@@ -296,7 +296,7 @@ describe('Payment Widget: recover a previously made payment transaction', () => 
               cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
               cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
-              expect(confirmedCalledWith.id).to.equal(transactionId)
+              expect(succeededCalledWith.id).to.equal(transactionId)
             })
           })
         })

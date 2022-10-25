@@ -41,8 +41,8 @@ describe('Payment Widget: overview', () => {
   beforeEach(async()=>{
     resetMocks()
     resetCache()
-    fetchMock.restore()()
-    mock({ blockchain, accounts: { return: accounts } })()
+    fetchMock.restore()
+    mock({ blockchain, accounts: { return: accounts } })
     provider = await getProvider(blockchain)
 
     ;({ 

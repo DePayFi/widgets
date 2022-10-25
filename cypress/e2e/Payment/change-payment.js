@@ -183,12 +183,12 @@ describe('Payment Widget: change payment', () => {
           method: 'route',
           params: {
             path: [ETH, DEPAY],
-            amounts: [WRAPPED_AmountInBN, TOKEN_A_AmountBN, anything],
+            amounts: ['10100000000000000', TOKEN_A_AmountBN, anything],
             addresses: [fromAddress, toAddress],
             plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
             data: []
           },
-          value: WRAPPED_AmountInBN
+          value: '10100000000000000'
         }
       })
 
@@ -196,7 +196,7 @@ describe('Payment Widget: change payment', () => {
         provider,
         blockchain,
         exchange,
-        amountInBN: '10000000000000000',
+        amountInBN: '10100000000000000',
         path: [WETH, DAI],
         amountsOut: [
           '10000000000000000',

@@ -278,7 +278,7 @@ describe('Payment Widget: amount', () => {
           method: 'route',
           params: {
             path: [DAI, WETH, DEPAY],
-            amounts: [ethers.utils.parseUnits('18', 18), ethers.utils.parseUnits('18', 18), anything],
+            amounts: [ethers.utils.parseUnits('18.09', 18), ethers.utils.parseUnits('18', 18), anything],
             addresses: [fromAddress, toAddress],
             plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
             data: []
