@@ -18,7 +18,7 @@ describe('Sale Widget: providers', () => {
           sell: { 'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb' }
         })
 
-        cy.wait(200).then(()=>{
+        cy.wait(200).then(async()=>{
          let provider
 
           provider = await getProvider('ethereum')

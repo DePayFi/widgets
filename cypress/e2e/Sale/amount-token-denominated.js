@@ -22,7 +22,6 @@ describe('Sale Widget: amount denominated in token', () => {
   const WETH = CONSTANTS[blockchain].WRAPPED
   const toAddress = accounts[0]
   const amount = 1.8
-  const exchange
   const defaultArguments = {
     sell: { [blockchain]: DEPAY },
     amount: {
@@ -33,6 +32,7 @@ describe('Sale Widget: amount denominated in token', () => {
   let WRAPPED_AmountInBN
   let TOKEN_A_AmountBN
   let TOKEN_B_AmountBN
+  let exchange
   let provider
 
   afterEach(closeWidget)

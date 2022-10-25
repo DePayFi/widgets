@@ -33,7 +33,7 @@ describe('Sale Widget: approval', () => {
 
   afterEach(closeWidget)
 
-  beforeEach(()=>{
+  beforeEach(async()=>{
     resetMocks()
     resetCache()
     fetchMock.restore()

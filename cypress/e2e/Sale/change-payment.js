@@ -31,7 +31,7 @@ describe('Sale Widget: change payment', () => {
   let exchange
   let provider
 
-  beforeEach(()=>{
+  beforeEach(async()=>{
     resetMocks()
     resetCache()
     fetchMock.restore()
@@ -169,7 +169,6 @@ describe('Sale Widget: change payment', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').contains('.TokenSymbolCell', 'ETH').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').contains('.CardText small', '1').should('exist')
 
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').find('.CardImage img').invoke('attr', 'src').should('eq', 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').contains('.TokenAmountCell', '33').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').contains('.CardText small', '50').should('exist')
@@ -214,7 +213,7 @@ describe('Sale Widget: change payment', () => {
           method: 'route',
           params: {
             path: [DAI, WETH, DEPAY],
-            amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
+            amounts: ['33165000000000000000', TOKEN_A_AmountBN, anything],
             addresses: [fromAddress, toAddress],
             plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
             data: []

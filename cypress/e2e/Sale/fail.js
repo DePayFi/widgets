@@ -131,7 +131,7 @@ describe('Sale Widget: failures', () => {
         method: 'route',
         params: {
           path: [DAI, WETH, DEPAY],
-          amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
+          amounts: ['33165000000000000000', TOKEN_A_AmountBN, anything],
           addresses: [fromAddress, toAddress],
           plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
           data: []
