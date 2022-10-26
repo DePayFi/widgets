@@ -1581,6 +1581,10 @@
     _createClass(ErrorBoundary, [{
       key: "componentDidCatch",
       value: function componentDidCatch(error, errorInfo) {
+        if (error.error) {
+          error = error.error;
+        }
+
         this.props.setError(error);
       }
     }, {
@@ -1605,10 +1609,14 @@
         setOpen = _useState4[1];
 
     var setErrorFromChildren = function setErrorFromChildren(error) {
+      if (error.error) {
+        error = error.error;
+      }
+
       setError(error);
 
       if (props.errorCallback) {
-        props.errorCallback(error);
+        props.errorCallback(error.message || error.toString());
       }
     };
 
@@ -1618,7 +1626,6 @@
     };
 
     if (error) {
-      console.log(error);
       return /*#__PURE__*/React__default['default'].createElement(ReactDialog, {
         container: props.container,
         close: close,
@@ -1644,7 +1651,7 @@
         className: "PaddingLeftS PaddingRightS"
       }, /*#__PURE__*/React__default['default'].createElement("pre", {
         className: "ErrorSnippetText"
-      }, error.toString())), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, error.message || error.toString())), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("strong", {
         className: "FontSizeM PaddingTopS"
@@ -19673,7 +19680,7 @@
       }
 
       setClosable(true);
-      set(['PaymentError']);
+      set(['PaymentFailed']);
     };
 
     var pay = /*#__PURE__*/function () {
@@ -19724,8 +19731,8 @@
                   succeeded: paymentSucceeded,
                   failed: paymentFailed
                 })).then(function (sentTransaction) {
-                  initializePaymentTracking(sentTransaction, currentBlock, payment.route);
                   setTransaction(sentTransaction);
+                  initializePaymentTracking(sentTransaction, currentBlock, payment.route);
                 })["catch"](function (error) {
                   console.log('error', error);
                   setPaymentState('initialized');
@@ -20009,11 +20016,13 @@
                                 }
                               }
 
+                              setAllRoutes(roundedRoutes);
+
                               if (props.setMaxRoute) {
                                 props.setMaxRoute(findMaxRoute(roundedRoutes));
                               }
 
-                            case 2:
+                            case 3:
                             case "end":
                               return _context.stop();
                           }
@@ -21055,7 +21064,7 @@
     });
   });
 
-  var PaymentErrorDialog = (function () {
+  var PaymentFailedDialog = (function () {
     var _useContext = React.useContext(ClosableContext),
         close = _useContext.close;
 
@@ -21161,7 +21170,7 @@
         DonationOverview: /*#__PURE__*/React__default['default'].createElement(DonationOverviewDialog, null),
         ChangeAmount: /*#__PURE__*/React__default['default'].createElement(ChangeAmountDialog, null),
         ChangePayment: /*#__PURE__*/React__default['default'].createElement(ChangePaymentDialog, null),
-        PaymentError: /*#__PURE__*/React__default['default'].createElement(PaymentErrorDialog, null),
+        PaymentFailed: /*#__PURE__*/React__default['default'].createElement(PaymentFailedDialog, null),
         WrongNetwork: /*#__PURE__*/React__default['default'].createElement(WrongNetworkDialog, null)
       }
     });
@@ -21273,7 +21282,7 @@
 
         if (item.message.status == 'failed') {
           setClosable(true);
-          set(['PaymentError']);
+          set(['PaymentFailed']);
         }
 
         if (validated) {
@@ -21662,6 +21671,7 @@
     var connected = function connected(_ref) {
       var account = _ref.account,
           wallet = _ref.wallet;
+      console.log('CONNECTED');
       setAccount(account);
       setWallet(wallet);
       setWalletState('connected');
@@ -22248,7 +22258,7 @@
         PaymentOverview: /*#__PURE__*/React__default['default'].createElement(PaymentOverviewDialog, null),
         ChangeAmount: /*#__PURE__*/React__default['default'].createElement(ChangeAmountDialog, null),
         ChangePayment: /*#__PURE__*/React__default['default'].createElement(ChangePaymentDialog, null),
-        PaymentError: /*#__PURE__*/React__default['default'].createElement(PaymentErrorDialog, null),
+        PaymentFailed: /*#__PURE__*/React__default['default'].createElement(PaymentFailedDialog, null),
         WrongNetwork: /*#__PURE__*/React__default['default'].createElement(WrongNetworkDialog, null),
         TrackingFailed: /*#__PURE__*/React__default['default'].createElement(TrackingFailedDialog, null)
       }
@@ -22703,7 +22713,7 @@
         ChangeAmount: /*#__PURE__*/React__default['default'].createElement(ChangeAmountDialog, null),
         ChangePayment: /*#__PURE__*/React__default['default'].createElement(ChangePaymentDialog, null),
         NoPaymentMethodFound: /*#__PURE__*/React__default['default'].createElement(NoPaymentMethodFoundDialog, null),
-        PaymentError: /*#__PURE__*/React__default['default'].createElement(PaymentErrorDialog, null),
+        PaymentFailed: /*#__PURE__*/React__default['default'].createElement(PaymentFailedDialog, null),
         WrongNetwork: /*#__PURE__*/React__default['default'].createElement(WrongNetworkDialog, null)
       }
     });

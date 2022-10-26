@@ -13,6 +13,7 @@ export default (props)=>{
   let [account, setAccount] = useState()
   const [walletState, setWalletState] = useState()
   const connected = ({ account, wallet })=> {
+    console.log('CONNECTED')
     setAccount(account)
     setWallet(wallet)
     setWalletState('connected')

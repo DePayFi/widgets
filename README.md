@@ -1701,10 +1701,10 @@ DePayWidgets.Donation({
 
 DePay Connect allows you to have your users connect their crypto wallet to your dApp or website.
 
-Returns connected `account`, `accounts` and `wallet` in return. 
+Returns connected `account` and `wallet` in return. 
 
 ```javascript
-let { account, accounts, wallet }  = await DePayWidgets.Connect()
+let { account, wallet }  = await DePayWidgets.Connect()
 ```
 
 See [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets) for more details about the returned `wallet`.
