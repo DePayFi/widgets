@@ -67,7 +67,6 @@ export default (props)=>{
         startTracking(transaction, afterBlock, paymentRoute, attempt+1)
       }, 3000)
     } else {
-      console.log('navigate TrackingFailed')
       navigate('TrackingFailed')
     }
   }

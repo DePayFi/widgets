@@ -186,8 +186,10 @@ describe('Payment Widget: overview', () => {
         cy.visit('cypress/test.html').then((contentWindow) => {
           cy.document().then((document)=>{
             DePayWidgets.Payment({ ...defaultArguments, document })
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
-            cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+            cy.wait(500).then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
+              cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+            })
           })
         })
       })
