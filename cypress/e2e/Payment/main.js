@@ -5,7 +5,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from '@depay/web3-constants'
 import { mock, confirm, increaseBlock, resetMocks } from '@depay/web3-mock'
-import { resetCache, provider } from '@depay/web3-client'
+import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Token } from '@depay/web3-tokens'
 
@@ -13,20 +13,14 @@ describe('Payment Widget: main functionality', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
-  beforeEach(resetMocks)
-  beforeEach(resetCache)
-  beforeEach(()=>fetchMock.restore())
-  beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
-
-  let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  let DAI = CONSTANTS[blockchain].USD
-  let ETH = CONSTANTS[blockchain].NATIVE
-  let WETH = CONSTANTS[blockchain].WRAPPED
-  let fromAddress = accounts[0]
-  let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-  let amount = 20
-  let TOKEN_A_AmountBN
-  let defaultArguments = {
+  const DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
+  const DAI = CONSTANTS[blockchain].USD
+  const ETH = CONSTANTS[blockchain].NATIVE
+  const WETH = CONSTANTS[blockchain].WRAPPED
+  const fromAddress = accounts[0]
+  const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  const amount = 20
+  const defaultArguments = {
     accept: [{
       blockchain,
       amount,
@@ -34,11 +28,19 @@ describe('Payment Widget: main functionality', () => {
       receiver: toAddress
     }]
   }
+  
+  let TOKEN_A_AmountBN
+  let provider
 
-  beforeEach(()=>{
+  beforeEach(async()=>{
+    resetMocks()
+    resetCache()
+    fetchMock.restore()
+    mock({ blockchain, accounts: { return: accounts } })
+    provider = await getProvider(blockchain)
 
-    ({ TOKEN_A_AmountBN } = mockBasics({
-      provider: provider(blockchain),
+    ;({ TOKEN_A_AmountBN } = mockBasics({
+      provider,
       blockchain,
 
       fromAddress,
@@ -287,7 +289,7 @@ describe('Payment Widget: main functionality', () => {
     })
   })
 
-  it('calls all callbacks (sent, confirmed)', () => {
+  it('calls all callbacks (sent, succeeded)', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
@@ -301,27 +303,27 @@ describe('Payment Widget: main functionality', () => {
     })
 
     let sentCalledWith
-    let confirmedCalledWith
+    let succeededCalledWith
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document,
           sent: (transaction)=>{ sentCalledWith = transaction },
-          confirmed: (transaction)=>{ confirmedCalledWith = transaction },
+          succeeded: (transaction)=>{ succeededCalledWith = transaction },
         })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
-          cy.wait(1000).then(()=>{
+          cy.wait(3000).then(()=>{
             expect(sentCalledWith.from).to.equal(accounts[0])
             expect(sentCalledWith.id).to.equal(mockedTransaction.transaction._id)
             expect(sentCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
             expect(mockedTransaction.calls.count()).to.equal(1)
             confirm(mockedTransaction)
             cy.wait(5000).then(()=>{
-              expect(confirmedCalledWith.from).to.equal(accounts[0])
-              expect(confirmedCalledWith.id).to.equal(mockedTransaction.transaction._id)
-              expect(confirmedCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
+              expect(succeededCalledWith.from).to.equal(accounts[0])
+              expect(succeededCalledWith.id).to.equal(mockedTransaction.transaction._id)
+              expect(succeededCalledWith.url).to.equal(`https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
             })
           })
         })

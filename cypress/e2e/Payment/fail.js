@@ -5,7 +5,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from '@depay/web3-constants'
 import { mock, resetMocks, fail, confirm } from '@depay/web3-mock'
-import { resetCache, provider } from '@depay/web3-client'
+import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Server } from 'mock-socket'
 import { Token } from '@depay/web3-tokens'
@@ -14,20 +14,14 @@ describe('Payment Widget: failures', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
-  beforeEach(resetMocks)
-  beforeEach(resetCache)
-  beforeEach(()=>fetchMock.restore())
-  beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
-
-  let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  let DAI = CONSTANTS[blockchain].USD
-  let ETH = CONSTANTS[blockchain].NATIVE
-  let WETH = CONSTANTS[blockchain].WRAPPED
-  let fromAddress = accounts[0]
-  let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-  let amount = 20
-  let TOKEN_A_AmountBN
-  let defaultArguments = {
+  const DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
+  const DAI = CONSTANTS[blockchain].USD
+  const ETH = CONSTANTS[blockchain].NATIVE
+  const WETH = CONSTANTS[blockchain].WRAPPED
+  const fromAddress = accounts[0]
+  const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  const amount = 20
+  const defaultArguments = {
     accept: [{
       blockchain,
       amount,
@@ -35,15 +29,23 @@ describe('Payment Widget: failures', () => {
       receiver: toAddress
     }]
   }
-  let mockedWebsocketServer = new Server('wss://integrate.depay.com/cable')
-  let websocketMessages = []
+  const mockedWebsocketServer = new Server('wss://integrate.depay.com/cable')
+  const websocketMessages = []
+  
+  let TOKEN_A_AmountBN
   let mockedWebsocket
+  let provider
 
-  beforeEach(()=>{
+  beforeEach(async()=>{
+    resetMocks()
+    resetCache()
+    fetchMock.restore()
+    mock({ blockchain, accounts: { return: accounts } })
+    provider = await getProvider(blockchain)
 
-    ({ TOKEN_A_AmountBN } = mockBasics({
+    ;({ TOKEN_A_AmountBN } = mockBasics({
 
-      provider: provider(blockchain),
+      provider,
       blockchain,
 
       fromAddress,
@@ -160,84 +162,6 @@ describe('Payment Widget: failures', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('a').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
             cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
-          })
-        })
-      })
-    })
-  })
-
-  it('shows an error dialog if failed payment was reported by sockets first', () => {
-    mockedWebsocketServer.on('connection', socket => {
-      mockedWebsocket = socket
-      mockedWebsocket.on('message', data => {
-        websocketMessages.push(data)
-      })
-    })
-
-    let mockedTransaction = mock({
-      blockchain,
-      transaction: {
-        from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN]
-      }
-    })
-
-    fetchMock.post({
-      url: "https://public.depay.com/payments",
-      body: {
-        after_block: 1,
-        amount: "20.0",
-        blockchain: "ethereum",
-        confirmations: 1,
-        fee_amount: null,
-        fee_receiver: null,
-        nonce: 0,
-        payload: {
-          sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
-          sender_token_id: DEPAY,
-          type: 'payment'
-        },
-        receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
-        token: DEPAY,
-        transaction: mockedTransaction.transaction._id,
-        uuid: mockedTransaction.transaction._id,
-      },
-    }, 201)
-
-    let trackingRequestMock = fetchMock.post({
-      url: "/track/payments",
-      body: {},
-      matchPartialBody: true
-    }, 200)
-    
-    cy.visit('cypress/test.html').then((contentWindow) => {
-      cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments,
-          track: {
-            endpoint: '/track/payments'
-          },
-        document})
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
-          cy.wait(1000).then(()=>{
-            mockedWebsocket.send(JSON.stringify({
-              message: {
-                release: true,
-                status: 'failed'
-              }
-            }))
-            cy.wait(2000).then(()=>{
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('h1').should('contain.text', 'Payment Failed')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('a').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
-              cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
-            })
           })
         })
       })

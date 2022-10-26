@@ -39,10 +39,6 @@ export default (props)=>{
     socket.onmessage = function(event) {
       const item = JSON.parse(event.data)
       if(item.type === "ping" || !item.message) { return }
-      if(item.message.status == 'failed') {
-        setClosable(true)
-        set(['PaymentError'])
-      }
       if(validated) { validated(item.message.status == 'success') }
       if(item.message.release) {
         setRelease(true)
@@ -67,7 +63,6 @@ export default (props)=>{
         startTracking(transaction, afterBlock, paymentRoute, attempt+1)
       }, 3000)
     } else {
-      console.log('navigate TrackingFailed')
       navigate('TrackingFailed')
     }
   }

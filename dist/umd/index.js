@@ -1098,10 +1098,10 @@
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext.navigate;
 
-    var wallet = web3Wallets.getWallet();
+    var wallet = web3Wallets.getWallets()[0];
     React.useEffect(function () {
       _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-        var accounts;
+        var account;
         return regenerator.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -1112,12 +1112,12 @@
                 }
 
                 _context.next = 3;
-                return wallet.accounts();
+                return wallet.account();
 
               case 3:
-                accounts = _context.sent;
+                account = _context.sent;
 
-                if (accounts == undefined || accounts.length == 0) {
+                if (account == undefined) {
                   navigate('ConnectingWallet');
                   props.connect(wallet);
                 }
@@ -1214,23 +1214,22 @@
 
     var connect = function connect(wallet) {
       wallet.connect().then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-        var accounts;
+        var account;
         return regenerator.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return wallet.accounts();
+                return wallet.account();
 
               case 2:
-                accounts = _context.sent;
+                account = _context.sent;
 
-                if (accounts instanceof Array && accounts.length > 0) {
+                if (account) {
                   if (props.autoClose) close();
                   if (props.resolve) props.resolve({
                     wallet: wallet,
-                    account: accounts[0],
-                    accounts: accounts
+                    account: account
                   });
                 }
 
@@ -1257,7 +1256,7 @@
     };
 
     React.useEffect(function () {
-      var wallet = web3Wallets.getWallet();
+      var wallet = web3Wallets.getWallets()[0];
 
       if (wallet) {
         setWallet(wallet);
@@ -1265,7 +1264,7 @@
     }, []);
     React.useEffect(function () {
       _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
-        var accounts;
+        var account;
         return regenerator.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -1276,16 +1275,15 @@
                 }
 
                 _context2.next = 3;
-                return wallet.accounts();
+                return wallet.account();
 
               case 3:
-                accounts = _context2.sent;
+                account = _context2.sent;
 
-                if (accounts instanceof Array && accounts.length > 0) {
+                if (account) {
                   if (props.resolve) props.resolve({
                     wallet: wallet,
-                    account: accounts[0],
-                    accounts: accounts
+                    account: account
                   });
                 }
 
@@ -1583,6 +1581,10 @@
     _createClass(ErrorBoundary, [{
       key: "componentDidCatch",
       value: function componentDidCatch(error, errorInfo) {
+        if (error.error) {
+          error = error.error;
+        }
+
         this.props.setError(error);
       }
     }, {
@@ -1607,10 +1609,14 @@
         setOpen = _useState4[1];
 
     var setErrorFromChildren = function setErrorFromChildren(error) {
+      if (error.error) {
+        error = error.error;
+      }
+
       setError(error);
 
       if (props.errorCallback) {
-        props.errorCallback(error);
+        props.errorCallback(error.message || error.toString());
       }
     };
 
@@ -1620,7 +1626,6 @@
     };
 
     if (error) {
-      console.log(error);
       return /*#__PURE__*/React__default['default'].createElement(ReactDialog, {
         container: props.container,
         close: close,
@@ -1646,7 +1651,7 @@
         className: "PaddingLeftS PaddingRightS"
       }, /*#__PURE__*/React__default['default'].createElement("pre", {
         className: "ErrorSnippetText"
-      }, error.toString())), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, error.message || error.toString())), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("strong", {
         className: "FontSizeM PaddingTopS"
@@ -1879,12 +1884,12 @@
 
     return new Promise( /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(resolve, reject) {
-        var wallet, accounts;
+        var wallet, account;
         return regenerator.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                wallet = web3Wallets.getWallet();
+                wallet = web3Wallets.getWallets()[0];
 
                 if (!wallet) {
                   _context.next = 7;
@@ -1892,20 +1897,19 @@
                 }
 
                 _context.next = 4;
-                return wallet.accounts();
+                return wallet.account();
 
               case 4:
-                accounts = _context.sent;
+                account = _context.sent;
 
-                if (!(accounts instanceof Array && accounts.length > 0)) {
+                if (!account) {
                   _context.next = 7;
                   break;
                 }
 
                 return _context.abrupt("return", resolve({
                   wallet: wallet,
-                  accounts: accounts,
-                  account: accounts[0]
+                  account: account
                 }));
 
               case 7:
@@ -19602,7 +19606,7 @@
 
     var _useContext2 = React.useContext(ConfigurationContext),
         _sent = _useContext2.sent,
-        confirmed = _useContext2.confirmed,
+        succeeded = _useContext2.succeeded,
         failed = _useContext2.failed,
         recover = _useContext2.recover,
         before = _useContext2.before;
@@ -19658,15 +19662,15 @@
         paymentState = _useState8[0],
         setPaymentState = _useState8[1];
 
-    var paymentConfirmed = function paymentConfirmed(transaction) {
+    var paymentSucceeded = function paymentSucceeded(transaction) {
       if (tracking != true) {
         setClosable(true);
       }
 
-      setPaymentState('confirmed');
+      setPaymentState('success');
 
-      if (confirmed) {
-        confirmed(transaction);
+      if (succeeded) {
+        succeeded(transaction);
       }
     };
 
@@ -19676,7 +19680,7 @@
       }
 
       setClosable(true);
-      set(['PaymentError']);
+      set(['PaymentFailed']);
     };
 
     var pay = /*#__PURE__*/function () {
@@ -19724,11 +19728,11 @@
                       _sent(transaction);
                     }
                   },
-                  confirmed: paymentConfirmed,
+                  succeeded: paymentSucceeded,
                   failed: paymentFailed
                 })).then(function (sentTransaction) {
-                  initializePaymentTracking(sentTransaction, currentBlock, payment.route);
                   setTransaction(sentTransaction);
+                  initializePaymentTracking(sentTransaction, currentBlock, payment.route);
                 })["catch"](function (error) {
                   console.log('error', error);
                   setPaymentState('initialized');
@@ -19757,7 +19761,7 @@
       setClosable(false);
       setPaymentState('approving');
       wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
-        confirmed: function confirmed() {
+        succeeded: function succeeded() {
           payment.route.approvalRequired = false;
           setPayment(payment);
           setClosable(true);
@@ -19774,7 +19778,7 @@
 
     React.useEffect(function () {
       if (release) {
-        setPaymentState('confirmed');
+        setPaymentState('success');
       }
     }, [release]);
     React.useEffect(function () {
@@ -19825,7 +19829,7 @@
         }
 
         if (foundTransaction.status == 'success') {
-          paymentConfirmed(newTransaction || transaction);
+          paymentSucceeded(newTransaction || transaction);
         } else if (foundTransaction.status == 'failed') {
           paymentFailed(newTransaction || transaction);
         }
@@ -19977,234 +19981,11 @@
     var _useContext3 = React.useContext(ConfigurationContext),
         recover = _useContext3.recover;
 
-    var calculateAmountInWithSlippage = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(route) {
-        var currentBlock, blocks, i, exchangeRoute, lastAmountsIn, defaultSlippage, defaultSlippageNewAmountBN, defaultReadableAmount, defaultSlippageRoundedAmountBN, newAmountBN, readableAmount, roundedAmountBN, difference1, difference2, slippage, _difference, _difference2, _slippage, highestAmountBN;
-
+    var onRoutesUpdate = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(routes) {
         return regenerator.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
-              case 0:
-                if (!route.directTransfer) {
-                  _context2.next = 2;
-                  break;
-                }
-
-                return _context2.abrupt("return");
-
-              case 2:
-                _context2.next = 4;
-                return web3Client.request({
-                  blockchain: route.blockchain,
-                  method: 'latestBlockNumber'
-                });
-
-              case 4:
-                currentBlock = _context2.sent;
-                blocks = [];
-
-                for (i = 0; i <= 2; i++) {
-                  blocks.push(currentBlock - i);
-                }
-
-                exchangeRoute = route.exchangeRoutes[0];
-
-                if (!(typeof exchangeRoute == 'undefined' || typeof exchangeRoute.exchange == 'undefined')) {
-                  _context2.next = 10;
-                  break;
-                }
-
-                return _context2.abrupt("return");
-
-              case 10:
-                _context2.next = 12;
-                return Promise.all(blocks.map( /*#__PURE__*/function () {
-                  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(block) {
-                    var amountIn;
-                    return regenerator.wrap(function _callee$(_context) {
-                      while (1) {
-                        switch (_context.prev = _context.next) {
-                          case 0:
-                            _context.next = 2;
-                            return exchangeRoute.exchange.getAmountIn({
-                              path: exchangeRoute.path,
-                              amountOut: exchangeRoute.amountOutMin,
-                              block: block
-                            });
-
-                          case 2:
-                            amountIn = _context.sent;
-                            return _context.abrupt("return", amountIn);
-
-                          case 4:
-                          case "end":
-                            return _context.stop();
-                        }
-                      }
-                    }, _callee);
-                  }));
-
-                  return function (_x2) {
-                    return _ref2.apply(this, arguments);
-                  };
-                }()));
-
-              case 12:
-                lastAmountsIn = _context2.sent;
-
-                if (!(!lastAmountsIn[0] || !lastAmountsIn[1] || !lastAmountsIn[2])) {
-                  _context2.next = 15;
-                  break;
-                }
-
-                return _context2.abrupt("return");
-
-              case 15:
-                defaultSlippage = '0.5'; // %
-
-                if (ethers.ethers.BigNumber.from(route.fromAmount).mul(10000).div(ethers.ethers.BigNumber.from(route.toAmount).add(ethers.ethers.BigNumber.from(route.feeAmount || '0'))).sub(10000).toString() <= 100) {
-                  // stable coin swap
-                  defaultSlippage = '0.1'; // %
-                }
-
-                defaultSlippageNewAmountBN = lastAmountsIn[2].add(lastAmountsIn[2].mul(parseFloat(defaultSlippage) * 100).div(10000));
-                _context2.next = 20;
-                return route.fromToken.readable(defaultSlippageNewAmountBN);
-
-              case 20:
-                defaultReadableAmount = _context2.sent;
-                _context2.next = 23;
-                return route.fromToken.BigNumber(round(defaultReadableAmount));
-
-              case 23:
-                defaultSlippageRoundedAmountBN = _context2.sent;
-
-                if (!(lastAmountsIn[0].gt(lastAmountsIn[1]) && lastAmountsIn[1].gt(lastAmountsIn[2]))) {
-                  _context2.next = 41;
-                  break;
-                }
-
-                // EXTREME DIRETIONAL SLIPPAGE
-                difference1 = lastAmountsIn[0].sub(lastAmountsIn[1]);
-                difference2 = lastAmountsIn[1].sub(lastAmountsIn[2]);
-
-                if (difference1.lt(difference2)) {
-                  slippage = difference2.add(difference2.sub(difference1));
-                } else {
-                  slippage = difference1.add(difference1.sub(difference2));
-                }
-
-                newAmountBN = lastAmountsIn[0].add(slippage);
-                _context2.next = 31;
-                return route.fromToken.readable(newAmountBN);
-
-              case 31:
-                readableAmount = _context2.sent;
-                _context2.next = 34;
-                return route.fromToken.BigNumber(round(readableAmount));
-
-              case 34:
-                roundedAmountBN = _context2.sent;
-
-                if (!roundedAmountBN.gt(defaultSlippageRoundedAmountBN)) {
-                  _context2.next = 39;
-                  break;
-                }
-
-                if (!(route.fromAmount == roundedAmountBN.toString())) {
-                  _context2.next = 38;
-                  break;
-                }
-
-                return _context2.abrupt("return");
-
-              case 38:
-                return _context2.abrupt("return", roundedAmountBN);
-
-              case 39:
-                _context2.next = 57;
-                break;
-
-              case 41:
-                if (lastAmountsIn[0].eq(lastAmountsIn[1]) && lastAmountsIn[1].eq(lastAmountsIn[2])) {
-                  _context2.next = 57;
-                  break;
-                }
-
-                // BASE NOISE SLIPPAGE
-                _difference = lastAmountsIn[0].sub(lastAmountsIn[1]).abs();
-                _difference2 = lastAmountsIn[1].sub(lastAmountsIn[2]).abs();
-
-                if (_difference.lt(_difference2)) {
-                  _slippage = _difference;
-                } else {
-                  _slippage = _difference2;
-                }
-
-                if (lastAmountsIn[0].gt(lastAmountsIn[1]) && lastAmountsIn[0].gt(lastAmountsIn[2])) {
-                  highestAmountBN = lastAmountsIn[0];
-                } else if (lastAmountsIn[1].gt(lastAmountsIn[2]) && lastAmountsIn[1].gt(lastAmountsIn[0])) {
-                  highestAmountBN = lastAmountsIn[1];
-                } else {
-                  highestAmountBN = lastAmountsIn[2];
-                }
-
-                newAmountBN = highestAmountBN.add(_slippage);
-                _context2.next = 49;
-                return route.fromToken.readable(newAmountBN);
-
-              case 49:
-                readableAmount = _context2.sent;
-                _context2.next = 52;
-                return route.fromToken.BigNumber(round(readableAmount));
-
-              case 52:
-                roundedAmountBN = _context2.sent;
-
-                if (!roundedAmountBN.gt(defaultSlippageRoundedAmountBN)) {
-                  _context2.next = 57;
-                  break;
-                }
-
-                if (!(route.fromAmount == roundedAmountBN.toString())) {
-                  _context2.next = 56;
-                  break;
-                }
-
-                return _context2.abrupt("return");
-
-              case 56:
-                return _context2.abrupt("return", roundedAmountBN);
-
-              case 57:
-                if (!(route.fromAmount == defaultSlippageRoundedAmountBN.toString())) {
-                  _context2.next = 59;
-                  break;
-                }
-
-                return _context2.abrupt("return");
-
-              case 59:
-                return _context2.abrupt("return", defaultSlippageRoundedAmountBN);
-
-              case 60:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-
-      return function calculateAmountInWithSlippage(_x) {
-        return _ref.apply(this, arguments);
-      };
-    }();
-
-    var onRoutesUpdate = /*#__PURE__*/function () {
-      var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
-        return regenerator.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
               case 0:
                 if (routes.length == 0) {
                   setAllRoutes([]);
@@ -20214,142 +19995,64 @@
                   }
                 } else {
                   roundAmounts(routes).then( /*#__PURE__*/function () {
-                    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(roundedRoutes) {
-                      var selectRoute, amountInWithSlippage, newSelectRoute, _amountInWithSlippage;
-
-                      return regenerator.wrap(function _callee4$(_context4) {
+                    var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(roundedRoutes) {
+                      var selectRoute, newSelectRoute;
+                      return regenerator.wrap(function _callee$(_context) {
                         while (1) {
-                          switch (_context4.prev = _context4.next) {
+                          switch (_context.prev = _context.next) {
                             case 0:
-                              if (!(typeof selectedRoute == 'undefined')) {
-                                _context4.next = 11;
-                                break;
+                              if (typeof selectedRoute == 'undefined') {
+                                selectRoute = roundedRoutes[0];
+                                setSelectedRoute(selectRoute);
+                              } else {
+                                newSelectRoute = roundedRoutes[roundedRoutes.findIndex(function (route) {
+                                  return route.fromToken.address == selectedRoute.fromToken.address && route.blockchain == selectedRoute.blockchain;
+                                })];
+
+                                if (newSelectRoute) {
+                                  if (selectedRoute.fromAmount != newSelectRoute.fromAmount) {
+                                    setUpdatedRouteWithNewPrice(newSelectRoute);
+                                  }
+                                }
                               }
 
-                              selectRoute = roundedRoutes[0];
-                              _context4.next = 4;
-                              return calculateAmountInWithSlippage(selectRoute);
+                              setAllRoutes(roundedRoutes);
 
-                            case 4:
-                              amountInWithSlippage = _context4.sent;
-
-                              if (!amountInWithSlippage) {
-                                _context4.next = 8;
-                                break;
-                              }
-
-                              _context4.next = 8;
-                              return roundAmount(selectRoute, amountInWithSlippage);
-
-                            case 8:
-                              setSelectedRoute(selectRoute);
-                              _context4.next = 20;
-                              break;
-
-                            case 11:
-                              newSelectRoute = roundedRoutes[roundedRoutes.findIndex(function (route) {
-                                return route.fromToken.address == selectedRoute.fromToken.address && route.blockchain == selectedRoute.blockchain;
-                              })];
-
-                              if (!newSelectRoute) {
-                                _context4.next = 20;
-                                break;
-                              }
-
-                              _context4.next = 15;
-                              return calculateAmountInWithSlippage(newSelectRoute);
-
-                            case 15:
-                              _amountInWithSlippage = _context4.sent;
-
-                              if (!_amountInWithSlippage) {
-                                _context4.next = 19;
-                                break;
-                              }
-
-                              _context4.next = 19;
-                              return roundAmount(newSelectRoute, _amountInWithSlippage);
-
-                            case 19:
-                              if (selectedRoute.fromAmount != newSelectRoute.fromAmount) {
-                                setUpdatedRouteWithNewPrice(newSelectRoute);
-                              }
-
-                            case 20:
-                              _context4.next = 22;
-                              return Promise.all(roundedRoutes.map( /*#__PURE__*/function () {
-                                var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(route, index) {
-                                  var amountInWithSlippage;
-                                  return regenerator.wrap(function _callee3$(_context3) {
-                                    while (1) {
-                                      switch (_context3.prev = _context3.next) {
-                                        case 0:
-                                          _context3.next = 2;
-                                          return calculateAmountInWithSlippage(route);
-
-                                        case 2:
-                                          amountInWithSlippage = _context3.sent;
-
-                                          if (!amountInWithSlippage) {
-                                            _context3.next = 6;
-                                            break;
-                                          }
-
-                                          _context3.next = 6;
-                                          return roundAmount(route, amountInWithSlippage);
-
-                                        case 6:
-                                          return _context3.abrupt("return", route);
-
-                                        case 7:
-                                        case "end":
-                                          return _context3.stop();
-                                      }
-                                    }
-                                  }, _callee3);
-                                }));
-
-                                return function (_x5, _x6) {
-                                  return _ref5.apply(this, arguments);
-                                };
-                              }())).then(setAllRoutes);
-
-                            case 22:
                               if (props.setMaxRoute) {
                                 props.setMaxRoute(findMaxRoute(roundedRoutes));
                               }
 
-                            case 23:
+                            case 3:
                             case "end":
-                              return _context4.stop();
+                              return _context.stop();
                           }
                         }
-                      }, _callee4);
+                      }, _callee);
                     }));
 
-                    return function (_x4) {
-                      return _ref4.apply(this, arguments);
+                    return function (_x2) {
+                      return _ref2.apply(this, arguments);
                     };
                   }());
                 }
 
               case 1:
               case "end":
-                return _context5.stop();
+                return _context2.stop();
             }
           }
-        }, _callee5);
+        }, _callee2);
       }));
 
-      return function onRoutesUpdate(_x3) {
-        return _ref3.apply(this, arguments);
+      return function onRoutesUpdate(_x) {
+        return _ref.apply(this, arguments);
       };
     }();
 
-    var getPaymentRoutes = function getPaymentRoutes(_ref6) {
-      _ref6.allRoutes;
-          _ref6.selectedRoute;
-          var updatable = _ref6.updatable;
+    var getPaymentRoutes = function getPaymentRoutes(_ref3) {
+      _ref3.allRoutes;
+          _ref3.selectedRoute;
+          var updatable = _ref3.updatable;
 
       if (updatable == false || !props.accept || !account) {
         return;
@@ -20376,135 +20079,91 @@
     };
 
     var roundAmount = /*#__PURE__*/function () {
-      var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(route, amountBN) {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(route, amountBN) {
         var readableAmount, roundedAmountBN;
-        return regenerator.wrap(function _callee6$(_context6) {
+        return regenerator.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
                 if (!route.directTransfer) {
-                  _context6.next = 2;
+                  _context3.next = 2;
                   break;
                 }
 
-                return _context6.abrupt("return", route);
+                return _context3.abrupt("return", route);
 
               case 2:
-                _context6.next = 4;
+                _context3.next = 4;
                 return route.fromToken.readable(amountBN || route.transaction.params.amounts[0]);
 
               case 4:
-                readableAmount = _context6.sent;
-                _context6.next = 7;
+                readableAmount = _context3.sent;
+                _context3.next = 7;
                 return route.fromToken.BigNumber(round(readableAmount));
 
               case 7:
-                roundedAmountBN = _context6.sent;
+                roundedAmountBN = _context3.sent;
                 updateRouteAmount(route, roundedAmountBN);
-                return _context6.abrupt("return", route);
+                return _context3.abrupt("return", route);
 
               case 10:
               case "end":
-                return _context6.stop();
+                return _context3.stop();
             }
           }
-        }, _callee6);
+        }, _callee3);
       }));
 
-      return function roundAmount(_x7, _x8) {
-        return _ref7.apply(this, arguments);
+      return function roundAmount(_x3, _x4) {
+        return _ref4.apply(this, arguments);
       };
     }();
 
     var roundAmounts = /*#__PURE__*/function () {
-      var _ref8 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee7(routes) {
-        return regenerator.wrap(function _callee7$(_context7) {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(routes) {
+        return regenerator.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context7.prev = _context7.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                return _context7.abrupt("return", Promise.all(routes.map(function (route) {
+                return _context4.abrupt("return", Promise.all(routes.map(function (route) {
                   return roundAmount(route);
                 })));
 
               case 1:
               case "end":
-                return _context7.stop();
+                return _context4.stop();
             }
           }
-        }, _callee7);
+        }, _callee4);
       }));
 
-      return function roundAmounts(_x9) {
-        return _ref8.apply(this, arguments);
+      return function roundAmounts(_x5) {
+        return _ref5.apply(this, arguments);
       };
     }();
 
     var updateRouteWithNewPrice = /*#__PURE__*/function () {
-      var _ref9 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee8() {
-        return regenerator.wrap(function _callee8$(_context8) {
+      var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5() {
+        return regenerator.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context8.prev = _context8.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 setSelectedRoute(_objectSpread({}, updatedRouteWithNewPrice));
                 setUpdatedRouteWithNewPrice(null);
 
               case 2:
               case "end":
-                return _context8.stop();
+                return _context5.stop();
             }
           }
-        }, _callee8);
+        }, _callee5);
       }));
 
       return function updateRouteWithNewPrice() {
-        return _ref9.apply(this, arguments);
+        return _ref6.apply(this, arguments);
       };
     }();
 
-    React.useEffect(function () {
-      function updateRouteWithAmountInWithSlippage() {
-        return _updateRouteWithAmountInWithSlippage.apply(this, arguments);
-      }
-
-      function _updateRouteWithAmountInWithSlippage() {
-        _updateRouteWithAmountInWithSlippage = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee9() {
-          var amountInWithSlippage;
-          return regenerator.wrap(function _callee9$(_context9) {
-            while (1) {
-              switch (_context9.prev = _context9.next) {
-                case 0:
-                  _context9.next = 2;
-                  return calculateAmountInWithSlippage(selectedRoute);
-
-                case 2:
-                  amountInWithSlippage = _context9.sent;
-
-                  if (!amountInWithSlippage) {
-                    _context9.next = 8;
-                    break;
-                  }
-
-                  _context9.next = 6;
-                  return roundAmount(selectedRoute, amountInWithSlippage);
-
-                case 6:
-                  console.log(222222);
-                  setUpdatedRouteWithNewPrice(selectedRoute);
-
-                case 8:
-                case "end":
-                  return _context9.stop();
-              }
-            }
-          }, _callee9);
-        }));
-        return _updateRouteWithAmountInWithSlippage.apply(this, arguments);
-      }
-
-      if (selectedRoute) {
-        updateRouteWithAmountInWithSlippage();
-      }
-    }, [selectedRoute]);
     React.useEffect(function () {
       var timeout = setTimeout(function () {
         setReloadCount(reloadCount + 1);
@@ -21186,7 +20845,7 @@
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "Opacity05"
         }, "Confirm transaction in your wallet")))));
-      } else if (paymentState == 'confirmed') {
+      } else if (paymentState == 'success') {
         return /*#__PURE__*/React__default['default'].createElement("div", {
           className: "PaddingBottomS"
         }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("a", {
@@ -21275,7 +20934,7 @@
           target: "_blank",
           rel: "noopener noreferrer"
         }, /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Paying"));
-      } else if (paymentState == 'confirmed') {
+      } else if (paymentState == 'success') {
         if (tracking == true) {
           if (release) {
             if (forwardTo) {
@@ -21405,7 +21064,7 @@
     });
   });
 
-  var PaymentErrorDialog = (function () {
+  var PaymentFailedDialog = (function () {
     var _useContext = React.useContext(ClosableContext),
         close = _useContext.close;
 
@@ -21511,7 +21170,7 @@
         DonationOverview: /*#__PURE__*/React__default['default'].createElement(DonationOverviewDialog, null),
         ChangeAmount: /*#__PURE__*/React__default['default'].createElement(ChangeAmountDialog, null),
         ChangePayment: /*#__PURE__*/React__default['default'].createElement(ChangePaymentDialog, null),
-        PaymentError: /*#__PURE__*/React__default['default'].createElement(PaymentErrorDialog, null),
+        PaymentFailed: /*#__PURE__*/React__default['default'].createElement(PaymentFailedDialog, null),
         WrongNetwork: /*#__PURE__*/React__default['default'].createElement(WrongNetworkDialog, null)
       }
     });
@@ -21593,8 +21252,8 @@
         setClosable = _useContext3.setClosable;
 
     var _useContext4 = React.useContext(NavigateContext),
-        navigate = _useContext4.navigate,
-        set = _useContext4.set;
+        navigate = _useContext4.navigate;
+        _useContext4.set;
 
     var openSocket = function openSocket(transaction) {
       var socket = new WebSocket('wss://integrate.depay.com/cable');
@@ -21619,11 +21278,6 @@
 
         if (item.type === "ping" || !item.message) {
           return;
-        }
-
-        if (item.message.status == 'failed') {
-          setClosable(true);
-          set(['PaymentError']);
         }
 
         if (validated) {
@@ -21651,15 +21305,12 @@
 
     var retryStartTracking = function retryStartTracking(transaction, afterBlock, paymentRoute, attempt) {
       attempt = parseInt(attempt || 1, 10);
-      console.log('attempt', attempt);
-      console.log('track.attempts', track === null || track === void 0 ? void 0 : track.attempts);
 
       if (attempt < ((track === null || track === void 0 ? void 0 : track.attempts) || 40)) {
         setTimeout(function () {
           startTracking(transaction, afterBlock, paymentRoute, attempt + 1);
         }, 3000);
       } else {
-        console.log('navigate TrackingFailed');
         navigate('TrackingFailed');
       }
     };
@@ -22090,12 +21741,12 @@
 
   var Donation = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var amount, accept, event, sent, confirmed, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, closable, integration, link, container, title, document, unmount;
+      var amount, accept, event, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, closable, integration, link, container, title, document, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, title = _ref3.title, document = _ref3.document;
+              amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, title = _ref3.title, document = _ref3.document;
               requireReactVersion();
               _context2.prev = 2;
               _context2.next = 5;
@@ -22125,7 +21776,7 @@
                       track: track,
                       fee: fee,
                       sent: sent,
-                      confirmed: confirmed,
+                      succeeded: succeeded,
                       validated: validated,
                       failed: failed,
                       blacklist: blacklist,
@@ -22192,7 +21843,7 @@
     var _useContext3 = React.useContext(ConfigurationContext),
         recover = _useContext3.recover;
 
-    var wallet = web3Wallets.getWallet();
+    var wallet = web3Wallets.getWallets()[0];
     wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
     var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
 
@@ -22600,7 +22251,7 @@
         PaymentOverview: /*#__PURE__*/React__default['default'].createElement(PaymentOverviewDialog, null),
         ChangeAmount: /*#__PURE__*/React__default['default'].createElement(ChangeAmountDialog, null),
         ChangePayment: /*#__PURE__*/React__default['default'].createElement(ChangePaymentDialog, null),
-        PaymentError: /*#__PURE__*/React__default['default'].createElement(PaymentErrorDialog, null),
+        PaymentFailed: /*#__PURE__*/React__default['default'].createElement(PaymentFailedDialog, null),
         WrongNetwork: /*#__PURE__*/React__default['default'].createElement(WrongNetworkDialog, null),
         TrackingFailed: /*#__PURE__*/React__default['default'].createElement(TrackingFailedDialog, null)
       }
@@ -22661,12 +22312,12 @@
 
   var Payment = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var accept, amount, event, sent, confirmed, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, link, container, before, document, unmount;
+      var accept, amount, event, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, link, container, before, document, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, confirmed = _ref3.confirmed, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, before = _ref3.before, document = _ref3.document;
+              accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, before = _ref3.before, document = _ref3.document;
               requireReactVersion();
               _context2.prev = 2;
               _context2.next = 5;
@@ -22696,7 +22347,7 @@
                       currency: currency,
                       event: event,
                       sent: sent,
-                      confirmed: confirmed,
+                      succeeded: succeeded,
                       validated: validated,
                       failed: failed,
                       whitelist: whitelist,
@@ -23055,7 +22706,7 @@
         ChangeAmount: /*#__PURE__*/React__default['default'].createElement(ChangeAmountDialog, null),
         ChangePayment: /*#__PURE__*/React__default['default'].createElement(ChangePaymentDialog, null),
         NoPaymentMethodFound: /*#__PURE__*/React__default['default'].createElement(NoPaymentMethodFoundDialog, null),
-        PaymentError: /*#__PURE__*/React__default['default'].createElement(PaymentErrorDialog, null),
+        PaymentFailed: /*#__PURE__*/React__default['default'].createElement(PaymentFailedDialog, null),
         WrongNetwork: /*#__PURE__*/React__default['default'].createElement(WrongNetworkDialog, null)
       }
     });
@@ -23108,12 +22759,12 @@
 
   var Sale = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var amount, sell, sent, confirmed, failed, error, critical, style, blacklist, providers, currency, connected, closed, tokenImage, closable, integration, document, accept, unmount;
+      var amount, sell, sent, succeeded, failed, error, critical, style, blacklist, providers, currency, connected, closed, tokenImage, closable, integration, document, accept, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, confirmed = _ref3.confirmed, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, closable = _ref3.closable, integration = _ref3.integration, document = _ref3.document;
+              amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, succeeded = _ref3.succeeded, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, closable = _ref3.closable, integration = _ref3.integration, document = _ref3.document;
               requireReactVersion();
               _context2.prev = 2;
               _context2.next = 5;
@@ -23146,7 +22797,7 @@
                       sell: sell,
                       currency: currency,
                       sent: sent,
-                      confirmed: confirmed,
+                      succeeded: succeeded,
                       failed: failed,
                       blacklist: blacklist,
                       providers: providers,
@@ -23433,7 +23084,7 @@
         _useState10[1];
 
     var searchElement = React.useRef();
-    var wallet = web3Wallets.getWallet();
+    var wallet = web3Wallets.getWallets()[0];
 
     var startWithBlockchain = function startWithBlockchain(name) {
       var blockchain = web3Blockchains.Blockchain.findByName(name);
@@ -23767,8 +23418,7 @@
     Login: Login,
     Payment: Payment,
     Sale: Sale,
-    Select: Select,
-    provider: web3Client.provider
+    Select: Select
   };
 
   return DePayWidgets;

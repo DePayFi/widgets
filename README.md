@@ -459,18 +459,18 @@ DePayWidgets.Payment({
 })
 ```
 
-#### confirmed
+#### succeeded
 
-`confirmed`
+`succeeded`
 
-A function that will be called once the payment has been confirmed once by the network (client-side).
+A function that will be called once the payment has succeeded on the network (checked client-side).
 
 The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Payment({
 
-  confirmed: (transaction)=> {
+  succeeded: (transaction)=> {
     // called when payment transaction has been confirmed once by the network
   }
 })
@@ -958,18 +958,18 @@ DePayWidgets.Sale({
 });
 ```
 
-#### confirmed
+#### succeeded
 
-`confirmed`
+`succeeded`
 
-A function that will be called once the payment has been confirmed once by the network.
+A function that will be called once the payment has succeeded on the network (checked client-side).
 
 The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Sale({
 
-  confirmed: (transaction)=> {
+  succeeded: (transaction)=> {
     // called when payment transaction has been confirmed once by the network
   }
 });
@@ -1374,18 +1374,18 @@ DePayWidgets.Donation({
 });
 ```
 
-#### confirmed
+#### succeeded
 
-`confirmed`
+`succeeded`
 
-A function that will be called once the payment has been confirmed once by the network (client-side).
+A function that will be called once the payment has succeeded on the network (checked client-side).
 
 The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
 
 ```javascript
 DePayWidgets.Donation({
 
-  confirmed: (transaction)=> {
+  succeeded: (transaction)=> {
     // called when payment transaction has been confirmed once by the network
   }
 });
@@ -1701,10 +1701,10 @@ DePayWidgets.Donation({
 
 DePay Connect allows you to have your users connect their crypto wallet to your dApp or website.
 
-Returns connected `account`, `accounts` and `wallet` in return. 
+Returns connected `account` and `wallet` in return. 
 
 ```javascript
-let { account, accounts, wallet }  = await DePayWidgets.Connect()
+let { account, wallet }  = await DePayWidgets.Connect()
 ```
 
 See [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets) for more details about the returned `wallet`.

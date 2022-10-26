@@ -6,7 +6,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { CONSTANTS } from '@depay/web3-constants'
 import { mock, confirm, increaseBlock, resetMocks, anything } from '@depay/web3-mock'
-import { resetCache, provider } from '@depay/web3-client'
+import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Server } from 'mock-socket'
 import { Token } from '@depay/web3-tokens'
@@ -16,22 +16,14 @@ describe('Payment Widget: track', () => {
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
   const feeReceiver = '0xe7a2Ee8EdaD975D2EcCb04A53Cb020b64Edd0762'
-  beforeEach(resetMocks)
-  beforeEach(resetCache)
-  beforeEach(()=>fetchMock.restore())
-  afterEach(()=>fetchMock.restore())
-  beforeEach(()=>mock({ blockchain, accounts: { return: accounts } }))
-  afterEach(closeWidget)
-
-  let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  let DAI = CONSTANTS[blockchain].USD
-  let ETH = CONSTANTS[blockchain].NATIVE
-  let WETH = CONSTANTS[blockchain].WRAPPED
-  let fromAddress = accounts[0]
-  let toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-  let amount = 20
-  let TOKEN_A_AmountBN
-  let defaultArguments = {
+  const DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
+  const DAI = CONSTANTS[blockchain].USD
+  const ETH = CONSTANTS[blockchain].NATIVE
+  const WETH = CONSTANTS[blockchain].WRAPPED
+  const fromAddress = accounts[0]
+  const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  const amount = 20
+  const defaultArguments = {
     accept: [{
       blockchain,
       amount,
@@ -42,14 +34,24 @@ describe('Payment Widget: track', () => {
       endpoint: '/track/payments'
     }
   }
-  let mockedWebsocketServer = new Server('wss://integrate.depay.com/cable')
-  let websocketMessages = []
+  const mockedWebsocketServer = new Server('wss://integrate.depay.com/cable')
+  const websocketMessages = []
+
+  let TOKEN_A_AmountBN
   let mockedWebsocket
+  let provider
 
-  beforeEach(()=>{
+  afterEach(closeWidget)
 
-    ({ TOKEN_A_AmountBN } = mockBasics({
-      provider: provider(blockchain),
+  beforeEach(async ()=>{
+    resetMocks()
+    resetCache()
+    fetchMock.restore()
+    mock({ blockchain, accounts: { return: accounts } })
+    provider = await getProvider(blockchain)
+
+    ;({ TOKEN_A_AmountBN } = mockBasics({
+      provider,
       blockchain,
 
       fromAddress,
@@ -841,8 +843,6 @@ describe('Payment Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress.toLowerCase(),
-        "nonce": 0,
-        "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
       matchPartialBody: true,
@@ -878,9 +878,8 @@ describe('Payment Widget: track', () => {
                 expect(
                   fetchMock.calls().filter((call)=>{ return call[0] == '/track/payments' && call.response.status == 200 }).length
                 ).to.equal(1)
-
                 confirm(mockedTransaction)
-                cy.wait(1000).then(()=>{
+                cy.wait(5000).then(()=>{
                   expect(!!websocketMessages.find((rawMessage)=>{
                     let message = JSON.parse(rawMessage)
                     return(

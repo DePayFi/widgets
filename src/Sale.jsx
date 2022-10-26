@@ -26,7 +26,7 @@ let Sale = async ({
   amount,
   sell,
   sent,
-  confirmed,
+  succeeded,
   failed,
   error,
   critical,
@@ -48,7 +48,7 @@ let Sale = async ({
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={{ type: 'sale', tokenImage, amount, sell, currency, sent, confirmed, failed, blacklist, providers, integration }}>
+          <ConfigurationProvider configuration={{ type: 'sale', tokenImage, amount, sell, currency, sent, succeeded, failed, blacklist, providers, integration }}>
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount } closable={ closable }>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>

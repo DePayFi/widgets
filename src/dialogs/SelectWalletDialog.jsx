@@ -1,21 +1,21 @@
 import ChevronRight from '../components/ChevronRight'
 import Dialog from '../components/Dialog'
 import React, { useState, useEffect, useContext } from 'react'
-import { getWallet, wallets } from '@depay/web3-wallets'
+import { getWallets, wallets } from '@depay/web3-wallets'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default (props)=>{
 
   const [showExplanation, setShowExplanation] = useState(false)
   const { navigate } = useContext(NavigateStackContext)
-  const wallet = getWallet()
+  const wallet = getWallets()[0]
   
   useEffect(()=>{
     (
       async ()=>{
         if(wallet) {
-          let accounts = await wallet.accounts()
-          if(accounts == undefined || accounts.length == 0) {
+          let account = await wallet.account()
+          if(account == undefined) {
             navigate('ConnectingWallet')
             props.connect(wallet)
           }

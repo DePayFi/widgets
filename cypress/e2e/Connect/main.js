@@ -13,15 +13,13 @@ describe('Connect wallet', () => {
 
   it('directly resolves if a wallet is already connected', () => {
     cy.document().then(async (document)=>{
-      let accountsReturned, accountReturned, walletReturned
+      let accountReturned, walletReturned
       mock({ blockchain, wallet: 'metamask', accounts: { return: accounts } })
-      DePayWidgets.Connect({ document }).then(({ accounts, account, wallet })=>{
-        accountsReturned = accounts
+      DePayWidgets.Connect({ document }).then(({ account, wallet })=>{
         accountReturned = account
         walletReturned = wallet
       }).catch(()=>{})
       cy.wait(1000).then(()=>{
-        expect(accountsReturned).to.eq(accounts)
         expect(accountReturned).to.eq(accounts[0])
         expect(walletReturned.name).to.eq('MetaMask')
       })
@@ -32,8 +30,7 @@ describe('Connect wallet', () => {
     cy.document().then(async (document)=>{
       let accountsReturned, accountReturned, walletReturned
       mock({ blockchain, wallet: 'metamask', accounts: { return: [] } }) // initialy no accounts connected
-      DePayWidgets.Connect({ document }).then(({ accounts, account, wallet })=>{
-        accountsReturned = accounts
+      DePayWidgets.Connect({ document }).then(({ account, wallet })=>{
         accountReturned = account
         walletReturned = wallet
       }).catch(()=>{})
@@ -44,7 +41,6 @@ describe('Connect wallet', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary', 'Connect').should('not.exist')
         cy.wait(10000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Connect').click().then(()=>{
-            expect(accountsReturned).to.eq(accounts)
             expect(accountReturned).to.eq(accounts[0])
             expect(walletReturned.name).to.eq('MetaMask')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Connect Wallet').should('not.exist')
