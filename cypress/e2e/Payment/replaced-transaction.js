@@ -312,63 +312,6 @@ describe('Payment Widget: detects replaced transaction', () => {
         })
       })
     })
-
-    it('detects replaced transaction via tracker and fails it if replaced transaction failed', () => {
-      let transaction = {
-        from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN]
-      }
-      
-      let mockedTransaction = mock({
-        blockchain,
-        transaction
-      })
-
-      fetchMock.post({
-        url: "https://public.depay.com/payments"
-      }, 201)
-
-      cy.visit('cypress/test.html').then((contentWindow) => {
-        cy.document().then((document)=>{
-          DePayWidgets.Payment({ ...defaultArguments, document })
-          cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
-            cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
-            cy.wait(1000).then(()=>{
-              expect(!!websocketMessages.find((rawMessage)=>{
-                let message = JSON.parse(rawMessage)
-                return(
-                  message.command == 'subscribe' &&
-                  message.identifier == JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: 0, channel: 'TransactionChannel' })
-                )
-              })).to.equal(true)
-              let replacingTransactionId = '0x782cf9983541087548c717dc1a4e2687ef8928e758316cd600ebb0652f57bafe'
-              mockedWebsocket.send(JSON.stringify({
-                message: {
-                  id: replacingTransactionId,
-                  status: 'failed'
-                }
-              }))
-              cy.wait(1000).then(()=>{
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a', 'View on explorer').invoke('attr', 'href').should('include', `https://etherscan.io/tx/${replacingTransactionId}`)
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('h1').should('contain.text', 'Payment Failed')
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
-                cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
-              })
-            })
-          })
-        })
-      })
-    })
   })
 
   describe("replaced transaction detected by polling transaction state", ()=>{
