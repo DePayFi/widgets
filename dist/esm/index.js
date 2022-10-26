@@ -21321,7 +21321,6 @@ var PaymentTrackingProvider = (function (props) {
         startTracking(transaction, afterBlock, paymentRoute, attempt + 1);
       }, 3000);
     } else {
-      console.log('navigate TrackingFailed');
       navigate('TrackingFailed');
     }
   };
@@ -21676,7 +21675,6 @@ var WalletProvider = (function (props) {
   var connected = function connected(_ref) {
     var account = _ref.account,
         wallet = _ref.wallet;
-    console.log('CONNECTED');
     setAccount(account);
     setWallet(wallet);
     setWalletState('connected');
