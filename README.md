@@ -3,7 +3,7 @@
 You can either load the `@depay/widgets` package via CDN:
 
 ```
-<script defer async src="https://integrate.depay.com/widgets/v7.js"></script>
+<script defer async src="https://integrate.depay.com/widgets/v8.js"></script>
 ```
 
 or you install `@depay/widgets` via the package manager of your choice and ship it as part of your application bundle:
