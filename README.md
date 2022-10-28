@@ -328,20 +328,36 @@ Alternatively you can pass a method to track that performs the tracking request 
 DePayWidgets.Payment({
 
   track: {
-    method: (payment)=>{
-      return fetch('/track/payments', {
+    method: async (payment)=>{
+      let response = await fetch('/track/payments', {
         method: 'POST',
         body: JSON.stringify(payment),
         headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": document.querySelector('[name=csrf-token]').content }
       })
+      if(response.status != 200) {
+        throw 'TRACKING FAILED'
+      }
     }
   }
 })
 ```
 
-In case you pass a tracking method it needs to return a promise and this promise needs to resolve with a `response` integrating `response.status` resolving to either `200` or `201` (number).
+```javascript
+DePayWidgets.Payment({
 
-Your endpoint needs to make sure to forward this to the [payment tracking api](https://depay.com/documentation/api#payments).
+  track: {
+    method: (payment)=>axios('/track/payments', payment)
+  }
+})
+```
+
+In case you pass a tracking method it needs to return a promise. 
+
+If that promise resolves, the widget assumes the tracking initialization was successful. If the promise rejects it will retry the tracking initialization over and over again.
+
+Make sure to evaluate within your tracking method if the response succeeded or not and throw an error accordingly.
+
+Your endpoint also needs to make sure to forward this to the [payment tracking api](https://depay.com/documentation/api#payments).
 
 Also make sure to add `token`, `amount` and `confirmations` when forwarding the request to the payments api.
 Those values are supposed to be set by your backend not the widget nor the fronted because any user could set these values to their liking otherwise, having you confirm payment amounts and tokens that you didn't intend to receive!
@@ -385,10 +401,47 @@ It will use the endpoint or the method to request a release every 5 seconds.
 You need to make sure to respond to this request with a status `404` in case the user is not to be released just yet (payment and processing on your side are not complete yet)
 or `200` if the payment has been completed and the processing on your side is done and the user can be released and forwarded withing your payment flow.
 
-In case you want to redirect the user to the next step in your system the poll endpoint needs to respond with a body containing json like: `{ forward_to: 'https://example.com/next_step_url' }`.
+In case you want to redirect the user to the next step in your system, the poll endpoint needs to respond with a body containing json like: `{ forward_to: 'https://example.com/next_step_url' }`.
 
 It is not enough to rely on setting `forward_to` initially with the tracking request, you will also need to respond with `forward_to` when implementing polling
 as the entire reason for polling is to cover cases where websockets fail and the initial `forward_to` can not be communicated to the client.
+
+If you use a method for additional polling, make sure you return a promise. Polling will continue as long as you resolve this promise with anything that resolves to true:
+
+```javascript
+DePayWidgets.Payment({
+
+  track: {
+    poll: {
+      method: async (payment)=>{
+        let response = await fetch('/payments/123/release', {
+          method: 'POST',
+          body: JSON.stringify(payment),
+          headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": document.querySelector('[name=csrf-token]').content }
+        })
+        if(response.status == 200) {
+          let json = await response.json()
+          return json // { "forward_to": "https://mywebsite.com/payments/123/confirmation" }
+        }
+      }
+    }
+  }
+})
+```
+
+```javascript
+DePayWidgets.Payment({
+
+  track: {
+    poll: {
+      method: async (payment)=>{
+        let response = await axios('/payments/123/release', payment)
+        return response // { "forward_to": "https://mywebsite.com/payments/123/confirmation" }
+      }
+    }
+  }
+})
+```
 
 #### connected
 
@@ -1851,39 +1904,6 @@ export default (props)=>{
 
 ```
 
-
-## Development
-
-### Quick start
-
-```
-yarn install
-yarn dev
-```
-
-### Testing
-
-#### Debug Cypress
-
-Starts cypress in `--headed` and `--no-exit`
-
-```
-test:cypress:debug
-```
-
-Test and debug single cypress file:
-
-```
-yarn test:cypress:debug --spec "cypress/e2e/Payment/amount.js"
-```
-
-### Release new versions to npm
-
-```
-npm login
-npm publish
-```
-
 ## Web3 Payments
 
 The future is [Web3 Payments](https://depay.com/web3-payments).
@@ -1917,3 +1937,28 @@ Feel free to use & contribute to our codebase at. We're happy to have you look u
 ### Multichain
 
 [DePay](https://depay.com) calculates payment routes on multiple blockchains simultaneously despite what your wallet is currently connected to. Our software automatically detects & switches the network if required.
+
+## Development
+
+### Quick start
+
+```
+yarn install
+yarn dev
+```
+
+### Testing
+
+#### Debug Cypress
+
+Starts cypress in `--headed` and `--no-exit`
+
+```
+test:cypress:debug
+```
+
+Test and debug single cypress file:
+
+```
+yarn test:cypress:debug --spec "cypress/e2e/Payment/amount.js"
+```
