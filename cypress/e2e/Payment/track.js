@@ -987,12 +987,13 @@ describe('Payment Widget: track', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document, track: {
-          method: (payment)=>{
-            return fetch('/track/payments', {
+          method: async(payment)=>{
+            let response = await fetch('/track/payments', {
               method: 'POST',
               body: JSON.stringify(payment),
               headers: { "Content-Type": "application/json", "x-custom-header": "1" }
             })
+            if(response.status !== 200){ throw 'TRACKING FAILED' }
           },
           attempts: 2
         }})
