@@ -77,6 +77,12 @@ export default (props)=>{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payment)
+      }).then((response)=>{
+        if(response.status == 200 || response.status == 201) {
+          return response
+        } else {
+          throw('TRACKING REQUEST FAILED', response)
+        }
       })
     } else if (track.method) {
       return track.method(payment)
@@ -101,9 +107,7 @@ export default (props)=>{
       fee_amount: paymentRoute?.feeAmount?.toString()
     })
       .then((response)=>{
-        if(response.status != 200 && response.status != 201) {
-          retryStartTracking(transaction, afterBlock, paymentRoute, attempt)
-        }
+        console.log('PAYMENT TRACKING INITIALIZED')
       })
       .catch((error)=>{
         console.log('PAYMENT TRACKING FAILED', error)
@@ -128,16 +132,14 @@ export default (props)=>{
       to_token: paymentRoute.toToken.address
     }
 
-    const handleResponse = (response)=>{
-      if(response.status == 200 || response.status == 201) {
-        response.json().then((data)=>{
-          if(data && data.forward_to) {
-            setForwardTo(data.forward_to)
-            setTimeout(()=>{ props.document.location.href = data.forward_to }, 100)
-          } else {
-            setClosable(true)
-          }
-        }).catch(()=>{ setClosable(true) })
+    const handlePollingResponse = (data)=>{
+      if(data) {
+        if(data && data.forward_to) {
+          setForwardTo(data.forward_to)
+          setTimeout(()=>{ props.document.location.href = data.forward_to }, 100)
+        } else {
+          setClosable(true)
+        }
         clearInterval(pollingInterval)
         setRelease(true)
       }
@@ -148,9 +150,15 @@ export default (props)=>{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payment)
-      }).then(handleResponse)
+      }).then((response)=>{
+        if(response.status == 200 || response.status == 201) {
+          return response.json().catch(()=>{ setClosable(true) })
+        } else {
+          return undefined
+        }
+      }).then(handlePollingResponse)
     } else if(track.poll.method) {
-      track.poll.method(payment).then(handleResponse)
+      track.poll.method(payment).then(handlePollingResponse)
     }
   }
 

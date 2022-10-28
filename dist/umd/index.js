@@ -21327,6 +21327,12 @@
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(payment)
+        }).then(function (response) {
+          if (response.status == 200 || response.status == 201) {
+            return response;
+          } else {
+            throw response;
+          }
         });
       } else if (track.method) {
         return track.method(payment);
@@ -21352,9 +21358,7 @@
         to_decimals: paymentRoute.toDecimals,
         fee_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou === void 0 ? void 0 : _paymentRoute$feeAmou.toString()
       }).then(function (response) {
-        if (response.status != 200 && response.status != 201) {
-          retryStartTracking(transaction, afterBlock, paymentRoute, attempt);
-        }
+        console.log('PAYMENT TRACKING INITIALIZED');
       })["catch"](function (error) {
         console.log('PAYMENT TRACKING FAILED', error);
         retryStartTracking(transaction, afterBlock, paymentRoute, attempt);
@@ -21375,20 +21379,17 @@
         to_token: paymentRoute.toToken.address
       };
 
-      var handleResponse = function handleResponse(response) {
-        if (response.status == 200 || response.status == 201) {
-          response.json().then(function (data) {
-            if (data && data.forward_to) {
-              setForwardTo(data.forward_to);
-              setTimeout(function () {
-                props.document.location.href = data.forward_to;
-              }, 100);
-            } else {
-              setClosable(true);
-            }
-          })["catch"](function () {
+      var handlePollingResponse = function handlePollingResponse(data) {
+        if (data) {
+          if (data && data.forward_to) {
+            setForwardTo(data.forward_to);
+            setTimeout(function () {
+              props.document.location.href = data.forward_to;
+            }, 100);
+          } else {
             setClosable(true);
-          });
+          }
+
           clearInterval(pollingInterval);
           setRelease(true);
         }
@@ -21401,9 +21402,17 @@
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(payment)
-        }).then(handleResponse);
+        }).then(function (response) {
+          if (response.status == 200 || response.status == 201) {
+            return response.json()["catch"](function () {
+              setClosable(true);
+            });
+          } else {
+            return undefined;
+          }
+        }).then(handlePollingResponse);
       } else if (track.poll.method) {
-        track.poll.method(payment).then(handleResponse);
+        track.poll.method(payment).then(handlePollingResponse);
       }
     };
 
