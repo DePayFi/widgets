@@ -355,7 +355,7 @@ In case you pass a tracking method it needs to return a promise.
 
 If that promise resolves, the widget assumes the tracking initialization was successful. If the promise rejects it will retry the tracking initialization over and over again.
 
-Make sure to evaulate within your tracking method if the response succeeded or not and throw an error accordingly.
+Make sure to evaluate within your tracking method if the response succeeded or not and throw an error accordingly.
 
 Your endpoint also needs to make sure to forward this to the [payment tracking api](https://depay.com/documentation/api#payments).
 
@@ -1904,39 +1904,6 @@ export default (props)=>{
 
 ```
 
-
-## Development
-
-### Quick start
-
-```
-yarn install
-yarn dev
-```
-
-### Testing
-
-#### Debug Cypress
-
-Starts cypress in `--headed` and `--no-exit`
-
-```
-test:cypress:debug
-```
-
-Test and debug single cypress file:
-
-```
-yarn test:cypress:debug --spec "cypress/e2e/Payment/amount.js"
-```
-
-### Release new versions to npm
-
-```
-npm login
-npm publish
-```
-
 ## Web3 Payments
 
 The future is [Web3 Payments](https://depay.com/web3-payments).
@@ -1970,3 +1937,28 @@ Feel free to use & contribute to our codebase at. We're happy to have you look u
 ### Multichain
 
 [DePay](https://depay.com) calculates payment routes on multiple blockchains simultaneously despite what your wallet is currently connected to. Our software automatically detects & switches the network if required.
+
+## Development
+
+### Quick start
+
+```
+yarn install
+yarn dev
+```
+
+### Testing
+
+#### Debug Cypress
+
+Starts cypress in `--headed` and `--no-exit`
+
+```
+test:cypress:debug
+```
+
+Test and debug single cypress file:
+
+```
+yarn test:cypress:debug --spec "cypress/e2e/Payment/amount.js"
+```

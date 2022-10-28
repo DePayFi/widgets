@@ -1252,12 +1252,16 @@ describe('Payment Widget: track', () => {
           track: {
             endpoint: '/track/payments',
             poll: {
-              method: (payment)=>{
-                return fetch('/payments/status', {
+              method: async (payment)=>{
+                let response = await fetch('/payments/status', {
                   method: 'POST',
                   body: JSON.stringify(payment),
                   headers: { "Content-Type": "application/json", "x-custom-header": "1" }
                 })
+                if(response.status == 200) {
+                  let json = await response.json()
+                  return json
+                }
               }
             }
           }

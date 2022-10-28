@@ -6,6 +6,7 @@
     <link rel="icon" type="image/png" href="https://depay.com/favicon.png"/>
     <title>Development</title>
     <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js" type="application/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script crossorigin src="https://unpkg.com/@depay/solana-web3.js@1"></script>
@@ -405,10 +406,7 @@
                         receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
                       }],
                       track: {
-                        method: (payment)=>{
-                          console.log("TRACK METHOD")
-                          return axios('/track', payment)
-                        }
+                        method: (payment)=>axios('/track', payment)
                       }
                     });
                   });
