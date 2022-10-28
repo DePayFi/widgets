@@ -339,7 +339,7 @@ DePayWidgets.Payment({
 })
 ```
 
-In case you pass a tracking method it needs to return a promise.
+In case you pass a tracking method it needs to return a promise and this promise needs to resolve with a `response` integrating `response.status` resolving to either `200` or `201` (number).
 
 Your endpoint needs to make sure to forward this to the [payment tracking api](https://depay.com/documentation/api#payments).
 
