@@ -1796,13 +1796,25 @@ BODY
   }
 ```
 
-The `/login` endpoint needs to recover the address for `message` and `signature` and needs to return it in the response:
+The `/login` endpoint needs to recover the address for `message` and `signature`.
+
+e.g. your backend could use node + ethers.js to recover the signature
+
+```javascript
+const ethers = require('ethers')
+const hashedMessage = ethers.utils.hashMessage(inputs.message)
+const address = ethers.utils.recoverAddress(hashedMessage, inputs.signature)
+return address
+```
+
+make sure you return the recovered address back to the widget:
 
 ```
 POST /login
 RESPONSE
   "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
 ```
+
 
 Which will resolve the `DePayWidgets.Login` request to the resolved account:
 
