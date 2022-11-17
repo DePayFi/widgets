@@ -364,9 +364,7 @@ Those values are supposed to be set by your backend not the widget nor the front
 
 Make sure you read the [Payment Tracking API](https://depay.com/documentation/api#payments) for further details on how to integrate payment tracking.
 
-Payment tracking requests will be attempted up to 3 times by the widget and will display "Payment tracking failed!" to the user if the widget was not able to start payment tracking via the given endpoint after 3 attempts.
-
-A failed payment tracking will also call the [error callback](#error) with `{code: "TRACKING_FAILED"}`.
+Payment tracking requests will be attempted indefinitely. After 2 minutes a warning dialog will be presented to users asking them to ensure an internet connection so that the payment tracking can be performed.
 
 ##### Asynchronous Validation
 
