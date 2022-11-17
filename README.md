@@ -366,29 +366,7 @@ Make sure you read the [Payment Tracking API](https://depay.com/documentation/ap
 
 Payment tracking requests will be attempted indefinitely. After 2 minutes a warning dialog will be presented to users asking them to ensure an internet connection so that the payment tracking can be performed.
 
-##### Asynchronous Validation
-
-For improving user experience, we recommend performing payment validation asynchronously as in certain situation in can take up to multiple minutes.
-
-You can configure the widget to track/validate the payment asynchronously:
-
-```javascript
-DePayWidgets.Payment({
-
-  track: {
-    endpoint: '/track',
-    async: true
-  }
-})
-```
-
-Which will release the user right after the payment has been confirmed on the user's machine.
-
-It still tracks and validates the payment asynchronously and calls back your endpoints as soon as it has been validated.
-
-This allows you to release the user immediately, showing him some confirmation and reconfirming his payment in an asynchronous step (like a notification or email).
-
-##### Additional Polling
+##### Polling
 
 In order to ensure a 100% coverage that users are released and forwarded within your payment flow, you will need to implement polling in addition to tracking.
 
@@ -499,7 +477,7 @@ DePayWidgets.Payment({
 
 A function that will be called once the payment has been sent to the network (but still needs to be mined/confirmed).
 
-The widget will call this function with a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
+The widget will call this function with a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details about the structure)
 
 ```javascript
 DePayWidgets.Payment({
