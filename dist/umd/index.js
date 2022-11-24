@@ -1459,7 +1459,7 @@
   `
   }
 
-  const _jsxFileName$1 = "/home/runner/work/react-dialog/react-dialog/src/components/Dialog.jsx";
+  const _jsxFileName$1 = "/Users/sebastian/Work/DePay/react-dialog/src/components/Dialog.jsx";
   class Dialog extends React__default['default'].Component {
     constructor(props) {
       super(props);
@@ -1521,7 +1521,7 @@
     }
   }
 
-  const _jsxFileName = "/home/runner/work/react-dialog/react-dialog/src/index.jsx";
+  const _jsxFileName = "/Users/sebastian/Work/DePay/react-dialog/src/index.jsx";
   class ReactDialog extends React__default['default'].Component {
     constructor(props) {
       super(props);

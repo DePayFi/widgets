@@ -35,10 +35,10 @@
   },
   "dependencies": {
     "@depay/coinbase-wallet-sdk": "^1.1.0",
-    "@depay/local-currency": "^3.5.4",
-    "@depay/react-dialog-stack": "^7.0.2",
-    "@depay/react-shadow-dom": "^5.0.4",
-    "@depay/react-token-image": "^4.3.1",
+    "@depay/local-currency": "^3.5.5",
+    "@depay/react-dialog-stack": "^7.0.3",
+    "@depay/react-shadow-dom": "^5.0.5",
+    "@depay/react-token-image": "^4.4.2",
     "@depay/solana-web3.js": "^1.19.0",
     "@depay/walletconnect-v1": "^1.7.10",
     "@depay/web3-assets": "^6.6.1",
@@ -46,9 +46,9 @@
     "@depay/web3-client": "^10.1.23",
     "@depay/web3-constants": "^6.3.2",
     "@depay/web3-exchanges": "^11.2.3",
-    "@depay/web3-payments": "^10.8.3",
+    "@depay/web3-payments": "^10.8.4",
     "@depay/web3-tokens": "^9.12.8",
-    "@depay/web3-wallets": "^12.3.10",
+    "@depay/web3-wallets": "12.3.5",
     "decimal.js": "^10.3.1"
   },
   "peerDependencies": {
