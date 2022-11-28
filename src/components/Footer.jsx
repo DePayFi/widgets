@@ -88,7 +88,7 @@ export default ()=>{
       return(
         <div className="PaddingBottomS">
           <div>
-            <a className="Card transparent small" title="Payment has been confirmed by the network" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
+            <a className="Card transparent small" title="Transaction has been confirmed by the network" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
               <div className="CardImage">
                 <div className="TextCenter Opacity05">
                   <Checkmark className="small"/>
@@ -97,7 +97,7 @@ export default ()=>{
               <div className="CardBody">
                 <div className="CardBodyWrapper">
                   <div className="Opacity05">
-                    Payment confirmed
+                    Transaction confirmed
                   </div>
                 </div>
               </div>

@@ -20855,7 +20855,7 @@ var Footer = (function () {
         className: "PaddingBottomS"
       }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
         className: "Card transparent small",
-        title: "Payment has been confirmed by the network",
+        title: "Transaction has been confirmed by the network",
         href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
         target: "_blank",
         rel: "noopener noreferrer"
@@ -20871,7 +20871,7 @@ var Footer = (function () {
         className: "CardBodyWrapper"
       }, /*#__PURE__*/React.createElement("div", {
         className: "Opacity05"
-      }, "Payment confirmed"))))), trackingInfo());
+      }, "Transaction confirmed"))))), trackingInfo());
     }
   };
 
