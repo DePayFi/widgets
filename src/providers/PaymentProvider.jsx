@@ -24,7 +24,7 @@ export default (props)=>{
   const { setUpdatable } = useContext(UpdatableContext)
   const { navigate, set } = useContext(NavigateContext)
   const { wallet } = useContext(WalletContext)
-  const { release, tracking, initializeTracking: initializePaymentTracking } = useContext(PaymentTrackingContext)
+  const { release, synchronousTracking, asynchronousTracking, trackingInitialized, initializeTracking: initializePaymentTracking } = useContext(PaymentTrackingContext)
   const { foundTransaction, initializeTracking: initializeTransactionTracking } = useContext(TransactionTrackingContext)
   const [ payment, setPayment ] = useState()
   const [ transaction, setTransaction ] = useState()
@@ -32,15 +32,20 @@ export default (props)=>{
   const [ paymentState, setPaymentState ] = useState('initialized')
 
   const paymentSucceeded = (transaction)=>{
-    if(tracking != true) { setClosable(true) }
+    if(synchronousTracking == false && (asynchronousTracking == false || trackingInitialized == true)) {
+      setClosable(true)
+    }
     setPaymentState('success')
     if(succeeded) { succeeded(transaction) }
   }
 
   const paymentFailed = (transaction, error)=> {
-    if(failed) { failed(transaction, error) }
-    setClosable(true)
+    if(asynchronousTracking == false || trackingInitialized == true) {
+      setClosable(true)
+    }
     set(['PaymentFailed'])
+    setPaymentState('failed')
+    if(failed) { failed(transaction, error) }
   }
 
   const pay = async ()=> {
@@ -101,6 +106,12 @@ export default (props)=>{
       setPaymentState('success')
     }
   }, [release])
+
+  useEffect(()=>{
+    if(asynchronousTracking && trackingInitialized && (paymentState == 'success' || paymentState == 'failed')) {
+      setClosable(true)
+    }
+  }, [trackingInitialized])
 
   useEffect(()=>{
     if(recover){

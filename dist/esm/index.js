@@ -19640,7 +19640,9 @@ var PaymentProvider = (function (props) {
 
   var _useContext9 = useContext(PaymentTrackingContext),
       release = _useContext9.release,
-      tracking = _useContext9.tracking,
+      synchronousTracking = _useContext9.synchronousTracking,
+      asynchronousTracking = _useContext9.asynchronousTracking,
+      trackingInitialized = _useContext9.trackingInitialized,
       initializePaymentTracking = _useContext9.initializeTracking;
 
   var _useContext10 = useContext(TransactionTrackingContext),
@@ -19668,7 +19670,7 @@ var PaymentProvider = (function (props) {
       setPaymentState = _useState8[1];
 
   var paymentSucceeded = function paymentSucceeded(transaction) {
-    if (tracking != true) {
+    if (synchronousTracking == false && (asynchronousTracking == false || trackingInitialized == true)) {
       setClosable(true);
     }
 
@@ -19680,12 +19682,16 @@ var PaymentProvider = (function (props) {
   };
 
   var paymentFailed = function paymentFailed(transaction, error) {
+    if (asynchronousTracking == false || trackingInitialized == true) {
+      setClosable(true);
+    }
+
+    set(['PaymentFailed']);
+    setPaymentState('failed');
+
     if (failed) {
       failed(transaction, error);
     }
-
-    setClosable(true);
-    set(['PaymentFailed']);
   };
 
   var pay = /*#__PURE__*/function () {
@@ -19786,6 +19792,11 @@ var PaymentProvider = (function (props) {
       setPaymentState('success');
     }
   }, [release]);
+  useEffect(function () {
+    if (asynchronousTracking && trackingInitialized && (paymentState == 'success' || paymentState == 'failed')) {
+      setClosable(true);
+    }
+  }, [trackingInitialized]);
   useEffect(function () {
     if (recover) {
       setClosable(false);
@@ -20764,7 +20775,9 @@ var Footer = (function () {
       _useContext.amountsMissing;
 
   var _useContext2 = useContext(PaymentTrackingContext),
-      tracking = _useContext2.tracking,
+      synchronousTracking = _useContext2.synchronousTracking,
+      asynchronousTracking = _useContext2.asynchronousTracking,
+      trackingInitialized = _useContext2.trackingInitialized,
       release = _useContext2.release,
       forwardTo = _useContext2.forwardTo;
 
@@ -20792,11 +20805,25 @@ var Footer = (function () {
       close = _useContext7.close;
 
   var trackingInfo = function trackingInfo() {
-    if (tracking != true) {
+    if (synchronousTracking == false && asynchronousTracking == false) {
       return null;
-    }
-
-    if (release) {
+    } else if (asynchronousTracking && trackingInitialized == false) {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+        className: "Card transparent small disabled"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Loading Icon"
+      }))), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05"
+      }, "Initializing tracking")))));
+    } else if (release) {
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
         className: "Card transparent small disabled"
       }, /*#__PURE__*/React.createElement("div", {
@@ -20940,7 +20967,7 @@ var Footer = (function () {
         rel: "noopener noreferrer"
       }, /*#__PURE__*/React.createElement(LoadingText, null, "Paying"));
     } else if (paymentState == 'success') {
-      if (tracking == true) {
+      if (synchronousTracking == true) {
         if (release) {
           if (forwardTo) {
             return /*#__PURE__*/React.createElement("a", {
@@ -20960,6 +20987,11 @@ var Footer = (function () {
             onClick: function onClick() {}
           }, "Continue");
         }
+      } else if (asynchronousTracking == true && trackingInitialized == false) {
+        return /*#__PURE__*/React.createElement("button", {
+          className: "ButtonPrimary disabled",
+          onClick: function onClick() {}
+        }, "Close");
       } else {
         return /*#__PURE__*/React.createElement("button", {
           className: "ButtonPrimary",
@@ -21235,23 +21267,32 @@ var PaymentTrackingProvider = (function (props) {
       paymentRoute = _useState6[0],
       setPaymentRoute = _useState6[1];
 
-  var _useState7 = useState(!!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
-      _useState8 = _slicedToArray(_useState7, 1),
-      tracking = _useState8[0];
+  var _useState7 = useState(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      trackingInitialized = _useState8[0],
+      setTrackingInitialized = _useState8[1];
 
-  var _useState9 = useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+  var _useState9 = useState(!!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
       _useState10 = _slicedToArray(_useState9, 1),
-      polling = _useState10[0];
+      synchronousTracking = _useState10[0];
 
-  var _useState11 = useState(false),
-      _useState12 = _slicedToArray(_useState11, 2),
-      release = _useState12[0],
-      setRelease = _useState12[1];
+  var _useState11 = useState(track && track.async == true),
+      _useState12 = _slicedToArray(_useState11, 1),
+      asynchronousTracking = _useState12[0];
 
-  var _useState13 = useState(),
-      _useState14 = _slicedToArray(_useState13, 2),
-      forwardTo = _useState14[0],
-      setForwardTo = _useState14[1];
+  var _useState13 = useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+      _useState14 = _slicedToArray(_useState13, 1),
+      polling = _useState14[0];
+
+  var _useState15 = useState(false),
+      _useState16 = _slicedToArray(_useState15, 2),
+      release = _useState16[0],
+      setRelease = _useState16[1];
+
+  var _useState17 = useState(),
+      _useState18 = _slicedToArray(_useState17, 2),
+      forwardTo = _useState18[0],
+      setForwardTo = _useState18[1];
 
   var _useContext3 = useContext(ClosableContext),
       setClosable = _useContext3.setClosable;
@@ -21363,6 +21404,7 @@ var PaymentTrackingProvider = (function (props) {
       to_decimals: paymentRoute.toDecimals,
       fee_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou === void 0 ? void 0 : _paymentRoute$feeAmou.toString()
     }).then(function (response) {
+      setTrackingInitialized(true);
       console.log('PAYMENT TRACKING INITIALIZED');
     })["catch"](function (error) {
       console.log('PAYMENT TRACKING FAILED', error);
@@ -21426,7 +21468,7 @@ var PaymentTrackingProvider = (function (props) {
       return;
     }
 
-    if (!tracking) {
+    if (!synchronousTracking) {
       return;
     }
 
@@ -21482,11 +21524,11 @@ var PaymentTrackingProvider = (function (props) {
   var initializeTracking = function initializeTracking(transaction, afterBlock, paymentRoute) {
     storePayment(transaction, afterBlock, paymentRoute);
 
-    if (tracking || track && track.async == true) {
+    if (synchronousTracking || track && track.async == true) {
       startTracking(transaction, afterBlock, paymentRoute);
     }
 
-    if (tracking == false) {
+    if (synchronousTracking == false) {
       return;
     }
 
@@ -21498,8 +21540,10 @@ var PaymentTrackingProvider = (function (props) {
 
   return /*#__PURE__*/React.createElement(PaymentTrackingContext.Provider, {
     value: {
-      tracking: tracking,
+      synchronousTracking: synchronousTracking,
+      asynchronousTracking: asynchronousTracking,
       initializeTracking: initializeTracking,
+      trackingInitialized: trackingInitialized,
       continueTryTracking: continueTryTracking,
       release: release,
       forwardTo: forwardTo
