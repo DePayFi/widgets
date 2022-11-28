@@ -22,7 +22,7 @@ export default ()=>{
   const { close } = useContext(ClosableContext)
 
   const trackingInfo = ()=> {
-    if(synchronousTracking == false && asynchronousTracking == false) {
+    if((synchronousTracking == false && asynchronousTracking == false) || (asynchronousTracking && trackingInitialized)) {
       return null
     } else if (asynchronousTracking && trackingInitialized == false) {
       return(

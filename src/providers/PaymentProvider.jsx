@@ -111,7 +111,7 @@ export default (props)=>{
     if(asynchronousTracking && trackingInitialized && (paymentState == 'success' || paymentState == 'failed')) {
       setClosable(true)
     }
-  }, [trackingInitialized])
+  }, [trackingInitialized, paymentState])
 
   useEffect(()=>{
     if(recover){
