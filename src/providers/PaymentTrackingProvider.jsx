@@ -14,7 +14,7 @@ export default (props)=>{
   const [ paymentRoute, setPaymentRoute ] = useState()
   const [ trackingInitialized, setTrackingInitialized ] = useState(false)
   const [ synchronousTracking ] = useState( !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true) )
-  const [ asynchronousTracking ] = useState( track && track.async == true )
+  const [ asynchronousTracking ] = useState( !!(track && track.async == true) )
   const [ polling ] = useState( !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true) )
   const [ release, setRelease ] = useState(false)
   const [ forwardTo, setForwardTo ] = useState()

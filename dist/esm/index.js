@@ -19670,6 +19670,10 @@ var PaymentProvider = (function (props) {
       setPaymentState = _useState8[1];
 
   var paymentSucceeded = function paymentSucceeded(transaction) {
+    console.log('synchronousTracking', synchronousTracking);
+    console.log('asynchronousTracking', asynchronousTracking);
+    console.log('trackingInitialized', trackingInitialized);
+
     if (synchronousTracking == false && (asynchronousTracking == false || trackingInitialized == true)) {
       setClosable(true);
     }
@@ -21276,7 +21280,7 @@ var PaymentTrackingProvider = (function (props) {
       _useState10 = _slicedToArray(_useState9, 1),
       synchronousTracking = _useState10[0];
 
-  var _useState11 = useState(track && track.async == true),
+  var _useState11 = useState(!!(track && track.async == true)),
       _useState12 = _slicedToArray(_useState11, 1),
       asynchronousTracking = _useState12[0];
 
