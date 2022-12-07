@@ -22246,8 +22246,8 @@ var TrackingFailedDialog = (function () {
   var _useContext = useContext(PaymentTrackingContext),
       continueTryTracking = _useContext.continueTryTracking;
 
-  var _useContext2 = useContext(PaymentContext),
-      transaction = _useContext2.transaction;
+  var _useContext2 = useContext(PaymentContext);
+      _useContext2.transaction;
 
   var _useContext3 = useContext(NavigateStackContext),
       navigate = _useContext3.navigate;
@@ -22277,10 +22277,7 @@ var TrackingFailedDialog = (function () {
       className: "FontSizeM"
     }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS"
-    }, /*#__PURE__*/React.createElement("span", null, "If this keeps happening, "), /*#__PURE__*/React.createElement("a", {
-      className: "Link",
-      href: "mailto:support@depay.com?subject=Payment%20tracking%20failed&body=Tracking%20my%20payment%20failed%0A%0ATransaction:%20".concat(transaction.url)
-    }, "please report it"), "."))),
+    }, /*#__PURE__*/React.createElement("span", null, "If this keeps happening, please report it.")))),
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
     }, /*#__PURE__*/React.createElement("button", {

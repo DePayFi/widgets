@@ -416,6 +416,39 @@
           </div>
         </div>
 
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Payment: with async tracking/validation</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Tracks and validates the payment.</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="payWithAsyncTracking">Try it</button>
+                <script>
+                  var button = document.getElementById("payWithAsyncTracking");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      accept: [{
+                        blockchain: 'polygon',
+                        amount: 0.0001,
+                        token: '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',
+                        receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                      }],
+                      track: {
+                        method: (payment)=>axios('/tracks', payment),
+                        async: true
+                      }
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
           <div class="px-0 py-4 rounded-lg bg-white border">
