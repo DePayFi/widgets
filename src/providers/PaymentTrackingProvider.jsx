@@ -12,7 +12,9 @@ export default (props)=>{
   const [ transaction, setTransaction ] = useState()
   const [ afterBlock, setAfterBlock ] = useState()
   const [ paymentRoute, setPaymentRoute ] = useState()
-  const [ tracking ] = useState( !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true) )
+  const [ trackingInitialized, setTrackingInitialized ] = useState(false)
+  const [ synchronousTracking ] = useState( !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true) )
+  const [ asynchronousTracking ] = useState( !!(track && track.async == true) )
   const [ polling ] = useState( !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true) )
   const [ release, setRelease ] = useState(false)
   const [ forwardTo, setForwardTo ] = useState()
@@ -107,6 +109,7 @@ export default (props)=>{
       fee_amount: paymentRoute?.feeAmount?.toString()
     })
       .then((response)=>{
+        setTrackingInitialized(true)
         console.log('PAYMENT TRACKING INITIALIZED')
       })
       .catch((error)=>{
@@ -164,7 +167,7 @@ export default (props)=>{
 
   useEffect(()=>{
     if(!polling) { return }
-    if(!tracking){ return }
+    if(!synchronousTracking){ return }
     let pollingInterval = setInterval(()=>pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval), 5000)
     return ()=>{ clearInterval(pollingInterval) }
   }, [polling, transaction, afterBlock, paymentRoute])
@@ -209,10 +212,10 @@ export default (props)=>{
 
   const initializeTracking = (transaction, afterBlock, paymentRoute)=>{
     storePayment(transaction, afterBlock, paymentRoute, 1)
-    if(tracking || (track && track.async == true)) {
+    if(synchronousTracking || (track && track.async == true)) {
       startTracking(transaction, afterBlock, paymentRoute)
     }
-    if(tracking == false) { return }
+    if(synchronousTracking == false) { return }
     setTransaction(transaction)
     setAfterBlock(afterBlock)
     setPaymentRoute(paymentRoute)
@@ -221,8 +224,10 @@ export default (props)=>{
 
   return(
     <PaymentTrackingContext.Provider value={{
-      tracking,
+      synchronousTracking,
+      asynchronousTracking,
       initializeTracking,
+      trackingInitialized,
       continueTryTracking,
       release,
       forwardTo

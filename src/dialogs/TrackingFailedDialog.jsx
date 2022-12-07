@@ -34,11 +34,7 @@ export default ()=> {
               Please ensure you are connected to the internet, then click "Try again".
             </strong>
             <div className="PaddingTopS">
-              <span>If this keeps happening, </span>
-              <a className="Link" href={ `mailto:support@depay.com?subject=Payment%20tracking%20failed&body=Tracking%20my%20payment%20failed%0A%0ATransaction:%20${transaction.url}` } >
-                please report it
-              </a>
-              .
+              <span>If this keeps happening, please report it.</span>
             </div>
           </div>
         </div>

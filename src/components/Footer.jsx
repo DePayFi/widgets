@@ -14,7 +14,7 @@ import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default ()=>{
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
-  const { tracking, release, forwardTo } = useContext(PaymentTrackingContext)
+  const { synchronousTracking, asynchronousTracking, trackingInitialized, release, forwardTo } = useContext(PaymentTrackingContext)
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
   const { paymentValue, displayedPaymentValue, paymentValueLoss } = useContext(PaymentValueContext)
   const { updatedRouteWithNewPrice, updateRouteWithNewPrice } = useContext(PaymentRoutingContext)
@@ -22,8 +22,28 @@ export default ()=>{
   const { close } = useContext(ClosableContext)
 
   const trackingInfo = ()=> {
-    if(tracking != true) { return null }
-    if(release) {
+    if((synchronousTracking == false && asynchronousTracking == false) || (asynchronousTracking && trackingInitialized)) {
+      return null
+    } else if (asynchronousTracking && trackingInitialized == false) {
+      return(
+        <div>
+          <div className="Card transparent small disabled">
+            <div className="CardImage">
+              <div className="TextCenter">
+                <div className="Loading Icon"></div>
+              </div>
+            </div>
+            <div className="CardBody">
+              <div className="CardBodyWrapper">
+                <div className="Opacity05">
+                  Initializing tracking
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    } else if(release) {
       return(
         <div>
           <div className="Card transparent small disabled">
@@ -88,7 +108,7 @@ export default ()=>{
       return(
         <div className="PaddingBottomS">
           <div>
-            <a className="Card transparent small" title="Payment has been confirmed by the network" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
+            <a className="Card transparent small" title="Transaction has been confirmed by the network" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
               <div className="CardImage">
                 <div className="TextCenter Opacity05">
                   <Checkmark className="small"/>
@@ -97,7 +117,7 @@ export default ()=>{
               <div className="CardBody">
                 <div className="CardBodyWrapper">
                   <div className="Opacity05">
-                    Payment confirmed
+                    Transaction confirmed
                   </div>
                 </div>
               </div>
@@ -177,7 +197,7 @@ export default ()=>{
         </a>
       )
     } else if (paymentState == 'success') {
-      if(tracking == true) {
+      if(synchronousTracking == true) {
         if(release) {
           if(forwardTo) {
             return(
@@ -199,6 +219,12 @@ export default ()=>{
             </button>
           )
         }
+      } else if (asynchronousTracking == true && trackingInitialized == false) {
+        return(
+          <button className="ButtonPrimary disabled" onClick={ ()=>{} }>
+            Close
+          </button>
+        )
       } else {
         return(
           <button className="ButtonPrimary" onClick={ close }>
