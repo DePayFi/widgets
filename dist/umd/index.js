@@ -19665,10 +19665,6 @@
         setPaymentState = _useState8[1];
 
     var paymentSucceeded = function paymentSucceeded(transaction) {
-      console.log('synchronousTracking', synchronousTracking);
-      console.log('asynchronousTracking', asynchronousTracking);
-      console.log('trackingInitialized', trackingInitialized);
-
       if (synchronousTracking == false && (asynchronousTracking == false || trackingInitialized == true)) {
         setClosable(true);
       }
@@ -19795,7 +19791,7 @@
       if (asynchronousTracking && trackingInitialized && (paymentState == 'success' || paymentState == 'failed')) {
         setClosable(true);
       }
-    }, [trackingInitialized]);
+    }, [trackingInitialized, paymentState]);
     React.useEffect(function () {
       if (recover) {
         setClosable(false);
@@ -20804,7 +20800,7 @@
         close = _useContext7.close;
 
     var trackingInfo = function trackingInfo() {
-      if (synchronousTracking == false && asynchronousTracking == false) {
+      if (synchronousTracking == false && asynchronousTracking == false || asynchronousTracking && trackingInitialized) {
         return null;
       } else if (asynchronousTracking && trackingInitialized == false) {
         return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
