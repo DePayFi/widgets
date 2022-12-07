@@ -1022,7 +1022,7 @@ describe('Payment Widget: track', () => {
     })
   })
 
-  it('shows error dialog if payment tracking fails allowing you to ensure internet connection and try again (or report per email)', () => {
+  it('shows error dialog if payment tracking fails allowing you to ensure internet connection and try again', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
@@ -1111,7 +1111,6 @@ describe('Payment Widget: track', () => {
                 expect(
                   fetchMock.calls().filter((call)=>{ return call[0] == '/track/payments' && call.response.status == 502 }).length
                 ).to.equal(2)
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ReactDialogStack.active a').should('contain.text', 'please report it').invoke('attr', 'href').should('include', `mailto:support@depay.com?subject=Payment%20tracking%20failed&body=Tracking%20my%20payment%20failed%0A%0ATransaction:%20https://etherscan.io/tx/${mockedTransaction.transaction._id}`)
 
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Tracking payment failed')
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'Please ensure you are connected to the internet, then click "Try again".')
