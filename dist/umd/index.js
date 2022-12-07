@@ -21121,7 +21121,7 @@
         className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
       }, /*#__PURE__*/React__default['default'].createElement("strong", {
         className: "FontSizeM"
-      }, "Unfortunately executing your payment failed. You can go back and try again."), transaction && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Unfortunately executing your payment failed, but you can try again."), transaction && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS"
       }, /*#__PURE__*/React__default['default'].createElement("a", {
         className: "Link",

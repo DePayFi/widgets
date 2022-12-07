@@ -25,7 +25,7 @@ export default ()=> {
           <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Payment Failed</h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
             <strong className="FontSizeM">
-              Unfortunately executing your payment failed. You can go back and try again.
+              Unfortunately executing your payment failed, but you can try again.
             </strong>
             { transaction && 
               <div className="PaddingTopS">
