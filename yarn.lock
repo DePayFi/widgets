@@ -1111,10 +1111,10 @@
     "@walletconnect/client" "^1.7.8"
     "@walletconnect/qrcode-modal" "^1.7.8"
 
-"@depay/web3-assets@^6.6.1":
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/@depay/web3-assets/-/web3-assets-6.6.1.tgz#95e1591f53d1d2fe0c44b87b8e708a9d5a4aeda2"
-  integrity sha512-Q+kFchL7EPNelPwQiz+jXc3RKoNt1bm+6sNFnQ061OrTP2+QsWCLtD6Z/y+uPUo50B18Ugc/bkPJM3Wk+T0pmQ==
+"@depay/web3-assets@^6.6.2":
+  version "6.6.2"
+  resolved "https://registry.yarnpkg.com/@depay/web3-assets/-/web3-assets-6.6.2.tgz#b110f00c589290bee041145bb8d923d6c9e84480"
+  integrity sha512-9TS3ikGsOCohPBC3kLhnQ7gdOFPHn39eNVlwUbLjiDyu7aS1OnrfJIhFpoAPltIvJpDmCNwJ2MjpT+jEqR3ooQ==
 
 "@depay/web3-blockchains@^6.2.0":
   version "6.2.0"
@@ -1126,10 +1126,10 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-blockchains/-/web3-blockchains-6.2.3.tgz#8dbee9ec05e2d581dde0c1b7c4d1a64755e99cbf"
   integrity sha512-n917CoFqvlRBzUc7JBxm2H3y8WjEgFtgzwWgfg7OaStn0LqvVRxwc/h1vzPPW8hAANhbpDsLW2b9KKaks6LUBA==
 
-"@depay/web3-client@^10.2.0":
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/@depay/web3-client/-/web3-client-10.2.0.tgz#74315590bda586015653799b4bb89295e9931304"
-  integrity sha512-aXOjXSZMJGCVYzVZYwHktv8HirHAZBRvjVf6ept65WQGudWDPWW6/A0oPeaLWrfiN9eiaRYfmjPZbdmAyZ4SqA==
+"@depay/web3-client@^10.2.1":
+  version "10.2.1"
+  resolved "https://registry.yarnpkg.com/@depay/web3-client/-/web3-client-10.2.1.tgz#2e0a35359c16985f0568d3c1253edee61196f851"
+  integrity sha512-a5w1mjdbm4cGC0DMwf+8NVZJYyDbvVeZQJYuh0XKTkris3AqAmIl34CYvJhI+C0zbMFQYOJQROPWXRE3gO8L1A==
 
 "@depay/web3-constants@^6.3.1":
   version "6.3.1"
@@ -1141,10 +1141,10 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-constants/-/web3-constants-6.3.2.tgz#13a6066f20baee3ea94b373eebc69bd2c4c9773b"
   integrity sha512-It2ygcxIrSXMB3ilHmgtq0EMfBGf42sgnaCFbF9Lz80gPjC7O2NifNv8h3gRd/8Fy3XwzCLkjDqbVIgn7kV9tQ==
 
-"@depay/web3-exchanges@^11.2.4":
-  version "11.2.4"
-  resolved "https://registry.yarnpkg.com/@depay/web3-exchanges/-/web3-exchanges-11.2.4.tgz#bd7b1976c03d539b104ac9d638f29cf6745852ea"
-  integrity sha512-F3KLxwkD79+aq3235mZiWHt4B3Xx2prZ/D1gDPz+9ukxItSYCWxYMeeF86QHzmNeaATpkongr/jnObFXS2mc5Q==
+"@depay/web3-exchanges@^11.3.3":
+  version "11.3.3"
+  resolved "https://registry.yarnpkg.com/@depay/web3-exchanges/-/web3-exchanges-11.3.3.tgz#4e6fe4305eeffe6b7c1458fa09d7d2b1e36da22f"
+  integrity sha512-b5lTy/cdNuWo+4pgVZvSRLBGx82fuVBfH7f8fLjH/v8izBCO43BnT3YAGCA3dDD0kHY34a09Mlvw4rZPtElp2w==
 
 "@depay/web3-mock@^13.22.7":
   version "13.22.7"
@@ -1156,20 +1156,20 @@
     ethers "^5.7.1"
     xhr2 "^0.2.1"
 
-"@depay/web3-payments@^10.8.4":
-  version "10.8.4"
-  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-10.8.4.tgz#d62a27514b24cc0068f961ebcc40bd48c6f77c60"
-  integrity sha512-l+PsLQgW2gYLq+hep3/GLp+CGvlxZWFeXk4T1QZd5m4q+L85j+wp1YTXSp/pfiAS19qloC4IWNGUNNbhzW6shw==
+"@depay/web3-payments@^10.10.1":
+  version "10.10.1"
+  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-10.10.1.tgz#0cf06eff0d6b25e26919f7ed8097aba6449b2843"
+  integrity sha512-FFdxpsH1ZVSoqFsEhGpT4R/ysFgJO8SxCC2Dgu93oO9CkDtHpl86ID5mrnVkIiP/F/cYwGh9X45/gukR5uL4TA==
 
 "@depay/web3-tokens@^9.12.8":
   version "9.12.8"
   resolved "https://registry.yarnpkg.com/@depay/web3-tokens/-/web3-tokens-9.12.8.tgz#eec89c3e15cc508cb6b415141e9d8df09f1021e9"
   integrity sha512-tNvnxFh3oEmzO0Hxr2SjFjwLVdZwVBVCeEKdXa7h45+WX+UJJ+qugAdU+e8UN55/i6ej2Wqiu+PjUdT4qbSMZg==
 
-"@depay/web3-wallets@12.3.5":
-  version "12.3.5"
-  resolved "https://registry.yarnpkg.com/@depay/web3-wallets/-/web3-wallets-12.3.5.tgz#78149f3baa2e9a30be5bd7ed0a68d4053b4ec0e6"
-  integrity sha512-N9TtLjsZIwqXBExMxVWwqKBfGrxkt2eprxPXbFdYUQ0gZ9ZLJ7BK6YUEyKaEoOHHo6lCiL+Z+upEzptW+CB/CQ==
+"@depay/web3-wallets@12.4.0":
+  version "12.4.0"
+  resolved "https://registry.yarnpkg.com/@depay/web3-wallets/-/web3-wallets-12.4.0.tgz#11d23990399c0ad26627bfaf570b1c9e09ff67a7"
+  integrity sha512-WzNKSJ8YVsObh9cW+RdhpKIHFKCZnB7vCxczvSsZ2hptia4tPiFywj2QGBNlm2W5J3eCBq1avzKGgIxUha/M1w==
 
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"
