@@ -10,7 +10,10 @@ export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
   const { track, validated, integration, link, type } = useContext(ConfigurationContext)
   const [ transaction, setTransaction ] = useState()
+  const [ confirmationsRequired, setConfirmationsRequired ] = useState()
+  const [ confirmationsPassed, setConfirmationsPassed ] = useState()
   const [ afterBlock, setAfterBlock ] = useState()
+  const [ socket, setSocket ] = useState()
   const [ paymentRoute, setPaymentRoute ] = useState()
   const [ trackingInitialized, setTrackingInitialized ] = useState(false)
   const [ synchronousTracking ] = useState( !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true) )
@@ -36,7 +39,11 @@ export default (props)=>{
       socket.send(JSON.stringify(msg))
     }
     
-    socket.onclose = function(event) {}
+    socket.onclose = function(event) {
+      if(!event || event.code != 1000) {
+        openSocket(transaction)
+      }
+    }
 
     socket.onmessage = function(event) {
       const item = JSON.parse(event.data)
@@ -46,10 +53,13 @@ export default (props)=>{
         setRelease(true)
         setClosable(!item.message.forward_to)
         setForwardTo(item.message.forward_to)
-        socket.close()
+        socket.close(1000)
         if(!!item.message.forward_to) {
           setTimeout(()=>{ props.document.location.href = item.message.forward_to }, 200)
         }
+      } else if(item.message.confirmations) {
+        setConfirmationsRequired(item.message.confirmations.required)
+        setConfirmationsPassed(item.message.confirmations.passed)
       }
     }
     
@@ -230,7 +240,9 @@ export default (props)=>{
       trackingInitialized,
       continueTryTracking,
       release,
-      forwardTo
+      forwardTo,
+      confirmationsRequired,
+      confirmationsPassed,
     }}>
       { props.children }
     </PaymentTrackingContext.Provider>

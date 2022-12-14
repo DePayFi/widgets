@@ -80,13 +80,18 @@ export default (props)=>{
       socket.send(JSON.stringify(msg))
     }
     
-    socket.onclose = function(event) {}
+    socket.onclose = function(event) {
+      if(!event || event.code != 1000) {
+        openSocket(transaction)
+      }
+    }
 
     socket.onmessage = function(event) {
       const item = JSON.parse(event.data)
       if(item.type === "ping") { return }
       if(item.message && item.message.status && item.message.status != 'pending') {
         setFoundTransaction(item.message)
+        socket.close(1000)
       }
     }
     

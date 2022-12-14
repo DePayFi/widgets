@@ -687,22 +687,6 @@ DePayWidgets.Payment({
 })
 ```
 
-#### event
-
-`event`
-
-If set to `ifSwapped`, emits a [payment event](https://github.com/depayfi/depay-evm-router#depayrouterv1paymentevent02) if payments are routed through [router smart contract](https://github.com/depayfi/depay-evm-router).
-Payments are routed through the DePayPaymentRouter if swapping tokens is required in order to perform the payment. If payments are not routed through the router, e.g. direct transfer, no event is emited if `event` is set to `ifSwapped`.
-
-
-```javascript
-DePayWidgets.Payment({
-  
-  event: 'ifSwapped'
-
-})
-```
-
 #### container
 
 `container`

@@ -402,11 +402,11 @@
                       accept: [{
                         blockchain: 'polygon',
                         amount: 0.0001,
-                        token: '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',
-                        receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                        receiver: '0x317D875cA3B9f8d14f960486C0d1D1913be74e90'
                       }],
                       track: {
-                        method: (payment)=>axios('/track', payment)
+                        method: (payment)=>axios.post('/track', payment)
                       }
                     });
                   });
@@ -500,10 +500,10 @@
                   button.addEventListener("click",function(e){
                     DePayWidgets.Payment({
                       accept: [{
-                        blockchain: 'ethereum',
+                        blockchain: 'polygon',
                         amount: 0.0001,
                         token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
-                        receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        receiver: '0x317D875cA3B9f8d14f960486C0d1D1913be74e90'
                       }],
                       fee: {
                         amount: '1%',

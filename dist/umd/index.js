@@ -19942,14 +19942,13 @@
         account = _ref.account,
         whitelist = _ref.whitelist,
         blacklist = _ref.blacklist,
-        event = _ref.event,
         fee = _ref.fee;
     return web3Payments.route({
       accept: accept.map(prepareAcceptedPayments),
       from: mergeFromAccounts(accept, account),
       whitelist: whitelist,
       blacklist: blacklist,
-      event: event,
+      event: 'ifRoutedAndNative',
       fee: fee
     });
   });
@@ -20752,6 +20751,16 @@
     }));
   });
 
+  var blockTimes = {
+    // in seconds
+    ethereum: 13,
+    bsc: 4,
+    polygon: 3
+  };
+  var etaForConfirmations = (function (blockchain, confirmationsRequired, confirmationsPassed) {
+    return (confirmationsRequired - confirmationsPassed) * blockTimes[blockchain];
+  });
+
   var LoadingText = (function (props) {
     return /*#__PURE__*/React__default['default'].createElement("div", {
       className: "LoadingText"
@@ -20774,7 +20783,9 @@
         asynchronousTracking = _useContext2.asynchronousTracking,
         trackingInitialized = _useContext2.trackingInitialized,
         release = _useContext2.release,
-        forwardTo = _useContext2.forwardTo;
+        forwardTo = _useContext2.forwardTo,
+        confirmationsRequired = _useContext2.confirmationsRequired,
+        confirmationsPassed = _useContext2.confirmationsPassed;
 
     var _useContext3 = React.useContext(PaymentContext),
         payment = _useContext3.payment,
@@ -20849,7 +20860,9 @@
           className: "CardBodyWrapper"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "Opacity05"
-        }, "Validating payment")))));
+        }, "Validating payment", confirmationsRequired && /*#__PURE__*/React__default['default'].createElement("span", {
+          title: "".concat(confirmationsPassed, "/").concat(confirmationsRequired, " required confirmations")
+        }, " ", etaForConfirmations(payment.blockchain, confirmationsRequired, confirmationsPassed), "s"))))));
       }
     };
 
@@ -21254,40 +21267,55 @@
 
     var _useState3 = React.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
-        afterBlock = _useState4[0],
-        setAfterBlock = _useState4[1];
+        confirmationsRequired = _useState4[0],
+        setConfirmationsRequired = _useState4[1];
 
     var _useState5 = React.useState(),
         _useState6 = _slicedToArray(_useState5, 2),
-        paymentRoute = _useState6[0],
-        setPaymentRoute = _useState6[1];
+        confirmationsPassed = _useState6[0],
+        setConfirmationsPassed = _useState6[1];
 
-    var _useState7 = React.useState(false),
+    var _useState7 = React.useState(),
         _useState8 = _slicedToArray(_useState7, 2),
-        trackingInitialized = _useState8[0],
-        setTrackingInitialized = _useState8[1];
+        afterBlock = _useState8[0],
+        setAfterBlock = _useState8[1];
 
-    var _useState9 = React.useState(!!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
-        _useState10 = _slicedToArray(_useState9, 1),
-        synchronousTracking = _useState10[0];
+    var _useState9 = React.useState(),
+        _useState10 = _slicedToArray(_useState9, 2);
+        _useState10[0];
+        _useState10[1];
 
-    var _useState11 = React.useState(!!(track && track.async == true)),
-        _useState12 = _slicedToArray(_useState11, 1),
-        asynchronousTracking = _useState12[0];
+    var _useState11 = React.useState(),
+        _useState12 = _slicedToArray(_useState11, 2),
+        paymentRoute = _useState12[0],
+        setPaymentRoute = _useState12[1];
 
-    var _useState13 = React.useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
-        _useState14 = _slicedToArray(_useState13, 1),
-        polling = _useState14[0];
+    var _useState13 = React.useState(false),
+        _useState14 = _slicedToArray(_useState13, 2),
+        trackingInitialized = _useState14[0],
+        setTrackingInitialized = _useState14[1];
 
-    var _useState15 = React.useState(false),
-        _useState16 = _slicedToArray(_useState15, 2),
-        release = _useState16[0],
-        setRelease = _useState16[1];
+    var _useState15 = React.useState(!!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
+        _useState16 = _slicedToArray(_useState15, 1),
+        synchronousTracking = _useState16[0];
 
-    var _useState17 = React.useState(),
-        _useState18 = _slicedToArray(_useState17, 2),
-        forwardTo = _useState18[0],
-        setForwardTo = _useState18[1];
+    var _useState17 = React.useState(!!(track && track.async == true)),
+        _useState18 = _slicedToArray(_useState17, 1),
+        asynchronousTracking = _useState18[0];
+
+    var _useState19 = React.useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+        _useState20 = _slicedToArray(_useState19, 1),
+        polling = _useState20[0];
+
+    var _useState21 = React.useState(false),
+        _useState22 = _slicedToArray(_useState21, 2),
+        release = _useState22[0],
+        setRelease = _useState22[1];
+
+    var _useState23 = React.useState(),
+        _useState24 = _slicedToArray(_useState23, 2),
+        forwardTo = _useState24[0],
+        setForwardTo = _useState24[1];
 
     var _useContext3 = React.useContext(ClosableContext),
         setClosable = _useContext3.setClosable;
@@ -21312,7 +21340,11 @@
         socket.send(JSON.stringify(msg));
       };
 
-      socket.onclose = function (event) {};
+      socket.onclose = function (event) {
+        if (!event || event.code != 1000) {
+          openSocket(transaction);
+        }
+      };
 
       socket.onmessage = function (event) {
         var item = JSON.parse(event.data);
@@ -21329,13 +21361,16 @@
           setRelease(true);
           setClosable(!item.message.forward_to);
           setForwardTo(item.message.forward_to);
-          socket.close();
+          socket.close(1000);
 
           if (!!item.message.forward_to) {
             setTimeout(function () {
               props.document.location.href = item.message.forward_to;
             }, 200);
           }
+        } else if (item.message.confirmations) {
+          setConfirmationsRequired(item.message.confirmations.required);
+          setConfirmationsPassed(item.message.confirmations.passed);
         }
       };
 
@@ -21541,7 +21576,9 @@
         trackingInitialized: trackingInitialized,
         continueTryTracking: continueTryTracking,
         release: release,
-        forwardTo: forwardTo
+        forwardTo: forwardTo,
+        confirmationsRequired: confirmationsRequired,
+        confirmationsPassed: confirmationsPassed
       }
     }, props.children);
   });
@@ -21645,7 +21682,11 @@
         socket.send(JSON.stringify(msg));
       };
 
-      socket.onclose = function (event) {};
+      socket.onclose = function (event) {
+        if (!event || event.code != 1000) {
+          openSocket(transaction);
+        }
+      };
 
       socket.onmessage = function (event) {
         var item = JSON.parse(event.data);
@@ -21656,6 +21697,7 @@
 
         if (item.message && item.message.status && item.message.status != 'pending') {
           setFoundTransaction(item.message);
+          socket.close(1000);
         }
       };
 
@@ -22362,12 +22404,12 @@
 
   var Payment = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var accept, amount, event, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, link, container, before, document, unmount;
+      var accept, amount, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, link, container, before, document, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, before = _ref3.before, document = _ref3.document;
+              accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, before = _ref3.before, document = _ref3.document;
               requireReactVersion();
               _context2.prev = 2;
               _context2.next = 5;
@@ -22466,15 +22508,14 @@
     var account = _ref5.account,
         accept = _ref5.accept,
         whitelist = _ref5.whitelist,
-        blacklist = _ref5.blacklist,
-        event = _ref5.event,
-        fee = _ref5.fee;
+        blacklist = _ref5.blacklist;
+        _ref5.event;
+        var fee = _ref5.fee;
     routePayments({
       account: account,
       accept: accept,
       whitelist: whitelist,
       blacklist: blacklist,
-      event: event,
       fee: fee
     });
   };
