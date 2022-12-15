@@ -123,7 +123,7 @@ describe('Payment Widget: recover a previously made payment transaction', () => 
       let transactionAfterBlock = 14088130
 
       fetchMock.get({
-        url: `https://public.depay.com/transactions/${blockchain}/${fromAddress.toLowerCase()}/${transactionNonce}`,
+        url: `https://public.depay.com/transactions/${blockchain}/${fromAddress}/${transactionNonce}`,
         overwriteRoutes: true
       }, { status: 404 })
 
@@ -153,7 +153,7 @@ describe('Payment Widget: recover a previously made payment transaction', () => 
               let message = JSON.parse(rawMessage)
               return(
                 message.command == 'subscribe' &&
-                message.identifier == JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: transactionNonce, channel: 'TransactionChannel' })
+                message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: transactionNonce, channel: 'TransactionChannel' })
               )
             })).to.equal(true)
             mockedWebsocket.send(JSON.stringify({
@@ -192,7 +192,7 @@ describe('Payment Widget: recover a previously made payment transaction', () => 
     let transactionAfterBlock = 14088130
 
     fetchMock.get({
-      url: `https://public.depay.com/transactions/${blockchain}/${fromAddress.toLowerCase()}/${transactionNonce}`,
+      url: `https://public.depay.com/transactions/${blockchain}/${fromAddress}/${transactionNonce}`,
       overwriteRoutes: true
     }, { status: 404 })
 
@@ -219,7 +219,7 @@ describe('Payment Widget: recover a previously made payment transaction', () => 
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/'+transactionId)
         cy.wait(1000).then(()=> {
           fetchMock.get({
-            url: `https://public.depay.com/transactions/${blockchain}/${fromAddress.toLowerCase()}/${transactionNonce}`,
+            url: `https://public.depay.com/transactions/${blockchain}/${fromAddress}/${transactionNonce}`,
             overwriteRoutes: true
           }, { "external_id": transactionId, "status":"success" })
           cy.wait(5000).then(()=>{
@@ -251,7 +251,7 @@ describe('Payment Widget: recover a previously made payment transaction', () => 
     let transactionAfterBlock = 14088130
 
     fetchMock.get({
-      url: `https://public.depay.com/transactions/${blockchain}/${fromAddress.toLowerCase()}/${transactionNonce}`,
+      url: `https://public.depay.com/transactions/${blockchain}/${fromAddress}/${transactionNonce}`,
       overwriteRoutes: true
     }, { status: 404 })
 
@@ -278,7 +278,7 @@ describe('Payment Widget: recover a previously made payment transaction', () => 
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/'+transactionId)
         cy.wait(1000).then(()=> {
           fetchMock.get({
-            url: `https://public.depay.com/transactions/${blockchain}/${fromAddress.toLowerCase()}/${transactionNonce}`,
+            url: `https://public.depay.com/transactions/${blockchain}/${fromAddress}/${transactionNonce}`,
             overwriteRoutes: true
           }, { "external_id": transactionId, "status":"failed" })
           cy.wait(5000).then(()=>{

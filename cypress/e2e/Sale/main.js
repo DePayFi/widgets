@@ -153,12 +153,12 @@ describe('Sale Widget: main functionality', () => {
         nonce: 0,
         payload: {
           sender_amount: "1.166",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DAI,
           type: 'sale'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -224,13 +224,13 @@ describe('Sale Widget: main functionality', () => {
         nonce: 0,
         payload: {
           sender_amount: "1.166",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DAI,
           integration: '123',
           type: 'sale'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,

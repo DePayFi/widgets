@@ -186,6 +186,28 @@ export default (props)=>{
   }, [polling, transaction, afterBlock, paymentRoute])
 
   const storePayment = (transaction, afterBlock, paymentRoute, attempt)=>{
+    console.log('https://public.depay.com/payments', {
+      blockchain: transaction.blockchain,
+      transaction: transaction.id,
+      sender: transaction.from,
+      nonce: transaction.nonce,
+      receiver: paymentRoute.toAddress,
+      token: paymentRoute.toToken.address,
+      amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
+      confirmations: 1,
+      after_block: afterBlock,
+      uuid: transaction.id,
+      payload: {
+        sender_id: transaction.from,
+        sender_token_id: paymentRoute.fromToken.address,
+        sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
+        integration,
+        link,
+        type
+      },
+      fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
+      fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
+    })
     fetch('https://public.depay.com/payments', {
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',

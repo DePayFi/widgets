@@ -138,12 +138,12 @@ describe('Payment Widget: track', () => {
         nonce: 0,
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -154,7 +154,7 @@ describe('Payment Widget: track', () => {
       url: "/track/payments",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
+        "sender": fromAddress,
         "nonce": 0,
         "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -181,7 +181,7 @@ describe('Payment Widget: track', () => {
                 fetchMock.called('/track/payments', {
                   body: {
                     "blockchain": blockchain,
-                    "sender": fromAddress.toLowerCase(),
+                    "sender": fromAddress,
                     "nonce": 0,
                     "after_block": 1,
                     "from_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
@@ -200,7 +200,7 @@ describe('Payment Widget: track', () => {
                   let message = JSON.parse(rawMessage)
                   return(
                     message.command == 'subscribe' &&
-                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: 0, channel: 'PaymentChannel' })
+                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: 0, channel: 'PaymentChannel' })
                   )
                 })).to.equal(true)
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
@@ -256,12 +256,12 @@ describe('Payment Widget: track', () => {
         nonce: 0,
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -272,7 +272,7 @@ describe('Payment Widget: track', () => {
       url: "/track/payments",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
+        "sender": fromAddress,
         "nonce": 0,
         "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -355,12 +355,12 @@ describe('Payment Widget: track', () => {
         nonce: 0,
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -371,7 +371,7 @@ describe('Payment Widget: track', () => {
       url: "/track/payments",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
+        "sender": fromAddress,
         "nonce": 0,
         "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -404,7 +404,7 @@ describe('Payment Widget: track', () => {
                 fetchMock.called('/track/payments', {
                   body: {
                     "blockchain": blockchain,
-                    "sender": fromAddress.toLowerCase(),
+                    "sender": fromAddress,
                     "nonce": 0,
                     "after_block": 1,
                     "from_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
@@ -421,7 +421,7 @@ describe('Payment Widget: track', () => {
                   let message = JSON.parse(rawMessage)
                   return(
                     message.command == 'subscribe' &&
-                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: 0, channel: 'PaymentChannel' })
+                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: 0, channel: 'PaymentChannel' })
                   )
                 })).to.equal(true)
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
@@ -487,12 +487,12 @@ describe('Payment Widget: track', () => {
         nonce: 0,
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -503,7 +503,7 @@ describe('Payment Widget: track', () => {
       url: "/track/payments",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
+        "sender": fromAddress,
         "nonce": 0,
         "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
@@ -535,7 +535,7 @@ describe('Payment Widget: track', () => {
                 fetchMock.called('/track/payments', {
                   body: {
                     "blockchain": blockchain,
-                    "sender": fromAddress.toLowerCase(),
+                    "sender": fromAddress,
                     "nonce": 0,
                     "after_block": 1,
                     "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
@@ -551,7 +551,7 @@ describe('Payment Widget: track', () => {
                   let message = JSON.parse(rawMessage)
                   return(
                     message.command == 'subscribe' &&
-                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: 0, channel: 'PaymentChannel' })
+                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: 0, channel: 'PaymentChannel' })
                   )
                 })).to.equal(true)
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
@@ -607,12 +607,12 @@ describe('Payment Widget: track', () => {
         nonce: 0,
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -623,7 +623,7 @@ describe('Payment Widget: track', () => {
       url: "/track/payments",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
+        "sender": fromAddress,
         "nonce": 0,
         "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -653,7 +653,7 @@ describe('Payment Widget: track', () => {
                 fetchMock.called('/track/payments', {
                   body: {
                     "blockchain": blockchain,
-                    "sender": fromAddress.toLowerCase(),
+                    "sender": fromAddress,
                     "nonce": 0,
                     "after_block": 1,
                     "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -701,12 +701,12 @@ describe('Payment Widget: track', () => {
         nonce: 0,
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -717,7 +717,7 @@ describe('Payment Widget: track', () => {
       url: "/track/payments",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
+        "sender": fromAddress,
         "nonce": 0,
         "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -758,7 +758,7 @@ describe('Payment Widget: track', () => {
                       url: "/track/payments",
                       body: {
                         "blockchain": blockchain,
-                        "sender": fromAddress.toLowerCase(),
+                        "sender": fromAddress,
                         "nonce": 0,
                         "after_block": 1,
                         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -806,12 +806,12 @@ describe('Payment Widget: track', () => {
         nonce: 0,
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -822,7 +822,7 @@ describe('Payment Widget: track', () => {
       url: "/track/payments",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
+        "sender": fromAddress,
         "nonce": 0,
         "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -849,7 +849,7 @@ describe('Payment Widget: track', () => {
                 fetchMock.called('/track/payments', {
                   body: {
                     "blockchain": blockchain,
-                    "sender": fromAddress.toLowerCase(),
+                    "sender": fromAddress,
                     "nonce": 0,
                     "after_block": 1,
                     "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -863,7 +863,7 @@ describe('Payment Widget: track', () => {
                   let message = JSON.parse(rawMessage)
                   return(
                     message.command == 'subscribe' &&
-                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: 0, channel: 'PaymentChannel' })
+                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: 0, channel: 'PaymentChannel' })
                   )
                 })).to.equal(true)
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
@@ -874,7 +874,7 @@ describe('Payment Widget: track', () => {
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Validating payment').find('.Loading')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
                     mockedWebsocket.send(JSON.stringify({
-                      identifier: JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: 0, channel: 'PaymentChannel' }),
+                      identifier: JSON.stringify({ blockchain, sender: fromAddress, nonce: 0, channel: 'PaymentChannel' }),
                       message: {
                         release: true,
                         forward_to: '/somethingelse'
@@ -921,12 +921,12 @@ describe('Payment Widget: track', () => {
         nonce: 0,
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -937,7 +937,7 @@ describe('Payment Widget: track', () => {
       url: "/track/payments",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
+        "sender": fromAddress,
         "nonce": 0,
         "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -964,7 +964,7 @@ describe('Payment Widget: track', () => {
                 fetchMock.called('/track/payments', {
                   body: {
                     "blockchain": blockchain,
-                    "sender": fromAddress.toLowerCase(),
+                    "sender": fromAddress,
                     "nonce": 0,
                     "after_block": 1,
                     "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -982,7 +982,7 @@ describe('Payment Widget: track', () => {
                   let message = JSON.parse(rawMessage)
                   return(
                     message.command == 'subscribe' &&
-                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: 0, channel: 'PaymentChannel' })
+                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: 0, channel: 'PaymentChannel' })
                   )
                 })).to.equal(true)
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
@@ -1029,12 +1029,12 @@ describe('Payment Widget: track', () => {
         nonce: 0,
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -1046,7 +1046,7 @@ describe('Payment Widget: track', () => {
       url: "/track/payments",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
+        "sender": fromAddress,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
       matchPartialBody: true,
@@ -1088,7 +1088,7 @@ describe('Payment Widget: track', () => {
                     let message = JSON.parse(rawMessage)
                     return(
                       message.command == 'subscribe' &&
-                      message.identifier == JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: 0, channel: 'PaymentChannel' })
+                      message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: 0, channel: 'PaymentChannel' })
                     )
                   })).to.equal(true)
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
@@ -1145,12 +1145,12 @@ describe('Payment Widget: track', () => {
         nonce: 0,
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -1162,7 +1162,7 @@ describe('Payment Widget: track', () => {
       url: "/track/payments",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
+        "sender": fromAddress,
         "nonce": 0,
         "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -1225,7 +1225,7 @@ describe('Payment Widget: track', () => {
                         let message = JSON.parse(rawMessage)
                         return(
                           message.command == 'subscribe' &&
-                          message.identifier == JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: 0, channel: 'PaymentChannel' })
+                          message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: 0, channel: 'PaymentChannel' })
                         )
                       })).to.equal(true)
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
@@ -1284,12 +1284,12 @@ describe('Payment Widget: track', () => {
         nonce: 0,
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -1300,7 +1300,7 @@ describe('Payment Widget: track', () => {
       url: "/track/payments",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
+        "sender": fromAddress,
         "nonce": 0,
         "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -1314,7 +1314,7 @@ describe('Payment Widget: track', () => {
       url: "/payments/status",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
+        "sender": fromAddress,
         "nonce": 0,
         "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -1398,12 +1398,12 @@ describe('Payment Widget: track', () => {
         nonce: 0,
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -1414,7 +1414,7 @@ describe('Payment Widget: track', () => {
       url: "/track/payments",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
+        "sender": fromAddress,
         "nonce": 0,
         "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -1428,7 +1428,7 @@ describe('Payment Widget: track', () => {
       url: "/payments/status",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
+        "sender": fromAddress,
         "nonce": 0,
         "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -1525,12 +1525,12 @@ describe('Payment Widget: track', () => {
         nonce: 0,
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -1541,7 +1541,7 @@ describe('Payment Widget: track', () => {
       url: "/track/payments",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
+        "sender": fromAddress,
         "nonce": 0,
         "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
@@ -1555,7 +1555,7 @@ describe('Payment Widget: track', () => {
       url: "/payments/status",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
+        "sender": fromAddress,
         "nonce": 0,
         "after_block": 1,
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"

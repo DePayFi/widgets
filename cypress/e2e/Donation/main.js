@@ -157,12 +157,12 @@ describe('Donation Widget: main functionality', () => {
         nonce: 0,
         payload: {
           sender_amount: "1.166",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DAI,
           type: 'donation'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -228,14 +228,14 @@ describe('Donation Widget: main functionality', () => {
         nonce: 0,
         payload: {
           sender_amount: "1.166",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DAI,
           integration: '123',
           link: '456',
           type: 'donation'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,

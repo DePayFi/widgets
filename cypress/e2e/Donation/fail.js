@@ -155,12 +155,12 @@ describe('Donation Widget: failures', () => {
         nonce: 0,
         payload: {
           sender_amount: "33.165",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DAI,
           type: 'donation'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,

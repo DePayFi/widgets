@@ -150,7 +150,7 @@ export default (props)=>{
   useEffect(()=>{
     if(foundTransaction && foundTransaction.id && foundTransaction.status) {
       let newTransaction
-      if(foundTransaction.id.toLowerCase() != transaction.id.toLowerCase()) {
+      if(foundTransaction.id != transaction.id) {
         newTransaction = Object.assign({}, transaction, { 
           id: foundTransaction.id,
           url: Blockchain.findByName(transaction.blockchain).explorerUrlFor({ transaction: foundTransaction })

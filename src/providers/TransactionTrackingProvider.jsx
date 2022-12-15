@@ -14,7 +14,7 @@ export default (props)=>{
   useEffect(()=>{
     if(polling) {
       let poll = ()=> {
-        fetch(`https://public.depay.com/transactions/${givenTransaction.blockchain}/${givenTransaction.from.toLowerCase()}/${givenTransaction.nonce}`)
+        fetch(`https://public.depay.com/transactions/${givenTransaction.blockchain}/${givenTransaction.from}/${givenTransaction.nonce}`)
           .then((response)=>{
             if(response.status == 200) {
               response.json().then((data)=>{
@@ -47,7 +47,7 @@ export default (props)=>{
         id: transaction.id,
         after_block: afterBlock,
         blockchain: transaction.blockchain,
-        sender: transaction.from.toLowerCase(),
+        sender: transaction.from,
         nonce: transaction.nonce
       })
     })
@@ -72,7 +72,7 @@ export default (props)=>{
         command: 'subscribe',
         identifier: JSON.stringify({
           blockchain: transaction.blockchain,
-          sender: transaction.from.toLowerCase(),
+          sender: transaction.from,
           nonce: transaction.nonce,
           channel: 'TransactionChannel'
         }),

@@ -19839,7 +19839,7 @@
       if (foundTransaction && foundTransaction.id && foundTransaction.status) {
         var newTransaction;
 
-        if (foundTransaction.id.toLowerCase() != transaction.id.toLowerCase()) {
+        if (foundTransaction.id != transaction.id) {
           newTransaction = Object.assign({}, transaction, {
             id: foundTransaction.id,
             url: web3Blockchains.Blockchain.findByName(transaction.blockchain).explorerUrlFor({
@@ -21525,6 +21525,28 @@
     }, [polling, transaction, afterBlock, paymentRoute]);
 
     var storePayment = function storePayment(transaction, afterBlock, paymentRoute, attempt) {
+      console.log('https://public.depay.com/payments', {
+        blockchain: transaction.blockchain,
+        transaction: transaction.id,
+        sender: transaction.from,
+        nonce: transaction.nonce,
+        receiver: paymentRoute.toAddress,
+        token: paymentRoute.toToken.address,
+        amount: paymentRoute.fee ? ethers.ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
+        confirmations: 1,
+        after_block: afterBlock,
+        uuid: transaction.id,
+        payload: {
+          sender_id: transaction.from,
+          sender_token_id: paymentRoute.fromToken.address,
+          sender_amount: ethers.ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
+          integration: integration,
+          link: link,
+          type: type
+        },
+        fee_amount: paymentRoute.fee ? ethers.ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
+        fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
+      });
       fetch('https://public.depay.com/payments', {
         headers: {
           'Content-Type': 'application/json'
@@ -21711,7 +21733,7 @@
     React.useEffect(function () {
       if (polling) {
         var poll = function poll() {
-          fetch("https://public.depay.com/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from.toLowerCase(), "/").concat(givenTransaction.nonce)).then(function (response) {
+          fetch("https://public.depay.com/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from, "/").concat(givenTransaction.nonce)).then(function (response) {
             if (response.status == 200) {
               response.json().then(function (data) {
                 if (data.status != 'pending') {
@@ -21749,7 +21771,7 @@
           id: transaction.id,
           after_block: afterBlock,
           blockchain: transaction.blockchain,
-          sender: transaction.from.toLowerCase(),
+          sender: transaction.from,
           nonce: transaction.nonce
         })
       }).then(function (response) {
@@ -21777,7 +21799,7 @@
           command: 'subscribe',
           identifier: JSON.stringify({
             blockchain: transaction.blockchain,
-            sender: transaction.from.toLowerCase(),
+            sender: transaction.from,
             nonce: transaction.nonce,
             channel: 'TransactionChannel'
           })
