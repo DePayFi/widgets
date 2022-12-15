@@ -4,11 +4,14 @@ import ErrorContext from '../contexts/ErrorContext'
 import NavigateContext from '../contexts/NavigateContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useEffect, useContext, useState } from 'react'
+import WalletContext from '../contexts/WalletContext'
 import { ethers } from 'ethers'
+import { request } from '@depay/web3-client'
 
 export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
   const { track, validated, integration, link, type } = useContext(ConfigurationContext)
+  const { account, wallet } = useContext(WalletContext)
   const [ transaction, setTransaction ] = useState()
   const [ confirmationsRequired, setConfirmationsRequired ] = useState()
   const [ confirmationsPassed, setConfirmationsPassed ] = useState()
@@ -31,7 +34,7 @@ export default (props)=>{
         command: 'subscribe',
         identifier: JSON.stringify({
           blockchain: transaction.blockchain,
-          sender: transaction.from.toLowerCase(),
+          sender: transaction.from,
           nonce: transaction.nonce,
           channel: 'PaymentChannel'
         }),
@@ -106,8 +109,8 @@ export default (props)=>{
   const startTracking = (transaction, afterBlock, paymentRoute, attempt)=> {
     callTracking({
       blockchain: transaction.blockchain,
-      transaction: transaction.id.toLowerCase(),
-      sender: transaction.from.toLowerCase(),
+      transaction: transaction.id,
+      sender: transaction.from,
       nonce: transaction.nonce,
       after_block: afterBlock,
       from_token: paymentRoute.fromToken.address,
@@ -138,8 +141,8 @@ export default (props)=>{
 
     const payment = {
       blockchain: transaction.blockchain,
-      transaction: transaction.id.toLowerCase(),
-      sender: transaction.from.toLowerCase(),
+      transaction: transaction.id,
+      sender: transaction.from,
       nonce: transaction.nonce,
       after_block: afterBlock,
       to_token: paymentRoute.toToken.address
@@ -189,7 +192,7 @@ export default (props)=>{
       body: JSON.stringify({
         blockchain: transaction.blockchain,
         transaction: transaction.id,
-        sender: transaction.from.toLowerCase(),
+        sender: transaction.from,
         nonce: transaction.nonce,
         receiver: paymentRoute.toAddress,
         token: paymentRoute.toToken.address,
@@ -198,7 +201,7 @@ export default (props)=>{
         after_block: afterBlock,
         uuid: transaction.id,
         payload: {
-          sender_id: transaction.from.toLowerCase(),
+          sender_id: transaction.from,
           sender_token_id: paymentRoute.fromToken.address,
           sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
           integration,
@@ -232,11 +235,49 @@ export default (props)=>{
     openSocket(transaction)
   }
 
+  const preTrack = (afterBlock, paymentRoute)=>{
+    if(!synchronousTracking && !asynchronousTracking) { return Promise.resolve() }
+    return new Promise(async(resolve, reject)=>{
+      let payment = {
+        blockchain: paymentRoute.blockchain,
+        sender: account,
+        nonce: await request({ blockchain: paymentRoute.blockchain, address: account, method: 'transactionCount' }),
+        after_block: afterBlock,
+        from_token: paymentRoute.fromToken.address,
+        from_amount: paymentRoute.fromAmount.toString(),
+        from_decimals: paymentRoute.fromDecimals,
+        to_token: paymentRoute.toToken.address,
+        to_amount: paymentRoute.toAmount.toString(),
+        to_decimals: paymentRoute.toDecimals,
+        fee_amount: paymentRoute?.feeAmount?.toString()
+      }
+      if(track.endpoint){
+        return fetch(track.endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payment)
+        }).then((response)=>{
+          if(response.status == 200 || response.status == 201) {
+            console.log('PAYMENT PRETRACKING INITIALIZED')
+            return resolve()
+          } else {
+            return reject('PRETRACKING REQUEST FAILED')
+          }
+        })
+      } else if (track.method) {
+        track.method(payment).then(resolve).catch(reject)
+      } else {
+        reject('No tracking defined!')
+      }
+    })
+  }
+
   return(
     <PaymentTrackingContext.Provider value={{
       synchronousTracking,
       asynchronousTracking,
       initializeTracking,
+      preTrack,
       trackingInitialized,
       continueTryTracking,
       release,

@@ -19638,7 +19638,8 @@
         synchronousTracking = _useContext9.synchronousTracking,
         asynchronousTracking = _useContext9.asynchronousTracking,
         trackingInitialized = _useContext9.trackingInitialized,
-        initializePaymentTracking = _useContext9.initializeTracking;
+        initializePaymentTracking = _useContext9.initializeTracking,
+        preTrack = _useContext9.preTrack;
 
     var _useContext10 = React.useContext(TransactionTrackingContext),
         foundTransaction = _useContext10.foundTransaction,
@@ -19726,31 +19727,40 @@
 
               case 11:
                 currentBlock = _context.sent;
-                wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
-                  sent: function sent(transaction) {
-                    initializeTransactionTracking(transaction, currentBlock);
+                _context.next = 14;
+                return preTrack(currentBlock, payment.route).then(function () {
+                  wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
+                    sent: function sent(transaction) {
+                      initializeTransactionTracking(transaction, currentBlock);
 
-                    if (_sent) {
-                      _sent(transaction);
+                      if (_sent) {
+                        _sent(transaction);
+                      }
+                    },
+                    succeeded: paymentSucceeded,
+                    failed: paymentFailed
+                  })).then(function (sentTransaction) {
+                    setTransaction(sentTransaction);
+                    initializePaymentTracking(sentTransaction, currentBlock, payment.route);
+                  })["catch"](function (error) {
+                    console.log('error', error);
+                    setPaymentState('initialized');
+                    setClosable(true);
+                    setUpdatable(true);
+
+                    if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK') {
+                      navigate('WrongNetwork');
                     }
-                  },
-                  succeeded: paymentSucceeded,
-                  failed: paymentFailed
-                })).then(function (sentTransaction) {
-                  setTransaction(sentTransaction);
-                  initializePaymentTracking(sentTransaction, currentBlock, payment.route);
-                })["catch"](function (error) {
-                  console.log('error', error);
+                  });
+                })["catch"](function (e) {
+                  console.log(e);
                   setPaymentState('initialized');
                   setClosable(true);
                   setUpdatable(true);
-
-                  if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK') {
-                    navigate('WrongNetwork');
-                  }
+                  navigate('PreTrackingFailed');
                 });
 
-              case 13:
+              case 14:
               case "end":
                 return _context.stop();
             }
@@ -21260,6 +21270,10 @@
         link = _useContext2.link,
         type = _useContext2.type;
 
+    var _useContext3 = React.useContext(WalletContext),
+        account = _useContext3.account;
+        _useContext3.wallet;
+
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
         transaction = _useState2[0],
@@ -21317,12 +21331,12 @@
         forwardTo = _useState24[0],
         setForwardTo = _useState24[1];
 
-    var _useContext3 = React.useContext(ClosableContext),
-        setClosable = _useContext3.setClosable;
+    var _useContext4 = React.useContext(ClosableContext),
+        setClosable = _useContext4.setClosable;
 
-    var _useContext4 = React.useContext(NavigateContext),
-        navigate = _useContext4.navigate;
-        _useContext4.set;
+    var _useContext5 = React.useContext(NavigateContext),
+        navigate = _useContext5.navigate;
+        _useContext5.set;
 
     var openSocket = function openSocket(transaction) {
       var socket = new WebSocket('wss://integrate.depay.com/cable');
@@ -21332,7 +21346,7 @@
           command: 'subscribe',
           identifier: JSON.stringify({
             blockchain: transaction.blockchain,
-            sender: transaction.from.toLowerCase(),
+            sender: transaction.from,
             nonce: transaction.nonce,
             channel: 'PaymentChannel'
           })
@@ -21422,8 +21436,8 @@
 
       callTracking({
         blockchain: transaction.blockchain,
-        transaction: transaction.id.toLowerCase(),
-        sender: transaction.from.toLowerCase(),
+        transaction: transaction.id,
+        sender: transaction.from,
         nonce: transaction.nonce,
         after_block: afterBlock,
         from_token: paymentRoute.fromToken.address,
@@ -21449,8 +21463,8 @@
 
       var payment = {
         blockchain: transaction.blockchain,
-        transaction: transaction.id.toLowerCase(),
-        sender: transaction.from.toLowerCase(),
+        transaction: transaction.id,
+        sender: transaction.from,
         nonce: transaction.nonce,
         after_block: afterBlock,
         to_token: paymentRoute.toToken.address
@@ -21519,7 +21533,7 @@
         body: JSON.stringify({
           blockchain: transaction.blockchain,
           transaction: transaction.id,
-          sender: transaction.from.toLowerCase(),
+          sender: transaction.from,
           nonce: transaction.nonce,
           receiver: paymentRoute.toAddress,
           token: paymentRoute.toToken.address,
@@ -21528,7 +21542,7 @@
           after_block: afterBlock,
           uuid: transaction.id,
           payload: {
-            sender_id: transaction.from.toLowerCase(),
+            sender_id: transaction.from,
             sender_token_id: paymentRoute.fromToken.address,
             sender_amount: ethers.ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
             integration: integration,
@@ -21568,11 +21582,100 @@
       openSocket(transaction);
     };
 
+    var preTrack = function preTrack(afterBlock, paymentRoute) {
+      if (!synchronousTracking && !asynchronousTracking) {
+        return Promise.resolve();
+      }
+
+      return new Promise( /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(resolve, reject) {
+          var _paymentRoute$feeAmou2;
+
+          var payment;
+          return regenerator.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  _context.t0 = paymentRoute.blockchain;
+                  _context.t1 = account;
+                  _context.next = 4;
+                  return web3Client.request({
+                    blockchain: paymentRoute.blockchain,
+                    address: account,
+                    method: 'transactionCount'
+                  });
+
+                case 4:
+                  _context.t2 = _context.sent;
+                  _context.t3 = afterBlock;
+                  _context.t4 = paymentRoute.fromToken.address;
+                  _context.t5 = paymentRoute.fromAmount.toString();
+                  _context.t6 = paymentRoute.fromDecimals;
+                  _context.t7 = paymentRoute.toToken.address;
+                  _context.t8 = paymentRoute.toAmount.toString();
+                  _context.t9 = paymentRoute.toDecimals;
+                  _context.t10 = paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou2 = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou2 === void 0 ? void 0 : _paymentRoute$feeAmou2.toString();
+                  payment = {
+                    blockchain: _context.t0,
+                    sender: _context.t1,
+                    nonce: _context.t2,
+                    after_block: _context.t3,
+                    from_token: _context.t4,
+                    from_amount: _context.t5,
+                    from_decimals: _context.t6,
+                    to_token: _context.t7,
+                    to_amount: _context.t8,
+                    to_decimals: _context.t9,
+                    fee_amount: _context.t10
+                  };
+
+                  if (!track.endpoint) {
+                    _context.next = 18;
+                    break;
+                  }
+
+                  return _context.abrupt("return", fetch(track.endpoint, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payment)
+                  }).then(function (response) {
+                    if (response.status == 200 || response.status == 201) {
+                      console.log('PAYMENT PRETRACKING INITIALIZED');
+                      return resolve();
+                    } else {
+                      return reject('PRETRACKING REQUEST FAILED');
+                    }
+                  }));
+
+                case 18:
+                  if (track.method) {
+                    track.method(payment).then(resolve)["catch"](reject);
+                  } else {
+                    reject('No tracking defined!');
+                  }
+
+                case 19:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        return function (_x, _x2) {
+          return _ref.apply(this, arguments);
+        };
+      }());
+    };
+
     return /*#__PURE__*/React__default['default'].createElement(PaymentTrackingContext.Provider, {
       value: {
         synchronousTracking: synchronousTracking,
         asynchronousTracking: asynchronousTracking,
         initializeTracking: initializeTracking,
+        preTrack: preTrack,
         trackingInitialized: trackingInitialized,
         continueTryTracking: continueTryTracking,
         release: release,
@@ -22279,6 +22382,47 @@
     });
   });
 
+  var PreTrackingFailedDialog = (function () {
+    var _useContext = React.useContext(PaymentContext);
+        _useContext.transaction;
+
+    var _useContext2 = React.useContext(reactDialogStack.NavigateStackContext),
+        navigate = _useContext2.navigate;
+
+    var tryAgain = function tryAgain() {
+      navigate('back');
+    };
+
+    return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
+      stacked: false,
+      header: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }),
+      body: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TextCenter"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "Graphic",
+        src: ErrorGraphic
+      })), /*#__PURE__*/React__default['default'].createElement("h1", {
+        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+      }, "Tracking payment failed"), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", {
+        className: "FontSizeM"
+      }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS"
+      }, /*#__PURE__*/React__default['default'].createElement("span", null, "If this keeps happening, please report it.")))),
+      footer: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        className: "ButtonPrimary",
+        onClick: tryAgain
+      }, "Try again"))
+    });
+  });
+
   var TrackingFailedDialog = (function () {
     var _useContext = React.useContext(PaymentTrackingContext),
         continueTryTracking = _useContext.continueTryTracking;
@@ -22345,7 +22489,8 @@
         ChangePayment: /*#__PURE__*/React__default['default'].createElement(ChangePaymentDialog, null),
         PaymentFailed: /*#__PURE__*/React__default['default'].createElement(PaymentFailedDialog, null),
         WrongNetwork: /*#__PURE__*/React__default['default'].createElement(WrongNetworkDialog, null),
-        TrackingFailed: /*#__PURE__*/React__default['default'].createElement(TrackingFailedDialog, null)
+        TrackingFailed: /*#__PURE__*/React__default['default'].createElement(TrackingFailedDialog, null),
+        PreTrackingFailed: /*#__PURE__*/React__default['default'].createElement(PreTrackingFailedDialog, null)
       }
     });
   });
