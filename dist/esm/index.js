@@ -20274,6 +20274,7 @@ var PaymentValueProvider = (function (props) {
       return;
     }
 
+    setPaymentValueLoss(null);
     Promise.all([route({
       blockchain: payment.route.blockchain,
       tokenIn: payment.route.fromToken.address,
@@ -20930,7 +20931,7 @@ var Footer = (function () {
       return null;
     } else if (paymentState == 'initialized') {
       return /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
+        className: "PaddingBottomXS"
       }, /*#__PURE__*/React.createElement("button", {
         className: "ButtonPrimary",
         onClick: approve,

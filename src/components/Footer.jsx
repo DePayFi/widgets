@@ -138,7 +138,7 @@ export default ()=>{
       return(null)
     } else if(paymentState == 'initialized') {
       return(
-        <div className="PaddingBottomS">
+        <div className="PaddingBottomXS">
           <button className="ButtonPrimary" onClick={ approve } title={`Allow ${payment.symbol} to be used as payment`}>
             Allow { payment.symbol } to be used as payment
           </button>

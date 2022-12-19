@@ -20269,6 +20269,7 @@
         return;
       }
 
+      setPaymentValueLoss(null);
       Promise.all([web3Exchanges.route({
         blockchain: payment.route.blockchain,
         tokenIn: payment.route.fromToken.address,
@@ -20925,7 +20926,7 @@
         return null;
       } else if (paymentState == 'initialized') {
         return /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingBottomS"
+          className: "PaddingBottomXS"
         }, /*#__PURE__*/React__default['default'].createElement("button", {
           className: "ButtonPrimary",
           onClick: approve,

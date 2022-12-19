@@ -28,6 +28,7 @@ export default (props)=>{
   
   const updatePaymentValue = ({ updatable, payment })=>{
     if(updatable == false || payment?.route == undefined) { return }
+    setPaymentValueLoss(null)
     Promise.all([
       route({
         blockchain: payment.route.blockchain,
