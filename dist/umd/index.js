@@ -19331,7 +19331,7 @@
         } else {
           Promise.all(props.accept.map(function (configuration) {
             if (fixedAmount) {
-              if (web3Constants.CONSTANTS[configuration.blockchain].USD.toLowerCase() == configuration.token.toLowerCase()) {
+              if (web3Constants.CONSTANTS[configuration.blockchain].USD == configuration.token) {
                 return 1.00 / fixedCurrencyConversionRate * fixedAmount;
               } else {
                 return web3Exchanges.route({
@@ -19344,7 +19344,7 @@
                 });
               }
             } else {
-              if (web3Constants.CONSTANTS[configuration.blockchain].USD.toLowerCase() == configuration.token.toLowerCase()) {
+              if (web3Constants.CONSTANTS[configuration.blockchain].USD == configuration.token) {
                 return 1.00 / conversionRate * amount;
               } else {
                 return web3Exchanges.route({
@@ -20310,7 +20310,7 @@
 
         var fromTokenUSDAmount;
 
-        if (payment.route.fromToken.address.toLowerCase() == web3Constants.CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+        if (payment.route.fromToken.address == web3Constants.CONSTANTS[payment.route.blockchain].USD) {
           fromTokenUSDAmount = payment.route.fromAmount.toString();
         } else if (fromTokenUSDRoute == undefined) {
           setPaymentValue('');
@@ -21348,7 +21348,7 @@
           identifier: JSON.stringify({
             blockchain: transaction.blockchain,
             sender: transaction.from,
-            nonce: transaction.nonce,
+            nonce: transaction.nonce.toString(),
             channel: 'PaymentChannel'
           })
         };
@@ -21439,8 +21439,8 @@
         blockchain: transaction.blockchain,
         transaction: transaction.id,
         sender: transaction.from,
-        nonce: transaction.nonce,
-        after_block: afterBlock,
+        nonce: transaction.nonce.toString(),
+        after_block: afterBlock.toString(),
         from_token: paymentRoute.fromToken.address,
         from_amount: paymentRoute.fromAmount.toString(),
         from_decimals: paymentRoute.fromDecimals,
@@ -21466,8 +21466,8 @@
         blockchain: transaction.blockchain,
         transaction: transaction.id,
         sender: transaction.from,
-        nonce: transaction.nonce,
-        after_block: afterBlock,
+        nonce: transaction.nonce.toString(),
+        after_block: afterBlock.toString(),
         to_token: paymentRoute.toToken.address
       };
 
@@ -21526,28 +21526,6 @@
     }, [polling, transaction, afterBlock, paymentRoute]);
 
     var storePayment = function storePayment(transaction, afterBlock, paymentRoute, attempt) {
-      console.log('https://public.depay.com/payments', {
-        blockchain: transaction.blockchain,
-        transaction: transaction.id,
-        sender: transaction.from,
-        nonce: transaction.nonce,
-        receiver: paymentRoute.toAddress,
-        token: paymentRoute.toToken.address,
-        amount: paymentRoute.fee ? ethers.ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
-        confirmations: 1,
-        after_block: afterBlock,
-        uuid: transaction.id,
-        payload: {
-          sender_id: transaction.from,
-          sender_token_id: paymentRoute.fromToken.address,
-          sender_amount: ethers.ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
-          integration: integration,
-          link: link,
-          type: type
-        },
-        fee_amount: paymentRoute.fee ? ethers.ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
-        fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
-      });
       fetch('https://public.depay.com/payments', {
         headers: {
           'Content-Type': 'application/json'
@@ -21557,12 +21535,12 @@
           blockchain: transaction.blockchain,
           transaction: transaction.id,
           sender: transaction.from,
-          nonce: transaction.nonce,
+          nonce: transaction.nonce.toString(),
           receiver: paymentRoute.toAddress,
           token: paymentRoute.toToken.address,
           amount: paymentRoute.fee ? ethers.ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
           confirmations: 1,
-          after_block: afterBlock,
+          after_block: afterBlock.toString(),
           uuid: transaction.id,
           payload: {
             sender_id: transaction.from,
@@ -21629,8 +21607,8 @@
                   });
 
                 case 4:
-                  _context.t2 = _context.sent;
-                  _context.t3 = afterBlock;
+                  _context.t2 = _context.sent.toString();
+                  _context.t3 = afterBlock.toString();
                   _context.t4 = paymentRoute.fromToken.address;
                   _context.t5 = paymentRoute.fromAmount.toString();
                   _context.t6 = paymentRoute.fromDecimals;
@@ -21770,10 +21748,10 @@
         },
         body: JSON.stringify({
           id: transaction.id,
-          after_block: afterBlock,
+          after_block: afterBlock.toString(),
           blockchain: transaction.blockchain,
           sender: transaction.from,
-          nonce: transaction.nonce
+          nonce: transaction.nonce.toString()
         })
       }).then(function (response) {
         if (response.status == 200 || response.status == 201) {
@@ -21801,7 +21779,7 @@
           identifier: JSON.stringify({
             blockchain: transaction.blockchain,
             sender: transaction.from,
-            nonce: transaction.nonce,
+            nonce: transaction.nonce.toString(),
             channel: 'TransactionChannel'
           })
         };
@@ -23454,7 +23432,7 @@
 
     var select = function select(token) {
       if (blockchain.tokens.find(function (majorToken) {
-        return majorToken.address.toLowerCase() == (token.address || token.external_id).toLowerCase();
+        return majorToken.address == (token.address || token.external_id);
       })) {
         setOpen(false);
         props.resolve({

@@ -729,7 +729,7 @@ describe('Payment Widget: track', () => {
       attempt += 1
       if(attempt == 1) {
         return 200 // pretrack
-      } else if(data.transaction && attempt == 2) {
+      } else if(data.transaction && attempt <= 3) {
         return 500
       } else { 
         return 200
