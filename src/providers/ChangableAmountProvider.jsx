@@ -54,7 +54,7 @@ export default (props)=>{
       } else {
         Promise.all(props.accept.map((configuration)=>{
           if(fixedAmount) {
-            if(CONSTANTS[configuration.blockchain].USD.toLowerCase() == configuration.token.toLowerCase()) {
+            if(CONSTANTS[configuration.blockchain].USD == configuration.token) {
               return 1.00/fixedCurrencyConversionRate * fixedAmount
             } else {
               return route({
@@ -67,7 +67,7 @@ export default (props)=>{
               })
             }
           } else {
-            if(CONSTANTS[configuration.blockchain].USD.toLowerCase() == configuration.token.toLowerCase()) {
+            if(CONSTANTS[configuration.blockchain].USD == configuration.token) {
               return 1.00/conversionRate * amount
             } else {
               return route({

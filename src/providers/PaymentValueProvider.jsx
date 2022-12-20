@@ -63,7 +63,7 @@ export default (props)=>{
       }
 
       let fromTokenUSDAmount
-      if(payment.route.fromToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+      if(payment.route.fromToken.address == CONSTANTS[payment.route.blockchain].USD) {
         fromTokenUSDAmount = payment.route.fromAmount.toString()
       } else if (fromTokenUSDRoute == undefined) {
         setPaymentValue('')

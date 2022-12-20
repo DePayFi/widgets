@@ -2354,7 +2354,7 @@
         var USDRoute = USDExchangeRoutes[0];
         var USDAmount;
 
-        if (payment.route.fromToken.address.toLowerCase() == depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+        if (payment.route.fromToken.address == depayWeb3Constants.CONSTANTS[payment.route.blockchain].USD) {
           USDAmount = payment.route.fromAmount.toString();
         } else if (USDRoute == undefined) {
           setPaymentValue('');

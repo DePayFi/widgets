@@ -108,7 +108,7 @@ export default (props)=> {
   }
 
   const select = (token)=> {
-    if(blockchain.tokens.find((majorToken)=>{ return majorToken.address.toLowerCase() == (token.address || token.external_id).toLowerCase() })) {
+    if(blockchain.tokens.find((majorToken)=>{ return majorToken.address == (token.address || token.external_id) })) {
       setOpen(false)
       props.resolve({
         blockchain: blockchain.name,
