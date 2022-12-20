@@ -119,8 +119,8 @@ describe('Payment Widget: recover a previously made payment transaction', () => 
       }
       
       let transactionId = '0x081ae81229b2c7df586835e9e4c16aa89f8a15dc118fac31b7521477c53ed2a9'
-      let transactionNonce = 2865
-      let transactionAfterBlock = 14088130
+      let transactionNonce = "2865"
+      let transactionAfterBlock = "14088130"
 
       fetchMock.get({
         url: `https://public.depay.com/transactions/${blockchain}/${fromAddress}/${transactionNonce}`,
