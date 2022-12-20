@@ -726,8 +726,10 @@ describe('Payment Widget: track', () => {
       matchPartialBody: true,
     }, (endpoint, request)=>{
       let data = JSON.parse(request.body)
-      if(data.transaction && attempt < 1) {
-        attempt += 1
+      attempt += 1
+      if(attempt == 1) {
+        return 200 // pretrack
+      } else if(data.transaction && attempt == 2) {
         return 500
       } else { 
         return 200
