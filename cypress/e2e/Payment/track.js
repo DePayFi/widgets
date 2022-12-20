@@ -129,13 +129,13 @@ describe('Payment Widget: track', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,
@@ -200,7 +200,7 @@ describe('Payment Widget: track', () => {
                   let message = JSON.parse(rawMessage)
                   return(
                     message.command == 'subscribe' &&
-                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: 0, channel: 'PaymentChannel' })
+                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: "0", channel: 'PaymentChannel' })
                   )
                 })).to.equal(true)
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
@@ -247,13 +247,13 @@ describe('Payment Widget: track', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,
@@ -346,13 +346,13 @@ describe('Payment Widget: track', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,
@@ -421,7 +421,7 @@ describe('Payment Widget: track', () => {
                   let message = JSON.parse(rawMessage)
                   return(
                     message.command == 'subscribe' &&
-                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: 0, channel: 'PaymentChannel' })
+                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: "0", channel: 'PaymentChannel' })
                   )
                 })).to.equal(true)
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
@@ -478,13 +478,13 @@ describe('Payment Widget: track', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "19.8",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: '0.2',
         fee_receiver: feeReceiver,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,
@@ -551,7 +551,7 @@ describe('Payment Widget: track', () => {
                   let message = JSON.parse(rawMessage)
                   return(
                     message.command == 'subscribe' &&
-                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: 0, channel: 'PaymentChannel' })
+                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: "0", channel: 'PaymentChannel' })
                   )
                 })).to.equal(true)
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
@@ -598,13 +598,13 @@ describe('Payment Widget: track', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,
@@ -692,13 +692,13 @@ describe('Payment Widget: track', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,
@@ -713,17 +713,26 @@ describe('Payment Widget: track', () => {
       },
     }, 201)
 
-    let trackingRequestMock = fetchMock.post({
+    let attempt = 0
+    fetchMock.post({
       url: "/track/payments",
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": 0,
-        "after_block": 1,
-        "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
+        "nonce": "0",
+        "after_block": "1",
+        "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
       },
-      matchPartialBody: true
-    }, 500)
+      matchPartialBody: true,
+    }, (endpoint, request)=>{
+      let data = JSON.parse(request.body)
+      if(data.transaction && attempt < 1) {
+        attempt += 1
+        return 500
+      } else { 
+        return 200
+      }
+    })
 
     mockedWebsocketServer.on('connection', socket => {
       mockedWebsocket = socket
@@ -754,18 +763,6 @@ describe('Payment Widget: track', () => {
                   cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Initializing tracking')
                   cy.wait(1000).then(()=>{
-                    fetchMock.post({
-                      url: "/track/payments",
-                      body: {
-                        "blockchain": blockchain,
-                        "sender": fromAddress,
-                        "nonce": 0,
-                        "after_block": 1,
-                        "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
-                      },
-                      matchPartialBody: true,
-                      overwriteRoutes: true
-                    }, 200)
                     cy.wait(3000).then(()=>{
                       cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Transaction confirmed').find('.Checkmark')
@@ -797,13 +794,13 @@ describe('Payment Widget: track', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,
@@ -863,7 +860,7 @@ describe('Payment Widget: track', () => {
                   let message = JSON.parse(rawMessage)
                   return(
                     message.command == 'subscribe' &&
-                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: 0, channel: 'PaymentChannel' })
+                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: "0", channel: 'PaymentChannel' })
                   )
                 })).to.equal(true)
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
@@ -874,7 +871,7 @@ describe('Payment Widget: track', () => {
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Validating payment').find('.Loading')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
                     mockedWebsocket.send(JSON.stringify({
-                      identifier: JSON.stringify({ blockchain, sender: fromAddress, nonce: 0, channel: 'PaymentChannel' }),
+                      identifier: JSON.stringify({ blockchain, sender: fromAddress, nonce: "0", channel: 'PaymentChannel' }),
                       message: {
                         release: true,
                         forward_to: '/somethingelse'
@@ -912,13 +909,13 @@ describe('Payment Widget: track', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,
@@ -982,7 +979,7 @@ describe('Payment Widget: track', () => {
                   let message = JSON.parse(rawMessage)
                   return(
                     message.command == 'subscribe' &&
-                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: 0, channel: 'PaymentChannel' })
+                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: "0", channel: 'PaymentChannel' })
                   )
                 })).to.equal(true)
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
@@ -1020,13 +1017,13 @@ describe('Payment Widget: track', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,
@@ -1088,7 +1085,7 @@ describe('Payment Widget: track', () => {
                     let message = JSON.parse(rawMessage)
                     return(
                       message.command == 'subscribe' &&
-                      message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: 0, channel: 'PaymentChannel' })
+                      message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: "0", channel: 'PaymentChannel' })
                     )
                   })).to.equal(true)
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
@@ -1136,13 +1133,13 @@ describe('Payment Widget: track', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,
@@ -1225,7 +1222,7 @@ describe('Payment Widget: track', () => {
                         let message = JSON.parse(rawMessage)
                         return(
                           message.command == 'subscribe' &&
-                          message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: 0, channel: 'PaymentChannel' })
+                          message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: "0", channel: 'PaymentChannel' })
                         )
                       })).to.equal(true)
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
@@ -1275,13 +1272,13 @@ describe('Payment Widget: track', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,
@@ -1389,13 +1386,13 @@ describe('Payment Widget: track', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,
@@ -1516,13 +1513,13 @@ describe('Payment Widget: track', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,

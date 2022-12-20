@@ -35,7 +35,7 @@ export default (props)=>{
         identifier: JSON.stringify({
           blockchain: transaction.blockchain,
           sender: transaction.from,
-          nonce: transaction.nonce,
+          nonce: transaction.nonce.toString(),
           channel: 'PaymentChannel'
         }),
       }
@@ -111,8 +111,8 @@ export default (props)=>{
       blockchain: transaction.blockchain,
       transaction: transaction.id,
       sender: transaction.from,
-      nonce: transaction.nonce,
-      after_block: afterBlock,
+      nonce: transaction.nonce.toString(),
+      after_block: afterBlock.toString(),
       from_token: paymentRoute.fromToken.address,
       from_amount: paymentRoute.fromAmount.toString(),
       from_decimals: paymentRoute.fromDecimals,
@@ -143,8 +143,8 @@ export default (props)=>{
       blockchain: transaction.blockchain,
       transaction: transaction.id,
       sender: transaction.from,
-      nonce: transaction.nonce,
-      after_block: afterBlock,
+      nonce: transaction.nonce.toString(),
+      after_block: afterBlock.toString(),
       to_token: paymentRoute.toToken.address
     }
 
@@ -186,28 +186,6 @@ export default (props)=>{
   }, [polling, transaction, afterBlock, paymentRoute])
 
   const storePayment = (transaction, afterBlock, paymentRoute, attempt)=>{
-    console.log('https://public.depay.com/payments', {
-      blockchain: transaction.blockchain,
-      transaction: transaction.id,
-      sender: transaction.from,
-      nonce: transaction.nonce,
-      receiver: paymentRoute.toAddress,
-      token: paymentRoute.toToken.address,
-      amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
-      confirmations: 1,
-      after_block: afterBlock,
-      uuid: transaction.id,
-      payload: {
-        sender_id: transaction.from,
-        sender_token_id: paymentRoute.fromToken.address,
-        sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
-        integration,
-        link,
-        type
-      },
-      fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
-      fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
-    })
     fetch('https://public.depay.com/payments', {
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
@@ -215,12 +193,12 @@ export default (props)=>{
         blockchain: transaction.blockchain,
         transaction: transaction.id,
         sender: transaction.from,
-        nonce: transaction.nonce,
+        nonce: transaction.nonce.toString(),
         receiver: paymentRoute.toAddress,
         token: paymentRoute.toToken.address,
         amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
         confirmations: 1,
-        after_block: afterBlock,
+        after_block: afterBlock.toString(),
         uuid: transaction.id,
         payload: {
           sender_id: transaction.from,
@@ -263,8 +241,8 @@ export default (props)=>{
       let payment = {
         blockchain: paymentRoute.blockchain,
         sender: account,
-        nonce: await request({ blockchain: paymentRoute.blockchain, address: account, method: 'transactionCount' }),
-        after_block: afterBlock,
+        nonce: (await request({ blockchain: paymentRoute.blockchain, address: account, method: 'transactionCount' })).toString(),
+        after_block: afterBlock.toString(),
         from_token: paymentRoute.fromToken.address,
         from_amount: paymentRoute.fromAmount.toString(),
         from_decimals: paymentRoute.fromDecimals,

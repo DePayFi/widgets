@@ -45,10 +45,10 @@ export default (props)=>{
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         id: transaction.id,
-        after_block: afterBlock,
+        after_block: afterBlock.toString(),
         blockchain: transaction.blockchain,
         sender: transaction.from,
-        nonce: transaction.nonce
+        nonce: transaction.nonce.toString()
       })
     })
     .then((response)=>{
@@ -73,7 +73,7 @@ export default (props)=>{
         identifier: JSON.stringify({
           blockchain: transaction.blockchain,
           sender: transaction.from,
-          nonce: transaction.nonce,
+          nonce: transaction.nonce.toString(),
           channel: 'TransactionChannel'
         }),
       }

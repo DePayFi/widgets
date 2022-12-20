@@ -124,13 +124,13 @@ describe('Payment Widget: fee', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "19.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: '1.0',
         fee_receiver: feeReceiver,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "0.0101",
           sender_id: fromAddress,
