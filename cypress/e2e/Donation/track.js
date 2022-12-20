@@ -169,8 +169,8 @@ describe('Donation Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": 0,
-        "after_block": 1,
+        "nonce": "0",
+        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
         "to_amount": "20000000000000000000"
       },
@@ -197,8 +197,8 @@ describe('Donation Widget: track', () => {
                   body: {
                     "blockchain": blockchain,
                     "sender": fromAddress,
-                    "nonce": 0,
-                    "after_block": 1,
+                    "nonce": "0",
+                    "after_block": "1",
                     "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
                     "to_amount": "20000000000000000000"
                   },
