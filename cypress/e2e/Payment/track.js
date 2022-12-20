@@ -155,8 +155,8 @@ describe('Payment Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": 0,
-        "after_block": 1,
+        "nonce": "0",
+        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
       matchPartialBody: true
@@ -182,8 +182,8 @@ describe('Payment Widget: track', () => {
                   body: {
                     "blockchain": blockchain,
                     "sender": fromAddress,
-                    "nonce": 0,
-                    "after_block": 1,
+                    "nonce": "0",
+                    "after_block": "1",
                     "from_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
                     "from_amount": TOKEN_A_AmountBN.toString(),
                     "from_decimals": 18,
@@ -273,8 +273,8 @@ describe('Payment Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": 0,
-        "after_block": 1,
+        "nonce": "0",
+        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
       matchPartialBody: true
@@ -372,8 +372,8 @@ describe('Payment Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": 0,
-        "after_block": 1,
+        "nonce": "0",
+        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
       matchPartialBody: true
@@ -405,8 +405,8 @@ describe('Payment Widget: track', () => {
                   body: {
                     "blockchain": blockchain,
                     "sender": fromAddress,
-                    "nonce": 0,
-                    "after_block": 1,
+                    "nonce": "0",
+                    "after_block": "1",
                     "from_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
                     "from_amount": TOKEN_A_AmountBN.toString(),
                     "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
@@ -504,8 +504,8 @@ describe('Payment Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": 0,
-        "after_block": 1,
+        "nonce": "0",
+        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
         "to_amount": "19800000000000000000",
         "fee_amount": "200000000000000000",
@@ -536,8 +536,8 @@ describe('Payment Widget: track', () => {
                   body: {
                     "blockchain": blockchain,
                     "sender": fromAddress,
-                    "nonce": 0,
-                    "after_block": 1,
+                    "nonce": "0",
+                    "after_block": "1",
                     "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
                     "to_amount": "19800000000000000000",
                     "fee_amount": "200000000000000000",
@@ -624,8 +624,8 @@ describe('Payment Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": 0,
-        "after_block": 1,
+        "nonce": "0",
+        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
       matchPartialBody: true
@@ -654,8 +654,8 @@ describe('Payment Widget: track', () => {
                   body: {
                     "blockchain": blockchain,
                     "sender": fromAddress,
-                    "nonce": 0,
-                    "after_block": 1,
+                    "nonce": "0",
+                    "after_block": "1",
                     "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
                   },
                   matchPartialBody: true
@@ -820,8 +820,8 @@ describe('Payment Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": 0,
-        "after_block": 1,
+        "nonce": "0",
+        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
       matchPartialBody: true
@@ -847,8 +847,8 @@ describe('Payment Widget: track', () => {
                   body: {
                     "blockchain": blockchain,
                     "sender": fromAddress,
-                    "nonce": 0,
-                    "after_block": 1,
+                    "nonce": "0",
+                    "after_block": "1",
                     "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
                   },
                   matchPartialBody: true
@@ -935,8 +935,8 @@ describe('Payment Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": 0,
-        "after_block": 1,
+        "nonce": "0",
+        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
       matchPartialBody: true
@@ -962,8 +962,8 @@ describe('Payment Widget: track', () => {
                   body: {
                     "blockchain": blockchain,
                     "sender": fromAddress,
-                    "nonce": 0,
-                    "after_block": 1,
+                    "nonce": "0",
+                    "after_block": "1",
                     "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
                   },
                   matchPartialBody: true
@@ -1038,7 +1038,7 @@ describe('Payment Widget: track', () => {
       },
     }, 201)
 
-    let attempt = 1
+    let attempt = 0
     fetchMock.post({
       url: "/track/payments",
       body: {
@@ -1050,7 +1050,9 @@ describe('Payment Widget: track', () => {
       overwriteRoutes: false
     }, ()=>{
       attempt += 1
-      if(attempt <= 3) {
+      if(attempt == 1) {
+        return 200 // pretrack
+      } else if(attempt <= 2) {
         return 502
       } else {
         return 200
@@ -1075,10 +1077,10 @@ describe('Payment Widget: track', () => {
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying').then(()=>{
                 expect(
                   fetchMock.calls().filter((call)=>{ return call[0] == '/track/payments' && call.response.status == 502 }).length
-                ).to.equal(2)
+                ).to.equal(1)
                 expect(
                   fetchMock.calls().filter((call)=>{ return call[0] == '/track/payments' && call.response.status == 200 }).length
-                ).to.equal(1)
+                ).to.equal(2)
                 confirm(mockedTransaction)
                 cy.wait(5000).then(()=>{
                   expect(!!websocketMessages.find((rawMessage)=>{
@@ -1154,14 +1156,14 @@ describe('Payment Widget: track', () => {
       },
     }, 201)
 
-    let attempt = 1
+    let attempt = 0
     fetchMock.post({
       url: "/track/payments",
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": 0,
-        "after_block": 1,
+        "nonce": "0",
+        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
       headers: {
@@ -1171,7 +1173,9 @@ describe('Payment Widget: track', () => {
       overwriteRoutes: false
     }, (request, second)=>{
       attempt += 1
-      if(attempt <= 3) {
+      if(attempt == 1) {
+        return 200 // pretrack
+      } else if(attempt <= 3) {
         return 502
       } else {
         return 200
@@ -1215,7 +1219,7 @@ describe('Payment Widget: track', () => {
                   cy.wait(3000).then(()=>{
                     expect(
                       fetchMock.calls().filter((call)=>{ return call[0] == '/track/payments' && call.response.status == 200 }).length
-                    ).to.equal(1)
+                    ).to.equal(2)
                     confirm(mockedTransaction)
                     cy.wait(1000).then(()=>{
                       expect(!!websocketMessages.find((rawMessage)=>{
@@ -1298,8 +1302,8 @@ describe('Payment Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": 0,
-        "after_block": 1,
+        "nonce": "0",
+        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
       matchPartialBody: true,
@@ -1312,8 +1316,8 @@ describe('Payment Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": 0,
-        "after_block": 1,
+        "nonce": "0",
+        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
       matchPartialBody: true,
@@ -1412,8 +1416,8 @@ describe('Payment Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": 0,
-        "after_block": 1,
+        "nonce": "0",
+        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
       matchPartialBody: true,
@@ -1426,8 +1430,8 @@ describe('Payment Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": 0,
-        "after_block": 1,
+        "nonce": "0",
+        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
       headers: {
@@ -1539,8 +1543,8 @@ describe('Payment Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": 0,
-        "after_block": 1,
+        "nonce": "0",
+        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
       matchPartialBody: true,
@@ -1553,8 +1557,8 @@ describe('Payment Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": 0,
-        "after_block": 1,
+        "nonce": "0",
+        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
       headers: {
