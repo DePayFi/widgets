@@ -19748,7 +19748,7 @@
                     setClosable(true);
                     setUpdatable(true);
 
-                    if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK') {
+                    if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
                       navigate('WrongNetwork');
                     }
                   });

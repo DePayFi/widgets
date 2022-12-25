@@ -75,7 +75,7 @@ export default (props)=>{
           setPaymentState('initialized')
           setClosable(true)
           setUpdatable(true)
-          if(error?.code == 'WRONG_NETWORK') {
+          if(error?.code == 'WRONG_NETWORK' || error?.code == 'NOT_SUPPORTED') {
             navigate('WrongNetwork')
           }
         })
