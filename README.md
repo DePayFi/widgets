@@ -22,6 +22,18 @@ and load the DePayWidgets package wherever you need it:
 import DePayWidgets from '@depay/widgets'
 ```
 
+Make sure you install DePay widgets peer dependencies, too, in case your project does not have them installed yet:
+
+```
+yarn add ethers react react-dom
+```
+
+```
+npm install ethers react react-dom --save
+```
+
+## Server-side rendering
+
 Make sure you load this library as a client-side script for client-side rendering (CSR), in case you are using a server-side rendering (SSR) framework like next.js.
 
 Next.js: https://dev.to/elisabethleonhardt/how-to-use-client-side-only-packages-with-ssr-in-gatsby-and-nextjs-3pfa
