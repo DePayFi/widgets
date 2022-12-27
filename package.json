@@ -48,7 +48,7 @@
     "@depay/web3-exchanges": "^11.3.3",
     "@depay/web3-payments": "^10.10.1",
     "@depay/web3-tokens": "^9.12.8",
-    "@depay/web3-wallets": "^12.4.2",
+    "@depay/web3-wallets": "^13.0.0",
     "decimal.js": "^10.3.1"
   },
   "peerDependencies": {
