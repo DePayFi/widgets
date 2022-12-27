@@ -12,7 +12,7 @@ import { Token } from '@depay/web3-tokens'
 describe('Sale Widget: unmount', () => {
 
   const blockchain = 'ethereum'
-  const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
+  const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
   const DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   const DAI = CONSTANTS[blockchain].USD
   const ETH = CONSTANTS[blockchain].NATIVE

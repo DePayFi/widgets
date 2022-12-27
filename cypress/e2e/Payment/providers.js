@@ -19,7 +19,7 @@ describe('Payment Widget: set providers', () => {
             blockchain: 'ethereum',
             amount: 20,
             token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-            receiver: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045'
+            receiver: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
           }]
         })
 
