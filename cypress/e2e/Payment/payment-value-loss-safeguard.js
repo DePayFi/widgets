@@ -15,8 +15,9 @@ import { Token } from '@depay/web3-tokens'
 describe('Payment Widget: value loss safeguard', () => {
 
   const blockchain = 'ethereum'
-  const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
+  const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
   const DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
+  const USDT = '0xdAC17F958D2ee523a2206206994597C13D831ec7'
   const DAI = CONSTANTS[blockchain].USD
   const ETH = CONSTANTS[blockchain].NATIVE
   const WETH = CONSTANTS[blockchain].WRAPPED
@@ -64,6 +65,11 @@ describe('Payment Widget: value loss safeguard', () => {
           "name": "Dai Stablecoin",
           "symbol": "DAI",
           "address": DAI,
+          "type": "20"
+        }, {
+          "name": "USDT",
+          "symbol": "USDT",
+          "address": USDT,
           "type": "20"
         }, {
           "name": "DePay",
@@ -127,10 +133,11 @@ describe('Payment Widget: value loss safeguard', () => {
     })
   })
   
-  describe('prevents payments that would lose to much value', () => {
+  describe('removes warning if switching payments', () => {
 
-    it('shows a warning and prevents payment', ()=> {
+    it('removes warning if switching payments', ()=> {
       let fromAddress = accounts[0]
+      // DAI
       mockAmountsOut({
         provider,
         blockchain,
@@ -166,6 +173,54 @@ describe('Payment Widget: value loss safeguard', () => {
           ethers.utils.parseUnits('11.6', 18)
         ]
       })
+      //USDT
+      mock({ provider, blockchain, request: { to: USDT, api: Token[blockchain].DEFAULT, method: 'balanceOf', params: fromAddress, return: '880000000000000000000' } })
+      mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [USDT, CONSTANTS[blockchain].WRAPPED], return: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852' }})
+      mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [USDT, CONSTANTS[blockchain].USD], return: CONSTANTS[blockchain].ZERO }})
+      mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [DEPAY, USDT], return: CONSTANTS[blockchain].ZERO }})
+      mock({ provider, blockchain, request: { to: "0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852", api: exchange.pair.api, method: 'getReserves', return: [ethers.utils.parseUnits('1000', 18), ethers.utils.parseUnits('1000', 18), '1629804922'] }})
+      mock({ provider, blockchain, request: { to: "0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852", api: exchange.pair.api, method: 'token0', return: USDT }})
+      mock({ provider, blockchain, request: { to: "0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852", api: exchange.pair.api, method: 'token1', return: CONSTANTS[blockchain].WRAPPED }})
+      mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [USDT, DEPAY], return: CONSTANTS[blockchain].ZERO }})
+      mock({ provider, blockchain, request: { to: USDT, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: CONSTANTS[blockchain].ZERO } })
+      mock({ provider, blockchain, request: { to: USDT, api: Token[blockchain].DEFAULT, method: 'decimals', return: 18 } })
+      mock({ provider, blockchain, request: { to: USDT, api: Token[blockchain].DEFAULT, method: 'symbol', return: 'USDT' } })
+      mock({ provider, blockchain, request: { to: USDT, api: Token[blockchain].DEFAULT, method: 'name', return: 'USDT' } })
+      mockAmountsOut({
+        provider,
+        blockchain,
+        exchange,
+        amountInBN: '11764705882352942000',
+        path: [USDT, WETH, DEPAY],
+        amountsOut: [
+          '11764705882352942000',
+          WRAPPED_AmountInBN.mul(10),
+          TOKEN_A_AmountBN.mul(10)
+        ]
+      })
+      mock({
+        provider,
+        blockchain,
+        request: {
+          to: exchange.router.address,
+          api: exchange.router.api,
+          method: 'getAmountsIn',
+          params: [ethers.utils.parseUnits('18', 18), [USDT, WETH, DEPAY]],
+          return: [ethers.utils.parseUnits('18', 18), ethers.utils.parseUnits('0.05', 18), ethers.utils.parseUnits('11.6', 18)]
+        }
+      })
+      mockAmountsOut({
+        provider,
+        blockchain,
+        exchange,
+        amountInBN: ethers.utils.parseUnits('18', 18),
+        path: [DEPAY, WETH, USDT],
+        amountsOut: [
+          ethers.utils.parseUnits('18', 18),
+          ethers.utils.parseUnits('0.05', 18),
+          ethers.utils.parseUnits('11.7647', 18)
+        ]
+      })
 
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
@@ -174,9 +229,16 @@ describe('Payment Widget: value loss safeguard', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input[name="amount"]').type('{selectall}', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('10', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', "Payment token would lose 36% of it's value!").should('exist')
-          cy.wait(1000).then(()=>{
+          cy.wait(3000).then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', "Payment token would lose 36% of it's value!").should('exist')
             cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).should('exist')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
+            cy.wait(2000).then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select USDT as payment"]').click()
+              cy.wait(2000).then(()=>{
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', "Payment token would lose 36% of it's value!").should('not.exist')
+              })
+            })
           })
         })
       })

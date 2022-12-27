@@ -87,7 +87,7 @@ export default ({
   }, { status: 201 })
 
   fetchMock.get({
-    url: `https://public.depay.com/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
+    url: `https://public.depay.com/transactions/${blockchain}/${fromAddress}/0`,
     overwriteRoutes: true
   }, { status: 404 })
 

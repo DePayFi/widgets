@@ -3,23 +3,51 @@ import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import Checkmark from '../components/Checkmark'
 import ClosableContext from '../contexts/ClosableContext'
 import DigitalWalletIcon from '../components/DigitalWalletIcon'
+import etaForConfirmations from '../helpers/etaForConfirmations'
 import LoadingText from '../components/LoadingText'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default ()=>{
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
-  const { synchronousTracking, asynchronousTracking, trackingInitialized, release, forwardTo } = useContext(PaymentTrackingContext)
+  const { synchronousTracking, asynchronousTracking, trackingInitialized, release, forwardTo, confirmationsRequired, confirmationsPassed } = useContext(PaymentTrackingContext)
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
   const { paymentValue, displayedPaymentValue, paymentValueLoss } = useContext(PaymentValueContext)
   const { updatedRouteWithNewPrice, updateRouteWithNewPrice } = useContext(PaymentRoutingContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
+  const [ secondsLeft, setSecondsLeft ] = useState()
+  const [ secondsLeftCountdown, setSecondsLeftCountdown ] = useState(0)
+
+  useEffect(()=>{
+    if(confirmationsRequired) {
+      let interval = setInterval(()=>{
+        setSecondsLeftCountdown(secondsLeftCountdown+1)
+      }, 1000)
+      return ()=>{ clearInterval(interval) }
+    }
+  }, [confirmationsRequired, secondsLeftCountdown])
+
+
+  useEffect(()=>{
+    if(confirmationsPassed) {
+      setSecondsLeft(
+        etaForConfirmations(payment.blockchain, confirmationsRequired, confirmationsPassed)
+        - secondsLeftCountdown
+      )
+    }
+  }, [confirmationsPassed, secondsLeftCountdown])
+
+  useEffect(()=>{
+    if(confirmationsPassed) {
+      setSecondsLeftCountdown(0)
+    }
+  }, [confirmationsPassed])
 
   const trackingInfo = ()=> {
     if((synchronousTracking == false && asynchronousTracking == false) || (asynchronousTracking && trackingInitialized)) {
@@ -75,6 +103,9 @@ export default ()=>{
               <div className="CardBodyWrapper">
                 <div className="Opacity05">
                   Validating payment
+                  { confirmationsRequired && secondsLeft > 0 &&
+                    <span title={`${confirmationsPassed}/${confirmationsRequired} required confirmations`}> { secondsLeft }s</span>
+                  }
                 </div>
               </div>
             </div>
@@ -134,7 +165,7 @@ export default ()=>{
       return(null)
     } else if(paymentState == 'initialized') {
       return(
-        <div className="PaddingBottomS">
+        <div className="PaddingBottomXS">
           <button className="ButtonPrimary" onClick={ approve } title={`Allow ${payment.symbol} to be used as payment`}>
             Allow { payment.symbol } to be used as payment
           </button>

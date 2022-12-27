@@ -19336,7 +19336,7 @@ var ChangableAmountProvider = (function (props) {
       } else {
         Promise.all(props.accept.map(function (configuration) {
           if (fixedAmount) {
-            if (CONSTANTS[configuration.blockchain].USD.toLowerCase() == configuration.token.toLowerCase()) {
+            if (CONSTANTS[configuration.blockchain].USD == configuration.token) {
               return 1.00 / fixedCurrencyConversionRate * fixedAmount;
             } else {
               return route({
@@ -19349,7 +19349,7 @@ var ChangableAmountProvider = (function (props) {
               });
             }
           } else {
-            if (CONSTANTS[configuration.blockchain].USD.toLowerCase() == configuration.token.toLowerCase()) {
+            if (CONSTANTS[configuration.blockchain].USD == configuration.token) {
               return 1.00 / conversionRate * amount;
             } else {
               return route({
@@ -19643,7 +19643,8 @@ var PaymentProvider = (function (props) {
       synchronousTracking = _useContext9.synchronousTracking,
       asynchronousTracking = _useContext9.asynchronousTracking,
       trackingInitialized = _useContext9.trackingInitialized,
-      initializePaymentTracking = _useContext9.initializeTracking;
+      initializePaymentTracking = _useContext9.initializeTracking,
+      preTrack = _useContext9.preTrack;
 
   var _useContext10 = useContext(TransactionTrackingContext),
       foundTransaction = _useContext10.foundTransaction,
@@ -19731,31 +19732,40 @@ var PaymentProvider = (function (props) {
 
             case 11:
               currentBlock = _context.sent;
-              wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
-                sent: function sent(transaction) {
-                  initializeTransactionTracking(transaction, currentBlock);
+              _context.next = 14;
+              return preTrack(currentBlock, payment.route).then(function () {
+                wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
+                  sent: function sent(transaction) {
+                    initializeTransactionTracking(transaction, currentBlock);
 
-                  if (_sent) {
-                    _sent(transaction);
+                    if (_sent) {
+                      _sent(transaction);
+                    }
+                  },
+                  succeeded: paymentSucceeded,
+                  failed: paymentFailed
+                })).then(function (sentTransaction) {
+                  setTransaction(sentTransaction);
+                  initializePaymentTracking(sentTransaction, currentBlock, payment.route);
+                })["catch"](function (error) {
+                  console.log('error', error);
+                  setPaymentState('initialized');
+                  setClosable(true);
+                  setUpdatable(true);
+
+                  if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
+                    navigate('WrongNetwork');
                   }
-                },
-                succeeded: paymentSucceeded,
-                failed: paymentFailed
-              })).then(function (sentTransaction) {
-                setTransaction(sentTransaction);
-                initializePaymentTracking(sentTransaction, currentBlock, payment.route);
-              })["catch"](function (error) {
-                console.log('error', error);
+                });
+              })["catch"](function (e) {
+                console.log(e);
                 setPaymentState('initialized');
                 setClosable(true);
                 setUpdatable(true);
-
-                if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK') {
-                  navigate('WrongNetwork');
-                }
+                navigate('PreTrackingFailed');
               });
 
-            case 13:
+            case 14:
             case "end":
               return _context.stop();
           }
@@ -19834,7 +19844,7 @@ var PaymentProvider = (function (props) {
     if (foundTransaction && foundTransaction.id && foundTransaction.status) {
       var newTransaction;
 
-      if (foundTransaction.id.toLowerCase() != transaction.id.toLowerCase()) {
+      if (foundTransaction.id != transaction.id) {
         newTransaction = Object.assign({}, transaction, {
           id: foundTransaction.id,
           url: Blockchain.findByName(transaction.blockchain).explorerUrlFor({
@@ -19947,14 +19957,13 @@ var routePayments = (function (_ref) {
       account = _ref.account,
       whitelist = _ref.whitelist,
       blacklist = _ref.blacklist,
-      event = _ref.event,
       fee = _ref.fee;
   return route$1({
     accept: accept.map(prepareAcceptedPayments),
     from: mergeFromAccounts(accept, account),
     whitelist: whitelist,
     blacklist: blacklist,
-    event: event,
+    event: 'ifRoutedAndNative',
     fee: fee
   });
 });
@@ -20265,6 +20274,7 @@ var PaymentValueProvider = (function (props) {
       return;
     }
 
+    setPaymentValueLoss(null);
     Promise.all([route({
       blockchain: payment.route.blockchain,
       tokenIn: payment.route.fromToken.address,
@@ -20305,7 +20315,7 @@ var PaymentValueProvider = (function (props) {
 
       var fromTokenUSDAmount;
 
-      if (payment.route.fromToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+      if (payment.route.fromToken.address == CONSTANTS[payment.route.blockchain].USD) {
         fromTokenUSDAmount = payment.route.fromAmount.toString();
       } else if (fromTokenUSDRoute == undefined) {
         setPaymentValue('');
@@ -20757,6 +20767,16 @@ var DigitalWalletIcon = (function (props) {
   }));
 });
 
+var blockTimes = {
+  // in seconds
+  ethereum: 13,
+  bsc: 4,
+  polygon: 3
+};
+var etaForConfirmations = (function (blockchain, confirmationsRequired, confirmationsPassed) {
+  return (confirmationsRequired - confirmationsPassed) * blockTimes[blockchain];
+});
+
 var LoadingText = (function (props) {
   return /*#__PURE__*/React.createElement("div", {
     className: "LoadingText"
@@ -20779,7 +20799,9 @@ var Footer = (function () {
       asynchronousTracking = _useContext2.asynchronousTracking,
       trackingInitialized = _useContext2.trackingInitialized,
       release = _useContext2.release,
-      forwardTo = _useContext2.forwardTo;
+      forwardTo = _useContext2.forwardTo,
+      confirmationsRequired = _useContext2.confirmationsRequired,
+      confirmationsPassed = _useContext2.confirmationsPassed;
 
   var _useContext3 = useContext(PaymentContext),
       payment = _useContext3.payment,
@@ -20803,6 +20825,37 @@ var Footer = (function () {
 
   var _useContext7 = useContext(ClosableContext),
       close = _useContext7.close;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      secondsLeft = _useState2[0],
+      setSecondsLeft = _useState2[1];
+
+  var _useState3 = useState(0),
+      _useState4 = _slicedToArray(_useState3, 2),
+      secondsLeftCountdown = _useState4[0],
+      setSecondsLeftCountdown = _useState4[1];
+
+  useEffect(function () {
+    if (confirmationsRequired) {
+      var interval = setInterval(function () {
+        setSecondsLeftCountdown(secondsLeftCountdown + 1);
+      }, 1000);
+      return function () {
+        clearInterval(interval);
+      };
+    }
+  }, [confirmationsRequired, secondsLeftCountdown]);
+  useEffect(function () {
+    if (confirmationsPassed) {
+      setSecondsLeft(etaForConfirmations(payment.blockchain, confirmationsRequired, confirmationsPassed) - secondsLeftCountdown);
+    }
+  }, [confirmationsPassed, secondsLeftCountdown]);
+  useEffect(function () {
+    if (confirmationsPassed) {
+      setSecondsLeftCountdown(0);
+    }
+  }, [confirmationsPassed]);
 
   var trackingInfo = function trackingInfo() {
     if (synchronousTracking == false && asynchronousTracking == false || asynchronousTracking && trackingInitialized) {
@@ -20854,7 +20907,9 @@ var Footer = (function () {
         className: "CardBodyWrapper"
       }, /*#__PURE__*/React.createElement("div", {
         className: "Opacity05"
-      }, "Validating payment")))));
+      }, "Validating payment", confirmationsRequired && secondsLeft > 0 && /*#__PURE__*/React.createElement("span", {
+        title: "".concat(confirmationsPassed, "/").concat(confirmationsRequired, " required confirmations")
+      }, " ", secondsLeft, "s"))))));
     }
   };
 
@@ -20907,7 +20962,7 @@ var Footer = (function () {
       return null;
     } else if (paymentState == 'initialized') {
       return /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
+        className: "PaddingBottomXS"
       }, /*#__PURE__*/React.createElement("button", {
         className: "ButtonPrimary",
         onClick: approve,
@@ -21252,6 +21307,10 @@ var PaymentTrackingProvider = (function (props) {
       link = _useContext2.link,
       type = _useContext2.type;
 
+  var _useContext3 = useContext(WalletContext),
+      account = _useContext3.account;
+      _useContext3.wallet;
+
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
       transaction = _useState2[0],
@@ -21259,47 +21318,62 @@ var PaymentTrackingProvider = (function (props) {
 
   var _useState3 = useState(),
       _useState4 = _slicedToArray(_useState3, 2),
-      afterBlock = _useState4[0],
-      setAfterBlock = _useState4[1];
+      confirmationsRequired = _useState4[0],
+      setConfirmationsRequired = _useState4[1];
 
   var _useState5 = useState(),
       _useState6 = _slicedToArray(_useState5, 2),
-      paymentRoute = _useState6[0],
-      setPaymentRoute = _useState6[1];
+      confirmationsPassed = _useState6[0],
+      setConfirmationsPassed = _useState6[1];
 
-  var _useState7 = useState(false),
+  var _useState7 = useState(),
       _useState8 = _slicedToArray(_useState7, 2),
-      trackingInitialized = _useState8[0],
-      setTrackingInitialized = _useState8[1];
+      afterBlock = _useState8[0],
+      setAfterBlock = _useState8[1];
 
-  var _useState9 = useState(!!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
-      _useState10 = _slicedToArray(_useState9, 1),
-      synchronousTracking = _useState10[0];
+  var _useState9 = useState(),
+      _useState10 = _slicedToArray(_useState9, 2);
+      _useState10[0];
+      _useState10[1];
 
-  var _useState11 = useState(!!(track && track.async == true)),
-      _useState12 = _slicedToArray(_useState11, 1),
-      asynchronousTracking = _useState12[0];
+  var _useState11 = useState(),
+      _useState12 = _slicedToArray(_useState11, 2),
+      paymentRoute = _useState12[0],
+      setPaymentRoute = _useState12[1];
 
-  var _useState13 = useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
-      _useState14 = _slicedToArray(_useState13, 1),
-      polling = _useState14[0];
+  var _useState13 = useState(false),
+      _useState14 = _slicedToArray(_useState13, 2),
+      trackingInitialized = _useState14[0],
+      setTrackingInitialized = _useState14[1];
 
-  var _useState15 = useState(false),
-      _useState16 = _slicedToArray(_useState15, 2),
-      release = _useState16[0],
-      setRelease = _useState16[1];
+  var _useState15 = useState(!!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
+      _useState16 = _slicedToArray(_useState15, 1),
+      synchronousTracking = _useState16[0];
 
-  var _useState17 = useState(),
-      _useState18 = _slicedToArray(_useState17, 2),
-      forwardTo = _useState18[0],
-      setForwardTo = _useState18[1];
+  var _useState17 = useState(!!(track && track.async == true)),
+      _useState18 = _slicedToArray(_useState17, 1),
+      asynchronousTracking = _useState18[0];
 
-  var _useContext3 = useContext(ClosableContext),
-      setClosable = _useContext3.setClosable;
+  var _useState19 = useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+      _useState20 = _slicedToArray(_useState19, 1),
+      polling = _useState20[0];
 
-  var _useContext4 = useContext(NavigateContext),
-      navigate = _useContext4.navigate;
-      _useContext4.set;
+  var _useState21 = useState(false),
+      _useState22 = _slicedToArray(_useState21, 2),
+      release = _useState22[0],
+      setRelease = _useState22[1];
+
+  var _useState23 = useState(),
+      _useState24 = _slicedToArray(_useState23, 2),
+      forwardTo = _useState24[0],
+      setForwardTo = _useState24[1];
+
+  var _useContext4 = useContext(ClosableContext),
+      setClosable = _useContext4.setClosable;
+
+  var _useContext5 = useContext(NavigateContext),
+      navigate = _useContext5.navigate;
+      _useContext5.set;
 
   var openSocket = function openSocket(transaction) {
     var socket = new WebSocket('wss://integrate.depay.com/cable');
@@ -21309,15 +21383,19 @@ var PaymentTrackingProvider = (function (props) {
         command: 'subscribe',
         identifier: JSON.stringify({
           blockchain: transaction.blockchain,
-          sender: transaction.from.toLowerCase(),
-          nonce: transaction.nonce,
+          sender: transaction.from,
+          nonce: transaction.nonce.toString(),
           channel: 'PaymentChannel'
         })
       };
       socket.send(JSON.stringify(msg));
     };
 
-    socket.onclose = function (event) {};
+    socket.onclose = function (event) {
+      if (!event || event.code != 1000) {
+        openSocket(transaction);
+      }
+    };
 
     socket.onmessage = function (event) {
       var item = JSON.parse(event.data);
@@ -21334,13 +21412,16 @@ var PaymentTrackingProvider = (function (props) {
         setRelease(true);
         setClosable(!item.message.forward_to);
         setForwardTo(item.message.forward_to);
-        socket.close();
+        socket.close(1000);
 
         if (!!item.message.forward_to) {
           setTimeout(function () {
             props.document.location.href = item.message.forward_to;
           }, 200);
         }
+      } else if (item.message.confirmations) {
+        setConfirmationsRequired(item.message.confirmations.required);
+        setConfirmationsPassed(item.message.confirmations.passed);
       }
     };
 
@@ -21392,10 +21473,10 @@ var PaymentTrackingProvider = (function (props) {
 
     callTracking({
       blockchain: transaction.blockchain,
-      transaction: transaction.id.toLowerCase(),
-      sender: transaction.from.toLowerCase(),
-      nonce: transaction.nonce,
-      after_block: afterBlock,
+      transaction: transaction.id,
+      sender: transaction.from,
+      nonce: transaction.nonce.toString(),
+      after_block: afterBlock.toString(),
       from_token: paymentRoute.fromToken.address,
       from_amount: paymentRoute.fromAmount.toString(),
       from_decimals: paymentRoute.fromDecimals,
@@ -21419,10 +21500,10 @@ var PaymentTrackingProvider = (function (props) {
 
     var payment = {
       blockchain: transaction.blockchain,
-      transaction: transaction.id.toLowerCase(),
-      sender: transaction.from.toLowerCase(),
-      nonce: transaction.nonce,
-      after_block: afterBlock,
+      transaction: transaction.id,
+      sender: transaction.from,
+      nonce: transaction.nonce.toString(),
+      after_block: afterBlock.toString(),
       to_token: paymentRoute.toToken.address
     };
 
@@ -21489,16 +21570,16 @@ var PaymentTrackingProvider = (function (props) {
       body: JSON.stringify({
         blockchain: transaction.blockchain,
         transaction: transaction.id,
-        sender: transaction.from.toLowerCase(),
-        nonce: transaction.nonce,
+        sender: transaction.from,
+        nonce: transaction.nonce.toString(),
         receiver: paymentRoute.toAddress,
         token: paymentRoute.toToken.address,
         amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
         confirmations: 1,
-        after_block: afterBlock,
+        after_block: afterBlock.toString(),
         uuid: transaction.id,
         payload: {
-          sender_id: transaction.from.toLowerCase(),
+          sender_id: transaction.from,
           sender_token_id: paymentRoute.fromToken.address,
           sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
           integration: integration,
@@ -21538,15 +21619,106 @@ var PaymentTrackingProvider = (function (props) {
     openSocket(transaction);
   };
 
+  var preTrack = function preTrack(afterBlock, paymentRoute) {
+    if (!synchronousTracking && !asynchronousTracking) {
+      return Promise.resolve();
+    }
+
+    return new Promise( /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(resolve, reject) {
+        var _paymentRoute$feeAmou2;
+
+        var payment;
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.t0 = paymentRoute.blockchain;
+                _context.t1 = account;
+                _context.next = 4;
+                return request({
+                  blockchain: paymentRoute.blockchain,
+                  address: account,
+                  method: 'transactionCount'
+                });
+
+              case 4:
+                _context.t2 = _context.sent.toString();
+                _context.t3 = afterBlock.toString();
+                _context.t4 = paymentRoute.fromToken.address;
+                _context.t5 = paymentRoute.fromAmount.toString();
+                _context.t6 = paymentRoute.fromDecimals;
+                _context.t7 = paymentRoute.toToken.address;
+                _context.t8 = paymentRoute.toAmount.toString();
+                _context.t9 = paymentRoute.toDecimals;
+                _context.t10 = paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou2 = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou2 === void 0 ? void 0 : _paymentRoute$feeAmou2.toString();
+                payment = {
+                  blockchain: _context.t0,
+                  sender: _context.t1,
+                  nonce: _context.t2,
+                  after_block: _context.t3,
+                  from_token: _context.t4,
+                  from_amount: _context.t5,
+                  from_decimals: _context.t6,
+                  to_token: _context.t7,
+                  to_amount: _context.t8,
+                  to_decimals: _context.t9,
+                  fee_amount: _context.t10
+                };
+
+                if (!track.endpoint) {
+                  _context.next = 18;
+                  break;
+                }
+
+                return _context.abrupt("return", fetch(track.endpoint, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(payment)
+                }).then(function (response) {
+                  if (response.status == 200 || response.status == 201) {
+                    console.log('PAYMENT PRETRACKING INITIALIZED');
+                    return resolve();
+                  } else {
+                    return reject('PRETRACKING REQUEST FAILED');
+                  }
+                }));
+
+              case 18:
+                if (track.method) {
+                  track.method(payment).then(resolve)["catch"](reject);
+                } else {
+                  reject('No tracking defined!');
+                }
+
+              case 19:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x, _x2) {
+        return _ref.apply(this, arguments);
+      };
+    }());
+  };
+
   return /*#__PURE__*/React.createElement(PaymentTrackingContext.Provider, {
     value: {
       synchronousTracking: synchronousTracking,
       asynchronousTracking: asynchronousTracking,
       initializeTracking: initializeTracking,
+      preTrack: preTrack,
       trackingInitialized: trackingInitialized,
       continueTryTracking: continueTryTracking,
       release: release,
-      forwardTo: forwardTo
+      forwardTo: forwardTo,
+      confirmationsRequired: confirmationsRequired,
+      confirmationsPassed: confirmationsPassed
     }
   }, props.children);
 });
@@ -21576,7 +21748,7 @@ var TransactionTrackingProvider = (function (props) {
   useEffect(function () {
     if (polling) {
       var poll = function poll() {
-        fetch("https://public.depay.com/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from.toLowerCase(), "/").concat(givenTransaction.nonce)).then(function (response) {
+        fetch("https://public.depay.com/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from, "/").concat(givenTransaction.nonce)).then(function (response) {
           if (response.status == 200) {
             response.json().then(function (data) {
               if (data.status != 'pending') {
@@ -21612,10 +21784,10 @@ var TransactionTrackingProvider = (function (props) {
       },
       body: JSON.stringify({
         id: transaction.id,
-        after_block: afterBlock,
+        after_block: afterBlock.toString(),
         blockchain: transaction.blockchain,
-        sender: transaction.from.toLowerCase(),
-        nonce: transaction.nonce
+        sender: transaction.from,
+        nonce: transaction.nonce.toString()
       })
     }).then(function (response) {
       if (response.status == 200 || response.status == 201) {
@@ -21642,15 +21814,19 @@ var TransactionTrackingProvider = (function (props) {
         command: 'subscribe',
         identifier: JSON.stringify({
           blockchain: transaction.blockchain,
-          sender: transaction.from.toLowerCase(),
-          nonce: transaction.nonce,
+          sender: transaction.from,
+          nonce: transaction.nonce.toString(),
           channel: 'TransactionChannel'
         })
       };
       socket.send(JSON.stringify(msg));
     };
 
-    socket.onclose = function (event) {};
+    socket.onclose = function (event) {
+      if (!event || event.code != 1000) {
+        openSocket(transaction);
+      }
+    };
 
     socket.onmessage = function (event) {
       var item = JSON.parse(event.data);
@@ -21661,6 +21837,7 @@ var TransactionTrackingProvider = (function (props) {
 
       if (item.message && item.message.status && item.message.status != 'pending') {
         setFoundTransaction(item.message);
+        socket.close(1000);
       }
     };
 
@@ -22242,6 +22419,47 @@ var PaymentOverviewDialog = (function (props) {
   });
 });
 
+var PreTrackingFailedDialog = (function () {
+  var _useContext = useContext(PaymentContext);
+      _useContext.transaction;
+
+  var _useContext2 = useContext(NavigateStackContext),
+      navigate = _useContext2.navigate;
+
+  var tryAgain = function tryAgain() {
+    navigate('back');
+  };
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    stacked: false,
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "GraphicWrapper"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "Graphic",
+      src: ErrorGraphic
+    })), /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+    }, "Tracking payment failed"), /*#__PURE__*/React.createElement("div", {
+      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/React.createElement("strong", {
+      className: "FontSizeM"
+    }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS"
+    }, /*#__PURE__*/React.createElement("span", null, "If this keeps happening, please report it.")))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: tryAgain
+    }, "Try again"))
+  });
+});
+
 var TrackingFailedDialog = (function () {
   var _useContext = useContext(PaymentTrackingContext),
       continueTryTracking = _useContext.continueTryTracking;
@@ -22308,7 +22526,8 @@ var PaymentStack = (function (props) {
       ChangePayment: /*#__PURE__*/React.createElement(ChangePaymentDialog, null),
       PaymentFailed: /*#__PURE__*/React.createElement(PaymentFailedDialog, null),
       WrongNetwork: /*#__PURE__*/React.createElement(WrongNetworkDialog, null),
-      TrackingFailed: /*#__PURE__*/React.createElement(TrackingFailedDialog, null)
+      TrackingFailed: /*#__PURE__*/React.createElement(TrackingFailedDialog, null),
+      PreTrackingFailed: /*#__PURE__*/React.createElement(PreTrackingFailedDialog, null)
     }
   });
 });
@@ -22367,12 +22586,12 @@ var preflight$1 = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, amount, event, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, link, container, before, document, unmount;
+    var accept, amount, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, link, container, before, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            accept = _ref3.accept, amount = _ref3.amount, event = _ref3.event, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, before = _ref3.before, document = _ref3.document;
+            accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, before = _ref3.before, document = _ref3.document;
             requireReactVersion();
             _context2.prev = 2;
             _context2.next = 5;
@@ -22471,15 +22690,14 @@ Payment.preload = function (_ref5) {
   var account = _ref5.account,
       accept = _ref5.accept,
       whitelist = _ref5.whitelist,
-      blacklist = _ref5.blacklist,
-      event = _ref5.event,
-      fee = _ref5.fee;
+      blacklist = _ref5.blacklist;
+      _ref5.event;
+      var fee = _ref5.fee;
   routePayments({
     account: account,
     accept: accept,
     whitelist: whitelist,
     blacklist: blacklist,
-    event: event,
     fee: fee
   });
 };
@@ -23250,7 +23468,7 @@ var SelectTokenDialog = (function (props) {
 
   var select = function select(token) {
     if (blockchain.tokens.find(function (majorToken) {
-      return majorToken.address.toLowerCase() == (token.address || token.external_id).toLowerCase();
+      return majorToken.address == (token.address || token.external_id);
     })) {
       setOpen(false);
       props.resolve({

@@ -22,6 +22,18 @@ and load the DePayWidgets package wherever you need it:
 import DePayWidgets from '@depay/widgets'
 ```
 
+Make sure you install DePay widgets peer dependencies, too, in case your project does not have them installed yet:
+
+```
+yarn add ethers react react-dom
+```
+
+```
+npm install ethers react react-dom --save
+```
+
+## Server-side rendering
+
 Make sure you load this library as a client-side script for client-side rendering (CSR), in case you are using a server-side rendering (SSR) framework like next.js.
 
 Next.js: https://dev.to/elisabethleonhardt/how-to-use-client-side-only-packages-with-ssr-in-gatsby-and-nextjs-3pfa
@@ -490,7 +502,7 @@ Allows you to stop the payment if this methods returns false.
 ```javascript
 DePayWidgets.Payment({
 
-  before: (payment)=> {
+  before: async (payment)=> {
     alert('Something went wrong')
     return false // stops payment
   }
@@ -684,22 +696,6 @@ DePayWidgets.Payment({
       '0x12e34cdf6a031a10fe241864c32fb03a4fdad739' // FREE
     ]
   }
-})
-```
-
-#### event
-
-`event`
-
-If set to `ifSwapped`, emits a [payment event](https://github.com/depayfi/depay-evm-router#depayrouterv1paymentevent02) if payments are routed through [router smart contract](https://github.com/depayfi/depay-evm-router).
-Payments are routed through the DePayPaymentRouter if swapping tokens is required in order to perform the payment. If payments are not routed through the router, e.g. direct transfer, no event is emited if `event` is set to `ifSwapped`.
-
-
-```javascript
-DePayWidgets.Payment({
-  
-  event: 'ifSwapped'
-
 })
 ```
 
@@ -1974,5 +1970,5 @@ test:cypress:debug
 Test and debug single cypress file:
 
 ```
-yarn test:cypress:debug --spec "cypress/e2e/Payment/amount.js"
+yarn test:cypress:debug --spec "cypress/e2e/Payment/track.js"
 ```

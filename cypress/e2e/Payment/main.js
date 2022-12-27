@@ -118,21 +118,21 @@ describe('Payment Widget: main functionality', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -182,23 +182,23 @@ describe('Payment Widget: main functionality', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           integration: '123',
           link: '456',
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,

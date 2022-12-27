@@ -143,21 +143,21 @@ describe('Donation Widget: track', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'donation'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -168,9 +168,9 @@ describe('Donation Widget: track', () => {
       url: "/track/payments",
       body: {
         "blockchain": blockchain,
-        "sender": fromAddress.toLowerCase(),
-        "nonce": 0,
-        "after_block": 1,
+        "sender": fromAddress,
+        "nonce": "0",
+        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
         "to_amount": "20000000000000000000"
       },
@@ -196,9 +196,9 @@ describe('Donation Widget: track', () => {
                 fetchMock.called('/track/payments', {
                   body: {
                     "blockchain": blockchain,
-                    "sender": fromAddress.toLowerCase(),
-                    "nonce": 0,
-                    "after_block": 1,
+                    "sender": fromAddress,
+                    "nonce": "0",
+                    "after_block": "1",
                     "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
                     "to_amount": "20000000000000000000"
                   },
@@ -211,7 +211,7 @@ describe('Donation Widget: track', () => {
                   let message = JSON.parse(rawMessage)
                   return(
                     message.command == 'subscribe' &&
-                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: 0, channel: 'PaymentChannel' })
+                    message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: "0", channel: 'PaymentChannel' })
                   )
                 })).to.equal(true)
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{

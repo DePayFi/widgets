@@ -28,6 +28,7 @@ export default (props)=>{
   
   const updatePaymentValue = ({ updatable, payment })=>{
     if(updatable == false || payment?.route == undefined) { return }
+    setPaymentValueLoss(null)
     Promise.all([
       route({
         blockchain: payment.route.blockchain,
@@ -62,7 +63,7 @@ export default (props)=>{
       }
 
       let fromTokenUSDAmount
-      if(payment.route.fromToken.address.toLowerCase() == CONSTANTS[payment.route.blockchain].USD.toLowerCase()) {
+      if(payment.route.fromToken.address == CONSTANTS[payment.route.blockchain].USD) {
         fromTokenUSDAmount = payment.route.fromAmount.toString()
       } else if (fromTokenUSDRoute == undefined) {
         setPaymentValue('')

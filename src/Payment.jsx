@@ -33,7 +33,6 @@ let preflight = async({ accept, recover }) => {
 let Payment = async ({
   accept,
   amount,
-  event,
   sent,
   succeeded,
   validated,
@@ -103,6 +102,6 @@ let Payment = async ({
   }
 }
 
-Payment.preload = ({ account, accept, whitelist, blacklist, event, fee }) => { routePayments({ account, accept, whitelist, blacklist, event, fee }) }
+Payment.preload = ({ account, accept, whitelist, blacklist, event, fee }) => { routePayments({ account, accept, whitelist, blacklist, fee }) }
 
 export default Payment

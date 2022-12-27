@@ -14,7 +14,7 @@ export default (props)=>{
   useEffect(()=>{
     if(polling) {
       let poll = ()=> {
-        fetch(`https://public.depay.com/transactions/${givenTransaction.blockchain}/${givenTransaction.from.toLowerCase()}/${givenTransaction.nonce}`)
+        fetch(`https://public.depay.com/transactions/${givenTransaction.blockchain}/${givenTransaction.from}/${givenTransaction.nonce}`)
           .then((response)=>{
             if(response.status == 200) {
               response.json().then((data)=>{
@@ -45,10 +45,10 @@ export default (props)=>{
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         id: transaction.id,
-        after_block: afterBlock,
+        after_block: afterBlock.toString(),
         blockchain: transaction.blockchain,
-        sender: transaction.from.toLowerCase(),
-        nonce: transaction.nonce
+        sender: transaction.from,
+        nonce: transaction.nonce.toString()
       })
     })
     .then((response)=>{
@@ -72,21 +72,26 @@ export default (props)=>{
         command: 'subscribe',
         identifier: JSON.stringify({
           blockchain: transaction.blockchain,
-          sender: transaction.from.toLowerCase(),
-          nonce: transaction.nonce,
+          sender: transaction.from,
+          nonce: transaction.nonce.toString(),
           channel: 'TransactionChannel'
         }),
       }
       socket.send(JSON.stringify(msg))
     }
     
-    socket.onclose = function(event) {}
+    socket.onclose = function(event) {
+      if(!event || event.code != 1000) {
+        openSocket(transaction)
+      }
+    }
 
     socket.onmessage = function(event) {
       const item = JSON.parse(event.data)
       if(item.type === "ping") { return }
       if(item.message && item.message.status && item.message.status != 'pending') {
         setFoundTransaction(item.message)
+        socket.close(1000)
       }
     }
     

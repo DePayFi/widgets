@@ -24,7 +24,7 @@ export default (props)=>{
   const { setUpdatable } = useContext(UpdatableContext)
   const { navigate, set } = useContext(NavigateContext)
   const { wallet } = useContext(WalletContext)
-  const { release, synchronousTracking, asynchronousTracking, trackingInitialized, initializeTracking: initializePaymentTracking } = useContext(PaymentTrackingContext)
+  const { release, synchronousTracking, asynchronousTracking, trackingInitialized, initializeTracking: initializePaymentTracking, preTrack } = useContext(PaymentTrackingContext)
   const { foundTransaction, initializeTracking: initializeTransactionTracking } = useContext(TransactionTrackingContext)
   const [ payment, setPayment ] = useState()
   const [ transaction, setTransaction ] = useState()
@@ -57,27 +57,35 @@ export default (props)=>{
     setPaymentState('paying')
     setUpdatable(false)
     let currentBlock = await request({ blockchain: payment.route.transaction.blockchain, method: 'latestBlockNumber' })
-    wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
-      sent: (transaction)=>{
-        initializeTransactionTracking(transaction, currentBlock)
-        if(sent) { sent(transaction) }
-      },
-      succeeded: paymentSucceeded,
-      failed: paymentFailed
-    }))
-      .then((sentTransaction)=>{
-        setTransaction(sentTransaction)
-        initializePaymentTracking(sentTransaction, currentBlock, payment.route)
-      })
-      .catch((error)=>{
-        console.log('error', error)
-        setPaymentState('initialized')
-        setClosable(true)
-        setUpdatable(true)
-        if(error?.code == 'WRONG_NETWORK') {
-          navigate('WrongNetwork')
-        }
-      })
+    await preTrack(currentBlock, payment.route).then(()=>{
+      wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
+        sent: (transaction)=>{
+          initializeTransactionTracking(transaction, currentBlock)
+          if(sent) { sent(transaction) }
+        },
+        succeeded: paymentSucceeded,
+        failed: paymentFailed
+      }))
+        .then((sentTransaction)=>{
+          setTransaction(sentTransaction)
+          initializePaymentTracking(sentTransaction, currentBlock, payment.route)
+        })
+        .catch((error)=>{
+          console.log('error', error)
+          setPaymentState('initialized')
+          setClosable(true)
+          setUpdatable(true)
+          if(error?.code == 'WRONG_NETWORK' || error?.code == 'NOT_SUPPORTED') {
+            navigate('WrongNetwork')
+          }
+        })
+    }).catch((e)=>{
+      console.log(e)
+      setPaymentState('initialized')
+      setClosable(true)
+      setUpdatable(true)
+      navigate('PreTrackingFailed')
+    })
   }
 
   const approve = ()=> {
@@ -142,7 +150,7 @@ export default (props)=>{
   useEffect(()=>{
     if(foundTransaction && foundTransaction.id && foundTransaction.status) {
       let newTransaction
-      if(foundTransaction.id.toLowerCase() != transaction.id.toLowerCase()) {
+      if(foundTransaction.id != transaction.id) {
         newTransaction = Object.assign({}, transaction, { 
           id: foundTransaction.id,
           url: Blockchain.findByName(transaction.blockchain).explorerUrlFor({ transaction: foundTransaction })

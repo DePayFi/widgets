@@ -12,7 +12,7 @@ import { Token } from '@depay/web3-tokens'
 describe('Payment Widget: insufficient balance', () => {
 
   const blockchain = 'ethereum'
-  const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
+  const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
   const fromAddress = accounts[0]
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   const TOKEN = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'

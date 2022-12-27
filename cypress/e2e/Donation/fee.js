@@ -13,7 +13,7 @@ import { Token } from '@depay/web3-tokens'
 describe('Payment Widget: fee', () => {
 
   const blockchain = 'ethereum'
-  const accounts = ['0xd8da6bf26964af9d7eed9e03e53415d37aa96045']
+  const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
   const DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   const DAI = CONSTANTS[blockchain].USD
   const ETH = CONSTANTS[blockchain].NATIVE
@@ -151,21 +151,21 @@ describe('Payment Widget: fee', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "19.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: '1.0',
         fee_receiver: feeReceiver,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "0.01",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: ETH,
           type: 'donation'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,

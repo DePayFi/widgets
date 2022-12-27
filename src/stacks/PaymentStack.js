@@ -4,6 +4,7 @@ import ClosableContext from '../contexts/ClosableContext'
 import NavigateContext from '../contexts/NavigateContext'
 import PaymentFailedDialog from '../dialogs/PaymentFailedDialog'
 import PaymentOverviewDialog from '../dialogs/PaymentOverviewDialog'
+import PreTrackingFailedDialog from '../dialogs/PreTrackingFailedDialog'
 import React, { useContext } from 'react'
 import TrackingFailedDialog from '../dialogs/TrackingFailedDialog'
 import WrongNetworkDialog from '../dialogs/WrongNetworkDialog'
@@ -29,6 +30,7 @@ export default (props)=>{
         PaymentFailed: <PaymentFailedDialog/>,
         WrongNetwork: <WrongNetworkDialog/>,
         TrackingFailed: <TrackingFailedDialog/>,
+        PreTrackingFailed: <PreTrackingFailedDialog/>,
       }}
     />
   )

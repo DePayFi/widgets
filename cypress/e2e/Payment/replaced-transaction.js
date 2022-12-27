@@ -121,21 +121,21 @@ describe('Payment Widget: detects replaced transaction', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -190,21 +190,21 @@ describe('Payment Widget: detects replaced transaction', () => {
     fetchMock.post({
       url: "https://public.depay.com/payments",
       body: {
-        after_block: 1,
+        after_block: "1",
         amount: "20.0",
         blockchain: "ethereum",
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: 0,
+        nonce: "0",
         payload: {
           sender_amount: "20.0",
-          sender_id: fromAddress.toLowerCase(),
+          sender_id: fromAddress,
           sender_token_id: DEPAY,
           type: 'payment'
         },
         receiver: toAddress,
-        sender: fromAddress.toLowerCase(),
+        sender: fromAddress,
         token: DEPAY,
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
@@ -288,7 +288,7 @@ describe('Payment Widget: detects replaced transaction', () => {
                 let message = JSON.parse(rawMessage)
                 return(
                   message.command == 'subscribe' &&
-                  message.identifier == JSON.stringify({ blockchain, sender: fromAddress.toLowerCase(), nonce: 0, channel: 'TransactionChannel' })
+                  message.identifier == JSON.stringify({ blockchain, sender: fromAddress, nonce: "0", channel: 'TransactionChannel' })
                 )
               })).to.equal(true)
               let replacingTransactionId = '0x782cf9983541087548c717dc1a4e2687ef8928e758316cd600ebb0652f57bafe'
@@ -349,7 +349,7 @@ describe('Payment Widget: detects replaced transaction', () => {
             let replacingTransactionId = '0x782cf9983541087548c717dc1a4e2687ef8928e758316cd600ebb0652f57bafe'
             cy.wait(1000).then(()=>{
               fetchMock.get({
-                url: `https://public.depay.com/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
+                url: `https://public.depay.com/transactions/${blockchain}/${fromAddress}/0`,
                 overwriteRoutes: true
               }, { "external_id": replacingTransactionId, "status":"success" })
               cy.wait(5000).then(()=>{
@@ -400,7 +400,7 @@ describe('Payment Widget: detects replaced transaction', () => {
             let replacingTransactionId = '0x782cf9983541087548c717dc1a4e2687ef8928e758316cd600ebb0652f57bafe'
             cy.wait(1000).then(()=>{
               fetchMock.get({
-                url: `https://public.depay.com/transactions/${blockchain}/${fromAddress.toLowerCase()}/0`,
+                url: `https://public.depay.com/transactions/${blockchain}/${fromAddress}/0`,
                 overwriteRoutes: true
               }, { "external_id": replacingTransactionId, "status":"failed" })
               cy.wait(5000).then(()=>{

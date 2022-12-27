@@ -4,13 +4,19 @@ import ErrorContext from '../contexts/ErrorContext'
 import NavigateContext from '../contexts/NavigateContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useEffect, useContext, useState } from 'react'
+import WalletContext from '../contexts/WalletContext'
 import { ethers } from 'ethers'
+import { request } from '@depay/web3-client'
 
 export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
   const { track, validated, integration, link, type } = useContext(ConfigurationContext)
+  const { account, wallet } = useContext(WalletContext)
   const [ transaction, setTransaction ] = useState()
+  const [ confirmationsRequired, setConfirmationsRequired ] = useState()
+  const [ confirmationsPassed, setConfirmationsPassed ] = useState()
   const [ afterBlock, setAfterBlock ] = useState()
+  const [ socket, setSocket ] = useState()
   const [ paymentRoute, setPaymentRoute ] = useState()
   const [ trackingInitialized, setTrackingInitialized ] = useState(false)
   const [ synchronousTracking ] = useState( !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true) )
@@ -28,15 +34,19 @@ export default (props)=>{
         command: 'subscribe',
         identifier: JSON.stringify({
           blockchain: transaction.blockchain,
-          sender: transaction.from.toLowerCase(),
-          nonce: transaction.nonce,
+          sender: transaction.from,
+          nonce: transaction.nonce.toString(),
           channel: 'PaymentChannel'
         }),
       }
       socket.send(JSON.stringify(msg))
     }
     
-    socket.onclose = function(event) {}
+    socket.onclose = function(event) {
+      if(!event || event.code != 1000) {
+        openSocket(transaction)
+      }
+    }
 
     socket.onmessage = function(event) {
       const item = JSON.parse(event.data)
@@ -46,10 +56,13 @@ export default (props)=>{
         setRelease(true)
         setClosable(!item.message.forward_to)
         setForwardTo(item.message.forward_to)
-        socket.close()
+        socket.close(1000)
         if(!!item.message.forward_to) {
           setTimeout(()=>{ props.document.location.href = item.message.forward_to }, 200)
         }
+      } else if(item.message.confirmations) {
+        setConfirmationsRequired(item.message.confirmations.required)
+        setConfirmationsPassed(item.message.confirmations.passed)
       }
     }
     
@@ -96,10 +109,10 @@ export default (props)=>{
   const startTracking = (transaction, afterBlock, paymentRoute, attempt)=> {
     callTracking({
       blockchain: transaction.blockchain,
-      transaction: transaction.id.toLowerCase(),
-      sender: transaction.from.toLowerCase(),
-      nonce: transaction.nonce,
-      after_block: afterBlock,
+      transaction: transaction.id,
+      sender: transaction.from,
+      nonce: transaction.nonce.toString(),
+      after_block: afterBlock.toString(),
       from_token: paymentRoute.fromToken.address,
       from_amount: paymentRoute.fromAmount.toString(),
       from_decimals: paymentRoute.fromDecimals,
@@ -128,10 +141,10 @@ export default (props)=>{
 
     const payment = {
       blockchain: transaction.blockchain,
-      transaction: transaction.id.toLowerCase(),
-      sender: transaction.from.toLowerCase(),
-      nonce: transaction.nonce,
-      after_block: afterBlock,
+      transaction: transaction.id,
+      sender: transaction.from,
+      nonce: transaction.nonce.toString(),
+      after_block: afterBlock.toString(),
       to_token: paymentRoute.toToken.address
     }
 
@@ -179,16 +192,16 @@ export default (props)=>{
       body: JSON.stringify({
         blockchain: transaction.blockchain,
         transaction: transaction.id,
-        sender: transaction.from.toLowerCase(),
-        nonce: transaction.nonce,
+        sender: transaction.from,
+        nonce: transaction.nonce.toString(),
         receiver: paymentRoute.toAddress,
         token: paymentRoute.toToken.address,
         amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
         confirmations: 1,
-        after_block: afterBlock,
+        after_block: afterBlock.toString(),
         uuid: transaction.id,
         payload: {
-          sender_id: transaction.from.toLowerCase(),
+          sender_id: transaction.from,
           sender_token_id: paymentRoute.fromToken.address,
           sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
           integration,
@@ -222,15 +235,55 @@ export default (props)=>{
     openSocket(transaction)
   }
 
+  const preTrack = (afterBlock, paymentRoute)=>{
+    if(!synchronousTracking && !asynchronousTracking) { return Promise.resolve() }
+    return new Promise(async(resolve, reject)=>{
+      let payment = {
+        blockchain: paymentRoute.blockchain,
+        sender: account,
+        nonce: (await request({ blockchain: paymentRoute.blockchain, address: account, method: 'transactionCount' })).toString(),
+        after_block: afterBlock.toString(),
+        from_token: paymentRoute.fromToken.address,
+        from_amount: paymentRoute.fromAmount.toString(),
+        from_decimals: paymentRoute.fromDecimals,
+        to_token: paymentRoute.toToken.address,
+        to_amount: paymentRoute.toAmount.toString(),
+        to_decimals: paymentRoute.toDecimals,
+        fee_amount: paymentRoute?.feeAmount?.toString()
+      }
+      if(track.endpoint){
+        return fetch(track.endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payment)
+        }).then((response)=>{
+          if(response.status == 200 || response.status == 201) {
+            console.log('PAYMENT PRETRACKING INITIALIZED')
+            return resolve()
+          } else {
+            return reject('PRETRACKING REQUEST FAILED')
+          }
+        })
+      } else if (track.method) {
+        track.method(payment).then(resolve).catch(reject)
+      } else {
+        reject('No tracking defined!')
+      }
+    })
+  }
+
   return(
     <PaymentTrackingContext.Provider value={{
       synchronousTracking,
       asynchronousTracking,
       initializeTracking,
+      preTrack,
       trackingInitialized,
       continueTryTracking,
       release,
-      forwardTo
+      forwardTo,
+      confirmationsRequired,
+      confirmationsPassed,
     }}>
       { props.children }
     </PaymentTrackingContext.Provider>
