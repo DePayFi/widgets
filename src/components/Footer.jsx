@@ -9,7 +9,7 @@ import PaymentContext from '../contexts/PaymentContext'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
@@ -21,6 +21,33 @@ export default ()=>{
   const { updatedRouteWithNewPrice, updateRouteWithNewPrice } = useContext(PaymentRoutingContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
+  const [ secondsLeft, setSecondsLeft ] = useState()
+  const [ secondsLeftCountdown, setSecondsLeftCountdown ] = useState(0)
+
+  useEffect(()=>{
+    if(confirmationsRequired) {
+      let interval = setInterval(()=>{
+        setSecondsLeftCountdown(secondsLeftCountdown+1)
+      }, 1000)
+      return ()=>{ clearInterval(interval) }
+    }
+  }, [confirmationsRequired, secondsLeftCountdown])
+
+
+  useEffect(()=>{
+    if(confirmationsPassed) {
+      setSecondsLeft(
+        etaForConfirmations(payment.blockchain, confirmationsRequired, confirmationsPassed)
+        - secondsLeftCountdown
+      )
+    }
+  }, [confirmationsPassed, secondsLeftCountdown])
+
+  useEffect(()=>{
+    if(confirmationsPassed) {
+      setSecondsLeftCountdown(0)
+    }
+  }, [confirmationsPassed])
 
   const trackingInfo = ()=> {
     if((synchronousTracking == false && asynchronousTracking == false) || (asynchronousTracking && trackingInitialized)) {
@@ -76,8 +103,8 @@ export default ()=>{
               <div className="CardBodyWrapper">
                 <div className="Opacity05">
                   Validating payment
-                  { confirmationsRequired &&
-                    <span title={`${confirmationsPassed}/${confirmationsRequired} required confirmations`}> { etaForConfirmations(payment.blockchain, confirmationsRequired, confirmationsPassed) }s</span>
+                  { confirmationsRequired && secondsLeft > 0 &&
+                    <span title={`${confirmationsPassed}/${confirmationsRequired} required confirmations`}> { secondsLeft }s</span>
                   }
                 </div>
               </div>

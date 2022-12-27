@@ -20826,6 +20826,37 @@ var Footer = (function () {
   var _useContext7 = useContext(ClosableContext),
       close = _useContext7.close;
 
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      secondsLeft = _useState2[0],
+      setSecondsLeft = _useState2[1];
+
+  var _useState3 = useState(0),
+      _useState4 = _slicedToArray(_useState3, 2),
+      secondsLeftCountdown = _useState4[0],
+      setSecondsLeftCountdown = _useState4[1];
+
+  useEffect(function () {
+    if (confirmationsRequired) {
+      var interval = setInterval(function () {
+        setSecondsLeftCountdown(secondsLeftCountdown + 1);
+      }, 1000);
+      return function () {
+        clearInterval(interval);
+      };
+    }
+  }, [confirmationsRequired, secondsLeftCountdown]);
+  useEffect(function () {
+    if (confirmationsPassed) {
+      setSecondsLeft(etaForConfirmations(payment.blockchain, confirmationsRequired, confirmationsPassed) - secondsLeftCountdown);
+    }
+  }, [confirmationsPassed, secondsLeftCountdown]);
+  useEffect(function () {
+    if (confirmationsPassed) {
+      setSecondsLeftCountdown(0);
+    }
+  }, [confirmationsPassed]);
+
   var trackingInfo = function trackingInfo() {
     if (synchronousTracking == false && asynchronousTracking == false || asynchronousTracking && trackingInitialized) {
       return null;
@@ -20876,9 +20907,9 @@ var Footer = (function () {
         className: "CardBodyWrapper"
       }, /*#__PURE__*/React.createElement("div", {
         className: "Opacity05"
-      }, "Validating payment", confirmationsRequired && /*#__PURE__*/React.createElement("span", {
+      }, "Validating payment", confirmationsRequired && secondsLeft > 0 && /*#__PURE__*/React.createElement("span", {
         title: "".concat(confirmationsPassed, "/").concat(confirmationsRequired, " required confirmations")
-      }, " ", etaForConfirmations(payment.blockchain, confirmationsRequired, confirmationsPassed), "s"))))));
+      }, " ", secondsLeft, "s"))))));
     }
   };
 
