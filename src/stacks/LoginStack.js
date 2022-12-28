@@ -6,7 +6,6 @@ import { ReactDialogStack } from '@depay/react-dialog-stack'
 export default (props)=>{
 
   const { open, close } = useContext(ClosableContext)
-  const [ signing, setSigning ] = useState(true)
 
   return(
     <ReactDialogStack

@@ -21904,7 +21904,7 @@
       }
     };
 
-    if (walletState == 'connected' || recover != undefined) {
+    if (walletState == 'connected' || recover != undefined && typeof recover != 'function') {
       return /*#__PURE__*/React__default['default'].createElement(WalletContext.Provider, {
         value: {
           account: account,
@@ -22073,7 +22073,13 @@
     var _useContext3 = React.useContext(ConfigurationContext),
         recover = _useContext3.recover;
 
-    var wallet = web3Wallets.getWallets()[0];
+    var _useContext4 = React.useContext(WalletContext),
+        wallet = _useContext4.wallet;
+
+    if (!wallet) {
+      return null;
+    }
+
     wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
     var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
 
@@ -22148,11 +22154,6 @@
         open = _useContext.open,
         close = _useContext.close;
 
-    var _useState = React.useState(true),
-        _useState2 = _slicedToArray(_useState, 2);
-        _useState2[0];
-        _useState2[1];
-
     return /*#__PURE__*/React__default['default'].createElement(reactDialogStack.ReactDialogStack, {
       open: open,
       close: close,
@@ -22187,41 +22188,42 @@
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                Connect().then(function () {
-                  mount({
-                    style: style,
-                    document: ensureDocument(document)
-                  }, function (unmount) {
-                    var userClosedDialog = function userClosedDialog() {
-                      reject('USER_CLOSED_DIALOG');
-                      unmount();
-                    };
+                mount({
+                  style: style,
+                  document: ensureDocument(document)
+                }, function (unmount) {
+                  var userClosedDialog = function userClosedDialog() {
+                    reject('USER_CLOSED_DIALOG');
+                    unmount();
+                  };
 
-                    return function (container) {
-                      return /*#__PURE__*/React__default['default'].createElement(ErrorProvider, {
-                        errorCallback: error,
-                        container: container,
-                        unmount: unmount
-                      }, /*#__PURE__*/React__default['default'].createElement(ConfigurationProvider, {
-                        configuration: {
-                          message: message,
-                          endpoint: endpoint || '/login',
-                          recover: recover
-                        }
-                      }, /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
-                        unmount: userClosedDialog
-                      }, /*#__PURE__*/React__default['default'].createElement(LoginStack, {
-                        document: document,
-                        container: container,
-                        resolve: function resolve(account) {
-                          unmount();
+                  return function (container) {
+                    return /*#__PURE__*/React__default['default'].createElement(ErrorProvider, {
+                      errorCallback: error,
+                      container: container,
+                      unmount: unmount
+                    }, /*#__PURE__*/React__default['default'].createElement(ConfigurationProvider, {
+                      configuration: {
+                        message: message,
+                        endpoint: endpoint || '/login',
+                        recover: recover
+                      }
+                    }, /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
+                      unmount: userClosedDialog
+                    }, /*#__PURE__*/React__default['default'].createElement(WalletProvider, {
+                      container: container,
+                      unmount: unmount
+                    }, /*#__PURE__*/React__default['default'].createElement(LoginStack, {
+                      document: document,
+                      container: container,
+                      resolve: function resolve(account) {
+                        unmount();
 
-                          _resolve(account);
-                        }
-                      }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null)))));
-                    };
-                  });
-                })["catch"](reject);
+                        _resolve(account);
+                      }
+                    }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null))))));
+                  };
+                });
 
               case 1:
               case "end":

@@ -21909,7 +21909,7 @@ var WalletProvider = (function (props) {
     }
   };
 
-  if (walletState == 'connected' || recover != undefined) {
+  if (walletState == 'connected' || recover != undefined && typeof recover != 'function') {
     return /*#__PURE__*/React.createElement(WalletContext.Provider, {
       value: {
         account: account,
@@ -22078,7 +22078,13 @@ var SignLoginDialog = (function (props) {
   var _useContext3 = useContext(ConfigurationContext),
       recover = _useContext3.recover;
 
-  var wallet = getWallets()[0];
+  var _useContext4 = useContext(WalletContext),
+      wallet = _useContext4.wallet;
+
+  if (!wallet) {
+    return null;
+  }
+
   wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
   var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
 
@@ -22153,11 +22159,6 @@ var LoginStack = (function (props) {
       open = _useContext.open,
       close = _useContext.close;
 
-  var _useState = useState(true),
-      _useState2 = _slicedToArray(_useState, 2);
-      _useState2[0];
-      _useState2[1];
-
   return /*#__PURE__*/React.createElement(ReactDialogStack, {
     open: open,
     close: close,
@@ -22192,41 +22193,42 @@ var Login = function Login(options) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              Connect().then(function () {
-                mount({
-                  style: style,
-                  document: ensureDocument(document)
-                }, function (unmount) {
-                  var userClosedDialog = function userClosedDialog() {
-                    reject('USER_CLOSED_DIALOG');
-                    unmount();
-                  };
+              mount({
+                style: style,
+                document: ensureDocument(document)
+              }, function (unmount) {
+                var userClosedDialog = function userClosedDialog() {
+                  reject('USER_CLOSED_DIALOG');
+                  unmount();
+                };
 
-                  return function (container) {
-                    return /*#__PURE__*/React.createElement(ErrorProvider, {
-                      errorCallback: error,
-                      container: container,
-                      unmount: unmount
-                    }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
-                      configuration: {
-                        message: message,
-                        endpoint: endpoint || '/login',
-                        recover: recover
-                      }
-                    }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
-                      unmount: userClosedDialog
-                    }, /*#__PURE__*/React.createElement(LoginStack, {
-                      document: document,
-                      container: container,
-                      resolve: function resolve(account) {
-                        unmount();
+                return function (container) {
+                  return /*#__PURE__*/React.createElement(ErrorProvider, {
+                    errorCallback: error,
+                    container: container,
+                    unmount: unmount
+                  }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
+                    configuration: {
+                      message: message,
+                      endpoint: endpoint || '/login',
+                      recover: recover
+                    }
+                  }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
+                    unmount: userClosedDialog
+                  }, /*#__PURE__*/React.createElement(WalletProvider, {
+                    container: container,
+                    unmount: unmount
+                  }, /*#__PURE__*/React.createElement(LoginStack, {
+                    document: document,
+                    container: container,
+                    resolve: function resolve(account) {
+                      unmount();
 
-                        _resolve(account);
-                      }
-                    }), /*#__PURE__*/React.createElement(PoweredBy, null)))));
-                  };
-                });
-              })["catch"](reject);
+                      _resolve(account);
+                    }
+                  }), /*#__PURE__*/React.createElement(PoweredBy, null))))));
+                };
+              });
 
             case 1:
             case "end":

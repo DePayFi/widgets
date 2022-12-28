@@ -19,7 +19,7 @@ export default (props)=>{
     if(props.connected) { props.connected(account) }
   }
 
-  if(walletState == 'connected' || recover != undefined) {
+  if(walletState == 'connected' || (recover != undefined && typeof recover != 'function')) {
     return(
       <WalletContext.Provider value={{
         account,
