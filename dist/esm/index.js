@@ -21915,50 +21915,52 @@ var WalletProvider = (function (props) {
   };
 
   useEffect(function () {
-    var selectConnectedWallet = /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-        var connectedWallets, _wallet, _account;
+    if (recover == undefined || typeof recover == 'function') {
+      var selectConnectedWallet = /*#__PURE__*/function () {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+          var connectedWallets, _wallet, _account;
 
-        return regenerator.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return getConnectedWallets();
+          return regenerator.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  _context.next = 2;
+                  return getConnectedWallets();
 
-              case 2:
-                connectedWallets = _context.sent;
+                case 2:
+                  connectedWallets = _context.sent;
 
-                if (!(connectedWallets && connectedWallets.length == 1)) {
-                  _context.next = 9;
-                  break;
-                }
+                  if (!(connectedWallets && connectedWallets.length == 1)) {
+                    _context.next = 9;
+                    break;
+                  }
 
-                _wallet = connectedWallets[0];
-                _context.next = 7;
-                return _wallet.account();
+                  _wallet = connectedWallets[0];
+                  _context.next = 7;
+                  return _wallet.account();
 
-              case 7:
-                _account = _context.sent;
-                connected({
-                  account: _account,
-                  wallet: _wallet
-                });
+                case 7:
+                  _account = _context.sent;
+                  connected({
+                    account: _account,
+                    wallet: _wallet
+                  });
 
-              case 9:
-              case "end":
-                return _context.stop();
+                case 9:
+                case "end":
+                  return _context.stop();
+              }
             }
-          }
-        }, _callee);
-      }));
+          }, _callee);
+        }));
 
-      return function selectConnectedWallet() {
-        return _ref2.apply(this, arguments);
-      };
-    }();
+        return function selectConnectedWallet() {
+          return _ref2.apply(this, arguments);
+        };
+      }();
 
-    selectConnectedWallet();
+      selectConnectedWallet();
+    }
   }, []);
 
   if (walletState == 'connected' || recover != undefined && typeof recover != 'function') {
