@@ -7,7 +7,7 @@ import PoweredBy from './components/PoweredBy'
 import React from 'react'
 import requireReactVersion from './helpers/requireReactVersion'
 import UpdatableProvider from './providers/UpdatableProvider'
-import { getWallets } from '@depay/web3-wallets'
+import { getWallets, getConnectedWallets } from '@depay/web3-wallets'
 
 let Connect = (options) => {
   requireReactVersion()
@@ -16,12 +16,11 @@ let Connect = (options) => {
 
   return new Promise(async (resolve, reject)=>{
 
-    let wallet = getWallets()[0]
-    if(wallet) {
+    let connectedWallets = await getConnectedWallets()
+    if(connectedWallets && connectedWallets.length == 1){
+      let wallet = connectedWallets[0]
       let account = await wallet.account()
-      if(account) {
-        return resolve({ wallet, account })
-      }
+      return resolve({ wallet, account })
     }
 
     let unmount = mount({ style, document: ensureDocument(document) }, (unmount)=> {

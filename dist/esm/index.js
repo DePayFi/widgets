@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
 import { NavigateStackContext, ReactDialogStack } from '@depay/react-dialog-stack';
-import { getWallets, wallets } from '@depay/web3-wallets';
+import { getWallets, getConnectedWallets, wallets } from '@depay/web3-wallets';
 import ReactDOM from 'react-dom';
 import { ReactShadowDOM } from '@depay/react-shadow-dom';
 import { ethers } from 'ethers';
@@ -1106,20 +1106,26 @@ var SelectWalletDialog = (function (props) {
   var wallet = getWallets()[0];
   useEffect(function () {
     _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-      var account;
+      var connectedWallets, account;
       return regenerator.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (!wallet) {
-                _context.next = 5;
+              _context.next = 2;
+              return getConnectedWallets();
+
+            case 2:
+              connectedWallets = _context.sent;
+
+              if (!(wallet && connectedWallets == 0)) {
+                _context.next = 8;
                 break;
               }
 
-              _context.next = 3;
+              _context.next = 6;
               return wallet.account();
 
-            case 3:
+            case 6:
               account = _context.sent;
 
               if (account == undefined) {
@@ -1127,7 +1133,7 @@ var SelectWalletDialog = (function (props) {
                 props.connect(wallet);
               }
 
-            case 5:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -1889,35 +1895,34 @@ var Connect = function Connect(options) {
 
   return new Promise( /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(resolve, reject) {
-      var wallet, account;
+      var connectedWallets, wallet, account;
       return regenerator.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              wallet = getWallets()[0];
+              _context.next = 2;
+              return getConnectedWallets();
 
-              if (!wallet) {
-                _context.next = 7;
+            case 2:
+              connectedWallets = _context.sent;
+
+              if (!(connectedWallets && connectedWallets.length == 1)) {
+                _context.next = 9;
                 break;
               }
 
-              _context.next = 4;
+              wallet = connectedWallets[0];
+              _context.next = 7;
               return wallet.account();
 
-            case 4:
+            case 7:
               account = _context.sent;
-
-              if (!account) {
-                _context.next = 7;
-                break;
-              }
-
               return _context.abrupt("return", resolve({
                 wallet: wallet,
                 account: account
               }));
 
-            case 7:
+            case 9:
               mount({
                 style: style,
                 document: ensureDocument(document)
@@ -1944,7 +1949,7 @@ var Connect = function Connect(options) {
                 };
               });
 
-            case 8:
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -21908,6 +21913,53 @@ var WalletProvider = (function (props) {
       props.connected(account);
     }
   };
+
+  useEffect(function () {
+    var selectConnectedWallet = /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+        var connectedWallets, _wallet, _account;
+
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return getConnectedWallets();
+
+              case 2:
+                connectedWallets = _context.sent;
+
+                if (!(connectedWallets && connectedWallets.length == 1)) {
+                  _context.next = 9;
+                  break;
+                }
+
+                _wallet = connectedWallets[0];
+                _context.next = 7;
+                return _wallet.account();
+
+              case 7:
+                _account = _context.sent;
+                connected({
+                  account: _account,
+                  wallet: _wallet
+                });
+
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function selectConnectedWallet() {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+
+    selectConnectedWallet();
+  }, []);
 
   if (walletState == 'connected' || recover != undefined && typeof recover != 'function') {
     return /*#__PURE__*/React.createElement(WalletContext.Provider, {
