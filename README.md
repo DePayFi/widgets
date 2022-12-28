@@ -317,7 +317,31 @@ DePayWidgets.Payment({
 })
 ```
 
-Once the payment has been submitted by the widget, it will call the configured endpoint with:
+Once a user clicks "Pay" in the widget, and before the transaction is handed over to the wallet, the widget will send a payment trace (without transaction_id) to the configured endpoint.
+
+This is where the payment tracing starts:
+
+```
+POST /track/payments
+BODY:
+  {
+    "blockchain": "ethereum",
+    "sender": "0x769794c94e9f113e357023dab73e81dbd6db201c",
+    "nonce": 103,
+    "after_block": 13230369,
+    "from_token": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+    "from_amount": "1100000000000000000",
+    "from_decimals": 18,
+    "to_token": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+    "to_amount": "1000000000000000000",
+    "to_decimals": 18,
+    "fee_amount": "100000000000000000"
+  }
+```
+
+Once the payment has been submitted by the widget, it will call the configured endpoint again.
+
+This is where the payment tracking starts:
 
 ```
 POST /track/payments
