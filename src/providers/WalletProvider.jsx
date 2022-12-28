@@ -21,15 +21,17 @@ export default (props)=>{
   }
 
   useEffect(()=>{
-    let selectConnectedWallet = async()=>{
-      let connectedWallets = await getConnectedWallets()
-      if(connectedWallets && connectedWallets.length == 1){
-        let wallet = connectedWallets[0]
-        let account = await wallet.account()
-        connected({ account, wallet })
+    if(recover == undefined || typeof recover == 'function') {
+      let selectConnectedWallet = async()=>{
+        let connectedWallets = await getConnectedWallets()
+        if(connectedWallets && connectedWallets.length == 1){
+          let wallet = connectedWallets[0]
+          let account = await wallet.account()
+          connected({ account, wallet })
+        }
       }
+      selectConnectedWallet()
     }
-    selectConnectedWallet()
   }, [])
 
   if(walletState == 'connected' || (recover != undefined && typeof recover != 'function')) {
