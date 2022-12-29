@@ -24,7 +24,7 @@ let Login = (options) => {
       }
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={{ message, endpoint: (endpoint || '/login'), recover }}>
+          <ConfigurationProvider configuration={{ message, endpoint: (endpoint || '/login'), recoverSignature: recover }}>
             <UpdatableProvider>
               <ClosableProvider unmount={ userClosedDialog }>
                 <WalletProvider container={ container } unmount={ unmount }>

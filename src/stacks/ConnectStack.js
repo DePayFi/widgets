@@ -45,6 +45,7 @@ export default (props)=>{
         if(wallet) {
           let account = await wallet.account()
           if(account) {
+            if(props.autoClose) close()
             if(props.resolve) props.resolve({ wallet, account })
           }
         }

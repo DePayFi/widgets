@@ -9,13 +9,13 @@ export default (props)=> {
 
   const { setError } = useContext(ErrorContext)
   const { message, endpoint } = useContext(ConfigurationContext)
-  let { recover } = useContext(ConfigurationContext)
+  let { recoverSignature } = useContext(ConfigurationContext)
   const { wallet } = useContext(WalletContext)
   if(!wallet) { return null }
   const walletName = wallet?.name ? wallet.name : 'wallet'
   const walletLogo = wallet?.logo ? wallet.logo : undefined
-  if(typeof recover != 'function') {
-    recover = ({ message, signature })=> {
+  if(typeof recoverSignature != 'function') {
+    recoverSignature = ({ message, signature })=> {
       return new Promise((resolve, reject)=>{
         fetch(endpoint, {
           method: 'POST',
@@ -39,7 +39,7 @@ export default (props)=> {
 
   const login = ()=> {
     wallet.sign(message).then((signature)=>{
-      recover({ message, signature }).then(props.resolve).catch(setError)
+      recoverSignature({ message, signature }).then(props.resolve).catch(setError)
     }).catch((error)=>{
       if(error && error.code && error.code == 4001) {
         // nothing happens

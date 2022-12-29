@@ -21,7 +21,7 @@ export default (props)=>{
   }
 
   useEffect(()=>{
-    if(recover == undefined || typeof recover == 'function') {
+    if(recover == undefined) {
       let selectConnectedWallet = async()=>{
         let connectedWallets = await getConnectedWallets()
         if(connectedWallets && connectedWallets.length == 1){
@@ -34,7 +34,7 @@ export default (props)=>{
     }
   }, [])
 
-  if(walletState == 'connected' || (recover != undefined && typeof recover != 'function')) {
+  if(walletState == 'connected' || recover != undefined) {
     return(
       <WalletContext.Provider value={{
         account,

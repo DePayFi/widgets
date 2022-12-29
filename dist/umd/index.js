@@ -1287,6 +1287,7 @@
                 account = _context2.sent;
 
                 if (account) {
+                  if (props.autoClose) close();
                   if (props.resolve) props.resolve({
                     wallet: wallet,
                     account: account
@@ -21910,7 +21911,7 @@
     };
 
     React.useEffect(function () {
-      if (recover == undefined || typeof recover == 'function') {
+      if (recover == undefined) {
         var selectConnectedWallet = /*#__PURE__*/function () {
           var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
             var connectedWallets, _wallet, _account;
@@ -21958,7 +21959,7 @@
       }
     }, []);
 
-    if (walletState == 'connected' || recover != undefined && typeof recover != 'function') {
+    if (walletState == 'connected' || recover != undefined) {
       return /*#__PURE__*/React__default['default'].createElement(WalletContext.Provider, {
         value: {
           account: account,
@@ -22125,7 +22126,7 @@
         endpoint = _useContext2.endpoint;
 
     var _useContext3 = React.useContext(ConfigurationContext),
-        recover = _useContext3.recover;
+        recoverSignature = _useContext3.recoverSignature;
 
     var _useContext4 = React.useContext(WalletContext),
         wallet = _useContext4.wallet;
@@ -22137,8 +22138,8 @@
     wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
     var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
 
-    if (typeof recover != 'function') {
-      recover = function recover(_ref) {
+    if (typeof recoverSignature != 'function') {
+      recoverSignature = function recoverSignature(_ref) {
         var message = _ref.message,
             signature = _ref.signature;
         return new Promise(function (resolve, reject) {
@@ -22168,7 +22169,7 @@
 
     var login = function login() {
       wallet.sign(message).then(function (signature) {
-        recover({
+        recoverSignature({
           message: message,
           signature: signature
         }).then(props.resolve)["catch"](setError);
@@ -22260,7 +22261,7 @@
                       configuration: {
                         message: message,
                         endpoint: endpoint || '/login',
-                        recover: recover
+                        recoverSignature: recover
                       }
                     }, /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
                       unmount: userClosedDialog
