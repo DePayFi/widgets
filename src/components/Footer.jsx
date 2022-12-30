@@ -173,7 +173,7 @@ export default ()=>{
       )
     } else if (paymentState == 'approving') {
       return(
-        <div className="PaddingBottomS">
+        <div className="PaddingBottomXS">
           <a className="ButtonPrimary" title="Approving payment token - please wait" href={ approvalTransaction?.url } target="_blank" rel="noopener noreferrer">
             <LoadingText>Approving</LoadingText>
           </a>
