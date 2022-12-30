@@ -20976,7 +20976,7 @@ var Footer = (function () {
       }, "Allow ", payment.symbol, " to be used as payment"));
     } else if (paymentState == 'approving') {
       return /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
+        className: "PaddingBottomXS"
       }, /*#__PURE__*/React.createElement("a", {
         className: "ButtonPrimary",
         title: "Approving payment token - please wait",

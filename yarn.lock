@@ -1152,10 +1152,10 @@
     ethers "^5.7.1"
     xhr2 "^0.2.1"
 
-"@depay/web3-payments@^10.10.1":
-  version "10.10.1"
-  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-10.10.1.tgz#0cf06eff0d6b25e26919f7ed8097aba6449b2843"
-  integrity sha512-FFdxpsH1ZVSoqFsEhGpT4R/ysFgJO8SxCC2Dgu93oO9CkDtHpl86ID5mrnVkIiP/F/cYwGh9X45/gukR5uL4TA==
+"@depay/web3-payments@^10.10.2":
+  version "10.10.2"
+  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-10.10.2.tgz#9b00d01e3917755fdee98c603389568095fd9a35"
+  integrity sha512-aK0rFrcBirfDmzdjFHoPHa4HLpXWuJ29eWqSuv4aigpcjU2rxtgN12kZS/Y2mcDvb3SrVzJNl0uZA+Cx8Zrlkg==
 
 "@depay/web3-tokens@^9.12.8":
   version "9.12.8"

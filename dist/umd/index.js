@@ -20971,7 +20971,7 @@
         }, "Allow ", payment.symbol, " to be used as payment"));
       } else if (paymentState == 'approving') {
         return /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingBottomS"
+          className: "PaddingBottomXS"
         }, /*#__PURE__*/React__default['default'].createElement("a", {
           className: "ButtonPrimary",
           title: "Approving payment token - please wait",
