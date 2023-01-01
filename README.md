@@ -209,32 +209,6 @@ alongside values for `start`, `min` and `step`.
 
 `step`: The number by wich to increment/decremten changes to the amount.
 
-#### receiver
-
-Payment receivers can either be wallet addresses, but also smart contracts.
-
-In order to have smart contracts receive the payments you will need to pass an object as receiver containing the following attributes.
-
-```javascript
-DePayWidgets.Payment({
-  accept: [
-    receiver: {
-      address: toAddress,
-      signature: 'claim(address,uint256,bool)',
-      params: ['true']
-    }
-  ]
-});
-```
-
-`address`: The address of the smart contract.
-
-`signature`: The signature of the smart contract method you want to call as part of the payment.
-
-`params`: Additional params forwarded to the smart contract method.
-
-Checkout [DePay Web3 Payments](https://github.com/DePayFi/depay-web3-payments#pay-into-smart-contracts) and [DePay Router Smart Contract](https://github.com/DePayFi/depay-evm-router) for more details.
-
 #### fee
 
 You can configure a fee which will be applied to every payment with it's own dedicated fee receiver address.
