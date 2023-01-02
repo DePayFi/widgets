@@ -23190,6 +23190,20 @@
     }, props.children);
   });
 
+  function addressEllipsis (address) {
+    var length = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 4;
+
+    if (address === undefined) {
+      return address;
+    }
+
+    var _address = "";
+    _address += address.slice(0, length + 2);
+    _address += '...';
+    _address += address.slice(address.length - length, address.length);
+    return _address;
+  }
+
   var msToTime = (function (ms) {
     var year, month, day, hour, minute, second;
     second = Math.floor(ms / 1000);
@@ -23256,7 +23270,8 @@
         symbol: token.symbol,
         name: token.name,
         decimals: token.decimals,
-        logo: token.image || token.logo
+        logo: token.image || token.logo,
+        routable: token.routable
       });
       setTimeout(props.unmount, 300);
     };
@@ -23285,18 +23300,17 @@
         className: "PaddingTopXS"
       }, /*#__PURE__*/React__default['default'].createElement("table", {
         className: "Table TextLeft FontSizeS"
-      }, /*#__PURE__*/React__default['default'].createElement("tbody", null, /*#__PURE__*/React__default['default'].createElement("tr", {
-        className: "small TextCenter"
-      }, /*#__PURE__*/React__default['default'].createElement("td", {
-        colSpan: "2"
-      }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("a", {
-        className: "Link",
+      }, /*#__PURE__*/React__default['default'].createElement("tbody", null, /*#__PURE__*/React__default['default'].createElement("tr", null, /*#__PURE__*/React__default['default'].createElement("td", null, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TableSubTitle"
+      }, "Address")), /*#__PURE__*/React__default['default'].createElement("td", null, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("a", {
+        className: "Link FontSizeM",
+        title: address,
         href: blockchain.explorerUrlFor({
           token: address
         }),
         target: "_blank",
         rel: "noopener noreferrer"
-      }, address)))), /*#__PURE__*/React__default['default'].createElement("tr", null, /*#__PURE__*/React__default['default'].createElement("td", null, /*#__PURE__*/React__default['default'].createElement("div", {
+      }, addressEllipsis(address, 4))))), /*#__PURE__*/React__default['default'].createElement("tr", null, /*#__PURE__*/React__default['default'].createElement("td", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TableSubTitle"
       }, "Blockchain")), /*#__PURE__*/React__default['default'].createElement("td", null, /*#__PURE__*/React__default['default'].createElement("div", null, blockchain.label))), /*#__PURE__*/React__default['default'].createElement("tr", null, /*#__PURE__*/React__default['default'].createElement("td", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TableSubTitle"
@@ -23327,6 +23341,7 @@
     var blockchains = [web3Blockchains.Blockchain.findByName('ethereum'), web3Blockchains.Blockchain.findByName('bsc'), web3Blockchains.Blockchain.findByName('polygon')];
 
     var selectBlockchain = function selectBlockchain(blockchain) {
+      window._depay_token_selection_selected_blockchain = blockchain.name;
       setSelection(Object.assign(props.selection, {
         blockchain: blockchain
       }));
@@ -23426,7 +23441,9 @@
         wallet.connectedTo().then(function (name) {
           var blockchain = web3Blockchains.Blockchain.findByName(name);
 
-          if (name && name.length && blockchain && blockchain.tokens && blockchain.tokens.length) {
+          if (window._depay_token_selection_selected_blockchain) {
+            startWithBlockchain(window._depay_token_selection_selected_blockchain);
+          } else if (name && name.length && blockchain && blockchain.tokens && blockchain.tokens.length) {
             startWithBlockchain(name);
           } else {
             startWithBlockchain('ethereum');
@@ -23478,6 +23495,7 @@
     }, 300), []);
 
     var onChangeSearch = function onChangeSearch(event) {
+      setShowAddToken(false);
       var term = event.target.value;
       setSearchTerm(term);
 
@@ -23496,18 +23514,24 @@
           return;
         }
 
-        Promise.all([token.name(), token.symbol(), token.decimals()]).then(function (_ref) {
-          var _ref2 = _slicedToArray(_ref, 3),
+        Promise.all([token.name(), token.symbol(), token.decimals(), fetch("https://public.depay.com/tokens/routable/".concat(blockchain.name, "/").concat(term)).then(function (response) {
+          if (response.status == 200) {
+            return response.json();
+          }
+        })]).then(function (_ref) {
+          var _ref2 = _slicedToArray(_ref, 4),
               name = _ref2[0],
               symbol = _ref2[1],
-              decimals = _ref2[2];
+              decimals = _ref2[2],
+              routable = _ref2[3];
 
           setTokens([{
             name: name,
             symbol: symbol,
             decimals: decimals,
             address: term,
-            blockchain: blockchain.name
+            blockchain: blockchain.name,
+            routable: !!routable
           }]);
         });
       } else if (term && term.length) {
@@ -23519,6 +23543,14 @@
     };
 
     var select = function select(token) {
+      if (token.address) {
+        token.address = ethers.ethers.utils.getAddress(token.address);
+      }
+
+      if (token.external_id) {
+        token.external_id = ethers.ethers.utils.getAddress(token.external_id);
+      }
+
       if (blockchain.tokens.find(function (majorToken) {
         return majorToken.address == (token.address || token.external_id);
       })) {
@@ -23529,7 +23561,8 @@
           logo: token.logo || token.image,
           name: token.name,
           symbol: token.symbol,
-          decimals: token.decimals
+          decimals: token.decimals,
+          routable: true
         });
         setTimeout(props.unmount, 300);
       } else {
@@ -23591,13 +23624,16 @@
         className: "transparent",
         src: blockchain.logo
       })), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "CardBody FontSizeS"
+        className: "CardBody FontSizeM"
       }, blockchain.label), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardAction"
       }, /*#__PURE__*/React__default['default'].createElement(ChevronRight, null)))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("input", {
         value: searchTerm,
+        onBlur: function onBlur() {
+          return setShowAddToken(false);
+        },
         onChange: onChangeSearch,
         className: "Search",
         autoFocus: true,

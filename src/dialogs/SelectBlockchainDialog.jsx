@@ -17,6 +17,7 @@ export default (props)=> {
   ]
 
   const selectBlockchain = (blockchain)=>{
+    window._depay_token_selection_selected_blockchain = blockchain.name
     setSelection(Object.assign(props.selection, { blockchain }))
     if(stacked) {
       navigate('back')

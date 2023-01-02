@@ -1,3 +1,4 @@
+import addressEllipsis from '../helpers/addressEllipsis'
 import ClosableContext from '../contexts/ClosableContext'
 import Dialog from '../components/Dialog'
 import msToTime from '../helpers/msToTime'
@@ -46,7 +47,8 @@ export default (props)=> {
       symbol: token.symbol,
       name: token.name,
       decimals: token.decimals,
-      logo: token.image || token.logo
+      logo: token.image || token.logo,
+      routable: token.routable
     })
     setTimeout(props.unmount, 300)
   }
@@ -75,9 +77,16 @@ export default (props)=> {
           <div className="PaddingTopXS">
             <table className="Table TextLeft FontSizeS">
               <tbody>
-                <tr className="small TextCenter">
-                  <td colSpan="2">
-                    <div><a className="Link" href={ blockchain.explorerUrlFor({ token: address }) } target="_blank" rel="noopener noreferrer">{ address }</a></div>
+                <tr>
+                  <td>
+                    <div className='TableSubTitle'>Address</div>
+                  </td>
+                  <td>
+                    <div>
+                      <a className="Link FontSizeM" title={ address } href={ blockchain.explorerUrlFor({ token: address }) } target="_blank" rel="noopener noreferrer">
+                        { addressEllipsis(address, 4) }
+                      </a>
+                    </div>
                   </td>
                 </tr>
                 <tr>
