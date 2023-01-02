@@ -1871,7 +1871,8 @@ let token = await DePayWidgets.Select({ what: 'token' })
 //   decimals: 18
 //   logo: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb/logo.png"
 //   name: "DePay"
-//   symbol: "DEPAY"
+//   symbol: "DEPAY",
+//   routable: true // information if token is routable through DePay Payment router
 // }
 ```
 

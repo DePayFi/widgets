@@ -5,6 +5,7 @@ import React, { useCallback, useState, useEffect, useContext, useRef } from 'rea
 import SelectionContext from '../contexts/SelectionContext'
 import { Blockchain } from '@depay/web3-blockchains'
 import { debounce } from 'lodash'
+import { ethers } from 'ethers'
 import { getWallets } from '@depay/web3-wallets'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { Token } from '@depay/web3-tokens'
@@ -81,6 +82,7 @@ export default (props)=> {
   }, 300), [])
 
   const onChangeSearch = (event)=>{
+    setShowAddToken(false)
     let term = event.target.value
     setSearchTerm(term)
     if(term.match(/^0x/)) {
@@ -91,14 +93,16 @@ export default (props)=> {
       Promise.all([
         token.name(),
         token.symbol(),
-        token.decimals()
-      ]).then(([name, symbol, decimals])=>{
+        token.decimals(),
+        fetch(`https://public.depay.com/tokens/routable/${blockchain.name}/${term}`).then((response)=>{ if(response.status == 200) { return response.json() } }),
+      ]).then(([name, symbol, decimals, routable])=>{
         setTokens([{
           name,
           symbol,
           decimals,
           address: term,
-          blockchain: blockchain.name
+          blockchain: blockchain.name,
+          routable: !!routable,
         }])
       })
     } else if(term && term.length) {
@@ -110,6 +114,8 @@ export default (props)=> {
   }
 
   const select = (token)=> {
+    if(token.address) { token.address = ethers.utils.getAddress(token.address) }
+    if(token.external_id) { token.external_id = ethers.utils.getAddress(token.external_id) }
     if(blockchain.tokens.find((majorToken)=>{ return majorToken.address == (token.address || token.external_id) })) {
       setOpen(false)
       props.resolve({
@@ -118,7 +124,8 @@ export default (props)=> {
         logo: token.logo || token.image,
         name: token.name,
         symbol: token.symbol,
-        decimals: token.decimals
+        decimals: token.decimals,
+        routable: true,
       })
       setTimeout(props.unmount, 300)
     } else {
@@ -174,7 +181,7 @@ export default (props)=> {
             </div>
           </div>
           <div className="PaddingTopXS PaddingBottomS">
-            <input value={ searchTerm } onChange={ onChangeSearch } className="Search" autoFocus placeholder="Search name or paste address" ref={searchElement}/>
+            <input value={ searchTerm } onBlur={ ()=>setShowAddToken(false) } onChange={ onChangeSearch } className="Search" autoFocus placeholder="Search name or paste address" ref={searchElement}/>
             { showAddToken &&
               <div className="PaddingTopXS PaddingRightXS PaddingLeftXS">
                 <div className="Tooltip"> 
