@@ -78,9 +78,9 @@ describe('Select Widget', () => {
       cy.wait(1000).then(()=>{
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.small', 'Ethereum').click().then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Select Blockchain')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.Row', 'Binance Smart Chain').click().then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.Row', 'BNB Smart Chain').click().then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Select Token').then(()=>{
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.small', 'Binance Smart Chain')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.small', 'BNB Smart Chain')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.Row .CardTokenSymbol .CardText', 'BNB')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.Row .CardTokenSymbol .CardText', 'BUSD')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input.Search').should('have.focus')
@@ -243,7 +243,26 @@ describe('Select Widget', () => {
       cy.document().then(async (document)=>{
         DePayWidgets.Select({ document, what: 'token' })
         cy.wait(1000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.small', 'Binance Smart Chain')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.small', 'BNB Smart Chain')
+        })
+      })
+    })
+
+    it.only('reopens with the previously selected blockchain', async()=>{
+      cy.document().then(async (document)=>{
+        DePayWidgets.Select({ document, what: 'token' })
+        cy.wait(1000).then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.small', 'BNB Smart Chain').click().then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Select Blockchain')
+            cy.wait(1000).then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.active .Dialog .Card.Row', 'Ethereum').click().then(()=>{
+                // cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click().then(()=>{
+                //   DePayWidgets.Select({ document, what: 'token' })
+                //   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.small', 'Ethereum')
+                // })
+              })
+            })
+          })
         })
       })
     })

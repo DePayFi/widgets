@@ -34,7 +34,9 @@ export default (props)=> {
     if(wallet) {
       wallet.connectedTo().then((name)=>{
         let blockchain = Blockchain.findByName(name)
-        if(name && name.length && blockchain && blockchain.tokens && blockchain.tokens.length) {
+        if(window._depay_token_selection_selected_blockchain) {
+          startWithBlockchain(window._depay_token_selection_selected_blockchain)
+        } else if(name && name.length && blockchain && blockchain.tokens && blockchain.tokens.length) {
           startWithBlockchain(name)
         } else {
           startWithBlockchain('ethereum')
@@ -163,7 +165,7 @@ export default (props)=> {
               <div className="CardImage small">
                 <img className="transparent" src={ blockchain.logo }/>
               </div>
-              <div className="CardBody FontSizeS">
+              <div className="CardBody FontSizeM">
                 { blockchain.label }
               </div>
               <div className="CardAction">
