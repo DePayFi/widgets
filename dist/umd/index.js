@@ -21380,12 +21380,14 @@
       var socket = new WebSocket('wss://integrate.depay.com/cable');
 
       socket.onopen = function (event) {
+        var _transaction$nonce;
+
         var msg = {
           command: 'subscribe',
           identifier: JSON.stringify({
             blockchain: transaction.blockchain,
             sender: transaction.from,
-            nonce: transaction.nonce.toString(),
+            nonce: transaction === null || transaction === void 0 ? void 0 : (_transaction$nonce = transaction.nonce) === null || _transaction$nonce === void 0 ? void 0 : _transaction$nonce.toString(),
             channel: 'PaymentChannel'
           })
         };
@@ -21470,13 +21472,13 @@
     };
 
     var startTracking = function startTracking(transaction, afterBlock, paymentRoute, attempt) {
-      var _paymentRoute$feeAmou;
+      var _transaction$nonce2, _paymentRoute$feeAmou;
 
       callTracking({
         blockchain: transaction.blockchain,
         transaction: transaction.id,
         sender: transaction.from,
-        nonce: transaction.nonce.toString(),
+        nonce: transaction === null || transaction === void 0 ? void 0 : (_transaction$nonce2 = transaction.nonce) === null || _transaction$nonce2 === void 0 ? void 0 : _transaction$nonce2.toString(),
         after_block: afterBlock.toString(),
         from_token: paymentRoute.fromToken.address,
         from_amount: paymentRoute.fromAmount.toString(),
@@ -21495,6 +21497,8 @@
     };
 
     var pollStatus = function pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval) {
+      var _transaction$nonce3;
+
       if (!polling || transaction == undefined || afterBlock == undefined || paymentRoute == undefined) {
         return;
       }
@@ -21503,7 +21507,7 @@
         blockchain: transaction.blockchain,
         transaction: transaction.id,
         sender: transaction.from,
-        nonce: transaction.nonce.toString(),
+        nonce: transaction === null || transaction === void 0 ? void 0 : (_transaction$nonce3 = transaction.nonce) === null || _transaction$nonce3 === void 0 ? void 0 : _transaction$nonce3.toString(),
         after_block: afterBlock.toString(),
         to_token: paymentRoute.toToken.address
       };
@@ -21563,6 +21567,8 @@
     }, [polling, transaction, afterBlock, paymentRoute]);
 
     var storePayment = function storePayment(transaction, afterBlock, paymentRoute, attempt) {
+      var _transaction$nonce4;
+
       fetch('https://public.depay.com/payments', {
         headers: {
           'Content-Type': 'application/json'
@@ -21572,7 +21578,7 @@
           blockchain: transaction.blockchain,
           transaction: transaction.id,
           sender: transaction.from,
-          nonce: transaction.nonce.toString(),
+          nonce: transaction === null || transaction === void 0 ? void 0 : (_transaction$nonce4 = transaction.nonce) === null || _transaction$nonce4 === void 0 ? void 0 : _transaction$nonce4.toString(),
           receiver: paymentRoute.toAddress,
           token: paymentRoute.toToken.address,
           amount: paymentRoute.fee ? ethers.ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
@@ -21773,6 +21779,8 @@
     }, [polling]);
 
     var createTracking = function createTracking(transaction, afterBlock, attempt) {
+      var _transaction$nonce;
+
       if (attempt > 3) {
         console.log('TRANSACTION TRACKING FAILED AFTER 3 ATTEMPTS!');
         return;
@@ -21788,7 +21796,7 @@
           after_block: afterBlock.toString(),
           blockchain: transaction.blockchain,
           sender: transaction.from,
-          nonce: transaction.nonce.toString()
+          nonce: transaction === null || transaction === void 0 ? void 0 : (_transaction$nonce = transaction.nonce) === null || _transaction$nonce === void 0 ? void 0 : _transaction$nonce.toString()
         })
       }).then(function (response) {
         if (response.status == 200 || response.status == 201) {
@@ -21811,12 +21819,14 @@
       var socket = new WebSocket('wss://integrate.depay.com/cable');
 
       socket.onopen = function (event) {
+        var _transaction$nonce2;
+
         var msg = {
           command: 'subscribe',
           identifier: JSON.stringify({
             blockchain: transaction.blockchain,
             sender: transaction.from,
-            nonce: transaction.nonce.toString(),
+            nonce: transaction === null || transaction === void 0 ? void 0 : (_transaction$nonce2 = transaction.nonce) === null || _transaction$nonce2 === void 0 ? void 0 : _transaction$nonce2.toString(),
             channel: 'TransactionChannel'
           })
         };
