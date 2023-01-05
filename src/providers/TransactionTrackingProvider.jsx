@@ -48,7 +48,7 @@ export default (props)=>{
         after_block: afterBlock.toString(),
         blockchain: transaction.blockchain,
         sender: transaction.from,
-        nonce: transaction.nonce.toString()
+        nonce: transaction?.nonce?.toString()
       })
     })
     .then((response)=>{
@@ -73,7 +73,7 @@ export default (props)=>{
         identifier: JSON.stringify({
           blockchain: transaction.blockchain,
           sender: transaction.from,
-          nonce: transaction.nonce.toString(),
+          nonce: transaction?.nonce?.toString(),
           channel: 'TransactionChannel'
         }),
       }
