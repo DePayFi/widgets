@@ -15,7 +15,7 @@ export default (style)=>{
     }
 
     .TextLeft, .TextLeft * {
-      text-align: left;
+      text-align: left !important;
     }
 
     .TextCenter, .TextCenter * {

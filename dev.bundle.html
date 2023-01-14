@@ -478,7 +478,7 @@
                   button.addEventListener("click",function(e){
                     DePayWidgets.Payment({
                       accept: [{
-                        blockchain: 'bsc',
+                        blockchain: 'polygon',
                         amount: 0.0001,
                         token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                         receiver: '0x317D875cA3B9f8d14f960486C0d1D1913be74e90'
@@ -1023,7 +1023,7 @@
                     button.addEventListener("click",async function(e){
                       let dateTime = new Date().toISOString().slice(0, 19);
                       DePayWidgets.Connect().then(({ account })=>{
-                        let account = await DePayWidgets.Login({
+                        DePayWidgets.Login({
                           message: `Click to log in to DePay and to accept DePay's Terms of Service: https://depay.com/legal/terms\n\n${dateTime}\n${account}`
                         })
                       })
@@ -1045,12 +1045,36 @@
                 </div>
               </div>
               <div class="px-4 pt-3">
-                <button class='btn btn-primary' id="selectButton">Try it</button>
+                <button class='btn btn-primary' id="selectTokenButton">Try it</button>
                 <script>
-                    var button = document.getElementById("selectButton");
+                    var button = document.getElementById("selectTokenButton");
                     button.addEventListener("click",async function(e){
                       let token = await DePayWidgets.Select({ what: 'token' })
                       console.log("SELECTED TOKEN", token)
+                    });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Select: NFT</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Select an NFT.</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="selectNFTButton">Try it</button>
+                <script>
+                    var button = document.getElementById("selectNFTButton");
+                    button.addEventListener("click",async function(e){
+                      let nft = await DePayWidgets.Select({ what: 'nft' })
+                      console.log("SELECTED NFT", nft)
                     });
                 </script>
               </div>

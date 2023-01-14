@@ -1704,7 +1704,7 @@ var ButtonPrimaryStyle = (function (style) {
 });
 
 var CardStyle = (function (style) {
-  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 76px;\n      padding: 16px 10px;\n      width: 100%;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 8px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 27px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 58px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 9999px;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 45px;\n      position: relative;\n      vertical-align: middle;\n      width: 45px;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardImage .BlockchainLogo {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 18px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 76px;\n      padding: 16px 10px;\n      width: 100%;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 8px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 27px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 58px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 9999px;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 45px;\n      position: relative;\n      vertical-align: middle;\n      width: 45px;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardImage .BlockchainLogo {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 18px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
 });
 
 var DialogStyle = (function (style) {
@@ -1780,7 +1780,7 @@ var TextButtonStyle = (function (style) {
 });
 
 var TextStyle = (function (style) {
-  return "\n\n    * {\n      color: ".concat(style.colors.text, ";\n    }\n\n    h1, h2, h3, h4, h5, h6 {\n      display: block;\n    }\n\n    .Text {\n      font-size: 16px;\n      line-height: 24px\n    }\n\n    .TextLeft, .TextLeft * {\n      text-align: left;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n    .LineHeightL {\n      line-height: 32px;\n    }\n\n    .ErrorSnippetText {\n      background: rgb(30, 30, 20);\n      border-radius: 19px;\n      border: 8px solid rgb(30, 30, 20);\n      color: #00FF41;\n      font-size: 15px;\n      font-style: italic;\n      max-height: 100px;\n      padding: 6px;\n      overflow-wrap: break-word;\n      overflow-y: auto;\n      white-space: pre-wrap;\n      word-wrap: break-word;\n    }\n  ");
+  return "\n\n    * {\n      color: ".concat(style.colors.text, ";\n    }\n\n    h1, h2, h3, h4, h5, h6 {\n      display: block;\n    }\n\n    .Text {\n      font-size: 16px;\n      line-height: 24px\n    }\n\n    .TextLeft, .TextLeft * {\n      text-align: left !important;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n    .LineHeightL {\n      line-height: 32px;\n    }\n\n    .ErrorSnippetText {\n      background: rgb(30, 30, 20);\n      border-radius: 19px;\n      border: 8px solid rgb(30, 30, 20);\n      color: #00FF41;\n      font-size: 15px;\n      font-style: italic;\n      max-height: 100px;\n      padding: 6px;\n      overflow-wrap: break-word;\n      overflow-y: auto;\n      white-space: pre-wrap;\n      word-wrap: break-word;\n    }\n  ");
 });
 
 var TokenAmountStyle = (function () {
@@ -19937,14 +19937,14 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 var prepareAcceptedPayments = function prepareAcceptedPayments(accept) {
   var toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
   var toContract = _typeof(accept.receiver) == 'object' ? accept.receiver : undefined;
-  return _objectSpread$1(_objectSpread$1({}, accept), {}, {
+  return _objectSpread$3(_objectSpread$3({}, accept), {}, {
     toAddress: toAddress,
     toContract: toContract
   });
@@ -19974,9 +19974,9 @@ var routePayments = (function (_ref) {
   });
 });
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var PaymentRoutingProvider = (function (props) {
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -20179,7 +20179,7 @@ var PaymentRoutingProvider = (function (props) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              setSelectedRoute(_objectSpread({}, updatedRouteWithNewPrice));
+              setSelectedRoute(_objectSpread$2({}, updatedRouteWithNewPrice));
               setUpdatedRouteWithNewPrice(null);
 
             case 2:
@@ -21220,7 +21220,7 @@ var WrongNetworkDialog = (function (props) {
   return /*#__PURE__*/React.createElement(Dialog$1, {
     stacked: true,
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL FontSizeL"
     }, "Wrong Network")),
@@ -23242,6 +23242,992 @@ var msToTime = (function (ms) {
   };
 });
 
+function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var ConfirmNFTSelectionDialog = (function (props) {
+  var _selection$nft, _selection$blockchain;
+
+  var _useContext = useContext(SelectionContext),
+      selection = _useContext.selection;
+      _useContext.setSelection;
+
+  var _useContext2 = useContext(ClosableContext),
+      setOpen = _useContext2.setOpen;
+
+  var _useContext3 = useContext(NavigateStackContext),
+      navigate = _useContext3.navigate;
+
+  var age, holders;
+
+  if (selection.nft.createdAt) {
+    age = msToTime(new Date() - new Date(selection.nft.createdAt));
+    age = [age.year && age.year >= 1 ? age.year >= 2 ? "".concat(age.year, " years") : "1 year" : undefined, age.month && age.month >= 1 ? age.month >= 2 ? "".concat(age.month, " months") : "1 month" : undefined, age.day && age.day >= 1 && age.month <= 1 && age.year < 1 ? age.day >= 2 ? "".concat(age.day, " days !!!") : "1 day !!!" : undefined].filter(function (n) {
+      return n;
+    }).join(' ');
+  }
+
+  if (selection.nft.holders) {
+    if (selection.nft.holders > 1000000) {
+      holders = "Millions";
+    } else if (selection.nft.holders > 100000) {
+      holders = "Hundreds of Thousands";
+    } else if (selection.nft.holders > 2000) {
+      holders = "Thousands";
+    } else if (selection.nft.holders > 100) {
+      holders = "Hundreds";
+    } else {
+      holders = "Only a Few!!!";
+    }
+  }
+
+  var blockchain = ((_selection$nft = selection.nft) === null || _selection$nft === void 0 ? void 0 : _selection$nft.blockchain) || ((_selection$blockchain = selection.blockchain) === null || _selection$blockchain === void 0 ? void 0 : _selection$blockchain.name);
+
+  if (blockchain == undefined) {
+    navigate('SelectBlockchain');
+    return null;
+  }
+
+  var onClickConfirm = function onClickConfirm() {
+    setOpen(false);
+    props.resolve(_objectSpread$1(_objectSpread$1({}, selection.nft), {}, {
+      blockchain: blockchain
+    }));
+    setTimeout(props.unmount, 300);
+  };
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Confirm Selection"))),
+    stacked: true,
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "TokenImage medium TextCenter"
+    }, selection.nft.image && /*#__PURE__*/React.createElement("img", {
+      src: selection.nft.image
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS TextCenter"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Alert FontSizeS"
+    }, /*#__PURE__*/React.createElement("strong", null, "Please review this information"))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("table", {
+      className: "Table TextLeft FontSizeS"
+    }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "TableSubTitle"
+    }, "Address")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
+      className: "Link",
+      title: selection.nft.address,
+      href: Blockchain.findByName(blockchain).explorerUrlFor({
+        token: selection.nft.address
+      }),
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }, addressEllipsis(selection.nft.address, 6))))), selection.nft.id && /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "TableSubTitle"
+    }, "Token ID")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, selection.nft.id))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "TableSubTitle"
+    }, "Blockchain")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, Blockchain.findByName(blockchain).label))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "TableSubTitle"
+    }, "Name")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("a", {
+      className: "Link",
+      href: selection.nft.link,
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }, selection.nft.name))), age && /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "TableSubTitle"
+    }, "Age")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, age))), holders && /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+      className: "TableSubTitle"
+    }, "Holders")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, holders))))))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: onClickConfirm
+    }, "Confirm"))
+  });
+});
+
+var OpenSea = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjMuMjUwODg5bW0iIGhlaWdodD0iNjMuMjUwODg5bW0iIHZpZXdCb3g9IjAgMCA2My4yNTA4ODYgNjMuMjUwODg4Ij4KICA8ZyBmaWxsPSJub25lIiB0cmFuc2Zvcm09InNjYWxlKC42MzI1KSI+CiAgICA8cGF0aCBmaWxsPSIjMjA4MWUyIiBkPSJNMTAwIDUwYzAgMjcuNjEyNy0yMi4zODczIDUwLTUwIDUwUzAgNzcuNjEyNyAwIDUwIDIyLjM4NzMgMCA1MCAwYzI3LjYxODUgMCA1MCAyMi4zODczIDUwIDUweiIvPgogICAgPHBhdGggZmlsbD0iI2ZmZiIgZD0ibTI0LjY2NzkgNTEuNjgwMS4yMTU3LS4zMzkxIDEzLjAwNy0yMC4zNDc4Yy4xOTAxLS4yOTc5LjYzNy0uMjY3MS43ODA4LjA1NjUgMi4xNzMgNC44Njk5IDQuMDQ4IDEwLjkyNjUgMy4xNjk2IDE0LjY5NzEtLjM3NSAxLjU1MTQtMS40MDI0IDMuNjUyNC0yLjU1ODMgNS41OTQyLS4xNDg5LjI4MjYtLjMxMzMuNTYtLjQ4OC44MjcxLS4wODIyLjEyMzMtLjIyMDkuMTk1Mi0uMzY5OS4xOTUySDI1LjA0OGMtLjM1OTYgMC0uNTcwMi0uMzkwNC0uMzgwMS0uNjgzMnoiLz4KICAgIDxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik04Mi42NDQ0IDU1LjQ2MXYzLjIyMDljMCAuMTg0OS0uMTEzLjM0OTMtLjI3NzQuNDIxMi0xLjAwNjguNDMxNS00LjQ1MzggMi4wMTM3LTUuODg3IDQuMDA2OS0zLjY1NzYgNS4wOTA4LTYuNDUyMSAxMi4zNy0xMi42OTg4IDEyLjM3SDM3LjcyMUMyOC40ODQ3IDc1LjQ4IDIxIDY3Ljk2OTcgMjEgNTguNzAyNHYtLjI5NzljMC0uMjQ2Ni4yMDAzLS40NDY5LjQ0NjktLjQ0NjloMTQuNTI3NmMuMjg3NiAwIC40OTgyLjI2NzEuNDcyNi41NDk2LS4xMDI4Ljk0NTIuMDcxOSAxLjkxMS41MTg4IDIuNzg5NC44NjMgMS43NTE4IDIuNjUwNyAyLjg0NiA0LjU4MjIgMi44NDZINDguNzR2LTUuNjE0OGgtNy4xMDk3Yy0uMzY0NyAwLS41ODA0LS40MjEzLS4zNjk4LS43MTkyLjA3Ny0uMTE4Mi4xNjQ0LS4yNDE0LjI1NjgtLjM4MDEuNjczLS45NTU1IDEuNjMzNi0yLjQ0MDEgMi41ODkxLTQuMTMwMi42NTI0LTEuMTQwNCAxLjI4NDItMi4zNTc5IDEuNzkyOC0zLjU4MDUuMTAyOC0uMjIwOS4xODQ5LS40NDcuMjY3MS0uNjY3OS4xMzg3LS4zOTA0LjI4MjYtLjc1NTEuMzg1My0xLjExOTguMTAyOC0uMzA4My4xODQ5LS42MzE5LjI2NzEtLjkzNS4yNDE1LTEuMDM3Ny4zNDQyLTIuMTM3LjM0NDItMy4yNzc0IDAtLjQ0NjktLjAyMDUtLjkxNDQtLjA2MTYtMS4zNjEzLS4wMjA2LS40ODgtLjA4MjItLjk3NjEtLjE0MzktMS40NjQxLS4wNDExLS40MzE1LS4xMTgxLS44NTc5LS4yMDAzLTEuMzA0OC0uMTAyNy0uNjUyNC0uMjQ2Ni0xLjI5OTYtLjQxMS0xLjk1MjFsLS4wNTY1LS4yNDY1Yy0uMTIzMy0uNDQ3LS4yMjYtLjg3MzMtLjM2OTgtMS4zMjAyLS40MDU5LTEuNDAyNS0uODczMy0yLjc2ODktMS4zNjY1LTQuMDQ4LS4xNzk4LS41MDg2LS4zODUzLS45OTY2LS41OTA4LTEuNDg0Ni0uMzAzLS43MzQ2LS42MTEzLTEuNDAyNC0uODkzOC0yLjAzNDMtLjE0MzgtLjI4NzctLjI2NzEtLjU0OTctLjM5MDQtLjgxNjgtLjEzODctLjMwMzEtLjI4MjUtLjYwNjItLjQyNjQtLjg5MzgtLjEwMjctLjIyMDktLjIyMDktLjQyNjQtLjMwMzEtLjYzMTlsLS44Nzg0LTEuNjIzM2MtLjEyMzMtLjIyMDkuMDgyMi0uNDgyOS4zMjM2LS40MTYxbDUuNDk2NyAxLjQ4OTdoLjAxNTRjLjAxMDIgMCAuMDE1NC4wMDUyLjAyMDUuMDA1MmwuNzI0My4yMDAzLjc5NjMuMjI2MS4yOTI4LjA4MjF2LTMuMjY3MUM0OC43NCAyMS4yNzkxIDUwLjAwMzcgMjAgNTEuNTY1NCAyMGMuNzgwOCAwIDEuNDg5Ny4zMTg1IDEuOTk4My44MzczLjUwODUuNTE4OS44MjcgMS4yMjc4LjgyNyAyLjAxODl2NC44NDk0bC41ODU3LjE2NDNjLjA0NjIuMDE1NS4wOTI0LjAzNi4xMzM1LjA2NjguMTQzOS4xMDc5LjM0OTMuMjY3MS42MTEzLjQ2MjQuMjA1NS4xNjQzLjQyNjQuMzY0Ny42OTM1LjU3MDIuNTI5MS40MjYzIDEuMTYxLjk3NiAxLjg1NDUgMS42MDc5LjE4NDkuMTU5Mi4zNjQ3LjMyMzYuNTI5MS40ODguODkzOS44MzIyIDEuODk1NiAxLjgwODIgMi44NTExIDIuODg3LjI2NzEuMzAzMS41MjkxLjYxMTMuNzk2Mi45MzQ5LjI2NzEuMzI4OC41NDk3LjY1MjQuNzk2Mi45NzYxLjMyMzcuNDMxNS42NzMuODc4NC45NzYxIDEuMzQ1OS4xNDM4LjIyMDkuMzA4Mi40NDY5LjQ0NjkuNjY3OC4zOTA0LjU5MDcuNzM0NiAxLjIwMjEgMS4wNjM0IDEuODEzNC4xMzg3LjI4MjUuMjgyNS41OTA3LjQwNTguODkzOC4zNjQ3LjgxNjguNjUyNCAxLjY0OS44MzczIDIuNDgxMi4wNTY1LjE3OTguMDk3Ni4zNzUuMTE4Mi41NDk3di4wNDExYy4wNjE2LjI0NjUuMDgyMi41MDg1LjEwMjcuNzc1Ni4wODIyLjg1MjguMDQxMSAxLjcwNTUtLjE0MzggMi41NjM0LS4wNzcxLjM2NDgtLjE3OTguNzA4OS0uMzAzMSAxLjA3MzctLjEyMzMuMzQ5My0uMjQ2Ni43MTQtLjQwNTggMS4wNTgyLS4zMDgyLjcxNC0uNjczIDEuNDI4MS0xLjEwNDUgMi4wOTU5LS4xMzg3LjI0NjYtLjMwMzEuNTA4Ni0uNDY3NS43NTUyLS4xNzk4LjI2MTktLjM2NDcuNTA4NS0uNTI5MS43NS0uMjI2LjMwODItLjQ2NzQuNjMxOC0uNzE0LjkxOTUtLjIyMDkuMzAzMS0uNDQ2OS42MDYyLS42OTM1Ljg3MzMtLjM0NDIuNDA1OC0uNjczLjc5MTEtMS4wMTcyIDEuMTYxLS4yMDU0LjI0MTQtLjQyNjMuNDg4LS42NTI0LjcwODktLjIyMDguMjQ2NS0uNDQ2OS40Njc0LS42NTI0LjY3MjktLjM0NDEuMzQ0Mi0uNjMxOC42MTEzLS44NzMzLjgzMjJsLS41NjUuNTE4OWMtLjA4MjIuMDcxOS0uMTkwMS4xMTMtLjMwMzEuMTEzaC00LjM3Njh2NS42MTQ4aDUuNTA2OWMxLjIzMjkgMCAyLjQwNDItLjQzNjcgMy4zNDk0LTEuMjM4MS4zMjM2LS4yODI1IDEuNzM2My0xLjUwNTEgMy40MDU4LTMuMzQ5My4wNTY1LS4wNjE3LjEyODUtLjEwNzkuMjEwNy0uMTI4NGwxNS4yMTA3LTQuMzk3M2MuMjgyNi0uMDgyMi41NzAyLjEzMzUuNTcwMi40MzE1eiIvPgogIDwvZz4KPC9zdmc+';
+
+var EnterNFTDataForOpenSeaDialog = (function (props) {
+  var _Blockchain$findByNam, _selection$blockchain3, _selection$collection3, _Blockchain$findByNam2, _selection$blockchain4, _selection$collection4;
+
+  var _useContext = useContext(NavigateStackContext),
+      navigate = _useContext.navigate;
+
+  var _useContext2 = useContext(SelectionContext),
+      selection = _useContext2.selection,
+      setSelection = _useContext2.setSelection;
+
+  var _useState = useState(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      id = _useState2[0],
+      setId = _useState2[1];
+
+  var _useState3 = useState(''),
+      _useState4 = _slicedToArray(_useState3, 2),
+      image = _useState4[0],
+      setImage = _useState4[1];
+
+  var _useState5 = useState(''),
+      _useState6 = _slicedToArray(_useState5, 2),
+      link = _useState6[0],
+      setLink = _useState6[1];
+
+  var _useState7 = useState(''),
+      _useState8 = _slicedToArray(_useState7, 2),
+      name = _useState8[0],
+      setName = _useState8[1];
+
+  var _useState9 = useState(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      idRequired = _useState10[0],
+      setIdRequired = _useState10[1];
+
+  var confirm = function confirm() {
+    var _selection$blockchain, _selection$collection;
+
+    var blockchain = (selection === null || selection === void 0 ? void 0 : (_selection$blockchain = selection.blockchain) === null || _selection$blockchain === void 0 ? void 0 : _selection$blockchain.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection = selection.collection) === null || _selection$collection === void 0 ? void 0 : _selection$collection.blockchain);
+    setSelection(Object.assign(props.selection, {
+      nft: {
+        blockchain: blockchain,
+        id: id,
+        image: image,
+        name: name,
+        link: link,
+        address: selection.nft.address,
+        type: idRequired ? '1155' : '721'
+      }
+    }));
+    navigate('ConfirmNFTSelection');
+  };
+
+  useEffect(function () {
+    var _selection$blockchain2, _selection$collection2;
+
+    var blockchain = (selection === null || selection === void 0 ? void 0 : (_selection$blockchain2 = selection.blockchain) === null || _selection$blockchain2 === void 0 ? void 0 : _selection$blockchain2.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection2 = selection.collection) === null || _selection$collection2 === void 0 ? void 0 : _selection$collection2.blockchain);
+
+    var checkForIdRequired = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+        var balanceWithId;
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!blockchain) {
+                  _context.next = 10;
+                  break;
+                }
+
+                _context.prev = 1;
+                _context.next = 4;
+                return request({
+                  blockchain: blockchain,
+                  address: selection.nft.address,
+                  method: 'balanceOf',
+                  api: Token[blockchain][1155],
+                  params: ['0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02', '1']
+                });
+
+              case 4:
+                balanceWithId = _context.sent;
+                _context.next = 9;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](1);
+
+              case 9:
+                if (balanceWithId) {
+                  setIdRequired(true);
+                }
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[1, 7]]);
+      }));
+
+      return function checkForIdRequired() {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    checkForIdRequired();
+  }, [selection.blockchain]);
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    stacked: true,
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "LineHeightL FontSizeL PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "CardImage small"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "transparent",
+      src: OpenSea
+    }))))),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS TextLeft"
+    }, /*#__PURE__*/React.createElement("label", {
+      htmlFor: "DePayWidgetsEnterNFTBlockchain"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "FontSizeM Opacity05"
+    }, "Select Blockchain"))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Card small",
+      onClick: function onClick() {
+        return navigate('SelectBlockchain');
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardImage small"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "transparent",
+      src: (_Blockchain$findByNam = Blockchain.findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain3 = selection.blockchain) === null || _selection$blockchain3 === void 0 ? void 0 : _selection$blockchain3.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection3 = selection.collection) === null || _selection$collection3 === void 0 ? void 0 : _selection$collection3.blockchain))) === null || _Blockchain$findByNam === void 0 ? void 0 : _Blockchain$findByNam.logo
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "CardBody FontSizeM"
+    }, (_Blockchain$findByNam2 = Blockchain.findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain4 = selection.blockchain) === null || _selection$blockchain4 === void 0 ? void 0 : _selection$blockchain4.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection4 = selection.collection) === null || _selection$collection4 === void 0 ? void 0 : _selection$collection4.blockchain))) === null || _Blockchain$findByNam2 === void 0 ? void 0 : _Blockchain$findByNam2.label), /*#__PURE__*/React.createElement("div", {
+      className: "CardAction"
+    }, /*#__PURE__*/React.createElement(ChevronRight, null))))), idRequired && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS TextLeft"
+    }, /*#__PURE__*/React.createElement("label", {
+      htmlFor: "DePayWidgetsEnterNFTTokenId"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "FontSizeM Opacity05"
+    }, "Enter Token ID"))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingBottomS TextLeft"
+    }, /*#__PURE__*/React.createElement("input", {
+      id: "DePayWidgetsEnterNFTTokenId",
+      name: "DePayWidgetsEnterNFTTokenId",
+      value: id,
+      onChange: function onChange(event) {
+        return setId(event.target.value);
+      },
+      className: "Search"
+    }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS TextLeft"
+    }, /*#__PURE__*/React.createElement("label", {
+      htmlFor: "DePayWidgetsEnterNFTName"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "FontSizeM Opacity05"
+    }, "Enter NFT Name"))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingBottomS TextLeft"
+    }, /*#__PURE__*/React.createElement("input", {
+      id: "DePayWidgetsEnterNFTName",
+      name: "DePayWidgetsEnterNFTName",
+      value: name,
+      onChange: function onChange(event) {
+        return setName(event.target.value);
+      },
+      placeholder: "CryptoPunks",
+      className: "Search"
+    }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS TextLeft"
+    }, /*#__PURE__*/React.createElement("label", {
+      htmlFor: "DePayWidgetsEnterNFTImage"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "FontSizeM Opacity05"
+    }, "Enter Image URL"))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingBottomS TextLeft"
+    }, /*#__PURE__*/React.createElement("input", {
+      id: "DePayWidgetsEnterNFTImage",
+      name: "DePayWidgetsEnterNFTImage",
+      value: image,
+      onChange: function onChange(event) {
+        return setImage(event.target.value);
+      },
+      placeholder: "https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128",
+      className: "Search"
+    }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS TextLeft"
+    }, /*#__PURE__*/React.createElement("label", {
+      htmlFor: "DePayWidgetsEnterNFTLink"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "FontSizeM Opacity05"
+    }, "Enter Link URL"))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingBottomS TextLeft"
+    }, /*#__PURE__*/React.createElement("input", {
+      id: "DePayWidgetsEnterNFTLink",
+      name: "DePayWidgetsEnterNFTLink",
+      value: link,
+      onChange: function onChange(event) {
+        return setLink(event.target.value);
+      },
+      placeholder: "https://opensea.io/collection/cryptopunks",
+      className: "Search"
+    })))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: ['ButtonPrimary', !image.length || !link.length || !name.length || idRequired && !id.length ? 'disabled' : ''].join(' '),
+      onClick: function onClick() {
+        if (!image.length || !link.length || !name.length || idRequired && !id.length) {
+          return;
+        }
+
+        confirm();
+      }
+    }, "Continue"))
+  });
+});
+
+var SelectBlockchainDialog = (function (props) {
+  var _useContext = useContext(SelectionContext),
+      setSelection = _useContext.setSelection;
+
+  var _useContext2 = useContext(NavigateStackContext),
+      navigate = _useContext2.navigate;
+
+  var stacked = props.stacked || Object.keys(props.selection).length > 1;
+  var blockchains = [Blockchain.findByName('ethereum'), Blockchain.findByName('bsc'), Blockchain.findByName('polygon')];
+
+  var selectBlockchain = function selectBlockchain(blockchain) {
+    window._depay_token_selection_selected_blockchain = blockchain.name;
+    setSelection(Object.assign(props.selection, {
+      blockchain: blockchain
+    }));
+
+    if (stacked && props.navigateBack !== false) {
+      navigate('back');
+    } else {
+      props.resolve(blockchain);
+    }
+  };
+
+  var elements = blockchains.map(function (blockchain, index) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: index,
+      className: "Card Row",
+      onClick: function onClick() {
+        return selectBlockchain(blockchain);
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardImage"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "transparent",
+      src: blockchain.logo
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "CardText"
+    }, blockchain.label)));
+  });
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Select Blockchain"))),
+    stacked: stacked,
+    bodyClassName: "ScrollHeight",
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS"
+    }, elements),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
+    })
+  });
+});
+
+var BLOCKCHAIN_NAMES$1 = {
+  'ethereum': 'ethereum',
+  'matic': 'polygon,'
+};
+var SelectNFTContractOnOpenSeaDialog = (function (props) {
+  var _useContext = useContext(NavigateStackContext),
+      navigate = _useContext.navigate;
+
+  var _useState = useState(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      searchTerm = _useState2[0],
+      setSearchTerm = _useState2[1];
+
+  var _useState3 = useState(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      loading = _useState4[0],
+      setLoading = _useState4[1];
+
+  var _useState5 = useState([]),
+      _useState6 = _slicedToArray(_useState5, 2),
+      searchResults = _useState6[0],
+      setSearchResults = _useState6[1];
+
+  var _useContext2 = useContext(SelectionContext),
+      setSelection = _useContext2.setSelection;
+
+  var select = function select(nft) {
+    setSelection(Object.assign(props.selection, {
+      nft: nft
+    }));
+    navigate('ConfirmNFTSelection');
+  };
+
+  var dataForCollectionViaAsset = function dataForCollectionViaAsset(address) {
+    return new Promise(function (resolve, reject) {
+      fetch("https://api.opensea.io/api/v1/assets?asset_contract_address=".concat(address)).then(function (response) {
+        if (response.status != 200) {
+          return resolve();
+        }
+
+        response.json().then(function (data) {
+          return resolve(data.assets ? data.assets[0] : undefined);
+        })["catch"](function () {
+          return resolve();
+        });
+      })["catch"](function () {
+        return resolve();
+      });
+    });
+  };
+
+  var searchContract = useCallback(lodash.debounce(function (address) {
+    fetch("https://api.opensea.io/api/v1/asset_contract/".concat(address)).then(function (response) {
+      if (response.status != 200) {
+        setLoading(false);
+        return;
+      }
+
+      response.json().then( /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(data) {
+          var result, blockchain, holders, additionalData, _additionalData$colle, _additionalData$colle2, _additionalData$colle3, _additionalData$colle4, _additionalData, _blockchain;
+
+          return regenerator.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  if (!(data.asset_contract_type == 'non-fungible')) {
+                    _context.next = 8;
+                    break;
+                  }
+
+                  _context.next = 3;
+                  return dataForCollectionViaAsset(address);
+
+                case 3:
+                  additionalData = _context.sent;
+
+                  if (additionalData) {
+                    blockchain = additionalData !== null && additionalData !== void 0 && additionalData.permalink.match(/https:\/\/opensea\.io\/assets\/(\w*)\//) ? BLOCKCHAIN_NAMES$1[additionalData.permalink.match(/https:\/\/opensea\.io\/assets\/(\w*)\//)[1]] : undefined;
+                    holders = additionalData === null || additionalData === void 0 ? void 0 : (_additionalData$colle = additionalData.collection) === null || _additionalData$colle === void 0 ? void 0 : (_additionalData$colle2 = _additionalData$colle.stats) === null || _additionalData$colle2 === void 0 ? void 0 : _additionalData$colle2.num_owners;
+                  }
+
+                  result = {
+                    blockchain: blockchain,
+                    holders: holders,
+                    createdAt: data.created_date,
+                    image: data.image_url,
+                    name: data.collection ? data.collection.name : undefined,
+                    link: data.collection ? "https://opensea.io/collection/".concat(data.collection.slug) : undefined,
+                    address: ethers.utils.getAddress(data.address),
+                    type: '721'
+                  };
+                  _context.next = 22;
+                  break;
+
+                case 8:
+                  if (!(data.asset_contract_type == 'semi-fungible')) {
+                    _context.next = 21;
+                    break;
+                  }
+
+                  if (!(data.symbol == 'OPENSTORE' && data.name == 'OpenSea Collection')) {
+                    _context.next = 13;
+                    break;
+                  }
+
+                  result = {
+                    id: null,
+                    address: ethers.utils.getAddress(data.address),
+                    type: '1155'
+                  };
+                  _context.next = 19;
+                  break;
+
+                case 13:
+                  _context.next = 15;
+                  return dataForCollectionViaAsset(address);
+
+                case 15:
+                  _additionalData = _context.sent;
+                  _blockchain = _additionalData !== null && _additionalData !== void 0 && _additionalData.permalink.match(/https:\/\/opensea\.io\/assets\/(\w*)\//) ? BLOCKCHAIN_NAMES$1[_additionalData.permalink.match(/https:\/\/opensea\.io\/assets\/(\w*)\//)[1]] : undefined;
+                  _additionalData === null || _additionalData === void 0 ? void 0 : (_additionalData$colle3 = _additionalData.collection) === null || _additionalData$colle3 === void 0 ? void 0 : (_additionalData$colle4 = _additionalData$colle3.stats) === null || _additionalData$colle4 === void 0 ? void 0 : _additionalData$colle4.num_owners;
+                  result = {
+                    blockchain: _blockchain,
+                    id: null,
+                    createdAt: data.created_date,
+                    image: data.image_url,
+                    name: data.collection ? data.collection.name : undefined,
+                    link: data.collection ? "https://opensea.io/collection/".concat(data.collection.slug) : undefined,
+                    address: ethers.utils.getAddress(data.address),
+                    type: '1155'
+                  };
+
+                case 19:
+                  _context.next = 22;
+                  break;
+
+                case 21:
+                  // like matic/polygon (which is not yet supported by opensea apis)
+                  if (data.address) {
+                    result = {
+                      address: ethers.utils.getAddress(data.address)
+                    };
+                  }
+
+                case 22:
+                  if (result) {
+                    if (result.type == undefined) {
+                      setSelection(Object.assign(props.selection, {
+                        nft: result,
+                        blockchain: result.blockchain || 'polygon'
+                      }));
+                      navigate('EnterNFTDataForOpenSea');
+                      setSearchTerm('');
+                    } else if (result.id !== null) {
+                      select(result);
+                      setSearchResults([result]);
+                      navigate('ConfirmNFTSelection');
+                    } else {
+                      setSelection(Object.assign(props.selection, {
+                        nft: result
+                      }));
+                      navigate('SelectNFTIdOnOpenSea');
+                      setSearchTerm('');
+                    }
+                  }
+
+                  setLoading(false);
+
+                case 24:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        return function (_x) {
+          return _ref.apply(this, arguments);
+        };
+      }())["catch"](function () {
+        setLoading(false);
+      });
+    })["catch"](function () {
+      setLoading(false);
+    });
+  }, 500), []);
+
+  var onChangeTermSearch = function onChangeTermSearch(event) {
+    setLoading(true);
+    setSearchResults([]);
+    var term = event.target.value;
+    setSearchTerm(term);
+
+    if (term && term.length) {
+      searchContract(term);
+    } else {
+      setLoading(false);
+    }
+  };
+
+  var elements;
+
+  if (loading) {
+    elements = [/*#__PURE__*/React.createElement("div", {
+      className: "SkeletonWrapper",
+      key: 'loading'
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Skeleton",
+      style: {
+        height: '69px',
+        width: '100%'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    })))];
+  } else {
+    elements = searchResults.map(function (result, index) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: index,
+        className: "Card Row",
+        onClick: function onClick() {
+          return select(result);
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("img", {
+        src: result.image
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardTokenFullName",
+        title: result.name
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "CardText"
+      }, result.name))));
+    });
+  }
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    stacked: true,
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "LineHeightL FontSizeL PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "CardImage small"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "transparent",
+      src: OpenSea
+    })))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingBottomXS TextLeft"
+    }, /*#__PURE__*/React.createElement("label", {
+      htmlFor: "DePayWidgetsEnterContractAddress"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "FontSizeM Opacity05"
+    }, "Enter contract address"))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingBottomS TextLeft"
+    }, /*#__PURE__*/React.createElement("input", {
+      id: "DePayWidgetsEnterContractAddress",
+      name: "DePayWidgetsEnterContractAddress",
+      value: searchTerm,
+      onChange: onChangeTermSearch,
+      className: "Search",
+      autoFocus: true,
+      placeholder: "0x495f947276749ce646f68ac8c248420045cb7b5e"
+    }))),
+    bodyClassName: "ScrollHeight",
+    body: /*#__PURE__*/React.createElement("div", null, elements)
+  });
+});
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var BLOCKCHAIN_NAMES = {
+  'ethereum': 'ethereum',
+  'matic': 'polygon,'
+};
+var SelectNFTIdOnOpenSeaDialog = (function (props) {
+  var _useContext = useContext(NavigateStackContext),
+      navigate = _useContext.navigate;
+
+  var _useState = useState(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      searchTerm = _useState2[0],
+      setSearchTerm = _useState2[1];
+
+  var _useState3 = useState(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      loading = _useState4[0],
+      setLoading = _useState4[1];
+
+  var _useState5 = useState([]),
+      _useState6 = _slicedToArray(_useState5, 2),
+      searchResults = _useState6[0],
+      setSearchResults = _useState6[1];
+
+  var _useContext2 = useContext(SelectionContext),
+      selection = _useContext2.selection,
+      setSelection = _useContext2.setSelection;
+
+  var select = function select(nft) {
+    setSelection(Object.assign(props.selection, {
+      nft: nft
+    }));
+    navigate('ConfirmNFTSelection');
+  };
+
+  var searchForCollectionById = useCallback(lodash.debounce(function (id) {
+    fetch("https://api.opensea.io/api/v1/asset/".concat(selection.nft.address, "/").concat(id)).then(function (response) {
+      if (response.status != 200) {
+        return resolve();
+      }
+
+      response.json().then( /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(data) {
+          var blockchain, result;
+          return regenerator.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  blockchain = data !== null && data !== void 0 && data.permalink.match(/https:\/\/opensea\.io\/assets\/(\w*)\//) ? BLOCKCHAIN_NAMES[data.permalink.match(/https:\/\/opensea\.io\/assets\/(\w*)\//)[1]] : undefined;
+                  result = _objectSpread(_objectSpread({}, selection.nft), {}, {
+                    blockchain: blockchain,
+                    id: data.token_id,
+                    image: data.image_url,
+                    name: data.name,
+                    link: data.permalink
+                  });
+                  setSearchResults([result]);
+                  select(result);
+                  setLoading(false);
+
+                case 5:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        return function (_x) {
+          return _ref.apply(this, arguments);
+        };
+      }())["catch"](function () {
+        setLoading(false);
+      });
+    })["catch"](function () {
+      setLoading(false);
+    });
+  }, 500), []);
+
+  var onChangeTermSearch = function onChangeTermSearch(event) {
+    setLoading(true);
+    setSearchResults([]);
+    var term = event.target.value;
+    setSearchTerm(term);
+
+    if (term && term.length) {
+      searchForCollectionById(term);
+    } else {
+      setLoading(false);
+    }
+  };
+
+  useEffect(function () {
+    fetch("https://api.opensea.io/api/v1/assets?asset_contract_address=".concat(selection.nft.address)).then(function (response) {
+      if (response.status != 200) {
+        return resolve();
+      }
+
+      response.json().then(function (data) {
+        if (data.assets.length <= 6) {
+          var results = data.assets.map(function (data) {
+            var blockchain = data !== null && data !== void 0 && data.permalink.match(/https:\/\/opensea\.io\/assets\/(\w*)\//) ? BLOCKCHAIN_NAMES[data.permalink.match(/https:\/\/opensea\.io\/assets\/(\w*)\//)[1]] : undefined;
+            return _objectSpread(_objectSpread({}, selection.nft), {}, {
+              blockchain: blockchain,
+              id: data.token_id,
+              image: data.image_url,
+              name: data.name,
+              link: data.permalink
+            });
+          });
+          setSearchResults(results);
+
+          if (results.length == 1) {
+            select(results[0]);
+          }
+        }
+      });
+    });
+  }, []);
+  var elements;
+
+  if (loading) {
+    elements = [/*#__PURE__*/React.createElement("div", {
+      className: "SkeletonWrapper",
+      key: 'loading'
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Skeleton",
+      style: {
+        height: '69px',
+        width: '100%'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    })))];
+  } else {
+    elements = searchResults.map(function (result, index) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: index,
+        className: "Card Row",
+        onClick: function onClick() {
+          return select(result);
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("img", {
+        src: result.image
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardTokenFullName",
+        title: result.name
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "CardText"
+      }, result.name))));
+    });
+  }
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    stacked: true,
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "LineHeightL FontSizeL PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "CardImage small"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "transparent",
+      src: OpenSea
+    })))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingBottomXS TextLeft"
+    }, /*#__PURE__*/React.createElement("label", {
+      htmlFor: "DePayWidgetsEnterCollectionId"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "FontSizeM Opacity05"
+    }, "Enter Token ID"))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingBottomS TextLeft"
+    }, /*#__PURE__*/React.createElement("input", {
+      id: "DePayWidgetsEnterCollectionId",
+      name: "DePayWidgetsEnterCollectionId",
+      value: searchTerm,
+      onChange: onChangeTermSearch,
+      className: "Search",
+      placeholder: "35347623114821255323888368639026081793120226253597860997754787918389704654849"
+    }))),
+    bodyClassName: "ScrollHeight",
+    body: /*#__PURE__*/React.createElement("div", null, elements)
+  });
+});
+
+var SelectNFTPlatformDialog = (function (props) {
+  var _useContext = useContext(NavigateStackContext),
+      navigate = _useContext.navigate;
+
+  var select = function select(marketplace) {
+    navigate(marketplace.navigate);
+  };
+
+  var elements = [{
+    name: 'OpenSea',
+    navigate: 'SelectNFTContractOnOpenSea',
+    logo: OpenSea
+  }].map(function (marketplace, index) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: index,
+      className: "Card Row",
+      onClick: function onClick() {
+        return select(marketplace);
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardImage"
+    }, /*#__PURE__*/React.createElement("img", {
+      src: marketplace.logo
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardTokenSymbol",
+      title: marketplace.name
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "CardText"
+    }, marketplace.name)), /*#__PURE__*/React.createElement("div", {
+      className: "CardTokenName PaddingTopXS"
+    }, /*#__PURE__*/React.createElement(ChevronRight, null))));
+  });
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Select NFT")), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "FontSizeM Opacity05"
+    }, "Choose which marketplace"))),
+    bodyClassName: "ScrollHeight",
+    body: /*#__PURE__*/React.createElement("div", {
+      className: ""
+    }, elements)
+  });
+});
+
+var SelectNFTStack = (function (props) {
+  var _ref;
+
+  var _useContext = useContext(ConfigurationContext),
+      what = _useContext.what;
+
+  var _useContext2 = useContext(ClosableContext),
+      open = _useContext2.open,
+      close = _useContext2.close;
+
+  var _useContext3 = useContext(SelectionContext),
+      selection = _useContext3.selection;
+      _useContext3.setSelection;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2);
+      _useState2[0];
+      var _setNavigator = _useState2[1];
+
+  var start;
+
+  switch (what) {
+    default:
+      start = 'SelectMarketplace';
+  }
+
+  return /*#__PURE__*/React.createElement(ReactDialogStack, {
+    open: open,
+    close: close,
+    start: start,
+    container: props.container,
+    document: props.document,
+    setNavigator: function setNavigator(navigator) {
+      _setNavigator(navigator);
+    },
+    dialogs: (_ref = {
+      SelectMarketplace: /*#__PURE__*/React.createElement(SelectNFTPlatformDialog, {
+        selection: selection,
+        resolve: props.resolve,
+        unmount: props.unmount
+      }),
+      SelectNFTContractOnOpenSea: /*#__PURE__*/React.createElement(SelectNFTContractOnOpenSeaDialog, {
+        selection: selection,
+        resolve: props.resolve,
+        unmount: props.unmount
+      }),
+      SelectNFTIdOnOpenSea: /*#__PURE__*/React.createElement(SelectNFTIdOnOpenSeaDialog, {
+        selection: selection,
+        resolve: props.resolve,
+        unmount: props.unmount
+      }),
+      SelectBlockchain: /*#__PURE__*/React.createElement(SelectNFTIdOnOpenSeaDialog, {
+        selection: selection,
+        resolve: props.resolve,
+        unmount: props.unmount
+      }),
+      EnterNFTDataForOpenSea: /*#__PURE__*/React.createElement(EnterNFTDataForOpenSeaDialog, {
+        selection: selection,
+        resolve: props.resolve,
+        unmount: props.unmount
+      })
+    }, _defineProperty(_ref, "SelectBlockchain", /*#__PURE__*/React.createElement(SelectBlockchainDialog, {
+      selection: selection,
+      stacked: true,
+      resolve: props.resolve,
+      unmount: props.unmount
+    })), _defineProperty(_ref, "ConfirmNFTSelection", /*#__PURE__*/React.createElement(ConfirmNFTSelectionDialog, {
+      selection: selection,
+      resolve: props.resolve,
+      unmount: props.unmount
+    })), _ref)
+  });
+});
+
 var ConfirmTokenSelectionDialog = (function (props) {
   var _useContext = useContext(SelectionContext),
       selection = _useContext.selection;
@@ -23293,7 +24279,7 @@ var ConfirmTokenSelectionDialog = (function (props) {
 
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL FontSizeL"
     }, "Confirm Selection"))),
@@ -23318,14 +24304,14 @@ var ConfirmTokenSelectionDialog = (function (props) {
     }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
       className: "TableSubTitle"
     }, "Address")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
-      className: "Link FontSizeM",
+      className: "Link",
       title: address,
       href: blockchain.explorerUrlFor({
         token: address
       }),
       target: "_blank",
       rel: "noopener noreferrer"
-    }, addressEllipsis(address, 4))))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+    }, addressEllipsis(address, 8))))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
       className: "TableSubTitle"
     }, "Blockchain")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, blockchain.label))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
       className: "TableSubTitle"
@@ -23345,64 +24331,6 @@ var ConfirmTokenSelectionDialog = (function (props) {
   });
 });
 
-var SelectBlockchainDialog = (function (props) {
-  var _useContext = useContext(SelectionContext),
-      setSelection = _useContext.setSelection;
-
-  var _useContext2 = useContext(NavigateStackContext),
-      navigate = _useContext2.navigate;
-
-  var stacked = Object.keys(props.selection).length > 1;
-  var blockchains = [Blockchain.findByName('ethereum'), Blockchain.findByName('bsc'), Blockchain.findByName('polygon')];
-
-  var selectBlockchain = function selectBlockchain(blockchain) {
-    window._depay_token_selection_selected_blockchain = blockchain.name;
-    setSelection(Object.assign(props.selection, {
-      blockchain: blockchain
-    }));
-
-    if (stacked) {
-      navigate('back');
-    } else {
-      props.resolve(blockchain);
-    }
-  };
-
-  var elements = blockchains.map(function (blockchain, index) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: index,
-      className: "Card Row",
-      onClick: function onClick() {
-        return selectBlockchain(blockchain);
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardImage"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "transparent",
-      src: blockchain.logo
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "CardBody"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "CardText"
-    }, blockchain.label)));
-  });
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Select Blockchain"))),
-    stacked: stacked,
-    bodyClassName: "ScrollHeight",
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS"
-    }, elements),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
-    })
-  });
-});
-
 var SelectTokenDialog = (function (props) {
   var _useContext = useContext(NavigateStackContext),
       navigate = _useContext.navigate;
@@ -23413,30 +24341,35 @@ var SelectTokenDialog = (function (props) {
   var _useContext3 = useContext(SelectionContext),
       setSelection = _useContext3.setSelection;
 
-  var _useState = useState(''),
+  var _useState = useState(false),
       _useState2 = _slicedToArray(_useState, 2),
-      searchTerm = _useState2[0],
-      setSearchTerm = _useState2[1];
+      loading = _useState2[0],
+      setLoading = _useState2[1];
 
-  var _useState3 = useState(),
+  var _useState3 = useState(''),
       _useState4 = _slicedToArray(_useState3, 2),
-      blockchain = _useState4[0],
-      setBlockchain = _useState4[1];
+      searchTerm = _useState4[0],
+      setSearchTerm = _useState4[1];
 
-  var _useState5 = useState(false),
+  var _useState5 = useState(),
       _useState6 = _slicedToArray(_useState5, 2),
-      showAddToken = _useState6[0],
-      setShowAddToken = _useState6[1];
+      blockchain = _useState6[0],
+      setBlockchain = _useState6[1];
 
-  var _useState7 = useState([]),
+  var _useState7 = useState(false),
       _useState8 = _slicedToArray(_useState7, 2),
-      tokens = _useState8[0],
-      setTokens = _useState8[1];
+      showAddToken = _useState8[0],
+      setShowAddToken = _useState8[1];
 
-  var _useState9 = useState(),
-      _useState10 = _slicedToArray(_useState9, 2);
-      _useState10[0];
-      _useState10[1];
+  var _useState9 = useState([]),
+      _useState10 = _slicedToArray(_useState9, 2),
+      tokens = _useState10[0],
+      setTokens = _useState10[1];
+
+  var _useState11 = useState(),
+      _useState12 = _slicedToArray(_useState11, 2);
+      _useState12[0];
+      _useState12[1];
 
   var searchElement = useRef();
   var wallet = getWallets()[0];
@@ -23498,6 +24431,7 @@ var SelectTokenDialog = (function (props) {
       if (response.status == 200) {
         response.json().then(function (tokens) {
           setTokens(tokens);
+          setLoading(false);
         })["catch"](function () {
           return reject;
         });
@@ -23507,10 +24441,11 @@ var SelectTokenDialog = (function (props) {
     })["catch"](function () {
       return reject;
     });
-  }, 300), []);
+  }, 500), []);
 
   var onChangeSearch = function onChangeSearch(event) {
     setShowAddToken(false);
+    setLoading(true);
     var term = event.target.value;
     setSearchTerm(term);
 
@@ -23526,6 +24461,7 @@ var SelectTokenDialog = (function (props) {
       } catch (_unused) {}
 
       if (token == undefined) {
+        setLoading(false);
         return;
       }
 
@@ -23548,12 +24484,14 @@ var SelectTokenDialog = (function (props) {
           blockchain: blockchain.name,
           routable: !!routable
         }]);
+        setLoading(false);
       });
     } else if (term && term.length) {
       setTokens([]);
       searchTokens(term, blockchain.name);
     } else {
       setTokens(blockchain.tokens);
+      setLoading(false);
     }
   };
 
@@ -23588,36 +24526,53 @@ var SelectTokenDialog = (function (props) {
     }
   };
 
-  var elements = tokens.map(function (token, index) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: "".concat(index, "-").concat(token.address),
-      className: "Card Row",
-      onClick: function onClick() {
-        return select(token);
+  var elements;
+
+  if (loading) {
+    elements = [/*#__PURE__*/React.createElement("div", {
+      className: "SkeletonWrapper",
+      key: 'loading'
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Skeleton",
+      style: {
+        height: '69px',
+        width: '100%'
       }
     }, /*#__PURE__*/React.createElement("div", {
-      className: "CardImage"
-    }, token.logo && /*#__PURE__*/React.createElement("img", {
-      src: token.logo
-    }), token.image && /*#__PURE__*/React.createElement("img", {
-      src: token.image
-    }), !(token.logo || token.image) && /*#__PURE__*/React.createElement(TokenImage, {
-      blockchain: token.blockchain,
-      address: token.external_id || token.address
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "CardBody"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardTokenSymbol",
-      title: token.symbol
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "CardText"
-    }, token.symbol)), /*#__PURE__*/React.createElement("div", {
-      className: "CardTokenName",
-      title: token.name
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "CardText"
-    }, token.name))));
-  });
+      className: "SkeletonBackground"
+    })))];
+  } else {
+    elements = tokens.map(function (token, index) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: "".concat(index, "-").concat(token.address),
+        className: "Card Row",
+        onClick: function onClick() {
+          return select(token);
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, token.logo && /*#__PURE__*/React.createElement("img", {
+        src: token.logo
+      }), token.image && /*#__PURE__*/React.createElement("img", {
+        src: token.image
+      }), !(token.logo || token.image) && /*#__PURE__*/React.createElement(TokenImage, {
+        blockchain: token.blockchain,
+        address: token.external_id || token.address
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardTokenSymbol",
+        title: token.symbol
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "CardText"
+      }, token.symbol)), /*#__PURE__*/React.createElement("div", {
+        className: "CardTokenName",
+        title: token.name
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "CardText"
+      }, token.name))));
+    });
+  }
 
   if (blockchain == undefined) {
     return null;
@@ -23676,7 +24631,7 @@ var SelectTokenDialog = (function (props) {
   });
 });
 
-var SelectStack = (function (props) {
+var SelectTokenStack = (function (props) {
   var _useContext = useContext(ConfigurationContext),
       what = _useContext.what;
 
@@ -23734,7 +24689,7 @@ var Select = function Select(options) {
 
   if (what == undefined) {
     startupError = '"what" needs to be configured!';
-  } else if (['token'].indexOf(what) < 0) {
+  } else if (['token', 'nft'].indexOf(what) < 0) {
     startupError = "Unknown \"what\" configured: ".concat(what, "!");
   }
 
@@ -23765,7 +24720,12 @@ var Select = function Select(options) {
                     }
                   }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                     unmount: userClosedDialog
-                  }, /*#__PURE__*/React.createElement(SelectionProvider, null, /*#__PURE__*/React.createElement(SelectStack, {
+                  }, /*#__PURE__*/React.createElement(SelectionProvider, null, what == 'token' && /*#__PURE__*/React.createElement(SelectTokenStack, {
+                    document: document,
+                    container: container,
+                    unmount: unmount,
+                    resolve: resolve
+                  }), what == 'nft' && /*#__PURE__*/React.createElement(SelectNFTStack, {
                     document: document,
                     container: container,
                     unmount: unmount,

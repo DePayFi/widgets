@@ -16,6 +16,7 @@ export default (props)=> {
   const { navigate } = useContext(NavigateStackContext)
   const { setOpen } = useContext(ClosableContext)
   const { setSelection } = useContext(SelectionContext)
+  const [ loading, setLoading ] = useState(false)
   const [ searchTerm, setSearchTerm ] = useState('')
   const [ blockchain, setBlockchain ] = useState()
   const [ showAddToken, setShowAddToken ] = useState(false)
@@ -76,20 +77,25 @@ export default (props)=> {
       if(response.status == 200) {
         response.json().then((tokens)=>{
           setTokens(tokens)
+          setLoading(false)
         }).catch(()=>reject)
       } else { reject() }
     }).catch(()=>reject)
-  }, 300), [])
+  }, 500), [])
 
   const onChangeSearch = (event)=>{
     setShowAddToken(false)
+    setLoading(true)
     let term = event.target.value
     setSearchTerm(term)
     if(term.match(/^0x/)) {
       setTokens([])
       let token
       try { token = new Token({ blockchain: blockchain.name, address: term }) } catch {}
-      if(token == undefined){ return }
+      if(token == undefined){ 
+        setLoading(false)
+        return
+      }
       Promise.all([
         token.name(),
         token.symbol(),
@@ -104,12 +110,14 @@ export default (props)=> {
           blockchain: blockchain.name,
           routable: !!routable,
         }])
+        setLoading(false)
       })
     } else if(term && term.length) {
       setTokens([])
       searchTokens(term, blockchain.name)
     } else {
       setTokens(blockchain.tokens)
+      setLoading(false)
     }
   }
 
@@ -134,29 +142,42 @@ export default (props)=> {
     }
   }
 
-  const elements = tokens.map((token, index)=>{
-    return(
-      <div key={ `${index}-${token.address}` } className="Card Row" onClick={ ()=>select(token) }>
-        <div className="CardImage">
-          { token.logo && <img src={token.logo}/> }
-          { token.image && <img src={token.image}/> }
-          { !(token.logo || token.image) && <TokenImage blockchain={ token.blockchain } address={ token.external_id || token.address }/>}
-        </div>
-        <div className="CardBody">
-          <div className="CardTokenSymbol" title={ token.symbol }>
-            <span className="CardText">
-              {token.symbol}
-            </span>
-          </div>
-          <div className="CardTokenName" title={ token.name }>
-            <span className="CardText">
-              {token.name}
-            </span>
+  let elements
+
+  if(loading) {
+    elements = [
+      <div className="SkeletonWrapper" key={ 'loading' }>
+        <div className="Skeleton" style={{ height: '69px', width: '100%' }}>
+          <div className="SkeletonBackground">
           </div>
         </div>
       </div>
-    )
-  })
+    ]
+  } else {
+    elements = tokens.map((token, index)=>{
+      return(
+        <div key={ `${index}-${token.address}` } className="Card Row" onClick={ ()=>select(token) }>
+          <div className="CardImage">
+            { token.logo && <img src={token.logo}/> }
+            { token.image && <img src={token.image}/> }
+            { !(token.logo || token.image) && <TokenImage blockchain={ token.blockchain } address={ token.external_id || token.address }/>}
+          </div>
+          <div className="CardBody">
+            <div className="CardTokenSymbol" title={ token.symbol }>
+              <span className="CardText">
+                {token.symbol}
+              </span>
+            </div>
+            <div className="CardTokenName" title={ token.name }>
+              <span className="CardText">
+                {token.name}
+              </span>
+            </div>
+          </div>
+        </div>
+      )
+    })
+  }
 
   if(blockchain == undefined) { return null }
 

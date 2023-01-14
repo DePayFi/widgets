@@ -4,7 +4,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { mock, resetMocks } from '@depay/web3-mock'
 
-describe('Select Widget', () => {
+describe('Select Widget: token', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']

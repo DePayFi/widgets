@@ -37,6 +37,14 @@ export default (style)=>{
       text-overflow: ellipsis;
     }
 
+    .CardTokenFullName {
+      width: 100%;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     .CardTokenName {
       text-align: right;
       opacity: 0.5;
@@ -112,6 +120,7 @@ export default (style)=>{
     }
 
     .CardImage {
+      display: inline-flex;
       flex-basis: auto;
       flex-grow: 0;
       flex-shrink: 0;

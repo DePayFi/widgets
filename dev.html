@@ -7,28 +7,28 @@
     <title>Development</title>
     <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js" type="application/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script crossorigin src="https://unpkg.com/@depay/solana-web3.js@1"></script>
-    <script crossorigin src="https://unpkg.com/@depay/local-currency@3"></script>
-    <script crossorigin src="https://unpkg.com/@depay/react-dialog@14"></script>
-    <script crossorigin src="https://unpkg.com/@depay/react-dialog-stack@7"></script>
-    <script crossorigin src="https://unpkg.com/@depay/react-shadow-dom@5"></script>
-    <script crossorigin src="https://unpkg.com/@depay/web3-blockchains@6"></script>
-    <script crossorigin src="https://unpkg.com/@depay/web3-constants@6"></script>
-    <script crossorigin src="https://unpkg.com/@depay/react-token-image@4"></script>
-    <script crossorigin src="https://unpkg.com/@depay/coinbase-wallet-sdk@1"></script>
-    <script crossorigin src="https://unpkg.com/@depay/walletconnect-v1@1"></script>
-    <script crossorigin src="https://unpkg.com/@depay/web3-client@10"></script>
-    <script crossorigin src="https://unpkg.com/@depay/web3-wallets@13"></script>
-    <script crossorigin src="https://unpkg.com/@depay/web3-tokens@9"></script>
-    <script crossorigin src="https://unpkg.com/@depay/web3-assets@6"></script>
-    <script crossorigin src="https://unpkg.com/@depay/web3-exchanges@11"></script>
-    <script crossorigin src="https://unpkg.com/@depay/web3-payments@10"></script>
-    <script crossorigin src="https://unpkg.com/react-rangeslider@2/umd/rangeslider.js"></script>
-    <script crossorigin src="https://unpkg.com/decimal.js@10/decimal.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/solana-web3.js@1"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/local-currency@3"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog@14"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@7"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-shadow-dom@5"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@6"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-constants@6"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@10"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@4"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/coinbase-wallet-sdk@1"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v1@1"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@13"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@9"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-assets@6"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@11"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@10"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/react-rangeslider@2/umd/rangeslider.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/decimal.js@10/decimal.js"></script>
     <script src="tmp/index.dev.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.css">
     <style>
       .btn-primary {
         color: #fff;
@@ -1067,12 +1067,36 @@
                 </div>
               </div>
               <div class="px-4 pt-3">
-                <button class='btn btn-primary' id="selectButton">Try it</button>
+                <button class='btn btn-primary' id="selectTokenButton">Try it</button>
                 <script>
-                    var button = document.getElementById("selectButton");
+                    var button = document.getElementById("selectTokenButton");
                     button.addEventListener("click",async function(e){
                       let token = await DePayWidgets.Select({ what: 'token' })
                       console.log("SELECTED TOKEN", token)
+                    });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Select: NFT</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Select an NFT.</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="selectNFTButton">Try it</button>
+                <script>
+                    var button = document.getElementById("selectNFTButton");
+                    button.addEventListener("click",async function(e){
+                      let collection = await DePayWidgets.Select({ what: 'nft' })
+                      console.log("SELECTED NFT", collection)
                     });
                 </script>
               </div>
