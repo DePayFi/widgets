@@ -198,7 +198,7 @@ Make sure to not pass any amounts to `accept` if you use fix currency amounts.
 
 The widget will still display local currency conversions to users. If you want to change this see `currency` configuration.
 
-##### amount selection (changable amounts)
+##### amount selection (changeable amounts)
 
 When you want to control how the amount selection behaves, pass the `amount` configuration object,
 alongside values for `start`, `min` and `step`.
@@ -207,11 +207,11 @@ alongside values for `start`, `min` and `step`.
 
 `min`: The minimum amount selectable.
 
-`step`: The number by wich to increment/decremten changes to the amount.
+`step`: The number by which to increment/decrement changes to the amount.
 
 #### fee
 
-You can configure a fee which will be applied to every payment with it's own dedicated fee receiver address.
+You can configure a fee which will be applied to every payment with its own dedicated fee receiver address.
 
 The fee will be taken from the target token and target amount (after swap, depending on your `accept` configuration).
 
@@ -253,7 +253,7 @@ DePayWidgets.Payment({
 
 To optimize initialization speed of the Payment Widget you can preload payment routes as soon as you become aware of the users wallet address. 
 
-Typically right after the users conncets his wallet, or in cases the user has his wallet already connected you can preload immediatelly:
+Typically right after the users connects his wallet, or in cases the user has his wallet already connected you can preload immediately:
 
 ```javascript
 let address = '0x4aD374e0836c26BeC213a19D3e030F8b3A8AcDE4' // e.g. retrieve it right when you perform wallet connect
@@ -382,7 +382,7 @@ Payment tracking requests will be attempted indefinitely. After 2 minutes a warn
 
 ##### Asynchronous Validation
 
-For user flows where you can release the user immediatelly, we recommend performing payment validation asynchronously as in certain situation in can take up to multiple minutes to validate a payment:
+For user flows where you can release the user immediately, we recommend performing payment validation asynchronously as in certain situations it can take up to multiple minutes to validate a payment:
 
 You can configure the widget to track/validate the payment asynchronously:
 
@@ -406,12 +406,12 @@ This allows you to release the user immediately, showing him some confirmation a
 
 In order to ensure a 100% coverage that users are released and forwarded within your payment flow, you will need to implement polling in addition to tracking.
 
-The `track.poll` configuration either takes an `enpoint` or a `method` (similiar to track itself).
+The `track.poll` configuration either takes an `enpoint` or a `method` (similar to track itself).
 
 It will use the endpoint or the method to request a release every 5 seconds.
 
 You need to make sure to respond to this request with a status `404` in case the user is not to be released just yet (payment and processing on your side are not complete yet)
-or `200` if the payment has been completed and the processing on your side is done and the user can be released and forwarded withing your payment flow.
+or `200` if the payment has been completed and the processing on your side is done and the user can be released and forwarded within your payment flow.
 
 In case you want to redirect the user to the next step in your system, the poll endpoint needs to respond with a body containing json like: `{ forward_to: 'https://example.com/next_step_url' }`.
 
@@ -495,7 +495,7 @@ DePayWidgets.Payment({
 
 A function that will be called before the payment is handed over to the wallet.
 
-Allows you to stop the payment if this methods returns false.
+Allows you to stop the payment if this method returns false.
 
 ```javascript
 DePayWidgets.Payment({
@@ -578,7 +578,7 @@ DePayWidgets.Payment({
 
 `critical`
 
-A function that will be called if the widget throws an critical internal error that it can't handle and display on it's own:
+A function that will be called if the widget throws a critical internal error that it can't handle and display on its own:
 
 ```javascript
 DePayWidgets.Payment({
@@ -593,7 +593,7 @@ DePayWidgets.Payment({
 
 `error`
 
-A function that will be called if the widget throws an non-critical internal error that it can and will handle and display on it's own:
+A function that will be called if the widget throws a non-critical internal error that it can and will handle and display on its own:
 
 ```javascript
 DePayWidgets.Payment({
@@ -607,7 +607,7 @@ DePayWidgets.Payment({
 
 #### providers
 
-Allows to set providers to be used for making RPC calls to the individiual blockchains:
+Allows to set providers to be used for making RPC calls to the individual blockchains:
 
 ```javascript
 DePayWidgets.Payment({
@@ -830,7 +830,7 @@ unmount()
 
 `recover`
 
-Allows you to recover a previous made payment. E.g. useful if you need to continue to show a pending payment progress if user rearrives or reloads a payment page:
+Allows you to recover a previously made payment. E.g. useful if you need to continue to show a pending payment progress if user rearrives or reloads a payment page:
 
 ```javascript
 DePayWidgets.Payment({
@@ -945,7 +945,7 @@ alongside values for `start`, `min` and `step`.
 
 `min`: The minimum amount selectable.
 
-`step`: The number by wich to increment/decremten changes to the amount.
+`step`: The number by which to increment/decrement changes to the amount.
 
 `token`: Set to `true` if you want amount selection to be denominated in the token you're selling, e.g.:
 
@@ -1046,7 +1046,7 @@ DePayWidgets.Sale({
 
 `critical`
 
-A function that will be called if the widget throws an critical internal error that it can't handle and display on it's own:
+A function that will be called if the widget throws a critical internal error that it can't handle and display on its own:
 
 ```javascript
 DePayWidgets.Sale({
@@ -1061,7 +1061,7 @@ DePayWidgets.Sale({
 
 `error`
 
-A function that will be called if the widget throws an non-critical internal error that it can and will handle and display on it's own:
+A function that will be called if the widget throws a non-critical internal error that it can and will handle and display on its own:
 
 ```javascript
 DePayWidgets.Sale({
@@ -1075,7 +1075,7 @@ DePayWidgets.Sale({
 
 #### providers
 
-Allows to set providers to be used for making RPC calls to the individiual blockchains:
+Allows to set providers to be used for making RPC calls to the individual blockchains:
 
 ```javascript
 DePayWidgets.Sale({
@@ -1271,7 +1271,7 @@ DePayWidgets.Sale({
 
 ## DePay Donations
 
-DePay Donations allows you to accept donation payments made with thousands of different crypto currencies.
+DePay Donations allows you to accept donation payments made with thousands of different cryptocurrencies.
 
 ### Preparation
 
@@ -1352,7 +1352,7 @@ alongside values for `start`, `min` and `step`.
 
 `min`: The minimum amount selectable.
 
-`step`: The number by wich to increment/decremten changes to the amount.
+`step`: The number by which to increment/decrement changes to the amount.
 
 #### connected
 
@@ -1373,7 +1373,7 @@ DePayWidgets.Donation({
 
 #### fee
 
-You can configure a fee which will be applied to every payment with it's own dedicated fee receiver address.
+You can configure a fee which will be applied to every payment with its own dedicated fee receiver address.
 
 The fee will be taken from the target token and target amount (after swap, depending on your `accept` configuration).
 
@@ -1477,7 +1477,7 @@ DePayWidgets.Donation({
 
 `critical`
 
-A function that will be called if the widget throws an critical internal error that it can't handle and display on it's own:
+A function that will be called if the widget throws a critical internal error that it can't handle and display on its own:
 
 ```javascript
 DePayWidgets.Donation({
@@ -1492,7 +1492,7 @@ DePayWidgets.Donation({
 
 `error`
 
-A function that will be called if the widget throws an non-critical internal error that it can and will handle and display on it's own:
+A function that will be called if the widget throws a non-critical internal error that it can and will handle and display on its own:
 
 ```javascript
 DePayWidgets.Donation({
@@ -1506,7 +1506,7 @@ DePayWidgets.Donation({
 
 #### providers
 
-Allows to set providers to be used for making RPC calls to the individiual blockchains:
+Allows to set providers to be used for making RPC calls to the individual blockchains:
 
 ```javascript
 DePayWidgets.Donation({
@@ -1774,7 +1774,7 @@ DePayWidgets.Connect().then(()=>{}).catch((error)=>{
 
 DePay Login allows you to perform web3 wallet logins with ease.
 
-Returns `account` if succesfully signed and recovered log in message.
+Returns `account` if successfully signed and recovered log in message.
 
 ```javascript
 let message = "Sign to login"
