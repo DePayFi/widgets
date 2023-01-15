@@ -1859,12 +1859,13 @@ DePayWidgets.Login().then(()=>{}).catch((error)=>{
 
 DePay Select widget allows you to open a dialog that allows you to select things like tokens, etc.
 
-Resolves with what has been selected by the user:
+### Select Token
+
+Resolves with what has been selected by the user.
 
 ```javascript
 let token = await DePayWidgets.Select({ what: 'token' })
 
-// token
 // {
 //   address: "0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"
 //   blockchain: "ethereum"
@@ -1873,6 +1874,44 @@ let token = await DePayWidgets.Select({ what: 'token' })
 //   name: "DePay"
 //   symbol: "DEPAY",
 //   routable: true // information if token is routable through DePay Payment router
+// }
+```
+
+
+### Select NFT
+
+Resolves with what has been selected by the user.
+
+This only resolves to a single contract on a single blockchain.
+
+As NFT collections could span over multiple blockchains, users would need to make one selection per contract address & blockchain.
+
+```javascript
+let collection = await DePayWidgets.Select({ what: 'nft' })
+
+// {
+//    address: "0xba30E5F9Bb24caa003E9f2f0497Ad287FDF95623",
+//    blockchain: "ethereum",
+//    createdAt: "2021-06-18T21:32:25.355263+00:00",
+//    holders: 5674,
+//    image: "https://i.seadn.io/gae/l1wZXP2hHFUQ3turU5VQ9PpgVVasyQ79-ChvCgjoU5xKkBA50OGoJqKZeMOR-qLrzqwIfd1HpYmiv23JWm0EZ14owiPYaufqzmj1?w=500&auto=format",
+//    link: "https://opensea.io/collection/bored-ape-kennel-club",
+//    name: "BoredApeKennelClub",
+//    type: "721",
+// }
+```
+
+If the NFT contract is of type 1155 the return will also contain the NFTs id for the given contract address:
+
+```javascript
+// {
+//    address: "0x495f947276749Ce646f68AC8c248420045cb7b5e",
+//    blockchain: "ethereum",
+//    id: "35347623114821255323888368639026081793120226253597860997754787918389704654849",
+//    image: "https://i.seadn.io/gae/IIFck1wOESXNMfCN6nEhFIXReUaSyI68MXNPjvFapbjQXc42ARIcG8k-nEKJjXs1GdCY75ej4qArfy7LDbgGOFSR6zzBIOG-yEw04Q?w=500&auto=format",
+//    link: "https://opensea.io/assets/ethereum/0x495f947276749ce646f68ac8c248420045cb7b5e/35347623114821255323888368639026081793120226253597860997754787918389704654849",
+//    name: "Genesis Block - 100,000 BC",
+//    type: "1155"
 // }
 ```
 

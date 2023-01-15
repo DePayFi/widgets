@@ -7,7 +7,8 @@ import PoweredBy from './components/PoweredBy'
 import React from 'react'
 import requireReactVersion from './helpers/requireReactVersion'
 import SelectionProvider from './providers/SelectionProvider'
-import SelectStack from './stacks/SelectStack'
+import SelectNFTStack from './stacks/SelectNFTStack'
+import SelectTokenStack from './stacks/SelectTokenStack'
 import UpdatableProvider from './providers/UpdatableProvider'
 
 let Select = (options) => {
@@ -18,7 +19,7 @@ let Select = (options) => {
   let startupError
   if(what == undefined) {
     startupError = '"what" needs to be configured!'
-  } else if (['token'].indexOf(what) < 0) {
+  } else if (['token', 'nft'].indexOf(what) < 0) {
     startupError = `Unknown "what" configured: ${what}!`
   }
 
@@ -35,12 +36,22 @@ let Select = (options) => {
             <UpdatableProvider>
               <ClosableProvider unmount={ userClosedDialog }>
                 <SelectionProvider>
-                  <SelectStack
-                    document={ document }
-                    container={ container }
-                    unmount={ unmount }
-                    resolve={ resolve }
-                  />
+                  { what == 'token' &&
+                    <SelectTokenStack
+                      document={ document }
+                      container={ container }
+                      unmount={ unmount }
+                      resolve={ resolve }
+                    />
+                  }
+                  { what == 'nft' &&
+                    <SelectNFTStack
+                      document={ document }
+                      container={ container }
+                      unmount={ unmount }
+                      resolve={ resolve }
+                    />
+                  }
                 </SelectionProvider>
                 <PoweredBy/>
               </ClosableProvider>

@@ -2,21 +2,22 @@ import addressEllipsis from '../helpers/addressEllipsis'
 import ClosableContext from '../contexts/ClosableContext'
 import Dialog from '../components/Dialog'
 import msToTime from '../helpers/msToTime'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import SelectionContext from '../contexts/SelectionContext'
+import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { Blockchain } from '@depay/web3-blockchains'
 import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=> {
 
-  const { selection } = useContext(SelectionContext)
+  const { selection, setSelection } = useContext(SelectionContext)
   const { setOpen } = useContext(ClosableContext)
-  const token = selection.token
-  const address = token.address || token.external_id
-  const logo = token.logo || token.image
-  const blockchain = Blockchain.findByName(token.blockchain)
-  let age = token.first_transfer ? msToTime(new Date() - new Date(token.first_transfer)) : undefined
-  if(age) {
+  const { navigate } = useContext(NavigateStackContext)
+
+  let age, holders
+
+  if(selection.nft.createdAt) {
+    age = msToTime(new Date() - new Date(selection.nft.createdAt))
     age = [
       ((age.year && age.year >= 1) ? (age.year >= 2 ? `${age.year} years` : `1 year`) : undefined ),
       ((age.month && age.month >= 1) ? (age.month >= 2 ? `${age.month} months` : `1 month`) : undefined ),
@@ -24,32 +25,30 @@ export default (props)=> {
     ].filter(n => n).join(' ')
   }
 
-  let holders = token.unique_senders ? token.unique_senders : undefined
-  if(holders) {
-    if(holders > 1000000) {
+  if(selection.nft.holders) {
+    if(selection.nft.holders > 1000000) {
       holders = "Millions"
-    } else if (holders > 100000) {
+    } else if (selection.nft.holders > 100000) {
       holders = "Hundreds of Thousands"
-    } else if (holders > 2000) {
+    } else if (selection.nft.holders > 2000) {
       holders = "Thousands"
-    } else if (holders > 100) {
+    } else if (selection.nft.holders > 100) {
       holders = "Hundreds"
     } else {
       holders = "Only a Few!!!"
     }
   }
 
+  let blockchain = selection.nft?.blockchain || selection.blockchain?.name
+
+  if(blockchain == undefined) {
+    navigate('SelectBlockchain')
+    return(null)
+  }
+
   const onClickConfirm = ()=>{
     setOpen(false)
-    props.resolve({
-      blockchain: token.blockchain,
-      address: token.external_id || token.address,
-      symbol: token.symbol,
-      name: token.name,
-      decimals: token.decimals,
-      logo: token.image || token.logo,
-      routable: token.routable
-    })
+    props.resolve({...selection.nft, blockchain })
     setTimeout(props.unmount, 300)
   }
 
@@ -66,8 +65,7 @@ export default (props)=> {
       body={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
           <div className="TokenImage medium TextCenter">
-            { logo && <img src={ logo }/> }
-            { !logo && <TokenImage blockchain={ token.blockchain } address={ address }/> }
+            { selection.nft.image && <img src={ selection.nft.image }/> }
           </div>
           <div className="PaddingTopS TextCenter">
             <div className="Alert FontSizeS">
@@ -83,26 +81,28 @@ export default (props)=> {
                   </td>
                   <td>
                     <div>
-                      <a className="Link" title={ address } href={ blockchain.explorerUrlFor({ token: address }) } target="_blank" rel="noopener noreferrer">
-                        { addressEllipsis(address, 8) }
+                      <a className="Link" title={ selection.nft.address } href={ Blockchain.findByName(blockchain).explorerUrlFor({ token: selection.nft.address }) } target="_blank" rel="noopener noreferrer">
+                        { addressEllipsis(selection.nft.address, 6) }
                       </a>
                     </div>
                   </td>
                 </tr>
+                { selection.nft.id &&
+                  <tr>
+                    <td>
+                      <div className='TableSubTitle'>Token ID</div>
+                    </td>
+                    <td>
+                      <div>{ selection.nft.id }</div>
+                    </td>
+                  </tr>
+                }
                 <tr>
                   <td>
                     <div className='TableSubTitle'>Blockchain</div>
                   </td>
                   <td>
-                    <div>{ blockchain.label }</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className='TableSubTitle'>Symbol</div>
-                  </td>
-                  <td>
-                    <div>{ token.symbol }</div>
+                    <div>{ Blockchain.findByName(blockchain).label }</div>
                   </td>
                 </tr>
                 <tr>
@@ -110,7 +110,9 @@ export default (props)=> {
                     <div className='TableSubTitle'>Name</div>
                   </td>
                   <td>
-                    <div>{ token.name }</div>
+                    <a className="Link" href={ selection.nft.link } target="_blank" rel="noopener noreferrer">
+                      { selection.nft.name }
+                    </a>
                   </td>
                 </tr>
                 { age &&

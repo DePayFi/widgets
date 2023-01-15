@@ -1157,10 +1157,10 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-10.10.2.tgz#9b00d01e3917755fdee98c603389568095fd9a35"
   integrity sha512-aK0rFrcBirfDmzdjFHoPHa4HLpXWuJ29eWqSuv4aigpcjU2rxtgN12kZS/Y2mcDvb3SrVzJNl0uZA+Cx8Zrlkg==
 
-"@depay/web3-tokens@^9.12.8":
-  version "9.12.8"
-  resolved "https://registry.yarnpkg.com/@depay/web3-tokens/-/web3-tokens-9.12.8.tgz#eec89c3e15cc508cb6b415141e9d8df09f1021e9"
-  integrity sha512-tNvnxFh3oEmzO0Hxr2SjFjwLVdZwVBVCeEKdXa7h45+WX+UJJ+qugAdU+e8UN55/i6ej2Wqiu+PjUdT4qbSMZg==
+"@depay/web3-tokens@^9.14.0":
+  version "9.14.0"
+  resolved "https://registry.yarnpkg.com/@depay/web3-tokens/-/web3-tokens-9.14.0.tgz#547319d4770a2bf62e0e7d5ef563cafe57db36d3"
+  integrity sha512-U22qrPgQwU6ICjJ+zU0IjIqp3yee4E5s7L/0mPR8qSrrkbEIQWIZT8XvC2aGSPBl0At/TJ9NveTB/LN0O4z03w==
 
 "@depay/web3-wallets@^13.1.2":
   version "13.1.2"

@@ -8,7 +8,7 @@ export default (props)=> {
 
   const { setSelection } = useContext(SelectionContext)
   const { navigate } = useContext(NavigateStackContext)
-  const stacked = Object.keys(props.selection).length > 1
+  const stacked = props.stacked || Object.keys(props.selection).length > 1
 
   const blockchains = [
     Blockchain.findByName('ethereum'),
@@ -19,7 +19,7 @@ export default (props)=> {
   const selectBlockchain = (blockchain)=>{
     window._depay_token_selection_selected_blockchain = blockchain.name
     setSelection(Object.assign(props.selection, { blockchain }))
-    if(stacked) {
+    if(stacked && props.navigateBack !== false) {
       navigate('back')
     } else {
       props.resolve(blockchain)
@@ -44,7 +44,7 @@ export default (props)=> {
   return(
     <Dialog
       header={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
+        <div className="PaddingTopS PaddingLeftM PaddingRightM">
           <div>
             <h1 className="LineHeightL FontSizeL">Select Blockchain</h1>
           </div>

@@ -15,7 +15,7 @@ export default (props)=>{
     <Dialog
       stacked={ true }
       header={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
+        <div className="PaddingTopS PaddingLeftM PaddingRightM">
           <h1 className="LineHeightL FontSizeL">Wrong Network</h1>
         </div>
       }
