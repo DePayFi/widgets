@@ -27,7 +27,7 @@ export default (props)=>{
   const { allRoutes, setSelectedRoute } = useContext(PaymentRoutingContext)
   const min = typeof amountConfiguration == "object" && amountConfiguration.min ? amountConfiguration.min : 1
   const step = typeof amountConfiguration == "object" && amountConfiguration.step ? amountConfiguration.step : 1
-  let displayedCurrencyCode = (amountConfiguration != undefined && amountConfiguration.token) ? null : currencyCode
+  const displayedCurrencyCode = (amountConfiguration != undefined && amountConfiguration.token) ? null : currencyCode
 
   const changeAmountAndGoBack = ()=>{
     let newAmount = toValidValue(parseFloat(inputAmount))

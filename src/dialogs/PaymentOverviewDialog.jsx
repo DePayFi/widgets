@@ -14,11 +14,12 @@ import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=>{
-  const { currencyCode, recover } = useContext(ConfigurationContext)
+  const { currencyCode, recover, amount: amountConfiguration } = useContext(ConfigurationContext)
   const { payment, paymentState } = useContext(PaymentContext)
   const { amount, amountsMissing, fixedAmount, fixedCurrency } = useContext(ChangableAmountContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
+  const displayedCurrencyCode = (amountConfiguration != undefined && amountConfiguration.token) ? null : currencyCode
 
   if(payment == undefined || (recover == undefined && paymentValue == undefined)) { return(<PaymentOverviewSkeleton/>) }
 
@@ -48,9 +49,18 @@ export default (props)=>{
                     Amount
                   </h4>
                   <h2 className="CardText">
-                    <div className="TokenAmountRow">
-                      { new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString() }
-                    </div>
+                    {
+                      displayedCurrencyCode &&
+                      <div className="TokenAmountRow">
+                        { new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString() }
+                      </div>
+                    }
+                    {
+                      !displayedCurrencyCode &&
+                      <div className="TokenAmountRow">
+                        { amount }
+                      </div>
+                    }
                   </h2>
                 </div>
               </div>

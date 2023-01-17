@@ -19438,7 +19438,7 @@
                 web3Tokens.Token.readable({
                   amount: maxRoute.fromBalance,
                   blockchain: maxRoute.blockchain,
-                  address: maxRoute.toToken.address
+                  address: maxRoute.fromToken.address
                 }).then(setMaxAmount);
                 return;
               }
@@ -22381,7 +22381,8 @@
   var PaymentOverviewDialog = (function (props) {
     var _useContext = React.useContext(ConfigurationContext),
         currencyCode = _useContext.currencyCode,
-        recover = _useContext.recover;
+        recover = _useContext.recover,
+        amountConfiguration = _useContext.amount;
 
     var _useContext2 = React.useContext(PaymentContext),
         payment = _useContext2.payment,
@@ -22398,6 +22399,8 @@
 
     var _useContext5 = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext5.navigate;
+
+    var displayedCurrencyCode = amountConfiguration != undefined && amountConfiguration.token ? null : currencyCode;
 
     if (payment == undefined || recover == undefined && paymentValue == undefined) {
       return /*#__PURE__*/React__default['default'].createElement(PaymentOverviewSkeleton, null);
@@ -22430,12 +22433,14 @@
         className: "CardTitle"
       }, "Amount"), /*#__PURE__*/React__default['default'].createElement("h2", {
         className: "CardText"
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
+      }, displayedCurrencyCode && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TokenAmountRow"
       }, new localCurrency.Currency({
         amount: amount.toFixed(2),
         code: currencyCode
-      }).toString())))), /*#__PURE__*/React__default['default'].createElement("div", {
+      }).toString()), !displayedCurrencyCode && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TokenAmountRow"
+      }, amount)))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardAction"
       }, /*#__PURE__*/React__default['default'].createElement(ChevronRight, null))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),

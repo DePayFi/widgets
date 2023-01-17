@@ -141,7 +141,7 @@ export default (props)=>{
                 Token.readable({
                   amount: maxRoute.fromBalance,
                   blockchain: maxRoute.blockchain,
-                  address: maxRoute.toToken.address
+                  address: maxRoute.fromToken.address
                 }).then(setMaxAmount)
                 return
               }

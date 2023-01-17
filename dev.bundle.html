@@ -1073,8 +1073,8 @@
                 <script>
                     var button = document.getElementById("selectNFTButton");
                     button.addEventListener("click",async function(e){
-                      let nft = await DePayWidgets.Select({ what: 'nft' })
-                      console.log("SELECTED NFT", nft)
+                      let collection = await DePayWidgets.Select({ what: 'nft' })
+                      console.log("SELECTED NFT", collection)
                     });
                 </script>
               </div>
