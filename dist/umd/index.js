@@ -21524,6 +21524,11 @@
           }
 
           clearInterval(pollingInterval);
+
+          if (validated) {
+            validated(true);
+          }
+
           setRelease(true);
         }
       };

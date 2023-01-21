@@ -21529,6 +21529,11 @@ var PaymentTrackingProvider = (function (props) {
         }
 
         clearInterval(pollingInterval);
+
+        if (validated) {
+          validated(true);
+        }
+
         setRelease(true);
       }
     };

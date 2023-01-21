@@ -157,6 +157,7 @@ export default (props)=>{
           setClosable(true)
         }
         clearInterval(pollingInterval)
+        if(validated) { validated(true) }
         setRelease(true)
       }
     }
