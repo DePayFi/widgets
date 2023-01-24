@@ -24401,6 +24401,8 @@
           } else {
             startWithBlockchain('ethereum');
           }
+        })["catch"](function () {
+          return startWithBlockchain('ethereum');
         });
       } else {
         startWithBlockchain('ethereum');

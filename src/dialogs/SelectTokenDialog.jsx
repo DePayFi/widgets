@@ -43,7 +43,7 @@ export default (props)=> {
         } else {
           startWithBlockchain('ethereum')
         }
-      })
+      }).catch(()=>startWithBlockchain('ethereum'))
     } else {
       startWithBlockchain('ethereum')
     }
