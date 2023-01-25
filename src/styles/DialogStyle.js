@@ -2,6 +2,7 @@ export default (style)=>{
   return(`
 
     .ReactDialogBackground {
+      z-index: -2;
       backdrop-filter: blur(5px);
       background: rgba(0,0,0,0.7);
     }
@@ -102,6 +103,11 @@ export default (style)=>{
     .DialogBody.ScrollHeight {
       height: 30vh !important;
       max-height: 30vh !important;
+    }
+
+    .DialogBody.MinHeight {
+      height: 120px !important;
+      max-height: 120px !important;
     }
 
     .DialogHeader {

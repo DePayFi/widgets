@@ -10,7 +10,7 @@ export default (props)=>{
   const { close, closable } = useContext(ClosableContext)
 
   return(
-    <div className="Dialog">
+    <div className={["Dialog", props.className].join(' ')}>
       
       <div className={["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')}>
         { props.stacked &&
@@ -22,7 +22,7 @@ export default (props)=>{
         }
         { props.header }
         <div className="DialogHeaderActionRight PaddingTopS PaddingLeftS PaddingRightS">
-          { closable &&
+          { closable && props.closable !== false &&
             <button onClick={ close } className="ButtonCircular" title="Close dialog">
               <CloseIcon/>
             </button>

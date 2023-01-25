@@ -976,7 +976,7 @@
         closable = _useContext2.closable;
 
     return /*#__PURE__*/React__default['default'].createElement("div", {
-      className: "Dialog"
+      className: ["Dialog", props.className].join(' ')
     }, /*#__PURE__*/React__default['default'].createElement("div", {
       className: ["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')
     }, props.stacked && /*#__PURE__*/React__default['default'].createElement("div", {
@@ -989,7 +989,7 @@
       title: "Go back"
     }, /*#__PURE__*/React__default['default'].createElement(ChevronLeft, null))), props.header, /*#__PURE__*/React__default['default'].createElement("div", {
       className: "DialogHeaderActionRight PaddingTopS PaddingLeftS PaddingRightS"
-    }, closable && /*#__PURE__*/React__default['default'].createElement("button", {
+    }, closable && props.closable !== false && /*#__PURE__*/React__default['default'].createElement("button", {
       onClick: close,
       className: "ButtonCircular",
       title: "Close dialog"
@@ -1703,7 +1703,7 @@
   });
 
   var DialogStyle = (function (style) {
-    return "\n\n    .ReactDialogBackground {\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .contained .ReactDialog {\n      position: absolute;\n      height: 100%;\n      min-height: 100%;\n      width: 100%;\n      min-width: 100%;\n    }\n\n    .contained .ReactDialogBackground {\n      position: absolute;\n    }\n\n    .contained .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n      top: 0;\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.2);\n      border-radius: 13px;\n      background: rgb(248,248,248);\n    }\n\n    @media (max-width: 450px) {\n\n      .Dialog {\n        border-radius: 0;\n        width: 100%;\n      }\n    }\n\n    @media (orientation: portrait) and (max-width: 800px) {\n\n      .ReactDialogAnimation {\n        width: 100%;\n      }\n\n      .ReactDialog {\n        height: 100%;\n        min-height: 100%;\n      }\n\n      .ReactDialogStack {\n        align-items: flex-end;\n      }\n\n      .Dialog {\n        align-content: stretch;\n        border-radius: 13px;\n        border-top-radius: 13px;\n        display: flex;\n        flex-direction: column;\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n      }\n\n      .DialogFooter {\n        padding-bottom: 20px;\n      }\n\n      .ReactDialogAnimation {\n        margin-bottom: -100px !important;\n        top: inherit !important;\n        position: relative;\n        transition: opacity 0.4s ease, margin-bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        margin-bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n\n      .ReactShadowDOMInsideContainer > .ReactDialog {\n        align-items: flex-end;\n      }\n    }\n\n    .DialogBody {\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.ScrollHeight {\n      height: 30vh !important;\n      max-height: 30vh !important;\n    }\n\n    .DialogHeader {\n      border-top-left-radius: 13px;\n      border-top-right-radius: 13px;\n      min-height: 54px;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogHeaderActionRight {\n      position: absolute;\n      top: 0;\n      right: 0;\n      height: 48px;\n    }\n\n    .DialogHeaderActionLeft {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 48px;\n    }\n\n    .DialogFooter {\n      border-bottom-left-radius: 13px;\n      border-bottom-right-radius: 13px;\n      line-height: 24px;\n      min-height: 32px;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
+    return "\n\n    .ReactDialogBackground {\n      z-index: -2;\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .contained .ReactDialog {\n      position: absolute;\n      height: 100%;\n      min-height: 100%;\n      width: 100%;\n      min-width: 100%;\n    }\n\n    .contained .ReactDialogBackground {\n      position: absolute;\n    }\n\n    .contained .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n      top: 0;\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.2);\n      border-radius: 13px;\n      background: rgb(248,248,248);\n    }\n\n    @media (max-width: 450px) {\n\n      .Dialog {\n        border-radius: 0;\n        width: 100%;\n      }\n    }\n\n    @media (orientation: portrait) and (max-width: 800px) {\n\n      .ReactDialogAnimation {\n        width: 100%;\n      }\n\n      .ReactDialog {\n        height: 100%;\n        min-height: 100%;\n      }\n\n      .ReactDialogStack {\n        align-items: flex-end;\n      }\n\n      .Dialog {\n        align-content: stretch;\n        border-radius: 13px;\n        border-top-radius: 13px;\n        display: flex;\n        flex-direction: column;\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n      }\n\n      .DialogFooter {\n        padding-bottom: 20px;\n      }\n\n      .ReactDialogAnimation {\n        margin-bottom: -100px !important;\n        top: inherit !important;\n        position: relative;\n        transition: opacity 0.4s ease, margin-bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        margin-bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n\n      .ReactShadowDOMInsideContainer > .ReactDialog {\n        align-items: flex-end;\n      }\n    }\n\n    .DialogBody {\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .DialogBody.ScrollHeight {\n      height: 30vh !important;\n      max-height: 30vh !important;\n    }\n\n    .DialogBody.MinHeight {\n      height: 120px !important;\n      max-height: 120px !important;\n    }\n\n    .DialogHeader {\n      border-top-left-radius: 13px;\n      border-top-right-radius: 13px;\n      min-height: 54px;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogHeaderActionRight {\n      position: absolute;\n      top: 0;\n      right: 0;\n      height: 48px;\n    }\n\n    .DialogHeaderActionLeft {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 48px;\n    }\n\n    .DialogFooter {\n      border-bottom-left-radius: 13px;\n      border-bottom-right-radius: 13px;\n      line-height: 24px;\n      min-height: 32px;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
   });
 
   var FontStyle = (function (style) {
@@ -22132,6 +22132,120 @@
     };
   }();
 
+  var LoadingDialog = (function (props) {
+    var _useContext = React.useContext(ConfigurationContext),
+        text = _useContext.text;
+
+    return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
+      closable: false,
+      header: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+      }, /*#__PURE__*/React__default['default'].createElement("h1", {
+        className: "LineHeightL FontSizeL"
+      }, "Payment")),
+      body: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingLeftM PaddingRightM PaddingBottomXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Card Skeleton"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "SkeletonBackground"
+      }))),
+      footer: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "SkeletonWrapper"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "ButtonPrimary Skeleton"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "SkeletonBackground"
+      }))), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TextCenter Opacity05 PaddingTopS"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, text)))
+    });
+  });
+
+  var LoadingStack = (function (props) {
+    var _useContext = React.useContext(ClosableContext),
+        open = _useContext.open,
+        close = _useContext.close;
+
+    var _useContext2 = React.useContext(NavigateContext),
+        setNavigator = _useContext2.setNavigator;
+
+    return /*#__PURE__*/React__default['default'].createElement(reactDialogStack.ReactDialogStack, {
+      setNavigator: setNavigator,
+      open: open,
+      close: close,
+      start: "Loading",
+      container: props.container,
+      document: props.document,
+      dialogs: {
+        Loading: /*#__PURE__*/React__default['default'].createElement(LoadingDialog, null)
+      }
+    });
+  });
+
+  var Loading = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+      var text, style, error, critical, container, document, unmount;
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              text = _ref.text, style = _ref.style, error = _ref.error, critical = _ref.critical, container = _ref.container, document = _ref.document;
+              requireReactVersion();
+              _context.prev = 2;
+              unmount = mount({
+                style: style,
+                container: container,
+                document: ensureDocument(document),
+                closed: closed
+              }, function (unmount) {
+                return function (container) {
+                  return /*#__PURE__*/React__default['default'].createElement(ErrorProvider, {
+                    errorCallback: error,
+                    container: container,
+                    unmount: unmount
+                  }, /*#__PURE__*/React__default['default'].createElement(ConfigurationProvider, {
+                    configuration: {
+                      text: text
+                    }
+                  }, /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
+                    unmount: unmount,
+                    closable: false
+                  }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(LoadingStack, {
+                    document: document,
+                    container: container
+                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null))))));
+                };
+              });
+              window._depayUnmountLoading = unmount;
+              return _context.abrupt("return", {
+                unmount: unmount
+              });
+
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](2);
+              console.log('critical error', _context.t0);
+
+              if (critical != undefined) {
+                critical(_context.t0);
+              }
+
+            case 12:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[2, 8]]);
+    }));
+
+    return function Loading(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
   var SignLoginDialog = (function (props) {
     var _useContext = React.useContext(ErrorContext),
         setError = _useContext.setError;
@@ -22370,7 +22484,7 @@
         className: "SkeletonBackground"
       }))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+        className: ["PaddingTopXS PaddingRightM PaddingLeftM", selectedRoute == undefined && slowRouting ? 'PaddingBottomS' : 'PaddingBottomM'].join(' ')
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "SkeletonWrapper"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -22673,6 +22787,10 @@
               });
 
             case 5:
+              if (typeof window._depayUnmountLoading == 'function') {
+                window._depayUnmountLoading();
+              }
+
               unmount = mount({
                 style: style,
                 container: container,
@@ -22736,8 +22854,8 @@
                 unmount: unmount
               });
 
-            case 9:
-              _context2.prev = 9;
+            case 10:
+              _context2.prev = 10;
               _context2.t0 = _context2["catch"](2);
               console.log('critical error', _context2.t0);
 
@@ -22745,12 +22863,12 @@
                 critical(_context2.t0);
               }
 
-            case 13:
+            case 14:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[2, 9]]);
+      }, _callee2, null, [[2, 10]]);
     }));
 
     return function Payment(_x2) {
@@ -24761,7 +24879,8 @@
     Login: Login,
     Payment: Payment,
     Sale: Sale,
-    Select: Select
+    Select: Select,
+    Loading: Loading
   };
 
   return DePayWidgets;

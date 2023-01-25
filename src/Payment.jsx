@@ -59,6 +59,7 @@ let Payment = async ({
   requireReactVersion()
   try {
     await preflight({ accept, recover })
+    if(typeof window._depayUnmountLoading == 'function') { window._depayUnmountLoading() }
     let unmount = mount({ style, container, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>

@@ -27,7 +27,7 @@ export default (props)=>{
         </div>
       }
       footer={
-        <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
+        <div className={["PaddingTopXS PaddingRightM PaddingLeftM", ( selectedRoute == undefined && slowRouting ) ? 'PaddingBottomS' : 'PaddingBottomM'].join(' ')}>
           <div className="SkeletonWrapper">
             <div className="ButtonPrimary Skeleton">
               <div className="SkeletonBackground"/>
