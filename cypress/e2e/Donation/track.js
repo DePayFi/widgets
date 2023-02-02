@@ -223,7 +223,8 @@ describe('Donation Widget: track', () => {
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
                     mockedWebsocket.send(JSON.stringify({
                       message: {
-                        release: true
+                        release: true,
+                        status: 'success'
                       }
                     }))
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').then(()=>{
