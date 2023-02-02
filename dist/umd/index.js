@@ -21303,8 +21303,9 @@
 
     var _useContext2 = React.useContext(ConfigurationContext),
         track = _useContext2.track,
-        validated = _useContext2.validated,
-        integration = _useContext2.integration,
+        validated = _useContext2.validated;
+        _useContext2.failed;
+        var integration = _useContext2.integration,
         link = _useContext2.link,
         type = _useContext2.type;
 
@@ -21373,8 +21374,8 @@
         setClosable = _useContext4.setClosable;
 
     var _useContext5 = React.useContext(NavigateContext),
-        navigate = _useContext5.navigate;
-        _useContext5.set;
+        navigate = _useContext5.navigate,
+        set = _useContext5.set;
 
     var openSocket = function openSocket(transaction) {
       var socket = new WebSocket('wss://integrate.depay.com/cable');
@@ -21407,20 +21408,28 @@
           return;
         }
 
+        var success = item.message.status == 'success';
+
         if (validated) {
-          validated(item.message.status == 'success');
+          validated(success);
         }
 
         if (item.message.release) {
-          setRelease(true);
-          setClosable(!item.message.forward_to);
-          setForwardTo(item.message.forward_to);
           socket.close(1000);
 
-          if (!!item.message.forward_to) {
-            setTimeout(function () {
-              props.document.location.href = item.message.forward_to;
-            }, 200);
+          if (success) {
+            setRelease(true);
+            setClosable(!item.message.forward_to);
+            setForwardTo(item.message.forward_to);
+
+            if (!!item.message.forward_to) {
+              setTimeout(function () {
+                props.document.location.href = item.message.forward_to;
+              }, 200);
+            }
+          } else if (success == false) {
+            setClosable(true);
+            set(['PaymentFailed']);
           }
         } else if (item.message.confirmations) {
           setConfirmationsRequired(item.message.confirmations.required);

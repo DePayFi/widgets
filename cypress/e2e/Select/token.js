@@ -248,7 +248,7 @@ describe('Select Widget: token', () => {
       })
     })
 
-    it.only('reopens with the previously selected blockchain', async()=>{
+    it('reopens with the previously selected blockchain', async()=>{
       cy.document().then(async (document)=>{
         DePayWidgets.Select({ document, what: 'token' })
         cy.wait(1000).then(()=>{

@@ -10,7 +10,7 @@ import { request } from '@depay/web3-client'
 
 export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
-  const { track, validated, integration, link, type } = useContext(ConfigurationContext)
+  const { track, validated, failed, integration, link, type } = useContext(ConfigurationContext)
   const { account, wallet } = useContext(WalletContext)
   const [ transaction, setTransaction ] = useState()
   const [ confirmationsRequired, setConfirmationsRequired ] = useState()
@@ -51,14 +51,20 @@ export default (props)=>{
     socket.onmessage = function(event) {
       const item = JSON.parse(event.data)
       if(item.type === "ping" || !item.message) { return }
-      if(validated) { validated(item.message.status == 'success') }
+      const success = (item.message.status == 'success')
+      if(validated) { validated(success) }
       if(item.message.release) {
-        setRelease(true)
-        setClosable(!item.message.forward_to)
-        setForwardTo(item.message.forward_to)
         socket.close(1000)
-        if(!!item.message.forward_to) {
-          setTimeout(()=>{ props.document.location.href = item.message.forward_to }, 200)
+        if(success) {
+          setRelease(true)
+          setClosable(!item.message.forward_to)
+          setForwardTo(item.message.forward_to)
+          if(!!item.message.forward_to) {
+            setTimeout(()=>{ props.document.location.href = item.message.forward_to }, 200)
+          }
+        } else if(success == false) {
+          setClosable(true)
+          set(['PaymentFailed'])
         }
       } else if(item.message.confirmations) {
         setConfirmationsRequired(item.message.confirmations.required)
