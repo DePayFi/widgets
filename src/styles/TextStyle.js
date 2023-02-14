@@ -22,6 +22,10 @@ export default (style)=>{
       text-align: center;
     }
 
+    .LineHeightXS {
+      line-height: 16px;
+    }
+
     .LineHeightL {
       line-height: 32px;
     }

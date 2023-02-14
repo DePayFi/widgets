@@ -16,8 +16,10 @@ export default Object.assign({}, rollup, {
   ],
   plugins: [...rollup.plugins,
     serve({
+      host: '0.0.0.0',
       open: 'true',
-      openPage: 'http://127.0.0.1:8080/dev.html'
+      port: '8000',
+      openPage: 'http://127.0.0.1:8000/dev.html'
     }),
     dev({
       proxy: [{ from: '/track', to:'https://jsonplaceholder.typicode.com/posts' }],

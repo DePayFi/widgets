@@ -15,6 +15,10 @@ export default (style)=>{
       width: 100%;
     }
 
+    .Card.center {
+      justify-content: center;
+    }
+
     .Card.Row {
       border-radius: 0;
       margin-bottom: 0;
@@ -25,7 +29,7 @@ export default (style)=>{
     }
 
     .Card.Row .CardText {
-      font-size: 19px;
+      font-size: 18px;
       line-height: 40px;
     }
 
@@ -91,6 +95,15 @@ export default (style)=>{
     .CardImage.small img {
       height: 27px;
       width: 27px;
+    }
+
+    .CardImage.large {
+      width: 58px;
+    }
+
+    .CardImage.large img {
+      height: 58px;
+      width: 58px;
     }
 
     .Card.disabled {
@@ -174,6 +187,10 @@ export default (style)=>{
       position: relative;
       vertical-align: middle;
       width: 45px;
+    }
+
+    .CardImage.rounded img {
+      border-radius: 8px !important;
     }
 
     .CardImage.square img {

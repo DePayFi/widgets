@@ -100,9 +100,19 @@ export default (style)=>{
       overflow-y: auto;
     }
 
-    .DialogBody.ScrollHeight {
+    .ScrollHeight {
       height: 30vh !important;
       max-height: 30vh !important;
+    }
+
+    .ScrollHeightS {
+      height: 180px !important;
+      max-height: 180px !important;
+    }
+
+    .ScrollHeightM {
+      height: 194px !important;
+      max-height: 194px !important;
     }
 
     .DialogBody.MinHeight {

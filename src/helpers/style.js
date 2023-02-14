@@ -6,6 +6,7 @@ import CardStyle from '../styles/CardStyle'
 import DialogStyle from '../styles/DialogStyle'
 import FontStyle from '../styles/FontStyle'
 import GraphicStyle from '../styles/GraphicStyle'
+import GridStyle from '../styles/GridStyle'
 import HeightStyle from '../styles/HeightStyle'
 import IconStyle from '../styles/IconStyle'
 import ImageStyle from '../styles/ImageStyle'
@@ -25,6 +26,7 @@ import TextStyle from '../styles/TextStyle'
 import TokenAmountStyle from '../styles/TokenAmountStyle'
 import TokenImageStyle from '../styles/TokenImageStyle'
 import TooltipStyle from '../styles/TooltipStyle'
+import WalletStyle from '../styles/WalletStyle'
 
 export default (style)=>{
 
@@ -48,6 +50,7 @@ export default (style)=>{
       CardStyle(style),
       PoweredByStyle(style),
       GraphicStyle(style),
+      GridStyle(style),
       SkeletonStyle(style),
       TokenAmountStyle(style),
       TextStyle(style),
@@ -68,6 +71,7 @@ export default (style)=>{
       TableStyle(style),
       LinkStyle(style),
       TooltipStyle(style),
+      WalletStyle(style),
     ].join('')
   )
 }
