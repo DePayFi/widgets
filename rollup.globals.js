@@ -19,5 +19,6 @@ export default {
   'react-dom': 'ReactDOM',
   'react-error-boundary': 'ErrorBoundary',
   'react-rangeslider': 'ReactRangeslider',
+  'qr-code-styling': 'QRCodeStyling',
   'decimal.js': 'Decimal'
 }

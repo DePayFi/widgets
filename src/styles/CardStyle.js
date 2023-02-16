@@ -29,7 +29,7 @@ export default (style)=>{
     }
 
     .Card.Row .CardText {
-      font-size: 18px;
+      font-size: 19px;
       line-height: 40px;
     }
 

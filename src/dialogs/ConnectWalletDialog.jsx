@@ -1,110 +1,180 @@
 import Dialog from '../components/Dialog'
 import isMobile from '../helpers/isMobile'
 import QRCode from '../graphics/qrcode'
-import React, { useState, useContext, useEffect } from 'react'
+import QRCodeStyling from "qr-code-styling"
+import React, { useState, useContext, useEffect, useRef } from 'react'
+import safeAppUrl from '../helpers/safeAppUrl'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { wallets } from '@depay/web3-wallets'
 
 export default (props)=> {
 
+  const QRCodeElement = React.useRef()
   const [ showConnectExtensionButton, setShowConnectExtensionButton ] = useState(false)
-  const [ walletIsAvailable, setWalletIsAvailable ] = useState(false)
+  const [ extensionIsAvailable, setExtensionIsAvailable ] = useState(false)
   const [ showConnectExtensionWarning, setShowConnectExtensionWarning ] = useState(false)
   const [ linkURI, setLinkURI ] = useState()
+  const [ showQRCode, setShowQRCode ] = useState(false)
+  const [ QRCode, setQRCode ] = useState()
   const { navigate } = useContext(NavigateStackContext)
   const header = (
     <div className="PaddingTopS PaddingLeftM PaddingRightM">
       { props.wallet?.logo &&
         <div className="PaddingTopXS">
           <div className="LineHeightL FontSizeL PaddingTopS">
-              <span className="CardImage rounded large">
-                <img className="transparent" src={ props.wallet.logo }/>
-              </span>
+            <span className="CardImage rounded large">
+              <img className="transparent" src={ props.wallet.logo }/>
+            </span>
           </div>
         </div>
       }
     </div>
   )
 
-  const connect = async()=>{
+  const connectExtension = ()=>{
+    let extensionIsAvailable = false
+    setShowConnectExtensionWarning(false)
 
     if(props.wallet.extension) {
       const wallet = wallets[props.wallet.extension]
-      setWalletIsAvailable(false)
-      console.log()
       if(wallet.isAvailable()) {
-        setWalletIsAvailable(true)
-        setShowConnectExtensionWarning(false)
-        ;(new wallet().connect()).catch((error)=>{
+        extensionIsAvailable = true
+        ;(new wallet().connect()).then((account)=>{
+          console.log('CONNECTED', account)
+        }).catch((error)=>{
           if(error?.code == -32002) { // Request of type 'wallet_requestPermissions' already pending...
             setShowConnectExtensionWarning(true)
           }
         })
       }
     }
+    setExtensionIsAvailable(extensionIsAvailable)
+  }
 
+  const connectMobileApp = async()=>{
+    console.log('connectMobileApp')
+    if(!props.wallet?.mobile) { return }
+    let wallet = new wallets[props.wallet.link]();
+    wallet().connect()
+    debugger
+    // ({ connect: ({ uri })=>{
+    //   let href = safeAppUrl(props.wallet?.mobile?.native)
+    //   href = `${href}wc?uri=${encodeURIComponent(uri)}`
+    //   console.log('OPEN HREF 3', href)
+    //   window.open(href, '_self', 'noreferrer noopener')
+    // }})
+    console.log('CONNECTED', account)
+  }
+
+  const connectDesktopApp = ()=>{
+    if(!props.wallet?.desktop) { return }
+  }
+
+  const connect = ()=>{
+    console.log('CONNECT!')
+    connectExtension()
     if(isMobile()) {
-      console.log('MOBILE')
+      connectMobileApp()
     } else {
-
-      if(props.wallet.link) {
-        console.log('props.wallet.link', props.wallet.link)
-        const wallet = wallets[props.wallet.link]
-        console.log('wallet', wallet)
-      }
-
-      if(props.wallet.desktop) {
-
-      } else {
-        
-      }
+      connectDesktopApp()
     }
   }
 
+  useEffect(()=>{ connect() }, [])
+
   useEffect(()=> {
     let timeout = setTimeout(()=>{
-      if(walletIsAvailable) {
+      if(extensionIsAvailable) {
         setShowConnectExtensionButton(true)
       }
     }, 8000)
     return ()=>clearTimeout(timeout)
-  }, [walletIsAvailable])
+  }, [extensionIsAvailable])
 
-  useEffect(()=>{ connect() }, [])
-  
+  useEffect(()=> {
+    setShowQRCode(!extensionIsAvailable && !isMobile())
+  }, [extensionIsAvailable])
+
+  useEffect(()=> {
+    if(showQRCode && props.wallet.link) {
+      const wallet = wallets[props.wallet.link]
+      switch (props.wallet.link) {
+        case 'WalletConnectV1':
+          if(QRCode == undefined) {
+            console.log('CONNECT WALLETCONNECTV1')
+            ;(new wallet()).connect({ connect: ({ uri })=>{
+              let newQRCode = new QRCodeStyling({
+                width: 340,
+                height: 340,
+                type: "svg",
+                dotsOptions: { type: "extra-rounded" },
+                cornersSquareOptions: { type: 'rounded' },
+                backgroundOptions: {
+                  color: "transparent",
+                },
+              })
+              newQRCode.update({ data: uri })
+              setQRCode(newQRCode)
+            }}).then((account)=>{
+              console.log('CONNECTED ACCOUNT', account)
+            })
+          }
+        break;
+        case 'WalletLink':
+          ;(new wallet()).connect().then(props.resolve)
+        break
+        case 'WalletConnectV2':
+          navigate('SelectBlockchain')
+        break
+      }
+    }
+  }, [showQRCode])
+
+  useEffect(()=>{
+    if(showQRCode && QRCode && QRCodeElement && QRCodeElement.current) {
+      QRCodeElement.current.innerHTML = ""
+      QRCode.append(QRCodeElement.current)
+    }
+  }, [QRCode])
+
   return(
     <Dialog
       stacked={ true }
       header={ header }
       body={
-        <div className="TextCenter PaddingLeftL PaddingRightL">
-          <h1 className="LineHeightL Text FontSizeL FontWeightBold">Connect { props.wallet.name }</h1>
-          
-          <div className="Text PaddingTopXS PaddingBottomS PaddingLeftS PaddingRightS">
-            <p className="FontSizeM">
-              Access to your wallet is required. Please connect your account.
-            </p>
+        <div className="TextCenter">
+
+          <div className="PaddingLeftL PaddingRightL">
+            <h1 className="LineHeightL Text FontSizeL FontWeightBold">Connect { props.wallet.name }</h1>
+            
+            { showConnectExtensionWarning &&
+              <div className="PaddingBottomS PaddingLeftS PaddingRightS">
+                <div className="Alert">
+                  <span className="FontWeightBold PaddingBottomXS">
+                    You wallet extension window is already asking to connect. It might be hidden.
+                  </span>
+                </div>
+              </div>
+            }
           </div>
 
-          { showConnectExtensionWarning &&
-            
-          }
+          <div ref={ QRCodeElement } className="QRCode"/>
 
-          { props.wallet.link &&
-            <div className="PaddingTopXS PaddingLeftS PaddingRightS">
-              <button onClick={()=>{}} className="Card small center PaddingTopXS PaddingRightXS PaddingBottomXS PaddingLeftXS TextCenter">
-                <img className="transparent " title="Scan QR code to connect mobile wallet" style={{ height: '26px' }} src={ QRCode }/>
-                <div className="PaddingLeftS LineHeightXS">
-                  <div className="CardText FontWeightBold">
-                    Scan QR Code
+          <div className="PaddingLeftL PaddingRightL">
+            { props.wallet.link && !showQRCode &&
+              <div className="PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM">
+                <button onClick={ ()=>setShowQRCode(true) } className="Card small center PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS TextCenter">
+                  <span className="PaddingTopXS PaddingRightXS">
+                    <img className="transparent " title="Scan QR code to connect a mobile wallet" style={{ height: '26px' }} src={ QRCode }/>
+                  </span>
+                  <div className="PaddingLeftS LineHeightXS">
+                    <div className="CardText FontWeightMedium">
+                      Scan QR Code
+                    </div>
                   </div>
-                </div>
-              </button>
-            </div>
-          }
-
-          <div className="PaddingTopS PaddingBottomS">
-            <button onClick={()=>navigate('back')} className="TextButton">Connect with another wallet</button>
+                </button>
+              </div>
+            }
           </div>
 
         </div>

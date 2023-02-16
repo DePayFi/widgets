@@ -52,7 +52,7 @@ export default (props)=>{
                 className="Card small"
                 title={`Connect ${resultList[virtualItem.key].name}`}
                 onClick={()=>{
-                  props.selected(resultList[virtualItem.key])
+                  props.setWallet(resultList[virtualItem.key])
                   navigate('ConnectWallet')
                 }}
               >
@@ -61,7 +61,7 @@ export default (props)=>{
                 </div>
                 <div className="CardBody">
                   <div className="CardBodyWrapper PaddingLeftXS LineHeightXS">
-                    <div className="CardText FontWeightBold">
+                    <div className="CardText">
                       { resultList[virtualItem.key].name }
                     </div>
                   </div>

@@ -25,6 +25,10 @@ export default (style)=>{
       font-size: 42px;
     }
 
+    .FontWeightMedium {
+      font-weight: 500;
+    }
+
     .FontWeightBold {
       font-weight: bold;
     }

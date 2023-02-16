@@ -16,6 +16,7 @@ import LoadingTextStyle from '../styles/LoadingTextStyle'
 import OpacityStyle from '../styles/OpacityStyle'
 import PaddingStyle from '../styles/PaddingStyle'
 import PoweredByStyle from '../styles/PoweredByStyle'
+import QRCodeStyle from '../styles/QRCodeStyle'
 import RangeSliderStyle from '../styles/RangeSliderStyle'
 import ResetStyle from '../styles/ResetStyle'
 import SearchStyle from '../styles/SearchStyle'
@@ -49,6 +50,7 @@ export default (style)=>{
       ButtonPrimaryStyle(style),
       CardStyle(style),
       PoweredByStyle(style),
+      QRCodeStyle(style),
       GraphicStyle(style),
       GridStyle(style),
       SkeletonStyle(style),

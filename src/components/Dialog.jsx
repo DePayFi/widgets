@@ -22,6 +22,7 @@ export default (props)=>{
         }
         { props.header }
         <div className="DialogHeaderActionRight PaddingTopS PaddingLeftS PaddingRightS">
+          { props.alternativeHeaderAction }
           { closable && props.closable !== false &&
             <button onClick={ close } className="ButtonCircular" title="Close dialog">
               <CloseIcon/>
@@ -34,9 +35,11 @@ export default (props)=>{
         { props.body }
       </div>
 
-      <div className="DialogFooter">
-        { props.footer }
-      </div>
+      { props.hideFooter !== true &&
+        <div className="DialogFooter">
+          { props.footer }
+        </div>
+      }
     </div>
   )
 }
