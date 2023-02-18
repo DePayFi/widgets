@@ -4,6 +4,7 @@ export default (style)=>{
     .Card {
       align-items: center;
       background: rgb(255,255,255);
+      border: 1px solid transparent;
       border-radius: 13px;
       box-shadow: 0 0 8px rgba(0,0,0,0.03);
       cursor: pointer;
@@ -13,6 +14,10 @@ export default (style)=>{
       min-height: 76px;
       padding: 16px 10px;
       width: 100%;
+    }
+
+    .Card:focus {
+      border: 1px solid ${style.colors.primary};
     }
 
     .Card.center {

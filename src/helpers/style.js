@@ -4,6 +4,7 @@ import ButtonCircularStyle from '../styles/ButtonCircularStyle'
 import ButtonPrimaryStyle from '../styles/ButtonPrimaryStyle'
 import CardStyle from '../styles/CardStyle'
 import DialogStyle from '../styles/DialogStyle'
+import DropDownStyle from '../styles/DropDownStyle'
 import FontStyle from '../styles/FontStyle'
 import GraphicStyle from '../styles/GraphicStyle'
 import GridStyle from '../styles/GridStyle'
@@ -74,6 +75,7 @@ export default (style)=>{
       LinkStyle(style),
       TooltipStyle(style),
       WalletStyle(style),
+      DropDownStyle(style),
     ].join('')
   )
 }

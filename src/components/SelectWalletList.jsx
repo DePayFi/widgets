@@ -49,10 +49,11 @@ export default (props)=>{
           >
             <div className="PaddingBottomXS">
               <button
+                type="button"
                 className="Card small"
                 title={`Connect ${resultList[virtualItem.key].name}`}
                 onClick={()=>{
-                  props.setWallet(resultList[virtualItem.key])
+                  props.setWallet({...resultList[virtualItem.key] })
                   navigate('ConnectWallet')
                 }}
               >
