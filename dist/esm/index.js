@@ -943,6 +943,9 @@ var allWallets = [{
   "name": "Coinbase",
   "extension": "Coinbase",
   "link": "WalletLink",
+  "mobile": {
+    "native": "cbwallet://dapp?url="
+  },
   "logo": "data:image/svg+xml;base64,PHN2ZyBpZD0nTGF5ZXJfMScgZGF0YS1uYW1lPSdMYXllciAxJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB2aWV3Qm94PScwIDAgNDg4Ljk2IDQ4OC45Nic+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOnVybCgjbGluZWFyLWdyYWRpZW50KTt9LmNscy0ye2ZpbGw6IzQzNjFhZDt9PC9zdHlsZT48bGluZWFyR3JhZGllbnQgaWQ9J2xpbmVhci1ncmFkaWVudCcgeDE9JzI1MCcgeTE9JzcuMzUnIHgyPScyNTAnIHkyPSc0OTYuMzInIGdyYWRpZW50VHJhbnNmb3JtPSdtYXRyaXgoMSwgMCwgMCwgLTEsIDAsIDUwMiknIGdyYWRpZW50VW5pdHM9J3VzZXJTcGFjZU9uVXNlJz48c3RvcCBvZmZzZXQ9JzAnIHN0b3AtY29sb3I9JyMzZDViYTknLz48c3RvcCBvZmZzZXQ9JzEnIHN0b3AtY29sb3I9JyM0ODY4YjEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cGF0aCBjbGFzcz0nY2xzLTEnIGQ9J00yNTAsNS42OEMxMTQuODcsNS42OCw1LjUyLDExNSw1LjUyLDI1MC4xN1MxMTQuODcsNDk0LjY1LDI1MCw0OTQuNjUsNDk0LjQ4LDM4NS4yOSw0OTQuNDgsMjUwLjE3LDM4NS4xMyw1LjY4LDI1MCw1LjY4Wm0wLDM4Ny41NEExNDMuMDYsMTQzLjA2LDAsMSwxLDM5My4wNSwyNTAuMTcsMTQzLjExLDE0My4xMSwwLDAsMSwyNTAsMzkzLjIyWicgdHJhbnNmb3JtPSd0cmFuc2xhdGUoLTUuNTIgLTUuNjgpJy8+PHBhdGggY2xhc3M9J2Nscy0yJyBkPSdNMjg0LjY5LDI5Ni4wOUgyMTUuMzFhMTEsMTEsMCwwLDEtMTAuOS0xMC45VjIxNS40OGExMSwxMSwwLDAsMSwxMC45LTEwLjkxSDI4NWExMSwxMSwwLDAsMSwxMC45LDEwLjkxdjY5LjcxQTExLjA3LDExLjA3LDAsMCwxLDI4NC42OSwyOTYuMDlaJyB0cmFuc2Zvcm09J3RyYW5zbGF0ZSgtNS41MiAtNS42OCknLz48L3N2Zz4="
 }, {
   "name": "Trust Wallet",
@@ -2673,46 +2676,51 @@ var ConnectWalletDialog = (function (props) {
   };
 
   var connectViaRedirect = function connectViaRedirect(provider, uri) {
-    console.log('connectViaRedirect');
-
     if (!provider) {
       return;
     }
 
-    var wallet = new wallets[props.wallet.link]();
-    wallet.connect({
-      name: props.wallet.name,
-      logo: props.wallet.logo,
-      reconnect: true,
-      connect: function connect(_ref) {
-        var uri = _ref.uri;
-        console.log('CONNECT URI', uri);
-        var href;
+    if (props.wallet.link == 'WalletConnectV1') {
+      var wallet = new wallets[props.wallet.link]();
+      wallet.connect({
+        name: props.wallet.name,
+        logo: props.wallet.logo,
+        reconnect: true,
+        connect: function connect(_ref) {
+          var uri = _ref.uri;
+          var href;
 
-        if (provider["native"]) {
-          href = isAndroid() ? uri : safeAppUrl(provider["native"]);
-        } else {
-          href = safeUniversalUrl(provider.universal);
+          if (provider["native"]) {
+            href = isAndroid() ? uri : safeAppUrl(provider["native"]);
+          } else {
+            href = safeUniversalUrl(provider.universal);
+          }
+
+          localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
+            href: href,
+            name: isAndroid() ? 'Android' : props.wallet.name
+          }));
+
+          if (provider["native"]) {
+            href = isAndroid() ? href : "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
+          } else {
+            href = "".concat(href, "/wc?uri=").concat(encodeURIComponent(uri));
+          }
+
+          var target = provider["native"] && !provider.universal ? '_self' : '_blank';
+          window.open(href, target, 'noreferrer noopener');
         }
-
-        localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
-          href: href,
-          name: isAndroid() ? 'Android' : props.wallet.name
-        }));
-
-        if (provider["native"]) {
-          href = isAndroid() ? href : "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
-        } else {
-          href = "".concat(href, "/wc?uri=").concat(encodeURIComponent(uri));
-        }
-
-        var target = provider["native"] && !provider.universal ? '_self' : '_blank';
-        console.log('OPEN', href, target);
-        window.open(href, target, 'noreferrer noopener');
+      }).then(function (account) {
+        props.resolve(account, wallet);
+      });
+    } else if (props.wallet.link == 'WalletLink') {
+      if (isAndroid()) {
+        window.open("https://go.cb-w.com/dapp?cb_url=".concat(encodeURIComponent(window.location.toString())), '_self', 'noreferrer noopener');
+      } else {
+        // IOS
+        window.open("cbwallet://dapp?url=".concat(encodeURIComponent(window.location.toString())), '_self', 'noreferrer noopener');
       }
-    }).then(function (account) {
-      props.resolve(account, wallet);
-    });
+    }
   };
 
   var connectViaCopyLink = function connectViaCopyLink() {
@@ -2742,14 +2750,11 @@ var ConnectWalletDialog = (function (props) {
             return; // extension found and link with same wallet name found (e.g. MetaMask extension + mobile) let user decide!
           }
 
-          console.log('props.wallet.name == wallet.name', props.wallet.name == wallet.name);
-
           if (props.wallet.name == wallet.name) {
             return wallet.account().then(function (account) {
               props.resolve(account, wallet);
             });
           } else if (extensionIsAvailable) {
-            console.log('extensionIsAvailable', extensionIsAvailable);
             connectExtension();
           }
         });

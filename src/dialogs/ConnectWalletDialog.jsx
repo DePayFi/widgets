@@ -55,34 +55,39 @@ export default (props)=> {
   }
 
   const connectViaRedirect = (provider, uri)=>{
-    console.log('connectViaRedirect')
     if(!provider) { return }
-    let wallet = new wallets[props.wallet.link]()
-    wallet.connect({
-      name: props.wallet.name,
-      logo: props.wallet.logo,
-      reconnect: true,
-      connect: ({ uri })=>{
-        console.log('CONNECT URI', uri)
-        let href
-        if(provider.native) {
-          href = isAndroid() ? uri : safeAppUrl(provider.native)
-        } else {
-          href = safeUniversalUrl(provider.universal)
+    if(props.wallet.link == 'WalletConnectV1') {
+      let wallet = new wallets[props.wallet.link]()
+      wallet.connect({
+        name: props.wallet.name,
+        logo: props.wallet.logo,
+        reconnect: true,
+        connect: ({ uri })=>{
+          let href
+          if(provider.native) {
+            href = isAndroid() ? uri : safeAppUrl(provider.native)
+          } else {
+            href = safeUniversalUrl(provider.universal)
+          }
+          localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: isAndroid() ? 'Android' : props.wallet.name }))
+          if(provider.native) {
+            href = isAndroid() ? href : `${href}wc?uri=${encodeURIComponent(uri)}`
+          } else {
+            href = `${href}/wc?uri=${encodeURIComponent(uri)}`
+          }
+          let target = provider.native && !provider.universal ? '_self' : '_blank'
+          window.open(href, target, 'noreferrer noopener')
         }
-        localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: isAndroid() ? 'Android' : props.wallet.name }))
-        if(provider.native) {
-          href = isAndroid() ? href : `${href}wc?uri=${encodeURIComponent(uri)}`
-        } else {
-          href = `${href}/wc?uri=${encodeURIComponent(uri)}`
-        }
-        let target = provider.native && !provider.universal ? '_self' : '_blank'
-        console.log('OPEN', href, target)
-        window.open(href, target, 'noreferrer noopener')
+      }).then((account)=>{
+        props.resolve(account, wallet)
+      })
+    } else if (props.wallet.link == 'WalletLink') {
+      if(isAndroid()) {
+        window.open(`https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
+      } else { // IOS
+        window.open(`cbwallet://dapp?url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
       }
-    }).then((account)=>{
-      props.resolve(account, wallet)
-    })
+    }
   }
 
   const connectViaCopyLink = ()=>{
@@ -108,13 +113,11 @@ export default (props)=> {
           if(extensionIsAvailable && wallet.name == wallets[props.wallet.extension].info.name) {
             return // extension found and link with same wallet name found (e.g. MetaMask extension + mobile) let user decide!
           } 
-          console.log('props.wallet.name == wallet.name', props.wallet.name == wallet.name)
           if(props.wallet.name == wallet.name) {
             return wallet.account().then((account)=>{
               props.resolve(account, wallet)
             })
           } else if(extensionIsAvailable) {
-            console.log('extensionIsAvailable', extensionIsAvailable)
             connectExtension()
           }
         })  
