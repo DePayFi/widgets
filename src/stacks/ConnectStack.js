@@ -16,6 +16,7 @@ export default (props)=>{
   const [ wallet, setWallet ] = useState()
   const [ selection, setSelection ] = useState({ blockchain: undefined })
   const resolve = (account, wallet)=> {
+    console.log('RESOLVE', wallet)
     if(account && wallet) {
       let walletMeta = allWallets.find((walletMeta)=>walletMeta.extension == wallet.name) || allWallets.find((walletMeta)=>walletMeta.name == wallet.name)
       setPreviouslyConnectedWallet(walletMeta.name)

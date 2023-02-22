@@ -2600,44 +2600,39 @@
     var QRCodeElement = React__default['default'].useRef();
 
     var _useState = React.useState(false),
-        _useState2 = _slicedToArray(_useState, 2);
-        _useState2[0];
-        var setShowConnectExtensionButton = _useState2[1];
+        _useState2 = _slicedToArray(_useState, 2),
+        showConnectExtensionWarning = _useState2[0],
+        setShowConnectExtensionWarning = _useState2[1];
 
-    var _useState3 = React.useState(false),
+    var _useState3 = React.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
-        showConnectExtensionWarning = _useState4[0],
-        setShowConnectExtensionWarning = _useState4[1];
+        extensionIsAvailable = _useState4[0],
+        setExtensionIsAvailable = _useState4[1];
 
     var _useState5 = React.useState(),
         _useState6 = _slicedToArray(_useState5, 2),
-        extensionIsAvailable = _useState6[0],
-        setExtensionIsAvailable = _useState6[1];
+        linkIsConnected = _useState6[0],
+        setLinkIsConnected = _useState6[1];
 
     var _useState7 = React.useState(),
-        _useState8 = _slicedToArray(_useState7, 2),
-        linkIsConnected = _useState8[0],
-        setLinkIsConnected = _useState8[1];
+        _useState8 = _slicedToArray(_useState7, 2);
+        _useState8[0];
+        _useState8[1];
 
-    var _useState9 = React.useState(),
-        _useState10 = _slicedToArray(_useState9, 2);
-        _useState10[0];
-        _useState10[1];
+    var _useState9 = React.useState(false),
+        _useState10 = _slicedToArray(_useState9, 2),
+        showQRCode = _useState10[0],
+        setShowQRCode = _useState10[1];
 
     var _useState11 = React.useState(false),
         _useState12 = _slicedToArray(_useState11, 2),
-        showQRCode = _useState12[0],
-        setShowQRCode = _useState12[1];
+        showLinkCopied = _useState12[0],
+        setShowLinkCopied = _useState12[1];
 
-    var _useState13 = React.useState(false),
+    var _useState13 = React.useState(),
         _useState14 = _slicedToArray(_useState13, 2),
-        showLinkCopied = _useState14[0],
-        setShowLinkCopied = _useState14[1];
-
-    var _useState15 = React.useState(),
-        _useState16 = _slicedToArray(_useState15, 2),
-        QRCode = _useState16[0],
-        setQRCode = _useState16[1];
+        QRCode = _useState14[0],
+        setQRCode = _useState14[1];
 
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext);
         _useContext.navigate;
@@ -2730,15 +2725,26 @@
 
     var connect = function connect() {
       if (props.wallet.via == 'detected') {
-        connectExtension();
-      }
+        if (linkIsConnected) {
+          web3Wallets.wallets[props.wallet.link].getConnectedInstance().then(function (wallet) {
+            if (extensionIsAvailable && wallet.name == web3Wallets.wallets[props.wallet.extension].info.name) {
+              return; // extension found and link with same wallet name found (e.g. MetaMask extension + mobile) let user decide!
+            }
 
-      if (linkIsConnected && props.wallet.via == 'detected') {
-        web3Wallets.wallets[props.wallet.link].getConnectedInstance().then(function (wallet) {
-          wallet.account().then(function (account) {
-            props.resolve(account, wallet);
+            console.log('props.wallet.name == wallet.name', props.wallet.name == wallet.name);
+
+            if (props.wallet.name == wallet.name) {
+              return wallet.account().then(function (account) {
+                props.resolve(account, wallet);
+              });
+            } else if (extensionIsAvailable) {
+              console.log('extensionIsAvailable', extensionIsAvailable);
+              connectExtension();
+            }
           });
-        });
+        } else if (extensionIsAvailable) {
+          connectExtension();
+        }
       } else {
         if (isMobile()) {
           connectViaRedirect(props.wallet.mobile);
@@ -2759,7 +2765,7 @@
                 _context.t0 = setExtensionIsAvailable;
 
                 if (!((_props$wallet2 = props.wallet) !== null && _props$wallet2 !== void 0 && _props$wallet2.extension)) {
-                  _context.next = 7;
+                  _context.next = 10;
                   break;
                 }
 
@@ -2767,39 +2773,59 @@
                 return web3Wallets.wallets[props.wallet.extension].isAvailable();
 
               case 4:
-                _context.t1 = _context.sent;
-                _context.next = 8;
-                break;
+                _context.t2 = _context.sent;
 
-              case 7:
-                _context.t1 = false;
-
-              case 8:
-                _context.t2 = _context.t1;
-                (0, _context.t0)(_context.t2);
-                _context.t3 = setLinkIsConnected;
-
-                if (!((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && _props$wallet3.link)) {
-                  _context.next = 17;
+                if (_context.t2) {
+                  _context.next = 7;
                   break;
                 }
 
-                _context.next = 14;
-                return web3Wallets.wallets[props.wallet.link].isAvailable();
+                _context.t2 = false;
 
-              case 14:
-                _context.t4 = _context.sent;
-                _context.next = 18;
+              case 7:
+                _context.t1 = _context.t2;
+                _context.next = 11;
                 break;
 
-              case 17:
-                _context.t4 = false;
+              case 10:
+                _context.t1 = false;
 
-              case 18:
-                _context.t5 = _context.t4;
-                (0, _context.t3)(_context.t5);
+              case 11:
+                _context.t3 = _context.t1;
+                (0, _context.t0)(_context.t3);
+                _context.t4 = setLinkIsConnected;
+
+                if (!((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && _props$wallet3.link)) {
+                  _context.next = 23;
+                  break;
+                }
+
+                _context.next = 17;
+                return web3Wallets.wallets[props.wallet.link].isAvailable();
+
+              case 17:
+                _context.t6 = _context.sent;
+
+                if (_context.t6) {
+                  _context.next = 20;
+                  break;
+                }
+
+                _context.t6 = false;
 
               case 20:
+                _context.t5 = _context.t6;
+                _context.next = 24;
+                break;
+
+              case 23:
+                _context.t5 = false;
+
+              case 24:
+                _context.t7 = _context.t5;
+                (0, _context.t4)(_context.t7);
+
+              case 26:
               case "end":
                 return _context.stop();
             }
@@ -2808,23 +2834,14 @@
       }))();
     }, []);
     React.useEffect(function () {
-      connect();
+      if (extensionIsAvailable !== undefined && linkIsConnected !== undefined) {
+        connect();
 
-      if (extensionIsAvailable != undefined && linkIsConnected != undefined) {
         if (linkIsConnected == false) {
           var _props$wallet4, _props$wallet4$deskto;
 
           setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet4 = props.wallet) !== null && _props$wallet4 !== void 0 && (_props$wallet4$deskto = _props$wallet4.desktop) !== null && _props$wallet4$deskto !== void 0 && _props$wallet4$deskto["native"]));
         }
-
-        var timeout = setTimeout(function () {
-          if (extensionIsAvailable) {
-            setShowConnectExtensionButton(true);
-          }
-        }, 8000);
-        return function () {
-          return clearTimeout(timeout);
-        };
       }
     }, [extensionIsAvailable, linkIsConnected]);
     React.useEffect(function () {
@@ -3441,6 +3458,8 @@
         _useState4[1];
 
     var resolve = function resolve(account, wallet) {
+      console.log('RESOLVE', wallet);
+
       if (account && wallet) {
         var walletMeta = allWallets.find(function (walletMeta) {
           return walletMeta.extension == wallet.name;

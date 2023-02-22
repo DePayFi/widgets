@@ -15,7 +15,6 @@ import { wallets } from '@depay/web3-wallets'
 export default (props)=> {
 
   const QRCodeElement = React.useRef()
-  const [ showConnectExtensionButton, setShowConnectExtensionButton ] = useState(false)
   const [ showConnectExtensionWarning, setShowConnectExtensionWarning ] = useState(false)
   const [ extensionIsAvailable, setExtensionIsAvailable ] = useState()
   const [ linkIsConnected, setLinkIsConnected ] = useState()
@@ -44,7 +43,9 @@ export default (props)=> {
     if(extensionIsAvailable) {
       let wallet = new wallets[props.wallet.extension]()
       wallet.connect()
-        .then((account)=>{ props.resolve(account, wallet)})
+        .then((account)=>{ 
+          props.resolve(account, wallet)
+        })
         .catch((error)=>{
           if(error?.code == -32002) { // Request of type 'wallet_requestPermissions' already pending...
             setShowConnectExtensionWarning(true)
@@ -97,13 +98,25 @@ export default (props)=> {
   }
 
   const connect = ()=>{
-    if(props.wallet.via == 'detected') { connectExtension() }
-    if(linkIsConnected && props.wallet.via == 'detected') {
-      wallets[props.wallet.link].getConnectedInstance().then((wallet)=>{
-        wallet.account().then((account)=>{
-          props.resolve(account, wallet)
-        })
-      })
+    if(props.wallet.via == 'detected') {
+      if(linkIsConnected) {
+        wallets[props.wallet.link].getConnectedInstance().then((wallet)=>{
+          if(extensionIsAvailable && wallet.name == wallets[props.wallet.extension].info.name) {
+            return // extension found and link with same wallet name found (e.g. MetaMask extension + mobile) let user decide!
+          } 
+          console.log('props.wallet.name == wallet.name', props.wallet.name == wallet.name)
+          if(props.wallet.name == wallet.name) {
+            return wallet.account().then((account)=>{
+              props.resolve(account, wallet)
+            })
+          } else if(extensionIsAvailable) {
+            console.log('extensionIsAvailable', extensionIsAvailable)
+            connectExtension()
+          }
+        })  
+      } else if(extensionIsAvailable) {
+        connectExtension()
+      }
     } else {
       if(isMobile()) {
         connectViaRedirect(props.wallet.mobile)
@@ -116,28 +129,21 @@ export default (props)=> {
   useEffect(()=>{
     (async ()=>{
       setExtensionIsAvailable(
-        props.wallet?.extension ? (await wallets[props.wallet.extension].isAvailable()) : false
+        props.wallet?.extension ? (await wallets[props.wallet.extension].isAvailable() || false) : false
       )
       setLinkIsConnected(
-        props.wallet?.link ? (await wallets[props.wallet.link].isAvailable()) : false
+        props.wallet?.link ? (await wallets[props.wallet.link].isAvailable() || false) : false
       )
     })()
   }, [])
 
   useEffect(()=> {
-    connect()
-
-    if(extensionIsAvailable != undefined && linkIsConnected != undefined) {
+    if(extensionIsAvailable !== undefined && linkIsConnected !== undefined) {
+      connect()
       if(linkIsConnected == false){
         setShowQRCode(!extensionIsAvailable && !isMobile() && !props.wallet?.desktop?.native)
       }
 
-      let timeout = setTimeout(()=>{
-        if(extensionIsAvailable) {
-          setShowConnectExtensionButton(true)
-        }
-      }, 8000)
-      return ()=>clearTimeout(timeout)
     }
   }, [extensionIsAvailable, linkIsConnected])
 
