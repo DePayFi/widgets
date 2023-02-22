@@ -2684,7 +2684,7 @@
           var href;
 
           if (provider["native"]) {
-            href = isAnrdoid() ? uri : safeAppUrl(provider["native"]);
+            href = isAndroid() ? uri : safeAppUrl(provider["native"]);
           } else {
             href = safeUniversalUrl(provider.universal);
           }
@@ -3463,8 +3463,6 @@
         _useState4[1];
 
     var resolve = function resolve(account, wallet) {
-      console.log('RESOLVE', wallet);
-
       if (account && wallet) {
         var walletMeta = allWallets.find(function (walletMeta) {
           return walletMeta.extension == wallet.name;

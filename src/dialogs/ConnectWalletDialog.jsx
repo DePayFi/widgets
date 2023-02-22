@@ -66,7 +66,7 @@ export default (props)=> {
         console.log('CONNECT URI', uri)
         let href
         if(provider.native) {
-          href = isAnrdoid() ? uri : safeAppUrl(provider.native)
+          href = isAndroid() ? uri : safeAppUrl(provider.native)
         } else {
           href = safeUniversalUrl(provider.universal)
         }
