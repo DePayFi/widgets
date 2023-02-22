@@ -55,12 +55,15 @@ export default (props)=> {
   }
 
   const connectViaRedirect = (provider, uri)=>{
+    console.log('connectViaRedirect')
     if(!provider) { return }
     let wallet = new wallets[props.wallet.link]()
     wallet.connect({
       name: props.wallet.name,
       logo: props.wallet.logo,
+      reconnect: true,
       connect: ({ uri })=>{
+        console.log('CONNECT URI', uri)
         let href
         if(provider.native) {
           href = isAnrdoid() ? uri : safeAppUrl(provider.native)
@@ -74,6 +77,7 @@ export default (props)=> {
           href = `${href}/wc?uri=${encodeURIComponent(uri)}`
         }
         let target = provider.native && !provider.universal ? '_self' : '_blank'
+        console.log('OPEN', href, target)
         window.open(href, target, 'noreferrer noopener')
       }
     }).then((account)=>{

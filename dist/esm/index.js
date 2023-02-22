@@ -2673,6 +2673,8 @@ var ConnectWalletDialog = (function (props) {
   };
 
   var connectViaRedirect = function connectViaRedirect(provider, uri) {
+    console.log('connectViaRedirect');
+
     if (!provider) {
       return;
     }
@@ -2681,8 +2683,10 @@ var ConnectWalletDialog = (function (props) {
     wallet.connect({
       name: props.wallet.name,
       logo: props.wallet.logo,
+      reconnect: true,
       connect: function connect(_ref) {
         var uri = _ref.uri;
+        console.log('CONNECT URI', uri);
         var href;
 
         if (provider["native"]) {
@@ -2703,6 +2707,7 @@ var ConnectWalletDialog = (function (props) {
         }
 
         var target = provider["native"] && !provider.universal ? '_self' : '_blank';
+        console.log('OPEN', href, target);
         window.open(href, target, 'noreferrer noopener');
       }
     }).then(function (account) {
