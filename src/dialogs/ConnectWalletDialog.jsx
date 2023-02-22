@@ -125,9 +125,9 @@ export default (props)=> {
   }, [])
 
   useEffect(()=> {
-    if(extensionIsAvailable != undefined && linkIsConnected != undefined) {
-      connect()
+    connect()
 
+    if(extensionIsAvailable != undefined && linkIsConnected != undefined) {
       if(linkIsConnected == false){
         setShowQRCode(!extensionIsAvailable && !isMobile() && !props.wallet?.desktop?.native)
       }

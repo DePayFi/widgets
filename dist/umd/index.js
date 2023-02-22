@@ -2808,9 +2808,9 @@
       }))();
     }, []);
     React.useEffect(function () {
-      if (extensionIsAvailable != undefined && linkIsConnected != undefined) {
-        connect();
+      connect();
 
+      if (extensionIsAvailable != undefined && linkIsConnected != undefined) {
         if (linkIsConnected == false) {
           var _props$wallet4, _props$wallet4$deskto;
 
