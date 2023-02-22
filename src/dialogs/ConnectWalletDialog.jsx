@@ -10,6 +10,7 @@ import React, { useState, useContext, useEffect, useRef } from 'react'
 import safeAppUrl from '../helpers/safeAppUrl'
 import safeUniversalUrl from '../helpers/safeUniversalUrl'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
+import { set as setPreviouslyConnectedWallet } from '../helpers/previouslyConnectedWallet'
 import { wallets } from '@depay/web3-wallets'
 
 export default (props)=> {
@@ -82,6 +83,7 @@ export default (props)=> {
         props.resolve(account, wallet)
       })
     } else if (props.wallet.link == 'WalletLink') {
+      setPreviouslyConnectedWallet(props.wallet.name)
       if(isAndroid()) {
         window.open(`https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
       } else { // IOS

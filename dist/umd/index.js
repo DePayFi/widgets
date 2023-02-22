@@ -2597,6 +2597,16 @@
     return href;
   });
 
+  var KEY = '_DePayConnectDialogPreviouslyConnectedWallet';
+
+  var set = function set(value) {
+    localStorage[KEY] = value;
+  };
+
+  var get = function get() {
+    return localStorage[KEY];
+  };
+
   var ConnectWalletDialog = (function (props) {
     var _props$wallet;
 
@@ -2708,6 +2718,8 @@
           props.resolve(account, wallet);
         });
       } else if (props.wallet.link == 'WalletLink') {
+        set(props.wallet.name);
+
         if (isAndroid()) {
           window.open("https://go.cb-w.com/dapp?cb_url=".concat(encodeURIComponent(window.location.toString())), '_self', 'noreferrer noopener');
         } else {
@@ -3234,16 +3246,6 @@
       }, resultList[virtualItem.key].name))))));
     })));
   });
-
-  var KEY = '_DePayConnectDialogPreviouslyConnectedWallet';
-
-  var set = function set(value) {
-    localStorage[KEY] = value;
-  };
-
-  var get = function get() {
-    return localStorage[KEY];
-  };
 
   function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
