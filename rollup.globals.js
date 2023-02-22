@@ -13,6 +13,7 @@ export default {
   '@depay/web3-tokens': 'Web3Tokens',
   '@depay/web3-wallets': 'Web3Wallets',
   '@tanstack/react-virtual': 'ReactVirtual',
+  '@uiw/copy-to-clipboard': 'copyTextToClipboard',
   'ethers': 'ethers',
   'fuse.js': 'Fuse',
   'react': 'React',

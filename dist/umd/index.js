@@ -1,12 +1,13 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('@depay/web3-wallets'), require('@depay/web3-blockchains'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('ethers'), require('@depay/web3-constants'), require('decimal.js'), require('@depay/web3-exchanges'), require('@depay/web3-tokens'), require('@depay/local-currency'), require('@depay/web3-client'), require('@depay/web3-payments'), require('@depay/react-token-image')) :
-  typeof define === 'function' && define.amd ? define(['react', '@depay/react-dialog-stack', 'qr-code-styling', '@depay/web3-wallets', '@depay/web3-blockchains', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', 'ethers', '@depay/web3-constants', 'decimal.js', '@depay/web3-exchanges', '@depay/web3-tokens', '@depay/local-currency', '@depay/web3-client', '@depay/web3-payments', '@depay/react-token-image'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.ReactDialogStack, global.QRCodeStyling, global.Web3Wallets, global.Web3Blockchains, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.ethers, global.Web3Constants, global.Decimal, global.Web3Exchanges, global.Web3Tokens, global.LocalCurrency, global.Web3Client, global.Web3Payments, global.ReactTokenImage));
-}(this, (function (React, reactDialogStack, QRCodeStyling, web3Wallets, web3Blockchains, Fuse, reactVirtual, ReactDOM, reactShadowDom, ethers, web3Constants, decimal_js, web3Exchanges, web3Tokens, localCurrency, web3Client, web3Payments, reactTokenImage) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('@depay/web3-wallets'), require('@depay/web3-blockchains'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('ethers'), require('@depay/web3-constants'), require('decimal.js'), require('@depay/web3-exchanges'), require('@depay/web3-tokens'), require('@depay/local-currency'), require('@depay/web3-client'), require('@depay/web3-payments'), require('@depay/react-token-image')) :
+  typeof define === 'function' && define.amd ? define(['react', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', '@depay/web3-wallets', '@depay/web3-blockchains', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', 'ethers', '@depay/web3-constants', 'decimal.js', '@depay/web3-exchanges', '@depay/web3-tokens', '@depay/local-currency', '@depay/web3-client', '@depay/web3-payments', '@depay/react-token-image'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Web3Wallets, global.Web3Blockchains, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.ethers, global.Web3Constants, global.Decimal, global.Web3Exchanges, global.Web3Tokens, global.LocalCurrency, global.Web3Client, global.Web3Payments, global.ReactTokenImage));
+}(this, (function (React, copy, reactDialogStack, QRCodeStyling, web3Wallets, web3Blockchains, Fuse, reactVirtual, ReactDOM, reactShadowDom, ethers, web3Constants, decimal_js, web3Exchanges, web3Tokens, localCurrency, web3Client, web3Payments, reactTokenImage) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
   var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+  var copy__default = /*#__PURE__*/_interopDefaultLegacy(copy);
   var QRCodeStyling__default = /*#__PURE__*/_interopDefaultLegacy(QRCodeStyling);
   var Fuse__default = /*#__PURE__*/_interopDefaultLegacy(Fuse);
   var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
@@ -932,471 +933,6 @@
     }, props.children);
   });
 
-  var ChevronLeft = (function () {
-    return /*#__PURE__*/React__default['default'].createElement("svg", {
-      className: "ChevronLeft Icon",
-      xmlns: "http://www.w3.org/2000/svg",
-      width: "16",
-      height: "16",
-      viewBox: "0 0 16 16"
-    }, /*#__PURE__*/React__default['default'].createElement("path", {
-      strokeWidth: "1",
-      fillRule: "evenodd",
-      d: "M10.4,1.6c0.2,0.2,0.2,0.5,0,0.7L4.7,8l5.6,5.6c0.2,0.2,0.2,0.5,0,0.7s-0.5,0.2-0.7,0l-6-6l0,0,c-0.2-0.2-0.2-0.5,0-0.7l6-6l0,0C9.8,1.5,10.2,1.5,10.4,1.6L10.4,1.6z"
-    }));
-  });
-
-  var CloseIcon = (function () {
-    return /*#__PURE__*/React__default['default'].createElement("svg", {
-      className: "CloseIcon Icon",
-      xmlns: "http://www.w3.org/2000/svg",
-      width: "24",
-      height: "24",
-      viewBox: "0 0 24 24",
-      strokeWidth: "2",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    }, /*#__PURE__*/React__default['default'].createElement("line", {
-      x1: "18",
-      y1: "6",
-      x2: "6",
-      y2: "18"
-    }), /*#__PURE__*/React__default['default'].createElement("line", {
-      x1: "6",
-      y1: "6",
-      x2: "18",
-      y2: "18"
-    }));
-  });
-
-  var Dialog$1 = (function (props) {
-    var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
-        navigate = _useContext.navigate;
-
-    var _useContext2 = React.useContext(ClosableContext),
-        close = _useContext2.close,
-        closable = _useContext2.closable;
-
-    return /*#__PURE__*/React__default['default'].createElement("div", {
-      className: ["Dialog", props.className].join(' ')
-    }, /*#__PURE__*/React__default['default'].createElement("div", {
-      className: ["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')
-    }, props.stacked && /*#__PURE__*/React__default['default'].createElement("div", {
-      className: "DialogHeaderActionLeft PaddingTopS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/React__default['default'].createElement("button", {
-      onClick: function onClick() {
-        return navigate('back');
-      },
-      className: "ButtonCircular",
-      title: "Go back"
-    }, /*#__PURE__*/React__default['default'].createElement(ChevronLeft, null))), props.header, /*#__PURE__*/React__default['default'].createElement("div", {
-      className: "DialogHeaderActionRight PaddingTopS PaddingLeftS PaddingRightS"
-    }, props.alternativeHeaderAction, closable && props.closable !== false && /*#__PURE__*/React__default['default'].createElement("button", {
-      onClick: close,
-      className: "ButtonCircular",
-      title: "Close dialog"
-    }, /*#__PURE__*/React__default['default'].createElement(CloseIcon, null)))), /*#__PURE__*/React__default['default'].createElement("div", {
-      className: ["DialogBody", props.bodyClassName].join(' ')
-    }, props.body), props.hideFooter !== true && /*#__PURE__*/React__default['default'].createElement("div", {
-      className: "DialogFooter"
-    }, props.footer));
-  });
-
-  var isMobile = function isMobile() {
-    if (typeof window !== 'undefined') {
-      return Boolean(window.matchMedia('(pointer:coarse)').matches || /Android|webOS|iPhone|iPad|iPod|BlackBerry|Opera Mini/.test(navigator.userAgent));
-    }
-
-    return false;
-  };
-
-  var QRCodeImage = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHN2ZyAgUFVCTElDICctLy9XM0MvL0RURCBTVkcgMS4xLy9FTicgICdodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQnPgo8c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDEwMDAgMTAwMCIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMWUzIDFlMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPG1ldGFkYXRhPiBTdmcgVmVjdG9yIEljb25zIDogaHR0cDovL3d3dy5vbmxpbmV3ZWJmb250cy5jb20vaWNvbiA8L21ldGFkYXRhPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDUxMSkgc2NhbGUoLjEgLS4xKSI+PHBhdGggZD0ibTEwMCAyNzk3LjF2LTIyMTIuOWg0NDI1Ljh2NDQyNS44aC00NDI1Ljh2LTIyMTIuOXptMzQ3Ny40IDB2LTEyNjQuNWgtMjUyOXYyNTI5aDI1Mjl2LTEyNjQuNXoiLz48cGF0aCBkPSJtMTY4MC42IDI3OTcuMXYtNjMyLjNoMTI2NC42djEyNjQuNmgtMTI2NC42di02MzIuM3oiLz48cGF0aCBkPSJtNTQ3NC4yIDI3OTcuMXYtMjIxMi45aDQ0MjUuOHY0NDI1LjhoLTQ0MjUuOHYtMjIxMi45em0zNDc3LjQgMHYtMTI2NC41aC0yNTI5djI1MjloMjUyOXYtMTI2NC41eiIvPjxwYXRoIGQ9Im03MDU0LjggMjc5Ny4xdi02MzIuM2gxMjY0LjZ2MTI2NC42aC0xMjY0LjZ2LTYzMi4zeiIvPjxwYXRoIGQ9Im0xMDAtMjU3Ny4xdi0yMjEyLjloNDQyNS44djQ0MjUuOGgtNDQyNS44di0yMjEyLjl6bTM0NzcuNCAwdi0xMjY0LjVoLTI1Mjl2MjUyOWgyNTI5di0xMjY0LjV6Ii8+PHBhdGggZD0ibTE2ODAuNi0yNTc3LjF2LTYzMi4zaDEyNjQuNnYxMjY0LjZoLTEyNjQuNnYtNjMyLjN6Ii8+PHBhdGggZD0ibTU0NzQuMi05MTcuNHYtNTUzLjJoMTEwNi40di0xMTA2LjRoLTExMDYuNHYtMTEwNi40aDExMDYuNHYtMTEwNi42aDExMDYuNHYxMTA2LjRoMTEwNi40di0xMTA2LjRoMTEwNi42djExMDYuNGgtMTEwNi40djExMDYuNGgxMTA2LjR2MTEwNi40aC0xMTA2LjR2MTEwNi40aC0xMTA2LjR2LTExMDYuNGgtMTEwNi40djExMDYuNGgtMTEwNi40di01NTN6bTMzMTkuMy0xMTA2LjV2LTU1My4yaC0xMTA2LjR2LTExMDYuNGgtMTEwNi40djExMDYuNGgxMTA2LjR2MTEwNi40aDExMDYuNHYtNTUzLjJ6Ii8+PC9nPgo8L3N2Zz4K";
-
-  var safeAppUrl = (function (href) {
-    if (!href.includes('://')) {
-      href = href.replaceAll('/', '').replaceAll(':', '');
-      href = "".concat(href, "://");
-    }
-
-    return href;
-  });
-
-  var ConnectWalletDialog = (function (props) {
-    var _props$wallet, _props$wallet2;
-
-    var QRCodeElement = React__default['default'].useRef();
-    var extensionIsAvailable = (_props$wallet = props.wallet) !== null && _props$wallet !== void 0 && _props$wallet.extension ? web3Wallets.wallets[props.wallet.extension].isAvailable() : false;
-
-    var _useState = React.useState(false),
-        _useState2 = _slicedToArray(_useState, 2),
-        showConnectExtensionButton = _useState2[0],
-        setShowConnectExtensionButton = _useState2[1];
-
-    var _useState3 = React.useState(false),
-        _useState4 = _slicedToArray(_useState3, 2),
-        showConnectExtensionWarning = _useState4[0],
-        setShowConnectExtensionWarning = _useState4[1];
-
-    var _useState5 = React.useState(),
-        _useState6 = _slicedToArray(_useState5, 2);
-        _useState6[0];
-        _useState6[1];
-
-    var _useState7 = React.useState(false),
-        _useState8 = _slicedToArray(_useState7, 2),
-        showQRCode = _useState8[0],
-        setShowQRCode = _useState8[1];
-
-    var _useState9 = React.useState(),
-        _useState10 = _slicedToArray(_useState9, 2),
-        QRCode = _useState10[0],
-        setQRCode = _useState10[1];
-
-    var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
-        navigate = _useContext.navigate;
-
-    var header = /*#__PURE__*/React__default['default'].createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
-    }, ((_props$wallet2 = props.wallet) === null || _props$wallet2 === void 0 ? void 0 : _props$wallet2.logo) && /*#__PURE__*/React__default['default'].createElement("div", {
-      className: "PaddingTopXS"
-    }, /*#__PURE__*/React__default['default'].createElement("div", {
-      className: "LineHeightL FontSizeL PaddingTopS"
-    }, /*#__PURE__*/React__default['default'].createElement("span", {
-      className: "CardImage rounded large"
-    }, /*#__PURE__*/React__default['default'].createElement("img", {
-      className: "transparent",
-      src: props.wallet.logo
-    })))));
-
-    var connectExtension = function connectExtension() {
-      setShowConnectExtensionWarning(false);
-
-      if (extensionIsAvailable) {
-        new web3Wallets.wallets[props.wallet.extension]().connect().then(function (account) {
-          console.log('CONNECTED', account);
-        })["catch"](function (error) {
-          if ((error === null || error === void 0 ? void 0 : error.code) == -32002) {
-            // Request of type 'wallet_requestPermissions' already pending...
-            setShowConnectExtensionWarning(true);
-          }
-        });
-      }
-    };
-
-    var connectMobileApp = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-        var _props$wallet3;
-
-        var wallet, account;
-        return regenerator.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if ((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && _props$wallet3.mobile) {
-                  _context.next = 2;
-                  break;
-                }
-
-                return _context.abrupt("return");
-
-              case 2:
-                console.log('connectMobileApp');
-                wallet = new web3Wallets.wallets[props.wallet.link]();
-                _context.next = 6;
-                return wallet.connect({
-                  connect: function connect(_ref2) {
-                    var _props$wallet4, _props$wallet4$mobile;
-
-                    var uri = _ref2.uri;
-                    var href = safeAppUrl((_props$wallet4 = props.wallet) === null || _props$wallet4 === void 0 ? void 0 : (_props$wallet4$mobile = _props$wallet4.mobile) === null || _props$wallet4$mobile === void 0 ? void 0 : _props$wallet4$mobile["native"]);
-                    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
-                      href: href,
-                      name: props.wallet.name
-                    }));
-                    href = "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
-                    window.open(href, '_self', 'noreferrer noopener');
-                  }
-                });
-
-              case 6:
-                account = _context.sent;
-                console.log('CONNECTED', account);
-
-              case 8:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      return function connectMobileApp() {
-        return _ref.apply(this, arguments);
-      };
-    }();
-
-    var connectDesktopApp = /*#__PURE__*/function () {
-      var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
-        var _props$wallet5;
-
-        var wallet, account;
-        return regenerator.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                if ((_props$wallet5 = props.wallet) !== null && _props$wallet5 !== void 0 && _props$wallet5.desktop) {
-                  _context2.next = 2;
-                  break;
-                }
-
-                return _context2.abrupt("return");
-
-              case 2:
-                console.log('connectDesktopApp');
-                wallet = new web3Wallets.wallets[props.wallet.link]();
-                _context2.next = 6;
-                return wallet.connect({
-                  connect: function connect(_ref4) {
-                    var _props$wallet6, _props$wallet6$deskto;
-
-                    var uri = _ref4.uri;
-                    var href = safeAppUrl((_props$wallet6 = props.wallet) === null || _props$wallet6 === void 0 ? void 0 : (_props$wallet6$deskto = _props$wallet6.desktop) === null || _props$wallet6$deskto === void 0 ? void 0 : _props$wallet6$deskto["native"]);
-                    href = "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
-                    console.log('OPEN HREF 3', href);
-                    window.open(href, '_self', 'noreferrer noopener');
-                  }
-                });
-
-              case 6:
-                account = _context2.sent;
-                console.log('CONNECTED', account);
-
-              case 8:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-
-      return function connectDesktopApp() {
-        return _ref3.apply(this, arguments);
-      };
-    }();
-
-    var connect = function connect() {
-      console.log('CONNECT!');
-      connectExtension();
-
-      if (isMobile()) {
-        connectMobileApp();
-      } else {
-        connectDesktopApp();
-      }
-    };
-
-    React.useEffect(function () {
-      connect();
-    }, []);
-    React.useEffect(function () {
-      var timeout = setTimeout(function () {
-        if (extensionIsAvailable) {
-          setShowConnectExtensionButton(true);
-        }
-      }, 8000);
-      return function () {
-        return clearTimeout(timeout);
-      };
-    }, [extensionIsAvailable]);
-    React.useEffect(function () {
-      var _props$wallet7, _props$wallet7$deskto;
-
-      setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet7 = props.wallet) !== null && _props$wallet7 !== void 0 && (_props$wallet7$deskto = _props$wallet7.desktop) !== null && _props$wallet7$deskto !== void 0 && _props$wallet7$deskto["native"]));
-    }, [extensionIsAvailable]);
-    React.useEffect(function () {
-      if (showQRCode && props.wallet.link) {
-        var wallet = web3Wallets.wallets[props.wallet.link];
-
-        switch (props.wallet.link) {
-          case 'WalletConnectV1':
-            if (QRCode == undefined) {
-              console.log('CONNECT WALLETCONNECTV1');
-              new wallet().connect({
-                name: props.wallet.name,
-                logo: props.wallet.logo,
-                connect: function connect(_ref5) {
-                  var uri = _ref5.uri;
-                  var newQRCode = new QRCodeStyling__default['default']({
-                    width: 340,
-                    height: 340,
-                    type: "svg",
-                    dotsOptions: {
-                      type: "extra-rounded"
-                    },
-                    cornersSquareOptions: {
-                      type: 'rounded'
-                    },
-                    backgroundOptions: {
-                      color: "transparent"
-                    }
-                  });
-                  newQRCode.update({
-                    data: uri
-                  });
-                  setQRCode(newQRCode);
-                }
-              }).then(function (account) {
-                console.log('CONNECTED ACCOUNT', account);
-              });
-            }
-
-            break;
-
-          case 'WalletLink':
-            new wallet().connect().then(props.resolve);
-            break;
-
-          case 'WalletConnectV2':
-            navigate('SelectBlockchain');
-            break;
-        }
-      }
-    }, [showQRCode]);
-    React.useEffect(function () {
-      if (showQRCode && QRCode && QRCodeElement && QRCodeElement.current) {
-        QRCodeElement.current.innerHTML = "";
-        QRCode.append(QRCodeElement.current);
-      }
-    }, [QRCode]);
-    return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
-      stacked: true,
-      header: header,
-      body: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "TextCenter"
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingLeftL PaddingRightL"
-      }, /*#__PURE__*/React__default['default'].createElement("h1", {
-        className: "LineHeightL Text FontSizeL FontWeightBold"
-      }, "Connect ", props.wallet.name), showConnectExtensionWarning && /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "Alert"
-      }, /*#__PURE__*/React__default['default'].createElement("span", {
-        className: "FontWeightBold PaddingBottomXS"
-      }, "You wallet extension window is already asking to connect. It might be hidden.")))), /*#__PURE__*/React__default['default'].createElement("div", {
-        ref: QRCodeElement,
-        className: "QRCode"
-      }), showQRCode && /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "Opacity05 PaddingBottomS"
-      }, /*#__PURE__*/React__default['default'].createElement("small", null, "Scan QR code with your wallet")), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingLeftL PaddingRightL"
-      }, props.wallet.link && !showQRCode && /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS"
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React__default['default'].createElement("button", {
-        onClick: function onClick() {
-          return setShowQRCode(true);
-        },
-        className: "Card small center PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS TextCenter"
-      }, /*#__PURE__*/React__default['default'].createElement("span", {
-        className: "PaddingTopXS PaddingRightXS"
-      }, /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "transparent ",
-        title: "Scan QR code to connect a mobile wallet",
-        style: {
-          height: '26px'
-        },
-        src: QRCodeImage
-      })), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingLeftS LineHeightXS"
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "CardText FontWeightMedium"
-      }, "Scan QR Code"))))))),
-      footer: showConnectExtensionButton && /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-      }, /*#__PURE__*/React__default['default'].createElement("button", {
-        className: "ButtonPrimary",
-        onClick: connect
-      }, "Connect"))
-    });
-  });
-
-  var SelectionContext = /*#__PURE__*/React__default['default'].createContext();
-
-  var SelectBlockchainDialog = (function (props) {
-    var _useContext = React.useContext(SelectionContext),
-        setSelection = _useContext.setSelection;
-
-    var _useContext2 = React.useContext(reactDialogStack.NavigateStackContext),
-        navigate = _useContext2.navigate;
-
-    var stacked = props.stacked || Object.keys(props.selection).length > 1;
-    var blockchains = [web3Blockchains.Blockchain.findByName('ethereum'), web3Blockchains.Blockchain.findByName('bsc'), web3Blockchains.Blockchain.findByName('polygon')];
-
-    var selectBlockchain = function selectBlockchain(blockchain) {
-      window._depay_token_selection_selected_blockchain = blockchain.name;
-      setSelection(Object.assign(props.selection, {
-        blockchain: blockchain
-      }));
-
-      if (stacked && props.navigateBack !== false) {
-        navigate('back');
-      } else {
-        props.resolve(blockchain);
-      }
-    };
-
-    var elements = blockchains.map(function (blockchain, index) {
-      return /*#__PURE__*/React__default['default'].createElement("div", {
-        key: index,
-        className: "Card Row",
-        onClick: function onClick() {
-          return selectBlockchain(blockchain);
-        }
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "transparent",
-        src: blockchain.logo
-      })), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React__default['default'].createElement("span", {
-        className: "CardText"
-      }, blockchain.label)));
-    });
-    return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
-      header: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("h1", {
-        className: "LineHeightL FontSizeL"
-      }, "Select Blockchain"))),
-      stacked: stacked,
-      bodyClassName: "ScrollHeight",
-      body: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS"
-      }, elements),
-      footer: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
-      })
-    });
-  });
-
-  function _defineProperty(obj, key, value) {
-    if (key in obj) {
-      Object.defineProperty(obj, key, {
-        value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      });
-    } else {
-      obj[key] = value;
-    }
-
-    return obj;
-  }
-
   var allWallets = [{
     "name": "Coinbase",
     "extension": "Coinbase",
@@ -1425,14 +961,13 @@
     "logo": "data:image/svg+xml;base64,PHN2ZyBpZD0nTGF5ZXJfMScgZGF0YS1uYW1lPSdMYXllciAxJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0ODUuOTMgNDUwLjU2Jz48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6IzgyODQ4Nzt9LmNscy0ye2ZpbGw6I2UyNzcyNjtzdHJva2U6I2UyNzcyNjt9LmNscy0xMCwuY2xzLTExLC5jbHMtMiwuY2xzLTMsLmNscy00LC5jbHMtNSwuY2xzLTYsLmNscy03LC5jbHMtOCwuY2xzLTl7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO30uY2xzLTN7ZmlsbDojZTM3NzI1O3N0cm9rZTojZTM3NzI1O30uY2xzLTR7ZmlsbDojZDZjMGIzO3N0cm9rZTojZDZjMGIzO30uY2xzLTV7ZmlsbDojMjQzNDQ3O3N0cm9rZTojMjQzNDQ3O30uY2xzLTZ7ZmlsbDojY2Q2MzI4O3N0cm9rZTojY2Q2MzI4O30uY2xzLTd7ZmlsbDojZTM3NTI1O3N0cm9rZTojZTM3NTI1O30uY2xzLTh7ZmlsbDojZjY4NTFmO3N0cm9rZTojZjY4NTFmO30uY2xzLTl7ZmlsbDojYzFhZTllO3N0cm9rZTojYzFhZTllO30uY2xzLTEwe2ZpbGw6IzE3MTcxNztzdHJva2U6IzE3MTcxNzt9LmNscy0xMXtmaWxsOiM3NjNlMWE7c3Ryb2tlOiM3NjNlMWE7fTwvc3R5bGU+PC9kZWZzPjxwYXRoIGNsYXNzPSdjbHMtMScgZD0nTTI0Ny45MSwzNTYuMjlhMjYsMjYsMCwxLDAtMjYsMjZBMjYsMjYsMCwwLDAsMjQ3LjkxLDM1Ni4yOVonIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC03Ljk3IC0yMS4zMyknLz48cGF0aCBjbGFzcz0nY2xzLTEnIGQ9J00yNDYuNTUsMTQ5LjcxYTI2LDI2LDAsMSwwLTI2LDI2QTI2LDI2LDAsMCwwLDI0Ni41NSwxNDkuNzFaJyB0cmFuc2Zvcm09J3RyYW5zbGF0ZSgtNy45NyAtMjEuMzMpJy8+PGNpcmNsZSBjbGFzcz0nY2xzLTEnIGN4PScxNDguNCcgY3k9JzIzMC4wNScgcj0nMjUuOTknLz48cG9seWdvbiBjbGFzcz0nY2xzLTInIHBvaW50cz0nNDYxLjI4IDAuNSAyNzIuMDYgMTQxLjAzIDMwNy4wNSA1OC4xMiA0NjEuMjggMC41Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy0zJyBwb2ludHM9JzI0LjQ2IDAuNSAyMTIuMTYgMTQyLjM3IDE3OC44OCA1OC4xMiAyNC40NiAwLjUnLz48cG9seWdvbiBjbGFzcz0nY2xzLTMnIHBvaW50cz0nMzkzLjIgMzI2LjI2IDM0Mi44MSA0MDMuNDcgNDUwLjYzIDQzMy4xNCA0ODEuNjMgMzI3Ljk3IDM5My4yIDMyNi4yNicvPjxwb2x5Z29uIGNsYXNzPSdjbHMtMycgcG9pbnRzPSc0LjQ5IDMyNy45NyAzNS4zIDQzMy4xNCAxNDMuMTMgNDAzLjQ3IDkyLjczIDMyNi4yNiA0LjQ5IDMyNy45NycvPjxwb2x5Z29uIGNsYXNzPSdjbHMtMycgcG9pbnRzPScxMzcuMDQgMTk1LjggMTA3IDI0MS4yNSAyMTQuMDYgMjQ2LjAxIDIxMC4yNiAxMzAuOTYgMTM3LjA0IDE5NS44Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy0zJyBwb2ludHM9JzM0OC43IDE5NS44IDI3NC41MyAxMjkuNjMgMjcyLjA2IDI0Ni4wMSAzNzguOTQgMjQxLjI1IDM0OC43IDE5NS44Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy0zJyBwb2ludHM9JzE0My4xMyA0MDMuNDcgMjA3LjQxIDM3Mi4wOSAxNTEuODggMzI4LjczIDE0My4xMyA0MDMuNDcnLz48cG9seWdvbiBjbGFzcz0nY2xzLTMnIHBvaW50cz0nMjc4LjM0IDM3Mi4wOSAzNDIuODEgNDAzLjQ3IDMzMy44NyAzMjguNzMgMjc4LjM0IDM3Mi4wOScvPjxwb2x5Z29uIGNsYXNzPSdjbHMtNCcgcG9pbnRzPSczNDIuODEgNDAzLjQ3IDI3OC4zNCAzNzIuMDkgMjgzLjQ3IDQxNC4xMiAyODIuOSA0MzEuODEgMzQyLjgxIDQwMy40NycvPjxwb2x5Z29uIGNsYXNzPSdjbHMtNCcgcG9pbnRzPScxNDMuMTMgNDAzLjQ3IDIwMy4wMyA0MzEuODEgMjAyLjY1IDQxNC4xMiAyMDcuNDEgMzcyLjA5IDE0My4xMyA0MDMuNDcnLz48cG9seWdvbiBjbGFzcz0nY2xzLTUnIHBvaW50cz0nMjAzLjk4IDMwMC45NyAxNTAuMzUgMjg1LjE4IDE4OC4yIDI2Ny44OCAyMDMuOTggMzAwLjk3Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy01JyBwb2ludHM9JzI4MS43NiAzMDAuOTcgMjk3LjU1IDI2Ny44OCAzMzUuNTggMjg1LjE4IDI4MS43NiAzMDAuOTcnLz48cG9seWdvbiBjbGFzcz0nY2xzLTYnIHBvaW50cz0nMTQzLjEzIDQwMy40NyAxNTIuMjUgMzI2LjI2IDkyLjczIDMyNy45NyAxNDMuMTMgNDAzLjQ3Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy02JyBwb2ludHM9JzMzMy42OCAzMjYuMjYgMzQyLjgxIDQwMy40NyAzOTMuMiAzMjcuOTcgMzMzLjY4IDMyNi4yNicvPjxwb2x5Z29uIGNsYXNzPSdjbHMtNicgcG9pbnRzPSczNzguOTQgMjQxLjI1IDI3Mi4wNiAyNDYuMDEgMjgxLjk1IDMwMC45NyAyOTcuNzQgMjY3Ljg4IDMzNS43NyAyODUuMTggMzc4Ljk0IDI0MS4yNScvPjxwb2x5Z29uIGNsYXNzPSdjbHMtNicgcG9pbnRzPScxNTAuMzUgMjg1LjE4IDE4OC4zOSAyNjcuODggMjAzLjk4IDMwMC45NyAyMTQuMDYgMjQ2LjAxIDEwNyAyNDEuMjUgMTUwLjM1IDI4NS4xOCcvPjxwb2x5Z29uIGNsYXNzPSdjbHMtNycgcG9pbnRzPScxMDcgMjQxLjI1IDE1MS44OCAzMjguNzMgMTUwLjM1IDI4NS4xOCAxMDcgMjQxLjI1Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy03JyBwb2ludHM9JzMzNS43NyAyODUuMTggMzMzLjg3IDMyOC43MyAzNzguOTQgMjQxLjI1IDMzNS43NyAyODUuMTgnLz48cG9seWdvbiBjbGFzcz0nY2xzLTcnIHBvaW50cz0nMjE0LjA2IDI0Ni4wMSAyMDMuOTggMzAwLjk3IDIxNi41MyAzNjUuODIgMjE5LjM4IDI4MC40MyAyMTQuMDYgMjQ2LjAxJy8+PHBvbHlnb24gY2xhc3M9J2Nscy03JyBwb2ludHM9JzI3Mi4wNiAyNDYuMDEgMjY2LjkzIDI4MC4yNCAyNjkuMjEgMzY1LjgyIDI4MS45NSAzMDAuOTcgMjcyLjA2IDI0Ni4wMScvPjxwb2x5Z29uIGNsYXNzPSdjbHMtOCcgcG9pbnRzPScyODEuOTUgMzAwLjk3IDI2OS4yMSAzNjUuODIgMjc4LjM0IDM3Mi4wOSAzMzMuODcgMzI4LjczIDMzNS43NyAyODUuMTggMjgxLjk1IDMwMC45NycvPjxwb2x5Z29uIGNsYXNzPSdjbHMtOCcgcG9pbnRzPScxNTAuMzUgMjg1LjE4IDE1MS44OCAzMjguNzMgMjA3LjQxIDM3Mi4wOSAyMTYuNTMgMzY1LjgyIDIwMy45OCAzMDAuOTcgMTUwLjM1IDI4NS4xOCcvPjxwb2x5Z29uIGNsYXNzPSdjbHMtOScgcG9pbnRzPScyODIuOSA0MzEuODEgMjgzLjQ3IDQxNC4xMiAyNzguNzIgNDA5Ljk0IDIwNy4wMiA0MDkuOTQgMjAyLjY1IDQxNC4xMiAyMDMuMDMgNDMxLjgxIDE0My4xMyA0MDMuNDcgMTY0LjA1IDQyMC41OCAyMDYuNDUgNDUwLjA2IDI3OS4yOSA0NTAuMDYgMzIxLjg5IDQyMC41OCAzNDIuODEgNDAzLjQ3IDI4Mi45IDQzMS44MScvPjxwb2x5Z29uIGNsYXNzPSdjbHMtMTAnIHBvaW50cz0nMjc4LjM0IDM3Mi4wOSAyNjkuMjEgMzY1LjgyIDIxNi41MyAzNjUuODIgMjA3LjQxIDM3Mi4wOSAyMDIuNjUgNDE0LjEyIDIwNy4wMiA0MDkuOTQgMjc4LjcyIDQwOS45NCAyODMuNDcgNDE0LjEyIDI3OC4zNCAzNzIuMDknLz48cG9seWdvbiBjbGFzcz0nY2xzLTExJyBwb2ludHM9JzQ2OS4yNyAxNTAuMTYgNDg1LjQzIDcyLjU3IDQ2MS4yOCAwLjUgMjc4LjM0IDEzNi4yOCAzNDguNyAxOTUuOCA0NDguMTYgMjI0LjkgNDcwLjIyIDE5OS4yMyA0NjAuNzEgMTkyLjM4IDQ3NS45MiAxNzguNSA0NjQuMTMgMTY5LjM3IDQ3OS4zNSAxNTcuNzcgNDY5LjI3IDE1MC4xNicvPjxwb2x5Z29uIGNsYXNzPSdjbHMtMTEnIHBvaW50cz0nMC41IDcyLjU3IDE2LjY2IDE1MC4xNiA2LjM5IDE1Ny43NyAyMS42MSAxNjkuMzcgMTAuMDEgMTc4LjUgMjUuMjIgMTkyLjM4IDE1LjcxIDE5OS4yMyAzNy41OCAyMjQuOSAxMzcuMDQgMTk1LjggMjA3LjQxIDEzNi4yOCAyNC40NiAwLjUgMC41IDcyLjU3Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy04JyBwb2ludHM9JzQ0OC4xNiAyMjQuOSAzNDguNyAxOTUuOCAzNzguOTQgMjQxLjI1IDMzMy44NyAzMjguNzMgMzkzLjIgMzI3Ljk3IDQ4MS42MyAzMjcuOTcgNDQ4LjE2IDIyNC45Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy04JyBwb2ludHM9JzEzNy4wNCAxOTUuOCAzNy41OCAyMjQuOSA0LjQ5IDMyNy45NyA5Mi43MyAzMjcuOTcgMTUxLjg4IDMyOC43MyAxMDcgMjQxLjI1IDEzNy4wNCAxOTUuOCcvPjxwb2x5Z29uIGNsYXNzPSdjbHMtOCcgcG9pbnRzPScyNzIuMDYgMjQ2LjAxIDI3OC4zNCAxMzYuMjggMzA3LjI0IDU4LjEyIDE3OC44OCA1OC4xMiAyMDcuNDEgMTM2LjI4IDIxNC4wNiAyNDYuMDEgMjE2LjM0IDI4MC42MiAyMTYuNTMgMzY1LjgyIDI2OS4yMSAzNjUuODIgMjY5LjU5IDI4MC42MiAyNzIuMDYgMjQ2LjAxJy8+PC9zdmc+"
   }, {
     "name": "Crypto.com | DeFi Wallet",
-    "extension": "Crypto.com",
+    "extension": "CryptoCom",
     "link": "WalletConnectV1",
     "desktop": {
       "native": "cryptowallet:"
     },
     "mobile": {
-      "native": "cryptowallet:",
-      "universal": "https://wallet.crypto.com"
+      "native": "cryptowallet:"
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7c5ff577-a68d-49c5-02cd-3d83637b0b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
   }, {
@@ -1440,8 +975,7 @@
     "extension": "Coin98",
     "link": "WalletConnectV1",
     "mobile": {
-      "native": "coin98:",
-      "universal": "https://coin98.com"
+      "native": "coin98:"
     },
     "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA0MC43IDQwIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA0MC43IDQwIiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBmaWxsPSIjRDlCNDMyIiBkPSJtMzMuMyAwaC0yNS45Yy00LjEgMC03LjQgMy4zLTcuNCA3LjN2MjUuNGMwIDQgMy4zIDcuMyA3LjQgNy4zaDI1LjljNC4xIDAgNy40LTMuMyA3LjQtNy4zdi0yNS40YzAtNC0zLjMtNy4zLTcuNC03LjN6Ii8+CjxwYXRoIGZpbGw9IiMyNTI1MjUiIGQ9Im0zMy4zIDBoLTI1LjljLTQuMSAwLTcuNCAzLjMtNy40IDcuM3YyNS40YzAgNCAzLjMgNy4zIDcuNCA3LjNoMjUuOWM0LjEgMCA3LjQtMy4zIDcuNC03LjN2LTI1LjRjMC00LTMuMy03LjMtNy40LTcuM3ptLTYuMyAxMGMzIDAgNS41IDIuNCA1LjUgNS40IDAgMC45LTAuMiAxLjgtMC42IDIuNi0wLjctMC41LTEuNS0xLTIuMy0xLjMgMC4yLTAuNCAwLjMtMC45IDAuMy0xLjMgMC0xLjUtMS4zLTIuOC0yLjgtMi44LTEuNiAwLTIuOCAxLjMtMi44IDIuOCAwIDAuNSAwLjEgMC45IDAuMyAxLjMtMC44IDAuMy0xLjYgMC43LTIuMyAxLjMtMC41LTAuOC0wLjYtMS43LTAuNi0yLjYtMC4xLTMgMi4zLTUuNCA1LjMtNS40em0tMTMuMyAyMGMtMyAwLTUuNS0yLjQtNS41LTUuNGgyLjZjMCAxLjUgMS4zIDIuOCAyLjggMi44czIuOC0xLjMgMi44LTIuOGgyLjZjMC4yIDMtMi4zIDUuNC01LjMgNS40em0wLTcuNWMtMy41IDAtNi4zLTIuOC02LjMtNi4yczIuOC02LjMgNi4zLTYuMyA2LjQgMi44IDYuNCA2LjNjMCAzLjQtMi45IDYuMi02LjQgNi4yem0xMy4zIDcuNWMtMy41IDAtNi40LTIuOC02LjQtNi4yIDAtMy41IDIuOC02LjMgNi40LTYuMyAzLjUgMCA2LjMgMi44IDYuMyA2LjMgMC4xIDMuNC0yLjggNi4yLTYuMyA2LjJ6bTMuOC02LjNjMCAyLjEtMS43IDMuNy0zLjggMy43cy0zLjgtMS43LTMuOC0zLjdjMC0yLjEgMS43LTMuNyAzLjgtMy43IDIuMSAwLjEgMy44IDEuNyAzLjggMy43em0tMTMuNC03LjRjMCAyLjEtMS43IDMuNy0zLjggMy43cy0zLjgtMS43LTMuOC0zLjdjMC0yLjEgMS43LTMuNyAzLjgtMy43IDIuMiAwIDMuOCAxLjYgMy44IDMuN3oiLz4KPC9zdmc+Cg=="
   }, {
@@ -1449,31 +983,24 @@
     "extension": "Brave",
     "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAyNTYgMzAxIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAyNTYgMzAxIiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgoKCTxwYXRoIGZpbGw9IiNGMTVBMjIiIGQ9Im0yMzYgMTA1LjQtNy44LTIxLjIgNS40LTEyLjJjMC43LTEuNiAwLjMtMy40LTAuOC00LjZsLTE0LjgtMTQuOWMtNi41LTYuNS0xNi4xLTguOC0yNC44LTUuN2wtNC4xIDEuNC0yMi42LTI0LjUtMzguMi0wLjNoLTAuM2wtMzguNSAwLjMtMjIuNiAyNC43LTQtMS40Yy04LjgtMy4xLTE4LjUtMC44LTI1IDUuOGwtMTUgMTUuMmMtMSAxLTEuMyAyLjQtMC44IDMuN2w1LjcgMTIuNy03LjggMjEuMiA1LjEgMTkuMiAyMyA4Ny4yYzIuNiAxMCA4LjcgMTguOCAxNy4yIDI0LjkgMCAwIDI3LjggMTkuNyA1NS4zIDM3LjUgMi40IDEuNiA1IDIuNyA3LjcgMi43czUuMi0xLjEgNy43LTIuN2MzMC45LTIwLjIgNTUuMy0zNy41IDU1LjMtMzcuNSA4LjQtNi4xIDE0LjUtMTQuOCAxNy4xLTI0LjlsMjIuOC04Ny4yIDQuOC0xOS40eiIvPgoJPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0ibTEzMy4xIDE3OS40Yy0xLTAuNC0yLjEtMC44LTIuNC0wLjhoLTIuN2MtMC4zIDAtMS40IDAuMy0yLjQgMC44bC0xMSA0LjZjLTEgMC40LTIuNyAxLjItMy43IDEuN2wtMTYuNSA4LjZjLTEgMC41LTEuMSAxLjQtMC4yIDIuMWwxNC42IDEwLjNjMC45IDAuNyAyLjQgMS44IDMuMiAyLjVsNi41IDUuNmMwLjggMC44IDIuMiAxLjkgMyAyLjdsNi4yIDUuNmMwLjggMC44IDIuMiAwLjggMyAwbDYuNC01LjZjMC44LTAuOCAyLjItMS45IDMtMi43bDYuNS01LjdjMC44LTAuOCAyLjMtMS45IDMuMi0yLjVsMTQuNi0xMC40YzAuOS0wLjcgMC44LTEuNi0wLjItMi4xbC0xNi41LTguNGMtMS0wLjUtMi43LTEuMy0zLjctMS43bC0xMC45LTQuNnoiLz4KCTxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Im0yMTIuMiAxMDkuMmMwLjMtMS4xIDAuMy0xLjUgMC4zLTEuNSAwLTEuMS0wLjEtMy0wLjMtNGwtMC44LTIuNGMtMC41LTEtMS40LTIuNi0yLTMuNWwtOS41LTE0LjFjLTAuNi0wLjktMS43LTIuNC0yLjQtMy4zbC0xMi4zLTE1LjRjLTAuNy0wLjgtMS40LTEuNi0xLjQtMS41aC0wLjJzLTAuOSAwLjItMiAwLjNsLTE4LjggMy43Yy0xLjEgMC4zLTIuOSAwLjYtNCAwLjhsLTAuMyAwLjFjLTEuMSAwLjItMi45IDAuMS00LTAuM2wtMTUuOC01LjFjLTEuMS0wLjMtMi45LTAuOC0zLjktMS4xIDAgMC0zLjItMC44LTUuOC0wLjctMi42IDAtNS44IDAuNy01LjggMC43LTEuMSAwLjMtMi45IDAuOC0zLjkgMS4xbC0xNS44IDUuMWMtMS4xIDAuMy0yLjkgMC40LTQgMC4zbC0wLjMtMC4xYy0xLjEtMC4yLTIuOS0wLjYtNC0wLjhsLTE5LTMuNWMtMS4xLTAuMy0yLTAuMy0yLTAuM2gtMC4yYy0wLjEgMC0wLjggMC43LTEuNCAxLjVsLTEyLjMgMTUuMmMtMC43IDAuOC0xLjggMi40LTIuNCAzLjNsLTkuNSAxNC4xYy0wLjYgMC45LTEuNSAyLjUtMiAzLjVsLTAuOCAyLjRjLTAuMiAxLjEtMC4zIDMtMC4zIDQuMSAwIDAgMCAwLjMgMC4zIDEuNSAwLjYgMiAyIDMuOSAyIDMuOSAwLjcgMC44IDEuOSAyLjMgMi43IDNsMjcuOSAyOS43YzAuOCAwLjggMSAyLjQgMC42IDMuNGwtNS44IDEzLjhjLTAuNCAxLTAuNSAyLjctMC4xIDMuOGwxLjYgNC4zYzEuMyAzLjYgMy42IDYuOCA2LjcgOS4zbDUuNyA0LjZjMC44IDAuNyAyLjQgMC45IDMuNCAwLjRsMTcuOS04LjVjMS0wLjUgMi41LTEuNSAzLjQtMi4zbDEyLjgtMTEuNmMxLjktMS43IDEuOS00LjYgMC4zLTYuNGwtMjYuOS0xOC4xYy0wLjktMC42LTEuMy0xLjktMC44LTNsMTEuOC0yMi4zYzAuNS0xIDAuNi0yLjYgMC4yLTMuNmwtMS40LTMuM2MtMC40LTEtMS43LTIuMi0yLjctMi42bC0zNC45LTEzYy0xLTAuNC0xLTAuOCAwLjEtMC45bDIyLjQtMi4xYzEuMS0wLjEgMi45IDAuMSA0IDAuM2wxOS45IDUuNmMxLjEgMC4zIDEuOCAxLjQgMS42IDIuNWwtNyAzNy44Yy0wLjIgMS4xLTAuMiAyLjYgMC4xIDMuNXMxLjMgMS42IDIuNCAxLjlsMTMuOCAzYzEuMSAwLjMgMi45IDAuMyA0IDBsMTIuOS0zYzEuMS0wLjMgMi4yLTEuMSAyLjQtMS45IDAuMy0wLjggMC4zLTIuNCAwLjEtMy41bC02LjgtMzcuOWMtMC4yLTEuMSAwLjUtMi4zIDEuNi0yLjVsMTkuOS01LjZjMS4xLTAuMyAyLjktMC40IDQtMC4zbDIyLjQgMi4xYzEuMSAwLjEgMS4yIDAuNSAwLjEgMC45bC0zNC43IDEzLjJjLTEgMC40LTIuMyAxLjUtMi43IDIuNmwtMS40IDMuM2MtMC40IDEtMC40IDIuNyAwLjIgMy42bDExLjkgMjIuM2MwLjUgMSAwLjIgMi4zLTAuOCAzbC0yNi45IDE4LjJjLTEuOCAxLjgtMS42IDQuNyAwLjMgNi40bDEyLjggMTEuNmMwLjggMC44IDIuNCAxLjggMy40IDIuMmwxOCA4LjVjMSAwLjUgMi41IDAuMyAzLjQtMC40bDUuNy00LjZjMy0yLjQgNS4zLTUuNyA2LjYtOS4zbDEuNi00LjNjMC40LTEgMC4zLTIuOC0wLjEtMy44bC01LjgtMTMuOGMtMC40LTEtMC4yLTIuNSAwLjYtMy40bDI3LjktMjkuN2MwLjgtMC44IDEuOS0yLjIgMi43LTMtMC40LTAuMyAxLjEtMi4xIDEuNi00LjF6Ii8+Cgo8L3N2Zz4K"
   }, {
-    "name": "Opera",
-    "extension": "Opera",
-    "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA3NS42IDc1LjYiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIHRyYW5zZm9ybT0ibWF0cml4KDEuMzMzMyAwIDAgLTEuMzMzMyAwIDEwNy4yKSI+CiAgCiAgPGxpbmVhckdyYWRpZW50IGlkPSJvcGVyYUxvZ28wMDAwMDAxMjM1MTEiIHgxPSItMTA3LjM0IiB4Mj0iLTEwNi4zNCIgeTE9Ii0xMzcuODUiIHkyPSItMTM3Ljg1IiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDAgLTczLjI1NyAtNzMuMjU3IDAgLTEwMDc1IC03Nzg0LjEpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICA8c3RvcCBzdG9wLWNvbG9yPSIjRkYxQjJEIiBvZmZzZXQ9IjAiLz4KICAgIDxzdG9wIHN0b3AtY29sb3I9IiNGRjFCMkQiIG9mZnNldD0iLjMiLz4KICAgIDxzdG9wIHN0b3AtY29sb3I9IiNGRjFCMkQiIG9mZnNldD0iLjYxNCIvPgogICAgPHN0b3Agc3RvcC1jb2xvcj0iI0E3MDAxNCIgb2Zmc2V0PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICAKICA8cGF0aCBmaWxsPSJ1cmwoI29wZXJhTG9nbzAwMDAwMDEyMzUxMSkiIGQ9Im0yOC4zIDgwLjRjLTE1LjYgMC0yOC4zLTEyLjctMjguMy0yOC4zIDAtMTUuMiAxMi0yNy42IDI3LTI4LjNoMS40YzcuMyAwIDEzLjkgMi43IDE4LjkgNy4yLTMuMy0yLjItNy4yLTMuNS0xMS40LTMuNS02LjggMC0xMi44IDMuMy0xNi45IDguNi0zLjEgMy43LTUuMiA5LjItNS4zIDE1LjN2MS4zYzAuMSA2LjEgMi4yIDExLjYgNS4zIDE1LjMgNC4xIDUuMyAxMC4xIDguNiAxNi45IDguNiA0LjIgMCA4LTEuMyAxMS40LTMuNS01IDQuNS0xMS42IDcuMi0xOC44IDcuMi0wLjEgMC4xLTAuMSAwLjEtMC4yIDAuMXoiLz4KICAKICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYiIgeDE9Ii0xMDcuMDYiIHgyPSItMTA2LjA2IiB5MT0iLTEzOC4wNCIgeTI9Ii0xMzguMDQiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMCAtNjQuNzkyIC02NC43OTIgMCAtODkwNi4yIC02ODYwLjQpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICA8c3RvcCBzdG9wLWNvbG9yPSIjOUMwMDAwIiBvZmZzZXQ9IjAiLz4KICAgIDxzdG9wIHN0b3AtY29sb3I9IiNGRjRCNEIiIG9mZnNldD0iLjciLz4KICAgIDxzdG9wIHN0b3AtY29sb3I9IiNGRjRCNEIiIG9mZnNldD0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHBhdGggZD0ibTE5IDY4YzIuNiAzLjEgNiA0LjkgOS42IDQuOSA4LjMgMCAxNC45LTkuNCAxNC45LTIwLjlzLTYuNy0yMC45LTE0LjktMjAuOWMtMy43IDAtNyAxLjktOS42IDQuOSA0LjEtNS4zIDEwLjEtOC42IDE2LjktOC42IDQuMiAwIDggMS4zIDExLjQgMy41IDUuOCA1LjIgOS41IDEyLjcgOS41IDIxLjFzLTMuNyAxNS45LTkuNSAyMS4xYy0zLjMgMi4yLTcuMiAzLjUtMTEuNCAzLjUtNi44IDAuMS0xMi44LTMuMy0xNi45LTguNiIgZmlsbD0idXJsKCNiKSIvPgo8L2c+Cjwvc3ZnPgo="
-  }, {
     "name": "Rainbow",
     "link": "WalletConnectV1",
     "mobile": {
-      "native": "rainbow:",
-      "universal": "https://rnbwapp.com"
+      "native": "rainbow:"
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7a33d7f1-3d12-4b5c-f3ee-5cd83cb1b500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
   }, {
     "name": "Argent",
     "link": "WalletConnectV1",
     "mobile": {
-      "native": "argent://app",
-      "universal": "https://argent.link/app"
+      "native": "argent://app"
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ce5fbfe8-13b5-4f5f-184a-34f6ee7a3d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
   }, {
     "name": "Safe",
     "link": "WalletConnectV1",
     "mobile": {
-      "native": "gnosissafe:",
-      "universal": "https://gnosis-safe.io/"
+      "native": "gnosissafe:"
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a1cb2777-f8f9-49b0-53fd-443d20ee0b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
   }, {
@@ -3064,6 +2591,559 @@
     "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz48IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMjUuNC4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAtLT48c3ZnIHZlcnNpb249JzEuMScgaWQ9J0xheWVyXzEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB2aWV3Qm94PScwIDAgNTAwIDUwMCcgc3R5bGU9J2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTAwIDUwMDsnIHhtbDpzcGFjZT0ncHJlc2VydmUnPjxzdHlsZSB0eXBlPSd0ZXh0L2Nzcyc+IC5zdDB7ZmlsbDojNTk5MUNEO30KPC9zdHlsZT48ZyBpZD0nUGFnZS0xJz48ZyBpZD0nd2FsbGV0Y29ubmVjdC1sb2dvLWFsdCc+PHBhdGggaWQ9J1dhbGxldENvbm5lY3QnIGNsYXNzPSdzdDAnIGQ9J00xMDIuNywxNjJjODEuNS03OS44LDIxMy42LTc5LjgsMjk1LjEsMGw5LjgsOS42YzQuMSw0LDQuMSwxMC41LDAsMTQuNEwzNzQsMjE4LjkgYy0yLDItNS4zLDItNy40LDBsLTEzLjUtMTMuMmMtNTYuOC01NS43LTE0OS01NS43LTIwNS44LDBsLTE0LjUsMTQuMWMtMiwyLTUuMywyLTcuNCwwTDkxLjksMTg3Yy00LjEtNC00LjEtMTAuNSwwLTE0LjQgTDEwMi43LDE2MnogTTQ2Ny4xLDIyOS45bDI5LjksMjkuMmM0LjEsNCw0LjEsMTAuNSwwLDE0LjRMMzYyLjMsNDA1LjRjLTQuMSw0LTEwLjcsNC0xNC44LDBjMCwwLDAsMCwwLDBMMjUyLDMxMS45IGMtMS0xLTIuNy0xLTMuNywwaDBsLTk1LjUsOTMuNWMtNC4xLDQtMTAuNyw0LTE0LjgsMGMwLDAsMCwwLDAsMEwzLjQsMjczLjZjLTQuMS00LTQuMS0xMC41LDAtMTQuNGwyOS45LTI5LjIgYzQuMS00LDEwLjctNCwxNC44LDBsOTUuNSw5My41YzEsMSwyLjcsMSwzLjcsMGMwLDAsMCwwLDAsMGw5NS41LTkzLjVjNC4xLTQsMTAuNy00LDE0LjgsMGMwLDAsMCwwLDAsMGw5NS41LDkzLjUgYzEsMSwyLjcsMSwzLjcsMGw5NS41LTkzLjVDNDU2LjQsMjI1LjksNDYzLDIyNS45LDQ2Ny4xLDIyOS45eicvPjwvZz48L2c+PC9zdmc+Cg=="
   }];
 
+  var ChevronLeft = (function () {
+    return /*#__PURE__*/React__default['default'].createElement("svg", {
+      className: "ChevronLeft Icon",
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      viewBox: "0 0 16 16"
+    }, /*#__PURE__*/React__default['default'].createElement("path", {
+      strokeWidth: "1",
+      fillRule: "evenodd",
+      d: "M10.4,1.6c0.2,0.2,0.2,0.5,0,0.7L4.7,8l5.6,5.6c0.2,0.2,0.2,0.5,0,0.7s-0.5,0.2-0.7,0l-6-6l0,0,c-0.2-0.2-0.2-0.5,0-0.7l6-6l0,0C9.8,1.5,10.2,1.5,10.4,1.6L10.4,1.6z"
+    }));
+  });
+
+  var CloseIcon = (function () {
+    return /*#__PURE__*/React__default['default'].createElement("svg", {
+      className: "CloseIcon Icon",
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "24",
+      height: "24",
+      viewBox: "0 0 24 24",
+      strokeWidth: "2",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    }, /*#__PURE__*/React__default['default'].createElement("line", {
+      x1: "18",
+      y1: "6",
+      x2: "6",
+      y2: "18"
+    }), /*#__PURE__*/React__default['default'].createElement("line", {
+      x1: "6",
+      y1: "6",
+      x2: "18",
+      y2: "18"
+    }));
+  });
+
+  var Dialog$1 = (function (props) {
+    var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
+        navigate = _useContext.navigate;
+
+    var _useContext2 = React.useContext(ClosableContext),
+        close = _useContext2.close,
+        closable = _useContext2.closable;
+
+    return /*#__PURE__*/React__default['default'].createElement("div", {
+      className: ["Dialog", props.className].join(' ')
+    }, /*#__PURE__*/React__default['default'].createElement("div", {
+      className: ["DialogHeader", props.stacked ? 'TextCenter' : ''].join(' ')
+    }, props.stacked && /*#__PURE__*/React__default['default'].createElement("div", {
+      className: "DialogHeaderActionLeft PaddingTopS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/React__default['default'].createElement("button", {
+      type: "button",
+      onClick: function onClick() {
+        return navigate('back');
+      },
+      className: "ButtonCircular",
+      title: "Go back"
+    }, /*#__PURE__*/React__default['default'].createElement(ChevronLeft, null))), closable && props.closable !== false && /*#__PURE__*/React__default['default'].createElement("div", {
+      className: "DialogHeaderActionRight PaddingTopS PaddingLeftS PaddingRightS"
+    }, props.alternativeHeaderAction, /*#__PURE__*/React__default['default'].createElement("button", {
+      type: "button",
+      onClick: close,
+      className: "ButtonCircular",
+      title: "Close dialog"
+    }, /*#__PURE__*/React__default['default'].createElement(CloseIcon, null))), props.header), /*#__PURE__*/React__default['default'].createElement("div", {
+      className: ["DialogBody", props.bodyClassName].join(' ')
+    }, props.body), props.hideFooter !== true && /*#__PURE__*/React__default['default'].createElement("div", {
+      className: "DialogFooter"
+    }, props.footer));
+  });
+
+  var ExtensionImage = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI2LjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAyNTAgMjUwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyNTAgMjUwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZD0iTTE3Mi44LDY4LjNjLTQuOS0yLjItNy40LTguNC00LjUtMTMuNmM1LjMtOS40LDEwLTE4LjYsNC4zLTI5LjFjLTctMTIuNy0yNC4xLTE3LjQtMzYuNi0xMGMtMTUuNCw5LjEtMTMuNCwyNS42LTUuMSwzOC45CgkJYzMuMyw1LjIsMC45LDExLjYtNC4yLDEzLjlsLTYxLjIsMC4xbDAsMC44bDAuMSwyMS44bDAuMSwzNy45Yy0xLjksNS41LTguNyw4LjQtMTQuMSw1Yy0xMy40LTguMy0yOS44LTEwLjEtMzguOSw1LjMKCQljLTcuMywxMi41LTIuNSwyOS43LDEwLjIsMzYuNWMxMC41LDUuNywxOS43LDEsMjkuMS00LjRjNS40LTMuMSwxMS45LTAuMywxMy44LDVsMC4xLDU5LjhsNTcuMi0wLjFjMC4xLDAsMC4yLDAsMC4zLDBsMy42LDAKCQljNS0yLjMsNy40LTguNyw0LjItMTMuOWMtOC4zLTEzLjMtMTAuMy0yOS44LDUuMS0zOC45YzEyLjUtNy40LDI5LjYtMi43LDM2LjYsMTBjNS43LDEwLjUsMS4xLDE5LjctNC4zLDI5LjEKCQljLTIuOSw1LjItMC41LDExLjQsNC41LDEzLjZsMy42LDBjMC4xLDAsMC4yLDAsMC4zLDBsNTYuNS0wLjFsLTAuMS01OC44Yy0xLjQtNi42LTcuOC05LjItMTQuMS01LjhjLTkuNSw1LjItMTcuOSw5LjgtMjguNCw0LjEKCQljLTEyLjgtNi45LTE4LjItMjMuNy0xMC45LTM2LjNjOS0xNS40LDI1LjUtMTMuNiwzOC45LTUuM2M1LjcsMy41LDEyLjksMC4yLDE0LjQtNS45bC0wLjEtMzUuNEwyMzMuMyw2OWwwLTAuOEwxNzIuOCw2OC4zeiIvPgo8L2c+Cjwvc3ZnPgo=';
+
+  var isMobile = function isMobile() {
+    if (typeof window !== 'undefined') {
+      return Boolean(window.matchMedia('(pointer:coarse)').matches || /Android|webOS|iPhone|iPad|iPod|BlackBerry|Opera Mini/.test(navigator.userAgent));
+    }
+
+    return false;
+  };
+
+  var LinkImage = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIGZpbGw9IiMwMTAxMDEiIGQ9Ik00NTkuNjU0LDIzMy4zNzNsLTkwLjUzMSw5MC41Yy00OS45NjksNTAtMTMxLjAzMSw1MC0xODEsMGMtNy44NzUtNy44NDQtMTQuMDMxLTE2LjY4OC0xOS40MzgtMjUuODEzDQoJbDQyLjA2My00Mi4wNjNjMi0yLjAxNiw0LjQ2OS0zLjE3Miw2LjgyOC00LjUzMWMyLjkwNiw5LjkzOCw3Ljk4NCwxOS4zNDQsMTUuNzk3LDI3LjE1NmMyNC45NTMsMjQuOTY5LDY1LjU2MywyNC45MzgsOTAuNSwwDQoJbDkwLjUtOTAuNWMyNC45NjktMjQuOTY5LDI0Ljk2OS02NS41NjMsMC05MC41MTZjLTI0LjkzOC0yNC45NTMtNjUuNTMxLTI0Ljk1My05MC41LDBsLTMyLjE4OCwzMi4yMTkNCgljLTI2LjEwOS0xMC4xNzItNTQuMjUtMTIuOTA2LTgxLjY0MS04Ljg5MWw2OC41NzgtNjguNTc4YzUwLTQ5Ljk4NCwxMzEuMDMxLTQ5Ljk4NCwxODEuMDMxLDANCglDNTA5LjYyMywxMDIuMzQyLDUwOS42MjMsMTgzLjM4OSw0NTkuNjU0LDIzMy4zNzN6IE0yMjAuMzI2LDM4Mi4xODZsLTMyLjIwMywzMi4yMTljLTI0Ljk1MywyNC45MzgtNjUuNTYzLDI0LjkzOC05MC41MTYsMA0KCWMtMjQuOTUzLTI0Ljk2OS0yNC45NTMtNjUuNTYzLDAtOTAuNTMxbDkwLjUxNi05MC41YzI0Ljk2OS0yNC45NjksNjUuNTQ3LTI0Ljk2OSw5MC41LDBjNy43OTcsNy43OTcsMTIuODc1LDE3LjIwMywxNS44MTMsMjcuMTI1DQoJYzIuMzc1LTEuMzc1LDQuODEzLTIuNSw2LjgxMy00LjVsNDIuMDYzLTQyLjA0N2MtNS4zNzUtOS4xNTYtMTEuNTYzLTE3Ljk2OS0xOS40MzgtMjUuODI4Yy00OS45NjktNDkuOTg0LTEzMS4wMzEtNDkuOTg0LTE4MS4wMTYsMA0KCWwtOTAuNSw5MC41Yy00OS45ODQsNTAtNDkuOTg0LDEzMS4wMzEsMCwxODEuMDMxYzQ5Ljk4NCw0OS45NjksMTMxLjAzMSw0OS45NjksMTgxLjAxNiwwbDY4LjU5NC02OC41OTQNCglDMjc0LjU2MSwzOTUuMDkyLDI0Ni40MiwzOTIuMzQyLDIyMC4zMjYsMzgyLjE4NnoiLz4NCjwvc3ZnPg0K';
+
+  var QRCodeImage = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHN2ZyAgUFVCTElDICctLy9XM0MvL0RURCBTVkcgMS4xLy9FTicgICdodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQnPgo8c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDEwMDAgMTAwMCIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMWUzIDFlMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPG1ldGFkYXRhPiBTdmcgVmVjdG9yIEljb25zIDogaHR0cDovL3d3dy5vbmxpbmV3ZWJmb250cy5jb20vaWNvbiA8L21ldGFkYXRhPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDUxMSkgc2NhbGUoLjEgLS4xKSI+PHBhdGggZD0ibTEwMCAyNzk3LjF2LTIyMTIuOWg0NDI1Ljh2NDQyNS44aC00NDI1Ljh2LTIyMTIuOXptMzQ3Ny40IDB2LTEyNjQuNWgtMjUyOXYyNTI5aDI1Mjl2LTEyNjQuNXoiLz48cGF0aCBkPSJtMTY4MC42IDI3OTcuMXYtNjMyLjNoMTI2NC42djEyNjQuNmgtMTI2NC42di02MzIuM3oiLz48cGF0aCBkPSJtNTQ3NC4yIDI3OTcuMXYtMjIxMi45aDQ0MjUuOHY0NDI1LjhoLTQ0MjUuOHYtMjIxMi45em0zNDc3LjQgMHYtMTI2NC41aC0yNTI5djI1MjloMjUyOXYtMTI2NC41eiIvPjxwYXRoIGQ9Im03MDU0LjggMjc5Ny4xdi02MzIuM2gxMjY0LjZ2MTI2NC42aC0xMjY0LjZ2LTYzMi4zeiIvPjxwYXRoIGQ9Im0xMDAtMjU3Ny4xdi0yMjEyLjloNDQyNS44djQ0MjUuOGgtNDQyNS44di0yMjEyLjl6bTM0NzcuNCAwdi0xMjY0LjVoLTI1Mjl2MjUyOWgyNTI5di0xMjY0LjV6Ii8+PHBhdGggZD0ibTE2ODAuNi0yNTc3LjF2LTYzMi4zaDEyNjQuNnYxMjY0LjZoLTEyNjQuNnYtNjMyLjN6Ii8+PHBhdGggZD0ibTU0NzQuMi05MTcuNHYtNTUzLjJoMTEwNi40di0xMTA2LjRoLTExMDYuNHYtMTEwNi40aDExMDYuNHYtMTEwNi42aDExMDYuNHYxMTA2LjRoMTEwNi40di0xMTA2LjRoMTEwNi42djExMDYuNGgtMTEwNi40djExMDYuNGgxMTA2LjR2MTEwNi40aC0xMTA2LjR2MTEwNi40aC0xMTA2LjR2LTExMDYuNGgtMTEwNi40djExMDYuNGgtMTEwNi40di01NTN6bTMzMTkuMy0xMTA2LjV2LTU1My4yaC0xMTA2LjR2LTExMDYuNGgtMTEwNi40djExMDYuNGgxMTA2LjR2MTEwNi40aDExMDYuNHYtNTUzLjJ6Ii8+PC9nPgo8L3N2Zz4K";
+
+  var safeAppUrl = (function (href) {
+    if (!href.includes('://')) {
+      href = href.replaceAll('/', '').replaceAll(':', '');
+      href = "".concat(href, "://");
+    }
+
+    return href;
+  });
+
+  var safeUniversalUrl = (function (href) {
+    if (href.endsWith('/')) {
+      href = href.slice(0, -1);
+    }
+
+    return href;
+  });
+
+  var ConnectWalletDialog = (function (props) {
+    var _props$wallet;
+
+    var QRCodeElement = React__default['default'].useRef();
+
+    var _useState = React.useState(false),
+        _useState2 = _slicedToArray(_useState, 2);
+        _useState2[0];
+        var setShowConnectExtensionButton = _useState2[1];
+
+    var _useState3 = React.useState(false),
+        _useState4 = _slicedToArray(_useState3, 2),
+        showConnectExtensionWarning = _useState4[0],
+        setShowConnectExtensionWarning = _useState4[1];
+
+    var _useState5 = React.useState(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        extensionIsAvailable = _useState6[0],
+        setExtensionIsAvailable = _useState6[1];
+
+    var _useState7 = React.useState(),
+        _useState8 = _slicedToArray(_useState7, 2),
+        linkIsConnected = _useState8[0],
+        setLinkIsConnected = _useState8[1];
+
+    var _useState9 = React.useState(),
+        _useState10 = _slicedToArray(_useState9, 2);
+        _useState10[0];
+        _useState10[1];
+
+    var _useState11 = React.useState(false),
+        _useState12 = _slicedToArray(_useState11, 2),
+        showQRCode = _useState12[0],
+        setShowQRCode = _useState12[1];
+
+    var _useState13 = React.useState(false),
+        _useState14 = _slicedToArray(_useState13, 2),
+        showLinkCopied = _useState14[0],
+        setShowLinkCopied = _useState14[1];
+
+    var _useState15 = React.useState(),
+        _useState16 = _slicedToArray(_useState15, 2),
+        QRCode = _useState16[0],
+        setQRCode = _useState16[1];
+
+    var _useContext = React.useContext(reactDialogStack.NavigateStackContext);
+        _useContext.navigate;
+
+    var header = /*#__PURE__*/React__default['default'].createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, ((_props$wallet = props.wallet) === null || _props$wallet === void 0 ? void 0 : _props$wallet.logo) && /*#__PURE__*/React__default['default'].createElement("div", {
+      className: "PaddingTopXS"
+    }, /*#__PURE__*/React__default['default'].createElement("div", {
+      className: "LineHeightL FontSizeL PaddingTopS"
+    }, /*#__PURE__*/React__default['default'].createElement("span", {
+      className: "CardImage rounded large"
+    }, /*#__PURE__*/React__default['default'].createElement("img", {
+      className: "transparent",
+      src: props.wallet.logo
+    })))));
+
+    var connectExtension = function connectExtension() {
+      setShowConnectExtensionWarning(false);
+
+      if (extensionIsAvailable) {
+        var wallet = new web3Wallets.wallets[props.wallet.extension]();
+        wallet.connect().then(function (account) {
+          props.resolve(account, wallet);
+        })["catch"](function (error) {
+          if ((error === null || error === void 0 ? void 0 : error.code) == -32002) {
+            // Request of type 'wallet_requestPermissions' already pending...
+            setShowConnectExtensionWarning(true);
+          }
+        });
+      }
+    };
+
+    var connectViaRedirect = function connectViaRedirect(provider, uri) {
+      if (!provider) {
+        return;
+      }
+
+      var wallet = new web3Wallets.wallets[props.wallet.link]();
+      wallet.connect({
+        name: props.wallet.name,
+        logo: props.wallet.logo,
+        connect: function connect(_ref) {
+          var uri = _ref.uri;
+          var href = provider["native"] ? safeAppUrl(provider["native"]) : safeUniversalUrl(provider.universal);
+          localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
+            href: href,
+            name: props.wallet.name
+          }));
+          href = provider["native"] ? "".concat(href, "wc?uri=").concat(encodeURIComponent(uri)) : "".concat(href, "/wc?uri=").concat(encodeURIComponent(uri));
+          var target = provider["native"] && !provider.universal ? '_self' : '_blank';
+          window.open(href, target, 'noreferrer noopener');
+        }
+      }).then(function (account) {
+        props.resolve(account, wallet);
+      });
+    };
+
+    var connectViaCopyLink = function connectViaCopyLink() {
+      var wallet = new web3Wallets.wallets[props.wallet.link]();
+      wallet.connect({
+        name: props.wallet.name,
+        logo: props.wallet.logo,
+        reconnect: true,
+        connect: function connect(_ref2) {
+          var uri = _ref2.uri;
+          copy__default['default'](uri);
+          setShowLinkCopied(true);
+          setTimeout(function () {
+            return setShowLinkCopied(false);
+          }, 3000);
+        }
+      }).then(function (account) {
+        props.resolve(account, wallet);
+      });
+    };
+
+    var connect = function connect() {
+      if (props.wallet.via == 'detected') {
+        connectExtension();
+      }
+
+      if (linkIsConnected && props.wallet.via == 'detected') {
+        web3Wallets.wallets[props.wallet.link].getConnectedInstance().then(function (wallet) {
+          wallet.account().then(function (account) {
+            props.resolve(account, wallet);
+          });
+        });
+      } else {
+        if (isMobile()) {
+          connectViaRedirect(props.wallet.mobile);
+        } else {
+          connectViaRedirect(props.wallet.desktop);
+        }
+      }
+    };
+
+    React.useEffect(function () {
+      _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+        var _props$wallet2, _props$wallet3;
+
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.t0 = setExtensionIsAvailable;
+
+                if (!((_props$wallet2 = props.wallet) !== null && _props$wallet2 !== void 0 && _props$wallet2.extension)) {
+                  _context.next = 7;
+                  break;
+                }
+
+                _context.next = 4;
+                return web3Wallets.wallets[props.wallet.extension].isAvailable();
+
+              case 4:
+                _context.t1 = _context.sent;
+                _context.next = 8;
+                break;
+
+              case 7:
+                _context.t1 = false;
+
+              case 8:
+                _context.t2 = _context.t1;
+                (0, _context.t0)(_context.t2);
+                _context.t3 = setLinkIsConnected;
+
+                if (!((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && _props$wallet3.link)) {
+                  _context.next = 17;
+                  break;
+                }
+
+                _context.next = 14;
+                return web3Wallets.wallets[props.wallet.link].isAvailable();
+
+              case 14:
+                _context.t4 = _context.sent;
+                _context.next = 18;
+                break;
+
+              case 17:
+                _context.t4 = false;
+
+              case 18:
+                _context.t5 = _context.t4;
+                (0, _context.t3)(_context.t5);
+
+              case 20:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }, []);
+    React.useEffect(function () {
+      if (extensionIsAvailable != undefined && linkIsConnected != undefined) {
+        connect();
+
+        if (linkIsConnected == false) {
+          var _props$wallet4, _props$wallet4$deskto;
+
+          setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet4 = props.wallet) !== null && _props$wallet4 !== void 0 && (_props$wallet4$deskto = _props$wallet4.desktop) !== null && _props$wallet4$deskto !== void 0 && _props$wallet4$deskto["native"]));
+        }
+
+        var timeout = setTimeout(function () {
+          if (extensionIsAvailable) {
+            setShowConnectExtensionButton(true);
+          }
+        }, 8000);
+        return function () {
+          return clearTimeout(timeout);
+        };
+      }
+    }, [extensionIsAvailable, linkIsConnected]);
+    React.useEffect(function () {
+      if (showQRCode && props.wallet.link) {
+        switch (props.wallet.link) {
+          case 'WalletConnectV1':
+            if (QRCode == undefined) {
+              var _wallet = new web3Wallets.wallets[props.wallet.link]();
+
+              _wallet.connect({
+                name: props.wallet.name,
+                logo: props.wallet.logo,
+                reconnect: true,
+                connect: function connect(_ref4) {
+                  var uri = _ref4.uri;
+                  var newQRCode = new QRCodeStyling__default['default']({
+                    width: 340,
+                    height: 340,
+                    type: "svg",
+                    dotsOptions: {
+                      type: "extra-rounded"
+                    },
+                    cornersSquareOptions: {
+                      type: 'rounded'
+                    },
+                    backgroundOptions: {
+                      color: "transparent"
+                    }
+                  });
+                  newQRCode.update({
+                    data: uri
+                  });
+                  setQRCode(newQRCode);
+                }
+              }).then(function (account) {
+                props.resolve(account, _wallet);
+              });
+            }
+
+            break;
+
+          case 'WalletLink':
+            var wallet = new web3Wallets.wallets[props.wallet.link]();
+            wallet.connect().then(function (account) {
+              props.resolve(account, wallet);
+            });
+            break;
+        }
+      }
+    }, [showQRCode]);
+    React.useEffect(function () {
+      if (showQRCode && QRCode && QRCodeElement && QRCodeElement.current) {
+        QRCodeElement.current.innerHTML = "";
+        QRCode.append(QRCodeElement.current);
+      }
+    }, [QRCode]);
+    return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
+      stacked: true,
+      header: header,
+      body: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TextCenter"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingLeftL PaddingRightL"
+      }, /*#__PURE__*/React__default['default'].createElement("h1", {
+        className: "LineHeightL Text FontSizeL FontWeightBold"
+      }, "Connect ", props.wallet.name)), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        ref: QRCodeElement,
+        className: "QRCode"
+      }), showQRCode && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Opacity05 PaddingBottomXS"
+      }, /*#__PURE__*/React__default['default'].createElement("small", null, "Scan QR code with your wallet"))), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingLeftL PaddingRightL PaddingTopL"
+      }, extensionIsAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingLeftM PaddingRightM PaddingBottomXS"
+      }, showConnectExtensionWarning && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Alert"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        className: "FontWeightBold PaddingBottomXS"
+      }, "You wallet extension window is already asking to connect. It might be hidden."))), /*#__PURE__*/React__default['default'].createElement("button", {
+        onClick: function onClick() {
+          return connectExtension();
+        },
+        className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        className: "PaddingTopXS PaddingRightXS PaddingLeftS"
+      }, /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "transparent ",
+        title: "Connect your wallet",
+        style: {
+          height: '26px'
+        },
+        src: ExtensionImage
+      })), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingLeftS LineHeightXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardText FontWeightMedium"
+      }, "Connect extension")))), props.wallet.link && !showQRCode && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingLeftM PaddingRightM PaddingBottomXS"
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        onClick: function onClick() {
+          return setShowQRCode(true);
+        },
+        className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        className: "PaddingTopXS PaddingRightXS PaddingLeftS"
+      }, /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "transparent ",
+        title: "Scan QR code to connect a mobile wallet",
+        style: {
+          height: '26px'
+        },
+        src: QRCodeImage
+      })), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingLeftS LineHeightXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardText FontWeightMedium"
+      }, "Scan QR Code")))), props.wallet.link && props.wallet.link == 'WalletConnectV1' && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingLeftM PaddingRightM PaddingBottomXS TooltipWrapper"
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        onClick: connectViaCopyLink,
+        className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        className: "PaddingTopXS PaddingRightXS PaddingLeftS"
+      }, /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "transparent ",
+        title: "Copy connection link",
+        style: {
+          height: '26px'
+        },
+        src: LinkImage
+      })), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingLeftS LineHeightXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardText FontWeightMedium"
+      }, "Copy connection link"))), showLinkCopied && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Tooltip absolute top"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        className: "TooltipArrowDown"
+      }), "Connection link copied"))))
+    });
+  });
+
+  var PoweredBy = (function () {
+    return /*#__PURE__*/React__default['default'].createElement("div", {
+      className: "PoweredByWrapper"
+    }, /*#__PURE__*/React__default['default'].createElement("a", {
+      href: 'https://depay.com',
+      rel: "noopener noreferrer",
+      target: "_blank",
+      className: "PoweredByLink"
+    }, "by DePay"));
+  });
+
+  var SelectionContext = /*#__PURE__*/React__default['default'].createContext();
+
+  var SelectBlockchainDialog = (function (props) {
+    var _useContext = React.useContext(SelectionContext),
+        setSelection = _useContext.setSelection;
+
+    var _useContext2 = React.useContext(reactDialogStack.NavigateStackContext),
+        navigate = _useContext2.navigate;
+
+    var stacked = props.stacked || Object.keys(props.selection).length > 1;
+    var blockchains = [web3Blockchains.Blockchain.findByName('ethereum'), web3Blockchains.Blockchain.findByName('bsc'), web3Blockchains.Blockchain.findByName('polygon')];
+
+    var selectBlockchain = function selectBlockchain(blockchain) {
+      window._depay_token_selection_selected_blockchain = blockchain.name;
+      setSelection(Object.assign(props.selection, {
+        blockchain: blockchain
+      }));
+
+      if (stacked && props.navigateBack !== false) {
+        navigate('back');
+      } else {
+        props.resolve(blockchain);
+      }
+    };
+
+    var elements = blockchains.map(function (blockchain, index) {
+      return /*#__PURE__*/React__default['default'].createElement("div", {
+        key: index,
+        className: "Card Row",
+        onClick: function onClick() {
+          return selectBlockchain(blockchain);
+        }
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "transparent",
+        src: blockchain.logo
+      })), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        className: "CardText"
+      }, blockchain.label)));
+    });
+    return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
+      header: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("h1", {
+        className: "LineHeightL FontSizeL"
+      }, "Select Blockchain"))),
+      stacked: stacked,
+      bodyClassName: "ScrollHeight",
+      body: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS"
+      }, elements),
+      footer: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
+      })
+    });
+  });
+
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+
+    return obj;
+  }
+
   var DropDown = (function (props) {
     var _useState = React.useState(0),
         _useState2 = _slicedToArray(_useState, 2),
@@ -3128,6 +3208,9 @@
     }));
   });
 
+  function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+  function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
   var SelectWalletList = (function (props) {
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext.navigate;
@@ -3156,6 +3239,10 @@
       var results = fuse.search(props.searchTerm).map(function (result) {
         return result.item;
       });
+
+      if (parentElement.current) {
+        parentElement.current.scrollTo(0, 0);
+      }
 
       if (props.searchTerm.length) {
         setResultList(results);
@@ -3186,10 +3273,11 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
         className: "Card small",
         title: "Connect ".concat(resultList[virtualItem.key].name),
         onClick: function onClick() {
-          props.setWallet(resultList[virtualItem.key]);
+          props.setWallet(_objectSpread$5({}, resultList[virtualItem.key]));
           navigate('ConnectWallet');
         }
       }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -3213,107 +3301,135 @@
     localStorage[KEY] = value;
   };
 
+  var get = function get() {
+    return localStorage[KEY];
+  };
+
+  function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+  function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
   var SelectWalletDialog = (function (props) {
     var _useState = React.useState(''),
         _useState2 = _slicedToArray(_useState, 2),
         searchTerm = _useState2[0],
         setSearchTerm = _useState2[1];
 
-    var _useState3 = React.useState(false),
+    var _useState3 = React.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
-        showDropDown = _useState4[0],
-        setShowDropDown = _useState4[1];
+        prioritizedWallets = _useState4[0],
+        setPrioritizedWallets = _useState4[1];
 
     var _useState5 = React.useState(false),
         _useState6 = _slicedToArray(_useState5, 2),
-        dialogAnimationFinished = _useState6[0],
-        setDialogAnimationFinished = _useState6[1];
+        showDropDown = _useState6[0],
+        setShowDropDown = _useState6[1];
+
+    var _useState7 = React.useState(false),
+        _useState8 = _slicedToArray(_useState7, 2),
+        dialogAnimationFinished = _useState8[0],
+        setDialogAnimationFinished = _useState8[1];
 
     var searchElement = React.useRef();
 
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext.navigate;
 
-    var availableWallets = web3Wallets.getWallets();
-    var renderedWallets = {}; // prevents rendering same wallet twice (e.g. extension + via walletconnect)
+    React.useEffect(function () {
+      web3Wallets.getWallets().then(function (availableWallets) {
+        var renderedWallets = {}; // prevents rendering same wallet twice (e.g. extension + via walletconnect)
 
-    var prioritizedWallets = availableWallets.map(function (availableWallet, index) {
-      if (availableWallet.name == 'Phantom') {
-        return;
-      }
+        var renderWalletElement = function renderWalletElement(wallet, index, type) {
+          if (renderedWallets[wallet.name]) {
+            return null;
+          }
 
-      var wallet = allWallets.find(function (wallet) {
-        return wallet.extension == availableWallet.name;
-      }) || allWallets.find(function (wallet) {
-        return wallet.name == availableWallet.name;
+          renderedWallets[wallet.name] = true;
+          return /*#__PURE__*/React__default['default'].createElement("div", {
+            key: index,
+            className: "PaddingBottomXS"
+          }, /*#__PURE__*/React__default['default'].createElement("button", {
+            type: "button",
+            className: "Card small",
+            title: "Connect ".concat(wallet.name),
+            onClick: function onClick() {
+              props.setWallet(_objectSpread$4(_objectSpread$4({}, wallet), {}, {
+                via: type
+              }));
+              navigate('ConnectWallet');
+            }
+          }, /*#__PURE__*/React__default['default'].createElement("div", {
+            className: "CardImage"
+          }, /*#__PURE__*/React__default['default'].createElement("img", _defineProperty({
+            className: "transparent",
+            src: wallet.logo
+          }, "className", "WalletLogoS"))), /*#__PURE__*/React__default['default'].createElement("div", {
+            className: "CardBody"
+          }, /*#__PURE__*/React__default['default'].createElement("div", {
+            className: "CardBodyWrapper PaddingLeftXS LineHeightXS"
+          }, /*#__PURE__*/React__default['default'].createElement("div", {
+            className: "CardText FontWeightMedium"
+          }, wallet.name), type != 'previouslyConnected' && /*#__PURE__*/React__default['default'].createElement("div", {
+            className: "LightGreen"
+          }, /*#__PURE__*/React__default['default'].createElement("span", {
+            className: "LightGreen",
+            style: {
+              fontSize: '70%',
+              top: '-1px',
+              position: 'relative'
+            }
+          }, "\u25CF"), " Detected"), type == 'previouslyConnected' && /*#__PURE__*/React__default['default'].createElement("div", {
+            className: "Opacity05"
+          }, /*#__PURE__*/React__default['default'].createElement("span", {
+            style: {
+              fontSize: '70%',
+              top: '-1px',
+              position: 'relative'
+            }
+          }, "\u25CF"), " Previously connected")))));
+        };
+
+        var prioritizedWallets = availableWallets.map(function (availableWallet, index) {
+          if (availableWallet.name == 'Phantom') {
+            return;
+          }
+
+          var wallet = allWallets.find(function (wallet) {
+            return wallet.name == availableWallet.name;
+          }) || allWallets.find(function (wallet) {
+            return wallet.name == availableWallet.name;
+          });
+
+          if (wallet) {
+            return renderWalletElement(wallet, index, 'detected');
+          }
+        }).filter(function (wallet) {
+          return !!wallet;
+        });
+        var previouslyConnectedWalletName = get();
+        var previouslyConnectedWallet = allWallets.find(function (wallet) {
+          return wallet.name == previouslyConnectedWalletName;
+        }) || allWallets.find(function (wallet) {
+          return wallet.name == previouslyConnectedWalletName;
+        });
+
+        if (previouslyConnectedWallet && previouslyConnectedWallet) {
+          prioritizedWallets.push(renderWalletElement(previouslyConnectedWallet, prioritizedWallets.length + 1, 'previouslyConnected'));
+        }
+
+        setPrioritizedWallets(prioritizedWallets);
       });
-
-      if (renderedWallets[wallet.name]) {
-        return;
-      }
-
-      renderedWallets[wallet.name] = true;
-      return /*#__PURE__*/React__default['default'].createElement("div", {
-        key: index,
-        className: "PaddingBottomXS"
-      }, /*#__PURE__*/React__default['default'].createElement("button", {
-        className: "Card small",
-        title: "Connect ".concat(wallet.name),
-        onClick: function onClick() {
-          props.setWallet(wallet);
-          navigate('ConnectWallet');
-        }
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React__default['default'].createElement("img", _defineProperty({
-        className: "transparent",
-        src: wallet.logo
-      }, "className", "WalletLogoS"))), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "CardBodyWrapper PaddingLeftXS LineHeightXS"
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "CardText FontWeightMedium"
-      }, wallet.name), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "LightGreen"
-      }, /*#__PURE__*/React__default['default'].createElement("span", {
-        className: "LightGreen",
-        style: {
-          fontSize: '70%',
-          top: '-1px',
-          position: 'relative'
-        }
-      }, "\u25CF"), " Detected")))));
-    }).filter(function (wallet) {
-      return !!wallet;
-    });
+    }, []);
     React.useEffect(function () {
       setTimeout(function () {
         setDialogAnimationFinished(true);
-        searchElement.current.click();
-        searchElement.current.focus();
+
+        if (searchElement.current) {
+          searchElement.current.click();
+          searchElement.current.focus();
+        }
       }, 200);
     }, []);
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
-      alternativeHeaderAction: /*#__PURE__*/React__default['default'].createElement("span", {
-        className: "DropDownWrapper"
-      }, /*#__PURE__*/React__default['default'].createElement("button", {
-        onClick: function onClick() {
-          return setShowDropDown(!showDropDown);
-        },
-        className: "ButtonCircular",
-        title: "What is a wallet?"
-      }, /*#__PURE__*/React__default['default'].createElement(MenuIcon, null)), showDropDown && /*#__PURE__*/React__default['default'].createElement(DropDown, {
-        hide: function hide() {
-          return setShowDropDown(false);
-        },
-        items: [{
-          label: "What is a wallet?",
-          action: function action() {
-            navigate('WhatIsAWallet');
-          }
-        }]
-      })),
       header: /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
@@ -3333,6 +3449,26 @@
         placeholder: "Search by name",
         ref: searchElement
       })))),
+      alternativeHeaderAction: /*#__PURE__*/React__default['default'].createElement("span", {
+        className: "DropDownWrapper"
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        onClick: function onClick() {
+          return setShowDropDown(!showDropDown);
+        },
+        className: "ButtonCircular",
+        title: "What is a wallet?"
+      }, /*#__PURE__*/React__default['default'].createElement(MenuIcon, null)), showDropDown && /*#__PURE__*/React__default['default'].createElement(DropDown, {
+        hide: function hide() {
+          return setShowDropDown(false);
+        },
+        items: [{
+          label: "What is a wallet?",
+          action: function action() {
+            navigate('WhatIsAWallet');
+          }
+        }]
+      })),
       bodyClassName: "PaddingBottomXS",
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "ScrollHeightM PaddingTopXS"
@@ -3382,7 +3518,7 @@
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
         wallet = _useState2[0],
-        _setWallet = _useState2[1];
+        setWallet = _useState2[1];
 
     var _useState3 = React.useState({
       blockchain: undefined
@@ -3391,15 +3527,23 @@
         selection = _useState4[0];
         _useState4[1];
 
-    var resolve = function resolve(account) {
-      if (props.autoClose) close();
-      if (props.resolve) props.resolve({
-        wallet: wallet,
-        account: account
-      });
+    var resolve = function resolve(account, wallet) {
+      if (account && wallet) {
+        var walletMeta = allWallets.find(function (walletMeta) {
+          return walletMeta.extension == wallet.name;
+        }) || allWallets.find(function (walletMeta) {
+          return walletMeta.name == wallet.name;
+        });
+        set(walletMeta.name);
+        if (props.autoClose) close();
+        if (props.resolve) props.resolve({
+          account: account,
+          wallet: wallet
+        });
+      }
     };
 
-    return /*#__PURE__*/React__default['default'].createElement(reactDialogStack.ReactDialogStack, {
+    return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement(reactDialogStack.ReactDialogStack, {
       open: open,
       close: close,
       start: "SelectWallet",
@@ -3407,27 +3551,16 @@
       document: props.document,
       dialogs: {
         SelectWallet: /*#__PURE__*/React__default['default'].createElement(SelectWalletDialog, {
-          setWallet: function setWallet(wallet) {
-            set(wallet.name);
-
-            _setWallet(wallet);
-          }
+          setWallet: setWallet
         }),
         WhatIsAWallet: /*#__PURE__*/React__default['default'].createElement(WhatIsAWalletDialog, null),
         ConnectWallet: /*#__PURE__*/React__default['default'].createElement(ConnectWalletDialog, {
           selection: selection,
           wallet: wallet,
           resolve: resolve
-        }),
-        SelectBlockchain: /*#__PURE__*/React__default['default'].createElement(SelectBlockchainDialog, {
-          selection: selection,
-          stacked: true,
-          resolve: function resolve(blockchain) {
-            console.log('SELECTED BLOCKCHAIN', blockchain);
-          }
         })
       }
-    });
+    }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null));
   });
 
   var ensureDocument = (function (document) {
@@ -3798,8 +3931,8 @@
     return "\n\n    .BlockchainLogo {\n      border-radius: 999px;\n    }\n\n    .BlockchainLogo.small {\n      height: 18px;\n      width: 18px;\n    }\n  ";
   });
 
-  var ButtonCircularStyle = (function () {
-    return "\n\n    .ButtonCircular {\n      border-radius: 9999px;\n      cursor: pointer;\n      height: 34px;\n      opacity: 0.5;\n      padding: 5px 4px 4px 4px;\n      width: 34px;\n    }\n\n    .ButtonCircular:hover {\n      background: rgba(0,0,0,0.1);\n      opacity: 1;\n    }\n\n    .ButtonCircular:active {\n      background: rgba(0,0,0,0.25);\n      opacity: 1;\n    }\n  ";
+  var ButtonCircularStyle = (function (style) {
+    return "\n\n    .ButtonCircular {\n      border-radius: 9999px;\n      border: 1px solid transparent;\n      cursor: pointer;\n      height: 34px;\n      opacity: 0.5;\n      padding: 5px 4px 4px 4px;\n      width: 34px;\n    }\n\n    .ButtonCircular:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .ButtonCircular:hover {\n      background: rgba(0,0,0,0.1);\n      opacity: 1;\n    }\n\n    .ButtonCircular:active {\n      background: rgba(0,0,0,0.25);\n      opacity: 1;\n    }\n  ");
   });
 
   var ButtonPrimaryStyle = (function (style) {
@@ -3807,7 +3940,7 @@
   });
 
   var CardStyle = (function (style) {
-    return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 76px;\n      padding: 16px 10px;\n      width: 100%;\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 8px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 27px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 58px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 9999px;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 45px;\n      position: relative;\n      vertical-align: middle;\n      width: 45px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardImage .BlockchainLogo {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n    \n    .CardText, a .CardText {\n      color: ".concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 18px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+    return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 76px;\n      padding: 16px 10px;\n      width: 100%;\n    }\n\n    .Card:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 8px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 27px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 58px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 9999px;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 45px;\n      position: relative;\n      vertical-align: middle;\n      width: 45px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardImage .BlockchainLogo {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 18px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
   });
 
   var DialogStyle = (function (style) {
@@ -3815,7 +3948,7 @@
   });
 
   var DropDownStyle = (function (style) {
-    return "\n\n    .DropDownWrapper {\n      position: relative;\n    }\n\n    .DropDown {\n      background: rgb(240,240,240);\n      border-radius: 8px;\n      border: 1px solid rgb(230,230,230);\n      box-shadow: 0 0 12px rgba(0,0,0,0.1);\n      display: block;\n      padding: 8px 6px;\n      position: absolute;\n      right: 0;\n    }\n\n    .DropDownItem {\n      border-radius: 6px;\n      cursor: pointer;\n      font-size: 17px;\n      font-weight: 500;\n      min-width: 160px;\n      padding: 6px 10px;\n      text-align: left;\n      white-space: nowrap;\n    }\n\n    .DropDownItem:hover {\n      background: rgba(0,0,0,0.1);\n    }\n    \n    .DropDownItem:active {\n      background: rgba(0,0,0,0.15);\n    }\n    \n  ";
+    return "\n\n    .DropDownWrapper {\n      position: relative;\n    }\n\n    .DropDown {\n      background: rgb(240,240,240);\n      border-radius: 8px;\n      border: 1px solid rgb(230,230,230);\n      box-shadow: 0 0 12px rgba(0,0,0,0.1);\n      display: block;\n      padding: 8px 6px;\n      position: absolute;\n      right: 0;\n    }\n\n    .DropDownItem {\n      border: 1px solid transparent;\n      border-radius: 6px;\n      cursor: pointer;\n      font-size: 17px;\n      font-weight: 500;\n      min-width: 160px;\n      padding: 6px 10px;\n      text-align: left;\n      white-space: nowrap;\n    }\n\n    .DropDownItem:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .DropDownItem:hover {\n      background: rgba(0,0,0,0.1);\n    }\n    \n    .DropDownItem:active {\n      background: rgba(0,0,0,0.15);\n    }\n    \n  ");
   });
 
   var FontStyle = (function (style) {
@@ -3907,7 +4040,7 @@
   });
 
   var TooltipStyle = (function (style) {
-    return "\n\n    .Tooltip {\n      background: ".concat(style.colors.primary, ";\n      border-radius: 10px;\n      color: ").concat(style.colors.buttonText, ";\n      padding: 10px 13px;\n      position: relative;\n      box-shadow: 0 0 8px rgba(0,0,0,0.2);\n    }\n\n    .TooltipArrowUp {\n      border-bottom: 10px solid ").concat(style.colors.primary, ";\n      border-left: 10px solid transparent;\n      border-right: 10px solid transparent;\n      height: 0; \n      left: 12px;\n      position: absolute;\n      top: -8px;\n      width: 0; \n    }\n  ");
+    return "\n\n    .TooltipWrapper {\n      position: relative;\n    }\n\n    .Tooltip {\n      background: ".concat(style.colors.primary, ";\n      border-radius: 10px;\n      color: ").concat(style.colors.buttonText, ";\n      padding: 10px 13px;\n      position: relative;\n      box-shadow: 0 0 8px rgba(0,0,0,0.2);\n    }\n\n    .Tooltip.absolute {\n      position: absolute;\n    }\n\n    .Tooltip.top {\n      top: -40px;\n    }\n\n    .TooltipArrowUp {\n      border-bottom: 10px solid ").concat(style.colors.primary, ";\n      border-left: 10px solid transparent;\n      border-right: 10px solid transparent;\n      height: 0; \n      left: 12px;\n      position: absolute;\n      top: -8px;\n      width: 0; \n    }\n\n    .TooltipArrowDown {\n      border-top: 10px solid ").concat(style.colors.primary, ";\n      border-left: 10px solid transparent;\n      border-right: 10px solid transparent;\n      height: 0; \n      left: 12px;\n      position: absolute;\n      bottom: -8px;\n      width: 0; \n    }\n  ");
   });
 
   var WalletStyle = (function (style) {
@@ -3926,7 +4059,7 @@
       }, ((_style = style) === null || _style === void 0 ? void 0 : _style.colors) || {}),
       fontFamily: ((_style2 = style) === null || _style2 === void 0 ? void 0 : _style2.fontFamily) || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
     };
-    return [ResetStyle(), DialogStyle(), ButtonCircularStyle(), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle(), BlockchainLogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle()].join('');
+    return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle(), BlockchainLogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
   });
 
   var mount = (function (_ref, content) {
@@ -3970,17 +4103,6 @@
         unmount = _ReactShadowDOM.unmount;
 
     return unmount;
-  });
-
-  var PoweredBy = (function () {
-    return /*#__PURE__*/React__default['default'].createElement("div", {
-      className: "PoweredByWrapper"
-    }, /*#__PURE__*/React__default['default'].createElement("a", {
-      href: 'https://depay.com',
-      rel: "noopener noreferrer",
-      target: "_blank",
-      className: "PoweredByLink"
-    }, "by DePay"));
   });
 
   var requireReactVersion = (function () {
@@ -23421,8 +23543,8 @@
         type = _useContext2.type;
 
     var _useContext3 = React.useContext(WalletContext),
-        account = _useContext3.account;
-        _useContext3.wallet;
+        account = _useContext3.account,
+        wallet = _useContext3.wallet;
 
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
@@ -23594,6 +23716,7 @@
     var startTracking = function startTracking(transaction, afterBlock, paymentRoute, attempt) {
       var _transaction$nonce2, _paymentRoute$feeAmou;
 
+      console.log('START TRACKING!', transaction);
       callTracking({
         blockchain: transaction.blockchain,
         transaction: transaction.id,
@@ -23735,6 +23858,7 @@
     };
 
     var initializeTracking = function initializeTracking(transaction, afterBlock, paymentRoute) {
+      console.log('initializeTracking');
       storePayment(transaction, afterBlock, paymentRoute);
 
       if (synchronousTracking || track && track.async == true) {
@@ -23768,10 +23892,9 @@
                   _context.t0 = paymentRoute.blockchain;
                   _context.t1 = account;
                   _context.next = 4;
-                  return web3Client.request({
+                  return wallet.transactionCount({
                     blockchain: paymentRoute.blockchain,
-                    address: account,
-                    method: 'transactionCount'
+                    address: account
                   });
 
                 case 4:
@@ -23811,7 +23934,6 @@
                     body: JSON.stringify(payment)
                   }).then(function (response) {
                     if (response.status == 200 || response.status == 201) {
-                      console.log('PAYMENT PRETRACKING INITIALIZED');
                       return resolve();
                     } else {
                       return reject('PRETRACKING REQUEST FAILED');
@@ -24045,61 +24167,18 @@
       }
     };
 
-    React.useEffect(function () {
-      if (recover == undefined) {
-        var selectConnectedWallet = /*#__PURE__*/function () {
-          var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-            var connectedWallets, _wallet, _account;
-
-            return regenerator.wrap(function _callee$(_context) {
-              while (1) {
-                switch (_context.prev = _context.next) {
-                  case 0:
-                    _context.next = 2;
-                    return web3Wallets.getConnectedWallets();
-
-                  case 2:
-                    connectedWallets = _context.sent;
-
-                    if (!(connectedWallets && connectedWallets.length == 1)) {
-                      _context.next = 9;
-                      break;
-                    }
-
-                    _wallet = connectedWallets[0];
-                    _context.next = 7;
-                    return _wallet.account();
-
-                  case 7:
-                    _account = _context.sent;
-                    connected({
-                      account: _account,
-                      wallet: _wallet
-                    });
-
-                  case 9:
-                  case "end":
-                    return _context.stop();
-                }
-              }
-            }, _callee);
-          }));
-
-          return function selectConnectedWallet() {
-            return _ref2.apply(this, arguments);
-          };
-        }();
-
-        selectConnectedWallet();
-      }
-    }, []);
+    var disconnect = function disconnect() {
+      setAccount();
+      setWallet();
+      setWalletState();
+    };
 
     if (walletState == 'connected' || recover != undefined) {
       return /*#__PURE__*/React__default['default'].createElement(WalletContext.Provider, {
         value: {
           account: account,
           wallet: wallet,
-          walletState: walletState
+          disconnect: disconnect
         }
       }, props.children);
     } else {
@@ -24378,7 +24457,8 @@
         recoverSignature = _useContext3.recoverSignature;
 
     var _useContext4 = React.useContext(WalletContext),
-        wallet = _useContext4.wallet;
+        wallet = _useContext4.wallet,
+        account = _useContext4.account;
 
     if (!wallet) {
       return null;
@@ -24417,9 +24497,17 @@
     }
 
     var login = function login() {
-      wallet.sign(message).then(function (signature) {
+      var messageToSign;
+
+      if (typeof message == 'function') {
+        messageToSign = message(account);
+      } else {
+        messageToSign = message;
+      }
+
+      wallet.sign(messageToSign).then(function (signature) {
         recoverSignature({
-          message: message,
+          message: messageToSign,
           signature: signature
         }).then(props.resolve)["catch"](setError);
       })["catch"](function (error) {
@@ -24592,6 +24680,7 @@
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL"
       }, "Payment")),
+      alternativeHeaderAction: props.alternativeHeaderAction,
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM PaddingBottomXS"
       }, amountsMissing && !fixedAmount && /*#__PURE__*/React__default['default'].createElement("div", {
@@ -24633,16 +24722,44 @@
         fixedAmount = _useContext3.fixedAmount,
         fixedCurrency = _useContext3.fixedCurrency;
 
-    var _useContext4 = React.useContext(PaymentValueContext),
-        paymentValue = _useContext4.paymentValue;
+    var _useContext4 = React.useContext(WalletContext),
+        disconnect = _useContext4.disconnect;
 
-    var _useContext5 = React.useContext(reactDialogStack.NavigateStackContext),
-        navigate = _useContext5.navigate;
+    var _useContext5 = React.useContext(PaymentValueContext),
+        paymentValue = _useContext5.paymentValue;
+
+    var _useContext6 = React.useContext(reactDialogStack.NavigateStackContext),
+        navigate = _useContext6.navigate;
+
+    var _useState = React.useState(false),
+        _useState2 = _slicedToArray(_useState, 2),
+        showDropDown = _useState2[0],
+        setShowDropDown = _useState2[1];
 
     var displayedCurrencyCode = amountConfiguration != undefined && amountConfiguration.token ? null : currencyCode;
+    var alternativeHeaderActionElement = /*#__PURE__*/React__default['default'].createElement("span", {
+      className: "DropDownWrapper"
+    }, /*#__PURE__*/React__default['default'].createElement("button", {
+      type: "button",
+      onClick: function onClick() {
+        return setShowDropDown(!showDropDown);
+      },
+      className: "ButtonCircular",
+      title: "Disconnect connected wallet"
+    }, /*#__PURE__*/React__default['default'].createElement(MenuIcon, null)), showDropDown && /*#__PURE__*/React__default['default'].createElement(DropDown, {
+      hide: function hide() {
+        return setShowDropDown(false);
+      },
+      items: [{
+        label: "Disconnect wallet",
+        action: disconnect
+      }]
+    }));
 
     if (payment == undefined || recover == undefined && paymentValue == undefined) {
-      return /*#__PURE__*/React__default['default'].createElement(PaymentOverviewSkeleton, null);
+      return /*#__PURE__*/React__default['default'].createElement(PaymentOverviewSkeleton, {
+        alternativeHeaderAction: alternativeHeaderActionElement
+      });
     }
 
     var blockchain = web3Blockchains.Blockchain.findByName(payment.blockchain);
@@ -24652,6 +24769,7 @@
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL"
       }, "Payment")),
+      alternativeHeaderAction: alternativeHeaderActionElement,
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM PaddingBottomXS"
       }, amountsMissing && !fixedAmount && /*#__PURE__*/React__default['default'].createElement("div", {

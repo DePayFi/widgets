@@ -18,6 +18,9 @@ export default (props)=>{
 
   useEffect(()=>{
     const results = fuse.search(props.searchTerm).map((result)=>result.item)
+    if(parentElement.current) {
+      parentElement.current.scrollTo(0,0)
+    }
     if(props.searchTerm.length) {
       setResultList(results)
     } else {

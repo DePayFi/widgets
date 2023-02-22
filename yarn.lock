@@ -1141,10 +1141,10 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-blockchains/-/web3-blockchains-6.4.0.tgz#53100533e60a29b31e74dbeedfe0159a5dd158c3"
   integrity sha512-n01nl0mqJmltwNRZt42R3eLx0t47pZ0FkmokE45iYo3EUDvK6FAQ/VbeMu/y5GUSpdrt+trJ90L4qY8jusYkzw==
 
-"@depay/web3-client@^10.3.0":
-  version "10.3.0"
-  resolved "https://registry.yarnpkg.com/@depay/web3-client/-/web3-client-10.3.0.tgz#e7f805859945890d49d11daa7952c41df2183a94"
-  integrity sha512-ju3vm4vzYsI/zKR9c/F41BHOazBzMQuu5bXPRzQSedhnVkiC1psgXUe2DvNZP0bpHCPmCVy5KjDZ4jcLs4XFdw==
+"@depay/web3-client@^10.3.2":
+  version "10.3.2"
+  resolved "https://registry.yarnpkg.com/@depay/web3-client/-/web3-client-10.3.2.tgz#449ec7ba6581477fa1278c6ac93fb4f2cb9a1108"
+  integrity sha512-b71MxjD/uc4rM1Lhsi1lkJy6p/gRQ5xXA0KKjbfQ9olf133zazkobUVP1OrswSZYvW4+rpk5kq93ZhJa9b2alg==
 
 "@depay/web3-constants@^6.3.2":
   version "6.3.2"
@@ -1177,10 +1177,10 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-tokens/-/web3-tokens-9.14.0.tgz#547319d4770a2bf62e0e7d5ef563cafe57db36d3"
   integrity sha512-U22qrPgQwU6ICjJ+zU0IjIqp3yee4E5s7L/0mPR8qSrrkbEIQWIZT8XvC2aGSPBl0At/TJ9NveTB/LN0O4z03w==
 
-"@depay/web3-wallets@^14.5.2":
-  version "14.5.2"
-  resolved "https://registry.yarnpkg.com/@depay/web3-wallets/-/web3-wallets-14.5.2.tgz#4dfe24e7ebed3e0b4767c95d6902b61d3e448733"
-  integrity sha512-d521l7GPl87UpYEggUD0UEYvII10kgOTNndiptT3cTT9RCENEvhwL4vurAtoeKEucwC4hCzA1JWY29oOAiBcsg==
+"@depay/web3-wallets@^15.1.8":
+  version "15.1.8"
+  resolved "https://registry.yarnpkg.com/@depay/web3-wallets/-/web3-wallets-15.1.8.tgz#fd1b11dcc41803c0f4da011734c92d90519fa2d3"
+  integrity sha512-wqb6ryVIWx6GMgfpext7aVq8kn3sZt8Jly9mj2UXb0u/X1gBUlvjyY4OyB9tAplnug2LXhIDMEL8smfuVmkO/g==
 
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"
@@ -1545,6 +1545,45 @@
   integrity sha512-gvCOUNpXsWrIQ3A4aXCLIdblL0tDq42BG/2Xw7oxbil9h11uow10ztS2GuFazNBfjbrsZ5nl+nPl5jDSjj5TSg==
   dependencies:
     ajv "^6.12.6"
+
+"@fastify/error@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@fastify/error/-/error-2.0.0.tgz#a9f94af56eb934f0ab1ce4ef9f0ced6ebf2319dc"
+  integrity sha512-wI3fpfDT0t7p8E6dA2eTECzzOd+bZsZCJ2Hcv+Onn2b7ZwK3RwD27uW2QDaMtQhAfWQQP+WNK7nKf0twLsBf9w==
+
+"@fastify/http-proxy@^7.0.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@fastify/http-proxy/-/http-proxy-7.2.0.tgz#a018c40503790e64e0ba96c24cb360fd76f21f17"
+  integrity sha512-Ld5E9NWqeMM1wkXdpqaJnXxSddfyDVphfh9sK2GGxcflzS1HBL1+bgIXVpYicOFeFR73qxMeefJfazYAvqV12A==
+  dependencies:
+    "@fastify/reply-from" "^7.0.0"
+    ws "^8.4.2"
+
+"@fastify/reply-from@^7.0.0":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@fastify/reply-from/-/reply-from-7.0.1.tgz#ae3798f307bfa1d14b83878cd442f5f7083fabb5"
+  integrity sha512-ikp6GpmEJ7AVxcDdSVE9MhpUtC9KnImQDegc5ePZ+H7QZcraIjotP7YndwT/fP8lYj2Qr1h4RtuFNU8Wdwleuw==
+  dependencies:
+    end-of-stream "^1.4.4"
+    fastify-plugin "^3.0.0"
+    http-errors "^2.0.0"
+    pump "^3.0.0"
+    semver "^7.3.5"
+    tiny-lru "^8.0.1"
+    undici "^5.0.0"
+
+"@fastify/static@^5.0.0":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@fastify/static/-/static-5.0.2.tgz#46cee887393b422f4b10a46a14e970a64dd086d4"
+  integrity sha512-HvyXZ5a7hUHoSBRq9jKUuKIUCkHMkCDcmiAeEmixXlGOx8pEWx3NYOIaiivcjWa6/NLvfdUT+t/jzfVQ2PA7Gw==
+  dependencies:
+    content-disposition "^0.5.3"
+    encoding-negotiator "^2.0.1"
+    fastify-plugin "^3.0.0"
+    glob "^7.1.4"
+    p-limit "^3.1.0"
+    readable-stream "^3.4.0"
+    send "^0.17.1"
 
 "@hapi/hoek@^9.0.0":
   version "9.2.1"
@@ -2079,6 +2118,11 @@
   integrity sha512-8uALY5LTvSuHgloDVUvWP3pIauILm+8/0pDMokuDYIoNsOkSwd5AiHBTSEJjKTDcZr5z8UpgOWZkxBF4iJftoA==
   dependencies:
     "@types/node" "*"
+
+"@uiw/copy-to-clipboard@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@uiw/copy-to-clipboard/-/copy-to-clipboard-1.0.12.tgz#46f563bd6f3007895f95855e5b4bb692c7251933"
+  integrity sha512-3tt7FVSbjtBCNBhffy7k26rpnEmk8GQj9QkTGZBIfpHU7mG3Buryt69u6xooYM7/gmv7GIqD4QxxIauIp2HHKg==
 
 "@walletconnect/browser-utils@^1.8.0":
   version "1.8.0"
@@ -3657,6 +3701,13 @@ builtin-modules@^3.1.0:
   resolved "https://registry.npmjs.org/builtin-modules/-/builtin-modules-3.2.0.tgz"
   integrity sha512-lGzLKcioL90C7wMczpkY0n/oART3MbBa8R9OFGE1rJxoVI86u4WAGfEk8Wjv10eKSyTHVGkSo3bvBylCEtk7LA==
 
+busboy@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/busboy/-/busboy-1.6.0.tgz#966ea36a9502e43cdb9146962523b92f531f6893"
+  integrity sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==
+  dependencies:
+    streamsearch "^1.1.0"
+
 cachedir@^2.3.0:
   version "2.3.0"
   resolved "https://registry.npmjs.org/cachedir/-/cachedir-2.3.0.tgz"
@@ -4758,6 +4809,11 @@ eyes@^0.1.8:
   resolved "https://registry.yarnpkg.com/eyes/-/eyes-0.1.8.tgz#62cf120234c683785d902348a800ef3e0cc20bc0"
   integrity sha512-GipyPsXO1anza0AOZdy69Im7hGFCNB7Y/NGjDlZGJ3GJJLtwNSb2vrzYrTYJRrRloVx7pl+bhUaTB8yiccPvFQ==
 
+fast-content-type-parse@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/fast-content-type-parse/-/fast-content-type-parse-1.0.0.tgz#cddce00df7d7efb3727d375a598e4904bfcb751c"
+  integrity sha512-Xbc4XcysUXcsP5aHUU7Nq3OwvHq97C+WnbkeIefpeYLX+ryzFJlU6OStFJhs6Ol0LkUGpcK+wL0JwfM+FCU5IA==
+
 fast-decode-uri-component@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/fast-decode-uri-component/-/fast-decode-uri-component-1.0.1.tgz"
@@ -4814,36 +4870,10 @@ fast-stable-stringify@^1.0.0:
   resolved "https://registry.yarnpkg.com/fast-stable-stringify/-/fast-stable-stringify-1.0.0.tgz#5c5543462b22aeeefd36d05b34e51c78cb86d313"
   integrity sha512-wpYMUmFu5f00Sm0cj2pfivpmawLZ0NKdviQ4w9zJeR8JVtOpOxHmLaJuj0vxvGqMJQWyP/COUkF75/57OKyRag==
 
-fastify-error@^0.3.0:
-  version "0.3.1"
-  resolved "https://registry.npmjs.org/fastify-error/-/fastify-error-0.3.1.tgz"
-  integrity sha512-oCfpcsDndgnDVgiI7bwFKAun2dO+4h84vBlkWsWnz/OUK9Reff5UFoFl241xTiLeHWX/vU9zkDVXqYUxjOwHcQ==
-
-fastify-http-proxy@^6.2.1:
-  version "6.2.2"
-  resolved "https://registry.npmjs.org/fastify-http-proxy/-/fastify-http-proxy-6.2.2.tgz"
-  integrity sha512-UiBdgfgHlMJXF1XaQF5F3am6SSirWu2QNMaEO5Qow23CfccaONXXLjIF9/CTj5tD6rA8DcUZddRhva1uVKOqcQ==
-  dependencies:
-    fastify-reply-from "^6.4.1"
-    ws "^8.4.2"
-
-fastify-plugin@^3.0.0:
+fastify-plugin@^3.0.0, fastify-plugin@^3.0.1:
   version "3.0.1"
   resolved "https://registry.npmjs.org/fastify-plugin/-/fastify-plugin-3.0.1.tgz"
   integrity sha512-qKcDXmuZadJqdTm6vlCqioEbyewF60b/0LOFCcYN1B6BIZGlYJumWWOYs70SFYLDAH4YqdE1cxH/RKMG7rFxgA==
-
-fastify-reply-from@^6.4.1:
-  version "6.6.0"
-  resolved "https://registry.npmjs.org/fastify-reply-from/-/fastify-reply-from-6.6.0.tgz"
-  integrity sha512-LGKs1KUgdXajk+WoRjiZZbhtj+xrBPxy6UFRHvxQKpIcr/ztZNUa5JZmuSlMu6eP/SzReai9j82EHm+UlD8LZQ==
-  dependencies:
-    end-of-stream "^1.4.4"
-    fastify-plugin "^3.0.0"
-    http-errors "^2.0.0"
-    pump "^3.0.0"
-    semver "^7.3.5"
-    tiny-lru "^8.0.1"
-    undici "^4.0.0"
 
 fastify-request-timing@^2.0.1:
   version "2.0.1"
@@ -4852,29 +4882,17 @@ fastify-request-timing@^2.0.1:
   dependencies:
     fastify-plugin "^3.0.0"
 
-fastify-static@^4.5.0:
-  version "4.6.1"
-  resolved "https://registry.npmjs.org/fastify-static/-/fastify-static-4.6.1.tgz"
-  integrity sha512-vy7N28U4AMhuOim12ZZWHulEE6OQKtzZbHgiB8Zj4llUuUQXPka0WHAQI3njm1jTCx4W6fixUHfpITxweMtAIA==
-  dependencies:
-    content-disposition "^0.5.3"
-    encoding-negotiator "^2.0.1"
-    fastify-plugin "^3.0.0"
-    glob "^7.1.4"
-    p-limit "^3.1.0"
-    readable-stream "^3.4.0"
-    send "^0.17.1"
-
-fastify@^3.23.1:
-  version "3.27.4"
-  resolved "https://registry.npmjs.org/fastify/-/fastify-3.27.4.tgz"
-  integrity sha512-SOfnHBxG9zxCSIvt6aHoR/cao8QBddWmGP/mb5KQKRc+KI1kB7b79M2hCDOTSyHdLAF2OX+oI6X3weeLc+MqKg==
+fastify@^3.28.0:
+  version "3.29.5"
+  resolved "https://registry.yarnpkg.com/fastify/-/fastify-3.29.5.tgz#a219af4223c6071eef46f3b98aee3f39f47a8c88"
+  integrity sha512-FBDgb1gkenZxxh4sTD6AdI6mFnZnsgckpjIXzIvfLSYCa4isfQeD8QWGPib63dxq6btnY0l1j8I0xYhMvUb+sw==
   dependencies:
     "@fastify/ajv-compiler" "^1.0.0"
+    "@fastify/error" "^2.0.0"
     abstract-logging "^2.0.0"
     avvio "^7.1.2"
+    fast-content-type-parse "^1.0.0"
     fast-json-stringify "^2.5.2"
-    fastify-error "^0.3.0"
     find-my-way "^4.5.0"
     flatstr "^1.0.12"
     light-my-request "^4.2.0"
@@ -7152,17 +7170,17 @@ rollup-plugin-delete@^2.0.0:
   dependencies:
     del "^5.1.0"
 
-rollup-plugin-dev@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.npmjs.org/rollup-plugin-dev/-/rollup-plugin-dev-2.0.3.tgz"
-  integrity sha512-iChC9Eor1nWLVrSRXR8az6ObqO33v0dfm7gtL6tbOstglyXh7CK1AXWW6kR7MuL4OtaO6qk4j/3+6BldO7JzuA==
+rollup-plugin-dev@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-dev/-/rollup-plugin-dev-2.0.4.tgz#d702a3ac5b24d4ddc205e58284e158303ecf884b"
+  integrity sha512-o5kJPdtL3D2KWgDFs8g9oLos6r9iasYbnCGRBMFs2Sv8yr2dxxIEFLSTiAUetvf4eFcwPgMaRavIYyYy++F+BQ==
   dependencies:
+    "@fastify/http-proxy" "^7.0.0"
+    "@fastify/static" "^5.0.0"
     date-time "^4.0.0"
-    fastify "^3.23.1"
-    fastify-http-proxy "^6.2.1"
-    fastify-plugin "^3.0.0"
+    fastify "^3.28.0"
+    fastify-plugin "^3.0.1"
     fastify-request-timing "^2.0.1"
-    fastify-static "^4.5.0"
     femtocolor "^2.0.2"
     get-port "^5.1.1"
     joi "^17.4.2"
@@ -7578,6 +7596,11 @@ stream-shift@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/stream-shift/-/stream-shift-1.0.1.tgz#d7088281559ab2778424279b0877da3c392d5a3d"
   integrity sha512-AiisoFqQ0vbGcZgQPY1cdP2I76glaVA/RauYR4G4thNFgkTqr90yXTo4LYX60Jl+sIlPNHHdGSwo01AvbKUSVQ==
+
+streamsearch@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/streamsearch/-/streamsearch-1.1.0.tgz#404dd1e2247ca94af554e841a8ef0eaa238da764"
+  integrity sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==
 
 strict-uri-encode@^2.0.0:
   version "2.0.0"
@@ -8012,10 +8035,12 @@ unbox-primitive@^1.0.2:
     has-symbols "^1.0.3"
     which-boxed-primitive "^1.0.2"
 
-undici@^4.0.0:
-  version "4.16.0"
-  resolved "https://registry.npmjs.org/undici/-/undici-4.16.0.tgz"
-  integrity sha512-tkZSECUYi+/T1i4u+4+lwZmQgLXd4BLGlrc7KZPcLIW7Jpq99+Xpc30ONv7nS6F5UNOxp/HBZSSL9MafUrvJbw==
+undici@^5.0.0:
+  version "5.20.0"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-5.20.0.tgz#6327462f5ce1d3646bcdac99da7317f455bcc263"
+  integrity sha512-J3j60dYzuo6Eevbawwp1sdg16k5Tf768bxYK4TUJRH7cBM4kFCbf3mOnM/0E3vQYXvpxITbbWmBafaDbxLDz3g==
+  dependencies:
+    busboy "^1.6.0"
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

@@ -11,79 +11,74 @@ import { NavigateStackContext } from '@depay/react-dialog-stack'
 export default (props)=>{
 
   const [ searchTerm, setSearchTerm ] = useState('')
+  const [ prioritizedWallets, setPrioritizedWallets ] = useState()
   const [ showDropDown, setShowDropDown ] = useState(false)
   const [ dialogAnimationFinished, setDialogAnimationFinished ] = useState(false)
   const searchElement = useRef()
   const { navigate } = useContext(NavigateStackContext)
 
-  let renderedWallets = {} // prevents rendering same wallet twice (e.g. extension + via walletconnect)
-  const renderWalletElement = (wallet, index, type)=>{
-    if(renderedWallets[wallet.name]) { return(null) }
-    renderedWallets[wallet.name] = true
-    return(
-      <div key={index} className="PaddingBottomXS">
-        <button
-          type="button"
-          className="Card small"
-          title={`Connect ${wallet.name}`}
-          onClick={()=>{
-            props.setWallet({ ...wallet, via: type })
-            navigate('ConnectWallet')
-          }}
-        >
-          <div className="CardImage">
-            <img className="transparent" src={wallet.logo} className="WalletLogoS"/>
-          </div>
-          <div className="CardBody">
-            <div className="CardBodyWrapper PaddingLeftXS LineHeightXS">
-              <div className="CardText FontWeightMedium">
-                { wallet.name }
+  useEffect(()=>{
+    getWallets().then((availableWallets)=>{
+      let renderedWallets = {} // prevents rendering same wallet twice (e.g. extension + via walletconnect)
+      const renderWalletElement = (wallet, index, type)=>{
+        if(renderedWallets[wallet.name]) { return(null) }
+        renderedWallets[wallet.name] = true
+        return(
+          <div key={index} className="PaddingBottomXS">
+            <button
+              type="button"
+              className="Card small"
+              title={`Connect ${wallet.name}`}
+              onClick={()=>{
+                props.setWallet({ ...wallet, via: type })
+                navigate('ConnectWallet')
+              }}
+            >
+              <div className="CardImage">
+                <img className="transparent" src={wallet.logo} className="WalletLogoS"/>
               </div>
-              { type != 'previouslyConnected' && <div className="LightGreen"><span className="LightGreen" style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Detected</div> }
-              { type == 'previouslyConnected' && <div className="Opacity05"><span style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Previously connected</div> }
-            </div>
+              <div className="CardBody">
+                <div className="CardBodyWrapper PaddingLeftXS LineHeightXS">
+                  <div className="CardText FontWeightMedium">
+                    { wallet.name }
+                  </div>
+                  { type != 'previouslyConnected' && <div className="LightGreen"><span className="LightGreen" style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Detected</div> }
+                  { type == 'previouslyConnected' && <div className="Opacity05"><span style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Previously connected</div> }
+                </div>
+              </div>
+            </button>
           </div>
-        </button>
-      </div>
-    )
-  }
+        )
+      }
 
-  let availableWallets = getWallets()
-  let prioritizedWallets = availableWallets.map((availableWallet, index)=>{
-    if(availableWallet.name == 'Phantom') { return }
-    console.log('availableWallet.name', availableWallet.name)
-    let wallet = allWallets.find((wallet)=>wallet.name == availableWallet.name) || allWallets.find((wallet)=>wallet.name == availableWallet.name)
-    if(wallet) { return(renderWalletElement(wallet, index, 'detected')) }
-  }).filter((wallet)=>!!wallet)
+      let prioritizedWallets = availableWallets.map((availableWallet, index)=>{
+        if(availableWallet.name == 'Phantom') { return }
+        let wallet = allWallets.find((wallet)=>wallet.name == availableWallet.name) || allWallets.find((wallet)=>wallet.name == availableWallet.name)
+        if(wallet) { return(renderWalletElement(wallet, index, 'detected')) }
+      }).filter((wallet)=>!!wallet)
 
-  let previouslyConnectedWalletName = getPreviouslyConnectedWallet()
-  let previouslyConnectedWallet = allWallets.find((wallet)=>wallet.name == previouslyConnectedWalletName) || allWallets.find((wallet)=>wallet.name == previouslyConnectedWalletName)
-  if(previouslyConnectedWallet && previouslyConnectedWallet) {
-    prioritizedWallets.push(renderWalletElement(previouslyConnectedWallet, prioritizedWallets.length+1, 'previouslyConnected'))
-  }
+      let previouslyConnectedWalletName = getPreviouslyConnectedWallet()
+      let previouslyConnectedWallet = allWallets.find((wallet)=>wallet.name == previouslyConnectedWalletName) || allWallets.find((wallet)=>wallet.name == previouslyConnectedWalletName)
+      if(previouslyConnectedWallet && previouslyConnectedWallet) {
+        prioritizedWallets.push(renderWalletElement(previouslyConnectedWallet, prioritizedWallets.length+1, 'previouslyConnected'))
+      }
+
+      setPrioritizedWallets(prioritizedWallets)
+    })
+  }, [])
 
   useEffect(()=>{
     setTimeout(()=>{
       setDialogAnimationFinished(true)
-      searchElement.current.click()
-      searchElement.current.focus()
+      if(searchElement.current){
+        searchElement.current.click()
+        searchElement.current.focus()
+      }
     }, 200)
   }, [])
 
   return(
     <Dialog
-      alternativeHeaderAction={
-        <span className="DropDownWrapper">
-          <button type="button" onClick={ ()=>setShowDropDown(!showDropDown) } className="ButtonCircular" title="What is a wallet?">
-            <MenuIcon/>
-          </button>
-          { showDropDown && <DropDown hide={()=>setShowDropDown(false)}
-            items={[
-              { label: "What is a wallet?", action: ()=>{ navigate('WhatIsAWallet') } },
-            ]}
-          /> }
-        </span>
-      }
       header={
         <div>
           <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
@@ -100,6 +95,18 @@ export default (props)=>{
             </div>
           </div>
         </div>
+      }
+      alternativeHeaderAction={
+        <span className="DropDownWrapper">
+          <button type="button" onClick={ ()=>setShowDropDown(!showDropDown) } className="ButtonCircular" title="What is a wallet?">
+            <MenuIcon/>
+          </button>
+          { showDropDown && <DropDown hide={()=>setShowDropDown(false)}
+            items={[
+              { label: "What is a wallet?", action: ()=>{ navigate('WhatIsAWallet') } },
+            ]}
+          /> }
+        </span>
       }
       bodyClassName={ "PaddingBottomXS" }
       body={

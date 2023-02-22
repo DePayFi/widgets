@@ -20,14 +20,14 @@ export default (props)=>{
             </button>
           </div>
         }
-        <div className="DialogHeaderActionRight PaddingTopS PaddingLeftS PaddingRightS">
-          { props.alternativeHeaderAction }
-          { closable && props.closable !== false &&
+        { closable && props.closable !== false &&
+          <div className="DialogHeaderActionRight PaddingTopS PaddingLeftS PaddingRightS">
+            { props.alternativeHeaderAction }
             <button type="button" onClick={ close } className="ButtonCircular" title="Close dialog">
               <CloseIcon/>
             </button>
-          }
-        </div>
+          </div>
+        }
         { props.header }
       </div>
 

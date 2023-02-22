@@ -2,12 +2,15 @@ import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import ChevronRight from '../components/ChevronRight'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
+import DropDown from '../components/DropDown'
 import Footer from '../components/Footer'
 import format from '../helpers/format'
+import MenuIcon from '../components/MenuIcon'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentOverviewSkeleton from '../skeletons/PaymentOverviewSkeleton'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
+import WalletContext from '../contexts/WalletContext'
 import { Blockchain } from '@depay/web3-blockchains'
 import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
@@ -17,11 +20,25 @@ export default (props)=>{
   const { currencyCode, recover, amount: amountConfiguration } = useContext(ConfigurationContext)
   const { payment, paymentState } = useContext(PaymentContext)
   const { amount, amountsMissing, fixedAmount, fixedCurrency } = useContext(ChangableAmountContext)
+  const { disconnect } = useContext(WalletContext)
   const { paymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
+  const [ showDropDown, setShowDropDown ] = useState(false)
   const displayedCurrencyCode = (amountConfiguration != undefined && amountConfiguration.token) ? null : currencyCode
+  const alternativeHeaderActionElement = (
+    <span className="DropDownWrapper">
+      <button type="button" onClick={ ()=>setShowDropDown(!showDropDown) } className="ButtonCircular" title="Disconnect connected wallet">
+        <MenuIcon/>
+      </button>
+      { showDropDown && <DropDown hide={()=>setShowDropDown(false)}
+        items={[
+          { label: "Disconnect wallet", action: disconnect },
+        ]}
+      /> }
+    </span>
+  )
 
-  if(payment == undefined || (recover == undefined && paymentValue == undefined)) { return(<PaymentOverviewSkeleton/>) }
+  if(payment == undefined || (recover == undefined && paymentValue == undefined)) { return(<PaymentOverviewSkeleton alternativeHeaderAction={ alternativeHeaderActionElement }/>) }
 
   const blockchain = Blockchain.findByName(payment.blockchain)
   
@@ -32,6 +49,7 @@ export default (props)=>{
           <h1 className="LineHeightL FontSizeL">Payment</h1>
         </div>
       }
+      alternativeHeaderAction={ alternativeHeaderActionElement }
       body={
         <div className="PaddingLeftM PaddingRightM PaddingBottomXS">
           { amountsMissing && !fixedAmount &&

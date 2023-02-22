@@ -113,6 +113,7 @@ export default (props)=>{
   }
 
   const startTracking = (transaction, afterBlock, paymentRoute, attempt)=> {
+    console.log('START TRACKING!', transaction)
     callTracking({
       blockchain: transaction.blockchain,
       transaction: transaction.id,
@@ -231,6 +232,7 @@ export default (props)=>{
   }
 
   const initializeTracking = (transaction, afterBlock, paymentRoute)=>{
+    console.log('initializeTracking')
     storePayment(transaction, afterBlock, paymentRoute, 1)
     if(synchronousTracking || (track && track.async == true)) {
       startTracking(transaction, afterBlock, paymentRoute)
@@ -248,7 +250,7 @@ export default (props)=>{
       let payment = {
         blockchain: paymentRoute.blockchain,
         sender: account,
-        nonce: (await request({ blockchain: paymentRoute.blockchain, address: account, method: 'transactionCount' })).toString(),
+        nonce: (await wallet.transactionCount({ blockchain: paymentRoute.blockchain, address: account })).toString(),
         after_block: afterBlock.toString(),
         from_token: paymentRoute.fromToken.address,
         from_amount: paymentRoute.fromAmount.toString(),
@@ -265,7 +267,6 @@ export default (props)=>{
           body: JSON.stringify(payment)
         }).then((response)=>{
           if(response.status == 200 || response.status == 201) {
-            console.log('PAYMENT PRETRACKING INITIALIZED')
             return resolve()
           } else {
             return reject('PRETRACKING REQUEST FAILED')

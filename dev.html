@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@uiw/copy-to-clipboard/dist/copy-to-clipboard.umd.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/solana-web3.js@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/local-currency@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog@14"></script>
@@ -16,12 +17,12 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-shadow-dom@5"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-constants@6"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@10"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@10.3.2"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@4"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/coinbase-wallet-sdk@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v1@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v2@2"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@14.5.2"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@15.1.9"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@9"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-assets@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@11"></script>
@@ -404,13 +405,16 @@
                   button.addEventListener("click",function(e){
                     DePayWidgets.Payment({
                       accept: [{
-                        blockchain: 'polygon',
-                        amount: 0.0001,
-                        token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                        blockchain: 'ethereum',
+                        amount: 0.1,
+                        token: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
                         receiver: '0x317D875cA3B9f8d14f960486C0d1D1913be74e90'
                       }],
                       track: {
-                        method: (payment)=>axios.post('/track', payment)
+                        method: (payment)=>{
+                          console.log('TRACK', payment)
+                          return axios.post('/track', payment)
+                        }
                       }
                     });
                   });
@@ -1006,7 +1010,6 @@
           </div>
         </div>
 
-
         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
           <div class="px-0 py-4 rounded-lg bg-white border">
             <div class="col px-0">
@@ -1037,29 +1040,27 @@
           <div class="px-0 py-4 rounded-lg bg-white border">
             <div class="col px-0">
               <div class="overflow-auto" style="height: 140px;">
-                <h5 class="px-4">Connect -> Login</h5>
+                <h5 class="px-4">Login with message callback</h5>
                 <div class="px-4">
-                  <div class="text-secondary ">Connect Wallet and login with signature containing wallet address</div>
+                  <div class="text-secondary ">Wallet login via signature and message callback method</div>
                 </div>
               </div>
               <div class="px-4 pt-3">
-                <button class='btn btn-primary' id="connectAndLoginButton">Try it</button>
+                <button class='btn btn-primary' id="loginButtonWithMessageCallback">Try it</button>
                 <script>
-                    var button = document.getElementById("connectAndLoginButton");
+                    var button = document.getElementById("loginButtonWithMessageCallback");
                     button.addEventListener("click",async function(e){
                       let dateTime = new Date().toISOString().slice(0, 19);
-                      DePayWidgets.Connect().then(({ account })=>{
-                        DePayWidgets.Login({
-                          message: `Click to log in to DePay and to accept DePay's Terms of Service: https://depay.com/legal/terms\n\n${dateTime}\n${account}`
-                        })
+                      let account = await DePayWidgets.Login({
+                        message: (account)=>`Click to log in to DePay and to accept DePay's Terms of Service: https://depay.com/legal/terms\n${dateTime}\n${account}`
                       })
+                      console.log("Logged in via signature", account)
                     });
                 </script>
               </div>
             </div>
           </div>
         </div>
-
 
         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
           <div class="px-0 py-4 rounded-lg bg-white border">

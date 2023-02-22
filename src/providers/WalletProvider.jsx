@@ -4,7 +4,6 @@ import ErrorContext from '../contexts/ErrorContext'
 import React, { useState, useEffect, useContext } from 'react'
 import WalletContext from '../contexts/WalletContext'
 import { ReactDialog } from '@depay/react-dialog'
-import { getConnectedWallets } from '@depay/web3-wallets'
 
 export default (props)=>{
 
@@ -13,6 +12,7 @@ export default (props)=>{
   const [wallet, setWallet] = useState()
   let [account, setAccount] = useState()
   const [walletState, setWalletState] = useState()
+  
   const connected = ({ account, wallet })=> {
     setAccount(account)
     setWallet(wallet)
@@ -20,26 +20,18 @@ export default (props)=>{
     if(props.connected) { props.connected(account) }
   }
 
-  useEffect(()=>{
-    if(recover == undefined) {
-      let selectConnectedWallet = async()=>{
-        let connectedWallets = await getConnectedWallets()
-        if(connectedWallets && connectedWallets.length == 1){
-          let wallet = connectedWallets[0]
-          let account = await wallet.account()
-          connected({ account, wallet })
-        }
-      }
-      selectConnectedWallet()
-    }
-  }, [])
+  const disconnect = ()=>{
+    setAccount()
+    setWallet()
+    setWalletState()
+  }
 
   if(walletState == 'connected' || recover != undefined) {
     return(
       <WalletContext.Provider value={{
         account,
         wallet,
-        walletState
+        disconnect,
       }}>
         { props.children }
       </WalletContext.Provider>

@@ -1,6 +1,8 @@
+import copy from '@uiw/copy-to-clipboard'
 import Dialog from '../components/Dialog'
 import ExtensionImage from '../graphics/extension'
 import isMobile from '../helpers/isMobile'
+import LinkImage from '../graphics/link'
 import QRCodeImage from '../graphics/qrcode'
 import QRCodeStyling from "qr-code-styling"
 import React, { useState, useContext, useEffect, useRef } from 'react'
@@ -12,12 +14,13 @@ import { wallets } from '@depay/web3-wallets'
 export default (props)=> {
 
   const QRCodeElement = React.useRef()
-  const extensionIsAvailable = props.wallet?.extension ? wallets[props.wallet.extension].isAvailable() : false
-  const linkIsConnected = props.wallet?.link ? wallets[props.wallet.link].isAvailable() : false
   const [ showConnectExtensionButton, setShowConnectExtensionButton ] = useState(false)
   const [ showConnectExtensionWarning, setShowConnectExtensionWarning ] = useState(false)
+  const [ extensionIsAvailable, setExtensionIsAvailable ] = useState()
+  const [ linkIsConnected, setLinkIsConnected ] = useState()
   const [ linkURI, setLinkURI ] = useState()
   const [ showQRCode, setShowQRCode ] = useState(false)
+  const [ showLinkCopied, setShowLinkCopied ] = useState(false)
   const [ QRCode, setQRCode ] = useState()
   const { navigate } = useContext(NavigateStackContext)
   const header = (
@@ -59,7 +62,24 @@ export default (props)=> {
         let href = provider.native ? safeAppUrl(provider.native) : safeUniversalUrl(provider.universal)
         localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: props.wallet.name }))
         href = provider.native ? `${href}wc?uri=${encodeURIComponent(uri)}` : `${href}/wc?uri=${encodeURIComponent(uri)}`
-        window.open(href, '_self', 'noreferrer noopener')
+        let target = provider.native && !provider.universal ? '_self' : '_blank'
+        window.open(href, target, 'noreferrer noopener')
+      }
+    }).then((account)=>{
+      props.resolve(account, wallet)
+    })
+  }
+
+  const connectViaCopyLink = ()=>{
+    let wallet = new wallets[props.wallet.link]()
+    wallet.connect({
+      name: props.wallet.name,
+      logo: props.wallet.logo,
+      reconnect: true,
+      connect: ({ uri })=>{
+        copy(uri)
+        setShowLinkCopied(true)
+        setTimeout(()=>setShowLinkCopied(false), 3000)
       }
     }).then((account)=>{
       props.resolve(account, wallet)
@@ -69,8 +89,11 @@ export default (props)=> {
   const connect = ()=>{
     if(props.wallet.via == 'detected') { connectExtension() }
     if(linkIsConnected && props.wallet.via == 'detected') {
-      let wallet = wallets[props.wallet.link].getConnectedInstance()
-      wallet.account().then((account)=>props.resolve(account, wallet))
+      wallets[props.wallet.link].getConnectedInstance().then((wallet)=>{
+        wallet.account().then((account)=>{
+          props.resolve(account, wallet)
+        })
+      })
     } else {
       if(isMobile()) {
         connectViaRedirect(props.wallet.mobile)
@@ -80,20 +103,33 @@ export default (props)=> {
     }
   }
 
-  useEffect(()=>{ connect() }, [])
+  useEffect(()=>{
+    (async ()=>{
+      setExtensionIsAvailable(
+        props.wallet?.extension ? (await wallets[props.wallet.extension].isAvailable()) : false
+      )
+      setLinkIsConnected(
+        props.wallet?.link ? (await wallets[props.wallet.link].isAvailable()) : false
+      )
+    })()
+  }, [])
 
   useEffect(()=> {
-    let timeout = setTimeout(()=>{
-      if(extensionIsAvailable) {
-        setShowConnectExtensionButton(true)
+    if(extensionIsAvailable != undefined && linkIsConnected != undefined) {
+      connect()
+
+      if(linkIsConnected == false){
+        setShowQRCode(!extensionIsAvailable && !isMobile() && !props.wallet?.desktop?.native)
       }
-    }, 8000)
-    return ()=>clearTimeout(timeout)
-  }, [extensionIsAvailable])
 
-  useEffect(()=> {
-    setShowQRCode(!extensionIsAvailable && !isMobile() && !props.wallet?.desktop?.native)
-  }, [extensionIsAvailable])
+      let timeout = setTimeout(()=>{
+        if(extensionIsAvailable) {
+          setShowConnectExtensionButton(true)
+        }
+      }, 8000)
+      return ()=>clearTimeout(timeout)
+    }
+  }, [extensionIsAvailable, linkIsConnected])
 
   useEffect(()=> {
     if(showQRCode && props.wallet.link) {
@@ -104,6 +140,7 @@ export default (props)=> {
             wallet.connect({
               name: props.wallet.name,
               logo: props.wallet.logo,
+              reconnect: true,
               connect: ({ uri })=>{
                 let newQRCode = new QRCodeStyling({
                   width: 340,
@@ -129,9 +166,6 @@ export default (props)=> {
             props.resolve(account, wallet)
           })
         break
-        case 'WalletConnectV2':
-          navigate('SelectBlockchain')
-        break
       }
     }
   }, [showQRCode])
@@ -152,16 +186,6 @@ export default (props)=> {
 
           <div className="PaddingLeftL PaddingRightL">
             <h1 className="LineHeightL Text FontSizeL FontWeightBold">Connect { props.wallet.name }</h1>
-            
-            { showConnectExtensionWarning &&
-              <div className="PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
-                <div className="Alert">
-                  <span className="FontWeightBold PaddingBottomXS">
-                    You wallet extension window is already asking to connect. It might be hidden.
-                  </span>
-                </div>
-              </div>
-            }
           </div>
 
           <div className="PaddingTopS">
@@ -176,9 +200,18 @@ export default (props)=> {
           <div className="PaddingLeftL PaddingRightL PaddingTopL">
             { extensionIsAvailable &&
               <div className="PaddingLeftM PaddingRightM PaddingBottomXS">
+                { showConnectExtensionWarning &&
+                  <div className="PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
+                    <div className="Alert">
+                      <span className="FontWeightBold PaddingBottomXS">
+                        You wallet extension window is already asking to connect. It might be hidden.
+                      </span>
+                    </div>
+                  </div>
+                }
                 <button onClick={ ()=>connectExtension() } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS">
                   <span className="PaddingTopXS PaddingRightXS PaddingLeftS">
-                    <img className="transparent " title="Scan QR code to connect a mobile wallet" style={{ height: '26px' }} src={ ExtensionImage }/>
+                    <img className="transparent " title="Connect your wallet" style={{ height: '26px' }} src={ ExtensionImage }/>
                   </span>
                   <div className="PaddingLeftS LineHeightXS">
                     <div className="CardText FontWeightMedium">
@@ -200,6 +233,26 @@ export default (props)=> {
                     </div>
                   </div>
                 </button>
+              </div>
+            }
+            { props.wallet.link && props.wallet.link == 'WalletConnectV1' &&
+              <div className="PaddingLeftM PaddingRightM PaddingBottomXS TooltipWrapper">
+                <button onClick={ connectViaCopyLink } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS">
+                  <span className="PaddingTopXS PaddingRightXS PaddingLeftS">
+                    <img className="transparent " title="Copy connection link" style={{ height: '26px' }} src={ LinkImage }/>
+                  </span>
+                  <div className="PaddingLeftS LineHeightXS">
+                    <div className="CardText FontWeightMedium">
+                      Copy connection link
+                    </div>
+                  </div>
+                </button>
+                { showLinkCopied &&
+                  <div className="Tooltip absolute top"> 
+                    <span className="TooltipArrowDown"/>
+                    Connection link copied
+                  </div> 
+                }
               </div>
             }
           </div>

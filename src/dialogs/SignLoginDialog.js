@@ -10,7 +10,7 @@ export default (props)=> {
   const { setError } = useContext(ErrorContext)
   const { message, endpoint } = useContext(ConfigurationContext)
   let { recoverSignature } = useContext(ConfigurationContext)
-  const { wallet } = useContext(WalletContext)
+  const { wallet, account } = useContext(WalletContext)
   if(!wallet) { return null }
   const walletName = wallet?.name ? wallet.name : 'wallet'
   const walletLogo = wallet?.logo ? wallet.logo : undefined
@@ -38,8 +38,14 @@ export default (props)=> {
   }
 
   const login = ()=> {
-    wallet.sign(message).then((signature)=>{
-      recoverSignature({ message, signature }).then(props.resolve).catch(setError)
+    let messageToSign
+    if(typeof message == 'function'){
+      messageToSign = message(account)
+    } else {
+      messageToSign = message
+    }
+    wallet.sign(messageToSign).then((signature)=>{
+      recoverSignature({ message: messageToSign, signature }).then(props.resolve).catch(setError)
     }).catch((error)=>{
       if(error && error.code && error.code == 4001) {
         // nothing happens

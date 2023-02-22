@@ -14,6 +14,7 @@ export default (props)=>{
           <h1 className="LineHeightL FontSizeL">Payment</h1>
         </div>
       }
+      alternativeHeaderAction={ props.alternativeHeaderAction }
       body={
         <div className="PaddingLeftM PaddingRightM PaddingBottomXS">
           { amountsMissing && !fixedAmount &&

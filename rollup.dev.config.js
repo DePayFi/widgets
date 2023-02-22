@@ -22,7 +22,11 @@ export default Object.assign({}, rollup, {
       openPage: 'http://127.0.0.1:8000/dev.html'
     }),
     dev({
-      proxy: [{ from: '/track', to:'https://jsonplaceholder.typicode.com/posts' }],
+      port: '8000',
+      proxy: [
+        { from: '/track', to:'https://jsonplaceholder.typicode.com/posts' },
+        { from: '/login', to:'http://localhost:1337/signature/recover' },
+      ],
     }),
     livereload({
       watch: ['dist', 'src']
