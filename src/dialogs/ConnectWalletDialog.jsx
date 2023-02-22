@@ -1,6 +1,7 @@
 import copy from '@uiw/copy-to-clipboard'
 import Dialog from '../components/Dialog'
 import ExtensionImage from '../graphics/extension'
+import isAndroid from '../helpers/isAndroid'
 import isMobile from '../helpers/isMobile'
 import LinkImage from '../graphics/link'
 import QRCodeImage from '../graphics/qrcode'
@@ -59,9 +60,18 @@ export default (props)=> {
       name: props.wallet.name,
       logo: props.wallet.logo,
       connect: ({ uri })=>{
-        let href = provider.native ? safeAppUrl(provider.native) : safeUniversalUrl(provider.universal)
-        localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: props.wallet.name }))
-        href = provider.native ? `${href}wc?uri=${encodeURIComponent(uri)}` : `${href}/wc?uri=${encodeURIComponent(uri)}`
+        let href
+        if(provider.native) {
+          href = isAnrdoid() ? uri : safeAppUrl(provider.native)
+        } else {
+          href = safeUniversalUrl(provider.universal)
+        }
+        localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: isAndroid() ? 'Android' : props.wallet.name }))
+        if(provider.native) {
+          href = isAndroid() ? href : `${href}wc?uri=${encodeURIComponent(uri)}`
+        } else {
+          href = `${href}/wc?uri=${encodeURIComponent(uri)}`
+        }
         let target = provider.native && !provider.universal ? '_self' : '_blank'
         window.open(href, target, 'noreferrer noopener')
       }
