@@ -55,58 +55,6 @@ export default (props)=> {
     }
   }
 
-  const connectViaRedirect = (provider, uri)=>{
-    if(!provider) { return }
-    if(props.wallet.link == 'WalletConnectV1') {
-      let wallet = new wallets[props.wallet.link]()
-      wallet.connect({
-        name: props.wallet.name,
-        logo: props.wallet.logo,
-        reconnect: true,
-        connect: ({ uri })=>{
-          let href
-          if(provider.universal) {
-            href = safeUniversalUrl(provider.universal)
-          } else {
-            href = isAndroid() ? uri : safeAppUrl(provider.native)
-          }
-          localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: isAndroid() ? 'Android' : props.wallet.name }))
-          console.log('HREF DEEPLINK', href)
-          console.log('URI BEFORE', uri)
-          if(provider.universal) {
-            if(provider?.encode?.universal !== false) {
-              console.log('ENCODE UNVIERSAL!', encodeURIComponent(uri))
-              href = `${href}/wc?uri=${encodeURIComponent(uri)}`
-              console.log('ENCODE UNVIERSAL! href', href)
-            } else {
-              href = `${href}/wc?uri=${uri}`
-            }
-          } else if(provider.native) {
-            if(!isAndroid()) {
-              if(provider?.encode?.native !== false) {
-                href = `${href}wc?uri=${encodeURIComponent(uri)}`
-              } else {
-                href = `${href}wc?uri=${uri}`
-              }
-            }
-          }
-          let target = provider.native && !provider.universal ? '_self' : '_blank'
-          console.log(href, target, 'noreferrer noopener')
-          window.open(href, target, 'noreferrer noopener')
-        }
-      }).then((account)=>{
-        props.resolve(account, wallet)
-      })
-    } else if (props.wallet.link == 'WalletLink') {
-      setPreviouslyConnectedWallet(props.wallet.name)
-      if(isAndroid()) {
-        window.open(`https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
-      } else { // IOS
-        window.open(`cbwallet://dapp?url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
-      }
-    }
-  }
-
   const connectViaCopyLink = ()=>{
     let wallet = new wallets[props.wallet.link]()
     wallet.connect({
@@ -124,29 +72,21 @@ export default (props)=> {
   }
 
   const connect = ()=>{
-    if(props.wallet.via == 'detected') {
-      if(linkIsConnected) {
-        wallets[props.wallet.link].getConnectedInstance().then((wallet)=>{
-          if(extensionIsAvailable && wallet.name == wallets[props.wallet.extension].info.name) {
-            return // extension found and link with same wallet name found (e.g. MetaMask extension + mobile) let user decide!
-          } 
-          if(props.wallet.name == wallet.name) {
-            return wallet.account().then((account)=>{
-              props.resolve(account, wallet)
-            })
-          } else if(extensionIsAvailable) {
-            connectExtension()
-          }
-        })  
-      } else if(extensionIsAvailable) {
-        connectExtension()
-      }
-    } else {
-      if(isMobile()) {
-        connectViaRedirect(props.wallet.mobile)
-      } else {
-        connectViaRedirect(props.wallet.desktop)
-      }
+    if(linkIsConnected) {
+      wallets[props.wallet.link].getConnectedInstance().then((wallet)=>{
+        if(extensionIsAvailable && wallet.name == wallets[props.wallet.extension].info.name) {
+          return // extension found and link with same wallet name found (e.g. MetaMask extension + mobile) let user decide!
+        } 
+        if(props.wallet.name == wallet.name) {
+          return wallet.account().then((account)=>{
+            props.resolve(account, wallet)
+          })
+        } else if(extensionIsAvailable) {
+          connectExtension()
+        }
+      })  
+    } else if(extensionIsAvailable) {
+      connectExtension()
     }
   }
 
@@ -163,7 +103,11 @@ export default (props)=> {
 
   useEffect(()=> {
     if(extensionIsAvailable !== undefined && linkIsConnected !== undefined) {
-      connect()
+      
+      if(props.wallet.via == 'detected') {
+        connect()
+      }
+
       if(linkIsConnected == false){
         setShowQRCode(!extensionIsAvailable && !isMobile() && !props.wallet?.desktop?.native)
       }

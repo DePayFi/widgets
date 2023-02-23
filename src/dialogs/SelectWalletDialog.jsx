@@ -6,7 +6,7 @@ import MenuIcon from '../components/MenuIcon'
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import SelectWalletList from '../components/SelectWalletList'
 import { get as getPreviouslyConnectedWallet } from '../helpers/previouslyConnectedWallet'
-import { getWallets } from '@depay/web3-wallets'
+import { getWallets, wallets } from '@depay/web3-wallets'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default (props)=>{
@@ -17,6 +17,61 @@ export default (props)=>{
   const [ dialogAnimationFinished, setDialogAnimationFinished ] = useState(false)
   const searchElement = useRef()
   const { navigate } = useContext(NavigateStackContext)
+
+  const connectViaRedirect = (walletMetaData)=> {
+    const provider = isMobile() ? walletMetaData.mobile : walletMetaData.desktop
+    if(!provider) { return }
+    if(walletMetaData.link == 'WalletConnectV1') {
+      let wallet = new wallets[walletMetaData.link]()
+      wallet.connect({
+        name: walletMetaData.name,
+        logo: walletMetaData.logo,
+        reconnect: true,
+        connect: ({ uri })=>{
+          let href
+          if(provider.universal) {
+            href = safeUniversalUrl(provider.universal)
+          } else {
+            href = isAndroid() ? uri : safeAppUrl(provider.native)
+          }
+          localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: isAndroid() ? 'Android' : walletMetaData.name }))
+          if(provider.universal) {
+            if(provider.encoded !== false) {
+              href = `${href}/wc?uri=${encodeURIComponent(uri)}`
+            } else {
+              href = `${href}/wc?uri=${uri}`
+            }
+          } else if(provider.native) {
+            if(!isAndroid()) {
+              if(provider.encoded !== false) {
+                href = `${href}wc?uri=${encodeURIComponent(uri)}`
+              } else {
+                href = `${href}wc?uri=${uri}`
+              }
+            }
+          }
+          let target = provider.native && !provider.universal ? '_self' : '_blank'
+          console.log(href, target, 'noreferrer noopener')
+          window.open(href, target, 'noreferrer noopener')
+        }
+      }).then((account)=>{
+        props.resolve(account, wallet)
+      })
+    } else if (walletMetaData.link == 'WalletLink') {
+      setPreviouslyConnectedWallet(walletMetaData.name)
+      if(isAndroid()) {
+        window.open(`https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
+      } else { // IOS
+        window.open(`cbwallet://dapp?url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
+      }
+    }
+  }
+
+  const onClickWallet = (wallet)=>{
+    connectViaRedirect(wallet)
+    props.setWallet(wallet)
+    navigate('ConnectWallet')
+  }
 
   useEffect(()=>{
     getWallets().then((availableWallets)=>{
@@ -30,10 +85,7 @@ export default (props)=>{
               type="button"
               className="Card small"
               title={`Connect ${wallet.name}`}
-              onClick={()=>{
-                props.setWallet({ ...wallet, via: type })
-                navigate('ConnectWallet')
-              }}
+              onClick={ ()=>onClickWallet({ ...wallet, via: type }) }
             >
               <div className="CardImage">
                 <img className="transparent" src={wallet.logo} className="WalletLogoS"/>
