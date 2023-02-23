@@ -5,6 +5,10 @@ export default (style)=>{
       font-family: ${style.fontFamily};
     }
 
+    * {
+      font-size: 15px;
+    }
+
     .FontSizeS {
       font-size: 16px;
     }
