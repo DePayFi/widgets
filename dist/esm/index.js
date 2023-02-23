@@ -2398,12 +2398,13 @@ var ConnectWalletDialog = (function (props) {
           }));
 
           if (provider["native"]) {
-            href = isAndroid() ? href : "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
+            href = isAndroid() ? href : "".concat(href, "wc?uri=").concat(uri);
           } else {
-            href = "".concat(href, "/wc?uri=").concat(encodeURIComponent(uri));
+            href = "".concat(href, "/wc?uri=").concat(uri);
           }
 
           var target = provider["native"] && !provider.universal ? '_self' : '_blank';
+          console.log(href, target, 'noreferrer noopener');
           window.open(href, target, 'noreferrer noopener');
         }
       }).then(function (account) {

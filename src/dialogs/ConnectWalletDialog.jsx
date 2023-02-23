@@ -72,11 +72,12 @@ export default (props)=> {
           }
           localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: isAndroid() ? 'Android' : props.wallet.name }))
           if(provider.native) {
-            href = isAndroid() ? href : `${href}wc?uri=${encodeURIComponent(uri)}`
+            href = isAndroid() ? href : `${href}wc?uri=${uri}`
           } else {
-            href = `${href}/wc?uri=${encodeURIComponent(uri)}`
+            href = `${href}/wc?uri=${uri}`
           }
           let target = provider.native && !provider.universal ? '_self' : '_blank'
+          console.log(href, target, 'noreferrer noopener')
           window.open(href, target, 'noreferrer noopener')
         }
       }).then((account)=>{
