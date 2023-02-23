@@ -35,7 +35,7 @@ describe('Sale Widget: change payment', () => {
     resetMocks()
     resetCache()
     fetchMock.restore()
-    mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' }) })
+    mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' })
     provider = await getProvider(blockchain)
     
     ;({

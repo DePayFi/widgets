@@ -32,7 +32,7 @@ describe('Payment Widget: fromToken, fromAmount, toToken configuration', () => {
     resetMocks()
     resetCache()
     fetchMock.restore()
-    mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' }) })
+    mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' })
     provider = await getProvider(blockchain)
 
     ;({ TOKEN_A_AmountBN, WRAPPED_AmountInBN, TOKEN_B_AmountBN, exchange } = mockBasics({

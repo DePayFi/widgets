@@ -42,7 +42,7 @@ describe('Payment Widget: fix currency amounts', () => {
     resetMocks()
     resetCache()
     fetchMock.restore()
-    mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' }) })
+    mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' })
     provider = await getProvider(blockchain)
 
     ;({ TOKEN_A_AmountBN, WRAPPED_AmountInBN, exchange } = mockBasics({

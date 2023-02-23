@@ -38,7 +38,7 @@ describe('Donation Widget: insufficient balance', () => {
     resetMocks()
     resetCache()
     fetchMock.restore()
-    mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' }) })
+    mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' })
     provider = await getProvider(blockchain)
 
     mock(blockchain)

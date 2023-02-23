@@ -35,7 +35,7 @@ describe('Payment Widget: errors', () => {
     resetMocks()
     resetCache()
     fetchMock.restore()
-    mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' }) })
+    mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' })
     provider = await getProvider(blockchain)
 
     ;({ TOKEN_A_AmountBN } = mockBasics({
