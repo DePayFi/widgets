@@ -38,6 +38,7 @@ describe('Sale Widget: no wallet connected', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Sale({ ...defaultArguments, document })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="More options"]').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('button', 'What is a wallet?').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('p', 'Wallets are used to send, receive, and store digital assets. Wallets come in many forms. They are either built into your browser, an extension added to your browser, a piece of hardware plugged into your computer or even an app on your phone.')
       })

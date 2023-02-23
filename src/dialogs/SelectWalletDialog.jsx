@@ -98,7 +98,7 @@ export default (props)=>{
       }
       alternativeHeaderAction={
         <span className="DropDownWrapper">
-          <button type="button" onClick={ ()=>setShowDropDown(!showDropDown) } className="ButtonCircular" title="What is a wallet?">
+          <button type="button" onClick={ ()=>setShowDropDown(!showDropDown) } className="ButtonCircular" title="More options">
             <MenuIcon/>
           </button>
           { showDropDown && <DropDown hide={()=>setShowDropDown(false)}

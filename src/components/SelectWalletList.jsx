@@ -8,7 +8,7 @@ export default (props)=>{
 
   const { navigate } = useContext(NavigateStackContext)
   const parentElement = React.useRef()
-  const fuse = new Fuse(allWallets, { keys: ['name'], threshold: 0.3 })
+  const fuse = new Fuse(allWallets, { keys: ['name'], threshold: 0.3, ignoreFieldNorm: true })
   const [ resultList, setResultList ] = useState(allWallets)
   const rowVirtualizer = useVirtualizer({
     count: resultList.length,
