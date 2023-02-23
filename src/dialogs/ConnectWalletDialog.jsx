@@ -183,7 +183,7 @@ export default (props)=> {
 
           <div className="PaddingLeftL PaddingRightL PaddingTopL">
             { extensionIsAvailable &&
-              <div className="PaddingLeftM PaddingRightM PaddingBottomXS">
+              <div className="PaddingBottomXS">
                 { showConnectExtensionWarning &&
                   <div className="PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
                     <div className="Alert">
@@ -206,7 +206,7 @@ export default (props)=> {
               </div>
             }
             { props.wallet.link && !showQRCode &&
-              <div className="PaddingLeftM PaddingRightM PaddingBottomXS">
+              <div className="PaddingBottomXS">
                 <button onClick={ ()=>setShowQRCode(true) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS">
                   <span className="PaddingTopXS PaddingRightXS PaddingLeftS">
                     <img className="transparent " title="Scan QR code to connect a mobile wallet" style={{ height: '26px' }} src={ QRCodeImage }/>
@@ -220,7 +220,7 @@ export default (props)=> {
               </div>
             }
             { props.wallet.link && props.wallet.link == 'WalletConnectV1' &&
-              <div className="PaddingLeftM PaddingRightM PaddingBottomXS TooltipWrapper">
+              <div className="PaddingBottomXS TooltipWrapper">
                 <button onClick={ connectViaCopyLink } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS">
                   <span className="PaddingTopXS PaddingRightXS PaddingLeftS">
                     <img className="transparent " title="Copy connection link" style={{ height: '26px' }} src={ LinkImage }/>

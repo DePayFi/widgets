@@ -1,9 +1,11 @@
 import allWallets from '../helpers/allWallets'
 import Dialog from '../components/Dialog'
 import DropDown from '../components/DropDown'
+import isAndroid from '../helpers/isAndroid'
 import isMobile from '../helpers/isMobile'
 import MenuIcon from '../components/MenuIcon'
 import React, { useState, useEffect, useContext, useRef } from 'react'
+import safeAppUrl from '../helpers/safeAppUrl'
 import SelectWalletList from '../components/SelectWalletList'
 import { get as getPreviouslyConnectedWallet } from '../helpers/previouslyConnectedWallet'
 import { getWallets, wallets } from '@depay/web3-wallets'
@@ -51,7 +53,6 @@ export default (props)=>{
             }
           }
           let target = provider.native && !provider.universal ? '_self' : '_blank'
-          console.log(href, target, 'noreferrer noopener')
           window.open(href, target, 'noreferrer noopener')
         }
       }).then((account)=>{
@@ -68,7 +69,7 @@ export default (props)=>{
   }
 
   const onClickWallet = (wallet)=>{
-    connectViaRedirect(wallet)
+    if(wallet.via != 'detected') { connectViaRedirect(wallet) }
     props.setWallet(wallet)
     navigate('ConnectWallet')
   }
@@ -167,7 +168,7 @@ export default (props)=>{
       body={
         <div className="ScrollHeightM PaddingTopXS">
           { dialogAnimationFinished &&
-            <SelectWalletList setWallet={ props.setWallet } searchTerm={ searchTerm }/>
+            <SelectWalletList setWallet={ props.setWallet } searchTerm={ searchTerm } onClickWallet={ onClickWallet }/>
           }
         </div>
       }

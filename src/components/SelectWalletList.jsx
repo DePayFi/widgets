@@ -1,12 +1,10 @@
 import allWallets from '../helpers/allWallets'
 import Fuse from 'fuse.js'
 import React, { useState, useEffect, useRef, useContext } from 'react'
-import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { useVirtualizer } from '@tanstack/react-virtual'
 
 export default (props)=>{
 
-  const { navigate } = useContext(NavigateStackContext)
   const parentElement = React.useRef()
   const fuse = new Fuse(allWallets, { keys: ['name'], threshold: 0.3, ignoreFieldNorm: true })
   const [ resultList, setResultList ] = useState(allWallets)
@@ -55,10 +53,7 @@ export default (props)=>{
                 type="button"
                 className="Card small"
                 title={`Connect ${resultList[virtualItem.key].name}`}
-                onClick={()=>{
-                  props.setWallet({...resultList[virtualItem.key] })
-                  navigate('ConnectWallet')
-                }}
+                onClick={()=>{ props.onClickWallet({...resultList[virtualItem.key] }) }}
               >
                 <div className="CardImage">
                   <img className="transparent" src={resultList[virtualItem.key].logo} className="WalletLogoS"/>

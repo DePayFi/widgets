@@ -33,7 +33,7 @@ export default (props)=>{
         container={ props.container }
         document={ props.document }
         dialogs={{
-          SelectWallet: <SelectWalletDialog setWallet={ setWallet } />,
+          SelectWallet: <SelectWalletDialog setWallet={ setWallet } resolve={ resolve } />,
           WhatIsAWallet: <WhatIsAWalletDialog />,
           ConnectWallet: <ConnectWalletDialog selection={ selection } wallet={ wallet } resolve={ resolve } />
         }}
