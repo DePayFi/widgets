@@ -3068,16 +3068,16 @@ var SelectWalletDialog = (function (props) {
     });
   }, []);
   useEffect(function () {
-    if (!isMobile()) {
-      setTimeout(function () {
-        setDialogAnimationFinished(true);
+    setTimeout(function () {
+      setDialogAnimationFinished(true);
 
+      if (!isMobile()) {
         if (searchElement.current) {
           searchElement.current.click();
           searchElement.current.focus();
         }
-      }, 200);
-    }
+      }
+    }, 200);
   }, []);
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {

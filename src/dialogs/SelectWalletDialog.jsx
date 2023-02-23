@@ -69,15 +69,15 @@ export default (props)=>{
   }, [])
 
   useEffect(()=>{
-    if(!isMobile()) {
-      setTimeout(()=>{
-        setDialogAnimationFinished(true)
+    setTimeout(()=>{
+      setDialogAnimationFinished(true)
+      if(!isMobile()) {
         if(searchElement.current){
           searchElement.current.click()
           searchElement.current.focus()
         }
-      }, 200)
-    }
+      }
+    }, 200)
   }, [])
 
   return(
