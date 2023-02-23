@@ -1,6 +1,7 @@
 import allWallets from '../helpers/allWallets'
 import Dialog from '../components/Dialog'
 import DropDown from '../components/DropDown'
+import isMobile from '../helpers/isMobile'
 import MenuIcon from '../components/MenuIcon'
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import SelectWalletList from '../components/SelectWalletList'
@@ -68,13 +69,15 @@ export default (props)=>{
   }, [])
 
   useEffect(()=>{
-    setTimeout(()=>{
-      setDialogAnimationFinished(true)
-      if(searchElement.current){
-        searchElement.current.click()
-        searchElement.current.focus()
-      }
-    }, 200)
+    if(!isMobile()) {
+      setTimeout(()=>{
+        setDialogAnimationFinished(true)
+        if(searchElement.current){
+          searchElement.current.click()
+          searchElement.current.focus()
+        }
+      }, 200)
+    }
   }, [])
 
   return(
