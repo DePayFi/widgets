@@ -1156,8 +1156,7 @@
     "name": "AlphaWallet",
     "link": "WalletConnectV1",
     "mobile": {
-      "native": "awallet:",
-      "encoded": false
+      "native": "awallet:"
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/5b1cddfb-056e-4e78-029a-54de5d70c500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
   }, {
