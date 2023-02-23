@@ -71,15 +71,19 @@ export default (props)=> {
             href = isAndroid() ? uri : safeAppUrl(provider.native)
           }
           localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: isAndroid() ? 'Android' : props.wallet.name }))
+          console.log('HREF DEEPLINK', href)
+          console.log('URI BEFORE', uri)
           if(provider.universal) {
-            if(provider.encoded !== false) {
+            if(provider?.encode?.universal !== false) {
+              console.log('ENCODE UNVIERSAL!', encodeURIComponent(uri))
               href = `${href}/wc?uri=${encodeURIComponent(uri)}`
+              console.log('ENCODE UNVIERSAL! href', href)
             } else {
               href = `${href}/wc?uri=${uri}`
             }
           } else if(provider.native) {
             if(!isAndroid()) {
-              if(provider.encoded !== false) {
+              if(provider?.encode?.native !== false) {
                 href = `${href}wc?uri=${encodeURIComponent(uri)}`
               } else {
                 href = `${href}wc?uri=${uri}`
