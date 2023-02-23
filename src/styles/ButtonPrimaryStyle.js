@@ -9,7 +9,7 @@ export default (style)=>{
       border: 1px solid transparent;
       box-shadow: 0 0 16px rgba(0,0,0,0.1);
       font-size: 21px;
-      font-weight: 400;
+      font-weight: 500;
       line-height: 45px;
       height: 58px;
       justify-content: center;
