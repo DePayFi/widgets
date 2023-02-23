@@ -8,8 +8,8 @@ export default (style)=>{
       border-radius: 13px;
       border: 1px solid transparent;
       box-shadow: 0 0 16px rgba(0,0,0,0.1);
-      font-size: 21px;
-      font-weight: 500;
+      font-size: 22px;
+      font-weight: 400;
       line-height: 45px;
       height: 58px;
       justify-content: center;
