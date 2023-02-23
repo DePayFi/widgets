@@ -42,7 +42,7 @@ describe('Donation Widget: amount in USD token', () => {
     resetMocks()
     resetCache()
     fetchMock.restore()
-    mock({ blockchain, accounts: { return: accounts } })
+    mock({ mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' }) })
     provider = await getProvider(blockchain)
 
     ;({
@@ -120,6 +120,7 @@ describe('Donation Widget: amount in USD token', () => {
       cy.document().then((document)=>{
         DePayWidgets.Donation({ ...defaultArguments, document })
         cy.wait(3000).then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"] .TokenSymbolCell').should('contain', 'DAI')
         })
       })

@@ -31,7 +31,7 @@ describe('Sale Widget: style', () => {
     resetMocks()
     resetCache()
     fetchMock.restore()
-    mock({ blockchain, accounts: { return: accounts } })
+    mock({ mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' }) })
     provider = await getProvider(blockchain)
 
     ;({ TOKEN_A_AmountBN } = mockBasics({
@@ -108,6 +108,7 @@ describe('Sale Widget: style', () => {
             `
           }
         })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('have.css', 'background-color', 'rgb(255, 210, 101)')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('have.css', 'color', 'rgb(0, 0, 0)')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('style').should('contain.text', 'https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap')

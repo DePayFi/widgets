@@ -36,7 +36,7 @@ describe('Payment Widget: blacklist', () => {
     resetMocks()
     resetCache()
     fetchMock.restore()
-    mock({ blockchain, accounts: { return: accounts } })
+    mock({ mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' }) })
     provider = await getProvider(blockchain)
     
     ;({ WRAPPED_AmountInBN, TOKEN_A_AmountBN } = mockBasics({
@@ -115,6 +115,7 @@ describe('Payment Widget: blacklist', () => {
               ]
             }
           })
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
 
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').should('not.exist')

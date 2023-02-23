@@ -27,9 +27,7 @@ describe('Sale Widget: no wallet connected', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Sale({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Select a wallet')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.CardText', 'via WalletConnect')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Connect via WalletConnect"]').find('.CardImage img')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Connect a wallet')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.CardText', 'Coinbase')
       })
     })

@@ -37,7 +37,7 @@ describe('Donation Widget: whitelist', () => {
     resetMocks()
     resetCache()
     fetchMock.restore()
-    mock({ blockchain, accounts: { return: accounts } })
+    mock({ mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' }) })
     provider = await getProvider(blockchain)
     
     ;({ WRAPPED_AmountInBN, TOKEN_A_AmountBN, exchange } = mockBasics({
@@ -130,6 +130,7 @@ describe('Donation Widget: whitelist', () => {
               ]
             }
           })
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
           
           cy.get('.Card[title="Select DEPAY as payment"]', { includeShadowDom: true }).should('not.exist')
