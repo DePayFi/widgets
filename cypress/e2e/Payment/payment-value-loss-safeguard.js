@@ -43,7 +43,7 @@ describe('Payment Widget: value loss safeguard', () => {
     resetMocks()
     resetCache()
     fetchMock.restore()
-    mock({ mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' }) })
+    mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' }) })
     provider = await getProvider(blockchain)
 
     ;({
