@@ -135,8 +135,8 @@ describe('Donation Widget: overview', () => {
         DePayWidgets.Donation({ ...defaultArguments, document,
           closed: ()=>{ closedCalled = true } 
         })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.wait(1000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click({ force: true })
           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
             expect(closedCalled).to.equal(true)
@@ -188,6 +188,7 @@ describe('Donation Widget: overview', () => {
         cy.visit('cypress/test.html').then((contentWindow) => {
           cy.document().then((document)=>{
             DePayWidgets.Donation({ ...defaultArguments, document })
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Skeleton')
           })
         })
@@ -197,6 +198,7 @@ describe('Donation Widget: overview', () => {
         cy.visit('cypress/test.html').then((contentWindow) => {
           cy.document().then((document)=>{
             DePayWidgets.Donation({ ...defaultArguments, document })
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
             cy.wait(1000).then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click({ force: true })
               cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
@@ -353,11 +355,11 @@ describe('Donation Widget: overview', () => {
           let NEW_TOKEN_B_AmountBN_mock_count
           let NEW_USD_AmountOutBN_mock_count
           DePayWidgets.Donation({ ...defaultArguments, document })
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('35', 18)
           let NEW_TOKEN_B_AmountBN_mock = mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
           let NEW_USD_AmountOutBN = ethers.utils.parseUnits('35', 18)
           let NEW_USD_AmountOutBN_mock = mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsOut', params: [TOKEN_A_AmountBN, [DEPAY, CONSTANTS[blockchain].WRAPPED, DAI]], return: [TOKEN_A_AmountBN, WRAPPED_AmountInBN, NEW_USD_AmountOutBN] }})
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.wait(2000).then(()=>{
             NEW_TOKEN_B_AmountBN_mock_count = NEW_TOKEN_B_AmountBN_mock.calls.count()
             NEW_USD_AmountOutBN_mock_count = NEW_USD_AmountOutBN_mock.calls.count()
