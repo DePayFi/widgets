@@ -2862,7 +2862,8 @@ var SelectWalletList = (function (props) {
   var parentElement = React.useRef();
   var fuse = new Fuse(allWallets, {
     keys: ['name'],
-    threshold: 0.3
+    threshold: 0.3,
+    ignoreFieldNorm: true
   });
 
   var _useState = useState(allWallets),
@@ -3091,7 +3092,7 @@ var SelectWalletDialog = (function (props) {
         return setShowDropDown(!showDropDown);
       },
       className: "ButtonCircular",
-      title: "What is a wallet?"
+      title: "More options"
     }, /*#__PURE__*/React.createElement(MenuIcon, null)), showDropDown && /*#__PURE__*/React.createElement(DropDown, {
       hide: function hide() {
         return setShowDropDown(false);

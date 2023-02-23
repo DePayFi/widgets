@@ -2856,7 +2856,8 @@
     var parentElement = React__default['default'].useRef();
     var fuse = new Fuse__default['default'](allWallets, {
       keys: ['name'],
-      threshold: 0.3
+      threshold: 0.3,
+      ignoreFieldNorm: true
     });
 
     var _useState = React.useState(allWallets),
@@ -3085,7 +3086,7 @@
           return setShowDropDown(!showDropDown);
         },
         className: "ButtonCircular",
-        title: "What is a wallet?"
+        title: "More options"
       }, /*#__PURE__*/React__default['default'].createElement(MenuIcon, null)), showDropDown && /*#__PURE__*/React__default['default'].createElement(DropDown, {
         hide: function hide() {
           return setShowDropDown(false);
