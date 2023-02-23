@@ -1,11 +1,10 @@
 import allWallets from '../helpers/allWallets'
 import Dialog from '../components/Dialog'
 import DropDown from '../components/DropDown'
-import isAndroid from '../helpers/isAndroid'
 import isMobile from '../helpers/isMobile'
 import MenuIcon from '../components/MenuIcon'
 import React, { useState, useEffect, useContext, useRef } from 'react'
-import safeAppUrl from '../helpers/safeAppUrl'
+import safeUniversalUrl from '../helpers/safeUniversalUrl'
 import SelectWalletList from '../components/SelectWalletList'
 import { get as getPreviouslyConnectedWallet } from '../helpers/previouslyConnectedWallet'
 import { getWallets, wallets } from '@depay/web3-wallets'
@@ -20,56 +19,8 @@ export default (props)=>{
   const searchElement = useRef()
   const { navigate } = useContext(NavigateStackContext)
 
-  const connectViaRedirect = (walletMetaData)=> {
-    const provider = isMobile() ? walletMetaData.mobile : walletMetaData.desktop
-    if(!provider) { return }
-    if(walletMetaData.link == 'WalletConnectV1') {
-      let wallet = new wallets[walletMetaData.link]()
-      wallet.connect({
-        name: walletMetaData.name,
-        logo: walletMetaData.logo,
-        reconnect: true,
-        connect: ({ uri })=>{
-          let href
-          if(provider.universal) {
-            href = safeUniversalUrl(provider.universal)
-          } else {
-            href = isAndroid() ? uri : safeAppUrl(provider.native)
-          }
-          localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: isAndroid() ? 'Android' : walletMetaData.name }))
-          if(provider.universal) {
-            if(provider.encoded !== false) {
-              href = `${href}/wc?uri=${encodeURIComponent(uri)}`
-            } else {
-              href = `${href}/wc?uri=${uri}`
-            }
-          } else if(provider.native) {
-            if(!isAndroid()) {
-              if(provider.encoded !== false) {
-                href = `${href}wc?uri=${encodeURIComponent(uri)}`
-              } else {
-                href = `${href}wc?uri=${uri}`
-              }
-            }
-          }
-          let target = provider.native && !provider.universal ? '_self' : '_blank'
-          window.open(href, target, 'noreferrer noopener')
-        }
-      }).then((account)=>{
-        props.resolve(account, wallet)
-      })
-    } else if (walletMetaData.link == 'WalletLink') {
-      setPreviouslyConnectedWallet(walletMetaData.name)
-      if(isAndroid()) {
-        window.open(`https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
-      } else { // IOS
-        window.open(`cbwallet://dapp?url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
-      }
-    }
-  }
-
   const onClickWallet = (wallet)=>{
-    if(wallet.via != 'detected') { connectViaRedirect(wallet) }
+    if(wallet.via != 'detected') { props.connectViaRedirect(wallet) }
     props.setWallet(wallet)
     navigate('ConnectWallet')
   }
