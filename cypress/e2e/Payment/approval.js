@@ -39,7 +39,7 @@ describe('Payment Widget: approval', () => {
     resetMocks()
     resetCache()
     fetchMock.restore()
-    mock({ blockchain, accounts: { return: accounts } })
+    mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' })
     provider = await getProvider(blockchain)
 
     ;({ TOKEN_A_AmountBN } = mockBasics({
@@ -122,6 +122,7 @@ describe('Payment Widget: approval', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Allow DAI to be used as payment').click()
@@ -149,6 +150,7 @@ describe('Payment Widget: approval', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').then(()=>{
           cy.contains('.ButtonPrimary', 'Approve', { includeShadowDom: true }).should('not.exist')
         })
@@ -171,6 +173,7 @@ describe('Payment Widget: approval', () => {
     })
     cy.document().then((document)=>{
       DePayWidgets.Payment({ ...defaultArguments, document })
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
       cy.wait(500).then(()=>{ // wait for dialog
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()

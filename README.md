@@ -1843,6 +1843,17 @@ DePayWidgets.Login({ message, recover: ({ message, signature })=>{
 })
 ```
 
+### Sign message containing the account address
+
+In case you want to include the wallet account identifier in the to be signed message, pass a callback function returning a string to `message`:
+
+```javascript
+let account = await DePayWidgets.Login({
+  message: (account)=>`Click to log in to DePay and to accept DePay's Terms of Service: https://depay.com/legal/terms\n${dateTime}\n${account}`
+})
+console.log("Logged in via signature", account)
+```
+
 ### Rejections
 
 1. Rejects if user just closes the dialog without connecting any wallet:

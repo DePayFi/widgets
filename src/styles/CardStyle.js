@@ -4,6 +4,7 @@ export default (style)=>{
     .Card {
       align-items: center;
       background: rgb(255,255,255);
+      border: 1px solid transparent;
       border-radius: 13px;
       box-shadow: 0 0 8px rgba(0,0,0,0.03);
       cursor: pointer;
@@ -13,6 +14,14 @@ export default (style)=>{
       min-height: 76px;
       padding: 16px 10px;
       width: 100%;
+    }
+
+    .Card:focus {
+      border: 1px solid ${style.colors.primary};
+    }
+
+    .Card.center {
+      justify-content: center;
     }
 
     .Card.Row {
@@ -91,6 +100,15 @@ export default (style)=>{
     .CardImage.small img {
       height: 27px;
       width: 27px;
+    }
+
+    .CardImage.large {
+      width: 58px;
+    }
+
+    .CardImage.large img {
+      height: 58px;
+      width: 58px;
     }
 
     .Card.disabled {
@@ -174,6 +192,10 @@ export default (style)=>{
       position: relative;
       vertical-align: middle;
       width: 45px;
+    }
+
+    .CardImage.rounded img {
+      border-radius: 8px !important;
     }
 
     .CardImage.square img {

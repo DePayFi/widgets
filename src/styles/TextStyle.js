@@ -5,6 +5,10 @@ export default (style)=>{
       color: ${style.colors.text};
     }
 
+    .LightGreen {
+      color: rgba(50,160,60);
+    }
+
     h1, h2, h3, h4, h5, h6 {
       display: block;
     }
@@ -20,6 +24,10 @@ export default (style)=>{
 
     .TextCenter, .TextCenter * {
       text-align: center;
+    }
+
+    .LineHeightXS {
+      line-height: 16px;
     }
 
     .LineHeightL {

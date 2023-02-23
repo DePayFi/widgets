@@ -35,7 +35,6 @@ export default (props)=>{
         SelectMarketplace: <SelectNFTPlatformDialog selection={ selection } resolve={ props.resolve } unmount={ props.unmount } />,
         SelectNFTContractOnOpenSea: <SelectNFTContractOnOpenSeaDialog selection={ selection } resolve={ props.resolve } unmount={ props.unmount } />,
         SelectNFTIdOnOpenSea: <SelectNFTIdOnOpenSeaDialog selection={ selection } resolve={ props.resolve } unmount={ props.unmount } />,
-        SelectBlockchain: <SelectNFTIdOnOpenSeaDialog selection={ selection } resolve={ props.resolve } unmount={ props.unmount } />,
         EnterNFTDataForOpenSea: <EnterNFTDataForOpenSeaDialog selection={ selection } resolve={ props.resolve } unmount={ props.unmount } />,
         SelectBlockchain: <SelectBlockchainDialog selection={ selection } stacked={ true } resolve={ props.resolve } unmount={ props.unmount } />,
         ConfirmNFTSelection: <ConfirmNFTSelectionDialog selection={ selection } resolve={ props.resolve } unmount={ props.unmount } />,

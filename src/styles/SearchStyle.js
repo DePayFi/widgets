@@ -4,6 +4,7 @@ export default (style)=>{
     .Search {
       border-radius: 13px;
       border: 1px solid rgba(0,0,0,0.2);
+      background: white;
       outline: none !important;
       color: ${style.colors.text};
       font-size: 19px;

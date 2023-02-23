@@ -36,7 +36,7 @@ describe('Payment Widget: connected callback', () => {
     resetMocks()
     resetCache()
     fetchMock.restore()
-    mock({ blockchain, accounts: { return: accounts } })
+    mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' })
     provider = await getProvider(blockchain)
 
     ;({ TOKEN_A_AmountBN } = mockBasics({
@@ -97,16 +97,17 @@ describe('Payment Widget: connected callback', () => {
   it('call configured connected callback with connected address', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
-      cy.document().then(async (document)=>{
+      cy.document().then((document)=>{
         let connectedAddress
-        await DePayWidgets.Payment({ ...defaultArguments,
+        DePayWidgets.Payment({ ...defaultArguments, document,
           connected: (address)=>{
             connectedAddress = address
           }
         })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.wait(1000).then(()=>{
           expect(connectedAddress).to.eq(fromAddress)
-        })        
+        })  
       })
     })
   })

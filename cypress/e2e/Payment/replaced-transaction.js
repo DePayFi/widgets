@@ -37,7 +37,7 @@ describe('Payment Widget: detects replaced transaction', () => {
     resetMocks()
     resetCache()
     fetchMock.restore()
-    mock({ blockchain, accounts: { return: accounts } })
+    mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' })
     provider = await getProvider(blockchain)
 
     ;({ TOKEN_A_AmountBN } = mockBasics({
@@ -146,6 +146,7 @@ describe('Payment Widget: detects replaced transaction', () => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
@@ -215,6 +216,7 @@ describe('Payment Widget: detects replaced transaction', () => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
@@ -275,6 +277,7 @@ describe('Payment Widget: detects replaced transaction', () => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
@@ -338,6 +341,7 @@ describe('Payment Widget: detects replaced transaction', () => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
@@ -389,6 +393,7 @@ describe('Payment Widget: detects replaced transaction', () => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €28.05')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')

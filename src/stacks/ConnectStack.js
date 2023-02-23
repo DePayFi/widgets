@@ -1,69 +1,44 @@
+import allWallets from '../helpers/allWallets'
 import ClosableContext from '../contexts/ClosableContext'
-import ConnectingWalletDialog from '../dialogs/ConnectingWalletDialog'
+import ConnectWalletDialog from '../dialogs/ConnectWalletDialog'
+import PoweredBy from '../components/PoweredBy'
 import React, { useState, useContext, useEffect } from 'react'
+import SelectBlockchainDialog from '../dialogs/SelectBlockchainDialog'
 import SelectWalletDialog from '../dialogs/SelectWalletDialog'
-import { ReactDialogStack } from '@depay/react-dialog-stack'
+import WhatIsAWalletDialog from '../dialogs/WhatIsAWalletDialog'
 import { getWallets } from '@depay/web3-wallets'
+import { ReactDialogStack } from '@depay/react-dialog-stack'
+import { set as setPreviouslyConnectedWallet } from '../helpers/previouslyConnectedWallet'
 
 export default (props)=>{
 
   const { open, close } = useContext(ClosableContext)
-  const [ pending, setPending ] = useState()
   const [ wallet, setWallet ] = useState()
-
-  const connect = (wallet)=> {
-    wallet.connect().then(async ()=>{
-      let account = await wallet.account()
-      if(account) {
-        if(props.autoClose) close()
-        if(props.resolve) props.resolve({ wallet, account })
-      } else {
-      }
-    }).catch((error)=>{
-      setPending(false)
-      if(error?.code == 4001) { 
-        // User rejected the request.
-        return 
-      } else if(error?.code == -32002) { 
-        // Request of type 'wallet_requestPermissions' already pending...
-        setPending(true)
-        return 
-      } else {
-        if(props.reject) props.reject(error)
-      }
-    })
+  const [ selection, setSelection ] = useState({ blockchain: undefined })
+  const resolve = (account, wallet)=> {
+    if(account && wallet) {
+      let walletMeta = allWallets.find((walletMeta)=>walletMeta.extension == wallet.name) || allWallets.find((walletMeta)=>walletMeta.name == wallet.name)
+      setPreviouslyConnectedWallet(walletMeta.name)
+      if(props.autoClose) close()
+      if(props.resolve) props.resolve({ account, wallet })
+    }
   }
 
-  useEffect(()=> {
-    let wallet = getWallets()[0]
-    if(wallet) { setWallet(wallet) }
-  }, [])
-
-  useEffect(()=>{
-    (
-      async ()=>{
-        if(wallet) {
-          let account = await wallet.account()
-          if(account) {
-            if(props.autoClose) close()
-            if(props.resolve) props.resolve({ wallet, account })
-          }
-        }
-      }
-    )()
-  }, [wallet])
-
   return(
-    <ReactDialogStack
-      open={ open }
-      close={ close }
-      start='SelectWallet'
-      container={ props.container }
-      document={ props.document }
-      dialogs={{
-        SelectWallet: <SelectWalletDialog setWallet={ setWallet } connect={ connect } />,
-        ConnectingWallet: <ConnectingWalletDialog wallet={ wallet } pending={ pending } connect={ connect } />
-      }}
-    />
+    <div>
+      <ReactDialogStack
+        open={ open }
+        close={ close }
+        start='SelectWallet'
+        container={ props.container }
+        document={ props.document }
+        dialogs={{
+          SelectWallet: <SelectWalletDialog setWallet={ setWallet } />,
+          WhatIsAWallet: <WhatIsAWalletDialog />,
+          ConnectWallet: <ConnectWalletDialog selection={ selection } wallet={ wallet } resolve={ resolve } />
+        }}
+      />
+      <PoweredBy/>
+    </div>
   )
 }

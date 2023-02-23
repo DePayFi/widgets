@@ -12,10 +12,14 @@ export default {
   '@depay/web3-payments': 'Web3Payments',
   '@depay/web3-tokens': 'Web3Tokens',
   '@depay/web3-wallets': 'Web3Wallets',
+  '@tanstack/react-virtual': 'ReactVirtual',
+  '@uiw/copy-to-clipboard': 'copyTextToClipboard',
   'ethers': 'ethers',
+  'fuse.js': 'Fuse',
   'react': 'React',
   'react-dom': 'ReactDOM',
   'react-error-boundary': 'ErrorBoundary',
   'react-rangeslider': 'ReactRangeslider',
+  'qr-code-styling': 'QRCodeStyling',
   'decimal.js': 'Decimal'
 }

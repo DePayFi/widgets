@@ -36,7 +36,7 @@ describe('Payment Widget: unmount', () => {
     resetMocks()
     resetCache()
     fetchMock.restore()
-    mock({ blockchain, accounts: { return: accounts } })
+    mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' })
     provider = await getProvider(blockchain)
 
     ;({ TOKEN_A_AmountBN } = mockBasics({
@@ -99,6 +99,7 @@ describe('Payment Widget: unmount', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then(async (document)=>{
         let { unmount } = await DePayWidgets.Payment({ ...defaultArguments, document })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').then(()=>{
           unmount()
           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
