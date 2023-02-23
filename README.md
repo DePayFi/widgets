@@ -1843,7 +1843,7 @@ DePayWidgets.Login({ message, recover: ({ message, signature })=>{
 })
 ```
 
-### Message function (pass account)
+### Sign message containing the account address
 
 In case you want to include the wallet account identifier in the to be signed message, pass a callback function returning a string to `message`:
 
