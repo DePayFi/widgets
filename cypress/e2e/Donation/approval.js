@@ -177,6 +177,7 @@ describe('Donation Widget: approval', () => {
     })
     cy.document().then((document)=>{
       DePayWidgets.Donation({ ...defaultArguments, document })
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
       cy.wait(500).then(()=>{ // wait for dialog
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
