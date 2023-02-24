@@ -24902,7 +24902,12 @@ var SignLoginDialog = (function (props) {
       recoverSignature({
         message: messageToSign,
         signature: signature
-      }).then(props.resolve)["catch"](setError);
+      }).then(function (account) {
+        props.resolve({
+          account: account,
+          wallet: wallet
+        });
+      })["catch"](setError);
     })["catch"](function (error) {
       if (error && error.code && error.code == 4001) ; else {
         setError(error);
@@ -25001,10 +25006,15 @@ var Login = function Login(options) {
                   }, /*#__PURE__*/React.createElement(LoginStack, {
                     document: document,
                     container: container,
-                    resolve: function resolve(account) {
+                    resolve: function resolve(_ref2) {
+                      var account = _ref2.account,
+                          wallet = _ref2.wallet;
                       unmount();
 
-                      _resolve(account);
+                      _resolve({
+                        account: account,
+                        wallet: wallet
+                      });
                     }
                   }), /*#__PURE__*/React.createElement(PoweredBy, null))))));
                 };

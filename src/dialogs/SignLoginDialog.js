@@ -45,7 +45,9 @@ export default (props)=> {
       messageToSign = message
     }
     wallet.sign(messageToSign).then((signature)=>{
-      recoverSignature({ message: messageToSign, signature }).then(props.resolve).catch(setError)
+      recoverSignature({ message: messageToSign, signature }).then((account)=>{
+        props.resolve({ account, wallet })
+      }).catch(setError)
     }).catch((error)=>{
       if(error && error.code && error.code == 4001) {
         // nothing happens

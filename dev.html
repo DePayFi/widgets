@@ -1024,10 +1024,11 @@
                     var button = document.getElementById("loginButton");
                     button.addEventListener("click",async function(e){
                       let dateTime = new Date().toISOString().slice(0, 19);
-                      let account = await DePayWidgets.Login({
+                      let { account, wallet } = await DePayWidgets.Login({
                         message: `Click to log in to DePay and to accept DePay's Terms of Service: https://depay.com/legal/terms\n${dateTime}`
                       })
-                      console.log("Logged in via signature", account)
+                      console.log("Logged in via signature account", account)
+                      console.log("Logged in via signature wallet", wallet)
                     });
                 </script>
               </div>

@@ -25,7 +25,7 @@ describe('Wallet Login', () => {
     }, accounts[0])
 
     cy.document().then(async (document)=>{
-      let accountLoggedIn
+      let accountLoggedIn, walletLoggedIn
       mock({
         blockchain,
         accounts: { return: accounts },
@@ -35,14 +35,16 @@ describe('Wallet Login', () => {
           return: rawSignature
         },
       })
-      DePayWidgets.Login({ document, message}).then((account)=>{
+      DePayWidgets.Login({ document, message }).then(({ account, wallet })=>{
         accountLoggedIn = account
+        walletLoggedIn = wallet
       })
       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
       cy.wait(1000).then(()=>{
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Log in').click()
         cy.wait(1000).then(()=>{
           expect(accountLoggedIn).to.eq(accounts[0])
+          expect(walletLoggedIn != undefined).to.eq(true)
         })
       })
     })
@@ -70,7 +72,7 @@ describe('Wallet Login', () => {
           return: rawSignature
         }
       })
-      DePayWidgets.Login({ document, message, endpoint: 'https://example.com/login' }).then((account)=>{
+      DePayWidgets.Login({ document, message, endpoint: 'https://example.com/login' }).then(({ account })=>{
         accountLoggedIn = account
       })
       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
@@ -105,7 +107,7 @@ describe('Wallet Login', () => {
           return: rawSignature
         }
       })
-      DePayWidgets.Login({ document, message: (account)=>(`Sign to login ${account}`), endpoint: 'https://example.com/login' }).then((account)=>{
+      DePayWidgets.Login({ document, message: (account)=>(`Sign to login ${account}`), endpoint: 'https://example.com/login' }).then(({ account })=>{
         accountLoggedIn = account
       })
       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
@@ -158,7 +160,7 @@ describe('Wallet Login', () => {
               }
             })
         })
-      }}).then((account)=>{
+      }}).then(({ account })=>{
         accountLoggedIn = account
       })
       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
@@ -195,7 +197,7 @@ describe('Wallet Login', () => {
             return: rawSignature
           }
         })
-        DePayWidgets.Login({ document, message}).then((account)=>{
+        DePayWidgets.Login({ document, message}).then(({ account })=>{
           accountLoggedIn = account
         })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()

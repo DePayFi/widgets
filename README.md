@@ -1778,7 +1778,7 @@ Returns `account` if successfully signed and recovered log in message.
 
 ```javascript
 let message = "Sign to login"
-let account = await DePayWidgets.Login({ message })
+let { account, wallet } = await DePayWidgets.Login({ message })
 ```
 
 Connects wallet and instructs connected wallet to sign `message`, afterwards sends `signature` and `message` to `POST /login` (or `endpoint` if defined):
@@ -1848,7 +1848,7 @@ DePayWidgets.Login({ message, recover: ({ message, signature })=>{
 In case you want to include the wallet account identifier in the to be signed message, pass a callback function returning a string to `message`:
 
 ```javascript
-let account = await DePayWidgets.Login({
+let { account } = await DePayWidgets.Login({
   message: (account)=>`Click to log in to DePay and to accept DePay's Terms of Service: https://depay.com/legal/terms\n${dateTime}\n${account}`
 })
 console.log("Logged in via signature", account)

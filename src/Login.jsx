@@ -31,9 +31,9 @@ let Login = (options) => {
                   <LoginStack
                     document={ document }
                     container={ container }
-                    resolve={ (account)=>{
+                    resolve={ ({ account, wallet })=>{
                       unmount()
-                      resolve(account)
+                      resolve({ account, wallet })
                     }}
                   />
                   <PoweredBy/>
