@@ -946,6 +946,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "cbwallet://dapp?url="
+    },
+    "android": {
+      "native": "cbwallet://dapp?url="
     }
   },
   "logo": "data:image/svg+xml;base64,PHN2ZyBpZD0nTGF5ZXJfMScgZGF0YS1uYW1lPSdMYXllciAxJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB2aWV3Qm94PScwIDAgNDg4Ljk2IDQ4OC45Nic+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOnVybCgjbGluZWFyLWdyYWRpZW50KTt9LmNscy0ye2ZpbGw6IzQzNjFhZDt9PC9zdHlsZT48bGluZWFyR3JhZGllbnQgaWQ9J2xpbmVhci1ncmFkaWVudCcgeDE9JzI1MCcgeTE9JzcuMzUnIHgyPScyNTAnIHkyPSc0OTYuMzInIGdyYWRpZW50VHJhbnNmb3JtPSdtYXRyaXgoMSwgMCwgMCwgLTEsIDAsIDUwMiknIGdyYWRpZW50VW5pdHM9J3VzZXJTcGFjZU9uVXNlJz48c3RvcCBvZmZzZXQ9JzAnIHN0b3AtY29sb3I9JyMzZDViYTknLz48c3RvcCBvZmZzZXQ9JzEnIHN0b3AtY29sb3I9JyM0ODY4YjEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cGF0aCBjbGFzcz0nY2xzLTEnIGQ9J00yNTAsNS42OEMxMTQuODcsNS42OCw1LjUyLDExNSw1LjUyLDI1MC4xN1MxMTQuODcsNDk0LjY1LDI1MCw0OTQuNjUsNDk0LjQ4LDM4NS4yOSw0OTQuNDgsMjUwLjE3LDM4NS4xMyw1LjY4LDI1MCw1LjY4Wm0wLDM4Ny41NEExNDMuMDYsMTQzLjA2LDAsMSwxLDM5My4wNSwyNTAuMTcsMTQzLjExLDE0My4xMSwwLDAsMSwyNTAsMzkzLjIyWicgdHJhbnNmb3JtPSd0cmFuc2xhdGUoLTUuNTIgLTUuNjgpJy8+PHBhdGggY2xhc3M9J2Nscy0yJyBkPSdNMjg0LjY5LDI5Ni4wOUgyMTUuMzFhMTEsMTEsMCwwLDEtMTAuOS0xMC45VjIxNS40OGExMSwxMSwwLDAsMSwxMC45LTEwLjkxSDI4NWExMSwxMSwwLDAsMSwxMC45LDEwLjkxdjY5LjcxQTExLjA3LDExLjA3LDAsMCwxLDI4NC42OSwyOTYuMDlaJyB0cmFuc2Zvcm09J3RyYW5zbGF0ZSgtNS41MiAtNS42OCknLz48L3N2Zz4="
@@ -955,6 +958,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "trust:"
+    },
+    "android": {
       "native": "trust:"
     }
   },
@@ -989,6 +995,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "cryptowallet:"
+    },
+    "android": {
+      "native": "cryptowallet:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7c5ff577-a68d-49c5-02cd-3d83637b0b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -998,6 +1007,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "coin98:"
+    },
+    "android": {
       "native": "coin98:"
     }
   },
@@ -1012,6 +1024,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "rainbow:"
+    },
+    "android": {
+      "native": "rainbow:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7a33d7f1-3d12-4b5c-f3ee-5cd83cb1b500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1020,6 +1035,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "argent://app"
+    },
+    "android": {
       "native": "argent://app"
     }
   },
@@ -1030,6 +1048,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "gnosissafe:"
+    },
+    "android": {
+      "native": "gnosissafe:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a1cb2777-f8f9-49b0-53fd-443d20ee0b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1039,6 +1060,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "imtokenv2:"
+    },
+    "android": {
+      "native": "imtokenv2:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1991f85d-43d4-4165-3502-cd6ef8312b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1047,6 +1071,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "ontoprovider:"
+    },
+    "android": {
       "native": "ontoprovider:"
     }
   },
@@ -1060,6 +1087,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "zerion://"
+    },
+    "android": {
+      "native": "zerion://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f216b371-96cf-409a-9d88-296392b85800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1068,6 +1098,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "spot://"
+    },
+    "android": {
       "native": "spot://"
     }
   },
@@ -1078,6 +1111,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "bitkeep://"
+    },
+    "android": {
+      "native": "bitkeep://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3f7075d0-4ab7-4db5-404d-3e4c05e6fe00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1086,6 +1122,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "unstoppabledomains:"
+    },
+    "android": {
       "native": "unstoppabledomains:"
     }
   },
@@ -1096,6 +1135,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "omni"
+    },
+    "android": {
+      "native": "omni"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2cd67b4c-282b-4809-e7c0-a88cd5116f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1104,6 +1146,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "keyring:"
+    },
+    "android": {
       "native": "keyring:"
     }
   },
@@ -1114,6 +1159,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "tpoutside:"
+    },
+    "android": {
+      "native": "tpoutside:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f3119826-4ef5-4d31-4789-d4ae5c18e400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1123,6 +1171,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "bitpay:"
+    },
+    "android": {
+      "native": "bitpay:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/97d4429f-eaf0-4302-87f5-9d26d46fe700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1131,6 +1182,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "mathwallet:"
+    },
+    "android": {
       "native": "mathwallet:"
     }
   },
@@ -1148,6 +1202,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "ledgerlive:"
+    },
+    "android": {
+      "native": "ledgerlive:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a7f416de-aa03-4c5e-3280-ab49269aef00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1161,6 +1218,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "1inch:"
+    },
+    "android": {
+      "native": "1inch:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/dce1ee99-403f-44a9-9f94-20de30616500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1170,6 +1230,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "huobiwallet:"
+    },
+    "android": {
+      "native": "huobiwallet:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/5cd60c34-038d-470c-c024-d58f64260200?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1178,6 +1241,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "eidoo:"
+    },
+    "android": {
       "native": "eidoo:"
     }
   },
@@ -1196,6 +1262,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "coolwallet:"
+    },
+    "android": {
+      "native": "coolwallet:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f581365d-e844-4d21-8e35-44a755a32d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1204,6 +1273,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "moneyunstoppable:"
+    },
+    "android": {
       "native": "moneyunstoppable:"
     }
   },
@@ -1218,6 +1290,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "awallet:"
+    },
+    "android": {
+      "native": "awallet:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/5b1cddfb-056e-4e78-029a-54de5d70c500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1226,6 +1301,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "pillarwallet:"
+    },
+    "android": {
       "native": "pillarwallet:"
     }
   },
@@ -1236,6 +1314,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "dcent:"
+    },
+    "android": {
+      "native": "dcent:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1efb49ec-2bab-4fa1-f2f2-4392c64ed000?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1244,6 +1325,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "zel:"
+    },
+    "android": {
       "native": "zel:"
     }
   },
@@ -1254,6 +1338,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "nash:"
+    },
+    "android": {
+      "native": "nash:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/12f981b1-bb0a-4115-009f-317255979600?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1262,6 +1349,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "coinomi:"
+    },
+    "android": {
       "native": "coinomi:"
     }
   },
@@ -1275,6 +1365,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "cybavowallet:"
+    },
+    "android": {
       "native": "cybavowallet:"
     }
   },
@@ -1299,6 +1392,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "safepalwallet:"
+    },
+    "android": {
       "native": "safepalwallet:"
     }
   },
@@ -1328,6 +1424,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "bridgewallet:"
+    },
+    "android": {
+      "native": "bridgewallet:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/989d504f-93db-4ca6-c00a-9d1faf177d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1336,6 +1435,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "sparkpoint:"
+    },
+    "android": {
       "native": "sparkpoint:"
     }
   },
@@ -1353,6 +1455,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "peakdefiwallet:"
+    },
+    "android": {
       "native": "peakdefiwallet:"
     }
   },
@@ -1375,6 +1480,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "ellipal:"
+    },
+    "android": {
+      "native": "ellipal:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/0a805e10-bfc0-4d02-d9c1-8cec88f0dc00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1384,6 +1492,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "aktionariat:"
+    },
+    "android": {
+      "native": "aktionariat:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/6d18e8ea-b536-4038-c5bf-94a499d5a400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1392,6 +1503,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "talken-wallet:"
+    },
+    "android": {
       "native": "talken-wallet:"
     }
   },
@@ -1406,6 +1520,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "kyberswap:"
+    },
+    "android": {
+      "native": "kyberswap:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3abd1720-260e-495a-2e31-3d0b349e0d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1414,6 +1531,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "tongue:"
+    },
+    "android": {
       "native": "tongue:"
     }
   },
@@ -1424,6 +1544,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "rwallet:"
+    },
+    "android": {
+      "native": "rwallet:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a883229c-26cb-4c19-9b34-1f0ed4012a00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1432,6 +1555,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "plasmapay:"
+    },
+    "android": {
       "native": "plasmapay:"
     }
   },
@@ -1442,6 +1568,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "o3wallet:"
+    },
+    "android": {
+      "native": "o3wallet:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e1c7c6af-c731-463e-55f0-5e686e9f6200?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1450,6 +1579,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "hashme:"
+    },
+    "android": {
       "native": "hashme:"
     }
   },
@@ -1467,6 +1599,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "defiantapp:"
+    },
+    "android": {
       "native": "defiantapp:"
     }
   },
@@ -1489,6 +1624,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "celo://wallet"
+    },
+    "android": {
+      "native": "celo://wallet"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a03bfa44-ce98-4883-9b2a-75e2b68f5700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1502,6 +1640,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "celowallet:"
+    },
+    "android": {
+      "native": "celowallet:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/482c9981-61c0-4782-84ec-c80fd997da00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1511,6 +1652,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "essentials:"
+    },
+    "android": {
+      "native": "essentials:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/04a6bfed-d80e-4f7b-0516-261f86aa4000?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1519,6 +1663,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "fuse.cash:"
+    },
+    "android": {
       "native": "fuse.cash:"
     }
   },
@@ -1533,6 +1680,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "stasis:"
+    },
+    "android": {
+      "native": "stasis:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7ae753bc-a754-450c-2d90-2c5521734400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1541,6 +1691,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "julwallet:"
+    },
+    "android": {
       "native": "julwallet:"
     }
   },
@@ -1563,6 +1716,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "bitpie:"
+    },
+    "android": {
+      "native": "bitpie:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f9b7c668-ed26-47f7-d8c9-7eadc7114800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1576,6 +1732,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "archipage:"
+    },
+    "android": {
+      "native": "archipage:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/b62c4f22-e781-4ca9-5c01-ef7cd9d23400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1584,6 +1743,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "tangem:"
+    },
+    "android": {
       "native": "tangem:"
     }
   },
@@ -1613,6 +1775,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "wallet3:"
+    },
+    "android": {
+      "native": "wallet3:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/d740b48c-2b55-4a27-b5f5-d2188200ca00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1622,6 +1787,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "yitoken:"
+    },
+    "android": {
+      "native": "yitoken:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/b5cc13d4-2a58-4142-08dd-5596ab253800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1630,6 +1798,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "abt:"
+    },
+    "android": {
       "native": "abt:"
     }
   },
@@ -1648,6 +1819,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "airgap-wallet://"
+    },
+    "android": {
+      "native": "airgap-wallet://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/76bfe8cd-cf3f-4341-c33c-60da01065000?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1660,6 +1834,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "secux://"
+    },
+    "android": {
       "native": "secux://"
     }
   },
@@ -1674,6 +1851,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "orangewallet:"
+    },
+    "android": {
+      "native": "orangewallet:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7fcbf9f0-0c0b-439d-3fdb-31b32c28df00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1687,6 +1867,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "krystalWallet:"
+    },
+    "android": {
+      "native": "krystalWallet:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/91449cb2-57b0-4bb6-481b-47d489f7a800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1695,6 +1878,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "ambire:"
+    },
+    "android": {
       "native": "ambire:"
     }
   },
@@ -1705,6 +1891,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "paybolt://Wallet"
+    },
+    "android": {
+      "native": "paybolt://Wallet"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/cc8f4e0c-56a8-465a-6cb6-3e9d60846500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1713,6 +1902,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "okex://main"
+    },
+    "android": {
       "native": "okex://main"
     }
   },
@@ -1723,6 +1915,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "ndj-backpack:"
+    },
+    "android": {
+      "native": "ndj-backpack:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e46f132d-6e05-4d51-8720-43727446e600?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1731,6 +1926,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "autonomy-wc"
+    },
+    "android": {
       "native": "autonomy-wc"
     }
   },
@@ -1749,6 +1947,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "autonomy-wc"
+    },
+    "android": {
+      "native": "autonomy-wc"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2ee7c9db-9a86-4cd6-0d32-5053b4636100?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1757,6 +1958,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "lilico://"
+    },
+    "android": {
       "native": "lilico://"
     }
   },
@@ -1767,6 +1971,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "fireblocks-wc://"
+    },
+    "android": {
+      "native": "fireblocks-wc://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7e1514ba-932d-415d-1bdb-bccb6c2cbc00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1776,6 +1983,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "wattwallet://wallet-connect/"
+    },
+    "android": {
+      "native": "wattwallet://wallet-connect/"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/38c619c4-5365-4de5-09b2-cdde8caf3600?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1784,6 +1994,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "coingrig://"
+    },
+    "android": {
       "native": "coingrig://"
     }
   },
@@ -1801,6 +2014,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "bobablocks://"
+    },
+    "android": {
+      "native": "bobablocks://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/aff8973b-e093-45b5-4858-c01dd043bc00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1809,6 +2025,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "plasmawallet:"
+    },
+    "android": {
       "native": "plasmawallet:"
     }
   },
@@ -1827,6 +2046,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "humblwallet:"
+    },
+    "android": {
+      "native": "humblwallet:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1ac55ba2-aa98-4ed0-59b3-b3155dea4200?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1836,6 +2058,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "zeluswallet://"
+    },
+    "android": {
+      "native": "zeluswallet://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/aeba2105-6c84-4642-f441-b3f5817ac400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1844,6 +2069,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "earthwallet:"
+    },
+    "android": {
       "native": "earthwallet:"
     }
   },
@@ -1858,6 +2086,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "co.theeasy.app://"
+    },
+    "android": {
+      "native": "co.theeasy.app://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/62feb41a-be1f-4b1c-e089-27f97c0e8d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1867,6 +2098,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "poc://islamiwallet.com"
+    },
+    "android": {
+      "native": "poc://islamiwallet.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8d723c78-28ad-4610-901f-ea391d7e8d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1875,6 +2109,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "cardwallet://"
+    },
+    "android": {
       "native": "cardwallet://"
     }
   },
@@ -1893,6 +2130,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "pltwallet:"
+    },
+    "android": {
+      "native": "pltwallet:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a5d9dd15-8cef-42de-8bed-09e01a8b0200?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1902,6 +2142,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "avacus://"
+    },
+    "android": {
+      "native": "avacus://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a7106965-91cc-4a73-4688-c5c72ae0ed00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1910,6 +2153,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "strikex://"
+    },
+    "android": {
       "native": "strikex://"
     }
   },
@@ -1928,6 +2174,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "edge://"
+    },
+    "android": {
+      "native": "edge://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f601bc29-4298-422f-dbf7-34dac2884f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1936,6 +2185,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "freedom-wallet://"
+    },
+    "android": {
       "native": "freedom-wallet://"
     }
   },
@@ -1946,6 +2198,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "assure://"
+    },
+    "android": {
+      "native": "assure://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/64db7104-c8b7-44ea-e102-11ce87124200?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1955,6 +2210,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "cosmostation://"
+    },
+    "android": {
+      "native": "cosmostation://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ea26c3c8-adb6-4dc4-ee02-35d6eee02800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1963,6 +2221,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "thorwallet:"
+    },
+    "android": {
       "native": "thorwallet:"
     }
   },
@@ -1977,6 +2238,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "coinstats:"
+    },
+    "android": {
+      "native": "coinstats:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f989ab84-650b-4ad5-c342-77f3334f1b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1985,6 +2249,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "abra:"
+    },
+    "android": {
       "native": "abra:"
     }
   },
@@ -1995,6 +2262,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "cryptobrowser://"
+    },
+    "android": {
+      "native": "cryptobrowser://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/877fa1a4-304d-4d45-ca8e-f76d1a556f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2003,6 +2273,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "algorand://"
+    },
+    "android": {
       "native": "algorand://"
     }
   },
@@ -2013,6 +2286,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "keywalletTouch://"
+    },
+    "android": {
+      "native": "keywalletTouch://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ceefb75b-2632-40c6-7471-ea23d3d49800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2021,6 +2297,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "ennowallet:"
+    },
+    "android": {
       "native": "ennowallet:"
     }
   },
@@ -2035,6 +2314,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "talkapp:"
+    },
+    "android": {
+      "native": "talkapp:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/d24cdd56-6f55-42da-631b-c25974c36f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2048,6 +2330,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "bitcoincom://"
+    },
+    "android": {
+      "native": "bitcoincom://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/0d7938e1-9b3b-4d8b-177b-98188c4cf400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2056,6 +2341,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "defiantapp://"
+    },
+    "android": {
       "native": "defiantapp://"
     }
   },
@@ -2073,6 +2361,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "verso"
+    },
+    "android": {
+      "native": "verso"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/109d7c90-86ed-4ee0-e17d-3c87624ddf00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2081,6 +2372,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "lobstr://"
+    },
+    "android": {
       "native": "lobstr://"
     }
   },
@@ -2091,6 +2385,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "bifrostwallet:"
+    },
+    "android": {
+      "native": "bifrostwallet:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/86be07e2-6652-4fd1-5f33-651682c95400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2099,6 +2396,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "oksewallet:"
+    },
+    "android": {
       "native": "oksewallet:"
     }
   },
@@ -2125,6 +2425,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "frontier://"
+    },
+    "android": {
+      "native": "frontier://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a78c4d48-32c1-4a9d-52f2-ec7ee08ce200?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2133,6 +2436,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "ttmwalletapp:"
+    },
+    "android": {
       "native": "ttmwalletapp:"
     }
   },
@@ -2143,6 +2449,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "qubic:"
+    },
+    "android": {
+      "native": "qubic:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2e9ef302-daae-4807-555f-d4986b0b6700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2151,6 +2460,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "dentacoin-wallet://"
+    },
+    "android": {
       "native": "dentacoin-wallet://"
     }
   },
@@ -2161,6 +2473,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "opto://"
+    },
+    "android": {
+      "native": "opto://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3df102e4-e435-49dd-d4b1-5ea74ebed500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2169,6 +2484,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "xfunwallet://"
+    },
+    "android": {
       "native": "xfunwallet://"
     }
   },
@@ -2182,6 +2500,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "excodus://"
+    },
+    "android": {
+      "native": "excodus://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/4c16cad4-cac9-4643-6726-c696efaf5200?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2191,6 +2512,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "UvToken://"
+    },
+    "android": {
+      "native": "UvToken://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/52b9a9fc-caff-469e-033b-6d6f14e41800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2199,6 +2523,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "sone://"
+    },
+    "android": {
       "native": "sone://"
     }
   },
@@ -2212,6 +2539,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "premawallet:"
+    },
+    "android": {
+      "native": "premawallet:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/6487869b-1165-4f30-aa3a-115665be8300?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2220,6 +2550,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "shinobi-wallet://"
+    },
+    "android": {
       "native": "shinobi-wallet://"
     }
   },
@@ -2230,6 +2563,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "hideoutWallet:"
+    },
+    "android": {
+      "native": "hideoutWallet:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/bc7aacd6-b2e2-4146-7d21-06e0c5d44f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2238,6 +2574,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "ancrypto://app"
+    },
+    "android": {
       "native": "ancrypto://app"
     }
   },
@@ -2248,6 +2587,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "beewallet.app://"
+    },
+    "android": {
+      "native": "beewallet.app://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f90bc33f-f085-40cf-7538-fae5ae84f900?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2256,6 +2598,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "dfwallet:"
+    },
+    "android": {
       "native": "dfwallet:"
     }
   },
@@ -2266,6 +2611,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "tk://"
+    },
+    "android": {
+      "native": "tk://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/c4066f68-2247-49bf-ac8a-a677bfa81800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2274,6 +2622,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "oxalus://"
+    },
+    "android": {
       "native": "oxalus://"
     }
   },
@@ -2284,6 +2635,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "bhcwallet://"
+    },
+    "android": {
+      "native": "bhcwallet://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f3b6a89d-ec8f-49dc-e07f-6bf723e1e500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2292,6 +2646,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "kleverwallet:"
+    },
+    "android": {
       "native": "kleverwallet:"
     }
   },
@@ -2305,6 +2662,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "onekey-wallet://"
+    },
+    "android": {
+      "native": "onekey-wallet://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/12bebb3f-8030-4892-8452-c60a6bac1500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2313,6 +2673,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "helix-id://helix-id.com"
+    },
+    "android": {
       "native": "helix-id://helix-id.com"
     }
   },
@@ -2323,6 +2686,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "celo://wallet/dappkit/celodance"
+    },
+    "android": {
+      "native": "celo://wallet/dappkit/celodance"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/47c8ab7b-a66c-4949-f0fe-b0c2c169ee00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2331,6 +2697,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "volt:"
+    },
+    "android": {
       "native": "volt:"
     }
   },
@@ -2341,6 +2710,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "wirexwallet://"
+    },
+    "android": {
+      "native": "wirexwallet://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/769739aa-ff45-4db5-c6e6-70590741ec00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2349,6 +2721,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "robinhood-wallet:"
+    },
+    "android": {
       "native": "robinhood-wallet:"
     }
   },
@@ -2359,6 +2734,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "ricewallet"
+    },
+    "android": {
+      "native": "ricewallet"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/df94578e-19be-4f00-258f-2470343e7b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2367,6 +2745,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "safemoon:"
+    },
+    "android": {
       "native": "safemoon:"
     }
   },
@@ -2377,6 +2758,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "simplehold://"
+    },
+    "android": {
+      "native": "simplehold://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a9f1ba96-b658-4d13-f71f-226b6389f000?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2385,6 +2769,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "goldbit://"
+    },
+    "android": {
       "native": "goldbit://"
     }
   },
@@ -2395,6 +2782,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "iopay:"
+    },
+    "android": {
+      "native": "iopay:"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/18891f5a-fd0f-4126-7d1a-452be6714700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2404,6 +2794,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "bitizen://wallet"
+    },
+    "android": {
+      "native": "bitizen://wallet"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/75dd1471-77e9-4811-ce57-ec8fc980ec00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2412,6 +2805,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "slaviwallet:"
+    },
+    "android": {
       "native": "slaviwallet:"
     }
   },
@@ -2425,6 +2821,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "vimwallet:/"
+    },
+    "android": {
+      "native": "vimwallet:/"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/70080bd7-9858-4720-cf74-8f74cd74cb00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2433,6 +2832,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "com.arianee.wallet"
+    },
+    "android": {
       "native": "com.arianee.wallet"
     }
   },
@@ -2443,6 +2845,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "walletnow://"
+    },
+    "android": {
+      "native": "walletnow://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/b6ee4efc-f53e-475b-927b-a7ded6211700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2451,6 +2856,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "arculuswc:"
+    },
+    "android": {
       "native": "arculuswc:"
     }
   },
