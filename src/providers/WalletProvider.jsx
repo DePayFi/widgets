@@ -16,7 +16,7 @@ export default (props)=>{
   const connected = ({ account, wallet })=> {
     setAccount(account)
     setWallet(wallet)
-    setWalletState('connected')
+    setTimeout(()=>setWalletState('connected'), 200) // wait for animation to finish
     if(props.connected) { props.connected(account) }
   }
 
