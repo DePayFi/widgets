@@ -131,11 +131,13 @@ describe('Sale Widget: overview', () => {
         DePayWidgets.Sale({ ...defaultArguments, document,
           closed: ()=>{ closedCalled = true } 
         })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.wait(1000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click({ force: true })
-          cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
-            expect(closedCalled).to.equal(true)
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+          cy.wait(2000).then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click({ force: true })
+            cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
+              expect(closedCalled).to.equal(true)
+            })
           })
         })
       })
@@ -148,6 +150,7 @@ describe('Sale Widget: overview', () => {
         let { unmount } = await DePayWidgets.Sale({ ...defaultArguments, document,
           closable: false
         })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.wait(1000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click({ force: true })
           cy.get('.ReactShadowDOMOutsideContainer').should('exist').then(()=>{
@@ -194,8 +197,10 @@ describe('Sale Widget: overview', () => {
           cy.document().then((document)=>{
             DePayWidgets.Sale({ ...defaultArguments, document })
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click({ force: true })
-            cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+            cy.wait(1000).then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click({ force: true })
+              cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+            })
           })
         })
       })

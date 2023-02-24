@@ -152,8 +152,8 @@ describe('Donation Widget: overview', () => {
         let { unmount } = await DePayWidgets.Donation({ ...defaultArguments, document,
           closable: false
         })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.wait(1000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click({ force: true })
           cy.get('.ReactShadowDOMOutsideContainer').should('exist').then(()=>{
             unmount()
