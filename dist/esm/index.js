@@ -24528,12 +24528,13 @@ var TransactionTrackingProvider = (function (props) {
 
 var WalletProvider = (function (props) {
   var _useContext = useContext(ConfigurationContext),
-      recover = _useContext.recover;
+      recover = _useContext.recover,
+      passedWallet = _useContext.wallet;
 
   var _useContext2 = useContext(ErrorContext);
       _useContext2.setError;
 
-  var _useState = useState(),
+  var _useState = useState(passedWallet),
       _useState2 = _slicedToArray(_useState, 2),
       wallet = _useState2[0],
       setWallet = _useState2[1];
@@ -24543,7 +24544,7 @@ var WalletProvider = (function (props) {
       account = _useState4[0],
       setAccount = _useState4[1];
 
-  var _useState5 = useState(),
+  var _useState5 = useState(passedWallet ? 'connected' : undefined),
       _useState6 = _slicedToArray(_useState5, 2),
       walletState = _useState6[0],
       setWalletState = _useState6[1];
@@ -24553,7 +24554,9 @@ var WalletProvider = (function (props) {
         wallet = _ref.wallet;
     setAccount(account);
     setWallet(wallet);
-    setWalletState('connected');
+    setTimeout(function () {
+      return setWalletState('connected');
+    }, 200); // wait for animation to finish
 
     if (props.connected) {
       props.connected(account);
@@ -24565,6 +24568,41 @@ var WalletProvider = (function (props) {
     setWallet();
     setWalletState();
   };
+
+  useEffect(function () {
+    _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+      var _account;
+
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!passedWallet) {
+                _context.next = 5;
+                break;
+              }
+
+              _context.next = 3;
+              return passedWallet.account();
+
+            case 3:
+              _account = _context.sent;
+
+              if (_account) {
+                setAccount(_account);
+              } else {
+                setWallet();
+                setWalletState();
+              }
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  }, []);
 
   if (walletState == 'connected' || recover != undefined) {
     return /*#__PURE__*/React.createElement(WalletContext.Provider, {
@@ -24633,12 +24671,12 @@ var preflight$2 = /*#__PURE__*/function () {
 
 var Donation = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, accept, event, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, closable, integration, link, container, title, document, unmount;
+    var amount, accept, event, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, closable, integration, link, container, title, wallet, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, title = _ref3.title, document = _ref3.document;
+            amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, title = _ref3.title, wallet = _ref3.wallet, document = _ref3.document;
             requireReactVersion();
             _context2.prev = 2;
             _context2.next = 5;
@@ -24676,7 +24714,8 @@ var Donation = /*#__PURE__*/function () {
                     providers: providers,
                     integration: integration,
                     link: link,
-                    title: title
+                    title: title,
+                    wallet: wallet
                   }
                 }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                   unmount: unmount,
@@ -24970,6 +25009,7 @@ var Login = function Login(options) {
     message = options.message;
     endpoint = options.endpoint;
     recover = options.recover;
+    wallet = options.wallet;
   }
 
   return new Promise( /*#__PURE__*/function () {
@@ -24996,7 +25036,8 @@ var Login = function Login(options) {
                     configuration: {
                       message: message,
                       endpoint: endpoint || '/login',
-                      recoverSignature: recover
+                      recoverSignature: recover,
+                      wallet: wallet
                     }
                   }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                     unmount: userClosedDialog
@@ -25413,12 +25454,12 @@ var preflight$1 = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, amount, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, link, container, before, document, unmount;
+    var accept, amount, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, link, container, before, wallet, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, before = _ref3.before, document = _ref3.document;
+            accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, before = _ref3.before, wallet = _ref3.wallet, document = _ref3.document;
             requireReactVersion();
             _context2.prev = 2;
             _context2.next = 5;
@@ -25462,7 +25503,8 @@ var Payment = /*#__PURE__*/function () {
                     fee: fee,
                     recover: recover,
                     integration: integration,
-                    link: link
+                    link: link,
+                    wallet: wallet
                   }
                 }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                   unmount: unmount,
@@ -25863,12 +25905,12 @@ var preflight = /*#__PURE__*/function () {
 
 var Sale = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, sell, sent, succeeded, failed, error, critical, style, blacklist, providers, currency, connected, closed, tokenImage, closable, integration, document, accept, unmount;
+    var amount, sell, sent, succeeded, failed, error, critical, style, blacklist, providers, currency, connected, closed, tokenImage, closable, integration, wallet, document, accept, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, succeeded = _ref3.succeeded, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, closable = _ref3.closable, integration = _ref3.integration, document = _ref3.document;
+            amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, succeeded = _ref3.succeeded, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, closable = _ref3.closable, integration = _ref3.integration, wallet = _ref3.wallet, document = _ref3.document;
             requireReactVersion();
             _context2.prev = 2;
             _context2.next = 5;
@@ -25905,7 +25947,8 @@ var Sale = /*#__PURE__*/function () {
                     failed: failed,
                     blacklist: blacklist,
                     providers: providers,
-                    integration: integration
+                    integration: integration,
+                    wallet: wallet
                   }
                 }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                   unmount: unmount,

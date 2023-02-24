@@ -605,6 +605,22 @@ DePayWidgets.Payment({
 })
 ```
 
+#### wallet
+
+`wallet`
+
+Allows to pass an already connected wallet instance (to skip the "Connect Wallet" flow):
+
+```javascript
+let { wallet } DePayWidgets.Connect({})
+
+DePayWidgets.Payment({
+  
+  wallet: wallet
+
+})
+```
+
 #### providers
 
 Allows to set providers to be used for making RPC calls to the individual blockchains:

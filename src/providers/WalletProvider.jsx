@@ -7,11 +7,11 @@ import { ReactDialog } from '@depay/react-dialog'
 
 export default (props)=>{
 
-  const { recover } = useContext(ConfigurationContext)
+  const { recover, wallet: passedWallet } = useContext(ConfigurationContext)
   const { setError } = useContext(ErrorContext)
-  const [wallet, setWallet] = useState()
+  const [wallet, setWallet] = useState(passedWallet)
   let [account, setAccount] = useState()
-  const [walletState, setWalletState] = useState()
+  const [walletState, setWalletState] = useState(passedWallet ? 'connected' : undefined)
   
   const connected = ({ account, wallet })=> {
     setAccount(account)
@@ -25,6 +25,20 @@ export default (props)=>{
     setWallet()
     setWalletState()
   }
+
+  useEffect(()=>{
+    (async ()=>{
+      if(passedWallet) {
+        let account = await passedWallet.account()
+        if(account) {
+          setAccount(account)
+        } else {
+          setWallet()
+          setWalletState()
+        }
+      }
+    })()
+  }, [])
 
   if(walletState == 'connected' || recover != undefined) {
     return(
