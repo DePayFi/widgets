@@ -24994,7 +24994,7 @@
 
   var Login = function Login(options) {
     requireReactVersion();
-    var style, error, document, message, endpoint, recover;
+    var style, error, document, message, endpoint, recover, wallet;
 
     if (_typeof(options) == 'object') {
       style = options.style;

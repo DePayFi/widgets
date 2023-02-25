@@ -12,7 +12,7 @@ import WalletProvider from './providers/WalletProvider'
 
 let Login = (options) => {
   requireReactVersion()
-  let style, error, document, message, endpoint, recover
+  let style, error, document, message, endpoint, recover, wallet
   if(typeof options == 'object') ({ style, error, document, message, endpoint, recover, wallet } = options)
 
   return new Promise(async (resolve, reject)=>{
