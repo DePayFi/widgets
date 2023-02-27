@@ -19,35 +19,55 @@ export default (props)=>{
   const searchElement = useRef()
   const { navigate } = useContext(NavigateStackContext)
 
-  const onClickWallet = (wallet)=>{
-    if(wallet.via != 'detected') { props.connectViaRedirect(wallet) }
-    props.setWallet(wallet)
-    navigate('ConnectWallet')
+  const onClickWallet = (walletMetaData, wallet)=>{
+    if(walletMetaData.via == 'detected') {
+      if(walletMetaData.connectionType == 'app') {
+        wallet.account().then((account)=>{
+          if(account){
+            props.resolve(account, wallet)
+          }
+        })
+        props.setWallet(walletMetaData)
+        navigate('ConnectWallet')
+      } else if(walletMetaData.connectionType == 'extension') {
+        props.setWallet(walletMetaData)
+        props.connectExtension(walletMetaData)
+        navigate('ConnectWallet')
+      }
+    } else {
+      props.connectViaRedirect(walletMetaData)
+      props.setWallet(walletMetaData)
+      navigate('ConnectWallet')
+    }
   }
 
   useEffect(()=>{
     getWallets().then((availableWallets)=>{
       let renderedWallets = {} // prevents rendering same wallet twice (e.g. extension + via walletconnect)
-      const renderWalletElement = (wallet, index, type)=>{
-        if(renderedWallets[wallet.name]) { return(null) }
-        renderedWallets[wallet.name] = true
+      const renderWalletElement = (walletMetaData, index, type, wallet)=>{
+        if(renderedWallets[walletMetaData.name] && type == 'previouslyConnected') { return(null) }
+        renderedWallets[walletMetaData.name] = true
+        let connectionType = 'app'
+        if(wallet && wallet.constructor && ![wallets.WalletConnectV1, wallets.WalletLink].includes(wallet.constructor)) {
+          connectionType = 'extension'
+        }
         return(
           <div key={index} className="PaddingBottomXS">
             <button
               type="button"
               className="Card small"
-              title={`Connect ${wallet.name}`}
-              onClick={ ()=>onClickWallet({ ...wallet, via: type }) }
+              title={`Connect ${walletMetaData.name}`}
+              onClick={ ()=>onClickWallet({ ...walletMetaData, via: type, connectionType }, wallet) }
             >
               <div className="CardImage">
-                <img className="transparent" src={wallet.logo} className="WalletLogoS"/>
+                <img className="transparent" src={walletMetaData.logo} className="WalletLogoS"/>
               </div>
               <div className="CardBody">
                 <div className="CardBodyWrapper PaddingLeftXS LineHeightXS">
                   <div className="CardText FontWeightMedium">
-                    { wallet.name }
+                    { walletMetaData.name }
                   </div>
-                  { type != 'previouslyConnected' && <div className="LightGreen"><span className="LightGreen" style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Detected</div> }
+                  { type != 'previouslyConnected' && <div className="LightGreen"><span className="LightGreen" style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Connect detected { connectionType }</div> }
                   { type == 'previouslyConnected' && <div className="Opacity05"><span style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Previously connected</div> }
                 </div>
               </div>
@@ -58,8 +78,8 @@ export default (props)=>{
 
       let prioritizedWallets = availableWallets.map((availableWallet, index)=>{
         if(availableWallet.name == 'Phantom') { return }
-        let wallet = allWallets.find((wallet)=>wallet.name == availableWallet.name) || allWallets.find((wallet)=>wallet.name == availableWallet.name)
-        if(wallet) { return(renderWalletElement(wallet, index, 'detected')) }
+        let walletMetaData = allWallets.find((wallet)=>wallet.name == availableWallet.name)
+        if(walletMetaData) { return(renderWalletElement(walletMetaData, index, 'detected', availableWallet)) }
       }).filter((wallet)=>!!wallet)
 
       let previouslyConnectedWalletName = getPreviouslyConnectedWallet()

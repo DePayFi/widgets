@@ -120,7 +120,7 @@ describe('Donation Widget: amount in USD token', () => {
       cy.document().then((document)=>{
         DePayWidgets.Donation({ ...defaultArguments, document })
         cy.wait(3000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"] .TokenSymbolCell').should('contain', 'DAI')
         })
       })

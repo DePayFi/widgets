@@ -141,7 +141,7 @@ describe('Donation Widget: approval', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Donation({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary[title="Allow DAI to be used as payment"]', 'Allow DAI to be used as payment').click()
@@ -177,7 +177,7 @@ describe('Donation Widget: approval', () => {
     })
     cy.document().then((document)=>{
       DePayWidgets.Donation({ ...defaultArguments, document })
-      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
       cy.wait(500).then(()=>{ // wait for dialog
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()

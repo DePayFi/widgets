@@ -104,7 +104,7 @@ describe('Payment Widget: connected callback', () => {
             connectedAddress = address
           }
         })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.wait(1000).then(()=>{
           expect(connectedAddress).to.eq(fromAddress)
         })  

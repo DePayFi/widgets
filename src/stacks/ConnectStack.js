@@ -18,6 +18,7 @@ export default (props)=>{
   const { open, close } = useContext(ClosableContext)
   const [ wallet, setWallet ] = useState()
   const [ selection, setSelection ] = useState({ blockchain: undefined })
+  const [ showConnectExtensionWarning, setShowConnectExtensionWarning ] = useState(false)
   const resolve = (account, wallet)=> {
     if(account && wallet) {
       let walletMeta = allWallets.find((walletMeta)=>walletMeta.extension == wallet.name) || allWallets.find((walletMeta)=>walletMeta.name == wallet.name)
@@ -27,7 +28,22 @@ export default (props)=>{
     }
   }
 
-  const connectViaRedirect = (walletMetaData)=> {
+  const connectExtension = (wallet)=>{
+    setShowConnectExtensionWarning(false)
+
+    wallet = new wallets[wallet.extension]()
+    wallet.connect()
+      .then((account)=>{ 
+        resolve(account, wallet)
+      })
+      .catch((error)=>{
+        if(error?.code == -32002) { // Request of type 'wallet_requestPermissions' already pending...
+          setShowConnectExtensionWarning(true)
+        }
+      })
+  }
+
+  const connectViaRedirect = (walletMetaData, reconnect = true)=> {
     let platform = platformForWallet(walletMetaData)
     if(!platform) { return }
     if(walletMetaData.link == 'WalletConnectV1') {
@@ -35,7 +51,7 @@ export default (props)=>{
       wallet.connect({
         name: walletMetaData.name,
         logo: walletMetaData.logo,
-        reconnect: true,
+        reconnect,
         connect: ({ uri })=>{
           let href
           if(platform.universal) {
@@ -82,9 +98,9 @@ export default (props)=>{
         container={ props.container }
         document={ props.document }
         dialogs={{
-          SelectWallet: <SelectWalletDialog setWallet={ setWallet } resolve={ resolve } connectViaRedirect={ connectViaRedirect } />,
+          SelectWallet: <SelectWalletDialog setWallet={ setWallet } resolve={ resolve } connectViaRedirect={ connectViaRedirect } connectExtension={ connectExtension } />,
           WhatIsAWallet: <WhatIsAWalletDialog />,
-          ConnectWallet: <ConnectWalletDialog selection={ selection } wallet={ wallet } resolve={ resolve } connectViaRedirect={ connectViaRedirect } />
+          ConnectWallet: <ConnectWalletDialog selection={ selection } wallet={ wallet } resolve={ resolve } connectViaRedirect={ connectViaRedirect } connectExtension={ connectExtension } showConnectExtensionWarning={ showConnectExtensionWarning } />
         }}
       />
       <PoweredBy/>

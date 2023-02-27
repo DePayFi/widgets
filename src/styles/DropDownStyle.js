@@ -14,6 +14,7 @@ export default (style)=>{
       padding: 8px 6px;
       position: absolute;
       right: 0;
+      z-index: 1000;
     }
 
     .DropDownItem {

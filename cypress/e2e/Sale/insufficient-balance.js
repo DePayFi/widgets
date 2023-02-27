@@ -84,7 +84,7 @@ describe('Sale Widget: insufficient balance', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Sale({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset with enough value in your wallet. Please top up your account in order to proceed with this payment.')
       })
     })
@@ -96,7 +96,7 @@ describe('Sale Widget: insufficient balance', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Sale({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset with enough value in your wallet. Please top up your account in order to proceed with this payment.')
         cy.wait(2000).then(()=>{
           USDValueMock_count = USDValueMock.calls.count()
