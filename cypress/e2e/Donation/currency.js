@@ -147,7 +147,7 @@ describe('Donation Widget: currency', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Donation({ ...defaultArguments, currency: 'USD', document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardTitle', 'Amount').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountRow', '$1.00').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '33').should('exist')

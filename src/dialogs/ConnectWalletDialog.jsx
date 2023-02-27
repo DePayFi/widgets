@@ -14,7 +14,7 @@ import { wallets } from '@depay/web3-wallets'
 export default (props)=> {
 
   const QRCodeElement = React.useRef()
-  const [ showConnectExtensionWarning, setShowConnectExtensionWarning ] = useState(false)
+  
   const [ extensionIsAvailable, setExtensionIsAvailable ] = useState()
   const [ appIsAvailable, setAppIsAvailable ] = useState()
   const [ linkIsConnected, setLinkIsConnected ] = useState()
@@ -36,23 +36,6 @@ export default (props)=> {
       }
     </div>
   )
-
-  const connectExtension = ()=>{
-    setShowConnectExtensionWarning(false)
-
-    if(extensionIsAvailable) {
-      let wallet = new wallets[props.wallet.extension]()
-      wallet.connect()
-        .then((account)=>{ 
-          props.resolve(account, wallet)
-        })
-        .catch((error)=>{
-          if(error?.code == -32002) { // Request of type 'wallet_requestPermissions' already pending...
-            setShowConnectExtensionWarning(true)
-          }
-        })
-    }
-  }
 
   const connectViaCopyLink = ()=>{
     let wallet = new wallets[props.wallet.link]()
@@ -81,15 +64,11 @@ export default (props)=> {
             return wallet.account().then((account)=>{
               props.resolve(account, wallet)
             })
-          } else if(extensionIsAvailable) {
-            connectExtension()
           }
         })  
       } else if(props.wallet.link == 'WalletLink') {
         connectViaQRCode()
       }
-    } else if(extensionIsAvailable) {
-      connectExtension()
     }
   }
 
@@ -143,18 +122,14 @@ export default (props)=> {
   }, [])
 
   useEffect(()=> {
-    if(extensionIsAvailable !== undefined && linkIsConnected !== undefined) {
+    if(linkIsConnected !== undefined) {
       
-      if(props.wallet.via == 'detected') {
-        connect()
-      }
-
       if(linkIsConnected == false){
         setShowQRCode(!extensionIsAvailable && !isMobile() && !props.wallet?.desktop?.native)
       }
 
     }
-  }, [extensionIsAvailable, linkIsConnected])
+  }, [linkIsConnected])
 
   useEffect(()=> {
     if(showQRCode && props.wallet.link) {
@@ -192,7 +167,7 @@ export default (props)=> {
           <div className="PaddingLeftL PaddingRightL PaddingTopL">
             { extensionIsAvailable &&
               <div className="PaddingBottomXS">
-                { showConnectExtensionWarning &&
+                { props.showConnectExtensionWarning &&
                   <div className="PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
                     <div className="Alert">
                       <span className="FontWeightBold PaddingBottomXS">
@@ -201,7 +176,7 @@ export default (props)=> {
                     </div>
                   </div>
                 }
-                <button onClick={ ()=>connectExtension() } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS">
+                <button onClick={ ()=>props.connectExtension(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS">
                   <span className="PaddingTopXS PaddingRightXS PaddingLeftS">
                     <img className="transparent " title="Connect your wallet" style={{ height: '26px' }} src={ ExtensionImage }/>
                   </span>

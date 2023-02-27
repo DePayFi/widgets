@@ -94,7 +94,7 @@ describe('Sale Widget: unmount', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then(async (document)=>{
         let { unmount } = await DePayWidgets.Sale({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').then(()=>{
           unmount()
           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')

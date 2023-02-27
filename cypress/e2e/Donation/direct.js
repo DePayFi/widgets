@@ -133,7 +133,7 @@ describe('Donation Widget: direct donation', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Donation({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"] .CardTitle').should('contain', 'Amount')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"] .TokenAmountRow').should('contain', '€1.00')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"] .CardTitle').should('contain', 'Payment')

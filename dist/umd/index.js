@@ -2858,6 +2858,246 @@
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f78dab27-7165-4a3d-fdb1-fcff06c0a700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
   }, {
+    "name": "Binana",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/65a60845-8fe3-4146-2688-586e4dc68a00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Linen",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/91458f54-aabe-44cf-4788-159ccc733600?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Fundamenta Mobile",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/79797f9e-a6c7-4284-1a1c-88332f11ea00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Nitrogen Wallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/af185895-cda5-4eaf-e31b-28b6fe4b0800?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "ApolloX",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/80ab63a2-1b32-4140-3577-9fbc8ea82e00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "ID Pocket",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/c227ee0a-5127-4707-ded9-c3cd81348d00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "CoinCircle",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/eae63a23-c7ba-4f7e-24b3-e6fc69215d00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Dracula Metaverse",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7259499f-3a9c-4905-d881-19944500d000?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "SahalWallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/d29d6426-b6f2-481b-12d8-7b20ec82af00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "UPBOND Wallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/698e08f3-b452-4c91-9f65-299939396a00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Sequence Wallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/b2d5c39c-a485-4efa-5736-a782204e4a00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "LocalTrade Wallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/fcc60983-74ae-484a-4242-87cb6f05f100?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Loopring Wallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2103feda-4fc8-4635-76a7-02a4ed998000?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Vision: Crypto Wallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/64ccf07c-1fba-4473-49e8-dc446e5a5000?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Ballet Crypto",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/542094e6-70d6-4b0d-4c8f-b61cc2c38500?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Pitaka",
+    "link": "WalletConnectV1",
+    "mobile": {
+      "ios": {
+        "native": "pitaka://"
+      },
+      "android": {
+        "native": "pitaka://"
+      }
+    },
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/691c0716-5213-4b99-e837-079268313800?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "AbsoluteWallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/03797059-fc49-4adc-7b93-503290b62300?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "The Parallel",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/de73fe0b-0244-4373-dea4-bef78ca82e00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "CypherD Wallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/6dfec0f3-2cbb-4300-b049-d66d28fcf400?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Obvious",
+    "link": "WalletConnectV1",
+    "mobile": {
+      "ios": {
+        "native": "obvious://"
+      },
+      "android": {
+        "native": "obvious://"
+      }
+    },
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/40945cea-9cd2-4acc-5799-ca7fb31f4700?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Keplr",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/527324b0-3849-462b-9a1a-72b53bdfea00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "MyWalliD",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e6cff623-9671-4a39-acc7-1c2292d7e100?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Status",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e131fa98-8c4f-4680-f5b6-6fb77189c900?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Monarch Wallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/c664d955-8a1e-4460-3917-4cfcf198f000?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Marble",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/eb6de921-6824-4f35-6331-8a8b031e7100?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Flooz",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/0a04f368-4f56-4c12-0bfa-93b14bb20800?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Blockchain.com",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/fc282669-2dbe-44d5-33fc-9168fcf08600?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Dohrnii Wallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1bb51ed9-68ed-4012-3082-72dcb7754300?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "UniPass",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/77865965-4322-4ac4-5049-b2af11bf8300?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "ZenGo",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/d1794d97-ea1f-4966-be42-9f614bb5d800?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Locker Token",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/37401d35-3fa1-451c-802d-604940315800?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Keeper",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/41f6ac85-8f4e-4d9f-b37b-92b43fa7f400?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "XDEFI Wallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/efec6318-7f96-4b30-9287-6c287660cd00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "BeeWallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ae53ba0b-4d01-42f6-53d8-cc568409b700?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Numio",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/416ee463-6699-43f7-c0e3-396f0ad3d300?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "UvToken",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a0057241-cd91-4a53-7175-016b76bfd900?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Neon Wallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/322bd6f0-09b5-4595-cb15-0dfab8054800?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Nabox",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3b75e9f7-2ca8-4a33-ed2b-4e8a0c048d00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Snowball",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/313faea4-af8c-41f4-0ed8-98be5d048e00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "KryptoGO Wallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3ccbd966-97e8-45a0-1ceb-6141a8978e00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Payperless",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/4a867e30-44c9-4627-6281-33457b8e2100?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Brave Wallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8cecad66-73e3-46ee-f45f-01503c032f00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Crossmint",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8ad627ec-cbcd-4878-ec5c-3df588055200?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Safematrix",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/48ea5de9-869a-4994-2402-97afba060900?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "pier",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/cf3f0da1-40ec-4940-aebe-df075513d100?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "FILWallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f400f6c2-ca6c-487b-654d-e119af247500?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "ParaSwap Wallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/73dc6b30-b644-46e6-020c-5926851df600?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "DopamineApp",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7ed8ec36-fb7c-4b43-494b-36e907101f00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Bitski",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/94d94cb5-a94f-47cf-70e6-fe8d3f1c3700?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Hippo Wallet",
+    "link": "WalletConnectV1",
+    "mobile": {
+      "ios": {
+        "native": "hippowallet://"
+      },
+      "android": {
+        "native": "hippowallet://"
+      }
+    },
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f9570968-45f7-47c1-3189-98cf60e25c00?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Core",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/35f9c46e-cc57-4aa7-315d-e6ccb2a1d600?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Xcapit",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/17f59b75-21b0-4b3f-b024-fe4b9b8d2300?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "Paper Wallet",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/37d7a10f-d94d-4a56-c30e-267e8afbd500?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
+    "name": "BC Vault",
+    "link": "WalletConnectV1",
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/4d7bf99f-b2d9-48b0-5d7e-7d64f9a4f700?projectId=a8d876c6f91c3748db621583fad358f1"
+  }, {
     "name": "WalletConnect",
     "link": "WalletConnectV1",
     "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz48IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMjUuNC4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAtLT48c3ZnIHZlcnNpb249JzEuMScgaWQ9J0xheWVyXzEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB2aWV3Qm94PScwIDAgNTAwIDUwMCcgc3R5bGU9J2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTAwIDUwMDsnIHhtbDpzcGFjZT0ncHJlc2VydmUnPjxzdHlsZSB0eXBlPSd0ZXh0L2Nzcyc+IC5zdDB7ZmlsbDojNTk5MUNEO30KPC9zdHlsZT48ZyBpZD0nUGFnZS0xJz48ZyBpZD0nd2FsbGV0Y29ubmVjdC1sb2dvLWFsdCc+PHBhdGggaWQ9J1dhbGxldENvbm5lY3QnIGNsYXNzPSdzdDAnIGQ9J00xMDIuNywxNjJjODEuNS03OS44LDIxMy42LTc5LjgsMjk1LjEsMGw5LjgsOS42YzQuMSw0LDQuMSwxMC41LDAsMTQuNEwzNzQsMjE4LjkgYy0yLDItNS4zLDItNy40LDBsLTEzLjUtMTMuMmMtNTYuOC01NS43LTE0OS01NS43LTIwNS44LDBsLTE0LjUsMTQuMWMtMiwyLTUuMywyLTcuNCwwTDkxLjksMTg3Yy00LjEtNC00LjEtMTAuNSwwLTE0LjQgTDEwMi43LDE2MnogTTQ2Ny4xLDIyOS45bDI5LjksMjkuMmM0LjEsNCw0LjEsMTAuNSwwLDE0LjRMMzYyLjMsNDA1LjRjLTQuMSw0LTEwLjcsNC0xNC44LDBjMCwwLDAsMCwwLDBMMjUyLDMxMS45IGMtMS0xLTIuNy0xLTMuNywwaDBsLTk1LjUsOTMuNWMtNC4xLDQtMTAuNyw0LTE0LjgsMGMwLDAsMCwwLDAsMEwzLjQsMjczLjZjLTQuMS00LTQuMS0xMC41LDAtMTQuNGwyOS45LTI5LjIgYzQuMS00LDEwLjctNCwxNC44LDBsOTUuNSw5My41YzEsMSwyLjcsMSwzLjcsMGMwLDAsMCwwLDAsMGw5NS41LTkzLjVjNC4xLTQsMTAuNy00LDE0LjgsMGMwLDAsMCwwLDAsMGw5NS41LDkzLjUgYzEsMSwyLjcsMSwzLjcsMGw5NS41LTkzLjVDNDU2LjQsMjI1LjksNDYzLDIyNS45LDQ2Ny4xLDIyOS45eicvPjwvZz48L2c+PC9zdmc+Cg=="
@@ -2992,45 +3232,40 @@
 
     var QRCodeElement = React__default['default'].useRef();
 
-    var _useState = React.useState(false),
+    var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
-        showConnectExtensionWarning = _useState2[0],
-        setShowConnectExtensionWarning = _useState2[1];
+        extensionIsAvailable = _useState2[0],
+        setExtensionIsAvailable = _useState2[1];
 
     var _useState3 = React.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
-        extensionIsAvailable = _useState4[0],
-        setExtensionIsAvailable = _useState4[1];
+        appIsAvailable = _useState4[0],
+        setAppIsAvailable = _useState4[1];
 
     var _useState5 = React.useState(),
         _useState6 = _slicedToArray(_useState5, 2),
-        appIsAvailable = _useState6[0],
-        setAppIsAvailable = _useState6[1];
+        linkIsConnected = _useState6[0],
+        setLinkIsConnected = _useState6[1];
 
     var _useState7 = React.useState(),
-        _useState8 = _slicedToArray(_useState7, 2),
-        linkIsConnected = _useState8[0],
-        setLinkIsConnected = _useState8[1];
+        _useState8 = _slicedToArray(_useState7, 2);
+        _useState8[0];
+        _useState8[1];
 
-    var _useState9 = React.useState(),
-        _useState10 = _slicedToArray(_useState9, 2);
-        _useState10[0];
-        _useState10[1];
+    var _useState9 = React.useState(false),
+        _useState10 = _slicedToArray(_useState9, 2),
+        showQRCode = _useState10[0],
+        setShowQRCode = _useState10[1];
 
     var _useState11 = React.useState(false),
         _useState12 = _slicedToArray(_useState11, 2),
-        showQRCode = _useState12[0],
-        setShowQRCode = _useState12[1];
+        showLinkCopied = _useState12[0],
+        setShowLinkCopied = _useState12[1];
 
-    var _useState13 = React.useState(false),
+    var _useState13 = React.useState(),
         _useState14 = _slicedToArray(_useState13, 2),
-        showLinkCopied = _useState14[0],
-        setShowLinkCopied = _useState14[1];
-
-    var _useState15 = React.useState(),
-        _useState16 = _slicedToArray(_useState15, 2),
-        QRCode = _useState16[0],
-        setQRCode = _useState16[1];
+        QRCode = _useState14[0],
+        setQRCode = _useState14[1];
 
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext);
         _useContext.navigate;
@@ -3047,22 +3282,6 @@
       className: "transparent",
       src: props.wallet.logo
     })))));
-
-    var connectExtension = function connectExtension() {
-      setShowConnectExtensionWarning(false);
-
-      if (extensionIsAvailable) {
-        var wallet = new web3Wallets.wallets[props.wallet.extension]();
-        wallet.connect().then(function (account) {
-          props.resolve(account, wallet);
-        })["catch"](function (error) {
-          if ((error === null || error === void 0 ? void 0 : error.code) == -32002) {
-            // Request of type 'wallet_requestPermissions' already pending...
-            setShowConnectExtensionWarning(true);
-          }
-        });
-      }
-    };
 
     var connectViaCopyLink = function connectViaCopyLink() {
       var wallet = new web3Wallets.wallets[props.wallet.link]();
@@ -3081,30 +3300,6 @@
       }).then(function (account) {
         props.resolve(account, wallet);
       });
-    };
-
-    var connect = function connect() {
-      if (linkIsConnected) {
-        if (props.wallet.link == 'WalletConnectV1') {
-          web3Wallets.wallets[props.wallet.link].getConnectedInstance().then(function (wallet) {
-            if (extensionIsAvailable && wallet.name == web3Wallets.wallets[props.wallet.extension].info.name) {
-              return; // extension found and link with same wallet name found (e.g. MetaMask extension + mobile) let user decide!
-            }
-
-            if (props.wallet.name == wallet.name) {
-              return wallet.account().then(function (account) {
-                props.resolve(account, wallet);
-              });
-            } else if (extensionIsAvailable) {
-              connectExtension();
-            }
-          });
-        } else if (props.wallet.link == 'WalletLink') {
-          connectViaQRCode();
-        }
-      } else if (extensionIsAvailable) {
-        connectExtension();
-      }
     };
 
     var connectViaQRCode = function connectViaQRCode() {
@@ -3235,18 +3430,14 @@
       }))();
     }, []);
     React.useEffect(function () {
-      if (extensionIsAvailable !== undefined && linkIsConnected !== undefined) {
-        if (props.wallet.via == 'detected') {
-          connect();
-        }
-
+      if (linkIsConnected !== undefined) {
         if (linkIsConnected == false) {
           var _props$wallet4, _props$wallet4$deskto;
 
           setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet4 = props.wallet) !== null && _props$wallet4 !== void 0 && (_props$wallet4$deskto = _props$wallet4.desktop) !== null && _props$wallet4$deskto !== void 0 && _props$wallet4$deskto["native"]));
         }
       }
-    }, [extensionIsAvailable, linkIsConnected]);
+    }, [linkIsConnected]);
     React.useEffect(function () {
       if (showQRCode && props.wallet.link) {
         connectViaQRCode();
@@ -3278,7 +3469,7 @@
         className: "PaddingLeftL PaddingRightL PaddingTopL"
       }, extensionIsAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS"
-      }, showConnectExtensionWarning && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, props.showConnectExtensionWarning && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Alert"
@@ -3286,7 +3477,7 @@
         className: "FontWeightBold PaddingBottomXS"
       }, "You wallet extension window is already asking to connect. It might be hidden."))), /*#__PURE__*/React__default['default'].createElement("button", {
         onClick: function onClick() {
-          return connectExtension();
+          return props.connectExtension(props.wallet);
         },
         className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS"
       }, /*#__PURE__*/React__default['default'].createElement("span", {
@@ -3646,49 +3837,69 @@
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext.navigate;
 
-    var onClickWallet = function onClickWallet(wallet) {
-      if (wallet.via != 'detected') {
-        props.connectViaRedirect(wallet);
+    var onClickWallet = function onClickWallet(walletMetaData, wallet) {
+      if (walletMetaData.via == 'detected') {
+        if (walletMetaData.connectionType == 'app') {
+          wallet.account().then(function (account) {
+            if (account) {
+              props.resolve(account, wallet);
+            }
+          });
+          props.setWallet(walletMetaData);
+          navigate('ConnectWallet');
+        } else if (walletMetaData.connectionType == 'extension') {
+          props.setWallet(walletMetaData);
+          props.connectExtension(walletMetaData);
+          navigate('ConnectWallet');
+        }
+      } else {
+        props.connectViaRedirect(walletMetaData);
+        props.setWallet(walletMetaData);
+        navigate('ConnectWallet');
       }
-
-      props.setWallet(wallet);
-      navigate('ConnectWallet');
     };
 
     React.useEffect(function () {
       web3Wallets.getWallets().then(function (availableWallets) {
         var renderedWallets = {}; // prevents rendering same wallet twice (e.g. extension + via walletconnect)
 
-        var renderWalletElement = function renderWalletElement(wallet, index, type) {
-          if (renderedWallets[wallet.name]) {
+        var renderWalletElement = function renderWalletElement(walletMetaData, index, type, wallet) {
+          if (renderedWallets[walletMetaData.name] && type == 'previouslyConnected') {
             return null;
           }
 
-          renderedWallets[wallet.name] = true;
+          renderedWallets[walletMetaData.name] = true;
+          var connectionType = 'app';
+
+          if (wallet && wallet.constructor && ![web3Wallets.wallets.WalletConnectV1, web3Wallets.wallets.WalletLink].includes(wallet.constructor)) {
+            connectionType = 'extension';
+          }
+
           return /*#__PURE__*/React__default['default'].createElement("div", {
             key: index,
             className: "PaddingBottomXS"
           }, /*#__PURE__*/React__default['default'].createElement("button", {
             type: "button",
             className: "Card small",
-            title: "Connect ".concat(wallet.name),
+            title: "Connect ".concat(walletMetaData.name),
             onClick: function onClick() {
-              return onClickWallet(_objectSpread$4(_objectSpread$4({}, wallet), {}, {
-                via: type
-              }));
+              return onClickWallet(_objectSpread$4(_objectSpread$4({}, walletMetaData), {}, {
+                via: type,
+                connectionType: connectionType
+              }), wallet);
             }
           }, /*#__PURE__*/React__default['default'].createElement("div", {
             className: "CardImage"
           }, /*#__PURE__*/React__default['default'].createElement("img", _defineProperty({
             className: "transparent",
-            src: wallet.logo
+            src: walletMetaData.logo
           }, "className", "WalletLogoS"))), /*#__PURE__*/React__default['default'].createElement("div", {
             className: "CardBody"
           }, /*#__PURE__*/React__default['default'].createElement("div", {
             className: "CardBodyWrapper PaddingLeftXS LineHeightXS"
           }, /*#__PURE__*/React__default['default'].createElement("div", {
             className: "CardText FontWeightMedium"
-          }, wallet.name), type != 'previouslyConnected' && /*#__PURE__*/React__default['default'].createElement("div", {
+          }, walletMetaData.name), type != 'previouslyConnected' && /*#__PURE__*/React__default['default'].createElement("div", {
             className: "LightGreen"
           }, /*#__PURE__*/React__default['default'].createElement("span", {
             className: "LightGreen",
@@ -3697,7 +3908,7 @@
               top: '-1px',
               position: 'relative'
             }
-          }, "\u25CF"), " Detected"), type == 'previouslyConnected' && /*#__PURE__*/React__default['default'].createElement("div", {
+          }, "\u25CF"), " Connect detected ", connectionType), type == 'previouslyConnected' && /*#__PURE__*/React__default['default'].createElement("div", {
             className: "Opacity05"
           }, /*#__PURE__*/React__default['default'].createElement("span", {
             style: {
@@ -3713,14 +3924,12 @@
             return;
           }
 
-          var wallet = allWallets.find(function (wallet) {
-            return wallet.name == availableWallet.name;
-          }) || allWallets.find(function (wallet) {
+          var walletMetaData = allWallets.find(function (wallet) {
             return wallet.name == availableWallet.name;
           });
 
-          if (wallet) {
-            return renderWalletElement(wallet, index, 'detected');
+          if (walletMetaData) {
+            return renderWalletElement(walletMetaData, index, 'detected', availableWallet);
           }
         }).filter(function (wallet) {
           return !!wallet;
@@ -3850,6 +4059,11 @@
         selection = _useState4[0];
         _useState4[1];
 
+    var _useState5 = React.useState(false),
+        _useState6 = _slicedToArray(_useState5, 2),
+        showConnectExtensionWarning = _useState6[0],
+        setShowConnectExtensionWarning = _useState6[1];
+
     var resolve = function resolve(account, wallet) {
       if (account && wallet) {
         var walletMeta = allWallets.find(function (walletMeta) {
@@ -3866,7 +4080,21 @@
       }
     };
 
+    var connectExtension = function connectExtension(wallet) {
+      setShowConnectExtensionWarning(false);
+      wallet = new web3Wallets.wallets[wallet.extension]();
+      wallet.connect().then(function (account) {
+        resolve(account, wallet);
+      })["catch"](function (error) {
+        if ((error === null || error === void 0 ? void 0 : error.code) == -32002) {
+          // Request of type 'wallet_requestPermissions' already pending...
+          setShowConnectExtensionWarning(true);
+        }
+      });
+    };
+
     var connectViaRedirect = function connectViaRedirect(walletMetaData) {
+      var reconnect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       var platform = platformForWallet(walletMetaData);
 
       if (!platform) {
@@ -3879,7 +4107,7 @@
         _wallet.connect({
           name: walletMetaData.name,
           logo: walletMetaData.logo,
-          reconnect: true,
+          reconnect: reconnect,
           connect: function connect(_ref) {
             var uri = _ref.uri;
             var href;
@@ -3937,14 +4165,17 @@
         SelectWallet: /*#__PURE__*/React__default['default'].createElement(SelectWalletDialog, {
           setWallet: setWallet,
           resolve: resolve,
-          connectViaRedirect: connectViaRedirect
+          connectViaRedirect: connectViaRedirect,
+          connectExtension: connectExtension
         }),
         WhatIsAWallet: /*#__PURE__*/React__default['default'].createElement(WhatIsAWalletDialog, null),
         ConnectWallet: /*#__PURE__*/React__default['default'].createElement(ConnectWalletDialog, {
           selection: selection,
           wallet: wallet,
           resolve: resolve,
-          connectViaRedirect: connectViaRedirect
+          connectViaRedirect: connectViaRedirect,
+          connectExtension: connectExtension,
+          showConnectExtensionWarning: showConnectExtensionWarning
         })
       }
     }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null));
@@ -4335,7 +4566,7 @@
   });
 
   var DropDownStyle = (function (style) {
-    return "\n\n    .DropDownWrapper {\n      position: relative;\n    }\n\n    .DropDown {\n      background: rgb(240,240,240);\n      border-radius: 8px;\n      border: 1px solid rgb(230,230,230);\n      box-shadow: 0 0 12px rgba(0,0,0,0.1);\n      display: block;\n      padding: 8px 6px;\n      position: absolute;\n      right: 0;\n    }\n\n    .DropDownItem {\n      border: 1px solid transparent;\n      border-radius: 6px;\n      cursor: pointer;\n      font-size: 17px;\n      font-weight: 500;\n      min-width: 160px;\n      padding: 6px 10px;\n      text-align: left;\n      white-space: nowrap;\n    }\n\n    .DropDownItem:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .DropDownItem:hover {\n      background: rgba(0,0,0,0.1);\n    }\n    \n    .DropDownItem:active {\n      background: rgba(0,0,0,0.15);\n    }\n    \n  ");
+    return "\n\n    .DropDownWrapper {\n      position: relative;\n    }\n\n    .DropDown {\n      background: rgb(240,240,240);\n      border-radius: 8px;\n      border: 1px solid rgb(230,230,230);\n      box-shadow: 0 0 12px rgba(0,0,0,0.1);\n      display: block;\n      padding: 8px 6px;\n      position: absolute;\n      right: 0;\n      z-index: 1000;\n    }\n\n    .DropDownItem {\n      border: 1px solid transparent;\n      border-radius: 6px;\n      cursor: pointer;\n      font-size: 17px;\n      font-weight: 500;\n      min-width: 160px;\n      padding: 6px 10px;\n      text-align: left;\n      white-space: nowrap;\n    }\n\n    .DropDownItem:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .DropDownItem:hover {\n      background: rgba(0,0,0,0.1);\n    }\n    \n    .DropDownItem:active {\n      background: rgba(0,0,0,0.15);\n    }\n    \n  ");
   });
 
   var FontStyle = (function (style) {
@@ -24548,9 +24779,7 @@
           wallet = _ref.wallet;
       setAccount(account);
       setWallet(wallet);
-      setTimeout(function () {
-        return setWalletState('connected');
-      }, 200); // wait for animation to finish
+      setWalletState('connected');
 
       if (props.connected) {
         props.connected(account);

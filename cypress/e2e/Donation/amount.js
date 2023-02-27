@@ -167,7 +167,7 @@ describe('Donation Widget: amount', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Donation({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input[name="amount"]').type('{selectall}', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('10', { force: true })
@@ -233,7 +233,7 @@ describe('Donation Widget: amount', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Donation({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.TextButton', 'Max').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
@@ -251,7 +251,7 @@ describe('Donation Widget: amount', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Donation({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Go back"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]')
@@ -263,7 +263,7 @@ describe('Donation Widget: amount', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Donation({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]:visible').click()
           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
@@ -328,7 +328,7 @@ describe('Donation Widget: amount', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Donation({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input[name="amount"]').type('{selectall}', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('10', { force: true })
@@ -360,7 +360,7 @@ describe('Donation Widget: amount', () => {
               receiver: toAddress
             }]
           })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountRow', 'DAI 1').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.CardText', 'DAI 1').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay DAI 1').should('exist')

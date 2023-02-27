@@ -188,7 +188,7 @@ describe('Donation Widget: track', () => {
       cy.document().then((document)=>{
         DePayWidgets.Donation({ ...defaultArguments, document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay €1.00')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click().then(()=>{

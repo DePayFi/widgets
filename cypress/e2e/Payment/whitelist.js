@@ -116,7 +116,7 @@ describe('Payment Widget: whitelist', () => {
               ]
             }
           })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
           
           cy.get('.Card[title="Select DEPAY as payment"]', { includeShadowDom: true }).should('not.exist')

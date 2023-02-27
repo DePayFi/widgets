@@ -37,7 +37,7 @@ describe('Connect wallet', () => {
       cy.document().then(async (document)=>{
         DePayWidgets.Connect({ document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Connect a wallet')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'detected').click()
       })
     })
   })
