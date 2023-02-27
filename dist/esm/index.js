@@ -3437,13 +3437,11 @@ var ConnectWalletDialog = (function (props) {
   }, []);
   useEffect(function () {
     if (linkIsConnected !== undefined) {
-      if (linkIsConnected == false) {
-        var _props$wallet4, _props$wallet4$deskto;
+      var _props$wallet4, _props$wallet4$deskto;
 
-        setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet4 = props.wallet) !== null && _props$wallet4 !== void 0 && (_props$wallet4$deskto = _props$wallet4.desktop) !== null && _props$wallet4$deskto !== void 0 && _props$wallet4$deskto["native"]));
-      }
+      setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet4 = props.wallet) !== null && _props$wallet4 !== void 0 && (_props$wallet4$deskto = _props$wallet4.desktop) !== null && _props$wallet4$deskto !== void 0 && _props$wallet4$deskto["native"]));
     }
-  }, [linkIsConnected]);
+  }, [extensionIsAvailable, linkIsConnected]);
   useEffect(function () {
     if (showQRCode && props.wallet.link) {
       connectViaQRCode();
