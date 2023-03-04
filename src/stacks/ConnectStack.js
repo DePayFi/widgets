@@ -75,7 +75,7 @@ export default (props)=>{
               }
           }
           let target = platform.native && !platform.universal ? '_self' : '_blank'
-          console.log('target', target)
+          alert(target)
           window.open(href, target, 'noreferrer noopener')
         }
       }).then((account)=>{
