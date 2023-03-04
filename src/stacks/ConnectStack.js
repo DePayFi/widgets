@@ -74,7 +74,6 @@ export default (props)=>{
                 href = `${href}wc?uri=${uri}`
               }
           }
-          alert(href)
           window.open(href, '_blank', 'noreferrer noopener')
         }
       }).then((account)=>{

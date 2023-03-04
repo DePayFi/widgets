@@ -4161,7 +4161,6 @@ var ConnectStack = (function (props) {
             }
           }
 
-          alert(href);
           window.open(href, '_blank', 'noreferrer noopener');
         }
       }).then(function (account) {
