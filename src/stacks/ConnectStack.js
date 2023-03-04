@@ -74,7 +74,7 @@ export default (props)=>{
                 href = `${href}wc?uri=${uri}`
               }
           }
-          window.open(href, '_blank', 'noreferrer noopener')
+          window.open(href, '_self', 'noreferrer noopener')
         }
       }).then((account)=>{
         resolve(account, wallet)
