@@ -74,9 +74,8 @@ export default (props)=>{
                 href = `${href}wc?uri=${uri}`
               }
           }
-          let target = platform.native && !platform.universal ? '_self' : '_blank'
-          alert(target)
-          window.open(href, target, 'noreferrer noopener')
+          alert(href)
+          window.open(href, '_blank', 'noreferrer noopener')
         }
       }).then((account)=>{
         resolve(account, wallet)

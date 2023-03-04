@@ -4157,9 +4157,8 @@
               }
             }
 
-            var target = platform["native"] && !platform.universal ? '_self' : '_blank';
-            alert(target);
-            window.open(href, target, 'noreferrer noopener');
+            alert(href);
+            window.open(href, '_blank', 'noreferrer noopener');
           }
         }).then(function (account) {
           resolve(account, _wallet);
