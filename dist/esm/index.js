@@ -1035,12 +1035,10 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "universal": "https://uniswap.org/app",
-      "encoded": false
+      "universal": "https://uniswap.org/app"
     },
     "android": {
-      "universal": "https://uniswap.org/app",
-      "encoded": false
+      "universal": "https://uniswap.org/app"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8c3d9c2c-6e5b-484f-3068-178b1e2b0c00?projectId=a8d876c6f91c3748db621583fad358f1"
