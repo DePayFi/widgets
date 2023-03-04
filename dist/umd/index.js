@@ -4158,6 +4158,7 @@
             }
 
             var target = platform["native"] && !platform.universal ? '_self' : '_blank';
+            console.log('target', target);
             window.open(href, target, 'noreferrer noopener');
           }
         }).then(function (account) {
