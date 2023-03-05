@@ -36,7 +36,7 @@ export default (props)=>{
           </div>
           { selectedRoute == undefined && slowRouting &&
             <div className="TextCenter Opacity05 PaddingTopS">
-              <strong>Loading payment routes...</strong>
+              <strong>Loading payment options...</strong>
             </div>
           }
         </div>
