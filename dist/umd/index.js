@@ -1017,10 +1017,10 @@
     "link": "WalletConnectV1",
     "mobile": {
       "ios": {
-        "universal": "https://rnbwapp.com"
+        "native": "rainbow:"
       },
       "android": {
-        "universal": "https://rnbwapp.com"
+        "native": "rainbow:"
       }
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7a33d7f1-3d12-4b5c-f3ee-5cd83cb1b500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1295,10 +1295,12 @@
     "link": "WalletConnectV1",
     "mobile": {
       "ios": {
-        "universal": "https://aw.app"
+        "native": "awallet:",
+        "encoded": false
       },
       "android": {
-        "universal": "https://aw.app"
+        "native": "awallet:",
+        "encoded": false
       }
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/5b1cddfb-056e-4e78-029a-54de5d70c500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
