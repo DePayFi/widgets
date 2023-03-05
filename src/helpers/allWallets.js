@@ -65,10 +65,19 @@ export default [
     "name": "Rainbow",
     "link": "WalletConnectV1",
     "mobile": { 
-      "ios": { "native": "rainbow:", "encoded": false },
-      "android": { "native": "rainbow:", "encoded": false },
+      "ios": { "universal": "https://rnbwapp.com" },
+      "android": { "universal": "https://rnbwapp.com" },
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7a33d7f1-3d12-4b5c-f3ee-5cd83cb1b500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  },
+  {
+    "name": "Uniswap Wallet",
+    "link": "WalletConnectV1",
+    "mobile": { 
+      "ios": { "universal": "https://uniswap.org/app" },
+      "android": { "universal": "https://uniswap.org/app" },
+    },
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8c3d9c2c-6e5b-484f-3068-178b1e2b0c00?projectId=a8d876c6f91c3748db621583fad358f1",
   },
   {
     "name": "Argent",
@@ -272,8 +281,8 @@ export default [
     "name": "AlphaWallet",
     "link": "WalletConnectV1",
     "mobile": { 
-      "ios": { "native": "awallet:" },
-      "android": { "native": "awallet:" },
+      "ios": { "universal": "https://aw.app" },
+      "android": { "universal": "https://aw.app" },
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/5b1cddfb-056e-4e78-029a-54de5d70c500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
   },

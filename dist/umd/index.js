@@ -1017,15 +1017,25 @@
     "link": "WalletConnectV1",
     "mobile": {
       "ios": {
-        "native": "rainbow:",
-        "encoded": false
+        "universal": "https://rnbwapp.com"
       },
       "android": {
-        "native": "rainbow:",
-        "encoded": false
+        "universal": "https://rnbwapp.com"
       }
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7a33d7f1-3d12-4b5c-f3ee-5cd83cb1b500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
+  }, {
+    "name": "Uniswap Wallet",
+    "link": "WalletConnectV1",
+    "mobile": {
+      "ios": {
+        "universal": "https://uniswap.org/app"
+      },
+      "android": {
+        "universal": "https://uniswap.org/app"
+      }
+    },
+    "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8c3d9c2c-6e5b-484f-3068-178b1e2b0c00?projectId=a8d876c6f91c3748db621583fad358f1"
   }, {
     "name": "Argent",
     "link": "WalletConnectV1",
@@ -1285,10 +1295,10 @@
     "link": "WalletConnectV1",
     "mobile": {
       "ios": {
-        "native": "awallet:"
+        "universal": "https://aw.app"
       },
       "android": {
-        "native": "awallet:"
+        "universal": "https://aw.app"
       }
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/5b1cddfb-056e-4e78-029a-54de5d70c500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -3585,6 +3595,14 @@
     return href;
   });
 
+  var safeUniversalUrl = (function (href) {
+    if (href.endsWith('/')) {
+      href = href.slice(0, -1);
+    }
+
+    return href;
+  });
+
   var SelectionContext = /*#__PURE__*/React__default['default'].createContext();
 
   var SelectBlockchainDialog = (function (props) {
@@ -4137,8 +4155,7 @@
               }
             }
 
-            var target = platform["native"] && !platform.universal ? '_self' : '_blank';
-            window.open(href, target, 'noreferrer noopener');
+            window.open(href, '_self', 'noreferrer noopener');
           }
         }).then(function (account) {
           resolve(account, _wallet);

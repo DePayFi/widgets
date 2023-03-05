@@ -1,11 +1,12 @@
 import allWallets from '../helpers/allWallets'
 import ClosableContext from '../contexts/ClosableContext'
 import ConnectWalletDialog from '../dialogs/ConnectWalletDialog'
-import platformForWallet from '../helpers/platformForWallet'
 import isAndroid from '../helpers/isAndroid'
+import platformForWallet from '../helpers/platformForWallet'
 import PoweredBy from '../components/PoweredBy'
 import React, { useState, useContext, useEffect } from 'react'
 import safeAppUrl from '../helpers/safeAppUrl'
+import safeUniversalUrl from '../helpers/safeUniversalUrl'
 import SelectBlockchainDialog from '../dialogs/SelectBlockchainDialog'
 import SelectWalletDialog from '../dialogs/SelectWalletDialog'
 import WhatIsAWalletDialog from '../dialogs/WhatIsAWalletDialog'
@@ -73,8 +74,7 @@ export default (props)=>{
                 href = `${href}wc?uri=${uri}`
               }
           }
-          let target = platform.native && !platform.universal ? '_self' : '_blank'
-          window.open(href, target, 'noreferrer noopener')
+          window.open(href, '_self', 'noreferrer noopener')
         }
       }).then((account)=>{
         resolve(account, wallet)
