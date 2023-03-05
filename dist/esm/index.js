@@ -4163,6 +4163,7 @@ var ConnectStack = (function (props) {
             }
           }
 
+          alert(href);
           window.open(href, '_self', 'noreferrer noopener');
         }
       }).then(function (account) {
