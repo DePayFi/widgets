@@ -4170,7 +4170,7 @@ var ConnectStack = (function (props) {
           var uri = _ref.uri;
           var name = isAndroid() ? 'Android' : walletMetaData.name;
 
-          if (isWebView()) {
+          if (isWebView() && !isAndroid()) {
             openUniversalLink(platform, uri, name);
           } else {
             openNativeLink(platform, uri, name);
