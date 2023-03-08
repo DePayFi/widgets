@@ -44,10 +44,10 @@ export default (props)=>{
       })
   }
 
-  const openUniversalLink = (platform)=>{
+  const openUniversalLink = (platform, name)=>{
     if(!platform.universal){ return }
     let href = safeUniversalUrl(platform.universal)
-    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: isAndroid() ? 'Android' : walletMetaData.name }))
+    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name }))
     if(platform.encoded !== false) {
       href = `${href}/wc?uri=${encodeURIComponent(uri)}`
     } else {
@@ -57,10 +57,10 @@ export default (props)=>{
     window.open(href, '_blank', 'noreferrer noopener')
   }
 
-  const openNativeLink = (platform)=>{
+  const openNativeLink = (platform, name)=>{
     if(!platform.native){ return }
     let href = safeAppUrl(platform.native)
-    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: isAndroid() ? 'Android' : walletMetaData.name }))
+    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name }))
     if(platform.encoded !== false) {
       href = `${href}wc?uri=${encodeURIComponent(uri)}`
     } else {
@@ -80,11 +80,12 @@ export default (props)=>{
         logo: walletMetaData.logo,
         reconnect,
         connect: ({ uri })=>{
+          let name = isAndroid() ? 'Android' : walletMetaData.name
           alert(`isWebView() ${isWebView()}`)
           if(isWebView()) {
-            openUniversalLink(platform)
+            openUniversalLink(platform, name)
           } else {
-            openNativeLink(platform)
+            openNativeLink(platform, name)
           }
         }
       }).then((account)=>{

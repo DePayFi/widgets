@@ -4097,7 +4097,7 @@
       });
     };
 
-    var openUniversalLink = function openUniversalLink(platform) {
+    var openUniversalLink = function openUniversalLink(platform, name) {
       if (!platform.universal) {
         return;
       }
@@ -4105,7 +4105,7 @@
       var href = safeUniversalUrl(platform.universal);
       localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
         href: href,
-        name: isAndroid() ? 'Android' : walletMetaData.name
+        name: name
       }));
 
       if (platform.encoded !== false) {
@@ -4118,7 +4118,7 @@
       window.open(href, '_blank', 'noreferrer noopener');
     };
 
-    var openNativeLink = function openNativeLink(platform) {
+    var openNativeLink = function openNativeLink(platform, name) {
       if (!platform["native"]) {
         return;
       }
@@ -4126,7 +4126,7 @@
       var href = safeAppUrl(platform["native"]);
       localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
         href: href,
-        name: isAndroid() ? 'Android' : walletMetaData.name
+        name: name
       }));
 
       if (platform.encoded !== false) {
@@ -4156,12 +4156,13 @@
           reconnect: reconnect,
           connect: function connect(_ref) {
             _ref.uri;
+            var name = isAndroid() ? 'Android' : walletMetaData.name;
             alert("isWebView() ".concat(isWebView()));
 
             if (isWebView()) {
-              openUniversalLink(platform);
+              openUniversalLink(platform, name);
             } else {
-              openNativeLink(platform);
+              openNativeLink(platform, name);
             }
           }
         }).then(function (account) {
