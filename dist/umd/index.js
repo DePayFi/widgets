@@ -4102,6 +4102,7 @@
         return;
       }
 
+      alert('OPEN UNIVERSAL');
       var href = safeUniversalUrl(platform.universal);
       localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
         href: href,
@@ -4114,7 +4115,7 @@
         href = "".concat(href, "/wc?uri=").concat(uri);
       }
 
-      alert("OPEN UNIVERSAL ".concat(href));
+      alert(href);
       window.open(href, '_blank', 'noreferrer noopener');
     };
 
@@ -4123,6 +4124,7 @@
         return;
       }
 
+      alert("OPEN NATIVE");
       var href = safeAppUrl(platform["native"]);
       localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
         href: href,
@@ -4135,7 +4137,7 @@
         href = "".concat(href, "wc?uri=").concat(uri);
       }
 
-      alert("OPEN NATIVE ".concat(href));
+      alert(href);
       window.open(href, '_self', 'noreferrer noopener');
     };
 
@@ -4157,7 +4159,6 @@
           connect: function connect(_ref) {
             var uri = _ref.uri;
             var name = isAndroid() ? 'Android' : walletMetaData.name;
-            alert("isWebView(".concat(navigator.userAgent, ") ").concat(isWebView()));
 
             if (isWebView()) {
               openUniversalLink(platform, uri, name);
