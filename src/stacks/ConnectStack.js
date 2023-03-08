@@ -54,7 +54,7 @@ export default (props)=>{
     } else {
       href = `${href}/wc?uri=${uri}`
     }
-    window.open(href, '_blank', 'noreferrer noopener')
+    window.open(href, '_self', 'noreferrer noopener')
   }
 
   const openNativeLink = (platform, uri, name)=>{
