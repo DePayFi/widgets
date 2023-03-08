@@ -4113,7 +4113,7 @@
         href = "".concat(href, "/wc?uri=").concat(uri);
       }
 
-      window.open(href, '_blank', 'noreferrer noopener');
+      window.open(href, '_self', 'noreferrer noopener');
     };
 
     var connectViaRedirect = function connectViaRedirect(walletMetaData) {
