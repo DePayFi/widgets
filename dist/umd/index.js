@@ -4097,7 +4097,7 @@
       });
     };
 
-    var openUniversalLink = function openUniversalLink(platform, name) {
+    var openUniversalLink = function openUniversalLink(platform, uri, name) {
       if (!platform.universal) {
         return;
       }
@@ -4118,7 +4118,7 @@
       window.open(href, '_blank', 'noreferrer noopener');
     };
 
-    var openNativeLink = function openNativeLink(platform, name) {
+    var openNativeLink = function openNativeLink(platform, uri, name) {
       if (!platform["native"]) {
         return;
       }
@@ -4155,14 +4155,14 @@
           logo: walletMetaData.logo,
           reconnect: reconnect,
           connect: function connect(_ref) {
-            _ref.uri;
+            var uri = _ref.uri;
             var name = isAndroid() ? 'Android' : walletMetaData.name;
             alert("isWebView() ".concat(isWebView()));
 
             if (isWebView()) {
-              openUniversalLink(platform, name);
+              openUniversalLink(platform, uri, name);
             } else {
-              openNativeLink(platform, name);
+              openNativeLink(platform, uri, name);
             }
           }
         }).then(function (account) {

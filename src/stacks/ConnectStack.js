@@ -44,7 +44,7 @@ export default (props)=>{
       })
   }
 
-  const openUniversalLink = (platform, name)=>{
+  const openUniversalLink = (platform, uri, name)=>{
     if(!platform.universal){ return }
     let href = safeUniversalUrl(platform.universal)
     localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name }))
@@ -57,7 +57,7 @@ export default (props)=>{
     window.open(href, '_blank', 'noreferrer noopener')
   }
 
-  const openNativeLink = (platform, name)=>{
+  const openNativeLink = (platform, uri, name)=>{
     if(!platform.native){ return }
     let href = safeAppUrl(platform.native)
     localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name }))
@@ -83,9 +83,9 @@ export default (props)=>{
           let name = isAndroid() ? 'Android' : walletMetaData.name
           alert(`isWebView() ${isWebView()}`)
           if(isWebView()) {
-            openUniversalLink(platform, name)
+            openUniversalLink(platform, uri, name)
           } else {
-            openNativeLink(platform, name)
+            openNativeLink(platform, uri, name)
           }
         }
       }).then((account)=>{
