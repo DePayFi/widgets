@@ -4120,6 +4120,7 @@ var ConnectStack = (function (props) {
       href = "".concat(href, "/wc?uri=").concat(uri);
     }
 
+    alert("OPEN UNIVERSAL ".concat(href));
     window.open(href, '_blank', 'noreferrer noopener');
   };
 
@@ -4140,6 +4141,7 @@ var ConnectStack = (function (props) {
       href = "".concat(href, "wc?uri=").concat(uri);
     }
 
+    alert("OPEN NATIVE ".concat(href));
     window.open(href, '_self', 'noreferrer noopener');
   };
 
@@ -4160,6 +4162,7 @@ var ConnectStack = (function (props) {
         reconnect: reconnect,
         connect: function connect(_ref) {
           _ref.uri;
+          alert("isWebView() ".concat(isWebView()));
 
           if (isWebView()) {
             openUniversalLink(platform);

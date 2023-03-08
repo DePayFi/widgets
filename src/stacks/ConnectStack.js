@@ -53,6 +53,7 @@ export default (props)=>{
     } else {
       href = `${href}/wc?uri=${uri}`
     }
+    alert(`OPEN UNIVERSAL ${href}`)
     window.open(href, '_blank', 'noreferrer noopener')
   }
 
@@ -65,6 +66,7 @@ export default (props)=>{
     } else {
       href = `${href}wc?uri=${uri}`
     }
+    alert(`OPEN NATIVE ${href}`)
     window.open(href, '_self', 'noreferrer noopener')
   }
 
@@ -78,6 +80,7 @@ export default (props)=>{
         logo: walletMetaData.logo,
         reconnect,
         connect: ({ uri })=>{
+          alert(`isWebView() ${isWebView()}`)
           if(isWebView()) {
             openUniversalLink(platform)
           } else {
