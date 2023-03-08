@@ -3,6 +3,7 @@ import ClosableContext from '../contexts/ClosableContext'
 import ConnectWalletDialog from '../dialogs/ConnectWalletDialog'
 import platformForWallet from '../helpers/platformForWallet'
 import isAndroid from '../helpers/isAndroid'
+import isWebView from '../helpers/isWebView'
 import PoweredBy from '../components/PoweredBy'
 import React, { useState, useContext, useEffect } from 'react'
 import safeAppUrl from '../helpers/safeAppUrl'
@@ -43,6 +44,30 @@ export default (props)=>{
       })
   }
 
+  const openUniversalLink = (platform)=>{
+    if(!platform.universal){ return }
+    let href = safeUniversalUrl(platform.universal)
+    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: isAndroid() ? 'Android' : walletMetaData.name }))
+    if(platform.encoded !== false) {
+      href = `${href}/wc?uri=${encodeURIComponent(uri)}`
+    } else {
+      href = `${href}/wc?uri=${uri}`
+    }
+    window.open(href, '_blank', 'noreferrer noopener')
+  }
+
+  const openNativeLink = (platform)=>{
+    if(!platform.native){ return }
+    let href = safeAppUrl(platform.native)
+    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: isAndroid() ? 'Android' : walletMetaData.name }))
+    if(platform.encoded !== false) {
+      href = `${href}wc?uri=${encodeURIComponent(uri)}`
+    } else {
+      href = `${href}wc?uri=${uri}`
+    }
+    window.open(href, '_self', 'noreferrer noopener')
+  }
+
   const connectViaRedirect = (walletMetaData, reconnect = true)=> {
     let platform = platformForWallet(walletMetaData)
     if(!platform) { return }
@@ -53,15 +78,11 @@ export default (props)=>{
         logo: walletMetaData.logo,
         reconnect,
         connect: ({ uri })=>{
-          let href = safeAppUrl(platform.native)
-          localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: isAndroid() ? 'Android' : walletMetaData.name }))
-          if(platform.encoded !== false) {
-            href = `${href}wc?uri=${encodeURIComponent(uri)}`
+          if(isWebView()) {
+            openUniversalLink(platform)
           } else {
-            href = `${href}wc?uri=${uri}`
+            openNativeLink(platform)
           }
-          alert(`OPEN ${navigator.userAgent}`)
-          window.open(href, '_self', 'noreferrer noopener')
         }
       }).then((account)=>{
         resolve(account, wallet)

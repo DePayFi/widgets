@@ -952,10 +952,12 @@
     "link": "WalletConnectV1",
     "mobile": {
       "ios": {
-        "native": "trust:"
+        "native": "trust:",
+        "universal": "https://link.trustwallet.com"
       },
       "android": {
-        "native": "trust:"
+        "native": "trust:",
+        "universal": "https://link.trustwallet.com"
       }
     },
     "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA5Ni41IDk2LjUiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDk2LjUgOTYuNSIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3QgZmlsbD0iI0ZGRkZGRiIgd2lkdGg9Ijk2LjUiIGhlaWdodD0iOTYuNSIvPgo8cGF0aCBzdHJva2U9IiMzMzc1QkIiIHN0cm9rZS13aWR0aD0iNi4wNjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQgPSIxMCIgZmlsbD0ibm9uZSIgZD0ibTQ4LjUgMjAuMWM5LjYgOCAyMC42IDcuNSAyMy43IDcuNS0wLjcgNDUuNS01LjkgMzYuNS0yMy43IDQ5LjMtMTcuOC0xMi44LTIzLTMuNy0yMy43LTQ5LjMgMy4yIDAgMTQuMSAwLjUgMjMuNy03LjV6Ii8+Cjwvc3ZnPgo="
@@ -3563,6 +3565,10 @@
     });
   });
 
+  var isWebView = function isWebView() {
+    return navigator.userAgent.toLowerCase().includes('WebView') || navigator.userAgent.toLowerCase().includes('wv');
+  };
+
   var PoweredBy = (function () {
     return /*#__PURE__*/React__default['default'].createElement("div", {
       className: "PoweredByWrapper"
@@ -4091,6 +4097,46 @@
       });
     };
 
+    var openUniversalLink = function openUniversalLink(platform) {
+      if (!platform.universal) {
+        return;
+      }
+
+      var href = safeUniversalUrl(platform.universal);
+      localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
+        href: href,
+        name: isAndroid() ? 'Android' : walletMetaData.name
+      }));
+
+      if (platform.encoded !== false) {
+        href = "".concat(href, "/wc?uri=").concat(encodeURIComponent(uri));
+      } else {
+        href = "".concat(href, "/wc?uri=").concat(uri);
+      }
+
+      window.open(href, '_blank', 'noreferrer noopener');
+    };
+
+    var openNativeLink = function openNativeLink(platform) {
+      if (!platform["native"]) {
+        return;
+      }
+
+      var href = safeAppUrl(platform["native"]);
+      localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
+        href: href,
+        name: isAndroid() ? 'Android' : walletMetaData.name
+      }));
+
+      if (platform.encoded !== false) {
+        href = "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
+      } else {
+        href = "".concat(href, "wc?uri=").concat(uri);
+      }
+
+      window.open(href, '_self', 'noreferrer noopener');
+    };
+
     var connectViaRedirect = function connectViaRedirect(walletMetaData) {
       var reconnect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       var platform = platformForWallet(walletMetaData);
@@ -4107,21 +4153,13 @@
           logo: walletMetaData.logo,
           reconnect: reconnect,
           connect: function connect(_ref) {
-            var uri = _ref.uri;
-            var href = safeAppUrl(platform["native"]);
-            localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
-              href: href,
-              name: isAndroid() ? 'Android' : walletMetaData.name
-            }));
+            _ref.uri;
 
-            if (platform.encoded !== false) {
-              href = "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
+            if (isWebView()) {
+              openUniversalLink(platform);
             } else {
-              href = "".concat(href, "wc?uri=").concat(uri);
+              openNativeLink(platform);
             }
-
-            alert("OPEN ".concat(navigator.userAgent));
-            window.open(href, '_self', 'noreferrer noopener');
           }
         }).then(function (account) {
           resolve(account, _wallet);
