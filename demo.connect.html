@@ -37,10 +37,23 @@
         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
           <div class="px-0 py-4 rounded-lg bg-white border">
             <div class="col px-0">
-              <div class="overflow-auto" style="height: 140px;">
+              <div class="overflow-auto" style="min-height: 140px;">
                 <h5 class="px-4">Connect</h5>
                 <div class="px-4">
                   <div class="text-secondary ">Connect a wallet</div>
+                </div>
+
+                <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+                  <div class="px-0 py-4 rounded-lg">
+                    <div class="col px-0">
+                      <div>
+                        <img style="display: none" id="walletlogo"/>
+                      </div>
+                      <div class="pt-3">
+                        <h4 id="walletname"></h4>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="px-4 pt-3">
@@ -52,30 +65,9 @@
                       document.getElementById("walletname").innerHTML = wallet.name
                       document.getElementById("walletlogo").setAttribute('src', wallet.logo)
                       document.getElementById("walletlogo").setAttribute('style', 'width: 60px; height: 60px')
+                      document.getElementById("connectButton").innerHTML = 'Connect another wallet'
                     });
                 </script>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="d-block col-md-4"></div>
-
-      </div>
-    </div>
-
-    <div class="row px-2 text-center">
-
-        <div class="d-block col-md-4"></div>
-
-        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
-          <div class="px-0 py-4 rounded-lg">
-            <div class="col px-0">
-              <div>
-                <img style="display: none" id="walletlogo"/>
-              </div>
-              <div class="pt-3">
-                <h4 id="walletname"></h4>
               </div>
             </div>
           </div>
