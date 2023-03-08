@@ -993,7 +993,7 @@
         "native": "cryptowallet:"
       },
       "android": {
-        "native": "cryptowallet:"
+        "native": "wc:"
       }
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7c5ff577-a68d-49c5-02cd-3d83637b0b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
