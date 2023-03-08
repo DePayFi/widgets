@@ -83,7 +83,8 @@ export default (props)=>{
           if(isWebView()) {
             openUniversalLink(platform, uri, name)
           } else {
-            openNativeLink(platform, uri, name)
+            // openNativeLink(platform, uri, name)
+            openUniversalLink(platform, uri, name)
           }
         }
       }).then((account)=>{
