@@ -74,7 +74,11 @@ export default (props)=>{
               }
           }
           let target = platform.native && !platform.universal ? '_self' : '_blank'
-          window.open(href, target, 'noreferrer noopener')
+          try {
+            window.open(href, target, 'noreferrer noopener')
+          } catch (error) {
+            alert(error);
+          }
         }
       }).then((account)=>{
         resolve(account, wallet)
