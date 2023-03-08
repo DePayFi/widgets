@@ -4108,41 +4108,20 @@
           reconnect: reconnect,
           connect: function connect(_ref) {
             var uri = _ref.uri;
-            var href;
-
-            if (platform.universal) {
-              href = safeUniversalUrl(platform.universal);
-            } else {
-              href = safeAppUrl(platform["native"]);
-            }
-
+            var href = safeAppUrl(platform["native"]);
             localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
               href: href,
               name: isAndroid() ? 'Android' : walletMetaData.name
             }));
 
-            if (platform.universal) {
-              if (platform.encoded !== false) {
-                href = "".concat(href, "/wc?uri=").concat(encodeURIComponent(uri));
-              } else {
-                href = "".concat(href, "/wc?uri=").concat(uri);
-              }
-            } else if (platform["native"]) {
-              if (platform.encoded !== false) {
-                href = "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
-              } else {
-                href = "".concat(href, "wc?uri=").concat(uri);
-              }
+            if (platform.encoded !== false) {
+              href = "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
+            } else {
+              href = "".concat(href, "wc?uri=").concat(uri);
             }
 
-            var target = platform["native"] && !platform.universal ? '_self' : '_blank';
-
-            try {
-              var openReturn = window.open(href, target, 'noreferrer noopener');
-              alert("openReturn: ".concat(openReturn));
-            } catch (error) {
-              alert(error);
-            }
+            alert("OPEN ".concat(navigator.userAgent));
+            window.open(href, '_self', 'noreferrer noopener');
           }
         }).then(function (account) {
           resolve(account, _wallet);

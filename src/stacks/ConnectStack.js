@@ -53,33 +53,15 @@ export default (props)=>{
         logo: walletMetaData.logo,
         reconnect,
         connect: ({ uri })=>{
-          let href
-          if(platform.universal) {
-            href = safeUniversalUrl(platform.universal)
-          } else {
-            href = safeAppUrl(platform.native)
-          }
+          let href = safeAppUrl(platform.native)
           localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: isAndroid() ? 'Android' : walletMetaData.name }))
-          if(platform.universal) {
-            if(platform.encoded !== false) {
-              href = `${href}/wc?uri=${encodeURIComponent(uri)}`
-            } else {
-              href = `${href}/wc?uri=${uri}`
-            }
-          } else if(platform.native) {
-              if(platform.encoded !== false) {
-                href = `${href}wc?uri=${encodeURIComponent(uri)}`
-              } else {
-                href = `${href}wc?uri=${uri}`
-              }
+          if(platform.encoded !== false) {
+            href = `${href}wc?uri=${encodeURIComponent(uri)}`
+          } else {
+            href = `${href}wc?uri=${uri}`
           }
-          let target = platform.native && !platform.universal ? '_self' : '_blank'
-          try {
-            let openReturn = window.open(href, target, 'noreferrer noopener')
-            alert(`openReturn: ${openReturn}`);
-          } catch (error) {
-            alert(error);
-          }
+          alert(`OPEN ${navigator.userAgent}`)
+          window.open(href, '_self', 'noreferrer noopener')
         }
       }).then((account)=>{
         resolve(account, wallet)
