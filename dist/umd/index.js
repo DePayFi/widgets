@@ -3580,6 +3580,14 @@
     }, "by DePay"));
   });
 
+  var safeUniversalUrl = (function (href) {
+    if (href.endsWith('/')) {
+      href = href.slice(0, -1);
+    }
+
+    return href;
+  });
+
   var SelectionContext = /*#__PURE__*/React__default['default'].createContext();
 
   var SelectBlockchainDialog = (function (props) {
