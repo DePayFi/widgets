@@ -69,6 +69,17 @@ export default (props)=>{
     window.open(href, '_self', 'noreferrer noopener')
   }
 
+  const openWcLink = (platform, uri, name)=>{
+    let href = 'wc://'
+    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name }))
+    if(platform.encoded !== false) {
+      href = `${href}wc?uri=${encodeURIComponent(uri)}`
+    } else {
+      href = `${href}wc?uri=${uri}`
+    }
+    window.open(href, '_self', 'noreferrer noopener')
+  }
+
   const connectViaRedirect = (walletMetaData, reconnect = true)=> {
     let platform = platformForWallet(walletMetaData)
     if(!platform) { return }
@@ -80,8 +91,12 @@ export default (props)=>{
         reconnect,
         connect: ({ uri })=>{
           let name = isAndroid() ? 'Android' : walletMetaData.name
-          if(isWebView() && !isAndroid()) {
-            openUniversalLink(platform, uri, name)
+          if(isWebView()) {
+            if(isAndroid()) {
+              openWcLink(platform, uri, name)
+            } else { // iOS
+              openUniversalLink(platform, uri, name)
+            }
           } else {
             openNativeLink(platform, uri, name)
           }
