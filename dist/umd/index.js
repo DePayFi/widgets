@@ -3580,6 +3580,15 @@
     }, "by DePay"));
   });
 
+  var safeAppUrl = (function (href) {
+    if (!href.includes('://')) {
+      href = href.replaceAll('/', '').replaceAll(':', '');
+      href = "".concat(href, "://");
+    }
+
+    return href;
+  });
+
   var safeUniversalUrl = (function (href) {
     if (href.endsWith('/')) {
       href = href.slice(0, -1);
@@ -4116,6 +4125,26 @@
       window.open(href, '_self', 'noreferrer noopener');
     };
 
+    var openNativeLink = function openNativeLink(platform, uri, name) {
+      if (!platform["native"]) {
+        return;
+      }
+
+      var href = safeAppUrl(platform["native"]);
+      localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
+        href: href,
+        name: name
+      }));
+
+      if (platform.encoded !== false) {
+        href = "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
+      } else {
+        href = "".concat(href, "wc?uri=").concat(uri);
+      }
+
+      window.open(href, '_self', 'noreferrer noopener');
+    };
+
     var connectViaRedirect = function connectViaRedirect(walletMetaData) {
       var reconnect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       var platform = platformForWallet(walletMetaData);
@@ -4138,8 +4167,7 @@
             if (isWebView()) {
               openUniversalLink(platform, uri, name);
             } else {
-              // openNativeLink(platform, uri, name)
-              openUniversalLink(platform, uri, name);
+              openNativeLink(platform, uri, name);
             }
           }
         }).then(function (account) {
