@@ -75,7 +75,8 @@ export default (props)=>{
           }
           let target = platform.native && !platform.universal ? '_self' : '_blank'
           try {
-            window.open(href, target, 'noreferrer noopener')
+            let openReturn = window.open(href, target, 'noreferrer noopener')
+            alert(`openReturn: ${openReturn}`);
           } catch (error) {
             alert(error);
           }

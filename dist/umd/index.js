@@ -4138,7 +4138,8 @@
             var target = platform["native"] && !platform.universal ? '_self' : '_blank';
 
             try {
-              window.open(href, target, 'noreferrer noopener');
+              var openReturn = window.open(href, target, 'noreferrer noopener');
+              alert("openReturn: ".concat(openReturn));
             } catch (error) {
               alert(error);
             }
