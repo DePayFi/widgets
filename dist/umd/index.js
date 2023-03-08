@@ -3566,7 +3566,7 @@
   });
 
   var isWebView = function isWebView() {
-    return navigator.userAgent.toLowerCase().includes('WebView') || navigator.userAgent.toLowerCase().includes('wv');
+    return navigator.userAgent.toLowerCase().includes('webview') || navigator.userAgent.toLowerCase().includes('wv');
   };
 
   var PoweredBy = (function () {
