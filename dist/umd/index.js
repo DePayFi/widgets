@@ -4157,7 +4157,7 @@
           connect: function connect(_ref) {
             var uri = _ref.uri;
             var name = isAndroid() ? 'Android' : walletMetaData.name;
-            alert("isWebView() ".concat(isWebView()));
+            alert("isWebView(".concat(navigator.userAgent, ") ").concat(isWebView()));
 
             if (isWebView()) {
               openUniversalLink(platform, uri, name);

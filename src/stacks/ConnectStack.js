@@ -81,7 +81,7 @@ export default (props)=>{
         reconnect,
         connect: ({ uri })=>{
           let name = isAndroid() ? 'Android' : walletMetaData.name
-          alert(`isWebView() ${isWebView()}`)
+          alert(`isWebView(${navigator.userAgent}) ${isWebView()}`)
           if(isWebView()) {
             openUniversalLink(platform, uri, name)
           } else {
