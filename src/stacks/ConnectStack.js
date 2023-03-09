@@ -49,7 +49,7 @@ export default (props)=>{
     if(!platform.universal){ return }
     let href = safeUniversalUrl(platform.universal)
     localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name }))
-    href = `${href}/wc?uri=${uri}`
+    href = `${href}/wc?uri=${encodeURIComponent(uri)}`
     return window.open(href, '_self', 'noreferrer noopener')
   }
 

@@ -4571,7 +4571,7 @@
         href: href,
         name: name
       }));
-      href = "".concat(href, "/wc?uri=").concat(uri);
+      href = "".concat(href, "/wc?uri=").concat(encodeURIComponent(uri));
       return window.open(href, '_self', 'noreferrer noopener');
     };
 
