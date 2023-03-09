@@ -1,11 +1,13 @@
 import allWallets from '../helpers/allWallets'
 import ClosableContext from '../contexts/ClosableContext'
 import ConnectWalletDialog from '../dialogs/ConnectWalletDialog'
-import platformForWallet from '../helpers/platformForWallet'
 import isAndroid from '../helpers/isAndroid'
+import isWebView from '../helpers/isWebView'
+import platformForWallet from '../helpers/platformForWallet'
 import PoweredBy from '../components/PoweredBy'
 import React, { useState, useContext, useEffect } from 'react'
 import safeAppUrl from '../helpers/safeAppUrl'
+import safeUniversalUrl from '../helpers/safeUniversalUrl'
 import SelectBlockchainDialog from '../dialogs/SelectBlockchainDialog'
 import SelectWalletDialog from '../dialogs/SelectWalletDialog'
 import WhatIsAWalletDialog from '../dialogs/WhatIsAWalletDialog'
@@ -43,6 +45,37 @@ export default (props)=>{
       })
   }
 
+  const openUniversalLink = (platform, uri, name)=>{
+    if(!platform.universal){ return }
+    let href = safeUniversalUrl(platform.universal)
+    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name }))
+    href = `${href}/wc?uri=${encodeURIComponent(uri)}`
+    return window.open(href, '_self', 'noreferrer noopener')
+  }
+
+  const openNativeLink = (platform, uri, name)=>{
+    if(!platform.native){ return }
+    let href = safeAppUrl(platform.native)
+    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name }))
+    if(platform.encoded !== false) {
+      href = `${href}wc?uri=${encodeURIComponent(uri)}`
+    } else {
+      href = `${href}wc?uri=${uri}`
+    }
+    return window.open(href, '_self', 'noreferrer noopener')
+  }
+
+  const openWcLink = (platform, uri, name)=>{
+    let href = 'wc://'
+    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name }))
+    if(platform.encoded !== false) {
+      href = `${href}wc?uri=${encodeURIComponent(uri)}`
+    } else {
+      href = `${href}wc?uri=${uri}`
+    }
+    window.open(href, '_self', 'noreferrer noopener')
+  }
+
   const connectViaRedirect = (walletMetaData, reconnect = true)=> {
     let platform = platformForWallet(walletMetaData)
     if(!platform) { return }
@@ -53,38 +86,30 @@ export default (props)=>{
         logo: walletMetaData.logo,
         reconnect,
         connect: ({ uri })=>{
-          let href
-          if(platform.universal) {
-            href = safeUniversalUrl(platform.universal)
-          } else {
-            href = safeAppUrl(platform.native)
-          }
-          localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name: isAndroid() ? 'Android' : walletMetaData.name }))
-          if(platform.universal) {
-            if(platform.encoded !== false) {
-              href = `${href}/wc?uri=${encodeURIComponent(uri)}`
-            } else {
-              href = `${href}/wc?uri=${uri}`
+          let name = isAndroid() ? 'Android' : walletMetaData.name
+          if(isWebView()) {
+            if(platform.universal) {
+              openUniversalLink(platform, uri, name)
+            } else if(isAndroid()) {
+              openWcLink(platform, uri, name)
             }
-          } else if(platform.native) {
-              if(platform.encoded !== false) {
-                href = `${href}wc?uri=${encodeURIComponent(uri)}`
-              } else {
-                href = `${href}wc?uri=${uri}`
-              }
+          } else {
+            if(platform.native) {
+              openNativeLink(platform, uri, name)
+            } else {
+              openUniversalLink(platform, uri, name)
+            }
           }
-          let target = platform.native && !platform.universal ? '_self' : '_blank'
-          window.open(href, target, 'noreferrer noopener')
         }
       }).then((account)=>{
         resolve(account, wallet)
       })
     } else if (walletMetaData.link == 'WalletLink') {
       setPreviouslyConnectedWallet(walletMetaData.name)
-      if(isAndroid()) {
-        window.open(`https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
-      } else { // IOS
-        window.open(`cbwallet://dapp?url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
+      if(isAndroid() || isWebView()) { // Universal Link
+        window.open(`${platform.universal}?cb_url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
+      } else { // iOS standalone browser -> native deeplink
+        window.open(`${platform.native}?url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
       }
     }
   }

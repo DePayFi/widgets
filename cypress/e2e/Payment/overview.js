@@ -177,7 +177,7 @@ describe('Payment Widget: overview', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Skeleton')
             cy.wait(4000).then(()=> {
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('strong').should('contain.text', 'Loading payment routes...')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('strong').should('contain.text', 'Loading payment options...')
             })
           })
         })

@@ -945,10 +945,12 @@ var allWallets = [{
   "link": "WalletLink",
   "mobile": {
     "ios": {
-      "native": "cbwallet://dapp?url="
+      "native": "cbwallet://dapp",
+      "universal": "https://go.cb-w.com/dapp"
     },
     "android": {
-      "native": "cbwallet://dapp?url="
+      "native": "cbwallet://dapp",
+      "universal": "https://go.cb-w.com/dapp"
     }
   },
   "logo": "data:image/svg+xml;base64,PHN2ZyBpZD0nTGF5ZXJfMScgZGF0YS1uYW1lPSdMYXllciAxJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB2aWV3Qm94PScwIDAgNDg4Ljk2IDQ4OC45Nic+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOnVybCgjbGluZWFyLWdyYWRpZW50KTt9LmNscy0ye2ZpbGw6IzQzNjFhZDt9PC9zdHlsZT48bGluZWFyR3JhZGllbnQgaWQ9J2xpbmVhci1ncmFkaWVudCcgeDE9JzI1MCcgeTE9JzcuMzUnIHgyPScyNTAnIHkyPSc0OTYuMzInIGdyYWRpZW50VHJhbnNmb3JtPSdtYXRyaXgoMSwgMCwgMCwgLTEsIDAsIDUwMiknIGdyYWRpZW50VW5pdHM9J3VzZXJTcGFjZU9uVXNlJz48c3RvcCBvZmZzZXQ9JzAnIHN0b3AtY29sb3I9JyMzZDViYTknLz48c3RvcCBvZmZzZXQ9JzEnIHN0b3AtY29sb3I9JyM0ODY4YjEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cGF0aCBjbGFzcz0nY2xzLTEnIGQ9J00yNTAsNS42OEMxMTQuODcsNS42OCw1LjUyLDExNSw1LjUyLDI1MC4xN1MxMTQuODcsNDk0LjY1LDI1MCw0OTQuNjUsNDk0LjQ4LDM4NS4yOSw0OTQuNDgsMjUwLjE3LDM4NS4xMyw1LjY4LDI1MCw1LjY4Wm0wLDM4Ny41NEExNDMuMDYsMTQzLjA2LDAsMSwxLDM5My4wNSwyNTAuMTcsMTQzLjExLDE0My4xMSwwLDAsMSwyNTAsMzkzLjIyWicgdHJhbnNmb3JtPSd0cmFuc2xhdGUoLTUuNTIgLTUuNjgpJy8+PHBhdGggY2xhc3M9J2Nscy0yJyBkPSdNMjg0LjY5LDI5Ni4wOUgyMTUuMzFhMTEsMTEsMCwwLDEtMTAuOS0xMC45VjIxNS40OGExMSwxMSwwLDAsMSwxMC45LTEwLjkxSDI4NWExMSwxMSwwLDAsMSwxMC45LDEwLjkxdjY5LjcxQTExLjA3LDExLjA3LDAsMCwxLDI4NC42OSwyOTYuMDlaJyB0cmFuc2Zvcm09J3RyYW5zbGF0ZSgtNS41MiAtNS42OCknLz48L3N2Zz4="
@@ -958,15 +960,17 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "trust:"
+      "native": "trust:",
+      "universal": "https://link.trustwallet.com"
     },
     "android": {
-      "native": "trust:"
+      "native": "trust:",
+      "universal": "https://link.trustwallet.com"
     }
   },
   "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA5Ni41IDk2LjUiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDk2LjUgOTYuNSIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3QgZmlsbD0iI0ZGRkZGRiIgd2lkdGg9Ijk2LjUiIGhlaWdodD0iOTYuNSIvPgo8cGF0aCBzdHJva2U9IiMzMzc1QkIiIHN0cm9rZS13aWR0aD0iNi4wNjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQgPSIxMCIgZmlsbD0ibm9uZSIgZD0ibTQ4LjUgMjAuMWM5LjYgOCAyMC42IDcuNSAyMy43IDcuNS0wLjcgNDUuNS01LjkgMzYuNS0yMy43IDQ5LjMtMTcuOC0xMi44LTIzLTMuNy0yMy43LTQ5LjMgMy4yIDAgMTQuMSAwLjUgMjMuNy03LjV6Ii8+Cjwvc3ZnPgo="
 }, {
-  "name": "Binance",
+  "name": "Binance Wallet",
   "extension": "Binance",
   "link": "WalletConnectV1",
   "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkzLjY4Ij48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5My42OCIgZmlsbD0iIzFlMjAyNCIvPjxwYXRoIGQ9Im01Ni45Miw0Ni41M2wzOS4wOC0yMi41NCwzOS4wOCwyMi41NC0xNC4zNSw4LjM2LTI0LjczLTE0LjE4LTI0LjczLDE0LjE4LTE0LjM1LTguMzZabTc4LjE3LDI4LjUzbC0xNC4zNS04LjM2LTI0LjczLDE0LjI3LTI0LjczLTE0LjI3LTE0LjM1LDguMzZ2MTYuNzFsMjQuNzMsMTQuMTh2MjguNDVsMTQuMzUsOC4zNiwxNC4zNS04LjM2di0yOC40NWwyNC43My0xNC4yN3YtMTYuNjNabTAsNDUuMTZ2LTE2LjcxbC0xNC4zNSw4LjM2djE2LjcxbDE0LjM1LTguMzZabTEwLjIxLDUuODJsLTI0LjczLDE0LjI3djE2LjcxbDM5LjA4LTIyLjU0di00NS4yNWwtMTQuMzUsOC4zNnYyOC40NVptLTE0LjM1LTY1LjI1bDE0LjM1LDguMzZ2MTYuNzFsMTQuMzUtOC4zNnYtMTYuNzFsLTE0LjM1LTguMzYtMTQuMzUsOC4zNlptLTQ5LjMsODUuNnYxNi43MWwxNC4zNSw4LjM2LDE0LjM1LTguMzZ2LTE2LjcxbC0xNC4zNSw4LjM2LTE0LjM1LTguMzZabS0yNC43My0yNi4xN2wxNC4zNSw4LjM2di0xNi43MWwtMTQuMzUtOC4zNnYxNi43MVptMjQuNzMtNTkuNDNsMTQuMzUsOC4zNiwxNC4zNS04LjM2LTE0LjM1LTguMzYtMTQuMzUsOC4zNlptLTM0Ljk1LDguMzZsMTQuMzUtOC4zNi0xNC4zNS04LjM2LTE0LjM1LDguMzZ2MTYuNzFsMTQuMzUsOC4zNnYtMTYuNzFabTAsMjguNDVsLTE0LjM1LTguMzZ2NDUuMTZsMzkuMDgsMjIuNTR2LTE2LjcxbC0yNC43My0xNC4yN3MwLTI4LjM2LDAtMjguMzZaIiBmaWxsPSIjZjBiOTBiIi8+PC9zdmc+"
@@ -977,11 +981,13 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "metamask:",
-      "encoded": false
+      "encoded": false,
+      "universal": "https://metamask.app.link"
     },
     "android": {
       "native": "metamask:",
-      "encoded": false
+      "encoded": false,
+      "universal": "https://metamask.app.link"
     }
   },
   "logo": "data:image/svg+xml;base64,PHN2ZyBpZD0nTGF5ZXJfMScgZGF0YS1uYW1lPSdMYXllciAxJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0ODUuOTMgNDUwLjU2Jz48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6IzgyODQ4Nzt9LmNscy0ye2ZpbGw6I2UyNzcyNjtzdHJva2U6I2UyNzcyNjt9LmNscy0xMCwuY2xzLTExLC5jbHMtMiwuY2xzLTMsLmNscy00LC5jbHMtNSwuY2xzLTYsLmNscy03LC5jbHMtOCwuY2xzLTl7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO30uY2xzLTN7ZmlsbDojZTM3NzI1O3N0cm9rZTojZTM3NzI1O30uY2xzLTR7ZmlsbDojZDZjMGIzO3N0cm9rZTojZDZjMGIzO30uY2xzLTV7ZmlsbDojMjQzNDQ3O3N0cm9rZTojMjQzNDQ3O30uY2xzLTZ7ZmlsbDojY2Q2MzI4O3N0cm9rZTojY2Q2MzI4O30uY2xzLTd7ZmlsbDojZTM3NTI1O3N0cm9rZTojZTM3NTI1O30uY2xzLTh7ZmlsbDojZjY4NTFmO3N0cm9rZTojZjY4NTFmO30uY2xzLTl7ZmlsbDojYzFhZTllO3N0cm9rZTojYzFhZTllO30uY2xzLTEwe2ZpbGw6IzE3MTcxNztzdHJva2U6IzE3MTcxNzt9LmNscy0xMXtmaWxsOiM3NjNlMWE7c3Ryb2tlOiM3NjNlMWE7fTwvc3R5bGU+PC9kZWZzPjxwYXRoIGNsYXNzPSdjbHMtMScgZD0nTTI0Ny45MSwzNTYuMjlhMjYsMjYsMCwxLDAtMjYsMjZBMjYsMjYsMCwwLDAsMjQ3LjkxLDM1Ni4yOVonIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC03Ljk3IC0yMS4zMyknLz48cGF0aCBjbGFzcz0nY2xzLTEnIGQ9J00yNDYuNTUsMTQ5LjcxYTI2LDI2LDAsMSwwLTI2LDI2QTI2LDI2LDAsMCwwLDI0Ni41NSwxNDkuNzFaJyB0cmFuc2Zvcm09J3RyYW5zbGF0ZSgtNy45NyAtMjEuMzMpJy8+PGNpcmNsZSBjbGFzcz0nY2xzLTEnIGN4PScxNDguNCcgY3k9JzIzMC4wNScgcj0nMjUuOTknLz48cG9seWdvbiBjbGFzcz0nY2xzLTInIHBvaW50cz0nNDYxLjI4IDAuNSAyNzIuMDYgMTQxLjAzIDMwNy4wNSA1OC4xMiA0NjEuMjggMC41Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy0zJyBwb2ludHM9JzI0LjQ2IDAuNSAyMTIuMTYgMTQyLjM3IDE3OC44OCA1OC4xMiAyNC40NiAwLjUnLz48cG9seWdvbiBjbGFzcz0nY2xzLTMnIHBvaW50cz0nMzkzLjIgMzI2LjI2IDM0Mi44MSA0MDMuNDcgNDUwLjYzIDQzMy4xNCA0ODEuNjMgMzI3Ljk3IDM5My4yIDMyNi4yNicvPjxwb2x5Z29uIGNsYXNzPSdjbHMtMycgcG9pbnRzPSc0LjQ5IDMyNy45NyAzNS4zIDQzMy4xNCAxNDMuMTMgNDAzLjQ3IDkyLjczIDMyNi4yNiA0LjQ5IDMyNy45NycvPjxwb2x5Z29uIGNsYXNzPSdjbHMtMycgcG9pbnRzPScxMzcuMDQgMTk1LjggMTA3IDI0MS4yNSAyMTQuMDYgMjQ2LjAxIDIxMC4yNiAxMzAuOTYgMTM3LjA0IDE5NS44Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy0zJyBwb2ludHM9JzM0OC43IDE5NS44IDI3NC41MyAxMjkuNjMgMjcyLjA2IDI0Ni4wMSAzNzguOTQgMjQxLjI1IDM0OC43IDE5NS44Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy0zJyBwb2ludHM9JzE0My4xMyA0MDMuNDcgMjA3LjQxIDM3Mi4wOSAxNTEuODggMzI4LjczIDE0My4xMyA0MDMuNDcnLz48cG9seWdvbiBjbGFzcz0nY2xzLTMnIHBvaW50cz0nMjc4LjM0IDM3Mi4wOSAzNDIuODEgNDAzLjQ3IDMzMy44NyAzMjguNzMgMjc4LjM0IDM3Mi4wOScvPjxwb2x5Z29uIGNsYXNzPSdjbHMtNCcgcG9pbnRzPSczNDIuODEgNDAzLjQ3IDI3OC4zNCAzNzIuMDkgMjgzLjQ3IDQxNC4xMiAyODIuOSA0MzEuODEgMzQyLjgxIDQwMy40NycvPjxwb2x5Z29uIGNsYXNzPSdjbHMtNCcgcG9pbnRzPScxNDMuMTMgNDAzLjQ3IDIwMy4wMyA0MzEuODEgMjAyLjY1IDQxNC4xMiAyMDcuNDEgMzcyLjA5IDE0My4xMyA0MDMuNDcnLz48cG9seWdvbiBjbGFzcz0nY2xzLTUnIHBvaW50cz0nMjAzLjk4IDMwMC45NyAxNTAuMzUgMjg1LjE4IDE4OC4yIDI2Ny44OCAyMDMuOTggMzAwLjk3Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy01JyBwb2ludHM9JzI4MS43NiAzMDAuOTcgMjk3LjU1IDI2Ny44OCAzMzUuNTggMjg1LjE4IDI4MS43NiAzMDAuOTcnLz48cG9seWdvbiBjbGFzcz0nY2xzLTYnIHBvaW50cz0nMTQzLjEzIDQwMy40NyAxNTIuMjUgMzI2LjI2IDkyLjczIDMyNy45NyAxNDMuMTMgNDAzLjQ3Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy02JyBwb2ludHM9JzMzMy42OCAzMjYuMjYgMzQyLjgxIDQwMy40NyAzOTMuMiAzMjcuOTcgMzMzLjY4IDMyNi4yNicvPjxwb2x5Z29uIGNsYXNzPSdjbHMtNicgcG9pbnRzPSczNzguOTQgMjQxLjI1IDI3Mi4wNiAyNDYuMDEgMjgxLjk1IDMwMC45NyAyOTcuNzQgMjY3Ljg4IDMzNS43NyAyODUuMTggMzc4Ljk0IDI0MS4yNScvPjxwb2x5Z29uIGNsYXNzPSdjbHMtNicgcG9pbnRzPScxNTAuMzUgMjg1LjE4IDE4OC4zOSAyNjcuODggMjAzLjk4IDMwMC45NyAyMTQuMDYgMjQ2LjAxIDEwNyAyNDEuMjUgMTUwLjM1IDI4NS4xOCcvPjxwb2x5Z29uIGNsYXNzPSdjbHMtNycgcG9pbnRzPScxMDcgMjQxLjI1IDE1MS44OCAzMjguNzMgMTUwLjM1IDI4NS4xOCAxMDcgMjQxLjI1Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy03JyBwb2ludHM9JzMzNS43NyAyODUuMTggMzMzLjg3IDMyOC43MyAzNzguOTQgMjQxLjI1IDMzNS43NyAyODUuMTgnLz48cG9seWdvbiBjbGFzcz0nY2xzLTcnIHBvaW50cz0nMjE0LjA2IDI0Ni4wMSAyMDMuOTggMzAwLjk3IDIxNi41MyAzNjUuODIgMjE5LjM4IDI4MC40MyAyMTQuMDYgMjQ2LjAxJy8+PHBvbHlnb24gY2xhc3M9J2Nscy03JyBwb2ludHM9JzI3Mi4wNiAyNDYuMDEgMjY2LjkzIDI4MC4yNCAyNjkuMjEgMzY1LjgyIDI4MS45NSAzMDAuOTcgMjcyLjA2IDI0Ni4wMScvPjxwb2x5Z29uIGNsYXNzPSdjbHMtOCcgcG9pbnRzPScyODEuOTUgMzAwLjk3IDI2OS4yMSAzNjUuODIgMjc4LjM0IDM3Mi4wOSAzMzMuODcgMzI4LjczIDMzNS43NyAyODUuMTggMjgxLjk1IDMwMC45NycvPjxwb2x5Z29uIGNsYXNzPSdjbHMtOCcgcG9pbnRzPScxNTAuMzUgMjg1LjE4IDE1MS44OCAzMjguNzMgMjA3LjQxIDM3Mi4wOSAyMTYuNTMgMzY1LjgyIDIwMy45OCAzMDAuOTcgMTUwLjM1IDI4NS4xOCcvPjxwb2x5Z29uIGNsYXNzPSdjbHMtOScgcG9pbnRzPScyODIuOSA0MzEuODEgMjgzLjQ3IDQxNC4xMiAyNzguNzIgNDA5Ljk0IDIwNy4wMiA0MDkuOTQgMjAyLjY1IDQxNC4xMiAyMDMuMDMgNDMxLjgxIDE0My4xMyA0MDMuNDcgMTY0LjA1IDQyMC41OCAyMDYuNDUgNDUwLjA2IDI3OS4yOSA0NTAuMDYgMzIxLjg5IDQyMC41OCAzNDIuODEgNDAzLjQ3IDI4Mi45IDQzMS44MScvPjxwb2x5Z29uIGNsYXNzPSdjbHMtMTAnIHBvaW50cz0nMjc4LjM0IDM3Mi4wOSAyNjkuMjEgMzY1LjgyIDIxNi41MyAzNjUuODIgMjA3LjQxIDM3Mi4wOSAyMDIuNjUgNDE0LjEyIDIwNy4wMiA0MDkuOTQgMjc4LjcyIDQwOS45NCAyODMuNDcgNDE0LjEyIDI3OC4zNCAzNzIuMDknLz48cG9seWdvbiBjbGFzcz0nY2xzLTExJyBwb2ludHM9JzQ2OS4yNyAxNTAuMTYgNDg1LjQzIDcyLjU3IDQ2MS4yOCAwLjUgMjc4LjM0IDEzNi4yOCAzNDguNyAxOTUuOCA0NDguMTYgMjI0LjkgNDcwLjIyIDE5OS4yMyA0NjAuNzEgMTkyLjM4IDQ3NS45MiAxNzguNSA0NjQuMTMgMTY5LjM3IDQ3OS4zNSAxNTcuNzcgNDY5LjI3IDE1MC4xNicvPjxwb2x5Z29uIGNsYXNzPSdjbHMtMTEnIHBvaW50cz0nMC41IDcyLjU3IDE2LjY2IDE1MC4xNiA2LjM5IDE1Ny43NyAyMS42MSAxNjkuMzcgMTAuMDEgMTc4LjUgMjUuMjIgMTkyLjM4IDE1LjcxIDE5OS4yMyAzNy41OCAyMjQuOSAxMzcuMDQgMTk1LjggMjA3LjQxIDEzNi4yOCAyNC40NiAwLjUgMC41IDcyLjU3Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy04JyBwb2ludHM9JzQ0OC4xNiAyMjQuOSAzNDguNyAxOTUuOCAzNzguOTQgMjQxLjI1IDMzMy44NyAzMjguNzMgMzkzLjIgMzI3Ljk3IDQ4MS42MyAzMjcuOTcgNDQ4LjE2IDIyNC45Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy04JyBwb2ludHM9JzEzNy4wNCAxOTUuOCAzNy41OCAyMjQuOSA0LjQ5IDMyNy45NyA5Mi43MyAzMjcuOTcgMTUxLjg4IDMyOC43MyAxMDcgMjQxLjI1IDEzNy4wNCAxOTUuOCcvPjxwb2x5Z29uIGNsYXNzPSdjbHMtOCcgcG9pbnRzPScyNzIuMDYgMjQ2LjAxIDI3OC4zNCAxMzYuMjggMzA3LjI0IDU4LjEyIDE3OC44OCA1OC4xMiAyMDcuNDEgMTM2LjI4IDIxNC4wNiAyNDYuMDEgMjE2LjM0IDI4MC42MiAyMTYuNTMgMzY1LjgyIDI2OS4yMSAzNjUuODIgMjY5LjU5IDI4MC42MiAyNzIuMDYgMjQ2LjAxJy8+PC9zdmc+"
@@ -994,10 +1000,12 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
-      "native": "cryptowallet:"
+      "native": "cryptowallet:",
+      "universal": "https://wallet.crypto.com"
     },
     "android": {
-      "native": "cryptowallet:"
+      "native": "wc:",
+      "universal": "https://wallet.crypto.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7c5ff577-a68d-49c5-02cd-3d83637b0b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1007,10 +1015,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "coin98:"
+      "native": "coin98:",
+      "universal": "https://coin98.com"
     },
     "android": {
-      "native": "coin98:"
+      "native": "coin98:",
+      "universal": "https://coin98.com"
     }
   },
   "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA0MC43IDQwIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA0MC43IDQwIiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBmaWxsPSIjRDlCNDMyIiBkPSJtMzMuMyAwaC0yNS45Yy00LjEgMC03LjQgMy4zLTcuNCA3LjN2MjUuNGMwIDQgMy4zIDcuMyA3LjQgNy4zaDI1LjljNC4xIDAgNy40LTMuMyA3LjQtNy4zdi0yNS40YzAtNC0zLjMtNy4zLTcuNC03LjN6Ii8+CjxwYXRoIGZpbGw9IiMyNTI1MjUiIGQ9Im0zMy4zIDBoLTI1LjljLTQuMSAwLTcuNCAzLjMtNy40IDcuM3YyNS40YzAgNCAzLjMgNy4zIDcuNCA3LjNoMjUuOWM0LjEgMCA3LjQtMy4zIDcuNC03LjN2LTI1LjRjMC00LTMuMy03LjMtNy40LTcuM3ptLTYuMyAxMGMzIDAgNS41IDIuNCA1LjUgNS40IDAgMC45LTAuMiAxLjgtMC42IDIuNi0wLjctMC41LTEuNS0xLTIuMy0xLjMgMC4yLTAuNCAwLjMtMC45IDAuMy0xLjMgMC0xLjUtMS4zLTIuOC0yLjgtMi44LTEuNiAwLTIuOCAxLjMtMi44IDIuOCAwIDAuNSAwLjEgMC45IDAuMyAxLjMtMC44IDAuMy0xLjYgMC43LTIuMyAxLjMtMC41LTAuOC0wLjYtMS43LTAuNi0yLjYtMC4xLTMgMi4zLTUuNCA1LjMtNS40em0tMTMuMyAyMGMtMyAwLTUuNS0yLjQtNS41LTUuNGgyLjZjMCAxLjUgMS4zIDIuOCAyLjggMi44czIuOC0xLjMgMi44LTIuOGgyLjZjMC4yIDMtMi4zIDUuNC01LjMgNS40em0wLTcuNWMtMy41IDAtNi4zLTIuOC02LjMtNi4yczIuOC02LjMgNi4zLTYuMyA2LjQgMi44IDYuNCA2LjNjMCAzLjQtMi45IDYuMi02LjQgNi4yem0xMy4zIDcuNWMtMy41IDAtNi40LTIuOC02LjQtNi4yIDAtMy41IDIuOC02LjMgNi40LTYuMyAzLjUgMCA2LjMgMi44IDYuMyA2LjMgMC4xIDMuNC0yLjggNi4yLTYuMyA2LjJ6bTMuOC02LjNjMCAyLjEtMS43IDMuNy0zLjggMy43cy0zLjgtMS43LTMuOC0zLjdjMC0yLjEgMS43LTMuNyAzLjgtMy43IDIuMSAwLjEgMy44IDEuNyAzLjggMy43em0tMTMuNC03LjRjMCAyLjEtMS43IDMuNy0zLjggMy43cy0zLjgtMS43LTMuOC0zLjdjMC0yLjEgMS43LTMuNyAzLjgtMy43IDIuMiAwIDMuOCAxLjYgMy44IDMuN3oiLz4KPC9zdmc+Cg=="
@@ -1023,34 +1033,34 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "rainbow:"
+      "universal": "https://rnbwapp.com"
     },
     "android": {
-      "native": "rainbow:"
+      "native": "rainbow:",
+      "universal": "https://rnbwapp.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7a33d7f1-3d12-4b5c-f3ee-5cd83cb1b500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
-  "name": "Argent",
+  "name": "Uniswap Wallet",
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "argent://app"
-    },
-    "android": {
-      "native": "argent://app"
+      "universal": "https://uniswap.org/app"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ce5fbfe8-13b5-4f5f-184a-34f6ee7a3d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
+  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/bff9cf1f-df19-42ce-f62a-87f04df13c00?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Safe",
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "gnosissafe:"
+      "native": "gnosissafe:",
+      "universal": "https://gnosis-safe.io/"
     },
     "android": {
-      "native": "gnosissafe:"
+      "native": "gnosissafe:",
+      "universal": "https://gnosis-safe.io/"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a1cb2777-f8f9-49b0-53fd-443d20ee0b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1066,6 +1076,32 @@ var allWallets = [{
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1991f85d-43d4-4165-3502-cd6ef8312b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
+}, {
+  "name": "Argent",
+  "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "native": "argent://app",
+      "universal": "https://www.argent.xyz/app"
+    },
+    "android": {
+      "native": "argent://app",
+      "universal": "https://www.argent.xyz/app"
+    }
+  },
+  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ce5fbfe8-13b5-4f5f-184a-34f6ee7a3d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
+}, {
+  "name": "MEW wallet",
+  "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://mewwallet.com"
+    },
+    "android": {
+      "universal": "https://mewwallet.com"
+    }
+  },
+  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e2024511-2c9b-46d7-3111-52df3d241700?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "ONTO",
   "link": "WalletConnectV1",
@@ -1086,10 +1122,12 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
-      "native": "zerion://"
+      "native": "zerion://",
+      "universal": "https://wallet.zerion.io"
     },
     "android": {
-      "native": "zerion://"
+      "native": "zerion://",
+      "universal": "https://wallet.zerion.io"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f216b371-96cf-409a-9d88-296392b85800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1098,10 +1136,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "spot://"
+      "native": "spot://",
+      "universal": "https://spot.so"
     },
     "android": {
-      "native": "spot://"
+      "native": "spot://",
+      "universal": "https://spot.so"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1bf33a89-b049-4a1c-d1f6-4dd7419ee400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1110,10 +1150,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "bitkeep://"
+      "native": "bitkeep://",
+      "universal": "https://bkapp.vip"
     },
     "android": {
-      "native": "bitkeep://"
+      "native": "bitkeep://",
+      "universal": "https://bkapp.vip"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3f7075d0-4ab7-4db5-404d-3e4c05e6fe00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1122,10 +1164,10 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "unstoppabledomains:"
+      "universal": "https://unstoppabledomains.com/mobile"
     },
     "android": {
-      "native": "unstoppabledomains:"
+      "universal": "https://unstoppabledomains.com/mobile"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/4725dda0-4471-4d0f-7adf-6bbe8b929c00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1134,10 +1176,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "omni"
+      "native": "omni",
+      "universal": "https://links.omni.app"
     },
     "android": {
-      "native": "omni"
+      "native": "omni",
+      "universal": "https://links.omni.app"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2cd67b4c-282b-4809-e7c0-a88cd5116f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1146,10 +1190,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "keyring:"
+      "native": "keyring:",
+      "universal": "https://keyring.app"
     },
     "android": {
-      "native": "keyring:"
+      "native": "keyring:",
+      "universal": "https://keyring.app"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/dda0f0fb-34e8-4a57-dcea-b008e7d1ff00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1170,10 +1216,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "bitpay:"
+      "native": "bitpay:",
+      "universal": "https://link.bitpay.com/wallet"
     },
     "android": {
-      "native": "bitpay:"
+      "native": "bitpay:",
+      "universal": "https://link.bitpay.com/wallet"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/97d4429f-eaf0-4302-87f5-9d26d46fe700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1182,10 +1230,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "mathwallet:"
+      "native": "mathwallet:",
+      "universal": "https://www.mathwallet.org"
     },
     "android": {
-      "native": "mathwallet:"
+      "native": "mathwallet:",
+      "universal": "https://www.mathwallet.org"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/26a8f588-3231-4411-60ce-5bb6b805a700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1217,10 +1267,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "1inch:"
+      "native": "1inch:",
+      "universal": "https://wallet.1inch.io"
     },
     "android": {
-      "native": "1inch:"
+      "native": "1inch:",
+      "universal": "https://wallet.1inch.io"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/dce1ee99-403f-44a9-9f94-20de30616500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1241,10 +1293,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "eidoo:"
+      "native": "eidoo:",
+      "universal": "https://eidoo.io/crypto-wallet"
     },
     "android": {
-      "native": "eidoo:"
+      "native": "eidoo:",
+      "universal": "https://eidoo.io/crypto-wallet"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ef5b8bcf-00d5-457d-e161-9911e4788700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1273,10 +1327,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "moneyunstoppable:"
+      "native": "moneyunstoppable:",
+      "universal": "https://unstoppable.money"
     },
     "android": {
-      "native": "moneyunstoppable:"
+      "native": "moneyunstoppable:",
+      "universal": "https://unstoppable.money"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/5c38b22c-adb9-4899-3252-6e3d71458500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1289,10 +1345,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "awallet:"
+      "native": "awallet:",
+      "universal": "https://aw.app"
     },
     "android": {
-      "native": "awallet:"
+      "native": "awallet:",
+      "universal": "https://aw.app"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/5b1cddfb-056e-4e78-029a-54de5d70c500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1313,10 +1371,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "dcent:"
+      "native": "dcent:",
+      "universal": "https://link.dcentwallet.com"
     },
     "android": {
-      "native": "dcent:"
+      "native": "dcent:",
+      "universal": "https://link.dcentwallet.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1efb49ec-2bab-4fa1-f2f2-4392c64ed000?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1325,10 +1385,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "zel:"
+      "native": "zel:",
+      "universal": "https://link.zel.network"
     },
     "android": {
-      "native": "zel:"
+      "native": "zel:",
+      "universal": "https://link.zel.network"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/97d45a92-a1f0-46da-95a6-ad5db99f3500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1337,10 +1399,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "nash:"
+      "native": "nash:",
+      "universal": "https://nash.io/walletconnect"
     },
     "android": {
-      "native": "nash:"
+      "native": "nash:",
+      "universal": "https://nash.io/walletconnect"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/12f981b1-bb0a-4115-009f-317255979600?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1349,10 +1413,10 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "coinomi:"
+      "universal": "https://coinomi.page.link"
     },
     "android": {
-      "native": "coinomi:"
+      "universal": "https://coinomi.page.link"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3b446d16-a908-40c8-5835-9a6efe90dd00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1365,10 +1429,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "cybavowallet:"
+      "native": "cybavowallet:",
+      "universal": "https://cdn.cybavo.com"
     },
     "android": {
-      "native": "cybavowallet:"
+      "native": "cybavowallet:",
+      "universal": "https://cdn.cybavo.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3117d3ce-b973-4cfd-8fb5-f5d72ed3c200?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1376,7 +1442,8 @@ var allWallets = [{
   "name": "Tokenary",
   "link": "WalletConnectV1",
   "desktop": {
-    "native": "tokenary:"
+    "native": "tokenary:",
+    "universal": "https://tokenary.io"
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/5e481041-dc3c-4a81-373a-76bbde91b800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
@@ -1386,16 +1453,24 @@ var allWallets = [{
 }, {
   "name": "Spatium",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://caspiantechnologies.bitbucket.io"
+    },
+    "android": {
+      "universal": "https://caspiantechnologies.bitbucket.io"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e85caf96-8e6c-4ac5-5bb3-c13ac7edc700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
   "name": "SafePal",
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "safepalwallet:"
+      "universal": "https://link.safepal.io"
     },
     "android": {
-      "native": "safepalwallet:"
+      "universal": "https://link.safepal.io"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/14096232-7483-425b-f9a9-658f94fe7100?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1411,7 +1486,8 @@ var allWallets = [{
   "name": "Infinity Wallet",
   "link": "WalletConnectV1",
   "desktop": {
-    "native": "infinity:"
+    "native": "infinity:",
+    "universal": "https://infinitywallet.io/"
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/9f259366-0bcd-4817-0af9-f78773e41900?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
@@ -1423,10 +1499,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "bridgewallet:"
+      "native": "bridgewallet:",
+      "universal": "https://bridge.mtpelerin.com"
     },
     "android": {
-      "native": "bridgewallet:"
+      "native": "bridgewallet:",
+      "universal": "https://bridge.mtpelerin.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/989d504f-93db-4ca6-c00a-9d1faf177d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1435,10 +1513,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "sparkpoint:"
+      "native": "sparkpoint:",
+      "universal": "https://sparkpoint.io"
     },
     "android": {
-      "native": "sparkpoint:"
+      "native": "sparkpoint:",
+      "universal": "https://sparkpoint.io"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/34c4f901-70de-4507-e7a0-bc7887843000?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1455,10 +1535,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "peakdefiwallet:"
+      "native": "peakdefiwallet:",
+      "universal": "https://peakdefi.com/download"
     },
     "android": {
-      "native": "peakdefiwallet:"
+      "native": "peakdefiwallet:",
+      "universal": "https://peakdefi.com/download"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/744a3fbe-4261-4148-133e-49c5b58cb400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1479,10 +1561,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "ellipal:"
+      "native": "ellipal:",
+      "universal": "https://www.ellipal.com/"
     },
     "android": {
-      "native": "ellipal:"
+      "native": "ellipal:",
+      "universal": "https://www.ellipal.com/"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/0a805e10-bfc0-4d02-d9c1-8cec88f0dc00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1491,10 +1575,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "aktionariat:"
+      "native": "aktionariat:",
+      "universal": "https://app.aktionariat.com"
     },
     "android": {
-      "native": "aktionariat:"
+      "native": "aktionariat:",
+      "universal": "https://app.aktionariat.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/6d18e8ea-b536-4038-c5bf-94a499d5a400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1503,10 +1589,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "talken-wallet:"
+      "native": "talken-wallet:",
+      "universal": "https://talken.io"
     },
     "android": {
-      "native": "talken-wallet:"
+      "native": "talken-wallet:",
+      "universal": "https://talken.io"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1afb5a3a-2da3-40ce-baf9-b416e7510600?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1519,10 +1607,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "kyberswap:"
+      "native": "kyberswap:",
+      "universal": "https://kyberswapnew.app.link"
     },
     "android": {
-      "native": "kyberswap:"
+      "native": "kyberswap:",
+      "universal": "https://kyberswapnew.app.link"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3abd1720-260e-495a-2e31-3d0b349e0d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1531,10 +1621,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "tongue:"
+      "native": "tongue:",
+      "universal": "https://www.tongue.fi"
     },
     "android": {
-      "native": "tongue:"
+      "native": "tongue:",
+      "universal": "https://www.tongue.fi"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/20bc4fdb-b9e6-429a-8cba-c233b3273000?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1543,10 +1635,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "rwallet:"
+      "native": "rwallet:",
+      "universal": "https://www.rwallet.app"
     },
     "android": {
-      "native": "rwallet:"
+      "native": "rwallet:",
+      "universal": "https://www.rwallet.app"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a883229c-26cb-4c19-9b34-1f0ed4012a00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1555,10 +1649,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "plasmapay:"
+      "native": "plasmapay:",
+      "universal": "https://plasmapay.com/"
     },
     "android": {
-      "native": "plasmapay:"
+      "native": "plasmapay:",
+      "universal": "https://plasmapay.com/"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/466c8fd0-fcec-4621-b94f-e91ce1439f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1567,10 +1663,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "o3wallet:"
+      "native": "o3wallet:",
+      "universal": "https://o3.network"
     },
     "android": {
-      "native": "o3wallet:"
+      "native": "o3wallet:",
+      "universal": "https://o3.network"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e1c7c6af-c731-463e-55f0-5e686e9f6200?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1579,10 +1677,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "hashme:"
+      "native": "hashme:",
+      "universal": "https://me.hashkey.com"
     },
     "android": {
-      "native": "hashme:"
+      "native": "hashme:",
+      "universal": "https://me.hashkey.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/72734fac-9500-4c2c-81ba-678f7fc32700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1599,10 +1699,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "defiantapp:"
+      "native": "defiantapp:",
+      "universal": "https://defiantapp.tech"
     },
     "android": {
-      "native": "defiantapp:"
+      "native": "defiantapp:",
+      "universal": "https://defiantapp.tech"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/026462e7-09a3-47f6-6b46-49df18133b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1623,10 +1725,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "celo://wallet"
+      "native": "celo://wallet",
+      "universal": "https://valoraapp.com"
     },
     "android": {
-      "native": "celo://wallet"
+      "native": "celo://wallet",
+      "universal": "https://valoraapp.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a03bfa44-ce98-4883-9b2a-75e2b68f5700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1651,10 +1755,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "essentials:"
+      "native": "essentials:",
+      "universal": "https://essentials.elastos.net"
     },
     "android": {
-      "native": "essentials:"
+      "native": "essentials:",
+      "universal": "https://essentials.elastos.net"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/04a6bfed-d80e-4f7b-0516-261f86aa4000?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1663,10 +1769,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "fuse.cash:"
+      "native": "fuse.cash:",
+      "universal": "https://app.fuse.cash/"
     },
     "android": {
-      "native": "fuse.cash:"
+      "native": "fuse.cash:",
+      "universal": "https://app.fuse.cash/"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/71828267-72d6-4680-e144-265e6dc1e400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1679,10 +1787,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "stasis:"
+      "native": "stasis:",
+      "universal": "https://app.stasis.net"
     },
     "android": {
-      "native": "stasis:"
+      "native": "stasis:",
+      "universal": "https://app.stasis.net"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7ae753bc-a754-450c-2d90-2c5521734400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1691,10 +1801,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "julwallet:"
+      "native": "julwallet:",
+      "universal": "https://justliquidity.org"
     },
     "android": {
-      "native": "julwallet:"
+      "native": "julwallet:",
+      "universal": "https://justliquidity.org"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/cabd50de-22fa-487b-ce68-2c63de8bb800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1743,10 +1855,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "tangem:"
+      "native": "tangem:",
+      "universal": "https://app.tangem.com"
     },
     "android": {
-      "native": "tangem:"
+      "native": "tangem:",
+      "universal": "https://app.tangem.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8a5b6e94-e378-458d-bf2e-017cc7958e00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1757,6 +1871,14 @@ var allWallets = [{
 }, {
   "name": "ioPay",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "native": "iopay:"
+    },
+    "android": {
+      "native": "iopay:"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/aa40d575-f7f4-4aa6-12c4-c8f055ad0800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
   "name": "Coinhub",
@@ -1771,14 +1893,6 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "desktop": {
     "native": "wallet3:"
-  },
-  "mobile": {
-    "ios": {
-      "native": "wallet3:"
-    },
-    "android": {
-      "native": "wallet3:"
-    }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/d740b48c-2b55-4a27-b5f5-d2188200ca00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
@@ -1834,10 +1948,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "secux://"
+      "native": "secux://",
+      "universal": "https://wsweb.secuxtech.com"
     },
     "android": {
-      "native": "secux://"
+      "native": "secux://",
+      "universal": "https://wsweb.secuxtech.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/d46a33d6-92a1-4dfd-38d4-779815fb5c00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1850,10 +1966,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "orangewallet:"
+      "native": "orangewallet:",
+      "universal": "https://link.orangewallet.app"
     },
     "android": {
-      "native": "orangewallet:"
+      "native": "orangewallet:",
+      "universal": "https://link.orangewallet.app"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7fcbf9f0-0c0b-439d-3fdb-31b32c28df00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1878,10 +1996,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "ambire:"
+      "native": "ambire:",
+      "universal": "https://mobile.ambire.com"
     },
     "android": {
-      "native": "ambire:"
+      "native": "ambire:",
+      "universal": "https://mobile.ambire.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/c39b3a16-1a38-4588-f089-cb7aeb584700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1914,10 +2034,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "ndj-backpack:"
+      "native": "ndj-backpack:",
+      "universal": "https://jxndao.com"
     },
     "android": {
-      "native": "ndj-backpack:"
+      "native": "ndj-backpack:",
+      "universal": "https://jxndao.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e46f132d-6e05-4d51-8720-43727446e600?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1946,10 +2068,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "autonomy-wc"
+      "native": "autonomy-wc",
+      "universal": "https://autonomy.io/apps/wc"
     },
     "android": {
-      "native": "autonomy-wc"
+      "native": "autonomy-wc",
+      "universal": "https://autonomy.io/apps/wc"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2ee7c9db-9a86-4cd6-0d32-5053b4636100?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -1958,16 +2082,21 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "lilico://"
+      "native": "lilico://",
+      "universal": "https://link.lilico.app/wc"
     },
     "android": {
-      "native": "lilico://"
+      "native": "lilico://",
+      "universal": "https://link.lilico.app/wc"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/70c0bc88-7bb1-4c1f-3531-9a5f799fb100?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
   "name": "Fireblocks",
   "link": "WalletConnectV1",
+  "desktop": {
+    "universal": "https://console.fireblocks.io/v2"
+  },
   "mobile": {
     "ios": {
       "native": "fireblocks-wc://"
@@ -1994,10 +2123,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "coingrig://"
+      "native": "coingrig://",
+      "universal": "https://link.coingrig.com"
     },
     "android": {
-      "native": "coingrig://"
+      "native": "coingrig://",
+      "universal": "https://link.coingrig.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/18e38e41-a387-4402-ca31-6d2d5eb91100?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2013,10 +2144,12 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
-      "native": "bobablocks://"
+      "native": "bobablocks://",
+      "universal": "https://app.bobablocks.io"
     },
     "android": {
-      "native": "bobablocks://"
+      "native": "bobablocks://",
+      "universal": "https://app.bobablocks.io"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/aff8973b-e093-45b5-4858-c01dd043bc00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2025,10 +2158,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "plasmawallet:"
+      "native": "plasmawallet:",
+      "universal": "https://plasma-wallet.com"
     },
     "android": {
-      "native": "plasmawallet:"
+      "native": "plasmawallet:",
+      "universal": "https://plasma-wallet.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/c268e78d-ffb0-4c8b-5cad-04c3add48500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2045,10 +2180,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "humblwallet:"
+      "native": "humblwallet:",
+      "universal": "https://wallet.search3.com"
     },
     "android": {
-      "native": "humblwallet:"
+      "native": "humblwallet:",
+      "universal": "https://wallet.search3.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1ac55ba2-aa98-4ed0-59b3-b3155dea4200?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2085,10 +2222,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "co.theeasy.app://"
+      "native": "co.theeasy.app://",
+      "universal": "https://link.easy.me"
     },
     "android": {
-      "native": "co.theeasy.app://"
+      "native": "co.theeasy.app://",
+      "universal": "https://link.easy.me"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/62feb41a-be1f-4b1c-e089-27f97c0e8d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2097,10 +2236,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "poc://islamiwallet.com"
+      "native": "poc://islamiwallet.com",
+      "universal": "https://islamiwallet.com"
     },
     "android": {
-      "native": "poc://islamiwallet.com"
+      "native": "poc://islamiwallet.com",
+      "universal": "https://islamiwallet.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8d723c78-28ad-4610-901f-ea391d7e8d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2109,10 +2250,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "cardwallet://"
+      "native": "cardwallet://",
+      "universal": "https://wallet.cardstack.com"
     },
     "android": {
-      "native": "cardwallet://"
+      "native": "cardwallet://",
+      "universal": "https://wallet.cardstack.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/325428cf-c212-4d83-a434-7f48902d2c00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2129,10 +2272,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "pltwallet:"
+      "native": "pltwallet:",
+      "universal": "https://pltwallet.io/"
     },
     "android": {
-      "native": "pltwallet:"
+      "native": "pltwallet:",
+      "universal": "https://pltwallet.io/"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a5d9dd15-8cef-42de-8bed-09e01a8b0200?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2141,10 +2286,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "avacus://"
+      "native": "avacus://",
+      "universal": "https://avacus.app.link"
     },
     "android": {
-      "native": "avacus://"
+      "native": "avacus://",
+      "universal": "https://avacus.app.link"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a7106965-91cc-4a73-4688-c5c72ae0ed00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2173,10 +2320,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "edge://"
+      "native": "edge://",
+      "universal": "https://deep.edge.app/wc"
     },
     "android": {
-      "native": "edge://"
+      "native": "edge://",
+      "universal": "https://deep.edge.app/wc"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f601bc29-4298-422f-dbf7-34dac2884f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2197,10 +2346,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "assure://"
+      "native": "assure://",
+      "universal": "https://www.assure.pro/Official"
     },
     "android": {
-      "native": "assure://"
+      "native": "assure://",
+      "universal": "https://www.assure.pro/Official"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/64db7104-c8b7-44ea-e102-11ce87124200?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2233,14 +2384,20 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/017d9dc4-dd04-4934-5be8-1d564e924a00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
+  "name": "Gryfyn",
+  "link": "WalletConnectV1",
+  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/51bb1507-45a1-4d21-15f2-1cc2ebe69400?projectId=a8d876c6f91c3748db621583fad358f1"
+}, {
   "name": "CoinStats",
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "coinstats:"
+      "native": "coinstats:",
+      "universal": "https://coinstats.app"
     },
     "android": {
-      "native": "coinstats:"
+      "native": "coinstats:",
+      "universal": "https://coinstats.app"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f989ab84-650b-4ad5-c342-77f3334f1b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2329,10 +2486,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "bitcoincom://"
+      "native": "bitcoincom://",
+      "universal": "https://wallet.bitcoin.com/"
     },
     "android": {
-      "native": "bitcoincom://"
+      "native": "bitcoincom://",
+      "universal": "https://wallet.bitcoin.com/"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/0d7938e1-9b3b-4d8b-177b-98188c4cf400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2341,10 +2500,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "defiantapp://"
+      "native": "defiantapp://",
+      "universal": "https://defiantapp.tech/"
     },
     "android": {
-      "native": "defiantapp://"
+      "native": "defiantapp://",
+      "universal": "https://defiantapp.tech/"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/11a96ca4-3592-42ae-c781-2b7265ec9200?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2372,10 +2533,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "lobstr://"
+      "native": "lobstr://",
+      "universal": "https://lobstr.co/uni/wc"
     },
     "android": {
-      "native": "lobstr://"
+      "native": "lobstr://",
+      "universal": "https://lobstr.co/uni/wc"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/0dafcaab-0852-47f7-85dd-436b86491d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2384,10 +2547,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "bifrostwallet:"
+      "native": "bifrostwallet:",
+      "universal": "https://app.bifrostwallet.com"
     },
     "android": {
-      "native": "bifrostwallet:"
+      "native": "bifrostwallet:",
+      "universal": "https://app.bifrostwallet.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/86be07e2-6652-4fd1-5f33-651682c95400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2413,6 +2578,7 @@ var allWallets = [{
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e3272444-3876-49d3-2f84-004b818d3800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
   "name": "HyperPay",
+  "extension": "HyperPay",
   "link": "WalletConnectV1",
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e2b56019-59be-4cdc-e944-12e6cc235c00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
@@ -2432,6 +2598,18 @@ var allWallets = [{
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a78c4d48-32c1-4a9d-52f2-ec7ee08ce200?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
+  "name": "MDAO Wallet",
+  "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "native": "ttmwalletapp://"
+    },
+    "android": {
+      "native": "ttmwalletapp://"
+    }
+  },
+  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/82014e92-838b-4e75-e77e-76cdc5539d00?projectId=a8d876c6f91c3748db621583fad358f1"
+}, {
   "name": "TTM Wallet",
   "link": "WalletConnectV1",
   "mobile": {
@@ -2448,10 +2626,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "qubic:"
+      "native": "qubic:",
+      "universal": "https://wallet.qubic.app"
     },
     "android": {
-      "native": "qubic:"
+      "native": "qubic:",
+      "universal": "https://wallet.qubic.app"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2e9ef302-daae-4807-555f-d4986b0b6700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2484,10 +2664,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "xfunwallet://"
+      "native": "xfunwallet://",
+      "universal": "https://xfun.io"
     },
     "android": {
-      "native": "xfunwallet://"
+      "native": "xfunwallet://",
+      "universal": "https://xfun.io"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a665f8f3-09ef-4d17-2bd0-26dca4518400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2499,10 +2681,10 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
-      "native": "excodus://"
+      "universal": "https://exodus.com/m"
     },
     "android": {
-      "native": "excodus://"
+      "native": "wc://"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/4c16cad4-cac9-4643-6726-c696efaf5200?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2523,10 +2705,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "sone://"
+      "native": "sone://",
+      "universal": "https://sonewallet.app"
     },
     "android": {
-      "native": "sone://"
+      "native": "sone://",
+      "universal": "https://sonewallet.app"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/b3562637-a407-4035-6fa5-a70ff2050400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2538,10 +2722,12 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
-      "native": "premawallet:"
+      "native": "premawallet:",
+      "universal": "https://premanft.com"
     },
     "android": {
-      "native": "premawallet:"
+      "native": "premawallet:",
+      "universal": "https://premanft.com"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/6487869b-1165-4f30-aa3a-115665be8300?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2586,10 +2772,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "beewallet.app://"
+      "native": "beewallet.app://",
+      "universal": "https://beewallet.app/wc"
     },
     "android": {
-      "native": "beewallet.app://"
+      "native": "beewallet.app://",
+      "universal": "https://beewallet.app/wc"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f90bc33f-f085-40cf-7538-fae5ae84f900?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2610,10 +2798,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "tk://"
+      "native": "tk://",
+      "universal": "https://trustkeys.network"
     },
     "android": {
-      "native": "tk://"
+      "native": "tk://",
+      "universal": "https://trustkeys.network"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/c4066f68-2247-49bf-ac8a-a677bfa81800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2622,10 +2812,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "oxalus://"
+      "native": "oxalus://",
+      "universal": "https://deeplink.oxalus.io"
     },
     "android": {
-      "native": "oxalus://"
+      "native": "oxalus://",
+      "universal": "https://deeplink.oxalus.io"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a6e22fcb-6b69-45d2-b52d-a4a347a21e00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2646,10 +2838,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "kleverwallet:"
+      "native": "kleverwallet:",
+      "universal": "https://klever.page.link"
     },
     "android": {
-      "native": "kleverwallet:"
+      "native": "kleverwallet:",
+      "universal": "https://klever.page.link"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8f5bbad8-6a14-4b2c-5343-cc1fca6e4d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2661,10 +2855,12 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
-      "native": "onekey-wallet://"
+      "native": "onekey-wallet://",
+      "universal": "https://app.onekey.so/wc/connect"
     },
     "android": {
-      "native": "onekey-wallet://"
+      "native": "onekey-wallet://",
+      "universal": "https://app.onekey.so/wc/connect"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/12bebb3f-8030-4892-8452-c60a6bac1500?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2697,10 +2893,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "volt:"
+      "native": "volt:",
+      "universal": "https://get.voltage.finance"
     },
     "android": {
-      "native": "volt:"
+      "native": "volt:",
+      "universal": "https://get.voltage.finance"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/51d783cb-0686-4ffa-e661-edca0c380000?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2709,10 +2907,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "wirexwallet://"
+      "native": "wirexwallet://",
+      "universal": "https://wwallet.app.link"
     },
     "android": {
-      "native": "wirexwallet://"
+      "native": "wirexwallet://",
+      "universal": "https://wwallet.app.link"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/769739aa-ff45-4db5-c6e6-70590741ec00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2733,10 +2933,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "ricewallet"
+      "native": "ricewallet",
+      "universal": "https://ricewallet.io"
     },
     "android": {
-      "native": "ricewallet"
+      "native": "ricewallet",
+      "universal": "https://ricewallet.io"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/df94578e-19be-4f00-258f-2470343e7b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2745,10 +2947,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "safemoon:"
+      "native": "safemoon:",
+      "universal": "https://safemoon.net/"
     },
     "android": {
-      "native": "safemoon:"
+      "native": "safemoon:",
+      "universal": "https://safemoon.net/"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ecc31a8e-0ee9-49db-cc59-0876b7c35600?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2757,10 +2961,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "simplehold://"
+      "native": "simplehold://",
+      "universal": "https://simplehold.io"
     },
     "android": {
-      "native": "simplehold://"
+      "native": "simplehold://",
+      "universal": "https://simplehold.io"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a9f1ba96-b658-4d13-f71f-226b6389f000?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2793,10 +2999,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "bitizen://wallet"
+      "native": "bitizen://wallet",
+      "universal": "https://bitizen.org/wallet"
     },
     "android": {
-      "native": "bitizen://wallet"
+      "native": "bitizen://wallet",
+      "universal": "https://bitizen.org/wallet"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/75dd1471-77e9-4811-ce57-ec8fc980ec00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2805,10 +3013,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "slaviwallet:"
+      "native": "slaviwallet:",
+      "universal": "https://www.slaviwallet.io"
     },
     "android": {
-      "native": "slaviwallet:"
+      "native": "slaviwallet:",
+      "universal": "https://www.slaviwallet.io"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/282ce060-0beb-4236-b7b0-1b34cc6c8f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2820,10 +3030,12 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
-      "native": "vimwallet:/"
+      "native": "vimwallet:/",
+      "universal": "https://apple.vimworld.org"
     },
     "android": {
-      "native": "vimwallet:/"
+      "native": "vimwallet:/",
+      "universal": "https://apple.vimworld.org"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/70080bd7-9858-4720-cf74-8f74cd74cb00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2832,10 +3044,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "com.arianee.wallet"
+      "native": "com.arianee.wallet",
+      "universal": "https://arianee.net"
     },
     "android": {
-      "native": "com.arianee.wallet"
+      "native": "com.arianee.wallet",
+      "universal": "https://arianee.net"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ace938a9-c906-4b9e-f683-b85f1ab72800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2844,10 +3058,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "walletnow://"
+      "native": "walletnow://",
+      "universal": "https://walletnow.app.link"
     },
     "android": {
-      "native": "walletnow://"
+      "native": "walletnow://",
+      "universal": "https://walletnow.app.link"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/b6ee4efc-f53e-475b-927b-a7ded6211700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
@@ -2856,32 +3072,74 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "arculuswc:"
+      "native": "arculuswc:",
+      "universal": "https://gw.arculus.co/app"
     },
     "android": {
-      "native": "arculuswc:"
+      "native": "arculuswc:",
+      "universal": "https://gw.arculus.co/app"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f78dab27-7165-4a3d-fdb1-fcff06c0a700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
   "name": "Binana",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://master.tokenone.app"
+    },
+    "android": {
+      "universal": "https://master.tokenone.app"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/65a60845-8fe3-4146-2688-586e4dc68a00?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Linen",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://linen.app/"
+    },
+    "android": {
+      "universal": "https://linen.app/"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/91458f54-aabe-44cf-4788-159ccc733600?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Fundamenta Mobile",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://app.civiport.online"
+    },
+    "android": {
+      "universal": "https://app.civiport.online"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/79797f9e-a6c7-4284-1a1c-88332f11ea00?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Nitrogen Wallet",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://nitrogen.org/wc"
+    },
+    "android": {
+      "universal": "https://nitrogen.org/wc"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/af185895-cda5-4eaf-e31b-28b6fe4b0800?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "ApolloX",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://app.apollox.finance"
+    },
+    "android": {
+      "universal": "https://app.apollox.finance"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/80ab63a2-1b32-4140-3577-9fbc8ea82e00?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "ID Pocket",
@@ -2890,6 +3148,14 @@ var allWallets = [{
 }, {
   "name": "CoinCircle",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://coincircle.com/app/walletconnect"
+    },
+    "android": {
+      "universal": "https://coincircle.com/app/walletconnect"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/eae63a23-c7ba-4f7e-24b3-e6fc69215d00?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Dracula Metaverse",
@@ -2906,10 +3172,26 @@ var allWallets = [{
 }, {
   "name": "Sequence Wallet",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://sequence.app"
+    },
+    "android": {
+      "universal": "https://sequence.app"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/b2d5c39c-a485-4efa-5736-a782204e4a00?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "LocalTrade Wallet",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://ws.lab.localtrade.cc"
+    },
+    "android": {
+      "universal": "https://ws.lab.localtrade.cc"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/fcc60983-74ae-484a-4242-87cb6f05f100?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Loopring Wallet",
@@ -2918,6 +3200,14 @@ var allWallets = [{
 }, {
   "name": "Vision: Crypto Wallet",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://app.vision-crypto.com"
+    },
+    "android": {
+      "universal": "https://app.vision-crypto.com"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/64ccf07c-1fba-4473-49e8-dc446e5a5000?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Ballet Crypto",
@@ -2928,10 +3218,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "pitaka://"
+      "native": "pitaka://",
+      "universal": "https://app.pitaka.io"
     },
     "android": {
-      "native": "pitaka://"
+      "native": "pitaka://",
+      "universal": "https://app.pitaka.io"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/691c0716-5213-4b99-e837-079268313800?projectId=a8d876c6f91c3748db621583fad358f1"
@@ -2952,10 +3244,12 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "obvious://"
+      "native": "obvious://",
+      "universal": "https://wallet.obvious.technology"
     },
     "android": {
-      "native": "obvious://"
+      "native": "obvious://",
+      "universal": "https://wallet.obvious.technology"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/40945cea-9cd2-4acc-5799-ca7fb31f4700?projectId=a8d876c6f91c3748db621583fad358f1"
@@ -2974,18 +3268,50 @@ var allWallets = [{
 }, {
   "name": "Monarch Wallet",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://monarchwallet.com"
+    },
+    "android": {
+      "universal": "https://monarchwallet.com"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/c664d955-8a1e-4460-3917-4cfcf198f000?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Marble",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://app.marblewallet.com/"
+    },
+    "android": {
+      "universal": "https://app.marblewallet.com/"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/eb6de921-6824-4f35-6331-8a8b031e7100?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Flooz",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://wallet.flooz.trade/wc"
+    },
+    "android": {
+      "universal": "https://wallet.flooz.trade/wc"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/0a04f368-4f56-4c12-0bfa-93b14bb20800?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Blockchain.com",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://login.blockchain.com/deeplink/login/wallet-connect"
+    },
+    "android": {
+      "universal": "https://login.blockchain.com/deeplink/login/wallet-connect"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/fc282669-2dbe-44d5-33fc-9168fcf08600?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Dohrnii Wallet",
@@ -2994,10 +3320,26 @@ var allWallets = [{
 }, {
   "name": "UniPass",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://wallet.unipass.id"
+    },
+    "android": {
+      "universal": "https://wallet.unipass.id"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/77865965-4322-4ac4-5049-b2af11bf8300?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "ZenGo",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://get.zengo.com"
+    },
+    "android": {
+      "universal": "https://get.zengo.com"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/d1794d97-ea1f-4966-be42-9f614bb5d800?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Locker Token",
@@ -3006,6 +3348,14 @@ var allWallets = [{
 }, {
   "name": "Keeper",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://link.keeper-wallet.app"
+    },
+    "android": {
+      "universal": "https://link.keeper-wallet.app"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/41f6ac85-8f4e-4d9f-b37b-92b43fa7f400?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "XDEFI Wallet",
@@ -3022,6 +3372,14 @@ var allWallets = [{
 }, {
   "name": "UvToken",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "native": "UvToken://"
+    },
+    "android": {
+      "native": "UvToken://"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a0057241-cd91-4a53-7175-016b76bfd900?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Neon Wallet",
@@ -3030,14 +3388,38 @@ var allWallets = [{
 }, {
   "name": "Nabox",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://nabox.io/app/"
+    },
+    "android": {
+      "universal": "https://nabox.io/app/"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3b75e9f7-2ca8-4a33-ed2b-4e8a0c048d00?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Snowball",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://app.snowball.exchange/app"
+    },
+    "android": {
+      "universal": "https://app.snowball.exchange/app"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/313faea4-af8c-41f4-0ed8-98be5d048e00?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "KryptoGO Wallet",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://kryptogo.page.link"
+    },
+    "android": {
+      "universal": "https://kryptogo.page.link"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3ccbd966-97e8-45a0-1ceb-6141a8978e00?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Payperless",
@@ -3054,50 +3436,124 @@ var allWallets = [{
 }, {
   "name": "Safematrix",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://safematrix.io/"
+    },
+    "android": {
+      "universal": "https://safematrix.io/"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/48ea5de9-869a-4994-2402-97afba060900?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "pier",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://pierwallet.com/wc"
+    },
+    "android": {
+      "universal": "https://pierwallet.com/wc"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/cf3f0da1-40ec-4940-aebe-df075513d100?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "FILWallet",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://h5.filwallet.co"
+    },
+    "android": {
+      "universal": "https://h5.filwallet.co"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f400f6c2-ca6c-487b-654d-e119af247500?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "ParaSwap Wallet",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://wallet.paraswap.io/#/"
+    },
+    "android": {
+      "universal": "https://wallet.paraswap.io/#/"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/73dc6b30-b644-46e6-020c-5926851df600?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "DopamineApp",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://share.dopamineapp.com"
+    },
+    "android": {
+      "universal": "https://share.dopamineapp.com"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7ed8ec36-fb7c-4b43-494b-36e907101f00?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Bitski",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://wallet.bitski.com/walletconnect"
+    },
+    "android": {
+      "universal": "https://wallet.bitski.com/walletconnect"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/94d94cb5-a94f-47cf-70e6-fe8d3f1c3700?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Hippo Wallet",
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "hippowallet://"
+      "native": "hippowallet://",
+      "universal": "https://hippowallet.io"
     },
     "android": {
-      "native": "hippowallet://"
+      "native": "hippowallet://",
+      "universal": "https://hippowallet.io"
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f9570968-45f7-47c1-3189-98cf60e25c00?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Core",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://core.app"
+    },
+    "android": {
+      "universal": "https://core.app"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/35f9c46e-cc57-4aa7-315d-e6ccb2a1d600?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Xcapit",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://app.xcapit.com/links"
+    },
+    "android": {
+      "universal": "https://app.xcapit.com/links"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/17f59b75-21b0-4b3f-b024-fe4b9b8d2300?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Paper Wallet",
   "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "universal": "https://paper.xyz"
+    },
+    "android": {
+      "universal": "https://paper.xyz"
+    }
+  },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/37d7a10f-d94d-4a56-c30e-267e8afbd500?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "BC Vault",
@@ -3569,6 +4025,11 @@ var ConnectWalletDialog = (function (props) {
   });
 });
 
+var isWebView = function isWebView() {
+  var userAgentToLower = navigator.userAgent.toLowerCase();
+  return userAgentToLower.includes('webview') || userAgentToLower.includes('wv') || navigator.userAgent.toLowerCase().match(/\) mobile\//) && !userAgentToLower.includes('safari');
+};
+
 var PoweredBy = (function () {
   return /*#__PURE__*/React.createElement("div", {
     className: "PoweredByWrapper"
@@ -3584,6 +4045,14 @@ var safeAppUrl = (function (href) {
   if (!href.includes('://')) {
     href = href.replaceAll('/', '').replaceAll(':', '');
     href = "".concat(href, "://");
+  }
+
+  return href;
+});
+
+var safeUniversalUrl = (function (href) {
+  if (href.endsWith('/')) {
+    href = href.slice(0, -1);
   }
 
   return href;
@@ -4097,6 +4566,56 @@ var ConnectStack = (function (props) {
     });
   };
 
+  var openUniversalLink = function openUniversalLink(platform, uri, name) {
+    if (!platform.universal) {
+      return;
+    }
+
+    var href = safeUniversalUrl(platform.universal);
+    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
+      href: href,
+      name: name
+    }));
+    href = "".concat(href, "/wc?uri=").concat(encodeURIComponent(uri));
+    return window.open(href, '_self', 'noreferrer noopener');
+  };
+
+  var openNativeLink = function openNativeLink(platform, uri, name) {
+    if (!platform["native"]) {
+      return;
+    }
+
+    var href = safeAppUrl(platform["native"]);
+    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
+      href: href,
+      name: name
+    }));
+
+    if (platform.encoded !== false) {
+      href = "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
+    } else {
+      href = "".concat(href, "wc?uri=").concat(uri);
+    }
+
+    return window.open(href, '_self', 'noreferrer noopener');
+  };
+
+  var openWcLink = function openWcLink(platform, uri, name) {
+    var href = 'wc://';
+    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
+      href: href,
+      name: name
+    }));
+
+    if (platform.encoded !== false) {
+      href = "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
+    } else {
+      href = "".concat(href, "wc?uri=").concat(uri);
+    }
+
+    window.open(href, '_self', 'noreferrer noopener');
+  };
+
   var connectViaRedirect = function connectViaRedirect(walletMetaData) {
     var reconnect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
     var platform = platformForWallet(walletMetaData);
@@ -4114,35 +4633,21 @@ var ConnectStack = (function (props) {
         reconnect: reconnect,
         connect: function connect(_ref) {
           var uri = _ref.uri;
-          var href;
+          var name = isAndroid() ? 'Android' : walletMetaData.name;
 
-          if (platform.universal) {
-            href = safeUniversalUrl(platform.universal);
+          if (isWebView()) {
+            if (platform.universal) {
+              openUniversalLink(platform, uri, name);
+            } else if (isAndroid()) {
+              openWcLink(platform, uri, name);
+            }
           } else {
-            href = safeAppUrl(platform["native"]);
-          }
-
-          localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
-            href: href,
-            name: isAndroid() ? 'Android' : walletMetaData.name
-          }));
-
-          if (platform.universal) {
-            if (platform.encoded !== false) {
-              href = "".concat(href, "/wc?uri=").concat(encodeURIComponent(uri));
+            if (platform["native"]) {
+              openNativeLink(platform, uri, name);
             } else {
-              href = "".concat(href, "/wc?uri=").concat(uri);
-            }
-          } else if (platform["native"]) {
-            if (platform.encoded !== false) {
-              href = "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
-            } else {
-              href = "".concat(href, "wc?uri=").concat(uri);
+              openUniversalLink(platform, uri, name);
             }
           }
-
-          var target = platform["native"] && !platform.universal ? '_self' : '_blank';
-          window.open(href, target, 'noreferrer noopener');
         }
       }).then(function (account) {
         resolve(account, _wallet);
@@ -4150,11 +4655,12 @@ var ConnectStack = (function (props) {
     } else if (walletMetaData.link == 'WalletLink') {
       set(walletMetaData.name);
 
-      if (isAndroid()) {
-        window.open("https://go.cb-w.com/dapp?cb_url=".concat(encodeURIComponent(window.location.toString())), '_self', 'noreferrer noopener');
+      if (isAndroid() || isWebView()) {
+        // Universal Link
+        window.open("".concat(platform.universal, "?cb_url=").concat(encodeURIComponent(window.location.toString())), '_self', 'noreferrer noopener');
       } else {
-        // IOS
-        window.open("cbwallet://dapp?url=".concat(encodeURIComponent(window.location.toString())), '_self', 'noreferrer noopener');
+        // iOS standalone browser -> native deeplink
+        window.open("".concat(platform["native"], "?url=").concat(encodeURIComponent(window.location.toString())), '_self', 'noreferrer noopener');
       }
     }
   };
@@ -23820,6 +24326,7 @@ var Footer = (function () {
       return /*#__PURE__*/React.createElement("div", {
         className: "PaddingBottomXS"
       }, /*#__PURE__*/React.createElement("button", {
+        disabled: paymentValueLoss,
         className: "ButtonPrimary",
         onClick: approve,
         title: "Allow ".concat(payment.symbol, " to be used as payment")
@@ -24057,16 +24564,28 @@ var PaymentFailedDialog = (function () {
   });
 });
 
-var ConnectGraphic = "data:image/png;base64,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";
-
 var WrongNetworkDialog = (function (props) {
   var _useContext = useContext(PaymentContext),
       payment = _useContext.payment;
 
-  var _useContext2 = useContext(NavigateStackContext),
-      navigate = _useContext2.navigate;
+  var _useContext2 = useContext(WalletContext),
+      wallet = _useContext2.wallet;
+
+  var _useContext3 = useContext(NavigateStackContext),
+      navigate = _useContext3.navigate;
+
+  var _useState = useState(false),
+      _useState2 = _slicedToArray(_useState, 2);
+      _useState2[0];
+      _useState2[1];
 
   var blockchain = Blockchain.findByName(payment.route.blockchain);
+
+  var switchNetwork = function switchNetwork() {
+    wallet.switchTo(payment.blockchain);
+    navigate('back');
+  };
+
   return /*#__PURE__*/React.createElement(Dialog$1, {
     stacked: true,
     header: /*#__PURE__*/React.createElement("div", {
@@ -24080,7 +24599,7 @@ var WrongNetworkDialog = (function (props) {
       className: "GraphicWrapper"
     }, /*#__PURE__*/React.createElement("img", {
       className: "Graphic",
-      src: ConnectGraphic
+      src: blockchain.logo
     })), /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
     }, "Connect to ", blockchain.label), /*#__PURE__*/React.createElement("div", {
@@ -24091,11 +24610,10 @@ var WrongNetworkDialog = (function (props) {
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
     }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
       className: "ButtonPrimary",
-      onClick: function onClick() {
-        return navigate('back');
-      }
-    }, "Try again"))
+      onClick: switchNetwork
+    }, "Switch Network"))
   });
 });
 
@@ -25373,7 +25891,7 @@ var PaymentOverviewSkeleton = (function (props) {
       className: "SkeletonBackground"
     }))), selectedRoute == undefined && slowRouting && /*#__PURE__*/React.createElement("div", {
       className: "TextCenter Opacity05 PaddingTopS"
-    }, /*#__PURE__*/React.createElement("strong", null, "Loading payment routes...")))
+    }, /*#__PURE__*/React.createElement("strong", null, "Loading payment options...")))
   });
 });
 
