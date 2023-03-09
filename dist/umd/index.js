@@ -1092,7 +1092,7 @@
         "universal": "https://mewwallet.com"
       },
       "android": {
-        "native": "wc://"
+        "universal": "https://mewwallet.com"
       }
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e2024511-2c9b-46d7-3111-52df3d241700?projectId=a8d876c6f91c3748db621583fad358f1"
@@ -2572,6 +2572,7 @@
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e3272444-3876-49d3-2f84-004b818d3800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
   }, {
     "name": "HyperPay",
+    "extension": "HyperPay",
     "link": "WalletConnectV1",
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e2b56019-59be-4cdc-e944-12e6cc235c00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
   }, {
@@ -4611,7 +4612,6 @@
 
     var connectViaRedirect = function connectViaRedirect(walletMetaData) {
       var reconnect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-      localStorage.removeItem('WALLETCONNECT_DEEPLINK_CHOICE');
       var platform = platformForWallet(walletMetaData);
 
       if (!platform) {

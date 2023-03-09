@@ -77,7 +77,6 @@ export default (props)=>{
   }
 
   const connectViaRedirect = (walletMetaData, reconnect = true)=> {
-    localStorage.removeItem('WALLETCONNECT_DEEPLINK_CHOICE')
     let platform = platformForWallet(walletMetaData)
     if(!platform) { return }
     if(walletMetaData.link == 'WalletConnectV1') {

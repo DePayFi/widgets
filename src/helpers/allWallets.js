@@ -110,7 +110,7 @@ export default [
     "link": "WalletConnectV1",
     "mobile": { 
       "ios": { "universal": "https://mewwallet.com" },
-      "android": { "native": "wc://" },
+      "android": { "universal": "https://mewwallet.com" },
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e2024511-2c9b-46d7-3111-52df3d241700?projectId=a8d876c6f91c3748db621583fad358f1",
   },
@@ -1236,6 +1236,7 @@ export default [
   },
   {
     "name": "HyperPay",
+    "extension": "HyperPay",
     "link": "WalletConnectV1",
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e2b56019-59be-4cdc-e944-12e6cc235c00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
   },
