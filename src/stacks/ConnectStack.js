@@ -77,6 +77,7 @@ export default (props)=>{
   }
 
   const connectViaRedirect = (walletMetaData, reconnect = true)=> {
+    localStorage.removeItem('WALLETCONNECT_DEEPLINK_CHOICE')
     let platform = platformForWallet(walletMetaData)
     if(!platform) { return }
     if(walletMetaData.link == 'WalletConnectV1') {
@@ -88,10 +89,10 @@ export default (props)=>{
         connect: ({ uri })=>{
           let name = isAndroid() ? 'Android' : walletMetaData.name
           if(isWebView()) {
-            if(isAndroid()) {
-              openWcLink(platform, uri, name)
-            } else { // iOS
+            if(platform.universal) {
               openUniversalLink(platform, uri, name)
+            } else if(isAndroid()) {
+              openWcLink(platform, uri, name)
             }
           } else {
             if(platform.native) {

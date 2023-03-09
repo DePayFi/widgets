@@ -1092,7 +1092,7 @@
         "universal": "https://mewwallet.com"
       },
       "android": {
-        "universal": "https://mewwallet.com"
+        "native": "wc://"
       }
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e2024511-2c9b-46d7-3111-52df3d241700?projectId=a8d876c6f91c3748db621583fad358f1"
@@ -4611,6 +4611,7 @@
 
     var connectViaRedirect = function connectViaRedirect(walletMetaData) {
       var reconnect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      localStorage.removeItem('WALLETCONNECT_DEEPLINK_CHOICE');
       var platform = platformForWallet(walletMetaData);
 
       if (!platform) {
@@ -4629,11 +4630,10 @@
             var name = isAndroid() ? 'Android' : walletMetaData.name;
 
             if (isWebView()) {
-              if (isAndroid()) {
-                openWcLink(platform, uri, name);
-              } else {
-                // iOS
+              if (platform.universal) {
                 openUniversalLink(platform, uri, name);
+              } else if (isAndroid()) {
+                openWcLink(platform, uri, name);
               }
             } else {
               if (platform["native"]) {

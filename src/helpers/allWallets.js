@@ -110,7 +110,7 @@ export default [
     "link": "WalletConnectV1",
     "mobile": { 
       "ios": { "universal": "https://mewwallet.com" },
-      "android": { "universal": "https://mewwallet.com" },
+      "android": { "native": "wc://" },
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e2024511-2c9b-46d7-3111-52df3d241700?projectId=a8d876c6f91c3748db621583fad358f1",
   },
