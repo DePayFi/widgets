@@ -24564,10 +24564,21 @@
     var _useContext = React.useContext(PaymentContext),
         payment = _useContext.payment;
 
-    var _useContext2 = React.useContext(reactDialogStack.NavigateStackContext),
-        navigate = _useContext2.navigate;
+    var _useContext2 = React.useContext(WalletContext),
+        wallet = _useContext2.wallet;
+
+    var _useState = React.useState(false),
+        _useState2 = _slicedToArray(_useState, 2);
+        _useState2[0];
+        _useState2[1];
 
     var blockchain = web3Blockchains.Blockchain.findByName(payment.route.blockchain);
+
+    var switchNetwork = function switchNetwork() {
+      wallet.switchTo(payment.blockchain);
+      navigate('back');
+    };
+
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       stacked: true,
       header: /*#__PURE__*/React__default['default'].createElement("div", {
@@ -24592,11 +24603,10 @@
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
       }, /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
         className: "ButtonPrimary",
-        onClick: function onClick() {
-          return navigate('back');
-        }
-      }, "Try again"))
+        onClick: switchNetwork
+      }, "Switch Network"))
     });
   });
 

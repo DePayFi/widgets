@@ -24570,10 +24570,21 @@ var WrongNetworkDialog = (function (props) {
   var _useContext = useContext(PaymentContext),
       payment = _useContext.payment;
 
-  var _useContext2 = useContext(NavigateStackContext),
-      navigate = _useContext2.navigate;
+  var _useContext2 = useContext(WalletContext),
+      wallet = _useContext2.wallet;
+
+  var _useState = useState(false),
+      _useState2 = _slicedToArray(_useState, 2);
+      _useState2[0];
+      _useState2[1];
 
   var blockchain = Blockchain.findByName(payment.route.blockchain);
+
+  var switchNetwork = function switchNetwork() {
+    wallet.switchTo(payment.blockchain);
+    navigate('back');
+  };
+
   return /*#__PURE__*/React.createElement(Dialog$1, {
     stacked: true,
     header: /*#__PURE__*/React.createElement("div", {
@@ -24598,11 +24609,10 @@ var WrongNetworkDialog = (function (props) {
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
     }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
       className: "ButtonPrimary",
-      onClick: function onClick() {
-        return navigate('back');
-      }
-    }, "Try again"))
+      onClick: switchNetwork
+    }, "Switch Network"))
   });
 });
 
