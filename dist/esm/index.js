@@ -1095,11 +1095,9 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "mewwallet",
       "universal": "https://mewwallet.com"
     },
     "android": {
-      "native": "mewwallet",
       "universal": "https://mewwallet.com"
     }
   },
