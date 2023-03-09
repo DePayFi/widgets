@@ -3566,7 +3566,8 @@
   });
 
   var isWebView = function isWebView() {
-    return navigator.userAgent.toLowerCase().includes('webview') || navigator.userAgent.toLowerCase().includes('wv');
+    var userAgentToLower = navigator.userAgent.toLowerCase();
+    return userAgentToLower.includes('webview') || userAgentToLower.includes('wv') || navigator.userAgent.toLowerCase().match(/\) mobile\//) && !userAgentToLower.includes('safari');
   };
 
   var PoweredBy = (function () {
@@ -4122,7 +4123,7 @@
         href = "".concat(href, "/wc?uri=").concat(uri);
       }
 
-      window.open(href, '_self', 'noreferrer noopener');
+      return window.open(href, '_self', 'noreferrer noopener');
     };
 
     var openNativeLink = function openNativeLink(platform, uri, name) {
@@ -4142,7 +4143,7 @@
         href = "".concat(href, "wc?uri=").concat(uri);
       }
 
-      window.open(href, '_self', 'noreferrer noopener');
+      return window.open(href, '_self', 'noreferrer noopener');
     };
 
     var openWcLink = function openWcLink(platform, uri, name) {
@@ -4188,7 +4189,8 @@
                 openUniversalLink(platform, uri, name);
               }
             } else {
-              openNativeLink(platform, uri, name);
+              var whatsReturned = openNativeLink(platform, uri, name);
+              console.log(whatsReturned);
             }
           }
         }).then(function (account) {

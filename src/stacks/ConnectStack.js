@@ -54,7 +54,7 @@ export default (props)=>{
     } else {
       href = `${href}/wc?uri=${uri}`
     }
-    window.open(href, '_self', 'noreferrer noopener')
+    return window.open(href, '_self', 'noreferrer noopener')
   }
 
   const openNativeLink = (platform, uri, name)=>{
@@ -66,7 +66,7 @@ export default (props)=>{
     } else {
       href = `${href}wc?uri=${uri}`
     }
-    window.open(href, '_self', 'noreferrer noopener')
+    return window.open(href, '_self', 'noreferrer noopener')
   }
 
   const openWcLink = (platform, uri, name)=>{
@@ -98,7 +98,8 @@ export default (props)=>{
               openUniversalLink(platform, uri, name)
             }
           } else {
-            openNativeLink(platform, uri, name)
+            let whatsReturned = openNativeLink(platform, uri, name)
+            console.log(whatsReturned)
           }
         }
       }).then((account)=>{

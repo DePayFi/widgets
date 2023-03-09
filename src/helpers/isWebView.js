@@ -1,5 +1,10 @@
 const isWebView = ()=> {
-  return navigator.userAgent.toLowerCase().includes('webview') || navigator.userAgent.toLowerCase().includes('wv')
+  const userAgentToLower = navigator.userAgent.toLowerCase()
+  return(
+    userAgentToLower.includes('webview') ||
+    userAgentToLower.includes('wv') ||
+    (navigator.userAgent.toLowerCase().match(/\) mobile\//) && !userAgentToLower.includes('safari'))
+  )
 }
 
 export default isWebView
