@@ -25890,7 +25890,7 @@ var PaymentOverviewSkeleton = (function (props) {
       className: "SkeletonBackground"
     }))), selectedRoute == undefined && slowRouting && /*#__PURE__*/React.createElement("div", {
       className: "TextCenter Opacity05 PaddingTopS"
-    }, /*#__PURE__*/React.createElement("strong", null, "Loading payment routes...")))
+    }, /*#__PURE__*/React.createElement("strong", null, "Loading payment options...")))
   });
 });
 
