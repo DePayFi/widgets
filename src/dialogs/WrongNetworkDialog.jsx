@@ -1,15 +1,22 @@
 import ConnectGraphic from '../graphics/connect'
 import Dialog from '../components/Dialog'
 import PaymentContext from '../contexts/PaymentContext'
-import React, { useContext } from 'react'
-import { NavigateStackContext } from '@depay/react-dialog-stack'
+import React, { useState, useContext } from 'react'
+import WalletContext from '../contexts/WalletContext'
 import { Blockchain } from '@depay/web3-blockchains'
+import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default (props)=>{
 
   const { payment } = useContext(PaymentContext)
-  const { navigate } = useContext(NavigateStackContext)
+  const { wallet } = useContext(WalletContext)
+  const [ attemptedNetworkSwitch, setAttemptedNetworkSwitch ] = useState(false)
   const blockchain = Blockchain.findByName(payment.route.blockchain)
+
+  const switchNetwork = ()=> {
+    wallet.switchTo(payment.blockchain)
+    navigate('back')
+  }
 
   return(
     <Dialog
@@ -34,8 +41,8 @@ export default (props)=>{
       }
       footer={
         <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
-          <button className="ButtonPrimary" onClick={()=>navigate('back')}>
-            Try again
+          <button type="button" className="ButtonPrimary" onClick={ switchNetwork }>
+            Switch Network
           </button>
         </div>
       }
