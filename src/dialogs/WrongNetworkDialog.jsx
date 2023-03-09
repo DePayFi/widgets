@@ -10,6 +10,7 @@ export default (props)=>{
 
   const { payment } = useContext(PaymentContext)
   const { wallet } = useContext(WalletContext)
+  const { navigate } = useContext(NavigateStackContext)
   const [ attemptedNetworkSwitch, setAttemptedNetworkSwitch ] = useState(false)
   const blockchain = Blockchain.findByName(payment.route.blockchain)
 
@@ -29,7 +30,7 @@ export default (props)=>{
       body={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS TextCenter">
           <div className="GraphicWrapper">
-            <img className="Graphic" src={ ConnectGraphic }/>
+            <img className="Graphic" src={ blockchain.logo }/>
           </div>
           <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Connect to { blockchain.label }</h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
