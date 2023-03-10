@@ -24811,7 +24811,7 @@ var PaymentTrackingProvider = (function (props) {
 
         if (success) {
           setRelease(true);
-          setClosable(!item.message.forward_to);
+          setClosable(true);
           setForwardTo(item.message.forward_to);
 
           if (!!item.message.forward_to) {
@@ -24917,10 +24917,11 @@ var PaymentTrackingProvider = (function (props) {
     var handlePollingResponse = function handlePollingResponse(data) {
       if (data) {
         if (data && data.forward_to) {
+          setClosable(true);
           setForwardTo(data.forward_to);
           setTimeout(function () {
             props.document.location.href = data.forward_to;
-          }, 100);
+          }, 200);
         } else {
           setClosable(true);
         }

@@ -57,7 +57,7 @@ export default (props)=>{
         socket.close(1000)
         if(success) {
           setRelease(true)
-          setClosable(!item.message.forward_to)
+          setClosable(true)
           setForwardTo(item.message.forward_to)
           if(!!item.message.forward_to) {
             setTimeout(()=>{ props.document.location.href = item.message.forward_to }, 200)
@@ -158,8 +158,9 @@ export default (props)=>{
     const handlePollingResponse = (data)=>{
       if(data) {
         if(data && data.forward_to) {
+          setClosable(true)
           setForwardTo(data.forward_to)
-          setTimeout(()=>{ props.document.location.href = data.forward_to }, 100)
+          setTimeout(()=>{ props.document.location.href = data.forward_to }, 200)
         } else {
           setClosable(true)
         }
