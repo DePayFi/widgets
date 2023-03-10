@@ -52,7 +52,7 @@ export default (props)=>{
       const item = JSON.parse(event.data)
       if(item.type === "ping" || !item.message) { return }
       const success = (item.message.status == 'success')
-      if(validated) { validated(success) }
+      if(validated) { setTimeout(()=>validated(success), 200) }
       if(item.message.release) {
         socket.close(1000)
         if(success) {

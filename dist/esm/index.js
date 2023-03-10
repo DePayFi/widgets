@@ -24802,7 +24802,9 @@ var PaymentTrackingProvider = (function (props) {
       var success = item.message.status == 'success';
 
       if (validated) {
-        validated(success);
+        setTimeout(function () {
+          return validated(success);
+        }, 200);
       }
 
       if (item.message.release) {
