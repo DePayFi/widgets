@@ -16,6 +16,21 @@ export default (props)=>{
     setTimeout(props.unmount, 300)
   }
 
+  useEffect(()=>{
+    const preventReload = (event) => {
+      if(!closable || props.closable === false) {
+        const msg = 'Payment is still pending. Please wait!'
+        event.preventDefault()
+        event.returnValue = msg
+        return msg
+      }
+    }
+    window.addEventListener('beforeunload', preventReload);
+    return ()=>{
+      window.removeEventListener('beforeunload', preventReload);
+    }
+  }, [closable, props.closable])
+
   return(
     <ClosableContext.Provider value={{
       closable,

@@ -922,6 +922,21 @@
       setTimeout(props.unmount, 300);
     };
 
+    React.useEffect(function () {
+      var preventReload = function preventReload(event) {
+        if (!closable || props.closable === false) {
+          var msg = 'Payment is still pending. Please wait!';
+          event.preventDefault();
+          event.returnValue = msg;
+          return msg;
+        }
+      };
+
+      window.addEventListener('beforeunload', preventReload);
+      return function () {
+        window.removeEventListener('beforeunload', preventReload);
+      };
+    }, [closable, props.closable]);
     return /*#__PURE__*/React__default['default'].createElement(ClosableContext.Provider, {
       value: {
         closable: closable,
