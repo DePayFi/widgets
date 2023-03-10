@@ -444,9 +444,11 @@ describe('Payment Widget: track', () => {
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').then(()=>{
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').find('.Checkmark')
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
-                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').click().then(()=>{
-                        cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
-                        expect(validatedStatus).to.equal(true)
+                      cy.wait(1000).then(()=>{
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').click().then(()=>{
+                          cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+                          expect(validatedStatus).to.equal(true)
+                        })
                       })
                     })
                   })

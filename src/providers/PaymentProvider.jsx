@@ -32,7 +32,9 @@ export default (props)=>{
   const [ paymentState, setPaymentState ] = useState('initialized')
 
   const paymentSucceeded = (transaction)=>{
-    setClosable(true)
+    if(synchronousTracking == false && (asynchronousTracking == false || trackingInitialized == true)) {
+      setClosable(true)
+    }
     setPaymentState('success')
     if(succeeded) { setTimeout(()=>succeeded(transaction), 200) }
   }

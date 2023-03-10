@@ -23021,9 +23021,9 @@ var PaymentProvider = (function (props) {
       wallet = _useContext8.wallet;
 
   var _useContext9 = useContext(PaymentTrackingContext),
-      release = _useContext9.release;
-      _useContext9.synchronousTracking;
-      var asynchronousTracking = _useContext9.asynchronousTracking,
+      release = _useContext9.release,
+      synchronousTracking = _useContext9.synchronousTracking,
+      asynchronousTracking = _useContext9.asynchronousTracking,
       trackingInitialized = _useContext9.trackingInitialized,
       initializePaymentTracking = _useContext9.initializeTracking,
       preTrack = _useContext9.preTrack;
@@ -23053,7 +23053,10 @@ var PaymentProvider = (function (props) {
       setPaymentState = _useState8[1];
 
   var paymentSucceeded = function paymentSucceeded(transaction) {
-    setClosable(true);
+    if (synchronousTracking == false && (asynchronousTracking == false || trackingInitialized == true)) {
+      setClosable(true);
+    }
+
     setPaymentState('success');
 
     if (succeeded) {
