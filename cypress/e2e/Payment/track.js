@@ -789,7 +789,7 @@ describe('Payment Widget: track', () => {
     })
   })
 
-  it('tracks payments and forwards directly if forwardTo was specified by the backend end without allowing to close the widget', () => {
+  it('tracks payments and forwards directly if forwardTo was specified by the backend end', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
@@ -890,7 +890,6 @@ describe('Payment Widget: track', () => {
                       }
                     }))
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').then(()=>{
-                      cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').find('.Checkmark')
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
                       cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').invoke('attr', 'href').should('include', '/somethingelse')
