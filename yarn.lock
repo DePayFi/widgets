@@ -1151,10 +1151,15 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-constants/-/web3-constants-6.3.2.tgz#13a6066f20baee3ea94b373eebc69bd2c4c9773b"
   integrity sha512-It2ygcxIrSXMB3ilHmgtq0EMfBGf42sgnaCFbF9Lz80gPjC7O2NifNv8h3gRd/8Fy3XwzCLkjDqbVIgn7kV9tQ==
 
-"@depay/web3-exchanges@^11.3.3":
-  version "11.3.3"
-  resolved "https://registry.yarnpkg.com/@depay/web3-exchanges/-/web3-exchanges-11.3.3.tgz#4e6fe4305eeffe6b7c1458fa09d7d2b1e36da22f"
-  integrity sha512-b5lTy/cdNuWo+4pgVZvSRLBGx82fuVBfH7f8fLjH/v8izBCO43BnT3YAGCA3dDD0kHY34a09Mlvw4rZPtElp2w==
+"@depay/web3-constants@^6.4.2":
+  version "6.4.2"
+  resolved "https://registry.yarnpkg.com/@depay/web3-constants/-/web3-constants-6.4.2.tgz#52ed9b50aa31ef3e649c8c2453606b5d26e6c0b7"
+  integrity sha512-Sfas4MUCSpykJUS8+t/haPSLJkhXyJONNldgwWk/Uc801iaDMEBJr2m0rR7+2ceYXUSUQrj2g33Jro6pOPBmgg==
+
+"@depay/web3-exchanges@^11.3.4":
+  version "11.3.4"
+  resolved "https://registry.yarnpkg.com/@depay/web3-exchanges/-/web3-exchanges-11.3.4.tgz#38171b6ba5c25a3a3254e028bab0811bd3ae303b"
+  integrity sha512-JwtOeE2B+Xu308nfwyzJxetLOnwDHCNs8WI3yt88pGDoUTWgUCSm3lnMGII9oqMSbbf8ZC5f7ase6z8vCill3g==
 
 "@depay/web3-mock@^13.22.14":
   version "13.22.14"
