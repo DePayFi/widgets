@@ -104,6 +104,9 @@ export default (props)=>{
       })
       .catch((error)=>{
         console.log('error', error)
+        if(error?.code == 'WRONG_NETWORK' || error?.code == 'NOT_SUPPORTED') {
+          navigate('WrongNetwork')
+        }
         setPaymentState('initialized')
         setClosable(true)
       })
