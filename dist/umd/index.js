@@ -24404,7 +24404,7 @@
           className: "PaddingBottomXS"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "Alert"
-        }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Payment token would lose ", paymentValueLoss, "% of it's value!"))), /*#__PURE__*/React__default['default'].createElement("button", {
+        }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Payment would lose ", paymentValueLoss, "% of it's value!"))), /*#__PURE__*/React__default['default'].createElement("button", {
           className: "ButtonPrimary disabled",
           onClick: function onClick() {}
         }, "Pay"));
@@ -26070,7 +26070,7 @@
         className: "TokenSymbolCell"
       }, payment.symbol), /*#__PURE__*/React__default['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default['default'].createElement("span", {
         className: "TokenAmountCell"
-      }, format(payment.amount))), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, format(payment.amount))), displayedPaymentValue != "".concat(payment.symbol, " ").concat(format(payment.amount)) && !(amountsMissing && !fixedCurrency) && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TokenAmountRow small grey"
       }, /*#__PURE__*/React__default['default'].createElement("span", {
         className: "TokenAmountCell"

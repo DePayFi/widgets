@@ -119,11 +119,13 @@ export default (props)=>{
                       { format(payment.amount) }
                     </span>
                   </div>
-                  <div className="TokenAmountRow small grey">
-                    <span className="TokenAmountCell">
-                      { displayedPaymentValue }
-                    </span>
-                  </div>
+                  { (displayedPaymentValue != `${payment.symbol} ${format(payment.amount)}` && !(amountsMissing && !fixedCurrency)) &&
+                    <div className="TokenAmountRow small grey">
+                      <span className="TokenAmountCell">
+                        { displayedPaymentValue }
+                      </span>
+                    </div>
+                  }
                 </h2>
               </div>
             </div>

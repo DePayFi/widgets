@@ -24408,7 +24408,7 @@ var Footer = (function () {
         className: "PaddingBottomXS"
       }, /*#__PURE__*/React.createElement("div", {
         className: "Alert"
-      }, /*#__PURE__*/React.createElement("strong", null, "Payment token would lose ", paymentValueLoss, "% of it's value!"))), /*#__PURE__*/React.createElement("button", {
+      }, /*#__PURE__*/React.createElement("strong", null, "Payment would lose ", paymentValueLoss, "% of it's value!"))), /*#__PURE__*/React.createElement("button", {
         className: "ButtonPrimary disabled",
         onClick: function onClick() {}
       }, "Pay"));
@@ -26074,7 +26074,7 @@ var PaymentOverviewDialog = (function (props) {
       className: "TokenSymbolCell"
     }, payment.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
       className: "TokenAmountCell"
-    }, format(payment.amount))), /*#__PURE__*/React.createElement("div", {
+    }, format(payment.amount))), displayedPaymentValue != "".concat(payment.symbol, " ").concat(format(payment.amount)) && !(amountsMissing && !fixedCurrency) && /*#__PURE__*/React.createElement("div", {
       className: "TokenAmountRow small grey"
     }, /*#__PURE__*/React.createElement("span", {
       className: "TokenAmountCell"
