@@ -14,10 +14,12 @@ export default (props)=>{
   const [walletState, setWalletState] = useState(passedWallet ? 'connected' : undefined)
   
   const connected = ({ account, wallet })=> {
-    setAccount(account)
-    setWallet(wallet)
-    setWalletState('connected')
-    if(props.connected) { props.connected(account) }
+    setTimeout(()=>{
+      setAccount(account)
+      setWallet(wallet)
+      setWalletState('connected')
+      if(props.connected) { props.connected(account) }
+    }, 200)
   }
 
   const disconnect = ()=>{

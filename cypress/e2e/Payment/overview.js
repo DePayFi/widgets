@@ -367,7 +367,6 @@ describe('Payment Widget: overview', () => {
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('h3.CardText', { includeShadowDom: true }).should('not.exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Pay DEPAY 20')
         })
       })
     })

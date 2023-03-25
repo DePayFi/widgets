@@ -25349,13 +25349,15 @@ var WalletProvider = (function (props) {
   var connected = function connected(_ref) {
     var account = _ref.account,
         wallet = _ref.wallet;
-    setAccount(account);
-    setWallet(wallet);
-    setWalletState('connected');
+    setTimeout(function () {
+      setAccount(account);
+      setWallet(wallet);
+      setWalletState('connected');
 
-    if (props.connected) {
-      props.connected(account);
-    }
+      if (props.connected) {
+        props.connected(account);
+      }
+    }, 200);
   };
 
   var disconnect = function disconnect() {
