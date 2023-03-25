@@ -10,7 +10,7 @@ export default (style)=>{
       box-shadow: 0 0 16px rgba(0,0,0,0.1);
       font-size: 22px;
       font-weight: 400;
-      line-height: 45px;
+      line-height: 42px;
       height: 58px;
       justify-content: center;
       width: 100%;
