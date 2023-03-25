@@ -1,3 +1,4 @@
+import Blockchains from '@depay/web3-blockchains'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import ChevronRight from '../components/ChevronRight'
 import ConfigurationContext from '../contexts/ConfigurationContext'
@@ -11,7 +12,6 @@ import PaymentOverviewSkeleton from '../skeletons/PaymentOverviewSkeleton'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
 import WalletContext from '../contexts/WalletContext'
-import { Blockchain } from '@depay/web3-blockchains'
 import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { TokenImage } from '@depay/react-token-image'
@@ -21,7 +21,7 @@ export default (props)=>{
   const { payment, paymentState } = useContext(PaymentContext)
   const { amount, amountsMissing, fixedAmount, fixedCurrency } = useContext(ChangableAmountContext)
   const { disconnect } = useContext(WalletContext)
-  const { paymentValue } = useContext(PaymentValueContext)
+  const { paymentValue, displayedPaymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
   const [ showDropDown, setShowDropDown ] = useState(false)
   const displayedCurrencyCode = (amountConfiguration != undefined && amountConfiguration.token) ? null : currencyCode
@@ -40,7 +40,7 @@ export default (props)=>{
 
   if(payment == undefined || (recover == undefined && paymentValue == undefined)) { return(<PaymentOverviewSkeleton alternativeHeaderAction={ alternativeHeaderActionElement }/>) }
 
-  const blockchain = Blockchain.findByName(payment.blockchain)
+  const blockchain = Blockchains.findByName(payment.blockchain)
   
   return(
     <Dialog
@@ -117,6 +117,11 @@ export default (props)=>{
                     <span>&nbsp;</span>
                     <span className="TokenAmountCell">
                       { format(payment.amount) }
+                    </span>
+                  </div>
+                  <div className="TokenAmountRow small grey">
+                    <span className="TokenAmountCell">
+                      { displayedPaymentValue }
                     </span>
                   </div>
                 </h2>

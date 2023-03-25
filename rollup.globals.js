@@ -7,7 +7,6 @@ export default {
   '@depay/walletconnect-v1': 'WalletConnect',
   '@depay/web3-blockchains': 'Web3Blockchains',
   '@depay/web3-client': 'Web3Client',
-  '@depay/web3-constants': 'Web3Constants',
   '@depay/web3-exchanges': 'Web3Exchanges',
   '@depay/web3-payments': 'Web3Payments',
   '@depay/web3-tokens': 'Web3Tokens',

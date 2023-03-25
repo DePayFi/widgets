@@ -1,11 +1,11 @@
 import addressEllipsis from '../helpers/addressEllipsis'
+import Blockchains from '@depay/web3-blockchains'
 import ClosableContext from '../contexts/ClosableContext'
 import Dialog from '../components/Dialog'
 import msToTime from '../helpers/msToTime'
 import React, { useState, useContext, useEffect } from 'react'
 import SelectionContext from '../contexts/SelectionContext'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
-import { Blockchain } from '@depay/web3-blockchains'
 import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=> {
@@ -81,7 +81,7 @@ export default (props)=> {
                   </td>
                   <td>
                     <div>
-                      <a className="Link" title={ selection.nft.address } href={ Blockchain.findByName(blockchain).explorerUrlFor({ token: selection.nft.address }) } target="_blank" rel="noopener noreferrer">
+                      <a className="Link" title={ selection.nft.address } href={ Blockchains.findByName(blockchain).explorerUrlFor({ token: selection.nft.address }) } target="_blank" rel="noopener noreferrer">
                         { addressEllipsis(selection.nft.address, 6) }
                       </a>
                     </div>
@@ -102,7 +102,7 @@ export default (props)=> {
                     <div className='TableSubTitle'>Blockchain</div>
                   </td>
                   <td>
-                    <div>{ Blockchain.findByName(blockchain).label }</div>
+                    <div>{ Blockchains.findByName(blockchain).label }</div>
                   </td>
                 </tr>
                 <tr>

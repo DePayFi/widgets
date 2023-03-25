@@ -1,3 +1,4 @@
+import Blockchains from '@depay/web3-blockchains'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import ChevronRight from '../components/ChevronRight'
 import ConfigurationContext from '../contexts/ConfigurationContext'
@@ -8,7 +9,6 @@ import format from '../helpers/format'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
-import { Blockchain } from '@depay/web3-blockchains'
 import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { TokenImage } from '@depay/react-token-image'
@@ -22,7 +22,7 @@ export default (props)=>{
   
   if(payment == undefined) { return(<DonationOverviewSkeleton/>) }
 
-  const blockchain = Blockchain.findByName(payment.blockchain)
+  const blockchain = Blockchains.findByName(payment.blockchain)
 
   return(
     <Dialog

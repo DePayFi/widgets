@@ -1,9 +1,9 @@
+import Blockchains from '@depay/web3-blockchains'
 import ChevronRight from '../components/ChevronRight'
 import ClosableContext from '../contexts/ClosableContext'
 import Dialog from '../components/Dialog'
 import React, { useCallback, useState, useEffect, useContext, useRef } from 'react'
 import SelectionContext from '../contexts/SelectionContext'
-import { Blockchain } from '@depay/web3-blockchains'
 import { debounce } from 'lodash'
 import { ethers } from 'ethers'
 import { getWallets } from '@depay/web3-wallets'
@@ -26,7 +26,7 @@ export default (props)=> {
   const wallet = getWallets()[0]
 
   const startWithBlockchain = (name)=> {
-    let blockchain = Blockchain.findByName(name)
+    let blockchain = Blockchains.findByName(name)
     setBlockchain(blockchain)
     setSelection(Object.assign(props.selection, { blockchain, token: undefined }))
     setTokens(blockchain.tokens)
@@ -35,7 +35,7 @@ export default (props)=> {
   useEffect(()=>{
     if(wallet) {
       wallet.connectedTo().then((name)=>{
-        let blockchain = Blockchain.findByName(name)
+        let blockchain = Blockchains.findByName(name)
         if(window._depay_token_selection_selected_blockchain) {
           startWithBlockchain(window._depay_token_selection_selected_blockchain)
         } else if(name && name.length && blockchain && blockchain.tokens && blockchain.tokens.length) {
