@@ -1,3 +1,4 @@
+import Blockchains from '@depay/web3-blockchains'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ConversionRateContext from '../contexts/ConversionRateContext'
@@ -6,7 +7,6 @@ import findMaxRoute from '../helpers/findMaxRoute'
 import React, { useCallback, useState, useEffect, useContext } from 'react'
 import round from '../helpers/round'
 import WalletContext from '../contexts/WalletContext'
-import { CONSTANTS } from '@depay/web3-constants'
 import { debounce } from 'lodash'
 import { Decimal } from 'decimal.js'
 import { route } from '@depay/web3-exchanges'
@@ -54,12 +54,12 @@ export default (props)=>{
       } else {
         Promise.all(props.accept.map((configuration)=>{
           if(fixedAmount) {
-            if(CONSTANTS[configuration.blockchain].USD == configuration.token) {
+            if(Blockchains[configuration.blockchain].stables.usd[0] == configuration.token) {
               return 1.00/fixedCurrencyConversionRate * fixedAmount
             } else {
               return route({
                 blockchain: configuration.blockchain,
-                tokenIn: CONSTANTS[configuration.blockchain].USD,
+                tokenIn: Blockchains[configuration.blockchain].stables.usd[0],
                 amountIn: (1.00/fixedCurrencyConversionRate) * fixedAmount,
                 tokenOut: configuration.token,
                 fromAddress: account,
@@ -67,12 +67,12 @@ export default (props)=>{
               })
             }
           } else {
-            if(CONSTANTS[configuration.blockchain].USD == configuration.token) {
+            if(Blockchains[configuration.blockchain].stables.usd[0] == configuration.token) {
               return 1.00/conversionRate * amount
             } else {
               return route({
                 blockchain: configuration.blockchain,
-                tokenIn: CONSTANTS[configuration.blockchain].USD,
+                tokenIn: Blockchains[configuration.blockchain].stables.usd[0],
                 amountIn: (1.00/conversionRate) * amount,
                 tokenOut: configuration.token,
                 fromAddress: account,
@@ -157,7 +157,7 @@ export default (props)=>{
                 setMaxAmount(maxAmount > 10 ? Math.round(maxAmount-1) : round(maxAmount-1))
               }).catch(setError)
             }).catch(setError)
-          } else if(maxRoute.fromToken.address == CONSTANTS[maxRoute.blockchain].USD) {
+          } else if(maxRoute.fromToken.address == Blockchains[maxRoute.blockchain].stables.usd[0]) {
             let maxAmount = parseFloat(
               new Decimal(readableMaxAmount).mul(conversionRate).toString()
             )
@@ -166,7 +166,7 @@ export default (props)=>{
             route({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,
-              tokenOut: CONSTANTS[maxRoute.blockchain].USD,
+              tokenOut: Blockchains[maxRoute.blockchain].stables.usd[0],
               amountIn: parseFloat(readableMaxAmount),
               fromAddress: account,
               toAddress: account
@@ -175,7 +175,7 @@ export default (props)=>{
               Token.readable({
                 amount: routes[0].amountOut,
                 blockchain: maxRoute.blockchain,
-                address: CONSTANTS[maxRoute.blockchain].USD
+                address: Blockchains[maxRoute.blockchain].stables.usd[0]
               }).then((readableMaxAmount)=>{
                 let slippage = 1.01
                 let maxAmount = parseFloat(

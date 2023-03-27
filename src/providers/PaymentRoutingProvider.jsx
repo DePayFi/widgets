@@ -6,7 +6,6 @@ import round from '../helpers/round'
 import routePayments from '../helpers/routePayments'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
-import { CONSTANTS } from '@depay/web3-constants'
 import { ethers } from 'ethers'
 import { request } from '@depay/web3-client'
 

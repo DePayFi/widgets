@@ -1,3 +1,4 @@
+import Blockchains from '@depay/web3-blockchains'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
@@ -10,7 +11,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import TransactionTrackingContext from '../contexts/TransactionTrackingContext'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
-import { Blockchain } from '@depay/web3-blockchains'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 import { request } from '@depay/web3-client'
 import { Token } from '@depay/web3-tokens'
@@ -132,7 +132,7 @@ export default (props)=>{
       setTransaction({
         blockchain: recover.blockchain,
         id: recover.transaction,
-        url: Blockchain.findByName(recover.blockchain).explorerUrlFor({ transaction: {id: recover.transaction } })
+        url: Blockchains.findByName(recover.blockchain).explorerUrlFor({ transaction: {id: recover.transaction } })
       })
       let paymentToken = new Token({ blockchain: recover.blockchain, address: recover.token })
       Promise.all([
@@ -156,7 +156,7 @@ export default (props)=>{
       if(foundTransaction.id != transaction.id) {
         newTransaction = Object.assign({}, transaction, { 
           id: foundTransaction.id,
-          url: Blockchain.findByName(transaction.blockchain).explorerUrlFor({ transaction: foundTransaction })
+          url: Blockchains.findByName(transaction.blockchain).explorerUrlFor({ transaction: foundTransaction })
         })
         setTransaction(newTransaction)
       }

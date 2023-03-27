@@ -1,3 +1,4 @@
+import Blockchains from '@depay/web3-blockchains'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
@@ -6,7 +7,6 @@ import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useState, useEffect, useContext } from 'react'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
-import { CONSTANTS } from '@depay/web3-constants'
 import { Currency } from '@depay/local-currency'
 import { ethers } from 'ethers'
 import { route } from '@depay/web3-exchanges'
@@ -28,16 +28,21 @@ export default (props)=>{
   
   const updatePaymentValue = ({ updatable, payment })=>{
     if(updatable == false || payment?.route == undefined) { return }
+    setPaymentValue(null)
     setPaymentValueLoss(null)
     Promise.all([
-      route({
-        blockchain: payment.route.blockchain,
-        tokenIn: payment.route.fromToken.address,
-        tokenOut: CONSTANTS[payment.route.blockchain].USD,
-        amountIn: payment.route.fromAmount,
-        fromAddress: account,
-        toAddress: account
-      }),
+      Promise.all(
+        Blockchains[payment.route.blockchain].stables.usd.map((stable)=>{
+          return route({
+            blockchain: payment.route.blockchain,
+            tokenIn: payment.route.fromToken.address,
+            tokenOut: stable,
+            amountIn: payment.route.fromAmount,
+            fromAddress: account,
+            toAddress: account
+          })
+        })
+      ),
       !payment.route.directTransfer ? route({
         blockchain: payment.route.blockchain,
         tokenIn: payment.route.toToken.address,
@@ -45,10 +50,8 @@ export default (props)=>{
         amountIn: payment.route.toAmount,
         fromAddress: account,
         toAddress: account
-      }) : Promise.resolve([]),
-      (new Token({ blockchain: payment.route.blockchain, address: CONSTANTS[payment.route.blockchain].USD })).decimals()
-    ]).then(([fromTokenUSDExchangeRoutes, reverseRoutes, USDDecimals])=>{
-      let fromTokenUSDRoute = fromTokenUSDExchangeRoutes[0]
+      }) : Promise.resolve([])
+    ]).then(([fromTokenUSDExchangeRoutes, reverseRoutes])=>{
       let reverseRoute = reverseRoutes[0]
 
       if(reverseRoute) {
@@ -62,18 +65,51 @@ export default (props)=>{
         }
       }
 
-      let fromTokenUSDAmount
-      if(payment.route.fromToken.address == CONSTANTS[payment.route.blockchain].USD) {
-        fromTokenUSDAmount = payment.route.fromAmount.toString()
-      } else if (fromTokenUSDRoute == undefined) {
-        setPaymentValue('')
-        return
+      let USDValue
+      if(Blockchains[payment.route.blockchain].stables.usd.includes(payment.route.fromToken.address)) {
+        // is stable
+
+        const decimals = Blockchains[payment.route.blockchain].tokens.find(
+          (token)=>token.address===payment.route.fromToken.address
+        ).decimals
+
+        USDValue = ethers.utils.formatUnits(
+          payment.route.fromAmount.toString(),
+          decimals
+        )
+
       } else {
-        fromTokenUSDAmount = fromTokenUSDRoute.amountOut.toString()
+        
+        const USDRoutes = fromTokenUSDExchangeRoutes.map((routes)=>routes ? routes[0] : undefined).filter(Boolean)
+        
+        if(USDRoutes.length == 0) {
+          setPaymentValue('')
+          return
+        } else {
+
+          let amounts = USDRoutes.map((route)=>{
+            
+            const decimals = Blockchains[payment.route.blockchain].tokens.find(
+              (token)=>token.address===route.tokenOut
+            ).decimals
+
+            return parseFloat(ethers.utils.formatUnits(route.amountOut, decimals))
+          })
+
+          // remove outliers
+          const average = amounts.reduce((a, b)=>a+b)/amounts.length
+          const diff = 0.1 // 10%
+          amounts = amounts.filter((amount)=>{
+            return (amount < (average + average*diff) && amount > (average - average*diff))
+          })
+          
+          USDValue = amounts.reduce((a, b)=>a+b)/amounts.length
+
+        }
+
       }
 
-      let fromTokenUSDValue = ethers.utils.formatUnits(fromTokenUSDAmount, USDDecimals)
-      Currency.fromUSD({ amount: fromTokenUSDValue, code: currency })
+      Currency.fromUSD({ amount: USDValue, code: currency })
         .then(setPaymentValue)
     }).catch(setError)
   }

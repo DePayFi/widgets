@@ -1,10 +1,10 @@
 import addressEllipsis from '../helpers/addressEllipsis'
+import Blockchains from '@depay/web3-blockchains'
 import ClosableContext from '../contexts/ClosableContext'
 import Dialog from '../components/Dialog'
 import msToTime from '../helpers/msToTime'
 import React, { useState, useContext } from 'react'
 import SelectionContext from '../contexts/SelectionContext'
-import { Blockchain } from '@depay/web3-blockchains'
 import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=> {
@@ -14,7 +14,7 @@ export default (props)=> {
   const token = selection.token
   const address = token.address || token.external_id
   const logo = token.logo || token.image
-  const blockchain = Blockchain.findByName(token.blockchain)
+  const blockchain = Blockchains.findByName(token.blockchain)
   let age = token.first_transfer ? msToTime(new Date() - new Date(token.first_transfer)) : undefined
   if(age) {
     age = [

@@ -1,14 +1,15 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('@depay/web3-wallets'), require('@depay/web3-blockchains'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('ethers'), require('@depay/web3-constants'), require('decimal.js'), require('@depay/web3-exchanges'), require('@depay/web3-tokens'), require('@depay/local-currency'), require('@depay/web3-client'), require('@depay/web3-payments'), require('@depay/react-token-image')) :
-  typeof define === 'function' && define.amd ? define(['react', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', '@depay/web3-wallets', '@depay/web3-blockchains', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', 'ethers', '@depay/web3-constants', 'decimal.js', '@depay/web3-exchanges', '@depay/web3-tokens', '@depay/local-currency', '@depay/web3-client', '@depay/web3-payments', '@depay/react-token-image'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Web3Wallets, global.Web3Blockchains, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.ethers, global.Web3Constants, global.Decimal, global.Web3Exchanges, global.Web3Tokens, global.LocalCurrency, global.Web3Client, global.Web3Payments, global.ReactTokenImage));
-}(this, (function (React, copy, reactDialogStack, QRCodeStyling, web3Wallets, web3Blockchains, Fuse, reactVirtual, ReactDOM, reactShadowDom, ethers, web3Constants, decimal_js, web3Exchanges, web3Tokens, localCurrency, web3Client, web3Payments, reactTokenImage) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('@depay/web3-wallets'), require('@depay/web3-blockchains'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('ethers'), require('decimal.js'), require('@depay/web3-exchanges'), require('@depay/web3-tokens'), require('@depay/local-currency'), require('@depay/web3-client'), require('@depay/web3-payments'), require('@depay/react-token-image')) :
+  typeof define === 'function' && define.amd ? define(['react', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', '@depay/web3-wallets', '@depay/web3-blockchains', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', 'ethers', 'decimal.js', '@depay/web3-exchanges', '@depay/web3-tokens', '@depay/local-currency', '@depay/web3-client', '@depay/web3-payments', '@depay/react-token-image'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Web3Wallets, global.Web3Blockchains, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.ethers, global.Decimal, global.Web3Exchanges, global.Web3Tokens, global.LocalCurrency, global.Web3Client, global.Web3Payments, global.ReactTokenImage));
+}(this, (function (React, copy, reactDialogStack, QRCodeStyling, web3Wallets, Blockchains, Fuse, reactVirtual, ReactDOM, reactShadowDom, ethers, decimal_js, web3Exchanges, web3Tokens, localCurrency, web3Client, web3Payments, reactTokenImage) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
   var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
   var copy__default = /*#__PURE__*/_interopDefaultLegacy(copy);
   var QRCodeStyling__default = /*#__PURE__*/_interopDefaultLegacy(QRCodeStyling);
+  var Blockchains__default = /*#__PURE__*/_interopDefaultLegacy(Blockchains);
   var Fuse__default = /*#__PURE__*/_interopDefaultLegacy(Fuse);
   var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
 
@@ -4081,7 +4082,7 @@
         navigate = _useContext2.navigate;
 
     var stacked = props.stacked || Object.keys(props.selection).length > 1;
-    var blockchains = [web3Blockchains.Blockchain.findByName('ethereum'), web3Blockchains.Blockchain.findByName('bsc'), web3Blockchains.Blockchain.findByName('polygon')];
+    var blockchains = [Blockchains__default['default'].findByName('ethereum'), Blockchains__default['default'].findByName('bsc'), Blockchains__default['default'].findByName('polygon')];
 
     var selectBlockchain = function selectBlockchain(blockchain) {
       window._depay_token_selection_selected_blockchain = blockchain.name;
@@ -5077,7 +5078,7 @@
   });
 
   var ButtonPrimaryStyle = (function (style) {
-    return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 13px;\n      border: 1px solid transparent;\n      box-shadow: 0 0 16px rgba(0,0,0,0.1);\n      font-size: 22px;\n      font-weight: 400;\n      line-height: 45px;\n      height: 58px;\n      justify-content: center;\n      width: 100%;\n      overflow: hidden;\n      padding: 7px 0;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      display: inline-block;\n    }\n\n    .ButtonPrimary, .ButtonPrimary * {\n      color: ").concat(style.colors.buttonText, ";\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n      color: rgb(140,140,140);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
+    return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 13px;\n      border: 1px solid transparent;\n      box-shadow: 0 0 16px rgba(0,0,0,0.1);\n      font-size: 22px;\n      font-weight: 400;\n      line-height: 40px;\n      height: 58px;\n      justify-content: center;\n      width: 100%;\n      overflow: hidden;\n      padding: 7px 0;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      display: inline-block;\n    }\n\n    .ButtonPrimary, .ButtonPrimary * {\n      color: ").concat(style.colors.buttonText, ";\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n      color: rgb(140,140,140);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
   });
 
   var CardStyle = (function (style) {
@@ -5173,7 +5174,7 @@
   });
 
   var TokenAmountStyle = (function () {
-    return "\n        \n    .TokenAmountRow {\n      min-width: 0;\n      width: 100%;\n      display: flex;\n      flex-direction: row;\n    }\n\n    .TokenAmountCell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .TokenSymbolCell {\n    }\n  ";
+    return "\n        \n    .TokenAmountRow {\n      min-width: 0;\n      width: 100%;\n      display: flex;\n      flex-direction: row;\n    }\n    \n    .TokenAmountRow.small {\n      font-size: 17px;\n      line-height: 17px;\n    }\n\n    .TokenAmountRow.grey {\n      opacity: 0.5;\n    }\n\n    .TokenAmountCell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .TokenSymbolCell {\n    }\n  ";
   });
 
   var TokenImageStyle = (function (style) {
@@ -22714,12 +22715,12 @@
         } else {
           Promise.all(props.accept.map(function (configuration) {
             if (fixedAmount) {
-              if (web3Constants.CONSTANTS[configuration.blockchain].USD == configuration.token) {
+              if (Blockchains__default['default'][configuration.blockchain].stables.usd[0] == configuration.token) {
                 return 1.00 / fixedCurrencyConversionRate * fixedAmount;
               } else {
                 return web3Exchanges.route({
                   blockchain: configuration.blockchain,
-                  tokenIn: web3Constants.CONSTANTS[configuration.blockchain].USD,
+                  tokenIn: Blockchains__default['default'][configuration.blockchain].stables.usd[0],
                   amountIn: 1.00 / fixedCurrencyConversionRate * fixedAmount,
                   tokenOut: configuration.token,
                   fromAddress: account,
@@ -22727,12 +22728,12 @@
                 });
               }
             } else {
-              if (web3Constants.CONSTANTS[configuration.blockchain].USD == configuration.token) {
+              if (Blockchains__default['default'][configuration.blockchain].stables.usd[0] == configuration.token) {
                 return 1.00 / conversionRate * amount;
               } else {
                 return web3Exchanges.route({
                   blockchain: configuration.blockchain,
-                  tokenIn: web3Constants.CONSTANTS[configuration.blockchain].USD,
+                  tokenIn: Blockchains__default['default'][configuration.blockchain].stables.usd[0],
                   amountIn: 1.00 / conversionRate * amount,
                   tokenOut: configuration.token,
                   fromAddress: account,
@@ -22830,7 +22831,7 @@
                 setMaxAmount(maxAmount > 10 ? Math.round(maxAmount - 1) : round(maxAmount - 1));
               })["catch"](setError);
             })["catch"](setError);
-          } else if (maxRoute.fromToken.address == web3Constants.CONSTANTS[maxRoute.blockchain].USD) {
+          } else if (maxRoute.fromToken.address == Blockchains__default['default'][maxRoute.blockchain].stables.usd[0]) {
             var _maxAmount = parseFloat(new decimal_js.Decimal(readableMaxAmount).mul(conversionRate).toString());
 
             setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount - 1) : _maxAmount - 1);
@@ -22838,7 +22839,7 @@
             web3Exchanges.route({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,
-              tokenOut: web3Constants.CONSTANTS[maxRoute.blockchain].USD,
+              tokenOut: Blockchains__default['default'][maxRoute.blockchain].stables.usd[0],
               amountIn: parseFloat(readableMaxAmount),
               fromAddress: account,
               toAddress: account
@@ -22850,7 +22851,7 @@
               web3Tokens.Token.readable({
                 amount: routes[0].amountOut,
                 blockchain: maxRoute.blockchain,
-                address: web3Constants.CONSTANTS[maxRoute.blockchain].USD
+                address: Blockchains__default['default'][maxRoute.blockchain].stables.usd[0]
               }).then(function (readableMaxAmount) {
                 var slippage = 1.01;
                 var maxAmount = parseFloat(new decimal_js.Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
@@ -23198,7 +23199,7 @@
         setTransaction({
           blockchain: recover.blockchain,
           id: recover.transaction,
-          url: web3Blockchains.Blockchain.findByName(recover.blockchain).explorerUrlFor({
+          url: Blockchains__default['default'].findByName(recover.blockchain).explorerUrlFor({
             transaction: {
               id: recover.transaction
             }
@@ -23230,7 +23231,7 @@
         if (foundTransaction.id != transaction.id) {
           newTransaction = Object.assign({}, transaction, {
             id: foundTransaction.id,
-            url: web3Blockchains.Blockchain.findByName(transaction.blockchain).explorerUrlFor({
+            url: Blockchains__default['default'].findByName(transaction.blockchain).explorerUrlFor({
               transaction: foundTransaction
             })
           });
@@ -23642,31 +23643,29 @@
         return;
       }
 
+      setPaymentValue(null);
       setPaymentValueLoss(null);
-      Promise.all([web3Exchanges.route({
-        blockchain: payment.route.blockchain,
-        tokenIn: payment.route.fromToken.address,
-        tokenOut: web3Constants.CONSTANTS[payment.route.blockchain].USD,
-        amountIn: payment.route.fromAmount,
-        fromAddress: account,
-        toAddress: account
-      }), !payment.route.directTransfer ? web3Exchanges.route({
+      Promise.all([Promise.all(Blockchains__default['default'][payment.route.blockchain].stables.usd.map(function (stable) {
+        return web3Exchanges.route({
+          blockchain: payment.route.blockchain,
+          tokenIn: payment.route.fromToken.address,
+          tokenOut: stable,
+          amountIn: payment.route.fromAmount,
+          fromAddress: account,
+          toAddress: account
+        });
+      })), !payment.route.directTransfer ? web3Exchanges.route({
         blockchain: payment.route.blockchain,
         tokenIn: payment.route.toToken.address,
         tokenOut: payment.route.fromToken.address,
         amountIn: payment.route.toAmount,
         fromAddress: account,
         toAddress: account
-      }) : Promise.resolve([]), new web3Tokens.Token({
-        blockchain: payment.route.blockchain,
-        address: web3Constants.CONSTANTS[payment.route.blockchain].USD
-      }).decimals()]).then(function (_ref2) {
-        var _ref3 = _slicedToArray(_ref2, 3),
+      }) : Promise.resolve([])]).then(function (_ref2) {
+        var _ref3 = _slicedToArray(_ref2, 2),
             fromTokenUSDExchangeRoutes = _ref3[0],
-            reverseRoutes = _ref3[1],
-            USDDecimals = _ref3[2];
+            reverseRoutes = _ref3[1];
 
-        var fromTokenUSDRoute = fromTokenUSDExchangeRoutes[0];
         var reverseRoute = reverseRoutes[0];
 
         if (reverseRoute) {
@@ -23681,20 +23680,46 @@
           }
         }
 
-        var fromTokenUSDAmount;
+        var USDValue;
 
-        if (payment.route.fromToken.address == web3Constants.CONSTANTS[payment.route.blockchain].USD) {
-          fromTokenUSDAmount = payment.route.fromAmount.toString();
-        } else if (fromTokenUSDRoute == undefined) {
-          setPaymentValue('');
-          return;
+        if (Blockchains__default['default'][payment.route.blockchain].stables.usd.includes(payment.route.fromToken.address)) {
+          // is stable
+          var decimals = Blockchains__default['default'][payment.route.blockchain].tokens.find(function (token) {
+            return token.address === payment.route.fromToken.address;
+          }).decimals;
+          USDValue = ethers.ethers.utils.formatUnits(payment.route.fromAmount.toString(), decimals);
         } else {
-          fromTokenUSDAmount = fromTokenUSDRoute.amountOut.toString();
+          var USDRoutes = fromTokenUSDExchangeRoutes.map(function (routes) {
+            return routes ? routes[0] : undefined;
+          }).filter(Boolean);
+
+          if (USDRoutes.length == 0) {
+            setPaymentValue('');
+            return;
+          } else {
+            var amounts = USDRoutes.map(function (route) {
+              var decimals = Blockchains__default['default'][payment.route.blockchain].tokens.find(function (token) {
+                return token.address === route.tokenOut;
+              }).decimals;
+              return parseFloat(ethers.ethers.utils.formatUnits(route.amountOut, decimals));
+            }); // remove outliers
+
+            var average = amounts.reduce(function (a, b) {
+              return a + b;
+            }) / amounts.length;
+            var diff = 0.1; // 10%
+
+            amounts = amounts.filter(function (amount) {
+              return amount < average + average * diff && amount > average - average * diff;
+            });
+            USDValue = amounts.reduce(function (a, b) {
+              return a + b;
+            }) / amounts.length;
+          }
         }
 
-        var fromTokenUSDValue = ethers.ethers.utils.formatUnits(fromTokenUSDAmount, USDDecimals);
         localCurrency.Currency.fromUSD({
-          amount: fromTokenUSDValue,
+          amount: USDValue,
           code: currency
         }).then(setPaymentValue);
       })["catch"](setError);
@@ -23989,7 +24014,7 @@
     }, [allRoutes]);
     React.useEffect(function () {
       setCards(allPaymentRoutesWithData.map(function (payment, index) {
-        var blockchain = web3Blockchains.Blockchain.findByName(payment.route.blockchain);
+        var blockchain = Blockchains__default['default'].findByName(payment.route.blockchain);
         return /*#__PURE__*/React__default['default'].createElement("div", {
           key: index,
           className: "Card",
@@ -24193,9 +24218,7 @@
         approve = _useContext3.approve,
         approvalTransaction = _useContext3.approvalTransaction;
 
-    var _useContext4 = React.useContext(PaymentValueContext);
-        _useContext4.paymentValue;
-        var displayedPaymentValue = _useContext4.displayedPaymentValue,
+    var _useContext4 = React.useContext(PaymentValueContext),
         paymentValueLoss = _useContext4.paymentValueLoss;
 
     var _useContext5 = React.useContext(PaymentRoutingContext),
@@ -24350,7 +24373,7 @@
           className: "ButtonPrimary",
           onClick: approve,
           title: "Allow ".concat(payment.symbol, " to be used as payment")
-        }, "Allow ", payment.symbol, " to be used as payment"));
+        }, "Approve use of ", payment.symbol));
       } else if (paymentState == 'approving') {
         return /*#__PURE__*/React__default['default'].createElement("div", {
           className: "PaddingBottomXS"
@@ -24381,10 +24404,10 @@
           className: "PaddingBottomXS"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "Alert"
-        }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Payment token would lose ", paymentValueLoss, "% of it's value!"))), /*#__PURE__*/React__default['default'].createElement("button", {
+        }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Payment would lose ", paymentValueLoss, "% of its value!"))), /*#__PURE__*/React__default['default'].createElement("button", {
           className: "ButtonPrimary disabled",
           onClick: function onClick() {}
-        }, "Pay ", displayedPaymentValue));
+        }, "Pay"));
       } else if ((paymentState == 'initialized' || paymentState == 'approving') && payment.route) {
         return /*#__PURE__*/React__default['default'].createElement("button", {
           className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
@@ -24395,7 +24418,7 @@
 
             pay();
           }
-        }, "Pay ", displayedPaymentValue);
+        }, "Pay");
       } else if (paymentState == 'paying') {
         return /*#__PURE__*/React__default['default'].createElement("a", {
           className: "ButtonPrimary",
@@ -24464,7 +24487,7 @@
       return /*#__PURE__*/React__default['default'].createElement(DonationOverviewSkeleton, null);
     }
 
-    var blockchain = web3Blockchains.Blockchain.findByName(payment.blockchain);
+    var blockchain = Blockchains__default['default'].findByName(payment.blockchain);
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
@@ -24599,7 +24622,7 @@
         _useState2[0];
         _useState2[1];
 
-    var blockchain = web3Blockchains.Blockchain.findByName(payment.route.blockchain);
+    var blockchain = Blockchains__default['default'].findByName(payment.route.blockchain);
 
     var switchNetwork = function switchNetwork() {
       wallet.switchTo(payment.blockchain);
@@ -25324,11 +25347,13 @@
           wallet = _ref.wallet;
       setAccount(account);
       setWallet(wallet);
-      setWalletState('connected');
+      setTimeout(function () {
+        setWalletState('connected');
 
-      if (props.connected) {
-        props.connected(account);
-      }
+        if (props.connected) {
+          props.connected(account);
+        }
+      }, 200);
     };
 
     var disconnect = function disconnect() {
@@ -25938,7 +25963,8 @@
         disconnect = _useContext4.disconnect;
 
     var _useContext5 = React.useContext(PaymentValueContext),
-        paymentValue = _useContext5.paymentValue;
+        paymentValue = _useContext5.paymentValue,
+        displayedPaymentValue = _useContext5.displayedPaymentValue;
 
     var _useContext6 = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext6.navigate;
@@ -25974,7 +26000,7 @@
       });
     }
 
-    var blockchain = web3Blockchains.Blockchain.findByName(payment.blockchain);
+    var blockchain = Blockchains__default['default'].findByName(payment.blockchain);
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
@@ -26046,7 +26072,11 @@
         className: "TokenSymbolCell"
       }, payment.symbol), /*#__PURE__*/React__default['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default['default'].createElement("span", {
         className: "TokenAmountCell"
-      }, format(payment.amount)))))), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, format(payment.amount))), displayedPaymentValue != "".concat(payment.symbol, " ").concat(format(payment.amount)) && !(amountsMissing && !fixedCurrency) && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TokenAmountRow small grey"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        className: "TokenAmountCell"
+      }, displayedPaymentValue))))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardAction"
       }, /*#__PURE__*/React__default['default'].createElement(ChevronRight, null)))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
@@ -26516,7 +26546,7 @@
       });
     }
 
-    var blockchain = web3Blockchains.Blockchain.findByName(payment.blockchain);
+    var blockchain = Blockchains__default['default'].findByName(payment.blockchain);
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
@@ -26881,7 +26911,7 @@
       }, "Address")), /*#__PURE__*/React__default['default'].createElement("td", null, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("a", {
         className: "Link",
         title: selection.nft.address,
-        href: web3Blockchains.Blockchain.findByName(blockchain).explorerUrlFor({
+        href: Blockchains__default['default'].findByName(blockchain).explorerUrlFor({
           token: selection.nft.address
         }),
         target: "_blank",
@@ -26890,7 +26920,7 @@
         className: "TableSubTitle"
       }, "Token ID")), /*#__PURE__*/React__default['default'].createElement("td", null, /*#__PURE__*/React__default['default'].createElement("div", null, selection.nft.id))), /*#__PURE__*/React__default['default'].createElement("tr", null, /*#__PURE__*/React__default['default'].createElement("td", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TableSubTitle"
-      }, "Blockchain")), /*#__PURE__*/React__default['default'].createElement("td", null, /*#__PURE__*/React__default['default'].createElement("div", null, web3Blockchains.Blockchain.findByName(blockchain).label))), /*#__PURE__*/React__default['default'].createElement("tr", null, /*#__PURE__*/React__default['default'].createElement("td", null, /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Blockchain")), /*#__PURE__*/React__default['default'].createElement("td", null, /*#__PURE__*/React__default['default'].createElement("div", null, Blockchains__default['default'].findByName(blockchain).label))), /*#__PURE__*/React__default['default'].createElement("tr", null, /*#__PURE__*/React__default['default'].createElement("td", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TableSubTitle"
       }, "Name")), /*#__PURE__*/React__default['default'].createElement("td", null, /*#__PURE__*/React__default['default'].createElement("a", {
         className: "Link",
@@ -26914,7 +26944,7 @@
   var OpenSea = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjMuMjUwODg5bW0iIGhlaWdodD0iNjMuMjUwODg5bW0iIHZpZXdCb3g9IjAgMCA2My4yNTA4ODYgNjMuMjUwODg4Ij4KICA8ZyBmaWxsPSJub25lIiB0cmFuc2Zvcm09InNjYWxlKC42MzI1KSI+CiAgICA8cGF0aCBmaWxsPSIjMjA4MWUyIiBkPSJNMTAwIDUwYzAgMjcuNjEyNy0yMi4zODczIDUwLTUwIDUwUzAgNzcuNjEyNyAwIDUwIDIyLjM4NzMgMCA1MCAwYzI3LjYxODUgMCA1MCAyMi4zODczIDUwIDUweiIvPgogICAgPHBhdGggZmlsbD0iI2ZmZiIgZD0ibTI0LjY2NzkgNTEuNjgwMS4yMTU3LS4zMzkxIDEzLjAwNy0yMC4zNDc4Yy4xOTAxLS4yOTc5LjYzNy0uMjY3MS43ODA4LjA1NjUgMi4xNzMgNC44Njk5IDQuMDQ4IDEwLjkyNjUgMy4xNjk2IDE0LjY5NzEtLjM3NSAxLjU1MTQtMS40MDI0IDMuNjUyNC0yLjU1ODMgNS41OTQyLS4xNDg5LjI4MjYtLjMxMzMuNTYtLjQ4OC44MjcxLS4wODIyLjEyMzMtLjIyMDkuMTk1Mi0uMzY5OS4xOTUySDI1LjA0OGMtLjM1OTYgMC0uNTcwMi0uMzkwNC0uMzgwMS0uNjgzMnoiLz4KICAgIDxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik04Mi42NDQ0IDU1LjQ2MXYzLjIyMDljMCAuMTg0OS0uMTEzLjM0OTMtLjI3NzQuNDIxMi0xLjAwNjguNDMxNS00LjQ1MzggMi4wMTM3LTUuODg3IDQuMDA2OS0zLjY1NzYgNS4wOTA4LTYuNDUyMSAxMi4zNy0xMi42OTg4IDEyLjM3SDM3LjcyMUMyOC40ODQ3IDc1LjQ4IDIxIDY3Ljk2OTcgMjEgNTguNzAyNHYtLjI5NzljMC0uMjQ2Ni4yMDAzLS40NDY5LjQ0NjktLjQ0NjloMTQuNTI3NmMuMjg3NiAwIC40OTgyLjI2NzEuNDcyNi41NDk2LS4xMDI4Ljk0NTIuMDcxOSAxLjkxMS41MTg4IDIuNzg5NC44NjMgMS43NTE4IDIuNjUwNyAyLjg0NiA0LjU4MjIgMi44NDZINDguNzR2LTUuNjE0OGgtNy4xMDk3Yy0uMzY0NyAwLS41ODA0LS40MjEzLS4zNjk4LS43MTkyLjA3Ny0uMTE4Mi4xNjQ0LS4yNDE0LjI1NjgtLjM4MDEuNjczLS45NTU1IDEuNjMzNi0yLjQ0MDEgMi41ODkxLTQuMTMwMi42NTI0LTEuMTQwNCAxLjI4NDItMi4zNTc5IDEuNzkyOC0zLjU4MDUuMTAyOC0uMjIwOS4xODQ5LS40NDcuMjY3MS0uNjY3OS4xMzg3LS4zOTA0LjI4MjYtLjc1NTEuMzg1My0xLjExOTguMTAyOC0uMzA4My4xODQ5LS42MzE5LjI2NzEtLjkzNS4yNDE1LTEuMDM3Ny4zNDQyLTIuMTM3LjM0NDItMy4yNzc0IDAtLjQ0NjktLjAyMDUtLjkxNDQtLjA2MTYtMS4zNjEzLS4wMjA2LS40ODgtLjA4MjItLjk3NjEtLjE0MzktMS40NjQxLS4wNDExLS40MzE1LS4xMTgxLS44NTc5LS4yMDAzLTEuMzA0OC0uMTAyNy0uNjUyNC0uMjQ2Ni0xLjI5OTYtLjQxMS0xLjk1MjFsLS4wNTY1LS4yNDY1Yy0uMTIzMy0uNDQ3LS4yMjYtLjg3MzMtLjM2OTgtMS4zMjAyLS40MDU5LTEuNDAyNS0uODczMy0yLjc2ODktMS4zNjY1LTQuMDQ4LS4xNzk4LS41MDg2LS4zODUzLS45OTY2LS41OTA4LTEuNDg0Ni0uMzAzLS43MzQ2LS42MTEzLTEuNDAyNC0uODkzOC0yLjAzNDMtLjE0MzgtLjI4NzctLjI2NzEtLjU0OTctLjM5MDQtLjgxNjgtLjEzODctLjMwMzEtLjI4MjUtLjYwNjItLjQyNjQtLjg5MzgtLjEwMjctLjIyMDktLjIyMDktLjQyNjQtLjMwMzEtLjYzMTlsLS44Nzg0LTEuNjIzM2MtLjEyMzMtLjIyMDkuMDgyMi0uNDgyOS4zMjM2LS40MTYxbDUuNDk2NyAxLjQ4OTdoLjAxNTRjLjAxMDIgMCAuMDE1NC4wMDUyLjAyMDUuMDA1MmwuNzI0My4yMDAzLjc5NjMuMjI2MS4yOTI4LjA4MjF2LTMuMjY3MUM0OC43NCAyMS4yNzkxIDUwLjAwMzcgMjAgNTEuNTY1NCAyMGMuNzgwOCAwIDEuNDg5Ny4zMTg1IDEuOTk4My44MzczLjUwODUuNTE4OS44MjcgMS4yMjc4LjgyNyAyLjAxODl2NC44NDk0bC41ODU3LjE2NDNjLjA0NjIuMDE1NS4wOTI0LjAzNi4xMzM1LjA2NjguMTQzOS4xMDc5LjM0OTMuMjY3MS42MTEzLjQ2MjQuMjA1NS4xNjQzLjQyNjQuMzY0Ny42OTM1LjU3MDIuNTI5MS40MjYzIDEuMTYxLjk3NiAxLjg1NDUgMS42MDc5LjE4NDkuMTU5Mi4zNjQ3LjMyMzYuNTI5MS40ODguODkzOS44MzIyIDEuODk1NiAxLjgwODIgMi44NTExIDIuODg3LjI2NzEuMzAzMS41MjkxLjYxMTMuNzk2Mi45MzQ5LjI2NzEuMzI4OC41NDk3LjY1MjQuNzk2Mi45NzYxLjMyMzcuNDMxNS42NzMuODc4NC45NzYxIDEuMzQ1OS4xNDM4LjIyMDkuMzA4Mi40NDY5LjQ0NjkuNjY3OC4zOTA0LjU5MDcuNzM0NiAxLjIwMjEgMS4wNjM0IDEuODEzNC4xMzg3LjI4MjUuMjgyNS41OTA3LjQwNTguODkzOC4zNjQ3LjgxNjguNjUyNCAxLjY0OS44MzczIDIuNDgxMi4wNTY1LjE3OTguMDk3Ni4zNzUuMTE4Mi41NDk3di4wNDExYy4wNjE2LjI0NjUuMDgyMi41MDg1LjEwMjcuNzc1Ni4wODIyLjg1MjguMDQxMSAxLjcwNTUtLjE0MzggMi41NjM0LS4wNzcxLjM2NDgtLjE3OTguNzA4OS0uMzAzMSAxLjA3MzctLjEyMzMuMzQ5My0uMjQ2Ni43MTQtLjQwNTggMS4wNTgyLS4zMDgyLjcxNC0uNjczIDEuNDI4MS0xLjEwNDUgMi4wOTU5LS4xMzg3LjI0NjYtLjMwMzEuNTA4Ni0uNDY3NS43NTUyLS4xNzk4LjI2MTktLjM2NDcuNTA4NS0uNTI5MS43NS0uMjI2LjMwODItLjQ2NzQuNjMxOC0uNzE0LjkxOTUtLjIyMDkuMzAzMS0uNDQ2OS42MDYyLS42OTM1Ljg3MzMtLjM0NDIuNDA1OC0uNjczLjc5MTEtMS4wMTcyIDEuMTYxLS4yMDU0LjI0MTQtLjQyNjMuNDg4LS42NTI0LjcwODktLjIyMDguMjQ2NS0uNDQ2OS40Njc0LS42NTI0LjY3MjktLjM0NDEuMzQ0Mi0uNjMxOC42MTEzLS44NzMzLjgzMjJsLS41NjUuNTE4OWMtLjA4MjIuMDcxOS0uMTkwMS4xMTMtLjMwMzEuMTEzaC00LjM3Njh2NS42MTQ4aDUuNTA2OWMxLjIzMjkgMCAyLjQwNDItLjQzNjcgMy4zNDk0LTEuMjM4MS4zMjM2LS4yODI1IDEuNzM2My0xLjUwNTEgMy40MDU4LTMuMzQ5My4wNTY1LS4wNjE3LjEyODUtLjEwNzkuMjEwNy0uMTI4NGwxNS4yMTA3LTQuMzk3M2MuMjgyNi0uMDgyMi41NzAyLjEzMzUuNTcwMi40MzE1eiIvPgogIDwvZz4KPC9zdmc+';
 
   var EnterNFTDataForOpenSeaDialog = (function (props) {
-    var _Blockchain$findByNam, _selection$blockchain3, _selection$collection3, _Blockchain$findByNam2, _selection$blockchain4, _selection$collection4;
+    var _Blockchains$findByNa, _selection$blockchain3, _selection$collection3, _Blockchains$findByNa2, _selection$blockchain4, _selection$collection4;
 
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext.navigate;
@@ -27053,10 +27083,10 @@
         className: "CardImage small"
       }, /*#__PURE__*/React__default['default'].createElement("img", {
         className: "transparent",
-        src: (_Blockchain$findByNam = web3Blockchains.Blockchain.findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain3 = selection.blockchain) === null || _selection$blockchain3 === void 0 ? void 0 : _selection$blockchain3.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection3 = selection.collection) === null || _selection$collection3 === void 0 ? void 0 : _selection$collection3.blockchain))) === null || _Blockchain$findByNam === void 0 ? void 0 : _Blockchain$findByNam.logo
+        src: (_Blockchains$findByNa = Blockchains__default['default'].findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain3 = selection.blockchain) === null || _selection$blockchain3 === void 0 ? void 0 : _selection$blockchain3.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection3 = selection.collection) === null || _selection$collection3 === void 0 ? void 0 : _selection$collection3.blockchain))) === null || _Blockchains$findByNa === void 0 ? void 0 : _Blockchains$findByNa.logo
       })), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardBody FontSizeM"
-      }, (_Blockchain$findByNam2 = web3Blockchains.Blockchain.findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain4 = selection.blockchain) === null || _selection$blockchain4 === void 0 ? void 0 : _selection$blockchain4.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection4 = selection.collection) === null || _selection$collection4 === void 0 ? void 0 : _selection$collection4.blockchain))) === null || _Blockchain$findByNam2 === void 0 ? void 0 : _Blockchain$findByNam2.label), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, (_Blockchains$findByNa2 = Blockchains__default['default'].findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain4 = selection.blockchain) === null || _selection$blockchain4 === void 0 ? void 0 : _selection$blockchain4.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection4 = selection.collection) === null || _selection$collection4 === void 0 ? void 0 : _selection$collection4.blockchain))) === null || _Blockchains$findByNa2 === void 0 ? void 0 : _Blockchains$findByNa2.label), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardAction"
       }, /*#__PURE__*/React__default['default'].createElement(ChevronRight, null))))), idRequired && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
@@ -27734,7 +27764,7 @@
     var token = selection.token;
     var address = token.address || token.external_id;
     var logo = token.logo || token.image;
-    var blockchain = web3Blockchains.Blockchain.findByName(token.blockchain);
+    var blockchain = Blockchains__default['default'].findByName(token.blockchain);
     var age = token.first_transfer ? msToTime(new Date() - new Date(token.first_transfer)) : undefined;
 
     if (age) {
@@ -27871,7 +27901,7 @@
     var wallet = web3Wallets.getWallets()[0];
 
     var startWithBlockchain = function startWithBlockchain(name) {
-      var blockchain = web3Blockchains.Blockchain.findByName(name);
+      var blockchain = Blockchains__default['default'].findByName(name);
       setBlockchain(blockchain);
       setSelection(Object.assign(props.selection, {
         blockchain: blockchain,
@@ -27883,7 +27913,7 @@
     React.useEffect(function () {
       if (wallet) {
         wallet.connectedTo().then(function (name) {
-          var blockchain = web3Blockchains.Blockchain.findByName(name);
+          var blockchain = Blockchains__default['default'].findByName(name);
 
           if (window._depay_token_selection_selected_blockchain) {
             startWithBlockchain(window._depay_token_selection_selected_blockchain);

@@ -1,8 +1,8 @@
+import Blockchains from '@depay/web3-blockchains'
 import ChevronRight from '../components/ChevronRight'
 import Dialog from '../components/Dialog'
 import React, { useCallback, useContext, useState, useEffect } from 'react'
 import SelectionContext from '../contexts/SelectionContext'
-import { Blockchain } from '@depay/web3-blockchains'
 import { debounce } from 'lodash'
 import { ethers } from 'ethers'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
@@ -71,10 +71,10 @@ export default (props)=> {
             <div className="PaddingTopXS PaddingBottomS">
               <div className="Card small" onClick={ ()=>navigate('SelectBlockchain') }>
                 <div className="CardImage small">
-                  <img className="transparent" src={ Blockchain.findByName(selection?.blockchain?.name || selection?.blockchain || selection?.collection?.blockchain )?.logo }/>
+                  <img className="transparent" src={ Blockchains.findByName(selection?.blockchain?.name || selection?.blockchain || selection?.collection?.blockchain )?.logo }/>
                 </div>
                 <div className="CardBody FontSizeM">
-                  { Blockchain.findByName(selection?.blockchain?.name|| selection?.blockchain || selection?.collection?.blockchain )?.label }
+                  { Blockchains.findByName(selection?.blockchain?.name|| selection?.blockchain || selection?.collection?.blockchain )?.label }
                 </div>
                 <div className="CardAction">
                   <ChevronRight/>

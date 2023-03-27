@@ -16,8 +16,10 @@ export default (props)=>{
   const connected = ({ account, wallet })=> {
     setAccount(account)
     setWallet(wallet)
-    setWalletState('connected')
-    if(props.connected) { props.connected(account) }
+    setTimeout(()=>{
+      setWalletState('connected')
+      if(props.connected) { props.connected(account) }
+    }, 200)
   }
 
   const disconnect = ()=>{

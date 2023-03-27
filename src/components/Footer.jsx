@@ -17,7 +17,7 @@ export default ()=>{
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
   const { synchronousTracking, asynchronousTracking, trackingInitialized, release, forwardTo, confirmationsRequired, confirmationsPassed } = useContext(PaymentTrackingContext)
   const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
-  const { paymentValue, displayedPaymentValue, paymentValueLoss } = useContext(PaymentValueContext)
+  const { paymentValueLoss } = useContext(PaymentValueContext)
   const { updatedRouteWithNewPrice, updateRouteWithNewPrice } = useContext(PaymentRoutingContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
@@ -167,7 +167,7 @@ export default ()=>{
       return(
         <div className="PaddingBottomXS">
           <button disabled={ paymentValueLoss } className="ButtonPrimary" onClick={ approve } title={`Allow ${payment.symbol} to be used as payment`}>
-            Allow { payment.symbol } to be used as payment
+            Approve use of { payment.symbol }
           </button>
         </div>
       )
@@ -201,11 +201,11 @@ export default ()=>{
         <div>
           <div className="PaddingBottomXS">
             <div className="Alert">
-              <strong>Payment token would lose {paymentValueLoss}% of it's value!</strong>
+              <strong>Payment would lose {paymentValueLoss}% of its value!</strong>
             </div>
           </div>
           <button className={"ButtonPrimary disabled"} onClick={()=>{}}>
-            Pay { displayedPaymentValue }
+            Pay
           </button>
         </div>
       )
@@ -218,7 +218,7 @@ export default ()=>{
             pay()
           }}
         >
-          Pay { displayedPaymentValue }
+          Pay
         </button>
       )
     } else if (paymentState == 'paying') {

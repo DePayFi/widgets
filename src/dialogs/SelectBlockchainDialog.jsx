@@ -1,7 +1,7 @@
+import Blockchains from '@depay/web3-blockchains'
 import Dialog from '../components/Dialog'
 import React, { useState, useContext } from 'react'
 import SelectionContext from '../contexts/SelectionContext'
-import { Blockchain } from '@depay/web3-blockchains'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default (props)=> {
@@ -11,9 +11,9 @@ export default (props)=> {
   const stacked = props.stacked || Object.keys(props.selection).length > 1
 
   const blockchains = [
-    Blockchain.findByName('ethereum'),
-    Blockchain.findByName('bsc'),
-    Blockchain.findByName('polygon'),
+    Blockchains.findByName('ethereum'),
+    Blockchains.findByName('bsc'),
+    Blockchains.findByName('polygon'),
   ]
 
   const selectBlockchain = (blockchain)=>{
