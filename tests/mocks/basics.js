@@ -130,7 +130,9 @@ export default ({
 
   // mocks for changable amounts
   let USD = Blockchains[blockchain].stables.usd[0]
+  let USD_DECIMALS = Blockchains[blockchain].tokens.find((token)=>token.address===USD).decimals
   let USD_PAIR = '0xae461ca67b15dc8dc81ce7615e0320da1a9ab8d5'
+  mockAmountsOut({ provider, blockchain, exchange, amountInBN: TOKEN_A_AmountBN, path: [TOKEN_A, USD], amountsOut: [TOKEN_A_AmountBN, ethers.utils.parseUnits(USD_AmountOut.toString(), USD_DECIMALS)] })
   mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [TOKEN_A, USD], return: USD_PAIR }})
   mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [USD, TOKEN_A], return: USD_PAIR }})
   mock({ provider, blockchain, request: { to: USD_PAIR, api: exchange.pair.api, method: 'getReserves', return: [ethers.utils.parseUnits('1000', 18), ethers.utils.parseUnits('1000', 18), '1629804922'] }})

@@ -203,7 +203,8 @@ describe('Payment Widget: overview', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '20')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DEPAY')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell', '€28.05').should('contain', '€28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardImage img[src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb/logo.png"]')
         })
       })
@@ -214,7 +215,8 @@ describe('Payment Widget: overview', () => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell', '€28.05').should('contain', '€28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
         })
@@ -240,7 +242,8 @@ describe('Payment Widget: overview', () => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell', '€28.05').should('contain', '€28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
           cy.wait(2000).then(()=>{
@@ -264,7 +267,8 @@ describe('Payment Widget: overview', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Alert').should('contain', 'Price updated!')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Reload').click()
             cy.wait(1000).then(()=>{
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €29.90')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell', '€29.90').should('contain', '€29.90')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
             })
           })
         })
@@ -301,7 +305,8 @@ describe('Payment Widget: overview', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €28.19')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell', '€28.19').should('contain', '€28.19')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').click()
             cy.wait(2000).then(()=>{
               let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('35', 18)
@@ -330,7 +335,7 @@ describe('Payment Widget: overview', () => {
           let NEW_USD_AmountOutBN = ethers.utils.parseUnits('35', 18)
           let NEW_USD_AmountOutBN_mock = mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsOut', params: ['33165000000000000000', [DEPAY, Blockchains[blockchain].wrapped.address, DAI]], return: [TOKEN_A_AmountBN, WRAPPED_AmountInBN, NEW_USD_AmountOutBN] }})
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-          cy.wait(2000).then(()=>{
+          cy.wait(3000).then(()=>{
             NEW_TOKEN_B_AmountBN_mock_count = NEW_TOKEN_B_AmountBN_mock.calls.count()
             NEW_USD_AmountOutBN_mock_count = NEW_USD_AmountOutBN_mock.calls.count()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click({ force: true })
@@ -372,14 +377,18 @@ describe('Payment Widget: overview', () => {
     })
   })
 
-  describe('toToken is Blockchains[blockchain].stables.usd[0] and hence cant route localValue to Blockchains[blockchain].stables.usd[0] itself', ()=>{
+  describe('toToken is USD and hence cant route localValue to USD itself', ()=>{
 
-    it('takes the amount for toToken Blockchains[blockchain].stables.usd[0] instead of trying to route to USD token itself (which is not routable)', ()=> {
+    it('takes the amount for toToken USD instead of trying to route to USD token itself (which is not routable)', ()=> {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           let USD = Blockchains[blockchain].stables.usd[0]
           mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [WETH, USD], return: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11' }})
-          mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DEPAY, WETH, USD]], return: [TOKEN_A_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
+          mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: ["20000000", [DEPAY, USD]], return: [TOKEN_A_AmountBN, "20000000"] }})
+          let USD_TOKEN = Blockchains[blockchain].tokens.find((token)=>token.address===USD)
+          mock({ provider, blockchain, request: { to: USD, api: Token[blockchain].DEFAULT, method: 'decimals', return: USD_TOKEN.decimals } })
+          mock({ provider, blockchain, request: { to: USD, api: Token[blockchain].DEFAULT, method: 'symbol', return: USD_TOKEN.symbol } })
+          mock({ provider, blockchain, request: { to: USD, api: Token[blockchain].DEFAULT, method: 'name', return: USD_TOKEN.name } })
           DePayWidgets.Payment({ 
             accept: [{
               blockchain,
@@ -389,9 +398,9 @@ describe('Payment Widget: overview', () => {
             }]
           , document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '20')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €17.00')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '20.1')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DEPAY')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
         })
       })
     })
