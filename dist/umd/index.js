@@ -24404,7 +24404,7 @@
           className: "PaddingBottomXS"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "Alert"
-        }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Payment would lose ", paymentValueLoss, "% of it's value!"))), /*#__PURE__*/React__default['default'].createElement("button", {
+        }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Payment would lose ", paymentValueLoss, "% of its value!"))), /*#__PURE__*/React__default['default'].createElement("button", {
           className: "ButtonPrimary disabled",
           onClick: function onClick() {}
         }, "Pay"));

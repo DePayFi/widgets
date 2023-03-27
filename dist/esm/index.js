@@ -24408,7 +24408,7 @@ var Footer = (function () {
         className: "PaddingBottomXS"
       }, /*#__PURE__*/React.createElement("div", {
         className: "Alert"
-      }, /*#__PURE__*/React.createElement("strong", null, "Payment would lose ", paymentValueLoss, "% of it's value!"))), /*#__PURE__*/React.createElement("button", {
+      }, /*#__PURE__*/React.createElement("strong", null, "Payment would lose ", paymentValueLoss, "% of its value!"))), /*#__PURE__*/React.createElement("button", {
         className: "ButtonPrimary disabled",
         onClick: function onClick() {}
       }, "Pay"));
