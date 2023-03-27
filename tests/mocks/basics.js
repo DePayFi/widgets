@@ -114,12 +114,26 @@ export default ({
   Blockchains[blockchain].stables.usd.forEach((stable)=>{
     const decimals = Blockchains[blockchain].tokens.find((token)=>token.address===stable).decimals
     mock({ provider, blockchain, request: { to: stable, api: Token[blockchain].DEFAULT, method: 'decimals', return: decimals } })
+    mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [stable, TOKEN_A], return: Blockchains[blockchain].zero }})
     mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [TOKEN_A, stable], return: Blockchains[blockchain].zero }})
+    mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [TOKEN_B, stable], return: Blockchains[blockchain].zero }})
     mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [stable, Blockchains[blockchain].wrapped.address], return: Blockchains[blockchain].zero }})
     let USD_AmountOutBN = ethers.utils.parseUnits(USD_AmountOut.toString(), decimals)
     mockAmountsOut({ provider, blockchain, exchange, amountInBN: TOKEN_A_AmountBN, path: [TOKEN_A, WRAPPED, stable], amountsOut: [TOKEN_A_AmountBN, WRAPPED_AmountInBN, USD_AmountOutBN] })
     mockAmountsIn({ provider, blockchain, exchange, amountOutBN: TOKEN_A_AmountBN, path: [stable, WRAPPED, TOKEN_A], amountsOut: [USD_AmountOutBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] })
+    mockAmountsIn({ provider, blockchain, exchange, amountOutBN: TOKEN_A_AmountBN, path: [stable, WRAPPED, TOKEN_A], amountsOut: [USD_AmountOutBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] })
+    mockAmountsIn({ provider, blockchain, block: 0, exchange, amountOutBN: TOKEN_A_AmountBN, path: [stable, WRAPPED, TOKEN_A], amountsOut: [USD_AmountOutBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] })
+    mockAmountsIn({ provider, blockchain, block: 1, exchange, amountOutBN: TOKEN_A_AmountBN, path: [stable, WRAPPED, TOKEN_A], amountsOut: [USD_AmountOutBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] })
   })
+
+  // mocks for changable amounts
+  let USD = Blockchains[blockchain].stables.usd[0]
+  let USD_PAIR = '0xae461ca67b15dc8dc81ce7615e0320da1a9ab8d5'
+  mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [TOKEN_A, USD], return: USD_PAIR }})
+  mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [USD, TOKEN_A], return: USD_PAIR }})
+  mock({ provider, blockchain, request: { to: USD_PAIR, api: exchange.pair.api, method: 'getReserves', return: [ethers.utils.parseUnits('1000', 18), ethers.utils.parseUnits('1000', 18), '1629804922'] }})
+  mock({ provider, blockchain, request: { to: USD_PAIR, api: exchange.pair.api, method: 'token0', return: USD }})
+  mock({ provider, blockchain, request: { to: USD_PAIR, api: exchange.pair.api, method: 'token1', return: TOKEN_A }})
 
   mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [TOKEN_B, TOKEN_A], return: TOKEN_A_TOKEN_B_Pair }})
   mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [TOKEN_A, TOKEN_B], return: TOKEN_A_TOKEN_B_Pair }})
@@ -141,6 +155,7 @@ export default ({
 
   mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [WRAPPED, TOKEN_A]], return: [WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
   mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [TOKEN_B, WRAPPED, TOKEN_A]], return: [TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
+  mockAmountsOut({ provider, blockchain, exchange, amountInBN: TOKEN_B_AmountBN, path: [TOKEN_B, WRAPPED, TOKEN_A], amountsOut: [TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] })
   
   return {
     exchange,

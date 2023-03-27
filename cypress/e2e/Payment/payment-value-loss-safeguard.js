@@ -5,7 +5,7 @@ import mockBasics from '../../../tests/mocks/basics'
 import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { CONSTANTS } from '@depay/web3-constants'
+import Blockchains from '@depay/web3-blockchains'
 import { ethers } from 'ethers'
 import { mock, confirm, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
@@ -18,9 +18,9 @@ describe('Payment Widget: value loss safeguard', () => {
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
   const DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
   const USDT = '0xdAC17F958D2ee523a2206206994597C13D831ec7'
-  const DAI = CONSTANTS[blockchain].USD
-  const ETH = CONSTANTS[blockchain].NATIVE
-  const WETH = CONSTANTS[blockchain].WRAPPED
+  const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+  const ETH = Blockchains[blockchain].currency.address
+  const WETH = Blockchains[blockchain].wrapped.address
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   const amount = 1.8
   const defaultArguments = {
@@ -97,9 +97,9 @@ describe('Payment Widget: value loss safeguard', () => {
       TOKEN_B_Symbol: 'DAI',
       TOKEN_B_Amount: 1.16,
       TOKEN_B_Balance: 50,
-      TOKEN_B_Allowance: CONSTANTS[blockchain].MAXINT,
+      TOKEN_B_Allowance: Blockchains[blockchain].maxInt,
 
-      TOKEN_A_TOKEN_B_Pair: CONSTANTS[blockchain].ZERO,
+      TOKEN_A_TOKEN_B_Pair: Blockchains[blockchain].zero,
       TOKEN_B_WRAPPED_Pair: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
       TOKEN_A_WRAPPED_Pair: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d',
 
@@ -123,10 +123,10 @@ describe('Payment Widget: value loss safeguard', () => {
       provider,
       blockchain,
       exchange,
-      amountInBN: '1176470588235294200',
+      amountInBN: '1176471',
       path: [DAI, WETH, DEPAY],
       amountsOut: [
-        '1176470588235294200',
+        '1176471',
         WRAPPED_AmountInBN,
         TOKEN_A_AmountBN
       ]
@@ -142,10 +142,10 @@ describe('Payment Widget: value loss safeguard', () => {
         provider,
         blockchain,
         exchange,
-        amountInBN: '11764705882352942000',
+        amountInBN: '11764710',
         path: [DAI, WETH, DEPAY],
         amountsOut: [
-          '11764705882352942000',
+          '11764710',
           WRAPPED_AmountInBN.mul(10),
           TOKEN_A_AmountBN.mul(10)
         ]
@@ -175,14 +175,14 @@ describe('Payment Widget: value loss safeguard', () => {
       })
       //USDT
       mock({ provider, blockchain, request: { to: USDT, api: Token[blockchain].DEFAULT, method: 'balanceOf', params: fromAddress, return: '880000000000000000000' } })
-      mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [USDT, CONSTANTS[blockchain].WRAPPED], return: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852' }})
-      mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [USDT, CONSTANTS[blockchain].USD], return: CONSTANTS[blockchain].ZERO }})
-      mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [DEPAY, USDT], return: CONSTANTS[blockchain].ZERO }})
+      mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [USDT, Blockchains[blockchain].wrapped.address], return: '0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852' }})
+      mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [USDT, Blockchains[blockchain].stables.usd[0]], return: Blockchains[blockchain].zero }})
+      mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [DEPAY, USDT], return: Blockchains[blockchain].zero }})
       mock({ provider, blockchain, request: { to: "0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852", api: exchange.pair.api, method: 'getReserves', return: [ethers.utils.parseUnits('1000', 18), ethers.utils.parseUnits('1000', 18), '1629804922'] }})
       mock({ provider, blockchain, request: { to: "0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852", api: exchange.pair.api, method: 'token0', return: USDT }})
-      mock({ provider, blockchain, request: { to: "0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852", api: exchange.pair.api, method: 'token1', return: CONSTANTS[blockchain].WRAPPED }})
-      mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [USDT, DEPAY], return: CONSTANTS[blockchain].ZERO }})
-      mock({ provider, blockchain, request: { to: USDT, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: CONSTANTS[blockchain].ZERO } })
+      mock({ provider, blockchain, request: { to: "0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852", api: exchange.pair.api, method: 'token1', return: Blockchains[blockchain].wrapped.address }})
+      mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [USDT, DEPAY], return: Blockchains[blockchain].zero }})
+      mock({ provider, blockchain, request: { to: USDT, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: Blockchains[blockchain].zero } })
       mock({ provider, blockchain, request: { to: USDT, api: Token[blockchain].DEFAULT, method: 'decimals', return: 18 } })
       mock({ provider, blockchain, request: { to: USDT, api: Token[blockchain].DEFAULT, method: 'symbol', return: 'USDT' } })
       mock({ provider, blockchain, request: { to: USDT, api: Token[blockchain].DEFAULT, method: 'name', return: 'USDT' } })
@@ -190,10 +190,10 @@ describe('Payment Widget: value loss safeguard', () => {
         provider,
         blockchain,
         exchange,
-        amountInBN: '11764705882352942000',
+        amountInBN: '11764710',
         path: [USDT, WETH, DEPAY],
         amountsOut: [
-          '11764705882352942000',
+          '11764710',
           WRAPPED_AmountInBN.mul(10),
           TOKEN_A_AmountBN.mul(10)
         ]

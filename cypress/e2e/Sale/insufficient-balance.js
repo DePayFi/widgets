@@ -3,7 +3,7 @@ import fetchMock from 'fetch-mock'
 import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { CONSTANTS } from '@depay/web3-constants'
+import Blockchains from '@depay/web3-blockchains'
 import { ethers } from 'ethers'
 import { find } from '@depay/web3-exchanges'
 import { mock, resetMocks } from '@depay/web3-mock'
@@ -39,31 +39,31 @@ describe('Sale Widget: insufficient balance', () => {
 
     mock(blockchain)
     mock({ provider, blockchain, request: { to: TOKEN, api: Token[blockchain].DEFAULT } })
-    mock({ provider, blockchain, request: { to: CONSTANTS[blockchain].USD, api: Token[blockchain].DEFAULT } })
+    mock({ provider, blockchain, request: { to: Blockchains[blockchain].stables.usd[0], api: Token[blockchain].DEFAULT } })
     mock({ provider, blockchain, request: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'decimals', return: decimals } })
-    mock({ provider, blockchain, request: { to: CONSTANTS[blockchain].USD, api: Token[blockchain].DEFAULT, method: 'decimals', return: decimals } })
+    mock({ provider, blockchain, request: { to: Blockchains[blockchain].stables.usd[0], api: Token[blockchain].DEFAULT, method: 'decimals', return: decimals } })
     mock({ provider, blockchain, balance: { for: fromAddress, return: ethers.BigNumber.from('0') }})
-    mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [TOKEN, CONSTANTS[blockchain].USD], return: CONSTANTS[blockchain].ZERO }})
-    mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [CONSTANTS[blockchain].USD, TOKEN], return: CONSTANTS[blockchain].ZERO }})
-    mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [TOKEN, CONSTANTS[blockchain].WRAPPED], return: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d'}})
-    mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [CONSTANTS[blockchain].WRAPPED, TOKEN], return: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d'}})
+    mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [TOKEN, Blockchains[blockchain].stables.usd[0]], return: Blockchains[blockchain].zero }})
+    mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [Blockchains[blockchain].stables.usd[0], TOKEN], return: Blockchains[blockchain].zero }})
+    mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [TOKEN, Blockchains[blockchain].wrapped.address], return: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d'}})
+    mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [Blockchains[blockchain].wrapped.address, TOKEN], return: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d'}})
     mock({ provider, blockchain, request: { to: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d', api: exchange.pair.api, method: 'getReserves', return: [ethers.utils.parseUnits('1000', 18), ethers.utils.parseUnits('1000', 18), '1629804922'] }})
     mock({ provider, blockchain, request: { to: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d', api: exchange.pair.api, method: 'token0', return: TOKEN }})
-    mock({ provider, blockchain, request: { to: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d', api: exchange.pair.api, method: 'token1', return: CONSTANTS[blockchain].WRAPPED }})
-    mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [CONSTANTS[blockchain].USD, CONSTANTS[blockchain].WRAPPED], return: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11'}})
+    mock({ provider, blockchain, request: { to: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d', api: exchange.pair.api, method: 'token1', return: Blockchains[blockchain].wrapped.address }})
+    mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [Blockchains[blockchain].stables.usd[0], Blockchains[blockchain].wrapped.address], return: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11'}})
     mock({ provider, blockchain, request: { to: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11', api: exchange.pair.api, method: 'getReserves', return: [ethers.utils.parseUnits('1000', 18), ethers.utils.parseUnits('1000', 18), '1629804922'] }})
-    mock({ provider, blockchain, request: { to: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11', api: exchange.pair.api, method: 'token0', return: CONSTANTS[blockchain].USD }})
-    mock({ provider, blockchain, request: { to: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11', api: exchange.pair.api, method: 'token1', return: CONSTANTS[blockchain].WRAPPED }})
+    mock({ provider, blockchain, request: { to: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11', api: exchange.pair.api, method: 'token0', return: Blockchains[blockchain].stables.usd[0] }})
+    mock({ provider, blockchain, request: { to: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11', api: exchange.pair.api, method: 'token1', return: Blockchains[blockchain].wrapped.address }})
     USDValueMock = mock({provider, blockchain, "call":{"to":"0x7a250d5630b4cf539739df2c5dacb4c659f2488d","api":exchange.router.api,"method":"getAmountsOut","return":"Your Value","params":["20000000000000000000",["0xa0bed124a09ac2bd941b10349d8d224fe3c955eb","0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2","0x6b175474e89094c44da98b954eedeac495271d0f"]]}})
     TOKENRouteMock = mock({provider, blockchain, "call":{"to":"0x7a250d5630b4cf539739df2c5dacb4c659f2488d","api":exchange.router.api,"method":"getAmountsIn","return":"Your Value","params":["20000000000000000000",["0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2","0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"]]}})
     mockAmountsOut({
       provider,
       blockchain,
       exchange,
-      amountInBN: '1176470588235294200',
-      path: [CONSTANTS[blockchain].USD, CONSTANTS[blockchain].WRAPPED, TOKEN],
+      amountInBN: '1176471',
+      path: [Blockchains[blockchain].stables.usd[0], Blockchains[blockchain].wrapped.address, TOKEN],
       amountsOut: [
-        '1176470588235294200',
+        '1176471',
         ethers.utils.parseUnits('1000', 18),
         ethers.utils.parseUnits('1000', 18)
       ]

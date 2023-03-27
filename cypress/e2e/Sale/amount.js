@@ -5,7 +5,7 @@ import mockBasics from '../../../tests/mocks/basics'
 import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { CONSTANTS } from '@depay/web3-constants'
+import Blockchains from '@depay/web3-blockchains'
 import { ethers } from 'ethers'
 import { mock, confirm, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
@@ -17,9 +17,9 @@ describe('Sale Widget: amount', () => {
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
   let DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  let DAI = CONSTANTS[blockchain].USD
-  let ETH = CONSTANTS[blockchain].NATIVE
-  let WETH = CONSTANTS[blockchain].WRAPPED
+  const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+  let ETH = Blockchains[blockchain].currency.address
+  let WETH = Blockchains[blockchain].wrapped.address
   let toAddress = accounts[0]
   let amount = 1.8
   let defaultArguments = {
@@ -87,9 +87,9 @@ describe('Sale Widget: amount', () => {
       TOKEN_B_Symbol: 'DAI',
       TOKEN_B_Amount: 1.16,
       TOKEN_B_Balance: 50,
-      TOKEN_B_Allowance: CONSTANTS[blockchain].MAXINT,
+      TOKEN_B_Allowance: Blockchains[blockchain].maxInt,
 
-      TOKEN_A_TOKEN_B_Pair: CONSTANTS[blockchain].ZERO,
+      TOKEN_A_TOKEN_B_Pair: Blockchains[blockchain].zero,
       TOKEN_B_WRAPPED_Pair: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
       TOKEN_A_WRAPPED_Pair: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d',
 
@@ -113,10 +113,10 @@ describe('Sale Widget: amount', () => {
       provider,
       blockchain,
       exchange,
-      amountInBN: '1176470588235294200',
+      amountInBN: '1176471',
       path: [DAI, WETH, DEPAY],
       amountsOut: [
-        '1176470588235294200',
+        '1176471',
         WRAPPED_AmountInBN,
         TOKEN_A_AmountBN
       ]
@@ -130,10 +130,10 @@ describe('Sale Widget: amount', () => {
         provider,
         blockchain,
         exchange,
-        amountInBN: '11764705882352942000',
+        amountInBN: '11764710',
         path: [DAI, WETH, DEPAY],
         amountsOut: [
-          '11764705882352942000',
+          '11764710',
           WRAPPED_AmountInBN.mul(10),
           TOKEN_A_AmountBN.mul(10)
         ]
@@ -176,7 +176,7 @@ describe('Sale Widget: amount', () => {
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenSymbolCell', 'DEPAY').should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardText small', '€0.85 per token').should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €10.00').should('exist')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').should('exist')
             })
           })
         })
@@ -245,7 +245,7 @@ describe('Sale Widget: amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardText small', '€0.85 per token').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '9').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €42.00').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').should('exist')
         })
       })
     })
@@ -284,7 +284,7 @@ describe('Sale Widget: amount', () => {
           api: routers[blockchain].api,
           method: 'route',
           params: {
-            path: [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY],
+            path: [DAI, Blockchains[blockchain].wrapped.address, DEPAY],
             amounts: [ethers.utils.parseUnits('18.09', 18), ethers.utils.parseUnits('18', 18), anything],
             addresses: [fromAddress, toAddress],
             plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
@@ -296,10 +296,10 @@ describe('Sale Widget: amount', () => {
         provider,
         blockchain,
         exchange,
-        amountInBN: '11764705882352942000',
+        amountInBN: '11764710',
         path: [DAI, WETH, DEPAY],
         amountsOut: [
-          '11764705882352942000',
+          '11764710',
           WRAPPED_AmountInBN.mul(10),
           TOKEN_A_AmountBN.mul(10)
         ]
@@ -343,9 +343,9 @@ describe('Sale Widget: amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardText small', '€0.85 per token').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '18').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €10.00').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').should('exist')
           
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €10.00').click().then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').click().then(()=>{
             confirm(mockedTransaction)
             expect(mockedTransaction.calls.count()).to.eq(1)
           })

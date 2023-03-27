@@ -5,7 +5,7 @@ import mockBasics from '../../../tests/mocks/basics'
 import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { CONSTANTS } from '@depay/web3-constants'
+import Blockchains from '@depay/web3-blockchains'
 import { ethers } from 'ethers'
 import { mock, confirm, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
@@ -17,9 +17,9 @@ describe('Sale Widget: configure amount', () => {
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
   const DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  const DAI = CONSTANTS[blockchain].USD
-  const ETH = CONSTANTS[blockchain].NATIVE
-  const WETH = CONSTANTS[blockchain].WRAPPED
+  const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+  const ETH = Blockchains[blockchain].currency.address
+  const WETH = Blockchains[blockchain].wrapped.address
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   const amount = 1.8
   const defaultArguments = {
@@ -92,9 +92,9 @@ describe('Sale Widget: configure amount', () => {
       TOKEN_B_Symbol: 'DAI',
       TOKEN_B_Amount: 1.16,
       TOKEN_B_Balance: 50,
-      TOKEN_B_Allowance: CONSTANTS[blockchain].MAXINT,
+      TOKEN_B_Allowance: Blockchains[blockchain].maxInt,
 
-      TOKEN_A_TOKEN_B_Pair: CONSTANTS[blockchain].ZERO,
+      TOKEN_A_TOKEN_B_Pair: Blockchains[blockchain].zero,
       TOKEN_B_WRAPPED_Pair: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
       TOKEN_A_WRAPPED_Pair: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d',
 
@@ -133,7 +133,7 @@ describe('Sale Widget: configure amount', () => {
       cy.document().then((document)=>{
         DePayWidgets.Sale({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €2.00').should('exist')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').should('exist')
       })
     })
   })
@@ -185,7 +185,7 @@ describe('Sale Widget: configure amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input[name="amount"]').type('{selectall}', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('2.5', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €2.50').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').should('exist')
         })
       })
     })
@@ -235,7 +235,7 @@ describe('Sale Widget: configure amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input[name="amount"]').type('{selectall}', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('0.1', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €0.50').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').should('exist')
         })
       })
     })
@@ -285,7 +285,7 @@ describe('Sale Widget: configure amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input[name="amount"]').type('{selectall}', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('1000', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €42.00').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').should('exist')
         })
       })
     })

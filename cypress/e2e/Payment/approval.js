@@ -4,7 +4,7 @@ import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { CONSTANTS } from '@depay/web3-constants'
+import Blockchains from '@depay/web3-blockchains'
 import { mock, confirm, resetMocks } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
@@ -15,9 +15,9 @@ describe('Payment Widget: approval', () => {
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
   const DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  const DAI = CONSTANTS[blockchain].USD
-  const ETH = CONSTANTS[blockchain].NATIVE
-  const WETH = CONSTANTS[blockchain].WRAPPED
+  const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+  const ETH = Blockchains[blockchain].currency.address
+  const WETH = Blockchains[blockchain].wrapped.address
   const fromAddress = accounts[0]
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   const amount = 20
@@ -86,7 +86,7 @@ describe('Payment Widget: approval', () => {
       TOKEN_B_Amount: 33,
       TOKEN_B_Balance: 50,
 
-      TOKEN_A_TOKEN_B_Pair: CONSTANTS[blockchain].ZERO,
+      TOKEN_A_TOKEN_B_Pair: Blockchains[blockchain].zero,
       TOKEN_B_WRAPPED_Pair: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
       TOKEN_A_WRAPPED_Pair: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d',
 
@@ -115,7 +115,7 @@ describe('Payment Widget: approval', () => {
         to: DAI,
         api: Token[blockchain].DEFAULT,
         method: 'approve',
-        params: [routers[blockchain].address, CONSTANTS[blockchain].MAXINT]
+        params: [routers[blockchain].address, Blockchains[blockchain].maxInt]
       }
     })
 
@@ -145,7 +145,7 @@ describe('Payment Widget: approval', () => {
 
   it('does not require approval for direct token transfers', () => {
     
-    mock({ blockchain, request: { to: DEPAY, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: CONSTANTS[blockchain].ZERO } })
+    mock({ blockchain, request: { to: DEPAY, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: Blockchains[blockchain].zero } })
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
@@ -167,7 +167,7 @@ describe('Payment Widget: approval', () => {
         to: DAI,
         api: Token[blockchain].DEFAULT,
         method: 'approve',
-        params: [routers[blockchain].address, CONSTANTS[blockchain].MAXINT],
+        params: [routers[blockchain].address, Blockchains[blockchain].maxInt],
         return: Error('MetaMask Tx Signature: User denied transaction signature.')
       }
     })

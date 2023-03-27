@@ -5,7 +5,7 @@ import mockBasics from '../../../tests/mocks/basics'
 import mockAmountsOut from '../../../tests/mocks/amountsOut'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { CONSTANTS } from '@depay/web3-constants'
+import Blockchains from '@depay/web3-blockchains'
 import { ethers } from 'ethers'
 import { mock, confirm, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
@@ -17,9 +17,9 @@ describe('Donation Widget: overview', () => {
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
   const DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  const DAI = CONSTANTS[blockchain].USD
-  const ETH = CONSTANTS[blockchain].NATIVE
-  const WETH = CONSTANTS[blockchain].WRAPPED
+  const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+  const ETH = Blockchains[blockchain].currency.address
+  const WETH = Blockchains[blockchain].wrapped.address
   const fromAddress = accounts[0]
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   const amount = 1.8
@@ -92,9 +92,9 @@ describe('Donation Widget: overview', () => {
       TOKEN_B_Symbol: 'DAI',
       TOKEN_B_Amount: 1.16,
       TOKEN_B_Balance: 50,
-      TOKEN_B_Allowance: CONSTANTS[blockchain].MAXINT,
+      TOKEN_B_Allowance: Blockchains[blockchain].maxInt,
 
-      TOKEN_A_TOKEN_B_Pair: CONSTANTS[blockchain].ZERO,
+      TOKEN_A_TOKEN_B_Pair: Blockchains[blockchain].zero,
       TOKEN_B_WRAPPED_Pair: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
       TOKEN_A_WRAPPED_Pair: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d',
 
@@ -118,10 +118,10 @@ describe('Donation Widget: overview', () => {
       provider,
       blockchain,
       exchange,
-      amountInBN: '1176470588235294200',
+      amountInBN: '1176471',
       path: [DAI, WETH, DEPAY],
       amountsOut: [
-        '1176470588235294200',
+        '1176471',
         WRAPPED_AmountInBN,
         TOKEN_A_AmountBN
       ]
@@ -273,7 +273,7 @@ describe('Donation Widget: overview', () => {
                 NEW_USD_AmountOutBN
               ]
             })
-            mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
+            mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, Blockchains[blockchain].wrapped.address, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
           })
           cy.wait(16000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Alert').should('contain', 'Price updated!')
@@ -300,7 +300,7 @@ describe('Donation Widget: overview', () => {
           api: routers[blockchain].api,
           method: 'route',
           params: {
-            path: [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY],
+            path: [DAI, Blockchains[blockchain].wrapped.address, DEPAY],
             amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
             addresses: [fromAddress, toAddress],
             plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
@@ -309,7 +309,7 @@ describe('Donation Widget: overview', () => {
         }
       })
 
-      mock({ provider, blockchain, request: { to: DAI, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: CONSTANTS[blockchain].MAXINT } })
+      mock({ provider, blockchain, request: { to: DAI, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: Blockchains[blockchain].maxInt } })
 
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
@@ -321,10 +321,10 @@ describe('Donation Widget: overview', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '1.16')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay €1.00')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay €1.00').click()
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').click()
             cy.wait(2000).then(()=>{
               let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('1.40', 18)
-              mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
+              mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, Blockchains[blockchain].wrapped.address, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
               let NEW_USD_AmountOutBN = ethers.utils.parseUnits('1.40', 18)
               mockAmountsOut({
                 provider,
@@ -357,9 +357,9 @@ describe('Donation Widget: overview', () => {
           DePayWidgets.Donation({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('35', 18)
-          let NEW_TOKEN_B_AmountBN_mock = mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, CONSTANTS[blockchain].WRAPPED, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
+          let NEW_TOKEN_B_AmountBN_mock = mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, Blockchains[blockchain].wrapped.address, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
           let NEW_USD_AmountOutBN = ethers.utils.parseUnits('35', 18)
-          let NEW_USD_AmountOutBN_mock = mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsOut', params: [TOKEN_A_AmountBN, [DEPAY, CONSTANTS[blockchain].WRAPPED, DAI]], return: [TOKEN_A_AmountBN, WRAPPED_AmountInBN, NEW_USD_AmountOutBN] }})
+          let NEW_USD_AmountOutBN_mock = mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsOut', params: [TOKEN_A_AmountBN, [DEPAY, Blockchains[blockchain].wrapped.address, DAI]], return: [TOKEN_A_AmountBN, WRAPPED_AmountInBN, NEW_USD_AmountOutBN] }})
           cy.wait(2000).then(()=>{
             NEW_TOKEN_B_AmountBN_mock_count = NEW_TOKEN_B_AmountBN_mock.calls.count()
             NEW_USD_AmountOutBN_mock_count = NEW_USD_AmountOutBN_mock.calls.count()

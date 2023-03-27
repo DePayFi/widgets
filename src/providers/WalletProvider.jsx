@@ -14,9 +14,9 @@ export default (props)=>{
   const [walletState, setWalletState] = useState(passedWallet ? 'connected' : undefined)
   
   const connected = ({ account, wallet })=> {
+    setAccount(account)
+    setWallet(wallet)
     setTimeout(()=>{
-      setAccount(account)
-      setWallet(wallet)
       setWalletState('connected')
       if(props.connected) { props.connected(account) }
     }, 200)
