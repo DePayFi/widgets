@@ -112,11 +112,10 @@ describe('Payment Widget: fix currency amounts', () => {
       provider,
       blockchain,
       exchange,
-      amountInBN: '6117647058823530000',
-      path: [DAI, WETH, DEPAY],
+      amountInBN: '6117647',
+      path: [Blockchains[blockchain].stables.usd[0], DEPAY],
       amountsOut: [
-        '1176471',
-        WRAPPED_AmountInBN,
+        '6117647',
         TOKEN_A_AmountBN
       ]
     })
