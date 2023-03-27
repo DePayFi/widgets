@@ -122,7 +122,8 @@ describe('Payment Widget: currency conversion', () => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, currency: 'USD', document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay $33.00')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountRow', '$33.00').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
         })
       })
     })
@@ -142,7 +143,8 @@ describe('Payment Widget: currency conversion', () => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay $33.00')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountRow', '$33.00').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
         })
       })
     })
