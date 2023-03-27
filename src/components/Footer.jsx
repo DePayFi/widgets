@@ -201,7 +201,7 @@ export default ()=>{
         <div>
           <div className="PaddingBottomXS">
             <div className="Alert">
-              <strong>Payment would lose {paymentValueLoss}% of it's value!</strong>
+              <strong>Payment would lose {paymentValueLoss}% of its value!</strong>
             </div>
           </div>
           <button className={"ButtonPrimary disabled"} onClick={()=>{}}>
