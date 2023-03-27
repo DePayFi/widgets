@@ -196,6 +196,11 @@ describe('Payment Widget: change payment', () => {
         }
       })
 
+      fetchMock.get({
+        url: `https://public.depay.com/transactions/${blockchain}/${fromAddress}/1`,
+        overwriteRoutes: true
+      }, { status: 404 })
+
       mockAmountsOut({
         provider,
         blockchain,
