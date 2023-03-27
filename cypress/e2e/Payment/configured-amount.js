@@ -122,11 +122,10 @@ describe('Payment Widget: configure amount', () => {
       provider,
       blockchain,
       exchange,
-      amountInBN: '2352941176470588300',
-      path: [DAI, WETH, DEPAY],
+      amountInBN: '2352941',
+      path: [Blockchains[blockchain].stables.usd[0], DEPAY],
       amountsOut: [
-        '2352941176470588300',
-        WRAPPED_AmountInBN,
+        '2352941',
         TOKEN_A_AmountBN
       ]
     })
@@ -150,12 +149,11 @@ describe('Payment Widget: configure amount', () => {
         provider,
         blockchain,
         exchange,
-        amountInBN: '2941176470588235500',
-        path: [DAI, WETH, DEPAY],
+        amountInBN: '2941176',
+        path: [Blockchains[blockchain].stables.usd[0], DEPAY],
         amountsOut: [
-          '2941176470588235500',
-          WRAPPED_AmountInBN.mul(10),
-          TOKEN_A_AmountBN.mul(10)
+          '2941176',
+          TOKEN_A_AmountBN
         ]
       })
       mock({
@@ -202,12 +200,11 @@ describe('Payment Widget: configure amount', () => {
         provider,
         blockchain,
         exchange,
-        amountInBN: '588235294117647100',
-        path: [DAI, WETH, DEPAY],
+        amountInBN: '588235',
+        path: [Blockchains[blockchain].stables.usd[0], DEPAY],
         amountsOut: [
-          '588235294117647100',
-          WRAPPED_AmountInBN.mul(10),
-          TOKEN_A_AmountBN.mul(10)
+          '588235',
+          TOKEN_A_AmountBN
         ]
       })
       mock({
@@ -254,12 +251,11 @@ describe('Payment Widget: configure amount', () => {
         provider,
         blockchain,
         exchange,
-        amountInBN: '49411764705882355000',
-        path: [DAI, WETH, DEPAY],
+        amountInBN: '117647059',
+        path: [Blockchains[blockchain].stables.usd[0], DEPAY],
         amountsOut: [
-          '49411764705882355000',
-          WRAPPED_AmountInBN.mul(10),
-          TOKEN_A_AmountBN.mul(10)
+          '117647059',
+          TOKEN_A_AmountBN
         ]
       })
       mock({
@@ -295,7 +291,7 @@ describe('Payment Widget: configure amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('1000', { force: true })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardTitle', 'Amount').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountRow', '€42.00').should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountRow', '€100').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').should('exist')
         })
       })
