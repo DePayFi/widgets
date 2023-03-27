@@ -4,7 +4,7 @@ on: push
 
 jobs:
   
-  cypress-bundle:
+  bundle:
     
     runs-on: ubuntu-latest
 
@@ -45,7 +45,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
   
-  cypress-connect-widget:
+  connect-widget:
     
     runs-on: ubuntu-latest
 
@@ -87,7 +87,7 @@ jobs:
           path: ${{ github.workspace }}/cypress/videos
       
 
-  cypress-login-widget:
+  login-widget:
     
     runs-on: ubuntu-latest
 
@@ -129,7 +129,7 @@ jobs:
           path: ${{ github.workspace }}/cypress/videos
       
 
-  cypress-select-widget:
+  select-widget:
     
     runs-on: ubuntu-latest
 
@@ -170,7 +170,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
       
-  cypress-payment-widget-amount:
+  payment-widget-amount:
     
     runs-on: ubuntu-latest
 
@@ -211,7 +211,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-approval:
+  payment-widget-approval:
     
     runs-on: ubuntu-latest
 
@@ -252,7 +252,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-before:
+  payment-widget-before:
     
     runs-on: ubuntu-latest
 
@@ -293,7 +293,48 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-change-payment:
+  payment-widget-blacklist:
+    
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: npm install
+        run: |
+          npm install
+      - name: npm run build
+        run: |
+          npm run build
+      - name: Run Cypress Tests cypress/e2e/Payment/blacklist.js
+        run: |
+          yarn test:cypress --spec "cypress/e2e/Payment/blacklist.js"
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: ${{ github.workspace }}/cypress/screenshots
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-videos
+          path: ${{ github.workspace }}/cypress/videos
+
+  payment-widget-change-payment:
     
     runs-on: ubuntu-latest
 
@@ -334,7 +375,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-configured-amount:
+  payment-widget-configured-amount:
     
     runs-on: ubuntu-latest
 
@@ -375,7 +416,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-connected:
+  payment-widget-connected:
     
     runs-on: ubuntu-latest
 
@@ -416,7 +457,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-container:
+  payment-widget-container:
     
     runs-on: ubuntu-latest
 
@@ -457,7 +498,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-currency:
+  payment-widget-currency:
     
     runs-on: ubuntu-latest
 
@@ -498,7 +539,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-error:
+  payment-widget-error:
     
     runs-on: ubuntu-latest
 
@@ -539,7 +580,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-fail:
+  payment-widget-fail:
     
     runs-on: ubuntu-latest
 
@@ -580,7 +621,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-fee:
+  payment-widget-fee:
     
     runs-on: ubuntu-latest
 
@@ -621,7 +662,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-fix-currency-amounts:
+  payment-widget-fix-currency-amounts:
     
     runs-on: ubuntu-latest
 
@@ -662,7 +703,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-fromToken:
+  payment-widget-fromToken:
     
     runs-on: ubuntu-latest
 
@@ -703,7 +744,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-insufficient-balance:
+  payment-widget-insufficient-balance:
     
     runs-on: ubuntu-latest
 
@@ -744,7 +785,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-main:
+  payment-widget-main:
     
     runs-on: ubuntu-latest
 
@@ -785,7 +826,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-no-wallet:
+  payment-widget-no-wallet:
     
     runs-on: ubuntu-latest
 
@@ -826,7 +867,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-overview:
+  payment-widget-overview:
     
     runs-on: ubuntu-latest
 
@@ -867,7 +908,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-payment-value-loss-safeguard:
+  payment-widget-payment-value-loss-safeguard:
     
     runs-on: ubuntu-latest
 
@@ -908,7 +949,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-preflight:
+  payment-widget-preflight:
     
     runs-on: ubuntu-latest
 
@@ -949,7 +990,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-recover:
+  payment-widget-recover:
     
     runs-on: ubuntu-latest
 
@@ -990,7 +1031,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-replaced-transaction:
+  payment-widget-replaced-transaction:
     
     runs-on: ubuntu-latest
 
@@ -1031,7 +1072,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-style:
+  payment-widget-style:
     
     runs-on: ubuntu-latest
 
@@ -1072,7 +1113,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-track:
+  payment-widget-track:
     
     runs-on: ubuntu-latest
 
@@ -1113,7 +1154,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-unmount:
+  payment-widget-unmount:
     
     runs-on: ubuntu-latest
 
@@ -1154,7 +1195,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-wallet:
+  payment-widget-wallet:
     
     runs-on: ubuntu-latest
 
@@ -1195,7 +1236,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  cypress-payment-widget-whitelist:
+  payment-widget-whitelist:
     
     runs-on: ubuntu-latest
 
