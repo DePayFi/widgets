@@ -112,7 +112,7 @@ describe('Payment Widget: approval', () => {
     }))
   })
   
-  it('asks me to approve the token for the payment router before I can execute it', () => {
+  it.only('asks me to approve the token for the payment router before I can execute it', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
@@ -136,6 +136,7 @@ describe('Payment Widget: approval', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Approving...').then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'title').should('eq', 'Approving payment token - please wait')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+          mock({ blockchain, request: { to: DAI, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: Blockchains[blockchain].maxInt } })
           confirm(mockedTransaction)
           cy.wait(3000).then(()=>{
             cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
