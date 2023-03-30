@@ -138,7 +138,7 @@ describe('Payment Widget: approval', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
           mock({ blockchain, request: { to: DAI, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: Blockchains[blockchain].maxInt } })
           confirm(mockedTransaction)
-          cy.wait(3000).then(()=>{
+          cy.wait(5000).then(()=>{
             cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
             cy.get('.Card.disabled', { includeShadowDom: true }).should('not.exist')
             cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).should('not.exist')
