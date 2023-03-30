@@ -18,7 +18,7 @@ import { Token } from '@depay/web3-tokens'
 export default (props)=>{
   const { setError } = useContext(ErrorContext)
   const { sent, succeeded, failed, recover, before } = useContext(ConfigurationContext)
-  const { selectedRoute, getPaymentRoutes } = useContext(PaymentRoutingContext)
+  const { selectedRoute, refreshPaymentRoutes } = useContext(PaymentRoutingContext)
   const { open, close, setClosable } = useContext(ClosableContext)
   const { allRoutes } = useContext(PaymentRoutingContext)
   const { setUpdatable } = useContext(UpdatableContext)
@@ -90,13 +90,15 @@ export default (props)=>{
 
   const approve = ()=> {
     setClosable(false)
+    setUpdatable(false)
     setPaymentState('approving')
     wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
       succeeded: ()=>{
-        payment.route.approvalRequired = false
-        setPayment(payment)
+        setUpdatable(true)
         setClosable(true)
-        setPaymentState('initialized')
+        refreshPaymentRoutes().then(()=>{
+          setPaymentState('initialized')
+        })
       }
     }))
       .then((sentTransaction)=>{

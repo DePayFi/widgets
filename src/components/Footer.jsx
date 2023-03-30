@@ -161,7 +161,7 @@ export default ()=>{
   }
 
   const approvalButton = ()=> {
-    if(payment.route == undefined || (!payment.route.approvalRequired || payment.route.directTransfer)) {
+    if(payment.route == undefined || (!payment.route.approvalRequired || payment.route.directTransfer) || updatedRouteWithNewPrice) {
       return(null)
     } else if(paymentState == 'initialized') {
       return(

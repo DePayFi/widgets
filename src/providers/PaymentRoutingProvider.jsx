@@ -29,11 +29,17 @@ export default (props)=>{
           let selectRoute = roundedRoutes[0]
           setSelectedRoute(selectRoute)
         } else {
-          const newSelectRoute = roundedRoutes[roundedRoutes.findIndex((route)=>(route.fromToken.address == selectedRoute.fromToken.address && route.blockchain == selectedRoute.blockchain))]
-          if(newSelectRoute) {
-            if(selectedRoute.fromAmount != newSelectRoute.fromAmount) {
-              setUpdatedRouteWithNewPrice(newSelectRoute)
+          const updatedSelectedRoute = roundedRoutes[roundedRoutes.findIndex((route)=>(route.fromToken.address == selectedRoute.fromToken.address && route.blockchain == selectedRoute.blockchain))]
+          if(updatedSelectedRoute) {
+            if(selectedRoute.fromAmount != updatedSelectedRoute.fromAmount) {
+              setUpdatedRouteWithNewPrice(updatedSelectedRoute)
+            } else if ( // other reasons but price to update selected route
+              selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired
+            ) {
+              setSelectedRoute(updatedSelectedRoute)
             }
+          } else {
+            setSelectedRoute(roundedRoutes[0])
           }
         }
         setAllRoutes(roundedRoutes)
@@ -42,10 +48,10 @@ export default (props)=>{
     }
   }
   
-  const getPaymentRoutes = ({ allRoutes, selectedRoute, updatable })=>{
+  const getPaymentRoutes = async ({ allRoutes, selectedRoute, updatable })=>{
     if(updatable == false || !props.accept || !account) { return }
     let slowRoutingTimeout = setTimeout(() => { setSlowRouting(true) }, 4000)
-    routePayments(Object.assign({}, props, { account })).then((routes)=>{
+    return await routePayments(Object.assign({}, props, { account })).then((routes)=>{
       clearInterval(slowRoutingTimeout)
       onRoutesUpdate(routes)
     })
@@ -76,10 +82,14 @@ export default (props)=>{
     setUpdatedRouteWithNewPrice(null)
   }
 
+  const refreshPaymentRoutes = ()=>{
+    return getPaymentRoutes({ allRoutes, selectedRoute, updatable })
+  }
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       setReloadCount(reloadCount + 1)
-      getPaymentRoutes({ allRoutes, selectedRoute, updatable })  
+      getPaymentRoutes({ allRoutes, selectedRoute, updatable })
     }, 15000);
 
     return () => clearTimeout(timeout)
@@ -95,7 +105,7 @@ export default (props)=>{
     <PaymentRoutingContext.Provider value={{
       selectedRoute,
       setSelectedRoute,
-      getPaymentRoutes,
+      refreshPaymentRoutes,
       allRoutes,
       setAllRoutes,
       slowRouting,

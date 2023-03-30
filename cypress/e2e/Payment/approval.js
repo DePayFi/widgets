@@ -1,10 +1,13 @@
+import Blockchains from '@depay/web3-blockchains'
 import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
+import mockAmountsOut from '../../../tests/mocks/amountsOut'
+import mockAmountsIn from '../../../tests/mocks/amountsIn'
 import mockBasics from '../../../tests/mocks/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Blockchains from '@depay/web3-blockchains'
+import { ethers } from 'ethers'
 import { mock, confirm, resetMocks } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
@@ -32,6 +35,8 @@ describe('Payment Widget: approval', () => {
   
   let provider
   let TOKEN_A_AmountBN
+  let WRAPPED_AmountInBN
+  let exchange
 
   afterEach(closeWidget)
 
@@ -42,7 +47,7 @@ describe('Payment Widget: approval', () => {
     mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' })
     provider = await getProvider(blockchain)
 
-    ;({ TOKEN_A_AmountBN } = mockBasics({
+    ;({ TOKEN_A_AmountBN, WRAPPED_AmountInBN, exchange } = mockBasics({
       
       provider,
       blockchain,
@@ -132,7 +137,7 @@ describe('Payment Widget: approval', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'title').should('eq', 'Approving payment token - please wait')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
           confirm(mockedTransaction)
-          cy.wait(1000).then(()=>{
+          cy.wait(3000).then(()=>{
             cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
             cy.get('.Card.disabled', { includeShadowDom: true }).should('not.exist')
             cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).should('not.exist')
@@ -185,6 +190,57 @@ describe('Payment Widget: approval', () => {
             cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).should('exist')
             cy.get('.ButtonPrimary', { includeShadowDom: true }).should('exist')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve use of DAI')
+          })
+        })
+      })
+    })
+  })
+
+  it('does not reload prices while approving token (but right after!)', () => {
+    let mockedTransaction = mock({
+      blockchain,
+      transaction: {
+        from: fromAddress,
+        to: DAI,
+        api: Token[blockchain].DEFAULT,
+        method: 'approve',
+        params: [routers[blockchain].address, Blockchains[blockchain].maxInt]
+      }
+    })
+
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        DePayWidgets.Payment({ ...defaultArguments, document })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve use of DAI').click()
+        cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Approving...').then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'title').should('eq', 'Approving payment token - please wait')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+          let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('35', 18)
+          let NEW_USD_AmountOutBN = ethers.utils.parseUnits('35', 18)
+          mockAmountsOut({ provider, blockchain, exchange, amountInBN: TOKEN_A_AmountBN, path: [DEPAY, WETH, DAI], amountsOut: [ TOKEN_A_AmountBN, WRAPPED_AmountInBN, NEW_USD_AmountOutBN ]})
+          mock({ provider, blockchain, block: 2, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('20', 18), [DAI, Blockchains[blockchain].wrapped.address, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
+          mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('20', 18), [DAI, Blockchains[blockchain].wrapped.address, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
+          mock({ blockchain, request: { to: DAI, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: Blockchains[blockchain].maxInt } })
+          cy.wait(16000).then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Alert', 'Price updated!').should('not.exist').then(()=>{
+              confirm(mockedTransaction)
+              cy.wait(1000).then(()=>{
+                cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+                cy.get('.Card.disabled', { includeShadowDom: true }).should('not.exist')
+                cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).should('not.exist')
+                cy.contains('.ButtonPrimary', 'Approve', { includeShadowDom: true }).should('not.exist')
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Reload').click()
+                cy.wait(1000).then(()=>{
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell', '€29.90').should('contain', '€29.90')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
+                })
+              })
+            })
           })
         })
       })

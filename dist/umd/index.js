@@ -5361,15 +5361,23 @@
 
   var findMaxRoute = (function (routes) {
     var sortedLowToHigh = _toConsumableArray(routes).sort(function (a, b) {
+      if (a.fromBalance == '0' || a.fromAmount == '0') {
+        return -1; // b
+      }
+
+      if (b.fromBalance == '0' || b.fromAmount == '0') {
+        return 1; // a
+      }
+
       var aAmountsAvailable = ethers.ethers.BigNumber.from(a.fromBalance).div(ethers.ethers.BigNumber.from(a.fromAmount));
       var bAmountsAvailable = ethers.ethers.BigNumber.from(b.fromBalance).div(ethers.ethers.BigNumber.from(b.fromAmount));
 
       if (aAmountsAvailable.lt(bAmountsAvailable)) {
-        return -1;
+        return -1; // b
       }
 
       if (bAmountsAvailable.lt(aAmountsAvailable)) {
-        return 1;
+        return 1; // a
       }
 
       return 0; // equal
@@ -22994,8 +23002,8 @@
         before = _useContext2.before;
 
     var _useContext3 = React.useContext(PaymentRoutingContext),
-        selectedRoute = _useContext3.selectedRoute;
-        _useContext3.getPaymentRoutes;
+        selectedRoute = _useContext3.selectedRoute,
+        refreshPaymentRoutes = _useContext3.refreshPaymentRoutes;
 
     var _useContext4 = React.useContext(ClosableContext),
         open = _useContext4.open,
@@ -23159,13 +23167,15 @@
 
     var approve = function approve() {
       setClosable(false);
+      setUpdatable(false);
       setPaymentState('approving');
       wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
         succeeded: function succeeded() {
-          payment.route.approvalRequired = false;
-          setPayment(payment);
+          setUpdatable(true);
           setClosable(true);
-          setPaymentState('initialized');
+          refreshPaymentRoutes().then(function () {
+            setPaymentState('initialized');
+          });
         }
       })).then(function (sentTransaction) {
         setApprovalTransaction(sentTransaction);
@@ -23390,7 +23400,7 @@
                 } else {
                   roundAmounts(routes).then( /*#__PURE__*/function () {
                     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(roundedRoutes) {
-                      var selectRoute, newSelectRoute;
+                      var selectRoute, updatedSelectedRoute;
                       return regenerator.wrap(function _callee$(_context) {
                         while (1) {
                           switch (_context.prev = _context.next) {
@@ -23399,14 +23409,19 @@
                                 selectRoute = roundedRoutes[0];
                                 setSelectedRoute(selectRoute);
                               } else {
-                                newSelectRoute = roundedRoutes[roundedRoutes.findIndex(function (route) {
+                                updatedSelectedRoute = roundedRoutes[roundedRoutes.findIndex(function (route) {
                                   return route.fromToken.address == selectedRoute.fromToken.address && route.blockchain == selectedRoute.blockchain;
                                 })];
 
-                                if (newSelectRoute) {
-                                  if (selectedRoute.fromAmount != newSelectRoute.fromAmount) {
-                                    setUpdatedRouteWithNewPrice(newSelectRoute);
+                                if (updatedSelectedRoute) {
+                                  if (selectedRoute.fromAmount != updatedSelectedRoute.fromAmount) {
+                                    setUpdatedRouteWithNewPrice(updatedSelectedRoute);
+                                  } else if ( // other reasons but price to update selected route
+                                  selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired) {
+                                    setSelectedRoute(updatedSelectedRoute);
                                   }
+                                } else {
+                                  setSelectedRoute(roundedRoutes[0]);
                                 }
                               }
 
@@ -23443,25 +23458,49 @@
       };
     }();
 
-    var getPaymentRoutes = function getPaymentRoutes(_ref3) {
-      _ref3.allRoutes;
-          _ref3.selectedRoute;
-          var updatable = _ref3.updatable;
+    var getPaymentRoutes = /*#__PURE__*/function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref3) {
+        var updatable, slowRoutingTimeout;
+        return regenerator.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                updatable = _ref3.updatable;
 
-      if (updatable == false || !props.accept || !account) {
-        return;
-      }
+                if (!(updatable == false || !props.accept || !account)) {
+                  _context3.next = 3;
+                  break;
+                }
 
-      var slowRoutingTimeout = setTimeout(function () {
-        setSlowRouting(true);
-      }, 4000);
-      routePayments(Object.assign({}, props, {
-        account: account
-      })).then(function (routes) {
-        clearInterval(slowRoutingTimeout);
-        onRoutesUpdate(routes);
-      });
-    };
+                return _context3.abrupt("return");
+
+              case 3:
+                slowRoutingTimeout = setTimeout(function () {
+                  setSlowRouting(true);
+                }, 4000);
+                _context3.next = 6;
+                return routePayments(Object.assign({}, props, {
+                  account: account
+                })).then(function (routes) {
+                  clearInterval(slowRoutingTimeout);
+                  onRoutesUpdate(routes);
+                });
+
+              case 6:
+                return _context3.abrupt("return", _context3.sent);
+
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      return function getPaymentRoutes(_x3) {
+        return _ref4.apply(this, arguments);
+      };
+    }();
 
     var updateRouteAmount = function updateRouteAmount(route, amountBN) {
       route.fromAmount = amountBN.toString();
@@ -23473,57 +23512,34 @@
     };
 
     var roundAmount = /*#__PURE__*/function () {
-      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(route, amountBN) {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(route, amountBN) {
         var readableAmount, roundedAmountBN;
-        return regenerator.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                if (!route.directTransfer) {
-                  _context3.next = 2;
-                  break;
-                }
-
-                return _context3.abrupt("return", route);
-
-              case 2:
-                _context3.next = 4;
-                return route.fromToken.readable(amountBN || route.transaction.params.amounts[0]);
-
-              case 4:
-                readableAmount = _context3.sent;
-                _context3.next = 7;
-                return route.fromToken.BigNumber(round(readableAmount));
-
-              case 7:
-                roundedAmountBN = _context3.sent;
-                updateRouteAmount(route, roundedAmountBN);
-                return _context3.abrupt("return", route);
-
-              case 10:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }));
-
-      return function roundAmount(_x3, _x4) {
-        return _ref4.apply(this, arguments);
-      };
-    }();
-
-    var roundAmounts = /*#__PURE__*/function () {
-      var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(routes) {
         return regenerator.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                return _context4.abrupt("return", Promise.all(routes.map(function (route) {
-                  return roundAmount(route);
-                })));
+                if (!route.directTransfer) {
+                  _context4.next = 2;
+                  break;
+                }
 
-              case 1:
+                return _context4.abrupt("return", route);
+
+              case 2:
+                _context4.next = 4;
+                return route.fromToken.readable(amountBN || route.transaction.params.amounts[0]);
+
+              case 4:
+                readableAmount = _context4.sent;
+                _context4.next = 7;
+                return route.fromToken.BigNumber(round(readableAmount));
+
+              case 7:
+                roundedAmountBN = _context4.sent;
+                updateRouteAmount(route, roundedAmountBN);
+                return _context4.abrupt("return", route);
+
+              case 10:
               case "end":
                 return _context4.stop();
             }
@@ -23531,21 +23547,22 @@
         }, _callee4);
       }));
 
-      return function roundAmounts(_x5) {
+      return function roundAmount(_x4, _x5) {
         return _ref5.apply(this, arguments);
       };
     }();
 
-    var updateRouteWithNewPrice = /*#__PURE__*/function () {
-      var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5() {
+    var roundAmounts = /*#__PURE__*/function () {
+      var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
         return regenerator.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                setSelectedRoute(_objectSpread$2({}, updatedRouteWithNewPrice));
-                setUpdatedRouteWithNewPrice(null);
+                return _context5.abrupt("return", Promise.all(routes.map(function (route) {
+                  return roundAmount(route);
+                })));
 
-              case 2:
+              case 1:
               case "end":
                 return _context5.stop();
             }
@@ -23553,10 +23570,40 @@
         }, _callee5);
       }));
 
-      return function updateRouteWithNewPrice() {
+      return function roundAmounts(_x6) {
         return _ref6.apply(this, arguments);
       };
     }();
+
+    var updateRouteWithNewPrice = /*#__PURE__*/function () {
+      var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6() {
+        return regenerator.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                setSelectedRoute(_objectSpread$2({}, updatedRouteWithNewPrice));
+                setUpdatedRouteWithNewPrice(null);
+
+              case 2:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }));
+
+      return function updateRouteWithNewPrice() {
+        return _ref7.apply(this, arguments);
+      };
+    }();
+
+    var refreshPaymentRoutes = function refreshPaymentRoutes() {
+      return getPaymentRoutes({
+        allRoutes: allRoutes,
+        selectedRoute: selectedRoute,
+        updatable: updatable
+      });
+    };
 
     React.useEffect(function () {
       var timeout = setTimeout(function () {
@@ -23580,7 +23627,7 @@
       value: {
         selectedRoute: selectedRoute,
         setSelectedRoute: setSelectedRoute,
-        getPaymentRoutes: getPaymentRoutes,
+        refreshPaymentRoutes: refreshPaymentRoutes,
         allRoutes: allRoutes,
         setAllRoutes: setAllRoutes,
         slowRouting: slowRouting,
@@ -24363,7 +24410,7 @@
     };
 
     var approvalButton = function approvalButton() {
-      if (payment.route == undefined || !payment.route.approvalRequired || payment.route.directTransfer) {
+      if (payment.route == undefined || !payment.route.approvalRequired || payment.route.directTransfer || updatedRouteWithNewPrice) {
         return null;
       } else if (paymentState == 'initialized') {
         return /*#__PURE__*/React__default['default'].createElement("div", {
