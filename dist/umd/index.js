@@ -25915,6 +25915,8 @@
     }());
   };
 
+  var SUPPORTED_CURRENCIES = ["all", "xcd", "eur", "bbd", "btn", "bnd", "xaf", "cup", "usd", "fkp", "gip", "huf", "irr", "jmd", "aud", "lak", "lyd", "mkd", "xof", "nzd", "omr", "pgk", "rwf", "wst", "rsd", "sek", "tzs", "amd", "bsd", "bam", "cve", "cny", "crc", "czk", "ern", "gel", "htg", "inr", "jod", "krw", "lbp", "mwk", "mru", "mzn", "ang", "pen", "qar", "std", "sll", "sos", "sdg", "syp", "aoa", "awg", "bhd", "bzd", "bwp", "bif", "kyd", "cop", "dkk", "gtq", "hnl", "idr", "ils", "kzt", "kwd", "lsl", "myr", "mur", "mnt", "mmk", "ngn", "pab", "php", "ron", "sar", "sgd", "zar", "srd", "twd", "top", "vef", "dzd", "ars", "azn", "bob", "bgn", "cad", "clp", "cdf", "dop", "fjd", "gmd", "gyd", "isk", "iqd", "jpy", "kpw", "chf", "mga", "mdl", "mad", "npr", "nio", "pkr", "pyg", "shp", "scr", "sbd", "lkr", "thb", "try", "aed", "vuv", "yer", "afn", "bdt", "brl", "khr", "kmf", "hrk", "djf", "egp", "etb", "xpf", "ghs", "gnf", "hkd", "xdr", "kes", "kgs", "lrd", "mop", "mvr", "mxn", "nad", "nok", "pln", "rub", "szl", "tjs", "ttd", "ugx", "uyu", "vnd", "tnd", "uah", "uzs", "tmt", "gbp", "zmw", "byn", "bmd", "ggp", "clf", "cuc", "imp", "jep", "svc", "xag", "zwl"];
+
   var PaymentAmountRoutingContext = /*#__PURE__*/React__default['default'].createContext();
 
   var PaymentAmountRoutingProvider = (function (props) {
@@ -25994,7 +25996,8 @@
     var _useContext = React.useContext(ConfigurationContext),
         currencyCode = _useContext.currencyCode,
         recover = _useContext.recover,
-        amountConfiguration = _useContext.amount;
+        amountConfiguration = _useContext.amount,
+        currency = _useContext.currency;
 
     var _useContext2 = React.useContext(PaymentContext),
         payment = _useContext2.payment,
@@ -26119,7 +26122,7 @@
         className: "TokenSymbolCell"
       }, payment.symbol), /*#__PURE__*/React__default['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default['default'].createElement("span", {
         className: "TokenAmountCell"
-      }, format(payment.amount))), displayedPaymentValue != "".concat(payment.symbol, " ").concat(format(payment.amount)) && !(amountsMissing && !fixedCurrency) && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, format(payment.amount))), displayedPaymentValue != "".concat(payment.symbol, " ").concat(format(payment.amount)) && !(amountsMissing && !fixedCurrency) && currency !== false && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TokenAmountRow small grey"
       }, /*#__PURE__*/React__default['default'].createElement("span", {
         className: "TokenAmountCell"
@@ -26306,14 +26309,19 @@
             case 0:
               accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, before = _ref3.before, wallet = _ref3.wallet, document = _ref3.document;
               requireReactVersion();
-              _context2.prev = 2;
-              _context2.next = 5;
+
+              if (currency && !SUPPORTED_CURRENCIES.includes(currency.toLowerCase())) {
+                currency = false;
+              }
+
+              _context2.prev = 3;
+              _context2.next = 6;
               return preflight$1({
                 accept: accept,
                 recover: recover
               });
 
-            case 5:
+            case 6:
               if (typeof window._depayUnmountLoading == 'function') {
                 window._depayUnmountLoading();
               }
@@ -26382,21 +26390,21 @@
                 unmount: unmount
               });
 
-            case 10:
-              _context2.prev = 10;
-              _context2.t0 = _context2["catch"](2);
+            case 11:
+              _context2.prev = 11;
+              _context2.t0 = _context2["catch"](3);
               console.log('critical error', _context2.t0);
 
               if (critical != undefined) {
                 critical(_context2.t0);
               }
 
-            case 14:
+            case 15:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[2, 10]]);
+      }, _callee2, null, [[3, 11]]);
     }));
 
     return function Payment(_x2) {

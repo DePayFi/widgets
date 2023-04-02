@@ -17,7 +17,7 @@ import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=>{
-  const { currencyCode, recover, amount: amountConfiguration } = useContext(ConfigurationContext)
+  const { currencyCode, recover, amount: amountConfiguration, currency } = useContext(ConfigurationContext)
   const { payment, paymentState } = useContext(PaymentContext)
   const { amount, amountsMissing, fixedAmount, fixedCurrency } = useContext(ChangableAmountContext)
   const { disconnect } = useContext(WalletContext)
@@ -119,12 +119,14 @@ export default (props)=>{
                       { format(payment.amount) }
                     </span>
                   </div>
-                  { (displayedPaymentValue != `${payment.symbol} ${format(payment.amount)}` && !(amountsMissing && !fixedCurrency)) &&
-                    <div className="TokenAmountRow small grey">
-                      <span className="TokenAmountCell">
-                        { displayedPaymentValue }
-                      </span>
-                    </div>
+                  { 
+                    (displayedPaymentValue != `${payment.symbol} ${format(payment.amount)}` && !(amountsMissing && !fixedCurrency)) &&
+                    (currency !== false) &&
+                      <div className="TokenAmountRow small grey">
+                        <span className="TokenAmountCell">
+                          { displayedPaymentValue }
+                        </span>
+                      </div>
                   }
                 </h2>
               </div>

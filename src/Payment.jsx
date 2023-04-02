@@ -3,6 +3,7 @@ import ClosableProvider from './providers/ClosableProvider'
 import ConfigurationProvider from './providers/ConfigurationProvider'
 import ConversionRateProvider from './providers/ConversionRateProvider'
 import ensureDocument from './helpers/ensureDocument'
+import SUPPORTED_CURRENCIES from './helpers/supportedCurrencies'
 import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
 import NavigateProvider from './providers/NavigateProvider'
@@ -58,6 +59,7 @@ let Payment = async ({
   document
 }) => {
   requireReactVersion()
+  if(currency && !SUPPORTED_CURRENCIES.includes(currency.toLowerCase())) { currency = false }
   try {
     await preflight({ accept, recover })
     if(typeof window._depayUnmountLoading == 'function') { window._depayUnmountLoading() }
