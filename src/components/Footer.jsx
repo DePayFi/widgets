@@ -163,10 +163,18 @@ export default ()=>{
   const approvalButton = ()=> {
     if(payment.route == undefined || (!payment.route.approvalRequired || payment.route.directTransfer) || updatedRouteWithNewPrice) {
       return(null)
+    } else if(paymentValueLoss) {
+      return(
+        <div className="PaddingBottomXS">
+          <button className="ButtonPrimary disabled" onClick={ ()=>{} } title={`Allow ${payment.symbol} to be used as payment`}>
+            Approve use of { payment.symbol }
+          </button>
+        </div>
+      )
     } else if(paymentState == 'initialized') {
       return(
         <div className="PaddingBottomXS">
-          <button disabled={ paymentValueLoss } className="ButtonPrimary" onClick={ approve } title={`Allow ${payment.symbol} to be used as payment`}>
+          <button className="ButtonPrimary" onClick={ approve } title={`Allow ${payment.symbol} to be used as payment`}>
             Approve use of { payment.symbol }
           </button>
         </div>
@@ -199,11 +207,6 @@ export default ()=>{
     } else if(paymentValueLoss){
       return(
         <div>
-          <div className="PaddingBottomXS">
-            <div className="Alert">
-              <strong>Payment would lose {paymentValueLoss}% of its value!</strong>
-            </div>
-          </div>
           <button className={"ButtonPrimary disabled"} onClick={()=>{}}>
             Pay
           </button>
@@ -268,6 +271,13 @@ export default ()=>{
 
   return(
     <div>
+      { paymentValueLoss &&
+        <div className="PaddingBottomXS">
+          <div className="Alert">
+            <strong>Payment would lose {paymentValueLoss}% of its value!</strong>
+          </div>
+        </div>
+      }
       { approvalButton() }
       { additionalPaymentInformation() }
       { mainAction() }

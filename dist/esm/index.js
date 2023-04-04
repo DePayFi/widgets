@@ -24416,11 +24416,18 @@ var Footer = (function () {
   var approvalButton = function approvalButton() {
     if (payment.route == undefined || !payment.route.approvalRequired || payment.route.directTransfer || updatedRouteWithNewPrice) {
       return null;
+    } else if (paymentValueLoss) {
+      return /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomXS"
+      }, /*#__PURE__*/React.createElement("button", {
+        className: "ButtonPrimary disabled",
+        onClick: function onClick() {},
+        title: "Allow ".concat(payment.symbol, " to be used as payment")
+      }, "Approve use of ", payment.symbol));
     } else if (paymentState == 'initialized') {
       return /*#__PURE__*/React.createElement("div", {
         className: "PaddingBottomXS"
       }, /*#__PURE__*/React.createElement("button", {
-        disabled: paymentValueLoss,
         className: "ButtonPrimary",
         onClick: approve,
         title: "Allow ".concat(payment.symbol, " to be used as payment")
@@ -24451,11 +24458,7 @@ var Footer = (function () {
         }
       }, "Reload"));
     } else if (paymentValueLoss) {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomXS"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Alert"
-      }, /*#__PURE__*/React.createElement("strong", null, "Payment would lose ", paymentValueLoss, "% of its value!"))), /*#__PURE__*/React.createElement("button", {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
         className: "ButtonPrimary disabled",
         onClick: function onClick() {}
       }, "Pay"));
@@ -24513,7 +24516,11 @@ var Footer = (function () {
     }
   };
 
-  return /*#__PURE__*/React.createElement("div", null, approvalButton(), additionalPaymentInformation(), mainAction());
+  return /*#__PURE__*/React.createElement("div", null, paymentValueLoss && /*#__PURE__*/React.createElement("div", {
+    className: "PaddingBottomXS"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "Alert"
+  }, /*#__PURE__*/React.createElement("strong", null, "Payment would lose ", paymentValueLoss, "% of its value!"))), approvalButton(), additionalPaymentInformation(), mainAction());
 });
 
 var DonationOverviewDialog = (function (props) {
