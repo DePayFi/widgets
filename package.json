@@ -1,7 +1,7 @@
 {
   "name": "@depay/widgets",
   "moduleName": "DePayWidgets",
-  "version": "10.2.15",
+  "version": "10.2.16",
   "description": "Web3 Payments with any token. DePay simplifies and improves Web3 Payments with the power of DeFi. Accept any token with on-the-fly conversion.",
   "main": "./dist/umd/index.js",
   "module": "./dist/esm/index.js",
@@ -43,7 +43,7 @@
     "@depay/walletconnect-v1": "^1.8.0",
     "@depay/walletconnect-v2": "^2.4.2",
     "@depay/web3-assets": "^6.7.0",
-    "@depay/web3-blockchains": "^7.1.0",
+    "@depay/web3-blockchains": "^8.0.1",
     "@depay/web3-client": "^10.7.1",
     "@depay/web3-exchanges": "^11.6.1",
     "@depay/web3-payments": "^11.1.0",
