@@ -3853,7 +3853,7 @@
       if (linkIsConnected !== undefined) {
         var _props$wallet4, _props$wallet4$deskto;
 
-        setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet4 = props.wallet) !== null && _props$wallet4 !== void 0 && (_props$wallet4$deskto = _props$wallet4.desktop) !== null && _props$wallet4$deskto !== void 0 && _props$wallet4$deskto["native"]));
+        setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet4 = props.wallet) !== null && _props$wallet4 !== void 0 && (_props$wallet4$deskto = _props$wallet4.desktop) !== null && _props$wallet4$deskto !== void 0 && _props$wallet4$deskto["native"]) && props.wallet.link);
       }
     }, [extensionIsAvailable, linkIsConnected]);
     React.useEffect(function () {

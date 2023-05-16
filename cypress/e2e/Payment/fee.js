@@ -26,12 +26,12 @@ describe('Payment Widget: fee', () => {
       blockchain,
       amount,
       token: DEPAY,
-      receiver: toAddress
+      receiver: toAddress,
+      fee: {
+        amount: '5%',
+        receiver: feeReceiver
+      }
     }],
-    fee: {
-      amount: '5%',
-      receiver: feeReceiver
-    }
   }
   
   let provider

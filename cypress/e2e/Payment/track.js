@@ -529,10 +529,23 @@ describe('Payment Widget: track', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, fee: {
-          amount: '1%',
-          receiver: feeReceiver
-        }, document })
+        defaultArguments
+        DePayWidgets.Payment({
+          accept: [{
+            blockchain,
+            amount,
+            token: DEPAY,
+            receiver: toAddress,
+            fee: {
+              amount: '1%',
+              receiver: feeReceiver
+            }
+          }],
+          track: {
+            endpoint: '/track/payments'
+          },
+          document
+        })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').then(()=>{
