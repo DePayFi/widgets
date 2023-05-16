@@ -205,7 +205,7 @@ export default (props)=>{
         nonce: transaction?.nonce?.toString(),
         receiver: paymentRoute.toAddress,
         token: paymentRoute.toToken.address,
-        amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
+        amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
         confirmations: 1,
         after_block: afterBlock.toString(),
         uuid: transaction.id,
@@ -217,8 +217,8 @@ export default (props)=>{
           link,
           type
         },
-        fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
-        fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
+        fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : null,
+        fee_receiver: paymentRoute.fee ? paymentRoute.fee.receiver : null
       })
     })
     .then((response)=>{

@@ -4143,19 +4143,19 @@ var MenuIcon = (function (props) {
     strokeLinejoin: "round"
   }, /*#__PURE__*/React.createElement("line", {
     x1: "11.6",
-    y1: "17.8",
+    y1: "17.6",
     x2: "11.6",
     y2: "17.6"
   }), /*#__PURE__*/React.createElement("line", {
     x1: "11.6",
-    y1: "12.2",
+    y1: "11.8",
     x2: "11.6",
-    y2: "12.2"
+    y2: "11.8"
   }), /*#__PURE__*/React.createElement("line", {
     x1: "11.6",
-    y1: "6.8",
+    y1: "6.2",
     x2: "11.6",
-    y2: "6.6"
+    y2: "6.2"
   }));
 });
 
@@ -23823,44 +23823,59 @@ var PaymentProvider = (function (props) {
 
   var pay = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-      var stop, currentBlock;
+      var transaction, stop, currentBlock;
       return regenerator.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              _context.t0 = payment.route;
+              _context.next = 3;
+              return wallet.account();
+
+            case 3:
+              _context.t1 = _context.sent;
+              _context.t2 = {
+                from: _context.t1
+              };
+              _context.next = 7;
+              return _context.t0.getTransaction.call(_context.t0, _context.t2);
+
+            case 7:
+              transaction = _context.sent;
+
               if (!before) {
-                _context.next = 6;
+                _context.next = 14;
                 break;
               }
 
-              _context.next = 3;
-              return before(payment.route.transaction);
+              _context.next = 11;
+              return before(transaction);
 
-            case 3:
+            case 11:
               stop = _context.sent;
 
               if (!(stop === false)) {
-                _context.next = 6;
+                _context.next = 14;
                 break;
               }
 
               return _context.abrupt("return");
 
-            case 6:
+            case 14:
               setClosable(false);
               setPaymentState('paying');
               setUpdatable(false);
-              _context.next = 11;
+              _context.next = 19;
               return request({
-                blockchain: payment.route.transaction.blockchain,
+                blockchain: transaction.blockchain,
                 method: 'latestBlockNumber'
               });
 
-            case 11:
+            case 19:
               currentBlock = _context.sent;
-              _context.next = 14;
+              _context.next = 22;
               return preTrack(currentBlock, payment.route).then(function () {
-                wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
+                wallet.sendTransaction(Object.assign({}, transaction, {
                   sent: function sent(transaction) {
                     initializeTransactionTracking(transaction, currentBlock);
 
@@ -23891,7 +23906,7 @@ var PaymentProvider = (function (props) {
                 navigate('PreTrackingFailed');
               });
 
-            case 14:
+            case 22:
             case "end":
               return _context.stop();
           }
@@ -25396,7 +25411,7 @@ var PaymentTrackingProvider = (function (props) {
         nonce: transaction === null || transaction === void 0 ? void 0 : (_transaction$nonce4 = transaction.nonce) === null || _transaction$nonce4 === void 0 ? void 0 : _transaction$nonce4.toString(),
         receiver: paymentRoute.toAddress,
         token: paymentRoute.toToken.address,
-        amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
+        amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
         confirmations: 1,
         after_block: afterBlock.toString(),
         uuid: transaction.id,
@@ -25408,8 +25423,8 @@ var PaymentTrackingProvider = (function (props) {
           link: link,
           type: type
         },
-        fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
-        fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
+        fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : null,
+        fee_receiver: paymentRoute.fee ? paymentRoute.fee.receiver : null
       })
     }).then(function (response) {
       if (response.status == 200 || response.status == 201) ; else {

@@ -49,16 +49,17 @@ export default (props)=>{
   }
 
   const pay = async ()=> {
+    const transaction = await payment.route.getTransaction({ from: await wallet.account() })
     if(before) {
-      let stop = await before(payment.route.transaction)
+      let stop = await before(transaction)
       if(stop === false){ return }
     }
     setClosable(false)
     setPaymentState('paying')
     setUpdatable(false)
-    let currentBlock = await request({ blockchain: payment.route.transaction.blockchain, method: 'latestBlockNumber' })
+    let currentBlock = await request({ blockchain: transaction.blockchain, method: 'latestBlockNumber' })
     await preTrack(currentBlock, payment.route).then(()=>{
-      wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
+      wallet.sendTransaction(Object.assign({}, transaction, {
         sent: (transaction)=>{
           initializeTransactionTracking(transaction, currentBlock)
           if(sent) { sent(transaction) }
