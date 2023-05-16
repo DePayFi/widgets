@@ -4022,6 +4022,10 @@
 
   var SelectionContext = /*#__PURE__*/React__default['default'].createContext();
 
+  var supported = ['ethereum', 'bsc', 'polygon', 'solana'];
+  supported.evm = ['ethereum', 'bsc', 'polygon'];
+  supported.solana = ['solana'];
+
   var SelectBlockchainDialog = (function (props) {
     var _useContext = React.useContext(SelectionContext),
         setSelection = _useContext.setSelection;
@@ -4030,7 +4034,9 @@
         navigate = _useContext2.navigate;
 
     var stacked = props.stacked || Object.keys(props.selection).length > 1;
-    var blockchains = [Blockchains__default['default'].findByName('ethereum'), Blockchains__default['default'].findByName('bsc'), Blockchains__default['default'].findByName('polygon')];
+    var blockchains = supported.map(function (blockchainName) {
+      return Blockchains__default['default'][blockchainName];
+    });
 
     var selectBlockchain = function selectBlockchain(blockchain) {
       window._depay_token_selection_selected_blockchain = blockchain.name;
@@ -5028,7 +5034,7 @@
   });
 
   var BlockchainLogoStyle = (function (style) {
-    return "\n\n    .BlockchainLogo {\n      border-radius: 999px;\n    }\n\n    .BlockchainLogo.small {\n      height: 18px;\n      width: 18px;\n    }\n  ";
+    return "\n\n    .BlockchainLogo {\n      border-radius: 999px;\n    }\n\n    .BlockchainLogo.small {\n      height: 20px;\n      width: 20px;\n    }\n  ";
   });
 
   var ButtonCircularStyle = (function (style) {
@@ -23379,8 +23385,6 @@
     }, props.children);
   });
 
-  var SUPPORTED_CURRENCIES = ["all", "xcd", "eur", "bbd", "btn", "bnd", "xaf", "cup", "usd", "fkp", "gip", "huf", "irr", "jmd", "aud", "lak", "lyd", "mkd", "xof", "nzd", "omr", "pgk", "rwf", "wst", "rsd", "sek", "tzs", "amd", "bsd", "bam", "cve", "cny", "crc", "czk", "ern", "gel", "htg", "inr", "jod", "krw", "lbp", "mwk", "mru", "mzn", "ang", "pen", "qar", "std", "sll", "sos", "sdg", "syp", "aoa", "awg", "bhd", "bzd", "bwp", "bif", "kyd", "cop", "dkk", "gtq", "hnl", "idr", "ils", "kzt", "kwd", "lsl", "myr", "mur", "mnt", "mmk", "ngn", "pab", "php", "ron", "sar", "sgd", "zar", "srd", "twd", "top", "vef", "dzd", "ars", "azn", "bob", "bgn", "cad", "clp", "cdf", "dop", "fjd", "gmd", "gyd", "isk", "iqd", "jpy", "kpw", "chf", "mga", "mdl", "mad", "npr", "nio", "pkr", "pyg", "shp", "scr", "sbd", "lkr", "thb", "try", "aed", "vuv", "yer", "afn", "bdt", "brl", "khr", "kmf", "hrk", "djf", "egp", "etb", "xpf", "ghs", "gnf", "hkd", "xdr", "kes", "kgs", "lrd", "mop", "mvr", "mxn", "nad", "nok", "pln", "rub", "szl", "tjs", "ttd", "ugx", "uyu", "vnd", "tnd", "uah", "uzs", "tmt", "gbp", "zmw", "byn", "bmd", "ggp", "clf", "cuc", "imp", "jep", "svc", "xag", "zwl"];
-
   var PaymentAmountRoutingContext = /*#__PURE__*/React__default['default'].createContext();
 
   var PaymentRoutingContext = /*#__PURE__*/React__default['default'].createContext();
@@ -24314,7 +24318,7 @@
           blockchain: payment.route.blockchain,
           address: payment.route.fromToken.address
         }), /*#__PURE__*/React__default['default'].createElement("img", {
-          className: "BlockchainLogo small",
+          className: "BlockchainLogo small " + blockchain.name,
           src: blockchain.logo,
           alt: blockchain.label,
           title: blockchain.label
@@ -24923,7 +24927,7 @@
         blockchain: payment.blockchain,
         address: payment.token
       }), /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "BlockchainLogo small",
+        className: "BlockchainLogo small " + blockchain.name,
         src: blockchain.logo,
         alt: blockchain.label,
         title: blockchain.label
@@ -25745,6 +25749,8 @@
     }, props.children);
   });
 
+  var SUPPORTED_CURRENCIES = ["all", "xcd", "eur", "bbd", "btn", "bnd", "xaf", "cup", "usd", "fkp", "gip", "huf", "irr", "jmd", "aud", "lak", "lyd", "mkd", "xof", "nzd", "omr", "pgk", "rwf", "wst", "rsd", "sek", "tzs", "amd", "bsd", "bam", "cve", "cny", "crc", "czk", "ern", "gel", "htg", "inr", "jod", "krw", "lbp", "mwk", "mru", "mzn", "ang", "pen", "qar", "std", "sll", "sos", "sdg", "syp", "aoa", "awg", "bhd", "bzd", "bwp", "bif", "kyd", "cop", "dkk", "gtq", "hnl", "idr", "ils", "kzt", "kwd", "lsl", "myr", "mur", "mnt", "mmk", "ngn", "pab", "php", "ron", "sar", "sgd", "zar", "srd", "twd", "top", "vef", "dzd", "ars", "azn", "bob", "bgn", "cad", "clp", "cdf", "dop", "fjd", "gmd", "gyd", "isk", "iqd", "jpy", "kpw", "chf", "mga", "mdl", "mad", "npr", "nio", "pkr", "pyg", "shp", "scr", "sbd", "lkr", "thb", "try", "aed", "vuv", "yer", "afn", "bdt", "brl", "khr", "kmf", "hrk", "djf", "egp", "etb", "xpf", "ghs", "gnf", "hkd", "xdr", "kes", "kgs", "lrd", "mop", "mvr", "mxn", "nad", "nok", "pln", "rub", "szl", "tjs", "ttd", "ugx", "uyu", "vnd", "tnd", "uah", "uzs", "tmt", "gbp", "zmw", "byn", "bmd", "ggp", "clf", "cuc", "imp", "jep", "svc", "xag", "zwl"];
+
   var TransactionTrackingProvider = (function (props) {
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
@@ -25923,7 +25929,7 @@
                   throw 'You need to set the blockchain your want to receive the payment on!';
                 }
 
-                if (!['ethereum', 'bsc', 'polygon'].includes(configuration.blockchain)) {
+                if (!supported.includes(configuration.blockchain)) {
                   throw 'You need to set a supported blockchain!';
                 }
 
@@ -26279,7 +26285,7 @@
         className: "CardImage",
         title: payment.name
       }, tokenImageElement, /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "BlockchainLogo small",
+        className: "BlockchainLogo small " + blockchain.name,
         src: blockchain.logo,
         alt: blockchain.label,
         title: blockchain.label

@@ -1,9 +1,9 @@
+import { supported } from './blockchains'
 import ChangableAmountProvider from './providers/ChangableAmountProvider'
 import ClosableProvider from './providers/ClosableProvider'
 import ConfigurationProvider from './providers/ConfigurationProvider'
 import ConversionRateProvider from './providers/ConversionRateProvider'
 import ensureDocument from './helpers/ensureDocument'
-import SUPPORTED_CURRENCIES from './helpers/supportedCurrencies'
 import ErrorProvider from './providers/ErrorProvider'
 import mount from './helpers/mount'
 import NavigateProvider from './providers/NavigateProvider'
@@ -16,6 +16,7 @@ import PoweredBy from './components/PoweredBy'
 import React from 'react'
 import requireReactVersion from './helpers/requireReactVersion'
 import routePayments from './helpers/routePayments'
+import SUPPORTED_CURRENCIES from './helpers/supportedCurrencies'
 import TransactionTrackingProvider from './providers/TransactionTrackingProvider'
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
@@ -24,7 +25,7 @@ let preflight = async({ accept, recover }) => {
   if(recover){ return }
   accept.forEach((configuration)=>{
     if(typeof configuration.blockchain === 'undefined') { throw('You need to set the blockchain your want to receive the payment on!') }
-    if(!['ethereum', 'bsc', 'polygon'].includes(configuration.blockchain)) { throw('You need to set a supported blockchain!') }
+    if(!supported.includes(configuration.blockchain)) { throw('You need to set a supported blockchain!') }
     if(typeof configuration.token === 'undefined' && typeof configuration.fromToken === 'undefined' && typeof configuration.fromAmount === 'undefined' && typeof configuration.toToken === 'undefined') { throw('You need to set the token you want to receive as payment!') }
     if(typeof configuration.token === 'undefined' && typeof configuration.fromToken !== 'undefined' && typeof configuration.fromAmount === 'undefined' && typeof configuration.toToken === 'undefined') { throw('You need to set the fromToken, fromAmount and toToken!') }
     if(typeof configuration.receiver === 'undefined') { throw('You need to set the receiver address that you want to receive the payment!') }

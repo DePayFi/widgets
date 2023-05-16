@@ -76,7 +76,7 @@ export default (props)=>{
           >
             <div className="CardImage" title={ payment.name }>
               { tokenImageElement }
-              <img className="BlockchainLogo small" src={ blockchain.logo } alt={ blockchain.label } title={ blockchain.label }/>
+              <img className={"BlockchainLogo small " + blockchain.name} src={ blockchain.logo } alt={ blockchain.label } title={ blockchain.label }/>
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">
