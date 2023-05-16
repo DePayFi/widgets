@@ -155,7 +155,7 @@ export default (props)=> {
 
           <div className="PaddingTopS">
             <div ref={ QRCodeElement } className="QRCode"/>
-            { showQRCode &&
+            { showQRCode && 
               <div className="Opacity05 PaddingBottomXS">
                 <small>Scan QR code with your wallet</small>
               </div>
@@ -217,7 +217,7 @@ export default (props)=> {
                 </button>
               </div>
             }
-            { props.wallet.link && props.wallet.link == 'WalletConnectV1' &&
+            { props.wallet.link && props.wallet.link == 'WalletConnectV1' && props.wallet.connectionLink &&
               <div className="PaddingBottomXS TooltipWrapper">
                 <button onClick={ connectViaCopyLink } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS">
                   <span className="PaddingTopXS PaddingRightXS PaddingLeftS">

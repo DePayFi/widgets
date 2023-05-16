@@ -1,20 +1,20 @@
 import React, { useState, useContext, useEffect, useRef, useCallback } from 'react';
+import { wallets, getWallets } from '@depay/web3-wallets';
 import copy from '@uiw/copy-to-clipboard';
 import { NavigateStackContext, ReactDialogStack } from '@depay/react-dialog-stack';
 import QRCodeStyling from 'qr-code-styling';
-import { wallets, getWallets } from '@depay/web3-wallets';
 import Blockchains from '@depay/web3-blockchains';
 import Fuse from 'fuse.js';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import ReactDOM from 'react-dom';
 import { ReactShadowDOM } from '@depay/react-shadow-dom';
-import { ethers } from 'ethers';
-import { Decimal } from 'decimal.js';
-import { route } from '@depay/web3-exchanges';
-import { Token } from '@depay/web3-tokens';
 import { Currency } from '@depay/local-currency';
 import { setProviderEndpoints, request } from '@depay/web3-client';
-import { route as route$1 } from '@depay/web3-payments';
+import { route } from '@depay/web3-payments';
+import { ethers } from 'ethers';
+import { Decimal } from 'decimal.js';
+import { route as route$1 } from '@depay/web3-exchanges';
+import { Token } from '@depay/web3-tokens';
 import { TokenImage } from '@depay/react-token-image';
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
@@ -967,7 +967,7 @@ var allWallets = [{
       "universal": "https://go.cb-w.com/dapp"
     }
   },
-  "logo": "data:image/svg+xml;base64,PHN2ZyBpZD0nTGF5ZXJfMScgZGF0YS1uYW1lPSdMYXllciAxJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB2aWV3Qm94PScwIDAgNDg4Ljk2IDQ4OC45Nic+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOnVybCgjbGluZWFyLWdyYWRpZW50KTt9LmNscy0ye2ZpbGw6IzQzNjFhZDt9PC9zdHlsZT48bGluZWFyR3JhZGllbnQgaWQ9J2xpbmVhci1ncmFkaWVudCcgeDE9JzI1MCcgeTE9JzcuMzUnIHgyPScyNTAnIHkyPSc0OTYuMzInIGdyYWRpZW50VHJhbnNmb3JtPSdtYXRyaXgoMSwgMCwgMCwgLTEsIDAsIDUwMiknIGdyYWRpZW50VW5pdHM9J3VzZXJTcGFjZU9uVXNlJz48c3RvcCBvZmZzZXQ9JzAnIHN0b3AtY29sb3I9JyMzZDViYTknLz48c3RvcCBvZmZzZXQ9JzEnIHN0b3AtY29sb3I9JyM0ODY4YjEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cGF0aCBjbGFzcz0nY2xzLTEnIGQ9J00yNTAsNS42OEMxMTQuODcsNS42OCw1LjUyLDExNSw1LjUyLDI1MC4xN1MxMTQuODcsNDk0LjY1LDI1MCw0OTQuNjUsNDk0LjQ4LDM4NS4yOSw0OTQuNDgsMjUwLjE3LDM4NS4xMyw1LjY4LDI1MCw1LjY4Wm0wLDM4Ny41NEExNDMuMDYsMTQzLjA2LDAsMSwxLDM5My4wNSwyNTAuMTcsMTQzLjExLDE0My4xMSwwLDAsMSwyNTAsMzkzLjIyWicgdHJhbnNmb3JtPSd0cmFuc2xhdGUoLTUuNTIgLTUuNjgpJy8+PHBhdGggY2xhc3M9J2Nscy0yJyBkPSdNMjg0LjY5LDI5Ni4wOUgyMTUuMzFhMTEsMTEsMCwwLDEtMTAuOS0xMC45VjIxNS40OGExMSwxMSwwLDAsMSwxMC45LTEwLjkxSDI4NWExMSwxMSwwLDAsMSwxMC45LDEwLjkxdjY5LjcxQTExLjA3LDExLjA3LDAsMCwxLDI4NC42OSwyOTYuMDlaJyB0cmFuc2Zvcm09J3RyYW5zbGF0ZSgtNS41MiAtNS42OCknLz48L3N2Zz4="
+  "logo": wallets.Coinbase.info.logo
 }, {
   "name": "MetaMask",
   "extension": "MetaMask",
@@ -984,7 +984,7 @@ var allWallets = [{
       "universal": "https://metamask.app.link"
     }
   },
-  "logo": "data:image/svg+xml;base64,PHN2ZyBpZD0nTGF5ZXJfMScgZGF0YS1uYW1lPSdMYXllciAxJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0ODUuOTMgNDUwLjU2Jz48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6IzgyODQ4Nzt9LmNscy0ye2ZpbGw6I2UyNzcyNjtzdHJva2U6I2UyNzcyNjt9LmNscy0xMCwuY2xzLTExLC5jbHMtMiwuY2xzLTMsLmNscy00LC5jbHMtNSwuY2xzLTYsLmNscy03LC5jbHMtOCwuY2xzLTl7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO30uY2xzLTN7ZmlsbDojZTM3NzI1O3N0cm9rZTojZTM3NzI1O30uY2xzLTR7ZmlsbDojZDZjMGIzO3N0cm9rZTojZDZjMGIzO30uY2xzLTV7ZmlsbDojMjQzNDQ3O3N0cm9rZTojMjQzNDQ3O30uY2xzLTZ7ZmlsbDojY2Q2MzI4O3N0cm9rZTojY2Q2MzI4O30uY2xzLTd7ZmlsbDojZTM3NTI1O3N0cm9rZTojZTM3NTI1O30uY2xzLTh7ZmlsbDojZjY4NTFmO3N0cm9rZTojZjY4NTFmO30uY2xzLTl7ZmlsbDojYzFhZTllO3N0cm9rZTojYzFhZTllO30uY2xzLTEwe2ZpbGw6IzE3MTcxNztzdHJva2U6IzE3MTcxNzt9LmNscy0xMXtmaWxsOiM3NjNlMWE7c3Ryb2tlOiM3NjNlMWE7fTwvc3R5bGU+PC9kZWZzPjxwYXRoIGNsYXNzPSdjbHMtMScgZD0nTTI0Ny45MSwzNTYuMjlhMjYsMjYsMCwxLDAtMjYsMjZBMjYsMjYsMCwwLDAsMjQ3LjkxLDM1Ni4yOVonIHRyYW5zZm9ybT0ndHJhbnNsYXRlKC03Ljk3IC0yMS4zMyknLz48cGF0aCBjbGFzcz0nY2xzLTEnIGQ9J00yNDYuNTUsMTQ5LjcxYTI2LDI2LDAsMSwwLTI2LDI2QTI2LDI2LDAsMCwwLDI0Ni41NSwxNDkuNzFaJyB0cmFuc2Zvcm09J3RyYW5zbGF0ZSgtNy45NyAtMjEuMzMpJy8+PGNpcmNsZSBjbGFzcz0nY2xzLTEnIGN4PScxNDguNCcgY3k9JzIzMC4wNScgcj0nMjUuOTknLz48cG9seWdvbiBjbGFzcz0nY2xzLTInIHBvaW50cz0nNDYxLjI4IDAuNSAyNzIuMDYgMTQxLjAzIDMwNy4wNSA1OC4xMiA0NjEuMjggMC41Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy0zJyBwb2ludHM9JzI0LjQ2IDAuNSAyMTIuMTYgMTQyLjM3IDE3OC44OCA1OC4xMiAyNC40NiAwLjUnLz48cG9seWdvbiBjbGFzcz0nY2xzLTMnIHBvaW50cz0nMzkzLjIgMzI2LjI2IDM0Mi44MSA0MDMuNDcgNDUwLjYzIDQzMy4xNCA0ODEuNjMgMzI3Ljk3IDM5My4yIDMyNi4yNicvPjxwb2x5Z29uIGNsYXNzPSdjbHMtMycgcG9pbnRzPSc0LjQ5IDMyNy45NyAzNS4zIDQzMy4xNCAxNDMuMTMgNDAzLjQ3IDkyLjczIDMyNi4yNiA0LjQ5IDMyNy45NycvPjxwb2x5Z29uIGNsYXNzPSdjbHMtMycgcG9pbnRzPScxMzcuMDQgMTk1LjggMTA3IDI0MS4yNSAyMTQuMDYgMjQ2LjAxIDIxMC4yNiAxMzAuOTYgMTM3LjA0IDE5NS44Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy0zJyBwb2ludHM9JzM0OC43IDE5NS44IDI3NC41MyAxMjkuNjMgMjcyLjA2IDI0Ni4wMSAzNzguOTQgMjQxLjI1IDM0OC43IDE5NS44Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy0zJyBwb2ludHM9JzE0My4xMyA0MDMuNDcgMjA3LjQxIDM3Mi4wOSAxNTEuODggMzI4LjczIDE0My4xMyA0MDMuNDcnLz48cG9seWdvbiBjbGFzcz0nY2xzLTMnIHBvaW50cz0nMjc4LjM0IDM3Mi4wOSAzNDIuODEgNDAzLjQ3IDMzMy44NyAzMjguNzMgMjc4LjM0IDM3Mi4wOScvPjxwb2x5Z29uIGNsYXNzPSdjbHMtNCcgcG9pbnRzPSczNDIuODEgNDAzLjQ3IDI3OC4zNCAzNzIuMDkgMjgzLjQ3IDQxNC4xMiAyODIuOSA0MzEuODEgMzQyLjgxIDQwMy40NycvPjxwb2x5Z29uIGNsYXNzPSdjbHMtNCcgcG9pbnRzPScxNDMuMTMgNDAzLjQ3IDIwMy4wMyA0MzEuODEgMjAyLjY1IDQxNC4xMiAyMDcuNDEgMzcyLjA5IDE0My4xMyA0MDMuNDcnLz48cG9seWdvbiBjbGFzcz0nY2xzLTUnIHBvaW50cz0nMjAzLjk4IDMwMC45NyAxNTAuMzUgMjg1LjE4IDE4OC4yIDI2Ny44OCAyMDMuOTggMzAwLjk3Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy01JyBwb2ludHM9JzI4MS43NiAzMDAuOTcgMjk3LjU1IDI2Ny44OCAzMzUuNTggMjg1LjE4IDI4MS43NiAzMDAuOTcnLz48cG9seWdvbiBjbGFzcz0nY2xzLTYnIHBvaW50cz0nMTQzLjEzIDQwMy40NyAxNTIuMjUgMzI2LjI2IDkyLjczIDMyNy45NyAxNDMuMTMgNDAzLjQ3Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy02JyBwb2ludHM9JzMzMy42OCAzMjYuMjYgMzQyLjgxIDQwMy40NyAzOTMuMiAzMjcuOTcgMzMzLjY4IDMyNi4yNicvPjxwb2x5Z29uIGNsYXNzPSdjbHMtNicgcG9pbnRzPSczNzguOTQgMjQxLjI1IDI3Mi4wNiAyNDYuMDEgMjgxLjk1IDMwMC45NyAyOTcuNzQgMjY3Ljg4IDMzNS43NyAyODUuMTggMzc4Ljk0IDI0MS4yNScvPjxwb2x5Z29uIGNsYXNzPSdjbHMtNicgcG9pbnRzPScxNTAuMzUgMjg1LjE4IDE4OC4zOSAyNjcuODggMjAzLjk4IDMwMC45NyAyMTQuMDYgMjQ2LjAxIDEwNyAyNDEuMjUgMTUwLjM1IDI4NS4xOCcvPjxwb2x5Z29uIGNsYXNzPSdjbHMtNycgcG9pbnRzPScxMDcgMjQxLjI1IDE1MS44OCAzMjguNzMgMTUwLjM1IDI4NS4xOCAxMDcgMjQxLjI1Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy03JyBwb2ludHM9JzMzNS43NyAyODUuMTggMzMzLjg3IDMyOC43MyAzNzguOTQgMjQxLjI1IDMzNS43NyAyODUuMTgnLz48cG9seWdvbiBjbGFzcz0nY2xzLTcnIHBvaW50cz0nMjE0LjA2IDI0Ni4wMSAyMDMuOTggMzAwLjk3IDIxNi41MyAzNjUuODIgMjE5LjM4IDI4MC40MyAyMTQuMDYgMjQ2LjAxJy8+PHBvbHlnb24gY2xhc3M9J2Nscy03JyBwb2ludHM9JzI3Mi4wNiAyNDYuMDEgMjY2LjkzIDI4MC4yNCAyNjkuMjEgMzY1LjgyIDI4MS45NSAzMDAuOTcgMjcyLjA2IDI0Ni4wMScvPjxwb2x5Z29uIGNsYXNzPSdjbHMtOCcgcG9pbnRzPScyODEuOTUgMzAwLjk3IDI2OS4yMSAzNjUuODIgMjc4LjM0IDM3Mi4wOSAzMzMuODcgMzI4LjczIDMzNS43NyAyODUuMTggMjgxLjk1IDMwMC45NycvPjxwb2x5Z29uIGNsYXNzPSdjbHMtOCcgcG9pbnRzPScxNTAuMzUgMjg1LjE4IDE1MS44OCAzMjguNzMgMjA3LjQxIDM3Mi4wOSAyMTYuNTMgMzY1LjgyIDIwMy45OCAzMDAuOTcgMTUwLjM1IDI4NS4xOCcvPjxwb2x5Z29uIGNsYXNzPSdjbHMtOScgcG9pbnRzPScyODIuOSA0MzEuODEgMjgzLjQ3IDQxNC4xMiAyNzguNzIgNDA5Ljk0IDIwNy4wMiA0MDkuOTQgMjAyLjY1IDQxNC4xMiAyMDMuMDMgNDMxLjgxIDE0My4xMyA0MDMuNDcgMTY0LjA1IDQyMC41OCAyMDYuNDUgNDUwLjA2IDI3OS4yOSA0NTAuMDYgMzIxLjg5IDQyMC41OCAzNDIuODEgNDAzLjQ3IDI4Mi45IDQzMS44MScvPjxwb2x5Z29uIGNsYXNzPSdjbHMtMTAnIHBvaW50cz0nMjc4LjM0IDM3Mi4wOSAyNjkuMjEgMzY1LjgyIDIxNi41MyAzNjUuODIgMjA3LjQxIDM3Mi4wOSAyMDIuNjUgNDE0LjEyIDIwNy4wMiA0MDkuOTQgMjc4LjcyIDQwOS45NCAyODMuNDcgNDE0LjEyIDI3OC4zNCAzNzIuMDknLz48cG9seWdvbiBjbGFzcz0nY2xzLTExJyBwb2ludHM9JzQ2OS4yNyAxNTAuMTYgNDg1LjQzIDcyLjU3IDQ2MS4yOCAwLjUgMjc4LjM0IDEzNi4yOCAzNDguNyAxOTUuOCA0NDguMTYgMjI0LjkgNDcwLjIyIDE5OS4yMyA0NjAuNzEgMTkyLjM4IDQ3NS45MiAxNzguNSA0NjQuMTMgMTY5LjM3IDQ3OS4zNSAxNTcuNzcgNDY5LjI3IDE1MC4xNicvPjxwb2x5Z29uIGNsYXNzPSdjbHMtMTEnIHBvaW50cz0nMC41IDcyLjU3IDE2LjY2IDE1MC4xNiA2LjM5IDE1Ny43NyAyMS42MSAxNjkuMzcgMTAuMDEgMTc4LjUgMjUuMjIgMTkyLjM4IDE1LjcxIDE5OS4yMyAzNy41OCAyMjQuOSAxMzcuMDQgMTk1LjggMjA3LjQxIDEzNi4yOCAyNC40NiAwLjUgMC41IDcyLjU3Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy04JyBwb2ludHM9JzQ0OC4xNiAyMjQuOSAzNDguNyAxOTUuOCAzNzguOTQgMjQxLjI1IDMzMy44NyAzMjguNzMgMzkzLjIgMzI3Ljk3IDQ4MS42MyAzMjcuOTcgNDQ4LjE2IDIyNC45Jy8+PHBvbHlnb24gY2xhc3M9J2Nscy04JyBwb2ludHM9JzEzNy4wNCAxOTUuOCAzNy41OCAyMjQuOSA0LjQ5IDMyNy45NyA5Mi43MyAzMjcuOTcgMTUxLjg4IDMyOC43MyAxMDcgMjQxLjI1IDEzNy4wNCAxOTUuOCcvPjxwb2x5Z29uIGNsYXNzPSdjbHMtOCcgcG9pbnRzPScyNzIuMDYgMjQ2LjAxIDI3OC4zNCAxMzYuMjggMzA3LjI0IDU4LjEyIDE3OC44OCA1OC4xMiAyMDcuNDEgMTM2LjI4IDIxNC4wNiAyNDYuMDEgMjE2LjM0IDI4MC42MiAyMTYuNTMgMzY1LjgyIDI2OS4yMSAzNjUuODIgMjY5LjU5IDI4MC42MiAyNzIuMDYgMjQ2LjAxJy8+PC9zdmc+"
+  "logo": wallets.MetaMask.info.logo
 }, {
   "name": "Trust Wallet",
   "extension": "Trust",
@@ -999,12 +999,16 @@ var allWallets = [{
       "universal": "https://link.trustwallet.com"
     }
   },
-  "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA5Ni41IDk2LjUiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDk2LjUgOTYuNSIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3QgZmlsbD0iI0ZGRkZGRiIgd2lkdGg9Ijk2LjUiIGhlaWdodD0iOTYuNSIvPgo8cGF0aCBzdHJva2U9IiMzMzc1QkIiIHN0cm9rZS13aWR0aD0iNi4wNjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQgPSIxMCIgZmlsbD0ibm9uZSIgZD0ibTQ4LjUgMjAuMWM5LjYgOCAyMC42IDcuNSAyMy43IDcuNS0wLjcgNDUuNS01LjkgMzYuNS0yMy43IDQ5LjMtMTcuOC0xMi44LTIzLTMuNy0yMy43LTQ5LjMgMy4yIDAgMTQuMSAwLjUgMjMuNy03LjV6Ii8+Cjwvc3ZnPgo="
+  "logo": wallets.Trust.info.logo
+}, {
+  "name": "Phantom",
+  "extension": "Phantom",
+  "logo": wallets.Phantom.info.logo
 }, {
   "name": "Binance Wallet",
   "extension": "Binance",
   "link": "WalletConnectV1",
-  "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkzLjY4Ij48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5My42OCIgZmlsbD0iIzFlMjAyNCIvPjxwYXRoIGQ9Im01Ni45Miw0Ni41M2wzOS4wOC0yMi41NCwzOS4wOCwyMi41NC0xNC4zNSw4LjM2LTI0LjczLTE0LjE4LTI0LjczLDE0LjE4LTE0LjM1LTguMzZabTc4LjE3LDI4LjUzbC0xNC4zNS04LjM2LTI0LjczLDE0LjI3LTI0LjczLTE0LjI3LTE0LjM1LDguMzZ2MTYuNzFsMjQuNzMsMTQuMTh2MjguNDVsMTQuMzUsOC4zNiwxNC4zNS04LjM2di0yOC40NWwyNC43My0xNC4yN3YtMTYuNjNabTAsNDUuMTZ2LTE2LjcxbC0xNC4zNSw4LjM2djE2LjcxbDE0LjM1LTguMzZabTEwLjIxLDUuODJsLTI0LjczLDE0LjI3djE2LjcxbDM5LjA4LTIyLjU0di00NS4yNWwtMTQuMzUsOC4zNnYyOC40NVptLTE0LjM1LTY1LjI1bDE0LjM1LDguMzZ2MTYuNzFsMTQuMzUtOC4zNnYtMTYuNzFsLTE0LjM1LTguMzYtMTQuMzUsOC4zNlptLTQ5LjMsODUuNnYxNi43MWwxNC4zNSw4LjM2LDE0LjM1LTguMzZ2LTE2LjcxbC0xNC4zNSw4LjM2LTE0LjM1LTguMzZabS0yNC43My0yNi4xN2wxNC4zNSw4LjM2di0xNi43MWwtMTQuMzUtOC4zNnYxNi43MVptMjQuNzMtNTkuNDNsMTQuMzUsOC4zNiwxNC4zNS04LjM2LTE0LjM1LTguMzYtMTQuMzUsOC4zNlptLTM0Ljk1LDguMzZsMTQuMzUtOC4zNi0xNC4zNS04LjM2LTE0LjM1LDguMzZ2MTYuNzFsMTQuMzUsOC4zNnYtMTYuNzFabTAsMjguNDVsLTE0LjM1LTguMzZ2NDUuMTZsMzkuMDgsMjIuNTR2LTE2LjcxbC0yNC43My0xNC4yN3MwLTI4LjM2LDAtMjguMzZaIiBmaWxsPSIjZjBiOTBiIi8+PC9zdmc+"
+  "logo": wallets.Binance.info.logo
 }, {
   "name": "Crypto.com | DeFi Wallet",
   "extension": "CryptoCom",
@@ -1022,7 +1026,7 @@ var allWallets = [{
       "universal": "https://wallet.crypto.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7c5ff577-a68d-49c5-02cd-3d83637b0b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
+  "logo": wallets.CryptoCom.info.logo
 }, {
   "name": "Coin98",
   "extension": "Coin98",
@@ -1037,11 +1041,11 @@ var allWallets = [{
       "universal": "https://coin98.com"
     }
   },
-  "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA0MC43IDQwIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA0MC43IDQwIiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBmaWxsPSIjRDlCNDMyIiBkPSJtMzMuMyAwaC0yNS45Yy00LjEgMC03LjQgMy4zLTcuNCA3LjN2MjUuNGMwIDQgMy4zIDcuMyA3LjQgNy4zaDI1LjljNC4xIDAgNy40LTMuMyA3LjQtNy4zdi0yNS40YzAtNC0zLjMtNy4zLTcuNC03LjN6Ii8+CjxwYXRoIGZpbGw9IiMyNTI1MjUiIGQ9Im0zMy4zIDBoLTI1LjljLTQuMSAwLTcuNCAzLjMtNy40IDcuM3YyNS40YzAgNCAzLjMgNy4zIDcuNCA3LjNoMjUuOWM0LjEgMCA3LjQtMy4zIDcuNC03LjN2LTI1LjRjMC00LTMuMy03LjMtNy40LTcuM3ptLTYuMyAxMGMzIDAgNS41IDIuNCA1LjUgNS40IDAgMC45LTAuMiAxLjgtMC42IDIuNi0wLjctMC41LTEuNS0xLTIuMy0xLjMgMC4yLTAuNCAwLjMtMC45IDAuMy0xLjMgMC0xLjUtMS4zLTIuOC0yLjgtMi44LTEuNiAwLTIuOCAxLjMtMi44IDIuOCAwIDAuNSAwLjEgMC45IDAuMyAxLjMtMC44IDAuMy0xLjYgMC43LTIuMyAxLjMtMC41LTAuOC0wLjYtMS43LTAuNi0yLjYtMC4xLTMgMi4zLTUuNCA1LjMtNS40em0tMTMuMyAyMGMtMyAwLTUuNS0yLjQtNS41LTUuNGgyLjZjMCAxLjUgMS4zIDIuOCAyLjggMi44czIuOC0xLjMgMi44LTIuOGgyLjZjMC4yIDMtMi4zIDUuNC01LjMgNS40em0wLTcuNWMtMy41IDAtNi4zLTIuOC02LjMtNi4yczIuOC02LjMgNi4zLTYuMyA2LjQgMi44IDYuNCA2LjNjMCAzLjQtMi45IDYuMi02LjQgNi4yem0xMy4zIDcuNWMtMy41IDAtNi40LTIuOC02LjQtNi4yIDAtMy41IDIuOC02LjMgNi40LTYuMyAzLjUgMCA2LjMgMi44IDYuMyA2LjMgMC4xIDMuNC0yLjggNi4yLTYuMyA2LjJ6bTMuOC02LjNjMCAyLjEtMS43IDMuNy0zLjggMy43cy0zLjgtMS43LTMuOC0zLjdjMC0yLjEgMS43LTMuNyAzLjgtMy43IDIuMSAwLjEgMy44IDEuNyAzLjggMy43em0tMTMuNC03LjRjMCAyLjEtMS43IDMuNy0zLjggMy43cy0zLjgtMS43LTMuOC0zLjdjMC0yLjEgMS43LTMuNyAzLjgtMy43IDIuMiAwIDMuOCAxLjYgMy44IDMuN3oiLz4KPC9zdmc+Cg=="
+  "logo": wallets.Coin98.info.logo
 }, {
   "name": "Brave",
   "extension": "Brave",
-  "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAyNTYgMzAxIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAyNTYgMzAxIiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgoKCTxwYXRoIGZpbGw9IiNGMTVBMjIiIGQ9Im0yMzYgMTA1LjQtNy44LTIxLjIgNS40LTEyLjJjMC43LTEuNiAwLjMtMy40LTAuOC00LjZsLTE0LjgtMTQuOWMtNi41LTYuNS0xNi4xLTguOC0yNC44LTUuN2wtNC4xIDEuNC0yMi42LTI0LjUtMzguMi0wLjNoLTAuM2wtMzguNSAwLjMtMjIuNiAyNC43LTQtMS40Yy04LjgtMy4xLTE4LjUtMC44LTI1IDUuOGwtMTUgMTUuMmMtMSAxLTEuMyAyLjQtMC44IDMuN2w1LjcgMTIuNy03LjggMjEuMiA1LjEgMTkuMiAyMyA4Ny4yYzIuNiAxMCA4LjcgMTguOCAxNy4yIDI0LjkgMCAwIDI3LjggMTkuNyA1NS4zIDM3LjUgMi40IDEuNiA1IDIuNyA3LjcgMi43czUuMi0xLjEgNy43LTIuN2MzMC45LTIwLjIgNTUuMy0zNy41IDU1LjMtMzcuNSA4LjQtNi4xIDE0LjUtMTQuOCAxNy4xLTI0LjlsMjIuOC04Ny4yIDQuOC0xOS40eiIvPgoJPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0ibTEzMy4xIDE3OS40Yy0xLTAuNC0yLjEtMC44LTIuNC0wLjhoLTIuN2MtMC4zIDAtMS40IDAuMy0yLjQgMC44bC0xMSA0LjZjLTEgMC40LTIuNyAxLjItMy43IDEuN2wtMTYuNSA4LjZjLTEgMC41LTEuMSAxLjQtMC4yIDIuMWwxNC42IDEwLjNjMC45IDAuNyAyLjQgMS44IDMuMiAyLjVsNi41IDUuNmMwLjggMC44IDIuMiAxLjkgMyAyLjdsNi4yIDUuNmMwLjggMC44IDIuMiAwLjggMyAwbDYuNC01LjZjMC44LTAuOCAyLjItMS45IDMtMi43bDYuNS01LjdjMC44LTAuOCAyLjMtMS45IDMuMi0yLjVsMTQuNi0xMC40YzAuOS0wLjcgMC44LTEuNi0wLjItMi4xbC0xNi41LTguNGMtMS0wLjUtMi43LTEuMy0zLjctMS43bC0xMC45LTQuNnoiLz4KCTxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Im0yMTIuMiAxMDkuMmMwLjMtMS4xIDAuMy0xLjUgMC4zLTEuNSAwLTEuMS0wLjEtMy0wLjMtNGwtMC44LTIuNGMtMC41LTEtMS40LTIuNi0yLTMuNWwtOS41LTE0LjFjLTAuNi0wLjktMS43LTIuNC0yLjQtMy4zbC0xMi4zLTE1LjRjLTAuNy0wLjgtMS40LTEuNi0xLjQtMS41aC0wLjJzLTAuOSAwLjItMiAwLjNsLTE4LjggMy43Yy0xLjEgMC4zLTIuOSAwLjYtNCAwLjhsLTAuMyAwLjFjLTEuMSAwLjItMi45IDAuMS00LTAuM2wtMTUuOC01LjFjLTEuMS0wLjMtMi45LTAuOC0zLjktMS4xIDAgMC0zLjItMC44LTUuOC0wLjctMi42IDAtNS44IDAuNy01LjggMC43LTEuMSAwLjMtMi45IDAuOC0zLjkgMS4xbC0xNS44IDUuMWMtMS4xIDAuMy0yLjkgMC40LTQgMC4zbC0wLjMtMC4xYy0xLjEtMC4yLTIuOS0wLjYtNC0wLjhsLTE5LTMuNWMtMS4xLTAuMy0yLTAuMy0yLTAuM2gtMC4yYy0wLjEgMC0wLjggMC43LTEuNCAxLjVsLTEyLjMgMTUuMmMtMC43IDAuOC0xLjggMi40LTIuNCAzLjNsLTkuNSAxNC4xYy0wLjYgMC45LTEuNSAyLjUtMiAzLjVsLTAuOCAyLjRjLTAuMiAxLjEtMC4zIDMtMC4zIDQuMSAwIDAgMCAwLjMgMC4zIDEuNSAwLjYgMiAyIDMuOSAyIDMuOSAwLjcgMC44IDEuOSAyLjMgMi43IDNsMjcuOSAyOS43YzAuOCAwLjggMSAyLjQgMC42IDMuNGwtNS44IDEzLjhjLTAuNCAxLTAuNSAyLjctMC4xIDMuOGwxLjYgNC4zYzEuMyAzLjYgMy42IDYuOCA2LjcgOS4zbDUuNyA0LjZjMC44IDAuNyAyLjQgMC45IDMuNCAwLjRsMTcuOS04LjVjMS0wLjUgMi41LTEuNSAzLjQtMi4zbDEyLjgtMTEuNmMxLjktMS43IDEuOS00LjYgMC4zLTYuNGwtMjYuOS0xOC4xYy0wLjktMC42LTEuMy0xLjktMC44LTNsMTEuOC0yMi4zYzAuNS0xIDAuNi0yLjYgMC4yLTMuNmwtMS40LTMuM2MtMC40LTEtMS43LTIuMi0yLjctMi42bC0zNC45LTEzYy0xLTAuNC0xLTAuOCAwLjEtMC45bDIyLjQtMi4xYzEuMS0wLjEgMi45IDAuMSA0IDAuM2wxOS45IDUuNmMxLjEgMC4zIDEuOCAxLjQgMS42IDIuNWwtNyAzNy44Yy0wLjIgMS4xLTAuMiAyLjYgMC4xIDMuNXMxLjMgMS42IDIuNCAxLjlsMTMuOCAzYzEuMSAwLjMgMi45IDAuMyA0IDBsMTIuOS0zYzEuMS0wLjMgMi4yLTEuMSAyLjQtMS45IDAuMy0wLjggMC4zLTIuNCAwLjEtMy41bC02LjgtMzcuOWMtMC4yLTEuMSAwLjUtMi4zIDEuNi0yLjVsMTkuOS01LjZjMS4xLTAuMyAyLjktMC40IDQtMC4zbDIyLjQgMi4xYzEuMSAwLjEgMS4yIDAuNSAwLjEgMC45bC0zNC43IDEzLjJjLTEgMC40LTIuMyAxLjUtMi43IDIuNmwtMS40IDMuM2MtMC40IDEtMC40IDIuNyAwLjIgMy42bDExLjkgMjIuM2MwLjUgMSAwLjIgMi4zLTAuOCAzbC0yNi45IDE4LjJjLTEuOCAxLjgtMS42IDQuNyAwLjMgNi40bDEyLjggMTEuNmMwLjggMC44IDIuNCAxLjggMy40IDIuMmwxOCA4LjVjMSAwLjUgMi41IDAuMyAzLjQtMC40bDUuNy00LjZjMy0yLjQgNS4zLTUuNyA2LjYtOS4zbDEuNi00LjNjMC40LTEgMC4zLTIuOC0wLjEtMy44bC01LjgtMTMuOGMtMC40LTEtMC4yLTIuNSAwLjYtMy40bDI3LjktMjkuN2MwLjgtMC44IDEuOS0yLjIgMi43LTMtMC40LTAuMyAxLjEtMi4xIDEuNi00LjF6Ii8+Cgo8L3N2Zz4K"
+  "logo": wallets.Brave.info.logo
 }, {
   "name": "Rainbow",
   "link": "WalletConnectV1",
@@ -1079,6 +1083,23 @@ var allWallets = [{
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a1cb2777-f8f9-49b0-53fd-443d20ee0b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
+  "name": "Rabby",
+  "extension": "Rabby",
+  "link": "WalletConnectV1",
+  "logo": wallets.Rabby.info.logo
+}, {
+  "name": "Backpack",
+  "extension": "Backpack",
+  "logo": wallets.Backpack.info.logo
+}, {
+  "name": "Glow",
+  "extension": "Glow",
+  "logo": wallets.Glow.info.logo
+}, {
+  "name": "Solflare",
+  "extension": "Solflare",
+  "logo": wallets.Solflare.info.logo
+}, {
   "name": "imToken",
   "link": "WalletConnectV1",
   "mobile": {
@@ -1090,20 +1111,6 @@ var allWallets = [{
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1991f85d-43d4-4165-3502-cd6ef8312b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
-}, {
-  "name": "Argent",
-  "link": "WalletConnectV1",
-  "mobile": {
-    "ios": {
-      "native": "argent://app",
-      "universal": "https://www.argent.xyz/app"
-    },
-    "android": {
-      "native": "argent://app",
-      "universal": "https://www.argent.xyz/app"
-    }
-  },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ce5fbfe8-13b5-4f5f-184a-34f6ee7a3d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
   "name": "MEW wallet",
   "link": "WalletConnectV1",
@@ -1271,7 +1278,8 @@ var allWallets = [{
       "native": "ledgerlive:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a7f416de-aa03-4c5e-3280-ab49269aef00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
+  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a7f416de-aa03-4c5e-3280-ab49269aef00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "connectionLink": true
 }, {
   "name": "Authereum",
   "link": "WalletConnectV1",
@@ -1793,10 +1801,6 @@ var allWallets = [{
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/71828267-72d6-4680-e144-265e6dc1e400?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
-  "name": "Rabby",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7e82c795-574b-4e0f-1be7-d0677babed00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
-}, {
   "name": "Stasis",
   "link": "WalletConnectV1",
   "mobile": {
@@ -1970,7 +1974,7 @@ var allWallets = [{
       "universal": "https://wsweb.secuxtech.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/d46a33d6-92a1-4dfd-38d4-779815fb5c00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
+  "logo": "https://explorer-api.walletconnect.com/w3m/v1/getWalletImage/6013a9a1-4a67-45bb-fc24-27c11eb13900?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "BlockBank",
   "link": "WalletConnectV1",
@@ -2057,18 +2061,6 @@ var allWallets = [{
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e46f132d-6e05-4d51-8720-43727446e600?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
-}, {
-  "name": "Autonomy: Digital Art Wallet",
-  "link": "WalletConnectV1",
-  "mobile": {
-    "ios": {
-      "native": "autonomy-wc"
-    },
-    "android": {
-      "native": "autonomy-wc"
-    }
-  },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/672e9061-e0c9-45ec-5d9c-9fd10e83e800?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
   "name": "Mask Network",
   "link": "WalletConnectV1",
@@ -2594,7 +2586,7 @@ var allWallets = [{
   "name": "HyperPay",
   "extension": "HyperPay",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e2b56019-59be-4cdc-e944-12e6cc235c00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
+  "logo": wallets.HyperPay.info.logo
 }, {
   "name": "ATON",
   "link": "WalletConnectV1",
@@ -2635,20 +2627,6 @@ var allWallets = [{
     }
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/82014e92-838b-4e75-e77e-76cdc5539d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
-}, {
-  "name": "Qubic Wallet",
-  "link": "WalletConnectV1",
-  "mobile": {
-    "ios": {
-      "native": "qubic:",
-      "universal": "https://wallet.qubic.app"
-    },
-    "android": {
-      "native": "qubic:",
-      "universal": "https://wallet.qubic.app"
-    }
-  },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2e9ef302-daae-4807-555f-d4986b0b6700?projectId=ec576959c7769a8b4dbbb3da3f12fef4"
 }, {
   "name": "Dentacoin Wallet",
   "link": "WalletConnectV1",
@@ -3108,18 +3086,6 @@ var allWallets = [{
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/65a60845-8fe3-4146-2688-586e4dc68a00?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
-  "name": "Linen",
-  "link": "WalletConnectV1",
-  "mobile": {
-    "ios": {
-      "universal": "https://linen.app/"
-    },
-    "android": {
-      "universal": "https://linen.app/"
-    }
-  },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/91458f54-aabe-44cf-4788-159ccc733600?projectId=a8d876c6f91c3748db621583fad358f1"
-}, {
   "name": "Fundamenta Mobile",
   "link": "WalletConnectV1",
   "mobile": {
@@ -3253,20 +3219,6 @@ var allWallets = [{
   "name": "CypherD Wallet",
   "link": "WalletConnectV1",
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/6dfec0f3-2cbb-4300-b049-d66d28fcf400?projectId=a8d876c6f91c3748db621583fad358f1"
-}, {
-  "name": "Obvious",
-  "link": "WalletConnectV1",
-  "mobile": {
-    "ios": {
-      "native": "obvious://",
-      "universal": "https://wallet.obvious.technology"
-    },
-    "android": {
-      "native": "obvious://",
-      "universal": "https://wallet.obvious.technology"
-    }
-  },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/40945cea-9cd2-4acc-5799-ca7fb31f4700?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
   "name": "Keplr",
   "link": "WalletConnectV1",
@@ -3496,18 +3448,6 @@ var allWallets = [{
   },
   "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/73dc6b30-b644-46e6-020c-5926851df600?projectId=a8d876c6f91c3748db621583fad358f1"
 }, {
-  "name": "DopamineApp",
-  "link": "WalletConnectV1",
-  "mobile": {
-    "ios": {
-      "universal": "https://share.dopamineapp.com"
-    },
-    "android": {
-      "universal": "https://share.dopamineapp.com"
-    }
-  },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7ed8ec36-fb7c-4b43-494b-36e907101f00?projectId=a8d876c6f91c3748db621583fad358f1"
-}, {
   "name": "Bitski",
   "link": "WalletConnectV1",
   "mobile": {
@@ -3576,7 +3516,11 @@ var allWallets = [{
 }, {
   "name": "Wallet (Ethereum)",
   "extension": "WindowEthereum",
-  "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI2LjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA0NDYuNCAzNzYuOCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDQ2LjQgMzc2Ljg7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojODI4NDg3O30KCS5zdDF7ZmlsbDojMzQzNDM0O30KCS5zdDJ7ZmlsbDojOEM4QzhDO30KCS5zdDN7ZmlsbDojM0MzQzNCO30KCS5zdDR7ZmlsbDojMTQxNDE0O30KCS5zdDV7ZmlsbDojMzkzOTM5O30KPC9zdHlsZT4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTM4MS43LDExMC4yaDY0LjdWNDYuNWMwLTI1LjctMjAuOC00Ni41LTQ2LjUtNDYuNUg0Ni41QzIwLjgsMCwwLDIwLjgsMCw0Ni41djY1LjFoMzUuN2wyNi45LTI2LjkKCWMxLjUtMS41LDMuNi0yLjUsNS43LTIuN2wwLDBoMC40aDc4LjZjNS4zLTI1LjUsMzAuMi00Miw1NS43LTM2LjdjMjUuNSw1LjMsNDIsMzAuMiwzNi43LDU1LjdjLTEuNiw3LjUtNC45LDE0LjYtOS44LDIwLjUKCWMtMC45LDEuMS0xLjksMi4yLTMsMy4zYy0xLjEsMS4xLTIuMiwyLjEtMy4zLDNjLTIwLjEsMTYuNi00OS45LDEzLjgtNjYuNS02LjNjLTQuOS01LjktOC4zLTEzLTkuOC0yMC42SDczLjJsLTI2LjksMjYuOAoJYy0xLjUsMS41LTMuNiwyLjUtNS43LDIuN2wwLDBoLTAuNGgtMC4xaC0wLjVIMHY3NGgyOC44bDE4LjItMTguMmMxLjUtMS42LDMuNi0yLjUsNS43LTIuN2wwLDBoMC40aDI5LjkKCWM1LjItMjUuNSwzMC4yLTQxLjksNTUuNy0zNi43czQxLjksMzAuMiwzNi43LDU1LjdzLTMwLjIsNDEuOS01NS43LDM2LjdjLTE4LjUtMy44LTMyLjktMTguMi0zNi43LTM2LjdINTcuN2wtMTguMiwxOC4zCgljLTEuNSwxLjUtMy42LDIuNS01LjcsMi43bDAsMGgtMC40SDB2MzQuMmg1Ni4zYzAuMiwwLDAuMywwLDAuNSwwaDAuMWgwLjRsMCwwYzIuMiwwLjIsNC4yLDEuMiw1LjgsMi44bDI4LDI4aDU3LjcKCWM1LjMtMjUuNSwzMC4yLTQyLDU1LjctMzYuN3M0MiwzMC4yLDM2LjcsNTUuN2MtMS43LDguMS01LjUsMTUuNy0xMSwyMS45Yy0wLjYsMC43LTEuMiwxLjMtMS45LDJzLTEuMywxLjMtMiwxLjkKCWMtMTkuNSwxNy4zLTQ5LjMsMTUuNi02Ni43LTMuOWMtNS41LTYuMi05LjMtMTMuNy0xMS0yMS45SDg3LjFjLTEuMSwwLTIuMS0wLjItMy4xLTAuNWgtMC4xbC0wLjMtMC4xbC0wLjItMC4xbC0wLjItMC4xbC0wLjMtMC4xCgloLTAuMWMtMC45LTAuNS0xLjgtMS4xLTIuNi0xLjhsLTI4LTI4SDB2NTMuNWMwLjEsMjUuNywyMC45LDQ2LjQsNDYuNSw0Ni40aDM1My4zYzI1LjcsMCw0Ni41LTIwLjgsNDYuNS00Ni41di02My42aC02NC43CgljLTQzLjIsMC03OC4yLTM1LTc4LjItNzguMmwwLDBDMzAzLjUsMTQ1LjIsMzM4LjUsMTEwLjIsMzgxLjcsMTEwLjJ6Ii8+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yMjAuOSwyOTguMWMwLTE0LjQtMTEuNi0yNi0yNi0yNnMtMjYsMTEuNi0yNiwyNnMxMS42LDI2LDI2LDI2UzIyMC45LDMxMi40LDIyMC45LDI5OC4xTDIyMC45LDI5OC4xeiIvPgo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMjE5LjYsOTEuNWMwLTE0LjQtMTEuNi0yNi0yNi0yNnMtMjYsMTEuNi0yNiwyNnMxMS42LDI2LDI2LDI2UzIxOS42LDEwNS44LDIxOS42LDkxLjV6Ii8+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0zODIuMiwxMjguOGgtMC41Yy0zMi45LDAtNTkuNiwyNi43LTU5LjYsNTkuNmwwLDBsMCwwYzAsMzIuOSwyNi43LDU5LjYsNTkuNiw1OS42bDAsMGgwLjUKCWMzMi45LDAsNTkuNi0yNi43LDU5LjYtNTkuNmwwLDBDNDQxLjgsMTU1LjQsNDE1LjEsMTI4LjgsMzgyLjIsMTI4Ljh6IE0zOTYuNiwyMTkuNGgtMzFsOC45LTMyLjVjLTcuNy0zLjctMTEtMTIuOS03LjQtMjAuNgoJYzMuNy03LjcsMTIuOS0xMSwyMC42LTcuNGM3LjcsMy43LDExLDEyLjksNy40LDIwLjZjLTEuNSwzLjItNC4xLDUuOC03LjQsNy40TDM5Ni42LDIxOS40eiIvPgo8ZyBpZD0iTGF5ZXJfeDAwMjBfMSI+Cgk8ZyBpZD0iXzE0MjEzOTQzNDI0MDAiPgoJCTxnPgoJCQk8cG9seWdvbiBjbGFzcz0ic3QxIiBwb2ludHM9IjEyOSwxNjYuMiAxMjguNywxNjcuMyAxMjguNywyMDEuNCAxMjksMjAxLjcgMTQ0LjgsMTkyLjQgCQkJIi8+CgkJCTxwb2x5Z29uIGNsYXNzPSJzdDIiIHBvaW50cz0iMTI5LDE2Ni4yIDExMy4yLDE5Mi40IDEyOSwyMDEuNyAxMjksMTg1LjIgCQkJIi8+CgkJCTxwb2x5Z29uIGNsYXNzPSJzdDMiIHBvaW50cz0iMTI5LDIwNC43IDEyOC44LDIwNC45IDEyOC44LDIxNyAxMjksMjE3LjYgMTQ0LjgsMTk1LjQgCQkJIi8+CgkJCTxwb2x5Z29uIGNsYXNzPSJzdDIiIHBvaW50cz0iMTI5LDIxNy42IDEyOSwyMDQuNyAxMTMuMiwxOTUuNCAJCQkiLz4KCQkJPHBvbHlnb24gY2xhc3M9InN0NCIgcG9pbnRzPSIxMjksMjAxLjcgMTQ0LjgsMTkyLjQgMTI5LDE4NS4yIAkJCSIvPgoJCQk8cG9seWdvbiBjbGFzcz0ic3Q1IiBwb2ludHM9IjExMy4yLDE5Mi40IDEyOSwyMDEuNyAxMjksMTg1LjIgCQkJIi8+CgkJPC9nPgoJPC9nPgo8L2c+Cjwvc3ZnPgo="
+  "logo": wallets.WindowEthereum.info.logo
+}, {
+  "name": "Wallet (Solana)",
+  "extension": "WindowSolana",
+  "logo": wallets.WindowSolana.info.logo
 }, {
   "name": "WalletConnect",
   "link": "WalletConnectV1",
@@ -4017,7 +3961,7 @@ var ConnectWalletDialog = (function (props) {
       className: "PaddingLeftS LineHeightXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardText FontWeightMedium"
-    }, "Scan QR code")))), props.wallet.link && props.wallet.link == 'WalletConnectV1' && /*#__PURE__*/React.createElement("div", {
+    }, "Scan QR code")))), props.wallet.link && props.wallet.link == 'WalletConnectV1' && props.wallet.connectionLink && /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomXS TooltipWrapper"
     }, /*#__PURE__*/React.createElement("button", {
       onClick: connectViaCopyLink,
@@ -5341,9 +5285,503 @@ var Connect = function Connect(options) {
   }());
 };
 
-var ChangableAmountContext = /*#__PURE__*/React.createContext();
-
 var ConfigurationContext = /*#__PURE__*/React.createContext();
+
+var ConfigurationProvider = (function (props) {
+  var currencyCode = new Currency({
+    code: props.configuration.currency
+  }).code;
+  useEffect(function () {
+    if (props.configuration.providers != undefined) {
+      Object.entries(props.configuration.providers).forEach(function (entry) {
+        setProviderEndpoints(entry[0], entry[1]);
+      });
+    }
+  }, [props.configuration]);
+  return /*#__PURE__*/React.createElement(ConfigurationContext.Provider, {
+    value: Object.assign({}, props.configuration, {
+      currencyCode: currencyCode
+    })
+  }, props.children);
+});
+
+var NavigateContext = /*#__PURE__*/React.createContext();
+
+var LoadingDialog = (function (props) {
+  var _useContext = useContext(ConfigurationContext),
+      text = _useContext.text;
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    closable: false,
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Payment")),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Card Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    }))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonWrapper"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ButtonPrimary Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    }))), /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter Opacity05 PaddingTopS"
+    }, /*#__PURE__*/React.createElement("strong", null, text)))
+  });
+});
+
+var LoadingStack = (function (props) {
+  var _useContext = useContext(ClosableContext),
+      open = _useContext.open,
+      close = _useContext.close;
+
+  var _useContext2 = useContext(NavigateContext),
+      setNavigator = _useContext2.setNavigator;
+
+  return /*#__PURE__*/React.createElement(ReactDialogStack, {
+    setNavigator: setNavigator,
+    open: open,
+    close: close,
+    start: "Loading",
+    container: props.container,
+    document: props.document,
+    dialogs: {
+      Loading: /*#__PURE__*/React.createElement(LoadingDialog, null)
+    }
+  });
+});
+
+var NavigateProvider = (function (props) {
+  var navigator;
+
+  var setNavigator = function setNavigator(_navigator) {
+    navigator = _navigator;
+  };
+
+  var navigate = function navigate(dialog) {
+    if (navigator) {
+      navigator.navigate(dialog);
+    }
+  };
+
+  var set = function set(dialogs) {
+    if (navigator) {
+      navigator.set(dialogs);
+    }
+  };
+
+  return /*#__PURE__*/React.createElement(NavigateContext.Provider, {
+    value: {
+      navigate: navigate,
+      set: set,
+      setNavigator: setNavigator
+    }
+  }, props.children);
+});
+
+function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var prepareAcceptedPayments = function prepareAcceptedPayments(accept) {
+  var toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
+  var toContract = _typeof(accept.receiver) == 'object' ? accept.receiver : undefined;
+  return _objectSpread$3(_objectSpread$3({}, accept), {}, {
+    toAddress: toAddress,
+    toContract: toContract
+  });
+};
+
+var mergeFromAccounts = function mergeFromAccounts(accept, account) {
+  var from = {};
+  accept.forEach(function (accept) {
+    from[accept.blockchain] = account;
+  });
+  return from;
+};
+
+var routePayments = (function (_ref) {
+  var accept = _ref.accept,
+      account = _ref.account,
+      whitelist = _ref.whitelist,
+      blacklist = _ref.blacklist,
+      fee = _ref.fee;
+  return route({
+    accept: accept.map(prepareAcceptedPayments),
+    from: mergeFromAccounts(accept, account),
+    whitelist: whitelist,
+    blacklist: blacklist,
+    event: 'ifRoutedAndNative',
+    fee: fee
+  });
+});
+
+var Loading = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+    var text, style, error, critical, container, document, unmount;
+    return regenerator.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            text = _ref.text, style = _ref.style, error = _ref.error, critical = _ref.critical, container = _ref.container, document = _ref.document;
+            requireReactVersion();
+            _context.prev = 2;
+            unmount = mount({
+              style: style,
+              container: container,
+              document: ensureDocument(document),
+              closed: closed
+            }, function (unmount) {
+              return function (container) {
+                return /*#__PURE__*/React.createElement(ErrorProvider, {
+                  errorCallback: error,
+                  container: container,
+                  unmount: unmount
+                }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
+                  configuration: {
+                    text: text
+                  }
+                }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
+                  unmount: unmount,
+                  closable: false
+                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(LoadingStack, {
+                  document: document,
+                  container: container
+                }), /*#__PURE__*/React.createElement(PoweredBy, null))))));
+              };
+            });
+            window._depayUnmountLoading = unmount;
+            return _context.abrupt("return", {
+              unmount: unmount
+            });
+
+          case 8:
+            _context.prev = 8;
+            _context.t0 = _context["catch"](2);
+            console.log('critical error', _context.t0);
+
+            if (critical != undefined) {
+              critical(_context.t0);
+            }
+
+          case 12:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[2, 8]]);
+  }));
+
+  return function Loading(_x) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var WalletContext = /*#__PURE__*/React.createContext();
+
+var SignLoginDialog = (function (props) {
+  var _useContext = useContext(ErrorContext),
+      setError = _useContext.setError;
+
+  var _useContext2 = useContext(ConfigurationContext),
+      message = _useContext2.message,
+      endpoint = _useContext2.endpoint;
+
+  var _useContext3 = useContext(ConfigurationContext),
+      recoverSignature = _useContext3.recoverSignature;
+
+  var _useContext4 = useContext(WalletContext),
+      wallet = _useContext4.wallet,
+      account = _useContext4.account;
+
+  if (!wallet) {
+    return null;
+  }
+
+  wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
+  var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
+
+  if (typeof recoverSignature != 'function') {
+    recoverSignature = function recoverSignature(_ref) {
+      var message = _ref.message,
+          signature = _ref.signature;
+      return new Promise(function (resolve, reject) {
+        fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: message,
+            signature: signature
+          })
+        }).then(function (response) {
+          if (response.status == 200) {
+            response.text().then(function (account) {
+              resolve(account);
+            })["catch"](setError);
+          } else {
+            response.text().then(function (text) {
+              setError(text || 'Recovering login signature failed!');
+            });
+          }
+        });
+      });
+    };
+  }
+
+  var login = function login() {
+    var messageToSign;
+
+    if (typeof message == 'function') {
+      messageToSign = message(account);
+    } else {
+      messageToSign = message;
+    }
+
+    wallet.sign(messageToSign).then(function (signature) {
+      recoverSignature({
+        message: messageToSign,
+        signature: signature
+      }).then(function (account) {
+        props.resolve({
+          account: account,
+          wallet: wallet
+        });
+      })["catch"](setError);
+    })["catch"](function (error) {
+      if (error && error.code && error.code == 4001) ; else {
+        setError(error);
+      }
+    });
+  };
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter"
+    }, walletLogo && /*#__PURE__*/React.createElement("div", {
+      className: "GraphicWrapper PaddingTopS PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "Graphic",
+      src: walletLogo
+    })), /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL Text FontSizeL FontWeightBold PaddingTopS"
+    }, "Wallet Login"), /*#__PURE__*/React.createElement("div", {
+      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/React.createElement("p", {
+      className: "FontSizeM PaddingLeftM PaddingRightM PaddingBottomS"
+    }, "Please click \"Log in\" and sign the message with your connected wallet."))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: login
+    }, "Log in"))
+  });
+});
+
+var LoginStack = (function (props) {
+  var _useContext = useContext(ClosableContext),
+      open = _useContext.open,
+      close = _useContext.close;
+
+  return /*#__PURE__*/React.createElement(ReactDialogStack, {
+    open: open,
+    close: close,
+    start: "SignLogin",
+    container: props.container,
+    document: props.document,
+    dialogs: {
+      SignLogin: /*#__PURE__*/React.createElement(SignLoginDialog, {
+        resolve: props.resolve,
+        userClosedDialog: props.userClosedDialog
+      })
+    }
+  });
+});
+
+var WalletProvider = (function (props) {
+  var _useContext = useContext(ConfigurationContext),
+      recover = _useContext.recover,
+      passedWallet = _useContext.wallet;
+
+  var _useContext2 = useContext(ErrorContext);
+      _useContext2.setError;
+
+  var _useState = useState(passedWallet),
+      _useState2 = _slicedToArray(_useState, 2),
+      wallet = _useState2[0],
+      setWallet = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      account = _useState4[0],
+      setAccount = _useState4[1];
+
+  var _useState5 = useState(passedWallet ? 'connected' : undefined),
+      _useState6 = _slicedToArray(_useState5, 2),
+      walletState = _useState6[0],
+      setWalletState = _useState6[1];
+
+  var connected = function connected(_ref) {
+    var account = _ref.account,
+        wallet = _ref.wallet;
+    setAccount(account);
+    setWallet(wallet);
+    setTimeout(function () {
+      setWalletState('connected');
+
+      if (props.connected) {
+        props.connected(account);
+      }
+    }, 200);
+  };
+
+  var disconnect = function disconnect() {
+    setAccount();
+    setWallet();
+    setWalletState();
+  };
+
+  useEffect(function () {
+    _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+      var _account;
+
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!passedWallet) {
+                _context.next = 5;
+                break;
+              }
+
+              _context.next = 3;
+              return passedWallet.account();
+
+            case 3:
+              _account = _context.sent;
+
+              if (_account) {
+                setAccount(_account);
+              } else {
+                setWallet();
+                setWalletState();
+              }
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  }, []);
+
+  if (walletState == 'connected' || recover != undefined) {
+    return /*#__PURE__*/React.createElement(WalletContext.Provider, {
+      value: {
+        account: account,
+        wallet: wallet,
+        disconnect: disconnect
+      }
+    }, props.children);
+  } else {
+    return /*#__PURE__*/React.createElement(ConnectStack, {
+      document: props.document,
+      container: props.container,
+      resolve: connected
+    });
+  }
+});
+
+var Login = function Login(options) {
+  requireReactVersion();
+  var style, error, document, message, endpoint, recover, wallet;
+
+  if (_typeof(options) == 'object') {
+    style = options.style;
+    error = options.error;
+    document = options.document;
+    message = options.message;
+    endpoint = options.endpoint;
+    recover = options.recover;
+    wallet = options.wallet;
+  }
+
+  return new Promise( /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_resolve, reject) {
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              mount({
+                style: style,
+                document: ensureDocument(document)
+              }, function (unmount) {
+                var userClosedDialog = function userClosedDialog() {
+                  reject('USER_CLOSED_DIALOG');
+                  unmount();
+                };
+
+                return function (container) {
+                  return /*#__PURE__*/React.createElement(ErrorProvider, {
+                    errorCallback: error,
+                    container: container,
+                    unmount: unmount
+                  }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
+                    configuration: {
+                      message: message,
+                      endpoint: endpoint || '/login',
+                      recoverSignature: recover,
+                      wallet: wallet
+                    }
+                  }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
+                    unmount: userClosedDialog
+                  }, /*#__PURE__*/React.createElement(WalletProvider, {
+                    container: container,
+                    unmount: unmount
+                  }, /*#__PURE__*/React.createElement(LoginStack, {
+                    document: document,
+                    container: container,
+                    resolve: function resolve(_ref2) {
+                      var account = _ref2.account,
+                          wallet = _ref2.wallet;
+                      unmount();
+
+                      _resolve({
+                        account: account,
+                        wallet: wallet
+                      });
+                    }
+                  }), /*#__PURE__*/React.createElement(PoweredBy, null))))));
+                };
+              });
+
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }());
+};
+
+var ChangableAmountContext = /*#__PURE__*/React.createContext();
 
 var ConversionRateContext = /*#__PURE__*/React.createContext();
 
@@ -5438,8 +5876,6 @@ var round = (function (input) {
     return parseFloat(inputAsFloat.toFixed(3));
   }
 });
-
-var WalletContext = /*#__PURE__*/React.createContext();
 
 /**
  * @license
@@ -22730,7 +23166,7 @@ var ChangableAmountProvider = (function (props) {
             if (Blockchains[configuration.blockchain].stables.usd[0] == configuration.token) {
               return 1.00 / fixedCurrencyConversionRate * fixedAmount;
             } else {
-              return route({
+              return route$1({
                 blockchain: configuration.blockchain,
                 tokenIn: Blockchains[configuration.blockchain].stables.usd[0],
                 amountIn: 1.00 / fixedCurrencyConversionRate * fixedAmount,
@@ -22743,7 +23179,7 @@ var ChangableAmountProvider = (function (props) {
             if (Blockchains[configuration.blockchain].stables.usd[0] == configuration.token) {
               return 1.00 / conversionRate * amount;
             } else {
-              return route({
+              return route$1({
                 blockchain: configuration.blockchain,
                 tokenIn: Blockchains[configuration.blockchain].stables.usd[0],
                 amountIn: 1.00 / conversionRate * amount,
@@ -22816,7 +23252,7 @@ var ChangableAmountProvider = (function (props) {
     if (amountsMissing && maxRoute) {
       maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
         if (configuredAmount && configuredAmount.token) {
-          route({
+          route$1({
             blockchain: maxRoute.blockchain,
             tokenIn: maxRoute.fromToken.address,
             tokenOut: maxRoute.toToken.address,
@@ -22848,7 +23284,7 @@ var ChangableAmountProvider = (function (props) {
 
           setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount - 1) : _maxAmount - 1);
         } else {
-          route({
+          route$1({
             blockchain: maxRoute.blockchain,
             tokenIn: maxRoute.fromToken.address,
             tokenOut: Blockchains[maxRoute.blockchain].stables.usd[0],
@@ -22887,24 +23323,6 @@ var ChangableAmountProvider = (function (props) {
       setMaxRoute: setMaxRoute,
       maxAmount: maxAmount
     }
-  }, props.children);
-});
-
-var ConfigurationProvider = (function (props) {
-  var currencyCode = new Currency({
-    code: props.configuration.currency
-  }).code;
-  useEffect(function () {
-    if (props.configuration.providers != undefined) {
-      Object.entries(props.configuration.providers).forEach(function (entry) {
-        setProviderEndpoints(entry[0], entry[1]);
-      });
-    }
-  }, [props.configuration]);
-  return /*#__PURE__*/React.createElement(ConfigurationContext.Provider, {
-    value: Object.assign({}, props.configuration, {
-      currencyCode: currencyCode
-    })
   }, props.children);
 });
 
@@ -22951,9 +23369,333 @@ var ConversionRateProvider = (function (props) {
   }, props.children);
 });
 
-var DonationRoutingContext = /*#__PURE__*/React.createContext();
+var SUPPORTED_CURRENCIES = ["all", "xcd", "eur", "bbd", "btn", "bnd", "xaf", "cup", "usd", "fkp", "gip", "huf", "irr", "jmd", "aud", "lak", "lyd", "mkd", "xof", "nzd", "omr", "pgk", "rwf", "wst", "rsd", "sek", "tzs", "amd", "bsd", "bam", "cve", "cny", "crc", "czk", "ern", "gel", "htg", "inr", "jod", "krw", "lbp", "mwk", "mru", "mzn", "ang", "pen", "qar", "std", "sll", "sos", "sdg", "syp", "aoa", "awg", "bhd", "bzd", "bwp", "bif", "kyd", "cop", "dkk", "gtq", "hnl", "idr", "ils", "kzt", "kwd", "lsl", "myr", "mur", "mnt", "mmk", "ngn", "pab", "php", "ron", "sar", "sgd", "zar", "srd", "twd", "top", "vef", "dzd", "ars", "azn", "bob", "bgn", "cad", "clp", "cdf", "dop", "fjd", "gmd", "gyd", "isk", "iqd", "jpy", "kpw", "chf", "mga", "mdl", "mad", "npr", "nio", "pkr", "pyg", "shp", "scr", "sbd", "lkr", "thb", "try", "aed", "vuv", "yer", "afn", "bdt", "brl", "khr", "kmf", "hrk", "djf", "egp", "etb", "xpf", "ghs", "gnf", "hkd", "xdr", "kes", "kgs", "lrd", "mop", "mvr", "mxn", "nad", "nok", "pln", "rub", "szl", "tjs", "ttd", "ugx", "uyu", "vnd", "tnd", "uah", "uzs", "tmt", "gbp", "zmw", "byn", "bmd", "ggp", "clf", "cuc", "imp", "jep", "svc", "xag", "zwl"];
 
-var NavigateContext = /*#__PURE__*/React.createContext();
+var PaymentAmountRoutingContext = /*#__PURE__*/React.createContext();
+
+var PaymentRoutingContext = /*#__PURE__*/React.createContext();
+
+function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var PaymentRoutingProvider = (function (props) {
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      allRoutes = _useState2[0],
+      setAllRoutes = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      updatedRouteWithNewPrice = _useState4[0],
+      setUpdatedRouteWithNewPrice = _useState4[1];
+
+  var _useState5 = useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      selectedRoute = _useState6[0],
+      setSelectedRoute = _useState6[1];
+
+  var _useState7 = useState(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      slowRouting = _useState8[0],
+      setSlowRouting = _useState8[1];
+
+  var _useState9 = useState(0),
+      _useState10 = _slicedToArray(_useState9, 2),
+      reloadCount = _useState10[0],
+      setReloadCount = _useState10[1];
+
+  var _useContext = useContext(WalletContext),
+      account = _useContext.account;
+
+  var _useContext2 = useContext(UpdatableContext),
+      updatable = _useContext2.updatable;
+
+  var _useContext3 = useContext(ConfigurationContext),
+      recover = _useContext3.recover;
+
+  var onRoutesUpdate = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(routes) {
+      return regenerator.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              if (routes.length == 0) {
+                setAllRoutes([]);
+
+                if (props.setMaxRoute) {
+                  props.setMaxRoute(null);
+                }
+              } else {
+                roundAmounts(routes).then( /*#__PURE__*/function () {
+                  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(roundedRoutes) {
+                    var selectRoute, updatedSelectedRoute;
+                    return regenerator.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            if (typeof selectedRoute == 'undefined') {
+                              selectRoute = roundedRoutes[0];
+                              setSelectedRoute(selectRoute);
+                            } else {
+                              updatedSelectedRoute = roundedRoutes[roundedRoutes.findIndex(function (route) {
+                                return route.fromToken.address == selectedRoute.fromToken.address && route.blockchain == selectedRoute.blockchain;
+                              })];
+
+                              if (updatedSelectedRoute) {
+                                if (selectedRoute.fromAmount != updatedSelectedRoute.fromAmount) {
+                                  setUpdatedRouteWithNewPrice(updatedSelectedRoute);
+                                } else if ( // other reasons but price to update selected route
+                                selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired) {
+                                  setSelectedRoute(updatedSelectedRoute);
+                                }
+                              } else {
+                                setSelectedRoute(roundedRoutes[0]);
+                              }
+                            }
+
+                            setAllRoutes(roundedRoutes);
+
+                            if (props.setMaxRoute) {
+                              props.setMaxRoute(findMaxRoute(roundedRoutes));
+                            }
+
+                          case 3:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x2) {
+                    return _ref2.apply(this, arguments);
+                  };
+                }());
+              }
+
+            case 1:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function onRoutesUpdate(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  var getPaymentRoutes = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref3) {
+      var updatable, slowRoutingTimeout;
+      return regenerator.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              updatable = _ref3.updatable;
+
+              if (!(updatable == false || !props.accept || !account)) {
+                _context3.next = 3;
+                break;
+              }
+
+              return _context3.abrupt("return");
+
+            case 3:
+              slowRoutingTimeout = setTimeout(function () {
+                setSlowRouting(true);
+              }, 4000);
+              _context3.next = 6;
+              return routePayments(Object.assign({}, props, {
+                account: account
+              })).then(function (routes) {
+                clearInterval(slowRoutingTimeout);
+                onRoutesUpdate(routes);
+              });
+
+            case 6:
+              return _context3.abrupt("return", _context3.sent);
+
+            case 7:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function getPaymentRoutes(_x3) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+
+  var updateRouteAmount = function updateRouteAmount(route, amountBN) {
+    route.fromAmount = amountBN.toString();
+    route.transaction.params.amounts[0] = amountBN.toString();
+
+    if (route.transaction.value && route.transaction.value.toString() != '0') {
+      route.transaction.value = amountBN.toString();
+    }
+  };
+
+  var roundAmount = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(route, amountBN) {
+      var readableAmount, roundedAmountBN;
+      return regenerator.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              if (!route.directTransfer) {
+                _context4.next = 2;
+                break;
+              }
+
+              return _context4.abrupt("return", route);
+
+            case 2:
+              _context4.next = 4;
+              return route.fromToken.readable(amountBN || route.transaction.params.amounts[0]);
+
+            case 4:
+              readableAmount = _context4.sent;
+              _context4.next = 7;
+              return route.fromToken.BigNumber(round(readableAmount));
+
+            case 7:
+              roundedAmountBN = _context4.sent;
+              updateRouteAmount(route, roundedAmountBN);
+              return _context4.abrupt("return", route);
+
+            case 10:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    return function roundAmount(_x4, _x5) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+
+  var roundAmounts = /*#__PURE__*/function () {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
+      return regenerator.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              return _context5.abrupt("return", Promise.all(routes.map(function (route) {
+                return roundAmount(route);
+              })));
+
+            case 1:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    return function roundAmounts(_x6) {
+      return _ref6.apply(this, arguments);
+    };
+  }();
+
+  var updateRouteWithNewPrice = /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6() {
+      return regenerator.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              setSelectedRoute(_objectSpread$2({}, updatedRouteWithNewPrice));
+              setUpdatedRouteWithNewPrice(null);
+
+            case 2:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
+
+    return function updateRouteWithNewPrice() {
+      return _ref7.apply(this, arguments);
+    };
+  }();
+
+  var refreshPaymentRoutes = function refreshPaymentRoutes() {
+    return getPaymentRoutes({
+      allRoutes: allRoutes,
+      selectedRoute: selectedRoute,
+      updatable: updatable
+    });
+  };
+
+  useEffect(function () {
+    var timeout = setTimeout(function () {
+      setReloadCount(reloadCount + 1);
+      getPaymentRoutes({
+        allRoutes: allRoutes,
+        selectedRoute: selectedRoute,
+        updatable: updatable
+      });
+    }, 15000);
+    return function () {
+      return clearTimeout(timeout);
+    };
+  }, [reloadCount, allRoutes, selectedRoute, updatable]);
+  useEffect(function () {
+    if (account && props.accept && recover == undefined) {
+      getPaymentRoutes({});
+    }
+  }, [account, props.accept]);
+  return /*#__PURE__*/React.createElement(PaymentRoutingContext.Provider, {
+    value: {
+      selectedRoute: selectedRoute,
+      setSelectedRoute: setSelectedRoute,
+      refreshPaymentRoutes: refreshPaymentRoutes,
+      allRoutes: allRoutes,
+      setAllRoutes: setAllRoutes,
+      slowRouting: slowRouting,
+      updatedRouteWithNewPrice: updatedRouteWithNewPrice,
+      updateRouteWithNewPrice: updateRouteWithNewPrice
+    }
+  }, props.children);
+});
+
+var PaymentAmountRoutingProvider = (function (props) {
+  var _useContext = useContext(ChangableAmountContext),
+      amountsMissing = _useContext.amountsMissing,
+      acceptWithAmount = _useContext.acceptWithAmount,
+      setMaxRoute = _useContext.setMaxRoute;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      accept = _useState2[0],
+      setAccept = _useState2[1];
+
+  useEffect(function () {
+    if (amountsMissing) {
+      if (acceptWithAmount) {
+        setAccept(acceptWithAmount);
+      }
+    } else {
+      setAccept(props.accept);
+    }
+  }, [amountsMissing, acceptWithAmount]);
+  return /*#__PURE__*/React.createElement(PaymentAmountRoutingContext.Provider, {
+    value: {}
+  }, /*#__PURE__*/React.createElement(PaymentRoutingProvider, {
+    accept: accept,
+    whitelist: props.whitelist,
+    blacklist: props.blacklist,
+    event: props.event,
+    setMaxRoute: setMaxRoute,
+    fee: props.fee
+  }, props.children));
+});
 
 var NoPaymentMethodFoundDialog = (function () {
   var _useContext = useContext(ClosableContext),
@@ -22987,8 +23729,6 @@ var NoPaymentMethodFoundDialog = (function () {
 });
 
 var PaymentContext = /*#__PURE__*/React.createContext();
-
-var PaymentRoutingContext = /*#__PURE__*/React.createContext();
 
 var PaymentTrackingContext = /*#__PURE__*/React.createContext();
 
@@ -23314,534 +24054,6 @@ var PaymentProvider = (function (props) {
   }
 });
 
-function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-var prepareAcceptedPayments = function prepareAcceptedPayments(accept) {
-  var toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
-  var toContract = _typeof(accept.receiver) == 'object' ? accept.receiver : undefined;
-  return _objectSpread$3(_objectSpread$3({}, accept), {}, {
-    toAddress: toAddress,
-    toContract: toContract
-  });
-};
-
-var mergeFromAccounts = function mergeFromAccounts(accept, account) {
-  var from = {};
-  accept.forEach(function (accept) {
-    from[accept.blockchain] = account;
-  });
-  return from;
-};
-
-var routePayments = (function (_ref) {
-  var accept = _ref.accept,
-      account = _ref.account,
-      whitelist = _ref.whitelist,
-      blacklist = _ref.blacklist,
-      fee = _ref.fee;
-  return route$1({
-    accept: accept.map(prepareAcceptedPayments),
-    from: mergeFromAccounts(accept, account),
-    whitelist: whitelist,
-    blacklist: blacklist,
-    event: 'ifRoutedAndNative',
-    fee: fee
-  });
-});
-
-function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var PaymentRoutingProvider = (function (props) {
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      allRoutes = _useState2[0],
-      setAllRoutes = _useState2[1];
-
-  var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      updatedRouteWithNewPrice = _useState4[0],
-      setUpdatedRouteWithNewPrice = _useState4[1];
-
-  var _useState5 = useState(),
-      _useState6 = _slicedToArray(_useState5, 2),
-      selectedRoute = _useState6[0],
-      setSelectedRoute = _useState6[1];
-
-  var _useState7 = useState(false),
-      _useState8 = _slicedToArray(_useState7, 2),
-      slowRouting = _useState8[0],
-      setSlowRouting = _useState8[1];
-
-  var _useState9 = useState(0),
-      _useState10 = _slicedToArray(_useState9, 2),
-      reloadCount = _useState10[0],
-      setReloadCount = _useState10[1];
-
-  var _useContext = useContext(WalletContext),
-      account = _useContext.account;
-
-  var _useContext2 = useContext(UpdatableContext),
-      updatable = _useContext2.updatable;
-
-  var _useContext3 = useContext(ConfigurationContext),
-      recover = _useContext3.recover;
-
-  var onRoutesUpdate = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(routes) {
-      return regenerator.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              if (routes.length == 0) {
-                setAllRoutes([]);
-
-                if (props.setMaxRoute) {
-                  props.setMaxRoute(null);
-                }
-              } else {
-                roundAmounts(routes).then( /*#__PURE__*/function () {
-                  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(roundedRoutes) {
-                    var selectRoute, updatedSelectedRoute;
-                    return regenerator.wrap(function _callee$(_context) {
-                      while (1) {
-                        switch (_context.prev = _context.next) {
-                          case 0:
-                            if (typeof selectedRoute == 'undefined') {
-                              selectRoute = roundedRoutes[0];
-                              setSelectedRoute(selectRoute);
-                            } else {
-                              updatedSelectedRoute = roundedRoutes[roundedRoutes.findIndex(function (route) {
-                                return route.fromToken.address == selectedRoute.fromToken.address && route.blockchain == selectedRoute.blockchain;
-                              })];
-
-                              if (updatedSelectedRoute) {
-                                if (selectedRoute.fromAmount != updatedSelectedRoute.fromAmount) {
-                                  setUpdatedRouteWithNewPrice(updatedSelectedRoute);
-                                } else if ( // other reasons but price to update selected route
-                                selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired) {
-                                  setSelectedRoute(updatedSelectedRoute);
-                                }
-                              } else {
-                                setSelectedRoute(roundedRoutes[0]);
-                              }
-                            }
-
-                            setAllRoutes(roundedRoutes);
-
-                            if (props.setMaxRoute) {
-                              props.setMaxRoute(findMaxRoute(roundedRoutes));
-                            }
-
-                          case 3:
-                          case "end":
-                            return _context.stop();
-                        }
-                      }
-                    }, _callee);
-                  }));
-
-                  return function (_x2) {
-                    return _ref2.apply(this, arguments);
-                  };
-                }());
-              }
-
-            case 1:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    return function onRoutesUpdate(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  var getPaymentRoutes = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref3) {
-      var updatable, slowRoutingTimeout;
-      return regenerator.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              updatable = _ref3.updatable;
-
-              if (!(updatable == false || !props.accept || !account)) {
-                _context3.next = 3;
-                break;
-              }
-
-              return _context3.abrupt("return");
-
-            case 3:
-              slowRoutingTimeout = setTimeout(function () {
-                setSlowRouting(true);
-              }, 4000);
-              _context3.next = 6;
-              return routePayments(Object.assign({}, props, {
-                account: account
-              })).then(function (routes) {
-                clearInterval(slowRoutingTimeout);
-                onRoutesUpdate(routes);
-              });
-
-            case 6:
-              return _context3.abrupt("return", _context3.sent);
-
-            case 7:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3);
-    }));
-
-    return function getPaymentRoutes(_x3) {
-      return _ref4.apply(this, arguments);
-    };
-  }();
-
-  var updateRouteAmount = function updateRouteAmount(route, amountBN) {
-    route.fromAmount = amountBN.toString();
-    route.transaction.params.amounts[0] = amountBN.toString();
-
-    if (route.transaction.value && route.transaction.value.toString() != '0') {
-      route.transaction.value = amountBN.toString();
-    }
-  };
-
-  var roundAmount = /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(route, amountBN) {
-      var readableAmount, roundedAmountBN;
-      return regenerator.wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              if (!route.directTransfer) {
-                _context4.next = 2;
-                break;
-              }
-
-              return _context4.abrupt("return", route);
-
-            case 2:
-              _context4.next = 4;
-              return route.fromToken.readable(amountBN || route.transaction.params.amounts[0]);
-
-            case 4:
-              readableAmount = _context4.sent;
-              _context4.next = 7;
-              return route.fromToken.BigNumber(round(readableAmount));
-
-            case 7:
-              roundedAmountBN = _context4.sent;
-              updateRouteAmount(route, roundedAmountBN);
-              return _context4.abrupt("return", route);
-
-            case 10:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4);
-    }));
-
-    return function roundAmount(_x4, _x5) {
-      return _ref5.apply(this, arguments);
-    };
-  }();
-
-  var roundAmounts = /*#__PURE__*/function () {
-    var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
-      return regenerator.wrap(function _callee5$(_context5) {
-        while (1) {
-          switch (_context5.prev = _context5.next) {
-            case 0:
-              return _context5.abrupt("return", Promise.all(routes.map(function (route) {
-                return roundAmount(route);
-              })));
-
-            case 1:
-            case "end":
-              return _context5.stop();
-          }
-        }
-      }, _callee5);
-    }));
-
-    return function roundAmounts(_x6) {
-      return _ref6.apply(this, arguments);
-    };
-  }();
-
-  var updateRouteWithNewPrice = /*#__PURE__*/function () {
-    var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6() {
-      return regenerator.wrap(function _callee6$(_context6) {
-        while (1) {
-          switch (_context6.prev = _context6.next) {
-            case 0:
-              setSelectedRoute(_objectSpread$2({}, updatedRouteWithNewPrice));
-              setUpdatedRouteWithNewPrice(null);
-
-            case 2:
-            case "end":
-              return _context6.stop();
-          }
-        }
-      }, _callee6);
-    }));
-
-    return function updateRouteWithNewPrice() {
-      return _ref7.apply(this, arguments);
-    };
-  }();
-
-  var refreshPaymentRoutes = function refreshPaymentRoutes() {
-    return getPaymentRoutes({
-      allRoutes: allRoutes,
-      selectedRoute: selectedRoute,
-      updatable: updatable
-    });
-  };
-
-  useEffect(function () {
-    var timeout = setTimeout(function () {
-      setReloadCount(reloadCount + 1);
-      getPaymentRoutes({
-        allRoutes: allRoutes,
-        selectedRoute: selectedRoute,
-        updatable: updatable
-      });
-    }, 15000);
-    return function () {
-      return clearTimeout(timeout);
-    };
-  }, [reloadCount, allRoutes, selectedRoute, updatable]);
-  useEffect(function () {
-    if (account && props.accept && recover == undefined) {
-      getPaymentRoutes({});
-    }
-  }, [account, props.accept]);
-  return /*#__PURE__*/React.createElement(PaymentRoutingContext.Provider, {
-    value: {
-      selectedRoute: selectedRoute,
-      setSelectedRoute: setSelectedRoute,
-      refreshPaymentRoutes: refreshPaymentRoutes,
-      allRoutes: allRoutes,
-      setAllRoutes: setAllRoutes,
-      slowRouting: slowRouting,
-      updatedRouteWithNewPrice: updatedRouteWithNewPrice,
-      updateRouteWithNewPrice: updateRouteWithNewPrice
-    }
-  }, props.children);
-});
-
-var PaymentValueContext = /*#__PURE__*/React.createContext();
-
-var PaymentValueProvider = (function (props) {
-  var _useContext = useContext(ErrorContext),
-      setError = _useContext.setError;
-
-  var _useContext2 = useContext(WalletContext),
-      account = _useContext2.account;
-
-  var _useContext3 = useContext(UpdatableContext),
-      updatable = _useContext3.updatable;
-
-  var _useContext4 = useContext(ConfigurationContext),
-      configuredAmount = _useContext4.amount,
-      currencyCode = _useContext4.currencyCode;
-
-  var _useContext5 = useContext(ChangableAmountContext),
-      amount = _useContext5.amount;
-
-  var _useContext6 = useContext(PaymentContext),
-      payment = _useContext6.payment;
-
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      paymentValue = _useState2[0],
-      setPaymentValue = _useState2[1];
-
-  var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      displayedPaymentValue = _useState4[0],
-      setDisplayedPaymentValue = _useState4[1];
-
-  var _useState5 = useState(),
-      _useState6 = _slicedToArray(_useState5, 2),
-      paymentValueLoss = _useState6[0],
-      setPaymentValueLoss = _useState6[1];
-
-  var _useContext7 = useContext(ConfigurationContext),
-      currency = _useContext7.currency;
-
-  var _useState7 = useState(0),
-      _useState8 = _slicedToArray(_useState7, 2),
-      reloadCount = _useState8[0],
-      setReloadCount = _useState8[1];
-
-  var updatePaymentValue = function updatePaymentValue(_ref) {
-    var updatable = _ref.updatable,
-        payment = _ref.payment;
-
-    if (updatable == false || (payment === null || payment === void 0 ? void 0 : payment.route) == undefined) {
-      return;
-    }
-
-    setPaymentValue(null);
-    setPaymentValueLoss(null);
-    Promise.all([Promise.all(Blockchains[payment.route.blockchain].stables.usd.map(function (stable) {
-      return route({
-        blockchain: payment.route.blockchain,
-        tokenIn: payment.route.fromToken.address,
-        tokenOut: stable,
-        amountIn: payment.route.fromAmount,
-        fromAddress: account,
-        toAddress: account
-      });
-    })), !payment.route.directTransfer ? route({
-      blockchain: payment.route.blockchain,
-      tokenIn: payment.route.toToken.address,
-      tokenOut: payment.route.fromToken.address,
-      amountIn: payment.route.toAmount,
-      fromAddress: account,
-      toAddress: account
-    }) : Promise.resolve([])]).then(function (_ref2) {
-      var _ref3 = _slicedToArray(_ref2, 2),
-          fromTokenUSDExchangeRoutes = _ref3[0],
-          reverseRoutes = _ref3[1];
-
-      var reverseRoute = reverseRoutes[0];
-
-      if (reverseRoute) {
-        var reverseAmountOutBN = ethers.BigNumber.from(reverseRoute.amountOut);
-        var paymentAmountInBN = ethers.BigNumber.from(payment.route.fromAmount);
-        var divPercent = 100 - reverseAmountOutBN.mul(ethers.BigNumber.from('100')).div(paymentAmountInBN).abs().toString();
-
-        if (divPercent >= 10) {
-          setPaymentValueLoss(divPercent);
-        } else {
-          setPaymentValueLoss(null);
-        }
-      }
-
-      var USDValue;
-
-      if (Blockchains[payment.route.blockchain].stables.usd.includes(payment.route.fromToken.address)) {
-        // is stable
-        var decimals = Blockchains[payment.route.blockchain].tokens.find(function (token) {
-          return token.address === payment.route.fromToken.address;
-        }).decimals;
-        USDValue = ethers.utils.formatUnits(payment.route.fromAmount.toString(), decimals);
-      } else {
-        var USDRoutes = fromTokenUSDExchangeRoutes.map(function (routes) {
-          return routes ? routes[0] : undefined;
-        }).filter(Boolean);
-
-        if (USDRoutes.length == 0) {
-          setPaymentValue('');
-          return;
-        } else {
-          var amounts = USDRoutes.map(function (route) {
-            var decimals = Blockchains[payment.route.blockchain].tokens.find(function (token) {
-              return token.address === route.tokenOut;
-            }).decimals;
-            return parseFloat(ethers.utils.formatUnits(route.amountOut, decimals));
-          }); // remove outliers
-
-          var average = amounts.reduce(function (a, b) {
-            return a + b;
-          }) / amounts.length;
-          var diff = 0.1; // 10%
-
-          amounts = amounts.filter(function (amount) {
-            return amount < average + average * diff && amount > average - average * diff;
-          });
-          USDValue = amounts.reduce(function (a, b) {
-            return a + b;
-          }) / amounts.length;
-        }
-      }
-
-      Currency.fromUSD({
-        amount: USDValue,
-        code: currency
-      }).then(setPaymentValue);
-    })["catch"](setError);
-  };
-
-  useEffect(function () {
-    if (paymentValue && amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
-      setDisplayedPaymentValue(paymentValue.toString());
-    } else if (amount && (configuredAmount == undefined || (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true)) {
-      setDisplayedPaymentValue(new Currency({
-        amount: amount.toFixed(2),
-        code: currencyCode
-      }).toString());
-    } else if (paymentValue && paymentValue.toString().length && (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true) {
-      setDisplayedPaymentValue(paymentValue.toString());
-    } else if (payment) {
-      setDisplayedPaymentValue("".concat(payment.symbol, " ").concat(payment.amount));
-    }
-  }, [paymentValue, payment, amount, configuredAmount]);
-  useEffect(function () {
-    if (account && payment) {
-      updatePaymentValue({
-        updatable: updatable,
-        payment: payment
-      });
-    }
-  }, [payment, account]);
-  useEffect(function () {
-    var timeout = setTimeout(function () {
-      setReloadCount(reloadCount + 1);
-      updatePaymentValue({
-        updatable: updatable
-      });
-    }, 15000);
-    return function () {
-      return clearTimeout(timeout);
-    };
-  }, [reloadCount, updatable]);
-  return /*#__PURE__*/React.createElement(PaymentValueContext.Provider, {
-    value: {
-      paymentValue: paymentValue,
-      paymentValueLoss: paymentValueLoss,
-      displayedPaymentValue: displayedPaymentValue
-    }
-  }, props.children);
-});
-
-var DonationRoutingProvider = (function (props) {
-  var _useContext = useContext(ChangableAmountContext),
-      acceptWithAmount = _useContext.acceptWithAmount,
-      setMaxRoute = _useContext.setMaxRoute;
-
-  var _useContext2 = useContext(ConfigurationContext),
-      blacklist = _useContext2.blacklist,
-      whitelist = _useContext2.whitelist,
-      fee = _useContext2.fee;
-
-  return /*#__PURE__*/React.createElement(DonationRoutingContext.Provider, {
-    value: {}
-  }, /*#__PURE__*/React.createElement(PaymentRoutingProvider, {
-    accept: acceptWithAmount,
-    whitelist: whitelist,
-    blacklist: blacklist,
-    setMaxRoute: setMaxRoute,
-    fee: fee
-  }, /*#__PURE__*/React.createElement(PaymentProvider, {
-    container: props.container,
-    document: props.document
-  }, /*#__PURE__*/React.createElement(PaymentValueProvider, null, props.children))));
-});
-
 var format = (function (input) {
   var _float = round(input);
 
@@ -23854,6 +24066,8 @@ var format = (function (input) {
     return new Intl.NumberFormat().format(_float);
   }
 });
+
+var PaymentValueContext = /*#__PURE__*/React.createContext();
 
 var ChangeAmountDialog = (function (props) {
   var _useContext = useContext(NavigateStackContext),
@@ -24124,6 +24338,51 @@ var ChangePaymentDialog = (function (props) {
   });
 });
 
+var PaymentFailedDialog = (function () {
+  var _useContext = useContext(ClosableContext),
+      close = _useContext.close;
+
+  var _useContext2 = useContext(PaymentContext),
+      transaction = _useContext2.transaction;
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    stacked: false,
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "GraphicWrapper"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "Graphic",
+      src: ErrorGraphic
+    })), /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+    }, "Payment Failed"), /*#__PURE__*/React.createElement("div", {
+      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/React.createElement("strong", {
+      className: "FontSizeM"
+    }, "Unfortunately executing your payment failed, but you can try again."), transaction && /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS"
+    }, /*#__PURE__*/React.createElement("a", {
+      className: "Link",
+      title: "Check your transaction on a block explorer",
+      href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }, "View on explorer")))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: function onClick() {
+        return close();
+      }
+    }, "Try again"))
+  });
+});
+
 var ChevronRight = (function () {
   return /*#__PURE__*/React.createElement("svg", {
     className: "ChevronRight Icon",
@@ -24136,39 +24395,6 @@ var ChevronRight = (function () {
     fillRule: "evenodd",
     d: "M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
   }));
-});
-
-var DonationOverviewSkeleton = (function (props) {
-  var _useContext = useContext(ConfigurationContext),
-      title = _useContext.title;
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, title || 'Donation')),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "Card Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "Card Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    }))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonWrapper"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "ButtonPrimary Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    }))))
-  });
 });
 
 var Checkmark = (function (props) {
@@ -24523,26 +24749,103 @@ var Footer = (function () {
   }, /*#__PURE__*/React.createElement("strong", null, "Payment would lose ", paymentValueLoss, "% of its value!"))), approvalButton(), additionalPaymentInformation(), mainAction());
 });
 
-var DonationOverviewDialog = (function (props) {
-  var _useContext = useContext(ConfigurationContext);
-      _useContext.currencyCode;
-      var title = _useContext.title;
+var PaymentOverviewSkeleton = (function (props) {
+  var _useContext = useContext(ChangableAmountContext),
+      amountsMissing = _useContext.amountsMissing,
+      fixedAmount = _useContext.fixedAmount;
 
-  var _useContext2 = useContext(ChangableAmountContext);
-      _useContext2.amount;
+  var _useContext2 = useContext(PaymentRoutingContext),
+      slowRouting = _useContext2.slowRouting,
+      selectedRoute = _useContext2.selectedRoute;
 
-  var _useContext3 = useContext(PaymentContext),
-      payment = _useContext3.payment,
-      paymentState = _useContext3.paymentState;
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Payment")),
+    alternativeHeaderAction: props.alternativeHeaderAction,
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
+    }, amountsMissing && !fixedAmount && /*#__PURE__*/React.createElement("div", {
+      className: "Card Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "Card Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    }))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: ["PaddingTopXS PaddingRightM PaddingLeftM", selectedRoute == undefined && slowRouting ? 'PaddingBottomS' : 'PaddingBottomM'].join(' ')
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonWrapper"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ButtonPrimary Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    }))), selectedRoute == undefined && slowRouting && /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter Opacity05 PaddingTopS"
+    }, /*#__PURE__*/React.createElement("strong", null, "Loading payment options...")))
+  });
+});
 
-  var _useContext4 = useContext(PaymentValueContext),
-      displayedPaymentValue = _useContext4.displayedPaymentValue;
+var PaymentOverviewDialog = (function (props) {
+  var _useContext = useContext(ConfigurationContext),
+      currencyCode = _useContext.currencyCode,
+      recover = _useContext.recover,
+      amountConfiguration = _useContext.amount,
+      currency = _useContext.currency;
 
-  var _useContext5 = useContext(NavigateStackContext),
-      navigate = _useContext5.navigate;
+  var _useContext2 = useContext(PaymentContext),
+      payment = _useContext2.payment,
+      paymentState = _useContext2.paymentState;
 
-  if (payment == undefined) {
-    return /*#__PURE__*/React.createElement(DonationOverviewSkeleton, null);
+  var _useContext3 = useContext(ChangableAmountContext),
+      amount = _useContext3.amount,
+      amountsMissing = _useContext3.amountsMissing,
+      fixedAmount = _useContext3.fixedAmount,
+      fixedCurrency = _useContext3.fixedCurrency;
+
+  var _useContext4 = useContext(WalletContext),
+      disconnect = _useContext4.disconnect;
+
+  var _useContext5 = useContext(PaymentValueContext),
+      paymentValue = _useContext5.paymentValue,
+      displayedPaymentValue = _useContext5.displayedPaymentValue;
+
+  var _useContext6 = useContext(NavigateStackContext),
+      navigate = _useContext6.navigate;
+
+  var _useState = useState(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      showDropDown = _useState2[0],
+      setShowDropDown = _useState2[1];
+
+  var displayedCurrencyCode = amountConfiguration != undefined && amountConfiguration.token ? null : currencyCode;
+  var alternativeHeaderActionElement = /*#__PURE__*/React.createElement("span", {
+    className: "DropDownWrapper"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: function onClick() {
+      return setShowDropDown(!showDropDown);
+    },
+    className: "ButtonCircular",
+    title: "Disconnect connected wallet"
+  }, /*#__PURE__*/React.createElement(MenuIcon, null)), showDropDown && /*#__PURE__*/React.createElement(DropDown, {
+    hide: function hide() {
+      return setShowDropDown(false);
+    },
+    items: [{
+      label: "Disconnect wallet",
+      action: disconnect
+    }]
+  }));
+
+  if (payment == undefined || recover == undefined && paymentValue == undefined) {
+    return /*#__PURE__*/React.createElement(PaymentOverviewSkeleton, {
+      alternativeHeaderAction: alternativeHeaderActionElement
+    });
   }
 
   var blockchain = Blockchains.findByName(payment.blockchain);
@@ -24551,10 +24854,11 @@ var DonationOverviewDialog = (function (props) {
       className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL FontSizeL"
-    }, title || 'Donation')),
+    }, "Payment")),
+    alternativeHeaderAction: alternativeHeaderActionElement,
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftM PaddingRightM PaddingBottomXS"
-    }, /*#__PURE__*/React.createElement("div", {
+    }, amountsMissing && !fixedAmount && /*#__PURE__*/React.createElement("div", {
       className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
       title: paymentState == 'initialized' ? "Change amount" : undefined,
       onClick: function onClick() {
@@ -24572,9 +24876,14 @@ var DonationOverviewDialog = (function (props) {
       className: "CardTitle"
     }, "Amount"), /*#__PURE__*/React.createElement("h2", {
       className: "CardText"
-    }, /*#__PURE__*/React.createElement("div", {
+    }, displayedCurrencyCode && /*#__PURE__*/React.createElement("div", {
       className: "TokenAmountRow"
-    }, displayedPaymentValue)))), /*#__PURE__*/React.createElement("div", {
+    }, new Currency({
+      amount: amount.toFixed(2),
+      code: currencyCode
+    }).toString()), !displayedCurrencyCode && /*#__PURE__*/React.createElement("div", {
+      className: "TokenAmountRow"
+    }, amount)))), /*#__PURE__*/React.createElement("div", {
       className: "CardAction"
     }, /*#__PURE__*/React.createElement(ChevronRight, null))), /*#__PURE__*/React.createElement("div", {
       className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
@@ -24590,7 +24899,7 @@ var DonationOverviewDialog = (function (props) {
       className: "CardImage",
       title: payment.name
     }, /*#__PURE__*/React.createElement(TokenImage, {
-      blockchain: payment.route.blockchain,
+      blockchain: payment.blockchain,
       address: payment.token
     }), /*#__PURE__*/React.createElement("img", {
       className: "BlockchainLogo small",
@@ -24601,7 +24910,7 @@ var DonationOverviewDialog = (function (props) {
       className: "CardBody"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardBodyWrapper"
-    }, /*#__PURE__*/React.createElement("h4", {
+    }, amountsMissing && !fixedCurrency && /*#__PURE__*/React.createElement("h4", {
       className: "CardTitle"
     }, "Payment"), /*#__PURE__*/React.createElement("h2", {
       className: "CardText"
@@ -24611,7 +24920,11 @@ var DonationOverviewDialog = (function (props) {
       className: "TokenSymbolCell"
     }, payment.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
       className: "TokenAmountCell"
-    }, format(payment.amount)))))), /*#__PURE__*/React.createElement("div", {
+    }, format(payment.amount))), displayedPaymentValue != "".concat(payment.symbol, " ").concat(format(payment.amount)) && !(amountsMissing && !fixedCurrency) && currency !== false && /*#__PURE__*/React.createElement("div", {
+      className: "TokenAmountRow small grey"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "TokenAmountCell"
+    }, displayedPaymentValue))))), /*#__PURE__*/React.createElement("div", {
       className: "CardAction"
     }, /*#__PURE__*/React.createElement(ChevronRight, null)))),
     footer: /*#__PURE__*/React.createElement("div", {
@@ -24620,12 +24933,16 @@ var DonationOverviewDialog = (function (props) {
   });
 });
 
-var PaymentFailedDialog = (function () {
-  var _useContext = useContext(ClosableContext),
-      close = _useContext.close;
+var PreTrackingFailedDialog = (function () {
+  var _useContext = useContext(PaymentContext);
+      _useContext.transaction;
 
-  var _useContext2 = useContext(PaymentContext),
-      transaction = _useContext2.transaction;
+  var _useContext2 = useContext(NavigateStackContext),
+      navigate = _useContext2.navigate;
+
+  var tryAgain = function tryAgain() {
+    navigate('back');
+  };
 
   return /*#__PURE__*/React.createElement(Dialog$1, {
     stacked: false,
@@ -24641,26 +24958,63 @@ var PaymentFailedDialog = (function () {
       src: ErrorGraphic
     })), /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-    }, "Payment Failed"), /*#__PURE__*/React.createElement("div", {
+    }, "Tracking payment failed"), /*#__PURE__*/React.createElement("div", {
       className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
     }, /*#__PURE__*/React.createElement("strong", {
       className: "FontSizeM"
-    }, "Unfortunately executing your payment failed, but you can try again."), transaction && /*#__PURE__*/React.createElement("div", {
+    }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS"
-    }, /*#__PURE__*/React.createElement("a", {
-      className: "Link",
-      title: "Check your transaction on a block explorer",
-      href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-      target: "_blank",
-      rel: "noopener noreferrer"
-    }, "View on explorer")))),
+    }, /*#__PURE__*/React.createElement("span", null, "If this keeps happening, please report it.")))),
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
     }, /*#__PURE__*/React.createElement("button", {
       className: "ButtonPrimary",
-      onClick: function onClick() {
-        return close();
-      }
+      onClick: tryAgain
+    }, "Try again"))
+  });
+});
+
+var TrackingFailedDialog = (function () {
+  var _useContext = useContext(PaymentTrackingContext),
+      continueTryTracking = _useContext.continueTryTracking;
+
+  var _useContext2 = useContext(PaymentContext);
+      _useContext2.transaction;
+
+  var _useContext3 = useContext(NavigateStackContext),
+      navigate = _useContext3.navigate;
+
+  var tryAgain = function tryAgain() {
+    continueTryTracking();
+    navigate('back');
+  };
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    stacked: false,
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "GraphicWrapper"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "Graphic",
+      src: ErrorGraphic
+    })), /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+    }, "Tracking payment failed"), /*#__PURE__*/React.createElement("div", {
+      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/React.createElement("strong", {
+      className: "FontSizeM"
+    }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS"
+    }, /*#__PURE__*/React.createElement("span", null, "If this keeps happening, please report it.")))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: tryAgain
     }, "Try again"))
   });
 });
@@ -24718,7 +25072,7 @@ var WrongNetworkDialog = (function (props) {
   });
 });
 
-var DonationStack = (function (props) {
+var PaymentStack = (function (props) {
   var _useContext = useContext(ClosableContext),
       open = _useContext.open,
       close = _useContext.close;
@@ -24730,45 +25084,19 @@ var DonationStack = (function (props) {
     setNavigator: setNavigator,
     open: open,
     close: close,
-    start: "DonationOverview",
+    start: "PaymentOverview",
     container: props.container,
     document: props.document,
     dialogs: {
-      DonationOverview: /*#__PURE__*/React.createElement(DonationOverviewDialog, null),
+      PaymentOverview: /*#__PURE__*/React.createElement(PaymentOverviewDialog, null),
       ChangeAmount: /*#__PURE__*/React.createElement(ChangeAmountDialog, null),
       ChangePayment: /*#__PURE__*/React.createElement(ChangePaymentDialog, null),
       PaymentFailed: /*#__PURE__*/React.createElement(PaymentFailedDialog, null),
-      WrongNetwork: /*#__PURE__*/React.createElement(WrongNetworkDialog, null)
+      WrongNetwork: /*#__PURE__*/React.createElement(WrongNetworkDialog, null),
+      TrackingFailed: /*#__PURE__*/React.createElement(TrackingFailedDialog, null),
+      PreTrackingFailed: /*#__PURE__*/React.createElement(PreTrackingFailedDialog, null)
     }
   });
-});
-
-var NavigateProvider = (function (props) {
-  var navigator;
-
-  var setNavigator = function setNavigator(_navigator) {
-    navigator = _navigator;
-  };
-
-  var navigate = function navigate(dialog) {
-    if (navigator) {
-      navigator.navigate(dialog);
-    }
-  };
-
-  var set = function set(dialogs) {
-    if (navigator) {
-      navigator.set(dialogs);
-    }
-  };
-
-  return /*#__PURE__*/React.createElement(NavigateContext.Provider, {
-    value: {
-      navigate: navigate,
-      set: set,
-      setNavigator: setNavigator
-    }
-  }, props.children);
 });
 
 var PaymentTrackingProvider = (function (props) {
@@ -25221,6 +25549,181 @@ var PaymentTrackingProvider = (function (props) {
   }, props.children);
 });
 
+var PaymentValueProvider = (function (props) {
+  var _useContext = useContext(ErrorContext),
+      setError = _useContext.setError;
+
+  var _useContext2 = useContext(WalletContext),
+      account = _useContext2.account;
+
+  var _useContext3 = useContext(UpdatableContext),
+      updatable = _useContext3.updatable;
+
+  var _useContext4 = useContext(ConfigurationContext),
+      configuredAmount = _useContext4.amount,
+      currencyCode = _useContext4.currencyCode;
+
+  var _useContext5 = useContext(ChangableAmountContext),
+      amount = _useContext5.amount;
+
+  var _useContext6 = useContext(PaymentContext),
+      payment = _useContext6.payment;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      paymentValue = _useState2[0],
+      setPaymentValue = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      displayedPaymentValue = _useState4[0],
+      setDisplayedPaymentValue = _useState4[1];
+
+  var _useState5 = useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      paymentValueLoss = _useState6[0],
+      setPaymentValueLoss = _useState6[1];
+
+  var _useContext7 = useContext(ConfigurationContext),
+      currency = _useContext7.currency;
+
+  var _useState7 = useState(0),
+      _useState8 = _slicedToArray(_useState7, 2),
+      reloadCount = _useState8[0],
+      setReloadCount = _useState8[1];
+
+  var updatePaymentValue = function updatePaymentValue(_ref) {
+    var updatable = _ref.updatable,
+        payment = _ref.payment;
+
+    if (updatable == false || (payment === null || payment === void 0 ? void 0 : payment.route) == undefined) {
+      return;
+    }
+
+    setPaymentValue(null);
+    setPaymentValueLoss(null);
+    Promise.all([Promise.all(Blockchains[payment.route.blockchain].stables.usd.map(function (stable) {
+      return route$1({
+        blockchain: payment.route.blockchain,
+        tokenIn: payment.route.fromToken.address,
+        tokenOut: stable,
+        amountIn: payment.route.fromAmount,
+        fromAddress: account,
+        toAddress: account
+      });
+    })), !payment.route.directTransfer ? route$1({
+      blockchain: payment.route.blockchain,
+      tokenIn: payment.route.toToken.address,
+      tokenOut: payment.route.fromToken.address,
+      amountIn: payment.route.toAmount,
+      fromAddress: account,
+      toAddress: account
+    }) : Promise.resolve([])]).then(function (_ref2) {
+      var _ref3 = _slicedToArray(_ref2, 2),
+          fromTokenUSDExchangeRoutes = _ref3[0],
+          reverseRoutes = _ref3[1];
+
+      var reverseRoute = reverseRoutes[0];
+
+      if (reverseRoute) {
+        var reverseAmountOutBN = ethers.BigNumber.from(reverseRoute.amountOut);
+        var paymentAmountInBN = ethers.BigNumber.from(payment.route.fromAmount);
+        var divPercent = 100 - reverseAmountOutBN.mul(ethers.BigNumber.from('100')).div(paymentAmountInBN).abs().toString();
+
+        if (divPercent >= 10) {
+          setPaymentValueLoss(divPercent);
+        } else {
+          setPaymentValueLoss(null);
+        }
+      }
+
+      var USDValue;
+
+      if (Blockchains[payment.route.blockchain].stables.usd.includes(payment.route.fromToken.address)) {
+        // is stable
+        var decimals = Blockchains[payment.route.blockchain].tokens.find(function (token) {
+          return token.address === payment.route.fromToken.address;
+        }).decimals;
+        USDValue = ethers.utils.formatUnits(payment.route.fromAmount.toString(), decimals);
+      } else {
+        var USDRoutes = fromTokenUSDExchangeRoutes.map(function (routes) {
+          return routes ? routes[0] : undefined;
+        }).filter(Boolean);
+
+        if (USDRoutes.length == 0) {
+          setPaymentValue('');
+          return;
+        } else {
+          var amounts = USDRoutes.map(function (route) {
+            var decimals = Blockchains[payment.route.blockchain].tokens.find(function (token) {
+              return token.address === route.tokenOut;
+            }).decimals;
+            return parseFloat(ethers.utils.formatUnits(route.amountOut, decimals));
+          }); // remove outliers
+
+          var average = amounts.reduce(function (a, b) {
+            return a + b;
+          }) / amounts.length;
+          var diff = 0.1; // 10%
+
+          amounts = amounts.filter(function (amount) {
+            return amount < average + average * diff && amount > average - average * diff;
+          });
+          USDValue = amounts.reduce(function (a, b) {
+            return a + b;
+          }) / amounts.length;
+        }
+      }
+
+      Currency.fromUSD({
+        amount: USDValue,
+        code: currency
+      }).then(setPaymentValue);
+    })["catch"](setError);
+  };
+
+  useEffect(function () {
+    if (paymentValue && amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
+      setDisplayedPaymentValue(paymentValue.toString());
+    } else if (amount && (configuredAmount == undefined || (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true)) {
+      setDisplayedPaymentValue(new Currency({
+        amount: amount.toFixed(2),
+        code: currencyCode
+      }).toString());
+    } else if (paymentValue && paymentValue.toString().length && (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true) {
+      setDisplayedPaymentValue(paymentValue.toString());
+    } else if (payment) {
+      setDisplayedPaymentValue("".concat(payment.symbol, " ").concat(payment.amount));
+    }
+  }, [paymentValue, payment, amount, configuredAmount]);
+  useEffect(function () {
+    if (account && payment) {
+      updatePaymentValue({
+        updatable: updatable,
+        payment: payment
+      });
+    }
+  }, [payment, account]);
+  useEffect(function () {
+    var timeout = setTimeout(function () {
+      setReloadCount(reloadCount + 1);
+      updatePaymentValue({
+        updatable: updatable
+      });
+    }, 15000);
+    return function () {
+      return clearTimeout(timeout);
+    };
+  }, [reloadCount, updatable]);
+  return /*#__PURE__*/React.createElement(PaymentValueContext.Provider, {
+    value: {
+      paymentValue: paymentValue,
+      paymentValueLoss: paymentValueLoss,
+      displayedPaymentValue: displayedPaymentValue
+    }
+  }, props.children);
+});
+
 var TransactionTrackingProvider = (function (props) {
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -25375,888 +25878,6 @@ var TransactionTrackingProvider = (function (props) {
       foundTransaction: foundTransaction
     }
   }, props.children);
-});
-
-var WalletProvider = (function (props) {
-  var _useContext = useContext(ConfigurationContext),
-      recover = _useContext.recover,
-      passedWallet = _useContext.wallet;
-
-  var _useContext2 = useContext(ErrorContext);
-      _useContext2.setError;
-
-  var _useState = useState(passedWallet),
-      _useState2 = _slicedToArray(_useState, 2),
-      wallet = _useState2[0],
-      setWallet = _useState2[1];
-
-  var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      account = _useState4[0],
-      setAccount = _useState4[1];
-
-  var _useState5 = useState(passedWallet ? 'connected' : undefined),
-      _useState6 = _slicedToArray(_useState5, 2),
-      walletState = _useState6[0],
-      setWalletState = _useState6[1];
-
-  var connected = function connected(_ref) {
-    var account = _ref.account,
-        wallet = _ref.wallet;
-    setAccount(account);
-    setWallet(wallet);
-    setTimeout(function () {
-      setWalletState('connected');
-
-      if (props.connected) {
-        props.connected(account);
-      }
-    }, 200);
-  };
-
-  var disconnect = function disconnect() {
-    setAccount();
-    setWallet();
-    setWalletState();
-  };
-
-  useEffect(function () {
-    _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-      var _account;
-
-      return regenerator.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              if (!passedWallet) {
-                _context.next = 5;
-                break;
-              }
-
-              _context.next = 3;
-              return passedWallet.account();
-
-            case 3:
-              _account = _context.sent;
-
-              if (_account) {
-                setAccount(_account);
-              } else {
-                setWallet();
-                setWalletState();
-              }
-
-            case 5:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }))();
-  }, []);
-
-  if (walletState == 'connected' || recover != undefined) {
-    return /*#__PURE__*/React.createElement(WalletContext.Provider, {
-      value: {
-        account: account,
-        wallet: wallet,
-        disconnect: disconnect
-      }
-    }, props.children);
-  } else {
-    return /*#__PURE__*/React.createElement(ConnectStack, {
-      document: props.document,
-      container: props.container,
-      resolve: connected
-    });
-  }
-});
-
-var preflight$2 = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-    var accept;
-    return regenerator.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            accept = _ref.accept;
-
-            if (!(!(accept instanceof Array) || accept.length == 0)) {
-              _context.next = 3;
-              break;
-            }
-
-            throw 'You need to set the tokens you accept as donation!';
-
-          case 3:
-            accept.forEach(function (configuration) {
-              if (typeof configuration.blockchain === 'undefined') {
-                throw 'You need to set the blockchain you want to receive the donation on!';
-              }
-
-              if (!['ethereum', 'bsc', 'polygon'].includes(configuration.blockchain)) {
-                throw 'You need to set a supported blockchain!';
-              }
-
-              if (typeof configuration.token === 'undefined') {
-                throw 'You need to set the token you want to receive as donation!';
-              }
-
-              if (typeof configuration.receiver === 'undefined') {
-                throw 'You need to set the receiver address that you want to receive the donation!';
-              }
-            });
-
-          case 4:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function preflight(_x) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-var Donation = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, accept, event, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, closable, integration, link, container, title, wallet, document, unmount;
-    return regenerator.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            amount = _ref3.amount, accept = _ref3.accept, event = _ref3.event, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, title = _ref3.title, wallet = _ref3.wallet, document = _ref3.document;
-            requireReactVersion();
-            _context2.prev = 2;
-            _context2.next = 5;
-            return preflight$2({
-              accept: accept
-            });
-
-          case 5:
-            unmount = mount({
-              style: style,
-              container: container,
-              document: ensureDocument(document),
-              closed: closed
-            }, function (unmount) {
-              return function (container) {
-                return /*#__PURE__*/React.createElement(ErrorProvider, {
-                  errorCallback: error,
-                  container: container,
-                  unmount: unmount
-                }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
-                  configuration: {
-                    type: 'donation',
-                    amount: amount,
-                    accept: accept,
-                    currency: currency,
-                    event: event,
-                    track: track,
-                    fee: fee,
-                    sent: sent,
-                    succeeded: succeeded,
-                    validated: validated,
-                    failed: failed,
-                    blacklist: blacklist,
-                    whitelist: whitelist,
-                    providers: providers,
-                    integration: integration,
-                    link: link,
-                    title: title,
-                    wallet: wallet
-                  }
-                }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
-                  unmount: unmount,
-                  closable: closable
-                }, /*#__PURE__*/React.createElement(WalletProvider, {
-                  container: container,
-                  connected: connected,
-                  unmount: unmount
-                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(ConversionRateProvider, null, /*#__PURE__*/React.createElement(ChangableAmountProvider, {
-                  accept: accept
-                }, /*#__PURE__*/React.createElement(TransactionTrackingProvider, null, /*#__PURE__*/React.createElement(PaymentTrackingProvider, {
-                  document: ensureDocument(document)
-                }, /*#__PURE__*/React.createElement(DonationRoutingProvider, {
-                  container: container,
-                  document: document
-                }, /*#__PURE__*/React.createElement(DonationStack, {
-                  document: document,
-                  container: container
-                }), /*#__PURE__*/React.createElement(PoweredBy, null))))))))))));
-              };
-            });
-            return _context2.abrupt("return", {
-              unmount: unmount
-            });
-
-          case 9:
-            _context2.prev = 9;
-            _context2.t0 = _context2["catch"](2);
-            console.log('critical error', _context2.t0);
-
-            if (critical != undefined) {
-              critical(_context2.t0);
-            }
-
-          case 13:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2, null, [[2, 9]]);
-  }));
-
-  return function Donation(_x2) {
-    return _ref4.apply(this, arguments);
-  };
-}();
-
-var LoadingDialog = (function (props) {
-  var _useContext = useContext(ConfigurationContext),
-      text = _useContext.text;
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    closable: false,
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Payment")),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "Card Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    }))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonWrapper"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "ButtonPrimary Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    }))), /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter Opacity05 PaddingTopS"
-    }, /*#__PURE__*/React.createElement("strong", null, text)))
-  });
-});
-
-var LoadingStack = (function (props) {
-  var _useContext = useContext(ClosableContext),
-      open = _useContext.open,
-      close = _useContext.close;
-
-  var _useContext2 = useContext(NavigateContext),
-      setNavigator = _useContext2.setNavigator;
-
-  return /*#__PURE__*/React.createElement(ReactDialogStack, {
-    setNavigator: setNavigator,
-    open: open,
-    close: close,
-    start: "Loading",
-    container: props.container,
-    document: props.document,
-    dialogs: {
-      Loading: /*#__PURE__*/React.createElement(LoadingDialog, null)
-    }
-  });
-});
-
-var Loading = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-    var text, style, error, critical, container, document, unmount;
-    return regenerator.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            text = _ref.text, style = _ref.style, error = _ref.error, critical = _ref.critical, container = _ref.container, document = _ref.document;
-            requireReactVersion();
-            _context.prev = 2;
-            unmount = mount({
-              style: style,
-              container: container,
-              document: ensureDocument(document),
-              closed: closed
-            }, function (unmount) {
-              return function (container) {
-                return /*#__PURE__*/React.createElement(ErrorProvider, {
-                  errorCallback: error,
-                  container: container,
-                  unmount: unmount
-                }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
-                  configuration: {
-                    text: text
-                  }
-                }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
-                  unmount: unmount,
-                  closable: false
-                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(LoadingStack, {
-                  document: document,
-                  container: container
-                }), /*#__PURE__*/React.createElement(PoweredBy, null))))));
-              };
-            });
-            window._depayUnmountLoading = unmount;
-            return _context.abrupt("return", {
-              unmount: unmount
-            });
-
-          case 8:
-            _context.prev = 8;
-            _context.t0 = _context["catch"](2);
-            console.log('critical error', _context.t0);
-
-            if (critical != undefined) {
-              critical(_context.t0);
-            }
-
-          case 12:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, null, [[2, 8]]);
-  }));
-
-  return function Loading(_x) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-var SignLoginDialog = (function (props) {
-  var _useContext = useContext(ErrorContext),
-      setError = _useContext.setError;
-
-  var _useContext2 = useContext(ConfigurationContext),
-      message = _useContext2.message,
-      endpoint = _useContext2.endpoint;
-
-  var _useContext3 = useContext(ConfigurationContext),
-      recoverSignature = _useContext3.recoverSignature;
-
-  var _useContext4 = useContext(WalletContext),
-      wallet = _useContext4.wallet,
-      account = _useContext4.account;
-
-  if (!wallet) {
-    return null;
-  }
-
-  wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
-  var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
-
-  if (typeof recoverSignature != 'function') {
-    recoverSignature = function recoverSignature(_ref) {
-      var message = _ref.message,
-          signature = _ref.signature;
-      return new Promise(function (resolve, reject) {
-        fetch(endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            message: message,
-            signature: signature
-          })
-        }).then(function (response) {
-          if (response.status == 200) {
-            response.text().then(function (account) {
-              resolve(account);
-            })["catch"](setError);
-          } else {
-            response.text().then(function (text) {
-              setError(text || 'Recovering login signature failed!');
-            });
-          }
-        });
-      });
-    };
-  }
-
-  var login = function login() {
-    var messageToSign;
-
-    if (typeof message == 'function') {
-      messageToSign = message(account);
-    } else {
-      messageToSign = message;
-    }
-
-    wallet.sign(messageToSign).then(function (signature) {
-      recoverSignature({
-        message: messageToSign,
-        signature: signature
-      }).then(function (account) {
-        props.resolve({
-          account: account,
-          wallet: wallet
-        });
-      })["catch"](setError);
-    })["catch"](function (error) {
-      if (error && error.code && error.code == 4001) ; else {
-        setError(error);
-      }
-    });
-  };
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter"
-    }, walletLogo && /*#__PURE__*/React.createElement("div", {
-      className: "GraphicWrapper PaddingTopS PaddingBottomS"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "Graphic",
-      src: walletLogo
-    })), /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL Text FontSizeL FontWeightBold PaddingTopS"
-    }, "Wallet Login"), /*#__PURE__*/React.createElement("div", {
-      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/React.createElement("p", {
-      className: "FontSizeM PaddingLeftM PaddingRightM PaddingBottomS"
-    }, "Please click \"Log in\" and sign the message with your connected wallet."))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("button", {
-      className: "ButtonPrimary",
-      onClick: login
-    }, "Log in"))
-  });
-});
-
-var LoginStack = (function (props) {
-  var _useContext = useContext(ClosableContext),
-      open = _useContext.open,
-      close = _useContext.close;
-
-  return /*#__PURE__*/React.createElement(ReactDialogStack, {
-    open: open,
-    close: close,
-    start: "SignLogin",
-    container: props.container,
-    document: props.document,
-    dialogs: {
-      SignLogin: /*#__PURE__*/React.createElement(SignLoginDialog, {
-        resolve: props.resolve,
-        userClosedDialog: props.userClosedDialog
-      })
-    }
-  });
-});
-
-var Login = function Login(options) {
-  requireReactVersion();
-  var style, error, document, message, endpoint, recover, wallet;
-
-  if (_typeof(options) == 'object') {
-    style = options.style;
-    error = options.error;
-    document = options.document;
-    message = options.message;
-    endpoint = options.endpoint;
-    recover = options.recover;
-    wallet = options.wallet;
-  }
-
-  return new Promise( /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_resolve, reject) {
-      return regenerator.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              mount({
-                style: style,
-                document: ensureDocument(document)
-              }, function (unmount) {
-                var userClosedDialog = function userClosedDialog() {
-                  reject('USER_CLOSED_DIALOG');
-                  unmount();
-                };
-
-                return function (container) {
-                  return /*#__PURE__*/React.createElement(ErrorProvider, {
-                    errorCallback: error,
-                    container: container,
-                    unmount: unmount
-                  }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
-                    configuration: {
-                      message: message,
-                      endpoint: endpoint || '/login',
-                      recoverSignature: recover,
-                      wallet: wallet
-                    }
-                  }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
-                    unmount: userClosedDialog
-                  }, /*#__PURE__*/React.createElement(WalletProvider, {
-                    container: container,
-                    unmount: unmount
-                  }, /*#__PURE__*/React.createElement(LoginStack, {
-                    document: document,
-                    container: container,
-                    resolve: function resolve(_ref2) {
-                      var account = _ref2.account,
-                          wallet = _ref2.wallet;
-                      unmount();
-
-                      _resolve({
-                        account: account,
-                        wallet: wallet
-                      });
-                    }
-                  }), /*#__PURE__*/React.createElement(PoweredBy, null))))));
-                };
-              });
-
-            case 1:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function (_x, _x2) {
-      return _ref.apply(this, arguments);
-    };
-  }());
-};
-
-var SUPPORTED_CURRENCIES = ["all", "xcd", "eur", "bbd", "btn", "bnd", "xaf", "cup", "usd", "fkp", "gip", "huf", "irr", "jmd", "aud", "lak", "lyd", "mkd", "xof", "nzd", "omr", "pgk", "rwf", "wst", "rsd", "sek", "tzs", "amd", "bsd", "bam", "cve", "cny", "crc", "czk", "ern", "gel", "htg", "inr", "jod", "krw", "lbp", "mwk", "mru", "mzn", "ang", "pen", "qar", "std", "sll", "sos", "sdg", "syp", "aoa", "awg", "bhd", "bzd", "bwp", "bif", "kyd", "cop", "dkk", "gtq", "hnl", "idr", "ils", "kzt", "kwd", "lsl", "myr", "mur", "mnt", "mmk", "ngn", "pab", "php", "ron", "sar", "sgd", "zar", "srd", "twd", "top", "vef", "dzd", "ars", "azn", "bob", "bgn", "cad", "clp", "cdf", "dop", "fjd", "gmd", "gyd", "isk", "iqd", "jpy", "kpw", "chf", "mga", "mdl", "mad", "npr", "nio", "pkr", "pyg", "shp", "scr", "sbd", "lkr", "thb", "try", "aed", "vuv", "yer", "afn", "bdt", "brl", "khr", "kmf", "hrk", "djf", "egp", "etb", "xpf", "ghs", "gnf", "hkd", "xdr", "kes", "kgs", "lrd", "mop", "mvr", "mxn", "nad", "nok", "pln", "rub", "szl", "tjs", "ttd", "ugx", "uyu", "vnd", "tnd", "uah", "uzs", "tmt", "gbp", "zmw", "byn", "bmd", "ggp", "clf", "cuc", "imp", "jep", "svc", "xag", "zwl"];
-
-var PaymentAmountRoutingContext = /*#__PURE__*/React.createContext();
-
-var PaymentAmountRoutingProvider = (function (props) {
-  var _useContext = useContext(ChangableAmountContext),
-      amountsMissing = _useContext.amountsMissing,
-      acceptWithAmount = _useContext.acceptWithAmount,
-      setMaxRoute = _useContext.setMaxRoute;
-
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      accept = _useState2[0],
-      setAccept = _useState2[1];
-
-  useEffect(function () {
-    if (amountsMissing) {
-      if (acceptWithAmount) {
-        setAccept(acceptWithAmount);
-      }
-    } else {
-      setAccept(props.accept);
-    }
-  }, [amountsMissing, acceptWithAmount]);
-  return /*#__PURE__*/React.createElement(PaymentAmountRoutingContext.Provider, {
-    value: {}
-  }, /*#__PURE__*/React.createElement(PaymentRoutingProvider, {
-    accept: accept,
-    whitelist: props.whitelist,
-    blacklist: props.blacklist,
-    event: props.event,
-    setMaxRoute: setMaxRoute,
-    fee: props.fee
-  }, props.children));
-});
-
-var PaymentOverviewSkeleton = (function (props) {
-  var _useContext = useContext(ChangableAmountContext),
-      amountsMissing = _useContext.amountsMissing,
-      fixedAmount = _useContext.fixedAmount;
-
-  var _useContext2 = useContext(PaymentRoutingContext),
-      slowRouting = _useContext2.slowRouting,
-      selectedRoute = _useContext2.selectedRoute;
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Payment")),
-    alternativeHeaderAction: props.alternativeHeaderAction,
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
-    }, amountsMissing && !fixedAmount && /*#__PURE__*/React.createElement("div", {
-      className: "Card Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "Card Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    }))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: ["PaddingTopXS PaddingRightM PaddingLeftM", selectedRoute == undefined && slowRouting ? 'PaddingBottomS' : 'PaddingBottomM'].join(' ')
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonWrapper"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "ButtonPrimary Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    }))), selectedRoute == undefined && slowRouting && /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter Opacity05 PaddingTopS"
-    }, /*#__PURE__*/React.createElement("strong", null, "Loading payment options...")))
-  });
-});
-
-var PaymentOverviewDialog = (function (props) {
-  var _useContext = useContext(ConfigurationContext),
-      currencyCode = _useContext.currencyCode,
-      recover = _useContext.recover,
-      amountConfiguration = _useContext.amount,
-      currency = _useContext.currency;
-
-  var _useContext2 = useContext(PaymentContext),
-      payment = _useContext2.payment,
-      paymentState = _useContext2.paymentState;
-
-  var _useContext3 = useContext(ChangableAmountContext),
-      amount = _useContext3.amount,
-      amountsMissing = _useContext3.amountsMissing,
-      fixedAmount = _useContext3.fixedAmount,
-      fixedCurrency = _useContext3.fixedCurrency;
-
-  var _useContext4 = useContext(WalletContext),
-      disconnect = _useContext4.disconnect;
-
-  var _useContext5 = useContext(PaymentValueContext),
-      paymentValue = _useContext5.paymentValue,
-      displayedPaymentValue = _useContext5.displayedPaymentValue;
-
-  var _useContext6 = useContext(NavigateStackContext),
-      navigate = _useContext6.navigate;
-
-  var _useState = useState(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      showDropDown = _useState2[0],
-      setShowDropDown = _useState2[1];
-
-  var displayedCurrencyCode = amountConfiguration != undefined && amountConfiguration.token ? null : currencyCode;
-  var alternativeHeaderActionElement = /*#__PURE__*/React.createElement("span", {
-    className: "DropDownWrapper"
-  }, /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    onClick: function onClick() {
-      return setShowDropDown(!showDropDown);
-    },
-    className: "ButtonCircular",
-    title: "Disconnect connected wallet"
-  }, /*#__PURE__*/React.createElement(MenuIcon, null)), showDropDown && /*#__PURE__*/React.createElement(DropDown, {
-    hide: function hide() {
-      return setShowDropDown(false);
-    },
-    items: [{
-      label: "Disconnect wallet",
-      action: disconnect
-    }]
-  }));
-
-  if (payment == undefined || recover == undefined && paymentValue == undefined) {
-    return /*#__PURE__*/React.createElement(PaymentOverviewSkeleton, {
-      alternativeHeaderAction: alternativeHeaderActionElement
-    });
-  }
-
-  var blockchain = Blockchains.findByName(payment.blockchain);
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Payment")),
-    alternativeHeaderAction: alternativeHeaderActionElement,
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
-    }, amountsMissing && !fixedAmount && /*#__PURE__*/React.createElement("div", {
-      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
-      title: paymentState == 'initialized' ? "Change amount" : undefined,
-      onClick: function onClick() {
-        if (paymentState != 'initialized') {
-          return;
-        }
-
-        navigate('ChangeAmount');
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardBody"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardBodyWrapper"
-    }, /*#__PURE__*/React.createElement("h4", {
-      className: "CardTitle"
-    }, "Amount"), /*#__PURE__*/React.createElement("h2", {
-      className: "CardText"
-    }, displayedCurrencyCode && /*#__PURE__*/React.createElement("div", {
-      className: "TokenAmountRow"
-    }, new Currency({
-      amount: amount.toFixed(2),
-      code: currencyCode
-    }).toString()), !displayedCurrencyCode && /*#__PURE__*/React.createElement("div", {
-      className: "TokenAmountRow"
-    }, amount)))), /*#__PURE__*/React.createElement("div", {
-      className: "CardAction"
-    }, /*#__PURE__*/React.createElement(ChevronRight, null))), /*#__PURE__*/React.createElement("div", {
-      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
-      title: paymentState == 'initialized' ? "Change payment" : undefined,
-      onClick: function onClick() {
-        if (paymentState != 'initialized') {
-          return;
-        }
-
-        navigate('ChangePayment');
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardImage",
-      title: payment.name
-    }, /*#__PURE__*/React.createElement(TokenImage, {
-      blockchain: payment.blockchain,
-      address: payment.token
-    }), /*#__PURE__*/React.createElement("img", {
-      className: "BlockchainLogo small",
-      src: blockchain.logo,
-      alt: blockchain.label,
-      title: blockchain.label
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "CardBody"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardBodyWrapper"
-    }, amountsMissing && !fixedCurrency && /*#__PURE__*/React.createElement("h4", {
-      className: "CardTitle"
-    }, "Payment"), /*#__PURE__*/React.createElement("h2", {
-      className: "CardText"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "TokenAmountRow"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "TokenSymbolCell"
-    }, payment.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
-      className: "TokenAmountCell"
-    }, format(payment.amount))), displayedPaymentValue != "".concat(payment.symbol, " ").concat(format(payment.amount)) && !(amountsMissing && !fixedCurrency) && currency !== false && /*#__PURE__*/React.createElement("div", {
-      className: "TokenAmountRow small grey"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "TokenAmountCell"
-    }, displayedPaymentValue))))), /*#__PURE__*/React.createElement("div", {
-      className: "CardAction"
-    }, /*#__PURE__*/React.createElement(ChevronRight, null)))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement(Footer, null))
-  });
-});
-
-var PreTrackingFailedDialog = (function () {
-  var _useContext = useContext(PaymentContext);
-      _useContext.transaction;
-
-  var _useContext2 = useContext(NavigateStackContext),
-      navigate = _useContext2.navigate;
-
-  var tryAgain = function tryAgain() {
-    navigate('back');
-  };
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    stacked: false,
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
-    }),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "GraphicWrapper"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "Graphic",
-      src: ErrorGraphic
-    })), /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-    }, "Tracking payment failed"), /*#__PURE__*/React.createElement("div", {
-      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/React.createElement("strong", {
-      className: "FontSizeM"
-    }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS"
-    }, /*#__PURE__*/React.createElement("span", null, "If this keeps happening, please report it.")))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("button", {
-      className: "ButtonPrimary",
-      onClick: tryAgain
-    }, "Try again"))
-  });
-});
-
-var TrackingFailedDialog = (function () {
-  var _useContext = useContext(PaymentTrackingContext),
-      continueTryTracking = _useContext.continueTryTracking;
-
-  var _useContext2 = useContext(PaymentContext);
-      _useContext2.transaction;
-
-  var _useContext3 = useContext(NavigateStackContext),
-      navigate = _useContext3.navigate;
-
-  var tryAgain = function tryAgain() {
-    continueTryTracking();
-    navigate('back');
-  };
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    stacked: false,
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
-    }),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "GraphicWrapper"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "Graphic",
-      src: ErrorGraphic
-    })), /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-    }, "Tracking payment failed"), /*#__PURE__*/React.createElement("div", {
-      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/React.createElement("strong", {
-      className: "FontSizeM"
-    }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS"
-    }, /*#__PURE__*/React.createElement("span", null, "If this keeps happening, please report it.")))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("button", {
-      className: "ButtonPrimary",
-      onClick: tryAgain
-    }, "Try again"))
-  });
-});
-
-var PaymentStack = (function (props) {
-  var _useContext = useContext(ClosableContext),
-      open = _useContext.open,
-      close = _useContext.close;
-
-  var _useContext2 = useContext(NavigateContext),
-      setNavigator = _useContext2.setNavigator;
-
-  return /*#__PURE__*/React.createElement(ReactDialogStack, {
-    setNavigator: setNavigator,
-    open: open,
-    close: close,
-    start: "PaymentOverview",
-    container: props.container,
-    document: props.document,
-    dialogs: {
-      PaymentOverview: /*#__PURE__*/React.createElement(PaymentOverviewDialog, null),
-      ChangeAmount: /*#__PURE__*/React.createElement(ChangeAmountDialog, null),
-      ChangePayment: /*#__PURE__*/React.createElement(ChangePaymentDialog, null),
-      PaymentFailed: /*#__PURE__*/React.createElement(PaymentFailedDialog, null),
-      WrongNetwork: /*#__PURE__*/React.createElement(WrongNetworkDialog, null),
-      TrackingFailed: /*#__PURE__*/React.createElement(TrackingFailedDialog, null),
-      PreTrackingFailed: /*#__PURE__*/React.createElement(PreTrackingFailedDialog, null)
-    }
-  });
 });
 
 var preflight$1 = /*#__PURE__*/function () {
@@ -28344,7 +27965,6 @@ var Select = function Select(options) {
 
 var DePayWidgets = {
   Connect: Connect,
-  Donation: Donation,
   Login: Login,
   Payment: Payment,
   Sale: Sale,
