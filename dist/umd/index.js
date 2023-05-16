@@ -23528,11 +23528,6 @@
 
     var updateRouteAmount = function updateRouteAmount(route, amountBN) {
       route.fromAmount = amountBN.toString();
-      route.transaction.params.amounts[0] = amountBN.toString();
-
-      if (route.transaction.value && route.transaction.value.toString() != '0') {
-        route.transaction.value = amountBN.toString();
-      }
     };
 
     var roundAmount = /*#__PURE__*/function () {
@@ -23551,7 +23546,7 @@
 
               case 2:
                 _context4.next = 4;
-                return route.fromToken.readable(amountBN || route.transaction.params.amounts[0]);
+                return route.fromToken.readable(amountBN || route.fromAmount);
 
               case 4:
                 readableAmount = _context4.sent;
