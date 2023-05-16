@@ -25421,7 +25421,7 @@
           nonce: transaction === null || transaction === void 0 ? void 0 : (_transaction$nonce4 = transaction.nonce) === null || _transaction$nonce4 === void 0 ? void 0 : _transaction$nonce4.toString(),
           receiver: paymentRoute.toAddress,
           token: paymentRoute.toToken.address,
-          amount: paymentRoute.fee ? ethers.ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : ethers.ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
+          amount: ethers.ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
           confirmations: 1,
           after_block: afterBlock.toString(),
           uuid: transaction.id,

@@ -205,7 +205,7 @@ export default (props)=>{
         nonce: transaction?.nonce?.toString(),
         receiver: paymentRoute.toAddress,
         token: paymentRoute.toToken.address,
-        amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
+        amount: ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
         confirmations: 1,
         after_block: afterBlock.toString(),
         uuid: transaction.id,
