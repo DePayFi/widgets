@@ -3880,7 +3880,11 @@ var ConnectWalletDialog = (function (props) {
       className: "PaddingLeftL PaddingRightL"
     }, /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL Text FontSizeL FontWeightBold"
-    }, "Connect ", props.wallet.name)), /*#__PURE__*/React.createElement("div", {
+    }, "Connect ", props.wallet.name)), !window.location.protocol.match('https') && /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Alert FontSizeS"
+    }, /*#__PURE__*/React.createElement("strong", null, "Most wallets do not connect to http!"))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS"
     }, /*#__PURE__*/React.createElement("div", {
       ref: QRCodeElement,

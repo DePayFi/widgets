@@ -153,6 +153,14 @@ export default (props)=> {
             <h1 className="LineHeightL Text FontSizeL FontWeightBold">Connect { props.wallet.name }</h1>
           </div>
 
+          { !window.location.protocol.match('https') &&
+            <div className="PaddingTopS PaddingLeftM PaddingRightM">
+              <div className="Alert FontSizeS">
+                <strong>Most wallets do not connect to http!</strong>
+              </div>
+            </div>
+          }
+
           <div className="PaddingTopS">
             <div ref={ QRCodeElement } className="QRCode"/>
             { showQRCode && 

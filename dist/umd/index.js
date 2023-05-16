@@ -3876,7 +3876,11 @@
         className: "PaddingLeftL PaddingRightL"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL Text FontSizeL FontWeightBold"
-      }, "Connect ", props.wallet.name)), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Connect ", props.wallet.name)), !window.location.protocol.match('https') && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Alert FontSizeS"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Most wallets do not connect to http!"))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         ref: QRCodeElement,
