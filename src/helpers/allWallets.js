@@ -22,6 +22,11 @@ export default [
     "logo": wallets.MetaMask.info.logo
   },
   {
+    "name": "Phantom",
+    "extension": "Phantom",
+    "logo": wallets.Phantom.info.logo
+  },
+  {
     "name": "Trust Wallet",
     "extension": "Trust",
     "link": "WalletConnectV1",
@@ -30,11 +35,6 @@ export default [
       "android": { "native": "trust:", "universal": "https://link.trustwallet.com" },
     },
     "logo": wallets.Trust.info.logo
-  },
-  {
-    "name": "Phantom",
-    "extension": "Phantom",
-    "logo": wallets.Phantom.info.logo
   },
   {
     "name": "Binance Wallet",

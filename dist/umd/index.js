@@ -982,6 +982,10 @@
     },
     "logo": web3Wallets.wallets.MetaMask.info.logo
   }, {
+    "name": "Phantom",
+    "extension": "Phantom",
+    "logo": web3Wallets.wallets.Phantom.info.logo
+  }, {
     "name": "Trust Wallet",
     "extension": "Trust",
     "link": "WalletConnectV1",
@@ -996,10 +1000,6 @@
       }
     },
     "logo": web3Wallets.wallets.Trust.info.logo
-  }, {
-    "name": "Phantom",
-    "extension": "Phantom",
-    "logo": web3Wallets.wallets.Phantom.info.logo
   }, {
     "name": "Binance Wallet",
     "extension": "Binance",
@@ -4248,20 +4248,25 @@
         searchTerm = _useState2[0],
         setSearchTerm = _useState2[1];
 
-    var _useState3 = React.useState(),
+    var _useState3 = React.useState([]),
         _useState4 = _slicedToArray(_useState3, 2),
-        prioritizedWallets = _useState4[0],
-        setPrioritizedWallets = _useState4[1];
+        detectedWallets = _useState4[0],
+        setDetectedWallets = _useState4[1];
 
-    var _useState5 = React.useState(false),
+    var _useState5 = React.useState(),
         _useState6 = _slicedToArray(_useState5, 2),
-        showDropDown = _useState6[0],
-        setShowDropDown = _useState6[1];
+        previouslyConnectedWallet = _useState6[0],
+        setPreviouslyConnectedWallet = _useState6[1];
 
     var _useState7 = React.useState(false),
         _useState8 = _slicedToArray(_useState7, 2),
-        dialogAnimationFinished = _useState8[0],
-        setDialogAnimationFinished = _useState8[1];
+        showDropDown = _useState8[0],
+        setShowDropDown = _useState8[1];
+
+    var _useState9 = React.useState(false),
+        _useState10 = _slicedToArray(_useState9, 2),
+        dialogAnimationFinished = _useState10[0],
+        setDialogAnimationFinished = _useState10[1];
 
     var searchElement = React.useRef();
 
@@ -4291,93 +4296,21 @@
     };
 
     React.useEffect(function () {
-      web3Wallets.getWallets().then(function (availableWallets) {
-        var renderedWallets = {}; // prevents rendering same wallet twice (e.g. extension + via walletconnect)
-
-        var renderWalletElement = function renderWalletElement(walletMetaData, index, type, wallet) {
-          if (renderedWallets[walletMetaData.name] && type == 'previouslyConnected') {
-            return null;
-          }
-
-          renderedWallets[walletMetaData.name] = true;
-          var connectionType = 'app';
-
-          if (wallet && wallet.constructor && ![web3Wallets.wallets.WalletConnectV1, web3Wallets.wallets.WalletLink].includes(wallet.constructor)) {
-            connectionType = 'extension';
-          }
-
-          return /*#__PURE__*/React__default['default'].createElement("div", {
-            key: index,
-            className: "PaddingBottomXS"
-          }, /*#__PURE__*/React__default['default'].createElement("button", {
-            type: "button",
-            className: "Card small",
-            title: "Connect ".concat(walletMetaData.name),
-            onClick: function onClick() {
-              return onClickWallet(_objectSpread$4(_objectSpread$4({}, walletMetaData), {}, {
-                via: type,
-                connectionType: connectionType
-              }), wallet);
-            }
-          }, /*#__PURE__*/React__default['default'].createElement("div", {
-            className: "CardImage"
-          }, /*#__PURE__*/React__default['default'].createElement("img", _defineProperty({
-            className: "transparent",
-            src: walletMetaData.logo
-          }, "className", "WalletLogoS"))), /*#__PURE__*/React__default['default'].createElement("div", {
-            className: "CardBody"
-          }, /*#__PURE__*/React__default['default'].createElement("div", {
-            className: "CardBodyWrapper PaddingLeftXS LineHeightXS"
-          }, /*#__PURE__*/React__default['default'].createElement("div", {
-            className: "CardText FontWeightMedium"
-          }, walletMetaData.name), type != 'previouslyConnected' && /*#__PURE__*/React__default['default'].createElement("div", {
-            className: "LightGreen"
-          }, /*#__PURE__*/React__default['default'].createElement("span", {
-            className: "LightGreen",
-            style: {
-              fontSize: '70%',
-              top: '-1px',
-              position: 'relative'
-            }
-          }, "\u25CF"), " Connect detected ", connectionType), type == 'previouslyConnected' && /*#__PURE__*/React__default['default'].createElement("div", {
-            className: "Opacity05"
-          }, /*#__PURE__*/React__default['default'].createElement("span", {
-            style: {
-              fontSize: '70%',
-              top: '-1px',
-              position: 'relative'
-            }
-          }, "\u25CF"), " Previously connected")))));
-        };
-
-        var prioritizedWallets = availableWallets.map(function (availableWallet, index) {
-          if (availableWallet.name == 'Phantom') {
-            return;
-          }
-
-          var walletMetaData = allWallets.find(function (wallet) {
-            return wallet.name == availableWallet.name;
-          });
-
-          if (walletMetaData) {
-            return renderWalletElement(walletMetaData, index, 'detected', availableWallet);
-          }
-        }).filter(function (wallet) {
-          return !!wallet;
-        });
-        var previouslyConnectedWalletName = get();
-        var previouslyConnectedWallet = allWallets.find(function (wallet) {
-          return wallet.name == previouslyConnectedWalletName;
-        }) || allWallets.find(function (wallet) {
-          return wallet.name == previouslyConnectedWalletName;
-        });
-
-        if (previouslyConnectedWallet && previouslyConnectedWallet) {
-          prioritizedWallets.push(renderWalletElement(previouslyConnectedWallet, prioritizedWallets.length + 1, 'previouslyConnected'));
+      web3Wallets.getWallets({
+        drip: function drip(wallet) {
+          setDetectedWallets(Array.from(new Set(detectedWallets.concat(wallet))));
         }
-
-        setPrioritizedWallets(prioritizedWallets);
       });
+      var previouslyConnectedWalletName = get();
+      var previouslyConnectedWallet = allWallets.find(function (wallet) {
+        return wallet.name == previouslyConnectedWalletName;
+      }) || allWallets.find(function (wallet) {
+        return wallet.name == previouslyConnectedWalletName;
+      });
+
+      if (previouslyConnectedWallet) {
+        setPreviouslyConnectedWallet(previouslyConnectedWallet);
+      }
     }, []);
     React.useEffect(function () {
       setTimeout(function () {
@@ -4393,12 +4326,89 @@
     }, []);
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+        className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL"
-      }, "Connect a wallet")), prioritizedWallets && /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingBottomXS PaddingLeftS PaddingRightS PaddingTopS"
-      }, prioritizedWallets), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Connect a wallet")), (detectedWallets && detectedWallets.length > 0 || previouslyConnectedWallet) && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingBottomXS PaddingLeftS PaddingRightS"
+      }, detectedWallets.map(function (wallet, index) {
+        var walletMetaData = allWallets.find(function (walletFromList) {
+          return walletFromList.name === (wallet.info ? wallet.info.name : wallet.name);
+        });
+        var connectionType = 'app';
+
+        if (wallet && wallet.constructor && ![web3Wallets.wallets.WalletConnectV1, web3Wallets.wallets.WalletLink].includes(wallet.constructor)) {
+          connectionType = 'extension';
+        }
+
+        return /*#__PURE__*/React__default['default'].createElement("div", {
+          key: index,
+          className: "PaddingBottomXS"
+        }, /*#__PURE__*/React__default['default'].createElement("button", {
+          type: "button",
+          className: "Card small",
+          title: "Connect ".concat(walletMetaData.name),
+          onClick: function onClick() {
+            onClickWallet(_objectSpread$4(_objectSpread$4({}, walletMetaData), {}, {
+              via: 'detected',
+              connectionType: connectionType
+            }), wallet);
+          }
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "CardImage"
+        }, /*#__PURE__*/React__default['default'].createElement("img", _defineProperty({
+          className: "transparent",
+          src: walletMetaData.logo
+        }, "className", "WalletLogoS"))), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "CardBody"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "CardBodyWrapper PaddingLeftXS LineHeightXS"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "CardText FontWeightMedium"
+        }, walletMetaData.name), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "LightGreen"
+        }, /*#__PURE__*/React__default['default'].createElement("span", {
+          className: "LightGreen",
+          style: {
+            fontSize: '70%',
+            top: '-1px',
+            position: 'relative'
+          }
+        }, "\u25CF"), " Connect detected ", connectionType)))));
+      }), previouslyConnectedWallet && !detectedWallets.find(function (wallet) {
+        return previouslyConnectedWallet.name === (wallet.info ? wallet.info.name : wallet.name);
+      }) && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingBottomXS"
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        className: "Card small",
+        title: "Connect ".concat(previouslyConnectedWallet.name),
+        onClick: function onClick() {
+          onClickWallet(_objectSpread$4(_objectSpread$4({}, previouslyConnectedWallet), {}, {
+            via: 'previouslyConnected',
+            connectionType: 'app'
+          }));
+        }
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React__default['default'].createElement("img", _defineProperty({
+        className: "transparent",
+        src: previouslyConnectedWallet.logo
+      }, "className", "WalletLogoS"))), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardBodyWrapper PaddingLeftXS LineHeightXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardText FontWeightMedium"
+      }, previouslyConnectedWallet.name), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Opacity05"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        style: {
+          fontSize: '70%',
+          top: '-1px',
+          position: 'relative'
+        }
+      }, "\u25CF"), " Previously connected")))))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS PaddingLeftS PaddingRightS PaddingTopXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Row"
