@@ -17,7 +17,7 @@ import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=>{
-  const { currencyCode, recover, amount: amountConfiguration, currency } = useContext(ConfigurationContext)
+  const { currencyCode, recover, amount: amountConfiguration, currency, title } = useContext(ConfigurationContext)
   const { payment, paymentState } = useContext(PaymentContext)
   const { amount, amountsMissing, fixedAmount, fixedCurrency } = useContext(ChangableAmountContext)
   const { disconnect } = useContext(WalletContext)
@@ -46,7 +46,7 @@ export default (props)=>{
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
-          <h1 className="LineHeightL FontSizeL">Payment</h1>
+          <h1 className="LineHeightL FontSizeL">{ title || "Payment" }</h1>
         </div>
       }
       alternativeHeaderAction={ alternativeHeaderActionElement }

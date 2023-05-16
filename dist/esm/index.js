@@ -3881,7 +3881,7 @@ var ConnectWalletDialog = (function (props) {
     }, /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL Text FontSizeL FontWeightBold"
     }, "Connect ", props.wallet.name)), !window.location.protocol.match('https') && /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
+      className: "PaddingTopS PaddingLeftL PaddingRightL"
     }, /*#__PURE__*/React.createElement("div", {
       className: "Alert FontSizeS"
     }, /*#__PURE__*/React.createElement("strong", null, "Most wallets do not connect to http!"))), /*#__PURE__*/React.createElement("div", {
@@ -24819,7 +24819,8 @@ var PaymentOverviewDialog = (function (props) {
       currencyCode = _useContext.currencyCode,
       recover = _useContext.recover,
       amountConfiguration = _useContext.amount,
-      currency = _useContext.currency;
+      currency = _useContext.currency,
+      title = _useContext.title;
 
   var _useContext2 = useContext(PaymentContext),
       payment = _useContext2.payment,
@@ -24878,7 +24879,7 @@ var PaymentOverviewDialog = (function (props) {
       className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL FontSizeL"
-    }, "Payment")),
+    }, title || "Payment")),
     alternativeHeaderAction: alternativeHeaderActionElement,
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftM PaddingRightM PaddingBottomXS"
@@ -25238,7 +25239,7 @@ var PaymentTrackingProvider = (function (props) {
 
       if (validated) {
         setTimeout(function () {
-          return validated(success);
+          return validated(success, item.message);
         }, 200);
       }
 
@@ -25365,7 +25366,7 @@ var PaymentTrackingProvider = (function (props) {
         clearInterval(pollingInterval);
 
         if (validated) {
-          validated(true);
+          validated(true, data);
         }
 
         setRelease(true);
@@ -25958,12 +25959,12 @@ var preflight$1 = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, amount, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, link, container, before, wallet, document, unmount;
+    var accept, amount, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, fee, recover, closable, integration, link, container, before, wallet, title, action, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, before = _ref3.before, wallet = _ref3.wallet, document = _ref3.document;
+            accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, fee = _ref3.fee, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, before = _ref3.before, wallet = _ref3.wallet, title = _ref3.title, action = _ref3.action, document = _ref3.document;
             requireReactVersion();
 
             if (currency && !SUPPORTED_CURRENCIES.includes(currency.toLowerCase())) {
@@ -26013,7 +26014,9 @@ var Payment = /*#__PURE__*/function () {
                     recover: recover,
                     integration: integration,
                     link: link,
-                    wallet: wallet
+                    wallet: wallet,
+                    title: title,
+                    action: action
                   }
                 }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                   unmount: unmount,

@@ -154,7 +154,7 @@ export default (props)=> {
           </div>
 
           { !window.location.protocol.match('https') &&
-            <div className="PaddingTopS PaddingLeftM PaddingRightM">
+            <div className="PaddingTopS PaddingLeftL PaddingRightL">
               <div className="Alert FontSizeS">
                 <strong>Most wallets do not connect to http!</strong>
               </div>

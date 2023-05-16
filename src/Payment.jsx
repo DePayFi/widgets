@@ -56,6 +56,8 @@ let Payment = async ({
   container,
   before,
   wallet,
+  title,
+  action,
   document
 }) => {
   requireReactVersion()
@@ -66,7 +68,7 @@ let Payment = async ({
     let unmount = mount({ style, container, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={ { type: 'payment', before, amount, accept, currency, event, sent, succeeded, validated, failed, whitelist, blacklist, providers, track, fee, recover, integration, link, wallet } }>
+          <ConfigurationProvider configuration={ { type: 'payment', before, amount, accept, currency, event, sent, succeeded, validated, failed, whitelist, blacklist, providers, track, fee, recover, integration, link, wallet, title, action } }>
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount } closable={ closable }>
                 <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>

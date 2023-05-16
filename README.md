@@ -276,6 +276,21 @@ DePayWidgets.Payment.preload({
 });
 ```
 
+#### title
+
+`title`
+
+Allows you to change the title of the widget:
+
+```javascript
+DePayWidgets.Payment({
+
+  title: 'Donation'
+
+  //...
+})
+```
+
 #### track
 
 `track`
@@ -550,8 +565,9 @@ A function that will be called once the payment has been validated by DePay Apis
 ```javascript
 DePayWidgets.Payment({
 
-  validated: (successful)=> {
+  validated: (successful, data)=> {
     // successful (true or false)
+    // data (can contain transaction_id)
   }
 })
 ```
