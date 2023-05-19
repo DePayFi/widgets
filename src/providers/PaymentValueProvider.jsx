@@ -99,14 +99,16 @@ export default (props)=>{
           // remove outliers
           const average = amounts.reduce((a, b)=>a+b)/amounts.length
           const diff = 0.1 // 10%
-          amounts = amounts.filter((amount)=>{
+          const filteredAmounts = amounts.filter((amount)=>{
             return (amount < (average + average*diff) && amount > (average - average*diff))
           })
-          
-          USDValue = amounts.reduce((a, b)=>a+b)/amounts.length
 
+          if(filteredAmounts.length) {
+            USDValue = filteredAmounts.reduce((a, b)=>a+b)/filteredAmounts.length
+          } else {
+            USDValue = amounts.reduce((a, b)=>a+b)/amounts.length
+          }
         }
-
       }
 
       Currency.fromUSD({ amount: USDValue, code: currency })

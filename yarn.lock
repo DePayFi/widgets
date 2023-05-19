@@ -1136,15 +1136,15 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-blockchains/-/web3-blockchains-8.0.2.tgz#4feb56bc4cb41d97e2fb1dd8722c9f0c5a820e94"
   integrity sha512-Gi3wA7eMiU3gj0ATLlnxyRr04FhHOjJhG3+27dZU9ifZDgQYfmKcCqFvYHhtqU7wIqmhOsgSkXreL0PhyX75Ug==
 
-"@depay/web3-client@^10.12.1":
-  version "10.12.1"
-  resolved "https://registry.yarnpkg.com/@depay/web3-client/-/web3-client-10.12.1.tgz#f0af24509c43791222989fd60fd02727773ef29f"
-  integrity sha512-xn1toyCnLpM7Appuh1678UOEWo3UGuenLFJv6VlsKaLRYiyxBfiqWJSIWzxEEipYHG6fqCsM6tQiqQq+GNglxg==
+"@depay/web3-client@^10.13.0":
+  version "10.13.0"
+  resolved "https://registry.yarnpkg.com/@depay/web3-client/-/web3-client-10.13.0.tgz#7115e44ad048ffe7d83e49f641a39cb57bb9bb3f"
+  integrity sha512-c39DmZqtpIe8TAzDNlZIXimp0GCLJlWHuTudAB67PF180NUeGy5RxxV9xYEuuQ2ybh5N9d1b7g+y4mRMEBp8aA==
 
-"@depay/web3-exchanges@^12.2.2":
-  version "12.2.2"
-  resolved "https://registry.yarnpkg.com/@depay/web3-exchanges/-/web3-exchanges-12.2.2.tgz#a7436917b5faccaf129d430033e5cc096d7bac2c"
-  integrity sha512-HRB5mbIRTqR/6kBGDEJ77qm7q/WMvvVrX0AMSxSb+yjQjhQQry4ptNMhvAYw4npKZyz67cPgeneeyK0te1IUCg==
+"@depay/web3-exchanges@^12.2.9":
+  version "12.2.9"
+  resolved "https://registry.yarnpkg.com/@depay/web3-exchanges/-/web3-exchanges-12.2.9.tgz#54073d5b48e501f7e006e10172b42a86b79e5e81"
+  integrity sha512-z7/CJnyq9CAA1fL4YPFWl4e9P7oLahlMAwmM1aIV+BNNPvGsqb+EMxC0fCGFEOR/9JWiQvncbpAfKVVFWByNfg==
 
 "@depay/web3-mock@^14.7.2":
   version "14.7.2"
@@ -1155,10 +1155,10 @@
     "@depay/web3-blockchains" "^8.0.1"
     ethers "^5.7.1"
 
-"@depay/web3-payments@^12.0.1":
-  version "12.0.1"
-  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-12.0.1.tgz#344370fd28fcaf323ad34a227ca53761f4c10316"
-  integrity sha512-fzdB90kQPSIsLsWWR2Bjuli+fJQFhYdqDnxlU+hzoh8iNr2jctQhh+AUN+RZZT4yUEka6zTu81MAFokVAdcvbw==
+"@depay/web3-payments@^12.0.7":
+  version "12.0.7"
+  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-12.0.7.tgz#398597c009f8e9a8c6eff9512699b4bb0450ee88"
+  integrity sha512-2kpKv7LEjK350pDACVsj+oDx80ka5FDXk/kGoS7EC3rO+ftk/6SJJ9sQarJYv0aMwVnwb9tmIjEI2RT8A7Rdkw==
 
 "@depay/web3-tokens@^9.19.4":
   version "9.19.4"

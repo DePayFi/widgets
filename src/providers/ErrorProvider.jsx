@@ -25,6 +25,7 @@ export default (props)=>{
   const [open, setOpen] = useState(true)
 
   let setErrorFromChildren = (error)=>{
+    console.log(error)
     if(error.error){ error = error.error }
     setError(error)
     if(props.errorCallback) { props.errorCallback(error.message || error.toString()) }

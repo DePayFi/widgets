@@ -14,7 +14,7 @@ export default (props)=>{
 
   const { setError } = useContext(ErrorContext)
   const { allRoutes, setSelectedRoute } = useContext(PaymentRoutingContext)
-  const { paymentValue, displayedPaymentValue } = useContext(PaymentValueContext)
+  const { displayedPaymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
   const [ allPaymentRoutesWithData, setAllPaymentRoutesWithData ] = useState([])
   const [ cards, setCards ] = useState([])

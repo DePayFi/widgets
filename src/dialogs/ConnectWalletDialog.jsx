@@ -170,7 +170,7 @@ export default (props)=> {
             }
           </div>
 
-          <div className="PaddingLeftL PaddingRightL PaddingTopL">
+          <div className="PaddingLeftL PaddingRightL PaddingTopS">
             { extensionIsAvailable &&
               <div className="PaddingBottomXS">
                 { props.showConnectExtensionWarning &&
