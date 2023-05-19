@@ -3,8 +3,9 @@ import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
 import NavigateContext from '../contexts/NavigateContext'
-import NoPaymentMethodFoundDialog from '../dialogs/NoPaymentMethodFoundDialog'
+import NoPaymentOptionFoundDialog from '../dialogs/NoPaymentOptionFoundDialog'
 import PaymentContext from '../contexts/PaymentContext'
+import PaymentOptionsDialog from '../dialogs/PaymentOptionsDialog'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useContext, useEffect, useState } from 'react'
@@ -206,11 +207,12 @@ export default (props)=>{
       <ReactDialogStack
         open={ open }
         close={ close }
-        start='NoPaymentMethodFound'
+        start='NoPaymentOptionFound'
         container={ props.container }
         document={ props.document }
         dialogs={{
-          NoPaymentMethodFound: <NoPaymentMethodFoundDialog/>,
+          NoPaymentOptionFound: <NoPaymentOptionFoundDialog/>,
+          PaymentOptions: <PaymentOptionsDialog/>,
         }}
       />
     )
