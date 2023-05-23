@@ -63,8 +63,6 @@ export default ()=> {
 
   } else {
 
-    console.log(paymentOptions)
-
     return(
       <Dialog
         stacked={ true }
@@ -119,7 +117,7 @@ export default ()=> {
         footer={
           <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
             <button type="button" className="ButtonPrimary" onClick={()=>navigate('back')}>
-              <span class="FontSizeM">❮</span> Go back
+              <span className="FontSizeM">❮</span> Go back
             </button>
           </div>
         }
