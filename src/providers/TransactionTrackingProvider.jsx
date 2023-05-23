@@ -3,6 +3,7 @@ import ErrorContext from '../contexts/ErrorContext'
 import getNonce from '../helpers/getNonce'
 import React, { useState, useEffect, useContext } from 'react'
 import TransactionTrackingContext from '../contexts/TransactionTrackingContext'
+import WalletContext from '../contexts/WalletContext'
 import { supported } from '../blockchains'
 
 export default (props)=>{
@@ -12,6 +13,7 @@ export default (props)=>{
   const [ polling, setPolling ] = useState(false)
   const { errorCallback } = useContext(ErrorContext)
   const { recover } = useContext(ConfigurationContext)
+  const { account, wallet } = useContext(WalletContext)
 
   useEffect(()=>{
     if(polling) {
@@ -50,7 +52,7 @@ export default (props)=>{
         after_block: afterBlock.toString(),
         blockchain: transaction.blockchain,
         sender: transaction.from,
-        nonce: await getNonce({ transaction })
+        nonce: await getNonce({ transaction, wallet })
       })
     })
     .then((response)=>{
@@ -75,7 +77,7 @@ export default (props)=>{
         identifier: JSON.stringify({
           blockchain: transaction.blockchain,
           sender: transaction.from,
-          nonce: await getNonce({ transaction }),
+          nonce: await getNonce({ transaction, wallet }),
           channel: 'TransactionChannel'
         }),
       }

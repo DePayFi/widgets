@@ -36,7 +36,7 @@ export default (props)=>{
         identifier: JSON.stringify({
           blockchain: transaction.blockchain,
           sender: transaction.from,
-          nonce: await getNonce({ transaction, account }),
+          nonce: await getNonce({ transaction, account, wallet }),
           channel: 'PaymentChannel'
         }),
       }
@@ -118,7 +118,7 @@ export default (props)=>{
       blockchain: transaction.blockchain,
       transaction: transaction.id,
       sender: transaction.from,
-      nonce: await getNonce({ transaction, account }),
+      nonce: await getNonce({ transaction, account, wallet }),
       after_block: afterBlock.toString(),
       from_token: paymentRoute.fromToken.address,
       from_amount: paymentRoute.fromAmount.toString(),
@@ -150,7 +150,7 @@ export default (props)=>{
       blockchain: transaction.blockchain,
       transaction: transaction.id,
       sender: transaction.from,
-      nonce: await getNonce({ transaction, account }),
+      nonce: await getNonce({ transaction, account, wallet }),
       after_block: afterBlock.toString(),
       to_token: paymentRoute.toToken.address
     }
@@ -202,7 +202,7 @@ export default (props)=>{
         blockchain: transaction.blockchain,
         transaction: transaction.id,
         sender: transaction.from,
-        nonce: await getNonce({ transaction, account }),
+        nonce: await getNonce({ transaction, account, wallet }),
         receiver: paymentRoute.toAddress,
         token: paymentRoute.toToken.address,
         amount: ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
@@ -250,7 +250,7 @@ export default (props)=>{
       let payment = {
         blockchain: paymentRoute.blockchain,
         sender: account,
-        nonce: await getNonce({ blockchain: paymentRoute.blockchain, account }),
+        nonce: await getNonce({ blockchain: paymentRoute.blockchain, account, wallet }),
         after_block: afterBlock.toString(),
         from_token: paymentRoute.fromToken.address,
         from_amount: paymentRoute.fromAmount.toString(),

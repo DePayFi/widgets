@@ -19,7 +19,7 @@ const getPaymentsAccountData = async({ account })=>{
   })
 }
 
-const getNonce = async({ blockchain, transaction, account }) => {
+const getNonce = async({ blockchain, transaction, account, wallet }) => {
 
   if(!blockchain) { blockchain = transaction.blockchain }
 

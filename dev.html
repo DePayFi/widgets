@@ -190,6 +190,47 @@
             </div>
           </div>
         </div>
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Payment: Solana with Fee + Tracking</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Accept payments on solana.</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="paySolanaWithFeeAndTracking">Try it</button>
+                <script>
+                  var button = document.getElementById("paySolanaWithFeeAndTracking");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      accept: [
+                        {
+                          blockchain: 'solana',
+                          amount: 0.01,
+                          token: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
+                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk',
+                          fee: {
+                            amount: "50%",
+                            receiver: "5AcFMJZkXo14r3Hj99iYd1HScPiM4hAcLZf552DfZkxa"
+                          }
+                        },
+                      ],
+                      track: {
+                        method: (payment)=>{
+                          console.log('TRACK', payment)
+                          return axios.post('/track', payment)
+                        }
+                      }
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
         
         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
           <div class="px-0 py-4 rounded-lg bg-white border">

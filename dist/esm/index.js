@@ -9,7 +9,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import ReactDOM from 'react-dom';
 import { ReactShadowDOM } from '@depay/react-shadow-dom';
 import { Currency } from '@depay/local-currency';
-import { setProviderEndpoints, request as request$1 } from '@depay/web3-client';
+import { setProviderEndpoints, request } from '@depay/web3-client';
 import { route } from '@depay/web3-payments';
 import { ethers } from 'ethers';
 import { Decimal } from 'decimal.js';
@@ -24028,7 +24028,7 @@ var PaymentProvider = (function (props) {
               setPaymentState('paying');
               setUpdatable(false);
               _context.next = 19;
-              return request$1({
+              return request({
                 blockchain: transaction.blockchain,
                 method: 'latestBlockNumber'
               });
@@ -25260,24 +25260,25 @@ var PaymentStack = (function (props) {
 });
 
 var getPaymentsAccountAddress = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-    var seeds, _yield$PublicKey$find, _yield$PublicKey$find2, pdaPublicKey;
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+    var account, seeds, _yield$PublicKey$find, _yield$PublicKey$find2, pdaPublicKey;
 
     return regenerator.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            account = _ref.account;
             seeds = [Buffer.from("payments"), new PublicKey(account).toBuffer()];
-            _context.next = 3;
+            _context.next = 4;
             return PublicKey.findProgramAddress(seeds, new PublicKey('DePayRG7ZySPWzeK9Kvq7aPeif7sdbBZNh6DHcvNj7F7'));
 
-          case 3:
+          case 4:
             _yield$PublicKey$find = _context.sent;
             _yield$PublicKey$find2 = _slicedToArray(_yield$PublicKey$find, 1);
             pdaPublicKey = _yield$PublicKey$find2[0];
             return _context.abrupt("return", pdaPublicKey);
 
-          case 7:
+          case 8:
           case "end":
             return _context.stop();
         }
@@ -25285,34 +25286,37 @@ var getPaymentsAccountAddress = /*#__PURE__*/function () {
     }, _callee);
   }));
 
-  return function getPaymentsAccountAddress() {
-    return _ref.apply(this, arguments);
+  return function getPaymentsAccountAddress(_x) {
+    return _ref2.apply(this, arguments);
   };
 }();
 
 var getPaymentsAccountData = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
-    var address;
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
+    var account, address;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.next = 2;
-            return getPaymentsAccountAddress();
+            account = _ref3.account;
+            _context2.next = 3;
+            return getPaymentsAccountAddress({
+              account: account
+            });
 
-          case 2:
+          case 3:
             address = _context2.sent.toString();
-            _context2.next = 5;
+            _context2.next = 6;
             return request({
               blockchain: 'solana',
               address: address,
               api: struct([u64('anchorDiscriminator'), u64('nonce')])
             });
 
-          case 5:
+          case 6:
             return _context2.abrupt("return", _context2.sent);
 
-          case 6:
+          case 7:
           case "end":
             return _context2.stop();
         }
@@ -25320,20 +25324,20 @@ var getPaymentsAccountData = /*#__PURE__*/function () {
     }, _callee2);
   }));
 
-  return function getPaymentsAccountData() {
-    return _ref2.apply(this, arguments);
+  return function getPaymentsAccountData(_x2) {
+    return _ref4.apply(this, arguments);
   };
 }();
 
 var getNonce = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref3) {
-    var blockchain, transaction, _transaction$nonce, paymentsAccountData;
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref5) {
+    var blockchain, transaction, account, wallet, _transaction$nonce, paymentsAccountData;
 
     return regenerator.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            blockchain = _ref3.blockchain, transaction = _ref3.transaction;
+            blockchain = _ref5.blockchain, transaction = _ref5.transaction, account = _ref5.account, wallet = _ref5.wallet;
 
             if (!blockchain) {
               blockchain = transaction.blockchain;
@@ -25377,7 +25381,9 @@ var getNonce = /*#__PURE__*/function () {
             }
 
             _context3.next = 16;
-            return getPaymentsAccountData();
+            return getPaymentsAccountData({
+              account: account
+            });
 
           case 16:
             paymentsAccountData = _context3.sent;
@@ -25400,8 +25406,8 @@ var getNonce = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function getNonce(_x) {
-    return _ref4.apply(this, arguments);
+  return function getNonce(_x3) {
+    return _ref6.apply(this, arguments);
   };
 }();
 
@@ -25418,8 +25424,8 @@ var PaymentTrackingProvider = (function (props) {
       type = _useContext2.type;
 
   var _useContext3 = useContext(WalletContext),
-      account = _useContext3.account;
-      _useContext3.wallet;
+      account = _useContext3.account,
+      wallet = _useContext3.wallet;
 
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -25500,7 +25506,9 @@ var PaymentTrackingProvider = (function (props) {
                 _context.t2 = transaction.from;
                 _context.next = 5;
                 return getNonce({
-                  transaction: transaction
+                  transaction: transaction,
+                  account: account,
+                  wallet: wallet
                 });
 
               case 5:
@@ -25632,7 +25640,9 @@ var PaymentTrackingProvider = (function (props) {
               _context2.t3 = transaction.from;
               _context2.next = 6;
               return getNonce({
-                transaction: transaction
+                transaction: transaction,
+                account: account,
+                wallet: wallet
               });
 
             case 6:
@@ -25700,7 +25710,9 @@ var PaymentTrackingProvider = (function (props) {
               _context3.t2 = transaction.from;
               _context3.next = 7;
               return getNonce({
-                transaction: transaction
+                transaction: transaction,
+                account: account,
+                wallet: wallet
               });
 
             case 7:
@@ -25804,7 +25816,9 @@ var PaymentTrackingProvider = (function (props) {
               _context4.t5 = transaction.from;
               _context4.next = 8;
               return getNonce({
-                transaction: transaction
+                transaction: transaction,
+                account: account,
+                wallet: wallet
               });
 
             case 8:
@@ -25905,7 +25919,9 @@ var PaymentTrackingProvider = (function (props) {
                 _context5.t1 = account;
                 _context5.next = 4;
                 return getNonce({
-                  blockchain: paymentRoute.blockchain
+                  blockchain: paymentRoute.blockchain,
+                  account: account,
+                  wallet: wallet
                 });
 
               case 4:
@@ -26194,6 +26210,10 @@ var TransactionTrackingProvider = (function (props) {
   var _useContext2 = useContext(ConfigurationContext),
       recover = _useContext2.recover;
 
+  var _useContext3 = useContext(WalletContext);
+      _useContext3.account;
+      var wallet = _useContext3.wallet;
+
   useEffect(function () {
     if (polling) {
       var poll = function poll() {
@@ -26246,7 +26266,8 @@ var TransactionTrackingProvider = (function (props) {
               _context.t6 = transaction.from;
               _context.next = 12;
               return getNonce({
-                transaction: transaction
+                transaction: transaction,
+                wallet: wallet
               });
 
             case 12:
@@ -26308,7 +26329,8 @@ var TransactionTrackingProvider = (function (props) {
                 _context2.t2 = transaction.from;
                 _context2.next = 5;
                 return getNonce({
-                  transaction: transaction
+                  transaction: transaction,
+                  wallet: wallet
                 });
 
               case 5:
@@ -27221,7 +27243,7 @@ var EnterNFTDataForOpenSeaDialog = (function (props) {
 
                 _context.prev = 1;
                 _context.next = 4;
-                return request$1({
+                return request({
                   blockchain: blockchain,
                   address: selection.nft.address,
                   method: 'balanceOf',
