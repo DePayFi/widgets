@@ -102,7 +102,7 @@ export default (props)=>{
 
   useEffect(() => {
     if(account && props.accept && recover == undefined) {
-      getPaymentRoutes({})
+      refreshPaymentRoutes()
     }
   }, [account, props.accept])
 
