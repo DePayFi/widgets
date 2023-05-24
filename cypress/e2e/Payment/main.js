@@ -103,7 +103,7 @@ describe('Payment Widget: main functionality', () => {
     }))
   })
   
-  it.only('executes', () => {
+  it('executes', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
