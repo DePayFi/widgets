@@ -1,13 +1,13 @@
-import ClosableContext from '../contexts/ClosableContext'
 import Dialog from '../components/Dialog'
 import QuestionsGraphic from '../graphics/questions'
 import React, { useContext } from 'react'
+import WalletContext from '../contexts/WalletContext'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default ()=> {
 
   const { navigate } = useContext(NavigateStackContext)
-  const { close } = useContext(ClosableContext)
+  const { disconnect } = useContext(WalletContext)
 
   return(
     <Dialog
@@ -28,13 +28,16 @@ export default ()=> {
           </div>
           <div className="PaddingBottomM">
             <button onClick={()=>navigate('PaymentBlockchains')} className="Link FontSizeM" title="Check which blockchains are available">
-              Check available blockchains.
+              Check available blockchains
             </button>
           </div>
         </div>
       }
       footer={
         <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
+          <button className="ButtonPrimary" onClick={ ()=>disconnect() }>
+            Connect another wallet
+          </button>
         </div>
       }
     />

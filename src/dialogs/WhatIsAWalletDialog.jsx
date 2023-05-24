@@ -26,7 +26,7 @@ export default (props)=> {
           </p>
 
           <div className="PaddingTopS">
-            <a className="Link" href="https://ethereum.org/wallets/" target="_blank" rel="noopener noreferrer">
+            <a className="Link FontSizeM" href="https://ethereum.org/wallets/" target="_blank" rel="noopener noreferrer">
               Learn more
             </a>
           </div>
