@@ -59,7 +59,7 @@ export default (props)=>{
     setPaymentState('paying')
     setUpdatable(false)
     let currentBlock = await request({ blockchain: transaction.blockchain, method: 'latestBlockNumber' })
-    await preTrack(currentBlock, payment.route).then(()=>{
+    await preTrack(currentBlock, payment.route, transaction).then(()=>{
       wallet.sendTransaction(Object.assign({}, transaction, {
         sent: (transaction)=>{
           initializeTransactionTracking(transaction, currentBlock)

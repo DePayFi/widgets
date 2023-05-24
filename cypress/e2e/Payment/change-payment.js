@@ -218,6 +218,7 @@ describe('Payment Widget: change payment', () => {
           transaction: mockedTransaction.transaction._id,
           uuid: mockedTransaction.transaction._id,
         },
+        matchPartialBody: true
       }, 201)
 
       fetchMock.get({

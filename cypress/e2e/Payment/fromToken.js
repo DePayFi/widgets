@@ -155,6 +155,7 @@ describe('Payment Widget: fromToken, fromAmount, toToken configuration', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     cy.visit('cypress/test.html').then((contentWindow) => {

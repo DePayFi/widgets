@@ -126,7 +126,8 @@ export default (props)=>{
       to_token: paymentRoute.toToken.address,
       to_amount: paymentRoute.toAmount.toString(),
       to_decimals: paymentRoute.toDecimals,
-      fee_amount: paymentRoute?.feeAmount?.toString()
+      fee_amount: paymentRoute?.feeAmount?.toString(),
+      deadline: transaction.deadline
     })
       .then((response)=>{
         setTrackingInitialized(true)
@@ -218,7 +219,8 @@ export default (props)=>{
           type
         },
         fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : null,
-        fee_receiver: paymentRoute.fee ? paymentRoute.fee.receiver : null
+        fee_receiver: paymentRoute.fee ? paymentRoute.fee.receiver : null,
+        deadline: transaction.deadline
       })
     })
     .then((response)=>{
@@ -244,7 +246,7 @@ export default (props)=>{
     openSocket(transaction)
   }
 
-  const preTrack = (afterBlock, paymentRoute)=>{
+  const preTrack = (afterBlock, paymentRoute, transaction)=>{
     if(!synchronousTracking && !asynchronousTracking) { return Promise.resolve() }
     return new Promise(async(resolve, reject)=>{
       let payment = {
@@ -258,7 +260,8 @@ export default (props)=>{
         to_token: paymentRoute.toToken.address,
         to_amount: paymentRoute.toAmount.toString(),
         to_decimals: paymentRoute.toDecimals,
-        fee_amount: paymentRoute?.feeAmount?.toString()
+        fee_amount: paymentRoute?.feeAmount?.toString(),
+        deadline: transaction.deadline
       }
       if(track.endpoint){
         return fetch(track.endpoint, {

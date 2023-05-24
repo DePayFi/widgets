@@ -213,6 +213,7 @@ describe('Payment Widget: change account', () => {
                   transaction: mockedTransaction.transaction._id,
                   uuid: mockedTransaction.transaction._id,
                 },
+                matchPartialBody: true
               }, 201)
 
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()

@@ -24445,7 +24445,7 @@ var PaymentProvider = (function (props) {
             case 19:
               currentBlock = _context.sent;
               _context.next = 22;
-              return preTrack(currentBlock, payment.route).then(function () {
+              return preTrack(currentBlock, payment.route, transaction).then(function () {
                 wallet.sendTransaction(Object.assign({}, transaction, {
                   sent: function sent(transaction) {
                     initializeTransactionTracking(transaction, currentBlock);
@@ -26081,7 +26081,8 @@ var PaymentTrackingProvider = (function (props) {
               _context2.t10 = paymentRoute.toAmount.toString();
               _context2.t11 = paymentRoute.toDecimals;
               _context2.t12 = paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou === void 0 ? void 0 : _paymentRoute$feeAmou.toString();
-              _context2.t13 = {
+              _context2.t13 = transaction.deadline;
+              _context2.t14 = {
                 blockchain: _context2.t1,
                 transaction: _context2.t2,
                 sender: _context2.t3,
@@ -26093,9 +26094,10 @@ var PaymentTrackingProvider = (function (props) {
                 to_token: _context2.t9,
                 to_amount: _context2.t10,
                 to_decimals: _context2.t11,
-                fee_amount: _context2.t12
+                fee_amount: _context2.t12,
+                deadline: _context2.t13
               };
-              (0, _context2.t0)(_context2.t13).then(function (response) {
+              (0, _context2.t0)(_context2.t14).then(function (response) {
                 setTrackingInitialized(true);
                 console.log('PAYMENT TRACKING INITIALIZED');
               })["catch"](function (error) {
@@ -26103,7 +26105,7 @@ var PaymentTrackingProvider = (function (props) {
                 retryStartTracking(transaction, afterBlock, paymentRoute, attempt);
               });
 
-            case 17:
+            case 18:
             case "end":
               return _context2.stop();
           }
@@ -26264,7 +26266,8 @@ var PaymentTrackingProvider = (function (props) {
               };
               _context4.t13 = paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : null;
               _context4.t14 = paymentRoute.fee ? paymentRoute.fee.receiver : null;
-              _context4.t15 = {
+              _context4.t15 = transaction.deadline;
+              _context4.t16 = {
                 blockchain: _context4.t3,
                 transaction: _context4.t4,
                 sender: _context4.t5,
@@ -26277,15 +26280,16 @@ var PaymentTrackingProvider = (function (props) {
                 uuid: _context4.t11,
                 payload: _context4.t12,
                 fee_amount: _context4.t13,
-                fee_receiver: _context4.t14
+                fee_receiver: _context4.t14,
+                deadline: _context4.t15
               };
-              _context4.t16 = _context4.t2.stringify.call(_context4.t2, _context4.t15);
-              _context4.t17 = {
+              _context4.t17 = _context4.t2.stringify.call(_context4.t2, _context4.t16);
+              _context4.t18 = {
                 headers: _context4.t1,
                 method: 'POST',
-                body: _context4.t16
+                body: _context4.t17
               };
-              (0, _context4.t0)('https://public.depay.com/payments', _context4.t17).then(function (response) {
+              (0, _context4.t0)('https://public.depay.com/payments', _context4.t18).then(function (response) {
                 if (response.status == 200 || response.status == 201) ; else {
                   setTimeout(function () {
                     storePayment(transaction, afterBlock, paymentRoute, attempt + 1);
@@ -26297,7 +26301,7 @@ var PaymentTrackingProvider = (function (props) {
                 }, 3000);
               });
 
-            case 21:
+            case 22:
             case "end":
               return _context4.stop();
           }
@@ -26327,7 +26331,7 @@ var PaymentTrackingProvider = (function (props) {
     openSocket(transaction);
   };
 
-  var preTrack = function preTrack(afterBlock, paymentRoute) {
+  var preTrack = function preTrack(afterBlock, paymentRoute, transaction) {
     if (!synchronousTracking && !asynchronousTracking) {
       return Promise.resolve();
     }
@@ -26360,6 +26364,7 @@ var PaymentTrackingProvider = (function (props) {
                 _context5.t8 = paymentRoute.toAmount.toString();
                 _context5.t9 = paymentRoute.toDecimals;
                 _context5.t10 = paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou2 = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou2 === void 0 ? void 0 : _paymentRoute$feeAmou2.toString();
+                _context5.t11 = transaction.deadline;
                 payment = {
                   blockchain: _context5.t0,
                   sender: _context5.t1,
@@ -26371,11 +26376,12 @@ var PaymentTrackingProvider = (function (props) {
                   to_token: _context5.t7,
                   to_amount: _context5.t8,
                   to_decimals: _context5.t9,
-                  fee_amount: _context5.t10
+                  fee_amount: _context5.t10,
+                  deadline: _context5.t11
                 };
 
                 if (!track.endpoint) {
-                  _context5.next = 18;
+                  _context5.next = 19;
                   break;
                 }
 
@@ -26393,14 +26399,14 @@ var PaymentTrackingProvider = (function (props) {
                   }
                 }));
 
-              case 18:
+              case 19:
                 if (track.method) {
                   track.method(payment).then(resolve)["catch"](reject);
                 } else {
                   reject('No tracking defined!');
                 }
 
-              case 19:
+              case 20:
               case "end":
                 return _context5.stop();
             }
@@ -26496,7 +26502,7 @@ var PaymentValueProvider = (function (props) {
       blockchain: payment.route.blockchain,
       tokenIn: payment.route.toToken.address,
       tokenOut: payment.route.fromToken.address,
-      amountIn: payment.route.toAmount,
+      amountIn: payment.route.feeAmount ? ethers.BigNumber.from(payment.route.toAmount).add(ethers.BigNumber.from(payment.route.feeAmount)) : payment.route.toAmount,
       fromAddress: account,
       toAddress: account
     }) : Promise.resolve([])]).then(function (_ref2) {

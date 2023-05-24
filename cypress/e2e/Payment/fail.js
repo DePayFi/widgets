@@ -142,6 +142,7 @@ describe('Payment Widget: failures', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     let failedCalledWith

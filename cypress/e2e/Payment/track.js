@@ -148,6 +148,7 @@ describe('Payment Widget: track', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     let trackingRequestMock = fetchMock.post({
@@ -268,6 +269,7 @@ describe('Payment Widget: track', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     let trackingRequestMock = fetchMock.post({
@@ -369,6 +371,7 @@ describe('Payment Widget: track', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     let trackingRequestMock = fetchMock.post({
@@ -504,6 +507,7 @@ describe('Payment Widget: track', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     let trackingRequestMock = fetchMock.post({
@@ -639,6 +643,7 @@ describe('Payment Widget: track', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     let trackingRequestMock = fetchMock.post({
@@ -734,6 +739,7 @@ describe('Payment Widget: track', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     let attempt = 0
@@ -837,6 +843,7 @@ describe('Payment Widget: track', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     let trackingRequestMock = fetchMock.post({
@@ -953,6 +960,7 @@ describe('Payment Widget: track', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     let trackingRequestMock = fetchMock.post({
@@ -1063,6 +1071,7 @@ describe('Payment Widget: track', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     let trackingRequestMock = fetchMock.post({
@@ -1167,6 +1176,7 @@ describe('Payment Widget: track', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     let attempt = 0
@@ -1287,6 +1297,7 @@ describe('Payment Widget: track', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     let attempt = 0
@@ -1430,6 +1441,7 @@ describe('Payment Widget: track', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     fetchMock.post({
@@ -1543,6 +1555,7 @@ describe('Payment Widget: track', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     fetchMock.post({
@@ -1669,6 +1682,7 @@ describe('Payment Widget: track', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     fetchMock.post({

@@ -47,7 +47,7 @@ export default (props)=>{
         blockchain: payment.route.blockchain,
         tokenIn: payment.route.toToken.address,
         tokenOut: payment.route.fromToken.address,
-        amountIn: payment.route.toAmount,
+        amountIn: payment.route.feeAmount ? ethers.BigNumber.from(payment.route.toAmount).add(ethers.BigNumber.from(payment.route.feeAmount)) : payment.route.toAmount,
         fromAddress: account,
         toAddress: account
       }) : Promise.resolve([])
