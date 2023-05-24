@@ -9,7 +9,7 @@ import { mock, resetMocks } from '@depay/web3-mock'
 import { getProvider, resetCache } from '@depay/web3-client'
 import { Token } from '@depay/web3-tokens'
 
-describe('Payment Widget: insufficient balance', () => {
+describe('Payment Widget: no payment options found', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
@@ -71,12 +71,14 @@ describe('Payment Widget: insufficient balance', () => {
     }, "0.85")
   })
 
-  it('shows a dialog explaining that no payment route could be found', () => {
+  it('shows a dialog explaining that no payment option could be found and allows to see available payment options', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset with enough value in your wallet. Please top up your account in order to proceed with this payment.')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'No Payment Option Found')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Text', 'Please check if you have connected the correct wallet and top up if necessary.')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('button', 'Check available payment options')
       })
     })
   })
@@ -88,7 +90,7 @@ describe('Payment Widget: insufficient balance', () => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset with enough value in your wallet. Please top up your account in order to proceed with this payment.')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'No Payment Option Found')
         cy.wait(2000).then(()=>{
           USDValueMock_count = USDValueMock.calls.count()
           TOKENRouteMock_count = TOKENRouteMock.calls.count()

@@ -742,8 +742,6 @@ describe('Payment Widget: track', () => {
       body: {
         "blockchain": blockchain,
         "sender": fromAddress,
-        "nonce": "0",
-        "after_block": "1",
         "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
       },
       matchPartialBody: true,

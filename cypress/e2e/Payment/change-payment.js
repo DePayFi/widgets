@@ -196,6 +196,30 @@ describe('Payment Widget: change payment', () => {
         }
       })
 
+      fetchMock.post({
+        url: "https://public.depay.com/payments",
+        body: {
+          after_block: "1",
+          amount: "20.0",
+          blockchain: "ethereum",
+          confirmations: 1,
+          fee_amount: null,
+          fee_receiver: null,
+          nonce: "1",
+          payload: {
+            sender_amount: "0.0101",
+            sender_id: fromAddress,
+            sender_token_id: ETH,
+            type: 'payment'
+          },
+          receiver: toAddress,
+          sender: fromAddress,
+          token: DEPAY,
+          transaction: mockedTransaction.transaction._id,
+          uuid: mockedTransaction.transaction._id,
+        },
+      }, 201)
+
       fetchMock.get({
         url: `https://public.depay.com/transactions/${blockchain}/${fromAddress}/1`,
         overwriteRoutes: true

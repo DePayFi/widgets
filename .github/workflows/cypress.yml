@@ -744,7 +744,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  payment-widget-insufficient-balance:
+  payment-widget-no-payment-options-found:
     
     runs-on: ubuntu-latest
 
@@ -771,9 +771,9 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/insufficient-balance.js
+      - name: Run Cypress Tests cypress/e2e/Payment/no-payment-options-found.js
         run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/insufficient-balance.js"
+          yarn test:cypress --spec "cypress/e2e/Payment/no-payment-options-found.js"
       - uses: actions/upload-artifact@v3
         if: failure()
         with:
