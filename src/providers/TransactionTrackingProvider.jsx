@@ -52,7 +52,7 @@ export default (props)=>{
         after_block: afterBlock.toString(),
         blockchain: transaction.blockchain,
         sender: transaction.from,
-        nonce: await getNonce({ transaction, wallet })
+        nonce: await getNonce({ transaction, wallet, account })
       })
     })
     .then((response)=>{
@@ -77,7 +77,7 @@ export default (props)=>{
         identifier: JSON.stringify({
           blockchain: transaction.blockchain,
           sender: transaction.from,
-          nonce: await getNonce({ transaction, wallet }),
+          nonce: await getNonce({ transaction, wallet, account }),
           channel: 'TransactionChannel'
         }),
       }

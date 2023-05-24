@@ -1155,10 +1155,10 @@
     "@depay/web3-blockchains" "^8.0.1"
     ethers "^5.7.1"
 
-"@depay/web3-payments@^12.0.7":
-  version "12.0.7"
-  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-12.0.7.tgz#398597c009f8e9a8c6eff9512699b4bb0450ee88"
-  integrity sha512-2kpKv7LEjK350pDACVsj+oDx80ka5FDXk/kGoS7EC3rO+ftk/6SJJ9sQarJYv0aMwVnwb9tmIjEI2RT8A7Rdkw==
+"@depay/web3-payments@^12.0.8":
+  version "12.0.8"
+  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-12.0.8.tgz#8b5e840ebb7f090589d125a800fb44f39569a511"
+  integrity sha512-jlXAGsIebuyf+qmfmKd0iz/kjMT1voWMXyw6XLUSLX2pYi36CEKelhVu4Q2LtlOvfdmwP2AINy/uf7XmryODBA==
 
 "@depay/web3-tokens@^9.19.4":
   version "9.19.4"
@@ -4026,10 +4026,10 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-cypress@^10.1.0:
-  version "10.1.0"
-  resolved "https://registry.npmjs.org/cypress/-/cypress-10.1.0.tgz"
-  integrity sha512-aQ4JVZVib4Xd9FZW8IRZfKelUvqF4y5A+oUbNvn8TlsBmEfIg3m5Xd6Mt6PVU/jHiVJ9Psl905B3ZPnrDcmyuQ==
+cypress@^10.11.0:
+  version "10.11.0"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-10.11.0.tgz#e9fbdd7638bae3d8fb7619fd75a6330d11ebb4e8"
+  integrity sha512-lsaE7dprw5DoXM00skni6W5ElVVLGAdRUUdZjX2dYsGjbY/QnpzWZ95Zom1mkGg0hAaO/QVTZoFVS7Jgr/GUPA==
   dependencies:
     "@cypress/request" "^2.88.10"
     "@cypress/xvfb" "^1.2.4"
@@ -4050,7 +4050,7 @@ cypress@^10.1.0:
     dayjs "^1.10.4"
     debug "^4.3.2"
     enquirer "^2.3.6"
-    eventemitter2 "^6.4.3"
+    eventemitter2 "6.4.7"
     execa "4.1.0"
     executable "^4.1.1"
     extract-zip "2.0.1"
@@ -4734,10 +4734,10 @@ ethers@^5.7.1:
     "@ethersproject/web" "5.7.1"
     "@ethersproject/wordlists" "5.7.0"
 
-eventemitter2@^6.4.3:
-  version "6.4.4"
-  resolved "https://registry.npmjs.org/eventemitter2/-/eventemitter2-6.4.4.tgz"
-  integrity sha512-HLU3NDY6wARrLCEwyGKRBvuWYyvW6mHYv72SJJAH3iJN3a6eVUvkjFkcxah1bcTgGVBBrFdIopBJPhCQFMLyXw==
+eventemitter2@6.4.7:
+  version "6.4.7"
+  resolved "https://registry.yarnpkg.com/eventemitter2/-/eventemitter2-6.4.7.tgz#a7f6c4d7abf28a14c1ef3442f21cb306a054271d"
+  integrity sha512-tYUSVOGeQPKt/eC1ABfhHy5Xd96N3oIijJvN3O9+TsC28T5V9yX9oEfEK5faP0EFSNVOG97qtAS68GBrQB2hDg==
 
 eventemitter3@^4.0.7:
   version "4.0.7"
