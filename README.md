@@ -89,14 +89,6 @@ DePay supports [most crypto wallets](https://depay.com/wallets).
 
 DePay Payments allows you to accept and perform crypto payments.
 
-### Preparation
-
-In order to receive decentralized payments on any blockchain you need to have your own wallet on that particular blockchain first:
-
-- [Create an Ethereum wallet](https://ethereum.org/en/wallets/)
-- [Create an BSC wallet](https://academy.binance.com/en/articles/how-to-get-started-with-binance-smart-chain-bsc)
-- [Create a Polygon wallet](https://wallet.polygon.technology/)
-
 ### Quick start
 
 ```
@@ -915,14 +907,6 @@ DePayWidgets.Payment({
 ## DePayWidgets: Sale
 
 DePay Sales allows you to sell tokens directly from your website or dApp with automatic any-to-any payment conversion (so people can use any token when buying your token directly off your website or dApp).
-
-### Preparation
-
-In order to sell tokens in a decentralized way, that token needs to have a liquidity pool on a decentralized exchange:
-
-- [Create Uniswap v2 Liquidity Pool](https://app.uniswap.org/#/add/v2/ETH)
-- [Create Uniswap v2 Liquidity Pool (Polygon)](https://app.uniswap.org/#/add/v2/ETH?chain=polygon)
-- [Create Pancakeswap Liquidity Pool](https://pancakeswap.finance/add)
 
 ### Quick start
 
