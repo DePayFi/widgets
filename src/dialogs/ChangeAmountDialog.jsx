@@ -10,10 +10,7 @@ import round from '../helpers/round'
 import WalletContext from '../contexts/WalletContext'
 import { Currency } from '@depay/local-currency'
 import { Decimal } from 'decimal.js'
-import { ethers } from 'ethers'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
-import { route } from '@depay/web3-exchanges'
-import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=>{
   const { navigate } = useContext(NavigateStackContext)

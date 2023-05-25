@@ -1,3 +1,20 @@
+/*#if _EVM
+
+import { Token } from '@depay/web3-tokens-evm'
+import { TokenImage } from '@depay/react-token-image-evm'
+
+/*#elif _SOLANA
+
+import { Token } from '@depay/web3-tokens-solana'
+import { TokenImage } from '@depay/react-token-image-solana'
+
+//#else */
+
+import { Token } from '@depay/web3-tokens'
+import { TokenImage } from '@depay/react-token-image'
+
+//#endif
+
 import Blockchains from '@depay/web3-blockchains'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
@@ -5,8 +22,6 @@ import Dialog from '../components/Dialog'
 import format from '../helpers/format'
 import React, { useContext, useEffect, useState } from 'react'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
-import { Token } from '@depay/web3-tokens'
-import { TokenImage } from '@depay/react-token-image'
 
 export default ()=> {
 

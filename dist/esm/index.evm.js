@@ -1,4 +1,4 @@
-import { wallets, getWallets } from '@depay/web3-wallets';
+import { wallets, getWallets } from '@depay/web3-wallets-evm';
 import React, { useState, useContext, useEffect, useRef, useCallback } from 'react';
 import copy from '@uiw/copy-to-clipboard';
 import { NavigateStackContext, ReactDialogStack } from '@depay/react-dialog-stack';
@@ -8,15 +8,14 @@ import Fuse from 'fuse.js';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import ReactDOM from 'react-dom';
 import { ReactShadowDOM } from '@depay/react-shadow-dom';
-import { setProviderEndpoints, request } from '@depay/web3-client';
+import { setProviderEndpoints, request } from '@depay/web3-client-evm';
 import { Currency } from '@depay/local-currency';
-import { route } from '@depay/web3-payments';
-import { route as route$1 } from '@depay/web3-exchanges';
-import { Token } from '@depay/web3-tokens';
+import { route } from '@depay/web3-payments-evm';
+import { route as route$1 } from '@depay/web3-exchanges-evm';
+import { Token } from '@depay/web3-tokens-evm';
 import { ethers } from 'ethers';
 import { Decimal } from 'decimal.js';
-import { TokenImage } from '@depay/react-token-image';
-import { struct, u64, Buffer, PublicKey } from '@depay/solana-web3.js';
+import { TokenImage } from '@depay/react-token-image-evm';
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
@@ -970,9 +969,9 @@ function _toConsumableArray(arr) {
   return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
-var supported = ['ethereum', 'bsc', 'polygon', 'solana'];
+var supported = ['ethereum', 'bsc', 'polygon'];
 supported.evm = ['ethereum', 'bsc', 'polygon'];
-supported.solana = ['solana'];
+supported.solana = [];
 
 var allWallets = [{
   "name": "Coinbase",
@@ -25688,64 +25687,14 @@ var PaymentStack = (function (props) {
   });
 });
 
-var getPaymentsAccountAddress = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-    var account, seeds, _yield$PublicKey$find, _yield$PublicKey$find2, pdaPublicKey;
-
-    return regenerator.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            account = _ref.account;
-            seeds = [Buffer.from("payments"), new PublicKey(account).toBuffer()];
-            _context.next = 4;
-            return PublicKey.findProgramAddress(seeds, new PublicKey('DePayRG7ZySPWzeK9Kvq7aPeif7sdbBZNh6DHcvNj7F7'));
-
-          case 4:
-            _yield$PublicKey$find = _context.sent;
-            _yield$PublicKey$find2 = _slicedToArray(_yield$PublicKey$find, 1);
-            pdaPublicKey = _yield$PublicKey$find2[0];
-            return _context.abrupt("return", pdaPublicKey);
-
-          case 8:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function getPaymentsAccountAddress(_x) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
 var getPaymentsAccountData = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var account, address;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            account = _ref3.account;
-            _context2.next = 3;
-            return getPaymentsAccountAddress({
-              account: account
-            });
 
-          case 3:
-            address = _context2.sent.toString();
-            _context2.next = 6;
-            return request({
-              blockchain: 'solana',
-              address: address,
-              api: struct([u64('anchorDiscriminator'), u64('nonce')])
-            });
-
-          case 6:
-            return _context2.abrupt("return", _context2.sent);
-
-          case 7:
+          case 1:
           case "end":
             return _context2.stop();
         }
@@ -28974,4 +28923,4 @@ var DePayWidgets = {
 };
 
 export { DePayWidgets as default };
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.evm.js.map

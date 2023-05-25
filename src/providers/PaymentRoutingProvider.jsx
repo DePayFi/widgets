@@ -1,3 +1,17 @@
+/*#if _EVM
+
+import { request } from '@depay/web3-client-evm'
+
+/*#elif _SOLANA
+
+import { request } from '@depay/web3-client-solana'
+
+//#else */
+
+import { request } from '@depay/web3-client'
+
+//#endif
+
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import findMaxRoute from '../helpers/findMaxRoute'
@@ -11,7 +25,6 @@ import WalletContext from '../contexts/WalletContext'
 import WalletMissesBlockchainSupportDialog from '../dialogs/WalletMissesBlockchainSupportDialog'
 import { ethers } from 'ethers'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
-import { request } from '@depay/web3-client'
 
 export default (props)=>{
   const [ allRoutes, setAllRoutes ] = useState()

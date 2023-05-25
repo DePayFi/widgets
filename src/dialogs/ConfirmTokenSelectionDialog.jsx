@@ -1,3 +1,17 @@
+/*#if _EVM
+
+import { TokenImage } from '@depay/react-token-image-evm'
+
+/*#elif _SOLANA
+
+import { TokenImage } from '@depay/react-token-image-solana'
+
+//#else */
+
+import { TokenImage } from '@depay/react-token-image'
+
+//#endif
+
 import addressEllipsis from '../helpers/addressEllipsis'
 import Blockchains from '@depay/web3-blockchains'
 import ClosableContext from '../contexts/ClosableContext'
@@ -5,7 +19,6 @@ import Dialog from '../components/Dialog'
 import msToTime from '../helpers/msToTime'
 import React, { useState, useContext } from 'react'
 import SelectionContext from '../contexts/SelectionContext'
-import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=> {
 

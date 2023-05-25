@@ -1,3 +1,20 @@
+/*#if _EVM
+
+import { request } from '@depay/web3-client-evm'
+import { Token } from '@depay/web3-tokens-evm'
+
+/*#elif _SOLANA
+
+import { request } from '@depay/web3-client-solana'
+import { Token } from '@depay/web3-tokens-solana'
+
+//#else */
+
+import { request } from '@depay/web3-client'
+import { Token } from '@depay/web3-tokens'
+
+//#endif
+
 import Blockchains from '@depay/web3-blockchains'
 import ChevronRight from '../components/ChevronRight'
 import Dialog from '../components/Dialog'
@@ -6,8 +23,6 @@ import SelectionContext from '../contexts/SelectionContext'
 import { ethers } from 'ethers'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { OpenSea } from '../helpers/logos'
-import { request } from '@depay/web3-client'
-import { Token } from '@depay/web3-tokens'
 
 export default (props)=> {
 

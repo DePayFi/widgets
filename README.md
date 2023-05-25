@@ -32,6 +32,30 @@ yarn add ethers react react-dom
 npm install ethers react react-dom --save
 ```
 
+## Platform specific packaging
+
+In case you want to use and package only specific platforms, use the platform-specific package:
+
+### EVM platform specific packaging
+
+```
+yarn add @depay/widgets-evm
+```
+
+```javascript
+import DePayWidgets from '@depay/widgets-evm'
+```
+
+### Solana platform specific packaging
+
+```
+yarn add @depay/widgets-solana
+```
+
+```javascript
+import DePayWidgets from '@depay/widgets-solana'
+```
+
 ## Server-side rendering
 
 Make sure you load this library as a client-side script for client-side rendering (CSR), in case you are using a server-side rendering (SSR) framework like next.js.
@@ -46,7 +70,7 @@ https://app.depay.com/integrations/new
 
 For a more low-key technical example/demo page have a look at:
 
-https://depayfi.github.io/widgets/dev.bundle.html
+https://depayfi.github.io/widgets/demo.bundle.html
 
 ## Support
 
@@ -55,31 +79,13 @@ https://depayfi.github.io/widgets/dev.bundle.html
 - [Ethereum](https://ethereum.org)
 - [BNB Smart Chain](https://www.binance.org/smartChain)
 - [Polygon](https://polygon.technology)
+- [Solana](https://solana.com)
 
 ### Wallets
 
-DePay supports the most popular crypto wallets:
+DePay supports [most crypto wallets](https://depay.com/wallets).
 
-- [MetaMask](https://metamask.io)
-- [Coinbase Wallet](https://wallet.coinbase.com)
-
-100+ additional wallets via [WalletConnect](https://walletconnect.org), such as:
-- [Trust Wallet](https://trustwallet.com)
-- [DeFi Wallet by crypto.com](https://crypto.com/defi-wallet)
-- [1inch Wallet](https://1inch.io/wallet/)
-- [imToken Wallet](https://www.token.im)
-- [TokenPocket](https://www.tokenpocket.pro/en)
-- [Pillar](https://www.pillar.fi/)
-- [Math Wallet](https://mathwallet.org/)
-- [Ledger Live](https://www.ledger.com/ledger-live)
-- [Argent Wallet](https://www.argent.xyz)
-- [AlphaWallet](https://alphawallet.com/)
-- [Unstoppable Wallet](https://unstoppable.money)
-- [Atomic Wallet](https://atomicwallet.io)
-- [Rainbow](https://rainbow.me/)
-- and more...
-
-## DePay Payments
+## DePayWidgets: Payments
 
 DePay Payments allows you to accept and perform crypto payments.
 
@@ -906,7 +912,7 @@ DePayWidgets.Payment({
 })
 ```
 
-## DePay Sales
+## DePayWidgets: Sale
 
 DePay Sales allows you to sell tokens directly from your website or dApp with automatic any-to-any payment conversion (so people can use any token when buying your token directly off your website or dApp).
 

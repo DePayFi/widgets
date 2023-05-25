@@ -1,3 +1,17 @@
+/*#if _EVM
+
+import { getWallets, wallets } from '@depay/web3-wallets-evm'
+
+/*#elif _SOLANA
+
+import { getWallets, wallets } from '@depay/web3-wallets-solana'
+
+//#else */
+
+import { getWallets, wallets } from '@depay/web3-wallets'
+
+//#endif
+
 import allWallets from '../helpers/allWallets'
 import Dialog from '../components/Dialog'
 import DropDown from '../components/DropDown'
@@ -7,7 +21,6 @@ import React, { useState, useEffect, useContext, useRef } from 'react'
 import safeUniversalUrl from '../helpers/safeUniversalUrl'
 import SelectWalletList from '../components/SelectWalletList'
 import { get as getPreviouslyConnectedWallet } from '../helpers/previouslyConnectedWallet'
-import { getWallets, wallets } from '@depay/web3-wallets'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default (props)=>{

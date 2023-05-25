@@ -1,3 +1,17 @@
+/*#if _EVM
+
+import { getWallets, wallets } from '@depay/web3-wallets-evm'
+
+/*#elif _SOLANA
+
+import { getWallets, wallets } from '@depay/web3-wallets-solana'
+
+//#else */
+
+import { getWallets, wallets } from '@depay/web3-wallets'
+
+//#endif
+
 import allWallets from '../helpers/allWallets'
 import ClosableContext from '../contexts/ClosableContext'
 import ConnectWalletDialog from '../dialogs/ConnectWalletDialog'
@@ -11,7 +25,6 @@ import safeUniversalUrl from '../helpers/safeUniversalUrl'
 import SelectBlockchainDialog from '../dialogs/SelectBlockchainDialog'
 import SelectWalletDialog from '../dialogs/SelectWalletDialog'
 import WhatIsAWalletDialog from '../dialogs/WhatIsAWalletDialog'
-import { getWallets, wallets } from '@depay/web3-wallets'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 import { set as setPreviouslyConnectedWallet } from '../helpers/previouslyConnectedWallet'
 

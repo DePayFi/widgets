@@ -1,7 +1,20 @@
+/*#if _EVM
+
+import { setProviderEndpoints } from '@depay/web3-client-evm'
+
+/*#elif _SOLANA
+
+import { setProviderEndpoints } from '@depay/web3-client-solana'
+
+//#else */
+
+import { setProviderEndpoints } from '@depay/web3-client'
+
+//#endif
+
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import React, { useEffect } from 'react'
 import { Currency } from '@depay/local-currency'
-import { setProviderEndpoints } from '@depay/web3-client'
 
 export default (props)=>{
   const currencyCode = new Currency({ code: props.configuration.currency }).code

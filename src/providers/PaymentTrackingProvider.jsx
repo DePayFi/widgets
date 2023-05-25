@@ -1,3 +1,17 @@
+/*#if _EVM
+
+import { request } from '@depay/web3-client-evm'
+
+/*#elif _SOLANA
+
+import { request } from '@depay/web3-client-solana'
+
+//#else */
+
+import { request } from '@depay/web3-client'
+
+//#endif
+
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
@@ -7,7 +21,6 @@ import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useEffect, useContext, useState } from 'react'
 import WalletContext from '../contexts/WalletContext'
 import { ethers } from 'ethers'
-import { request } from '@depay/web3-client'
 
 export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
@@ -131,10 +144,8 @@ export default (props)=>{
     })
       .then((response)=>{
         setTrackingInitialized(true)
-        console.log('PAYMENT TRACKING INITIALIZED')
       })
       .catch((error)=>{
-        console.log('PAYMENT TRACKING FAILED', error)
         retryStartTracking(transaction, afterBlock, paymentRoute, attempt)
       })
   }

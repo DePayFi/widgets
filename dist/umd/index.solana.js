@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@depay/web3-wallets'), require('react'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('@depay/web3-blockchains'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client'), require('@depay/local-currency'), require('@depay/web3-payments'), require('@depay/web3-exchanges'), require('@depay/web3-tokens'), require('ethers'), require('decimal.js'), require('@depay/react-token-image'), require('@depay/solana-web3.js')) :
-  typeof define === 'function' && define.amd ? define(['@depay/web3-wallets', 'react', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', '@depay/web3-blockchains', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client', '@depay/local-currency', '@depay/web3-payments', '@depay/web3-exchanges', '@depay/web3-tokens', 'ethers', 'decimal.js', '@depay/react-token-image', '@depay/solana-web3.js'], factory) :
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@depay/web3-wallets-solana'), require('react'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('@depay/web3-blockchains'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client-solana'), require('@depay/local-currency'), require('@depay/web3-payments-solana'), require('@depay/web3-exchanges-solana'), require('@depay/web3-tokens-solana'), require('ethers'), require('decimal.js'), require('@depay/react-token-image-solana'), require('@depay/solana-web3.js')) :
+  typeof define === 'function' && define.amd ? define(['@depay/web3-wallets-solana', 'react', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', '@depay/web3-blockchains', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client-solana', '@depay/local-currency', '@depay/web3-payments-solana', '@depay/web3-exchanges-solana', '@depay/web3-tokens-solana', 'ethers', 'decimal.js', '@depay/react-token-image-solana', '@depay/solana-web3.js'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.Web3Wallets, global.React, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Web3Blockchains, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.Web3Payments, global.Web3Exchanges, global.Web3Tokens, global.ethers, global.Decimal, global.ReactTokenImage, global.SolanaWeb3js));
-}(this, (function (web3Wallets, React, copy, reactDialogStack, QRCodeStyling, Blockchains, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3Client, localCurrency, web3Payments, web3Exchanges, web3Tokens, ethers, decimal_js, reactTokenImage, solanaWeb3_js) { 'use strict';
+}(this, (function (web3WalletsSolana, React, copy, reactDialogStack, QRCodeStyling, Blockchains, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3ClientSolana, localCurrency, web3PaymentsSolana, web3ExchangesSolana, web3TokensSolana, ethers, decimal_js, reactTokenImageSolana, solanaWeb3_js) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -965,8 +965,8 @@
     return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
   }
 
-  var supported = ['ethereum', 'bsc', 'polygon', 'solana'];
-  supported.evm = ['ethereum', 'bsc', 'polygon'];
+  var supported = ['solana'];
+  supported.evm = [];
   supported.solana = ['solana'];
 
   var allWallets = [{
@@ -983,7 +983,7 @@
         "universal": "https://go.cb-w.com/dapp"
       }
     },
-    "logo": web3Wallets.wallets.Coinbase.info.logo,
+    "logo": web3WalletsSolana.wallets.Coinbase.info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "MetaMask",
@@ -1001,12 +1001,12 @@
         "universal": "https://metamask.app.link"
       }
     },
-    "logo": web3Wallets.wallets.MetaMask.info.logo,
+    "logo": web3WalletsSolana.wallets.MetaMask.info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "Phantom",
     "extension": "Phantom",
-    "logo": web3Wallets.wallets.Phantom.info.logo,
+    "logo": web3WalletsSolana.wallets.Phantom.info.logo,
     "blockchains": _toConsumableArray(supported.solana)
   }, {
     "name": "Trust Wallet",
@@ -1022,13 +1022,13 @@
         "universal": "https://link.trustwallet.com"
       }
     },
-    "logo": web3Wallets.wallets.Trust.info.logo,
+    "logo": web3WalletsSolana.wallets.Trust.info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "Binance Wallet",
     "extension": "Binance",
     "link": "WalletConnectV1",
-    "logo": web3Wallets.wallets.Binance.info.logo,
+    "logo": web3WalletsSolana.wallets.Binance.info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "Crypto.com | DeFi Wallet",
@@ -1047,7 +1047,7 @@
         "universal": "https://wallet.crypto.com"
       }
     },
-    "logo": web3Wallets.wallets.CryptoCom.info.logo,
+    "logo": web3WalletsSolana.wallets.CryptoCom.info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "Coin98",
@@ -1063,12 +1063,12 @@
         "universal": "https://coin98.com"
       }
     },
-    "logo": web3Wallets.wallets.Coin98.info.logo,
+    "logo": web3WalletsSolana.wallets.Coin98.info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "Brave",
     "extension": "Brave",
-    "logo": web3Wallets.wallets.Brave.info.logo,
+    "logo": web3WalletsSolana.wallets.Brave.info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "Rainbow",
@@ -1113,22 +1113,22 @@
     "name": "Rabby",
     "extension": "Rabby",
     "link": "WalletConnectV1",
-    "logo": web3Wallets.wallets.Rabby.info.logo,
+    "logo": web3WalletsSolana.wallets.Rabby.info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "Backpack",
     "extension": "Backpack",
-    "logo": web3Wallets.wallets.Backpack.info.logo,
+    "logo": web3WalletsSolana.wallets.Backpack.info.logo,
     "blockchains": _toConsumableArray(supported.solana)
   }, {
     "name": "Glow",
     "extension": "Glow",
-    "logo": web3Wallets.wallets.Glow.info.logo,
+    "logo": web3WalletsSolana.wallets.Glow.info.logo,
     "blockchains": _toConsumableArray(supported.solana)
   }, {
     "name": "Solflare",
     "extension": "Solflare",
-    "logo": web3Wallets.wallets.Solflare.info.logo,
+    "logo": web3WalletsSolana.wallets.Solflare.info.logo,
     "blockchains": _toConsumableArray(supported.solana)
   }, {
     "name": "imToken",
@@ -2765,7 +2765,7 @@
     "name": "HyperPay",
     "extension": "HyperPay",
     "link": "WalletConnectV1",
-    "logo": web3Wallets.wallets.HyperPay.info.logo,
+    "logo": web3WalletsSolana.wallets.HyperPay.info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "ATON",
@@ -3784,12 +3784,12 @@
   }, {
     "name": "Wallet (Ethereum)",
     "extension": "WindowEthereum",
-    "logo": web3Wallets.wallets.WindowEthereum.info.logo,
+    "logo": web3WalletsSolana.wallets.WindowEthereum.info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "Wallet (Solana)",
     "extension": "WindowSolana",
-    "logo": web3Wallets.wallets.WindowSolana.info.logo,
+    "logo": web3WalletsSolana.wallets.WindowSolana.info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "WalletConnect",
@@ -3981,7 +3981,7 @@
     })))));
 
     var connectViaCopyLink = function connectViaCopyLink() {
-      var wallet = new web3Wallets.wallets[props.wallet.link]();
+      var wallet = new web3WalletsSolana.wallets[props.wallet.link]();
       wallet.connect({
         name: props.wallet.name,
         logo: props.wallet.logo,
@@ -4003,7 +4003,7 @@
       switch (props.wallet.link) {
         case 'WalletConnectV1':
           if (QRCode == undefined) {
-            var _wallet = new web3Wallets.wallets[props.wallet.link]();
+            var _wallet = new web3WalletsSolana.wallets[props.wallet.link]();
 
             _wallet.connect({
               name: props.wallet.name,
@@ -4038,7 +4038,7 @@
           break;
 
         case 'WalletLink':
-          var wallet = new web3Wallets.wallets[props.wallet.link]();
+          var wallet = new web3WalletsSolana.wallets[props.wallet.link]();
           wallet.connect().then(function (account) {
             props.resolve(account, wallet);
           });
@@ -4062,7 +4062,7 @@
                 }
 
                 _context.next = 4;
-                return web3Wallets.wallets[props.wallet.extension].isAvailable();
+                return web3WalletsSolana.wallets[props.wallet.extension].isAvailable();
 
               case 4:
                 _context.t2 = _context.sent;
@@ -4093,7 +4093,7 @@
                 }
 
                 _context.next = 17;
-                return web3Wallets.wallets[props.wallet.link].isAvailable();
+                return web3WalletsSolana.wallets[props.wallet.link].isAvailable();
 
               case 17:
                 _context.t6 = _context.sent;
@@ -4579,7 +4579,7 @@
     };
 
     React.useEffect(function () {
-      web3Wallets.getWallets({
+      web3WalletsSolana.getWallets({
         drip: function drip(wallet) {
           setDetectedWallets(Array.from(new Set(detectedWallets.concat(wallet))));
         }
@@ -4620,7 +4620,7 @@
         });
         var connectionType = 'app';
 
-        if (wallet && wallet.constructor && ![web3Wallets.wallets.WalletConnectV1, web3Wallets.wallets.WalletLink].includes(wallet.constructor)) {
+        if (wallet && wallet.constructor && ![web3WalletsSolana.wallets.WalletConnectV1, web3WalletsSolana.wallets.WalletLink].includes(wallet.constructor)) {
           connectionType = 'extension';
         }
 
@@ -4806,7 +4806,7 @@
 
     var connectExtension = function connectExtension(wallet) {
       setShowConnectExtensionWarning(false);
-      wallet = new web3Wallets.wallets[wallet.extension]();
+      wallet = new web3WalletsSolana.wallets[wallet.extension]();
       wallet.connect().then(function (account) {
         resolve(account, wallet);
       })["catch"](function (error) {
@@ -4876,7 +4876,7 @@
       }
 
       if (walletMetaData.link == 'WalletConnectV1') {
-        var _wallet = new web3Wallets.wallets[walletMetaData.link]();
+        var _wallet = new web3WalletsSolana.wallets[walletMetaData.link]();
 
         _wallet.connect({
           name: walletMetaData.name,
@@ -5585,7 +5585,7 @@
     React.useEffect(function () {
       if (props.configuration.providers != undefined) {
         Object.entries(props.configuration.providers).forEach(function (entry) {
-          web3Client.setProviderEndpoints(entry[0], entry[1]);
+          web3ClientSolana.setProviderEndpoints(entry[0], entry[1]);
         });
       }
     }, [props.configuration]);
@@ -5706,7 +5706,7 @@
         whitelist = _ref.whitelist,
         blacklist = _ref.blacklist,
         fee = _ref.fee;
-    return web3Payments.route({
+    return web3PaymentsSolana.route({
       accept: accept.map(prepareAcceptedPayments),
       from: mergeFromAccounts(accept, account),
       whitelist: whitelist,
@@ -23463,7 +23463,7 @@
               if (Blockchains__default['default'][configuration.blockchain].stables.usd[0] == configuration.token) {
                 return 1.00 / fixedCurrencyConversionRate * fixedAmount;
               } else {
-                return web3Exchanges.route({
+                return web3ExchangesSolana.route({
                   blockchain: configuration.blockchain,
                   tokenIn: Blockchains__default['default'][configuration.blockchain].stables.usd[0],
                   amountIn: 1.00 / fixedCurrencyConversionRate * fixedAmount,
@@ -23476,7 +23476,7 @@
               if (Blockchains__default['default'][configuration.blockchain].stables.usd[0] == configuration.token) {
                 return 1.00 / conversionRate * amount;
               } else {
-                return web3Exchanges.route({
+                return web3ExchangesSolana.route({
                   blockchain: configuration.blockchain,
                   tokenIn: Blockchains__default['default'][configuration.blockchain].stables.usd[0],
                   amountIn: 1.00 / conversionRate * amount,
@@ -23493,7 +23493,7 @@
               } else if (result[0] == undefined) {
                 return;
               } else {
-                return web3Tokens.Token.readable({
+                return web3TokensSolana.Token.readable({
                   blockchain: props.accept[index].blockchain,
                   amount: result[0].amountOut,
                   address: result[0].tokenOut
@@ -23549,7 +23549,7 @@
       if (amountsMissing && maxRoute) {
         maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
           if (configuredAmount && configuredAmount.token) {
-            web3Exchanges.route({
+            web3ExchangesSolana.route({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,
               tokenOut: maxRoute.toToken.address,
@@ -23558,7 +23558,7 @@
               toAddress: account
             }).then(function (routes) {
               if (routes[0] == undefined) {
-                web3Tokens.Token.readable({
+                web3TokensSolana.Token.readable({
                   amount: maxRoute.fromBalance,
                   blockchain: maxRoute.blockchain,
                   address: maxRoute.fromToken.address
@@ -23566,7 +23566,7 @@
                 return;
               }
 
-              web3Tokens.Token.readable({
+              web3TokensSolana.Token.readable({
                 amount: routes[0].amountOut,
                 blockchain: maxRoute.blockchain,
                 address: maxRoute.toToken.address
@@ -23581,7 +23581,7 @@
 
             setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount - 1) : _maxAmount - 1);
           } else {
-            web3Exchanges.route({
+            web3ExchangesSolana.route({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,
               tokenOut: Blockchains__default['default'][maxRoute.blockchain].stables.usd[0],
@@ -23593,7 +23593,7 @@
                 return;
               }
 
-              web3Tokens.Token.readable({
+              web3TokensSolana.Token.readable({
                 amount: routes[0].amountOut,
                 blockchain: maxRoute.blockchain,
                 address: Blockchains__default['default'][maxRoute.blockchain].stables.usd[0]
@@ -24193,7 +24193,7 @@
 
     React.useEffect(function () {
       Promise.all(accept.map(function (configuration) {
-        var token = new web3Tokens.Token({
+        var token = new web3TokensSolana.Token({
           blockchain: configuration.blockchain,
           address: configuration.token
         });
@@ -24252,7 +24252,7 @@
             key: index
           }, /*#__PURE__*/React__default['default'].createElement("div", {
             className: "CardImage"
-          }, /*#__PURE__*/React__default['default'].createElement(reactTokenImage.TokenImage, {
+          }, /*#__PURE__*/React__default['default'].createElement(reactTokenImageSolana.TokenImage, {
             blockchain: paymentOption.blockchain,
             address: paymentOption.token
           }), /*#__PURE__*/React__default['default'].createElement("img", {
@@ -24434,7 +24434,7 @@
                 setPaymentState('paying');
                 setUpdatable(false);
                 _context.next = 19;
-                return web3Client.request({
+                return web3ClientSolana.request({
                   blockchain: transaction.blockchain,
                   method: 'latestBlockNumber'
                 });
@@ -24537,7 +24537,7 @@
             }
           })
         });
-        var paymentToken = new web3Tokens.Token({
+        var paymentToken = new web3TokensSolana.Token({
           blockchain: recover.blockchain,
           address: recover.token
         });
@@ -24855,7 +24855,7 @@
           }
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardImage"
-        }, /*#__PURE__*/React__default['default'].createElement(reactTokenImage.TokenImage, {
+        }, /*#__PURE__*/React__default['default'].createElement(reactTokenImageSolana.TokenImage, {
           blockchain: payment.route.blockchain,
           address: payment.route.fromToken.address
         }), /*#__PURE__*/React__default['default'].createElement("img", {
@@ -25465,7 +25465,7 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardImage",
         title: payment.name
-      }, /*#__PURE__*/React__default['default'].createElement(reactTokenImage.TokenImage, {
+      }, /*#__PURE__*/React__default['default'].createElement(reactTokenImageSolana.TokenImage, {
         blockchain: payment.blockchain,
         address: payment.token
       }), /*#__PURE__*/React__default['default'].createElement("img", {
@@ -25731,7 +25731,7 @@
             case 3:
               address = _context2.sent.toString();
               _context2.next = 6;
-              return web3Client.request({
+              return web3ClientSolana.request({
                 blockchain: 'solana',
                 address: address,
                 api: solanaWeb3_js.struct([solanaWeb3_js.u64('anchorDiscriminator'), solanaWeb3_js.u64('nonce')])
@@ -26486,7 +26486,7 @@
       setPaymentValue(null);
       setPaymentValueLoss(null);
       Promise.all([Promise.all(Blockchains__default['default'][payment.route.blockchain].stables.usd.map(function (stable) {
-        return web3Exchanges.route({
+        return web3ExchangesSolana.route({
           blockchain: payment.route.blockchain,
           tokenIn: payment.route.fromToken.address,
           tokenOut: stable,
@@ -26494,7 +26494,7 @@
           fromAddress: account,
           toAddress: account
         });
-      })), !payment.route.directTransfer ? web3Exchanges.route({
+      })), !payment.route.directTransfer ? web3ExchangesSolana.route({
         blockchain: payment.route.blockchain,
         tokenIn: payment.route.toToken.address,
         tokenOut: payment.route.fromToken.address,
@@ -27199,7 +27199,7 @@
         src: tokenImage
       });
     } else {
-      tokenImageElement = /*#__PURE__*/React__default['default'].createElement(reactTokenImage.TokenImage, {
+      tokenImageElement = /*#__PURE__*/React__default['default'].createElement(reactTokenImageSolana.TokenImage, {
         blockchain: payment.route.blockchain,
         address: toToken.address
       });
@@ -27263,7 +27263,7 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardImage",
         title: payment.name
-      }, /*#__PURE__*/React__default['default'].createElement(reactTokenImage.TokenImage, {
+      }, /*#__PURE__*/React__default['default'].createElement(reactTokenImageSolana.TokenImage, {
         blockchain: payment.route.blockchain,
         address: payment.token
       })), /*#__PURE__*/React__default['default'].createElement("div", {
@@ -27675,11 +27675,11 @@
 
                   _context.prev = 1;
                   _context.next = 4;
-                  return web3Client.request({
+                  return web3ClientSolana.request({
                     blockchain: blockchain,
                     address: selection.nft.address,
                     method: 'balanceOf',
-                    api: web3Tokens.Token[blockchain][1155],
+                    api: web3TokensSolana.Token[blockchain][1155],
                     params: ['0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02', '1']
                   });
 
@@ -28476,7 +28476,7 @@
         className: "TokenImage medium TextCenter"
       }, logo && /*#__PURE__*/React__default['default'].createElement("img", {
         src: logo
-      }), !logo && /*#__PURE__*/React__default['default'].createElement(reactTokenImage.TokenImage, {
+      }), !logo && /*#__PURE__*/React__default['default'].createElement(reactTokenImageSolana.TokenImage, {
         blockchain: token.blockchain,
         address: address
       })), /*#__PURE__*/React__default['default'].createElement("div", {
@@ -28577,7 +28577,7 @@
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return web3Wallets.getWallets();
+                return web3WalletsSolana.getWallets();
 
               case 2:
                 wallet = _context.sent[0];
@@ -28661,7 +28661,7 @@
         var token;
 
         try {
-          token = new web3Tokens.Token({
+          token = new web3TokensSolana.Token({
             blockchain: blockchain.name,
             address: term
           });
@@ -28766,7 +28766,7 @@
           src: token.logo
         }), token.image && /*#__PURE__*/React__default['default'].createElement("img", {
           src: token.image
-        }), !(token.logo || token.image) && /*#__PURE__*/React__default['default'].createElement(reactTokenImage.TokenImage, {
+        }), !(token.logo || token.image) && /*#__PURE__*/React__default['default'].createElement(reactTokenImageSolana.TokenImage, {
           blockchain: token.blockchain,
           address: token.external_id || token.address
         })), /*#__PURE__*/React__default['default'].createElement("div", {
@@ -28971,4 +28971,4 @@
   return DePayWidgets;
 
 })));
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.solana.js.map

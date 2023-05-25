@@ -1,3 +1,17 @@
+/*#if _EVM
+
+import { TokenImage } from '@depay/react-token-image-evm'
+
+/*#elif _SOLANA
+
+import { TokenImage } from '@depay/react-token-image-solana'
+
+//#else */
+
+import { TokenImage } from '@depay/react-token-image'
+
+//#endif
+
 import Blockchains from '@depay/web3-blockchains'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import ChevronRight from '../components/ChevronRight'
@@ -12,7 +26,6 @@ import SaleOverviewSkeleton from '../skeletons/SaleOverviewSkeleton'
 import ToTokenContext from '../contexts/ToTokenContext'
 import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
-import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=>{
   const { amount } = useContext(ChangableAmountContext)

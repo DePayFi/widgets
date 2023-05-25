@@ -1,4 +1,16 @@
+/*#if _EVM
+
+import { route } from '@depay/web3-payments-evm'
+
+/*#elif _SOLANA
+
+import { route } from '@depay/web3-payments-solana'
+
+//#else */
+
 import { route } from '@depay/web3-payments'
+
+//#endif
 
 const prepareAcceptedPayments = (accept)=>{
   let toAddress = typeof accept.receiver == 'object' ? accept.receiver.address : accept.receiver

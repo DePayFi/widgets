@@ -1,3 +1,23 @@
+/*#if _EVM
+
+import { getWallets } from '@depay/web3-wallets-evm'
+import { Token } from '@depay/web3-tokens-evm'
+import { TokenImage } from '@depay/react-token-image-evm'
+
+/*#elif _SOLANA
+
+import { getWallets } from '@depay/web3-wallets-solana'
+import { Token } from '@depay/web3-tokens-solana'
+import { TokenImage } from '@depay/react-token-image-solana'
+
+//#else */
+
+import { getWallets } from '@depay/web3-wallets'
+import { Token } from '@depay/web3-tokens'
+import { TokenImage } from '@depay/react-token-image'
+
+//#endif
+
 import Blockchains from '@depay/web3-blockchains'
 import ChevronRight from '../components/ChevronRight'
 import ClosableContext from '../contexts/ClosableContext'
@@ -6,10 +26,8 @@ import React, { useCallback, useState, useEffect, useContext, useRef } from 'rea
 import SelectionContext from '../contexts/SelectionContext'
 import { debounce } from 'lodash'
 import { ethers } from 'ethers'
-import { getWallets } from '@depay/web3-wallets'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
-import { Token } from '@depay/web3-tokens'
-import { TokenImage } from '@depay/react-token-image'
+
 
 export default (props)=> {
 

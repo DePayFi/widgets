@@ -1,3 +1,17 @@
+/*#if _EVM
+
+import { TokenImage } from '@depay/react-token-image-evm'
+
+/*#elif _SOLANA
+
+import { TokenImage } from '@depay/react-token-image-solana'
+
+//#else */
+
+import { TokenImage } from '@depay/react-token-image'
+
+//#endif
+
 import Blockchains from '@depay/web3-blockchains'
 import ChangePaymentSkeleton from '../skeletons/ChangePaymentSkeleton'
 import Dialog from '../components/Dialog'
@@ -8,7 +22,6 @@ import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useEffect, useState } from 'react'
 import round from '../helpers/round'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
-import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=>{
 

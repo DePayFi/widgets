@@ -6,7 +6,6 @@ import msToTime from '../helpers/msToTime'
 import React, { useState, useContext, useEffect } from 'react'
 import SelectionContext from '../contexts/SelectionContext'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
-import { TokenImage } from '@depay/react-token-image'
 
 export default (props)=> {
 

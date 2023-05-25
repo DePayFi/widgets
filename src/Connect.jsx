@@ -1,3 +1,17 @@
+/*#if _EVM
+
+import { getWallets } from '@depay/web3-wallets-evm'
+
+/*#elif _SOLANA
+
+import { getWallets } from '@depay/web3-wallets-solana'
+
+//#else */
+
+import { getWallets } from '@depay/web3-wallets'
+
+//#endif
+
 import ClosableProvider from './providers/ClosableProvider'
 import ConnectStack from './stacks/ConnectStack'
 import ensureDocument from './helpers/ensureDocument'
@@ -8,7 +22,6 @@ import React from 'react'
 import requireReactVersion from './helpers/requireReactVersion'
 import SelectionProvider from './providers/SelectionProvider'
 import UpdatableProvider from './providers/UpdatableProvider'
-import { getWallets } from '@depay/web3-wallets'
 
 let Connect = (options) => {
   requireReactVersion()

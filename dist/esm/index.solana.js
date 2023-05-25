@@ -1,4 +1,4 @@
-import { wallets, getWallets } from '@depay/web3-wallets';
+import { wallets, getWallets } from '@depay/web3-wallets-solana';
 import React, { useState, useContext, useEffect, useRef, useCallback } from 'react';
 import copy from '@uiw/copy-to-clipboard';
 import { NavigateStackContext, ReactDialogStack } from '@depay/react-dialog-stack';
@@ -8,14 +8,14 @@ import Fuse from 'fuse.js';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import ReactDOM from 'react-dom';
 import { ReactShadowDOM } from '@depay/react-shadow-dom';
-import { setProviderEndpoints, request } from '@depay/web3-client';
+import { setProviderEndpoints, request } from '@depay/web3-client-solana';
 import { Currency } from '@depay/local-currency';
-import { route } from '@depay/web3-payments';
-import { route as route$1 } from '@depay/web3-exchanges';
-import { Token } from '@depay/web3-tokens';
+import { route } from '@depay/web3-payments-solana';
+import { route as route$1 } from '@depay/web3-exchanges-solana';
+import { Token } from '@depay/web3-tokens-solana';
 import { ethers } from 'ethers';
 import { Decimal } from 'decimal.js';
-import { TokenImage } from '@depay/react-token-image';
+import { TokenImage } from '@depay/react-token-image-solana';
 import { struct, u64, Buffer, PublicKey } from '@depay/solana-web3.js';
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
@@ -970,8 +970,8 @@ function _toConsumableArray(arr) {
   return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
-var supported = ['ethereum', 'bsc', 'polygon', 'solana'];
-supported.evm = ['ethereum', 'bsc', 'polygon'];
+var supported = ['solana'];
+supported.evm = [];
 supported.solana = ['solana'];
 
 var allWallets = [{
@@ -28974,4 +28974,4 @@ var DePayWidgets = {
 };
 
 export { DePayWidgets as default };
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.solana.js.map

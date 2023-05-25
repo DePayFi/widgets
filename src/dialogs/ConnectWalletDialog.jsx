@@ -1,3 +1,17 @@
+/*#if _EVM
+
+import { wallets } from '@depay/web3-wallets-evm'
+
+/*#elif _SOLANA
+
+import { wallets } from '@depay/web3-wallets-solana'
+
+//#else */
+
+import { wallets } from '@depay/web3-wallets'
+
+//#endif
+
 import copy from '@uiw/copy-to-clipboard'
 import Dialog from '../components/Dialog'
 import ExtensionImage from '../graphics/extension'
@@ -9,7 +23,6 @@ import QRCodeStyling from "qr-code-styling"
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { set as setPreviouslyConnectedWallet } from '../helpers/previouslyConnectedWallet'
-import { wallets } from '@depay/web3-wallets'
 
 export default (props)=> {
 

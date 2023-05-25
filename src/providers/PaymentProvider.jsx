@@ -1,3 +1,20 @@
+/*#if _EVM
+
+import { request } from '@depay/web3-client-evm'
+import { Token } from '@depay/web3-tokens-evm'
+
+/*#elif _SOLANA
+
+import { request } from '@depay/web3-client-solana'
+import { Token } from '@depay/web3-tokens-solana'
+
+//#else */
+
+import { request } from '@depay/web3-client'
+import { Token } from '@depay/web3-tokens'
+
+//#endif
+
 import Blockchains from '@depay/web3-blockchains'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
@@ -13,8 +30,6 @@ import TransactionTrackingContext from '../contexts/TransactionTrackingContext'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
-import { request } from '@depay/web3-client'
-import { Token } from '@depay/web3-tokens'
 
 export default (props)=>{
   const { setError } = useContext(ErrorContext)

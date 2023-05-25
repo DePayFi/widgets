@@ -1,7 +1,7 @@
 import commonjs from '@rollup/plugin-commonjs'
 import globals from './rollup.globals.js'
 import jscc from 'rollup-plugin-jscc'
-import pkg from './package.json'
+import pkg from './package.evm.json'
 import replace from '@rollup/plugin-replace'
 import resolve from '@rollup/plugin-node-resolve'
 import { babel } from '@rollup/plugin-babel'
@@ -13,23 +13,23 @@ export default {
     {
       format: 'es',
       globals: globals,
-      file: 'dist/esm/index.js',
+      file: 'dist/esm/index.evm.js',
       sourcemap: true
     },
     {
       format: 'umd',
       name: pkg.moduleName,
       globals: globals,
-      file: 'dist/umd/index.js',
+      file: 'dist/umd/index.evm.js',
       sourcemap: true
     },
   ],
   external: [
     ...Object.keys(pkg.dependencies || {}),
-    ...Object.keys(pkg.peerDependencies || {})
+    ...Object.keys(pkg.peerDependencies || {}),
   ],
   plugins: [
-    jscc({ include: 'src/**' }),
+    jscc({ include: 'src/**', values: { _EVM: 1 }}),
     resolve({
       extensions: ['.js', '.ts', '.jsx'],
       modulesOnly: true,
@@ -44,7 +44,7 @@ export default {
     }),
     nodeResolve({ preferBuiltins: false }),
     commonjs({
-      include: 'node_modules/**',
+      include: 'node_modules/**'
     }),
     replace({
       'process.env.NODE_ENV': JSON.stringify( 'production' ),

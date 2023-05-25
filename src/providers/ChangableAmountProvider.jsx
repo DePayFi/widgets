@@ -1,3 +1,20 @@
+/*#if _EVM
+
+import { route } from '@depay/web3-exchanges-evm'
+import { Token } from '@depay/web3-tokens-evm'
+
+/*#elif _SOLANA
+
+import { route } from '@depay/web3-exchanges-solana'
+import { Token } from '@depay/web3-tokens-solana'
+
+//#else */
+
+import { route } from '@depay/web3-exchanges'
+import { Token } from '@depay/web3-tokens'
+
+//#endif
+
 import Blockchains from '@depay/web3-blockchains'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
@@ -9,8 +26,6 @@ import round from '../helpers/round'
 import WalletContext from '../contexts/WalletContext'
 import { debounce } from 'lodash'
 import { Decimal } from 'decimal.js'
-import { route } from '@depay/web3-exchanges'
-import { Token } from '@depay/web3-tokens'
 
 export default (props)=>{
   const configurationsMissAmounts = (configurations)=>{

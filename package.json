@@ -1,7 +1,7 @@
 {
   "name": "@depay/widgets",
   "moduleName": "DePayWidgets",
-  "version": "11.0.0",
+  "version": "11.1.0",
   "description": "Web3 Payments with any token. DePay simplifies and improves Web3 Payments with the power of DeFi. Accept any token with on-the-fly conversion.",
   "main": "./dist/umd/index.js",
   "module": "./dist/esm/index.js",
@@ -22,7 +22,7 @@
   "homepage": "https://depay.com",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && npx rollup --config rollup.module.config.js && npx rollup --config rollup.bundle.config.js",
+    "build": "rm -rf dist && npx rollup --config rollup.module.config.js && npx rollup --config rollup.bundle.config.js && rollup -c rollup.module.evm.config.js && rollup -c rollup.module.solana.config.js",
     "lint": "eslint \"src/**/*.{js,ts,tsx}\"",
     "lint:fix": "eslint \"src/**/*.{js,ts,tsx}\" --fix",
     "format": "prettier src --write",
@@ -92,6 +92,7 @@
     "rollup": "^2.34.2",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-dev": "^2.0.4",
+    "rollup-plugin-jscc": "^2.0.0",
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-polyfill-node": "^0.7.0",
     "rollup-plugin-serve": "^1.1.0",
