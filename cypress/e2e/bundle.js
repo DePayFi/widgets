@@ -2,7 +2,7 @@ import Blockchains from '@depay/web3-blockchains'
 import DePayWidgets from '../../dist/umd/index.bundle'
 import fetch from 'cross-fetch'
 import fetchMock from 'fetch-mock'
-import mockBasics from '../../tests/mocks/basics'
+import mockBasics from '../../tests/mocks/evm/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Crypto } from "@peculiar/webcrypto"
