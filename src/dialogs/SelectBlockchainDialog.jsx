@@ -3,6 +3,7 @@ import Dialog from '../components/Dialog'
 import React, { useState, useContext } from 'react'
 import SelectionContext from '../contexts/SelectionContext'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
+import { supported } from '../blockchains'
 
 export default (props)=> {
 
@@ -10,11 +11,7 @@ export default (props)=> {
   const { navigate } = useContext(NavigateStackContext)
   const stacked = props.stacked || Object.keys(props.selection).length > 1
 
-  const blockchains = [
-    Blockchains.findByName('ethereum'),
-    Blockchains.findByName('bsc'),
-    Blockchains.findByName('polygon'),
-  ]
+  const blockchains = supported.map((blockchainName)=>Blockchains[blockchainName])
 
   const selectBlockchain = (blockchain)=>{
     window._depay_token_selection_selected_blockchain = blockchain.name

@@ -1,12 +1,16 @@
+import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import findMaxRoute from '../helpers/findMaxRoute'
+import PaymentBlockchainsDialog from '../dialogs/PaymentBlockchainsDialog'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import React, { useState, useContext, useEffect } from 'react'
 import round from '../helpers/round'
 import routePayments from '../helpers/routePayments'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
+import WalletMissesBlockchainSupportDialog from '../dialogs/WalletMissesBlockchainSupportDialog'
 import { ethers } from 'ethers'
+import { ReactDialogStack } from '@depay/react-dialog-stack'
 import { request } from '@depay/web3-client'
 
 export default (props)=>{
@@ -15,9 +19,11 @@ export default (props)=>{
   const [ selectedRoute, setSelectedRoute ] = useState()
   const [ slowRouting, setSlowRouting ] = useState(false)
   const [ reloadCount, setReloadCount ] = useState(0)
-  const { account } = useContext(WalletContext)
+  const [ walletMissesBlockchainSupport, setWalletMissesBlockchainSupport ] = useState(false)
+  const { wallet, account } = useContext(WalletContext)
   const { updatable } = useContext(UpdatableContext)
   const { recover } = useContext(ConfigurationContext)
+  const { open, close } = useContext(ClosableContext)
   
   const onRoutesUpdate = async (routes)=>{
     if(routes.length == 0) {
@@ -50,6 +56,9 @@ export default (props)=>{
   
   const getPaymentRoutes = async ({ allRoutes, selectedRoute, updatable })=>{
     if(updatable == false || !props.accept || !account) { return }
+    if(!props.accept.some((configuration)=>wallet.blockchains.includes(configuration.blockchain))) {
+      return setWalletMissesBlockchainSupport(true)
+    }
     let slowRoutingTimeout = setTimeout(() => { setSlowRouting(true) }, 4000)
     return await routePayments(Object.assign({}, props, { account })).then((routes)=>{
       clearInterval(slowRoutingTimeout)
@@ -59,15 +68,11 @@ export default (props)=>{
 
   const updateRouteAmount = (route, amountBN)=> {
     route.fromAmount = amountBN.toString()
-    route.transaction.params.amounts[0] = amountBN.toString()
-    if(route.transaction.value && route.transaction.value.toString() != '0') {
-      route.transaction.value = amountBN.toString()
-    }
   }
 
   const roundAmount = async (route, amountBN)=> {
     if(route.directTransfer){ return route }
-    let readableAmount = await route.fromToken.readable(amountBN || route.transaction.params.amounts[0])
+    let readableAmount = await route.fromToken.readable(amountBN || route.fromAmount)
     let roundedAmountBN = await route.fromToken.BigNumber(round(readableAmount))
     updateRouteAmount(route, roundedAmountBN)
     return route
@@ -97,22 +102,41 @@ export default (props)=>{
 
   useEffect(() => {
     if(account && props.accept && recover == undefined) {
-      getPaymentRoutes({})
+      refreshPaymentRoutes()
     }
   }, [account, props.accept])
 
-  return(
-    <PaymentRoutingContext.Provider value={{
-      selectedRoute,
-      setSelectedRoute,
-      refreshPaymentRoutes,
-      allRoutes,
-      setAllRoutes,
-      slowRouting,
-      updatedRouteWithNewPrice,
-      updateRouteWithNewPrice
-    }}>
-      { props.children }
-    </PaymentRoutingContext.Provider>
-  )
+  if(walletMissesBlockchainSupport) {
+
+    return(
+      <ReactDialogStack
+        open={ open }
+        close={ close }
+        start='WalletMissesBlockchainSupport'
+        container={ props.container }
+        document={ props.document }
+        dialogs={{
+          WalletMissesBlockchainSupport: <WalletMissesBlockchainSupportDialog/>,
+          PaymentBlockchains: <PaymentBlockchainsDialog/>,
+        }}
+      />
+    )
+
+  } else {
+
+    return(
+      <PaymentRoutingContext.Provider value={{
+        selectedRoute,
+        setSelectedRoute,
+        refreshPaymentRoutes,
+        allRoutes,
+        setAllRoutes,
+        slowRouting,
+        updatedRouteWithNewPrice,
+        updateRouteWithNewPrice
+      }}>
+        { props.children }
+      </PaymentRoutingContext.Provider>
+    )
+  }
 }

@@ -1,7 +1,10 @@
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
+import getNonce from '../helpers/getNonce'
 import React, { useState, useEffect, useContext } from 'react'
 import TransactionTrackingContext from '../contexts/TransactionTrackingContext'
+import WalletContext from '../contexts/WalletContext'
+import { supported } from '../blockchains'
 
 export default (props)=>{
 
@@ -10,6 +13,7 @@ export default (props)=>{
   const [ polling, setPolling ] = useState(false)
   const { errorCallback } = useContext(ErrorContext)
   const { recover } = useContext(ConfigurationContext)
+  const { account, wallet } = useContext(WalletContext)
 
   useEffect(()=>{
     if(polling) {
@@ -35,7 +39,7 @@ export default (props)=>{
     }
   }, [polling])
 
-  const createTracking = (transaction, afterBlock, attempt)=> {
+  const createTracking = async (transaction, afterBlock, attempt)=> {
     if(attempt > 3) {
       console.log('TRANSACTION TRACKING FAILED AFTER 3 ATTEMPTS!')
       return
@@ -48,7 +52,7 @@ export default (props)=>{
         after_block: afterBlock.toString(),
         blockchain: transaction.blockchain,
         sender: transaction.from,
-        nonce: transaction?.nonce?.toString()
+        nonce: await getNonce({ transaction, wallet, account })
       })
     })
     .then((response)=>{
@@ -67,13 +71,13 @@ export default (props)=>{
 
   const openSocket = (transaction)=>{
     let socket = new WebSocket('wss://integrate.depay.com/cable')
-    socket.onopen = function(event) {
+    socket.onopen = async function(event) {
       const msg = {
         command: 'subscribe',
         identifier: JSON.stringify({
           blockchain: transaction.blockchain,
           sender: transaction.from,
-          nonce: transaction?.nonce?.toString(),
+          nonce: await getNonce({ transaction, wallet, account }),
           channel: 'TransactionChannel'
         }),
       }
@@ -101,6 +105,7 @@ export default (props)=>{
   }
 
   const initializeTracking = (transaction, afterBlock)=>{
+    if(!supported.evm.includes(transaction.blockchain)){ return }
     setGivenTransaction(transaction)
     if(recover == undefined) { createTracking(transaction, afterBlock, 1) }
     openSocket(transaction)

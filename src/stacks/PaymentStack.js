@@ -5,8 +5,9 @@ import NavigateContext from '../contexts/NavigateContext'
 import PaymentFailedDialog from '../dialogs/PaymentFailedDialog'
 import PaymentOverviewDialog from '../dialogs/PaymentOverviewDialog'
 import PreTrackingFailedDialog from '../dialogs/PreTrackingFailedDialog'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import TrackingFailedDialog from '../dialogs/TrackingFailedDialog'
+import WalletContext from '../contexts/WalletContext'
 import WrongNetworkDialog from '../dialogs/WrongNetworkDialog'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 
@@ -14,10 +15,21 @@ export default (props)=>{
 
   const { open, close } = useContext(ClosableContext)
   const { setNavigator } = useContext(NavigateContext)
+  const { account } = useContext(WalletContext)
+  const [ navigator, setLocalNavigator ] = useState()
+
+  useEffect(() => {
+    if(navigator) {
+      navigator.set(['PaymentOverview'])
+    }
+  }, [account])
 
   return(
     <ReactDialogStack
-      setNavigator={ setNavigator }
+      setNavigator={(navigator)=>{
+        setLocalNavigator(navigator)
+        setNavigator(navigator)
+      }}
       open={ open }
       close={ close }
       start='PaymentOverview'

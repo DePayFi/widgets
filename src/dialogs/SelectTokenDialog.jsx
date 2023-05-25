@@ -23,8 +23,7 @@ export default (props)=> {
   const [ tokens, setTokens ] = useState([])
   const [ mainResolve, setMainResolve ] = useState()
   const searchElement = useRef()
-  const wallet = getWallets()[0]
-
+  
   const startWithBlockchain = (name)=> {
     let blockchain = Blockchains.findByName(name)
     setBlockchain(blockchain)
@@ -33,20 +32,23 @@ export default (props)=> {
   }
 
   useEffect(()=>{
-    if(wallet) {
-      wallet.connectedTo().then((name)=>{
-        let blockchain = Blockchains.findByName(name)
-        if(window._depay_token_selection_selected_blockchain) {
-          startWithBlockchain(window._depay_token_selection_selected_blockchain)
-        } else if(name && name.length && blockchain && blockchain.tokens && blockchain.tokens.length) {
-          startWithBlockchain(name)
-        } else {
-          startWithBlockchain('ethereum')
-        }
-      }).catch(()=>startWithBlockchain('ethereum'))
-    } else {
-      startWithBlockchain('ethereum')
-    }
+    (async ()=>{
+      const wallet = (await getWallets())[0]
+      if(wallet) {
+        wallet.connectedTo().then((name)=>{
+          let blockchain = Blockchains.findByName(name)
+          if(window._depay_token_selection_selected_blockchain) {
+            startWithBlockchain(window._depay_token_selection_selected_blockchain)
+          } else if(name && name.length && blockchain && blockchain.tokens && blockchain.tokens.length) {
+            startWithBlockchain(name)
+          } else {
+            startWithBlockchain('ethereum')
+          }
+        }).catch(()=>startWithBlockchain('ethereum'))
+      } else {
+        startWithBlockchain('ethereum')
+      }
+    })()
   }, [])
 
   useEffect(()=>{
@@ -122,8 +124,16 @@ export default (props)=> {
   }
 
   const select = (token)=> {
-    if(token.address) { token.address = ethers.utils.getAddress(token.address) }
-    if(token.external_id) { token.external_id = ethers.utils.getAddress(token.external_id) }
+    if(token.address) { 
+      if(token.address.match('0x')) {
+        token.address = ethers.utils.getAddress(token.address)
+      }
+    }
+    if(token.external_id) {
+      if(token.external_id.match('0x')) {
+        token.external_id = ethers.utils.getAddress(token.external_id)
+      }
+    }
     if(blockchain.tokens.find((majorToken)=>{ return majorToken.address == (token.address || token.external_id) })) {
       setOpen(false)
       props.resolve({

@@ -1,6 +1,7 @@
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
+import getNonce from '../helpers/getNonce'
 import NavigateContext from '../contexts/NavigateContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useEffect, useContext, useState } from 'react'
@@ -29,13 +30,13 @@ export default (props)=>{
 
   const openSocket = (transaction)=>{
     let socket = new WebSocket('wss://integrate.depay.com/cable')
-    socket.onopen = function(event) {
+    socket.onopen = async function(event) {
       const msg = {
         command: 'subscribe',
         identifier: JSON.stringify({
           blockchain: transaction.blockchain,
           sender: transaction.from,
-          nonce: transaction?.nonce?.toString(),
+          nonce: await getNonce({ transaction, account, wallet }),
           channel: 'PaymentChannel'
         }),
       }
@@ -52,7 +53,7 @@ export default (props)=>{
       const item = JSON.parse(event.data)
       if(item.type === "ping" || !item.message) { return }
       const success = (item.message.status == 'success')
-      if(validated) { setTimeout(()=>validated(success), 200) }
+      if(validated) { setTimeout(()=>validated(success, item.message), 200) }
       if(item.message.release) {
         socket.close(1000)
         if(success) {
@@ -112,13 +113,12 @@ export default (props)=>{
     }
   }
 
-  const startTracking = (transaction, afterBlock, paymentRoute, attempt)=> {
-    console.log('START TRACKING!', transaction)
+  const startTracking = async(transaction, afterBlock, paymentRoute, attempt)=> {
     callTracking({
       blockchain: transaction.blockchain,
       transaction: transaction.id,
       sender: transaction.from,
-      nonce: transaction?.nonce?.toString(),
+      nonce: await getNonce({ transaction, account, wallet }),
       after_block: afterBlock.toString(),
       from_token: paymentRoute.fromToken.address,
       from_amount: paymentRoute.fromAmount.toString(),
@@ -126,7 +126,8 @@ export default (props)=>{
       to_token: paymentRoute.toToken.address,
       to_amount: paymentRoute.toAmount.toString(),
       to_decimals: paymentRoute.toDecimals,
-      fee_amount: paymentRoute?.feeAmount?.toString()
+      fee_amount: paymentRoute?.feeAmount?.toString(),
+      deadline: transaction.deadline
     })
       .then((response)=>{
         setTrackingInitialized(true)
@@ -138,7 +139,7 @@ export default (props)=>{
       })
   }
 
-  const pollStatus = (polling, transaction, afterBlock, paymentRoute, pollingInterval)=>{
+  const pollStatus = async(polling, transaction, afterBlock, paymentRoute, pollingInterval)=>{
     if(
       !polling ||
       transaction == undefined ||
@@ -150,7 +151,7 @@ export default (props)=>{
       blockchain: transaction.blockchain,
       transaction: transaction.id,
       sender: transaction.from,
-      nonce: transaction?.nonce?.toString(),
+      nonce: await getNonce({ transaction, account, wallet }),
       after_block: afterBlock.toString(),
       to_token: paymentRoute.toToken.address
     }
@@ -165,7 +166,7 @@ export default (props)=>{
           setClosable(true)
         }
         clearInterval(pollingInterval)
-        if(validated) { validated(true) }
+        if(validated) { validated(true, data) }
         setRelease(true)
       }
     }
@@ -194,7 +195,7 @@ export default (props)=>{
     return ()=>{ clearInterval(pollingInterval) }
   }, [polling, transaction, afterBlock, paymentRoute])
 
-  const storePayment = (transaction, afterBlock, paymentRoute, attempt)=>{
+  const storePayment = async(transaction, afterBlock, paymentRoute, attempt)=>{
     fetch('https://public.depay.com/payments', {
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
@@ -202,10 +203,10 @@ export default (props)=>{
         blockchain: transaction.blockchain,
         transaction: transaction.id,
         sender: transaction.from,
-        nonce: transaction?.nonce?.toString(),
+        nonce: await getNonce({ transaction, account, wallet }),
         receiver: paymentRoute.toAddress,
         token: paymentRoute.toToken.address,
-        amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[1], paymentRoute.toDecimals) : ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
+        amount: ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
         confirmations: 1,
         after_block: afterBlock.toString(),
         uuid: transaction.id,
@@ -217,8 +218,9 @@ export default (props)=>{
           link,
           type
         },
-        fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.transaction.params.amounts[4], paymentRoute.toDecimals) : null,
-        fee_receiver: paymentRoute.fee ? paymentRoute.transaction.params.addresses[1] : null
+        fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : null,
+        fee_receiver: paymentRoute.fee ? paymentRoute.fee.receiver : null,
+        deadline: transaction.deadline
       })
     })
     .then((response)=>{
@@ -233,7 +235,6 @@ export default (props)=>{
   }
 
   const initializeTracking = (transaction, afterBlock, paymentRoute)=>{
-    console.log('initializeTracking')
     storePayment(transaction, afterBlock, paymentRoute, 1)
     if(synchronousTracking || (track && track.async == true)) {
       startTracking(transaction, afterBlock, paymentRoute)
@@ -245,13 +246,13 @@ export default (props)=>{
     openSocket(transaction)
   }
 
-  const preTrack = (afterBlock, paymentRoute)=>{
+  const preTrack = (afterBlock, paymentRoute, transaction)=>{
     if(!synchronousTracking && !asynchronousTracking) { return Promise.resolve() }
     return new Promise(async(resolve, reject)=>{
       let payment = {
         blockchain: paymentRoute.blockchain,
         sender: account,
-        nonce: (await wallet.transactionCount({ blockchain: paymentRoute.blockchain, address: account })).toString(),
+        nonce: await getNonce({ blockchain: paymentRoute.blockchain, account, wallet }),
         after_block: afterBlock.toString(),
         from_token: paymentRoute.fromToken.address,
         from_amount: paymentRoute.fromAmount.toString(),
@@ -259,7 +260,8 @@ export default (props)=>{
         to_token: paymentRoute.toToken.address,
         to_amount: paymentRoute.toAmount.toString(),
         to_decimals: paymentRoute.toDecimals,
-        fee_amount: paymentRoute?.feeAmount?.toString()
+        fee_amount: paymentRoute?.feeAmount?.toString(),
+        deadline: transaction.deadline
       }
       if(track.endpoint){
         return fetch(track.endpoint, {

@@ -9,7 +9,7 @@ import { mock, resetMocks } from '@depay/web3-mock'
 import { getProvider, resetCache } from '@depay/web3-client'
 import { Token } from '@depay/web3-tokens'
 
-describe('Payment Widget: insufficient balance', () => {
+describe('Payment Widget: wallet misses blockchain support dialog', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
@@ -23,7 +23,7 @@ describe('Payment Widget: insufficient balance', () => {
   const defaultArguments = {
     currency: 'USD',
     accept: [{
-      blockchain,
+      blockchain: 'solana',
       amount,
       token: TOKEN,
       receiver: toAddress
@@ -71,32 +71,18 @@ describe('Payment Widget: insufficient balance', () => {
     }, "0.85")
   })
 
-  it('shows a dialog explaining that no payment route could be found', () => {
+  it('shows a dialog explaining that the wallet does not support the required blockchains, allows you to display available blockchains and allows to disconnect wallet', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset with enough value in your wallet. Please top up your account in order to proceed with this payment.')
-      })
-    })
-  })
-
-  it('stops reloading routes and toToken price', () => {
-    let USDValueMock_count
-    let TOKENRouteMock_count
-    cy.visit('cypress/test.html').then((contentWindow) => {
-      cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'We were not able to find any asset with enough value in your wallet. Please top up your account in order to proceed with this payment.')
-        cy.wait(2000).then(()=>{
-          USDValueMock_count = USDValueMock.calls.count()
-          TOKENRouteMock_count = TOKENRouteMock.calls.count()
-        })
-        cy.wait(16000).then(()=>{
-          expect(USDValueMock.calls.count()).to.eq(USDValueMock_count)
-          expect(TOKENRouteMock.calls.count()).to.eq(TOKENRouteMock_count)
-        })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Wallet Misses Blockchain Support')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Text', 'The connected wallet does not support the blockchains required by this payment. Try to connect another wallet that does support one of the available blockchains.')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('button', 'Check available blockchains').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.CardText', 'Solana')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('button', 'Go back').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('button', 'Connect another wallet').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.CardText', 'MetaMask')
       })
     })
   })

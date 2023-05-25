@@ -47,7 +47,7 @@ export default (props)=>{
         blockchain: payment.route.blockchain,
         tokenIn: payment.route.toToken.address,
         tokenOut: payment.route.fromToken.address,
-        amountIn: payment.route.toAmount,
+        amountIn: payment.route.feeAmount ? ethers.BigNumber.from(payment.route.toAmount).add(ethers.BigNumber.from(payment.route.feeAmount)) : payment.route.toAmount,
         fromAddress: account,
         toAddress: account
       }) : Promise.resolve([])
@@ -99,14 +99,16 @@ export default (props)=>{
           // remove outliers
           const average = amounts.reduce((a, b)=>a+b)/amounts.length
           const diff = 0.1 // 10%
-          amounts = amounts.filter((amount)=>{
+          const filteredAmounts = amounts.filter((amount)=>{
             return (amount < (average + average*diff) && amount > (average - average*diff))
           })
-          
-          USDValue = amounts.reduce((a, b)=>a+b)/amounts.length
 
+          if(filteredAmounts.length) {
+            USDValue = filteredAmounts.reduce((a, b)=>a+b)/filteredAmounts.length
+          } else {
+            USDValue = amounts.reduce((a, b)=>a+b)/amounts.length
+          }
         }
-
       }
 
       Currency.fromUSD({ amount: USDValue, code: currency })

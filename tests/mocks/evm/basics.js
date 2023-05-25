@@ -72,12 +72,14 @@ export default ({
     overwriteRoutes: true
   }, fromAddressAssets)
 
-  stubTimeZone(timeZone)
+  if(stubTimeZone) { stubTimeZone(timeZone) }
 
-  fetchMock.get({
-    url: `https://public.depay.com/currencies/${currency}`,
-    overwriteRoutes: true
-  }, currencyToUSD.toString())
+  if(currencyToUSD) {
+    fetchMock.get({
+      url: `https://public.depay.com/currencies/${currency}`,
+      overwriteRoutes: true
+    }, currencyToUSD.toString())
+  }
 
   fetchMock.post({
     url: `https://public.depay.com/transactions`,

@@ -1,6 +1,6 @@
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
-import mockBasics from '../../../tests/mocks/basics'
+import mockBasics from '../../../tests/mocks/evm/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Blockchains from '@depay/web3-blockchains'
@@ -26,12 +26,12 @@ describe('Payment Widget: fee', () => {
       blockchain,
       amount,
       token: DEPAY,
-      receiver: toAddress
+      receiver: toAddress,
+      fee: {
+        amount: '5%',
+        receiver: feeReceiver
+      }
     }],
-    fee: {
-      amount: '5%',
-      receiver: feeReceiver
-    }
   }
   
   let provider
@@ -143,6 +143,7 @@ describe('Payment Widget: fee', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     cy.visit('cypress/test.html').then((contentWindow) => {

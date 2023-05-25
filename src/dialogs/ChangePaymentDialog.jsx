@@ -14,7 +14,7 @@ export default (props)=>{
 
   const { setError } = useContext(ErrorContext)
   const { allRoutes, setSelectedRoute } = useContext(PaymentRoutingContext)
-  const { paymentValue, displayedPaymentValue } = useContext(PaymentValueContext)
+  const { displayedPaymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
   const [ allPaymentRoutesWithData, setAllPaymentRoutesWithData ] = useState([])
   const [ cards, setCards ] = useState([])
@@ -59,7 +59,7 @@ export default (props)=>{
                 blockchain={ payment.route.blockchain }
                 address={ payment.route.fromToken.address }
               />
-              <img className="BlockchainLogo small" src={blockchain.logo} alt={blockchain.label} title={blockchain.label}/>
+              <img className={"BlockchainLogo small " + blockchain.name} src={blockchain.logo} alt={blockchain.label} title={blockchain.label}/>
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">

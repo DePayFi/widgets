@@ -124,7 +124,7 @@ export default (props)=> {
   useEffect(()=> {
     if(linkIsConnected !== undefined) {
       
-      setShowQRCode(!extensionIsAvailable && !isMobile() && !props.wallet?.desktop?.native)
+      setShowQRCode(!extensionIsAvailable && !isMobile() && !props.wallet?.desktop?.native && props.wallet.link)
 
     }
   }, [extensionIsAvailable, linkIsConnected])
@@ -153,16 +153,24 @@ export default (props)=> {
             <h1 className="LineHeightL Text FontSizeL FontWeightBold">Connect { props.wallet.name }</h1>
           </div>
 
+          { !window.location.protocol.match('https') &&
+            <div className="PaddingTopS PaddingLeftL PaddingRightL">
+              <div className="Alert FontSizeS">
+                <strong>Most wallets do not connect to http!</strong>
+              </div>
+            </div>
+          }
+
           <div className="PaddingTopS">
             <div ref={ QRCodeElement } className="QRCode"/>
-            { showQRCode &&
+            { showQRCode && 
               <div className="Opacity05 PaddingBottomXS">
                 <small>Scan QR code with your wallet</small>
               </div>
             }
           </div>
 
-          <div className="PaddingLeftL PaddingRightL PaddingTopL">
+          <div className="PaddingLeftL PaddingRightL PaddingTopS">
             { extensionIsAvailable &&
               <div className="PaddingBottomXS">
                 { props.showConnectExtensionWarning &&
@@ -217,7 +225,7 @@ export default (props)=> {
                 </button>
               </div>
             }
-            { props.wallet.link && props.wallet.link == 'WalletConnectV1' &&
+            { props.wallet.link && props.wallet.link == 'WalletConnectV1' && props.wallet.connectionLink &&
               <div className="PaddingBottomXS TooltipWrapper">
                 <button onClick={ connectViaCopyLink } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS">
                   <span className="PaddingTopXS PaddingRightXS PaddingLeftS">

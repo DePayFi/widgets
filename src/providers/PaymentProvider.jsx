@@ -3,8 +3,9 @@ import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
 import NavigateContext from '../contexts/NavigateContext'
-import NoPaymentMethodFoundDialog from '../dialogs/NoPaymentMethodFoundDialog'
+import NoPaymentOptionFoundDialog from '../dialogs/NoPaymentOptionFoundDialog'
 import PaymentContext from '../contexts/PaymentContext'
+import PaymentOptionsDialog from '../dialogs/PaymentOptionsDialog'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useContext, useEffect, useState } from 'react'
@@ -49,16 +50,17 @@ export default (props)=>{
   }
 
   const pay = async ()=> {
+    const transaction = await payment.route.getTransaction({ from: await wallet.account() })
     if(before) {
-      let stop = await before(payment.route.transaction)
+      let stop = await before(transaction)
       if(stop === false){ return }
     }
     setClosable(false)
     setPaymentState('paying')
     setUpdatable(false)
-    let currentBlock = await request({ blockchain: payment.route.transaction.blockchain, method: 'latestBlockNumber' })
-    await preTrack(currentBlock, payment.route).then(()=>{
-      wallet.sendTransaction(Object.assign({}, payment.route.transaction, {
+    let currentBlock = await request({ blockchain: transaction.blockchain, method: 'latestBlockNumber' })
+    await preTrack(currentBlock, payment.route, transaction).then(()=>{
+      wallet.sendTransaction(Object.assign({}, transaction, {
         sent: (transaction)=>{
           initializeTransactionTracking(transaction, currentBlock)
           if(sent) { sent(transaction) }
@@ -205,11 +207,12 @@ export default (props)=>{
       <ReactDialogStack
         open={ open }
         close={ close }
-        start='NoPaymentMethodFound'
+        start='NoPaymentOptionFound'
         container={ props.container }
         document={ props.document }
         dialogs={{
-          NoPaymentMethodFound: <NoPaymentMethodFoundDialog/>,
+          NoPaymentOptionFound: <NoPaymentOptionFoundDialog/>,
+          PaymentOptions: <PaymentOptionsDialog/>,
         }}
       />
     )

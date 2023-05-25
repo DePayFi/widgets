@@ -11,6 +11,7 @@ export default {
   '@depay/web3-payments': 'Web3Payments',
   '@depay/web3-tokens': 'Web3Tokens',
   '@depay/web3-wallets': 'Web3Wallets',
+  '@depay/solana-web3.js': 'SolanaWeb3js',
   '@tanstack/react-virtual': 'ReactVirtual',
   '@uiw/copy-to-clipboard': 'copyTextToClipboard',
   'ethers': 'ethers',

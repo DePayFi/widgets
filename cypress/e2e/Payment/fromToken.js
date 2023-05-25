@@ -1,7 +1,7 @@
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
-import mockAmountsOut from '../../../tests/mocks/amountsOut'
-import mockBasics from '../../../tests/mocks/basics'
+import mockAmountsOut from '../../../tests/mocks/evm/amountsOut'
+import mockBasics from '../../../tests/mocks/evm/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Blockchains from '@depay/web3-blockchains'
@@ -155,6 +155,7 @@ describe('Payment Widget: fromToken, fromAmount, toToken configuration', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     cy.visit('cypress/test.html').then((contentWindow) => {

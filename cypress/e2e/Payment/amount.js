@@ -1,8 +1,8 @@
 import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
-import mockBasics from '../../../tests/mocks/basics'
-import mockAmountsOut from '../../../tests/mocks/amountsOut'
+import mockBasics from '../../../tests/mocks/evm/basics'
+import mockAmountsOut from '../../../tests/mocks/evm/amountsOut'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Blockchains from '@depay/web3-blockchains'
@@ -257,6 +257,31 @@ describe('Payment Widget: amount', () => {
           }
         }
       })
+
+      fetchMock.post({
+        url: "https://public.depay.com/payments",
+        body: {
+          after_block: "1",
+          amount: "18.0",
+          blockchain: "ethereum",
+          confirmations: 1,
+          fee_amount: null,
+          fee_receiver: null,
+          nonce: "0",
+          payload: {
+            sender_amount: "11.658",
+            sender_id: fromAddress,
+            sender_token_id: DAI,
+            type: 'payment'
+          },
+          receiver: toAddress,
+          sender: fromAddress,
+          token: DEPAY,
+          transaction: mockedTransaction.transaction._id,
+          uuid: mockedTransaction.transaction._id,
+        },
+        matchPartialBody: true
+      }, 201)
       
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{

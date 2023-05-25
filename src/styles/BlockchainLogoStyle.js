@@ -6,8 +6,8 @@ export default (style)=>{
     }
 
     .BlockchainLogo.small {
-      height: 18px;
-      width: 18px;
+      height: 20px;
+      width: 20px;
     }
   `)
 }

@@ -1,6 +1,6 @@
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
-import mockBasics from '../../../tests/mocks/basics'
+import mockBasics from '../../../tests/mocks/evm/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Blockchains from '@depay/web3-blockchains'
@@ -137,6 +137,7 @@ describe('Payment Widget: main functionality', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     cy.visit('cypress/test.html').then((contentWindow) => {
@@ -204,6 +205,7 @@ describe('Payment Widget: main functionality', () => {
         transaction: mockedTransaction.transaction._id,
         uuid: mockedTransaction.transaction._id,
       },
+      matchPartialBody: true
     }, 201)
 
     cy.visit('cypress/test.html').then((contentWindow) => {
@@ -276,6 +278,31 @@ describe('Payment Widget: main functionality', () => {
       }
     })
 
+    fetchMock.post({
+      url: "https://public.depay.com/payments",
+      body: {
+        after_block: "1",
+        amount: "20.0",
+        blockchain: "ethereum",
+        confirmations: 1,
+        fee_amount: null,
+        fee_receiver: null,
+        nonce: "0",
+        payload: {
+          sender_amount: "20.0",
+          sender_id: fromAddress,
+          sender_token_id: DEPAY,
+          type: 'payment'
+        },
+        receiver: toAddress,
+        sender: fromAddress,
+        token: DEPAY,
+        transaction: mockedTransaction.transaction._id,
+        uuid: mockedTransaction.transaction._id,
+      },
+      matchPartialBody: true
+    }, 201)
+
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
@@ -308,6 +335,29 @@ describe('Payment Widget: main functionality', () => {
 
     let sentCalledWith
     let succeededCalledWith
+
+    fetchMock.post({
+      url: "https://public.depay.com/payments",
+      body: {
+        after_block: "1",
+        amount: "20.0",
+        blockchain: "ethereum",
+        confirmations: 1,
+        fee_amount: null,
+        fee_receiver: null,
+        nonce: "0",
+        payload: {
+          sender_amount: "20.0",
+          sender_id: fromAddress,
+          sender_token_id: DEPAY,
+          type: 'payment'
+        },
+        receiver: toAddress,
+        sender: fromAddress,
+        token: DEPAY,
+      },
+      matchPartialBody: true
+    }, 201)
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{

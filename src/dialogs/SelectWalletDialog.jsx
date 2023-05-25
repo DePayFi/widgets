@@ -13,7 +13,8 @@ import { NavigateStackContext } from '@depay/react-dialog-stack'
 export default (props)=>{
 
   const [ searchTerm, setSearchTerm ] = useState('')
-  const [ prioritizedWallets, setPrioritizedWallets ] = useState()
+  const [ detectedWallets, setDetectedWallets ] = useState([])
+  const [ previouslyConnectedWallet, setPreviouslyConnectedWallet ] = useState()
   const [ showDropDown, setShowDropDown ] = useState(false)
   const [ dialogAnimationFinished, setDialogAnimationFinished ] = useState(false)
   const searchElement = useRef()
@@ -42,54 +43,23 @@ export default (props)=>{
   }
 
   useEffect(()=>{
-    getWallets().then((availableWallets)=>{
-      let renderedWallets = {} // prevents rendering same wallet twice (e.g. extension + via walletconnect)
-      const renderWalletElement = (walletMetaData, index, type, wallet)=>{
-        if(renderedWallets[walletMetaData.name] && type == 'previouslyConnected') { return(null) }
-        renderedWallets[walletMetaData.name] = true
-        let connectionType = 'app'
-        if(wallet && wallet.constructor && ![wallets.WalletConnectV1, wallets.WalletLink].includes(wallet.constructor)) {
-          connectionType = 'extension'
-        }
-        return(
-          <div key={index} className="PaddingBottomXS">
-            <button
-              type="button"
-              className="Card small"
-              title={`Connect ${walletMetaData.name}`}
-              onClick={ ()=>onClickWallet({ ...walletMetaData, via: type, connectionType }, wallet) }
-            >
-              <div className="CardImage">
-                <img className="transparent" src={walletMetaData.logo} className="WalletLogoS"/>
-              </div>
-              <div className="CardBody">
-                <div className="CardBodyWrapper PaddingLeftXS LineHeightXS">
-                  <div className="CardText FontWeightMedium">
-                    { walletMetaData.name }
-                  </div>
-                  { type != 'previouslyConnected' && <div className="LightGreen"><span className="LightGreen" style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Connect detected { connectionType }</div> }
-                  { type == 'previouslyConnected' && <div className="Opacity05"><span style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Previously connected</div> }
-                </div>
-              </div>
-            </button>
-          </div>
+    getWallets({
+      drip: (wallet)=>{
+        setDetectedWallets(
+          Array.from(
+            new Set(
+              detectedWallets.concat(wallet)
+            )
+          )
         )
       }
-
-      let prioritizedWallets = availableWallets.map((availableWallet, index)=>{
-        if(availableWallet.name == 'Phantom') { return }
-        let walletMetaData = allWallets.find((wallet)=>wallet.name == availableWallet.name)
-        if(walletMetaData) { return(renderWalletElement(walletMetaData, index, 'detected', availableWallet)) }
-      }).filter((wallet)=>!!wallet)
-
-      let previouslyConnectedWalletName = getPreviouslyConnectedWallet()
-      let previouslyConnectedWallet = allWallets.find((wallet)=>wallet.name == previouslyConnectedWalletName) || allWallets.find((wallet)=>wallet.name == previouslyConnectedWalletName)
-      if(previouslyConnectedWallet && previouslyConnectedWallet) {
-        prioritizedWallets.push(renderWalletElement(previouslyConnectedWallet, prioritizedWallets.length+1, 'previouslyConnected'))
-      }
-
-      setPrioritizedWallets(prioritizedWallets)
     })
+
+    let previouslyConnectedWalletName = getPreviouslyConnectedWallet()
+    let previouslyConnectedWallet = allWallets.find((wallet)=>wallet.name == previouslyConnectedWalletName) || allWallets.find((wallet)=>wallet.name == previouslyConnectedWalletName)
+    if(previouslyConnectedWallet) {
+      setPreviouslyConnectedWallet(previouslyConnectedWallet)
+    }
   }, [])
 
   useEffect(()=>{
@@ -108,12 +78,69 @@ export default (props)=>{
     <Dialog
       header={
         <div>
-          <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
+          <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft PaddingBottomS">
             <h1 className="LineHeightL FontSizeL">Connect a wallet</h1>
           </div>
-          { prioritizedWallets &&
-            <div className="PaddingBottomXS PaddingLeftS PaddingRightS PaddingTopS">
-              { prioritizedWallets }
+          { ((detectedWallets && detectedWallets.length > 0) || previouslyConnectedWallet) &&
+            <div className="PaddingBottomXS PaddingLeftS PaddingRightS">
+              {
+                detectedWallets.map((wallet, index)=>{
+                  const walletMetaData = allWallets.find((walletFromList)=>walletFromList.name === (wallet.info ? wallet.info.name : wallet.name))
+                  let connectionType = 'app'
+                  if(wallet && wallet.constructor && ![wallets.WalletConnectV1, wallets.WalletLink].includes(wallet.constructor)) {
+                    connectionType = 'extension'
+                  }
+                  return(
+                    <div key={index} className="PaddingBottomXS">
+                      <button
+                        type="button"
+                        className="Card small"
+                        title={`Connect ${walletMetaData.name}`}
+                        onClick={ ()=>{
+                          onClickWallet({ ...walletMetaData, via: 'detected', connectionType }, wallet)
+                        }}
+                      >
+                        <div className="CardImage">
+                          <img className="transparent" src={walletMetaData.logo} className="WalletLogoS"/>
+                        </div>
+                        <div className="CardBody">
+                          <div className="CardBodyWrapper PaddingLeftXS LineHeightXS">
+                            <div className="CardText FontWeightMedium">
+                              { walletMetaData.name }
+                            </div>
+                            <div className="LightGreen"><span className="LightGreen" style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Connect detected { connectionType }</div>
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                  )
+                })
+              }
+              {
+                previouslyConnectedWallet && !detectedWallets.find((wallet)=>previouslyConnectedWallet.name === (wallet.info ? wallet.info.name : wallet.name)) &&
+                <div className="PaddingBottomXS">
+                  <button
+                    type="button"
+                    className="Card small"
+                    title={`Connect ${previouslyConnectedWallet.name}`}
+                    onClick={ ()=>{
+                      onClickWallet({ ...previouslyConnectedWallet, via: 'previouslyConnected', connectionType: 'app' })
+                    }}
+                  >
+                    <div className="CardImage">
+                      <img className="transparent" src={previouslyConnectedWallet.logo} className="WalletLogoS"/>
+                    </div>
+                    <div className="CardBody">
+                      <div className="CardBodyWrapper PaddingLeftXS LineHeightXS">
+                        <div className="CardText FontWeightMedium">
+                          { previouslyConnectedWallet.name }
+                        </div>
+                        <div className="Opacity05"><span style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Previously connected</div>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              }
             </div>
           }
           <div className="PaddingBottomXS PaddingLeftS PaddingRightS PaddingTopXS">

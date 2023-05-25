@@ -1,7 +1,7 @@
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
-import mockAmountsOut from '../../../tests/mocks/amountsOut'
-import mockBasics from '../../../tests/mocks/basics'
+import mockAmountsOut from '../../../tests/mocks/evm/amountsOut'
+import mockBasics from '../../../tests/mocks/evm/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Blockchains from '@depay/web3-blockchains'
@@ -195,6 +195,31 @@ describe('Payment Widget: change payment', () => {
           value: '10100000000000000'
         }
       })
+
+      fetchMock.post({
+        url: "https://public.depay.com/payments",
+        body: {
+          after_block: "1",
+          amount: "20.0",
+          blockchain: "ethereum",
+          confirmations: 1,
+          fee_amount: null,
+          fee_receiver: null,
+          nonce: "1",
+          payload: {
+            sender_amount: "0.0101",
+            sender_id: fromAddress,
+            sender_token_id: ETH,
+            type: 'payment'
+          },
+          receiver: toAddress,
+          sender: fromAddress,
+          token: DEPAY,
+          transaction: mockedTransaction.transaction._id,
+          uuid: mockedTransaction.transaction._id,
+        },
+        matchPartialBody: true
+      }, 201)
 
       fetchMock.get({
         url: `https://public.depay.com/transactions/${blockchain}/${fromAddress}/1`,
