@@ -1105,11 +1105,6 @@
   resolved "https://registry.yarnpkg.com/@depay/react-token-image/-/react-token-image-4.10.0.tgz#925467e2be20008785939646fb76c80e4e35df0c"
   integrity sha512-uEdhmcg8NuhzR6rP5lZqNssu87I9mZ3tvF+xuTF0NICBJT5/4galqhCigVfGbD8fgqVjWfIWUaqa36JWxjl18A==
 
-"@depay/solana-web3.js@^1.21.2":
-  version "1.22.0"
-  resolved "https://registry.yarnpkg.com/@depay/solana-web3.js/-/solana-web3.js-1.22.0.tgz#58f31c2a42553cff42a247a25fd69eb0b97f6c70"
-  integrity sha512-GcJXmJHCMb3K3N/xhOE72YORu/R2iVw/BELXsTMz7L3CgfSqCINtXHHxB8bdTDecbpSpsUl2Cmij7lwhipocDA==
-
 "@depay/solana-web3.js@^1.23.1":
   version "1.23.1"
   resolved "https://registry.yarnpkg.com/@depay/solana-web3.js/-/solana-web3.js-1.23.1.tgz#d3f09f3e8d9e1235e2f33adab85632c43ba99b14"
@@ -1151,12 +1146,12 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-exchanges/-/web3-exchanges-12.2.9.tgz#54073d5b48e501f7e006e10172b42a86b79e5e81"
   integrity sha512-z7/CJnyq9CAA1fL4YPFWl4e9P7oLahlMAwmM1aIV+BNNPvGsqb+EMxC0fCGFEOR/9JWiQvncbpAfKVVFWByNfg==
 
-"@depay/web3-mock@^14.10.0":
-  version "14.10.0"
-  resolved "https://registry.yarnpkg.com/@depay/web3-mock/-/web3-mock-14.10.0.tgz#4e5b39846c16e5179ac60921d1c57bd74b5e3b76"
-  integrity sha512-mqfc1AjO0pRDrN+IW7dP5n2xJ9TDzituMEjUXApgbz4AmJ3Crh07UvJCLqaZHsA//18otmlWn+AWUI8JUUd+LA==
+"@depay/web3-mock@^14.11.1":
+  version "14.11.1"
+  resolved "https://registry.yarnpkg.com/@depay/web3-mock/-/web3-mock-14.11.1.tgz#88ae7d439b79b010d22dd8b6ea650d5aba5d1a43"
+  integrity sha512-jIy9T6CKJTZG/JfE68cvxq+1Qu1EAMK7TpFl7zyLOriWfQp0Uam5U1ypxznn6c+gLZTSv4f7MwUy3juQTUhlNg==
   dependencies:
-    "@depay/solana-web3.js" "^1.21.2"
+    "@depay/solana-web3.js" "^1.23.1"
     "@depay/web3-blockchains" "^8.0.1"
     ethers "^5.7.1"
 

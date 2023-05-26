@@ -4,10 +4,10 @@ import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/solana/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { mock, confirm, increaseBlock, resetMocks } from '@depay/web3-mock'
+import { mock, anything, confirm, increaseBlock, resetMocks } from '@depay/web3-mock'
 import { mockPaymentsAccount, mockTokenAccount } from '../../../tests/mocks/solana/transaction'
 import { resetCache, getProvider } from '@depay/web3-client'
-import { routers, plugins } from '@depay/web3-payments'
+import { routers } from '@depay/web3-payments'
 import { Token } from '@depay/web3-tokens'
 
 describe('Payment Widget: main functionality for Solana', () => {
@@ -32,6 +32,7 @@ describe('Payment Widget: main functionality for Solana', () => {
   
   let TOKEN_A_AmountBN
   let provider
+  let exchange
 
   beforeEach(async()=>{
     resetMocks()
@@ -40,7 +41,7 @@ describe('Payment Widget: main functionality for Solana', () => {
     mock({ blockchain, accounts: { return: accounts } })
     provider = await getProvider(blockchain)
 
-    ;({ TOKEN_A_AmountBN } = await mockBasics({
+    ;({ exchange, TOKEN_A_AmountBN } = await mockBasics({
       provider,
       blockchain,
 
@@ -101,14 +102,24 @@ describe('Payment Widget: main functionality for Solana', () => {
   })
   
   it('executes', async()=> {
+
     let mockedTransaction = mock({
       blockchain,
       transaction: {
         from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN]
+        instructions: [
+          {
+            to: 'DePayRG7ZySPWzeK9Kvq7aPeif7sdbBZNh6DHcvNj7F7',
+            api: routers.solana.api.routeToken.layout,
+            params: {
+              anchorDiscriminator: '13483873682232752277',
+              nonce: '0',
+              paymentAmount: '20000000000',
+              feeAmount: anything,
+              deadline: anything
+            }
+          }
+        ]
       }
     })
 
@@ -145,7 +156,27 @@ describe('Payment Widget: main functionality for Solana', () => {
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary')
+        cy.wait(1000).then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://solscan.io/tx/')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
+            expect(mockedTransaction.calls.count()).to.equal(1)
+            cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
+            confirm(mockedTransaction)
+            cy.wait(1000).then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Transaction confirmed').invoke('attr', 'href').should('include', 'https://solscan.io/tx/')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
+                cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+                cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+              })
+            })
+          })  
+        })
       })
     })
   })
