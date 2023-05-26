@@ -4,10 +4,9 @@ import React, { useContext } from 'react'
 import WalletContext from '../contexts/WalletContext'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
-export default ()=> {
+export default (props)=> {
 
   const { navigate } = useContext(NavigateStackContext)
-  const { disconnect } = useContext(WalletContext)
 
   return(
     <Dialog
@@ -35,7 +34,7 @@ export default ()=> {
       }
       footer={
         <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
-          <button className="ButtonPrimary" onClick={ ()=>disconnect() }>
+          <button className="ButtonPrimary" onClick={ ()=>props.disconnect() }>
             Connect another wallet
           </button>
         </div>

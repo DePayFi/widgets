@@ -1,7 +1,7 @@
 {
   "name": "@depay/widgets-solana",
   "moduleName": "DePayWidgets",
-  "version": "11.1.0",
+  "version": "11.1.1",
   "description": "Web3 Payments with any token. DePay simplifies and improves Web3 Payments with the power of DeFi. Accept any token with on-the-fly conversion.",
   "main": "./dist/umd/index.js",
   "module": "./dist/esm/index.js",
@@ -24,7 +24,7 @@
   "dependencies": {
     "@depay/coinbase-wallet-sdk": "^3.6.4",
     "@depay/local-currency": "^3.6.0",
-    "@depay/react-dialog-stack": "^7.0.3",
+    "@depay/react-dialog-stack": "^7.0.4",
     "@depay/react-shadow-dom": "^5.0.5",
     "@depay/react-token-image-solana": "^4.10.0",
     "@depay/solana-web3.js": "^1.23.1",

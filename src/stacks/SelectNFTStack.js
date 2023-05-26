@@ -32,12 +32,12 @@ export default (props)=>{
       document={ props.document }
       setNavigator={ (navigator)=>{ setNavigator(navigator) }}
       dialogs={{
-        SelectMarketplace: <SelectNFTPlatformDialog selection={ selection } resolve={ props.resolve } unmount={ props.unmount } />,
-        SelectNFTContractOnOpenSea: <SelectNFTContractOnOpenSeaDialog selection={ selection } resolve={ props.resolve } unmount={ props.unmount } />,
-        SelectNFTIdOnOpenSea: <SelectNFTIdOnOpenSeaDialog selection={ selection } resolve={ props.resolve } unmount={ props.unmount } />,
-        EnterNFTDataForOpenSea: <EnterNFTDataForOpenSeaDialog selection={ selection } resolve={ props.resolve } unmount={ props.unmount } />,
-        SelectBlockchain: <SelectBlockchainDialog selection={ selection } stacked={ true } resolve={ props.resolve } unmount={ props.unmount } />,
-        ConfirmNFTSelection: <ConfirmNFTSelectionDialog selection={ selection } resolve={ props.resolve } unmount={ props.unmount } />,
+        SelectMarketplace: <SelectNFTPlatformDialog selection={props.selection} resolve={props.resolve} unmount={props.unmount} />,
+        SelectNFTContractOnOpenSea: <SelectNFTContractOnOpenSeaDialog selection={props.selection} resolve={props.resolve} unmount={props.unmount} />,
+        SelectNFTIdOnOpenSea: <SelectNFTIdOnOpenSeaDialog selection={props.selection} resolve={props.resolve} unmount={props.unmount} />,
+        EnterNFTDataForOpenSea: <EnterNFTDataForOpenSeaDialog selection={props.selection} resolve={props.resolve} unmount={props.unmount} />,
+        SelectBlockchain: <SelectBlockchainDialog selection={props.selection} resolve={props.resolve} unmount={props.unmount} />,
+        ConfirmNFTSelection: <ConfirmNFTSelectionDialog selection={props.selection} resolve={props.resolve} unmount={props.unmount} />,
       }}
     />
   )

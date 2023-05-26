@@ -27,9 +27,9 @@ export default (props)=>{
       container={ props.container }
       document={ props.document }
       dialogs={{
-        SelectToken: <SelectTokenDialog selection={ selection } resolve={ props.resolve } unmount={ props.unmount } />,
-        SelectBlockchain: <SelectBlockchainDialog selection={ selection } resolve={ props.resolve }/>,
-        ConfirmTokenSelection: <ConfirmTokenSelectionDialog selection={ selection } resolve={ props.resolve } unmount={ props.unmount } />,
+        SelectToken: <SelectTokenDialog selection={selection} resolve={props.resolve} unmount={props.unmount}/>,
+        SelectBlockchain: <SelectBlockchainDialog selection={selection} resolve={props.resolve} unmount={props.unmount}/>,
+        ConfirmTokenSelection: <ConfirmTokenSelectionDialog selection={selection} resolve={props.resolve} unmount={props.unmount}/>,
       }}
     />
   )

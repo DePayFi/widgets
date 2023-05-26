@@ -136,9 +136,9 @@ export default (props)=>{
         container={ props.container }
         document={ props.document }
         dialogs={{
-          SelectWallet: <SelectWalletDialog setWallet={ setWallet } resolve={ resolve } connectViaRedirect={ connectViaRedirect } connectExtension={ connectExtension } />,
-          WhatIsAWallet: <WhatIsAWalletDialog />,
-          ConnectWallet: <ConnectWalletDialog selection={ selection } wallet={ wallet } resolve={ resolve } connectViaRedirect={ connectViaRedirect } connectExtension={ connectExtension } showConnectExtensionWarning={ showConnectExtensionWarning } />
+          SelectWallet: <SelectWalletDialog setWallet={setWallet} resolve={resolve} connectViaRedirect={connectViaRedirect} connectExtension={connectExtension}/>,
+          WhatIsAWallet: <WhatIsAWalletDialog/>,
+          ConnectWallet: <ConnectWalletDialog selection={selection} wallet={wallet} resolve={resolve} connectViaRedirect={connectViaRedirect} connectExtension={connectExtension} showConnectExtensionWarning={showConnectExtensionWarning}/>
         }}
       />
       <PoweredBy/>

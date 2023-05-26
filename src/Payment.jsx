@@ -49,7 +49,6 @@ let Payment = async ({
   connected,
   closed,
   track,
-  fee,
   recover,
   closable,
   integration,
@@ -69,14 +68,14 @@ let Payment = async ({
     let unmount = mount({ style, container, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={ { type: 'payment', before, amount, accept, currency, event, sent, succeeded, validated, failed, whitelist, blacklist, providers, track, fee, recover, integration, link, wallet, title, action } }>
+          <ConfigurationProvider configuration={ { type: 'payment', before, amount, accept, currency, event, sent, succeeded, validated, failed, whitelist, blacklist, providers, track, recover, integration, link, wallet, title, action } }>
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount } closable={ closable }>
                 <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>
                   <NavigateProvider>
                     <ConversionRateProvider>
                       <ChangableAmountProvider accept={ accept }>
-                        <PaymentAmountRoutingProvider accept={ accept } whitelist={ whitelist } blacklist={ blacklist } event={ event } fee={ fee } container={ container } document={ document }>
+                        <PaymentAmountRoutingProvider accept={ accept } whitelist={ whitelist } blacklist={ blacklist } event={ event } container={ container } document={ document }>
                           <TransactionTrackingProvider>
                             <PaymentTrackingProvider document={ ensureDocument(document) }>
                               <PaymentProvider container={ container } document={ document }>
@@ -109,6 +108,6 @@ let Payment = async ({
   }
 }
 
-Payment.preload = ({ account, accept, whitelist, blacklist, event, fee }) => { routePayments({ account, accept, whitelist, blacklist, fee }) }
+Payment.preload = ({ account, accept, whitelist, blacklist, event }) => { routePayments({ account, accept, whitelist, blacklist }) }
 
 export default Payment

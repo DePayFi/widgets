@@ -119,12 +119,7 @@ export default (props)=>{
       setAcceptWithAmount(props.accept.map((configuration, index)=>{
         if(amounts[index] == undefined) { return }
         return(
-          {
-            blockchain: configuration.blockchain,
-            amount: round(amounts[index]),
-            token: configuration.token,
-            receiver: configuration.receiver || account
-          }
+          {...configuration, amount: round(amounts[index]) }
         )
       }).filter((configuration)=>{
         return !!configuration

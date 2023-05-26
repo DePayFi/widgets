@@ -8,7 +8,6 @@ import NavigateProvider from './providers/NavigateProvider'
 import PoweredBy from './components/PoweredBy'
 import React from 'react'
 import requireReactVersion from './helpers/requireReactVersion'
-import routePayments from './helpers/routePayments'
 import UpdatableProvider from './providers/UpdatableProvider'
 
 let Loading = async ({
