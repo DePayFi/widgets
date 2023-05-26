@@ -1,19 +1,21 @@
-import ConfigurationContext from '../contexts/ConfigurationContext'
 import ClosableContext from '../contexts/ClosableContext'
-import { ReactDialogStack } from '@depay/react-dialog-stack'
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import ConnectStack from '../stacks/ConnectStack'
 import ErrorContext from '../contexts/ErrorContext'
 import PaymentBlockchainsDialog from '../dialogs/PaymentBlockchainsDialog'
 import React, { useState, useEffect, useContext, useCallback } from 'react'
+import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
 import WalletMissesBlockchainSupportDialog from '../dialogs/WalletMissesBlockchainSupportDialog'
 import { debounce } from 'lodash'
 import { ReactDialog } from '@depay/react-dialog'
+import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{
 
   const { open, close } = useContext(ClosableContext)
   const { accept, recover, wallet: passedWallet } = useContext(ConfigurationContext)
+  const { setUpdatable } = useContext(UpdatableContext)
   const { setError } = useContext(ErrorContext)
   const [wallet, setWallet] = useState(passedWallet)
   const [ walletMissesBlockchainSupport, setWalletMissesBlockchainSupport ] = useState(false)
@@ -48,6 +50,8 @@ export default (props)=>{
     if(!wallet) { return }
 
     if(accept && !accept.some((configuration)=>wallet.blockchains.includes(configuration.blockchain))) {
+
+      setUpdatable(false)
       setTimeout(()=>debounceSetWalletMissesBlockchainSupport(true), 200)
       return
     }

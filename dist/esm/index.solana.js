@@ -23231,8 +23231,11 @@ var WalletProvider = (function (props) {
       recover = _useContext2.recover,
       passedWallet = _useContext2.wallet;
 
-  var _useContext3 = useContext(ErrorContext);
-      _useContext3.setError;
+  var _useContext3 = useContext(UpdatableContext),
+      setUpdatable = _useContext3.setUpdatable;
+
+  var _useContext4 = useContext(ErrorContext);
+      _useContext4.setError;
 
   var _useState = useState(passedWallet),
       _useState2 = _slicedToArray(_useState, 2),
@@ -23290,6 +23293,7 @@ var WalletProvider = (function (props) {
     if (accept && !accept.some(function (configuration) {
       return wallet.blockchains.includes(configuration.blockchain);
     })) {
+      setUpdatable(false);
       setTimeout(function () {
         return debounceSetWalletMissesBlockchainSupport(true);
       }, 200);
@@ -28353,8 +28357,8 @@ var SelectNFTStack = (function (props) {
       open = _useContext2.open,
       close = _useContext2.close;
 
-  var _useContext3 = useContext(SelectionContext);
-      _useContext3.selection;
+  var _useContext3 = useContext(SelectionContext),
+      selection = _useContext3.selection;
       _useContext3.setSelection;
 
   var _useState = useState(),
@@ -28380,32 +28384,32 @@ var SelectNFTStack = (function (props) {
     },
     dialogs: {
       SelectMarketplace: /*#__PURE__*/React.createElement(SelectNFTPlatformDialog, {
-        selection: props.selection,
+        selection: selection,
         resolve: props.resolve,
         unmount: props.unmount
       }),
       SelectNFTContractOnOpenSea: /*#__PURE__*/React.createElement(SelectNFTContractOnOpenSeaDialog, {
-        selection: props.selection,
+        selection: selection,
         resolve: props.resolve,
         unmount: props.unmount
       }),
       SelectNFTIdOnOpenSea: /*#__PURE__*/React.createElement(SelectNFTIdOnOpenSeaDialog, {
-        selection: props.selection,
+        selection: selection,
         resolve: props.resolve,
         unmount: props.unmount
       }),
       EnterNFTDataForOpenSea: /*#__PURE__*/React.createElement(EnterNFTDataForOpenSeaDialog, {
-        selection: props.selection,
+        selection: selection,
         resolve: props.resolve,
         unmount: props.unmount
       }),
       SelectBlockchain: /*#__PURE__*/React.createElement(SelectBlockchainDialog, {
-        selection: props.selection,
+        selection: selection,
         resolve: props.resolve,
         unmount: props.unmount
       }),
       ConfirmNFTSelection: /*#__PURE__*/React.createElement(ConfirmNFTSelectionDialog, {
-        selection: props.selection,
+        selection: selection,
         resolve: props.resolve,
         unmount: props.unmount
       })
