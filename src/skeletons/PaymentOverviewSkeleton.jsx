@@ -1,17 +1,19 @@
-import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
+import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import React, { useContext } from 'react'
 
 export default (props)=>{
   const { amountsMissing, fixedAmount } = useContext(ChangableAmountContext)
   const { slowRouting, selectedRoute } = useContext(PaymentRoutingContext)
+  const { title } = useContext(ConfigurationContext)
 
   return(
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
-          <h1 className="LineHeightL FontSizeL">Payment</h1>
+          <h1 className="LineHeightL FontSizeL">{ title || 'Payment' }</h1>
         </div>
       }
       alternativeHeaderAction={ props.alternativeHeaderAction }

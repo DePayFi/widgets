@@ -25332,12 +25332,15 @@ var PaymentOverviewSkeleton = (function (props) {
       slowRouting = _useContext2.slowRouting,
       selectedRoute = _useContext2.selectedRoute;
 
+  var _useContext3 = useContext(ConfigurationContext),
+      title = _useContext3.title;
+
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL FontSizeL"
-    }, "Payment")),
+    }, title || 'Payment')),
     alternativeHeaderAction: props.alternativeHeaderAction,
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftM PaddingRightM PaddingBottomXS"

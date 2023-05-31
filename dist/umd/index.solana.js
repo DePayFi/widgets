@@ -25327,12 +25327,15 @@
         slowRouting = _useContext2.slowRouting,
         selectedRoute = _useContext2.selectedRoute;
 
+    var _useContext3 = React.useContext(ConfigurationContext),
+        title = _useContext3.title;
+
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL"
-      }, "Payment")),
+      }, title || 'Payment')),
       alternativeHeaderAction: props.alternativeHeaderAction,
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM PaddingBottomXS"
