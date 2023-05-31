@@ -219,11 +219,15 @@ The fee will be taken from the target token and target amount (after swap, depen
 
 ```javascript
 DePayWidgets.Payment({
-  accept: [...],
-  fee: {
-    amount: '3%',
-    receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-  }
+  accept: [
+    {...
+
+      fee: {
+        amount: '3%',
+        receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+      }
+    }
+  ],
 });
 ```
 
