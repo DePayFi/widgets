@@ -30,7 +30,7 @@ import { NavigateStackContext } from '@depay/react-dialog-stack'
 export default (props)=>{
   const { amount } = useContext(ChangableAmountContext)
   const { tokenImage, amount: amountConfiguration } = useContext(ConfigurationContext)
-  const { paymentValue } = useContext(PaymentValueContext)
+  const { paymentValue, displayedPaymentValue } = useContext(PaymentValueContext)
   const { payment, paymentState } = useContext(PaymentContext)
   const { navigate } = useContext(NavigateStackContext)
   const { toToken, toTokenReadableAmount } = useContext(ToTokenContext)
@@ -80,10 +80,11 @@ export default (props)=>{
       body={
         <div className="PaddingLeftM PaddingRightM PaddingBottomXS">
           <div 
-            className={["Card", (paymentState == 'initialized' ? '' : 'disabled')].join(' ')}
+            className={["Card", ((paymentState == 'initialized' && (!amountConfiguration || !amountConfiguration.fix)) ? '' : 'disabled')].join(' ')}
             title={paymentState == 'initialized' ? "Change amount" : undefined}
             onClick={ ()=>{
               if(paymentState != 'initialized') { return }
+              if(amountConfiguration && amountConfiguration.fix) { return }
               navigate('ChangeAmount')
             } }
           >
@@ -115,7 +116,9 @@ export default (props)=>{
               </div>
             </div>
             <div className="CardAction">
-              <ChevronRight/>
+              { (!amountConfiguration || !amountConfiguration.fix) &&
+                <ChevronRight/>
+              }
             </div>
           </div>
           <div 
@@ -147,6 +150,14 @@ export default (props)=>{
                       { format(payment.amount) }
                     </span>
                   </div>
+                  { 
+                    (amountConfiguration && amountConfiguration.fix) &&
+                      <div className="TokenAmountRow small grey">
+                        <span className="TokenAmountCell">
+                          { displayedPaymentValue }
+                        </span>
+                      </div>
+                  }
                 </h2>
               </div>
             </div>

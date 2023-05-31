@@ -27108,7 +27108,8 @@ var SaleOverviewDialog = (function (props) {
       amountConfiguration = _useContext2.amount;
 
   var _useContext3 = useContext(PaymentValueContext),
-      paymentValue = _useContext3.paymentValue;
+      paymentValue = _useContext3.paymentValue,
+      displayedPaymentValue = _useContext3.displayedPaymentValue;
 
   var _useContext4 = useContext(PaymentContext),
       payment = _useContext4.payment,
@@ -27171,10 +27172,14 @@ var SaleOverviewDialog = (function (props) {
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftM PaddingRightM PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("div", {
-      className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
+      className: ["Card", paymentState == 'initialized' && (!amountConfiguration || !amountConfiguration.fix) ? '' : 'disabled'].join(' '),
       title: paymentState == 'initialized' ? "Change amount" : undefined,
       onClick: function onClick() {
         if (paymentState != 'initialized') {
+          return;
+        }
+
+        if (amountConfiguration && amountConfiguration.fix) {
           return;
         }
 
@@ -27206,7 +27211,7 @@ var SaleOverviewDialog = (function (props) {
       className: "CardText small"
     }, /*#__PURE__*/React.createElement("small", null, salePerTokenValue, " per token")))), /*#__PURE__*/React.createElement("div", {
       className: "CardAction"
-    }, /*#__PURE__*/React.createElement(ChevronRight, null))), /*#__PURE__*/React.createElement("div", {
+    }, (!amountConfiguration || !amountConfiguration.fix) && /*#__PURE__*/React.createElement(ChevronRight, null))), /*#__PURE__*/React.createElement("div", {
       className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
       title: paymentState == 'initialized' ? "Change payment" : undefined,
       onClick: function onClick() {
@@ -27236,7 +27241,11 @@ var SaleOverviewDialog = (function (props) {
       className: "TokenSymbolCell"
     }, payment.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
       className: "TokenAmountCell"
-    }, format(payment.amount)))))), /*#__PURE__*/React.createElement("div", {
+    }, format(payment.amount))), amountConfiguration && amountConfiguration.fix && /*#__PURE__*/React.createElement("div", {
+      className: "TokenAmountRow small grey"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "TokenAmountCell"
+    }, displayedPaymentValue))))), /*#__PURE__*/React.createElement("div", {
       className: "CardAction"
     }, /*#__PURE__*/React.createElement(ChevronRight, null)))),
     footer: /*#__PURE__*/React.createElement("div", {
