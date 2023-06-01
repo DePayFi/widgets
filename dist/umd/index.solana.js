@@ -23783,8 +23783,15 @@
 
   function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-  var prepareAcceptedPayments = function prepareAcceptedPayments(accept) {
-    var toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
+  var prepareAcceptedPayments = function prepareAcceptedPayments(accept, receiver) {
+    var toAddress;
+
+    if (receiver) {
+      toAddress = receiver;
+    } else {
+      toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
+    }
+
     var toContract = _typeof(accept.receiver) == 'object' ? accept.receiver : undefined;
     return _objectSpread$4(_objectSpread$4({}, accept), {}, {
       toAddress: toAddress,
@@ -23803,11 +23810,14 @@
   var routePayments = (function (_ref) {
     var accept = _ref.accept,
         account = _ref.account,
+        receiver = _ref.receiver,
         whitelist = _ref.whitelist,
         blacklist = _ref.blacklist,
         fee = _ref.fee;
     return web3PaymentsSolana.route({
-      accept: accept.map(prepareAcceptedPayments),
+      accept: accept.map(function (accept) {
+        return prepareAcceptedPayments(accept, receiver);
+      }),
       from: mergeFromAccounts(accept, account),
       whitelist: whitelist,
       blacklist: blacklist,
@@ -27083,8 +27093,11 @@
     var _useContext2 = React.useContext(ConfigurationContext),
         sell = _useContext2.sell;
 
-    var _useContext3 = React.useContext(ConfigurationContext),
-        blacklist = _useContext3.blacklist;
+    var _useContext3 = React.useContext(WalletContext),
+        account = _useContext3.account;
+
+    var _useContext4 = React.useContext(ConfigurationContext),
+        blacklist = _useContext4.blacklist;
 
     if (blacklist == undefined) {
       blacklist = {};
@@ -27104,6 +27117,7 @@
       value: {}
     }, /*#__PURE__*/React__default['default'].createElement(PaymentRoutingProvider, {
       accept: acceptWithAmount,
+      receiver: account,
       blacklist: blacklist,
       setMaxRoute: setMaxRoute
     }, /*#__PURE__*/React__default['default'].createElement(PaymentProvider, {

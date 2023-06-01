@@ -6,10 +6,12 @@ import PaymentValueProvider from '../providers/PaymentValueProvider'
 import React, { useContext } from 'react'
 import SaleRoutingContext from '../contexts/SaleRoutingContext'
 import ToTokenProvider from '../providers/ToTokenProvider'
+import WalletContext from '../contexts/WalletContext'
 
 export default (props)=>{
   const { acceptWithAmount, setMaxRoute } = useContext(ChangableAmountContext)
   const { sell } = useContext(ConfigurationContext)
+  const { account } = useContext(WalletContext)
   let { blacklist } = useContext(ConfigurationContext)
 
   if(blacklist == undefined) { blacklist = {} }
@@ -24,7 +26,7 @@ export default (props)=>{
 
   return(
     <SaleRoutingContext.Provider value={{}}>
-      <PaymentRoutingProvider accept={ acceptWithAmount } blacklist={ blacklist } setMaxRoute={ setMaxRoute }>
+      <PaymentRoutingProvider accept={ acceptWithAmount } receiver={ account } blacklist={ blacklist } setMaxRoute={ setMaxRoute }>
         <PaymentProvider container={ props.container } document={ props.document } >
           <PaymentValueProvider>
             <ToTokenProvider>

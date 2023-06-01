@@ -12,8 +12,13 @@ import { route } from '@depay/web3-payments'
 
 //#endif
 
-const prepareAcceptedPayments = (accept)=>{
-  let toAddress = typeof accept.receiver == 'object' ? accept.receiver.address : accept.receiver
+const prepareAcceptedPayments = (accept, receiver)=>{
+  let toAddress
+  if(receiver) {
+    toAddress = receiver
+  } else {
+    toAddress = typeof accept.receiver == 'object' ? accept.receiver.address : accept.receiver
+  }
   let toContract = typeof accept.receiver == 'object' ? accept.receiver : undefined
   return({ 
     ...accept,
@@ -30,9 +35,9 @@ const mergeFromAccounts = (accept, account)=>{
   return from
 }
 
-export default ({ accept, account, whitelist, blacklist, fee })=>{
+export default ({ accept, account, receiver, whitelist, blacklist, fee })=>{
   return route({
-    accept: accept.map(prepareAcceptedPayments),
+    accept: accept.map((accept)=>prepareAcceptedPayments(accept, receiver)),
     from: mergeFromAccounts(accept, account),
     whitelist,
     blacklist,

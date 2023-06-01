@@ -23787,8 +23787,15 @@ function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if 
 
 function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-var prepareAcceptedPayments = function prepareAcceptedPayments(accept) {
-  var toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
+var prepareAcceptedPayments = function prepareAcceptedPayments(accept, receiver) {
+  var toAddress;
+
+  if (receiver) {
+    toAddress = receiver;
+  } else {
+    toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
+  }
+
   var toContract = _typeof(accept.receiver) == 'object' ? accept.receiver : undefined;
   return _objectSpread$4(_objectSpread$4({}, accept), {}, {
     toAddress: toAddress,
@@ -23807,11 +23814,14 @@ var mergeFromAccounts = function mergeFromAccounts(accept, account) {
 var routePayments = (function (_ref) {
   var accept = _ref.accept,
       account = _ref.account,
+      receiver = _ref.receiver,
       whitelist = _ref.whitelist,
       blacklist = _ref.blacklist,
       fee = _ref.fee;
   return route$1({
-    accept: accept.map(prepareAcceptedPayments),
+    accept: accept.map(function (accept) {
+      return prepareAcceptedPayments(accept, receiver);
+    }),
     from: mergeFromAccounts(accept, account),
     whitelist: whitelist,
     blacklist: blacklist,
@@ -27037,8 +27047,11 @@ var SaleRoutingProvider = (function (props) {
   var _useContext2 = useContext(ConfigurationContext),
       sell = _useContext2.sell;
 
-  var _useContext3 = useContext(ConfigurationContext),
-      blacklist = _useContext3.blacklist;
+  var _useContext3 = useContext(WalletContext),
+      account = _useContext3.account;
+
+  var _useContext4 = useContext(ConfigurationContext),
+      blacklist = _useContext4.blacklist;
 
   if (blacklist == undefined) {
     blacklist = {};
@@ -27058,6 +27071,7 @@ var SaleRoutingProvider = (function (props) {
     value: {}
   }, /*#__PURE__*/React.createElement(PaymentRoutingProvider, {
     accept: acceptWithAmount,
+    receiver: account,
     blacklist: blacklist,
     setMaxRoute: setMaxRoute
   }, /*#__PURE__*/React.createElement(PaymentProvider, {
