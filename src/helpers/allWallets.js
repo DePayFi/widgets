@@ -104,7 +104,7 @@ export default [
     "name": "Uniswap Wallet",
     "link": "WalletConnectV1",
     "mobile": { 
-      "ios": { "universal": "https://uniswap.org/app" },
+      "ios": { "native": "uniswap:", "universal": "https://uniswap.org/app" },
     },
     "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/bff9cf1f-df19-42ce-f62a-87f04df13c00?projectId=a8d876c6f91c3748db621583fad358f1",
     "blockchains": [...supported.evm]

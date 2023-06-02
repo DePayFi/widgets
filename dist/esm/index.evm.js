@@ -1093,6 +1093,7 @@ var allWallets = [{
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "uniswap:",
       "universal": "https://uniswap.org/app"
     }
   },
