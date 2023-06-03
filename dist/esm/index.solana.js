@@ -1044,12 +1044,12 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
-      "native": "cryptowallet:",
-      "universal": "https://wallet.crypto.com"
+      "native": "crypto:",
+      "universal": "https://crypto.onelink.me/veNW"
     },
     "android": {
       "native": "wc:",
-      "universal": "https://wallet.crypto.com"
+      "universal": "https://crypto.onelink.me/veNW"
     }
   },
   "logo": wallets.CryptoCom.info.logo,
@@ -1061,11 +1061,11 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "coin98:",
-      "universal": "https://coin98.com"
+      "universal": "https://coin98.services"
     },
     "android": {
       "native": "coin98:",
-      "universal": "https://coin98.com"
+      "universal": "https://coin98.services"
     }
   },
   "logo": wallets.Coin98.info.logo,
@@ -1087,7 +1087,22 @@ var allWallets = [{
       "universal": "https://rnbwapp.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7a33d7f1-3d12-4b5c-f3ee-5cd83cb1b500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/rainbow.jpg",
+  "blockchains": _toConsumableArray(supported.evm)
+}, {
+  "name": "Timeless Wallet",
+  "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "native": "timeless-wallet:",
+      "universal": "https://timelesswallet.xyz"
+    },
+    "android": {
+      "native": "timeless-wallet:",
+      "universal": "https://timelesswallet.xyz"
+    }
+  },
+  "logo": "https://img1.depay.com/wallets/timeless.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Uniswap Wallet",
@@ -1098,22 +1113,22 @@ var allWallets = [{
       "universal": "https://uniswap.org/app"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/bff9cf1f-df19-42ce-f62a-87f04df13c00?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/uniswap_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Safe",
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "gnosissafe:",
-      "universal": "https://gnosis-safe.io/"
+      "native": "safe:",
+      "universal": "https://app.safe.global"
     },
     "android": {
-      "native": "gnosissafe:",
-      "universal": "https://gnosis-safe.io/"
+      "native": "safe:",
+      "universal": "https://app.safe.global"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a1cb2777-f8f9-49b0-53fd-443d20ee0b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/safe.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Rabby",
@@ -1147,20 +1162,22 @@ var allWallets = [{
       "native": "imtokenv2:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1991f85d-43d4-4165-3502-cd6ef8312b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/imtoken.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "MEW wallet",
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "mewwallet:",
       "universal": "https://mewwallet.com"
     },
     "android": {
+      "native": "mewwallet:",
       "universal": "https://mewwallet.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e2024511-2c9b-46d7-3111-52df3d241700?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/mew_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ONTO",
@@ -1173,7 +1190,7 @@ var allWallets = [{
       "native": "ontoprovider:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/d22b2a4b-5562-49ba-506b-6d5986914600?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/onto.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Zerion",
@@ -1191,7 +1208,7 @@ var allWallets = [{
       "universal": "https://wallet.zerion.io"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f216b371-96cf-409a-9d88-296392b85800?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/zerion.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Spot",
@@ -1206,7 +1223,7 @@ var allWallets = [{
       "universal": "https://spot.so"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1bf33a89-b049-4a1c-d1f6-4dd7419ee400?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/spot.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "BitKeep",
@@ -1221,7 +1238,7 @@ var allWallets = [{
       "universal": "https://bkapp.vip"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3f7075d0-4ab7-4db5-404d-3e4c05e6fe00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/bit_keep.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Unstoppable Domains",
@@ -1234,7 +1251,7 @@ var allWallets = [{
       "universal": "https://unstoppabledomains.com/mobile"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/4725dda0-4471-4d0f-7adf-6bbe8b929c00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Omni",
@@ -1249,7 +1266,7 @@ var allWallets = [{
       "universal": "https://links.omni.app"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2cd67b4c-282b-4809-e7c0-a88cd5116f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/omni.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "KEYRING PRO",
@@ -1264,7 +1281,7 @@ var allWallets = [{
       "universal": "https://keyring.app"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/dda0f0fb-34e8-4a57-dcea-b008e7d1ff00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/keyring_pro.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "TokenPocket",
@@ -1277,7 +1294,7 @@ var allWallets = [{
       "native": "tpoutside:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f3119826-4ef5-4d31-4789-d4ae5c18e400?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/token_pocket.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "BitPay",
@@ -1292,7 +1309,7 @@ var allWallets = [{
       "universal": "https://link.bitpay.com/wallet"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/97d4429f-eaf0-4302-87f5-9d26d46fe700?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/bitpay.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "MathWallet",
@@ -1307,12 +1324,7 @@ var allWallets = [{
       "universal": "https://www.mathwallet.org"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/26a8f588-3231-4411-60ce-5bb6b805a700?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "WallETH",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8b59dafd-9150-46be-9793-34e6d3298100?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/math_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Ledger Live",
@@ -1328,13 +1340,8 @@ var allWallets = [{
       "native": "ledgerlive:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a7f416de-aa03-4c5e-3280-ab49269aef00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/ledger_live.jpg",
   "connectionLink": true,
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Authereum",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/deb6ec25-fcec-4b1b-c536-df3b4fb92b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "1inch Wallet",
@@ -1349,7 +1356,7 @@ var allWallets = [{
       "universal": "https://wallet.1inch.io"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/dce1ee99-403f-44a9-9f94-20de30616500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/1inch_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "iToken Wallet",
@@ -1362,7 +1369,20 @@ var allWallets = [{
       "native": "huobiwallet:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/5cd60c34-038d-470c-c024-d58f64260200?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/i_token_wallet.jpg",
+  "blockchains": _toConsumableArray(supported.evm)
+}, {
+  "name": "Huddln",
+  "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "native": "huddln:"
+    },
+    "android": {
+      "native": "huddln:"
+    }
+  },
+  "logo": "https://img1.depay.com/wallets/huddln.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Eidoo",
@@ -1377,17 +1397,7 @@ var allWallets = [{
       "universal": "https://eidoo.io/crypto-wallet"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ef5b8bcf-00d5-457d-e161-9911e4788700?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "TrustVault",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/fc5e0354-cc1e-490d-fb62-477e83148000?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Atomic",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/adb1ed3f-722c-48a0-441f-c75038a9a300?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/eidoo.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CoolWallet",
@@ -1400,27 +1410,22 @@ var allWallets = [{
       "native": "coolwallet:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f581365d-e844-4d21-8e35-44a755a32d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/cool_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Unstoppable Wallet",
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "moneyunstoppable:",
-      "universal": "https://unstoppable.money"
+      "native": "unstoppabledomains:",
+      "universal": "https://unstoppabledomains.com/mobile"
     },
     "android": {
-      "native": "moneyunstoppable:",
-      "universal": "https://unstoppable.money"
+      "native": "unstoppabledomains:",
+      "universal": "https://unstoppabledomains.com/mobile"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/5c38b22c-adb9-4899-3252-6e3d71458500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Alice",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/bd1ce165-9b3a-4925-73c1-b329ca13e900?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "AlphaWallet",
@@ -1435,7 +1440,7 @@ var allWallets = [{
       "universal": "https://aw.app"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/5b1cddfb-056e-4e78-029a-54de5d70c500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/alpha_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Pillar",
@@ -1448,7 +1453,7 @@ var allWallets = [{
       "native": "pillarwallet:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/0eb8230d-ce4c-42fb-2a57-a84a6eb7ea00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/pillar.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "D'CENT Wallet",
@@ -1463,7 +1468,7 @@ var allWallets = [{
       "universal": "https://link.dcentwallet.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1efb49ec-2bab-4fa1-f2f2-4392c64ed000?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/dcent.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ZelCore",
@@ -1478,7 +1483,7 @@ var allWallets = [{
       "universal": "https://link.zel.network"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/97d45a92-a1f0-46da-95a6-ad5db99f3500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/zel_core.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Nash",
@@ -1493,7 +1498,7 @@ var allWallets = [{
       "universal": "https://nash.io/walletconnect"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/12f981b1-bb0a-4115-009f-317255979600?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/nash.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Coinomi",
@@ -1506,12 +1511,7 @@ var allWallets = [{
       "universal": "https://coinomi.page.link"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3b446d16-a908-40c8-5835-9a6efe90dd00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "GridPlus",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3c928cbd-39dc-4090-c372-d4dcb3c89500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/coinomi.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CYBAVO Wallet",
@@ -1526,7 +1526,7 @@ var allWallets = [{
       "universal": "https://cdn.cybavo.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3117d3ce-b973-4cfd-8fb5-f5d72ed3c200?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/cybavo.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Tokenary",
@@ -1535,25 +1535,12 @@ var allWallets = [{
     "native": "tokenary:",
     "universal": "https://tokenary.io"
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/5e481041-dc3c-4a81-373a-76bbde91b800?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/tokenary.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Torus",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/47d03b65-6be7-4004-5dba-7dadef6e6000?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Spatium",
-  "link": "WalletConnectV1",
-  "mobile": {
-    "ios": {
-      "universal": "https://caspiantechnologies.bitbucket.io"
-    },
-    "android": {
-      "universal": "https://caspiantechnologies.bitbucket.io"
-    }
-  },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e85caf96-8e6c-4ac5-5bb3-c13ac7edc700?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/torus.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SafePal",
@@ -1566,17 +1553,7 @@ var allWallets = [{
       "universal": "https://link.safepal.io"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/14096232-7483-425b-f9a9-658f94fe7100?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Infinito",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/b07624f3-fb36-45a4-200c-6cb2a930ef00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "wallet.io",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/82cdf116-4355-4e07-88e4-63dc2e253500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/safepal.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Infinity Wallet",
@@ -1585,12 +1562,7 @@ var allWallets = [{
     "native": "infinity:",
     "universal": "https://infinitywallet.io/"
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/9f259366-0bcd-4817-0af9-f78773e41900?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Ownbit",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/83b291fa-1a08-4871-3ddb-8faa8be6f200?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/infinity_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bridge Wallet",
@@ -1605,7 +1577,7 @@ var allWallets = [{
       "universal": "https://bridge.mtpelerin.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/989d504f-93db-4ca6-c00a-9d1faf177d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/mtperlin.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SparkPoint",
@@ -1620,17 +1592,7 @@ var allWallets = [{
       "universal": "https://sparkpoint.io"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/34c4f901-70de-4507-e7a0-bc7887843000?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "ViaWallet",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ffc3ba49-2e6b-4baa-304d-ebb253f74700?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Vision",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/c279537a-920d-422c-6a65-8b3bd524c300?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/sparkpoint.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "PEAKDEFI Wallet",
@@ -1645,22 +1607,23 @@ var allWallets = [{
       "universal": "https://peakdefi.com/download"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/744a3fbe-4261-4148-133e-49c5b58cb400?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Dok Wallet",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/6886f45d-1451-41ec-ebc7-b18bebfc3c00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/peakdefi.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "AT.Wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a5b7369b-d92c-41a4-0263-ca28f4597600?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Midas Wallet",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/4b7268e6-47fb-46bc-6f3c-424f44695f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "desktop": {
+    "native": "atwallet:"
+  },
+  "mobile": {
+    "ios": {
+      "native": "atwallet:"
+    },
+    "android": {
+      "native": "atwallet:"
+    }
+  },
+  "logo": "https://img1.depay.com/wallets/atwallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Ellipal",
@@ -1675,7 +1638,7 @@ var allWallets = [{
       "universal": "https://www.ellipal.com/"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/0a805e10-bfc0-4d02-d9c1-8cec88f0dc00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/ellipal.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Aktionariat",
@@ -1690,7 +1653,7 @@ var allWallets = [{
       "universal": "https://app.aktionariat.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/6d18e8ea-b536-4038-c5bf-94a499d5a400?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/aktionariat.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Talken Wallet",
@@ -1705,12 +1668,7 @@ var allWallets = [{
       "universal": "https://talken.io"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1afb5a3a-2da3-40ce-baf9-b416e7510600?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "XinFin XDC Network",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/bee71890-cdbe-4a9a-0d51-6cc75078f600?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/talken.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "KyberSwap",
@@ -1725,7 +1683,7 @@ var allWallets = [{
       "universal": "https://kyberswapnew.app.link"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3abd1720-260e-495a-2e31-3d0b349e0d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/kyberswap.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Tongue Wallet",
@@ -1740,7 +1698,7 @@ var allWallets = [{
       "universal": "https://www.tongue.fi"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/20bc4fdb-b9e6-429a-8cba-c233b3273000?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/tongue.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "RWallet",
@@ -1755,22 +1713,7 @@ var allWallets = [{
       "universal": "https://www.rwallet.app"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a883229c-26cb-4c19-9b34-1f0ed4012a00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "PlasmaPay",
-  "link": "WalletConnectV1",
-  "mobile": {
-    "ios": {
-      "native": "plasmapay:",
-      "universal": "https://plasmapay.com/"
-    },
-    "android": {
-      "native": "plasmapay:",
-      "universal": "https://plasmapay.com/"
-    }
-  },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/466c8fd0-fcec-4621-b94f-e91ce1439f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/rwallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "O3Wallet",
@@ -1785,7 +1728,7 @@ var allWallets = [{
       "universal": "https://o3.network"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e1c7c6af-c731-463e-55f0-5e686e9f6200?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/o3wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "HashKey Me",
@@ -1800,17 +1743,12 @@ var allWallets = [{
       "universal": "https://me.hashkey.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/72734fac-9500-4c2c-81ba-678f7fc32700?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Jade Wallet",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8a6f6b6f-9e25-43d2-6cb8-42013579bd00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/hashkeyme.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Guarda Wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/0142b5f2-2006-465f-fe0e-2021225d8c00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/guarda.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Defiant",
@@ -1825,22 +1763,7 @@ var allWallets = [{
       "universal": "https://defiantapp.tech"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/026462e7-09a3-47f6-6b46-49df18133b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Trustee Wallet",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2432f3c2-83f1-486b-6081-d03acc33e000?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "CoinUs",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1f92f9f9-08b9-4eca-4d75-425ce3d50100?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "cmorq",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/4e9f4558-32a2-46c9-be37-4926a6e95100?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/defiant.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Valora",
@@ -1855,12 +1778,7 @@ var allWallets = [{
       "universal": "https://valoraapp.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a03bfa44-ce98-4883-9b2a-75e2b68f5700?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "QuiverX",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/67acf8ad-da61-4b7f-609b-57224fb8b100?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/valora.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Celo Wallet",
@@ -1873,7 +1791,7 @@ var allWallets = [{
       "native": "celowallet:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/482c9981-61c0-4782-84ec-c80fd997da00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/celo.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Elastos Essentials",
@@ -1888,22 +1806,7 @@ var allWallets = [{
       "universal": "https://essentials.elastos.net"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/04a6bfed-d80e-4f7b-0516-261f86aa4000?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "fuse.cash",
-  "link": "WalletConnectV1",
-  "mobile": {
-    "ios": {
-      "native": "fuse.cash:",
-      "universal": "https://app.fuse.cash/"
-    },
-    "android": {
-      "native": "fuse.cash:",
-      "universal": "https://app.fuse.cash/"
-    }
-  },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/71828267-72d6-4680-e144-265e6dc1e400?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/elastos_essentials.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Stasis",
@@ -1918,7 +1821,7 @@ var allWallets = [{
       "universal": "https://app.stasis.net"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7ae753bc-a754-450c-2d90-2c5521734400?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/stasis.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "JulWallet",
@@ -1933,22 +1836,7 @@ var allWallets = [{
       "universal": "https://justliquidity.org"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/cabd50de-22fa-487b-ce68-2c63de8bb800?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "f(x) Wallet",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/4d5c5c70-5abb-43ba-fc5e-577b6e403300?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Bull App",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/b3c42bfd-5078-4616-a2ad-e4e322bbf600?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Anybit",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/6aac5fb1-d400-4e81-4709-bef8b2c00900?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/julwallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bitpie",
@@ -1961,25 +1849,22 @@ var allWallets = [{
       "native": "bitpie:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f9b7c668-ed26-47f7-d8c9-7eadc7114800?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/bitpie.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Minerva Wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7d5f3710-7c2c-49fc-7893-bacd3f384000?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "ArchiPage",
-  "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "archipage:"
+      "native": "minerva:",
+      "universal": "https://minerva.digital"
     },
     "android": {
-      "native": "archipage:"
+      "native": "minerva:",
+      "universal": "https://minerva.digital"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/b62c4f22-e781-4ca9-5c01-ef7cd9d23400?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/minerva.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Tangem",
@@ -1994,12 +1879,7 @@ var allWallets = [{
       "universal": "https://app.tangem.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8a5b6e94-e378-458d-bf2e-017cc7958e00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Chainge Finance",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/addaaf64-cf13-46ef-a022-d97189156f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/tangem.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ioPay",
@@ -2012,17 +1892,17 @@ var allWallets = [{
       "native": "iopay:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/aa40d575-f7f4-4aa6-12c4-c8f055ad0800?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/io_pay.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Coinhub",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/cd7d6974-739b-46d7-bd10-604222e16e00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/coinhub.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Go Pocket",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2494a686-3e07-4e9b-15ef-3605dca32a00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/gopocket.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Wallet 3",
@@ -2030,7 +1910,7 @@ var allWallets = [{
   "desktop": {
     "native": "wallet3:"
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/d740b48c-2b55-4a27-b5f5-d2188200ca00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/wallet3.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "yiToken",
@@ -2043,7 +1923,7 @@ var allWallets = [{
       "native": "yitoken:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/b5cc13d4-2a58-4142-08dd-5596ab253800?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/yitoken.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "DID Wallet",
@@ -2056,17 +1936,20 @@ var allWallets = [{
       "native": "abt:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/673b7f3b-a555-4327-f9b7-fefa535bc500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "StarBase",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2bd78dfd-37d9-4334-8afb-17544b85f200?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/didwallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Shinobi Wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f5cf868c-5347-4d5e-e80f-c6ece8fcb600?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "mobile": {
+    "ios": {
+      "native": "shinobi-wallet://"
+    },
+    "android": {
+      "native": "shinobi-wallet://"
+    }
+  },
+  "logo": "https://img1.depay.com/wallets/shinobi_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "AirGap Wallet",
@@ -2079,12 +1962,7 @@ var allWallets = [{
       "native": "airgap-wallet://"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/76bfe8cd-cf3f-4341-c33c-60da01065000?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "PayTube",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/58230f60-6c7b-400c-ab96-cb1fd0391700?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/air_gap_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SecuX",
@@ -2099,12 +1977,7 @@ var allWallets = [{
       "universal": "https://wsweb.secuxtech.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/w3m/v1/getWalletImage/6013a9a1-4a67-45bb-fc24-27c11eb13900?projectId=a8d876c6f91c3748db621583fad358f1",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "BlockBank",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/5b2cc39f-bc4f-4ac1-b6d7-08bcc9066a00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/secux.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Orange",
@@ -2119,12 +1992,7 @@ var allWallets = [{
       "universal": "https://link.orangewallet.app"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7fcbf9f0-0c0b-439d-3fdb-31b32c28df00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "NEFTiPEDiA",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3f503c40-d5f0-4430-b996-3126a9968c00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/orange.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Krystal",
@@ -2137,7 +2005,20 @@ var allWallets = [{
       "native": "krystalWallet:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/91449cb2-57b0-4bb6-481b-47d489f7a800?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/krystal.jpg",
+  "blockchains": _toConsumableArray(supported.evm)
+}, {
+  "name": "Kriptomat",
+  "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "native": "kriptomatapp://wallet-connect"
+    },
+    "android": {
+      "native": "kriptomatapp://wallet-connect"
+    }
+  },
+  "logo": "https://img1.depay.com/wallets/kriptomat.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Ambire Wallet",
@@ -2152,7 +2033,7 @@ var allWallets = [{
       "universal": "https://mobile.ambire.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/c39b3a16-1a38-4588-f089-cb7aeb584700?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/ambire_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "PayBolt",
@@ -2165,7 +2046,7 @@ var allWallets = [{
       "native": "paybolt://Wallet"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/cc8f4e0c-56a8-465a-6cb6-3e9d60846500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/pay_bolt.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "OKX Wallet",
@@ -2178,32 +2059,17 @@ var allWallets = [{
       "native": "okex://main"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/45f2f08e-fc0c-4d62-3e63-404e72170500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Backpack",
-  "link": "WalletConnectV1",
-  "mobile": {
-    "ios": {
-      "native": "ndj-backpack:",
-      "universal": "https://jxndao.com"
-    },
-    "android": {
-      "native": "ndj-backpack:",
-      "universal": "https://jxndao.com"
-    }
-  },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e46f132d-6e05-4d51-8720-43727446e600?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/okx_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Mask Network",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/51fa27fd-8a21-4de0-c084-528e4a37ad00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/mask_network.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Uniblow",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3aa86daa-b885-4686-c443-83355e1b3b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/uniblow.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Autonomy: Digital Art Wallet",
@@ -2218,7 +2084,7 @@ var allWallets = [{
       "universal": "https://autonomy.io/apps/wc"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2ee7c9db-9a86-4cd6-0d32-5053b4636100?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/autonomy.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Lilico",
@@ -2233,7 +2099,7 @@ var allWallets = [{
       "universal": "https://link.lilico.app/wc"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/70c0bc88-7bb1-4c1f-3531-9a5f799fb100?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/lilico.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Fireblocks",
@@ -2249,7 +2115,7 @@ var allWallets = [{
       "native": "fireblocks-wc://"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7e1514ba-932d-415d-1bdb-bccb6c2cbc00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/fireblocks.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "WATT ME",
@@ -2262,7 +2128,7 @@ var allWallets = [{
       "native": "wattwallet://wallet-connect/"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/38c619c4-5365-4de5-09b2-cdde8caf3600?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/wattme.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Coingrig",
@@ -2277,12 +2143,12 @@ var allWallets = [{
       "universal": "https://link.coingrig.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/18e38e41-a387-4402-ca31-6d2d5eb91100?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/coingrig.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Cryptnox Wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2947b7c8-8966-4485-a98d-25fe43c16700?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/cryptnox_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "bobablocks",
@@ -2300,7 +2166,7 @@ var allWallets = [{
       "universal": "https://app.bobablocks.io"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/aff8973b-e093-45b5-4858-c01dd043bc00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/bobablocks.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Plasma Wallet",
@@ -2315,17 +2181,7 @@ var allWallets = [{
       "universal": "https://plasma-wallet.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/c268e78d-ffb0-4c8b-5cad-04c3add48500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Holdstation Wallet",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/27553327-b647-4bfb-8524-b7558e804400?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "FirstWallet",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/864565a8-66ab-4b50-fda6-1c29128f6b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/plasma_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "HUMBL WALLET",
@@ -2340,7 +2196,7 @@ var allWallets = [{
       "universal": "https://wallet.search3.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1ac55ba2-aa98-4ed0-59b3-b3155dea4200?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/humbl_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Zelus",
@@ -2353,7 +2209,7 @@ var allWallets = [{
       "native": "zeluswallet://"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/aeba2105-6c84-4642-f441-b3f5817ac400?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/zelus.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Earth Wallet",
@@ -2366,12 +2222,12 @@ var allWallets = [{
       "native": "earthwallet:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/d3f724c4-f99b-476f-10f8-12aa4af13800?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/earth_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Boba Multisig",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/5acb31bf-151e-4ae6-02bd-f109ca47b600?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/boba_multisig.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "EASY",
@@ -2386,22 +2242,22 @@ var allWallets = [{
       "universal": "https://link.easy.me"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/62feb41a-be1f-4b1c-e089-27f97c0e8d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/easy.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ISLAMIwallet",
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "poc://islamiwallet.com",
+      "native": "islamiwallet://islami.com/path/",
       "universal": "https://islamiwallet.com"
     },
     "android": {
-      "native": "poc://islamiwallet.com",
+      "native": "islamiwallet://islami.com/path/",
       "universal": "https://islamiwallet.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8d723c78-28ad-4610-901f-ea391d7e8d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/islam_iwallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Card Wallet",
@@ -2416,17 +2272,17 @@ var allWallets = [{
       "universal": "https://wallet.cardstack.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/325428cf-c212-4d83-a434-7f48902d2c00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/card_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "GameStop Wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/c12536e0-dff1-4a1a-6c8f-c7247d6aa200?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/game_stop_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "RealT Wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/bf1f251b-08a5-4b27-ae4a-201a5f698900?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/real_t_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "PLTwallet",
@@ -2441,7 +2297,7 @@ var allWallets = [{
       "universal": "https://pltwallet.io/"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a5d9dd15-8cef-42de-8bed-09e01a8b0200?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/pl_twallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Avacus",
@@ -2456,7 +2312,7 @@ var allWallets = [{
       "universal": "https://avacus.app.link"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a7106965-91cc-4a73-4688-c5c72ae0ed00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/avacus.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "StrikeX Wallet",
@@ -2469,17 +2325,12 @@ var allWallets = [{
       "native": "strikex://"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/cae46de2-b432-4002-8bc8-1f0e7380b200?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/strike_x_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "BCERTin wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e321346d-5ce7-4e75-371e-e4f0bf923900?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Bycoin",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/980b0c5f-353d-4643-1ee8-d9264ec30000?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/bcer_tin_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Edge Wallet",
@@ -2494,7 +2345,7 @@ var allWallets = [{
       "universal": "https://deep.edge.app/wc"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f601bc29-4298-422f-dbf7-34dac2884f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/edge_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Freedom Wallet",
@@ -2507,7 +2358,7 @@ var allWallets = [{
       "native": "freedom-wallet://"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/42a6f275-96c8-4cd0-9b7a-acc5f054a800?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/freedom_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Assure",
@@ -2522,7 +2373,7 @@ var allWallets = [{
       "universal": "https://www.assure.pro/Official"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/64db7104-c8b7-44ea-e102-11ce87124200?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/assure.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Cosmostation",
@@ -2535,7 +2386,7 @@ var allWallets = [{
       "native": "cosmostation://"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ea26c3c8-adb6-4dc4-ee02-35d6eee02800?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/cosmostation.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "THORWallet",
@@ -2548,17 +2399,12 @@ var allWallets = [{
       "native": "thorwallet:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/19a02756-462c-4e8a-2d32-af0f9bcf3d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "DeFi Wallet",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/017d9dc4-dd04-4934-5be8-1d564e924a00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/thor_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Gryfyn",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/51bb1507-45a1-4d21-15f2-1cc2ebe69400?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/gryfyn.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CoinStats",
@@ -2573,7 +2419,7 @@ var allWallets = [{
       "universal": "https://coinstats.app"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f989ab84-650b-4ad5-c342-77f3334f1b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/coin_stats.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Abra Wallet",
@@ -2586,7 +2432,7 @@ var allWallets = [{
       "native": "abra:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2219db01-e0c9-471c-5def-fd3b4e7a7a00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/abra_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Opera Crypto Browser",
@@ -2599,20 +2445,7 @@ var allWallets = [{
       "native": "cryptobrowser://"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/877fa1a4-304d-4d45-ca8e-f76d1a556f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Pera Wallet",
-  "link": "WalletConnectV1",
-  "mobile": {
-    "ios": {
-      "native": "algorand://"
-    },
-    "android": {
-      "native": "algorand://"
-    }
-  },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/d4a1258e-d154-4885-0489-856c33e91e00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/opera_crypto_browser.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Keywallet Touch",
@@ -2625,7 +2458,7 @@ var allWallets = [{
       "native": "keywalletTouch://"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ceefb75b-2632-40c6-7471-ea23d3d49800?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/keywallet_touch.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Enno Wallet",
@@ -2638,30 +2471,12 @@ var allWallets = [{
       "native": "ennowallet:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ae4f5167-0b61-43bd-7d76-1f8579271000?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "SoCap Wallet",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/99c0152b-1001-4f24-3293-a9125374f900?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Talk+",
-  "link": "WalletConnectV1",
-  "mobile": {
-    "ios": {
-      "native": "talkapp:"
-    },
-    "android": {
-      "native": "talkapp:"
-    }
-  },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/d24cdd56-6f55-42da-631b-c25974c36f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/enno_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "A4 Wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7a788c03-daf7-4d93-fa3a-f94e2b719900?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/a4_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bitcoin.com Wallet",
@@ -2676,7 +2491,7 @@ var allWallets = [{
       "universal": "https://wallet.bitcoin.com/"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/0d7938e1-9b3b-4d8b-177b-98188c4cf400?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/bitcoincom.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Defiant",
@@ -2691,12 +2506,12 @@ var allWallets = [{
       "universal": "https://defiantapp.tech/"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/11a96ca4-3592-42ae-c781-2b7265ec9200?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/defiant.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Chain",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f9f3d8da-e791-47d2-98c2-031712617e00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/chain.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Verso",
@@ -2712,7 +2527,7 @@ var allWallets = [{
       "native": "verso"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/109d7c90-86ed-4ee0-e17d-3c87624ddf00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/verso.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "LOBSTR Wallet",
@@ -2727,7 +2542,7 @@ var allWallets = [{
       "universal": "https://lobstr.co/uni/wc"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/0dafcaab-0852-47f7-85dd-436b86491d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/lobstr_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bifrost Wallet",
@@ -2742,7 +2557,7 @@ var allWallets = [{
       "universal": "https://app.bifrostwallet.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/86be07e2-6652-4fd1-5f33-651682c95400?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/bifrost_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Okse Wallet",
@@ -2755,17 +2570,12 @@ var allWallets = [{
       "native": "oksewallet:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8a1b36d5-7f40-403a-7000-5d30f9181200?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/okse_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "BRISE Wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/09a4e1d9-e4de-44fa-f248-5495ba9ab300?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "LZ Wallet",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e3272444-3876-49d3-2f84-004b818d3800?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/brise_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "HyperPay",
@@ -2776,7 +2586,7 @@ var allWallets = [{
 }, {
   "name": "ATON",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2e85f1d1-f498-4cae-bb54-1d40614ee300?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/aton.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Frontier",
@@ -2789,7 +2599,7 @@ var allWallets = [{
       "native": "frontier://"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a78c4d48-32c1-4a9d-52f2-ec7ee08ce200?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/frontier.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "MDAO Wallet",
@@ -2802,7 +2612,7 @@ var allWallets = [{
       "native": "ttmwalletapp://"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/82014e92-838b-4e75-e77e-76cdc5539d00?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/mdao_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "TTM Wallet",
@@ -2815,20 +2625,7 @@ var allWallets = [{
       "native": "ttmwalletapp:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/82014e92-838b-4e75-e77e-76cdc5539d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Dentacoin Wallet",
-  "link": "WalletConnectV1",
-  "mobile": {
-    "ios": {
-      "native": "dentacoin-wallet://"
-    },
-    "android": {
-      "native": "dentacoin-wallet://"
-    }
-  },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/34910dc0-9f3b-4407-115d-673707602900?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/ttm_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Opto Wallet",
@@ -2841,7 +2638,7 @@ var allWallets = [{
       "native": "opto://"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3df102e4-e435-49dd-d4b1-5ea74ebed500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/opto_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "XFUN Wallet",
@@ -2856,7 +2653,7 @@ var allWallets = [{
       "universal": "https://xfun.io"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a665f8f3-09ef-4d17-2bd0-26dca4518400?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/xfun_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Exodus",
@@ -2872,7 +2669,7 @@ var allWallets = [{
       "native": "wc://"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/4c16cad4-cac9-4643-6726-c696efaf5200?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/exodus.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Uvtoken",
@@ -2885,22 +2682,7 @@ var allWallets = [{
       "native": "UvToken://"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/52b9a9fc-caff-469e-033b-6d6f14e41800?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "S-ONE Wallet",
-  "link": "WalletConnectV1",
-  "mobile": {
-    "ios": {
-      "native": "sone://",
-      "universal": "https://sonewallet.app"
-    },
-    "android": {
-      "native": "sone://",
-      "universal": "https://sonewallet.app"
-    }
-  },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/b3562637-a407-4035-6fa5-a70ff2050400?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/uv_token.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "PREMA Wallet",
@@ -2918,7 +2700,7 @@ var allWallets = [{
       "universal": "https://premanft.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/6487869b-1165-4f30-aa3a-115665be8300?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/prema_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Shinobi-Wallet",
@@ -2931,7 +2713,7 @@ var allWallets = [{
       "native": "shinobi-wallet://"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/685c986c-3e80-4701-cec6-cd247ba1a700?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/shinobi.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ByteBank",
@@ -2944,7 +2726,7 @@ var allWallets = [{
       "native": "hideoutWallet:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/bc7aacd6-b2e2-4146-7d21-06e0c5d44f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/byte_bank.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Ancrypto Wallet",
@@ -2957,7 +2739,7 @@ var allWallets = [{
       "native": "ancrypto://app"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/d4382329-e288-4d7a-0ac8-3eb0facfb900?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/ancrypto_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bee Wallet",
@@ -2972,7 +2754,7 @@ var allWallets = [{
       "universal": "https://beewallet.app/wc"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f90bc33f-f085-40cf-7538-fae5ae84f900?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/bee_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "LATOKEN Multichain DeFi Wallet",
@@ -2985,7 +2767,7 @@ var allWallets = [{
       "native": "dfwallet:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ff858a37-cbcb-413d-c1ed-917a444bea00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/latoken_multichain_de_fi_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "TK Finance",
@@ -3000,7 +2782,7 @@ var allWallets = [{
       "universal": "https://trustkeys.network"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/c4066f68-2247-49bf-ac8a-a677bfa81800?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/tk_finance.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Oxalus Wallet",
@@ -3015,7 +2797,7 @@ var allWallets = [{
       "universal": "https://deeplink.oxalus.io"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a6e22fcb-6b69-45d2-b52d-a4a347a21e00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/oxalus_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "3S Wallet",
@@ -3028,7 +2810,7 @@ var allWallets = [{
       "native": "bhcwallet://"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f3b6a89d-ec8f-49dc-e07f-6bf723e1e500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/3_s_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Klever Wallet",
@@ -3043,7 +2825,7 @@ var allWallets = [{
       "universal": "https://klever.page.link"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8f5bbad8-6a14-4b2c-5343-cc1fca6e4d00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/klever_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "OneKey",
@@ -3061,7 +2843,7 @@ var allWallets = [{
       "universal": "https://app.onekey.so/wc/connect"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/12bebb3f-8030-4892-8452-c60a6bac1500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/one_key.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "helix id",
@@ -3074,20 +2856,37 @@ var allWallets = [{
       "native": "helix-id://helix-id.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/4083ef71-8389-4682-ded6-0099236d2e00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/helix_id.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
-  "name": "CeloDance",
+  "name": "ABC Wallet",
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "native": "celo://wallet/dappkit/celodance"
+      "native": "abc-wallet://abcwc",
+      "universal": "https://abcwalletconnect.page.link"
     },
     "android": {
-      "native": "celo://wallet/dappkit/celodance"
+      "native": "abc-wallet://abcwc",
+      "universal": "https://abcwalletconnect.page.link"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/47c8ab7b-a66c-4949-f0fe-b0c2c169ee00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/abcwallet.jpg",
+  "blockchains": _toConsumableArray(supported.evm)
+}, {
+  "name": "HaHa",
+  "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "native": "haha://",
+      "universal": "https://haha.me"
+    },
+    "android": {
+      "native": "haha://",
+      "universal": "https://haha.me"
+    }
+  },
+  "logo": "https://img1.depay.com/wallets/haha.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Volt: DeFi",
@@ -3102,7 +2901,7 @@ var allWallets = [{
       "universal": "https://get.voltage.finance"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/51d783cb-0686-4ffa-e661-edca0c380000?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/volt.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Wirex Wallet",
@@ -3117,7 +2916,7 @@ var allWallets = [{
       "universal": "https://wwallet.app.link"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/769739aa-ff45-4db5-c6e6-70590741ec00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/wirex_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Robinhood Wallet",
@@ -3130,7 +2929,7 @@ var allWallets = [{
       "native": "robinhood-wallet:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/dfe0e3e3-5746-4e2b-12ad-704608531500?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/robinhood_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "RiceWallet",
@@ -3145,7 +2944,7 @@ var allWallets = [{
       "universal": "https://ricewallet.io"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/df94578e-19be-4f00-258f-2470343e7b00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/rice_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SafeMoon",
@@ -3160,7 +2959,7 @@ var allWallets = [{
       "universal": "https://safemoon.net/"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ecc31a8e-0ee9-49db-cc59-0876b7c35600?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/safemoon.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SimpleHold",
@@ -3175,7 +2974,7 @@ var allWallets = [{
       "universal": "https://simplehold.io"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a9f1ba96-b658-4d13-f71f-226b6389f000?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/simple_hold.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "GoldBit",
@@ -3188,7 +2987,7 @@ var allWallets = [{
       "native": "goldbit://"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/11974ef1-21ab-4806-a2b1-362c31499900?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/gold_bit.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ioPay",
@@ -3201,7 +3000,7 @@ var allWallets = [{
       "native": "iopay:"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/18891f5a-fd0f-4126-7d1a-452be6714700?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/iopay.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bitizen",
@@ -3216,7 +3015,7 @@ var allWallets = [{
       "universal": "https://bitizen.org/wallet"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/75dd1471-77e9-4811-ce57-ec8fc980ec00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/bitizen.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Slavi Wallet",
@@ -3231,7 +3030,7 @@ var allWallets = [{
       "universal": "https://www.slaviwallet.io"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/282ce060-0beb-4236-b7b0-1b34cc6c8f00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/slavi_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Nufinetes",
@@ -3249,7 +3048,7 @@ var allWallets = [{
       "universal": "https://apple.vimworld.org"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/70080bd7-9858-4720-cf74-8f74cd74cb00?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/nufinetes.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Arianee Wallet",
@@ -3264,7 +3063,7 @@ var allWallets = [{
       "universal": "https://arianee.net"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ace938a9-c906-4b9e-f683-b85f1ab72800?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/arianee_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "NOW Wallet",
@@ -3279,7 +3078,7 @@ var allWallets = [{
       "universal": "https://walletnow.app.link"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/b6ee4efc-f53e-475b-927b-a7ded6211700?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/now_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Arculus Wallet",
@@ -3294,33 +3093,22 @@ var allWallets = [{
       "universal": "https://gw.arculus.co/app"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f78dab27-7165-4a3d-fdb1-fcff06c0a700?projectId=ec576959c7769a8b4dbbb3da3f12fef4",
+  "logo": "https://img1.depay.com/wallets/arculus_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
-  "name": "Binana",
+  "name": "Linen",
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "universal": "https://master.tokenone.app"
+      "native": "linen:",
+      "universal": "https://linen.app"
     },
     "android": {
-      "universal": "https://master.tokenone.app"
+      "native": "linen:",
+      "universal": "https://linen.app"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/65a60845-8fe3-4146-2688-586e4dc68a00?projectId=a8d876c6f91c3748db621583fad358f1",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Fundamenta Mobile",
-  "link": "WalletConnectV1",
-  "mobile": {
-    "ios": {
-      "universal": "https://app.civiport.online"
-    },
-    "android": {
-      "universal": "https://app.civiport.online"
-    }
-  },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/79797f9e-a6c7-4284-1a1c-88332f11ea00?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/linen.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Nitrogen Wallet",
@@ -3333,7 +3121,7 @@ var allWallets = [{
       "universal": "https://nitrogen.org/wc"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/af185895-cda5-4eaf-e31b-28b6fe4b0800?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/nitrogen_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ApolloX",
@@ -3346,12 +3134,12 @@ var allWallets = [{
       "universal": "https://app.apollox.finance"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/80ab63a2-1b32-4140-3577-9fbc8ea82e00?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/apollo_x.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ID Pocket",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/c227ee0a-5127-4707-ded9-c3cd81348d00?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/id_pocket.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CoinCircle",
@@ -3364,22 +3152,17 @@ var allWallets = [{
       "universal": "https://coincircle.com/app/walletconnect"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/eae63a23-c7ba-4f7e-24b3-e6fc69215d00?projectId=a8d876c6f91c3748db621583fad358f1",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "Dracula Metaverse",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/7259499f-3a9c-4905-d881-19944500d000?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/coin_circle.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SahalWallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/d29d6426-b6f2-481b-12d8-7b20ec82af00?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/sahal_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "UPBOND Wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/698e08f3-b452-4c91-9f65-299939396a00?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/upbond_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Sequence Wallet",
@@ -3392,7 +3175,7 @@ var allWallets = [{
       "universal": "https://sequence.app"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/b2d5c39c-a485-4efa-5736-a782204e4a00?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/sequence_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "LocalTrade Wallet",
@@ -3405,12 +3188,12 @@ var allWallets = [{
       "universal": "https://ws.lab.localtrade.cc"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/fcc60983-74ae-484a-4242-87cb6f05f100?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/local_trade_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Loopring Wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/2103feda-4fc8-4635-76a7-02a4ed998000?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/loopring_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Vision: Crypto Wallet",
@@ -3423,12 +3206,12 @@ var allWallets = [{
       "universal": "https://app.vision-crypto.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/64ccf07c-1fba-4473-49e8-dc446e5a5000?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/vision.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Ballet Crypto",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/542094e6-70d6-4b0d-4c8f-b61cc2c38500?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/ballet_crypto.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Pitaka",
@@ -3443,37 +3226,37 @@ var allWallets = [{
       "universal": "https://app.pitaka.io"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/691c0716-5213-4b99-e837-079268313800?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/pitaka.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "AbsoluteWallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/03797059-fc49-4adc-7b93-503290b62300?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/absolute_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "The Parallel",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/de73fe0b-0244-4373-dea4-bef78ca82e00?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/the_parallel.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CypherD Wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/6dfec0f3-2cbb-4300-b049-d66d28fcf400?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/cypher_d_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Keplr",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/527324b0-3849-462b-9a1a-72b53bdfea00?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/keplr.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "MyWalliD",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e6cff623-9671-4a39-acc7-1c2292d7e100?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/my_walli_d.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Status",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/e131fa98-8c4f-4680-f5b6-6fb77189c900?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/status.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Monarch Wallet",
@@ -3486,7 +3269,7 @@ var allWallets = [{
       "universal": "https://monarchwallet.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/c664d955-8a1e-4460-3917-4cfcf198f000?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/monarch_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Marble",
@@ -3499,7 +3282,7 @@ var allWallets = [{
       "universal": "https://app.marblewallet.com/"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/eb6de921-6824-4f35-6331-8a8b031e7100?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/marble.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Flooz",
@@ -3512,7 +3295,7 @@ var allWallets = [{
       "universal": "https://wallet.flooz.trade/wc"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/0a04f368-4f56-4c12-0bfa-93b14bb20800?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/flooz.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Blockchain.com",
@@ -3525,12 +3308,12 @@ var allWallets = [{
       "universal": "https://login.blockchain.com/deeplink/login/wallet-connect"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/fc282669-2dbe-44d5-33fc-9168fcf08600?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/blockchaincom.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Dohrnii Wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/1bb51ed9-68ed-4012-3082-72dcb7754300?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/dohrnii_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "UniPass",
@@ -3543,25 +3326,27 @@ var allWallets = [{
       "universal": "https://wallet.unipass.id"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/77865965-4322-4ac4-5049-b2af11bf8300?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/uni_pass.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ZenGo",
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
+      "native": "zengo:",
       "universal": "https://get.zengo.com"
     },
     "android": {
+      "native": "zengo:",
       "universal": "https://get.zengo.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/d1794d97-ea1f-4966-be42-9f614bb5d800?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/zengo.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Locker Token",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/37401d35-3fa1-451c-802d-604940315800?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/locker_token.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Keeper",
@@ -3574,40 +3359,22 @@ var allWallets = [{
       "universal": "https://link.keeper-wallet.app"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/41f6ac85-8f4e-4d9f-b37b-92b43fa7f400?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/keeper.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "XDEFI Wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/efec6318-7f96-4b30-9287-6c287660cd00?projectId=a8d876c6f91c3748db621583fad358f1",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "BeeWallet",
-  "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/ae53ba0b-4d01-42f6-53d8-cc568409b700?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/xdefi_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Numio",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/416ee463-6699-43f7-c0e3-396f0ad3d300?projectId=a8d876c6f91c3748db621583fad358f1",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
-  "name": "UvToken",
-  "link": "WalletConnectV1",
-  "mobile": {
-    "ios": {
-      "native": "UvToken://"
-    },
-    "android": {
-      "native": "UvToken://"
-    }
-  },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/a0057241-cd91-4a53-7175-016b76bfd900?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/numio.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Neon Wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/322bd6f0-09b5-4595-cb15-0dfab8054800?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/neon_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Nabox",
@@ -3620,7 +3387,7 @@ var allWallets = [{
       "universal": "https://nabox.io/app/"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3b75e9f7-2ca8-4a33-ed2b-4e8a0c048d00?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/nabox.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Snowball",
@@ -3633,7 +3400,7 @@ var allWallets = [{
       "universal": "https://app.snowball.exchange/app"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/313faea4-af8c-41f4-0ed8-98be5d048e00?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/snowball.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "KryptoGO Wallet",
@@ -3646,22 +3413,22 @@ var allWallets = [{
       "universal": "https://kryptogo.page.link"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/3ccbd966-97e8-45a0-1ceb-6141a8978e00?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/krypto_go_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Payperless",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/4a867e30-44c9-4627-6281-33457b8e2100?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/payperless.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Brave Wallet",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8cecad66-73e3-46ee-f45f-01503c032f00?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/brave_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Crossmint",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/8ad627ec-cbcd-4878-ec5c-3df588055200?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/crossmint.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Safematrix",
@@ -3674,7 +3441,7 @@ var allWallets = [{
       "universal": "https://safematrix.io/"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/48ea5de9-869a-4994-2402-97afba060900?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/safematrix.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "pier",
@@ -3687,7 +3454,7 @@ var allWallets = [{
       "universal": "https://pierwallet.com/wc"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/cf3f0da1-40ec-4940-aebe-df075513d100?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/pier.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "FILWallet",
@@ -3700,7 +3467,7 @@ var allWallets = [{
       "universal": "https://h5.filwallet.co"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f400f6c2-ca6c-487b-654d-e119af247500?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/fil_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ParaSwap Wallet",
@@ -3713,20 +3480,22 @@ var allWallets = [{
       "universal": "https://wallet.paraswap.io/#/"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/73dc6b30-b644-46e6-020c-5926851df600?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/para_swap_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bitski",
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "universal": "https://wallet.bitski.com/walletconnect"
+      "native": "bitski:",
+      "universal": "https://wallet.bitski.com/walletconnect/wc"
     },
     "android": {
-      "universal": "https://wallet.bitski.com/walletconnect"
+      "native": "bitski:",
+      "universal": "https://wallet.bitski.com/walletconnect/wc"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/94d94cb5-a94f-47cf-70e6-fe8d3f1c3700?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/bitski.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Hippo Wallet",
@@ -3741,7 +3510,7 @@ var allWallets = [{
       "universal": "https://hippowallet.io"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/f9570968-45f7-47c1-3189-98cf60e25c00?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/hippo_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Core",
@@ -3754,7 +3523,7 @@ var allWallets = [{
       "universal": "https://core.app"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/35f9c46e-cc57-4aa7-315d-e6ccb2a1d600?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/core.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Xcapit",
@@ -3767,25 +3536,53 @@ var allWallets = [{
       "universal": "https://app.xcapit.com/links"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/17f59b75-21b0-4b3f-b024-fe4b9b8d2300?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/xcapit.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
-  "name": "Paper Wallet",
+  "name": "Paper",
   "link": "WalletConnectV1",
   "mobile": {
     "ios": {
-      "universal": "https://paper.xyz"
+      "universal": "https://withpaper.com"
     },
     "android": {
-      "universal": "https://paper.xyz"
+      "universal": "https://withpaper.com"
     }
   },
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/37d7a10f-d94d-4a56-c30e-267e8afbd500?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/paper_wallet.jpg",
+  "blockchains": _toConsumableArray(supported.evm)
+}, {
+  "name": "MetaOne",
+  "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "native": "metaone:"
+    },
+    "android": {
+      "native": "metaone:"
+    }
+  },
+  "logo": "https://img1.depay.com/wallets/metaone.jpg",
+  "blockchains": _toConsumableArray(supported.evm)
+}, {
+  "name": "Enjin Wallet",
+  "link": "WalletConnectV1",
+  "mobile": {
+    "ios": {
+      "native": "enjinwallet:",
+      "universal": "https://deeplink.wallet.enjin.io"
+    },
+    "android": {
+      "native": "enjinwallet:",
+      "universal": "https://deeplink.wallet.enjin.io"
+    }
+  },
+  "logo": "https://img1.depay.com/wallets/enjin.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "BC Vault",
   "link": "WalletConnectV1",
-  "logo": "https://explorer-api.walletconnect.com/v3/logo/lg/4d7bf99f-b2d9-48b0-5d7e-7d64f9a4f700?projectId=a8d876c6f91c3748db621583fad358f1",
+  "logo": "https://img1.depay.com/wallets/bc_vault.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Wallet (Ethereum)",
