@@ -49,11 +49,11 @@ describe('Connect wallet', () => {
         DePayWidgets.Connect({ document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Connect a wallet').then(()=>{
           cy.wait(1000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('Trust', { force: true })
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('tr', { force: true })
             cy.wait(1000).then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Trust Wallet')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'TrustVault')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Trustee Wallet')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'StrikeX Wallet')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Nitrogen Wallet')
             })
           })
         })
