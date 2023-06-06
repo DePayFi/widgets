@@ -130,15 +130,7 @@ export default (props)=>{
   const openInApp = (walletMetaData)=>{
     const platform = platformForWallet(walletMetaData)
     if(!platform || !platform.open) { return }
-
-    let openInAppLink
-    if(isAndroid() || isWebView()) { // Universal Link
-      openInAppLink = platform.open(safeUniversalUrl(platform.universal))
-    } else { // iOS standalone browser -> native deeplink
-      openInAppLink = platform.open(safeAppUrl(platform.native))
-    }
-
-    window.open(openInAppLink, '_self', 'noreferrer noopener')
+    window.open(platform.open(), '_self', 'noreferrer noopener')
   }
 
   return(

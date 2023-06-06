@@ -1010,15 +1010,15 @@
       "ios": {
         "native": "phantom:",
         "universal": "https://phantom.app/ul",
-        open: function open(base) {
-          return "".concat(base, "/browse/").concat(encodeURIComponent(window.location.toString()));
+        "open": function open() {
+          return "https://phantom.app/ul/browse/".concat(encodeURIComponent(window.location.toString()));
         }
       },
       "android": {
         "native": "phantom:",
         "universal": "https://phantom.app/ul",
-        open: function open(base) {
-          return "".concat(base, "/browse/").concat(encodeURIComponent(window.location.toString()));
+        "open": function open() {
+          return "https://phantom.app/ul/browse/".concat(encodeURIComponent(window.location.toString()));
         }
       }
     },
@@ -1164,15 +1164,15 @@
       "ios": {
         "native": "solflare:",
         "universal": "https://solflare.com/ul",
-        "open": function open(base) {
-          return "".concat(base, "/browse/").concat(encodeURIComponent(window.location.toString()));
+        "open": function open() {
+          return "https://solflare.com/ul/browse/".concat(encodeURIComponent(window.location.toString()));
         }
       },
       "android": {
         "native": "solflare:",
         "universal": "https://solflare.com/ul",
-        "open": function open(base) {
-          return "".concat(base, "/browse/").concat(encodeURIComponent(window.location.toString()));
+        "open": function open() {
+          return "https://solflare.com/ul/browse/".concat(encodeURIComponent(window.location.toString()));
         }
       }
     },
@@ -4791,17 +4791,7 @@
         return;
       }
 
-      var openInAppLink;
-
-      if (isAndroid() || isWebView()) {
-        // Universal Link
-        openInAppLink = platform.open(safeUniversalUrl(platform.universal));
-      } else {
-        // iOS standalone browser -> native deeplink
-        openInAppLink = platform.open(safeAppUrl(platform["native"]));
-      }
-
-      window.open(openInAppLink, '_self', 'noreferrer noopener');
+      window.open(platform.open(), '_self', 'noreferrer noopener');
     };
 
     return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement(reactDialogStack.ReactDialogStack, {
