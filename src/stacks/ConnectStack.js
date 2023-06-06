@@ -90,7 +90,7 @@ export default (props)=>{
   }
 
   const connectViaRedirect = (walletMetaData, reconnect = true)=> {
-    let platform = platformForWallet(walletMetaData)
+    const platform = platformForWallet(walletMetaData)
     if(!platform) { return }
     if(walletMetaData.link == 'WalletConnectV1') {
       let wallet = new wallets[walletMetaData.link]()
@@ -127,6 +127,20 @@ export default (props)=>{
     }
   }
 
+  const openInApp = (walletMetaData)=>{
+    const platform = platformForWallet(walletMetaData)
+    if(!platform || !platform.open) { return }
+
+    let openInAppLink
+    if(isAndroid() || isWebView()) { // Universal Link
+      openInAppLink = platform.open(safeUniversalUrl(platform.universal))
+    } else { // iOS standalone browser -> native deeplink
+      openInAppLink = platform.open(safeAppUrl(platform.native))
+    }
+
+    window.open(openInAppLink, '_self', 'noreferrer noopener')
+  }
+
   return(
     <div>
       <ReactDialogStack
@@ -136,9 +150,9 @@ export default (props)=>{
         container={ props.container }
         document={ props.document }
         dialogs={{
-          SelectWallet: <SelectWalletDialog setWallet={setWallet} resolve={resolve} connectViaRedirect={connectViaRedirect} connectExtension={connectExtension}/>,
+          SelectWallet: <SelectWalletDialog setWallet={setWallet} resolve={resolve} openInApp={openInApp} connectViaRedirect={connectViaRedirect} connectExtension={connectExtension}/>,
           WhatIsAWallet: <WhatIsAWalletDialog/>,
-          ConnectWallet: <ConnectWalletDialog selection={selection} wallet={wallet} resolve={resolve} connectViaRedirect={connectViaRedirect} connectExtension={connectExtension} showConnectExtensionWarning={showConnectExtensionWarning}/>
+          ConnectWallet: <ConnectWalletDialog selection={selection} wallet={wallet} resolve={resolve} openInApp={openInApp} connectViaRedirect={connectViaRedirect} connectExtension={connectExtension} showConnectExtensionWarning={showConnectExtensionWarning}/>
         }}
       />
       <PoweredBy/>

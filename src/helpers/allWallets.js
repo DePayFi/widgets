@@ -41,8 +41,8 @@ export default [
     "name": "Phantom",
     "extension": "Phantom",
     "mobile": {
-      "ios": { "native": "phantom:", "universal": "https://phantom.app/ul/" },
-      "android": { "native": "phantom:", "universal": "https://phantom.app/ul/" },
+      "ios": { "native": "phantom:", "universal": "https://phantom.app/ul", open: (base)=>`${base}/browse/${encodeURIComponent(window.location.toString())}` },
+      "android": { "native": "phantom:", "universal": "https://phantom.app/ul", open: (base)=>`${base}/browse/${encodeURIComponent(window.location.toString())}` },
     },
     "logo": wallets.Phantom.info.logo,
     "blockchains": [...supported.solana]
@@ -155,6 +155,10 @@ export default [
   {
     "name": "Solflare",
     "extension": "Solflare",
+    "mobile": {
+      "ios": { "native": "solflare:", "universal": "https://solflare.com/ul", "open": (base)=>`${base}/browse/${encodeURIComponent(window.location.toString())}` },
+      "android": { "native": "solflare:", "universal": "https://solflare.com/ul", "open": (base)=>`${base}/browse/${encodeURIComponent(window.location.toString())}` },
+    },
     "logo": wallets.Solflare.info.logo,
     "blockchains": [...supported.solana]
   },

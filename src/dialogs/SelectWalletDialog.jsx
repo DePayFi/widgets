@@ -17,6 +17,7 @@ import Dialog from '../components/Dialog'
 import DropDown from '../components/DropDown'
 import isMobile from '../helpers/isMobile'
 import MenuIcon from '../components/MenuIcon'
+import platformForWallet from '../helpers/platformForWallet'
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import safeUniversalUrl from '../helpers/safeUniversalUrl'
 import SelectWalletList from '../components/SelectWalletList'
@@ -49,9 +50,16 @@ export default (props)=>{
         navigate('ConnectWallet')
       }
     } else {
-      props.connectViaRedirect(walletMetaData)
-      props.setWallet(walletMetaData)
-      navigate('ConnectWallet')
+      const platform = platformForWallet(walletMetaData)
+      if(platform && platform.open) {
+        props.openInApp(walletMetaData)
+        props.setWallet(walletMetaData)
+        navigate('ConnectWallet')
+      } else {
+        props.connectViaRedirect(walletMetaData)
+        props.setWallet(walletMetaData)
+        navigate('ConnectWallet')
+      }
     }
   }
 

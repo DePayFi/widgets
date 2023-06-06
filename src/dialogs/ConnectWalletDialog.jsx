@@ -29,7 +29,8 @@ export default (props)=> {
   const QRCodeElement = React.useRef()
   
   const [ extensionIsAvailable, setExtensionIsAvailable ] = useState()
-  const [ appIsAvailable, setAppIsAvailable ] = useState()
+  const [ connectAppIsAvailable, setConnectAppIsAvailable ] = useState()
+  const [ openInAppIsAvailable, setOpenInAppIsAvailable ] = useState()
   const [ linkIsConnected, setLinkIsConnected ] = useState()
   const [ linkURI, setLinkURI ] = useState()
   const [ showQRCode, setShowQRCode ] = useState(false)
@@ -130,7 +131,9 @@ export default (props)=> {
       setLinkIsConnected(
         props.wallet?.link ? (await wallets[props.wallet.link].isAvailable() || false) : false
       )
-      setAppIsAvailable(!!platformForWallet(props.wallet))
+      const platform = platformForWallet(props.wallet)
+      setConnectAppIsAvailable(!!platform)
+      setOpenInAppIsAvailable(!!platform && platform.open)
     })()
   }, [])
 
@@ -207,7 +210,7 @@ export default (props)=> {
                 </button>
               </div>
             }
-            { appIsAvailable &&
+            { connectAppIsAvailable &&
               <div className="PaddingBottomXS">
                 <button onClick={ ()=>props.connectViaRedirect(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS">
                   <span className="PaddingTopXS PaddingRightXS PaddingLeftS">
@@ -216,6 +219,20 @@ export default (props)=> {
                   <div className="PaddingLeftS LineHeightXS">
                     <div className="CardText FontWeightMedium">
                       Connect app
+                    </div>
+                  </div>
+                </button>
+              </div>
+            }
+            { openInAppIsAvailable &&
+              <div className="PaddingBottomXS">
+                <button onClick={ ()=>props.openInApp(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS">
+                  <span className="PaddingTopXS PaddingRightXS PaddingLeftS">
+                    <img className="transparent " title="Click to open in app" style={{ height: '26px', width: '26px', borderRadius: '8px' }} src={ props.wallet.logo }/>
+                  </span>
+                  <div className="PaddingLeftS LineHeightXS">
+                    <div className="CardText FontWeightMedium">
+                      Open in app
                     </div>
                   </div>
                 </button>

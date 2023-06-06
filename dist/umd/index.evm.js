@@ -1009,11 +1009,17 @@
     "mobile": {
       "ios": {
         "native": "phantom:",
-        "universal": "https://phantom.app/ul/"
+        "universal": "https://phantom.app/ul",
+        open: function open(base) {
+          return "".concat(base, "/browse/").concat(encodeURIComponent(window.location.toString()));
+        }
       },
       "android": {
         "native": "phantom:",
-        "universal": "https://phantom.app/ul/"
+        "universal": "https://phantom.app/ul",
+        open: function open(base) {
+          return "".concat(base, "/browse/").concat(encodeURIComponent(window.location.toString()));
+        }
       }
     },
     "logo": web3WalletsEvm.wallets.Phantom.info.logo,
@@ -1154,6 +1160,22 @@
   }, {
     "name": "Solflare",
     "extension": "Solflare",
+    "mobile": {
+      "ios": {
+        "native": "solflare:",
+        "universal": "https://solflare.com/ul",
+        "open": function open(base) {
+          return "".concat(base, "/browse/").concat(encodeURIComponent(window.location.toString()));
+        }
+      },
+      "android": {
+        "native": "solflare:",
+        "universal": "https://solflare.com/ul",
+        "open": function open(base) {
+          return "".concat(base, "/browse/").concat(encodeURIComponent(window.location.toString()));
+        }
+      }
+    },
     "logo": web3WalletsEvm.wallets.Solflare.info.logo,
     "blockchains": _toConsumableArray(supported.solana)
   }, {
@@ -3744,33 +3766,38 @@
 
     var _useState3 = React.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
-        appIsAvailable = _useState4[0],
-        setAppIsAvailable = _useState4[1];
+        connectAppIsAvailable = _useState4[0],
+        setConnectAppIsAvailable = _useState4[1];
 
     var _useState5 = React.useState(),
         _useState6 = _slicedToArray(_useState5, 2),
-        linkIsConnected = _useState6[0],
-        setLinkIsConnected = _useState6[1];
+        openInAppIsAvailable = _useState6[0],
+        setOpenInAppIsAvailable = _useState6[1];
 
     var _useState7 = React.useState(),
-        _useState8 = _slicedToArray(_useState7, 2);
-        _useState8[0];
-        _useState8[1];
+        _useState8 = _slicedToArray(_useState7, 2),
+        linkIsConnected = _useState8[0],
+        setLinkIsConnected = _useState8[1];
 
-    var _useState9 = React.useState(false),
-        _useState10 = _slicedToArray(_useState9, 2),
-        showQRCode = _useState10[0],
-        setShowQRCode = _useState10[1];
+    var _useState9 = React.useState(),
+        _useState10 = _slicedToArray(_useState9, 2);
+        _useState10[0];
+        _useState10[1];
 
     var _useState11 = React.useState(false),
         _useState12 = _slicedToArray(_useState11, 2),
-        showLinkCopied = _useState12[0],
-        setShowLinkCopied = _useState12[1];
+        showQRCode = _useState12[0],
+        setShowQRCode = _useState12[1];
 
-    var _useState13 = React.useState(),
+    var _useState13 = React.useState(false),
         _useState14 = _slicedToArray(_useState13, 2),
-        QRCode = _useState14[0],
-        setQRCode = _useState14[1];
+        showLinkCopied = _useState14[0],
+        setShowLinkCopied = _useState14[1];
+
+    var _useState15 = React.useState(),
+        _useState16 = _slicedToArray(_useState15, 2),
+        QRCode = _useState16[0],
+        setQRCode = _useState16[1];
 
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext);
         _useContext.navigate;
@@ -3858,6 +3885,7 @@
       _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
         var _props$wallet2, _props$wallet3;
 
+        var platform;
         return regenerator.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -3924,9 +3952,11 @@
               case 24:
                 _context.t7 = _context.t5;
                 (0, _context.t4)(_context.t7);
-                setAppIsAvailable(!!platformForWallet(props.wallet));
+                platform = platformForWallet(props.wallet);
+                setConnectAppIsAvailable(!!platform);
+                setOpenInAppIsAvailable(!!platform && platform.open);
 
-              case 27:
+              case 29:
               case "end":
                 return _context.stop();
             }
@@ -4000,7 +4030,7 @@
         className: "PaddingLeftS LineHeightXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardText FontWeightMedium"
-      }, "Connect extension")))), appIsAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Connect extension")))), connectAppIsAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("button", {
         onClick: function onClick() {
@@ -4022,7 +4052,29 @@
         className: "PaddingLeftS LineHeightXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardText FontWeightMedium"
-      }, "Connect app")))), props.wallet.link && (!showQRCode || props.wallet.link == 'WalletLink') && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Connect app")))), openInAppIsAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingBottomXS"
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        onClick: function onClick() {
+          return props.openInApp(props.wallet);
+        },
+        className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        className: "PaddingTopXS PaddingRightXS PaddingLeftS"
+      }, /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "transparent ",
+        title: "Click to open in app",
+        style: {
+          height: '26px',
+          width: '26px',
+          borderRadius: '8px'
+        },
+        src: props.wallet.logo
+      })), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingLeftS LineHeightXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardText FontWeightMedium"
+      }, "Open in app")))), props.wallet.link && (!showQRCode || props.wallet.link == 'WalletLink') && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("button", {
         onClick: function onClick() {
@@ -4380,9 +4432,17 @@
           navigate('ConnectWallet');
         }
       } else {
-        props.connectViaRedirect(walletMetaData);
-        props.setWallet(walletMetaData);
-        navigate('ConnectWallet');
+        var platform = platformForWallet(walletMetaData);
+
+        if (platform && platform.open) {
+          props.openInApp(walletMetaData);
+          props.setWallet(walletMetaData);
+          navigate('ConnectWallet');
+        } else {
+          props.connectViaRedirect(walletMetaData);
+          props.setWallet(walletMetaData);
+          navigate('ConnectWallet');
+        }
       }
     };
 
@@ -4724,6 +4784,26 @@
       }
     };
 
+    var openInApp = function openInApp(walletMetaData) {
+      var platform = platformForWallet(walletMetaData);
+
+      if (!platform || !platform.open) {
+        return;
+      }
+
+      var openInAppLink;
+
+      if (isAndroid() || isWebView()) {
+        // Universal Link
+        openInAppLink = platform.open(safeUniversalUrl(platform.universal));
+      } else {
+        // iOS standalone browser -> native deeplink
+        openInAppLink = platform.open(safeAppUrl(platform["native"]));
+      }
+
+      window.open(openInAppLink, '_self', 'noreferrer noopener');
+    };
+
     return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement(reactDialogStack.ReactDialogStack, {
       open: open,
       close: close,
@@ -4734,6 +4814,7 @@
         SelectWallet: /*#__PURE__*/React__default['default'].createElement(SelectWalletDialog, {
           setWallet: setWallet,
           resolve: resolve,
+          openInApp: openInApp,
           connectViaRedirect: connectViaRedirect,
           connectExtension: connectExtension
         }),
@@ -4742,6 +4823,7 @@
           selection: selection,
           wallet: wallet,
           resolve: resolve,
+          openInApp: openInApp,
           connectViaRedirect: connectViaRedirect,
           connectExtension: connectExtension,
           showConnectExtensionWarning: showConnectExtensionWarning
