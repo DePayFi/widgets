@@ -1006,6 +1006,16 @@
   }, {
     "name": "Phantom",
     "extension": "Phantom",
+    "mobile": {
+      "ios": {
+        "native": "phantom:",
+        "universal": "https://phantom.app/ul/"
+      },
+      "android": {
+        "native": "phantom:",
+        "universal": "https://phantom.app/ul/"
+      }
+    },
     "logo": web3Wallets.wallets.Phantom.info.logo,
     "blockchains": _toConsumableArray(supported.solana)
   }, {
