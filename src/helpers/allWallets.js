@@ -41,8 +41,8 @@ export default [
     "name": "Phantom",
     "extension": "Phantom",
     "mobile": {
-      "ios": { "native": "phantom:", "universal": "https://phantom.app/ul", "open": ()=>`https://phantom.app/ul/v1/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}` },
-      "android": { "native": "phantom:", "universal": "https://phantom.app/ul", "open": ()=>`https://phantom.app/ul/v1/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}` },
+      "ios": { "native": "phantom:", "universal": "https://phantom.app/ul", "open": ()=>`https://phantom.app/ul/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}` },
+      "android": { "native": "phantom:", "universal": "https://phantom.app/ul", "open": ()=>`https://phantom.app/ul/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}` },
     },
     "logo": wallets.Phantom.info.logo,
     "blockchains": [...supported.solana]

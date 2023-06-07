@@ -179,7 +179,7 @@ export default (props)=> {
           { !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && ! props.platform?.copyLink &&
             <div className="PaddingTopS PaddingLeftL PaddingRightL">
               <div className="Alert FontSizeS">
-                <strong>No option to connect to this wallet found!</strong>
+                <strong>No option found to connect to this wallet!</strong>
               </div>
             </div>
           }

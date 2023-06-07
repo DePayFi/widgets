@@ -1021,14 +1021,14 @@
         "native": "phantom:",
         "universal": "https://phantom.app/ul",
         "open": function open() {
-          return "https://phantom.app/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
+          return "https://phantom.app/ul/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
         }
       },
       "android": {
         "native": "phantom:",
         "universal": "https://phantom.app/ul",
         "open": function open() {
-          return "https://phantom.app/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
+          return "https://phantom.app/ul/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
         }
       }
     },
@@ -22238,7 +22238,7 @@
         className: "PaddingTopS PaddingLeftL PaddingRightL"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Alert FontSizeS"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "No option to connect to this wallet found!"))), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "No option found to connect to this wallet!"))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         ref: QRCodeElement,
