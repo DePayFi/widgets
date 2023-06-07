@@ -1026,14 +1026,14 @@ var allWallets = [{
       "native": "phantom:",
       "universal": "https://phantom.app/ul",
       "open": function open() {
-        return "https://phantom.app/ul/browse/".concat(encodeURIComponent(window.location.toString()));
+        return "https://phantom.app/ul/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.toString()));
       }
     },
     "android": {
       "native": "phantom:",
       "universal": "https://phantom.app/ul",
       "open": function open() {
-        return "https://phantom.app/ul/browse/".concat(encodeURIComponent(window.location.toString()));
+        return "https://phantom.app/ul/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.toString()));
       }
     }
   },
@@ -1223,14 +1223,14 @@ var allWallets = [{
       "native": "solflare:",
       "universal": "https://solflare.com/ul",
       "open": function open() {
-        return "https://solflare.com/ul/browse/".concat(encodeURIComponent(window.location.toString()));
+        return "https://solflare.com/ul/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.toString()));
       }
     },
     "android": {
       "native": "solflare:",
       "universal": "https://solflare.com/ul",
       "open": function open() {
-        return "https://solflare.com/ul/browse/".concat(encodeURIComponent(window.location.toString()));
+        return "https://solflare.com/ul/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.toString()));
       }
     }
   },
@@ -21998,7 +21998,7 @@ var get = function get() {
 };
 
 var ConnectWalletDialog = (function (props) {
-  var _props$wallet, _props$platform8, _props$platform9, _props$platform10;
+  var _props$wallet, _props$platform8, _props$platform9, _props$platform10, _props$platform11;
 
   var QRCodeElement = React.useRef();
 
@@ -22239,12 +22239,16 @@ var ConnectWalletDialog = (function (props) {
       className: "PaddingTopS PaddingLeftL PaddingRightL"
     }, /*#__PURE__*/React.createElement("div", {
       className: "Alert FontSizeS"
-    }, /*#__PURE__*/React.createElement("strong", null, "Most wallets do not connect to http!"))), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("strong", null, "Most wallets do not connect to http!"))), !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && !((_props$platform8 = props.platform) !== null && _props$platform8 !== void 0 && _props$platform8.copyLink) && /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftL PaddingRightL"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Alert FontSizeS"
+    }, /*#__PURE__*/React.createElement("strong", null, "No option to connect to this wallet found!"))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS"
     }, /*#__PURE__*/React.createElement("div", {
       ref: QRCodeElement,
       className: "QRCode"
-    }), showQRCode && ((_props$platform8 = props.platform) === null || _props$platform8 === void 0 ? void 0 : _props$platform8.qr) !== 'WalletLink' && /*#__PURE__*/React.createElement("div", {
+    }), showQRCode && ((_props$platform9 = props.platform) === null || _props$platform9 === void 0 ? void 0 : _props$platform9.qr) !== 'WalletLink' && /*#__PURE__*/React.createElement("div", {
       className: "Opacity05 PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("small", null, "Scan QR code with your wallet"))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftL PaddingRightL PaddingTopS"
@@ -22318,7 +22322,7 @@ var ConnectWalletDialog = (function (props) {
       className: "PaddingLeftS LineHeightXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardText FontWeightMedium"
-    }, "Open in app")))), ((_props$platform9 = props.platform) === null || _props$platform9 === void 0 ? void 0 : _props$platform9.qr) && (!showQRCode || props.platform.qr === 'WalletLink') && /*#__PURE__*/React.createElement("div", {
+    }, "Open in app")))), ((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.qr) && (!showQRCode || props.platform.qr === 'WalletLink') && /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("button", {
       onClick: function onClick() {
@@ -22342,7 +22346,7 @@ var ConnectWalletDialog = (function (props) {
       className: "PaddingLeftS LineHeightXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardText FontWeightMedium"
-    }, "Scan QR code")))), ((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.connect) && props.platform.connect === 'WalletConnectV1' && props.platform.copyLink && /*#__PURE__*/React.createElement("div", {
+    }, "Scan QR code")))), ((_props$platform11 = props.platform) === null || _props$platform11 === void 0 ? void 0 : _props$platform11.connect) && props.platform.connect === 'WalletConnectV1' && props.platform.copyLink && /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomXS TooltipWrapper"
     }, /*#__PURE__*/React.createElement("button", {
       onClick: connectViaCopyLink,
@@ -23471,7 +23475,7 @@ var AlertStyle = (function (style) {
 });
 
 var BlockchainLogoStyle = (function (style) {
-  return "\n\n    .BlockchainLogo {\n      border-radius: 999px;\n    }\n\n    .BlockchainLogo.small {\n      height: 20px;\n      width: 20px;\n    }\n  ";
+  return "\n\n    .BlockchainLogo {\n      border-radius: 6px !important;\n    }\n\n    .BlockchainLogo.small {\n      border-radius: 4px !important;\n      height: 20px;\n      width: 20px;\n    }\n  ";
 });
 
 var ButtonCircularStyle = (function (style) {

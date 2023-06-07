@@ -176,6 +176,14 @@ export default (props)=> {
             </div>
           }
 
+          { !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && ! props.platform?.copyLink &&
+            <div className="PaddingTopS PaddingLeftL PaddingRightL">
+              <div className="Alert FontSizeS">
+                <strong>No option to connect to this wallet found!</strong>
+              </div>
+            </div>
+          }
+
           <div className="PaddingTopS">
             <div ref={ QRCodeElement } className="QRCode"/>
             { showQRCode && props.platform?.qr !== 'WalletLink' &&
