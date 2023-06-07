@@ -1222,14 +1222,14 @@ var allWallets = [{
       "native": "solflare:",
       "universal": "https://solflare.com/ul",
       "open": function open() {
-        return "https://solflare.com/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()));
+        return "solflare:/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(window.location.toString());
       }
     },
     "android": {
       "native": "solflare:",
       "universal": "https://solflare.com/ul",
       "open": function open() {
-        return "https://solflare.com/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()));
+        return "solflare:/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(window.location.toString());
       }
     }
   },
