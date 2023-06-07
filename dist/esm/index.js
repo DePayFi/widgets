@@ -22845,7 +22845,7 @@ var SelectWalletDialog = (function (props) {
         top: '-1px',
         position: 'relative'
       }
-    }, "\u25CF"), " Previously connected")))))), /*#__PURE__*/React.createElement("div", {
+    }, "\u25CF"), " Used previously")))))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomXS PaddingLeftS PaddingRightS PaddingTopXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "Row"

@@ -22840,7 +22840,7 @@
           top: '-1px',
           position: 'relative'
         }
-      }, "\u25CF"), " Previously connected")))))), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "\u25CF"), " Used previously")))))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS PaddingLeftS PaddingRightS PaddingTopXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Row"

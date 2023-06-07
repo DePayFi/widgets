@@ -156,7 +156,7 @@ export default (props)=>{
                         <div className="CardText FontWeightMedium">
                           { previouslyConnectedWallet.name }
                         </div>
-                        <div className="Opacity05"><span style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Previously connected</div>
+                        <div className="Opacity05"><span style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Used previously</div>
                       </div>
                     </div>
                   </button>
