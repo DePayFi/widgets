@@ -118,19 +118,13 @@ export default (props)=>{
       }).then((account)=>{
         resolve(account, wallet)
       })
-    } else if (platform.connect == 'WalletLink') {
-      setPreviouslyConnectedWallet(walletMetaData.name)
-      if(isAndroid() || isWebView()) { // Universal Link
-        window.open(`${platform.universal}?cb_url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
-      } else { // iOS standalone browser -> native deeplink
-        window.open(`${platform.native}?url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
-      }
     }
   }
 
   const openInApp = (walletMetaData)=>{
     const platform = platformForWallet(walletMetaData)
     if(!platform || !platform.open) { return }
+    setPreviouslyConnectedWallet(walletMetaData.name)
     window.open(platform.open(), '_self', 'noreferrer noopener')
   }
 

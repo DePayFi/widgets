@@ -979,12 +979,18 @@
       "ios": {
         "native": "cbwallet://dapp",
         "universal": "https://go.cb-w.com/dapp",
-        "connect": "WalletLink"
+        "qr": "WalletLink",
+        "open": function open() {
+          return "cbwallet://dapp?url=".concat(encodeURIComponent(window.location.toString()));
+        }
       },
       "android": {
         "native": "cbwallet://dapp",
         "universal": "https://go.cb-w.com/dapp",
-        "connect": "WalletLink"
+        "qr": "WalletLink",
+        "open": function open() {
+          return "https://go.cb-w.com/dapp?cb_url=".concat(encodeURIComponent(window.location.toString()));
+        }
       }
     },
     "logo": web3WalletsEvm.wallets.Coinbase.info.logo,
@@ -23047,16 +23053,6 @@
         }).then(function (account) {
           resolve(account, _wallet);
         });
-      } else if (platform.connect == 'WalletLink') {
-        set(walletMetaData.name);
-
-        if (isAndroid() || isWebView()) {
-          // Universal Link
-          window.open("".concat(platform.universal, "?cb_url=").concat(encodeURIComponent(window.location.toString())), '_self', 'noreferrer noopener');
-        } else {
-          // iOS standalone browser -> native deeplink
-          window.open("".concat(platform["native"], "?url=").concat(encodeURIComponent(window.location.toString())), '_self', 'noreferrer noopener');
-        }
       }
     };
 
@@ -23067,6 +23063,7 @@
         return;
       }
 
+      set(walletMetaData.name);
       window.open(platform.open(), '_self', 'noreferrer noopener');
     };
 
