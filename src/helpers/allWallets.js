@@ -155,8 +155,8 @@ export default [
     "name": "Solflare",
     "extension": "Solflare",
     "mobile": {
-      "ios": { "native": "solflare:", "universal": "https://solflare.com/ul", "open": ()=>`https://solflare.com/ul/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.toString())}` },
-      "android": { "native": "solflare:", "universal": "https://solflare.com/ul", "open": ()=>`https://solflare.com/ul/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.toString())}` },
+      "ios": { "native": "solflare:", "universal": "https://solflare.com/ul", "open": ()=>`https://solflare.com/ul/v1/browse/${encodeURIComponent(window.location.toString())}` },
+      "android": { "native": "solflare:", "universal": "https://solflare.com/ul", "open": ()=>`https://solflare.com/ul/v1/browse/${encodeURIComponent(window.location.toString())}` },
     },
     "logo": wallets.Solflare.info.logo,
     "blockchains": [...supported.solana]

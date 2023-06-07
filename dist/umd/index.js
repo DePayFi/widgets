@@ -1218,14 +1218,14 @@
         "native": "solflare:",
         "universal": "https://solflare.com/ul",
         "open": function open() {
-          return "https://solflare.com/ul/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.toString()));
+          return "https://solflare.com/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()));
         }
       },
       "android": {
         "native": "solflare:",
         "universal": "https://solflare.com/ul",
         "open": function open() {
-          return "https://solflare.com/ul/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.toString()));
+          return "https://solflare.com/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()));
         }
       }
     },
