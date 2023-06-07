@@ -1,5 +1,5 @@
 import { wallets, getWallets } from '@depay/web3-wallets';
-import React, { useState, useContext, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
 import copy from '@uiw/copy-to-clipboard';
 import { NavigateStackContext, ReactDialogStack } from '@depay/react-dialog-stack';
 import QRCodeStyling from 'qr-code-styling';
@@ -977,15 +977,19 @@ supported.solana = ['solana'];
 var allWallets = [{
   "name": "Coinbase",
   "extension": "Coinbase",
-  "link": "WalletLink",
+  "desktop": {
+    "qr": "WalletLink"
+  },
   "mobile": {
     "ios": {
       "native": "cbwallet://dapp",
-      "universal": "https://go.cb-w.com/dapp"
+      "universal": "https://go.cb-w.com/dapp",
+      "connect": "WalletLink"
     },
     "android": {
       "native": "cbwallet://dapp",
-      "universal": "https://go.cb-w.com/dapp"
+      "universal": "https://go.cb-w.com/dapp",
+      "connect": "WalletLink"
     }
   },
   "logo": wallets.Coinbase.info.logo,
@@ -993,17 +997,23 @@ var allWallets = [{
 }, {
   "name": "MetaMask",
   "extension": "MetaMask",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "metamask:",
       "encoded": false,
-      "universal": "https://metamask.app.link"
+      "universal": "https://metamask.app.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "metamask:",
       "encoded": false,
-      "universal": "https://metamask.app.link"
+      "universal": "https://metamask.app.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": wallets.MetaMask.info.logo,
@@ -1032,15 +1042,21 @@ var allWallets = [{
 }, {
   "name": "Trust Wallet",
   "extension": "Trust",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "trust:",
-      "universal": "https://link.trustwallet.com"
+      "universal": "https://link.trustwallet.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "trust:",
-      "universal": "https://link.trustwallet.com"
+      "universal": "https://link.trustwallet.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": wallets.Trust.info.logo,
@@ -1048,24 +1064,30 @@ var allWallets = [{
 }, {
   "name": "Binance Wallet",
   "extension": "Binance",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": wallets.Binance.info.logo,
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Crypto.com | DeFi Wallet",
   "extension": "CryptoCom",
-  "link": "WalletConnectV1",
   "desktop": {
-    "native": "cryptowallet:"
+    "native": "cryptowallet:",
+    "qr": "WalletConnectV1"
   },
   "mobile": {
     "ios": {
       "native": "crypto:",
-      "universal": "https://crypto.onelink.me/veNW"
+      "universal": "https://crypto.onelink.me/veNW",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "wc:",
-      "universal": "https://crypto.onelink.me/veNW"
+      "native": "crypto:",
+      "universal": "https://crypto.onelink.me/veNW",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": wallets.CryptoCom.info.logo,
@@ -1073,15 +1095,21 @@ var allWallets = [{
 }, {
   "name": "Coin98",
   "extension": "Coin98",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "coin98:",
-      "universal": "https://coin98.services"
+      "universal": "https://coin98.services",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "coin98:",
-      "universal": "https://coin98.services"
+      "universal": "https://coin98.services",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": wallets.Coin98.info.logo,
@@ -1093,55 +1121,78 @@ var allWallets = [{
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Rainbow",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://rnbwapp.com"
+      "native": "rainbow:",
+      "universal": "https://rnbwapp.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "rainbow:",
-      "universal": "https://rnbwapp.com"
+      "universal": "https://rnbwapp.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/rainbow.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Timeless Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "timeless-wallet:",
-      "universal": "https://timelesswallet.xyz"
+      "universal": "https://timelesswallet.xyz",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "timeless-wallet:",
-      "universal": "https://timelesswallet.xyz"
+      "universal": "https://timelesswallet.xyz",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/timeless.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Uniswap Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "uniswap:",
-      "universal": "https://uniswap.org/app"
+      "universal": "https://uniswap.org/app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/uniswap_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Safe",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "safe:",
-      "universal": "https://app.safe.global"
+      "universal": "https://app.safe.global",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "safe:",
-      "universal": "https://app.safe.global"
+      "universal": "https://app.safe.global",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/safe.jpg",
@@ -1149,7 +1200,9 @@ var allWallets = [{
 }, {
   "name": "Rabby",
   "extension": "Rabby",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": wallets.Rabby.info.logo,
   "blockchains": _toConsumableArray(supported.evm)
 }, {
@@ -1185,2435 +1238,3447 @@ var allWallets = [{
   "blockchains": _toConsumableArray(supported.solana)
 }, {
   "name": "imToken",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "imtokenv2:"
+      "native": "imtokenv2:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "imtokenv2:"
+      "native": "imtokenv2:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/imtoken.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "MEW wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "mewwallet:",
-      "universal": "https://mewwallet.com"
+      "universal": "https://mewwallet.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "mewwallet:",
-      "universal": "https://mewwallet.com"
+      "universal": "https://mewwallet.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/mew_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ONTO",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "ontoprovider:"
+      "native": "ontoprovider:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "ontoprovider:"
+      "native": "ontoprovider:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/onto.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Zerion",
-  "link": "WalletConnectV1",
   "desktop": {
-    "native": "zerion://"
+    "native": "zerion://",
+    "qr": "WalletConnectV1",
+    "connect": "WalletConnectV1"
   },
   "mobile": {
     "ios": {
       "native": "zerion://",
-      "universal": "https://wallet.zerion.io"
+      "universal": "https://wallet.zerion.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "zerion://",
-      "universal": "https://wallet.zerion.io"
+      "universal": "https://wallet.zerion.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/zerion.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Spot",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "spot://",
-      "universal": "https://spot.so"
+      "universal": "https://spot.so",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "spot://",
-      "universal": "https://spot.so"
+      "universal": "https://spot.so",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/spot.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "BitKeep",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "bitkeep://",
-      "universal": "https://bkapp.vip"
+      "universal": "https://bkapp.vip",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "bitkeep://",
-      "universal": "https://bkapp.vip"
+      "universal": "https://bkapp.vip",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/bit_keep.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Unstoppable Domains",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://unstoppabledomains.com/mobile"
+      "universal": "https://unstoppabledomains.com/mobile",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://unstoppabledomains.com/mobile"
+      "universal": "https://unstoppabledomains.com/mobile",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Omni",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "omni",
-      "universal": "https://links.omni.app"
+      "universal": "https://links.omni.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "omni",
-      "universal": "https://links.omni.app"
+      "universal": "https://links.omni.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/omni.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "KEYRING PRO",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "keyring:",
-      "universal": "https://keyring.app"
+      "universal": "https://keyring.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "keyring:",
-      "universal": "https://keyring.app"
+      "universal": "https://keyring.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/keyring_pro.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "TokenPocket",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "tpoutside:"
+      "native": "tpoutside:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "tpoutside:"
+      "native": "tpoutside:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/token_pocket.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "BitPay",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "bitpay:",
-      "universal": "https://link.bitpay.com/wallet"
+      "universal": "https://link.bitpay.com/wallet",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "bitpay:",
-      "universal": "https://link.bitpay.com/wallet"
+      "universal": "https://link.bitpay.com/wallet",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/bitpay.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "MathWallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "mathwallet:",
-      "universal": "https://www.mathwallet.org"
+      "universal": "https://www.mathwallet.org",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "mathwallet:",
-      "universal": "https://www.mathwallet.org"
+      "universal": "https://www.mathwallet.org",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/math_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Ledger Live",
-  "link": "WalletConnectV1",
   "desktop": {
-    "native": "ledgerlive:"
+    "native": "ledgerlive:",
+    "connect": "WalletConnectV1",
+    "qr": "WalletConnectV1",
+    "copyLink": true
   },
   "mobile": {
     "ios": {
-      "native": "ledgerlive:"
+      "native": "ledgerlive:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "ledgerlive:"
+      "native": "ledgerlive:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/ledger_live.jpg",
-  "connectionLink": true,
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "1inch Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "1inch:",
-      "universal": "https://wallet.1inch.io"
+      "universal": "https://wallet.1inch.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "1inch:",
-      "universal": "https://wallet.1inch.io"
+      "universal": "https://wallet.1inch.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/1inch_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "iToken Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "huobiwallet:"
+      "native": "huobiwallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "huobiwallet:"
+      "native": "huobiwallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/i_token_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Huddln",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "huddln:"
+      "native": "huddln:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "huddln:"
+      "native": "huddln:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/huddln.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Eidoo",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "eidoo:",
-      "universal": "https://eidoo.io/crypto-wallet"
+      "universal": "https://eidoo.io/crypto-wallet",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "eidoo:",
-      "universal": "https://eidoo.io/crypto-wallet"
+      "universal": "https://eidoo.io/crypto-wallet",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/eidoo.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CoolWallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "coolwallet:"
+      "native": "coolwallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "coolwallet:"
+      "native": "coolwallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/cool_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Unstoppable Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "unstoppabledomains:",
-      "universal": "https://unstoppabledomains.com/mobile"
+      "universal": "https://unstoppabledomains.com/mobile",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "unstoppabledomains:",
-      "universal": "https://unstoppabledomains.com/mobile"
+      "universal": "https://unstoppabledomains.com/mobile",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "AlphaWallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "awallet:",
-      "universal": "https://aw.app"
+      "universal": "https://aw.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "awallet:",
-      "universal": "https://aw.app"
+      "universal": "https://aw.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/alpha_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Pillar",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "pillarwallet:"
+      "native": "pillarwallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "pillarwallet:"
+      "native": "pillarwallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/pillar.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "D'CENT Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "dcent:",
-      "universal": "https://link.dcentwallet.com"
+      "universal": "https://link.dcentwallet.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "dcent:",
-      "universal": "https://link.dcentwallet.com"
+      "universal": "https://link.dcentwallet.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/dcent.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ZelCore",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "zel:",
-      "universal": "https://link.zel.network"
+      "universal": "https://link.zel.network",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "zel:",
-      "universal": "https://link.zel.network"
+      "universal": "https://link.zel.network",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/zel_core.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Nash",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "nash:",
-      "universal": "https://nash.io/walletconnect"
+      "universal": "https://nash.io/walletconnect",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "nash:",
-      "universal": "https://nash.io/walletconnect"
+      "universal": "https://nash.io/walletconnect",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/nash.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Coinomi",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://coinomi.page.link"
+      "universal": "https://coinomi.page.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://coinomi.page.link"
+      "universal": "https://coinomi.page.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/coinomi.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CYBAVO Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "cybavowallet:",
-      "universal": "https://cdn.cybavo.com"
+      "universal": "https://cdn.cybavo.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "cybavowallet:",
-      "universal": "https://cdn.cybavo.com"
+      "universal": "https://cdn.cybavo.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/cybavo.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Tokenary",
-  "link": "WalletConnectV1",
   "desktop": {
     "native": "tokenary:",
-    "universal": "https://tokenary.io"
+    "universal": "https://tokenary.io",
+    "connect": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/tokenary.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Torus",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/torus.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SafePal",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://link.safepal.io"
+      "universal": "https://link.safepal.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://link.safepal.io"
+      "universal": "https://link.safepal.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/safepal.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Infinity Wallet",
-  "link": "WalletConnectV1",
   "desktop": {
     "native": "infinity:",
-    "universal": "https://infinitywallet.io/"
+    "universal": "https://infinitywallet.io/",
+    "connect": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/infinity_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bridge Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "bridgewallet:",
-      "universal": "https://bridge.mtpelerin.com"
+      "universal": "https://bridge.mtpelerin.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "bridgewallet:",
-      "universal": "https://bridge.mtpelerin.com"
+      "universal": "https://bridge.mtpelerin.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/mtperlin.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SparkPoint",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "sparkpoint:",
-      "universal": "https://sparkpoint.io"
+      "universal": "https://sparkpoint.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "sparkpoint:",
-      "universal": "https://sparkpoint.io"
+      "universal": "https://sparkpoint.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/sparkpoint.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "PEAKDEFI Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "peakdefiwallet:",
-      "universal": "https://peakdefi.com/download"
+      "universal": "https://peakdefi.com/download",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "peakdefiwallet:",
-      "universal": "https://peakdefi.com/download"
+      "universal": "https://peakdefi.com/download",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/peakdefi.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "AT.Wallet",
-  "link": "WalletConnectV1",
   "desktop": {
-    "native": "atwallet:"
+    "native": "atwallet:",
+    "qr": "WalletConnectV1",
+    "connect": "WalletConnectV1"
   },
   "mobile": {
     "ios": {
-      "native": "atwallet:"
+      "native": "atwallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "atwallet:"
+      "native": "atwallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/atwallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Ellipal",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "ellipal:",
-      "universal": "https://www.ellipal.com/"
+      "universal": "https://www.ellipal.com/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "ellipal:",
-      "universal": "https://www.ellipal.com/"
+      "universal": "https://www.ellipal.com/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/ellipal.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Aktionariat",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "aktionariat:",
-      "universal": "https://app.aktionariat.com"
+      "universal": "https://app.aktionariat.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "aktionariat:",
-      "universal": "https://app.aktionariat.com"
+      "universal": "https://app.aktionariat.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/aktionariat.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Talken Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "talken-wallet:",
-      "universal": "https://talken.io"
+      "universal": "https://talken.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "talken-wallet:",
-      "universal": "https://talken.io"
+      "universal": "https://talken.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/talken.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "KyberSwap",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "kyberswap:",
-      "universal": "https://kyberswapnew.app.link"
+      "universal": "https://kyberswapnew.app.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "kyberswap:",
-      "universal": "https://kyberswapnew.app.link"
+      "universal": "https://kyberswapnew.app.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/kyberswap.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Tongue Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "tongue:",
-      "universal": "https://www.tongue.fi"
+      "universal": "https://www.tongue.fi",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "tongue:",
-      "universal": "https://www.tongue.fi"
+      "universal": "https://www.tongue.fi",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/tongue.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "RWallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "rwallet:",
-      "universal": "https://www.rwallet.app"
+      "universal": "https://www.rwallet.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "rwallet:",
-      "universal": "https://www.rwallet.app"
+      "universal": "https://www.rwallet.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/rwallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "O3Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "o3wallet:",
-      "universal": "https://o3.network"
+      "universal": "https://o3.network",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "o3wallet:",
-      "universal": "https://o3.network"
+      "universal": "https://o3.network",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/o3wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "HashKey Me",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "hashme:",
-      "universal": "https://me.hashkey.com"
+      "universal": "https://me.hashkey.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "hashme:",
-      "universal": "https://me.hashkey.com"
+      "universal": "https://me.hashkey.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/hashkeyme.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Guarda Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/guarda.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Defiant",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "defiantapp:",
-      "universal": "https://defiantapp.tech"
+      "universal": "https://defiantapp.tech",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "defiantapp:",
-      "universal": "https://defiantapp.tech"
+      "universal": "https://defiantapp.tech",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/defiant.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Valora",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "celo://wallet",
-      "universal": "https://valoraapp.com"
+      "universal": "https://valoraapp.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "celo://wallet",
-      "universal": "https://valoraapp.com"
+      "universal": "https://valoraapp.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/valora.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Celo Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "celowallet:"
+      "native": "celowallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "celowallet:"
+      "native": "celowallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/celo.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Elastos Essentials",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "essentials:",
-      "universal": "https://essentials.elastos.net"
+      "universal": "https://essentials.elastos.net",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "essentials:",
-      "universal": "https://essentials.elastos.net"
+      "universal": "https://essentials.elastos.net",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/elastos_essentials.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Stasis",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "stasis:",
-      "universal": "https://app.stasis.net"
+      "universal": "https://app.stasis.net",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "stasis:",
-      "universal": "https://app.stasis.net"
+      "universal": "https://app.stasis.net",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/stasis.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "JulWallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "julwallet:",
-      "universal": "https://justliquidity.org"
+      "universal": "https://justliquidity.org",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "julwallet:",
-      "universal": "https://justliquidity.org"
+      "universal": "https://justliquidity.org",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/julwallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bitpie",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "bitpie:"
+      "native": "bitpie:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "bitpie:"
+      "native": "bitpie:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/bitpie.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Minerva Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "minerva:",
-      "universal": "https://minerva.digital"
+      "universal": "https://minerva.digital",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "minerva:",
-      "universal": "https://minerva.digital"
+      "universal": "https://minerva.digital",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/minerva.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Tangem",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "tangem:",
-      "universal": "https://app.tangem.com"
+      "universal": "https://app.tangem.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "tangem:",
-      "universal": "https://app.tangem.com"
+      "universal": "https://app.tangem.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/tangem.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ioPay",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "iopay:"
+      "native": "iopay:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "iopay:"
+      "native": "iopay:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/io_pay.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Coinhub",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/coinhub.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Go Pocket",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/gopocket.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Wallet 3",
-  "link": "WalletConnectV1",
   "desktop": {
-    "native": "wallet3:"
+    "native": "wallet3:",
+    "qr": "WalletConnectV1"
+  },
+  "mobile": {
+    "ios": {
+      "native": "wallet3:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
+    },
+    "android": {
+      "native": "wallet3:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
+    }
   },
   "logo": "https://img1.depay.com/wallets/wallet3.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "yiToken",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "yitoken:"
+      "native": "yitoken:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "yitoken:"
+      "native": "yitoken:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/yitoken.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "DID Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "abt:"
+      "native": "abt:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "abt:"
+      "native": "abt:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/didwallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Shinobi Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "shinobi-wallet://"
+      "native": "shinobi-wallet://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "shinobi-wallet://"
+      "native": "shinobi-wallet://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/shinobi_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "AirGap Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "airgap-wallet://"
+      "native": "airgap-wallet://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "airgap-wallet://"
+      "native": "airgap-wallet://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/air_gap_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SecuX",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "secux://",
-      "universal": "https://wsweb.secuxtech.com"
+      "universal": "https://wsweb.secuxtech.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "secux://",
-      "universal": "https://wsweb.secuxtech.com"
+      "universal": "https://wsweb.secuxtech.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/secux.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Orange",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "orangewallet:",
-      "universal": "https://link.orangewallet.app"
+      "universal": "https://link.orangewallet.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "orangewallet:",
-      "universal": "https://link.orangewallet.app"
+      "universal": "https://link.orangewallet.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/orange.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Krystal",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "krystalWallet:"
+      "native": "krystalWallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "krystalWallet:"
+      "native": "krystalWallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/krystal.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Kriptomat",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "kriptomatapp://wallet-connect"
+      "native": "kriptomatapp://wallet-connect",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "kriptomatapp://wallet-connect"
+      "native": "kriptomatapp://wallet-connect",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/kriptomat.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Ambire Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "ambire:",
-      "universal": "https://mobile.ambire.com"
+      "universal": "https://mobile.ambire.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "ambire:",
-      "universal": "https://mobile.ambire.com"
+      "universal": "https://mobile.ambire.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/ambire_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "PayBolt",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "paybolt://Wallet"
+      "native": "paybolt://Wallet",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "paybolt://Wallet"
+      "native": "paybolt://Wallet",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/pay_bolt.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "OKX Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "okex://main"
+      "native": "okex://main",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "okex://main"
+      "native": "okex://main",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/okx_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Mask Network",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/mask_network.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Uniblow",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/uniblow.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Autonomy: Digital Art Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "autonomy-wc",
-      "universal": "https://autonomy.io/apps/wc"
+      "universal": "https://autonomy.io/apps/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "autonomy-wc",
-      "universal": "https://autonomy.io/apps/wc"
+      "universal": "https://autonomy.io/apps/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/autonomy.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Lilico",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "lilico://",
-      "universal": "https://link.lilico.app/wc"
+      "universal": "https://link.lilico.app/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "lilico://",
-      "universal": "https://link.lilico.app/wc"
+      "universal": "https://link.lilico.app/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/lilico.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Fireblocks",
-  "link": "WalletConnectV1",
   "desktop": {
-    "universal": "https://console.fireblocks.io/v2"
+    "universal": "https://console.fireblocks.io/v2",
+    "connect": "WalletConnectV1",
+    "qr": "WalletConnectV1"
   },
   "mobile": {
     "ios": {
-      "native": "fireblocks-wc://"
+      "native": "fireblocks-wc://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "fireblocks-wc://"
+      "native": "fireblocks-wc://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/fireblocks.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "WATT ME",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "wattwallet://wallet-connect/"
+      "native": "wattwallet://wallet-connect/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "wattwallet://wallet-connect/"
+      "native": "wattwallet://wallet-connect/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/wattme.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Coingrig",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "coingrig://",
-      "universal": "https://link.coingrig.com"
+      "universal": "https://link.coingrig.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "coingrig://",
-      "universal": "https://link.coingrig.com"
+      "universal": "https://link.coingrig.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/coingrig.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Cryptnox Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/cryptnox_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "bobablocks",
-  "link": "WalletConnectV1",
   "desktop": {
-    "native": "bobablocks://"
+    "native": "bobablocks://",
+    "connect": "WalletConnectV1",
+    "qr": "WalletConnectV1"
   },
   "mobile": {
     "ios": {
       "native": "bobablocks://",
-      "universal": "https://app.bobablocks.io"
+      "universal": "https://app.bobablocks.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "bobablocks://",
-      "universal": "https://app.bobablocks.io"
+      "universal": "https://app.bobablocks.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/bobablocks.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Plasma Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "plasmawallet:",
-      "universal": "https://plasma-wallet.com"
+      "universal": "https://plasma-wallet.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "plasmawallet:",
-      "universal": "https://plasma-wallet.com"
+      "universal": "https://plasma-wallet.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/plasma_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "HUMBL WALLET",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "humblwallet:",
-      "universal": "https://wallet.search3.com"
+      "universal": "https://wallet.search3.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "humblwallet:",
-      "universal": "https://wallet.search3.com"
+      "universal": "https://wallet.search3.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/humbl_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Zelus",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "zeluswallet://"
+      "native": "zeluswallet://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "zeluswallet://"
+      "native": "zeluswallet://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/zelus.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Earth Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "earthwallet:"
+      "native": "earthwallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "earthwallet:"
+      "native": "earthwallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/earth_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Boba Multisig",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/boba_multisig.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "EASY",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "co.theeasy.app://",
-      "universal": "https://link.easy.me"
+      "universal": "https://link.easy.me",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "co.theeasy.app://",
-      "universal": "https://link.easy.me"
+      "universal": "https://link.easy.me",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/easy.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ISLAMIwallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "islamiwallet://islami.com/path/",
-      "universal": "https://islamiwallet.com"
+      "universal": "https://islamiwallet.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "islamiwallet://islami.com/path/",
-      "universal": "https://islamiwallet.com"
+      "universal": "https://islamiwallet.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/islam_iwallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Card Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "cardwallet://",
-      "universal": "https://wallet.cardstack.com"
+      "universal": "https://wallet.cardstack.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "cardwallet://",
-      "universal": "https://wallet.cardstack.com"
+      "universal": "https://wallet.cardstack.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/card_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "GameStop Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/game_stop_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "RealT Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/real_t_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "PLTwallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "pltwallet:",
-      "universal": "https://pltwallet.io/"
+      "universal": "https://pltwallet.io/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "pltwallet:",
-      "universal": "https://pltwallet.io/"
+      "universal": "https://pltwallet.io/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/pl_twallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Avacus",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "avacus://",
-      "universal": "https://avacus.app.link"
+      "universal": "https://avacus.app.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "avacus://",
-      "universal": "https://avacus.app.link"
+      "universal": "https://avacus.app.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/avacus.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "StrikeX Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "strikex://"
+      "native": "strikex://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "strikex://"
+      "native": "strikex://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/strike_x_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "BCERTin wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/bcer_tin_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Edge Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "edge://",
-      "universal": "https://deep.edge.app/wc"
+      "universal": "https://deep.edge.app/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "edge://",
-      "universal": "https://deep.edge.app/wc"
+      "universal": "https://deep.edge.app/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/edge_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Freedom Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "freedom-wallet://"
+      "native": "freedom-wallet://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "freedom-wallet://"
+      "native": "freedom-wallet://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/freedom_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Assure",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "assure://",
-      "universal": "https://www.assure.pro/Official"
+      "universal": "https://www.assure.pro/Official",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "assure://",
-      "universal": "https://www.assure.pro/Official"
+      "universal": "https://www.assure.pro/Official",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/assure.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Cosmostation",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "cosmostation://"
+      "native": "cosmostation://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "cosmostation://"
+      "native": "cosmostation://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/cosmostation.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "THORWallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "thorwallet:"
+      "native": "thorwallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "thorwallet:"
+      "native": "thorwallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/thor_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Gryfyn",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/gryfyn.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CoinStats",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "coinstats:",
-      "universal": "https://coinstats.app"
+      "universal": "https://coinstats.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "coinstats:",
-      "universal": "https://coinstats.app"
+      "universal": "https://coinstats.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/coin_stats.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Abra Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "abra:"
+      "native": "abra:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "abra:"
+      "native": "abra:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/abra_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Opera Crypto Browser",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "cryptobrowser://"
+      "native": "cryptobrowser://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "cryptobrowser://"
+      "native": "cryptobrowser://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/opera_crypto_browser.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Keywallet Touch",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "keywalletTouch://"
+      "native": "keywalletTouch://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "keywalletTouch://"
+      "native": "keywalletTouch://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/keywallet_touch.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Enno Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "ennowallet:"
+      "native": "ennowallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "ennowallet:"
+      "native": "ennowallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/enno_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "A4 Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/a4_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bitcoin.com Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "bitcoincom://",
-      "universal": "https://wallet.bitcoin.com/"
+      "universal": "https://wallet.bitcoin.com/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "bitcoincom://",
-      "universal": "https://wallet.bitcoin.com/"
+      "universal": "https://wallet.bitcoin.com/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/bitcoincom.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Defiant",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "defiantapp://",
-      "universal": "https://defiantapp.tech/"
+      "universal": "https://defiantapp.tech/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "defiantapp://",
-      "universal": "https://defiantapp.tech/"
+      "universal": "https://defiantapp.tech/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/defiant.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Chain",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/chain.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Verso",
-  "link": "WalletConnectV1",
   "desktop": {
-    "native": "verso"
+    "native": "verso",
+    "connect": "WalletConnectV1",
+    "qr": "WalletConnectV1"
   },
   "mobile": {
     "ios": {
-      "native": "verso"
+      "native": "verso",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "verso"
+      "native": "verso",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/verso.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "LOBSTR Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "lobstr://",
-      "universal": "https://lobstr.co/uni/wc"
+      "universal": "https://lobstr.co/uni/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "lobstr://",
-      "universal": "https://lobstr.co/uni/wc"
+      "universal": "https://lobstr.co/uni/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/lobstr_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bifrost Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "bifrostwallet:",
-      "universal": "https://app.bifrostwallet.com"
+      "universal": "https://app.bifrostwallet.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "bifrostwallet:",
-      "universal": "https://app.bifrostwallet.com"
+      "universal": "https://app.bifrostwallet.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/bifrost_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Okse Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "oksewallet:"
+      "native": "oksewallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "oksewallet:"
+      "native": "oksewallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/okse_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "BRISE Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/brise_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "HyperPay",
   "extension": "HyperPay",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": wallets.HyperPay.info.logo,
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ATON",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/aton.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Frontier",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "frontier://"
+      "native": "frontier://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "frontier://"
+      "native": "frontier://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/frontier.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "MDAO Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "ttmwalletapp://"
+      "native": "ttmwalletapp://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "ttmwalletapp://"
+      "native": "ttmwalletapp://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/mdao_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "TTM Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "ttmwalletapp:"
+      "native": "ttmwalletapp:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "ttmwalletapp:"
+      "native": "ttmwalletapp:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/ttm_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Opto Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "opto://"
+      "native": "opto://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "opto://"
+      "native": "opto://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/opto_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "XFUN Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "xfunwallet://",
-      "universal": "https://xfun.io"
+      "universal": "https://xfun.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "xfunwallet://",
-      "universal": "https://xfun.io"
+      "universal": "https://xfun.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/xfun_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Exodus",
-  "link": "WalletConnectV1",
   "desktop": {
-    "native": "exodus://"
+    "native": "exodus://",
+    "connect": "WalletConnectV1",
+    "qr": "WalletConnectV1"
   },
   "mobile": {
     "ios": {
-      "universal": "https://exodus.com/m"
+      "universal": "https://exodus.com/m",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "wc://"
+      "universal": "https://exodus.com/m",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/exodus.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Uvtoken",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "UvToken://"
+      "native": "UvToken://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "UvToken://"
+      "native": "UvToken://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/uv_token.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "PREMA Wallet",
-  "link": "WalletConnectV1",
   "desktop": {
-    "native": "premawallet:"
+    "native": "premawallet:",
+    "connect": "WalletConnectV1",
+    "qr": "WalletConnectV1"
   },
   "mobile": {
     "ios": {
       "native": "premawallet:",
-      "universal": "https://premanft.com"
+      "universal": "https://premanft.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "premawallet:",
-      "universal": "https://premanft.com"
+      "universal": "https://premanft.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/prema_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Shinobi-Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "shinobi-wallet://"
+      "native": "shinobi-wallet://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "shinobi-wallet://"
+      "native": "shinobi-wallet://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/shinobi.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ByteBank",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "hideoutWallet:"
+      "native": "hideoutWallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "hideoutWallet:"
+      "native": "hideoutWallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/byte_bank.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Ancrypto Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "ancrypto://app"
+      "native": "ancrypto://app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "ancrypto://app"
+      "native": "ancrypto://app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/ancrypto_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bee Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "beewallet.app://",
-      "universal": "https://beewallet.app/wc"
+      "universal": "https://beewallet.app/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "beewallet.app://",
-      "universal": "https://beewallet.app/wc"
+      "universal": "https://beewallet.app/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/bee_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "LATOKEN Multichain DeFi Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "dfwallet:"
+      "native": "dfwallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "dfwallet:"
+      "native": "dfwallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/latoken_multichain_de_fi_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "TK Finance",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "tk://",
-      "universal": "https://trustkeys.network"
+      "universal": "https://trustkeys.network",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "tk://",
-      "universal": "https://trustkeys.network"
+      "universal": "https://trustkeys.network",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/tk_finance.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Oxalus Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "oxalus://",
-      "universal": "https://deeplink.oxalus.io"
+      "universal": "https://deeplink.oxalus.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "oxalus://",
-      "universal": "https://deeplink.oxalus.io"
+      "universal": "https://deeplink.oxalus.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/oxalus_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "3S Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "bhcwallet://"
+      "native": "bhcwallet://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "bhcwallet://"
+      "native": "bhcwallet://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/3_s_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Klever Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "kleverwallet:",
-      "universal": "https://klever.page.link"
+      "universal": "https://klever.page.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "kleverwallet:",
-      "universal": "https://klever.page.link"
+      "universal": "https://klever.page.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/klever_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "OneKey",
-  "link": "WalletConnectV1",
   "desktop": {
-    "native": "onekey-wallet://"
+    "native": "onekey-wallet://",
+    "connect": "WalletConnectV1",
+    "qr": "WalletConnectV1"
   },
   "mobile": {
     "ios": {
       "native": "onekey-wallet://",
-      "universal": "https://app.onekey.so/wc/connect"
+      "universal": "https://app.onekey.so/wc/connect",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "onekey-wallet://",
-      "universal": "https://app.onekey.so/wc/connect"
+      "universal": "https://app.onekey.so/wc/connect",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/one_key.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "helix id",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "helix-id://helix-id.com"
+      "native": "helix-id://helix-id.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "helix-id://helix-id.com"
+      "native": "helix-id://helix-id.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/helix_id.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ABC Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "abc-wallet://abcwc",
-      "universal": "https://abcwalletconnect.page.link"
+      "universal": "https://abcwalletconnect.page.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "abc-wallet://abcwc",
-      "universal": "https://abcwalletconnect.page.link"
+      "universal": "https://abcwalletconnect.page.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/abcwallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "HaHa",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "haha://",
-      "universal": "https://haha.me"
+      "universal": "https://haha.me",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "haha://",
-      "universal": "https://haha.me"
+      "universal": "https://haha.me",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/haha.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Volt: DeFi",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "volt:",
-      "universal": "https://get.voltage.finance"
+      "universal": "https://get.voltage.finance",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "volt:",
-      "universal": "https://get.voltage.finance"
+      "universal": "https://get.voltage.finance",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/volt.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Wirex Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "wirexwallet://",
-      "universal": "https://wwallet.app.link"
+      "universal": "https://wwallet.app.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "wirexwallet://",
-      "universal": "https://wwallet.app.link"
+      "universal": "https://wwallet.app.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/wirex_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Robinhood Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "robinhood-wallet:"
+      "native": "robinhood-wallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "robinhood-wallet:"
+      "native": "robinhood-wallet:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/robinhood_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "RiceWallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "ricewallet",
-      "universal": "https://ricewallet.io"
+      "universal": "https://ricewallet.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "ricewallet",
-      "universal": "https://ricewallet.io"
+      "universal": "https://ricewallet.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/rice_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SafeMoon",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "safemoon:",
-      "universal": "https://safemoon.net/"
+      "universal": "https://safemoon.net/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "safemoon:",
-      "universal": "https://safemoon.net/"
+      "universal": "https://safemoon.net/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/safemoon.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SimpleHold",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "simplehold://",
-      "universal": "https://simplehold.io"
+      "universal": "https://simplehold.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "simplehold://",
-      "universal": "https://simplehold.io"
+      "universal": "https://simplehold.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/simple_hold.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "GoldBit",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "goldbit://"
+      "native": "goldbit://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "goldbit://"
+      "native": "goldbit://",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/gold_bit.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ioPay",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "iopay:"
+      "native": "iopay:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "iopay:"
+      "native": "iopay:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/iopay.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bitizen",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "bitizen://wallet",
-      "universal": "https://bitizen.org/wallet"
+      "universal": "https://bitizen.org/wallet",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "bitizen://wallet",
-      "universal": "https://bitizen.org/wallet"
+      "universal": "https://bitizen.org/wallet",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/bitizen.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Slavi Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "slaviwallet:",
-      "universal": "https://www.slaviwallet.io"
+      "universal": "https://www.slaviwallet.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "slaviwallet:",
-      "universal": "https://www.slaviwallet.io"
+      "universal": "https://www.slaviwallet.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/slavi_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Nufinetes",
-  "link": "WalletConnectV1",
   "desktop": {
-    "native": "vimwallet:/"
+    "native": "vimwallet:/",
+    "connect": "WalletConnectV1",
+    "qr": "WalletConnectV1"
   },
   "mobile": {
     "ios": {
       "native": "vimwallet:/",
-      "universal": "https://apple.vimworld.org"
+      "universal": "https://apple.vimworld.org",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "vimwallet:/",
-      "universal": "https://apple.vimworld.org"
+      "universal": "https://apple.vimworld.org",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/nufinetes.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Arianee Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "com.arianee.wallet",
-      "universal": "https://arianee.net"
+      "universal": "https://arianee.net",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "com.arianee.wallet",
-      "universal": "https://arianee.net"
+      "universal": "https://arianee.net",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/arianee_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "NOW Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "walletnow://",
-      "universal": "https://walletnow.app.link"
+      "universal": "https://walletnow.app.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "walletnow://",
-      "universal": "https://walletnow.app.link"
+      "universal": "https://walletnow.app.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/now_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Arculus Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "arculuswc:",
-      "universal": "https://gw.arculus.co/app"
+      "universal": "https://gw.arculus.co/app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "arculuswc:",
-      "universal": "https://gw.arculus.co/app"
+      "universal": "https://gw.arculus.co/app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/arculus_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Linen",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "linen:",
-      "universal": "https://linen.app"
+      "universal": "https://linen.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "linen:",
-      "universal": "https://linen.app"
+      "universal": "https://linen.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/linen.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Nitrogen Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://nitrogen.org/wc"
+      "universal": "https://nitrogen.org/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://nitrogen.org/wc"
+      "universal": "https://nitrogen.org/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/nitrogen_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ApolloX",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://app.apollox.finance"
+      "universal": "https://app.apollox.finance",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://app.apollox.finance"
+      "universal": "https://app.apollox.finance",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/apollo_x.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ID Pocket",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/id_pocket.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CoinCircle",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://coincircle.com/app/walletconnect"
+      "universal": "https://coincircle.com/app/walletconnect",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://coincircle.com/app/walletconnect"
+      "universal": "https://coincircle.com/app/walletconnect",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/coin_circle.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SahalWallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/sahal_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "UPBOND Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/upbond_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Sequence Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://sequence.app"
+      "universal": "https://sequence.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://sequence.app"
+      "universal": "https://sequence.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/sequence_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "LocalTrade Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://ws.lab.localtrade.cc"
+      "universal": "https://ws.lab.localtrade.cc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://ws.lab.localtrade.cc"
+      "universal": "https://ws.lab.localtrade.cc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/local_trade_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Loopring Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/loopring_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Vision: Crypto Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://app.vision-crypto.com"
+      "universal": "https://app.vision-crypto.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://app.vision-crypto.com"
+      "universal": "https://app.vision-crypto.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/vision.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Ballet Crypto",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/ballet_crypto.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Pitaka",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "pitaka://",
-      "universal": "https://app.pitaka.io"
+      "universal": "https://app.pitaka.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "pitaka://",
-      "universal": "https://app.pitaka.io"
+      "universal": "https://app.pitaka.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/pitaka.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "AbsoluteWallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/absolute_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "The Parallel",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/the_parallel.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CypherD Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/cypher_d_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Keplr",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/keplr.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "MyWalliD",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/my_walli_d.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Status",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/status.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Monarch Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://monarchwallet.com"
+      "universal": "https://monarchwallet.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://monarchwallet.com"
+      "universal": "https://monarchwallet.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/monarch_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Marble",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://app.marblewallet.com/"
+      "universal": "https://app.marblewallet.com/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://app.marblewallet.com/"
+      "universal": "https://app.marblewallet.com/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/marble.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Flooz",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://wallet.flooz.trade/wc"
+      "universal": "https://wallet.flooz.trade/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://wallet.flooz.trade/wc"
+      "universal": "https://wallet.flooz.trade/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/flooz.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Blockchain.com",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://login.blockchain.com/deeplink/login/wallet-connect"
+      "universal": "https://login.blockchain.com/deeplink/login/wallet-connect",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://login.blockchain.com/deeplink/login/wallet-connect"
+      "universal": "https://login.blockchain.com/deeplink/login/wallet-connect",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/blockchaincom.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Dohrnii Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/dohrnii_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "UniPass",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://wallet.unipass.id"
+      "universal": "https://wallet.unipass.id",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://wallet.unipass.id"
+      "universal": "https://wallet.unipass.id",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/uni_pass.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ZenGo",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "zengo:",
-      "universal": "https://get.zengo.com"
+      "universal": "https://get.zengo.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "zengo:",
-      "universal": "https://get.zengo.com"
+      "universal": "https://get.zengo.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/zengo.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Locker Token",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/locker_token.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Keeper",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://link.keeper-wallet.app"
+      "universal": "https://link.keeper-wallet.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://link.keeper-wallet.app"
+      "universal": "https://link.keeper-wallet.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/keeper.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "XDEFI Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/xdefi_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Numio",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/numio.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Neon Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/neon_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Nabox",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://nabox.io/app/"
+      "universal": "https://nabox.io/app/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://nabox.io/app/"
+      "universal": "https://nabox.io/app/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/nabox.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Snowball",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://app.snowball.exchange/app"
+      "universal": "https://app.snowball.exchange/app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://app.snowball.exchange/app"
+      "universal": "https://app.snowball.exchange/app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/snowball.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "KryptoGO Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://kryptogo.page.link"
+      "universal": "https://kryptogo.page.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://kryptogo.page.link"
+      "universal": "https://kryptogo.page.link",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/krypto_go_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Payperless",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/payperless.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Brave Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/brave_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Crossmint",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/crossmint.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Safematrix",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://safematrix.io/"
+      "universal": "https://safematrix.io/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://safematrix.io/"
+      "universal": "https://safematrix.io/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/safematrix.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "pier",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://pierwallet.com/wc"
+      "universal": "https://pierwallet.com/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://pierwallet.com/wc"
+      "universal": "https://pierwallet.com/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/pier.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "FILWallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://h5.filwallet.co"
+      "universal": "https://h5.filwallet.co",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://h5.filwallet.co"
+      "universal": "https://h5.filwallet.co",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/fil_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ParaSwap Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://wallet.paraswap.io/#/"
+      "universal": "https://wallet.paraswap.io/#/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://wallet.paraswap.io/#/"
+      "universal": "https://wallet.paraswap.io/#/",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/para_swap_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bitski",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "bitski:",
-      "universal": "https://wallet.bitski.com/walletconnect/wc"
+      "universal": "https://wallet.bitski.com/walletconnect/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "bitski:",
-      "universal": "https://wallet.bitski.com/walletconnect/wc"
+      "universal": "https://wallet.bitski.com/walletconnect/wc",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/bitski.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Hippo Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "hippowallet://",
-      "universal": "https://hippowallet.io"
+      "universal": "https://hippowallet.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "hippowallet://",
-      "universal": "https://hippowallet.io"
+      "universal": "https://hippowallet.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/hippo_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Core",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://core.app"
+      "universal": "https://core.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://core.app"
+      "universal": "https://core.app",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/core.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Xcapit",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://app.xcapit.com/links"
+      "universal": "https://app.xcapit.com/links",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://app.xcapit.com/links"
+      "universal": "https://app.xcapit.com/links",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/xcapit.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Paper",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "universal": "https://withpaper.com"
+      "universal": "https://withpaper.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "universal": "https://withpaper.com"
+      "universal": "https://withpaper.com",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/paper_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "MetaOne",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
-      "native": "metaone:"
+      "native": "metaone:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "metaone:"
+      "native": "metaone:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/metaone.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Enjin Wallet",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "mobile": {
     "ios": {
       "native": "enjinwallet:",
-      "universal": "https://deeplink.wallet.enjin.io"
+      "universal": "https://deeplink.wallet.enjin.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "enjinwallet:",
-      "universal": "https://deeplink.wallet.enjin.io"
+      "universal": "https://deeplink.wallet.enjin.io",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/enjin.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "BC Vault",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "https://img1.depay.com/wallets/bc_vault.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
@@ -3628,7 +4693,9 @@ var allWallets = [{
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "WalletConnect",
-  "link": "WalletConnectV1",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
   "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz48IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMjUuNC4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAtLT48c3ZnIHZlcnNpb249JzEuMScgaWQ9J0xheWVyXzEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB2aWV3Qm94PScwIDAgNTAwIDUwMCcgc3R5bGU9J2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTAwIDUwMDsnIHhtbDpzcGFjZT0ncHJlc2VydmUnPjxzdHlsZSB0eXBlPSd0ZXh0L2Nzcyc+IC5zdDB7ZmlsbDojNTk5MUNEO30KPC9zdHlsZT48ZyBpZD0nUGFnZS0xJz48ZyBpZD0nd2FsbGV0Y29ubmVjdC1sb2dvLWFsdCc+PHBhdGggaWQ9J1dhbGxldENvbm5lY3QnIGNsYXNzPSdzdDAnIGQ9J00xMDIuNywxNjJjODEuNS03OS44LDIxMy42LTc5LjgsMjk1LjEsMGw5LjgsOS42YzQuMSw0LDQuMSwxMC41LDAsMTQuNEwzNzQsMjE4LjkgYy0yLDItNS4zLDItNy40LDBsLTEzLjUtMTMuMmMtNTYuOC01NS43LTE0OS01NS43LTIwNS44LDBsLTE0LjUsMTQuMWMtMiwyLTUuMywyLTcuNCwwTDkxLjksMTg3Yy00LjEtNC00LjEtMTAuNSwwLTE0LjQgTDEwMi43LDE2MnogTTQ2Ny4xLDIyOS45bDI5LjksMjkuMmM0LjEsNCw0LjEsMTAuNSwwLDE0LjRMMzYyLjMsNDA1LjRjLTQuMSw0LTEwLjcsNC0xNC44LDBjMCwwLDAsMCwwLDBMMjUyLDMxMS45IGMtMS0xLTIuNy0xLTMuNywwaDBsLTk1LjUsOTMuNWMtNC4xLDQtMTAuNyw0LTE0LjgsMGMwLDAsMCwwLDAsMEwzLjQsMjczLjZjLTQuMS00LTQuMS0xMC41LDAtMTQuNGwyOS45LTI5LjIgYzQuMS00LDEwLjctNCwxNC44LDBsOTUuNSw5My41YzEsMSwyLjcsMSwzLjcsMGMwLDAsMCwwLDAsMGw5NS41LTkzLjVjNC4xLTQsMTAuNy00LDE0LjgsMGMwLDAsMCwwLDAsMGw5NS41LDkzLjUgYzEsMSwyLjcsMSwzLjcsMGw5NS41LTkzLjVDNDU2LjQsMjI1LjksNDYzLDIyNS45LDQ2Ny4xLDIyOS45eicvPjwvZz48L2c+PC9zdmc+Cg==",
   "blockchains": _toConsumableArray(supported.evm)
 }].filter(function (wallet) {
@@ -3719,2188 +4786,7 @@ var isMobile = function isMobile() {
 
 var LinkImage = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIGZpbGw9IiMwMTAxMDEiIGQ9Ik00NTkuNjU0LDIzMy4zNzNsLTkwLjUzMSw5MC41Yy00OS45NjksNTAtMTMxLjAzMSw1MC0xODEsMGMtNy44NzUtNy44NDQtMTQuMDMxLTE2LjY4OC0xOS40MzgtMjUuODEzDQoJbDQyLjA2My00Mi4wNjNjMi0yLjAxNiw0LjQ2OS0zLjE3Miw2LjgyOC00LjUzMWMyLjkwNiw5LjkzOCw3Ljk4NCwxOS4zNDQsMTUuNzk3LDI3LjE1NmMyNC45NTMsMjQuOTY5LDY1LjU2MywyNC45MzgsOTAuNSwwDQoJbDkwLjUtOTAuNWMyNC45NjktMjQuOTY5LDI0Ljk2OS02NS41NjMsMC05MC41MTZjLTI0LjkzOC0yNC45NTMtNjUuNTMxLTI0Ljk1My05MC41LDBsLTMyLjE4OCwzMi4yMTkNCgljLTI2LjEwOS0xMC4xNzItNTQuMjUtMTIuOTA2LTgxLjY0MS04Ljg5MWw2OC41NzgtNjguNTc4YzUwLTQ5Ljk4NCwxMzEuMDMxLTQ5Ljk4NCwxODEuMDMxLDANCglDNTA5LjYyMywxMDIuMzQyLDUwOS42MjMsMTgzLjM4OSw0NTkuNjU0LDIzMy4zNzN6IE0yMjAuMzI2LDM4Mi4xODZsLTMyLjIwMywzMi4yMTljLTI0Ljk1MywyNC45MzgtNjUuNTYzLDI0LjkzOC05MC41MTYsMA0KCWMtMjQuOTUzLTI0Ljk2OS0yNC45NTMtNjUuNTYzLDAtOTAuNTMxbDkwLjUxNi05MC41YzI0Ljk2OS0yNC45NjksNjUuNTQ3LTI0Ljk2OSw5MC41LDBjNy43OTcsNy43OTcsMTIuODc1LDE3LjIwMywxNS44MTMsMjcuMTI1DQoJYzIuMzc1LTEuMzc1LDQuODEzLTIuNSw2LjgxMy00LjVsNDIuMDYzLTQyLjA0N2MtNS4zNzUtOS4xNTYtMTEuNTYzLTE3Ljk2OS0xOS40MzgtMjUuODI4Yy00OS45NjktNDkuOTg0LTEzMS4wMzEtNDkuOTg0LTE4MS4wMTYsMA0KCWwtOTAuNSw5MC41Yy00OS45ODQsNTAtNDkuOTg0LDEzMS4wMzEsMCwxODEuMDMxYzQ5Ljk4NCw0OS45NjksMTMxLjAzMSw0OS45NjksMTgxLjAxNiwwbDY4LjU5NC02OC41OTQNCglDMjc0LjU2MSwzOTUuMDkyLDI0Ni40MiwzOTIuMzQyLDIyMC4zMjYsMzgyLjE4NnoiLz4NCjwvc3ZnPg0K';
 
-var isAndroid = function isAndroid() {
-  return navigator.userAgent.toLowerCase().includes('android');
-};
-
-var isIOS = function isIOS() {
-  return Boolean(/iPad|iPhone|iPod/.test(navigator.userAgent) || navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-};
-
-var platformForWallet = (function (walletMetaData) {
-  var platform;
-
-  if (isMobile()) {
-    if (isAndroid()) {
-      var _walletMetaData$mobil;
-
-      platform = (_walletMetaData$mobil = walletMetaData.mobile) === null || _walletMetaData$mobil === void 0 ? void 0 : _walletMetaData$mobil.android;
-    } else if (isIOS()) {
-      var _walletMetaData$mobil2;
-
-      platform = (_walletMetaData$mobil2 = walletMetaData.mobile) === null || _walletMetaData$mobil2 === void 0 ? void 0 : _walletMetaData$mobil2.ios;
-    }
-  } else {
-    platform = walletMetaData.desktop;
-  }
-
-  return platform;
-});
-
 var QRCodeImage = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHN2ZyAgUFVCTElDICctLy9XM0MvL0RURCBTVkcgMS4xLy9FTicgICdodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQnPgo8c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDEwMDAgMTAwMCIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMWUzIDFlMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPG1ldGFkYXRhPiBTdmcgVmVjdG9yIEljb25zIDogaHR0cDovL3d3dy5vbmxpbmV3ZWJmb250cy5jb20vaWNvbiA8L21ldGFkYXRhPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDUxMSkgc2NhbGUoLjEgLS4xKSI+PHBhdGggZD0ibTEwMCAyNzk3LjF2LTIyMTIuOWg0NDI1Ljh2NDQyNS44aC00NDI1Ljh2LTIyMTIuOXptMzQ3Ny40IDB2LTEyNjQuNWgtMjUyOXYyNTI5aDI1Mjl2LTEyNjQuNXoiLz48cGF0aCBkPSJtMTY4MC42IDI3OTcuMXYtNjMyLjNoMTI2NC42djEyNjQuNmgtMTI2NC42di02MzIuM3oiLz48cGF0aCBkPSJtNTQ3NC4yIDI3OTcuMXYtMjIxMi45aDQ0MjUuOHY0NDI1LjhoLTQ0MjUuOHYtMjIxMi45em0zNDc3LjQgMHYtMTI2NC41aC0yNTI5djI1MjloMjUyOXYtMTI2NC41eiIvPjxwYXRoIGQ9Im03MDU0LjggMjc5Ny4xdi02MzIuM2gxMjY0LjZ2MTI2NC42aC0xMjY0LjZ2LTYzMi4zeiIvPjxwYXRoIGQ9Im0xMDAtMjU3Ny4xdi0yMjEyLjloNDQyNS44djQ0MjUuOGgtNDQyNS44di0yMjEyLjl6bTM0NzcuNCAwdi0xMjY0LjVoLTI1Mjl2MjUyOWgyNTI5di0xMjY0LjV6Ii8+PHBhdGggZD0ibTE2ODAuNi0yNTc3LjF2LTYzMi4zaDEyNjQuNnYxMjY0LjZoLTEyNjQuNnYtNjMyLjN6Ii8+PHBhdGggZD0ibTU0NzQuMi05MTcuNHYtNTUzLjJoMTEwNi40di0xMTA2LjRoLTExMDYuNHYtMTEwNi40aDExMDYuNHYtMTEwNi42aDExMDYuNHYxMTA2LjRoMTEwNi40di0xMTA2LjRoMTEwNi42djExMDYuNGgtMTEwNi40djExMDYuNGgxMTA2LjR2MTEwNi40aC0xMTA2LjR2MTEwNi40aC0xMTA2LjR2LTExMDYuNGgtMTEwNi40djExMDYuNGgtMTEwNi40di01NTN6bTMzMTkuMy0xMTA2LjV2LTU1My4yaC0xMTA2LjR2LTExMDYuNGgtMTEwNi40djExMDYuNGgxMTA2LjR2MTEwNi40aDExMDYuNHYtNTUzLjJ6Ii8+PC9nPgo8L3N2Zz4K";
-
-var KEY = '_DePayConnectDialogPreviouslyConnectedWallet';
-
-var set = function set(value) {
-  localStorage[KEY] = value;
-};
-
-var get = function get() {
-  return localStorage[KEY];
-};
-
-var ConnectWalletDialog = (function (props) {
-  var _props$wallet;
-
-  var QRCodeElement = React.useRef();
-
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      extensionIsAvailable = _useState2[0],
-      setExtensionIsAvailable = _useState2[1];
-
-  var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      connectAppIsAvailable = _useState4[0],
-      setConnectAppIsAvailable = _useState4[1];
-
-  var _useState5 = useState(),
-      _useState6 = _slicedToArray(_useState5, 2),
-      openInAppIsAvailable = _useState6[0],
-      setOpenInAppIsAvailable = _useState6[1];
-
-  var _useState7 = useState(),
-      _useState8 = _slicedToArray(_useState7, 2),
-      linkIsConnected = _useState8[0],
-      setLinkIsConnected = _useState8[1];
-
-  var _useState9 = useState(),
-      _useState10 = _slicedToArray(_useState9, 2);
-      _useState10[0];
-      _useState10[1];
-
-  var _useState11 = useState(false),
-      _useState12 = _slicedToArray(_useState11, 2),
-      showQRCode = _useState12[0],
-      setShowQRCode = _useState12[1];
-
-  var _useState13 = useState(false),
-      _useState14 = _slicedToArray(_useState13, 2),
-      showLinkCopied = _useState14[0],
-      setShowLinkCopied = _useState14[1];
-
-  var _useState15 = useState(),
-      _useState16 = _slicedToArray(_useState15, 2),
-      QRCode = _useState16[0],
-      setQRCode = _useState16[1];
-
-  var _useContext = useContext(NavigateStackContext);
-      _useContext.navigate;
-
-  var header = /*#__PURE__*/React.createElement("div", {
-    className: "PaddingTopS PaddingLeftM PaddingRightM"
-  }, ((_props$wallet = props.wallet) === null || _props$wallet === void 0 ? void 0 : _props$wallet.logo) && /*#__PURE__*/React.createElement("div", {
-    className: "PaddingTopXS"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "LineHeightL FontSizeL PaddingTopS"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "CardImage rounded large"
-  }, /*#__PURE__*/React.createElement("img", {
-    className: "transparent",
-    src: props.wallet.logo
-  })))));
-
-  var connectViaCopyLink = function connectViaCopyLink() {
-    var wallet = new wallets[props.wallet.link]();
-    wallet.connect({
-      name: props.wallet.name,
-      logo: props.wallet.logo,
-      reconnect: true,
-      connect: function connect(_ref) {
-        var uri = _ref.uri;
-        copy(uri);
-        setShowLinkCopied(true);
-        setTimeout(function () {
-          return setShowLinkCopied(false);
-        }, 3000);
-      }
-    }).then(function (account) {
-      props.resolve(account, wallet);
-    });
-  };
-
-  var connectViaQRCode = function connectViaQRCode() {
-    switch (props.wallet.link) {
-      case 'WalletConnectV1':
-        if (QRCode == undefined) {
-          var _wallet = new wallets[props.wallet.link]();
-
-          _wallet.connect({
-            name: props.wallet.name,
-            logo: props.wallet.logo,
-            reconnect: true,
-            connect: function connect(_ref2) {
-              var uri = _ref2.uri;
-              var newQRCode = new QRCodeStyling({
-                width: 340,
-                height: 340,
-                type: "svg",
-                dotsOptions: {
-                  type: "extra-rounded"
-                },
-                cornersSquareOptions: {
-                  type: 'rounded'
-                },
-                backgroundOptions: {
-                  color: "transparent"
-                }
-              });
-              newQRCode.update({
-                data: uri
-              });
-              setQRCode(newQRCode);
-            }
-          }).then(function (account) {
-            props.resolve(account, _wallet);
-          });
-        }
-
-        break;
-
-      case 'WalletLink':
-        var wallet = new wallets[props.wallet.link]();
-        wallet.connect().then(function (account) {
-          props.resolve(account, wallet);
-        });
-        break;
-    }
-  };
-
-  useEffect(function () {
-    _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-      var _props$wallet2, _props$wallet3;
-
-      var platform;
-      return regenerator.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.t0 = setExtensionIsAvailable;
-
-              if (!((_props$wallet2 = props.wallet) !== null && _props$wallet2 !== void 0 && _props$wallet2.extension)) {
-                _context.next = 10;
-                break;
-              }
-
-              _context.next = 4;
-              return wallets[props.wallet.extension].isAvailable();
-
-            case 4:
-              _context.t2 = _context.sent;
-
-              if (_context.t2) {
-                _context.next = 7;
-                break;
-              }
-
-              _context.t2 = false;
-
-            case 7:
-              _context.t1 = _context.t2;
-              _context.next = 11;
-              break;
-
-            case 10:
-              _context.t1 = false;
-
-            case 11:
-              _context.t3 = _context.t1;
-              (0, _context.t0)(_context.t3);
-              _context.t4 = setLinkIsConnected;
-
-              if (!((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && _props$wallet3.link)) {
-                _context.next = 23;
-                break;
-              }
-
-              _context.next = 17;
-              return wallets[props.wallet.link].isAvailable();
-
-            case 17:
-              _context.t6 = _context.sent;
-
-              if (_context.t6) {
-                _context.next = 20;
-                break;
-              }
-
-              _context.t6 = false;
-
-            case 20:
-              _context.t5 = _context.t6;
-              _context.next = 24;
-              break;
-
-            case 23:
-              _context.t5 = false;
-
-            case 24:
-              _context.t7 = _context.t5;
-              (0, _context.t4)(_context.t7);
-              platform = platformForWallet(props.wallet);
-              setConnectAppIsAvailable(!!platform);
-              setOpenInAppIsAvailable(!!platform && platform.open);
-
-            case 29:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }))();
-  }, []);
-  useEffect(function () {
-    if (linkIsConnected !== undefined) {
-      var _props$wallet4, _props$wallet4$deskto;
-
-      setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet4 = props.wallet) !== null && _props$wallet4 !== void 0 && (_props$wallet4$deskto = _props$wallet4.desktop) !== null && _props$wallet4$deskto !== void 0 && _props$wallet4$deskto["native"]) && props.wallet.link);
-    }
-  }, [extensionIsAvailable, linkIsConnected]);
-  useEffect(function () {
-    if (showQRCode && props.wallet.link) {
-      connectViaQRCode();
-    }
-  }, [showQRCode]);
-  useEffect(function () {
-    if (showQRCode && QRCode && QRCodeElement && QRCodeElement.current) {
-      QRCodeElement.current.innerHTML = "";
-      QRCode.append(QRCodeElement.current);
-    }
-  }, [QRCode]);
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    stacked: true,
-    header: header,
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftL PaddingRightL"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL Text FontSizeL FontWeightBold"
-    }, "Connect ", props.wallet.name)), !window.location.protocol.match('https') && /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftL PaddingRightL"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "Alert FontSizeS"
-    }, /*#__PURE__*/React.createElement("strong", null, "Most wallets do not connect to http!"))), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS"
-    }, /*#__PURE__*/React.createElement("div", {
-      ref: QRCodeElement,
-      className: "QRCode"
-    }), showQRCode && /*#__PURE__*/React.createElement("div", {
-      className: "Opacity05 PaddingBottomXS"
-    }, /*#__PURE__*/React.createElement("small", null, "Scan QR code with your wallet"))), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftL PaddingRightL PaddingTopS"
-    }, extensionIsAvailable && /*#__PURE__*/React.createElement("div", {
-      className: "PaddingBottomXS"
-    }, props.showConnectExtensionWarning && /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "Alert"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "FontWeightBold PaddingBottomXS"
-    }, "You wallet extension window is already asking to connect. It might be hidden."))), /*#__PURE__*/React.createElement("button", {
-      onClick: function onClick() {
-        return props.connectExtension(props.wallet);
-      },
-      className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "PaddingTopXS PaddingRightXS PaddingLeftS"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "transparent ",
-      title: "Connect your wallet",
-      style: {
-        height: '26px'
-      },
-      src: ExtensionImage
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftS LineHeightXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardText FontWeightMedium"
-    }, "Connect extension")))), connectAppIsAvailable && /*#__PURE__*/React.createElement("div", {
-      className: "PaddingBottomXS"
-    }, /*#__PURE__*/React.createElement("button", {
-      onClick: function onClick() {
-        return props.connectViaRedirect(props.wallet);
-      },
-      className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "PaddingTopXS PaddingRightXS PaddingLeftS"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "transparent ",
-      title: "Click to connect app",
-      style: {
-        height: '26px',
-        width: '26px',
-        borderRadius: '8px'
-      },
-      src: props.wallet.logo
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftS LineHeightXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardText FontWeightMedium"
-    }, "Connect app")))), openInAppIsAvailable && /*#__PURE__*/React.createElement("div", {
-      className: "PaddingBottomXS"
-    }, /*#__PURE__*/React.createElement("button", {
-      onClick: function onClick() {
-        return props.openInApp(props.wallet);
-      },
-      className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "PaddingTopXS PaddingRightXS PaddingLeftS"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "transparent ",
-      title: "Click to open in app",
-      style: {
-        height: '26px',
-        width: '26px',
-        borderRadius: '8px'
-      },
-      src: props.wallet.logo
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftS LineHeightXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardText FontWeightMedium"
-    }, "Open in app")))), props.wallet.link && (!showQRCode || props.wallet.link == 'WalletLink') && /*#__PURE__*/React.createElement("div", {
-      className: "PaddingBottomXS"
-    }, /*#__PURE__*/React.createElement("button", {
-      onClick: function onClick() {
-        setShowQRCode(true);
-
-        if (props.wallet.link) {
-          connectViaQRCode();
-        }
-      },
-      className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "PaddingTopXS PaddingRightXS PaddingLeftS"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "transparent ",
-      title: "Scan QR code to connect a mobile wallet",
-      style: {
-        height: '26px'
-      },
-      src: QRCodeImage
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftS LineHeightXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardText FontWeightMedium"
-    }, "Scan QR code")))), props.wallet.link && props.wallet.link == 'WalletConnectV1' && props.wallet.connectionLink && /*#__PURE__*/React.createElement("div", {
-      className: "PaddingBottomXS TooltipWrapper"
-    }, /*#__PURE__*/React.createElement("button", {
-      onClick: connectViaCopyLink,
-      className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "PaddingTopXS PaddingRightXS PaddingLeftS"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "transparent ",
-      title: "Copy connection link",
-      style: {
-        height: '26px'
-      },
-      src: LinkImage
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftS LineHeightXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardText FontWeightMedium"
-    }, "Copy connection link"))), showLinkCopied && /*#__PURE__*/React.createElement("div", {
-      className: "Tooltip absolute top"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "TooltipArrowDown"
-    }), "Connection link copied"))))
-  });
-});
-
-var isWebView = function isWebView() {
-  var userAgentToLower = navigator.userAgent.toLowerCase();
-  return userAgentToLower.includes('webview') || userAgentToLower.includes('wv') || navigator.userAgent.toLowerCase().match(/\) mobile\//) && !userAgentToLower.includes('safari');
-};
-
-var PoweredBy = (function () {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "PoweredByWrapper"
-  }, /*#__PURE__*/React.createElement("a", {
-    href: 'https://depay.com',
-    rel: "noopener noreferrer",
-    target: "_blank",
-    className: "PoweredByLink"
-  }, "by DePay"));
-});
-
-var safeAppUrl = (function (href) {
-  if (!href.includes('://')) {
-    href = href.replaceAll('/', '').replaceAll(':', '');
-    href = "".concat(href, "://");
-  }
-
-  return href;
-});
-
-var safeUniversalUrl = (function (href) {
-  if (href.endsWith('/')) {
-    href = href.slice(0, -1);
-  }
-
-  return href;
-});
-
-var SelectionContext = /*#__PURE__*/React.createContext();
-
-var SelectBlockchainDialog = (function (props) {
-  var _useContext = useContext(SelectionContext),
-      setSelection = _useContext.setSelection;
-
-  var _useContext2 = useContext(NavigateStackContext),
-      navigate = _useContext2.navigate;
-
-  var stacked = props.stacked || Object.keys(props.selection).length > 1;
-  var blockchains = supported.map(function (blockchainName) {
-    return Blockchains[blockchainName];
-  });
-
-  var selectBlockchain = function selectBlockchain(blockchain) {
-    window._depay_token_selection_selected_blockchain = blockchain.name;
-    setSelection(Object.assign(props.selection, {
-      blockchain: blockchain
-    }));
-
-    if (stacked && props.navigateBack !== false) {
-      navigate('back');
-    } else {
-      props.resolve(blockchain);
-    }
-  };
-
-  var elements = blockchains.map(function (blockchain, index) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: index,
-      className: "Card Row",
-      onClick: function onClick() {
-        return selectBlockchain(blockchain);
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardImage"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "transparent",
-      src: blockchain.logo
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "CardBody"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "CardText"
-    }, blockchain.label)));
-  });
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Select Blockchain"))),
-    stacked: stacked,
-    bodyClassName: "ScrollHeight",
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS"
-    }, elements),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
-    })
-  });
-});
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-var DropDown = (function (props) {
-  var _useState = useState(0),
-      _useState2 = _slicedToArray(_useState, 2),
-      clickCount = _useState2[0],
-      setClickCount = _useState2[1];
-
-  useEffect(function () {
-    var handleClick = function handleClick() {
-      setClickCount(clickCount + 1);
-
-      if (clickCount == 0) {
-        return;
-      }
-
-      props.hide();
-    };
-
-    window.addEventListener('click', handleClick);
-    return function () {
-      window.removeEventListener('click', handleClick);
-    };
-  }, [props.open, clickCount]);
-  return /*#__PURE__*/React.createElement("div", {
-    className: "DropDown ".concat(props.open ? 'open' : '')
-  }, /*#__PURE__*/React.createElement("ul", null, props.items.map(function (item, index) {
-    return /*#__PURE__*/React.createElement("li", {
-      key: index
-    }, /*#__PURE__*/React.createElement("button", {
-      className: "DropDownItem",
-      onClick: function onClick() {
-        return item.action();
-      }
-    }, item.label));
-  })));
-});
-
-var MenuIcon = (function (props) {
-  return /*#__PURE__*/React.createElement("svg", {
-    className: "MenuIcon Icon",
-    xmlns: "http://www.w3.org/2000/svg",
-    width: "24",
-    height: "24",
-    viewBox: "0 0 24 24",
-    strokeWidth: "3",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  }, /*#__PURE__*/React.createElement("line", {
-    x1: "11.6",
-    y1: "17.6",
-    x2: "11.6",
-    y2: "17.6"
-  }), /*#__PURE__*/React.createElement("line", {
-    x1: "11.6",
-    y1: "11.8",
-    x2: "11.6",
-    y2: "11.8"
-  }), /*#__PURE__*/React.createElement("line", {
-    x1: "11.6",
-    y1: "6.2",
-    x2: "11.6",
-    y2: "6.2"
-  }));
-});
-
-function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var SelectWalletList = (function (props) {
-  var parentElement = React.useRef();
-  var fuse = new Fuse(allWallets, {
-    keys: ['name'],
-    threshold: 0.3,
-    ignoreFieldNorm: true
-  });
-
-  var _useState = useState(allWallets),
-      _useState2 = _slicedToArray(_useState, 2),
-      resultList = _useState2[0],
-      setResultList = _useState2[1];
-
-  var rowVirtualizer = useVirtualizer({
-    count: resultList.length,
-    getScrollElement: function getScrollElement() {
-      return parentElement.current;
-    },
-    estimateSize: function estimateSize() {
-      return 61;
-    }
-  });
-  useEffect(function () {
-    var results = fuse.search(props.searchTerm).map(function (result) {
-      return result.item;
-    });
-
-    if (parentElement.current) {
-      parentElement.current.scrollTo(0, 0);
-    }
-
-    if (props.searchTerm.length) {
-      setResultList(results);
-    } else {
-      setResultList(allWallets);
-    }
-  }, [props.searchTerm]);
-  return /*#__PURE__*/React.createElement("div", {
-    ref: parentElement,
-    className: "DialogBody ScrollHeightM PaddingBottomS PaddingLeftS PaddingRightS"
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      height: "".concat(rowVirtualizer.getTotalSize(), "px"),
-      width: '100%',
-      position: 'relative'
-    }
-  }, rowVirtualizer.getVirtualItems().map(function (virtualItem) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: virtualItem.key,
-      style: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: "".concat(virtualItem.size, "px"),
-        transform: "translateY(".concat(virtualItem.start, "px)")
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "PaddingBottomXS"
-    }, /*#__PURE__*/React.createElement("button", {
-      type: "button",
-      className: "Card small",
-      title: "Connect ".concat(resultList[virtualItem.key].name),
-      onClick: function onClick() {
-        props.onClickWallet(_objectSpread$7({}, resultList[virtualItem.key]));
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardImage"
-    }, /*#__PURE__*/React.createElement("img", _defineProperty({
-      className: "transparent",
-      src: resultList[virtualItem.key].logo
-    }, "className", "WalletLogoS"))), /*#__PURE__*/React.createElement("div", {
-      className: "CardBody"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardBodyWrapper PaddingLeftXS LineHeightXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardText"
-    }, resultList[virtualItem.key].name))))));
-  })));
-});
-
-function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var SelectWalletDialog = (function (props) {
-  var _useState = useState(''),
-      _useState2 = _slicedToArray(_useState, 2),
-      searchTerm = _useState2[0],
-      setSearchTerm = _useState2[1];
-
-  var _useState3 = useState([]),
-      _useState4 = _slicedToArray(_useState3, 2),
-      detectedWallets = _useState4[0],
-      setDetectedWallets = _useState4[1];
-
-  var _useState5 = useState(),
-      _useState6 = _slicedToArray(_useState5, 2),
-      previouslyConnectedWallet = _useState6[0],
-      setPreviouslyConnectedWallet = _useState6[1];
-
-  var _useState7 = useState(false),
-      _useState8 = _slicedToArray(_useState7, 2),
-      showDropDown = _useState8[0],
-      setShowDropDown = _useState8[1];
-
-  var _useState9 = useState(false),
-      _useState10 = _slicedToArray(_useState9, 2),
-      dialogAnimationFinished = _useState10[0],
-      setDialogAnimationFinished = _useState10[1];
-
-  var searchElement = useRef();
-
-  var _useContext = useContext(NavigateStackContext),
-      navigate = _useContext.navigate;
-
-  var onClickWallet = function onClickWallet(walletMetaData, wallet) {
-    if (walletMetaData.via == 'detected') {
-      if (walletMetaData.connectionType == 'app') {
-        wallet.account().then(function (account) {
-          if (account) {
-            props.resolve(account, wallet);
-          }
-        });
-        props.setWallet(walletMetaData);
-        navigate('ConnectWallet');
-      } else if (walletMetaData.connectionType == 'extension') {
-        props.setWallet(walletMetaData);
-        props.connectExtension(walletMetaData);
-        navigate('ConnectWallet');
-      }
-    } else {
-      var platform = platformForWallet(walletMetaData);
-
-      if (platform && platform.open) {
-        props.openInApp(walletMetaData);
-        props.setWallet(walletMetaData);
-        navigate('ConnectWallet');
-      } else {
-        props.connectViaRedirect(walletMetaData);
-        props.setWallet(walletMetaData);
-        navigate('ConnectWallet');
-      }
-    }
-  };
-
-  useEffect(function () {
-    getWallets({
-      drip: function drip(wallet) {
-        setDetectedWallets(Array.from(new Set(detectedWallets.concat(wallet))));
-      }
-    });
-    var previouslyConnectedWalletName = get();
-    var previouslyConnectedWallet = allWallets.find(function (wallet) {
-      return wallet.name == previouslyConnectedWalletName;
-    }) || allWallets.find(function (wallet) {
-      return wallet.name == previouslyConnectedWalletName;
-    });
-
-    if (previouslyConnectedWallet) {
-      setPreviouslyConnectedWallet(previouslyConnectedWallet);
-    }
-  }, []);
-  useEffect(function () {
-    setTimeout(function () {
-      setDialogAnimationFinished(true);
-
-      if (!isMobile()) {
-        if (searchElement.current) {
-          searchElement.current.click();
-          searchElement.current.focus();
-        }
-      }
-    }, 200);
-  }, []);
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft PaddingBottomS"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Connect a wallet")), (detectedWallets && detectedWallets.length > 0 || previouslyConnectedWallet) && /*#__PURE__*/React.createElement("div", {
-      className: "PaddingBottomXS PaddingLeftS PaddingRightS"
-    }, detectedWallets.map(function (wallet, index) {
-      var walletMetaData = allWallets.find(function (walletFromList) {
-        return walletFromList.name === (wallet.info ? wallet.info.name : wallet.name);
-      });
-      var connectionType = 'app';
-
-      if (wallet && wallet.constructor && ![wallets.WalletConnectV1, wallets.WalletLink].includes(wallet.constructor)) {
-        connectionType = 'extension';
-      }
-
-      return /*#__PURE__*/React.createElement("div", {
-        key: index,
-        className: "PaddingBottomXS"
-      }, /*#__PURE__*/React.createElement("button", {
-        type: "button",
-        className: "Card small",
-        title: "Connect ".concat(walletMetaData.name),
-        onClick: function onClick() {
-          onClickWallet(_objectSpread$6(_objectSpread$6({}, walletMetaData), {}, {
-            via: 'detected',
-            connectionType: connectionType
-          }), wallet);
-        }
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement("img", _defineProperty({
-        className: "transparent",
-        src: walletMetaData.logo
-      }, "className", "WalletLogoS"))), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardBodyWrapper PaddingLeftXS LineHeightXS"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardText FontWeightMedium"
-      }, walletMetaData.name), /*#__PURE__*/React.createElement("div", {
-        className: "LightGreen"
-      }, /*#__PURE__*/React.createElement("span", {
-        className: "LightGreen",
-        style: {
-          fontSize: '70%',
-          top: '-1px',
-          position: 'relative'
-        }
-      }, "\u25CF"), " Connect detected ", connectionType)))));
-    }), previouslyConnectedWallet && !detectedWallets.find(function (wallet) {
-      return previouslyConnectedWallet.name === (wallet.info ? wallet.info.name : wallet.name);
-    }) && /*#__PURE__*/React.createElement("div", {
-      className: "PaddingBottomXS"
-    }, /*#__PURE__*/React.createElement("button", {
-      type: "button",
-      className: "Card small",
-      title: "Connect ".concat(previouslyConnectedWallet.name),
-      onClick: function onClick() {
-        onClickWallet(_objectSpread$6(_objectSpread$6({}, previouslyConnectedWallet), {}, {
-          via: 'previouslyConnected',
-          connectionType: 'app'
-        }));
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardImage"
-    }, /*#__PURE__*/React.createElement("img", _defineProperty({
-      className: "transparent",
-      src: previouslyConnectedWallet.logo
-    }, "className", "WalletLogoS"))), /*#__PURE__*/React.createElement("div", {
-      className: "CardBody"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardBodyWrapper PaddingLeftXS LineHeightXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardText FontWeightMedium"
-    }, previouslyConnectedWallet.name), /*#__PURE__*/React.createElement("div", {
-      className: "Opacity05"
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: '70%',
-        top: '-1px',
-        position: 'relative'
-      }
-    }, "\u25CF"), " Previously connected")))))), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingBottomXS PaddingLeftS PaddingRightS PaddingTopXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "Row"
-    }, /*#__PURE__*/React.createElement("input", {
-      className: "Search",
-      value: searchTerm,
-      onChange: function onChange(event) {
-        setSearchTerm(event.target.value);
-      },
-      placeholder: "Search by name",
-      ref: searchElement
-    })))),
-    alternativeHeaderAction: /*#__PURE__*/React.createElement("span", {
-      className: "DropDownWrapper"
-    }, /*#__PURE__*/React.createElement("button", {
-      type: "button",
-      onClick: function onClick() {
-        return setShowDropDown(!showDropDown);
-      },
-      className: "ButtonCircular",
-      title: "More options"
-    }, /*#__PURE__*/React.createElement(MenuIcon, null)), showDropDown && /*#__PURE__*/React.createElement(DropDown, {
-      hide: function hide() {
-        return setShowDropDown(false);
-      },
-      items: [{
-        label: "What is a wallet?",
-        action: function action() {
-          navigate('WhatIsAWallet');
-        }
-      }]
-    })),
-    bodyClassName: "PaddingBottomXS",
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "ScrollHeightM PaddingTopXS"
-    }, dialogAnimationFinished && /*#__PURE__*/React.createElement(SelectWalletList, {
-      setWallet: props.setWallet,
-      searchTerm: searchTerm,
-      onClickWallet: onClickWallet
-    })),
-    hideFooter: true
-  });
-});
-
-var QuestionsGraphic = "data:image/png;base64,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";
-
-var WhatIsAWalletDialog = (function (props) {
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    stacked: true,
-    header: /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextCenter"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "What is a wallet?"))),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter PaddingLeftL PaddingRightL PaddingTopS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "GraphicWrapper"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "Graphic",
-      src: QuestionsGraphic
-    })), /*#__PURE__*/React.createElement("p", {
-      className: "FontSizeM PaddingTopS PaddingLeftM PaddingRightM"
-    }, "Wallets are used to send, receive, and store digital assets. Wallets come in many forms. They are either built into your browser, an extension added to your browser, a piece of hardware plugged into your computer or even an app on your phone."), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS"
-    }, /*#__PURE__*/React.createElement("a", {
-      className: "Link FontSizeM",
-      href: "https://ethereum.org/wallets/",
-      target: "_blank",
-      rel: "noopener noreferrer"
-    }, "Learn more")))
-  });
-});
-
-var ConnectStack = (function (props) {
-  var _useContext = useContext(ClosableContext),
-      open = _useContext.open,
-      close = _useContext.close;
-
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      wallet = _useState2[0],
-      setWallet = _useState2[1];
-
-  var _useState3 = useState({
-    blockchain: undefined
-  }),
-      _useState4 = _slicedToArray(_useState3, 2),
-      selection = _useState4[0];
-      _useState4[1];
-
-  var _useState5 = useState(false),
-      _useState6 = _slicedToArray(_useState5, 2),
-      showConnectExtensionWarning = _useState6[0],
-      setShowConnectExtensionWarning = _useState6[1];
-
-  var resolve = function resolve(account, wallet) {
-    if (account && wallet) {
-      var walletMeta = allWallets.find(function (walletMeta) {
-        return walletMeta.extension == wallet.name;
-      }) || allWallets.find(function (walletMeta) {
-        return walletMeta.name == wallet.name;
-      });
-      set(walletMeta.name);
-      if (props.autoClose) close();
-      if (props.resolve) props.resolve({
-        account: account,
-        wallet: wallet
-      });
-    }
-  };
-
-  var connectExtension = function connectExtension(wallet) {
-    setShowConnectExtensionWarning(false);
-    wallet = new wallets[wallet.extension]();
-    wallet.connect().then(function (account) {
-      resolve(account, wallet);
-    })["catch"](function (error) {
-      if ((error === null || error === void 0 ? void 0 : error.code) == -32002) {
-        // Request of type 'wallet_requestPermissions' already pending...
-        setShowConnectExtensionWarning(true);
-      }
-    });
-  };
-
-  var openUniversalLink = function openUniversalLink(platform, uri, name) {
-    if (!platform.universal) {
-      return;
-    }
-
-    var href = safeUniversalUrl(platform.universal);
-    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
-      href: href,
-      name: name
-    }));
-    href = "".concat(href, "/wc?uri=").concat(encodeURIComponent(uri));
-    return window.open(href, '_self', 'noreferrer noopener');
-  };
-
-  var openNativeLink = function openNativeLink(platform, uri, name) {
-    if (!platform["native"]) {
-      return;
-    }
-
-    var href = safeAppUrl(platform["native"]);
-    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
-      href: href,
-      name: name
-    }));
-
-    if (platform.encoded !== false) {
-      href = "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
-    } else {
-      href = "".concat(href, "wc?uri=").concat(uri);
-    }
-
-    return window.open(href, '_self', 'noreferrer noopener');
-  };
-
-  var openWcLink = function openWcLink(platform, uri, name) {
-    var href = 'wc://';
-    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
-      href: href,
-      name: name
-    }));
-
-    if (platform.encoded !== false) {
-      href = "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
-    } else {
-      href = "".concat(href, "wc?uri=").concat(uri);
-    }
-
-    window.open(href, '_self', 'noreferrer noopener');
-  };
-
-  var connectViaRedirect = function connectViaRedirect(walletMetaData) {
-    var reconnect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-    var platform = platformForWallet(walletMetaData);
-
-    if (!platform) {
-      return;
-    }
-
-    if (walletMetaData.link == 'WalletConnectV1') {
-      var _wallet = new wallets[walletMetaData.link]();
-
-      _wallet.connect({
-        name: walletMetaData.name,
-        logo: walletMetaData.logo,
-        reconnect: reconnect,
-        connect: function connect(_ref) {
-          var uri = _ref.uri;
-          var name = isAndroid() ? 'Android' : walletMetaData.name;
-
-          if (isWebView()) {
-            if (platform.universal) {
-              openUniversalLink(platform, uri, name);
-            } else if (isAndroid()) {
-              openWcLink(platform, uri, name);
-            }
-          } else {
-            if (platform["native"]) {
-              openNativeLink(platform, uri, name);
-            } else {
-              openUniversalLink(platform, uri, name);
-            }
-          }
-        }
-      }).then(function (account) {
-        resolve(account, _wallet);
-      });
-    } else if (walletMetaData.link == 'WalletLink') {
-      set(walletMetaData.name);
-
-      if (isAndroid() || isWebView()) {
-        // Universal Link
-        window.open("".concat(platform.universal, "?cb_url=").concat(encodeURIComponent(window.location.toString())), '_self', 'noreferrer noopener');
-      } else {
-        // iOS standalone browser -> native deeplink
-        window.open("".concat(platform["native"], "?url=").concat(encodeURIComponent(window.location.toString())), '_self', 'noreferrer noopener');
-      }
-    }
-  };
-
-  var openInApp = function openInApp(walletMetaData) {
-    var platform = platformForWallet(walletMetaData);
-
-    if (!platform || !platform.open) {
-      return;
-    }
-
-    window.open(platform.open(), '_self', 'noreferrer noopener');
-  };
-
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(ReactDialogStack, {
-    open: open,
-    close: close,
-    start: "SelectWallet",
-    container: props.container,
-    document: props.document,
-    dialogs: {
-      SelectWallet: /*#__PURE__*/React.createElement(SelectWalletDialog, {
-        setWallet: setWallet,
-        resolve: resolve,
-        openInApp: openInApp,
-        connectViaRedirect: connectViaRedirect,
-        connectExtension: connectExtension
-      }),
-      WhatIsAWallet: /*#__PURE__*/React.createElement(WhatIsAWalletDialog, null),
-      ConnectWallet: /*#__PURE__*/React.createElement(ConnectWalletDialog, {
-        selection: selection,
-        wallet: wallet,
-        resolve: resolve,
-        openInApp: openInApp,
-        connectViaRedirect: connectViaRedirect,
-        connectExtension: connectExtension,
-        showConnectExtensionWarning: showConnectExtensionWarning
-      })
-    }
-  }), /*#__PURE__*/React.createElement(PoweredBy, null));
-});
-
-var ensureDocument = (function (document) {
-  if (typeof document === 'undefined') {
-    return window.document;
-  } else {
-    return document;
-  }
-});
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
-    return call;
-  } else if (call !== void 0) {
-    throw new TypeError("Derived constructors may only return object or undefined");
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-var ErrorContext = /*#__PURE__*/React.createContext();
-
-var ErrorGraphic = "data:image/png;base64,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";
-
-function ReactDialogStyle (styles) {
-  let background =
-    typeof styles === 'object' && styles.background ? styles.background : 'rgba(0,0,0,0.4)';
-
-  return `
-    .ReactDialog {
-      bottom: 0;
-      display: flex;
-      height: 100%;
-      height: 100vh;
-      left: 0;
-      min-height: 100%;
-      min-height: 100vh;
-      overflow: hidden;
-      position: fixed;
-      right: 0;
-      top: 0;
-      width: 100%;
-      width: 100vw;
-    }
-
-    .ReactDialogInner {
-      align-items: center;
-      display: flex;
-      flex: 1;
-      justify-content: center;
-    }
-
-    .ReactDialogBackground {
-      background: ${background};
-      bottom: 0;
-      display: block;
-      height: 100%;
-      left: 0;
-      opacity: 0;
-      position: fixed;
-      right: 0;
-      top: 0;
-      transition: opacity 0.4s ease;
-      width: 100%;
-    }
-
-    .ReactDialog.ReactDialogOpen .ReactDialogBackground {
-      opacity: 1;
-    }
-
-    .ReactDialogAnimation {
-      display: inline-block;
-      position: relative;
-      opacity: 0;
-      top: -17vh;
-      transition: opacity 0.4s ease, top 0.4s ease;
-    }
-
-    .ReactDialog.ReactDialogOpen .ReactDialogAnimation {
-      opacity: 1.0;
-      top: -5vh;
-    }
-  `
-}
-
-const _jsxFileName$1 = "/Users/sebastian/Work/DePay/react-dialog/src/components/Dialog.jsx";
-class Dialog extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handler = this.onKeyDown.bind(this);
-
-    this.state = {
-      open: true,
-    };
-  }
-
-  closeDialog() {
-    this.props.close();
-  }
-
-  onKeyDown(event) {
-    if (event.key === 'Escape') {
-      this.closeDialog();
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.open === false && prevProps.open === true) {
-      this.setState({ open: false });
-    }
-  }
-
-  onClickBackground(event) {
-    this.closeDialog();
-  }
-
-  componentDidMount() {
-    this.setState({ open: false }, () => {
-      // make sure state is false first before opening the dialog
-      // to ensure opening is animated
-      setTimeout(() => {
-        this.setState({ open: true });
-      }, 10);
-    });
-    this.props.document.addEventListener('keydown', this.handler, true);
-  }
-
-  componentWillUnmount() {
-    this.props.document.removeEventListener('keydown', this.handler, true);
-  }
-
-  render() {
-    const classNames = ['ReactDialog', this.state.open ? 'ReactDialogOpen' : ''];
-    const style = ReactDialogStyle({ background: this.props.background });
-    return (
-      React.createElement('div', { key: this.props.dialogKey, className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 55}}
-        , React.createElement('style', {__self: this, __source: {fileName: _jsxFileName$1, lineNumber: 56}}, style)
-        , React.createElement('div', { className: "ReactDialogInner", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 57}}
-          , React.createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 58}} )
-          , this.props.children
-        )
-      )
-    )
-  }
-}
-
-const _jsxFileName = "/Users/sebastian/Work/DePay/react-dialog/src/index.jsx";
-class ReactDialog extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      open: props.open,
-    };
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.open === false && prevProps.open === true) {
-      setTimeout(() => {
-        this.setState({ open: false });
-      }, 400);
-    } else if (this.props.open === true && prevProps.open === false) {
-      this.setState({ open: true });
-    }
-  }
-
-  render() {
-    let _document = this.props.document || document;
-    let container = this.props.container || _document.body;
-    if (this.state.open) {
-      return ReactDOM.createPortal(
-        React.createElement(Dialog, {
-          background: this.props.background,
-          close: this.props.close,
-          document: _document,
-          open: this.props.open, __self: this, __source: {fileName: _jsxFileName, lineNumber: 29}}
-        
-          , this.props.children
-        ),
-        container,
-      )
-    } else {
-      // enforces unmount
-      return null
-    }
-  }
-}
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
-  _inherits(ErrorBoundary, _React$Component);
-
-  var _super = _createSuper(ErrorBoundary);
-
-  function ErrorBoundary(props) {
-    _classCallCheck(this, ErrorBoundary);
-
-    return _super.call(this, props);
-  }
-
-  _createClass(ErrorBoundary, [{
-    key: "componentDidCatch",
-    value: function componentDidCatch(error, errorInfo) {
-      if (error.error) {
-        error = error.error;
-      }
-
-      this.props.setError(error);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return this.props.children;
-    }
-  }]);
-
-  return ErrorBoundary;
-}(React.Component);
-
-var ErrorProvider = (function (props) {
-  var _useState = useState(props.error),
-      _useState2 = _slicedToArray(_useState, 2),
-      error = _useState2[0],
-      setError = _useState2[1];
-
-  var _useState3 = useState(true),
-      _useState4 = _slicedToArray(_useState3, 2),
-      open = _useState4[0],
-      setOpen = _useState4[1];
-
-  var setErrorFromChildren = function setErrorFromChildren(error) {
-    console.log(error);
-
-    if (error.error) {
-      error = error.error;
-    }
-
-    setError(error);
-
-    if (props.errorCallback) {
-      props.errorCallback(error.message || error.toString());
-    }
-  };
-
-  var close = function close() {
-    setOpen(false);
-    setTimeout(props.unmount, 300);
-  };
-
-  if (error) {
-    return /*#__PURE__*/React.createElement(ReactDialog, {
-      container: props.container,
-      close: close,
-      open: open
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "Dialog ReactDialogAnimation"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "DialogHeader"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftS PaddingRightS"
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "DialogBody TextCenter"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "GraphicWrapper PaddingTopS"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "Graphic",
-      src: ErrorGraphic
-    })), /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-    }, "Oops, Something Went Wrong"), /*#__PURE__*/React.createElement("div", {
-      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/React.createElement("pre", {
-      className: "ErrorSnippetText"
-    }, error.message || error.toString())), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingBottomS"
-    }, /*#__PURE__*/React.createElement("strong", {
-      className: "FontSizeM PaddingTopS"
-    }, "If this keeps happening, please report it.")))), /*#__PURE__*/React.createElement("div", {
-      className: "DialogFooter"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("button", {
-      className: "ButtonPrimary",
-      onClick: close
-    }, "Try again")))));
-  } else {
-    return /*#__PURE__*/React.createElement(ErrorContext.Provider, {
-      value: {
-        setError: setErrorFromChildren,
-        errorCallback: props.errorCallback
-      }
-    }, /*#__PURE__*/React.createElement(ErrorBoundary, {
-      setError: setErrorFromChildren
-    }, props.children));
-  }
-});
-
-var AlertStyle = (function (style) {
-  return "\n\n    .Alert {\n      background: rgba(0,0,0,0.08);\n      border-radius: 7px;\n      font-weight: 500;\n      padding: 8px;\n    }\n  ";
-});
-
-var BlockchainLogoStyle = (function (style) {
-  return "\n\n    .BlockchainLogo {\n      border-radius: 999px;\n    }\n\n    .BlockchainLogo.small {\n      height: 20px;\n      width: 20px;\n    }\n  ";
-});
-
-var ButtonCircularStyle = (function (style) {
-  return "\n\n    .ButtonCircular {\n      border-radius: 9999px;\n      border: 1px solid transparent;\n      cursor: pointer;\n      height: 34px;\n      opacity: 0.5;\n      padding: 5px 4px 4px 4px;\n      width: 34px;\n    }\n\n    .ButtonCircular:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .ButtonCircular:hover {\n      background: rgba(0,0,0,0.1);\n      opacity: 1;\n    }\n\n    .ButtonCircular:active {\n      background: rgba(0,0,0,0.25);\n      opacity: 1;\n    }\n  ");
-});
-
-var ButtonPrimaryStyle = (function (style) {
-  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 13px;\n      border: 1px solid transparent;\n      box-shadow: 0 0 16px rgba(0,0,0,0.1);\n      font-size: 22px;\n      font-weight: 400;\n      line-height: 40px;\n      height: 58px;\n      justify-content: center;\n      width: 100%;\n      overflow: hidden;\n      padding: 7px 0;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      display: inline-block;\n    }\n\n    .ButtonPrimary, .ButtonPrimary * {\n      color: ").concat(style.colors.buttonText, ";\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n      color: rgb(140,140,140);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
-});
-
-var CardStyle = (function (style) {
-  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 76px;\n      padding: 16px 10px;\n      width: 100%;\n    }\n\n    .Card:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 8px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 27px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 58px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 9999px;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 45px;\n      position: relative;\n      vertical-align: middle;\n      width: 45px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardImage .BlockchainLogo {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 18px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
-});
-
-var DialogStyle = (function (style) {
-  return "\n\n    .ReactDialogBackground {\n      z-index: -2;\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .contained .ReactDialog {\n      position: absolute;\n      height: 100%;\n      min-height: 100%;\n      width: 100%;\n      min-width: 100%;\n    }\n\n    .contained .ReactDialogBackground {\n      position: absolute;\n    }\n\n    .contained .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n      top: 0;\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.2);\n      border-radius: 13px;\n      background: rgb(248,248,248);\n    }\n\n    @media (max-width: 450px) {\n\n      .Dialog {\n        border-radius: 0;\n        width: 100%;\n      }\n    }\n\n    @media (orientation: portrait) and (max-width: 800px) {\n\n      .ReactDialogAnimation {\n        width: 100%;\n      }\n\n      .ReactDialog {\n        height: 100%;\n        min-height: 100%;\n      }\n\n      .ReactDialogStack {\n        align-items: flex-end;\n      }\n\n      .Dialog {\n        align-content: stretch;\n        border-radius: 13px;\n        border-top-radius: 13px;\n        display: flex;\n        flex-direction: column;\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n      }\n\n      .DialogFooter {\n        padding-bottom: 20px;\n      }\n\n      .ReactDialogAnimation {\n        margin-bottom: -100px !important;\n        top: inherit !important;\n        position: relative;\n        transition: opacity 0.4s ease, margin-bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        margin-bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n\n      .ReactShadowDOMInsideContainer > .ReactDialog {\n        align-items: flex-end;\n      }\n    }\n\n    .DialogBody {\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .ScrollHeight {\n      height: 30vh !important;\n      max-height: 30vh !important;\n    }\n\n    .ScrollHeightS {\n      height: 180px !important;\n      max-height: 180px !important;\n    }\n\n    .ScrollHeightM {\n      height: 194px !important;\n      max-height: 194px !important;\n    }\n\n    .DialogBody.MinHeight {\n      height: 120px !important;\n      max-height: 120px !important;\n    }\n\n    .DialogHeader {\n      border-top-left-radius: 13px;\n      border-top-right-radius: 13px;\n      min-height: 54px;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogHeaderActionRight {\n      position: absolute;\n      top: 0;\n      right: 0;\n      height: 48px;\n    }\n\n    .DialogHeaderActionLeft {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 48px;\n    }\n\n    .DialogFooter {\n      border-bottom-left-radius: 13px;\n      border-bottom-right-radius: 13px;\n      line-height: 24px;\n      min-height: 32px;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
-});
-
-var DropDownStyle = (function (style) {
-  return "\n\n    .DropDownWrapper {\n      position: relative;\n    }\n\n    .DropDown {\n      background: rgb(240,240,240);\n      border-radius: 8px;\n      border: 1px solid rgb(230,230,230);\n      box-shadow: 0 0 12px rgba(0,0,0,0.1);\n      display: block;\n      padding: 8px 6px;\n      position: absolute;\n      right: 0;\n      z-index: 1000;\n    }\n\n    .DropDownItem {\n      border: 1px solid transparent;\n      border-radius: 6px;\n      cursor: pointer;\n      font-size: 17px;\n      font-weight: 500;\n      min-width: 160px;\n      padding: 6px 10px;\n      text-align: left;\n      white-space: nowrap;\n    }\n\n    .DropDownItem:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .DropDownItem:hover {\n      background: rgba(0,0,0,0.1);\n    }\n    \n    .DropDownItem:active {\n      background: rgba(0,0,0,0.15);\n    }\n    \n  ");
-});
-
-var FontStyle = (function (style) {
-  return "\n\n    *, div, div * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    * {\n      font-size: 15px;\n    }\n\n    .FontSizeS {\n      font-size: 16px;\n    }\n\n    .FontSizeM {\n      font-size: 19px;\n    }\n\n    .FontSizeL {\n      font-size: 23px;\n    }\n\n    .FontSizeXL {\n      font-size: 32px;\n    }\n\n    .FontSizeXXL {\n      font-size: 42px;\n    }\n\n    .FontWeightMedium {\n      font-weight: 500;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
-});
-
-var GraphicStyle = (function () {
-  return "\n\n    .GraphicWrapper {\n      display: block;\n    }\n\n    .Graphic {\n      width: 50%;\n      position: relative;\n    }\n  ";
-});
-
-var GridStyle = (function (style) {
-  return "\n\n    .Row {\n      overflow: hidden;\n    }\n\n    .Column {\n      float: left;\n    }\n\n    .Column2 {\n      width: 16.66%;\n    }\n\n    .Column10 {\n      width: 83.33%;\n    }\n  ";
-});
-
-var HeightStyle = (function () {
-  return "\n\n    .MaxHeight {\n      max-height: 320px;\n      overflow-y: auto;\n    }\n  ";
-});
-
-var IconStyle = (function (style) {
-  return "\n\n    .Icon {\n      fill: ".concat(style.colors.icons, ";\n      stroke: ").concat(style.colors.icons, ";\n    }\n\n    .QuestionMarkIcon {\n      fill: transparent;\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .AlertIcon {\n      height: 20px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 20px;\n      fill: #e42626;\n      stroke: transparent;\n    }\n\n    .CheckMark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      border-radius: 100%;\n      position: relative;\n      left: -1px;\n      width: 18px;\n      height: 18px;\n      animation: spin 1.5s linear infinite;\n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
-});
-
-var ImageStyle = (function (style) {
-  return "\n\n    .MaxAmountImage {\n      display: inline-block;\n      padding-right: 6px;\n    }\n    \n    .MaxAmountImage img {\n      height: 16px;\n      width: 16px;\n      position: relative;\n      top: 3px;\n    }\n  ";
-});
-
-var InputStyle = (function (style) {
-  return "\n\n    .Input {\n      background: none;\n      border: 1px solid transparent;\n      margin: 0;\n      outline: none !important;\n      padding: 0 0 0 14px;\n      width: 100%;\n    }\n\n    .Input::placeholder {\n      color: rgb(210,210,210);\n    }\n    \n  ";
-});
-
-var LinkStyle = (function (style) {
-  return "\n\n    .Link {\n      color: ".concat(style.colors.primary, ";\n      cursor: pointer;\n      text-decoration: none;\n    }\n\n    .Link:hover {\n      filter: brightness(0.8);\n    }\n\n    .Link:active {\n      filter: brightness(1.0);\n    }\n  ");
-});
-
-var LoadingTextStyle = (function (style) {
-  return "\n\n    .LoadingText {\n      color: ".concat(style.colors.buttonText, ";\n      display: inline-block;\n      text-decoration: none;\n    }\n\n    @keyframes blink {\n      0% { opacity: .2; }\n      20% { opacity: 1; }\n      100% { opacity: .2; }\n    }\n    \n    .LoadingText .dot {\n      animation-name: blink;\n      animation-duration: 1.4s;\n      animation-iteration-count: infinite;\n      animation-fill-mode: both;\n    }\n    \n    .LoadingText .dot:nth-child(2) {\n      animation-delay: .2s;\n    }\n    \n    .LoadingText .dot:nth-child(3) {\n      animation-delay: .4s;\n    }\n  ");
-});
-
-var OpacityStyle = (function (style) {
-  return "\n\n    .Opacity05 {\n      opacity: 0.5;\n    }\n  ";
-});
-
-var PaddingStyle = (function () {
-  return "\n\n    .PaddingTopXS {\n      padding-top: 3px;\n    }\n\n    .PaddingRightXS {\n      padding-right: 3px;\n    }\n\n    .PaddingBottomXS {\n      padding-bottom: 3px;\n    }\n\n    .PaddingLeftXS {\n      padding-left: 3px; \n    }\n\n    .PaddingTopS {\n      padding-top: 13px;\n    }\n\n    .PaddingRightS {\n      padding-right: 13px;\n    }\n\n    .PaddingBottomS {\n      padding-bottom: 13px;\n    }\n\n    .PaddingLeftS {\n      padding-left: 13px; \n    }\n\n    .PaddingTopM {\n      padding-top: 19px;\n    }\n\n    .PaddingRightM {\n      padding-right: 19px;\n    }\n\n    .PaddingBottomM {\n      padding-bottom: 19px;\n    }\n\n    .PaddingLeftM {\n      padding-left: 19px; \n    }\n\n    .PaddingTopL {\n      padding-top: 29px;\n    }\n\n    .PaddingRightL {\n      padding-right: 29px;\n    }\n\n    .PaddingBottomL {\n      padding-bottom: 29px;\n    }\n\n    .PaddingLeftL {\n      padding-left: 29px; \n    }\n  ";
-});
-
-var PoweredByStyle = (function (style) {
-  return "\n\n    .PoweredByWrapper {\n      display: block;\n      left: 0;\n      padding-top: 3px;\n      position: fixed;\n      right: 0;\n      text-align: center;\n      top: 0;\n    }\n\n    .contained .PoweredByWrapper {\n      position: absolute;\n    }\n\n    .PoweredByLink {\n      color: white;\n      display: inline-block;\n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\" !important;\n      font-size: 14px;\n      font-style: italic;\n      font-weight: bold;\n      letter-spacing: -0.2px;\n      margin-left: 8px;\n      opacity: 0.5;\n      text-decoration: none;\n      text-shadow: black 0 0 2px;\n    }\n\n    .PoweredByLink:hover, .PoweredByLink:active {\n      opacity: 1.0;\n    }\n  ";
-});
-
-var QRCodeStyle = (function () {
-  return "\n\n    .QRCode {\n      width: 100%;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      margin-bottom: -10px;\n    }\n  ";
-});
-
-var RangeSliderStyle = (function (style) {
-  return "\n\n    .rangeslider {\n      margin: 20px 0;\n      position: relative;\n      background: #e6e6e6;\n      -ms-touch-action: none;\n      touch-action: none;\n    }\n\n    .rangeslider,\n    .rangeslider__fill {\n      display: block;\n      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);\n    }\n\n    .rangeslider__handle {\n      outline: none;\n      cursor: pointer;\n      display: inline-block;\n      position: absolute;\n      border-radius: 50%;\n      background-color: " + style.colors.primary + ";\n      border: 1px solid white;\n      box-shadow: 0 0 8px rgba(0,0,0,0.1);\n    }\n\n    .rangeslider__handle:hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n\n    .rangeslider__handle:active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.3);\n    }\n\n    .rangeslider__active {\n      opacity: 1;\n    }\n\n    .rangeslider__handle-tooltip {\n      display: none;\n    }\n\n    .rangeslider-horizontal {\n      height: 12px;\n      border-radius: 10px;\n    }\n\n    .rangeslider-horizontal .rangeslider__fill {\n      height: 100%;\n      background-color: " + style.colors.primary + ";\n      border-radius: 10px;\n      top: 0;\n    }\n    .rangeslider-horizontal .rangeslider__handle {\n      width: 18px;\n      height: 18px;\n      border-radius: 30px;\n      top: 50%;\n      transform: translate3d(-50%, -50%, 0);\n    }\n\n\n    .rangeslider-horizontal .rangeslider__handle-tooltip {\n      top: -55px;\n    }\n\n  ";
-});
-
-var ResetStyle = (function () {
-  return "\n\n      html, body, div, span, applet, object, iframe,\n      h1, h2, h3, h4, h5, h6, p, blockquote, pre,\n      a, abbr, acronym, address, big, cite, code,\n      del, dfn, em, img, ins, kbd, q, s, samp,\n      small, strike, strong, sub, sup, tt, var,\n      b, u, i, center,\n      dl, dt, dd, ol, ul, li,\n      fieldset, form, label, legend,\n      table, caption, tbody, tfoot, thead, tr, th, td,\n      article, aside, canvas, details, embed, \n      figure, figcaption, footer, header, hgroup, \n      menu, nav, output, ruby, section, summary,\n      time, mark, audio, video {\n        margin: 0;\n        padding: 0;\n        border: 0;\n        font-size: 100%;\n        font: inherit;\n        text-align: inherit;\n        vertical-align: baseline;\n      }\n\n      article, aside, details, figcaption, figure, \n      footer, header, hgroup, menu, nav, section {\n        display: block;\n      }\n\n      body {\n        line-height: 1;\n      }\n\n      ol, ul {\n        list-style: none;\n      }\n\n      blockquote, q {\n        quotes: none;\n      }\n\n      blockquote:before, blockquote:after,\n      q:before, q:after {\n        content: '';\n        content: none;\n      }\n      \n      table {\n        border-collapse: collapse;\n        border-spacing: 0;\n      }\n\n      * {\n        box-sizing: border-box;\n      }\n\n      button {\n        border: 0;\n        background: none;\n        outline: none;\n      }\n\n  ";
-});
-
-var SearchStyle = (function (style) {
-  return "\n\n    .Search {\n      border-radius: 13px;\n      border: 1px solid rgba(0,0,0,0.2);\n      background: white;\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 13px;\n      width: 100%;\n    }\n\n    .Search::placeholder {\n      color: rgb(180,180,180);\n    } \n\n    .Search:focus, .Search:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n  ");
-});
-
-var SkeletonStyle = (function () {
-  return "\n        \n    .Skeleton {\n      background: rgb(230,230,230) !important;\n      border: 0px solid transparent !important;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ";
-});
-
-var TableStyle = (function (style) {
-  return "\n\n    .Table {\n      border-collapse: separate;\n      border-radius: 7px;\n      border-style: hidden;\n      border: 1px solid rgba(0,0,0,0.1);\n      width: 100%;\n    }\n\n    .Table tr.small td {\n      font-size: 14px;\n    }\n\n    .Table tr td {\n      border-bottom: 1px solid rgba(0,0,0,0.1);\n      word-break: break-all;\n    }\n    \n    .Table tr:last-child td {\n      border-bottom: none;\n    }\n    \n    .Table tr td {\n      padding: 8px 15px;\n      text-align: left;\n    }\n    \n    .Table tr td:first-child {\n      width: 30%\n    }\n\n    .Table tr td:last-child {\n      width: 70%\n    }\n    \n    .Table .TableSubTitle {\n      font-weight: 300;\n      opacity: 0.7;\n    }\n\n    .Table tr td:last-child {\n      font-weight: 500;\n    }\n  ";
-});
-
-var TextButtonStyle = (function (style) {
-  return "\n\n    .TextButton {\n      cursor: pointer;\n      font-size: 16px;\n      color: ".concat(style.colors.primary, "\n    }\n\n    .TextButton:hover * {\n      opacity: 1.0;\n    }\n  ");
-});
-
-var TextStyle = (function (style) {
-  return "\n\n    * {\n      color: ".concat(style.colors.text, ";\n    }\n\n    .LightGreen {\n      color: rgba(50,160,60);\n    }\n\n    h1, h2, h3, h4, h5, h6 {\n      display: block;\n    }\n\n    .Text {\n      font-size: 16px;\n      line-height: 24px\n    }\n\n    .TextLeft, .TextLeft * {\n      text-align: left !important;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n    .LineHeightXS {\n      line-height: 16px;\n    }\n\n    .LineHeightL {\n      line-height: 32px;\n    }\n\n    .ErrorSnippetText {\n      background: rgb(30, 30, 20);\n      border-radius: 19px;\n      border: 8px solid rgb(30, 30, 20);\n      color: #00FF41;\n      font-size: 15px;\n      font-style: italic;\n      max-height: 100px;\n      padding: 6px;\n      overflow-wrap: break-word;\n      overflow-y: auto;\n      white-space: pre-wrap;\n      word-wrap: break-word;\n    }\n  ");
-});
-
-var TokenAmountStyle = (function () {
-  return "\n        \n    .TokenAmountRow {\n      min-width: 0;\n      width: 100%;\n      display: flex;\n      flex-direction: row;\n    }\n    \n    .TokenAmountRow.small {\n      font-size: 17px;\n      line-height: 17px;\n    }\n\n    .TokenAmountRow.grey {\n      opacity: 0.5;\n    }\n\n    .TokenAmountCell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .TokenSymbolCell {\n    }\n  ";
-});
-
-var TokenImageStyle = (function (style) {
-  return "\n\n    .TokenImage img {\n      border-radius: 9999px;\n      border: 1px solid white;\n      background: white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 45px;\n      position: relative;\n      vertical-align: middle;\n      width: 45px;\n    }\n\n    .TokenImage.medium img {\n      height: 93px;\n      width: 93px;\n    }\n  ";
-});
-
-var TooltipStyle = (function (style) {
-  return "\n\n    .TooltipWrapper {\n      position: relative;\n    }\n\n    .Tooltip {\n      background: ".concat(style.colors.primary, ";\n      border-radius: 10px;\n      color: ").concat(style.colors.buttonText, ";\n      padding: 10px 13px;\n      position: relative;\n      box-shadow: 0 0 8px rgba(0,0,0,0.2);\n    }\n\n    .Tooltip.absolute {\n      position: absolute;\n    }\n\n    .Tooltip.top {\n      top: -40px;\n    }\n\n    .TooltipArrowUp {\n      border-bottom: 10px solid ").concat(style.colors.primary, ";\n      border-left: 10px solid transparent;\n      border-right: 10px solid transparent;\n      height: 0; \n      left: 12px;\n      position: absolute;\n      top: -8px;\n      width: 0; \n    }\n\n    .TooltipArrowDown {\n      border-top: 10px solid ").concat(style.colors.primary, ";\n      border-left: 10px solid transparent;\n      border-right: 10px solid transparent;\n      height: 0; \n      left: 12px;\n      position: absolute;\n      bottom: -8px;\n      width: 0; \n    }\n  ");
-});
-
-var WalletStyle = (function (style) {
-  return "\n\n    .WalletLogoS {\n      background: none !important;\n      border-radius: 8px !important;\n      border: 1px solid transparent !important;\n      box-shadow: none !important;\n      height: 40px !important;\n      width: 40px !important;\n    }\n  ";
-});
-
-var styleRenderer = (function (style) {
-  var _style, _style2;
-
-  style = {
-    colors: Object.assign({
-      primary: '#ea357a',
-      buttonText: '#ffffff',
-      icons: '#000000',
-      text: '#212529'
-    }, ((_style = style) === null || _style === void 0 ? void 0 : _style.colors) || {}),
-    fontFamily: ((_style2 = style) === null || _style2 === void 0 ? void 0 : _style2.fontFamily) || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
-  };
-  return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle(), BlockchainLogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
-});
-
-var mount = (function (_ref, content) {
-  var style = _ref.style,
-      container = _ref.container,
-      document = _ref.document,
-      closed = _ref.closed;
-  var insideStyle = styleRenderer(style);
-
-  if (style && style.css) {
-    insideStyle = [insideStyle, style.css].join(' ');
-  }
-
-  var unmountShadowDOM = function unmountShadowDOM() {
-    // setTimeout to allow dialog to animate out first
-    setTimeout(function () {
-      unmount();
-
-      if (typeof closed == 'function') {
-        closed();
-      }
-    }, 300);
-  };
-
-  var outsideStyle;
-
-  if (container) {
-    outsideStyle = "\n      position: absolute;\n      top: 0;\n      left: 0;\n      bottom: 0;\n      right: 0;\n      z-index: 99999;\n    ";
-  } else {
-    outsideStyle = "\n      position: fixed;\n      top: 0;\n      left: 0;\n      bottom: 0;\n      right: 0;\n      z-index: 99999;\n    ";
-  }
-
-  var _ReactShadowDOM = ReactShadowDOM({
-    document: document,
-    element: container || document.body,
-    content: content(unmountShadowDOM),
-    outsideStyle: outsideStyle,
-    insideStyle: insideStyle,
-    insideClasses: container ? ['contained'] : []
-  }),
-      unmount = _ReactShadowDOM.unmount;
-
-  return unmount;
-});
-
-var requireReactVersion = (function () {
-  if (parseInt(React.version.split('.')[0]) < 17) {
-    throw 'depay/widgets require at least React v17';
-  }
-});
-
-var SelectionProvider = (function (props) {
-  var _useState = useState({}),
-      _useState2 = _slicedToArray(_useState, 2),
-      selection = _useState2[0],
-      setSelection = _useState2[1];
-
-  return /*#__PURE__*/React.createElement(SelectionContext.Provider, {
-    value: {
-      selection: selection,
-      setSelection: setSelection
-    }
-  }, props.children);
-});
-
-var UpdatableProvider = (function (props) {
-  var _useState = useState(true),
-      _useState2 = _slicedToArray(_useState, 2),
-      updatable = _useState2[0],
-      setUpdatable = _useState2[1];
-
-  return /*#__PURE__*/React.createElement(UpdatableContext.Provider, {
-    value: {
-      updatable: updatable,
-      setUpdatable: setUpdatable
-    }
-  }, props.children);
-});
-
-var Connect = function Connect(options) {
-  requireReactVersion();
-  var style, error, document;
-
-  if (_typeof(options) == 'object') {
-    style = options.style;
-    error = options.error;
-    document = options.document;
-  }
-
-  return new Promise( /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(resolve, reject) {
-      return regenerator.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              mount({
-                style: style,
-                document: ensureDocument(document)
-              }, function (unmount) {
-                var rejectBeforeUnmount = function rejectBeforeUnmount() {
-                  reject('USER_CLOSED_DIALOG');
-                  unmount();
-                };
-
-                return function (container) {
-                  return /*#__PURE__*/React.createElement(ErrorProvider, {
-                    errorCallback: error,
-                    container: container,
-                    unmount: unmount
-                  }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
-                    unmount: rejectBeforeUnmount
-                  }, /*#__PURE__*/React.createElement(SelectionProvider, null, /*#__PURE__*/React.createElement(ConnectStack, {
-                    document: document,
-                    container: container,
-                    resolve: resolve,
-                    reject: reject,
-                    autoClose: true
-                  }), /*#__PURE__*/React.createElement(PoweredBy, null)))));
-                };
-              });
-
-            case 1:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function (_x, _x2) {
-      return _ref.apply(this, arguments);
-    };
-  }());
-};
-
-var ConfigurationContext = /*#__PURE__*/React.createContext();
-
-var ConfigurationProvider = (function (props) {
-  var currencyCode = new Currency({
-    code: props.configuration.currency
-  }).code;
-  useEffect(function () {
-    if (props.configuration.providers != undefined) {
-      Object.entries(props.configuration.providers).forEach(function (entry) {
-        setProviderEndpoints(entry[0], entry[1]);
-      });
-    }
-  }, [props.configuration]);
-  return /*#__PURE__*/React.createElement(ConfigurationContext.Provider, {
-    value: Object.assign({}, props.configuration, {
-      currencyCode: currencyCode
-    })
-  }, props.children);
-});
-
-var NavigateContext = /*#__PURE__*/React.createContext();
-
-var LoadingDialog = (function (props) {
-  var _useContext = useContext(ConfigurationContext),
-      text = _useContext.text;
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    closable: false,
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Payment")),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "Card Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    }))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonWrapper"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "ButtonPrimary Skeleton"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonBackground"
-    }))), /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter Opacity05 PaddingTopS"
-    }, /*#__PURE__*/React.createElement("strong", null, text)))
-  });
-});
-
-var LoadingStack = (function (props) {
-  var _useContext = useContext(ClosableContext),
-      open = _useContext.open,
-      close = _useContext.close;
-
-  var _useContext2 = useContext(NavigateContext),
-      setNavigator = _useContext2.setNavigator;
-
-  return /*#__PURE__*/React.createElement(ReactDialogStack, {
-    setNavigator: setNavigator,
-    open: open,
-    close: close,
-    start: "Loading",
-    container: props.container,
-    document: props.document,
-    dialogs: {
-      Loading: /*#__PURE__*/React.createElement(LoadingDialog, null)
-    }
-  });
-});
-
-var NavigateProvider = (function (props) {
-  var navigator;
-
-  var setNavigator = function setNavigator(_navigator) {
-    navigator = _navigator;
-  };
-
-  var navigate = function navigate(dialog) {
-    if (navigator) {
-      navigator.navigate(dialog);
-    }
-  };
-
-  var set = function set(dialogs) {
-    if (navigator) {
-      navigator.set(dialogs);
-    }
-  };
-
-  return /*#__PURE__*/React.createElement(NavigateContext.Provider, {
-    value: {
-      navigate: navigate,
-      set: set,
-      setNavigator: setNavigator
-    }
-  }, props.children);
-});
-
-var Loading = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-    var text, style, error, critical, container, document, unmount;
-    return regenerator.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            text = _ref.text, style = _ref.style, error = _ref.error, critical = _ref.critical, container = _ref.container, document = _ref.document;
-            requireReactVersion();
-            _context.prev = 2;
-            unmount = mount({
-              style: style,
-              container: container,
-              document: ensureDocument(document),
-              closed: closed
-            }, function (unmount) {
-              return function (container) {
-                return /*#__PURE__*/React.createElement(ErrorProvider, {
-                  errorCallback: error,
-                  container: container,
-                  unmount: unmount
-                }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
-                  configuration: {
-                    text: text
-                  }
-                }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
-                  unmount: unmount,
-                  closable: false
-                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(LoadingStack, {
-                  document: document,
-                  container: container
-                }), /*#__PURE__*/React.createElement(PoweredBy, null))))));
-              };
-            });
-            window._depayUnmountLoading = unmount;
-            return _context.abrupt("return", {
-              unmount: unmount
-            });
-
-          case 8:
-            _context.prev = 8;
-            _context.t0 = _context["catch"](2);
-            console.log('critical error', _context.t0);
-
-            if (critical != undefined) {
-              critical(_context.t0);
-            }
-
-          case 12:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, null, [[2, 8]]);
-  }));
-
-  return function Loading(_x) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-var WalletContext = /*#__PURE__*/React.createContext();
-
-var SignLoginDialog = (function (props) {
-  var _useContext = useContext(ErrorContext),
-      setError = _useContext.setError;
-
-  var _useContext2 = useContext(ConfigurationContext),
-      message = _useContext2.message,
-      endpoint = _useContext2.endpoint;
-
-  var _useContext3 = useContext(ConfigurationContext),
-      recoverSignature = _useContext3.recoverSignature;
-
-  var _useContext4 = useContext(WalletContext),
-      wallet = _useContext4.wallet,
-      account = _useContext4.account;
-
-  if (!wallet) {
-    return null;
-  }
-
-  wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
-  var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
-
-  if (typeof recoverSignature != 'function') {
-    recoverSignature = function recoverSignature(_ref) {
-      var message = _ref.message,
-          signature = _ref.signature;
-      return new Promise(function (resolve, reject) {
-        fetch(endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            message: message,
-            signature: signature
-          })
-        }).then(function (response) {
-          if (response.status == 200) {
-            response.text().then(function (account) {
-              resolve(account);
-            })["catch"](setError);
-          } else {
-            response.text().then(function (text) {
-              setError(text || 'Recovering login signature failed!');
-            });
-          }
-        });
-      });
-    };
-  }
-
-  var login = function login() {
-    var messageToSign;
-
-    if (typeof message == 'function') {
-      messageToSign = message(account);
-    } else {
-      messageToSign = message;
-    }
-
-    wallet.sign(messageToSign).then(function (signature) {
-      recoverSignature({
-        message: messageToSign,
-        signature: signature
-      }).then(function (account) {
-        props.resolve({
-          account: account,
-          wallet: wallet
-        });
-      })["catch"](setError);
-    })["catch"](function (error) {
-      if (error && error.code && error.code == 4001) ; else {
-        setError(error);
-      }
-    });
-  };
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter"
-    }, walletLogo && /*#__PURE__*/React.createElement("div", {
-      className: "GraphicWrapper PaddingTopS PaddingBottomS"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "Graphic",
-      src: walletLogo
-    })), /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL Text FontSizeL FontWeightBold PaddingTopS"
-    }, "Wallet Login"), /*#__PURE__*/React.createElement("div", {
-      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/React.createElement("p", {
-      className: "FontSizeM PaddingLeftM PaddingRightM PaddingBottomS"
-    }, "Please click \"Log in\" and sign the message with your connected wallet."))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("button", {
-      className: "ButtonPrimary",
-      onClick: login
-    }, "Log in"))
-  });
-});
-
-var LoginStack = (function (props) {
-  var _useContext = useContext(ClosableContext),
-      open = _useContext.open,
-      close = _useContext.close;
-
-  return /*#__PURE__*/React.createElement(ReactDialogStack, {
-    open: open,
-    close: close,
-    start: "SignLogin",
-    container: props.container,
-    document: props.document,
-    dialogs: {
-      SignLogin: /*#__PURE__*/React.createElement(SignLoginDialog, {
-        resolve: props.resolve,
-        userClosedDialog: props.userClosedDialog
-      })
-    }
-  });
-});
-
-var round = (function (input) {
-  var _digitsAfterDecimal;
-
-  var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'up';
-  var inputAsFloat = parseFloat(input);
-  var digitsAfterDecimal = inputAsFloat.toString().match(/\d+\.0*(\d{4})/);
-
-  if ((_digitsAfterDecimal = digitsAfterDecimal) !== null && _digitsAfterDecimal !== void 0 && _digitsAfterDecimal.length) {
-    digitsAfterDecimal = digitsAfterDecimal[0];
-    var focus = digitsAfterDecimal.match(/\d{4}$/)[0];
-
-    var _float;
-
-    var focusToFixed;
-
-    if (focus.match(/^0/)) {
-      if (direction == 'up') {
-        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]).concat(focus[3]));
-      } else {
-        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]).concat(focus[3]));
-      }
-
-      focusToFixed = parseFloat(_float).toFixed(2);
-      focusToFixed = "0".concat(focusToFixed).replace('.', '');
-    } else {
-      if (direction == 'up') {
-        _float = parseFloat("".concat(focus[0], ".").concat(focus[1]).concat(focus[2], "9"));
-      } else {
-        _float = parseFloat("".concat(focus[0], ".").concat(focus[1]).concat(focus[2], "1"));
-      }
-
-      focusToFixed = parseFloat(_float).toFixed(2).replace('.', '');
-    }
-
-    if (focusToFixed == '0999' && parseInt(inputAsFloat.toFixed(0)) == 0) {
-      focusToFixed = direction == 'up' ? '1000' : '0999';
-      return parseFloat(digitsAfterDecimal.replace(/\d{4}$/, focusToFixed));
-    } else if (focusToFixed == '1000' && parseInt(inputAsFloat.toFixed(0)) == 0) {
-      return parseFloat(digitsAfterDecimal.replace(/\d{5}$/, focusToFixed));
-    } else if (focusToFixed.toString()[0] != "0" && focusToFixed.toString().length > 3) {
-      return parseInt(inputAsFloat.toFixed(0));
-    } else {
-      return parseFloat(digitsAfterDecimal.replace(/\d{4}$/, focusToFixed));
-    }
-  } else {
-    return parseFloat(inputAsFloat.toFixed(3));
-  }
-});
-
-var format = (function (input) {
-  var _float = round(input);
-
-  var floatToString = _float.toString();
-
-  if (new RegExp(/\./).test(floatToString)) {
-    var exploded = floatToString.split('.');
-    return new Intl.NumberFormat().format(parseInt(exploded[0])) + '.' + exploded[1];
-  } else {
-    return new Intl.NumberFormat().format(_float);
-  }
-});
-
-var PaymentBlockchainsDialog = (function () {
-  var _useContext = useContext(ConfigurationContext),
-      accept = _useContext.accept;
-
-  var _useContext2 = useContext(NavigateStackContext),
-      navigate = _useContext2.navigate;
-
-  var blockchains = _toConsumableArray(new Set(accept.map(function (configuration) {
-    return configuration.blockchain;
-  }))).map(function (blockchainName) {
-    return Blockchains[blockchainName];
-  });
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    stacked: true,
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Available blockchains"))),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "MaxHeight PaddingTopM PaddingBottomM"
-    }, blockchains.map(function (blockchain, index) {
-      return /*#__PURE__*/React.createElement("div", {
-        key: index,
-        className: "Card Row"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement("img", {
-        className: "transparent",
-        src: blockchain.logo
-      })), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("span", {
-        className: "CardText"
-      }, blockchain.label)));
-    })),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("button", {
-      type: "button",
-      className: "ButtonPrimary",
-      onClick: function onClick() {
-        return navigate('back');
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "FontSizeM"
-    }, "\u276E"), " Go back"))
-  });
-});
-
-var WalletMissesBlockchainSupportDialog = (function (props) {
-  var _useContext = useContext(NavigateStackContext),
-      navigate = _useContext.navigate;
-
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
-    }),
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "GraphicWrapper"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "Graphic",
-      src: QuestionsGraphic
-    })), /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-    }, "Wallet Misses Blockchain Support"), /*#__PURE__*/React.createElement("div", {
-      className: "Text PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React.createElement("strong", {
-      className: "FontSizeM"
-    }, "The connected wallet does not support the blockchains required by this payment. Try to connect another wallet that does support one of the available blockchains.")), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("button", {
-      onClick: function onClick() {
-        return navigate('PaymentBlockchains');
-      },
-      className: "Link FontSizeM",
-      title: "Check which blockchains are available"
-    }, "Check available blockchains"))),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("button", {
-      className: "ButtonPrimary",
-      onClick: function onClick() {
-        return props.disconnect();
-      }
-    }, "Connect another wallet"))
-  });
-});
 
 /**
  * @license
@@ -23099,6 +21985,2198 @@ var lodash = createCommonjsModule(function (module, exports) {
     root._ = _;
   }
 }.call(commonjsGlobal));
+});
+
+var KEY = '_DePayConnectDialogPreviouslyConnectedWallet';
+
+var set = function set(value) {
+  localStorage[KEY] = value;
+};
+
+var get = function get() {
+  return localStorage[KEY];
+};
+
+var ConnectWalletDialog = (function (props) {
+  var _props$wallet, _props$platform8, _props$platform9, _props$platform10;
+
+  var QRCodeElement = React.useRef();
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      extensionIsAvailable = _useState2[0],
+      setExtensionIsAvailable = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      connectAppIsAvailable = _useState4[0],
+      setConnectAppIsAvailable = _useState4[1];
+
+  var _useState5 = useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      openInAppIsAvailable = _useState6[0],
+      setOpenInAppIsAvailable = _useState6[1];
+
+  var _useState7 = useState(),
+      _useState8 = _slicedToArray(_useState7, 2),
+      appIsConnected = _useState8[0],
+      setAppIsConnected = _useState8[1];
+
+  var _useState9 = useState(),
+      _useState10 = _slicedToArray(_useState9, 2);
+      _useState10[0];
+      _useState10[1];
+
+  var _useState11 = useState(false),
+      _useState12 = _slicedToArray(_useState11, 2),
+      showQRCode = _useState12[0],
+      setShowQRCode = _useState12[1];
+
+  var _useState13 = useState(false),
+      _useState14 = _slicedToArray(_useState13, 2),
+      showLinkCopied = _useState14[0],
+      setShowLinkCopied = _useState14[1];
+
+  var _useState15 = useState(),
+      _useState16 = _slicedToArray(_useState15, 2),
+      QRCode = _useState16[0],
+      setQRCode = _useState16[1];
+
+  var _useContext = useContext(NavigateStackContext);
+      _useContext.navigate;
+
+  var header = /*#__PURE__*/React.createElement("div", {
+    className: "PaddingTopS PaddingLeftM PaddingRightM"
+  }, ((_props$wallet = props.wallet) === null || _props$wallet === void 0 ? void 0 : _props$wallet.logo) && /*#__PURE__*/React.createElement("div", {
+    className: "PaddingTopXS"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "LineHeightL FontSizeL PaddingTopS"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "CardImage rounded large"
+  }, /*#__PURE__*/React.createElement("img", {
+    className: "transparent",
+    src: props.wallet.logo
+  })))));
+
+  var connectViaCopyLink = function connectViaCopyLink() {
+    var wallet = new wallets[props.platform.connect]();
+    wallet.connect({
+      name: props.wallet.name,
+      logo: props.wallet.logo,
+      reconnect: true,
+      connect: function connect(_ref) {
+        var uri = _ref.uri;
+        copy(uri);
+        setShowLinkCopied(true);
+        setTimeout(function () {
+          return setShowLinkCopied(false);
+        }, 3000);
+      }
+    }).then(function (account) {
+      props.resolve(account, wallet);
+    });
+  };
+
+  var connectViaQRCode = useCallback(lodash.debounce(function () {
+    var _props$platform4;
+
+    switch ((_props$platform4 = props.platform) === null || _props$platform4 === void 0 ? void 0 : _props$platform4.qr) {
+      case 'WalletConnectV1':
+        if (QRCode == undefined) {
+          var _wallet = new wallets[props.platform.qr]();
+
+          _wallet.connect({
+            name: props.wallet.name,
+            logo: props.wallet.logo,
+            reconnect: true,
+            connect: function connect(_ref2) {
+              var uri = _ref2.uri;
+              var newQRCode = new QRCodeStyling({
+                width: 340,
+                height: 340,
+                type: "svg",
+                dotsOptions: {
+                  type: "extra-rounded"
+                },
+                cornersSquareOptions: {
+                  type: 'rounded'
+                },
+                backgroundOptions: {
+                  color: "transparent"
+                }
+              });
+              newQRCode.update({
+                data: uri
+              });
+              setQRCode(newQRCode);
+            }
+          }).then(function (account) {
+            props.resolve(account, _wallet);
+          });
+        }
+
+        break;
+
+      case 'WalletLink':
+        var wallet = new wallets[props.platform.qr]();
+        wallet.connect().then(function (account) {
+          props.resolve(account, wallet);
+        });
+        break;
+    }
+  }, 100), []);
+  useEffect(function () {
+    _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+      var _props$wallet2, _props$platform5;
+
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.t0 = setExtensionIsAvailable;
+
+              if (!((_props$wallet2 = props.wallet) !== null && _props$wallet2 !== void 0 && _props$wallet2.extension)) {
+                _context.next = 10;
+                break;
+              }
+
+              _context.next = 4;
+              return wallets[props.wallet.extension].isAvailable();
+
+            case 4:
+              _context.t2 = _context.sent;
+
+              if (_context.t2) {
+                _context.next = 7;
+                break;
+              }
+
+              _context.t2 = false;
+
+            case 7:
+              _context.t1 = _context.t2;
+              _context.next = 11;
+              break;
+
+            case 10:
+              _context.t1 = false;
+
+            case 11:
+              _context.t3 = _context.t1;
+              (0, _context.t0)(_context.t3);
+              _context.t4 = setAppIsConnected;
+
+              if (!((_props$platform5 = props.platform) !== null && _props$platform5 !== void 0 && _props$platform5.connect)) {
+                _context.next = 23;
+                break;
+              }
+
+              _context.next = 17;
+              return wallets[props.platform.connect].isAvailable();
+
+            case 17:
+              _context.t6 = _context.sent;
+
+              if (_context.t6) {
+                _context.next = 20;
+                break;
+              }
+
+              _context.t6 = false;
+
+            case 20:
+              _context.t5 = _context.t6;
+              _context.next = 24;
+              break;
+
+            case 23:
+              _context.t5 = false;
+
+            case 24:
+              _context.t7 = _context.t5;
+              (0, _context.t4)(_context.t7);
+              setConnectAppIsAvailable(!!props.platform && props.platform.connect);
+              setOpenInAppIsAvailable(!!props.platform && props.platform.open);
+
+            case 28:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  }, []);
+  useEffect(function () {
+    if (appIsConnected !== undefined) {
+      var _props$wallet3, _props$wallet3$deskto, _props$platform6;
+
+      setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && (_props$wallet3$deskto = _props$wallet3.desktop) !== null && _props$wallet3$deskto !== void 0 && _props$wallet3$deskto["native"]) && ((_props$platform6 = props.platform) === null || _props$platform6 === void 0 ? void 0 : _props$platform6.qr));
+    }
+  }, [extensionIsAvailable, appIsConnected]);
+  useEffect(function () {
+    var _props$platform7;
+
+    if (showQRCode && (_props$platform7 = props.platform) !== null && _props$platform7 !== void 0 && _props$platform7.qr) {
+      connectViaQRCode();
+    }
+  }, [showQRCode]);
+  useEffect(function () {
+    if (showQRCode && QRCode && QRCodeElement && QRCodeElement.current) {
+      QRCodeElement.current.innerHTML = "";
+      QRCode.append(QRCodeElement.current);
+    }
+  }, [QRCode]);
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    stacked: true,
+    header: header,
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftL PaddingRightL"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL Text FontSizeL FontWeightBold"
+    }, "Connect ", props.wallet.name)), !window.location.protocol.match('https') && /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftL PaddingRightL"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Alert FontSizeS"
+    }, /*#__PURE__*/React.createElement("strong", null, "Most wallets do not connect to http!"))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS"
+    }, /*#__PURE__*/React.createElement("div", {
+      ref: QRCodeElement,
+      className: "QRCode"
+    }), showQRCode && ((_props$platform8 = props.platform) === null || _props$platform8 === void 0 ? void 0 : _props$platform8.qr) !== 'WalletLink' && /*#__PURE__*/React.createElement("div", {
+      className: "Opacity05 PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("small", null, "Scan QR code with your wallet"))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftL PaddingRightL PaddingTopS"
+    }, extensionIsAvailable && /*#__PURE__*/React.createElement("div", {
+      className: "PaddingBottomXS"
+    }, props.showConnectExtensionWarning && /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Alert"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "FontWeightBold PaddingBottomXS"
+    }, "You wallet extension window is already asking to connect. It might be hidden."))), /*#__PURE__*/React.createElement("button", {
+      onClick: function onClick() {
+        return props.connectExtension(props.wallet);
+      },
+      className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "PaddingTopXS PaddingRightXS PaddingLeftS"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "transparent ",
+      title: "Connect your wallet",
+      style: {
+        height: '26px'
+      },
+      src: ExtensionImage
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftS LineHeightXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardText FontWeightMedium"
+    }, "Connect extension")))), connectAppIsAvailable && /*#__PURE__*/React.createElement("div", {
+      className: "PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("button", {
+      onClick: function onClick() {
+        return props.connectViaRedirect(props.wallet);
+      },
+      className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "PaddingTopXS PaddingRightXS PaddingLeftS"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "transparent ",
+      title: "Click to connect app",
+      style: {
+        height: '26px',
+        width: '26px',
+        borderRadius: '8px'
+      },
+      src: props.wallet.logo
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftS LineHeightXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardText FontWeightMedium"
+    }, "Connect app")))), openInAppIsAvailable && /*#__PURE__*/React.createElement("div", {
+      className: "PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("button", {
+      onClick: function onClick() {
+        return props.openInApp(props.wallet);
+      },
+      className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "PaddingTopXS PaddingRightXS PaddingLeftS"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "transparent ",
+      title: "Click to open in app",
+      style: {
+        height: '26px',
+        width: '26px',
+        borderRadius: '8px'
+      },
+      src: props.wallet.logo
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftS LineHeightXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardText FontWeightMedium"
+    }, "Open in app")))), ((_props$platform9 = props.platform) === null || _props$platform9 === void 0 ? void 0 : _props$platform9.qr) && (!showQRCode || props.platform.qr === 'WalletLink') && /*#__PURE__*/React.createElement("div", {
+      className: "PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("button", {
+      onClick: function onClick() {
+        setShowQRCode(true);
+
+        if (props.platform.qr) {
+          connectViaQRCode();
+        }
+      },
+      className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "PaddingTopXS PaddingRightXS PaddingLeftS"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "transparent ",
+      title: "Scan QR code to connect a mobile wallet",
+      style: {
+        height: '26px'
+      },
+      src: QRCodeImage
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftS LineHeightXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardText FontWeightMedium"
+    }, "Scan QR code")))), ((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.connect) && props.platform.connect === 'WalletConnectV1' && props.platform.copyLink && /*#__PURE__*/React.createElement("div", {
+      className: "PaddingBottomXS TooltipWrapper"
+    }, /*#__PURE__*/React.createElement("button", {
+      onClick: connectViaCopyLink,
+      className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "PaddingTopXS PaddingRightXS PaddingLeftS"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "transparent ",
+      title: "Copy connection link",
+      style: {
+        height: '26px'
+      },
+      src: LinkImage
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftS LineHeightXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardText FontWeightMedium"
+    }, "Copy connection link"))), showLinkCopied && /*#__PURE__*/React.createElement("div", {
+      className: "Tooltip absolute top"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "TooltipArrowDown"
+    }), "Connection link copied"))))
+  });
+});
+
+var isAndroid = function isAndroid() {
+  return navigator.userAgent.toLowerCase().includes('android');
+};
+
+var isWebView = function isWebView() {
+  var userAgentToLower = navigator.userAgent.toLowerCase();
+  return userAgentToLower.includes('webview') || userAgentToLower.includes('wv') || navigator.userAgent.toLowerCase().match(/\) mobile\//) && !userAgentToLower.includes('safari');
+};
+
+var isIOS = function isIOS() {
+  return Boolean(/iPad|iPhone|iPod/.test(navigator.userAgent) || navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+};
+
+var platformForWallet = (function (walletMetaData) {
+  var platform;
+
+  if (isMobile()) {
+    if (isAndroid()) {
+      var _walletMetaData$mobil;
+
+      platform = (_walletMetaData$mobil = walletMetaData.mobile) === null || _walletMetaData$mobil === void 0 ? void 0 : _walletMetaData$mobil.android;
+    } else if (isIOS()) {
+      var _walletMetaData$mobil2;
+
+      platform = (_walletMetaData$mobil2 = walletMetaData.mobile) === null || _walletMetaData$mobil2 === void 0 ? void 0 : _walletMetaData$mobil2.ios;
+    }
+  } else {
+    platform = walletMetaData.desktop;
+  }
+
+  return platform;
+});
+
+var PoweredBy = (function () {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "PoweredByWrapper"
+  }, /*#__PURE__*/React.createElement("a", {
+    href: 'https://depay.com',
+    rel: "noopener noreferrer",
+    target: "_blank",
+    className: "PoweredByLink"
+  }, "by DePay"));
+});
+
+var safeAppUrl = (function (href) {
+  if (!href.includes('://')) {
+    href = href.replaceAll('/', '').replaceAll(':', '');
+    href = "".concat(href, "://");
+  }
+
+  return href;
+});
+
+var safeUniversalUrl = (function (href) {
+  if (href.endsWith('/')) {
+    href = href.slice(0, -1);
+  }
+
+  return href;
+});
+
+var SelectionContext = /*#__PURE__*/React.createContext();
+
+var SelectBlockchainDialog = (function (props) {
+  var _useContext = useContext(SelectionContext),
+      setSelection = _useContext.setSelection;
+
+  var _useContext2 = useContext(NavigateStackContext),
+      navigate = _useContext2.navigate;
+
+  var stacked = props.stacked || Object.keys(props.selection).length > 1;
+  var blockchains = supported.map(function (blockchainName) {
+    return Blockchains[blockchainName];
+  });
+
+  var selectBlockchain = function selectBlockchain(blockchain) {
+    window._depay_token_selection_selected_blockchain = blockchain.name;
+    setSelection(Object.assign(props.selection, {
+      blockchain: blockchain
+    }));
+
+    if (stacked && props.navigateBack !== false) {
+      navigate('back');
+    } else {
+      props.resolve(blockchain);
+    }
+  };
+
+  var elements = blockchains.map(function (blockchain, index) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: index,
+      className: "Card Row",
+      onClick: function onClick() {
+        return selectBlockchain(blockchain);
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardImage"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "transparent",
+      src: blockchain.logo
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "CardText"
+    }, blockchain.label)));
+  });
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Select Blockchain"))),
+    stacked: stacked,
+    bodyClassName: "ScrollHeight",
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS"
+    }, elements),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
+    })
+  });
+});
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+var DropDown = (function (props) {
+  var _useState = useState(0),
+      _useState2 = _slicedToArray(_useState, 2),
+      clickCount = _useState2[0],
+      setClickCount = _useState2[1];
+
+  useEffect(function () {
+    var handleClick = function handleClick() {
+      setClickCount(clickCount + 1);
+
+      if (clickCount == 0) {
+        return;
+      }
+
+      props.hide();
+    };
+
+    window.addEventListener('click', handleClick);
+    return function () {
+      window.removeEventListener('click', handleClick);
+    };
+  }, [props.open, clickCount]);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "DropDown ".concat(props.open ? 'open' : '')
+  }, /*#__PURE__*/React.createElement("ul", null, props.items.map(function (item, index) {
+    return /*#__PURE__*/React.createElement("li", {
+      key: index
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "DropDownItem",
+      onClick: function onClick() {
+        return item.action();
+      }
+    }, item.label));
+  })));
+});
+
+var MenuIcon = (function (props) {
+  return /*#__PURE__*/React.createElement("svg", {
+    className: "MenuIcon Icon",
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    strokeWidth: "3",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }, /*#__PURE__*/React.createElement("line", {
+    x1: "11.6",
+    y1: "17.6",
+    x2: "11.6",
+    y2: "17.6"
+  }), /*#__PURE__*/React.createElement("line", {
+    x1: "11.6",
+    y1: "11.8",
+    x2: "11.6",
+    y2: "11.8"
+  }), /*#__PURE__*/React.createElement("line", {
+    x1: "11.6",
+    y1: "6.2",
+    x2: "11.6",
+    y2: "6.2"
+  }));
+});
+
+function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var SelectWalletList = (function (props) {
+  var parentElement = React.useRef();
+  var fuse = new Fuse(allWallets, {
+    keys: ['name'],
+    threshold: 0.3,
+    ignoreFieldNorm: true
+  });
+
+  var _useState = useState(allWallets),
+      _useState2 = _slicedToArray(_useState, 2),
+      resultList = _useState2[0],
+      setResultList = _useState2[1];
+
+  var rowVirtualizer = useVirtualizer({
+    count: resultList.length,
+    getScrollElement: function getScrollElement() {
+      return parentElement.current;
+    },
+    estimateSize: function estimateSize() {
+      return 61;
+    }
+  });
+  useEffect(function () {
+    var results = fuse.search(props.searchTerm).map(function (result) {
+      return result.item;
+    });
+
+    if (parentElement.current) {
+      parentElement.current.scrollTo(0, 0);
+    }
+
+    if (props.searchTerm.length) {
+      setResultList(results);
+    } else {
+      setResultList(allWallets);
+    }
+  }, [props.searchTerm]);
+  return /*#__PURE__*/React.createElement("div", {
+    ref: parentElement,
+    className: "DialogBody ScrollHeightM PaddingBottomS PaddingLeftS PaddingRightS"
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: "".concat(rowVirtualizer.getTotalSize(), "px"),
+      width: '100%',
+      position: 'relative'
+    }
+  }, rowVirtualizer.getVirtualItems().map(function (virtualItem) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: virtualItem.key,
+      style: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: "".concat(virtualItem.size, "px"),
+        transform: "translateY(".concat(virtualItem.start, "px)")
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "Card small",
+      title: "Connect ".concat(resultList[virtualItem.key].name),
+      onClick: function onClick() {
+        props.onClickWallet(_objectSpread$7({}, resultList[virtualItem.key]));
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardImage"
+    }, /*#__PURE__*/React.createElement("img", _defineProperty({
+      className: "transparent",
+      src: resultList[virtualItem.key].logo
+    }, "className", "WalletLogoS"))), /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardBodyWrapper PaddingLeftXS LineHeightXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardText"
+    }, resultList[virtualItem.key].name))))));
+  })));
+});
+
+function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var SelectWalletDialog = (function (props) {
+  var _useState = useState(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      searchTerm = _useState2[0],
+      setSearchTerm = _useState2[1];
+
+  var _useState3 = useState([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      detectedWallets = _useState4[0],
+      setDetectedWallets = _useState4[1];
+
+  var _useState5 = useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      previouslyConnectedWallet = _useState6[0],
+      setPreviouslyConnectedWallet = _useState6[1];
+
+  var _useState7 = useState(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      showDropDown = _useState8[0],
+      setShowDropDown = _useState8[1];
+
+  var _useState9 = useState(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      dialogAnimationFinished = _useState10[0],
+      setDialogAnimationFinished = _useState10[1];
+
+  var searchElement = useRef();
+
+  var _useContext = useContext(NavigateStackContext),
+      navigate = _useContext.navigate;
+
+  var onClickWallet = function onClickWallet(walletMetaData, wallet) {
+    if (walletMetaData.via == 'detected') {
+      if (walletMetaData.connectionType == 'app') {
+        wallet.account().then(function (account) {
+          if (account) {
+            props.resolve(account, wallet);
+          }
+        });
+        props.setWallet(walletMetaData);
+        navigate('ConnectWallet');
+      } else if (walletMetaData.connectionType == 'extension') {
+        props.setWallet(walletMetaData);
+        props.connectExtension(walletMetaData);
+        navigate('ConnectWallet');
+      }
+    } else {
+      var platform = platformForWallet(walletMetaData);
+
+      if (platform && platform.open) {
+        props.openInApp(walletMetaData);
+        props.setWallet(walletMetaData);
+        navigate('ConnectWallet');
+      } else {
+        props.connectViaRedirect(walletMetaData);
+        props.setWallet(walletMetaData);
+        navigate('ConnectWallet');
+      }
+    }
+  };
+
+  useEffect(function () {
+    getWallets({
+      drip: function drip(wallet) {
+        setDetectedWallets(Array.from(new Set(detectedWallets.concat(wallet))));
+      }
+    });
+    var previouslyConnectedWalletName = get();
+    var previouslyConnectedWallet = allWallets.find(function (wallet) {
+      return wallet.name == previouslyConnectedWalletName;
+    }) || allWallets.find(function (wallet) {
+      return wallet.name == previouslyConnectedWalletName;
+    });
+
+    if (previouslyConnectedWallet) {
+      setPreviouslyConnectedWallet(previouslyConnectedWallet);
+    }
+  }, []);
+  useEffect(function () {
+    setTimeout(function () {
+      setDialogAnimationFinished(true);
+
+      if (!isMobile()) {
+        if (searchElement.current) {
+          searchElement.current.click();
+          searchElement.current.focus();
+        }
+      }
+    }, 200);
+  }, []);
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Connect a wallet")), (detectedWallets && detectedWallets.length > 0 || previouslyConnectedWallet) && /*#__PURE__*/React.createElement("div", {
+      className: "PaddingBottomXS PaddingLeftS PaddingRightS"
+    }, detectedWallets.map(function (wallet, index) {
+      var walletMetaData = allWallets.find(function (walletFromList) {
+        return walletFromList.name === (wallet.info ? wallet.info.name : wallet.name);
+      });
+      var connectionType = 'app';
+
+      if (wallet && wallet.constructor && ![wallets.WalletConnectV1, wallets.WalletLink].includes(wallet.constructor)) {
+        connectionType = 'extension';
+      }
+
+      return /*#__PURE__*/React.createElement("div", {
+        key: index,
+        className: "PaddingBottomXS"
+      }, /*#__PURE__*/React.createElement("button", {
+        type: "button",
+        className: "Card small",
+        title: "Connect ".concat(walletMetaData.name),
+        onClick: function onClick() {
+          onClickWallet(_objectSpread$6(_objectSpread$6({}, walletMetaData), {}, {
+            via: 'detected',
+            connectionType: connectionType
+          }), wallet);
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("img", _defineProperty({
+        className: "transparent",
+        src: walletMetaData.logo
+      }, "className", "WalletLogoS"))), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper PaddingLeftXS LineHeightXS"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardText FontWeightMedium"
+      }, walletMetaData.name), /*#__PURE__*/React.createElement("div", {
+        className: "LightGreen"
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "LightGreen",
+        style: {
+          fontSize: '70%',
+          top: '-1px',
+          position: 'relative'
+        }
+      }, "\u25CF"), " Connect detected ", connectionType)))));
+    }), previouslyConnectedWallet && !detectedWallets.find(function (wallet) {
+      return previouslyConnectedWallet.name === (wallet.info ? wallet.info.name : wallet.name);
+    }) && /*#__PURE__*/React.createElement("div", {
+      className: "PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "Card small",
+      title: "Connect ".concat(previouslyConnectedWallet.name),
+      onClick: function onClick() {
+        onClickWallet(_objectSpread$6(_objectSpread$6({}, previouslyConnectedWallet), {}, {
+          via: 'previouslyConnected',
+          connectionType: 'app'
+        }));
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardImage"
+    }, /*#__PURE__*/React.createElement("img", _defineProperty({
+      className: "transparent",
+      src: previouslyConnectedWallet.logo
+    }, "className", "WalletLogoS"))), /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardBodyWrapper PaddingLeftXS LineHeightXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardText FontWeightMedium"
+    }, previouslyConnectedWallet.name), /*#__PURE__*/React.createElement("div", {
+      className: "Opacity05"
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: '70%',
+        top: '-1px',
+        position: 'relative'
+      }
+    }, "\u25CF"), " Previously connected")))))), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingBottomXS PaddingLeftS PaddingRightS PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Row"
+    }, /*#__PURE__*/React.createElement("input", {
+      className: "Search",
+      value: searchTerm,
+      onChange: function onChange(event) {
+        setSearchTerm(event.target.value);
+      },
+      placeholder: "Search by name",
+      ref: searchElement
+    })))),
+    alternativeHeaderAction: /*#__PURE__*/React.createElement("span", {
+      className: "DropDownWrapper"
+    }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: function onClick() {
+        return setShowDropDown(!showDropDown);
+      },
+      className: "ButtonCircular",
+      title: "More options"
+    }, /*#__PURE__*/React.createElement(MenuIcon, null)), showDropDown && /*#__PURE__*/React.createElement(DropDown, {
+      hide: function hide() {
+        return setShowDropDown(false);
+      },
+      items: [{
+        label: "What is a wallet?",
+        action: function action() {
+          navigate('WhatIsAWallet');
+        }
+      }]
+    })),
+    bodyClassName: "PaddingBottomXS",
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "ScrollHeightM PaddingTopXS"
+    }, dialogAnimationFinished && /*#__PURE__*/React.createElement(SelectWalletList, {
+      setWallet: props.setWallet,
+      searchTerm: searchTerm,
+      onClickWallet: onClickWallet
+    })),
+    hideFooter: true
+  });
+});
+
+var QuestionsGraphic = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAHQCAMAAADgcCJ6AAAAXVBMVEVHcEwiGxq6jYEwExPTf2RKx+4uEhLSf2PSfmMvEhJKx+7UgWYvEhIvEhJOJyJrOzGHTkCdX023Y07Ab1bOd1/SgGPXhWhKx+7gm3roq5j/u6nx3mbu1MT37OL///+EeM1aAAAADXRSTlMADSZMUmqDg6y4udfdNJi0SgAAHCNJREFUeNrsndl6qjAUhU1KBIM4hej7v2lBxSBTgATF7PXflc+eVtfaY6BnAwAAAAAAAAAAAAAAAOBH4ELKW4GUgm8AMQr1bzXgAVpU6r97YANowO/ywwJUMfK3LYBCEDz8NgiSQOCImwW5AQFT6A8HEOapP6oAUQr94QDCiNtI2AYECHvKizaAKPI2GqwDAqRYACAFUKboAJACKPOUFoMAUXhvuhdCogaEjxg8AOQSNSBwhCXTC9SAsBG2w1+BGhA0oq0/a7wCBggZYV34MhggZLh91H9rBDcgMFr9HwxAi2aTBwMQg1nnfIkeIGiEbcxHExg4Ylh/gUVQ6HBpFgBtJAwQPlwIwXryA+4KIw3HJpg2EmdBpCkKALYAhMFhMG3EDQmAMgJ3BJJG4IZA0gg8GUYaiWcCKMMkHgmgDIf+pBF4JIg00J82EvpThkF/0nA8Ekwajr8SShqBB8JJg/afNhzpnzQc4U8a6E8c2Uj/OP2lBW7/o43A4T9tkP5pI7H8IQ2H/rTB34BYEYxzHjXgfNGqzKH/dykVj+MkSdM07ydNkySOogUadIn+/xtUqudTSZPYqw045v8PUkR7qbouuPajS4ZtULhg4wcB/ReHl8GepoXo07DYIPViAjQAi8CKFP+o6/rqyKALkoh5qwBIAM7pvdLcWfQpJkgiPxUACWAG/uLczjIekJgAZlX0ZIk4d/BAOrMUMCSA8ap/KNLneiCeE8ICCWAoPKLorvp1VXi1gEAC6A72FcT6AP0WmFoIJEYAM7fFydqCfUYaiCcagPqfgCpk/yXdRzggjSYZgGgCKMP9J3WvoS59QyGbYABaHQD/rTxv43xSrklA0hgB7vuaYHQ35MfjxS0J8LCfAQpVeMP50G2BlI/+jEJUP3zha0kg67aAj5PCn2Pts5xSlwcqr0moSvLZe4dTlh2V+0D426ww5B8HeIUyuta3G9RLf3Mpn/eTLocsO3U1AhsClHP8GkM+r4mtK0tc6rzkq7ti5g8rHHA4dzhg0ZtJv8yqkv3zuF6bC12y5k0DtF2ha//klJ9/zIo60NEKhuiAQvl1ZXut+vO6udp2hckAPcliSl9QOuBwCdsBbAV1XufqQd4d7PmQAa7q7Vr10qFXKj3FAdnJ5oD2fxf2Ew7h31e+3cW9rlmzvfn+l33y69vFrgQw1QKnrLMMpP0nwXL9pwBfDPoy1isJOrXOhy6aq6r6dvvRTl9WmZIDDmrsLCDWfRD87aDvDGFlzfb6XdLJw73TaHDMSi7jHCBW+zjQ56XXyhLsun7RR7oe8StNNYBxwHnURkiu8HkA9nHpTQjbe/P2K839Ofey7k39xiIhH2+bw90BpzFb4YlPhLK/giUbRh59RvtCrCfXPq3bF9tNYDEFLE7RhUxdDuU9DuBOBmDbXfZgv/vbLACPk+tnyDunc1u51+9Pa33ydnBdXy4pe0N5yTodkAwaQFjkz+rsfKeBKF4w8h8bOvP1hF3sM/zUJ2J93HsZVQ9OD5nO1jZAjmwC/7IGe59JIFow9HVtvB4O9iW6OP+ocb/isdsBvP+JEDGsfxtfDuBLxn7nyZvuC/ZHrHtu4zxjKpK9EWxPg2n74x+p/1IO8B78WrdOY9rZ/jeC3eLofEwbcFC2IsCElNKyBdplnbj3AZHX4Ldle9Ucr9dT2Se8ybG7wdPTAa0iMJ2/rJvdquQfyvbtD+yjTbxXam9pVBE4NovAdMoBwH8R4O7yP2ax4dbO+Uab1aFNnhtTBLKz802C22yBFBC7bshUcz/Xk+2VWmBB912qtzpuEsgabQBzMsB+t9ubr74V/tZNTijRPpgElO1TyjrbgNihB9iy+9cvC7DvhH/3JoeO/o8MaH+T56dMJ9c+cNdY/7G9kwFYMu8hSN1zq5252/oH5viPcqiKwPzbhI3g+207J7BPpH/9OhHLCWZ7B0wKOLqmgE3zELAywPL6a0U92/tIAWffTwrsZxuAO0z3l0YTpHLIXyZIbR0FD84p4B1WZYDF9W/0e6BzIMqtKeDk93GxbWWAhfSvWRrlfhjLJ3PJOvvAd+Fmz4X7Jer/Y8WTB7zK80nVD2tbCjh6TAHb11pg6nemdvV7bsDDcDdcItXQINA+GE5dwn9vjgM973/yeroP4Nzmn70zW05eB4Jw7KQIKTCLZKkMP877P+ZhV0LskY1nRuJUf7e5y7Q13aMFDUJEji4BLM8GvH9V1bMLwIfvAfF++hJgyG3hE2Z6EnyfLavAF7cBrGH4n6COfDGuurKemASL2XLaudD5GAFg1R/dBGKbgpWdYAPDmfCw/jM3gKNW4fclgoDtXAIW48o//VBwMSQBwu8/Qz0wCVb2ORtYfFWPzAqZHWCH4gtMA+9JcBOxgUOvBMwUtgDAyM1yR/y16twReO7zX86uiz+3AwRy3G3gdnQPKJa/jP/128cC8FpsO23gfFD9J3/6PGfAwCSqThs4pv5T7wN7kJJ1sIGjesAXU/nfPjxIybbTBn5G/T/H/Y8z0++AgCE4N6YHLIYd+1lOvwIIC6jCaRxgx/SAMrLtz1V/WEAVnDlRs/WAgq3+6AAq1MSeUN3ZA+a0ANjqjw6ggqW2hVedPSDSApbVjKP+6AA6OOpw2ObeA1jOBWEMnCPUtrANPYDtbCimQJlB9oDqxnaACShYX4PEFEiJmuoB6879gJ4BEM/0BxZAG3NhqgkouJ6AggVQxg4yASZmAt5vh/6YwBRAjSCAv1RdQXCuIABMAfSogweYYAKKJWsLgAdUxFlbxy6IVNHtgOKL8y1geMA8MMEExEdBBdfnDw+YDS6YAN1REDxgJqzuJoDpmjAE8FqsOycBb+J4kAfb6oblfC4IKfBVsGE7QHNDcGgKbHb7w37ngRzVjbWmCxwmgN3h+8LBAz95IGwd6QJXk1+KYB4D7NrvO23jweQNAUu6wErTBX7GF/9z+QPoA0L7AcEFGkUXOI9+/seaQwF8mDM2Gxc4H1p/dAEergLIxgUuIuv/r9LDCU7HXMjGBS4G9H80AUbCqRDCBSoOg2kB3NLfYxPwQOBoaNgRtnoxIGoAsATwUvcLYBtcoF4M8BTnBgAXwIrrF4ANO8J6McAT7L978eBZ7JAYkIcAvvtBEpzYA2o6BujlwFEOILD3gP+dgBAD9HJgxAHABEjgXOxgqNXKgUV0BoQgqMePGKCVAwt6BgAXqMqPGKCVAwuyA8AF6uL0Y0AR6wAYBWmiHwOK/iEABKCPvgBK0gIgByqjnwNL0gIgByoTcqBRyoFl/xgQAhDDnQ+GZpEDy94xIAQgx+VgaBY5EAJIgDNnXA45sOwNARCAGGFHmIgBqQVwgADEuArA5pADIYAE3ASQQw6EAFJwFUAO+4Fl/xgAgyAxzIUcciCxAmAULIbtFYAJORAC+P/SL4A65ECdQQAlAGwHS3F1gTmcC6UEgAMhYlxHgRkMAqhBEI6EieFOCnD0fqDOIKB/FIwUKIpzsQ1hqzIIKHEgKC9+bAinFYCHB0zCj0GAyiSIOBACC5AC7UEAcSQMFiAF2oOAsv9iGCxAErIRgEcHSILyIKAkbgZhJygFK91BQEncDUQGEOR8LjSDSVCJ90HS0H8iQHcSRAlgh30AMdyQEwGpBeBbRAApanPGJZ8EkQJo0ACk6H8rzJ4TwGq92Zg71jL+SFRcAIE9IqAQfQJwtd1stuYvc6EkWHqSAx4KluEqAOucq4/YE4ZmLjINKj1Ni+9fAFdb8wQSYbCM/lgA+j8f7vStm+cRCAOlj3H4UX4s/xM4fvWT4VdA6aM0Fwm0e5T/eRxD9UW6QDnsF8N2KH4O5T/CHQbws4EK8JX/CPNEAAIQxxlWmG0ABCBNbZjhHQcUHojCXn/mJQACkIW//sxLAAQgikT9eaMgBCAJs/+78cYIBCAJa/4TmgV4IIZIA+DuAR5IIdQAmHuAH8gO4+BMGgBzDvCB+H4Q7gOMwYjB2QP8AA44EJqRA2CeBQ34/FscCWFfAKzzTdN4Z5ObAB+lxbUwbgvo/wVcYhOwiK7/uBbA3AEu5Q+4pJOARcz941w4bwaw//5iE7rARcQA4G4wrwU41p9BAYwucB5pALgbyGoBjvXnUICaABpcDmS1AKH+jySLAXP6bhhuB7JagKZXAE0qAXzSERAvxHAKwJ1KzdIE+I6G0gLACyGsHvBe7UN7/IweFJBoEPBJWgA8EsYpgLsDaK+t9PcSkKEAdngkijMENKH+F34JwKcRwAcpADwSxCmAW6lv/8YHBWQogD0EICCA9nUEgBWAUwD2QQCPLsAmEUAJAUjQJYD6UQAPScAmiYElmQIgAMYUUDOuAG98eAoIgFEA9jYEeCEBtIiB/AJgSAH/sXetvY3jMDC9HoorttaLkpAEzf7/n3lxXnQcR7ZjUpSSzLdboOjecizNjCiKcm7gn6QIeAdBhFFwLwfqJ0Eyp4FpAsT3rFhCAqyvGNAPg9cyDSEjBPh9HwbRHQcHPAu4fP8IkGkJG2sIeEsAOh942ANIOgLoYoAxAsTt+zCQTAW6mKh/kGkHaE+D0ti9TSCZCHBECwClBhwlwPqtAMhEgAOafhBKDbj6N45g8/weMFitlVJaWx+pENycniAv1A6CBEhg8+T1B90gtItEgGEGLBcAtBJgAgHi5pnrH3RzDQWRBN5NZgCIXQuZOClwvXva1wJANTcwkQRuGLDuNwSD3M3AyVOC1r+73e4Jp4W7Zgg6UsC7KRRYS94Le/khMdA0jAxI3Q5fr9vir4P8tODVn/iy8Kf1n2kX4BkRQb0AvDIBdHMXJGbAMYDyJPiI/+Krwvbkv+r+RyQAxxJAqwBfmwBXBW+97s4SbwL0g8IozwEvWfCLwjUIfb6sQ7sEkI8KJBcAxREAjN7DWKI0ZqICULvLSWdzho0EIN4ESE+BMAosBmA6NTEh8qJB/Pl7gaK1gqSbAEv9yyFAP5RVJN/gpB3gFwmAHIwkIGQAx/pf0Ksx7taUK7rDuVuYBrFDAqAOpPnldDKAqf6lEOD4D890MDMEfWcFoBUBdAzgWf+LyYJtMww+Bug7GoCaADQMAM+1AJQRBZ435Iy7gO7+Fux3JE4CiN6NBP/cBAiqaVjPZcZyYHPud6Q+DyBRguA9JwEKiAKv9b/Sez6Qr8RDIhChfw9JIPmBEEEeAP4APg0gTwC4KcWvpY3kRlQH0o6LeQEeLz83AeSjQD2wGG94CjEkO/LoT+8egPGenwDiSZAflGOWeQkIzTCIg6AFFDCqaV6CAKZBYAPqjutTvF53sqpPD24ibFv9Jg8BxJOgbiX+IjSHGktFD4wS4IIwgQNwbFTPRgDxxyNVdwdAaM5v8fh7U+A7iwrewx5DlQfvQ/s3y0oA6SgwNHdWAGYRcNx6WLsCRxEuwD/LTwDhJAiawVR+xyjHxpcAxbcAzPqLQQ4CCAcBcLXzogvgJwDkVgBvAoyVAW3AhtOQnWFzWoByCSCcBPnet/f3JpSdnbpZo9WkhhJTZP1zE0A6CGh60KZ3NjA9aWkrP+tA15ZY/6hfiwCqWRjJ7MuuFRZ+FnNAFbb/XxPA5SCAdBKkm0WRTLj/8/4BN6jZOhCGXGARBJBOgmyThn/4x6fVMliFvcgZy39oE4ACCCCdBMUmCRXT0KM/OY7grDHW5TX/3rXwBRBAOAmKZlEor3Id6FIDXAuYQADejiDxICD65AIwXUIs28zXe2QdgeGKIYBwEJBeAuxjDeUGZhV/sz1js8nFgjcBEIuaQvVNc9fMq4XrbQ9ZKBDKIYB0EBAjLDqUsVod7ve3t0oTtU+VX4ACBRFAOgjYA3JfCxiuP4J/Ht4kAkAWAkgHAS1AFVX/7ZZ9JvqJAL4AAogHAS28vt3/+X35of5Ca8A8AjDMBiknCDjCqpzXw4/YniChA9wBYUgT5yaAdBCAag6//hzlj3v3J7cEeNcilkAAeR94AViTMZTdthBTAS0DQpoAPg8B5H2gDNayBEBMIAD9fLiyCcC9Ab8JUFgQMBTLsoeybwKU5ANP1c8pxNZbSRE4gQDKX7BiRRk+cF/+vGYslLkACBCgDB+4WfYhurYjVNtAtARwMm8EzS0B6IdEl+cDly3FmCWbQMEAwfojAfQrEWDZt2gbhILlDJCsf8T/kwwDQkrxgct2Y/vwIdJ6I6X/wDkII9dllctDAHkfuFmUykOij2w6BbLZz04SHEZvS2Y4DCzBB24XEUAtvNyx3mSuPh4GjtLZ8CfBBfjAZY7cLugIR+TtCU20A7jeqTh/DiTvAzcLVgAPqrqW8Bg9EmCMzzoDAaRtwDaJdBdBgRf8p08PDUkCqBMDuHMgeQI8fDBvREe88BDAoAs8M4A5BpD3gUkCpBbSQkc8jMMdkexzV96fGbBihrQPfDSTtbJDnhYTAJIE0P7CgK8VM6IwNon6PzEBfNLUGp+PAdI+MG4ecgCW9elPTrgDQpIA1ncY8LlihbQPvMOATUwDsk36pQbc3QFiryUUsjBA2gagDpiXyapKNeCRASEtbP0eyIAf6nfDi7IBmMjOy2RtlaMBkgNi3E03wOlPvleMkLYByIEDpqeyqtIFIMnpfjfAJ78QLOF+INm1UtlBr5FqWoLxZ3x88csAcRtA9/QH53ODGaDRBGA70De7DJC3AVQXiyuvP25q3ZvBHz/cm0ABNoDmYnGGO8WsCBciX10LO8kAviWgCBuwfBfQlX/+McKtBFi1+GZ2AjUTQJ0GQ9lqqu99GDUB9roh9INZB1ZrA2I0lbQAINweMKYB+xeDv446cMWFam0A8L4swwBwLXxaA2IKcN73mXVgtTZA1RP+3R0PhQgDO8AJn7xLQK02wFRy/osAl1gB3IAHOOObVQVUqgJtdeFfcEeEZA6oOx4gzxJQJwGglvP/mwUA0hIAhubD/XAuAVXaAK+q2wCCS+0A/mYB+GeF+GLNAiq0AUFV5wCid0ekUwA3eCv0gzUOrM8GBJVtoigdkhIw6iEJiPjmdIKyNgDggfpX1P6RfCcCMXAQ2MUn5x4gqQKDnv8dg6rlFtDQreDkDqDvjgfk3AMkm4LMfCvn6qz/cQnw6RzY9ReAPFFAlIOa3cllqrkBcINw9yQo3FkAEJ+cIkDQBuiZxfS6mlugD6RaicEwH5xZkKANgHmfs63nFvAD34FNTYf8YRQBkjbAznjrC1Q9F4BmweMGcHcuzBejCJC0AdFMfSYA9NN0/w1LYbgowPY7zykCJG1A91K0Sz7zWm/3H4q/lAS0fQWYMQmIojD4ZVs/nKLr3C+KUAKfCk5tg2bksdgPTgII2oCbYY/Ghev4xOjcDwqRImAbUMoLaz+8ASB+GG2ApArsd/ifXwLcQ+vTn1fc/BvcEZDmv0rPh8coaMUCURXYIphmClR14j+4cQIoFICpyZBfjD5QVgWixr9G9V//Hu4Mn5RAriMAJAggrAKnUECZmo5+z4DxBSCgAeicAWQOAqRV4MXr3eGArrL6MfoJG4C5qn9iLuQnJwEEw+CB1x8axF4O1nPt5wYwXn841B8FoBABpG1ADwEO3hnq/O4RfrT+UV3XX4oABajAZ0QYjQBM47r1FyNAESrwCeGdg5AMQKBbf0EClCMCXgr6qv6SBChMBLwIrO/qf1ECvEUAGYIHB3EKwHcPAGQJUEgSUD8Cdn+PM2Ug/xMKgt4igAjgTghxFMNPxMtEwQWcBz0DvLvAxzF0t/8CCPA2gsvhHSJM3gD+69dU4Dj4vQf8397ZNrkJQlE4aMbEUbudAPn/P7Wyur2asAjyajxPv20bs9NzOPcCikF4OASApPi3gdWxTwpCDfBG7tD/Xlmp3w5D9HOjD3lMQFmQ/Jb6d3bdXz8QbbwmADXgGWQKIKSt/jcbMVk7/BD52GDUgD1rPnw55+d2G5j26T+dFZzIAagBjgja7neC5LfTP5kDUAP2zvmeLlDxt538E3HfH4Ea4Ky/uwGkGv0k/xavARDznAjsBzh3/O4lQFrKT48DpYwA7AmbkVJvAOkQ/7ex9nsbINZyENpA4x6vgr/f8C3sL9JdXcO7HV6Ie3Y8ImCj36dFHjmrL5/WGBp/wywgqQFwW4gW/iCE4d0PZvl3pnKbsglABOgQvzZ8cUf/TJvSAIgAWqqVWgPIxPKPSwEpDYAIeErOSes3A4inO2rVJ7ABYvUAmAhI/p729Ih3BvkvlzqpAc4eAdpyLwXnqiTkkH80QLp1gBMuB0qxKvcyQL+34O4v/0jKFuBUfaAU/H12r633yTv/FU2yvYBzFQGhG+zB9O9uwVRiSQNg/L4PLQJSilUhfyxZu4JzIQvI/pcISHBf4MQ13BGIpbBIe6lL+6CHT4VVf3JAmrsCqQi4nX9QvAvEg+Axyv1S/Rj61H2q/J+4u94GXdJZHlLwCWFOex7+t4+jvoI17ff8r4n1BXvmgiLOGAq3kiPMac9HvKv9ousLnvyvJmCJ1FdzQRsH8JdJMymQ6IAfyX++S+pXcuLM7rVDP9CUrxhsVgPk1n82f9tfkR5a89f2nD9sBzuPqf/99mnikwNc4tZYF+hfcqGr1lKzGcP5i9amNp4btm4p7UPFfcLczwdVAZvpFTfXBa0rhNYqv8zOdVZL19vrxY/W8pUBOcBiPZ06Q/txuZXWpCC3vij9lPPQw/1M4nssCoutwfrQlmtJrtAbwFzulzVkJKL2n1rztVx3rQoLqgvGdnE7AaTOQK+NYcCp3Bbd53X7G1T3/SvvUn9b7UPqtObGLZqn4DzMIr2H9udI/XjPi0khqOEnWSf4+9QgxUKCdeifbeAvYad+ZvTc2s9UH7o/bKaD9sT1XBYYe71z1ntYAMP+tBaA9Ge1gFIe0kdfFiiQUXkMemfY8WNA8g7K+1DdjumBTg35rz9xH6w6Cex6oFrQ3b+rfJITt8/E9Va0CbpZ97XYbfQn685FdbuXVQ5UzCvZf6vwfZIHK85Fdc3sglF0pTqNdgPp7qw/G6MNEvqg+xG9Wome+71LQBlBOeHedYHM0CmtFeNV/359ff2pX+MdBigWVlWjH0ZuS+4zy59dl1TfvD8FwfzVayK/dQVExb+AYxJwaFrvFh6TgEPjHeDMP0NARryX8dADHhtv/bwdBLLineDoAQ/O1MPl+zzIzDSC8yUIyMxcw7P1ECAzngrW6AEPzpzh2dYRQG4GRZtvJRFkZuoC8+0lgMxMIZ6ngIACmLvADB8GRTBrmGUSCUpgSvEcDQQogmkxN/1nQSG0gwI94GmZ63jy/gFkpW7avm/bhpGKu72jDl5XV2tghaPQ9PSyjMkAzf4esG7p3WuwwAFg08uTA7w0p/8WfUj88hXgyBjRa/ohzHsT2UAsHKC4wAcFwPS0gw7mfu160DvgPynfxwHM4hPNoKW2VMvuSgwuyAoz0A9aGqNc7GITJRQB8EBWTPrXg8EAZswGIMa/ggdywvYYoHU3QD/oqeGAvLAyEwAWSIVZNrthSzi3kz0MkJkN2UIFwG8R0MAAmXGWrZ81CxICDYMBMrOlWt2u1Tem//bF+lUvWTMYIDsWso37d2ozcBQ/AHUzXU5dDfoXAfPm8v0nwIWgfx6Cy8QukP9gOI/5KJeF9HmJqJAhEy7YEC6LtTzYsgcAAAAAAAAAAAAAAAAAAAAAAAD0/AOU5ijBfZTOtQAAAABJRU5ErkJggg==";
+
+var WhatIsAWalletDialog = (function (props) {
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    stacked: true,
+    header: /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextCenter"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "What is a wallet?"))),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter PaddingLeftL PaddingRightL PaddingTopS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "GraphicWrapper"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "Graphic",
+      src: QuestionsGraphic
+    })), /*#__PURE__*/React.createElement("p", {
+      className: "FontSizeM PaddingTopS PaddingLeftM PaddingRightM"
+    }, "Wallets are used to send, receive, and store digital assets. Wallets come in many forms. They are either built into your browser, an extension added to your browser, a piece of hardware plugged into your computer or even an app on your phone."), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS"
+    }, /*#__PURE__*/React.createElement("a", {
+      className: "Link FontSizeM",
+      href: "https://ethereum.org/wallets/",
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }, "Learn more")))
+  });
+});
+
+var ConnectStack = (function (props) {
+  var _useContext = useContext(ClosableContext),
+      open = _useContext.open,
+      close = _useContext.close;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      wallet = _useState2[0],
+      _setWallet = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      platform = _useState4[0],
+      setPlatform = _useState4[1];
+
+  var _useState5 = useState({
+    blockchain: undefined
+  }),
+      _useState6 = _slicedToArray(_useState5, 2),
+      selection = _useState6[0];
+      _useState6[1];
+
+  var _useState7 = useState(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      showConnectExtensionWarning = _useState8[0],
+      setShowConnectExtensionWarning = _useState8[1];
+
+  var resolve = function resolve(account, wallet) {
+    if (account && wallet) {
+      var walletMeta = allWallets.find(function (walletMeta) {
+        return walletMeta.extension == wallet.name;
+      }) || allWallets.find(function (walletMeta) {
+        return walletMeta.name == wallet.name;
+      });
+      set(walletMeta.name);
+      if (props.autoClose) close();
+      if (props.resolve) props.resolve({
+        account: account,
+        wallet: wallet
+      });
+    }
+  };
+
+  var connectExtension = function connectExtension(wallet) {
+    setShowConnectExtensionWarning(false);
+    wallet = new wallets[wallet.extension]();
+    wallet.connect().then(function (account) {
+      resolve(account, wallet);
+    })["catch"](function (error) {
+      if ((error === null || error === void 0 ? void 0 : error.code) == -32002) {
+        // Request of type 'wallet_requestPermissions' already pending...
+        setShowConnectExtensionWarning(true);
+      }
+    });
+  };
+
+  var openUniversalLink = function openUniversalLink(platform, uri, name) {
+    if (!platform.universal) {
+      return;
+    }
+
+    var href = safeUniversalUrl(platform.universal);
+    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
+      href: href,
+      name: name
+    }));
+    href = "".concat(href, "/wc?uri=").concat(encodeURIComponent(uri));
+    return window.open(href, '_self', 'noreferrer noopener');
+  };
+
+  var openNativeLink = function openNativeLink(platform, uri, name) {
+    if (!platform["native"]) {
+      return;
+    }
+
+    var href = safeAppUrl(platform["native"]);
+    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
+      href: href,
+      name: name
+    }));
+
+    if (platform.encoded !== false) {
+      href = "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
+    } else {
+      href = "".concat(href, "wc?uri=").concat(uri);
+    }
+
+    return window.open(href, '_self', 'noreferrer noopener');
+  };
+
+  var openWcLink = function openWcLink(platform, uri, name) {
+    var href = 'wc://';
+    localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({
+      href: href,
+      name: name
+    }));
+
+    if (platform.encoded !== false) {
+      href = "".concat(href, "wc?uri=").concat(encodeURIComponent(uri));
+    } else {
+      href = "".concat(href, "wc?uri=").concat(uri);
+    }
+
+    window.open(href, '_self', 'noreferrer noopener');
+  };
+
+  var connectViaRedirect = function connectViaRedirect(walletMetaData) {
+    var reconnect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+    var platform = platformForWallet(walletMetaData);
+
+    if (!platform) {
+      return;
+    }
+
+    if (platform.connect == 'WalletConnectV1') {
+      var _wallet = new wallets[platform.connect]();
+
+      _wallet.connect({
+        name: walletMetaData.name,
+        logo: walletMetaData.logo,
+        reconnect: reconnect,
+        connect: function connect(_ref) {
+          var uri = _ref.uri;
+          var name = isAndroid() ? 'Android' : walletMetaData.name;
+
+          if (isWebView()) {
+            if (platform.universal) {
+              openUniversalLink(platform, uri, name);
+            } else if (isAndroid()) {
+              openWcLink(platform, uri, name);
+            }
+          } else {
+            if (platform["native"]) {
+              openNativeLink(platform, uri, name);
+            } else {
+              openUniversalLink(platform, uri, name);
+            }
+          }
+        }
+      }).then(function (account) {
+        resolve(account, _wallet);
+      });
+    } else if (platform.connect == 'WalletLink') {
+      set(walletMetaData.name);
+
+      if (isAndroid() || isWebView()) {
+        // Universal Link
+        window.open("".concat(platform.universal, "?cb_url=").concat(encodeURIComponent(window.location.toString())), '_self', 'noreferrer noopener');
+      } else {
+        // iOS standalone browser -> native deeplink
+        window.open("".concat(platform["native"], "?url=").concat(encodeURIComponent(window.location.toString())), '_self', 'noreferrer noopener');
+      }
+    }
+  };
+
+  var openInApp = function openInApp(walletMetaData) {
+    var platform = platformForWallet(walletMetaData);
+
+    if (!platform || !platform.open) {
+      return;
+    }
+
+    window.open(platform.open(), '_self', 'noreferrer noopener');
+  };
+
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(ReactDialogStack, {
+    open: open,
+    close: close,
+    start: "SelectWallet",
+    container: props.container,
+    document: props.document,
+    dialogs: {
+      SelectWallet: /*#__PURE__*/React.createElement(SelectWalletDialog, {
+        setWallet: function setWallet(walletMetaData) {
+          setPlatform(platformForWallet(walletMetaData));
+
+          _setWallet(walletMetaData);
+        },
+        resolve: resolve,
+        openInApp: openInApp,
+        connectViaRedirect: connectViaRedirect,
+        connectExtension: connectExtension
+      }),
+      WhatIsAWallet: /*#__PURE__*/React.createElement(WhatIsAWalletDialog, null),
+      ConnectWallet: /*#__PURE__*/React.createElement(ConnectWalletDialog, {
+        selection: selection,
+        wallet: wallet,
+        platform: platform,
+        resolve: resolve,
+        openInApp: openInApp,
+        connectViaRedirect: connectViaRedirect,
+        connectExtension: connectExtension,
+        showConnectExtensionWarning: showConnectExtensionWarning
+      })
+    }
+  }), /*#__PURE__*/React.createElement(PoweredBy, null));
+});
+
+var ensureDocument = (function (document) {
+  if (typeof document === 'undefined') {
+    return window.document;
+  } else {
+    return document;
+  }
+});
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+var ErrorContext = /*#__PURE__*/React.createContext();
+
+var ErrorGraphic = "data:image/png;base64,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";
+
+function ReactDialogStyle (styles) {
+  let background =
+    typeof styles === 'object' && styles.background ? styles.background : 'rgba(0,0,0,0.4)';
+
+  return `
+    .ReactDialog {
+      bottom: 0;
+      display: flex;
+      height: 100%;
+      height: 100vh;
+      left: 0;
+      min-height: 100%;
+      min-height: 100vh;
+      overflow: hidden;
+      position: fixed;
+      right: 0;
+      top: 0;
+      width: 100%;
+      width: 100vw;
+    }
+
+    .ReactDialogInner {
+      align-items: center;
+      display: flex;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .ReactDialogBackground {
+      background: ${background};
+      bottom: 0;
+      display: block;
+      height: 100%;
+      left: 0;
+      opacity: 0;
+      position: fixed;
+      right: 0;
+      top: 0;
+      transition: opacity 0.4s ease;
+      width: 100%;
+    }
+
+    .ReactDialog.ReactDialogOpen .ReactDialogBackground {
+      opacity: 1;
+    }
+
+    .ReactDialogAnimation {
+      display: inline-block;
+      position: relative;
+      opacity: 0;
+      top: -17vh;
+      transition: opacity 0.4s ease, top 0.4s ease;
+    }
+
+    .ReactDialog.ReactDialogOpen .ReactDialogAnimation {
+      opacity: 1.0;
+      top: -5vh;
+    }
+  `
+}
+
+const _jsxFileName$1 = "/Users/sebastian/Work/DePay/react-dialog/src/components/Dialog.jsx";
+class Dialog extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handler = this.onKeyDown.bind(this);
+
+    this.state = {
+      open: true,
+    };
+  }
+
+  closeDialog() {
+    this.props.close();
+  }
+
+  onKeyDown(event) {
+    if (event.key === 'Escape') {
+      this.closeDialog();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.open === false && prevProps.open === true) {
+      this.setState({ open: false });
+    }
+  }
+
+  onClickBackground(event) {
+    this.closeDialog();
+  }
+
+  componentDidMount() {
+    this.setState({ open: false }, () => {
+      // make sure state is false first before opening the dialog
+      // to ensure opening is animated
+      setTimeout(() => {
+        this.setState({ open: true });
+      }, 10);
+    });
+    this.props.document.addEventListener('keydown', this.handler, true);
+  }
+
+  componentWillUnmount() {
+    this.props.document.removeEventListener('keydown', this.handler, true);
+  }
+
+  render() {
+    const classNames = ['ReactDialog', this.state.open ? 'ReactDialogOpen' : ''];
+    const style = ReactDialogStyle({ background: this.props.background });
+    return (
+      React.createElement('div', { key: this.props.dialogKey, className: classNames.join(' '), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 55}}
+        , React.createElement('style', {__self: this, __source: {fileName: _jsxFileName$1, lineNumber: 56}}, style)
+        , React.createElement('div', { className: "ReactDialogInner", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 57}}
+          , React.createElement('div', { className: "ReactDialogBackground", onClick: this.onClickBackground.bind(this), __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 58}} )
+          , this.props.children
+        )
+      )
+    )
+  }
+}
+
+const _jsxFileName = "/Users/sebastian/Work/DePay/react-dialog/src/index.jsx";
+class ReactDialog extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      open: props.open,
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.open === false && prevProps.open === true) {
+      setTimeout(() => {
+        this.setState({ open: false });
+      }, 400);
+    } else if (this.props.open === true && prevProps.open === false) {
+      this.setState({ open: true });
+    }
+  }
+
+  render() {
+    let _document = this.props.document || document;
+    let container = this.props.container || _document.body;
+    if (this.state.open) {
+      return ReactDOM.createPortal(
+        React.createElement(Dialog, {
+          background: this.props.background,
+          close: this.props.close,
+          document: _document,
+          open: this.props.open, __self: this, __source: {fileName: _jsxFileName, lineNumber: 29}}
+        
+          , this.props.children
+        ),
+        container,
+      )
+    } else {
+      // enforces unmount
+      return null
+    }
+  }
+}
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
+  _inherits(ErrorBoundary, _React$Component);
+
+  var _super = _createSuper(ErrorBoundary);
+
+  function ErrorBoundary(props) {
+    _classCallCheck(this, ErrorBoundary);
+
+    return _super.call(this, props);
+  }
+
+  _createClass(ErrorBoundary, [{
+    key: "componentDidCatch",
+    value: function componentDidCatch(error, errorInfo) {
+      if (error.error) {
+        error = error.error;
+      }
+
+      this.props.setError(error);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return this.props.children;
+    }
+  }]);
+
+  return ErrorBoundary;
+}(React.Component);
+
+var ErrorProvider = (function (props) {
+  var _useState = useState(props.error),
+      _useState2 = _slicedToArray(_useState, 2),
+      error = _useState2[0],
+      setError = _useState2[1];
+
+  var _useState3 = useState(true),
+      _useState4 = _slicedToArray(_useState3, 2),
+      open = _useState4[0],
+      setOpen = _useState4[1];
+
+  var setErrorFromChildren = function setErrorFromChildren(error) {
+    console.log(error);
+
+    if (error.error) {
+      error = error.error;
+    }
+
+    setError(error);
+
+    if (props.errorCallback) {
+      props.errorCallback(error.message || error.toString());
+    }
+  };
+
+  var close = function close() {
+    setOpen(false);
+    setTimeout(props.unmount, 300);
+  };
+
+  if (error) {
+    return /*#__PURE__*/React.createElement(ReactDialog, {
+      container: props.container,
+      close: close,
+      open: open
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Dialog ReactDialogAnimation"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "DialogHeader"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftS PaddingRightS"
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "DialogBody TextCenter"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "GraphicWrapper PaddingTopS"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "Graphic",
+      src: ErrorGraphic
+    })), /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+    }, "Oops, Something Went Wrong"), /*#__PURE__*/React.createElement("div", {
+      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/React.createElement("pre", {
+      className: "ErrorSnippetText"
+    }, error.message || error.toString())), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("strong", {
+      className: "FontSizeM PaddingTopS"
+    }, "If this keeps happening, please report it.")))), /*#__PURE__*/React.createElement("div", {
+      className: "DialogFooter"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: close
+    }, "Try again")))));
+  } else {
+    return /*#__PURE__*/React.createElement(ErrorContext.Provider, {
+      value: {
+        setError: setErrorFromChildren,
+        errorCallback: props.errorCallback
+      }
+    }, /*#__PURE__*/React.createElement(ErrorBoundary, {
+      setError: setErrorFromChildren
+    }, props.children));
+  }
+});
+
+var AlertStyle = (function (style) {
+  return "\n\n    .Alert {\n      background: rgba(0,0,0,0.08);\n      border-radius: 7px;\n      font-weight: 500;\n      padding: 8px;\n    }\n  ";
+});
+
+var BlockchainLogoStyle = (function (style) {
+  return "\n\n    .BlockchainLogo {\n      border-radius: 999px;\n    }\n\n    .BlockchainLogo.small {\n      height: 20px;\n      width: 20px;\n    }\n  ";
+});
+
+var ButtonCircularStyle = (function (style) {
+  return "\n\n    .ButtonCircular {\n      border-radius: 9999px;\n      border: 1px solid transparent;\n      cursor: pointer;\n      height: 34px;\n      opacity: 0.5;\n      padding: 5px 4px 4px 4px;\n      width: 34px;\n    }\n\n    .ButtonCircular:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .ButtonCircular:hover {\n      background: rgba(0,0,0,0.1);\n      opacity: 1;\n    }\n\n    .ButtonCircular:active {\n      background: rgba(0,0,0,0.25);\n      opacity: 1;\n    }\n  ");
+});
+
+var ButtonPrimaryStyle = (function (style) {
+  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 13px;\n      border: 1px solid transparent;\n      box-shadow: 0 0 16px rgba(0,0,0,0.1);\n      font-size: 22px;\n      font-weight: 400;\n      line-height: 40px;\n      height: 58px;\n      justify-content: center;\n      width: 100%;\n      overflow: hidden;\n      padding: 7px 0;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      display: inline-block;\n    }\n\n    .ButtonPrimary, .ButtonPrimary * {\n      color: ").concat(style.colors.buttonText, ";\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n      color: rgb(140,140,140);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
+});
+
+var CardStyle = (function (style) {
+  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 76px;\n      padding: 16px 10px;\n      width: 100%;\n    }\n\n    .Card:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 8px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 27px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 58px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 9999px;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 45px;\n      position: relative;\n      vertical-align: middle;\n      width: 45px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardImage .BlockchainLogo {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 18px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+});
+
+var DialogStyle = (function (style) {
+  return "\n\n    .ReactDialogBackground {\n      z-index: -2;\n      backdrop-filter: blur(5px);\n      background: rgba(0,0,0,0.7);\n    }\n\n    .contained .ReactDialog {\n      position: absolute;\n      height: 100%;\n      min-height: 100%;\n      width: 100%;\n      min-width: 100%;\n    }\n\n    .contained .ReactDialogBackground {\n      position: absolute;\n    }\n\n    .contained .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n      top: 0;\n    }\n\n    .Dialog {\n      margin: 0 auto;\n      position: relative;\n      width: 420px;\n      box-shadow: 0 0 20px rgba(0,0,0,0.2);\n      border-radius: 13px;\n      background: rgb(248,248,248);\n    }\n\n    @media (max-width: 450px) {\n\n      .Dialog {\n        border-radius: 0;\n        width: 100%;\n      }\n    }\n\n    @media (orientation: portrait) and (max-width: 800px) {\n\n      .ReactDialogAnimation {\n        width: 100%;\n      }\n\n      .ReactDialog {\n        height: 100%;\n        min-height: 100%;\n      }\n\n      .ReactDialogStack {\n        align-items: flex-end;\n      }\n\n      .Dialog {\n        align-content: stretch;\n        border-radius: 13px;\n        border-top-radius: 13px;\n        display: flex;\n        flex-direction: column;\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n\n      .DialogBody {\n        flex: 1;\n        align-items: flex-end;\n      }\n\n      .DialogFooter {\n        padding-bottom: 20px;\n      }\n\n      .ReactDialogAnimation {\n        margin-bottom: -100px !important;\n        top: inherit !important;\n        position: relative;\n        transition: opacity 0.4s ease, margin-bottom 0.4s ease;\n      }\n\n      .ReactDialog.ReactDialogOpen .ReactDialogAnimation {\n        margin-bottom: 0px !important;\n      }\n\n      .DialogFooter {\n        border-bottom-left-radius: 0 !important;\n        border-bottom-right-radius: 0 !important;\n      }\n\n      .ReactShadowDOMInsideContainer > .ReactDialog {\n        align-items: flex-end;\n      }\n    }\n\n    .DialogBody {\n      overflow-x: hidden;\n      overflow-y: auto;\n    }\n\n    .ScrollHeight {\n      height: 30vh !important;\n      max-height: 30vh !important;\n    }\n\n    .ScrollHeightS {\n      height: 180px !important;\n      max-height: 180px !important;\n    }\n\n    .ScrollHeightM {\n      height: 194px !important;\n      max-height: 194px !important;\n    }\n\n    .DialogBody.MinHeight {\n      height: 120px !important;\n      max-height: 120px !important;\n    }\n\n    .DialogHeader {\n      border-top-left-radius: 13px;\n      border-top-right-radius: 13px;\n      min-height: 54px;\n      position: relative;\n      width: 100%;\n    }\n\n    .DialogHeaderActionRight {\n      position: absolute;\n      top: 0;\n      right: 0;\n      height: 48px;\n    }\n\n    .DialogHeaderActionLeft {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 48px;\n    }\n\n    .DialogFooter {\n      border-bottom-left-radius: 13px;\n      border-bottom-right-radius: 13px;\n      line-height: 24px;\n      min-height: 32px;\n      position: relative;\n      text-align: center;\n    }\n\n  ";
+});
+
+var DropDownStyle = (function (style) {
+  return "\n\n    .DropDownWrapper {\n      position: relative;\n    }\n\n    .DropDown {\n      background: rgb(240,240,240);\n      border-radius: 8px;\n      border: 1px solid rgb(230,230,230);\n      box-shadow: 0 0 12px rgba(0,0,0,0.1);\n      display: block;\n      padding: 8px 6px;\n      position: absolute;\n      right: 0;\n      z-index: 1000;\n    }\n\n    .DropDownItem {\n      border: 1px solid transparent;\n      border-radius: 6px;\n      cursor: pointer;\n      font-size: 17px;\n      font-weight: 500;\n      min-width: 160px;\n      padding: 6px 10px;\n      text-align: left;\n      white-space: nowrap;\n    }\n\n    .DropDownItem:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .DropDownItem:hover {\n      background: rgba(0,0,0,0.1);\n    }\n    \n    .DropDownItem:active {\n      background: rgba(0,0,0,0.15);\n    }\n    \n  ");
+});
+
+var FontStyle = (function (style) {
+  return "\n\n    *, div, div * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    * {\n      font-size: 15px;\n    }\n\n    .FontSizeS {\n      font-size: 16px;\n    }\n\n    .FontSizeM {\n      font-size: 19px;\n    }\n\n    .FontSizeL {\n      font-size: 23px;\n    }\n\n    .FontSizeXL {\n      font-size: 32px;\n    }\n\n    .FontSizeXXL {\n      font-size: 42px;\n    }\n\n    .FontWeightMedium {\n      font-weight: 500;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
+});
+
+var GraphicStyle = (function () {
+  return "\n\n    .GraphicWrapper {\n      display: block;\n    }\n\n    .Graphic {\n      width: 50%;\n      position: relative;\n    }\n  ";
+});
+
+var GridStyle = (function (style) {
+  return "\n\n    .Row {\n      overflow: hidden;\n    }\n\n    .Column {\n      float: left;\n    }\n\n    .Column2 {\n      width: 16.66%;\n    }\n\n    .Column10 {\n      width: 83.33%;\n    }\n  ";
+});
+
+var HeightStyle = (function () {
+  return "\n\n    .MaxHeight {\n      max-height: 320px;\n      overflow-y: auto;\n    }\n  ";
+});
+
+var IconStyle = (function (style) {
+  return "\n\n    .Icon {\n      fill: ".concat(style.colors.icons, ";\n      stroke: ").concat(style.colors.icons, ";\n    }\n\n    .QuestionMarkIcon {\n      fill: transparent;\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .AlertIcon {\n      height: 20px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 20px;\n      fill: #e42626;\n      stroke: transparent;\n    }\n\n    .CheckMark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      border-radius: 100%;\n      position: relative;\n      left: -1px;\n      width: 18px;\n      height: 18px;\n      animation: spin 1.5s linear infinite;\n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
+});
+
+var ImageStyle = (function (style) {
+  return "\n\n    .MaxAmountImage {\n      display: inline-block;\n      padding-right: 6px;\n    }\n    \n    .MaxAmountImage img {\n      height: 16px;\n      width: 16px;\n      position: relative;\n      top: 3px;\n    }\n  ";
+});
+
+var InputStyle = (function (style) {
+  return "\n\n    .Input {\n      background: none;\n      border: 1px solid transparent;\n      margin: 0;\n      outline: none !important;\n      padding: 0 0 0 14px;\n      width: 100%;\n    }\n\n    .Input::placeholder {\n      color: rgb(210,210,210);\n    }\n    \n  ";
+});
+
+var LinkStyle = (function (style) {
+  return "\n\n    .Link {\n      color: ".concat(style.colors.primary, ";\n      cursor: pointer;\n      text-decoration: none;\n    }\n\n    .Link:hover {\n      filter: brightness(0.8);\n    }\n\n    .Link:active {\n      filter: brightness(1.0);\n    }\n  ");
+});
+
+var LoadingTextStyle = (function (style) {
+  return "\n\n    .LoadingText {\n      color: ".concat(style.colors.buttonText, ";\n      display: inline-block;\n      text-decoration: none;\n    }\n\n    @keyframes blink {\n      0% { opacity: .2; }\n      20% { opacity: 1; }\n      100% { opacity: .2; }\n    }\n    \n    .LoadingText .dot {\n      animation-name: blink;\n      animation-duration: 1.4s;\n      animation-iteration-count: infinite;\n      animation-fill-mode: both;\n    }\n    \n    .LoadingText .dot:nth-child(2) {\n      animation-delay: .2s;\n    }\n    \n    .LoadingText .dot:nth-child(3) {\n      animation-delay: .4s;\n    }\n  ");
+});
+
+var OpacityStyle = (function (style) {
+  return "\n\n    .Opacity05 {\n      opacity: 0.5;\n    }\n  ";
+});
+
+var PaddingStyle = (function () {
+  return "\n\n    .PaddingTopXS {\n      padding-top: 3px;\n    }\n\n    .PaddingRightXS {\n      padding-right: 3px;\n    }\n\n    .PaddingBottomXS {\n      padding-bottom: 3px;\n    }\n\n    .PaddingLeftXS {\n      padding-left: 3px; \n    }\n\n    .PaddingTopS {\n      padding-top: 13px;\n    }\n\n    .PaddingRightS {\n      padding-right: 13px;\n    }\n\n    .PaddingBottomS {\n      padding-bottom: 13px;\n    }\n\n    .PaddingLeftS {\n      padding-left: 13px; \n    }\n\n    .PaddingTopM {\n      padding-top: 19px;\n    }\n\n    .PaddingRightM {\n      padding-right: 19px;\n    }\n\n    .PaddingBottomM {\n      padding-bottom: 19px;\n    }\n\n    .PaddingLeftM {\n      padding-left: 19px; \n    }\n\n    .PaddingTopL {\n      padding-top: 29px;\n    }\n\n    .PaddingRightL {\n      padding-right: 29px;\n    }\n\n    .PaddingBottomL {\n      padding-bottom: 29px;\n    }\n\n    .PaddingLeftL {\n      padding-left: 29px; \n    }\n  ";
+});
+
+var PoweredByStyle = (function (style) {
+  return "\n\n    .PoweredByWrapper {\n      display: block;\n      left: 0;\n      padding-top: 3px;\n      position: fixed;\n      right: 0;\n      text-align: center;\n      top: 0;\n    }\n\n    .contained .PoweredByWrapper {\n      position: absolute;\n    }\n\n    .PoweredByLink {\n      color: white;\n      display: inline-block;\n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\" !important;\n      font-size: 14px;\n      font-style: italic;\n      font-weight: bold;\n      letter-spacing: -0.2px;\n      margin-left: 8px;\n      opacity: 0.5;\n      text-decoration: none;\n      text-shadow: black 0 0 2px;\n    }\n\n    .PoweredByLink:hover, .PoweredByLink:active {\n      opacity: 1.0;\n    }\n  ";
+});
+
+var QRCodeStyle = (function () {
+  return "\n\n    .QRCode {\n      width: 100%;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      margin-bottom: -10px;\n    }\n  ";
+});
+
+var RangeSliderStyle = (function (style) {
+  return "\n\n    .rangeslider {\n      margin: 20px 0;\n      position: relative;\n      background: #e6e6e6;\n      -ms-touch-action: none;\n      touch-action: none;\n    }\n\n    .rangeslider,\n    .rangeslider__fill {\n      display: block;\n      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);\n    }\n\n    .rangeslider__handle {\n      outline: none;\n      cursor: pointer;\n      display: inline-block;\n      position: absolute;\n      border-radius: 50%;\n      background-color: " + style.colors.primary + ";\n      border: 1px solid white;\n      box-shadow: 0 0 8px rgba(0,0,0,0.1);\n    }\n\n    .rangeslider__handle:hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n\n    .rangeslider__handle:active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.3);\n    }\n\n    .rangeslider__active {\n      opacity: 1;\n    }\n\n    .rangeslider__handle-tooltip {\n      display: none;\n    }\n\n    .rangeslider-horizontal {\n      height: 12px;\n      border-radius: 10px;\n    }\n\n    .rangeslider-horizontal .rangeslider__fill {\n      height: 100%;\n      background-color: " + style.colors.primary + ";\n      border-radius: 10px;\n      top: 0;\n    }\n    .rangeslider-horizontal .rangeslider__handle {\n      width: 18px;\n      height: 18px;\n      border-radius: 30px;\n      top: 50%;\n      transform: translate3d(-50%, -50%, 0);\n    }\n\n\n    .rangeslider-horizontal .rangeslider__handle-tooltip {\n      top: -55px;\n    }\n\n  ";
+});
+
+var ResetStyle = (function () {
+  return "\n\n      html, body, div, span, applet, object, iframe,\n      h1, h2, h3, h4, h5, h6, p, blockquote, pre,\n      a, abbr, acronym, address, big, cite, code,\n      del, dfn, em, img, ins, kbd, q, s, samp,\n      small, strike, strong, sub, sup, tt, var,\n      b, u, i, center,\n      dl, dt, dd, ol, ul, li,\n      fieldset, form, label, legend,\n      table, caption, tbody, tfoot, thead, tr, th, td,\n      article, aside, canvas, details, embed, \n      figure, figcaption, footer, header, hgroup, \n      menu, nav, output, ruby, section, summary,\n      time, mark, audio, video {\n        margin: 0;\n        padding: 0;\n        border: 0;\n        font-size: 100%;\n        font: inherit;\n        text-align: inherit;\n        vertical-align: baseline;\n      }\n\n      article, aside, details, figcaption, figure, \n      footer, header, hgroup, menu, nav, section {\n        display: block;\n      }\n\n      body {\n        line-height: 1;\n      }\n\n      ol, ul {\n        list-style: none;\n      }\n\n      blockquote, q {\n        quotes: none;\n      }\n\n      blockquote:before, blockquote:after,\n      q:before, q:after {\n        content: '';\n        content: none;\n      }\n      \n      table {\n        border-collapse: collapse;\n        border-spacing: 0;\n      }\n\n      * {\n        box-sizing: border-box;\n      }\n\n      button {\n        border: 0;\n        background: none;\n        outline: none;\n      }\n\n  ";
+});
+
+var SearchStyle = (function (style) {
+  return "\n\n    .Search {\n      border-radius: 13px;\n      border: 1px solid rgba(0,0,0,0.2);\n      background: white;\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 13px;\n      width: 100%;\n    }\n\n    .Search::placeholder {\n      color: rgb(180,180,180);\n    } \n\n    .Search:focus, .Search:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n  ");
+});
+
+var SkeletonStyle = (function () {
+  return "\n        \n    .Skeleton {\n      background: rgb(230,230,230) !important;\n      border: 0px solid transparent !important;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ";
+});
+
+var TableStyle = (function (style) {
+  return "\n\n    .Table {\n      border-collapse: separate;\n      border-radius: 7px;\n      border-style: hidden;\n      border: 1px solid rgba(0,0,0,0.1);\n      width: 100%;\n    }\n\n    .Table tr.small td {\n      font-size: 14px;\n    }\n\n    .Table tr td {\n      border-bottom: 1px solid rgba(0,0,0,0.1);\n      word-break: break-all;\n    }\n    \n    .Table tr:last-child td {\n      border-bottom: none;\n    }\n    \n    .Table tr td {\n      padding: 8px 15px;\n      text-align: left;\n    }\n    \n    .Table tr td:first-child {\n      width: 30%\n    }\n\n    .Table tr td:last-child {\n      width: 70%\n    }\n    \n    .Table .TableSubTitle {\n      font-weight: 300;\n      opacity: 0.7;\n    }\n\n    .Table tr td:last-child {\n      font-weight: 500;\n    }\n  ";
+});
+
+var TextButtonStyle = (function (style) {
+  return "\n\n    .TextButton {\n      cursor: pointer;\n      font-size: 16px;\n      color: ".concat(style.colors.primary, "\n    }\n\n    .TextButton:hover * {\n      opacity: 1.0;\n    }\n  ");
+});
+
+var TextStyle = (function (style) {
+  return "\n\n    * {\n      color: ".concat(style.colors.text, ";\n    }\n\n    .LightGreen {\n      color: rgba(50,160,60);\n    }\n\n    h1, h2, h3, h4, h5, h6 {\n      display: block;\n    }\n\n    .Text {\n      font-size: 16px;\n      line-height: 24px\n    }\n\n    .TextLeft, .TextLeft * {\n      text-align: left !important;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n    .LineHeightXS {\n      line-height: 16px;\n    }\n\n    .LineHeightL {\n      line-height: 32px;\n    }\n\n    .ErrorSnippetText {\n      background: rgb(30, 30, 20);\n      border-radius: 19px;\n      border: 8px solid rgb(30, 30, 20);\n      color: #00FF41;\n      font-size: 15px;\n      font-style: italic;\n      max-height: 100px;\n      padding: 6px;\n      overflow-wrap: break-word;\n      overflow-y: auto;\n      white-space: pre-wrap;\n      word-wrap: break-word;\n    }\n  ");
+});
+
+var TokenAmountStyle = (function () {
+  return "\n        \n    .TokenAmountRow {\n      min-width: 0;\n      width: 100%;\n      display: flex;\n      flex-direction: row;\n    }\n    \n    .TokenAmountRow.small {\n      font-size: 17px;\n      line-height: 17px;\n    }\n\n    .TokenAmountRow.grey {\n      opacity: 0.5;\n    }\n\n    .TokenAmountCell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .TokenSymbolCell {\n    }\n  ";
+});
+
+var TokenImageStyle = (function (style) {
+  return "\n\n    .TokenImage img {\n      border-radius: 9999px;\n      border: 1px solid white;\n      background: white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 45px;\n      position: relative;\n      vertical-align: middle;\n      width: 45px;\n    }\n\n    .TokenImage.medium img {\n      height: 93px;\n      width: 93px;\n    }\n  ";
+});
+
+var TooltipStyle = (function (style) {
+  return "\n\n    .TooltipWrapper {\n      position: relative;\n    }\n\n    .Tooltip {\n      background: ".concat(style.colors.primary, ";\n      border-radius: 10px;\n      color: ").concat(style.colors.buttonText, ";\n      padding: 10px 13px;\n      position: relative;\n      box-shadow: 0 0 8px rgba(0,0,0,0.2);\n    }\n\n    .Tooltip.absolute {\n      position: absolute;\n    }\n\n    .Tooltip.top {\n      top: -40px;\n    }\n\n    .TooltipArrowUp {\n      border-bottom: 10px solid ").concat(style.colors.primary, ";\n      border-left: 10px solid transparent;\n      border-right: 10px solid transparent;\n      height: 0; \n      left: 12px;\n      position: absolute;\n      top: -8px;\n      width: 0; \n    }\n\n    .TooltipArrowDown {\n      border-top: 10px solid ").concat(style.colors.primary, ";\n      border-left: 10px solid transparent;\n      border-right: 10px solid transparent;\n      height: 0; \n      left: 12px;\n      position: absolute;\n      bottom: -8px;\n      width: 0; \n    }\n  ");
+});
+
+var WalletStyle = (function (style) {
+  return "\n\n    .WalletLogoS {\n      background: none !important;\n      border-radius: 8px !important;\n      border: 1px solid transparent !important;\n      box-shadow: none !important;\n      height: 40px !important;\n      width: 40px !important;\n    }\n  ";
+});
+
+var styleRenderer = (function (style) {
+  var _style, _style2;
+
+  style = {
+    colors: Object.assign({
+      primary: '#ea357a',
+      buttonText: '#ffffff',
+      icons: '#000000',
+      text: '#212529'
+    }, ((_style = style) === null || _style === void 0 ? void 0 : _style.colors) || {}),
+    fontFamily: ((_style2 = style) === null || _style2 === void 0 ? void 0 : _style2.fontFamily) || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
+  };
+  return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle(), BlockchainLogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
+});
+
+var mount = (function (_ref, content) {
+  var style = _ref.style,
+      container = _ref.container,
+      document = _ref.document,
+      closed = _ref.closed;
+  var insideStyle = styleRenderer(style);
+
+  if (style && style.css) {
+    insideStyle = [insideStyle, style.css].join(' ');
+  }
+
+  var unmountShadowDOM = function unmountShadowDOM() {
+    // setTimeout to allow dialog to animate out first
+    setTimeout(function () {
+      unmount();
+
+      if (typeof closed == 'function') {
+        closed();
+      }
+    }, 300);
+  };
+
+  var outsideStyle;
+
+  if (container) {
+    outsideStyle = "\n      position: absolute;\n      top: 0;\n      left: 0;\n      bottom: 0;\n      right: 0;\n      z-index: 99999;\n    ";
+  } else {
+    outsideStyle = "\n      position: fixed;\n      top: 0;\n      left: 0;\n      bottom: 0;\n      right: 0;\n      z-index: 99999;\n    ";
+  }
+
+  var _ReactShadowDOM = ReactShadowDOM({
+    document: document,
+    element: container || document.body,
+    content: content(unmountShadowDOM),
+    outsideStyle: outsideStyle,
+    insideStyle: insideStyle,
+    insideClasses: container ? ['contained'] : []
+  }),
+      unmount = _ReactShadowDOM.unmount;
+
+  return unmount;
+});
+
+var requireReactVersion = (function () {
+  if (parseInt(React.version.split('.')[0]) < 17) {
+    throw 'depay/widgets require at least React v17';
+  }
+});
+
+var SelectionProvider = (function (props) {
+  var _useState = useState({}),
+      _useState2 = _slicedToArray(_useState, 2),
+      selection = _useState2[0],
+      setSelection = _useState2[1];
+
+  return /*#__PURE__*/React.createElement(SelectionContext.Provider, {
+    value: {
+      selection: selection,
+      setSelection: setSelection
+    }
+  }, props.children);
+});
+
+var UpdatableProvider = (function (props) {
+  var _useState = useState(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      updatable = _useState2[0],
+      setUpdatable = _useState2[1];
+
+  return /*#__PURE__*/React.createElement(UpdatableContext.Provider, {
+    value: {
+      updatable: updatable,
+      setUpdatable: setUpdatable
+    }
+  }, props.children);
+});
+
+var Connect = function Connect(options) {
+  requireReactVersion();
+  var style, error, document;
+
+  if (_typeof(options) == 'object') {
+    style = options.style;
+    error = options.error;
+    document = options.document;
+  }
+
+  return new Promise( /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(resolve, reject) {
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              mount({
+                style: style,
+                document: ensureDocument(document)
+              }, function (unmount) {
+                var rejectBeforeUnmount = function rejectBeforeUnmount() {
+                  reject('USER_CLOSED_DIALOG');
+                  unmount();
+                };
+
+                return function (container) {
+                  return /*#__PURE__*/React.createElement(ErrorProvider, {
+                    errorCallback: error,
+                    container: container,
+                    unmount: unmount
+                  }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
+                    unmount: rejectBeforeUnmount
+                  }, /*#__PURE__*/React.createElement(SelectionProvider, null, /*#__PURE__*/React.createElement(ConnectStack, {
+                    document: document,
+                    container: container,
+                    resolve: resolve,
+                    reject: reject,
+                    autoClose: true
+                  }), /*#__PURE__*/React.createElement(PoweredBy, null)))));
+                };
+              });
+
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }());
+};
+
+var ConfigurationContext = /*#__PURE__*/React.createContext();
+
+var ConfigurationProvider = (function (props) {
+  var currencyCode = new Currency({
+    code: props.configuration.currency
+  }).code;
+  useEffect(function () {
+    if (props.configuration.providers != undefined) {
+      Object.entries(props.configuration.providers).forEach(function (entry) {
+        setProviderEndpoints(entry[0], entry[1]);
+      });
+    }
+  }, [props.configuration]);
+  return /*#__PURE__*/React.createElement(ConfigurationContext.Provider, {
+    value: Object.assign({}, props.configuration, {
+      currencyCode: currencyCode
+    })
+  }, props.children);
+});
+
+var NavigateContext = /*#__PURE__*/React.createContext();
+
+var LoadingDialog = (function (props) {
+  var _useContext = useContext(ConfigurationContext),
+      text = _useContext.text;
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    closable: false,
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
+    }, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Payment")),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftM PaddingRightM PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Card Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    }))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonWrapper"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ButtonPrimary Skeleton"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonBackground"
+    }))), /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter Opacity05 PaddingTopS"
+    }, /*#__PURE__*/React.createElement("strong", null, text)))
+  });
+});
+
+var LoadingStack = (function (props) {
+  var _useContext = useContext(ClosableContext),
+      open = _useContext.open,
+      close = _useContext.close;
+
+  var _useContext2 = useContext(NavigateContext),
+      setNavigator = _useContext2.setNavigator;
+
+  return /*#__PURE__*/React.createElement(ReactDialogStack, {
+    setNavigator: setNavigator,
+    open: open,
+    close: close,
+    start: "Loading",
+    container: props.container,
+    document: props.document,
+    dialogs: {
+      Loading: /*#__PURE__*/React.createElement(LoadingDialog, null)
+    }
+  });
+});
+
+var NavigateProvider = (function (props) {
+  var navigator;
+
+  var setNavigator = function setNavigator(_navigator) {
+    navigator = _navigator;
+  };
+
+  var navigate = function navigate(dialog) {
+    if (navigator) {
+      navigator.navigate(dialog);
+    }
+  };
+
+  var set = function set(dialogs) {
+    if (navigator) {
+      navigator.set(dialogs);
+    }
+  };
+
+  return /*#__PURE__*/React.createElement(NavigateContext.Provider, {
+    value: {
+      navigate: navigate,
+      set: set,
+      setNavigator: setNavigator
+    }
+  }, props.children);
+});
+
+var Loading = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+    var text, style, error, critical, container, document, unmount;
+    return regenerator.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            text = _ref.text, style = _ref.style, error = _ref.error, critical = _ref.critical, container = _ref.container, document = _ref.document;
+            requireReactVersion();
+            _context.prev = 2;
+            unmount = mount({
+              style: style,
+              container: container,
+              document: ensureDocument(document),
+              closed: closed
+            }, function (unmount) {
+              return function (container) {
+                return /*#__PURE__*/React.createElement(ErrorProvider, {
+                  errorCallback: error,
+                  container: container,
+                  unmount: unmount
+                }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
+                  configuration: {
+                    text: text
+                  }
+                }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
+                  unmount: unmount,
+                  closable: false
+                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(LoadingStack, {
+                  document: document,
+                  container: container
+                }), /*#__PURE__*/React.createElement(PoweredBy, null))))));
+              };
+            });
+            window._depayUnmountLoading = unmount;
+            return _context.abrupt("return", {
+              unmount: unmount
+            });
+
+          case 8:
+            _context.prev = 8;
+            _context.t0 = _context["catch"](2);
+            console.log('critical error', _context.t0);
+
+            if (critical != undefined) {
+              critical(_context.t0);
+            }
+
+          case 12:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[2, 8]]);
+  }));
+
+  return function Loading(_x) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var WalletContext = /*#__PURE__*/React.createContext();
+
+var SignLoginDialog = (function (props) {
+  var _useContext = useContext(ErrorContext),
+      setError = _useContext.setError;
+
+  var _useContext2 = useContext(ConfigurationContext),
+      message = _useContext2.message,
+      endpoint = _useContext2.endpoint;
+
+  var _useContext3 = useContext(ConfigurationContext),
+      recoverSignature = _useContext3.recoverSignature;
+
+  var _useContext4 = useContext(WalletContext),
+      wallet = _useContext4.wallet,
+      account = _useContext4.account;
+
+  if (!wallet) {
+    return null;
+  }
+
+  wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
+  var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
+
+  if (typeof recoverSignature != 'function') {
+    recoverSignature = function recoverSignature(_ref) {
+      var message = _ref.message,
+          signature = _ref.signature;
+      return new Promise(function (resolve, reject) {
+        fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: message,
+            signature: signature
+          })
+        }).then(function (response) {
+          if (response.status == 200) {
+            response.text().then(function (account) {
+              resolve(account);
+            })["catch"](setError);
+          } else {
+            response.text().then(function (text) {
+              setError(text || 'Recovering login signature failed!');
+            });
+          }
+        });
+      });
+    };
+  }
+
+  var login = function login() {
+    var messageToSign;
+
+    if (typeof message == 'function') {
+      messageToSign = message(account);
+    } else {
+      messageToSign = message;
+    }
+
+    wallet.sign(messageToSign).then(function (signature) {
+      recoverSignature({
+        message: messageToSign,
+        signature: signature
+      }).then(function (account) {
+        props.resolve({
+          account: account,
+          wallet: wallet
+        });
+      })["catch"](setError);
+    })["catch"](function (error) {
+      if (error && error.code && error.code == 4001) ; else {
+        setError(error);
+      }
+    });
+  };
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter"
+    }, walletLogo && /*#__PURE__*/React.createElement("div", {
+      className: "GraphicWrapper PaddingTopS PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "Graphic",
+      src: walletLogo
+    })), /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL Text FontSizeL FontWeightBold PaddingTopS"
+    }, "Wallet Login"), /*#__PURE__*/React.createElement("div", {
+      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+    }, /*#__PURE__*/React.createElement("p", {
+      className: "FontSizeM PaddingLeftM PaddingRightM PaddingBottomS"
+    }, "Please click \"Log in\" and sign the message with your connected wallet."))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: login
+    }, "Log in"))
+  });
+});
+
+var LoginStack = (function (props) {
+  var _useContext = useContext(ClosableContext),
+      open = _useContext.open,
+      close = _useContext.close;
+
+  return /*#__PURE__*/React.createElement(ReactDialogStack, {
+    open: open,
+    close: close,
+    start: "SignLogin",
+    container: props.container,
+    document: props.document,
+    dialogs: {
+      SignLogin: /*#__PURE__*/React.createElement(SignLoginDialog, {
+        resolve: props.resolve,
+        userClosedDialog: props.userClosedDialog
+      })
+    }
+  });
+});
+
+var round = (function (input) {
+  var _digitsAfterDecimal;
+
+  var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'up';
+  var inputAsFloat = parseFloat(input);
+  var digitsAfterDecimal = inputAsFloat.toString().match(/\d+\.0*(\d{4})/);
+
+  if ((_digitsAfterDecimal = digitsAfterDecimal) !== null && _digitsAfterDecimal !== void 0 && _digitsAfterDecimal.length) {
+    digitsAfterDecimal = digitsAfterDecimal[0];
+    var focus = digitsAfterDecimal.match(/\d{4}$/)[0];
+
+    var _float;
+
+    var focusToFixed;
+
+    if (focus.match(/^0/)) {
+      if (direction == 'up') {
+        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]).concat(focus[3]));
+      } else {
+        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]).concat(focus[3]));
+      }
+
+      focusToFixed = parseFloat(_float).toFixed(2);
+      focusToFixed = "0".concat(focusToFixed).replace('.', '');
+    } else {
+      if (direction == 'up') {
+        _float = parseFloat("".concat(focus[0], ".").concat(focus[1]).concat(focus[2], "9"));
+      } else {
+        _float = parseFloat("".concat(focus[0], ".").concat(focus[1]).concat(focus[2], "1"));
+      }
+
+      focusToFixed = parseFloat(_float).toFixed(2).replace('.', '');
+    }
+
+    if (focusToFixed == '0999' && parseInt(inputAsFloat.toFixed(0)) == 0) {
+      focusToFixed = direction == 'up' ? '1000' : '0999';
+      return parseFloat(digitsAfterDecimal.replace(/\d{4}$/, focusToFixed));
+    } else if (focusToFixed == '1000' && parseInt(inputAsFloat.toFixed(0)) == 0) {
+      return parseFloat(digitsAfterDecimal.replace(/\d{5}$/, focusToFixed));
+    } else if (focusToFixed.toString()[0] != "0" && focusToFixed.toString().length > 3) {
+      return parseInt(inputAsFloat.toFixed(0));
+    } else {
+      return parseFloat(digitsAfterDecimal.replace(/\d{4}$/, focusToFixed));
+    }
+  } else {
+    return parseFloat(inputAsFloat.toFixed(3));
+  }
+});
+
+var format = (function (input) {
+  var _float = round(input);
+
+  var floatToString = _float.toString();
+
+  if (new RegExp(/\./).test(floatToString)) {
+    var exploded = floatToString.split('.');
+    return new Intl.NumberFormat().format(parseInt(exploded[0])) + '.' + exploded[1];
+  } else {
+    return new Intl.NumberFormat().format(_float);
+  }
+});
+
+var PaymentBlockchainsDialog = (function () {
+  var _useContext = useContext(ConfigurationContext),
+      accept = _useContext.accept;
+
+  var _useContext2 = useContext(NavigateStackContext),
+      navigate = _useContext2.navigate;
+
+  var blockchains = _toConsumableArray(new Set(accept.map(function (configuration) {
+    return configuration.blockchain;
+  }))).map(function (blockchainName) {
+    return Blockchains[blockchainName];
+  });
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    stacked: true,
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL FontSizeL"
+    }, "Available blockchains"))),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "MaxHeight PaddingTopM PaddingBottomM"
+    }, blockchains.map(function (blockchain, index) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: index,
+        className: "Card Row"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("img", {
+        className: "transparent",
+        src: blockchain.logo
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "CardText"
+      }, blockchain.label)));
+    })),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "ButtonPrimary",
+      onClick: function onClick() {
+        return navigate('back');
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "FontSizeM"
+    }, "\u276E"), " Go back"))
+  });
+});
+
+var WalletMissesBlockchainSupportDialog = (function (props) {
+  var _useContext = useContext(NavigateStackContext),
+      navigate = _useContext.navigate;
+
+  return /*#__PURE__*/React.createElement(Dialog$1, {
+    header: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingLeftM PaddingRightM"
+    }),
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "GraphicWrapper"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "Graphic",
+      src: QuestionsGraphic
+    })), /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+    }, "Wallet Misses Blockchain Support"), /*#__PURE__*/React.createElement("div", {
+      className: "Text PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("strong", {
+      className: "FontSizeM"
+    }, "The connected wallet does not support the blockchains required by this payment. Try to connect another wallet that does support one of the available blockchains.")), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
+      onClick: function onClick() {
+        return navigate('PaymentBlockchains');
+      },
+      className: "Link FontSizeM",
+      title: "Check which blockchains are available"
+    }, "Check available blockchains"))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "ButtonPrimary",
+      onClick: function onClick() {
+        return props.disconnect();
+      }
+    }, "Connect another wallet"))
+  });
 });
 
 var WalletProvider = (function (props) {

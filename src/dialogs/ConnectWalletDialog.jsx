@@ -17,10 +17,10 @@ import Dialog from '../components/Dialog'
 import ExtensionImage from '../graphics/extension'
 import isMobile from '../helpers/isMobile'
 import LinkImage from '../graphics/link'
-import platformForWallet from '../helpers/platformForWallet'
 import QRCodeImage from '../graphics/qrcode'
 import QRCodeStyling from "qr-code-styling"
-import React, { useState, useContext, useEffect, useRef } from 'react'
+import React, { useState, useContext, useEffect, useRef, useCallback } from 'react'
+import { debounce } from 'lodash'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { set as setPreviouslyConnectedWallet } from '../helpers/previouslyConnectedWallet'
 
@@ -31,7 +31,7 @@ export default (props)=> {
   const [ extensionIsAvailable, setExtensionIsAvailable ] = useState()
   const [ connectAppIsAvailable, setConnectAppIsAvailable ] = useState()
   const [ openInAppIsAvailable, setOpenInAppIsAvailable ] = useState()
-  const [ linkIsConnected, setLinkIsConnected ] = useState()
+  const [ appIsConnected, setAppIsConnected ] = useState()
   const [ linkURI, setLinkURI ] = useState()
   const [ showQRCode, setShowQRCode ] = useState(false)
   const [ showLinkCopied, setShowLinkCopied ] = useState(false)
@@ -52,7 +52,7 @@ export default (props)=> {
   )
 
   const connectViaCopyLink = ()=>{
-    let wallet = new wallets[props.wallet.link]()
+    let wallet = new wallets[props.platform.connect]()
     wallet.connect({
       name: props.wallet.name,
       logo: props.wallet.logo,
@@ -68,9 +68,9 @@ export default (props)=> {
   }
 
   const connect = ()=>{
-    if(linkIsConnected) {
-      if(props.wallet.link == 'WalletConnectV1') {
-        wallets[props.wallet.link].getConnectedInstance().then((wallet)=>{
+    if(appIsConnected) {
+      if(props.platform?.connect == 'WalletConnectV1') {
+        wallets[props.platform?.connect].getConnectedInstance().then((wallet)=>{
           if(extensionIsAvailable && wallet.name == wallets[props.wallet.extension].info.name) {
             return // extension found and link with same wallet name found (e.g. MetaMask extension + mobile) let user decide!
           } 
@@ -80,17 +80,17 @@ export default (props)=> {
             })
           }
         })  
-      } else if(props.wallet.link == 'WalletLink') {
+      } else if(props.platform?.qr == 'WalletLink') {
         connectViaQRCode()
       }
     }
   }
 
-  const connectViaQRCode = ()=> {
-    switch (props.wallet.link) {
+  const connectViaQRCode = useCallback(debounce(()=>{
+    switch (props.platform?.qr) {
       case 'WalletConnectV1':
         if(QRCode == undefined) {
-          let wallet = new wallets[props.wallet.link]()
+          let wallet = new wallets[props.platform.qr]()
           wallet.connect({
             name: props.wallet.name,
             logo: props.wallet.logo,
@@ -115,38 +115,37 @@ export default (props)=> {
         }
       break;
       case 'WalletLink':
-        let wallet = new wallets[props.wallet.link]()
+        let wallet = new wallets[props.platform.qr]()
         wallet.connect().then((account)=>{
           props.resolve(account, wallet)
         })
       break
     }
-  }
+  }, 100), [])
 
   useEffect(()=>{
     (async ()=>{
       setExtensionIsAvailable(
         props.wallet?.extension ? (await wallets[props.wallet.extension].isAvailable() || false) : false
       )
-      setLinkIsConnected(
-        props.wallet?.link ? (await wallets[props.wallet.link].isAvailable() || false) : false
+      setAppIsConnected(
+        props.platform?.connect ? (await wallets[props.platform.connect].isAvailable() || false) : false
       )
-      const platform = platformForWallet(props.wallet)
-      setConnectAppIsAvailable(!!platform)
-      setOpenInAppIsAvailable(!!platform && platform.open)
+      setConnectAppIsAvailable(!!props.platform && props.platform.connect)
+      setOpenInAppIsAvailable(!!props.platform && props.platform.open)
     })()
   }, [])
 
   useEffect(()=> {
-    if(linkIsConnected !== undefined) {
+    if(appIsConnected !== undefined) {
       
-      setShowQRCode(!extensionIsAvailable && !isMobile() && !props.wallet?.desktop?.native && props.wallet.link)
+      setShowQRCode(!extensionIsAvailable && !isMobile() && !props.wallet?.desktop?.native && props.platform?.qr)
 
     }
-  }, [extensionIsAvailable, linkIsConnected])
+  }, [extensionIsAvailable, appIsConnected])
 
   useEffect(()=> {
-    if(showQRCode && props.wallet.link) {
+    if(showQRCode && props.platform?.qr) {
       connectViaQRCode()
     }
   }, [showQRCode])
@@ -179,7 +178,7 @@ export default (props)=> {
 
           <div className="PaddingTopS">
             <div ref={ QRCodeElement } className="QRCode"/>
-            { showQRCode && 
+            { showQRCode && props.platform?.qr !== 'WalletLink' &&
               <div className="Opacity05 PaddingBottomXS">
                 <small>Scan QR code with your wallet</small>
               </div>
@@ -238,11 +237,11 @@ export default (props)=> {
                 </button>
               </div>
             }
-            { props.wallet.link && (!showQRCode || props.wallet.link == 'WalletLink') &&
+            { props.platform?.qr && (!showQRCode || props.platform.qr === 'WalletLink') &&
               <div className="PaddingBottomXS">
                 <button onClick={ ()=>{
                   setShowQRCode(true)
-                  if(props.wallet.link) { connectViaQRCode() }
+                  if(props.platform.qr) { connectViaQRCode() }
                 }} className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS">
                   <span className="PaddingTopXS PaddingRightXS PaddingLeftS">
                     <img className="transparent " title="Scan QR code to connect a mobile wallet" style={{ height: '26px' }} src={ QRCodeImage }/>
@@ -255,7 +254,7 @@ export default (props)=> {
                 </button>
               </div>
             }
-            { props.wallet.link && props.wallet.link == 'WalletConnectV1' && props.wallet.connectionLink &&
+            { props.platform?.connect && props.platform.connect === 'WalletConnectV1' && props.platform.copyLink &&
               <div className="PaddingBottomXS TooltipWrapper">
                 <button onClick={ connectViaCopyLink } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS">
                   <span className="PaddingTopXS PaddingRightXS PaddingLeftS">
