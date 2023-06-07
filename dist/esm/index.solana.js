@@ -1026,14 +1026,14 @@ var allWallets = [{
       "native": "phantom:",
       "universal": "https://phantom.app/ul",
       "open": function open() {
-        return "https://phantom.app/ul/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.toString()));
+        return "https://phantom.app/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
       }
     },
     "android": {
       "native": "phantom:",
       "universal": "https://phantom.app/ul",
       "open": function open() {
-        return "https://phantom.app/ul/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.toString()));
+        return "https://phantom.app/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
       }
     }
   },
@@ -1223,14 +1223,14 @@ var allWallets = [{
       "native": "solflare:",
       "universal": "https://solflare.com/ul",
       "open": function open() {
-        return "solflare:/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(window.location.toString());
+        return "https://solflare.com/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(window.location.origin.toString());
       }
     },
     "android": {
       "native": "solflare:",
       "universal": "https://solflare.com/ul",
       "open": function open() {
-        return "solflare:/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(window.location.toString());
+        return "https://solflare.com/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(window.location.origin.toString());
       }
     }
   },
