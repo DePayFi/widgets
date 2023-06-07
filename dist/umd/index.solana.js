@@ -979,7 +979,6 @@
       "ios": {
         "native": "cbwallet://dapp",
         "universal": "https://go.cb-w.com/dapp",
-        "qr": "WalletLink",
         "open": function open() {
           return "cbwallet://dapp?url=".concat(encodeURIComponent(window.location.toString()));
         }
@@ -987,7 +986,6 @@
       "android": {
         "native": "cbwallet://dapp",
         "universal": "https://go.cb-w.com/dapp",
-        "qr": "WalletLink",
         "open": function open() {
           return "https://go.cb-w.com/dapp?cb_url=".concat(encodeURIComponent(window.location.toString()));
         }

@@ -20,8 +20,8 @@ export default [
     "extension": "Coinbase",
     "desktop": { "qr": "WalletLink" },
     "mobile": { 
-      "ios": { "native": "cbwallet://dapp", "universal": "https://go.cb-w.com/dapp", "qr": "WalletLink", "open": ()=>`cbwallet://dapp?url=${encodeURIComponent(window.location.toString())}` },
-      "android": { "native": "cbwallet://dapp", "universal": "https://go.cb-w.com/dapp", "qr": "WalletLink", "open": ()=>`https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.toString())}` },
+      "ios": { "native": "cbwallet://dapp", "universal": "https://go.cb-w.com/dapp", "open": ()=>`cbwallet://dapp?url=${encodeURIComponent(window.location.toString())}` },
+      "android": { "native": "cbwallet://dapp", "universal": "https://go.cb-w.com/dapp", "open": ()=>`https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.toString())}` },
     },
     "logo": wallets.Coinbase.info.logo,
     "blockchains": [...supported.evm]
