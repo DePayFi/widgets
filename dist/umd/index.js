@@ -21999,7 +21999,7 @@
   };
 
   var ConnectWalletDialog = (function (props) {
-    var _props$wallet, _props$platform8, _props$platform9, _props$platform10, _props$platform11;
+    var _props$wallet, _props$platform9, _props$platform10, _props$platform11;
 
     var QRCodeElement = React__default['default'].useRef();
 
@@ -22020,28 +22020,33 @@
 
     var _useState7 = React.useState(),
         _useState8 = _slicedToArray(_useState7, 2),
-        appIsConnected = _useState8[0],
-        setAppIsConnected = _useState8[1];
+        scanQrAvailable = _useState8[0],
+        setScanQrAvailable = _useState8[1];
 
     var _useState9 = React.useState(),
-        _useState10 = _slicedToArray(_useState9, 2);
-        _useState10[0];
-        _useState10[1];
+        _useState10 = _slicedToArray(_useState9, 2),
+        appIsConnected = _useState10[0],
+        setAppIsConnected = _useState10[1];
 
-    var _useState11 = React.useState(false),
-        _useState12 = _slicedToArray(_useState11, 2),
-        showQRCode = _useState12[0],
-        setShowQRCode = _useState12[1];
+    var _useState11 = React.useState(),
+        _useState12 = _slicedToArray(_useState11, 2);
+        _useState12[0];
+        _useState12[1];
 
     var _useState13 = React.useState(false),
         _useState14 = _slicedToArray(_useState13, 2),
-        showLinkCopied = _useState14[0],
-        setShowLinkCopied = _useState14[1];
+        showQRCode = _useState14[0],
+        setShowQRCode = _useState14[1];
 
-    var _useState15 = React.useState(),
+    var _useState15 = React.useState(false),
         _useState16 = _slicedToArray(_useState15, 2),
-        QRCode = _useState16[0],
-        setQRCode = _useState16[1];
+        showLinkCopied = _useState16[0],
+        setShowLinkCopied = _useState16[1];
+
+    var _useState17 = React.useState(),
+        _useState18 = _slicedToArray(_useState17, 2),
+        QRCode = _useState18[0],
+        setQRCode = _useState18[1];
 
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext);
         _useContext.navigate;
@@ -22128,7 +22133,7 @@
     }, 100), []);
     React.useEffect(function () {
       _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-        var _props$wallet2, _props$platform5;
+        var _props$wallet2, _props$platform5, _props$platform6;
 
         return regenerator.wrap(function _callee$(_context) {
           while (1) {
@@ -22198,8 +22203,9 @@
                 (0, _context.t4)(_context.t7);
                 setConnectAppIsAvailable(!!props.platform && props.platform.connect);
                 setOpenInAppIsAvailable(!!props.platform && props.platform.open);
+                setScanQrAvailable(((_props$platform6 = props.platform) === null || _props$platform6 === void 0 ? void 0 : _props$platform6.qr) && (!showQRCode || props.platform.qr === 'WalletLink'));
 
-              case 28:
+              case 29:
               case "end":
                 return _context.stop();
             }
@@ -22209,15 +22215,15 @@
     }, []);
     React.useEffect(function () {
       if (appIsConnected !== undefined) {
-        var _props$wallet3, _props$wallet3$deskto, _props$platform6;
+        var _props$wallet3, _props$wallet3$deskto, _props$platform7;
 
-        setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && (_props$wallet3$deskto = _props$wallet3.desktop) !== null && _props$wallet3$deskto !== void 0 && _props$wallet3$deskto["native"]) && ((_props$platform6 = props.platform) === null || _props$platform6 === void 0 ? void 0 : _props$platform6.qr));
+        setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && (_props$wallet3$deskto = _props$wallet3.desktop) !== null && _props$wallet3$deskto !== void 0 && _props$wallet3$deskto["native"]) && ((_props$platform7 = props.platform) === null || _props$platform7 === void 0 ? void 0 : _props$platform7.qr));
       }
     }, [extensionIsAvailable, appIsConnected]);
     React.useEffect(function () {
-      var _props$platform7;
+      var _props$platform8;
 
-      if (showQRCode && (_props$platform7 = props.platform) !== null && _props$platform7 !== void 0 && _props$platform7.qr) {
+      if (showQRCode && (_props$platform8 = props.platform) !== null && _props$platform8 !== void 0 && _props$platform8.qr) {
         connectViaQRCode();
       }
     }, [showQRCode]);
@@ -22240,7 +22246,7 @@
         className: "PaddingTopS PaddingLeftL PaddingRightL"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Alert FontSizeS"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Most wallets do not connect to http!"))), !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && !((_props$platform8 = props.platform) !== null && _props$platform8 !== void 0 && _props$platform8.copyLink) && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Most wallets do not connect to http!"))), !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && !((_props$platform9 = props.platform) !== null && _props$platform9 !== void 0 && _props$platform9.copyLink) && !scanQrAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftL PaddingRightL"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Alert FontSizeS"
@@ -22249,7 +22255,7 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         ref: QRCodeElement,
         className: "QRCode"
-      }), showQRCode && ((_props$platform9 = props.platform) === null || _props$platform9 === void 0 ? void 0 : _props$platform9.qr) !== 'WalletLink' && /*#__PURE__*/React__default['default'].createElement("div", {
+      }), showQRCode && ((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.qr) !== 'WalletLink' && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Opacity05 PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("small", null, "Scan QR code with your wallet"))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftL PaddingRightL PaddingTopS"
@@ -22323,7 +22329,7 @@
         className: "PaddingLeftS LineHeightXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardText FontWeightMedium"
-      }, "Open in app")))), ((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.qr) && (!showQRCode || props.platform.qr === 'WalletLink') && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Open in app")))), scanQrAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("button", {
         onClick: function onClick() {

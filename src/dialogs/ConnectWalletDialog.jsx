@@ -31,6 +31,7 @@ export default (props)=> {
   const [ extensionIsAvailable, setExtensionIsAvailable ] = useState()
   const [ connectAppIsAvailable, setConnectAppIsAvailable ] = useState()
   const [ openInAppIsAvailable, setOpenInAppIsAvailable ] = useState()
+  const [ scanQrAvailable, setScanQrAvailable ] = useState()
   const [ appIsConnected, setAppIsConnected ] = useState()
   const [ linkURI, setLinkURI ] = useState()
   const [ showQRCode, setShowQRCode ] = useState(false)
@@ -133,6 +134,7 @@ export default (props)=> {
       )
       setConnectAppIsAvailable(!!props.platform && props.platform.connect)
       setOpenInAppIsAvailable(!!props.platform && props.platform.open)
+      setScanQrAvailable(props.platform?.qr && (!showQRCode || props.platform.qr === 'WalletLink'))
     })()
   }, [])
 
@@ -176,7 +178,7 @@ export default (props)=> {
             </div>
           }
 
-          { !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && ! props.platform?.copyLink &&
+          { !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && ! props.platform?.copyLink && !scanQrAvailable &&
             <div className="PaddingTopS PaddingLeftL PaddingRightL">
               <div className="Alert FontSizeS">
                 <strong>No option found to connect to this wallet!</strong>
@@ -245,7 +247,7 @@ export default (props)=> {
                 </button>
               </div>
             }
-            { props.platform?.qr && (!showQRCode || props.platform.qr === 'WalletLink') &&
+            { scanQrAvailable &&
               <div className="PaddingBottomXS">
                 <button onClick={ ()=>{
                   setShowQRCode(true)
