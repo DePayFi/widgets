@@ -22327,7 +22327,7 @@
         className: "PaddingLeftS LineHeightXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardText FontWeightMedium"
-      }, "Open in app")))), scanQrAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Open in app")))), scanQrAvailable && !showQRCode && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("button", {
         onClick: function onClick() {

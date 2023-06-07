@@ -247,7 +247,7 @@ export default (props)=> {
                 </button>
               </div>
             }
-            { scanQrAvailable &&
+            { scanQrAvailable && !showQRCode &&
               <div className="PaddingBottomXS">
                 <button onClick={ ()=>{
                   setShowQRCode(true)

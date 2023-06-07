@@ -22332,7 +22332,7 @@ var ConnectWalletDialog = (function (props) {
       className: "PaddingLeftS LineHeightXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardText FontWeightMedium"
-    }, "Open in app")))), scanQrAvailable && /*#__PURE__*/React.createElement("div", {
+    }, "Open in app")))), scanQrAvailable && !showQRCode && /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("button", {
       onClick: function onClick() {
