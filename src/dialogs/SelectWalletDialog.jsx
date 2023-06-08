@@ -107,6 +107,7 @@ export default (props)=>{
               {
                 detectedWallets.map((wallet, index)=>{
                   const walletMetaData = allWallets.find((walletFromList)=>walletFromList.name === (wallet.info ? wallet.info.name : wallet.name))
+                  if(!walletMetaData){ return null }
                   let connectionType = 'app'
                   if(wallet && wallet.constructor && ![wallets.WalletConnectV1, wallets.WalletLink].includes(wallet.constructor)) {
                     connectionType = 'extension'
