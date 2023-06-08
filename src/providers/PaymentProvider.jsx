@@ -70,7 +70,6 @@ export default (props)=>{
       let stop = await before(transaction)
       if(stop === false){ return }
     }
-    setClosable(false)
     setPaymentState('paying')
     setUpdatable(false)
     let currentBlock = await request({ blockchain: transaction.blockchain, method: 'latestBlockNumber' })
@@ -90,12 +89,13 @@ export default (props)=>{
         .catch((error)=>{
           console.log('error', error)
           setPaymentState('initialized')
-          setClosable(true)
+          setTimeout(()=>setClosable(true), 100) // see setClosable line 98 (which prevents "Do you want to leave the page" on Solana MWA)
           setUpdatable(true)
           if(error?.code == 'WRONG_NETWORK' || error?.code == 'NOT_SUPPORTED') {
             navigate('WrongNetwork')
           }
         })
+      setClosable(false)
     }).catch((e)=>{
       console.log(e)
       setPaymentState('initialized')

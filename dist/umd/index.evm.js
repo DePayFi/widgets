@@ -25416,18 +25416,17 @@
                 return _context.abrupt("return");
 
               case 14:
-                setClosable(false);
                 setPaymentState('paying');
                 setUpdatable(false);
-                _context.next = 19;
+                _context.next = 18;
                 return web3ClientEvm.request({
                   blockchain: transaction.blockchain,
                   method: 'latestBlockNumber'
                 });
 
-              case 19:
+              case 18:
                 currentBlock = _context.sent;
-                _context.next = 22;
+                _context.next = 21;
                 return preTrack(currentBlock, payment.route, transaction).then(function () {
                   wallet.sendTransaction(Object.assign({}, transaction, {
                     sent: function sent(transaction) {
@@ -25445,13 +25444,18 @@
                   })["catch"](function (error) {
                     console.log('error', error);
                     setPaymentState('initialized');
-                    setClosable(true);
+                    setTimeout(function () {
+                      return setClosable(true);
+                    }, 100); // see setClosable line 98 (which prevents "Do you want to leave the page" on Solana MWA)
+
+                    // see setClosable line 98 (which prevents "Do you want to leave the page" on Solana MWA)
                     setUpdatable(true);
 
                     if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
                       navigate('WrongNetwork');
                     }
                   });
+                  setClosable(false);
                 })["catch"](function (e) {
                   console.log(e);
                   setPaymentState('initialized');
@@ -25460,7 +25464,7 @@
                   navigate('PreTrackingFailed');
                 });
 
-              case 22:
+              case 21:
               case "end":
                 return _context.stop();
             }
