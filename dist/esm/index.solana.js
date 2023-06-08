@@ -1036,9 +1036,7 @@ var allWallets = [{
     "android": {
       "native": "phantom:",
       "universal": "https://phantom.app/ul",
-      "open": function open() {
-        return "https://phantom.app/ul/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
-      }
+      "connect": "SolanaMobileWalletAdapter"
     }
   },
   "logo": wallets.Phantom.info.logo,
@@ -1217,6 +1215,11 @@ var allWallets = [{
 }, {
   "name": "Glow",
   "extension": "Glow",
+  "mobile": {
+    "android": {
+      "connect": "SolanaMobileWalletAdapter"
+    }
+  },
   "logo": wallets.Glow.info.logo,
   "blockchains": _toConsumableArray(supported.solana)
 }, {
@@ -1233,9 +1236,7 @@ var allWallets = [{
     "android": {
       "native": "solflare:",
       "universal": "https://solflare.com/ul",
-      "open": function open() {
-        return "https://solflare.com/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(window.location.origin.toString());
-      }
+      "connect": "SolanaMobileWalletAdapter"
     }
   },
   "logo": wallets.Solflare.info.logo,
