@@ -118,6 +118,14 @@ export default (props)=>{
       }).then((account)=>{
         resolve(account, wallet)
       })
+    } else if (platform.connect === 'SolanaMobileWalletAdapter') {
+      let wallet = new wallets[platform.connect]()
+      wallet.connect({
+        name: walletMetaData.name,
+        logo: walletMetaData.logo,
+      }).then((account)=>{
+        resolve(account, wallet)
+      })
     }
   }
 

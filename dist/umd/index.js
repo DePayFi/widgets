@@ -23058,6 +23058,15 @@
         }).then(function (account) {
           resolve(account, _wallet);
         });
+      } else if (platform.connect === 'SolanaMobileWalletAdapter') {
+        var _wallet2 = new web3Wallets.wallets[platform.connect]();
+
+        _wallet2.connect({
+          name: walletMetaData.name,
+          logo: walletMetaData.logo
+        }).then(function (account) {
+          resolve(account, _wallet2);
+        });
       }
     };
 
