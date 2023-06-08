@@ -89,13 +89,13 @@ export default (props)=>{
         .catch((error)=>{
           console.log('error', error)
           setPaymentState('initialized')
-          setTimeout(()=>setClosable(true), 100) // see setClosable line 98 (which prevents "Do you want to leave the page" on Solana MWA)
+          setClosable(true)
           setUpdatable(true)
           if(error?.code == 'WRONG_NETWORK' || error?.code == 'NOT_SUPPORTED') {
             navigate('WrongNetwork')
           }
         })
-      setClosable(false)
+      setTimeout(()=>{setClosable(false)}, 500) // prevent 'Want to leave the page?' alerts if wallet redirects to wallet on mobile (e.g. SolanaMobileWalletAdapter)
     }).catch((e)=>{
       console.log(e)
       setPaymentState('initialized')

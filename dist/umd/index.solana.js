@@ -25444,18 +25444,16 @@
                   })["catch"](function (error) {
                     console.log('error', error);
                     setPaymentState('initialized');
-                    setTimeout(function () {
-                      return setClosable(true);
-                    }, 100); // see setClosable line 98 (which prevents "Do you want to leave the page" on Solana MWA)
-
-                    // see setClosable line 98 (which prevents "Do you want to leave the page" on Solana MWA)
+                    setClosable(true);
                     setUpdatable(true);
 
                     if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
                       navigate('WrongNetwork');
                     }
                   });
-                  setClosable(false);
+                  setTimeout(function () {
+                    setClosable(false);
+                  }, 500); // prevent 'Want to leave the page?' alerts if wallet redirects to wallet on mobile (e.g. SolanaMobileWalletAdapter)
                 })["catch"](function (e) {
                   console.log(e);
                   setPaymentState('initialized');
