@@ -25,7 +25,9 @@ export default (props)=>{
         return msg
       }
     }
-    window.addEventListener('beforeunload', preventReload);
+    setTimeout(()=>{
+      window.addEventListener('beforeunload', preventReload);
+    }, 800) // timeout to prevent beforeunload error in case browser redirects to wallet (e.g. Solana Mobile Wallet Adapter)
     return ()=>{
       window.removeEventListener('beforeunload', preventReload);
     }

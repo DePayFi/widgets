@@ -938,7 +938,10 @@ var ClosableProvider = (function (props) {
       }
     };
 
-    window.addEventListener('beforeunload', preventReload);
+    setTimeout(function () {
+      window.addEventListener('beforeunload', preventReload);
+    }, 800); // timeout to prevent beforeunload error in case browser redirects to wallet (e.g. Solana Mobile Wallet Adapter)
+
     return function () {
       window.removeEventListener('beforeunload', preventReload);
     };
@@ -25381,88 +25384,95 @@ var PaymentProvider = (function (props) {
   };
 
   var pay = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
       var transaction, stop, currentBlock;
-      return regenerator.wrap(function _callee$(_context) {
+      return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
-              _context.t0 = payment.route;
-              _context.next = 3;
+              _context2.t0 = payment.route;
+              _context2.next = 3;
               return wallet.account();
 
             case 3:
-              _context.t1 = _context.sent;
-              _context.t2 = {
-                from: _context.t1
+              _context2.t1 = _context2.sent;
+              _context2.t2 = {
+                from: _context2.t1
               };
-              _context.next = 7;
-              return _context.t0.getTransaction.call(_context.t0, _context.t2);
+              _context2.next = 7;
+              return _context2.t0.getTransaction.call(_context2.t0, _context2.t2);
 
             case 7:
-              transaction = _context.sent;
+              transaction = _context2.sent;
 
               if (!before) {
-                _context.next = 14;
+                _context2.next = 14;
                 break;
               }
 
-              _context.next = 11;
+              _context2.next = 11;
               return before(transaction);
 
             case 11:
-              stop = _context.sent;
+              stop = _context2.sent;
 
               if (!(stop === false)) {
-                _context.next = 14;
+                _context2.next = 14;
                 break;
               }
 
-              return _context.abrupt("return");
+              return _context2.abrupt("return");
 
             case 14:
               setPaymentState('paying');
               setUpdatable(false);
-              _context.next = 18;
+              _context2.next = 18;
               return request({
                 blockchain: transaction.blockchain,
                 method: 'latestBlockNumber'
               });
 
             case 18:
-              currentBlock = _context.sent;
-              _context.next = 21;
-              return preTrack(currentBlock, payment.route, transaction).then(function () {
-                wallet.sendTransaction(Object.assign({}, transaction, {
-                  sent: function sent(transaction) {
-                    initializeTransactionTracking(transaction, currentBlock);
+              currentBlock = _context2.sent;
+              _context2.next = 21;
+              return preTrack(currentBlock, payment.route, transaction).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+                return regenerator.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        setClosable(false);
+                        _context.next = 3;
+                        return wallet.sendTransaction(Object.assign({}, transaction, {
+                          sent: function sent(transaction) {
+                            initializeTransactionTracking(transaction, currentBlock);
 
-                    if (_sent) {
-                      _sent(transaction);
+                            if (_sent) {
+                              _sent(transaction);
+                            }
+                          },
+                          succeeded: paymentSucceeded,
+                          failed: paymentFailed
+                        })).then(function (sentTransaction) {
+                          setTransaction(sentTransaction);
+                          initializePaymentTracking(sentTransaction, currentBlock, payment.route);
+                        })["catch"](function (error) {
+                          console.log('error', error);
+                          setPaymentState('initialized');
+                          setClosable(true);
+                          setUpdatable(true);
+
+                          if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
+                            navigate('WrongNetwork');
+                          }
+                        });
+
+                      case 3:
+                      case "end":
+                        return _context.stop();
                     }
-                  },
-                  succeeded: paymentSucceeded,
-                  failed: paymentFailed
-                })).then(function (sentTransaction) {
-                  setTransaction(sentTransaction);
-                  initializePaymentTracking(sentTransaction, currentBlock, payment.route);
-                })["catch"](function (error) {
-                  console.log('error', error);
-                  setPaymentState('initialized');
-                  setClosable(true);
-                  setTimeout(function () {
-                    setClosable(true);
-                  }, 500);
-                  setUpdatable(true);
-
-                  if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
-                    navigate('WrongNetwork');
                   }
-                });
-                setTimeout(function () {
-                  setClosable(false);
-                }, 500); // prevent 'Want to leave the page?' alerts if wallet redirects to wallet on mobile (e.g. SolanaMobileWalletAdapter)
-              })["catch"](function (e) {
+                }, _callee);
+              })))["catch"](function (e) {
                 console.log(e);
                 setPaymentState('initialized');
                 setClosable(true);
@@ -25472,10 +25482,10 @@ var PaymentProvider = (function (props) {
 
             case 21:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee);
+      }, _callee2);
     }));
 
     return function pay() {
@@ -25537,10 +25547,10 @@ var PaymentProvider = (function (props) {
         blockchain: recover.blockchain,
         address: recover.token
       });
-      Promise.all([paymentToken.name(), paymentToken.symbol()]).then(function (_ref2) {
-        var _ref3 = _slicedToArray(_ref2, 2),
-            name = _ref3[0],
-            symbol = _ref3[1];
+      Promise.all([paymentToken.name(), paymentToken.symbol()]).then(function (_ref3) {
+        var _ref4 = _slicedToArray(_ref3, 2),
+            name = _ref4[0],
+            symbol = _ref4[1];
 
         setPayment({
           blockchain: recover.blockchain,
@@ -25576,11 +25586,11 @@ var PaymentProvider = (function (props) {
   useEffect(function () {
     if (selectedRoute) {
       var fromToken = selectedRoute.fromToken;
-      Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref4) {
-        var _ref5 = _slicedToArray(_ref4, 3),
-            name = _ref5[0],
-            symbol = _ref5[1],
-            amount = _ref5[2];
+      Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref5) {
+        var _ref6 = _slicedToArray(_ref5, 3),
+            name = _ref6[0],
+            symbol = _ref6[1],
+            amount = _ref6[2];
 
         setPayment({
           blockchain: selectedRoute.blockchain,

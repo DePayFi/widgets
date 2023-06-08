@@ -73,8 +73,9 @@ export default (props)=>{
     setPaymentState('paying')
     setUpdatable(false)
     let currentBlock = await request({ blockchain: transaction.blockchain, method: 'latestBlockNumber' })
-    await preTrack(currentBlock, payment.route, transaction).then(()=>{
-      wallet.sendTransaction(Object.assign({}, transaction, {
+    await preTrack(currentBlock, payment.route, transaction).then(async()=>{
+      setClosable(false)
+      await wallet.sendTransaction(Object.assign({}, transaction, {
         sent: (transaction)=>{
           initializeTransactionTracking(transaction, currentBlock)
           if(sent) { sent(transaction) }
@@ -90,13 +91,11 @@ export default (props)=>{
           console.log('error', error)
           setPaymentState('initialized')
           setClosable(true)
-          setTimeout(()=>{setClosable(true)}, 500)
           setUpdatable(true)
           if(error?.code == 'WRONG_NETWORK' || error?.code == 'NOT_SUPPORTED') {
             navigate('WrongNetwork')
           }
         })
-      setTimeout(()=>{setClosable(false)}, 500) // prevent 'Want to leave the page?' alerts if wallet redirects to wallet on mobile (e.g. SolanaMobileWalletAdapter)
     }).catch((e)=>{
       console.log(e)
       setPaymentState('initialized')
