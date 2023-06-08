@@ -25445,6 +25445,9 @@
                     console.log('error', error);
                     setPaymentState('initialized');
                     setClosable(true);
+                    setTimeout(function () {
+                      setClosable(true);
+                    }, 500);
                     setUpdatable(true);
 
                     if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {

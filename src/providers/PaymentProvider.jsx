@@ -90,6 +90,7 @@ export default (props)=>{
           console.log('error', error)
           setPaymentState('initialized')
           setClosable(true)
+          setTimeout(()=>{setClosable(true)}, 500)
           setUpdatable(true)
           if(error?.code == 'WRONG_NETWORK' || error?.code == 'NOT_SUPPORTED') {
             navigate('WrongNetwork')
