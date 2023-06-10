@@ -30,8 +30,12 @@ export default (style)=>{
     }
 
     .ButtonPrimary.disabled {
-      background: rgb(210,210,210);
-      color: rgb(140,140,140);
+      background: rgba(0,0,0,.25) !important;
+      box-shadow: 0 !important;
+    }
+    
+    .ButtonPrimary.disabled * {
+      opacity: 0.7;
     }
 
     .ButtonPrimary:not(.disabled){

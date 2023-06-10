@@ -132,6 +132,14 @@ export default (props)=>{
   }
 
   useEffect(()=>{
+    if(wallet && wallet.isSolanaPay && wallet.isTransactionSend) {
+      setPaymentState('paying')
+      setUpdatable(false)
+      setClosable(false)
+    }
+  }, [wallet, wallet.isTransactionSend])
+
+  useEffect(()=>{
     if(release){
       setPaymentState('success')
     }

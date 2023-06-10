@@ -1,13 +1,16 @@
 /*#if _EVM
 
+import { route } from '@depay/web3-payments-evm'
 import { wallets } from '@depay/web3-wallets-evm'
 
 /*#elif _SOLANA
 
+import { route } from '@depay/web3-payments-solana'
 import { wallets } from '@depay/web3-wallets-solana'
 
 //#else */
 
+import { route } from '@depay/web3-payments'
 import { wallets } from '@depay/web3-wallets'
 
 //#endif
@@ -20,6 +23,7 @@ import LinkImage from '../graphics/link'
 import QRCodeImage from '../graphics/qrcode'
 import QRCodeStyling from "qr-code-styling"
 import React, { useState, useContext, useEffect, useRef, useCallback } from 'react'
+import SolanaPay from '../helpers/SolanaPay'
 import { debounce } from 'lodash'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { set as setPreviouslyConnectedWallet } from '../helpers/previouslyConnectedWallet'
@@ -87,8 +91,45 @@ export default (props)=> {
     }
   }
 
+  const getNewQRCode = ()=>{
+    return new QRCodeStyling({
+      width: 340,
+      height: 340,
+      type: "svg",
+      dotsOptions: { type: "extra-rounded" },
+      cornersSquareOptions: { type: 'rounded' },
+      backgroundOptions: {
+        color: "transparent",
+      },
+    })
+  }
+
   const connectViaQRCode = useCallback(debounce(()=>{
+    if(typeof props.platform.qr === 'function') {
+      let newQRCode = getNewQRCode()
+      newQRCode.update({ data: props.platform.qr() })
+      setQRCode(newQRCode)
+      return
+    }
     switch (props.platform?.qr) {
+      case 'SolanaPay':
+        if(QRCode == undefined) {
+          const solanaPayInstance = new SolanaPay({
+            name: props.wallet.name,
+            logo: props.wallet.logo,
+          })
+          solanaPayInstance.connect({ 
+            qr: (uri)=>{
+              let newQRCode = getNewQRCode()
+              newQRCode.update({ data: uri })
+              setQRCode(newQRCode)
+            },
+            route: async (account, wallet)=>{
+              props.resolve(account, wallet)
+            }
+          })
+        }
+      break;
       case 'WalletConnectV1':
         if(QRCode == undefined) {
           let wallet = new wallets[props.platform.qr]()
@@ -97,16 +138,7 @@ export default (props)=> {
             logo: props.wallet.logo,
             reconnect: true,
             connect: ({ uri })=>{
-              let newQRCode = new QRCodeStyling({
-                width: 340,
-                height: 340,
-                type: "svg",
-                dotsOptions: { type: "extra-rounded" },
-                cornersSquareOptions: { type: 'rounded' },
-                backgroundOptions: {
-                  color: "transparent",
-                },
-              })
+              let newQRCode = getNewQRCode()
               newQRCode.update({ data: uri })
               setQRCode(newQRCode)
             }
@@ -134,14 +166,20 @@ export default (props)=> {
       )
       setConnectAppIsAvailable(!!props.platform && props.platform.connect)
       setOpenInAppIsAvailable(!!props.platform && props.platform.open)
-      setScanQrAvailable(props.platform?.qr && (!showQRCode || props.platform.qr === 'WalletLink'))
+      setScanQrAvailable(
+        props.platform?.qr && (!showQRCode || props.platform.qr === 'WalletLink') && 
+        ( props.platform.qr !== 'SolanaPay' || ( props.accept && props.accept.every((accept)=>accept.amount)) )
+      )
     })()
   }, [])
 
   useEffect(()=> {
     if(appIsConnected !== undefined) {
       
-      setShowQRCode(!extensionIsAvailable && !isMobile() && !props.wallet?.desktop?.native && props.platform?.qr)
+      setShowQRCode(
+        !extensionIsAvailable && !isMobile() && !props.wallet?.desktop?.native && props.platform?.qr && 
+        ( props.platform.qr !== 'SolanaPay' || ( props.accept && props.accept.every((accept)=>accept.amount)) )
+      )
 
     }
   }, [extensionIsAvailable, appIsConnected])
@@ -189,7 +227,7 @@ export default (props)=> {
           <div className="PaddingTopS">
             <div ref={ QRCodeElement } className="QRCode"/>
             { showQRCode && props.platform?.qr !== 'WalletLink' &&
-              <div className="Opacity05 PaddingBottomXS">
+              <div className="Opacity05 PaddingBottomXS PaddingTopS">
                 <small>Scan QR code with your wallet</small>
               </div>
             }

@@ -150,7 +150,7 @@ export default (props)=>{
             setWallet(walletMetaData)
           }} resolve={resolve} openInApp={openInApp} connectViaRedirect={connectViaRedirect} connectExtension={connectExtension}/>,
           WhatIsAWallet: <WhatIsAWalletDialog/>,
-          ConnectWallet: <ConnectWalletDialog selection={selection} wallet={wallet} platform={platform} resolve={resolve} openInApp={openInApp} connectViaRedirect={connectViaRedirect} connectExtension={connectExtension} showConnectExtensionWarning={showConnectExtensionWarning}/>
+          ConnectWallet: <ConnectWalletDialog selection={selection} wallet={wallet} platform={platform} resolve={resolve} openInApp={openInApp} connectViaRedirect={connectViaRedirect} connectExtension={connectExtension} showConnectExtensionWarning={showConnectExtensionWarning} accept={props.accept}/>
         }}
       />
       <PoweredBy/>

@@ -1,5 +1,6 @@
 import { wallets, getWallets } from '@depay/web3-wallets';
 import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
+import { route as route$1 } from '@depay/web3-payments';
 import copy from '@uiw/copy-to-clipboard';
 import { NavigateStackContext, ReactDialogStack } from '@depay/react-dialog-stack';
 import QRCodeStyling from 'qr-code-styling';
@@ -14,7 +15,6 @@ import { route } from '@depay/web3-exchanges';
 import { Token } from '@depay/web3-tokens';
 import { ethers } from 'ethers';
 import { Decimal } from 'decimal.js';
-import { route as route$1 } from '@depay/web3-payments';
 import { TokenImage } from '@depay/react-token-image';
 import { struct, u64, Buffer, PublicKey } from '@depay/solana-web3.js';
 
@@ -1028,6 +1028,11 @@ var allWallets = [{
 }, {
   "name": "Phantom",
   "extension": "Phantom",
+  "desktop": {
+    "qr": function qr() {
+      return "phantom://browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
+    }
+  },
   "mobile": {
     "ios": {
       "native": "phantom:",
@@ -1218,6 +1223,11 @@ var allWallets = [{
 }, {
   "name": "Glow",
   "extension": "Glow",
+  "desktop": {
+    "qr": function qr() {
+      return window.location.toString();
+    }
+  },
   "mobile": {
     "android": {
       "connect": "SolanaMobileWalletAdapter"
@@ -4795,6 +4805,333 @@ var isMobile = function isMobile() {
 var LinkImage = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIGZpbGw9IiMwMTAxMDEiIGQ9Ik00NTkuNjU0LDIzMy4zNzNsLTkwLjUzMSw5MC41Yy00OS45NjksNTAtMTMxLjAzMSw1MC0xODEsMGMtNy44NzUtNy44NDQtMTQuMDMxLTE2LjY4OC0xOS40MzgtMjUuODEzDQoJbDQyLjA2My00Mi4wNjNjMi0yLjAxNiw0LjQ2OS0zLjE3Miw2LjgyOC00LjUzMWMyLjkwNiw5LjkzOCw3Ljk4NCwxOS4zNDQsMTUuNzk3LDI3LjE1NmMyNC45NTMsMjQuOTY5LDY1LjU2MywyNC45MzgsOTAuNSwwDQoJbDkwLjUtOTAuNWMyNC45NjktMjQuOTY5LDI0Ljk2OS02NS41NjMsMC05MC41MTZjLTI0LjkzOC0yNC45NTMtNjUuNTMxLTI0Ljk1My05MC41LDBsLTMyLjE4OCwzMi4yMTkNCgljLTI2LjEwOS0xMC4xNzItNTQuMjUtMTIuOTA2LTgxLjY0MS04Ljg5MWw2OC41NzgtNjguNTc4YzUwLTQ5Ljk4NCwxMzEuMDMxLTQ5Ljk4NCwxODEuMDMxLDANCglDNTA5LjYyMywxMDIuMzQyLDUwOS42MjMsMTgzLjM4OSw0NTkuNjU0LDIzMy4zNzN6IE0yMjAuMzI2LDM4Mi4xODZsLTMyLjIwMywzMi4yMTljLTI0Ljk1MywyNC45MzgtNjUuNTYzLDI0LjkzOC05MC41MTYsMA0KCWMtMjQuOTUzLTI0Ljk2OS0yNC45NTMtNjUuNTYzLDAtOTAuNTMxbDkwLjUxNi05MC41YzI0Ljk2OS0yNC45NjksNjUuNTQ3LTI0Ljk2OSw5MC41LDBjNy43OTcsNy43OTcsMTIuODc1LDE3LjIwMywxNS44MTMsMjcuMTI1DQoJYzIuMzc1LTEuMzc1LDQuODEzLTIuNSw2LjgxMy00LjVsNDIuMDYzLTQyLjA0N2MtNS4zNzUtOS4xNTYtMTEuNTYzLTE3Ljk2OS0xOS40MzgtMjUuODI4Yy00OS45NjktNDkuOTg0LTEzMS4wMzEtNDkuOTg0LTE4MS4wMTYsMA0KCWwtOTAuNSw5MC41Yy00OS45ODQsNTAtNDkuOTg0LDEzMS4wMzEsMCwxODEuMDMxYzQ5Ljk4NCw0OS45NjksMTMxLjAzMSw0OS45NjksMTgxLjAxNiwwbDY4LjU5NC02OC41OTQNCglDMjc0LjU2MSwzOTUuMDkyLDI0Ni40MiwzOTIuMzQyLDIyMC4zMjYsMzgyLjE4NnoiLz4NCjwvc3ZnPg0K';
 
 var QRCodeImage = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHN2ZyAgUFVCTElDICctLy9XM0MvL0RURCBTVkcgMS4xLy9FTicgICdodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQnPgo8c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDEwMDAgMTAwMCIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMWUzIDFlMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPG1ldGFkYXRhPiBTdmcgVmVjdG9yIEljb25zIDogaHR0cDovL3d3dy5vbmxpbmV3ZWJmb250cy5jb20vaWNvbiA8L21ldGFkYXRhPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDUxMSkgc2NhbGUoLjEgLS4xKSI+PHBhdGggZD0ibTEwMCAyNzk3LjF2LTIyMTIuOWg0NDI1Ljh2NDQyNS44aC00NDI1Ljh2LTIyMTIuOXptMzQ3Ny40IDB2LTEyNjQuNWgtMjUyOXYyNTI5aDI1Mjl2LTEyNjQuNXoiLz48cGF0aCBkPSJtMTY4MC42IDI3OTcuMXYtNjMyLjNoMTI2NC42djEyNjQuNmgtMTI2NC42di02MzIuM3oiLz48cGF0aCBkPSJtNTQ3NC4yIDI3OTcuMXYtMjIxMi45aDQ0MjUuOHY0NDI1LjhoLTQ0MjUuOHYtMjIxMi45em0zNDc3LjQgMHYtMTI2NC41aC0yNTI5djI1MjloMjUyOXYtMTI2NC41eiIvPjxwYXRoIGQ9Im03MDU0LjggMjc5Ny4xdi02MzIuM2gxMjY0LjZ2MTI2NC42aC0xMjY0LjZ2LTYzMi4zeiIvPjxwYXRoIGQ9Im0xMDAtMjU3Ny4xdi0yMjEyLjloNDQyNS44djQ0MjUuOGgtNDQyNS44di0yMjEyLjl6bTM0NzcuNCAwdi0xMjY0LjVoLTI1Mjl2MjUyOWgyNTI5di0xMjY0LjV6Ii8+PHBhdGggZD0ibTE2ODAuNi0yNTc3LjF2LTYzMi4zaDEyNjQuNnYxMjY0LjZoLTEyNjQuNnYtNjMyLjN6Ii8+PHBhdGggZD0ibTU0NzQuMi05MTcuNHYtNTUzLjJoMTEwNi40di0xMTA2LjRoLTExMDYuNHYtMTEwNi40aDExMDYuNHYtMTEwNi42aDExMDYuNHYxMTA2LjRoMTEwNi40di0xMTA2LjRoMTEwNi42djExMDYuNGgtMTEwNi40djExMDYuNGgxMTA2LjR2MTEwNi40aC0xMTA2LjR2MTEwNi40aC0xMTA2LjR2LTExMDYuNGgtMTEwNi40djExMDYuNGgtMTEwNi40di01NTN6bTMzMTkuMy0xMTA2LjV2LTU1My4yaC0xMTA2LjR2LTExMDYuNGgtMTEwNi40djExMDYuNGgxMTA2LjR2MTEwNi40aDExMDYuNHYtNTUzLjJ6Ii8+PC9nPgo8L3N2Zz4K";
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _createSuper$1(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$1(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _isNativeReflectConstruct$1() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+var generateUUIDv4 = function generateUUIDv4() {
+  var d = new Date().getTime();
+  var d2 = performance && performance.now && performance.now() * 1000 || 0;
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16;
+
+    if (d > 0) {
+      r = (d + r) % 16 | 0;
+      d = Math.floor(d / 16);
+    } else {
+      r = (d2 + r) % 16 | 0;
+      d2 = Math.floor(d2 / 16);
+    }
+
+    return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
+  });
+};
+
+var getFavicon = function getFavicon() {
+  var favicon;
+  var nodeList = document.getElementsByTagName("link");
+
+  for (var i = 0; i < nodeList.length; i++) {
+    if (nodeList[i].getAttribute("rel") == "icon" || nodeList[i].getAttribute("rel") == "shortcut icon") {
+      favicon = nodeList[i].getAttribute("href");
+    }
+  }
+
+  if (!favicon) {
+    return;
+  }
+
+  if (favicon.match(':')) {
+    return favicon;
+  } else {
+    return "".concat(window.location.origin, "/").concat(favicon.replace(/^\//, ''));
+  }
+};
+
+var SolanaPay = /*#__PURE__*/function (_wallets$WindowSolana) {
+  _inherits(SolanaPay, _wallets$WindowSolana);
+
+  var _super = _createSuper$1(SolanaPay);
+
+  function SolanaPay(options) {
+    var _this;
+
+    _classCallCheck(this, SolanaPay);
+
+    _this = _super.call(this); // emulates wallet (@depay/web3-wallets)
+
+    _this.isSolanaPay = true; // needed to change widget flow
+
+    _this.blockchains = ['solana'];
+
+    _this.on = function () {};
+
+    _this.off = function () {};
+
+    _this.name = options.name;
+    _this.icon = options.icon;
+    return _this;
+  }
+
+  _createClass(SolanaPay, [{
+    key: "openSocket",
+    value: function openSocket(secret_id, route) {
+      var _this2 = this;
+
+      return new Promise(function (resolve) {
+        _this2.socket = new WebSocket('wss://integrate.depay.com/cable');
+
+        _this2.socket.onopen = /*#__PURE__*/function () {
+          var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(event) {
+            var msg;
+            return regenerator.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    _this2._label = document.title || 'DePay';
+                    _this2._icon = getFavicon() || 'https://depay.com/favicon.png';
+                    msg = {
+                      command: 'subscribe',
+                      identifier: JSON.stringify({
+                        secret_id: secret_id,
+                        label: _this2._label,
+                        icon: _this2._icon,
+                        channel: 'SolanaPayChannel'
+                      })
+                    };
+                    _context.next = 5;
+                    return _this2.socket.send(JSON.stringify(msg));
+
+                  case 5:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            }, _callee);
+          }));
+
+          return function (_x) {
+            return _ref.apply(this, arguments);
+          };
+        }();
+
+        _this2.socket.onclose = function (event) {
+          if (!event || event.code != 1000) {
+            setTimeout(function () {
+              return _this2.openSocket(secret_id);
+            }, 1000);
+          }
+        };
+
+        _this2.socket.onmessage = function (event) {
+          var item = JSON.parse(event.data);
+
+          if (item.type === 'confirm_subscription') {
+            resolve(_this2.socket);
+          }
+
+          if (item.type === "ping" || !item.message) {
+            return;
+          }
+
+          if (item.message && item.message.account) {
+            _this2._account = item.message.account;
+            route(item.message.account, _this2);
+          }
+        };
+
+        _this2.socket.onerror = function (error) {
+          console.log('WebSocket Error: ' + error);
+        };
+      });
+    }
+  }, {
+    key: "account",
+    value: function () {
+      var _account = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
+        return regenerator.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                return _context2.abrupt("return", this._account);
+
+              case 1:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function account() {
+        return _account.apply(this, arguments);
+      }
+
+      return account;
+    }()
+  }, {
+    key: "connect",
+    value: function () {
+      var _connect = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref2) {
+        var qr, route, uri;
+        return regenerator.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                qr = _ref2.qr, route = _ref2.route;
+                this.secret_id = generateUUIDv4().split('-')[0];
+                uri = "solana:https://public.depay.com/solana/".concat(this.secret_id);
+                _context3.next = 5;
+                return this.openSocket(this.secret_id, route);
+
+              case 5:
+                this.socket = _context3.sent;
+                _context3.next = 8;
+                return qr(uri);
+
+              case 8:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function connect(_x2) {
+        return _connect.apply(this, arguments);
+      }
+
+      return connect;
+    }()
+  }, {
+    key: "_sendTransaction",
+    value: function () {
+      var _sendTransaction2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(transaction) {
+        var serializedTransaction, txBase64;
+        return regenerator.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                if (!this.isTransactionSend) {
+                  _context4.next = 2;
+                  break;
+                }
+
+                return _context4.abrupt("return");
+
+              case 2:
+                this.isTransactionSend = true;
+                serializedTransaction = transaction.serialize({
+                  verifySignatures: false,
+                  requireAllSignatures: false
+                });
+                txBase64 = serializedTransaction.toString('base64');
+                console.log('WIDGET TRACKING TRANSACTION TRACKING HERE!!!');
+                console.log('API TRACKING via TRACK HERE!!!');
+                this.socket.send(JSON.stringify({
+                  command: 'message',
+                  identifier: JSON.stringify({
+                    secret_id: this.secret_id,
+                    label: this._label,
+                    icon: this._icon,
+                    channel: 'SolanaPayChannel'
+                  }),
+                  data: JSON.stringify({
+                    secret_id: this.secret_id,
+                    transaction: txBase64
+                  })
+                }));
+
+              case 8:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function _sendTransaction(_x3) {
+        return _sendTransaction2.apply(this, arguments);
+      }
+
+      return _sendTransaction;
+    }()
+  }]);
+
+  return SolanaPay;
+}(wallets.WindowSolana);
 
 /**
  * @license
@@ -22090,10 +22427,77 @@ var ConnectWalletDialog = (function (props) {
     });
   };
 
+  var getNewQRCode = function getNewQRCode() {
+    return new QRCodeStyling({
+      width: 340,
+      height: 340,
+      type: "svg",
+      dotsOptions: {
+        type: "extra-rounded"
+      },
+      cornersSquareOptions: {
+        type: 'rounded'
+      },
+      backgroundOptions: {
+        color: "transparent"
+      }
+    });
+  };
+
   var connectViaQRCode = useCallback(lodash.debounce(function () {
     var _props$platform4;
 
+    if (typeof props.platform.qr === 'function') {
+      var newQRCode = getNewQRCode();
+      newQRCode.update({
+        data: props.platform.qr()
+      });
+      setQRCode(newQRCode);
+      return;
+    }
+
     switch ((_props$platform4 = props.platform) === null || _props$platform4 === void 0 ? void 0 : _props$platform4.qr) {
+      case 'SolanaPay':
+        if (QRCode == undefined) {
+          var solanaPayInstance = new SolanaPay({
+            name: props.wallet.name,
+            logo: props.wallet.logo
+          });
+          solanaPayInstance.connect({
+            qr: function qr(uri) {
+              var newQRCode = getNewQRCode();
+              newQRCode.update({
+                data: uri
+              });
+              setQRCode(newQRCode);
+            },
+            route: function () {
+              var _route = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(account, wallet) {
+                return regenerator.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        props.resolve(account, wallet);
+
+                      case 1:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }
+                }, _callee);
+              }));
+
+              function route(_x, _x2) {
+                return _route.apply(this, arguments);
+              }
+
+              return route;
+            }()
+          });
+        }
+
+        break;
+
       case 'WalletConnectV1':
         if (QRCode == undefined) {
           var _wallet = new wallets[props.platform.qr]();
@@ -22104,20 +22508,7 @@ var ConnectWalletDialog = (function (props) {
             reconnect: true,
             connect: function connect(_ref2) {
               var uri = _ref2.uri;
-              var newQRCode = new QRCodeStyling({
-                width: 340,
-                height: 340,
-                type: "svg",
-                dotsOptions: {
-                  type: "extra-rounded"
-                },
-                cornersSquareOptions: {
-                  type: 'rounded'
-                },
-                backgroundOptions: {
-                  color: "transparent"
-                }
-              });
+              var newQRCode = getNewQRCode();
               newQRCode.update({
                 data: uri
               });
@@ -22139,92 +22530,96 @@ var ConnectWalletDialog = (function (props) {
     }
   }, 100), []);
   useEffect(function () {
-    _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+    _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
       var _props$wallet2, _props$platform5, _props$platform6;
 
-      return regenerator.wrap(function _callee$(_context) {
+      return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
-              _context.t0 = setExtensionIsAvailable;
+              _context2.t0 = setExtensionIsAvailable;
 
               if (!((_props$wallet2 = props.wallet) !== null && _props$wallet2 !== void 0 && _props$wallet2.extension)) {
-                _context.next = 10;
+                _context2.next = 10;
                 break;
               }
 
-              _context.next = 4;
+              _context2.next = 4;
               return wallets[props.wallet.extension].isAvailable();
 
             case 4:
-              _context.t2 = _context.sent;
+              _context2.t2 = _context2.sent;
 
-              if (_context.t2) {
-                _context.next = 7;
+              if (_context2.t2) {
+                _context2.next = 7;
                 break;
               }
 
-              _context.t2 = false;
+              _context2.t2 = false;
 
             case 7:
-              _context.t1 = _context.t2;
-              _context.next = 11;
+              _context2.t1 = _context2.t2;
+              _context2.next = 11;
               break;
 
             case 10:
-              _context.t1 = false;
+              _context2.t1 = false;
 
             case 11:
-              _context.t3 = _context.t1;
-              (0, _context.t0)(_context.t3);
-              _context.t4 = setAppIsConnected;
+              _context2.t3 = _context2.t1;
+              (0, _context2.t0)(_context2.t3);
+              _context2.t4 = setAppIsConnected;
 
               if (!((_props$platform5 = props.platform) !== null && _props$platform5 !== void 0 && _props$platform5.connect)) {
-                _context.next = 23;
+                _context2.next = 23;
                 break;
               }
 
-              _context.next = 17;
+              _context2.next = 17;
               return wallets[props.platform.connect].isAvailable();
 
             case 17:
-              _context.t6 = _context.sent;
+              _context2.t6 = _context2.sent;
 
-              if (_context.t6) {
-                _context.next = 20;
+              if (_context2.t6) {
+                _context2.next = 20;
                 break;
               }
 
-              _context.t6 = false;
+              _context2.t6 = false;
 
             case 20:
-              _context.t5 = _context.t6;
-              _context.next = 24;
+              _context2.t5 = _context2.t6;
+              _context2.next = 24;
               break;
 
             case 23:
-              _context.t5 = false;
+              _context2.t5 = false;
 
             case 24:
-              _context.t7 = _context.t5;
-              (0, _context.t4)(_context.t7);
+              _context2.t7 = _context2.t5;
+              (0, _context2.t4)(_context2.t7);
               setConnectAppIsAvailable(!!props.platform && props.platform.connect);
               setOpenInAppIsAvailable(!!props.platform && props.platform.open);
-              setScanQrAvailable(((_props$platform6 = props.platform) === null || _props$platform6 === void 0 ? void 0 : _props$platform6.qr) && (!showQRCode || props.platform.qr === 'WalletLink'));
+              setScanQrAvailable(((_props$platform6 = props.platform) === null || _props$platform6 === void 0 ? void 0 : _props$platform6.qr) && (!showQRCode || props.platform.qr === 'WalletLink') && (props.platform.qr !== 'SolanaPay' || props.accept && props.accept.every(function (accept) {
+                return accept.amount;
+              })));
 
             case 29:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee);
+      }, _callee2);
     }))();
   }, []);
   useEffect(function () {
     if (appIsConnected !== undefined) {
       var _props$wallet3, _props$wallet3$deskto, _props$platform7;
 
-      setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && (_props$wallet3$deskto = _props$wallet3.desktop) !== null && _props$wallet3$deskto !== void 0 && _props$wallet3$deskto["native"]) && ((_props$platform7 = props.platform) === null || _props$platform7 === void 0 ? void 0 : _props$platform7.qr));
+      setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && (_props$wallet3$deskto = _props$wallet3.desktop) !== null && _props$wallet3$deskto !== void 0 && _props$wallet3$deskto["native"]) && ((_props$platform7 = props.platform) === null || _props$platform7 === void 0 ? void 0 : _props$platform7.qr) && (props.platform.qr !== 'SolanaPay' || props.accept && props.accept.every(function (accept) {
+        return accept.amount;
+      })));
     }
   }, [extensionIsAvailable, appIsConnected]);
   useEffect(function () {
@@ -22263,7 +22658,7 @@ var ConnectWalletDialog = (function (props) {
       ref: QRCodeElement,
       className: "QRCode"
     }), showQRCode && ((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.qr) !== 'WalletLink' && /*#__PURE__*/React.createElement("div", {
-      className: "Opacity05 PaddingBottomXS"
+      className: "Opacity05 PaddingBottomXS PaddingTopS"
     }, /*#__PURE__*/React.createElement("small", null, "Scan QR code with your wallet"))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftL PaddingRightL PaddingTopS"
     }, extensionIsAvailable && /*#__PURE__*/React.createElement("div", {
@@ -22776,6 +23171,11 @@ var SelectWalletDialog = (function (props) {
       var walletMetaData = allWallets.find(function (walletFromList) {
         return walletFromList.name === (wallet.info ? wallet.info.name : wallet.name);
       });
+
+      if (!walletMetaData) {
+        return null;
+      }
+
       var connectionType = 'app';
 
       if (wallet && wallet.constructor && ![wallets.WalletConnectV1, wallets.WalletLink].includes(wallet.constructor)) {
@@ -23116,7 +23516,8 @@ var ConnectStack = (function (props) {
         openInApp: openInApp,
         connectViaRedirect: connectViaRedirect,
         connectExtension: connectExtension,
-        showConnectExtensionWarning: showConnectExtensionWarning
+        showConnectExtensionWarning: showConnectExtensionWarning,
+        accept: props.accept
       })
     }
   }), /*#__PURE__*/React.createElement(PoweredBy, null));
@@ -23129,77 +23530,6 @@ var ensureDocument = (function (document) {
     return document;
   }
 });
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
-    return call;
-  } else if (call !== void 0) {
-    throw new TypeError("Derived constructors may only return object or undefined");
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
 
 var ErrorContext = /*#__PURE__*/React.createContext();
 
@@ -23497,7 +23827,7 @@ var ButtonCircularStyle = (function (style) {
 });
 
 var ButtonPrimaryStyle = (function (style) {
-  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 13px;\n      border: 1px solid transparent;\n      box-shadow: 0 0 16px rgba(0,0,0,0.1);\n      font-size: 22px;\n      font-weight: 400;\n      line-height: 40px;\n      height: 58px;\n      justify-content: center;\n      width: 100%;\n      overflow: hidden;\n      padding: 7px 0;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      display: inline-block;\n    }\n\n    .ButtonPrimary, .ButtonPrimary * {\n      color: ").concat(style.colors.buttonText, ";\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgb(210,210,210);\n      color: rgb(140,140,140);\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
+  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 13px;\n      border: 1px solid transparent;\n      box-shadow: 0 0 16px rgba(0,0,0,0.1);\n      font-size: 22px;\n      font-weight: 400;\n      line-height: 40px;\n      height: 58px;\n      justify-content: center;\n      width: 100%;\n      overflow: hidden;\n      padding: 7px 0;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      display: inline-block;\n    }\n\n    .ButtonPrimary, .ButtonPrimary * {\n      color: ").concat(style.colors.buttonText, ";\n    }\n\n    .ButtonPrimary.disabled {\n      background: rgba(0,0,0,.25) !important;\n      box-shadow: 0 !important;\n    }\n    \n    .ButtonPrimary.disabled * {\n      opacity: 0.7;\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
 });
 
 var CardStyle = (function (style) {
@@ -24350,7 +24680,8 @@ var WalletProvider = (function (props) {
     return /*#__PURE__*/React.createElement(ConnectStack, {
       document: props.document,
       container: props.container,
-      resolve: connected
+      resolve: connected,
+      accept: accept
     });
   }
 });
@@ -24794,7 +25125,8 @@ var routePayments = (function (_ref) {
       receiver = _ref.receiver,
       whitelist = _ref.whitelist,
       blacklist = _ref.blacklist,
-      fee = _ref.fee;
+      fee = _ref.fee,
+      update = _ref.update;
   return route$1({
     accept: accept.map(function (accept) {
       return prepareAcceptedPayments(accept, receiver);
@@ -24803,7 +25135,8 @@ var routePayments = (function (_ref) {
     whitelist: whitelist,
     blacklist: blacklist,
     event: 'ifRoutedAndNative',
-    fee: fee
+    fee: fee,
+    update: update
   });
 });
 
@@ -24837,7 +25170,8 @@ var PaymentRoutingProvider = (function (props) {
       setReloadCount = _useState10[1];
 
   var _useContext = useContext(WalletContext),
-      account = _useContext.account;
+      account = _useContext.account,
+      wallet = _useContext.wallet;
 
   var _useContext2 = useContext(UpdatableContext),
       updatable = _useContext2.updatable;
@@ -24919,42 +25253,82 @@ var PaymentRoutingProvider = (function (props) {
   }();
 
   var getPaymentRoutes = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref3) {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(_ref3) {
       var updatable, slowRoutingTimeout;
-      return regenerator.wrap(function _callee3$(_context3) {
+      return regenerator.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               updatable = _ref3.updatable;
 
               if (!(updatable == false || !props.accept || !account)) {
-                _context3.next = 3;
+                _context4.next = 3;
                 break;
               }
 
-              return _context3.abrupt("return");
+              return _context4.abrupt("return");
 
             case 3:
               slowRoutingTimeout = setTimeout(function () {
                 setSlowRouting(true);
               }, 4000);
-              _context3.next = 6;
+              _context4.next = 6;
               return routePayments(Object.assign({}, props, {
-                account: account
+                account: account,
+                update: {
+                  every: 200,
+                  callback: function () {
+                    var _callback = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(routes) {
+                      var route;
+                      return regenerator.wrap(function _callee3$(_context3) {
+                        while (1) {
+                          switch (_context3.prev = _context3.next) {
+                            case 0:
+                              if (!(wallet.isSolanaPay && routes && routes.length && wallet.isTransactionSend !== true)) {
+                                _context3.next = 8;
+                                break;
+                              }
+
+                              console.log('TRACE HERE!!!');
+                              route = routes[0];
+                              _context3.t0 = wallet;
+                              _context3.next = 6;
+                              return route.getTransaction();
+
+                            case 6:
+                              _context3.t1 = _context3.sent;
+
+                              _context3.t0.sendTransaction.call(_context3.t0, _context3.t1);
+
+                            case 8:
+                            case "end":
+                              return _context3.stop();
+                          }
+                        }
+                      }, _callee3);
+                    }));
+
+                    function callback(_x4) {
+                      return _callback.apply(this, arguments);
+                    }
+
+                    return callback;
+                  }()
+                }
               })).then(function (routes) {
                 clearInterval(slowRoutingTimeout);
                 onRoutesUpdate(routes);
               });
 
             case 6:
-              return _context3.abrupt("return", _context3.sent);
+              return _context4.abrupt("return", _context4.sent);
 
             case 7:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     }));
 
     return function getPaymentRoutes(_x3) {
@@ -24967,57 +25341,34 @@ var PaymentRoutingProvider = (function (props) {
   };
 
   var roundAmount = /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(route, amountBN) {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(route, amountBN) {
       var readableAmount, roundedAmountBN;
-      return regenerator.wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              if (!route.directTransfer) {
-                _context4.next = 2;
-                break;
-              }
-
-              return _context4.abrupt("return", route);
-
-            case 2:
-              _context4.next = 4;
-              return route.fromToken.readable(amountBN || route.fromAmount);
-
-            case 4:
-              readableAmount = _context4.sent;
-              _context4.next = 7;
-              return route.fromToken.BigNumber(round(readableAmount));
-
-            case 7:
-              roundedAmountBN = _context4.sent;
-              updateRouteAmount(route, roundedAmountBN);
-              return _context4.abrupt("return", route);
-
-            case 10:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4);
-    }));
-
-    return function roundAmount(_x4, _x5) {
-      return _ref5.apply(this, arguments);
-    };
-  }();
-
-  var roundAmounts = /*#__PURE__*/function () {
-    var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
       return regenerator.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              return _context5.abrupt("return", Promise.all(routes.map(function (route) {
-                return roundAmount(route);
-              })));
+              if (!route.directTransfer) {
+                _context5.next = 2;
+                break;
+              }
 
-            case 1:
+              return _context5.abrupt("return", route);
+
+            case 2:
+              _context5.next = 4;
+              return route.fromToken.readable(amountBN || route.fromAmount);
+
+            case 4:
+              readableAmount = _context5.sent;
+              _context5.next = 7;
+              return route.fromToken.BigNumber(round(readableAmount));
+
+            case 7:
+              roundedAmountBN = _context5.sent;
+              updateRouteAmount(route, roundedAmountBN);
+              return _context5.abrupt("return", route);
+
+            case 10:
             case "end":
               return _context5.stop();
           }
@@ -25025,26 +25376,49 @@ var PaymentRoutingProvider = (function (props) {
       }, _callee5);
     }));
 
-    return function roundAmounts(_x6) {
+    return function roundAmount(_x5, _x6) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+
+  var roundAmounts = /*#__PURE__*/function () {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(routes) {
+      return regenerator.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              return _context6.abrupt("return", Promise.all(routes.map(function (route) {
+                return roundAmount(route);
+              })));
+
+            case 1:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
+
+    return function roundAmounts(_x7) {
       return _ref6.apply(this, arguments);
     };
   }();
 
   var updateRouteWithNewPrice = /*#__PURE__*/function () {
-    var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6() {
-      return regenerator.wrap(function _callee6$(_context6) {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee7() {
+      return regenerator.wrap(function _callee7$(_context7) {
         while (1) {
-          switch (_context6.prev = _context6.next) {
+          switch (_context7.prev = _context7.next) {
             case 0:
               setSelectedRoute(_objectSpread$3({}, updatedRouteWithNewPrice));
               setUpdatedRouteWithNewPrice(null);
 
             case 2:
             case "end":
-              return _context6.stop();
+              return _context7.stop();
           }
         }
-      }, _callee6);
+      }, _callee7);
     }));
 
     return function updateRouteWithNewPrice() {
@@ -25519,6 +25893,13 @@ var PaymentProvider = (function (props) {
     });
   };
 
+  useEffect(function () {
+    if (wallet && wallet.isSolanaPay && wallet.isTransactionSend) {
+      setPaymentState('paying');
+      setUpdatable(false);
+      setClosable(false);
+    }
+  }, [wallet, wallet.isTransactionSend]);
   useEffect(function () {
     if (release) {
       setPaymentState('success');
@@ -26218,6 +26599,7 @@ var Footer = (function () {
       return /*#__PURE__*/React.createElement("div", {
         className: "PaddingBottomXS"
       }, /*#__PURE__*/React.createElement("button", {
+        type: "button",
         className: "ButtonPrimary disabled",
         onClick: function onClick() {},
         title: "Allow ".concat(payment.symbol, " to be used as payment")
@@ -26226,6 +26608,7 @@ var Footer = (function () {
       return /*#__PURE__*/React.createElement("div", {
         className: "PaddingBottomXS"
       }, /*#__PURE__*/React.createElement("button", {
+        type: "button",
         className: "ButtonPrimary",
         onClick: approve,
         title: "Allow ".concat(payment.symbol, " to be used as payment")
@@ -26250,6 +26633,7 @@ var Footer = (function () {
       }, /*#__PURE__*/React.createElement("div", {
         className: "Alert"
       }, /*#__PURE__*/React.createElement("strong", null, "Price updated!"))), /*#__PURE__*/React.createElement("button", {
+        type: "button",
         className: "ButtonPrimary",
         onClick: function onClick() {
           updateRouteWithNewPrice();
@@ -26257,11 +26641,14 @@ var Footer = (function () {
       }, "Reload"));
     } else if (paymentValueLoss) {
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+        type: "button",
         className: "ButtonPrimary disabled",
         onClick: function onClick() {}
       }, "Pay"));
     } else if ((paymentState == 'initialized' || paymentState == 'approving') && payment.route) {
       return /*#__PURE__*/React.createElement("button", {
+        tabIndex: 1,
+        type: "button",
         className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
         onClick: function onClick() {
           if (payment.route.approvalRequired && !payment.route.directTransfer) {
@@ -26273,7 +26660,7 @@ var Footer = (function () {
       }, "Pay");
     } else if (paymentState == 'paying') {
       return /*#__PURE__*/React.createElement("a", {
-        className: "ButtonPrimary",
+        className: "ButtonPrimary disabled",
         title: "Performing the payment - please wait",
         href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
         target: "_blank",
@@ -26434,7 +26821,8 @@ var PaymentOverviewDialog = (function (props) {
     alternativeHeaderAction: alternativeHeaderActionElement,
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftM PaddingRightM PaddingBottomXS"
-    }, amountsMissing && !fixedAmount && /*#__PURE__*/React.createElement("div", {
+    }, amountsMissing && !fixedAmount && /*#__PURE__*/React.createElement("button", {
+      type: "button",
       className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
       title: paymentState == 'initialized' ? "Change amount" : undefined,
       onClick: function onClick() {
@@ -26461,7 +26849,8 @@ var PaymentOverviewDialog = (function (props) {
       className: "TokenAmountRow"
     }, amount)))), /*#__PURE__*/React.createElement("div", {
       className: "CardAction"
-    }, /*#__PURE__*/React.createElement(ChevronRight, null))), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement(ChevronRight, null))), /*#__PURE__*/React.createElement("button", {
+      type: "button",
       className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
       title: paymentState == 'initialized' ? "Change payment" : undefined,
       onClick: function onClick() {
@@ -26974,7 +27363,9 @@ var PaymentTrackingProvider = (function (props) {
 
     socket.onclose = function (event) {
       if (!event || event.code != 1000) {
-        openSocket(transaction);
+        setTimeout(function () {
+          return openSocket(transaction);
+        }, 1000);
       }
     };
 
@@ -27802,7 +28193,9 @@ var TransactionTrackingProvider = (function (props) {
 
     socket.onclose = function (event) {
       if (!event || event.code != 1000) {
-        openSocket(transaction);
+        setTimeout(function () {
+          return openSocket(transaction);
+        }, 1000);
       }
     };
 

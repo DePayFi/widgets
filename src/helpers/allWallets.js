@@ -40,6 +40,7 @@ export default [
   {
     "name": "Phantom",
     "extension": "Phantom",
+    "desktop": { "qr": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}` },
     "mobile": {
       "ios": { "native": "phantom:", "universal": "https://phantom.app/ul", "open": ()=>`https://phantom.app/ul/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}` },
       "android": { "native": "phantom:", "universal": "https://phantom.app/ul", "connect": "SolanaMobileWalletAdapter" },
@@ -148,6 +149,7 @@ export default [
   {
     "name": "Glow",
     "extension": "Glow",
+    "desktop": { "qr": ()=>window.location.toString() },
     "mobile": {
       "android": { "connect": "SolanaMobileWalletAdapter" },
     },

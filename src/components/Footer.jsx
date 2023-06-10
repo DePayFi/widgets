@@ -166,7 +166,7 @@ export default ()=>{
     } else if(paymentValueLoss) {
       return(
         <div className="PaddingBottomXS">
-          <button className="ButtonPrimary disabled" onClick={ ()=>{} } title={`Allow ${payment.symbol} to be used as payment`}>
+          <button type="button" className="ButtonPrimary disabled" onClick={ ()=>{} } title={`Allow ${payment.symbol} to be used as payment`}>
             Approve use of { payment.symbol }
           </button>
         </div>
@@ -174,7 +174,7 @@ export default ()=>{
     } else if(paymentState == 'initialized') {
       return(
         <div className="PaddingBottomXS">
-          <button className="ButtonPrimary" onClick={ approve } title={`Allow ${payment.symbol} to be used as payment`}>
+          <button type="button" className="ButtonPrimary" onClick={ approve } title={`Allow ${payment.symbol} to be used as payment`}>
             Approve use of { payment.symbol }
           </button>
         </div>
@@ -199,7 +199,7 @@ export default ()=>{
               <strong>Price updated!</strong>
             </div>
           </div>
-          <button className={"ButtonPrimary"} onClick={()=>{ updateRouteWithNewPrice() }}>
+          <button type="button" className={"ButtonPrimary"} onClick={()=>{ updateRouteWithNewPrice() }}>
             Reload
           </button>
         </div>
@@ -207,7 +207,7 @@ export default ()=>{
     } else if(paymentValueLoss){
       return(
         <div>
-          <button className={"ButtonPrimary disabled"} onClick={()=>{}}>
+          <button type="button" className={"ButtonPrimary disabled"} onClick={()=>{}}>
             Pay
           </button>
         </div>
@@ -215,6 +215,8 @@ export default ()=>{
     } else if((paymentState == 'initialized' || paymentState == 'approving') && payment.route) {
       return(
         <button 
+          tabIndex={1}
+          type="button"
           className={["ButtonPrimary", (payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled': '')].join(' ')}
           onClick={()=>{
             if(payment.route.approvalRequired && !payment.route.directTransfer) { return }
@@ -226,7 +228,7 @@ export default ()=>{
       )
     } else if (paymentState == 'paying') {
       return(
-        <a className="ButtonPrimary" title="Performing the payment - please wait" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
+        <a className="ButtonPrimary disabled" title="Performing the payment - please wait" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
           <LoadingText>Paying</LoadingText>
         </a>
       )
