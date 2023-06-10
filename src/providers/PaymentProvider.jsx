@@ -70,12 +70,12 @@ export default (props)=>{
       let stop = await before(transaction)
       if(stop === false){ return }
     }
-    setClosable(false)
     setPaymentState('paying')
     setUpdatable(false)
     let currentBlock = await request({ blockchain: transaction.blockchain, method: 'latestBlockNumber' })
-    await preTrack(currentBlock, payment.route, transaction).then(()=>{
-      wallet.sendTransaction(Object.assign({}, transaction, {
+    await preTrack(currentBlock, payment.route, transaction).then(async()=>{
+      setClosable(false)
+      await wallet.sendTransaction(Object.assign({}, transaction, {
         sent: (transaction)=>{
           initializeTransactionTracking(transaction, currentBlock)
           if(sent) { sent(transaction) }
@@ -130,6 +130,14 @@ export default (props)=>{
         setClosable(true)
       })
   }
+
+  useEffect(()=>{
+    if(wallet && wallet.isSolanaPay && wallet.isTransactionSend) {
+      setPaymentState('paying')
+      setUpdatable(false)
+      setClosable(false)
+    }
+  }, [wallet])
 
   useEffect(()=>{
     if(release){

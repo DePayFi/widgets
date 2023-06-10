@@ -66,7 +66,8 @@ export default (props)=>{
       body={
         <div className="PaddingLeftM PaddingRightM PaddingBottomXS">
           { amountsMissing && !fixedAmount &&
-            <div 
+            <button
+              type="button" 
               className={["Card", (paymentState == 'initialized' ? '' : 'disabled')].join(' ')}
               title={paymentState == 'initialized' ? "Change amount" : undefined}
               onClick={ ()=>{
@@ -98,9 +99,10 @@ export default (props)=>{
               <div className="CardAction">
                 <ChevronRight/>
               </div>
-            </div>
+            </button>
           }
-          <div 
+          <button
+            type="button" 
             className={["Card", (paymentState == 'initialized' ? '' : 'disabled')].join(' ')}
             title={paymentState == 'initialized' ? "Change payment" : undefined}
             onClick={ ()=>{
@@ -147,7 +149,7 @@ export default (props)=>{
             <div className="CardAction">
               <ChevronRight/>
             </div>
-          </div>
+          </button>
         </div>
       }
       footer={

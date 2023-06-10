@@ -32,6 +32,7 @@ export default (props)=>{
 
   const { open, close } = useContext(ClosableContext)
   const [ wallet, setWallet ] = useState()
+  const [ platform, setPlatform ] = useState()
   const [ selection, setSelection ] = useState({ blockchain: undefined })
   const [ showConnectExtensionWarning, setShowConnectExtensionWarning ] = useState(false)
   const resolve = (account, wallet)=> {
@@ -90,10 +91,10 @@ export default (props)=>{
   }
 
   const connectViaRedirect = (walletMetaData, reconnect = true)=> {
-    let platform = platformForWallet(walletMetaData)
+    const platform = platformForWallet(walletMetaData)
     if(!platform) { return }
-    if(walletMetaData.link == 'WalletConnectV1') {
-      let wallet = new wallets[walletMetaData.link]()
+    if(platform.connect == 'WalletConnectV1') {
+      let wallet = new wallets[platform.connect]()
       wallet.connect({
         name: walletMetaData.name,
         logo: walletMetaData.logo,
@@ -117,14 +118,22 @@ export default (props)=>{
       }).then((account)=>{
         resolve(account, wallet)
       })
-    } else if (walletMetaData.link == 'WalletLink') {
-      setPreviouslyConnectedWallet(walletMetaData.name)
-      if(isAndroid() || isWebView()) { // Universal Link
-        window.open(`${platform.universal}?cb_url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
-      } else { // iOS standalone browser -> native deeplink
-        window.open(`${platform.native}?url=${encodeURIComponent(window.location.toString())}`, '_self', 'noreferrer noopener')
-      }
+    } else if (platform.connect === 'SolanaMobileWalletAdapter') {
+      let wallet = new wallets[platform.connect]()
+      wallet.connect({
+        name: walletMetaData.name,
+        logo: walletMetaData.logo,
+      }).then((account)=>{
+        resolve(account, wallet)
+      })
     }
+  }
+
+  const openInApp = (walletMetaData)=>{
+    const platform = platformForWallet(walletMetaData)
+    if(!platform || !platform.open) { return }
+    setPreviouslyConnectedWallet(walletMetaData.name)
+    window.open(platform.open(), '_self', 'noreferrer noopener')
   }
 
   return(
@@ -136,9 +145,12 @@ export default (props)=>{
         container={ props.container }
         document={ props.document }
         dialogs={{
-          SelectWallet: <SelectWalletDialog setWallet={setWallet} resolve={resolve} connectViaRedirect={connectViaRedirect} connectExtension={connectExtension}/>,
+          SelectWallet: <SelectWalletDialog setWallet={(walletMetaData)=>{
+            setPlatform(platformForWallet(walletMetaData))
+            setWallet(walletMetaData)
+          }} resolve={resolve} openInApp={openInApp} connectViaRedirect={connectViaRedirect} connectExtension={connectExtension}/>,
           WhatIsAWallet: <WhatIsAWalletDialog/>,
-          ConnectWallet: <ConnectWalletDialog selection={selection} wallet={wallet} resolve={resolve} connectViaRedirect={connectViaRedirect} connectExtension={connectExtension} showConnectExtensionWarning={showConnectExtensionWarning}/>
+          ConnectWallet: <ConnectWalletDialog selection={selection} wallet={wallet} platform={platform} resolve={resolve} openInApp={openInApp} connectViaRedirect={connectViaRedirect} connectExtension={connectExtension} showConnectExtensionWarning={showConnectExtensionWarning} accept={props.accept}/>
         }}
       />
       <PoweredBy/>

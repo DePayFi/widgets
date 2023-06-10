@@ -86,7 +86,7 @@ export default (props)=>{
     
     socket.onclose = function(event) {
       if(!event || event.code != 1000) {
-        openSocket(transaction)
+        setTimeout(()=>openSocket(transaction), 1000)
       }
     }
 

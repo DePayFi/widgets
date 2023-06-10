@@ -17,6 +17,7 @@ import Dialog from '../components/Dialog'
 import DropDown from '../components/DropDown'
 import isMobile from '../helpers/isMobile'
 import MenuIcon from '../components/MenuIcon'
+import platformForWallet from '../helpers/platformForWallet'
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import safeUniversalUrl from '../helpers/safeUniversalUrl'
 import SelectWalletList from '../components/SelectWalletList'
@@ -49,9 +50,16 @@ export default (props)=>{
         navigate('ConnectWallet')
       }
     } else {
-      props.connectViaRedirect(walletMetaData)
-      props.setWallet(walletMetaData)
-      navigate('ConnectWallet')
+      const platform = platformForWallet(walletMetaData)
+      if(platform && platform.open) {
+        props.openInApp(walletMetaData)
+        props.setWallet(walletMetaData)
+        navigate('ConnectWallet')
+      } else {
+        props.connectViaRedirect(walletMetaData)
+        props.setWallet(walletMetaData)
+        navigate('ConnectWallet')
+      }
     }
   }
 
@@ -99,6 +107,7 @@ export default (props)=>{
               {
                 detectedWallets.map((wallet, index)=>{
                   const walletMetaData = allWallets.find((walletFromList)=>walletFromList.name === (wallet.info ? wallet.info.name : wallet.name))
+                  if(!walletMetaData){ return null }
                   let connectionType = 'app'
                   if(wallet && wallet.constructor && ![wallets.WalletConnectV1, wallets.WalletLink].includes(wallet.constructor)) {
                     connectionType = 'extension'
@@ -148,7 +157,7 @@ export default (props)=>{
                         <div className="CardText FontWeightMedium">
                           { previouslyConnectedWallet.name }
                         </div>
-                        <div className="Opacity05"><span style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Previously connected</div>
+                        <div className="Opacity05"><span style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Used previously</div>
                       </div>
                     </div>
                   </button>

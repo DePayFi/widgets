@@ -111,7 +111,7 @@ export default (props)=>{
 
   } else {
 
-    return(<ConnectStack document={ props.document } container={ props.container } resolve={ connected } />)
+    return(<ConnectStack document={ props.document } container={ props.container } resolve={ connected } accept={ accept } />)
 
   }
 }
