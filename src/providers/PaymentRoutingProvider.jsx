@@ -67,7 +67,7 @@ export default (props)=>{
     return await routePayments(Object.assign({}, props, { account, update: {
       every: 200,
       callback: async(routes)=>{
-        if(wallet.isSolanaPay && routes && routes.length && wallet.isTransactionSend !== true){
+        if(wallet && wallet.isSolanaPay && routes && routes.length && wallet.isTransactionSend !== true){
           console.log('TRACE HERE!!!')
           const route = routes[0]
           wallet.sendTransaction(await route.getTransaction())

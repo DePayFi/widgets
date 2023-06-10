@@ -25279,7 +25279,7 @@
                           while (1) {
                             switch (_context3.prev = _context3.next) {
                               case 0:
-                                if (!(wallet.isSolanaPay && routes && routes.length && wallet.isTransactionSend !== true)) {
+                                if (!(wallet && wallet.isSolanaPay && routes && routes.length && wallet.isTransactionSend !== true)) {
                                   _context3.next = 8;
                                   break;
                                 }
@@ -25894,7 +25894,7 @@
         setUpdatable(false);
         setClosable(false);
       }
-    }, [wallet, wallet.isTransactionSend]);
+    }, [wallet]);
     React.useEffect(function () {
       if (release) {
         setPaymentState('success');

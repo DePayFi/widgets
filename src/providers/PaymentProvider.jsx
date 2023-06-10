@@ -137,7 +137,7 @@ export default (props)=>{
       setUpdatable(false)
       setClosable(false)
     }
-  }, [wallet, wallet.isTransactionSend])
+  }, [wallet])
 
   useEffect(()=>{
     if(release){
