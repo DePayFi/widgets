@@ -232,7 +232,7 @@ export default (style)=>{
     }
 
     .CardText.small, .CardText.small small {
-      font-size: 18px;
+      font-size: 17px;
       color: rgb(150,150,150);
       line-height: 20px;
     }

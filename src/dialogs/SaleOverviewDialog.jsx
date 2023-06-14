@@ -74,7 +74,7 @@ export default (props)=>{
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
-          <h1 className="LineHeightL FontSizeL">Purchase</h1>
+          <h1 className="LineHeightL FontSizeL">Buy</h1>
         </div>
       }
       body={
@@ -107,12 +107,12 @@ export default (props)=>{
                     { format(toTokenReadableAmount) }
                     </span>
                   </div>
+                  { salePerTokenValue &&
+                    <div className="TokenAmountRow small grey">
+                      <span className="TokenAmountCell">{ salePerTokenValue } per token</span>
+                    </div>
+                  }
                 </h2>
-                { salePerTokenValue &&
-                  <h3 className="CardText small">
-                    <small>{ salePerTokenValue } per token</small>
-                  </h3>
-                }
               </div>
             </div>
             <div className="CardAction">
@@ -150,14 +150,11 @@ export default (props)=>{
                       { format(payment.amount) }
                     </span>
                   </div>
-                  { 
-                    (amountConfiguration && amountConfiguration.fix) &&
-                      <div className="TokenAmountRow small grey">
-                        <span className="TokenAmountCell">
-                          { displayedPaymentValue }
-                        </span>
-                      </div>
-                  }
+                  <div className="TokenAmountRow small grey">
+                    <span className="TokenAmountCell">
+                      { displayedPaymentValue }
+                    </span>
+                  </div>
                 </h2>
               </div>
             </div>

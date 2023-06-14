@@ -7,7 +7,7 @@ export default (props)=>{
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
-          <h1 className="LineHeightL FontSizeL">Purchase</h1>
+          <h1 className="LineHeightL FontSizeL">Buy</h1>
         </div>
       }
       body={

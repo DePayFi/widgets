@@ -10,19 +10,19 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@uiw/copy-to-clipboard/dist/copy-to-clipboard.umd.js"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/solana-web3.js@1.24.0"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/solana-web3.js@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/local-currency@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog@14"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@8.0.3"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@8"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-shadow-dom@5"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@8"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@10"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@4"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@9.20.1"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@4.11.1/dist/umd/index.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/coinbase-wallet-sdk@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v1@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v2@2"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@15.12.4"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@9"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@15"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-assets@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@12"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@12"></script>
@@ -978,15 +978,10 @@
                   var button = document.getElementById("buyWithConfAmountButton");
                   button.addEventListener("click",function(e){
                     DePayWidgets.Sale({
-                      amount: {
-                        start: 10.5,
-                        min: 0.5,
-                        step: 0.5
-                      },
-                      currency: 'USD',
                       sell: {
-                        'ethereum': '0x5a666c7d92e5fa7edcb6390e4efd6d0cdd69cf37',
-                        'bsc': '0x2fa5daf6fe0708fbd63b1a7d1592577284f52256'
+                        'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+                        'bsc': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+                        'solana': 'DePay1miDBPWXs6PVQrdC5Vch2jemgEPaiyXLNLLa2NF',
                       }
                     });
                   });
