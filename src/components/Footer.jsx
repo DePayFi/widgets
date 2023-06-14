@@ -228,7 +228,7 @@ export default ()=>{
       )
     } else if (paymentState == 'paying') {
       return(
-        <a className="ButtonPrimary disabled" title="Performing the payment - please wait" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
+        <a className="ButtonPrimary" title="Performing the payment - please wait" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
           <LoadingText>Paying</LoadingText>
         </a>
       )

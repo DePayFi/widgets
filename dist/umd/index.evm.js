@@ -26655,7 +26655,7 @@
         }, "Pay");
       } else if (paymentState == 'paying') {
         return /*#__PURE__*/React__default['default'].createElement("a", {
-          className: "ButtonPrimary disabled",
+          className: "ButtonPrimary",
           title: "Performing the payment - please wait",
           href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
           target: "_blank",
