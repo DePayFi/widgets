@@ -27325,7 +27325,7 @@
 
         if (validated) {
           setTimeout(function () {
-            return validated(success, item.message);
+            return validated(success, transaction);
           }, 200);
         }
 
@@ -27512,7 +27512,7 @@
                     clearInterval(pollingInterval);
 
                     if (validated) {
-                      validated(true, data);
+                      validated(true, transaction);
                     }
 
                     setRelease(true);

@@ -66,7 +66,7 @@ export default (props)=>{
       const item = JSON.parse(event.data)
       if(item.type === "ping" || !item.message) { return }
       const success = (item.message.status == 'success')
-      if(validated) { setTimeout(()=>validated(success, item.message), 200) }
+      if(validated) { setTimeout(()=>validated(success, transaction), 200) }
       if(item.message.release) {
         socket.close(1000)
         if(success) {
@@ -177,7 +177,7 @@ export default (props)=>{
           setClosable(true)
         }
         clearInterval(pollingInterval)
-        if(validated) { validated(true, data) }
+        if(validated) { validated(true, transaction) }
         setRelease(true)
       }
     }

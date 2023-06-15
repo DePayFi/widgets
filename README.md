@@ -567,9 +567,8 @@ A function that will be called once the payment has been validated by DePay Apis
 ```javascript
 DePayWidgets.Payment({
 
-  validated: (successful, data)=> {
+  validated: (successful, transaction)=> {
     // successful (true or false)
-    // data (can contain transaction_id)
   }
 })
 ```
