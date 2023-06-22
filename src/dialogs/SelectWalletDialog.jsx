@@ -64,15 +64,11 @@ export default (props)=>{
   }
 
   useEffect(()=>{
+    let wallets = []
     getWallets({
       drip: (wallet)=>{
-        setDetectedWallets(
-          Array.from(
-            new Set(
-              detectedWallets.concat(wallet)
-            )
-          )
-        )
+        wallets = wallets.concat(wallet)
+        setDetectedWallets(wallets)
       }
     })
 

@@ -23127,9 +23127,11 @@
     };
 
     React.useEffect(function () {
+      var wallets = [];
       web3WalletsSolana.getWallets({
         drip: function drip(wallet) {
-          setDetectedWallets(Array.from(new Set(detectedWallets.concat(wallet))));
+          wallets = wallets.concat(wallet);
+          setDetectedWallets(wallets);
         }
       });
       var previouslyConnectedWalletName = get();

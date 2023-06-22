@@ -23131,9 +23131,11 @@ var SelectWalletDialog = (function (props) {
   };
 
   useEffect(function () {
+    var wallets = [];
     getWallets({
       drip: function drip(wallet) {
-        setDetectedWallets(Array.from(new Set(detectedWallets.concat(wallet))));
+        wallets = wallets.concat(wallet);
+        setDetectedWallets(wallets);
       }
     });
     var previouslyConnectedWalletName = get();
