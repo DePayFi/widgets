@@ -22,7 +22,9 @@ export default (props)=> {
           </div>
           
           <p className="FontSizeM PaddingTopS PaddingLeftM PaddingRightM">
-            Wallets are used to send, receive, and store digital assets. Wallets come in many forms. They are either built into your browser, an extension added to your browser, a piece of hardware plugged into your computer or even an app on your phone.
+            Wallets are used to send, receive, and store digital assets.
+            Wallets come in many forms.
+            They are either built into your browser, an extension added to your browser, an app on your phone, your computer or even a piece of hardware.
           </p>
 
           <div className="PaddingTopS">
