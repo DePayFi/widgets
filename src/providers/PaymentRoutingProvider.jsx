@@ -68,7 +68,6 @@ export default (props)=>{
       every: 200,
       callback: async(routes)=>{
         if(wallet && wallet.isSolanaPay && routes && routes.length && wallet.isTransactionSend !== true){
-          console.log('TRACE HERE!!!')
           const route = routes[0]
           wallet.sendTransaction(await route.getTransaction())
         }

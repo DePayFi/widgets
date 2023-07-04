@@ -123,9 +123,6 @@ export default class SolanaPay extends wallets.WindowSolana {
     const serializedTransaction = transaction.serialize({ verifySignatures: false, requireAllSignatures: false })
     const txBase64 = serializedTransaction.toString('base64')
 
-    console.log('WIDGET TRACKING TRANSACTION TRACKING HERE!!!')
-    console.log('API TRACKING via TRACK HERE!!!')
-
     this.socket.send(JSON.stringify({
       command: 'message',
       identifier: JSON.stringify({ secret_id: this.secret_id, label: this._label, icon: this._icon, channel: 'SolanaPayChannel' }),

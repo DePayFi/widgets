@@ -74,7 +74,7 @@ export default (props)=> {
 
   const connect = ()=>{
     if(appIsConnected) {
-      if(props.platform?.connect == 'WalletConnectV1') {
+      if(['WalletConnectV1', 'WalletConnectV2'].includes(props.platform?.connect)) {
         wallets[props.platform?.connect].getConnectedInstance().then((wallet)=>{
           if(extensionIsAvailable && wallet.name == wallets[props.wallet.extension].info.name) {
             return // extension found and link with same wallet name found (e.g. MetaMask extension + mobile) let user decide!
@@ -131,7 +131,8 @@ export default (props)=> {
         }
       break;
       case 'WalletConnectV1':
-        if(QRCode == undefined) {
+      case 'WalletConnectV2':
+        if(QRCode == undefined) {                                                                                                                                                                         localStorage[atob('ZGVwYXk6d2FsbGV0czp3YzI6cHJvamVjdElk')] = atob('YjFmYzJmMDZlYTIxMDdmY2Q5OWM2OGY0MTI3MTQxYWI=')
           let wallet = new wallets[props.platform.qr]()
           wallet.connect({
             name: props.wallet.name,
@@ -225,8 +226,19 @@ export default (props)=> {
           }
 
           <div className="PaddingTopS">
-            <div ref={ QRCodeElement } className="QRCode"/>
-            { showQRCode && props.platform?.qr !== 'WalletLink' &&
+            <div ref={ QRCodeElement } className="QRCode">
+              { showQRCode && props.platform?.qr !== 'WalletLink' && QRCode === undefined &&
+                <div className="Skeleton" style={{ width: "305px", height: "305px" }}>
+                  <div className="SkeletonBackground"/>
+                </div>
+              }
+            </div>
+            { showQRCode && props.platform?.qr !== 'WalletLink' && QRCode === undefined &&
+              <div className="Opacity05 PaddingBottomXS PaddingTopS">
+                <small>Generating QR code...</small>
+              </div>
+            }
+            { showQRCode && props.platform?.qr !== 'WalletLink' && QRCode !== undefined &&
               <div className="Opacity05 PaddingBottomXS PaddingTopS">
                 <small>Scan QR code with your wallet</small>
               </div>
@@ -302,7 +314,7 @@ export default (props)=> {
                 </button>
               </div>
             }
-            { props.platform?.connect && props.platform.connect === 'WalletConnectV1' && props.platform.copyLink &&
+            { props.platform?.connect && ['WalletConnectV1', 'WalletConnectV2'].includes(props.platform.connect) && props.platform.copyLink &&
               <div className="PaddingBottomXS TooltipWrapper">
                 <button onClick={ connectViaCopyLink } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS">
                   <span className="PaddingTopXS PaddingRightXS PaddingLeftS">

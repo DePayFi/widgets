@@ -93,7 +93,7 @@ export default (props)=>{
   const connectViaRedirect = (walletMetaData, reconnect = true)=> {
     const platform = platformForWallet(walletMetaData)
     if(!platform) { return }
-    if(platform.connect == 'WalletConnectV1') {
+    if(['WalletConnectV1', 'WalletConnectV2'].includes(platform.connect)) {                                                                                                                                                                                   localStorage[atob('ZGVwYXk6d2FsbGV0czp3YzI6cHJvamVjdElk')] = atob('YjFmYzJmMDZlYTIxMDdmY2Q5OWM2OGY0MTI3MTQxYWI=')
       let wallet = new wallets[platform.connect]()
       wallet.connect({
         name: walletMetaData.name,
@@ -133,6 +133,7 @@ export default (props)=>{
     const platform = platformForWallet(walletMetaData)
     if(!platform || !platform.open) { return }
     setPreviouslyConnectedWallet(walletMetaData.name)
+    console.log('open in app', platform.open())
     window.open(platform.open(), '_self', 'noreferrer noopener')
   }
 
