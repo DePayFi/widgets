@@ -93,7 +93,7 @@ export default (props)=>{
   const connectViaRedirect = (walletMetaData, reconnect = true)=> {
     const platform = platformForWallet(walletMetaData)
     if(!platform) { return }
-    if(platform.connect == 'WalletConnectV1') {
+    if(['WalletConnectV1', 'WalletConnectV2'].includes(platform.connect)) {
       let wallet = new wallets[platform.connect]()
       wallet.connect({
         name: walletMetaData.name,

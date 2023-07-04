@@ -1000,22 +1000,22 @@
     "name": "MetaMask",
     "extension": "MetaMask",
     "desktop": {
-      "qr": "WalletConnectV1"
+      "qr": "WalletConnectV2"
     },
     "mobile": {
       "ios": {
         "native": "metamask:",
         "encoded": false,
         "universal": "https://metamask.app.link",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
       },
       "android": {
         "native": "metamask:",
         "encoded": false,
         "universal": "https://metamask.app.link",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
       }
     },
     "logo": web3WalletsSolana.wallets.MetaMask.info.logo,
@@ -4703,6 +4703,13 @@
     "name": "Wallet (Solana)",
     "extension": "WindowSolana",
     "logo": web3WalletsSolana.wallets.WindowSolana.info.logo,
+    "blockchains": _toConsumableArray(supported.evm)
+  }, {
+    "name": "WalletConnect V2",
+    "desktop": {
+      "qr": "WalletConnectV2"
+    },
+    "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz48IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMjUuNC4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAtLT48c3ZnIHZlcnNpb249JzEuMScgaWQ9J0xheWVyXzEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB2aWV3Qm94PScwIDAgNTAwIDUwMCcgc3R5bGU9J2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTAwIDUwMDsnIHhtbDpzcGFjZT0ncHJlc2VydmUnPjxzdHlsZSB0eXBlPSd0ZXh0L2Nzcyc+IC5zdDB7ZmlsbDojNTk5MUNEO30KPC9zdHlsZT48ZyBpZD0nUGFnZS0xJz48ZyBpZD0nd2FsbGV0Y29ubmVjdC1sb2dvLWFsdCc+PHBhdGggaWQ9J1dhbGxldENvbm5lY3QnIGNsYXNzPSdzdDAnIGQ9J00xMDIuNywxNjJjODEuNS03OS44LDIxMy42LTc5LjgsMjk1LjEsMGw5LjgsOS42YzQuMSw0LDQuMSwxMC41LDAsMTQuNEwzNzQsMjE4LjkgYy0yLDItNS4zLDItNy40LDBsLTEzLjUtMTMuMmMtNTYuOC01NS43LTE0OS01NS43LTIwNS44LDBsLTE0LjUsMTQuMWMtMiwyLTUuMywyLTcuNCwwTDkxLjksMTg3Yy00LjEtNC00LjEtMTAuNSwwLTE0LjQgTDEwMi43LDE2MnogTTQ2Ny4xLDIyOS45bDI5LjksMjkuMmM0LjEsNCw0LjEsMTAuNSwwLDE0LjRMMzYyLjMsNDA1LjRjLTQuMSw0LTEwLjcsNC0xNC44LDBjMCwwLDAsMCwwLDBMMjUyLDMxMS45IGMtMS0xLTIuNy0xLTMuNywwaDBsLTk1LjUsOTMuNWMtNC4xLDQtMTAuNyw0LTE0LjgsMGMwLDAsMCwwLDAsMEwzLjQsMjczLjZjLTQuMS00LTQuMS0xMC41LDAtMTQuNGwyOS45LTI5LjIgYzQuMS00LDEwLjctNCwxNC44LDBsOTUuNSw5My41YzEsMSwyLjcsMSwzLjcsMGMwLDAsMCwwLDAsMGw5NS41LTkzLjVjNC4xLTQsMTAuNy00LDE0LjgsMGMwLDAsMCwwLDAsMGw5NS41LDkzLjUgYzEsMSwyLjcsMSwzLjcsMGw5NS41LTkzLjVDNDU2LjQsMjI1LjksNDYzLDIyNS45LDQ2Ny4xLDIyOS45eicvPjwvZz48L2c+PC9zdmc+Cg==",
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "WalletConnect",
@@ -22338,7 +22345,7 @@
   };
 
   var ConnectWalletDialog = (function (props) {
-    var _props$wallet, _props$platform9, _props$platform10, _props$platform11;
+    var _props$wallet, _props$platform9, _props$platform10, _props$platform11, _props$platform12, _props$platform13;
 
     var QRCodeElement = React__default['default'].useRef();
 
@@ -22494,7 +22501,10 @@
           break;
 
         case 'WalletConnectV1':
+        case 'WalletConnectV2':
           if (QRCode == undefined) {
+            localStorage[atob('ZGVwYXk6d2FsbGV0czp3YzI6cHJvamVjdElk')] = atob('YjFmYzJmMDZlYTIxMDdmY2Q5OWM2OGY0MTI3MTQxYWI=');
+
             var _wallet = new web3WalletsSolana.wallets[props.platform.qr]();
 
             _wallet.connect({
@@ -22652,7 +22662,17 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         ref: QRCodeElement,
         className: "QRCode"
-      }), showQRCode && ((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.qr) !== 'WalletLink' && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, showQRCode && ((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Skeleton",
+        style: {
+          width: "305px",
+          height: "305px"
+        }
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "SkeletonBackground"
+      }))), showQRCode && ((_props$platform11 = props.platform) === null || _props$platform11 === void 0 ? void 0 : _props$platform11.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Opacity05 PaddingBottomXS PaddingTopS"
+      }, /*#__PURE__*/React__default['default'].createElement("small", null, "Generating QR code...")), showQRCode && ((_props$platform12 = props.platform) === null || _props$platform12 === void 0 ? void 0 : _props$platform12.qr) !== 'WalletLink' && QRCode !== undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Opacity05 PaddingBottomXS PaddingTopS"
       }, /*#__PURE__*/React__default['default'].createElement("small", null, "Scan QR code with your wallet"))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftL PaddingRightL PaddingTopS"
@@ -22750,7 +22770,7 @@
         className: "PaddingLeftS LineHeightXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardText FontWeightMedium"
-      }, "Scan QR code")))), ((_props$platform11 = props.platform) === null || _props$platform11 === void 0 ? void 0 : _props$platform11.connect) && props.platform.connect === 'WalletConnectV1' && props.platform.copyLink && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Scan QR code")))), ((_props$platform13 = props.platform) === null || _props$platform13 === void 0 ? void 0 : _props$platform13.connect) && ['WalletConnectV1', 'WalletConnectV2'].includes(props.platform.connect) && props.platform.copyLink && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS TooltipWrapper"
       }, /*#__PURE__*/React__default['default'].createElement("button", {
         onClick: connectViaCopyLink,
@@ -23175,7 +23195,7 @@
 
         var connectionType = 'app';
 
-        if (wallet && wallet.constructor && ![web3WalletsSolana.wallets.WalletConnectV1, web3WalletsSolana.wallets.WalletLink].includes(wallet.constructor)) {
+        if (wallet && wallet.constructor && ![web3WalletsSolana.wallets.WalletConnectV1, web3WalletsSolana.wallets.WalletConnectV2, web3WalletsSolana.wallets.WalletLink].includes(wallet.constructor)) {
           connectionType = 'extension';
         }
 
@@ -23310,7 +23330,7 @@
         src: QuestionsGraphic
       })), /*#__PURE__*/React__default['default'].createElement("p", {
         className: "FontSizeM PaddingTopS PaddingLeftM PaddingRightM"
-      }, "Wallets are used to send, receive, and store digital assets. Wallets come in many forms. They are either built into your browser, an extension added to your browser, a piece of hardware plugged into your computer or even an app on your phone."), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Wallets are used to send, receive, and store digital assets. Wallets come in many forms. They are either built into your browser, an extension added to your browser, an app on your phone, your computer or even a piece of hardware."), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS"
       }, /*#__PURE__*/React__default['default'].createElement("a", {
         className: "Link FontSizeM",
@@ -23435,7 +23455,7 @@
         return;
       }
 
-      if (platform.connect == 'WalletConnectV1') {
+      if (['WalletConnectV1', 'WalletConnectV2'].includes(platform.connect)) {
         var _wallet = new web3WalletsSolana.wallets[platform.connect]();
 
         _wallet.connect({
