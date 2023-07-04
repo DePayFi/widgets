@@ -1012,7 +1012,7 @@ var allWallets = [{
       "universal": "https://metamask.app.link",
       "qr": "WalletConnectV1",
       "open": function open() {
-        return "dapp/".concat(window.location.toString());
+        return "https://metamask.app.link/dapp/".concat(window.location.toString().replace(/^(https*)*:\/\//, ''));
       }
     },
     "android": {
@@ -1020,7 +1020,7 @@ var allWallets = [{
       "universal": "https://metamask.app.link",
       "qr": "WalletConnectV1",
       "open": function open() {
-        return "dapp/".concat(window.location.toString());
+        return "https://metamask.app.link/dapp/".concat(window.location.toString().replace(/^(https*)*:\/\//, ''));
       }
     }
   },
