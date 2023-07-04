@@ -1004,20 +1004,24 @@ var allWallets = [{
   "name": "MetaMask",
   "extension": "MetaMask",
   "desktop": {
-    "qr": "WalletConnectV2"
+    "qr": "WalletConnectV1"
   },
   "mobile": {
     "ios": {
       "native": "metamask:",
       "universal": "https://metamask.app.link",
-      "connect": "WalletConnectV2",
-      "qr": "WalletConnectV2"
+      "qr": "WalletConnectV1",
+      "open": function open() {
+        return "metamask://dapp/".concat(window.location.toString().replace(/^(https*)*:\/\//, ''));
+      }
     },
     "android": {
       "native": "metamask:",
       "universal": "https://metamask.app.link",
-      "connect": "WalletConnectV2",
-      "qr": "WalletConnectV2"
+      "qr": "WalletConnectV1",
+      "open": function open() {
+        return "metamask://dapp/".concat(window.location.toString().replace(/^(https*)*:\/\//, ''));
+      }
     }
   },
   "logo": wallets.MetaMask.info.logo,

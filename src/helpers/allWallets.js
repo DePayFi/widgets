@@ -29,10 +29,10 @@ export default [
   {
     "name": "MetaMask",
     "extension": "MetaMask",
-    "desktop": { "qr": "WalletConnectV2" },
+    "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "metamask:", "universal": "https://metamask.app.link", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
-      "android": { "native": "metamask:", "universal": "https://metamask.app.link", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "ios": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "open": ()=>`metamask://dapp/${window.location.toString().replace(/^(https*)*:\/\//,'')}` },
+      "android": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "open": ()=>`metamask://dapp/${window.location.toString().replace(/^(https*)*:\/\//,'')}` },
     },
     "logo": wallets.MetaMask.info.logo,
     "blockchains": [...supported.evm]
