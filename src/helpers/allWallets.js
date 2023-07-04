@@ -31,8 +31,8 @@ export default [
     "extension": "MetaMask",
     "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "native": "metamask:", "encoded": false, "universal": "https://metamask.app.link", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
-      "android": { "native": "metamask:", "encoded": false, "universal": "https://metamask.app.link", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "ios": { "native": "metamask:", "universal": "https://metamask.app.link", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "metamask:", "universal": "https://metamask.app.link", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": wallets.MetaMask.info.logo,
     "blockchains": [...supported.evm]

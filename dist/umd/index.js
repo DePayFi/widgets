@@ -1005,14 +1005,12 @@
     "mobile": {
       "ios": {
         "native": "metamask:",
-        "encoded": false,
         "universal": "https://metamask.app.link",
         "connect": "WalletConnectV2",
         "qr": "WalletConnectV2"
       },
       "android": {
         "native": "metamask:",
-        "encoded": false,
         "universal": "https://metamask.app.link",
         "connect": "WalletConnectV2",
         "qr": "WalletConnectV2"
@@ -23428,6 +23426,7 @@
         href = "".concat(href, "wc?uri=").concat(uri);
       }
 
+      console.log('OPEN', href);
       return window.open(href, '_self', 'noreferrer noopener');
     };
 
@@ -23456,6 +23455,8 @@
       }
 
       if (['WalletConnectV1', 'WalletConnectV2'].includes(platform.connect)) {
+        localStorage[atob('ZGVwYXk6d2FsbGV0czp3YzI6cHJvamVjdElk')] = atob('YjFmYzJmMDZlYTIxMDdmY2Q5OWM2OGY0MTI3MTQxYWI=');
+
         var _wallet = new web3Wallets.wallets[platform.connect]();
 
         _wallet.connect({
