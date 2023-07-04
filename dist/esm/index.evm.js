@@ -5106,8 +5106,6 @@ var SolanaPay = /*#__PURE__*/function (_wallets$WindowSolana) {
                   requireAllSignatures: false
                 });
                 txBase64 = serializedTransaction.toString('base64');
-                console.log('WIDGET TRACKING TRANSACTION TRACKING HERE!!!');
-                console.log('API TRACKING via TRACK HERE!!!');
                 this.socket.send(JSON.stringify({
                   command: 'message',
                   identifier: JSON.stringify({
@@ -5122,7 +5120,7 @@ var SolanaPay = /*#__PURE__*/function (_wallets$WindowSolana) {
                   })
                 }));
 
-              case 8:
+              case 6:
               case "end":
                 return _context4.stop();
             }
@@ -23434,7 +23432,6 @@ var ConnectStack = (function (props) {
       href = "".concat(href, "wc?uri=").concat(uri);
     }
 
-    console.log('OPEN', href);
     return window.open(href, '_self', 'noreferrer noopener');
   };
 
@@ -23512,6 +23509,7 @@ var ConnectStack = (function (props) {
     }
 
     set(walletMetaData.name);
+    console.log('open in app', platform.open());
     window.open(platform.open(), '_self', 'noreferrer noopener');
   };
 
@@ -25311,22 +25309,21 @@ var PaymentRoutingProvider = (function (props) {
                           switch (_context3.prev = _context3.next) {
                             case 0:
                               if (!(wallet && wallet.isSolanaPay && routes && routes.length && wallet.isTransactionSend !== true)) {
-                                _context3.next = 8;
+                                _context3.next = 7;
                                 break;
                               }
 
-                              console.log('TRACE HERE!!!');
                               route = routes[0];
                               _context3.t0 = wallet;
-                              _context3.next = 6;
+                              _context3.next = 5;
                               return route.getTransaction();
 
-                            case 6:
+                            case 5:
                               _context3.t1 = _context3.sent;
 
                               _context3.t0.sendTransaction.call(_context3.t0, _context3.t1);
 
-                            case 8:
+                            case 7:
                             case "end":
                               return _context3.stop();
                           }
