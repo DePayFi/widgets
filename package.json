@@ -23,8 +23,8 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf dist && npx rollup --config rollup.module.config.js && npx rollup --config rollup.bundle.config.js && rollup -c rollup.module.evm.config.js && rollup -c rollup.module.solana.config.js",
-    "lint": "eslint \"src/**/*.{js,ts,tsx}\"",
-    "lint:fix": "eslint \"src/**/*.{js,ts,tsx}\" --fix",
+    "lint": "eslint \"src/**/*.{js,ts,tsx}\" --ignore-pattern \"**/*.d.ts\"",
+    "lint:fix": "eslint \"src/**/*.{js,ts,tsx}\" --fix --ignore-pattern \"**/*.d.ts\"",
     "format": "prettier src --write",
     "prepublishOnly": "yarn build",
     "dev": "npx rollup -c rollup.dev.config.js -w",
