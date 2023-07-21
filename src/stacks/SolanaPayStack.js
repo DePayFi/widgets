@@ -1,6 +1,6 @@
 import ClosableContext from '../contexts/ClosableContext'
-import React, { useState, useContext, useEffect } from 'react'
-import SignLoginDialog from '../dialogs/SignLoginDialog'
+import React, { useContext } from 'react'
+import SolanaPayDialog from '../dialogs/SolanaPayDialog'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{
@@ -11,13 +11,14 @@ export default (props)=>{
     <ReactDialogStack
       open={ open }
       close={ close }
-      start='SignLogin'
-      stacked={ props.stacked }
+      start='SolanaPay'
       container={ props.container }
       document={ props.document }
+      stacked={true}
       dialogs={{
-        SignLogin: <SignLoginDialog resolve={props.resolve} userClosedDialog={props.userClosedDialog}/>,
+        SolanaPay: <SolanaPayDialog/>,
       }}
     />
   )
 }
+

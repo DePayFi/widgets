@@ -1246,17 +1246,17 @@
   resolved "https://registry.yarnpkg.com/@depay/local-currency/-/local-currency-3.6.0.tgz#53563644de30f02c101a30be29fa556deb41420a"
   integrity sha512-H60q3HtDq7jf328/tTfRnzb/XFNiK1BISZqULobSSfLstAIPVXjlgYXvDnvmx1gcAbdopwmjhypniEQHzQIqIw==
 
-"@depay/react-dialog-stack@^8.0.3":
-  version "8.0.3"
-  resolved "https://registry.yarnpkg.com/@depay/react-dialog-stack/-/react-dialog-stack-8.0.3.tgz#3869d8ae36812a96ab7e761f5a298ff64039bf51"
-  integrity sha512-DzX73wcspy19ZHpWfTXx+S9/tNNOcg4UIk9PrrlWZl/urUWoTIC/hAiuFXYoPGPMQ3yA4/8ZEaxN1e7nfJEiBA==
+"@depay/react-dialog-stack@^8.1.1":
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/@depay/react-dialog-stack/-/react-dialog-stack-8.1.1.tgz#bf5c6666ff997927690f8e718e49a4d7af0e088a"
+  integrity sha512-0LSx4CCfl8XgSwkMEN2AoF//pVMI3SqJlXCZ20OV/lCJGudkIVSnSramufoQW+ESnjp6U7/gm4QZx0du+PZ6UA==
   dependencies:
-    "@depay/react-dialog" "^14.0.6"
+    "@depay/react-dialog" "^14.1.1"
 
-"@depay/react-dialog@^14.0.6":
-  version "14.0.6"
-  resolved "https://registry.yarnpkg.com/@depay/react-dialog/-/react-dialog-14.0.6.tgz#b07b409f5d29bd9931c5e07a72e5ed79bde4c288"
-  integrity sha512-cWYORdOQapYFGoXHgB+gSP0jLkoLl6NhIYVHVqP8HM85MSjF0hqFboW7vyyB0ENSKLT89Ozmk4XLp0/TmsywLA==
+"@depay/react-dialog@^14.1.1":
+  version "14.1.1"
+  resolved "https://registry.yarnpkg.com/@depay/react-dialog/-/react-dialog-14.1.1.tgz#2ee1eccd6226b1ac328b0779bf6323e3b7934e64"
+  integrity sha512-BFhItVDE57EKrG6v5Zy8KBBrd+d48RZP7c8NqaJaAQphB0+JTW2uBuSX43q4rJXbP/3KqcAPF/DIEGWzNWyjUA==
 
 "@depay/react-shadow-dom@^5.0.5":
   version "5.0.5"

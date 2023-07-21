@@ -36,7 +36,7 @@
   "dependencies": {
     "@depay/coinbase-wallet-sdk": "^3.6.4",
     "@depay/local-currency": "^3.6.0",
-    "@depay/react-dialog-stack": "^8.0.3",
+    "@depay/react-dialog-stack": "^8.1.1",
     "@depay/react-shadow-dom": "^5.0.5",
     "@depay/react-token-image": "^4.11.1",
     "@depay/solana-web3.js": "^1.24.0",

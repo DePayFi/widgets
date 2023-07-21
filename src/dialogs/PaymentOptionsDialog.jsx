@@ -132,7 +132,7 @@ export default ()=> {
         footer={
           <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
             <button type="button" className="ButtonPrimary" onClick={()=>navigate('back')}>
-              <span className="FontSizeM">❮</span> Go back
+              Go back
             </button>
           </div>
         }

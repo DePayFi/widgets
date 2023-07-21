@@ -24,6 +24,7 @@ export default (props)=>{
       start='SaleOverview'
       container={ props.container }
       document={ props.document }
+      stacked={true}
       dialogs={{
         SaleOverview: <SaleOverviewDialog/>,
         ChangeAmount: <ChangeAmountDialog/>,

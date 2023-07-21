@@ -22,7 +22,6 @@ import PoweredBy from '../components/PoweredBy'
 import React, { useState, useContext, useEffect } from 'react'
 import safeAppUrl from '../helpers/safeAppUrl'
 import safeUniversalUrl from '../helpers/safeUniversalUrl'
-import SelectBlockchainDialog from '../dialogs/SelectBlockchainDialog'
 import SelectWalletDialog from '../dialogs/SelectWalletDialog'
 import WhatIsAWalletDialog from '../dialogs/WhatIsAWalletDialog'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
@@ -145,16 +144,28 @@ export default (props)=>{
         start='SelectWallet'
         container={ props.container }
         document={ props.document }
+        setNavigator={ props.setNavigator ? props.setNavigator : ()=>{} }
+        stacked={ props.stacked }
         dialogs={{
           SelectWallet: <SelectWalletDialog setWallet={(walletMetaData)=>{
             setPlatform(platformForWallet(walletMetaData))
             setWallet(walletMetaData)
           }} resolve={resolve} openInApp={openInApp} connectViaRedirect={connectViaRedirect} connectExtension={connectExtension}/>,
           WhatIsAWallet: <WhatIsAWalletDialog/>,
-          ConnectWallet: <ConnectWalletDialog selection={selection} wallet={wallet} platform={platform} resolve={resolve} openInApp={openInApp} connectViaRedirect={connectViaRedirect} connectExtension={connectExtension} showConnectExtensionWarning={showConnectExtensionWarning} accept={props.accept}/>
+          ConnectWallet: <ConnectWalletDialog
+            selection={selection}
+            wallet={wallet}
+            platform={platform}
+            resolve={resolve}
+            openInApp={openInApp}
+            connectViaRedirect={connectViaRedirect}
+            connectExtension={connectExtension}
+            showConnectExtensionWarning={showConnectExtensionWarning}
+            continueWithSolanaPay={props.continueWithSolanaPay}
+            accept={props.accept}
+          />
         }}
       />
-      <PoweredBy/>
     </div>
   )
 }

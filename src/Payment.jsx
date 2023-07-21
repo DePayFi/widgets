@@ -1,4 +1,3 @@
-import { supported } from './blockchains'
 import ChangableAmountProvider from './providers/ChangableAmountProvider'
 import ClosableProvider from './providers/ClosableProvider'
 import ConfigurationProvider from './providers/ConfigurationProvider'
@@ -16,10 +15,12 @@ import PoweredBy from './components/PoweredBy'
 import React from 'react'
 import requireReactVersion from './helpers/requireReactVersion'
 import routePayments from './helpers/routePayments'
+import SolanaPayProvider from './providers/SolanaPayProvider'
 import SUPPORTED_CURRENCIES from './helpers/supportedCurrencies'
 import TransactionTrackingProvider from './providers/TransactionTrackingProvider'
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
+import { supported } from './blockchains'
 
 let preflight = async({ accept, recover }) => {
   if(recover){ return }
@@ -71,29 +72,31 @@ let Payment = async ({
           <ConfigurationProvider configuration={ { type: 'payment', before, amount, accept, currency, event, sent, succeeded, validated, failed, whitelist, blacklist, providers, track, recover, integration, link, wallet, title, action } }>
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount } closable={ closable }>
-                <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>
-                  <NavigateProvider>
-                    <ConversionRateProvider>
-                      <ChangableAmountProvider accept={ accept }>
-                        <PaymentAmountRoutingProvider accept={ accept } whitelist={ whitelist } blacklist={ blacklist } event={ event } container={ container } document={ document }>
-                          <TransactionTrackingProvider>
-                            <PaymentTrackingProvider document={ ensureDocument(document) }>
-                              <PaymentProvider container={ container } document={ document }>
-                                <PaymentValueProvider>
-                                    <PaymentStack
-                                      document={ document }
-                                      container={ container }
-                                    />
-                                    <PoweredBy/>
-                                </PaymentValueProvider>
-                              </PaymentProvider>
-                            </PaymentTrackingProvider>
-                          </TransactionTrackingProvider>
-                        </PaymentAmountRoutingProvider>
-                      </ChangableAmountProvider>
-                    </ConversionRateProvider>
-                  </NavigateProvider>
-                </WalletProvider>
+                <NavigateProvider>
+                  <PoweredBy/>
+                  <SolanaPayProvider document={ document } container={ container }>
+                    <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>
+                      <ConversionRateProvider>
+                        <ChangableAmountProvider accept={ accept }>
+                          <PaymentAmountRoutingProvider accept={ accept } whitelist={ whitelist } blacklist={ blacklist } event={ event } container={ container } document={ document }>
+                            <TransactionTrackingProvider>
+                              <PaymentTrackingProvider document={ ensureDocument(document) }>
+                                <PaymentProvider container={ container } document={ document }>
+                                  <PaymentValueProvider>
+                                      <PaymentStack
+                                        document={ document }
+                                        container={ container }
+                                      />
+                                  </PaymentValueProvider>
+                                </PaymentProvider>
+                              </PaymentTrackingProvider>
+                            </TransactionTrackingProvider>
+                          </PaymentAmountRoutingProvider>
+                        </ChangableAmountProvider>
+                      </ConversionRateProvider>
+                    </WalletProvider>
+                  </SolanaPayProvider>
+                </NavigateProvider>
               </ClosableProvider>
             </UpdatableProvider>
           </ConfigurationProvider>

@@ -12,8 +12,8 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@uiw/copy-to-clipboard/dist/copy-to-clipboard.umd.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/solana-web3.js@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/local-currency@3"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog@14"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@8"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog@14.1.1"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@8.1.1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-shadow-dom@5"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@8"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@10"></script>
@@ -151,6 +151,12 @@
                           token: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
                         },
+                        {
+                          blockchain: 'solana',
+                          amount: 0.001,
+                          token: '11111111111111111111111111111111',
+                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk'
+                        },
                       ]
                     });
                   });
@@ -180,6 +186,12 @@
                           blockchain: 'solana',
                           amount: 0.001,
                           token: '11111111111111111111111111111111',
+                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk'
+                        },
+                        {
+                          blockchain: 'solana',
+                          amount: 0.001,
+                          token: Web3Blockchains.solana.stables.usd[0],
                           receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk'
                         },
                       ]

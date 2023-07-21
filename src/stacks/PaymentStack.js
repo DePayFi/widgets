@@ -35,6 +35,7 @@ export default (props)=>{
       start='PaymentOverview'
       container={ props.container }
       document={ props.document }
+      stacked={true}
       dialogs={{
         PaymentOverview: <PaymentOverviewDialog/>,
         ChangeAmount: <ChangeAmountDialog/>,
