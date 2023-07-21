@@ -629,7 +629,7 @@ DePayWidgets.Payment({
 Allows to pass an already connected wallet instance (to skip the "Connect Wallet" flow):
 
 ```javascript
-let { wallet } DePayWidgets.Connect({})
+let { wallet } = DePayWidgets.Connect({})
 
 DePayWidgets.Payment({
   
