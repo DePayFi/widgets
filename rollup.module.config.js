@@ -1,4 +1,5 @@
 import commonjs from '@rollup/plugin-commonjs'
+import copy from 'rollup-plugin-copy'
 import globals from './rollup.globals.js'
 import jscc from 'rollup-plugin-jscc'
 import pkg from './package.json'
@@ -29,6 +30,18 @@ export default {
     ...Object.keys(pkg.peerDependencies || {})
   ],
   plugins: [
+    copy({
+      targets: [
+        { src: 'src/index.d.ts', dest: 'dist/umd/' },
+        { src: 'src/index.d.ts', dest: 'dist/umd/', rename: ()=>'index.bundle.d.ts' },
+        { src: 'src/index.d.ts', dest: 'dist/umd/', rename: ()=>'index.evm.d.ts' },
+        { src: 'src/index.d.ts', dest: 'dist/umd/', rename: ()=>'index.solana.d.ts' },
+        { src: 'src/index.d.ts', dest: 'dist/esm/' },
+        { src: 'src/index.d.ts', dest: 'dist/esm/', rename: ()=>'index.bundle.d.ts' },
+        { src: 'src/index.d.ts', dest: 'dist/esm/', rename: ()=>'index.evm.d.ts' },
+        { src: 'src/index.d.ts', dest: 'dist/esm/', rename: ()=>'index.solana.d.ts' },
+      ]
+    }),
     jscc({ include: 'src/**' }),
     resolve({
       extensions: ['.js', '.ts', '.jsx'],
