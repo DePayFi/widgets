@@ -257,7 +257,7 @@ export default (props)=>{
     openSocket(transaction)
   }
 
-  const preTrack = (afterBlock, paymentRoute, transaction)=>{
+  const trace = (afterBlock, paymentRoute, transaction)=>{
     if(!synchronousTracking && !asynchronousTracking) { return Promise.resolve() }
     return new Promise(async(resolve, reject)=>{
       let payment = {
@@ -283,7 +283,7 @@ export default (props)=>{
           if(response.status == 200 || response.status == 201) {
             return resolve()
           } else {
-            return reject('PRETRACKING REQUEST FAILED')
+            return reject('TRACING REQUEST FAILED')
           }
         })
       } else if (track.method) {
@@ -299,7 +299,7 @@ export default (props)=>{
       synchronousTracking,
       asynchronousTracking,
       initializeTracking,
-      preTrack,
+      trace,
       trackingInitialized,
       continueTryTracking,
       release,

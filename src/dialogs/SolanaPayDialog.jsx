@@ -74,17 +74,58 @@ const LOGO = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODYiIGhlaWdodD0iMzIiIHZp
 
 export default (props)=> {
 
-  const { accept } = useContext(ConfigurationContext)
+  const { accept, track } = useContext(ConfigurationContext)
   const [ paymentOptions, setPaymentOptions ] = useState()
   const [ selectedPaymentOption, setSelectedPaymantOption ] = useState()
   const [ secretId, setSecretId ] = useState()
   const [ QRCodeURI, setQRCodeURI ] = useState()
   const [ state, setState ] = useState('selectPaymentOption')
+  const [ deadline, setDeadline ] = useState()
+  const [ synchronousTracking ] = useState( !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true) )
+  const [ asynchronousTracking ] = useState( !!(track && track.async == true) )
 
   const selectPaymentOption = (paymentOption)=>{
     setSecretId(UUIDv4())
     setSelectedPaymantOption(paymentOption)
-    setState('loadingQRCode')
+    setState('preparing')
+  }
+
+  const trace = ()=>{
+    if(!synchronousTracking && !asynchronousTracking) { return Promise.resolve() }
+    return new Promise(async(resolve, reject)=>{
+      let currentBlock = await request({ blockchain: 'solana', method: 'latestBlockNumber' })
+      let payment = {
+        blockchain: 'solana',
+        sender: `solana:${secretId}`,
+        nonce: 0,
+        after_block: afterBlock.toString(),
+        from_token: setSelectedPaymantOption.fromToken.address,
+        from_amount: setSelectedPaymantOption.fromAmount.toString(),
+        from_decimals: setSelectedPaymantOption.fromDecimals,
+        to_token: setSelectedPaymantOption.toToken.address,
+        to_amount: setSelectedPaymantOption.toAmount.toString(),
+        to_decimals: setSelectedPaymantOption.toDecimals,
+        fee_amount: setSelectedPaymantOption?.feeAmount?.toString(),
+        deadline
+      }
+      if(track.endpoint){
+        return fetch(track.endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payment)
+        }).then((response)=>{
+          if(response.status == 200 || response.status == 201) {
+            return resolve()
+          } else {
+            return reject('TRACING REQUEST FAILED')
+          }
+        })
+      } else if (track.method) {
+        track.method(payment).then(resolve).catch(reject)
+      } else {
+        reject('No tracking defined!')
+      }
+    })
   }
 
   const openSocket = ()=>{
@@ -132,10 +173,14 @@ export default (props)=> {
 
   useEffect(()=>{
 
-    console.log('secretId', secretId)
-    console.log('selectedPaymentOption', selectedPaymentOption)
     if(secretId && selectedPaymentOption){
-      openSocket()
+      trace()
+        .then(()=>{
+
+        })
+        .catch(()=>{
+
+        })
     }
   }, [secretId, selectedPaymentOption])
 
@@ -238,7 +283,7 @@ export default (props)=> {
               }
 
               {
-                state === 'loadingQRCode' &&
+                state === 'preparing' &&
                 <div className="TextCenter">
                   <div className="Skeleton" style={{ display: "inline-block", borderRadius: "18px", width: "305px", height: "305px" }}>
                     <div className="SkeletonBackground"/>
@@ -257,7 +302,7 @@ export default (props)=> {
               </div>
             }
             {
-              state === 'loadingQRCode' &&
+              state === 'preparing' &&
               <div className="Opacity05 PaddingBottomXS">
                 <small>Loading QR code...</small>
               </div>
