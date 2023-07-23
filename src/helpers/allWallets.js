@@ -1767,10 +1767,10 @@ export default [
     "name": "ZenGo",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": {
-      "ios": { "native": "zengo:", "universal": "https://get.zengo.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "zengo:", "universal": "https://get.zengo.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "universal": "https://get.zengo.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
+      "android": { "universal": "https://get.zengo.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
      },
-    "logo": "https://img1.depay.com/wallets/zengo.jpg",
+    "logo": "https://img1.depay.com/wallets/zengo.v2.jpg",
     "blockchains": [...supported.evm]
   },
   {
