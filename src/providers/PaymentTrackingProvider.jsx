@@ -68,7 +68,7 @@ export default (props)=>{
       const success = (item.message.status == 'success')
       if(validated) { setTimeout(()=>validated(success, transaction), 200) }
       if(item.message.release) {
-        socket.close(1000)
+        socket.close()
         if(success) {
           setRelease(true)
           setClosable(true)
@@ -87,7 +87,7 @@ export default (props)=>{
     }
     
     socket.onerror = function(error) {
-      console.log('WebSocket Error: ' + error)
+      console.log('WebSocket Error: ', error)
     }
   }
 
@@ -206,7 +206,7 @@ export default (props)=>{
     return ()=>{ clearInterval(pollingInterval) }
   }, [polling, transaction, afterBlock, paymentRoute])
 
-  const storePayment = async(transaction, afterBlock, paymentRoute, attempt)=>{
+  const storePayment = async(transaction, afterBlock, paymentRoute)=>{
     fetch('https://public.depay.com/payments', {
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
@@ -237,16 +237,16 @@ export default (props)=>{
     .then((response)=>{
       if(response.status == 200 || response.status == 201) {
       } else {
-        setTimeout(()=>{ storePayment(transaction, afterBlock, paymentRoute, attempt+1) }, 3000)
+        setTimeout(()=>{ storePayment(transaction, afterBlock, paymentRoute) }, 3000)
       }
     })
     .catch((error)=>{
-      setTimeout(()=>{ storePayment(transaction, afterBlock, paymentRoute, attempt+1) }, 3000)
+      setTimeout(()=>{ storePayment(transaction, afterBlock, paymentRoute) }, 3000)
     })
   }
 
   const initializeTracking = (transaction, afterBlock, paymentRoute)=>{
-    storePayment(transaction, afterBlock, paymentRoute, 1)
+    storePayment(transaction, afterBlock, paymentRoute)
     if(synchronousTracking || (track && track.async == true)) {
       startTracking(transaction, afterBlock, paymentRoute)
     }

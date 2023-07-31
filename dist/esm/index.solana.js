@@ -1,7 +1,7 @@
 import { wallets, getWallets } from '@depay/web3-wallets-solana';
 import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
-import Blockchains$1 from '@depay/web3-blockchains';
-import { route as route$1 } from '@depay/web3-payments-solana';
+import Blockchains from '@depay/web3-blockchains';
+import { route as route$2 } from '@depay/web3-payments-solana';
 import copy from '@uiw/copy-to-clipboard';
 import { NavigateStackContext, ReactDialogStack } from '@depay/react-dialog-stack';
 import QRCodeStyling from 'qr-code-styling';
@@ -9,14 +9,14 @@ import Fuse from 'fuse.js';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import ReactDOM from 'react-dom';
 import { ReactShadowDOM } from '@depay/react-shadow-dom';
-import { setProviderEndpoints, request } from '@depay/web3-client-solana';
+import { setProviderEndpoints, request as request$1, getProvider as getProvider$3 } from '@depay/web3-client-solana';
 import { Currency } from '@depay/local-currency';
 import { route } from '@depay/web3-exchanges-solana';
-import { Token } from '@depay/web3-tokens-solana';
-import { ethers } from 'ethers';
-import { Decimal } from 'decimal.js';
+import { Token as Token$1 } from '@depay/web3-tokens-solana';
+import { ethers as ethers$1 } from 'ethers';
+import Decimal$1, { Decimal } from 'decimal.js';
 import { TokenImage } from '@depay/react-token-image-solana';
-import { struct, u64, Buffer, PublicKey } from '@depay/solana-web3.js';
+import { struct, u64 as u64$1, Buffer, PublicKey, Connection, ACCOUNT_LAYOUT, u32, publicKey, u8, bool, rustEnum, str, u16, option, vec, BN, TransactionInstruction, SystemProgram, u128, seq, i32, i128, Keypair, i64 } from '@depay/solana-web3.js';
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
@@ -70,7 +70,7 @@ function _typeof(obj) {
   return _typeof(obj);
 }
 
-var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+var commonjsGlobal$1 = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 function createCommonjsModule(fn) {
   var module = { exports: {} };
@@ -923,9 +923,17 @@ var ClosableProvider = (function (props) {
       return;
     }
 
-    setUpdatable(false);
-    setOpen(false);
-    setTimeout(props.unmount, 300);
+    var close = true;
+
+    if (typeof closable === 'string') {
+      close = confirm(closable);
+    }
+
+    if (close) {
+      setUpdatable(false);
+      setOpen(false);
+      setTimeout(props.unmount, 300);
+    }
   };
 
   useEffect(function () {
@@ -935,6 +943,11 @@ var ClosableProvider = (function (props) {
         event.preventDefault();
         event.returnValue = msg;
         return msg;
+      } else if (typeof closable === 'string') {
+        var _msg = closable;
+        event.preventDefault();
+        event.returnValue = _msg;
+        return _msg;
       }
     };
 
@@ -973,9 +986,9 @@ function _toConsumableArray(arr) {
   return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
-var supported = ['solana'];
-supported.evm = [];
-supported.solana = ['solana'];
+var supported$3 = ['solana'];
+supported$3.evm = [];
+supported$3.solana = ['solana'];
 
 var allWallets = [{
   "name": "Coinbase",
@@ -1000,7 +1013,7 @@ var allWallets = [{
     }
   },
   "logo": wallets.Coinbase.info.logo,
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "MetaMask",
   "extension": "MetaMask",
@@ -1026,15 +1039,12 @@ var allWallets = [{
     }
   },
   "logo": wallets.MetaMask.info.logo,
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Phantom",
   "extension": "Phantom",
   "desktop": {
-    "qr": function qr() {
-      return "phantom://browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
-    },
-    "solanapay": true
+    "qr": "SolanaPay"
   },
   "mobile": {
     "ios": {
@@ -1043,17 +1053,17 @@ var allWallets = [{
       "open": function open() {
         return "https://phantom.app/ul/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
       },
-      "solanapay": true
+      "qr": "SolanaPay"
     },
     "android": {
       "native": "phantom:",
       "universal": "https://phantom.app/ul",
       "connect": "SolanaMobileWalletAdapter",
-      "solanapay": true
+      "qr": "SolanaPay"
     }
   },
   "logo": wallets.Phantom.info.logo,
-  "blockchains": _toConsumableArray(supported.solana)
+  "blockchains": _toConsumableArray(supported$3.solana)
 }, {
   "name": "Trust Wallet",
   "extension": "Trust",
@@ -1075,7 +1085,7 @@ var allWallets = [{
     }
   },
   "logo": wallets.Trust.info.logo,
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Binance Wallet",
   "extension": "Binance",
@@ -1083,7 +1093,7 @@ var allWallets = [{
     "qr": "WalletConnectV1"
   },
   "logo": wallets.Binance.info.logo,
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Crypto.com | DeFi Wallet",
   "extension": "CryptoCom",
@@ -1106,7 +1116,7 @@ var allWallets = [{
     }
   },
   "logo": wallets.CryptoCom.info.logo,
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Coin98",
   "extension": "Coin98",
@@ -1128,12 +1138,12 @@ var allWallets = [{
     }
   },
   "logo": wallets.Coin98.info.logo,
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Brave",
   "extension": "Brave",
   "logo": wallets.Brave.info.logo,
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Rainbow",
   "desktop": {
@@ -1154,7 +1164,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/rainbow.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Timeless Wallet",
   "desktop": {
@@ -1175,7 +1185,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/timeless.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Uniswap Wallet",
   "desktop": {
@@ -1190,7 +1200,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/uniswap_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Safe",
   "desktop": {
@@ -1211,7 +1221,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/safe.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Rabby",
   "extension": "Rabby",
@@ -1219,48 +1229,45 @@ var allWallets = [{
     "qr": "WalletConnectV1"
   },
   "logo": wallets.Rabby.info.logo,
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Backpack",
   "extension": "Backpack",
   "desktop": {
-    "solanapay": true
+    "qr": "SolanaPay"
   },
   "mobile": {
     "ios": {
-      "solanapay": true
+      "qr": "SolanaPay"
     },
     "android": {
-      "solanapay": true
+      "qr": "SolanaPay"
     }
   },
   "logo": wallets.Backpack.info.logo,
-  "blockchains": _toConsumableArray(supported.solana)
+  "blockchains": _toConsumableArray(supported$3.solana)
 }, {
   "name": "Glow",
   "extension": "Glow",
   "desktop": {
-    "qr": function qr() {
-      return window.location.toString();
-    },
-    "solanapay": true
+    "qr": "SolanaPay"
   },
   "mobile": {
     "ios": {
-      "solanapay": true
+      "qr": "SolanaPay"
     },
     "android": {
       "connect": "SolanaMobileWalletAdapter",
-      "solanapay": true
+      "qr": "SolanaPay"
     }
   },
   "logo": wallets.Glow.info.logo,
-  "blockchains": _toConsumableArray(supported.solana)
+  "blockchains": _toConsumableArray(supported$3.solana)
 }, {
   "name": "Solflare",
   "extension": "Solflare",
   "desktop": {
-    "solanapay": true
+    "qr": "SolanaPay"
   },
   "mobile": {
     "ios": {
@@ -1269,17 +1276,17 @@ var allWallets = [{
       "open": function open() {
         return "https://solflare.com/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(window.location.origin.toString());
       },
-      "solanapay": true
+      "qr": "SolanaPay"
     },
     "android": {
       "native": "solflare:",
       "universal": "https://solflare.com/ul",
       "connect": "SolanaMobileWalletAdapter",
-      "solanapay": true
+      "qr": "SolanaPay"
     }
   },
   "logo": wallets.Solflare.info.logo,
-  "blockchains": _toConsumableArray(supported.solana)
+  "blockchains": _toConsumableArray(supported$3.solana)
 }, {
   "name": "imToken",
   "desktop": {
@@ -1298,7 +1305,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/imtoken.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "MEW wallet",
   "desktop": {
@@ -1319,7 +1326,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/mew_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "ONTO",
   "desktop": {
@@ -1338,7 +1345,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/onto.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Zerion",
   "desktop": {
@@ -1361,7 +1368,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/zerion.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Spot",
   "desktop": {
@@ -1382,7 +1389,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/spot.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "BitKeep",
   "desktop": {
@@ -1403,7 +1410,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bit_keep.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Unstoppable Domains",
   "desktop": {
@@ -1422,7 +1429,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Omni",
   "desktop": {
@@ -1443,7 +1450,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/omni.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "KEYRING PRO",
   "desktop": {
@@ -1464,7 +1471,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/keyring_pro.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "TokenPocket",
   "desktop": {
@@ -1483,7 +1490,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/token_pocket.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "BitPay",
   "desktop": {
@@ -1504,7 +1511,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bitpay.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "MathWallet",
   "desktop": {
@@ -1525,7 +1532,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/math_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Ledger Live",
   "desktop": {
@@ -1547,7 +1554,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/ledger_live.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "1inch Wallet",
   "desktop": {
@@ -1568,7 +1575,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/1inch_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "iToken Wallet",
   "desktop": {
@@ -1587,7 +1594,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/i_token_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Huddln",
   "desktop": {
@@ -1606,7 +1613,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/huddln.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Eidoo",
   "desktop": {
@@ -1627,7 +1634,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/eidoo.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "CoolWallet",
   "desktop": {
@@ -1646,7 +1653,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/cool_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Unstoppable Wallet",
   "desktop": {
@@ -1667,7 +1674,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "AlphaWallet",
   "desktop": {
@@ -1688,7 +1695,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/alpha_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Pillar",
   "desktop": {
@@ -1707,7 +1714,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/pillar.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "D'CENT Wallet",
   "desktop": {
@@ -1728,7 +1735,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/dcent.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "ZelCore",
   "desktop": {
@@ -1749,7 +1756,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/zel_core.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Nash",
   "desktop": {
@@ -1770,7 +1777,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/nash.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Coinomi",
   "desktop": {
@@ -1789,7 +1796,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/coinomi.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "CYBAVO Wallet",
   "desktop": {
@@ -1810,7 +1817,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/cybavo.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Tokenary",
   "desktop": {
@@ -1819,14 +1826,14 @@ var allWallets = [{
     "connect": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/tokenary.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Torus",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/torus.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "SafePal",
   "desktop": {
@@ -1845,7 +1852,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/safepal.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Infinity Wallet",
   "desktop": {
@@ -1854,7 +1861,7 @@ var allWallets = [{
     "connect": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/infinity_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Bridge Wallet",
   "desktop": {
@@ -1875,7 +1882,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/mtperlin.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "SparkPoint",
   "desktop": {
@@ -1896,7 +1903,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/sparkpoint.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "PEAKDEFI Wallet",
   "desktop": {
@@ -1917,7 +1924,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/peakdefi.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "AT.Wallet",
   "desktop": {
@@ -1938,7 +1945,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/atwallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Ellipal",
   "desktop": {
@@ -1959,7 +1966,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/ellipal.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Aktionariat",
   "desktop": {
@@ -1980,7 +1987,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/aktionariat.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Talken Wallet",
   "desktop": {
@@ -2001,7 +2008,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/talken.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "KyberSwap",
   "desktop": {
@@ -2022,7 +2029,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/kyberswap.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Tongue Wallet",
   "desktop": {
@@ -2043,7 +2050,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/tongue.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "RWallet",
   "desktop": {
@@ -2064,7 +2071,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/rwallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "O3Wallet",
   "desktop": {
@@ -2085,7 +2092,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/o3wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "HashKey Me",
   "desktop": {
@@ -2106,14 +2113,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/hashkeyme.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Guarda Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/guarda.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Defiant",
   "desktop": {
@@ -2134,7 +2141,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/defiant.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Valora",
   "desktop": {
@@ -2155,7 +2162,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/valora.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Celo Wallet",
   "desktop": {
@@ -2174,7 +2181,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/celo.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Elastos Essentials",
   "desktop": {
@@ -2195,7 +2202,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/elastos_essentials.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Stasis",
   "desktop": {
@@ -2216,7 +2223,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/stasis.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "JulWallet",
   "desktop": {
@@ -2237,7 +2244,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/julwallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Bitpie",
   "desktop": {
@@ -2256,7 +2263,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bitpie.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Minerva Wallet",
   "desktop": {
@@ -2277,7 +2284,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/minerva.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Tangem",
   "desktop": {
@@ -2298,7 +2305,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/tangem.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "ioPay",
   "desktop": {
@@ -2317,21 +2324,21 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/io_pay.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Coinhub",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/coinhub.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Go Pocket",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/gopocket.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Wallet 3",
   "desktop": {
@@ -2351,7 +2358,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/wallet3.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "yiToken",
   "desktop": {
@@ -2370,7 +2377,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/yitoken.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "DID Wallet",
   "desktop": {
@@ -2389,7 +2396,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/didwallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Shinobi Wallet",
   "desktop": {
@@ -2408,7 +2415,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/shinobi_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "AirGap Wallet",
   "desktop": {
@@ -2427,7 +2434,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/air_gap_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "SecuX",
   "desktop": {
@@ -2448,7 +2455,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/secux.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Orange",
   "desktop": {
@@ -2469,7 +2476,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/orange.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Krystal",
   "desktop": {
@@ -2488,7 +2495,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/krystal.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Kriptomat",
   "desktop": {
@@ -2507,7 +2514,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/kriptomat.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Ambire Wallet",
   "desktop": {
@@ -2528,7 +2535,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/ambire_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "PayBolt",
   "desktop": {
@@ -2547,7 +2554,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/pay_bolt.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "OKX Wallet",
   "desktop": {
@@ -2566,21 +2573,21 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/okx_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Mask Network",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/mask_network.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Uniblow",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/uniblow.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Autonomy: Digital Art Wallet",
   "desktop": {
@@ -2601,7 +2608,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/autonomy.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Lilico",
   "desktop": {
@@ -2622,7 +2629,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/lilico.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Fireblocks",
   "desktop": {
@@ -2643,7 +2650,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/fireblocks.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "WATT ME",
   "desktop": {
@@ -2662,7 +2669,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/wattme.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Coingrig",
   "desktop": {
@@ -2683,14 +2690,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/coingrig.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Cryptnox Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/cryptnox_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "bobablocks",
   "desktop": {
@@ -2713,7 +2720,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bobablocks.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Plasma Wallet",
   "desktop": {
@@ -2734,7 +2741,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/plasma_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "HUMBL WALLET",
   "desktop": {
@@ -2755,7 +2762,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/humbl_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Zelus",
   "desktop": {
@@ -2774,7 +2781,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/zelus.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Earth Wallet",
   "desktop": {
@@ -2793,14 +2800,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/earth_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Boba Multisig",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/boba_multisig.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "EASY",
   "desktop": {
@@ -2821,7 +2828,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/easy.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "ISLAMIwallet",
   "desktop": {
@@ -2842,7 +2849,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/islam_iwallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Card Wallet",
   "desktop": {
@@ -2863,21 +2870,21 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/card_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "GameStop Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/game_stop_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "RealT Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/real_t_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "PLTwallet",
   "desktop": {
@@ -2898,7 +2905,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/pl_twallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Avacus",
   "desktop": {
@@ -2919,7 +2926,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/avacus.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "StrikeX Wallet",
   "desktop": {
@@ -2938,14 +2945,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/strike_x_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "BCERTin wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/bcer_tin_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Edge Wallet",
   "desktop": {
@@ -2966,7 +2973,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/edge_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Freedom Wallet",
   "desktop": {
@@ -2985,7 +2992,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/freedom_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Assure",
   "desktop": {
@@ -3006,7 +3013,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/assure.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Cosmostation",
   "desktop": {
@@ -3025,7 +3032,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/cosmostation.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "THORWallet",
   "desktop": {
@@ -3044,14 +3051,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/thor_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Gryfyn",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/gryfyn.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "CoinStats",
   "desktop": {
@@ -3072,7 +3079,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/coin_stats.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Abra Wallet",
   "desktop": {
@@ -3091,7 +3098,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/abra_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Opera Crypto Browser",
   "desktop": {
@@ -3110,7 +3117,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/opera_crypto_browser.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Keywallet Touch",
   "desktop": {
@@ -3129,7 +3136,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/keywallet_touch.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Enno Wallet",
   "desktop": {
@@ -3148,14 +3155,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/enno_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "A4 Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/a4_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Bitcoin.com Wallet",
   "desktop": {
@@ -3176,7 +3183,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bitcoincom.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Defiant",
   "desktop": {
@@ -3197,14 +3204,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/defiant.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Chain",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/chain.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Verso",
   "desktop": {
@@ -3225,7 +3232,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/verso.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "LOBSTR Wallet",
   "desktop": {
@@ -3246,7 +3253,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/lobstr_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Bifrost Wallet",
   "desktop": {
@@ -3267,7 +3274,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bifrost_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Okse Wallet",
   "desktop": {
@@ -3286,14 +3293,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/okse_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "BRISE Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/brise_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "HyperPay",
   "extension": "HyperPay",
@@ -3301,14 +3308,14 @@ var allWallets = [{
     "qr": "WalletConnectV1"
   },
   "logo": wallets.HyperPay.info.logo,
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "ATON",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/aton.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Frontier",
   "desktop": {
@@ -3327,7 +3334,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/frontier.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "MDAO Wallet",
   "desktop": {
@@ -3346,7 +3353,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/mdao_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "TTM Wallet",
   "desktop": {
@@ -3365,7 +3372,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/ttm_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Opto Wallet",
   "desktop": {
@@ -3384,7 +3391,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/opto_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "XFUN Wallet",
   "desktop": {
@@ -3405,7 +3412,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/xfun_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Exodus",
   "desktop": {
@@ -3426,7 +3433,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/exodus.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Uvtoken",
   "desktop": {
@@ -3445,7 +3452,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/uv_token.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "PREMA Wallet",
   "desktop": {
@@ -3468,7 +3475,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/prema_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Shinobi-Wallet",
   "desktop": {
@@ -3487,7 +3494,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/shinobi.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "ByteBank",
   "desktop": {
@@ -3506,7 +3513,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/byte_bank.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Ancrypto Wallet",
   "desktop": {
@@ -3525,7 +3532,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/ancrypto_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Bee Wallet",
   "desktop": {
@@ -3546,7 +3553,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bee_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "LATOKEN Multichain DeFi Wallet",
   "desktop": {
@@ -3565,7 +3572,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/latoken_multichain_de_fi_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "TK Finance",
   "desktop": {
@@ -3586,7 +3593,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/tk_finance.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Oxalus Wallet",
   "desktop": {
@@ -3607,7 +3614,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/oxalus_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "3S Wallet",
   "desktop": {
@@ -3626,7 +3633,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/3_s_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Klever Wallet",
   "desktop": {
@@ -3647,7 +3654,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/klever_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "OneKey",
   "desktop": {
@@ -3670,7 +3677,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/one_key.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "helix id",
   "desktop": {
@@ -3689,7 +3696,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/helix_id.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "ABC Wallet",
   "desktop": {
@@ -3710,7 +3717,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/abcwallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "HaHa",
   "desktop": {
@@ -3731,7 +3738,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/haha.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Volt: DeFi",
   "desktop": {
@@ -3752,7 +3759,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/volt.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Wirex Wallet",
   "desktop": {
@@ -3773,7 +3780,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/wirex_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Robinhood Wallet",
   "desktop": {
@@ -3792,7 +3799,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/robinhood_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "RiceWallet",
   "desktop": {
@@ -3813,7 +3820,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/rice_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "SafeMoon",
   "desktop": {
@@ -3834,7 +3841,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/safemoon.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "SimpleHold",
   "desktop": {
@@ -3855,7 +3862,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/simple_hold.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "GoldBit",
   "desktop": {
@@ -3874,7 +3881,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/gold_bit.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "ioPay",
   "desktop": {
@@ -3893,7 +3900,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/iopay.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Bitizen",
   "desktop": {
@@ -3914,7 +3921,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bitizen.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Slavi Wallet",
   "desktop": {
@@ -3935,7 +3942,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/slavi_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Nufinetes",
   "desktop": {
@@ -3958,7 +3965,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/nufinetes.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Arianee Wallet",
   "desktop": {
@@ -3979,7 +3986,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/arianee_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "NOW Wallet",
   "desktop": {
@@ -4000,7 +4007,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/now_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Arculus Wallet",
   "desktop": {
@@ -4021,7 +4028,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/arculus_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Linen",
   "desktop": {
@@ -4042,7 +4049,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/linen.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Nitrogen Wallet",
   "desktop": {
@@ -4061,7 +4068,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/nitrogen_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "ApolloX",
   "desktop": {
@@ -4080,14 +4087,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/apollo_x.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "ID Pocket",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/id_pocket.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "CoinCircle",
   "desktop": {
@@ -4106,21 +4113,21 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/coin_circle.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "SahalWallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/sahal_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "UPBOND Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/upbond_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Sequence Wallet",
   "desktop": {
@@ -4139,7 +4146,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/sequence_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "LocalTrade Wallet",
   "desktop": {
@@ -4158,14 +4165,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/local_trade_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Loopring Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/loopring_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Vision: Crypto Wallet",
   "desktop": {
@@ -4184,14 +4191,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/vision.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Ballet Crypto",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/ballet_crypto.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Pitaka",
   "desktop": {
@@ -4212,49 +4219,49 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/pitaka.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "AbsoluteWallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/absolute_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "The Parallel",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/the_parallel.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "CypherD Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/cypher_d_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Keplr",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/keplr.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "MyWalliD",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/my_walli_d.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Status",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/status.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Monarch Wallet",
   "desktop": {
@@ -4273,7 +4280,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/monarch_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Marble",
   "desktop": {
@@ -4292,7 +4299,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/marble.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Flooz",
   "desktop": {
@@ -4311,7 +4318,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/flooz.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Blockchain.com",
   "desktop": {
@@ -4330,14 +4337,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/blockchaincom.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Dohrnii Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/dohrnii_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "UniPass",
   "desktop": {
@@ -4356,7 +4363,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/uni_pass.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "ZenGo",
   "desktop": {
@@ -4377,14 +4384,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/zengo.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Locker Token",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/locker_token.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Keeper",
   "desktop": {
@@ -4403,28 +4410,28 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/keeper.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "XDEFI Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/xdefi_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Numio",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/numio.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Neon Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/neon_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Nabox",
   "desktop": {
@@ -4443,7 +4450,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/nabox.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Snowball",
   "desktop": {
@@ -4462,7 +4469,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/snowball.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "KryptoGO Wallet",
   "desktop": {
@@ -4481,28 +4488,28 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/krypto_go_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Payperless",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/payperless.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Brave Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/brave_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Crossmint",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/crossmint.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Safematrix",
   "desktop": {
@@ -4521,7 +4528,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/safematrix.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "pier",
   "desktop": {
@@ -4540,7 +4547,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/pier.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "FILWallet",
   "desktop": {
@@ -4559,7 +4566,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/fil_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "ParaSwap Wallet",
   "desktop": {
@@ -4578,7 +4585,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/para_swap_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Bitski",
   "desktop": {
@@ -4599,7 +4606,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bitski.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Hippo Wallet",
   "desktop": {
@@ -4620,7 +4627,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/hippo_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Core",
   "desktop": {
@@ -4639,7 +4646,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/core.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Xcapit",
   "desktop": {
@@ -4658,7 +4665,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/xcapit.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Paper",
   "desktop": {
@@ -4677,7 +4684,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/paper_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "MetaOne",
   "desktop": {
@@ -4696,7 +4703,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/metaone.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Enjin Wallet",
   "desktop": {
@@ -4717,64 +4724,64 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/enjin.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "BC Vault",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/bc_vault.jpg",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Solana Pay",
   "desktop": {
-    "solanapay": true
+    "qr": "SolanaPay"
   },
   "mobile": {
     "ios": {
-      "solanapay": true
+      "qr": "SolanaPay"
     },
     "android": {
-      "solanapay": true
+      "qr": "SolanaPay"
     }
   },
-  "logo": Blockchains$1.solana.logo,
-  "blockchains": _toConsumableArray(supported.solana)
+  "logo": Blockchains.solana.logo,
+  "blockchains": _toConsumableArray(supported$3.solana)
 }, {
   "name": "Ethereum Wallet",
   "extension": "WindowEthereum",
   "logo": wallets.WindowEthereum.info.logo,
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "Solana Wallet",
   "extension": "WindowSolana",
   "desktop": {
-    "solanapay": true
+    "qr": "SolanaPay"
   },
   "mobile": {
     "ios": {
-      "solanapay": true
+      "qr": "SolanaPay"
     },
     "android": {
-      "solanapay": true
+      "qr": "SolanaPay"
     }
   },
   "logo": wallets.WindowSolana.info.logo,
-  "blockchains": _toConsumableArray(supported.solana)
+  "blockchains": _toConsumableArray(supported$3.solana)
 }, {
   "name": "WalletConnect V2",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz48IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMjUuNC4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAtLT48c3ZnIHZlcnNpb249JzEuMScgaWQ9J0xheWVyXzEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB2aWV3Qm94PScwIDAgNTAwIDUwMCcgc3R5bGU9J2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTAwIDUwMDsnIHhtbDpzcGFjZT0ncHJlc2VydmUnPjxzdHlsZSB0eXBlPSd0ZXh0L2Nzcyc+IC5zdDB7ZmlsbDojNTk5MUNEO30KPC9zdHlsZT48ZyBpZD0nUGFnZS0xJz48ZyBpZD0nd2FsbGV0Y29ubmVjdC1sb2dvLWFsdCc+PHBhdGggaWQ9J1dhbGxldENvbm5lY3QnIGNsYXNzPSdzdDAnIGQ9J00xMDIuNywxNjJjODEuNS03OS44LDIxMy42LTc5LjgsMjk1LjEsMGw5LjgsOS42YzQuMSw0LDQuMSwxMC41LDAsMTQuNEwzNzQsMjE4LjkgYy0yLDItNS4zLDItNy40LDBsLTEzLjUtMTMuMmMtNTYuOC01NS43LTE0OS01NS43LTIwNS44LDBsLTE0LjUsMTQuMWMtMiwyLTUuMywyLTcuNCwwTDkxLjksMTg3Yy00LjEtNC00LjEtMTAuNSwwLTE0LjQgTDEwMi43LDE2MnogTTQ2Ny4xLDIyOS45bDI5LjksMjkuMmM0LjEsNCw0LjEsMTAuNSwwLDE0LjRMMzYyLjMsNDA1LjRjLTQuMSw0LTEwLjcsNC0xNC44LDBjMCwwLDAsMCwwLDBMMjUyLDMxMS45IGMtMS0xLTIuNy0xLTMuNywwaDBsLTk1LjUsOTMuNWMtNC4xLDQtMTAuNyw0LTE0LjgsMGMwLDAsMCwwLDAsMEwzLjQsMjczLjZjLTQuMS00LTQuMS0xMC41LDAtMTQuNGwyOS45LTI5LjIgYzQuMS00LDEwLjctNCwxNC44LDBsOTUuNSw5My41YzEsMSwyLjcsMSwzLjcsMGMwLDAsMCwwLDAsMGw5NS41LTkzLjVjNC4xLTQsMTAuNy00LDE0LjgsMGMwLDAsMCwwLDAsMGw5NS41LDkzLjUgYzEsMSwyLjcsMSwzLjcsMGw5NS41LTkzLjVDNDU2LjQsMjI1LjksNDYzLDIyNS45LDQ2Ny4xLDIyOS45eicvPjwvZz48L2c+PC9zdmc+Cg==",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }, {
   "name": "WalletConnect",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz48IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMjUuNC4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAtLT48c3ZnIHZlcnNpb249JzEuMScgaWQ9J0xheWVyXzEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB2aWV3Qm94PScwIDAgNTAwIDUwMCcgc3R5bGU9J2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTAwIDUwMDsnIHhtbDpzcGFjZT0ncHJlc2VydmUnPjxzdHlsZSB0eXBlPSd0ZXh0L2Nzcyc+IC5zdDB7ZmlsbDojNTk5MUNEO30KPC9zdHlsZT48ZyBpZD0nUGFnZS0xJz48ZyBpZD0nd2FsbGV0Y29ubmVjdC1sb2dvLWFsdCc+PHBhdGggaWQ9J1dhbGxldENvbm5lY3QnIGNsYXNzPSdzdDAnIGQ9J00xMDIuNywxNjJjODEuNS03OS44LDIxMy42LTc5LjgsMjk1LjEsMGw5LjgsOS42YzQuMSw0LDQuMSwxMC41LDAsMTQuNEwzNzQsMjE4LjkgYy0yLDItNS4zLDItNy40LDBsLTEzLjUtMTMuMmMtNTYuOC01NS43LTE0OS01NS43LTIwNS44LDBsLTE0LjUsMTQuMWMtMiwyLTUuMywyLTcuNCwwTDkxLjksMTg3Yy00LjEtNC00LjEtMTAuNSwwLTE0LjQgTDEwMi43LDE2MnogTTQ2Ny4xLDIyOS45bDI5LjksMjkuMmM0LjEsNCw0LjEsMTAuNSwwLDE0LjRMMzYyLjMsNDA1LjRjLTQuMSw0LTEwLjcsNC0xNC44LDBjMCwwLDAsMCwwLDBMMjUyLDMxMS45IGMtMS0xLTIuNy0xLTMuNywwaDBsLTk1LjUsOTMuNWMtNC4xLDQtMTAuNyw0LTE0LjgsMGMwLDAsMCwwLDAsMEwzLjQsMjczLjZjLTQuMS00LTQuMS0xMC41LDAtMTQuNGwyOS45LTI5LjIgYzQuMS00LDEwLjctNCwxNC44LDBsOTUuNSw5My41YzEsMSwyLjcsMSwzLjcsMGMwLDAsMCwwLDAsMGw5NS41LTkzLjVjNC4xLTQsMTAuNy00LDE0LjgsMGMwLDAsMCwwLDAsMGw5NS41LDkzLjUgYzEsMSwyLjcsMSwzLjcsMGw5NS41LTkzLjVDNDU2LjQsMjI1LjksNDYzLDIyNS45LDQ2Ny4xLDIyOS45eicvPjwvZz48L2c+PC9zdmc+Cg==",
-  "blockchains": _toConsumableArray(supported.evm)
+  "blockchains": _toConsumableArray(supported$3.evm)
 }].filter(function (wallet) {
   return wallet.blockchains.filter(Boolean).length > 0;
 });
@@ -4864,331 +4871,6 @@ var isMobile = function isMobile() {
 var LinkImage = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIGZpbGw9IiMwMTAxMDEiIGQ9Ik00NTkuNjU0LDIzMy4zNzNsLTkwLjUzMSw5MC41Yy00OS45NjksNTAtMTMxLjAzMSw1MC0xODEsMGMtNy44NzUtNy44NDQtMTQuMDMxLTE2LjY4OC0xOS40MzgtMjUuODEzDQoJbDQyLjA2My00Mi4wNjNjMi0yLjAxNiw0LjQ2OS0zLjE3Miw2LjgyOC00LjUzMWMyLjkwNiw5LjkzOCw3Ljk4NCwxOS4zNDQsMTUuNzk3LDI3LjE1NmMyNC45NTMsMjQuOTY5LDY1LjU2MywyNC45MzgsOTAuNSwwDQoJbDkwLjUtOTAuNWMyNC45NjktMjQuOTY5LDI0Ljk2OS02NS41NjMsMC05MC41MTZjLTI0LjkzOC0yNC45NTMtNjUuNTMxLTI0Ljk1My05MC41LDBsLTMyLjE4OCwzMi4yMTkNCgljLTI2LjEwOS0xMC4xNzItNTQuMjUtMTIuOTA2LTgxLjY0MS04Ljg5MWw2OC41NzgtNjguNTc4YzUwLTQ5Ljk4NCwxMzEuMDMxLTQ5Ljk4NCwxODEuMDMxLDANCglDNTA5LjYyMywxMDIuMzQyLDUwOS42MjMsMTgzLjM4OSw0NTkuNjU0LDIzMy4zNzN6IE0yMjAuMzI2LDM4Mi4xODZsLTMyLjIwMywzMi4yMTljLTI0Ljk1MywyNC45MzgtNjUuNTYzLDI0LjkzOC05MC41MTYsMA0KCWMtMjQuOTUzLTI0Ljk2OS0yNC45NTMtNjUuNTYzLDAtOTAuNTMxbDkwLjUxNi05MC41YzI0Ljk2OS0yNC45NjksNjUuNTQ3LTI0Ljk2OSw5MC41LDBjNy43OTcsNy43OTcsMTIuODc1LDE3LjIwMywxNS44MTMsMjcuMTI1DQoJYzIuMzc1LTEuMzc1LDQuODEzLTIuNSw2LjgxMy00LjVsNDIuMDYzLTQyLjA0N2MtNS4zNzUtOS4xNTYtMTEuNTYzLTE3Ljk2OS0xOS40MzgtMjUuODI4Yy00OS45NjktNDkuOTg0LTEzMS4wMzEtNDkuOTg0LTE4MS4wMTYsMA0KCWwtOTAuNSw5MC41Yy00OS45ODQsNTAtNDkuOTg0LDEzMS4wMzEsMCwxODEuMDMxYzQ5Ljk4NCw0OS45NjksMTMxLjAzMSw0OS45NjksMTgxLjAxNiwwbDY4LjU5NC02OC41OTQNCglDMjc0LjU2MSwzOTUuMDkyLDI0Ni40MiwzOTIuMzQyLDIyMC4zMjYsMzgyLjE4NnoiLz4NCjwvc3ZnPg0K';
 
 var QRCodeImage = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHN2ZyAgUFVCTElDICctLy9XM0MvL0RURCBTVkcgMS4xLy9FTicgICdodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQnPgo8c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDEwMDAgMTAwMCIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMWUzIDFlMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPG1ldGFkYXRhPiBTdmcgVmVjdG9yIEljb25zIDogaHR0cDovL3d3dy5vbmxpbmV3ZWJmb250cy5jb20vaWNvbiA8L21ldGFkYXRhPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDUxMSkgc2NhbGUoLjEgLS4xKSI+PHBhdGggZD0ibTEwMCAyNzk3LjF2LTIyMTIuOWg0NDI1Ljh2NDQyNS44aC00NDI1Ljh2LTIyMTIuOXptMzQ3Ny40IDB2LTEyNjQuNWgtMjUyOXYyNTI5aDI1Mjl2LTEyNjQuNXoiLz48cGF0aCBkPSJtMTY4MC42IDI3OTcuMXYtNjMyLjNoMTI2NC42djEyNjQuNmgtMTI2NC42di02MzIuM3oiLz48cGF0aCBkPSJtNTQ3NC4yIDI3OTcuMXYtMjIxMi45aDQ0MjUuOHY0NDI1LjhoLTQ0MjUuOHYtMjIxMi45em0zNDc3LjQgMHYtMTI2NC41aC0yNTI5djI1MjloMjUyOXYtMTI2NC41eiIvPjxwYXRoIGQ9Im03MDU0LjggMjc5Ny4xdi02MzIuM2gxMjY0LjZ2MTI2NC42aC0xMjY0LjZ2LTYzMi4zeiIvPjxwYXRoIGQ9Im0xMDAtMjU3Ny4xdi0yMjEyLjloNDQyNS44djQ0MjUuOGgtNDQyNS44di0yMjEyLjl6bTM0NzcuNCAwdi0xMjY0LjVoLTI1Mjl2MjUyOWgyNTI5di0xMjY0LjV6Ii8+PHBhdGggZD0ibTE2ODAuNi0yNTc3LjF2LTYzMi4zaDEyNjQuNnYxMjY0LjZoLTEyNjQuNnYtNjMyLjN6Ii8+PHBhdGggZD0ibTU0NzQuMi05MTcuNHYtNTUzLjJoMTEwNi40di0xMTA2LjRoLTExMDYuNHYtMTEwNi40aDExMDYuNHYtMTEwNi42aDExMDYuNHYxMTA2LjRoMTEwNi40di0xMTA2LjRoMTEwNi42djExMDYuNGgtMTEwNi40djExMDYuNGgxMTA2LjR2MTEwNi40aC0xMTA2LjR2MTEwNi40aC0xMTA2LjR2LTExMDYuNGgtMTEwNi40djExMDYuNGgtMTEwNi40di01NTN6bTMzMTkuMy0xMTA2LjV2LTU1My4yaC0xMTA2LjR2LTExMDYuNGgtMTEwNi40djExMDYuNGgxMTA2LjR2MTEwNi40aDExMDYuNHYtNTUzLjJ6Ii8+PC9nPgo8L3N2Zz4K";
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
-    return call;
-  } else if (call !== void 0) {
-    throw new TypeError("Derived constructors may only return object or undefined");
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _createSuper$1(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$1(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _isNativeReflectConstruct$1() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-var generateUUIDv4 = function generateUUIDv4() {
-  var d = new Date().getTime();
-  var d2 = performance && performance.now && performance.now() * 1000 || 0;
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = Math.random() * 16;
-
-    if (d > 0) {
-      r = (d + r) % 16 | 0;
-      d = Math.floor(d / 16);
-    } else {
-      r = (d2 + r) % 16 | 0;
-      d2 = Math.floor(d2 / 16);
-    }
-
-    return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
-  });
-};
-
-var getFavicon = function getFavicon() {
-  var favicon;
-  var nodeList = document.getElementsByTagName("link");
-
-  for (var i = 0; i < nodeList.length; i++) {
-    if (nodeList[i].getAttribute("rel") == "icon" || nodeList[i].getAttribute("rel") == "shortcut icon") {
-      favicon = nodeList[i].getAttribute("href");
-    }
-  }
-
-  if (!favicon) {
-    return;
-  }
-
-  if (favicon.match(':')) {
-    return favicon;
-  } else {
-    return "".concat(window.location.origin, "/").concat(favicon.replace(/^\//, ''));
-  }
-};
-
-var SolanaPay = /*#__PURE__*/function (_wallets$WindowSolana) {
-  _inherits(SolanaPay, _wallets$WindowSolana);
-
-  var _super = _createSuper$1(SolanaPay);
-
-  function SolanaPay(options) {
-    var _this;
-
-    _classCallCheck(this, SolanaPay);
-
-    _this = _super.call(this); // emulates wallet (@depay/web3-wallets)
-
-    _this.isSolanaPay = true; // needed to change widget flow
-
-    _this.blockchains = ['solana'];
-
-    _this.on = function () {};
-
-    _this.off = function () {};
-
-    _this.name = options.name;
-    _this.icon = options.icon;
-    return _this;
-  }
-
-  _createClass(SolanaPay, [{
-    key: "openSocket",
-    value: function openSocket(secret_id, route) {
-      var _this2 = this;
-
-      return new Promise(function (resolve) {
-        _this2.socket = new WebSocket('wss://integrate.depay.com/cable');
-
-        _this2.socket.onopen = /*#__PURE__*/function () {
-          var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(event) {
-            var msg;
-            return regenerator.wrap(function _callee$(_context) {
-              while (1) {
-                switch (_context.prev = _context.next) {
-                  case 0:
-                    _this2._label = document.title || 'DePay';
-                    _this2._icon = getFavicon() || 'https://depay.com/favicon.png';
-                    msg = {
-                      command: 'subscribe',
-                      identifier: JSON.stringify({
-                        secret_id: secret_id,
-                        label: _this2._label,
-                        icon: _this2._icon,
-                        channel: 'SolanaPayChannel'
-                      })
-                    };
-                    _context.next = 5;
-                    return _this2.socket.send(JSON.stringify(msg));
-
-                  case 5:
-                  case "end":
-                    return _context.stop();
-                }
-              }
-            }, _callee);
-          }));
-
-          return function (_x) {
-            return _ref.apply(this, arguments);
-          };
-        }();
-
-        _this2.socket.onclose = function (event) {
-          if (!event || event.code != 1000) {
-            setTimeout(function () {
-              return _this2.openSocket(secret_id);
-            }, 1000);
-          }
-        };
-
-        _this2.socket.onmessage = function (event) {
-          var item = JSON.parse(event.data);
-
-          if (item.type === 'confirm_subscription') {
-            resolve(_this2.socket);
-          }
-
-          if (item.type === "ping" || !item.message) {
-            return;
-          }
-
-          if (item.message && item.message.account) {
-            _this2._account = item.message.account;
-            route(item.message.account, _this2);
-          }
-        };
-
-        _this2.socket.onerror = function (error) {
-          console.log('WebSocket Error: ' + error);
-        };
-      });
-    }
-  }, {
-    key: "account",
-    value: function () {
-      var _account = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
-        return regenerator.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                return _context2.abrupt("return", this._account);
-
-              case 1:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
-
-      function account() {
-        return _account.apply(this, arguments);
-      }
-
-      return account;
-    }()
-  }, {
-    key: "connect",
-    value: function () {
-      var _connect = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref2) {
-        var qr, route, uri;
-        return regenerator.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                qr = _ref2.qr, route = _ref2.route;
-                this.secret_id = generateUUIDv4().split('-')[0];
-                uri = "solana:https://public.depay.com/solana/".concat(this.secret_id);
-                _context3.next = 5;
-                return this.openSocket(this.secret_id, route);
-
-              case 5:
-                this.socket = _context3.sent;
-                _context3.next = 8;
-                return qr(uri);
-
-              case 8:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this);
-      }));
-
-      function connect(_x2) {
-        return _connect.apply(this, arguments);
-      }
-
-      return connect;
-    }()
-  }, {
-    key: "_sendTransaction",
-    value: function () {
-      var _sendTransaction2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(transaction) {
-        var serializedTransaction, txBase64;
-        return regenerator.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                if (!this.isTransactionSend) {
-                  _context4.next = 2;
-                  break;
-                }
-
-                return _context4.abrupt("return");
-
-              case 2:
-                this.isTransactionSend = true;
-                serializedTransaction = transaction.serialize({
-                  verifySignatures: false,
-                  requireAllSignatures: false
-                });
-                txBase64 = serializedTransaction.toString('base64');
-                this.socket.send(JSON.stringify({
-                  command: 'message',
-                  identifier: JSON.stringify({
-                    secret_id: this.secret_id,
-                    label: this._label,
-                    icon: this._icon,
-                    channel: 'SolanaPayChannel'
-                  }),
-                  data: JSON.stringify({
-                    secret_id: this.secret_id,
-                    transaction: txBase64
-                  })
-                }));
-
-              case 6:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, this);
-      }));
-
-      function _sendTransaction(_x3) {
-        return _sendTransaction2.apply(this, arguments);
-      }
-
-      return _sendTransaction;
-    }()
-  }]);
-
-  return SolanaPay;
-}(wallets.WindowSolana);
 
 /**
  * @license
@@ -5621,7 +5303,7 @@ var lodash = createCommonjsModule(function (module, exports) {
       freeParseInt = parseInt;
 
   /** Detect free variable `global` from Node.js. */
-  var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
+  var freeGlobal = typeof commonjsGlobal$1 == 'object' && commonjsGlobal$1 && commonjsGlobal$1.Object === Object && commonjsGlobal$1;
 
   /** Detect free variable `self`. */
   var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -22386,21 +22068,21 @@ var lodash = createCommonjsModule(function (module, exports) {
     // Export to the global object.
     root._ = _;
   }
-}.call(commonjsGlobal));
+}.call(commonjsGlobal$1));
 });
 
 var KEY = '_DePayConnectDialogPreviouslyConnectedWallet';
 
-var set = function set(value) {
+var set$1 = function set(value) {
   localStorage[KEY] = value;
 };
 
-var get = function get() {
+var get$1 = function get() {
   return localStorage[KEY];
 };
 
 var ConnectWalletDialog = (function (props) {
-  var _props$wallet, _props$platform9, _props$platform10, _props$platform11, _props$platform12, _props$platform13;
+  var _props$wallet, _props$platform10, _props$platform11, _props$platform12, _props$platform13, _props$platform14;
 
   var QRCodeElement = React.useRef();
 
@@ -22416,43 +22098,38 @@ var ConnectWalletDialog = (function (props) {
 
   var _useState5 = useState(),
       _useState6 = _slicedToArray(_useState5, 2),
-      solanaPayIsAvailable = _useState6[0],
-      setSolanaPayIsAvailable = _useState6[1];
+      openInAppIsAvailable = _useState6[0],
+      setOpenInAppIsAvailable = _useState6[1];
 
   var _useState7 = useState(),
       _useState8 = _slicedToArray(_useState7, 2),
-      openInAppIsAvailable = _useState8[0],
-      setOpenInAppIsAvailable = _useState8[1];
+      scanQrAvailable = _useState8[0],
+      setScanQrAvailable = _useState8[1];
 
   var _useState9 = useState(),
       _useState10 = _slicedToArray(_useState9, 2),
-      scanQrAvailable = _useState10[0],
-      setScanQrAvailable = _useState10[1];
+      appIsConnected = _useState10[0],
+      setAppIsConnected = _useState10[1];
 
   var _useState11 = useState(),
-      _useState12 = _slicedToArray(_useState11, 2),
-      appIsConnected = _useState12[0],
-      setAppIsConnected = _useState12[1];
+      _useState12 = _slicedToArray(_useState11, 2);
+      _useState12[0];
+      _useState12[1];
 
-  var _useState13 = useState(),
-      _useState14 = _slicedToArray(_useState13, 2);
-      _useState14[0];
-      _useState14[1];
+  var _useState13 = useState(false),
+      _useState14 = _slicedToArray(_useState13, 2),
+      showQRCode = _useState14[0],
+      setShowQRCode = _useState14[1];
 
   var _useState15 = useState(false),
       _useState16 = _slicedToArray(_useState15, 2),
-      showQRCode = _useState16[0],
-      setShowQRCode = _useState16[1];
+      showLinkCopied = _useState16[0],
+      setShowLinkCopied = _useState16[1];
 
-  var _useState17 = useState(false),
+  var _useState17 = useState(),
       _useState18 = _slicedToArray(_useState17, 2),
-      showLinkCopied = _useState18[0],
-      setShowLinkCopied = _useState18[1];
-
-  var _useState19 = useState(),
-      _useState20 = _slicedToArray(_useState19, 2),
-      QRCode = _useState20[0],
-      setQRCode = _useState20[1];
+      QRCode = _useState18[0],
+      setQRCode = _useState18[1];
 
   var _useContext = useContext(NavigateStackContext);
       _useContext.navigate;
@@ -22507,7 +22184,7 @@ var ConnectWalletDialog = (function (props) {
   };
 
   var connectViaQRCode = useCallback(lodash.debounce(function () {
-    var _props$platform4;
+    var _props$platform5;
 
     if (typeof props.platform.qr === 'function') {
       var newQRCode = getNewQRCode();
@@ -22518,48 +22195,7 @@ var ConnectWalletDialog = (function (props) {
       return;
     }
 
-    switch ((_props$platform4 = props.platform) === null || _props$platform4 === void 0 ? void 0 : _props$platform4.qr) {
-      case 'SolanaPay':
-        if (QRCode == undefined) {
-          var solanaPayInstance = new SolanaPay({
-            name: props.wallet.name,
-            logo: props.wallet.logo
-          });
-          solanaPayInstance.connect({
-            qr: function qr(uri) {
-              var newQRCode = getNewQRCode();
-              newQRCode.update({
-                data: uri
-              });
-              setQRCode(newQRCode);
-            },
-            route: function () {
-              var _route = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(account, wallet) {
-                return regenerator.wrap(function _callee$(_context) {
-                  while (1) {
-                    switch (_context.prev = _context.next) {
-                      case 0:
-                        props.resolve(account, wallet);
-
-                      case 1:
-                      case "end":
-                        return _context.stop();
-                    }
-                  }
-                }, _callee);
-              }));
-
-              function route(_x, _x2) {
-                return _route.apply(this, arguments);
-              }
-
-              return route;
-            }()
-          });
-        }
-
-        break;
-
+    switch ((_props$platform5 = props.platform) === null || _props$platform5 === void 0 ? void 0 : _props$platform5.qr) {
       case 'WalletConnectV1':
       case 'WalletConnectV2':
         if (QRCode == undefined) {
@@ -22592,112 +22228,110 @@ var ConnectWalletDialog = (function (props) {
           props.resolve(account, wallet);
         });
         break;
+
+      case 'SolanaPay':
+        props.continueWithSolanaPay();
+        break;
     }
   }, 100), []);
   useEffect(function () {
-    _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
-      var _props$wallet2, _props$platform5, _props$platform6;
+    _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+      var _props$wallet2, _props$platform6, _props$platform7;
 
-      var extensionIsAvailable, appIsConnected, connectAppIsAvailable, solanaPayIsAvailable, openInAppIsAvailable, scanQrAvailable;
-      return regenerator.wrap(function _callee2$(_context2) {
+      var extensionIsAvailable, appIsConnected, connectAppIsAvailable, openInAppIsAvailable, scanQrAvailable;
+      return regenerator.wrap(function _callee$(_context) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context.prev = _context.next) {
             case 0:
               if (!((_props$wallet2 = props.wallet) !== null && _props$wallet2 !== void 0 && _props$wallet2.extension)) {
-                _context2.next = 9;
+                _context.next = 9;
                 break;
               }
 
-              _context2.next = 3;
+              _context.next = 3;
               return wallets[props.wallet.extension].isAvailable();
 
             case 3:
-              _context2.t1 = _context2.sent;
+              _context.t1 = _context.sent;
 
-              if (_context2.t1) {
-                _context2.next = 6;
+              if (_context.t1) {
+                _context.next = 6;
                 break;
               }
 
-              _context2.t1 = false;
+              _context.t1 = false;
 
             case 6:
-              _context2.t0 = _context2.t1;
-              _context2.next = 10;
+              _context.t0 = _context.t1;
+              _context.next = 10;
               break;
 
             case 9:
-              _context2.t0 = false;
+              _context.t0 = false;
 
             case 10:
-              extensionIsAvailable = _context2.t0;
+              extensionIsAvailable = _context.t0;
               setExtensionIsAvailable(extensionIsAvailable);
 
-              if (!((_props$platform5 = props.platform) !== null && _props$platform5 !== void 0 && _props$platform5.connect)) {
-                _context2.next = 21;
+              if (!((_props$platform6 = props.platform) !== null && _props$platform6 !== void 0 && _props$platform6.connect)) {
+                _context.next = 21;
                 break;
               }
 
-              _context2.next = 15;
+              _context.next = 15;
               return wallets[props.platform.connect].isAvailable();
 
             case 15:
-              _context2.t3 = _context2.sent;
+              _context.t3 = _context.sent;
 
-              if (_context2.t3) {
-                _context2.next = 18;
+              if (_context.t3) {
+                _context.next = 18;
                 break;
               }
 
-              _context2.t3 = false;
+              _context.t3 = false;
 
             case 18:
-              _context2.t2 = _context2.t3;
-              _context2.next = 22;
+              _context.t2 = _context.t3;
+              _context.next = 22;
               break;
 
             case 21:
-              _context2.t2 = false;
+              _context.t2 = false;
 
             case 22:
-              appIsConnected = _context2.t2;
+              appIsConnected = _context.t2;
               setAppIsConnected(appIsConnected);
               connectAppIsAvailable = !!props.platform && props.platform.connect;
               setConnectAppIsAvailable(connectAppIsAvailable);
-              solanaPayIsAvailable = !!props.platform && props.platform.solanapay && props.continueWithSolanaPay !== undefined;
-              setSolanaPayIsAvailable(solanaPayIsAvailable);
               openInAppIsAvailable = !!props.platform && props.platform.open;
               setOpenInAppIsAvailable(openInAppIsAvailable);
-              scanQrAvailable = ((_props$platform6 = props.platform) === null || _props$platform6 === void 0 ? void 0 : _props$platform6.qr) && (!showQRCode || props.platform.qr === 'WalletLink') && (props.platform.qr !== 'SolanaPay' || props.accept && props.accept.every(function (accept) {
+              scanQrAvailable = ((_props$platform7 = props.platform) === null || _props$platform7 === void 0 ? void 0 : _props$platform7.qr) && (!showQRCode || props.platform.qr === 'WalletLink') && props.accept && props.accept.every(function (accept) {
                 return accept.amount;
-              }));
+              });
               setScanQrAvailable(scanQrAvailable);
 
-              if (solanaPayIsAvailable && [extensionIsAvailable, appIsConnected, connectAppIsAvailable, openInAppIsAvailable, scanQrAvailable].filter(Boolean).length === 0) {
-                props.continueWithSolanaPay();
-              }
-
-            case 33:
+            case 30:
             case "end":
-              return _context2.stop();
+              return _context.stop();
           }
         }
-      }, _callee2);
+      }, _callee);
     }))();
   }, []);
   useEffect(function () {
     if (appIsConnected !== undefined) {
-      var _props$wallet3, _props$wallet3$deskto, _props$platform7;
+      var _props$wallet3, _props$wallet3$deskto, _props$platform8;
 
-      setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && (_props$wallet3$deskto = _props$wallet3.desktop) !== null && _props$wallet3$deskto !== void 0 && _props$wallet3$deskto["native"]) && ((_props$platform7 = props.platform) === null || _props$platform7 === void 0 ? void 0 : _props$platform7.qr) && (props.platform.qr !== 'SolanaPay' || props.accept && props.accept.every(function (accept) {
+      setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && (_props$wallet3$deskto = _props$wallet3.desktop) !== null && _props$wallet3$deskto !== void 0 && _props$wallet3$deskto["native"]) && ((_props$platform8 = props.platform) === null || _props$platform8 === void 0 ? void 0 : _props$platform8.qr) && props.accept && props.accept.every(function (accept) {
         return accept.amount;
-      })));
+      }));
     }
   }, [extensionIsAvailable, appIsConnected]);
   useEffect(function () {
-    var _props$platform8;
+    var _props$platform9;
 
-    if (showQRCode && (_props$platform8 = props.platform) !== null && _props$platform8 !== void 0 && _props$platform8.qr) {
+    if (showQRCode && (_props$platform9 = props.platform) !== null && _props$platform9 !== void 0 && _props$platform9.qr) {
       connectViaQRCode();
     }
   }, [showQRCode]);
@@ -22720,27 +22354,28 @@ var ConnectWalletDialog = (function (props) {
       className: "PaddingTopS PaddingLeftL PaddingRightL"
     }, /*#__PURE__*/React.createElement("div", {
       className: "Alert FontSizeS"
-    }, /*#__PURE__*/React.createElement("strong", null, "Most wallets do not connect to http!"))), !extensionIsAvailable && !solanaPayIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && !((_props$platform9 = props.platform) !== null && _props$platform9 !== void 0 && _props$platform9.copyLink) && !scanQrAvailable && /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("strong", null, "Most wallets do not connect to http!"))), !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && !((_props$platform10 = props.platform) !== null && _props$platform10 !== void 0 && _props$platform10.copyLink) && !scanQrAvailable && /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftL PaddingRightL"
     }, /*#__PURE__*/React.createElement("div", {
       className: "Alert FontSizeS"
     }, /*#__PURE__*/React.createElement("strong", null, "Unable to connect to this wallet!"))), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS"
+      className: "PaddingTopS PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("div", {
       ref: QRCodeElement,
       className: "QRCode"
-    }, showQRCode && ((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React.createElement("div", {
+    }, showQRCode && ((_props$platform11 = props.platform) === null || _props$platform11 === void 0 ? void 0 : _props$platform11.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React.createElement("div", {
       className: "Skeleton",
       style: {
+        borderRadius: "18px",
         width: "305px",
         height: "305px"
       }
     }, /*#__PURE__*/React.createElement("div", {
       className: "SkeletonBackground"
-    }))), showQRCode && ((_props$platform11 = props.platform) === null || _props$platform11 === void 0 ? void 0 : _props$platform11.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React.createElement("div", {
+    }))), showQRCode && ((_props$platform12 = props.platform) === null || _props$platform12 === void 0 ? void 0 : _props$platform12.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React.createElement("div", {
       className: "Opacity05 PaddingBottomXS PaddingTopS"
-    }, /*#__PURE__*/React.createElement("small", null, "Generating QR code...")), showQRCode && ((_props$platform12 = props.platform) === null || _props$platform12 === void 0 ? void 0 : _props$platform12.qr) !== 'WalletLink' && QRCode !== undefined && /*#__PURE__*/React.createElement("div", {
-      className: "Opacity05 PaddingBottomXS PaddingTopS"
+    }, /*#__PURE__*/React.createElement("small", null, "Generating QR code...")), showQRCode && ((_props$platform13 = props.platform) === null || _props$platform13 === void 0 ? void 0 : _props$platform13.qr) !== 'WalletLink' && QRCode !== undefined && /*#__PURE__*/React.createElement("div", {
+      className: "Opacity05 PaddingBottomXS PaddingTopXS"
     }, /*#__PURE__*/React.createElement("small", null, "Scan QR code with your wallet"))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftL PaddingRightL PaddingTopS"
     }, extensionIsAvailable && /*#__PURE__*/React.createElement("div", {
@@ -22861,7 +22496,7 @@ var ConnectWalletDialog = (function (props) {
       className: "PaddingLeftS LineHeightXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardText FontWeightMedium"
-    }, "Scan QR code")))), ((_props$platform13 = props.platform) === null || _props$platform13 === void 0 ? void 0 : _props$platform13.connect) && ['WalletConnectV1', 'WalletConnectV2'].includes(props.platform.connect) && props.platform.copyLink && /*#__PURE__*/React.createElement("div", {
+    }, "Scan QR code")))), ((_props$platform14 = props.platform) === null || _props$platform14 === void 0 ? void 0 : _props$platform14.connect) && ['WalletConnectV1', 'WalletConnectV2'].includes(props.platform.connect) && props.platform.copyLink && /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomXS TooltipWrapper"
     }, /*#__PURE__*/React.createElement("button", {
       onClick: connectViaCopyLink,
@@ -22889,36 +22524,7 @@ var ConnectWalletDialog = (function (props) {
       className: "Tooltip absolute top"
     }, /*#__PURE__*/React.createElement("span", {
       className: "TooltipArrowDown"
-    }), "Connection link copied")), solanaPayIsAvailable && /*#__PURE__*/React.createElement("div", {
-      className: "PaddingBottomXS"
-    }, /*#__PURE__*/React.createElement("button", {
-      onClick: function onClick() {
-        return props.continueWithSolanaPay(props.wallet);
-      },
-      className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS",
-      style: {
-        height: '50px'
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "PaddingTopXS PaddingRightXS PaddingLeftS TextCenter",
-      style: {
-        width: "50px"
-      }
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "transparent ",
-      title: "Click to connect app",
-      style: {
-        filter: 'grayscale(100%) brightness(0%)',
-        height: '34px',
-        width: '34px',
-        borderRadius: '8px'
-      },
-      src: Blockchains.solana.logo
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftS LineHeightXS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardText FontWeightMedium"
-    }, "Solana Pay"))))))
+    }), "Connection link copied"))))
   });
 });
 
@@ -23062,9 +22668,9 @@ var MenuIcon = (function (props) {
   }));
 });
 
-function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var SelectWalletList = (function (props) {
   var parentElement = React.useRef();
   var fuse = new Fuse(allWallets, {
@@ -23129,7 +22735,7 @@ var SelectWalletList = (function (props) {
       className: "Card small",
       title: "Connect ".concat(resultList[virtualItem.key].name),
       onClick: function onClick() {
-        props.onClickWallet(_objectSpread$6({}, resultList[virtualItem.key]));
+        props.onClickWallet(_objectSpread$7({}, resultList[virtualItem.key]));
       }
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardImage"
@@ -23146,9 +22752,9 @@ var SelectWalletList = (function (props) {
   })));
 });
 
-function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var SelectWalletDialog = (function (props) {
   var _useState = useState(''),
       _useState2 = _slicedToArray(_useState, 2),
@@ -23218,7 +22824,7 @@ var SelectWalletDialog = (function (props) {
         setDetectedWallets(wallets);
       }
     });
-    var previouslyConnectedWalletName = get();
+    var previouslyConnectedWalletName = get$1();
     var previouslyConnectedWallet = allWallets.find(function (wallet) {
       return wallet.name == previouslyConnectedWalletName;
     }) || allWallets.find(function (wallet) {
@@ -23271,7 +22877,7 @@ var SelectWalletDialog = (function (props) {
         className: "Card small",
         title: "Connect ".concat(walletMetaData.name),
         onClick: function onClick() {
-          onClickWallet(_objectSpread$5(_objectSpread$5({}, walletMetaData), {}, {
+          onClickWallet(_objectSpread$6(_objectSpread$6({}, walletMetaData), {}, {
             via: 'detected',
             connectionType: connectionType
           }), wallet);
@@ -23306,7 +22912,7 @@ var SelectWalletDialog = (function (props) {
       className: "Card small",
       title: "Connect ".concat(previouslyConnectedWallet.name),
       onClick: function onClick() {
-        onClickWallet(_objectSpread$5(_objectSpread$5({}, previouslyConnectedWallet), {}, {
+        onClickWallet(_objectSpread$6(_objectSpread$6({}, previouslyConnectedWallet), {}, {
           via: 'previouslyConnected',
           connectionType: 'app'
         }));
@@ -23439,7 +23045,7 @@ var ConnectStack = (function (props) {
       }) || allWallets.find(function (walletMeta) {
         return walletMeta.name == wallet.name;
       });
-      set(walletMeta.name);
+      set$1(walletMeta.name);
       if (props.autoClose) close();
       if (props.resolve) props.resolve({
         account: account,
@@ -23568,7 +23174,7 @@ var ConnectStack = (function (props) {
       return;
     }
 
-    set(walletMetaData.name);
+    set$1(walletMetaData.name);
     console.log('open in app', platform.open());
     window.open(platform.open(), '_self', 'noreferrer noopener');
   };
@@ -23607,7 +23213,7 @@ var ConnectStack = (function (props) {
         accept: props.accept
       })
     }
-  }), /*#__PURE__*/React.createElement(PoweredBy, null));
+  }));
 });
 
 var ensureDocument = (function (document) {
@@ -23617,6 +23223,77 @@ var ensureDocument = (function (document) {
     return document;
   }
 });
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
 
 var ErrorContext = /*#__PURE__*/React.createContext();
 
@@ -23910,10 +23587,6 @@ var AlertStyle = (function (style) {
   return "\n\n    .Alert {\n      background: rgba(0,0,0,0.08);\n      border-radius: 7px;\n      font-weight: 500;\n      padding: 8px;\n    }\n  ";
 });
 
-var BlockchainLogoStyle = (function (style) {
-  return "\n\n    .BlockchainLogo {\n      border-radius: 6px !important;\n    }\n\n    .BlockchainLogo.small {\n      border-radius: 4px !important;\n      height: 20px;\n      width: 20px;\n    }\n  ";
-});
-
 var ButtonCircularStyle = (function (style) {
   return "\n\n    .ButtonCircular {\n      border-radius: 9999px;\n      border: 1px solid transparent;\n      cursor: pointer;\n      height: 34px;\n      opacity: 0.5;\n      padding: 5px 4px 4px 4px;\n      width: 34px;\n    }\n\n    .ButtonCircular:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .ButtonCircular:hover {\n      background: rgba(0,0,0,0.1);\n      opacity: 1;\n    }\n\n    .ButtonCircular:active {\n      background: rgba(0,0,0,0.25);\n      opacity: 1;\n    }\n  ");
 });
@@ -23970,6 +23643,10 @@ var LoadingTextStyle = (function (style) {
   return "\n\n    .LoadingText {\n      color: ".concat(style.colors.buttonText, ";\n      display: inline-block;\n      text-decoration: none;\n    }\n\n    @keyframes blink {\n      0% { opacity: .2; }\n      20% { opacity: 1; }\n      100% { opacity: .2; }\n    }\n    \n    .LoadingText .dot {\n      animation-name: blink;\n      animation-duration: 1.4s;\n      animation-iteration-count: infinite;\n      animation-fill-mode: both;\n    }\n    \n    .LoadingText .dot:nth-child(2) {\n      animation-delay: .2s;\n    }\n    \n    .LoadingText .dot:nth-child(3) {\n      animation-delay: .4s;\n    }\n  ");
 });
 
+var LogoStyle = (function (style) {
+  return "\n\n    .BlockchainLogo {\n      border-radius: 6px !important;\n    }\n\n    .BlockchainLogo.small {\n      border-radius: 4px !important;\n      height: 20px;\n      width: 20px;\n    }\n\n    .SolanaPayLogo {\n      height: 26px;\n      position: relative;\n      top: 4px;\n    }\n  ";
+});
+
 var OpacityStyle = (function (style) {
   return "\n\n    .Opacity03 {\n      opacity: 0.3;\n    }\n\n    .Opacity05 {\n      opacity: 0.5;\n    }\n  ";
 });
@@ -23979,7 +23656,7 @@ var PaddingStyle = (function () {
 });
 
 var PoweredByStyle = (function (style) {
-  return "\n\n    .PoweredByWrapper {\n      display: block;\n      left: 0;\n      padding-top: 3px;\n      position: fixed;\n      right: 0;\n      text-align: center;\n      top: 0;\n    }\n\n    .contained .PoweredByWrapper {\n      position: absolute;\n    }\n\n    .PoweredByLink {\n      color: white;\n      display: inline-block;\n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\" !important;\n      font-size: 14px;\n      font-style: italic;\n      font-weight: bold;\n      letter-spacing: -0.2px;\n      margin-left: 8px;\n      opacity: 0.5;\n      text-decoration: none;\n      text-shadow: black 0 0 2px;\n    }\n\n    .PoweredByLink:hover, .PoweredByLink:active {\n      opacity: 1.0;\n    }\n  ";
+  return "\n\n    .PoweredByWrapper {\n      display: block;\n      left: 0;\n      padding-top: 3px;\n      position: fixed;\n      right: 0;\n      text-align: center;\n      top: 0;\n      z-index: 999;\n    }\n\n    .contained .PoweredByWrapper {\n      position: absolute;\n    }\n\n    .PoweredByLink {\n      color: white;\n      display: inline-block;\n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\" !important;\n      font-size: 14px;\n      font-style: italic;\n      font-weight: bold;\n      letter-spacing: -0.2px;\n      margin-left: 8px;\n      opacity: 0.5;\n      text-decoration: none;\n      text-shadow: black 0 0 2px;\n    }\n\n    .PoweredByLink:hover, .PoweredByLink:active {\n      opacity: 1.0;\n    }\n  ";
 });
 
 var QRCodeStyle = (function () {
@@ -24042,7 +23719,7 @@ var styleRenderer = (function (style) {
     }, ((_style = style) === null || _style === void 0 ? void 0 : _style.colors) || {}),
     fontFamily: ((_style2 = style) === null || _style2 === void 0 ? void 0 : _style2.fontFamily) || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
   };
-  return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle(), BlockchainLogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
+  return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
 });
 
 var mount = (function (_ref, content) {
@@ -24540,7 +24217,7 @@ var PaymentBlockchainsDialog = (function () {
   var blockchains = _toConsumableArray(new Set(accept.map(function (configuration) {
     return configuration.blockchain;
   }))).map(function (blockchainName) {
-    return Blockchains$1[blockchainName];
+    return Blockchains[blockchainName];
   });
 
   return /*#__PURE__*/React.createElement(Dialog$1, {
@@ -24847,7 +24524,7 @@ var Login = function Login(options) {
                     }
                   }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                     unmount: userClosedDialog
-                  }, /*#__PURE__*/React.createElement(WalletProvider, {
+                  }, /*#__PURE__*/React.createElement(PoweredBy, null), /*#__PURE__*/React.createElement(WalletProvider, {
                     container: container,
                     unmount: unmount
                   }, /*#__PURE__*/React.createElement(LoginStack, {
@@ -24864,7 +24541,7 @@ var Login = function Login(options) {
                         wallet: wallet
                       });
                     }
-                  }), /*#__PURE__*/React.createElement(PoweredBy, null))))));
+                  }))))));
                 };
               });
 
@@ -24896,8 +24573,8 @@ var findMaxRoute = (function (routes) {
       return 1; // a
     }
 
-    var aAmountsAvailable = ethers.BigNumber.from(a.fromBalance).div(ethers.BigNumber.from(a.fromAmount));
-    var bAmountsAvailable = ethers.BigNumber.from(b.fromBalance).div(ethers.BigNumber.from(b.fromAmount));
+    var aAmountsAvailable = ethers$1.BigNumber.from(a.fromBalance).div(ethers$1.BigNumber.from(a.fromAmount));
+    var bAmountsAvailable = ethers$1.BigNumber.from(b.fromBalance).div(ethers$1.BigNumber.from(b.fromAmount));
 
     if (aAmountsAvailable.lt(bAmountsAvailable)) {
       return -1; // b
@@ -24913,9 +24590,9 @@ var findMaxRoute = (function (routes) {
   return sortedLowToHigh[sortedLowToHigh.length - 1];
 });
 
-function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var ChangableAmountProvider = (function (props) {
   var configurationsMissAmounts = function configurationsMissAmounts(configurations) {
     return !configurations.every(function (configuration) {
@@ -25003,12 +24680,12 @@ var ChangableAmountProvider = (function (props) {
       } else {
         Promise.all(props.accept.map(function (configuration) {
           if (fixedAmount) {
-            if (Blockchains$1[configuration.blockchain].stables.usd[0] == configuration.token) {
+            if (Blockchains[configuration.blockchain].stables.usd[0] == configuration.token) {
               return 1.00 / fixedCurrencyConversionRate * fixedAmount;
             } else {
               return route({
                 blockchain: configuration.blockchain,
-                tokenIn: Blockchains$1[configuration.blockchain].stables.usd[0],
+                tokenIn: Blockchains[configuration.blockchain].stables.usd[0],
                 amountIn: 1.00 / fixedCurrencyConversionRate * fixedAmount,
                 tokenOut: configuration.token,
                 fromAddress: account,
@@ -25016,12 +24693,12 @@ var ChangableAmountProvider = (function (props) {
               });
             }
           } else {
-            if (Blockchains$1[configuration.blockchain].stables.usd[0] == configuration.token) {
+            if (Blockchains[configuration.blockchain].stables.usd[0] == configuration.token) {
               return 1.00 / conversionRate * amount;
             } else {
               return route({
                 blockchain: configuration.blockchain,
-                tokenIn: Blockchains$1[configuration.blockchain].stables.usd[0],
+                tokenIn: Blockchains[configuration.blockchain].stables.usd[0],
                 amountIn: 1.00 / conversionRate * amount,
                 tokenOut: configuration.token,
                 fromAddress: account,
@@ -25036,7 +24713,7 @@ var ChangableAmountProvider = (function (props) {
             } else if (result[0] == undefined) {
               return;
             } else {
-              return Token.readable({
+              return Token$1.readable({
                 blockchain: props.accept[index].blockchain,
                 amount: result[0].amountOut,
                 address: result[0].tokenOut
@@ -25063,7 +24740,7 @@ var ChangableAmountProvider = (function (props) {
           return;
         }
 
-        return _objectSpread$4(_objectSpread$4({}, configuration), {}, {
+        return _objectSpread$5(_objectSpread$5({}, configuration), {}, {
           amount: round(amounts[index])
         });
       }).filter(function (configuration) {
@@ -25098,7 +24775,7 @@ var ChangableAmountProvider = (function (props) {
             toAddress: account
           }).then(function (routes) {
             if (routes[0] == undefined) {
-              Token.readable({
+              Token$1.readable({
                 amount: maxRoute.fromBalance,
                 blockchain: maxRoute.blockchain,
                 address: maxRoute.fromToken.address
@@ -25106,7 +24783,7 @@ var ChangableAmountProvider = (function (props) {
               return;
             }
 
-            Token.readable({
+            Token$1.readable({
               amount: routes[0].amountOut,
               blockchain: maxRoute.blockchain,
               address: maxRoute.toToken.address
@@ -25116,7 +24793,7 @@ var ChangableAmountProvider = (function (props) {
               setMaxAmount(maxAmount > 10 ? Math.round(maxAmount - 1) : round(maxAmount - 1));
             })["catch"](setError);
           })["catch"](setError);
-        } else if (maxRoute.fromToken.address == Blockchains$1[maxRoute.blockchain].stables.usd[0]) {
+        } else if (maxRoute.fromToken.address == Blockchains[maxRoute.blockchain].stables.usd[0]) {
           var _maxAmount = parseFloat(new Decimal(readableMaxAmount).mul(conversionRate).toString());
 
           setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount - 1) : _maxAmount - 1);
@@ -25124,7 +24801,7 @@ var ChangableAmountProvider = (function (props) {
           route({
             blockchain: maxRoute.blockchain,
             tokenIn: maxRoute.fromToken.address,
-            tokenOut: Blockchains$1[maxRoute.blockchain].stables.usd[0],
+            tokenOut: Blockchains[maxRoute.blockchain].stables.usd[0],
             amountIn: parseFloat(readableMaxAmount),
             fromAddress: account,
             toAddress: account
@@ -25133,10 +24810,10 @@ var ChangableAmountProvider = (function (props) {
               return;
             }
 
-            Token.readable({
+            Token$1.readable({
               amount: routes[0].amountOut,
               blockchain: maxRoute.blockchain,
-              address: Blockchains$1[maxRoute.blockchain].stables.usd[0]
+              address: Blockchains[maxRoute.blockchain].stables.usd[0]
             }).then(function (readableMaxAmount) {
               var slippage = 1.01;
               var maxAmount = parseFloat(new Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
@@ -25210,9 +24887,9 @@ var PaymentAmountRoutingContext = /*#__PURE__*/React.createContext();
 
 var PaymentRoutingContext = /*#__PURE__*/React.createContext();
 
-function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 var prepareAcceptedPayments = function prepareAcceptedPayments(accept, receiver) {
   var toAddress;
@@ -25224,7 +24901,7 @@ var prepareAcceptedPayments = function prepareAcceptedPayments(accept, receiver)
   }
 
   var toContract = _typeof(accept.receiver) == 'object' ? accept.receiver : undefined;
-  return _objectSpread$3(_objectSpread$3({}, accept), {}, {
+  return _objectSpread$4(_objectSpread$4({}, accept), {}, {
     toAddress: toAddress,
     toContract: toContract
   });
@@ -25246,7 +24923,7 @@ var routePayments = (function (_ref) {
       blacklist = _ref.blacklist,
       fee = _ref.fee,
       update = _ref.update;
-  return route$1({
+  return route$2({
     accept: accept.map(function (accept) {
       return prepareAcceptedPayments(accept, receiver);
     }),
@@ -25259,9 +24936,9 @@ var routePayments = (function (_ref) {
   });
 });
 
-function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var PaymentRoutingProvider = (function (props) {
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -25289,8 +24966,8 @@ var PaymentRoutingProvider = (function (props) {
       setReloadCount = _useState10[1];
 
   var _useContext = useContext(WalletContext),
-      account = _useContext.account,
-      wallet = _useContext.wallet;
+      account = _useContext.account;
+      _useContext.wallet;
 
   var _useContext2 = useContext(UpdatableContext),
       updatable = _useContext2.updatable;
@@ -25372,81 +25049,42 @@ var PaymentRoutingProvider = (function (props) {
   }();
 
   var getPaymentRoutes = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(_ref3) {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref3) {
       var updatable, slowRoutingTimeout;
-      return regenerator.wrap(function _callee4$(_context4) {
+      return regenerator.wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
               updatable = _ref3.updatable;
 
               if (!(updatable == false || !props.accept || !account)) {
-                _context4.next = 3;
+                _context3.next = 3;
                 break;
               }
 
-              return _context4.abrupt("return");
+              return _context3.abrupt("return");
 
             case 3:
               slowRoutingTimeout = setTimeout(function () {
                 setSlowRouting(true);
               }, 4000);
-              _context4.next = 6;
+              _context3.next = 6;
               return routePayments(Object.assign({}, props, {
-                account: account,
-                update: {
-                  every: 200,
-                  callback: function () {
-                    var _callback = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(routes) {
-                      var route;
-                      return regenerator.wrap(function _callee3$(_context3) {
-                        while (1) {
-                          switch (_context3.prev = _context3.next) {
-                            case 0:
-                              if (!(wallet && wallet.isSolanaPay && routes && routes.length && wallet.isTransactionSend !== true)) {
-                                _context3.next = 7;
-                                break;
-                              }
-
-                              route = routes[0];
-                              _context3.t0 = wallet;
-                              _context3.next = 5;
-                              return route.getTransaction();
-
-                            case 5:
-                              _context3.t1 = _context3.sent;
-
-                              _context3.t0.sendTransaction.call(_context3.t0, _context3.t1);
-
-                            case 7:
-                            case "end":
-                              return _context3.stop();
-                          }
-                        }
-                      }, _callee3);
-                    }));
-
-                    function callback(_x4) {
-                      return _callback.apply(this, arguments);
-                    }
-
-                    return callback;
-                  }()
-                }
+                account: account
               })).then(function (routes) {
                 clearInterval(slowRoutingTimeout);
                 onRoutesUpdate(routes);
               });
 
             case 6:
-              return _context4.abrupt("return", _context4.sent);
+              return _context3.abrupt("return", _context3.sent);
 
             case 7:
             case "end":
-              return _context4.stop();
+              return _context3.stop();
           }
         }
-      }, _callee4);
+      }, _callee3);
     }));
 
     return function getPaymentRoutes(_x3) {
@@ -25459,34 +25097,57 @@ var PaymentRoutingProvider = (function (props) {
   };
 
   var roundAmount = /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(route, amountBN) {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(route, amountBN) {
       var readableAmount, roundedAmountBN;
+      return regenerator.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              if (!route.directTransfer) {
+                _context4.next = 2;
+                break;
+              }
+
+              return _context4.abrupt("return", route);
+
+            case 2:
+              _context4.next = 4;
+              return route.fromToken.readable(amountBN || route.fromAmount);
+
+            case 4:
+              readableAmount = _context4.sent;
+              _context4.next = 7;
+              return route.fromToken.BigNumber(round(readableAmount));
+
+            case 7:
+              roundedAmountBN = _context4.sent;
+              updateRouteAmount(route, roundedAmountBN);
+              return _context4.abrupt("return", route);
+
+            case 10:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    return function roundAmount(_x4, _x5) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+
+  var roundAmounts = /*#__PURE__*/function () {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
       return regenerator.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              if (!route.directTransfer) {
-                _context5.next = 2;
-                break;
-              }
+              return _context5.abrupt("return", Promise.all(routes.map(function (route) {
+                return roundAmount(route);
+              })));
 
-              return _context5.abrupt("return", route);
-
-            case 2:
-              _context5.next = 4;
-              return route.fromToken.readable(amountBN || route.fromAmount);
-
-            case 4:
-              readableAmount = _context5.sent;
-              _context5.next = 7;
-              return route.fromToken.BigNumber(round(readableAmount));
-
-            case 7:
-              roundedAmountBN = _context5.sent;
-              updateRouteAmount(route, roundedAmountBN);
-              return _context5.abrupt("return", route);
-
-            case 10:
+            case 1:
             case "end":
               return _context5.stop();
           }
@@ -25494,49 +25155,26 @@ var PaymentRoutingProvider = (function (props) {
       }, _callee5);
     }));
 
-    return function roundAmount(_x5, _x6) {
-      return _ref5.apply(this, arguments);
-    };
-  }();
-
-  var roundAmounts = /*#__PURE__*/function () {
-    var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(routes) {
-      return regenerator.wrap(function _callee6$(_context6) {
-        while (1) {
-          switch (_context6.prev = _context6.next) {
-            case 0:
-              return _context6.abrupt("return", Promise.all(routes.map(function (route) {
-                return roundAmount(route);
-              })));
-
-            case 1:
-            case "end":
-              return _context6.stop();
-          }
-        }
-      }, _callee6);
-    }));
-
-    return function roundAmounts(_x7) {
+    return function roundAmounts(_x6) {
       return _ref6.apply(this, arguments);
     };
   }();
 
   var updateRouteWithNewPrice = /*#__PURE__*/function () {
-    var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee7() {
-      return regenerator.wrap(function _callee7$(_context7) {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6() {
+      return regenerator.wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context7.prev = _context7.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
-              setSelectedRoute(_objectSpread$2({}, updatedRouteWithNewPrice));
+              setSelectedRoute(_objectSpread$3({}, updatedRouteWithNewPrice));
               setUpdatedRouteWithNewPrice(null);
 
             case 2:
             case "end":
-              return _context7.stop();
+              return _context6.stop();
           }
         }
-      }, _callee7);
+      }, _callee6);
     }));
 
     return function updateRouteWithNewPrice() {
@@ -25659,9 +25297,9 @@ var NoPaymentOptionFoundDialog = (function () {
 
 var PaymentContext = /*#__PURE__*/React.createContext();
 
-function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var PaymentOptionsDialog = (function () {
   var _useContext = useContext(ConfigurationContext),
       accept = _useContext.accept;
@@ -25679,14 +25317,14 @@ var PaymentOptionsDialog = (function () {
 
   useEffect(function () {
     Promise.all(accept.map(function (configuration) {
-      var token = new Token({
+      var token = new Token$1({
         blockchain: configuration.blockchain,
         address: configuration.token
       });
       return Promise.all([Promise.resolve(configuration), token.symbol(), token.name()]);
     })).then(function (options) {
       return options.map(function (option) {
-        return _objectSpread$1(_objectSpread$1({}, option[0]), {}, {
+        return _objectSpread$2(_objectSpread$2({}, option[0]), {}, {
           symbol: option[1],
           name: option[2]
         });
@@ -25742,10 +25380,10 @@ var PaymentOptionsDialog = (function () {
           blockchain: paymentOption.blockchain,
           address: paymentOption.token
         }), /*#__PURE__*/React.createElement("img", {
-          className: "BlockchainLogo small " + Blockchains$1[paymentOption.blockchain].name,
-          src: Blockchains$1[paymentOption.blockchain].logo,
-          alt: Blockchains$1[paymentOption.blockchain].label,
-          title: Blockchains$1[paymentOption.blockchain].label
+          className: "BlockchainLogo small " + Blockchains[paymentOption.blockchain].name,
+          src: Blockchains[paymentOption.blockchain].logo,
+          alt: Blockchains[paymentOption.blockchain].label,
+          title: Blockchains[paymentOption.blockchain].label
         })), /*#__PURE__*/React.createElement("div", {
           className: "CardBody"
         }, /*#__PURE__*/React.createElement("div", {
@@ -25762,7 +25400,7 @@ var PaymentOptionsDialog = (function () {
           className: "TokenAmountRow small grey"
         }, /*#__PURE__*/React.createElement("span", {
           className: "TokenAmountCell"
-        }, "on ", Blockchains$1[paymentOption.blockchain].label))))));
+        }, "on ", Blockchains[paymentOption.blockchain].label))))));
       }))),
       footer: /*#__PURE__*/React.createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
@@ -25820,7 +25458,7 @@ var PaymentProvider = (function (props) {
       asynchronousTracking = _useContext9.asynchronousTracking,
       trackingInitialized = _useContext9.trackingInitialized,
       initializePaymentTracking = _useContext9.initializeTracking,
-      preTrack = _useContext9.preTrack;
+      trace = _useContext9.trace;
 
   var _useContext10 = useContext(TransactionTrackingContext),
       foundTransaction = _useContext10.foundTransaction,
@@ -25917,7 +25555,7 @@ var PaymentProvider = (function (props) {
               setPaymentState('paying');
               setUpdatable(false);
               _context2.next = 18;
-              return request({
+              return request$1({
                 blockchain: transaction.blockchain,
                 method: 'latestBlockNumber'
               });
@@ -25925,7 +25563,7 @@ var PaymentProvider = (function (props) {
             case 18:
               currentBlock = _context2.sent;
               _context2.next = 21;
-              return preTrack(currentBlock, payment.route, transaction).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+              return trace(currentBlock, payment.route, transaction).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
                 return regenerator.wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {
@@ -25967,7 +25605,7 @@ var PaymentProvider = (function (props) {
                 setPaymentState('initialized');
                 setClosable(true);
                 setUpdatable(true);
-                navigate('PreTrackingFailed');
+                navigate('TracingFailed');
               });
 
             case 21:
@@ -26010,13 +25648,6 @@ var PaymentProvider = (function (props) {
   };
 
   useEffect(function () {
-    if (wallet && wallet.isSolanaPay && wallet.isTransactionSend) {
-      setPaymentState('paying');
-      setUpdatable(false);
-      setClosable(false);
-    }
-  }, [wallet]);
-  useEffect(function () {
     if (release) {
       setPaymentState('success');
     }
@@ -26034,13 +25665,13 @@ var PaymentProvider = (function (props) {
       setTransaction({
         blockchain: recover.blockchain,
         id: recover.transaction,
-        url: Blockchains$1.findByName(recover.blockchain).explorerUrlFor({
+        url: Blockchains.findByName(recover.blockchain).explorerUrlFor({
           transaction: {
             id: recover.transaction
           }
         })
       });
-      var paymentToken = new Token({
+      var paymentToken = new Token$1({
         blockchain: recover.blockchain,
         address: recover.token
       });
@@ -26066,7 +25697,7 @@ var PaymentProvider = (function (props) {
       if (foundTransaction.id != transaction.id) {
         newTransaction = Object.assign({}, transaction, {
           id: foundTransaction.id,
-          url: Blockchains$1.findByName(transaction.blockchain).explorerUrlFor({
+          url: Blockchains.findByName(transaction.blockchain).explorerUrlFor({
             transaction: foundTransaction
           })
         });
@@ -26347,7 +25978,7 @@ var ChangePaymentDialog = (function (props) {
   }, [allRoutes]);
   useEffect(function () {
     setCards(allPaymentRoutesWithData.map(function (payment, index) {
-      var blockchain = Blockchains$1.findByName(payment.route.blockchain);
+      var blockchain = Blockchains.findByName(payment.route.blockchain);
       return /*#__PURE__*/React.createElement("div", {
         key: index,
         className: "Card",
@@ -26927,7 +26558,7 @@ var PaymentOverviewDialog = (function (props) {
     });
   }
 
-  var blockchain = Blockchains$1.findByName(payment.blockchain);
+  var blockchain = Blockchains.findByName(payment.blockchain);
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
@@ -27014,12 +26645,9 @@ var PaymentOverviewDialog = (function (props) {
   });
 });
 
-var PreTrackingFailedDialog = (function () {
-  var _useContext = useContext(PaymentContext);
-      _useContext.transaction;
-
-  var _useContext2 = useContext(NavigateStackContext),
-      navigate = _useContext2.navigate;
+var TracingFailedDialog = (function () {
+  var _useContext = useContext(NavigateStackContext),
+      navigate = _useContext.navigate;
 
   var tryAgain = function tryAgain() {
     navigate('back');
@@ -27115,7 +26743,7 @@ var WrongNetworkDialog = (function (props) {
       _useState2[0];
       _useState2[1];
 
-  var blockchain = Blockchains$1.findByName(payment.route.blockchain);
+  var blockchain = Blockchains.findByName(payment.route.blockchain);
 
   var switchNetwork = function switchNetwork() {
     wallet.switchTo(payment.blockchain);
@@ -27193,7 +26821,7 @@ var PaymentStack = (function (props) {
       PaymentFailed: /*#__PURE__*/React.createElement(PaymentFailedDialog, null),
       WrongNetwork: /*#__PURE__*/React.createElement(WrongNetworkDialog, null),
       TrackingFailed: /*#__PURE__*/React.createElement(TrackingFailedDialog, null),
-      PreTrackingFailed: /*#__PURE__*/React.createElement(PreTrackingFailedDialog, null)
+      TracingFailed: /*#__PURE__*/React.createElement(TracingFailedDialog, null)
     }
   });
 });
@@ -27246,10 +26874,10 @@ var getPaymentsAccountData = /*#__PURE__*/function () {
           case 3:
             address = _context2.sent.toString();
             _context2.next = 6;
-            return request({
+            return request$1({
               blockchain: 'solana',
               address: address,
-              api: struct([u64('anchorDiscriminator'), u64('nonce')])
+              api: struct([u64$1('anchorDiscriminator'), u64$1('nonce')])
             });
 
           case 6:
@@ -27282,7 +26910,7 @@ var getNonce = /*#__PURE__*/function () {
               blockchain = transaction.blockchain;
             }
 
-            if (!supported.evm.includes(blockchain)) {
+            if (!supported$3.evm.includes(blockchain)) {
               _context3.next = 13;
               break;
             }
@@ -27314,7 +26942,7 @@ var getNonce = /*#__PURE__*/function () {
             break;
 
           case 13:
-            if (!supported.solana.includes(blockchain)) {
+            if (!supported$3.solana.includes(blockchain)) {
               _context3.next = 22;
               break;
             }
@@ -27502,7 +27130,7 @@ var PaymentTrackingProvider = (function (props) {
       }
 
       if (item.message.release) {
-        socket.close(1000);
+        socket.close();
 
         if (success) {
           setRelease(true);
@@ -27525,7 +27153,7 @@ var PaymentTrackingProvider = (function (props) {
     };
 
     socket.onerror = function (error) {
-      console.log('WebSocket Error: ' + error);
+      console.log('WebSocket Error: ', error);
     };
   };
 
@@ -27742,7 +27370,7 @@ var PaymentTrackingProvider = (function (props) {
   }, [polling, transaction, afterBlock, paymentRoute]);
 
   var storePayment = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(transaction, afterBlock, paymentRoute, attempt) {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(transaction, afterBlock, paymentRoute) {
       return regenerator.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -27766,18 +27394,18 @@ var PaymentTrackingProvider = (function (props) {
               _context4.t6 = _context4.sent;
               _context4.t7 = paymentRoute.toAddress;
               _context4.t8 = paymentRoute.toToken.address;
-              _context4.t9 = ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals);
+              _context4.t9 = ethers$1.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals);
               _context4.t10 = afterBlock.toString();
               _context4.t11 = transaction.id;
               _context4.t12 = {
                 sender_id: transaction.from,
                 sender_token_id: paymentRoute.fromToken.address,
-                sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
+                sender_amount: ethers$1.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
                 integration: integration,
                 link: link,
                 type: type
               };
-              _context4.t13 = paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : null;
+              _context4.t13 = paymentRoute.fee ? ethers$1.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : null;
               _context4.t14 = paymentRoute.fee ? paymentRoute.fee.receiver : null;
               _context4.t15 = transaction.deadline;
               _context4.t16 = {
@@ -27805,12 +27433,12 @@ var PaymentTrackingProvider = (function (props) {
               (0, _context4.t0)('https://public.depay.com/payments', _context4.t18).then(function (response) {
                 if (response.status == 200 || response.status == 201) ; else {
                   setTimeout(function () {
-                    storePayment(transaction, afterBlock, paymentRoute, attempt + 1);
+                    storePayment(transaction, afterBlock, paymentRoute);
                   }, 3000);
                 }
               })["catch"](function (error) {
                 setTimeout(function () {
-                  storePayment(transaction, afterBlock, paymentRoute, attempt + 1);
+                  storePayment(transaction, afterBlock, paymentRoute);
                 }, 3000);
               });
 
@@ -27822,13 +27450,13 @@ var PaymentTrackingProvider = (function (props) {
       }, _callee4);
     }));
 
-    return function storePayment(_x11, _x12, _x13, _x14) {
+    return function storePayment(_x11, _x12, _x13) {
       return _ref4.apply(this, arguments);
     };
   }();
 
   var initializeTracking = function initializeTracking(transaction, afterBlock, paymentRoute) {
-    storePayment(transaction, afterBlock, paymentRoute, 1);
+    storePayment(transaction, afterBlock, paymentRoute);
 
     if (synchronousTracking || track && track.async == true) {
       startTracking(transaction, afterBlock, paymentRoute);
@@ -27844,7 +27472,7 @@ var PaymentTrackingProvider = (function (props) {
     openSocket(transaction);
   };
 
-  var preTrack = function preTrack(afterBlock, paymentRoute, transaction) {
+  var trace = function trace(afterBlock, paymentRoute, transaction) {
     if (!synchronousTracking && !asynchronousTracking) {
       return Promise.resolve();
     }
@@ -27908,7 +27536,7 @@ var PaymentTrackingProvider = (function (props) {
                   if (response.status == 200 || response.status == 201) {
                     return resolve();
                   } else {
-                    return reject('PRETRACKING REQUEST FAILED');
+                    return reject('TRACING REQUEST FAILED');
                   }
                 }));
 
@@ -27927,7 +27555,7 @@ var PaymentTrackingProvider = (function (props) {
         }, _callee5);
       }));
 
-      return function (_x15, _x16) {
+      return function (_x14, _x15) {
         return _ref5.apply(this, arguments);
       };
     }());
@@ -27938,7 +27566,7 @@ var PaymentTrackingProvider = (function (props) {
       synchronousTracking: synchronousTracking,
       asynchronousTracking: asynchronousTracking,
       initializeTracking: initializeTracking,
-      preTrack: preTrack,
+      trace: trace,
       trackingInitialized: trackingInitialized,
       continueTryTracking: continueTryTracking,
       release: release,
@@ -28002,7 +27630,7 @@ var PaymentValueProvider = (function (props) {
 
     setPaymentValue(null);
     setPaymentValueLoss(null);
-    Promise.all([Promise.all(Blockchains$1[payment.route.blockchain].stables.usd.map(function (stable) {
+    Promise.all([Promise.all(Blockchains[payment.route.blockchain].stables.usd.map(function (stable) {
       return route({
         blockchain: payment.route.blockchain,
         tokenIn: payment.route.fromToken.address,
@@ -28015,7 +27643,7 @@ var PaymentValueProvider = (function (props) {
       blockchain: payment.route.blockchain,
       tokenIn: payment.route.toToken.address,
       tokenOut: payment.route.fromToken.address,
-      amountIn: payment.route.feeAmount ? ethers.BigNumber.from(payment.route.toAmount).add(ethers.BigNumber.from(payment.route.feeAmount)) : payment.route.toAmount,
+      amountIn: payment.route.feeAmount ? ethers$1.BigNumber.from(payment.route.toAmount).add(ethers$1.BigNumber.from(payment.route.feeAmount)) : payment.route.toAmount,
       fromAddress: account,
       toAddress: account
     }) : Promise.resolve([])]).then(function (_ref2) {
@@ -28026,9 +27654,9 @@ var PaymentValueProvider = (function (props) {
       var reverseRoute = reverseRoutes[0];
 
       if (reverseRoute) {
-        var reverseAmountOutBN = ethers.BigNumber.from(reverseRoute.amountOut);
-        var paymentAmountInBN = ethers.BigNumber.from(payment.route.fromAmount);
-        var divPercent = 100 - reverseAmountOutBN.mul(ethers.BigNumber.from('100')).div(paymentAmountInBN).abs().toString();
+        var reverseAmountOutBN = ethers$1.BigNumber.from(reverseRoute.amountOut);
+        var paymentAmountInBN = ethers$1.BigNumber.from(payment.route.fromAmount);
+        var divPercent = 100 - reverseAmountOutBN.mul(ethers$1.BigNumber.from('100')).div(paymentAmountInBN).abs().toString();
 
         if (divPercent >= 10) {
           setPaymentValueLoss(divPercent);
@@ -28039,12 +27667,12 @@ var PaymentValueProvider = (function (props) {
 
       var USDValue;
 
-      if (Blockchains$1[payment.route.blockchain].stables.usd.includes(payment.route.fromToken.address)) {
+      if (Blockchains[payment.route.blockchain].stables.usd.includes(payment.route.fromToken.address)) {
         // is stable
-        var decimals = Blockchains$1[payment.route.blockchain].tokens.find(function (token) {
+        var decimals = Blockchains[payment.route.blockchain].tokens.find(function (token) {
           return token.address === payment.route.fromToken.address;
         }).decimals;
-        USDValue = ethers.utils.formatUnits(payment.route.fromAmount.toString(), decimals);
+        USDValue = ethers$1.utils.formatUnits(payment.route.fromAmount.toString(), decimals);
       } else {
         var USDRoutes = fromTokenUSDExchangeRoutes.map(function (routes) {
           return routes ? routes[0] : undefined;
@@ -28055,10 +27683,10 @@ var PaymentValueProvider = (function (props) {
           return;
         } else {
           var amounts = USDRoutes.map(function (route) {
-            var decimals = Blockchains$1[payment.route.blockchain].tokens.find(function (token) {
+            var decimals = Blockchains[payment.route.blockchain].tokens.find(function (token) {
               return token.address === route.tokenOut;
             }).decimals;
-            return parseFloat(ethers.utils.formatUnits(route.amountOut, decimals));
+            return parseFloat(ethers$1.utils.formatUnits(route.amountOut, decimals));
           }); // remove outliers
 
           var average = amounts.reduce(function (a, b) {
@@ -28131,22 +27759,7448 @@ var PaymentValueProvider = (function (props) {
   }, props.children);
 });
 
-var SolanaPaySelectPaymentOptionDialog = (function (props) {
-  return /*#__PURE__*/React.createElement(Dialog$1, {
-    header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL FontSizeL"
-    }, "Solana Pay"))),
-    stacked: true,
-    bodyClassName: "ScrollHeight",
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS"
-    }, "Hi"),
-    footer: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
+function getFavicon () {
+  var favicon;
+  var nodeList = document.getElementsByTagName("link");
+
+  for (var i = 0; i < nodeList.length; i++) {
+    if (nodeList[i].getAttribute("rel") == "icon" || nodeList[i].getAttribute("rel") == "shortcut icon") {
+      favicon = nodeList[i].getAttribute("href");
+    }
+  }
+
+  if (!favicon) {
+    return;
+  }
+
+  if (favicon.match(':')) {
+    return favicon;
+  } else {
+    return "".concat(window.location.origin, "/").concat(favicon.replace(/^\//, ''));
+  }
+}
+
+let _window$1;
+
+let getWindow$1 = () => {
+  if(_window$1) { return _window$1 }
+  if (typeof global == 'object') {
+    _window$1 = global;
+  } else {
+    _window$1 = window;
+  }
+  return _window$1
+};
+
+const getConfiguration$1 = () =>{
+  if(getWindow$1()._Web3ClientConfiguration === undefined) {
+    getWindow$1()._Web3ClientConfiguration = {};
+  }
+  return getWindow$1()._Web3ClientConfiguration
+};
+
+const BATCH_INTERVAL$1$1 = 10;
+const CHUNK_SIZE$1$1 = 99;
+
+class StaticJsonRpcBatchProvider$1 extends ethers$1.providers.JsonRpcProvider {
+
+  constructor(url, network, endpoints, failover) {
+    super(url);
+    this._network = network;
+    this._endpoint = url;
+    this._endpoints = endpoints;
+    this._failover = failover;
+    this._pendingBatch = [];
+  }
+
+  detectNetwork() {
+    return Promise.resolve(Blockchains.findByName(this._network).id)
+  }
+
+  requestChunk(chunk, endpoint) {
+    
+    const request = chunk.map((inflight) => inflight.request);
+
+    return ethers$1.utils.fetchJson(endpoint, JSON.stringify(request))
+      .then((result) => {
+        // For each result, feed it to the correct Promise, depending
+        // on whether it was a success or error
+        chunk.forEach((inflightRequest, index) => {
+          const payload = result[index];
+          if (payload.error) {
+            const error = new Error(payload.error.message);
+            error.code = payload.error.code;
+            error.data = payload.error.data;
+            inflightRequest.reject(error);
+          }
+          else {
+            inflightRequest.resolve(payload.result);
+          }
+        });
+      }).catch((error) => {
+        if(error && error.code == 'SERVER_ERROR') {
+          const index = this._endpoints.indexOf(this._endpoint)+1;
+          this._failover();
+          this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
+          this.requestChunk(chunk, this._endpoint);
+        } else {
+          chunk.forEach((inflightRequest) => {
+            inflightRequest.reject(error);
+          });
+        }
+      })
+  }
+    
+  send(method, params) {
+
+    const request = {
+      method: method,
+      params: params,
+      id: (this._nextId++),
+      jsonrpc: "2.0"
+    };
+
+    if (this._pendingBatch == null) {
+      this._pendingBatch = [];
+    }
+
+    const inflightRequest = { request, resolve: null, reject: null };
+
+    const promise = new Promise((resolve, reject) => {
+      inflightRequest.resolve = resolve;
+      inflightRequest.reject = reject;
+    });
+
+    this._pendingBatch.push(inflightRequest);
+
+    if (!this._pendingBatchAggregator) {
+      // Schedule batch for next event loop + short duration
+      this._pendingBatchAggregator = setTimeout(() => {
+        // Get the current batch and clear it, so new requests
+        // go into the next batch
+        const batch = this._pendingBatch;
+        this._pendingBatch = [];
+        this._pendingBatchAggregator = null;
+        // Prepare Chunks of CHUNK_SIZE
+        const chunks = [];
+        for (let i = 0; i < Math.ceil(batch.length / CHUNK_SIZE$1$1); i++) {
+          chunks[i] = batch.slice(i*CHUNK_SIZE$1$1, (i+1)*CHUNK_SIZE$1$1);
+        }
+        chunks.forEach((chunk)=>{
+          // Get the request as an array of requests
+          chunk.map((inflight) => inflight.request);
+          return this.requestChunk(chunk, this._endpoint)
+        });
+      }, getConfiguration$1().batchInterval || BATCH_INTERVAL$1$1);
+    }
+
+    return promise
+  }
+
+}
+
+const getAllProviders$1 = ()=> {
+  if(getWindow$1()._Web3ClientProviders == undefined) {
+    getWindow$1()._Web3ClientProviders = {};
+  }
+  return getWindow$1()._Web3ClientProviders
+};
+
+const setProvider$2 = (blockchain, provider)=> {
+  if(getAllProviders$1()[blockchain] === undefined) { getAllProviders$1()[blockchain] = []; }
+  const index = getAllProviders$1()[blockchain].indexOf(provider);
+  if(index > -1) {
+    getAllProviders$1()[blockchain].splice(index, 1);
+  }
+  getAllProviders$1()[blockchain].unshift(provider);
+};
+
+const setProviderEndpoints$2 = async (blockchain, endpoints, detectFastest = true)=> {
+  
+  getAllProviders$1()[blockchain] = endpoints.map((endpoint, index)=>
+    new StaticJsonRpcBatchProvider$1(endpoint, blockchain, endpoints, ()=>{
+      if(getAllProviders$1()[blockchain].length === 1) {
+        setProviderEndpoints$2(blockchain, endpoints, detectFastest);
+      } else {
+        getAllProviders$1()[blockchain].splice(index, 1);
+      }
     })
+  );
+  
+  let provider;
+  let window = getWindow$1();
+
+  if(
+    window.fetch == undefined ||
+    (typeof process != 'undefined' && process['env'] && process['env']['NODE_ENV'] == 'test') ||
+    (typeof window.cy != 'undefined') ||
+    detectFastest === false
+  ) {
+    provider = getAllProviders$1()[blockchain][0];
+  } else {
+    
+    let responseTimes = await Promise.all(endpoints.map((endpoint)=>{
+      return new Promise(async (resolve)=>{
+        let timeout = 900;
+        let before = new Date().getTime();
+        setTimeout(()=>resolve(timeout), timeout);
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ method: 'net_version', id: 1, jsonrpc: '2.0' })
+        });
+        if(!response.ok) { return resolve(999) }
+        let after = new Date().getTime();
+        resolve(after-before);
+      })
+    }));
+
+    const fastestResponse = Math.min(...responseTimes);
+    const fastestIndex = responseTimes.indexOf(fastestResponse);
+    provider = getAllProviders$1()[blockchain][fastestIndex];
+  }
+  
+  setProvider$2(blockchain, provider);
+};
+
+const getProvider$2 = async (blockchain)=> {
+
+  let providers = getAllProviders$1();
+  if(providers && providers[blockchain]){ return providers[blockchain][0] }
+  
+  let window = getWindow$1();
+  if(window._Web3ClientGetProviderPromise && window._Web3ClientGetProviderPromise[blockchain]) { return await window._Web3ClientGetProviderPromise[blockchain] }
+
+  if(!window._Web3ClientGetProviderPromise){ window._Web3ClientGetProviderPromise = {}; }
+  window._Web3ClientGetProviderPromise[blockchain] = new Promise(async(resolve)=> {
+    await setProviderEndpoints$2(blockchain, Blockchains[blockchain].endpoints);
+    resolve(getWindow$1()._Web3ClientProviders[blockchain][0]);
   });
+
+  return await window._Web3ClientGetProviderPromise[blockchain]
+};
+
+const getProviders$2 = async(blockchain)=>{
+
+  let providers = getAllProviders$1();
+  if(providers && providers[blockchain]){ return providers[blockchain] }
+  
+  let window = getWindow$1();
+  if(window._Web3ClientGetProvidersPromise && window._Web3ClientGetProvidersPromise[blockchain]) { return await window._Web3ClientGetProvidersPromise[blockchain] }
+
+  if(!window._Web3ClientGetProvidersPromise){ window._Web3ClientGetProvidersPromise = {}; }
+  window._Web3ClientGetProvidersPromise[blockchain] = new Promise(async(resolve)=> {
+    await setProviderEndpoints$2(blockchain, Blockchains[blockchain].endpoints);
+    resolve(getWindow$1()._Web3ClientProviders[blockchain]);
+  });
+
+  return await window._Web3ClientGetProvidersPromise[blockchain]
+};
+
+var EVM = {
+  getProvider: getProvider$2,
+  getProviders: getProviders$2,
+  setProviderEndpoints: setProviderEndpoints$2,
+  setProvider: setProvider$2,
+};
+
+const BATCH_INTERVAL = 10;
+const CHUNK_SIZE = 99;
+
+class StaticJsonRpcSequentialProvider extends Connection {
+
+  constructor(url, network, endpoints, failover) {
+    super(url);
+    this._provider = new Connection(url);
+    this._network = network;
+    this._endpoint = url;
+    this._endpoints = endpoints;
+    this._failover = failover;
+    this._pendingBatch = [];
+    this._rpcRequest = this._rpcRequestReplacement.bind(this);
+  }
+
+  requestChunk(chunk) {
+
+    const batch = chunk.map((inflight) => inflight.request);
+
+    const handleError = (error)=>{
+      if(error && [
+        'Failed to fetch', 'limit reached', '504', '503', '502', '500', '429', '426', '422', '413', '409', '408', '406', '405', '404', '403', '402', '401', '400'
+      ].some((errorType)=>error.toString().match(errorType))) {
+        const index = this._endpoints.indexOf(this._endpoint)+1;
+        this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
+        this._provider = new Connection(this._endpoint);
+        this.requestChunk(chunk);
+      } else {
+        chunk.forEach((inflightRequest) => {
+          inflightRequest.reject(error);
+        });
+      }
+    };
+
+    try {
+      return this._provider._rpcBatchRequest(batch)
+        .then((result) => {
+          // For each result, feed it to the correct Promise, depending
+          // on whether it was a success or error
+          chunk.forEach((inflightRequest, index) => {
+            const payload = result[index];
+            if (payload.error) {
+              const error = new Error(payload.error.message);
+              error.code = payload.error.code;
+              error.data = payload.error.data;
+              inflightRequest.reject(error);
+            } else {
+              inflightRequest.resolve(payload);
+            }
+          });
+        }).catch(handleError)
+    } catch (error){ return handleError(error) }
+  }
+    
+  _rpcRequestReplacement(methodName, args) {
+
+    const request = { methodName, args };
+
+    if (this._pendingBatch == null) {
+      this._pendingBatch = [];
+    }
+
+    const inflightRequest = { request, resolve: null, reject: null };
+
+    const promise = new Promise((resolve, reject) => {
+      inflightRequest.resolve = resolve;
+      inflightRequest.reject = reject;
+    });
+
+    this._pendingBatch.push(inflightRequest);
+
+    if (!this._pendingBatchAggregator) {
+      // Schedule batch for next event loop + short duration
+      this._pendingBatchAggregator = setTimeout(() => {
+        // Get the current batch and clear it, so new requests
+        // go into the next batch
+        const batch = this._pendingBatch;
+        this._pendingBatch = [];
+        this._pendingBatchAggregator = null;
+        // Prepare Chunks of CHUNK_SIZE
+        const chunks = [];
+        for (let i = 0; i < Math.ceil(batch.length / CHUNK_SIZE); i++) {
+          chunks[i] = batch.slice(i*CHUNK_SIZE, (i+1)*CHUNK_SIZE);
+        }
+        chunks.forEach((chunk)=>{
+          // Get the request as an array of requests
+          chunk.map((inflight) => inflight.request);
+          return this.requestChunk(chunk)
+        });
+      }, getConfiguration$1().batchInterval || BATCH_INTERVAL);
+    }
+
+    return promise
+  }
+}
+
+const getAllProviders = ()=> {
+  if(getWindow$1()._Web3ClientProviders == undefined) {
+    getWindow$1()._Web3ClientProviders = {};
+  }
+  return getWindow$1()._Web3ClientProviders
+};
+
+const setProvider$1 = (blockchain, provider)=> {
+  if(getAllProviders()[blockchain] === undefined) { getAllProviders()[blockchain] = []; }
+  const index = getAllProviders()[blockchain].indexOf(provider);
+  if(index > -1) {
+    getAllProviders()[blockchain].splice(index, 1);
+  }
+  getAllProviders()[blockchain].unshift(provider);
+};
+
+const setProviderEndpoints$1 = async (blockchain, endpoints, detectFastest = true)=> {
+  
+  getAllProviders()[blockchain] = endpoints.map((endpoint, index)=>
+    new StaticJsonRpcSequentialProvider(endpoint, blockchain, endpoints, ()=>{
+      if(getAllProviders()[blockchain].length === 1) {
+        setProviderEndpoints$1(blockchain, endpoints, detectFastest);
+      } else {
+        getAllProviders()[blockchain].splice(index, 1);
+      }
+    })
+  );
+
+  let provider;
+  let window = getWindow$1();
+
+  if(
+    window.fetch == undefined ||
+    (typeof process != 'undefined' && process['env'] && process['env']['NODE_ENV'] == 'test') ||
+    (typeof window.cy != 'undefined') ||
+    detectFastest === false
+  ) {
+    provider = getAllProviders()[blockchain][0];
+  } else {
+    
+    let responseTimes = await Promise.all(endpoints.map((endpoint)=>{
+      return new Promise(async (resolve)=>{
+        let timeout = 900;
+        let before = new Date().getTime();
+        setTimeout(()=>resolve(timeout), timeout);
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ method: 'getIdentity', id: 1, jsonrpc: '2.0' })
+        });
+        if(!response.ok) { return resolve(999) }
+        let after = new Date().getTime();
+        resolve(after-before);
+      })
+    }));
+
+    const fastestResponse = Math.min(...responseTimes);
+    const fastestIndex = responseTimes.indexOf(fastestResponse);
+    provider = getAllProviders()[blockchain][fastestIndex];
+  }
+  
+  setProvider$1(blockchain, provider);
+};
+
+const getProvider$1 = async (blockchain)=> {
+
+  let providers = getAllProviders();
+  if(providers && providers[blockchain]){ return providers[blockchain][0] }
+  
+  let window = getWindow$1();
+  if(window._Web3ClientGetProviderPromise && window._Web3ClientGetProviderPromise[blockchain]) { return await window._Web3ClientGetProviderPromise[blockchain] }
+
+  if(!window._Web3ClientGetProviderPromise){ window._Web3ClientGetProviderPromise = {}; }
+  window._Web3ClientGetProviderPromise[blockchain] = new Promise(async(resolve)=> {
+    await setProviderEndpoints$1(blockchain, Blockchains[blockchain].endpoints);
+    resolve(getWindow$1()._Web3ClientProviders[blockchain][0]);
+  });
+
+  return await window._Web3ClientGetProviderPromise[blockchain]
+};
+
+const getProviders$1 = async(blockchain)=>{
+
+  let providers = getAllProviders();
+  if(providers && providers[blockchain]){ return providers[blockchain] }
+  
+  let window = getWindow$1();
+  if(window._Web3ClientGetProvidersPromise && window._Web3ClientGetProvidersPromise[blockchain]) { return await window._Web3ClientGetProvidersPromise[blockchain] }
+
+  if(!window._Web3ClientGetProvidersPromise){ window._Web3ClientGetProvidersPromise = {}; }
+  window._Web3ClientGetProvidersPromise[blockchain] = new Promise(async(resolve)=> {
+    await setProviderEndpoints$1(blockchain, Blockchains[blockchain].endpoints);
+    resolve(getWindow$1()._Web3ClientProviders[blockchain]);
+  });
+
+  return await window._Web3ClientGetProvidersPromise[blockchain]
+};
+
+var Solana = {
+  getProvider: getProvider$1,
+  getProviders: getProviders$1,
+  setProviderEndpoints: setProviderEndpoints$1,
+  setProvider: setProvider$1,
+};
+
+let supported$2 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism'];
+supported$2.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism'];
+supported$2.solana = ['solana'];
+
+function _optionalChain$1$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+let getCacheStore = () => {
+  if (getWindow$1()._Web3ClientCacheStore == undefined) {
+    getWindow$1()._Web3ClientCacheStore = {};
+  }
+  return getWindow$1()._Web3ClientCacheStore
+};
+
+let getPromiseStore = () => {
+  if (getWindow$1()._Web3ClientPromiseStore == undefined) {
+    getWindow$1()._Web3ClientPromiseStore = {};
+  }
+  return getWindow$1()._Web3ClientPromiseStore
+};
+
+let set = function ({ key, value, expires }) {
+  getCacheStore()[key] = {
+    expiresAt: Date.now() + expires,
+    value,
+  };
+};
+
+let get = function ({ key, expires }) {
+  let cachedEntry = getCacheStore()[key];
+  if (_optionalChain$1$2([cachedEntry, 'optionalAccess', _ => _.expiresAt]) > Date.now()) {
+    return cachedEntry.value
+  }
+};
+
+let getPromise = function({ key }) {
+  return getPromiseStore()[key]
+};
+
+let setPromise = function({ key, promise }) {
+  getPromiseStore()[key] = promise;
+  return promise
+};
+
+let deletePromise = function({ key }) {
+  getPromiseStore()[key] = undefined; 
+};
+
+let cache = function ({ call, key, expires = 0 }) {
+  return new Promise((resolve, reject)=>{
+    let value;
+    key = JSON.stringify(key);
+    
+    // get existing promise (of a previous pending request asking for the exact same thing)
+    let existingPromise = getPromise({ key });
+    if(existingPromise) { 
+      return existingPromise
+        .then(resolve)
+        .catch(reject)
+    }
+
+    setPromise({ key, promise: new Promise((resolveQueue, rejectQueue)=>{
+      if (expires === 0) {
+        return call()
+          .then((value)=>{
+            resolve(value);
+            resolveQueue(value);
+          })
+          .catch((error)=>{
+            reject(error);
+            rejectQueue(error);
+          })
+      }
+      
+      // get cached value
+      value = get({ key, expires });
+      if (value) {
+        resolve(value);
+        resolveQueue(value);
+        return value
+      }
+
+      // set new cache value
+      call()
+        .then((value)=>{
+          if (value) {
+            set({ key, value, expires });
+          }
+          resolve(value);
+          resolveQueue(value);
+        })
+        .catch((error)=>{
+          reject(error);
+          rejectQueue(error);
+        });
+      })
+    }).then(()=>{
+      deletePromise({ key });
+    }).catch(()=>{
+      deletePromise({ key });
+    });
+  })
+};
+
+const getProvider = async (blockchain)=>{
+
+  if(supported$2.evm.includes(blockchain)) {
+
+
+    return await EVM.getProvider(blockchain)
+
+
+  } else if(supported$2.solana.includes(blockchain)) {
+
+
+    return await Solana.getProvider(blockchain)
+
+
+  } else {
+    throw 'Unknown blockchain: ' + blockchain
+  }
+};
+
+let paramsToContractArgs = ({ contract, method, params }) => {
+  let fragment = contract.interface.fragments.find((fragment) => {
+    return fragment.name == method
+  });
+
+  return fragment.inputs.map((input, index) => {
+    if (Array.isArray(params)) {
+      return params[index]
+    } else {
+      return params[input.name]
+    }
+  })
+};
+
+const contractCall = ({ address, api, method, params, provider, block }) => {
+  const contract = new ethers$1.Contract(address, api, provider);
+  const args = paramsToContractArgs({ contract, method, params });
+  const fragment = contract.interface.fragments.find((fragment)=>fragment.name === method);
+  if(contract[method] === undefined) {
+    method = `${method}(${fragment.inputs.map((input)=>input.type).join(',')})`;
+  }
+  if(fragment && fragment.stateMutability === 'nonpayable') {
+    return contract.callStatic[method](...args, { blockTag: block })
+  } else {
+    return contract[method](...args, { blockTag: block })
+  }
+};
+
+const balance$1 = ({ address, provider }) => {
+  return provider.getBalance(address)
+};
+
+const transactionCount = ({ address, provider }) => {
+  return provider.getTransactionCount(address)
+};
+
+const singleRequest$1 = ({ blockchain, address, api, method, params, block, provider }) =>{
+  if (api) {
+    return contractCall({ address, api, method, params, provider, block })
+  } else if (method === 'latestBlockNumber') {
+    return provider.getBlockNumber()
+  } else if (method === 'balance') {
+    return balance$1({ address, provider })
+  } else if (method === 'transactionCount') {
+    return transactionCount({ address, provider })
+  }
+};
+
+var requestEVM = async ({ blockchain, address, api, method, params, block, timeout, strategy }) => {
+
+  strategy = strategy ? strategy : (getConfiguration$1().strategy || 'failover');
+  timeout = timeout ? timeout : (getConfiguration$1().timeout || undefined);
+
+  if(strategy === 'fastest') {
+
+    const providers = await EVM.getProviders(blockchain);
+    
+    let allRequestsFailed = [];
+
+    const allRequestsInParallel = providers.map((provider)=>{
+      return new Promise((resolve)=>{
+        allRequestsFailed.push(
+          singleRequest$1({ blockchain, address, api, method, params, block, provider }).then(resolve)
+        );
+      })
+    });
+    
+    const timeoutPromise = new Promise((_, reject)=>setTimeout(()=>{ reject(new Error("Web3ClientTimeout")); }, timeout || 10000));
+
+    allRequestsFailed = Promise.all(allRequestsFailed.map((request)=>{
+      return new Promise((resolve)=>{ request.catch(resolve); })
+    })).then(()=>{ return });
+
+    return Promise.race([...allRequestsInParallel, timeoutPromise, allRequestsFailed])
+
+  } else { // failover
+
+    const provider = await EVM.getProvider(blockchain);
+    const request = singleRequest$1({ blockchain, address, api, method, params, block, provider });
+    
+    if(timeout) {
+      timeout = new Promise((_, reject)=>setTimeout(()=>{ reject(new Error("Web3ClientTimeout")); }, timeout));
+      return Promise.race([request, timeout])
+    } else {
+      return request
+    }
+  }
+};
+
+const accountInfo = async ({ address, api, method, params, provider, block }) => {
+  const info = await provider.getAccountInfo(new PublicKey(address));
+  if(!info || !info.data) { return }
+  return api.decode(info.data)
+};
+
+const balance = ({ address, provider }) => {
+  return provider.getBalance(new PublicKey(address))
+};
+
+const singleRequest = async({ blockchain, address, api, method, params, block, provider, providers })=> {
+
+  try {
+
+    if(method == undefined || method === 'getAccountInfo') {
+      if(api == undefined) {
+        api = ACCOUNT_LAYOUT; 
+      }
+      return await accountInfo({ address, api, method, params, provider, block })
+    } else if(method === 'getProgramAccounts') {
+      return await provider.getProgramAccounts(new PublicKey(address), params).then((accounts)=>{
+        if(api){
+          return accounts.map((account)=>{
+            account.data = api.decode(account.account.data);
+            return account
+          })
+        } else {
+          return accounts
+        }
+      })
+    } else if(method === 'getTokenAccountBalance') {
+      return await provider.getTokenAccountBalance(new PublicKey(address))
+    } else if (method === 'latestBlockNumber') {
+      return await provider.getSlot(params ? params : undefined)
+    } else if (method === 'balance') {
+      return await balance({ address, provider })
+    }
+
+  } catch (error){
+    if(providers && error && [
+      'Failed to fetch', 'limit reached', '504', '503', '502', '500', '429', '426', '422', '413', '409', '408', '406', '405', '404', '403', '402', '401', '400'
+    ].some((errorType)=>error.toString().match(errorType))) {
+      let nextProvider = providers[providers.indexOf(provider)+1] || providers[0];
+      return singleRequest({ blockchain, address, api, method, params, block, provider: nextProvider, providers })
+    } else {
+      throw error
+    }
+  }
+};
+
+var requestSolana = async ({ blockchain, address, api, method, params, block, timeout, strategy }) => {
+
+  strategy = strategy ? strategy : (getConfiguration$1().strategy || 'failover');
+  timeout = timeout ? timeout : (getConfiguration$1().timeout || undefined);
+
+  const providers = await Solana.getProviders(blockchain);
+
+  if(strategy === 'fastest') {
+
+    let allRequestsFailed = [];
+
+    const allRequestsInParallel = providers.map((provider)=>{
+      return new Promise((resolve)=>{
+        allRequestsFailed.push(
+          singleRequest({ blockchain, address, api, method, params, block, provider }).then(resolve)
+        );
+      })
+    });
+    
+    const timeoutPromise = new Promise((_, reject)=>setTimeout(()=>{ reject(new Error("Web3ClientTimeout")); }, timeout || 10000));
+
+    allRequestsFailed = Promise.all(allRequestsFailed.map((request)=>{
+      return new Promise((resolve)=>{ request.catch(resolve); })
+    })).then(()=>{ return });
+
+    return Promise.race([...allRequestsInParallel, timeoutPromise, allRequestsFailed])
+
+  } else { // failover
+
+    const provider = await Solana.getProvider(blockchain);
+    const request = singleRequest({ blockchain, address, api, method, params, block, provider, providers });
+
+    if(timeout) {
+      timeout = new Promise((_, reject)=>setTimeout(()=>{ reject(new Error("Web3ClientTimeout")); }, timeout));
+      return Promise.race([request, timeout])
+    } else {
+      return request
+    }
+  }
+};
+
+var parseUrl = (url) => {
+  if (typeof url == 'object') {
+    return url
+  }
+  let deconstructed = url.match(/(?<blockchain>\w+):\/\/(?<part1>[\w\d]+)(\/(?<part2>[\w\d]+)*)?/);
+
+  if(deconstructed.groups.part2 == undefined) {
+    if(deconstructed.groups.part1.match(/\d/)) {
+      return {
+        blockchain: deconstructed.groups.blockchain,
+        address: deconstructed.groups.part1
+      }
+    } else {
+      return {
+        blockchain: deconstructed.groups.blockchain,
+        method: deconstructed.groups.part1
+      }
+    }
+  } else {
+    return {
+      blockchain: deconstructed.groups.blockchain,
+      address: deconstructed.groups.part1,
+      method: deconstructed.groups.part2
+    }
+  }
+};
+
+const request = async function (url, options) {
+  
+  const { blockchain, address, method } = parseUrl(url);
+  const { api, params, cache: cache$1, block, timeout, strategy, cacheKey } = (typeof(url) == 'object' ? url : options) || {};
+
+  return await cache({
+    expires: cache$1 || 0,
+    key: cacheKey || [blockchain, address, method, params, block],
+    call: async()=>{
+      if(supported$2.evm.includes(blockchain)) {
+
+
+        return await requestEVM({ blockchain, address, api, method, params, block, strategy, timeout })
+
+
+      } else if(supported$2.solana.includes(blockchain)) {
+
+
+        return await requestSolana({ blockchain, address, api, method, params, block, strategy, timeout })
+
+
+      } else {
+        throw 'Unknown blockchain: ' + blockchain
+      }  
+    }
+  })
+};
+
+var allowanceOnEVM = ({ blockchain, address, api, owner, spender })=>{
+  return request(
+    {
+      blockchain,
+      address,
+      api,
+      method: 'allowance',
+      params: [owner, spender],
+      cache: 5000, // 5 seconds
+    },
+  )
+};
+
+var balanceOnEVM = async ({ blockchain, address, account, api, id })=>{
+  if (address == Blockchains[blockchain].currency.address) {
+    return await request(
+      {
+        blockchain: blockchain,
+        address: account,
+        method: 'balance',
+        cache: 10000, // 10 seconds
+      },
+    )
+  } else {
+    return await request(
+      {
+        blockchain: blockchain,
+        address: address,
+        method: 'balanceOf',
+        api,
+        params: id ? [account, id] : [account],
+        cache: 10000, // 10 seconds
+      },
+    )
+  }
+};
+
+var BEP20 = [
+  {
+    "inputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Approval",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Transfer",
+    "type": "event"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      }
+    ],
+    "name": "allowance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "approve",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "decimals",
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "subtractedValue",
+        "type": "uint256"
+      }
+    ],
+    "name": "decreaseAllowance",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getOwner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "addedValue",
+        "type": "uint256"
+      }
+    ],
+    "name": "increaseAllowance",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "mint",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "name",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "symbol",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "totalSupply",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "transfer",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "transferFrom",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+];
+
+var bsc1155 = [
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      }
+    ],
+    "name": "ApprovalForAll",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "ids",
+        "type": "uint256[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "values",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "TransferBatch",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "TransferSingle",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "value",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "URI",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "accounts",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "ids",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "balanceOfBatch",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      }
+    ],
+    "name": "isApprovedForAll",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "ids",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "amounts",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "safeBatchTransferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "safeTransferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      }
+    ],
+    "name": "setApprovalForAll",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "uri",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
+
+var decimalsOnEVM = ({ blockchain, address, api })=>{
+  return request({
+    blockchain,
+    address,
+    api,
+    method: 'decimals',
+    cache: 86400000, // 1 day
+  })
+};
+
+var ERC20 = [
+  {
+    constant: true,
+    inputs: [],
+    name: 'name',
+    outputs: [{ name: '', type: 'string' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      { name: '_spender', type: 'address' },
+      { name: '_value', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [{ name: '', type: 'bool' }],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [{ name: '', type: 'uint256' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      { name: '_from', type: 'address' },
+      { name: '_to', type: 'address' },
+      { name: '_value', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [{ name: '', type: 'bool' }],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'decimals',
+    outputs: [{ name: '', type: 'uint8' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [{ name: '_owner', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: 'balance', type: 'uint256' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', type: 'string' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      { name: '_to', type: 'address' },
+      { name: '_value', type: 'uint256' },
+    ],
+    name: 'transfer',
+    outputs: [{ name: '', type: 'bool' }],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [
+      { name: '_owner', type: 'address' },
+      { name: '_spender', type: 'address' },
+    ],
+    name: 'allowance',
+    outputs: [{ name: '', type: 'uint256' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  { payable: true, stateMutability: 'payable', type: 'fallback' },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, name: 'owner', type: 'address' },
+      { indexed: true, name: 'spender', type: 'address' },
+      { indexed: false, name: 'value', type: 'uint256' },
+    ],
+    name: 'Approval',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, name: 'from', type: 'address' },
+      { indexed: true, name: 'to', type: 'address' },
+      { indexed: false, name: 'value', type: 'uint256' },
+    ],
+    name: 'Transfer',
+    type: 'event',
+  },
+];
+
+var ERC20onPolygon = [
+  {
+    constant: true,
+    inputs: [],
+    name: 'name',
+    outputs: [{ name: '', type: 'string' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      { name: '_spender', type: 'address' },
+      { name: '_value', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [{ name: '', type: 'bool' }],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [{ name: '', type: 'uint256' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      { name: '_from', type: 'address' },
+      { name: '_to', type: 'address' },
+      { name: '_value', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [{ name: '', type: 'bool' }],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'decimals',
+    outputs: [{ name: '', type: 'uint8' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [{ name: '_owner', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: 'balance', type: 'uint256' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', type: 'string' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      { name: '_to', type: 'address' },
+      { name: '_value', type: 'uint256' },
+    ],
+    name: 'transfer',
+    outputs: [{ name: '', type: 'bool' }],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [
+      { name: '_owner', type: 'address' },
+      { name: '_spender', type: 'address' },
+    ],
+    name: 'allowance',
+    outputs: [{ name: '', type: 'uint256' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  { payable: true, stateMutability: 'payable', type: 'fallback' },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, name: 'owner', type: 'address' },
+      { indexed: true, name: 'spender', type: 'address' },
+      { indexed: false, name: 'value', type: 'uint256' },
+    ],
+    name: 'Approval',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, name: 'from', type: 'address' },
+      { indexed: true, name: 'to', type: 'address' },
+      { indexed: false, name: 'value', type: 'uint256' },
+    ],
+    name: 'Transfer',
+    type: 'event'
+  },
+];
+
+var ethereum1155 = [
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      }
+    ],
+    "name": "ApprovalForAll",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "ids",
+        "type": "uint256[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "values",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "TransferBatch",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "TransferSingle",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "value",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "URI",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "accounts",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "ids",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "balanceOfBatch",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      }
+    ],
+    "name": "isApprovedForAll",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "ids",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "amounts",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "safeBatchTransferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "safeTransferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      }
+    ],
+    "name": "setApprovalForAll",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "uri",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
+
+var ftm1155 = [
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      }
+    ],
+    "name": "ApprovalForAll",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "ids",
+        "type": "uint256[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "values",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "TransferBatch",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "TransferSingle",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "value",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "URI",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "accounts",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "ids",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "balanceOfBatch",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      }
+    ],
+    "name": "isApprovedForAll",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "ids",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "amounts",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "safeBatchTransferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "safeTransferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      }
+    ],
+    "name": "setApprovalForAll",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "uri",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
+
+var FTM20 = [
+  {
+    constant: true,
+    inputs: [],
+    name: 'name',
+    outputs: [{ name: '', type: 'string' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      { name: '_spender', type: 'address' },
+      { name: '_value', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [{ name: '', type: 'bool' }],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [{ name: '', type: 'uint256' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      { name: '_from', type: 'address' },
+      { name: '_to', type: 'address' },
+      { name: '_value', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [{ name: '', type: 'bool' }],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'decimals',
+    outputs: [{ name: '', type: 'uint8' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [{ name: '_owner', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: 'balance', type: 'uint256' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', type: 'string' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      { name: '_to', type: 'address' },
+      { name: '_value', type: 'uint256' },
+    ],
+    name: 'transfer',
+    outputs: [{ name: '', type: 'bool' }],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [
+      { name: '_owner', type: 'address' },
+      { name: '_spender', type: 'address' },
+    ],
+    name: 'allowance',
+    outputs: [{ name: '', type: 'uint256' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  { payable: true, stateMutability: 'payable', type: 'fallback' },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, name: 'owner', type: 'address' },
+      { indexed: true, name: 'spender', type: 'address' },
+      { indexed: false, name: 'value', type: 'uint256' },
+    ],
+    name: 'Approval',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, name: 'from', type: 'address' },
+      { indexed: true, name: 'to', type: 'address' },
+      { indexed: false, name: 'value', type: 'uint256' },
+    ],
+    name: 'Transfer',
+    type: 'event',
+  },
+];
+
+const uriAPI = [{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"uri","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"}];
+
+const uriToName = (tokenURI)=>{
+  return new Promise((resolve)=>{
+    if(tokenURI.match(/^ipfs/)) {
+      tokenURI = `https://ipfs.io/ipfs/${tokenURI.split('://')[1]}`;
+    }
+    fetch(tokenURI).then((response) => {
+      if (response.ok) { return response.json() }
+      resolve();
+    })
+    .then((responseJson) => {
+      if(responseJson) {
+        let name = responseJson.name;
+        if(name){
+          resolve(name);
+        } else {
+          resolve();
+        }
+      }
+    }).catch(()=>resolve());
+  })
+};
+
+var nameOnEVM = ({ blockchain, address, api, id })=>{
+
+  if(id) {
+    return new Promise((resolve)=>{
+      request({ blockchain, address, api: uriAPI, method: 'uri', params: [id] }).then((uri)=>{
+        uri = uri.match('0x{id}') ? uri.replace('0x{id}', id) : uri;
+        uriToName(uri).then(resolve);
+      }).catch((error)=>{
+        console.log('error', error);
+        resolve();
+      });
+    })
+  } else {
+    return request(
+      {
+        blockchain: blockchain,
+        address: address,
+        api,
+        method: 'name',
+        cache: 86400000, // 1 day
+      },
+    )
+  }
+};
+
+var symbolOnEVM = ({ blockchain, address, api })=>{
+  return request(
+    {
+      blockchain,
+      address,
+      api,
+      method: 'symbol',
+      cache: 86400000, // 1 day
+    }
+  )
+};
+
+var VRC20 = [{"name": "Approval", "type": "event", "inputs": [{"name": "src", "type": "address", "indexed": true, "internalType": "address"}, {"name": "guy", "type": "address", "indexed": true, "internalType": "address"}, {"name": "wad", "type": "uint256", "indexed": false, "internalType": "uint256"}], "anonymous": false}, {"name": "Deposit", "type": "event", "inputs": [{"name": "dst", "type": "address", "indexed": true, "internalType": "address"}, {"name": "wad", "type": "uint256", "indexed": false, "internalType": "uint256"}], "anonymous": false}, {"name": "Transfer", "type": "event", "inputs": [{"name": "src", "type": "address", "indexed": true, "internalType": "address"}, {"name": "dst", "type": "address", "indexed": true, "internalType": "address"}, {"name": "wad", "type": "uint256", "indexed": false, "internalType": "uint256"}], "anonymous": false}, {"name": "Withdrawal", "type": "event", "inputs": [{"name": "src", "type": "address", "indexed": true, "internalType": "address"}, {"name": "wad", "type": "uint256", "indexed": false, "internalType": "uint256"}], "anonymous": false}, {"type": "fallback", "stateMutability": "payable"}, {"name": "allowance", "type": "function", "inputs": [{"name": "", "type": "address", "internalType": "address"}, {"name": "", "type": "address", "internalType": "address"}], "outputs": [{"name": "", "type": "uint256", "internalType": "uint256"}], "stateMutability": "view"}, {"name": "approve", "type": "function", "inputs": [{"name": "guy", "type": "address", "internalType": "address"}, {"name": "wad", "type": "uint256", "internalType": "uint256"}], "outputs": [{"name": "", "type": "bool", "internalType": "bool"}], "stateMutability": "nonpayable"}, {"name": "balanceOf", "type": "function", "inputs": [{"name": "", "type": "address", "internalType": "address"}], "outputs": [{"name": "", "type": "uint256", "internalType": "uint256"}], "stateMutability": "view"}, {"name": "decimals", "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint8", "internalType": "uint8"}], "stateMutability": "view"}, {"name": "deposit", "type": "function", "inputs": [], "outputs": [], "stateMutability": "payable"}, {"name": "name", "type": "function", "inputs": [], "outputs": [{"name": "", "type": "string", "internalType": "string"}], "stateMutability": "view"}, {"name": "symbol", "type": "function", "inputs": [], "outputs": [{"name": "", "type": "string", "internalType": "string"}], "stateMutability": "view"}, {"name": "totalSupply", "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint256", "internalType": "uint256"}], "stateMutability": "view"}, {"name": "transfer", "type": "function", "inputs": [{"name": "dst", "type": "address", "internalType": "address"}, {"name": "wad", "type": "uint256", "internalType": "uint256"}], "outputs": [{"name": "", "type": "bool", "internalType": "bool"}], "stateMutability": "nonpayable"}, {"name": "transferFrom", "type": "function", "inputs": [{"name": "src", "type": "address", "internalType": "address"}, {"name": "dst", "type": "address", "internalType": "address"}, {"name": "wad", "type": "uint256", "internalType": "uint256"}], "outputs": [{"name": "", "type": "bool", "internalType": "bool"}], "stateMutability": "nonpayable"}, {"name": "withdraw", "type": "function", "inputs": [{"name": "wad", "type": "uint256", "internalType": "uint256"}], "outputs": [], "stateMutability": "nonpayable"}];
+
+const TOKEN_PROGRAM = 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA';
+const ASSOCIATED_TOKEN_PROGRAM = 'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL';
+
+function _optionalChain$4(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+var findProgramAddress = async ({ token, owner })=>{
+
+  const [address] = await PublicKey.findProgramAddress(
+    [
+      (new PublicKey(owner)).toBuffer(),
+      (new PublicKey(TOKEN_PROGRAM)).toBuffer(),
+      (new PublicKey(token)).toBuffer()
+    ],
+    new PublicKey(ASSOCIATED_TOKEN_PROGRAM)
+  );
+
+  return _optionalChain$4([address, 'optionalAccess', _ => _.toString, 'call', _2 => _2()])
+};
+
+const MINT_LAYOUT = struct([
+  u32('mintAuthorityOption'),
+  publicKey('mintAuthority'),
+  u64$1('supply'),
+  u8('decimals'),
+  bool('isInitialized'),
+  u32('freezeAuthorityOption'),
+  publicKey('freezeAuthority')
+]);
+
+const KEY_LAYOUT = rustEnum([
+  struct([], 'uninitialized'),
+  struct([], 'editionV1'),
+  struct([], 'masterEditionV1'),
+  struct([], 'reservationListV1'),
+  struct([], 'metadataV1'),
+  struct([], 'reservationListV2'),
+  struct([], 'masterEditionV2'),
+  struct([], 'editionMarker'),
+]);
+
+const CREATOR_LAYOUT = struct([
+  publicKey('address'),
+  bool('verified'),
+  u8('share'),
+]);
+
+const DATA_LAYOUT = struct([
+  str('name'),
+  str('symbol'),
+  str('uri'),
+  u16('sellerFeeBasisPoints'),
+  option(
+    vec(
+      CREATOR_LAYOUT.replicate('creators')
+    ),
+    'creators'
+  )
+]);
+
+const METADATA_LAYOUT = struct([
+  KEY_LAYOUT.replicate('key'),
+  publicKey('updateAuthority'),
+  publicKey('mint'),
+  DATA_LAYOUT.replicate('data'),
+  bool('primarySaleHappened'),
+  bool('isMutable'),
+  option(u8(), 'editionNonce'),
+]);
+
+const TRANSFER_LAYOUT = struct([
+  u8('instruction'),
+  u64$1('amount'),
+]);
+
+const TOKEN_LAYOUT = struct([
+  publicKey('mint'),
+  publicKey('owner'),
+  u64$1('amount'),
+  u32('delegateOption'),
+  publicKey('delegate'),
+  u8('state'),
+  u32('isNativeOption'),
+  u64$1('isNative'),
+  u64$1('delegatedAmount'),
+  u32('closeAuthorityOption'),
+  publicKey('closeAuthority')
+]);
+
+const INITIALIZE_LAYOUT = struct([
+  u8('instruction'),
+  publicKey('owner')
+]);
+
+const CLOSE_LAYOUT = struct([
+  u8('instruction')
+]);
+
+const createTransferInstruction = async ({ token, amount, from, to })=>{
+
+  let fromTokenAccount = await findProgramAddress({ token, owner: from });
+  let toTokenAccount = await findProgramAddress({ token, owner: to });
+
+  const keys = [
+    { pubkey: new PublicKey(fromTokenAccount), isSigner: false, isWritable: true },
+    { pubkey: new PublicKey(toTokenAccount), isSigner: false, isWritable: true },
+    { pubkey: new PublicKey(from), isSigner: true, isWritable: false }
+  ];
+
+  const data = Buffer.alloc(TRANSFER_LAYOUT.span);
+  TRANSFER_LAYOUT.encode({
+    instruction: 3, // TRANSFER
+    amount: new BN(amount)
+  }, data);
+  
+  return new TransactionInstruction({ 
+    keys,
+    programId: new PublicKey(TOKEN_PROGRAM),
+    data 
+  })
+};
+
+const createAssociatedTokenAccountInstruction = async ({ token, owner, payer }) => {
+
+  let associatedToken = await findProgramAddress({ token, owner });
+
+  const keys = [
+    { pubkey: new PublicKey(payer), isSigner: true, isWritable: true },
+    { pubkey: new PublicKey(associatedToken), isSigner: false, isWritable: true },
+    { pubkey: new PublicKey(owner), isSigner: false, isWritable: false },
+    { pubkey: new PublicKey(token), isSigner: false, isWritable: false },
+    { pubkey: SystemProgram.programId, isSigner: false, isWritable: false },
+    { pubkey: new PublicKey(TOKEN_PROGRAM), isSigner: false, isWritable: false },
+  ];
+
+ return new TransactionInstruction({
+    keys,
+    programId: new PublicKey(ASSOCIATED_TOKEN_PROGRAM),
+    data: Buffer.alloc(0)
+  })
+};
+
+const initializeAccountInstruction = ({ account, token, owner })=>{
+
+  const keys = [
+    { pubkey: new PublicKey(account), isSigner: false, isWritable: true },
+    { pubkey: new PublicKey(token), isSigner: false, isWritable: false },
+  ];
+
+  const data = Buffer.alloc(INITIALIZE_LAYOUT.span);
+  INITIALIZE_LAYOUT.encode({
+    instruction: 18, // InitializeAccount3
+    owner: new PublicKey(owner)
+  }, data);
+  
+  return new TransactionInstruction({ keys, programId: new PublicKey(TOKEN_PROGRAM), data })
+};
+
+
+const closeAccountInstruction = ({ account, owner })=>{
+
+  const keys = [
+    { pubkey: new PublicKey(account), isSigner: false, isWritable: true },
+    { pubkey: new PublicKey(owner), isSigner: false, isWritable: true },
+    { pubkey: new PublicKey(owner), isSigner: true, isWritable: false }
+  ];
+
+  const data = Buffer.alloc(CLOSE_LAYOUT.span);
+  CLOSE_LAYOUT.encode({
+    instruction: 9 // CloseAccount
+  }, data);
+
+  return new TransactionInstruction({ keys, programId: new PublicKey(TOKEN_PROGRAM), data })
+};
+
+var instructions = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  createTransferInstruction: createTransferInstruction,
+  createAssociatedTokenAccountInstruction: createAssociatedTokenAccountInstruction,
+  initializeAccountInstruction: initializeAccountInstruction,
+  closeAccountInstruction: closeAccountInstruction
+});
+
+var balanceOnSolana = async ({ blockchain, address, account, api })=>{
+
+  if(address == Blockchains[blockchain].currency.address) {
+
+     return ethers$1.BigNumber.from(await request(`solana://${account}/balance`))
+
+  } else {
+
+    const tokenAccountAddress = await findProgramAddress({ token: address, owner: account });
+
+    const balance = await request(`solana://${tokenAccountAddress}/getTokenAccountBalance`);
+
+    if (balance) {
+      return ethers$1.BigNumber.from(balance.value.amount)
+    } else {
+      return ethers$1.BigNumber.from('0')
+    }
+  }
+};
+
+var decimalsOnSolana = async ({ blockchain, address })=>{
+  let data = await request({ blockchain, address, api: MINT_LAYOUT });
+  return data.decimals
+};
+
+var findAccount = async ({ token, owner })=>{
+
+  const address = await findProgramAddress({ token, owner });
+
+  const existingAccount = await request({
+    blockchain: 'solana',
+    address,
+    api: TOKEN_LAYOUT,
+    cache: 1000 // 1s
+  });
+
+  return existingAccount
+};
+
+function _optionalChain$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+const METADATA_ACCOUNT = 'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s';
+
+const METADATA_REPLACE = new RegExp('\u0000', 'g');
+
+const getMetaDataPDA = async ({ metaDataPublicKey, mintPublicKey }) => {
+  let seed = [
+    Buffer.from('metadata'),
+    metaDataPublicKey.toBuffer(),
+    mintPublicKey.toBuffer()  
+  ];
+
+  return (await PublicKey.findProgramAddress(seed, metaDataPublicKey))[0]
+};
+
+const getMetaData = async ({ blockchain, address })=> {
+
+  let mintPublicKey = new PublicKey(address);
+  let metaDataPublicKey = new PublicKey(METADATA_ACCOUNT);
+  let tokenMetaDataPublicKey = await getMetaDataPDA({ metaDataPublicKey, mintPublicKey });
+
+  let metaData = await request({
+    blockchain, 
+    address: tokenMetaDataPublicKey.toString(),
+    api: METADATA_LAYOUT,
+    cache: 86400000, // 1 day
+  });
+
+  return {
+    name: _optionalChain$3([metaData, 'optionalAccess', _ => _.data, 'optionalAccess', _2 => _2.name, 'optionalAccess', _3 => _3.replace, 'call', _4 => _4(METADATA_REPLACE, '')]),
+    symbol: _optionalChain$3([metaData, 'optionalAccess', _5 => _5.data, 'optionalAccess', _6 => _6.symbol, 'optionalAccess', _7 => _7.replace, 'call', _8 => _8(METADATA_REPLACE, '')])
+  }
+};
+
+function _optionalChain$2$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+var nameOnSolana = async ({ blockchain, address })=>{
+  let metaData = await getMetaData({ blockchain, address });
+  return _optionalChain$2$1([metaData, 'optionalAccess', _ => _.name])
+};
+
+function _optionalChain$1$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+var symbolOnSolana = async ({ blockchain, address })=>{
+  let metaData = await getMetaData({ blockchain, address });
+  return _optionalChain$1$1([metaData, 'optionalAccess', _ => _.symbol])
+};
+
+let supported$1 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'velas'];
+supported$1.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'velas'];
+supported$1.solana = ['solana'];
+
+function _optionalChain$5(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+
+class Token {
+  
+  constructor({ blockchain, address }) {
+    this.blockchain = blockchain;
+    if(supported$1.evm.includes(this.blockchain)) {
+      this.address = ethers$1.utils.getAddress(address);
+    } else if(supported$1.solana.includes(this.blockchain)) {
+      this.address = address;
+    }
+  }
+
+  async decimals() {
+    if (this.address == Blockchains.findByName(this.blockchain).currency.address) {
+      return Blockchains.findByName(this.blockchain).currency.decimals
+    }
+    let decimals;
+    try {
+      if(supported$1.evm.includes(this.blockchain)) {
+
+        decimals = await decimalsOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT });
+
+      } else if(supported$1.solana.includes(this.blockchain)) {
+
+        decimals = await decimalsOnSolana({ blockchain: this.blockchain, address: this.address });
+
+        
+      }
+    } catch (e) {}
+    return decimals
+  }
+
+  async symbol() {
+    if (this.address == Blockchains.findByName(this.blockchain).currency.address) {
+      return Blockchains.findByName(this.blockchain).currency.symbol
+    }
+    if(supported$1.evm.includes(this.blockchain)) {
+
+      return await symbolOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT })
+
+    } else if(supported$1.solana.includes(this.blockchain)) {
+
+      return await symbolOnSolana({ blockchain: this.blockchain, address: this.address })
+
+    }
+  }
+
+  async name(args) {
+    if (this.address == Blockchains.findByName(this.blockchain).currency.address) {
+      return Blockchains.findByName(this.blockchain).currency.name
+    }
+    if(supported$1.evm.includes(this.blockchain)) {
+
+      return await nameOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT, id: _optionalChain$5([args, 'optionalAccess', _ => _.id]) })
+
+    } else if(supported$1.solana.includes(this.blockchain)) {
+
+      return await nameOnSolana({ blockchain: this.blockchain, address: this.address })
+
+    }
+  }
+
+  async balance(account, id) {
+    if(supported$1.evm.includes(this.blockchain)) {
+
+      return await balanceOnEVM({ blockchain: this.blockchain, account, address: this.address, api: id ? Token[this.blockchain][1155] : Token[this.blockchain].DEFAULT, id })
+
+    } else if(supported$1.solana.includes(this.blockchain)) {
+
+      return await balanceOnSolana({ blockchain: this.blockchain, account, address: this.address, api: Token[this.blockchain].DEFAULT })
+
+    }
+  }
+
+  async allowance(owner, spender) {
+    if (this.address == Blockchains.findByName(this.blockchain).currency.address) {
+      return ethers$1.BigNumber.from(Blockchains.findByName(this.blockchain).maxInt)
+    }
+    if(supported$1.evm.includes(this.blockchain)) {
+
+      return await allowanceOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT, owner, spender })
+
+    } else if(supported$1.solana.includes(this.blockchain)) {
+      return ethers$1.BigNumber.from(Blockchains.findByName(this.blockchain).maxInt)
+    } 
+  }
+
+  async BigNumber(amount) {
+    let decimals = await this.decimals();
+    return ethers$1.utils.parseUnits(
+      Token.safeAmount({ amount: parseFloat(amount), decimals }).toString(),
+      decimals
+    )
+  }
+
+  async readable(amount) {
+    let decimals = await this.decimals();
+    let readable = ethers$1.utils.formatUnits(amount.toString(), decimals);
+    readable = readable.replace(/\.0+$/, '');
+    return readable
+  }
+}
+
+Token.BigNumber = async ({ amount, blockchain, address }) => {
+  let token = new Token({ blockchain, address });
+  return token.BigNumber(amount)
+};
+
+Token.readable = async ({ amount, blockchain, address }) => {
+  let token = new Token({ blockchain, address });
+  return token.readable(amount)
+};
+
+Token.safeAmount = ({ amount, decimals }) => {
+  return parseFloat(amount.toFixed(decimals))
+};
+
+
+Token.ethereum = { 
+  DEFAULT: ERC20,
+  ERC20,
+  20: ERC20,
+  1155: ethereum1155,
+};
+
+Token.bsc = { 
+  DEFAULT: BEP20,
+  BEP20,
+  20: BEP20,
+  1155: bsc1155,
+};
+
+Token.polygon = { 
+  DEFAULT: ERC20onPolygon,
+  ERC20: ERC20onPolygon,
+  20: ERC20onPolygon,
+  1155: bsc1155,
+};
+
+Token.fantom = {
+  DEFAULT: FTM20,
+  FTM20,
+  20: FTM20,
+  1155: ftm1155,
+};
+
+Token.velas = {
+  DEFAULT: VRC20,
+  VRC20,
+  20: VRC20,
+  1155: bsc1155,
+};
+
+Token.solana = {
+  MINT_LAYOUT,
+  METADATA_LAYOUT,
+  TRANSFER_LAYOUT,
+  METADATA_ACCOUNT,
+  TOKEN_PROGRAM,
+  TOKEN_LAYOUT,
+  ASSOCIATED_TOKEN_PROGRAM,
+  findProgramAddress,
+  findAccount,
+  getMetaData,
+  getMetaDataPDA,
+  ...instructions
+};
+
+const WHIRLPOOL_REWARD_LAYOUT = struct([
+  publicKey("mint"),
+  publicKey("vault"),
+  publicKey("authority"),
+  u128("emissionsPerSecondX64"),
+  u128("growthGlobalX64"),
+]);
+
+const WHIRLPOOL_LAYOUT = struct([
+  u64$1("anchorDiscriminator"),
+  publicKey("whirlpoolsConfig"),
+  seq(u8(), 1, "whirlpoolBump"),
+  u16("tickSpacing"),
+  seq(u8(), 2, "tickSpacingSeed"),
+  u16("feeRate"),
+  u16("protocolFeeRate"),
+  u128("liquidity"),
+  u128("sqrtPrice"),
+  i32("tickCurrentIndex"),
+  u64$1("protocolFeeOwedA"),
+  u64$1("protocolFeeOwedB"),
+  publicKey("tokenMintA"),
+  publicKey("tokenVaultA"),
+  u128("feeGrowthGlobalA"),
+  publicKey("tokenMintB"),
+  publicKey("tokenVaultB"),
+  u128("feeGrowthGlobalB"),
+  u64$1("rewardLastUpdatedTimestamp"),
+  seq(WHIRLPOOL_REWARD_LAYOUT, 3, "rewardInfos"),
+]);
+
+const TICK_LAYOUT = struct([
+  bool("initialized"),
+  i128("liquidityNet"),
+  u128("liquidityGross"),
+  u128("feeGrowthOutsideA"),
+  u128("feeGrowthOutsideB"),
+  seq(u128(), 3, "reward_growths_outside"),
+]);
+
+const TICK_ARRAY_LAYOUT = struct([
+  u64$1("anchorDiscriminator"),
+  i32("startTickIndex"),
+  seq(TICK_LAYOUT, 88, "ticks"),
+  publicKey("whirlpool"),
+]);
+
+var basics = {
+  blockchain: 'solana',
+  name: 'orca',
+  alternativeNames: [],
+  label: 'Orca',
+  logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI3LjIuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9ImthdG1hbl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgNjAwIDQ1MCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjAwIDQ1MDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8cGF0aCBmaWxsPSIjRkZEMTVDIiBkPSJNNDg4LjQsMjIyLjljMCwxMDMuOC04NC4xLDE4Ny45LTE4Ny45LDE4Ny45Yy0xMDMuOCwwLTE4Ny45LTg0LjEtMTg3LjktMTg3LjlDMTEyLjYsMTE5LjEsMTk2LjcsMzUsMzAwLjUsMzUKCUM0MDQuMiwzNSw0ODguNCwxMTkuMSw0ODguNCwyMjIuOXoiLz4KPHBhdGggZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjE3LjY3NTUiIGQ9Ik0yMDkuNSwyOTkuOGMxLjYtMS4xLDMuMS0yLjgsMy45LTUuMWMwLjgtMi42LDAuMy00LjksMC02LjJjMCwwLDAtMC4xLDAtMC4xbDAuMy0xLjhjMC45LDAuNSwxLjksMS4xLDMsMS45CgljMC4zLDAuMiwwLjcsMC41LDEuMSwwLjdjMC41LDAuNCwxLjEsMC44LDEuNCwxYzAuNiwwLjQsMS41LDEsMi41LDEuNWMyNS4xLDE1LjYsNDUuOCwyMiw2Mi4yLDIxLjJjMTctMC44LDI4LjktOS40LDM1LjEtMjEuOQoJYzUuOS0xMi4xLDYuMi0yNywyLTQwLjljLTQuMi0xMy45LTEzLTI3LjUtMjYuMi0zNi45Yy0yMi4yLTE1LjgtNDIuNS0zOS44LTUyLjctNjAuM2MtNS4yLTEwLjQtNy4zLTE4LjctNi43LTI0LjIKCWMwLjMtMi41LDEtNC4xLDItNS4xYzAuOS0xLDIuNi0yLjEsNS45LTIuNmM2LjktMS4xLDE1LTMuNiwyMy4xLTYuMmMzLjItMSw2LjMtMiw5LjUtMi45YzExLjctMy40LDI0LjItNi4zLDM3LjItNi4zCgljMjUuMywwLDU1LDExLDg2LjMsNTYuOGM0MC4yLDU4LjgsMTguMSwxMjQuNC0yOC4yLDE1OC45Yy0yMy4xLDE3LjItNTEuOSwyNi4zLTgxLjUsMjIuOUMyNjIuOSwzNDEuMywyMzQuOSwzMjcuOSwyMDkuNSwyOTkuOHoKCSBNMjE0LjIsMjg0LjZDMjE0LjIsMjg0LjYsMjE0LjIsMjg0LjcsMjE0LjIsMjg0LjZDMjE0LjEsMjg0LjcsMjE0LjIsMjg0LjYsMjE0LjIsMjg0LjZ6IE0yMTEuNiwyODUuOAoJQzIxMS42LDI4NS44LDIxMS43LDI4NS44LDIxMS42LDI4NS44QzIxMS43LDI4NS44LDIxMS42LDI4NS44LDIxMS42LDI4NS44eiIvPgo8cGF0aCBkPSJNMjMyLjUsMTI0LjNjMCwwLDcxLjgtMTkuMSw4Ny41LTE5LjFjMTUuNywwLDc4LjYsMzAuNSw5Ni45LDg2LjNjMjYsNzktNDQuNywxMzAuOS01Mi43LDEyNS44CgljNzYuMS02Mi45LTQ4LjQtMTc5LjEtMTA5LjYtMTcwLjRjLTcuNiwxLjEtMy40LDcuNi0zLjQsNy42bC0xLjcsMTdsLTEyLjctMjEuMkwyMzIuNSwxMjQuM3oiLz4KPHBhdGggZD0iTTQwNi41LDE2Ny42YzIyLjcsMzkuOSwxOCwxNy4xLDEyLjksNjIuN2M5LjMtMTUuMSwyMy45LTMuOCwyOS45LDJjMS4xLDEsMi45LDAuNCwyLjgtMS4xYy0wLjItNi44LTIuMi0yMS40LTEzLjQtMzcuMQoJQzQyMy40LDE3Mi42LDQwNi41LDE2Ny42LDQwNi41LDE2Ny42eiIvPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMC45OTMiIGQ9Ik00MTkuNCwyMzAuM2M1LTQ1LjYsOS43LTIyLjgtMTIuOS02Mi43YzAsMCwxNi45LDUsMzIuMywyNi41YzExLjIsMTUuNywxMy4xLDMwLjMsMTMuNCwzNy4xCgljMC4xLDEuNS0xLjcsMi4xLTIuOCwxLjFDNDQzLjMsMjI2LjUsNDI4LjcsMjE1LjMsNDE5LjQsMjMwLjN6IE00MTkuNCwyMzAuM2MwLjktMi4xLDIuMi01LjUsMi4yLTUuNSIvPgo8cGF0aCBkPSJNMjI0LDIyNC4yYy05LjYsMTYuMi0yOS4yLDE1LTI4LjgsMzQuM2MxNy41LDM5LDE3LjYsMzYuMiwxNy42LDM2LjJjMzIuNS0xOC4yLDE5LjEtNTguNSwxNC4zLTcwLjQKCUMyMjYuNiwyMjMsMjI0LjcsMjIzLDIyNCwyMjQuMnoiLz4KPHBhdGggZD0iTTE1MC40LDI2MC4xYzE4LjcsMi40LDI5LjgtMTMuOCw0NC44LTEuNmMxOS45LDM3LjgsMTcuNiwzNi4yLDE3LjYsMzYuMmMtMzQuNCwxNC40LTU3LjktMjEtNjQuMy0zMi4xCglDMTQ3LjgsMjYxLjMsMTQ5LDI1OS45LDE1MC40LDI2MC4xeiIvPgo8cGF0aCBkPSJNMzA2LjksMjM2YzAsMCwxOC43LDE5LjEsOC45LDIyLjFjLTEyLjItNy41LTM0LTEuNy00NC43LDEuOWMtMi42LDAuOS01LjItMS40LTQuMy00LjFjMy42LTEwLDEyLjYtMjguNiwyOS45LTMxCglDMzA2LjksMjIyLjQsMzA2LjksMjM2LDMwNi45LDIzNnoiLz4KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTMxOC4zLDE0Mi41Yy0yLjEtMy02LjQtMTEsNi44LTExYzEzLjIsMCwzMy4zLDE0LjksMzcuNCwyMC40Yy0xLjMsMy40LTkuOCw0LjEtMTQsMy44Yy00LjItMC4zLTExLjUtMS0xNy0zLjgKCUMzMjYsMTQ5LjIsMzIwLjUsMTQ1LjUsMzE4LjMsMTQyLjV6Ii8+Cjwvc3ZnPgo=',
+  router: {
+    v1: {
+      address: 'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc',
+      api: WHIRLPOOL_LAYOUT,
+    },
+  },
+  slippage: true,
+};
+
+function _optionalChain$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }class Route {
+  constructor({
+    tokenIn,
+    tokenOut,
+    path,
+    amountIn,
+    amountInMax,
+    amountOut,
+    amountOutMin,
+    exchange,
+    getTransaction,
+  }) {
+    this.tokenIn = tokenIn;
+    this.tokenOut = tokenOut;
+    this.path = path;
+    this.amountIn = _optionalChain$2([amountIn, 'optionalAccess', _ => _.toString, 'call', _2 => _2()]);
+    this.amountOutMin = _optionalChain$2([amountOutMin, 'optionalAccess', _3 => _3.toString, 'call', _4 => _4()]);
+    this.amountOut = _optionalChain$2([amountOut, 'optionalAccess', _5 => _5.toString, 'call', _6 => _6()]);
+    this.amountInMax = _optionalChain$2([amountInMax, 'optionalAccess', _7 => _7.toString, 'call', _8 => _8()]);
+    this.exchange = exchange;
+    this.getTransaction = getTransaction;
+  }
+}
+
+let supported = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom'];
+supported.evm = ['ethereum', 'bsc', 'polygon', 'fantom'];
+supported.solana = ['solana'];
+
+const DEFAULT_SLIPPAGE = '0.5'; // percent
+
+const getDefaultSlippage = ({ amountIn, amountOut })=>{
+  return DEFAULT_SLIPPAGE
+};
+
+const calculateAmountInWithSlippage = async ({ exchange, fixedPath, amountIn, amountOut })=>{
+
+  let defaultSlippage = getDefaultSlippage({ amountIn, amountOut });
+
+  let newAmountInWithDefaultSlippageBN = amountIn.add(amountIn.mul(parseFloat(defaultSlippage)*100).div(10000));
+
+  if(!supported.evm.includes(exchange.blockchain)) { 
+    return newAmountInWithDefaultSlippageBN
+  }
+
+  const currentBlock = await request({ blockchain: exchange.blockchain, method: 'latestBlockNumber' });
+
+  let blocks = [];
+  for(var i = 0; i <= 2; i++){
+    blocks.push(currentBlock-i);
+  }
+
+  const lastAmountsIn = await Promise.all(blocks.map(async (block)=>{
+    let { amountIn } = await exchange.getAmounts({
+      path: fixedPath,
+      amountOut,
+      block
+    });
+    return amountIn
+  }));
+
+  if(!lastAmountsIn[0] || !lastAmountsIn[1] || !lastAmountsIn[2]) { return newAmountInWithDefaultSlippageBN }
+
+  let newAmountInWithExtremeSlippageBN;
+  
+  if(
+    (lastAmountsIn[0].gt(lastAmountsIn[1])) &&
+    (lastAmountsIn[1].gt(lastAmountsIn[2]))
+  ) {
+    // EXTREME DIRECTIONAL PRICE CHANGE
+
+    const difference1 = lastAmountsIn[0].sub(lastAmountsIn[1]);
+    const difference2 = lastAmountsIn[1].sub(lastAmountsIn[2]);
+
+    // velocity (avg. step size)
+    const slippage = difference1.add(difference2).div(2);
+
+    newAmountInWithExtremeSlippageBN = lastAmountsIn[0].add(slippage);
+
+    if(newAmountInWithExtremeSlippageBN.gt(newAmountInWithDefaultSlippageBN)) {
+      return newAmountInWithExtremeSlippageBN
+    }
+  } else if (
+    !(
+      lastAmountsIn[0].eq(lastAmountsIn[1]) ||
+      lastAmountsIn[1].eq(lastAmountsIn[2])
+    )
+  ) {
+    // EXTREME BASE VOLATILITIES
+
+    const difference1 = lastAmountsIn[0].sub(lastAmountsIn[1]).abs();
+    const difference2 = lastAmountsIn[1].sub(lastAmountsIn[2]).abs();
+
+    let slippage;
+    if(difference1.lt(difference2)) {
+      slippage = difference1;
+    } else {
+      slippage = difference2;
+    }
+
+    let highestAmountBN;
+    if(lastAmountsIn[0].gt(lastAmountsIn[1]) && lastAmountsIn[0].gt(lastAmountsIn[2])) {
+      highestAmountBN = lastAmountsIn[0];
+    } else if(lastAmountsIn[1].gt(lastAmountsIn[2]) && lastAmountsIn[1].gt(lastAmountsIn[0])) {
+      highestAmountBN = lastAmountsIn[1];
+    } else {
+      highestAmountBN = lastAmountsIn[2];
+    }
+
+    newAmountInWithExtremeSlippageBN = highestAmountBN.add(slippage);
+
+    if(newAmountInWithExtremeSlippageBN.gt(newAmountInWithDefaultSlippageBN)) {
+      return newAmountInWithExtremeSlippageBN
+    }
+  }
+
+  return newAmountInWithDefaultSlippageBN
+};
+
+const calculateAmountOutLessSlippage = async ({ exchange, fixedPath, amountOut, amountIn })=>{
+  let defaultSlippage = getDefaultSlippage({ amountIn, amountOut });
+
+  let newAmountOutWithoutDefaultSlippageBN = amountOut.sub(amountOut.mul(parseFloat(defaultSlippage)*100).div(10000));
+
+  return newAmountOutWithoutDefaultSlippageBN
+};
+
+const calculateAmountsWithSlippage = async ({
+  exchange,
+  fixedPath,
+  amounts,
+  tokenIn, tokenOut,
+  amountIn, amountInMax, amountOut, amountOutMin,
+  amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput,
+})=>{
+  if(amountOutMinInput || amountOutInput) {
+    if(supported.evm.includes(exchange.blockchain)) {
+      amountIn = amountInMax = await calculateAmountInWithSlippage({ exchange, fixedPath, amountIn, amountOut: (amountOutMinInput || amountOut) });
+    } else if(supported.solana.includes(exchange.blockchain)){
+      let amountsWithSlippage = [];
+      await Promise.all(fixedPath.map((step, index)=>{
+        if(index != 0) {
+          let amountWithSlippage = calculateAmountInWithSlippage({ exchange, fixedPath: [fixedPath[index-1], fixedPath[index]], amountIn: amounts[index-1], amountOut: amounts[index] });
+          amountWithSlippage.then((amount)=>amountsWithSlippage.push(amount));
+          return amountWithSlippage
+        }
+      }));
+      amountsWithSlippage.push(amounts[amounts.length-1]);
+      amounts = amountsWithSlippage;
+      amountIn = amountInMax = amounts[0];
+    }
+  } else if(amountInMaxInput || amountInInput) {
+    if(supported.solana.includes(exchange.blockchain)){
+      let amountsWithSlippage = [];
+      await Promise.all(fixedPath.map((step, index)=>{
+        if(index !== 0 && index < fixedPath.length-1) {
+          amountsWithSlippage.unshift(amounts[index]);
+        } else if(index === fixedPath.length-1) {
+          let amountWithSlippage = calculateAmountOutLessSlippage({ exchange, fixedPath: [fixedPath[index-1], fixedPath[index]], amountIn: amounts[index-1], amountOut: amounts[index] });
+          amountWithSlippage.then((amount)=>{
+            amountsWithSlippage.unshift(amount);
+            return amount
+          });
+          return amountWithSlippage
+        }
+      }));
+      amountsWithSlippage.push(amounts[0]);
+      amounts = amountsWithSlippage.slice().reverse();
+      amountOut = amountOutMin = amounts[amounts.length-1];
+    }
+  }
+
+  return({ amountIn, amountInMax, amountOut, amountOutMin, amounts })
+};
+
+const fixAddress = (address)=>{
+  if(address.match('0x')) {
+    return ethers$1.utils.getAddress(address)
+  } else {
+    return address
+  }
+};
+
+let getAmount = async ({ amount, blockchain, address }) => {
+  return await Token.BigNumber({ amount, blockchain, address })
+};
+
+let fixRouteParams = async ({
+  blockchain,
+  exchange,
+  tokenIn,
+  tokenOut,
+  amountIn,
+  amountOut,
+  amountInMax,
+  amountOutMin,
+}) => {
+  let params = {
+    exchange,
+    tokenIn,
+    tokenOut,
+    amountIn,
+    amountOut,
+    amountInMax,
+    amountOutMin,
+  };
+  
+  if (amountOut && typeof amountOut === 'number') {
+    params.amountOut = await getAmount({ amount: amountOut, blockchain, address: tokenOut });
+  }
+
+  if (amountOutMin && typeof amountOutMin === 'number') {
+    params.amountOutMin = await getAmount({ amount: amountOutMin, blockchain, address: tokenOut });
+  }
+
+  if (amountIn && typeof amountIn === 'number') {
+    params.amountIn = await getAmount({ amount: amountIn, blockchain, address: tokenIn });
+  }
+
+  if (amountInMax && typeof amountInMax === 'number') {
+    params.amountInMax = await getAmount({ amount: amountInMax, blockchain, address: tokenIn });
+  }
+  
+  return params
+};
+
+let preflight$2 = ({
+  tokenIn,
+  tokenOut,
+  amountIn,
+  amountOut,
+  amountInMax,
+  amountOutMin,
+  amountOutMax,
+  amountInMin,
+}) => {
+  if (typeof amountOutMax !== 'undefined') {
+    throw 'You cannot not set amountOutMax! Only amountInMax or amountOutMin!'
+  }
+
+  if (typeof amountInMin !== 'undefined') {
+    throw 'You cannot not set amountInMin! Only amountInMax or amountOutMin!'
+  }
+
+  if (typeof amountOut !== 'undefined' && typeof amountIn !== 'undefined') {
+    throw 'You cannot set amountIn and amountOut at the same time, use amountInMax or amountOutMin to describe the non exact part of the swap!'
+  }
+
+  if (typeof amountInMax !== 'undefined' && typeof amountOutMin !== 'undefined') {
+    throw 'You cannot set amountInMax and amountOutMin at the same time, use amountIn or amountOut to describe the part of the swap that needs to be exact!'
+  }
+
+  if (typeof amountIn !== 'undefined' && typeof amountInMax !== 'undefined') {
+    throw 'Setting amountIn and amountInMax at the same time makes no sense. Decide if amountIn needs to be exact or not!'
+  }
+
+  if (typeof amountOut !== 'undefined' && typeof amountOutMin !== 'undefined') {
+    throw 'Setting amountOut and amountOutMin at the same time makes no sense. Decide if amountOut needs to be exact or not!'
+  }
+};
+
+const route$1 = ({
+  exchange,
+  tokenIn,
+  tokenOut,
+  amountIn = undefined,
+  amountOut = undefined,
+  amountInMax = undefined,
+  amountOutMin = undefined,
+  findPath,
+  getAmounts,
+  getTransaction,
+  slippage,
+}) => {
+  
+  tokenIn = fixAddress(tokenIn);
+  tokenOut = fixAddress(tokenOut);
+
+  if([amountIn, amountOut, amountInMax, amountOutMin].filter(Boolean).length > 1) { throw('You can only pass one: amountIn, amountOut, amountInMax or amountOutMin') }
+  if([amountIn, amountOut, amountInMax, amountOutMin].filter(Boolean).length < 1) { throw('You need to pass exactly one: amountIn, amountOut, amountInMax or amountOutMin') }
+
+  return new Promise(async (resolve)=> {
+    let { path, fixedPath } = await findPath({ tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin });
+    if (path === undefined || path.length == 0) { return resolve() }
+    let [amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput] = [amountIn, amountOut, amountInMax, amountOutMin];
+
+    let amounts; // includes intermediary amounts for longer routes
+    ({ amountIn, amountInMax, amountOut, amountOutMin, amounts } = await getAmounts({ path, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin }));
+    if([amountIn, amountInMax, amountOut, amountOutMin].every((amount)=>{ return amount == undefined })) { return resolve() }
+
+    if(slippage) {
+      ({ amountIn, amountInMax, amountOut, amountOutMin, amounts } = await calculateAmountsWithSlippage({
+        exchange,
+        fixedPath,
+        amounts,
+        tokenIn, tokenOut,
+        amountIn, amountInMax, amountOut, amountOutMin,
+        amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput,
+      }));
+    }
+
+    resolve(
+      new Route({
+        tokenIn,
+        tokenOut,
+        path,
+        amountIn,
+        amountInMax,
+        amountOut,
+        amountOutMin,
+        exchange,
+        getTransaction: async ({ from })=> await getTransaction({
+          exchange,
+          path,
+          amountIn,
+          amountInMax,
+          amountOut,
+          amountOutMin,
+          amounts,
+          amountInInput,
+          amountOutInput,
+          amountInMaxInput,
+          amountOutMinInput,
+          fromAddress: from
+        }),
+      })
+    );
+  })
+};
+
+class Exchange {
+  constructor({
+    name,
+    blockchain,
+    alternativeNames,
+    label,
+    logo,
+    router,
+    factory,
+    wrapper,
+    pair,
+    market,
+    findPath,
+    pathExists,
+    getAmounts,
+    getTransaction,
+    slippage,
+  }) {
+    this.name = name;
+    this.blockchain = blockchain;
+    this.alternativeNames = alternativeNames;
+    this.label = label;
+    this.logo = logo;
+    this.router = router;
+    this.factory = factory;
+    this.wrapper = wrapper;
+    this.pair = pair;
+    this.market = market;
+    this.findPath = findPath;
+    this.pathExists = pathExists;
+    this.getAmounts = getAmounts;
+    this.getTransaction = getTransaction;
+    this.slippage = slippage;
+  }
+
+  async route({
+    tokenIn,
+    tokenOut,
+    amountIn,
+    amountOut,
+    amountInMax,
+    amountOutMin,
+    amountOutMax,
+    amountInMin,
+  }) {
+    if(tokenIn === tokenOut){ return Promise.resolve() }
+    
+    preflight$2({
+      tokenIn,
+      tokenOut,
+      amountIn,
+      amountOut,
+      amountInMax,
+      amountOutMin,
+      amountOutMax,
+      amountInMin,
+    });
+
+    return await route$1({
+      ...
+      await fixRouteParams({
+        blockchain: this.blockchain,
+        exchange: this,
+        tokenIn,
+        tokenOut,
+        amountIn,
+        amountOut,
+        amountInMax,
+        amountOutMin,
+      }),
+      findPath: this.findPath,
+      getAmounts: this.getAmounts,
+      getTransaction: this.getTransaction,
+      slippage: this.slippage,
+    })
+  }
+}
+
+const MAX_SQRT_PRICE = "79226673515401279992447579055";
+const MIN_SQRT_PRICE = "4295048016";
+const BIT_PRECISION = 14;
+const LOG_B_2_X32 = "59543866431248";
+const LOG_B_P_ERR_MARGIN_LOWER_X64 = "184467440737095516";
+const LOG_B_P_ERR_MARGIN_UPPER_X64 = "15793534762490258745";
+
+const toX64 = (num) => {
+  return new BN(num.mul(Decimal$1.pow(2, 64)).floor().toFixed());
+};
+
+const fromX64 = (num) => {
+  return new Decimal$1(num.toString()).mul(Decimal$1.pow(2, -64));
+};
+
+const getInitializableTickIndex = (tickIndex, tickSpacing) => {
+  return tickIndex - (tickIndex % tickSpacing)
+};
+
+const invertTick = (tick) => {
+  return -tick
+};
+
+/**
+ * A collection of utility functions to convert between price, tickIndex and sqrtPrice.
+ *
+ * @category Whirlpool Utils
+ */
+class PriceMath {
+
+  static priceToSqrtPriceX64(price, decimalsA, decimalsB) {
+    return toX64(price.mul(Decimal$1.pow(10, decimalsB - decimalsA)).sqrt());
+  }
+
+  static sqrtPriceX64ToPrice(
+    sqrtPriceX64,
+    decimalsA,
+    decimalsB
+  ) {
+    return fromX64(sqrtPriceX64)
+      .pow(2)
+      .mul(Decimal$1.pow(10, decimalsA - decimalsB));
+  }
+
+  /**
+   * @param tickIndex
+   * @returns
+   */
+  static tickIndexToSqrtPriceX64(tickIndex) {
+    if (tickIndex > 0) {
+      return new BN(tickIndexToSqrtPricePositive(tickIndex));
+    } else {
+      return new BN(tickIndexToSqrtPriceNegative(tickIndex));
+    }
+  }
+
+  /**
+   *
+   * @param sqrtPriceX64
+   * @returns
+   */
+  static sqrtPriceX64ToTickIndex(sqrtPriceX64) {
+    if (sqrtPriceX64.gt(new BN(MAX_SQRT_PRICE)) || sqrtPriceX64.lt(new BN(MIN_SQRT_PRICE))) {
+      throw new Error("Provided sqrtPrice is not within the supported sqrtPrice range.");
+    }
+
+    const msb = sqrtPriceX64.bitLength() - 1;
+    const adjustedMsb = new BN(msb - 64);
+    const log2pIntegerX32 = signedShiftLeft(adjustedMsb, 32, 128);
+
+    let bit = new BN("8000000000000000", "hex");
+    let precision = 0;
+    let log2pFractionX64 = new BN(0);
+
+    let r = msb >= 64 ? sqrtPriceX64.shrn(msb - 63) : sqrtPriceX64.shln(63 - msb);
+
+    while (bit.gt(new BN(0)) && precision < BIT_PRECISION) {
+      r = r.mul(r);
+      let rMoreThanTwo = r.shrn(127);
+      r = r.shrn(63 + rMoreThanTwo.toNumber());
+      log2pFractionX64 = log2pFractionX64.add(bit.mul(rMoreThanTwo));
+      bit = bit.shrn(1);
+      precision += 1;
+    }
+
+    const log2pFractionX32 = log2pFractionX64.shrn(32);
+
+    const log2pX32 = log2pIntegerX32.add(log2pFractionX32);
+    const logbpX64 = log2pX32.mul(new BN(LOG_B_2_X32));
+
+    const tickLow = signedShiftRight(
+      logbpX64.sub(new BN(LOG_B_P_ERR_MARGIN_LOWER_X64)),
+      64,
+      128
+    ).toNumber();
+    const tickHigh = signedShiftRight(
+      logbpX64.add(new BN(LOG_B_P_ERR_MARGIN_UPPER_X64)),
+      64,
+      128
+    ).toNumber();
+
+    if (tickLow == tickHigh) {
+      return tickLow;
+    } else {
+      const derivedTickHighSqrtPriceX64 = PriceMath.tickIndexToSqrtPriceX64(tickHigh);
+      if (derivedTickHighSqrtPriceX64.lte(sqrtPriceX64)) {
+        return tickHigh;
+      } else {
+        return tickLow;
+      }
+    }
+  }
+
+  static tickIndexToPrice(tickIndex, decimalsA, decimalsB) {
+    return PriceMath.sqrtPriceX64ToPrice(
+      PriceMath.tickIndexToSqrtPriceX64(tickIndex),
+      decimalsA,
+      decimalsB
+    );
+  }
+
+  static priceToTickIndex(price, decimalsA, decimalsB) {
+    return PriceMath.sqrtPriceX64ToTickIndex(
+      PriceMath.priceToSqrtPriceX64(price, decimalsA, decimalsB)
+    );
+  }
+
+  static priceToInitializableTickIndex(
+    price,
+    decimalsA,
+    decimalsB,
+    tickSpacing
+  ) {
+    return getInitializableTickIndex(
+      PriceMath.priceToTickIndex(price, decimalsA, decimalsB),
+      tickSpacing
+    );
+  }
+
+  /**
+   * Utility to invert the price Pb/Pa to Pa/Pb
+   * @param price Pb / Pa
+   * @param decimalsA Decimals of original token A (i.e. token A in the given Pb / Pa price)
+   * @param decimalsB Decimals of original token B (i.e. token B in the given Pb / Pa price)
+   * @returns inverted price, i.e. Pa / Pb
+   */
+  static invertPrice(price, decimalsA, decimalsB) {
+    const tick = PriceMath.priceToTickIndex(price, decimalsA, decimalsB);
+    const invTick = invertTick(tick);
+    return PriceMath.tickIndexToPrice(invTick, decimalsB, decimalsA);
+  }
+
+  /**
+   * Utility to invert the sqrtPriceX64 from X64 repr. of sqrt(Pb/Pa) to X64 repr. of sqrt(Pa/Pb)
+   * @param sqrtPriceX64 X64 representation of sqrt(Pb / Pa)
+   * @returns inverted sqrtPriceX64, i.e. X64 representation of sqrt(Pa / Pb)
+   */
+  static invertSqrtPriceX64(sqrtPriceX64) {
+    const tick = PriceMath.sqrtPriceX64ToTickIndex(sqrtPriceX64);
+    const invTick = invertTick(tick);
+    return PriceMath.tickIndexToSqrtPriceX64(invTick);
+  }
+}
+
+// Private Functions
+
+function tickIndexToSqrtPricePositive(tick) {
+  let ratio;
+
+  if ((tick & 1) != 0) {
+    ratio = new BN("79232123823359799118286999567");
+  } else {
+    ratio = new BN("79228162514264337593543950336");
+  }
+
+  if ((tick & 2) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("79236085330515764027303304731")), 96, 256);
+  }
+  if ((tick & 4) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("79244008939048815603706035061")), 96, 256);
+  }
+  if ((tick & 8) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("79259858533276714757314932305")), 96, 256);
+  }
+  if ((tick & 16) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("79291567232598584799939703904")), 96, 256);
+  }
+  if ((tick & 32) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("79355022692464371645785046466")), 96, 256);
+  }
+  if ((tick & 64) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("79482085999252804386437311141")), 96, 256);
+  }
+  if ((tick & 128) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("79736823300114093921829183326")), 96, 256);
+  }
+  if ((tick & 256) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("80248749790819932309965073892")), 96, 256);
+  }
+  if ((tick & 512) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("81282483887344747381513967011")), 96, 256);
+  }
+  if ((tick & 1024) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("83390072131320151908154831281")), 96, 256);
+  }
+  if ((tick & 2048) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("87770609709833776024991924138")), 96, 256);
+  }
+  if ((tick & 4096) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("97234110755111693312479820773")), 96, 256);
+  }
+  if ((tick & 8192) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("119332217159966728226237229890")), 96, 256);
+  }
+  if ((tick & 16384) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("179736315981702064433883588727")), 96, 256);
+  }
+  if ((tick & 32768) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("407748233172238350107850275304")), 96, 256);
+  }
+  if ((tick & 65536) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("2098478828474011932436660412517")), 96, 256);
+  }
+  if ((tick & 131072) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("55581415166113811149459800483533")), 96, 256);
+  }
+  if ((tick & 262144) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("38992368544603139932233054999993551")), 96, 256);
+  }
+
+  return signedShiftRight(ratio, 32, 256);
+}
+
+function tickIndexToSqrtPriceNegative(tickIndex) {
+  let tick = Math.abs(tickIndex);
+  let ratio;
+
+  if ((tick & 1) != 0) {
+    ratio = new BN("18445821805675392311");
+  } else {
+    ratio = new BN("18446744073709551616");
+  }
+
+  if ((tick & 2) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("18444899583751176498")), 64, 256);
+  }
+  if ((tick & 4) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("18443055278223354162")), 64, 256);
+  }
+  if ((tick & 8) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("18439367220385604838")), 64, 256);
+  }
+  if ((tick & 16) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("18431993317065449817")), 64, 256);
+  }
+  if ((tick & 32) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("18417254355718160513")), 64, 256);
+  }
+  if ((tick & 64) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("18387811781193591352")), 64, 256);
+  }
+  if ((tick & 128) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("18329067761203520168")), 64, 256);
+  }
+  if ((tick & 256) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("18212142134806087854")), 64, 256);
+  }
+  if ((tick & 512) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("17980523815641551639")), 64, 256);
+  }
+  if ((tick & 1024) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("17526086738831147013")), 64, 256);
+  }
+  if ((tick & 2048) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("16651378430235024244")), 64, 256);
+  }
+  if ((tick & 4096) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("15030750278693429944")), 64, 256);
+  }
+  if ((tick & 8192) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("12247334978882834399")), 64, 256);
+  }
+  if ((tick & 16384) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("8131365268884726200")), 64, 256);
+  }
+  if ((tick & 32768) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("3584323654723342297")), 64, 256);
+  }
+  if ((tick & 65536) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("696457651847595233")), 64, 256);
+  }
+  if ((tick & 131072) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("26294789957452057")), 64, 256);
+  }
+  if ((tick & 262144) != 0) {
+    ratio = signedShiftRight(ratio.mul(new BN("37481735321082")), 64, 256);
+  }
+
+  return ratio;
+}
+
+function signedShiftLeft(n0, shiftBy, bitWidth) {
+  let twosN0 = n0.toTwos(bitWidth).shln(shiftBy);
+  twosN0.imaskn(bitWidth + 1);
+  return twosN0.fromTwos(bitWidth);
+}
+
+function signedShiftRight(n0, shiftBy, bitWidth) {
+  let twoN0 = n0.toTwos(bitWidth).shrn(shiftBy);
+  twoN0.imaskn(bitWidth - shiftBy + 1);
+  return twoN0.fromTwos(bitWidth - shiftBy);
+}
+
+const PROTOCOL_FEE_RATE_MUL_VALUE = new BN(10000);
+const FEE_RATE_MUL_VALUE = new BN(1000000);
+const ZERO = new BN(0);
+const ONE = new BN(1);
+const TWO = new BN(2);
+const U64_MAX = TWO.pow(new BN(64)).sub(ONE);
+
+const fromX64_BN = (num)=>{
+  return num.div(new BN(2).pow(new BN(64)))
+};
+
+class u64 extends BN {
+  /**
+   * Convert to Buffer representation
+   */
+  toBuffer() {
+    const a = super.toArray().reverse();
+    const b = buffer.Buffer.from(a);
+
+    if (b.length === 8) {
+      return b;
+    }
+
+    assert__default['default'](b.length < 8, 'u64 too large');
+    const zeroPad = buffer.Buffer.alloc(8);
+    b.copy(zeroPad);
+    return zeroPad;
+  }
+  /**
+   * Construct a u64 from Buffer representation
+   */
+
+
+  static fromBuffer(buffer) {
+    assert__default['default'](buffer.length === 8, `Invalid buffer length: ${buffer.length}`);
+    return new u64([...buffer].reverse().map(i => `00${i.toString(16)}`.slice(-2)).join(''), 16);
+  }
+
+}
+
+class BitMath {
+
+  static mul(n0, n1, limit) {
+    const result = n0.mul(n1);
+    if (this.isOverLimit(result, limit)) {
+      throw new Error(
+        `Mul result higher than u${limit}`
+      );
+    }
+    return result;
+  }
+
+  static mulDiv(n0, n1, d, limit) {
+    return this.mulDivRoundUpIf(n0, n1, d, false, limit);
+  }
+
+  static mulDivRoundUp(n0, n1, d, limit) {
+    return this.mulDivRoundUpIf(n0, n1, d, true, limit);
+  }
+
+  static mulDivRoundUpIf(n0, n1, d, roundUp, limit) {
+    if (d.eq(ZERO)) {
+      throw new Error("mulDiv denominator is zero");
+    }
+
+    const p = this.mul(n0, n1, limit);
+    const n = p.div(d);
+
+    return roundUp && p.mod(d).gt(ZERO) ? n.add(ONE) : n;
+  }
+
+  static checked_mul_shift_right(n0, n1, limit) {
+    return this.checked_mul_shift_right_round_up_if(n0, n1, false, limit);
+  }
+
+  static checked_mul_shift_right_round_up_if(n0, n1, roundUp, limit) {
+    if (n0.eq(ZERO) || n1.eq(ZERO)) {
+      return ZERO;
+    }
+
+    const p = this.mul(n0, n1, limit);
+    if (this.isOverLimit(p, limit)) {
+      throw new Error(
+        `MulShiftRight overflowed u${limit}.`
+      );
+    }
+    const result = fromX64_BN(p);
+    const shouldRound = roundUp && result.and(U64_MAX).gt(ZERO);
+    if (shouldRound && result.eq(U64_MAX)) {
+      throw new Error(
+        `MulShiftRight overflowed u${limit}.`
+      );
+    }
+
+    return shouldRound ? result.add(ONE) : result;
+  }
+
+  static isOverLimit(n0, limit) {
+    const limitBN = TWO.pow(new BN(limit)).sub(ONE);
+    return n0.gt(limitBN);
+  }
+
+  static divRoundUp(n, d) {
+    return this.divRoundUpIf(n, d, true);
+  }
+
+  static divRoundUpIf(n, d, roundUp) {
+    if (d.eq(ZERO)) {
+      throw new Error("divRoundUpIf - divide by zero");
+    }
+
+    let q = n.div(d);
+
+    return roundUp && n.mod(d).gt(ZERO) ? q.add(ONE) : q;
+  }
+}
+
+const getNextSqrtPriceFromBRoundDown = (
+  sqrtPrice,
+  currLiquidity,
+  amount,
+  amountSpecifiedIsInput
+) => {
+  let amountX64 = amount.shln(64);
+
+  let delta = BitMath.divRoundUpIf(amountX64, currLiquidity, !amountSpecifiedIsInput);
+
+  if (amountSpecifiedIsInput) {
+    sqrtPrice = sqrtPrice.add(delta);
+  } else {
+    sqrtPrice = sqrtPrice.sub(delta);
+  }
+
+  return sqrtPrice;
+};
+
+const getNextSqrtPriceFromARoundUp = (
+  sqrtPrice,
+  currLiquidity,
+  amount,
+  amountSpecifiedIsInput
+) => {
+  if (amount.eq(ZERO)) {
+    return sqrtPrice;
+  }
+
+  let p = BitMath.mul(sqrtPrice, amount, 256);
+  let numerator = BitMath.mul(currLiquidity, sqrtPrice, 256).shln(64);
+  if (BitMath.isOverLimit(numerator, 256)) {
+    throw new Error(
+      "getNextSqrtPriceFromARoundUp - numerator overflow u256"
+    );
+  }
+
+  let currLiquidityShiftLeft = currLiquidity.shln(64);
+  if (!amountSpecifiedIsInput && currLiquidityShiftLeft.lte(p)) {
+    throw new Error(
+      "getNextSqrtPriceFromARoundUp - Unable to divide currLiquidityX64 by product"
+    );
+  }
+
+  let denominator = amountSpecifiedIsInput
+    ? currLiquidityShiftLeft.add(p)
+    : currLiquidityShiftLeft.sub(p);
+
+  let price = BitMath.divRoundUp(numerator, denominator);
+
+  if (price.lt(new BN(MIN_SQRT_PRICE))) {
+    throw new Error(
+      "getNextSqrtPriceFromARoundUp - price less than min sqrt price"
+    );
+  } else if (price.gt(new BN(MAX_SQRT_PRICE))) {
+    throw new Error(
+      "getNextSqrtPriceFromARoundUp - price less than max sqrt price"
+    );
+  }
+
+  return price;
+};
+
+const getNextSqrtPrices = (nextTick, sqrtPriceLimit, aToB) => {
+  const nextTickPrice = PriceMath.tickIndexToSqrtPriceX64(nextTick);
+  const nextSqrtPriceLimit = aToB ? BN.max(sqrtPriceLimit, nextTickPrice) : BN.min(sqrtPriceLimit, nextTickPrice);
+  return { nextTickPrice, nextSqrtPriceLimit }
+};
+
+const toIncreasingPriceOrder = (sqrtPrice0, sqrtPrice1) => {
+  if (sqrtPrice0.gt(sqrtPrice1)) {
+    return [sqrtPrice1, sqrtPrice0];
+  } else {
+    return [sqrtPrice0, sqrtPrice1];
+  }
+};
+
+const getAmountDeltaA = (
+  currSqrtPrice,
+  targetSqrtPrice,
+  currLiquidity,
+  roundUp
+) => {
+  let [sqrtPriceLower, sqrtPriceUpper] = toIncreasingPriceOrder(currSqrtPrice, targetSqrtPrice);
+  let sqrtPriceDiff = sqrtPriceUpper.sub(sqrtPriceLower);
+
+  let numerator = currLiquidity.mul(sqrtPriceDiff).shln(64);
+  let denominator = sqrtPriceLower.mul(sqrtPriceUpper);
+
+  let quotient = numerator.div(denominator);
+  let remainder = numerator.mod(denominator);
+
+  let result = roundUp && !remainder.eq(ZERO) ? quotient.add(ONE) : quotient;
+
+  if (result.gt(U64_MAX)) {
+    throw new Error("Results larger than U64");
+  }
+
+  return result;
+};
+
+const getAmountDeltaB = (
+  currSqrtPrice,
+  targetSqrtPrice,
+  currLiquidity,
+  roundUp
+) => {
+  let [sqrtPriceLower, sqrtPriceUpper] = toIncreasingPriceOrder(currSqrtPrice, targetSqrtPrice);
+  let sqrtPriceDiff = sqrtPriceUpper.sub(sqrtPriceLower);
+  return BitMath.checked_mul_shift_right_round_up_if(currLiquidity, sqrtPriceDiff, roundUp, 128);
+};
+
+const getNextSqrtPrice = (
+  sqrtPrice,
+  currLiquidity,
+  amount,
+  amountSpecifiedIsInput,
+  aToB
+) => {
+  if (amountSpecifiedIsInput === aToB) {
+    return getNextSqrtPriceFromARoundUp(sqrtPrice, currLiquidity, amount, amountSpecifiedIsInput);
+  } else {
+    return getNextSqrtPriceFromBRoundDown(sqrtPrice, currLiquidity, amount, amountSpecifiedIsInput);
+  }
+};
+
+const getAmountUnfixedDelta = (
+  currSqrtPrice,
+  targetSqrtPrice,
+  currLiquidity,
+  amountSpecifiedIsInput,
+  aToB
+) => {
+  if (aToB === amountSpecifiedIsInput) {
+    return getAmountDeltaB(currSqrtPrice, targetSqrtPrice, currLiquidity, !amountSpecifiedIsInput)
+  } else {
+    return getAmountDeltaA(currSqrtPrice, targetSqrtPrice, currLiquidity, !amountSpecifiedIsInput)
+  }
+};
+
+const getAmountFixedDelta = (
+  currSqrtPrice,
+  targetSqrtPrice,
+  currLiquidity,
+  amountSpecifiedIsInput,
+  aToB
+) => {
+  if (aToB === amountSpecifiedIsInput) {
+    return getAmountDeltaA(currSqrtPrice, targetSqrtPrice, currLiquidity, amountSpecifiedIsInput)
+  } else {
+    return getAmountDeltaB(currSqrtPrice, targetSqrtPrice, currLiquidity, amountSpecifiedIsInput)
+  }
+};
+
+const computeSwapStep = (
+  amountRemaining,
+  feeRate,
+  currLiquidity,
+  currSqrtPrice,
+  targetSqrtPrice,
+  amountSpecifiedIsInput,
+  aToB
+) => {
+  let amountFixedDelta = getAmountFixedDelta(
+    currSqrtPrice,
+    targetSqrtPrice,
+    currLiquidity,
+    amountSpecifiedIsInput,
+    aToB
+  );
+
+  let amountCalc = amountRemaining;
+  if (amountSpecifiedIsInput) {
+    const result = BitMath.mulDiv(
+      amountRemaining,
+      FEE_RATE_MUL_VALUE.sub(new BN(feeRate)),
+      FEE_RATE_MUL_VALUE,
+      128
+    );
+    amountCalc = result;
+  }
+
+  let nextSqrtPrice = amountCalc.gte(amountFixedDelta)
+    ? targetSqrtPrice
+    : getNextSqrtPrice(currSqrtPrice, currLiquidity, amountCalc, amountSpecifiedIsInput, aToB);
+
+  let isMaxSwap = nextSqrtPrice.eq(targetSqrtPrice);
+
+  let amountUnfixedDelta = getAmountUnfixedDelta(
+    currSqrtPrice,
+    nextSqrtPrice,
+    currLiquidity,
+    amountSpecifiedIsInput,
+    aToB
+  );
+
+  if (!isMaxSwap) {
+    amountFixedDelta = getAmountFixedDelta(
+      currSqrtPrice,
+      nextSqrtPrice,
+      currLiquidity,
+      amountSpecifiedIsInput,
+      aToB
+    );
+  }
+
+  let amountIn = amountSpecifiedIsInput ? amountFixedDelta : amountUnfixedDelta;
+  let amountOut = amountSpecifiedIsInput ? amountUnfixedDelta : amountFixedDelta;
+
+  if (!amountSpecifiedIsInput && amountOut.gt(amountRemaining)) {
+    amountOut = amountRemaining;
+  }
+
+  let feeAmount;
+  if (amountSpecifiedIsInput && !isMaxSwap) {
+    feeAmount = amountRemaining.sub(amountIn);
+  } else {
+    const feeRateBN = new BN(feeRate);
+    feeAmount = BitMath.mulDivRoundUp(amountIn, feeRateBN, FEE_RATE_MUL_VALUE.sub(feeRateBN), 128);
+  }
+
+  return {
+    amountIn,
+    amountOut,
+    nextPrice: nextSqrtPrice,
+    feeAmount,
+  };
+};
+
+const calculateNextLiquidity = (tickNetLiquidity, currLiquidity, aToB) => {
+  return aToB ? currLiquidity.sub(tickNetLiquidity) : currLiquidity.add(tickNetLiquidity);
+};
+
+const calculateProtocolFee = (globalFee, protocolFeeRate) => {
+  return globalFee.mul(new u64(protocolFeeRate).div(PROTOCOL_FEE_RATE_MUL_VALUE));
+};
+
+const calculateFees = (
+  feeAmount,
+  protocolFeeRate,
+  currLiquidity,
+  currProtocolFee,
+  currFeeGrowthGlobalInput
+) => {
+  let nextProtocolFee = currProtocolFee;
+  let nextFeeGrowthGlobalInput = currFeeGrowthGlobalInput;
+  let globalFee = feeAmount;
+
+  if (protocolFeeRate > 0) {
+    let delta = calculateProtocolFee(globalFee, protocolFeeRate);
+    globalFee = globalFee.sub(delta);
+    nextProtocolFee = nextProtocolFee.add(currProtocolFee);
+  }
+
+  if (currLiquidity.gt(ZERO)) {
+    const globalFeeIncrement = globalFee.shln(64).div(currLiquidity);
+    nextFeeGrowthGlobalInput = nextFeeGrowthGlobalInput.add(globalFeeIncrement);
+  }
+
+  return {
+    nextProtocolFee,
+    nextFeeGrowthGlobalInput,
+  };
+};
+
+const compute = ({
+  tokenAmount,
+  aToB,
+  freshWhirlpoolData,
+  tickSequence,
+  sqrtPriceLimit,
+  amountSpecifiedIsInput,
+})=> {
+  
+  let amountRemaining = tokenAmount;
+  let amountCalculated = ZERO;
+  let currSqrtPrice = freshWhirlpoolData.sqrtPrice;
+  let currLiquidity = freshWhirlpoolData.liquidity;
+  let currTickIndex = freshWhirlpoolData.tickCurrentIndex;
+  let totalFeeAmount = ZERO;
+  const feeRate = freshWhirlpoolData.feeRate;
+  const protocolFeeRate = freshWhirlpoolData.protocolFeeRate;
+  let currProtocolFee = new u64(0);
+  let currFeeGrowthGlobalInput = aToB ? freshWhirlpoolData.feeGrowthGlobalA : freshWhirlpoolData.feeGrowthGlobalB;
+
+  while (amountRemaining.gt(ZERO) && !sqrtPriceLimit.eq(currSqrtPrice)) {
+    let { nextIndex: nextTickIndex } = tickSequence.findNextInitializedTickIndex(currTickIndex);
+
+    let { nextTickPrice, nextSqrtPriceLimit: targetSqrtPrice } = getNextSqrtPrices(
+      nextTickIndex,
+      sqrtPriceLimit,
+      aToB
+    );
+
+    const swapComputation = computeSwapStep(
+      amountRemaining,
+      feeRate,
+      currLiquidity,
+      currSqrtPrice,
+      targetSqrtPrice,
+      amountSpecifiedIsInput,
+      aToB
+    );
+
+    totalFeeAmount = totalFeeAmount.add(swapComputation.feeAmount);
+
+    if (amountSpecifiedIsInput) {
+      amountRemaining = amountRemaining.sub(swapComputation.amountIn);
+      amountRemaining = amountRemaining.sub(swapComputation.feeAmount);
+      amountCalculated = amountCalculated.add(swapComputation.amountOut);
+    } else {
+      amountRemaining = amountRemaining.sub(swapComputation.amountOut);
+      amountCalculated = amountCalculated.add(swapComputation.amountIn);
+      amountCalculated = amountCalculated.add(swapComputation.feeAmount);
+    }
+
+    let { nextProtocolFee, nextFeeGrowthGlobalInput } = calculateFees(
+      swapComputation.feeAmount,
+      protocolFeeRate,
+      currLiquidity,
+      currProtocolFee,
+      currFeeGrowthGlobalInput
+    );
+    currProtocolFee = nextProtocolFee;
+    currFeeGrowthGlobalInput = nextFeeGrowthGlobalInput;
+
+    if (swapComputation.nextPrice.eq(nextTickPrice)) {
+      const nextTick = tickSequence.getTick(nextTickIndex);
+      if (nextTick.initialized) {
+        currLiquidity = calculateNextLiquidity(nextTick.liquidityNet, currLiquidity, aToB);
+      }
+      currTickIndex = aToB ? nextTickIndex - 1 : nextTickIndex;
+    } else {
+      currTickIndex = PriceMath.sqrtPriceX64ToTickIndex(swapComputation.nextPrice);
+    }
+
+    currSqrtPrice = swapComputation.nextPrice;
+  }
+
+  return amountCalculated
+};
+
+const MAX_SWAP_TICK_ARRAYS = 3;
+const MAX_TICK_INDEX = 443636; // i32
+const MIN_TICK_INDEX = -443636; // i32
+const TICK_ARRAY_SIZE = 88; // i32
+
+const getStartTickIndex = (tickIndex, tickSpacing, offset) => {
+  const realIndex = Math.floor(tickIndex / tickSpacing / TICK_ARRAY_SIZE);
+  const startTickIndex = (realIndex + offset) * tickSpacing * TICK_ARRAY_SIZE;
+
+  const ticksInArray = TICK_ARRAY_SIZE * tickSpacing;
+  const minTickIndex = MIN_TICK_INDEX - ((MIN_TICK_INDEX % ticksInArray) + ticksInArray);
+  if(startTickIndex < minTickIndex) { throw(`startTickIndex is too small - - ${startTickIndex}`) }
+  if(startTickIndex > MAX_TICK_INDEX) { throw(`startTickIndex is too large - ${startTickIndex}`) }
+  return startTickIndex
+};
+
+const getTickArrayAddresses = async({ aToB, pool, tickSpacing, tickCurrentIndex })=>{
+  const shift = aToB ? 0 : tickSpacing;
+  let offset = 0;
+  let tickArrayAddresses = [];
+  for (let i = 0; i < MAX_SWAP_TICK_ARRAYS; i++) {
+    let startIndex;
+    try {
+      startIndex = getStartTickIndex(tickCurrentIndex + shift, tickSpacing, offset);
+    } catch (e) {
+      return tickArrayAddresses
+    }
+
+    const pda = (
+      await PublicKey.findProgramAddress([
+          Buffer.from('tick_array'),
+          new PublicKey(pool.toString()).toBuffer(),
+          Buffer.from(startIndex.toString())
+        ],
+        new PublicKey(basics.router.v1.address)
+      )
+    )[0];
+    tickArrayAddresses.push(pda);
+    offset = aToB ? offset - 1 : offset + 1;
+  }
+
+  return tickArrayAddresses
+};
+
+const getTickArrays = async ({ 
+  pool, // stale whirlpool pubkey
+  freshWhirlpoolData, // fresh whirlpool account data
+  aToB, // direction
+})=>{
+
+  const tickArrayAddresses = await getTickArrayAddresses({ aToB, pool, tickSpacing: freshWhirlpoolData.tickSpacing, tickCurrentIndex: freshWhirlpoolData.tickCurrentIndex });
+
+  return (
+    await Promise.all(tickArrayAddresses.map(async(address, index) => {
+
+      let data;
+      try {
+        data = await request({ blockchain: 'solana' , address: address.toString(), api: TICK_ARRAY_LAYOUT, cache: 10 });
+      } catch (e2) {}
+
+      return { address, data }
+    }))
+  )
+};
+
+class TickArrayIndex {
+  
+  static fromTickIndex(index, tickSpacing) {
+    const arrayIndex = Math.floor(Math.floor(index / tickSpacing) / TICK_ARRAY_SIZE);
+    let offsetIndex = Math.floor((index % (tickSpacing * TICK_ARRAY_SIZE)) / tickSpacing);
+    if (offsetIndex < 0) {
+      offsetIndex = TICK_ARRAY_SIZE + offsetIndex;
+    }
+    return new TickArrayIndex(arrayIndex, offsetIndex, tickSpacing)
+  }
+
+  constructor(arrayIndex, offsetIndex, tickSpacing) {
+    if (offsetIndex >= TICK_ARRAY_SIZE) {
+      throw new Error("Invalid offsetIndex - value has to be smaller than TICK_ARRAY_SIZE")
+    }
+    if (offsetIndex < 0) {
+      throw new Error("Invalid offsetIndex - value is smaller than 0")
+    }
+
+    if (tickSpacing < 0) {
+      throw new Error("Invalid tickSpacing - value is less than 0")
+    }
+
+    this.arrayIndex = arrayIndex;
+    this.offsetIndex = offsetIndex;
+    this.tickSpacing = tickSpacing;
+  }
+
+  toTickIndex() {
+    return (
+      this.arrayIndex * TICK_ARRAY_SIZE * this.tickSpacing + this.offsetIndex * this.tickSpacing
+    );
+  }
+
+  toNextInitializableTickIndex() {
+    return TickArrayIndex.fromTickIndex(this.toTickIndex() + this.tickSpacing, this.tickSpacing)
+  }
+
+  toPrevInitializableTickIndex() {
+    return TickArrayIndex.fromTickIndex(this.toTickIndex() - this.tickSpacing, this.tickSpacing)
+  }
+}
+
+class TickArraySequence {
+
+  constructor(tickArrays, tickSpacing, aToB) {
+    if (!tickArrays[0] || !tickArrays[0].data) {
+      throw new Error("TickArray index 0 must be initialized");
+    }
+
+    // If an uninitialized TickArray appears, truncate all TickArrays after it (inclusive).
+    this.sequence = [];
+    for (const tickArray of tickArrays) {
+      if (!tickArray || !tickArray.data) {
+        break;
+      }
+      this.sequence.push({
+        address: tickArray.address,
+        data: tickArray.data,
+      });
+    }
+
+    this.tickArrays = tickArrays;
+    this.tickSpacing = tickSpacing;
+    this.aToB = aToB;
+
+    this.touchedArrays = [...Array(this.sequence.length).fill(false)];
+    this.startArrayIndex = TickArrayIndex.fromTickIndex(
+      this.sequence[0].data.startTickIndex,
+      this.tickSpacing
+    ).arrayIndex;
+  }
+
+  isValidTickArray0(tickCurrentIndex) {
+    const shift = this.aToB ? 0 : this.tickSpacing;
+    const tickArray = this.sequence[0].data;
+    return this.checkIfIndexIsInTickArrayRange(tickArray.startTickIndex, tickCurrentIndex + shift);
+  }
+
+  getNumOfTouchedArrays() {
+    return this.touchedArrays.filter((val) => !!val).length;
+  }
+
+  getTouchedArrays(minArraySize) {
+    let result = this.touchedArrays.reduce((prev, curr, index) => {
+      if (curr) {
+        prev.push(this.sequence[index].address);
+      }
+      return prev;
+    }, []);
+
+    // Edge case: nothing was ever touched.
+    if (result.length === 0) {
+      return [];
+    }
+
+    // The quote object should contain the specified amount of tick arrays to be plugged
+    // directly into the swap instruction.
+    // If the result does not fit minArraySize, pad the rest with the last touched array
+    const sizeDiff = minArraySize - result.length;
+    if (sizeDiff > 0) {
+      result = result.concat(Array(sizeDiff).fill(result[result.length - 1]));
+    }
+
+    return result;
+  }
+
+  getTick(index) {
+    const targetTaIndex = TickArrayIndex.fromTickIndex(index, this.tickSpacing);
+
+    if (!this.isArrayIndexInBounds(targetTaIndex, this.aToB)) {
+      throw new Error("Provided tick index is out of bounds for this sequence.");
+    }
+
+    const localArrayIndex = this.getLocalArrayIndex(targetTaIndex.arrayIndex, this.aToB);
+    const tickArray = this.sequence[localArrayIndex].data;
+
+    this.touchedArrays[localArrayIndex] = true;
+
+    if (!tickArray) {
+      throw new Error(
+        `TickArray at index ${localArrayIndex} is not initialized.`
+      );
+    }
+
+    if (!this.checkIfIndexIsInTickArrayRange(tickArray.startTickIndex, index)) {
+      throw new Error(
+        `TickArray at index ${localArrayIndex} is unexpected for this sequence.`
+      );
+    }
+
+    return tickArray.ticks[targetTaIndex.offsetIndex];
+  }
+  /**
+   * if a->b, currIndex is included in the search
+   * if b->a, currIndex is always ignored
+   * @param currIndex
+   * @returns
+   */
+  findNextInitializedTickIndex(currIndex) {
+    const searchIndex = this.aToB ? currIndex : currIndex + this.tickSpacing;
+    let currTaIndex = TickArrayIndex.fromTickIndex(searchIndex, this.tickSpacing);
+
+    // Throw error if the search attempted to search for an index out of bounds
+    if (!this.isArrayIndexInBounds(currTaIndex, this.aToB)) {
+      throw new Error(
+        `Swap input value traversed too many arrays. Out of bounds at attempt to traverse tick index - ${currTaIndex.toTickIndex()}.`
+      );
+    }
+
+    while (this.isArrayIndexInBounds(currTaIndex, this.aToB)) {
+      const currTickData = this.getTick(currTaIndex.toTickIndex());
+      if (currTickData.initialized) {
+        return { nextIndex: currTaIndex.toTickIndex(), nextTickData: currTickData };
+      }
+      currTaIndex = this.aToB
+        ? currTaIndex.toPrevInitializableTickIndex()
+        : currTaIndex.toNextInitializableTickIndex();
+    }
+
+    const lastIndexInArray = Math.max(
+      Math.min(
+        this.aToB ? currTaIndex.toTickIndex() + this.tickSpacing : currTaIndex.toTickIndex() - 1,
+        MAX_TICK_INDEX
+      ),
+      MIN_TICK_INDEX
+    );
+
+    return { nextIndex: lastIndexInArray, nextTickData: null };
+  }
+
+  getLocalArrayIndex(arrayIndex, aToB) {
+    return aToB ? this.startArrayIndex - arrayIndex : arrayIndex - this.startArrayIndex;
+  }
+
+  /**
+   * Check whether the array index potentially exists in this sequence.
+   * Note: assumes the sequence of tick-arrays are sequential
+   * @param index
+   */
+  isArrayIndexInBounds(index, aToB) {
+    // a+0...a+n-1 array index is ok
+    const localArrayIndex = this.getLocalArrayIndex(index.arrayIndex, aToB);
+    const seqLength = this.sequence.length;
+    return localArrayIndex >= 0 && localArrayIndex < seqLength;
+  }
+
+  checkIfIndexIsInTickArrayRange(startTick, tickIndex) {
+    const upperBound = startTick + this.tickSpacing * TICK_ARRAY_SIZE;
+    return tickIndex >= startTick && tickIndex < upperBound;
+  }
+}
+
+const getPrice = async ({
+  account, // stale whirlpool account
+  tokenIn,
+  tokenOut,
+  amountIn,
+  amountInMax,
+  amountOut,
+  amountOutMin,
+})=>{
+
+  try {
+    
+    const freshWhirlpoolData = await request({
+      blockchain: 'solana',
+      address: account.pubkey.toString(),
+      api: basics.router.v1.api,
+      cache: 10,
+    });
+
+    const aToB = (freshWhirlpoolData.tokenMintA.toString() === tokenIn);
+
+    const tickArrays = await getTickArrays({ pool: account.pubkey, freshWhirlpoolData, aToB });
+
+    const tickSequence = new TickArraySequence(tickArrays, freshWhirlpoolData.tickSpacing, aToB);
+
+    const sqrtPriceLimit = new BN(aToB ? MIN_SQRT_PRICE : MAX_SQRT_PRICE);
+
+    const amount = amountIn || amountInMax || amountOut || amountOutMin;
+
+    const amountSpecifiedIsInput = !!(amountIn || amountInMax);
+
+    const amountCalculated = compute({
+      tokenAmount: new BN(amount.toString()),
+      aToB,
+      freshWhirlpoolData,
+      tickSequence,
+      sqrtPriceLimit,
+      amountSpecifiedIsInput,
+    });
+
+    return {
+      price: amountCalculated.toString(),
+      tickArrays,
+      aToB,
+      sqrtPriceLimit,
+    }
+
+  } catch (e) {
+    return {
+      price: undefined,
+      tickArrays: undefined,
+      aToB: undefined,
+      sqrtPriceLimit: undefined,
+    }
+  }
+};
+
+// This method is cached and is only to be used to generally existing pools every 24h
+// Do not use for price calulations, fetch accounts for pools individually in order to calculate price 
+let getAccounts = async (base, quote) => {
+  let accounts = await request(`solana://${basics.router.v1.address}/getProgramAccounts`, {
+    params: { filters: [
+      { dataSize: basics.router.v1.api.span },
+      { memcmp: { offset: 8, bytes: '2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ' }}, // whirlpoolsConfig
+      { memcmp: { offset: 101, bytes: base }}, // tokenMintA
+      { memcmp: { offset: 181, bytes: quote }} // tokenMintB
+    ]},
+    api: basics.router.v1.api,
+    cache: 86400, // 24h,
+    cacheKey: ['whirlpool', base.toString(), quote.toString()].join('-')
+  });
+  return accounts
+};
+
+let getPairsWithPrice = async({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin }) => {
+  try {
+    let accounts = await getAccounts(tokenIn, tokenOut);
+    if(accounts.length === 0) { accounts = await getAccounts(tokenOut, tokenIn); }
+    accounts = accounts.filter((account)=>account.data.liquidity.gt(1));
+    accounts = (await Promise.all(accounts.map(async(account)=>{
+      const { price, tickArrays, sqrtPriceLimit, aToB } = await getPrice({ account, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin });
+      if(price === undefined) { return false }
+
+      return { // return a copy, do not mutate accounts
+        pubkey: account.pubkey,
+        price: price,
+        tickArrays: tickArrays,
+        sqrtPriceLimit: sqrtPriceLimit,
+        aToB: aToB,
+        data: {
+          tokenVaultA: account.data.tokenVaultA, 
+          tokenVaultB: account.data.tokenVaultB
+        }
+      }
+    }))).filter(Boolean);
+    return accounts
+  } catch (e) {
+    return []
+  }
+};
+
+let getHighestPrice = (pairs)=>{
+  return pairs.reduce((bestPricePair, currentPair)=> ethers$1.BigNumber.from(currentPair.price).gt(ethers$1.BigNumber.from(bestPricePair.price)) ? currentPair : bestPricePair)
+};
+
+let getLowestPrice = (pairs)=>{
+  return pairs.reduce((bestPricePair, currentPair)=> ethers$1.BigNumber.from(currentPair.price).lt(ethers$1.BigNumber.from(bestPricePair.price)) ? currentPair : bestPricePair)
+};
+
+let getBestPair = async({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin }) => {
+  const pairs = await getPairsWithPrice({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin });
+
+  if(!pairs || pairs.length === 0) { return }
+
+  let bestPair;
+
+  if(amountIn || amountInMax) {
+    bestPair = getHighestPrice(pairs);
+  } else { // amount out
+    bestPair = getLowestPrice(pairs);
+  }
+
+  return bestPair
+};
+
+function _optionalChain$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+const blockchain$9 = Blockchains.solana;
+
+// Replaces 11111111111111111111111111111111 with the wrapped token and implies wrapping.
+//
+// We keep 11111111111111111111111111111111 internally
+// to be able to differentiate between SOL<>Token and WSOL<>Token swaps
+// as they are not the same!
+//
+let fixPath$2 = (path) => {
+  if(!path) { return }
+  let fixedPath = path.map((token, index) => {
+    if (
+      token === blockchain$9.currency.address && path[index+1] != blockchain$9.wrapped.address &&
+      path[index-1] != blockchain$9.wrapped.address
+    ) {
+      return blockchain$9.wrapped.address
+    } else {
+      return token
+    }
+  });
+
+  if(fixedPath[0] == blockchain$9.currency.address && fixedPath[1] == blockchain$9.wrapped.address) {
+    fixedPath.splice(0, 1);
+  } else if(fixedPath[fixedPath.length-1] == blockchain$9.currency.address && fixedPath[fixedPath.length-2] == blockchain$9.wrapped.address) {
+    fixedPath.splice(fixedPath.length-1, 1);
+  }
+
+  return fixedPath
+};
+
+let pathExists$2 = async ({ path, amountIn, amountInMax, amountOut, amountOutMin }) => {
+  if(path.length == 1) { return false }
+  path = fixPath$2(path);
+  if((await getPairsWithPrice({ tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax, amountOut, amountOutMin })).length > 0) {
+    return true
+  } else {
+    return false
+  }
+};
+
+let findPath$2 = async ({ tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin }) => {
+  if(
+    [tokenIn, tokenOut].includes(blockchain$9.currency.address) &&
+    [tokenIn, tokenOut].includes(blockchain$9.wrapped.address)
+  ) { return { path: undefined, fixedPath: undefined } }
+
+  let path, stablesIn, stablesOut, stable;
+
+  if (await pathExists$2({ path: [tokenIn, tokenOut], amountIn, amountInMax, amountOut, amountOutMin })) {
+    // direct path
+    path = [tokenIn, tokenOut];
+  } else if (
+    tokenIn != blockchain$9.wrapped.address &&
+    tokenIn != blockchain$9.currency.address &&
+    await pathExists$2({ path: [tokenIn, blockchain$9.wrapped.address], amountIn, amountInMax, amountOut, amountOutMin }) &&
+    tokenOut != blockchain$9.wrapped.address &&
+    tokenOut != blockchain$9.currency.address &&
+    await pathExists$2({ path: [tokenOut, blockchain$9.wrapped.address], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })
+  ) {
+    // path via blockchain.wrapped.address
+    path = [tokenIn, blockchain$9.wrapped.address, tokenOut];
+  } else if (
+    !blockchain$9.stables.usd.includes(tokenIn) &&
+    (stablesIn = (await Promise.all(blockchain$9.stables.usd.map(async(stable)=>await pathExists$2({ path: [tokenIn, stable], amountIn, amountInMax, amountOut, amountOutMin }) ? stable : undefined))).filter(Boolean)) &&
+    !blockchain$9.stables.usd.includes(tokenOut) &&
+    (stablesOut = (await Promise.all(blockchain$9.stables.usd.map(async(stable)=>await pathExists$2({ path: [tokenOut, stable], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })  ? stable : undefined))).filter(Boolean)) &&
+    (stable = stablesIn.filter((stable)=> stablesOut.includes(stable))[0])
+  ) {
+    // path via TOKEN_IN <> STABLE <> TOKEN_OUT
+    path = [tokenIn, stable, tokenOut];
+  }
+
+  // Add blockchain.wrapped.address to route path if things start or end with blockchain.currency.address
+  // because that actually reflects how things are routed in reality:
+  if(_optionalChain$1([path, 'optionalAccess', _ => _.length]) && path[0] == blockchain$9.currency.address) {
+    path.splice(1, 0, blockchain$9.wrapped.address);
+  } else if(_optionalChain$1([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == blockchain$9.currency.address) {
+    path.splice(path.length-1, 0, blockchain$9.wrapped.address);
+  }
+  return { path, fixedPath: fixPath$2(path) }
+};
+
+let getAmountsOut = async ({ path, amountIn, amountInMax }) => {
+
+  let amounts = [ethers$1.BigNumber.from(amountIn || amountInMax)];
+
+  amounts.push(ethers$1.BigNumber.from((await getBestPair({ tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax })).price));
+  
+  if (path.length === 3) {
+    amounts.push(ethers$1.BigNumber.from((await getBestPair({ tokenIn: path[1], tokenOut: path[2], amountIn: amountIn ? amounts[1] : undefined, amountInMax: amountInMax ? amounts[1] : undefined })).price));
+  }
+
+  if(amounts.length != path.length) { return }
+
+  return amounts
+};
+
+let getAmountsIn = async({ path, amountOut, amountOutMin }) => {
+
+  path = path.slice().reverse();
+  let amounts = [ethers$1.BigNumber.from(amountOut || amountOutMin)];
+
+  amounts.push(ethers$1.BigNumber.from((await getBestPair({ tokenIn: path[1], tokenOut: path[0], amountOut, amountOutMin })).price));
+  
+  if (path.length === 3) {
+    amounts.push(ethers$1.BigNumber.from((await getBestPair({ tokenIn: path[2], tokenOut: path[1], amountOut: amountOut ? amounts[1] : undefined, amountOutMin: amountOutMin ? amounts[1] : undefined })).price));
+  }
+  
+  if(amounts.length != path.length) { return }
+
+  return amounts.slice().reverse()
+};
+
+let getAmounts$2 = async ({
+  path,
+  tokenIn,
+  tokenOut,
+  amountOut,
+  amountIn,
+  amountInMax,
+  amountOutMin
+}) => {
+  path = fixPath$2(path);
+  let amounts;
+  if (amountOut) {
+    amounts = await getAmountsIn({ path, amountOut, tokenIn, tokenOut });
+    amountIn = amounts ? amounts[0] : undefined;
+    if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
+      return {}
+    } else if (amountInMax === undefined) {
+      amountInMax = amountIn;
+    }
+  } else if (amountIn) {
+    amounts = await getAmountsOut({ path, amountIn, tokenIn, tokenOut });
+    amountOut = amounts ? amounts[amounts.length-1] : undefined;
+    if (amountOut == undefined || amountOutMin && amountOut.lt(amountOutMin)) {
+      return {}
+    } else if (amountOutMin === undefined) {
+      amountOutMin = amountOut;
+    }
+  } else if(amountOutMin) {
+    amounts = await getAmountsIn({ path, amountOutMin, tokenIn, tokenOut });
+    amountIn = amounts ? amounts[0] : undefined;
+    if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
+      return {}
+    } else if (amountInMax === undefined) {
+      amountInMax = amountIn;
+    }
+  } else if(amountInMax) {
+    amounts = await getAmountsOut({ path, amountInMax, tokenIn, tokenOut });
+    amountOut = amounts ? amounts[amounts.length-1] : undefined;
+    if (amountOut == undefined ||amountOutMin && amountOut.lt(amountOutMin)) {
+      return {}
+    } else if (amountOutMin === undefined) {
+      amountOutMin = amountOut;
+    }
+  }
+  return {
+    amountOut: (amountOut || amountOutMin),
+    amountIn: (amountIn || amountInMax),
+    amountInMax: (amountInMax || amountIn),
+    amountOutMin: (amountOutMin || amountOut),
+    amounts
+  }
+};
+
+const blockchain$8 = Blockchains.solana;
+const SWAP_INSTRUCTION = new BN("14449647541112719096");
+const TWO_HOP_SWAP_INSTRUCTION = new BN("16635068063392030915");
+
+const createTokenAccountIfNotExisting = async ({ instructions, owner, token, account })=>{
+  let outAccountExists;
+  try{ outAccountExists = !!(await request({ blockchain: 'solana', address: account.toString() })); } catch (e2) {}
+  if(!outAccountExists) {
+    instructions.push(
+      await Token.solana.createAssociatedTokenAccountInstruction({
+        token,
+        owner,
+        payer: owner,
+      })
+    );
+  }
+};
+
+const getTwoHopSwapInstructionKeys = async ({
+  fromAddress,
+  poolOne,
+  tickArraysOne,
+  tokenAccountOneA,
+  tokenVaultOneA,
+  tokenAccountOneB,
+  tokenVaultOneB,
+  poolTwo,
+  tickArraysTwo,
+  tokenAccountTwoA,
+  tokenVaultTwoA,
+  tokenAccountTwoB,
+  tokenVaultTwoB,
+})=> {
+
+  let lastInitializedTickOne = false;
+  const onlyInitializedTicksOne = tickArraysOne.map((tickArray, index)=>{
+    if(lastInitializedTickOne !== false) {
+      return tickArraysOne[lastInitializedTickOne]
+    } else if(tickArray.data){
+      return tickArray
+    } else {
+      lastInitializedTickOne = index-1;
+      return tickArraysOne[index-1]
+    }
+  });
+
+  let lastInitializedTickTwo = false;
+  const onlyInitializedTicksTwo = tickArraysTwo.map((tickArray, index)=>{
+    if(lastInitializedTickTwo !== false) {
+      return tickArraysTwo[lastInitializedTickTwo]
+    } else if(tickArray.data){
+      return tickArray
+    } else {
+      lastInitializedTickTwo = index-1;
+      return tickArraysTwo[index-1]
+    }
+  });
+
+  return [
+    // token_program
+    { pubkey: new PublicKey(Token.solana.TOKEN_PROGRAM), isWritable: false, isSigner: false },
+    // token_authority
+    { pubkey: new PublicKey(fromAddress), isWritable: false, isSigner: true },
+    // whirlpool_one
+    { pubkey: new PublicKey(poolOne.toString()), isWritable: true, isSigner: false },
+    // whirlpool_two
+    { pubkey: new PublicKey(poolTwo.toString()), isWritable: true, isSigner: false },
+    // token_owner_account_one_a
+    { pubkey: new PublicKey(tokenAccountOneA.toString()), isWritable: true, isSigner: false },
+    // token_vault_one_a
+    { pubkey: new PublicKey(tokenVaultOneA.toString()), isWritable: true, isSigner: false },
+    // token_owner_account_one_b
+    { pubkey: new PublicKey(tokenAccountOneB.toString()), isWritable: true, isSigner: false },
+    // token_vault_one_b
+    { pubkey: new PublicKey(tokenVaultOneB.toString()), isWritable: true, isSigner: false },
+    // token_owner_account_two_a
+    { pubkey: new PublicKey(tokenAccountTwoA.toString()), isWritable: true, isSigner: false },
+    // token_vault_two_a
+    { pubkey: new PublicKey(tokenVaultTwoA.toString()), isWritable: true, isSigner: false },
+    // token_owner_account_two_b
+    { pubkey: new PublicKey(tokenAccountTwoB.toString()), isWritable: true, isSigner: false },
+    // token_vault_two_b
+    { pubkey: new PublicKey(tokenVaultTwoB.toString()), isWritable: true, isSigner: false },
+    // tick_array_one_0
+    { pubkey: onlyInitializedTicksOne[0].address, isWritable: true, isSigner: false },
+    // tick_array_one_1
+    { pubkey: onlyInitializedTicksOne[1].address, isWritable: true, isSigner: false },
+    // tick_array_one_2
+    { pubkey: onlyInitializedTicksOne[2].address, isWritable: true, isSigner: false },
+    // tick_array_two_0
+    { pubkey: onlyInitializedTicksTwo[0].address, isWritable: true, isSigner: false },
+    // tick_array_two_1
+    { pubkey: onlyInitializedTicksTwo[1].address, isWritable: true, isSigner: false },
+    // tick_array_two_2
+    { pubkey: onlyInitializedTicksTwo[2].address, isWritable: true, isSigner: false },
+    // oracle_one
+    { pubkey: (await PublicKey.findProgramAddress([ Buffer.from('oracle'), new PublicKey(poolOne.toString()).toBuffer() ], new PublicKey(basics.router.v1.address)))[0], isWritable: false, isSigner: false },
+    // oracle_two
+    { pubkey: (await PublicKey.findProgramAddress([ Buffer.from('oracle'), new PublicKey(poolTwo.toString()).toBuffer() ], new PublicKey(basics.router.v1.address)))[0], isWritable: false, isSigner: false },
+  ]
+};
+const getTwoHopSwapInstructionData = ({
+  amount,
+  otherAmountThreshold,
+  amountSpecifiedIsInput,
+  aToBOne,
+  aToBTwo,
+  sqrtPriceLimitOne,
+  sqrtPriceLimitTwo,
+})=> {
+  let LAYOUT, data;
+  
+  LAYOUT = struct([
+    u64$1("anchorDiscriminator"),
+    u64$1("amount"),
+    u64$1("otherAmountThreshold"),
+    bool("amountSpecifiedIsInput"),
+    bool("aToBOne"),
+    bool("aToBTwo"),
+    u128("sqrtPriceLimitOne"),
+    u128("sqrtPriceLimitTwo"),
+  ]);
+  data = Buffer.alloc(LAYOUT.span);
+  LAYOUT.encode(
+    {
+      anchorDiscriminator: TWO_HOP_SWAP_INSTRUCTION,
+      amount: new BN(amount.toString()),
+      otherAmountThreshold: new BN(otherAmountThreshold.toString()),
+      amountSpecifiedIsInput,
+      aToBOne,
+      aToBTwo,
+      sqrtPriceLimitOne,
+      sqrtPriceLimitTwo,
+    },
+    data,
+  );
+
+  return data
+};
+
+const getSwapInstructionKeys = async ({
+  fromAddress,
+  pool,
+  tokenAccountA,
+  tokenVaultA,
+  tokenAccountB,
+  tokenVaultB,
+  tickArrays,
+})=> {
+
+  let lastInitializedTick = false;
+  const onlyInitializedTicks = tickArrays.map((tickArray, index)=>{
+    if(lastInitializedTick !== false) {
+      return tickArrays[lastInitializedTick]
+    } else if(tickArray.data){
+      return tickArray
+    } else {
+      lastInitializedTick = index-1;
+      return tickArrays[index-1]
+    }
+  });
+
+  return [
+    // token_program
+    { pubkey: new PublicKey(Token.solana.TOKEN_PROGRAM), isWritable: false, isSigner: false },
+    // token_authority
+    { pubkey: new PublicKey(fromAddress), isWritable: false, isSigner: true },
+    // whirlpool
+    { pubkey: new PublicKey(pool.toString()), isWritable: true, isSigner: false },
+    // token_owner_account_a
+    { pubkey: new PublicKey(tokenAccountA.toString()), isWritable: true, isSigner: false },
+    // token_vault_a
+    { pubkey: new PublicKey(tokenVaultA.toString()), isWritable: true, isSigner: false },
+    // token_owner_account_b
+    { pubkey: new PublicKey(tokenAccountB.toString()), isWritable: true, isSigner: false },
+    // token_vault_b
+    { pubkey: new PublicKey(tokenVaultB.toString()), isWritable: true, isSigner: false },
+    // tick_array_0
+    { pubkey: onlyInitializedTicks[0].address, isWritable: true, isSigner: false },
+    // tick_array_1
+    { pubkey: onlyInitializedTicks[1].address, isWritable: true, isSigner: false },
+    // tick_array_2
+    { pubkey: onlyInitializedTicks[2].address, isWritable: true, isSigner: false },
+    // oracle
+    { pubkey: (await PublicKey.findProgramAddress([ Buffer.from('oracle'), new PublicKey(pool.toString()).toBuffer() ], new PublicKey(basics.router.v1.address)))[0], isWritable: false, isSigner: false },
+  ]
+};
+
+const getSwapInstructionData = ({ amount, otherAmountThreshold, sqrtPriceLimit, amountSpecifiedIsInput, aToB })=> {
+  let LAYOUT, data;
+  
+  LAYOUT = struct([
+    u64$1("anchorDiscriminator"),
+    u64$1("amount"),
+    u64$1("otherAmountThreshold"),
+    u128("sqrtPriceLimit"),
+    bool("amountSpecifiedIsInput"),
+    bool("aToB"),
+  ]);
+  data = Buffer.alloc(LAYOUT.span);
+  LAYOUT.encode(
+    {
+      anchorDiscriminator: SWAP_INSTRUCTION,
+      amount: new BN(amount.toString()),
+      otherAmountThreshold: new BN(otherAmountThreshold.toString()),
+      sqrtPriceLimit,
+      amountSpecifiedIsInput,
+      aToB,
+    },
+    data,
+  );
+
+  return data
+};
+
+const getTransaction$2 = async ({
+  exchange,
+  path,
+  amountIn,
+  amountInMax,
+  amountOut,
+  amountOutMin,
+  amounts,
+  amountInInput,
+  amountOutInput,
+  amountInMaxInput,
+  amountOutMinInput,
+  fromAddress
+}) => {
+  let transaction = { blockchain: 'solana' };
+  let instructions = [];
+
+  const fixedPath = fixPath$2(path);
+  if(fixedPath.length > 3) { throw 'Orca can only handle fixed paths with a max length of 3 (2 pools)!' }
+  const tokenIn = fixedPath[0];
+  const tokenMiddle = fixedPath.length == 3 ? fixedPath[1] : undefined;
+  const tokenOut = fixedPath[fixedPath.length-1];
+
+  let pairs;
+  if(fixedPath.length == 2) {
+    pairs = [await getBestPair({ tokenIn, tokenOut, amountIn: (amountInInput || amountInMaxInput), amountOut: (amountOutInput || amountOutMinInput) })];
+  } else {
+    if(amountInInput || amountInMaxInput) {
+      pairs = [await getBestPair({ tokenIn, tokenOut: tokenMiddle, amountIn: (amountInInput || amountInMaxInput) })];
+      pairs.push(await getBestPair({ tokenIn: tokenMiddle, tokenOut, amountIn: pairs[0].price }));
+    } else { // originally amountOut
+      pairs = [await getBestPair({ tokenIn: tokenMiddle, tokenOut, amountOut: (amountOutInput || amountOutMinInput) })];
+      pairs.unshift(await getBestPair({ tokenIn, tokenOut: tokenMiddle, amountOut: pairs[0].price }));
+    }
+  }
+
+  let startsWrapped = (path[0] === blockchain$8.currency.address && fixedPath[0] === blockchain$8.wrapped.address);
+  let endsUnwrapped = (path[path.length-1] === blockchain$8.currency.address && fixedPath[fixedPath.length-1] === blockchain$8.wrapped.address);
+  let wrappedAccount;
+  const provider = await getProvider('solana');
+  
+  if(startsWrapped || endsUnwrapped) {
+    const rent = await provider.getMinimumBalanceForRentExemption(Token.solana.TOKEN_LAYOUT.span);
+    const keypair = Keypair.generate();
+    wrappedAccount = keypair.publicKey.toString();
+    const lamports = startsWrapped ? new BN(amountIn.toString()).add(new BN(rent)) :  new BN(rent);
+    let createAccountInstruction = SystemProgram.createAccount({
+      fromPubkey: new PublicKey(fromAddress),
+      newAccountPubkey: new PublicKey(wrappedAccount),
+      programId: new PublicKey(Token.solana.TOKEN_PROGRAM),
+      space: Token.solana.TOKEN_LAYOUT.span,
+      lamports
+    });
+    createAccountInstruction.signers = [keypair];
+    instructions.push(createAccountInstruction);
+    instructions.push(
+      Token.solana.initializeAccountInstruction({
+        account: wrappedAccount,
+        token: blockchain$8.wrapped.address,
+        owner: fromAddress
+      })
+    );
+  }
+
+  if(pairs.length === 1) {
+    // amount is NOT the precise part of the swap (otherAmountThreshold is)
+    let amountSpecifiedIsInput = !!(amountInInput || amountOutMinInput);
+    let amount = amountSpecifiedIsInput ? amountIn : amountOut;
+    let otherAmountThreshold = amountSpecifiedIsInput ? amountOutMin : amountInMax;
+    let tokenAccountIn = startsWrapped ? new PublicKey(wrappedAccount) : new PublicKey(await Token.solana.findProgramAddress({ owner: fromAddress, token: tokenIn }));
+    let tokenAccountOut = endsUnwrapped ? new PublicKey(wrappedAccount) : new PublicKey(await Token.solana.findProgramAddress({ owner: fromAddress, token: tokenOut }));
+    if(!endsUnwrapped) {
+      await createTokenAccountIfNotExisting({ instructions, owner: fromAddress, token: tokenOut, account: tokenAccountOut });
+    }
+    instructions.push(
+      new TransactionInstruction({
+        programId: new PublicKey(exchange.router.v1.address),
+        keys: await getSwapInstructionKeys({
+          fromAddress,
+          pool: pairs[0].pubkey,
+          tokenAccountA: pairs[0].aToB ? tokenAccountIn : tokenAccountOut,
+          tokenVaultA: pairs[0].data.tokenVaultA,
+          tokenAccountB: pairs[0].aToB ? tokenAccountOut : tokenAccountIn,
+          tokenVaultB: pairs[0].data.tokenVaultB,
+          tickArrays: pairs[0].tickArrays,
+        }),
+        data: getSwapInstructionData({
+          amount,
+          otherAmountThreshold,
+          sqrtPriceLimit: pairs[0].sqrtPriceLimit,
+          amountSpecifiedIsInput,
+          aToB: pairs[0].aToB
+        }),
+      })
+    );
+  } else if (pairs.length === 2) {
+    // amount is NOT the precise part of the swap (otherAmountThreshold is)
+    let amountSpecifiedIsInput = !!(amountInInput || amountOutMinInput);
+    let amount = amountSpecifiedIsInput ? amountIn : amountOut;
+    let otherAmountThreshold = amountSpecifiedIsInput ? amountOutMin : amountInMax;
+    let tokenAccountIn = startsWrapped ? new PublicKey(wrappedAccount) : new PublicKey(await Token.solana.findProgramAddress({ owner: fromAddress, token: tokenIn }));
+    let tokenMiddle = fixedPath[1];
+    let tokenAccountMiddle = new PublicKey(await Token.solana.findProgramAddress({ owner: fromAddress, token: tokenMiddle }));
+    await createTokenAccountIfNotExisting({ instructions, owner: fromAddress, token: tokenMiddle, account: tokenAccountMiddle });
+    let tokenAccountOut = endsUnwrapped ? new PublicKey(wrappedAccount) : new PublicKey(await Token.solana.findProgramAddress({ owner: fromAddress, token: tokenOut }));
+    if(!endsUnwrapped) {
+      await createTokenAccountIfNotExisting({ instructions, owner: fromAddress, token: tokenOut, account: tokenAccountOut });
+    }
+    instructions.push(
+      new TransactionInstruction({
+        programId: new PublicKey(exchange.router.v1.address),
+        keys: await getTwoHopSwapInstructionKeys({
+          fromAddress,
+          poolOne: pairs[0].pubkey,
+          tickArraysOne: pairs[0].tickArrays,
+          tokenAccountOneA: pairs[0].aToB ? tokenAccountIn : tokenAccountMiddle,
+          tokenVaultOneA: pairs[0].data.tokenVaultA,
+          tokenAccountOneB: pairs[0].aToB ? tokenAccountMiddle : tokenAccountIn,
+          tokenVaultOneB: pairs[0].data.tokenVaultB,
+          poolTwo: pairs[1].pubkey,
+          tickArraysTwo: pairs[1].tickArrays,
+          tokenAccountTwoA: pairs[1].aToB ? tokenAccountMiddle : tokenAccountOut,
+          tokenVaultTwoA: pairs[1].data.tokenVaultA,
+          tokenAccountTwoB: pairs[1].aToB ? tokenAccountOut : tokenAccountMiddle,
+          tokenVaultTwoB: pairs[1].data.tokenVaultB,
+        }),
+        data: getTwoHopSwapInstructionData({
+          amount,
+          otherAmountThreshold,
+          amountSpecifiedIsInput,
+          aToBOne: pairs[0].aToB,
+          aToBTwo: pairs[1].aToB,
+          sqrtPriceLimitOne: pairs[0].sqrtPriceLimit,
+          sqrtPriceLimitTwo: pairs[1].sqrtPriceLimit,
+        }),
+      })
+    );
+  }
+  
+  if(startsWrapped || endsUnwrapped) {
+    instructions.push(
+      Token.solana.closeAccountInstruction({
+        account: wrappedAccount,
+        owner: fromAddress
+      })
+    );
+  }
+
+  // await debug(instructions, provider)
+
+  transaction.instructions = instructions;
+  return transaction
+};
+
+new Exchange(
+  Object.assign(basics, {
+    findPath: findPath$2,
+    pathExists: pathExists$2,
+    getAmounts: getAmounts$2,
+    getTransaction: getTransaction$2,
+  })
+);
+
+function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+
+// Replaces 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE with the wrapped token and implies wrapping.
+//
+// We keep 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE internally
+// to be able to differentiate between ETH<>Token and WETH<>Token swaps
+// as they are not the same!
+//
+const fixPath$1 = (blockchain, exchange, path) => {
+  if(!path) { return }
+  let fixedPath = path.map((token, index) => {
+    if (
+      token === blockchain.currency.address && path[index+1] != blockchain.wrapped.address &&
+      path[index-1] != blockchain.wrapped.address
+    ) {
+      return blockchain.wrapped.address
+    } else {
+      return token
+    }
+  });
+
+  if(fixedPath[0] == blockchain.currency.address && fixedPath[1] == blockchain.wrapped.address) {
+    fixedPath.splice(0, 1);
+  } else if(fixedPath[fixedPath.length-1] == blockchain.currency.address && fixedPath[fixedPath.length-2] == blockchain.wrapped.address) {
+    fixedPath.splice(fixedPath.length-1, 1);
+  }
+
+  return fixedPath
+};
+
+const minReserveRequirements = ({ reserves, min, token, token0, token1, decimals }) => {
+  if(token0.toLowerCase() == token.toLowerCase()) {
+    return reserves[0].gte(ethers$1.utils.parseUnits(min.toString(), decimals))
+  } else if (token1.toLowerCase() == token.toLowerCase()) {
+    return reserves[1].gte(ethers$1.utils.parseUnits(min.toString(), decimals))
+  } else {
+    return false
+  }
+};
+
+const pathExists$1 = async (blockchain, exchange, path) => {
+  if(fixPath$1(blockchain, exchange, path).length == 1) { return false }
+  try {
+    let pair = await request({
+      blockchain: blockchain.name,
+      address: exchange.factory.address,
+      method: 'getPair',
+      api: exchange.factory.api,
+      cache: 3600000,
+      params: fixPath$1(blockchain, exchange, path),
+    });
+    if(!pair || pair == blockchain.zero) { return false }
+    let [reserves, token0, token1] = await Promise.all([
+      request({ blockchain: blockchain.name, address: pair, method: 'getReserves', api: exchange.pair.api, cache: 3600000 }),
+      request({ blockchain: blockchain.name, address: pair, method: 'token0', api: exchange.pair.api, cache: 3600000 }),
+      request({ blockchain: blockchain.name, address: pair, method: 'token1', api: exchange.pair.api, cache: 3600000 })
+    ]);
+    if(path.includes(blockchain.wrapped.address)) {
+      return minReserveRequirements({ min: 1, token: blockchain.wrapped.address, decimals: blockchain.currency.decimals, reserves, token0, token1 })
+    } else if (path.find((step)=>blockchain.stables.usd.includes(step))) {
+      let address = path.find((step)=>blockchain.stables.usd.includes(step));
+      let token = new Token({ blockchain: blockchain.name, address });
+      let decimals = await token.decimals();
+      return minReserveRequirements({ min: 1000, token: address, decimals, reserves, token0, token1 })
+    } else {
+      return true
+    }
+  } catch (e) { return false }
+};
+
+const findPath$1 = async (blockchain, exchange, { tokenIn, tokenOut }) => {
+  if(
+    [tokenIn, tokenOut].includes(blockchain.currency.address) &&
+    [tokenIn, tokenOut].includes(blockchain.wrapped.address)
+  ) { return { path: undefined, fixedPath: undefined } }
+
+  let path;
+  if (await pathExists$1(blockchain, exchange, [tokenIn, tokenOut])) {
+    // direct path
+    path = [tokenIn, tokenOut];
+  } else if (
+    tokenIn != blockchain.wrapped.address &&
+    await pathExists$1(blockchain, exchange, [tokenIn, blockchain.wrapped.address]) &&
+    tokenOut != blockchain.wrapped.address &&
+    await pathExists$1(blockchain, exchange, [tokenOut, blockchain.wrapped.address])
+  ) {
+    // path via WRAPPED
+    path = [tokenIn, blockchain.wrapped.address, tokenOut];
+  } else if (
+    !blockchain.stables.usd.includes(tokenIn) &&
+    (await Promise.all(blockchain.stables.usd.map((stable)=>pathExists$1(blockchain, exchange, [tokenIn, stable])))).filter(Boolean).length &&
+    tokenOut != blockchain.wrapped.address &&
+    await pathExists$1(blockchain, exchange, [blockchain.wrapped.address, tokenOut])
+  ) {
+    // path via tokenIn -> USD -> WRAPPED -> tokenOut
+    let USD = (await Promise.all(blockchain.stables.usd.map(async (stable)=>{ return(await pathExists$1(blockchain, exchange, [tokenIn, stable]) ? stable : undefined) }))).find(Boolean);
+    path = [tokenIn, USD, blockchain.wrapped.address, tokenOut];
+  } else if (
+    tokenIn != blockchain.wrapped.address &&
+    await pathExists$1(blockchain, exchange, [tokenIn, blockchain.wrapped.address]) &&
+    !blockchain.stables.usd.includes(tokenOut) &&
+    (await Promise.all(blockchain.stables.usd.map((stable)=>pathExists$1(blockchain, exchange, [stable, tokenOut])))).filter(Boolean).length
+  ) {
+    // path via tokenIn -> WRAPPED -> USD -> tokenOut
+    let USD = (await Promise.all(blockchain.stables.usd.map(async (stable)=>{ return(await pathExists$1(blockchain, exchange, [stable, tokenOut]) ? stable : undefined) }))).find(Boolean);
+    path = [tokenIn, blockchain.wrapped.address, USD, tokenOut];
+  }
+
+  // Add WRAPPED to route path if things start or end with NATIVE
+  // because that actually reflects how things are routed in reality:
+  if(_optionalChain([path, 'optionalAccess', _ => _.length]) && path[0] == blockchain.currency.address) {
+    path.splice(1, 0, blockchain.wrapped.address);
+  } else if(_optionalChain([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == blockchain.currency.address) {
+    path.splice(path.length-1, 0, blockchain.wrapped.address);
+  }
+
+  return { path, fixedPath: fixPath$1(blockchain, exchange, path) }
+};
+
+let getAmountOut = (blockchain, exchange, { path, amountIn, tokenIn, tokenOut }) => {
+  return new Promise((resolve) => {
+    request({
+      blockchain: blockchain.name,
+      address: exchange.router.address,
+      method: 'getAmountsOut',
+      api: exchange.router.api,
+      params: {
+        amountIn: amountIn,
+        path: fixPath$1(blockchain, exchange, path),
+      },
+    })
+    .then((amountsOut)=>{
+      resolve(amountsOut[amountsOut.length - 1]);
+    })
+    .catch(()=>resolve());
+  })
+};
+
+let getAmountIn = (blockchain, exchange, { path, amountOut, block }) => {
+  return new Promise((resolve) => {
+    request({
+      blockchain: blockchain.name,
+      address: exchange.router.address,
+      method: 'getAmountsIn',
+      api: exchange.router.api,
+      params: {
+        amountOut: amountOut,
+        path: fixPath$1(blockchain, exchange, path),
+      },
+      block
+    })
+    .then((amountsIn)=>resolve(amountsIn[0]))
+    .catch(()=>resolve());
+  })
+};
+
+let getAmounts$1 = async (blockchain, exchange, {
+  path,
+  block,
+  tokenIn,
+  tokenOut,
+  amountOut,
+  amountIn,
+  amountInMax,
+  amountOutMin
+}) => {
+  if (amountOut) {
+    amountIn = await getAmountIn(blockchain, exchange, { block, path, amountOut, tokenIn, tokenOut });
+    if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
+      return {}
+    } else if (amountInMax === undefined) {
+      amountInMax = amountIn;
+    }
+  } else if (amountIn) {
+    amountOut = await getAmountOut(blockchain, exchange, { path, amountIn, tokenIn, tokenOut });
+    if (amountOut == undefined || amountOutMin && amountOut.lt(amountOutMin)) {
+      return {}
+    } else if (amountOutMin === undefined) {
+      amountOutMin = amountOut;
+    }
+  } else if(amountOutMin) {
+    amountIn = await getAmountIn(blockchain, exchange, { block, path, amountOut: amountOutMin, tokenIn, tokenOut });
+    if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
+      return {}
+    } else if (amountInMax === undefined) {
+      amountInMax = amountIn;
+    }
+  } else if(amountInMax) {
+    amountOut = await getAmountOut(blockchain, exchange, { path, amountIn: amountInMax, tokenIn, tokenOut });
+    if (amountOut == undefined ||amountOutMin && amountOut.lt(amountOutMin)) {
+      return {}
+    } else if (amountOutMin === undefined) {
+      amountOutMin = amountOut;
+    }
+  }
+  return { amountOut, amountIn, amountInMax, amountOutMin }
+};
+
+let getTransaction$1 = (blockchain, exchange, {
+  path,
+  amountIn,
+  amountInMax,
+  amountOut,
+  amountOutMin,
+  amountInInput,
+  amountOutInput,
+  amountInMaxInput,
+  amountOutMinInput,
+  fromAddress
+}) => {
+
+  let transaction = {
+    blockchain: blockchain.name,
+    from: fromAddress,
+    to: exchange.router.address,
+    api: exchange.router.api,
+  };
+
+  if (path[0] === blockchain.currency.address) {
+    if (amountInInput || amountOutMinInput) {
+      transaction.method = 'swapExactETHForTokens';
+      transaction.value = amountIn.toString();
+      transaction.params = { amountOutMin: amountOutMin.toString() };
+    } else if (amountOutInput || amountInMaxInput) {
+      transaction.method = 'swapETHForExactTokens';
+      transaction.value = amountInMax.toString();
+      transaction.params = { amountOut: amountOut.toString() };
+    }
+  } else if (path[path.length - 1] === blockchain.currency.address) {
+    if (amountInInput || amountOutMinInput) {
+      transaction.method = 'swapExactTokensForETH';
+      transaction.params = { amountIn: amountIn.toString(), amountOutMin: amountOutMin.toString() };
+    } else if (amountOutInput || amountInMaxInput) {
+      transaction.method = 'swapTokensForExactETH';
+      transaction.params = { amountInMax: amountInMax.toString(), amountOut: amountOut.toString() };
+    }
+  } else {
+    if (amountInInput || amountOutMinInput) {
+      transaction.method = 'swapExactTokensForTokens';
+      transaction.params = { amountIn: amountIn.toString(), amountOutMin: amountOutMin.toString() };
+    } else if (amountOutInput || amountInMaxInput) {
+      transaction.method = 'swapTokensForExactTokens';
+      transaction.params = { amountInMax: amountInMax.toString(), amountOut: amountOut.toString() };
+    }
+  }
+
+  transaction.params = Object.assign({}, transaction.params, {
+    path: fixPath$1(blockchain, exchange, path),
+    to: fromAddress,
+    deadline: Math.round(Date.now() / 1000) + 60 * 60 * 24, // 24 hours
+  });
+
+  return transaction
+};
+
+const ROUTER = [{"inputs":[{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_WETH","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"amountADesired","type":"uint256"},{"internalType":"uint256","name":"amountBDesired","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountTokenDesired","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountIn","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountOut","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsIn","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsOut","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"reserveA","type":"uint256"},{"internalType":"uint256","name":"reserveB","type":"uint256"}],"name":"quote","outputs":[{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETHSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermit","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermitSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityWithPermit","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapETHForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETHSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
+const FACTORY = [{"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"token0","type":"address"},{"indexed":true,"internalType":"address","name":"token1","type":"address"},{"indexed":false,"internalType":"address","name":"pair","type":"address"},{"indexed":false,"internalType":"uint256","name":"","type":"uint256"}],"name":"PairCreated","type":"event"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"allPairs","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"allPairsLength","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"}],"name":"createPair","outputs":[{"internalType":"address","name":"pair","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"feeTo","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"feeToSetter","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"getPair","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeTo","type":"address"}],"name":"setFeeTo","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"name":"setFeeToSetter","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}];
+const PAIR = [{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount0Out","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1Out","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Swap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint112","name":"reserve0","type":"uint112"},{"indexed":false,"internalType":"uint112","name":"reserve1","type":"uint112"}],"name":"Sync","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MINIMUM_LIQUIDITY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PERMIT_TYPEHASH","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReserves","outputs":[{"internalType":"uint112","name":"_reserve0","type":"uint112"},{"internalType":"uint112","name":"_reserve1","type":"uint112"},{"internalType":"uint32","name":"_blockTimestampLast","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_token0","type":"address"},{"internalType":"address","name":"_token1","type":"address"}],"name":"initialize","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"kLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"mint","outputs":[{"internalType":"uint256","name":"liquidity","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"price0CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"price1CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"skim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount0Out","type":"uint256"},{"internalType":"uint256","name":"amount1Out","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"sync","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}];
+
+var UniswapV2 = {
+  findPath: findPath$1,
+  pathExists: pathExists$1,
+  getAmounts: getAmounts$1,
+  getTransaction: getTransaction$1,
+  ROUTER,
+  FACTORY,
+  PAIR,
+};
+
+const blockchain$7 = Blockchains.bsc;
+
+const exchange$7 = {
+  blockchain: 'bsc',
+  name: 'pancakeswap',
+  alternativeNames: ['pancake'],
+  label: 'PancakeSwap',
+  logo:'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OSIgdmlld0JveD0iMCAwIDE5OCAxOTkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNOTguNTUyIDE5OC42MDdDNjkuMDYxMyAxOTguNTg1IDQ1LjMwNiAxOTEuNTggMjguNzA3OSAxNzguOTk4QzExLjkxMDggMTY2LjI2NSAzIDE0OC4xOTUgMyAxMjcuNzQ4QzMgMTA4LjA0NyAxMS44OTEzIDkzLjg0MTEgMjEuOTUxNyA4NC4yMzg1QzI5LjgzNTkgNzYuNzEzMiAzOC41MzYzIDcxLjg5MzYgNDQuNTk0NSA2OS4xMjEzQzQzLjIyNDUgNjQuOTU5NCA0MS41MTUzIDU5LjUxMDggMzkuOTg2MSA1My44ODMyQzM3LjkzOTkgNDYuMzUyNyAzNS45MzI1IDM3LjUxNzQgMzUuOTMyNSAzMS4wNDI5QzM1LjkzMjUgMjMuMzc5NSAzNy42MjA0IDE1LjY4MzMgNDIuMTcxNCA5LjcwMzA2QzQ2Ljk3OTcgMy4zODQ3NiA1NC4yMTgyIDAgNjIuOTI2NCAwQzY5LjczMjIgMCA3NS41MTAzIDIuNDk5MDMgODAuMDMzOSA2LjgxMDExQzg0LjM1NzkgMTAuOTMwOSA4Ny4yMzU3IDE2LjQwMzQgODkuMjIyNyAyMi4xMDgyQzkyLjcxNDMgMzIuMTMyNSA5NC4wNzM4IDQ0LjcyNjQgOTQuNDU1MSA1Ny4yOTQ1SDEwMi43OTZDMTAzLjE3OCA0NC43MjY0IDEwNC41MzcgMzIuMTMyNSAxMDguMDI5IDIyLjEwODJDMTEwLjAxNiAxNi40MDM0IDExMi44OTQgMTAuOTMwOSAxMTcuMjE4IDYuODEwMTFDMTIxLjc0MSAyLjQ5OTAzIDEyNy41MTkgMCAxMzQuMzI1IDBDMTQzLjAzMyAwIDE1MC4yNzIgMy4zODQ3NiAxNTUuMDggOS43MDMwNkMxNTkuNjMxIDE1LjY4MzMgMTYxLjMxOSAyMy4zNzk1IDE2MS4zMTkgMzEuMDQyOUMxNjEuMzE5IDM3LjUxNzQgMTU5LjMxMiA0Ni4zNTI3IDE1Ny4yNjUgNTMuODgzMkMxNTUuNzM2IDU5LjUxMDggMTU0LjAyNyA2NC45NTk0IDE1Mi42NTcgNjkuMTIxM0MxNTguNzE1IDcxLjg5MzYgMTY3LjQxNiA3Ni43MTMyIDE3NS4zIDg0LjIzODVDMTg1LjM2IDkzLjg0MTEgMTk0LjI1MiAxMDguMDQ3IDE5NC4yNTIgMTI3Ljc0OEMxOTQuMjUyIDE0OC4xOTUgMTg1LjM0MSAxNjYuMjY1IDE2OC41NDQgMTc4Ljk5OEMxNTEuOTQ1IDE5MS41OCAxMjguMTkgMTk4LjU4NSA5OC42OTk2IDE5OC42MDdIOTguNTUyWiIgZmlsbD0iIzYzMzAwMSIvPgo8cGF0aCBkPSJNNjIuOTI2MiA3LjI4ODMzQzUwLjE3MTYgNy4yODgzMyA0NC4zMDA0IDE2LjgwMzcgNDQuMzAwNCAyOS45NjMyQzQ0LjMwMDQgNDAuNDIzMSA1MS4xMjIyIDYxLjM3MTUgNTMuOTIxMiA2OS41MjYzQzU0LjU1MDggNzEuMzYwNSA1My41NjE2IDczLjM3MDEgNTEuNzU3NCA3NC4wODE0QzQxLjUzNTEgNzguMTEyMSAxMS4zNjc5IDkyLjg3IDExLjM2NzkgMTI2LjY2OUMxMS4zNjc5IDE2Mi4yNzIgNDIuMDI0NiAxODkuMTE3IDk4LjU1ODEgMTg5LjE2Qzk4LjU4MDYgMTg5LjE2IDk4LjYwMzEgMTg5LjE1OSA5OC42MjU2IDE4OS4xNTlDOTguNjQ4MSAxODkuMTU5IDk4LjY3MDYgMTg5LjE2IDk4LjY5MzEgMTg5LjE2QzE1NS4yMjcgMTg5LjExNyAxODUuODgzIDE2Mi4yNzIgMTg1Ljg4MyAxMjYuNjY5QzE4NS44ODMgOTIuODcgMTU1LjcxNiA3OC4xMTIxIDE0NS40OTQgNzQuMDgxNEMxNDMuNjkgNzMuMzcwMSAxNDIuNyA3MS4zNjA1IDE0My4zMyA2OS41MjYzQzE0Ni4xMjkgNjEuMzcxNSAxNTIuOTUxIDQwLjQyMzEgMTUyLjk1MSAyOS45NjMyQzE1Mi45NTEgMTYuODAzNyAxNDcuMDggNy4yODgzMyAxMzQuMzI1IDcuMjg4MzNDMTE1Ljk2NSA3LjI4ODMzIDExMS4zODkgMzMuMjk1NSAxMTEuMDYyIDYxLjIwNzVDMTExLjA0IDYzLjA3MDkgMTA5LjUzNCA2NC41ODI4IDEwNy42NyA2NC41ODI4SDg5LjU4MDdDODcuNzE3MiA2NC41ODI4IDg2LjIxMDggNjMuMDcwOSA4Ni4xODkgNjEuMjA3NUM4NS44NjI2IDMzLjI5NTUgODEuMjg2IDcuMjg4MzMgNjIuOTI2MiA3LjI4ODMzWiIgZmlsbD0iI0QxODg0RiIvPgo8cGF0aCBkPSJNOTguNjkzMSAxNzcuNzU1QzU3LjE1NTEgMTc3Ljc1NSAxMS40Mzk3IDE1NS41MiAxMS4zNjgxIDEyNi43MzdDMTEuMzY4IDEyNi43ODEgMTEuMzY3OSAxMjYuODI2IDExLjM2NzkgMTI2Ljg3MUMxMS4zNjc5IDE2Mi41MDMgNDIuMDczNCAxODkuMzYyIDk4LjY5MzEgMTg5LjM2MkMxNTUuMzEzIDE4OS4zNjIgMTg2LjAxOCAxNjIuNTAzIDE4Ni4wMTggMTI2Ljg3MUMxODYuMDE4IDEyNi44MjYgMTg2LjAxOCAxMjYuNzgxIDE4Ni4wMTggMTI2LjczN0MxODUuOTQ2IDE1NS41MiAxNDAuMjMxIDE3Ny43NTUgOTguNjkzMSAxNzcuNzU1WiIgZmlsbD0iI0ZFREM5MCIvPgo8cGF0aCBkPSJNNzUuNjEzNSAxMTcuODk2Qzc1LjYxMzUgMTI3LjYxNCA3MS4wMjEgMTMyLjY3NSA2NS4zNTU4IDEzMi42NzVDNTkuNjkwNyAxMzIuNjc1IDU1LjA5ODEgMTI3LjYxNCA1NS4wOTgxIDExNy44OTZDNTUuMDk4MSAxMDguMTc4IDU5LjY5MDcgMTAzLjExNyA2NS4zNTU4IDEwMy4xMTdDNzEuMDIxIDEwMy4xMTcgNzUuNjEzNSAxMDguMTc4IDc1LjYxMzUgMTE3Ljg5NloiIGZpbGw9IiM2MzMwMDEiLz4KPHBhdGggZD0iTTE0Mi4yODggMTE3Ljg5NkMxNDIuMjg4IDEyNy42MTQgMTM3LjY5NiAxMzIuNjc1IDEzMi4wMzEgMTMyLjY3NUMxMjYuMzY1IDEzMi42NzUgMTIxLjc3MyAxMjcuNjE0IDEyMS43NzMgMTE3Ljg5NkMxMjEuNzczIDEwOC4xNzggMTI2LjM2NSAxMDMuMTE3IDEzMi4wMzEgMTAzLjExN0MxMzcuNjk2IDEwMy4xMTcgMTQyLjI4OCAxMDguMTc4IDE0Mi4yODggMTE3Ljg5NloiIGZpbGw9IiM2MzMwMDEiLz4KPC9zdmc+Cg==',
+  router: {
+    address: '0x10ED43C718714eb63d5aA57B78B54704E256024E',
+    api: UniswapV2.ROUTER
+  },
+  factory: {
+    address: '0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73',
+    api: UniswapV2.FACTORY
+  },
+  pair: {
+    api: UniswapV2.PAIR
+  },
+  slippage: true,
+};
+
+new Exchange(
+
+  Object.assign(exchange$7, {
+    findPath: ({ tokenIn, tokenOut })=>
+      UniswapV2.findPath(blockchain$7, exchange$7, { tokenIn, tokenOut }),
+    pathExists: (path)=>
+      UniswapV2.pathExists(blockchain$7, exchange$7, path),
+    getAmounts: ({ path, block, tokenIn, tokenOut, amountOut, amountIn, amountInMax, amountOutMin })=>
+      UniswapV2.getAmounts(blockchain$7, exchange$7, { path, block, tokenIn, tokenOut, amountOut, amountIn, amountInMax, amountOutMin }),
+    getTransaction: ({ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress })=>
+      UniswapV2.getTransaction(blockchain$7, exchange$7 ,{ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress }),
+  })
+);
+
+const blockchain$6 = Blockchains.polygon;
+
+const exchange$6 = {
+  blockchain: 'polygon',
+  name: 'quickswap',
+  alternativeNames: [],
+  label: 'QuickSwap',
+  logo: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgNzAyLjQ1IDcwMi40NyI+PGRlZnM+PGNsaXBQYXRoIGlkPSJjbGlwLXBhdGgiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIj48cmVjdCB3aWR0aD0iNzUwIiBoZWlnaHQ9Ijc1MCIgZmlsbD0ibm9uZSIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwLXBhdGgpIj48cGF0aCBkPSJNMzU0Ljc0LDI0LjM3YTM1MS4yNywzNTEuMjcsMCwwLDEsMzYzLjc0LDI3NywzNTQsMzU0LDAsMCwxLDEuMjMsMTQxLjI2QTM1MS43NiwzNTEuNzYsMCwwLDEsNTEwLjEyLDY5OS4zYy03My43NywzMS0xNTguMjUsMzUuMzUtMjM0LjkxLDEyLjU0QTM1MiwzNTIsMCwwLDEsNDYuNTEsNDk5LjU2Yy0yOC03My40NS0zMC4xNi0xNTYuMzgtNi4yNC0yMzEuMjVBMzUwLjg4LDM1MC44OCwwLDAsMSwzNTQuNzQsMjQuMzciIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTE1OC44MSwzNDkuNThjMS4zOSw2LjQxLDIuMjMsMTIuOTIsMy42MSwxOS4zNS44NSwzLjkzLDIuMTMsMyw0LjE1LDEuMjgsMy44Ny0zLjI1LDcuNTktNi42OSwxMS45NC05LjMxLDEuMjMuMjQsMS44NiwxLjIyLDIuNTMsMi4xLDExLjM5LDE0Ljg3LDI2LjUzLDI0LDQ0LjM3LDI4Ljk0YTE0Ny4yMywxNDcuMjMsMCwwLDAsMjUuMTcsNC42Nyw0Mi42OCw0Mi42OCwwLDAsMS02LjYxLTkuOTVjLTIuODUtNi40MS0xLjg1LTEyLjE1LDIuOTUtMTcuMjIsNS44Ny02LjE5LDEzLjYyLTguNzYsMjEuNDgtMTAuOCwxNi40OC00LjMsMzMuMjctNC43Myw1MC4xOC0zLjUzQTIwMi4xMSwyMDIuMTEsMCwwLDEsMzU4Ljc1LDM2MmMxMSwzLjA2LDIxLjcyLDYuNzMsMzEuNDQsMTIuODgsMS4zNiwxLjA5LDIuMywyLjYsMy42MSwzLjc0LDEyLjQ5LDEzLjQxLDE5Ljc4LDI5LjI1LDIwLjI4LDQ3LjU1LjM0LDEyLjY1LTMuMTYsMjQuNzItOS41LDM1LjgyLTExLjQyLDIwLTI4LjA5LDM0LjU2LTQ4LDQ1LjcxQTE3MC41LDE3MC41LDAsMCwxLDI5MSw1MjguNDJjLTQxLjI0LDQuNDctNzkuNDUtNC40Ny0xMTQuNTktMjYuMzYtMjkuMjEtMTguMTktNTEuNjUtNDMuMDgtNzAtNzEuOTJhMzM5LjU3LDMzOS41NywwLDAsMS0yMi41Mi00Mi43NWMtLjgxLTEuOC0xLTMuODEtMS44Mi01LjI5LjUyLDEuNzUsMS40OSwzLjczLS40Myw1LjYtLjU4LTcuNDUuMDgtMTQuOS40Ny0yMi4zMWEyODcuMTMsMjg3LjEzLDAsMCwxLDkuNDgtNjAuNTRBMjkyLjkxLDI5Mi45MSwwLDAsMSwyNjYuMDYsMTA5LjA5LDI4Ny4yLDI4Ny4yLDAsMCwxLDM0Ni41OSw4OS45YzQzLjU3LTQsODUuNzksMS43MywxMjcsMTYuMzQtNi4yNywxMS44OS00Miw0My43Mi02OS44LDYyLjE1YTk0LjExLDk0LjExLDAsMCwwLTUuNDQtMjMuNTFjLS4xNC0yLDEuNjYtMi42NSwyLjc4LTMuNjFxOC42Ny03LjQ2LDE3LjQzLTE0Ljc3YTE3LjE0LDE3LjE0LDAsMCwwLDEuNjktMS40OWMuNjYtLjcxLDEuNzctMS4zLDEuNTQtMi40cy0xLjU1LTEuMTUtMi40Ny0xLjNhNDYuODIsNDYuODIsMCwwLDAtOC4xNy0xYy0zLjgxLS40NS03LjU2LTEuMy0xMS40LTEuMzgtMi45NS0uMTgtNS44NS0uOTMtOC44My0uNjlhMjguMjIsMjguMjIsMCwwLDEtNC41LS4zMmMtMi41LS43OS01LjA3LS40NC03LjYxLS40My0xLjUyLDAtMy0uMTEtNC41NiwwLTQuMzUuMjUtOC43My0uNDgtMTMuMDcuMzRhMTIuODcsMTIuODcsMCwwLDEtMy4yMS4zMmMtMS4yNiwwLTIuNTEuMDYtMy43NywwYTEyLjM1LDEyLjM1LDAsMCwwLTQuODcuNDdjLTQuNTkuNDEtOS4xOS43OC0xMy43MywxLjYxLTUuNDgsMS4xNi0xMS4wOSwxLjQ0LTE2LjUzLDIuNzktNSwxLjMtMTAuMTMsMi0xNSwzLjc0LTYuNTEsMS43OS0xMi45NSwzLjg0LTE5LjM1LDYtOS4zNCwzLjcxLTE4LjgyLDcuMS0yNy43MSwxMS44NmEyNDguNzQsMjQ4Ljc0LDAsMCwwLTU1LjY2LDM2Ljk0QTI2Ni41NSwyNjYuNTUsMCwwLDAsMTU5LjY4LDIyN2EyNTQuODcsMjU0Ljg3LDAsMCwwLTE2LjU0LDI2LjE2Yy0zLjE3LDUuOS02LjIyLDExLjg1LTksMTgtMiw0LjcxLTQuNDIsOS4yNy02LDE0LjE4LTIsNC45LTMuNjQsOS45Mi01LjIyLDE1LTEuODgsNS4wNi0zLDEwLjM1LTQuNDUsMTUuNTMtLjYzLDItMSw0LjExLTEuNTMsNi4xOC0uNjMsMi40OS0xLDUtMS40Nyw3LjU1LS43Nyw0LjI1LTEuNDgsOC41LTIuMDksMTIuNzhhMTE4LjY0LDExOC42NCwwLDAsMC0xLjU3LDEzLjI5Yy0uNzQsMi45NC0uMiw2LS43NCw5LS44MiwzLjY5LS4yOCw3LjQ1LS41MiwxMS4xNi0uMTEsMi42MS0uMTYsNS4yMy0uMDksNy44NSwwLDEuMDctLjQ5LDIuNTcuNjQsMy4wOSwxLjI5LjYsMi4yMy0uNzcsMy4xNi0xLjUzLDMuMTgtMi42LDYuMjktNS4yOSw5LjQtOCwxMC40Ny05LDIxLjA3LTE3Ljg4LDMxLjU4LTI2Ljg1LjkxLS43NywxLjktMi43OSwzLjUyLS43MSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM0MTg5YzkiLz48cGF0aCBkPSJNMzkwLjExLDM3NS43OGMtMTIuMzctNy4zNS0yNS44OS0xMS42My0zOS43Ny0xNC45MmExOTcuMjUsMTk3LjI1LDAsMCwwLTU1LjY4LTUuMWMtMTMuMjEuNjYtMjYuMzEsMi41LTM4LjQ4LDguM2EzMi42MSwzMi42MSwwLDAsMC00LjIxLDIuNDNjLTkuODUsNi42LTExLjM1LDE1LjQtNC4yMywyNC45MSwxLjQ4LDIsMy4xMiwzLjgxLDUuMSw2LjIyLTYuMzksMC0xMi4wNS0xLjE5LTE3LjY5LTIuMzEtMTUuMTItMy0yOS4zMi04LjI0LTQxLjUtMTgtNS44Ni00LjY4LTExLjIyLTkuOTMtMTUuMTQtMTYuNDUsMS42LTIuNjEsNC4yOC0zLjgzLDYuNzgtNS4yNyw0LjgyLTIsOS4xOS00LjkxLDE0LTcuMDlhMjA3LjU1LDIwNy41NSwwLDAsMSw2Ny40LTE4YzkuMzItLjg3LDE4LjY1LTEuNzYsMjgtMS40MUEzMTEuMzgsMzExLjM4LDAsMCwxLDM3NiwzNDMuMjVjNi44LDIuMTIsMTMuNTIsNC40NSwyMC41OSw2Ljg0LDAtMi0xLjE0LTMuMTktMS45LTQuNDhBOTYuMTgsOTYuMTgsMCwwLDAsMzg1LDMzMS44OGMtMS4zMy0xLjU2LTMuMTgtMi45My0zLjE0LTUuMzMsMy43My44NSw3LjQ2LDEuNjgsMTEuMTgsMi41NiwxLC4yMywyLjE3LjgzLDIuODEsMCwuODUtMS4wOC0uNDMtMi0xLTIuODQtNS40OS04LjE5LTEyLjMzLTE1LjE3LTE5LjY3LTIxLjY4LDMuODktMi4yNiw3Ljg5LS40MiwxMS42OC4wNiwzOC44Nyw1LDc0LjI5LDE4LjgxLDEwNS4xOCw0Myw0MC45LDMyLjA5LDY3LjMzLDczLjU0LDc4LjQ3LDEyNC41MUExODAuNTQsMTgwLjU0LDAsMCwxLDU3My44Nyw1MjRjLTIuMTksMzAuMTEtMTEuNjUsNTcuOS0yOS40NSw4Mi41OC0xLjE3LDEuNjItMi43NSwyLjkxLTMuNjEsNC43Ni00LDYtMTAsMTAuMDgtMTUuNDQsMTQuNTItMjkuNTUsMjQtNjQsMzYuNDYtMTAxLjE0LDQyLjI4YTMxMC4zNCwzMTAuMzQsMCwwLDEtODcuMzEsMS41NCwyODguMTcsMjg4LjE3LDAsMCwxLTEyNy4zOS00OC4xNGMtOS4yNy02LjI5LTE4LjM2LTEyLjg1LTI2LjUxLTIwLjYyYS42NS42NSwwLDAsMSwwLTFjMS43NC0uNjksMi44NC41Nyw0LDEuNDNhMTg5LjA4LDE4OS4wOCwwLDAsMCw2NSwzMS41NiwyMjguNDYsMjI4LjQ2LDAsMCwwLDIzLjg3LDQuNzVjMS44Mi42NiwzLjc1LjM1LDUuNjIuNjZhNy41NSw3LjU1LDAsMCwxLDEuMTMuMjNjMTguMjQsMi4xNiwzNi4zNy44OSw1NC4zNi0yLjI4LDM5LjU0LTcsNzQuNjYtMjMuNTUsMTA0Ljc1LTUwLjE1LDIwLjUtMTguMTIsMzYuNjgtMzkuNTMsNDUuMjQtNjUuOTVzNy4zNS01Mi4xLTQuNjctNzcuNDhjLTIuNDcsMTEuMzgtOC40NCwyMC44LTE1LjkxLDI5LjM4YTEwNi4wOSwxMDYuMDksMCwwLDEtMjYuMDcsMjEuMTljLTEuMTQuNjYtMi40LDEuOTEtMy43MS45LTEuMTMtLjg2LS40NS0yLjM3LS4xLTMuNTFhMTM5LjY0LDEzOS42NCwwLDAsMCw0Ljk0LTI0LjJjMy41LTM0LjUxLTkuODItNjEuMzctMzcuMy04MS43NGExMTkuOCwxMTkuOCwwLDAsMC0xNC4wNi05IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzI2MmY3MSIvPjxwYXRoIGQ9Ik0yNzYuMDgsNjM4LjQxYTE1MS4xNiwxNTEuMTYsMCwwLDEtMjkuODYtNi4xQTE5OC41MywxOTguNTMsMCwwLDEsMTk0LjM1LDYwOGMtMy44My0yLjUxLTcuMDctNS44Ni0xMS4yNC03Ljg5LTIuMzktLjM0LTMuMzktMi42OC01LjMtMy43LTQwLjM4LTM1LjktNjgtODAtODMuODMtMTMxLjQ4QTI4MC41NCwyODAuNTQsMCwwLDEsODEuNjMsMzg3LjdjLjEtMiwuMi0zLjkzLjM2LTcsMiw0LjM2LDMuNDgsNy44Miw1LjA1LDExLjI2LDE0LjUzLDMxLjg2LDMzLjEzLDYwLjkzLDU4Ljc0LDg1LjEyQzE3Myw1MDIuODIsMjA0LjY4LDUyMCwyNDIsNTI2YzQzLjcxLDcuMTEsODQuNjEtLjUxLDEyMi4yMi0yNC4wNiwxOC43NS0xMS43NSwzNC4xNC0yNi45NCw0My00Ny42NSwxMC43Mi0yNS4xMSw2LjY4LTQ4LjQ0LTkuNjUtNjkuOTUtMS40My0xLjg4LTIuOTUtMy42OS00LjQzLTUuNTQsMS45NC0xLjY2LDMsLjI2LDQuMDcsMS4xOGE4My4yMiw4My4yMiwwLDAsMSwyMi42LDI5LjksODgsODgsMCwwLDEsNy44NSwzNS4xOSw3OS43NSw3OS43NSwwLDAsMS04LDM1Ljg3LDUuMzksNS4zOSwwLDAsMCwzLjI0LTEuMTcsOTguMzQsOTguMzQsMCwwLDAsMTQuNjUtMTAuMzVjMS40Mi0xLjIzLDIuNjctMy4wOCw1LTIuOGExNjUuMywxNjUuMywwLDAsMS02LjA5LDI3Ljc1LDEzMS43NCwxMzEuNzQsMCwwLDAsMTcuMjctMTEuNDhjNC4zMy0zLjM4LDcuODMtNy42MiwxMi4wOC0xMS4wNiwxLjgxLjc3LDEuODEsMi41NiwyLjIzLDQuMDgsNi45MiwyNSwxLjkxLDQ4LjI4LTEwLjQyLDcwLjMtMTUsMjYuNy0zNyw0Ni41Ny02Mi42Miw2Mi42NWEyMTMuMzMsMjEzLjMzLDAsMCwxLTY3LjI3LDI3LjU1LDE0Mi4yLDE0Mi4yLDAsMCwxLTQ1LjY3LDIuNjloMGMtMS45LTEtNC4wNy4xOS02LS43MiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiMxNjFmNDIiLz48cGF0aCBkPSJNNjU0LjE3LDQ1My4wN2EyMTIsMjEyLDAsMCwwLTIwLjc3LTgyLjM1QTIxOC45LDIxOC45LDAsMCwwLDYwMywzMjRjLTEwLjktMTIuOTEtMjMuNDItMjMuOTMtMzYuNTYtMzQuMzgsMS4yMy0xLjIxLDIuNzYtMSw0LjI0LS44YTIzNi4yOCwyMzYuMjgsMCwwLDEsNTMuNzksMTIuNzhBODAuMiw4MC4yLDAsMCwxLDYzNywzMDcuNDNhNDAuMzgsNDAuMzgsMCwwLDEsNC4xNiwyLjQ0Yy4zNC4xOS41My42OSwxLC41OGExLjI3LDEuMjcsMCwwLDEtLjIxLTEuMzdjLTExLjg0LTE1LjQyLTI2LjE1LTI4LjI4LTQxLjE3LTQwLjVhMzAyLDMwMiwwLDAsMC01OC4xOC0zNi45LDI4Ny42NCwyODcuNjQsMCwwLDAtOTEuNTctMjcuNDVjLTIuODMtLjM1LTUuNzUsMC04LjUxLTEtLjI0LTEuODksMS4zNS0yLjUyLDIuNDUtMy40NCwxOC42Ny0xNS41NSwzMy42OS0zNCw0NC4yOC01NS45NGExNTcuMSwxNTcuMSwwLDAsMCw4LjE0LTIwLjUzYy42NC0yLDEtNC4xNywzLTUuNDRhMjg4LjE2LDI4OC4xNiwwLDAsMSw4OC40Nyw2NiwyOTIuMSwyOTIuMSwwLDAsMSw2Ni42NCwyNzBjLS44NC40Ni0xLS4yNi0xLjM0LS43NSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM0MTg5YzkiLz48cGF0aCBkPSJNNTQwLjgxLDYxMS4zN2MwLTIuOTQsMi4zNC00LjYsMy43OS02LjY2LDEzLjY2LTE5LjUxLDIyLTQxLjEyLDI2LjMxLTY0LjQ4LDIuNjctMTQuNDcsMi45LTI5LjA4LDItNDMuNTctMS40Ny0yMi4zNC03LjE4LTQzLjgzLTE2LjE5LTY0LjQyYTIxMi4yNSwyMTIuMjUsMCwwLDAtMjQuNzMtNDIuNTcsMjIxLjI0LDIyMS4yNCwwLDAsMC0zNi4xNi0zNy42MkEyMDcuNTYsMjA3LjU2LDAsMCwwLDQyNS4xOSwzMTRhMTk4LjEsMTk4LjEsMCwwLDAtNDIuMjUtOC42OWMtMi41OS0uMjMtNS4xNS0uODUtNy43OC0uNjktOS4xMy02LjczLTE4LjM5LTEzLjI0LTI4Ljc5LTE3Ljk0LDAtLjMzLDAtLjY3LjA3LTEsMy43NCwwLDcuNDkuMDYsMTEuMjMsMCw1Mi40My0uOTQsMTAwLjc1LDExLjkxLDE0Myw0My44NEM1NDQuNCwzNjIuNTksNTcxLjc0LDQwNi4zMiw1ODIsNDYwLjNjOC43Myw0Ni4wNSwyLDg5LjU0LTIzLjU2LDEyOS40NC01LDcuODUtMTAuNTMsMTUuNDEtMTcuNjEsMjEuNjMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjMTYxZjQyIi8+PHBhdGggZD0iTTUwMC40LDExNy45MWMtNS4yNSwxNi4wNS0xMS44NCwzMS40Ny0yMS4yNyw0NS41OWExNzIuNzgsMTcyLjc4LDAsMCwxLTM0LjQyLDM3LjczYy0uNzYuNjMtMS40NSwxLjM1LTIuMTcsMi00LjU4LDIuMzMtOC4zNSw1Ljg1LTEyLjU5LDguNjhhMjY3LjY4LDI2Ny42OCwwLDAsMS00OS4zOSwyNS41Myw4LjA5LDguMDksMCwwLDEtMS4yOS4zMmMtLjc2LTEuMTIuMTQtMS41My42LTIsOS44Mi05LjM1LDE1LjkxLTIwLjkyLDIwLTMzLjY2YTUsNSwwLDAsMSwzLjE3LTMuNjVjMzAuNTEtMTIuMDgsNTQuODYtMzIuMTUsNzQuOC01Ny45LDEuODEtMi4zNCwzLjU4LTQuNzEsNS44Mi03LjY2LTYuMTctLjEyLTEwLjksMy0xNi4xMiwzLjgyLTEsLjA2LTIuMjcuODgtMi41LTFhMjE1LjI3LDIxNS4yNywwLDAsMCw0MS44NC03NS42NWMuNTUtMS43OCwwLTQuMjMsMi40OC01LjEzYS40NC40NCwwLDAsMSwuMjUuNDVjMCwuMTgtLjA4LjI2LS4xMy4yNmEyMzAuNDksMjMwLjQ5LDAsMCwxLTguMzUsNTguNTYsMzYuODgsMzYuODgsMCwwLDAtLjY5LDMuNjMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjMTYxZjQyIi8+PHBhdGggZD0iTTM4MS44MiwzMjYuNTRhMTIwLDEyMCwwLDAsMSwxNi4wNiwyMi40Yy40My43OSwxLjU0LDEuNjguNTUsMi42MS0uNzUuNy0xLjYyLS4xNi0yLjQxLS40NmEzNDksMzQ5LDAsMCwwLTYyLjU2LTE3Yy0xMC43NS0xLjg1LTIxLjY2LTIuNjYtMzIuNTgtMy40NWExOTQuMDksMTk0LjA5LDAsMCwwLTI5LjQ1LjQyYy0yMi40MiwxLjgtNDQuMjQsNi41OS02NSwxNS41Ni02LjQsMi43Ny0xMi45NCw1LjI1LTE4Ljg5LDktLjY4LjQzLTEuNDksMS4xMy0yLjI3LjA2YTE5OS41OSwxOTkuNTksMCwwLDEsNTkuMi0yOC40MWMyOS4xNS04LjcsNTguOTMtMTAuODQsODkuMTUtOC40NmEzMjguNDIsMzI4LjQyLDAsMCwxLDQ1Ljc0LDYuOTUsMjEuOTIsMjEuOTIsMCwwLDEsMi40NC44MyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiMxNjFmNDIiLz48cGF0aCBkPSJNMzc0LjMyLDExNi4zOGg0LjVjMi40MiwxLDUuMDctLjI4LDcuNS43NGg0LjQ5Yy4zOCwyLjE3LTEuNDEsMy4wOC0yLjY1LDQuMTMtMjAuNzgsMTcuNTYtNDEuNDEsMzUuMjktNjIuMiw1Mi44My02Ljg3LDUuNzktMTMuNjgsMTEuNjUtMjAuNTQsMTcuNDVhNi4xNCw2LjE0LDAsMCwwLTIuMzUsMi44M2MtOSwzLjM3LTE3LjM2LDcuNi0yNCwxNC45NC0zLjEzLDMuNDgtNS4xOCw3LjUtNy40NCwxMS40Ni02LjE3LDQtMTEuMzYsOS4yNi0xNywxNC0xNC43NywxMi40Mi0yOS4zNSwyNS4wNi00NC4xNiwzNy40My0xLjI1LDEtMi4wNywyLjUtMy41MiwzLjMxLTIuNTUtMy44LTItOC0xLjM5LTEyLjEyLDEuODYtMy4wNiw0LjgtNSw3LjQ0LTcuMjhxMjEuNTQtMTguMjcsNDMtMzYuNTljMTQtMTEuODUsMjcuOTItMjMuNzcsNDEuOS0zNS42M3EyNC4xMi0yMC40NSw0OC4xNy00MWM4LjkzLTcuNiwxNy44LTE1LjI2LDI2Ljg2LTIyLjcxLDEuMzctMS4xMywyLjMzLTIsMS4yOC0zLjgxIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzVjOTRjZSIvPjxwYXRoIGQ9Ik02MzcuNTEsMzA4LjQxYy0xNy42My04LjU2LTM2LjI3LTEzLjc4LTU1LjU0LTE2LjktNS4xNS0uODQtMTAuMy0xLjg3LTE1LjU1LTEuOTEtNi43Mi00LjI1LTEzLjMxLTguNzMtMjAuMTktMTIuN2EyMDkuNzMsMjA5LjczLDAsMCwwLTcyLjE4LTI1Ljc1LDkuMDksOS4wOSwwLDAsMS0xLjY1LS42NGM3LjY1LTEuNCwzMy42OSwyLjUxLDUxLjcyLDcuNDdhMjQzLjA3LDI0My4wNywwLDAsMSw0OC40NywxOWMtMS42Mi00Ljg1LTQuNTgtOC4xMy02LjM5LTEyLS4xOC0xLTEuNjMtMS45NC0uNjYtM3MyLjA3LjA4LDMsLjQ5YzIuNiwxLjE4LDUuMDgsMi42MSw3LjY5LDMuNzdhMzQ3LjUyLDM0Ny41MiwwLDAsMSw2MS40LDQwLjQ5YzEuMDYsMS40LDEuMDYsMS40LS4xMSwxLjY5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzE2MWY0MiIvPjxwYXRoIGQ9Ik0zNzQuMzIsMTE2LjM4Yy40NiwxLjEsMS45Mi4zLDIuNjEsMS41My00LjE4LDMuNjItOC4zNiw3LjMtMTIuNjEsMTAuOTFxLTExLjUxLDkuNzgtMjMuMDcsMTkuNDhRMzI0Ljg3LDE2Mi4xMywzMDguNSwxNzZjLTcuNTgsNi40NC0xNS4wNSwxMy0yMi42MywxOS40Ni05LjE4LDcuOC0xOC40NSwxNS41MS0yNy42NSwyMy4zLTcuMyw2LjE5LTE0LjUzLDEyLjQ3LTIxLjgyLDE4LjY4LTcuNjcsNi41Mi0xNS4zNywxMy0yMy4wNiwxOS40OWwtNy43MSw2LjQ3LDIuMTktOS43NmMtMS4yNC0zLjE5LDEuMzUtNC42MywzLjEzLTYuMSw3LTUuODQsMTMuODgtMTEuODEsMjAuODMtMTcuNzFxMjQuMjUtMjAuNTgsNDguNDktNDEuMjIsMjAuODQtMTcuNyw0MS42Ni0zNS4zOWMxMi45Mi0xMSwyNS45My0yMS45MSwzOC43Mi0zMy4wNywxLS44NiwyLjg1LTEuODcuMTUtMyw0LjQzLTEuNjEsOS0uMzMsMTMuNTItLjczIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzY0OTdkMCIvPjxwYXRoIGQ9Ik0zNjAuOCwxMTcuMTFjMS4wNS4xOSwyLjItLjM3LDMuMy40OS0yLjY1LDMuOS02LjU1LDYuNDUtMTAsOS40NC05LjgyLDguNTYtMTkuNzksMTctMjkuNzQsMjUuMzctOS4xLDcuNjgtMTguMjksMTUuMjYtMjcuMzcsMjNzLTE4LjIzLDE1Ljc0LTI3LjQsMjMuNTQtMTguMjksMTUuMjctMjcuMzYsMjNTMjI0LDIzNy41OCwyMTQuODcsMjQ1LjQ1Yy0yLjc0LDIuMzctNi4zNyw0LTcuMDUsOC4xNS00Ljg0LjU1LTcuNCw0LjY0LTEwLjk0LDcuMTYtNS41OSw0LTkuODQsOS40Ny0xNSwxMy45NS01LjE5LDMuNjktOS43Nyw4LjEtMTQuNjEsMTIuMi0xNC4zOCwxMi4xOS0yOC43LDI0LjQ2LTQzLjEzLDM2LjU5LTIsMS42OC0zLjc3LDMuNjYtNiw1LjA2LTEsLjYyLTEuOTEsMS43OS0zLjMyLjgxYTE2LjksMTYuOSwwLDAsMSwxLjUxLTcuNTFjNy4xOS00LjU5LDEzLjE3LTEwLjY3LDE5LjY2LTE2LjEsMTcuODgtMTUsMzUuNjEtMzAuMTYsNTMuMzgtNDUuMjlzMzUuMy0zMC4xMyw1My00NS4xNXEyNi0yMiw1MS45NC00NC4wOGMxNy42OC0xNSwzNS40NC0zMCw1My00NS4xNSwzLjQ5LTMsNy4xNi01LjgzLDEwLjU2LTloMyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2ODlhZDEiLz48cGF0aCBkPSJNMzk5LjgxLDExNy44N2M0LjA3LS4wNSw4LDEsMTIsMS41LDEuMDksMi4zOS0xLDMuMzItMi4yMyw0LjQzLTUsNC4zNy0xMC4yMyw4LjQ4LTE1LjEsMTMtLjUyLS42OS0xLjA4LTEuMzYtMS41Ni0yLjA5LTEuMTEtMS42NS0xLjg5LTEuMjEtMi42MS4zMy01LjksMTIuNjYtMTYuMDUsMjEuNDYtMjcuMSwyOS4zYTIwMi4xNCwyMDIuMTQsMCwwLDEtMzkuODcsMjEuNzljLS43Ni0xLjQ0LS44My0xLjUuNDctMi44NCwyLjY5LTIuNzgsNS43Ny01LjE0LDguNzItNy42NCwyMS4yOS0xOC4xLDQyLjY0LTM2LjEyLDYzLjgxLTU0LjM3LDEuMjMtMS4wNywyLjI5LTIuMywzLjQ3LTMuNDEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNGU4ZmNjIi8+PHBhdGggZD0iTTM5OS44MSwxMTcuODdhNC41NSw0LjU1LDAsMCwxLTEuNzUsMy4xNHEtMjAuNiwxNy40My00MS4xMywzNC45My0xNS43MiwxMy40LTMxLjM2LDI2Ljg5Yy0uOTQuODItMi43MSwxLjQtMi4yMywzLjNhMTg3LjQsMTg3LjQsMCwwLDEtMjAuMjcsOC4yNGMtMi4zMy0uNjQtLjQtMS40NywwLTEuODUsNC4wOS0zLjYyLDguMjMtNy4xOCwxMi4zOS0xMC43MnExMS40Ny05Ljc1LDIzLTE5LjQ3YzcuNTctNi40LDE1LjE4LTEyLjc3LDIyLjczLTE5LjE5czE1LjEyLTEyLjg3LDIyLjU3LTE5LjQyYzIuNDEtMi4xMiw1LjM2LTMuNjgsNy02LjU5LDMuMDYtLjQ0LDYsLjYsOSwuNzQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNTU5MWNkIi8+PHBhdGggZD0iTTM0Ni42MSwyMDhjNy45Mi0zLjkyLDE2LjE5LTcuMjEsMjMuMS0xMi45MywxLjQ0LS4wNiwxLjI4Ljc2Ljk0LDEuNjktNi4zOCwyNi40Mi0yNi40Miw0My43Ny01My41Miw0Ni4zLTUuMjIuNDktMTAuNDMsMS4wOS0xNS42OS41OS42OC0xLjkzLDIuNTEtMS43Niw0LTIuMTcsNS44OC0xLjYsMTEuNzEtMy4zMSwxNy4xNi02LjEzLDEwLjIyLTUuMjgsMTcuNzEtMTMuMDcsMjItMjMuODRhOC4yMiw4LjIyLDAsMCwxLDIuMDUtMy41MSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiMxNjFmNDIiLz48cGF0aCBkPSJNMzQ2LjYxLDIwOGMtMy4yNiwxMi42LTExLjI5LDIxLjMxLTIyLjM5LDI3LjU1LTcuMTMsNC0xNSw1Ljg2LTIyLjc3LDguMS0xLjkxLTUuNTkuMTYtMTAuMzIsMy41Mi0xNC41NywzLjk0LTUsOS4zLTguMDgsMTUtMTAuNjlBMjc3LjA4LDI3Ny4wOCwwLDAsMSwzNDYuNjEsMjA4IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzQxOGFjOSIvPjxwYXRoIGQ9Ik0xMTQuOCwzMjkuMzdjNC40NS0xLjY1LDcuMzEtNS40MSwxMC44MS04LjI4LDExLjI5LTkuMjcsMjIuMzgtMTguNzgsMzMuNTEtMjguMjQsNS44NS01LDExLjYxLTEwLjA1LDE3LjQxLTE1LjA4LDEuNTgtMS4zNywzLjA1LTIuOTQsNS4zNC0zLjA2LTYsNy41Mi0xMS43MywxNS4yNC0xNiwyMy45M3EtMTcuMjUsMTQuNi0zNC40NCwyOS4yN2MtNS4zLDQuNTMtMTAuNzEsOC45NC0xNS45MywxMy41Ny0uOC43MS0xLjcsMS42LTIuOTQuNjRhNTQuMTMsNTQuMTMsMCwwLDEsMi4yNC0xMi43NSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2NDk3ZDAiLz48cGF0aCBkPSJNMTU4LjgxLDM0OS41OGMtMy41NC4yNy01LjE0LDMuNDQtNy40OCw1LjMzLTkuODUsNy45NS0xOS40NSwxNi4yMi0yOSwyNC40OS0zLjIsMi43Ni02LjMsNS42Mi05LjY5LDguMTYtMi4yMywxLjY4LTMuMDcsMS0zLTEuNTgsMC0zLjEyLDAtNi4yNCwwLTkuMzYsMy40Ni0zLjc1LDcuNjEtNi43MiwxMS40OC0xMCwxMS4xNy05LjQ4LDIyLjIzLTE5LjEsMzMuNTUtMjguNDIsMS0uOCwxLjc5LTIuMjYsMy40Ni0xLjMxbC43NSwxMi42OSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM0NjhjY2EiLz48cGF0aCBkPSJNMjA3LDI3NS40OGE0LjE3LDQuMTcsMCwwLDEsMS45MS0zLjA4YzktNy42LDE4LTE1LjE1LDI3LTIyLjc2LDcuMzktNi4yNSwxNC43Mi0xMi41NiwyMi4wNy0xOC44NywzLjg2LTMuMzEsNy42OS02LjY2LDExLjUyLTEwLC43My0uNjQsMS40MS0xLjEyLDIuMTIsMC0uODMsMy40MS0xLjgyLDYuNzktMS43MiwxMC4zNS00LDQuNDMtOC44OSw3LjkzLTEzLjQyLDExLjgtMTQsMTItMjcuOTUsMjMuOTMtNDIsMzUuNzZhMTEuMzQsMTEuMzQsMCwwLDAtMS40OCwxLjY4LDcuOTMsNy45MywwLDAsMS02LTQuODgiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNTU5MWNkIi8+PHBhdGggZD0iTTExMi41NiwzNDIuMTJjMy4yNC0xLDUuMTMtMy44MSw3LjU2LTUuODIsMTMuMTctMTAuODksMjYuMTMtMjIsMzkuMTctMzMuMDgsMi4wNS0xLjczLDMuNDktNC4zMyw2LjU4LTQuNThhMTUwLjg5LDE1MC44OSwwLDAsMC02LDE4Yy0yLjM0LS4yMy0zLjUzLDEuNjQtNSwyLjg4LTEzLjU4LDExLjY3LTI3LjI4LDIzLjItNDAuOTIsMzQuOC0uODIuNjktMS41NSwxLjcxLTIuODksMS4yNmE0NC44OCw0NC44OCwwLDAsMSwxLjUtMTMuNSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM1Yzk0Y2UiLz48cGF0aCBkPSJNMjEzLDI4MC4zNmMtLjkzLTEuNjguNjUtMi4yMywxLjQ3LTIuOTNxMTcuMi0xNC43MSwzNC40OS0yOS4zNCw5Ljc3LTguMjgsMTkuNTktMTYuNDlhNC4xNiw0LjE2LDAsMCwxLDEuMzgtLjQ3LDI5LjkyLDI5LjkyLDAsMCwwLDEuMzgsOWMtMy45Myw0LjU2LTguODcsOC0xMy4zOSwxMS44NnEtMTUuMTMsMTMtMzAuNDUsMjUuOTNhMy41LDMuNSwwLDAsMC0xLjU0LDJjLTQuMjYsMS41OC04LjU2LDIuMjEtMTIuOTMuNDEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNGU4ZmNjIi8+PHBhdGggZD0iTTE1OC4wNiwzMzYuODljLTQuMjEsMi40MS03LjU3LDUuOTEtMTEuMjcsOS05Ljc2LDgtMTkuMzcsMTYuMjUtMjguOTQsMjQuNS0yLjY0LDIuMjgtNSw0LjgyLTguMjgsNi4yNy4zOS00LS44NC04LjA4Ljc0LTEycTIyLjE3LTE4Ljk0LDQ0LjQ2LTM3Ljc2YzEtLjg2LDIuMDYtMS45MSwzLjY0LTEuMjMtLjEyLDMuNzUtLjIzLDcuNS0uMzUsMTEuMjYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNGU4ZmNjIi8+PHBhdGggZD0iTTE1OC40MSwzMjUuNjNjLTQuNzUsMi41NS04LjQyLDYuNS0xMi41Miw5Ljg4LTkuNjgsNy45NS0xOS4xNCwxNi4xNi0yOC43MywyNC4yMi0yLjE0LDEuODEtMy42NCw0LjU2LTYuODUsNC44OS4zOC0zLS44LTYuMTEuNzUtOXExNC0xMiwyOC4wNi0yMy45MmM2LjM0LTUuMzksMTIuNzQtMTAuNzEsMTkuMDctMTYuMSwyLTEuNzIsMS40Ny4xNywxLjY1LDEuMDhaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzU1OTFjZCIvPjxwYXRoIGQ9Ik0yMjYsMjgwYy0xLjM4LTEtLjQxLTEuNzQuMzItMi4zNSw4LjgyLTcuNCwxNy42OC0xNC43NSwyNi40OS0yMi4xNiw1LjUtNC42MywxMC45My05LjM0LDE2LjM3LTE0YTMuNjYsMy42NiwwLDAsMSwyLjItMS4yOGwyLjI1LDQuNDljLTEuNzMsMi42Ny00LjUsNC4zMy02LjQ1LDYuNzktMTAuODMsMTItMjIuOTUsMjIuMTQtMzguMjksMjcuOTFBMTkuNTMsMTkuNTMsMCwwLDEsMjI2LDI4MCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM0ODhkY2EiLz48cGF0aCBkPSJNMzk0LjQ4LDEzNi44YzEuMzYtNC4yNSw1Ljc3LTUuNDcsOC4zOC04LjQ3LDIuNzgtMy4xOSw3LjMzLTQuNjEsOC45NS05LDMuMjYsMCw2LjM4Ljg2LDkuNTUsMS40NSwyLjc0LjUxLDIuODYsMS43LDEsMy4zOS00LjA4LDMuNjQtOC4yLDcuMjYtMTIuMzQsMTAuODItMy44NiwzLjMyLTcuNzgsNi41Ny0xMS42OCw5Ljg1WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM0NjhjY2EiLz48cGF0aCBkPSJNMjA5LjM3LDMwNy44MWMuNjYsMS42Ni0xLjMzLDIuNDktMS4xLDQtMS00LjU2LTMuNTEtNi4zMy04LjA4LTUuNDJhMjMuNjUsMjMuNjUsMCwwLDAtMTIuNjQsNy4zNWMtLjk0LDEtMiwxLjg5LTMsMi44NC0uODItMSwwLTEuODcuMzMtMi43NiwyLTYuNTEsNi4zOS0xMS4xNCwxMS45My0xNC44M2ExMi41NywxMi41NywwLDAsMSw0LjA2LTEuODVjNi40Mi0xLjUzLDkuOTQsMS42MSw5LjA2LDguMTJhOC4yOCw4LjI4LDAsMCwxLS42MSwyLjUzIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzQyOGFjOSIvPjxwYXRoIGQ9Ik0yMDkuMzcsMzA3LjgxYzAtMSwuMDYtMiwuMDctMywuMTEtNi41NC0zLjYtOS05LjY3LTYuMjUtNywzLjItMTEuNDIsOC45Mi0xNC40OSwxNS43OS0uNzEuMTMtMS4wOC0uMDctLjg2LS44NiwyLjIxLTguMTYsNi40Ny0xNC45MiwxMy41Ni0xOS43M2ExNC44MiwxNC44MiwwLDAsMSw1Ljg1LTIuMjgsNi4yNSw2LjI1LDAsMCwxLDcuNDEsNC42MSwxNC44OCwxNC44OCwwLDAsMS0xLjg3LDExLjciIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjMTgyMTQ0Ii8+PHBhdGggZD0iTTI2Ny4xMywyNTEuNDFjLTEuMjYtMS0uMTUtMS40LjUyLTEuODcsMi4xMS0xLjQ3LDMuMjctNC4xLDUuOTMtNC45MiwzLjQsNS4zOCw4LjgzLDcuNzUsMTQuNDksOS43NywxLjE0LjQxLDIuMzMuNjcsNC4xOSwxLjE5LTguNzIsMi4yNy0xNi4yNCwxLjM5LTIzLjE1LTMuMzNhMywzLDAsMCwwLTItLjg0IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzQ1OGNjYSIvPjxwYXRoIGQ9Ik01NzYuMjIsMjY2LjIzYy0yLjc1LS4zMi00Ljg0LTIuMi03LjM0LTMuMTMtMS0uMzYtMS44OS0xLjY0LTIuOTItLjgtLjg1LjcuNTQsMS43NC4yNCwyLjcxLTEuNTMtMS4zNC0yLjA2LTMuMjYtMi44Ni01LjIxLDQuNDYsMS44NSw4LjkxLDMuNjQsMTIuODgsNi40MyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2MzY1N2QiLz48cGF0aCBkPSJNNjM3LjUxLDMwOC40MWMuODEtLjUxLDAtMS4xMy4xMS0xLjY5bDQuMzUsMi4zNiwyLjM0LDNjLTIuODUtLjc2LTQuNzgtMi4zMS02LjgtMy42NyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiMyNjMxNTQiLz48cGF0aCBkPSJNNDY1LjE5LDI0OS4yNmExNC4yNiwxNC4yNiwwLDAsMSw2LC40NWMtMi4zMiwxLjI2LTMuOTIsMS4wOS02LS40NSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiNhMDlhYTkiLz48cGF0aCBkPSJNMTc3LjgxLDU5Ni4zNmMyLjMzLjQyLDMuMzksMi42Nyw1LjMsMy43TDE4Myw2MDFhMTQuMjIsMTQuMjIsMCwwLDEtNS4yMS00LjU5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzQyNGE3ZiIvPjxwYXRoIGQ9Ik02NTQuMTcsNDUzLjA3bDEuMzQuNzVjLjE5LDEuNTEtLjQ1LDIuNzUtMS4zNCw0LjZaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzhjYjdkZSIvPjxwYXRoIGQ9Ik00NjUsMTM1Ljc5Yy41MSwxLjE1LDEuNjYuNjgsMi41LDFsLTQsMS41NWMtLjMxLTEuNTkuNzctMS45NSwxLjUxLTIuNTMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNWE1ZDc2Ii8+PHBhdGggZD0iTTE4NC40MiwzMTMuNTFsLjg2Ljg2Yy0uMjMuNzQtLjQ1LDEuNDktLjY4LDIuMjNMMTgzLDMxOC42N2MuNDgtMi40Mi41MS0zLjksMS40My01LjE2IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzRmNjY4YSIvPjxwYXRoIGQ9Ik0zNzAuNjUsMTk2LjczYy0uMjItLjYyLS4xMy0xLjQtLjk0LTEuNjkuMjQtLjU4Ljg5LTEuMzksMS4xOS0xLjEuOS44Ny41MiwxLjkxLS4yNSwyLjc5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzU1NWE3MyIvPjxwYXRoIGQ9Ik0xMTcuOCwzMTUuODZhNjEuNDQsNjEuNDQsMCwwLDEsNC41LTE1Ljc3YzguODItNi4xNSwxNi41OC0xMy42LDI0Ljc5LTIwLjVxMjEuMzUtMTgsNDIuNTMtMzYuMTQsMTkuMzUtMTYuNTUsMzguNzktMzMsMjEtMTcuOCw0Mi0zNS42NmMxMi43NC0xMC44MywyNS41Mi0yMS42MywzOC4yMS0zMi41Myw4LjktNy42NSwxOC0xNS4wNywyNi43NC0yMi44OGE1Myw1MywwLDAsMSwxNC4yNC0xLjUyLDEuNDQsMS40NCwwLDAsMSwxLjU0LS4xOGMxLjA2LDEuODEtLjI5LDIuODQtMS4zOSwzLjc2cS0xOC4xMywxNS4zNi0zNi4xOSwzMC44MVEyOTQuMjgsMTY4LjYzLDI3NSwxODVxLTE3Ljc5LDE1LjE4LTM1LjY0LDMwLjI5UTIxNy43LDIzMy42NywxOTYsMjUyLjFjLTE4LDE1LjI1LTM1Ljg4LDMwLjU5LTUzLjksNDUuNzktNyw1Ljg3LTEzLjgxLDExLjg4LTIwLjg3LDE3LjYzLS44OC43MS0yLjA3LDMtMy40Ny4zNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2ZDljZDIiLz48cGF0aCBkPSJNMzM1LjMxLDExOS4zOGMtMS4yNiw0LjIxLTUuMzMsNS43OS04LjIyLDguMzYtOS40Nyw4LjQyLTE5LjI2LDE2LjQ5LTI4Ljk0LDI0LjY3LTEwLjgzLDkuMTMtMjEuNzIsMTguMi0zMi41MSwyNy4zOC05LjM4LDgtMTguNjIsMTYuMTEtMjgsMjQuMS05LjA5LDcuNzQtMTguMjksMTUuMzQtMjcuMzgsMjMuMDZzLTE4LjExLDE1LjU1LTI3LjIxLDIzLjI4LTE4LjI1LDE1LjM3LTI3LjM1LDIzLjA5Yy03LjQ5LDYuMzYtMTQuOTIsMTIuNzktMjIuMzksMTkuMTYtMywyLjU4LTYuMTEsNS4xLTkuMTYsNy42NS0uNjYuNTUtMS4yNi44Mi0xLjg2LDBhNjAsNjAsMCwwLDEsNS4yNS0xNWM2LjktNC4zNSwxMi42Ny0xMC4xLDE4Ljg2LTE1LjMycTIxLjMzLTE4LDQyLjUxLTM2LjEzLDIxLjkyLTE4Ljc1LDQzLjkyLTM3LjM5LDE4LjEtMTUuNDIsMzYuMjUtMzAuNzljMTUuNzMtMTMuMywzMS4zMy0yNi43Niw0Ny4xMy00MGE2Ljk0LDYuOTQsMCwwLDAsMi41OC0zLjEzYzUuMzEtMi4wNiwxMS0xLjkzLDE2LjUxLTMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNzI5ZmQ0Ii8+PHBhdGggZD0iTTMxOC44LDEyMi4zNmMyLjMzLjYxLjQzLDEuNDYsMCwxLjg1LTQuMjUsMy44Mi04LjU0LDcuNjEtMTIuODksMTEuMzEtNy41Nyw2LjQzLTE1LjIsMTIuNzktMjIuNzksMTkuMnEtMTYuNjcsMTQtMzMuMjksMjguMTNjLTkuMDksNy43My0xOC4wOCwxNS41Ni0yNy4xNiwyMy4yOS05LjM2LDgtMTguNzksMTUuODUtMjguMTYsMjMuODItOS4wOCw3LjczLTE4LjA5LDE1LjU0LTI3LjE3LDIzLjI3UzE0OS4xLDI2OC42MSwxNDAsMjc2LjI5Yy0zLjMzLDIuOC02LjY0LDUuNjItMTAsOC4zNy0uNjYuNTQtMS4zNywxLjc2LTIuNDQuNDQsMS01LjE2LDMuNzItOS42MSw2LTE0LjI0LDEyLjMzLTEwLjU0LDI0LjcyLTIxLDM3LjA2LTMxLjU2cTE5LjA4LTE2LjI5LDM4LjIxLTMyLjUyLDE4LjI1LTE1LjUzLDM2LjUzLTMxUTI2NC42LDE1OS4zOSwyODMuODYsMTQzYzYuNjUtNS42NCwxMy4wOS0xMS41NCwxOS45NS0xNyw0Ljc1LTIuMjEsOS45LTIuODMsMTUtMy43MSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM3OGEyZDUiLz48cGF0aCBkPSJNMzAzLjgxLDEyNi4wN2MtNC43Niw2LjE5LTExLjIyLDEwLjU1LTE3LDE1LjYzLTcuNTcsNi42NC0xNS4zMiwxMy4wNS0yMywxOS41NS03LjQ5LDYuMzQtMTUsMTIuNjUtMjIuNDksMTlTMjI2LjM5LDE5MywyMTguOSwxOTkuNHMtMTUuMjEsMTIuOC0yMi43OSwxOS4yM2MtNy4zOSw2LjI4LTE0LjcxLDEyLjYzLTIyLjEsMTguOTFxLTE0LjA2LDEyLTI4LjE3LDIzLjg1Yy0zLjMyLDIuODEtNi42Niw1LjYtMTAsOC40YTMuNDMsMy40MywwLDAsMS0yLjMyLDEuMDcsOTkuOTMsOTkuOTMsMCwwLDEsOS0xOGMxNy4xMi0xMy45MSwzMy43Ny0yOC40LDUwLjU3LTQyLjcsMTkuNDUtMTYuNTcsMzktMzMsNTguMzQtNDkuNzMsMTAuOTQtOS40NSwyMi4zLTE4LjQxLDMyLjg1LTI4LjMyYTExMy40MywxMTMuNDMsMCwwLDEsMTkuNS02IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzdkYTVkNiIvPjxwYXRoIGQ9Ik0yODQuMzEsMTMyLjExYy43NSwxLjM0LS42LDEuNzQtMS4xOCwyLjI2cS0xMi40OCwxMC45NC0yNS4wNiwyMS43M2MtNy4zNSw2LjMxLTE0Ljc3LDEyLjU0LTIyLjE2LDE4LjhxLTEzLjc4LDExLjY3LTI3LjU4LDIzLjM0Yy03LjQ3LDYuMzUtMTQuOSwxMi43Ni0yMi4zOCwxOS4xMS05LjM3LDgtMTguNzgsMTUuODctMjguMTUsMjMuODJxLTUuODQsNS0xMS42MSwxMGE2LjQ1LDYuNDUsMCwwLDEtMy42NCwxLjc0LDE1OS4yNiwxNTkuMjYsMCwwLDEsMTYuNTItMjYuMjRjNS44LTQuMjcsMTEuMS05LjE2LDE2LjU5LTEzLjgxcTIxLjM5LTE4LjEyLDQyLjcyLTM2LjMyLDE2LjUtMTQuMDYsMzMtMjguMTRjMS43LTEuNDUsMy44My0yLjM4LDUuMTMtNC4yOSw4LjcyLTUuMjgsMTguMy04LjUzLDI3LjgyLTExLjk1IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzgxYTdkOCIvPjxwYXRoIGQ9Ik00NDIuNTUsNDY2LjY0Yy03LjU1LDYuMTYtMTQuOTUsMTIuNTQtMjUsMTYuODFhODguODYsODguODYsMCwwLDAsNi42My0xOC4yNGM1LjkyLTI2LC40My00OS42Ni0xNC44Ny03MS4yNC0zLjc4LTUuMzItOC44Ni05LjQ0LTEzLjM2LTE0LjA5LS43My0uNzUtMS41Mi0xLjY5LTIuODMtMS4wNi0xLjM1LS42Ni0yLTItMy0zLC42NS0uODMsMS4zMi0uMzcsMiwwLDE4LjEzLDEwLjI4LDMzLjI0LDIzLjYyLDQyLjQ3LDQyLjY5YTg1LjIzLDg1LjIzLDAsMCwxLDguMTgsMzAsODYuODYsODYuODYsMCwwLDEtLjE3LDE4LjE3IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzBlMWY2NiIvPjxwYXRoIGQ9Ik0xMTcuOCwzMTUuODZjMywxLjA4LDQtMS45MSw1LjU0LTMuMTQsMTUuMjEtMTIuNTksMzAuMjEtMjUuNDQsNDUuMjMtMzguMjYsMTQuMTctMTIuMSwyOC4yNS0yNC4zMSw0Mi40NS0zNi4zOCwxNS44MS0xMy40MywzMS43NC0yNi43LDQ3LjU1LTQwLjEzLDE0LjItMTIuMDcsMjguMjgtMjQuMjcsNDIuNDQtMzYuMzhRMzI0LDE0MiwzNDcsMTIyLjRjMS41Ny0xLjM0LDMuODMtMiw0LjExLTQuNTMuODYtLjgyLDIuMTMuMDgsMy0uNzNsMy43NiwwYy0xLjE1LDQtNSw1LjM5LTcuNyw3LjgxLTcuNzYsNy0xNS44NSwxMy41OS0yMy44MiwyMC4zMy05LjExLDcuNy0xOC4yNiwxNS4zNi0yNy4zNiwyMy4wOC03LjM5LDYuMjctMTQuNzIsMTIuNjItMjIuMTIsMTguOS0xMC45LDkuMjQtMjEuODUsMTguNDItMzIuNzQsMjcuNjctNy40LDYuMjgtMTQuNzIsMTIuNjQtMjIuMSwxOC45Mi05LjM4LDgtMTguOCwxNS44OC0yOC4xOCwyMy44NS03LjM5LDYuMjgtMTQuNzEsMTIuNjQtMjIuMSwxOC45Mi03LjU3LDYuNDQtMTUuMjEsMTIuODEtMjIuNzgsMTkuMjVzLTE1LjA4LDEzLTIyLjY1LDE5LjQzYy0yLjY0LDIuMjUtNS4zOCw0LjQtOC4wOCw2LjYtLjY0LjUyLTEuMjUuODUtMS44NywwYTExLjc1LDExLjc1LDAsMCwxLDEuNDktNiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2OTlhZDEiLz48cGF0aCBkPSJNMjU2LjQ5LDE0NC4wNmMtLjYzLDMuNTUtNC4wOSw0LjQ4LTYuMjksNi40Ni03LjY2LDYuODktMTUuNjMsMTMuNDMtMjMuNDksMjAuMDgtOS4yLDcuNzctMTguNDIsMTUuNS0yNy42LDIzLjI5LTcuMzksNi4yNi0xNC43MywxMi41OS0yMi4wOCwxOC44OXEtOC4wNiw2LjktMTYuMSwxMy44M2MtLjYzLjU0LTEuMjQuODctMS44NiwwYTE0MS43MiwxNDEuNzIsMCwwLDEsMTMuMTQtMTcuMTFjMTcuNjUtMjAuNSwzNy43LTM4LjMsNjAuNzMtNTIuNiw3LjYtNC43MSwxNS4xNC05LjYsMjMuNTUtMTIuODUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjODhhYmQ5Ii8+PHBhdGggZD0iTTM4Ni4zMiwxMTcuMTJjLTIuNDktLjMzLTUuMTMuNzctNy41LS43NCwyLjQ5LjMyLDUuMTItLjc4LDcuNS43NCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM1NTkxY2QiLz48cGF0aCBkPSJNMzU0LjA1LDExNy4xNGMtLjc5LDEuMDctMiwuNjItMywuNzNoLTEuNTFjMS4zMy0xLjMsMy0uNTIsNC41LS43MiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2ODlhZDEiLz48cGF0aCBkPSJNMjgyLjA2LDYzOS4xMmExODIuMywxODIuMywwLDAsMCw3MS44MS0xMS4zMSwyMTQsMjE0LDAsMCwwLDYxLjYxLTM0LjY3YzE4LjA5LTE0LjY4LDMzLjY2LTMxLjUzLDQ0LjA2LTUyLjYxYTEwMS4zNiwxMDEuMzYsMCwwLDAsMTAuMjItMzZjMS0xMS4zMS0uODgtMjItMy45NS0zMi42NC4zNC0yLjYxLDIuNzItMy44LDQuMTEtNS42Myw1LjM4LTcuMDcsOS4zNS0xNC42OSwxMS0yMy40NmEyNy40MywyNy40MywwLDAsMSwxLjIxLTMuNDMsMTExLDExMSwwLDAsMSw4LDIxLjE2YzIuNjMsMTAuMzEsNC4xMSwyMC44LDMuMzMsMzEuNGExMjMuMzEsMTIzLjMxLDAsMCwxLTE2LjA2LDUyLjMyYy05LjE2LDE2LjE1LTIxLDMwLTM0LjYsNDIuMzdhMTk5Ljg5LDE5OS44OSwwLDAsMS0zOS4zNywyNy41NCwyMTkuNSwyMTkuNSwwLDAsMS01NC4yNiwyMC43MSwyMDkuMjcsMjA5LjI3LDAsMCwxLTM2LjA1LDUuMmMtNS44NS4zMy0xMS43MS44My0xNy41Mi40Ni00LjUxLS4yOS05LjE0LDAtMTMuNTYtMS4zNyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiMwZTFmNjYiLz48L2c+PC9zdmc+',
+  router: {
+    address: '0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff',
+    api: UniswapV2.ROUTER
+  },
+  factory: {
+    address: '0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32',
+    api: UniswapV2.FACTORY
+  },
+  pair: {
+    api: UniswapV2.PAIR
+  },
+  slippage: true,
+};
+
+new Exchange(
+
+  Object.assign(exchange$6, {
+    findPath: ({ tokenIn, tokenOut })=>
+      UniswapV2.findPath(blockchain$6, exchange$6, { tokenIn, tokenOut }),
+    pathExists: (path)=>
+      UniswapV2.pathExists(blockchain$6, exchange$6, path),
+    getAmounts: ({ path, block, tokenIn, tokenOut, amountOut, amountIn, amountInMax, amountOutMin })=>
+      UniswapV2.getAmounts(blockchain$6, exchange$6, { path, block, tokenIn, tokenOut, amountOut, amountIn, amountInMax, amountOutMin }),
+    getTransaction: ({ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress })=>
+      UniswapV2.getTransaction(blockchain$6, exchange$6 ,{ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress }),
+  })
+);
+
+const blockchain$5 = Blockchains.fantom;
+
+const exchange$5 = {
+  blockchain: 'fantom',
+  name: 'spookyswap',
+  alternativeNames: [],
+  label: 'SpookySwap',
+  logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgNjQxIDY0MCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjQxIDY0MDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8Zz4KCTxwYXRoIGZpbGw9IiMxMjExMjIiIGQ9Ik0zNC4yLDMyMGMwLDE1OC41LDEyOC41LDI4Ni4zLDI4Ni4zLDI4Ni4zYzE1OC41LDAsMjg2LjMtMTI4LjUsMjg2LjMtMjg2LjNjMC0xNTguNS0xMjguNS0yODYuMy0yODYuMy0yODYuMwoJCUMxNjIuNywzMy43LDM0LjIsMTYyLjIsMzQuMiwzMjBMMzQuMiwzMjB6Ii8+Cgk8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZmlsbD0iI0YyRjRGOCIgZD0iTTEyMC45LDI0Ny42Yy0zLjMsMjIuMiwwLjcsNDUuNyw0LjYsNjcuOGMyLDMuMyw1LjIsNS45LDkuOCw3LjJjLTkuMSwxOS42LTE0LjMsNDAuNC0xNC4zLDYyLjYKCQljMCw5My4zLDkwLDE2OC45LDIwMS41LDE2OC45UzUyNCw0NzguNSw1MjQsMzg1LjJjMC0yMS41LTUuMi00My0xNC4zLTYyLjZjMy45LTEuMyw2LjUtMy45LDcuOC03LjJjNC42LTIyLjIsOC41LTQ1LjcsNS4yLTY3LjgKCQljLTMuMy0zMC0xMy43LTM5LjgtNDUtMzJjLTE1LjcsMy45LTM2LjUsMTMtNTIuOCwyNC4xYy0zMC0xNS02NS4yLTIzLjUtMTAyLjQtMjMuNWMtMzcuOCwwLTczLjcsOS4xLTEwMy43LDI0LjEKCQljLTE2LjMtMTEuMS0zNy4yLTIwLjktNTMuNS0yNC44QzEzNCwyMDcuOCwxMjQuMiwyMTcuNiwxMjAuOSwyNDcuNkwxMjAuOSwyNDcuNnogTTIzOC4zLDM4MC43Yy0yMy41LTEwLjQtNjMuOS03LjgtNjMuOS03LjgKCQlzMiwzNy44LDI0LjgsNTAuOWMyNy40LDE1LDc4LjksNy44LDc4LjksNy44UzI3My41LDM5Ni4zLDIzOC4zLDM4MC43TDIzOC4zLDM4MC43eiBNMzY5LjQsNDMyLjJjMCwwLDUwLjksNy44LDc4LjktNy44CgkJYzIzLjUtMTMsMjQuOC01MC45LDI0LjgtNTAuOXMtNDAuNC0yLjYtNjMuOSw3LjhDMzc0LDM5Ni4zLDM2OS40LDQzMS41LDM2OS40LDQzMi4yTDM2OS40LDQzMi4yeiBNMzEyLjcsNDU4LjkKCQljMCwyLjYsNS4yLDUuMiwxMS43LDUuMnMxMS43LTIsMTEuNy01LjJjMC0yLjYtNS4yLTUuMi0xMS43LTUuMkMzMTcuOSw0NTMuNywzMTIuNyw0NTUuNywzMTIuNyw0NTguOUwzMTIuNyw0NTguOXoiLz4KCTxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBmaWxsPSIjRjJGNEY4IiBkPSJNNTUyLjcsNDM1LjRjLTE4LjktNy4yLTM5LjEtMTEuMS01OS4zLTExLjFjLTUuMiwwLTUuMi03LjgsMC03LjhjMjAuOSwwLDQxLjcsMy45LDYxLjMsMTEuNwoJCWMyLDAuNywzLjMsMi42LDIuNiw0LjZDNTU2LjYsNDM0LjgsNTU0LjYsNDM2LjEsNTUyLjcsNDM1LjRMNTUyLjcsNDM1LjR6IE05Mi4yLDQyNy42YzE5LjYtNy44LDQwLjQtMTEuMSw2MS4zLTExLjcKCQljNS4yLDAsNS4yLDcuOCwwLDcuOGMtMjAuMiwwLTQwLjQsMy45LTU5LjMsMTEuMWMtMiwwLjctNC42LTAuNy01LjItMi42Qzg5LDQzMC45LDkwLjMsNDI4LjMsOTIuMiw0MjcuNkw5Mi4yLDQyNy42eiBNMTMyLjcsNDUwLjQKCQljOS44LTMuMywyMC4yLTQuNiwzMC01LjJjNS4yLDAsNS4yLDcuOCwwLDcuOGMtOS4xLDAtMTguOSwyLTI3LjQsNC42Yy04LjUsMi42LTE3LjYsNS45LTI0LjEsMTEuN2MtMy45LDMuMy05LjEtMi01LjktNS45CgkJQzExMy4xLDQ1NywxMjMuNSw0NTMuNywxMzIuNyw0NTAuNEwxMzIuNyw0NTAuNHogTTE3MS44LDQ2NS40Yy03LjgsMy4zLTE1LjcsNy44LTIyLjgsMTIuNGMtNy4yLDQuNi0xMy43LDEwLjQtMTguOSwxNwoJCWMtMS4zLDItMC43LDQuNiwxLjMsNS4yYzIsMS4zLDQuNiwwLjcsNS4yLTEuM2M0LjYtNS45LDExLjEtMTEuMSwxNy0xNWM3LjItNC42LDE0LjMtOC41LDIxLjUtMTEuN2MyLTEuMywyLjYtMy4zLDEuMy01LjIKCQlDMTc2LjQsNDY0LjgsMTczLjgsNDY0LjEsMTcxLjgsNDY1LjRMMTcxLjgsNDY1LjR6IE00ODMuNSw0NTMuN2M5LjEsMCwxOC45LDIsMjcuNCw0LjZjNC42LDEuMyw5LjEsMy4zLDEzLjcsNS4yCgkJYzMuOSwxLjMsNy4yLDMuOSwxMC40LDYuNWMzLjksMy4zLDkuMS0yLDUuOS01LjljLTcuMi02LjUtMTcuNi0xMC40LTI2LjctMTNjLTkuOC0zLjMtMjAuMi00LjYtMzAtNS4yCgkJQzQ3OSw0NDUuMiw0NzksNDUzLjcsNDgzLjUsNDUzLjdMNDgzLjUsNDUzLjd6IE00OTIuNyw0ODMuN2MtNy4yLTQuNi0xNC4zLTcuOC0yMS41LTExLjFsMCwwYy0yLTEuMy0yLjYtMy4zLTEuMy01LjIKCQljMS4zLTIsMy4zLTIuNiw1LjItMS4zYzE1LjcsNi41LDMyLDE1LjcsNDEuNywyOS4zYzEuMywyLDAuNyw0LjYtMS4zLDUuMmMtMiwxLjMtNC42LDAuNy01LjItMS4zCgkJQzUwNS43LDQ5Mi44LDQ5OS4yLDQ4Ny42LDQ5Mi43LDQ4My43TDQ5Mi43LDQ4My43eiIvPgoJPHBhdGggZmlsbD0iIzY2NjVERCIgZD0iTTYyLjIsMzM1LjdjMy45LTUuOSwzNS45LTIyLjgsNzUuNy0zMy4zYzguNS0yNC44LDE5LjYtNDguMywzMi03MS4xbDMyLTU4Yy05LjEtMy45LTE4LjMtOS4xLTI2LjctMTUKCQljLTEuMy0xLjMtMi42LTIuNi0zLjktMy45Yy0wLjctMS4zLTEuMy0zLjMtMS4zLTQuNnMyLTMuOSwyLjYtNC42YzItMi42LDQuNi00LjYsNy4yLTcuMmM1LjktNS4yLDEyLjQtOS44LDE5LjYtMTMuNwoJCWMzLjMtMiw2LjUtMy45LDkuOC02LjVjMjIuOC0xNC4zLDM1LjktMjUuNCw1Ni43LTM3LjhjMjAuMi0xMS43LDMwLTE4LjMsNTIuOC0xNy42YzI5LjMsMCwxMDEuNyw5Mi42LDEzNC4zLDE0MC4yCgkJYzE5LjYsMjguNyw0Ni4zLDgwLjIsNTYuMSw5OS44YzIsMC43LDQuNiwxLjMsNi41LDJjMzAsOS4xLDU4LjcsMjIuMiw2NS45LDMwLjdjNi41LDcuMi0yMS41LDEwLjQtNDguOSwxNS43CgkJYy0yNy40LDQuNi0xMjAuNyw3LjItMjEwLDcuOGMtODkuMywwLjctMTkzLjctMi42LTIxNi41LTUuOUM4My4xLDM0OS4zLDU3LjcsMzQyLjgsNjIuMiwzMzUuN0w2Mi4yLDMzNS43eiIvPgoJPHBhdGggZmlsbD0iI0ZGOTlBNSIgZD0iTTQ4My41LDI1Ni4xYzAsMC01OC43LTE1LTE2Mi40LTE1Yy0xMTEuNSwwLTE2NSwxNy0xNjUsMTdzLTYuNSwxMi40LTkuMSwxOC45Yy0yLjYsNy4yLTkuMSwyNS40LTkuMSwyNS40CgkJUzIxOC44LDI4OCwzMjIuNSwyODhjNjIuNiwwLDEyNC42LDUuMiwxODYuNSwxNS43YzAsMC05LjEtMjIuMi0xNS0zMS4zQzQ5MC43LDI2Ny4yLDQ4Ny41LDI2MS4zLDQ4My41LDI1Ni4xTDQ4My41LDI1Ni4xeiIvPgoJPHBhdGggZmlsbD0iI0ZGRTYwMCIgZD0iTTEzMy4zLDEzMS41YzYuNS0wLjcsMTUuNywxOS42LDE1LjcsMTkuNnMyMC45LTUuOSwyNC44LDBjMy4zLDUuOS0xNSwxOS42LTE1LDE5LjZzMTEuMSwxOS42LDcuMiwyMy41CgkJYy0zLjMsMy45LTIyLjgtOC41LTIyLjgtOC41cy0xNSwxNy0xOS42LDE0LjNjLTUuMi0yLjYsMC43LTI0LjgsMC43LTI0LjhzLTIxLjUtOS4xLTE5LjYtMTQuM2MxLjMtNS4yLDIzLjUtNy4yLDIzLjUtNy4yCgkJUzEyNi44LDEzMi44LDEzMy4zLDEzMS41TDEzMy4zLDEzMS41eiIvPgo8L2c+Cjwvc3ZnPgo=',
+  router: {
+    address: '0xF491e7B69E4244ad4002BC14e878a34207E38c29',
+    api: UniswapV2.ROUTER
+  },
+  factory: {
+    address: '0x152eE697f2E276fA89E96742e9bB9aB1F2E61bE3',
+    api: UniswapV2.FACTORY
+  },
+  pair: {
+    api: UniswapV2.PAIR
+  },
+  slippage: true,
+};
+
+new Exchange(
+
+  Object.assign(exchange$5, {
+    findPath: ({ tokenIn, tokenOut })=>
+      UniswapV2.findPath(blockchain$5, exchange$5, { tokenIn, tokenOut }),
+    pathExists: (path)=>
+      UniswapV2.pathExists(blockchain$5, exchange$5, path),
+    getAmounts: ({ path, block, tokenIn, tokenOut, amountOut, amountIn, amountInMax, amountOutMin })=>
+      UniswapV2.getAmounts(blockchain$5, exchange$5, { path, block, tokenIn, tokenOut, amountOut, amountIn, amountInMax, amountOutMin }),
+    getTransaction: ({ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress })=>
+      UniswapV2.getTransaction(blockchain$5, exchange$5 ,{ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress }),
+  })
+);
+
+const blockchain$4 = Blockchains.ethereum;
+
+const exchange$4 = {
+  blockchain: 'ethereum',
+  name: 'uniswap_v2',
+  alternativeNames: [],
+  label: 'Uniswap v2',
+  logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQxIiBoZWlnaHQ9IjY0MCIgdmlld0JveD0iMCAwIDY0MSA2NDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0yMjQuNTM0IDEyMy4yMjZDMjE4LjY5MiAxMjIuMzIgMjE4LjQ0NSAxMjIuMjEzIDIyMS4xOTUgMTIxLjc5MUMyMjYuNDY0IDEyMC45OCAyMzguOTA1IDEyMi4wODUgMjQ3LjQ3OSAxMjQuMTIzQzI2Ny40OTQgMTI4Ljg4MSAyODUuNzA3IDE0MS4wNjkgMzA1LjE0OCAxNjIuNzE0TDMxMC4zMTMgMTY4LjQ2NUwzMTcuNzAxIDE2Ny4yNzdDMzQ4LjgyOCAxNjIuMjc1IDM4MC40OTMgMTY2LjI1IDQwNi45NzggMTc4LjQ4NUM0MTQuMjY0IDE4MS44NTEgNDI1Ljc1MiAxODguNTUyIDQyNy4xODcgMTkwLjI3NEM0MjcuNjQ1IDE5MC44MjIgNDI4LjQ4NSAxOTQuMzU1IDQyOS4wNTMgMTk4LjEyNEM0MzEuMDIgMjExLjE2NCA0MzAuMDM2IDIyMS4xNiA0MjYuMDQ3IDIyOC42MjVDNDIzLjg3NyAyMzIuNjg4IDQyMy43NTYgMjMzLjk3NSA0MjUuMjE1IDIzNy40NTJDNDI2LjM4IDI0MC4yMjcgNDI5LjYyNyAyNDIuMjggNDMyLjg0MyAyNDIuMjc2QzQzOS40MjUgMjQyLjI2NyA0NDYuNTA5IDIzMS42MjcgNDQ5Ljc5MSAyMTYuODIzTDQ1MS4wOTUgMjEwLjk0M0w0NTMuNjc4IDIxMy44NjhDNDY3Ljg0NiAyMjkuOTIgNDc4Ljk3NCAyNTEuODExIDQ4MC44ODUgMjY3LjM5M0w0ODEuMzgzIDI3MS40NTVMNDc5LjAwMiAyNjcuNzYyQzQ3NC45MDMgMjYxLjQwNyA0NzAuNzg1IDI1Ny4wOCA0NjUuNTEyIDI1My41OTFDNDU2LjAwNiAyNDcuMzAxIDQ0NS45NTUgMjQ1LjE2MSA0MTkuMzM3IDI0My43NThDMzk1LjI5NiAyNDIuNDkxIDM4MS42OSAyNDAuNDM4IDM2OC4xOTggMjM2LjAzOEMzNDUuMjQ0IDIyOC41NTQgMzMzLjY3MiAyMTguNTg3IDMwNi40MDUgMTgyLjgxMkMyOTQuMjk0IDE2Ni45MjMgMjg2LjgwOCAxNTguMTMxIDI3OS4zNjIgMTUxLjA1MUMyNjIuNDQyIDEzNC45NjQgMjQ1LjgxNiAxMjYuNTI3IDIyNC41MzQgMTIzLjIyNloiIGZpbGw9IiNGRjAwN0EiLz4KPHBhdGggZD0iTTQzMi42MSAxNTguNzA0QzQzMy4yMTUgMTQ4LjA1NyA0MzQuNjU5IDE0MS4wMzMgNDM3LjU2MiAxMzQuNjJDNDM4LjcxMSAxMzIuMDgxIDQzOS43ODggMTMwLjAwMyA0MzkuOTU0IDEzMC4wMDNDNDQwLjEyIDEzMC4wMDMgNDM5LjYyMSAxMzEuODc3IDQzOC44NDQgMTM0LjE2N0M0MzYuNzMzIDE0MC4zOTIgNDM2LjM4NyAxNDguOTA1IDQzNy44NCAxNTguODExQzQzOS42ODYgMTcxLjM3OSA0NDAuNzM1IDE3My4xOTIgNDU0LjAxOSAxODYuNzY5QzQ2MC4yNSAxOTMuMTM3IDQ2Ny40OTcgMjAxLjE2OCA0NzAuMTI0IDIwNC42MTZMNDc0LjkwMSAyMTAuODg2TDQ3MC4xMjQgMjA2LjQwNUM0NjQuMjgyIDIwMC45MjYgNDUwLjg0NyAxOTAuMjQgNDQ3Ljg3OSAxODguNzEyQzQ0NS44OSAxODcuNjg4IDQ0NS41OTQgMTg3LjcwNSA0NDQuMzY2IDE4OC45MjdDNDQzLjIzNSAxOTAuMDUzIDQ0Mi45OTcgMTkxLjc0NCA0NDIuODQgMTk5Ljc0MUM0NDIuNTk2IDIxMi4yMDQgNDQwLjg5NyAyMjAuMjA0IDQzNi43OTcgMjI4LjIwM0M0MzQuNTggMjMyLjUyOSA0MzQuMjMgMjMxLjYwNiA0MzYuMjM3IDIyNi43MjNDNDM3LjczNSAyMjMuMDc3IDQzNy44ODcgMjIxLjQ3NCA0MzcuODc2IDIwOS40MDhDNDM3Ljg1MyAxODUuMTY3IDQzNC45NzUgMTc5LjMzOSA0MTguMDk3IDE2OS4zNTVDNDEzLjgyMSAxNjYuODI2IDQwNi43NzYgMTYzLjE3OCA0MDIuNDQyIDE2MS4yNDlDMzk4LjEwNyAxNTkuMzIgMzk0LjY2NCAxNTcuNjM5IDM5NC43ODkgMTU3LjUxNEMzOTUuMjY3IDE1Ny4wMzggNDExLjcyNyAxNjEuODQyIDQxOC4zNTIgMTY0LjM5QzQyOC4yMDYgMTY4LjE4MSA0MjkuODMzIDE2OC42NzIgNDMxLjAzIDE2OC4yMTVDNDMxLjgzMiAxNjcuOTA5IDQzMi4yMiAxNjUuNTcyIDQzMi42MSAxNTguNzA0WiIgZmlsbD0iI0ZGMDA3QSIvPgo8cGF0aCBkPSJNMjM1Ljg4MyAyMDAuMTc1QzIyNC4wMjIgMTgzLjg0NiAyMTYuNjg0IDE1OC44MDkgMjE4LjI3MiAxNDAuMDkzTDIxOC43NjQgMTM0LjMwMUwyMjEuNDYzIDEzNC43OTRDMjI2LjUzNCAxMzUuNzE5IDIzNS4yNzUgMTM4Ljk3MyAyMzkuMzY5IDE0MS40NTlDMjUwLjYwMiAxNDguMjgxIDI1NS40NjUgMTU3LjI2MyAyNjAuNDEzIDE4MC4zMjhDMjYxLjg2MiAxODcuMDgzIDI2My43NjMgMTk0LjcyOCAyNjQuNjM4IDE5Ny4zMTdDMjY2LjA0NyAyMDEuNDgzIDI3MS4zNjkgMjExLjIxNCAyNzUuNjk2IDIxNy41MzRDMjc4LjgxMyAyMjIuMDg1IDI3Ni43NDMgMjI0LjI0MiAyNjkuODUzIDIyMy42MkMyNTkuMzMxIDIyMi42NyAyNDUuMDc4IDIxMi44MzQgMjM1Ljg4MyAyMDAuMTc1WiIgZmlsbD0iI0ZGMDA3QSIvPgo8cGF0aCBkPSJNNDE4LjIyMyAzMjEuNzA3QzM2Mi43OTMgMjk5LjM4OSAzNDMuMjcxIDI4MC4wMTcgMzQzLjI3MSAyNDcuMzMxQzM0My4yNzEgMjQyLjUyMSAzNDMuNDM3IDIzOC41ODUgMzQzLjYzOCAyMzguNTg1QzM0My44NCAyMzguNTg1IDM0NS45ODUgMjQwLjE3MyAzNDguNDA0IDI0Mi4xMTNDMzU5LjY0NCAyNTEuMTI4IDM3Mi4yMzEgMjU0Ljk3OSA0MDcuMDc2IDI2MC4wNjJDNDI3LjU4IDI2My4wNTQgNDM5LjExOSAyNjUuNDcgNDQ5Ljc2MyAyNjlDNDgzLjU5NSAyODAuMjIgNTA0LjUyNyAzMDIuOTkgNTA5LjUxOCAzMzQuMDA0QzUxMC45NjkgMzQzLjAxNiA1MTAuMTE4IDM1OS45MTUgNTA3Ljc2NiAzNjguODIyQzUwNS45MSAzNzUuODU3IDUwMC4yNDUgMzg4LjUzNyA0OTguNzQyIDM4OS4wMjNDNDk4LjMyNSAzODkuMTU4IDQ5Ny45MTcgMzg3LjU2MiA0OTcuODEgMzg1LjM4OUM0OTcuMjQgMzczLjc0NCA0OTEuMzU1IDM2Mi40MDYgNDgxLjQ3MiAzNTMuOTEzQzQ3MC4yMzUgMzQ0LjI1NyA0NTUuMTM3IDMzNi41NjkgNDE4LjIyMyAzMjEuNzA3WiIgZmlsbD0iI0ZGMDA3QSIvPgo8cGF0aCBkPSJNMzc5LjMxIDMzMC45NzhDMzc4LjYxNSAzMjYuODQ2IDM3Ny40MTEgMzIxLjU2OCAzNzYuNjMzIDMxOS4yNUwzNzUuMjE5IDMxNS4wMzZMMzc3Ljg0NiAzMTcuOTg1QzM4MS40ODEgMzIyLjA2NSAzODQuMzU0IDMyNy4yODcgMzg2Ljc4OSAzMzQuMjQxQzM4OC42NDcgMzM5LjU0OSAzODguODU2IDM0MS4xMjcgMzg4Ljg0MiAzNDkuNzUzQzM4OC44MjggMzU4LjIyMSAzODguNTk2IDM1OS45OTYgMzg2Ljg4IDM2NC43NzNDMzg0LjE3NCAzNzIuMzA3IDM4MC44MTYgMzc3LjY0OSAzNzUuMTgxIDM4My4zODNDMzY1LjA1NiAzOTMuNjg4IDM1Mi4wMzggMzk5LjM5MyAzMzMuMjUzIDQwMS43NkMzMjkuOTg3IDQwMi4xNzEgMzIwLjQ3IDQwMi44NjQgMzEyLjEwMyA0MDMuMjk5QzI5MS4wMTYgNDA0LjM5NSAyNzcuMTM4IDQwNi42NjEgMjY0LjY2OCA0MTEuMDRDMjYyLjg3NSA0MTEuNjcgMjYxLjI3NCA0MTIuMDUyIDI2MS4xMTIgNDExLjg5QzI2MC42MDcgNDExLjM4OCAyNjkuMDk4IDQwNi4zMjYgMjc2LjExMSA0MDIuOTQ4QzI4NS45OTkgMzk4LjE4NSAyOTUuODQyIDM5NS41ODYgMzE3Ljg5NyAzOTEuOTEzQzMyOC43OTIgMzkwLjA5OCAzNDAuMDQzIDM4Ny44OTcgMzQyLjkgMzg3LjAyMUMzNjkuODggMzc4Ljc0OSAzODMuNzQ4IDM1Ny40MDIgMzc5LjMxIDMzMC45NzhaIiBmaWxsPSIjRkYwMDdBIi8+CjxwYXRoIGQ9Ik00MDQuNzE5IDM3Ni4xMDVDMzk3LjM1NSAzNjAuMjczIDM5NS42NjQgMzQ0Ljk4OCAzOTkuNjk4IDMzMC43MzJDNDAwLjEzIDMyOS4yMDkgNDAwLjgyNCAzMjcuOTYyIDQwMS4yNDIgMzI3Ljk2MkM0MDEuNjU5IDMyNy45NjIgNDAzLjM5NyAzMjguOTAyIDQwNS4xMDMgMzMwLjA1QzQwOC40OTcgMzMyLjMzNSA0MTUuMzAzIDMzNi4xODIgNDMzLjQzNyAzNDYuMDY5QzQ1Ni4wNjUgMzU4LjQwNiA0NjguOTY2IDM2Ny45NTkgNDc3Ljc0IDM3OC44NzNDNDg1LjQyMyAzODguNDMyIDQ5MC4xNzggMzk5LjMxOCA0OTIuNDY3IDQxMi41OTNDNDkzLjc2MiA0MjAuMTEzIDQ5My4wMDMgNDM4LjIwNiA0OTEuMDc0IDQ0NS43NzhDNDg0Ljk5IDQ2OS42NTMgNDcwLjg1IDQ4OC40MDYgNDUwLjY4MiA0OTkuMzQ5QzQ0Ny43MjcgNTAwLjk1MiA0NDUuMDc1IDUwMi4yNjkgNDQ0Ljc4OCA1MDIuMjc1QzQ0NC41MDEgNTAyLjI4IDQ0NS41NzcgNDk5LjU0MyA0NDcuMTggNDk2LjE5MUM0NTMuOTY1IDQ4Mi4wMDkgNDU0LjczNyA0NjguMjE0IDQ0OS42MDggNDUyLjg1OUM0NDYuNDY3IDQ0My40NTcgNDQwLjA2NCA0MzEuOTg1IDQyNy4xMzUgNDEyLjU5NkM0MTIuMTAzIDM5MC4wNTQgNDA4LjQxNyAzODQuMDU0IDQwNC43MTkgMzc2LjEwNVoiIGZpbGw9IiNGRjAwN0EiLz4KPHBhdGggZD0iTTE5Ni41MTkgNDYxLjUyNUMyMTcuMDg5IDQ0NC4xNTcgMjQyLjY4MiA0MzEuODE5IDI2NS45OTYgNDI4LjAzMkMyNzYuMDQzIDQyNi4zOTkgMjkyLjc4IDQyNy4wNDcgMzAyLjA4NCA0MjkuNDI4QzMxNi45OTggNDMzLjI0NSAzMzAuMzM4IDQ0MS43OTMgMzM3LjI3NiA0NTEuOTc4QzM0NC4wNTcgNDYxLjkzMiAzNDYuOTY2IDQ3MC42MDYgMzQ5Ljk5NSA0ODkuOTA2QzM1MS4xODkgNDk3LjUxOSAzNTIuNDg5IDUwNS4xNjQgMzUyLjg4MiA1MDYuODk1QzM1NS4xNTYgNTE2Ljg5NyAzNTkuNTgzIDUyNC44OTIgMzY1LjA2NyA1MjguOTA3QzM3My43NzkgNTM1LjI4MyAzODguNzggNTM1LjY4IDQwMy41MzYgNTI5LjkyNEM0MDYuMDQxIDUyOC45NDcgNDA4LjIxNSA1MjguMjcxIDQwOC4zNjggNTI4LjQyNEM0MDguOTAzIDUyOC45NTUgNDAxLjQ3MyA1MzMuOTMgMzk2LjIzIDUzNi41NDhDMzg5LjE3NyA1NDAuMDcxIDM4My41NjggNTQxLjQzNCAzNzYuMTE1IDU0MS40MzRDMzYyLjYgNTQxLjQzNCAzNTEuMzc5IDUzNC41NTggMzQyLjAxNiA1MjAuNTM5QzM0MC4xNzQgNTE3Ljc4IDMzNi4wMzIgNTA5LjUxNiAzMzIuODEzIDUwMi4xNzZDMzIyLjkyOCA0NzkuNjI4IDMxOC4wNDYgNDcyLjc1OSAzMDYuNTY4IDQ2NS4yNDJDMjk2LjU3OSA0NTguNzAxIDI4My42OTcgNDU3LjUzIDI3NC4wMDYgNDYyLjI4MkMyNjEuMjc2IDQ2OC41MjMgMjU3LjcyNCA0ODQuNzkxIDI2Ni44NDIgNDk1LjEwMUMyNzAuNDY1IDQ5OS4xOTggMjc3LjIyMyA1MDIuNzMyIDI4Mi43NDkgNTAzLjQxOUMyOTMuMDg2IDUwNC43MDUgMzAxLjk3IDQ5Ni44NDEgMzAxLjk3IDQ4Ni40MDRDMzAxLjk3IDQ3OS42MjcgMjk5LjM2NSA0NzUuNzYgMjkyLjgwOCA0NzIuODAxQzI4My44NTIgNDY4Ljc2IDI3NC4yMjYgNDczLjQ4MyAyNzQuMjcyIDQ4MS44OTdDMjc0LjI5MiA0ODUuNDg0IDI3NS44NTQgNDg3LjczNyAyNzkuNDUgNDg5LjM2NEMyODEuNzU3IDQ5MC40MDggMjgxLjgxMSA0OTAuNDkxIDI3OS45MjkgNDkwLjFDMjcxLjcxMiA0ODguMzk2IDI2OS43ODcgNDc4LjQ5IDI3Ni4zOTQgNDcxLjkxM0MyODQuMzI2IDQ2NC4wMTggMzAwLjcyOSA0NjcuNTAyIDMwNi4zNjIgNDc4LjI3OUMzMDguNzI4IDQ4Mi44MDUgMzA5LjAwMyA0OTEuODIgMzA2Ljk0IDQ5Ny4yNjRDMzAyLjMyMiA1MDkuNDQ4IDI4OC44NTkgNTE1Ljg1NSAyNzUuMjAxIDUxMi4zNjhDMjY1LjkwMyA1MDkuOTk0IDI2Mi4xMTcgNTA3LjQyNCAyNTAuOTA2IDQ5NS44NzZDMjMxLjQyNSA0NzUuODA5IDIyMy44NjIgNDcxLjkyIDE5NS43NzcgNDY3LjUzNkwxOTAuMzk1IDQ2Ni42OTZMMTk2LjUxOSA0NjEuNTI1WiIgZmlsbD0iI0ZGMDA3QSIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTQ5LjYyMDIgMTIuMDAzMUMxMTQuNjc4IDkwLjk2MzggMjE0Ljk3NyAyMTMuOTAxIDIxOS45NTcgMjIwLjc4NEMyMjQuMDY4IDIyNi40NjcgMjIyLjUyMSAyMzEuNTc2IDIxNS40NzggMjM1LjU4QzIxMS41NjEgMjM3LjgwNyAyMDMuNTA4IDI0MC4wNjMgMTk5LjQ3NiAyNDAuMDYzQzE5NC45MTYgMjQwLjA2MyAxODkuNzc5IDIzNy44NjcgMTg2LjAzOCAyMzQuMzE4QzE4My4zOTMgMjMxLjgxIDE3Mi43MjEgMjE1Ljg3NCAxNDguMDg0IDE3Ny42NDZDMTI5LjIzMyAxNDguMzk2IDExMy40NTcgMTI0LjEzMSAxMTMuMDI3IDEyMy43MjVDMTEyLjAzMiAxMjIuNzg1IDExMi4wNDkgMTIyLjgxNyAxNDYuMTYyIDE4My44NTRDMTY3LjU4MiAyMjIuMTgxIDE3NC44MTMgMjM1LjczMSAxNzQuODEzIDIzNy41NDNDMTc0LjgxMyAyNDEuMjI5IDE3My44MDggMjQzLjE2NiAxNjkuMjYxIDI0OC4yMzhDMTYxLjY4MSAyNTYuNjk0IDE1OC4yOTMgMjY2LjE5NSAxNTUuODQ3IDI4NS44NTlDMTUzLjEwNCAzMDcuOTAyIDE0NS4zOTQgMzIzLjQ3MyAxMjQuMDI2IDM1MC4xMjJDMTExLjUxOCAzNjUuNzIyIDEwOS40NzEgMzY4LjU4MSAxMDYuMzE1IDM3NC44NjlDMTAyLjMzOSAzODIuNzg2IDEwMS4yNDYgMzg3LjIyMSAxMDAuODAzIDM5Ny4yMTlDMTAwLjMzNSA0MDcuNzkgMTAxLjI0NyA0MTQuNjE5IDEwNC40NzcgNDI0LjcyNkMxMDcuMzA0IDQzMy41NzUgMTEwLjI1NSA0MzkuNDE3IDExNy44IDQ1MS4xMDRDMTI0LjMxMSA0NjEuMTg4IDEyOC4wNjEgNDY4LjY4MyAxMjguMDYxIDQ3MS42MTRDMTI4LjA2MSA0NzMuOTQ3IDEyOC41MDYgNDczLjk1IDEzOC41OTYgNDcxLjY3MkMxNjIuNzQxIDQ2Ni4yMTkgMTgyLjM0OCA0NTYuNjI5IDE5My4zNzUgNDQ0Ljg3N0MyMDAuMTk5IDQzNy42MDMgMjAxLjgwMSA0MzMuNTg2IDIwMS44NTMgNDIzLjYxOEMyMDEuODg3IDQxNy4wOTggMjAxLjY1OCA0MTUuNzMzIDE5OS44OTYgNDExLjk4MkMxOTcuMDI3IDQwNS44NzcgMTkxLjgwNCA0MDAuODAxIDE4MC4yOTIgMzkyLjkzMkMxNjUuMjA5IDM4Mi42MjEgMTU4Ljc2NyAzNzQuMzIgMTU2Ljk4NyAzNjIuOTA0QzE1NS41MjcgMzUzLjUzNyAxNTcuMjIxIDM0Ni45MjggMTY1LjU2NSAzMjkuNDRDMTc0LjIwMiAzMTEuMzM4IDE3Ni4zNDIgMzAzLjYyNCAxNzcuNzkgMjg1LjM3OEMxNzguNzI1IDI3My41ODkgMTgwLjAyIDI2OC45NCAxODMuNDA3IDI2NS4yMDlDMTg2LjkzOSAyNjEuMzE3IDE5MC4xMTkgMjYwIDE5OC44NjEgMjU4LjgwNUMyMTMuMTEzIDI1Ni44NTggMjIyLjE4OCAyNTMuMTcxIDIyOS42NDggMjQ2LjI5N0MyMzYuMTE5IDI0MC4zMzQgMjM4LjgyNyAyMzQuNTg4IDIzOS4yNDMgMjI1LjkzOEwyMzkuNTU4IDIxOS4zODJMMjM1Ljk0MiAyMTUuMTY2QzIyMi44NDYgMTk5Ljg5NiA0MC44NSAwIDQwLjA0NCAwQzM5Ljg3MTkgMCA0NC4xODEzIDUuNDAxNzggNDkuNjIwMiAxMi4wMDMxWk0xMzUuNDEyIDQwOS4xOEMxMzguMzczIDQwMy45MzcgMTM2LjggMzk3LjE5NSAxMzEuODQ3IDM5My45MDJDMTI3LjE2NyAzOTAuNzkgMTE5Ljg5NyAzOTIuMjU2IDExOS44OTcgMzk2LjMxMUMxMTkuODk3IDM5Ny41NDggMTIwLjU4MiAzOTguNDQ5IDEyMi4xMjQgMzk5LjI0M0MxMjQuNzIgNDAwLjU3OSAxMjQuOTA5IDQwMi4wODEgMTIyLjg2NiA0MDUuMTUyQzEyMC43OTcgNDA4LjI2MiAxMjAuOTY0IDQxMC45OTYgMTIzLjMzNyA0MTIuODU0QzEyNy4xNjIgNDE1Ljg0OSAxMzIuNTc2IDQxNC4yMDIgMTM1LjQxMiA0MDkuMThaIiBmaWxsPSIjRkYwMDdBIi8+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjQ4LjU1MiAyNjIuMjQ0QzI0MS44NjIgMjY0LjI5OSAyMzUuMzU4IDI3MS4zOSAyMzMuMzQ0IDI3OC44MjZDMjMyLjExNiAyODMuMzYyIDIzMi44MTMgMjkxLjMxOSAyMzQuNjUzIDI5My43NzZDMjM3LjYyNSAyOTcuNzQ1IDI0MC40OTkgMjk4Ljc5MSAyNDguMjgyIDI5OC43MzZDMjYzLjUxOCAyOTguNjMgMjc2Ljc2NCAyOTIuMDk1IDI3OC4zMDQgMjgzLjkyNUMyNzkuNTY3IDI3Ny4yMjkgMjczLjc0OSAyNjcuOTQ4IDI2NS43MzYgMjYzLjg3NEMyNjEuNjAxIDI2MS43NzIgMjUyLjgwNyAyNjAuOTM4IDI0OC41NTIgMjYyLjI0NFpNMjY2LjM2NCAyNzYuMTcyQzI2OC43MTQgMjcyLjgzNCAyNjcuNjg2IDI2OS4yMjUgMjYzLjY5IDI2Ni43ODVDMjU2LjA4IDI2Mi4xMzggMjQ0LjU3MSAyNjUuOTgzIDI0NC41NzEgMjczLjE3M0MyNDQuNTcxIDI3Ni43NTIgMjUwLjU3MiAyODAuNjU2IDI1Ni4wNzQgMjgwLjY1NkMyNTkuNzM1IDI4MC42NTYgMjY0Ljc0NiAyNzguNDczIDI2Ni4zNjQgMjc2LjE3MloiIGZpbGw9IiNGRjAwN0EiLz4KPC9zdmc+Cg==',
+  router: {
+    address: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D',
+    api: UniswapV2.ROUTER
+  },
+  factory: {
+    address: '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f',
+    api: UniswapV2.FACTORY
+  },
+  pair: {
+    api: UniswapV2.PAIR
+  },
+  slippage: true,
+};
+
+new Exchange(
+
+  Object.assign(exchange$4, {
+    findPath: ({ tokenIn, tokenOut })=>
+      UniswapV2.findPath(blockchain$4, exchange$4, { tokenIn, tokenOut }),
+    pathExists: (path)=>
+      UniswapV2.pathExists(blockchain$4, exchange$4, path),
+    getAmounts: ({ path, block, tokenIn, tokenOut, amountOut, amountIn, amountInMax, amountOutMin })=>
+      UniswapV2.getAmounts(blockchain$4, exchange$4, { path, block, tokenIn, tokenOut, amountOut, amountIn, amountInMax, amountOutMin }),
+    getTransaction: ({ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress })=>
+      UniswapV2.getTransaction(blockchain$4, exchange$4 ,{ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress }),
+  })
+);
+
+let fixPath = (path) => path;
+
+let pathExists = async (blockchain, path) => {
+  if(fixPath(path).length <= 1) { return false }
+  if(fixPath(path).length >= 3) { return false }
+  return (
+    path.includes(blockchain.currency.address) &&
+    path.includes(blockchain.wrapped.address)
+  )
+};
+
+let findPath = async (blockchain, { tokenIn, tokenOut }) => {
+  if(
+    ![tokenIn, tokenOut].includes(blockchain.currency.address) ||
+    ![tokenIn, tokenOut].includes(blockchain.wrapped.address)
+  ) { return { path: undefined, fixedPath: undefined } }
+
+  let path = [tokenIn, tokenOut];
+
+  return { path, fixedPath: path }
+};
+
+let getAmounts = async ({
+  path,
+  block,
+  tokenIn,
+  tokenOut,
+  amountOut,
+  amountIn,
+  amountInMax,
+  amountOutMin
+}) => {
+
+  if (amountOut) {
+    amountIn = amountInMax = amountOutMin = amountOut;
+  } else if (amountIn) {
+    amountOut = amountInMax = amountOutMin = amountIn;
+  } else if(amountOutMin) {
+    amountIn = amountInMax = amountOut = amountOutMin;
+  } else if(amountInMax) {
+    amountOut = amountOutMin = amountIn = amountInMax;
+  }
+
+  return { amountOut, amountIn, amountInMax, amountOutMin }
+};
+
+let getTransaction = (blockchain, exchange, {
+  path,
+  amountIn,
+  amountInMax,
+  amountOut,
+  amountOutMin,
+  amountInInput,
+  amountOutInput,
+  amountInMaxInput,
+  amountOutMinInput,
+  fromAddress
+}) => {
+  
+  let transaction = {
+    blockchain: blockchain.name,
+    from: fromAddress,
+    to: exchange.wrapper.address,
+    api: exchange.wrapper.api,
+  };
+
+  if (path[0] === blockchain.currency.address && path[1] === blockchain.wrapped.address) {
+    transaction.method = 'deposit';
+    transaction.value = amountIn.toString();
+    return transaction
+  } else if (path[0] === blockchain.wrapped.address && path[1] === blockchain.currency.address) {
+    transaction.method = 'withdraw';
+    transaction.value = 0;
+    transaction.params = { wad: amountIn };
+    return transaction
+  }
+};
+
+const WETH = [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"guy","type":"address"},{"name":"wad","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"src","type":"address"},{"name":"dst","type":"address"},{"name":"wad","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"wad","type":"uint256"}],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"dst","type":"address"},{"name":"wad","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"deposit","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"src","type":"address"},{"indexed":true,"name":"guy","type":"address"},{"indexed":false,"name":"wad","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"src","type":"address"},{"indexed":true,"name":"dst","type":"address"},{"indexed":false,"name":"wad","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"dst","type":"address"},{"indexed":false,"name":"wad","type":"uint256"}],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"src","type":"address"},{"indexed":false,"name":"wad","type":"uint256"}],"name":"Withdrawal","type":"event"}];
+
+var WETH$1 = {
+  findPath,
+  pathExists,
+  getAmounts,
+  getTransaction,
+  WETH,
+};
+
+const blockchain$3 = Blockchains.bsc;
+
+const exchange$3 = {
+  blockchain: 'bsc',
+  name: 'wbnb',
+  alternativeNames: [],
+  label: 'Wrapped BNB',
+  logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI2LjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxOTIgMTkyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxOTIgMTkyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0YwQjkwQjt9Cjwvc3R5bGU+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01NCw0MS4xbDQyLTI0LjJsNDIsMjQuMmwtMTUuNCw4LjlMOTYsMzQuOUw2OS40LDUwTDU0LDQxLjF6IE0xMzgsNzEuN2wtMTUuNC04LjlMOTYsNzhMNjkuNCw2Mi43bC0xNS40LDl2MTgKCUw4MC42LDEwNXYzMC41bDE1LjQsOWwxNS40LTlWMTA1TDEzOCw4OS43VjcxLjd6IE0xMzgsMTIwLjN2LTE4bC0xNS40LDguOXYxOEMxMjIuNiwxMjkuMSwxMzgsMTIwLjMsMTM4LDEyMC4zeiBNMTQ4LjksMTI2LjQKCWwtMjYuNiwxNS4zdjE4bDQyLTI0LjJWODdsLTE1LjQsOUMxNDguOSw5NiwxNDguOSwxMjYuNCwxNDguOSwxMjYuNHogTTEzMy41LDU2LjRsMTUuNCw5djE4bDE1LjQtOXYtMThsLTE1LjQtOUwxMzMuNSw1Ni40CglMMTMzLjUsNTYuNHogTTgwLjYsMTQ4LjN2MThsMTUuNCw5bDE1LjQtOXYtMThMOTYsMTU3LjFMODAuNiwxNDguM3ogTTU0LDEyMC4zbDE1LjQsOXYtMTguMUw1NCwxMDIuM0w1NCwxMjAuM0w1NCwxMjAuM3oKCSBNODAuNiw1Ni40bDE1LjQsOWwxNS40LTlMOTYsNDcuNUM5Niw0Ny40LDgwLjYsNTYuNCw4MC42LDU2LjRMODAuNiw1Ni40eiBNNDMuMSw2NS40bDE1LjQtOWwtMTUuNC05bC0xNS40LDl2MThsMTUuNCw5TDQzLjEsNjUuNAoJTDQzLjEsNjUuNHogTTQzLjEsOTUuOUwyNy43LDg3djQ4LjVsNDIsMjQuMnYtMThsLTI2LjYtMTUuM1Y5NS45TDQzLjEsOTUuOXoiLz4KPC9zdmc+Cg==',
+  wrapper: {
+    address: blockchain$3.wrapped.address,
+    api: WETH$1.WETH
+  },
+  slippage: false,
+};
+
+new Exchange(
+
+  Object.assign(exchange$3, {
+    findPath: ({ tokenIn, tokenOut })=>
+      WETH$1.findPath(blockchain$3, { tokenIn, tokenOut }),
+    pathExists: (path)=>
+      WETH$1.pathExists(blockchain$3, path),
+    getAmounts: WETH$1.getAmounts,
+    getTransaction: ({ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress })=>
+      WETH$1.getTransaction(blockchain$3, exchange$3 ,{ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress }),
+  })
+);
+
+const blockchain$2 = Blockchains.ethereum;
+
+const exchange$2 = {
+  blockchain: 'ethereum',
+  name: 'weth',
+  alternativeNames: [],
+  label: 'Wrapped Ethereum',
+  logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI2LjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIKCSBpZD0iTGF5ZXJfMSIgaW1hZ2UtcmVuZGVyaW5nPSJvcHRpbWl6ZVF1YWxpdHkiIHNoYXBlLXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIiB0ZXh0LXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIgoJIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjgzLjUgMjgzLjUiCgkgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjgzLjUgMjgzLjU7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojMzQzNDM0O30KCS5zdDF7ZmlsbDojOEM4QzhDO30KCS5zdDJ7ZmlsbDojM0MzQzNCO30KCS5zdDN7ZmlsbDojMTQxNDE0O30KCS5zdDR7ZmlsbDojMzkzOTM5O30KPC9zdHlsZT4KPGc+Cgk8Zz4KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTQxLjcsMjUuOWwtMS41LDUuMnYxNTMuM2wxLjUsMS41bDcxLjItNDIuMUwxNDEuNywyNS45eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xNDEuNywyNS45TDcwLjYsMTQzLjhsNzEuMSw0Mi4xdi03NC40VjI1Ljl6Ii8+CgkJPHBhdGggY2xhc3M9InN0MiIgZD0iTTE0MS43LDE5OS40bC0wLjgsMS4xdjU0LjZsMC44LDIuNWw3MS4yLTEwMC4zTDE0MS43LDE5OS40eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xNDEuNywyNTcuNnYtNTguMmwtNzEuMS00Mi4xTDE0MS43LDI1Ny42eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0xNDEuNywxODUuOWw3MS4yLTQyLjFsLTcxLjItMzIuM1YxODUuOXoiLz4KCQk8cGF0aCBjbGFzcz0ic3Q0IiBkPSJNNzAuNiwxNDMuOGw3MS4xLDQyLjF2LTc0LjRMNzAuNiwxNDMuOHoiLz4KCTwvZz4KPC9nPgo8L3N2Zz4K',
+  wrapper: {
+    address: blockchain$2.wrapped.address,
+    api: WETH$1.WETH
+  },
+  slippage: false,
+};
+
+new Exchange(
+
+  Object.assign(exchange$2, {
+    findPath: ({ tokenIn, tokenOut })=>
+      WETH$1.findPath(blockchain$2, { tokenIn, tokenOut }),
+    pathExists: (path)=>
+      WETH$1.pathExists(blockchain$2, path),
+    getAmounts: WETH$1.getAmounts,
+    getTransaction: ({ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress })=>
+      WETH$1.getTransaction(blockchain$2, exchange$2 ,{ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress }),
+  })
+);
+
+const blockchain$1 = Blockchains.fantom;
+
+const exchange$1 = {
+  blockchain: 'fantom',
+  name: 'wftm',
+  alternativeNames: [],
+  label: 'Wrapped Fantom',
+  logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTkyIDE5MiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTkyIDE5MjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8ZyBpZD0iY2lyY2xlIj4KCTxnIGlkPSJGYW50b20tY2lyY2xlIj4KCQk8Y2lyY2xlIGlkPSJPdmFsIiBmaWxsUnVsZT0iZXZlbm9kZCIgY2xpcFJ1bGU9ImV2ZW5vZGQiIGZpbGw9IiMxOTY5RkYiIGNsYXNzPSJzdDAiIGN4PSI5NiIgY3k9Ijk2IiByPSI4MC40Ii8+CgkJPHBhdGggaWQ9IlNoYXBlIiBmaWxsPSIjRkZGRkZGIiBkPSJNOTEuMSw0MS4yYzIuNy0xLjQsNi44LTEuNCw5LjUsMGwyNy42LDE0LjZjMS42LDAuOSwyLjUsMi4xLDIuNywzLjVoMHY3My4zCgkJCWMwLDEuNC0wLjksMi45LTIuNywzLjhsLTI3LjYsMTQuNmMtMi43LDEuNC02LjgsMS40LTkuNSwwbC0yNy42LTE0LjZjLTEuOC0wLjktMi42LTIuNC0yLjctMy44YzAtMC4xLDAtMC4zLDAtMC40bDAtNzIuNAoJCQljMC0wLjEsMC0wLjIsMC0wLjNsMC0wLjJoMGMwLjEtMS4zLDEtMi42LDIuNi0zLjVMOTEuMSw0MS4yeiBNMTI2LjYsOTkuOWwtMjYsMTMuN2MtMi43LDEuNC02LjgsMS40LTkuNSwwTDY1LjIsMTAwdjMyLjMKCQkJbDI1LjksMTMuNmMxLjUsMC44LDMuMSwxLjYsNC43LDEuN2wwLjEsMGMxLjUsMCwzLTAuOCw0LjYtMS41bDI2LjItMTMuOVY5OS45eiBNNTYuNSwxMzAuOWMwLDIuOCwwLjMsNC43LDEsNgoJCQljMC41LDEuMSwxLjMsMS45LDIuOCwyLjlsMC4xLDAuMWMwLjMsMC4yLDAuNywwLjQsMS4xLDAuN2wwLjUsMC4zbDEuNiwwLjlsLTIuMiwzLjdsLTEuNy0xLjFsLTAuMy0wLjJjLTAuNS0wLjMtMC45LTAuNi0xLjMtMC44CgkJCWMtNC4yLTIuOC01LjctNS45LTUuNy0xMi4zbDAtMC4ySDU2LjV6IE05My44LDgwLjVjLTAuMiwwLjEtMC40LDAuMS0wLjYsMC4yTDY1LjYsOTUuM2MwLDAtMC4xLDAtMC4xLDBsMCwwbDAsMGwwLjEsMGwyNy42LDE0LjYKCQkJYzAuMiwwLjEsMC40LDAuMiwwLjYsMC4yVjgwLjV6IE05OC4yLDgwLjV2MjkuOGMwLjItMC4xLDAuNC0wLjEsMC42LTAuMmwyNy42LTE0LjZjMCwwLDAuMSwwLDAuMSwwbDAsMGwwLDBsLTAuMSwwTDk4LjgsODAuNwoJCQlDOTguNiw4MC42LDk4LjQsODAuNSw5OC4yLDgwLjV6IE0xMjYuNiw2NC40bC0yNC44LDEzbDI0LjgsMTNWNjQuNHogTTY1LjIsNjQuNHYyNi4xbDI0LjgtMTNMNjUuMiw2NC40eiBNOTguNyw0NS4xCgkJCWMtMS40LTAuOC00LTAuOC01LjUsMEw2NS42LDU5LjdjMCwwLTAuMSwwLTAuMSwwbDAsMGwwLDBsMC4xLDBsMjcuNiwxNC42YzEuNCwwLjgsNCwwLjgsNS41LDBsMjcuNi0xNC42YzAsMCwwLjEsMCwwLjEsMGwwLDBsMCwwCgkJCWwtMC4xLDBMOTguNyw0NS4xeiBNMTMwLjcsNDYuNWwxLjcsMS4xbDAuMywwLjJjMC41LDAuMywwLjksMC42LDEuMywwLjhjNC4yLDIuOCw1LjcsNS45LDUuNywxMi4zbDAsMC4yaC00LjNjMC0yLjgtMC4zLTQuNy0xLTYKCQkJYy0wLjUtMS4xLTEuMy0xLjktMi44LTIuOWwtMC4xLTAuMWMtMC4zLTAuMi0wLjctMC40LTEuMS0wLjdsLTAuNS0wLjNsLTEuNi0wLjlMMTMwLjcsNDYuNXoiLz4KCTwvZz4KPC9nPgo8L3N2Zz4K',
+  wrapper: {
+    address: blockchain$1.wrapped.address,
+    api: WETH$1.WETH
+  },
+  slippage: false,
+};
+
+new Exchange(
+
+  Object.assign(exchange$1, {
+    findPath: ({ tokenIn, tokenOut })=>
+      WETH$1.findPath(blockchain$1, { tokenIn, tokenOut }),
+    pathExists: (path)=>
+      WETH$1.pathExists(blockchain$1, path),
+    getAmounts: WETH$1.getAmounts,
+    getTransaction: ({ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress })=>
+      WETH$1.getTransaction(blockchain$1, exchange$1 ,{ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress }),
+  })
+);
+
+const blockchain = Blockchains.polygon;
+
+const exchange = {
+  blockchain: 'polygon',
+  name: 'wmatic',
+  alternativeNames: [],
+  label: 'Wrapped MATIC',
+  logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI2LjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA0NS40IDQ1LjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQ1LjQgNDUuNDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOiM4MjQ3RTU7fQo8L3N0eWxlPgo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzEuOSwxNi42Yy0wLjctMC40LTEuNi0wLjQtMi4yLDBsLTUuMywzLjFsLTMuNSwybC01LjEsMy4xYy0wLjcsMC40LTEuNiwwLjQtMi4yLDBsLTQtMi40CgljLTAuNi0wLjQtMS4xLTEuMS0xLjEtMnYtNC42YzAtMC45LDAuNS0xLjYsMS4xLTJsNC0yLjNjMC43LTAuNCwxLjUtMC40LDIuMiwwbDQsMi40YzAuNywwLjQsMS4xLDEuMSwxLjEsMnYzLjFsMy41LTIuMXYtMy4yCgljMC0wLjktMC40LTEuNi0xLjEtMmwtNy41LTQuNGMtMC43LTAuNC0xLjUtMC40LTIuMiwwTDYsMTEuN2MtMC43LDAuNC0xLjEsMS4xLTEuMSwxLjh2OC43YzAsMC45LDAuNCwxLjYsMS4xLDJsNy42LDQuNAoJYzAuNywwLjQsMS41LDAuNCwyLjIsMGw1LjEtMi45bDMuNS0yLjFsNS4xLTIuOWMwLjctMC40LDEuNi0wLjQsMi4yLDBsNCwyLjNjMC43LDAuNCwxLjEsMS4xLDEuMSwydjQuNmMwLDAuOS0wLjQsMS42LTEuMSwyCglsLTMuOSwyLjNjLTAuNywwLjQtMS41LDAuNC0yLjIsMGwtNC0yLjNjLTAuNy0wLjQtMS4xLTEuMS0xLjEtMnYtMi45TDIxLDI4Ljd2My4xYzAsMC45LDAuNCwxLjYsMS4xLDJsNy41LDQuNAoJYzAuNywwLjQsMS41LDAuNCwyLjIsMGw3LjUtNC40YzAuNy0wLjQsMS4xLTEuMSwxLjEtMlYyM2MwLTAuOS0wLjQtMS42LTEuMS0yQzM5LjIsMjEsMzEuOSwxNi42LDMxLjksMTYuNnoiLz4KPC9zdmc+Cg==',
+  wrapper: {
+    address: blockchain.wrapped.address,
+    api: WETH$1.WETH
+  },
+  slippage: false,
+};
+
+new Exchange(
+
+  Object.assign(exchange, {
+    findPath: ({ tokenIn, tokenOut })=>
+      WETH$1.findPath(blockchain, { tokenIn, tokenOut }),
+    pathExists: (path)=>
+      WETH$1.pathExists(blockchain, path),
+    getAmounts: WETH$1.getAmounts,
+    getTransaction: ({ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress })=>
+      WETH$1.getTransaction(blockchain, exchange ,{ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress }),
+  })
+);
+
+var routers$2 = {
+  ethereum: {
+    address: '0xae60aC8e69414C2Dc362D0e6a03af643d1D85b92',
+    api: [{"inputs":[{"internalType":"address","name":"_configuration","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"configuration","outputs":[{"internalType":"contract DePayRouterV1Configuration","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"pluginAddress","type":"address"}],"name":"isApproved","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"uint256[]","name":"amounts","type":"uint256[]"},{"internalType":"address[]","name":"addresses","type":"address[]"},{"internalType":"address[]","name":"plugins","type":"address[]"},{"internalType":"string[]","name":"data","type":"string[]"}],"name":"route","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
+  },
+  bsc: {
+    address: '0x0Dfb7137bC64b63F7a0de7Cb9CDa178702666220',
+    api: [{"inputs":[{"internalType":"address","name":"_configuration","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"configuration","outputs":[{"internalType":"contract DePayRouterV1Configuration","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"pluginAddress","type":"address"}],"name":"isApproved","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"uint256[]","name":"amounts","type":"uint256[]"},{"internalType":"address[]","name":"addresses","type":"address[]"},{"internalType":"address[]","name":"plugins","type":"address[]"},{"internalType":"string[]","name":"data","type":"string[]"}],"name":"route","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
+  },
+  polygon: {
+    address: '0x2CA727BC33915823e3D05fe043d310B8c5b2dC5b',
+    api: [{"inputs":[{"internalType":"address","name":"_configuration","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"configuration","outputs":[{"internalType":"contract DePayRouterV1Configuration","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"pluginAddress","type":"address"}],"name":"isApproved","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"uint256[]","name":"amounts","type":"uint256[]"},{"internalType":"address[]","name":"addresses","type":"address[]"},{"internalType":"address[]","name":"plugins","type":"address[]"},{"internalType":"string[]","name":"data","type":"string[]"}],"name":"route","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
+  }
+};
+
+var routers$1 = {
+  solana: {
+    address: 'DePayRG7ZySPWzeK9Kvq7aPeif7sdbBZNh6DHcvNj7F7',
+    ammProgram: 'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc',
+    alt: 'EYGgx5fYCZtLN2pvnR4Bhn5KpMffKwyHCms4VhjSvF2K',
+    api: {
+      createPaymentsAccount: {
+        anchorDiscriminator: new BN("8445995362644372894"),
+        layout: struct([
+          u64$1("anchorDiscriminator"),
+        ])
+      },
+      createEscrowSolAccount: {
+        anchorDiscriminator: new BN("2482112285991870004"),
+        layout: struct([
+          u64$1("anchorDiscriminator"),
+        ])
+      },
+      createEscrowTokenAccount: {
+        anchorDiscriminator: new BN("16156440424245087"),
+        layout: struct([
+          u64$1("anchorDiscriminator"),
+        ])
+      },
+      routeSol: {
+        anchorDiscriminator: new BN("6497164560834983274"),
+        layout: struct([
+          u64$1("anchorDiscriminator"),
+          u64$1("nonce"),
+          u64$1("paymentAmount"),
+          u64$1("feeAmount"),
+          i64("deadline"),
+        ])
+      },
+      routeToken: {
+        anchorDiscriminator: new BN("13483873682232752277"),
+        layout: struct([
+          u64$1("anchorDiscriminator"),
+          u64$1("nonce"),
+          u64$1("paymentAmount"),
+          u64$1("feeAmount"),
+          i64("deadline"),
+        ])
+      },
+      routeOrcaSwap: {
+        anchorDiscriminator: new BN("9797248061404332986"),
+        layout: struct([
+          u64$1("anchorDiscriminator"),
+          u64$1("nonce"),
+          u64$1("amountIn"),
+          u128("sqrtPriceLimit"),
+          bool("amountSpecifiedIsInput"),
+          bool("aToB"),
+          u64$1("paymentAmount"),
+          u64$1("feeAmount"),
+          i64("deadline"),
+        ])
+      },
+      routeOrcaSwapSolOut: {
+        anchorDiscriminator: new BN("13662217913752830165"),
+        layout: struct([
+          u64$1("anchorDiscriminator"),
+          u64$1("nonce"),
+          u64$1("amountIn"),
+          u128("sqrtPriceLimit"),
+          bool("amountSpecifiedIsInput"),
+          bool("aToB"),
+          u64$1("paymentAmount"),
+          u64$1("feeAmount"),
+          i64("deadline"),
+        ])
+      },
+      routeOrcaTwoHopSwap: {
+        anchorDiscriminator: new BN("15695720599845325801"),
+        layout: struct([
+          u64$1("anchorDiscriminator"),
+          u64$1("nonce"),
+          u64$1("amountIn"),
+          bool("amountSpecifiedIsInput"),
+          bool("aToBOne"),
+          bool("aToBTwo"),
+          u128("sqrtPriceLimitOne"),
+          u128("sqrtPriceLimitTwo"),
+          u64$1("paymentAmount"),
+          u64$1("feeAmount"),
+          i64("deadline"),
+        ])
+      },
+      routeOrcaTwoHopSwapSolOut: {
+        anchorDiscriminator: new BN("15074061855608091530"),
+        layout: struct([
+          u64$1("anchorDiscriminator"),
+          u64$1("nonce"),
+          u64$1("amountIn"),
+          bool("amountSpecifiedIsInput"),
+          bool("aToBOne"),
+          bool("aToBTwo"),
+          u128("sqrtPriceLimitOne"),
+          u128("sqrtPriceLimitTwo"),
+          u64$1("paymentAmount"),
+          u64$1("feeAmount"),
+          i64("deadline"),
+        ])
+      }
+    }
+  },
+};
+
+var routers = {... routers$2, ...routers$1};
+
+var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+/** Detect free variable `global` from Node.js. */
+
+var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
+
+var _freeGlobal = freeGlobal;
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = _freeGlobal || freeSelf || Function('return this')();
+
+var _root = root;
+
+/** Built-in value references. */
+var Symbol$1 = _root.Symbol;
+
+var _Symbol = Symbol$1;
+
+/** Built-in value references. */
+_Symbol ? _Symbol.toStringTag : undefined;
+
+/** Built-in value references. */
+_Symbol ? _Symbol.toStringTag : undefined;
+
+let _window;
+
+let getWindow = () => {
+  if(_window) { return _window }
+  if (typeof global == 'object') {
+    _window = global;
+  } else {
+    _window = window;
+  }
+  return _window
+};
+
+const getConfiguration = () =>{
+  if(getWindow()._Web3ClientConfiguration === undefined) {
+    getWindow()._Web3ClientConfiguration = {};
+  }
+  return getWindow()._Web3ClientConfiguration
+};
+
+const BATCH_INTERVAL$1 = 10;
+const CHUNK_SIZE$1 = 99;
+
+class StaticJsonRpcBatchProvider extends ethers$1.providers.JsonRpcProvider {
+
+  constructor(url, network, endpoints, failover) {
+    super(url);
+    this._network = network;
+    this._endpoint = url;
+    this._endpoints = endpoints;
+    this._failover = failover;
+    this._pendingBatch = [];
+  }
+
+  detectNetwork() {
+    return Promise.resolve(Blockchains.findByName(this._network).id)
+  }
+
+  requestChunk(chunk, endpoint) {
+    
+    const request = chunk.map((inflight) => inflight.request);
+
+    return ethers$1.utils.fetchJson(endpoint, JSON.stringify(request))
+      .then((result) => {
+        // For each result, feed it to the correct Promise, depending
+        // on whether it was a success or error
+        chunk.forEach((inflightRequest, index) => {
+          const payload = result[index];
+          if (payload.error) {
+            const error = new Error(payload.error.message);
+            error.code = payload.error.code;
+            error.data = payload.error.data;
+            inflightRequest.reject(error);
+          }
+          else {
+            inflightRequest.resolve(payload.result);
+          }
+        });
+      }).catch((error) => {
+        if(error && error.code == 'SERVER_ERROR') {
+          const index = this._endpoints.indexOf(this._endpoint)+1;
+          this._failover();
+          this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
+          this.requestChunk(chunk, this._endpoint);
+        } else {
+          chunk.forEach((inflightRequest) => {
+            inflightRequest.reject(error);
+          });
+        }
+      })
+  }
+    
+  send(method, params) {
+
+    const request = {
+      method: method,
+      params: params,
+      id: (this._nextId++),
+      jsonrpc: "2.0"
+    };
+
+    if (this._pendingBatch == null) {
+      this._pendingBatch = [];
+    }
+
+    const inflightRequest = { request, resolve: null, reject: null };
+
+    const promise = new Promise((resolve, reject) => {
+      inflightRequest.resolve = resolve;
+      inflightRequest.reject = reject;
+    });
+
+    this._pendingBatch.push(inflightRequest);
+
+    if (!this._pendingBatchAggregator) {
+      // Schedule batch for next event loop + short duration
+      this._pendingBatchAggregator = setTimeout(() => {
+        // Get the current batch and clear it, so new requests
+        // go into the next batch
+        const batch = this._pendingBatch;
+        this._pendingBatch = [];
+        this._pendingBatchAggregator = null;
+        // Prepare Chunks of CHUNK_SIZE
+        const chunks = [];
+        for (let i = 0; i < Math.ceil(batch.length / CHUNK_SIZE$1); i++) {
+          chunks[i] = batch.slice(i*CHUNK_SIZE$1, (i+1)*CHUNK_SIZE$1);
+        }
+        chunks.forEach((chunk)=>{
+          // Get the request as an array of requests
+          chunk.map((inflight) => inflight.request);
+          return this.requestChunk(chunk, this._endpoint)
+        });
+      }, getConfiguration().batchInterval || BATCH_INTERVAL$1);
+    }
+
+    return promise
+  }
+
+}
+
+var getPaymentRouterInstruction = (function (confirmedTransaction) {
+  var _confirmedTransaction, _confirmedTransaction2, _confirmedTransaction3;
+
+  if (!confirmedTransaction || !(confirmedTransaction !== null && confirmedTransaction !== void 0 && (_confirmedTransaction = confirmedTransaction.meta) !== null && _confirmedTransaction !== void 0 && _confirmedTransaction.logMessages) || !(confirmedTransaction !== null && confirmedTransaction !== void 0 && (_confirmedTransaction2 = confirmedTransaction.transaction) !== null && _confirmedTransaction2 !== void 0 && (_confirmedTransaction3 = _confirmedTransaction2.message) !== null && _confirmedTransaction3 !== void 0 && _confirmedTransaction3.compiledInstructions)) {
+    return;
+  }
+
+  if (!confirmedTransaction.meta.logMessages.some(function (log) {
+    return log.match('Program DePayRG7ZySPWzeK9Kvq7aPeif7sdbBZNh6DHcvNj7F7 invoke');
+  })) {
+    return;
+  }
+
+  var foundInstruction;
+  confirmedTransaction.transaction.message.compiledInstructions.forEach(function (instruction) {
+    Object.keys(routers.solana.api).forEach(function (key) {
+      if (foundInstruction) {
+        return;
+      }
+
+      try {
+        if (key.match(/^route/)) {
+          var data = routers.solana.api[key].layout.decode(instruction.data);
+
+          if (data.anchorDiscriminator.toString() === routers.solana.api[key].anchorDiscriminator.toString()) {
+            foundInstruction = data;
+          }
+        }
+      } catch (_unused) {}
+    });
+  });
+  return foundInstruction;
+});
+
+var UUIDv4 = (function () {
+  var d = new Date().getTime();
+  var d2 = performance && performance.now && performance.now() * 1000 || 0;
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16;
+
+    if (d > 0) {
+      r = (d + r) % 16 | 0;
+      d = Math.floor(d / 16);
+    } else {
+      r = (d2 + r) % 16 | 0;
+      d2 = Math.floor(d2 / 16);
+    }
+
+    return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
+  });
+});
+
+function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var LOGO = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODYiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCA4NiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTc3LjExMjggMjIuMDA2NUw3Mi4xNDc5IDExLjE1ODNINjguMDI3TDc1LjExOTcgMjUuNzk1Nkw3NC45OTIxIDI2LjIzNjRDNzQuODE0NCAyNi44MjIzIDc0LjQzOTUgMjcuMzI4MiA3My45MzExIDI3LjY2NzlDNzMuNDIyOCAyOC4wMDc2IDcyLjgxMjUgMjguMTU5OSA3Mi4yMDQ2IDI4LjA5ODlDNzEuNDkzIDI4LjA5MjMgNzAuNzk0OCAyNy45MDM5IDcwLjE3NjEgMjcuNTUxNUw2OS41MTY1IDMwLjY4NjVDNzAuNDY4NCAzMS4wNzk3IDcxLjQ4NzEgMzEuMjg0OSA3Mi41MTY3IDMxLjI5MDhDNzUuMzUzOCAzMS4yOTA4IDc3LjA3MDIgMzAuMjQ1OCA3OC40ODg4IDI3LjE2NzZMODYgMTEuMTU4M0g4Mi4wMjFMNzcuMTEyOCAyMi4wMDY1WiIgZmlsbD0iYmxhY2siLz4KPHBhdGggZD0iTTQyLjAyMzUgNS45OTAxMUgzMC4xMjE5VjI1LjkzMDZIMzQuMDIyOVYxOC42MDEzSDQyLjAyMzVDNDYuMzcxMyAxOC42MDEzIDQ5LjIyOTcgMTYuNDA0NyA0OS4yMjk3IDEyLjI5NTdDNDkuMjI5NyA4LjE4Njc3IDQ2LjM3MTMgNS45OTAxMSA0Mi4wMjM1IDUuOTkwMTFaTTQxLjgxMDcgMTUuMTEwOUgzNC4wMDg3VjkuNDIzNzJINDEuODEwN0M0NC4wNjYyIDkuNDIzNzIgNDUuMzU3IDEwLjQ1NDUgNDUuMzU3IDEyLjI2NzNDNDUuMzU3IDE0LjA4MDEgNDQuMDY2MiAxNS4xMTA5IDQxLjgxMDcgMTUuMTEwOVoiIGZpbGw9ImJsYWNrIi8+CjxwYXRoIGQ9Ik02NS41MzkgMjIuMTQ4N1YxNi4xNDE2QzY1LjUzOSAxMi41ODcyIDYyLjk5MjggMTAuNzQ2IDU4LjYyMzYgMTAuNzQ2QzU1LjA3NzMgMTAuNzQ2IDUxLjk3MDYgMTIuNDAyNCA1MS4wOTgyIDE0Ljk0NzNMNTQuMzA0MiAxNi4wODQ4QzU0Ljc3OTQgMTQuODEyMyA1Ni40MzIgMTMuODczOSA1OC40ODg5IDEzLjg3MzlDNjAuOTI4OCAxMy44NzM5IDYxLjk1NzIgMTQuODY5MSA2MS45NTcyIDE2LjA4NDhWMTYuNDc1OEw1Ni4xNTU0IDE3LjExNTZDNTIuODE0NyAxNy40NzEgNTAuNjE1OSAxOC45NzEgNTAuNjE1OSAyMS42NTExQzUwLjYxNTkgMjQuNTg3IDUzLjEzMzkgMjYuMTY1MiA1Ni40NzQ1IDI2LjE2NTJDNTguNjI3OCAyNi4yMzI1IDYwLjcyNDggMjUuNDY5MSA2Mi4zMzMxIDI0LjAzMjVDNjIuOTE0NyAyNS40NTQzIDYzLjUxMDUgMjYuNDA2OSA2Ny40NzU0IDI1LjkwMjJWMjIuOTMwN0M2NS44ODY2IDIzLjMxNDUgNjUuNTM5IDIyLjkzMDcgNjUuNTM5IDIyLjE0ODdaTTYxLjk5MjcgMjAuMjQzNUM2MS45OTI3IDIyLjE3NzEgNTkuMjkwMyAyMy4yMDA4IDU3LjAyNzggMjMuMjAwOEM1NS4zMDQyIDIzLjIwMDggNTQuMjY4NyAyMi42NDYzIDU0LjI2ODcgMjEuNTQ0NEM1NC4yNjg3IDIwLjQ0MjUgNTUuMTE5OCAyMC4wNDQ0IDU2Ljc2NTMgMTkuODUyNUw2Mi4wMDY5IDE5LjI0MTFMNjEuOTkyNyAyMC4yNDM1WiIgZmlsbD0iYmxhY2siLz4KPHBhdGggZD0iTTIyLjc0MzkgMjEuMjUzQzIyLjc3MTQgMjEuMzM2MSAyMi43NzE0IDIxLjQyNTkgMjIuNzQzOSAyMS41MDg5QzIyLjcyNzkgMjEuNTkxOCAyMi42ODg1IDIxLjY2ODMgMjIuNjMwNCAyMS43MjkzTDE4Ljg3ODMgMjUuNjc0OEMxOC43OTU2IDI1Ljc1OTkgMTguNjk2OCAyNS44Mjc2IDE4LjU4NzUgMjUuODczOEMxOC40NzggMjUuOTIxOSAxOC4zNTk1IDI1Ljk0NjIgMTguMjQgMjUuOTQ0OUgwLjQ0NDMwOEMwLjM2MTg5NCAyNS45NDU2IDAuMjgwODg4IDI1LjkyMzUgMC4yMTAyNDggMjUuODgwOUMwLjEzOTY1NSAyNS44MzI4IDAuMDgzMzAyOCAyNS43NjY1IDAuMDQ3MTE1NiAyNS42ODlDMC4wMjIxMjM2IDI1LjYxMDQgMC4wMjIxMjM2IDI1LjUyNTkgMC4wNDcxMTU2IDI1LjQ0NzNDMC4wNjE4MjM3IDI1LjM2NTUgMC4wOTg2MTkzIDI1LjI4OTIgMC4xNTM1MDYgMjUuMjI2OUwzLjkxMjY1IDIxLjI4MTVDMy45OTUzMyAyMS4xOTYzIDQuMDk0MjIgMjEuMTI4NiA0LjIwMzQ2IDIxLjA4MjRDNC4zMTI3NyAyMS4wMzM3IDQuNDMxMzcgMjEuMDA5NCA0LjU1MSAyMS4wMTEzSDIyLjMxODNDMjIuNDA0IDIxLjAwOTcgMjIuNDg4MiAyMS4wMzQ1IDIyLjU1OTQgMjEuMDgyNEMyMi42MzkzIDIxLjExNTQgMjIuNzA0NyAyMS4xNzU5IDIyLjc0MzkgMjEuMjUzWk0xOC44ODU0IDEzLjc2MDJDMTguODAwOSAxMy42NzczIDE4LjcwMjUgMTMuNjA5OSAxOC41OTQ2IDEzLjU2MTJDMTguNDg0IDEzLjUxNjQgMTguMzY2MyAxMy40OTI0IDE4LjI0NzEgMTMuNDkwMUgwLjQ0NDMwOEMwLjM2MDg2NCAxMy40OTEzIDAuMjc5NDMgMTMuNTE1OSAwLjIwOTIzMSAxMy41NjEyQzAuMTM5MDMyIDEzLjYwNjQgMC4wODI4NzI0IDEzLjY3MDQgMC4wNDcxMTU2IDEzLjc0NkMwLjAyMjU4MzEgMTMuODI0NyAwLjAyMjU4MzEgMTMuOTA5IDAuMDQ3MTE1NiAxMy45ODc3QzAuMDU5MDYwNyAxNC4wNzA0IDAuMDk2MjIwNiAxNC4xNDc0IDAuMTUzNTA2IDE0LjIwODFMMy45MTI2NSAxOC4xNjA2QzMuOTk3MTcgMTguMjQzNiA0LjA5NTYxIDE4LjMxMSA0LjIwMzQ2IDE4LjM1OTdDNC4zMTM4MyAxOC40MDUgNC40MzE3MyAxOC40MjkxIDQuNTUxIDE4LjQzMDhIMjIuMzE4M0MyMi40MDQgMTguNDMyNCAyMi40ODgyIDE4LjQwNzYgMjIuNTU5NCAxOC4zNTk3QzIyLjYzMTEgMTguMzE3OCAyMi42ODYxIDE4LjI1MjYgMjIuNzE1NSAxOC4xNzQ5QzIyLjc1MTggMTguMDk5MiAyMi43NjM5IDE4LjAxNDEgMjIuNzQ5OSAxNy45MzE0QzIyLjczNTkgMTcuODQ4NiAyMi42OTY2IDE3Ljc3MjIgMjIuNjM3NSAxNy43MTI4TDE4Ljg4NTQgMTMuNzYwMlpNMC4yMTAyNDggMTAuODQ1NUMwLjI4MDg4OCAxMC44ODgxIDAuMzYxODk0IDEwLjkxMDIgMC40NDQzMDggMTAuOTA5NUgxOC4yNDcxQzE4LjM2NjYgMTAuOTEwOCAxOC40ODUxIDEwLjg4NjUgMTguNTk0NiAxMC44Mzg0QzE4LjcwMzggMTAuNzkyMiAxOC44MDI3IDEwLjcyNDYgMTguODg1NCAxMC42Mzk0TDIyLjYzNzUgNi42OTM5NEMyMi42OTU2IDYuNjMyODggMjIuNzM0OSA2LjU1NjM5IDIyLjc1MDkgNi40NzM1NkMyMi43NzU1IDYuMzk0ODcgMjIuNzc1NSA2LjMxMDU1IDIyLjc1MDkgNi4yMzE4NkMyMi43MjE2IDYuMTU0MTQgMjIuNjY2NSA2LjA4ODg5IDIyLjU5NDkgNi4wNDcwMkMyMi41MjM3IDUuOTk5MTIgMjIuNDM5NSA1Ljk3NDMgMjIuMzUzOCA1Ljk3NTkzSDQuNTIyNjNDNC40MDMgNS45NzQwMiA0LjI4NDQgNS45OTgyOCA0LjE3NTA5IDYuMDQ3MDJDNC4wNjU4NSA2LjA5MzIyIDMuOTY2OTYgNi4xNjA5IDMuODg0MjggNi4yNDYwN0wwLjEzMjIyOSAxMC4yMDU3QzAuMDcyNzMzNyAxMC4yNjU4IDAuMDMzMTExOSAxMC4zNDI3IDAuMDE4NzQ0MSAxMC40MjYxQy0wLjAwNjI0ODAyIDEwLjUwNDcgLTAuMDA2MjQ4MDIgMTAuNTg5MiAwLjAxODc0NDEgMTAuNjY3OEMwLjA2NDc3ODkgMTAuNzQzOCAwLjEzMTExNiAxMC44MDU0IDAuMjEwMjQ4IDEwLjg0NTVWMTAuODQ1NVoiIGZpbGw9ImJsYWNrIi8+Cjwvc3ZnPgo=';
+var SolanaPayDialog = (function (props) {
+  var _useContext = useContext(ConfigurationContext),
+      accept = _useContext.accept,
+      track = _useContext.track,
+      validated = _useContext.validated,
+      integration = _useContext.integration,
+      link = _useContext.link,
+      type = _useContext.type;
+
+  var _useContext2 = useContext(NavigateStackContext);
+      _useContext2.set;
+      var navigate = _useContext2.navigate;
+
+  var _useContext3 = useContext(ClosableContext),
+      close = _useContext3.close,
+      setClosable = _useContext3.setClosable;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      paymentOptions = _useState2[0],
+      setPaymentOptions = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      forwardTo = _useState4[0],
+      setForwardTo = _useState4[1];
+
+  var _useState5 = useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      pollingPaymentStatusInterval = _useState6[0],
+      setPollingPaymentStatusInterval = _useState6[1];
+
+  var _useState7 = useState(),
+      _useState8 = _slicedToArray(_useState7, 2),
+      transactionTrackingInterval = _useState8[0],
+      setTransactionTrackingInterval = _useState8[1];
+
+  var _useState9 = useState(),
+      _useState10 = _slicedToArray(_useState9, 2),
+      selectedPaymentOption = _useState10[0],
+      setSelectedPaymantOption = _useState10[1];
+
+  var _useState11 = useState(),
+      _useState12 = _slicedToArray(_useState11, 2),
+      transaction = _useState12[0],
+      setTransaction = _useState12[1];
+
+  var _useState13 = useState(),
+      _useState14 = _slicedToArray(_useState13, 2);
+      _useState14[0];
+      var setSecretId = _useState14[1];
+
+  var _useState15 = useState(),
+      _useState16 = _slicedToArray(_useState15, 2),
+      solanaPayTransactionSocket = _useState16[0],
+      setSolanaPayTransactionSocket = _useState16[1];
+
+  var _useState17 = useState(),
+      _useState18 = _slicedToArray(_useState17, 2),
+      transactionTrackingSocket = _useState18[0],
+      setTransactionTrackingSocket = _useState18[1];
+
+  var _useState19 = useState(),
+      _useState20 = _slicedToArray(_useState19, 2),
+      paymentValidationSocket = _useState20[0],
+      setPaymentValidationSocket = _useState20[1];
+
+  var _useState21 = useState(),
+      _useState22 = _slicedToArray(_useState21, 2),
+      QRCodeURI = _useState22[0],
+      setQRCodeURI = _useState22[1];
+
+  var _useState23 = useState(),
+      _useState24 = _slicedToArray(_useState23, 2),
+      release = _useState24[0],
+      setRelease = _useState24[1];
+
+  var _useState25 = useState(),
+      _useState26 = _slicedToArray(_useState25, 2),
+      afterBlock = _useState26[0],
+      setAfterBlock = _useState26[1];
+
+  var _useState27 = useState(),
+      _useState28 = _slicedToArray(_useState27, 2),
+      QRCode = _useState28[0],
+      setQRCode = _useState28[1];
+
+  var _useState29 = useState('select'),
+      _useState30 = _slicedToArray(_useState29, 2),
+      state = _useState30[0],
+      setState = _useState30[1];
+
+  var _useState31 = useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+      _useState32 = _slicedToArray(_useState31, 1),
+      polling = _useState32[0];
+
+  var _useState33 = useState(!!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
+      _useState34 = _slicedToArray(_useState33, 1),
+      synchronousTracking = _useState34[0];
+
+  var _useState35 = useState(!!(track && track.async == true)),
+      _useState36 = _slicedToArray(_useState35, 1),
+      asynchronousTracking = _useState36[0];
+
+  var isTracking = synchronousTracking || asynchronousTracking;
+  var QRCodeElement = React.useRef();
+
+  var selectPaymentOption = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(selectedPaymentOption) {
+      var secretId;
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              secretId = UUIDv4();
+              setSecretId(secretId);
+              _context.next = 4;
+              return Token$1.BigNumber({
+                amount: selectedPaymentOption.amount,
+                blockchain: 'solana',
+                address: selectedPaymentOption.token
+              });
+
+            case 4:
+              selectedPaymentOption.fromAmountBN = _context.sent;
+
+              if (!selectedPaymentOption.fee) {
+                _context.next = 21;
+                break;
+              }
+
+              if (!selectedPaymentOption.fee.amount.match("%")) {
+                _context.next = 10;
+                break;
+              }
+
+              _context.t1 = selectedPaymentOption.fromAmountBN.div(1000).mul(parseInt(selectedPaymentOption.fee.amount.replace("%", ''), 10) * 10);
+              _context.next = 18;
+              break;
+
+            case 10:
+              if (!(typeof selectedPaymentOption.fee.amount === 'string')) {
+                _context.next = 14;
+                break;
+              }
+
+              _context.t2 = selectedPaymentOption.fee.amount;
+              _context.next = 17;
+              break;
+
+            case 14:
+              _context.next = 16;
+              return Token$1.BigNumber({
+                amount: selectedPaymentOption.fee.amount,
+                blockchain: 'solana',
+                address: selectedPaymentOption.token
+              });
+
+            case 16:
+              _context.t2 = _context.sent;
+
+            case 17:
+              _context.t1 = _context.t2;
+
+            case 18:
+              _context.t0 = _context.t1;
+              _context.next = 24;
+              break;
+
+            case 21:
+              _context.next = 23;
+              return Token$1.BigNumber({
+                amount: 0,
+                blockchain: 'solana',
+                address: selectedPaymentOption.token
+              });
+
+            case 23:
+              _context.t0 = _context.sent;
+
+            case 24:
+              selectedPaymentOption.feeAmountBN = _context.t0;
+              selectedPaymentOption.toAmountBN = selectedPaymentOption.fee ? selectedPaymentOption.fromAmountBN.sub(selectedPaymentOption.feeAmountBN) : selectedPaymentOption.fromAmountBN;
+              setSelectedPaymantOption(selectedPaymentOption);
+              setState('wait');
+              openSolanaPayTransactionSocket(secretId, selectedPaymentOption);
+
+            case 29:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function selectPaymentOption(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  var getNewQRCode = function getNewQRCode() {
+    return new QRCodeStyling({
+      width: 340,
+      height: 340,
+      type: "svg",
+      dotsOptions: {
+        type: "extra-rounded"
+      },
+      cornersSquareOptions: {
+        type: 'rounded'
+      },
+      backgroundOptions: {
+        color: "transparent"
+      }
+    });
+  };
+
+  var sendTrackingAsConfigured = function sendTrackingAsConfigured(_ref2) {
+    var payment = _ref2.payment,
+        resolve = _ref2.resolve,
+        reject = _ref2.reject;
+
+    if (track.endpoint) {
+      return fetch(track.endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payment)
+      }).then(function (response) {
+        if (response.status == 200 || response.status == 201) {
+          return resolve();
+        } else {
+          return reject('TRACING REQUEST FAILED');
+        }
+      });
+    } else if (track.method) {
+      track.method(payment).then(resolve)["catch"](reject);
+    } else {
+      reject('No tracking defined!');
+    }
+  };
+
+  var sendTrace = function sendTrace(_ref3) {
+    var secretId = _ref3.secretId,
+        selectedPaymentOption = _ref3.selectedPaymentOption;
+
+    if (!isTracking) {
+      return Promise.resolve();
+    }
+
+    return new Promise( /*#__PURE__*/function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(resolve, reject) {
+        var payment;
+        return regenerator.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                payment = {
+                  blockchain: 'solana',
+                  sender: "solana:".concat(secretId),
+                  nonce: 0,
+                  after_block: afterBlock.toString(),
+                  from_token: selectedPaymentOption.token,
+                  from_amount: selectedPaymentOption.fromAmountBN.toString(),
+                  from_decimals: selectedPaymentOption.decimals,
+                  to_token: selectedPaymentOption.token,
+                  to_amount: selectedPaymentOption.toAmountBN.toString(),
+                  to_decimals: selectedPaymentOption.decimals,
+                  fee_amount: selectedPaymentOption.feeAmountBN.toString()
+                };
+                sendTrackingAsConfigured({
+                  payment: payment,
+                  resolve: resolve,
+                  reject: reject
+                });
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function (_x2, _x3) {
+        return _ref4.apply(this, arguments);
+      };
+    }());
+  };
+
+  var sendTrack = function sendTrack(_ref5) {
+    var transaction = _ref5.transaction;
+
+    if (!isTracking) {
+      return Promise.resolve();
+    }
+
+    return new Promise( /*#__PURE__*/function () {
+      var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(resolve, reject) {
+        var payment;
+        return regenerator.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                payment = {
+                  blockchain: 'solana',
+                  sender: transaction.from,
+                  transaction: transaction.id,
+                  nonce: transaction.nonce,
+                  after_block: afterBlock.toString(),
+                  from_token: selectedPaymentOption.token,
+                  from_amount: selectedPaymentOption.fromAmountBN.toString(),
+                  from_decimals: selectedPaymentOption.decimals,
+                  to_token: selectedPaymentOption.token,
+                  to_amount: selectedPaymentOption.toAmountBN.toString(),
+                  to_decimals: selectedPaymentOption.decimals,
+                  fee_amount: selectedPaymentOption.feeAmountBN.toString(),
+                  deadline: transaction.deadline
+                };
+                sendTrackingAsConfigured({
+                  payment: payment,
+                  resolve: resolve,
+                  reject: reject
+                });
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      return function (_x4, _x5) {
+        return _ref6.apply(this, arguments);
+      };
+    }());
+  };
+
+  var openSolanaPayTransactionSocket = function openSolanaPayTransactionSocket(secretId, selectedPaymentOption) {
+    if (solanaPayTransactionSocket) {
+      solanaPayTransactionSocket.close();
+    }
+
+    var socket = new WebSocket('wss://integrate.depay.com/cable');
+    setSolanaPayTransactionSocket(socket);
+
+    socket.onopen = /*#__PURE__*/function () {
+      var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(event) {
+        return regenerator.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return socket.send(JSON.stringify({
+                  command: 'subscribe',
+                  identifier: JSON.stringify({
+                    secret_id: secretId,
+                    channel: 'SolanaPayChannel'
+                  })
+                }));
+
+              case 2:
+                if (!(QRCodeURI === undefined)) {
+                  _context4.next = 5;
+                  break;
+                }
+
+                _context4.next = 5;
+                return socket.send(JSON.stringify({
+                  command: 'message',
+                  identifier: JSON.stringify({
+                    secret_id: secretId,
+                    channel: 'SolanaPayChannel'
+                  }),
+                  data: JSON.stringify({
+                    type: 'create',
+                    secret_id: secretId,
+                    label: document.title || 'DePay',
+                    icon: getFavicon() || 'https://depay.com/favicon.png',
+                    token: selectedPaymentOption.token,
+                    payment_receiver: selectedPaymentOption.receiver,
+                    payment_amount: selectedPaymentOption.fromAmountBN.toString(),
+                    fee_receiver: selectedPaymentOption.fee ? selectedPaymentOption.fee.receiver : undefined,
+                    fee_amount: selectedPaymentOption.fee ? selectedPaymentOption.feeAmountBN.toString() : undefined
+                  })
+                }));
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+
+      return function (_x6) {
+        return _ref7.apply(this, arguments);
+      };
+    }();
+
+    socket.onclose = function (event) {
+      if (!event || event.code != 1000) {
+        setTimeout(function () {
+          return openSolanaPayTransactionSocket(secretId, selectedPaymentOption);
+        }, 1000);
+      }
+    };
+
+    socket.onmessage = function (event) {
+      var item = JSON.parse(event.data);
+
+      if (item.type === "ping" || !item.message) {
+        return;
+      }
+
+      if (item.message.created === true) {
+        traceAndContinue(secretId, selectedPaymentOption, "solana:https://public.depay.com/solana/".concat(secretId));
+      } else if (item.message.scanned) {
+        setClosable("Are you sure you want to abort this payment?");
+        setState('pay');
+      } else if (item.message.account) {
+        trackTransaction(item.message);
+        setClosable("Are you sure you want to abort this payment?");
+        setState('pay');
+      }
+    };
+
+    socket.onerror = function (error) {
+      console.log('WebSocket Error: ', error);
+    };
+  };
+
+  var openTransactionTrackingSocket = function openTransactionTrackingSocket(_ref8) {
+    var account = _ref8.account,
+        nonce = _ref8.nonce;
+
+    if (transactionTrackingSocket) {
+      transactionTrackingSocket.close();
+    }
+
+    var socket = new WebSocket(Blockchains.solana.sockets[Math.floor(Math.random() * Blockchains.solana.sockets.length)]);
+    setTransactionTrackingSocket(socket);
+
+    socket.onopen = /*#__PURE__*/function () {
+      var _ref9 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(event) {
+        return regenerator.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return socket.send(JSON.stringify({
+                  "jsonrpc": "2.0",
+                  "id": 1,
+                  "method": "logsSubscribe",
+                  "params": [{
+                    "mentions": [account]
+                  }, {
+                    "commitment": "processed"
+                  }]
+                }));
+
+              case 2:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }));
+
+      return function (_x7) {
+        return _ref9.apply(this, arguments);
+      };
+    }();
+
+    socket.onclose = function (event) {
+      if (!event || event.code != 1000) {
+        setTimeout(function () {
+          return openTransactionTrackingSocket({
+            account: account,
+            nonce: nonce
+          });
+        }, 1000);
+      }
+    };
+
+    socket.onmessage = function (event) {
+      if (event && event.data) {
+        var _data$params, _data$params$result;
+
+        var data = JSON.parse(event.data);
+
+        if (data && data !== null && data !== void 0 && (_data$params = data.params) !== null && _data$params !== void 0 && (_data$params$result = _data$params.result) !== null && _data$params$result !== void 0 && _data$params$result.value) {
+          var _data$params2, _data$params2$result;
+
+          var result = data === null || data === void 0 ? void 0 : (_data$params2 = data.params) === null || _data$params2 === void 0 ? void 0 : (_data$params2$result = _data$params2.result) === null || _data$params2$result === void 0 ? void 0 : _data$params2$result.value;
+
+          if (result && result.err === null) {
+            setState('succeeded');
+            setTransaction({
+              status: 'succeeded',
+              id: result.signature,
+              url: Blockchains.solana.explorerUrlFor({
+                transaction: {
+                  id: result.signature
+                }
+              }),
+              from: account,
+              nonce: nonce,
+              deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 1000 // 10 minutes
+
+            });
+          } else if (result) {
+            setState('failed');
+            setTransaction({
+              status: 'failed',
+              id: result.signature,
+              url: Blockchains.solana.explorerUrlFor({
+                transaction: {
+                  id: result.signature
+                }
+              }),
+              from: account,
+              nonce: nonce,
+              deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 1000 // 10 minutes
+
+            });
+          }
+        }
+      }
+    };
+
+    socket.onerror = function (error) {
+      console.log('WebSocket Error: ', error);
+    };
+  };
+
+  var openPaymentValidationSocket = function openPaymentValidationSocket(transaction) {
+    if (paymentValidationSocket) {
+      openPaymentValidationSocket.close();
+    }
+
+    var socket = new WebSocket('wss://integrate.depay.com/cable');
+    setPaymentValidationSocket(socket);
+
+    socket.onopen = /*#__PURE__*/function () {
+      var _ref10 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(event) {
+        var msg;
+        return regenerator.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                msg = {
+                  command: 'subscribe',
+                  identifier: JSON.stringify({
+                    blockchain: 'solana',
+                    sender: transaction.from,
+                    nonce: transaction.nonce,
+                    channel: 'PaymentChannel'
+                  })
+                };
+                socket.send(JSON.stringify(msg));
+
+              case 2:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }));
+
+      return function (_x8) {
+        return _ref10.apply(this, arguments);
+      };
+    }();
+
+    socket.onclose = function (event) {
+      if (!event || event.code != 1000) {
+        setTimeout(function () {
+          return openPaymentValidationSocket(transaction);
+        }, 1000);
+      }
+    };
+
+    socket.onmessage = function (event) {
+      var item = JSON.parse(event.data);
+
+      if (item.type === "ping" || !item.message) {
+        return;
+      }
+
+      var success = item.message.status === 'success';
+
+      if (validated) {
+        setTimeout(function () {
+          return validated(success, transaction);
+        }, 200);
+      }
+
+      if (item.message.release) {
+        socket.close();
+
+        if (success) {
+          setRelease(true);
+          setClosable(true);
+          setForwardTo(item.message.forward_to);
+
+          if (!!item.message.forward_to) {
+            setTimeout(function () {
+              props.document.location.href = item.message.forward_to;
+            }, 200);
+          }
+        } else if (success == false) {
+          setClosable(true);
+          setState('failed');
+        }
+      }
+    };
+
+    socket.onerror = function (error) {
+      console.log('WebSocket Error: ', error);
+    };
+  };
+
+  var pollStatus = function pollStatus(transaction) {
+    var payment = {
+      blockchain: 'solana',
+      transaction: transaction.id,
+      sender: transaction.from,
+      nonce: transaction.nonce,
+      after_block: afterBlock.toString(),
+      to_token: selectedPaymentOption.token
+    };
+
+    var handlePollingResponse = function handlePollingResponse(data) {
+      if (data) {
+        if (data && data.forward_to) {
+          setClosable(true);
+          setForwardTo(data.forward_to);
+          setTimeout(function () {
+            props.document.location.href = data.forward_to;
+          }, 200);
+        } else {
+          setClosable(true);
+        }
+
+        clearInterval(pollingInterval);
+
+        if (validated) {
+          validated(true, transaction);
+        }
+
+        setRelease(true);
+      }
+    };
+
+    if (track.poll.endpoint) {
+      fetch(track.poll.endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payment)
+      }).then(function (response) {
+        if (response.status == 200 || response.status == 201) {
+          return response.json()["catch"](function () {
+            setClosable(true);
+          });
+        } else {
+          return undefined;
+        }
+      }).then(handlePollingResponse);
+    } else if (track.poll.method) {
+      track.poll.method(payment).then(handlePollingResponse);
+    }
+  };
+
+  var startPollingPaymentStatus = function startPollingPaymentStatus(transaction) {
+    if (polling) {
+      setPollingPaymentStatusInterval(setInterval(function () {
+        pollStatus(transaction);
+      }, 5000));
+    }
+  };
+
+  var trackTransaction = function trackTransaction(_ref11) {
+    var account = _ref11.account,
+        nonce = _ref11.nonce;
+    openTransactionTrackingSocket({
+      account: account,
+      nonce: nonce
+    });
+    setTransactionTrackingInterval(setInterval( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee8() {
+      var provider, signatures, relevantTransactions;
+      return regenerator.wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              _context8.next = 2;
+              return getProvider$3('solana');
+
+            case 2:
+              provider = _context8.sent;
+              _context8.next = 5;
+              return provider.getSignaturesForAddress(new PublicKey(account), undefined, 'confirmed');
+
+            case 5:
+              signatures = _context8.sent;
+
+              if (!(signatures[0].slot > afterBlock)) {
+                _context8.next = 11;
+                break;
+              }
+
+              relevantTransactions = signatures.filter(function (signature) {
+                return signature.slot > afterBlock;
+              });
+              _context8.next = 10;
+              return Promise.all(relevantTransactions.map( /*#__PURE__*/function () {
+                var _ref13 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee7(relevantTransaction) {
+                  var fullTransactionData, foundRouterInstruction;
+                  return regenerator.wrap(function _callee7$(_context7) {
+                    while (1) {
+                      switch (_context7.prev = _context7.next) {
+                        case 0:
+                          _context7.next = 2;
+                          return provider.getTransaction(relevantTransaction.signature, {
+                            commitment: 'confirmed',
+                            maxSupportedTransactionVersion: 0
+                          });
+
+                        case 2:
+                          fullTransactionData = _context7.sent;
+                          foundRouterInstruction = getPaymentRouterInstruction(fullTransactionData);
+
+                          if (foundRouterInstruction.nonce.toString() === nonce.toString()) {
+                            if (fullTransactionData.meta.err === null) {
+                              setState('succeeded');
+                              setTransaction({
+                                status: 'succeeded',
+                                id: fullTransactionData.transaction.signatures[0],
+                                url: Blockchains.solana.explorerUrlFor({
+                                  transaction: {
+                                    id: fullTransactionData.transaction.signatures[0]
+                                  }
+                                }),
+                                from: account,
+                                nonce: nonce,
+                                deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 1000 // 10 minutes
+
+                              });
+                            } else {
+                              setState('failed');
+                              setTransaction({
+                                status: 'failed',
+                                id: fullTransactionData.transaction.signatures[0],
+                                url: Blockchains.solana.explorerUrlFor({
+                                  transaction: {
+                                    id: fullTransactionData.transaction.signatures[0]
+                                  }
+                                }),
+                                from: account,
+                                nonce: nonce,
+                                deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 1000 // 10 minutes
+
+                              });
+                            }
+                          }
+
+                        case 5:
+                        case "end":
+                          return _context7.stop();
+                      }
+                    }
+                  }, _callee7);
+                }));
+
+                return function (_x9) {
+                  return _ref13.apply(this, arguments);
+                };
+              }()));
+
+            case 10:
+
+            case 11:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      }, _callee8);
+    })), 1000));
+  };
+
+  var traceAndContinue = /*#__PURE__*/function () {
+    var _ref14 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee10(secretId, selectedPaymentOption, QRCodeURI) {
+      return regenerator.wrap(function _callee10$(_context10) {
+        while (1) {
+          switch (_context10.prev = _context10.next) {
+            case 0:
+              sendTrace({
+                secretId: secretId,
+                selectedPaymentOption: selectedPaymentOption
+              }).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee9() {
+                var newQRCode;
+                return regenerator.wrap(function _callee9$(_context9) {
+                  while (1) {
+                    switch (_context9.prev = _context9.next) {
+                      case 0:
+                        setQRCodeURI(QRCodeURI);
+                        newQRCode = getNewQRCode();
+                        newQRCode.update({
+                          data: QRCodeURI
+                        });
+                        setQRCode(newQRCode);
+
+                      case 4:
+                      case "end":
+                        return _context9.stop();
+                    }
+                  }
+                }, _callee9);
+              })))["catch"](function (error) {
+                console.log('Tracing error:', error);
+                navigate('TracingFailed');
+              });
+              return _context10.abrupt("return", {
+                afterBlock: afterBlock
+              });
+
+            case 2:
+            case "end":
+              return _context10.stop();
+          }
+        }
+      }, _callee10);
+    }));
+
+    return function traceAndContinue(_x10, _x11, _x12) {
+      return _ref14.apply(this, arguments);
+    };
+  }();
+
+  var storePayment = /*#__PURE__*/function () {
+    var _ref16 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee11(transaction) {
+      return regenerator.wrap(function _callee11$(_context11) {
+        while (1) {
+          switch (_context11.prev = _context11.next) {
+            case 0:
+              fetch('https://public.depay.com/payments', {
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify({
+                  blockchain: 'solana',
+                  transaction: transaction.id,
+                  sender: transaction.from,
+                  nonce: transaction.nonce,
+                  receiver: selectedPaymentOption.receiver,
+                  token: selectedPaymentOption.token,
+                  amount: ethers.utils.formatUnits(selectedPaymentOption.toAmountBN, selectedPaymentOption.decimals),
+                  confirmations: 1,
+                  after_block: afterBlock.toString(),
+                  uuid: transaction.id,
+                  payload: {
+                    sender_id: transaction.from,
+                    sender_token_id: selectedPaymentOption.token,
+                    sender_amount: ethers.utils.formatUnits(selectedPaymentOption.fromAmountBN, selectedPaymentOption.decimals),
+                    integration: integration,
+                    link: link,
+                    type: type
+                  },
+                  fee_amount: selectedPaymentOption.fee ? ethers.utils.formatUnits(selectedPaymentOption.feeAmountBN, selectedPaymentOption.decimals) : null,
+                  fee_receiver: selectedPaymentOption.fee ? selectedPaymentOption.fee.receiver : null,
+                  deadline: transaction.deadline
+                })
+              }).then(function (response) {
+                if (response.status == 200 || response.status == 201) ; else {
+                  setTimeout(function () {
+                    storePayment(transaction);
+                  }, 3000);
+                }
+              })["catch"](function (error) {
+                setTimeout(function () {
+                  storePayment(transaction);
+                }, 3000);
+              });
+
+            case 1:
+            case "end":
+              return _context11.stop();
+          }
+        }
+      }, _callee11);
+    }));
+
+    return function storePayment(_x13) {
+      return _ref16.apply(this, arguments);
+    };
+  }();
+
+  useEffect(function () {
+    var setAfterBlockAsync = /*#__PURE__*/function () {
+      var _ref17 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee12() {
+        return regenerator.wrap(function _callee12$(_context12) {
+          while (1) {
+            switch (_context12.prev = _context12.next) {
+              case 0:
+                _context12.t0 = setAfterBlock;
+                _context12.next = 3;
+                return request$1({
+                  blockchain: 'solana',
+                  method: 'latestBlockNumber'
+                });
+
+              case 3:
+                _context12.t1 = _context12.sent;
+                (0, _context12.t0)(_context12.t1);
+
+              case 5:
+              case "end":
+                return _context12.stop();
+            }
+          }
+        }, _callee12);
+      }));
+
+      return function setAfterBlockAsync() {
+        return _ref17.apply(this, arguments);
+      };
+    }();
+
+    setAfterBlockAsync();
+    Promise.all(accept.filter(function (configuration) {
+      return configuration.blockchain === 'solana';
+    }).map(function (configuration) {
+      var token = new Token$1({
+        blockchain: configuration.blockchain,
+        address: configuration.token
+      });
+      return Promise.all([Promise.resolve(configuration), token.symbol(), token.name(), token.decimals()]);
+    })).then(function (options) {
+      return options.map(function (option) {
+        return _objectSpread$1(_objectSpread$1({}, option[0]), {}, {
+          symbol: option[1],
+          name: option[2],
+          decimals: option[3]
+        });
+      });
+    }).then(function (paymentOptions) {
+      setPaymentOptions(paymentOptions);
+
+      if (paymentOptions.length === 1) {
+        selectPaymentOption(paymentOptions[0]);
+      }
+    });
+  }, []);
+  useEffect(function () {
+    return function () {
+      if (solanaPayTransactionSocket) {
+        solanaPayTransactionSocket.close();
+      }
+    };
+  }, [solanaPayTransactionSocket]);
+  useEffect(function () {
+    return function () {
+      if (transactionTrackingSocket) {
+        transactionTrackingSocket.close();
+      }
+    };
+  }, [transactionTrackingSocket]);
+  useEffect(function () {
+    return function () {
+      if (paymentValidationSocket) {
+        paymentValidationSocket.close();
+      }
+    };
+  }, [paymentValidationSocket]);
+  useEffect(function () {
+    return function () {
+      if (transactionTrackingInterval) {
+        clearInterval(transactionTrackingInterval);
+      }
+    };
+  }, [transactionTrackingInterval]);
+  useEffect(function () {
+    return function () {
+      if (pollingPaymentStatusInterval) {
+        clearInterval(pollingPaymentStatusInterval);
+      }
+    };
+  }, [pollingPaymentStatusInterval]);
+  useEffect(function () {
+    if (afterBlock && QRCode) {
+      setState('scan');
+    }
+  }, [afterBlock && QRCode]);
+  useEffect(function () {
+    if (state === 'scan' && QRCode && QRCodeElement && QRCodeElement.current) {
+      QRCodeElement.current.innerHTML = "";
+      QRCode.append(QRCodeElement.current);
+    }
+  }, [state, QRCode]);
+  useEffect(function () {
+    if (transaction && ['succeeded', 'failed'].includes(state)) {
+      setClosable(!isTracking);
+      setRelease(!isTracking);
+      storePayment(transaction);
+
+      if (transactionTrackingSocket) {
+        transactionTrackingSocket.close();
+      }
+
+      if (transactionTrackingInterval) {
+        clearInterval(transactionTrackingInterval);
+      }
+
+      if (synchronousTracking) {
+        openPaymentValidationSocket(transaction);
+        startPollingPaymentStatus(transaction);
+      }
+
+      sendTrack({
+        transaction: transaction
+      }).then(function () {
+        setClosable(!synchronousTracking);
+        setRelease(!synchronousTracking);
+      })["catch"](function (e) {
+        console.log('tracking failed');
+      });
+    }
+  }, [transaction, state]);
+
+  if (status === 'failed') {
+    return /*#__PURE__*/React.createElement(Dialog$1, {
+      stacked: false,
+      header: /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }),
+      body: /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/React.createElement("img", {
+        className: "Graphic",
+        src: ErrorGraphic
+      })), /*#__PURE__*/React.createElement("h1", {
+        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+      }, "Payment Failed"), /*#__PURE__*/React.createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/React.createElement("strong", {
+        className: "FontSizeM"
+      }, "Unfortunately executing your payment failed, but you can try again."), transaction && /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopS"
+      }, /*#__PURE__*/React.createElement("a", {
+        className: "Link",
+        title: "Check your transaction on a block explorer",
+        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, "View on explorer")))),
+      footer: /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+      }, /*#__PURE__*/React.createElement("button", {
+        className: "ButtonPrimary",
+        onClick: function onClick() {
+          return close();
+        }
+      }, "Try again"))
+    });
+  }
+
+  if (!paymentOptions) {
+    return /*#__PURE__*/React.createElement(Dialog$1, {
+      header: /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+        className: "LineHeightL FontSizeL"
+      }, /*#__PURE__*/React.createElement("img", {
+        src: LOGO,
+        className: "SolanaPayLogo",
+        alt: "Solana Pay",
+        title: "Solana Pay"
+      })))),
+      body: /*#__PURE__*/React.createElement("div", {
+        className: "MaxHeight"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "PaddingLeftM PaddingRightM"
+      }, accept.filter(function (configuration) {
+        return configuration.blockchain === 'solana';
+      }).map(function (configuration, index) {
+        return /*#__PURE__*/React.createElement("div", {
+          className: "Card Skeleton",
+          key: index
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "SkeletonBackground"
+        }));
+      })))
+    });
+  } else {
+    return /*#__PURE__*/React.createElement(Dialog$1, {
+      header: /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+        className: "LineHeightL FontSizeL"
+      }, /*#__PURE__*/React.createElement("img", {
+        src: LOGO,
+        className: "SolanaPayLogo",
+        alt: "Solana Pay",
+        title: "Solana Pay"
+      })))),
+      body: /*#__PURE__*/React.createElement("div", {
+        className: "".concat(['select'].includes(state) ? 'MaxHeight' : '')
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "PaddingLeftM PaddingRightM"
+      }, state === 'select' && paymentOptions && /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopXS"
+      }, paymentOptions.map(function (paymentOption, index) {
+        return /*#__PURE__*/React.createElement("div", {
+          className: "Card",
+          key: index,
+          onClick: function onClick() {
+            return selectPaymentOption(paymentOption);
+          }
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "CardImage"
+        }, /*#__PURE__*/React.createElement(TokenImage, {
+          blockchain: paymentOption.blockchain,
+          address: paymentOption.token
+        }), /*#__PURE__*/React.createElement("img", {
+          className: "BlockchainLogo small " + Blockchains[paymentOption.blockchain].name,
+          src: Blockchains[paymentOption.blockchain].logo,
+          alt: Blockchains[paymentOption.blockchain].label,
+          title: Blockchains[paymentOption.blockchain].label
+        })), /*#__PURE__*/React.createElement("div", {
+          className: "CardBody"
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "CardBodyWrapper"
+        }, /*#__PURE__*/React.createElement("h2", {
+          className: "CardText"
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "TokenAmountRow"
+        }, /*#__PURE__*/React.createElement("span", {
+          className: "TokenAmountCell"
+        }, format(paymentOption.amount)), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
+          className: "TokenSymbolCell"
+        }, paymentOption.symbol))))));
+      })), state === 'wait' && /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter PaddingTopS"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Skeleton",
+        style: {
+          display: "inline-block",
+          borderRadius: "18px",
+          width: "305px",
+          height: "305px"
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "SkeletonBackground"
+      }))), state === 'scan' && /*#__PURE__*/React.createElement("div", {
+        ref: QRCodeElement,
+        className: "QRCode"
+      }), ['pay', 'succeeded', 'failed'].includes(state) && /*#__PURE__*/React.createElement("div", {
+        className: "Card disabled"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement(TokenImage, {
+        blockchain: selectedPaymentOption.blockchain,
+        address: selectedPaymentOption.token
+      }), /*#__PURE__*/React.createElement("img", {
+        className: "BlockchainLogo small " + Blockchains[selectedPaymentOption.blockchain].name,
+        src: Blockchains[selectedPaymentOption.blockchain].logo,
+        alt: Blockchains[selectedPaymentOption.blockchain].label,
+        title: Blockchains[selectedPaymentOption.blockchain].label
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("h2", {
+        className: "CardText"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TokenAmountRow"
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "TokenAmountCell"
+      }, format(selectedPaymentOption.amount)), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
+        className: "TokenSymbolCell"
+      }, selectedPaymentOption.symbol)))))))),
+      footer: /*#__PURE__*/React.createElement("div", {
+        className: "PaddingRightM PaddingLeftM PaddingBottomM"
+      }, state === 'select' && /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05 PaddingBottomXS PaddingTopS"
+      }, /*#__PURE__*/React.createElement("small", null, "Select a payment option to continue")), state === 'wait' && /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05 PaddingBottomXS PaddingTopS"
+      }, /*#__PURE__*/React.createElement("small", null, "Loading QR code...")), state === 'scan' && /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05 PaddingBottomXS PaddingTopS"
+      }, /*#__PURE__*/React.createElement("small", null, "Scan QR code with your wallet")), state === 'pay' && /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopXS"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Card transparent disabled small"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter Opacity05"
+      }, /*#__PURE__*/React.createElement(DigitalWalletIcon, {
+        className: "small"
+      }))), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05"
+      }, "Confirm payment in your wallet"))))), /*#__PURE__*/React.createElement("a", {
+        className: "ButtonPrimary ".concat(transaction !== null && transaction !== void 0 && transaction.url ? '' : 'disabled'),
+        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, /*#__PURE__*/React.createElement(LoadingText, null, "Paying"))), state === 'succeeded' && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopXS"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomS"
+      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
+        className: "Card transparent small",
+        title: "Transaction has been confirmed by the network",
+        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter Opacity05"
+      }, /*#__PURE__*/React.createElement(Checkmark, {
+        className: "small"
+      }))), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05"
+      }, "Transaction confirmed"))))), synchronousTracking && !release && /*#__PURE__*/React.createElement("div", {
+        className: "Card transparent small disabled"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Loading Icon"
+      }))), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05"
+      }, "Validating payment")))), synchronousTracking && release && /*#__PURE__*/React.createElement("div", {
+        className: "Card transparent small disabled"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter Opacity05"
+      }, /*#__PURE__*/React.createElement(Checkmark, {
+        className: "small"
+      }))), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05"
+      }, "Payment validated"))))), !release && /*#__PURE__*/React.createElement("button", {
+        className: "ButtonPrimary disabled"
+      }, "Continue"), release && forwardTo && /*#__PURE__*/React.createElement("a", {
+        className: "ButtonPrimary",
+        href: forwardTo,
+        rel: "noopener noreferrer"
+      }, "Continue"), release && !forwardTo && /*#__PURE__*/React.createElement("button", {
+        className: "ButtonPrimary",
+        onClick: close
+      }, "Close"))))
+    });
+  }
 });
 
 var SolanaPayStack = (function (props) {
@@ -28161,11 +35215,14 @@ var SolanaPayStack = (function (props) {
     setNavigator: setNavigator,
     open: open,
     close: close,
-    start: "SelectPaymentOption",
+    start: "SolanaPay",
     container: props.container,
     document: props.document,
+    stacked: true,
     dialogs: {
-      SelectPaymentOption: /*#__PURE__*/React.createElement(SolanaPaySelectPaymentOptionDialog, null)
+      SolanaPay: /*#__PURE__*/React.createElement(SolanaPayDialog, {
+        unmount: props.unmount
+      })
     }
   });
 });
@@ -28182,8 +35239,10 @@ var SolanaPayProvider = (function (props) {
 
   if (showSolanaPayStack) {
     return /*#__PURE__*/React.createElement(SolanaPayStack, {
+      setShowSolanaPayStack: setShowSolanaPayStack,
       document: props.document,
-      container: props.container
+      container: props.container,
+      unmount: props.unmount
     });
   } else {
     return /*#__PURE__*/React.createElement(SolanaPayContext.Provider, {
@@ -28393,12 +35452,12 @@ var TransactionTrackingProvider = (function (props) {
     };
 
     socket.onerror = function (error) {
-      console.log('WebSocket Error: ' + error);
+      console.log('WebSocket Error: ', error);
     };
   };
 
   var initializeTracking = function initializeTracking(transaction, afterBlock) {
-    if (!supported.evm.includes(transaction.blockchain)) {
+    if (!supported$3.evm.includes(transaction.blockchain)) {
       return;
     }
 
@@ -28452,7 +35511,7 @@ var preflight$1 = /*#__PURE__*/function () {
                 throw 'You need to set the blockchain your want to receive the payment on!';
               }
 
-              if (!supported.includes(configuration.blockchain)) {
+              if (!supported$3.includes(configuration.blockchain)) {
                 throw 'You need to set a supported blockchain!';
               }
 
@@ -28545,7 +35604,8 @@ var Payment = /*#__PURE__*/function () {
                 }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                   unmount: unmount,
                   closable: closable
-                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(SolanaPayProvider, {
+                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(PoweredBy, null), /*#__PURE__*/React.createElement(SolanaPayProvider, {
+                  unmount: unmount,
                   document: document,
                   container: container
                 }, /*#__PURE__*/React.createElement(WalletProvider, {
@@ -28570,7 +35630,7 @@ var Payment = /*#__PURE__*/function () {
                 }, /*#__PURE__*/React.createElement(PaymentValueProvider, null, /*#__PURE__*/React.createElement(PaymentStack, {
                   document: document,
                   container: container
-                }), /*#__PURE__*/React.createElement(PoweredBy, null)))))))))))))));
+                })))))))))))))));
               };
             });
             return _context2.abrupt("return", {
@@ -28791,7 +35851,7 @@ var SaleOverviewDialog = (function (props) {
     });
   }
 
-  var blockchain = Blockchains$1.findByName(payment.blockchain);
+  var blockchain = Blockchains.findByName(payment.blockchain);
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
@@ -29151,7 +36211,7 @@ var ConfirmNFTSelectionDialog = (function (props) {
       className: "Table TextLeft FontSizeS"
     }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
       className: "TableSubTitle"
-    }, "Blockchain")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, Blockchains$1.findByName(blockchain).label))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+    }, "Blockchain")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, Blockchains.findByName(blockchain).label))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
       className: "TableSubTitle"
     }, "Name")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("a", {
       className: "Link",
@@ -29163,7 +36223,7 @@ var ConfirmNFTSelectionDialog = (function (props) {
     }, "Address")), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
       className: "Link",
       title: selection.nft.address,
-      href: Blockchains$1.findByName(blockchain).explorerUrlFor({
+      href: Blockchains.findByName(blockchain).explorerUrlFor({
         token: selection.nft.address
       }),
       target: "_blank",
@@ -29247,14 +36307,14 @@ var EnterNFTDataManuallyDialog = (function (props) {
         image: image,
         name: name,
         link: link,
-        type: supported.solana.includes(blockchain) ? 'metaplex' : idRequired ? '1155' : '721'
+        type: supported$3.solana.includes(blockchain) ? 'metaplex' : idRequired ? '1155' : '721'
       }
     }));
     navigate('ConfirmNFTSelection');
   };
 
   var startWithBlockchain = function startWithBlockchain(name) {
-    var blockchain = Blockchains$1.findByName(name);
+    var blockchain = Blockchains.findByName(name);
     setBlockchain(blockchain);
     setSelection(Object.assign(props.selection, {
       blockchain: blockchain,
@@ -29284,7 +36344,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
                 drip: function drip(wallet) {
                   if (wallet && !blockchain) {
                     new wallet().connectedTo().then(function (name) {
-                      blockchain = Blockchains$1.findByName(name);
+                      blockchain = Blockchains.findByName(name);
 
                       if (window._depay_token_selection_selected_blockchain) {
                         startWithBlockchain(window._depay_token_selection_selected_blockchain);
@@ -29332,18 +36392,18 @@ var EnterNFTDataManuallyDialog = (function (props) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (!(blockchain && !supported.solana.includes(blockchain))) {
+                if (!(blockchain && !supported$3.solana.includes(blockchain))) {
                   _context2.next = 10;
                   break;
                 }
 
                 _context2.prev = 1;
                 _context2.next = 4;
-                return request({
+                return request$1({
                   blockchain: blockchain,
                   address: address,
                   method: 'balanceOf',
-                  api: Token[blockchain][1155],
+                  api: Token$1[blockchain][1155],
                   params: [address, '1']
                 });
 
@@ -29394,12 +36454,12 @@ var EnterNFTDataManuallyDialog = (function (props) {
       className: "CardImage small"
     }, /*#__PURE__*/React.createElement("img", {
       className: "transparent",
-      src: (_Blockchains$findByNa = Blockchains$1.findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain3 = selection.blockchain) === null || _selection$blockchain3 === void 0 ? void 0 : _selection$blockchain3.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection3 = selection.collection) === null || _selection$collection3 === void 0 ? void 0 : _selection$collection3.blockchain))) === null || _Blockchains$findByNa === void 0 ? void 0 : _Blockchains$findByNa.logo
+      src: (_Blockchains$findByNa = Blockchains.findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain3 = selection.blockchain) === null || _selection$blockchain3 === void 0 ? void 0 : _selection$blockchain3.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection3 = selection.collection) === null || _selection$collection3 === void 0 ? void 0 : _selection$collection3.blockchain))) === null || _Blockchains$findByNa === void 0 ? void 0 : _Blockchains$findByNa.logo
     })), /*#__PURE__*/React.createElement("div", {
       className: "CardBody FontSizeM"
-    }, (_Blockchains$findByNa2 = Blockchains$1.findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain4 = selection.blockchain) === null || _selection$blockchain4 === void 0 ? void 0 : _selection$blockchain4.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection4 = selection.collection) === null || _selection$collection4 === void 0 ? void 0 : _selection$collection4.blockchain))) === null || _Blockchains$findByNa2 === void 0 ? void 0 : _Blockchains$findByNa2.label), /*#__PURE__*/React.createElement("div", {
+    }, (_Blockchains$findByNa2 = Blockchains.findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain4 = selection.blockchain) === null || _selection$blockchain4 === void 0 ? void 0 : _selection$blockchain4.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection4 = selection.collection) === null || _selection$collection4 === void 0 ? void 0 : _selection$collection4.blockchain))) === null || _Blockchains$findByNa2 === void 0 ? void 0 : _Blockchains$findByNa2.label), /*#__PURE__*/React.createElement("div", {
       className: "CardAction"
-    }, /*#__PURE__*/React.createElement(ChevronRight, null))))), /*#__PURE__*/React.createElement("div", null, supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain5 = selection.blockchain) === null || _selection$blockchain5 === void 0 ? void 0 : _selection$blockchain5.name) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement(ChevronRight, null))))), /*#__PURE__*/React.createElement("div", null, supported$3.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain5 = selection.blockchain) === null || _selection$blockchain5 === void 0 ? void 0 : _selection$blockchain5.name) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS TextLeft"
     }, /*#__PURE__*/React.createElement("label", {
       htmlFor: "DePayWidgetsEnterNFTTokenAddresses"
@@ -29425,7 +36485,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
       }
     }), /*#__PURE__*/React.createElement("div", {
       className: "FontSizeXS PaddingLeftXS PaddingRightXS Opacity03 LineHeightXS"
-    }, "Separate each one with a new line break."))), !supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain6 = selection.blockchain) === null || _selection$blockchain6 === void 0 ? void 0 : _selection$blockchain6.name) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    }, "Separate each one with a new line break."))), !supported$3.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain6 = selection.blockchain) === null || _selection$blockchain6 === void 0 ? void 0 : _selection$blockchain6.name) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS TextLeft"
     }, /*#__PURE__*/React.createElement("label", {
       htmlFor: "DePayWidgetsEnterNFTTokenAddress"
@@ -29477,7 +36537,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
       onChange: function onChange(event) {
         return setName(event.target.value);
       },
-      placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain7 = selection.blockchain) === null || _selection$blockchain7 === void 0 ? void 0 : _selection$blockchain7.name) ? 'SMB' : 'CryptoPunks',
+      placeholder: supported$3.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain7 = selection.blockchain) === null || _selection$blockchain7 === void 0 ? void 0 : _selection$blockchain7.name) ? 'SMB' : 'CryptoPunks',
       className: "Search"
     }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS TextLeft"
@@ -29494,7 +36554,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
       onChange: function onChange(event) {
         return setImage(event.target.value);
       },
-      placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain8 = selection.blockchain) === null || _selection$blockchain8 === void 0 ? void 0 : _selection$blockchain8.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128',
+      placeholder: supported$3.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain8 = selection.blockchain) === null || _selection$blockchain8 === void 0 ? void 0 : _selection$blockchain8.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128',
       className: "Search"
     }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS TextLeft"
@@ -29511,7 +36571,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
       onChange: function onChange(event) {
         return setLink(event.target.value);
       },
-      placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain9 = selection.blockchain) === null || _selection$blockchain9 === void 0 ? void 0 : _selection$blockchain9.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks",
+      placeholder: supported$3.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain9 = selection.blockchain) === null || _selection$blockchain9 === void 0 ? void 0 : _selection$blockchain9.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks",
       className: "Search"
     })))),
     footer: /*#__PURE__*/React.createElement("div", {
@@ -29537,8 +36597,8 @@ var SelectBlockchainDialog = (function (props) {
       navigate = _useContext2.navigate;
 
   var stacked = props.stacked || Object.keys(props.selection).length > 1;
-  var blockchains = supported.map(function (blockchainName) {
-    return Blockchains$1[blockchainName];
+  var blockchains = supported$3.map(function (blockchainName) {
+    return Blockchains[blockchainName];
   });
 
   var selectBlockchain = function selectBlockchain(blockchain) {
@@ -29647,7 +36707,7 @@ var ConfirmTokenSelectionDialog = (function (props) {
   var token = selection.token;
   var address = token.address || token.external_id;
   var logo = token.logo || token.image;
-  var blockchain = Blockchains$1.findByName(token.blockchain);
+  var blockchain = Blockchains.findByName(token.blockchain);
   var age = token.first_transfer ? msToTime(new Date() - new Date(token.first_transfer)) : undefined;
 
   if (age) {
@@ -29783,7 +36843,7 @@ var SelectTokenDialog = (function (props) {
   var searchElement = useRef();
 
   var startWithBlockchain = function startWithBlockchain(name) {
-    var blockchain = Blockchains$1.findByName(name);
+    var blockchain = Blockchains.findByName(name);
     setBlockchain(blockchain);
     setSelection(Object.assign(props.selection, {
       blockchain: blockchain,
@@ -29814,7 +36874,7 @@ var SelectTokenDialog = (function (props) {
                 drip: function drip(wallet) {
                   if (wallet && !blockchain) {
                     new wallet().connectedTo().then(function (name) {
-                      blockchain = Blockchains$1.findByName(name);
+                      blockchain = Blockchains.findByName(name);
 
                       if (window._depay_token_selection_selected_blockchain) {
                         startWithBlockchain(window._depay_token_selection_selected_blockchain);
@@ -29895,7 +36955,7 @@ var SelectTokenDialog = (function (props) {
       var token;
 
       try {
-        token = new Token({
+        token = new Token$1({
           blockchain: blockchain.name,
           address: term
         });
@@ -29933,7 +36993,7 @@ var SelectTokenDialog = (function (props) {
       var _token;
 
       try {
-        _token = new Token({
+        _token = new Token$1({
           blockchain: blockchain.name,
           address: term
         });
@@ -29977,13 +37037,13 @@ var SelectTokenDialog = (function (props) {
   var select = function select(token) {
     if (token.address) {
       if (token.address.match('0x')) {
-        token.address = ethers.utils.getAddress(token.address);
+        token.address = ethers$1.utils.getAddress(token.address);
       }
     }
 
     if (token.external_id) {
       if (token.external_id.match('0x')) {
-        token.external_id = ethers.utils.getAddress(token.external_id);
+        token.external_id = ethers$1.utils.getAddress(token.external_id);
       }
     }
 

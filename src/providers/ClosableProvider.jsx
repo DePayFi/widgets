@@ -8,18 +8,29 @@ export default (props)=>{
   const [open, setOpen] = useState(true)
   const { setUpdatable } = useContext(UpdatableContext)
 
-  let close = ()=>{
+  const close = ()=>{
     if(props.closable === false) { return }
     if(!closable) { return }
-    setUpdatable(false)
-    setOpen(false)
-    setTimeout(props.unmount, 300)
+    let close = true
+    if(typeof closable === 'string') {
+      close = confirm(closable)
+    }
+    if(close) {
+      setUpdatable(false)
+      setOpen(false)
+      setTimeout(props.unmount, 300)
+    }
   }
 
   useEffect(()=>{
     const preventReload = (event) => {
       if(!closable || props.closable === false) {
         const msg = 'Payment is still pending. Please wait!'
+        event.preventDefault()
+        event.returnValue = msg
+        return msg
+      } else if (typeof closable === 'string') {
+        const msg = closable
         event.preventDefault()
         event.returnValue = msg
         return msg
@@ -39,7 +50,7 @@ export default (props)=>{
       setClosable,
       close,
       open,
-      setOpen
+      setOpen,
     }}>
       { props.children }
     </ClosableContext.Provider>

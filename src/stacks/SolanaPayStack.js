@@ -2,7 +2,6 @@ import ClosableContext from '../contexts/ClosableContext'
 import NavigateContext from '../contexts/NavigateContext'
 import React, { useContext } from 'react'
 import SolanaPayDialog from '../dialogs/SolanaPayDialog'
-import TracingFailedDialog from '../dialogs/TracingFailedDialog'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{
@@ -20,8 +19,7 @@ export default (props)=>{
       document={ props.document }
       stacked={true}
       dialogs={{
-        SolanaPay: <SolanaPayDialog/>,
-        TracingFailed: <TracingFailedDialog/>,
+        SolanaPay: <SolanaPayDialog unmount={ props.unmount } />
       }}
     />
   )

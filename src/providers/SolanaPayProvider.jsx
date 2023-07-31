@@ -17,6 +17,7 @@ export default (props)=>{
         setShowSolanaPayStack={ setShowSolanaPayStack }
         document={ props.document }
         container={ props.container }
+        unmount={ props.unmount }
       />
     )
 

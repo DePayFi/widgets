@@ -34,7 +34,6 @@ export default (props)=> {
   
   const [ extensionIsAvailable, setExtensionIsAvailable ] = useState()
   const [ connectAppIsAvailable, setConnectAppIsAvailable ] = useState()
-  const [ solanaPayIsAvailable, setSolanaPayIsAvailable ] = useState()
   const [ openInAppIsAvailable, setOpenInAppIsAvailable ] = useState()
   const [ scanQrAvailable, setScanQrAvailable ] = useState()
   const [ appIsConnected, setAppIsConnected ] = useState()
@@ -80,14 +79,16 @@ export default (props)=> {
           if(extensionIsAvailable && wallet.name == wallets[props.wallet.extension].info.name) {
             return // extension found and link with same wallet name found (e.g. MetaMask extension + mobile) let user decide!
           } 
-          if(props.wallet.name == wallet.name) {
+          if(props.wallet.name === wallet.name) {
             return wallet.account().then((account)=>{
               props.resolve(account, wallet)
             })
           }
         })  
-      } else if(props.platform?.qr == 'WalletLink') {
+      } else if(props.platform?.qr === 'WalletLink') {
         connectViaQRCode()
+      } else if(props.platform?.qr === 'SolanaPay') {
+        props.continueWithSolanaPay()
       }
     }
   }
@@ -136,7 +137,10 @@ export default (props)=> {
         wallet.connect().then((account)=>{
           props.resolve(account, wallet)
         })
-      break
+      break;
+      case 'SolanaPay':
+        props.continueWithSolanaPay()
+      break;
     }
   }, 100), [])
 
@@ -148,15 +152,10 @@ export default (props)=> {
       setAppIsConnected(appIsConnected)
       const connectAppIsAvailable = !!props.platform && props.platform.connect
       setConnectAppIsAvailable(connectAppIsAvailable)
-      const solanaPayIsAvailable = !!props.platform && props.platform.solanapay && props.continueWithSolanaPay !== undefined
-      setSolanaPayIsAvailable(solanaPayIsAvailable)
       const openInAppIsAvailable = !!props.platform && props.platform.open
       setOpenInAppIsAvailable(openInAppIsAvailable)
       const scanQrAvailable = props.platform?.qr && (!showQRCode || props.platform.qr === 'WalletLink') && ( ( props.accept && props.accept.every((accept)=>accept.amount)) )
       setScanQrAvailable(scanQrAvailable)
-      if( solanaPayIsAvailable && [extensionIsAvailable, appIsConnected, connectAppIsAvailable, openInAppIsAvailable, scanQrAvailable].filter(Boolean).length === 0) {
-        props.continueWithSolanaPay()
-      }
     })()
   }, [])
 
@@ -203,7 +202,7 @@ export default (props)=> {
             </div>
           }
 
-          { !extensionIsAvailable && !solanaPayIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && ! props.platform?.copyLink && !scanQrAvailable &&
+          { !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && ! props.platform?.copyLink && !scanQrAvailable &&
             <div className="PaddingTopS PaddingLeftL PaddingRightL">
               <div className="Alert FontSizeS">
                 <strong>Unable to connect to this wallet!</strong>
@@ -211,7 +210,7 @@ export default (props)=> {
             </div>
           }
 
-          <div className="PaddingTopS">
+          <div className="PaddingTopS PaddingBottomXS">
             <div ref={ QRCodeElement } className="QRCode">
               { showQRCode && props.platform?.qr !== 'WalletLink' && QRCode === undefined &&
                 <div className="Skeleton" style={{ borderRadius: "18px", width: "305px", height: "305px" }}>
@@ -225,7 +224,7 @@ export default (props)=> {
               </div>
             }
             { showQRCode && props.platform?.qr !== 'WalletLink' && QRCode !== undefined &&
-              <div className="Opacity05 PaddingBottomXS PaddingTopS">
+              <div className="Opacity05 PaddingBottomXS PaddingTopXS">
                 <small>Scan QR code with your wallet</small>
               </div>
             }
@@ -318,20 +317,6 @@ export default (props)=> {
                     Connection link copied
                   </div> 
                 }
-              </div>
-            }
-            { solanaPayIsAvailable &&
-              <div className="PaddingBottomXS">
-                <button onClick={ ()=>props.continueWithSolanaPay(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
-                  <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
-                    <img className="transparent " title="Click to connect app" style={{ filter: 'grayscale(100%) brightness(0%)', height: '34px', width: '34px', borderRadius: '8px' }} src={ Blockchains.solana.logo }/>
-                  </span>
-                  <div className="PaddingLeftS LineHeightXS">
-                    <div className="CardText FontWeightMedium">
-                      Solana Pay
-                    </div>
-                  </div>
-                </button>
               </div>
             }
           </div>
