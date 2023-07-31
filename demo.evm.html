@@ -46,6 +46,7 @@
       }
     </style>
   </head>
+
   <body style="background-color: #FAFAFA;">
     <div class="container py-4">
 
@@ -149,6 +150,12 @@
                           token: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
                         },
+                        {
+                          blockchain: 'solana',
+                          amount: 0.001,
+                          token: '11111111111111111111111111111111',
+                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk'
+                        },
                       ]
                     });
                   });
@@ -177,6 +184,65 @@
                         {
                           blockchain: 'solana',
                           amount: 0.001,
+                          token: '11111111111111111111111111111111',
+                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk',
+                          fee: {
+                            amount: "1.5%",
+                            receiver: "5AcFMJZkXo14r3Hj99iYd1HScPiM4hAcLZf552DfZkxa"
+                          }
+                        },
+                        {
+                          blockchain: 'solana',
+                          amount: 0.001,
+                          token: Web3Blockchains.solana.stables.usd[0],
+                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk',
+                          fee: {
+                            amount: "1%",
+                            receiver: "5AcFMJZkXo14r3Hj99iYd1HScPiM4hAcLZf552DfZkxa"
+                          }
+                        },
+                      ],
+                      track: {
+                        method: (payment)=>{
+                          console.log('TRACK', payment)
+                          return axios.post('/track', payment)
+                        },
+                        poll: {
+                          method: async (payment)=>{
+                            let response = await fetch('/payments/123/release', {
+                              method: 'POST',
+                              body: JSON.stringify(payment),
+                            })
+                            if(response.status == 200) {
+                              let json = await response.json()
+                              return json // { "forward_to": "https://mywebsite.com/payments/123/confirmation" }
+                            }
+                          }
+                        }
+                      }
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Payment: Solana without amount</h5>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="paySolanaWithoutAmount">Try it</button>
+                <script>
+                  var button = document.getElementById("paySolanaWithoutAmount");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      accept: [
+                        {
+                          blockchain: 'solana',
                           token: '11111111111111111111111111111111',
                           receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk'
                         },
@@ -523,6 +589,44 @@
           <div class="px-0 py-4 rounded-lg bg-white border">
             <div class="col px-0">
               <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Payment: with tracking/validation without amount with fee</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Tracks and validates the payment.</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="payWithTrackingWithoutAmountWithFee">Try it</button>
+                <script>
+                  var button = document.getElementById("payWithTrackingWithoutAmountWithFee");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      accept: [{
+                        blockchain: 'bsc',
+                        token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+                        receiver: '0xdE955610314b52Fd80F6C5ebdE36c94f4c99ea72',
+                        fee: {
+                          amount: '1%',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        }
+                      }],
+                      track: {
+                        method: (payment)=>{
+                          console.log('TRACK', payment)
+                          return axios.post('/track', payment)
+                        }
+                      }
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
                 <h5 class="px-4">Payment: with async tracking/validation</h5>
                 <div class="px-4">
                   <div class="text-secondary ">Tracks and validates the payment.</div>
@@ -604,7 +708,6 @@
                     DePayWidgets.Payment({
                       accept: [{
                         blockchain: 'polygon',
-                        amount: 0.0001,
                         token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                         receiver: '0x317D875cA3B9f8d14f960486C0d1D1913be74e90',
                         fee: {
@@ -838,6 +941,34 @@
           </div>
         </div>
 
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Sale: Buy DEPAY fixed amount</h5>
+                <div class="px-4">
+                  <div class="text-secondary "></div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="buyDePayFixedButton">Try it</button>
+                <script>
+                  var button = document.getElementById("buyDePayFixedButton");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Sale({
+                      amount: { fix: 20, token: true, currency: true },
+                      sell: {
+                        'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+                        'bsc': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+                      },
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
           <div class="px-0 py-4 rounded-lg bg-white border">
@@ -884,15 +1015,10 @@
                   var button = document.getElementById("buyWithConfAmountButton");
                   button.addEventListener("click",function(e){
                     DePayWidgets.Sale({
-                      amount: {
-                        start: 10.5,
-                        min: 0.5,
-                        step: 0.5
-                      },
-                      currency: 'USD',
                       sell: {
-                        'ethereum': '0x5a666c7d92e5fa7edcb6390e4efd6d0cdd69cf37',
-                        'bsc': '0x2fa5daf6fe0708fbd63b1a7d1592577284f52256'
+                        'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+                        'bsc': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+                        'solana': 'DePay1miDBPWXs6PVQrdC5Vch2jemgEPaiyXLNLLa2NF',
                       }
                     });
                   });
@@ -1098,6 +1224,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </body>

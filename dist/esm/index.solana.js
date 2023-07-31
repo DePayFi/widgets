@@ -9,13 +9,13 @@ import Fuse from 'fuse.js';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import ReactDOM from 'react-dom';
 import { ReactShadowDOM } from '@depay/react-shadow-dom';
-import { setProviderEndpoints, request as request$1, getProvider as getProvider$3 } from '@depay/web3-client-solana';
+import { setProviderEndpoints, request as request$1 } from '@depay/web3-client-solana';
 import { Currency } from '@depay/local-currency';
 import { route } from '@depay/web3-exchanges-solana';
 import { Token as Token$1 } from '@depay/web3-tokens-solana';
-import { ethers as ethers$1 } from 'ethers';
+import { ethers } from 'ethers';
 import Decimal$1, { Decimal } from 'decimal.js';
-import { TokenImage } from '@depay/react-token-image-solana';
+import { TokenImage as TokenImage$1 } from '@depay/react-token-image-solana';
 import { struct, u64 as u64$1, Buffer, PublicKey, Connection, ACCOUNT_LAYOUT, u32, publicKey, u8, bool, rustEnum, str, u16, option, vec, BN, TransactionInstruction, SystemProgram, u128, seq, i32, i128, Keypair, i64 } from '@depay/solana-web3.js';
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
@@ -986,9 +986,9 @@ function _toConsumableArray(arr) {
   return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
-var supported$3 = ['solana'];
-supported$3.evm = [];
-supported$3.solana = ['solana'];
+var supported$4 = ['solana'];
+supported$4.evm = [];
+supported$4.solana = ['solana'];
 
 var allWallets = [{
   "name": "Coinbase",
@@ -1013,7 +1013,7 @@ var allWallets = [{
     }
   },
   "logo": wallets.Coinbase.info.logo,
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "MetaMask",
   "extension": "MetaMask",
@@ -1039,7 +1039,7 @@ var allWallets = [{
     }
   },
   "logo": wallets.MetaMask.info.logo,
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Phantom",
   "extension": "Phantom",
@@ -1063,7 +1063,7 @@ var allWallets = [{
     }
   },
   "logo": wallets.Phantom.info.logo,
-  "blockchains": _toConsumableArray(supported$3.solana)
+  "blockchains": _toConsumableArray(supported$4.solana)
 }, {
   "name": "Trust Wallet",
   "extension": "Trust",
@@ -1085,7 +1085,7 @@ var allWallets = [{
     }
   },
   "logo": wallets.Trust.info.logo,
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Binance Wallet",
   "extension": "Binance",
@@ -1093,7 +1093,7 @@ var allWallets = [{
     "qr": "WalletConnectV1"
   },
   "logo": wallets.Binance.info.logo,
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Crypto.com | DeFi Wallet",
   "extension": "CryptoCom",
@@ -1116,7 +1116,7 @@ var allWallets = [{
     }
   },
   "logo": wallets.CryptoCom.info.logo,
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Coin98",
   "extension": "Coin98",
@@ -1138,12 +1138,12 @@ var allWallets = [{
     }
   },
   "logo": wallets.Coin98.info.logo,
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Brave",
   "extension": "Brave",
   "logo": wallets.Brave.info.logo,
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Rainbow",
   "desktop": {
@@ -1164,7 +1164,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/rainbow.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Timeless Wallet",
   "desktop": {
@@ -1185,7 +1185,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/timeless.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Uniswap Wallet",
   "desktop": {
@@ -1200,7 +1200,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/uniswap_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Safe",
   "desktop": {
@@ -1221,7 +1221,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/safe.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Rabby",
   "extension": "Rabby",
@@ -1229,7 +1229,7 @@ var allWallets = [{
     "qr": "WalletConnectV1"
   },
   "logo": wallets.Rabby.info.logo,
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Backpack",
   "extension": "Backpack",
@@ -1245,7 +1245,7 @@ var allWallets = [{
     }
   },
   "logo": wallets.Backpack.info.logo,
-  "blockchains": _toConsumableArray(supported$3.solana)
+  "blockchains": _toConsumableArray(supported$4.solana)
 }, {
   "name": "Glow",
   "extension": "Glow",
@@ -1262,7 +1262,7 @@ var allWallets = [{
     }
   },
   "logo": wallets.Glow.info.logo,
-  "blockchains": _toConsumableArray(supported$3.solana)
+  "blockchains": _toConsumableArray(supported$4.solana)
 }, {
   "name": "Solflare",
   "extension": "Solflare",
@@ -1286,7 +1286,7 @@ var allWallets = [{
     }
   },
   "logo": wallets.Solflare.info.logo,
-  "blockchains": _toConsumableArray(supported$3.solana)
+  "blockchains": _toConsumableArray(supported$4.solana)
 }, {
   "name": "imToken",
   "desktop": {
@@ -1305,7 +1305,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/imtoken.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "MEW wallet",
   "desktop": {
@@ -1326,7 +1326,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/mew_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "ONTO",
   "desktop": {
@@ -1345,7 +1345,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/onto.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Zerion",
   "desktop": {
@@ -1368,7 +1368,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/zerion.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Spot",
   "desktop": {
@@ -1389,7 +1389,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/spot.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "BitKeep",
   "desktop": {
@@ -1410,7 +1410,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bit_keep.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Unstoppable Domains",
   "desktop": {
@@ -1429,7 +1429,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Omni",
   "desktop": {
@@ -1450,7 +1450,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/omni.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "KEYRING PRO",
   "desktop": {
@@ -1471,7 +1471,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/keyring_pro.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "TokenPocket",
   "desktop": {
@@ -1490,7 +1490,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/token_pocket.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "BitPay",
   "desktop": {
@@ -1511,7 +1511,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bitpay.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "MathWallet",
   "desktop": {
@@ -1532,7 +1532,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/math_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Ledger Live",
   "desktop": {
@@ -1554,7 +1554,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/ledger_live.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "1inch Wallet",
   "desktop": {
@@ -1575,7 +1575,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/1inch_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "iToken Wallet",
   "desktop": {
@@ -1594,7 +1594,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/i_token_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Huddln",
   "desktop": {
@@ -1613,7 +1613,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/huddln.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Eidoo",
   "desktop": {
@@ -1634,7 +1634,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/eidoo.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "CoolWallet",
   "desktop": {
@@ -1653,7 +1653,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/cool_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Unstoppable Wallet",
   "desktop": {
@@ -1674,7 +1674,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "AlphaWallet",
   "desktop": {
@@ -1695,7 +1695,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/alpha_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Pillar",
   "desktop": {
@@ -1714,7 +1714,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/pillar.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "D'CENT Wallet",
   "desktop": {
@@ -1735,7 +1735,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/dcent.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "ZelCore",
   "desktop": {
@@ -1756,7 +1756,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/zel_core.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Nash",
   "desktop": {
@@ -1777,7 +1777,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/nash.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Coinomi",
   "desktop": {
@@ -1796,7 +1796,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/coinomi.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "CYBAVO Wallet",
   "desktop": {
@@ -1817,7 +1817,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/cybavo.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Tokenary",
   "desktop": {
@@ -1826,14 +1826,14 @@ var allWallets = [{
     "connect": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/tokenary.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Torus",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/torus.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "SafePal",
   "desktop": {
@@ -1852,7 +1852,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/safepal.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Infinity Wallet",
   "desktop": {
@@ -1861,7 +1861,7 @@ var allWallets = [{
     "connect": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/infinity_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Bridge Wallet",
   "desktop": {
@@ -1882,7 +1882,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/mtperlin.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "SparkPoint",
   "desktop": {
@@ -1903,7 +1903,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/sparkpoint.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "PEAKDEFI Wallet",
   "desktop": {
@@ -1924,7 +1924,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/peakdefi.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "AT.Wallet",
   "desktop": {
@@ -1945,7 +1945,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/atwallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Ellipal",
   "desktop": {
@@ -1966,7 +1966,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/ellipal.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Aktionariat",
   "desktop": {
@@ -1987,7 +1987,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/aktionariat.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Talken Wallet",
   "desktop": {
@@ -2008,7 +2008,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/talken.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "KyberSwap",
   "desktop": {
@@ -2029,7 +2029,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/kyberswap.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Tongue Wallet",
   "desktop": {
@@ -2050,7 +2050,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/tongue.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "RWallet",
   "desktop": {
@@ -2071,7 +2071,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/rwallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "O3Wallet",
   "desktop": {
@@ -2092,7 +2092,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/o3wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "HashKey Me",
   "desktop": {
@@ -2113,14 +2113,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/hashkeyme.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Guarda Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/guarda.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Defiant",
   "desktop": {
@@ -2141,7 +2141,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/defiant.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Valora",
   "desktop": {
@@ -2162,7 +2162,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/valora.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Celo Wallet",
   "desktop": {
@@ -2181,7 +2181,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/celo.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Elastos Essentials",
   "desktop": {
@@ -2202,7 +2202,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/elastos_essentials.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Stasis",
   "desktop": {
@@ -2223,7 +2223,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/stasis.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "JulWallet",
   "desktop": {
@@ -2244,7 +2244,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/julwallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Bitpie",
   "desktop": {
@@ -2263,7 +2263,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bitpie.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Minerva Wallet",
   "desktop": {
@@ -2284,7 +2284,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/minerva.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Tangem",
   "desktop": {
@@ -2305,7 +2305,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/tangem.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "ioPay",
   "desktop": {
@@ -2324,21 +2324,21 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/io_pay.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Coinhub",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/coinhub.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Go Pocket",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/gopocket.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Wallet 3",
   "desktop": {
@@ -2358,7 +2358,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/wallet3.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "yiToken",
   "desktop": {
@@ -2377,7 +2377,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/yitoken.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "DID Wallet",
   "desktop": {
@@ -2396,7 +2396,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/didwallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Shinobi Wallet",
   "desktop": {
@@ -2415,7 +2415,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/shinobi_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "AirGap Wallet",
   "desktop": {
@@ -2434,7 +2434,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/air_gap_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "SecuX",
   "desktop": {
@@ -2455,7 +2455,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/secux.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Orange",
   "desktop": {
@@ -2476,7 +2476,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/orange.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Krystal",
   "desktop": {
@@ -2495,7 +2495,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/krystal.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Kriptomat",
   "desktop": {
@@ -2514,7 +2514,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/kriptomat.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Ambire Wallet",
   "desktop": {
@@ -2535,7 +2535,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/ambire_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "PayBolt",
   "desktop": {
@@ -2554,7 +2554,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/pay_bolt.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "OKX Wallet",
   "desktop": {
@@ -2573,21 +2573,21 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/okx_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Mask Network",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/mask_network.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Uniblow",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/uniblow.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Autonomy: Digital Art Wallet",
   "desktop": {
@@ -2608,7 +2608,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/autonomy.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Lilico",
   "desktop": {
@@ -2629,7 +2629,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/lilico.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Fireblocks",
   "desktop": {
@@ -2650,7 +2650,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/fireblocks.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "WATT ME",
   "desktop": {
@@ -2669,7 +2669,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/wattme.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Coingrig",
   "desktop": {
@@ -2690,14 +2690,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/coingrig.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Cryptnox Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/cryptnox_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "bobablocks",
   "desktop": {
@@ -2720,7 +2720,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bobablocks.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Plasma Wallet",
   "desktop": {
@@ -2741,7 +2741,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/plasma_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "HUMBL WALLET",
   "desktop": {
@@ -2762,7 +2762,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/humbl_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Zelus",
   "desktop": {
@@ -2781,7 +2781,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/zelus.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Earth Wallet",
   "desktop": {
@@ -2800,14 +2800,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/earth_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Boba Multisig",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/boba_multisig.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "EASY",
   "desktop": {
@@ -2828,7 +2828,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/easy.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "ISLAMIwallet",
   "desktop": {
@@ -2849,7 +2849,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/islam_iwallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Card Wallet",
   "desktop": {
@@ -2870,21 +2870,21 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/card_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "GameStop Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/game_stop_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "RealT Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/real_t_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "PLTwallet",
   "desktop": {
@@ -2905,7 +2905,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/pl_twallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Avacus",
   "desktop": {
@@ -2926,7 +2926,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/avacus.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "StrikeX Wallet",
   "desktop": {
@@ -2945,14 +2945,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/strike_x_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "BCERTin wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/bcer_tin_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Edge Wallet",
   "desktop": {
@@ -2973,7 +2973,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/edge_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Freedom Wallet",
   "desktop": {
@@ -2992,7 +2992,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/freedom_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Assure",
   "desktop": {
@@ -3013,7 +3013,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/assure.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Cosmostation",
   "desktop": {
@@ -3032,7 +3032,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/cosmostation.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "THORWallet",
   "desktop": {
@@ -3051,14 +3051,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/thor_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Gryfyn",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/gryfyn.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "CoinStats",
   "desktop": {
@@ -3079,7 +3079,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/coin_stats.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Abra Wallet",
   "desktop": {
@@ -3098,7 +3098,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/abra_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Opera Crypto Browser",
   "desktop": {
@@ -3117,7 +3117,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/opera_crypto_browser.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Keywallet Touch",
   "desktop": {
@@ -3136,7 +3136,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/keywallet_touch.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Enno Wallet",
   "desktop": {
@@ -3155,14 +3155,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/enno_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "A4 Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/a4_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Bitcoin.com Wallet",
   "desktop": {
@@ -3183,7 +3183,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bitcoincom.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Defiant",
   "desktop": {
@@ -3204,14 +3204,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/defiant.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Chain",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/chain.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Verso",
   "desktop": {
@@ -3232,7 +3232,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/verso.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "LOBSTR Wallet",
   "desktop": {
@@ -3253,7 +3253,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/lobstr_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Bifrost Wallet",
   "desktop": {
@@ -3274,7 +3274,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bifrost_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Okse Wallet",
   "desktop": {
@@ -3293,14 +3293,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/okse_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "BRISE Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/brise_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "HyperPay",
   "extension": "HyperPay",
@@ -3308,14 +3308,14 @@ var allWallets = [{
     "qr": "WalletConnectV1"
   },
   "logo": wallets.HyperPay.info.logo,
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "ATON",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/aton.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Frontier",
   "desktop": {
@@ -3334,7 +3334,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/frontier.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "MDAO Wallet",
   "desktop": {
@@ -3353,7 +3353,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/mdao_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "TTM Wallet",
   "desktop": {
@@ -3372,7 +3372,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/ttm_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Opto Wallet",
   "desktop": {
@@ -3391,7 +3391,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/opto_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "XFUN Wallet",
   "desktop": {
@@ -3412,7 +3412,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/xfun_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Exodus",
   "desktop": {
@@ -3433,7 +3433,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/exodus.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Uvtoken",
   "desktop": {
@@ -3452,7 +3452,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/uv_token.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "PREMA Wallet",
   "desktop": {
@@ -3475,7 +3475,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/prema_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Shinobi-Wallet",
   "desktop": {
@@ -3494,7 +3494,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/shinobi.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "ByteBank",
   "desktop": {
@@ -3513,7 +3513,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/byte_bank.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Ancrypto Wallet",
   "desktop": {
@@ -3532,7 +3532,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/ancrypto_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Bee Wallet",
   "desktop": {
@@ -3553,7 +3553,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bee_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "LATOKEN Multichain DeFi Wallet",
   "desktop": {
@@ -3572,7 +3572,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/latoken_multichain_de_fi_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "TK Finance",
   "desktop": {
@@ -3593,7 +3593,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/tk_finance.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Oxalus Wallet",
   "desktop": {
@@ -3614,7 +3614,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/oxalus_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "3S Wallet",
   "desktop": {
@@ -3633,7 +3633,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/3_s_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Klever Wallet",
   "desktop": {
@@ -3654,7 +3654,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/klever_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "OneKey",
   "desktop": {
@@ -3677,7 +3677,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/one_key.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "helix id",
   "desktop": {
@@ -3696,7 +3696,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/helix_id.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "ABC Wallet",
   "desktop": {
@@ -3717,7 +3717,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/abcwallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "HaHa",
   "desktop": {
@@ -3738,7 +3738,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/haha.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Volt: DeFi",
   "desktop": {
@@ -3759,7 +3759,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/volt.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Wirex Wallet",
   "desktop": {
@@ -3780,7 +3780,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/wirex_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Robinhood Wallet",
   "desktop": {
@@ -3799,7 +3799,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/robinhood_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "RiceWallet",
   "desktop": {
@@ -3820,7 +3820,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/rice_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "SafeMoon",
   "desktop": {
@@ -3841,7 +3841,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/safemoon.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "SimpleHold",
   "desktop": {
@@ -3862,7 +3862,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/simple_hold.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "GoldBit",
   "desktop": {
@@ -3881,7 +3881,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/gold_bit.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "ioPay",
   "desktop": {
@@ -3900,7 +3900,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/iopay.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Bitizen",
   "desktop": {
@@ -3921,7 +3921,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bitizen.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Slavi Wallet",
   "desktop": {
@@ -3942,7 +3942,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/slavi_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Nufinetes",
   "desktop": {
@@ -3965,7 +3965,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/nufinetes.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Arianee Wallet",
   "desktop": {
@@ -3986,7 +3986,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/arianee_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "NOW Wallet",
   "desktop": {
@@ -4007,7 +4007,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/now_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Arculus Wallet",
   "desktop": {
@@ -4028,7 +4028,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/arculus_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Linen",
   "desktop": {
@@ -4049,7 +4049,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/linen.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Nitrogen Wallet",
   "desktop": {
@@ -4068,7 +4068,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/nitrogen_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "ApolloX",
   "desktop": {
@@ -4087,14 +4087,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/apollo_x.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "ID Pocket",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/id_pocket.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "CoinCircle",
   "desktop": {
@@ -4113,21 +4113,21 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/coin_circle.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "SahalWallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/sahal_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "UPBOND Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/upbond_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Sequence Wallet",
   "desktop": {
@@ -4146,7 +4146,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/sequence_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "LocalTrade Wallet",
   "desktop": {
@@ -4165,14 +4165,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/local_trade_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Loopring Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/loopring_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Vision: Crypto Wallet",
   "desktop": {
@@ -4191,14 +4191,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/vision.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Ballet Crypto",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/ballet_crypto.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Pitaka",
   "desktop": {
@@ -4219,49 +4219,49 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/pitaka.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "AbsoluteWallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/absolute_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "The Parallel",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/the_parallel.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "CypherD Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/cypher_d_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Keplr",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/keplr.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "MyWalliD",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/my_walli_d.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Status",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/status.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Monarch Wallet",
   "desktop": {
@@ -4280,7 +4280,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/monarch_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Marble",
   "desktop": {
@@ -4299,7 +4299,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/marble.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Flooz",
   "desktop": {
@@ -4318,7 +4318,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/flooz.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Blockchain.com",
   "desktop": {
@@ -4337,14 +4337,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/blockchaincom.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Dohrnii Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/dohrnii_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "UniPass",
   "desktop": {
@@ -4363,7 +4363,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/uni_pass.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "ZenGo",
   "desktop": {
@@ -4384,14 +4384,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/zengo.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Locker Token",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/locker_token.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Keeper",
   "desktop": {
@@ -4410,28 +4410,28 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/keeper.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "XDEFI Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/xdefi_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Numio",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/numio.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Neon Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/neon_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Nabox",
   "desktop": {
@@ -4450,7 +4450,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/nabox.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Snowball",
   "desktop": {
@@ -4469,7 +4469,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/snowball.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "KryptoGO Wallet",
   "desktop": {
@@ -4488,28 +4488,28 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/krypto_go_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Payperless",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/payperless.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Brave Wallet",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/brave_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Crossmint",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/crossmint.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Safematrix",
   "desktop": {
@@ -4528,7 +4528,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/safematrix.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "pier",
   "desktop": {
@@ -4547,7 +4547,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/pier.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "FILWallet",
   "desktop": {
@@ -4566,7 +4566,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/fil_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "ParaSwap Wallet",
   "desktop": {
@@ -4585,7 +4585,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/para_swap_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Bitski",
   "desktop": {
@@ -4606,7 +4606,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bitski.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Hippo Wallet",
   "desktop": {
@@ -4627,7 +4627,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/hippo_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Core",
   "desktop": {
@@ -4646,7 +4646,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/core.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Xcapit",
   "desktop": {
@@ -4665,7 +4665,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/xcapit.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Paper",
   "desktop": {
@@ -4684,7 +4684,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/paper_wallet.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "MetaOne",
   "desktop": {
@@ -4703,7 +4703,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/metaone.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Enjin Wallet",
   "desktop": {
@@ -4724,14 +4724,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/enjin.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "BC Vault",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "https://img1.depay.com/wallets/bc_vault.jpg",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Solana Pay",
   "desktop": {
@@ -4746,12 +4746,12 @@ var allWallets = [{
     }
   },
   "logo": Blockchains.solana.logo,
-  "blockchains": _toConsumableArray(supported$3.solana)
+  "blockchains": _toConsumableArray(supported$4.solana)
 }, {
   "name": "Ethereum Wallet",
   "extension": "WindowEthereum",
   "logo": wallets.WindowEthereum.info.logo,
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Solana Wallet",
   "extension": "WindowSolana",
@@ -4767,21 +4767,21 @@ var allWallets = [{
     }
   },
   "logo": wallets.WindowSolana.info.logo,
-  "blockchains": _toConsumableArray(supported$3.solana)
+  "blockchains": _toConsumableArray(supported$4.solana)
 }, {
   "name": "WalletConnect V2",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz48IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMjUuNC4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAtLT48c3ZnIHZlcnNpb249JzEuMScgaWQ9J0xheWVyXzEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB2aWV3Qm94PScwIDAgNTAwIDUwMCcgc3R5bGU9J2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTAwIDUwMDsnIHhtbDpzcGFjZT0ncHJlc2VydmUnPjxzdHlsZSB0eXBlPSd0ZXh0L2Nzcyc+IC5zdDB7ZmlsbDojNTk5MUNEO30KPC9zdHlsZT48ZyBpZD0nUGFnZS0xJz48ZyBpZD0nd2FsbGV0Y29ubmVjdC1sb2dvLWFsdCc+PHBhdGggaWQ9J1dhbGxldENvbm5lY3QnIGNsYXNzPSdzdDAnIGQ9J00xMDIuNywxNjJjODEuNS03OS44LDIxMy42LTc5LjgsMjk1LjEsMGw5LjgsOS42YzQuMSw0LDQuMSwxMC41LDAsMTQuNEwzNzQsMjE4LjkgYy0yLDItNS4zLDItNy40LDBsLTEzLjUtMTMuMmMtNTYuOC01NS43LTE0OS01NS43LTIwNS44LDBsLTE0LjUsMTQuMWMtMiwyLTUuMywyLTcuNCwwTDkxLjksMTg3Yy00LjEtNC00LjEtMTAuNSwwLTE0LjQgTDEwMi43LDE2MnogTTQ2Ny4xLDIyOS45bDI5LjksMjkuMmM0LjEsNCw0LjEsMTAuNSwwLDE0LjRMMzYyLjMsNDA1LjRjLTQuMSw0LTEwLjcsNC0xNC44LDBjMCwwLDAsMCwwLDBMMjUyLDMxMS45IGMtMS0xLTIuNy0xLTMuNywwaDBsLTk1LjUsOTMuNWMtNC4xLDQtMTAuNyw0LTE0LjgsMGMwLDAsMCwwLDAsMEwzLjQsMjczLjZjLTQuMS00LTQuMS0xMC41LDAtMTQuNGwyOS45LTI5LjIgYzQuMS00LDEwLjctNCwxNC44LDBsOTUuNSw5My41YzEsMSwyLjcsMSwzLjcsMGMwLDAsMCwwLDAsMGw5NS41LTkzLjVjNC4xLTQsMTAuNy00LDE0LjgsMGMwLDAsMCwwLDAsMGw5NS41LDkzLjUgYzEsMSwyLjcsMSwzLjcsMGw5NS41LTkzLjVDNDU2LjQsMjI1LjksNDYzLDIyNS45LDQ2Ny4xLDIyOS45eicvPjwvZz48L2c+PC9zdmc+Cg==",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "WalletConnect",
   "desktop": {
     "qr": "WalletConnectV1"
   },
   "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz48IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMjUuNC4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAtLT48c3ZnIHZlcnNpb249JzEuMScgaWQ9J0xheWVyXzEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB2aWV3Qm94PScwIDAgNTAwIDUwMCcgc3R5bGU9J2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTAwIDUwMDsnIHhtbDpzcGFjZT0ncHJlc2VydmUnPjxzdHlsZSB0eXBlPSd0ZXh0L2Nzcyc+IC5zdDB7ZmlsbDojNTk5MUNEO30KPC9zdHlsZT48ZyBpZD0nUGFnZS0xJz48ZyBpZD0nd2FsbGV0Y29ubmVjdC1sb2dvLWFsdCc+PHBhdGggaWQ9J1dhbGxldENvbm5lY3QnIGNsYXNzPSdzdDAnIGQ9J00xMDIuNywxNjJjODEuNS03OS44LDIxMy42LTc5LjgsMjk1LjEsMGw5LjgsOS42YzQuMSw0LDQuMSwxMC41LDAsMTQuNEwzNzQsMjE4LjkgYy0yLDItNS4zLDItNy40LDBsLTEzLjUtMTMuMmMtNTYuOC01NS43LTE0OS01NS43LTIwNS44LDBsLTE0LjUsMTQuMWMtMiwyLTUuMywyLTcuNCwwTDkxLjksMTg3Yy00LjEtNC00LjEtMTAuNSwwLTE0LjQgTDEwMi43LDE2MnogTTQ2Ny4xLDIyOS45bDI5LjksMjkuMmM0LjEsNCw0LjEsMTAuNSwwLDE0LjRMMzYyLjMsNDA1LjRjLTQuMSw0LTEwLjcsNC0xNC44LDBjMCwwLDAsMCwwLDBMMjUyLDMxMS45IGMtMS0xLTIuNy0xLTMuNywwaDBsLTk1LjUsOTMuNWMtNC4xLDQtMTAuNyw0LTE0LjgsMGMwLDAsMCwwLDAsMEwzLjQsMjczLjZjLTQuMS00LTQuMS0xMC41LDAtMTQuNGwyOS45LTI5LjIgYzQuMS00LDEwLjctNCwxNC44LDBsOTUuNSw5My41YzEsMSwyLjcsMSwzLjcsMGMwLDAsMCwwLDAsMGw5NS41LTkzLjVjNC4xLTQsMTAuNy00LDE0LjgsMGMwLDAsMCwwLDAsMGw5NS41LDkzLjUgYzEsMSwyLjcsMSwzLjcsMGw5NS41LTkzLjVDNDU2LjQsMjI1LjksNDYzLDIyNS45LDQ2Ny4xLDIyOS45eicvPjwvZz48L2c+PC9zdmc+Cg==",
-  "blockchains": _toConsumableArray(supported$3.evm)
+  "blockchains": _toConsumableArray(supported$4.evm)
 }].filter(function (wallet) {
   return wallet.blockchains.filter(Boolean).length > 0;
 });
@@ -22082,7 +22082,7 @@ var get$1 = function get() {
 };
 
 var ConnectWalletDialog = (function (props) {
-  var _props$wallet, _props$platform10, _props$platform11, _props$platform12, _props$platform13, _props$platform14;
+  var _props$wallet, _props$platform10, _props$platform11, _props$platform12, _props$platform13, _props$platform14, _props$platform15;
 
   var QRCodeElement = React.useRef();
 
@@ -22341,6 +22341,11 @@ var ConnectWalletDialog = (function (props) {
       QRCode.append(QRCodeElement.current);
     }
   }, [QRCode]);
+
+  if (showQRCode && ((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.qr) === 'SolanaPay') {
+    return null;
+  }
+
   return /*#__PURE__*/React.createElement(Dialog$1, {
     stacked: true,
     header: header,
@@ -22354,7 +22359,7 @@ var ConnectWalletDialog = (function (props) {
       className: "PaddingTopS PaddingLeftL PaddingRightL"
     }, /*#__PURE__*/React.createElement("div", {
       className: "Alert FontSizeS"
-    }, /*#__PURE__*/React.createElement("strong", null, "Most wallets do not connect to http!"))), !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && !((_props$platform10 = props.platform) !== null && _props$platform10 !== void 0 && _props$platform10.copyLink) && !scanQrAvailable && /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("strong", null, "Most wallets do not connect to http!"))), !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && !((_props$platform11 = props.platform) !== null && _props$platform11 !== void 0 && _props$platform11.copyLink) && !scanQrAvailable && /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftL PaddingRightL"
     }, /*#__PURE__*/React.createElement("div", {
       className: "Alert FontSizeS"
@@ -22363,7 +22368,7 @@ var ConnectWalletDialog = (function (props) {
     }, /*#__PURE__*/React.createElement("div", {
       ref: QRCodeElement,
       className: "QRCode"
-    }, showQRCode && ((_props$platform11 = props.platform) === null || _props$platform11 === void 0 ? void 0 : _props$platform11.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React.createElement("div", {
+    }, showQRCode && ((_props$platform12 = props.platform) === null || _props$platform12 === void 0 ? void 0 : _props$platform12.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React.createElement("div", {
       className: "Skeleton",
       style: {
         borderRadius: "18px",
@@ -22372,9 +22377,9 @@ var ConnectWalletDialog = (function (props) {
       }
     }, /*#__PURE__*/React.createElement("div", {
       className: "SkeletonBackground"
-    }))), showQRCode && ((_props$platform12 = props.platform) === null || _props$platform12 === void 0 ? void 0 : _props$platform12.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React.createElement("div", {
+    }))), showQRCode && ((_props$platform13 = props.platform) === null || _props$platform13 === void 0 ? void 0 : _props$platform13.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React.createElement("div", {
       className: "Opacity05 PaddingBottomXS PaddingTopS"
-    }, /*#__PURE__*/React.createElement("small", null, "Generating QR code...")), showQRCode && ((_props$platform13 = props.platform) === null || _props$platform13 === void 0 ? void 0 : _props$platform13.qr) !== 'WalletLink' && QRCode !== undefined && /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("small", null, "Generating QR code...")), showQRCode && ((_props$platform14 = props.platform) === null || _props$platform14 === void 0 ? void 0 : _props$platform14.qr) !== 'WalletLink' && QRCode !== undefined && /*#__PURE__*/React.createElement("div", {
       className: "Opacity05 PaddingBottomXS PaddingTopXS"
     }, /*#__PURE__*/React.createElement("small", null, "Scan QR code with your wallet"))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftL PaddingRightL PaddingTopS"
@@ -22496,7 +22501,7 @@ var ConnectWalletDialog = (function (props) {
       className: "PaddingLeftS LineHeightXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardText FontWeightMedium"
-    }, "Scan QR code")))), ((_props$platform14 = props.platform) === null || _props$platform14 === void 0 ? void 0 : _props$platform14.connect) && ['WalletConnectV1', 'WalletConnectV2'].includes(props.platform.connect) && props.platform.copyLink && /*#__PURE__*/React.createElement("div", {
+    }, "Scan QR code")))), ((_props$platform15 = props.platform) === null || _props$platform15 === void 0 ? void 0 : _props$platform15.connect) && ['WalletConnectV1', 'WalletConnectV2'].includes(props.platform.connect) && props.platform.copyLink && /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomXS TooltipWrapper"
     }, /*#__PURE__*/React.createElement("button", {
       onClick: connectViaCopyLink,
@@ -23426,7 +23431,7 @@ class Dialog extends React.Component {
   }
 }
 
-const _jsxFileName = "/Users/sebastian/Work/DePay/react-dialog/src/index.jsx";
+const _jsxFileName$2 = "/Users/sebastian/Work/DePay/react-dialog/src/index.jsx";
 class ReactDialog extends React.Component {
   constructor(props) {
     super(props);
@@ -23456,7 +23461,7 @@ class ReactDialog extends React.Component {
           close: this.props.close,
           document: _document,
           open: this.props.open,
-          animate: this.props.animate, __self: this, __source: {fileName: _jsxFileName, lineNumber: 29}}
+          animate: this.props.animate, __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 29}}
         
           , this.props.children
         ),
@@ -24573,8 +24578,8 @@ var findMaxRoute = (function (routes) {
       return 1; // a
     }
 
-    var aAmountsAvailable = ethers$1.BigNumber.from(a.fromBalance).div(ethers$1.BigNumber.from(a.fromAmount));
-    var bAmountsAvailable = ethers$1.BigNumber.from(b.fromBalance).div(ethers$1.BigNumber.from(b.fromAmount));
+    var aAmountsAvailable = ethers.BigNumber.from(a.fromBalance).div(ethers.BigNumber.from(a.fromAmount));
+    var bAmountsAvailable = ethers.BigNumber.from(b.fromBalance).div(ethers.BigNumber.from(b.fromAmount));
 
     if (aAmountsAvailable.lt(bAmountsAvailable)) {
       return -1; // b
@@ -25376,7 +25381,7 @@ var PaymentOptionsDialog = (function () {
           key: index
         }, /*#__PURE__*/React.createElement("div", {
           className: "CardImage"
-        }, /*#__PURE__*/React.createElement(TokenImage, {
+        }, /*#__PURE__*/React.createElement(TokenImage$1, {
           blockchain: paymentOption.blockchain,
           address: paymentOption.token
         }), /*#__PURE__*/React.createElement("img", {
@@ -25989,7 +25994,7 @@ var ChangePaymentDialog = (function (props) {
         }
       }, /*#__PURE__*/React.createElement("div", {
         className: "CardImage"
-      }, /*#__PURE__*/React.createElement(TokenImage, {
+      }, /*#__PURE__*/React.createElement(TokenImage$1, {
         blockchain: payment.route.blockchain,
         address: payment.route.fromToken.address
       }), /*#__PURE__*/React.createElement("img", {
@@ -26610,7 +26615,7 @@ var PaymentOverviewDialog = (function (props) {
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardImage",
       title: payment.name
-    }, /*#__PURE__*/React.createElement(TokenImage, {
+    }, /*#__PURE__*/React.createElement(TokenImage$1, {
       blockchain: payment.blockchain,
       address: payment.token
     }), /*#__PURE__*/React.createElement("img", {
@@ -26910,7 +26915,7 @@ var getNonce = /*#__PURE__*/function () {
               blockchain = transaction.blockchain;
             }
 
-            if (!supported$3.evm.includes(blockchain)) {
+            if (!supported$4.evm.includes(blockchain)) {
               _context3.next = 13;
               break;
             }
@@ -26942,7 +26947,7 @@ var getNonce = /*#__PURE__*/function () {
             break;
 
           case 13:
-            if (!supported$3.solana.includes(blockchain)) {
+            if (!supported$4.solana.includes(blockchain)) {
               _context3.next = 22;
               break;
             }
@@ -27394,18 +27399,18 @@ var PaymentTrackingProvider = (function (props) {
               _context4.t6 = _context4.sent;
               _context4.t7 = paymentRoute.toAddress;
               _context4.t8 = paymentRoute.toToken.address;
-              _context4.t9 = ethers$1.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals);
+              _context4.t9 = ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals);
               _context4.t10 = afterBlock.toString();
               _context4.t11 = transaction.id;
               _context4.t12 = {
                 sender_id: transaction.from,
                 sender_token_id: paymentRoute.fromToken.address,
-                sender_amount: ethers$1.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
+                sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
                 integration: integration,
                 link: link,
                 type: type
               };
-              _context4.t13 = paymentRoute.fee ? ethers$1.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : null;
+              _context4.t13 = paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : null;
               _context4.t14 = paymentRoute.fee ? paymentRoute.fee.receiver : null;
               _context4.t15 = transaction.deadline;
               _context4.t16 = {
@@ -27643,7 +27648,7 @@ var PaymentValueProvider = (function (props) {
       blockchain: payment.route.blockchain,
       tokenIn: payment.route.toToken.address,
       tokenOut: payment.route.fromToken.address,
-      amountIn: payment.route.feeAmount ? ethers$1.BigNumber.from(payment.route.toAmount).add(ethers$1.BigNumber.from(payment.route.feeAmount)) : payment.route.toAmount,
+      amountIn: payment.route.feeAmount ? ethers.BigNumber.from(payment.route.toAmount).add(ethers.BigNumber.from(payment.route.feeAmount)) : payment.route.toAmount,
       fromAddress: account,
       toAddress: account
     }) : Promise.resolve([])]).then(function (_ref2) {
@@ -27654,9 +27659,9 @@ var PaymentValueProvider = (function (props) {
       var reverseRoute = reverseRoutes[0];
 
       if (reverseRoute) {
-        var reverseAmountOutBN = ethers$1.BigNumber.from(reverseRoute.amountOut);
-        var paymentAmountInBN = ethers$1.BigNumber.from(payment.route.fromAmount);
-        var divPercent = 100 - reverseAmountOutBN.mul(ethers$1.BigNumber.from('100')).div(paymentAmountInBN).abs().toString();
+        var reverseAmountOutBN = ethers.BigNumber.from(reverseRoute.amountOut);
+        var paymentAmountInBN = ethers.BigNumber.from(payment.route.fromAmount);
+        var divPercent = 100 - reverseAmountOutBN.mul(ethers.BigNumber.from('100')).div(paymentAmountInBN).abs().toString();
 
         if (divPercent >= 10) {
           setPaymentValueLoss(divPercent);
@@ -27672,7 +27677,7 @@ var PaymentValueProvider = (function (props) {
         var decimals = Blockchains[payment.route.blockchain].tokens.find(function (token) {
           return token.address === payment.route.fromToken.address;
         }).decimals;
-        USDValue = ethers$1.utils.formatUnits(payment.route.fromAmount.toString(), decimals);
+        USDValue = ethers.utils.formatUnits(payment.route.fromAmount.toString(), decimals);
       } else {
         var USDRoutes = fromTokenUSDExchangeRoutes.map(function (routes) {
           return routes ? routes[0] : undefined;
@@ -27686,7 +27691,7 @@ var PaymentValueProvider = (function (props) {
             var decimals = Blockchains[payment.route.blockchain].tokens.find(function (token) {
               return token.address === route.tokenOut;
             }).decimals;
-            return parseFloat(ethers$1.utils.formatUnits(route.amountOut, decimals));
+            return parseFloat(ethers.utils.formatUnits(route.amountOut, decimals));
           }); // remove outliers
 
           var average = amounts.reduce(function (a, b) {
@@ -27802,7 +27807,7 @@ const getConfiguration$1 = () =>{
 const BATCH_INTERVAL$1$1 = 10;
 const CHUNK_SIZE$1$1 = 99;
 
-class StaticJsonRpcBatchProvider$1 extends ethers$1.providers.JsonRpcProvider {
+class StaticJsonRpcBatchProvider$1 extends ethers.providers.JsonRpcProvider {
 
   constructor(url, network, endpoints, failover) {
     super(url);
@@ -27821,7 +27826,7 @@ class StaticJsonRpcBatchProvider$1 extends ethers$1.providers.JsonRpcProvider {
     
     const request = chunk.map((inflight) => inflight.request);
 
-    return ethers$1.utils.fetchJson(endpoint, JSON.stringify(request))
+    return ethers.utils.fetchJson(endpoint, JSON.stringify(request))
       .then((result) => {
         // For each result, feed it to the correct Promise, depending
         // on whether it was a success or error
@@ -28212,9 +28217,9 @@ var Solana = {
   setProvider: setProvider$1,
 };
 
-let supported$2 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism'];
-supported$2.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism'];
-supported$2.solana = ['solana'];
+let supported$3 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism'];
+supported$3.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism'];
+supported$3.solana = ['solana'];
 
 function _optionalChain$1$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 let getCacheStore = () => {
@@ -28316,13 +28321,13 @@ let cache = function ({ call, key, expires = 0 }) {
 
 const getProvider = async (blockchain)=>{
 
-  if(supported$2.evm.includes(blockchain)) {
+  if(supported$3.evm.includes(blockchain)) {
 
 
     return await EVM.getProvider(blockchain)
 
 
-  } else if(supported$2.solana.includes(blockchain)) {
+  } else if(supported$3.solana.includes(blockchain)) {
 
 
     return await Solana.getProvider(blockchain)
@@ -28348,7 +28353,7 @@ let paramsToContractArgs = ({ contract, method, params }) => {
 };
 
 const contractCall = ({ address, api, method, params, provider, block }) => {
-  const contract = new ethers$1.Contract(address, api, provider);
+  const contract = new ethers.Contract(address, api, provider);
   const args = paramsToContractArgs({ contract, method, params });
   const fragment = contract.interface.fragments.find((fragment)=>fragment.name === method);
   if(contract[method] === undefined) {
@@ -28549,13 +28554,13 @@ const request = async function (url, options) {
     expires: cache$1 || 0,
     key: cacheKey || [blockchain, address, method, params, block],
     call: async()=>{
-      if(supported$2.evm.includes(blockchain)) {
+      if(supported$3.evm.includes(blockchain)) {
 
 
         return await requestEVM({ blockchain, address, api, method, params, block, strategy, timeout })
 
 
-      } else if(supported$2.solana.includes(blockchain)) {
+      } else if(supported$3.solana.includes(blockchain)) {
 
 
         return await requestSolana({ blockchain, address, api, method, params, block, strategy, timeout })
@@ -30309,7 +30314,7 @@ var FTM20 = [
   },
 ];
 
-const uriAPI = [{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"uri","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"}];
+const uriAPI$1 = [{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"uri","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"}];
 
 const uriToName = (tokenURI)=>{
   return new Promise((resolve)=>{
@@ -30337,7 +30342,7 @@ var nameOnEVM = ({ blockchain, address, api, id })=>{
 
   if(id) {
     return new Promise((resolve)=>{
-      request({ blockchain, address, api: uriAPI, method: 'uri', params: [id] }).then((uri)=>{
+      request({ blockchain, address, api: uriAPI$1, method: 'uri', params: [id] }).then((uri)=>{
         uri = uri.match('0x{id}') ? uri.replace('0x{id}', id) : uri;
         uriToName(uri).then(resolve);
       }).catch((error)=>{
@@ -30557,7 +30562,7 @@ var balanceOnSolana = async ({ blockchain, address, account, api })=>{
 
   if(address == Blockchains[blockchain].currency.address) {
 
-     return ethers$1.BigNumber.from(await request(`solana://${account}/balance`))
+     return ethers.BigNumber.from(await request(`solana://${account}/balance`))
 
   } else {
 
@@ -30566,9 +30571,9 @@ var balanceOnSolana = async ({ blockchain, address, account, api })=>{
     const balance = await request(`solana://${tokenAccountAddress}/getTokenAccountBalance`);
 
     if (balance) {
-      return ethers$1.BigNumber.from(balance.value.amount)
+      return ethers.BigNumber.from(balance.value.amount)
     } else {
-      return ethers$1.BigNumber.from('0')
+      return ethers.BigNumber.from('0')
     }
   }
 };
@@ -30592,7 +30597,7 @@ var findAccount = async ({ token, owner })=>{
   return existingAccount
 };
 
-function _optionalChain$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+function _optionalChain$3$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 const METADATA_ACCOUNT = 'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s';
 
 const METADATA_REPLACE = new RegExp('\u0000', 'g');
@@ -30621,8 +30626,8 @@ const getMetaData = async ({ blockchain, address })=> {
   });
 
   return {
-    name: _optionalChain$3([metaData, 'optionalAccess', _ => _.data, 'optionalAccess', _2 => _2.name, 'optionalAccess', _3 => _3.replace, 'call', _4 => _4(METADATA_REPLACE, '')]),
-    symbol: _optionalChain$3([metaData, 'optionalAccess', _5 => _5.data, 'optionalAccess', _6 => _6.symbol, 'optionalAccess', _7 => _7.replace, 'call', _8 => _8(METADATA_REPLACE, '')])
+    name: _optionalChain$3$1([metaData, 'optionalAccess', _ => _.data, 'optionalAccess', _2 => _2.name, 'optionalAccess', _3 => _3.replace, 'call', _4 => _4(METADATA_REPLACE, '')]),
+    symbol: _optionalChain$3$1([metaData, 'optionalAccess', _5 => _5.data, 'optionalAccess', _6 => _6.symbol, 'optionalAccess', _7 => _7.replace, 'call', _8 => _8(METADATA_REPLACE, '')])
   }
 };
 
@@ -30638,9 +30643,9 @@ var symbolOnSolana = async ({ blockchain, address })=>{
   return _optionalChain$1$1([metaData, 'optionalAccess', _ => _.symbol])
 };
 
-let supported$1 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'velas'];
-supported$1.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'velas'];
-supported$1.solana = ['solana'];
+let supported$2 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'velas'];
+supported$2.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'velas'];
+supported$2.solana = ['solana'];
 
 function _optionalChain$5(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
@@ -30648,9 +30653,9 @@ class Token {
   
   constructor({ blockchain, address }) {
     this.blockchain = blockchain;
-    if(supported$1.evm.includes(this.blockchain)) {
-      this.address = ethers$1.utils.getAddress(address);
-    } else if(supported$1.solana.includes(this.blockchain)) {
+    if(supported$2.evm.includes(this.blockchain)) {
+      this.address = ethers.utils.getAddress(address);
+    } else if(supported$2.solana.includes(this.blockchain)) {
       this.address = address;
     }
   }
@@ -30661,11 +30666,11 @@ class Token {
     }
     let decimals;
     try {
-      if(supported$1.evm.includes(this.blockchain)) {
+      if(supported$2.evm.includes(this.blockchain)) {
 
         decimals = await decimalsOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT });
 
-      } else if(supported$1.solana.includes(this.blockchain)) {
+      } else if(supported$2.solana.includes(this.blockchain)) {
 
         decimals = await decimalsOnSolana({ blockchain: this.blockchain, address: this.address });
 
@@ -30679,11 +30684,11 @@ class Token {
     if (this.address == Blockchains.findByName(this.blockchain).currency.address) {
       return Blockchains.findByName(this.blockchain).currency.symbol
     }
-    if(supported$1.evm.includes(this.blockchain)) {
+    if(supported$2.evm.includes(this.blockchain)) {
 
       return await symbolOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT })
 
-    } else if(supported$1.solana.includes(this.blockchain)) {
+    } else if(supported$2.solana.includes(this.blockchain)) {
 
       return await symbolOnSolana({ blockchain: this.blockchain, address: this.address })
 
@@ -30694,11 +30699,11 @@ class Token {
     if (this.address == Blockchains.findByName(this.blockchain).currency.address) {
       return Blockchains.findByName(this.blockchain).currency.name
     }
-    if(supported$1.evm.includes(this.blockchain)) {
+    if(supported$2.evm.includes(this.blockchain)) {
 
       return await nameOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT, id: _optionalChain$5([args, 'optionalAccess', _ => _.id]) })
 
-    } else if(supported$1.solana.includes(this.blockchain)) {
+    } else if(supported$2.solana.includes(this.blockchain)) {
 
       return await nameOnSolana({ blockchain: this.blockchain, address: this.address })
 
@@ -30706,11 +30711,11 @@ class Token {
   }
 
   async balance(account, id) {
-    if(supported$1.evm.includes(this.blockchain)) {
+    if(supported$2.evm.includes(this.blockchain)) {
 
       return await balanceOnEVM({ blockchain: this.blockchain, account, address: this.address, api: id ? Token[this.blockchain][1155] : Token[this.blockchain].DEFAULT, id })
 
-    } else if(supported$1.solana.includes(this.blockchain)) {
+    } else if(supported$2.solana.includes(this.blockchain)) {
 
       return await balanceOnSolana({ blockchain: this.blockchain, account, address: this.address, api: Token[this.blockchain].DEFAULT })
 
@@ -30719,20 +30724,20 @@ class Token {
 
   async allowance(owner, spender) {
     if (this.address == Blockchains.findByName(this.blockchain).currency.address) {
-      return ethers$1.BigNumber.from(Blockchains.findByName(this.blockchain).maxInt)
+      return ethers.BigNumber.from(Blockchains.findByName(this.blockchain).maxInt)
     }
-    if(supported$1.evm.includes(this.blockchain)) {
+    if(supported$2.evm.includes(this.blockchain)) {
 
       return await allowanceOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT, owner, spender })
 
-    } else if(supported$1.solana.includes(this.blockchain)) {
-      return ethers$1.BigNumber.from(Blockchains.findByName(this.blockchain).maxInt)
+    } else if(supported$2.solana.includes(this.blockchain)) {
+      return ethers.BigNumber.from(Blockchains.findByName(this.blockchain).maxInt)
     } 
   }
 
   async BigNumber(amount) {
     let decimals = await this.decimals();
-    return ethers$1.utils.parseUnits(
+    return ethers.utils.parseUnits(
       Token.safeAmount({ amount: parseFloat(amount), decimals }).toString(),
       decimals
     )
@@ -30740,7 +30745,7 @@ class Token {
 
   async readable(amount) {
     let decimals = await this.decimals();
-    let readable = ethers$1.utils.formatUnits(amount.toString(), decimals);
+    let readable = ethers.utils.formatUnits(amount.toString(), decimals);
     readable = readable.replace(/\.0+$/, '');
     return readable
   }
@@ -30897,9 +30902,9 @@ function _optionalChain$2(ops) { let lastAccessLHS = undefined; let value = ops[
   }
 }
 
-let supported = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom'];
-supported.evm = ['ethereum', 'bsc', 'polygon', 'fantom'];
-supported.solana = ['solana'];
+let supported$1 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom'];
+supported$1.evm = ['ethereum', 'bsc', 'polygon', 'fantom'];
+supported$1.solana = ['solana'];
 
 const DEFAULT_SLIPPAGE = '0.5'; // percent
 
@@ -30913,7 +30918,7 @@ const calculateAmountInWithSlippage = async ({ exchange, fixedPath, amountIn, am
 
   let newAmountInWithDefaultSlippageBN = amountIn.add(amountIn.mul(parseFloat(defaultSlippage)*100).div(10000));
 
-  if(!supported.evm.includes(exchange.blockchain)) { 
+  if(!supported$1.evm.includes(exchange.blockchain)) { 
     return newAmountInWithDefaultSlippageBN
   }
 
@@ -31008,9 +31013,9 @@ const calculateAmountsWithSlippage = async ({
   amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput,
 })=>{
   if(amountOutMinInput || amountOutInput) {
-    if(supported.evm.includes(exchange.blockchain)) {
+    if(supported$1.evm.includes(exchange.blockchain)) {
       amountIn = amountInMax = await calculateAmountInWithSlippage({ exchange, fixedPath, amountIn, amountOut: (amountOutMinInput || amountOut) });
-    } else if(supported.solana.includes(exchange.blockchain)){
+    } else if(supported$1.solana.includes(exchange.blockchain)){
       let amountsWithSlippage = [];
       await Promise.all(fixedPath.map((step, index)=>{
         if(index != 0) {
@@ -31024,7 +31029,7 @@ const calculateAmountsWithSlippage = async ({
       amountIn = amountInMax = amounts[0];
     }
   } else if(amountInMaxInput || amountInInput) {
-    if(supported.solana.includes(exchange.blockchain)){
+    if(supported$1.solana.includes(exchange.blockchain)){
       let amountsWithSlippage = [];
       await Promise.all(fixedPath.map((step, index)=>{
         if(index !== 0 && index < fixedPath.length-1) {
@@ -31049,7 +31054,7 @@ const calculateAmountsWithSlippage = async ({
 
 const fixAddress = (address)=>{
   if(address.match('0x')) {
-    return ethers$1.utils.getAddress(address)
+    return ethers.utils.getAddress(address)
   } else {
     return address
   }
@@ -32412,11 +32417,11 @@ let getPairsWithPrice = async({ tokenIn, tokenOut, amountIn, amountInMax, amount
 };
 
 let getHighestPrice = (pairs)=>{
-  return pairs.reduce((bestPricePair, currentPair)=> ethers$1.BigNumber.from(currentPair.price).gt(ethers$1.BigNumber.from(bestPricePair.price)) ? currentPair : bestPricePair)
+  return pairs.reduce((bestPricePair, currentPair)=> ethers.BigNumber.from(currentPair.price).gt(ethers.BigNumber.from(bestPricePair.price)) ? currentPair : bestPricePair)
 };
 
 let getLowestPrice = (pairs)=>{
-  return pairs.reduce((bestPricePair, currentPair)=> ethers$1.BigNumber.from(currentPair.price).lt(ethers$1.BigNumber.from(bestPricePair.price)) ? currentPair : bestPricePair)
+  return pairs.reduce((bestPricePair, currentPair)=> ethers.BigNumber.from(currentPair.price).lt(ethers.BigNumber.from(bestPricePair.price)) ? currentPair : bestPricePair)
 };
 
 let getBestPair = async({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin }) => {
@@ -32520,12 +32525,12 @@ let findPath$2 = async ({ tokenIn, tokenOut, amountIn, amountOut, amountInMax, a
 
 let getAmountsOut = async ({ path, amountIn, amountInMax }) => {
 
-  let amounts = [ethers$1.BigNumber.from(amountIn || amountInMax)];
+  let amounts = [ethers.BigNumber.from(amountIn || amountInMax)];
 
-  amounts.push(ethers$1.BigNumber.from((await getBestPair({ tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax })).price));
+  amounts.push(ethers.BigNumber.from((await getBestPair({ tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax })).price));
   
   if (path.length === 3) {
-    amounts.push(ethers$1.BigNumber.from((await getBestPair({ tokenIn: path[1], tokenOut: path[2], amountIn: amountIn ? amounts[1] : undefined, amountInMax: amountInMax ? amounts[1] : undefined })).price));
+    amounts.push(ethers.BigNumber.from((await getBestPair({ tokenIn: path[1], tokenOut: path[2], amountIn: amountIn ? amounts[1] : undefined, amountInMax: amountInMax ? amounts[1] : undefined })).price));
   }
 
   if(amounts.length != path.length) { return }
@@ -32536,12 +32541,12 @@ let getAmountsOut = async ({ path, amountIn, amountInMax }) => {
 let getAmountsIn = async({ path, amountOut, amountOutMin }) => {
 
   path = path.slice().reverse();
-  let amounts = [ethers$1.BigNumber.from(amountOut || amountOutMin)];
+  let amounts = [ethers.BigNumber.from(amountOut || amountOutMin)];
 
-  amounts.push(ethers$1.BigNumber.from((await getBestPair({ tokenIn: path[1], tokenOut: path[0], amountOut, amountOutMin })).price));
+  amounts.push(ethers.BigNumber.from((await getBestPair({ tokenIn: path[1], tokenOut: path[0], amountOut, amountOutMin })).price));
   
   if (path.length === 3) {
-    amounts.push(ethers$1.BigNumber.from((await getBestPair({ tokenIn: path[2], tokenOut: path[1], amountOut: amountOut ? amounts[1] : undefined, amountOutMin: amountOutMin ? amounts[1] : undefined })).price));
+    amounts.push(ethers.BigNumber.from((await getBestPair({ tokenIn: path[2], tokenOut: path[1], amountOut: amountOut ? amounts[1] : undefined, amountOutMin: amountOutMin ? amounts[1] : undefined })).price));
   }
   
   if(amounts.length != path.length) { return }
@@ -32980,7 +32985,7 @@ new Exchange(
   })
 );
 
-function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+function _optionalChain$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
 // Replaces 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE with the wrapped token and implies wrapping.
 //
@@ -33012,9 +33017,9 @@ const fixPath$1 = (blockchain, exchange, path) => {
 
 const minReserveRequirements = ({ reserves, min, token, token0, token1, decimals }) => {
   if(token0.toLowerCase() == token.toLowerCase()) {
-    return reserves[0].gte(ethers$1.utils.parseUnits(min.toString(), decimals))
+    return reserves[0].gte(ethers.utils.parseUnits(min.toString(), decimals))
   } else if (token1.toLowerCase() == token.toLowerCase()) {
-    return reserves[1].gte(ethers$1.utils.parseUnits(min.toString(), decimals))
+    return reserves[1].gte(ethers.utils.parseUnits(min.toString(), decimals))
   } else {
     return false
   }
@@ -33090,9 +33095,9 @@ const findPath$1 = async (blockchain, exchange, { tokenIn, tokenOut }) => {
 
   // Add WRAPPED to route path if things start or end with NATIVE
   // because that actually reflects how things are routed in reality:
-  if(_optionalChain([path, 'optionalAccess', _ => _.length]) && path[0] == blockchain.currency.address) {
+  if(_optionalChain$3([path, 'optionalAccess', _ => _.length]) && path[0] == blockchain.currency.address) {
     path.splice(1, 0, blockchain.wrapped.address);
-  } else if(_optionalChain([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == blockchain.currency.address) {
+  } else if(_optionalChain$3([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == blockchain.currency.address) {
     path.splice(path.length-1, 0, blockchain.wrapped.address);
   }
 
@@ -33767,7 +33772,7 @@ const getConfiguration = () =>{
 const BATCH_INTERVAL$1 = 10;
 const CHUNK_SIZE$1 = 99;
 
-class StaticJsonRpcBatchProvider extends ethers$1.providers.JsonRpcProvider {
+class StaticJsonRpcBatchProvider extends ethers.providers.JsonRpcProvider {
 
   constructor(url, network, endpoints, failover) {
     super(url);
@@ -33786,7 +33791,7 @@ class StaticJsonRpcBatchProvider extends ethers$1.providers.JsonRpcProvider {
     
     const request = chunk.map((inflight) => inflight.request);
 
-    return ethers$1.utils.fetchJson(endpoint, JSON.stringify(request))
+    return ethers.utils.fetchJson(endpoint, JSON.stringify(request))
       .then((result) => {
         // For each result, feed it to the correct Promise, depending
         // on whether it was a success or error
@@ -33916,6 +33921,183 @@ var UUIDv4 = (function () {
   });
 });
 
+let supported = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'velas'];
+supported.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'velas'];
+supported.solana = ['solana'];
+
+const _jsxFileName = "/Users/sebastian/Work/DePay/react-token-image/src/index.js"; function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+
+const tokenURIAPI = [{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"tokenURI","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"}];
+const uriAPI = [{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"uri","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"}];
+const UNKNOWN_IMAGE = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMjgzLjUgMjgzLjUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI4My41IDI4My41OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxjaXJjbGUgZmlsbD0iI0YwRUZFRiIgY3g9IjE0MS43IiBjeT0iMTQxLjciIHI9IjE0MS43Ii8+CjxnPgoJPHBhdGggZmlsbD0iI0FCQUJBQiIgZD0iTTEyNywxNzUuMXYtNC40YzAtOC40LDEuMS0xNS4zLDMuNC0yMC43YzIuMy01LjQsNS4xLTEwLDguNC0xMy44YzMuMy0zLjcsNi42LTcsMTAuMS05LjdzNi4zLTUuNiw4LjYtOC41CgkJYzIuMy0yLjksMy40LTYuNCwzLjQtMTAuNWMwLTUtMS4xLTguNy0zLjMtMTEuMWMtMi4yLTIuNC01LTQtOC40LTQuOGMtMy40LTAuOC02LjktMS4zLTEwLjUtMS4zYy01LjgsMC0xMS44LDEtMTcuOSwyLjkKCQljLTYuMSwxLjktMTEuNSw0LjctMTYsOC40Vjc0YzIuMy0xLjcsNS40LTMuMyw5LjQtNC45YzQtMS42LDguNC0yLjksMTMuNC00YzUtMS4xLDEwLjEtMS42LDE1LjUtMS42YzguMSwwLDE1LjEsMS4xLDIxLjEsMy40CgkJYzYsMi4zLDEwLjgsNS41LDE0LjcsOS41YzMuOCw0LDYuNyw4LjcsOC42LDE0LjFjMS45LDUuMywyLjksMTEuMSwyLjksMTcuMmMwLDYuNi0xLjEsMTItMy40LDE2LjNjLTIuMyw0LjMtNS4xLDgtOC41LDExLjIKCQljLTMuNCwzLjItNi44LDYuNC0xMC4yLDkuNWMtMy40LDMuMS02LjMsNi44LTguNiwxMWMtMi4zLDQuMi0zLjQsOS41LTMuNCwxNS45djMuNEgxMjd6IE0xMjUuMiwyMTguMnYtMjcuN2gzM3YyNy43SDEyNS4yeiIvPgo8L2c+Cjwvc3ZnPgo=';
+
+let TokenImage = function(props){
+
+  const [src, _setSrc] = useState();
+  const [source, setSource] = useState();
+
+  const blockchain = props.blockchain.toLowerCase();
+  const NATIVE = Blockchains.findByName(blockchain).currency.address;
+  const address = props.address;
+  const id = props.id;
+  const date = new Date();
+  const localStorageKey = ['react-token-image', blockchain, address, [date.getFullYear(), date.getMonth(), date.getDate()].join('-')].join('-');
+
+  const setSrc = (_src)=>{
+    localStorage.setItem(localStorageKey, _src);
+    _setSrc(_src);
+  };
+
+  useEffect(()=>{
+    const storedImage = localStorage.getItem(localStorageKey);
+    if(storedImage && storedImage.length && storedImage != UNKNOWN_IMAGE) { return setSrc(storedImage) }
+    if(NATIVE.toLowerCase() == address.toLowerCase()) {
+      setSrc(Blockchains.findByName(blockchain).logo);
+    } else {
+      if(supported.evm.includes(blockchain)) {
+        setSource('repository');
+        setSrc(logoFromRepository({ blockchain, address }));
+      } else if(blockchain === 'solana') {
+        setSource('metaplex');
+        logoFromMetaplex({ blockchain, address }).then((image)=>{
+          setSrc(image);
+        });
+      }
+    }
+  }, [blockchain, address]);
+
+  const logoFromMetaplex = ({ blockchain, address }) => {
+    return new Promise(async(resolve, reject)=>{
+      try {
+
+        let mintPublicKey = new PublicKey(address);
+        let metaDataPublicKey = new PublicKey(Token.solana.METADATA_ACCOUNT);
+
+        let seed = [
+          Buffer.from('metadata'),
+          metaDataPublicKey.toBuffer(),
+          mintPublicKey.toBuffer()  
+        ];
+
+        let tokenMetaDataPublicKey = (await PublicKey.findProgramAddress(seed, metaDataPublicKey))[0];
+
+        let metaData = await request({
+          blockchain, 
+          address: tokenMetaDataPublicKey.toString(),
+          api: Token.solana.METADATA_LAYOUT,
+          cache: 86400000, // 1 day
+        });
+        
+        if(_optionalChain([metaData, 'optionalAccess', _ => _.data, 'optionalAccess', _2 => _2.uri])) {
+
+          const uri = metaData.data.uri.replace(new RegExp('\u0000', 'g'), '');
+          if(uri && uri.length) {
+            await fetch(uri)
+              .then((response) => response.json())
+              .then((json)=>{
+                if(json && json.image) {
+                  resolve(json.image);
+                } else {
+                  resolve('');
+                }
+              }).catch(()=>resolve(''));
+          } else {
+            resolve('');
+          }
+        } else {
+          resolve('');
+        }
+
+      } catch (e) { resolve(''); }
+    })
+  };
+  
+  const logoFromRepository = ({ blockchain, address })=> {
+    if(['ethereum', 'bsc', 'polygon', 'fantom', 'solana'].includes(blockchain)) {
+      return `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${mapBlockchainName(blockchain)}/assets/${address}/logo.png`
+    } else if(blockchain == 'velas'){
+      return `https://raw.githubusercontent.com/wagyuswapapp/assets/master/blockchains/velas/assets/${address.toLowerCase()}/logo.png`
+    }
+  };
+
+  const mapBlockchainName = (blockchain)=>{
+    switch (blockchain) {
+      case 'ethereum':
+        return 'ethereum'
+      case 'bsc':
+        return 'smartchain'
+      case 'polygon':
+        return 'polygon'
+      case 'solana':
+        return 'solana'
+      case 'fantom':
+        return 'fantom'
+      default:
+        throw('DePayReactTokenImage: Unknown blockchain')
+    }
+  };
+
+  const setUnknown = ()=>{
+    setSource('unknown');
+    setSrc(UNKNOWN_IMAGE);
+  };
+
+  const uriToImage = (tokenURI)=>{
+    if(tokenURI.match(/^ipfs/)) {
+      tokenURI = `https://ipfs.io/ipfs/${tokenURI.split('://')[1]}`;
+    }
+    fetch(tokenURI).then((response) => {
+      if (response.ok) { return response.json() }
+      setUnknown();
+    })
+    .then((responseJson) => {
+      if(responseJson) {
+        let image = responseJson.image;
+        if(image){
+          if(image.match(/^ipfs/)) {
+            image = `https://ipfs.io/ipfs/${image.split('://')[1]}`;
+          } 
+          setSource('meta');
+          setSrc(image);
+        } else {
+          setUnknown();
+        }
+      }
+    }).catch(setUnknown);
+  };
+
+  const handleLoadError = (error)=> {
+    if(source == 'metaplex') {
+      setSource('repository');
+      setSrc(logoFromRepository({ blockchain, address }));
+    } else if(source == 'repository') {
+      setSource('depay');
+      setSrc(`https://integrate.depay.com/tokens/${blockchain}/${address}/image`);
+    } else if (source == 'depay' && supported.evm.includes(blockchain)) {
+      if(id) {
+        request({ blockchain, address, api: uriAPI, method: 'uri', params: [id] }).then((uri)=>{
+          uri = uri.match('0x{id}') ? uri.replace('0x{id}', id) : uri;
+          uriToImage(uri);
+        }).catch(setUnknown);
+      } else {
+        request({ blockchain, address, api: tokenURIAPI, method: 'tokenURI', params: [1] }).then(uriToImage).catch(setUnknown);
+      }
+    } else {
+      setUnknown();
+    }
+  };
+
+  if(src == undefined) { return null }
+
+  return(
+    React.createElement('img', {
+      className:  props.className ,
+      src:  src ,
+      onError:  handleLoadError , __self: this, __source: {fileName: _jsxFileName, lineNumber: 179}}
+    )
+  )
+};
+
 function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -34037,7 +34219,7 @@ var SolanaPayDialog = (function (props) {
               secretId = UUIDv4();
               setSecretId(secretId);
               _context.next = 4;
-              return Token$1.BigNumber({
+              return Token.BigNumber({
                 amount: selectedPaymentOption.amount,
                 blockchain: 'solana',
                 address: selectedPaymentOption.token
@@ -34056,7 +34238,7 @@ var SolanaPayDialog = (function (props) {
                 break;
               }
 
-              _context.t1 = selectedPaymentOption.fromAmountBN.div(1000).mul(parseInt(selectedPaymentOption.fee.amount.replace("%", ''), 10) * 10);
+              _context.t1 = selectedPaymentOption.fromAmountBN.div(1000).mul(parseFloat(selectedPaymentOption.fee.amount.replace("%", '')) * 10);
               _context.next = 18;
               break;
 
@@ -34072,7 +34254,7 @@ var SolanaPayDialog = (function (props) {
 
             case 14:
               _context.next = 16;
-              return Token$1.BigNumber({
+              return Token.BigNumber({
                 amount: selectedPaymentOption.fee.amount,
                 blockchain: 'solana',
                 address: selectedPaymentOption.token
@@ -34091,7 +34273,7 @@ var SolanaPayDialog = (function (props) {
 
             case 21:
               _context.next = 23;
-              return Token$1.BigNumber({
+              return Token.BigNumber({
                 amount: 0,
                 blockchain: 'solana',
                 address: selectedPaymentOption.token
@@ -34620,17 +34802,17 @@ var SolanaPayDialog = (function (props) {
           switch (_context8.prev = _context8.next) {
             case 0:
               _context8.next = 2;
-              return getProvider$3('solana');
+              return getProvider('solana');
 
             case 2:
               provider = _context8.sent;
               _context8.next = 5;
-              return provider.getSignaturesForAddress(new PublicKey(account), undefined, 'confirmed');
+              return provider.getSignaturesForAddress(new PublicKey(account));
 
             case 5:
               signatures = _context8.sent;
 
-              if (!(signatures[0].slot > afterBlock)) {
+              if (!(signatures && signatures.length && signatures[0].slot > afterBlock)) {
                 _context8.next = 11;
                 break;
               }
@@ -34831,7 +35013,7 @@ var SolanaPayDialog = (function (props) {
               case 0:
                 _context12.t0 = setAfterBlock;
                 _context12.next = 3;
-                return request$1({
+                return request({
                   blockchain: 'solana',
                   method: 'latestBlockNumber'
                 });
@@ -34857,7 +35039,7 @@ var SolanaPayDialog = (function (props) {
     Promise.all(accept.filter(function (configuration) {
       return configuration.blockchain === 'solana';
     }).map(function (configuration) {
-      var token = new Token$1({
+      var token = new Token({
         blockchain: configuration.blockchain,
         address: configuration.token
       });
@@ -35457,7 +35639,7 @@ var TransactionTrackingProvider = (function (props) {
   };
 
   var initializeTracking = function initializeTracking(transaction, afterBlock) {
-    if (!supported$3.evm.includes(transaction.blockchain)) {
+    if (!supported$4.evm.includes(transaction.blockchain)) {
       return;
     }
 
@@ -35511,7 +35693,7 @@ var preflight$1 = /*#__PURE__*/function () {
                 throw 'You need to set the blockchain your want to receive the payment on!';
               }
 
-              if (!supported$3.includes(configuration.blockchain)) {
+              if (!supported$4.includes(configuration.blockchain)) {
                 throw 'You need to set a supported blockchain!';
               }
 
@@ -35845,7 +36027,7 @@ var SaleOverviewDialog = (function (props) {
       src: tokenImage
     });
   } else {
-    tokenImageElement = /*#__PURE__*/React.createElement(TokenImage, {
+    tokenImageElement = /*#__PURE__*/React.createElement(TokenImage$1, {
       blockchain: payment.route.blockchain,
       address: toToken.address
     });
@@ -35915,7 +36097,7 @@ var SaleOverviewDialog = (function (props) {
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardImage",
       title: payment.name
-    }, /*#__PURE__*/React.createElement(TokenImage, {
+    }, /*#__PURE__*/React.createElement(TokenImage$1, {
       blockchain: payment.route.blockchain,
       address: payment.token
     })), /*#__PURE__*/React.createElement("div", {
@@ -36307,7 +36489,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
         image: image,
         name: name,
         link: link,
-        type: supported$3.solana.includes(blockchain) ? 'metaplex' : idRequired ? '1155' : '721'
+        type: supported$4.solana.includes(blockchain) ? 'metaplex' : idRequired ? '1155' : '721'
       }
     }));
     navigate('ConfirmNFTSelection');
@@ -36392,7 +36574,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (!(blockchain && !supported$3.solana.includes(blockchain))) {
+                if (!(blockchain && !supported$4.solana.includes(blockchain))) {
                   _context2.next = 10;
                   break;
                 }
@@ -36459,7 +36641,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
       className: "CardBody FontSizeM"
     }, (_Blockchains$findByNa2 = Blockchains.findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain4 = selection.blockchain) === null || _selection$blockchain4 === void 0 ? void 0 : _selection$blockchain4.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection4 = selection.collection) === null || _selection$collection4 === void 0 ? void 0 : _selection$collection4.blockchain))) === null || _Blockchains$findByNa2 === void 0 ? void 0 : _Blockchains$findByNa2.label), /*#__PURE__*/React.createElement("div", {
       className: "CardAction"
-    }, /*#__PURE__*/React.createElement(ChevronRight, null))))), /*#__PURE__*/React.createElement("div", null, supported$3.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain5 = selection.blockchain) === null || _selection$blockchain5 === void 0 ? void 0 : _selection$blockchain5.name) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement(ChevronRight, null))))), /*#__PURE__*/React.createElement("div", null, supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain5 = selection.blockchain) === null || _selection$blockchain5 === void 0 ? void 0 : _selection$blockchain5.name) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS TextLeft"
     }, /*#__PURE__*/React.createElement("label", {
       htmlFor: "DePayWidgetsEnterNFTTokenAddresses"
@@ -36485,7 +36667,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
       }
     }), /*#__PURE__*/React.createElement("div", {
       className: "FontSizeXS PaddingLeftXS PaddingRightXS Opacity03 LineHeightXS"
-    }, "Separate each one with a new line break."))), !supported$3.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain6 = selection.blockchain) === null || _selection$blockchain6 === void 0 ? void 0 : _selection$blockchain6.name) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    }, "Separate each one with a new line break."))), !supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain6 = selection.blockchain) === null || _selection$blockchain6 === void 0 ? void 0 : _selection$blockchain6.name) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS TextLeft"
     }, /*#__PURE__*/React.createElement("label", {
       htmlFor: "DePayWidgetsEnterNFTTokenAddress"
@@ -36537,7 +36719,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
       onChange: function onChange(event) {
         return setName(event.target.value);
       },
-      placeholder: supported$3.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain7 = selection.blockchain) === null || _selection$blockchain7 === void 0 ? void 0 : _selection$blockchain7.name) ? 'SMB' : 'CryptoPunks',
+      placeholder: supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain7 = selection.blockchain) === null || _selection$blockchain7 === void 0 ? void 0 : _selection$blockchain7.name) ? 'SMB' : 'CryptoPunks',
       className: "Search"
     }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS TextLeft"
@@ -36554,7 +36736,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
       onChange: function onChange(event) {
         return setImage(event.target.value);
       },
-      placeholder: supported$3.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain8 = selection.blockchain) === null || _selection$blockchain8 === void 0 ? void 0 : _selection$blockchain8.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128',
+      placeholder: supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain8 = selection.blockchain) === null || _selection$blockchain8 === void 0 ? void 0 : _selection$blockchain8.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128',
       className: "Search"
     }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS TextLeft"
@@ -36571,7 +36753,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
       onChange: function onChange(event) {
         return setLink(event.target.value);
       },
-      placeholder: supported$3.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain9 = selection.blockchain) === null || _selection$blockchain9 === void 0 ? void 0 : _selection$blockchain9.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks",
+      placeholder: supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain9 = selection.blockchain) === null || _selection$blockchain9 === void 0 ? void 0 : _selection$blockchain9.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks",
       className: "Search"
     })))),
     footer: /*#__PURE__*/React.createElement("div", {
@@ -36597,7 +36779,7 @@ var SelectBlockchainDialog = (function (props) {
       navigate = _useContext2.navigate;
 
   var stacked = props.stacked || Object.keys(props.selection).length > 1;
-  var blockchains = supported$3.map(function (blockchainName) {
+  var blockchains = supported$4.map(function (blockchainName) {
     return Blockchains[blockchainName];
   });
 
@@ -36759,7 +36941,7 @@ var ConfirmTokenSelectionDialog = (function (props) {
       className: "TokenImage medium TextCenter"
     }, logo && /*#__PURE__*/React.createElement("img", {
       src: logo
-    }), !logo && /*#__PURE__*/React.createElement(TokenImage, {
+    }), !logo && /*#__PURE__*/React.createElement(TokenImage$1, {
       blockchain: token.blockchain,
       address: address
     })), /*#__PURE__*/React.createElement("div", {
@@ -37037,13 +37219,13 @@ var SelectTokenDialog = (function (props) {
   var select = function select(token) {
     if (token.address) {
       if (token.address.match('0x')) {
-        token.address = ethers$1.utils.getAddress(token.address);
+        token.address = ethers.utils.getAddress(token.address);
       }
     }
 
     if (token.external_id) {
       if (token.external_id.match('0x')) {
-        token.external_id = ethers$1.utils.getAddress(token.external_id);
+        token.external_id = ethers.utils.getAddress(token.external_id);
       }
     }
 
@@ -37098,7 +37280,7 @@ var SelectTokenDialog = (function (props) {
         src: token.logo
       }), token.image && /*#__PURE__*/React.createElement("img", {
         src: token.image
-      }), !(token.logo || token.image) && /*#__PURE__*/React.createElement(TokenImage, {
+      }), !(token.logo || token.image) && /*#__PURE__*/React.createElement(TokenImage$1, {
         blockchain: token.blockchain,
         address: token.external_id || token.address
       })), /*#__PURE__*/React.createElement("div", {

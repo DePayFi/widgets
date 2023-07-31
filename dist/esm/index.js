@@ -13,7 +13,7 @@ import { setProviderEndpoints, request, getProvider } from '@depay/web3-client';
 import { Currency } from '@depay/local-currency';
 import { route } from '@depay/web3-exchanges';
 import { Token } from '@depay/web3-tokens';
-import { ethers as ethers$1 } from 'ethers';
+import { ethers } from 'ethers';
 import { Decimal } from 'decimal.js';
 import { TokenImage } from '@depay/react-token-image';
 import { struct, u64, Buffer, PublicKey } from '@depay/solana-web3.js';
@@ -22082,7 +22082,7 @@ var get = function get() {
 };
 
 var ConnectWalletDialog = (function (props) {
-  var _props$wallet, _props$platform10, _props$platform11, _props$platform12, _props$platform13, _props$platform14;
+  var _props$wallet, _props$platform10, _props$platform11, _props$platform12, _props$platform13, _props$platform14, _props$platform15;
 
   var QRCodeElement = React.useRef();
 
@@ -22341,6 +22341,11 @@ var ConnectWalletDialog = (function (props) {
       QRCode.append(QRCodeElement.current);
     }
   }, [QRCode]);
+
+  if (showQRCode && ((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.qr) === 'SolanaPay') {
+    return null;
+  }
+
   return /*#__PURE__*/React.createElement(Dialog$1, {
     stacked: true,
     header: header,
@@ -22354,7 +22359,7 @@ var ConnectWalletDialog = (function (props) {
       className: "PaddingTopS PaddingLeftL PaddingRightL"
     }, /*#__PURE__*/React.createElement("div", {
       className: "Alert FontSizeS"
-    }, /*#__PURE__*/React.createElement("strong", null, "Most wallets do not connect to http!"))), !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && !((_props$platform10 = props.platform) !== null && _props$platform10 !== void 0 && _props$platform10.copyLink) && !scanQrAvailable && /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("strong", null, "Most wallets do not connect to http!"))), !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && !((_props$platform11 = props.platform) !== null && _props$platform11 !== void 0 && _props$platform11.copyLink) && !scanQrAvailable && /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftL PaddingRightL"
     }, /*#__PURE__*/React.createElement("div", {
       className: "Alert FontSizeS"
@@ -22363,7 +22368,7 @@ var ConnectWalletDialog = (function (props) {
     }, /*#__PURE__*/React.createElement("div", {
       ref: QRCodeElement,
       className: "QRCode"
-    }, showQRCode && ((_props$platform11 = props.platform) === null || _props$platform11 === void 0 ? void 0 : _props$platform11.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React.createElement("div", {
+    }, showQRCode && ((_props$platform12 = props.platform) === null || _props$platform12 === void 0 ? void 0 : _props$platform12.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React.createElement("div", {
       className: "Skeleton",
       style: {
         borderRadius: "18px",
@@ -22372,9 +22377,9 @@ var ConnectWalletDialog = (function (props) {
       }
     }, /*#__PURE__*/React.createElement("div", {
       className: "SkeletonBackground"
-    }))), showQRCode && ((_props$platform12 = props.platform) === null || _props$platform12 === void 0 ? void 0 : _props$platform12.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React.createElement("div", {
+    }))), showQRCode && ((_props$platform13 = props.platform) === null || _props$platform13 === void 0 ? void 0 : _props$platform13.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React.createElement("div", {
       className: "Opacity05 PaddingBottomXS PaddingTopS"
-    }, /*#__PURE__*/React.createElement("small", null, "Generating QR code...")), showQRCode && ((_props$platform13 = props.platform) === null || _props$platform13 === void 0 ? void 0 : _props$platform13.qr) !== 'WalletLink' && QRCode !== undefined && /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("small", null, "Generating QR code...")), showQRCode && ((_props$platform14 = props.platform) === null || _props$platform14 === void 0 ? void 0 : _props$platform14.qr) !== 'WalletLink' && QRCode !== undefined && /*#__PURE__*/React.createElement("div", {
       className: "Opacity05 PaddingBottomXS PaddingTopXS"
     }, /*#__PURE__*/React.createElement("small", null, "Scan QR code with your wallet"))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftL PaddingRightL PaddingTopS"
@@ -22496,7 +22501,7 @@ var ConnectWalletDialog = (function (props) {
       className: "PaddingLeftS LineHeightXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardText FontWeightMedium"
-    }, "Scan QR code")))), ((_props$platform14 = props.platform) === null || _props$platform14 === void 0 ? void 0 : _props$platform14.connect) && ['WalletConnectV1', 'WalletConnectV2'].includes(props.platform.connect) && props.platform.copyLink && /*#__PURE__*/React.createElement("div", {
+    }, "Scan QR code")))), ((_props$platform15 = props.platform) === null || _props$platform15 === void 0 ? void 0 : _props$platform15.connect) && ['WalletConnectV1', 'WalletConnectV2'].includes(props.platform.connect) && props.platform.copyLink && /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomXS TooltipWrapper"
     }, /*#__PURE__*/React.createElement("button", {
       onClick: connectViaCopyLink,
@@ -24573,8 +24578,8 @@ var findMaxRoute = (function (routes) {
       return 1; // a
     }
 
-    var aAmountsAvailable = ethers$1.BigNumber.from(a.fromBalance).div(ethers$1.BigNumber.from(a.fromAmount));
-    var bAmountsAvailable = ethers$1.BigNumber.from(b.fromBalance).div(ethers$1.BigNumber.from(b.fromAmount));
+    var aAmountsAvailable = ethers.BigNumber.from(a.fromBalance).div(ethers.BigNumber.from(a.fromAmount));
+    var bAmountsAvailable = ethers.BigNumber.from(b.fromBalance).div(ethers.BigNumber.from(b.fromAmount));
 
     if (aAmountsAvailable.lt(bAmountsAvailable)) {
       return -1; // b
@@ -27394,18 +27399,18 @@ var PaymentTrackingProvider = (function (props) {
               _context4.t6 = _context4.sent;
               _context4.t7 = paymentRoute.toAddress;
               _context4.t8 = paymentRoute.toToken.address;
-              _context4.t9 = ethers$1.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals);
+              _context4.t9 = ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals);
               _context4.t10 = afterBlock.toString();
               _context4.t11 = transaction.id;
               _context4.t12 = {
                 sender_id: transaction.from,
                 sender_token_id: paymentRoute.fromToken.address,
-                sender_amount: ethers$1.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
+                sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
                 integration: integration,
                 link: link,
                 type: type
               };
-              _context4.t13 = paymentRoute.fee ? ethers$1.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : null;
+              _context4.t13 = paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : null;
               _context4.t14 = paymentRoute.fee ? paymentRoute.fee.receiver : null;
               _context4.t15 = transaction.deadline;
               _context4.t16 = {
@@ -27643,7 +27648,7 @@ var PaymentValueProvider = (function (props) {
       blockchain: payment.route.blockchain,
       tokenIn: payment.route.toToken.address,
       tokenOut: payment.route.fromToken.address,
-      amountIn: payment.route.feeAmount ? ethers$1.BigNumber.from(payment.route.toAmount).add(ethers$1.BigNumber.from(payment.route.feeAmount)) : payment.route.toAmount,
+      amountIn: payment.route.feeAmount ? ethers.BigNumber.from(payment.route.toAmount).add(ethers.BigNumber.from(payment.route.feeAmount)) : payment.route.toAmount,
       fromAddress: account,
       toAddress: account
     }) : Promise.resolve([])]).then(function (_ref2) {
@@ -27654,9 +27659,9 @@ var PaymentValueProvider = (function (props) {
       var reverseRoute = reverseRoutes[0];
 
       if (reverseRoute) {
-        var reverseAmountOutBN = ethers$1.BigNumber.from(reverseRoute.amountOut);
-        var paymentAmountInBN = ethers$1.BigNumber.from(payment.route.fromAmount);
-        var divPercent = 100 - reverseAmountOutBN.mul(ethers$1.BigNumber.from('100')).div(paymentAmountInBN).abs().toString();
+        var reverseAmountOutBN = ethers.BigNumber.from(reverseRoute.amountOut);
+        var paymentAmountInBN = ethers.BigNumber.from(payment.route.fromAmount);
+        var divPercent = 100 - reverseAmountOutBN.mul(ethers.BigNumber.from('100')).div(paymentAmountInBN).abs().toString();
 
         if (divPercent >= 10) {
           setPaymentValueLoss(divPercent);
@@ -27672,7 +27677,7 @@ var PaymentValueProvider = (function (props) {
         var decimals = Blockchains[payment.route.blockchain].tokens.find(function (token) {
           return token.address === payment.route.fromToken.address;
         }).decimals;
-        USDValue = ethers$1.utils.formatUnits(payment.route.fromAmount.toString(), decimals);
+        USDValue = ethers.utils.formatUnits(payment.route.fromAmount.toString(), decimals);
       } else {
         var USDRoutes = fromTokenUSDExchangeRoutes.map(function (routes) {
           return routes ? routes[0] : undefined;
@@ -27686,7 +27691,7 @@ var PaymentValueProvider = (function (props) {
             var decimals = Blockchains[payment.route.blockchain].tokens.find(function (token) {
               return token.address === route.tokenOut;
             }).decimals;
-            return parseFloat(ethers$1.utils.formatUnits(route.amountOut, decimals));
+            return parseFloat(ethers.utils.formatUnits(route.amountOut, decimals));
           }); // remove outliers
 
           var average = amounts.reduce(function (a, b) {
@@ -27972,7 +27977,7 @@ var SolanaPayDialog = (function (props) {
                 break;
               }
 
-              _context.t1 = selectedPaymentOption.fromAmountBN.div(1000).mul(parseInt(selectedPaymentOption.fee.amount.replace("%", ''), 10) * 10);
+              _context.t1 = selectedPaymentOption.fromAmountBN.div(1000).mul(parseFloat(selectedPaymentOption.fee.amount.replace("%", '')) * 10);
               _context.next = 18;
               break;
 
@@ -28541,12 +28546,12 @@ var SolanaPayDialog = (function (props) {
             case 2:
               provider = _context8.sent;
               _context8.next = 5;
-              return provider.getSignaturesForAddress(new PublicKey(account), undefined, 'confirmed');
+              return provider.getSignaturesForAddress(new PublicKey(account));
 
             case 5:
               signatures = _context8.sent;
 
-              if (!(signatures[0].slot > afterBlock)) {
+              if (!(signatures && signatures.length && signatures[0].slot > afterBlock)) {
                 _context8.next = 11;
                 break;
               }
@@ -30953,13 +30958,13 @@ var SelectTokenDialog = (function (props) {
   var select = function select(token) {
     if (token.address) {
       if (token.address.match('0x')) {
-        token.address = ethers$1.utils.getAddress(token.address);
+        token.address = ethers.utils.getAddress(token.address);
       }
     }
 
     if (token.external_id) {
       if (token.external_id.match('0x')) {
-        token.external_id = ethers$1.utils.getAddress(token.external_id);
+        token.external_id = ethers.utils.getAddress(token.external_id);
       }
     }
 

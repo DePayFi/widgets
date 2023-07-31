@@ -1,7 +1,20 @@
+/*#if _EVM
+
+const SolanaPayDialog = (props)=>{ return null }
+
+/*#elif _SOLANA
+
+import SolanaPayDialog from '../dialogs/SolanaPayDialog.solana'
+
+//#else */
+
+import SolanaPayDialog from '../dialogs/SolanaPayDialog.solana'
+
+//#endif
+
 import ClosableContext from '../contexts/ClosableContext'
 import NavigateContext from '../contexts/NavigateContext'
 import React, { useContext } from 'react'
-import SolanaPayDialog from '../dialogs/SolanaPayDialog'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{

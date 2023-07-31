@@ -183,6 +183,8 @@ export default (props)=> {
     }
   }, [QRCode])
 
+  if(showQRCode && props.platform?.qr === 'SolanaPay') { return null }
+
   return(
     <Dialog
       stacked={ true }
