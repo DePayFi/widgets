@@ -35,7 +35,7 @@ export default (props)=>{
         { props.body }
       </div>
 
-      { props.hideFooter !== true &&
+      { props.footer !== false &&
         <div className="DialogFooter">
           { props.footer }
         </div>

@@ -1040,7 +1040,10 @@
     "name": "Phantom",
     "extension": "Phantom",
     "desktop": {
-      "qr": "SolanaPay"
+      "solanaPay": true,
+      "qr": function qr() {
+        return "phantom://browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
+      }
     },
     "mobile": {
       "ios": {
@@ -1049,13 +1052,19 @@
         "open": function open() {
           return "https://phantom.app/ul/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
         },
-        "qr": "SolanaPay"
+        "qr": function qr() {
+          return "phantom://browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
+        },
+        "solanaPay": true
       },
       "android": {
         "native": "phantom:",
         "universal": "https://phantom.app/ul",
         "connect": "SolanaMobileWalletAdapter",
-        "qr": "SolanaPay"
+        "qr": function qr() {
+          return "phantom://browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
+        },
+        "solanaPay": true
       }
     },
     "logo": web3WalletsSolana.wallets.Phantom.info.logo,
@@ -1246,15 +1255,24 @@
     "name": "Glow",
     "extension": "Glow",
     "desktop": {
-      "qr": "SolanaPay"
+      "qr": function qr() {
+        return window.location.toString();
+      },
+      "solanaPay": "true"
     },
     "mobile": {
       "ios": {
-        "qr": "SolanaPay"
+        "qr": function qr() {
+          return window.location.toString();
+        },
+        "solanaPay": "true"
       },
       "android": {
         "connect": "SolanaMobileWalletAdapter",
-        "qr": "SolanaPay"
+        "qr": function qr() {
+          return window.location.toString();
+        },
+        "solanaPay": "true"
       }
     },
     "logo": web3WalletsSolana.wallets.Glow.info.logo,
@@ -1263,7 +1281,7 @@
     "name": "Solflare",
     "extension": "Solflare",
     "desktop": {
-      "qr": "SolanaPay"
+      "solanaPay": true
     },
     "mobile": {
       "ios": {
@@ -1272,13 +1290,13 @@
         "open": function open() {
           return "https://solflare.com/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(window.location.origin.toString());
         },
-        "qr": "SolanaPay"
+        "solanaPay": true
       },
       "android": {
         "native": "solflare:",
         "universal": "https://solflare.com/ul",
         "connect": "SolanaMobileWalletAdapter",
-        "qr": "SolanaPay"
+        "solanaPay": true
       }
     },
     "logo": web3WalletsSolana.wallets.Solflare.info.logo,
@@ -4729,37 +4747,37 @@
     "logo": "https://img1.depay.com/wallets/bc_vault.jpg",
     "blockchains": _toConsumableArray(supported$4.evm)
   }, {
-    "name": "Solana Pay",
-    "desktop": {
-      "qr": "SolanaPay"
-    },
-    "mobile": {
-      "ios": {
-        "qr": "SolanaPay"
-      },
-      "android": {
-        "qr": "SolanaPay"
-      }
-    },
-    "logo": Blockchains__default['default'].solana.logo,
-    "blockchains": _toConsumableArray(supported$4.solana)
-  }, {
     "name": "Ethereum Wallet",
     "extension": "WindowEthereum",
     "logo": web3WalletsSolana.wallets.WindowEthereum.info.logo,
     "blockchains": _toConsumableArray(supported$4.evm)
   }, {
-    "name": "Solana Wallet",
-    "extension": "WindowSolana",
+    "name": "Solana Pay",
     "desktop": {
-      "qr": "SolanaPay"
+      "solanaPay": true
     },
     "mobile": {
       "ios": {
-        "qr": "SolanaPay"
+        "solanaPay": true
       },
       "android": {
-        "qr": "SolanaPay"
+        "solanaPay": true
+      }
+    },
+    "logo": Blockchains__default['default'].solana.logo,
+    "blockchains": _toConsumableArray(supported$4.solana)
+  }, {
+    "name": "Solana Wallet",
+    "extension": "WindowSolana",
+    "desktop": {
+      "solanaPay": true
+    },
+    "mobile": {
+      "ios": {
+        "solanaPay": true
+      },
+      "android": {
+        "solanaPay": true
       }
     },
     "logo": web3WalletsSolana.wallets.WindowSolana.info.logo,
@@ -4849,7 +4867,7 @@
       title: "Close dialog"
     }, /*#__PURE__*/React__default['default'].createElement(CloseIcon, null))), props.header), /*#__PURE__*/React__default['default'].createElement("div", {
       className: ["DialogBody", props.bodyClassName].join(' ')
-    }, props.body), props.hideFooter !== true && /*#__PURE__*/React__default['default'].createElement("div", {
+    }, props.body), props.footer !== false && /*#__PURE__*/React__default['default'].createElement("div", {
       className: "DialogFooter"
     }, props.footer));
   });
@@ -22078,7 +22096,7 @@
   };
 
   var ConnectWalletDialog = (function (props) {
-    var _props$wallet, _props$platform10, _props$platform11, _props$platform12, _props$platform13, _props$platform14, _props$platform15;
+    var _props$wallet, _props$platform13, _props$platform14, _props$platform15, _props$platform16;
 
     var QRCodeElement = React__default['default'].useRef();
 
@@ -22099,33 +22117,38 @@
 
     var _useState7 = React.useState(),
         _useState8 = _slicedToArray(_useState7, 2),
-        scanQrAvailable = _useState8[0],
-        setScanQrAvailable = _useState8[1];
+        copyLinkIsAvailable = _useState8[0],
+        setCopyLinkIsAvailable = _useState8[1];
 
     var _useState9 = React.useState(),
         _useState10 = _slicedToArray(_useState9, 2),
-        appIsConnected = _useState10[0],
-        setAppIsConnected = _useState10[1];
+        scanQrAvailable = _useState10[0],
+        setScanQrAvailable = _useState10[1];
 
     var _useState11 = React.useState(),
-        _useState12 = _slicedToArray(_useState11, 2);
-        _useState12[0];
-        _useState12[1];
+        _useState12 = _slicedToArray(_useState11, 2),
+        appIsConnected = _useState12[0],
+        setAppIsConnected = _useState12[1];
 
-    var _useState13 = React.useState(false),
-        _useState14 = _slicedToArray(_useState13, 2),
-        showQRCode = _useState14[0],
-        setShowQRCode = _useState14[1];
+    var _useState13 = React.useState(),
+        _useState14 = _slicedToArray(_useState13, 2);
+        _useState14[0];
+        _useState14[1];
 
     var _useState15 = React.useState(false),
         _useState16 = _slicedToArray(_useState15, 2),
-        showLinkCopied = _useState16[0],
-        setShowLinkCopied = _useState16[1];
+        showQRCode = _useState16[0],
+        setShowQRCode = _useState16[1];
 
-    var _useState17 = React.useState(),
+    var _useState17 = React.useState(false),
         _useState18 = _slicedToArray(_useState17, 2),
-        QRCode = _useState18[0],
-        setQRCode = _useState18[1];
+        showLinkCopied = _useState18[0],
+        setShowLinkCopied = _useState18[1];
+
+    var _useState19 = React.useState(),
+        _useState20 = _slicedToArray(_useState19, 2),
+        QRCode = _useState20[0],
+        setQRCode = _useState20[1];
 
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext);
         _useContext.navigate;
@@ -22180,7 +22203,13 @@
     };
 
     var connectViaQRCode = React.useCallback(lodash.debounce(function () {
-      var _props$platform5;
+      var _props$platform4, _props$platform5;
+
+      if ((_props$platform4 = props.platform) !== null && _props$platform4 !== void 0 && _props$platform4.solanaPay && props.accept && props.accept.every(function (accept) {
+        return accept.amount;
+      })) {
+        return props.continueWithSolanaPay();
+      }
 
       if (typeof props.platform.qr === 'function') {
         var newQRCode = getNewQRCode();
@@ -22224,17 +22253,13 @@
             props.resolve(account, wallet);
           });
           break;
-
-        case 'SolanaPay':
-          props.continueWithSolanaPay();
-          break;
       }
     }, 100), []);
     React.useEffect(function () {
       _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-        var _props$wallet2, _props$platform6, _props$platform7;
+        var _props$wallet2, _props$platform6, _props$platform7, _props$platform8;
 
-        var extensionIsAvailable, appIsConnected, connectAppIsAvailable, openInAppIsAvailable, scanQrAvailable;
+        var extensionIsAvailable, appIsConnected, connectAppIsAvailable, copyLinkIsAvailable, openInAppIsAvailable, scanQrAvailable;
         return regenerator.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -22300,14 +22325,16 @@
                 setAppIsConnected(appIsConnected);
                 connectAppIsAvailable = !!props.platform && props.platform.connect;
                 setConnectAppIsAvailable(connectAppIsAvailable);
+                copyLinkIsAvailable = ((_props$platform7 = props.platform) === null || _props$platform7 === void 0 ? void 0 : _props$platform7.connect) && ['WalletConnectV1', 'WalletConnectV2'].includes(props.platform.connect) && props.platform.copyLink;
+                setCopyLinkIsAvailable(copyLinkIsAvailable);
                 openInAppIsAvailable = !!props.platform && props.platform.open;
                 setOpenInAppIsAvailable(openInAppIsAvailable);
-                scanQrAvailable = ((_props$platform7 = props.platform) === null || _props$platform7 === void 0 ? void 0 : _props$platform7.qr) && (!showQRCode || props.platform.qr === 'WalletLink') && props.accept && props.accept.every(function (accept) {
+                scanQrAvailable = props.platform.solanaPay && props.accept && props.accept.every(function (accept) {
                   return accept.amount;
-                });
+                }) || ((_props$platform8 = props.platform) === null || _props$platform8 === void 0 ? void 0 : _props$platform8.qr) && (!showQRCode || props.platform.qr === 'WalletLink');
                 setScanQrAvailable(scanQrAvailable);
 
-              case 30:
+              case 32:
               case "end":
                 return _context.stop();
             }
@@ -22317,17 +22344,15 @@
     }, []);
     React.useEffect(function () {
       if (appIsConnected !== undefined) {
-        var _props$wallet3, _props$wallet3$deskto, _props$platform8;
+        var _props$wallet3, _props$wallet3$deskto, _props$platform9, _props$platform10;
 
-        setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && (_props$wallet3$deskto = _props$wallet3.desktop) !== null && _props$wallet3$deskto !== void 0 && _props$wallet3$deskto["native"]) && ((_props$platform8 = props.platform) === null || _props$platform8 === void 0 ? void 0 : _props$platform8.qr) && props.accept && props.accept.every(function (accept) {
-          return accept.amount;
-        }));
+        setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && (_props$wallet3$deskto = _props$wallet3.desktop) !== null && _props$wallet3$deskto !== void 0 && _props$wallet3$deskto["native"]) && (((_props$platform9 = props.platform) === null || _props$platform9 === void 0 ? void 0 : _props$platform9.qr) || ((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.solanaPay)));
       }
     }, [extensionIsAvailable, appIsConnected]);
     React.useEffect(function () {
-      var _props$platform9;
+      var _props$platform11, _props$platform12;
 
-      if (showQRCode && (_props$platform9 = props.platform) !== null && _props$platform9 !== void 0 && _props$platform9.qr) {
+      if (showQRCode && ((_props$platform11 = props.platform) !== null && _props$platform11 !== void 0 && _props$platform11.qr || (_props$platform12 = props.platform) !== null && _props$platform12 !== void 0 && _props$platform12.solanaPay)) {
         connectViaQRCode();
       }
     }, [showQRCode]);
@@ -22338,15 +22363,18 @@
       }
     }, [QRCode]);
 
-    if (showQRCode && ((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.qr) === 'SolanaPay') {
+    if (showQRCode && (_props$platform13 = props.platform) !== null && _props$platform13 !== void 0 && _props$platform13.solanaPay && props.accept && props.accept.every(function (accept) {
+      return accept.amount;
+    })) {
       return null;
     }
 
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       stacked: true,
       header: header,
+      footer: false,
       body: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "TextCenter"
+        className: "TextCenter PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftL PaddingRightL"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
@@ -22355,16 +22383,14 @@
         className: "PaddingTopS PaddingLeftL PaddingRightL"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Alert FontSizeS"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Most wallets do not connect to http!"))), !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && !((_props$platform11 = props.platform) !== null && _props$platform11 !== void 0 && _props$platform11.copyLink) && !scanQrAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftL PaddingRightL"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Most wallets do not connect to http!"))), !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && !copyLinkIsAvailable && !scanQrAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingBottomS PaddingLeftL PaddingRightL"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Alert FontSizeS"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Unable to connect to this wallet!"))), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingBottomXS"
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Unable to connect to this wallet!"))), showQRCode && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         ref: QRCodeElement,
         className: "QRCode"
-      }, showQRCode && ((_props$platform12 = props.platform) === null || _props$platform12 === void 0 ? void 0 : _props$platform12.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, showQRCode && ((_props$platform14 = props.platform) === null || _props$platform14 === void 0 ? void 0 : _props$platform14.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Skeleton",
         style: {
           borderRadius: "18px",
@@ -22373,11 +22399,11 @@
         }
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "SkeletonBackground"
-      }))), showQRCode && ((_props$platform13 = props.platform) === null || _props$platform13 === void 0 ? void 0 : _props$platform13.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+      }))), showQRCode && ((_props$platform15 = props.platform) === null || _props$platform15 === void 0 ? void 0 : _props$platform15.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Opacity05 PaddingBottomXS PaddingTopS"
-      }, /*#__PURE__*/React__default['default'].createElement("small", null, "Generating QR code...")), showQRCode && ((_props$platform14 = props.platform) === null || _props$platform14 === void 0 ? void 0 : _props$platform14.qr) !== 'WalletLink' && QRCode !== undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, /*#__PURE__*/React__default['default'].createElement("small", null, "Generating QR code...")), showQRCode && ((_props$platform16 = props.platform) === null || _props$platform16 === void 0 ? void 0 : _props$platform16.qr) !== 'WalletLink' && QRCode !== undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Opacity05 PaddingBottomXS PaddingTopXS"
-      }, /*#__PURE__*/React__default['default'].createElement("small", null, "Scan QR code with your wallet"))), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, /*#__PURE__*/React__default['default'].createElement("small", null, "Scan QR code with your wallet"))), (extensionIsAvailable || connectAppIsAvailable || openInAppIsAvailable || scanQrAvailable && !showQRCode || copyLinkIsAvailable) && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftL PaddingRightL PaddingTopS"
       }, extensionIsAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS"
@@ -22472,10 +22498,7 @@
       }, /*#__PURE__*/React__default['default'].createElement("button", {
         onClick: function onClick() {
           setShowQRCode(true);
-
-          if (props.platform.qr) {
-            connectViaQRCode();
-          }
+          connectViaQRCode();
         },
         className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS",
         style: {
@@ -22497,7 +22520,7 @@
         className: "PaddingLeftS LineHeightXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardText FontWeightMedium"
-      }, "Scan QR code")))), ((_props$platform15 = props.platform) === null || _props$platform15 === void 0 ? void 0 : _props$platform15.connect) && ['WalletConnectV1', 'WalletConnectV2'].includes(props.platform.connect) && props.platform.copyLink && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Scan QR code")))), copyLinkIsAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS TooltipWrapper"
       }, /*#__PURE__*/React__default['default'].createElement("button", {
         onClick: connectViaCopyLink,
@@ -22978,7 +23001,7 @@
         searchTerm: searchTerm,
         onClickWallet: onClickWallet
       })),
-      hideFooter: true
+      footer: false
     });
   });
 
@@ -23176,7 +23199,6 @@
       }
 
       set$1(walletMetaData.name);
-      console.log('open in app', platform.open());
       window.open(platform.open(), '_self', 'noreferrer noopener');
     };
 

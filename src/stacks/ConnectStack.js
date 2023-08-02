@@ -132,7 +132,6 @@ export default (props)=>{
     const platform = platformForWallet(walletMetaData)
     if(!platform || !platform.open) { return }
     setPreviouslyConnectedWallet(walletMetaData.name)
-    console.log('open in app', platform.open())
     window.open(platform.open(), '_self', 'noreferrer noopener')
   }
 

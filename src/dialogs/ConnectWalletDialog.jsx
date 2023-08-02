@@ -35,6 +35,7 @@ export default (props)=> {
   const [ extensionIsAvailable, setExtensionIsAvailable ] = useState()
   const [ connectAppIsAvailable, setConnectAppIsAvailable ] = useState()
   const [ openInAppIsAvailable, setOpenInAppIsAvailable ] = useState()
+  const [ copyLinkIsAvailable, setCopyLinkIsAvailable ] = useState()
   const [ scanQrAvailable, setScanQrAvailable ] = useState()
   const [ appIsConnected, setAppIsConnected ] = useState()
   const [ linkURI, setLinkURI ] = useState()
@@ -87,8 +88,6 @@ export default (props)=> {
         })  
       } else if(props.platform?.qr === 'WalletLink') {
         connectViaQRCode()
-      } else if(props.platform?.qr === 'SolanaPay') {
-        props.continueWithSolanaPay()
       }
     }
   }
@@ -107,6 +106,9 @@ export default (props)=> {
   }
 
   const connectViaQRCode = useCallback(debounce(()=>{
+    if(props.platform?.solanaPay && ( ( props.accept && props.accept.every((accept)=>accept.amount)) )) {
+      return props.continueWithSolanaPay()
+    }
     if(typeof props.platform.qr === 'function') {
       let newQRCode = getNewQRCode()
       newQRCode.update({ data: props.platform.qr() })
@@ -138,9 +140,6 @@ export default (props)=> {
           props.resolve(account, wallet)
         })
       break;
-      case 'SolanaPay':
-        props.continueWithSolanaPay()
-      break;
     }
   }, 100), [])
 
@@ -152,9 +151,11 @@ export default (props)=> {
       setAppIsConnected(appIsConnected)
       const connectAppIsAvailable = !!props.platform && props.platform.connect
       setConnectAppIsAvailable(connectAppIsAvailable)
+      const copyLinkIsAvailable = props.platform?.connect && ['WalletConnectV1', 'WalletConnectV2'].includes(props.platform.connect) && props.platform.copyLink
+      setCopyLinkIsAvailable(copyLinkIsAvailable)
       const openInAppIsAvailable = !!props.platform && props.platform.open
       setOpenInAppIsAvailable(openInAppIsAvailable)
-      const scanQrAvailable = props.platform?.qr && (!showQRCode || props.platform.qr === 'WalletLink') && ( ( props.accept && props.accept.every((accept)=>accept.amount)) )
+      const scanQrAvailable = (props.platform.solanaPay && ( ( props.accept && props.accept.every((accept)=>accept.amount)) )) || (props.platform?.qr && (!showQRCode || props.platform.qr === 'WalletLink'))
       setScanQrAvailable(scanQrAvailable)
     })()
   }, [])
@@ -163,15 +164,14 @@ export default (props)=> {
     if(appIsConnected !== undefined) {
       
       setShowQRCode(
-        !extensionIsAvailable && !isMobile() && !props.wallet?.desktop?.native && props.platform?.qr && 
-        ( ( props.accept && props.accept.every((accept)=>accept.amount)) )
+        !extensionIsAvailable && !isMobile() && !props.wallet?.desktop?.native && (props.platform?.qr || props.platform?.solanaPay)
       )
 
     }
   }, [extensionIsAvailable, appIsConnected])
 
   useEffect(()=> {
-    if(showQRCode && props.platform?.qr) {
+    if(showQRCode && (props.platform?.qr || props.platform?.solanaPay)) {
       connectViaQRCode()
     }
   }, [showQRCode])
@@ -183,14 +183,15 @@ export default (props)=> {
     }
   }, [QRCode])
 
-  if(showQRCode && props.platform?.qr === 'SolanaPay') { return null }
+  if(showQRCode && props.platform?.solanaPay && ( ( props.accept && props.accept.every((accept)=>accept.amount)) )) { return null }
 
   return(
     <Dialog
       stacked={ true }
       header={ header }
+      footer={ false }
       body={
-        <div className="TextCenter">
+        <div className="TextCenter PaddingBottomS">
 
           <div className="PaddingLeftL PaddingRightL">
             <h1 className="LineHeightL Text FontSizeL FontWeightBold">Connect { props.wallet.name }</h1>
@@ -204,125 +205,128 @@ export default (props)=> {
             </div>
           }
 
-          { !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && ! props.platform?.copyLink && !scanQrAvailable &&
-            <div className="PaddingTopS PaddingLeftL PaddingRightL">
+          { !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && !copyLinkIsAvailable && !scanQrAvailable &&
+            <div className="PaddingTopS PaddingBottomS PaddingLeftL PaddingRightL">
               <div className="Alert FontSizeS">
                 <strong>Unable to connect to this wallet!</strong>
               </div>
             </div>
           }
 
-          <div className="PaddingTopS PaddingBottomXS">
-            <div ref={ QRCodeElement } className="QRCode">
+          { showQRCode &&
+            <div>
+              <div ref={ QRCodeElement } className="QRCode">
+                { showQRCode && props.platform?.qr !== 'WalletLink' && QRCode === undefined &&
+                  <div className="Skeleton" style={{ borderRadius: "18px", width: "305px", height: "305px" }}>
+                    <div className="SkeletonBackground"/>
+                  </div>
+                }
+              </div>
               { showQRCode && props.platform?.qr !== 'WalletLink' && QRCode === undefined &&
-                <div className="Skeleton" style={{ borderRadius: "18px", width: "305px", height: "305px" }}>
-                  <div className="SkeletonBackground"/>
+                <div className="Opacity05 PaddingBottomXS PaddingTopS">
+                  <small>Generating QR code...</small>
+                </div>
+              }
+              { showQRCode && props.platform?.qr !== 'WalletLink' && QRCode !== undefined &&
+                <div className="Opacity05 PaddingBottomXS PaddingTopXS">
+                  <small>Scan QR code with your wallet</small>
                 </div>
               }
             </div>
-            { showQRCode && props.platform?.qr !== 'WalletLink' && QRCode === undefined &&
-              <div className="Opacity05 PaddingBottomXS PaddingTopS">
-                <small>Generating QR code...</small>
-              </div>
-            }
-            { showQRCode && props.platform?.qr !== 'WalletLink' && QRCode !== undefined &&
-              <div className="Opacity05 PaddingBottomXS PaddingTopXS">
-                <small>Scan QR code with your wallet</small>
-              </div>
-            }
-          </div>
+          }
 
-          <div className="PaddingLeftL PaddingRightL PaddingTopS">
-            { extensionIsAvailable &&
-              <div className="PaddingBottomXS">
-                { props.showConnectExtensionWarning &&
-                  <div className="PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
-                    <div className="Alert">
-                      <span className="FontWeightBold PaddingBottomXS">
-                        You wallet extension window is already asking to connect. It might be hidden.
-                      </span>
+          { (extensionIsAvailable || connectAppIsAvailable || openInAppIsAvailable || (scanQrAvailable && !showQRCode) || copyLinkIsAvailable) &&
+            <div className="PaddingLeftL PaddingRightL PaddingTopS">
+              { extensionIsAvailable &&
+                <div className="PaddingBottomXS">
+                  { props.showConnectExtensionWarning &&
+                    <div className="PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
+                      <div className="Alert">
+                        <span className="FontWeightBold PaddingBottomXS">
+                          You wallet extension window is already asking to connect. It might be hidden.
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                }
-                <button onClick={ ()=>props.connectExtension(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
-                  <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
-                    <img className="transparent " title="Connect your wallet" style={{ height: '26px' }} src={ ExtensionImage }/>
-                  </span>
-                  <div className="PaddingLeftS LineHeightXS">
-                    <div className="CardText FontWeightMedium">
-                      Connect extension
+                  }
+                  <button onClick={ ()=>props.connectExtension(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
+                    <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
+                      <img className="transparent " title="Connect your wallet" style={{ height: '26px' }} src={ ExtensionImage }/>
+                    </span>
+                    <div className="PaddingLeftS LineHeightXS">
+                      <div className="CardText FontWeightMedium">
+                        Connect extension
+                      </div>
                     </div>
-                  </div>
-                </button>
-              </div>
-            }
-            { connectAppIsAvailable &&
-              <div className="PaddingBottomXS">
-                <button onClick={ ()=>props.connectViaRedirect(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
-                  <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
-                    <img className="transparent " title="Click to connect app" style={{ height: '26px', width: '26px', borderRadius: '8px' }} src={ props.wallet.logo }/>
-                  </span>
-                  <div className="PaddingLeftS LineHeightXS">
-                    <div className="CardText FontWeightMedium">
-                      Connect app
+                  </button>
+                </div>
+              }
+              { connectAppIsAvailable &&
+                <div className="PaddingBottomXS">
+                  <button onClick={ ()=>props.connectViaRedirect(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
+                    <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
+                      <img className="transparent " title="Click to connect app" style={{ height: '26px', width: '26px', borderRadius: '8px' }} src={ props.wallet.logo }/>
+                    </span>
+                    <div className="PaddingLeftS LineHeightXS">
+                      <div className="CardText FontWeightMedium">
+                        Connect app
+                      </div>
                     </div>
-                  </div>
-                </button>
-              </div>
-            }
-            { openInAppIsAvailable &&
-              <div className="PaddingBottomXS">
-                <button onClick={ ()=>props.openInApp(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
-                  <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
-                    <img className="transparent " title="Click to open in app" style={{ height: '26px', width: '26px', borderRadius: '8px' }} src={ props.wallet.logo }/>
-                  </span>
-                  <div className="PaddingLeftS LineHeightXS">
-                    <div className="CardText FontWeightMedium">
-                      Open in app
+                  </button>
+                </div>
+              }
+              { openInAppIsAvailable &&
+                <div className="PaddingBottomXS">
+                  <button onClick={ ()=>props.openInApp(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
+                    <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
+                      <img className="transparent " title="Click to open in app" style={{ height: '26px', width: '26px', borderRadius: '8px' }} src={ props.wallet.logo }/>
+                    </span>
+                    <div className="PaddingLeftS LineHeightXS">
+                      <div className="CardText FontWeightMedium">
+                        Open in app
+                      </div>
                     </div>
-                  </div>
-                </button>
-              </div>
-            }
-            { scanQrAvailable && !showQRCode &&
-              <div className="PaddingBottomXS">
-                <button onClick={ ()=>{
-                  setShowQRCode(true)
-                  if(props.platform.qr) { connectViaQRCode() }
-                }} className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
-                  <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
-                    <img className="transparent " title="Scan QR code to connect a mobile wallet" style={{ height: '26px' }} src={ QRCodeImage }/>
-                  </span>
-                  <div className="PaddingLeftS LineHeightXS">
-                    <div className="CardText FontWeightMedium">
-                      Scan QR code
+                  </button>
+                </div>
+              }
+              { scanQrAvailable && !showQRCode &&
+                <div className="PaddingBottomXS">
+                  <button onClick={ ()=>{
+                    setShowQRCode(true)
+                    connectViaQRCode()
+                  }} className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
+                    <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
+                      <img className="transparent " title="Scan QR code to connect a mobile wallet" style={{ height: '26px' }} src={ QRCodeImage }/>
+                    </span>
+                    <div className="PaddingLeftS LineHeightXS">
+                      <div className="CardText FontWeightMedium">
+                        Scan QR code
+                      </div>
                     </div>
-                  </div>
-                </button>
-              </div>
-            }
-            { props.platform?.connect && ['WalletConnectV1', 'WalletConnectV2'].includes(props.platform.connect) && props.platform.copyLink &&
-              <div className="PaddingBottomXS TooltipWrapper">
-                <button onClick={ connectViaCopyLink } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
-                  <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
-                    <img className="transparent " title="Copy connection link" style={{ height: '26px' }} src={ LinkImage }/>
-                  </span>
-                  <div className="PaddingLeftS LineHeightXS">
-                    <div className="CardText FontWeightMedium">
-                      Copy connection link
+                  </button>
+                </div>
+              }
+              { copyLinkIsAvailable &&
+                <div className="PaddingBottomXS TooltipWrapper">
+                  <button onClick={ connectViaCopyLink } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
+                    <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
+                      <img className="transparent " title="Copy connection link" style={{ height: '26px' }} src={ LinkImage }/>
+                    </span>
+                    <div className="PaddingLeftS LineHeightXS">
+                      <div className="CardText FontWeightMedium">
+                        Copy connection link
+                      </div>
                     </div>
-                  </div>
-                </button>
-                { showLinkCopied &&
-                  <div className="Tooltip absolute top"> 
-                    <span className="TooltipArrowDown"/>
-                    Connection link copied
-                  </div> 
-                }
-              </div>
-            }
-          </div>
-
+                  </button>
+                  { showLinkCopied &&
+                    <div className="Tooltip absolute top"> 
+                      <span className="TooltipArrowDown"/>
+                      Connection link copied
+                    </div> 
+                  }
+                </div>
+              }
+            </div>
+          }
         </div>
       }
     />

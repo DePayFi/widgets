@@ -42,20 +42,23 @@ export default [
     "name": "Phantom",
     "extension": "Phantom",
     "desktop": {
-      "qr": "SolanaPay",
+      "solanaPay": true,
+      "qr": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`
     },
     "mobile": {
       "ios": {
         "native": "phantom:",
         "universal": "https://phantom.app/ul",
         "open": ()=>`https://phantom.app/ul/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
-        "qr": "SolanaPay",
+        "qr": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
+        "solanaPay": true,
       },
       "android": {
         "native": "phantom:",
         "universal": "https://phantom.app/ul",
         "connect": "SolanaMobileWalletAdapter",
-        "qr": "SolanaPay",
+        "qr": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
+        "solanaPay": true,
       },
     },
     "logo": wallets.Phantom.info.logo,
@@ -174,15 +177,18 @@ export default [
     "name": "Glow",
     "extension": "Glow",
     "desktop": {
-      "qr": "SolanaPay",
+      "qr": ()=>window.location.toString(),
+      "solanaPay": "true",
     },
     "mobile": {
       "ios": {
-        "qr": "SolanaPay",
+        "qr": ()=>window.location.toString(),
+        "solanaPay": "true",
       },
       "android": {
         "connect": "SolanaMobileWalletAdapter",
-        "qr": "SolanaPay",
+        "qr": ()=>window.location.toString(),
+        "solanaPay": "true",
       },
     },
     "logo": wallets.Glow.info.logo,
@@ -192,20 +198,20 @@ export default [
     "name": "Solflare",
     "extension": "Solflare",
     "desktop": {
-      "qr": "SolanaPay",
+      "solanaPay": true,
     },
     "mobile": {
       "ios": {
         "native": "solflare:",
         "universal": "https://solflare.com/ul",
         "open": ()=>`https://solflare.com/ul/v1/browse/${encodeURIComponent(window.location.toString())}?ref=${window.location.origin.toString()}`,
-        "qr": "SolanaPay",
+        "solanaPay": true,
       },
       "android": {
         "native": "solflare:",
         "universal": "https://solflare.com/ul",
         "connect": "SolanaMobileWalletAdapter",
-        "qr": "SolanaPay",
+        "solanaPay": true,
       },
     },
     "logo": wallets.Solflare.info.logo,
@@ -2017,39 +2023,39 @@ export default [
     "blockchains": [...supported.evm]
   },
   {
-    "name": "Solana Pay",
-    "desktop": {
-      "qr": "SolanaPay",
-    },
-    "mobile": {
-      "ios": {
-        "qr": "SolanaPay",
-      },
-      "android": {
-        "qr": "SolanaPay",
-      }
-    },
-    "logo": Blockchains.solana.logo,
-    "blockchains": [...supported.solana]
-  },
-  {
     "name": "Ethereum Wallet",
     "extension": "WindowEthereum",
     "logo": wallets.WindowEthereum.info.logo,
     "blockchains": [...supported.evm]
   },
   {
-    "name": "Solana Wallet",
-    "extension": "WindowSolana",
+    "name": "Solana Pay",
     "desktop": {
-      "qr": "SolanaPay",
+      "solanaPay": true
     },
     "mobile": {
       "ios": {
-        "qr": "SolanaPay",
+        "solanaPay": true
       },
       "android": {
-        "qr": "SolanaPay",
+        "solanaPay": true
+      }
+    },
+    "logo": Blockchains.solana.logo,
+    "blockchains": [...supported.solana]
+  },
+  {
+    "name": "Solana Wallet",
+    "extension": "WindowSolana",
+    "desktop": {
+      "solanaPay": true
+    },
+    "mobile": {
+      "ios": {
+        "solanaPay": true
+      },
+      "android": {
+        "solanaPay": true
       }
     },
     "logo": wallets.WindowSolana.info.logo,
