@@ -112,24 +112,31 @@ export default (props)=> {
   }
 
   const sendTrack = ({ transaction })=>{
-    if(!isTracking) { return Promise.resolve() }
-    return new Promise(async(resolve, reject)=>{
-      let payment = {
-        blockchain: 'solana',
-        sender: transaction.from,
-        transaction: transaction.id,
-        nonce: transaction.nonce,
-        after_block: afterBlock.toString(),
-        from_token: selectedPaymentOption.token,
-        from_amount: selectedPaymentOption.fromAmountBN.toString(),
-        from_decimals: selectedPaymentOption.decimals,
-        to_token: selectedPaymentOption.token,
-        to_amount: selectedPaymentOption.toAmountBN.toString(),
-        to_decimals: selectedPaymentOption.decimals,
-        fee_amount: selectedPaymentOption.feeAmountBN.toString(),
-        deadline: transaction.deadline
+    if(!isTracking) { return }
+    let payment = {
+      blockchain: 'solana',
+      sender: transaction.from,
+      transaction: transaction.id,
+      nonce: transaction.nonce,
+      after_block: afterBlock.toString(),
+      from_token: selectedPaymentOption.token,
+      from_amount: selectedPaymentOption.fromAmountBN.toString(),
+      from_decimals: selectedPaymentOption.decimals,
+      to_token: selectedPaymentOption.token,
+      to_amount: selectedPaymentOption.toAmountBN.toString(),
+      to_decimals: selectedPaymentOption.decimals,
+      fee_amount: selectedPaymentOption.feeAmountBN.toString(),
+      deadline: transaction.deadline
+    }
+    sendTrackingAsConfigured({
+      payment,
+      resolve: ()=>{
+        setClosable(!synchronousTracking)
+        setRelease(!synchronousTracking)
+      },
+      reject: ()=>{
+        setState('trackingFailed')  
       }
-      sendTrackingAsConfigured({ payment, resolve, reject })
     })
   }
 
@@ -254,7 +261,7 @@ export default (props)=> {
   }
 
   const openPaymentValidationSocket = (transaction)=>{
-    if(paymentValidationSocket) { openPaymentValidationSocket.close() }
+    if(paymentValidationSocket) { paymentValidationSocket.close() }
     const socket = new WebSocket('wss://integrate.depay.com/cable')
     setPaymentValidationSocket(socket)
     
@@ -367,7 +374,7 @@ export default (props)=> {
           const foundPaymentTransactions = await Promise.all(relevantTransactions.map(async(relevantTransaction)=>{
             const fullTransactionData = await provider.getTransaction(relevantTransaction.signature, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 })
             const foundRouterInstruction = getPaymentRouterInstruction(fullTransactionData)
-            if(foundRouterInstruction.nonce.toString() === nonce.toString()) {
+            if(foundRouterInstruction && foundRouterInstruction.nonce.toString() === nonce.toString()) {
               if(fullTransactionData.meta.err === null) {
                 setState('succeeded')
                 setTransaction({
@@ -406,7 +413,7 @@ export default (props)=> {
       })
       .catch((error)=>{
         console.log('Tracing error:', error)
-        navigate('TracingFailed')
+        setState('tracingFailed')
       })
     return { afterBlock }
   }
@@ -451,34 +458,36 @@ export default (props)=> {
   }
 
   useEffect(()=>{
-    const setAfterBlockAsync = async ()=>{
-      setAfterBlock(await request({ blockchain: 'solana', method: 'latestBlockNumber' }))
-    }
-    setAfterBlockAsync()
-    Promise.all(
-      accept.filter((configuration)=>configuration.blockchain === 'solana').map((configuration)=>{
-        let token = new Token({ blockchain: configuration.blockchain, address: configuration.token })
-        return Promise.all([
-          Promise.resolve(configuration),
-          token.symbol(),
-          token.name(),
-          token.decimals(),
-        ])
-      })
-    ).then((options)=>{
-      return options.map((option)=>{
-        return {
-          ...option[0],
-          symbol: option[1],
-          name: option[2],
-          decimals: option[3],
-        }
-      })
-    }).then((paymentOptions)=>{
-      setPaymentOptions(paymentOptions)
-      if(paymentOptions.length === 1) { selectPaymentOption(paymentOptions[0]) }
-    })
+    request({ blockchain: 'solana', method: 'latestBlockNumber' }).then(setAfterBlock)
   }, [])
+
+  useEffect(()=>{
+    if(afterBlock) {
+      Promise.all(
+        accept.filter((configuration)=>configuration.blockchain === 'solana').map((configuration)=>{
+          let token = new Token({ blockchain: configuration.blockchain, address: configuration.token })
+          return Promise.all([
+            Promise.resolve(configuration),
+            token.symbol(),
+            token.name(),
+            token.decimals(),
+          ])
+        })
+      ).then((options)=>{
+        return options.map((option)=>{
+          return {
+            ...option[0],
+            symbol: option[1],
+            name: option[2],
+            decimals: option[3],
+          }
+        })
+      }).then((paymentOptions)=>{
+        setPaymentOptions(paymentOptions)
+        if(paymentOptions.length === 1) { selectPaymentOption(paymentOptions[0]) }
+      })
+    }
+  }, [afterBlock])
 
   useEffect(()=>{
     return ()=>{
@@ -524,7 +533,7 @@ export default (props)=> {
   }, [state, QRCode])
 
   useEffect(()=>{
-    if(transaction && ['succeeded', 'failed'].includes(state)) {
+    if(transaction && ['succeeded', 'failed'].includes(state) && paymentValidationSocket === undefined) {
       setClosable(!isTracking)
       setRelease(!isTracking)
       storePayment(transaction)
@@ -535,17 +544,86 @@ export default (props)=> {
         startPollingPaymentStatus(transaction)
       }
       sendTrack({ transaction })
-        .then(()=>{
-          setClosable(!synchronousTracking)
-          setRelease(!synchronousTracking)
-        })
-        .catch((e)=>{
-          console.log('tracking failed')
-        })
     }
-  }, [transaction, state])
+  }, [transaction, state, paymentValidationSocket])
 
-  if(status === 'failed') {
+  if(state === 'trackingFailed') {
+    return(
+      <Dialog
+        stacked={ false }
+        header={
+          <div className="PaddingTopS PaddingLeftM PaddingRightM">
+          </div>
+        }
+        body={
+          <div className="TextCenter">
+            <div className="GraphicWrapper">
+              <img className="Graphic" src={ ErrorGraphic }/>
+            </div>
+            <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Tracking payment failed</h1>
+            <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
+              <strong className="FontSizeM">
+                Please ensure you are connected to the internet, then click "Try again".
+              </strong>
+              <div className="PaddingTopS">
+                <span>If this keeps happening, please report it.</span>
+              </div>
+            </div>
+          </div>
+        }
+        footer={
+          <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
+            <button className='ButtonPrimary' onClick={()=>{
+              setState(transaction.status)
+              sendTrack({ transaction })
+            }}>
+              Try again
+            </button>
+          </div>
+        }
+      />
+    )
+  }
+
+  if(state === 'tracingFailed') {
+    return(
+      <Dialog
+        stacked={ false }
+        header={
+          <div className="PaddingTopS PaddingLeftM PaddingRightM">
+          </div>
+        }
+        body={
+          <div className="TextCenter">
+            <div className="GraphicWrapper">
+              <img className="Graphic" src={ ErrorGraphic }/>
+            </div>
+            <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Tracking payment failed</h1>
+            <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
+              <strong className="FontSizeM">
+                Please ensure you are connected to the internet, then click "Try again".
+              </strong>
+              <div className="PaddingTopS">
+                <span>If this keeps happening, please report it.</span>
+              </div>
+            </div>
+          </div>
+        }
+        footer={
+          <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
+            <button className='ButtonPrimary' onClick={()=>{
+              setState('wait')
+              traceAndContinue(secretId, selectedPaymentOption, `solana:https://public.depay.com/solana/${secretId}`)
+            }}>
+              Try again
+            </button>
+          </div>
+        }
+      />
+    )
+  }
+
+  if(state === 'failed') {
     return(
       <Dialog
         stacked={ false }
@@ -566,7 +644,7 @@ export default (props)=> {
               { transaction &&
                 <div className="PaddingTopS">
                   <a className="Link" title="Check your transaction on a block explorer" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
-                    View on explorer
+                    View details
                   </a>
                 </div>
               }

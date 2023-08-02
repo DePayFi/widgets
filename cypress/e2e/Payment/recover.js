@@ -282,7 +282,7 @@ describe('Payment Widget: recover a previously made payment transaction', () => 
             overwriteRoutes: true
           }, { "external_id": transactionId, "status":"failed" })
           cy.wait(5000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a', 'View on explorer').invoke('attr', 'href').should('include', `https://etherscan.io/tx/${transactionId}`)
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a', 'View details').invoke('attr', 'href').should('include', `https://etherscan.io/tx/${transactionId}`)
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('h1').should('contain.text', 'Payment Failed')
             expect(failedCalledWith.id).to.equal(transactionId)
             cy.wait(1000).then(()=>{

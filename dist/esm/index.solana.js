@@ -23637,7 +23637,7 @@ var ImageStyle = (function (style) {
 });
 
 var InputStyle = (function (style) {
-  return "\n\n    .Input {\n      background: none;\n      border: 1px solid transparent;\n      margin: 0;\n      outline: none !important;\n      padding: 0 0 0 14px;\n      width: 100%;\n    }\n\n    .Input::placeholder {\n      color: rgb(210,210,210);\n    }\n    \n  ";
+  return "\n\n    .Input {\n      background: none;\n      border: 1px solid transparent;\n      margin: 0;\n      outline: none !important;\n      padding: 0 0 0 14px;\n      width: 100%;\n    }\n\n    .Input::placeholder {\n      color: rgb(210,210,210);\n    }\n\n    .InputField {\n      border-radius: 13px;\n      border: 1px solid rgba(0,0,0,0.2);\n      background: white;\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 13px;\n      width: 100%;\n    }\n\n    .InputField.small {\n      border-radius: 8px;\n      font-size: 15px;\n    }\n\n    .InputField::placeholder {\n      color: rgb(180,180,180);\n    } \n\n    .InputField:focus, .InputField:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n    \n  ");
 });
 
 var LinkStyle = (function (style) {
@@ -23724,7 +23724,7 @@ var styleRenderer = (function (style) {
     }, ((_style = style) === null || _style === void 0 ? void 0 : _style.colors) || {}),
     fontFamily: ((_style2 = style) === null || _style2 === void 0 ? void 0 : _style2.fontFamily) || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
   };
-  return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
+  return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
 });
 
 var mount = (function (_ref, content) {
@@ -26075,7 +26075,7 @@ var PaymentFailedDialog = (function () {
       href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
       target: "_blank",
       rel: "noopener noreferrer"
-    }, "View on explorer")))),
+    }, "View details")))),
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
     }, /*#__PURE__*/React.createElement("button", {
@@ -26650,11 +26650,15 @@ var PaymentOverviewDialog = (function (props) {
   });
 });
 
-var TracingFailedDialog = (function () {
+var TracingFailedDialog = (function (props) {
   var _useContext = useContext(NavigateStackContext),
       navigate = _useContext.navigate;
 
   var tryAgain = function tryAgain() {
+    if (props.tryAgain) {
+      props.tryAgain();
+    }
+
     navigate('back');
   };
 
@@ -26692,11 +26696,8 @@ var TrackingFailedDialog = (function () {
   var _useContext = useContext(PaymentTrackingContext),
       continueTryTracking = _useContext.continueTryTracking;
 
-  var _useContext2 = useContext(PaymentContext);
-      _useContext2.transaction;
-
-  var _useContext3 = useContext(NavigateStackContext),
-      navigate = _useContext3.navigate;
+  var _useContext2 = useContext(NavigateStackContext),
+      navigate = _useContext2.navigate;
 
   var tryAgain = function tryAgain() {
     continueTryTracking();
@@ -34113,7 +34114,7 @@ var SolanaPayDialog = (function (props) {
 
   var _useContext2 = useContext(NavigateStackContext);
       _useContext2.set;
-      var navigate = _useContext2.navigate;
+      _useContext2.navigate;
 
   var _useContext3 = useContext(ClosableContext),
       close = _useContext3.close,
@@ -34150,9 +34151,9 @@ var SolanaPayDialog = (function (props) {
       setTransaction = _useState12[1];
 
   var _useState13 = useState(),
-      _useState14 = _slicedToArray(_useState13, 2);
-      _useState14[0];
-      var setSecretId = _useState14[1];
+      _useState14 = _slicedToArray(_useState13, 2),
+      secretId = _useState14[0],
+      setSecretId = _useState14[1];
 
   var _useState15 = useState(),
       _useState16 = _slicedToArray(_useState15, 2),
@@ -34397,49 +34398,34 @@ var SolanaPayDialog = (function (props) {
     var transaction = _ref5.transaction;
 
     if (!isTracking) {
-      return Promise.resolve();
+      return;
     }
 
-    return new Promise( /*#__PURE__*/function () {
-      var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(resolve, reject) {
-        var payment;
-        return regenerator.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                payment = {
-                  blockchain: 'solana',
-                  sender: transaction.from,
-                  transaction: transaction.id,
-                  nonce: transaction.nonce,
-                  after_block: afterBlock.toString(),
-                  from_token: selectedPaymentOption.token,
-                  from_amount: selectedPaymentOption.fromAmountBN.toString(),
-                  from_decimals: selectedPaymentOption.decimals,
-                  to_token: selectedPaymentOption.token,
-                  to_amount: selectedPaymentOption.toAmountBN.toString(),
-                  to_decimals: selectedPaymentOption.decimals,
-                  fee_amount: selectedPaymentOption.feeAmountBN.toString(),
-                  deadline: transaction.deadline
-                };
-                sendTrackingAsConfigured({
-                  payment: payment,
-                  resolve: resolve,
-                  reject: reject
-                });
-
-              case 2:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }));
-
-      return function (_x4, _x5) {
-        return _ref6.apply(this, arguments);
-      };
-    }());
+    var payment = {
+      blockchain: 'solana',
+      sender: transaction.from,
+      transaction: transaction.id,
+      nonce: transaction.nonce,
+      after_block: afterBlock.toString(),
+      from_token: selectedPaymentOption.token,
+      from_amount: selectedPaymentOption.fromAmountBN.toString(),
+      from_decimals: selectedPaymentOption.decimals,
+      to_token: selectedPaymentOption.token,
+      to_amount: selectedPaymentOption.toAmountBN.toString(),
+      to_decimals: selectedPaymentOption.decimals,
+      fee_amount: selectedPaymentOption.feeAmountBN.toString(),
+      deadline: transaction.deadline
+    };
+    sendTrackingAsConfigured({
+      payment: payment,
+      resolve: function resolve() {
+        setClosable(!synchronousTracking);
+        setRelease(!synchronousTracking);
+      },
+      reject: function reject() {
+        setState('trackingFailed');
+      }
+    });
   };
 
   var openSolanaPayTransactionSocket = function openSolanaPayTransactionSocket(secretId, selectedPaymentOption) {
@@ -34451,12 +34437,12 @@ var SolanaPayDialog = (function (props) {
     setSolanaPayTransactionSocket(socket);
 
     socket.onopen = /*#__PURE__*/function () {
-      var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(event) {
-        return regenerator.wrap(function _callee4$(_context4) {
+      var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(event) {
+        return regenerator.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
-                _context4.next = 2;
+                _context3.next = 2;
                 return socket.send(JSON.stringify({
                   command: 'subscribe',
                   identifier: JSON.stringify({
@@ -34467,11 +34453,11 @@ var SolanaPayDialog = (function (props) {
 
               case 2:
                 if (!(QRCodeURI === undefined)) {
-                  _context4.next = 5;
+                  _context3.next = 5;
                   break;
                 }
 
-                _context4.next = 5;
+                _context3.next = 5;
                 return socket.send(JSON.stringify({
                   command: 'message',
                   identifier: JSON.stringify({
@@ -34493,14 +34479,14 @@ var SolanaPayDialog = (function (props) {
 
               case 5:
               case "end":
-                return _context4.stop();
+                return _context3.stop();
             }
           }
-        }, _callee4);
+        }, _callee3);
       }));
 
-      return function (_x6) {
-        return _ref7.apply(this, arguments);
+      return function (_x4) {
+        return _ref6.apply(this, arguments);
       };
     }();
 
@@ -34536,9 +34522,9 @@ var SolanaPayDialog = (function (props) {
     };
   };
 
-  var openTransactionTrackingSocket = function openTransactionTrackingSocket(_ref8) {
-    var account = _ref8.account,
-        nonce = _ref8.nonce;
+  var openTransactionTrackingSocket = function openTransactionTrackingSocket(_ref7) {
+    var account = _ref7.account,
+        nonce = _ref7.nonce;
 
     if (transactionTrackingSocket) {
       transactionTrackingSocket.close();
@@ -34548,12 +34534,12 @@ var SolanaPayDialog = (function (props) {
     setTransactionTrackingSocket(socket);
 
     socket.onopen = /*#__PURE__*/function () {
-      var _ref9 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(event) {
-        return regenerator.wrap(function _callee5$(_context5) {
+      var _ref8 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(event) {
+        return regenerator.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                _context5.next = 2;
+                _context4.next = 2;
                 return socket.send(JSON.stringify({
                   "jsonrpc": "2.0",
                   "id": 1,
@@ -34567,14 +34553,14 @@ var SolanaPayDialog = (function (props) {
 
               case 2:
               case "end":
-                return _context5.stop();
+                return _context4.stop();
             }
           }
-        }, _callee5);
+        }, _callee4);
       }));
 
-      return function (_x7) {
-        return _ref9.apply(this, arguments);
+      return function (_x5) {
+        return _ref8.apply(this, arguments);
       };
     }();
 
@@ -34642,18 +34628,18 @@ var SolanaPayDialog = (function (props) {
 
   var openPaymentValidationSocket = function openPaymentValidationSocket(transaction) {
     if (paymentValidationSocket) {
-      openPaymentValidationSocket.close();
+      paymentValidationSocket.close();
     }
 
     var socket = new WebSocket('wss://integrate.depay.com/cable');
     setPaymentValidationSocket(socket);
 
     socket.onopen = /*#__PURE__*/function () {
-      var _ref10 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(event) {
+      var _ref9 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(event) {
         var msg;
-        return regenerator.wrap(function _callee6$(_context6) {
+        return regenerator.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 msg = {
                   command: 'subscribe',
@@ -34668,14 +34654,14 @@ var SolanaPayDialog = (function (props) {
 
               case 2:
               case "end":
-                return _context6.stop();
+                return _context5.stop();
             }
           }
-        }, _callee6);
+        }, _callee5);
       }));
 
-      return function (_x8) {
-        return _ref10.apply(this, arguments);
+      return function (_x6) {
+        return _ref9.apply(this, arguments);
       };
     }();
 
@@ -34788,57 +34774,57 @@ var SolanaPayDialog = (function (props) {
     }
   };
 
-  var trackTransaction = function trackTransaction(_ref11) {
-    var account = _ref11.account,
-        nonce = _ref11.nonce;
+  var trackTransaction = function trackTransaction(_ref10) {
+    var account = _ref10.account,
+        nonce = _ref10.nonce;
     openTransactionTrackingSocket({
       account: account,
       nonce: nonce
     });
-    setTransactionTrackingInterval(setInterval( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee8() {
+    setTransactionTrackingInterval(setInterval( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee7() {
       var provider, signatures, relevantTransactions;
-      return regenerator.wrap(function _callee8$(_context8) {
+      return regenerator.wrap(function _callee7$(_context7) {
         while (1) {
-          switch (_context8.prev = _context8.next) {
+          switch (_context7.prev = _context7.next) {
             case 0:
-              _context8.next = 2;
+              _context7.next = 2;
               return getProvider('solana');
 
             case 2:
-              provider = _context8.sent;
-              _context8.next = 5;
+              provider = _context7.sent;
+              _context7.next = 5;
               return provider.getSignaturesForAddress(new PublicKey(account));
 
             case 5:
-              signatures = _context8.sent;
+              signatures = _context7.sent;
 
               if (!(signatures && signatures.length && signatures[0].slot > afterBlock)) {
-                _context8.next = 11;
+                _context7.next = 11;
                 break;
               }
 
               relevantTransactions = signatures.filter(function (signature) {
                 return signature.slot > afterBlock;
               });
-              _context8.next = 10;
+              _context7.next = 10;
               return Promise.all(relevantTransactions.map( /*#__PURE__*/function () {
-                var _ref13 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee7(relevantTransaction) {
+                var _ref12 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(relevantTransaction) {
                   var fullTransactionData, foundRouterInstruction;
-                  return regenerator.wrap(function _callee7$(_context7) {
+                  return regenerator.wrap(function _callee6$(_context6) {
                     while (1) {
-                      switch (_context7.prev = _context7.next) {
+                      switch (_context6.prev = _context6.next) {
                         case 0:
-                          _context7.next = 2;
+                          _context6.next = 2;
                           return provider.getTransaction(relevantTransaction.signature, {
                             commitment: 'confirmed',
                             maxSupportedTransactionVersion: 0
                           });
 
                         case 2:
-                          fullTransactionData = _context7.sent;
+                          fullTransactionData = _context6.sent;
                           foundRouterInstruction = getPaymentRouterInstruction(fullTransactionData);
 
-                          if (foundRouterInstruction.nonce.toString() === nonce.toString()) {
+                          if (foundRouterInstruction && foundRouterInstruction.nonce.toString() === nonce.toString()) {
                             if (fullTransactionData.meta.err === null) {
                               setState('succeeded');
                               setTransaction({
@@ -34874,14 +34860,14 @@ var SolanaPayDialog = (function (props) {
 
                         case 5:
                         case "end":
-                          return _context7.stop();
+                          return _context6.stop();
                       }
                     }
-                  }, _callee7);
+                  }, _callee6);
                 }));
 
-                return function (_x9) {
-                  return _ref13.apply(this, arguments);
+                return function (_x7) {
+                  return _ref12.apply(this, arguments);
                 };
               }()));
 
@@ -34889,27 +34875,27 @@ var SolanaPayDialog = (function (props) {
 
             case 11:
             case "end":
-              return _context8.stop();
+              return _context7.stop();
           }
         }
-      }, _callee8);
+      }, _callee7);
     })), 1000));
   };
 
   var traceAndContinue = /*#__PURE__*/function () {
-    var _ref14 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee10(secretId, selectedPaymentOption, QRCodeURI) {
-      return regenerator.wrap(function _callee10$(_context10) {
+    var _ref13 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee9(secretId, selectedPaymentOption, QRCodeURI) {
+      return regenerator.wrap(function _callee9$(_context9) {
         while (1) {
-          switch (_context10.prev = _context10.next) {
+          switch (_context9.prev = _context9.next) {
             case 0:
               sendTrace({
                 secretId: secretId,
                 selectedPaymentOption: selectedPaymentOption
-              }).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee9() {
+              }).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee8() {
                 var newQRCode;
-                return regenerator.wrap(function _callee9$(_context9) {
+                return regenerator.wrap(function _callee8$(_context8) {
                   while (1) {
-                    switch (_context9.prev = _context9.next) {
+                    switch (_context8.prev = _context8.next) {
                       case 0:
                         setQRCodeURI(QRCodeURI);
                         newQRCode = getNewQRCode();
@@ -34920,36 +34906,36 @@ var SolanaPayDialog = (function (props) {
 
                       case 4:
                       case "end":
-                        return _context9.stop();
+                        return _context8.stop();
                     }
                   }
-                }, _callee9);
+                }, _callee8);
               })))["catch"](function (error) {
                 console.log('Tracing error:', error);
-                navigate('TracingFailed');
+                setState('tracingFailed');
               });
-              return _context10.abrupt("return", {
+              return _context9.abrupt("return", {
                 afterBlock: afterBlock
               });
 
             case 2:
             case "end":
-              return _context10.stop();
+              return _context9.stop();
           }
         }
-      }, _callee10);
+      }, _callee9);
     }));
 
-    return function traceAndContinue(_x10, _x11, _x12) {
-      return _ref14.apply(this, arguments);
+    return function traceAndContinue(_x8, _x9, _x10) {
+      return _ref13.apply(this, arguments);
     };
   }();
 
   var storePayment = /*#__PURE__*/function () {
-    var _ref16 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee11(transaction) {
-      return regenerator.wrap(function _callee11$(_context11) {
+    var _ref15 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee10(transaction) {
+      return regenerator.wrap(function _callee10$(_context10) {
         while (1) {
-          switch (_context11.prev = _context11.next) {
+          switch (_context10.prev = _context10.next) {
             case 0:
               fetch('https://public.depay.com/payments', {
                 headers: {
@@ -34993,73 +34979,50 @@ var SolanaPayDialog = (function (props) {
 
             case 1:
             case "end":
-              return _context11.stop();
+              return _context10.stop();
           }
         }
-      }, _callee11);
+      }, _callee10);
     }));
 
-    return function storePayment(_x13) {
-      return _ref16.apply(this, arguments);
+    return function storePayment(_x11) {
+      return _ref15.apply(this, arguments);
     };
   }();
 
   useEffect(function () {
-    var setAfterBlockAsync = /*#__PURE__*/function () {
-      var _ref17 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee12() {
-        return regenerator.wrap(function _callee12$(_context12) {
-          while (1) {
-            switch (_context12.prev = _context12.next) {
-              case 0:
-                _context12.t0 = setAfterBlock;
-                _context12.next = 3;
-                return request({
-                  blockchain: 'solana',
-                  method: 'latestBlockNumber'
-                });
-
-              case 3:
-                _context12.t1 = _context12.sent;
-                (0, _context12.t0)(_context12.t1);
-
-              case 5:
-              case "end":
-                return _context12.stop();
-            }
-          }
-        }, _callee12);
-      }));
-
-      return function setAfterBlockAsync() {
-        return _ref17.apply(this, arguments);
-      };
-    }();
-
-    setAfterBlockAsync();
-    Promise.all(accept.filter(function (configuration) {
-      return configuration.blockchain === 'solana';
-    }).map(function (configuration) {
-      var token = new Token({
-        blockchain: configuration.blockchain,
-        address: configuration.token
-      });
-      return Promise.all([Promise.resolve(configuration), token.symbol(), token.name(), token.decimals()]);
-    })).then(function (options) {
-      return options.map(function (option) {
-        return _objectSpread$1(_objectSpread$1({}, option[0]), {}, {
-          symbol: option[1],
-          name: option[2],
-          decimals: option[3]
-        });
-      });
-    }).then(function (paymentOptions) {
-      setPaymentOptions(paymentOptions);
-
-      if (paymentOptions.length === 1) {
-        selectPaymentOption(paymentOptions[0]);
-      }
-    });
+    request({
+      blockchain: 'solana',
+      method: 'latestBlockNumber'
+    }).then(setAfterBlock);
   }, []);
+  useEffect(function () {
+    if (afterBlock) {
+      Promise.all(accept.filter(function (configuration) {
+        return configuration.blockchain === 'solana';
+      }).map(function (configuration) {
+        var token = new Token({
+          blockchain: configuration.blockchain,
+          address: configuration.token
+        });
+        return Promise.all([Promise.resolve(configuration), token.symbol(), token.name(), token.decimals()]);
+      })).then(function (options) {
+        return options.map(function (option) {
+          return _objectSpread$1(_objectSpread$1({}, option[0]), {}, {
+            symbol: option[1],
+            name: option[2],
+            decimals: option[3]
+          });
+        });
+      }).then(function (paymentOptions) {
+        setPaymentOptions(paymentOptions);
+
+        if (paymentOptions.length === 1) {
+          selectPaymentOption(paymentOptions[0]);
+        }
+      });
+    }
+  }, [afterBlock]);
   useEffect(function () {
     return function () {
       if (solanaPayTransactionSocket) {
@@ -35107,7 +35070,7 @@ var SolanaPayDialog = (function (props) {
     }
   }, [state, QRCode]);
   useEffect(function () {
-    if (transaction && ['succeeded', 'failed'].includes(state)) {
+    if (transaction && ['succeeded', 'failed'].includes(state) && paymentValidationSocket === undefined) {
       setClosable(!isTracking);
       setRelease(!isTracking);
       storePayment(transaction);
@@ -35127,16 +35090,81 @@ var SolanaPayDialog = (function (props) {
 
       sendTrack({
         transaction: transaction
-      }).then(function () {
-        setClosable(!synchronousTracking);
-        setRelease(!synchronousTracking);
-      })["catch"](function (e) {
-        console.log('tracking failed');
       });
     }
-  }, [transaction, state]);
+  }, [transaction, state, paymentValidationSocket]);
 
-  if (status === 'failed') {
+  if (state === 'trackingFailed') {
+    return /*#__PURE__*/React.createElement(Dialog$1, {
+      stacked: false,
+      header: /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }),
+      body: /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/React.createElement("img", {
+        className: "Graphic",
+        src: ErrorGraphic
+      })), /*#__PURE__*/React.createElement("h1", {
+        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+      }, "Tracking payment failed"), /*#__PURE__*/React.createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/React.createElement("strong", {
+        className: "FontSizeM"
+      }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopS"
+      }, /*#__PURE__*/React.createElement("span", null, "If this keeps happening, please report it.")))),
+      footer: /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+      }, /*#__PURE__*/React.createElement("button", {
+        className: "ButtonPrimary",
+        onClick: function onClick() {
+          setState(transaction.status);
+          sendTrack({
+            transaction: transaction
+          });
+        }
+      }, "Try again"))
+    });
+  }
+
+  if (state === 'tracingFailed') {
+    return /*#__PURE__*/React.createElement(Dialog$1, {
+      stacked: false,
+      header: /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }),
+      body: /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/React.createElement("img", {
+        className: "Graphic",
+        src: ErrorGraphic
+      })), /*#__PURE__*/React.createElement("h1", {
+        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+      }, "Tracking payment failed"), /*#__PURE__*/React.createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/React.createElement("strong", {
+        className: "FontSizeM"
+      }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopS"
+      }, /*#__PURE__*/React.createElement("span", null, "If this keeps happening, please report it.")))),
+      footer: /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+      }, /*#__PURE__*/React.createElement("button", {
+        className: "ButtonPrimary",
+        onClick: function onClick() {
+          setState('wait');
+          traceAndContinue(secretId, selectedPaymentOption, "solana:https://public.depay.com/solana/".concat(secretId));
+        }
+      }, "Try again"))
+    });
+  }
+
+  if (state === 'failed') {
     return /*#__PURE__*/React.createElement(Dialog$1, {
       stacked: false,
       header: /*#__PURE__*/React.createElement("div", {
@@ -35163,7 +35191,7 @@ var SolanaPayDialog = (function (props) {
         href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
         target: "_blank",
         rel: "noopener noreferrer"
-      }, "View on explorer")))),
+      }, "View details")))),
       footer: /*#__PURE__*/React.createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
       }, /*#__PURE__*/React.createElement("button", {
@@ -35403,7 +35431,8 @@ var SolanaPayStack = (function (props) {
     stacked: true,
     dialogs: {
       SolanaPay: /*#__PURE__*/React.createElement(SolanaPayDialog, {
-        unmount: props.unmount
+        unmount: props.unmount,
+        document: props.document
       })
     }
   });
@@ -36621,12 +36650,8 @@ var EnterNFTDataManuallyDialog = (function (props) {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL FontSizeL"
-    }, "Enter NFT information"))),
-    bodyClassName: "ScrollHeight",
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingBottomS"
+    }, "Enter NFT information")), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS PaddingBottomS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "Card small",
       onClick: function onClick() {
@@ -36641,13 +36666,17 @@ var EnterNFTDataManuallyDialog = (function (props) {
       className: "CardBody FontSizeM"
     }, (_Blockchains$findByNa2 = Blockchains.findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain4 = selection.blockchain) === null || _selection$blockchain4 === void 0 ? void 0 : _selection$blockchain4.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection4 = selection.collection) === null || _selection$collection4 === void 0 ? void 0 : _selection$collection4.blockchain))) === null || _Blockchains$findByNa2 === void 0 ? void 0 : _Blockchains$findByNa2.label), /*#__PURE__*/React.createElement("div", {
       className: "CardAction"
-    }, /*#__PURE__*/React.createElement(ChevronRight, null))))), /*#__PURE__*/React.createElement("div", null, supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain5 = selection.blockchain) === null || _selection$blockchain5 === void 0 ? void 0 : _selection$blockchain5.name) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement(ChevronRight, null))))),
+    bodyClassName: "ScrollHeight",
+    body: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", null, supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain5 = selection.blockchain) === null || _selection$blockchain5 === void 0 ? void 0 : _selection$blockchain5.name) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS TextLeft"
     }, /*#__PURE__*/React.createElement("label", {
       htmlFor: "DePayWidgetsEnterNFTTokenAddresses"
     }, /*#__PURE__*/React.createElement("div", {
-      className: "FontSizeM Opacity05"
-    }, "Token Mint Address"))), /*#__PURE__*/React.createElement("div", {
+      className: "FontSizeS Opacity05"
+    }, "Token Mint Addresses"))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingBottomS TextLeft"
     }, /*#__PURE__*/React.createElement("textarea", {
       id: "DePayWidgetsEnterNFTTokenAddresses",
@@ -36657,12 +36686,11 @@ var EnterNFTDataManuallyDialog = (function (props) {
         return setAddresses(event.target.value);
       },
       placeholder: "4LWoVdJWNFQCvDZsf2EP6xD8xAF6S7RhQKkA5gjxJEnn\n979vHrvJ5d4CoCv2Hx5PHN837dsJe9ijhNAQwmY7hpcx",
-      className: "Search",
+      className: "InputField small",
       rows: 4,
       style: {
         resize: "vertical",
         minHeight: "78px",
-        fontSize: "14px",
         width: "100%"
       }
     }), /*#__PURE__*/React.createElement("div", {
@@ -36672,7 +36700,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
     }, /*#__PURE__*/React.createElement("label", {
       htmlFor: "DePayWidgetsEnterNFTTokenAddress"
     }, /*#__PURE__*/React.createElement("div", {
-      className: "FontSizeM Opacity05"
+      className: "FontSizeS Opacity05"
     }, "Token Contract Address"))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingBottomS TextLeft"
     }, /*#__PURE__*/React.createElement("input", {
@@ -36683,7 +36711,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
         return setAddress(event.target.value);
       },
       placeholder: "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb",
-      className: "Search",
+      className: "InputField small",
       style: {
         width: "100%"
       }
@@ -36692,7 +36720,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
     }, /*#__PURE__*/React.createElement("label", {
       htmlFor: "DePayWidgetsEnterNFTTokenId"
     }, /*#__PURE__*/React.createElement("span", {
-      className: "FontSizeM Opacity05"
+      className: "FontSizeS Opacity05"
     }, "Token ID"))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingBottomS TextLeft"
     }, /*#__PURE__*/React.createElement("input", {
@@ -36703,13 +36731,13 @@ var EnterNFTDataManuallyDialog = (function (props) {
         return setId(event.target.value);
       },
       placeholder: "35347623114821255323888368639026081793120226253597860997754787919489216283624",
-      className: "Search"
+      className: "InputField small"
     }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS TextLeft"
     }, /*#__PURE__*/React.createElement("label", {
       htmlFor: "DePayWidgetsEnterNFTName"
     }, /*#__PURE__*/React.createElement("span", {
-      className: "FontSizeM Opacity05"
+      className: "FontSizeS Opacity05"
     }, "NFT Name"))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingBottomS TextLeft"
     }, /*#__PURE__*/React.createElement("input", {
@@ -36720,13 +36748,13 @@ var EnterNFTDataManuallyDialog = (function (props) {
         return setName(event.target.value);
       },
       placeholder: supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain7 = selection.blockchain) === null || _selection$blockchain7 === void 0 ? void 0 : _selection$blockchain7.name) ? 'SMB' : 'CryptoPunks',
-      className: "Search"
+      className: "InputField small"
     }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS TextLeft"
     }, /*#__PURE__*/React.createElement("label", {
       htmlFor: "DePayWidgetsEnterNFTImage"
     }, /*#__PURE__*/React.createElement("span", {
-      className: "FontSizeM Opacity05"
+      className: "FontSizeS Opacity05"
     }, "Image URL"))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingBottomS TextLeft"
     }, /*#__PURE__*/React.createElement("input", {
@@ -36737,13 +36765,13 @@ var EnterNFTDataManuallyDialog = (function (props) {
         return setImage(event.target.value);
       },
       placeholder: supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain8 = selection.blockchain) === null || _selection$blockchain8 === void 0 ? void 0 : _selection$blockchain8.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128',
-      className: "Search"
+      className: "InputField small"
     }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS TextLeft"
     }, /*#__PURE__*/React.createElement("label", {
       htmlFor: "DePayWidgetsEnterNFTLink"
     }, /*#__PURE__*/React.createElement("span", {
-      className: "FontSizeM Opacity05"
+      className: "FontSizeS Opacity05"
     }, "Link URL"))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingBottomS TextLeft"
     }, /*#__PURE__*/React.createElement("input", {
@@ -36754,7 +36782,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
         return setLink(event.target.value);
       },
       placeholder: supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain9 = selection.blockchain) === null || _selection$blockchain9 === void 0 ? void 0 : _selection$blockchain9.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks",
-      className: "Search"
+      className: "InputField small"
     })))),
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomM"

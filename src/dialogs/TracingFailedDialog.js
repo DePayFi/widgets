@@ -3,11 +3,12 @@ import ErrorGraphic from '../graphics/error'
 import React, { useContext } from 'react'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
-export default ()=> {
+export default (props)=> {
 
   const { navigate } = useContext(NavigateStackContext)
 
   const tryAgain = ()=>{
+    if(props.tryAgain){ props.tryAgain() }
     navigate('back')
   }
 

@@ -233,7 +233,7 @@ describe('Payment Widget: detects replaced transaction', () => {
           })
           replace(mockedTransaction, replacingTransactionMock, false)
           cy.wait(1000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a', 'View on explorer').invoke('attr', 'href').should('include', `https://etherscan.io/tx/${replacingTransactionMock.transaction._id}`)
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a', 'View details').invoke('attr', 'href').should('include', `https://etherscan.io/tx/${replacingTransactionMock.transaction._id}`)
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('h1').should('contain.text', 'Payment Failed')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
             cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
@@ -411,7 +411,7 @@ describe('Payment Widget: detects replaced transaction', () => {
                 overwriteRoutes: true
               }, { "external_id": replacingTransactionId, "status":"failed" })
               cy.wait(5000).then(()=>{
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a', 'View on explorer').invoke('attr', 'href').should('include', `https://etherscan.io/tx/${replacingTransactionId}`)
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a', 'View details').invoke('attr', 'href').should('include', `https://etherscan.io/tx/${replacingTransactionId}`)
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('h1').should('contain.text', 'Payment Failed')
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
                 cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')

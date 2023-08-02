@@ -14,7 +14,7 @@ import SolanaPayDialog from '../dialogs/SolanaPayDialog.solana'
 
 import ClosableContext from '../contexts/ClosableContext'
 import NavigateContext from '../contexts/NavigateContext'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{
@@ -32,7 +32,7 @@ export default (props)=>{
       document={ props.document }
       stacked={true}
       dialogs={{
-        SolanaPay: <SolanaPayDialog unmount={ props.unmount } />
+        SolanaPay: <SolanaPayDialog unmount={ props.unmount } document={ props.document } />,
       }}
     />
   )

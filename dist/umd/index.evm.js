@@ -23632,7 +23632,7 @@
   });
 
   var InputStyle = (function (style) {
-    return "\n\n    .Input {\n      background: none;\n      border: 1px solid transparent;\n      margin: 0;\n      outline: none !important;\n      padding: 0 0 0 14px;\n      width: 100%;\n    }\n\n    .Input::placeholder {\n      color: rgb(210,210,210);\n    }\n    \n  ";
+    return "\n\n    .Input {\n      background: none;\n      border: 1px solid transparent;\n      margin: 0;\n      outline: none !important;\n      padding: 0 0 0 14px;\n      width: 100%;\n    }\n\n    .Input::placeholder {\n      color: rgb(210,210,210);\n    }\n\n    .InputField {\n      border-radius: 13px;\n      border: 1px solid rgba(0,0,0,0.2);\n      background: white;\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 13px;\n      width: 100%;\n    }\n\n    .InputField.small {\n      border-radius: 8px;\n      font-size: 15px;\n    }\n\n    .InputField::placeholder {\n      color: rgb(180,180,180);\n    } \n\n    .InputField:focus, .InputField:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n    \n  ");
   });
 
   var LinkStyle = (function (style) {
@@ -23719,7 +23719,7 @@
       }, ((_style = style) === null || _style === void 0 ? void 0 : _style.colors) || {}),
       fontFamily: ((_style2 = style) === null || _style2 === void 0 ? void 0 : _style2.fontFamily) || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
     };
-    return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
+    return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
   });
 
   var mount = (function (_ref, content) {
@@ -26070,7 +26070,7 @@
         href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
         target: "_blank",
         rel: "noopener noreferrer"
-      }, "View on explorer")))),
+      }, "View details")))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
       }, /*#__PURE__*/React__default['default'].createElement("button", {
@@ -26645,11 +26645,15 @@
     });
   });
 
-  var TracingFailedDialog = (function () {
+  var TracingFailedDialog = (function (props) {
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext.navigate;
 
     var tryAgain = function tryAgain() {
+      if (props.tryAgain) {
+        props.tryAgain();
+      }
+
       navigate('back');
     };
 
@@ -26687,11 +26691,8 @@
     var _useContext = React.useContext(PaymentTrackingContext),
         continueTryTracking = _useContext.continueTryTracking;
 
-    var _useContext2 = React.useContext(PaymentContext);
-        _useContext2.transaction;
-
-    var _useContext3 = React.useContext(reactDialogStack.NavigateStackContext),
-        navigate = _useContext3.navigate;
+    var _useContext2 = React.useContext(reactDialogStack.NavigateStackContext),
+        navigate = _useContext2.navigate;
 
     var tryAgain = function tryAgain() {
       continueTryTracking();
@@ -27730,7 +27731,8 @@
       stacked: true,
       dialogs: {
         SolanaPay: /*#__PURE__*/React__default['default'].createElement(SolanaPayDialog, {
-          unmount: props.unmount
+          unmount: props.unmount,
+          document: props.document
         })
       }
     });
@@ -28948,12 +28950,8 @@
         className: "PaddingTopS PaddingLeftM PaddingRightM"
       }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL"
-      }, "Enter NFT information"))),
-      bodyClassName: "ScrollHeight",
-      body: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopXS PaddingBottomS"
+      }, "Enter NFT information")), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Card small",
         onClick: function onClick() {
@@ -28968,13 +28966,17 @@
         className: "CardBody FontSizeM"
       }, (_Blockchains$findByNa2 = Blockchains__default['default'].findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain4 = selection.blockchain) === null || _selection$blockchain4 === void 0 ? void 0 : _selection$blockchain4.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection4 = selection.collection) === null || _selection$collection4 === void 0 ? void 0 : _selection$collection4.blockchain))) === null || _Blockchains$findByNa2 === void 0 ? void 0 : _Blockchains$findByNa2.label), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardAction"
-      }, /*#__PURE__*/React__default['default'].createElement(ChevronRight, null))))), /*#__PURE__*/React__default['default'].createElement("div", null, supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain5 = selection.blockchain) === null || _selection$blockchain5 === void 0 ? void 0 : _selection$blockchain5.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+      }, /*#__PURE__*/React__default['default'].createElement(ChevronRight, null))))),
+      bodyClassName: "ScrollHeight",
+      body: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React__default['default'].createElement("div", null, supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain5 = selection.blockchain) === null || _selection$blockchain5 === void 0 ? void 0 : _selection$blockchain5.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("label", {
         htmlFor: "DePayWidgetsEnterNFTTokenAddresses"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "FontSizeM Opacity05"
-      }, "Token Mint Address"))), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "FontSizeS Opacity05"
+      }, "Token Mint Addresses"))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingBottomS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("textarea", {
         id: "DePayWidgetsEnterNFTTokenAddresses",
@@ -28984,12 +28986,11 @@
           return setAddresses(event.target.value);
         },
         placeholder: "4LWoVdJWNFQCvDZsf2EP6xD8xAF6S7RhQKkA5gjxJEnn\n979vHrvJ5d4CoCv2Hx5PHN837dsJe9ijhNAQwmY7hpcx",
-        className: "Search",
+        className: "InputField small",
         rows: 4,
         style: {
           resize: "vertical",
           minHeight: "78px",
-          fontSize: "14px",
           width: "100%"
         }
       }), /*#__PURE__*/React__default['default'].createElement("div", {
@@ -28999,7 +29000,7 @@
       }, /*#__PURE__*/React__default['default'].createElement("label", {
         htmlFor: "DePayWidgetsEnterNFTTokenAddress"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "FontSizeM Opacity05"
+        className: "FontSizeS Opacity05"
       }, "Token Contract Address"))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingBottomS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("input", {
@@ -29010,7 +29011,7 @@
           return setAddress(event.target.value);
         },
         placeholder: "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb",
-        className: "Search",
+        className: "InputField small",
         style: {
           width: "100%"
         }
@@ -29019,7 +29020,7 @@
       }, /*#__PURE__*/React__default['default'].createElement("label", {
         htmlFor: "DePayWidgetsEnterNFTTokenId"
       }, /*#__PURE__*/React__default['default'].createElement("span", {
-        className: "FontSizeM Opacity05"
+        className: "FontSizeS Opacity05"
       }, "Token ID"))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingBottomS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("input", {
@@ -29030,13 +29031,13 @@
           return setId(event.target.value);
         },
         placeholder: "35347623114821255323888368639026081793120226253597860997754787919489216283624",
-        className: "Search"
+        className: "InputField small"
       }))), /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("label", {
         htmlFor: "DePayWidgetsEnterNFTName"
       }, /*#__PURE__*/React__default['default'].createElement("span", {
-        className: "FontSizeM Opacity05"
+        className: "FontSizeS Opacity05"
       }, "NFT Name"))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingBottomS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("input", {
@@ -29047,13 +29048,13 @@
           return setName(event.target.value);
         },
         placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain7 = selection.blockchain) === null || _selection$blockchain7 === void 0 ? void 0 : _selection$blockchain7.name) ? 'SMB' : 'CryptoPunks',
-        className: "Search"
+        className: "InputField small"
       }))), /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("label", {
         htmlFor: "DePayWidgetsEnterNFTImage"
       }, /*#__PURE__*/React__default['default'].createElement("span", {
-        className: "FontSizeM Opacity05"
+        className: "FontSizeS Opacity05"
       }, "Image URL"))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingBottomS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("input", {
@@ -29064,13 +29065,13 @@
           return setImage(event.target.value);
         },
         placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain8 = selection.blockchain) === null || _selection$blockchain8 === void 0 ? void 0 : _selection$blockchain8.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128',
-        className: "Search"
+        className: "InputField small"
       }))), /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("label", {
         htmlFor: "DePayWidgetsEnterNFTLink"
       }, /*#__PURE__*/React__default['default'].createElement("span", {
-        className: "FontSizeM Opacity05"
+        className: "FontSizeS Opacity05"
       }, "Link URL"))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingBottomS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("input", {
@@ -29081,7 +29082,7 @@
           return setLink(event.target.value);
         },
         placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain9 = selection.blockchain) === null || _selection$blockchain9 === void 0 ? void 0 : _selection$blockchain9.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks",
-        className: "Search"
+        className: "InputField small"
       })))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomM"

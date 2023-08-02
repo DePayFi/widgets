@@ -1,6 +1,5 @@
 import Dialog from '../components/Dialog'
 import ErrorGraphic from '../graphics/error'
-import PaymentContext from '../contexts/PaymentContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useContext } from 'react'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
@@ -8,7 +7,6 @@ import { NavigateStackContext } from '@depay/react-dialog-stack'
 export default ()=> {
 
   const { continueTryTracking } = useContext(PaymentTrackingContext)
-  const { transaction } = useContext(PaymentContext)
   const { navigate } = useContext(NavigateStackContext)
 
   const tryAgain = ()=>{

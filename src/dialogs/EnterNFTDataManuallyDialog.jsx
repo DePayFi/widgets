@@ -121,37 +121,35 @@ export default (props)=> {
           <div>
             <h1 className="LineHeightL FontSizeL">Enter NFT information</h1>
           </div>
+          <div className="PaddingTopS PaddingBottomS">
+            <div className="Card small" onClick={ ()=>navigate('SelectBlockchain') }>
+              <div className="CardImage small">
+                <img className="transparent" src={ Blockchains.findByName(selection?.blockchain?.name || selection?.blockchain || selection?.collection?.blockchain )?.logo }/>
+              </div>
+              <div className="CardBody FontSizeM">
+                { Blockchains.findByName(selection?.blockchain?.name|| selection?.blockchain || selection?.collection?.blockchain )?.label }
+              </div>
+              <div className="CardAction">
+                <ChevronRight/>
+              </div>
+            </div>
+          </div>
         </div>
       }
       bodyClassName="ScrollHeight"
       body={
         <div className="PaddingLeftM PaddingRightM">
           <div>
-            <div className="PaddingTopXS PaddingBottomS">
-              <div className="Card small" onClick={ ()=>navigate('SelectBlockchain') }>
-                <div className="CardImage small">
-                  <img className="transparent" src={ Blockchains.findByName(selection?.blockchain?.name || selection?.blockchain || selection?.collection?.blockchain )?.logo }/>
-                </div>
-                <div className="CardBody FontSizeM">
-                  { Blockchains.findByName(selection?.blockchain?.name|| selection?.blockchain || selection?.collection?.blockchain )?.label }
-                </div>
-                <div className="CardAction">
-                  <ChevronRight/>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
             {
               supported.solana.includes(selection?.blockchain?.name) &&
               <div>
                 <div className="PaddingTopXS TextLeft">
                   <label htmlFor="DePayWidgetsEnterNFTTokenAddresses">
-                    <div className="FontSizeM Opacity05">Token Mint Address</div>
+                    <div className="FontSizeS Opacity05">Token Mint Addresses</div>
                   </label>
                 </div>
                 <div className="PaddingTopXS PaddingBottomS TextLeft">
-                  <textarea id="DePayWidgetsEnterNFTTokenAddresses" name="DePayWidgetsEnterNFTTokenAddress" value={ addresses } onChange={ (event)=>setAddresses(event.target.value) } placeholder={ "4LWoVdJWNFQCvDZsf2EP6xD8xAF6S7RhQKkA5gjxJEnn\n979vHrvJ5d4CoCv2Hx5PHN837dsJe9ijhNAQwmY7hpcx" } className="Search" rows={4} style={{ resize: "vertical", minHeight: "78px", fontSize: "14px", width: "100%" }} />
+                  <textarea id="DePayWidgetsEnterNFTTokenAddresses" name="DePayWidgetsEnterNFTTokenAddress" value={ addresses } onChange={ (event)=>setAddresses(event.target.value) } placeholder={ "4LWoVdJWNFQCvDZsf2EP6xD8xAF6S7RhQKkA5gjxJEnn\n979vHrvJ5d4CoCv2Hx5PHN837dsJe9ijhNAQwmY7hpcx" } className="InputField small" rows={4} style={{ resize: "vertical", minHeight: "78px", width: "100%" }} />
                   <div className="FontSizeXS PaddingLeftXS PaddingRightXS Opacity03 LineHeightXS">
                     Separate each one with a new line break.
                   </div>
@@ -163,11 +161,11 @@ export default (props)=> {
               <div>
                 <div className="PaddingTopXS TextLeft">
                   <label htmlFor="DePayWidgetsEnterNFTTokenAddress">
-                    <div className="FontSizeM Opacity05">Token Contract Address</div>
+                    <div className="FontSizeS Opacity05">Token Contract Address</div>
                   </label>
                 </div>
                 <div className="PaddingTopXS PaddingBottomS TextLeft">
-                  <input id="DePayWidgetsEnterNFTTokenAddress" name="DePayWidgetsEnterNFTTokenAddress" value={ address } onChange={ (event)=>setAddress(event.target.value) } placeholder={ "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb" } className="Search" style={{ width: "100%" }} />
+                  <input id="DePayWidgetsEnterNFTTokenAddress" name="DePayWidgetsEnterNFTTokenAddress" value={ address } onChange={ (event)=>setAddress(event.target.value) } placeholder={ "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb" } className="InputField small" style={{ width: "100%" }} />
                 </div>
               </div>
             }
@@ -176,42 +174,42 @@ export default (props)=> {
             <div>
               <div className="PaddingTopXS TextLeft">
                 <label htmlFor="DePayWidgetsEnterNFTTokenId">
-                  <span className="FontSizeM Opacity05">Token ID</span>
+                  <span className="FontSizeS Opacity05">Token ID</span>
                 </label>
               </div>
               <div className="PaddingTopXS PaddingBottomS TextLeft">
-                <input id="DePayWidgetsEnterNFTTokenId" name="DePayWidgetsEnterNFTTokenId" value={ id } onChange={ (event)=>setId(event.target.value) } placeholder="35347623114821255323888368639026081793120226253597860997754787919489216283624" className="Search" />
+                <input id="DePayWidgetsEnterNFTTokenId" name="DePayWidgetsEnterNFTTokenId" value={ id } onChange={ (event)=>setId(event.target.value) } placeholder="35347623114821255323888368639026081793120226253597860997754787919489216283624" className="InputField small" />
               </div>
             </div>
           }
           <div>
             <div className="PaddingTopXS TextLeft">
               <label htmlFor="DePayWidgetsEnterNFTName">
-                <span className="FontSizeM Opacity05">NFT Name</span>
+                <span className="FontSizeS Opacity05">NFT Name</span>
               </label>
             </div>
             <div className="PaddingTopXS PaddingBottomS TextLeft">
-              <input id="DePayWidgetsEnterNFTName" name="DePayWidgetsEnterNFTName" value={ name } onChange={ (event)=>setName(event.target.value) } placeholder={ supported.solana.includes(selection?.blockchain?.name) ? 'SMB' : 'CryptoPunks' } className="Search" />
+              <input id="DePayWidgetsEnterNFTName" name="DePayWidgetsEnterNFTName" value={ name } onChange={ (event)=>setName(event.target.value) } placeholder={ supported.solana.includes(selection?.blockchain?.name) ? 'SMB' : 'CryptoPunks' } className="InputField small" />
             </div>
           </div>
           <div>
             <div className="PaddingTopXS TextLeft">
               <label htmlFor="DePayWidgetsEnterNFTImage">
-                <span className="FontSizeM Opacity05">Image URL</span>
+                <span className="FontSizeS Opacity05">Image URL</span>
               </label>
             </div>
             <div className="PaddingTopXS PaddingBottomS TextLeft">
-              <input id="DePayWidgetsEnterNFTImage" name="DePayWidgetsEnterNFTImage" value={ image } onChange={ (event)=>setImage(event.target.value) } placeholder={ supported.solana.includes(selection?.blockchain?.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128' } className="Search" />
+              <input id="DePayWidgetsEnterNFTImage" name="DePayWidgetsEnterNFTImage" value={ image } onChange={ (event)=>setImage(event.target.value) } placeholder={ supported.solana.includes(selection?.blockchain?.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128' } className="InputField small" />
             </div>
           </div>
           <div>
             <div className="PaddingTopXS TextLeft">
               <label htmlFor="DePayWidgetsEnterNFTLink">
-                <span className="FontSizeM Opacity05">Link URL</span>
+                <span className="FontSizeS Opacity05">Link URL</span>
               </label>
             </div>
             <div className="PaddingTopXS PaddingBottomS TextLeft">
-              <input id="DePayWidgetsEnterNFTLink" name="DePayWidgetsEnterNFTLink" value={ link } onChange={ (event)=>setLink(event.target.value) } placeholder={ supported.solana.includes(selection?.blockchain?.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks" } className="Search" />
+              <input id="DePayWidgetsEnterNFTLink" name="DePayWidgetsEnterNFTLink" value={ link } onChange={ (event)=>setLink(event.target.value) } placeholder={ supported.solana.includes(selection?.blockchain?.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks" } className="InputField small" />
             </div>
           </div>
         </div>
