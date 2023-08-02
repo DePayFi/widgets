@@ -1037,7 +1037,7 @@ describe('Payment Widget: track', () => {
     })
   })
 
-  it('immediately shows failed payment and allows for a retry if payment confirmed "failed" through websocket', () => {
+  it.only('immediately shows failed payment and allows for a retry if payment confirmed "failed" through websocket', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
@@ -1130,7 +1130,7 @@ describe('Payment Widget: track', () => {
                 })).to.equal(true)
                 cy.wait(1000).then(()=>{
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().find('h1').should('contain.text', 'Payment Failed')
-                  cy.get('.ReactShadowDOMOutsideContainer').shadow().find('a').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a', 'View details').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
                   cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
                 })

@@ -30,7 +30,7 @@ export default ()=> {
             { transaction && 
               <div className="PaddingTopS">
                 <a className="Link" title="Check your transaction on a block explorer" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
-                  View on explorer
+                  View details
                 </a>
               </div>
             }

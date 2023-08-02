@@ -10,12 +10,12 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@uiw/copy-to-clipboard/dist/copy-to-clipboard.umd.js"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/solana-web3.js@1"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/solana-web3.js@1.25.1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/local-currency@3"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog@14"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@8"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog@14.1.1"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@8.1.1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-shadow-dom@5"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@8"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@8.3.0"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@10"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@9"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@4"></script>
@@ -151,6 +151,12 @@
                           token: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
                         },
+                        {
+                          blockchain: 'solana',
+                          amount: 0.001,
+                          token: '11111111111111111111111111111111',
+                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk'
+                        },
                       ]
                     });
                   });
@@ -180,9 +186,41 @@
                           blockchain: 'solana',
                           amount: 0.001,
                           token: '11111111111111111111111111111111',
-                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk'
+                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk',
+                          fee: {
+                            amount: "1.5%",
+                            receiver: "5AcFMJZkXo14r3Hj99iYd1HScPiM4hAcLZf552DfZkxa"
+                          }
                         },
-                      ]
+                        {
+                          blockchain: 'solana',
+                          amount: 0.001,
+                          token: Web3Blockchains.solana.stables.usd[0],
+                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk',
+                          fee: {
+                            amount: "1%",
+                            receiver: "5AcFMJZkXo14r3Hj99iYd1HScPiM4hAcLZf552DfZkxa"
+                          }
+                        },
+                      ],
+                      track: {
+                        method: (payment)=>{
+                          console.log('TRACK', payment)
+                          return axios.post('/track', payment)
+                        },
+                        poll: {
+                          method: async (payment)=>{
+                            let response = await fetch('/payments/123/release', {
+                              method: 'POST',
+                              body: JSON.stringify(payment),
+                            })
+                            if(response.status == 200) {
+                              let json = await response.json()
+                              return json // { "forward_to": "https://mywebsite.com/payments/123/confirmation" }
+                            }
+                          }
+                        }
+                      }
                     });
                   });
                 </script>

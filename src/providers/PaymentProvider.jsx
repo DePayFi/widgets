@@ -40,7 +40,7 @@ export default (props)=>{
   const { setUpdatable } = useContext(UpdatableContext)
   const { navigate, set } = useContext(NavigateContext)
   const { wallet } = useContext(WalletContext)
-  const { release, synchronousTracking, asynchronousTracking, trackingInitialized, initializeTracking: initializePaymentTracking, preTrack } = useContext(PaymentTrackingContext)
+  const { release, synchronousTracking, asynchronousTracking, trackingInitialized, initializeTracking: initializePaymentTracking, trace } = useContext(PaymentTrackingContext)
   const { foundTransaction, initializeTracking: initializeTransactionTracking } = useContext(TransactionTrackingContext)
   const [ payment, setPayment ] = useState()
   const [ transaction, setTransaction ] = useState()
@@ -73,7 +73,7 @@ export default (props)=>{
     setPaymentState('paying')
     setUpdatable(false)
     let currentBlock = await request({ blockchain: transaction.blockchain, method: 'latestBlockNumber' })
-    await preTrack(currentBlock, payment.route, transaction).then(async()=>{
+    await trace(currentBlock, payment.route, transaction).then(async()=>{
       setClosable(false)
       await wallet.sendTransaction(Object.assign({}, transaction, {
         sent: (transaction)=>{
@@ -101,7 +101,7 @@ export default (props)=>{
       setPaymentState('initialized')
       setClosable(true)
       setUpdatable(true)
-      navigate('PreTrackingFailed')
+      navigate('TracingFailed')
     })
   }
 
@@ -130,14 +130,6 @@ export default (props)=>{
         setClosable(true)
       })
   }
-
-  useEffect(()=>{
-    if(wallet && wallet.isSolanaPay && wallet.isTransactionSend) {
-      setPaymentState('paying')
-      setUpdatable(false)
-      setClosable(false)
-    }
-  }, [wallet])
 
   useEffect(()=>{
     if(release){

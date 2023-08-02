@@ -161,7 +161,7 @@ describe('Payment Widget: failures', () => {
           fail(mockedTransaction)
           cy.wait(2000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('h1').should('contain.text', 'Payment Failed')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('a').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a', 'View details').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
             cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
           })

@@ -12,6 +12,7 @@ import { wallets } from '@depay/web3-wallets'
 
 //#endif
 
+import Blockchains from '@depay/web3-blockchains'
 import { supported } from '../blockchains'
 
 export default [
@@ -40,10 +41,25 @@ export default [
   {
     "name": "Phantom",
     "extension": "Phantom",
-    "desktop": { "qr": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}` },
+    "desktop": {
+      "solanaPay": true,
+      "qr": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`
+    },
     "mobile": {
-      "ios": { "native": "phantom:", "universal": "https://phantom.app/ul", "open": ()=>`https://phantom.app/ul/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}` },
-      "android": { "native": "phantom:", "universal": "https://phantom.app/ul", "connect": "SolanaMobileWalletAdapter" },
+      "ios": {
+        "native": "phantom:",
+        "universal": "https://phantom.app/ul",
+        "open": ()=>`https://phantom.app/ul/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
+        "qr": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
+        "solanaPay": true,
+      },
+      "android": {
+        "native": "phantom:",
+        "universal": "https://phantom.app/ul",
+        "connect": "SolanaMobileWalletAdapter",
+        "qr": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
+        "solanaPay": true,
+      },
     },
     "logo": wallets.Phantom.info.logo,
     "blockchains": [...supported.solana]
@@ -143,15 +159,37 @@ export default [
   {
     "name": "Backpack",
     "extension": "Backpack",
+    "desktop": {
+      "qr": "SolanaPay",
+    },
+    "mobile": {
+      "ios": {
+        "qr": "SolanaPay",
+      },
+      "android": {
+        "qr": "SolanaPay",
+      },
+    },
     "logo": wallets.Backpack.info.logo,
     "blockchains": [...supported.solana]
   },
   {
     "name": "Glow",
     "extension": "Glow",
-    "desktop": { "qr": ()=>window.location.toString() },
+    "desktop": {
+      "qr": ()=>window.location.toString(),
+      "solanaPay": "true",
+    },
     "mobile": {
-      "android": { "connect": "SolanaMobileWalletAdapter" },
+      "ios": {
+        "qr": ()=>window.location.toString(),
+        "solanaPay": "true",
+      },
+      "android": {
+        "connect": "SolanaMobileWalletAdapter",
+        "qr": ()=>window.location.toString(),
+        "solanaPay": "true",
+      },
     },
     "logo": wallets.Glow.info.logo,
     "blockchains": [...supported.solana]
@@ -159,9 +197,22 @@ export default [
   {
     "name": "Solflare",
     "extension": "Solflare",
+    "desktop": {
+      "solanaPay": true,
+    },
     "mobile": {
-      "ios": { "native": "solflare:", "universal": "https://solflare.com/ul", "open": ()=>`https://solflare.com/ul/v1/browse/${encodeURIComponent(window.location.toString())}?ref=${window.location.origin.toString()}` },
-      "android": { "native": "solflare:", "universal": "https://solflare.com/ul", "connect": "SolanaMobileWalletAdapter" },
+      "ios": {
+        "native": "solflare:",
+        "universal": "https://solflare.com/ul",
+        "open": ()=>`https://solflare.com/ul/v1/browse/${encodeURIComponent(window.location.toString())}?ref=${window.location.origin.toString()}`,
+        "solanaPay": true,
+      },
+      "android": {
+        "native": "solflare:",
+        "universal": "https://solflare.com/ul",
+        "connect": "SolanaMobileWalletAdapter",
+        "solanaPay": true,
+      },
     },
     "logo": wallets.Solflare.info.logo,
     "blockchains": [...supported.solana]
@@ -1972,16 +2023,43 @@ export default [
     "blockchains": [...supported.evm]
   },
   {
-    "name": "Wallet (Ethereum)",
+    "name": "Ethereum Wallet",
     "extension": "WindowEthereum",
     "logo": wallets.WindowEthereum.info.logo,
     "blockchains": [...supported.evm]
   },
   {
-    "name": "Wallet (Solana)",
+    "name": "Solana Pay",
+    "desktop": {
+      "solanaPay": true
+    },
+    "mobile": {
+      "ios": {
+        "solanaPay": true
+      },
+      "android": {
+        "solanaPay": true
+      }
+    },
+    "logo": Blockchains.solana.logo,
+    "blockchains": [...supported.solana]
+  },
+  {
+    "name": "Solana Wallet",
     "extension": "WindowSolana",
+    "desktop": {
+      "solanaPay": true
+    },
+    "mobile": {
+      "ios": {
+        "solanaPay": true
+      },
+      "android": {
+        "solanaPay": true
+      }
+    },
     "logo": wallets.WindowSolana.info.logo,
-    "blockchains": [...supported.evm]
+    "blockchains": [...supported.solana]
   },
   {
     "name": "WalletConnect V2",

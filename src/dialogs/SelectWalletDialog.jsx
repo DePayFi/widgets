@@ -188,7 +188,7 @@ export default (props)=>{
           }
         </div>
       }
-      hideFooter={ true }
+      footer={ false }
     />
   )
 }

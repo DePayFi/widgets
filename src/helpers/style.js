@@ -1,5 +1,4 @@
 import AlertStyle from '../styles/AlertStyle'
-import BlockchainLogoStyle from '../styles/BlockchainLogoStyle'
 import ButtonCircularStyle from '../styles/ButtonCircularStyle'
 import ButtonPrimaryStyle from '../styles/ButtonPrimaryStyle'
 import CardStyle from '../styles/CardStyle'
@@ -14,6 +13,7 @@ import ImageStyle from '../styles/ImageStyle'
 import InputStyle from '../styles/InputStyle'
 import LinkStyle from '../styles/LinkStyle'
 import LoadingTextStyle from '../styles/LoadingTextStyle'
+import LogoStyle from '../styles/LogoStyle'
 import OpacityStyle from '../styles/OpacityStyle'
 import PaddingStyle from '../styles/PaddingStyle'
 import PoweredByStyle from '../styles/PoweredByStyle'
@@ -67,7 +67,7 @@ export default (style)=>{
       InputStyle(style),
       TextButtonStyle(style),
       ImageStyle(style),
-      BlockchainLogoStyle(style),
+      LogoStyle(style),
       SearchStyle(style),
       TokenImageStyle(style),
       AlertStyle(style),

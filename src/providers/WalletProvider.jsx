@@ -4,6 +4,7 @@ import ConnectStack from '../stacks/ConnectStack'
 import ErrorContext from '../contexts/ErrorContext'
 import PaymentBlockchainsDialog from '../dialogs/PaymentBlockchainsDialog'
 import React, { useState, useEffect, useContext, useCallback } from 'react'
+import SolanaPayContext from '../contexts/SolanaPayContext'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
 import WalletMissesBlockchainSupportDialog from '../dialogs/WalletMissesBlockchainSupportDialog'
@@ -15,11 +16,14 @@ export default (props)=>{
 
   const { open, close } = useContext(ClosableContext)
   const { accept, recover, wallet: passedWallet } = useContext(ConfigurationContext)
+  const solanaPayContext = useContext(SolanaPayContext)
   const { setUpdatable } = useContext(UpdatableContext)
   const { setError } = useContext(ErrorContext)
   const [wallet, setWallet] = useState(passedWallet)
+  const [navigator, setNavigator] = useState()
   const [ walletMissesBlockchainSupport, setWalletMissesBlockchainSupport ] = useState(false)
   let [account, setAccount] = useState()
+  let [navigationReturnsToConnect, setNavigationReturnsToConnect] = useState(false)
   const [walletState, setWalletState] = useState(passedWallet ? 'connected' : undefined)
 
   const connect = useCallback(debounce(()=>{
@@ -31,12 +35,14 @@ export default (props)=>{
   }))
   
   const connected = ({ account, wallet })=> {
-    setAccount(account)
-    setWallet(wallet)
+    navigator.hide()
     setTimeout(()=>{
+      setAccount(account)
+      setWallet(wallet)
+      setNavigationReturnsToConnect(true)
       setWalletState('connected')
       if(props.connected) { props.connected(account) }
-    }, 200)
+    }, 80)
   }
 
   const disconnect = ()=>{
@@ -44,6 +50,10 @@ export default (props)=>{
     setWallet()
     setWalletState()
     setWalletMissesBlockchainSupport(false)
+  }
+
+  const continueWithSolanaPay = (!accept || !accept.some((configuration)=>configuration.blockchain === 'solana')) ? undefined : ()=>{
+    solanaPayContext.start()
   }
 
   useEffect(()=>{
@@ -90,6 +100,7 @@ export default (props)=>{
         start='WalletMissesBlockchainSupport'
         container={ props.container }
         document={ props.document }
+        stacked={ true }
         dialogs={{
           WalletMissesBlockchainSupport: <WalletMissesBlockchainSupportDialog disconnect={disconnect}/>,
           PaymentBlockchains: <PaymentBlockchainsDialog/>,
@@ -111,7 +122,16 @@ export default (props)=>{
 
   } else {
 
-    return(<ConnectStack document={ props.document } container={ props.container } resolve={ connected } accept={ accept } />)
-
+    return(
+      <ConnectStack
+        setNavigator={ setNavigator }
+        document={ props.document }
+        container={ props.container }
+        resolve={ connected }
+        accept={ accept }
+        continueWithSolanaPay={ continueWithSolanaPay }
+        stacked={ navigationReturnsToConnect ? 'backward' : undefined }
+      />
+    )
   }
 }

@@ -64,15 +64,7 @@ export default (props)=>{
   const getPaymentRoutes = async ({ allRoutes, selectedRoute, updatable })=>{
     if(updatable == false || !props.accept || !account) { return }
     let slowRoutingTimeout = setTimeout(() => { setSlowRouting(true) }, 4000)
-    return await routePayments(Object.assign({}, props, { account, update: {
-      every: 200,
-      callback: async(routes)=>{
-        if(wallet && wallet.isSolanaPay && routes && routes.length && wallet.isTransactionSend !== true){
-          const route = routes[0]
-          wallet.sendTransaction(await route.getTransaction())
-        }
-      }
-    }})).then((routes)=>{
+    return await routePayments(Object.assign({}, props, { account })).then((routes)=>{
       clearInterval(slowRoutingTimeout)
       onRoutesUpdate(routes)
     })

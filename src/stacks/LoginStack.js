@@ -12,6 +12,7 @@ export default (props)=>{
       open={ open }
       close={ close }
       start='SignLogin'
+      stacked={ props.stacked }
       container={ props.container }
       document={ props.document }
       dialogs={{

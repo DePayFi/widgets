@@ -100,7 +100,7 @@ export default (props)=>{
     }
     
     socket.onerror = function(error) {
-      console.log('WebSocket Error: ' + error)
+      console.log('WebSocket Error: ', error)
     }
   }
 

@@ -24,20 +24,6 @@ export default (props)=> {
     ].filter(n => n).join(' ')
   }
 
-  if(selection.nft.holders) {
-    if(selection.nft.holders > 1000000) {
-      holders = "Millions"
-    } else if (selection.nft.holders > 100000) {
-      holders = "Hundreds of Thousands"
-    } else if (selection.nft.holders > 2000) {
-      holders = "Thousands"
-    } else if (selection.nft.holders > 100) {
-      holders = "Hundreds"
-    } else {
-      holders = "Only a Few!!!"
-    }
-  }
-
   let blockchain = selection.nft?.blockchain || selection.blockchain?.name
 
   if(blockchain == undefined) {
@@ -76,28 +62,6 @@ export default (props)=> {
               <tbody>
                 <tr>
                   <td>
-                    <div className='TableSubTitle'>Address</div>
-                  </td>
-                  <td>
-                    <div>
-                      <a className="Link" title={ selection.nft.address } href={ Blockchains.findByName(blockchain).explorerUrlFor({ token: selection.nft.address }) } target="_blank" rel="noopener noreferrer">
-                        { addressEllipsis(selection.nft.address, 6) }
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                { selection.nft.id &&
-                  <tr>
-                    <td>
-                      <div className='TableSubTitle'>Token ID</div>
-                    </td>
-                    <td>
-                      <div>{ selection.nft.id }</div>
-                    </td>
-                  </tr>
-                }
-                <tr>
-                  <td>
                     <div className='TableSubTitle'>Blockchain</div>
                   </td>
                   <td>
@@ -114,23 +78,39 @@ export default (props)=> {
                     </a>
                   </td>
                 </tr>
-                { age &&
+                { selection.nft.address &&
                   <tr>
                     <td>
-                      <div className='TableSubTitle'>Age</div>
+                      <div className='TableSubTitle'>Address</div>
                     </td>
                     <td>
-                      <div>{ age }</div>
+                      <div>
+                        <a className="Link" title={ selection.nft.address } href={ Blockchains.findByName(blockchain).explorerUrlFor({ token: selection.nft.address }) } target="_blank" rel="noopener noreferrer">
+                          { addressEllipsis(selection.nft.address, 6) }
+                        </a>
+                      </div>
                     </td>
                   </tr>
                 }
-                { holders &&
+                { selection.nft.id &&
                   <tr>
                     <td>
-                      <div className='TableSubTitle'>Holders</div>
+                      <div className='TableSubTitle'>Token ID</div>
                     </td>
                     <td>
-                      <div>{ holders }</div>
+                      <div>{ selection.nft.id }</div>
+                    </td>
+                  </tr>
+                }
+                { selection.nft.addresses &&
+                  <tr>
+                    <td>
+                      <div className='TableSubTitle'>Addresses</div>
+                    </td>
+                    <td>
+                      <div>
+                        { selection.nft.addresses.join(", ") }
+                      </div>
                     </td>
                   </tr>
                 }

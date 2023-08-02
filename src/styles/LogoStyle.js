@@ -10,5 +10,11 @@ export default (style)=>{
       height: 20px;
       width: 20px;
     }
+
+    .SolanaPayLogo {
+      height: 26px;
+      position: relative;
+      top: 4px;
+    }
   `)
 }

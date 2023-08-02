@@ -4,8 +4,8 @@ import ClosableContext from '../contexts/ClosableContext'
 import NavigateContext from '../contexts/NavigateContext'
 import PaymentFailedDialog from '../dialogs/PaymentFailedDialog'
 import PaymentOverviewDialog from '../dialogs/PaymentOverviewDialog'
-import PreTrackingFailedDialog from '../dialogs/PreTrackingFailedDialog'
 import React, { useContext, useEffect, useState } from 'react'
+import TracingFailedDialog from '../dialogs/TracingFailedDialog'
 import TrackingFailedDialog from '../dialogs/TrackingFailedDialog'
 import WalletContext from '../contexts/WalletContext'
 import WrongNetworkDialog from '../dialogs/WrongNetworkDialog'
@@ -35,6 +35,7 @@ export default (props)=>{
       start='PaymentOverview'
       container={ props.container }
       document={ props.document }
+      stacked={true}
       dialogs={{
         PaymentOverview: <PaymentOverviewDialog/>,
         ChangeAmount: <ChangeAmountDialog/>,
@@ -42,7 +43,7 @@ export default (props)=>{
         PaymentFailed: <PaymentFailedDialog/>,
         WrongNetwork: <WrongNetworkDialog/>,
         TrackingFailed: <TrackingFailedDialog/>,
-        PreTrackingFailed: <PreTrackingFailedDialog/>,
+        TracingFailed: <TracingFailedDialog/>,
       }}
     />
   )

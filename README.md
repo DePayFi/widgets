@@ -1452,7 +1452,6 @@ let collection = await DePayWidgets.Select({ what: 'nft' })
 //    address: "0xba30E5F9Bb24caa003E9f2f0497Ad287FDF95623",
 //    blockchain: "ethereum",
 //    createdAt: "2021-06-18T21:32:25.355263+00:00",
-//    holders: 5674,
 //    image: "https://i.seadn.io/gae/l1wZXP2hHFUQ3turU5VQ9PpgVVasyQ79-ChvCgjoU5xKkBA50OGoJqKZeMOR-qLrzqwIfd1HpYmiv23JWm0EZ14owiPYaufqzmj1?w=500&auto=format",
 //    link: "https://opensea.io/collection/bored-ape-kennel-club",
 //    name: "BoredApeKennelClub",
@@ -1471,6 +1470,21 @@ If the NFT contract is of type 1155 the return will also contain the NFTs id for
 //    link: "https://opensea.io/assets/ethereum/0x495f947276749ce646f68ac8c248420045cb7b5e/35347623114821255323888368639026081793120226253597860997754787918389704654849",
 //    name: "Genesis Block - 100,000 BC",
 //    type: "1155"
+// }
+```
+
+If NFT is a list of mints on solana:
+
+If the NFT contract is of type 1155 the return will also contain the NFTs id for the given contract address:
+
+```javascript
+// {
+//    addresses: ["4RYP3yX52g3BawgS4ShHwJqbrm8FcUF8PPA4oP1eP6Cv", "5GAse3WFPMCmbrw5x1RVdRaBttReBrgFLkw7yyqbSqtn"],
+//    blockchain: "solana",
+//    image: "https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/https%3A%2F%2Farweave.net%2FevHbhPvYxPn3NgtzeHg3WPS-QFwGdibQwTvY8chccrA%3Fext%3Dpng",
+//    link: "https://magiceden.io/marketplace/depay",
+//    name: "SOL - AD 2020",
+//    type: "metaplex"
 // }
 ```
 

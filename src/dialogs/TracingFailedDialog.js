@@ -1,16 +1,14 @@
 import Dialog from '../components/Dialog'
 import ErrorGraphic from '../graphics/error'
-import PaymentContext from '../contexts/PaymentContext'
-import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useContext } from 'react'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
-export default ()=> {
+export default (props)=> {
 
-  const { transaction } = useContext(PaymentContext)
   const { navigate } = useContext(NavigateStackContext)
 
   const tryAgain = ()=>{
+    if(props.tryAgain){ props.tryAgain() }
     navigate('back')
   }
 

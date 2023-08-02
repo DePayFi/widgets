@@ -22,12 +22,12 @@ import Blockchains from '@depay/web3-blockchains'
 import ChevronRight from '../components/ChevronRight'
 import ClosableContext from '../contexts/ClosableContext'
 import Dialog from '../components/Dialog'
+import isMobile from '../helpers/isMobile'
 import React, { useCallback, useState, useEffect, useContext, useRef } from 'react'
 import SelectionContext from '../contexts/SelectionContext'
 import { debounce } from 'lodash'
 import { ethers } from 'ethers'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
-
 
 export default (props)=> {
 
@@ -51,21 +51,31 @@ export default (props)=> {
 
   useEffect(()=>{
     (async ()=>{
-      const wallet = (await getWallets())[0]
-      if(wallet) {
-        wallet.connectedTo().then((name)=>{
-          let blockchain = Blockchains.findByName(name)
-          if(window._depay_token_selection_selected_blockchain) {
-            startWithBlockchain(window._depay_token_selection_selected_blockchain)
-          } else if(name && name.length && blockchain && blockchain.tokens && blockchain.tokens.length) {
-            startWithBlockchain(name)
-          } else {
-            startWithBlockchain('ethereum')
-          }
-        }).catch(()=>startWithBlockchain('ethereum'))
-      } else {
-        startWithBlockchain('ethereum')
-      }
+      let blockchain
+      setTimeout(()=>{
+        if(blockchain){ return }
+        if(window._depay_token_selection_selected_blockchain) {
+          startWithBlockchain(window._depay_token_selection_selected_blockchain)
+        } else {
+          startWithBlockchain('ethereum')
+        }
+      }, 400)
+      getWallets({ drip: (wallet)=>{
+        if(wallet && !blockchain) {
+          new wallet().connectedTo().then((name)=>{
+            blockchain = Blockchains.findByName(name)
+            if(window._depay_token_selection_selected_blockchain) {
+              startWithBlockchain(window._depay_token_selection_selected_blockchain)
+            } else if(name && name.length && blockchain && blockchain.tokens && blockchain.tokens.length) {
+              startWithBlockchain(name)
+            } else {
+              startWithBlockchain('ethereum')
+            }
+          }).catch(()=>startWithBlockchain('ethereum'))
+        } else {
+          startWithBlockchain('ethereum')
+        }
+      }})
     })()
   }, [])
 
@@ -75,7 +85,7 @@ export default (props)=> {
       setTokens(props.selection.blockchain.tokens)
       if (searchElement.current) { 
         searchElement.current.value = ''
-        searchElement.current.focus() 
+        if(!isMobile()){ searchElement.current.focus() }
       }
     }
   }, [props.selection, props.selection.blockchain])
@@ -88,7 +98,6 @@ export default (props)=> {
     setShowAddToken(true)
     if (searchElement.current) { 
       searchElement.current.value = ''
-      searchElement.current.focus() 
     }
   }
 
@@ -109,6 +118,30 @@ export default (props)=> {
     let term = event.target.value
     setSearchTerm(term)
     if(term.match(/^0x/)) {
+      setTokens([])
+      let token
+      try { token = new Token({ blockchain: blockchain.name, address: term }) } catch {}
+      if(token == undefined){ 
+        setLoading(false)
+        return
+      }
+      Promise.all([
+        token.name(),
+        token.symbol(),
+        token.decimals(),
+        fetch(`https://public.depay.com/tokens/routable/${blockchain.name}/${term}`).then((response)=>{ if(response.status == 200) { return response.json() } }),
+      ]).then(([name, symbol, decimals, routable])=>{
+        setTokens([{
+          name,
+          symbol,
+          decimals,
+          address: term,
+          blockchain: blockchain.name,
+          routable: !!routable,
+        }])
+        setLoading(false)
+      })
+    } else if(term.length > 32 && term.length <= 44 && !(/[^123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]/).test(term)) {
       setTokens([])
       let token
       try { token = new Token({ blockchain: blockchain.name, address: term }) } catch {}
@@ -207,7 +240,56 @@ export default (props)=> {
     })
   }
 
-  if(blockchain == undefined) { return null }
+  if(!blockchain) {
+    return(
+      <Dialog
+        header={
+          <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
+            <div>
+              <h1 className="LineHeightL FontSizeL">Select Token</h1>
+            </div>
+            <div className="PaddingTopS PaddingBottomXS">
+              <div className="SkeletonWrapper" key={ 'loading' }>
+                <div className="Skeleton" style={{ height: '46px', borderRadius: '8px', width: '100%' }}>
+                  <div className="SkeletonBackground">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="PaddingTopXS PaddingBottomS">
+              <div className="SkeletonWrapper" key={ 'loading' }>
+                <div className="Skeleton" style={{ height: '50px', borderRadius: '8px', width: '100%' }}>
+                  <div className="SkeletonBackground">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+        bodyClassName="ScrollHeight"
+        body={
+          <div className="">
+            { [1,2,3,4,5,6].map((index)=>{
+              return(
+                <div className="SkeletonWrapper" key={ index } style={{ marginBottom: '1px' }}>
+                  <div className="Skeleton" style={{ height: '69px', width: '100%' }}>
+                    <div className="SkeletonBackground">
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        }
+        footer={
+          <div className="PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS">
+            <div className="PaddingTopXS PaddingBottomXS" style={{ height: "32px" }}>
+            </div>
+          </div>
+        }
+      />
+    )
+  }
 
   return(
     <Dialog
@@ -230,7 +312,7 @@ export default (props)=> {
             </div>
           </div>
           <div className="PaddingTopXS PaddingBottomS">
-            <input value={ searchTerm } onBlur={ ()=>setShowAddToken(false) } onChange={ onChangeSearch } className="Search" autoFocus placeholder="Search name or paste address" ref={searchElement}/>
+            <input value={ searchTerm } autoFocus={ !isMobile() } onBlur={ ()=>setShowAddToken(false) } onChange={ onChangeSearch } className="Search" placeholder="Search name or paste address" ref={searchElement}/>
             { showAddToken &&
               <div className="PaddingTopXS PaddingRightXS PaddingLeftXS">
                 <div className="Tooltip"> 

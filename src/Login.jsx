@@ -27,16 +27,17 @@ let Login = (options) => {
           <ConfigurationProvider configuration={{ message, endpoint: (endpoint || '/login'), recoverSignature: recover, wallet }}>
             <UpdatableProvider>
               <ClosableProvider unmount={ userClosedDialog }>
+                <PoweredBy/>
                 <WalletProvider container={ container } unmount={ unmount }>
                   <LoginStack
                     document={ document }
                     container={ container }
+                    stacked={true}
                     resolve={ ({ account, wallet })=>{
                       unmount()
                       resolve({ account, wallet })
                     }}
                   />
-                  <PoweredBy/>
                 </WalletProvider>
               </ClosableProvider>
             </UpdatableProvider>
