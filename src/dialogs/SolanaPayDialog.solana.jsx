@@ -484,7 +484,6 @@ export default (props)=> {
         })
       }).then((paymentOptions)=>{
         setPaymentOptions(paymentOptions)
-        if(paymentOptions.length === 1) { selectPaymentOption(paymentOptions[0]) }
       })
     }
   }, [afterBlock])
@@ -668,7 +667,7 @@ export default (props)=> {
         header={
           <div className="PaddingTopS PaddingLeftM PaddingRightM">
           <div>
-            <h1 className="LineHeightL FontSizeL">
+            <h1 className="LineHeightL FontSizeL TextLeft">
               <img src={ LOGO } className="SolanaPayLogo" alt="Solana Pay" title="Solana Pay"/>
             </h1>
           </div>
@@ -699,7 +698,7 @@ export default (props)=> {
         header={
           <div className="PaddingTopS PaddingLeftM PaddingRightM">
             <div>
-              <h1 className="LineHeightL FontSizeL">
+              <h1 className="LineHeightL FontSizeL TextLeft">
                 <img src={ LOGO } className="SolanaPayLogo" alt="Solana Pay" title="Solana Pay"/>
               </h1>
             </div>

@@ -28777,10 +28777,6 @@ var SolanaPayDialog = (function (props) {
         });
       }).then(function (paymentOptions) {
         setPaymentOptions(paymentOptions);
-
-        if (paymentOptions.length === 1) {
-          selectPaymentOption(paymentOptions[0]);
-        }
       });
     }
   }, [afterBlock]);
@@ -28969,7 +28965,7 @@ var SolanaPayDialog = (function (props) {
       header: /*#__PURE__*/React.createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM"
       }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-        className: "LineHeightL FontSizeL"
+        className: "LineHeightL FontSizeL TextLeft"
       }, /*#__PURE__*/React.createElement("img", {
         src: LOGO,
         className: "SolanaPayLogo",
@@ -28996,7 +28992,7 @@ var SolanaPayDialog = (function (props) {
       header: /*#__PURE__*/React.createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM"
       }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-        className: "LineHeightL FontSizeL"
+        className: "LineHeightL FontSizeL TextLeft"
       }, /*#__PURE__*/React.createElement("img", {
         src: LOGO,
         className: "SolanaPayLogo",

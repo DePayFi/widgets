@@ -35034,10 +35034,6 @@
           });
         }).then(function (paymentOptions) {
           setPaymentOptions(paymentOptions);
-
-          if (paymentOptions.length === 1) {
-            selectPaymentOption(paymentOptions[0]);
-          }
         });
       }
     }, [afterBlock]);
@@ -35226,7 +35222,7 @@
         header: /*#__PURE__*/React__default['default'].createElement("div", {
           className: "PaddingTopS PaddingLeftM PaddingRightM"
         }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("h1", {
-          className: "LineHeightL FontSizeL"
+          className: "LineHeightL FontSizeL TextLeft"
         }, /*#__PURE__*/React__default['default'].createElement("img", {
           src: LOGO,
           className: "SolanaPayLogo",
@@ -35253,7 +35249,7 @@
         header: /*#__PURE__*/React__default['default'].createElement("div", {
           className: "PaddingTopS PaddingLeftM PaddingRightM"
         }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("h1", {
-          className: "LineHeightL FontSizeL"
+          className: "LineHeightL FontSizeL TextLeft"
         }, /*#__PURE__*/React__default['default'].createElement("img", {
           src: LOGO,
           className: "SolanaPayLogo",
