@@ -1589,13 +1589,13 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
-      "native": "1inch:",
+      "native": "oneinch://",
       "universal": "https://wallet.1inch.io",
       "connect": "WalletConnectV1",
       "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "1inch:",
+      "native": "oneinch://",
       "universal": "https://wallet.1inch.io",
       "connect": "WalletConnectV1",
       "qr": "WalletConnectV1"
@@ -2588,13 +2588,13 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "okex://main",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "okex://main",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/okx_wallet.jpg",

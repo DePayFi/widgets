@@ -355,8 +355,8 @@ export default [
     "name": "1inch Wallet",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "1inch:", "universal": "https://wallet.1inch.io", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "1inch:", "universal": "https://wallet.1inch.io", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "oneinch://", "universal": "https://wallet.1inch.io", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "android": { "native": "oneinch://", "universal": "https://wallet.1inch.io", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
     },
     "logo": "https://img1.depay.com/wallets/1inch_wallet.jpg",
     "blockchains": [...supported.evm]
@@ -861,8 +861,8 @@ export default [
     "name": "OKX Wallet",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "okex://main", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "okex://main", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "okex://main", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "okex://main", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/okx_wallet.jpg",
     "blockchains": [...supported.evm]
