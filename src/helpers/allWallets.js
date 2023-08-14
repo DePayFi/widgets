@@ -32,8 +32,8 @@ export default [
     "extension": "MetaMask",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "open": ()=>`https://metamask.app.link/dapp/${window.location.toString().replace(/^(https*)*:\/\//,'')}` },
-      "android": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "open": ()=>`https://metamask.app.link/dapp/${window.location.toString().replace(/^(https*)*:\/\//,'')}` },
+      "ios": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "connect": "WalletConnectV2" },
+      "android": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "connect": "WalletConnectV2" },
     },
     "logo": wallets.MetaMask.info.logo,
     "blockchains": [...supported.evm]
@@ -79,16 +79,20 @@ export default [
     "name": "Binance Wallet",
     "extension": "Binance",
     "desktop": { "qr": "WalletConnectV1" },
+    "mobile": { 
+      "ios": { "native": "bnc://app.binance.com/cedefi/", "universal": "https://app.binance.com/cedefi", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
+      "android": { "native": "bnc://app.binance.com/cedefi/", "universal": "https://app.binance.com/cedefi", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
+    },
     "logo": wallets.Binance.info.logo,
     "blockchains": [...supported.evm]
   },
   {
     "name": "Crypto.com | DeFi Wallet",
     "extension": "CryptoCom",
-    "desktop": { "native": "cryptowallet:", "qr": "WalletConnectV1" },
+    "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "crypto:", "universal": "https://crypto.onelink.me/veNW", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "crypto:", "universal": "https://crypto.onelink.me/veNW", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "dfw://", "universal": "https://wallet.crypto.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "android": { "native": "dfw://", "universal": "https://wallet.crypto.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
     },
     "logo": wallets.CryptoCom.info.logo,
     "blockchains": [...supported.evm]
@@ -132,9 +136,9 @@ export default [
   },
   {
     "name": "Uniswap Wallet",
-    "desktop": { "qr": "WalletConnectV1" },
+    "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "native": "uniswap:", "universal": "https://uniswap.org/app", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "universal": "https://uniswap.org/app", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/uniswap_wallet.jpg",
     "blockchains": [...supported.evm]
@@ -143,8 +147,8 @@ export default [
     "name": "Safe",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "safe:", "universal": "https://app.safe.global", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "safe:", "universal": "https://app.safe.global", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "universal": "https://app.safe.global", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "android": { "universal": "https://app.safe.global", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
     },
     "logo": "https://img1.depay.com/wallets/safe.jpg",
     "blockchains": [...supported.evm]
@@ -339,10 +343,10 @@ export default [
   },
   {
     "name": "Ledger Live",
-    "desktop": { "native": "ledgerlive:", "connect": "WalletConnectV1", "qr": "WalletConnectV1", "copyLink": true },
+    "desktop": { "native": "ledgerlive:", "connect": "WalletConnectV2", "qr": "WalletConnectV2", "copyLink": true },
     "mobile": { 
-      "ios": { "native": "ledgerlive:", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "ledgerlive:", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "ledgerlive:", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "ledgerlive:", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/ledger_live.jpg",
     "blockchains": [...supported.evm]
@@ -351,8 +355,8 @@ export default [
     "name": "1inch Wallet",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "1inch:", "universal": "https://wallet.1inch.io", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "1inch:", "universal": "https://wallet.1inch.io", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "oneinch://", "universal": "https://wallet.1inch.io", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "android": { "native": "oneinch://", "universal": "https://wallet.1inch.io", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
     },
     "logo": "https://img1.depay.com/wallets/1inch_wallet.jpg",
     "blockchains": [...supported.evm]
@@ -401,10 +405,10 @@ export default [
     "name": "Unstoppable Wallet",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "unstoppabledomains:", "universal": "https://unstoppabledomains.com/mobile", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "unstoppabledomains:", "universal": "https://unstoppabledomains.com/mobile", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "universal": "unstoppable.money://", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "android": { "universal": "unstoppable.money://", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
     },
-    "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
+    "logo": "https://img1.depay.com/wallets/unstoppable.jpg",
     "blockchains": [...supported.evm]
   },
   {
@@ -855,10 +859,10 @@ export default [
   },
   {
     "name": "OKX Wallet",
-    "desktop": { "qr": "WalletConnectV1" },
+    "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "native": "okex://main", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "okex://main", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "okex://main", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "okex://main", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/okx_wallet.jpg",
     "blockchains": [...supported.evm]
@@ -1067,10 +1071,10 @@ export default [
   },
   {
     "name": "Edge Wallet",
-    "desktop": { "qr": "WalletConnectV1" },
+    "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "native": "edge://", "universal": "https://deep.edge.app/wc", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "edge://", "universal": "https://deep.edge.app/wc", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "edge://", "universal": "https://deep.edge.app", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "edge://", "universal": "https://deep.edge.app", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/edge_wallet.jpg",
     "blockchains": [...supported.evm]
@@ -1494,10 +1498,10 @@ export default [
   },
   {
     "name": "Robinhood Wallet",
-    "desktop": { "qr": "WalletConnectV1" },
+    "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "native": "robinhood-wallet:", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "robinhood-wallet:", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "robinhood-wallet:", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "robinhood-wallet:", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/robinhood_wallet.jpg",
     "blockchains": [...supported.evm]
@@ -1818,10 +1822,10 @@ export default [
     "name": "ZenGo",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": {
-      "ios": { "native": "zengo:", "universal": "https://get.zengo.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "zengo:", "universal": "https://get.zengo.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "zengo://get.zengo.com/", "universal": "https://get.zengo.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
+      "android": { "native": "zengo://get.zengo.com/", "universal": "https://get.zengo.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
      },
-    "logo": "https://img1.depay.com/wallets/zengo.jpg",
+    "logo": "https://img1.depay.com/wallets/zengo2.png",
     "blockchains": [...supported.evm]
   },
   {

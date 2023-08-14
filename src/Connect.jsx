@@ -1,17 +1,3 @@
-/*#if _EVM
-
-import { getWallets } from '@depay/web3-wallets-evm'
-
-/*#elif _SOLANA
-
-import { getWallets } from '@depay/web3-wallets-solana'
-
-//#else */
-
-import { getWallets } from '@depay/web3-wallets'
-
-//#endif
-
 import ClosableProvider from './providers/ClosableProvider'
 import ConnectStack from './stacks/ConnectStack'
 import ensureDocument from './helpers/ensureDocument'
