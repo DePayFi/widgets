@@ -2583,7 +2583,7 @@ var allWallets = [{
 }, {
   "name": "OKX Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {

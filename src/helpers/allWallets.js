@@ -859,7 +859,7 @@ export default [
   },
   {
     "name": "OKX Wallet",
-    "desktop": { "qr": "WalletConnectV1" },
+    "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
       "ios": { "native": "okex://main", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
       "android": { "native": "okex://main", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
