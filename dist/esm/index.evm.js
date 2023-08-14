@@ -1210,7 +1210,6 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
-      "encoded": false,
       "universal": "https://uniswap.org/app",
       "connect": "WalletConnectV2",
       "qr": "WalletConnectV2"
