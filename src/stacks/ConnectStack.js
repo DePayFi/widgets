@@ -1,14 +1,14 @@
 /*#if _EVM
 
-import { getWallets, wallets } from '@depay/web3-wallets-evm'
+import { wallets } from '@depay/web3-wallets-evm'
 
 /*#elif _SOLANA
 
-import { getWallets, wallets } from '@depay/web3-wallets-solana'
+import { wallets } from '@depay/web3-wallets-solana'
 
 //#else */
 
-import { getWallets, wallets } from '@depay/web3-wallets'
+import { wallets } from '@depay/web3-wallets'
 
 //#endif
 
@@ -134,6 +134,10 @@ export default (props)=>{
     setPreviouslyConnectedWallet(walletMetaData.name)
     window.open(platform.open(), '_self', 'noreferrer noopener')
   }
+
+  useEffect(()=>{
+    delete localStorage['WALLETCONNECT_DEEPLINK_CHOICE']
+  }, [])
 
   return(
     <div>

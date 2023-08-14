@@ -1,5 +1,5 @@
-import { wallets, getWallets } from '@depay/web3-wallets-evm';
 import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
+import { wallets, getWallets } from '@depay/web3-wallets-evm';
 import Blockchains from '@depay/web3-blockchains';
 import { route as route$1 } from '@depay/web3-payments-evm';
 import copy from '@uiw/copy-to-clipboard';
@@ -1100,6 +1100,20 @@ var allWallets = [{
   "desktop": {
     "qr": "WalletConnectV1"
   },
+  "mobile": {
+    "ios": {
+      "native": "bnc://app.binance.com/cedefi/",
+      "universal": "https://app.binance.com/cedefi",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
+    },
+    "android": {
+      "native": "bnc://app.binance.com/cedefi/",
+      "universal": "https://app.binance.com/cedefi",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
+    }
+  },
   "logo": wallets.Binance.info.logo,
   "blockchains": _toConsumableArray(supported.evm)
 }, {
@@ -1197,14 +1211,14 @@ var allWallets = [{
 }, {
   "name": "Uniswap Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "uniswap:",
       "universal": "https://uniswap.org/app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/uniswap_wallet.jpg",
@@ -1554,20 +1568,20 @@ var allWallets = [{
   "name": "Ledger Live",
   "desktop": {
     "native": "ledgerlive:",
-    "connect": "WalletConnectV1",
-    "qr": "WalletConnectV1",
+    "connect": "WalletConnectV2",
+    "qr": "WalletConnectV2",
     "copyLink": true
   },
   "mobile": {
     "ios": {
       "native": "ledgerlive:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "ledgerlive:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/ledger_live.jpg",
@@ -22099,7 +22113,7 @@ var get = function get() {
 };
 
 var ConnectWalletDialog = (function (props) {
-  var _props$wallet, _props$platform13, _props$platform14, _props$platform15, _props$platform16;
+  var _props$wallet, _props$platform13;
 
   var QRCodeElement = React.useRef();
 
@@ -22252,7 +22266,16 @@ var ConnectWalletDialog = (function (props) {
 
       case 'WalletLink':
         var wallet = new wallets[props.platform.qr]();
-        wallet.connect().then(function (account) {
+        wallet.connect({
+          connect: function connect(_ref3) {
+            var uri = _ref3.uri;
+            var newQRCode = getNewQRCode();
+            newQRCode.update({
+              data: uri
+            });
+            setQRCode(newQRCode);
+          }
+        }).then(function (account) {
           props.resolve(account, wallet);
         });
         break;
@@ -22393,7 +22416,7 @@ var ConnectWalletDialog = (function (props) {
     }, /*#__PURE__*/React.createElement("strong", null, "Unable to connect to this wallet!"))), showQRCode && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       ref: QRCodeElement,
       className: "QRCode"
-    }, showQRCode && ((_props$platform14 = props.platform) === null || _props$platform14 === void 0 ? void 0 : _props$platform14.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React.createElement("div", {
+    }, showQRCode && QRCode === undefined && /*#__PURE__*/React.createElement("div", {
       className: "Skeleton",
       style: {
         borderRadius: "18px",
@@ -22402,12 +22425,38 @@ var ConnectWalletDialog = (function (props) {
       }
     }, /*#__PURE__*/React.createElement("div", {
       className: "SkeletonBackground"
-    }))), showQRCode && ((_props$platform15 = props.platform) === null || _props$platform15 === void 0 ? void 0 : _props$platform15.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React.createElement("div", {
+    }))), showQRCode && QRCode === undefined && /*#__PURE__*/React.createElement("div", {
       className: "Opacity05 PaddingBottomXS PaddingTopS"
-    }, /*#__PURE__*/React.createElement("small", null, "Generating QR code...")), showQRCode && ((_props$platform16 = props.platform) === null || _props$platform16 === void 0 ? void 0 : _props$platform16.qr) !== 'WalletLink' && QRCode !== undefined && /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("small", null, "Generating QR code...")), showQRCode && QRCode !== undefined && /*#__PURE__*/React.createElement("div", {
       className: "Opacity05 PaddingBottomXS PaddingTopXS"
-    }, /*#__PURE__*/React.createElement("small", null, "Scan QR code with your wallet"))), (extensionIsAvailable || connectAppIsAvailable || openInAppIsAvailable || scanQrAvailable && !showQRCode || copyLinkIsAvailable) && /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftL PaddingRightL PaddingTopS"
+    }, /*#__PURE__*/React.createElement("small", null, "Scan QR code with your wallet")), (extensionIsAvailable || connectAppIsAvailable || openInAppIsAvailable || copyLinkIsAvailable) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingBottomXS PaddingTopS Opacity03",
+      style: {
+        display: "flex"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        borderBottom: "1px solid black",
+        flex: "0.4",
+        position: "relative",
+        top: '-9px'
+      },
+      className: "Opacity05"
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: "0.2"
+      },
+      className: "PaddingLeftXS PaddingRightXS"
+    }, /*#__PURE__*/React.createElement("small", null, "or")), /*#__PURE__*/React.createElement("div", {
+      style: {
+        borderBottom: "1px solid black",
+        flex: "0.4",
+        position: "relative",
+        top: '-9px'
+      },
+      className: "Opacity05"
+    })))), (extensionIsAvailable || connectAppIsAvailable || openInAppIsAvailable || scanQrAvailable && !showQRCode || copyLinkIsAvailable) && /*#__PURE__*/React.createElement("div", {
+      className: "PaddingLeftL PaddingRightL PaddingTopS PaddingBottomS"
     }, extensionIsAvailable && /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomXS"
     }, props.showConnectExtensionWarning && /*#__PURE__*/React.createElement("div", {
@@ -23205,6 +23254,9 @@ var ConnectStack = (function (props) {
     window.open(platform.open(), '_self', 'noreferrer noopener');
   };
 
+  useEffect(function () {
+    delete localStorage['WALLETCONNECT_DEEPLINK_CHOICE'];
+  }, []);
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(ReactDialogStack, {
     open: open,
     close: close,
@@ -23686,7 +23738,7 @@ var PoweredByStyle = (function (style) {
 });
 
 var QRCodeStyle = (function () {
-  return "\n\n    .QRCode {\n      width: 100%;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      margin-bottom: -10px;\n    }\n  ";
+  return "\n\n    .QRCode {\n      width: 100%;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n  ";
 });
 
 var RangeSliderStyle = (function (style) {

@@ -79,6 +79,10 @@ export default [
     "name": "Binance Wallet",
     "extension": "Binance",
     "desktop": { "qr": "WalletConnectV1" },
+    "mobile": { 
+      "ios": { "native": "bnc://app.binance.com/cedefi/", "universal": "https://app.binance.com/cedefi", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "android": { "native": "bnc://app.binance.com/cedefi/", "universal": "https://app.binance.com/cedefi", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+    },
     "logo": wallets.Binance.info.logo,
     "blockchains": [...supported.evm]
   },
@@ -132,9 +136,9 @@ export default [
   },
   {
     "name": "Uniswap Wallet",
-    "desktop": { "qr": "WalletConnectV1" },
+    "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "native": "uniswap:", "universal": "https://uniswap.org/app", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "uniswap:", "universal": "https://uniswap.org/app", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/uniswap_wallet.jpg",
     "blockchains": [...supported.evm]
@@ -339,10 +343,10 @@ export default [
   },
   {
     "name": "Ledger Live",
-    "desktop": { "native": "ledgerlive:", "connect": "WalletConnectV1", "qr": "WalletConnectV1", "copyLink": true },
+    "desktop": { "native": "ledgerlive:", "connect": "WalletConnectV2", "qr": "WalletConnectV2", "copyLink": true },
     "mobile": { 
-      "ios": { "native": "ledgerlive:", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "ledgerlive:", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "ledgerlive:", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "ledgerlive:", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/ledger_live.jpg",
     "blockchains": [...supported.evm]

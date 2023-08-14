@@ -136,7 +136,13 @@ export default (props)=> {
       break;
       case 'WalletLink':
         let wallet = new wallets[props.platform.qr]()
-        wallet.connect().then((account)=>{
+        wallet.connect({
+          connect: ({ uri })=>{
+            let newQRCode = getNewQRCode()
+            newQRCode.update({ data: uri })
+            setQRCode(newQRCode)
+          }
+        }).then((account)=>{
           props.resolve(account, wallet)
         })
       break;
@@ -216,27 +222,36 @@ export default (props)=> {
           { showQRCode &&
             <div>
               <div ref={ QRCodeElement } className="QRCode">
-                { showQRCode && props.platform?.qr !== 'WalletLink' && QRCode === undefined &&
+                { showQRCode && QRCode === undefined &&
                   <div className="Skeleton" style={{ borderRadius: "18px", width: "305px", height: "305px" }}>
                     <div className="SkeletonBackground"/>
                   </div>
                 }
               </div>
-              { showQRCode && props.platform?.qr !== 'WalletLink' && QRCode === undefined &&
+              { showQRCode && QRCode === undefined &&
                 <div className="Opacity05 PaddingBottomXS PaddingTopS">
                   <small>Generating QR code...</small>
                 </div>
               }
-              { showQRCode && props.platform?.qr !== 'WalletLink' && QRCode !== undefined &&
+              { showQRCode && QRCode !== undefined &&
                 <div className="Opacity05 PaddingBottomXS PaddingTopXS">
                   <small>Scan QR code with your wallet</small>
+                </div>
+              }
+              { (extensionIsAvailable || connectAppIsAvailable || openInAppIsAvailable || copyLinkIsAvailable) &&
+                <div>
+                  <div className="PaddingBottomXS PaddingTopS Opacity03" style={{ display: "flex" }}>
+                    <div style={{ borderBottom: "1px solid black", flex: "0.4", position: "relative", top: '-9px' }} className="Opacity05"></div>
+                    <div style={{ flex: "0.2" }} className="PaddingLeftXS PaddingRightXS"><small>or</small></div>
+                    <div style={{ borderBottom: "1px solid black", flex: "0.4", position: "relative", top: '-9px' }} className="Opacity05"></div>
+                  </div>
                 </div>
               }
             </div>
           }
 
           { (extensionIsAvailable || connectAppIsAvailable || openInAppIsAvailable || (scanQrAvailable && !showQRCode) || copyLinkIsAvailable) &&
-            <div className="PaddingLeftL PaddingRightL PaddingTopS">
+            <div className="PaddingLeftL PaddingRightL PaddingTopS PaddingBottomS">
               { extensionIsAvailable &&
                 <div className="PaddingBottomXS">
                   { props.showConnectExtensionWarning &&

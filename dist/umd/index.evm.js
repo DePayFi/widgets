@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@depay/web3-wallets-evm'), require('react'), require('@depay/web3-blockchains'), require('@depay/web3-payments-evm'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client-evm'), require('@depay/local-currency'), require('@depay/web3-exchanges-evm'), require('@depay/web3-tokens-evm'), require('ethers'), require('decimal.js'), require('@depay/react-token-image-evm')) :
-  typeof define === 'function' && define.amd ? define(['@depay/web3-wallets-evm', 'react', '@depay/web3-blockchains', '@depay/web3-payments-evm', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client-evm', '@depay/local-currency', '@depay/web3-exchanges-evm', '@depay/web3-tokens-evm', 'ethers', 'decimal.js', '@depay/react-token-image-evm'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.Web3Wallets, global.React, global.Web3Blockchains, global.Web3Payments, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.ethers, global.Decimal, global.ReactTokenImage));
-}(this, (function (web3WalletsEvm, React, Blockchains, web3PaymentsEvm, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3ClientEvm, localCurrency, web3ExchangesEvm, web3TokensEvm, ethers, decimal_js, reactTokenImageEvm) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('@depay/web3-wallets-evm'), require('@depay/web3-blockchains'), require('@depay/web3-payments-evm'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client-evm'), require('@depay/local-currency'), require('@depay/web3-exchanges-evm'), require('@depay/web3-tokens-evm'), require('ethers'), require('decimal.js'), require('@depay/react-token-image-evm')) :
+  typeof define === 'function' && define.amd ? define(['react', '@depay/web3-wallets-evm', '@depay/web3-blockchains', '@depay/web3-payments-evm', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client-evm', '@depay/local-currency', '@depay/web3-exchanges-evm', '@depay/web3-tokens-evm', 'ethers', 'decimal.js', '@depay/react-token-image-evm'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.Web3Wallets, global.Web3Blockchains, global.Web3Payments, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.ethers, global.Decimal, global.ReactTokenImage));
+}(this, (function (React, web3WalletsEvm, Blockchains, web3PaymentsEvm, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3ClientEvm, localCurrency, web3ExchangesEvm, web3TokensEvm, ethers, decimal_js, reactTokenImageEvm) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -1096,6 +1096,20 @@
     "desktop": {
       "qr": "WalletConnectV1"
     },
+    "mobile": {
+      "ios": {
+        "native": "bnc://app.binance.com/cedefi/",
+        "universal": "https://app.binance.com/cedefi",
+        "connect": "WalletConnectV1",
+        "qr": "WalletConnectV1"
+      },
+      "android": {
+        "native": "bnc://app.binance.com/cedefi/",
+        "universal": "https://app.binance.com/cedefi",
+        "connect": "WalletConnectV1",
+        "qr": "WalletConnectV1"
+      }
+    },
     "logo": web3WalletsEvm.wallets.Binance.info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
@@ -1193,14 +1207,14 @@
   }, {
     "name": "Uniswap Wallet",
     "desktop": {
-      "qr": "WalletConnectV1"
+      "qr": "WalletConnectV2"
     },
     "mobile": {
       "ios": {
         "native": "uniswap:",
         "universal": "https://uniswap.org/app",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
       }
     },
     "logo": "https://img1.depay.com/wallets/uniswap_wallet.jpg",
@@ -1550,20 +1564,20 @@
     "name": "Ledger Live",
     "desktop": {
       "native": "ledgerlive:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1",
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2",
       "copyLink": true
     },
     "mobile": {
       "ios": {
         "native": "ledgerlive:",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
       },
       "android": {
         "native": "ledgerlive:",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
       }
     },
     "logo": "https://img1.depay.com/wallets/ledger_live.jpg",
@@ -22095,7 +22109,7 @@
   };
 
   var ConnectWalletDialog = (function (props) {
-    var _props$wallet, _props$platform13, _props$platform14, _props$platform15, _props$platform16;
+    var _props$wallet, _props$platform13;
 
     var QRCodeElement = React__default['default'].useRef();
 
@@ -22248,7 +22262,16 @@
 
         case 'WalletLink':
           var wallet = new web3WalletsEvm.wallets[props.platform.qr]();
-          wallet.connect().then(function (account) {
+          wallet.connect({
+            connect: function connect(_ref3) {
+              var uri = _ref3.uri;
+              var newQRCode = getNewQRCode();
+              newQRCode.update({
+                data: uri
+              });
+              setQRCode(newQRCode);
+            }
+          }).then(function (account) {
             props.resolve(account, wallet);
           });
           break;
@@ -22389,7 +22412,7 @@
       }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Unable to connect to this wallet!"))), showQRCode && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         ref: QRCodeElement,
         className: "QRCode"
-      }, showQRCode && ((_props$platform14 = props.platform) === null || _props$platform14 === void 0 ? void 0 : _props$platform14.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, showQRCode && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Skeleton",
         style: {
           borderRadius: "18px",
@@ -22398,12 +22421,38 @@
         }
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "SkeletonBackground"
-      }))), showQRCode && ((_props$platform15 = props.platform) === null || _props$platform15 === void 0 ? void 0 : _props$platform15.qr) !== 'WalletLink' && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+      }))), showQRCode && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Opacity05 PaddingBottomXS PaddingTopS"
-      }, /*#__PURE__*/React__default['default'].createElement("small", null, "Generating QR code...")), showQRCode && ((_props$platform16 = props.platform) === null || _props$platform16 === void 0 ? void 0 : _props$platform16.qr) !== 'WalletLink' && QRCode !== undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, /*#__PURE__*/React__default['default'].createElement("small", null, "Generating QR code...")), showQRCode && QRCode !== undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Opacity05 PaddingBottomXS PaddingTopXS"
-      }, /*#__PURE__*/React__default['default'].createElement("small", null, "Scan QR code with your wallet"))), (extensionIsAvailable || connectAppIsAvailable || openInAppIsAvailable || scanQrAvailable && !showQRCode || copyLinkIsAvailable) && /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingLeftL PaddingRightL PaddingTopS"
+      }, /*#__PURE__*/React__default['default'].createElement("small", null, "Scan QR code with your wallet")), (extensionIsAvailable || connectAppIsAvailable || openInAppIsAvailable || copyLinkIsAvailable) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingBottomXS PaddingTopS Opacity03",
+        style: {
+          display: "flex"
+        }
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        style: {
+          borderBottom: "1px solid black",
+          flex: "0.4",
+          position: "relative",
+          top: '-9px'
+        },
+        className: "Opacity05"
+      }), /*#__PURE__*/React__default['default'].createElement("div", {
+        style: {
+          flex: "0.2"
+        },
+        className: "PaddingLeftXS PaddingRightXS"
+      }, /*#__PURE__*/React__default['default'].createElement("small", null, "or")), /*#__PURE__*/React__default['default'].createElement("div", {
+        style: {
+          borderBottom: "1px solid black",
+          flex: "0.4",
+          position: "relative",
+          top: '-9px'
+        },
+        className: "Opacity05"
+      })))), (extensionIsAvailable || connectAppIsAvailable || openInAppIsAvailable || scanQrAvailable && !showQRCode || copyLinkIsAvailable) && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingLeftL PaddingRightL PaddingTopS PaddingBottomS"
       }, extensionIsAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS"
       }, props.showConnectExtensionWarning && /*#__PURE__*/React__default['default'].createElement("div", {
@@ -23201,6 +23250,9 @@
       window.open(platform.open(), '_self', 'noreferrer noopener');
     };
 
+    React.useEffect(function () {
+      delete localStorage['WALLETCONNECT_DEEPLINK_CHOICE'];
+    }, []);
     return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement(reactDialogStack.ReactDialogStack, {
       open: open,
       close: close,
@@ -23682,7 +23734,7 @@
   });
 
   var QRCodeStyle = (function () {
-    return "\n\n    .QRCode {\n      width: 100%;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      margin-bottom: -10px;\n    }\n  ";
+    return "\n\n    .QRCode {\n      width: 100%;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n  ";
   });
 
   var RangeSliderStyle = (function (style) {
