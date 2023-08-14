@@ -1212,6 +1212,7 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
+      "encoded": false,
       "universal": "https://uniswap.org/app",
       "connect": "WalletConnectV2",
       "qr": "WalletConnectV2"
@@ -22485,9 +22486,12 @@ var ConnectWalletDialog = (function (props) {
       className: "CardText FontWeightMedium"
     }, "Connect extension")))), connectAppIsAvailable && /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomXS"
-    }, /*#__PURE__*/React.createElement("button", {
-      onClick: function onClick() {
-        return props.connectViaRedirect(props.wallet);
+    }, /*#__PURE__*/React.createElement("a", {
+      href: props.getRedirectLink(props.wallet),
+      onClick: function onClick(e) {
+        e.preventDefault();
+        props.connectViaRedirect(props.wallet);
+        return false;
       },
       className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS",
       style: {
@@ -23147,7 +23151,13 @@ var ConnectStack = (function (props) {
       href: href,
       name: name
     }));
-    href = "".concat(href, "/wc?uri=").concat(encodeURIComponent(uri));
+
+    if (platform.encoded !== false) {
+      href = "".concat(href, "/wc?uri=").concat(encodeURIComponent(uri));
+    } else {
+      href = "".concat(href, "/wc?uri=").concat(uri);
+    }
+
     return window.open(href, '_self', 'noreferrer noopener');
   };
 
@@ -23185,6 +23195,21 @@ var ConnectStack = (function (props) {
     }
 
     window.open(href, '_self', 'noreferrer noopener');
+  };
+
+  var getRedirectLink = function getRedirectLink(walletMetaData) {
+    var platform = platformForWallet(walletMetaData);
+
+    if (platform["native"]) {
+      var href = safeAppUrl(platform["native"]);
+      href = "".concat(href, "wc?uri=");
+      return href;
+    } else if (platform.universal) {
+      var _href = safeUniversalUrl(platform.universal);
+
+      _href = "".concat(_href, "/wc?uri=");
+      return _href;
+    }
   };
 
   var connectViaRedirect = function connectViaRedirect(walletMetaData) {
@@ -23279,6 +23304,7 @@ var ConnectStack = (function (props) {
         resolve: resolve,
         openInApp: openInApp,
         connectViaRedirect: connectViaRedirect,
+        getRedirectLink: getRedirectLink,
         connectExtension: connectExtension,
         showConnectExtensionWarning: showConnectExtensionWarning,
         continueWithSolanaPay: props.continueWithSolanaPay,

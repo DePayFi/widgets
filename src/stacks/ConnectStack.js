@@ -62,7 +62,11 @@ export default (props)=>{
     if(!platform.universal){ return }
     let href = safeUniversalUrl(platform.universal)
     localStorage.setItem('WALLETCONNECT_DEEPLINK_CHOICE', JSON.stringify({ href, name }))
-    href = `${href}/wc?uri=${encodeURIComponent(uri)}`
+    if(platform.encoded !== false) {
+      href = `${href}/wc?uri=${encodeURIComponent(uri)}`
+    } else {
+      href = `${href}/wc?uri=${uri}`
+    }
     return window.open(href, '_self', 'noreferrer noopener')
   }
 
@@ -87,6 +91,19 @@ export default (props)=>{
       href = `${href}wc?uri=${uri}`
     }
     window.open(href, '_self', 'noreferrer noopener')
+  }
+
+  const getRedirectLink = (walletMetaData) => {
+    const platform = platformForWallet(walletMetaData)
+    if(platform.native){
+      let href = safeAppUrl(platform.native)
+      href = `${href}wc?uri=`
+      return href
+    } else if(platform.universal) {
+      let href = safeUniversalUrl(platform.universal)
+      href = `${href}/wc?uri=`
+      return href
+    }
   }
 
   const connectViaRedirect = (walletMetaData, reconnect = true)=> {
@@ -162,6 +179,7 @@ export default (props)=>{
             resolve={resolve}
             openInApp={openInApp}
             connectViaRedirect={connectViaRedirect}
+            getRedirectLink={getRedirectLink}
             connectExtension={connectExtension}
             showConnectExtensionWarning={showConnectExtensionWarning}
             continueWithSolanaPay={props.continueWithSolanaPay}

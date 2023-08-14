@@ -138,7 +138,7 @@ export default [
     "name": "Uniswap Wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "universal": "https://uniswap.org/app", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "ios": { "encoded": false, "universal": "https://uniswap.org/app", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/uniswap_wallet.jpg",
     "blockchains": [...supported.evm]
