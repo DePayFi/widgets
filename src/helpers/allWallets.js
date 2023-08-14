@@ -147,8 +147,8 @@ export default [
     "name": "Safe",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "safe:", "universal": "https://app.safe.global", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "safe:", "universal": "https://app.safe.global", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "universal": "https://app.safe.global", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "android": { "universal": "https://app.safe.global", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
     },
     "logo": "https://img1.depay.com/wallets/safe.jpg",
     "blockchains": [...supported.evm]

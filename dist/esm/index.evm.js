@@ -1225,13 +1225,11 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
-      "native": "safe:",
       "universal": "https://app.safe.global",
       "connect": "WalletConnectV1",
       "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "safe:",
       "universal": "https://app.safe.global",
       "connect": "WalletConnectV1",
       "qr": "WalletConnectV1"
