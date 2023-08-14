@@ -405,10 +405,10 @@ export default [
     "name": "Unstoppable Wallet",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "unstoppabledomains:", "universal": "https://unstoppabledomains.com/mobile", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "unstoppabledomains:", "universal": "https://unstoppabledomains.com/mobile", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "unstoppable.money://", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "android": { "native": "unstoppable.money://", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
     },
-    "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
+    "logo": "https://img1.depay.com/wallets/unstoppable.jpg",
     "blockchains": [...supported.evm]
   },
   {

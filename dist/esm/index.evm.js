@@ -1687,19 +1687,17 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
-      "native": "unstoppabledomains:",
-      "universal": "https://unstoppabledomains.com/mobile",
+      "native": "unstoppable.money://",
       "connect": "WalletConnectV1",
       "qr": "WalletConnectV1"
     },
     "android": {
-      "native": "unstoppabledomains:",
-      "universal": "https://unstoppabledomains.com/mobile",
+      "native": "unstoppable.money://",
       "connect": "WalletConnectV1",
       "qr": "WalletConnectV1"
     }
   },
-  "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
+  "logo": "https://img1.depay.com/wallets/unstoppable.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "AlphaWallet",
