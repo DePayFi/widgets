@@ -1021,17 +1021,13 @@
         "native": "metamask:",
         "universal": "https://metamask.app.link",
         "qr": "WalletConnectV1",
-        "open": function open() {
-          return "https://metamask.app.link/dapp/".concat(window.location.toString().replace(/^(https*)*:\/\//, ''));
-        }
+        "connect": "WalletConnectV2"
       },
       "android": {
         "native": "metamask:",
         "universal": "https://metamask.app.link",
         "qr": "WalletConnectV1",
-        "open": function open() {
-          return "https://metamask.app.link/dapp/".concat(window.location.toString().replace(/^(https*)*:\/\//, ''));
-        }
+        "connect": "WalletConnectV2"
       }
     },
     "logo": web3WalletsSolana.wallets.MetaMask.info.logo,
