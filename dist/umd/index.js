@@ -4389,13 +4389,13 @@
     },
     "mobile": {
       "ios": {
-        "native": "zengo:",
+        "native": "zengo://get.zengo.com/",
         "universal": "https://get.zengo.com",
         "connect": "WalletConnectV2",
         "qr": "WalletConnectV1"
       },
       "android": {
-        "native": "zengo:",
+        "native": "zengo://get.zengo.com/",
         "universal": "https://get.zengo.com",
         "connect": "WalletConnectV2",
         "qr": "WalletConnectV1"
