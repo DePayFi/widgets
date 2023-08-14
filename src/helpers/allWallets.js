@@ -80,8 +80,8 @@ export default [
     "extension": "Binance",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "bnc://app.binance.com/cedefi/", "universal": "https://app.binance.com/cedefi", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "bnc://app.binance.com/cedefi/", "universal": "https://app.binance.com/cedefi", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "bnc://app.binance.com/cedefi/", "universal": "https://app.binance.com/cedefi", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
+      "android": { "native": "bnc://app.binance.com/cedefi/", "universal": "https://app.binance.com/cedefi", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
     },
     "logo": wallets.Binance.info.logo,
     "blockchains": [...supported.evm]

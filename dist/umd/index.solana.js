@@ -1097,13 +1097,13 @@
       "ios": {
         "native": "bnc://app.binance.com/cedefi/",
         "universal": "https://app.binance.com/cedefi",
-        "connect": "WalletConnectV1",
+        "connect": "WalletConnectV2",
         "qr": "WalletConnectV1"
       },
       "android": {
         "native": "bnc://app.binance.com/cedefi/",
         "universal": "https://app.binance.com/cedefi",
-        "connect": "WalletConnectV1",
+        "connect": "WalletConnectV2",
         "qr": "WalletConnectV1"
       }
     },
