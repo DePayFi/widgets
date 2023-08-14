@@ -1112,7 +1112,6 @@
     "name": "Crypto.com | DeFi Wallet",
     "extension": "CryptoCom",
     "desktop": {
-      "native": "cryptowallet:",
       "qr": "WalletConnectV1"
     },
     "mobile": {
@@ -1684,12 +1683,12 @@
     },
     "mobile": {
       "ios": {
-        "native": "unstoppable.money://",
+        "universal": "unstoppable.money://",
         "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
       },
       "android": {
-        "native": "unstoppable.money://",
+        "universal": "unstoppable.money://",
         "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
       }

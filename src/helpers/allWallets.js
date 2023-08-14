@@ -89,7 +89,7 @@ export default [
   {
     "name": "Crypto.com | DeFi Wallet",
     "extension": "CryptoCom",
-    "desktop": { "native": "cryptowallet:", "qr": "WalletConnectV1" },
+    "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
       "ios": { "native": "dfw://", "universal": "https://wallet.crypto.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
       "android": { "native": "dfw://", "universal": "https://wallet.crypto.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
@@ -405,8 +405,8 @@ export default [
     "name": "Unstoppable Wallet",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "unstoppable.money://", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "unstoppable.money://", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "universal": "unstoppable.money://", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "android": { "universal": "unstoppable.money://", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
     },
     "logo": "https://img1.depay.com/wallets/unstoppable.jpg",
     "blockchains": [...supported.evm]
