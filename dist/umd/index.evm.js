@@ -4393,17 +4393,17 @@
       "ios": {
         "native": "zengo:",
         "universal": "https://get.zengo.com",
-        "connect": "WalletConnectV1",
+        "connect": "WalletConnectV2",
         "qr": "WalletConnectV1"
       },
       "android": {
         "native": "zengo:",
         "universal": "https://get.zengo.com",
-        "connect": "WalletConnectV1",
+        "connect": "WalletConnectV2",
         "qr": "WalletConnectV1"
       }
     },
-    "logo": "https://img1.depay.com/wallets/zengo.jpg",
+    "logo": "https://img1.depay.com/wallets/zengo2.png",
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "Locker Token",
