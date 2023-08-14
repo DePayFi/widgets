@@ -2976,20 +2976,20 @@
   }, {
     "name": "Edge Wallet",
     "desktop": {
-      "qr": "WalletConnectV1"
+      "qr": "WalletConnectV2"
     },
     "mobile": {
       "ios": {
         "native": "edge://",
-        "universal": "https://deep.edge.app/wc",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
+        "universal": "https://deep.edge.app",
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
       },
       "android": {
         "native": "edge://",
-        "universal": "https://deep.edge.app/wc",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
+        "universal": "https://deep.edge.app",
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
       }
     },
     "logo": "https://img1.depay.com/wallets/edge_wallet.jpg",
@@ -22480,12 +22480,9 @@
         className: "CardText FontWeightMedium"
       }, "Connect extension")))), connectAppIsAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS"
-      }, /*#__PURE__*/React__default['default'].createElement("a", {
-        href: props.getRedirectLink(props.wallet),
-        onClick: function onClick(e) {
-          e.preventDefault();
-          props.connectViaRedirect(props.wallet);
-          return false;
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        onClick: function onClick() {
+          return props.connectViaRedirect(props.wallet);
         },
         className: "Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS",
         style: {
@@ -23191,21 +23188,6 @@
       window.open(href, '_self', 'noreferrer noopener');
     };
 
-    var getRedirectLink = function getRedirectLink(walletMetaData) {
-      var platform = platformForWallet(walletMetaData);
-
-      if (platform["native"]) {
-        var href = safeAppUrl(platform["native"]);
-        href = "".concat(href, "wc?uri=");
-        return href;
-      } else if (platform.universal) {
-        var _href = safeUniversalUrl(platform.universal);
-
-        _href = "".concat(_href, "/wc?uri=");
-        return _href;
-      }
-    };
-
     var connectViaRedirect = function connectViaRedirect(walletMetaData) {
       var reconnect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       var platform = platformForWallet(walletMetaData);
@@ -23298,7 +23280,6 @@
           resolve: resolve,
           openInApp: openInApp,
           connectViaRedirect: connectViaRedirect,
-          getRedirectLink: getRedirectLink,
           connectExtension: connectExtension,
           showConnectExtensionWarning: showConnectExtensionWarning,
           continueWithSolanaPay: props.continueWithSolanaPay,

@@ -93,19 +93,6 @@ export default (props)=>{
     window.open(href, '_self', 'noreferrer noopener')
   }
 
-  const getRedirectLink = (walletMetaData) => {
-    const platform = platformForWallet(walletMetaData)
-    if(platform.native){
-      let href = safeAppUrl(platform.native)
-      href = `${href}wc?uri=`
-      return href
-    } else if(platform.universal) {
-      let href = safeUniversalUrl(platform.universal)
-      href = `${href}/wc?uri=`
-      return href
-    }
-  }
-
   const connectViaRedirect = (walletMetaData, reconnect = true)=> {
     const platform = platformForWallet(walletMetaData)
     if(!platform) { return }
@@ -179,7 +166,6 @@ export default (props)=>{
             resolve={resolve}
             openInApp={openInApp}
             connectViaRedirect={connectViaRedirect}
-            getRedirectLink={getRedirectLink}
             connectExtension={connectExtension}
             showConnectExtensionWarning={showConnectExtensionWarning}
             continueWithSolanaPay={props.continueWithSolanaPay}

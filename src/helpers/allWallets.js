@@ -1071,10 +1071,10 @@ export default [
   },
   {
     "name": "Edge Wallet",
-    "desktop": { "qr": "WalletConnectV1" },
+    "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "native": "edge://", "universal": "https://deep.edge.app/wc", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "edge://", "universal": "https://deep.edge.app/wc", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "edge://", "universal": "https://deep.edge.app", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "edge://", "universal": "https://deep.edge.app", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/edge_wallet.jpg",
     "blockchains": [...supported.evm]

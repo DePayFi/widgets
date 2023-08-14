@@ -277,7 +277,7 @@ export default (props)=> {
               }
               { connectAppIsAvailable &&
                 <div className="PaddingBottomXS">
-                  <a href={ props.getRedirectLink(props.wallet) } onClick={(e)=>{ e.preventDefault(); props.connectViaRedirect(props.wallet); return false; } } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
+                  <button onClick={()=> props.connectViaRedirect(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
                     <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
                       <img className="transparent " title="Click to connect app" style={{ height: '26px', width: '26px', borderRadius: '8px' }} src={ props.wallet.logo }/>
                     </span>
@@ -286,7 +286,7 @@ export default (props)=> {
                         Connect app
                       </div>
                     </div>
-                  </a>
+                  </button>
                 </div>
               }
               { openInAppIsAvailable &&
