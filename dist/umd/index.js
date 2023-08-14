@@ -1117,14 +1117,14 @@
     },
     "mobile": {
       "ios": {
-        "native": "crypto:",
-        "universal": "https://crypto.onelink.me/veNW",
+        "native": "dfw://",
+        "universal": "https://wallet.crypto.com",
         "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
       },
       "android": {
-        "native": "crypto:",
-        "universal": "https://crypto.onelink.me/veNW",
+        "native": "dfw://",
+        "universal": "https://wallet.crypto.com",
         "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
       }

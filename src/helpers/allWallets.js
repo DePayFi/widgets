@@ -91,8 +91,8 @@ export default [
     "extension": "CryptoCom",
     "desktop": { "native": "cryptowallet:", "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "crypto:", "universal": "https://crypto.onelink.me/veNW", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "crypto:", "universal": "https://crypto.onelink.me/veNW", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "dfw://", "universal": "https://wallet.crypto.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "android": { "native": "dfw://", "universal": "https://wallet.crypto.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
     },
     "logo": wallets.CryptoCom.info.logo,
     "blockchains": [...supported.evm]
