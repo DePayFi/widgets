@@ -1415,22 +1415,22 @@ var allWallets = [{
   "logo": "https://img1.depay.com/wallets/spot.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
-  "name": "BitKeep",
+  "name": "BitGet (BitKeep)",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "bitkeep://",
       "universal": "https://bkapp.vip",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "bitkeep://",
       "universal": "https://bkapp.vip",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/bit_keep.jpg",
@@ -1498,6 +1498,7 @@ var allWallets = [{
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "TP Wallet (TokenPocket)",
+  "extension": "TokenPocket",
   "desktop": {
     "qr": "WalletConnectV2"
   },
