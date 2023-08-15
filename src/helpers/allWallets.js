@@ -312,11 +312,11 @@ export default [
     "blockchains": [...supported.evm]
   },
   {
-    "name": "TokenPocket",
-    "desktop": { "qr": "WalletConnectV1" },
+    "name": "TP Wallet (TokenPocket)",
+    "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "native": "tpoutside:", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "tpoutside:", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "tpoutside:", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "tpoutside:", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/token_pocket.jpg",
     "blockchains": [...supported.evm]

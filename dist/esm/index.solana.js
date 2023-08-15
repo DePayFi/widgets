@@ -1497,20 +1497,20 @@ var allWallets = [{
   "logo": "https://img1.depay.com/wallets/keyring_pro.jpg",
   "blockchains": _toConsumableArray(supported$4.evm)
 }, {
-  "name": "TokenPocket",
+  "name": "TP Wallet (TokenPocket)",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "tpoutside:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "tpoutside:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/token_pocket.jpg",
