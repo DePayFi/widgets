@@ -35,7 +35,7 @@
     "@depay/web3-exchanges-evm": "^12.2.14",
     "@depay/web3-payments-evm": "^12.0.9",
     "@depay/web3-tokens-evm": "^9.20.1",
-    "@depay/web3-wallets-evm": "^16.0.6",
+    "@depay/web3-wallets-evm": "^16.0.7",
     "@tanstack/react-virtual": "^3.0.0-beta.54",
     "@uiw/copy-to-clipboard": "^1.0.14",
     "decimal.js": "^10.4.3",
