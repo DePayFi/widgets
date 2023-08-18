@@ -64,7 +64,7 @@ Next.js: https://dev.to/elisabethleonhardt/how-to-use-client-side-only-packages-
 
 ## Demo
 
-To easily configure DePay Payment Widgets please use our configurator here:
+To easily configure the DePay Payment Widgets please use our configurator here:
 
 https://app.depay.com/integrations/new
 
@@ -94,22 +94,25 @@ DePay supports [most crypto wallets](https://depay.com/wallets).
 
 DePay Payments allows you to accept and perform crypto payments.
 
-### Quick start
+### Integration
 
-```
+`integration`
+
+Connects the widget to a DePay integration managed via https://app.depay.com:
+
+```javascript
 DePayWidgets.Payment({
-  accept: [{
-    blockchain: 'ethereum',
-    amount: 20,
-    token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-    receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-  }]
-});
+  integration: 'fe690fbc-1740-4894-b12c-23a72abec54d'
+})
 ```
+
+The configuration of the integration managed via https://app.depay.com will be fetched and applied before applying any additional configuration locally.
+
+You can fully manage an integration via https://app.depay.com. Passing any additional configuration is not necessary.
+
+Locally applied configurations overwrite remotely stored configurations.
 
 ### Configuration
-
-You need to pass a configuration object to `DePayWidgets.Payment` which needs to at least contain the `accept` field:
 
 ```javascript
 DePayWidgets.Payment({
@@ -152,12 +155,6 @@ DePayWidgets.Payment({
 `blockchain`
 
 The blockchain you want to receive the payment on.
-
-Currently supported:
-
-- `ethereum`
-- `bsc` (Binance Smart Chain)
-- `polygon`
 
 `token`
 
@@ -900,18 +897,6 @@ DePayWidgets.Payment({
 
 ```
 
-#### integration
-
-`integration`
-
-Labels payments to track them per integration.
-
-```javascript
-DePayWidgets.Payment({
-  integration: 'fe690fbc-1740-4894-b12c-23a72abec54d'
-})
-```
-
 ## DePayWidgets: Sale
 
 DePay Sales allows you to sell tokens directly from your website or dApp with automatic any-to-any payment conversion (so people can use any token when buying your token directly off your website or dApp).
@@ -953,18 +938,7 @@ DePayWidgets.Sale({
 
 `"blockchain": "token"`
 
-`blockchain`
-
-Currently supported blockchains:
-
-- `ethereum`
-- `bsc` (Binance Smart Chain)
-
-`token`
-
-The address of the token you want to sell.
-
-Use our [sale configurator](https://depay.com/documentation/sales#sale-configurator) in order to simplify configuring this.
+The address of the token you want to sell for the given blockchain.
 
 #### amount
 
