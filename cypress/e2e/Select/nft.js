@@ -4,7 +4,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { mock, resetMocks } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 describe('Select Widget: nft', () => {
 

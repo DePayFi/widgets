@@ -223,8 +223,10 @@ export default (props)=> {
             <div>
               <div ref={ QRCodeElement } className="QRCode">
                 { showQRCode && QRCode === undefined &&
-                  <div className="Skeleton" style={{ borderRadius: "18px", width: "305px", height: "305px" }}>
-                    <div className="SkeletonBackground"/>
+                  <div className="PaddingTopS">
+                    <div className="Skeleton" style={{ borderRadius: "18px", width: "305px", height: "305px" }}>
+                      <div className="SkeletonBackground"/>
+                    </div>
                   </div>
                 }
               </div>

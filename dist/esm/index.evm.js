@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
-import { wallets, getWallets } from '@depay/web3-wallets';
+import { wallets, getWallets } from '@depay/web3-wallets-evm';
 import Blockchains from '@depay/web3-blockchains';
-import { route, routers } from '@depay/web3-payments';
+import { route } from '@depay/web3-payments-evm';
 import copy from '@uiw/copy-to-clipboard';
 import { NavigateStackContext, ReactDialogStack } from '@depay/react-dialog-stack';
 import QRCodeStyling from 'qr-code-styling';
@@ -9,14 +9,13 @@ import Fuse from 'fuse.js';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import ReactDOM from 'react-dom';
 import { ReactShadowDOM } from '@depay/react-shadow-dom';
-import { setProviderEndpoints, request, getProvider } from '@depay/web3-client';
+import { setProviderEndpoints, request } from '@depay/web3-client-evm';
 import { Currency } from '@depay/local-currency';
-import Exchanges from '@depay/web3-exchanges';
-import Token from '@depay/web3-tokens';
+import Exchanges from '@depay/web3-exchanges-evm';
+import Token from '@depay/web3-tokens-evm';
 import { ethers } from 'ethers';
 import { Decimal } from 'decimal.js';
-import { TokenImage } from '@depay/react-token-image';
-import { struct, u64, Buffer, PublicKey } from '@depay/solana-web3.js';
+import { TokenImage } from '@depay/react-token-image-evm';
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
@@ -986,9 +985,9 @@ function _toConsumableArray(arr) {
   return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
-var supported = ['ethereum', 'bsc', 'polygon', 'solana', 'arbitrum', 'optimism', 'avalanche', 'gnosis', 'fantom'];
+var supported = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'avalanche', 'gnosis', 'fantom'];
 supported.evm = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'avalanche', 'gnosis', 'fantom'];
-supported.solana = ['solana'];
+supported.solana = [];
 
 var allWallets = [{
   "name": "Coinbase",
@@ -22738,9 +22737,9 @@ var MenuIcon = (function (props) {
   }));
 });
 
-function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var SelectWalletList = (function (props) {
   var parentElement = React.useRef();
   var fuse = new Fuse(allWallets, {
@@ -22805,7 +22804,7 @@ var SelectWalletList = (function (props) {
       className: "Card small",
       title: "Connect ".concat(resultList[virtualItem.key].name),
       onClick: function onClick() {
-        props.onClickWallet(_objectSpread$7({}, resultList[virtualItem.key]));
+        props.onClickWallet(_objectSpread$6({}, resultList[virtualItem.key]));
       }
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardImage"
@@ -22822,9 +22821,9 @@ var SelectWalletList = (function (props) {
   })));
 });
 
-function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var SelectWalletDialog = (function (props) {
   var _useState = useState(''),
       _useState2 = _slicedToArray(_useState, 2),
@@ -22947,7 +22946,7 @@ var SelectWalletDialog = (function (props) {
         className: "Card small",
         title: "Connect ".concat(walletMetaData.name),
         onClick: function onClick() {
-          onClickWallet(_objectSpread$6(_objectSpread$6({}, walletMetaData), {}, {
+          onClickWallet(_objectSpread$5(_objectSpread$5({}, walletMetaData), {}, {
             via: 'detected',
             connectionType: connectionType
           }), wallet);
@@ -22982,7 +22981,7 @@ var SelectWalletDialog = (function (props) {
       className: "Card small",
       title: "Connect ".concat(previouslyConnectedWallet.name),
       onClick: function onClick() {
-        onClickWallet(_objectSpread$6(_objectSpread$6({}, previouslyConnectedWallet), {}, {
+        onClickWallet(_objectSpread$5(_objectSpread$5({}, previouslyConnectedWallet), {}, {
           via: 'previouslyConnected',
           connectionType: 'app'
         }));
@@ -24668,9 +24667,9 @@ var findMaxRoute = (function (routes) {
   return sortedLowToHigh[sortedLowToHigh.length - 1];
 });
 
-function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var ChangableAmountProvider = (function (props) {
   var configurationsMissAmounts = function configurationsMissAmounts(configurations) {
     return !configurations.every(function (configuration) {
@@ -24818,7 +24817,7 @@ var ChangableAmountProvider = (function (props) {
           return;
         }
 
-        return _objectSpread$5(_objectSpread$5({}, configuration), {}, {
+        return _objectSpread$4(_objectSpread$4({}, configuration), {}, {
           amount: round(amounts[index])
         });
       }).filter(function (configuration) {
@@ -24965,9 +24964,9 @@ var PaymentAmountRoutingContext = /*#__PURE__*/React.createContext();
 
 var PaymentRoutingContext = /*#__PURE__*/React.createContext();
 
-function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 var prepareAcceptedPayments = function prepareAcceptedPayments(accept, receiver) {
   var toAddress;
@@ -24979,7 +24978,7 @@ var prepareAcceptedPayments = function prepareAcceptedPayments(accept, receiver)
   }
 
   var toContract = _typeof(accept.receiver) == 'object' ? accept.receiver : undefined;
-  return _objectSpread$4(_objectSpread$4({}, accept), {}, {
+  return _objectSpread$3(_objectSpread$3({}, accept), {}, {
     toAddress: toAddress,
     toContract: toContract
   });
@@ -25014,9 +25013,9 @@ var routePayments = (function (_ref) {
   });
 });
 
-function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var PaymentRoutingProvider = (function (props) {
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -25244,7 +25243,7 @@ var PaymentRoutingProvider = (function (props) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
-              setSelectedRoute(_objectSpread$3({}, updatedRouteWithNewPrice));
+              setSelectedRoute(_objectSpread$2({}, updatedRouteWithNewPrice));
               setUpdatedRouteWithNewPrice(null);
 
             case 2:
@@ -25375,9 +25374,9 @@ var NoPaymentOptionFoundDialog = (function () {
 
 var PaymentContext = /*#__PURE__*/React.createContext();
 
-function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var PaymentOptionsDialog = (function () {
   var _useContext = useContext(ConfigurationContext),
       accept = _useContext.accept;
@@ -25402,7 +25401,7 @@ var PaymentOptionsDialog = (function () {
       return Promise.all([Promise.resolve(configuration), token.symbol(), token.name()]);
     })).then(function (options) {
       return options.map(function (option) {
-        return _objectSpread$2(_objectSpread$2({}, option[0]), {}, {
+        return _objectSpread$1(_objectSpread$1({}, option[0]), {}, {
           symbol: option[1],
           name: option[2]
         });
@@ -26914,64 +26913,14 @@ var PaymentStack = (function (props) {
   });
 });
 
-var getPaymentsAccountAddress = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-    var account, seeds, _yield$PublicKey$find, _yield$PublicKey$find2, pdaPublicKey;
-
-    return regenerator.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            account = _ref.account;
-            seeds = [Buffer.from("payments"), new PublicKey(account).toBuffer()];
-            _context.next = 4;
-            return PublicKey.findProgramAddress(seeds, new PublicKey('DePayRG7ZySPWzeK9Kvq7aPeif7sdbBZNh6DHcvNj7F7'));
-
-          case 4:
-            _yield$PublicKey$find = _context.sent;
-            _yield$PublicKey$find2 = _slicedToArray(_yield$PublicKey$find, 1);
-            pdaPublicKey = _yield$PublicKey$find2[0];
-            return _context.abrupt("return", pdaPublicKey);
-
-          case 8:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function getPaymentsAccountAddress(_x) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
 var getPaymentsAccountData = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var account, address;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            account = _ref3.account;
-            _context2.next = 3;
-            return getPaymentsAccountAddress({
-              account: account
-            });
 
-          case 3:
-            address = _context2.sent.toString();
-            _context2.next = 6;
-            return request({
-              blockchain: 'solana',
-              address: address,
-              api: struct([u64('anchorDiscriminator'), u64('nonce')])
-            });
-
-          case 6:
-            return _context2.abrupt("return", _context2.sent);
-
-          case 7:
+          case 1:
           case "end":
             return _context2.stop();
         }
@@ -27847,1395 +27796,9 @@ var PaymentValueProvider = (function (props) {
   }, props.children);
 });
 
-function getFavicon () {
-  var favicon;
-  var nodeList = document.getElementsByTagName("link");
-
-  for (var i = 0; i < nodeList.length; i++) {
-    if (nodeList[i].getAttribute("rel") == "icon" || nodeList[i].getAttribute("rel") == "shortcut icon") {
-      favicon = nodeList[i].getAttribute("href");
-    }
-  }
-
-  if (!favicon) {
-    return;
-  }
-
-  if (favicon.match(':')) {
-    return favicon;
-  } else {
-    return "".concat(window.location.origin, "/").concat(favicon.replace(/^\//, ''));
-  }
-}
-
-var getPaymentRouterInstruction = (function (confirmedTransaction) {
-  var _confirmedTransaction, _confirmedTransaction2, _confirmedTransaction3;
-
-  if (!confirmedTransaction || !(confirmedTransaction !== null && confirmedTransaction !== void 0 && (_confirmedTransaction = confirmedTransaction.meta) !== null && _confirmedTransaction !== void 0 && _confirmedTransaction.logMessages) || !(confirmedTransaction !== null && confirmedTransaction !== void 0 && (_confirmedTransaction2 = confirmedTransaction.transaction) !== null && _confirmedTransaction2 !== void 0 && (_confirmedTransaction3 = _confirmedTransaction2.message) !== null && _confirmedTransaction3 !== void 0 && _confirmedTransaction3.compiledInstructions)) {
-    return;
-  }
-
-  if (!confirmedTransaction.meta.logMessages.some(function (log) {
-    return log.match('Program DePayRG7ZySPWzeK9Kvq7aPeif7sdbBZNh6DHcvNj7F7 invoke');
-  })) {
-    return;
-  }
-
-  var foundInstruction;
-  confirmedTransaction.transaction.message.compiledInstructions.forEach(function (instruction) {
-    Object.keys(routers.solana.api).forEach(function (key) {
-      if (foundInstruction) {
-        return;
-      }
-
-      try {
-        if (key.match(/^route/)) {
-          var data = routers.solana.api[key].layout.decode(instruction.data);
-
-          if (data.anchorDiscriminator.toString() === routers.solana.api[key].anchorDiscriminator.toString()) {
-            foundInstruction = data;
-          }
-        }
-      } catch (_unused) {}
-    });
-  });
-  return foundInstruction;
-});
-
-var UUIDv4 = (function () {
-  var d = new Date().getTime();
-  var d2 = performance && performance.now && performance.now() * 1000 || 0;
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = Math.random() * 16;
-
-    if (d > 0) {
-      r = (d + r) % 16 | 0;
-      d = Math.floor(d / 16);
-    } else {
-      r = (d2 + r) % 16 | 0;
-      d2 = Math.floor(d2 / 16);
-    }
-
-    return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
-  });
-});
-
-function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var LOGO = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODYiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCA4NiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTc3LjExMjggMjIuMDA2NUw3Mi4xNDc5IDExLjE1ODNINjguMDI3TDc1LjExOTcgMjUuNzk1Nkw3NC45OTIxIDI2LjIzNjRDNzQuODE0NCAyNi44MjIzIDc0LjQzOTUgMjcuMzI4MiA3My45MzExIDI3LjY2NzlDNzMuNDIyOCAyOC4wMDc2IDcyLjgxMjUgMjguMTU5OSA3Mi4yMDQ2IDI4LjA5ODlDNzEuNDkzIDI4LjA5MjMgNzAuNzk0OCAyNy45MDM5IDcwLjE3NjEgMjcuNTUxNUw2OS41MTY1IDMwLjY4NjVDNzAuNDY4NCAzMS4wNzk3IDcxLjQ4NzEgMzEuMjg0OSA3Mi41MTY3IDMxLjI5MDhDNzUuMzUzOCAzMS4yOTA4IDc3LjA3MDIgMzAuMjQ1OCA3OC40ODg4IDI3LjE2NzZMODYgMTEuMTU4M0g4Mi4wMjFMNzcuMTEyOCAyMi4wMDY1WiIgZmlsbD0iYmxhY2siLz4KPHBhdGggZD0iTTQyLjAyMzUgNS45OTAxMUgzMC4xMjE5VjI1LjkzMDZIMzQuMDIyOVYxOC42MDEzSDQyLjAyMzVDNDYuMzcxMyAxOC42MDEzIDQ5LjIyOTcgMTYuNDA0NyA0OS4yMjk3IDEyLjI5NTdDNDkuMjI5NyA4LjE4Njc3IDQ2LjM3MTMgNS45OTAxMSA0Mi4wMjM1IDUuOTkwMTFaTTQxLjgxMDcgMTUuMTEwOUgzNC4wMDg3VjkuNDIzNzJINDEuODEwN0M0NC4wNjYyIDkuNDIzNzIgNDUuMzU3IDEwLjQ1NDUgNDUuMzU3IDEyLjI2NzNDNDUuMzU3IDE0LjA4MDEgNDQuMDY2MiAxNS4xMTA5IDQxLjgxMDcgMTUuMTEwOVoiIGZpbGw9ImJsYWNrIi8+CjxwYXRoIGQ9Ik02NS41MzkgMjIuMTQ4N1YxNi4xNDE2QzY1LjUzOSAxMi41ODcyIDYyLjk5MjggMTAuNzQ2IDU4LjYyMzYgMTAuNzQ2QzU1LjA3NzMgMTAuNzQ2IDUxLjk3MDYgMTIuNDAyNCA1MS4wOTgyIDE0Ljk0NzNMNTQuMzA0MiAxNi4wODQ4QzU0Ljc3OTQgMTQuODEyMyA1Ni40MzIgMTMuODczOSA1OC40ODg5IDEzLjg3MzlDNjAuOTI4OCAxMy44NzM5IDYxLjk1NzIgMTQuODY5MSA2MS45NTcyIDE2LjA4NDhWMTYuNDc1OEw1Ni4xNTU0IDE3LjExNTZDNTIuODE0NyAxNy40NzEgNTAuNjE1OSAxOC45NzEgNTAuNjE1OSAyMS42NTExQzUwLjYxNTkgMjQuNTg3IDUzLjEzMzkgMjYuMTY1MiA1Ni40NzQ1IDI2LjE2NTJDNTguNjI3OCAyNi4yMzI1IDYwLjcyNDggMjUuNDY5MSA2Mi4zMzMxIDI0LjAzMjVDNjIuOTE0NyAyNS40NTQzIDYzLjUxMDUgMjYuNDA2OSA2Ny40NzU0IDI1LjkwMjJWMjIuOTMwN0M2NS44ODY2IDIzLjMxNDUgNjUuNTM5IDIyLjkzMDcgNjUuNTM5IDIyLjE0ODdaTTYxLjk5MjcgMjAuMjQzNUM2MS45OTI3IDIyLjE3NzEgNTkuMjkwMyAyMy4yMDA4IDU3LjAyNzggMjMuMjAwOEM1NS4zMDQyIDIzLjIwMDggNTQuMjY4NyAyMi42NDYzIDU0LjI2ODcgMjEuNTQ0NEM1NC4yNjg3IDIwLjQ0MjUgNTUuMTE5OCAyMC4wNDQ0IDU2Ljc2NTMgMTkuODUyNUw2Mi4wMDY5IDE5LjI0MTFMNjEuOTkyNyAyMC4yNDM1WiIgZmlsbD0iYmxhY2siLz4KPHBhdGggZD0iTTIyLjc0MzkgMjEuMjUzQzIyLjc3MTQgMjEuMzM2MSAyMi43NzE0IDIxLjQyNTkgMjIuNzQzOSAyMS41MDg5QzIyLjcyNzkgMjEuNTkxOCAyMi42ODg1IDIxLjY2ODMgMjIuNjMwNCAyMS43MjkzTDE4Ljg3ODMgMjUuNjc0OEMxOC43OTU2IDI1Ljc1OTkgMTguNjk2OCAyNS44Mjc2IDE4LjU4NzUgMjUuODczOEMxOC40NzggMjUuOTIxOSAxOC4zNTk1IDI1Ljk0NjIgMTguMjQgMjUuOTQ0OUgwLjQ0NDMwOEMwLjM2MTg5NCAyNS45NDU2IDAuMjgwODg4IDI1LjkyMzUgMC4yMTAyNDggMjUuODgwOUMwLjEzOTY1NSAyNS44MzI4IDAuMDgzMzAyOCAyNS43NjY1IDAuMDQ3MTE1NiAyNS42ODlDMC4wMjIxMjM2IDI1LjYxMDQgMC4wMjIxMjM2IDI1LjUyNTkgMC4wNDcxMTU2IDI1LjQ0NzNDMC4wNjE4MjM3IDI1LjM2NTUgMC4wOTg2MTkzIDI1LjI4OTIgMC4xNTM1MDYgMjUuMjI2OUwzLjkxMjY1IDIxLjI4MTVDMy45OTUzMyAyMS4xOTYzIDQuMDk0MjIgMjEuMTI4NiA0LjIwMzQ2IDIxLjA4MjRDNC4zMTI3NyAyMS4wMzM3IDQuNDMxMzcgMjEuMDA5NCA0LjU1MSAyMS4wMTEzSDIyLjMxODNDMjIuNDA0IDIxLjAwOTcgMjIuNDg4MiAyMS4wMzQ1IDIyLjU1OTQgMjEuMDgyNEMyMi42MzkzIDIxLjExNTQgMjIuNzA0NyAyMS4xNzU5IDIyLjc0MzkgMjEuMjUzWk0xOC44ODU0IDEzLjc2MDJDMTguODAwOSAxMy42NzczIDE4LjcwMjUgMTMuNjA5OSAxOC41OTQ2IDEzLjU2MTJDMTguNDg0IDEzLjUxNjQgMTguMzY2MyAxMy40OTI0IDE4LjI0NzEgMTMuNDkwMUgwLjQ0NDMwOEMwLjM2MDg2NCAxMy40OTEzIDAuMjc5NDMgMTMuNTE1OSAwLjIwOTIzMSAxMy41NjEyQzAuMTM5MDMyIDEzLjYwNjQgMC4wODI4NzI0IDEzLjY3MDQgMC4wNDcxMTU2IDEzLjc0NkMwLjAyMjU4MzEgMTMuODI0NyAwLjAyMjU4MzEgMTMuOTA5IDAuMDQ3MTE1NiAxMy45ODc3QzAuMDU5MDYwNyAxNC4wNzA0IDAuMDk2MjIwNiAxNC4xNDc0IDAuMTUzNTA2IDE0LjIwODFMMy45MTI2NSAxOC4xNjA2QzMuOTk3MTcgMTguMjQzNiA0LjA5NTYxIDE4LjMxMSA0LjIwMzQ2IDE4LjM1OTdDNC4zMTM4MyAxOC40MDUgNC40MzE3MyAxOC40MjkxIDQuNTUxIDE4LjQzMDhIMjIuMzE4M0MyMi40MDQgMTguNDMyNCAyMi40ODgyIDE4LjQwNzYgMjIuNTU5NCAxOC4zNTk3QzIyLjYzMTEgMTguMzE3OCAyMi42ODYxIDE4LjI1MjYgMjIuNzE1NSAxOC4xNzQ5QzIyLjc1MTggMTguMDk5MiAyMi43NjM5IDE4LjAxNDEgMjIuNzQ5OSAxNy45MzE0QzIyLjczNTkgMTcuODQ4NiAyMi42OTY2IDE3Ljc3MjIgMjIuNjM3NSAxNy43MTI4TDE4Ljg4NTQgMTMuNzYwMlpNMC4yMTAyNDggMTAuODQ1NUMwLjI4MDg4OCAxMC44ODgxIDAuMzYxODk0IDEwLjkxMDIgMC40NDQzMDggMTAuOTA5NUgxOC4yNDcxQzE4LjM2NjYgMTAuOTEwOCAxOC40ODUxIDEwLjg4NjUgMTguNTk0NiAxMC44Mzg0QzE4LjcwMzggMTAuNzkyMiAxOC44MDI3IDEwLjcyNDYgMTguODg1NCAxMC42Mzk0TDIyLjYzNzUgNi42OTM5NEMyMi42OTU2IDYuNjMyODggMjIuNzM0OSA2LjU1NjM5IDIyLjc1MDkgNi40NzM1NkMyMi43NzU1IDYuMzk0ODcgMjIuNzc1NSA2LjMxMDU1IDIyLjc1MDkgNi4yMzE4NkMyMi43MjE2IDYuMTU0MTQgMjIuNjY2NSA2LjA4ODg5IDIyLjU5NDkgNi4wNDcwMkMyMi41MjM3IDUuOTk5MTIgMjIuNDM5NSA1Ljk3NDMgMjIuMzUzOCA1Ljk3NTkzSDQuNTIyNjNDNC40MDMgNS45NzQwMiA0LjI4NDQgNS45OTgyOCA0LjE3NTA5IDYuMDQ3MDJDNC4wNjU4NSA2LjA5MzIyIDMuOTY2OTYgNi4xNjA5IDMuODg0MjggNi4yNDYwN0wwLjEzMjIyOSAxMC4yMDU3QzAuMDcyNzMzNyAxMC4yNjU4IDAuMDMzMTExOSAxMC4zNDI3IDAuMDE4NzQ0MSAxMC40MjYxQy0wLjAwNjI0ODAyIDEwLjUwNDcgLTAuMDA2MjQ4MDIgMTAuNTg5MiAwLjAxODc0NDEgMTAuNjY3OEMwLjA2NDc3ODkgMTAuNzQzOCAwLjEzMTExNiAxMC44MDU0IDAuMjEwMjQ4IDEwLjg0NTVWMTAuODQ1NVoiIGZpbGw9ImJsYWNrIi8+Cjwvc3ZnPgo=';
-var SolanaPayDialog = (function (props) {
-  var _useContext = useContext(ConfigurationContext),
-      accept = _useContext.accept,
-      track = _useContext.track,
-      validated = _useContext.validated,
-      integration = _useContext.integration,
-      link = _useContext.link,
-      type = _useContext.type;
-
-  var _useContext2 = useContext(NavigateStackContext);
-      _useContext2.set;
-      _useContext2.navigate;
-
-  var _useContext3 = useContext(ClosableContext),
-      close = _useContext3.close,
-      setClosable = _useContext3.setClosable;
-
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      paymentOptions = _useState2[0],
-      setPaymentOptions = _useState2[1];
-
-  var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      forwardTo = _useState4[0],
-      setForwardTo = _useState4[1];
-
-  var _useState5 = useState(),
-      _useState6 = _slicedToArray(_useState5, 2),
-      pollingPaymentStatusInterval = _useState6[0],
-      setPollingPaymentStatusInterval = _useState6[1];
-
-  var _useState7 = useState(),
-      _useState8 = _slicedToArray(_useState7, 2),
-      transactionTrackingInterval = _useState8[0],
-      setTransactionTrackingInterval = _useState8[1];
-
-  var _useState9 = useState(),
-      _useState10 = _slicedToArray(_useState9, 2),
-      selectedPaymentOption = _useState10[0],
-      setSelectedPaymantOption = _useState10[1];
-
-  var _useState11 = useState(),
-      _useState12 = _slicedToArray(_useState11, 2),
-      transaction = _useState12[0],
-      setTransaction = _useState12[1];
-
-  var _useState13 = useState(),
-      _useState14 = _slicedToArray(_useState13, 2),
-      secretId = _useState14[0],
-      setSecretId = _useState14[1];
-
-  var _useState15 = useState(),
-      _useState16 = _slicedToArray(_useState15, 2),
-      solanaPayTransactionSocket = _useState16[0],
-      setSolanaPayTransactionSocket = _useState16[1];
-
-  var _useState17 = useState(),
-      _useState18 = _slicedToArray(_useState17, 2),
-      transactionTrackingSocket = _useState18[0],
-      setTransactionTrackingSocket = _useState18[1];
-
-  var _useState19 = useState(),
-      _useState20 = _slicedToArray(_useState19, 2),
-      paymentValidationSocket = _useState20[0],
-      setPaymentValidationSocket = _useState20[1];
-
-  var _useState21 = useState(),
-      _useState22 = _slicedToArray(_useState21, 2),
-      QRCodeURI = _useState22[0],
-      setQRCodeURI = _useState22[1];
-
-  var _useState23 = useState(),
-      _useState24 = _slicedToArray(_useState23, 2),
-      release = _useState24[0],
-      setRelease = _useState24[1];
-
-  var _useState25 = useState(),
-      _useState26 = _slicedToArray(_useState25, 2),
-      afterBlock = _useState26[0],
-      setAfterBlock = _useState26[1];
-
-  var _useState27 = useState(),
-      _useState28 = _slicedToArray(_useState27, 2),
-      QRCode = _useState28[0],
-      setQRCode = _useState28[1];
-
-  var _useState29 = useState('select'),
-      _useState30 = _slicedToArray(_useState29, 2),
-      state = _useState30[0],
-      setState = _useState30[1];
-
-  var _useState31 = useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
-      _useState32 = _slicedToArray(_useState31, 1),
-      polling = _useState32[0];
-
-  var _useState33 = useState(!!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
-      _useState34 = _slicedToArray(_useState33, 1),
-      synchronousTracking = _useState34[0];
-
-  var _useState35 = useState(!!(track && track.async == true)),
-      _useState36 = _slicedToArray(_useState35, 1),
-      asynchronousTracking = _useState36[0];
-
-  var isTracking = synchronousTracking || asynchronousTracking;
-  var QRCodeElement = React.useRef();
-
-  var selectPaymentOption = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(selectedPaymentOption) {
-      var secretId;
-      return regenerator.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              secretId = UUIDv4();
-              setSecretId(secretId);
-              _context.next = 4;
-              return Token.BigNumber({
-                amount: selectedPaymentOption.amount,
-                blockchain: 'solana',
-                address: selectedPaymentOption.token
-              });
-
-            case 4:
-              selectedPaymentOption.fromAmountBN = _context.sent;
-
-              if (!selectedPaymentOption.fee) {
-                _context.next = 21;
-                break;
-              }
-
-              if (!selectedPaymentOption.fee.amount.match("%")) {
-                _context.next = 10;
-                break;
-              }
-
-              _context.t1 = selectedPaymentOption.fromAmountBN.div(1000).mul(parseFloat(selectedPaymentOption.fee.amount.replace("%", '')) * 10);
-              _context.next = 18;
-              break;
-
-            case 10:
-              if (!(typeof selectedPaymentOption.fee.amount === 'string')) {
-                _context.next = 14;
-                break;
-              }
-
-              _context.t2 = selectedPaymentOption.fee.amount;
-              _context.next = 17;
-              break;
-
-            case 14:
-              _context.next = 16;
-              return Token.BigNumber({
-                amount: selectedPaymentOption.fee.amount,
-                blockchain: 'solana',
-                address: selectedPaymentOption.token
-              });
-
-            case 16:
-              _context.t2 = _context.sent;
-
-            case 17:
-              _context.t1 = _context.t2;
-
-            case 18:
-              _context.t0 = _context.t1;
-              _context.next = 24;
-              break;
-
-            case 21:
-              _context.next = 23;
-              return Token.BigNumber({
-                amount: 0,
-                blockchain: 'solana',
-                address: selectedPaymentOption.token
-              });
-
-            case 23:
-              _context.t0 = _context.sent;
-
-            case 24:
-              selectedPaymentOption.feeAmountBN = _context.t0;
-              selectedPaymentOption.toAmountBN = selectedPaymentOption.fee ? selectedPaymentOption.fromAmountBN.sub(selectedPaymentOption.feeAmountBN) : selectedPaymentOption.fromAmountBN;
-              setSelectedPaymantOption(selectedPaymentOption);
-              setState('wait');
-              openSolanaPayTransactionSocket(secretId, selectedPaymentOption);
-
-            case 29:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function selectPaymentOption(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  var getNewQRCode = function getNewQRCode() {
-    return new QRCodeStyling({
-      width: 340,
-      height: 340,
-      type: "svg",
-      dotsOptions: {
-        type: "extra-rounded"
-      },
-      cornersSquareOptions: {
-        type: 'rounded'
-      },
-      backgroundOptions: {
-        color: "transparent"
-      }
-    });
-  };
-
-  var sendTrackingAsConfigured = function sendTrackingAsConfigured(_ref2) {
-    var payment = _ref2.payment,
-        resolve = _ref2.resolve,
-        reject = _ref2.reject;
-
-    if (track.endpoint) {
-      return fetch(track.endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payment)
-      }).then(function (response) {
-        if (response.status == 200 || response.status == 201) {
-          return resolve();
-        } else {
-          return reject('TRACING REQUEST FAILED');
-        }
-      });
-    } else if (track.method) {
-      track.method(payment).then(resolve)["catch"](reject);
-    } else {
-      reject('No tracking defined!');
-    }
-  };
-
-  var sendTrace = function sendTrace(_ref3) {
-    var secretId = _ref3.secretId,
-        selectedPaymentOption = _ref3.selectedPaymentOption;
-
-    if (!isTracking) {
-      return Promise.resolve();
-    }
-
-    return new Promise( /*#__PURE__*/function () {
-      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(resolve, reject) {
-        var payment;
-        return regenerator.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                payment = {
-                  blockchain: 'solana',
-                  sender: "solana:".concat(secretId),
-                  nonce: 0,
-                  after_block: afterBlock.toString(),
-                  from_token: selectedPaymentOption.token,
-                  from_amount: selectedPaymentOption.fromAmountBN.toString(),
-                  from_decimals: selectedPaymentOption.decimals,
-                  to_token: selectedPaymentOption.token,
-                  to_amount: selectedPaymentOption.toAmountBN.toString(),
-                  to_decimals: selectedPaymentOption.decimals,
-                  fee_amount: selectedPaymentOption.feeAmountBN.toString()
-                };
-                sendTrackingAsConfigured({
-                  payment: payment,
-                  resolve: resolve,
-                  reject: reject
-                });
-
-              case 2:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-
-      return function (_x2, _x3) {
-        return _ref4.apply(this, arguments);
-      };
-    }());
-  };
-
-  var sendTrack = function sendTrack(_ref5) {
-    var transaction = _ref5.transaction;
-
-    if (!isTracking) {
-      return;
-    }
-
-    var payment = {
-      blockchain: 'solana',
-      sender: transaction.from,
-      transaction: transaction.id,
-      nonce: transaction.nonce,
-      after_block: afterBlock.toString(),
-      from_token: selectedPaymentOption.token,
-      from_amount: selectedPaymentOption.fromAmountBN.toString(),
-      from_decimals: selectedPaymentOption.decimals,
-      to_token: selectedPaymentOption.token,
-      to_amount: selectedPaymentOption.toAmountBN.toString(),
-      to_decimals: selectedPaymentOption.decimals,
-      fee_amount: selectedPaymentOption.feeAmountBN.toString(),
-      deadline: transaction.deadline
-    };
-    sendTrackingAsConfigured({
-      payment: payment,
-      resolve: function resolve() {
-        setClosable(!synchronousTracking);
-        setRelease(!synchronousTracking);
-      },
-      reject: function reject() {
-        setState('trackingFailed');
-      }
-    });
-  };
-
-  var openSolanaPayTransactionSocket = function openSolanaPayTransactionSocket(secretId, selectedPaymentOption) {
-    if (solanaPayTransactionSocket) {
-      solanaPayTransactionSocket.close();
-    }
-
-    var socket = new WebSocket('wss://integrate.depay.com/cable');
-    setSolanaPayTransactionSocket(socket);
-
-    socket.onopen = /*#__PURE__*/function () {
-      var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(event) {
-        return regenerator.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.next = 2;
-                return socket.send(JSON.stringify({
-                  command: 'subscribe',
-                  identifier: JSON.stringify({
-                    secret_id: secretId,
-                    channel: 'SolanaPayChannel'
-                  })
-                }));
-
-              case 2:
-                if (!(QRCodeURI === undefined)) {
-                  _context3.next = 5;
-                  break;
-                }
-
-                _context3.next = 5;
-                return socket.send(JSON.stringify({
-                  command: 'message',
-                  identifier: JSON.stringify({
-                    secret_id: secretId,
-                    channel: 'SolanaPayChannel'
-                  }),
-                  data: JSON.stringify({
-                    type: 'create',
-                    secret_id: secretId,
-                    label: document.title || 'DePay',
-                    icon: getFavicon() || 'https://depay.com/favicon.png',
-                    token: selectedPaymentOption.token,
-                    payment_receiver: selectedPaymentOption.receiver,
-                    payment_amount: selectedPaymentOption.fromAmountBN.toString(),
-                    fee_receiver: selectedPaymentOption.fee ? selectedPaymentOption.fee.receiver : undefined,
-                    fee_amount: selectedPaymentOption.fee ? selectedPaymentOption.feeAmountBN.toString() : undefined
-                  })
-                }));
-
-              case 5:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }));
-
-      return function (_x4) {
-        return _ref6.apply(this, arguments);
-      };
-    }();
-
-    socket.onclose = function (event) {
-      if (!event || event.code != 1000) {
-        setTimeout(function () {
-          return openSolanaPayTransactionSocket(secretId, selectedPaymentOption);
-        }, 1000);
-      }
-    };
-
-    socket.onmessage = function (event) {
-      var item = JSON.parse(event.data);
-
-      if (item.type === "ping" || !item.message) {
-        return;
-      }
-
-      if (item.message.created === true) {
-        traceAndContinue(secretId, selectedPaymentOption, "solana:https://public.depay.com/solana/".concat(secretId));
-      } else if (item.message.scanned) {
-        setClosable("Are you sure you want to abort this payment?");
-        setState('pay');
-      } else if (item.message.account) {
-        trackTransaction(item.message);
-        setClosable("Are you sure you want to abort this payment?");
-        setState('pay');
-      }
-    };
-
-    socket.onerror = function (error) {
-      console.log('WebSocket Error: ', error);
-    };
-  };
-
-  var openTransactionTrackingSocket = function openTransactionTrackingSocket(_ref7) {
-    var account = _ref7.account,
-        nonce = _ref7.nonce;
-
-    if (transactionTrackingSocket) {
-      transactionTrackingSocket.close();
-    }
-
-    var socket = new WebSocket(Blockchains.solana.sockets[Math.floor(Math.random() * Blockchains.solana.sockets.length)]);
-    setTransactionTrackingSocket(socket);
-
-    socket.onopen = /*#__PURE__*/function () {
-      var _ref8 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(event) {
-        return regenerator.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                _context4.next = 2;
-                return socket.send(JSON.stringify({
-                  "jsonrpc": "2.0",
-                  "id": 1,
-                  "method": "logsSubscribe",
-                  "params": [{
-                    "mentions": [account]
-                  }, {
-                    "commitment": "processed"
-                  }]
-                }));
-
-              case 2:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }));
-
-      return function (_x5) {
-        return _ref8.apply(this, arguments);
-      };
-    }();
-
-    socket.onclose = function (event) {
-      if (!event || event.code != 1000) {
-        setTimeout(function () {
-          return openTransactionTrackingSocket({
-            account: account,
-            nonce: nonce
-          });
-        }, 1000);
-      }
-    };
-
-    socket.onmessage = function (event) {
-      if (event && event.data) {
-        var _data$params, _data$params$result;
-
-        var data = JSON.parse(event.data);
-
-        if (data && data !== null && data !== void 0 && (_data$params = data.params) !== null && _data$params !== void 0 && (_data$params$result = _data$params.result) !== null && _data$params$result !== void 0 && _data$params$result.value) {
-          var _data$params2, _data$params2$result;
-
-          var result = data === null || data === void 0 ? void 0 : (_data$params2 = data.params) === null || _data$params2 === void 0 ? void 0 : (_data$params2$result = _data$params2.result) === null || _data$params2$result === void 0 ? void 0 : _data$params2$result.value;
-
-          if (result && result.err === null) {
-            setState('succeeded');
-            setTransaction({
-              status: 'succeeded',
-              id: result.signature,
-              url: Blockchains.solana.explorerUrlFor({
-                transaction: {
-                  id: result.signature
-                }
-              }),
-              from: account,
-              nonce: nonce,
-              deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 1000 // 10 minutes
-
-            });
-          } else if (result) {
-            setState('failed');
-            setTransaction({
-              status: 'failed',
-              id: result.signature,
-              url: Blockchains.solana.explorerUrlFor({
-                transaction: {
-                  id: result.signature
-                }
-              }),
-              from: account,
-              nonce: nonce,
-              deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 1000 // 10 minutes
-
-            });
-          }
-        }
-      }
-    };
-
-    socket.onerror = function (error) {
-      console.log('WebSocket Error: ', error);
-    };
-  };
-
-  var openPaymentValidationSocket = function openPaymentValidationSocket(transaction) {
-    if (paymentValidationSocket) {
-      paymentValidationSocket.close();
-    }
-
-    var socket = new WebSocket('wss://integrate.depay.com/cable');
-    setPaymentValidationSocket(socket);
-
-    socket.onopen = /*#__PURE__*/function () {
-      var _ref9 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(event) {
-        var msg;
-        return regenerator.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                msg = {
-                  command: 'subscribe',
-                  identifier: JSON.stringify({
-                    blockchain: 'solana',
-                    sender: transaction.from,
-                    nonce: transaction.nonce,
-                    channel: 'PaymentChannel'
-                  })
-                };
-                socket.send(JSON.stringify(msg));
-
-              case 2:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5);
-      }));
-
-      return function (_x6) {
-        return _ref9.apply(this, arguments);
-      };
-    }();
-
-    socket.onclose = function (event) {
-      if (!event || event.code != 1000) {
-        setTimeout(function () {
-          return openPaymentValidationSocket(transaction);
-        }, 1000);
-      }
-    };
-
-    socket.onmessage = function (event) {
-      var item = JSON.parse(event.data);
-
-      if (item.type === "ping" || !item.message) {
-        return;
-      }
-
-      var success = item.message.status === 'success';
-
-      if (validated) {
-        setTimeout(function () {
-          return validated(success, transaction);
-        }, 200);
-      }
-
-      if (item.message.release) {
-        socket.close();
-
-        if (success) {
-          setRelease(true);
-          setClosable(true);
-          setForwardTo(item.message.forward_to);
-
-          if (!!item.message.forward_to) {
-            setTimeout(function () {
-              props.document.location.href = item.message.forward_to;
-            }, 200);
-          }
-        } else if (success == false) {
-          setClosable(true);
-          setState('failed');
-        }
-      }
-    };
-
-    socket.onerror = function (error) {
-      console.log('WebSocket Error: ', error);
-    };
-  };
-
-  var pollStatus = function pollStatus(transaction) {
-    var payment = {
-      blockchain: 'solana',
-      transaction: transaction.id,
-      sender: transaction.from,
-      nonce: transaction.nonce,
-      after_block: afterBlock.toString(),
-      to_token: selectedPaymentOption.token
-    };
-
-    var handlePollingResponse = function handlePollingResponse(data) {
-      if (data) {
-        if (data && data.forward_to) {
-          setClosable(true);
-          setForwardTo(data.forward_to);
-          setTimeout(function () {
-            props.document.location.href = data.forward_to;
-          }, 200);
-        } else {
-          setClosable(true);
-        }
-
-        clearInterval(pollingInterval);
-
-        if (validated) {
-          validated(true, transaction);
-        }
-
-        setRelease(true);
-      }
-    };
-
-    if (track.poll.endpoint) {
-      fetch(track.poll.endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payment)
-      }).then(function (response) {
-        if (response.status == 200 || response.status == 201) {
-          return response.json()["catch"](function () {
-            setClosable(true);
-          });
-        } else {
-          return undefined;
-        }
-      }).then(handlePollingResponse);
-    } else if (track.poll.method) {
-      track.poll.method(payment).then(handlePollingResponse);
-    }
-  };
-
-  var startPollingPaymentStatus = function startPollingPaymentStatus(transaction) {
-    if (polling) {
-      setPollingPaymentStatusInterval(setInterval(function () {
-        pollStatus(transaction);
-      }, 5000));
-    }
-  };
-
-  var trackTransaction = function trackTransaction(_ref10) {
-    var account = _ref10.account,
-        nonce = _ref10.nonce;
-    openTransactionTrackingSocket({
-      account: account,
-      nonce: nonce
-    });
-    setTransactionTrackingInterval(setInterval( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee7() {
-      var provider, signatures, relevantTransactions;
-      return regenerator.wrap(function _callee7$(_context7) {
-        while (1) {
-          switch (_context7.prev = _context7.next) {
-            case 0:
-              _context7.next = 2;
-              return getProvider('solana');
-
-            case 2:
-              provider = _context7.sent;
-              _context7.next = 5;
-              return provider.getSignaturesForAddress(new PublicKey(account));
-
-            case 5:
-              signatures = _context7.sent;
-
-              if (!(signatures && signatures.length && signatures[0].slot > afterBlock)) {
-                _context7.next = 11;
-                break;
-              }
-
-              relevantTransactions = signatures.filter(function (signature) {
-                return signature.slot > afterBlock;
-              });
-              _context7.next = 10;
-              return Promise.all(relevantTransactions.map( /*#__PURE__*/function () {
-                var _ref12 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(relevantTransaction) {
-                  var fullTransactionData, foundRouterInstruction;
-                  return regenerator.wrap(function _callee6$(_context6) {
-                    while (1) {
-                      switch (_context6.prev = _context6.next) {
-                        case 0:
-                          _context6.next = 2;
-                          return provider.getTransaction(relevantTransaction.signature, {
-                            commitment: 'confirmed',
-                            maxSupportedTransactionVersion: 0
-                          });
-
-                        case 2:
-                          fullTransactionData = _context6.sent;
-                          foundRouterInstruction = getPaymentRouterInstruction(fullTransactionData);
-
-                          if (foundRouterInstruction && foundRouterInstruction.nonce.toString() === nonce.toString()) {
-                            if (fullTransactionData.meta.err === null) {
-                              setState('succeeded');
-                              setTransaction({
-                                status: 'succeeded',
-                                id: fullTransactionData.transaction.signatures[0],
-                                url: Blockchains.solana.explorerUrlFor({
-                                  transaction: {
-                                    id: fullTransactionData.transaction.signatures[0]
-                                  }
-                                }),
-                                from: account,
-                                nonce: nonce,
-                                deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 1000 // 10 minutes
-
-                              });
-                            } else {
-                              setState('failed');
-                              setTransaction({
-                                status: 'failed',
-                                id: fullTransactionData.transaction.signatures[0],
-                                url: Blockchains.solana.explorerUrlFor({
-                                  transaction: {
-                                    id: fullTransactionData.transaction.signatures[0]
-                                  }
-                                }),
-                                from: account,
-                                nonce: nonce,
-                                deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 1000 // 10 minutes
-
-                              });
-                            }
-                          }
-
-                        case 5:
-                        case "end":
-                          return _context6.stop();
-                      }
-                    }
-                  }, _callee6);
-                }));
-
-                return function (_x7) {
-                  return _ref12.apply(this, arguments);
-                };
-              }()));
-
-            case 10:
-
-            case 11:
-            case "end":
-              return _context7.stop();
-          }
-        }
-      }, _callee7);
-    })), 1000));
-  };
-
-  var traceAndContinue = /*#__PURE__*/function () {
-    var _ref13 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee9(secretId, selectedPaymentOption, QRCodeURI) {
-      return regenerator.wrap(function _callee9$(_context9) {
-        while (1) {
-          switch (_context9.prev = _context9.next) {
-            case 0:
-              sendTrace({
-                secretId: secretId,
-                selectedPaymentOption: selectedPaymentOption
-              }).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee8() {
-                var newQRCode;
-                return regenerator.wrap(function _callee8$(_context8) {
-                  while (1) {
-                    switch (_context8.prev = _context8.next) {
-                      case 0:
-                        setQRCodeURI(QRCodeURI);
-                        newQRCode = getNewQRCode();
-                        newQRCode.update({
-                          data: QRCodeURI
-                        });
-                        setQRCode(newQRCode);
-
-                      case 4:
-                      case "end":
-                        return _context8.stop();
-                    }
-                  }
-                }, _callee8);
-              })))["catch"](function (error) {
-                console.log('Tracing error:', error);
-                setState('tracingFailed');
-              });
-              return _context9.abrupt("return", {
-                afterBlock: afterBlock
-              });
-
-            case 2:
-            case "end":
-              return _context9.stop();
-          }
-        }
-      }, _callee9);
-    }));
-
-    return function traceAndContinue(_x8, _x9, _x10) {
-      return _ref13.apply(this, arguments);
-    };
-  }();
-
-  var storePayment = /*#__PURE__*/function () {
-    var _ref15 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee10(transaction) {
-      return regenerator.wrap(function _callee10$(_context10) {
-        while (1) {
-          switch (_context10.prev = _context10.next) {
-            case 0:
-              fetch('https://public.depay.com/payments', {
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                body: JSON.stringify({
-                  blockchain: 'solana',
-                  transaction: transaction.id,
-                  sender: transaction.from,
-                  nonce: transaction.nonce,
-                  receiver: selectedPaymentOption.receiver,
-                  token: selectedPaymentOption.token,
-                  amount: ethers.utils.formatUnits(selectedPaymentOption.toAmountBN, selectedPaymentOption.decimals),
-                  confirmations: 1,
-                  after_block: afterBlock.toString(),
-                  uuid: transaction.id,
-                  payload: {
-                    sender_id: transaction.from,
-                    sender_token_id: selectedPaymentOption.token,
-                    sender_amount: ethers.utils.formatUnits(selectedPaymentOption.fromAmountBN, selectedPaymentOption.decimals),
-                    integration: integration,
-                    link: link,
-                    type: type
-                  },
-                  fee_amount: selectedPaymentOption.fee ? ethers.utils.formatUnits(selectedPaymentOption.feeAmountBN, selectedPaymentOption.decimals) : null,
-                  fee_receiver: selectedPaymentOption.fee ? selectedPaymentOption.fee.receiver : null,
-                  deadline: transaction.deadline
-                })
-              }).then(function (response) {
-                if (response.status == 200 || response.status == 201) ; else {
-                  setTimeout(function () {
-                    storePayment(transaction);
-                  }, 3000);
-                }
-              })["catch"](function (error) {
-                setTimeout(function () {
-                  storePayment(transaction);
-                }, 3000);
-              });
-
-            case 1:
-            case "end":
-              return _context10.stop();
-          }
-        }
-      }, _callee10);
-    }));
-
-    return function storePayment(_x11) {
-      return _ref15.apply(this, arguments);
-    };
-  }();
-
-  useEffect(function () {
-    request({
-      blockchain: 'solana',
-      method: 'latestBlockNumber'
-    }).then(setAfterBlock);
-  }, []);
-  useEffect(function () {
-    if (afterBlock) {
-      Promise.all(accept.filter(function (configuration) {
-        return configuration.blockchain === 'solana';
-      }).map(function (configuration) {
-        var token = new Token({
-          blockchain: configuration.blockchain,
-          address: configuration.token
-        });
-        return Promise.all([Promise.resolve(configuration), token.symbol(), token.name(), token.decimals()]);
-      })).then(function (options) {
-        return options.map(function (option) {
-          return _objectSpread$1(_objectSpread$1({}, option[0]), {}, {
-            symbol: option[1],
-            name: option[2],
-            decimals: option[3]
-          });
-        });
-      }).then(function (paymentOptions) {
-        setPaymentOptions(paymentOptions);
-      });
-    }
-  }, [afterBlock]);
-  useEffect(function () {
-    return function () {
-      if (solanaPayTransactionSocket) {
-        solanaPayTransactionSocket.close();
-      }
-    };
-  }, [solanaPayTransactionSocket]);
-  useEffect(function () {
-    return function () {
-      if (transactionTrackingSocket) {
-        transactionTrackingSocket.close();
-      }
-    };
-  }, [transactionTrackingSocket]);
-  useEffect(function () {
-    return function () {
-      if (paymentValidationSocket) {
-        paymentValidationSocket.close();
-      }
-    };
-  }, [paymentValidationSocket]);
-  useEffect(function () {
-    return function () {
-      if (transactionTrackingInterval) {
-        clearInterval(transactionTrackingInterval);
-      }
-    };
-  }, [transactionTrackingInterval]);
-  useEffect(function () {
-    return function () {
-      if (pollingPaymentStatusInterval) {
-        clearInterval(pollingPaymentStatusInterval);
-      }
-    };
-  }, [pollingPaymentStatusInterval]);
-  useEffect(function () {
-    if (afterBlock && QRCode) {
-      setState('scan');
-    }
-  }, [afterBlock && QRCode]);
-  useEffect(function () {
-    if (state === 'scan' && QRCode && QRCodeElement && QRCodeElement.current) {
-      QRCodeElement.current.innerHTML = "";
-      QRCode.append(QRCodeElement.current);
-    }
-  }, [state, QRCode]);
-  useEffect(function () {
-    if (transaction && ['succeeded', 'failed'].includes(state) && paymentValidationSocket === undefined) {
-      setClosable(!isTracking);
-      setRelease(!isTracking);
-      storePayment(transaction);
-
-      if (transactionTrackingSocket) {
-        transactionTrackingSocket.close();
-      }
-
-      if (transactionTrackingInterval) {
-        clearInterval(transactionTrackingInterval);
-      }
-
-      if (synchronousTracking) {
-        openPaymentValidationSocket(transaction);
-        startPollingPaymentStatus(transaction);
-      }
-
-      sendTrack({
-        transaction: transaction
-      });
-    }
-  }, [transaction, state, paymentValidationSocket]);
-
-  if (state === 'trackingFailed') {
-    return /*#__PURE__*/React.createElement(Dialog$1, {
-      stacked: false,
-      header: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }),
-      body: /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "GraphicWrapper"
-      }, /*#__PURE__*/React.createElement("img", {
-        className: "Graphic",
-        src: ErrorGraphic
-      })), /*#__PURE__*/React.createElement("h1", {
-        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Tracking payment failed"), /*#__PURE__*/React.createElement("div", {
-        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/React.createElement("strong", {
-        className: "FontSizeM"
-      }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopS"
-      }, /*#__PURE__*/React.createElement("span", null, "If this keeps happening, please report it.")))),
-      footer: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-      }, /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary",
-        onClick: function onClick() {
-          setState(transaction.status);
-          sendTrack({
-            transaction: transaction
-          });
-        }
-      }, "Try again"))
-    });
-  }
-
-  if (state === 'tracingFailed') {
-    return /*#__PURE__*/React.createElement(Dialog$1, {
-      stacked: false,
-      header: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }),
-      body: /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "GraphicWrapper"
-      }, /*#__PURE__*/React.createElement("img", {
-        className: "Graphic",
-        src: ErrorGraphic
-      })), /*#__PURE__*/React.createElement("h1", {
-        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Tracking payment failed"), /*#__PURE__*/React.createElement("div", {
-        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/React.createElement("strong", {
-        className: "FontSizeM"
-      }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopS"
-      }, /*#__PURE__*/React.createElement("span", null, "If this keeps happening, please report it.")))),
-      footer: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-      }, /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary",
-        onClick: function onClick() {
-          setState('wait');
-          traceAndContinue(secretId, selectedPaymentOption, "solana:https://public.depay.com/solana/".concat(secretId));
-        }
-      }, "Try again"))
-    });
-  }
-
-  if (state === 'failed') {
-    return /*#__PURE__*/React.createElement(Dialog$1, {
-      stacked: false,
-      header: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }),
-      body: /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "GraphicWrapper"
-      }, /*#__PURE__*/React.createElement("img", {
-        className: "Graphic",
-        src: ErrorGraphic
-      })), /*#__PURE__*/React.createElement("h1", {
-        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Payment Failed"), /*#__PURE__*/React.createElement("div", {
-        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/React.createElement("strong", {
-        className: "FontSizeM"
-      }, "Unfortunately executing your payment failed, but you can try again."), transaction && /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopS"
-      }, /*#__PURE__*/React.createElement("a", {
-        className: "Link",
-        title: "Check your transaction on a block explorer",
-        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-        target: "_blank",
-        rel: "noopener noreferrer"
-      }, "View details")))),
-      footer: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-      }, /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary",
-        onClick: function onClick() {
-          return close();
-        }
-      }, "Try again"))
-    });
-  }
-
-  if (!paymentOptions) {
-    return /*#__PURE__*/React.createElement(Dialog$1, {
-      header: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-        className: "LineHeightL FontSizeL TextLeft"
-      }, /*#__PURE__*/React.createElement("img", {
-        src: LOGO,
-        className: "SolanaPayLogo",
-        alt: "Solana Pay",
-        title: "Solana Pay"
-      })))),
-      body: /*#__PURE__*/React.createElement("div", {
-        className: "MaxHeight"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "PaddingLeftM PaddingRightM"
-      }, accept.filter(function (configuration) {
-        return configuration.blockchain === 'solana';
-      }).map(function (configuration, index) {
-        return /*#__PURE__*/React.createElement("div", {
-          className: "Card Skeleton",
-          key: index
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "SkeletonBackground"
-        }));
-      })))
-    });
-  } else {
-    return /*#__PURE__*/React.createElement(Dialog$1, {
-      header: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-        className: "LineHeightL FontSizeL TextLeft"
-      }, /*#__PURE__*/React.createElement("img", {
-        src: LOGO,
-        className: "SolanaPayLogo",
-        alt: "Solana Pay",
-        title: "Solana Pay"
-      })))),
-      body: /*#__PURE__*/React.createElement("div", {
-        className: "".concat(['select'].includes(state) ? 'MaxHeight' : '')
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "PaddingLeftM PaddingRightM"
-      }, state === 'select' && paymentOptions && /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopXS"
-      }, paymentOptions.map(function (paymentOption, index) {
-        return /*#__PURE__*/React.createElement("div", {
-          className: "Card",
-          key: index,
-          onClick: function onClick() {
-            return selectPaymentOption(paymentOption);
-          }
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "CardImage"
-        }, /*#__PURE__*/React.createElement(TokenImage, {
-          blockchain: paymentOption.blockchain,
-          address: paymentOption.token
-        }), /*#__PURE__*/React.createElement("img", {
-          className: "BlockchainLogo small bottomRight " + Blockchains[paymentOption.blockchain].name,
-          style: {
-            backgroundColor: blockchain.logoBackgroundColor
-          },
-          src: Blockchains[paymentOption.blockchain].logo,
-          alt: Blockchains[paymentOption.blockchain].label,
-          title: Blockchains[paymentOption.blockchain].label
-        })), /*#__PURE__*/React.createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "CardBodyWrapper"
-        }, /*#__PURE__*/React.createElement("h2", {
-          className: "CardText"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "TokenAmountRow"
-        }, /*#__PURE__*/React.createElement("span", {
-          className: "TokenAmountCell"
-        }, format(paymentOption.amount)), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
-          className: "TokenSymbolCell"
-        }, paymentOption.symbol))))));
-      })), state === 'wait' && /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter PaddingTopS"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Skeleton",
-        style: {
-          display: "inline-block",
-          borderRadius: "18px",
-          width: "305px",
-          height: "305px"
-        }
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "SkeletonBackground"
-      }))), state === 'scan' && /*#__PURE__*/React.createElement("div", {
-        ref: QRCodeElement,
-        className: "QRCode"
-      }), ['pay', 'succeeded', 'failed'].includes(state) && /*#__PURE__*/React.createElement("div", {
-        className: "Card disabled"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement(TokenImage, {
-        blockchain: selectedPaymentOption.blockchain,
-        address: selectedPaymentOption.token
-      }), /*#__PURE__*/React.createElement("img", {
-        className: "BlockchainLogo small bottomRight " + Blockchains[selectedPaymentOption.blockchain].name,
-        style: {
-          backgroundColor: blockchain.logoBackgroundColor
-        },
-        src: Blockchains[selectedPaymentOption.blockchain].logo,
-        alt: Blockchains[selectedPaymentOption.blockchain].label,
-        title: Blockchains[selectedPaymentOption.blockchain].label
-      })), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React.createElement("h2", {
-        className: "CardText"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "TokenAmountRow"
-      }, /*#__PURE__*/React.createElement("span", {
-        className: "TokenAmountCell"
-      }, format(selectedPaymentOption.amount)), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
-        className: "TokenSymbolCell"
-      }, selectedPaymentOption.symbol)))))))),
-      footer: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingRightM PaddingLeftM PaddingBottomM"
-      }, state === 'select' && /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05 PaddingBottomXS PaddingTopS"
-      }, /*#__PURE__*/React.createElement("small", null, "Select a payment option to continue")), state === 'wait' && /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05 PaddingBottomXS PaddingTopS"
-      }, /*#__PURE__*/React.createElement("small", null, "Loading QR code...")), state === 'scan' && /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05 PaddingBottomXS PaddingTopS"
-      }, /*#__PURE__*/React.createElement("small", null, "Scan QR code with your wallet")), state === 'pay' && /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopXS"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Card transparent disabled small"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter Opacity05"
-      }, /*#__PURE__*/React.createElement(DigitalWalletIcon, {
-        className: "small"
-      }))), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05"
-      }, "Confirm payment in your wallet"))))), /*#__PURE__*/React.createElement("a", {
-        className: "ButtonPrimary ".concat(transaction !== null && transaction !== void 0 && transaction.url ? '' : 'disabled'),
-        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-        target: "_blank",
-        rel: "noopener noreferrer"
-      }, /*#__PURE__*/React.createElement(LoadingText, null, "Paying"))), state === 'succeeded' && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopXS"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
-      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
-        className: "Card transparent small",
-        title: "Transaction has been confirmed by the network",
-        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-        target: "_blank",
-        rel: "noopener noreferrer"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter Opacity05"
-      }, /*#__PURE__*/React.createElement(Checkmark, {
-        className: "small"
-      }))), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05"
-      }, "Transaction confirmed"))))), synchronousTracking && !release && /*#__PURE__*/React.createElement("div", {
-        className: "Card transparent small disabled"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Loading Icon"
-      }))), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05"
-      }, "Validating payment")))), synchronousTracking && release && /*#__PURE__*/React.createElement("div", {
-        className: "Card transparent small disabled"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter Opacity05"
-      }, /*#__PURE__*/React.createElement(Checkmark, {
-        className: "small"
-      }))), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05"
-      }, "Payment validated"))))), !release && /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary disabled"
-      }, "Continue"), release && forwardTo && /*#__PURE__*/React.createElement("a", {
-        className: "ButtonPrimary",
-        href: forwardTo,
-        rel: "noopener noreferrer"
-      }, "Continue"), release && !forwardTo && /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary",
-        onClick: close
-      }, "Close"))))
-    });
-  }
-});
-
+var SolanaPayDialog = function SolanaPayDialog(props) {
+  return null;
+};
 var SolanaPayStack = (function (props) {
   var _useContext = useContext(ClosableContext),
       open = _useContext.open,
@@ -31406,4 +29969,4 @@ var DePayWidgets = {
 };
 
 export { DePayWidgets as default };
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.evm.js.map

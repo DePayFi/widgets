@@ -7,7 +7,7 @@ import Blockchains from '@depay/web3-blockchains'
 import { mock, confirm, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 describe('Payment Widget: connected callback', () => {
 

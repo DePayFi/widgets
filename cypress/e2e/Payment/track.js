@@ -9,7 +9,7 @@ import { mock, confirm, increaseBlock, resetMocks, anything } from '@depay/web3-
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Server } from 'mock-socket'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 describe('Payment Widget: track', () => {
 

@@ -9,7 +9,7 @@ import { PublicKey } from '@depay/solana-web3.js'
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers } from '@depay/web3-payments'
 import { Server } from 'mock-socket'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 describe('Solana Pay: QR code based mobile handover', () => {
 

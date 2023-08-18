@@ -1,17 +1,17 @@
 /*#if _EVM
 
-import { route } from '@depay/web3-exchanges-evm'
-import { Token } from '@depay/web3-tokens-evm'
+import Exchanges from '@depay/web3-exchanges-evm'
+import Token from '@depay/web3-tokens-evm'
 
 /*#elif _SOLANA
 
-import { route } from '@depay/web3-exchanges-solana'
-import { Token } from '@depay/web3-tokens-solana'
+import Exchanges from '@depay/web3-exchanges-solana'
+import Token from '@depay/web3-tokens-solana'
 
 //#else */
 
-import { route } from '@depay/web3-exchanges'
-import { Token } from '@depay/web3-tokens'
+import Exchanges from '@depay/web3-exchanges'
+import Token from '@depay/web3-tokens'
 
 //#endif
 
@@ -72,7 +72,7 @@ export default (props)=>{
             if(Blockchains[configuration.blockchain].stables.usd[0] == configuration.token) {
               return 1.00/fixedCurrencyConversionRate * fixedAmount
             } else {
-              return route({
+              return Exchanges.route({
                 blockchain: configuration.blockchain,
                 tokenIn: Blockchains[configuration.blockchain].stables.usd[0],
                 amountIn: (1.00/fixedCurrencyConversionRate) * fixedAmount,
@@ -85,7 +85,7 @@ export default (props)=>{
             if(Blockchains[configuration.blockchain].stables.usd[0] == configuration.token) {
               return 1.00/conversionRate * amount
             } else {
-              return route({
+              return Exchanges.route({
                 blockchain: configuration.blockchain,
                 tokenIn: Blockchains[configuration.blockchain].stables.usd[0],
                 amountIn: (1.00/conversionRate) * amount,
@@ -139,7 +139,7 @@ export default (props)=>{
       maxRoute.fromToken.readable(maxRoute.fromBalance)
         .then((readableMaxAmount)=>{
           if(configuredAmount && configuredAmount.token) {
-            route({
+            Exchanges.route({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,
               tokenOut: maxRoute.toToken.address,
@@ -173,7 +173,7 @@ export default (props)=>{
             )
             setMaxAmount(maxAmount > 10 ? Math.round(maxAmount-1) : maxAmount-1)
           } else {
-            route({
+            Exchanges.route({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,
               tokenOut: Blockchains[maxRoute.blockchain].stables.usd[0],

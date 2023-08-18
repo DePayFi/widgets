@@ -1,16 +1,16 @@
 /*#if _EVM
 
-import { Token } from '@depay/web3-tokens-evm'
+import Token from '@depay/web3-tokens-evm'
 import { TokenImage } from '@depay/react-token-image-evm'
 
 /*#elif _SOLANA
 
-import { Token } from '@depay/web3-tokens-solana'
+import Token from '@depay/web3-tokens-solana'
 import { TokenImage } from '@depay/react-token-image-solana'
 
 //#else */
 
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 import { TokenImage } from '@depay/react-token-image'
 
 //#endif

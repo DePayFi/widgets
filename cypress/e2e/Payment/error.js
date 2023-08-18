@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom'
 import Blockchains from '@depay/web3-blockchains'
 import { mock, resetMocks } from '@depay/web3-mock'
 import { getProvider, resetCache } from '@depay/web3-client'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 describe('Payment Widget: errors', () => {
   
