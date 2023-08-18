@@ -10,22 +10,22 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@uiw/copy-to-clipboard/dist/copy-to-clipboard.umd.js"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/solana-web3.js@1.25.1"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/solana-web3.js@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/local-currency@3"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog@14.1.1"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@8.1.1"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog@14"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@8"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-shadow-dom@5"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@8.3.0"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@9.0.2"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@10"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@9"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@4"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@10"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@4.14.2"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/coinbase-wallet-sdk@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v1@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v2@2"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@16.0.9"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-assets@6"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@12"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@12"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@16"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-assets@7"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@13"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@13.0.1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/qr-code-styling@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/fuse.js@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-rangeslider@2/umd/rangeslider.js"></script>
@@ -71,6 +71,11 @@
                       <option value='bsc'>BNB Smart Chain</option>
                       <option value='polygon'>Polygon</option>
                       <option value='solana'>Solana</option>
+                      <option value='optimism'>Optimism</option>
+                      <option value='arbitrum'>Arbitrum</option>
+                      <option value='fantom'>Fantom</option>
+                      <option value='avalanche'>Avalanche</option>
+                      <option value='gnosis'>Gnosis</option>
                     </select>
                   </div>
                   <div class="col col-4">
@@ -156,6 +161,36 @@
                           amount: 0.001,
                           token: '11111111111111111111111111111111',
                           receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk'
+                        },
+                        {
+                          blockchain: 'optimism',
+                          amount: 0.001,
+                          token: '0x94b008aA00579c1307B0EF2c499aD98a8ce58e58',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },
+                        {
+                          blockchain: 'arbitrum',
+                          amount: 0.001,
+                          token: '0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },
+                        {
+                          blockchain: 'fantom',
+                          amount: 0.001,
+                          token: '0x28a92dde19D9989F39A49905d7C9C2FAc7799bDf',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },
+                        {
+                          blockchain: 'avalanche',
+                          amount: 0.001,
+                          token: '0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },
+                        {
+                          blockchain: 'gnosis',
+                          amount: 0.001,
+                          token: '0x4ECaBa5870353805a9F068101A40E0f32ed605C6',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
                         },
                       ]
                     });

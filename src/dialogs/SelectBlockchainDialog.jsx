@@ -27,7 +27,7 @@ export default (props)=> {
     return(
       <div key={ index } className="Card Row" onClick={ ()=>selectBlockchain(blockchain) }>
         <div className="CardImage">
-          <img className="transparent" src={blockchain.logo}/>
+          <img className="transparent BlockchainLogo" src={ blockchain.logo } style={{ backgroundColor: blockchain.logoBackgroundColor }}/>
         </div>
         <div className="CardBody">
           <span className="CardText">

@@ -208,12 +208,6 @@ export default (style)=>{
       box-shadow: none;
     }
     
-    .CardImage .BlockchainLogo {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-    }
-
     .CardTitle {
       font-size: 15px;
       color: rgb(150,150,150);

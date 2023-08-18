@@ -100,7 +100,7 @@ export default ()=> {
                           blockchain={ paymentOption.blockchain }
                           address={ paymentOption.token }
                         />
-                        <img className={"BlockchainLogo small " + Blockchains[paymentOption.blockchain].name} src={Blockchains[paymentOption.blockchain].logo} alt={Blockchains[paymentOption.blockchain].label} title={Blockchains[paymentOption.blockchain].label}/>
+                        <img className={"BlockchainLogo small bottomRight " + Blockchains[paymentOption.blockchain].name} style={{ backgroundColor: Blockchains[paymentOption.blockchain].logoBackgroundColor }} src={Blockchains[paymentOption.blockchain].logo} alt={Blockchains[paymentOption.blockchain].label} title={Blockchains[paymentOption.blockchain].label}/>
                       </div>
                       <div className="CardBody">
                         <div className="CardBodyWrapper">

@@ -1,7 +1,7 @@
 /*#if _EVM
 
-let supported = ['ethereum', 'bsc', 'polygon']
-supported.evm = ['ethereum', 'bsc', 'polygon']
+let supported = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'avalanche', 'gnosis', 'fantom']
+supported.evm = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'avalanche', 'gnosis', 'fantom']
 supported.solana = []
 
 /*#elif _SOLANA
@@ -12,8 +12,8 @@ supported.solana = ['solana']
 
 //#else */
 
-let supported = ['ethereum', 'bsc', 'polygon', 'solana']
-supported.evm = ['ethereum', 'bsc', 'polygon']
+let supported = ['ethereum', 'bsc', 'polygon', 'solana', 'arbitrum', 'optimism', 'avalanche', 'gnosis', 'fantom']
+supported.evm = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'avalanche', 'gnosis', 'fantom']
 supported.solana = ['solana']
 
 //#endif

@@ -301,7 +301,7 @@ export default (props)=> {
           <div className="PaddingTopS PaddingBottomXS">
             <div className="Card small" onClick={ onClickChangeBlockchain }>
               <div className="CardImage small">
-                <img className="transparent" src={ blockchain.logo }/>
+                <img className="transparent BlockchainLogo" src={ blockchain.logo } style={{ backgroundColor: blockchain.logoBackgroundColor }}/>
               </div>
               <div className="CardBody FontSizeM">
                 { blockchain.label }
