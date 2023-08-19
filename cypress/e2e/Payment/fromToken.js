@@ -119,17 +119,33 @@ describe('Payment Widget: fromToken, fromAmount, toToken configuration', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
+        delay: 16000,
         from: fromAddress,
         to: routers[blockchain].address,
         api: routers[blockchain].api,
-        method: 'route',
+        from: fromAddress,
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'pay',
         params: {
-          path: [DAI, WETH, DEPAY],
-          amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
-          addresses: [fromAddress, toAddress],
-          plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
-          data: []
-        }
+          payment: {
+            amountIn: TOKEN_B_AmountBN,
+            permit2: false,
+            paymentAmount: TOKEN_A_AmountBN,
+            feeAmount: 0,
+            tokenInAddress: DAI,
+            exchangeAddress: exchange.router.address,
+            tokenOutAddress: DEPAY,
+            paymentReceiverAddress: toAddress,
+            feeReceiverAddress: Blockchains[blockchain].zero,
+            exchangeType: 1,
+            receiverType: 0,
+            exchangeCallData: anything,
+            receiverCallData: Blockchains[blockchain].zero,
+            deadline: anything,
+          }
+        },
+        value: 0
       }
     })
 
@@ -142,7 +158,7 @@ describe('Payment Widget: fromToken, fromAmount, toToken configuration', () => {
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: "0",
+        nonce: "1",
         payload: {
           sender_amount: "33.0",
           sender_id: fromAddress,
@@ -157,6 +173,11 @@ describe('Payment Widget: fromToken, fromAmount, toToken configuration', () => {
       },
       matchPartialBody: true
     }, 201)
+
+    fetchMock.get({
+      url: `https://public.depay.com/transactions/${blockchain}/${fromAddress}/1`,
+      overwriteRoutes: true
+    }, { status: 404 })
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
@@ -173,15 +194,12 @@ describe('Payment Widget: fromToken, fromAmount, toToken configuration', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.grey').should('contain.text', '€28.05')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
           expect(mockedTransaction.calls.count()).to.equal(1)
           cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
           confirm(mockedTransaction)
-          cy.wait(1000).then(()=>{
+          cy.wait(20000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Transaction confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
