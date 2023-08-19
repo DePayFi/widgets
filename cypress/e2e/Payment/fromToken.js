@@ -157,7 +157,7 @@ describe('Payment Widget: fromToken, fromAmount, toToken configuration', () => {
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: "1",
+        nonce: "0",
         payload: {
           sender_amount: "33.0",
           sender_id: fromAddress,
@@ -198,7 +198,7 @@ describe('Payment Widget: fromToken, fromAmount, toToken configuration', () => {
           cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
           confirm(mockedTransaction)
-          cy.wait(20000).then(()=>{
+          cy.wait(2000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Transaction confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
