@@ -205,7 +205,7 @@ describe('Payment Widget: overview', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DEPAY')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell', '€28.05').should('contain', '€28.05')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardImage img[src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb/logo.png"]')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardImage img[src="https://depay.com/favicon.png"]')
         })
       })
     })
@@ -276,6 +276,14 @@ describe('Payment Widget: overview', () => {
     })
 
     it('stops updating prices once payment is sending', () => {
+      fetchMock.post({
+        url: "https://public.depay.com/payments",
+        body: {
+          blockchain: "ethereum",
+        },
+        matchPartialBody: true
+      }, 201)
+
       let mockedTransaction = mock({
         blockchain,
         transaction: {
@@ -283,14 +291,29 @@ describe('Payment Widget: overview', () => {
           from: fromAddress,
           to: routers[blockchain].address,
           api: routers[blockchain].api,
-          method: 'route',
+          from: fromAddress,
+          to: routers[blockchain].address,
+          api: routers[blockchain].api,
+          method: 'pay',
           params: {
-            path: [DAI, Blockchains[blockchain].wrapped.address, DEPAY],
-            amounts: [TOKEN_B_AmountBN, TOKEN_A_AmountBN, anything],
-            addresses: [fromAddress, toAddress],
-            plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
-            data: []
-          }
+            payment: {
+              amountIn: '33165000000000000000',
+              permit2: false,
+              paymentAmount: TOKEN_A_AmountBN,
+              feeAmount: 0,
+              tokenInAddress: DAI,
+              exchangeAddress: exchange.router.address,
+              tokenOutAddress: DEPAY,
+              paymentReceiverAddress: toAddress,
+              feeReceiverAddress: Blockchains[blockchain].zero,
+              exchangeType: 1,
+              receiverType: 0,
+              exchangeCallData: anything,
+              receiverCallData: Blockchains[blockchain].zero,
+              deadline: anything,
+            }
+          },
+          value: 0
         }
       })
 
