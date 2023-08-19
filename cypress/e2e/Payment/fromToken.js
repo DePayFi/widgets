@@ -119,7 +119,6 @@ describe('Payment Widget: fromToken, fromAmount, toToken configuration', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
-        delay: 16000,
         from: fromAddress,
         to: routers[blockchain].address,
         api: routers[blockchain].api,
