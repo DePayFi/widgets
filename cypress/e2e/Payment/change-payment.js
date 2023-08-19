@@ -129,7 +129,7 @@ describe('Payment Widget: change payment', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
           
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]').find('.CardImage img').invoke('attr', 'src').should('eq', 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb/logo.png')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]').find('.CardImage img').invoke('attr', 'src').should('eq', 'https://depay.com/favicon.png')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]').contains('.TokenAmountCell', '20').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]').contains('.TokenSymbolCell', 'DEPAY').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]').contains('.CardText small', '30').should('exist')
@@ -184,13 +184,24 @@ describe('Payment Widget: change payment', () => {
           from: fromAddress,
           to: routers[blockchain].address,
           api: routers[blockchain].api,
-          method: 'route',
+          method: 'pay',
           params: {
-            path: [ETH, DEPAY],
-            amounts: ['10100000000000000', TOKEN_A_AmountBN, anything],
-            addresses: [fromAddress, toAddress],
-            plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
-            data: []
+            payment: {
+              amountIn: '10100000000000000',
+              permit2: false,
+              paymentAmount: TOKEN_A_AmountBN,
+              feeAmount: 0,
+              tokenInAddress: ETH,
+              exchangeAddress: exchange.router.address,
+              tokenOutAddress: DEPAY,
+              paymentReceiverAddress: toAddress,
+              feeReceiverAddress: Blockchains[blockchain].zero,
+              exchangeType: 1,
+              receiverType: 0,
+              exchangeCallData: anything,
+              receiverCallData: Blockchains[blockchain].zero,
+              deadline: anything,
+            }
           },
           value: '10100000000000000'
         }

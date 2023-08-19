@@ -108,9 +108,6 @@ describe('Payment Widget: fee', () => {
         from: fromAddress,
         to: routers[blockchain].address,
         api: routers[blockchain].api,
-        from: fromAddress,
-        to: routers[blockchain].address,
-        api: routers[blockchain].api,
         method: 'pay',
         params: {
           payment: {
