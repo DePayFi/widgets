@@ -165,7 +165,7 @@ export default (props)=>{
             <div className="PaddingTopXS PaddingBottomXS TextLeft" style={{ height: "32px" }}>
               { !searching &&
                 <div>
-                  { allBestPaymentOptions.length &&
+                  { allBestPaymentOptions.length > 0 &&
                     <button 
                       type="button"
                       className={`Tab ${selectedTab === 'best' ? 'active' : ''}`}
@@ -187,7 +187,7 @@ export default (props)=>{
                       listElement.current.scrollTop = 0
                     }}
                   >Major</button>
-                  { allNativePaymentOptions.length &&
+                  { allNativePaymentOptions.length > 0 &&
                     <button
                       type="button"
                       className={`Tab ${selectedTab === 'native' ? 'active' : ''}`}
@@ -199,7 +199,7 @@ export default (props)=>{
                       }}
                     >Native</button>
                   }
-                  { allStablePaymentOptions.length &&
+                  { allStablePaymentOptions.length > 0 &&
                     <button
                       type="button"
                       className={`Tab ${selectedTab === 'stable' ? 'active' : ''}`}

@@ -117,6 +117,7 @@ describe('Payment Widget: blacklist', () => {
           })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
 
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').should('not.exist')
           

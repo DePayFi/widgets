@@ -129,6 +129,7 @@ describe('Payment Widget: approval', () => {
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
         cy.wait(1000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve use of DAI').click()
@@ -184,6 +185,7 @@ describe('Payment Widget: approval', () => {
       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
       cy.wait(500).then(()=>{ // wait for dialog
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve use of DAI').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Approving...').then(()=>{
@@ -216,6 +218,7 @@ describe('Payment Widget: approval', () => {
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve use of DAI').click()
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')

@@ -245,6 +245,7 @@ describe('Payment Widget: overview', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell', '€28.05').should('contain', '€28.05')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
           cy.wait(2000).then(()=>{
             let NEW_TOKEN_B_AmountBN = ethers.utils.parseUnits('35', 18)
@@ -325,6 +326,7 @@ describe('Payment Widget: overview', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.wait(2000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '33')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DAI')
