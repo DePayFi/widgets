@@ -124,7 +124,10 @@ export default (props)=> {
           <div className="PaddingTopS PaddingBottomS">
             <div className="Card small" onClick={ ()=>navigate('SelectBlockchain') }>
               <div className="CardImage small">
-                <img className="transparent" src={ Blockchains.findByName(selection?.blockchain?.name || selection?.blockchain || selection?.collection?.blockchain )?.logo }/>
+                <img className="transparent BlockchainLogo small"
+                  src={ Blockchains[selection?.blockchain?.name || selection?.blockchain || selection?.collection?.blockchain]?.logo }
+                  style={{ backgroundColor: Blockchains[selection?.blockchain?.name || selection?.blockchain || selection?.collection?.blockchain]?.logoBackgroundColor }}
+                />
               </div>
               <div className="CardBody FontSizeM">
                 { Blockchains.findByName(selection?.blockchain?.name|| selection?.blockchain || selection?.collection?.blockchain )?.label }

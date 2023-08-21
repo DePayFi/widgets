@@ -12,6 +12,12 @@ export default (style)=>{
       width: 100%;
     }
 
+    .Search.small {
+      padding: 4px 8px;
+      font-size: 16px;
+      border-radius: 6px;
+    }
+
     .Search::placeholder {
       color: rgb(180,180,180);
     } 

@@ -123,7 +123,7 @@ export default (props)=>{
           </div>
           <div 
             className={["Card", (paymentState == 'initialized' ? '' : 'disabled')].join(' ')}
-            title={paymentState == 'initialized' ? "Change payment" : undefined}
+            title={paymentState == 'initialized' ? "Payment options" : undefined}
             onClick={ ()=>{
               if(paymentState != 'initialized') { return }
               navigate('ChangePayment')

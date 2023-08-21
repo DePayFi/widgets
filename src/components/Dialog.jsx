@@ -31,7 +31,7 @@ export default (props)=>{
         { props.header }
       </div>
 
-      <div className={["DialogBody", props.bodyClassName].join(' ')}>
+      <div ref={ props.bodyRef } className={["DialogBody", props.bodyClassName].join(' ')}>
         { props.body }
       </div>
 

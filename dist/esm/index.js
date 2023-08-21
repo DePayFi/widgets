@@ -4809,9 +4809,9 @@ var allWallets = [{
   return wallet.blockchains.filter(Boolean).length > 0;
 });
 
-var ChevronLeft = (function () {
+var ChevronLeft$1 = (function (props) {
   return /*#__PURE__*/React.createElement("svg", {
-    className: "ChevronLeft Icon",
+    className: ["ChevronLeft", "Icon", props.className].filter(Boolean).join(' '),
     xmlns: "http://www.w3.org/2000/svg",
     width: "16",
     height: "16",
@@ -4867,7 +4867,7 @@ var Dialog$1 = (function (props) {
     },
     className: "ButtonCircular",
     title: "Go back"
-  }, /*#__PURE__*/React.createElement(ChevronLeft, null))), closable && props.closable !== false && /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement(ChevronLeft$1, null))), closable && props.closable !== false && /*#__PURE__*/React.createElement("div", {
     className: "DialogHeaderActionRight PaddingTopS PaddingLeftS PaddingRightS"
   }, props.alternativeHeaderAction, /*#__PURE__*/React.createElement("button", {
     type: "button",
@@ -4875,6 +4875,7 @@ var Dialog$1 = (function (props) {
     className: "ButtonCircular",
     title: "Close dialog"
   }, /*#__PURE__*/React.createElement(CloseIcon, null))), props.header), /*#__PURE__*/React.createElement("div", {
+    ref: props.bodyRef,
     className: ["DialogBody", props.bodyClassName].join(' ')
   }, props.body), props.footer !== false && /*#__PURE__*/React.createElement("div", {
     className: "DialogFooter"
@@ -23702,7 +23703,7 @@ var HeightStyle = (function () {
 });
 
 var IconStyle = (function (style) {
-  return "\n\n    .Icon {\n      fill: ".concat(style.colors.icons, ";\n      stroke: ").concat(style.colors.icons, ";\n    }\n\n    .QuestionMarkIcon {\n      fill: transparent;\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .AlertIcon {\n      height: 20px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 20px;\n      fill: #e42626;\n      stroke: transparent;\n    }\n\n    .CheckMark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      border-radius: 100%;\n      position: relative;\n      left: -1px;\n      width: 18px;\n      height: 18px;\n      animation: spin 1.5s linear infinite;\n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
+  return "\n\n    .Icon {\n      fill: ".concat(style.colors.icons, ";\n      stroke: ").concat(style.colors.icons, ";\n    }\n\n    .QuestionMarkIcon {\n      fill: transparent;\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .ChevronLeft.small, .ChevronRight.small {\n      height: 12px;\n      width: 12px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .AlertIcon {\n      height: 20px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 20px;\n      fill: #e42626;\n      stroke: transparent;\n    }\n\n    .CheckMark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      border-radius: 100%;\n      position: relative;\n      left: -1px;\n      width: 18px;\n      height: 18px;\n      animation: spin 1.5s linear infinite;\n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
 });
 
 var ImageStyle = (function (style) {
@@ -23750,7 +23751,7 @@ var ResetStyle = (function () {
 });
 
 var SearchStyle = (function (style) {
-  return "\n\n    .Search {\n      border-radius: 13px;\n      border: 1px solid rgba(0,0,0,0.2);\n      background: white;\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 13px;\n      width: 100%;\n    }\n\n    .Search::placeholder {\n      color: rgb(180,180,180);\n    } \n\n    .Search:focus, .Search:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n  ");
+  return "\n\n    .Search {\n      border-radius: 13px;\n      border: 1px solid rgba(0,0,0,0.2);\n      background: white;\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 13px;\n      width: 100%;\n    }\n\n    .Search.small {\n      padding: 4px 8px;\n      font-size: 16px;\n      border-radius: 6px;\n    }\n\n    .Search::placeholder {\n      color: rgb(180,180,180);\n    } \n\n    .Search:focus, .Search:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n  ");
 });
 
 var SkeletonStyle = (function () {
@@ -23759,6 +23760,10 @@ var SkeletonStyle = (function () {
 
 var TableStyle = (function (style) {
   return "\n\n    .Table {\n      border-collapse: separate;\n      border-radius: 7px;\n      border-style: hidden;\n      border: 1px solid rgba(0,0,0,0.1);\n      width: 100%;\n    }\n\n    .Table tr.small td {\n      font-size: 14px;\n    }\n\n    .Table tr td {\n      border-bottom: 1px solid rgba(0,0,0,0.1);\n      word-break: break-all;\n    }\n    \n    .Table tr:last-child td {\n      border-bottom: none;\n    }\n    \n    .Table tr td {\n      padding: 8px 15px;\n      text-align: left;\n    }\n    \n    .Table tr td:first-child {\n      width: 30%\n    }\n\n    .Table tr td:last-child {\n      width: 70%\n    }\n    \n    .Table .TableSubTitle {\n      font-weight: 300;\n      opacity: 0.7;\n    }\n\n    .Table tr td:last-child {\n      font-weight: 500;\n    }\n  ";
+});
+
+var TabStyle = (function (style) {
+  return "\n\n    .Tab {\n      padding: 3px 7px;\n      margin-right: 3px;\n      font-size: 17px;\n      border-radius: 4px;\n      cursor: pointer;\n    }\n\n    .Tab.active {\n      background: white;\n      box-shadow: 0 0 4px rgba(0,0,0,0.03);\n    }\n\n    .Tab:hover:not(.active) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Tab:active:not(.active) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 4px rgba(0,0,0,0.02);\n    }\n  ";
 });
 
 var TextButtonStyle = (function (style) {
@@ -23797,7 +23802,7 @@ var styleRenderer = (function (style) {
     }, ((_style = style) === null || _style === void 0 ? void 0 : _style.colors) || {}),
     fontFamily: ((_style2 = style) === null || _style2 === void 0 ? void 0 : _style2.fontFamily) || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
   };
-  return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
+  return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), TabStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
 });
 
 var mount = (function (_ref, content) {
@@ -25000,7 +25005,8 @@ var routePayments = (function (_ref) {
       whitelist = _ref.whitelist,
       blacklist = _ref.blacklist,
       fee = _ref.fee,
-      update = _ref.update;
+      update = _ref.update,
+      drip = _ref.drip;
   return route({
     accept: accept.map(function (accept) {
       return prepareAcceptedPayments(accept, receiver);
@@ -25008,9 +25014,9 @@ var routePayments = (function (_ref) {
     from: mergeFromAccounts(accept, account),
     whitelist: whitelist,
     blacklist: blacklist,
-    event: 'ifRoutedAndNative',
     fee: fee,
-    update: update
+    update: update,
+    drip: drip
   });
 });
 
@@ -25025,23 +25031,38 @@ var PaymentRoutingProvider = (function (props) {
 
   var _useState3 = useState(),
       _useState4 = _slicedToArray(_useState3, 2),
-      updatedRouteWithNewPrice = _useState4[0],
-      setUpdatedRouteWithNewPrice = _useState4[1];
+      updatedRoutes = _useState4[0],
+      setUpdatedRoutes = _useState4[1];
 
   var _useState5 = useState(),
       _useState6 = _slicedToArray(_useState5, 2),
-      selectedRoute = _useState6[0],
-      setSelectedRoute = _useState6[1];
+      updatedRouteWithNewPrice = _useState6[0],
+      setUpdatedRouteWithNewPrice = _useState6[1];
 
-  var _useState7 = useState(false),
+  var _useState7 = useState(),
       _useState8 = _slicedToArray(_useState7, 2),
-      slowRouting = _useState8[0],
-      setSlowRouting = _useState8[1];
+      selectedRoute = _useState8[0],
+      setSelectedRoute = _useState8[1];
 
-  var _useState9 = useState(0),
+  var _useState9 = useState(false),
       _useState10 = _slicedToArray(_useState9, 2),
-      reloadCount = _useState10[0],
-      setReloadCount = _useState10[1];
+      slowRouting = _useState10[0],
+      setSlowRouting = _useState10[1];
+
+  var _useState11 = useState(0),
+      _useState12 = _slicedToArray(_useState11, 2),
+      reloadCount = _useState12[0],
+      setReloadCount = _useState12[1];
+
+  var _useState13 = useState(false),
+      _useState14 = _slicedToArray(_useState13, 2),
+      allRoutesLoadedInternal = _useState14[0],
+      setAllRoutesLoadedInternal = _useState14[1];
+
+  var _useState15 = useState(false),
+      _useState16 = _slicedToArray(_useState15, 2),
+      allRoutesLoaded = _useState16[0],
+      setAllRoutesLoaded = _useState16[1];
 
   var _useContext = useContext(WalletContext),
       account = _useContext.account;
@@ -25053,120 +25074,72 @@ var PaymentRoutingProvider = (function (props) {
   var _useContext3 = useContext(ConfigurationContext),
       recover = _useContext3.recover;
 
-  var onRoutesUpdate = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(routes) {
-      return regenerator.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              if (routes.length == 0) {
-                setAllRoutes([]);
-
-                if (props.setMaxRoute) {
-                  props.setMaxRoute(null);
-                }
-              } else {
-                roundAmounts(routes).then( /*#__PURE__*/function () {
-                  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(roundedRoutes) {
-                    var selectRoute, updatedSelectedRoute;
-                    return regenerator.wrap(function _callee$(_context) {
-                      while (1) {
-                        switch (_context.prev = _context.next) {
-                          case 0:
-                            if (typeof selectedRoute == 'undefined') {
-                              selectRoute = roundedRoutes[0];
-                              setSelectedRoute(selectRoute);
-                            } else {
-                              updatedSelectedRoute = roundedRoutes[roundedRoutes.findIndex(function (route) {
-                                return route.fromToken.address == selectedRoute.fromToken.address && route.blockchain == selectedRoute.blockchain;
-                              })];
-
-                              if (updatedSelectedRoute) {
-                                if (selectedRoute.fromAmount != updatedSelectedRoute.fromAmount) {
-                                  setUpdatedRouteWithNewPrice(updatedSelectedRoute);
-                                } else if ( // other reasons but price to update selected route
-                                selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired) {
-                                  setSelectedRoute(updatedSelectedRoute);
-                                }
-                              } else {
-                                setSelectedRoute(roundedRoutes[0]);
-                              }
-                            }
-
-                            setAllRoutes(roundedRoutes);
-
-                            if (props.setMaxRoute) {
-                              props.setMaxRoute(findMaxRoute(roundedRoutes));
-                            }
-
-                          case 3:
-                          case "end":
-                            return _context.stop();
-                        }
-                      }
-                    }, _callee);
-                  }));
-
-                  return function (_x2) {
-                    return _ref2.apply(this, arguments);
-                  };
-                }());
-              }
-
-            case 1:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    return function onRoutesUpdate(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
   var getPaymentRoutes = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref3) {
-      var updatable, slowRoutingTimeout;
-      return regenerator.wrap(function _callee3$(_context3) {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+      var updatable, slowRoutingTimeout, firstRouteDisplayed;
+      return regenerator.wrap(function _callee$(_context) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context.prev = _context.next) {
             case 0:
-              updatable = _ref3.updatable;
+              updatable = _ref.updatable;
 
               if (!(updatable == false || !props.accept || !account)) {
-                _context3.next = 3;
+                _context.next = 3;
                 break;
               }
 
-              return _context3.abrupt("return");
+              return _context.abrupt("return");
 
             case 3:
               slowRoutingTimeout = setTimeout(function () {
                 setSlowRouting(true);
               }, 4000);
-              _context3.next = 6;
+              _context.next = 6;
               return routePayments(Object.assign({}, props, {
-                account: account
+                account: account,
+                drip: function drip(route) {
+                  if (route.fromToken.address !== route.toToken.address && !Blockchains[route.blockchain].tokens.find(function (token) {
+                    return token.address.toLowerCase() === route.fromToken.address.toLowerCase();
+                  })) {
+                    return;
+                  }
+
+                  if (firstRouteDisplayed) {
+                    return;
+                  }
+
+                  firstRouteDisplayed = true;
+
+                  if (allRoutesLoaded) {
+                    return;
+                  }
+
+                  if (route.approvalRequired) {
+                    return;
+                  }
+
+                  clearInterval(slowRoutingTimeout);
+                  setUpdatedRoutes([route]);
+                }
               })).then(function (routes) {
+                setUpdatedRoutes(routes);
+                setAllRoutesLoadedInternal(true);
                 clearInterval(slowRoutingTimeout);
-                onRoutesUpdate(routes);
               });
 
             case 6:
-              return _context3.abrupt("return", _context3.sent);
+              return _context.abrupt("return", _context.sent);
 
             case 7:
             case "end":
-              return _context3.stop();
+              return _context.stop();
           }
         }
-      }, _callee3);
+      }, _callee);
     }));
 
-    return function getPaymentRoutes(_x3) {
-      return _ref4.apply(this, arguments);
+    return function getPaymentRoutes(_x) {
+      return _ref2.apply(this, arguments);
     };
   }();
 
@@ -25175,34 +25148,79 @@ var PaymentRoutingProvider = (function (props) {
   };
 
   var roundAmount = /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(route, amountBN) {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(route, amountBN) {
       var readableAmount, roundedAmountBN;
+      return regenerator.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              if (!route.directTransfer) {
+                _context2.next = 2;
+                break;
+              }
+
+              return _context2.abrupt("return", route);
+
+            case 2:
+              _context2.next = 4;
+              return route.fromToken.readable(amountBN || route.fromAmount);
+
+            case 4:
+              readableAmount = _context2.sent;
+              _context2.next = 7;
+              return route.fromToken.BigNumber(round(readableAmount));
+
+            case 7:
+              roundedAmountBN = _context2.sent;
+              updateRouteAmount(route, roundedAmountBN);
+              return _context2.abrupt("return", route);
+
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function roundAmount(_x2, _x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  var roundAmounts = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(routes) {
+      return regenerator.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              return _context3.abrupt("return", Promise.all(routes.map(function (route) {
+                return roundAmount(route);
+              })));
+
+            case 1:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function roundAmounts(_x4) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+
+  var updateRouteWithNewPrice = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4() {
       return regenerator.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              if (!route.directTransfer) {
-                _context4.next = 2;
-                break;
-              }
-
-              return _context4.abrupt("return", route);
+              setSelectedRoute(_objectSpread$3({}, updatedRouteWithNewPrice));
+              setUpdatedRouteWithNewPrice(null);
 
             case 2:
-              _context4.next = 4;
-              return route.fromToken.readable(amountBN || route.fromAmount);
-
-            case 4:
-              readableAmount = _context4.sent;
-              _context4.next = 7;
-              return route.fromToken.BigNumber(round(readableAmount));
-
-            case 7:
-              roundedAmountBN = _context4.sent;
-              updateRouteAmount(route, roundedAmountBN);
-              return _context4.abrupt("return", route);
-
-            case 10:
             case "end":
               return _context4.stop();
           }
@@ -25210,60 +25228,15 @@ var PaymentRoutingProvider = (function (props) {
       }, _callee4);
     }));
 
-    return function roundAmount(_x4, _x5) {
-      return _ref5.apply(this, arguments);
-    };
-  }();
-
-  var roundAmounts = /*#__PURE__*/function () {
-    var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
-      return regenerator.wrap(function _callee5$(_context5) {
-        while (1) {
-          switch (_context5.prev = _context5.next) {
-            case 0:
-              return _context5.abrupt("return", Promise.all(routes.map(function (route) {
-                return roundAmount(route);
-              })));
-
-            case 1:
-            case "end":
-              return _context5.stop();
-          }
-        }
-      }, _callee5);
-    }));
-
-    return function roundAmounts(_x6) {
-      return _ref6.apply(this, arguments);
-    };
-  }();
-
-  var updateRouteWithNewPrice = /*#__PURE__*/function () {
-    var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6() {
-      return regenerator.wrap(function _callee6$(_context6) {
-        while (1) {
-          switch (_context6.prev = _context6.next) {
-            case 0:
-              setSelectedRoute(_objectSpread$3({}, updatedRouteWithNewPrice));
-              setUpdatedRouteWithNewPrice(null);
-
-            case 2:
-            case "end":
-              return _context6.stop();
-          }
-        }
-      }, _callee6);
-    }));
-
     return function updateRouteWithNewPrice() {
-      return _ref7.apply(this, arguments);
+      return _ref5.apply(this, arguments);
     };
   }();
 
   var refreshPaymentRoutes = function refreshPaymentRoutes() {
     return getPaymentRoutes({
       allRoutes: allRoutes,
-      selectedRoute: selectedRoute,
+      selectedRoute: undefined,
       updatable: updatable
     });
   };
@@ -25286,13 +25259,55 @@ var PaymentRoutingProvider = (function (props) {
       refreshPaymentRoutes();
     }
   }, [account, props.accept]);
+  useEffect(function () {
+    if (updatedRoutes === undefined) {
+      return;
+    }
+
+    if (updatedRoutes.length == 0) {
+      setAllRoutes([]);
+
+      if (props.setMaxRoute) {
+        props.setMaxRoute(null);
+      }
+    } else {
+      roundAmounts(updatedRoutes).then(function (roundedRoutes) {
+        if (typeof selectedRoute == 'undefined') {
+          var selectRoute = roundedRoutes[0];
+          setSelectedRoute(selectRoute);
+        } else {
+          var updatedSelectedRoute = roundedRoutes[roundedRoutes.findIndex(function (route) {
+            return route.fromToken.address == selectedRoute.fromToken.address && route.blockchain == selectedRoute.blockchain;
+          })];
+
+          if (updatedSelectedRoute) {
+            if (selectedRoute.fromAmount != updatedSelectedRoute.fromAmount) {
+              setUpdatedRouteWithNewPrice(updatedSelectedRoute);
+            } else if ( // other reasons but price to update selected route
+            selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired) {
+              setSelectedRoute(updatedSelectedRoute);
+            }
+          } else {
+            setSelectedRoute(roundedRoutes[0]);
+          }
+        }
+
+        setAllRoutes(roundedRoutes);
+        setAllRoutesLoaded(allRoutesLoadedInternal);
+
+        if (props.setMaxRoute) {
+          props.setMaxRoute(findMaxRoute(roundedRoutes));
+        }
+      });
+    }
+  }, [selectedRoute, updatedRoutes]);
   return /*#__PURE__*/React.createElement(PaymentRoutingContext.Provider, {
     value: {
       selectedRoute: selectedRoute,
       setSelectedRoute: setSelectedRoute,
       refreshPaymentRoutes: refreshPaymentRoutes,
       allRoutes: allRoutes,
-      setAllRoutes: setAllRoutes,
+      allRoutesLoaded: allRoutesLoaded,
       slowRouting: slowRouting,
       updatedRouteWithNewPrice: updatedRouteWithNewPrice,
       updateRouteWithNewPrice: updateRouteWithNewPrice
@@ -25989,7 +26004,7 @@ var ChangePaymentSkeleton = (function (props) {
       className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
     }, /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL FontSizeL TextCenter"
-    }, "Change Payment"), paymentValue != undefined && /*#__PURE__*/React.createElement("div", {
+    }, "Payment options"), paymentValue != undefined && /*#__PURE__*/React.createElement("div", {
       className: "FontSizeL TextCenter FontWeightBold"
     }, /*#__PURE__*/React.createElement("strong", null, paymentValue.toString()))),
     body: /*#__PURE__*/React.createElement("div", {
@@ -26008,8 +26023,27 @@ var ChangePaymentSkeleton = (function (props) {
       className: "Card Skeleton"
     }, /*#__PURE__*/React.createElement("div", {
       className: "SkeletonBackground"
-    }))))
+    })))),
+    footer: /*#__PURE__*/React.createElement("div", {
+      className: "PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter Opacity05 PaddingTopS PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("strong", null, "Loading all payment options...")))
   });
+});
+
+var ChevronLeft = (function (props) {
+  return /*#__PURE__*/React.createElement("svg", {
+    className: ["ChevronLeft", "Icon", props.className].filter(Boolean).join(' '),
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "16",
+    height: "16",
+    viewBox: "0 0 16 16"
+  }, /*#__PURE__*/React.createElement("path", {
+    strokeWidth: "1",
+    fillRule: "evenodd",
+    d: "M10.4,1.6c0.2,0.2,0.2,0.5,0,0.7L4.7,8l5.6,5.6c0.2,0.2,0.2,0.5,0,0.7s-0.5,0.2-0.7,0l-6-6l0,0,c-0.2-0.2-0.2-0.5,0-0.7l6-6l0,0C9.8,1.5,10.2,1.5,10.4,1.6L10.4,1.6z"
+  }));
 });
 
 var ChangePaymentDialog = (function (props) {
@@ -26018,6 +26052,7 @@ var ChangePaymentDialog = (function (props) {
 
   var _useContext2 = useContext(PaymentRoutingContext),
       allRoutes = _useContext2.allRoutes,
+      allRoutesLoaded = _useContext2.allRoutesLoaded,
       setSelectedRoute = _useContext2.setSelectedRoute;
 
   var _useContext3 = useContext(PaymentValueContext),
@@ -26026,18 +26061,76 @@ var ChangePaymentDialog = (function (props) {
   var _useContext4 = useContext(NavigateStackContext),
       navigate = _useContext4.navigate;
 
-  var _useState = useState([]),
+  var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
-      allPaymentRoutesWithData = _useState2[0],
-      setAllPaymentRoutesWithData = _useState2[1];
+      allBestPaymentOptions = _useState2[0],
+      setBestPaymentOptions = _useState2[1];
 
-  var _useState3 = useState([]),
+  var _useState3 = useState(),
       _useState4 = _slicedToArray(_useState3, 2),
-      cards = _useState4[0],
-      setCards = _useState4[1];
+      allMajorPaymentOptions = _useState4[0],
+      setMajorPaymentOptions = _useState4[1];
 
+  var _useState5 = useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      allNativePaymentOptions = _useState6[0],
+      setNativePaymentOptions = _useState6[1];
+
+  var _useState7 = useState(),
+      _useState8 = _slicedToArray(_useState7, 2),
+      allStablePaymentOptions = _useState8[0],
+      setStablePaymentOptions = _useState8[1];
+
+  var _useState9 = useState(),
+      _useState10 = _slicedToArray(_useState9, 2),
+      allPaymentOptions = _useState10[0],
+      setAllPaymentOptions = _useState10[1];
+
+  var _useState11 = useState(),
+      _useState12 = _slicedToArray(_useState11, 2),
+      selectedPaymentOptions = _useState12[0],
+      setSelectedPaymentOptions = _useState12[1];
+
+  var _useState13 = useState(),
+      _useState14 = _slicedToArray(_useState13, 2),
+      selectedTab = _useState14[0],
+      setSelectedTab = _useState14[1];
+
+  var _useState15 = useState(false),
+      _useState16 = _slicedToArray(_useState15, 2),
+      searching = _useState16[0],
+      setSearching = _useState16[1];
+
+  var _useState17 = useState(''),
+      _useState18 = _slicedToArray(_useState17, 2),
+      searchTerm = _useState18[0],
+      setSearchTerm = _useState18[1];
+
+  var _useState19 = useState(),
+      _useState20 = _slicedToArray(_useState19, 2),
+      fuse = _useState20[0],
+      setFuse = _useState20[1];
+
+  var searchPaymentOption = useCallback(lodash.debounce(function (term, fuse) {
+    var results = fuse.search(term);
+    setSelectedPaymentOptions(results.map(function (result) {
+      return result.item;
+    }));
+    listElement.current.scrollTop = 0;
+  }, 300), []);
+
+  var onChangeSearch = function onChangeSearch(event, fuse, allPaymentOptions) {
+    setSearchTerm(event.target.value);
+    searchPaymentOption(event.target.value, fuse, allPaymentOptions);
+  };
+
+  var listElement = useRef();
   useEffect(function () {
     if (allRoutes == undefined) {
+      return;
+    }
+
+    if (allRoutesLoaded !== true) {
       return;
     }
 
@@ -26045,79 +26138,210 @@ var ChangePaymentDialog = (function (props) {
       route.exchangeRoutes[0];
       route.fromToken;
       return Promise.all([route.fromToken.name(), route.fromToken.symbol(), route.fromToken.decimals(), route.fromToken.readable(route.fromAmount)]);
-    })).then(function (allPaymentRoutesWithData) {
-      setAllPaymentRoutesWithData(allRoutes.map(function (route, index) {
+    })).then(function (allPaymentRoutes) {
+      var allPaymentRoutesWithDisplayData = allRoutes.map(function (route, index) {
         return {
-          name: allPaymentRoutesWithData[index][0],
-          symbol: allPaymentRoutesWithData[index][1].toUpperCase(),
-          decimals: allPaymentRoutesWithData[index][2],
-          amount: allPaymentRoutesWithData[index][3],
+          name: allPaymentRoutes[index][0],
+          symbol: allPaymentRoutes[index][1].toUpperCase(),
+          decimals: allPaymentRoutes[index][2],
+          amount: allPaymentRoutes[index][3],
+          blockchainName: route.blockchain,
           route: route
         };
+      });
+      setFuse(new Fuse(allPaymentRoutesWithDisplayData, {
+        keys: ['name', 'symbol', 'blockchainName'],
+        threshold: 0.3,
+        ignoreFieldNorm: true
       }));
-    })["catch"](setError);
-  }, [allRoutes]);
-  useEffect(function () {
-    setCards(allPaymentRoutesWithData.map(function (payment, index) {
-      var blockchain = Blockchains.findByName(payment.route.blockchain);
-      return /*#__PURE__*/React.createElement("div", {
-        key: index,
-        className: "Card",
-        title: "Select ".concat(payment.symbol, " as payment"),
-        onClick: function onClick() {
-          setSelectedRoute(payment.route);
-          navigate('back');
-        }
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement(TokenImage, {
-        blockchain: payment.route.blockchain,
-        address: payment.route.fromToken.address
-      }), /*#__PURE__*/React.createElement("img", {
-        className: "BlockchainLogo small bottomRight " + blockchain.name,
-        style: {
-          backgroundColor: blockchain.logoBackgroundColor
-        },
-        src: blockchain.logo,
-        alt: blockchain.label,
-        title: blockchain.label
-      })), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React.createElement("h2", {
-        className: "CardText"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "TokenAmountRow"
-      }, /*#__PURE__*/React.createElement("span", {
-        className: "TokenSymbolCell"
-      }, payment.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
-        className: "TokenAmountCell"
-      }, format(payment.amount)))), /*#__PURE__*/React.createElement("h3", {
-        className: "CardText small"
-      }, /*#__PURE__*/React.createElement("small", null, format(round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals), 'down')))))));
-    }));
-  }, [allPaymentRoutesWithData]);
+      var bestPaymentOptions = allPaymentRoutesWithDisplayData.filter(function (paymentRoute) {
+        return paymentRoute.route.fromToken.address.toLowerCase() === paymentRoute.route.toToken.address.toLowerCase();
+      });
+      setBestPaymentOptions(bestPaymentOptions);
+      var majorPaymentOptions = allPaymentRoutesWithDisplayData.filter(function (paymentRoute) {
+        return Blockchains[paymentRoute.route.blockchain].tokens.find(function (token) {
+          return token.address.toLowerCase() === paymentRoute.route.fromToken.address.toLowerCase();
+        });
+      });
+      setMajorPaymentOptions(majorPaymentOptions);
+      setNativePaymentOptions(allPaymentRoutesWithDisplayData.filter(function (paymentRoute) {
+        return Blockchains[paymentRoute.route.blockchain].currency.address.toLowerCase() === paymentRoute.route.fromToken.address.toLowerCase();
+      }));
+      setStablePaymentOptions(allPaymentRoutesWithDisplayData.filter(function (paymentRoute) {
+        return Blockchains[paymentRoute.route.blockchain].stables.usd.find(function (stable) {
+          return stable.toLowerCase() === paymentRoute.route.fromToken.address.toLowerCase();
+        });
+      }));
+      setAllPaymentOptions(allPaymentRoutesWithDisplayData);
 
-  if (allPaymentRoutesWithData.length == 0 || cards.length == 0) {
+      if (selectedPaymentOptions === undefined) {
+        if (bestPaymentOptions.length) {
+          setSelectedTab('best');
+          setSelectedPaymentOptions(bestPaymentOptions);
+        } else {
+          setSelectedTab('major');
+          setSelectedPaymentOptions(majorPaymentOptions);
+        }
+      }
+    })["catch"](setError);
+  }, [allRoutes, allRoutesLoaded]);
+  var displayedPaymentOptions = selectedPaymentOptions === null || selectedPaymentOptions === void 0 ? void 0 : selectedPaymentOptions.map(function (payment, index) {
+    var blockchain = Blockchains.findByName(payment.route.blockchain);
+    return /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      key: index,
+      className: "Card",
+      title: "Select ".concat(payment.symbol, " as payment"),
+      onClick: function onClick() {
+        setSelectedRoute(payment.route);
+        navigate('back');
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardImage"
+    }, /*#__PURE__*/React.createElement(TokenImage, {
+      blockchain: payment.route.blockchain,
+      address: payment.route.fromToken.address
+    }), /*#__PURE__*/React.createElement("img", {
+      className: "BlockchainLogo small bottomRight " + blockchain.name,
+      style: {
+        backgroundColor: blockchain.logoBackgroundColor
+      },
+      src: blockchain.logo,
+      alt: blockchain.label,
+      title: blockchain.label
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "CardBody"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "CardBodyWrapper"
+    }, /*#__PURE__*/React.createElement("h2", {
+      className: "CardText"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "TokenAmountRow"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "TokenSymbolCell"
+    }, payment.symbol), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
+      className: "TokenAmountCell"
+    }, format(payment.amount)))), /*#__PURE__*/React.createElement("h3", {
+      className: "CardText small"
+    }, /*#__PURE__*/React.createElement("small", null, format(round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals), 'down')))))));
+  });
+
+  if (!allRoutesLoaded || displayedPaymentOptions === undefined) {
     return /*#__PURE__*/React.createElement(ChangePaymentSkeleton, null);
   }
 
   return /*#__PURE__*/React.createElement(Dialog$1, {
     stacked: true,
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
+      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL FontSizeL TextCenter"
-    }, "Change Payment"), displayedPaymentValue != undefined && /*#__PURE__*/React.createElement("div", {
+    }, "Payment options"), displayedPaymentValue != undefined && /*#__PURE__*/React.createElement("div", {
       className: "FontSizeL TextCenter FontWeightBold"
-    }, /*#__PURE__*/React.createElement("strong", null, displayedPaymentValue.toString()))),
+    }, /*#__PURE__*/React.createElement("strong", null, displayedPaymentValue.toString())), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingBottomXS TextLeft",
+      style: {
+        height: "32px"
+      }
+    }, !searching && /*#__PURE__*/React.createElement("div", null, allBestPaymentOptions.length && /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "Tab ".concat(selectedTab === 'best' ? 'active' : ''),
+      title: "Payment options not requiring conversion",
+      onClick: function onClick() {
+        setSelectedTab('best');
+        setSelectedPaymentOptions(allBestPaymentOptions);
+        listElement.current.scrollTop = 0;
+      }
+    }, "Best"), /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "Tab ".concat(selectedTab === 'major' ? 'active' : ''),
+      title: "Major tokens available to use",
+      onClick: function onClick() {
+        setSelectedTab('major');
+        setSelectedPaymentOptions(allMajorPaymentOptions);
+        listElement.current.scrollTop = 0;
+      }
+    }, "Major"), allNativePaymentOptions.length && /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "Tab ".concat(selectedTab === 'native' ? 'active' : ''),
+      title: "Native blockchain currencies available to use",
+      onClick: function onClick() {
+        setSelectedTab('native');
+        setSelectedPaymentOptions(allNativePaymentOptions);
+        listElement.current.scrollTop = 0;
+      }
+    }, "Native"), allStablePaymentOptions.length && /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "Tab ".concat(selectedTab === 'stable' ? 'active' : ''),
+      title: "Stablecoins available to use",
+      onClick: function onClick() {
+        setSelectedTab('stable');
+        setSelectedPaymentOptions(allStablePaymentOptions);
+        listElement.current.scrollTop = 0;
+      }
+    }, "Stable"), /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "Tab ".concat(selectedTab === 'all' ? 'active' : ''),
+      title: "All available payment options",
+      onClick: function onClick() {
+        setSelectedTab('all');
+        setSelectedPaymentOptions(allPaymentOptions);
+        listElement.current.scrollTop = 0;
+      }
+    }, "All"), /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "Tab",
+      title: "Search for a payment option",
+      style: {
+        fontSize: '12px',
+        position: 'relative',
+        top: '-2px'
+      },
+      onClick: function onClick() {
+        setSelectedTab('all');
+        setSelectedPaymentOptions(allPaymentOptions);
+        setSearching(true);
+        listElement.current.scrollTop = 0;
+      }
+    }, "\uD83D\uDD0D")), searching && /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex'
+      }
+    }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "Tab",
+      title: "Go back to all payment options",
+      onClick: function onClick() {
+        setSelectedTab('all');
+        setSelectedPaymentOptions(allPaymentOptions);
+        setSearching(false);
+        setSearchTerm('');
+        listElement.current.scrollTop = 0;
+      }
+    }, /*#__PURE__*/React.createElement(ChevronLeft, {
+      className: "small"
+    })), /*#__PURE__*/React.createElement("input", {
+      type: "text",
+      className: "Search small",
+      placeholder: "Search by name, symbol or blockchain",
+      autoFocus: true,
+      value: searchTerm,
+      onChange: function onChange(event) {
+        return onChangeSearch(event, fuse, allPaymentOptions);
+      }
+    }))))),
+    bodyClassName: "ScrollHeight",
+    bodyRef: listElement,
     body: /*#__PURE__*/React.createElement("div", {
-      className: "MaxHeight PaddingTopXS"
+      className: "PaddingTopXS PaddingBottomS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftM PaddingRightM"
-    }, cards)),
-    footer: /*#__PURE__*/React.createElement("div", null)
+    }, displayedPaymentOptions, displayedPaymentOptions.length === 0 && /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter Opacity05 PaddingTopS PaddingBottomS"
+    }, /*#__PURE__*/React.createElement("strong", null, "Nothing found for the given search term."), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Please search for something else.")))),
+    footer: false
   });
 });
 
@@ -26655,7 +26879,7 @@ var PaymentOverviewDialog = (function (props) {
     }, amountsMissing && !fixedAmount && /*#__PURE__*/React.createElement("button", {
       type: "button",
       className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
-      title: paymentState == 'initialized' ? "Change amount" : undefined,
+      title: paymentState == 'initialized' ? "Selected payment option" : undefined,
       onClick: function onClick() {
         if (paymentState != 'initialized') {
           return;
@@ -29941,7 +30165,7 @@ var SaleOverviewDialog = (function (props) {
       className: "CardAction"
     }, (!amountConfiguration || !amountConfiguration.fix) && /*#__PURE__*/React.createElement(ChevronRight, null))), /*#__PURE__*/React.createElement("div", {
       className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
-      title: paymentState == 'initialized' ? "Change payment" : undefined,
+      title: paymentState == 'initialized' ? "Payment options" : undefined,
       onClick: function onClick() {
         if (paymentState != 'initialized') {
           return;
@@ -30280,7 +30504,7 @@ var ConfirmNFTSelectionDialog = (function (props) {
 });
 
 var EnterNFTDataManuallyDialog = (function (props) {
-  var _Blockchains$findByNa, _selection$blockchain3, _selection$collection3, _Blockchains$findByNa2, _selection$blockchain4, _selection$collection4, _selection$blockchain5, _selection$blockchain6, _selection$blockchain7, _selection$blockchain8, _selection$blockchain9;
+  var _Blockchains, _selection$blockchain3, _selection$collection3, _Blockchains2, _selection$blockchain4, _selection$collection4, _Blockchains$findByNa, _selection$blockchain5, _selection$collection5, _selection$blockchain6, _selection$blockchain7, _selection$blockchain8, _selection$blockchain9, _selection$blockchain10;
 
   var _useContext = useContext(NavigateStackContext),
       navigate = _useContext.navigate;
@@ -30486,17 +30710,20 @@ var EnterNFTDataManuallyDialog = (function (props) {
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardImage small"
     }, /*#__PURE__*/React.createElement("img", {
-      className: "transparent",
-      src: (_Blockchains$findByNa = Blockchains.findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain3 = selection.blockchain) === null || _selection$blockchain3 === void 0 ? void 0 : _selection$blockchain3.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection3 = selection.collection) === null || _selection$collection3 === void 0 ? void 0 : _selection$collection3.blockchain))) === null || _Blockchains$findByNa === void 0 ? void 0 : _Blockchains$findByNa.logo
+      className: "transparent BlockchainLogo small",
+      src: (_Blockchains = Blockchains[(selection === null || selection === void 0 ? void 0 : (_selection$blockchain3 = selection.blockchain) === null || _selection$blockchain3 === void 0 ? void 0 : _selection$blockchain3.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection3 = selection.collection) === null || _selection$collection3 === void 0 ? void 0 : _selection$collection3.blockchain)]) === null || _Blockchains === void 0 ? void 0 : _Blockchains.logo,
+      style: {
+        backgroundColor: (_Blockchains2 = Blockchains[(selection === null || selection === void 0 ? void 0 : (_selection$blockchain4 = selection.blockchain) === null || _selection$blockchain4 === void 0 ? void 0 : _selection$blockchain4.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection4 = selection.collection) === null || _selection$collection4 === void 0 ? void 0 : _selection$collection4.blockchain)]) === null || _Blockchains2 === void 0 ? void 0 : _Blockchains2.logoBackgroundColor
+      }
     })), /*#__PURE__*/React.createElement("div", {
       className: "CardBody FontSizeM"
-    }, (_Blockchains$findByNa2 = Blockchains.findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain4 = selection.blockchain) === null || _selection$blockchain4 === void 0 ? void 0 : _selection$blockchain4.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection4 = selection.collection) === null || _selection$collection4 === void 0 ? void 0 : _selection$collection4.blockchain))) === null || _Blockchains$findByNa2 === void 0 ? void 0 : _Blockchains$findByNa2.label), /*#__PURE__*/React.createElement("div", {
+    }, (_Blockchains$findByNa = Blockchains.findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain5 = selection.blockchain) === null || _selection$blockchain5 === void 0 ? void 0 : _selection$blockchain5.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection5 = selection.collection) === null || _selection$collection5 === void 0 ? void 0 : _selection$collection5.blockchain))) === null || _Blockchains$findByNa === void 0 ? void 0 : _Blockchains$findByNa.label), /*#__PURE__*/React.createElement("div", {
       className: "CardAction"
     }, /*#__PURE__*/React.createElement(ChevronRight, null))))),
     bodyClassName: "ScrollHeight",
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React.createElement("div", null, supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain5 = selection.blockchain) === null || _selection$blockchain5 === void 0 ? void 0 : _selection$blockchain5.name) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("div", null, supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain6 = selection.blockchain) === null || _selection$blockchain6 === void 0 ? void 0 : _selection$blockchain6.name) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS TextLeft"
     }, /*#__PURE__*/React.createElement("label", {
       htmlFor: "DePayWidgetsEnterNFTTokenAddresses"
@@ -30521,7 +30748,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
       }
     }), /*#__PURE__*/React.createElement("div", {
       className: "FontSizeXS PaddingLeftXS PaddingRightXS Opacity03 LineHeightXS"
-    }, "Separate each one with a new line break."))), !supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain6 = selection.blockchain) === null || _selection$blockchain6 === void 0 ? void 0 : _selection$blockchain6.name) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    }, "Separate each one with a new line break."))), !supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain7 = selection.blockchain) === null || _selection$blockchain7 === void 0 ? void 0 : _selection$blockchain7.name) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS TextLeft"
     }, /*#__PURE__*/React.createElement("label", {
       htmlFor: "DePayWidgetsEnterNFTTokenAddress"
@@ -30573,7 +30800,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
       onChange: function onChange(event) {
         return setName(event.target.value);
       },
-      placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain7 = selection.blockchain) === null || _selection$blockchain7 === void 0 ? void 0 : _selection$blockchain7.name) ? 'SMB' : 'CryptoPunks',
+      placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain8 = selection.blockchain) === null || _selection$blockchain8 === void 0 ? void 0 : _selection$blockchain8.name) ? 'SMB' : 'CryptoPunks',
       className: "InputField small"
     }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS TextLeft"
@@ -30590,7 +30817,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
       onChange: function onChange(event) {
         return setImage(event.target.value);
       },
-      placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain8 = selection.blockchain) === null || _selection$blockchain8 === void 0 ? void 0 : _selection$blockchain8.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128',
+      placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain9 = selection.blockchain) === null || _selection$blockchain9 === void 0 ? void 0 : _selection$blockchain9.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128',
       className: "InputField small"
     }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS TextLeft"
@@ -30607,7 +30834,7 @@ var EnterNFTDataManuallyDialog = (function (props) {
       onChange: function onChange(event) {
         return setLink(event.target.value);
       },
-      placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain9 = selection.blockchain) === null || _selection$blockchain9 === void 0 ? void 0 : _selection$blockchain9.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks",
+      placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain10 = selection.blockchain) === null || _selection$blockchain10 === void 0 ? void 0 : _selection$blockchain10.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks",
       className: "InputField small"
     })))),
     footer: /*#__PURE__*/React.createElement("div", {

@@ -15,6 +15,11 @@ export default (style)=>{
       top: 1px;
     }
 
+    .ChevronLeft.small, .ChevronRight.small {
+      height: 12px;
+      width: 12px;
+    }
+
     .Checkmark {
       height: 24px;
       position: relative;

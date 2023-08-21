@@ -69,7 +69,7 @@ export default (props)=>{
             <button
               type="button" 
               className={["Card", (paymentState == 'initialized' ? '' : 'disabled')].join(' ')}
-              title={paymentState == 'initialized' ? "Change amount" : undefined}
+              title={paymentState == 'initialized' ? "Selected payment option" : undefined}
               onClick={ ()=>{
                 if(paymentState != 'initialized') { return }
                 navigate('ChangeAmount')
