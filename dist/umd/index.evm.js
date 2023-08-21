@@ -4806,7 +4806,7 @@
     return wallet.blockchains.filter(Boolean).length > 0;
   });
 
-  var ChevronLeft$1 = (function (props) {
+  var ChevronLeft = (function (props) {
     return /*#__PURE__*/React__default['default'].createElement("svg", {
       className: ["ChevronLeft", "Icon", props.className].filter(Boolean).join(' '),
       xmlns: "http://www.w3.org/2000/svg",
@@ -4864,7 +4864,7 @@
       },
       className: "ButtonCircular",
       title: "Go back"
-    }, /*#__PURE__*/React__default['default'].createElement(ChevronLeft$1, null))), closable && props.closable !== false && /*#__PURE__*/React__default['default'].createElement("div", {
+    }, /*#__PURE__*/React__default['default'].createElement(ChevronLeft, null))), closable && props.closable !== false && /*#__PURE__*/React__default['default'].createElement("div", {
       className: "DialogHeaderActionRight PaddingTopS PaddingLeftS PaddingRightS"
     }, props.alternativeHeaderAction, /*#__PURE__*/React__default['default'].createElement("button", {
       type: "button",
@@ -26027,20 +26027,6 @@
         className: "TextCenter Opacity05 PaddingTopS PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Loading all payment options...")))
     });
-  });
-
-  var ChevronLeft = (function (props) {
-    return /*#__PURE__*/React__default['default'].createElement("svg", {
-      className: ["ChevronLeft", "Icon", props.className].filter(Boolean).join(' '),
-      xmlns: "http://www.w3.org/2000/svg",
-      width: "16",
-      height: "16",
-      viewBox: "0 0 16 16"
-    }, /*#__PURE__*/React__default['default'].createElement("path", {
-      strokeWidth: "1",
-      fillRule: "evenodd",
-      d: "M10.4,1.6c0.2,0.2,0.2,0.5,0,0.7L4.7,8l5.6,5.6c0.2,0.2,0.2,0.5,0,0.7s-0.5,0.2-0.7,0l-6-6l0,0,c-0.2-0.2-0.2-0.5,0-0.7l6-6l0,0C9.8,1.5,10.2,1.5,10.4,1.6L10.4,1.6z"
-    }));
   });
 
   var ChangePaymentDialog = (function (props) {
