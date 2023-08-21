@@ -26863,7 +26863,7 @@
       }, amountsMissing && !fixedAmount && /*#__PURE__*/React__default['default'].createElement("button", {
         type: "button",
         className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
-        title: paymentState == 'initialized' ? "Selected payment option" : undefined,
+        title: paymentState == 'initialized' ? "Change amount" : undefined,
         onClick: function onClick() {
           if (paymentState != 'initialized') {
             return;
