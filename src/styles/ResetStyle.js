@@ -61,5 +61,11 @@ export default ()=>{
         outline: none;
       }
 
+      input[type="text"] {
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+      }
+
   `)
 }

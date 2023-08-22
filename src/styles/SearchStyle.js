@@ -11,6 +11,7 @@ export default (style)=>{
       padding: 13px;
       width: 100%;
     }
+    
 
     .Search::placeholder {
       color: rgb(180,180,180);
