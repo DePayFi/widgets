@@ -35,6 +35,9 @@ export default ()=> {
       }
       footer={
         <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
+          <button className="ButtonPrimary" onClick={ close }>
+            Ok
+          </button>
         </div>
       }
     />

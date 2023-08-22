@@ -20,6 +20,7 @@ import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
 import NavigateContext from '../contexts/NavigateContext'
+import InsufficientAmountOfTokensDialog from '../dialogs/InsufficientAmountOfTokensDialog'
 import NoPaymentOptionFoundDialog from '../dialogs/NoPaymentOptionFoundDialog'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentOptionsDialog from '../dialogs/PaymentOptionsDialog'
@@ -33,13 +34,13 @@ import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{
   const { setError } = useContext(ErrorContext)
-  const { sent, succeeded, failed, recover, before } = useContext(ConfigurationContext)
+  const { sent, succeeded, failed, recover, before, accept } = useContext(ConfigurationContext)
   const { selectedRoute, refreshPaymentRoutes } = useContext(PaymentRoutingContext)
   const { open, close, setClosable } = useContext(ClosableContext)
-  const { allRoutes } = useContext(PaymentRoutingContext)
+  const { allRoutes, allAssets } = useContext(PaymentRoutingContext)
   const { setUpdatable } = useContext(UpdatableContext)
   const { navigate, set } = useContext(NavigateContext)
-  const { wallet } = useContext(WalletContext)
+  const { wallet, account } = useContext(WalletContext)
   const { release, synchronousTracking, asynchronousTracking, trackingInitialized, initializeTracking: initializePaymentTracking, trace } = useContext(PaymentTrackingContext)
   const { foundTransaction, initializeTracking: initializeTransactionTracking } = useContext(TransactionTrackingContext)
   const [ payment, setPayment ] = useState()
@@ -222,10 +223,11 @@ export default (props)=>{
       <ReactDialogStack
         open={ open }
         close={ close }
-        start='NoPaymentOptionFound'
+        start={ (allRoutes.assets === undefined || allRoutes.assets.length === 0) ? 'NoPaymentOptionFound' : 'InsufficientAmountOfTokens' }
         container={ props.container }
         document={ props.document }
         dialogs={{
+          InsufficientAmountOfTokens: <InsufficientAmountOfTokensDialog assets={allRoutes.assets} accept={accept} account={account}/>,
           NoPaymentOptionFound: <NoPaymentOptionFoundDialog/>,
           PaymentOptions: <PaymentOptionsDialog/>,
         }}

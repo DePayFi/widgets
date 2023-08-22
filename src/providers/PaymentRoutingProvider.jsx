@@ -104,7 +104,7 @@ export default (props)=>{
   useEffect(()=>{
     if(updatedRoutes === undefined){ return }
     if(updatedRoutes.length == 0) {
-      setAllRoutes([])
+      setAllRoutes(updatedRoutes)
       if(props.setMaxRoute) { props.setMaxRoute(null) }
     } else {
       roundAmounts(updatedRoutes).then((roundedRoutes)=>{
@@ -132,6 +132,7 @@ export default (props)=>{
             setSelectedRoute(roundedRoutes[0])
           }
         }
+        roundedRoutes.assets = updatedRoutes.assets
         setAllRoutes(roundedRoutes)
         setAllRoutesLoaded(allRoutesLoadedInternal)
         if(props.setMaxRoute) { props.setMaxRoute(findMaxRoute(roundedRoutes)) }

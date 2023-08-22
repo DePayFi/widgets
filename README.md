@@ -12,6 +12,8 @@ or you install `@depay/widgets` via the package manager of your choice and ship 
 yarn add @depay/widgets
 ```
 
+or
+
 ```
 npm install @depay/widgets --save
 ```
@@ -22,11 +24,13 @@ and load the DePayWidgets package wherever you need it:
 import DePayWidgets from '@depay/widgets'
 ```
 
-Make sure you install DePay widgets peer dependencies, too, in case your project does not have them installed yet:
+Make sure you install DePay widgets peer dependencies, too, in case your project does not have them installed already:
 
 ```
 yarn add ethers react react-dom
 ```
+
+or
 
 ```
 npm install ethers react react-dom --save
@@ -111,6 +115,30 @@ The configuration of the integration managed via https://app.depay.com will be f
 You can fully manage an integration via https://app.depay.com. Passing any additional configuration is not necessary.
 
 Locally applied configurations overwrite remotely stored configurations.
+
+If your integration relies on dynamic pricing (and you are not managing a fixed price integration via https://app.depay.com),
+you need to pass the data that is supposed to be forwarded to your backend for dynamic pricing to the widget:
+
+```javascript
+DePayWidgets.Payment({
+  integration: 'fe690fbc-1740-4894-b12c-23a72abec54d',
+  price: {
+    whatever: 'you want to forward to your backend for dynamic pricing'
+  }
+})
+```
+
+This will forward:
+
+```
+{
+  price: {
+    whatever: 'you want to forward to your backend for dynamic pricing'
+  }
+}
+```
+
+to your backend in order to receive pricing information for the widget.
 
 ### Configuration
 
