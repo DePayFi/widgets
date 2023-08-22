@@ -33,7 +33,7 @@ export default [
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
       "ios": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "connect": "WalletConnectV2" },
-      "android": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "connect": "WalletConnectV2", "encoded": false },
+      "android": { "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "connect": "WalletConnectV2" },
     },
     "logo": wallets.MetaMask.info.logo,
     "blockchains": [...supported.evm]
