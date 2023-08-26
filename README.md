@@ -116,14 +116,14 @@ You can fully manage an integration via https://app.depay.com. Passing any addit
 
 Locally applied configurations overwrite remotely stored configurations.
 
-If your integration relies on dynamic pricing (and you are not managing a fixed price integration via https://app.depay.com),
-you need to pass the data that is supposed to be forwarded to your backend for dynamic pricing to the widget:
+If your integration relies on dynamic payment configurations from your backend, and you are not managing a fixed payment configuration via https://app.depay.com,
+you need to pass the data that is supposed to be forwarded to your backend for dynamic configurations to the widget:
 
 ```javascript
 DePayWidgets.Payment({
   integration: 'fe690fbc-1740-4894-b12c-23a72abec54d',
-  price: {
-    whatever: 'you want to forward to your backend for dynamic pricing'
+  payment: {
+    whatever: 'you want to forward to your backend for dynamic configurations'
   }
 })
 ```
@@ -132,13 +132,13 @@ This will forward:
 
 ```
 {
-  price: {
-    whatever: 'you want to forward to your backend for dynamic pricing'
+  payment: {
+    whatever: 'you want to forward to your backend for dynamic configurations'
   }
 }
 ```
 
-to your backend in order to receive pricing information for the widget.
+to your backend in order to receive a payment configuration for the widget.
 
 ### Configuration
 
