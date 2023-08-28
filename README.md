@@ -68,7 +68,7 @@ Next.js: https://dev.to/elisabethleonhardt/how-to-use-client-side-only-packages-
 
 ## Demo
 
-To easily configure the DePay Payment Widgets please use our configurator here:
+To easily integrate the DePay Payment Widgets please use our configurator here:
 
 https://app.depay.com/integrations/new
 
@@ -110,19 +110,19 @@ DePayWidgets.Payment({
 })
 ```
 
-The configuration of the integration managed via https://app.depay.com will be fetched and applied before applying any additional configuration locally.
+The configuration of the integration managed via https://app.depay.com will be fetched and applied before applying any additional local configurations.
 
 You can fully manage an integration via https://app.depay.com. Passing any additional configuration is not necessary.
 
 Locally applied configurations overwrite remotely stored configurations.
 
-If your integration relies on dynamic payment configurations from your backend, and you are not managing a fixed payment configuration via https://app.depay.com,
+If your integration relies on processing dynamic from your backend (e.g. pricing), and you are not managing a fixed configuration via https://app.depay.com,
 you need to pass the data that is supposed to be forwarded to your backend for dynamic configurations to the widget:
 
 ```javascript
 DePayWidgets.Payment({
   integration: 'fe690fbc-1740-4894-b12c-23a72abec54d',
-  payment: {
+  payload: {
     whatever: 'you want to forward to your backend for dynamic configurations'
   }
 })
@@ -132,9 +132,7 @@ This will forward:
 
 ```
 {
-  payment: {
-    whatever: 'you want to forward to your backend for dynamic configurations'
-  }
+  whatever: 'you want to forward to your backend for dynamic configurations'
 }
 ```
 
