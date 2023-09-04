@@ -27304,7 +27304,11 @@ var Footer = (function () {
         className: "CardBodyWrapper"
       }, /*#__PURE__*/React.createElement("div", {
         className: "Opacity05"
-      }, "Confirm transaction in your wallet")))));
+      }, "Confirm payment in your wallet (", /*#__PURE__*/React.createElement("a", {
+        href: "https://depay.com/docs/payments/verify",
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, "verify"), ")")))));
     } else if (paymentState == 'success') {
       return /*#__PURE__*/React.createElement("div", {
         className: "PaddingBottomS"
@@ -37543,11 +37547,7 @@ var SolanaPayDialog = (function (props) {
         className: "CardBodyWrapper"
       }, /*#__PURE__*/React.createElement("div", {
         className: "Opacity05"
-      }, "Confirm payment in your wallet (", /*#__PURE__*/React.createElement("a", {
-        href: "https://depay.com/docs/payments/verify",
-        target: "_blank",
-        rel: "noopener noreferrer"
-      }, "verify"), ")"))))), /*#__PURE__*/React.createElement("a", {
+      }, "Confirm payment in your wallet"))))), /*#__PURE__*/React.createElement("a", {
         className: "ButtonPrimary ".concat(transaction !== null && transaction !== void 0 && transaction.url ? '' : 'disabled'),
         href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
         target: "_blank",

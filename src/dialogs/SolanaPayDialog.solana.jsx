@@ -822,7 +822,6 @@ export default (props)=> {
                       <div className="CardBodyWrapper">
                         <div className="Opacity05">
                           Confirm payment in your wallet
-                          (<a href="https://depay.com/docs/payments/verify" target="_blank" rel="noopener noreferrer">verify</a>)
                         </div>
                       </div>
                     </div>

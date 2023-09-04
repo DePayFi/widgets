@@ -27301,7 +27301,11 @@
           className: "CardBodyWrapper"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "Opacity05"
-        }, "Confirm transaction in your wallet")))));
+        }, "Confirm payment in your wallet (", /*#__PURE__*/React__default['default'].createElement("a", {
+          href: "https://depay.com/docs/payments/verify",
+          target: "_blank",
+          rel: "noopener noreferrer"
+        }, "verify"), ")")))));
       } else if (paymentState == 'success') {
         return /*#__PURE__*/React__default['default'].createElement("div", {
           className: "PaddingBottomS"
