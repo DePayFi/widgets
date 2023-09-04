@@ -3,7 +3,6 @@ import Dialog from '../components/Dialog'
 import React, { useContext } from 'react'
 
 export default (props)=>{
-  const { text } = useContext(ConfigurationContext)
   
   return(
     <Dialog
@@ -22,14 +21,18 @@ export default (props)=>{
       }
       footer={
         <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomS">
-          <div className="SkeletonWrapper">
-            <div className="ButtonPrimary Skeleton">
-              <div className="SkeletonBackground"/>
+          <div className="PaddingBottomXS">
+            <div className="SkeletonWrapper PaddingBottomXS">
+              <div className="ButtonPrimary Skeleton">
+                <div className="SkeletonBackground"/>
+              </div>
             </div>
           </div>
-          <div className="TextCenter Opacity05 PaddingTopS">
-            <strong>{ text }</strong>
-          </div>
+          { props.text !== false &&
+            <div className="TextCenter Opacity05 PaddingTopXS">
+              <strong>{ props.text }</strong>
+            </div>
+          }
         </div>
       }
     />

@@ -24,19 +24,18 @@ let Loading = async ({
     let unmount = mount({ style, container, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={ { text } }>
-            <UpdatableProvider>
-              <ClosableProvider unmount={ unmount } closable={ false }>
-                  <NavigateProvider>
-                    <LoadingStack
-                      document={ document }
-                      container={ container }
-                    />
-                    <PoweredBy/>
-                  </NavigateProvider>
-              </ClosableProvider>
-            </UpdatableProvider>
-          </ConfigurationProvider>
+          <UpdatableProvider>
+            <ClosableProvider unmount={ unmount } closable={ false }>
+                <NavigateProvider>
+                  <PoweredBy/>
+                  <LoadingStack
+                    text={ text }
+                    document={ document }
+                    container={ container }
+                  />
+                </NavigateProvider>
+            </ClosableProvider>
+          </UpdatableProvider>
         </ErrorProvider>
     })
     window._depayUnmountLoading = unmount

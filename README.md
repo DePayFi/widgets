@@ -1287,18 +1287,6 @@ DePayWidgets.Sale({
 
 ```
 
-#### integration
-
-`integration`
-
-Labels sales to track them per integration.
-
-```javascript
-DePayWidgets.Sale({
-  integration: 'fe690fbc-1740-4894-b12c-23a72abec54d'
-})
-```
-
 ## DePay Connect
 
 DePay Connect allows you to have your users connect their crypto wallet to your dApp or website.

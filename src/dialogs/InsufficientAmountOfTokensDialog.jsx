@@ -17,6 +17,7 @@ import Token from '@depay/web3-tokens'
 
 import Blockchains from '@depay/web3-blockchains'
 import ClosableContext from '../contexts/ClosableContext'
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import InsufficientGraphic from '../graphics/insufficient'
 import React, { useContext, useState, useEffect } from 'react'
@@ -44,6 +45,7 @@ export default (props)=> {
   const [recommendedAssetTotalAmountDue, setRecommendedAssetTotalAmountDue] = useState()
   const [loading, setLoading] = useState(true)
   const { navigate, set } = useContext(NavigateStackContext)
+  const { accept } = useContext(ConfigurationContext)
   const { close } = useContext(ClosableContext)
 
   const setRecommendation = async ({ route, accept })=>{
@@ -128,7 +130,7 @@ export default (props)=> {
 
   useEffect(()=>{
     const loadRecommendations = async()=>{
-      let directTransfer = props.accept.find((accept)=>props.assets.find((asset)=>accept.blockchain === asset.blockchain && accept.token.toLowerCase() === asset.address.toLowerCase()))
+      let directTransfer = accept.find((accept)=>props.assets.find((asset)=>accept.blockchain === asset.blockchain && accept.token.toLowerCase() === asset.address.toLowerCase()))
       if(directTransfer){
         const token = new Token({ blockchain: directTransfer.blockchain, address: directTransfer.token })
         directTransfer = {
@@ -145,7 +147,7 @@ export default (props)=> {
       } else { // requires routing
         Promise.all(props.assets.map((asset)=>{
           if(!Blockchains[asset.blockchain].tokens.find((token)=>token.address.toLowerCase() === asset.address.toLowerCase())) { return } // consdier only major tokens for this
-          return props.accept.map(async(accept)=>{
+          return accept.map(async(accept)=>{
             if(accept.blockchain === asset.blockchain) {
               return Exchanges.route({
                 blockchain: asset.blockchain,
@@ -158,11 +160,11 @@ export default (props)=> {
             }
           }).filter(Boolean).flat()
         }).flat().filter(Boolean)).then(async(routes)=>{
-          const route = (routes||[]).flat().find((route)=>props.accept.find((accept)=>accept.blockchain === route.blockchain && accept.token.toLowerCase() === route.tokenOut.toLowerCase())) || routes.flat()[0]
+          const route = (routes||[]).flat().find((route)=>accept.find((accept)=>accept.blockchain === route.blockchain && accept.token.toLowerCase() === route.tokenOut.toLowerCase())) || routes.flat()[0]
           if(!route){
             set(['NoPaymentOptionFound'])
           } else {
-            const accept = props.accept.find((accept)=>accept.blockchain === route.blockchain && accept.token.toLowerCase() === route.tokenOut.toLowerCase()) || props.accept.find((accept)=>accept.blockchain === route.blockchain)
+            const accept = accept.find((accept)=>accept.blockchain === route.blockchain && accept.token.toLowerCase() === route.tokenOut.toLowerCase()) || accept.find((accept)=>accept.blockchain === route.blockchain)
             setRecommendation({ route, accept })
           }
         })

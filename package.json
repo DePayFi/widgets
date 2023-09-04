@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@depay/coinbase-wallet-sdk": "^3.6.4",
+    "@depay/js-verify-signature": "^2.0.5",
     "@depay/local-currency": "^3.6.1",
     "@depay/react-dialog-stack": "^8.1.1",
     "@depay/react-shadow-dom": "^5.0.5",

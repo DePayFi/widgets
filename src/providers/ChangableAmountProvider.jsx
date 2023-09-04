@@ -35,8 +35,9 @@ export default (props)=>{
       )
     })
   }
-  const { amount: configuredAmount, toAmount, recover } = useContext(ConfigurationContext)
-  const [ amountsMissing, setAmountsMissing ] = useState(recover == undefined ? configurationsMissAmounts(props.accept) : false)
+  const { accept, amount: configuredAmount, toAmount, recover } = useContext(ConfigurationContext)
+  const configuration = useContext(ConfigurationContext)
+  const [ amountsMissing, setAmountsMissing ] = useState(recover == undefined ? configurationsMissAmounts(accept) : false)
   let { account } = useContext(WalletContext)
   const { conversionRate, fixedCurrencyConversionRate } = useContext(ConversionRateContext)
   const { setError } = useContext(ErrorContext)
@@ -59,15 +60,15 @@ export default (props)=>{
 
   useEffect(()=>{
     if(recover) { return }
-    setAmountsMissing(configurationsMissAmounts(props.accept))
-  }, [props.accept, recover])
+    setAmountsMissing(configurationsMissAmounts(accept))
+  }, [accept, recover])
 
   const getAmounts = ({ amount, conversionRate, fixedCurrencyConversionRate })=>{
     return new Promise((resolve, reject)=>{
       if(configuredAmount && configuredAmount.token) {
-        resolve(props.accept.map(()=>amount))
+        resolve(accept.map(()=>amount))
       } else {
-        Promise.all(props.accept.map((configuration)=>{
+        Promise.all(accept.map((configuration)=>{
           if(fixedAmount) {
             if(Blockchains[configuration.blockchain].stables.usd[0] == configuration.token) {
               return 1.00/fixedCurrencyConversionRate * fixedAmount
@@ -103,7 +104,7 @@ export default (props)=>{
               return
             } else {
               return Token.readable({
-                blockchain: props.accept[index].blockchain,
+                blockchain: accept[index].blockchain,
                 amount: result[0].amountOut,
                 address: result[0].tokenOut
               })
@@ -116,7 +117,7 @@ export default (props)=>{
 
   const updateAmounts = useCallback(debounce(({ account, amount, conversionRate, fixedCurrencyConversionRate })=>{
     getAmounts({ amount, conversionRate, fixedCurrencyConversionRate }).then((amounts)=>{
-      setAcceptWithAmount(props.accept.map((configuration, index)=>{
+      setAcceptWithAmount(accept.map((configuration, index)=>{
         if(amounts[index] == undefined) { return }
         return(
           {...configuration, amount: round(amounts[index]) }

@@ -15,6 +15,7 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog@14"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@8"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-shadow-dom@5"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/js-verify-signature@2.0.5"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@9.0.2"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@10"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@10"></script>
@@ -116,6 +117,33 @@
                       }],
                     });
                   });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Payment: managed integration</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Integration managed via app.depay.com</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="payManagedIntegration">Try it</button>
+                <script>
+                  var button = document.getElementById("payManagedIntegration");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      integration: '461cb57d-6063-40b8-8326-a124c4a40e6f',
+                      payload: {
+                        test: "true"
+                      }
+                    })
+                  })
                 </script>
               </div>
             </div>

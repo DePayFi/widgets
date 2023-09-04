@@ -4809,6 +4809,8 @@ var allWallets = [{
   return wallet.blockchains.filter(Boolean).length > 0;
 });
 
+var ConfigurationContext = /*#__PURE__*/React.createContext();
+
 var ChevronLeft = (function (props) {
   return /*#__PURE__*/React.createElement("svg", {
     className: ["ChevronLeft", "Icon", props.className].filter(Boolean).join(' '),
@@ -22163,6 +22165,9 @@ var ConnectWalletDialog = (function (props) {
   var _useContext = useContext(NavigateStackContext);
       _useContext.navigate;
 
+  var _useContext2 = useContext(ConfigurationContext),
+      accept = _useContext2.accept;
+
   var header = /*#__PURE__*/React.createElement("div", {
     className: "PaddingTopS PaddingLeftM PaddingRightM"
   }, ((_props$wallet = props.wallet) === null || _props$wallet === void 0 ? void 0 : _props$wallet.logo) && /*#__PURE__*/React.createElement("div", {
@@ -22215,7 +22220,7 @@ var ConnectWalletDialog = (function (props) {
   var connectViaQRCode = useCallback(lodash.debounce(function () {
     var _props$platform4, _props$platform5;
 
-    if ((_props$platform4 = props.platform) !== null && _props$platform4 !== void 0 && _props$platform4.solanaPay && props.accept && props.accept.every(function (accept) {
+    if ((_props$platform4 = props.platform) !== null && _props$platform4 !== void 0 && _props$platform4.solanaPay && accept && accept.every(function (accept) {
       return accept.amount;
     })) {
       return props.continueWithSolanaPay();
@@ -22348,7 +22353,7 @@ var ConnectWalletDialog = (function (props) {
               setCopyLinkIsAvailable(copyLinkIsAvailable);
               openInAppIsAvailable = !!props.platform && props.platform.open;
               setOpenInAppIsAvailable(openInAppIsAvailable);
-              scanQrAvailable = props.platform.solanaPay && props.accept && props.accept.every(function (accept) {
+              scanQrAvailable = props.platform.solanaPay && accept && accept.every(function (accept) {
                 return accept.amount;
               }) || ((_props$platform8 = props.platform) === null || _props$platform8 === void 0 ? void 0 : _props$platform8.qr) && (!showQRCode || props.platform.qr === 'WalletLink');
               setScanQrAvailable(scanQrAvailable);
@@ -22382,7 +22387,7 @@ var ConnectWalletDialog = (function (props) {
     }
   }, [QRCode]);
 
-  if (showQRCode && (_props$platform13 = props.platform) !== null && _props$platform13 !== void 0 && _props$platform13.solanaPay && props.accept && props.accept.every(function (accept) {
+  if (showQRCode && (_props$platform13 = props.platform) !== null && _props$platform13 !== void 0 && _props$platform13.solanaPay && accept && accept.every(function (accept) {
     return accept.amount;
   })) {
     return null;
@@ -22739,9 +22744,9 @@ var MenuIcon = (function (props) {
   }));
 });
 
-function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$8(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$8(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$8(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$8(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var SelectWalletList = (function (props) {
   var parentElement = React.useRef();
   var fuse = new Fuse(allWallets, {
@@ -22806,7 +22811,7 @@ var SelectWalletList = (function (props) {
       className: "Card small",
       title: "Connect ".concat(resultList[virtualItem.key].name),
       onClick: function onClick() {
-        props.onClickWallet(_objectSpread$7({}, resultList[virtualItem.key]));
+        props.onClickWallet(_objectSpread$8({}, resultList[virtualItem.key]));
       }
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardImage"
@@ -22823,9 +22828,9 @@ var SelectWalletList = (function (props) {
   })));
 });
 
-function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var SelectWalletDialog = (function (props) {
   var _useState = useState(''),
       _useState2 = _slicedToArray(_useState, 2),
@@ -22948,7 +22953,7 @@ var SelectWalletDialog = (function (props) {
         className: "Card small",
         title: "Connect ".concat(walletMetaData.name),
         onClick: function onClick() {
-          onClickWallet(_objectSpread$6(_objectSpread$6({}, walletMetaData), {}, {
+          onClickWallet(_objectSpread$7(_objectSpread$7({}, walletMetaData), {}, {
             via: 'detected',
             connectionType: connectionType
           }), wallet);
@@ -22983,7 +22988,7 @@ var SelectWalletDialog = (function (props) {
       className: "Card small",
       title: "Connect ".concat(previouslyConnectedWallet.name),
       onClick: function onClick() {
-        onClickWallet(_objectSpread$6(_objectSpread$6({}, previouslyConnectedWallet), {}, {
+        onClickWallet(_objectSpread$7(_objectSpread$7({}, previouslyConnectedWallet), {}, {
           via: 'previouslyConnected',
           connectionType: 'app'
         }));
@@ -23288,8 +23293,7 @@ var ConnectStack = (function (props) {
         connectViaRedirect: connectViaRedirect,
         connectExtension: connectExtension,
         showConnectExtensionWarning: showConnectExtensionWarning,
-        continueWithSolanaPay: props.continueWithSolanaPay,
-        accept: props.accept
+        continueWithSolanaPay: props.continueWithSolanaPay
       })
     }
   }));
@@ -23940,32 +23944,9 @@ var Connect = function Connect(options) {
   }());
 };
 
-var ConfigurationContext = /*#__PURE__*/React.createContext();
-
-var ConfigurationProvider = (function (props) {
-  var currencyCode = new Currency({
-    code: props.configuration.currency
-  }).code;
-  useEffect(function () {
-    if (props.configuration.providers != undefined) {
-      Object.entries(props.configuration.providers).forEach(function (entry) {
-        setProviderEndpoints(entry[0], entry[1]);
-      });
-    }
-  }, [props.configuration]);
-  return /*#__PURE__*/React.createElement(ConfigurationContext.Provider, {
-    value: Object.assign({}, props.configuration, {
-      currencyCode: currencyCode
-    })
-  }, props.children);
-});
-
 var NavigateContext = /*#__PURE__*/React.createContext();
 
 var LoadingDialog = (function (props) {
-  var _useContext = useContext(ConfigurationContext),
-      text = _useContext.text;
-
   return /*#__PURE__*/React.createElement(Dialog$1, {
     closable: false,
     header: /*#__PURE__*/React.createElement("div", {
@@ -23983,14 +23964,16 @@ var LoadingDialog = (function (props) {
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomS"
     }, /*#__PURE__*/React.createElement("div", {
-      className: "SkeletonWrapper"
+      className: "PaddingBottomXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "SkeletonWrapper PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "ButtonPrimary Skeleton"
     }, /*#__PURE__*/React.createElement("div", {
       className: "SkeletonBackground"
-    }))), /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter Opacity05 PaddingTopS"
-    }, /*#__PURE__*/React.createElement("strong", null, text)))
+    })))), props.text !== false && /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter Opacity05 PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("strong", null, props.text)))
   });
 });
 
@@ -24010,7 +23993,9 @@ var LoadingStack = (function (props) {
     container: props.container,
     document: props.document,
     dialogs: {
-      Loading: /*#__PURE__*/React.createElement(LoadingDialog, null)
+      Loading: /*#__PURE__*/React.createElement(LoadingDialog, {
+        text: props.text
+      })
     }
   });
 });
@@ -24043,6 +24028,184 @@ var NavigateProvider = (function (props) {
   }, props.children);
 });
 
+let crypto;
+let atob$1;
+
+if (typeof window === 'undefined') { // running in Node.js
+  crypto = new (require("@peculiar/webcrypto").Crypto)();
+  atob$1 = require('atob');
+} else {
+  crypto = window.crypto;
+  atob$1 = window.atob;
+}
+
+const string2ArrayBuffer = (str)=> {
+  const buf = new ArrayBuffer(str.length);
+  const bufView = new Uint8Array(buf);
+  for (let i = 0, strLen = str.length; i < strLen; i++) {
+    bufView[i] = str.charCodeAt(i);
+  }
+  return buf
+};
+
+const base64ToArrayBuffer = (b64)=> {
+  const safeB64 = b64.replace(/-/g, '+').replace(/_/g, '/');
+  const byteString = atob$1(safeB64);
+  let byteArray = new Uint8Array(byteString.length);
+  for(let i=0; i < byteString.length; i++) {
+    byteArray[i] = byteString.charCodeAt(i);
+  }
+  return byteArray
+};
+
+const verify = async ({ signature, publicKey, data, saltLength = 64 })=>{
+
+  let innerPublicKey = publicKey.replace(/^.*?-----BEGIN PUBLIC KEY-----\n/, '').replace(/-----END PUBLIC KEY-----(\n)*$/, '').replace(/(\n)*/g, '');
+  while (innerPublicKey.length % 4) { // add proper padding
+    innerPublicKey += '=';
+  }
+  const binaryString = atob$1(innerPublicKey);
+  const binaryStringArrayBuffer = string2ArrayBuffer(binaryString);
+  const cryptoKey = await crypto.subtle.importKey("spki", binaryStringArrayBuffer, { name: "RSA-PSS", hash: "SHA-256" }, true, ["verify"]);
+
+  return await crypto.subtle.verify({ name: "RSA-PSS", saltLength }, cryptoKey, base64ToArrayBuffer(signature), string2ArrayBuffer(data))
+};
+
+function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtqsu0wy94cpz90W4pGsJ\nSf0bfvmsq3su+R1J4AoAYz0XoAu2MXJZM8vrQvG3op7OgB3zze8pj4joaoPU2piT\ndH7kcF4Mde6QG4qKEL3VE+J8CL3qK2dUY0Umu20x/O9O792tlv8+Q/qAVv8yPfdM\nn5Je9Wc7VI5XeIBKP2AzsCkrXuzQlR48Ac5LpViNSSLu0mz5NTBoHkW2sz1sNWc6\nUpYISJkiKTvYc8Bo4p5xD6+ZmlL4hj1Ad/+26SjYcisX2Ut4QD7YKRBP2SbItVkI\nqp9mp6c6MCKNmEUkosxAr0KVfOcrk6/fcc4tI8g+KYZ32G11Ri8Xo4fgHH06DLYP\n3QIDAQAB\n-----END PUBLIC KEY-----\n";
+var ConfigurationProvider = (function (props) {
+  var _props$configuration, _props$configuration2, _props$configuration5;
+
+  var currencyCode = props !== null && props !== void 0 && (_props$configuration = props.configuration) !== null && _props$configuration !== void 0 && _props$configuration.currency ? new Currency({
+    code: props.configuration.currency
+  }).code : undefined;
+
+  var _useState = useState(!((_props$configuration2 = props.configuration) !== null && _props$configuration2 !== void 0 && _props$configuration2.integration) ? _objectSpread$6(_objectSpread$6({}, props.configuration), {}, {
+    currencyCode: currencyCode
+  }) : undefined),
+      _useState2 = _slicedToArray(_useState, 2),
+      configuration = _useState2[0],
+      setConfiguration = _useState2[1];
+
+  var loadConfiguration = function loadConfiguration(id, attempt) {
+    if (attempt >= 10) {
+      return;
+    }
+
+    var retry = function retry() {
+      setTimeout(function () {
+        return loadConfiguration(id, attempt + 1);
+      }, 1000);
+    };
+
+    fetch("https://public.depay.com/configurations/".concat(id), {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: props.paylod ? JSON.stringify(props.payload) : undefined
+    }).then( /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(response) {
+        var _JSON$parse, _id, _configuration, verified;
+
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(response.status == 200)) {
+                  _context.next = 18;
+                  break;
+                }
+
+                _context.t0 = JSON;
+                _context.next = 4;
+                return response.text();
+
+              case 4:
+                _context.t1 = _context.sent;
+                _JSON$parse = _context.t0.parse.call(_context.t0, _context.t1);
+                _id = _JSON$parse.id;
+                _configuration = _JSON$parse.configuration;
+                _context.next = 10;
+                return verify({
+                  signature: response.headers.get('x-signature'),
+                  publicKey: PUBLIC_KEY,
+                  data: JSON.stringify(_configuration)
+                });
+
+              case 10:
+                verified = _context.sent;
+
+                if (!verified) {
+                  _context.next = 15;
+                  break;
+                }
+
+                setConfiguration(_objectSpread$6(_objectSpread$6({}, _configuration), {}, {
+                  id: _id
+                }));
+                _context.next = 16;
+                break;
+
+              case 15:
+                throw 'Configuration response not verified!';
+
+              case 16:
+                _context.next = 19;
+                break;
+
+              case 18:
+                retry();
+
+              case 19:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }())["catch"](retry);
+  };
+
+  useEffect(function () {
+    if ((configuration === null || configuration === void 0 ? void 0 : configuration.providers) != undefined) {
+      Object.entries(props.configuration.providers).forEach(function (entry) {
+        setProviderEndpoints(entry[0], entry[1]);
+      });
+    }
+  }, [configuration]);
+  useEffect(function () {
+    var _props$configuration3;
+
+    if ((_props$configuration3 = props.configuration) !== null && _props$configuration3 !== void 0 && _props$configuration3.integration) {
+      var _props$configuration4;
+
+      loadConfiguration((_props$configuration4 = props.configuration) === null || _props$configuration4 === void 0 ? void 0 : _props$configuration4.integration, 1);
+    }
+  }, [props.configuration]);
+
+  if ((_props$configuration5 = props.configuration) !== null && _props$configuration5 !== void 0 && _props$configuration5.integration && !configuration) {
+    return /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
+      unmount: props.unmount,
+      closable: false
+    }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(PoweredBy, null), /*#__PURE__*/React.createElement(LoadingStack, {
+      text: false,
+      document: props.document,
+      container: props.container
+    }))));
+  } else {
+    return /*#__PURE__*/React.createElement(ConfigurationContext.Provider, {
+      value: configuration
+    }, props.children);
+  }
+});
+
 var Loading = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
     var text, style, error, critical, container, document, unmount;
@@ -24064,17 +24227,14 @@ var Loading = /*#__PURE__*/function () {
                   errorCallback: error,
                   container: container,
                   unmount: unmount
-                }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
-                  configuration: {
-                    text: text
-                  }
                 }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                   unmount: unmount,
                   closable: false
-                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(LoadingStack, {
+                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(PoweredBy, null), /*#__PURE__*/React.createElement(LoadingStack, {
+                  text: text,
                   document: document,
                   container: container
-                }), /*#__PURE__*/React.createElement(PoweredBy, null))))));
+                })))));
               };
             });
             window._depayUnmountLoading = unmount;
@@ -24684,11 +24844,14 @@ var ChangableAmountProvider = (function (props) {
   };
 
   var _useContext = useContext(ConfigurationContext),
+      accept = _useContext.accept,
       configuredAmount = _useContext.amount;
       _useContext.toAmount;
       var recover = _useContext.recover;
 
-  var _useState = useState(recover == undefined ? configurationsMissAmounts(props.accept) : false),
+  useContext(ConfigurationContext);
+
+  var _useState = useState(recover == undefined ? configurationsMissAmounts(accept) : false),
       _useState2 = _slicedToArray(_useState, 2),
       amountsMissing = _useState2[0],
       setAmountsMissing = _useState2[1];
@@ -24748,8 +24911,8 @@ var ChangableAmountProvider = (function (props) {
       return;
     }
 
-    setAmountsMissing(configurationsMissAmounts(props.accept));
-  }, [props.accept, recover]);
+    setAmountsMissing(configurationsMissAmounts(accept));
+  }, [accept, recover]);
 
   var getAmounts = function getAmounts(_ref) {
     var amount = _ref.amount,
@@ -24757,11 +24920,11 @@ var ChangableAmountProvider = (function (props) {
         fixedCurrencyConversionRate = _ref.fixedCurrencyConversionRate;
     return new Promise(function (resolve, reject) {
       if (configuredAmount && configuredAmount.token) {
-        resolve(props.accept.map(function () {
+        resolve(accept.map(function () {
           return amount;
         }));
       } else {
-        Promise.all(props.accept.map(function (configuration) {
+        Promise.all(accept.map(function (configuration) {
           if (fixedAmount) {
             if (Blockchains[configuration.blockchain].stables.usd[0] == configuration.token) {
               return 1.00 / fixedCurrencyConversionRate * fixedAmount;
@@ -24797,7 +24960,7 @@ var ChangableAmountProvider = (function (props) {
               return;
             } else {
               return Token$1.readable({
-                blockchain: props.accept[index].blockchain,
+                blockchain: accept[index].blockchain,
                 amount: result[0].amountOut,
                 address: result[0].tokenOut
               });
@@ -24818,7 +24981,7 @@ var ChangableAmountProvider = (function (props) {
       conversionRate: conversionRate,
       fixedCurrencyConversionRate: fixedCurrencyConversionRate
     }).then(function (amounts) {
-      setAcceptWithAmount(props.accept.map(function (configuration, index) {
+      setAcceptWithAmount(accept.map(function (configuration, index) {
         if (amounts[index] == undefined) {
           return;
         }
@@ -25072,7 +25235,10 @@ var PaymentRoutingProvider = (function (props) {
       updatable = _useContext2.updatable;
 
   var _useContext3 = useContext(ConfigurationContext),
+      accept = _useContext3.accept,
       recover = _useContext3.recover;
+
+  var configuration = useContext(ConfigurationContext);
 
   var getPaymentRoutes = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
@@ -25083,7 +25249,7 @@ var PaymentRoutingProvider = (function (props) {
             case 0:
               updatable = _ref.updatable;
 
-              if (!(updatable == false || !props.accept || !account)) {
+              if (!(updatable == false || !accept || !account)) {
                 _context.next = 3;
                 break;
               }
@@ -25095,7 +25261,7 @@ var PaymentRoutingProvider = (function (props) {
                 setSlowRouting(true);
               }, 4000);
               _context.next = 6;
-              return routePayments(Object.assign({}, props, {
+              return routePayments(Object.assign({}, configuration, {
                 account: account,
                 drip: function drip(route) {
                   if (route.fromToken.address !== route.toToken.address && !Blockchains[route.blockchain].tokens.find(function (token) {
@@ -25255,10 +25421,10 @@ var PaymentRoutingProvider = (function (props) {
     };
   }, [reloadCount, allRoutes, selectedRoute, updatable]);
   useEffect(function () {
-    if (account && props.accept && recover == undefined) {
+    if (account && accept && recover == undefined) {
       refreshPaymentRoutes();
     }
-  }, [account, props.accept]);
+  }, [account, accept]);
   useEffect(function () {
     if (updatedRoutes === undefined) {
       return;
@@ -25322,6 +25488,9 @@ var PaymentAmountRoutingProvider = (function (props) {
       acceptWithAmount = _useContext.acceptWithAmount,
       setMaxRoute = _useContext.setMaxRoute;
 
+  var _useContext2 = useContext(ChangableAmountContext),
+      configuredAccept = _useContext2.accept;
+
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
       accept = _useState2[0],
@@ -25333,18 +25502,14 @@ var PaymentAmountRoutingProvider = (function (props) {
         setAccept(acceptWithAmount);
       }
     } else {
-      setAccept(props.accept);
+      setAccept(configuredAccept);
     }
   }, [amountsMissing, acceptWithAmount]);
   return /*#__PURE__*/React.createElement(PaymentAmountRoutingContext.Provider, {
     value: {}
   }, /*#__PURE__*/React.createElement(PaymentRoutingProvider, {
     accept: accept,
-    whitelist: props.whitelist,
-    blacklist: props.blacklist,
-    event: props.event,
     setMaxRoute: setMaxRoute,
-    fee: props.fee,
     container: props.container,
     document: props.document
   }, props.children));
@@ -25393,8 +25558,11 @@ var InsufficientAmountOfTokensDialog = (function (props) {
       _useContext.navigate;
       var set = _useContext.set;
 
-  var _useContext2 = useContext(ClosableContext),
-      close = _useContext2.close;
+  var _useContext2 = useContext(ConfigurationContext),
+      accept = _useContext2.accept;
+
+  var _useContext3 = useContext(ClosableContext),
+      close = _useContext3.close;
 
   var setRecommendation = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref) {
@@ -25650,7 +25818,7 @@ var InsufficientAmountOfTokensDialog = (function (props) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                directTransfer = props.accept.find(function (accept) {
+                directTransfer = accept.find(function (accept) {
                   return props.assets.find(function (asset) {
                     return accept.blockchain === asset.blockchain && accept.token.toLowerCase() === asset.address.toLowerCase();
                   });
@@ -25708,7 +25876,7 @@ var InsufficientAmountOfTokensDialog = (function (props) {
                     } // consdier only major tokens for this
 
 
-                    return props.accept.map( /*#__PURE__*/function () {
+                    return accept.map( /*#__PURE__*/function () {
                       var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(accept) {
                         return regenerator.wrap(function _callee4$(_context4) {
                           while (1) {
@@ -25758,27 +25926,33 @@ var InsufficientAmountOfTokensDialog = (function (props) {
                     }()).filter(Boolean).flat();
                   }).flat().filter(Boolean)).then( /*#__PURE__*/function () {
                     var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
-                      var route, accept;
+                      var route, _accept;
+
                       return regenerator.wrap(function _callee5$(_context5) {
                         while (1) {
                           switch (_context5.prev = _context5.next) {
                             case 0:
-                              route = routes.flat().find(function (route) {
-                                return props.accept.find(function (accept) {
+                              route = (routes || []).flat().find(function (route) {
+                                return accept.find(function (accept) {
                                   return accept.blockchain === route.blockchain && accept.token.toLowerCase() === route.tokenOut.toLowerCase();
                                 });
                               }) || routes.flat()[0];
-                              accept = props.accept.find(function (accept) {
-                                return accept.blockchain === route.blockchain && accept.token.toLowerCase() === route.tokenOut.toLowerCase();
-                              }) || props.accept.find(function (accept) {
-                                return accept.blockchain === route.blockchain;
-                              });
-                              setRecommendation({
-                                route: route,
-                                accept: accept
-                              });
 
-                            case 3:
+                              if (!route) {
+                                set(['NoPaymentOptionFound']);
+                              } else {
+                                _accept = _accept.find(function (accept) {
+                                  return accept.blockchain === route.blockchain && accept.token.toLowerCase() === route.tokenOut.toLowerCase();
+                                }) || _accept.find(function (accept) {
+                                  return accept.blockchain === route.blockchain;
+                                });
+                                setRecommendation({
+                                  route: route,
+                                  accept: _accept
+                                });
+                              }
+
+                            case 2:
                             case "end":
                               return _context5.stop();
                           }
@@ -25837,7 +26011,7 @@ var InsufficientAmountOfTokensDialog = (function (props) {
       style: {
         fontWeight: 'bold'
       }
-    }, recommendedAssetAmountRequired, " ", recommendedAssetSymbol), /*#__PURE__*/React.createElement("br", null), "are additionally required in order to perform this payment of ", recommendedAssetTotalAmountDue, " ", recommendedAssetSymbol, ".")), /*#__PURE__*/React.createElement("div", {
+    }, recommendedAssetAmountRequired, " ", recommendedAssetSymbol), /*#__PURE__*/React.createElement("br", null), " are additionally required in order to perform this payment of ", recommendedAssetTotalAmountDue, " ", recommendedAssetSymbol, ".")), /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingBottomM"
     }, /*#__PURE__*/React.createElement("strong", {
       className: "FontSizeM"
@@ -25847,7 +26021,7 @@ var InsufficientAmountOfTokensDialog = (function (props) {
       style: {
         fontWeight: 'bold'
       }
-    }, recommendedAssetAmountRequired, " ", recommendedAssetSymbol), /*#__PURE__*/React.createElement("br", null), "is required in order to perform this payment.")), /*#__PURE__*/React.createElement("div", {
+    }, recommendedAssetAmountRequired, " ", recommendedAssetSymbol), /*#__PURE__*/React.createElement("br", null), " is required in order to perform this payment.")), /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS"
     }, /*#__PURE__*/React.createElement("strong", {
       className: "FontSizeM"
@@ -27804,6 +27978,7 @@ var PaymentTrackingProvider = (function (props) {
       _useContext.errorCallback;
 
   var _useContext2 = useContext(ConfigurationContext),
+      configurationId = _useContext2.id,
       track = _useContext2.track,
       validated = _useContext2.validated;
       _useContext2.failed;
@@ -27845,32 +28020,37 @@ var PaymentTrackingProvider = (function (props) {
       paymentRoute = _useState12[0],
       setPaymentRoute = _useState12[1];
 
-  var _useState13 = useState(false),
+  var _useState13 = useState(),
       _useState14 = _slicedToArray(_useState13, 2),
-      trackingInitialized = _useState14[0],
-      setTrackingInitialized = _useState14[1];
+      attemptId = _useState14[0],
+      setAttemptId = _useState14[1];
 
-  var _useState15 = useState(!!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
-      _useState16 = _slicedToArray(_useState15, 1),
-      synchronousTracking = _useState16[0];
+  var _useState15 = useState(false),
+      _useState16 = _slicedToArray(_useState15, 2),
+      trackingInitialized = _useState16[0],
+      setTrackingInitialized = _useState16[1];
 
-  var _useState17 = useState(!!(track && track.async == true)),
+  var _useState17 = useState(configurationId || !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
       _useState18 = _slicedToArray(_useState17, 1),
-      asynchronousTracking = _useState18[0];
+      synchronousTracking = _useState18[0];
 
-  var _useState19 = useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+  var _useState19 = useState(!configurationId && !!(track && track.async == true)),
       _useState20 = _slicedToArray(_useState19, 1),
-      polling = _useState20[0];
+      asynchronousTracking = _useState20[0];
 
-  var _useState21 = useState(false),
-      _useState22 = _slicedToArray(_useState21, 2),
-      release = _useState22[0],
-      setRelease = _useState22[1];
+  var _useState21 = useState(configurationId || !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+      _useState22 = _slicedToArray(_useState21, 1),
+      polling = _useState22[0];
 
-  var _useState23 = useState(),
+  var _useState23 = useState(false),
       _useState24 = _slicedToArray(_useState23, 2),
-      forwardTo = _useState24[0],
-      setForwardTo = _useState24[1];
+      release = _useState24[0],
+      setRelease = _useState24[1];
+
+  var _useState25 = useState(),
+      _useState26 = _slicedToArray(_useState25, 2),
+      forwardTo = _useState26[0],
+      setForwardTo = _useState26[1];
 
   var _useContext4 = useContext(ClosableContext),
       setClosable = _useContext4.setClosable;
@@ -27995,7 +28175,24 @@ var PaymentTrackingProvider = (function (props) {
   };
 
   var callTracking = function callTracking(payment) {
-    if (track.endpoint) {
+    if (configurationId) {
+      return fetch("https://public.depay.com/configurations/".concat(configurationId, "/attempts"), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payment)
+      }).then(function (response) {
+        if (response.status == 200 || response.status == 201) {
+          response.json().then(function (attempt) {
+            return setAttemptId(attempt.id);
+          });
+          return response;
+        } else {
+          return reject('TRACKING REQUEST FAILED');
+        }
+      });
+    } else if (track.endpoint) {
       return fetch(track.endpoint, {
         method: 'POST',
         headers: {
@@ -28133,14 +28330,29 @@ var PaymentTrackingProvider = (function (props) {
                   clearInterval(pollingInterval);
 
                   if (validated) {
-                    validated(true, transaction);
+                    validated(data.status ? data.status == 'success' : true, transaction);
                   }
 
                   setRelease(true);
                 }
               };
 
-              if (track.poll.endpoint) {
+              if (configurationId) {
+                if (attemptId) {
+                  fetch("https://public.depay.com/attempts/".concat(attemptId), {
+                    method: 'GET',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    }
+                  }).then(function (response) {
+                    if (response.status == 200 || response.status == 201) {
+                      return response.json();
+                    } else {
+                      return undefined;
+                    }
+                  }).then(handlePollingResponse);
+                }
+              } else if (track.poll.endpoint) {
                 fetch(track.poll.endpoint, {
                   method: 'POST',
                   headers: {
@@ -28342,8 +28554,31 @@ var PaymentTrackingProvider = (function (props) {
                   deadline: _context5.t11
                 };
 
-                if (!track.endpoint) {
+                if (!configurationId) {
                   _context5.next = 19;
+                  break;
+                }
+
+                return _context5.abrupt("return", fetch("https://public.depay.com/configurations/".concat(configurationId, "/attempts"), {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(payment)
+                }).then(function (response) {
+                  if (response.status == 200 || response.status == 201) {
+                    response.json().then(function (attempt) {
+                      return setAttemptId(attempt.id);
+                    });
+                    return resolve();
+                  } else {
+                    return reject('TRACING REQUEST FAILED');
+                  }
+                }));
+
+              case 19:
+                if (!track.endpoint) {
+                  _context5.next = 23;
                   break;
                 }
 
@@ -28361,14 +28596,14 @@ var PaymentTrackingProvider = (function (props) {
                   }
                 }));
 
-              case 19:
+              case 23:
                 if (track.method) {
                   track.method(payment).then(resolve)["catch"](reject);
                 } else {
                   reject('No tracking defined!');
                 }
 
-              case 20:
+              case 24:
               case "end":
                 return _context5.stop();
             }
@@ -37308,7 +37543,11 @@ var SolanaPayDialog = (function (props) {
         className: "CardBodyWrapper"
       }, /*#__PURE__*/React.createElement("div", {
         className: "Opacity05"
-      }, "Confirm payment in your wallet"))))), /*#__PURE__*/React.createElement("a", {
+      }, "Confirm payment in your wallet (", /*#__PURE__*/React.createElement("a", {
+        href: "https://depay.com/docs/payments/verify",
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, "verify"), ")"))))), /*#__PURE__*/React.createElement("a", {
         className: "ButtonPrimary ".concat(transaction !== null && transaction !== void 0 && transaction.url ? '' : 'disabled'),
         href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
         target: "_blank",
@@ -37666,14 +37905,14 @@ var TransactionTrackingProvider = (function (props) {
 
 var preflight$1 = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-    var accept, recover;
+    var accept, recover, integration;
     return regenerator.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            accept = _ref.accept, recover = _ref.recover;
+            accept = _ref.accept, recover = _ref.recover, integration = _ref.integration;
 
-            if (!recover) {
+            if (!(integration || recover)) {
               _context.next = 3;
               break;
             }
@@ -37718,12 +37957,12 @@ var preflight$1 = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, amount, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, recover, closable, integration, link, container, before, wallet, title, action, document, unmount;
+    var accept, amount, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, recover, closable, integration, payload, link, container, before, wallet, title, action, document, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, before = _ref3.before, wallet = _ref3.wallet, title = _ref3.title, action = _ref3.action, document = _ref3.document;
+            accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, payload = _ref3.payload, link = _ref3.link, container = _ref3.container, before = _ref3.before, wallet = _ref3.wallet, title = _ref3.title, action = _ref3.action, document = _ref3.document;
             requireReactVersion();
 
             if (currency && !SUPPORTED_CURRENCIES.includes(currency.toLowerCase())) {
@@ -37734,6 +37973,7 @@ var Payment = /*#__PURE__*/function () {
             _context2.next = 6;
             return preflight$1({
               accept: accept,
+              integration: integration,
               recover: recover
             });
 
@@ -37754,8 +37994,12 @@ var Payment = /*#__PURE__*/function () {
                   container: container,
                   unmount: unmount
                 }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
+                  unmount: unmount,
+                  document: document,
+                  container: container,
                   configuration: {
                     type: 'payment',
+                    payload: payload,
                     before: before,
                     amount: amount,
                     accept: accept,
@@ -37788,13 +38032,7 @@ var Payment = /*#__PURE__*/function () {
                   container: container,
                   connected: connected,
                   unmount: unmount
-                }, /*#__PURE__*/React.createElement(ConversionRateProvider, null, /*#__PURE__*/React.createElement(ChangableAmountProvider, {
-                  accept: accept
-                }, /*#__PURE__*/React.createElement(PaymentAmountRoutingProvider, {
-                  accept: accept,
-                  whitelist: whitelist,
-                  blacklist: blacklist,
-                  event: event,
+                }, /*#__PURE__*/React.createElement(ConversionRateProvider, null, /*#__PURE__*/React.createElement(ChangableAmountProvider, null, /*#__PURE__*/React.createElement(PaymentAmountRoutingProvider, {
                   container: container,
                   document: document
                 }, /*#__PURE__*/React.createElement(TransactionTrackingProvider, null, /*#__PURE__*/React.createElement(PaymentTrackingProvider, {

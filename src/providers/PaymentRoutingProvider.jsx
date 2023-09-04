@@ -34,14 +34,15 @@ export default (props)=>{
   const [ allRoutesLoaded, setAllRoutesLoaded ] = useState(false)
   const { account, wallet } = useContext(WalletContext)
   const { updatable } = useContext(UpdatableContext)
-  const { recover } = useContext(ConfigurationContext)
+  const { accept, recover } = useContext(ConfigurationContext)
+  const configuration = useContext(ConfigurationContext)
   
   const getPaymentRoutes = async ({ allRoutes, selectedRoute, updatable })=>{
-    if(updatable == false || !props.accept || !account) { return }
+    if(updatable == false || !accept || !account) { return }
     let slowRoutingTimeout = setTimeout(() => { setSlowRouting(true) }, 4000)
     let selectedRouteFromDrip
     let firstRouteDisplayed
-    return await routePayments(Object.assign({}, props, { account, drip: (route)=>{
+    return await routePayments(Object.assign({}, configuration, { account, drip: (route)=>{
       if(
         route.fromToken.address !== route.toToken.address &&
         !Blockchains[route.blockchain].tokens.find((token)=>token.address.toLowerCase() === route.fromToken.address.toLowerCase())
@@ -96,10 +97,10 @@ export default (props)=>{
   }, [reloadCount, allRoutes, selectedRoute, updatable])
 
   useEffect(() => {
-    if(account && props.accept && recover == undefined) {
+    if(account && accept && recover == undefined) {
       refreshPaymentRoutes()
     }
-  }, [account, props.accept])
+  }, [account, accept])
 
   useEffect(()=>{
     if(updatedRoutes === undefined){ return }

@@ -169,7 +169,6 @@ export default (props)=>{
             connectExtension={connectExtension}
             showConnectExtensionWarning={showConnectExtensionWarning}
             continueWithSolanaPay={props.continueWithSolanaPay}
-            accept={props.accept}
           />
         }}
       />

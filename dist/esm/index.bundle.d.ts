@@ -76,6 +76,7 @@ declare namespace DePayWidgets {
     };
     closable?: boolean;
     integration?: string;
+    payload?: any;
     container?: HTMLElement;
     before?: (payment: any) => Promise<void>;
     wallet?: any;
