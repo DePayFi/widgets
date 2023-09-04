@@ -4807,7 +4807,9 @@
     return wallet.blockchains.filter(Boolean).length > 0;
   });
 
-  var ConfigurationContext = /*#__PURE__*/React__default['default'].createContext();
+  var ConfigurationContext = /*#__PURE__*/React__default['default'].createContext({
+    accept: []
+  });
 
   var ChevronLeft = (function (props) {
     return /*#__PURE__*/React__default['default'].createElement("svg", {

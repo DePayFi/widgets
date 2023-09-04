@@ -4809,7 +4809,9 @@ var allWallets = [{
   return wallet.blockchains.filter(Boolean).length > 0;
 });
 
-var ConfigurationContext = /*#__PURE__*/React.createContext();
+var ConfigurationContext = /*#__PURE__*/React.createContext({
+  accept: []
+});
 
 var ChevronLeft = (function (props) {
   return /*#__PURE__*/React.createElement("svg", {
