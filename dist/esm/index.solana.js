@@ -27307,7 +27307,10 @@ var Footer = (function () {
       }, "Confirm payment in your wallet (", /*#__PURE__*/React.createElement("a", {
         href: "https://depay.com/docs/payments/verify",
         target: "_blank",
-        rel: "noopener noreferrer"
+        rel: "noopener noreferrer",
+        style: {
+          textDecoration: 'none'
+        }
       }, "verify"), ")")))));
     } else if (paymentState == 'success') {
       return /*#__PURE__*/React.createElement("div", {
