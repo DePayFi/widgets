@@ -24076,13 +24076,13 @@
   function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
   var PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtqsu0wy94cpz90W4pGsJ\nSf0bfvmsq3su+R1J4AoAYz0XoAu2MXJZM8vrQvG3op7OgB3zze8pj4joaoPU2piT\ndH7kcF4Mde6QG4qKEL3VE+J8CL3qK2dUY0Umu20x/O9O792tlv8+Q/qAVv8yPfdM\nn5Je9Wc7VI5XeIBKP2AzsCkrXuzQlR48Ac5LpViNSSLu0mz5NTBoHkW2sz1sNWc6\nUpYISJkiKTvYc8Bo4p5xD6+ZmlL4hj1Ad/+26SjYcisX2Ut4QD7YKRBP2SbItVkI\nqp9mp6c6MCKNmEUkosxAr0KVfOcrk6/fcc4tI8g+KYZ32G11Ri8Xo4fgHH06DLYP\n3QIDAQAB\n-----END PUBLIC KEY-----\n";
   var ConfigurationProvider = (function (props) {
-    var _props$configuration, _props$configuration2, _props$configuration5;
+    var _props$configuration, _props$configuration4;
 
-    var currencyCode = props !== null && props !== void 0 && (_props$configuration = props.configuration) !== null && _props$configuration !== void 0 && _props$configuration.currency ? new localCurrency.Currency({
+    var currencyCode = new localCurrency.Currency({
       code: props.configuration.currency
-    }).code : undefined;
+    }).code;
 
-    var _useState = React.useState(!((_props$configuration2 = props.configuration) !== null && _props$configuration2 !== void 0 && _props$configuration2.integration) ? _objectSpread$6(_objectSpread$6({}, props.configuration), {}, {
+    var _useState = React.useState(!((_props$configuration = props.configuration) !== null && _props$configuration !== void 0 && _props$configuration.integration) ? _objectSpread$6(_objectSpread$6({}, props.configuration), {}, {
       currencyCode: currencyCode
     }) : undefined),
         _useState2 = _slicedToArray(_useState, 2),
@@ -24181,16 +24181,16 @@
       }
     }, [configuration]);
     React.useEffect(function () {
-      var _props$configuration3;
+      var _props$configuration2;
 
-      if ((_props$configuration3 = props.configuration) !== null && _props$configuration3 !== void 0 && _props$configuration3.integration) {
-        var _props$configuration4;
+      if ((_props$configuration2 = props.configuration) !== null && _props$configuration2 !== void 0 && _props$configuration2.integration) {
+        var _props$configuration3;
 
-        loadConfiguration((_props$configuration4 = props.configuration) === null || _props$configuration4 === void 0 ? void 0 : _props$configuration4.integration, 1);
+        loadConfiguration((_props$configuration3 = props.configuration) === null || _props$configuration3 === void 0 ? void 0 : _props$configuration3.integration, 1);
       }
     }, [props.configuration]);
 
-    if ((_props$configuration5 = props.configuration) !== null && _props$configuration5 !== void 0 && _props$configuration5.integration && !configuration) {
+    if ((_props$configuration4 = props.configuration) !== null && _props$configuration4 !== void 0 && _props$configuration4.integration && !configuration) {
       return /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
         unmount: props.unmount,
         closable: false
@@ -24479,8 +24479,11 @@
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardImage"
         }, /*#__PURE__*/React__default['default'].createElement("img", {
-          className: "transparent",
-          src: blockchain.logo
+          className: "transparent BlockchainLogo small",
+          src: blockchain.logo,
+          style: {
+            backgroundColor: blockchain.logoBackgroundColor
+          }
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardBody"
         }, /*#__PURE__*/React__default['default'].createElement("span", {
@@ -24939,7 +24942,9 @@
                 });
               }
             } else {
-              if (Blockchains__default['default'][configuration.blockchain].stables.usd[0] == configuration.token) {
+              if (Blockchains__default['default'][configuration.blockchain].stables.usd.find(function (stable) {
+                return stable.toLowerCase() === configuration.token.toLowerCase();
+              })) {
                 return 1.00 / conversionRate * amount;
               } else {
                 return Exchanges__default['default'].route({
@@ -25235,7 +25240,6 @@
         updatable = _useContext2.updatable;
 
     var _useContext3 = React.useContext(ConfigurationContext),
-        accept = _useContext3.accept,
         recover = _useContext3.recover;
 
     var configuration = React.useContext(ConfigurationContext);
@@ -25249,7 +25253,7 @@
               case 0:
                 updatable = _ref.updatable;
 
-                if (!(updatable == false || !accept || !account)) {
+                if (!(updatable == false || !props.accept || !account)) {
                   _context.next = 3;
                   break;
                 }
@@ -25262,6 +25266,7 @@
                 }, 4000);
                 _context.next = 6;
                 return routePayments(Object.assign({}, configuration, {
+                  accept: props.accept,
                   account: account,
                   drip: function drip(route) {
                     if (route.fromToken.address !== route.toToken.address && !Blockchains__default['default'][route.blockchain].tokens.find(function (token) {
@@ -25421,10 +25426,10 @@
       };
     }, [reloadCount, allRoutes, selectedRoute, updatable]);
     React.useEffect(function () {
-      if (account && accept && recover == undefined) {
+      if (account && props.accept && recover == undefined) {
         refreshPaymentRoutes();
       }
-    }, [account, accept]);
+    }, [account, props.accept]);
     React.useEffect(function () {
       if (updatedRoutes === undefined) {
         return;
@@ -25523,6 +25528,7 @@
     polygon: ethers.ethers.BigNumber.from('15000000000000000'),
     solana: ethers.ethers.BigNumber.from('15000'),
     optimism: ethers.ethers.BigNumber.from('3000000000000000'),
+    base: ethers.ethers.BigNumber.from('3000000000000000'),
     arbitrum: ethers.ethers.BigNumber.from('3000000000000000'),
     fantom: ethers.ethers.BigNumber.from('3000000000000000'),
     avalanche: ethers.ethers.BigNumber.from('3000000000000000'),
@@ -25994,7 +26000,7 @@
         src: InsufficientGraphic
       })), /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Insufficient Amount of Tokens"), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Insufficient Amount"), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Text PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM"
       }, loading && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Skeleton",
@@ -27143,10 +27149,16 @@
 
   var blockTimes = {
     // in seconds
-    ethereum: 13,
-    bsc: 4,
-    polygon: 3,
-    solana: 0.5
+    ethereum: 12,
+    bsc: 3,
+    polygon: 2,
+    solana: 0.5,
+    optimism: 0.5,
+    base: 0.5,
+    arbitrum: 1.5,
+    fantom: 2.5,
+    avalanche: 2,
+    gnosis: 5.2
   };
   var etaForConfirmations = (function (blockchain, confirmationsRequired, confirmationsPassed) {
     return (confirmationsRequired - confirmationsPassed) * blockTimes[blockchain];
@@ -29275,8 +29287,8 @@
     setProvider: setProvider$1,
   };
 
-  let supported$3 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism'];
-  supported$3.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism'];
+  let supported$3 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
+  supported$3.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
   supported$3.solana = ['solana'];
 
   function _optionalChain$1$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
@@ -30718,8 +30730,8 @@
     return _optionalChain$1$1([metaData, 'optionalAccess', _ => _.symbol])
   };
 
-  let supported$2 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism'];
-  supported$2.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism'];
+  let supported$2 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
+  supported$2.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
   supported$2.solana = ['solana'];
 
   function _optionalChain$7(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
@@ -30906,6 +30918,14 @@
     WRAPPED: WETH$2,
   };
 
+  Token.base = {
+    DEFAULT: ERC20,
+    ERC20: ERC20,
+    20: ERC20,
+    1155: ERC1155,
+    WRAPPED: WETH$2,
+  };
+
   Token.solana = {
     MINT_LAYOUT,
     METADATA_LAYOUT,
@@ -30953,8 +30973,8 @@
     }
   }
 
-  let supported$1 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism'];
-  supported$1.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism'];
+  let supported$1 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
+  supported$1.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
   supported$1.solana = ['solana'];
 
   const DEFAULT_SLIPPAGE = '0.5'; // percent
@@ -31645,7 +31665,7 @@
     PAIR: PAIR$1,
   };
 
-  const exchange$g = {
+  const exchange$h = {
     
     name: 'honeyswap',
     label: 'Honeyswap',
@@ -31674,13 +31694,13 @@
     
     return new Exchange(
 
-      Object.assign(exchange$g, {
+      Object.assign(exchange$h, {
         scope,
-        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$g }),
-        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$g }),
-        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$g }),
-        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$g }),
-        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$g }),
+        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$h }),
+        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$h }),
+        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$h }),
+        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$h }),
+        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$h }),
       })
     )
   };
@@ -33430,7 +33450,7 @@
     WHIRLPOOL_LAYOUT,
   };
 
-  const exchange$f = {
+  const exchange$g = {
     
     name: 'orca',
     label: 'Orca',
@@ -33452,19 +33472,19 @@
     
     return new Exchange(
 
-      Object.assign(exchange$f, {
+      Object.assign(exchange$g, {
         scope,
 
-        findPath: (args)=>Orca.findPath({ ...args, exchange: exchange$f }),
-        pathExists: (args)=>Orca.pathExists({ ...args, exchange: exchange$f }),
-        getAmounts: (args)=>Orca.getAmounts({ ...args, exchange: exchange$f }),
+        findPath: (args)=>Orca.findPath({ ...args, exchange: exchange$g }),
+        pathExists: (args)=>Orca.pathExists({ ...args, exchange: exchange$g }),
+        getAmounts: (args)=>Orca.getAmounts({ ...args, exchange: exchange$g }),
         getPrep: (args)=>{},
-        getTransaction: (args)=>Orca.getTransaction({ ...args, exchange: exchange$f }),
+        getTransaction: (args)=>Orca.getTransaction({ ...args, exchange: exchange$g }),
       })
     )
   };
 
-  const exchange$e = {
+  const exchange$f = {
 
     name: 'pancakeswap',
     label: 'PancakeSwap',
@@ -33495,13 +33515,13 @@
     
     return new Exchange(
 
-      Object.assign(exchange$e, {
+      Object.assign(exchange$f, {
         scope,
-        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$e }),
-        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$e }),
-        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$e }),
-        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$e }),
-        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$e }),
+        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$f }),
+        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$f }),
+        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$f }),
+        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$f }),
+        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$f }),
       })
     )
   };
@@ -34032,7 +34052,7 @@
     QUOTER: QUOTER$2,
   };
 
-  const exchange$d = {
+  const exchange$e = {
 
     name: 'pancakeswap_v3',
     label: 'PancakeSwap v3',
@@ -34071,18 +34091,18 @@
     
     return new Exchange(
 
-      Object.assign(exchange$d, {
+      Object.assign(exchange$e, {
         scope,
-        findPath: (args)=>PancakeSwapV3.findPath({ ...args, exchange: exchange$d }),
-        pathExists: (args)=>PancakeSwapV3.pathExists({ ...args, exchange: exchange$d }),
-        getAmounts: (args)=>PancakeSwapV3.getAmounts({ ...args, exchange: exchange$d }),
-        getPrep: (args)=>PancakeSwapV3.getPrep({ ...args, exchange: exchange$d }),
-        getTransaction: (args)=>PancakeSwapV3.getTransaction({ ...args, exchange: exchange$d }),
+        findPath: (args)=>PancakeSwapV3.findPath({ ...args, exchange: exchange$e }),
+        pathExists: (args)=>PancakeSwapV3.pathExists({ ...args, exchange: exchange$e }),
+        getAmounts: (args)=>PancakeSwapV3.getAmounts({ ...args, exchange: exchange$e }),
+        getPrep: (args)=>PancakeSwapV3.getPrep({ ...args, exchange: exchange$e }),
+        getTransaction: (args)=>PancakeSwapV3.getTransaction({ ...args, exchange: exchange$e }),
       })
     )
   };
 
-  const exchange$c = {
+  const exchange$d = {
     
     name: 'quickswap',
     label: 'QuickSwap',
@@ -34111,18 +34131,18 @@
     
     return new Exchange(
 
-      Object.assign(exchange$c, {
+      Object.assign(exchange$d, {
         scope,
-        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$c }),
-        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$c }),
-        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$c }),
-        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$c }),
-        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$c }),
+        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$d }),
+        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$d }),
+        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$d }),
+        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$d }),
+        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$d }),
       })
     )
   };
 
-  const exchange$b = {
+  const exchange$c = {
     
     name: 'spookyswap',
     label: 'SpookySwap',
@@ -34151,13 +34171,13 @@
     
     return new Exchange(
 
-      Object.assign(exchange$b, {
+      Object.assign(exchange$c, {
         scope,
-        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$b }),
-        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$b }),
-        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$b }),
-        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$b }),
-        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$b }),
+        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$c }),
+        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$c }),
+        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$c }),
+        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$c }),
+        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$c }),
       })
     )
   };
@@ -34547,7 +34567,7 @@
     QUOTER: QUOTER$1,
   };
 
-  const exchange$a = {
+  const exchange$b = {
 
     name: 'trader_joe_v2_1',
     label: 'Trader Joe v2.1',
@@ -34581,18 +34601,18 @@
     
     return new Exchange(
 
-      Object.assign(exchange$a, {
+      Object.assign(exchange$b, {
         scope,
-        findPath: (args)=>TraderJoeV2_1.findPath({ ...args, exchange: exchange$a }),
-        pathExists: (args)=>TraderJoeV2_1.pathExists({ ...args, exchange: exchange$a }),
-        getAmounts: (args)=>TraderJoeV2_1.getAmounts({ ...args, exchange: exchange$a }),
-        getPrep: (args)=>TraderJoeV2_1.getPrep({ ...args, exchange: exchange$a }),
-        getTransaction: (args)=>TraderJoeV2_1.getTransaction({ ...args, exchange: exchange$a }),
+        findPath: (args)=>TraderJoeV2_1.findPath({ ...args, exchange: exchange$b }),
+        pathExists: (args)=>TraderJoeV2_1.pathExists({ ...args, exchange: exchange$b }),
+        getAmounts: (args)=>TraderJoeV2_1.getAmounts({ ...args, exchange: exchange$b }),
+        getPrep: (args)=>TraderJoeV2_1.getPrep({ ...args, exchange: exchange$b }),
+        getTransaction: (args)=>TraderJoeV2_1.getTransaction({ ...args, exchange: exchange$b }),
       })
     )
   };
 
-  const exchange$9 = {
+  const exchange$a = {
     
     name: 'uniswap_v2',
     label: 'Uniswap v2',
@@ -34621,13 +34641,13 @@
     
     return new Exchange(
 
-      Object.assign(exchange$9, {
+      Object.assign(exchange$a, {
         scope,
-        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$9 }),
-        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$9 }),
-        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$9 }),
-        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$9 }),
-        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$9 }),
+        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$a }),
+        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$a }),
+        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$a }),
+        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$a }),
+        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$a }),
       })
     )
   };
@@ -35147,7 +35167,7 @@
     PERMIT2,
   };
 
-  const exchange$8 = {
+  const exchange$9 = {
 
     name: 'uniswap_v3',
     label: 'Uniswap v3',
@@ -35268,19 +35288,41 @@
       }
     },
 
+    base: {
+      router: {
+        address: '0x198EF79F1F515F02dFE9e3115eD9fC07183f02fC',
+        api: UniswapV3.ROUTER
+      },
+      factory: {
+        address: '0x33128a8fC17869897dcE68Ed026d694621f6FDfD',
+        api: UniswapV3.FACTORY
+      },
+      pool: {
+        api: UniswapV3.POOL
+      },
+      quoter: {
+        address: '0x3d4e44Eb1374240CE5F1B871ab261CD16335B76a',
+        api: UniswapV3.QUOTER
+      },
+      permit: {
+        address: '0x000000000022d473030f116ddee9f6b43ac78ba3',
+        api: UniswapV3.PERMIT2
+      }
+    },
+
   };
 
   var uniswap_v3 = (scope)=>{
     
     return new Exchange(
 
-      Object.assign(exchange$8, {
+      Object.assign(exchange$9, {
         scope,
-        findPath: (args)=>UniswapV3.findPath({ ...args, exchange: exchange$8 }),
-        pathExists: (args)=>UniswapV3.pathExists({ ...args, exchange: exchange$8 }),
-        getAmounts: (args)=>UniswapV3.getAmounts({ ...args, exchange: exchange$8 }),
-        getPrep: (args)=>UniswapV3.getPrep({ ...args, exchange: exchange$8 }),
-        getTransaction: (args)=>UniswapV3.getTransaction({ ...args, exchange: exchange$8 }),
+        findPath: (args)=>UniswapV3.findPath({ ...args, exchange: exchange$9 }),
+        pathExists: (args)=>UniswapV3.pathExists({ ...args, exchange: exchange$9 }),
+        getAmounts: (args)=>UniswapV3.getAmounts({ ...args, exchange: exchange$9 }),
+        getPrep: (args)=>UniswapV3.getPrep({ ...args, exchange: exchange$9 }),
+        getTransaction: (args)=>UniswapV3.getTransaction({ ...args, exchange: exchange$9 }),
       })
     )
   };
@@ -35372,7 +35414,7 @@
     WETH,
   };
 
-  const exchange$7 = {
+  const exchange$8 = {
     
     name: 'wavax',
     label: 'Wrapped Avax',
@@ -35394,18 +35436,18 @@
     
     return new Exchange(
 
-      Object.assign(exchange$7, {
+      Object.assign(exchange$8, {
         scope,
-        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$7 }),
-        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$7 }),
-        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$7 }),
+        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$8 }),
+        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$8 }),
+        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$8 }),
         getPrep: (args)=>{},
-        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$7 }),
+        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$8 }),
       })
     )
   };
 
-  const exchange$6 = {
+  const exchange$7 = {
     
     name: 'wbnb',
     label: 'Wrapped BNB',
@@ -35427,18 +35469,18 @@
     
     return new Exchange(
 
-      Object.assign(exchange$6, {
+      Object.assign(exchange$7, {
         scope,
-        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$6 }),
-        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$6 }),
-        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$6 }),
+        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$7 }),
+        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$7 }),
+        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$7 }),
         getPrep: (args)=>{},
-        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$6 }),
+        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$7 }),
       })
     )
   };
 
-  const exchange$5 = {
+  const exchange$6 = {
     
     name: 'weth',
     label: 'Wrapped Ethereum',
@@ -35460,18 +35502,18 @@
     
     return new Exchange(
 
-      Object.assign(exchange$5, {
+      Object.assign(exchange$6, {
         scope,
-        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$5 }),
-        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$5 }),
-        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$5 }),
+        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$6 }),
+        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$6 }),
+        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$6 }),
         getPrep: (args)=>{},
-        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$5 }),
+        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$6 }),
       })
     )
   };
 
-  const exchange$4 = {
+  const exchange$5 = {
     
     name: 'weth_arbitrum',
     label: 'Wrapped Ethereum',
@@ -35493,18 +35535,18 @@
     
     return new Exchange(
 
-      Object.assign(exchange$4, {
+      Object.assign(exchange$5, {
         scope,
-        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$4 }),
-        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$4 }),
-        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$4 }),
+        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$5 }),
+        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$5 }),
+        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$5 }),
         getPrep: (args)=>{},
-        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$4 }),
+        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$5 }),
       })
     )
   };
 
-  const exchange$3 = {
+  const exchange$4 = {
     
     name: 'weth_optimism',
     label: 'Wrapped Ethereum',
@@ -35523,6 +35565,39 @@
   };
 
   var weth_optimism = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$4, {
+        scope,
+        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$4 }),
+        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$4 }),
+        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$4 }),
+        getPrep: (args)=>{},
+        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$4 }),
+      })
+    )
+  };
+
+  const exchange$3 = {
+    
+    name: 'weth_base',
+    label: 'Wrapped Ethereum',
+    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI2LjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIKCSBpZD0iTGF5ZXJfMSIgaW1hZ2UtcmVuZGVyaW5nPSJvcHRpbWl6ZVF1YWxpdHkiIHNoYXBlLXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIiB0ZXh0LXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIgoJIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjgzLjUgMjgzLjUiCgkgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjgzLjUgMjgzLjU7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojMzQzNDM0O30KCS5zdDF7ZmlsbDojOEM4QzhDO30KCS5zdDJ7ZmlsbDojM0MzQzNCO30KCS5zdDN7ZmlsbDojMTQxNDE0O30KCS5zdDR7ZmlsbDojMzkzOTM5O30KPC9zdHlsZT4KPGc+Cgk8Zz4KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTQxLjcsMjUuOWwtMS41LDUuMnYxNTMuM2wxLjUsMS41bDcxLjItNDIuMUwxNDEuNywyNS45eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xNDEuNywyNS45TDcwLjYsMTQzLjhsNzEuMSw0Mi4xdi03NC40VjI1Ljl6Ii8+CgkJPHBhdGggY2xhc3M9InN0MiIgZD0iTTE0MS43LDE5OS40bC0wLjgsMS4xdjU0LjZsMC44LDIuNWw3MS4yLTEwMC4zTDE0MS43LDE5OS40eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xNDEuNywyNTcuNnYtNTguMmwtNzEuMS00Mi4xTDE0MS43LDI1Ny42eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0xNDEuNywxODUuOWw3MS4yLTQyLjFsLTcxLjItMzIuM1YxODUuOXoiLz4KCQk8cGF0aCBjbGFzcz0ic3Q0IiBkPSJNNzAuNiwxNDMuOGw3MS4xLDQyLjF2LTc0LjRMNzAuNiwxNDMuOHoiLz4KCTwvZz4KPC9nPgo8L3N2Zz4K',
+    
+    slippage: false,
+
+    blockchains: ['base'],
+
+    base: {
+      router: {
+        address: Blockchains__default['default'].base.wrapped.address,
+        api: WETH$1.WETH
+      },
+    }
+  };
+
+  var weth_base = (scope)=>{
     
     return new Exchange(
 
@@ -35648,6 +35723,7 @@
     honeyswap(),
     weth(),
     weth_optimism(),
+    weth_base(),
     weth_arbitrum(),
     wbnb(),
     wmatic(),
@@ -35691,6 +35767,12 @@
     weth_optimism('optimism'),
   ];
   exchanges.optimism.forEach((exchange)=>{ exchanges.optimism[exchange.name] = exchange; });
+
+  exchanges.base = [
+    uniswap_v3('base'),
+    weth_base('base'),
+  ];
+  exchanges.base.forEach((exchange)=>{ exchanges.base[exchange.name] = exchange; });
 
   exchanges.arbitrum = [
     uniswap_v3('arbitrum'),
@@ -35979,47 +36061,52 @@
 
   }
 
-  const API = [{"inputs":[{"internalType":"address","name":"_PERMIT2","type":"address"},{"internalType":"address","name":"_FORWARDER","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Disabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Enabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"FORWARDER","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PERMIT2","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"exchange","type":"address"},{"internalType":"bool","name":"enabled","type":"bool"}],"name":"enable","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"exchanges","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct IDePayRouterV2.Payment","name":"payment","type":"tuple"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct IDePayRouterV2.Payment","name":"payment","type":"tuple"},{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"uint48","name":"expiration","type":"uint48"},{"internalType":"uint48","name":"nonce","type":"uint48"}],"internalType":"struct IPermit2.PermitDetails","name":"details","type":"tuple"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"sigDeadline","type":"uint256"}],"internalType":"struct IPermit2.PermitSingle","name":"permitSingle","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
+  const API = [{"inputs":[{"internalType":"address","name":"_PERMIT2","type":"address"},{"internalType":"address","name":"_FORWARDER","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ExchangeCallFailed","type":"error"},{"inputs":[],"name":"ExchangeCallMissing","type":"error"},{"inputs":[],"name":"ExchangeNotApproved","type":"error"},{"inputs":[],"name":"ForwardingPaymentFailed","type":"error"},{"inputs":[],"name":"InsufficientBalanceInAfterPayment","type":"error"},{"inputs":[],"name":"InsufficientBalanceOutAfterPayment","type":"error"},{"inputs":[],"name":"NativeFeePaymentFailed","type":"error"},{"inputs":[],"name":"NativePaymentFailed","type":"error"},{"inputs":[],"name":"PaymentDeadlineReached","type":"error"},{"inputs":[],"name":"PaymentToZeroAddressNotAllowed","type":"error"},{"inputs":[],"name":"WrongAmountPaidIn","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Disabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Enabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"FORWARDER","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PERMIT2","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"acceptOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"exchange","type":"address"},{"internalType":"bool","name":"enabled","type":"bool"}],"name":"enable","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"exchanges","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct IDePayRouterV2.Payment","name":"payment","type":"tuple"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct IDePayRouterV2.Payment","name":"payment","type":"tuple"},{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"uint48","name":"expiration","type":"uint48"},{"internalType":"uint48","name":"nonce","type":"uint48"}],"internalType":"struct IPermit2.PermitDetails","name":"details","type":"tuple"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"sigDeadline","type":"uint256"}],"internalType":"struct IPermit2.PermitSingle","name":"permitSingle","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"pendingOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
 
   var routers$1 = {
 
     ethereum: {
-      address: '0xF491525C7655f362716335D526E57b387799d058',
+      address: '0x93C946371fE3B2439a78E9572C8be6134678E54E',
       api: API
     },
 
     bsc: {
-      address: '0xdb3f47b1D7B577E919D639B4FD0EBcEFD4aABb70',
+      address: '0xB0645B8Bb814733Dde4C4f745890f9720e8152fc',
       api: API
     },
 
     polygon: {
-      address: '0x39E7C98BF4ac3E4C394dD600397f5f7Ee3779BE8',
+      address: '0x673271Af8f91A44cdBA143B96ac4B63210556f91',
       api: API
     },
 
     fantom: {
-      address: '0x78C0F1c712A9AA2004C1F401A7307d8bCB62abBd',
+      address: '0x67d907B883120DD7c78C503cF0049aD271804b46',
       api: API
     },
 
     avalanche: {
-      address: '0x5EC3153BACebb5e49136cF2d457f26f5Df1B6780',
+      address: '0xC9850b32475f4fdE5c972EA6f967982a3c435D10',
       api: API
     },
 
     gnosis: {
-      address: '0x5EC3153BACebb5e49136cF2d457f26f5Df1B6780',
+      address: '0xC9850b32475f4fdE5c972EA6f967982a3c435D10',
       api: API
     },
 
     arbitrum: {
-      address: '0x5EC3153BACebb5e49136cF2d457f26f5Df1B6780',
+      address: '0xC9850b32475f4fdE5c972EA6f967982a3c435D10',
       api: API
     },
 
     optimism: {
-      address: '0x5EC3153BACebb5e49136cF2d457f26f5Df1B6780',
+      address: '0xC9850b32475f4fdE5c972EA6f967982a3c435D10',
+      api: API
+    },
+
+    base: {
+      address: '0x2CA727BC33915823e3D05fe043d310B8c5b2dC5b',
       api: API
     },
 
@@ -36106,8 +36193,8 @@
     });
   });
 
-  let supported = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism'];
-  supported.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism'];
+  let supported = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
+  supported.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
   supported.solana = ['solana'];
 
   const _jsxFileName = "/Users/sebastian/Work/DePay/react-token-image/src/index.js"; function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
@@ -36234,6 +36321,8 @@
           return 'xdai'
         case 'optimism':
           return 'optimism'
+        case 'base':
+          return 'base'
         default:
           throw('DePayReactTokenImage: Unknown blockchain')
       }
@@ -36290,7 +36379,7 @@
 
     if(src == undefined) {
       return(
-        React__default['default'].createElement('div', { className:  props.className , __self: this, __source: {fileName: _jsxFileName, lineNumber: 198}} )
+        React__default['default'].createElement('div', { className:  props.className , __self: this, __source: {fileName: _jsxFileName, lineNumber: 201}} )
       )
     }
 
@@ -36298,7 +36387,7 @@
       React__default['default'].createElement('img', {
         className:  props.className ,
         src:  src ,
-        onError:  handleLoadError , __self: this, __source: {fileName: _jsxFileName, lineNumber: 203}}
+        onError:  handleLoadError , __self: this, __source: {fileName: _jsxFileName, lineNumber: 206}}
       )
     )
   };

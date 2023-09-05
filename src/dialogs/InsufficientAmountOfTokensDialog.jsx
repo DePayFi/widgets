@@ -31,6 +31,7 @@ const NATIVE_AMOUNT_REQUIRED_FOR_TRANSACTION = {
   polygon: ethers.BigNumber.from('15000000000000000'),
   solana: ethers.BigNumber.from('15000'),
   optimism: ethers.BigNumber.from('3000000000000000'),
+  base: ethers.BigNumber.from('3000000000000000'),
   arbitrum: ethers.BigNumber.from('3000000000000000'),
   fantom: ethers.BigNumber.from('3000000000000000'),
   avalanche: ethers.BigNumber.from('3000000000000000'),
@@ -184,7 +185,7 @@ export default (props)=> {
           <div className="GraphicWrapper">
             <img className="Graphic" src={ InsufficientGraphic }/>
           </div>
-          <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Insufficient Amount of Tokens</h1>
+          <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Insufficient Amount</h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM">
             { loading && 
               <div className="Skeleton" style={{ borderRadius: "18px", width: "100%", height: "170px" }}>

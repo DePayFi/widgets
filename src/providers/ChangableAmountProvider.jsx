@@ -83,7 +83,7 @@ export default (props)=>{
               })
             }
           } else {
-            if(Blockchains[configuration.blockchain].stables.usd[0] == configuration.token) {
+            if(Blockchains[configuration.blockchain].stables.usd.find((stable)=> stable.toLowerCase() === configuration.token.toLowerCase())) {
               return 1.00/conversionRate * amount
             } else {
               return Exchanges.route({

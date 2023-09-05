@@ -29,6 +29,12 @@ declare namespace DePayWidgets {
     bsc?: string[];
     polygon?: string[];
     solana?: string[];
+    arbitrum?: string[];
+    optimsm?: string[];
+    base?: string[];
+    avalanche?: string[];
+    gnosis?: string[];
+    fantom?: string[];
   }
 
   interface BlockchainStringOptions {
@@ -36,6 +42,12 @@ declare namespace DePayWidgets {
     bsc?: string;
     polygon?: string;
     solana?: string;
+    arbitrum?: string;
+    optimsm?: string;
+    base?: string;
+    avalanche?: string;
+    gnosis?: string;
+    fantom?: string;
   }
 
   interface PaymentOptions {

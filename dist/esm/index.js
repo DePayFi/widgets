@@ -987,8 +987,8 @@ function _toConsumableArray(arr) {
   return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
-var supported = ['ethereum', 'bsc', 'polygon', 'solana', 'arbitrum', 'optimism', 'avalanche', 'gnosis', 'fantom'];
-supported.evm = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'avalanche', 'gnosis', 'fantom'];
+var supported = ['ethereum', 'bsc', 'polygon', 'solana', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom'];
+supported.evm = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom'];
 supported.solana = ['solana'];
 
 var allWallets = [{
@@ -24036,13 +24036,13 @@ function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if 
 function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtqsu0wy94cpz90W4pGsJ\nSf0bfvmsq3su+R1J4AoAYz0XoAu2MXJZM8vrQvG3op7OgB3zze8pj4joaoPU2piT\ndH7kcF4Mde6QG4qKEL3VE+J8CL3qK2dUY0Umu20x/O9O792tlv8+Q/qAVv8yPfdM\nn5Je9Wc7VI5XeIBKP2AzsCkrXuzQlR48Ac5LpViNSSLu0mz5NTBoHkW2sz1sNWc6\nUpYISJkiKTvYc8Bo4p5xD6+ZmlL4hj1Ad/+26SjYcisX2Ut4QD7YKRBP2SbItVkI\nqp9mp6c6MCKNmEUkosxAr0KVfOcrk6/fcc4tI8g+KYZ32G11Ri8Xo4fgHH06DLYP\n3QIDAQAB\n-----END PUBLIC KEY-----\n";
 var ConfigurationProvider = (function (props) {
-  var _props$configuration, _props$configuration2, _props$configuration5;
+  var _props$configuration, _props$configuration4;
 
-  var currencyCode = props !== null && props !== void 0 && (_props$configuration = props.configuration) !== null && _props$configuration !== void 0 && _props$configuration.currency ? new Currency({
+  var currencyCode = new Currency({
     code: props.configuration.currency
-  }).code : undefined;
+  }).code;
 
-  var _useState = useState(!((_props$configuration2 = props.configuration) !== null && _props$configuration2 !== void 0 && _props$configuration2.integration) ? _objectSpread$6(_objectSpread$6({}, props.configuration), {}, {
+  var _useState = useState(!((_props$configuration = props.configuration) !== null && _props$configuration !== void 0 && _props$configuration.integration) ? _objectSpread$6(_objectSpread$6({}, props.configuration), {}, {
     currencyCode: currencyCode
   }) : undefined),
       _useState2 = _slicedToArray(_useState, 2),
@@ -24141,16 +24141,16 @@ var ConfigurationProvider = (function (props) {
     }
   }, [configuration]);
   useEffect(function () {
-    var _props$configuration3;
+    var _props$configuration2;
 
-    if ((_props$configuration3 = props.configuration) !== null && _props$configuration3 !== void 0 && _props$configuration3.integration) {
-      var _props$configuration4;
+    if ((_props$configuration2 = props.configuration) !== null && _props$configuration2 !== void 0 && _props$configuration2.integration) {
+      var _props$configuration3;
 
-      loadConfiguration((_props$configuration4 = props.configuration) === null || _props$configuration4 === void 0 ? void 0 : _props$configuration4.integration, 1);
+      loadConfiguration((_props$configuration3 = props.configuration) === null || _props$configuration3 === void 0 ? void 0 : _props$configuration3.integration, 1);
     }
   }, [props.configuration]);
 
-  if ((_props$configuration5 = props.configuration) !== null && _props$configuration5 !== void 0 && _props$configuration5.integration && !configuration) {
+  if ((_props$configuration4 = props.configuration) !== null && _props$configuration4 !== void 0 && _props$configuration4.integration && !configuration) {
     return /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
       unmount: props.unmount,
       closable: false
@@ -24439,8 +24439,11 @@ var PaymentBlockchainsDialog = (function () {
       }, /*#__PURE__*/React.createElement("div", {
         className: "CardImage"
       }, /*#__PURE__*/React.createElement("img", {
-        className: "transparent",
-        src: blockchain.logo
+        className: "transparent BlockchainLogo small",
+        src: blockchain.logo,
+        style: {
+          backgroundColor: blockchain.logoBackgroundColor
+        }
       })), /*#__PURE__*/React.createElement("div", {
         className: "CardBody"
       }, /*#__PURE__*/React.createElement("span", {
@@ -24899,7 +24902,9 @@ var ChangableAmountProvider = (function (props) {
               });
             }
           } else {
-            if (Blockchains[configuration.blockchain].stables.usd[0] == configuration.token) {
+            if (Blockchains[configuration.blockchain].stables.usd.find(function (stable) {
+              return stable.toLowerCase() === configuration.token.toLowerCase();
+            })) {
               return 1.00 / conversionRate * amount;
             } else {
               return Exchanges.route({
@@ -25195,7 +25200,6 @@ var PaymentRoutingProvider = (function (props) {
       updatable = _useContext2.updatable;
 
   var _useContext3 = useContext(ConfigurationContext),
-      accept = _useContext3.accept,
       recover = _useContext3.recover;
 
   var configuration = useContext(ConfigurationContext);
@@ -25209,7 +25213,7 @@ var PaymentRoutingProvider = (function (props) {
             case 0:
               updatable = _ref.updatable;
 
-              if (!(updatable == false || !accept || !account)) {
+              if (!(updatable == false || !props.accept || !account)) {
                 _context.next = 3;
                 break;
               }
@@ -25222,6 +25226,7 @@ var PaymentRoutingProvider = (function (props) {
               }, 4000);
               _context.next = 6;
               return routePayments(Object.assign({}, configuration, {
+                accept: props.accept,
                 account: account,
                 drip: function drip(route) {
                   if (route.fromToken.address !== route.toToken.address && !Blockchains[route.blockchain].tokens.find(function (token) {
@@ -25381,10 +25386,10 @@ var PaymentRoutingProvider = (function (props) {
     };
   }, [reloadCount, allRoutes, selectedRoute, updatable]);
   useEffect(function () {
-    if (account && accept && recover == undefined) {
+    if (account && props.accept && recover == undefined) {
       refreshPaymentRoutes();
     }
-  }, [account, accept]);
+  }, [account, props.accept]);
   useEffect(function () {
     if (updatedRoutes === undefined) {
       return;
@@ -25483,6 +25488,7 @@ var NATIVE_AMOUNT_REQUIRED_FOR_TRANSACTION = {
   polygon: ethers.BigNumber.from('15000000000000000'),
   solana: ethers.BigNumber.from('15000'),
   optimism: ethers.BigNumber.from('3000000000000000'),
+  base: ethers.BigNumber.from('3000000000000000'),
   arbitrum: ethers.BigNumber.from('3000000000000000'),
   fantom: ethers.BigNumber.from('3000000000000000'),
   avalanche: ethers.BigNumber.from('3000000000000000'),
@@ -25954,7 +25960,7 @@ var InsufficientAmountOfTokensDialog = (function (props) {
       src: InsufficientGraphic
     })), /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-    }, "Insufficient Amount of Tokens"), /*#__PURE__*/React.createElement("div", {
+    }, "Insufficient Amount"), /*#__PURE__*/React.createElement("div", {
       className: "Text PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM"
     }, loading && /*#__PURE__*/React.createElement("div", {
       className: "Skeleton",
@@ -27103,10 +27109,16 @@ var DigitalWalletIcon = (function (props) {
 
 var blockTimes = {
   // in seconds
-  ethereum: 13,
-  bsc: 4,
-  polygon: 3,
-  solana: 0.5
+  ethereum: 12,
+  bsc: 3,
+  polygon: 2,
+  solana: 0.5,
+  optimism: 0.5,
+  base: 0.5,
+  arbitrum: 1.5,
+  fantom: 2.5,
+  avalanche: 2,
+  gnosis: 5.2
 };
 var etaForConfirmations = (function (blockchain, confirmationsRequired, confirmationsPassed) {
   return (confirmationsRequired - confirmationsPassed) * blockTimes[blockchain];

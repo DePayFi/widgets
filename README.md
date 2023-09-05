@@ -89,6 +89,7 @@ https://depayfi.github.io/widgets/demo.bundle.html
 - [Fantom](https://fantom.foundation)
 - [Avalanche](https://www.avax.network)
 - [Gnosis](https://gnosis.io)
+- [Base](https://base.org)
 
 ### Wallets
 
