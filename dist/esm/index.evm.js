@@ -24077,7 +24077,7 @@ function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if 
 function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtqsu0wy94cpz90W4pGsJ\nSf0bfvmsq3su+R1J4AoAYz0XoAu2MXJZM8vrQvG3op7OgB3zze8pj4joaoPU2piT\ndH7kcF4Mde6QG4qKEL3VE+J8CL3qK2dUY0Umu20x/O9O792tlv8+Q/qAVv8yPfdM\nn5Je9Wc7VI5XeIBKP2AzsCkrXuzQlR48Ac5LpViNSSLu0mz5NTBoHkW2sz1sNWc6\nUpYISJkiKTvYc8Bo4p5xD6+ZmlL4hj1Ad/+26SjYcisX2Ut4QD7YKRBP2SbItVkI\nqp9mp6c6MCKNmEUkosxAr0KVfOcrk6/fcc4tI8g+KYZ32G11Ri8Xo4fgHH06DLYP\n3QIDAQAB\n-----END PUBLIC KEY-----\n";
 var ConfigurationProvider = (function (props) {
-  var _props$configuration, _props$configuration4;
+  var _props$configuration, _props$configuration5;
 
   var currencyCode = new Currency({
     code: props.configuration.currency
@@ -24091,6 +24091,8 @@ var ConfigurationProvider = (function (props) {
       setConfiguration = _useState2[1];
 
   var loadConfiguration = function loadConfiguration(id, attempt) {
+    var _props$configuration2;
+
     if (attempt >= 10) {
       return;
     }
@@ -24106,17 +24108,19 @@ var ConfigurationProvider = (function (props) {
       headers: {
         "Content-Type": "application/json"
       },
-      body: props.paylod ? JSON.stringify(props.payload) : undefined
-    }).then( /*#__PURE__*/function () {
+      body: (_props$configuration2 = props.configuration) !== null && _props$configuration2 !== void 0 && _props$configuration2.payload ? JSON.stringify({
+        payload: props.configuration.payload
+      }) : undefined
+    })["catch"](retry).then( /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(response) {
-        var _JSON$parse, _id, _configuration, verified;
+        var _JSON$parse, configurationId, _configuration, verified, localConfigurationWithValues;
 
         return regenerator.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!(response.status == 200)) {
-                  _context.next = 18;
+                  _context.next = 19;
                   break;
                 }
 
@@ -24127,7 +24131,7 @@ var ConfigurationProvider = (function (props) {
               case 4:
                 _context.t1 = _context.sent;
                 _JSON$parse = _context.t0.parse.call(_context.t0, _context.t1);
-                _id = _JSON$parse.id;
+                configurationId = _JSON$parse.id;
                 _configuration = _JSON$parse.configuration;
                 _context.next = 10;
                 return verify({
@@ -24140,27 +24144,38 @@ var ConfigurationProvider = (function (props) {
                 verified = _context.sent;
 
                 if (!verified) {
-                  _context.next = 15;
+                  _context.next = 16;
                   break;
                 }
 
-                setConfiguration(_objectSpread$5(_objectSpread$5({}, _configuration), {}, {
-                  id: _id
-                }));
-                _context.next = 16;
-                break;
+                localConfigurationWithValues = Object.entries(props.configuration).reduce(function (acc, _ref2) {
+                  var _ref3 = _slicedToArray(_ref2, 2),
+                      key = _ref3[0],
+                      value = _ref3[1];
 
-              case 15:
-                throw 'Configuration response not verified!';
+                  if (value !== undefined) {
+                    acc[key] = value;
+                  }
+
+                  return acc;
+                }, {});
+                setConfiguration(_objectSpread$5(_objectSpread$5(_objectSpread$5({}, _configuration), localConfigurationWithValues), {}, {
+                  id: configurationId
+                }));
+                _context.next = 17;
+                break;
 
               case 16:
-                _context.next = 19;
+                throw 'Configuration response not verified!';
+
+              case 17:
+                _context.next = 20;
                 break;
 
-              case 18:
+              case 19:
                 retry();
 
-              case 19:
+              case 20:
               case "end":
                 return _context.stop();
             }
@@ -24171,7 +24186,7 @@ var ConfigurationProvider = (function (props) {
       return function (_x) {
         return _ref.apply(this, arguments);
       };
-    }())["catch"](retry);
+    }());
   };
 
   useEffect(function () {
@@ -24182,16 +24197,16 @@ var ConfigurationProvider = (function (props) {
     }
   }, [configuration]);
   useEffect(function () {
-    var _props$configuration2;
+    var _props$configuration3;
 
-    if ((_props$configuration2 = props.configuration) !== null && _props$configuration2 !== void 0 && _props$configuration2.integration) {
-      var _props$configuration3;
+    if ((_props$configuration3 = props.configuration) !== null && _props$configuration3 !== void 0 && _props$configuration3.integration) {
+      var _props$configuration4;
 
-      loadConfiguration((_props$configuration3 = props.configuration) === null || _props$configuration3 === void 0 ? void 0 : _props$configuration3.integration, 1);
+      loadConfiguration((_props$configuration4 = props.configuration) === null || _props$configuration4 === void 0 ? void 0 : _props$configuration4.integration, 1);
     }
   }, [props.configuration]);
 
-  if ((_props$configuration4 = props.configuration) !== null && _props$configuration4 !== void 0 && _props$configuration4.integration && !configuration) {
+  if ((_props$configuration5 = props.configuration) !== null && _props$configuration5 !== void 0 && _props$configuration5.integration && !configuration) {
     return /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
       unmount: props.unmount,
       closable: false
@@ -25494,7 +25509,7 @@ var PaymentAmountRoutingProvider = (function (props) {
       acceptWithAmount = _useContext.acceptWithAmount,
       setMaxRoute = _useContext.setMaxRoute;
 
-  var _useContext2 = useContext(ChangableAmountContext),
+  var _useContext2 = useContext(ConfigurationContext),
       configuredAccept = _useContext2.accept;
 
   var _useState = useState(),
@@ -28000,7 +28015,7 @@ var PaymentTrackingProvider = (function (props) {
       trackingInitialized = _useState16[0],
       setTrackingInitialized = _useState16[1];
 
-  var _useState17 = useState(configurationId || !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
+  var _useState17 = useState(!!configurationId || !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
       _useState18 = _slicedToArray(_useState17, 1),
       synchronousTracking = _useState18[0];
 
@@ -28008,7 +28023,7 @@ var PaymentTrackingProvider = (function (props) {
       _useState20 = _slicedToArray(_useState19, 1),
       asynchronousTracking = _useState20[0];
 
-  var _useState21 = useState(configurationId || !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+  var _useState21 = useState(!!configurationId || !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
       _useState22 = _slicedToArray(_useState21, 1),
       polling = _useState22[0];
 

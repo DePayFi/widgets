@@ -6,7 +6,7 @@ import React, { useState, useEffect, useContext } from 'react'
 
 export default (props)=>{
   const { amountsMissing, acceptWithAmount, setMaxRoute } = useContext(ChangableAmountContext)
-  const { accept: configuredAccept } = useContext(ChangableAmountContext)
+  const { accept: configuredAccept } = useContext(ConfigurationContext)
   const [ accept, setAccept ] = useState()
 
   useEffect(()=>{

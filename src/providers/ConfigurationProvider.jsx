@@ -36,11 +36,11 @@ export default (props)=>{
       {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
-        body: props.paylod ? JSON.stringify(props.payload) : undefined
+        body: props.configuration?.payload ? JSON.stringify({ payload: props.configuration.payload }) : undefined
       }
-    ).then(async (response)=>{
+    ).catch(retry).then(async (response)=>{
       if(response.status == 200) {
-        let { id, configuration } = JSON.parse(await response.text())
+        let { id: configurationId, configuration } = JSON.parse(await response.text())
 
         let verified = await verify({
           signature: response.headers.get('x-signature'),
@@ -49,12 +49,16 @@ export default (props)=>{
         })
 
         if(verified){
-          setConfiguration({...configuration, id })
+          const localConfigurationWithValues = Object.entries(props.configuration).reduce((acc, [key, value]) => {
+            if (value !== undefined) { acc[key] = value }
+            return acc
+          }, {})
+          setConfiguration({...configuration, ...localConfigurationWithValues, id: configurationId})
         } else {
           throw('Configuration response not verified!')
         }
       } else { retry() }
-    }).catch(retry)
+    })
   }
 
   useEffect(()=>{

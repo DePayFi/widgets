@@ -35,7 +35,7 @@ export default (props)=>{
   const [ attemptId, setAttemptId ] = useState()
   const [ trackingInitialized, setTrackingInitialized ] = useState(false)
   const [ synchronousTracking ] = useState(
-    configurationId ||
+    !!configurationId ||
     !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)
   )
   const [ asynchronousTracking ] = useState(
@@ -43,7 +43,7 @@ export default (props)=>{
     !!(track && track.async == true)
   )
   const [ polling ] = useState(
-    configurationId ||
+    !!configurationId ||
     !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)
   )
   const [ release, setRelease ] = useState(false)
