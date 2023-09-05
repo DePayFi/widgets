@@ -169,7 +169,7 @@ describe('Payment Widget: main functionality', () => {
     })
   })
 
-  it('stores integration & link', () => {
+  it('stores link', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
@@ -195,7 +195,6 @@ describe('Payment Widget: main functionality', () => {
           sender_amount: "20.0",
           sender_id: fromAddress,
           sender_token_id: DEPAY,
-          integration: '123',
           link: '456',
           type: 'payment'
         },
@@ -210,7 +209,7 @@ describe('Payment Widget: main functionality', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, integration: '123', link: '456', document })
+        DePayWidgets.Payment({ ...defaultArguments, link: '456', document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.grey').should('contain.text', '€28.05')
