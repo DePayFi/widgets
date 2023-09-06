@@ -25949,8 +25949,7 @@ var InsufficientAmountOfTokensDialog = (function (props) {
                     }()).filter(Boolean).flat();
                   }).flat().filter(Boolean)).then( /*#__PURE__*/function () {
                     var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
-                      var route, _accept;
-
+                      var route, recommendedAccept;
                       return regenerator.wrap(function _callee5$(_context5) {
                         while (1) {
                           switch (_context5.prev = _context5.next) {
@@ -25964,14 +25963,14 @@ var InsufficientAmountOfTokensDialog = (function (props) {
                               if (!route) {
                                 set(['NoPaymentOptionFound']);
                               } else {
-                                _accept = _accept.find(function (accept) {
+                                recommendedAccept = accept.find(function (accept) {
                                   return accept.blockchain === route.blockchain && accept.token.toLowerCase() === route.tokenOut.toLowerCase();
-                                }) || _accept.find(function (accept) {
+                                }) || accept.find(function (accept) {
                                   return accept.blockchain === route.blockchain;
                                 });
                                 setRecommendation({
                                   route: route,
-                                  accept: _accept
+                                  accept: recommendedAccept
                                 });
                               }
 

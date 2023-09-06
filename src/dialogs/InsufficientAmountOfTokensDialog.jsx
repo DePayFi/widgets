@@ -165,8 +165,8 @@ export default (props)=> {
           if(!route){
             set(['NoPaymentOptionFound'])
           } else {
-            const accept = accept.find((accept)=>accept.blockchain === route.blockchain && accept.token.toLowerCase() === route.tokenOut.toLowerCase()) || accept.find((accept)=>accept.blockchain === route.blockchain)
-            setRecommendation({ route, accept })
+            const recommendedAccept = accept.find((accept)=>accept.blockchain === route.blockchain && accept.token.toLowerCase() === route.tokenOut.toLowerCase()) || accept.find((accept)=>accept.blockchain === route.blockchain)
+            setRecommendation({ route, accept: recommendedAccept })
           }
         })
       }
