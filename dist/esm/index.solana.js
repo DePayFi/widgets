@@ -36082,47 +36082,47 @@ const API = [{"inputs":[{"internalType":"address","name":"_PERMIT2","type":"addr
 var routers$1 = {
 
   ethereum: {
-    address: '0x93C946371fE3B2439a78E9572C8be6134678E54E',
+    address: '0xcbfc518FB621828fa6f0F4647D42931476ea473b',
     api: API
   },
 
   bsc: {
-    address: '0xB0645B8Bb814733Dde4C4f745890f9720e8152fc',
+    address: '0xAc68Ee6Bc43Bf075C0522a15E665547CFd28628D',
     api: API
   },
 
   polygon: {
-    address: '0x673271Af8f91A44cdBA143B96ac4B63210556f91',
+    address: '0x1eD1e2dEEEa8B5C802663780284eDa63f62A3825',
     api: API
   },
 
   fantom: {
-    address: '0x67d907B883120DD7c78C503cF0049aD271804b46',
+    address: '0x8B127D169D232D5F3ebE1C3D06CE343FD7C1AA11',
     api: API
   },
 
   avalanche: {
-    address: '0xC9850b32475f4fdE5c972EA6f967982a3c435D10',
+    address: '0x8B127D169D232D5F3ebE1C3D06CE343FD7C1AA11',
     api: API
   },
 
   gnosis: {
-    address: '0xC9850b32475f4fdE5c972EA6f967982a3c435D10',
+    address: '0x8B127D169D232D5F3ebE1C3D06CE343FD7C1AA11',
     api: API
   },
 
   arbitrum: {
-    address: '0xC9850b32475f4fdE5c972EA6f967982a3c435D10',
+    address: '0x47dF3990e8827EfF23b01e1CD7de309E8C6364a2',
     api: API
   },
 
   optimism: {
-    address: '0xC9850b32475f4fdE5c972EA6f967982a3c435D10',
+    address: '0x47dF3990e8827EfF23b01e1CD7de309E8C6364a2',
     api: API
   },
 
   base: {
-    address: '0x2CA727BC33915823e3D05fe043d310B8c5b2dC5b',
+    address: '0xfAD2F276D464EAdB71435127BA2c2e9dDefb93a4',
     api: API
   },
 
