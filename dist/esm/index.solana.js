@@ -27332,7 +27332,7 @@ var Footer = (function () {
         className: "CardBodyWrapper"
       }, /*#__PURE__*/React.createElement("div", {
         className: "Opacity05"
-      }, "Confirm payment in your wallet (", /*#__PURE__*/React.createElement("a", {
+      }, "Confirm in your wallet (", /*#__PURE__*/React.createElement("a", {
         href: "https://depay.com/docs/payments/verify",
         target: "_blank",
         rel: "noopener noreferrer",

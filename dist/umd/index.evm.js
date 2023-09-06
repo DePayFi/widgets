@@ -27329,7 +27329,7 @@
           className: "CardBodyWrapper"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "Opacity05"
-        }, "Confirm payment in your wallet (", /*#__PURE__*/React__default['default'].createElement("a", {
+        }, "Confirm in your wallet (", /*#__PURE__*/React__default['default'].createElement("a", {
           href: "https://depay.com/docs/payments/verify",
           target: "_blank",
           rel: "noopener noreferrer",
