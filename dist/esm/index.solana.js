@@ -23152,6 +23152,7 @@ var ConnectStack = (function (props) {
       href = "".concat(href, "/wc?uri=").concat(uri);
     }
 
+    console.log('OPEN UNIVERSAL', href);
     return window.open(href, '_self', 'noreferrer noopener');
   };
 
@@ -23172,6 +23173,7 @@ var ConnectStack = (function (props) {
       href = "".concat(href, "wc?uri=").concat(uri);
     }
 
+    console.log('OPEN NATIVE', href);
     return window.open(href, '_self', 'noreferrer noopener');
   };
 
@@ -23188,6 +23190,7 @@ var ConnectStack = (function (props) {
       href = "".concat(href, "wc?uri=").concat(uri);
     }
 
+    console.log('OPEN WC LINK', href);
     window.open(href, '_self', 'noreferrer noopener');
   };
 
