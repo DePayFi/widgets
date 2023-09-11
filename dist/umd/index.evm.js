@@ -1017,7 +1017,6 @@
     },
     "mobile": {
       "ios": {
-        "native": "metamask:",
         "universal": "https://metamask.app.link",
         "qr": "WalletConnectV1",
         "connect": "WalletConnectV2"
@@ -23168,7 +23167,7 @@
         href = "".concat(href, "wc?uri=").concat(uri);
       }
 
-      console.log('OPEN NATIVE', href);
+      console.log('OPEN NATIVE v2', href);
       return window.open(href, '_self', 'noreferrer noopener');
     };
 

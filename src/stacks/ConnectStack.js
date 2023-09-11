@@ -80,7 +80,7 @@ export default (props)=>{
     } else {
       href = `${href}wc?uri=${uri}`
     }
-    console.log('OPEN NATIVE', href)
+    console.log('OPEN NATIVE v2', href)
     return window.open(href, '_self', 'noreferrer noopener')
   }
 
