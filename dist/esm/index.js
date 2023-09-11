@@ -23108,17 +23108,22 @@ var ConnectStack = (function (props) {
       platform = _useState4[0],
       setPlatform = _useState4[1];
 
-  var _useState5 = useState({
+  var _useState5 = useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      redirectUri = _useState6[0],
+      setRedirectUri = _useState6[1];
+
+  var _useState7 = useState({
     blockchain: undefined
   }),
-      _useState6 = _slicedToArray(_useState5, 2),
-      selection = _useState6[0];
-      _useState6[1];
-
-  var _useState7 = useState(false),
       _useState8 = _slicedToArray(_useState7, 2),
-      showConnectExtensionWarning = _useState8[0],
-      setShowConnectExtensionWarning = _useState8[1];
+      selection = _useState8[0];
+      _useState8[1];
+
+  var _useState9 = useState(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      showConnectExtensionWarning = _useState10[0],
+      setShowConnectExtensionWarning = _useState10[1];
 
   var resolve = function resolve(account, wallet) {
     if (account && wallet) {
@@ -23166,7 +23171,6 @@ var ConnectStack = (function (props) {
       href = "".concat(href, "/wc?uri=").concat(uri);
     }
 
-    console.log('OPEN UNIVERSAL LINK 1', href);
     return window.open(href, '_self', 'noreferrer noopener');
   };
 
@@ -23187,7 +23191,6 @@ var ConnectStack = (function (props) {
       href = "".concat(href, "wc?uri=").concat(uri);
     }
 
-    console.log('OPEN NATIVE LINK 1', href);
     return window.open(href, '_self', 'noreferrer noopener');
   };
 
@@ -23204,8 +23207,28 @@ var ConnectStack = (function (props) {
       href = "".concat(href, "wc?uri=").concat(uri);
     }
 
-    console.log('OPEN WC LINK 1', href);
     window.open(href, '_self', 'noreferrer noopener');
+  };
+
+  var redirect = function redirect(_ref) {
+    var walletMetaData = _ref.walletMetaData,
+        platform = _ref.platform,
+        uri = _ref.uri;
+    var name = isAndroid() ? 'Android' : walletMetaData.name;
+
+    if (isWebView()) {
+      if (platform.universal) {
+        openUniversalLink(platform, uri, name);
+      } else if (isAndroid()) {
+        openWcLink(platform, uri, name);
+      }
+    } else {
+      if (platform["native"]) {
+        openNativeLink(platform, uri, name);
+      } else {
+        openUniversalLink(platform, uri, name);
+      }
+    }
   };
 
   var connectViaRedirect = function connectViaRedirect(walletMetaData) {
@@ -23221,27 +23244,26 @@ var ConnectStack = (function (props) {
 
       var _wallet = new wallets[platform.connect]();
 
+      if (redirectUri) {
+        redirect({
+          walletMetaData: walletMetaData,
+          platform: platform,
+          uri: redirectUri
+        });
+      }
+
       _wallet.connect({
         name: walletMetaData.name,
         logo: walletMetaData.logo,
         reconnect: reconnect,
-        connect: function connect(_ref) {
-          var uri = _ref.uri;
-          var name = isAndroid() ? 'Android' : walletMetaData.name;
-
-          if (isWebView()) {
-            if (platform.universal) {
-              openUniversalLink(platform, uri, name);
-            } else if (isAndroid()) {
-              openWcLink(platform, uri, name);
-            }
-          } else {
-            if (platform["native"]) {
-              openNativeLink(platform, uri, name);
-            } else {
-              openUniversalLink(platform, uri, name);
-            }
-          }
+        connect: function connect(_ref2) {
+          var uri = _ref2.uri;
+          setRedirectUri(uri);
+          redirect({
+            walletMetaData: walletMetaData,
+            platform: platform,
+            uri: uri
+          });
         }
       }).then(function (account) {
         resolve(account, _wallet);
