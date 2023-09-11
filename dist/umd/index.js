@@ -1019,6 +1019,7 @@
     },
     "mobile": {
       "ios": {
+        "native": "metamask:",
         "universal": "https://metamask.app.link",
         "qr": "WalletConnectV1",
         "connect": "WalletConnectV2"

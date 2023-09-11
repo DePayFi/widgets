@@ -26,7 +26,7 @@
     "@depay/local-currency": "^3.6.1",
     "@depay/react-dialog-stack": "^8.1.1",
     "@depay/react-shadow-dom": "^5.0.5",
-    "@depay/react-token-image-evm": "^4.15.0",
+    "@depay/react-token-image-evm": "^5.0.0",
     "@depay/walletconnect-v1": "^1.8.0",
     "@depay/walletconnect-v2": "^2.9.2",
     "@depay/web3-assets-evm": "^7.2.0",

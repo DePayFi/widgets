@@ -1268,10 +1268,10 @@
   resolved "https://registry.yarnpkg.com/@depay/react-shadow-dom/-/react-shadow-dom-5.0.5.tgz#1d749791fdbf305d19f4b44c1954f428bf7324b4"
   integrity sha512-VDNkC1BUKe+pze0OZ4mkkbc+GpUXL2MQ59TaHQxelo6Aj7UtOzkS2DYZ3pKBElosDMHLUtlTXjJ2/zcNFU4gPA==
 
-"@depay/react-token-image@^4.15.0":
-  version "4.15.0"
-  resolved "https://registry.yarnpkg.com/@depay/react-token-image/-/react-token-image-4.15.0.tgz#4145826012b08dbe0d0f45f0298a2ef8b188e02d"
-  integrity sha512-+jCAz6hbiJnV6MhrcbpYTDrEEkvAE1YlDXy723nZatdF5ze2fUjaBRMUGe5RCNHiKv1uiDaQsvB/DP2mTO/9wg==
+"@depay/react-token-image@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@depay/react-token-image/-/react-token-image-5.0.0.tgz#8e4a464a49eccdd4ac05b3b0c03d77f1a5e9c3db"
+  integrity sha512-YK0NJUWQYh1mGCpMUzPlG7UdyPpEz6SGzx6PK0AHpYvOzR64fwj7ksAGsj+n0Bt6YLIgxvT3Am4/XJPLGd6Ngg==
 
 "@depay/solana-web3.js@^1.25.1":
   version "1.25.1"

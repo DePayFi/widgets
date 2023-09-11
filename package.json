@@ -39,7 +39,7 @@
     "@depay/local-currency": "^3.6.1",
     "@depay/react-dialog-stack": "^8.1.1",
     "@depay/react-shadow-dom": "^5.0.5",
-    "@depay/react-token-image": "^4.15.0",
+    "@depay/react-token-image": "^5.0.0",
     "@depay/solana-web3.js": "^1.25.1",
     "@depay/walletconnect-v1": "^1.8.0",
     "@depay/walletconnect-v2": "^2.9.2",
