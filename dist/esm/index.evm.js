@@ -23982,7 +23982,7 @@ var LoadingDialog = (function (props) {
       className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL FontSizeL"
-    }, "Payment")),
+    }, "Loading")),
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftM PaddingRightM PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("div", {
@@ -24188,7 +24188,8 @@ var ConfigurationProvider = (function (props) {
                   return acc;
                 }, {});
                 setConfiguration(_objectSpread$5(_objectSpread$5(_objectSpread$5({}, _configuration), localConfigurationWithValues), {}, {
-                  id: configurationId
+                  id: configurationId,
+                  currencyCode: currencyCode
                 }));
                 _context.next = 17;
                 break;
@@ -25049,6 +25050,7 @@ var ChangableAmountProvider = (function (props) {
     }
 
     if (amountsMissing && account && conversionRate && (fixedAmount ? fixedCurrencyConversionRate : true)) {
+      setAcceptWithAmount();
       updateAmounts({
         account: account,
         amount: amount,
@@ -25472,6 +25474,11 @@ var PaymentRoutingProvider = (function (props) {
   useEffect(function () {
     if (account && props.accept && recover == undefined) {
       refreshPaymentRoutes();
+    } else if (props.accept === undefined) {
+      setSelectedRoute();
+      setAllRoutesLoaded(false);
+      setUpdatedRoutes();
+      setAllRoutes();
     }
   }, [account, props.accept]);
   useEffect(function () {
@@ -25547,9 +25554,7 @@ var PaymentAmountRoutingProvider = (function (props) {
 
   useEffect(function () {
     if (amountsMissing) {
-      if (acceptWithAmount) {
-        setAccept(acceptWithAmount);
-      }
+      setAccept(acceptWithAmount);
     } else {
       setAccept(configuredAccept);
     }
@@ -26266,7 +26271,9 @@ var PaymentProvider = (function (props) {
       accept = _useContext2.accept;
 
   var _useContext3 = useContext(PaymentRoutingContext),
-      selectedRoute = _useContext3.selectedRoute,
+      allRoutes = _useContext3.allRoutes;
+      _useContext3.allAssets;
+      var selectedRoute = _useContext3.selectedRoute,
       refreshPaymentRoutes = _useContext3.refreshPaymentRoutes;
 
   var _useContext4 = useContext(ClosableContext),
@@ -26274,32 +26281,28 @@ var PaymentProvider = (function (props) {
       close = _useContext4.close,
       setClosable = _useContext4.setClosable;
 
-  var _useContext5 = useContext(PaymentRoutingContext),
-      allRoutes = _useContext5.allRoutes;
-      _useContext5.allAssets;
+  var _useContext5 = useContext(UpdatableContext),
+      setUpdatable = _useContext5.setUpdatable;
 
-  var _useContext6 = useContext(UpdatableContext),
-      setUpdatable = _useContext6.setUpdatable;
+  var _useContext6 = useContext(NavigateContext),
+      navigate = _useContext6.navigate,
+      set = _useContext6.set;
 
-  var _useContext7 = useContext(NavigateContext),
-      navigate = _useContext7.navigate,
-      set = _useContext7.set;
+  var _useContext7 = useContext(WalletContext),
+      wallet = _useContext7.wallet,
+      account = _useContext7.account;
 
-  var _useContext8 = useContext(WalletContext),
-      wallet = _useContext8.wallet,
-      account = _useContext8.account;
+  var _useContext8 = useContext(PaymentTrackingContext),
+      release = _useContext8.release,
+      synchronousTracking = _useContext8.synchronousTracking,
+      asynchronousTracking = _useContext8.asynchronousTracking,
+      trackingInitialized = _useContext8.trackingInitialized,
+      initializePaymentTracking = _useContext8.initializeTracking,
+      trace = _useContext8.trace;
 
-  var _useContext9 = useContext(PaymentTrackingContext),
-      release = _useContext9.release,
-      synchronousTracking = _useContext9.synchronousTracking,
-      asynchronousTracking = _useContext9.asynchronousTracking,
-      trackingInitialized = _useContext9.trackingInitialized,
-      initializePaymentTracking = _useContext9.initializeTracking,
-      trace = _useContext9.trace;
-
-  var _useContext10 = useContext(TransactionTrackingContext),
-      foundTransaction = _useContext10.foundTransaction,
-      initializeTransactionTracking = _useContext10.initializeTracking;
+  var _useContext9 = useContext(TransactionTrackingContext),
+      foundTransaction = _useContext9.foundTransaction,
+      initializeTransactionTracking = _useContext9.initializeTracking;
 
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -26548,7 +26551,7 @@ var PaymentProvider = (function (props) {
       }
     }
   }, [foundTransaction, transaction]);
-  useEffect(function () {
+  var debouncedSetPayment = useCallback(lodash.debounce(function (selectedRoute) {
     if (selectedRoute) {
       var fromToken = selectedRoute.fromToken;
       Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref5) {
@@ -26567,8 +26570,11 @@ var PaymentProvider = (function (props) {
         });
       })["catch"](setError);
     } else {
-      setPayment(undefined);
+      setPayment();
     }
+  }, 100), []);
+  useEffect(function () {
+    debouncedSetPayment(selectedRoute);
   }, [selectedRoute]);
   useEffect(function () {
     if (allRoutes && allRoutes.length == 0) {

@@ -53,7 +53,7 @@ export default (props)=>{
             if (value !== undefined) { acc[key] = value }
             return acc
           }, {})
-          setConfiguration({...configuration, ...localConfigurationWithValues, id: configurationId})
+          setConfiguration({...configuration, ...localConfigurationWithValues, id: configurationId, currencyCode })
         } else {
           throw('Configuration response not verified!')
         }

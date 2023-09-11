@@ -11,9 +11,7 @@ export default (props)=>{
 
   useEffect(()=>{
     if(amountsMissing) {
-      if(acceptWithAmount) {
-        setAccept(acceptWithAmount)
-      }
+      setAccept(acceptWithAmount)
     } else {
       setAccept(configuredAccept)
     }

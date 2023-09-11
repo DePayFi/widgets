@@ -23981,7 +23981,7 @@
         className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL"
-      }, "Payment")),
+      }, "Loading")),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -24187,7 +24187,8 @@
                     return acc;
                   }, {});
                   setConfiguration(_objectSpread$6(_objectSpread$6(_objectSpread$6({}, _configuration), localConfigurationWithValues), {}, {
-                    id: configurationId
+                    id: configurationId,
+                    currencyCode: currencyCode
                   }));
                   _context.next = 17;
                   break;
@@ -25048,6 +25049,7 @@
       }
 
       if (amountsMissing && account && conversionRate && (fixedAmount ? fixedCurrencyConversionRate : true)) {
+        setAcceptWithAmount();
         updateAmounts({
           account: account,
           amount: amount,
@@ -25471,6 +25473,11 @@
     React.useEffect(function () {
       if (account && props.accept && recover == undefined) {
         refreshPaymentRoutes();
+      } else if (props.accept === undefined) {
+        setSelectedRoute();
+        setAllRoutesLoaded(false);
+        setUpdatedRoutes();
+        setAllRoutes();
       }
     }, [account, props.accept]);
     React.useEffect(function () {
@@ -25546,9 +25553,7 @@
 
     React.useEffect(function () {
       if (amountsMissing) {
-        if (acceptWithAmount) {
-          setAccept(acceptWithAmount);
-        }
+        setAccept(acceptWithAmount);
       } else {
         setAccept(configuredAccept);
       }
@@ -26265,7 +26270,9 @@
         accept = _useContext2.accept;
 
     var _useContext3 = React.useContext(PaymentRoutingContext),
-        selectedRoute = _useContext3.selectedRoute,
+        allRoutes = _useContext3.allRoutes;
+        _useContext3.allAssets;
+        var selectedRoute = _useContext3.selectedRoute,
         refreshPaymentRoutes = _useContext3.refreshPaymentRoutes;
 
     var _useContext4 = React.useContext(ClosableContext),
@@ -26273,32 +26280,28 @@
         close = _useContext4.close,
         setClosable = _useContext4.setClosable;
 
-    var _useContext5 = React.useContext(PaymentRoutingContext),
-        allRoutes = _useContext5.allRoutes;
-        _useContext5.allAssets;
+    var _useContext5 = React.useContext(UpdatableContext),
+        setUpdatable = _useContext5.setUpdatable;
 
-    var _useContext6 = React.useContext(UpdatableContext),
-        setUpdatable = _useContext6.setUpdatable;
+    var _useContext6 = React.useContext(NavigateContext),
+        navigate = _useContext6.navigate,
+        set = _useContext6.set;
 
-    var _useContext7 = React.useContext(NavigateContext),
-        navigate = _useContext7.navigate,
-        set = _useContext7.set;
+    var _useContext7 = React.useContext(WalletContext),
+        wallet = _useContext7.wallet,
+        account = _useContext7.account;
 
-    var _useContext8 = React.useContext(WalletContext),
-        wallet = _useContext8.wallet,
-        account = _useContext8.account;
+    var _useContext8 = React.useContext(PaymentTrackingContext),
+        release = _useContext8.release,
+        synchronousTracking = _useContext8.synchronousTracking,
+        asynchronousTracking = _useContext8.asynchronousTracking,
+        trackingInitialized = _useContext8.trackingInitialized,
+        initializePaymentTracking = _useContext8.initializeTracking,
+        trace = _useContext8.trace;
 
-    var _useContext9 = React.useContext(PaymentTrackingContext),
-        release = _useContext9.release,
-        synchronousTracking = _useContext9.synchronousTracking,
-        asynchronousTracking = _useContext9.asynchronousTracking,
-        trackingInitialized = _useContext9.trackingInitialized,
-        initializePaymentTracking = _useContext9.initializeTracking,
-        trace = _useContext9.trace;
-
-    var _useContext10 = React.useContext(TransactionTrackingContext),
-        foundTransaction = _useContext10.foundTransaction,
-        initializeTransactionTracking = _useContext10.initializeTracking;
+    var _useContext9 = React.useContext(TransactionTrackingContext),
+        foundTransaction = _useContext9.foundTransaction,
+        initializeTransactionTracking = _useContext9.initializeTracking;
 
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
@@ -26547,7 +26550,7 @@
         }
       }
     }, [foundTransaction, transaction]);
-    React.useEffect(function () {
+    var debouncedSetPayment = React.useCallback(lodash.debounce(function (selectedRoute) {
       if (selectedRoute) {
         var fromToken = selectedRoute.fromToken;
         Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref5) {
@@ -26566,8 +26569,11 @@
           });
         })["catch"](setError);
       } else {
-        setPayment(undefined);
+        setPayment();
       }
+    }, 100), []);
+    React.useEffect(function () {
+      debouncedSetPayment(selectedRoute);
     }, [selectedRoute]);
     React.useEffect(function () {
       if (allRoutes && allRoutes.length == 0) {
@@ -28916,6 +28922,7 @@
     return getWindow$1()._Web3ClientConfiguration
   };
 
+  function _optionalChain$3$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   const BATCH_INTERVAL$1$1 = 10;
   const CHUNK_SIZE$1$1 = 99;
 
@@ -28935,37 +28942,46 @@
     }
 
     requestChunk(chunk, endpoint) {
-      
-      const request = chunk.map((inflight) => inflight.request);
 
-      return ethers.ethers.utils.fetchJson(endpoint, JSON.stringify(request))
-        .then((result) => {
-          // For each result, feed it to the correct Promise, depending
-          // on whether it was a success or error
-          chunk.forEach((inflightRequest, index) => {
-            const payload = result[index];
-            if (payload.error) {
-              const error = new Error(payload.error.message);
-              error.code = payload.error.code;
-              error.data = payload.error.data;
-              inflightRequest.reject(error);
-            }
-            else {
-              inflightRequest.resolve(payload.result);
-            }
-          });
-        }).catch((error) => {
-          if(error && error.code == 'SERVER_ERROR') {
-            const index = this._endpoints.indexOf(this._endpoint)+1;
-            this._failover();
-            this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
-            this.requestChunk(chunk, this._endpoint);
-          } else {
-            chunk.forEach((inflightRequest) => {
-              inflightRequest.reject(error);
+      try {
+
+        const request = chunk.map((inflight) => inflight.request);
+        return ethers.ethers.utils.fetchJson(endpoint, JSON.stringify(request))
+          .then((result) => {
+            // For each result, feed it to the correct Promise, depending
+            // on whether it was a success or error
+            chunk.forEach((inflightRequest, index) => {
+              const payload = result[index];
+              if (_optionalChain$3$2([payload, 'optionalAccess', _ => _.error])) {
+                const error = new Error(payload.error.message);
+                error.code = payload.error.code;
+                error.data = payload.error.data;
+                inflightRequest.reject(error);
+              } else if(_optionalChain$3$2([payload, 'optionalAccess', _2 => _2.result])) {
+                inflightRequest.resolve(payload.result);
+              } else {
+                inflightRequest.reject();
+              }
             });
-          }
-        })
+          }).catch((error) => {
+            if(error && error.code == 'SERVER_ERROR') {
+              const index = this._endpoints.indexOf(this._endpoint)+1;
+              this._failover();
+              this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
+              this.requestChunk(chunk, this._endpoint);
+            } else {
+              chunk.forEach((inflightRequest) => {
+                inflightRequest.reject(error);
+              });
+            }
+          })
+
+      } catch (e) {
+
+        chunk.forEach((inflightRequest) => {
+          inflightRequest.reject();
+        });
+      }
     }
       
     send(method, params) {
@@ -29124,6 +29140,7 @@
     setProvider: setProvider$2,
   };
 
+  function _optionalChain$2$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   const BATCH_INTERVAL = 10;
   const CHUNK_SIZE = 99;
 
@@ -29166,13 +29183,15 @@
             // on whether it was a success or error
             chunk.forEach((inflightRequest, index) => {
               const payload = result[index];
-              if (payload.error) {
+              if (_optionalChain$2$2([payload, 'optionalAccess', _ => _.error])) {
                 const error = new Error(payload.error.message);
                 error.code = payload.error.code;
                 error.data = payload.error.data;
                 inflightRequest.reject(error);
-              } else {
+              } else if(payload) {
                 inflightRequest.resolve(payload);
+              } else {
+                inflightRequest.reject();
               }
             });
           }).catch(handleError)
@@ -36103,52 +36122,52 @@
 
   }
 
-  const API = [{"inputs":[{"internalType":"address","name":"_PERMIT2","type":"address"},{"internalType":"address","name":"_FORWARDER","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ExchangeCallFailed","type":"error"},{"inputs":[],"name":"ExchangeCallMissing","type":"error"},{"inputs":[],"name":"ExchangeNotApproved","type":"error"},{"inputs":[],"name":"ForwardingPaymentFailed","type":"error"},{"inputs":[],"name":"InsufficientBalanceInAfterPayment","type":"error"},{"inputs":[],"name":"InsufficientBalanceOutAfterPayment","type":"error"},{"inputs":[],"name":"NativeFeePaymentFailed","type":"error"},{"inputs":[],"name":"NativePaymentFailed","type":"error"},{"inputs":[],"name":"PaymentDeadlineReached","type":"error"},{"inputs":[],"name":"PaymentToZeroAddressNotAllowed","type":"error"},{"inputs":[],"name":"WrongAmountPaidIn","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Disabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Enabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"FORWARDER","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PERMIT2","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"acceptOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"exchange","type":"address"},{"internalType":"bool","name":"enabled","type":"bool"}],"name":"enable","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"exchanges","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct IDePayRouterV2.Payment","name":"payment","type":"tuple"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct IDePayRouterV2.Payment","name":"payment","type":"tuple"},{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"uint48","name":"expiration","type":"uint48"},{"internalType":"uint48","name":"nonce","type":"uint48"}],"internalType":"struct IPermit2.PermitDetails","name":"details","type":"tuple"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"sigDeadline","type":"uint256"}],"internalType":"struct IPermit2.PermitSingle","name":"permitSingle","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"pendingOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
+  const API = [{"inputs":[{"internalType":"address","name":"_PERMIT2","type":"address"},{"internalType":"address","name":"_FORWARDER","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ExchangeCallFailed","type":"error"},{"inputs":[],"name":"ExchangeCallMissing","type":"error"},{"inputs":[],"name":"ExchangeNotApproved","type":"error"},{"inputs":[],"name":"ForwardingPaymentFailed","type":"error"},{"inputs":[],"name":"InsufficientBalanceInAfterPayment","type":"error"},{"inputs":[],"name":"InsufficientBalanceOutAfterPayment","type":"error"},{"inputs":[],"name":"NativeFeePaymentFailed","type":"error"},{"inputs":[],"name":"NativePaymentFailed","type":"error"},{"inputs":[],"name":"PaymentDeadlineReached","type":"error"},{"inputs":[],"name":"PaymentToZeroAddressNotAllowed","type":"error"},{"inputs":[],"name":"WrongAmountPaidIn","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Disabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Enabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"InternalTransfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"FORWARDER","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PERMIT2","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"acceptOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"exchange","type":"address"},{"internalType":"bool","name":"enabled","type":"bool"}],"name":"enable","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"exchanges","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct IDePayRouterV2.Payment","name":"payment","type":"tuple"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct IDePayRouterV2.Payment","name":"payment","type":"tuple"},{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"uint48","name":"expiration","type":"uint48"},{"internalType":"uint48","name":"nonce","type":"uint48"}],"internalType":"struct IPermit2.PermitDetails","name":"details","type":"tuple"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"sigDeadline","type":"uint256"}],"internalType":"struct IPermit2.PermitSingle","name":"permitSingle","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"pendingOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
 
   var routers$1 = {
 
     ethereum: {
-      address: '0xcbfc518FB621828fa6f0F4647D42931476ea473b',
+      address: '0x6466F27B169C908Ba8174d80aEfa7173CbC3D0c7',
       api: API
     },
 
     bsc: {
-      address: '0xAc68Ee6Bc43Bf075C0522a15E665547CFd28628D',
+      address: '0x7ea09401db4692a8AEF4111b75bD32AE758f552A',
       api: API
     },
 
     polygon: {
-      address: '0x1eD1e2dEEEa8B5C802663780284eDa63f62A3825',
+      address: '0x50CFAB577623B1359602E11514a9482B061A941e',
       api: API
     },
 
     fantom: {
-      address: '0x8B127D169D232D5F3ebE1C3D06CE343FD7C1AA11',
+      address: '0xFee05C41195985909DDfc9127Db1f94559c46db3',
       api: API
     },
 
     avalanche: {
-      address: '0x8B127D169D232D5F3ebE1C3D06CE343FD7C1AA11',
+      address: '0xFee05C41195985909DDfc9127Db1f94559c46db3',
       api: API
     },
 
     gnosis: {
-      address: '0x8B127D169D232D5F3ebE1C3D06CE343FD7C1AA11',
+      address: '0xFee05C41195985909DDfc9127Db1f94559c46db3',
       api: API
     },
 
     arbitrum: {
-      address: '0x47dF3990e8827EfF23b01e1CD7de309E8C6364a2',
+      address: '0xA1cfbeeF344A52e18f748fd6a126f9426A40fbc7',
       api: API
     },
 
     optimism: {
-      address: '0x47dF3990e8827EfF23b01e1CD7de309E8C6364a2',
+      address: '0x8698E529E9867eEbcC68b4792daC627cd8870736',
       api: API
     },
 
     base: {
-      address: '0xfAD2F276D464EAdB71435127BA2c2e9dDefb93a4',
+      address: '0x8B127D169D232D5F3ebE1C3D06CE343FD7C1AA11',
       api: API
     },
 

@@ -9,7 +9,7 @@ export default (props)=>{
       closable={ false }
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
-          <h1 className="LineHeightL FontSizeL">Payment</h1>
+          <h1 className="LineHeightL FontSizeL">Loading</h1>
         </div>
       }
       body={

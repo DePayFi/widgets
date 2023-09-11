@@ -131,6 +131,7 @@ export default (props)=>{
   useEffect(()=>{
     if(recover) { return }
     if(amountsMissing && account && conversionRate && (fixedAmount ? fixedCurrencyConversionRate : true)) {
+      setAcceptWithAmount()
       updateAmounts({ account, amount, conversionRate, fixedCurrencyConversionRate })
     }
   }, [amountsMissing, account, conversionRate, fixedAmount, fixedCurrencyConversionRate, amount, recover])

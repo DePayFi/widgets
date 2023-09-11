@@ -19,25 +19,25 @@ import Blockchains from '@depay/web3-blockchains'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
-import NavigateContext from '../contexts/NavigateContext'
 import InsufficientAmountOfTokensDialog from '../dialogs/InsufficientAmountOfTokensDialog'
+import NavigateContext from '../contexts/NavigateContext'
 import NoPaymentOptionFoundDialog from '../dialogs/NoPaymentOptionFoundDialog'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentOptionsDialog from '../dialogs/PaymentOptionsDialog'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useCallback } from 'react'
 import TransactionTrackingContext from '../contexts/TransactionTrackingContext'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
+import { debounce } from 'lodash'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{
   const { setError } = useContext(ErrorContext)
   const { sent, succeeded, failed, recover, before, accept } = useContext(ConfigurationContext)
-  const { selectedRoute, refreshPaymentRoutes } = useContext(PaymentRoutingContext)
+  const { allRoutes, allAssets, selectedRoute, refreshPaymentRoutes } = useContext(PaymentRoutingContext)
   const { open, close, setClosable } = useContext(ClosableContext)
-  const { allRoutes, allAssets } = useContext(PaymentRoutingContext)
   const { setUpdatable } = useContext(UpdatableContext)
   const { navigate, set } = useContext(NavigateContext)
   const { wallet, account } = useContext(WalletContext)
@@ -188,7 +188,7 @@ export default (props)=>{
     }
   }, [foundTransaction, transaction])
 
-  useEffect(()=>{
+  const debouncedSetPayment = useCallback(debounce((selectedRoute)=>{
     if(selectedRoute) {
       let fromToken = selectedRoute.fromToken
       Promise.all([
@@ -206,8 +206,12 @@ export default (props)=>{
         })
       }).catch(setError)
     } else {
-      setPayment(undefined)
+      setPayment()
     }
+  }, 100), [])
+
+  useEffect(()=>{
+    debouncedSetPayment(selectedRoute)
   }, [selectedRoute])
 
   useEffect(()=>{
