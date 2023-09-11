@@ -1022,7 +1022,6 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
-      "native": "metamask:",
       "universal": "https://metamask.app.link",
       "qr": "WalletConnectV1",
       "connect": "WalletConnectV2"
@@ -23162,6 +23161,7 @@ var ConnectStack = (function (props) {
       href = "".concat(href, "/wc?uri=").concat(uri);
     }
 
+    console.log('OPEN UNIVERSAL LINK 1', href);
     return window.open(href, '_self', 'noreferrer noopener');
   };
 
@@ -23182,6 +23182,7 @@ var ConnectStack = (function (props) {
       href = "".concat(href, "wc?uri=").concat(uri);
     }
 
+    console.log('OPEN NATIVE LINK 1', href);
     return window.open(href, '_self', 'noreferrer noopener');
   };
 
@@ -23198,6 +23199,7 @@ var ConnectStack = (function (props) {
       href = "".concat(href, "wc?uri=").concat(uri);
     }
 
+    console.log('OPEN WC LINK 1', href);
     window.open(href, '_self', 'noreferrer noopener');
   };
 

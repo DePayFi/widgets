@@ -67,6 +67,7 @@ export default (props)=>{
     } else {
       href = `${href}/wc?uri=${uri}`
     }
+    console.log('OPEN UNIVERSAL LINK 1', href)
     return window.open(href, '_self', 'noreferrer noopener')
   }
 
@@ -79,6 +80,7 @@ export default (props)=>{
     } else {
       href = `${href}wc?uri=${uri}`
     }
+    console.log('OPEN NATIVE LINK 1', href)
     return window.open(href, '_self', 'noreferrer noopener')
   }
 
@@ -90,6 +92,7 @@ export default (props)=>{
     } else {
       href = `${href}wc?uri=${uri}`
     }
+    console.log('OPEN WC LINK 1', href)
     window.open(href, '_self', 'noreferrer noopener')
   }
 
