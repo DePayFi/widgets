@@ -16,7 +16,7 @@ describe('Payment Widget: change categorized payment', () => {
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
   const DEPAY = '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+  const USDC = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
   const ETH = Blockchains[blockchain].currency.address
   const WETH = Blockchains[blockchain].wrapped.address
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
@@ -55,9 +55,9 @@ describe('Payment Widget: change categorized payment', () => {
           "address": ETH,
           "type": "NATIVE"
         }, {
-          "name": "Dai Stablecoin",
-          "symbol": "DAI",
-          "address": DAI,
+          "name": "USD Coin",
+          "symbol": "USDC",
+          "address": USDC,
           "type": "20"
         }, {
           "name": "DePay",
@@ -84,10 +84,10 @@ describe('Payment Widget: change categorized payment', () => {
       TOKEN_A_Amount: amount,
       TOKEN_A_Balance: 30,
       
-      TOKEN_B: DAI,
-      TOKEN_B_Decimals: 18,
-      TOKEN_B_Name: 'Dai Stablecoin',
-      TOKEN_B_Symbol: 'DAI',
+      TOKEN_B: USDC,
+      TOKEN_B_Decimals: 6,
+      TOKEN_B_Name: 'USD Coin',
+      TOKEN_B_Symbol: 'USDC',
       TOKEN_B_Amount: 33,
       TOKEN_B_Balance: 50,
 
@@ -148,7 +148,7 @@ describe('Payment Widget: change categorized payment', () => {
             cy.get('.active .Card .TokenSymbolCell', { includeShadowDom: true }).each(($el) => {
               displayedList.push($el.text().trim())
             }).then(() => {
-              expect(displayedList).to.deep.equal(['DEPAY', 'ETH', 'DAI'])
+              expect(displayedList).to.deep.equal(['DEPAY', 'ETH', 'USDC'])
               displayedList = []
             })
           })
@@ -170,7 +170,7 @@ describe('Payment Widget: change categorized payment', () => {
             cy.get('.active .Card .TokenSymbolCell', { includeShadowDom: true }).each(($el) => {
               displayedList.push($el.text().trim())
             }).then(() => {
-              expect(displayedList).to.deep.equal(['DAI'])
+              expect(displayedList).to.deep.equal(['USDC'])
               displayedList = []
             })
           })
@@ -181,7 +181,7 @@ describe('Payment Widget: change categorized payment', () => {
             cy.get('.active .Card .TokenSymbolCell', { includeShadowDom: true }).each(($el) => {
               displayedList.push($el.text().trim())
             }).then(() => {
-              expect(displayedList).to.deep.equal(['DEPAY', 'ETH', 'UNI', 'DAI'])
+              expect(displayedList).to.deep.equal(['DEPAY', 'ETH', 'UNI', 'USDC'])
               displayedList = []
             })
           })
@@ -202,7 +202,7 @@ describe('Payment Widget: change categorized payment', () => {
                   cy.get('.active .Card .TokenSymbolCell', { includeShadowDom: true }).each(($el) => {
                     displayedList.push($el.text().trim())
                   }).then(() => {
-                    expect(displayedList).to.deep.equal(['DEPAY', 'ETH', 'UNI', 'DAI'])
+                    expect(displayedList).to.deep.equal(['DEPAY', 'ETH', 'UNI', 'USDC'])
                     displayedList = []
                   })
                 })

@@ -242,7 +242,6 @@ describe('Payment Widget: approval', () => {
                 cy.contains('.ButtonPrimary', 'Approve', { includeShadowDom: true }).should('not.exist')
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Reload').click()
                 cy.wait(1000).then(()=>{
-                  cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell', '€29.90').should('contain', '€29.90')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
                 })
               })

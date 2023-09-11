@@ -205,7 +205,7 @@ export default (props)=>{
           amount
         })
       }).catch(setError)
-    } else {
+    } else if(recover === undefined) {
       setPayment()
     }
   }, 100), [])

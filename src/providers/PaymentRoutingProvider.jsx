@@ -97,7 +97,8 @@ export default (props)=>{
   }, [reloadCount, allRoutes, selectedRoute, updatable])
 
   useEffect(() => {
-    if(account && props.accept && recover == undefined) {
+    if(recover) { return }
+    if(account && props.accept) {
       refreshPaymentRoutes()
     } else if (props.accept === undefined) {
       setSelectedRoute()

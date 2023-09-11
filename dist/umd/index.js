@@ -25427,7 +25427,11 @@
       };
     }, [reloadCount, allRoutes, selectedRoute, updatable]);
     React.useEffect(function () {
-      if (account && props.accept && recover == undefined) {
+      if (recover) {
+        return;
+      }
+
+      if (account && props.accept) {
         refreshPaymentRoutes();
       } else if (props.accept === undefined) {
         setSelectedRoute();
@@ -26524,7 +26528,7 @@
             amount: amount
           });
         })["catch"](setError);
-      } else {
+      } else if (recover === undefined) {
         setPayment();
       }
     }, 100), []);

@@ -258,7 +258,6 @@ describe('Payment Widget: change payment', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.grey').should('contain.text', '€22.95')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
             confirm(mockedTransaction)

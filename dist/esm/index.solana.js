@@ -25473,7 +25473,11 @@ var PaymentRoutingProvider = (function (props) {
     };
   }, [reloadCount, allRoutes, selectedRoute, updatable]);
   useEffect(function () {
-    if (account && props.accept && recover == undefined) {
+    if (recover) {
+      return;
+    }
+
+    if (account && props.accept) {
       refreshPaymentRoutes();
     } else if (props.accept === undefined) {
       setSelectedRoute();
@@ -26570,7 +26574,7 @@ var PaymentProvider = (function (props) {
           amount: amount
         });
       })["catch"](setError);
-    } else {
+    } else if (recover === undefined) {
       setPayment();
     }
   }, 100), []);

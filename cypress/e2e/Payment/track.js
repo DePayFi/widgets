@@ -1037,7 +1037,7 @@ describe('Payment Widget: track', () => {
     })
   })
 
-  it.only('immediately shows failed payment and allows for a retry if payment confirmed "failed" through websocket', () => {
+  it('immediately shows failed payment and allows for a retry if payment confirmed "failed" through websocket', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {

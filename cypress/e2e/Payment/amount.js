@@ -239,7 +239,7 @@ describe('Payment Widget: amount', () => {
       })
     })
 
-    it.only('allows me to submit a changed amount', ()=> {
+    it('allows me to submit a changed amount', ()=> {
       let fromAddress = accounts[0]
 
       let mockedTransaction = mock({
@@ -310,10 +310,12 @@ describe('Payment Widget: amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '11.658').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').should('exist')
-          
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').click().then(()=>{
-            confirm(mockedTransaction)
-            expect(mockedTransaction.calls.count()).to.eq(1)
+
+          cy.wait(1000).then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').click().then(()=>{
+              confirm(mockedTransaction)
+              expect(mockedTransaction.calls.count()).to.eq(1)
+            })
           })
         })
       })
