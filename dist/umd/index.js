@@ -1208,6 +1208,7 @@
     },
     "mobile": {
       "ios": {
+        "native": "uniswap:",
         "universal": "https://uniswap.org/app",
         "connect": "WalletConnectV2",
         "qr": "WalletConnectV2"
@@ -1222,11 +1223,13 @@
     },
     "mobile": {
       "ios": {
+        "native": "safe",
         "universal": "https://app.safe.global",
         "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
       },
       "android": {
+        "native": "safe",
         "universal": "https://app.safe.global",
         "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
@@ -1458,13 +1461,13 @@
     },
     "mobile": {
       "ios": {
-        "native": "omni",
+        "native": "omni:",
         "universal": "https://links.omni.app",
         "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
       },
       "android": {
-        "native": "omni",
+        "native": "omni:",
         "universal": "https://links.omni.app",
         "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
