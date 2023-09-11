@@ -23243,7 +23243,7 @@ var ConnectStack = (function (props) {
       var _wallet = new wallets[platform.connect]();
 
       if (redirectUri) {
-        redirect({
+        return redirect({
           walletMetaData: walletMetaData,
           platform: platform,
           uri: redirectUri

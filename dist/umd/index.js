@@ -23241,7 +23241,7 @@
         var _wallet = new web3Wallets.wallets[platform.connect]();
 
         if (redirectUri) {
-          redirect({
+          return redirect({
             walletMetaData: walletMetaData,
             platform: platform,
             uri: redirectUri
