@@ -23,6 +23,7 @@ import ResetStyle from '../styles/ResetStyle'
 import SearchStyle from '../styles/SearchStyle'
 import SkeletonStyle from '../styles/SkeletonStyle'
 import TableStyle from '../styles/TableStyle'
+import TabStyle from '../styles/TabStyle'
 import TextButtonStyle from '../styles/TextButtonStyle'
 import TextStyle from '../styles/TextStyle'
 import TokenAmountStyle from '../styles/TokenAmountStyle'
@@ -62,6 +63,7 @@ export default (style)=>{
       OpacityStyle(style),
       PaddingStyle(style),
       HeightStyle(style),
+      TabStyle(style),
       LoadingTextStyle(style),
       RangeSliderStyle(style),
       InputStyle(style),

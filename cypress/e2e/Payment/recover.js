@@ -8,7 +8,7 @@ import { mock, confirm, fail, increaseBlock, resetMocks, replace } from '@depay/
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Server } from 'mock-socket'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 describe('Payment Widget: recover a previously made payment transaction', () => {
 

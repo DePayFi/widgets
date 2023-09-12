@@ -22,8 +22,8 @@ import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 import { supported } from './blockchains'
 
-let preflight = async({ accept, recover }) => {
-  if(recover){ return }
+let preflight = async({ accept, recover, integration }) => {
+  if(integration || recover){ return }
   accept.forEach((configuration)=>{
     if(typeof configuration.blockchain === 'undefined') { throw('You need to set the blockchain your want to receive the payment on!') }
     if(!supported.includes(configuration.blockchain)) { throw('You need to set a supported blockchain!') }
@@ -53,6 +53,7 @@ let Payment = async ({
   recover,
   closable,
   integration,
+  payload,
   link,
   container,
   before,
@@ -64,12 +65,12 @@ let Payment = async ({
   requireReactVersion()
   if(currency && !SUPPORTED_CURRENCIES.includes(currency.toLowerCase())) { currency = false }
   try {
-    await preflight({ accept, recover })
+    await preflight({ accept, integration, recover })
     if(typeof window._depayUnmountLoading == 'function') { window._depayUnmountLoading() }
     let unmount = mount({ style, container, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={ { type: 'payment', before, amount, accept, currency, event, sent, succeeded, validated, failed, whitelist, blacklist, providers, track, recover, integration, link, wallet, title, action } }>
+          <ConfigurationProvider unmount={ unmount } document={ document } container={ container } configuration={ { type: 'payment', payload, before, amount, accept, currency, event, sent, succeeded, validated, failed, whitelist, blacklist, providers, track, recover, integration, link, wallet, title, action } }>
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount } closable={ closable }>
                 <NavigateProvider>
@@ -77,8 +78,8 @@ let Payment = async ({
                   <SolanaPayProvider unmount={ unmount } document={ document } container={ container }>
                     <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>
                       <ConversionRateProvider>
-                        <ChangableAmountProvider accept={ accept }>
-                          <PaymentAmountRoutingProvider accept={ accept } whitelist={ whitelist } blacklist={ blacklist } event={ event } container={ container } document={ document }>
+                        <ChangableAmountProvider>
+                          <PaymentAmountRoutingProvider container={ container } document={ document }>
                             <TransactionTrackingProvider>
                               <PaymentTrackingProvider document={ ensureDocument(document) }>
                                 <PaymentProvider container={ container } document={ document }>

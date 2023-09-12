@@ -9,7 +9,7 @@ import { mock, resetMocks } from '@depay/web3-mock'
 import { getProvider, resetCache } from '@depay/web3-client'
 import Token from '@depay/web3-tokens'
 
-describe('Payment Widget: no payment options found', () => {
+describe('Payment Widget: insufficient amount of tokens', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
@@ -45,6 +45,8 @@ describe('Payment Widget: no payment options found', () => {
     mock({ provider, blockchain, request: { to: TOKEN, api: Token[blockchain].DEFAULT } })
     mock({ provider, blockchain, request: { to: Blockchains[blockchain].stables.usd[0], api: Token[blockchain].DEFAULT } })
     mock({ provider, blockchain, request: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'decimals', return: decimals } })
+    mock({ provider, blockchain, request: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'name', return: 'DePay' } })
+    mock({ provider, blockchain, request: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'symbol', return: 'DEPAY' } })
     mock({ provider, blockchain, request: { to: Blockchains[blockchain].stables.usd[0], api: Token[blockchain].DEFAULT, method: 'decimals', return: decimals } })
     mock({ provider, blockchain, balance: { for: fromAddress, return: ethers.BigNumber.from('0') }})
     mock({ provider, blockchain, request: { to: exchange[blockchain].factory.address, api: exchange[blockchain].factory.api, method: 'getPair', params: [TOKEN, Blockchains[blockchain].stables.usd[0]], return: Blockchains[blockchain].zero }})
@@ -57,8 +59,8 @@ describe('Payment Widget: no payment options found', () => {
     mock({ provider, blockchain, request: { to: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11', api: exchange[blockchain].pair.api, method: 'getReserves', return: [ethers.utils.parseUnits('1000', 18), ethers.utils.parseUnits('1000', 18), '1629804922'] }})
     mock({ provider, blockchain, request: { to: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11', api: exchange[blockchain].pair.api, method: 'token0', return: Blockchains[blockchain].stables.usd[0] }})
     mock({ provider, blockchain, request: { to: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11', api: exchange[blockchain].pair.api, method: 'token1', return: Blockchains[blockchain].wrapped.address }})
-    USDValueMock = mock({provider, blockchain, "call":{"to":"0x7a250d5630b4cf539739df2c5dacb4c659f2488d","api":exchange[blockchain].router.api,"method":"getAmountsOut","return":"Your Value","params":["20000000000000000000",["0xa0bed124a09ac2bd941b10349d8d224fe3c955eb","0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2","0x6b175474e89094c44da98b954eedeac495271d0f"]]}})
-    TOKENRouteMock = mock({provider, blockchain, "call":{"to":"0x7a250d5630b4cf539739df2c5dacb4c659f2488d","api":exchange[blockchain].router.api,"method":"getAmountsIn","return":"Your Value","params":["20000000000000000000",["0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2","0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"]]}})
+    mock({ provider, blockchain, request: { to: "0x7a250d5630b4cf539739df2c5dacb4c659f2488d", api:exchange[blockchain].router.api, method: "getAmountsOut", return: ["20000000000000000000", "100000000000000"], params: ["20000000000000000000",["0xa0bed124a09ac2bd941b10349d8d224fe3c955eb","0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2","0x6b175474e89094c44da98b954eedeac495271d0f"]]}})
+    mock({ provider, blockchain, request: { to: "0x7a250d5630b4cf539739df2c5dacb4c659f2488d", api:exchange[blockchain].router.api, method: "getAmountsIn", return: ["100000000000000", "20000000000000000000"], params: ["20000000000000000000",["0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2","0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"]]}})
     
     fetchMock.get({
       url: `https://public.depay.com/accounts/${blockchain}/${fromAddress}/assets`,
@@ -71,34 +73,33 @@ describe('Payment Widget: no payment options found', () => {
     }, "0.85")
   })
 
-  it('shows a dialog explaining that no payment option could be found and allows to see available payment options', () => {
+  it('tells me to top up the direct transfer route (if I have some balance for the direct transfer route)', () => {
+    mock({ provider, blockchain, balance: { for: fromAddress, return: ethers.BigNumber.from('10000000000000') }})
+    mock({ provider, blockchain, request: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'balanceOf', params: fromAddress, return: '5000000000000000000' } })
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'No Payment Option Found')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Text', 'Please check if you have connected the correct wallet and top up if necessary.')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('button', 'Check available payment options')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Insufficient Amount')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow() .find('.Text').should('contain.text', '15 DEPAY are additionally required in order to perform this payment of 20 DEPAY.')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow() .find('.Text').should('contain.text', 'Please top up or swap another token to DEPAY to perform this payment.')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('button', 'Ok').click()
       })
     })
   })
 
-  it('stops reloading routes and toToken price', () => {
-    let USDValueMock_count
-    let TOKENRouteMock_count
+  it('tells me to top up NATIVE if my wallet does not have enough NATIVE to even perform a transaction', () => {
+    mock({ provider, blockchain, balance: { for: fromAddress, return: ethers.BigNumber.from('10000000000') }})
+    mock({ provider, blockchain, request: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'balanceOf', params: fromAddress, return: '0' } })
+    mock({ provider, blockchain, request: { to: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', api: Token[blockchain].DEFAULT, method: 'balanceOf', params: fromAddress, return: '0' } })
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'No Payment Option Found')
-        cy.wait(2000).then(()=>{
-          USDValueMock_count = USDValueMock.calls.count()
-          TOKENRouteMock_count = TOKENRouteMock.calls.count()
-        })
-        cy.wait(16000).then(()=>{
-          expect(USDValueMock.calls.count()).to.eq(USDValueMock_count)
-          expect(TOKENRouteMock.calls.count()).to.eq(TOKENRouteMock_count)
-        })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Insufficient Amount')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow() .find('.Text').should('contain.text', '0.000101 ETH is required in order to perform this payment.')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow() .find('.Text').should('contain.text', 'Please top up your ETH to perform this payment.')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('button', 'Ok').click()
       })
     })
   })

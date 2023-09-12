@@ -12,6 +12,7 @@ import { request } from '@depay/web3-client'
 
 //#endif
 
+import Blockchains from '@depay/web3-blockchains'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import findMaxRoute from '../helpers/findMaxRoute'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
@@ -24,49 +25,40 @@ import { ethers } from 'ethers'
 
 export default (props)=>{
   const [ allRoutes, setAllRoutes ] = useState()
+  const [ updatedRoutes, setUpdatedRoutes ] = useState()
   const [ updatedRouteWithNewPrice, setUpdatedRouteWithNewPrice ] = useState()
   const [ selectedRoute, setSelectedRoute ] = useState()
   const [ slowRouting, setSlowRouting ] = useState(false)
   const [ reloadCount, setReloadCount ] = useState(0)
+  const [ allRoutesLoadedInternal, setAllRoutesLoadedInternal ] = useState(false)
+  const [ allRoutesLoaded, setAllRoutesLoaded ] = useState(false)
   const { account, wallet } = useContext(WalletContext)
   const { updatable } = useContext(UpdatableContext)
   const { recover } = useContext(ConfigurationContext)
-  
-  const onRoutesUpdate = async (routes)=>{
-    if(routes.length == 0) {
-      setAllRoutes([])
-      if(props.setMaxRoute) { props.setMaxRoute(null) }
-    } else {
-      roundAmounts(routes).then(async (roundedRoutes)=>{
-        if(typeof selectedRoute == 'undefined') {
-          let selectRoute = roundedRoutes[0]
-          setSelectedRoute(selectRoute)
-        } else {
-          const updatedSelectedRoute = roundedRoutes[roundedRoutes.findIndex((route)=>(route.fromToken.address == selectedRoute.fromToken.address && route.blockchain == selectedRoute.blockchain))]
-          if(updatedSelectedRoute) {
-            if(selectedRoute.fromAmount != updatedSelectedRoute.fromAmount) {
-              setUpdatedRouteWithNewPrice(updatedSelectedRoute)
-            } else if ( // other reasons but price to update selected route
-              selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired
-            ) {
-              setSelectedRoute(updatedSelectedRoute)
-            }
-          } else {
-            setSelectedRoute(roundedRoutes[0])
-          }
-        }
-        setAllRoutes(roundedRoutes)
-        if(props.setMaxRoute) { props.setMaxRoute(findMaxRoute(roundedRoutes)) }
-      })
-    }
-  }
-  
+  const configuration = useContext(ConfigurationContext)
+
   const getPaymentRoutes = async ({ allRoutes, selectedRoute, updatable })=>{
     if(updatable == false || !props.accept || !account) { return }
     let slowRoutingTimeout = setTimeout(() => { setSlowRouting(true) }, 4000)
-    return await routePayments(Object.assign({}, props, { account })).then((routes)=>{
+    let selectedRouteFromDrip
+    let firstRouteDisplayed
+    return await routePayments(Object.assign({}, configuration, { accept: props.accept, account, drip: (route)=>{
+      if(
+        route.fromToken.address !== route.toToken.address &&
+        !Blockchains[route.blockchain].tokens.find((token)=>token.address.toLowerCase() === route.fromToken.address.toLowerCase())
+      ) { return }
+      if(firstRouteDisplayed) { return }
+      firstRouteDisplayed = true
+      if(allRoutesLoaded) { return }
+      if(route.approvalRequired) { return }
       clearInterval(slowRoutingTimeout)
-      onRoutesUpdate(routes)
+      selectedRouteFromDrip  = route
+      setUpdatedRoutes([route])
+    }}))
+    .then((routes)=>{
+      setUpdatedRoutes(routes)
+      setAllRoutesLoadedInternal(true)
+      clearInterval(slowRoutingTimeout)
     })
   }
 
@@ -92,7 +84,7 @@ export default (props)=>{
   }
 
   const refreshPaymentRoutes = ()=>{
-    return getPaymentRoutes({ allRoutes, selectedRoute, updatable })
+    return getPaymentRoutes({ allRoutes, selectedRoute: undefined, updatable })
   }
 
   useEffect(() => {
@@ -105,10 +97,55 @@ export default (props)=>{
   }, [reloadCount, allRoutes, selectedRoute, updatable])
 
   useEffect(() => {
-    if(account && props.accept && recover == undefined) {
+    if(recover) { return }
+    if(account && props.accept) {
       refreshPaymentRoutes()
+    } else if (props.accept === undefined) {
+      setSelectedRoute()
+      setAllRoutesLoaded(false)
+      setUpdatedRoutes()
+      setAllRoutes()
     }
   }, [account, props.accept])
+
+  useEffect(()=>{
+    if(updatedRoutes === undefined){ return }
+    if(updatedRoutes.length == 0) {
+      setAllRoutes(updatedRoutes)
+      if(props.setMaxRoute) { props.setMaxRoute(null) }
+    } else {
+      roundAmounts(updatedRoutes).then((roundedRoutes)=>{
+        if(typeof selectedRoute == 'undefined') {
+          let selectRoute = roundedRoutes[0]
+          setSelectedRoute(selectRoute)
+        } else {
+          const updatedSelectedRoute = roundedRoutes[
+            roundedRoutes.findIndex(
+              (route)=>(
+                route.fromToken.address == selectedRoute.fromToken.address && 
+                route.blockchain == selectedRoute.blockchain
+              )
+            )
+          ]
+          if(updatedSelectedRoute) {
+            if(selectedRoute.fromAmount != updatedSelectedRoute.fromAmount) {
+              setUpdatedRouteWithNewPrice(updatedSelectedRoute)
+            } else if ( // other reasons but price to update selected route
+              selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired
+            ) {
+              setSelectedRoute(updatedSelectedRoute)
+            }
+          } else {
+            setSelectedRoute(roundedRoutes[0])
+          }
+        }
+        roundedRoutes.assets = updatedRoutes.assets
+        setAllRoutes(roundedRoutes)
+        setAllRoutesLoaded(allRoutesLoadedInternal)
+        if(props.setMaxRoute) { props.setMaxRoute(findMaxRoute(roundedRoutes)) }
+      })
+    }
+  }, [selectedRoute, updatedRoutes])
 
   return(
     <PaymentRoutingContext.Provider value={{
@@ -116,7 +153,7 @@ export default (props)=>{
       setSelectedRoute,
       refreshPaymentRoutes,
       allRoutes,
-      setAllRoutes,
+      allRoutesLoaded,
       slowRouting,
       updatedRouteWithNewPrice,
       updateRouteWithNewPrice

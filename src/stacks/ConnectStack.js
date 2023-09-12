@@ -32,6 +32,7 @@ export default (props)=>{
   const { open, close } = useContext(ClosableContext)
   const [ wallet, setWallet ] = useState()
   const [ platform, setPlatform ] = useState()
+  const [ redirectUri, setRedirectUri ] = useState()
   const [ selection, setSelection ] = useState({ blockchain: undefined })
   const [ showConnectExtensionWarning, setShowConnectExtensionWarning ] = useState(false)
   const resolve = (account, wallet)=> {
@@ -93,30 +94,38 @@ export default (props)=>{
     window.open(href, '_self', 'noreferrer noopener')
   }
 
+  const redirect = ({ walletMetaData, platform, uri })=>{
+    let name = isAndroid() ? 'Android' : walletMetaData.name
+    if(isWebView()) {
+      if(platform.universal) {
+        openUniversalLink(platform, uri, name)
+      } else if(isAndroid()) {
+        openWcLink(platform, uri, name)
+      }
+    } else {
+      if(platform.native) {
+        openNativeLink(platform, uri, name)
+      } else {
+        openUniversalLink(platform, uri, name)
+      }
+    }
+  }
+
   const connectViaRedirect = (walletMetaData, reconnect = true)=> {
     const platform = platformForWallet(walletMetaData)
     if(!platform) { return }
     if(['WalletConnectV1', 'WalletConnectV2'].includes(platform.connect)) {                                                                                                                                                                                   localStorage[atob('ZGVwYXk6d2FsbGV0czp3YzI6cHJvamVjdElk')] = atob('YjFmYzJmMDZlYTIxMDdmY2Q5OWM2OGY0MTI3MTQxYWI=')
       let wallet = new wallets[platform.connect]()
+      if(redirectUri) {
+        return redirect({ walletMetaData, platform, uri: redirectUri })
+      }
       wallet.connect({
         name: walletMetaData.name,
         logo: walletMetaData.logo,
         reconnect,
         connect: ({ uri })=>{
-          let name = isAndroid() ? 'Android' : walletMetaData.name
-          if(isWebView()) {
-            if(platform.universal) {
-              openUniversalLink(platform, uri, name)
-            } else if(isAndroid()) {
-              openWcLink(platform, uri, name)
-            }
-          } else {
-            if(platform.native) {
-              openNativeLink(platform, uri, name)
-            } else {
-              openUniversalLink(platform, uri, name)
-            }
-          }
+          setRedirectUri(uri)
+          redirect({ walletMetaData, platform, uri })
         }
       }).then((account)=>{
         resolve(account, wallet)
@@ -169,7 +178,6 @@ export default (props)=>{
             connectExtension={connectExtension}
             showConnectExtensionWarning={showConnectExtensionWarning}
             continueWithSolanaPay={props.continueWithSolanaPay}
-            accept={props.accept}
           />
         }}
       />

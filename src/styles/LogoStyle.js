@@ -11,6 +11,12 @@ export default (style)=>{
       width: 20px;
     }
 
+    .BlockchainLogo.bottomRight {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+
     .SolanaPayLogo {
       height: 26px;
       position: relative;

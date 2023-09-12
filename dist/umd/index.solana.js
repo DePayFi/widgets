@@ -2,7 +2,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('@depay/web3-wallets-solana'), require('@depay/web3-blockchains'), require('@depay/web3-payments-solana'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client-solana'), require('@depay/local-currency'), require('@depay/web3-exchanges-solana'), require('@depay/web3-tokens-solana'), require('ethers'), require('decimal.js'), require('@depay/react-token-image-solana'), require('@depay/solana-web3.js')) :
   typeof define === 'function' && define.amd ? define(['react', '@depay/web3-wallets-solana', '@depay/web3-blockchains', '@depay/web3-payments-solana', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client-solana', '@depay/local-currency', '@depay/web3-exchanges-solana', '@depay/web3-tokens-solana', 'ethers', 'decimal.js', '@depay/react-token-image-solana', '@depay/solana-web3.js'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.Web3Wallets, global.Web3Blockchains, global.Web3Payments, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.ethers, global.Decimal, global.ReactTokenImage, global.SolanaWeb3js));
-}(this, (function (React, web3WalletsSolana, Blockchains, web3PaymentsSolana, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3ClientSolana, localCurrency, web3ExchangesSolana, web3TokensSolana, ethers, Decimal, reactTokenImageSolana, solanaWeb3_js) { 'use strict';
+}(this, (function (React, web3WalletsSolana, Blockchains, web3PaymentsSolana, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3ClientSolana, localCurrency, Exchanges, Token$1, ethers, Decimal, reactTokenImageSolana, solanaWeb3_js) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -12,6 +12,8 @@
   var QRCodeStyling__default = /*#__PURE__*/_interopDefaultLegacy(QRCodeStyling);
   var Fuse__default = /*#__PURE__*/_interopDefaultLegacy(Fuse);
   var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
+  var Exchanges__default = /*#__PURE__*/_interopDefaultLegacy(Exchanges);
+  var Token__default = /*#__PURE__*/_interopDefaultLegacy(Token$1);
   var Decimal__default = /*#__PURE__*/_interopDefaultLegacy(Decimal);
 
   function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
@@ -1207,6 +1209,7 @@
     },
     "mobile": {
       "ios": {
+        "native": "uniswap:",
         "universal": "https://uniswap.org/app",
         "connect": "WalletConnectV2",
         "qr": "WalletConnectV2"
@@ -1221,11 +1224,13 @@
     },
     "mobile": {
       "ios": {
+        "native": "safe",
         "universal": "https://app.safe.global",
         "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
       },
       "android": {
+        "native": "safe",
         "universal": "https://app.safe.global",
         "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
@@ -1457,13 +1462,13 @@
     },
     "mobile": {
       "ios": {
-        "native": "omni",
+        "native": "omni:",
         "universal": "https://links.omni.app",
         "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
       },
       "android": {
-        "native": "omni",
+        "native": "omni:",
         "universal": "https://links.omni.app",
         "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
@@ -4805,9 +4810,13 @@
     return wallet.blockchains.filter(Boolean).length > 0;
   });
 
-  var ChevronLeft = (function () {
+  var ConfigurationContext = /*#__PURE__*/React__default['default'].createContext({
+    accept: []
+  });
+
+  var ChevronLeft = (function (props) {
     return /*#__PURE__*/React__default['default'].createElement("svg", {
-      className: "ChevronLeft Icon",
+      className: ["ChevronLeft", "Icon", props.className].filter(Boolean).join(' '),
       xmlns: "http://www.w3.org/2000/svg",
       width: "16",
       height: "16",
@@ -4871,6 +4880,7 @@
       className: "ButtonCircular",
       title: "Close dialog"
     }, /*#__PURE__*/React__default['default'].createElement(CloseIcon, null))), props.header), /*#__PURE__*/React__default['default'].createElement("div", {
+      ref: props.bodyRef,
       className: ["DialogBody", props.bodyClassName].join(' ')
     }, props.body), props.footer !== false && /*#__PURE__*/React__default['default'].createElement("div", {
       className: "DialogFooter"
@@ -22158,6 +22168,9 @@
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext);
         _useContext.navigate;
 
+    var _useContext2 = React.useContext(ConfigurationContext),
+        accept = _useContext2.accept;
+
     var header = /*#__PURE__*/React__default['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }, ((_props$wallet = props.wallet) === null || _props$wallet === void 0 ? void 0 : _props$wallet.logo) && /*#__PURE__*/React__default['default'].createElement("div", {
@@ -22210,7 +22223,7 @@
     var connectViaQRCode = React.useCallback(lodash.debounce(function () {
       var _props$platform4, _props$platform5;
 
-      if ((_props$platform4 = props.platform) !== null && _props$platform4 !== void 0 && _props$platform4.solanaPay && props.accept && props.accept.every(function (accept) {
+      if ((_props$platform4 = props.platform) !== null && _props$platform4 !== void 0 && _props$platform4.solanaPay && accept && accept.every(function (accept) {
         return accept.amount;
       })) {
         return props.continueWithSolanaPay();
@@ -22343,7 +22356,7 @@
                 setCopyLinkIsAvailable(copyLinkIsAvailable);
                 openInAppIsAvailable = !!props.platform && props.platform.open;
                 setOpenInAppIsAvailable(openInAppIsAvailable);
-                scanQrAvailable = props.platform.solanaPay && props.accept && props.accept.every(function (accept) {
+                scanQrAvailable = props.platform.solanaPay && accept && accept.every(function (accept) {
                   return accept.amount;
                 }) || ((_props$platform8 = props.platform) === null || _props$platform8 === void 0 ? void 0 : _props$platform8.qr) && (!showQRCode || props.platform.qr === 'WalletLink');
                 setScanQrAvailable(scanQrAvailable);
@@ -22377,7 +22390,7 @@
       }
     }, [QRCode]);
 
-    if (showQRCode && (_props$platform13 = props.platform) !== null && _props$platform13 !== void 0 && _props$platform13.solanaPay && props.accept && props.accept.every(function (accept) {
+    if (showQRCode && (_props$platform13 = props.platform) !== null && _props$platform13 !== void 0 && _props$platform13.solanaPay && accept && accept.every(function (accept) {
       return accept.amount;
     })) {
       return null;
@@ -22405,6 +22418,8 @@
         ref: QRCodeElement,
         className: "QRCode"
       }, showQRCode && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Skeleton",
         style: {
           borderRadius: "18px",
@@ -22413,7 +22428,7 @@
         }
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "SkeletonBackground"
-      }))), showQRCode && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+      })))), showQRCode && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Opacity05 PaddingBottomXS PaddingTopS"
       }, /*#__PURE__*/React__default['default'].createElement("small", null, "Generating QR code...")), showQRCode && QRCode !== undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Opacity05 PaddingBottomXS PaddingTopXS"
@@ -22732,9 +22747,9 @@
     }));
   });
 
-  function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+  function ownKeys$8(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-  function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  function _objectSpread$8(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$8(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$8(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
   var SelectWalletList = (function (props) {
     var parentElement = React__default['default'].useRef();
     var fuse = new Fuse__default['default'](allWallets, {
@@ -22799,7 +22814,7 @@
         className: "Card small",
         title: "Connect ".concat(resultList[virtualItem.key].name),
         onClick: function onClick() {
-          props.onClickWallet(_objectSpread$7({}, resultList[virtualItem.key]));
+          props.onClickWallet(_objectSpread$8({}, resultList[virtualItem.key]));
         }
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardImage"
@@ -22816,9 +22831,9 @@
     })));
   });
 
-  function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+  function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-  function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
   var SelectWalletDialog = (function (props) {
     var _useState = React.useState(''),
         _useState2 = _slicedToArray(_useState, 2),
@@ -22941,7 +22956,7 @@
           className: "Card small",
           title: "Connect ".concat(walletMetaData.name),
           onClick: function onClick() {
-            onClickWallet(_objectSpread$6(_objectSpread$6({}, walletMetaData), {}, {
+            onClickWallet(_objectSpread$7(_objectSpread$7({}, walletMetaData), {}, {
               via: 'detected',
               connectionType: connectionType
             }), wallet);
@@ -22976,7 +22991,7 @@
         className: "Card small",
         title: "Connect ".concat(previouslyConnectedWallet.name),
         onClick: function onClick() {
-          onClickWallet(_objectSpread$6(_objectSpread$6({}, previouslyConnectedWallet), {}, {
+          onClickWallet(_objectSpread$7(_objectSpread$7({}, previouslyConnectedWallet), {}, {
             via: 'previouslyConnected',
             connectionType: 'app'
           }));
@@ -23090,17 +23105,22 @@
         platform = _useState4[0],
         setPlatform = _useState4[1];
 
-    var _useState5 = React.useState({
+    var _useState5 = React.useState(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        redirectUri = _useState6[0],
+        setRedirectUri = _useState6[1];
+
+    var _useState7 = React.useState({
       blockchain: undefined
     }),
-        _useState6 = _slicedToArray(_useState5, 2),
-        selection = _useState6[0];
-        _useState6[1];
-
-    var _useState7 = React.useState(false),
         _useState8 = _slicedToArray(_useState7, 2),
-        showConnectExtensionWarning = _useState8[0],
-        setShowConnectExtensionWarning = _useState8[1];
+        selection = _useState8[0];
+        _useState8[1];
+
+    var _useState9 = React.useState(false),
+        _useState10 = _slicedToArray(_useState9, 2),
+        showConnectExtensionWarning = _useState10[0],
+        setShowConnectExtensionWarning = _useState10[1];
 
     var resolve = function resolve(account, wallet) {
       if (account && wallet) {
@@ -23187,6 +23207,27 @@
       window.open(href, '_self', 'noreferrer noopener');
     };
 
+    var redirect = function redirect(_ref) {
+      var walletMetaData = _ref.walletMetaData,
+          platform = _ref.platform,
+          uri = _ref.uri;
+      var name = isAndroid() ? 'Android' : walletMetaData.name;
+
+      if (isWebView()) {
+        if (platform.universal) {
+          openUniversalLink(platform, uri, name);
+        } else if (isAndroid()) {
+          openWcLink(platform, uri, name);
+        }
+      } else {
+        if (platform["native"]) {
+          openNativeLink(platform, uri, name);
+        } else {
+          openUniversalLink(platform, uri, name);
+        }
+      }
+    };
+
     var connectViaRedirect = function connectViaRedirect(walletMetaData) {
       var reconnect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       var platform = platformForWallet(walletMetaData);
@@ -23200,27 +23241,26 @@
 
         var _wallet = new web3WalletsSolana.wallets[platform.connect]();
 
+        if (redirectUri) {
+          return redirect({
+            walletMetaData: walletMetaData,
+            platform: platform,
+            uri: redirectUri
+          });
+        }
+
         _wallet.connect({
           name: walletMetaData.name,
           logo: walletMetaData.logo,
           reconnect: reconnect,
-          connect: function connect(_ref) {
-            var uri = _ref.uri;
-            var name = isAndroid() ? 'Android' : walletMetaData.name;
-
-            if (isWebView()) {
-              if (platform.universal) {
-                openUniversalLink(platform, uri, name);
-              } else if (isAndroid()) {
-                openWcLink(platform, uri, name);
-              }
-            } else {
-              if (platform["native"]) {
-                openNativeLink(platform, uri, name);
-              } else {
-                openUniversalLink(platform, uri, name);
-              }
-            }
+          connect: function connect(_ref2) {
+            var uri = _ref2.uri;
+            setRedirectUri(uri);
+            redirect({
+              walletMetaData: walletMetaData,
+              platform: platform,
+              uri: uri
+            });
           }
         }).then(function (account) {
           resolve(account, _wallet);
@@ -23281,8 +23321,7 @@
           connectViaRedirect: connectViaRedirect,
           connectExtension: connectExtension,
           showConnectExtensionWarning: showConnectExtensionWarning,
-          continueWithSolanaPay: props.continueWithSolanaPay,
-          accept: props.accept
+          continueWithSolanaPay: props.continueWithSolanaPay
         })
       }
     }));
@@ -23668,7 +23707,7 @@
   });
 
   var CardStyle = (function (style) {
-    return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 76px;\n      padding: 16px 10px;\n      width: 100%;\n    }\n\n    .Card:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 8px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 27px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 58px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 9999px;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 45px;\n      position: relative;\n      vertical-align: middle;\n      width: 45px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardImage .BlockchainLogo {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 17px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+    return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 76px;\n      padding: 16px 10px;\n      width: 100%;\n    }\n\n    .Card:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 8px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 27px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 58px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 9999px;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 45px;\n      position: relative;\n      vertical-align: middle;\n      width: 45px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 17px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
   });
 
   var DialogStyle = (function (style) {
@@ -23696,7 +23735,7 @@
   });
 
   var IconStyle = (function (style) {
-    return "\n\n    .Icon {\n      fill: ".concat(style.colors.icons, ";\n      stroke: ").concat(style.colors.icons, ";\n    }\n\n    .QuestionMarkIcon {\n      fill: transparent;\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .AlertIcon {\n      height: 20px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 20px;\n      fill: #e42626;\n      stroke: transparent;\n    }\n\n    .CheckMark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      border-radius: 100%;\n      position: relative;\n      left: -1px;\n      width: 18px;\n      height: 18px;\n      animation: spin 1.5s linear infinite;\n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
+    return "\n\n    .Icon {\n      fill: ".concat(style.colors.icons, ";\n      stroke: ").concat(style.colors.icons, ";\n    }\n\n    .QuestionMarkIcon {\n      fill: transparent;\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .ChevronLeft.small, .ChevronRight.small {\n      height: 12px;\n      width: 12px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .AlertIcon {\n      height: 20px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 20px;\n      fill: #e42626;\n      stroke: transparent;\n    }\n\n    .CheckMark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      border-radius: 100%;\n      position: relative;\n      left: -1px;\n      width: 18px;\n      height: 18px;\n      animation: spin 1.5s linear infinite;\n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
   });
 
   var ImageStyle = (function (style) {
@@ -23716,7 +23755,7 @@
   });
 
   var LogoStyle = (function (style) {
-    return "\n\n    .BlockchainLogo {\n      border-radius: 6px !important;\n    }\n\n    .BlockchainLogo.small {\n      border-radius: 4px !important;\n      height: 20px;\n      width: 20px;\n    }\n\n    .SolanaPayLogo {\n      height: 26px;\n      position: relative;\n      top: 4px;\n    }\n  ";
+    return "\n\n    .BlockchainLogo {\n      border-radius: 6px !important;\n    }\n\n    .BlockchainLogo.small {\n      border-radius: 4px !important;\n      height: 20px;\n      width: 20px;\n    }\n\n    .BlockchainLogo.bottomRight {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .SolanaPayLogo {\n      height: 26px;\n      position: relative;\n      top: 4px;\n    }\n  ";
   });
 
   var OpacityStyle = (function (style) {
@@ -23744,7 +23783,7 @@
   });
 
   var SearchStyle = (function (style) {
-    return "\n\n    .Search {\n      border-radius: 13px;\n      border: 1px solid rgba(0,0,0,0.2);\n      background: white;\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 13px;\n      width: 100%;\n    }\n\n    .Search::placeholder {\n      color: rgb(180,180,180);\n    } \n\n    .Search:focus, .Search:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n  ");
+    return "\n\n    .Search {\n      border-radius: 13px;\n      border: 1px solid rgba(0,0,0,0.2);\n      background: white;\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 13px;\n      width: 100%;\n    }\n\n    .Search.small {\n      padding: 4px 8px;\n      font-size: 16px;\n      border-radius: 6px;\n    }\n\n    .Search::placeholder {\n      color: rgb(180,180,180);\n    } \n\n    .Search:focus, .Search:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n  ");
   });
 
   var SkeletonStyle = (function () {
@@ -23753,6 +23792,10 @@
 
   var TableStyle = (function (style) {
     return "\n\n    .Table {\n      border-collapse: separate;\n      border-radius: 7px;\n      border-style: hidden;\n      border: 1px solid rgba(0,0,0,0.1);\n      width: 100%;\n    }\n\n    .Table tr.small td {\n      font-size: 14px;\n    }\n\n    .Table tr td {\n      border-bottom: 1px solid rgba(0,0,0,0.1);\n      word-break: break-all;\n    }\n    \n    .Table tr:last-child td {\n      border-bottom: none;\n    }\n    \n    .Table tr td {\n      padding: 8px 15px;\n      text-align: left;\n    }\n    \n    .Table tr td:first-child {\n      width: 30%\n    }\n\n    .Table tr td:last-child {\n      width: 70%\n    }\n    \n    .Table .TableSubTitle {\n      font-weight: 300;\n      opacity: 0.7;\n    }\n\n    .Table tr td:last-child {\n      font-weight: 500;\n    }\n  ";
+  });
+
+  var TabStyle = (function (style) {
+    return "\n\n    .Tab {\n      padding: 3px 7px;\n      margin-right: 3px;\n      font-size: 17px;\n      border-radius: 4px;\n      cursor: pointer;\n    }\n\n    .Tab.active {\n      background: white;\n      box-shadow: 0 0 4px rgba(0,0,0,0.03);\n    }\n\n    .Tab:hover:not(.active) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Tab:active:not(.active) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 4px rgba(0,0,0,0.02);\n    }\n  ";
   });
 
   var TextButtonStyle = (function (style) {
@@ -23791,7 +23834,7 @@
       }, ((_style = style) === null || _style === void 0 ? void 0 : _style.colors) || {}),
       fontFamily: ((_style2 = style) === null || _style2 === void 0 ? void 0 : _style2.fontFamily) || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
     };
-    return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
+    return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), TabStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
   });
 
   var mount = (function (_ref, content) {
@@ -23929,39 +23972,16 @@
     }());
   };
 
-  var ConfigurationContext = /*#__PURE__*/React__default['default'].createContext();
-
-  var ConfigurationProvider = (function (props) {
-    var currencyCode = new localCurrency.Currency({
-      code: props.configuration.currency
-    }).code;
-    React.useEffect(function () {
-      if (props.configuration.providers != undefined) {
-        Object.entries(props.configuration.providers).forEach(function (entry) {
-          web3ClientSolana.setProviderEndpoints(entry[0], entry[1]);
-        });
-      }
-    }, [props.configuration]);
-    return /*#__PURE__*/React__default['default'].createElement(ConfigurationContext.Provider, {
-      value: Object.assign({}, props.configuration, {
-        currencyCode: currencyCode
-      })
-    }, props.children);
-  });
-
   var NavigateContext = /*#__PURE__*/React__default['default'].createContext();
 
   var LoadingDialog = (function (props) {
-    var _useContext = React.useContext(ConfigurationContext),
-        text = _useContext.text;
-
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       closable: false,
       header: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL"
-      }, "Payment")),
+      }, "Loading")),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -23972,14 +23992,16 @@
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "SkeletonWrapper"
+        className: "PaddingBottomXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "SkeletonWrapper PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "ButtonPrimary Skeleton"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "SkeletonBackground"
-      }))), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "TextCenter Opacity05 PaddingTopS"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", null, text)))
+      })))), props.text !== false && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TextCenter Opacity05 PaddingTopXS"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, props.text)))
     });
   });
 
@@ -23999,7 +24021,9 @@
       container: props.container,
       document: props.document,
       dialogs: {
-        Loading: /*#__PURE__*/React__default['default'].createElement(LoadingDialog, null)
+        Loading: /*#__PURE__*/React__default['default'].createElement(LoadingDialog, {
+          text: props.text
+        })
       }
     });
   });
@@ -24032,6 +24056,200 @@
     }, props.children);
   });
 
+  let crypto;
+  let atob$1;
+
+  if (typeof window === 'undefined') { // running in Node.js
+    crypto = new (require("@peculiar/webcrypto").Crypto)();
+    atob$1 = require('atob');
+  } else {
+    crypto = window.crypto;
+    atob$1 = window.atob;
+  }
+
+  const string2ArrayBuffer = (str)=> {
+    const buf = new ArrayBuffer(str.length);
+    const bufView = new Uint8Array(buf);
+    for (let i = 0, strLen = str.length; i < strLen; i++) {
+      bufView[i] = str.charCodeAt(i);
+    }
+    return buf
+  };
+
+  const base64ToArrayBuffer = (b64)=> {
+    const safeB64 = b64.replace(/-/g, '+').replace(/_/g, '/');
+    const byteString = atob$1(safeB64);
+    let byteArray = new Uint8Array(byteString.length);
+    for(let i=0; i < byteString.length; i++) {
+      byteArray[i] = byteString.charCodeAt(i);
+    }
+    return byteArray
+  };
+
+  const verify = async ({ signature, publicKey, data, saltLength = 64 })=>{
+
+    let innerPublicKey = publicKey.replace(/^.*?-----BEGIN PUBLIC KEY-----\n/, '').replace(/-----END PUBLIC KEY-----(\n)*$/, '').replace(/(\n)*/g, '');
+    while (innerPublicKey.length % 4) { // add proper padding
+      innerPublicKey += '=';
+    }
+    const binaryString = atob$1(innerPublicKey);
+    const binaryStringArrayBuffer = string2ArrayBuffer(binaryString);
+    const cryptoKey = await crypto.subtle.importKey("spki", binaryStringArrayBuffer, { name: "RSA-PSS", hash: "SHA-256" }, true, ["verify"]);
+
+    return await crypto.subtle.verify({ name: "RSA-PSS", saltLength }, cryptoKey, base64ToArrayBuffer(signature), string2ArrayBuffer(data))
+  };
+
+  function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+  function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  var PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtqsu0wy94cpz90W4pGsJ\nSf0bfvmsq3su+R1J4AoAYz0XoAu2MXJZM8vrQvG3op7OgB3zze8pj4joaoPU2piT\ndH7kcF4Mde6QG4qKEL3VE+J8CL3qK2dUY0Umu20x/O9O792tlv8+Q/qAVv8yPfdM\nn5Je9Wc7VI5XeIBKP2AzsCkrXuzQlR48Ac5LpViNSSLu0mz5NTBoHkW2sz1sNWc6\nUpYISJkiKTvYc8Bo4p5xD6+ZmlL4hj1Ad/+26SjYcisX2Ut4QD7YKRBP2SbItVkI\nqp9mp6c6MCKNmEUkosxAr0KVfOcrk6/fcc4tI8g+KYZ32G11Ri8Xo4fgHH06DLYP\n3QIDAQAB\n-----END PUBLIC KEY-----\n";
+  var ConfigurationProvider = (function (props) {
+    var _props$configuration, _props$configuration5;
+
+    var currencyCode = new localCurrency.Currency({
+      code: props.configuration.currency
+    }).code;
+
+    var _useState = React.useState(!((_props$configuration = props.configuration) !== null && _props$configuration !== void 0 && _props$configuration.integration) ? _objectSpread$6(_objectSpread$6({}, props.configuration), {}, {
+      currencyCode: currencyCode
+    }) : undefined),
+        _useState2 = _slicedToArray(_useState, 2),
+        configuration = _useState2[0],
+        setConfiguration = _useState2[1];
+
+    var loadConfiguration = function loadConfiguration(id, attempt) {
+      var _props$configuration2;
+
+      if (attempt >= 10) {
+        return;
+      }
+
+      var retry = function retry() {
+        setTimeout(function () {
+          return loadConfiguration(id, attempt + 1);
+        }, 1000);
+      };
+
+      fetch("https://public.depay.com/configurations/".concat(id), {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: (_props$configuration2 = props.configuration) !== null && _props$configuration2 !== void 0 && _props$configuration2.payload ? JSON.stringify({
+          payload: props.configuration.payload
+        }) : undefined
+      })["catch"](retry).then( /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(response) {
+          var _JSON$parse, configurationId, _configuration, verified, localConfigurationWithValues;
+
+          return regenerator.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  if (!(response.status == 200)) {
+                    _context.next = 19;
+                    break;
+                  }
+
+                  _context.t0 = JSON;
+                  _context.next = 4;
+                  return response.text();
+
+                case 4:
+                  _context.t1 = _context.sent;
+                  _JSON$parse = _context.t0.parse.call(_context.t0, _context.t1);
+                  configurationId = _JSON$parse.id;
+                  _configuration = _JSON$parse.configuration;
+                  _context.next = 10;
+                  return verify({
+                    signature: response.headers.get('x-signature'),
+                    publicKey: PUBLIC_KEY,
+                    data: JSON.stringify(_configuration)
+                  });
+
+                case 10:
+                  verified = _context.sent;
+
+                  if (!verified) {
+                    _context.next = 16;
+                    break;
+                  }
+
+                  localConfigurationWithValues = Object.entries(props.configuration).reduce(function (acc, _ref2) {
+                    var _ref3 = _slicedToArray(_ref2, 2),
+                        key = _ref3[0],
+                        value = _ref3[1];
+
+                    if (value !== undefined) {
+                      acc[key] = value;
+                    }
+
+                    return acc;
+                  }, {});
+                  setConfiguration(_objectSpread$6(_objectSpread$6(_objectSpread$6({}, _configuration), localConfigurationWithValues), {}, {
+                    id: configurationId,
+                    currencyCode: currencyCode
+                  }));
+                  _context.next = 17;
+                  break;
+
+                case 16:
+                  throw 'Configuration response not verified!';
+
+                case 17:
+                  _context.next = 20;
+                  break;
+
+                case 19:
+                  retry();
+
+                case 20:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        return function (_x) {
+          return _ref.apply(this, arguments);
+        };
+      }());
+    };
+
+    React.useEffect(function () {
+      if ((configuration === null || configuration === void 0 ? void 0 : configuration.providers) != undefined) {
+        Object.entries(props.configuration.providers).forEach(function (entry) {
+          web3ClientSolana.setProviderEndpoints(entry[0], entry[1]);
+        });
+      }
+    }, [configuration]);
+    React.useEffect(function () {
+      var _props$configuration3;
+
+      if ((_props$configuration3 = props.configuration) !== null && _props$configuration3 !== void 0 && _props$configuration3.integration) {
+        var _props$configuration4;
+
+        loadConfiguration((_props$configuration4 = props.configuration) === null || _props$configuration4 === void 0 ? void 0 : _props$configuration4.integration, 1);
+      }
+    }, [props.configuration]);
+
+    if ((_props$configuration5 = props.configuration) !== null && _props$configuration5 !== void 0 && _props$configuration5.integration && !configuration) {
+      return /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
+        unmount: props.unmount,
+        closable: false
+      }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(PoweredBy, null), /*#__PURE__*/React__default['default'].createElement(LoadingStack, {
+        text: false,
+        document: props.document,
+        container: props.container
+      }))));
+    } else {
+      return /*#__PURE__*/React__default['default'].createElement(ConfigurationContext.Provider, {
+        value: configuration
+      }, props.children);
+    }
+  });
+
   var Loading = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
       var text, style, error, critical, container, document, unmount;
@@ -24053,17 +24271,14 @@
                     errorCallback: error,
                     container: container,
                     unmount: unmount
-                  }, /*#__PURE__*/React__default['default'].createElement(ConfigurationProvider, {
-                    configuration: {
-                      text: text
-                    }
                   }, /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
                     unmount: unmount,
                     closable: false
-                  }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(LoadingStack, {
+                  }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(PoweredBy, null), /*#__PURE__*/React__default['default'].createElement(LoadingStack, {
+                    text: text,
                     document: document,
                     container: container
-                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null))))));
+                  })))));
                 };
               });
               window._depayUnmountLoading = unmount;
@@ -24308,8 +24523,11 @@
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardImage"
         }, /*#__PURE__*/React__default['default'].createElement("img", {
-          className: "transparent",
-          src: blockchain.logo
+          className: "transparent BlockchainLogo small",
+          src: blockchain.logo,
+          style: {
+            backgroundColor: blockchain.logoBackgroundColor
+          }
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardBody"
         }, /*#__PURE__*/React__default['default'].createElement("span", {
@@ -24673,11 +24891,14 @@
     };
 
     var _useContext = React.useContext(ConfigurationContext),
+        accept = _useContext.accept,
         configuredAmount = _useContext.amount;
         _useContext.toAmount;
         var recover = _useContext.recover;
 
-    var _useState = React.useState(recover == undefined ? configurationsMissAmounts(props.accept) : false),
+    React.useContext(ConfigurationContext);
+
+    var _useState = React.useState(recover == undefined ? configurationsMissAmounts(accept) : false),
         _useState2 = _slicedToArray(_useState, 2),
         amountsMissing = _useState2[0],
         setAmountsMissing = _useState2[1];
@@ -24737,8 +24958,8 @@
         return;
       }
 
-      setAmountsMissing(configurationsMissAmounts(props.accept));
-    }, [props.accept, recover]);
+      setAmountsMissing(configurationsMissAmounts(accept));
+    }, [accept, recover]);
 
     var getAmounts = function getAmounts(_ref) {
       var amount = _ref.amount,
@@ -24746,16 +24967,16 @@
           fixedCurrencyConversionRate = _ref.fixedCurrencyConversionRate;
       return new Promise(function (resolve, reject) {
         if (configuredAmount && configuredAmount.token) {
-          resolve(props.accept.map(function () {
+          resolve(accept.map(function () {
             return amount;
           }));
         } else {
-          Promise.all(props.accept.map(function (configuration) {
+          Promise.all(accept.map(function (configuration) {
             if (fixedAmount) {
               if (Blockchains__default['default'][configuration.blockchain].stables.usd[0] == configuration.token) {
                 return 1.00 / fixedCurrencyConversionRate * fixedAmount;
               } else {
-                return web3ExchangesSolana.route({
+                return Exchanges__default['default'].route({
                   blockchain: configuration.blockchain,
                   tokenIn: Blockchains__default['default'][configuration.blockchain].stables.usd[0],
                   amountIn: 1.00 / fixedCurrencyConversionRate * fixedAmount,
@@ -24765,10 +24986,12 @@
                 });
               }
             } else {
-              if (Blockchains__default['default'][configuration.blockchain].stables.usd[0] == configuration.token) {
+              if (Blockchains__default['default'][configuration.blockchain].stables.usd.find(function (stable) {
+                return stable.toLowerCase() === configuration.token.toLowerCase();
+              })) {
                 return 1.00 / conversionRate * amount;
               } else {
-                return web3ExchangesSolana.route({
+                return Exchanges__default['default'].route({
                   blockchain: configuration.blockchain,
                   tokenIn: Blockchains__default['default'][configuration.blockchain].stables.usd[0],
                   amountIn: 1.00 / conversionRate * amount,
@@ -24785,8 +25008,8 @@
               } else if (result[0] == undefined) {
                 return;
               } else {
-                return web3TokensSolana.Token.readable({
-                  blockchain: props.accept[index].blockchain,
+                return Token__default['default'].readable({
+                  blockchain: accept[index].blockchain,
                   amount: result[0].amountOut,
                   address: result[0].tokenOut
                 });
@@ -24807,7 +25030,7 @@
         conversionRate: conversionRate,
         fixedCurrencyConversionRate: fixedCurrencyConversionRate
       }).then(function (amounts) {
-        setAcceptWithAmount(props.accept.map(function (configuration, index) {
+        setAcceptWithAmount(accept.map(function (configuration, index) {
           if (amounts[index] == undefined) {
             return;
           }
@@ -24826,6 +25049,7 @@
       }
 
       if (amountsMissing && account && conversionRate && (fixedAmount ? fixedCurrencyConversionRate : true)) {
+        setAcceptWithAmount();
         updateAmounts({
           account: account,
           amount: amount,
@@ -24838,7 +25062,7 @@
       if (amountsMissing && maxRoute) {
         maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
           if (configuredAmount && configuredAmount.token) {
-            web3ExchangesSolana.route({
+            Exchanges__default['default'].route({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,
               tokenOut: maxRoute.toToken.address,
@@ -24847,7 +25071,7 @@
               toAddress: account
             }).then(function (routes) {
               if (routes[0] == undefined) {
-                web3TokensSolana.Token.readable({
+                Token__default['default'].readable({
                   amount: maxRoute.fromBalance,
                   blockchain: maxRoute.blockchain,
                   address: maxRoute.fromToken.address
@@ -24855,7 +25079,7 @@
                 return;
               }
 
-              web3TokensSolana.Token.readable({
+              Token__default['default'].readable({
                 amount: routes[0].amountOut,
                 blockchain: maxRoute.blockchain,
                 address: maxRoute.toToken.address
@@ -24870,7 +25094,7 @@
 
             setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount - 1) : _maxAmount - 1);
           } else {
-            web3ExchangesSolana.route({
+            Exchanges__default['default'].route({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,
               tokenOut: Blockchains__default['default'][maxRoute.blockchain].stables.usd[0],
@@ -24882,7 +25106,7 @@
                 return;
               }
 
-              web3TokensSolana.Token.readable({
+              Token__default['default'].readable({
                 amount: routes[0].amountOut,
                 blockchain: maxRoute.blockchain,
                 address: Blockchains__default['default'][maxRoute.blockchain].stables.usd[0]
@@ -24994,7 +25218,8 @@
         whitelist = _ref.whitelist,
         blacklist = _ref.blacklist,
         fee = _ref.fee,
-        update = _ref.update;
+        update = _ref.update,
+        drip = _ref.drip;
     return web3PaymentsSolana.route({
       accept: accept.map(function (accept) {
         return prepareAcceptedPayments(accept, receiver);
@@ -25002,9 +25227,9 @@
       from: mergeFromAccounts(accept, account),
       whitelist: whitelist,
       blacklist: blacklist,
-      event: 'ifRoutedAndNative',
       fee: fee,
-      update: update
+      update: update,
+      drip: drip
     });
   });
 
@@ -25019,23 +25244,38 @@
 
     var _useState3 = React.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
-        updatedRouteWithNewPrice = _useState4[0],
-        setUpdatedRouteWithNewPrice = _useState4[1];
+        updatedRoutes = _useState4[0],
+        setUpdatedRoutes = _useState4[1];
 
     var _useState5 = React.useState(),
         _useState6 = _slicedToArray(_useState5, 2),
-        selectedRoute = _useState6[0],
-        setSelectedRoute = _useState6[1];
+        updatedRouteWithNewPrice = _useState6[0],
+        setUpdatedRouteWithNewPrice = _useState6[1];
 
-    var _useState7 = React.useState(false),
+    var _useState7 = React.useState(),
         _useState8 = _slicedToArray(_useState7, 2),
-        slowRouting = _useState8[0],
-        setSlowRouting = _useState8[1];
+        selectedRoute = _useState8[0],
+        setSelectedRoute = _useState8[1];
 
-    var _useState9 = React.useState(0),
+    var _useState9 = React.useState(false),
         _useState10 = _slicedToArray(_useState9, 2),
-        reloadCount = _useState10[0],
-        setReloadCount = _useState10[1];
+        slowRouting = _useState10[0],
+        setSlowRouting = _useState10[1];
+
+    var _useState11 = React.useState(0),
+        _useState12 = _slicedToArray(_useState11, 2),
+        reloadCount = _useState12[0],
+        setReloadCount = _useState12[1];
+
+    var _useState13 = React.useState(false),
+        _useState14 = _slicedToArray(_useState13, 2),
+        allRoutesLoadedInternal = _useState14[0],
+        setAllRoutesLoadedInternal = _useState14[1];
+
+    var _useState15 = React.useState(false),
+        _useState16 = _slicedToArray(_useState15, 2),
+        allRoutesLoaded = _useState16[0],
+        setAllRoutesLoaded = _useState16[1];
 
     var _useContext = React.useContext(WalletContext),
         account = _useContext.account;
@@ -25047,120 +25287,75 @@
     var _useContext3 = React.useContext(ConfigurationContext),
         recover = _useContext3.recover;
 
-    var onRoutesUpdate = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(routes) {
-        return regenerator.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                if (routes.length == 0) {
-                  setAllRoutes([]);
-
-                  if (props.setMaxRoute) {
-                    props.setMaxRoute(null);
-                  }
-                } else {
-                  roundAmounts(routes).then( /*#__PURE__*/function () {
-                    var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(roundedRoutes) {
-                      var selectRoute, updatedSelectedRoute;
-                      return regenerator.wrap(function _callee$(_context) {
-                        while (1) {
-                          switch (_context.prev = _context.next) {
-                            case 0:
-                              if (typeof selectedRoute == 'undefined') {
-                                selectRoute = roundedRoutes[0];
-                                setSelectedRoute(selectRoute);
-                              } else {
-                                updatedSelectedRoute = roundedRoutes[roundedRoutes.findIndex(function (route) {
-                                  return route.fromToken.address == selectedRoute.fromToken.address && route.blockchain == selectedRoute.blockchain;
-                                })];
-
-                                if (updatedSelectedRoute) {
-                                  if (selectedRoute.fromAmount != updatedSelectedRoute.fromAmount) {
-                                    setUpdatedRouteWithNewPrice(updatedSelectedRoute);
-                                  } else if ( // other reasons but price to update selected route
-                                  selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired) {
-                                    setSelectedRoute(updatedSelectedRoute);
-                                  }
-                                } else {
-                                  setSelectedRoute(roundedRoutes[0]);
-                                }
-                              }
-
-                              setAllRoutes(roundedRoutes);
-
-                              if (props.setMaxRoute) {
-                                props.setMaxRoute(findMaxRoute(roundedRoutes));
-                              }
-
-                            case 3:
-                            case "end":
-                              return _context.stop();
-                          }
-                        }
-                      }, _callee);
-                    }));
-
-                    return function (_x2) {
-                      return _ref2.apply(this, arguments);
-                    };
-                  }());
-                }
-
-              case 1:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-
-      return function onRoutesUpdate(_x) {
-        return _ref.apply(this, arguments);
-      };
-    }();
+    var configuration = React.useContext(ConfigurationContext);
 
     var getPaymentRoutes = /*#__PURE__*/function () {
-      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref3) {
-        var updatable, slowRoutingTimeout;
-        return regenerator.wrap(function _callee3$(_context3) {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+        var updatable, slowRoutingTimeout, firstRouteDisplayed;
+        return regenerator.wrap(function _callee$(_context) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context.prev = _context.next) {
               case 0:
-                updatable = _ref3.updatable;
+                updatable = _ref.updatable;
 
                 if (!(updatable == false || !props.accept || !account)) {
-                  _context3.next = 3;
+                  _context.next = 3;
                   break;
                 }
 
-                return _context3.abrupt("return");
+                return _context.abrupt("return");
 
               case 3:
                 slowRoutingTimeout = setTimeout(function () {
                   setSlowRouting(true);
                 }, 4000);
-                _context3.next = 6;
-                return routePayments(Object.assign({}, props, {
-                  account: account
+                _context.next = 6;
+                return routePayments(Object.assign({}, configuration, {
+                  accept: props.accept,
+                  account: account,
+                  drip: function drip(route) {
+                    if (route.fromToken.address !== route.toToken.address && !Blockchains__default['default'][route.blockchain].tokens.find(function (token) {
+                      return token.address.toLowerCase() === route.fromToken.address.toLowerCase();
+                    })) {
+                      return;
+                    }
+
+                    if (firstRouteDisplayed) {
+                      return;
+                    }
+
+                    firstRouteDisplayed = true;
+
+                    if (allRoutesLoaded) {
+                      return;
+                    }
+
+                    if (route.approvalRequired) {
+                      return;
+                    }
+
+                    clearInterval(slowRoutingTimeout);
+                    setUpdatedRoutes([route]);
+                  }
                 })).then(function (routes) {
+                  setUpdatedRoutes(routes);
+                  setAllRoutesLoadedInternal(true);
                   clearInterval(slowRoutingTimeout);
-                  onRoutesUpdate(routes);
                 });
 
               case 6:
-                return _context3.abrupt("return", _context3.sent);
+                return _context.abrupt("return", _context.sent);
 
               case 7:
               case "end":
-                return _context3.stop();
+                return _context.stop();
             }
           }
-        }, _callee3);
+        }, _callee);
       }));
 
-      return function getPaymentRoutes(_x3) {
-        return _ref4.apply(this, arguments);
+      return function getPaymentRoutes(_x) {
+        return _ref2.apply(this, arguments);
       };
     }();
 
@@ -25169,34 +25364,79 @@
     };
 
     var roundAmount = /*#__PURE__*/function () {
-      var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(route, amountBN) {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(route, amountBN) {
         var readableAmount, roundedAmountBN;
+        return regenerator.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!route.directTransfer) {
+                  _context2.next = 2;
+                  break;
+                }
+
+                return _context2.abrupt("return", route);
+
+              case 2:
+                _context2.next = 4;
+                return route.fromToken.readable(amountBN || route.fromAmount);
+
+              case 4:
+                readableAmount = _context2.sent;
+                _context2.next = 7;
+                return route.fromToken.BigNumber(round(readableAmount));
+
+              case 7:
+                roundedAmountBN = _context2.sent;
+                updateRouteAmount(route, roundedAmountBN);
+                return _context2.abrupt("return", route);
+
+              case 10:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function roundAmount(_x2, _x3) {
+        return _ref3.apply(this, arguments);
+      };
+    }();
+
+    var roundAmounts = /*#__PURE__*/function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(routes) {
+        return regenerator.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                return _context3.abrupt("return", Promise.all(routes.map(function (route) {
+                  return roundAmount(route);
+                })));
+
+              case 1:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      return function roundAmounts(_x4) {
+        return _ref4.apply(this, arguments);
+      };
+    }();
+
+    var updateRouteWithNewPrice = /*#__PURE__*/function () {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4() {
         return regenerator.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                if (!route.directTransfer) {
-                  _context4.next = 2;
-                  break;
-                }
-
-                return _context4.abrupt("return", route);
+                setSelectedRoute(_objectSpread$3({}, updatedRouteWithNewPrice));
+                setUpdatedRouteWithNewPrice(null);
 
               case 2:
-                _context4.next = 4;
-                return route.fromToken.readable(amountBN || route.fromAmount);
-
-              case 4:
-                readableAmount = _context4.sent;
-                _context4.next = 7;
-                return route.fromToken.BigNumber(round(readableAmount));
-
-              case 7:
-                roundedAmountBN = _context4.sent;
-                updateRouteAmount(route, roundedAmountBN);
-                return _context4.abrupt("return", route);
-
-              case 10:
               case "end":
                 return _context4.stop();
             }
@@ -25204,60 +25444,15 @@
         }, _callee4);
       }));
 
-      return function roundAmount(_x4, _x5) {
-        return _ref5.apply(this, arguments);
-      };
-    }();
-
-    var roundAmounts = /*#__PURE__*/function () {
-      var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
-        return regenerator.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                return _context5.abrupt("return", Promise.all(routes.map(function (route) {
-                  return roundAmount(route);
-                })));
-
-              case 1:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5);
-      }));
-
-      return function roundAmounts(_x6) {
-        return _ref6.apply(this, arguments);
-      };
-    }();
-
-    var updateRouteWithNewPrice = /*#__PURE__*/function () {
-      var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6() {
-        return regenerator.wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                setSelectedRoute(_objectSpread$3({}, updatedRouteWithNewPrice));
-                setUpdatedRouteWithNewPrice(null);
-
-              case 2:
-              case "end":
-                return _context6.stop();
-            }
-          }
-        }, _callee6);
-      }));
-
       return function updateRouteWithNewPrice() {
-        return _ref7.apply(this, arguments);
+        return _ref5.apply(this, arguments);
       };
     }();
 
     var refreshPaymentRoutes = function refreshPaymentRoutes() {
       return getPaymentRoutes({
         allRoutes: allRoutes,
-        selectedRoute: selectedRoute,
+        selectedRoute: undefined,
         updatable: updatable
       });
     };
@@ -25276,17 +25471,69 @@
       };
     }, [reloadCount, allRoutes, selectedRoute, updatable]);
     React.useEffect(function () {
-      if (account && props.accept && recover == undefined) {
+      if (recover) {
+        return;
+      }
+
+      if (account && props.accept) {
         refreshPaymentRoutes();
+      } else if (props.accept === undefined) {
+        setSelectedRoute();
+        setAllRoutesLoaded(false);
+        setUpdatedRoutes();
+        setAllRoutes();
       }
     }, [account, props.accept]);
+    React.useEffect(function () {
+      if (updatedRoutes === undefined) {
+        return;
+      }
+
+      if (updatedRoutes.length == 0) {
+        setAllRoutes(updatedRoutes);
+
+        if (props.setMaxRoute) {
+          props.setMaxRoute(null);
+        }
+      } else {
+        roundAmounts(updatedRoutes).then(function (roundedRoutes) {
+          if (typeof selectedRoute == 'undefined') {
+            var selectRoute = roundedRoutes[0];
+            setSelectedRoute(selectRoute);
+          } else {
+            var updatedSelectedRoute = roundedRoutes[roundedRoutes.findIndex(function (route) {
+              return route.fromToken.address == selectedRoute.fromToken.address && route.blockchain == selectedRoute.blockchain;
+            })];
+
+            if (updatedSelectedRoute) {
+              if (selectedRoute.fromAmount != updatedSelectedRoute.fromAmount) {
+                setUpdatedRouteWithNewPrice(updatedSelectedRoute);
+              } else if ( // other reasons but price to update selected route
+              selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired) {
+                setSelectedRoute(updatedSelectedRoute);
+              }
+            } else {
+              setSelectedRoute(roundedRoutes[0]);
+            }
+          }
+
+          roundedRoutes.assets = updatedRoutes.assets;
+          setAllRoutes(roundedRoutes);
+          setAllRoutesLoaded(allRoutesLoadedInternal);
+
+          if (props.setMaxRoute) {
+            props.setMaxRoute(findMaxRoute(roundedRoutes));
+          }
+        });
+      }
+    }, [selectedRoute, updatedRoutes]);
     return /*#__PURE__*/React__default['default'].createElement(PaymentRoutingContext.Provider, {
       value: {
         selectedRoute: selectedRoute,
         setSelectedRoute: setSelectedRoute,
         refreshPaymentRoutes: refreshPaymentRoutes,
         allRoutes: allRoutes,
-        setAllRoutes: setAllRoutes,
+        allRoutesLoaded: allRoutesLoaded,
         slowRouting: slowRouting,
         updatedRouteWithNewPrice: updatedRouteWithNewPrice,
         updateRouteWithNewPrice: updateRouteWithNewPrice
@@ -25300,6 +25547,9 @@
         acceptWithAmount = _useContext.acceptWithAmount,
         setMaxRoute = _useContext.setMaxRoute;
 
+    var _useContext2 = React.useContext(ConfigurationContext),
+        configuredAccept = _useContext2.accept;
+
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
         accept = _useState2[0],
@@ -25307,33 +25557,547 @@
 
     React.useEffect(function () {
       if (amountsMissing) {
-        if (acceptWithAmount) {
-          setAccept(acceptWithAmount);
-        }
+        setAccept(acceptWithAmount);
       } else {
-        setAccept(props.accept);
+        setAccept(configuredAccept);
       }
     }, [amountsMissing, acceptWithAmount]);
     return /*#__PURE__*/React__default['default'].createElement(PaymentAmountRoutingContext.Provider, {
       value: {}
     }, /*#__PURE__*/React__default['default'].createElement(PaymentRoutingProvider, {
       accept: accept,
-      whitelist: props.whitelist,
-      blacklist: props.blacklist,
-      event: props.event,
       setMaxRoute: setMaxRoute,
-      fee: props.fee,
       container: props.container,
       document: props.document
     }, props.children));
+  });
+
+  var InsufficientGraphic = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAGZCAYAAAD/+YnsAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFw2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgOS4wLWMwMDAgNzkuZGE0YTdlNWVmLCAyMDIyLzExLzIyLTEzOjUwOjA3ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjQuMSAoTWFjaW50b3NoKSIgeG1wOkNyZWF0ZURhdGU9IjIwMjMtMDgtMjJUMDg6MDM6NDUrMDI6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDIzLTA4LTIyVDA5OjI0OjIzKzAyOjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDIzLTA4LTIyVDA5OjI0OjIzKzAyOjAwIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgcGhvdG9zaG9wOkNvbG9yTW9kZT0iMyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4YjA0MTU4Mi04MWVhLTRkNjktOGNmMi1hMGI0MTAxYTZjOTUiIHhtcE1NOkRvY3VtZW50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";
+
+  var NATIVE_AMOUNT_REQUIRED_FOR_TRANSACTION = {
+    ethereum: ethers.ethers.BigNumber.from('3000000000000000'),
+    bsc: ethers.ethers.BigNumber.from('700000000000000'),
+    polygon: ethers.ethers.BigNumber.from('15000000000000000'),
+    solana: ethers.ethers.BigNumber.from('15000'),
+    optimism: ethers.ethers.BigNumber.from('3000000000000000'),
+    base: ethers.ethers.BigNumber.from('3000000000000000'),
+    arbitrum: ethers.ethers.BigNumber.from('3000000000000000'),
+    fantom: ethers.ethers.BigNumber.from('3000000000000000'),
+    avalanche: ethers.ethers.BigNumber.from('3000000000000000'),
+    gnosis: ethers.ethers.BigNumber.from('3000000000000000')
+  };
+  var InsufficientAmountOfTokensDialog = (function (props) {
+    var _useState = React.useState(),
+        _useState2 = _slicedToArray(_useState, 2),
+        recommendedAssetSymbol = _useState2[0],
+        setRecommendedAssetSymbol = _useState2[1];
+
+    var _useState3 = React.useState(),
+        _useState4 = _slicedToArray(_useState3, 2),
+        recommendedAssetAmountAvailable = _useState4[0],
+        setRecommendedAssetAmountAvailable = _useState4[1];
+
+    var _useState5 = React.useState(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        recommendedAssetAmountRequired = _useState6[0],
+        setRecommendedAssetAmountRequired = _useState6[1];
+
+    var _useState7 = React.useState(),
+        _useState8 = _slicedToArray(_useState7, 2),
+        recommendedAssetTotalAmountDue = _useState8[0],
+        setRecommendedAssetTotalAmountDue = _useState8[1];
+
+    var _useState9 = React.useState(true),
+        _useState10 = _slicedToArray(_useState9, 2),
+        loading = _useState10[0],
+        setLoading = _useState10[1];
+
+    var _useContext = React.useContext(reactDialogStack.NavigateStackContext);
+        _useContext.navigate;
+        var set = _useContext.set;
+
+    var _useContext2 = React.useContext(ConfigurationContext),
+        accept = _useContext2.accept;
+
+    var _useContext3 = React.useContext(ClosableContext),
+        close = _useContext3.close;
+
+    var setRecommendation = /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref) {
+        var route, accept, nativeAvailableAsset, token, asset;
+        return regenerator.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                route = _ref.route, accept = _ref.accept;
+                nativeAvailableAsset = props.assets.find(function (asset) {
+                  return Blockchains__default['default'][asset.blockchain].currency.address.toLowerCase() === asset.address.toLowerCase();
+                });
+
+                if (!(route.blockchain === accept.blockchain && route.tokenIn.toLowerCase() === accept.token.toLowerCase())) {
+                  _context3.next = 34;
+                  break;
+                }
+
+                token = new Token__default['default']({
+                  blockchain: route.blockchain,
+                  address: route.tokenIn
+                });
+                asset = props.assets.find(function (asset) {
+                  return asset.blockchain === route.blockchain && asset.address.toLowerCase() === route.tokenIn.toLowerCase();
+                });
+                _context3.t0 = setRecommendedAssetTotalAmountDue;
+                _context3.t1 = round;
+                _context3.next = 9;
+                return token.readable(ethers.ethers.BigNumber.from(accept.amount));
+
+              case 9:
+                _context3.t2 = _context3.sent;
+                _context3.t3 = (0, _context3.t1)(_context3.t2);
+                (0, _context3.t0)(_context3.t3);
+                _context3.t4 = setRecommendedAssetAmountRequired;
+                _context3.t5 = round;
+                _context3.next = 16;
+                return token.readable(ethers.ethers.BigNumber.from(route.amountIn).sub(ethers.ethers.BigNumber.from(asset.balance)));
+
+              case 16:
+                _context3.t6 = _context3.sent;
+                _context3.t7 = (0, _context3.t5)(_context3.t6);
+                (0, _context3.t4)(_context3.t7);
+                _context3.t8 = setRecommendedAssetSymbol;
+                _context3.next = 22;
+                return token.symbol();
+
+              case 22:
+                _context3.t9 = _context3.sent;
+                (0, _context3.t8)(_context3.t9);
+                _context3.t10 = setRecommendedAssetAmountAvailable;
+                _context3.t11 = round;
+                _context3.next = 28;
+                return token.readable(asset.balance);
+
+              case 28:
+                _context3.t12 = _context3.sent;
+                _context3.t13 = (0, _context3.t11)(_context3.t12, 'down');
+                (0, _context3.t10)(_context3.t13);
+                setLoading(false);
+                _context3.next = 63;
+                break;
+
+              case 34:
+                if (!(!nativeAvailableAsset || ethers.ethers.BigNumber.from(nativeAvailableAsset.balance).lt(NATIVE_AMOUNT_REQUIRED_FOR_TRANSACTION[nativeAvailableAsset.blockchain]))) {
+                  _context3.next = 48;
+                  break;
+                }
+
+                _context3.t14 = Exchanges__default['default'];
+                _context3.t15 = route.blockchain;
+                _context3.t16 = Blockchains__default['default'][route.blockchain].currency.address;
+                _context3.next = 40;
+                return Token__default['default'].BigNumber({
+                  amount: accept.amount,
+                  blockchain: accept.blockchain,
+                  address: accept.token
+                });
+
+              case 40:
+                _context3.t17 = _context3.sent;
+                _context3.t18 = accept.token;
+                _context3.t19 = props.account;
+                _context3.t20 = accept.receiver;
+                _context3.t21 = {
+                  blockchain: _context3.t15,
+                  tokenIn: _context3.t16,
+                  amountOut: _context3.t17,
+                  tokenOut: _context3.t18,
+                  fromAddress: _context3.t19,
+                  toAddress: _context3.t20
+                };
+
+                _context3.t14.route.call(_context3.t14, _context3.t21).then( /*#__PURE__*/function () {
+                  var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(routes) {
+                    var route;
+                    return regenerator.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            route = routes[0];
+                            _context.t0 = setRecommendedAssetAmountRequired;
+                            _context.t1 = round;
+                            _context.next = 5;
+                            return Token__default['default'].readable({
+                              blockchain: route.blockchain,
+                              address: route.tokenIn,
+                              amount: route.amountIn
+                            });
+
+                          case 5:
+                            _context.t2 = _context.sent;
+                            _context.t3 = (0, _context.t1)(_context.t2);
+                            (0, _context.t0)(_context.t3);
+                            setRecommendedAssetSymbol(Blockchains__default['default'][route.blockchain].currency.symbol);
+                            setRecommendedAssetAmountAvailable(0);
+                            setLoading(false);
+
+                          case 11:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x2) {
+                    return _ref3.apply(this, arguments);
+                  };
+                }());
+
+                _context3.next = 63;
+                break;
+
+              case 48:
+                if (!route) {
+                  _context3.next = 62;
+                  break;
+                }
+
+                _context3.t22 = Exchanges__default['default'];
+                _context3.t23 = route.blockchain;
+                _context3.t24 = route.tokenIn;
+                _context3.next = 54;
+                return Token__default['default'].BigNumber({
+                  amount: accept.amount,
+                  blockchain: accept.blockchain,
+                  address: accept.token
+                });
+
+              case 54:
+                _context3.t25 = _context3.sent;
+                _context3.t26 = accept.token;
+                _context3.t27 = props.account;
+                _context3.t28 = accept.receiver;
+                _context3.t29 = {
+                  blockchain: _context3.t23,
+                  tokenIn: _context3.t24,
+                  amountOut: _context3.t25,
+                  tokenOut: _context3.t26,
+                  fromAddress: _context3.t27,
+                  toAddress: _context3.t28
+                };
+
+                _context3.t22.route.call(_context3.t22, _context3.t29).then( /*#__PURE__*/function () {
+                  var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(routes) {
+                    var route, token, asset;
+                    return regenerator.wrap(function _callee2$(_context2) {
+                      while (1) {
+                        switch (_context2.prev = _context2.next) {
+                          case 0:
+                            route = routes[0];
+                            token = new Token__default['default']({
+                              blockchain: route.blockchain,
+                              address: route.tokenIn
+                            });
+                            asset = props.assets.find(function (asset) {
+                              return asset.blockchain === route.blockchain && asset.address.toLowerCase() === route.tokenIn.toLowerCase();
+                            });
+                            _context2.t0 = setRecommendedAssetTotalAmountDue;
+                            _context2.t1 = round;
+                            _context2.next = 7;
+                            return token.readable(ethers.ethers.BigNumber.from(route.amountIn).mul(101).div(100));
+
+                          case 7:
+                            _context2.t2 = _context2.sent;
+                            _context2.t3 = (0, _context2.t1)(_context2.t2);
+                            (0, _context2.t0)(_context2.t3);
+                            _context2.t4 = setRecommendedAssetAmountRequired;
+                            _context2.t5 = round;
+                            _context2.next = 14;
+                            return token.readable(ethers.ethers.BigNumber.from(route.amountIn).sub(ethers.ethers.BigNumber.from(asset.balance)).mul(101).div(100));
+
+                          case 14:
+                            _context2.t6 = _context2.sent;
+                            _context2.t7 = (0, _context2.t5)(_context2.t6);
+                            (0, _context2.t4)(_context2.t7);
+                            _context2.t8 = setRecommendedAssetSymbol;
+                            _context2.next = 20;
+                            return token.symbol();
+
+                          case 20:
+                            _context2.t9 = _context2.sent;
+                            (0, _context2.t8)(_context2.t9);
+                            _context2.t10 = setRecommendedAssetAmountAvailable;
+                            _context2.t11 = round;
+                            _context2.next = 26;
+                            return token.readable(asset.balance);
+
+                          case 26:
+                            _context2.t12 = _context2.sent;
+                            _context2.t13 = (0, _context2.t11)(_context2.t12, 'down');
+                            (0, _context2.t10)(_context2.t13);
+                            setLoading(false);
+
+                          case 30:
+                          case "end":
+                            return _context2.stop();
+                        }
+                      }
+                    }, _callee2);
+                  }));
+
+                  return function (_x3) {
+                    return _ref4.apply(this, arguments);
+                  };
+                }());
+
+                _context3.next = 63;
+                break;
+
+              case 62:
+                set(['NoPaymentOptionFound']);
+
+              case 63:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      return function setRecommendation(_x) {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+
+    React.useEffect(function () {
+      var loadRecommendations = /*#__PURE__*/function () {
+        var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6() {
+          var directTransfer, token;
+          return regenerator.wrap(function _callee6$(_context6) {
+            while (1) {
+              switch (_context6.prev = _context6.next) {
+                case 0:
+                  directTransfer = accept.find(function (accept) {
+                    return props.assets.find(function (asset) {
+                      return accept.blockchain === asset.blockchain && accept.token.toLowerCase() === asset.address.toLowerCase();
+                    });
+                  });
+
+                  if (!directTransfer) {
+                    _context6.next = 14;
+                    break;
+                  }
+
+                  token = new Token__default['default']({
+                    blockchain: directTransfer.blockchain,
+                    address: directTransfer.token
+                  });
+                  _context6.t0 = directTransfer.blockchain;
+                  _context6.t1 = directTransfer.token;
+                  _context6.next = 7;
+                  return token.BigNumber(directTransfer.amount);
+
+                case 7:
+                  _context6.t2 = _context6.sent;
+                  _context6.next = 10;
+                  return token.BigNumber(directTransfer.amount);
+
+                case 10:
+                  _context6.t3 = _context6.sent;
+                  _context6.t4 = directTransfer.token;
+                  _context6.t5 = directTransfer.receiver;
+                  directTransfer = {
+                    blockchain: _context6.t0,
+                    tokenIn: _context6.t1,
+                    amountIn: _context6.t2,
+                    amount: _context6.t3,
+                    token: _context6.t4,
+                    receiver: _context6.t5
+                  };
+
+                case 14:
+                  if (directTransfer && props.assets.find(function (asset) {
+                    return Blockchains__default['default'][asset.blockchain].currency.address.toLowerCase() === asset.address.toLowerCase();
+                  }) && props.assets.find(function (asset) {
+                    return Blockchains__default['default'][asset.blockchain].currency.address.toLowerCase() === asset.address.toLowerCase();
+                  }).balance !== '0') {
+                    setRecommendation({
+                      route: directTransfer,
+                      accept: directTransfer
+                    });
+                  } else {
+                    // requires routing
+                    Promise.all(props.assets.map(function (asset) {
+                      if (!Blockchains__default['default'][asset.blockchain].tokens.find(function (token) {
+                        return token.address.toLowerCase() === asset.address.toLowerCase();
+                      })) {
+                        return;
+                      } // consdier only major tokens for this
+
+
+                      return accept.map( /*#__PURE__*/function () {
+                        var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(accept) {
+                          return regenerator.wrap(function _callee4$(_context4) {
+                            while (1) {
+                              switch (_context4.prev = _context4.next) {
+                                case 0:
+                                  if (!(accept.blockchain === asset.blockchain)) {
+                                    _context4.next = 12;
+                                    break;
+                                  }
+
+                                  _context4.t0 = Exchanges__default['default'];
+                                  _context4.t1 = asset.blockchain;
+                                  _context4.t2 = asset.address;
+                                  _context4.next = 6;
+                                  return Token__default['default'].BigNumber({
+                                    amount: accept.amount,
+                                    blockchain: accept.blockchain,
+                                    address: accept.token
+                                  });
+
+                                case 6:
+                                  _context4.t3 = _context4.sent;
+                                  _context4.t4 = accept.token;
+                                  _context4.t5 = props.account;
+                                  _context4.t6 = accept.receiver;
+                                  _context4.t7 = {
+                                    blockchain: _context4.t1,
+                                    tokenIn: _context4.t2,
+                                    amountOut: _context4.t3,
+                                    tokenOut: _context4.t4,
+                                    fromAddress: _context4.t5,
+                                    toAddress: _context4.t6
+                                  };
+                                  return _context4.abrupt("return", _context4.t0.route.call(_context4.t0, _context4.t7));
+
+                                case 12:
+                                case "end":
+                                  return _context4.stop();
+                              }
+                            }
+                          }, _callee4);
+                        }));
+
+                        return function (_x4) {
+                          return _ref6.apply(this, arguments);
+                        };
+                      }()).filter(Boolean).flat();
+                    }).flat().filter(Boolean)).then( /*#__PURE__*/function () {
+                      var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
+                        var route, recommendedAccept;
+                        return regenerator.wrap(function _callee5$(_context5) {
+                          while (1) {
+                            switch (_context5.prev = _context5.next) {
+                              case 0:
+                                route = (routes || []).flat().find(function (route) {
+                                  return accept.find(function (accept) {
+                                    return accept.blockchain === route.blockchain && accept.token.toLowerCase() === route.tokenOut.toLowerCase();
+                                  });
+                                }) || routes.flat()[0];
+
+                                if (!route) {
+                                  set(['NoPaymentOptionFound']);
+                                } else {
+                                  recommendedAccept = accept.find(function (accept) {
+                                    return accept.blockchain === route.blockchain && accept.token.toLowerCase() === route.tokenOut.toLowerCase();
+                                  }) || accept.find(function (accept) {
+                                    return accept.blockchain === route.blockchain;
+                                  });
+                                  setRecommendation({
+                                    route: route,
+                                    accept: recommendedAccept
+                                  });
+                                }
+
+                              case 2:
+                              case "end":
+                                return _context5.stop();
+                            }
+                          }
+                        }, _callee5);
+                      }));
+
+                      return function (_x5) {
+                        return _ref7.apply(this, arguments);
+                      };
+                    }());
+                  }
+
+                case 15:
+                case "end":
+                  return _context6.stop();
+              }
+            }
+          }, _callee6);
+        }));
+
+        return function loadRecommendations() {
+          return _ref5.apply(this, arguments);
+        };
+      }();
+
+      loadRecommendations();
+    }, []);
+    return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
+      header: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }),
+      body: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TextCenter PaddingBottomS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "Graphic",
+        src: InsufficientGraphic
+      })), /*#__PURE__*/React__default['default'].createElement("h1", {
+        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+      }, "Insufficient Amount"), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM"
+      }, loading && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Skeleton",
+        style: {
+          borderRadius: "18px",
+          width: "100%",
+          height: "170px"
+        }
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "SkeletonBackground"
+      })), !loading && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", null, recommendedAssetAmountAvailable > 0 && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("strong", {
+        className: "FontSizeM"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        style: {
+          fontWeight: 'bold'
+        }
+      }, recommendedAssetAmountRequired, " ", recommendedAssetSymbol), /*#__PURE__*/React__default['default'].createElement("br", null), " are additionally required in order to perform this payment of ", recommendedAssetTotalAmountDue, " ", recommendedAssetSymbol, ".")), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingBottomM"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", {
+        className: "FontSizeM"
+      }, "Please top up or swap another token to ", recommendedAssetSymbol, " to perform this payment."))), recommendedAssetAmountAvailable === 0 && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("strong", {
+        className: "FontSizeM"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        style: {
+          fontWeight: 'bold'
+        }
+      }, recommendedAssetAmountRequired, " ", recommendedAssetSymbol), /*#__PURE__*/React__default['default'].createElement("br", null), " is required in order to perform this payment.")), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", {
+        className: "FontSizeM"
+      }, "Please top up your ", recommendedAssetSymbol, " to perform this payment."))))))),
+      footer: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        className: "ButtonPrimary",
+        onClick: close
+      }, "Ok"))
+    });
   });
 
   var NoPaymentOptionFoundDialog = (function () {
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext.navigate;
 
-    var _useContext2 = React.useContext(ClosableContext);
-        _useContext2.close;
+    var _useContext2 = React.useContext(ClosableContext),
+        close = _useContext2.close;
 
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
@@ -25363,7 +26127,10 @@
       }, "Check available payment options"))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-      })
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        className: "ButtonPrimary",
+        onClick: close
+      }, "Ok"))
     });
   });
 
@@ -25389,7 +26156,7 @@
 
     React.useEffect(function () {
       Promise.all(accept.map(function (configuration) {
-        var token = new web3TokensSolana.Token({
+        var token = new Token__default['default']({
           blockchain: configuration.blockchain,
           address: configuration.token
         });
@@ -25452,7 +26219,10 @@
             blockchain: paymentOption.blockchain,
             address: paymentOption.token
           }), /*#__PURE__*/React__default['default'].createElement("img", {
-            className: "BlockchainLogo small " + Blockchains__default['default'][paymentOption.blockchain].name,
+            className: "BlockchainLogo small bottomRight " + Blockchains__default['default'][paymentOption.blockchain].name,
+            style: {
+              backgroundColor: Blockchains__default['default'][paymentOption.blockchain].logoBackgroundColor
+            },
             src: Blockchains__default['default'][paymentOption.blockchain].logo,
             alt: Blockchains__default['default'][paymentOption.blockchain].label,
             title: Blockchains__default['default'][paymentOption.blockchain].label
@@ -25500,10 +26270,13 @@
         succeeded = _useContext2.succeeded,
         failed = _useContext2.failed,
         recover = _useContext2.recover,
-        before = _useContext2.before;
+        before = _useContext2.before,
+        accept = _useContext2.accept;
 
     var _useContext3 = React.useContext(PaymentRoutingContext),
-        selectedRoute = _useContext3.selectedRoute,
+        allRoutes = _useContext3.allRoutes;
+        _useContext3.allAssets;
+        var selectedRoute = _useContext3.selectedRoute,
         refreshPaymentRoutes = _useContext3.refreshPaymentRoutes;
 
     var _useContext4 = React.useContext(ClosableContext),
@@ -25511,30 +26284,28 @@
         close = _useContext4.close,
         setClosable = _useContext4.setClosable;
 
-    var _useContext5 = React.useContext(PaymentRoutingContext),
-        allRoutes = _useContext5.allRoutes;
+    var _useContext5 = React.useContext(UpdatableContext),
+        setUpdatable = _useContext5.setUpdatable;
 
-    var _useContext6 = React.useContext(UpdatableContext),
-        setUpdatable = _useContext6.setUpdatable;
+    var _useContext6 = React.useContext(NavigateContext),
+        navigate = _useContext6.navigate,
+        set = _useContext6.set;
 
-    var _useContext7 = React.useContext(NavigateContext),
-        navigate = _useContext7.navigate,
-        set = _useContext7.set;
+    var _useContext7 = React.useContext(WalletContext),
+        wallet = _useContext7.wallet,
+        account = _useContext7.account;
 
-    var _useContext8 = React.useContext(WalletContext),
-        wallet = _useContext8.wallet;
+    var _useContext8 = React.useContext(PaymentTrackingContext),
+        release = _useContext8.release,
+        synchronousTracking = _useContext8.synchronousTracking,
+        asynchronousTracking = _useContext8.asynchronousTracking,
+        trackingInitialized = _useContext8.trackingInitialized,
+        initializePaymentTracking = _useContext8.initializeTracking,
+        trace = _useContext8.trace;
 
-    var _useContext9 = React.useContext(PaymentTrackingContext),
-        release = _useContext9.release,
-        synchronousTracking = _useContext9.synchronousTracking,
-        asynchronousTracking = _useContext9.asynchronousTracking,
-        trackingInitialized = _useContext9.trackingInitialized,
-        initializePaymentTracking = _useContext9.initializeTracking,
-        trace = _useContext9.trace;
-
-    var _useContext10 = React.useContext(TransactionTrackingContext),
-        foundTransaction = _useContext10.foundTransaction,
-        initializeTransactionTracking = _useContext10.initializeTracking;
+    var _useContext9 = React.useContext(TransactionTrackingContext),
+        foundTransaction = _useContext9.foundTransaction,
+        initializeTransactionTracking = _useContext9.initializeTracking;
 
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
@@ -25743,7 +26514,7 @@
             }
           })
         });
-        var paymentToken = new web3TokensSolana.Token({
+        var paymentToken = new Token__default['default']({
           blockchain: recover.blockchain,
           address: recover.token
         });
@@ -25783,7 +26554,7 @@
         }
       }
     }, [foundTransaction, transaction]);
-    React.useEffect(function () {
+    var debouncedSetPayment = React.useCallback(lodash.debounce(function (selectedRoute) {
       if (selectedRoute) {
         var fromToken = selectedRoute.fromToken;
         Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref5) {
@@ -25801,9 +26572,12 @@
             amount: amount
           });
         })["catch"](setError);
-      } else {
-        setPayment(undefined);
+      } else if (recover === undefined) {
+        setPayment();
       }
+    }, 100), []);
+    React.useEffect(function () {
+      debouncedSetPayment(selectedRoute);
     }, [selectedRoute]);
     React.useEffect(function () {
       if (allRoutes && allRoutes.length == 0) {
@@ -25817,10 +26591,15 @@
       return /*#__PURE__*/React__default['default'].createElement(reactDialogStack.ReactDialogStack, {
         open: open,
         close: close,
-        start: "NoPaymentOptionFound",
+        start: allRoutes.assets === undefined || allRoutes.assets.length === 0 ? 'NoPaymentOptionFound' : 'InsufficientAmountOfTokens',
         container: props.container,
         document: props.document,
         dialogs: {
+          InsufficientAmountOfTokens: /*#__PURE__*/React__default['default'].createElement(InsufficientAmountOfTokensDialog, {
+            assets: allRoutes.assets,
+            accept: accept,
+            account: account
+          }),
           NoPaymentOptionFound: /*#__PURE__*/React__default['default'].createElement(NoPaymentOptionFoundDialog, null),
           PaymentOptions: /*#__PURE__*/React__default['default'].createElement(PaymentOptionsDialog, null)
         }
@@ -25980,7 +26759,7 @@
         className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL TextCenter"
-      }, "Change Payment"), paymentValue != undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Payment options"), paymentValue != undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "FontSizeL TextCenter FontWeightBold"
       }, /*#__PURE__*/React__default['default'].createElement("strong", null, paymentValue.toString()))),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
@@ -25999,7 +26778,12 @@
         className: "Card Skeleton"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "SkeletonBackground"
-      }))))
+      })))),
+      footer: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingBottomXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TextCenter Opacity05 PaddingTopS PaddingBottomS"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Loading all payment options...")))
     });
   });
 
@@ -26009,6 +26793,7 @@
 
     var _useContext2 = React.useContext(PaymentRoutingContext),
         allRoutes = _useContext2.allRoutes,
+        allRoutesLoaded = _useContext2.allRoutesLoaded,
         setSelectedRoute = _useContext2.setSelectedRoute;
 
     var _useContext3 = React.useContext(PaymentValueContext),
@@ -26017,18 +26802,76 @@
     var _useContext4 = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext4.navigate;
 
-    var _useState = React.useState([]),
+    var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
-        allPaymentRoutesWithData = _useState2[0],
-        setAllPaymentRoutesWithData = _useState2[1];
+        allBestPaymentOptions = _useState2[0],
+        setBestPaymentOptions = _useState2[1];
 
-    var _useState3 = React.useState([]),
+    var _useState3 = React.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
-        cards = _useState4[0],
-        setCards = _useState4[1];
+        allMajorPaymentOptions = _useState4[0],
+        setMajorPaymentOptions = _useState4[1];
 
+    var _useState5 = React.useState(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        allNativePaymentOptions = _useState6[0],
+        setNativePaymentOptions = _useState6[1];
+
+    var _useState7 = React.useState(),
+        _useState8 = _slicedToArray(_useState7, 2),
+        allStablePaymentOptions = _useState8[0],
+        setStablePaymentOptions = _useState8[1];
+
+    var _useState9 = React.useState(),
+        _useState10 = _slicedToArray(_useState9, 2),
+        allPaymentOptions = _useState10[0],
+        setAllPaymentOptions = _useState10[1];
+
+    var _useState11 = React.useState(),
+        _useState12 = _slicedToArray(_useState11, 2),
+        selectedPaymentOptions = _useState12[0],
+        setSelectedPaymentOptions = _useState12[1];
+
+    var _useState13 = React.useState(),
+        _useState14 = _slicedToArray(_useState13, 2),
+        selectedTab = _useState14[0],
+        setSelectedTab = _useState14[1];
+
+    var _useState15 = React.useState(false),
+        _useState16 = _slicedToArray(_useState15, 2),
+        searching = _useState16[0],
+        setSearching = _useState16[1];
+
+    var _useState17 = React.useState(''),
+        _useState18 = _slicedToArray(_useState17, 2),
+        searchTerm = _useState18[0],
+        setSearchTerm = _useState18[1];
+
+    var _useState19 = React.useState(),
+        _useState20 = _slicedToArray(_useState19, 2),
+        fuse = _useState20[0],
+        setFuse = _useState20[1];
+
+    var searchPaymentOption = React.useCallback(lodash.debounce(function (term, fuse) {
+      var results = fuse.search(term);
+      setSelectedPaymentOptions(results.map(function (result) {
+        return result.item;
+      }));
+      listElement.current.scrollTop = 0;
+    }, 300), []);
+
+    var onChangeSearch = function onChangeSearch(event, fuse, allPaymentOptions) {
+      setSearchTerm(event.target.value);
+      searchPaymentOption(event.target.value, fuse, allPaymentOptions);
+    };
+
+    var listElement = React.useRef();
     React.useEffect(function () {
       if (allRoutes == undefined) {
+        return;
+      }
+
+      if (allRoutesLoaded !== true) {
         return;
       }
 
@@ -26036,76 +26879,210 @@
         route.exchangeRoutes[0];
         route.fromToken;
         return Promise.all([route.fromToken.name(), route.fromToken.symbol(), route.fromToken.decimals(), route.fromToken.readable(route.fromAmount)]);
-      })).then(function (allPaymentRoutesWithData) {
-        setAllPaymentRoutesWithData(allRoutes.map(function (route, index) {
+      })).then(function (allPaymentRoutes) {
+        var allPaymentRoutesWithDisplayData = allRoutes.map(function (route, index) {
           return {
-            name: allPaymentRoutesWithData[index][0],
-            symbol: allPaymentRoutesWithData[index][1].toUpperCase(),
-            decimals: allPaymentRoutesWithData[index][2],
-            amount: allPaymentRoutesWithData[index][3],
+            name: allPaymentRoutes[index][0],
+            symbol: allPaymentRoutes[index][1].toUpperCase(),
+            decimals: allPaymentRoutes[index][2],
+            amount: allPaymentRoutes[index][3],
+            blockchainName: route.blockchain,
             route: route
           };
+        });
+        setFuse(new Fuse__default['default'](allPaymentRoutesWithDisplayData, {
+          keys: ['name', 'symbol', 'blockchainName'],
+          threshold: 0.3,
+          ignoreFieldNorm: true
         }));
-      })["catch"](setError);
-    }, [allRoutes]);
-    React.useEffect(function () {
-      setCards(allPaymentRoutesWithData.map(function (payment, index) {
-        var blockchain = Blockchains__default['default'].findByName(payment.route.blockchain);
-        return /*#__PURE__*/React__default['default'].createElement("div", {
-          key: index,
-          className: "Card",
-          title: "Select ".concat(payment.symbol, " as payment"),
-          onClick: function onClick() {
-            setSelectedRoute(payment.route);
-            navigate('back');
-          }
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardImage"
-        }, /*#__PURE__*/React__default['default'].createElement(reactTokenImageSolana.TokenImage, {
-          blockchain: payment.route.blockchain,
-          address: payment.route.fromToken.address
-        }), /*#__PURE__*/React__default['default'].createElement("img", {
-          className: "BlockchainLogo small " + blockchain.name,
-          src: blockchain.logo,
-          alt: blockchain.label,
-          title: blockchain.label
-        })), /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardBodyWrapper"
-        }, /*#__PURE__*/React__default['default'].createElement("h2", {
-          className: "CardText"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "TokenAmountRow"
-        }, /*#__PURE__*/React__default['default'].createElement("span", {
-          className: "TokenSymbolCell"
-        }, payment.symbol), /*#__PURE__*/React__default['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default['default'].createElement("span", {
-          className: "TokenAmountCell"
-        }, format(payment.amount)))), /*#__PURE__*/React__default['default'].createElement("h3", {
-          className: "CardText small"
-        }, /*#__PURE__*/React__default['default'].createElement("small", null, format(round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals), 'down')))))));
-      }));
-    }, [allPaymentRoutesWithData]);
+        var bestPaymentOptions = allPaymentRoutesWithDisplayData.filter(function (paymentRoute) {
+          return paymentRoute.route.fromToken.address.toLowerCase() === paymentRoute.route.toToken.address.toLowerCase();
+        });
+        setBestPaymentOptions(bestPaymentOptions);
+        var majorPaymentOptions = allPaymentRoutesWithDisplayData.filter(function (paymentRoute) {
+          return Blockchains__default['default'][paymentRoute.route.blockchain].tokens.find(function (token) {
+            return token.address.toLowerCase() === paymentRoute.route.fromToken.address.toLowerCase();
+          });
+        });
+        setMajorPaymentOptions(majorPaymentOptions);
+        setNativePaymentOptions(allPaymentRoutesWithDisplayData.filter(function (paymentRoute) {
+          return Blockchains__default['default'][paymentRoute.route.blockchain].currency.address.toLowerCase() === paymentRoute.route.fromToken.address.toLowerCase();
+        }));
+        setStablePaymentOptions(allPaymentRoutesWithDisplayData.filter(function (paymentRoute) {
+          return Blockchains__default['default'][paymentRoute.route.blockchain].stables.usd.find(function (stable) {
+            return stable.toLowerCase() === paymentRoute.route.fromToken.address.toLowerCase();
+          });
+        }));
+        setAllPaymentOptions(allPaymentRoutesWithDisplayData);
 
-    if (allPaymentRoutesWithData.length == 0 || cards.length == 0) {
+        if (selectedPaymentOptions === undefined) {
+          if (bestPaymentOptions.length) {
+            setSelectedTab('best');
+            setSelectedPaymentOptions(bestPaymentOptions);
+          } else {
+            setSelectedTab('major');
+            setSelectedPaymentOptions(majorPaymentOptions);
+          }
+        }
+      })["catch"](setError);
+    }, [allRoutes, allRoutesLoaded]);
+    var displayedPaymentOptions = selectedPaymentOptions === null || selectedPaymentOptions === void 0 ? void 0 : selectedPaymentOptions.map(function (payment, index) {
+      var blockchain = Blockchains__default['default'].findByName(payment.route.blockchain);
+      return /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        key: index,
+        className: "Card",
+        title: "Select ".concat(payment.symbol, " as payment"),
+        onClick: function onClick() {
+          setSelectedRoute(payment.route);
+          navigate('back');
+        }
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React__default['default'].createElement(reactTokenImageSolana.TokenImage, {
+        blockchain: payment.route.blockchain,
+        address: payment.route.fromToken.address
+      }), /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "BlockchainLogo small bottomRight " + blockchain.name,
+        style: {
+          backgroundColor: blockchain.logoBackgroundColor
+        },
+        src: blockchain.logo,
+        alt: blockchain.label,
+        title: blockchain.label
+      })), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React__default['default'].createElement("h2", {
+        className: "CardText"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TokenAmountRow"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        className: "TokenSymbolCell"
+      }, payment.symbol), /*#__PURE__*/React__default['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default['default'].createElement("span", {
+        className: "TokenAmountCell"
+      }, format(payment.amount)))), /*#__PURE__*/React__default['default'].createElement("h3", {
+        className: "CardText small"
+      }, /*#__PURE__*/React__default['default'].createElement("small", null, format(round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals), 'down')))))));
+    });
+
+    if (!allRoutesLoaded || displayedPaymentOptions === undefined) {
       return /*#__PURE__*/React__default['default'].createElement(ChangePaymentSkeleton, null);
     }
 
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       stacked: true,
       header: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL TextCenter"
-      }, "Change Payment"), displayedPaymentValue != undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Payment options"), displayedPaymentValue != undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "FontSizeL TextCenter FontWeightBold"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", null, displayedPaymentValue.toString()))),
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, displayedPaymentValue.toString())), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopXS PaddingBottomXS TextLeft",
+        style: {
+          height: "32px"
+        }
+      }, !searching && /*#__PURE__*/React__default['default'].createElement("div", null, allBestPaymentOptions.length > 0 && /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        className: "Tab ".concat(selectedTab === 'best' ? 'active' : ''),
+        title: "Payment options not requiring conversion",
+        onClick: function onClick() {
+          setSelectedTab('best');
+          setSelectedPaymentOptions(allBestPaymentOptions);
+          listElement.current.scrollTop = 0;
+        }
+      }, "Best"), /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        className: "Tab ".concat(selectedTab === 'major' ? 'active' : ''),
+        title: "Major tokens available to use",
+        onClick: function onClick() {
+          setSelectedTab('major');
+          setSelectedPaymentOptions(allMajorPaymentOptions);
+          listElement.current.scrollTop = 0;
+        }
+      }, "Major"), allNativePaymentOptions.length > 0 && /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        className: "Tab ".concat(selectedTab === 'native' ? 'active' : ''),
+        title: "Native blockchain currencies available to use",
+        onClick: function onClick() {
+          setSelectedTab('native');
+          setSelectedPaymentOptions(allNativePaymentOptions);
+          listElement.current.scrollTop = 0;
+        }
+      }, "Native"), allStablePaymentOptions.length > 0 && /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        className: "Tab ".concat(selectedTab === 'stable' ? 'active' : ''),
+        title: "Stablecoins available to use",
+        onClick: function onClick() {
+          setSelectedTab('stable');
+          setSelectedPaymentOptions(allStablePaymentOptions);
+          listElement.current.scrollTop = 0;
+        }
+      }, "Stable"), /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        className: "Tab ".concat(selectedTab === 'all' ? 'active' : ''),
+        title: "All available payment options",
+        onClick: function onClick() {
+          setSelectedTab('all');
+          setSelectedPaymentOptions(allPaymentOptions);
+          listElement.current.scrollTop = 0;
+        }
+      }, "All"), /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        className: "Tab",
+        title: "Search for a payment option",
+        style: {
+          fontSize: '12px',
+          position: 'relative',
+          top: '-2px'
+        },
+        onClick: function onClick() {
+          setSelectedTab('all');
+          setSelectedPaymentOptions(allPaymentOptions);
+          setSearching(true);
+          listElement.current.scrollTop = 0;
+        }
+      }, "\uD83D\uDD0D")), searching && /*#__PURE__*/React__default['default'].createElement("div", {
+        style: {
+          display: 'flex'
+        }
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        className: "Tab",
+        title: "Go back to all payment options",
+        onClick: function onClick() {
+          setSelectedTab('all');
+          setSelectedPaymentOptions(allPaymentOptions);
+          setSearching(false);
+          setSearchTerm('');
+          listElement.current.scrollTop = 0;
+        }
+      }, /*#__PURE__*/React__default['default'].createElement(ChevronLeft, {
+        className: "small"
+      })), /*#__PURE__*/React__default['default'].createElement("input", {
+        type: "text",
+        className: "Search small",
+        placeholder: "Search by name, symbol or blockchain",
+        autoFocus: true,
+        value: searchTerm,
+        onChange: function onChange(event) {
+          return onChangeSearch(event, fuse, allPaymentOptions);
+        }
+      }))))),
+      bodyClassName: "ScrollHeight",
+      bodyRef: listElement,
       body: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "MaxHeight PaddingTopXS"
+        className: "PaddingTopXS PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM"
-      }, cards)),
-      footer: /*#__PURE__*/React__default['default'].createElement("div", null)
+      }, displayedPaymentOptions, displayedPaymentOptions.length === 0 && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TextCenter Opacity05 PaddingTopS PaddingBottomS"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Nothing found for the given search term."), /*#__PURE__*/React__default['default'].createElement("br", null), /*#__PURE__*/React__default['default'].createElement("strong", null, "Please search for something else.")))),
+      footer: false
     });
   });
 
@@ -26224,10 +27201,16 @@
 
   var blockTimes = {
     // in seconds
-    ethereum: 13,
-    bsc: 4,
-    polygon: 3,
-    solana: 0.5
+    ethereum: 12,
+    bsc: 3,
+    polygon: 2,
+    solana: 0.2,
+    optimism: 0.5,
+    base: 0.5,
+    arbitrum: 0.28,
+    fantom: 2.5,
+    avalanche: 2,
+    gnosis: 5
   };
   var etaForConfirmations = (function (blockchain, confirmationsRequired, confirmationsPassed) {
     return (confirmationsRequired - confirmationsPassed) * blockTimes[blockchain];
@@ -26331,8 +27314,12 @@
           className: "Opacity05"
         }, "Initializing tracking")))));
       } else if (release) {
-        return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Card transparent small disabled"
+        return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("a", {
+          className: "Card transparent small",
+          title: "DePay has validated the payment",
+          href: "https://depay.com/docs/payments/validation",
+          target: "_blank",
+          rel: "noopener noreferrer"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardImage"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -26347,8 +27334,12 @@
           className: "Opacity05"
         }, "Payment validated")))));
       } else {
-        return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Card transparent small disabled"
+        return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("a", {
+          className: "Card transparent small",
+          title: "DePay is validating payment",
+          href: "https://depay.com/docs/payments/validation",
+          target: "_blank",
+          rel: "noopener noreferrer"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardImage"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -26385,7 +27376,14 @@
           className: "CardBodyWrapper"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "Opacity05"
-        }, "Confirm transaction in your wallet")))));
+        }, "Confirm in your wallet (", /*#__PURE__*/React__default['default'].createElement("a", {
+          href: "https://depay.com/docs/payments/verify",
+          target: "_blank",
+          rel: "noopener noreferrer",
+          style: {
+            textDecoration: 'none'
+          }
+        }, "verify"), ")")))));
       } else if (paymentState == 'success') {
         return /*#__PURE__*/React__default['default'].createElement("div", {
           className: "PaddingBottomS"
@@ -26686,7 +27684,10 @@
         blockchain: payment.blockchain,
         address: payment.token
       }), /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "BlockchainLogo small " + blockchain.name,
+        className: "BlockchainLogo small bottomRight " + blockchain.name,
+        style: {
+          backgroundColor: blockchain.logoBackgroundColor
+        },
         src: blockchain.logo,
         alt: blockchain.label,
         title: blockchain.label
@@ -27056,6 +28057,7 @@
         _useContext.errorCallback;
 
     var _useContext2 = React.useContext(ConfigurationContext),
+        configurationId = _useContext2.id,
         track = _useContext2.track,
         validated = _useContext2.validated;
         _useContext2.failed;
@@ -27097,32 +28099,37 @@
         paymentRoute = _useState12[0],
         setPaymentRoute = _useState12[1];
 
-    var _useState13 = React.useState(false),
+    var _useState13 = React.useState(),
         _useState14 = _slicedToArray(_useState13, 2),
-        trackingInitialized = _useState14[0],
-        setTrackingInitialized = _useState14[1];
+        attemptId = _useState14[0],
+        setAttemptId = _useState14[1];
 
-    var _useState15 = React.useState(!!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
-        _useState16 = _slicedToArray(_useState15, 1),
-        synchronousTracking = _useState16[0];
+    var _useState15 = React.useState(false),
+        _useState16 = _slicedToArray(_useState15, 2),
+        trackingInitialized = _useState16[0],
+        setTrackingInitialized = _useState16[1];
 
-    var _useState17 = React.useState(!!(track && track.async == true)),
+    var _useState17 = React.useState(!!configurationId || !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
         _useState18 = _slicedToArray(_useState17, 1),
-        asynchronousTracking = _useState18[0];
+        synchronousTracking = _useState18[0];
 
-    var _useState19 = React.useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+    var _useState19 = React.useState(!configurationId && !!(track && track.async == true)),
         _useState20 = _slicedToArray(_useState19, 1),
-        polling = _useState20[0];
+        asynchronousTracking = _useState20[0];
 
-    var _useState21 = React.useState(false),
-        _useState22 = _slicedToArray(_useState21, 2),
-        release = _useState22[0],
-        setRelease = _useState22[1];
+    var _useState21 = React.useState(!!configurationId || !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+        _useState22 = _slicedToArray(_useState21, 1),
+        polling = _useState22[0];
 
-    var _useState23 = React.useState(),
+    var _useState23 = React.useState(false),
         _useState24 = _slicedToArray(_useState23, 2),
-        forwardTo = _useState24[0],
-        setForwardTo = _useState24[1];
+        release = _useState24[0],
+        setRelease = _useState24[1];
+
+    var _useState25 = React.useState(),
+        _useState26 = _slicedToArray(_useState25, 2),
+        forwardTo = _useState26[0],
+        setForwardTo = _useState26[1];
 
     var _useContext4 = React.useContext(ClosableContext),
         setClosable = _useContext4.setClosable;
@@ -27247,7 +28254,24 @@
     };
 
     var callTracking = function callTracking(payment) {
-      if (track.endpoint) {
+      if (configurationId) {
+        return fetch("https://public.depay.com/configurations/".concat(configurationId, "/attempts"), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payment)
+        }).then(function (response) {
+          if (response.status == 200 || response.status == 201) {
+            response.json().then(function (attempt) {
+              return setAttemptId(attempt.id);
+            });
+            return response;
+          } else {
+            return reject('TRACKING REQUEST FAILED');
+          }
+        });
+      } else if (track.endpoint) {
         return fetch(track.endpoint, {
           method: 'POST',
           headers: {
@@ -27385,14 +28409,29 @@
                     clearInterval(pollingInterval);
 
                     if (validated) {
-                      validated(true, transaction);
+                      validated(data.status ? data.status == 'success' : true, transaction);
                     }
 
                     setRelease(true);
                   }
                 };
 
-                if (track.poll.endpoint) {
+                if (configurationId) {
+                  if (attemptId) {
+                    fetch("https://public.depay.com/attempts/".concat(attemptId), {
+                      method: 'GET',
+                      headers: {
+                        'Content-Type': 'application/json'
+                      }
+                    }).then(function (response) {
+                      if (response.status == 200 || response.status == 201) {
+                        return response.json();
+                      } else {
+                        return undefined;
+                      }
+                    }).then(handlePollingResponse);
+                  }
+                } else if (track.poll.endpoint) {
                   fetch(track.poll.endpoint, {
                     method: 'POST',
                     headers: {
@@ -27594,8 +28633,31 @@
                     deadline: _context5.t11
                   };
 
-                  if (!track.endpoint) {
+                  if (!configurationId) {
                     _context5.next = 19;
+                    break;
+                  }
+
+                  return _context5.abrupt("return", fetch("https://public.depay.com/configurations/".concat(configurationId, "/attempts"), {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payment)
+                  }).then(function (response) {
+                    if (response.status == 200 || response.status == 201) {
+                      response.json().then(function (attempt) {
+                        return setAttemptId(attempt.id);
+                      });
+                      return resolve();
+                    } else {
+                      return reject('TRACING REQUEST FAILED');
+                    }
+                  }));
+
+                case 19:
+                  if (!track.endpoint) {
+                    _context5.next = 23;
                     break;
                   }
 
@@ -27613,14 +28675,14 @@
                     }
                   }));
 
-                case 19:
+                case 23:
                   if (track.method) {
                     track.method(payment).then(resolve)["catch"](reject);
                   } else {
                     reject('No tracking defined!');
                   }
 
-                case 20:
+                case 24:
                 case "end":
                   return _context5.stop();
               }
@@ -27704,7 +28766,7 @@
       setPaymentValue(null);
       setPaymentValueLoss(null);
       Promise.all([Promise.all(Blockchains__default['default'][payment.route.blockchain].stables.usd.map(function (stable) {
-        return web3ExchangesSolana.route({
+        return Exchanges__default['default'].route({
           blockchain: payment.route.blockchain,
           tokenIn: payment.route.fromToken.address,
           tokenOut: stable,
@@ -27712,7 +28774,7 @@
           fromAddress: account,
           toAddress: account
         });
-      })), !payment.route.directTransfer ? web3ExchangesSolana.route({
+      })), !payment.route.directTransfer ? Exchanges__default['default'].route({
         blockchain: payment.route.blockchain,
         tokenIn: payment.route.toToken.address,
         tokenOut: payment.route.fromToken.address,
@@ -27872,6 +28934,7 @@
     return getWindow$1()._Web3ClientConfiguration
   };
 
+  function _optionalChain$3$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   const BATCH_INTERVAL$1$1 = 10;
   const CHUNK_SIZE$1$1 = 99;
 
@@ -27891,37 +28954,46 @@
     }
 
     requestChunk(chunk, endpoint) {
-      
-      const request = chunk.map((inflight) => inflight.request);
 
-      return ethers.ethers.utils.fetchJson(endpoint, JSON.stringify(request))
-        .then((result) => {
-          // For each result, feed it to the correct Promise, depending
-          // on whether it was a success or error
-          chunk.forEach((inflightRequest, index) => {
-            const payload = result[index];
-            if (payload.error) {
-              const error = new Error(payload.error.message);
-              error.code = payload.error.code;
-              error.data = payload.error.data;
-              inflightRequest.reject(error);
-            }
-            else {
-              inflightRequest.resolve(payload.result);
-            }
-          });
-        }).catch((error) => {
-          if(error && error.code == 'SERVER_ERROR') {
-            const index = this._endpoints.indexOf(this._endpoint)+1;
-            this._failover();
-            this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
-            this.requestChunk(chunk, this._endpoint);
-          } else {
-            chunk.forEach((inflightRequest) => {
-              inflightRequest.reject(error);
+      try {
+
+        const request = chunk.map((inflight) => inflight.request);
+        return ethers.ethers.utils.fetchJson(endpoint, JSON.stringify(request))
+          .then((result) => {
+            // For each result, feed it to the correct Promise, depending
+            // on whether it was a success or error
+            chunk.forEach((inflightRequest, index) => {
+              const payload = result[index];
+              if (_optionalChain$3$2([payload, 'optionalAccess', _ => _.error])) {
+                const error = new Error(payload.error.message);
+                error.code = payload.error.code;
+                error.data = payload.error.data;
+                inflightRequest.reject(error);
+              } else if(_optionalChain$3$2([payload, 'optionalAccess', _2 => _2.result])) {
+                inflightRequest.resolve(payload.result);
+              } else {
+                inflightRequest.reject();
+              }
             });
-          }
-        })
+          }).catch((error) => {
+            if(error && error.code == 'SERVER_ERROR') {
+              const index = this._endpoints.indexOf(this._endpoint)+1;
+              this._failover();
+              this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
+              this.requestChunk(chunk, this._endpoint);
+            } else {
+              chunk.forEach((inflightRequest) => {
+                inflightRequest.reject(error);
+              });
+            }
+          })
+
+      } catch (e) {
+
+        chunk.forEach((inflightRequest) => {
+          inflightRequest.reject();
+        });
+      }
     }
       
     send(method, params) {
@@ -28080,6 +29152,7 @@
     setProvider: setProvider$2,
   };
 
+  function _optionalChain$2$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   const BATCH_INTERVAL = 10;
   const CHUNK_SIZE = 99;
 
@@ -28122,13 +29195,15 @@
             // on whether it was a success or error
             chunk.forEach((inflightRequest, index) => {
               const payload = result[index];
-              if (payload.error) {
+              if (_optionalChain$2$2([payload, 'optionalAccess', _ => _.error])) {
                 const error = new Error(payload.error.message);
                 error.code = payload.error.code;
                 error.data = payload.error.data;
                 inflightRequest.reject(error);
-              } else {
+              } else if(payload) {
                 inflightRequest.resolve(payload);
+              } else {
+                inflightRequest.reject();
               }
             });
           }).catch(handleError)
@@ -28285,8 +29360,8 @@
     setProvider: setProvider$1,
   };
 
-  let supported$3 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism'];
-  supported$3.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism'];
+  let supported$3 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
+  supported$3.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
   supported$3.solana = ['solana'];
 
   function _optionalChain$1$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
@@ -28678,402 +29753,17 @@
     }
   };
 
-  var BEP20 = [
-    {
-      "inputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "owner",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "spender",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "value",
-          "type": "uint256"
-        }
-      ],
-      "name": "Approval",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "previousOwner",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "OwnershipTransferred",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "from",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "value",
-          "type": "uint256"
-        }
-      ],
-      "name": "Transfer",
-      "type": "event"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "owner",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "spender",
-          "type": "address"
-        }
-      ],
-      "name": "allowance",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "spender",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "approve",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
-        }
-      ],
-      "name": "balanceOf",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "decimals",
-      "outputs": [
-        {
-          "internalType": "uint8",
-          "name": "",
-          "type": "uint8"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "spender",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "subtractedValue",
-          "type": "uint256"
-        }
-      ],
-      "name": "decreaseAllowance",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getOwner",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "spender",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "addedValue",
-          "type": "uint256"
-        }
-      ],
-      "name": "increaseAllowance",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "mint",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "name",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "owner",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "renounceOwnership",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "symbol",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "totalSupply",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "recipient",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "transfer",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "sender",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "recipient",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "transferFrom",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "transferOwnership",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    }
-  ];
+  var decimalsOnEVM = ({ blockchain, address, api })=>{
+    return request({
+      blockchain,
+      address,
+      api,
+      method: 'decimals',
+      cache: 86400000, // 1 day
+    })
+  };
 
-  var bsc1155 = [
+  var ERC1155 = [
     {
       "anonymous": false,
       "inputs": [
@@ -29387,16 +30077,6 @@
       "type": "function"
     }
   ];
-
-  var decimalsOnEVM = ({ blockchain, address, api })=>{
-    return request({
-      blockchain,
-      address,
-      api,
-      method: 'decimals',
-      cache: 86400000, // 1 day
-    })
-  };
 
   var ERC20 = [
     {
@@ -29516,870 +30196,284 @@
     },
   ];
 
-  var ERC20onPolygon = [
+  var WETH$2 = [
     {
-      constant: true,
-      inputs: [],
-      name: 'name',
-      outputs: [{ name: '', type: 'string' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [
-        { name: '_spender', type: 'address' },
-        { name: '_value', type: 'uint256' },
+      "constant": true,
+      "inputs": [],
+      "name": "name",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
       ],
-      name: 'approve',
-      outputs: [{ name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: 'totalSupply',
-      outputs: [{ name: '', type: 'uint256' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [
-        { name: '_from', type: 'address' },
-        { name: '_to', type: 'address' },
-        { name: '_value', type: 'uint256' },
-      ],
-      name: 'transferFrom',
-      outputs: [{ name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: 'decimals',
-      outputs: [{ name: '', type: 'uint8' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [{ name: '_owner', type: 'address' }],
-      name: 'balanceOf',
-      outputs: [{ name: 'balance', type: 'uint256' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: 'symbol',
-      outputs: [{ name: '', type: 'string' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [
-        { name: '_to', type: 'address' },
-        { name: '_value', type: 'uint256' },
-      ],
-      name: 'transfer',
-      outputs: [{ name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [
-        { name: '_owner', type: 'address' },
-        { name: '_spender', type: 'address' },
-      ],
-      name: 'allowance',
-      outputs: [{ name: '', type: 'uint256' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    { payable: true, stateMutability: 'payable', type: 'fallback' },
-    {
-      anonymous: false,
-      inputs: [
-        { indexed: true, name: 'owner', type: 'address' },
-        { indexed: true, name: 'spender', type: 'address' },
-        { indexed: false, name: 'value', type: 'uint256' },
-      ],
-      name: 'Approval',
-      type: 'event',
-    },
-    {
-      anonymous: false,
-      inputs: [
-        { indexed: true, name: 'from', type: 'address' },
-        { indexed: true, name: 'to', type: 'address' },
-        { indexed: false, name: 'value', type: 'uint256' },
-      ],
-      name: 'Transfer',
-      type: 'event'
-    },
-  ];
-
-  var ethereum1155 = [
-    {
-      "anonymous": false,
+      "constant": false,
       "inputs": [
         {
-          "indexed": true,
-          "internalType": "address",
-          "name": "account",
+          "name": "guy",
           "type": "address"
         },
         {
-          "indexed": true,
-          "internalType": "address",
-          "name": "operator",
-          "type": "address"
-        },
+          "name": "wad",
+          "type": "uint256"
+        }
+      ],
+      "name": "approve",
+      "outputs": [
         {
-          "indexed": false,
-          "internalType": "bool",
-          "name": "approved",
+          "name": "",
           "type": "bool"
         }
       ],
-      "name": "ApprovalForAll",
-      "type": "event"
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      "anonymous": false,
-      "inputs": [
+      "constant": true,
+      "inputs": [],
+      "name": "totalSupply",
+      "outputs": [
         {
-          "indexed": true,
-          "internalType": "address",
-          "name": "operator",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "from",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256[]",
-          "name": "ids",
-          "type": "uint256[]"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256[]",
-          "name": "values",
-          "type": "uint256[]"
-        }
-      ],
-      "name": "TransferBatch",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "operator",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "from",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "value",
+          "name": "",
           "type": "uint256"
         }
       ],
-      "name": "TransferSingle",
-      "type": "event"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      "anonymous": false,
+      "constant": false,
       "inputs": [
         {
-          "indexed": false,
-          "internalType": "string",
-          "name": "value",
-          "type": "string"
-        },
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        }
-      ],
-      "name": "URI",
-      "type": "event"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "account",
+          "name": "src",
           "type": "address"
         },
         {
-          "internalType": "uint256",
-          "name": "id",
+          "name": "dst",
+          "type": "address"
+        },
+        {
+          "name": "wad",
           "type": "uint256"
+        }
+      ],
+      "name": "transferFrom",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "wad",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdraw",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "decimals",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
         }
       ],
       "name": "balanceOf",
       "outputs": [
         {
-          "internalType": "uint256",
           "name": "",
           "type": "uint256"
         }
       ],
+      "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "address[]",
-          "name": "accounts",
-          "type": "address[]"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "ids",
-          "type": "uint256[]"
-        }
-      ],
-      "name": "balanceOfBatch",
+      "constant": true,
+      "inputs": [],
+      "name": "symbol",
       "outputs": [
         {
-          "internalType": "uint256[]",
-          "name": "",
-          "type": "uint256[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "operator",
-          "type": "address"
-        }
-      ],
-      "name": "isApprovedForAll",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "from",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "ids",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "amounts",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "bytes",
-          "name": "data",
-          "type": "bytes"
-        }
-      ],
-      "name": "safeBatchTransferFrom",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "from",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bytes",
-          "name": "data",
-          "type": "bytes"
-        }
-      ],
-      "name": "safeTransferFrom",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "operator",
-          "type": "address"
-        },
-        {
-          "internalType": "bool",
-          "name": "approved",
-          "type": "bool"
-        }
-      ],
-      "name": "setApprovalForAll",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "bytes4",
-          "name": "interfaceId",
-          "type": "bytes4"
-        }
-      ],
-      "name": "supportsInterface",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        }
-      ],
-      "name": "uri",
-      "outputs": [
-        {
-          "internalType": "string",
           "name": "",
           "type": "string"
         }
       ],
+      "payable": false,
       "stateMutability": "view",
       "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "dst",
+          "type": "address"
+        },
+        {
+          "name": "wad",
+          "type": "uint256"
+        }
+      ],
+      "name": "transfer",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "deposit",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "allowance",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "fallback"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "src",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "guy",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "wad",
+          "type": "uint256"
+        }
+      ],
+      "name": "Approval",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "src",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "dst",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "wad",
+          "type": "uint256"
+        }
+      ],
+      "name": "Transfer",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "dst",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "wad",
+          "type": "uint256"
+        }
+      ],
+      "name": "Deposit",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "src",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "wad",
+          "type": "uint256"
+        }
+      ],
+      "name": "Withdrawal",
+      "type": "event"
     }
-  ];
-
-  var ftm1155 = [
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "operator",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "bool",
-          "name": "approved",
-          "type": "bool"
-        }
-      ],
-      "name": "ApprovalForAll",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "operator",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "from",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256[]",
-          "name": "ids",
-          "type": "uint256[]"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256[]",
-          "name": "values",
-          "type": "uint256[]"
-        }
-      ],
-      "name": "TransferBatch",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "operator",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "from",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "value",
-          "type": "uint256"
-        }
-      ],
-      "name": "TransferSingle",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "value",
-          "type": "string"
-        },
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        }
-      ],
-      "name": "URI",
-      "type": "event"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        }
-      ],
-      "name": "balanceOf",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address[]",
-          "name": "accounts",
-          "type": "address[]"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "ids",
-          "type": "uint256[]"
-        }
-      ],
-      "name": "balanceOfBatch",
-      "outputs": [
-        {
-          "internalType": "uint256[]",
-          "name": "",
-          "type": "uint256[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "operator",
-          "type": "address"
-        }
-      ],
-      "name": "isApprovedForAll",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "from",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "ids",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "amounts",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "bytes",
-          "name": "data",
-          "type": "bytes"
-        }
-      ],
-      "name": "safeBatchTransferFrom",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "from",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bytes",
-          "name": "data",
-          "type": "bytes"
-        }
-      ],
-      "name": "safeTransferFrom",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "operator",
-          "type": "address"
-        },
-        {
-          "internalType": "bool",
-          "name": "approved",
-          "type": "bool"
-        }
-      ],
-      "name": "setApprovalForAll",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "bytes4",
-          "name": "interfaceId",
-          "type": "bytes4"
-        }
-      ],
-      "name": "supportsInterface",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        }
-      ],
-      "name": "uri",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    }
-  ];
-
-  var FTM20 = [
-    {
-      constant: true,
-      inputs: [],
-      name: 'name',
-      outputs: [{ name: '', type: 'string' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [
-        { name: '_spender', type: 'address' },
-        { name: '_value', type: 'uint256' },
-      ],
-      name: 'approve',
-      outputs: [{ name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: 'totalSupply',
-      outputs: [{ name: '', type: 'uint256' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [
-        { name: '_from', type: 'address' },
-        { name: '_to', type: 'address' },
-        { name: '_value', type: 'uint256' },
-      ],
-      name: 'transferFrom',
-      outputs: [{ name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: 'decimals',
-      outputs: [{ name: '', type: 'uint8' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [{ name: '_owner', type: 'address' }],
-      name: 'balanceOf',
-      outputs: [{ name: 'balance', type: 'uint256' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: 'symbol',
-      outputs: [{ name: '', type: 'string' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [
-        { name: '_to', type: 'address' },
-        { name: '_value', type: 'uint256' },
-      ],
-      name: 'transfer',
-      outputs: [{ name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [
-        { name: '_owner', type: 'address' },
-        { name: '_spender', type: 'address' },
-      ],
-      name: 'allowance',
-      outputs: [{ name: '', type: 'uint256' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    { payable: true, stateMutability: 'payable', type: 'fallback' },
-    {
-      anonymous: false,
-      inputs: [
-        { indexed: true, name: 'owner', type: 'address' },
-        { indexed: true, name: 'spender', type: 'address' },
-        { indexed: false, name: 'value', type: 'uint256' },
-      ],
-      name: 'Approval',
-      type: 'event',
-    },
-    {
-      anonymous: false,
-      inputs: [
-        { indexed: true, name: 'from', type: 'address' },
-        { indexed: true, name: 'to', type: 'address' },
-        { indexed: false, name: 'value', type: 'uint256' },
-      ],
-      name: 'Transfer',
-      type: 'event',
-    },
   ];
 
   const uriAPI$1 = [{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"uri","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"}];
@@ -30443,12 +30537,10 @@
     )
   };
 
-  var VRC20 = [{"name": "Approval", "type": "event", "inputs": [{"name": "src", "type": "address", "indexed": true, "internalType": "address"}, {"name": "guy", "type": "address", "indexed": true, "internalType": "address"}, {"name": "wad", "type": "uint256", "indexed": false, "internalType": "uint256"}], "anonymous": false}, {"name": "Deposit", "type": "event", "inputs": [{"name": "dst", "type": "address", "indexed": true, "internalType": "address"}, {"name": "wad", "type": "uint256", "indexed": false, "internalType": "uint256"}], "anonymous": false}, {"name": "Transfer", "type": "event", "inputs": [{"name": "src", "type": "address", "indexed": true, "internalType": "address"}, {"name": "dst", "type": "address", "indexed": true, "internalType": "address"}, {"name": "wad", "type": "uint256", "indexed": false, "internalType": "uint256"}], "anonymous": false}, {"name": "Withdrawal", "type": "event", "inputs": [{"name": "src", "type": "address", "indexed": true, "internalType": "address"}, {"name": "wad", "type": "uint256", "indexed": false, "internalType": "uint256"}], "anonymous": false}, {"type": "fallback", "stateMutability": "payable"}, {"name": "allowance", "type": "function", "inputs": [{"name": "", "type": "address", "internalType": "address"}, {"name": "", "type": "address", "internalType": "address"}], "outputs": [{"name": "", "type": "uint256", "internalType": "uint256"}], "stateMutability": "view"}, {"name": "approve", "type": "function", "inputs": [{"name": "guy", "type": "address", "internalType": "address"}, {"name": "wad", "type": "uint256", "internalType": "uint256"}], "outputs": [{"name": "", "type": "bool", "internalType": "bool"}], "stateMutability": "nonpayable"}, {"name": "balanceOf", "type": "function", "inputs": [{"name": "", "type": "address", "internalType": "address"}], "outputs": [{"name": "", "type": "uint256", "internalType": "uint256"}], "stateMutability": "view"}, {"name": "decimals", "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint8", "internalType": "uint8"}], "stateMutability": "view"}, {"name": "deposit", "type": "function", "inputs": [], "outputs": [], "stateMutability": "payable"}, {"name": "name", "type": "function", "inputs": [], "outputs": [{"name": "", "type": "string", "internalType": "string"}], "stateMutability": "view"}, {"name": "symbol", "type": "function", "inputs": [], "outputs": [{"name": "", "type": "string", "internalType": "string"}], "stateMutability": "view"}, {"name": "totalSupply", "type": "function", "inputs": [], "outputs": [{"name": "", "type": "uint256", "internalType": "uint256"}], "stateMutability": "view"}, {"name": "transfer", "type": "function", "inputs": [{"name": "dst", "type": "address", "internalType": "address"}, {"name": "wad", "type": "uint256", "internalType": "uint256"}], "outputs": [{"name": "", "type": "bool", "internalType": "bool"}], "stateMutability": "nonpayable"}, {"name": "transferFrom", "type": "function", "inputs": [{"name": "src", "type": "address", "internalType": "address"}, {"name": "dst", "type": "address", "internalType": "address"}, {"name": "wad", "type": "uint256", "internalType": "uint256"}], "outputs": [{"name": "", "type": "bool", "internalType": "bool"}], "stateMutability": "nonpayable"}, {"name": "withdraw", "type": "function", "inputs": [{"name": "wad", "type": "uint256", "internalType": "uint256"}], "outputs": [], "stateMutability": "nonpayable"}];
-
   const TOKEN_PROGRAM = 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA';
   const ASSOCIATED_TOKEN_PROGRAM = 'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL';
 
-  function _optionalChain$4(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  function _optionalChain$4$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   var findProgramAddress = async ({ token, owner })=>{
 
     const [address] = await solanaWeb3_js.PublicKey.findProgramAddress(
@@ -30460,7 +30552,7 @@
       new solanaWeb3_js.PublicKey(ASSOCIATED_TOKEN_PROGRAM)
     );
 
-    return _optionalChain$4([address, 'optionalAccess', _ => _.toString, 'call', _2 => _2()])
+    return _optionalChain$4$1([address, 'optionalAccess', _ => _.toString, 'call', _2 => _2()])
   };
 
   const MINT_LAYOUT = solanaWeb3_js.struct([
@@ -30711,11 +30803,11 @@
     return _optionalChain$1$1([metaData, 'optionalAccess', _ => _.symbol])
   };
 
-  let supported$2 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'velas'];
-  supported$2.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'velas'];
+  let supported$2 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
+  supported$2.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
   supported$2.solana = ['solana'];
 
-  function _optionalChain$5(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  function _optionalChain$7(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
   class Token {
     
@@ -30769,7 +30861,7 @@
       }
       if(supported$2.evm.includes(this.blockchain)) {
 
-        return await nameOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT, id: _optionalChain$5([args, 'optionalAccess', _ => _.id]) })
+        return await nameOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT, id: _optionalChain$7([args, 'optionalAccess', _ => _.id]) })
 
       } else if(supported$2.solana.includes(this.blockchain)) {
 
@@ -30836,37 +30928,75 @@
 
   Token.ethereum = { 
     DEFAULT: ERC20,
-    ERC20,
+    ERC20: ERC20,
     20: ERC20,
-    1155: ethereum1155,
+    1155: ERC1155,
+    WRAPPED: WETH$2,
   };
 
   Token.bsc = { 
-    DEFAULT: BEP20,
-    BEP20,
-    20: BEP20,
-    1155: bsc1155,
+    DEFAULT: ERC20,
+    BEP20: ERC20,
+    20: ERC20,
+    1155: ERC1155,
+    WRAPPED: WETH$2,
   };
 
   Token.polygon = { 
-    DEFAULT: ERC20onPolygon,
-    ERC20: ERC20onPolygon,
-    20: ERC20onPolygon,
-    1155: bsc1155,
+    DEFAULT: ERC20,
+    ERC20: ERC20,
+    20: ERC20,
+    1155: ERC1155,
+    WRAPPED: WETH$2,
   };
 
   Token.fantom = {
-    DEFAULT: FTM20,
-    FTM20,
-    20: FTM20,
-    1155: ftm1155,
+    DEFAULT: ERC20,
+    FTM20: ERC20,
+    20: ERC20,
+    1155: ERC1155,
+    WRAPPED: WETH$2,
   };
 
-  Token.velas = {
-    DEFAULT: VRC20,
-    VRC20,
-    20: VRC20,
-    1155: bsc1155,
+  Token.arbitrum = {
+    DEFAULT: ERC20,
+    ERC20: ERC20,
+    20: ERC20,
+    1155: ERC1155,
+    WRAPPED: WETH$2,
+  };
+
+  Token.avalanche = {
+    DEFAULT: ERC20,
+    ERC20: ERC20,
+    ARC20: ERC20,
+    20: ERC20,
+    1155: ERC1155,
+    WRAPPED: WETH$2,
+  };
+
+  Token.gnosis = {
+    DEFAULT: ERC20,
+    ERC20: ERC20,
+    20: ERC20,
+    1155: ERC1155,
+    WRAPPED: WETH$2,
+  };
+
+  Token.optimism = {
+    DEFAULT: ERC20,
+    ERC20: ERC20,
+    20: ERC20,
+    1155: ERC1155,
+    WRAPPED: WETH$2,
+  };
+
+  Token.base = {
+    DEFAULT: ERC20,
+    ERC20: ERC20,
+    20: ERC20,
+    1155: ERC1155,
+    WRAPPED: WETH$2,
   };
 
   Token.solana = {
@@ -30884,113 +31014,59 @@
     ...instructions
   };
 
-  const WHIRLPOOL_REWARD_LAYOUT = solanaWeb3_js.struct([
-    solanaWeb3_js.publicKey("mint"),
-    solanaWeb3_js.publicKey("vault"),
-    solanaWeb3_js.publicKey("authority"),
-    solanaWeb3_js.u128("emissionsPerSecondX64"),
-    solanaWeb3_js.u128("growthGlobalX64"),
-  ]);
-
-  const WHIRLPOOL_LAYOUT = solanaWeb3_js.struct([
-    solanaWeb3_js.u64("anchorDiscriminator"),
-    solanaWeb3_js.publicKey("whirlpoolsConfig"),
-    solanaWeb3_js.seq(solanaWeb3_js.u8(), 1, "whirlpoolBump"),
-    solanaWeb3_js.u16("tickSpacing"),
-    solanaWeb3_js.seq(solanaWeb3_js.u8(), 2, "tickSpacingSeed"),
-    solanaWeb3_js.u16("feeRate"),
-    solanaWeb3_js.u16("protocolFeeRate"),
-    solanaWeb3_js.u128("liquidity"),
-    solanaWeb3_js.u128("sqrtPrice"),
-    solanaWeb3_js.i32("tickCurrentIndex"),
-    solanaWeb3_js.u64("protocolFeeOwedA"),
-    solanaWeb3_js.u64("protocolFeeOwedB"),
-    solanaWeb3_js.publicKey("tokenMintA"),
-    solanaWeb3_js.publicKey("tokenVaultA"),
-    solanaWeb3_js.u128("feeGrowthGlobalA"),
-    solanaWeb3_js.publicKey("tokenMintB"),
-    solanaWeb3_js.publicKey("tokenVaultB"),
-    solanaWeb3_js.u128("feeGrowthGlobalB"),
-    solanaWeb3_js.u64("rewardLastUpdatedTimestamp"),
-    solanaWeb3_js.seq(WHIRLPOOL_REWARD_LAYOUT, 3, "rewardInfos"),
-  ]);
-
-  const TICK_LAYOUT = solanaWeb3_js.struct([
-    solanaWeb3_js.bool("initialized"),
-    solanaWeb3_js.i128("liquidityNet"),
-    solanaWeb3_js.u128("liquidityGross"),
-    solanaWeb3_js.u128("feeGrowthOutsideA"),
-    solanaWeb3_js.u128("feeGrowthOutsideB"),
-    solanaWeb3_js.seq(solanaWeb3_js.u128(), 3, "reward_growths_outside"),
-  ]);
-
-  const TICK_ARRAY_LAYOUT = solanaWeb3_js.struct([
-    solanaWeb3_js.u64("anchorDiscriminator"),
-    solanaWeb3_js.i32("startTickIndex"),
-    solanaWeb3_js.seq(TICK_LAYOUT, 88, "ticks"),
-    solanaWeb3_js.publicKey("whirlpool"),
-  ]);
-
-  var basics = {
-    blockchain: 'solana',
-    name: 'orca',
-    alternativeNames: [],
-    label: 'Orca',
-    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI3LjIuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9ImthdG1hbl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgNjAwIDQ1MCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjAwIDQ1MDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8cGF0aCBmaWxsPSIjRkZEMTVDIiBkPSJNNDg4LjQsMjIyLjljMCwxMDMuOC04NC4xLDE4Ny45LTE4Ny45LDE4Ny45Yy0xMDMuOCwwLTE4Ny45LTg0LjEtMTg3LjktMTg3LjlDMTEyLjYsMTE5LjEsMTk2LjcsMzUsMzAwLjUsMzUKCUM0MDQuMiwzNSw0ODguNCwxMTkuMSw0ODguNCwyMjIuOXoiLz4KPHBhdGggZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjE3LjY3NTUiIGQ9Ik0yMDkuNSwyOTkuOGMxLjYtMS4xLDMuMS0yLjgsMy45LTUuMWMwLjgtMi42LDAuMy00LjksMC02LjJjMCwwLDAtMC4xLDAtMC4xbDAuMy0xLjhjMC45LDAuNSwxLjksMS4xLDMsMS45CgljMC4zLDAuMiwwLjcsMC41LDEuMSwwLjdjMC41LDAuNCwxLjEsMC44LDEuNCwxYzAuNiwwLjQsMS41LDEsMi41LDEuNWMyNS4xLDE1LjYsNDUuOCwyMiw2Mi4yLDIxLjJjMTctMC44LDI4LjktOS40LDM1LjEtMjEuOQoJYzUuOS0xMi4xLDYuMi0yNywyLTQwLjljLTQuMi0xMy45LTEzLTI3LjUtMjYuMi0zNi45Yy0yMi4yLTE1LjgtNDIuNS0zOS44LTUyLjctNjAuM2MtNS4yLTEwLjQtNy4zLTE4LjctNi43LTI0LjIKCWMwLjMtMi41LDEtNC4xLDItNS4xYzAuOS0xLDIuNi0yLjEsNS45LTIuNmM2LjktMS4xLDE1LTMuNiwyMy4xLTYuMmMzLjItMSw2LjMtMiw5LjUtMi45YzExLjctMy40LDI0LjItNi4zLDM3LjItNi4zCgljMjUuMywwLDU1LDExLDg2LjMsNTYuOGM0MC4yLDU4LjgsMTguMSwxMjQuNC0yOC4yLDE1OC45Yy0yMy4xLDE3LjItNTEuOSwyNi4zLTgxLjUsMjIuOUMyNjIuOSwzNDEuMywyMzQuOSwzMjcuOSwyMDkuNSwyOTkuOHoKCSBNMjE0LjIsMjg0LjZDMjE0LjIsMjg0LjYsMjE0LjIsMjg0LjcsMjE0LjIsMjg0LjZDMjE0LjEsMjg0LjcsMjE0LjIsMjg0LjYsMjE0LjIsMjg0LjZ6IE0yMTEuNiwyODUuOAoJQzIxMS42LDI4NS44LDIxMS43LDI4NS44LDIxMS42LDI4NS44QzIxMS43LDI4NS44LDIxMS42LDI4NS44LDIxMS42LDI4NS44eiIvPgo8cGF0aCBkPSJNMjMyLjUsMTI0LjNjMCwwLDcxLjgtMTkuMSw4Ny41LTE5LjFjMTUuNywwLDc4LjYsMzAuNSw5Ni45LDg2LjNjMjYsNzktNDQuNywxMzAuOS01Mi43LDEyNS44CgljNzYuMS02Mi45LTQ4LjQtMTc5LjEtMTA5LjYtMTcwLjRjLTcuNiwxLjEtMy40LDcuNi0zLjQsNy42bC0xLjcsMTdsLTEyLjctMjEuMkwyMzIuNSwxMjQuM3oiLz4KPHBhdGggZD0iTTQwNi41LDE2Ny42YzIyLjcsMzkuOSwxOCwxNy4xLDEyLjksNjIuN2M5LjMtMTUuMSwyMy45LTMuOCwyOS45LDJjMS4xLDEsMi45LDAuNCwyLjgtMS4xYy0wLjItNi44LTIuMi0yMS40LTEzLjQtMzcuMQoJQzQyMy40LDE3Mi42LDQwNi41LDE2Ny42LDQwNi41LDE2Ny42eiIvPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMC45OTMiIGQ9Ik00MTkuNCwyMzAuM2M1LTQ1LjYsOS43LTIyLjgtMTIuOS02Mi43YzAsMCwxNi45LDUsMzIuMywyNi41YzExLjIsMTUuNywxMy4xLDMwLjMsMTMuNCwzNy4xCgljMC4xLDEuNS0xLjcsMi4xLTIuOCwxLjFDNDQzLjMsMjI2LjUsNDI4LjcsMjE1LjMsNDE5LjQsMjMwLjN6IE00MTkuNCwyMzAuM2MwLjktMi4xLDIuMi01LjUsMi4yLTUuNSIvPgo8cGF0aCBkPSJNMjI0LDIyNC4yYy05LjYsMTYuMi0yOS4yLDE1LTI4LjgsMzQuM2MxNy41LDM5LDE3LjYsMzYuMiwxNy42LDM2LjJjMzIuNS0xOC4yLDE5LjEtNTguNSwxNC4zLTcwLjQKCUMyMjYuNiwyMjMsMjI0LjcsMjIzLDIyNCwyMjQuMnoiLz4KPHBhdGggZD0iTTE1MC40LDI2MC4xYzE4LjcsMi40LDI5LjgtMTMuOCw0NC44LTEuNmMxOS45LDM3LjgsMTcuNiwzNi4yLDE3LjYsMzYuMmMtMzQuNCwxNC40LTU3LjktMjEtNjQuMy0zMi4xCglDMTQ3LjgsMjYxLjMsMTQ5LDI1OS45LDE1MC40LDI2MC4xeiIvPgo8cGF0aCBkPSJNMzA2LjksMjM2YzAsMCwxOC43LDE5LjEsOC45LDIyLjFjLTEyLjItNy41LTM0LTEuNy00NC43LDEuOWMtMi42LDAuOS01LjItMS40LTQuMy00LjFjMy42LTEwLDEyLjYtMjguNiwyOS45LTMxCglDMzA2LjksMjIyLjQsMzA2LjksMjM2LDMwNi45LDIzNnoiLz4KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTMxOC4zLDE0Mi41Yy0yLjEtMy02LjQtMTEsNi44LTExYzEzLjIsMCwzMy4zLDE0LjksMzcuNCwyMC40Yy0xLjMsMy40LTkuOCw0LjEtMTQsMy44Yy00LjItMC4zLTExLjUtMS0xNy0zLjgKCUMzMjYsMTQ5LjIsMzIwLjUsMTQ1LjUsMzE4LjMsMTQyLjV6Ii8+Cjwvc3ZnPgo=',
-    router: {
-      v1: {
-        address: 'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc',
-        api: WHIRLPOOL_LAYOUT,
-      },
-    },
-    slippage: true,
-  };
-
-  function _optionalChain$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }class Route {
+  function _optionalChain$5(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }class Route {
     constructor({
+      blockchain,
       tokenIn,
       tokenOut,
       path,
+      pools,
       amountIn,
       amountInMax,
       amountOut,
       amountOutMin,
       exchange,
+      approvalRequired,
+      getApproval,
+      getPrep,
       getTransaction,
     }) {
+      this.blockchain = blockchain;
       this.tokenIn = tokenIn;
       this.tokenOut = tokenOut;
       this.path = path;
-      this.amountIn = _optionalChain$2([amountIn, 'optionalAccess', _ => _.toString, 'call', _2 => _2()]);
-      this.amountOutMin = _optionalChain$2([amountOutMin, 'optionalAccess', _3 => _3.toString, 'call', _4 => _4()]);
-      this.amountOut = _optionalChain$2([amountOut, 'optionalAccess', _5 => _5.toString, 'call', _6 => _6()]);
-      this.amountInMax = _optionalChain$2([amountInMax, 'optionalAccess', _7 => _7.toString, 'call', _8 => _8()]);
+      this.pools = pools;
+      this.amountIn = _optionalChain$5([amountIn, 'optionalAccess', _ => _.toString, 'call', _2 => _2()]);
+      this.amountOutMin = _optionalChain$5([amountOutMin, 'optionalAccess', _3 => _3.toString, 'call', _4 => _4()]);
+      this.amountOut = _optionalChain$5([amountOut, 'optionalAccess', _5 => _5.toString, 'call', _6 => _6()]);
+      this.amountInMax = _optionalChain$5([amountInMax, 'optionalAccess', _7 => _7.toString, 'call', _8 => _8()]);
       this.exchange = exchange;
+      this.getPrep = getPrep;
       this.getTransaction = getTransaction;
     }
   }
 
-  let supported$1 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom'];
-  supported$1.evm = ['ethereum', 'bsc', 'polygon', 'fantom'];
+  let supported$1 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
+  supported$1.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
   supported$1.solana = ['solana'];
 
   const DEFAULT_SLIPPAGE = '0.5'; // percent
 
-  const getDefaultSlippage = ({ amountIn, amountOut })=>{
+  const getDefaultSlippage = ({ exchange, blockchain, pools, amountIn, amountOut })=>{
     return DEFAULT_SLIPPAGE
   };
 
-  const calculateAmountInWithSlippage = async ({ exchange, fixedPath, amountIn, amountOut })=>{
+  const calculateAmountInWithSlippage = async ({ exchange, blockchain, pools, exchangePath, amountIn, amountOut })=>{
 
-    let defaultSlippage = getDefaultSlippage({ amountIn, amountOut });
+    let defaultSlippage = getDefaultSlippage({ exchange, blockchain, pools, exchangePath, amountIn, amountOut });
 
     let newAmountInWithDefaultSlippageBN = amountIn.add(amountIn.mul(parseFloat(defaultSlippage)*100).div(10000));
 
-    if(!supported$1.evm.includes(exchange.blockchain)) { 
+    if(!supported$1.evm.includes(exchange.blockchain || blockchain)) { 
       return newAmountInWithDefaultSlippageBN
     }
 
-    const currentBlock = await request({ blockchain: exchange.blockchain, method: 'latestBlockNumber' });
+    const currentBlock = await request({ blockchain: (exchange.blockchain || blockchain), method: 'latestBlockNumber' });
 
     let blocks = [];
     for(var i = 0; i <= 2; i++){
@@ -30999,7 +31075,10 @@
 
     const lastAmountsIn = await Promise.all(blocks.map(async (block)=>{
       let { amountIn } = await exchange.getAmounts({
-        path: fixedPath,
+        exchange,
+        blockchain,
+        path: exchangePath,
+        pools,
         amountOut,
         block
       });
@@ -31064,7 +31143,7 @@
     return newAmountInWithDefaultSlippageBN
   };
 
-  const calculateAmountOutLessSlippage = async ({ exchange, fixedPath, amountOut, amountIn })=>{
+  const calculateAmountOutLessSlippage = async ({ exchange, exchangePath, amountOut, amountIn })=>{
     let defaultSlippage = getDefaultSlippage({ amountIn, amountOut });
 
     let newAmountOutWithoutDefaultSlippageBN = amountOut.sub(amountOut.mul(parseFloat(defaultSlippage)*100).div(10000));
@@ -31074,20 +31153,22 @@
 
   const calculateAmountsWithSlippage = async ({
     exchange,
-    fixedPath,
+    blockchain,
+    pools,
+    exchangePath,
     amounts,
     tokenIn, tokenOut,
     amountIn, amountInMax, amountOut, amountOutMin,
     amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput,
   })=>{
     if(amountOutMinInput || amountOutInput) {
-      if(supported$1.evm.includes(exchange.blockchain)) {
-        amountIn = amountInMax = await calculateAmountInWithSlippage({ exchange, fixedPath, amountIn, amountOut: (amountOutMinInput || amountOut) });
-      } else if(supported$1.solana.includes(exchange.blockchain)){
+      if(supported$1.evm.includes(exchange.blockchain || blockchain)) {
+        amountIn = amountInMax = await calculateAmountInWithSlippage({ exchange, blockchain, pools, exchangePath, amountIn, amountOut: (amountOutMinInput || amountOut) });
+      } else if(supported$1.solana.includes(exchange.blockchain || blockchain)){
         let amountsWithSlippage = [];
-        await Promise.all(fixedPath.map((step, index)=>{
+        await Promise.all(exchangePath.map((step, index)=>{
           if(index != 0) {
-            let amountWithSlippage = calculateAmountInWithSlippage({ exchange, fixedPath: [fixedPath[index-1], fixedPath[index]], amountIn: amounts[index-1], amountOut: amounts[index] });
+            let amountWithSlippage = calculateAmountInWithSlippage({ exchange, pools, exchangePath: [exchangePath[index-1], exchangePath[index]], amountIn: amounts[index-1], amountOut: amounts[index] });
             amountWithSlippage.then((amount)=>amountsWithSlippage.push(amount));
             return amountWithSlippage
           }
@@ -31097,13 +31178,13 @@
         amountIn = amountInMax = amounts[0];
       }
     } else if(amountInMaxInput || amountInInput) {
-      if(supported$1.solana.includes(exchange.blockchain)){
+      if(supported$1.solana.includes(exchange.blockchain || blockchain)){
         let amountsWithSlippage = [];
-        await Promise.all(fixedPath.map((step, index)=>{
-          if(index !== 0 && index < fixedPath.length-1) {
+        await Promise.all(exchangePath.map((step, index)=>{
+          if(index !== 0 && index < exchangePath.length-1) {
             amountsWithSlippage.unshift(amounts[index]);
-          } else if(index === fixedPath.length-1) {
-            let amountWithSlippage = calculateAmountOutLessSlippage({ exchange, fixedPath: [fixedPath[index-1], fixedPath[index]], amountIn: amounts[index-1], amountOut: amounts[index] });
+          } else if(index === exchangePath.length-1) {
+            let amountWithSlippage = calculateAmountOutLessSlippage({ exchange, exchangePath: [exchangePath[index-1], exchangePath[index]], amountIn: amounts[index-1], amountOut: amounts[index] });
             amountWithSlippage.then((amount)=>{
               amountsWithSlippage.unshift(amount);
               return amount
@@ -31172,21 +31253,17 @@
   };
 
   let preflight$2 = ({
+    blockchain,
+    exchange,
     tokenIn,
     tokenOut,
     amountIn,
     amountOut,
     amountInMax,
     amountOutMin,
-    amountOutMax,
-    amountInMin,
   }) => {
-    if (typeof amountOutMax !== 'undefined') {
-      throw 'You cannot not set amountOutMax! Only amountInMax or amountOutMin!'
-    }
-
-    if (typeof amountInMin !== 'undefined') {
-      throw 'You cannot not set amountInMin! Only amountInMax or amountOutMin!'
+    if(blockchain === undefined && exchange.blockchains != undefined && exchange.blockchains.length > 1) {
+      throw 'You need to provide a blockchain when calling route on an exchange that supports multiple blockchains!'
     }
 
     if (typeof amountOut !== 'undefined' && typeof amountIn !== 'undefined') {
@@ -31207,6 +31284,7 @@
   };
 
   const route$1 = ({
+    blockchain,
     exchange,
     tokenIn,
     tokenOut,
@@ -31216,10 +31294,11 @@
     amountOutMin = undefined,
     findPath,
     getAmounts,
+    getPrep,
     getTransaction,
     slippage,
   }) => {
-    
+
     tokenIn = fixAddress(tokenIn);
     tokenOut = fixAddress(tokenOut);
 
@@ -31227,37 +31306,55 @@
     if([amountIn, amountOut, amountInMax, amountOutMin].filter(Boolean).length < 1) { throw('You need to pass exactly one: amountIn, amountOut, amountInMax or amountOutMin') }
 
     return new Promise(async (resolve)=> {
-      let { path, fixedPath } = await findPath({ tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin });
+      let { path, exchangePath, pools } = await findPath({ blockchain, tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin });
       if (path === undefined || path.length == 0) { return resolve() }
       let [amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput] = [amountIn, amountOut, amountInMax, amountOutMin];
 
       let amounts; // includes intermediary amounts for longer routes
-      ({ amountIn, amountInMax, amountOut, amountOutMin, amounts } = await getAmounts({ path, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin }));
+      try {
+        ;({ amountIn, amountInMax, amountOut, amountOutMin, amounts } = await getAmounts({ exchange, blockchain, path, pools, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin }));
+      } catch (e) { return resolve() }
       if([amountIn, amountInMax, amountOut, amountOutMin].every((amount)=>{ return amount == undefined })) { return resolve() }
 
-      if(slippage) {
-        ({ amountIn, amountInMax, amountOut, amountOutMin, amounts } = await calculateAmountsWithSlippage({
-          exchange,
-          fixedPath,
-          amounts,
-          tokenIn, tokenOut,
-          amountIn, amountInMax, amountOut, amountOutMin,
-          amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput,
-        }));
+      if(slippage || exchange.slippage) {
+        try {
+          ({ amountIn, amountInMax, amountOut, amountOutMin, amounts } = await calculateAmountsWithSlippage({
+            exchange,
+            blockchain,
+            pools,
+            exchangePath,
+            amounts,
+            tokenIn, tokenOut,
+            amountIn, amountInMax, amountOut, amountOutMin,
+            amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput,
+          }));
+        } catch (e2) { return resolve() }
       }
 
       resolve(
         new Route({
+          blockchain,
           tokenIn,
           tokenOut,
           path,
+          pools,
           amountIn,
           amountInMax,
           amountOut,
           amountOutMin,
           exchange,
-          getTransaction: async ({ from })=> await getTransaction({
+          getPrep: async ({ account })=> await getPrep({
             exchange,
+            blockchain,
+            tokenIn,
+            tokenOut,
+            amountIn: (amountIn || amountInMax),
+            account,
+          }),
+          getTransaction: async ({ account, permit2, inputTokenPushed })=> await getTransaction({
+            exchange,
+            blockchain,
+            pools,
             path,
             amountIn,
             amountInMax,
@@ -31268,7 +31365,9 @@
             amountOutInput,
             amountInMaxInput,
             amountOutMinInput,
-            fromAddress: from
+            account,
+            permit2,
+            inputTokenPushed
           }),
         })
       );
@@ -31276,67 +31375,44 @@
   };
 
   class Exchange {
-    constructor({
-      name,
-      blockchain,
-      alternativeNames,
-      label,
-      logo,
-      router,
-      factory,
-      wrapper,
-      pair,
-      market,
-      findPath,
-      pathExists,
-      getAmounts,
-      getTransaction,
-      slippage,
-    }) {
-      this.name = name;
-      this.blockchain = blockchain;
-      this.alternativeNames = alternativeNames;
-      this.label = label;
-      this.logo = logo;
-      this.router = router;
-      this.factory = factory;
-      this.wrapper = wrapper;
-      this.pair = pair;
-      this.market = market;
-      this.findPath = findPath;
-      this.pathExists = pathExists;
-      this.getAmounts = getAmounts;
-      this.getTransaction = getTransaction;
-      this.slippage = slippage;
+    constructor(...args) {
+      Object.assign(this, ...args);
     }
 
     async route({
+      blockchain,
       tokenIn,
       tokenOut,
       amountIn,
       amountOut,
       amountInMax,
       amountOutMin,
-      amountOutMax,
-      amountInMin,
     }) {
       if(tokenIn === tokenOut){ return Promise.resolve() }
-      
+
+      if(blockchain === undefined) {
+        if(this.scope) { 
+          blockchain = this.scope;
+        } else if (this.blockchains.length === 1) {
+          blockchain = this.blockchains[0];
+        }
+      }
+
       preflight$2({
+        blockchain,
+        exchange: this,
         tokenIn,
         tokenOut,
         amountIn,
         amountOut,
         amountInMax,
         amountOutMin,
-        amountOutMax,
-        amountInMin,
       });
 
       return await route$1({
         ...
         await fixRouteParams({
-          blockchain: this.blockchain,
+          blockchain,
           exchange: this,
           tokenIn,
           tokenOut,
@@ -31345,13 +31421,362 @@
           amountInMax,
           amountOutMin,
         }),
+        blockchain,
         findPath: this.findPath,
         getAmounts: this.getAmounts,
+        getPrep: this.getPrep,
         getTransaction: this.getTransaction,
         slippage: this.slippage,
       })
     }
   }
+
+  function _optionalChain$4(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+
+  // Replaces 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE with the wrapped token and implies wrapping.
+  //
+  // We keep 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE internally
+  // to be able to differentiate between ETH<>Token and WETH<>Token swaps
+  // as they are not the same!
+  //
+  const getExchangePath$4 = ({ blockchain, exchange, path }) => {
+    if(!path) { return }
+    let exchangePath = path.map((token, index) => {
+      if (
+        token === Blockchains__default['default'][blockchain].currency.address && path[index+1] != Blockchains__default['default'][blockchain].wrapped.address &&
+        path[index-1] != Blockchains__default['default'][blockchain].wrapped.address
+      ) {
+        return Blockchains__default['default'][blockchain].wrapped.address
+      } else {
+        return token
+      }
+    });
+
+    if(exchangePath[0] == Blockchains__default['default'][blockchain].currency.address && exchangePath[1] == Blockchains__default['default'][blockchain].wrapped.address) {
+      exchangePath.splice(0, 1);
+    } else if(exchangePath[exchangePath.length-1] == Blockchains__default['default'][blockchain].currency.address && exchangePath[exchangePath.length-2] == Blockchains__default['default'][blockchain].wrapped.address) {
+      exchangePath.splice(exchangePath.length-1, 1);
+    }
+
+    return exchangePath
+  };
+
+  const minReserveRequirements = ({ reserves, min, token, token0, token1, decimals }) => {
+    if(token0.toLowerCase() == token.toLowerCase()) {
+      return reserves[0].gte(ethers.ethers.utils.parseUnits(min.toString(), decimals))
+    } else if (token1.toLowerCase() == token.toLowerCase()) {
+      return reserves[1].gte(ethers.ethers.utils.parseUnits(min.toString(), decimals))
+    } else {
+      return false
+    }
+  };
+
+  const pathExists$5 = async ({ blockchain, exchange, path }) => {
+    const exchangePath = getExchangePath$4({ blockchain, exchange, path });
+    if(!exchangePath || exchangePath.length === 1) { return false }
+    try {
+      let pair = await request({
+        blockchain,
+        address: exchange[blockchain].factory.address,
+        method: 'getPair',
+        api: exchange[blockchain].factory.api,
+        cache: 3600000,
+        params: getExchangePath$4({ blockchain, exchange, path }),
+      });
+      if(!pair || pair == Blockchains__default['default'][blockchain].zero) { return false }
+      let [reserves, token0, token1] = await Promise.all([
+        request({ blockchain, address: pair, method: 'getReserves', api: exchange[blockchain].pair.api, cache: 3600000 }),
+        request({ blockchain, address: pair, method: 'token0', api: exchange[blockchain].pair.api, cache: 3600000 }),
+        request({ blockchain, address: pair, method: 'token1', api: exchange[blockchain].pair.api, cache: 3600000 })
+      ]);
+      if(exchangePath.includes(Blockchains__default['default'][blockchain].wrapped.address)) {
+        return minReserveRequirements({ min: 1, token: Blockchains__default['default'][blockchain].wrapped.address, decimals: Blockchains__default['default'][blockchain].currency.decimals, reserves, token0, token1 })
+      } else if (path.find((step)=>Blockchains__default['default'][blockchain].stables.usd.includes(step))) {
+        let address = path.find((step)=>Blockchains__default['default'][blockchain].stables.usd.includes(step));
+        let token = new Token({ blockchain, address });
+        let decimals = await token.decimals();
+        return minReserveRequirements({ min: 1000, token: address, decimals, reserves, token0, token1 })
+      } else {
+        return true
+      }
+    } catch (e){ console.log('e', e); return false }
+  };
+
+  const findPath$5 = async ({ blockchain, exchange, tokenIn, tokenOut }) => {
+    if(
+      [tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].currency.address) &&
+      [tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].wrapped.address)
+    ) { return { path: undefined, exchangePath: undefined } }
+
+    let path;
+    if (await pathExists$5({ blockchain, exchange, path: [tokenIn, tokenOut] })) {
+      // direct path
+      path = [tokenIn, tokenOut];
+    } else if (
+      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
+      await pathExists$5({ blockchain, exchange, path: [tokenIn, Blockchains__default['default'][blockchain].wrapped.address] }) &&
+      tokenOut != Blockchains__default['default'][blockchain].wrapped.address &&
+      await pathExists$5({ blockchain, exchange, path: [tokenOut, Blockchains__default['default'][blockchain].wrapped.address] })
+    ) {
+      // path via WRAPPED
+      path = [tokenIn, Blockchains__default['default'][blockchain].wrapped.address, tokenOut];
+    } else if (
+      !Blockchains__default['default'][blockchain].stables.usd.includes(tokenIn) &&
+      (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map((stable)=>pathExists$5({ blockchain, exchange, path: [tokenIn, stable] })))).filter(Boolean).length &&
+      tokenOut != Blockchains__default['default'][blockchain].wrapped.address &&
+      await pathExists$5({ blockchain, exchange, path: [Blockchains__default['default'][blockchain].wrapped.address, tokenOut] })
+    ) {
+      // path via tokenIn -> USD -> WRAPPED -> tokenOut
+      let USD = (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async (stable)=>{ return(await pathExists$5({ blockchain, exchange, path: [tokenIn, stable] }) ? stable : undefined) }))).find(Boolean);
+      path = [tokenIn, USD, Blockchains__default['default'][blockchain].wrapped.address, tokenOut];
+    } else if (
+      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
+      await pathExists$5({ blockchain, exchange, path: [tokenIn, Blockchains__default['default'][blockchain].wrapped.address] }) &&
+      !Blockchains__default['default'][blockchain].stables.usd.includes(tokenOut) &&
+      (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map((stable)=>pathExists$5({ blockchain, exchange, path: [stable, tokenOut] })))).filter(Boolean).length
+    ) {
+      // path via tokenIn -> WRAPPED -> USD -> tokenOut
+      let USD = (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async (stable)=>{ return(await pathExists$5({ blockchain, exchange, path: [stable, tokenOut] }) ? stable : undefined) }))).find(Boolean);
+      path = [tokenIn, Blockchains__default['default'][blockchain].wrapped.address, USD, tokenOut];
+    }
+
+    // Add WRAPPED to route path if things start or end with NATIVE
+    // because that actually reflects how things are routed in reality:
+    if(_optionalChain$4([path, 'optionalAccess', _ => _.length]) && path[0] == Blockchains__default['default'][blockchain].currency.address) {
+      path.splice(1, 0, Blockchains__default['default'][blockchain].wrapped.address);
+    } else if(_optionalChain$4([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == Blockchains__default['default'][blockchain].currency.address) {
+      path.splice(path.length-1, 0, Blockchains__default['default'][blockchain].wrapped.address);
+    }
+
+    return { path, exchangePath: getExchangePath$4({ blockchain, exchange, path }) }
+  };
+
+  let getAmountOut$3 = ({ blockchain, exchange, path, amountIn, tokenIn, tokenOut }) => {
+    return new Promise((resolve) => {
+      request({
+        blockchain,
+        address: exchange[blockchain].router.address,
+        method: 'getAmountsOut',
+        api: exchange[blockchain].router.api,
+        params: {
+          amountIn: amountIn,
+          path: getExchangePath$4({ blockchain, exchange, path }),
+        },
+      })
+      .then((amountsOut)=>{
+        resolve(amountsOut[amountsOut.length - 1]);
+      })
+      .catch(()=>resolve());
+    })
+  };
+
+  let getAmountIn$3 = ({ blockchain, exchange, path, amountOut, block }) => {
+    return new Promise((resolve) => {
+      request({
+        blockchain,
+        address: exchange[blockchain].router.address,
+        method: 'getAmountsIn',
+        api: exchange[blockchain].router.api,
+        params: {
+          amountOut: amountOut,
+          path: getExchangePath$4({ blockchain, exchange, path }),
+        },
+        block
+      })
+      .then((amountsIn)=>resolve(amountsIn[0]))
+      .catch(()=>resolve());
+    })
+  };
+
+  let getAmounts$5 = async ({
+    blockchain,
+    exchange,
+    path,
+    block,
+    tokenIn,
+    tokenOut,
+    amountOut,
+    amountIn,
+    amountInMax,
+    amountOutMin
+  }) => {
+    if (amountOut) {
+      amountIn = await getAmountIn$3({ blockchain, exchange, block, path, amountOut, tokenIn, tokenOut });
+      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
+        return {}
+      } else if (amountInMax === undefined) {
+        amountInMax = amountIn;
+      }
+    } else if (amountIn) {
+      amountOut = await getAmountOut$3({ blockchain, exchange, path, amountIn, tokenIn, tokenOut });
+      if (amountOut == undefined || amountOutMin && amountOut.lt(amountOutMin)) {
+        return {}
+      } else if (amountOutMin === undefined) {
+        amountOutMin = amountOut;
+      }
+    } else if(amountOutMin) {
+      amountIn = await getAmountIn$3({ blockchain, exchange, block, path, amountOut: amountOutMin, tokenIn, tokenOut });
+      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
+        return {}
+      } else if (amountInMax === undefined) {
+        amountInMax = amountIn;
+      }
+    } else if(amountInMax) {
+      amountOut = await getAmountOut$3({ blockchain, exchange, path, amountIn: amountInMax, tokenIn, tokenOut });
+      if (amountOut == undefined ||amountOutMin && amountOut.lt(amountOutMin)) {
+        return {}
+      } else if (amountOutMin === undefined) {
+        amountOutMin = amountOut;
+      }
+    }
+    return { amountOut, amountIn, amountInMax, amountOutMin }
+  };
+
+  let getPrep$3 = async({
+    exchange,
+    blockchain,
+    tokenIn,
+    amountIn,
+    account
+  })=> {
+
+    if(tokenIn === Blockchains__default['default'][blockchain].currency.address) { return } // NATIVE
+
+    const allowance = await request({
+      blockchain,
+      address: tokenIn,
+      method: 'allowance',
+      api: Token[blockchain]['20'],
+      params: [account, exchange[blockchain].router.address]
+    });
+
+    if(allowance.gte(amountIn)) { return }
+
+    let transaction = {
+      blockchain,
+      from: account,
+      to: tokenIn,
+      api: Token[blockchain]['20'],
+      method: 'approve',
+      params: [exchange[blockchain].router.address, amountIn.sub(allowance)]
+    };
+    
+    return { transaction }
+  };
+
+  let getTransaction$5 = ({
+    exchange,
+    blockchain,
+    path,
+    amountIn,
+    amountInMax,
+    amountOut,
+    amountOutMin,
+    amountInInput,
+    amountOutInput,
+    amountInMaxInput,
+    amountOutMinInput,
+    account
+  }) => {
+
+    let transaction = {
+      blockchain,
+      from: account,
+      to: exchange[blockchain].router.address,
+      api: exchange[blockchain].router.api,
+    };
+
+    if (path[0] === Blockchains__default['default'][blockchain].currency.address) {
+      if (amountInInput || amountOutMinInput) {
+        transaction.method = 'swapExactETHForTokens';
+        transaction.value = amountIn.toString();
+        transaction.params = { amountOutMin: amountOutMin.toString() };
+      } else if (amountOutInput || amountInMaxInput) {
+        transaction.method = 'swapETHForExactTokens';
+        transaction.value = amountInMax.toString();
+        transaction.params = { amountOut: amountOut.toString() };
+      }
+    } else if (path[path.length - 1] === Blockchains__default['default'][blockchain].currency.address) {
+      if (amountInInput || amountOutMinInput) {
+        transaction.method = 'swapExactTokensForETH';
+        transaction.params = { amountIn: amountIn.toString(), amountOutMin: amountOutMin.toString() };
+      } else if (amountOutInput || amountInMaxInput) {
+        transaction.method = 'swapTokensForExactETH';
+        transaction.params = { amountInMax: amountInMax.toString(), amountOut: amountOut.toString() };
+      }
+    } else {
+      if (amountInInput || amountOutMinInput) {
+        transaction.method = 'swapExactTokensForTokens';
+        transaction.params = { amountIn: amountIn.toString(), amountOutMin: amountOutMin.toString() };
+      } else if (amountOutInput || amountInMaxInput) {
+        transaction.method = 'swapTokensForExactTokens';
+        transaction.params = { amountInMax: amountInMax.toString(), amountOut: amountOut.toString() };
+      }
+    }
+
+    transaction.params = Object.assign({}, transaction.params, {
+      path: getExchangePath$4({ blockchain, exchange, path }),
+      to: account,
+      deadline: Math.round(Date.now() / 1000) + 60 * 60 * 24, // 24 hours
+    });
+
+    return transaction
+  };
+
+  const ROUTER$3 = [{"inputs":[{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_WETH","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"amountADesired","type":"uint256"},{"internalType":"uint256","name":"amountBDesired","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountTokenDesired","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountIn","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountOut","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsIn","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsOut","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"reserveA","type":"uint256"},{"internalType":"uint256","name":"reserveB","type":"uint256"}],"name":"quote","outputs":[{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETHSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermit","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermitSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityWithPermit","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapETHForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETHSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
+  const FACTORY$3 = [{"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"token0","type":"address"},{"indexed":true,"internalType":"address","name":"token1","type":"address"},{"indexed":false,"internalType":"address","name":"pair","type":"address"},{"indexed":false,"internalType":"uint256","name":"","type":"uint256"}],"name":"PairCreated","type":"event"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"allPairs","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"allPairsLength","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"}],"name":"createPair","outputs":[{"internalType":"address","name":"pair","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"feeTo","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"feeToSetter","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"getPair","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeTo","type":"address"}],"name":"setFeeTo","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"name":"setFeeToSetter","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}];
+  const PAIR$1 = [{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount0Out","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1Out","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Swap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint112","name":"reserve0","type":"uint112"},{"indexed":false,"internalType":"uint112","name":"reserve1","type":"uint112"}],"name":"Sync","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MINIMUM_LIQUIDITY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PERMIT_TYPEHASH","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReserves","outputs":[{"internalType":"uint112","name":"_reserve0","type":"uint112"},{"internalType":"uint112","name":"_reserve1","type":"uint112"},{"internalType":"uint32","name":"_blockTimestampLast","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_token0","type":"address"},{"internalType":"address","name":"_token1","type":"address"}],"name":"initialize","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"kLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"mint","outputs":[{"internalType":"uint256","name":"liquidity","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"price0CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"price1CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"skim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount0Out","type":"uint256"},{"internalType":"uint256","name":"amount1Out","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"sync","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}];
+
+  var UniswapV2 = {
+    findPath: findPath$5,
+    pathExists: pathExists$5,
+    getAmounts: getAmounts$5,
+    getPrep: getPrep$3,
+    getTransaction: getTransaction$5,
+    ROUTER: ROUTER$3,
+    FACTORY: FACTORY$3,
+    PAIR: PAIR$1,
+  };
+
+  const exchange$h = {
+    
+    name: 'honeyswap',
+    label: 'Honeyswap',
+    logo: 'data:image/png;base64,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',
+
+    slippage: true,
+
+    blockchains: ['gnosis'],
+    
+    gnosis: {
+      router: {
+        address: '0x1C232F01118CB8B424793ae03F870aa7D0ac7f77',
+        api: UniswapV2.ROUTER
+      },
+      factory: {
+        address: '0xA818b4F111Ccac7AA31D0BCc0806d64F2E0737D7',
+        api: UniswapV2.FACTORY
+      },
+      pair: {
+        api: UniswapV2.PAIR
+      },
+    }
+  };
+
+  var honeyswap = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$h, {
+        scope,
+        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$h }),
+        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$h }),
+        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$h }),
+        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$h }),
+        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$h }),
+      })
+    )
+  };
 
   const MAX_SQRT_PRICE = "79226673515401279992447579055";
   const MIN_SQRT_PRICE = "4295048016";
@@ -32125,6 +32550,53 @@
     return amountCalculated
   };
 
+  const WHIRLPOOL_REWARD_LAYOUT = solanaWeb3_js.struct([
+    solanaWeb3_js.publicKey("mint"),
+    solanaWeb3_js.publicKey("vault"),
+    solanaWeb3_js.publicKey("authority"),
+    solanaWeb3_js.u128("emissionsPerSecondX64"),
+    solanaWeb3_js.u128("growthGlobalX64"),
+  ]);
+
+  const WHIRLPOOL_LAYOUT = solanaWeb3_js.struct([
+    solanaWeb3_js.u64("anchorDiscriminator"),
+    solanaWeb3_js.publicKey("whirlpoolsConfig"),
+    solanaWeb3_js.seq(solanaWeb3_js.u8(), 1, "whirlpoolBump"),
+    solanaWeb3_js.u16("tickSpacing"),
+    solanaWeb3_js.seq(solanaWeb3_js.u8(), 2, "tickSpacingSeed"),
+    solanaWeb3_js.u16("feeRate"),
+    solanaWeb3_js.u16("protocolFeeRate"),
+    solanaWeb3_js.u128("liquidity"),
+    solanaWeb3_js.u128("sqrtPrice"),
+    solanaWeb3_js.i32("tickCurrentIndex"),
+    solanaWeb3_js.u64("protocolFeeOwedA"),
+    solanaWeb3_js.u64("protocolFeeOwedB"),
+    solanaWeb3_js.publicKey("tokenMintA"),
+    solanaWeb3_js.publicKey("tokenVaultA"),
+    solanaWeb3_js.u128("feeGrowthGlobalA"),
+    solanaWeb3_js.publicKey("tokenMintB"),
+    solanaWeb3_js.publicKey("tokenVaultB"),
+    solanaWeb3_js.u128("feeGrowthGlobalB"),
+    solanaWeb3_js.u64("rewardLastUpdatedTimestamp"),
+    solanaWeb3_js.seq(WHIRLPOOL_REWARD_LAYOUT, 3, "rewardInfos"),
+  ]);
+
+  const TICK_LAYOUT = solanaWeb3_js.struct([
+    solanaWeb3_js.bool("initialized"),
+    solanaWeb3_js.i128("liquidityNet"),
+    solanaWeb3_js.u128("liquidityGross"),
+    solanaWeb3_js.u128("feeGrowthOutsideA"),
+    solanaWeb3_js.u128("feeGrowthOutsideB"),
+    solanaWeb3_js.seq(solanaWeb3_js.u128(), 3, "reward_growths_outside"),
+  ]);
+
+  const TICK_ARRAY_LAYOUT = solanaWeb3_js.struct([
+    solanaWeb3_js.u64("anchorDiscriminator"),
+    solanaWeb3_js.i32("startTickIndex"),
+    solanaWeb3_js.seq(TICK_LAYOUT, 88, "ticks"),
+    solanaWeb3_js.publicKey("whirlpool"),
+  ]);
+
   const MAX_SWAP_TICK_ARRAYS = 3;
   const MAX_TICK_INDEX = 443636; // i32
   const MIN_TICK_INDEX = -443636; // i32
@@ -32159,7 +32631,7 @@
             new solanaWeb3_js.PublicKey(pool.toString()).toBuffer(),
             solanaWeb3_js.Buffer.from(startIndex.toString())
           ],
-          new solanaWeb3_js.PublicKey(basics.router.v1.address)
+          new solanaWeb3_js.PublicKey('whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc')
         )
       )[0];
       tickArrayAddresses.push(pda);
@@ -32398,7 +32870,7 @@
       const freshWhirlpoolData = await request({
         blockchain: 'solana',
         address: account.pubkey.toString(),
-        api: basics.router.v1.api,
+        api: WHIRLPOOL_LAYOUT,
         cache: 10,
       });
 
@@ -32443,14 +32915,14 @@
   // This method is cached and is only to be used to generally existing pools every 24h
   // Do not use for price calulations, fetch accounts for pools individually in order to calculate price 
   let getAccounts = async (base, quote) => {
-    let accounts = await request(`solana://${basics.router.v1.address}/getProgramAccounts`, {
+    let accounts = await request(`solana://whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc/getProgramAccounts`, {
       params: { filters: [
-        { dataSize: basics.router.v1.api.span },
+        { dataSize: WHIRLPOOL_LAYOUT.span },
         { memcmp: { offset: 8, bytes: '2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ' }}, // whirlpoolsConfig
         { memcmp: { offset: 101, bytes: base }}, // tokenMintA
         { memcmp: { offset: 181, bytes: quote }} // tokenMintB
       ]},
-      api: basics.router.v1.api,
+      api: WHIRLPOOL_LAYOUT,
       cache: 86400, // 24h,
       cacheKey: ['whirlpool', base.toString(), quote.toString()].join('-')
     });
@@ -32508,8 +32980,8 @@
     return bestPair
   };
 
-  function _optionalChain$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-  const blockchain$9 = Blockchains__default['default'].solana;
+  function _optionalChain$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  const blockchain$1 = Blockchains__default['default'].solana;
 
   // Replaces 11111111111111111111111111111111 with the wrapped token and implies wrapping.
   //
@@ -32517,31 +32989,31 @@
   // to be able to differentiate between SOL<>Token and WSOL<>Token swaps
   // as they are not the same!
   //
-  let fixPath$2 = (path) => {
+  let getExchangePath$3 = ({ path }) => {
     if(!path) { return }
-    let fixedPath = path.map((token, index) => {
+    let exchangePath = path.map((token, index) => {
       if (
-        token === blockchain$9.currency.address && path[index+1] != blockchain$9.wrapped.address &&
-        path[index-1] != blockchain$9.wrapped.address
+        token === blockchain$1.currency.address && path[index+1] != blockchain$1.wrapped.address &&
+        path[index-1] != blockchain$1.wrapped.address
       ) {
-        return blockchain$9.wrapped.address
+        return blockchain$1.wrapped.address
       } else {
         return token
       }
     });
 
-    if(fixedPath[0] == blockchain$9.currency.address && fixedPath[1] == blockchain$9.wrapped.address) {
-      fixedPath.splice(0, 1);
-    } else if(fixedPath[fixedPath.length-1] == blockchain$9.currency.address && fixedPath[fixedPath.length-2] == blockchain$9.wrapped.address) {
-      fixedPath.splice(fixedPath.length-1, 1);
+    if(exchangePath[0] == blockchain$1.currency.address && exchangePath[1] == blockchain$1.wrapped.address) {
+      exchangePath.splice(0, 1);
+    } else if(exchangePath[exchangePath.length-1] == blockchain$1.currency.address && exchangePath[exchangePath.length-2] == blockchain$1.wrapped.address) {
+      exchangePath.splice(exchangePath.length-1, 1);
     }
 
-    return fixedPath
+    return exchangePath
   };
 
-  let pathExists$2 = async ({ path, amountIn, amountInMax, amountOut, amountOutMin }) => {
+  let pathExists$4 = async ({ path, amountIn, amountInMax, amountOut, amountOutMin }) => {
     if(path.length == 1) { return false }
-    path = fixPath$2(path);
+    path = getExchangePath$3({ path });
     if((await getPairsWithPrice({ tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax, amountOut, amountOutMin })).length > 0) {
       return true
     } else {
@@ -32549,32 +33021,32 @@
     }
   };
 
-  let findPath$2 = async ({ tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin }) => {
+  let findPath$4 = async ({ tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin }) => {
     if(
-      [tokenIn, tokenOut].includes(blockchain$9.currency.address) &&
-      [tokenIn, tokenOut].includes(blockchain$9.wrapped.address)
-    ) { return { path: undefined, fixedPath: undefined } }
+      [tokenIn, tokenOut].includes(blockchain$1.currency.address) &&
+      [tokenIn, tokenOut].includes(blockchain$1.wrapped.address)
+    ) { return { path: undefined, exchangePath: undefined } }
 
     let path, stablesIn, stablesOut, stable;
 
-    if (await pathExists$2({ path: [tokenIn, tokenOut], amountIn, amountInMax, amountOut, amountOutMin })) {
+    if (await pathExists$4({ path: [tokenIn, tokenOut], amountIn, amountInMax, amountOut, amountOutMin })) {
       // direct path
       path = [tokenIn, tokenOut];
     } else if (
-      tokenIn != blockchain$9.wrapped.address &&
-      tokenIn != blockchain$9.currency.address &&
-      await pathExists$2({ path: [tokenIn, blockchain$9.wrapped.address], amountIn, amountInMax, amountOut, amountOutMin }) &&
-      tokenOut != blockchain$9.wrapped.address &&
-      tokenOut != blockchain$9.currency.address &&
-      await pathExists$2({ path: [tokenOut, blockchain$9.wrapped.address], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })
+      tokenIn != blockchain$1.wrapped.address &&
+      tokenIn != blockchain$1.currency.address &&
+      await pathExists$4({ path: [tokenIn, blockchain$1.wrapped.address], amountIn, amountInMax, amountOut, amountOutMin }) &&
+      tokenOut != blockchain$1.wrapped.address &&
+      tokenOut != blockchain$1.currency.address &&
+      await pathExists$4({ path: [tokenOut, blockchain$1.wrapped.address], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })
     ) {
       // path via blockchain.wrapped.address
-      path = [tokenIn, blockchain$9.wrapped.address, tokenOut];
+      path = [tokenIn, blockchain$1.wrapped.address, tokenOut];
     } else if (
-      !blockchain$9.stables.usd.includes(tokenIn) &&
-      (stablesIn = (await Promise.all(blockchain$9.stables.usd.map(async(stable)=>await pathExists$2({ path: [tokenIn, stable], amountIn, amountInMax, amountOut, amountOutMin }) ? stable : undefined))).filter(Boolean)) &&
-      !blockchain$9.stables.usd.includes(tokenOut) &&
-      (stablesOut = (await Promise.all(blockchain$9.stables.usd.map(async(stable)=>await pathExists$2({ path: [tokenOut, stable], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })  ? stable : undefined))).filter(Boolean)) &&
+      !blockchain$1.stables.usd.includes(tokenIn) &&
+      (stablesIn = (await Promise.all(blockchain$1.stables.usd.map(async(stable)=>await pathExists$4({ path: [tokenIn, stable], amountIn, amountInMax, amountOut, amountOutMin }) ? stable : undefined))).filter(Boolean)) &&
+      !blockchain$1.stables.usd.includes(tokenOut) &&
+      (stablesOut = (await Promise.all(blockchain$1.stables.usd.map(async(stable)=>await pathExists$4({ path: [tokenOut, stable], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })  ? stable : undefined))).filter(Boolean)) &&
       (stable = stablesIn.filter((stable)=> stablesOut.includes(stable))[0])
     ) {
       // path via TOKEN_IN <> STABLE <> TOKEN_OUT
@@ -32583,12 +33055,12 @@
 
     // Add blockchain.wrapped.address to route path if things start or end with blockchain.currency.address
     // because that actually reflects how things are routed in reality:
-    if(_optionalChain$1([path, 'optionalAccess', _ => _.length]) && path[0] == blockchain$9.currency.address) {
-      path.splice(1, 0, blockchain$9.wrapped.address);
-    } else if(_optionalChain$1([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == blockchain$9.currency.address) {
-      path.splice(path.length-1, 0, blockchain$9.wrapped.address);
+    if(_optionalChain$3([path, 'optionalAccess', _ => _.length]) && path[0] == blockchain$1.currency.address) {
+      path.splice(1, 0, blockchain$1.wrapped.address);
+    } else if(_optionalChain$3([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == blockchain$1.currency.address) {
+      path.splice(path.length-1, 0, blockchain$1.wrapped.address);
     }
-    return { path, fixedPath: fixPath$2(path) }
+    return { path, exchangePath: getExchangePath$3({ path }) }
   };
 
   let getAmountsOut = async ({ path, amountIn, amountInMax }) => {
@@ -32622,7 +33094,7 @@
     return amounts.slice().reverse()
   };
 
-  let getAmounts$2 = async ({
+  let getAmounts$4 = async ({
     path,
     tokenIn,
     tokenOut,
@@ -32631,7 +33103,7 @@
     amountInMax,
     amountOutMin
   }) => {
-    path = fixPath$2(path);
+    path = getExchangePath$3({ path });
     let amounts;
     if (amountOut) {
       amounts = await getAmountsIn({ path, amountOut, tokenIn, tokenOut });
@@ -32675,7 +33147,7 @@
     }
   };
 
-  const blockchain$8 = Blockchains__default['default'].solana;
+  const blockchain$2 = Blockchains__default['default'].solana;
   const SWAP_INSTRUCTION = new solanaWeb3_js.BN("14449647541112719096");
   const TWO_HOP_SWAP_INSTRUCTION = new solanaWeb3_js.BN("16635068063392030915");
 
@@ -32694,7 +33166,7 @@
   };
 
   const getTwoHopSwapInstructionKeys = async ({
-    fromAddress,
+    account,
     poolOne,
     tickArraysOne,
     tokenAccountOneA,
@@ -32737,7 +33209,7 @@
       // token_program
       { pubkey: new solanaWeb3_js.PublicKey(Token.solana.TOKEN_PROGRAM), isWritable: false, isSigner: false },
       // token_authority
-      { pubkey: new solanaWeb3_js.PublicKey(fromAddress), isWritable: false, isSigner: true },
+      { pubkey: new solanaWeb3_js.PublicKey(account), isWritable: false, isSigner: true },
       // whirlpool_one
       { pubkey: new solanaWeb3_js.PublicKey(poolOne.toString()), isWritable: true, isSigner: false },
       // whirlpool_two
@@ -32771,9 +33243,9 @@
       // tick_array_two_2
       { pubkey: onlyInitializedTicksTwo[2].address, isWritable: true, isSigner: false },
       // oracle_one
-      { pubkey: (await solanaWeb3_js.PublicKey.findProgramAddress([ solanaWeb3_js.Buffer.from('oracle'), new solanaWeb3_js.PublicKey(poolOne.toString()).toBuffer() ], new solanaWeb3_js.PublicKey(basics.router.v1.address)))[0], isWritable: false, isSigner: false },
+      { pubkey: (await solanaWeb3_js.PublicKey.findProgramAddress([ solanaWeb3_js.Buffer.from('oracle'), new solanaWeb3_js.PublicKey(poolOne.toString()).toBuffer() ], new solanaWeb3_js.PublicKey('whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc')))[0], isWritable: false, isSigner: false },
       // oracle_two
-      { pubkey: (await solanaWeb3_js.PublicKey.findProgramAddress([ solanaWeb3_js.Buffer.from('oracle'), new solanaWeb3_js.PublicKey(poolTwo.toString()).toBuffer() ], new solanaWeb3_js.PublicKey(basics.router.v1.address)))[0], isWritable: false, isSigner: false },
+      { pubkey: (await solanaWeb3_js.PublicKey.findProgramAddress([ solanaWeb3_js.Buffer.from('oracle'), new solanaWeb3_js.PublicKey(poolTwo.toString()).toBuffer() ], new solanaWeb3_js.PublicKey('whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc')))[0], isWritable: false, isSigner: false },
     ]
   };
   const getTwoHopSwapInstructionData = ({
@@ -32816,7 +33288,7 @@
   };
 
   const getSwapInstructionKeys = async ({
-    fromAddress,
+    account,
     pool,
     tokenAccountA,
     tokenVaultA,
@@ -32841,7 +33313,7 @@
       // token_program
       { pubkey: new solanaWeb3_js.PublicKey(Token.solana.TOKEN_PROGRAM), isWritable: false, isSigner: false },
       // token_authority
-      { pubkey: new solanaWeb3_js.PublicKey(fromAddress), isWritable: false, isSigner: true },
+      { pubkey: new solanaWeb3_js.PublicKey(account), isWritable: false, isSigner: true },
       // whirlpool
       { pubkey: new solanaWeb3_js.PublicKey(pool.toString()), isWritable: true, isSigner: false },
       // token_owner_account_a
@@ -32859,7 +33331,7 @@
       // tick_array_2
       { pubkey: onlyInitializedTicks[2].address, isWritable: true, isSigner: false },
       // oracle
-      { pubkey: (await solanaWeb3_js.PublicKey.findProgramAddress([ solanaWeb3_js.Buffer.from('oracle'), new solanaWeb3_js.PublicKey(pool.toString()).toBuffer() ], new solanaWeb3_js.PublicKey(basics.router.v1.address)))[0], isWritable: false, isSigner: false },
+      { pubkey: (await solanaWeb3_js.PublicKey.findProgramAddress([ solanaWeb3_js.Buffer.from('oracle'), new solanaWeb3_js.PublicKey(pool.toString()).toBuffer() ], new solanaWeb3_js.PublicKey('whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc')))[0], isWritable: false, isSigner: false },
     ]
   };
 
@@ -32890,8 +33362,7 @@
     return data
   };
 
-  const getTransaction$2 = async ({
-    exchange,
+  const getTransaction$4 = async ({
     path,
     amountIn,
     amountInMax,
@@ -32902,19 +33373,19 @@
     amountOutInput,
     amountInMaxInput,
     amountOutMinInput,
-    fromAddress
+    account
   }) => {
     let transaction = { blockchain: 'solana' };
     let instructions = [];
 
-    const fixedPath = fixPath$2(path);
-    if(fixedPath.length > 3) { throw 'Orca can only handle fixed paths with a max length of 3 (2 pools)!' }
-    const tokenIn = fixedPath[0];
-    const tokenMiddle = fixedPath.length == 3 ? fixedPath[1] : undefined;
-    const tokenOut = fixedPath[fixedPath.length-1];
+    const exchangePath = getExchangePath$3({ path });
+    if(exchangePath.length > 3) { throw 'Orca can only handle fixed paths with a max length of 3 (2 pools)!' }
+    const tokenIn = exchangePath[0];
+    const tokenMiddle = exchangePath.length == 3 ? exchangePath[1] : undefined;
+    const tokenOut = exchangePath[exchangePath.length-1];
 
     let pairs;
-    if(fixedPath.length == 2) {
+    if(exchangePath.length == 2) {
       pairs = [await getBestPair({ tokenIn, tokenOut, amountIn: (amountInInput || amountInMaxInput), amountOut: (amountOutInput || amountOutMinInput) })];
     } else {
       if(amountInInput || amountInMaxInput) {
@@ -32926,8 +33397,8 @@
       }
     }
 
-    let startsWrapped = (path[0] === blockchain$8.currency.address && fixedPath[0] === blockchain$8.wrapped.address);
-    let endsUnwrapped = (path[path.length-1] === blockchain$8.currency.address && fixedPath[fixedPath.length-1] === blockchain$8.wrapped.address);
+    let startsWrapped = (path[0] === blockchain$2.currency.address && exchangePath[0] === blockchain$2.wrapped.address);
+    let endsUnwrapped = (path[path.length-1] === blockchain$2.currency.address && exchangePath[exchangePath.length-1] === blockchain$2.wrapped.address);
     let wrappedAccount;
     const provider = await getProvider('solana');
     
@@ -32937,7 +33408,7 @@
       wrappedAccount = keypair.publicKey.toString();
       const lamports = startsWrapped ? new solanaWeb3_js.BN(amountIn.toString()).add(new solanaWeb3_js.BN(rent)) :  new solanaWeb3_js.BN(rent);
       let createAccountInstruction = solanaWeb3_js.SystemProgram.createAccount({
-        fromPubkey: new solanaWeb3_js.PublicKey(fromAddress),
+        fromPubkey: new solanaWeb3_js.PublicKey(account),
         newAccountPubkey: new solanaWeb3_js.PublicKey(wrappedAccount),
         programId: new solanaWeb3_js.PublicKey(Token.solana.TOKEN_PROGRAM),
         space: Token.solana.TOKEN_LAYOUT.span,
@@ -32948,8 +33419,8 @@
       instructions.push(
         Token.solana.initializeAccountInstruction({
           account: wrappedAccount,
-          token: blockchain$8.wrapped.address,
-          owner: fromAddress
+          token: blockchain$2.wrapped.address,
+          owner: account
         })
       );
     }
@@ -32959,16 +33430,16 @@
       let amountSpecifiedIsInput = !!(amountInInput || amountOutMinInput);
       let amount = amountSpecifiedIsInput ? amountIn : amountOut;
       let otherAmountThreshold = amountSpecifiedIsInput ? amountOutMin : amountInMax;
-      let tokenAccountIn = startsWrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: fromAddress, token: tokenIn }));
-      let tokenAccountOut = endsUnwrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: fromAddress, token: tokenOut }));
+      let tokenAccountIn = startsWrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenIn }));
+      let tokenAccountOut = endsUnwrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenOut }));
       if(!endsUnwrapped) {
-        await createTokenAccountIfNotExisting({ instructions, owner: fromAddress, token: tokenOut, account: tokenAccountOut });
+        await createTokenAccountIfNotExisting({ instructions, owner: account, token: tokenOut, account: tokenAccountOut });
       }
       instructions.push(
         new solanaWeb3_js.TransactionInstruction({
-          programId: new solanaWeb3_js.PublicKey(exchange.router.v1.address),
+          programId: new solanaWeb3_js.PublicKey('whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc'),
           keys: await getSwapInstructionKeys({
-            fromAddress,
+            account,
             pool: pairs[0].pubkey,
             tokenAccountA: pairs[0].aToB ? tokenAccountIn : tokenAccountOut,
             tokenVaultA: pairs[0].data.tokenVaultA,
@@ -32990,19 +33461,19 @@
       let amountSpecifiedIsInput = !!(amountInInput || amountOutMinInput);
       let amount = amountSpecifiedIsInput ? amountIn : amountOut;
       let otherAmountThreshold = amountSpecifiedIsInput ? amountOutMin : amountInMax;
-      let tokenAccountIn = startsWrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: fromAddress, token: tokenIn }));
-      let tokenMiddle = fixedPath[1];
-      let tokenAccountMiddle = new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: fromAddress, token: tokenMiddle }));
-      await createTokenAccountIfNotExisting({ instructions, owner: fromAddress, token: tokenMiddle, account: tokenAccountMiddle });
-      let tokenAccountOut = endsUnwrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: fromAddress, token: tokenOut }));
+      let tokenAccountIn = startsWrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenIn }));
+      let tokenMiddle = exchangePath[1];
+      let tokenAccountMiddle = new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenMiddle }));
+      await createTokenAccountIfNotExisting({ instructions, owner: account, token: tokenMiddle, account: tokenAccountMiddle });
+      let tokenAccountOut = endsUnwrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenOut }));
       if(!endsUnwrapped) {
-        await createTokenAccountIfNotExisting({ instructions, owner: fromAddress, token: tokenOut, account: tokenAccountOut });
+        await createTokenAccountIfNotExisting({ instructions, owner: account, token: tokenOut, account: tokenAccountOut });
       }
       instructions.push(
         new solanaWeb3_js.TransactionInstruction({
-          programId: new solanaWeb3_js.PublicKey(exchange.router.v1.address),
+          programId: new solanaWeb3_js.PublicKey('whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc'),
           keys: await getTwoHopSwapInstructionKeys({
-            fromAddress,
+            account,
             poolOne: pairs[0].pubkey,
             tickArraysOne: pairs[0].tickArrays,
             tokenAccountOneA: pairs[0].aToB ? tokenAccountIn : tokenAccountMiddle,
@@ -33033,7 +33504,7 @@
       instructions.push(
         Token.solana.closeAccountInstruction({
           account: wrappedAccount,
-          owner: fromAddress
+          owner: account
         })
       );
     }
@@ -33044,16 +33515,91 @@
     return transaction
   };
 
-  new Exchange(
-    Object.assign(basics, {
-      findPath: findPath$2,
-      pathExists: pathExists$2,
-      getAmounts: getAmounts$2,
-      getTransaction: getTransaction$2,
-    })
-  );
+  var Orca = {
+    findPath: findPath$4,
+    pathExists: pathExists$4,
+    getAmounts: getAmounts$4,
+    getTransaction: getTransaction$4,
+    WHIRLPOOL_LAYOUT,
+  };
 
-  function _optionalChain$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  const exchange$g = {
+    
+    name: 'orca',
+    label: 'Orca',
+    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI3LjIuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9ImthdG1hbl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgNjAwIDQ1MCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjAwIDQ1MDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8cGF0aCBmaWxsPSIjRkZEMTVDIiBkPSJNNDg4LjQsMjIyLjljMCwxMDMuOC04NC4xLDE4Ny45LTE4Ny45LDE4Ny45Yy0xMDMuOCwwLTE4Ny45LTg0LjEtMTg3LjktMTg3LjlDMTEyLjYsMTE5LjEsMTk2LjcsMzUsMzAwLjUsMzUKCUM0MDQuMiwzNSw0ODguNCwxMTkuMSw0ODguNCwyMjIuOXoiLz4KPHBhdGggZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjE3LjY3NTUiIGQ9Ik0yMDkuNSwyOTkuOGMxLjYtMS4xLDMuMS0yLjgsMy45LTUuMWMwLjgtMi42LDAuMy00LjksMC02LjJjMCwwLDAtMC4xLDAtMC4xbDAuMy0xLjhjMC45LDAuNSwxLjksMS4xLDMsMS45CgljMC4zLDAuMiwwLjcsMC41LDEuMSwwLjdjMC41LDAuNCwxLjEsMC44LDEuNCwxYzAuNiwwLjQsMS41LDEsMi41LDEuNWMyNS4xLDE1LjYsNDUuOCwyMiw2Mi4yLDIxLjJjMTctMC44LDI4LjktOS40LDM1LjEtMjEuOQoJYzUuOS0xMi4xLDYuMi0yNywyLTQwLjljLTQuMi0xMy45LTEzLTI3LjUtMjYuMi0zNi45Yy0yMi4yLTE1LjgtNDIuNS0zOS44LTUyLjctNjAuM2MtNS4yLTEwLjQtNy4zLTE4LjctNi43LTI0LjIKCWMwLjMtMi41LDEtNC4xLDItNS4xYzAuOS0xLDIuNi0yLjEsNS45LTIuNmM2LjktMS4xLDE1LTMuNiwyMy4xLTYuMmMzLjItMSw2LjMtMiw5LjUtMi45YzExLjctMy40LDI0LjItNi4zLDM3LjItNi4zCgljMjUuMywwLDU1LDExLDg2LjMsNTYuOGM0MC4yLDU4LjgsMTguMSwxMjQuNC0yOC4yLDE1OC45Yy0yMy4xLDE3LjItNTEuOSwyNi4zLTgxLjUsMjIuOUMyNjIuOSwzNDEuMywyMzQuOSwzMjcuOSwyMDkuNSwyOTkuOHoKCSBNMjE0LjIsMjg0LjZDMjE0LjIsMjg0LjYsMjE0LjIsMjg0LjcsMjE0LjIsMjg0LjZDMjE0LjEsMjg0LjcsMjE0LjIsMjg0LjYsMjE0LjIsMjg0LjZ6IE0yMTEuNiwyODUuOAoJQzIxMS42LDI4NS44LDIxMS43LDI4NS44LDIxMS42LDI4NS44QzIxMS43LDI4NS44LDIxMS42LDI4NS44LDIxMS42LDI4NS44eiIvPgo8cGF0aCBkPSJNMjMyLjUsMTI0LjNjMCwwLDcxLjgtMTkuMSw4Ny41LTE5LjFjMTUuNywwLDc4LjYsMzAuNSw5Ni45LDg2LjNjMjYsNzktNDQuNywxMzAuOS01Mi43LDEyNS44CgljNzYuMS02Mi45LTQ4LjQtMTc5LjEtMTA5LjYtMTcwLjRjLTcuNiwxLjEtMy40LDcuNi0zLjQsNy42bC0xLjcsMTdsLTEyLjctMjEuMkwyMzIuNSwxMjQuM3oiLz4KPHBhdGggZD0iTTQwNi41LDE2Ny42YzIyLjcsMzkuOSwxOCwxNy4xLDEyLjksNjIuN2M5LjMtMTUuMSwyMy45LTMuOCwyOS45LDJjMS4xLDEsMi45LDAuNCwyLjgtMS4xYy0wLjItNi44LTIuMi0yMS40LTEzLjQtMzcuMQoJQzQyMy40LDE3Mi42LDQwNi41LDE2Ny42LDQwNi41LDE2Ny42eiIvPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMC45OTMiIGQ9Ik00MTkuNCwyMzAuM2M1LTQ1LjYsOS43LTIyLjgtMTIuOS02Mi43YzAsMCwxNi45LDUsMzIuMywyNi41YzExLjIsMTUuNywxMy4xLDMwLjMsMTMuNCwzNy4xCgljMC4xLDEuNS0xLjcsMi4xLTIuOCwxLjFDNDQzLjMsMjI2LjUsNDI4LjcsMjE1LjMsNDE5LjQsMjMwLjN6IE00MTkuNCwyMzAuM2MwLjktMi4xLDIuMi01LjUsMi4yLTUuNSIvPgo8cGF0aCBkPSJNMjI0LDIyNC4yYy05LjYsMTYuMi0yOS4yLDE1LTI4LjgsMzQuM2MxNy41LDM5LDE3LjYsMzYuMiwxNy42LDM2LjJjMzIuNS0xOC4yLDE5LjEtNTguNSwxNC4zLTcwLjQKCUMyMjYuNiwyMjMsMjI0LjcsMjIzLDIyNCwyMjQuMnoiLz4KPHBhdGggZD0iTTE1MC40LDI2MC4xYzE4LjcsMi40LDI5LjgtMTMuOCw0NC44LTEuNmMxOS45LDM3LjgsMTcuNiwzNi4yLDE3LjYsMzYuMmMtMzQuNCwxNC40LTU3LjktMjEtNjQuMy0zMi4xCglDMTQ3LjgsMjYxLjMsMTQ5LDI1OS45LDE1MC40LDI2MC4xeiIvPgo8cGF0aCBkPSJNMzA2LjksMjM2YzAsMCwxOC43LDE5LjEsOC45LDIyLjFjLTEyLjItNy41LTM0LTEuNy00NC43LDEuOWMtMi42LDAuOS01LjItMS40LTQuMy00LjFjMy42LTEwLDEyLjYtMjguNiwyOS45LTMxCglDMzA2LjksMjIyLjQsMzA2LjksMjM2LDMwNi45LDIzNnoiLz4KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTMxOC4zLDE0Mi41Yy0yLjEtMy02LjQtMTEsNi44LTExYzEzLjIsMCwzMy4zLDE0LjksMzcuNCwyMC40Yy0xLjMsMy40LTkuOCw0LjEtMTQsMy44Yy00LjItMC4zLTExLjUtMS0xNy0zLjgKCUMzMjYsMTQ5LjIsMzIwLjUsMTQ1LjUsMzE4LjMsMTQyLjV6Ii8+Cjwvc3ZnPgo=',
+    
+    slippage: true,
+
+    blockchains: ['solana'],
+
+    solana: {
+      router: {
+        address: 'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc',
+        api: Orca.WHIRLPOOL_LAYOUT,
+      },
+    }
+  };
+
+  var orca = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$g, {
+        scope,
+
+        findPath: (args)=>Orca.findPath({ ...args, exchange: exchange$g }),
+        pathExists: (args)=>Orca.pathExists({ ...args, exchange: exchange$g }),
+        getAmounts: (args)=>Orca.getAmounts({ ...args, exchange: exchange$g }),
+        getPrep: (args)=>{},
+        getTransaction: (args)=>Orca.getTransaction({ ...args, exchange: exchange$g }),
+      })
+    )
+  };
+
+  const exchange$f = {
+
+    name: 'pancakeswap',
+    label: 'PancakeSwap',
+    logo:'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OSIgdmlld0JveD0iMCAwIDE5OCAxOTkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNOTguNTUyIDE5OC42MDdDNjkuMDYxMyAxOTguNTg1IDQ1LjMwNiAxOTEuNTggMjguNzA3OSAxNzguOTk4QzExLjkxMDggMTY2LjI2NSAzIDE0OC4xOTUgMyAxMjcuNzQ4QzMgMTA4LjA0NyAxMS44OTEzIDkzLjg0MTEgMjEuOTUxNyA4NC4yMzg1QzI5LjgzNTkgNzYuNzEzMiAzOC41MzYzIDcxLjg5MzYgNDQuNTk0NSA2OS4xMjEzQzQzLjIyNDUgNjQuOTU5NCA0MS41MTUzIDU5LjUxMDggMzkuOTg2MSA1My44ODMyQzM3LjkzOTkgNDYuMzUyNyAzNS45MzI1IDM3LjUxNzQgMzUuOTMyNSAzMS4wNDI5QzM1LjkzMjUgMjMuMzc5NSAzNy42MjA0IDE1LjY4MzMgNDIuMTcxNCA5LjcwMzA2QzQ2Ljk3OTcgMy4zODQ3NiA1NC4yMTgyIDAgNjIuOTI2NCAwQzY5LjczMjIgMCA3NS41MTAzIDIuNDk5MDMgODAuMDMzOSA2LjgxMDExQzg0LjM1NzkgMTAuOTMwOSA4Ny4yMzU3IDE2LjQwMzQgODkuMjIyNyAyMi4xMDgyQzkyLjcxNDMgMzIuMTMyNSA5NC4wNzM4IDQ0LjcyNjQgOTQuNDU1MSA1Ny4yOTQ1SDEwMi43OTZDMTAzLjE3OCA0NC43MjY0IDEwNC41MzcgMzIuMTMyNSAxMDguMDI5IDIyLjEwODJDMTEwLjAxNiAxNi40MDM0IDExMi44OTQgMTAuOTMwOSAxMTcuMjE4IDYuODEwMTFDMTIxLjc0MSAyLjQ5OTAzIDEyNy41MTkgMCAxMzQuMzI1IDBDMTQzLjAzMyAwIDE1MC4yNzIgMy4zODQ3NiAxNTUuMDggOS43MDMwNkMxNTkuNjMxIDE1LjY4MzMgMTYxLjMxOSAyMy4zNzk1IDE2MS4zMTkgMzEuMDQyOUMxNjEuMzE5IDM3LjUxNzQgMTU5LjMxMiA0Ni4zNTI3IDE1Ny4yNjUgNTMuODgzMkMxNTUuNzM2IDU5LjUxMDggMTU0LjAyNyA2NC45NTk0IDE1Mi42NTcgNjkuMTIxM0MxNTguNzE1IDcxLjg5MzYgMTY3LjQxNiA3Ni43MTMyIDE3NS4zIDg0LjIzODVDMTg1LjM2IDkzLjg0MTEgMTk0LjI1MiAxMDguMDQ3IDE5NC4yNTIgMTI3Ljc0OEMxOTQuMjUyIDE0OC4xOTUgMTg1LjM0MSAxNjYuMjY1IDE2OC41NDQgMTc4Ljk5OEMxNTEuOTQ1IDE5MS41OCAxMjguMTkgMTk4LjU4NSA5OC42OTk2IDE5OC42MDdIOTguNTUyWiIgZmlsbD0iIzYzMzAwMSIvPgo8cGF0aCBkPSJNNjIuOTI2MiA3LjI4ODMzQzUwLjE3MTYgNy4yODgzMyA0NC4zMDA0IDE2LjgwMzcgNDQuMzAwNCAyOS45NjMyQzQ0LjMwMDQgNDAuNDIzMSA1MS4xMjIyIDYxLjM3MTUgNTMuOTIxMiA2OS41MjYzQzU0LjU1MDggNzEuMzYwNSA1My41NjE2IDczLjM3MDEgNTEuNzU3NCA3NC4wODE0QzQxLjUzNTEgNzguMTEyMSAxMS4zNjc5IDkyLjg3IDExLjM2NzkgMTI2LjY2OUMxMS4zNjc5IDE2Mi4yNzIgNDIuMDI0NiAxODkuMTE3IDk4LjU1ODEgMTg5LjE2Qzk4LjU4MDYgMTg5LjE2IDk4LjYwMzEgMTg5LjE1OSA5OC42MjU2IDE4OS4xNTlDOTguNjQ4MSAxODkuMTU5IDk4LjY3MDYgMTg5LjE2IDk4LjY5MzEgMTg5LjE2QzE1NS4yMjcgMTg5LjExNyAxODUuODgzIDE2Mi4yNzIgMTg1Ljg4MyAxMjYuNjY5QzE4NS44ODMgOTIuODcgMTU1LjcxNiA3OC4xMTIxIDE0NS40OTQgNzQuMDgxNEMxNDMuNjkgNzMuMzcwMSAxNDIuNyA3MS4zNjA1IDE0My4zMyA2OS41MjYzQzE0Ni4xMjkgNjEuMzcxNSAxNTIuOTUxIDQwLjQyMzEgMTUyLjk1MSAyOS45NjMyQzE1Mi45NTEgMTYuODAzNyAxNDcuMDggNy4yODgzMyAxMzQuMzI1IDcuMjg4MzNDMTE1Ljk2NSA3LjI4ODMzIDExMS4zODkgMzMuMjk1NSAxMTEuMDYyIDYxLjIwNzVDMTExLjA0IDYzLjA3MDkgMTA5LjUzNCA2NC41ODI4IDEwNy42NyA2NC41ODI4SDg5LjU4MDdDODcuNzE3MiA2NC41ODI4IDg2LjIxMDggNjMuMDcwOSA4Ni4xODkgNjEuMjA3NUM4NS44NjI2IDMzLjI5NTUgODEuMjg2IDcuMjg4MzMgNjIuOTI2MiA3LjI4ODMzWiIgZmlsbD0iI0QxODg0RiIvPgo8cGF0aCBkPSJNOTguNjkzMSAxNzcuNzU1QzU3LjE1NTEgMTc3Ljc1NSAxMS40Mzk3IDE1NS41MiAxMS4zNjgxIDEyNi43MzdDMTEuMzY4IDEyNi43ODEgMTEuMzY3OSAxMjYuODI2IDExLjM2NzkgMTI2Ljg3MUMxMS4zNjc5IDE2Mi41MDMgNDIuMDczNCAxODkuMzYyIDk4LjY5MzEgMTg5LjM2MkMxNTUuMzEzIDE4OS4zNjIgMTg2LjAxOCAxNjIuNTAzIDE4Ni4wMTggMTI2Ljg3MUMxODYuMDE4IDEyNi44MjYgMTg2LjAxOCAxMjYuNzgxIDE4Ni4wMTggMTI2LjczN0MxODUuOTQ2IDE1NS41MiAxNDAuMjMxIDE3Ny43NTUgOTguNjkzMSAxNzcuNzU1WiIgZmlsbD0iI0ZFREM5MCIvPgo8cGF0aCBkPSJNNzUuNjEzNSAxMTcuODk2Qzc1LjYxMzUgMTI3LjYxNCA3MS4wMjEgMTMyLjY3NSA2NS4zNTU4IDEzMi42NzVDNTkuNjkwNyAxMzIuNjc1IDU1LjA5ODEgMTI3LjYxNCA1NS4wOTgxIDExNy44OTZDNTUuMDk4MSAxMDguMTc4IDU5LjY5MDcgMTAzLjExNyA2NS4zNTU4IDEwMy4xMTdDNzEuMDIxIDEwMy4xMTcgNzUuNjEzNSAxMDguMTc4IDc1LjYxMzUgMTE3Ljg5NloiIGZpbGw9IiM2MzMwMDEiLz4KPHBhdGggZD0iTTE0Mi4yODggMTE3Ljg5NkMxNDIuMjg4IDEyNy42MTQgMTM3LjY5NiAxMzIuNjc1IDEzMi4wMzEgMTMyLjY3NUMxMjYuMzY1IDEzMi42NzUgMTIxLjc3MyAxMjcuNjE0IDEyMS43NzMgMTE3Ljg5NkMxMjEuNzczIDEwOC4xNzggMTI2LjM2NSAxMDMuMTE3IDEzMi4wMzEgMTAzLjExN0MxMzcuNjk2IDEwMy4xMTcgMTQyLjI4OCAxMDguMTc4IDE0Mi4yODggMTE3Ljg5NloiIGZpbGw9IiM2MzMwMDEiLz4KPC9zdmc+Cg==',
+    
+    slippage: true,
+    
+    blockchains: ['bsc'],
+
+    bsc: {
+      router: {
+        address: '0x10ED43C718714eb63d5aA57B78B54704E256024E',
+        api: UniswapV2.ROUTER
+      },
+      factory: {
+        address: '0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73',
+        api: UniswapV2.FACTORY
+      },
+      pair: {
+        api: UniswapV2.PAIR
+      },
+
+    }
+
+  };
+
+  var pancakeswap = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$f, {
+        scope,
+        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$f }),
+        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$f }),
+        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$f }),
+        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$f }),
+        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$f }),
+      })
+    )
+  };
+
+  function _optionalChain$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
   // Replaces 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE with the wrapped token and implies wrapping.
   //
@@ -33061,156 +33607,244 @@
   // to be able to differentiate between ETH<>Token and WETH<>Token swaps
   // as they are not the same!
   //
-  const fixPath$1 = (blockchain, exchange, path) => {
+  const getExchangePath$2 = ({ blockchain, exchange, path }) => {
     if(!path) { return }
-    let fixedPath = path.map((token, index) => {
+    let exchangePath = path.map((token, index) => {
       if (
-        token === blockchain.currency.address && path[index+1] != blockchain.wrapped.address &&
-        path[index-1] != blockchain.wrapped.address
+        token === Blockchains__default['default'][blockchain].currency.address && path[index+1] != Blockchains__default['default'][blockchain].wrapped.address &&
+        path[index-1] != Blockchains__default['default'][blockchain].wrapped.address
       ) {
-        return blockchain.wrapped.address
+        return Blockchains__default['default'][blockchain].wrapped.address
       } else {
         return token
       }
     });
 
-    if(fixedPath[0] == blockchain.currency.address && fixedPath[1] == blockchain.wrapped.address) {
-      fixedPath.splice(0, 1);
-    } else if(fixedPath[fixedPath.length-1] == blockchain.currency.address && fixedPath[fixedPath.length-2] == blockchain.wrapped.address) {
-      fixedPath.splice(fixedPath.length-1, 1);
+    if(exchangePath[0] == Blockchains__default['default'][blockchain].currency.address && exchangePath[1] == Blockchains__default['default'][blockchain].wrapped.address) {
+      exchangePath.splice(0, 1);
+    } else if(exchangePath[exchangePath.length-1] == Blockchains__default['default'][blockchain].currency.address && exchangePath[exchangePath.length-2] == Blockchains__default['default'][blockchain].wrapped.address) {
+      exchangePath.splice(exchangePath.length-1, 1);
     }
 
-    return fixedPath
+    return exchangePath
   };
 
-  const minReserveRequirements = ({ reserves, min, token, token0, token1, decimals }) => {
-    if(token0.toLowerCase() == token.toLowerCase()) {
-      return reserves[0].gte(ethers.ethers.utils.parseUnits(min.toString(), decimals))
-    } else if (token1.toLowerCase() == token.toLowerCase()) {
-      return reserves[1].gte(ethers.ethers.utils.parseUnits(min.toString(), decimals))
-    } else {
-      return false
-    }
+  const getInputAmount$1 = async ({ exchange, pool, outputAmount })=>{
+
+    const data = await request({
+      blockchain: pool.blockchain,
+      address: exchange[pool.blockchain].quoter.address,
+      api: exchange[pool.blockchain].quoter.api,
+      method: 'quoteExactOutput',
+      params: {
+        path: ethers.ethers.utils.solidityPack(["address","uint24","address"],[pool.path[1], pool.fee, pool.path[0]]),
+        amountOut: outputAmount
+      },
+      cache: 5
+    });
+
+    return data.amountIn
   };
 
-  const pathExists$1 = async (blockchain, exchange, path) => {
-    if(fixPath$1(blockchain, exchange, path).length == 1) { return false }
+  const getOutputAmount$1 = async ({ exchange, pool, inputAmount })=>{
+
+    const data = await request({
+      blockchain: pool.blockchain,
+      address: exchange[pool.blockchain].quoter.address,
+      api: exchange[pool.blockchain].quoter.api,
+      method: 'quoteExactInput',
+      params: {
+        path: ethers.ethers.utils.solidityPack(["address","uint24","address"],[pool.path[0], pool.fee, pool.path[1]]),
+        amountIn: inputAmount
+      },
+      cache: 5
+    });
+
+    return data.amountOut
+  };
+
+  const getBestPool$2 = async ({ blockchain, exchange, path, amountIn, amountOut, block }) => {
+    path = getExchangePath$2({ blockchain, exchange, path });
+    if(path.length > 2) { throw('PancakeSwap V3 can only check paths for up to 2 tokens!') }
+
     try {
-      let pair = await request({
-        blockchain: blockchain.name,
-        address: exchange.factory.address,
-        method: 'getPair',
-        api: exchange.factory.api,
-        cache: 3600000,
-        params: fixPath$1(blockchain, exchange, path),
-      });
-      if(!pair || pair == blockchain.zero) { return false }
-      let [reserves, token0, token1] = await Promise.all([
-        request({ blockchain: blockchain.name, address: pair, method: 'getReserves', api: exchange.pair.api, cache: 3600000 }),
-        request({ blockchain: blockchain.name, address: pair, method: 'token0', api: exchange.pair.api, cache: 3600000 }),
-        request({ blockchain: blockchain.name, address: pair, method: 'token1', api: exchange.pair.api, cache: 3600000 })
-      ]);
-      if(path.includes(blockchain.wrapped.address)) {
-        return minReserveRequirements({ min: 1, token: blockchain.wrapped.address, decimals: blockchain.currency.decimals, reserves, token0, token1 })
-      } else if (path.find((step)=>blockchain.stables.usd.includes(step))) {
-        let address = path.find((step)=>blockchain.stables.usd.includes(step));
-        let token = new Token({ blockchain: blockchain.name, address });
-        let decimals = await token.decimals();
-        return minReserveRequirements({ min: 1000, token: address, decimals, reserves, token0, token1 })
+
+      let pools = (await Promise.all(exchange.fees.map((fee)=>{
+        return request({
+          blockchain: Blockchains__default['default'][blockchain].name,
+          address: exchange[blockchain].factory.address,
+          method: 'getPool',
+          api: exchange[blockchain].factory.api,
+          cache: 3600,
+          params: [path[0], path[1], fee],
+        }).then((address)=>{
+          return {
+            blockchain,
+            address,
+            path,
+            fee,
+            token0: [...path].sort()[0],
+            token1: [...path].sort()[1],
+          }
+        }).catch(()=>{})
+      }))).filter(Boolean);
+      
+      pools = pools.filter((pool)=>pool.address != Blockchains__default['default'][blockchain].zero);
+
+      pools = (await Promise.all(pools.map(async(pool)=>{
+
+        try {
+
+          let amount;
+          if(amountIn) {
+            amount = await getOutputAmount$1({ exchange, pool, inputAmount: amountIn });
+          } else {
+            amount = await getInputAmount$1({ exchange, pool, outputAmount: amountOut });
+          }
+
+          return { ...pool, amountIn: amountIn || amount, amountOut: amountOut || amount }
+        } catch (e) {}
+
+      }))).filter(Boolean);
+      
+      if(amountIn) {
+        // highest amountOut is best pool
+        return pools.sort((a,b)=>(b.amountOut.gt(a.amountOut) ? 1 : -1))[0]
       } else {
-        return true
+        // lowest amountIn is best pool
+        return pools.sort((a,b)=>(b.amountIn.lt(a.amountIn) ? 1 : -1))[0]
       }
-    } catch (e) { return false }
+
+    } catch (e2) { return }
   };
 
-  const findPath$1 = async (blockchain, exchange, { tokenIn, tokenOut }) => {
+  const pathExists$3 = async ({ blockchain, exchange, path, amountIn, amountOut, amountInMax, amountOutMin }) => {
+    try {
+      return !!(await getBestPool$2({ blockchain, exchange, path, amountIn: (amountIn || amountInMax), amountOut: (amountOut || amountOutMin) }))
+    } catch (e3) { return false }
+  };
+
+  const findPath$3 = async ({ blockchain, exchange, tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin }) => {
     if(
-      [tokenIn, tokenOut].includes(blockchain.currency.address) &&
-      [tokenIn, tokenOut].includes(blockchain.wrapped.address)
-    ) { return { path: undefined, fixedPath: undefined } }
+      [tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].currency.address) &&
+      [tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].wrapped.address)
+    ) { return { path: undefined, exchangePath: undefined } }
 
     let path;
-    if (await pathExists$1(blockchain, exchange, [tokenIn, tokenOut])) {
-      // direct path
+    let pools = [];
+
+    // DIRECT PATH
+    pools = [
+      await getBestPool$2({ exchange, blockchain, path: [tokenIn, tokenOut], amountIn: (amountIn || amountInMax), amountOut: (amountOut || amountOutMin) })
+    ];
+    if (pools.filter(Boolean).length) {
       path = [tokenIn, tokenOut];
-    } else if (
-      tokenIn != blockchain.wrapped.address &&
-      await pathExists$1(blockchain, exchange, [tokenIn, blockchain.wrapped.address]) &&
-      tokenOut != blockchain.wrapped.address &&
-      await pathExists$1(blockchain, exchange, [tokenOut, blockchain.wrapped.address])
+    }
+
+    // PATH VIA WRAPPED
+    if(
+      !path &&
+      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
+      tokenOut != Blockchains__default['default'][blockchain].wrapped.address
     ) {
-      // path via WRAPPED
-      path = [tokenIn, blockchain.wrapped.address, tokenOut];
-    } else if (
-      !blockchain.stables.usd.includes(tokenIn) &&
-      (await Promise.all(blockchain.stables.usd.map((stable)=>pathExists$1(blockchain, exchange, [tokenIn, stable])))).filter(Boolean).length &&
-      tokenOut != blockchain.wrapped.address &&
-      await pathExists$1(blockchain, exchange, [blockchain.wrapped.address, tokenOut])
+      pools = [];
+      if(amountOut || amountOutMin){
+        pools.push(await getBestPool$2({ exchange, blockchain, path: [Blockchains__default['default'][blockchain].wrapped.address, tokenOut], amountOut: (amountOut || amountOutMin) }));
+        if(pools.filter(Boolean).length) {
+          pools.unshift(await getBestPool$2({ exchange, blockchain, path: [tokenIn, Blockchains__default['default'][blockchain].wrapped.address], amountOut: pools[0].amountIn }));
+        }
+      } else { // amountIn
+        pools.push(await getBestPool$2({ exchange, blockchain, path: [tokenIn, Blockchains__default['default'][blockchain].wrapped.address], amountIn: (amountIn || amountInMax) }));
+        if(pools.filter(Boolean).length) {
+          pools.push(await getBestPool$2({ exchange, blockchain, path: [Blockchains__default['default'][blockchain].wrapped.address, tokenOut], amountIn: pools[0].amountOut }));
+        }
+      }
+      if (pools.filter(Boolean).length === 2) {
+        // path via WRAPPED
+        path = [tokenIn, Blockchains__default['default'][blockchain].wrapped.address, tokenOut];
+      }
+    }
+
+    // PATH VIA USD STABLE
+    if(
+      !path
     ) {
-      // path via tokenIn -> USD -> WRAPPED -> tokenOut
-      let USD = (await Promise.all(blockchain.stables.usd.map(async (stable)=>{ return(await pathExists$1(blockchain, exchange, [tokenIn, stable]) ? stable : undefined) }))).find(Boolean);
-      path = [tokenIn, USD, blockchain.wrapped.address, tokenOut];
-    } else if (
-      tokenIn != blockchain.wrapped.address &&
-      await pathExists$1(blockchain, exchange, [tokenIn, blockchain.wrapped.address]) &&
-      !blockchain.stables.usd.includes(tokenOut) &&
-      (await Promise.all(blockchain.stables.usd.map((stable)=>pathExists$1(blockchain, exchange, [stable, tokenOut])))).filter(Boolean).length
-    ) {
-      // path via tokenIn -> WRAPPED -> USD -> tokenOut
-      let USD = (await Promise.all(blockchain.stables.usd.map(async (stable)=>{ return(await pathExists$1(blockchain, exchange, [stable, tokenOut]) ? stable : undefined) }))).find(Boolean);
-      path = [tokenIn, blockchain.wrapped.address, USD, tokenOut];
+      pools = [];
+      let allPoolsForAllUSD = await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async(stable)=>{
+        let pools = [];
+        if(amountOut || amountOutMin){
+          pools.push(await getBestPool$2({ exchange, blockchain, path: [stable, tokenOut], amountOut: (amountOut || amountOutMin) }));
+          if(pools.filter(Boolean).length) {
+            pools.unshift(await getBestPool$2({ exchange, blockchain, path: [tokenIn, stable], amountOut: pools[0].amountIn }));
+          }
+        } else { // amountIn
+          pools.push(await getBestPool$2({ exchange, blockchain, path: [tokenIn, stable], amountIn: (amountIn || amountInMax) }));
+          if(pools.filter(Boolean).length) {
+            pools.push(await getBestPool$2({ exchange, blockchain, path: [stable, tokenOut], amountIn: pools[0].amountOut }));
+          }
+        }
+        if(pools.filter(Boolean).length === 2) {
+          return [stable, pools]
+        }
+      }));
+
+      let usdPath = allPoolsForAllUSD.filter(Boolean)[0];
+      if(usdPath) {
+        path = [tokenIn, usdPath[0], tokenOut];
+        pools = usdPath[1];
+      }
     }
 
     // Add WRAPPED to route path if things start or end with NATIVE
     // because that actually reflects how things are routed in reality:
-    if(_optionalChain$3([path, 'optionalAccess', _ => _.length]) && path[0] == blockchain.currency.address) {
-      path.splice(1, 0, blockchain.wrapped.address);
-    } else if(_optionalChain$3([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == blockchain.currency.address) {
-      path.splice(path.length-1, 0, blockchain.wrapped.address);
+    if(_optionalChain$2([path, 'optionalAccess', _ => _.length]) && path[0] == Blockchains__default['default'][blockchain].currency.address) {
+      path.splice(1, 0, Blockchains__default['default'][blockchain].wrapped.address);
+    } else if(_optionalChain$2([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == Blockchains__default['default'][blockchain].currency.address) {
+      path.splice(path.length-1, 0, Blockchains__default['default'][blockchain].wrapped.address);
     }
 
-    return { path, fixedPath: fixPath$1(blockchain, exchange, path) }
+    if(!path) { pools = []; }
+    return { path, pools, exchangePath: getExchangePath$2({ blockchain, exchange, path }) }
   };
 
-  let getAmountOut = (blockchain, exchange, { path, amountIn, tokenIn, tokenOut }) => {
-    return new Promise((resolve) => {
-      request({
-        blockchain: blockchain.name,
-        address: exchange.router.address,
-        method: 'getAmountsOut',
-        api: exchange.router.api,
-        params: {
-          amountIn: amountIn,
-          path: fixPath$1(blockchain, exchange, path),
-        },
-      })
-      .then((amountsOut)=>{
-        resolve(amountsOut[amountsOut.length - 1]);
-      })
-      .catch(()=>resolve());
-    })
+  let getAmountOut$2 = ({ blockchain, exchange, path, pools, amountIn }) => {
+    return pools[pools.length-1].amountOut
   };
 
-  let getAmountIn = (blockchain, exchange, { path, amountOut, block }) => {
-    return new Promise((resolve) => {
-      request({
-        blockchain: blockchain.name,
-        address: exchange.router.address,
-        method: 'getAmountsIn',
-        api: exchange.router.api,
-        params: {
-          amountOut: amountOut,
-          path: fixPath$1(blockchain, exchange, path),
-        },
-        block
-      })
-      .then((amountsIn)=>resolve(amountsIn[0]))
-      .catch(()=>resolve());
-    })
+  let getAmountIn$2 = async ({ blockchain, exchange, path, pools, amountOut, block }) => {
+    if(block === undefined) {
+      return pools[0].amountIn
+    } else {
+      
+      let path;
+      if(pools.length == 2) {
+        path = ethers.ethers.utils.solidityPack(["address","uint24","address","uint24","address"],[
+          pools[1].path[1], pools[1].fee, pools[0].path[1], pools[0].fee, pools[0].path[0]
+        ]);
+      } else if(pools.length == 1) { 
+        path = ethers.ethers.utils.solidityPack(["address","uint24","address"],[
+          pools[0].path[1], pools[0].fee, pools[0].path[0]
+        ]);
+      }
+
+      const data = await request({
+        block,
+        blockchain,
+        address: exchange[blockchain].quoter.address,
+        api: exchange[blockchain].quoter.api,
+        method: 'quoteExactOutput',
+        params: { path, amountOut },
+      });
+
+      return data.amountIn
+    }
   };
 
-  let getAmounts$1 = async (blockchain, exchange, {
+  let getAmounts$3 = async ({
+    blockchain,
+    exchange,
     path,
+    pools,
     block,
     tokenIn,
     tokenOut,
@@ -33220,28 +33854,28 @@
     amountOutMin
   }) => {
     if (amountOut) {
-      amountIn = await getAmountIn(blockchain, exchange, { block, path, amountOut, tokenIn, tokenOut });
+      amountIn = await getAmountIn$2({ blockchain, exchange, block, path, pools, amountOut, tokenIn, tokenOut });
       if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
         return {}
       } else if (amountInMax === undefined) {
         amountInMax = amountIn;
       }
     } else if (amountIn) {
-      amountOut = await getAmountOut(blockchain, exchange, { path, amountIn, tokenIn, tokenOut });
+      amountOut = await getAmountOut$2({ blockchain, exchange, path, pools, amountIn, tokenIn, tokenOut });
       if (amountOut == undefined || amountOutMin && amountOut.lt(amountOutMin)) {
         return {}
       } else if (amountOutMin === undefined) {
         amountOutMin = amountOut;
       }
     } else if(amountOutMin) {
-      amountIn = await getAmountIn(blockchain, exchange, { block, path, amountOut: amountOutMin, tokenIn, tokenOut });
+      amountIn = await getAmountIn$2({ blockchain, exchange, block, path, pools, amountOut: amountOutMin, tokenIn, tokenOut });
       if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
         return {}
       } else if (amountInMax === undefined) {
         amountInMax = amountIn;
       }
     } else if(amountInMax) {
-      amountOut = await getAmountOut(blockchain, exchange, { path, amountIn: amountInMax, tokenIn, tokenOut });
+      amountOut = await getAmountOut$2({ blockchain, exchange, path, pools, amountIn: amountInMax, tokenIn, tokenOut });
       if (amountOut == undefined ||amountOutMin && amountOut.lt(amountOutMin)) {
         return {}
       } else if (amountOutMin === undefined) {
@@ -33251,7 +33885,53 @@
     return { amountOut, amountIn, amountInMax, amountOutMin }
   };
 
-  let getTransaction$1 = (blockchain, exchange, {
+  let getPrep$2 = async({
+    exchange,
+    blockchain,
+    tokenIn,
+    amountIn,
+    account,
+    tokenOut,
+  })=> {
+
+    if(tokenIn === Blockchains__default['default'][blockchain].currency.address) { return } // NATIVE
+
+    let routerAddress;
+    if(tokenOut === Blockchains__default['default'][blockchain].currency.address) {
+      // unwrapping WBNB requires smart router
+      routerAddress = exchange[blockchain].smartRouter.address;
+    } else {
+      // approve simpleRouter
+      routerAddress = exchange[blockchain].router.address;
+    }
+
+    const allowanceForRouter = await request({
+      blockchain,
+      address: tokenIn,
+      method: 'allowance',
+      api: Token[blockchain]['20'],
+      params: [account, routerAddress]
+    });
+
+    if(allowanceForRouter.lt(amountIn)) {
+
+      let transaction = {
+        blockchain,
+        from: account,
+        to: tokenIn,
+        api: Token[blockchain]['20'],
+        method: 'approve',
+        params: [routerAddress, Blockchains__default['default'][blockchain].maxInt]
+      };
+      
+      return { transaction }
+    }
+  };
+
+  let getTransaction$3 = async({
+    blockchain,
+    exchange,
+    pools,
     path,
     amountIn,
     amountInMax,
@@ -33261,231 +33941,1482 @@
     amountOutInput,
     amountInMaxInput,
     amountOutMinInput,
-    fromAddress
+    account,
+    inputTokenPushed,
   }) => {
 
-    let transaction = {
-      blockchain: blockchain.name,
-      from: fromAddress,
-      to: exchange.router.address,
-      api: exchange.router.api,
+    const transaction = {
+      blockchain,
+      from: account,
     };
+    const deadline = Math.floor(Date.now() / 1000) + 21600; // 6 hours
+    const exchangePath = getExchangePath$2({ blockchain, exchange, path });
 
-    if (path[0] === blockchain.currency.address) {
-      if (amountInInput || amountOutMinInput) {
-        transaction.method = 'swapExactETHForTokens';
-        transaction.value = amountIn.toString();
-        transaction.params = { amountOutMin: amountOutMin.toString() };
-      } else if (amountOutInput || amountInMaxInput) {
-        transaction.method = 'swapETHForExactTokens';
-        transaction.value = amountInMax.toString();
-        transaction.params = { amountOut: amountOut.toString() };
+    if(path[path.length-1] === Blockchains__default['default'][blockchain].currency.address) {
+      // unwraping WBNB to BNB after swap requires smart router
+
+      transaction.to = exchange[blockchain].smartRouter.address;
+      transaction.api = exchange[blockchain].smartRouter.api;
+      transaction.method = 'multicall';
+
+      // multicall calls itself
+      const routerInterface = new ethers.ethers.utils.Interface(exchange[blockchain].smartRouter.api);
+      transaction.params = { data: [] };
+
+      if (exchangePath.length === 2) { // single swap
+
+        if (amountInInput || amountOutMinInput) {
+          transaction.params.data.push(
+            routerInterface.encodeFunctionData('exactInputSingle', [{
+              tokenIn: exchangePath[0],
+              tokenOut: exchangePath[1],
+              fee: pools[0].fee,
+              recipient: exchange[blockchain].smartRouter.address, // router must convert WRAPPED->NATIVE
+              deadline,
+              amountIn: (amountInMax || amountIn).toString(),
+              amountOutMinimum: (amountOutMin || amountOut).toString(),
+              sqrtPriceLimitX96: Blockchains__default['default'][blockchain].zero
+            }])
+          );
+        } else if (amountOutInput || amountInMaxInput) {
+          transaction.params.data.push(
+            routerInterface.encodeFunctionData('exactOutputSingle', [{
+              tokenIn: exchangePath[0],
+              tokenOut: exchangePath[1],
+              fee: pools[0].fee,
+              recipient: exchange[blockchain].smartRouter.address, // router must convert WRAPPED->NATIVE
+              deadline,
+              amountInMaximum: (amountInMax || amountIn).toString(),
+              amountOut: (amountOutMin || amountOut).toString(),
+              sqrtPriceLimitX96: Blockchains__default['default'][blockchain].zero
+            }])
+          );
+        }
+      } else { // multi swap
+
+        const packedPath = ethers.ethers.utils.solidityPack(
+          ["address","uint24","address","uint24","address"],
+          [pools[0].path[0], pools[0].fee, pools[0].path[1], pools[1].fee, pools[1].path[1]]
+        );
+
+        if (amountInInput || amountOutMinInput) {
+          transaction.params.data.push(
+            routerInterface.encodeFunctionData('exactInput', [{
+              path: packedPath,
+              recipient: exchange[blockchain].smartRouter.address, // router must convert WRAPPED->NATIVE
+              deadline,
+              amountIn: (amountInMax || amountIn).toString(),
+              amountOutMinimum: (amountOutMin || amountOut).toString(),
+            }])
+          );
+        } else if (amountOutInput || amountInMaxInput) {
+          transaction.params.data.push(
+            routerInterface.encodeFunctionData('exactOutput', [{
+              path: packedPath,
+              recipient: exchange[blockchain].smartRouter.address, // router must convert WRAPPED->NATIVE
+              deadline,
+              amountInMaximum: (amountInMax || amountIn).toString(),
+              amountOut: (amountOutMin || amountOut).toString(),
+            }])
+          );
+        }
       }
-    } else if (path[path.length - 1] === blockchain.currency.address) {
-      if (amountInInput || amountOutMinInput) {
-        transaction.method = 'swapExactTokensForETH';
-        transaction.params = { amountIn: amountIn.toString(), amountOutMin: amountOutMin.toString() };
-      } else if (amountOutInput || amountInMaxInput) {
-        transaction.method = 'swapTokensForExactETH';
-        transaction.params = { amountInMax: amountInMax.toString(), amountOut: amountOut.toString() };
-      }
+
+      // unwrap WRAPPED to NATIVE
+      transaction.params.data.push(
+        routerInterface.encodeFunctionData('unwrapWETH9', [
+          (amountOutMin || amountOut).toString(),
+          account,
+        ])
+      );
+
     } else {
-      if (amountInInput || amountOutMinInput) {
-        transaction.method = 'swapExactTokensForTokens';
-        transaction.params = { amountIn: amountIn.toString(), amountOutMin: amountOutMin.toString() };
-      } else if (amountOutInput || amountInMaxInput) {
-        transaction.method = 'swapTokensForExactTokens';
-        transaction.params = { amountInMax: amountInMax.toString(), amountOut: amountOut.toString() };
+      // use simple router (for every swap not resulting in NATIVE)
+
+      transaction.to = exchange[blockchain].router.address;
+      transaction.api = exchange[blockchain].router.api;
+
+      if(path[0] === Blockchains__default['default'][blockchain].currency.address) {
+        transaction.value = (amountIn || amountInMax).toString();
+      }
+
+      if (exchangePath.length === 2) { // single swap
+        if (amountInInput || amountOutMinInput) {
+          transaction.method = 'exactInputSingle';
+          transaction.params = {
+            params: {
+              tokenIn: exchangePath[0],
+              tokenOut: exchangePath[1],
+              fee: pools[0].fee,
+              recipient: account,
+              deadline,
+              amountIn: (amountInMax || amountIn).toString(),
+              amountOutMinimum: (amountOutMin || amountOut).toString(),
+              sqrtPriceLimitX96: Blockchains__default['default'][blockchain].zero
+            }
+          };
+        } else if (amountOutInput || amountInMaxInput) {
+          transaction.method = 'exactOutputSingle';
+          transaction.params = {
+            params: {
+              tokenIn: exchangePath[0],
+              tokenOut: exchangePath[1],
+              fee: pools[0].fee,
+              recipient: account,
+              deadline,
+              amountInMaximum: (amountInMax || amountIn).toString(),
+              amountOut: (amountOutMin || amountOut).toString(),
+              sqrtPriceLimitX96: Blockchains__default['default'][blockchain].zero
+            }
+          };
+        }
+      } else { // multi swap
+
+        const packedPath = ethers.ethers.utils.solidityPack(
+          ["address","uint24","address","uint24","address"],
+          [pools[0].path[0], pools[0].fee, pools[0].path[1], pools[1].fee, pools[1].path[1]]
+        );
+
+        if (amountInInput || amountOutMinInput) {
+          transaction.method = 'exactInput';
+          transaction.params = {
+            params: {
+              path: packedPath,
+              recipient: account,
+              deadline,
+              amountIn: (amountInMax || amountIn).toString(),
+              amountOutMinimum: (amountOutMin || amountOut).toString(),
+            }
+          };
+        } else if (amountOutInput || amountInMaxInput) {
+          transaction.method = 'exactOutput';
+          transaction.params = {
+            params: {
+              path: packedPath,
+              recipient: account,
+              deadline,
+              amountInMaximum: (amountInMax || amountIn).toString(),
+              amountOut: (amountOutMin || amountOut).toString(),
+            }
+          };
+        }
       }
     }
-
-    transaction.params = Object.assign({}, transaction.params, {
-      path: fixPath$1(blockchain, exchange, path),
-      to: fromAddress,
-      deadline: Math.round(Date.now() / 1000) + 60 * 60 * 24, // 24 hours
-    });
 
     return transaction
   };
 
-  const ROUTER = [{"inputs":[{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_WETH","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"amountADesired","type":"uint256"},{"internalType":"uint256","name":"amountBDesired","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountTokenDesired","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountIn","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountOut","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsIn","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsOut","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"reserveA","type":"uint256"},{"internalType":"uint256","name":"reserveB","type":"uint256"}],"name":"quote","outputs":[{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETHSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermit","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermitSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityWithPermit","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapETHForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETHSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
-  const FACTORY = [{"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"token0","type":"address"},{"indexed":true,"internalType":"address","name":"token1","type":"address"},{"indexed":false,"internalType":"address","name":"pair","type":"address"},{"indexed":false,"internalType":"uint256","name":"","type":"uint256"}],"name":"PairCreated","type":"event"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"allPairs","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"allPairsLength","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"}],"name":"createPair","outputs":[{"internalType":"address","name":"pair","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"feeTo","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"feeToSetter","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"getPair","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeTo","type":"address"}],"name":"setFeeTo","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"name":"setFeeToSetter","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}];
-  const PAIR = [{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount0Out","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1Out","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Swap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint112","name":"reserve0","type":"uint112"},{"indexed":false,"internalType":"uint112","name":"reserve1","type":"uint112"}],"name":"Sync","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MINIMUM_LIQUIDITY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PERMIT_TYPEHASH","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReserves","outputs":[{"internalType":"uint112","name":"_reserve0","type":"uint112"},{"internalType":"uint112","name":"_reserve1","type":"uint112"},{"internalType":"uint32","name":"_blockTimestampLast","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_token0","type":"address"},{"internalType":"address","name":"_token1","type":"address"}],"name":"initialize","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"kLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"mint","outputs":[{"internalType":"uint256","name":"liquidity","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"price0CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"price1CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"skim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount0Out","type":"uint256"},{"internalType":"uint256","name":"amount1Out","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"sync","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}];
+  const ROUTER$2 = [{"inputs":[{"internalType":"address","name":"_deployer","type":"address"},{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_WETH9","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"WETH9","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"deployer","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"bytes","name":"path","type":"bytes"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMinimum","type":"uint256"}],"internalType":"struct ISwapRouter.ExactInputParams","name":"params","type":"tuple"}],"name":"exactInput","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"address","name":"tokenIn","type":"address"},{"internalType":"address","name":"tokenOut","type":"address"},{"internalType":"uint24","name":"fee","type":"uint24"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMinimum","type":"uint256"},{"internalType":"uint160","name":"sqrtPriceLimitX96","type":"uint160"}],"internalType":"struct ISwapRouter.ExactInputSingleParams","name":"params","type":"tuple"}],"name":"exactInputSingle","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"bytes","name":"path","type":"bytes"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMaximum","type":"uint256"}],"internalType":"struct ISwapRouter.ExactOutputParams","name":"params","type":"tuple"}],"name":"exactOutput","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"address","name":"tokenIn","type":"address"},{"internalType":"address","name":"tokenOut","type":"address"},{"internalType":"uint24","name":"fee","type":"uint24"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMaximum","type":"uint256"},{"internalType":"uint160","name":"sqrtPriceLimitX96","type":"uint160"}],"internalType":"struct ISwapRouter.ExactOutputSingleParams","name":"params","type":"tuple"}],"name":"exactOutputSingle","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes[]","name":"data","type":"bytes[]"}],"name":"multicall","outputs":[{"internalType":"bytes[]","name":"results","type":"bytes[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"int256","name":"amount0Delta","type":"int256"},{"internalType":"int256","name":"amount1Delta","type":"int256"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"pancakeV3SwapCallback","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"refundETH","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"selfPermit","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"nonce","type":"uint256"},{"internalType":"uint256","name":"expiry","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"selfPermitAllowed","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"nonce","type":"uint256"},{"internalType":"uint256","name":"expiry","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"selfPermitAllowedIfNecessary","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"selfPermitIfNecessary","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountMinimum","type":"uint256"},{"internalType":"address","name":"recipient","type":"address"}],"name":"sweepToken","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountMinimum","type":"uint256"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"feeBips","type":"uint256"},{"internalType":"address","name":"feeRecipient","type":"address"}],"name":"sweepTokenWithFee","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountMinimum","type":"uint256"},{"internalType":"address","name":"recipient","type":"address"}],"name":"unwrapWETH9","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountMinimum","type":"uint256"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"feeBips","type":"uint256"},{"internalType":"address","name":"feeRecipient","type":"address"}],"name":"unwrapWETH9WithFee","outputs":[],"stateMutability":"payable","type":"function"},{"stateMutability":"payable","type":"receive"}];
+  const SMART_ROUTER = [{"inputs":[{"internalType":"address","name":"_factoryV2","type":"address"},{"internalType":"address","name":"_deployer","type":"address"},{"internalType":"address","name":"_factoryV3","type":"address"},{"internalType":"address","name":"_positionManager","type":"address"},{"internalType":"address","name":"_stableFactory","type":"address"},{"internalType":"address","name":"_stableInfo","type":"address"},{"internalType":"address","name":"_WETH9","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"factory","type":"address"},{"indexed":true,"internalType":"address","name":"info","type":"address"}],"name":"SetStableSwap","type":"event"},{"inputs":[],"name":"WETH9","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"}],"name":"approveMax","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"}],"name":"approveMaxMinusOne","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"}],"name":"approveZeroThenMax","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"}],"name":"approveZeroThenMaxMinusOne","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"bytes","name":"data","type":"bytes"}],"name":"callPositionManager","outputs":[{"internalType":"bytes","name":"result","type":"bytes"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"bytes[]","name":"paths","type":"bytes[]"},{"internalType":"uint128[]","name":"amounts","type":"uint128[]"},{"internalType":"uint24","name":"maximumTickDivergence","type":"uint24"},{"internalType":"uint32","name":"secondsAgo","type":"uint32"}],"name":"checkOracleSlippage","outputs":[],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes","name":"path","type":"bytes"},{"internalType":"uint24","name":"maximumTickDivergence","type":"uint24"},{"internalType":"uint32","name":"secondsAgo","type":"uint32"}],"name":"checkOracleSlippage","outputs":[],"stateMutability":"view","type":"function"},{"inputs":[],"name":"deployer","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"bytes","name":"path","type":"bytes"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMinimum","type":"uint256"}],"internalType":"struct IV3SwapRouter.ExactInputParams","name":"params","type":"tuple"}],"name":"exactInput","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"address","name":"tokenIn","type":"address"},{"internalType":"address","name":"tokenOut","type":"address"},{"internalType":"uint24","name":"fee","type":"uint24"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMinimum","type":"uint256"},{"internalType":"uint160","name":"sqrtPriceLimitX96","type":"uint160"}],"internalType":"struct IV3SwapRouter.ExactInputSingleParams","name":"params","type":"tuple"}],"name":"exactInputSingle","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"uint256[]","name":"flag","type":"uint256[]"},{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"}],"name":"exactInputStableSwap","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"bytes","name":"path","type":"bytes"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMaximum","type":"uint256"}],"internalType":"struct IV3SwapRouter.ExactOutputParams","name":"params","type":"tuple"}],"name":"exactOutput","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"address","name":"tokenIn","type":"address"},{"internalType":"address","name":"tokenOut","type":"address"},{"internalType":"uint24","name":"fee","type":"uint24"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMaximum","type":"uint256"},{"internalType":"uint160","name":"sqrtPriceLimitX96","type":"uint160"}],"internalType":"struct IV3SwapRouter.ExactOutputSingleParams","name":"params","type":"tuple"}],"name":"exactOutputSingle","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"uint256[]","name":"flag","type":"uint256[]"},{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address","name":"to","type":"address"}],"name":"exactOutputStableSwap","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"factoryV2","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"getApprovalType","outputs":[{"internalType":"enum IApproveAndCall.ApprovalType","name":"","type":"uint8"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"components":[{"internalType":"address","name":"token0","type":"address"},{"internalType":"address","name":"token1","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"},{"internalType":"uint256","name":"amount0Min","type":"uint256"},{"internalType":"uint256","name":"amount1Min","type":"uint256"}],"internalType":"struct IApproveAndCall.IncreaseLiquidityParams","name":"params","type":"tuple"}],"name":"increaseLiquidity","outputs":[{"internalType":"bytes","name":"result","type":"bytes"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"address","name":"token0","type":"address"},{"internalType":"address","name":"token1","type":"address"},{"internalType":"uint24","name":"fee","type":"uint24"},{"internalType":"int24","name":"tickLower","type":"int24"},{"internalType":"int24","name":"tickUpper","type":"int24"},{"internalType":"uint256","name":"amount0Min","type":"uint256"},{"internalType":"uint256","name":"amount1Min","type":"uint256"},{"internalType":"address","name":"recipient","type":"address"}],"internalType":"struct IApproveAndCall.MintParams","name":"params","type":"tuple"}],"name":"mint","outputs":[{"internalType":"bytes","name":"result","type":"bytes"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"previousBlockhash","type":"bytes32"},{"internalType":"bytes[]","name":"data","type":"bytes[]"}],"name":"multicall","outputs":[{"internalType":"bytes[]","name":"","type":"bytes[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bytes[]","name":"data","type":"bytes[]"}],"name":"multicall","outputs":[{"internalType":"bytes[]","name":"","type":"bytes[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"bytes[]","name":"data","type":"bytes[]"}],"name":"multicall","outputs":[{"internalType":"bytes[]","name":"results","type":"bytes[]"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"int256","name":"amount0Delta","type":"int256"},{"internalType":"int256","name":"amount1Delta","type":"int256"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"pancakeV3SwapCallback","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"positionManager","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"pull","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"refundETH","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"selfPermit","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"nonce","type":"uint256"},{"internalType":"uint256","name":"expiry","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"selfPermitAllowed","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"nonce","type":"uint256"},{"internalType":"uint256","name":"expiry","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"selfPermitAllowedIfNecessary","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"selfPermitIfNecessary","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_info","type":"address"}],"name":"setStableSwap","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"stableSwapFactory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"stableSwapInfo","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"}],"name":"swapExactTokensForTokens","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"}],"name":"swapTokensForExactTokens","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountMinimum","type":"uint256"},{"internalType":"address","name":"recipient","type":"address"}],"name":"sweepToken","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountMinimum","type":"uint256"}],"name":"sweepToken","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountMinimum","type":"uint256"},{"internalType":"uint256","name":"feeBips","type":"uint256"},{"internalType":"address","name":"feeRecipient","type":"address"}],"name":"sweepTokenWithFee","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountMinimum","type":"uint256"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"feeBips","type":"uint256"},{"internalType":"address","name":"feeRecipient","type":"address"}],"name":"sweepTokenWithFee","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountMinimum","type":"uint256"},{"internalType":"address","name":"recipient","type":"address"}],"name":"unwrapWETH9","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountMinimum","type":"uint256"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"feeBips","type":"uint256"},{"internalType":"address","name":"feeRecipient","type":"address"}],"name":"unwrapWETH9WithFee","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountMinimum","type":"uint256"},{"internalType":"uint256","name":"feeBips","type":"uint256"},{"internalType":"address","name":"feeRecipient","type":"address"}],"name":"unwrapWETH9WithFee","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"value","type":"uint256"}],"name":"wrapETH","outputs":[],"stateMutability":"payable","type":"function"},{"stateMutability":"payable","type":"receive"}];
+  const FACTORY$2 = [{"inputs":[{"internalType":"address","name":"_poolDeployer","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint24","name":"fee","type":"uint24"},{"indexed":true,"internalType":"int24","name":"tickSpacing","type":"int24"}],"name":"FeeAmountEnabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint24","name":"fee","type":"uint24"},{"indexed":false,"internalType":"bool","name":"whitelistRequested","type":"bool"},{"indexed":false,"internalType":"bool","name":"enabled","type":"bool"}],"name":"FeeAmountExtraInfoUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"oldOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnerChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"token0","type":"address"},{"indexed":true,"internalType":"address","name":"token1","type":"address"},{"indexed":true,"internalType":"uint24","name":"fee","type":"uint24"},{"indexed":false,"internalType":"int24","name":"tickSpacing","type":"int24"},{"indexed":false,"internalType":"address","name":"pool","type":"address"}],"name":"PoolCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"lmPoolDeployer","type":"address"}],"name":"SetLmPoolDeployer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"bool","name":"verified","type":"bool"}],"name":"WhiteListAdded","type":"event"},{"inputs":[{"internalType":"address","name":"pool","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint128","name":"amount0Requested","type":"uint128"},{"internalType":"uint128","name":"amount1Requested","type":"uint128"}],"name":"collectProtocol","outputs":[{"internalType":"uint128","name":"amount0","type":"uint128"},{"internalType":"uint128","name":"amount1","type":"uint128"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint24","name":"fee","type":"uint24"}],"name":"createPool","outputs":[{"internalType":"address","name":"pool","type":"address"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint24","name":"fee","type":"uint24"},{"internalType":"int24","name":"tickSpacing","type":"int24"}],"name":"enableFeeAmount","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint24","name":"","type":"uint24"}],"name":"feeAmountTickSpacing","outputs":[{"internalType":"int24","name":"","type":"int24"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint24","name":"","type":"uint24"}],"name":"feeAmountTickSpacingExtraInfo","outputs":[{"internalType":"bool","name":"whitelistRequested","type":"bool"},{"internalType":"bool","name":"enabled","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"},{"internalType":"uint24","name":"","type":"uint24"}],"name":"getPool","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lmPoolDeployer","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"poolDeployer","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint24","name":"fee","type":"uint24"},{"internalType":"bool","name":"whitelistRequested","type":"bool"},{"internalType":"bool","name":"enabled","type":"bool"}],"name":"setFeeAmountExtraInfo","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"pool","type":"address"},{"internalType":"uint32","name":"feeProtocol0","type":"uint32"},{"internalType":"uint32","name":"feeProtocol1","type":"uint32"}],"name":"setFeeProtocol","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"pool","type":"address"},{"internalType":"address","name":"lmPool","type":"address"}],"name":"setLmPool","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_lmPoolDeployer","type":"address"}],"name":"setLmPoolDeployer","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_owner","type":"address"}],"name":"setOwner","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"user","type":"address"},{"internalType":"bool","name":"verified","type":"bool"}],"name":"setWhiteListAddress","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+  const POOL$1 = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"int24","name":"tickLower","type":"int24"},{"indexed":true,"internalType":"int24","name":"tickUpper","type":"int24"},{"indexed":false,"internalType":"uint128","name":"amount","type":"uint128"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":false,"internalType":"address","name":"recipient","type":"address"},{"indexed":true,"internalType":"int24","name":"tickLower","type":"int24"},{"indexed":true,"internalType":"int24","name":"tickUpper","type":"int24"},{"indexed":false,"internalType":"uint128","name":"amount0","type":"uint128"},{"indexed":false,"internalType":"uint128","name":"amount1","type":"uint128"}],"name":"Collect","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":true,"internalType":"address","name":"recipient","type":"address"},{"indexed":false,"internalType":"uint128","name":"amount0","type":"uint128"},{"indexed":false,"internalType":"uint128","name":"amount1","type":"uint128"}],"name":"CollectProtocol","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":true,"internalType":"address","name":"recipient","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"paid0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"paid1","type":"uint256"}],"name":"Flash","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint16","name":"observationCardinalityNextOld","type":"uint16"},{"indexed":false,"internalType":"uint16","name":"observationCardinalityNextNew","type":"uint16"}],"name":"IncreaseObservationCardinalityNext","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint160","name":"sqrtPriceX96","type":"uint160"},{"indexed":false,"internalType":"int24","name":"tick","type":"int24"}],"name":"Initialize","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"sender","type":"address"},{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"int24","name":"tickLower","type":"int24"},{"indexed":true,"internalType":"int24","name":"tickUpper","type":"int24"},{"indexed":false,"internalType":"uint128","name":"amount","type":"uint128"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint32","name":"feeProtocol0Old","type":"uint32"},{"indexed":false,"internalType":"uint32","name":"feeProtocol1Old","type":"uint32"},{"indexed":false,"internalType":"uint32","name":"feeProtocol0New","type":"uint32"},{"indexed":false,"internalType":"uint32","name":"feeProtocol1New","type":"uint32"}],"name":"SetFeeProtocol","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"addr","type":"address"}],"name":"SetLmPoolEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":true,"internalType":"address","name":"recipient","type":"address"},{"indexed":false,"internalType":"int256","name":"amount0","type":"int256"},{"indexed":false,"internalType":"int256","name":"amount1","type":"int256"},{"indexed":false,"internalType":"uint160","name":"sqrtPriceX96","type":"uint160"},{"indexed":false,"internalType":"uint128","name":"liquidity","type":"uint128"},{"indexed":false,"internalType":"int24","name":"tick","type":"int24"},{"indexed":false,"internalType":"uint128","name":"protocolFeesToken0","type":"uint128"},{"indexed":false,"internalType":"uint128","name":"protocolFeesToken1","type":"uint128"}],"name":"Swap","type":"event"},{"inputs":[{"internalType":"int24","name":"tickLower","type":"int24"},{"internalType":"int24","name":"tickUpper","type":"int24"},{"internalType":"uint128","name":"amount","type":"uint128"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"int24","name":"tickLower","type":"int24"},{"internalType":"int24","name":"tickUpper","type":"int24"},{"internalType":"uint128","name":"amount0Requested","type":"uint128"},{"internalType":"uint128","name":"amount1Requested","type":"uint128"}],"name":"collect","outputs":[{"internalType":"uint128","name":"amount0","type":"uint128"},{"internalType":"uint128","name":"amount1","type":"uint128"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint128","name":"amount0Requested","type":"uint128"},{"internalType":"uint128","name":"amount1Requested","type":"uint128"}],"name":"collectProtocol","outputs":[{"internalType":"uint128","name":"amount0","type":"uint128"},{"internalType":"uint128","name":"amount1","type":"uint128"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"fee","outputs":[{"internalType":"uint24","name":"","type":"uint24"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"feeGrowthGlobal0X128","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"feeGrowthGlobal1X128","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"flash","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint16","name":"observationCardinalityNext","type":"uint16"}],"name":"increaseObservationCardinalityNext","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint160","name":"sqrtPriceX96","type":"uint160"}],"name":"initialize","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"liquidity","outputs":[{"internalType":"uint128","name":"","type":"uint128"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lmPool","outputs":[{"internalType":"contract IPancakeV3LmPool","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"maxLiquidityPerTick","outputs":[{"internalType":"uint128","name":"","type":"uint128"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"int24","name":"tickLower","type":"int24"},{"internalType":"int24","name":"tickUpper","type":"int24"},{"internalType":"uint128","name":"amount","type":"uint128"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"mint","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"observations","outputs":[{"internalType":"uint32","name":"blockTimestamp","type":"uint32"},{"internalType":"int56","name":"tickCumulative","type":"int56"},{"internalType":"uint160","name":"secondsPerLiquidityCumulativeX128","type":"uint160"},{"internalType":"bool","name":"initialized","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint32[]","name":"secondsAgos","type":"uint32[]"}],"name":"observe","outputs":[{"internalType":"int56[]","name":"tickCumulatives","type":"int56[]"},{"internalType":"uint160[]","name":"secondsPerLiquidityCumulativeX128s","type":"uint160[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"name":"positions","outputs":[{"internalType":"uint128","name":"liquidity","type":"uint128"},{"internalType":"uint256","name":"feeGrowthInside0LastX128","type":"uint256"},{"internalType":"uint256","name":"feeGrowthInside1LastX128","type":"uint256"},{"internalType":"uint128","name":"tokensOwed0","type":"uint128"},{"internalType":"uint128","name":"tokensOwed1","type":"uint128"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"protocolFees","outputs":[{"internalType":"uint128","name":"token0","type":"uint128"},{"internalType":"uint128","name":"token1","type":"uint128"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint32","name":"feeProtocol0","type":"uint32"},{"internalType":"uint32","name":"feeProtocol1","type":"uint32"}],"name":"setFeeProtocol","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_lmPool","type":"address"}],"name":"setLmPool","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"slot0","outputs":[{"internalType":"uint160","name":"sqrtPriceX96","type":"uint160"},{"internalType":"int24","name":"tick","type":"int24"},{"internalType":"uint16","name":"observationIndex","type":"uint16"},{"internalType":"uint16","name":"observationCardinality","type":"uint16"},{"internalType":"uint16","name":"observationCardinalityNext","type":"uint16"},{"internalType":"uint32","name":"feeProtocol","type":"uint32"},{"internalType":"bool","name":"unlocked","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"int24","name":"tickLower","type":"int24"},{"internalType":"int24","name":"tickUpper","type":"int24"}],"name":"snapshotCumulativesInside","outputs":[{"internalType":"int56","name":"tickCumulativeInside","type":"int56"},{"internalType":"uint160","name":"secondsPerLiquidityInsideX128","type":"uint160"},{"internalType":"uint32","name":"secondsInside","type":"uint32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"bool","name":"zeroForOne","type":"bool"},{"internalType":"int256","name":"amountSpecified","type":"int256"},{"internalType":"uint160","name":"sqrtPriceLimitX96","type":"uint160"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[{"internalType":"int256","name":"amount0","type":"int256"},{"internalType":"int256","name":"amount1","type":"int256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"int16","name":"","type":"int16"}],"name":"tickBitmap","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"tickSpacing","outputs":[{"internalType":"int24","name":"","type":"int24"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"int24","name":"","type":"int24"}],"name":"ticks","outputs":[{"internalType":"uint128","name":"liquidityGross","type":"uint128"},{"internalType":"int128","name":"liquidityNet","type":"int128"},{"internalType":"uint256","name":"feeGrowthOutside0X128","type":"uint256"},{"internalType":"uint256","name":"feeGrowthOutside1X128","type":"uint256"},{"internalType":"int56","name":"tickCumulativeOutside","type":"int56"},{"internalType":"uint160","name":"secondsPerLiquidityOutsideX128","type":"uint160"},{"internalType":"uint32","name":"secondsOutside","type":"uint32"},{"internalType":"bool","name":"initialized","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}];
+  const QUOTER$2 = [{"inputs":[{"internalType":"address","name":"_deployer","type":"address"},{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_WETH9","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"WETH9","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"deployer","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"int256","name":"amount0Delta","type":"int256"},{"internalType":"int256","name":"amount1Delta","type":"int256"},{"internalType":"bytes","name":"path","type":"bytes"}],"name":"pancakeV3SwapCallback","outputs":[],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes","name":"path","type":"bytes"},{"internalType":"uint256","name":"amountIn","type":"uint256"}],"name":"quoteExactInput","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint160[]","name":"sqrtPriceX96AfterList","type":"uint160[]"},{"internalType":"uint32[]","name":"initializedTicksCrossedList","type":"uint32[]"},{"internalType":"uint256","name":"gasEstimate","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"components":[{"internalType":"address","name":"tokenIn","type":"address"},{"internalType":"address","name":"tokenOut","type":"address"},{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint24","name":"fee","type":"uint24"},{"internalType":"uint160","name":"sqrtPriceLimitX96","type":"uint160"}],"internalType":"struct IQuoterV2.QuoteExactInputSingleParams","name":"params","type":"tuple"}],"name":"quoteExactInputSingle","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint160","name":"sqrtPriceX96After","type":"uint160"},{"internalType":"uint32","name":"initializedTicksCrossed","type":"uint32"},{"internalType":"uint256","name":"gasEstimate","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes","name":"path","type":"bytes"},{"internalType":"uint256","name":"amountOut","type":"uint256"}],"name":"quoteExactOutput","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint160[]","name":"sqrtPriceX96AfterList","type":"uint160[]"},{"internalType":"uint32[]","name":"initializedTicksCrossedList","type":"uint32[]"},{"internalType":"uint256","name":"gasEstimate","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"components":[{"internalType":"address","name":"tokenIn","type":"address"},{"internalType":"address","name":"tokenOut","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint24","name":"fee","type":"uint24"},{"internalType":"uint160","name":"sqrtPriceLimitX96","type":"uint160"}],"internalType":"struct IQuoterV2.QuoteExactOutputSingleParams","name":"params","type":"tuple"}],"name":"quoteExactOutputSingle","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint160","name":"sqrtPriceX96After","type":"uint160"},{"internalType":"uint32","name":"initializedTicksCrossed","type":"uint32"},{"internalType":"uint256","name":"gasEstimate","type":"uint256"}],"stateMutability":"nonpayable","type":"function"}];
 
-  var UniswapV2 = {
-    findPath: findPath$1,
-    pathExists: pathExists$1,
-    getAmounts: getAmounts$1,
-    getTransaction: getTransaction$1,
-    ROUTER,
-    FACTORY,
-    PAIR,
+  var PancakeSwapV3 = {
+    findPath: findPath$3,
+    pathExists: pathExists$3,
+    getAmounts: getAmounts$3,
+    getPrep: getPrep$2,
+    getTransaction: getTransaction$3,
+    ROUTER: ROUTER$2,
+    SMART_ROUTER,
+    FACTORY: FACTORY$2,
+    POOL: POOL$1,
+    QUOTER: QUOTER$2,
   };
 
-  const blockchain$7 = Blockchains__default['default'].bsc;
+  const exchange$e = {
 
-  const exchange$7 = {
-    blockchain: 'bsc',
-    name: 'pancakeswap',
-    alternativeNames: ['pancake'],
-    label: 'PancakeSwap',
+    name: 'pancakeswap_v3',
+    label: 'PancakeSwap v3',
     logo:'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE5OSIgdmlld0JveD0iMCAwIDE5OCAxOTkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNOTguNTUyIDE5OC42MDdDNjkuMDYxMyAxOTguNTg1IDQ1LjMwNiAxOTEuNTggMjguNzA3OSAxNzguOTk4QzExLjkxMDggMTY2LjI2NSAzIDE0OC4xOTUgMyAxMjcuNzQ4QzMgMTA4LjA0NyAxMS44OTEzIDkzLjg0MTEgMjEuOTUxNyA4NC4yMzg1QzI5LjgzNTkgNzYuNzEzMiAzOC41MzYzIDcxLjg5MzYgNDQuNTk0NSA2OS4xMjEzQzQzLjIyNDUgNjQuOTU5NCA0MS41MTUzIDU5LjUxMDggMzkuOTg2MSA1My44ODMyQzM3LjkzOTkgNDYuMzUyNyAzNS45MzI1IDM3LjUxNzQgMzUuOTMyNSAzMS4wNDI5QzM1LjkzMjUgMjMuMzc5NSAzNy42MjA0IDE1LjY4MzMgNDIuMTcxNCA5LjcwMzA2QzQ2Ljk3OTcgMy4zODQ3NiA1NC4yMTgyIDAgNjIuOTI2NCAwQzY5LjczMjIgMCA3NS41MTAzIDIuNDk5MDMgODAuMDMzOSA2LjgxMDExQzg0LjM1NzkgMTAuOTMwOSA4Ny4yMzU3IDE2LjQwMzQgODkuMjIyNyAyMi4xMDgyQzkyLjcxNDMgMzIuMTMyNSA5NC4wNzM4IDQ0LjcyNjQgOTQuNDU1MSA1Ny4yOTQ1SDEwMi43OTZDMTAzLjE3OCA0NC43MjY0IDEwNC41MzcgMzIuMTMyNSAxMDguMDI5IDIyLjEwODJDMTEwLjAxNiAxNi40MDM0IDExMi44OTQgMTAuOTMwOSAxMTcuMjE4IDYuODEwMTFDMTIxLjc0MSAyLjQ5OTAzIDEyNy41MTkgMCAxMzQuMzI1IDBDMTQzLjAzMyAwIDE1MC4yNzIgMy4zODQ3NiAxNTUuMDggOS43MDMwNkMxNTkuNjMxIDE1LjY4MzMgMTYxLjMxOSAyMy4zNzk1IDE2MS4zMTkgMzEuMDQyOUMxNjEuMzE5IDM3LjUxNzQgMTU5LjMxMiA0Ni4zNTI3IDE1Ny4yNjUgNTMuODgzMkMxNTUuNzM2IDU5LjUxMDggMTU0LjAyNyA2NC45NTk0IDE1Mi42NTcgNjkuMTIxM0MxNTguNzE1IDcxLjg5MzYgMTY3LjQxNiA3Ni43MTMyIDE3NS4zIDg0LjIzODVDMTg1LjM2IDkzLjg0MTEgMTk0LjI1MiAxMDguMDQ3IDE5NC4yNTIgMTI3Ljc0OEMxOTQuMjUyIDE0OC4xOTUgMTg1LjM0MSAxNjYuMjY1IDE2OC41NDQgMTc4Ljk5OEMxNTEuOTQ1IDE5MS41OCAxMjguMTkgMTk4LjU4NSA5OC42OTk2IDE5OC42MDdIOTguNTUyWiIgZmlsbD0iIzYzMzAwMSIvPgo8cGF0aCBkPSJNNjIuOTI2MiA3LjI4ODMzQzUwLjE3MTYgNy4yODgzMyA0NC4zMDA0IDE2LjgwMzcgNDQuMzAwNCAyOS45NjMyQzQ0LjMwMDQgNDAuNDIzMSA1MS4xMjIyIDYxLjM3MTUgNTMuOTIxMiA2OS41MjYzQzU0LjU1MDggNzEuMzYwNSA1My41NjE2IDczLjM3MDEgNTEuNzU3NCA3NC4wODE0QzQxLjUzNTEgNzguMTEyMSAxMS4zNjc5IDkyLjg3IDExLjM2NzkgMTI2LjY2OUMxMS4zNjc5IDE2Mi4yNzIgNDIuMDI0NiAxODkuMTE3IDk4LjU1ODEgMTg5LjE2Qzk4LjU4MDYgMTg5LjE2IDk4LjYwMzEgMTg5LjE1OSA5OC42MjU2IDE4OS4xNTlDOTguNjQ4MSAxODkuMTU5IDk4LjY3MDYgMTg5LjE2IDk4LjY5MzEgMTg5LjE2QzE1NS4yMjcgMTg5LjExNyAxODUuODgzIDE2Mi4yNzIgMTg1Ljg4MyAxMjYuNjY5QzE4NS44ODMgOTIuODcgMTU1LjcxNiA3OC4xMTIxIDE0NS40OTQgNzQuMDgxNEMxNDMuNjkgNzMuMzcwMSAxNDIuNyA3MS4zNjA1IDE0My4zMyA2OS41MjYzQzE0Ni4xMjkgNjEuMzcxNSAxNTIuOTUxIDQwLjQyMzEgMTUyLjk1MSAyOS45NjMyQzE1Mi45NTEgMTYuODAzNyAxNDcuMDggNy4yODgzMyAxMzQuMzI1IDcuMjg4MzNDMTE1Ljk2NSA3LjI4ODMzIDExMS4zODkgMzMuMjk1NSAxMTEuMDYyIDYxLjIwNzVDMTExLjA0IDYzLjA3MDkgMTA5LjUzNCA2NC41ODI4IDEwNy42NyA2NC41ODI4SDg5LjU4MDdDODcuNzE3MiA2NC41ODI4IDg2LjIxMDggNjMuMDcwOSA4Ni4xODkgNjEuMjA3NUM4NS44NjI2IDMzLjI5NTUgODEuMjg2IDcuMjg4MzMgNjIuOTI2MiA3LjI4ODMzWiIgZmlsbD0iI0QxODg0RiIvPgo8cGF0aCBkPSJNOTguNjkzMSAxNzcuNzU1QzU3LjE1NTEgMTc3Ljc1NSAxMS40Mzk3IDE1NS41MiAxMS4zNjgxIDEyNi43MzdDMTEuMzY4IDEyNi43ODEgMTEuMzY3OSAxMjYuODI2IDExLjM2NzkgMTI2Ljg3MUMxMS4zNjc5IDE2Mi41MDMgNDIuMDczNCAxODkuMzYyIDk4LjY5MzEgMTg5LjM2MkMxNTUuMzEzIDE4OS4zNjIgMTg2LjAxOCAxNjIuNTAzIDE4Ni4wMTggMTI2Ljg3MUMxODYuMDE4IDEyNi44MjYgMTg2LjAxOCAxMjYuNzgxIDE4Ni4wMTggMTI2LjczN0MxODUuOTQ2IDE1NS41MiAxNDAuMjMxIDE3Ny43NTUgOTguNjkzMSAxNzcuNzU1WiIgZmlsbD0iI0ZFREM5MCIvPgo8cGF0aCBkPSJNNzUuNjEzNSAxMTcuODk2Qzc1LjYxMzUgMTI3LjYxNCA3MS4wMjEgMTMyLjY3NSA2NS4zNTU4IDEzMi42NzVDNTkuNjkwNyAxMzIuNjc1IDU1LjA5ODEgMTI3LjYxNCA1NS4wOTgxIDExNy44OTZDNTUuMDk4MSAxMDguMTc4IDU5LjY5MDcgMTAzLjExNyA2NS4zNTU4IDEwMy4xMTdDNzEuMDIxIDEwMy4xMTcgNzUuNjEzNSAxMDguMTc4IDc1LjYxMzUgMTE3Ljg5NloiIGZpbGw9IiM2MzMwMDEiLz4KPHBhdGggZD0iTTE0Mi4yODggMTE3Ljg5NkMxNDIuMjg4IDEyNy42MTQgMTM3LjY5NiAxMzIuNjc1IDEzMi4wMzEgMTMyLjY3NUMxMjYuMzY1IDEzMi42NzUgMTIxLjc3MyAxMjcuNjE0IDEyMS43NzMgMTE3Ljg5NkMxMjEuNzczIDEwOC4xNzggMTI2LjM2NSAxMDMuMTE3IDEzMi4wMzEgMTAzLjExN0MxMzcuNjk2IDEwMy4xMTcgMTQyLjI4OCAxMDguMTc4IDE0Mi4yODggMTE3Ljg5NloiIGZpbGw9IiM2MzMwMDEiLz4KPC9zdmc+Cg==',
-    router: {
-      address: '0x10ED43C718714eb63d5aA57B78B54704E256024E',
-      api: UniswapV2.ROUTER
-    },
-    factory: {
-      address: '0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73',
-      api: UniswapV2.FACTORY
-    },
-    pair: {
-      api: UniswapV2.PAIR
-    },
+    
     slippage: true,
+    fees: [100, 500, 2500, 10000],
+    
+    blockchains: ['bsc'],
+    
+    bsc: {
+      router: {
+        address: '0x1b81D678ffb9C0263b24A97847620C99d213eB14',
+        api: PancakeSwapV3.ROUTER
+      },
+      smartRouter: {
+        address: '0x13f4EA83D0bd40E75C8222255bc855a974568Dd4',
+        api: PancakeSwapV3.SMART_ROUTER
+      },
+      factory: {
+        address: '0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865',
+        api: PancakeSwapV3.FACTORY
+      },
+      pair: {
+        api: PancakeSwapV3.POOL
+      },
+      quoter: {
+        address: '0xB048Bbc1Ee6b733FFfCFb9e9CeF7375518e25997',
+        api: PancakeSwapV3.QUOTER
+      }
+    },
+
   };
 
-  new Exchange(
+  var pancakeswap_v3 = (scope)=>{
+    
+    return new Exchange(
 
-    Object.assign(exchange$7, {
-      findPath: ({ tokenIn, tokenOut })=>
-        UniswapV2.findPath(blockchain$7, exchange$7, { tokenIn, tokenOut }),
-      pathExists: (path)=>
-        UniswapV2.pathExists(blockchain$7, exchange$7, path),
-      getAmounts: ({ path, block, tokenIn, tokenOut, amountOut, amountIn, amountInMax, amountOutMin })=>
-        UniswapV2.getAmounts(blockchain$7, exchange$7, { path, block, tokenIn, tokenOut, amountOut, amountIn, amountInMax, amountOutMin }),
-      getTransaction: ({ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress })=>
-        UniswapV2.getTransaction(blockchain$7, exchange$7 ,{ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress }),
-    })
-  );
-
-  const blockchain$6 = Blockchains__default['default'].polygon;
-
-  const exchange$6 = {
-    blockchain: 'polygon',
-    name: 'quickswap',
-    alternativeNames: [],
-    label: 'QuickSwap',
-    logo: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgNzAyLjQ1IDcwMi40NyI+PGRlZnM+PGNsaXBQYXRoIGlkPSJjbGlwLXBhdGgiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIj48cmVjdCB3aWR0aD0iNzUwIiBoZWlnaHQ9Ijc1MCIgZmlsbD0ibm9uZSIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwLXBhdGgpIj48cGF0aCBkPSJNMzU0Ljc0LDI0LjM3YTM1MS4yNywzNTEuMjcsMCwwLDEsMzYzLjc0LDI3NywzNTQsMzU0LDAsMCwxLDEuMjMsMTQxLjI2QTM1MS43NiwzNTEuNzYsMCwwLDEsNTEwLjEyLDY5OS4zYy03My43NywzMS0xNTguMjUsMzUuMzUtMjM0LjkxLDEyLjU0QTM1MiwzNTIsMCwwLDEsNDYuNTEsNDk5LjU2Yy0yOC03My40NS0zMC4xNi0xNTYuMzgtNi4yNC0yMzEuMjVBMzUwLjg4LDM1MC44OCwwLDAsMSwzNTQuNzQsMjQuMzciIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTE1OC44MSwzNDkuNThjMS4zOSw2LjQxLDIuMjMsMTIuOTIsMy42MSwxOS4zNS44NSwzLjkzLDIuMTMsMyw0LjE1LDEuMjgsMy44Ny0zLjI1LDcuNTktNi42OSwxMS45NC05LjMxLDEuMjMuMjQsMS44NiwxLjIyLDIuNTMsMi4xLDExLjM5LDE0Ljg3LDI2LjUzLDI0LDQ0LjM3LDI4Ljk0YTE0Ny4yMywxNDcuMjMsMCwwLDAsMjUuMTcsNC42Nyw0Mi42OCw0Mi42OCwwLDAsMS02LjYxLTkuOTVjLTIuODUtNi40MS0xLjg1LTEyLjE1LDIuOTUtMTcuMjIsNS44Ny02LjE5LDEzLjYyLTguNzYsMjEuNDgtMTAuOCwxNi40OC00LjMsMzMuMjctNC43Myw1MC4xOC0zLjUzQTIwMi4xMSwyMDIuMTEsMCwwLDEsMzU4Ljc1LDM2MmMxMSwzLjA2LDIxLjcyLDYuNzMsMzEuNDQsMTIuODgsMS4zNiwxLjA5LDIuMywyLjYsMy42MSwzLjc0LDEyLjQ5LDEzLjQxLDE5Ljc4LDI5LjI1LDIwLjI4LDQ3LjU1LjM0LDEyLjY1LTMuMTYsMjQuNzItOS41LDM1LjgyLTExLjQyLDIwLTI4LjA5LDM0LjU2LTQ4LDQ1LjcxQTE3MC41LDE3MC41LDAsMCwxLDI5MSw1MjguNDJjLTQxLjI0LDQuNDctNzkuNDUtNC40Ny0xMTQuNTktMjYuMzYtMjkuMjEtMTguMTktNTEuNjUtNDMuMDgtNzAtNzEuOTJhMzM5LjU3LDMzOS41NywwLDAsMS0yMi41Mi00Mi43NWMtLjgxLTEuOC0xLTMuODEtMS44Mi01LjI5LjUyLDEuNzUsMS40OSwzLjczLS40Myw1LjYtLjU4LTcuNDUuMDgtMTQuOS40Ny0yMi4zMWEyODcuMTMsMjg3LjEzLDAsMCwxLDkuNDgtNjAuNTRBMjkyLjkxLDI5Mi45MSwwLDAsMSwyNjYuMDYsMTA5LjA5LDI4Ny4yLDI4Ny4yLDAsMCwxLDM0Ni41OSw4OS45YzQzLjU3LTQsODUuNzksMS43MywxMjcsMTYuMzQtNi4yNywxMS44OS00Miw0My43Mi02OS44LDYyLjE1YTk0LjExLDk0LjExLDAsMCwwLTUuNDQtMjMuNTFjLS4xNC0yLDEuNjYtMi42NSwyLjc4LTMuNjFxOC42Ny03LjQ2LDE3LjQzLTE0Ljc3YTE3LjE0LDE3LjE0LDAsMCwwLDEuNjktMS40OWMuNjYtLjcxLDEuNzctMS4zLDEuNTQtMi40cy0xLjU1LTEuMTUtMi40Ny0xLjNhNDYuODIsNDYuODIsMCwwLDAtOC4xNy0xYy0zLjgxLS40NS03LjU2LTEuMy0xMS40LTEuMzgtMi45NS0uMTgtNS44NS0uOTMtOC44My0uNjlhMjguMjIsMjguMjIsMCwwLDEtNC41LS4zMmMtMi41LS43OS01LjA3LS40NC03LjYxLS40My0xLjUyLDAtMy0uMTEtNC41NiwwLTQuMzUuMjUtOC43My0uNDgtMTMuMDcuMzRhMTIuODcsMTIuODcsMCwwLDEtMy4yMS4zMmMtMS4yNiwwLTIuNTEuMDYtMy43NywwYTEyLjM1LDEyLjM1LDAsMCwwLTQuODcuNDdjLTQuNTkuNDEtOS4xOS43OC0xMy43MywxLjYxLTUuNDgsMS4xNi0xMS4wOSwxLjQ0LTE2LjUzLDIuNzktNSwxLjMtMTAuMTMsMi0xNSwzLjc0LTYuNTEsMS43OS0xMi45NSwzLjg0LTE5LjM1LDYtOS4zNCwzLjcxLTE4LjgyLDcuMS0yNy43MSwxMS44NmEyNDguNzQsMjQ4Ljc0LDAsMCwwLTU1LjY2LDM2Ljk0QTI2Ni41NSwyNjYuNTUsMCwwLDAsMTU5LjY4LDIyN2EyNTQuODcsMjU0Ljg3LDAsMCwwLTE2LjU0LDI2LjE2Yy0zLjE3LDUuOS02LjIyLDExLjg1LTksMTgtMiw0LjcxLTQuNDIsOS4yNy02LDE0LjE4LTIsNC45LTMuNjQsOS45Mi01LjIyLDE1LTEuODgsNS4wNi0zLDEwLjM1LTQuNDUsMTUuNTMtLjYzLDItMSw0LjExLTEuNTMsNi4xOC0uNjMsMi40OS0xLDUtMS40Nyw3LjU1LS43Nyw0LjI1LTEuNDgsOC41LTIuMDksMTIuNzhhMTE4LjY0LDExOC42NCwwLDAsMC0xLjU3LDEzLjI5Yy0uNzQsMi45NC0uMiw2LS43NCw5LS44MiwzLjY5LS4yOCw3LjQ1LS41MiwxMS4xNi0uMTEsMi42MS0uMTYsNS4yMy0uMDksNy44NSwwLDEuMDctLjQ5LDIuNTcuNjQsMy4wOSwxLjI5LjYsMi4yMy0uNzcsMy4xNi0xLjUzLDMuMTgtMi42LDYuMjktNS4yOSw5LjQtOCwxMC40Ny05LDIxLjA3LTE3Ljg4LDMxLjU4LTI2Ljg1LjkxLS43NywxLjktMi43OSwzLjUyLS43MSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM0MTg5YzkiLz48cGF0aCBkPSJNMzkwLjExLDM3NS43OGMtMTIuMzctNy4zNS0yNS44OS0xMS42My0zOS43Ny0xNC45MmExOTcuMjUsMTk3LjI1LDAsMCwwLTU1LjY4LTUuMWMtMTMuMjEuNjYtMjYuMzEsMi41LTM4LjQ4LDguM2EzMi42MSwzMi42MSwwLDAsMC00LjIxLDIuNDNjLTkuODUsNi42LTExLjM1LDE1LjQtNC4yMywyNC45MSwxLjQ4LDIsMy4xMiwzLjgxLDUuMSw2LjIyLTYuMzksMC0xMi4wNS0xLjE5LTE3LjY5LTIuMzEtMTUuMTItMy0yOS4zMi04LjI0LTQxLjUtMTgtNS44Ni00LjY4LTExLjIyLTkuOTMtMTUuMTQtMTYuNDUsMS42LTIuNjEsNC4yOC0zLjgzLDYuNzgtNS4yNyw0LjgyLTIsOS4xOS00LjkxLDE0LTcuMDlhMjA3LjU1LDIwNy41NSwwLDAsMSw2Ny40LTE4YzkuMzItLjg3LDE4LjY1LTEuNzYsMjgtMS40MUEzMTEuMzgsMzExLjM4LDAsMCwxLDM3NiwzNDMuMjVjNi44LDIuMTIsMTMuNTIsNC40NSwyMC41OSw2Ljg0LDAtMi0xLjE0LTMuMTktMS45LTQuNDhBOTYuMTgsOTYuMTgsMCwwLDAsMzg1LDMzMS44OGMtMS4zMy0xLjU2LTMuMTgtMi45My0zLjE0LTUuMzMsMy43My44NSw3LjQ2LDEuNjgsMTEuMTgsMi41NiwxLC4yMywyLjE3LjgzLDIuODEsMCwuODUtMS4wOC0uNDMtMi0xLTIuODQtNS40OS04LjE5LTEyLjMzLTE1LjE3LTE5LjY3LTIxLjY4LDMuODktMi4yNiw3Ljg5LS40MiwxMS42OC4wNiwzOC44Nyw1LDc0LjI5LDE4LjgxLDEwNS4xOCw0Myw0MC45LDMyLjA5LDY3LjMzLDczLjU0LDc4LjQ3LDEyNC41MUExODAuNTQsMTgwLjU0LDAsMCwxLDU3My44Nyw1MjRjLTIuMTksMzAuMTEtMTEuNjUsNTcuOS0yOS40NSw4Mi41OC0xLjE3LDEuNjItMi43NSwyLjkxLTMuNjEsNC43Ni00LDYtMTAsMTAuMDgtMTUuNDQsMTQuNTItMjkuNTUsMjQtNjQsMzYuNDYtMTAxLjE0LDQyLjI4YTMxMC4zNCwzMTAuMzQsMCwwLDEtODcuMzEsMS41NCwyODguMTcsMjg4LjE3LDAsMCwxLTEyNy4zOS00OC4xNGMtOS4yNy02LjI5LTE4LjM2LTEyLjg1LTI2LjUxLTIwLjYyYS42NS42NSwwLDAsMSwwLTFjMS43NC0uNjksMi44NC41Nyw0LDEuNDNhMTg5LjA4LDE4OS4wOCwwLDAsMCw2NSwzMS41NiwyMjguNDYsMjI4LjQ2LDAsMCwwLDIzLjg3LDQuNzVjMS44Mi42NiwzLjc1LjM1LDUuNjIuNjZhNy41NSw3LjU1LDAsMCwxLDEuMTMuMjNjMTguMjQsMi4xNiwzNi4zNy44OSw1NC4zNi0yLjI4LDM5LjU0LTcsNzQuNjYtMjMuNTUsMTA0Ljc1LTUwLjE1LDIwLjUtMTguMTIsMzYuNjgtMzkuNTMsNDUuMjQtNjUuOTVzNy4zNS01Mi4xLTQuNjctNzcuNDhjLTIuNDcsMTEuMzgtOC40NCwyMC44LTE1LjkxLDI5LjM4YTEwNi4wOSwxMDYuMDksMCwwLDEtMjYuMDcsMjEuMTljLTEuMTQuNjYtMi40LDEuOTEtMy43MS45LTEuMTMtLjg2LS40NS0yLjM3LS4xLTMuNTFhMTM5LjY0LDEzOS42NCwwLDAsMCw0Ljk0LTI0LjJjMy41LTM0LjUxLTkuODItNjEuMzctMzcuMy04MS43NGExMTkuOCwxMTkuOCwwLDAsMC0xNC4wNi05IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzI2MmY3MSIvPjxwYXRoIGQ9Ik0yNzYuMDgsNjM4LjQxYTE1MS4xNiwxNTEuMTYsMCwwLDEtMjkuODYtNi4xQTE5OC41MywxOTguNTMsMCwwLDEsMTk0LjM1LDYwOGMtMy44My0yLjUxLTcuMDctNS44Ni0xMS4yNC03Ljg5LTIuMzktLjM0LTMuMzktMi42OC01LjMtMy43LTQwLjM4LTM1LjktNjgtODAtODMuODMtMTMxLjQ4QTI4MC41NCwyODAuNTQsMCwwLDEsODEuNjMsMzg3LjdjLjEtMiwuMi0zLjkzLjM2LTcsMiw0LjM2LDMuNDgsNy44Miw1LjA1LDExLjI2LDE0LjUzLDMxLjg2LDMzLjEzLDYwLjkzLDU4Ljc0LDg1LjEyQzE3Myw1MDIuODIsMjA0LjY4LDUyMCwyNDIsNTI2YzQzLjcxLDcuMTEsODQuNjEtLjUxLDEyMi4yMi0yNC4wNiwxOC43NS0xMS43NSwzNC4xNC0yNi45NCw0My00Ny42NSwxMC43Mi0yNS4xMSw2LjY4LTQ4LjQ0LTkuNjUtNjkuOTUtMS40My0xLjg4LTIuOTUtMy42OS00LjQzLTUuNTQsMS45NC0xLjY2LDMsLjI2LDQuMDcsMS4xOGE4My4yMiw4My4yMiwwLDAsMSwyMi42LDI5LjksODgsODgsMCwwLDEsNy44NSwzNS4xOSw3OS43NSw3OS43NSwwLDAsMS04LDM1Ljg3LDUuMzksNS4zOSwwLDAsMCwzLjI0LTEuMTcsOTguMzQsOTguMzQsMCwwLDAsMTQuNjUtMTAuMzVjMS40Mi0xLjIzLDIuNjctMy4wOCw1LTIuOGExNjUuMywxNjUuMywwLDAsMS02LjA5LDI3Ljc1LDEzMS43NCwxMzEuNzQsMCwwLDAsMTcuMjctMTEuNDhjNC4zMy0zLjM4LDcuODMtNy42MiwxMi4wOC0xMS4wNiwxLjgxLjc3LDEuODEsMi41NiwyLjIzLDQuMDgsNi45MiwyNSwxLjkxLDQ4LjI4LTEwLjQyLDcwLjMtMTUsMjYuNy0zNyw0Ni41Ny02Mi42Miw2Mi42NWEyMTMuMzMsMjEzLjMzLDAsMCwxLTY3LjI3LDI3LjU1LDE0Mi4yLDE0Mi4yLDAsMCwxLTQ1LjY3LDIuNjloMGMtMS45LTEtNC4wNy4xOS02LS43MiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiMxNjFmNDIiLz48cGF0aCBkPSJNNjU0LjE3LDQ1My4wN2EyMTIsMjEyLDAsMCwwLTIwLjc3LTgyLjM1QTIxOC45LDIxOC45LDAsMCwwLDYwMywzMjRjLTEwLjktMTIuOTEtMjMuNDItMjMuOTMtMzYuNTYtMzQuMzgsMS4yMy0xLjIxLDIuNzYtMSw0LjI0LS44YTIzNi4yOCwyMzYuMjgsMCwwLDEsNTMuNzksMTIuNzhBODAuMiw4MC4yLDAsMCwxLDYzNywzMDcuNDNhNDAuMzgsNDAuMzgsMCwwLDEsNC4xNiwyLjQ0Yy4zNC4xOS41My42OSwxLC41OGExLjI3LDEuMjcsMCwwLDEtLjIxLTEuMzdjLTExLjg0LTE1LjQyLTI2LjE1LTI4LjI4LTQxLjE3LTQwLjVhMzAyLDMwMiwwLDAsMC01OC4xOC0zNi45LDI4Ny42NCwyODcuNjQsMCwwLDAtOTEuNTctMjcuNDVjLTIuODMtLjM1LTUuNzUsMC04LjUxLTEtLjI0LTEuODksMS4zNS0yLjUyLDIuNDUtMy40NCwxOC42Ny0xNS41NSwzMy42OS0zNCw0NC4yOC01NS45NGExNTcuMSwxNTcuMSwwLDAsMCw4LjE0LTIwLjUzYy42NC0yLDEtNC4xNywzLTUuNDRhMjg4LjE2LDI4OC4xNiwwLDAsMSw4OC40Nyw2NiwyOTIuMSwyOTIuMSwwLDAsMSw2Ni42NCwyNzBjLS44NC40Ni0xLS4yNi0xLjM0LS43NSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM0MTg5YzkiLz48cGF0aCBkPSJNNTQwLjgxLDYxMS4zN2MwLTIuOTQsMi4zNC00LjYsMy43OS02LjY2LDEzLjY2LTE5LjUxLDIyLTQxLjEyLDI2LjMxLTY0LjQ4LDIuNjctMTQuNDcsMi45LTI5LjA4LDItNDMuNTctMS40Ny0yMi4zNC03LjE4LTQzLjgzLTE2LjE5LTY0LjQyYTIxMi4yNSwyMTIuMjUsMCwwLDAtMjQuNzMtNDIuNTcsMjIxLjI0LDIyMS4yNCwwLDAsMC0zNi4xNi0zNy42MkEyMDcuNTYsMjA3LjU2LDAsMCwwLDQyNS4xOSwzMTRhMTk4LjEsMTk4LjEsMCwwLDAtNDIuMjUtOC42OWMtMi41OS0uMjMtNS4xNS0uODUtNy43OC0uNjktOS4xMy02LjczLTE4LjM5LTEzLjI0LTI4Ljc5LTE3Ljk0LDAtLjMzLDAtLjY3LjA3LTEsMy43NCwwLDcuNDkuMDYsMTEuMjMsMCw1Mi40My0uOTQsMTAwLjc1LDExLjkxLDE0Myw0My44NEM1NDQuNCwzNjIuNTksNTcxLjc0LDQwNi4zMiw1ODIsNDYwLjNjOC43Myw0Ni4wNSwyLDg5LjU0LTIzLjU2LDEyOS40NC01LDcuODUtMTAuNTMsMTUuNDEtMTcuNjEsMjEuNjMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjMTYxZjQyIi8+PHBhdGggZD0iTTUwMC40LDExNy45MWMtNS4yNSwxNi4wNS0xMS44NCwzMS40Ny0yMS4yNyw0NS41OWExNzIuNzgsMTcyLjc4LDAsMCwxLTM0LjQyLDM3LjczYy0uNzYuNjMtMS40NSwxLjM1LTIuMTcsMi00LjU4LDIuMzMtOC4zNSw1Ljg1LTEyLjU5LDguNjhhMjY3LjY4LDI2Ny42OCwwLDAsMS00OS4zOSwyNS41Myw4LjA5LDguMDksMCwwLDEtMS4yOS4zMmMtLjc2LTEuMTIuMTQtMS41My42LTIsOS44Mi05LjM1LDE1LjkxLTIwLjkyLDIwLTMzLjY2YTUsNSwwLDAsMSwzLjE3LTMuNjVjMzAuNTEtMTIuMDgsNTQuODYtMzIuMTUsNzQuOC01Ny45LDEuODEtMi4zNCwzLjU4LTQuNzEsNS44Mi03LjY2LTYuMTctLjEyLTEwLjksMy0xNi4xMiwzLjgyLTEsLjA2LTIuMjcuODgtMi41LTFhMjE1LjI3LDIxNS4yNywwLDAsMCw0MS44NC03NS42NWMuNTUtMS43OCwwLTQuMjMsMi40OC01LjEzYS40NC40NCwwLDAsMSwuMjUuNDVjMCwuMTgtLjA4LjI2LS4xMy4yNmEyMzAuNDksMjMwLjQ5LDAsMCwxLTguMzUsNTguNTYsMzYuODgsMzYuODgsMCwwLDAtLjY5LDMuNjMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjMTYxZjQyIi8+PHBhdGggZD0iTTM4MS44MiwzMjYuNTRhMTIwLDEyMCwwLDAsMSwxNi4wNiwyMi40Yy40My43OSwxLjU0LDEuNjguNTUsMi42MS0uNzUuNy0xLjYyLS4xNi0yLjQxLS40NmEzNDksMzQ5LDAsMCwwLTYyLjU2LTE3Yy0xMC43NS0xLjg1LTIxLjY2LTIuNjYtMzIuNTgtMy40NWExOTQuMDksMTk0LjA5LDAsMCwwLTI5LjQ1LjQyYy0yMi40MiwxLjgtNDQuMjQsNi41OS02NSwxNS41Ni02LjQsMi43Ny0xMi45NCw1LjI1LTE4Ljg5LDktLjY4LjQzLTEuNDksMS4xMy0yLjI3LjA2YTE5OS41OSwxOTkuNTksMCwwLDEsNTkuMi0yOC40MWMyOS4xNS04LjcsNTguOTMtMTAuODQsODkuMTUtOC40NmEzMjguNDIsMzI4LjQyLDAsMCwxLDQ1Ljc0LDYuOTUsMjEuOTIsMjEuOTIsMCwwLDEsMi40NC44MyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiMxNjFmNDIiLz48cGF0aCBkPSJNMzc0LjMyLDExNi4zOGg0LjVjMi40MiwxLDUuMDctLjI4LDcuNS43NGg0LjQ5Yy4zOCwyLjE3LTEuNDEsMy4wOC0yLjY1LDQuMTMtMjAuNzgsMTcuNTYtNDEuNDEsMzUuMjktNjIuMiw1Mi44My02Ljg3LDUuNzktMTMuNjgsMTEuNjUtMjAuNTQsMTcuNDVhNi4xNCw2LjE0LDAsMCwwLTIuMzUsMi44M2MtOSwzLjM3LTE3LjM2LDcuNi0yNCwxNC45NC0zLjEzLDMuNDgtNS4xOCw3LjUtNy40NCwxMS40Ni02LjE3LDQtMTEuMzYsOS4yNi0xNywxNC0xNC43NywxMi40Mi0yOS4zNSwyNS4wNi00NC4xNiwzNy40My0xLjI1LDEtMi4wNywyLjUtMy41MiwzLjMxLTIuNTUtMy44LTItOC0xLjM5LTEyLjEyLDEuODYtMy4wNiw0LjgtNSw3LjQ0LTcuMjhxMjEuNTQtMTguMjcsNDMtMzYuNTljMTQtMTEuODUsMjcuOTItMjMuNzcsNDEuOS0zNS42M3EyNC4xMi0yMC40NSw0OC4xNy00MWM4LjkzLTcuNiwxNy44LTE1LjI2LDI2Ljg2LTIyLjcxLDEuMzctMS4xMywyLjMzLTIsMS4yOC0zLjgxIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzVjOTRjZSIvPjxwYXRoIGQ9Ik02MzcuNTEsMzA4LjQxYy0xNy42My04LjU2LTM2LjI3LTEzLjc4LTU1LjU0LTE2LjktNS4xNS0uODQtMTAuMy0xLjg3LTE1LjU1LTEuOTEtNi43Mi00LjI1LTEzLjMxLTguNzMtMjAuMTktMTIuN2EyMDkuNzMsMjA5LjczLDAsMCwwLTcyLjE4LTI1Ljc1LDkuMDksOS4wOSwwLDAsMS0xLjY1LS42NGM3LjY1LTEuNCwzMy42OSwyLjUxLDUxLjcyLDcuNDdhMjQzLjA3LDI0My4wNywwLDAsMSw0OC40NywxOWMtMS42Mi00Ljg1LTQuNTgtOC4xMy02LjM5LTEyLS4xOC0xLTEuNjMtMS45NC0uNjYtM3MyLjA3LjA4LDMsLjQ5YzIuNiwxLjE4LDUuMDgsMi42MSw3LjY5LDMuNzdhMzQ3LjUyLDM0Ny41MiwwLDAsMSw2MS40LDQwLjQ5YzEuMDYsMS40LDEuMDYsMS40LS4xMSwxLjY5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzE2MWY0MiIvPjxwYXRoIGQ9Ik0zNzQuMzIsMTE2LjM4Yy40NiwxLjEsMS45Mi4zLDIuNjEsMS41My00LjE4LDMuNjItOC4zNiw3LjMtMTIuNjEsMTAuOTFxLTExLjUxLDkuNzgtMjMuMDcsMTkuNDhRMzI0Ljg3LDE2Mi4xMywzMDguNSwxNzZjLTcuNTgsNi40NC0xNS4wNSwxMy0yMi42MywxOS40Ni05LjE4LDcuOC0xOC40NSwxNS41MS0yNy42NSwyMy4zLTcuMyw2LjE5LTE0LjUzLDEyLjQ3LTIxLjgyLDE4LjY4LTcuNjcsNi41Mi0xNS4zNywxMy0yMy4wNiwxOS40OWwtNy43MSw2LjQ3LDIuMTktOS43NmMtMS4yNC0zLjE5LDEuMzUtNC42MywzLjEzLTYuMSw3LTUuODQsMTMuODgtMTEuODEsMjAuODMtMTcuNzFxMjQuMjUtMjAuNTgsNDguNDktNDEuMjIsMjAuODQtMTcuNyw0MS42Ni0zNS4zOWMxMi45Mi0xMSwyNS45My0yMS45MSwzOC43Mi0zMy4wNywxLS44NiwyLjg1LTEuODcuMTUtMyw0LjQzLTEuNjEsOS0uMzMsMTMuNTItLjczIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzY0OTdkMCIvPjxwYXRoIGQ9Ik0zNjAuOCwxMTcuMTFjMS4wNS4xOSwyLjItLjM3LDMuMy40OS0yLjY1LDMuOS02LjU1LDYuNDUtMTAsOS40NC05LjgyLDguNTYtMTkuNzksMTctMjkuNzQsMjUuMzctOS4xLDcuNjgtMTguMjksMTUuMjYtMjcuMzcsMjNzLTE4LjIzLDE1Ljc0LTI3LjQsMjMuNTQtMTguMjksMTUuMjctMjcuMzYsMjNTMjI0LDIzNy41OCwyMTQuODcsMjQ1LjQ1Yy0yLjc0LDIuMzctNi4zNyw0LTcuMDUsOC4xNS00Ljg0LjU1LTcuNCw0LjY0LTEwLjk0LDcuMTYtNS41OSw0LTkuODQsOS40Ny0xNSwxMy45NS01LjE5LDMuNjktOS43Nyw4LjEtMTQuNjEsMTIuMi0xNC4zOCwxMi4xOS0yOC43LDI0LjQ2LTQzLjEzLDM2LjU5LTIsMS42OC0zLjc3LDMuNjYtNiw1LjA2LTEsLjYyLTEuOTEsMS43OS0zLjMyLjgxYTE2LjksMTYuOSwwLDAsMSwxLjUxLTcuNTFjNy4xOS00LjU5LDEzLjE3LTEwLjY3LDE5LjY2LTE2LjEsMTcuODgtMTUsMzUuNjEtMzAuMTYsNTMuMzgtNDUuMjlzMzUuMy0zMC4xMyw1My00NS4xNXEyNi0yMiw1MS45NC00NC4wOGMxNy42OC0xNSwzNS40NC0zMCw1My00NS4xNSwzLjQ5LTMsNy4xNi01LjgzLDEwLjU2LTloMyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2ODlhZDEiLz48cGF0aCBkPSJNMzk5LjgxLDExNy44N2M0LjA3LS4wNSw4LDEsMTIsMS41LDEuMDksMi4zOS0xLDMuMzItMi4yMyw0LjQzLTUsNC4zNy0xMC4yMyw4LjQ4LTE1LjEsMTMtLjUyLS42OS0xLjA4LTEuMzYtMS41Ni0yLjA5LTEuMTEtMS42NS0xLjg5LTEuMjEtMi42MS4zMy01LjksMTIuNjYtMTYuMDUsMjEuNDYtMjcuMSwyOS4zYTIwMi4xNCwyMDIuMTQsMCwwLDEtMzkuODcsMjEuNzljLS43Ni0xLjQ0LS44My0xLjUuNDctMi44NCwyLjY5LTIuNzgsNS43Ny01LjE0LDguNzItNy42NCwyMS4yOS0xOC4xLDQyLjY0LTM2LjEyLDYzLjgxLTU0LjM3LDEuMjMtMS4wNywyLjI5LTIuMywzLjQ3LTMuNDEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNGU4ZmNjIi8+PHBhdGggZD0iTTM5OS44MSwxMTcuODdhNC41NSw0LjU1LDAsMCwxLTEuNzUsMy4xNHEtMjAuNiwxNy40My00MS4xMywzNC45My0xNS43MiwxMy40LTMxLjM2LDI2Ljg5Yy0uOTQuODItMi43MSwxLjQtMi4yMywzLjNhMTg3LjQsMTg3LjQsMCwwLDEtMjAuMjcsOC4yNGMtMi4zMy0uNjQtLjQtMS40NywwLTEuODUsNC4wOS0zLjYyLDguMjMtNy4xOCwxMi4zOS0xMC43MnExMS40Ny05Ljc1LDIzLTE5LjQ3YzcuNTctNi40LDE1LjE4LTEyLjc3LDIyLjczLTE5LjE5czE1LjEyLTEyLjg3LDIyLjU3LTE5LjQyYzIuNDEtMi4xMiw1LjM2LTMuNjgsNy02LjU5LDMuMDYtLjQ0LDYsLjYsOSwuNzQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNTU5MWNkIi8+PHBhdGggZD0iTTM0Ni42MSwyMDhjNy45Mi0zLjkyLDE2LjE5LTcuMjEsMjMuMS0xMi45MywxLjQ0LS4wNiwxLjI4Ljc2Ljk0LDEuNjktNi4zOCwyNi40Mi0yNi40Miw0My43Ny01My41Miw0Ni4zLTUuMjIuNDktMTAuNDMsMS4wOS0xNS42OS41OS42OC0xLjkzLDIuNTEtMS43Niw0LTIuMTcsNS44OC0xLjYsMTEuNzEtMy4zMSwxNy4xNi02LjEzLDEwLjIyLTUuMjgsMTcuNzEtMTMuMDcsMjItMjMuODRhOC4yMiw4LjIyLDAsMCwxLDIuMDUtMy41MSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiMxNjFmNDIiLz48cGF0aCBkPSJNMzQ2LjYxLDIwOGMtMy4yNiwxMi42LTExLjI5LDIxLjMxLTIyLjM5LDI3LjU1LTcuMTMsNC0xNSw1Ljg2LTIyLjc3LDguMS0xLjkxLTUuNTkuMTYtMTAuMzIsMy41Mi0xNC41NywzLjk0LTUsOS4zLTguMDgsMTUtMTAuNjlBMjc3LjA4LDI3Ny4wOCwwLDAsMSwzNDYuNjEsMjA4IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzQxOGFjOSIvPjxwYXRoIGQ9Ik0xMTQuOCwzMjkuMzdjNC40NS0xLjY1LDcuMzEtNS40MSwxMC44MS04LjI4LDExLjI5LTkuMjcsMjIuMzgtMTguNzgsMzMuNTEtMjguMjQsNS44NS01LDExLjYxLTEwLjA1LDE3LjQxLTE1LjA4LDEuNTgtMS4zNywzLjA1LTIuOTQsNS4zNC0zLjA2LTYsNy41Mi0xMS43MywxNS4yNC0xNiwyMy45M3EtMTcuMjUsMTQuNi0zNC40NCwyOS4yN2MtNS4zLDQuNTMtMTAuNzEsOC45NC0xNS45MywxMy41Ny0uOC43MS0xLjcsMS42LTIuOTQuNjRhNTQuMTMsNTQuMTMsMCwwLDEsMi4yNC0xMi43NSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2NDk3ZDAiLz48cGF0aCBkPSJNMTU4LjgxLDM0OS41OGMtMy41NC4yNy01LjE0LDMuNDQtNy40OCw1LjMzLTkuODUsNy45NS0xOS40NSwxNi4yMi0yOSwyNC40OS0zLjIsMi43Ni02LjMsNS42Mi05LjY5LDguMTYtMi4yMywxLjY4LTMuMDcsMS0zLTEuNTgsMC0zLjEyLDAtNi4yNCwwLTkuMzYsMy40Ni0zLjc1LDcuNjEtNi43MiwxMS40OC0xMCwxMS4xNy05LjQ4LDIyLjIzLTE5LjEsMzMuNTUtMjguNDIsMS0uOCwxLjc5LTIuMjYsMy40Ni0xLjMxbC43NSwxMi42OSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM0NjhjY2EiLz48cGF0aCBkPSJNMjA3LDI3NS40OGE0LjE3LDQuMTcsMCwwLDEsMS45MS0zLjA4YzktNy42LDE4LTE1LjE1LDI3LTIyLjc2LDcuMzktNi4yNSwxNC43Mi0xMi41NiwyMi4wNy0xOC44NywzLjg2LTMuMzEsNy42OS02LjY2LDExLjUyLTEwLC43My0uNjQsMS40MS0xLjEyLDIuMTIsMC0uODMsMy40MS0xLjgyLDYuNzktMS43MiwxMC4zNS00LDQuNDMtOC44OSw3LjkzLTEzLjQyLDExLjgtMTQsMTItMjcuOTUsMjMuOTMtNDIsMzUuNzZhMTEuMzQsMTEuMzQsMCwwLDAtMS40OCwxLjY4LDcuOTMsNy45MywwLDAsMS02LTQuODgiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNTU5MWNkIi8+PHBhdGggZD0iTTExMi41NiwzNDIuMTJjMy4yNC0xLDUuMTMtMy44MSw3LjU2LTUuODIsMTMuMTctMTAuODksMjYuMTMtMjIsMzkuMTctMzMuMDgsMi4wNS0xLjczLDMuNDktNC4zMyw2LjU4LTQuNThhMTUwLjg5LDE1MC44OSwwLDAsMC02LDE4Yy0yLjM0LS4yMy0zLjUzLDEuNjQtNSwyLjg4LTEzLjU4LDExLjY3LTI3LjI4LDIzLjItNDAuOTIsMzQuOC0uODIuNjktMS41NSwxLjcxLTIuODksMS4yNmE0NC44OCw0NC44OCwwLDAsMSwxLjUtMTMuNSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM1Yzk0Y2UiLz48cGF0aCBkPSJNMjEzLDI4MC4zNmMtLjkzLTEuNjguNjUtMi4yMywxLjQ3LTIuOTNxMTcuMi0xNC43MSwzNC40OS0yOS4zNCw5Ljc3LTguMjgsMTkuNTktMTYuNDlhNC4xNiw0LjE2LDAsMCwxLDEuMzgtLjQ3LDI5LjkyLDI5LjkyLDAsMCwwLDEuMzgsOWMtMy45Myw0LjU2LTguODcsOC0xMy4zOSwxMS44NnEtMTUuMTMsMTMtMzAuNDUsMjUuOTNhMy41LDMuNSwwLDAsMC0xLjU0LDJjLTQuMjYsMS41OC04LjU2LDIuMjEtMTIuOTMuNDEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNGU4ZmNjIi8+PHBhdGggZD0iTTE1OC4wNiwzMzYuODljLTQuMjEsMi40MS03LjU3LDUuOTEtMTEuMjcsOS05Ljc2LDgtMTkuMzcsMTYuMjUtMjguOTQsMjQuNS0yLjY0LDIuMjgtNSw0LjgyLTguMjgsNi4yNy4zOS00LS44NC04LjA4Ljc0LTEycTIyLjE3LTE4Ljk0LDQ0LjQ2LTM3Ljc2YzEtLjg2LDIuMDYtMS45MSwzLjY0LTEuMjMtLjEyLDMuNzUtLjIzLDcuNS0uMzUsMTEuMjYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNGU4ZmNjIi8+PHBhdGggZD0iTTE1OC40MSwzMjUuNjNjLTQuNzUsMi41NS04LjQyLDYuNS0xMi41Miw5Ljg4LTkuNjgsNy45NS0xOS4xNCwxNi4xNi0yOC43MywyNC4yMi0yLjE0LDEuODEtMy42NCw0LjU2LTYuODUsNC44OS4zOC0zLS44LTYuMTEuNzUtOXExNC0xMiwyOC4wNi0yMy45MmM2LjM0LTUuMzksMTIuNzQtMTAuNzEsMTkuMDctMTYuMSwyLTEuNzIsMS40Ny4xNywxLjY1LDEuMDhaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzU1OTFjZCIvPjxwYXRoIGQ9Ik0yMjYsMjgwYy0xLjM4LTEtLjQxLTEuNzQuMzItMi4zNSw4LjgyLTcuNCwxNy42OC0xNC43NSwyNi40OS0yMi4xNiw1LjUtNC42MywxMC45My05LjM0LDE2LjM3LTE0YTMuNjYsMy42NiwwLDAsMSwyLjItMS4yOGwyLjI1LDQuNDljLTEuNzMsMi42Ny00LjUsNC4zMy02LjQ1LDYuNzktMTAuODMsMTItMjIuOTUsMjIuMTQtMzguMjksMjcuOTFBMTkuNTMsMTkuNTMsMCwwLDEsMjI2LDI4MCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM0ODhkY2EiLz48cGF0aCBkPSJNMzk0LjQ4LDEzNi44YzEuMzYtNC4yNSw1Ljc3LTUuNDcsOC4zOC04LjQ3LDIuNzgtMy4xOSw3LjMzLTQuNjEsOC45NS05LDMuMjYsMCw2LjM4Ljg2LDkuNTUsMS40NSwyLjc0LjUxLDIuODYsMS43LDEsMy4zOS00LjA4LDMuNjQtOC4yLDcuMjYtMTIuMzQsMTAuODItMy44NiwzLjMyLTcuNzgsNi41Ny0xMS42OCw5Ljg1WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM0NjhjY2EiLz48cGF0aCBkPSJNMjA5LjM3LDMwNy44MWMuNjYsMS42Ni0xLjMzLDIuNDktMS4xLDQtMS00LjU2LTMuNTEtNi4zMy04LjA4LTUuNDJhMjMuNjUsMjMuNjUsMCwwLDAtMTIuNjQsNy4zNWMtLjk0LDEtMiwxLjg5LTMsMi44NC0uODItMSwwLTEuODcuMzMtMi43NiwyLTYuNTEsNi4zOS0xMS4xNCwxMS45My0xNC44M2ExMi41NywxMi41NywwLDAsMSw0LjA2LTEuODVjNi40Mi0xLjUzLDkuOTQsMS42MSw5LjA2LDguMTJhOC4yOCw4LjI4LDAsMCwxLS42MSwyLjUzIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzQyOGFjOSIvPjxwYXRoIGQ9Ik0yMDkuMzcsMzA3LjgxYzAtMSwuMDYtMiwuMDctMywuMTEtNi41NC0zLjYtOS05LjY3LTYuMjUtNywzLjItMTEuNDIsOC45Mi0xNC40OSwxNS43OS0uNzEuMTMtMS4wOC0uMDctLjg2LS44NiwyLjIxLTguMTYsNi40Ny0xNC45MiwxMy41Ni0xOS43M2ExNC44MiwxNC44MiwwLDAsMSw1Ljg1LTIuMjgsNi4yNSw2LjI1LDAsMCwxLDcuNDEsNC42MSwxNC44OCwxNC44OCwwLDAsMS0xLjg3LDExLjciIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjMTgyMTQ0Ii8+PHBhdGggZD0iTTI2Ny4xMywyNTEuNDFjLTEuMjYtMS0uMTUtMS40LjUyLTEuODcsMi4xMS0xLjQ3LDMuMjctNC4xLDUuOTMtNC45MiwzLjQsNS4zOCw4LjgzLDcuNzUsMTQuNDksOS43NywxLjE0LjQxLDIuMzMuNjcsNC4xOSwxLjE5LTguNzIsMi4yNy0xNi4yNCwxLjM5LTIzLjE1LTMuMzNhMywzLDAsMCwwLTItLjg0IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzQ1OGNjYSIvPjxwYXRoIGQ9Ik01NzYuMjIsMjY2LjIzYy0yLjc1LS4zMi00Ljg0LTIuMi03LjM0LTMuMTMtMS0uMzYtMS44OS0xLjY0LTIuOTItLjgtLjg1LjcuNTQsMS43NC4yNCwyLjcxLTEuNTMtMS4zNC0yLjA2LTMuMjYtMi44Ni01LjIxLDQuNDYsMS44NSw4LjkxLDMuNjQsMTIuODgsNi40MyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2MzY1N2QiLz48cGF0aCBkPSJNNjM3LjUxLDMwOC40MWMuODEtLjUxLDAtMS4xMy4xMS0xLjY5bDQuMzUsMi4zNiwyLjM0LDNjLTIuODUtLjc2LTQuNzgtMi4zMS02LjgtMy42NyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiMyNjMxNTQiLz48cGF0aCBkPSJNNDY1LjE5LDI0OS4yNmExNC4yNiwxNC4yNiwwLDAsMSw2LC40NWMtMi4zMiwxLjI2LTMuOTIsMS4wOS02LS40NSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiNhMDlhYTkiLz48cGF0aCBkPSJNMTc3LjgxLDU5Ni4zNmMyLjMzLjQyLDMuMzksMi42Nyw1LjMsMy43TDE4Myw2MDFhMTQuMjIsMTQuMjIsMCwwLDEtNS4yMS00LjU5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzQyNGE3ZiIvPjxwYXRoIGQ9Ik02NTQuMTcsNDUzLjA3bDEuMzQuNzVjLjE5LDEuNTEtLjQ1LDIuNzUtMS4zNCw0LjZaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzhjYjdkZSIvPjxwYXRoIGQ9Ik00NjUsMTM1Ljc5Yy41MSwxLjE1LDEuNjYuNjgsMi41LDFsLTQsMS41NWMtLjMxLTEuNTkuNzctMS45NSwxLjUxLTIuNTMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNWE1ZDc2Ii8+PHBhdGggZD0iTTE4NC40MiwzMTMuNTFsLjg2Ljg2Yy0uMjMuNzQtLjQ1LDEuNDktLjY4LDIuMjNMMTgzLDMxOC42N2MuNDgtMi40Mi41MS0zLjksMS40My01LjE2IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzRmNjY4YSIvPjxwYXRoIGQ9Ik0zNzAuNjUsMTk2LjczYy0uMjItLjYyLS4xMy0xLjQtLjk0LTEuNjkuMjQtLjU4Ljg5LTEuMzksMS4xOS0xLjEuOS44Ny41MiwxLjkxLS4yNSwyLjc5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzU1NWE3MyIvPjxwYXRoIGQ9Ik0xMTcuOCwzMTUuODZhNjEuNDQsNjEuNDQsMCwwLDEsNC41LTE1Ljc3YzguODItNi4xNSwxNi41OC0xMy42LDI0Ljc5LTIwLjVxMjEuMzUtMTgsNDIuNTMtMzYuMTQsMTkuMzUtMTYuNTUsMzguNzktMzMsMjEtMTcuOCw0Mi0zNS42NmMxMi43NC0xMC44MywyNS41Mi0yMS42MywzOC4yMS0zMi41Myw4LjktNy42NSwxOC0xNS4wNywyNi43NC0yMi44OGE1Myw1MywwLDAsMSwxNC4yNC0xLjUyLDEuNDQsMS40NCwwLDAsMSwxLjU0LS4xOGMxLjA2LDEuODEtLjI5LDIuODQtMS4zOSwzLjc2cS0xOC4xMywxNS4zNi0zNi4xOSwzMC44MVEyOTQuMjgsMTY4LjYzLDI3NSwxODVxLTE3Ljc5LDE1LjE4LTM1LjY0LDMwLjI5UTIxNy43LDIzMy42NywxOTYsMjUyLjFjLTE4LDE1LjI1LTM1Ljg4LDMwLjU5LTUzLjksNDUuNzktNyw1Ljg3LTEzLjgxLDExLjg4LTIwLjg3LDE3LjYzLS44OC43MS0yLjA3LDMtMy40Ny4zNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2ZDljZDIiLz48cGF0aCBkPSJNMzM1LjMxLDExOS4zOGMtMS4yNiw0LjIxLTUuMzMsNS43OS04LjIyLDguMzYtOS40Nyw4LjQyLTE5LjI2LDE2LjQ5LTI4Ljk0LDI0LjY3LTEwLjgzLDkuMTMtMjEuNzIsMTguMi0zMi41MSwyNy4zOC05LjM4LDgtMTguNjIsMTYuMTEtMjgsMjQuMS05LjA5LDcuNzQtMTguMjksMTUuMzQtMjcuMzgsMjMuMDZzLTE4LjExLDE1LjU1LTI3LjIxLDIzLjI4LTE4LjI1LDE1LjM3LTI3LjM1LDIzLjA5Yy03LjQ5LDYuMzYtMTQuOTIsMTIuNzktMjIuMzksMTkuMTYtMywyLjU4LTYuMTEsNS4xLTkuMTYsNy42NS0uNjYuNTUtMS4yNi44Mi0xLjg2LDBhNjAsNjAsMCwwLDEsNS4yNS0xNWM2LjktNC4zNSwxMi42Ny0xMC4xLDE4Ljg2LTE1LjMycTIxLjMzLTE4LDQyLjUxLTM2LjEzLDIxLjkyLTE4Ljc1LDQzLjkyLTM3LjM5LDE4LjEtMTUuNDIsMzYuMjUtMzAuNzljMTUuNzMtMTMuMywzMS4zMy0yNi43Niw0Ny4xMy00MGE2Ljk0LDYuOTQsMCwwLDAsMi41OC0zLjEzYzUuMzEtMi4wNiwxMS0xLjkzLDE2LjUxLTMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNzI5ZmQ0Ii8+PHBhdGggZD0iTTMxOC44LDEyMi4zNmMyLjMzLjYxLjQzLDEuNDYsMCwxLjg1LTQuMjUsMy44Mi04LjU0LDcuNjEtMTIuODksMTEuMzEtNy41Nyw2LjQzLTE1LjIsMTIuNzktMjIuNzksMTkuMnEtMTYuNjcsMTQtMzMuMjksMjguMTNjLTkuMDksNy43My0xOC4wOCwxNS41Ni0yNy4xNiwyMy4yOS05LjM2LDgtMTguNzksMTUuODUtMjguMTYsMjMuODItOS4wOCw3LjczLTE4LjA5LDE1LjU0LTI3LjE3LDIzLjI3UzE0OS4xLDI2OC42MSwxNDAsMjc2LjI5Yy0zLjMzLDIuOC02LjY0LDUuNjItMTAsOC4zNy0uNjYuNTQtMS4zNywxLjc2LTIuNDQuNDQsMS01LjE2LDMuNzItOS42MSw2LTE0LjI0LDEyLjMzLTEwLjU0LDI0LjcyLTIxLDM3LjA2LTMxLjU2cTE5LjA4LTE2LjI5LDM4LjIxLTMyLjUyLDE4LjI1LTE1LjUzLDM2LjUzLTMxUTI2NC42LDE1OS4zOSwyODMuODYsMTQzYzYuNjUtNS42NCwxMy4wOS0xMS41NCwxOS45NS0xNyw0Ljc1LTIuMjEsOS45LTIuODMsMTUtMy43MSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM3OGEyZDUiLz48cGF0aCBkPSJNMzAzLjgxLDEyNi4wN2MtNC43Niw2LjE5LTExLjIyLDEwLjU1LTE3LDE1LjYzLTcuNTcsNi42NC0xNS4zMiwxMy4wNS0yMywxOS41NS03LjQ5LDYuMzQtMTUsMTIuNjUtMjIuNDksMTlTMjI2LjM5LDE5MywyMTguOSwxOTkuNHMtMTUuMjEsMTIuOC0yMi43OSwxOS4yM2MtNy4zOSw2LjI4LTE0LjcxLDEyLjYzLTIyLjEsMTguOTFxLTE0LjA2LDEyLTI4LjE3LDIzLjg1Yy0zLjMyLDIuODEtNi42Niw1LjYtMTAsOC40YTMuNDMsMy40MywwLDAsMS0yLjMyLDEuMDcsOTkuOTMsOTkuOTMsMCwwLDEsOS0xOGMxNy4xMi0xMy45MSwzMy43Ny0yOC40LDUwLjU3LTQyLjcsMTkuNDUtMTYuNTcsMzktMzMsNTguMzQtNDkuNzMsMTAuOTQtOS40NSwyMi4zLTE4LjQxLDMyLjg1LTI4LjMyYTExMy40MywxMTMuNDMsMCwwLDEsMTkuNS02IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzdkYTVkNiIvPjxwYXRoIGQ9Ik0yODQuMzEsMTMyLjExYy43NSwxLjM0LS42LDEuNzQtMS4xOCwyLjI2cS0xMi40OCwxMC45NC0yNS4wNiwyMS43M2MtNy4zNSw2LjMxLTE0Ljc3LDEyLjU0LTIyLjE2LDE4LjhxLTEzLjc4LDExLjY3LTI3LjU4LDIzLjM0Yy03LjQ3LDYuMzUtMTQuOSwxMi43Ni0yMi4zOCwxOS4xMS05LjM3LDgtMTguNzgsMTUuODctMjguMTUsMjMuODJxLTUuODQsNS0xMS42MSwxMGE2LjQ1LDYuNDUsMCwwLDEtMy42NCwxLjc0LDE1OS4yNiwxNTkuMjYsMCwwLDEsMTYuNTItMjYuMjRjNS44LTQuMjcsMTEuMS05LjE2LDE2LjU5LTEzLjgxcTIxLjM5LTE4LjEyLDQyLjcyLTM2LjMyLDE2LjUtMTQuMDYsMzMtMjguMTRjMS43LTEuNDUsMy44My0yLjM4LDUuMTMtNC4yOSw4LjcyLTUuMjgsMTguMy04LjUzLDI3LjgyLTExLjk1IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzgxYTdkOCIvPjxwYXRoIGQ9Ik00NDIuNTUsNDY2LjY0Yy03LjU1LDYuMTYtMTQuOTUsMTIuNTQtMjUsMTYuODFhODguODYsODguODYsMCwwLDAsNi42My0xOC4yNGM1LjkyLTI2LC40My00OS42Ni0xNC44Ny03MS4yNC0zLjc4LTUuMzItOC44Ni05LjQ0LTEzLjM2LTE0LjA5LS43My0uNzUtMS41Mi0xLjY5LTIuODMtMS4wNi0xLjM1LS42Ni0yLTItMy0zLC42NS0uODMsMS4zMi0uMzcsMiwwLDE4LjEzLDEwLjI4LDMzLjI0LDIzLjYyLDQyLjQ3LDQyLjY5YTg1LjIzLDg1LjIzLDAsMCwxLDguMTgsMzAsODYuODYsODYuODYsMCwwLDEtLjE3LDE4LjE3IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzBlMWY2NiIvPjxwYXRoIGQ9Ik0xMTcuOCwzMTUuODZjMywxLjA4LDQtMS45MSw1LjU0LTMuMTQsMTUuMjEtMTIuNTksMzAuMjEtMjUuNDQsNDUuMjMtMzguMjYsMTQuMTctMTIuMSwyOC4yNS0yNC4zMSw0Mi40NS0zNi4zOCwxNS44MS0xMy40MywzMS43NC0yNi43LDQ3LjU1LTQwLjEzLDE0LjItMTIuMDcsMjguMjgtMjQuMjcsNDIuNDQtMzYuMzhRMzI0LDE0MiwzNDcsMTIyLjRjMS41Ny0xLjM0LDMuODMtMiw0LjExLTQuNTMuODYtLjgyLDIuMTMuMDgsMy0uNzNsMy43NiwwYy0xLjE1LDQtNSw1LjM5LTcuNyw3LjgxLTcuNzYsNy0xNS44NSwxMy41OS0yMy44MiwyMC4zMy05LjExLDcuNy0xOC4yNiwxNS4zNi0yNy4zNiwyMy4wOC03LjM5LDYuMjctMTQuNzIsMTIuNjItMjIuMTIsMTguOS0xMC45LDkuMjQtMjEuODUsMTguNDItMzIuNzQsMjcuNjctNy40LDYuMjgtMTQuNzIsMTIuNjQtMjIuMSwxOC45Mi05LjM4LDgtMTguOCwxNS44OC0yOC4xOCwyMy44NS03LjM5LDYuMjgtMTQuNzEsMTIuNjQtMjIuMSwxOC45Mi03LjU3LDYuNDQtMTUuMjEsMTIuODEtMjIuNzgsMTkuMjVzLTE1LjA4LDEzLTIyLjY1LDE5LjQzYy0yLjY0LDIuMjUtNS4zOCw0LjQtOC4wOCw2LjYtLjY0LjUyLTEuMjUuODUtMS44NywwYTExLjc1LDExLjc1LDAsMCwxLDEuNDktNiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2OTlhZDEiLz48cGF0aCBkPSJNMjU2LjQ5LDE0NC4wNmMtLjYzLDMuNTUtNC4wOSw0LjQ4LTYuMjksNi40Ni03LjY2LDYuODktMTUuNjMsMTMuNDMtMjMuNDksMjAuMDgtOS4yLDcuNzctMTguNDIsMTUuNS0yNy42LDIzLjI5LTcuMzksNi4yNi0xNC43MywxMi41OS0yMi4wOCwxOC44OXEtOC4wNiw2LjktMTYuMSwxMy44M2MtLjYzLjU0LTEuMjQuODctMS44NiwwYTE0MS43MiwxNDEuNzIsMCwwLDEsMTMuMTQtMTcuMTFjMTcuNjUtMjAuNSwzNy43LTM4LjMsNjAuNzMtNTIuNiw3LjYtNC43MSwxNS4xNC05LjYsMjMuNTUtMTIuODUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjODhhYmQ5Ii8+PHBhdGggZD0iTTM4Ni4zMiwxMTcuMTJjLTIuNDktLjMzLTUuMTMuNzctNy41LS43NCwyLjQ5LjMyLDUuMTItLjc4LDcuNS43NCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM1NTkxY2QiLz48cGF0aCBkPSJNMzU0LjA1LDExNy4xNGMtLjc5LDEuMDctMiwuNjItMywuNzNoLTEuNTFjMS4zMy0xLjMsMy0uNTIsNC41LS43MiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2ODlhZDEiLz48cGF0aCBkPSJNMjgyLjA2LDYzOS4xMmExODIuMywxODIuMywwLDAsMCw3MS44MS0xMS4zMSwyMTQsMjE0LDAsMCwwLDYxLjYxLTM0LjY3YzE4LjA5LTE0LjY4LDMzLjY2LTMxLjUzLDQ0LjA2LTUyLjYxYTEwMS4zNiwxMDEuMzYsMCwwLDAsMTAuMjItMzZjMS0xMS4zMS0uODgtMjItMy45NS0zMi42NC4zNC0yLjYxLDIuNzItMy44LDQuMTEtNS42Myw1LjM4LTcuMDcsOS4zNS0xNC42OSwxMS0yMy40NmEyNy40MywyNy40MywwLDAsMSwxLjIxLTMuNDMsMTExLDExMSwwLDAsMSw4LDIxLjE2YzIuNjMsMTAuMzEsNC4xMSwyMC44LDMuMzMsMzEuNGExMjMuMzEsMTIzLjMxLDAsMCwxLTE2LjA2LDUyLjMyYy05LjE2LDE2LjE1LTIxLDMwLTM0LjYsNDIuMzdhMTk5Ljg5LDE5OS44OSwwLDAsMS0zOS4zNywyNy41NCwyMTkuNSwyMTkuNSwwLDAsMS01NC4yNiwyMC43MSwyMDkuMjcsMjA5LjI3LDAsMCwxLTM2LjA1LDUuMmMtNS44NS4zMy0xMS43MS44My0xNy41Mi40Ni00LjUxLS4yOS05LjE0LDAtMTMuNTYtMS4zNyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiMwZTFmNjYiLz48L2c+PC9zdmc+',
-    router: {
-      address: '0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff',
-      api: UniswapV2.ROUTER
-    },
-    factory: {
-      address: '0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32',
-      api: UniswapV2.FACTORY
-    },
-    pair: {
-      api: UniswapV2.PAIR
-    },
-    slippage: true,
-  };
-
-  new Exchange(
-
-    Object.assign(exchange$6, {
-      findPath: ({ tokenIn, tokenOut })=>
-        UniswapV2.findPath(blockchain$6, exchange$6, { tokenIn, tokenOut }),
-      pathExists: (path)=>
-        UniswapV2.pathExists(blockchain$6, exchange$6, path),
-      getAmounts: ({ path, block, tokenIn, tokenOut, amountOut, amountIn, amountInMax, amountOutMin })=>
-        UniswapV2.getAmounts(blockchain$6, exchange$6, { path, block, tokenIn, tokenOut, amountOut, amountIn, amountInMax, amountOutMin }),
-      getTransaction: ({ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress })=>
-        UniswapV2.getTransaction(blockchain$6, exchange$6 ,{ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress }),
-    })
-  );
-
-  const blockchain$5 = Blockchains__default['default'].fantom;
-
-  const exchange$5 = {
-    blockchain: 'fantom',
-    name: 'spookyswap',
-    alternativeNames: [],
-    label: 'SpookySwap',
-    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgNjQxIDY0MCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjQxIDY0MDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8Zz4KCTxwYXRoIGZpbGw9IiMxMjExMjIiIGQ9Ik0zNC4yLDMyMGMwLDE1OC41LDEyOC41LDI4Ni4zLDI4Ni4zLDI4Ni4zYzE1OC41LDAsMjg2LjMtMTI4LjUsMjg2LjMtMjg2LjNjMC0xNTguNS0xMjguNS0yODYuMy0yODYuMy0yODYuMwoJCUMxNjIuNywzMy43LDM0LjIsMTYyLjIsMzQuMiwzMjBMMzQuMiwzMjB6Ii8+Cgk8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZmlsbD0iI0YyRjRGOCIgZD0iTTEyMC45LDI0Ny42Yy0zLjMsMjIuMiwwLjcsNDUuNyw0LjYsNjcuOGMyLDMuMyw1LjIsNS45LDkuOCw3LjJjLTkuMSwxOS42LTE0LjMsNDAuNC0xNC4zLDYyLjYKCQljMCw5My4zLDkwLDE2OC45LDIwMS41LDE2OC45UzUyNCw0NzguNSw1MjQsMzg1LjJjMC0yMS41LTUuMi00My0xNC4zLTYyLjZjMy45LTEuMyw2LjUtMy45LDcuOC03LjJjNC42LTIyLjIsOC41LTQ1LjcsNS4yLTY3LjgKCQljLTMuMy0zMC0xMy43LTM5LjgtNDUtMzJjLTE1LjcsMy45LTM2LjUsMTMtNTIuOCwyNC4xYy0zMC0xNS02NS4yLTIzLjUtMTAyLjQtMjMuNWMtMzcuOCwwLTczLjcsOS4xLTEwMy43LDI0LjEKCQljLTE2LjMtMTEuMS0zNy4yLTIwLjktNTMuNS0yNC44QzEzNCwyMDcuOCwxMjQuMiwyMTcuNiwxMjAuOSwyNDcuNkwxMjAuOSwyNDcuNnogTTIzOC4zLDM4MC43Yy0yMy41LTEwLjQtNjMuOS03LjgtNjMuOS03LjgKCQlzMiwzNy44LDI0LjgsNTAuOWMyNy40LDE1LDc4LjksNy44LDc4LjksNy44UzI3My41LDM5Ni4zLDIzOC4zLDM4MC43TDIzOC4zLDM4MC43eiBNMzY5LjQsNDMyLjJjMCwwLDUwLjksNy44LDc4LjktNy44CgkJYzIzLjUtMTMsMjQuOC01MC45LDI0LjgtNTAuOXMtNDAuNC0yLjYtNjMuOSw3LjhDMzc0LDM5Ni4zLDM2OS40LDQzMS41LDM2OS40LDQzMi4yTDM2OS40LDQzMi4yeiBNMzEyLjcsNDU4LjkKCQljMCwyLjYsNS4yLDUuMiwxMS43LDUuMnMxMS43LTIsMTEuNy01LjJjMC0yLjYtNS4yLTUuMi0xMS43LTUuMkMzMTcuOSw0NTMuNywzMTIuNyw0NTUuNywzMTIuNyw0NTguOUwzMTIuNyw0NTguOXoiLz4KCTxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBmaWxsPSIjRjJGNEY4IiBkPSJNNTUyLjcsNDM1LjRjLTE4LjktNy4yLTM5LjEtMTEuMS01OS4zLTExLjFjLTUuMiwwLTUuMi03LjgsMC03LjhjMjAuOSwwLDQxLjcsMy45LDYxLjMsMTEuNwoJCWMyLDAuNywzLjMsMi42LDIuNiw0LjZDNTU2LjYsNDM0LjgsNTU0LjYsNDM2LjEsNTUyLjcsNDM1LjRMNTUyLjcsNDM1LjR6IE05Mi4yLDQyNy42YzE5LjYtNy44LDQwLjQtMTEuMSw2MS4zLTExLjcKCQljNS4yLDAsNS4yLDcuOCwwLDcuOGMtMjAuMiwwLTQwLjQsMy45LTU5LjMsMTEuMWMtMiwwLjctNC42LTAuNy01LjItMi42Qzg5LDQzMC45LDkwLjMsNDI4LjMsOTIuMiw0MjcuNkw5Mi4yLDQyNy42eiBNMTMyLjcsNDUwLjQKCQljOS44LTMuMywyMC4yLTQuNiwzMC01LjJjNS4yLDAsNS4yLDcuOCwwLDcuOGMtOS4xLDAtMTguOSwyLTI3LjQsNC42Yy04LjUsMi42LTE3LjYsNS45LTI0LjEsMTEuN2MtMy45LDMuMy05LjEtMi01LjktNS45CgkJQzExMy4xLDQ1NywxMjMuNSw0NTMuNywxMzIuNyw0NTAuNEwxMzIuNyw0NTAuNHogTTE3MS44LDQ2NS40Yy03LjgsMy4zLTE1LjcsNy44LTIyLjgsMTIuNGMtNy4yLDQuNi0xMy43LDEwLjQtMTguOSwxNwoJCWMtMS4zLDItMC43LDQuNiwxLjMsNS4yYzIsMS4zLDQuNiwwLjcsNS4yLTEuM2M0LjYtNS45LDExLjEtMTEuMSwxNy0xNWM3LjItNC42LDE0LjMtOC41LDIxLjUtMTEuN2MyLTEuMywyLjYtMy4zLDEuMy01LjIKCQlDMTc2LjQsNDY0LjgsMTczLjgsNDY0LjEsMTcxLjgsNDY1LjRMMTcxLjgsNDY1LjR6IE00ODMuNSw0NTMuN2M5LjEsMCwxOC45LDIsMjcuNCw0LjZjNC42LDEuMyw5LjEsMy4zLDEzLjcsNS4yCgkJYzMuOSwxLjMsNy4yLDMuOSwxMC40LDYuNWMzLjksMy4zLDkuMS0yLDUuOS01LjljLTcuMi02LjUtMTcuNi0xMC40LTI2LjctMTNjLTkuOC0zLjMtMjAuMi00LjYtMzAtNS4yCgkJQzQ3OSw0NDUuMiw0NzksNDUzLjcsNDgzLjUsNDUzLjdMNDgzLjUsNDUzLjd6IE00OTIuNyw0ODMuN2MtNy4yLTQuNi0xNC4zLTcuOC0yMS41LTExLjFsMCwwYy0yLTEuMy0yLjYtMy4zLTEuMy01LjIKCQljMS4zLTIsMy4zLTIuNiw1LjItMS4zYzE1LjcsNi41LDMyLDE1LjcsNDEuNywyOS4zYzEuMywyLDAuNyw0LjYtMS4zLDUuMmMtMiwxLjMtNC42LDAuNy01LjItMS4zCgkJQzUwNS43LDQ5Mi44LDQ5OS4yLDQ4Ny42LDQ5Mi43LDQ4My43TDQ5Mi43LDQ4My43eiIvPgoJPHBhdGggZmlsbD0iIzY2NjVERCIgZD0iTTYyLjIsMzM1LjdjMy45LTUuOSwzNS45LTIyLjgsNzUuNy0zMy4zYzguNS0yNC44LDE5LjYtNDguMywzMi03MS4xbDMyLTU4Yy05LjEtMy45LTE4LjMtOS4xLTI2LjctMTUKCQljLTEuMy0xLjMtMi42LTIuNi0zLjktMy45Yy0wLjctMS4zLTEuMy0zLjMtMS4zLTQuNnMyLTMuOSwyLjYtNC42YzItMi42LDQuNi00LjYsNy4yLTcuMmM1LjktNS4yLDEyLjQtOS44LDE5LjYtMTMuNwoJCWMzLjMtMiw2LjUtMy45LDkuOC02LjVjMjIuOC0xNC4zLDM1LjktMjUuNCw1Ni43LTM3LjhjMjAuMi0xMS43LDMwLTE4LjMsNTIuOC0xNy42YzI5LjMsMCwxMDEuNyw5Mi42LDEzNC4zLDE0MC4yCgkJYzE5LjYsMjguNyw0Ni4zLDgwLjIsNTYuMSw5OS44YzIsMC43LDQuNiwxLjMsNi41LDJjMzAsOS4xLDU4LjcsMjIuMiw2NS45LDMwLjdjNi41LDcuMi0yMS41LDEwLjQtNDguOSwxNS43CgkJYy0yNy40LDQuNi0xMjAuNyw3LjItMjEwLDcuOGMtODkuMywwLjctMTkzLjctMi42LTIxNi41LTUuOUM4My4xLDM0OS4zLDU3LjcsMzQyLjgsNjIuMiwzMzUuN0w2Mi4yLDMzNS43eiIvPgoJPHBhdGggZmlsbD0iI0ZGOTlBNSIgZD0iTTQ4My41LDI1Ni4xYzAsMC01OC43LTE1LTE2Mi40LTE1Yy0xMTEuNSwwLTE2NSwxNy0xNjUsMTdzLTYuNSwxMi40LTkuMSwxOC45Yy0yLjYsNy4yLTkuMSwyNS40LTkuMSwyNS40CgkJUzIxOC44LDI4OCwzMjIuNSwyODhjNjIuNiwwLDEyNC42LDUuMiwxODYuNSwxNS43YzAsMC05LjEtMjIuMi0xNS0zMS4zQzQ5MC43LDI2Ny4yLDQ4Ny41LDI2MS4zLDQ4My41LDI1Ni4xTDQ4My41LDI1Ni4xeiIvPgoJPHBhdGggZmlsbD0iI0ZGRTYwMCIgZD0iTTEzMy4zLDEzMS41YzYuNS0wLjcsMTUuNywxOS42LDE1LjcsMTkuNnMyMC45LTUuOSwyNC44LDBjMy4zLDUuOS0xNSwxOS42LTE1LDE5LjZzMTEuMSwxOS42LDcuMiwyMy41CgkJYy0zLjMsMy45LTIyLjgtOC41LTIyLjgtOC41cy0xNSwxNy0xOS42LDE0LjNjLTUuMi0yLjYsMC43LTI0LjgsMC43LTI0LjhzLTIxLjUtOS4xLTE5LjYtMTQuM2MxLjMtNS4yLDIzLjUtNy4yLDIzLjUtNy4yCgkJUzEyNi44LDEzMi44LDEzMy4zLDEzMS41TDEzMy4zLDEzMS41eiIvPgo8L2c+Cjwvc3ZnPgo=',
-    router: {
-      address: '0xF491e7B69E4244ad4002BC14e878a34207E38c29',
-      api: UniswapV2.ROUTER
-    },
-    factory: {
-      address: '0x152eE697f2E276fA89E96742e9bB9aB1F2E61bE3',
-      api: UniswapV2.FACTORY
-    },
-    pair: {
-      api: UniswapV2.PAIR
-    },
-    slippage: true,
-  };
-
-  new Exchange(
-
-    Object.assign(exchange$5, {
-      findPath: ({ tokenIn, tokenOut })=>
-        UniswapV2.findPath(blockchain$5, exchange$5, { tokenIn, tokenOut }),
-      pathExists: (path)=>
-        UniswapV2.pathExists(blockchain$5, exchange$5, path),
-      getAmounts: ({ path, block, tokenIn, tokenOut, amountOut, amountIn, amountInMax, amountOutMin })=>
-        UniswapV2.getAmounts(blockchain$5, exchange$5, { path, block, tokenIn, tokenOut, amountOut, amountIn, amountInMax, amountOutMin }),
-      getTransaction: ({ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress })=>
-        UniswapV2.getTransaction(blockchain$5, exchange$5 ,{ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress }),
-    })
-  );
-
-  const blockchain$4 = Blockchains__default['default'].ethereum;
-
-  const exchange$4 = {
-    blockchain: 'ethereum',
-    name: 'uniswap_v2',
-    alternativeNames: [],
-    label: 'Uniswap v2',
-    logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQxIiBoZWlnaHQ9IjY0MCIgdmlld0JveD0iMCAwIDY0MSA2NDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0yMjQuNTM0IDEyMy4yMjZDMjE4LjY5MiAxMjIuMzIgMjE4LjQ0NSAxMjIuMjEzIDIyMS4xOTUgMTIxLjc5MUMyMjYuNDY0IDEyMC45OCAyMzguOTA1IDEyMi4wODUgMjQ3LjQ3OSAxMjQuMTIzQzI2Ny40OTQgMTI4Ljg4MSAyODUuNzA3IDE0MS4wNjkgMzA1LjE0OCAxNjIuNzE0TDMxMC4zMTMgMTY4LjQ2NUwzMTcuNzAxIDE2Ny4yNzdDMzQ4LjgyOCAxNjIuMjc1IDM4MC40OTMgMTY2LjI1IDQwNi45NzggMTc4LjQ4NUM0MTQuMjY0IDE4MS44NTEgNDI1Ljc1MiAxODguNTUyIDQyNy4xODcgMTkwLjI3NEM0MjcuNjQ1IDE5MC44MjIgNDI4LjQ4NSAxOTQuMzU1IDQyOS4wNTMgMTk4LjEyNEM0MzEuMDIgMjExLjE2NCA0MzAuMDM2IDIyMS4xNiA0MjYuMDQ3IDIyOC42MjVDNDIzLjg3NyAyMzIuNjg4IDQyMy43NTYgMjMzLjk3NSA0MjUuMjE1IDIzNy40NTJDNDI2LjM4IDI0MC4yMjcgNDI5LjYyNyAyNDIuMjggNDMyLjg0MyAyNDIuMjc2QzQzOS40MjUgMjQyLjI2NyA0NDYuNTA5IDIzMS42MjcgNDQ5Ljc5MSAyMTYuODIzTDQ1MS4wOTUgMjEwLjk0M0w0NTMuNjc4IDIxMy44NjhDNDY3Ljg0NiAyMjkuOTIgNDc4Ljk3NCAyNTEuODExIDQ4MC44ODUgMjY3LjM5M0w0ODEuMzgzIDI3MS40NTVMNDc5LjAwMiAyNjcuNzYyQzQ3NC45MDMgMjYxLjQwNyA0NzAuNzg1IDI1Ny4wOCA0NjUuNTEyIDI1My41OTFDNDU2LjAwNiAyNDcuMzAxIDQ0NS45NTUgMjQ1LjE2MSA0MTkuMzM3IDI0My43NThDMzk1LjI5NiAyNDIuNDkxIDM4MS42OSAyNDAuNDM4IDM2OC4xOTggMjM2LjAzOEMzNDUuMjQ0IDIyOC41NTQgMzMzLjY3MiAyMTguNTg3IDMwNi40MDUgMTgyLjgxMkMyOTQuMjk0IDE2Ni45MjMgMjg2LjgwOCAxNTguMTMxIDI3OS4zNjIgMTUxLjA1MUMyNjIuNDQyIDEzNC45NjQgMjQ1LjgxNiAxMjYuNTI3IDIyNC41MzQgMTIzLjIyNloiIGZpbGw9IiNGRjAwN0EiLz4KPHBhdGggZD0iTTQzMi42MSAxNTguNzA0QzQzMy4yMTUgMTQ4LjA1NyA0MzQuNjU5IDE0MS4wMzMgNDM3LjU2MiAxMzQuNjJDNDM4LjcxMSAxMzIuMDgxIDQzOS43ODggMTMwLjAwMyA0MzkuOTU0IDEzMC4wMDNDNDQwLjEyIDEzMC4wMDMgNDM5LjYyMSAxMzEuODc3IDQzOC44NDQgMTM0LjE2N0M0MzYuNzMzIDE0MC4zOTIgNDM2LjM4NyAxNDguOTA1IDQzNy44NCAxNTguODExQzQzOS42ODYgMTcxLjM3OSA0NDAuNzM1IDE3My4xOTIgNDU0LjAxOSAxODYuNzY5QzQ2MC4yNSAxOTMuMTM3IDQ2Ny40OTcgMjAxLjE2OCA0NzAuMTI0IDIwNC42MTZMNDc0LjkwMSAyMTAuODg2TDQ3MC4xMjQgMjA2LjQwNUM0NjQuMjgyIDIwMC45MjYgNDUwLjg0NyAxOTAuMjQgNDQ3Ljg3OSAxODguNzEyQzQ0NS44OSAxODcuNjg4IDQ0NS41OTQgMTg3LjcwNSA0NDQuMzY2IDE4OC45MjdDNDQzLjIzNSAxOTAuMDUzIDQ0Mi45OTcgMTkxLjc0NCA0NDIuODQgMTk5Ljc0MUM0NDIuNTk2IDIxMi4yMDQgNDQwLjg5NyAyMjAuMjA0IDQzNi43OTcgMjI4LjIwM0M0MzQuNTggMjMyLjUyOSA0MzQuMjMgMjMxLjYwNiA0MzYuMjM3IDIyNi43MjNDNDM3LjczNSAyMjMuMDc3IDQzNy44ODcgMjIxLjQ3NCA0MzcuODc2IDIwOS40MDhDNDM3Ljg1MyAxODUuMTY3IDQzNC45NzUgMTc5LjMzOSA0MTguMDk3IDE2OS4zNTVDNDEzLjgyMSAxNjYuODI2IDQwNi43NzYgMTYzLjE3OCA0MDIuNDQyIDE2MS4yNDlDMzk4LjEwNyAxNTkuMzIgMzk0LjY2NCAxNTcuNjM5IDM5NC43ODkgMTU3LjUxNEMzOTUuMjY3IDE1Ny4wMzggNDExLjcyNyAxNjEuODQyIDQxOC4zNTIgMTY0LjM5QzQyOC4yMDYgMTY4LjE4MSA0MjkuODMzIDE2OC42NzIgNDMxLjAzIDE2OC4yMTVDNDMxLjgzMiAxNjcuOTA5IDQzMi4yMiAxNjUuNTcyIDQzMi42MSAxNTguNzA0WiIgZmlsbD0iI0ZGMDA3QSIvPgo8cGF0aCBkPSJNMjM1Ljg4MyAyMDAuMTc1QzIyNC4wMjIgMTgzLjg0NiAyMTYuNjg0IDE1OC44MDkgMjE4LjI3MiAxNDAuMDkzTDIxOC43NjQgMTM0LjMwMUwyMjEuNDYzIDEzNC43OTRDMjI2LjUzNCAxMzUuNzE5IDIzNS4yNzUgMTM4Ljk3MyAyMzkuMzY5IDE0MS40NTlDMjUwLjYwMiAxNDguMjgxIDI1NS40NjUgMTU3LjI2MyAyNjAuNDEzIDE4MC4zMjhDMjYxLjg2MiAxODcuMDgzIDI2My43NjMgMTk0LjcyOCAyNjQuNjM4IDE5Ny4zMTdDMjY2LjA0NyAyMDEuNDgzIDI3MS4zNjkgMjExLjIxNCAyNzUuNjk2IDIxNy41MzRDMjc4LjgxMyAyMjIuMDg1IDI3Ni43NDMgMjI0LjI0MiAyNjkuODUzIDIyMy42MkMyNTkuMzMxIDIyMi42NyAyNDUuMDc4IDIxMi44MzQgMjM1Ljg4MyAyMDAuMTc1WiIgZmlsbD0iI0ZGMDA3QSIvPgo8cGF0aCBkPSJNNDE4LjIyMyAzMjEuNzA3QzM2Mi43OTMgMjk5LjM4OSAzNDMuMjcxIDI4MC4wMTcgMzQzLjI3MSAyNDcuMzMxQzM0My4yNzEgMjQyLjUyMSAzNDMuNDM3IDIzOC41ODUgMzQzLjYzOCAyMzguNTg1QzM0My44NCAyMzguNTg1IDM0NS45ODUgMjQwLjE3MyAzNDguNDA0IDI0Mi4xMTNDMzU5LjY0NCAyNTEuMTI4IDM3Mi4yMzEgMjU0Ljk3OSA0MDcuMDc2IDI2MC4wNjJDNDI3LjU4IDI2My4wNTQgNDM5LjExOSAyNjUuNDcgNDQ5Ljc2MyAyNjlDNDgzLjU5NSAyODAuMjIgNTA0LjUyNyAzMDIuOTkgNTA5LjUxOCAzMzQuMDA0QzUxMC45NjkgMzQzLjAxNiA1MTAuMTE4IDM1OS45MTUgNTA3Ljc2NiAzNjguODIyQzUwNS45MSAzNzUuODU3IDUwMC4yNDUgMzg4LjUzNyA0OTguNzQyIDM4OS4wMjNDNDk4LjMyNSAzODkuMTU4IDQ5Ny45MTcgMzg3LjU2MiA0OTcuODEgMzg1LjM4OUM0OTcuMjQgMzczLjc0NCA0OTEuMzU1IDM2Mi40MDYgNDgxLjQ3MiAzNTMuOTEzQzQ3MC4yMzUgMzQ0LjI1NyA0NTUuMTM3IDMzNi41NjkgNDE4LjIyMyAzMjEuNzA3WiIgZmlsbD0iI0ZGMDA3QSIvPgo8cGF0aCBkPSJNMzc5LjMxIDMzMC45NzhDMzc4LjYxNSAzMjYuODQ2IDM3Ny40MTEgMzIxLjU2OCAzNzYuNjMzIDMxOS4yNUwzNzUuMjE5IDMxNS4wMzZMMzc3Ljg0NiAzMTcuOTg1QzM4MS40ODEgMzIyLjA2NSAzODQuMzU0IDMyNy4yODcgMzg2Ljc4OSAzMzQuMjQxQzM4OC42NDcgMzM5LjU0OSAzODguODU2IDM0MS4xMjcgMzg4Ljg0MiAzNDkuNzUzQzM4OC44MjggMzU4LjIyMSAzODguNTk2IDM1OS45OTYgMzg2Ljg4IDM2NC43NzNDMzg0LjE3NCAzNzIuMzA3IDM4MC44MTYgMzc3LjY0OSAzNzUuMTgxIDM4My4zODNDMzY1LjA1NiAzOTMuNjg4IDM1Mi4wMzggMzk5LjM5MyAzMzMuMjUzIDQwMS43NkMzMjkuOTg3IDQwMi4xNzEgMzIwLjQ3IDQwMi44NjQgMzEyLjEwMyA0MDMuMjk5QzI5MS4wMTYgNDA0LjM5NSAyNzcuMTM4IDQwNi42NjEgMjY0LjY2OCA0MTEuMDRDMjYyLjg3NSA0MTEuNjcgMjYxLjI3NCA0MTIuMDUyIDI2MS4xMTIgNDExLjg5QzI2MC42MDcgNDExLjM4OCAyNjkuMDk4IDQwNi4zMjYgMjc2LjExMSA0MDIuOTQ4QzI4NS45OTkgMzk4LjE4NSAyOTUuODQyIDM5NS41ODYgMzE3Ljg5NyAzOTEuOTEzQzMyOC43OTIgMzkwLjA5OCAzNDAuMDQzIDM4Ny44OTcgMzQyLjkgMzg3LjAyMUMzNjkuODggMzc4Ljc0OSAzODMuNzQ4IDM1Ny40MDIgMzc5LjMxIDMzMC45NzhaIiBmaWxsPSIjRkYwMDdBIi8+CjxwYXRoIGQ9Ik00MDQuNzE5IDM3Ni4xMDVDMzk3LjM1NSAzNjAuMjczIDM5NS42NjQgMzQ0Ljk4OCAzOTkuNjk4IDMzMC43MzJDNDAwLjEzIDMyOS4yMDkgNDAwLjgyNCAzMjcuOTYyIDQwMS4yNDIgMzI3Ljk2MkM0MDEuNjU5IDMyNy45NjIgNDAzLjM5NyAzMjguOTAyIDQwNS4xMDMgMzMwLjA1QzQwOC40OTcgMzMyLjMzNSA0MTUuMzAzIDMzNi4xODIgNDMzLjQzNyAzNDYuMDY5QzQ1Ni4wNjUgMzU4LjQwNiA0NjguOTY2IDM2Ny45NTkgNDc3Ljc0IDM3OC44NzNDNDg1LjQyMyAzODguNDMyIDQ5MC4xNzggMzk5LjMxOCA0OTIuNDY3IDQxMi41OTNDNDkzLjc2MiA0MjAuMTEzIDQ5My4wMDMgNDM4LjIwNiA0OTEuMDc0IDQ0NS43NzhDNDg0Ljk5IDQ2OS42NTMgNDcwLjg1IDQ4OC40MDYgNDUwLjY4MiA0OTkuMzQ5QzQ0Ny43MjcgNTAwLjk1MiA0NDUuMDc1IDUwMi4yNjkgNDQ0Ljc4OCA1MDIuMjc1QzQ0NC41MDEgNTAyLjI4IDQ0NS41NzcgNDk5LjU0MyA0NDcuMTggNDk2LjE5MUM0NTMuOTY1IDQ4Mi4wMDkgNDU0LjczNyA0NjguMjE0IDQ0OS42MDggNDUyLjg1OUM0NDYuNDY3IDQ0My40NTcgNDQwLjA2NCA0MzEuOTg1IDQyNy4xMzUgNDEyLjU5NkM0MTIuMTAzIDM5MC4wNTQgNDA4LjQxNyAzODQuMDU0IDQwNC43MTkgMzc2LjEwNVoiIGZpbGw9IiNGRjAwN0EiLz4KPHBhdGggZD0iTTE5Ni41MTkgNDYxLjUyNUMyMTcuMDg5IDQ0NC4xNTcgMjQyLjY4MiA0MzEuODE5IDI2NS45OTYgNDI4LjAzMkMyNzYuMDQzIDQyNi4zOTkgMjkyLjc4IDQyNy4wNDcgMzAyLjA4NCA0MjkuNDI4QzMxNi45OTggNDMzLjI0NSAzMzAuMzM4IDQ0MS43OTMgMzM3LjI3NiA0NTEuOTc4QzM0NC4wNTcgNDYxLjkzMiAzNDYuOTY2IDQ3MC42MDYgMzQ5Ljk5NSA0ODkuOTA2QzM1MS4xODkgNDk3LjUxOSAzNTIuNDg5IDUwNS4xNjQgMzUyLjg4MiA1MDYuODk1QzM1NS4xNTYgNTE2Ljg5NyAzNTkuNTgzIDUyNC44OTIgMzY1LjA2NyA1MjguOTA3QzM3My43NzkgNTM1LjI4MyAzODguNzggNTM1LjY4IDQwMy41MzYgNTI5LjkyNEM0MDYuMDQxIDUyOC45NDcgNDA4LjIxNSA1MjguMjcxIDQwOC4zNjggNTI4LjQyNEM0MDguOTAzIDUyOC45NTUgNDAxLjQ3MyA1MzMuOTMgMzk2LjIzIDUzNi41NDhDMzg5LjE3NyA1NDAuMDcxIDM4My41NjggNTQxLjQzNCAzNzYuMTE1IDU0MS40MzRDMzYyLjYgNTQxLjQzNCAzNTEuMzc5IDUzNC41NTggMzQyLjAxNiA1MjAuNTM5QzM0MC4xNzQgNTE3Ljc4IDMzNi4wMzIgNTA5LjUxNiAzMzIuODEzIDUwMi4xNzZDMzIyLjkyOCA0NzkuNjI4IDMxOC4wNDYgNDcyLjc1OSAzMDYuNTY4IDQ2NS4yNDJDMjk2LjU3OSA0NTguNzAxIDI4My42OTcgNDU3LjUzIDI3NC4wMDYgNDYyLjI4MkMyNjEuMjc2IDQ2OC41MjMgMjU3LjcyNCA0ODQuNzkxIDI2Ni44NDIgNDk1LjEwMUMyNzAuNDY1IDQ5OS4xOTggMjc3LjIyMyA1MDIuNzMyIDI4Mi43NDkgNTAzLjQxOUMyOTMuMDg2IDUwNC43MDUgMzAxLjk3IDQ5Ni44NDEgMzAxLjk3IDQ4Ni40MDRDMzAxLjk3IDQ3OS42MjcgMjk5LjM2NSA0NzUuNzYgMjkyLjgwOCA0NzIuODAxQzI4My44NTIgNDY4Ljc2IDI3NC4yMjYgNDczLjQ4MyAyNzQuMjcyIDQ4MS44OTdDMjc0LjI5MiA0ODUuNDg0IDI3NS44NTQgNDg3LjczNyAyNzkuNDUgNDg5LjM2NEMyODEuNzU3IDQ5MC40MDggMjgxLjgxMSA0OTAuNDkxIDI3OS45MjkgNDkwLjFDMjcxLjcxMiA0ODguMzk2IDI2OS43ODcgNDc4LjQ5IDI3Ni4zOTQgNDcxLjkxM0MyODQuMzI2IDQ2NC4wMTggMzAwLjcyOSA0NjcuNTAyIDMwNi4zNjIgNDc4LjI3OUMzMDguNzI4IDQ4Mi44MDUgMzA5LjAwMyA0OTEuODIgMzA2Ljk0IDQ5Ny4yNjRDMzAyLjMyMiA1MDkuNDQ4IDI4OC44NTkgNTE1Ljg1NSAyNzUuMjAxIDUxMi4zNjhDMjY1LjkwMyA1MDkuOTk0IDI2Mi4xMTcgNTA3LjQyNCAyNTAuOTA2IDQ5NS44NzZDMjMxLjQyNSA0NzUuODA5IDIyMy44NjIgNDcxLjkyIDE5NS43NzcgNDY3LjUzNkwxOTAuMzk1IDQ2Ni42OTZMMTk2LjUxOSA0NjEuNTI1WiIgZmlsbD0iI0ZGMDA3QSIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTQ5LjYyMDIgMTIuMDAzMUMxMTQuNjc4IDkwLjk2MzggMjE0Ljk3NyAyMTMuOTAxIDIxOS45NTcgMjIwLjc4NEMyMjQuMDY4IDIyNi40NjcgMjIyLjUyMSAyMzEuNTc2IDIxNS40NzggMjM1LjU4QzIxMS41NjEgMjM3LjgwNyAyMDMuNTA4IDI0MC4wNjMgMTk5LjQ3NiAyNDAuMDYzQzE5NC45MTYgMjQwLjA2MyAxODkuNzc5IDIzNy44NjcgMTg2LjAzOCAyMzQuMzE4QzE4My4zOTMgMjMxLjgxIDE3Mi43MjEgMjE1Ljg3NCAxNDguMDg0IDE3Ny42NDZDMTI5LjIzMyAxNDguMzk2IDExMy40NTcgMTI0LjEzMSAxMTMuMDI3IDEyMy43MjVDMTEyLjAzMiAxMjIuNzg1IDExMi4wNDkgMTIyLjgxNyAxNDYuMTYyIDE4My44NTRDMTY3LjU4MiAyMjIuMTgxIDE3NC44MTMgMjM1LjczMSAxNzQuODEzIDIzNy41NDNDMTc0LjgxMyAyNDEuMjI5IDE3My44MDggMjQzLjE2NiAxNjkuMjYxIDI0OC4yMzhDMTYxLjY4MSAyNTYuNjk0IDE1OC4yOTMgMjY2LjE5NSAxNTUuODQ3IDI4NS44NTlDMTUzLjEwNCAzMDcuOTAyIDE0NS4zOTQgMzIzLjQ3MyAxMjQuMDI2IDM1MC4xMjJDMTExLjUxOCAzNjUuNzIyIDEwOS40NzEgMzY4LjU4MSAxMDYuMzE1IDM3NC44NjlDMTAyLjMzOSAzODIuNzg2IDEwMS4yNDYgMzg3LjIyMSAxMDAuODAzIDM5Ny4yMTlDMTAwLjMzNSA0MDcuNzkgMTAxLjI0NyA0MTQuNjE5IDEwNC40NzcgNDI0LjcyNkMxMDcuMzA0IDQzMy41NzUgMTEwLjI1NSA0MzkuNDE3IDExNy44IDQ1MS4xMDRDMTI0LjMxMSA0NjEuMTg4IDEyOC4wNjEgNDY4LjY4MyAxMjguMDYxIDQ3MS42MTRDMTI4LjA2MSA0NzMuOTQ3IDEyOC41MDYgNDczLjk1IDEzOC41OTYgNDcxLjY3MkMxNjIuNzQxIDQ2Ni4yMTkgMTgyLjM0OCA0NTYuNjI5IDE5My4zNzUgNDQ0Ljg3N0MyMDAuMTk5IDQzNy42MDMgMjAxLjgwMSA0MzMuNTg2IDIwMS44NTMgNDIzLjYxOEMyMDEuODg3IDQxNy4wOTggMjAxLjY1OCA0MTUuNzMzIDE5OS44OTYgNDExLjk4MkMxOTcuMDI3IDQwNS44NzcgMTkxLjgwNCA0MDAuODAxIDE4MC4yOTIgMzkyLjkzMkMxNjUuMjA5IDM4Mi42MjEgMTU4Ljc2NyAzNzQuMzIgMTU2Ljk4NyAzNjIuOTA0QzE1NS41MjcgMzUzLjUzNyAxNTcuMjIxIDM0Ni45MjggMTY1LjU2NSAzMjkuNDRDMTc0LjIwMiAzMTEuMzM4IDE3Ni4zNDIgMzAzLjYyNCAxNzcuNzkgMjg1LjM3OEMxNzguNzI1IDI3My41ODkgMTgwLjAyIDI2OC45NCAxODMuNDA3IDI2NS4yMDlDMTg2LjkzOSAyNjEuMzE3IDE5MC4xMTkgMjYwIDE5OC44NjEgMjU4LjgwNUMyMTMuMTEzIDI1Ni44NTggMjIyLjE4OCAyNTMuMTcxIDIyOS42NDggMjQ2LjI5N0MyMzYuMTE5IDI0MC4zMzQgMjM4LjgyNyAyMzQuNTg4IDIzOS4yNDMgMjI1LjkzOEwyMzkuNTU4IDIxOS4zODJMMjM1Ljk0MiAyMTUuMTY2QzIyMi44NDYgMTk5Ljg5NiA0MC44NSAwIDQwLjA0NCAwQzM5Ljg3MTkgMCA0NC4xODEzIDUuNDAxNzggNDkuNjIwMiAxMi4wMDMxWk0xMzUuNDEyIDQwOS4xOEMxMzguMzczIDQwMy45MzcgMTM2LjggMzk3LjE5NSAxMzEuODQ3IDM5My45MDJDMTI3LjE2NyAzOTAuNzkgMTE5Ljg5NyAzOTIuMjU2IDExOS44OTcgMzk2LjMxMUMxMTkuODk3IDM5Ny41NDggMTIwLjU4MiAzOTguNDQ5IDEyMi4xMjQgMzk5LjI0M0MxMjQuNzIgNDAwLjU3OSAxMjQuOTA5IDQwMi4wODEgMTIyLjg2NiA0MDUuMTUyQzEyMC43OTcgNDA4LjI2MiAxMjAuOTY0IDQxMC45OTYgMTIzLjMzNyA0MTIuODU0QzEyNy4xNjIgNDE1Ljg0OSAxMzIuNTc2IDQxNC4yMDIgMTM1LjQxMiA0MDkuMThaIiBmaWxsPSIjRkYwMDdBIi8+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjQ4LjU1MiAyNjIuMjQ0QzI0MS44NjIgMjY0LjI5OSAyMzUuMzU4IDI3MS4zOSAyMzMuMzQ0IDI3OC44MjZDMjMyLjExNiAyODMuMzYyIDIzMi44MTMgMjkxLjMxOSAyMzQuNjUzIDI5My43NzZDMjM3LjYyNSAyOTcuNzQ1IDI0MC40OTkgMjk4Ljc5MSAyNDguMjgyIDI5OC43MzZDMjYzLjUxOCAyOTguNjMgMjc2Ljc2NCAyOTIuMDk1IDI3OC4zMDQgMjgzLjkyNUMyNzkuNTY3IDI3Ny4yMjkgMjczLjc0OSAyNjcuOTQ4IDI2NS43MzYgMjYzLjg3NEMyNjEuNjAxIDI2MS43NzIgMjUyLjgwNyAyNjAuOTM4IDI0OC41NTIgMjYyLjI0NFpNMjY2LjM2NCAyNzYuMTcyQzI2OC43MTQgMjcyLjgzNCAyNjcuNjg2IDI2OS4yMjUgMjYzLjY5IDI2Ni43ODVDMjU2LjA4IDI2Mi4xMzggMjQ0LjU3MSAyNjUuOTgzIDI0NC41NzEgMjczLjE3M0MyNDQuNTcxIDI3Ni43NTIgMjUwLjU3MiAyODAuNjU2IDI1Ni4wNzQgMjgwLjY1NkMyNTkuNzM1IDI4MC42NTYgMjY0Ljc0NiAyNzguNDczIDI2Ni4zNjQgMjc2LjE3MloiIGZpbGw9IiNGRjAwN0EiLz4KPC9zdmc+Cg==',
-    router: {
-      address: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D',
-      api: UniswapV2.ROUTER
-    },
-    factory: {
-      address: '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f',
-      api: UniswapV2.FACTORY
-    },
-    pair: {
-      api: UniswapV2.PAIR
-    },
-    slippage: true,
-  };
-
-  new Exchange(
-
-    Object.assign(exchange$4, {
-      findPath: ({ tokenIn, tokenOut })=>
-        UniswapV2.findPath(blockchain$4, exchange$4, { tokenIn, tokenOut }),
-      pathExists: (path)=>
-        UniswapV2.pathExists(blockchain$4, exchange$4, path),
-      getAmounts: ({ path, block, tokenIn, tokenOut, amountOut, amountIn, amountInMax, amountOutMin })=>
-        UniswapV2.getAmounts(blockchain$4, exchange$4, { path, block, tokenIn, tokenOut, amountOut, amountIn, amountInMax, amountOutMin }),
-      getTransaction: ({ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress })=>
-        UniswapV2.getTransaction(blockchain$4, exchange$4 ,{ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress }),
-    })
-  );
-
-  let fixPath = (path) => path;
-
-  let pathExists = async (blockchain, path) => {
-    if(fixPath(path).length <= 1) { return false }
-    if(fixPath(path).length >= 3) { return false }
-    return (
-      path.includes(blockchain.currency.address) &&
-      path.includes(blockchain.wrapped.address)
+      Object.assign(exchange$e, {
+        scope,
+        findPath: (args)=>PancakeSwapV3.findPath({ ...args, exchange: exchange$e }),
+        pathExists: (args)=>PancakeSwapV3.pathExists({ ...args, exchange: exchange$e }),
+        getAmounts: (args)=>PancakeSwapV3.getAmounts({ ...args, exchange: exchange$e }),
+        getPrep: (args)=>PancakeSwapV3.getPrep({ ...args, exchange: exchange$e }),
+        getTransaction: (args)=>PancakeSwapV3.getTransaction({ ...args, exchange: exchange$e }),
+      })
     )
   };
 
-  let findPath = async (blockchain, { tokenIn, tokenOut }) => {
+  const exchange$d = {
+    
+    name: 'quickswap',
+    label: 'QuickSwap',
+    logo: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgNzAyLjQ1IDcwMi40NyI+PGRlZnM+PGNsaXBQYXRoIGlkPSJjbGlwLXBhdGgiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIj48cmVjdCB3aWR0aD0iNzUwIiBoZWlnaHQ9Ijc1MCIgZmlsbD0ibm9uZSIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwLXBhdGgpIj48cGF0aCBkPSJNMzU0Ljc0LDI0LjM3YTM1MS4yNywzNTEuMjcsMCwwLDEsMzYzLjc0LDI3NywzNTQsMzU0LDAsMCwxLDEuMjMsMTQxLjI2QTM1MS43NiwzNTEuNzYsMCwwLDEsNTEwLjEyLDY5OS4zYy03My43NywzMS0xNTguMjUsMzUuMzUtMjM0LjkxLDEyLjU0QTM1MiwzNTIsMCwwLDEsNDYuNTEsNDk5LjU2Yy0yOC03My40NS0zMC4xNi0xNTYuMzgtNi4yNC0yMzEuMjVBMzUwLjg4LDM1MC44OCwwLDAsMSwzNTQuNzQsMjQuMzciIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTE1OC44MSwzNDkuNThjMS4zOSw2LjQxLDIuMjMsMTIuOTIsMy42MSwxOS4zNS44NSwzLjkzLDIuMTMsMyw0LjE1LDEuMjgsMy44Ny0zLjI1LDcuNTktNi42OSwxMS45NC05LjMxLDEuMjMuMjQsMS44NiwxLjIyLDIuNTMsMi4xLDExLjM5LDE0Ljg3LDI2LjUzLDI0LDQ0LjM3LDI4Ljk0YTE0Ny4yMywxNDcuMjMsMCwwLDAsMjUuMTcsNC42Nyw0Mi42OCw0Mi42OCwwLDAsMS02LjYxLTkuOTVjLTIuODUtNi40MS0xLjg1LTEyLjE1LDIuOTUtMTcuMjIsNS44Ny02LjE5LDEzLjYyLTguNzYsMjEuNDgtMTAuOCwxNi40OC00LjMsMzMuMjctNC43Myw1MC4xOC0zLjUzQTIwMi4xMSwyMDIuMTEsMCwwLDEsMzU4Ljc1LDM2MmMxMSwzLjA2LDIxLjcyLDYuNzMsMzEuNDQsMTIuODgsMS4zNiwxLjA5LDIuMywyLjYsMy42MSwzLjc0LDEyLjQ5LDEzLjQxLDE5Ljc4LDI5LjI1LDIwLjI4LDQ3LjU1LjM0LDEyLjY1LTMuMTYsMjQuNzItOS41LDM1LjgyLTExLjQyLDIwLTI4LjA5LDM0LjU2LTQ4LDQ1LjcxQTE3MC41LDE3MC41LDAsMCwxLDI5MSw1MjguNDJjLTQxLjI0LDQuNDctNzkuNDUtNC40Ny0xMTQuNTktMjYuMzYtMjkuMjEtMTguMTktNTEuNjUtNDMuMDgtNzAtNzEuOTJhMzM5LjU3LDMzOS41NywwLDAsMS0yMi41Mi00Mi43NWMtLjgxLTEuOC0xLTMuODEtMS44Mi01LjI5LjUyLDEuNzUsMS40OSwzLjczLS40Myw1LjYtLjU4LTcuNDUuMDgtMTQuOS40Ny0yMi4zMWEyODcuMTMsMjg3LjEzLDAsMCwxLDkuNDgtNjAuNTRBMjkyLjkxLDI5Mi45MSwwLDAsMSwyNjYuMDYsMTA5LjA5LDI4Ny4yLDI4Ny4yLDAsMCwxLDM0Ni41OSw4OS45YzQzLjU3LTQsODUuNzksMS43MywxMjcsMTYuMzQtNi4yNywxMS44OS00Miw0My43Mi02OS44LDYyLjE1YTk0LjExLDk0LjExLDAsMCwwLTUuNDQtMjMuNTFjLS4xNC0yLDEuNjYtMi42NSwyLjc4LTMuNjFxOC42Ny03LjQ2LDE3LjQzLTE0Ljc3YTE3LjE0LDE3LjE0LDAsMCwwLDEuNjktMS40OWMuNjYtLjcxLDEuNzctMS4zLDEuNTQtMi40cy0xLjU1LTEuMTUtMi40Ny0xLjNhNDYuODIsNDYuODIsMCwwLDAtOC4xNy0xYy0zLjgxLS40NS03LjU2LTEuMy0xMS40LTEuMzgtMi45NS0uMTgtNS44NS0uOTMtOC44My0uNjlhMjguMjIsMjguMjIsMCwwLDEtNC41LS4zMmMtMi41LS43OS01LjA3LS40NC03LjYxLS40My0xLjUyLDAtMy0uMTEtNC41NiwwLTQuMzUuMjUtOC43My0uNDgtMTMuMDcuMzRhMTIuODcsMTIuODcsMCwwLDEtMy4yMS4zMmMtMS4yNiwwLTIuNTEuMDYtMy43NywwYTEyLjM1LDEyLjM1LDAsMCwwLTQuODcuNDdjLTQuNTkuNDEtOS4xOS43OC0xMy43MywxLjYxLTUuNDgsMS4xNi0xMS4wOSwxLjQ0LTE2LjUzLDIuNzktNSwxLjMtMTAuMTMsMi0xNSwzLjc0LTYuNTEsMS43OS0xMi45NSwzLjg0LTE5LjM1LDYtOS4zNCwzLjcxLTE4LjgyLDcuMS0yNy43MSwxMS44NmEyNDguNzQsMjQ4Ljc0LDAsMCwwLTU1LjY2LDM2Ljk0QTI2Ni41NSwyNjYuNTUsMCwwLDAsMTU5LjY4LDIyN2EyNTQuODcsMjU0Ljg3LDAsMCwwLTE2LjU0LDI2LjE2Yy0zLjE3LDUuOS02LjIyLDExLjg1LTksMTgtMiw0LjcxLTQuNDIsOS4yNy02LDE0LjE4LTIsNC45LTMuNjQsOS45Mi01LjIyLDE1LTEuODgsNS4wNi0zLDEwLjM1LTQuNDUsMTUuNTMtLjYzLDItMSw0LjExLTEuNTMsNi4xOC0uNjMsMi40OS0xLDUtMS40Nyw3LjU1LS43Nyw0LjI1LTEuNDgsOC41LTIuMDksMTIuNzhhMTE4LjY0LDExOC42NCwwLDAsMC0xLjU3LDEzLjI5Yy0uNzQsMi45NC0uMiw2LS43NCw5LS44MiwzLjY5LS4yOCw3LjQ1LS41MiwxMS4xNi0uMTEsMi42MS0uMTYsNS4yMy0uMDksNy44NSwwLDEuMDctLjQ5LDIuNTcuNjQsMy4wOSwxLjI5LjYsMi4yMy0uNzcsMy4xNi0xLjUzLDMuMTgtMi42LDYuMjktNS4yOSw5LjQtOCwxMC40Ny05LDIxLjA3LTE3Ljg4LDMxLjU4LTI2Ljg1LjkxLS43NywxLjktMi43OSwzLjUyLS43MSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM0MTg5YzkiLz48cGF0aCBkPSJNMzkwLjExLDM3NS43OGMtMTIuMzctNy4zNS0yNS44OS0xMS42My0zOS43Ny0xNC45MmExOTcuMjUsMTk3LjI1LDAsMCwwLTU1LjY4LTUuMWMtMTMuMjEuNjYtMjYuMzEsMi41LTM4LjQ4LDguM2EzMi42MSwzMi42MSwwLDAsMC00LjIxLDIuNDNjLTkuODUsNi42LTExLjM1LDE1LjQtNC4yMywyNC45MSwxLjQ4LDIsMy4xMiwzLjgxLDUuMSw2LjIyLTYuMzksMC0xMi4wNS0xLjE5LTE3LjY5LTIuMzEtMTUuMTItMy0yOS4zMi04LjI0LTQxLjUtMTgtNS44Ni00LjY4LTExLjIyLTkuOTMtMTUuMTQtMTYuNDUsMS42LTIuNjEsNC4yOC0zLjgzLDYuNzgtNS4yNyw0LjgyLTIsOS4xOS00LjkxLDE0LTcuMDlhMjA3LjU1LDIwNy41NSwwLDAsMSw2Ny40LTE4YzkuMzItLjg3LDE4LjY1LTEuNzYsMjgtMS40MUEzMTEuMzgsMzExLjM4LDAsMCwxLDM3NiwzNDMuMjVjNi44LDIuMTIsMTMuNTIsNC40NSwyMC41OSw2Ljg0LDAtMi0xLjE0LTMuMTktMS45LTQuNDhBOTYuMTgsOTYuMTgsMCwwLDAsMzg1LDMzMS44OGMtMS4zMy0xLjU2LTMuMTgtMi45My0zLjE0LTUuMzMsMy43My44NSw3LjQ2LDEuNjgsMTEuMTgsMi41NiwxLC4yMywyLjE3LjgzLDIuODEsMCwuODUtMS4wOC0uNDMtMi0xLTIuODQtNS40OS04LjE5LTEyLjMzLTE1LjE3LTE5LjY3LTIxLjY4LDMuODktMi4yNiw3Ljg5LS40MiwxMS42OC4wNiwzOC44Nyw1LDc0LjI5LDE4LjgxLDEwNS4xOCw0Myw0MC45LDMyLjA5LDY3LjMzLDczLjU0LDc4LjQ3LDEyNC41MUExODAuNTQsMTgwLjU0LDAsMCwxLDU3My44Nyw1MjRjLTIuMTksMzAuMTEtMTEuNjUsNTcuOS0yOS40NSw4Mi41OC0xLjE3LDEuNjItMi43NSwyLjkxLTMuNjEsNC43Ni00LDYtMTAsMTAuMDgtMTUuNDQsMTQuNTItMjkuNTUsMjQtNjQsMzYuNDYtMTAxLjE0LDQyLjI4YTMxMC4zNCwzMTAuMzQsMCwwLDEtODcuMzEsMS41NCwyODguMTcsMjg4LjE3LDAsMCwxLTEyNy4zOS00OC4xNGMtOS4yNy02LjI5LTE4LjM2LTEyLjg1LTI2LjUxLTIwLjYyYS42NS42NSwwLDAsMSwwLTFjMS43NC0uNjksMi44NC41Nyw0LDEuNDNhMTg5LjA4LDE4OS4wOCwwLDAsMCw2NSwzMS41NiwyMjguNDYsMjI4LjQ2LDAsMCwwLDIzLjg3LDQuNzVjMS44Mi42NiwzLjc1LjM1LDUuNjIuNjZhNy41NSw3LjU1LDAsMCwxLDEuMTMuMjNjMTguMjQsMi4xNiwzNi4zNy44OSw1NC4zNi0yLjI4LDM5LjU0LTcsNzQuNjYtMjMuNTUsMTA0Ljc1LTUwLjE1LDIwLjUtMTguMTIsMzYuNjgtMzkuNTMsNDUuMjQtNjUuOTVzNy4zNS01Mi4xLTQuNjctNzcuNDhjLTIuNDcsMTEuMzgtOC40NCwyMC44LTE1LjkxLDI5LjM4YTEwNi4wOSwxMDYuMDksMCwwLDEtMjYuMDcsMjEuMTljLTEuMTQuNjYtMi40LDEuOTEtMy43MS45LTEuMTMtLjg2LS40NS0yLjM3LS4xLTMuNTFhMTM5LjY0LDEzOS42NCwwLDAsMCw0Ljk0LTI0LjJjMy41LTM0LjUxLTkuODItNjEuMzctMzcuMy04MS43NGExMTkuOCwxMTkuOCwwLDAsMC0xNC4wNi05IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzI2MmY3MSIvPjxwYXRoIGQ9Ik0yNzYuMDgsNjM4LjQxYTE1MS4xNiwxNTEuMTYsMCwwLDEtMjkuODYtNi4xQTE5OC41MywxOTguNTMsMCwwLDEsMTk0LjM1LDYwOGMtMy44My0yLjUxLTcuMDctNS44Ni0xMS4yNC03Ljg5LTIuMzktLjM0LTMuMzktMi42OC01LjMtMy43LTQwLjM4LTM1LjktNjgtODAtODMuODMtMTMxLjQ4QTI4MC41NCwyODAuNTQsMCwwLDEsODEuNjMsMzg3LjdjLjEtMiwuMi0zLjkzLjM2LTcsMiw0LjM2LDMuNDgsNy44Miw1LjA1LDExLjI2LDE0LjUzLDMxLjg2LDMzLjEzLDYwLjkzLDU4Ljc0LDg1LjEyQzE3Myw1MDIuODIsMjA0LjY4LDUyMCwyNDIsNTI2YzQzLjcxLDcuMTEsODQuNjEtLjUxLDEyMi4yMi0yNC4wNiwxOC43NS0xMS43NSwzNC4xNC0yNi45NCw0My00Ny42NSwxMC43Mi0yNS4xMSw2LjY4LTQ4LjQ0LTkuNjUtNjkuOTUtMS40My0xLjg4LTIuOTUtMy42OS00LjQzLTUuNTQsMS45NC0xLjY2LDMsLjI2LDQuMDcsMS4xOGE4My4yMiw4My4yMiwwLDAsMSwyMi42LDI5LjksODgsODgsMCwwLDEsNy44NSwzNS4xOSw3OS43NSw3OS43NSwwLDAsMS04LDM1Ljg3LDUuMzksNS4zOSwwLDAsMCwzLjI0LTEuMTcsOTguMzQsOTguMzQsMCwwLDAsMTQuNjUtMTAuMzVjMS40Mi0xLjIzLDIuNjctMy4wOCw1LTIuOGExNjUuMywxNjUuMywwLDAsMS02LjA5LDI3Ljc1LDEzMS43NCwxMzEuNzQsMCwwLDAsMTcuMjctMTEuNDhjNC4zMy0zLjM4LDcuODMtNy42MiwxMi4wOC0xMS4wNiwxLjgxLjc3LDEuODEsMi41NiwyLjIzLDQuMDgsNi45MiwyNSwxLjkxLDQ4LjI4LTEwLjQyLDcwLjMtMTUsMjYuNy0zNyw0Ni41Ny02Mi42Miw2Mi42NWEyMTMuMzMsMjEzLjMzLDAsMCwxLTY3LjI3LDI3LjU1LDE0Mi4yLDE0Mi4yLDAsMCwxLTQ1LjY3LDIuNjloMGMtMS45LTEtNC4wNy4xOS02LS43MiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiMxNjFmNDIiLz48cGF0aCBkPSJNNjU0LjE3LDQ1My4wN2EyMTIsMjEyLDAsMCwwLTIwLjc3LTgyLjM1QTIxOC45LDIxOC45LDAsMCwwLDYwMywzMjRjLTEwLjktMTIuOTEtMjMuNDItMjMuOTMtMzYuNTYtMzQuMzgsMS4yMy0xLjIxLDIuNzYtMSw0LjI0LS44YTIzNi4yOCwyMzYuMjgsMCwwLDEsNTMuNzksMTIuNzhBODAuMiw4MC4yLDAsMCwxLDYzNywzMDcuNDNhNDAuMzgsNDAuMzgsMCwwLDEsNC4xNiwyLjQ0Yy4zNC4xOS41My42OSwxLC41OGExLjI3LDEuMjcsMCwwLDEtLjIxLTEuMzdjLTExLjg0LTE1LjQyLTI2LjE1LTI4LjI4LTQxLjE3LTQwLjVhMzAyLDMwMiwwLDAsMC01OC4xOC0zNi45LDI4Ny42NCwyODcuNjQsMCwwLDAtOTEuNTctMjcuNDVjLTIuODMtLjM1LTUuNzUsMC04LjUxLTEtLjI0LTEuODksMS4zNS0yLjUyLDIuNDUtMy40NCwxOC42Ny0xNS41NSwzMy42OS0zNCw0NC4yOC01NS45NGExNTcuMSwxNTcuMSwwLDAsMCw4LjE0LTIwLjUzYy42NC0yLDEtNC4xNywzLTUuNDRhMjg4LjE2LDI4OC4xNiwwLDAsMSw4OC40Nyw2NiwyOTIuMSwyOTIuMSwwLDAsMSw2Ni42NCwyNzBjLS44NC40Ni0xLS4yNi0xLjM0LS43NSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM0MTg5YzkiLz48cGF0aCBkPSJNNTQwLjgxLDYxMS4zN2MwLTIuOTQsMi4zNC00LjYsMy43OS02LjY2LDEzLjY2LTE5LjUxLDIyLTQxLjEyLDI2LjMxLTY0LjQ4LDIuNjctMTQuNDcsMi45LTI5LjA4LDItNDMuNTctMS40Ny0yMi4zNC03LjE4LTQzLjgzLTE2LjE5LTY0LjQyYTIxMi4yNSwyMTIuMjUsMCwwLDAtMjQuNzMtNDIuNTcsMjIxLjI0LDIyMS4yNCwwLDAsMC0zNi4xNi0zNy42MkEyMDcuNTYsMjA3LjU2LDAsMCwwLDQyNS4xOSwzMTRhMTk4LjEsMTk4LjEsMCwwLDAtNDIuMjUtOC42OWMtMi41OS0uMjMtNS4xNS0uODUtNy43OC0uNjktOS4xMy02LjczLTE4LjM5LTEzLjI0LTI4Ljc5LTE3Ljk0LDAtLjMzLDAtLjY3LjA3LTEsMy43NCwwLDcuNDkuMDYsMTEuMjMsMCw1Mi40My0uOTQsMTAwLjc1LDExLjkxLDE0Myw0My44NEM1NDQuNCwzNjIuNTksNTcxLjc0LDQwNi4zMiw1ODIsNDYwLjNjOC43Myw0Ni4wNSwyLDg5LjU0LTIzLjU2LDEyOS40NC01LDcuODUtMTAuNTMsMTUuNDEtMTcuNjEsMjEuNjMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjMTYxZjQyIi8+PHBhdGggZD0iTTUwMC40LDExNy45MWMtNS4yNSwxNi4wNS0xMS44NCwzMS40Ny0yMS4yNyw0NS41OWExNzIuNzgsMTcyLjc4LDAsMCwxLTM0LjQyLDM3LjczYy0uNzYuNjMtMS40NSwxLjM1LTIuMTcsMi00LjU4LDIuMzMtOC4zNSw1Ljg1LTEyLjU5LDguNjhhMjY3LjY4LDI2Ny42OCwwLDAsMS00OS4zOSwyNS41Myw4LjA5LDguMDksMCwwLDEtMS4yOS4zMmMtLjc2LTEuMTIuMTQtMS41My42LTIsOS44Mi05LjM1LDE1LjkxLTIwLjkyLDIwLTMzLjY2YTUsNSwwLDAsMSwzLjE3LTMuNjVjMzAuNTEtMTIuMDgsNTQuODYtMzIuMTUsNzQuOC01Ny45LDEuODEtMi4zNCwzLjU4LTQuNzEsNS44Mi03LjY2LTYuMTctLjEyLTEwLjksMy0xNi4xMiwzLjgyLTEsLjA2LTIuMjcuODgtMi41LTFhMjE1LjI3LDIxNS4yNywwLDAsMCw0MS44NC03NS42NWMuNTUtMS43OCwwLTQuMjMsMi40OC01LjEzYS40NC40NCwwLDAsMSwuMjUuNDVjMCwuMTgtLjA4LjI2LS4xMy4yNmEyMzAuNDksMjMwLjQ5LDAsMCwxLTguMzUsNTguNTYsMzYuODgsMzYuODgsMCwwLDAtLjY5LDMuNjMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjMTYxZjQyIi8+PHBhdGggZD0iTTM4MS44MiwzMjYuNTRhMTIwLDEyMCwwLDAsMSwxNi4wNiwyMi40Yy40My43OSwxLjU0LDEuNjguNTUsMi42MS0uNzUuNy0xLjYyLS4xNi0yLjQxLS40NmEzNDksMzQ5LDAsMCwwLTYyLjU2LTE3Yy0xMC43NS0xLjg1LTIxLjY2LTIuNjYtMzIuNTgtMy40NWExOTQuMDksMTk0LjA5LDAsMCwwLTI5LjQ1LjQyYy0yMi40MiwxLjgtNDQuMjQsNi41OS02NSwxNS41Ni02LjQsMi43Ny0xMi45NCw1LjI1LTE4Ljg5LDktLjY4LjQzLTEuNDksMS4xMy0yLjI3LjA2YTE5OS41OSwxOTkuNTksMCwwLDEsNTkuMi0yOC40MWMyOS4xNS04LjcsNTguOTMtMTAuODQsODkuMTUtOC40NmEzMjguNDIsMzI4LjQyLDAsMCwxLDQ1Ljc0LDYuOTUsMjEuOTIsMjEuOTIsMCwwLDEsMi40NC44MyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiMxNjFmNDIiLz48cGF0aCBkPSJNMzc0LjMyLDExNi4zOGg0LjVjMi40MiwxLDUuMDctLjI4LDcuNS43NGg0LjQ5Yy4zOCwyLjE3LTEuNDEsMy4wOC0yLjY1LDQuMTMtMjAuNzgsMTcuNTYtNDEuNDEsMzUuMjktNjIuMiw1Mi44My02Ljg3LDUuNzktMTMuNjgsMTEuNjUtMjAuNTQsMTcuNDVhNi4xNCw2LjE0LDAsMCwwLTIuMzUsMi44M2MtOSwzLjM3LTE3LjM2LDcuNi0yNCwxNC45NC0zLjEzLDMuNDgtNS4xOCw3LjUtNy40NCwxMS40Ni02LjE3LDQtMTEuMzYsOS4yNi0xNywxNC0xNC43NywxMi40Mi0yOS4zNSwyNS4wNi00NC4xNiwzNy40My0xLjI1LDEtMi4wNywyLjUtMy41MiwzLjMxLTIuNTUtMy44LTItOC0xLjM5LTEyLjEyLDEuODYtMy4wNiw0LjgtNSw3LjQ0LTcuMjhxMjEuNTQtMTguMjcsNDMtMzYuNTljMTQtMTEuODUsMjcuOTItMjMuNzcsNDEuOS0zNS42M3EyNC4xMi0yMC40NSw0OC4xNy00MWM4LjkzLTcuNiwxNy44LTE1LjI2LDI2Ljg2LTIyLjcxLDEuMzctMS4xMywyLjMzLTIsMS4yOC0zLjgxIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzVjOTRjZSIvPjxwYXRoIGQ9Ik02MzcuNTEsMzA4LjQxYy0xNy42My04LjU2LTM2LjI3LTEzLjc4LTU1LjU0LTE2LjktNS4xNS0uODQtMTAuMy0xLjg3LTE1LjU1LTEuOTEtNi43Mi00LjI1LTEzLjMxLTguNzMtMjAuMTktMTIuN2EyMDkuNzMsMjA5LjczLDAsMCwwLTcyLjE4LTI1Ljc1LDkuMDksOS4wOSwwLDAsMS0xLjY1LS42NGM3LjY1LTEuNCwzMy42OSwyLjUxLDUxLjcyLDcuNDdhMjQzLjA3LDI0My4wNywwLDAsMSw0OC40NywxOWMtMS42Mi00Ljg1LTQuNTgtOC4xMy02LjM5LTEyLS4xOC0xLTEuNjMtMS45NC0uNjYtM3MyLjA3LjA4LDMsLjQ5YzIuNiwxLjE4LDUuMDgsMi42MSw3LjY5LDMuNzdhMzQ3LjUyLDM0Ny41MiwwLDAsMSw2MS40LDQwLjQ5YzEuMDYsMS40LDEuMDYsMS40LS4xMSwxLjY5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzE2MWY0MiIvPjxwYXRoIGQ9Ik0zNzQuMzIsMTE2LjM4Yy40NiwxLjEsMS45Mi4zLDIuNjEsMS41My00LjE4LDMuNjItOC4zNiw3LjMtMTIuNjEsMTAuOTFxLTExLjUxLDkuNzgtMjMuMDcsMTkuNDhRMzI0Ljg3LDE2Mi4xMywzMDguNSwxNzZjLTcuNTgsNi40NC0xNS4wNSwxMy0yMi42MywxOS40Ni05LjE4LDcuOC0xOC40NSwxNS41MS0yNy42NSwyMy4zLTcuMyw2LjE5LTE0LjUzLDEyLjQ3LTIxLjgyLDE4LjY4LTcuNjcsNi41Mi0xNS4zNywxMy0yMy4wNiwxOS40OWwtNy43MSw2LjQ3LDIuMTktOS43NmMtMS4yNC0zLjE5LDEuMzUtNC42MywzLjEzLTYuMSw3LTUuODQsMTMuODgtMTEuODEsMjAuODMtMTcuNzFxMjQuMjUtMjAuNTgsNDguNDktNDEuMjIsMjAuODQtMTcuNyw0MS42Ni0zNS4zOWMxMi45Mi0xMSwyNS45My0yMS45MSwzOC43Mi0zMy4wNywxLS44NiwyLjg1LTEuODcuMTUtMyw0LjQzLTEuNjEsOS0uMzMsMTMuNTItLjczIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzY0OTdkMCIvPjxwYXRoIGQ9Ik0zNjAuOCwxMTcuMTFjMS4wNS4xOSwyLjItLjM3LDMuMy40OS0yLjY1LDMuOS02LjU1LDYuNDUtMTAsOS40NC05LjgyLDguNTYtMTkuNzksMTctMjkuNzQsMjUuMzctOS4xLDcuNjgtMTguMjksMTUuMjYtMjcuMzcsMjNzLTE4LjIzLDE1Ljc0LTI3LjQsMjMuNTQtMTguMjksMTUuMjctMjcuMzYsMjNTMjI0LDIzNy41OCwyMTQuODcsMjQ1LjQ1Yy0yLjc0LDIuMzctNi4zNyw0LTcuMDUsOC4xNS00Ljg0LjU1LTcuNCw0LjY0LTEwLjk0LDcuMTYtNS41OSw0LTkuODQsOS40Ny0xNSwxMy45NS01LjE5LDMuNjktOS43Nyw4LjEtMTQuNjEsMTIuMi0xNC4zOCwxMi4xOS0yOC43LDI0LjQ2LTQzLjEzLDM2LjU5LTIsMS42OC0zLjc3LDMuNjYtNiw1LjA2LTEsLjYyLTEuOTEsMS43OS0zLjMyLjgxYTE2LjksMTYuOSwwLDAsMSwxLjUxLTcuNTFjNy4xOS00LjU5LDEzLjE3LTEwLjY3LDE5LjY2LTE2LjEsMTcuODgtMTUsMzUuNjEtMzAuMTYsNTMuMzgtNDUuMjlzMzUuMy0zMC4xMyw1My00NS4xNXEyNi0yMiw1MS45NC00NC4wOGMxNy42OC0xNSwzNS40NC0zMCw1My00NS4xNSwzLjQ5LTMsNy4xNi01LjgzLDEwLjU2LTloMyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2ODlhZDEiLz48cGF0aCBkPSJNMzk5LjgxLDExNy44N2M0LjA3LS4wNSw4LDEsMTIsMS41LDEuMDksMi4zOS0xLDMuMzItMi4yMyw0LjQzLTUsNC4zNy0xMC4yMyw4LjQ4LTE1LjEsMTMtLjUyLS42OS0xLjA4LTEuMzYtMS41Ni0yLjA5LTEuMTEtMS42NS0xLjg5LTEuMjEtMi42MS4zMy01LjksMTIuNjYtMTYuMDUsMjEuNDYtMjcuMSwyOS4zYTIwMi4xNCwyMDIuMTQsMCwwLDEtMzkuODcsMjEuNzljLS43Ni0xLjQ0LS44My0xLjUuNDctMi44NCwyLjY5LTIuNzgsNS43Ny01LjE0LDguNzItNy42NCwyMS4yOS0xOC4xLDQyLjY0LTM2LjEyLDYzLjgxLTU0LjM3LDEuMjMtMS4wNywyLjI5LTIuMywzLjQ3LTMuNDEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNGU4ZmNjIi8+PHBhdGggZD0iTTM5OS44MSwxMTcuODdhNC41NSw0LjU1LDAsMCwxLTEuNzUsMy4xNHEtMjAuNiwxNy40My00MS4xMywzNC45My0xNS43MiwxMy40LTMxLjM2LDI2Ljg5Yy0uOTQuODItMi43MSwxLjQtMi4yMywzLjNhMTg3LjQsMTg3LjQsMCwwLDEtMjAuMjcsOC4yNGMtMi4zMy0uNjQtLjQtMS40NywwLTEuODUsNC4wOS0zLjYyLDguMjMtNy4xOCwxMi4zOS0xMC43MnExMS40Ny05Ljc1LDIzLTE5LjQ3YzcuNTctNi40LDE1LjE4LTEyLjc3LDIyLjczLTE5LjE5czE1LjEyLTEyLjg3LDIyLjU3LTE5LjQyYzIuNDEtMi4xMiw1LjM2LTMuNjgsNy02LjU5LDMuMDYtLjQ0LDYsLjYsOSwuNzQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNTU5MWNkIi8+PHBhdGggZD0iTTM0Ni42MSwyMDhjNy45Mi0zLjkyLDE2LjE5LTcuMjEsMjMuMS0xMi45MywxLjQ0LS4wNiwxLjI4Ljc2Ljk0LDEuNjktNi4zOCwyNi40Mi0yNi40Miw0My43Ny01My41Miw0Ni4zLTUuMjIuNDktMTAuNDMsMS4wOS0xNS42OS41OS42OC0xLjkzLDIuNTEtMS43Niw0LTIuMTcsNS44OC0xLjYsMTEuNzEtMy4zMSwxNy4xNi02LjEzLDEwLjIyLTUuMjgsMTcuNzEtMTMuMDcsMjItMjMuODRhOC4yMiw4LjIyLDAsMCwxLDIuMDUtMy41MSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiMxNjFmNDIiLz48cGF0aCBkPSJNMzQ2LjYxLDIwOGMtMy4yNiwxMi42LTExLjI5LDIxLjMxLTIyLjM5LDI3LjU1LTcuMTMsNC0xNSw1Ljg2LTIyLjc3LDguMS0xLjkxLTUuNTkuMTYtMTAuMzIsMy41Mi0xNC41NywzLjk0LTUsOS4zLTguMDgsMTUtMTAuNjlBMjc3LjA4LDI3Ny4wOCwwLDAsMSwzNDYuNjEsMjA4IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzQxOGFjOSIvPjxwYXRoIGQ9Ik0xMTQuOCwzMjkuMzdjNC40NS0xLjY1LDcuMzEtNS40MSwxMC44MS04LjI4LDExLjI5LTkuMjcsMjIuMzgtMTguNzgsMzMuNTEtMjguMjQsNS44NS01LDExLjYxLTEwLjA1LDE3LjQxLTE1LjA4LDEuNTgtMS4zNywzLjA1LTIuOTQsNS4zNC0zLjA2LTYsNy41Mi0xMS43MywxNS4yNC0xNiwyMy45M3EtMTcuMjUsMTQuNi0zNC40NCwyOS4yN2MtNS4zLDQuNTMtMTAuNzEsOC45NC0xNS45MywxMy41Ny0uOC43MS0xLjcsMS42LTIuOTQuNjRhNTQuMTMsNTQuMTMsMCwwLDEsMi4yNC0xMi43NSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2NDk3ZDAiLz48cGF0aCBkPSJNMTU4LjgxLDM0OS41OGMtMy41NC4yNy01LjE0LDMuNDQtNy40OCw1LjMzLTkuODUsNy45NS0xOS40NSwxNi4yMi0yOSwyNC40OS0zLjIsMi43Ni02LjMsNS42Mi05LjY5LDguMTYtMi4yMywxLjY4LTMuMDcsMS0zLTEuNTgsMC0zLjEyLDAtNi4yNCwwLTkuMzYsMy40Ni0zLjc1LDcuNjEtNi43MiwxMS40OC0xMCwxMS4xNy05LjQ4LDIyLjIzLTE5LjEsMzMuNTUtMjguNDIsMS0uOCwxLjc5LTIuMjYsMy40Ni0xLjMxbC43NSwxMi42OSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM0NjhjY2EiLz48cGF0aCBkPSJNMjA3LDI3NS40OGE0LjE3LDQuMTcsMCwwLDEsMS45MS0zLjA4YzktNy42LDE4LTE1LjE1LDI3LTIyLjc2LDcuMzktNi4yNSwxNC43Mi0xMi41NiwyMi4wNy0xOC44NywzLjg2LTMuMzEsNy42OS02LjY2LDExLjUyLTEwLC43My0uNjQsMS40MS0xLjEyLDIuMTIsMC0uODMsMy40MS0xLjgyLDYuNzktMS43MiwxMC4zNS00LDQuNDMtOC44OSw3LjkzLTEzLjQyLDExLjgtMTQsMTItMjcuOTUsMjMuOTMtNDIsMzUuNzZhMTEuMzQsMTEuMzQsMCwwLDAtMS40OCwxLjY4LDcuOTMsNy45MywwLDAsMS02LTQuODgiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNTU5MWNkIi8+PHBhdGggZD0iTTExMi41NiwzNDIuMTJjMy4yNC0xLDUuMTMtMy44MSw3LjU2LTUuODIsMTMuMTctMTAuODksMjYuMTMtMjIsMzkuMTctMzMuMDgsMi4wNS0xLjczLDMuNDktNC4zMyw2LjU4LTQuNThhMTUwLjg5LDE1MC44OSwwLDAsMC02LDE4Yy0yLjM0LS4yMy0zLjUzLDEuNjQtNSwyLjg4LTEzLjU4LDExLjY3LTI3LjI4LDIzLjItNDAuOTIsMzQuOC0uODIuNjktMS41NSwxLjcxLTIuODksMS4yNmE0NC44OCw0NC44OCwwLDAsMSwxLjUtMTMuNSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM1Yzk0Y2UiLz48cGF0aCBkPSJNMjEzLDI4MC4zNmMtLjkzLTEuNjguNjUtMi4yMywxLjQ3LTIuOTNxMTcuMi0xNC43MSwzNC40OS0yOS4zNCw5Ljc3LTguMjgsMTkuNTktMTYuNDlhNC4xNiw0LjE2LDAsMCwxLDEuMzgtLjQ3LDI5LjkyLDI5LjkyLDAsMCwwLDEuMzgsOWMtMy45Myw0LjU2LTguODcsOC0xMy4zOSwxMS44NnEtMTUuMTMsMTMtMzAuNDUsMjUuOTNhMy41LDMuNSwwLDAsMC0xLjU0LDJjLTQuMjYsMS41OC04LjU2LDIuMjEtMTIuOTMuNDEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNGU4ZmNjIi8+PHBhdGggZD0iTTE1OC4wNiwzMzYuODljLTQuMjEsMi40MS03LjU3LDUuOTEtMTEuMjcsOS05Ljc2LDgtMTkuMzcsMTYuMjUtMjguOTQsMjQuNS0yLjY0LDIuMjgtNSw0LjgyLTguMjgsNi4yNy4zOS00LS44NC04LjA4Ljc0LTEycTIyLjE3LTE4Ljk0LDQ0LjQ2LTM3Ljc2YzEtLjg2LDIuMDYtMS45MSwzLjY0LTEuMjMtLjEyLDMuNzUtLjIzLDcuNS0uMzUsMTEuMjYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNGU4ZmNjIi8+PHBhdGggZD0iTTE1OC40MSwzMjUuNjNjLTQuNzUsMi41NS04LjQyLDYuNS0xMi41Miw5Ljg4LTkuNjgsNy45NS0xOS4xNCwxNi4xNi0yOC43MywyNC4yMi0yLjE0LDEuODEtMy42NCw0LjU2LTYuODUsNC44OS4zOC0zLS44LTYuMTEuNzUtOXExNC0xMiwyOC4wNi0yMy45MmM2LjM0LTUuMzksMTIuNzQtMTAuNzEsMTkuMDctMTYuMSwyLTEuNzIsMS40Ny4xNywxLjY1LDEuMDhaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzU1OTFjZCIvPjxwYXRoIGQ9Ik0yMjYsMjgwYy0xLjM4LTEtLjQxLTEuNzQuMzItMi4zNSw4LjgyLTcuNCwxNy42OC0xNC43NSwyNi40OS0yMi4xNiw1LjUtNC42MywxMC45My05LjM0LDE2LjM3LTE0YTMuNjYsMy42NiwwLDAsMSwyLjItMS4yOGwyLjI1LDQuNDljLTEuNzMsMi42Ny00LjUsNC4zMy02LjQ1LDYuNzktMTAuODMsMTItMjIuOTUsMjIuMTQtMzguMjksMjcuOTFBMTkuNTMsMTkuNTMsMCwwLDEsMjI2LDI4MCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM0ODhkY2EiLz48cGF0aCBkPSJNMzk0LjQ4LDEzNi44YzEuMzYtNC4yNSw1Ljc3LTUuNDcsOC4zOC04LjQ3LDIuNzgtMy4xOSw3LjMzLTQuNjEsOC45NS05LDMuMjYsMCw2LjM4Ljg2LDkuNTUsMS40NSwyLjc0LjUxLDIuODYsMS43LDEsMy4zOS00LjA4LDMuNjQtOC4yLDcuMjYtMTIuMzQsMTAuODItMy44NiwzLjMyLTcuNzgsNi41Ny0xMS42OCw5Ljg1WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM0NjhjY2EiLz48cGF0aCBkPSJNMjA5LjM3LDMwNy44MWMuNjYsMS42Ni0xLjMzLDIuNDktMS4xLDQtMS00LjU2LTMuNTEtNi4zMy04LjA4LTUuNDJhMjMuNjUsMjMuNjUsMCwwLDAtMTIuNjQsNy4zNWMtLjk0LDEtMiwxLjg5LTMsMi44NC0uODItMSwwLTEuODcuMzMtMi43NiwyLTYuNTEsNi4zOS0xMS4xNCwxMS45My0xNC44M2ExMi41NywxMi41NywwLDAsMSw0LjA2LTEuODVjNi40Mi0xLjUzLDkuOTQsMS42MSw5LjA2LDguMTJhOC4yOCw4LjI4LDAsMCwxLS42MSwyLjUzIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzQyOGFjOSIvPjxwYXRoIGQ9Ik0yMDkuMzcsMzA3LjgxYzAtMSwuMDYtMiwuMDctMywuMTEtNi41NC0zLjYtOS05LjY3LTYuMjUtNywzLjItMTEuNDIsOC45Mi0xNC40OSwxNS43OS0uNzEuMTMtMS4wOC0uMDctLjg2LS44NiwyLjIxLTguMTYsNi40Ny0xNC45MiwxMy41Ni0xOS43M2ExNC44MiwxNC44MiwwLDAsMSw1Ljg1LTIuMjgsNi4yNSw2LjI1LDAsMCwxLDcuNDEsNC42MSwxNC44OCwxNC44OCwwLDAsMS0xLjg3LDExLjciIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjMTgyMTQ0Ii8+PHBhdGggZD0iTTI2Ny4xMywyNTEuNDFjLTEuMjYtMS0uMTUtMS40LjUyLTEuODcsMi4xMS0xLjQ3LDMuMjctNC4xLDUuOTMtNC45MiwzLjQsNS4zOCw4LjgzLDcuNzUsMTQuNDksOS43NywxLjE0LjQxLDIuMzMuNjcsNC4xOSwxLjE5LTguNzIsMi4yNy0xNi4yNCwxLjM5LTIzLjE1LTMuMzNhMywzLDAsMCwwLTItLjg0IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzQ1OGNjYSIvPjxwYXRoIGQ9Ik01NzYuMjIsMjY2LjIzYy0yLjc1LS4zMi00Ljg0LTIuMi03LjM0LTMuMTMtMS0uMzYtMS44OS0xLjY0LTIuOTItLjgtLjg1LjcuNTQsMS43NC4yNCwyLjcxLTEuNTMtMS4zNC0yLjA2LTMuMjYtMi44Ni01LjIxLDQuNDYsMS44NSw4LjkxLDMuNjQsMTIuODgsNi40MyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2MzY1N2QiLz48cGF0aCBkPSJNNjM3LjUxLDMwOC40MWMuODEtLjUxLDAtMS4xMy4xMS0xLjY5bDQuMzUsMi4zNiwyLjM0LDNjLTIuODUtLjc2LTQuNzgtMi4zMS02LjgtMy42NyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiMyNjMxNTQiLz48cGF0aCBkPSJNNDY1LjE5LDI0OS4yNmExNC4yNiwxNC4yNiwwLDAsMSw2LC40NWMtMi4zMiwxLjI2LTMuOTIsMS4wOS02LS40NSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiNhMDlhYTkiLz48cGF0aCBkPSJNMTc3LjgxLDU5Ni4zNmMyLjMzLjQyLDMuMzksMi42Nyw1LjMsMy43TDE4Myw2MDFhMTQuMjIsMTQuMjIsMCwwLDEtNS4yMS00LjU5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzQyNGE3ZiIvPjxwYXRoIGQ9Ik02NTQuMTcsNDUzLjA3bDEuMzQuNzVjLjE5LDEuNTEtLjQ1LDIuNzUtMS4zNCw0LjZaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzhjYjdkZSIvPjxwYXRoIGQ9Ik00NjUsMTM1Ljc5Yy41MSwxLjE1LDEuNjYuNjgsMi41LDFsLTQsMS41NWMtLjMxLTEuNTkuNzctMS45NSwxLjUxLTIuNTMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNWE1ZDc2Ii8+PHBhdGggZD0iTTE4NC40MiwzMTMuNTFsLjg2Ljg2Yy0uMjMuNzQtLjQ1LDEuNDktLjY4LDIuMjNMMTgzLDMxOC42N2MuNDgtMi40Mi41MS0zLjksMS40My01LjE2IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzRmNjY4YSIvPjxwYXRoIGQ9Ik0zNzAuNjUsMTk2LjczYy0uMjItLjYyLS4xMy0xLjQtLjk0LTEuNjkuMjQtLjU4Ljg5LTEuMzksMS4xOS0xLjEuOS44Ny41MiwxLjkxLS4yNSwyLjc5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzU1NWE3MyIvPjxwYXRoIGQ9Ik0xMTcuOCwzMTUuODZhNjEuNDQsNjEuNDQsMCwwLDEsNC41LTE1Ljc3YzguODItNi4xNSwxNi41OC0xMy42LDI0Ljc5LTIwLjVxMjEuMzUtMTgsNDIuNTMtMzYuMTQsMTkuMzUtMTYuNTUsMzguNzktMzMsMjEtMTcuOCw0Mi0zNS42NmMxMi43NC0xMC44MywyNS41Mi0yMS42MywzOC4yMS0zMi41Myw4LjktNy42NSwxOC0xNS4wNywyNi43NC0yMi44OGE1Myw1MywwLDAsMSwxNC4yNC0xLjUyLDEuNDQsMS40NCwwLDAsMSwxLjU0LS4xOGMxLjA2LDEuODEtLjI5LDIuODQtMS4zOSwzLjc2cS0xOC4xMywxNS4zNi0zNi4xOSwzMC44MVEyOTQuMjgsMTY4LjYzLDI3NSwxODVxLTE3Ljc5LDE1LjE4LTM1LjY0LDMwLjI5UTIxNy43LDIzMy42NywxOTYsMjUyLjFjLTE4LDE1LjI1LTM1Ljg4LDMwLjU5LTUzLjksNDUuNzktNyw1Ljg3LTEzLjgxLDExLjg4LTIwLjg3LDE3LjYzLS44OC43MS0yLjA3LDMtMy40Ny4zNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2ZDljZDIiLz48cGF0aCBkPSJNMzM1LjMxLDExOS4zOGMtMS4yNiw0LjIxLTUuMzMsNS43OS04LjIyLDguMzYtOS40Nyw4LjQyLTE5LjI2LDE2LjQ5LTI4Ljk0LDI0LjY3LTEwLjgzLDkuMTMtMjEuNzIsMTguMi0zMi41MSwyNy4zOC05LjM4LDgtMTguNjIsMTYuMTEtMjgsMjQuMS05LjA5LDcuNzQtMTguMjksMTUuMzQtMjcuMzgsMjMuMDZzLTE4LjExLDE1LjU1LTI3LjIxLDIzLjI4LTE4LjI1LDE1LjM3LTI3LjM1LDIzLjA5Yy03LjQ5LDYuMzYtMTQuOTIsMTIuNzktMjIuMzksMTkuMTYtMywyLjU4LTYuMTEsNS4xLTkuMTYsNy42NS0uNjYuNTUtMS4yNi44Mi0xLjg2LDBhNjAsNjAsMCwwLDEsNS4yNS0xNWM2LjktNC4zNSwxMi42Ny0xMC4xLDE4Ljg2LTE1LjMycTIxLjMzLTE4LDQyLjUxLTM2LjEzLDIxLjkyLTE4Ljc1LDQzLjkyLTM3LjM5LDE4LjEtMTUuNDIsMzYuMjUtMzAuNzljMTUuNzMtMTMuMywzMS4zMy0yNi43Niw0Ny4xMy00MGE2Ljk0LDYuOTQsMCwwLDAsMi41OC0zLjEzYzUuMzEtMi4wNiwxMS0xLjkzLDE2LjUxLTMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjNzI5ZmQ0Ii8+PHBhdGggZD0iTTMxOC44LDEyMi4zNmMyLjMzLjYxLjQzLDEuNDYsMCwxLjg1LTQuMjUsMy44Mi04LjU0LDcuNjEtMTIuODksMTEuMzEtNy41Nyw2LjQzLTE1LjIsMTIuNzktMjIuNzksMTkuMnEtMTYuNjcsMTQtMzMuMjksMjguMTNjLTkuMDksNy43My0xOC4wOCwxNS41Ni0yNy4xNiwyMy4yOS05LjM2LDgtMTguNzksMTUuODUtMjguMTYsMjMuODItOS4wOCw3LjczLTE4LjA5LDE1LjU0LTI3LjE3LDIzLjI3UzE0OS4xLDI2OC42MSwxNDAsMjc2LjI5Yy0zLjMzLDIuOC02LjY0LDUuNjItMTAsOC4zNy0uNjYuNTQtMS4zNywxLjc2LTIuNDQuNDQsMS01LjE2LDMuNzItOS42MSw2LTE0LjI0LDEyLjMzLTEwLjU0LDI0LjcyLTIxLDM3LjA2LTMxLjU2cTE5LjA4LTE2LjI5LDM4LjIxLTMyLjUyLDE4LjI1LTE1LjUzLDM2LjUzLTMxUTI2NC42LDE1OS4zOSwyODMuODYsMTQzYzYuNjUtNS42NCwxMy4wOS0xMS41NCwxOS45NS0xNyw0Ljc1LTIuMjEsOS45LTIuODMsMTUtMy43MSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM3OGEyZDUiLz48cGF0aCBkPSJNMzAzLjgxLDEyNi4wN2MtNC43Niw2LjE5LTExLjIyLDEwLjU1LTE3LDE1LjYzLTcuNTcsNi42NC0xNS4zMiwxMy4wNS0yMywxOS41NS03LjQ5LDYuMzQtMTUsMTIuNjUtMjIuNDksMTlTMjI2LjM5LDE5MywyMTguOSwxOTkuNHMtMTUuMjEsMTIuOC0yMi43OSwxOS4yM2MtNy4zOSw2LjI4LTE0LjcxLDEyLjYzLTIyLjEsMTguOTFxLTE0LjA2LDEyLTI4LjE3LDIzLjg1Yy0zLjMyLDIuODEtNi42Niw1LjYtMTAsOC40YTMuNDMsMy40MywwLDAsMS0yLjMyLDEuMDcsOTkuOTMsOTkuOTMsMCwwLDEsOS0xOGMxNy4xMi0xMy45MSwzMy43Ny0yOC40LDUwLjU3LTQyLjcsMTkuNDUtMTYuNTcsMzktMzMsNTguMzQtNDkuNzMsMTAuOTQtOS40NSwyMi4zLTE4LjQxLDMyLjg1LTI4LjMyYTExMy40MywxMTMuNDMsMCwwLDEsMTkuNS02IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzdkYTVkNiIvPjxwYXRoIGQ9Ik0yODQuMzEsMTMyLjExYy43NSwxLjM0LS42LDEuNzQtMS4xOCwyLjI2cS0xMi40OCwxMC45NC0yNS4wNiwyMS43M2MtNy4zNSw2LjMxLTE0Ljc3LDEyLjU0LTIyLjE2LDE4LjhxLTEzLjc4LDExLjY3LTI3LjU4LDIzLjM0Yy03LjQ3LDYuMzUtMTQuOSwxMi43Ni0yMi4zOCwxOS4xMS05LjM3LDgtMTguNzgsMTUuODctMjguMTUsMjMuODJxLTUuODQsNS0xMS42MSwxMGE2LjQ1LDYuNDUsMCwwLDEtMy42NCwxLjc0LDE1OS4yNiwxNTkuMjYsMCwwLDEsMTYuNTItMjYuMjRjNS44LTQuMjcsMTEuMS05LjE2LDE2LjU5LTEzLjgxcTIxLjM5LTE4LjEyLDQyLjcyLTM2LjMyLDE2LjUtMTQuMDYsMzMtMjguMTRjMS43LTEuNDUsMy44My0yLjM4LDUuMTMtNC4yOSw4LjcyLTUuMjgsMTguMy04LjUzLDI3LjgyLTExLjk1IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzgxYTdkOCIvPjxwYXRoIGQ9Ik00NDIuNTUsNDY2LjY0Yy03LjU1LDYuMTYtMTQuOTUsMTIuNTQtMjUsMTYuODFhODguODYsODguODYsMCwwLDAsNi42My0xOC4yNGM1LjkyLTI2LC40My00OS42Ni0xNC44Ny03MS4yNC0zLjc4LTUuMzItOC44Ni05LjQ0LTEzLjM2LTE0LjA5LS43My0uNzUtMS41Mi0xLjY5LTIuODMtMS4wNi0xLjM1LS42Ni0yLTItMy0zLC42NS0uODMsMS4zMi0uMzcsMiwwLDE4LjEzLDEwLjI4LDMzLjI0LDIzLjYyLDQyLjQ3LDQyLjY5YTg1LjIzLDg1LjIzLDAsMCwxLDguMTgsMzAsODYuODYsODYuODYsMCwwLDEtLjE3LDE4LjE3IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjMuNzggLTIzLjc3KSIgZmlsbD0iIzBlMWY2NiIvPjxwYXRoIGQ9Ik0xMTcuOCwzMTUuODZjMywxLjA4LDQtMS45MSw1LjU0LTMuMTQsMTUuMjEtMTIuNTksMzAuMjEtMjUuNDQsNDUuMjMtMzguMjYsMTQuMTctMTIuMSwyOC4yNS0yNC4zMSw0Mi40NS0zNi4zOCwxNS44MS0xMy40MywzMS43NC0yNi43LDQ3LjU1LTQwLjEzLDE0LjItMTIuMDcsMjguMjgtMjQuMjcsNDIuNDQtMzYuMzhRMzI0LDE0MiwzNDcsMTIyLjRjMS41Ny0xLjM0LDMuODMtMiw0LjExLTQuNTMuODYtLjgyLDIuMTMuMDgsMy0uNzNsMy43NiwwYy0xLjE1LDQtNSw1LjM5LTcuNyw3LjgxLTcuNzYsNy0xNS44NSwxMy41OS0yMy44MiwyMC4zMy05LjExLDcuNy0xOC4yNiwxNS4zNi0yNy4zNiwyMy4wOC03LjM5LDYuMjctMTQuNzIsMTIuNjItMjIuMTIsMTguOS0xMC45LDkuMjQtMjEuODUsMTguNDItMzIuNzQsMjcuNjctNy40LDYuMjgtMTQuNzIsMTIuNjQtMjIuMSwxOC45Mi05LjM4LDgtMTguOCwxNS44OC0yOC4xOCwyMy44NS03LjM5LDYuMjgtMTQuNzEsMTIuNjQtMjIuMSwxOC45Mi03LjU3LDYuNDQtMTUuMjEsMTIuODEtMjIuNzgsMTkuMjVzLTE1LjA4LDEzLTIyLjY1LDE5LjQzYy0yLjY0LDIuMjUtNS4zOCw0LjQtOC4wOCw2LjYtLjY0LjUyLTEuMjUuODUtMS44NywwYTExLjc1LDExLjc1LDAsMCwxLDEuNDktNiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2OTlhZDEiLz48cGF0aCBkPSJNMjU2LjQ5LDE0NC4wNmMtLjYzLDMuNTUtNC4wOSw0LjQ4LTYuMjksNi40Ni03LjY2LDYuODktMTUuNjMsMTMuNDMtMjMuNDksMjAuMDgtOS4yLDcuNzctMTguNDIsMTUuNS0yNy42LDIzLjI5LTcuMzksNi4yNi0xNC43MywxMi41OS0yMi4wOCwxOC44OXEtOC4wNiw2LjktMTYuMSwxMy44M2MtLjYzLjU0LTEuMjQuODctMS44NiwwYTE0MS43MiwxNDEuNzIsMCwwLDEsMTMuMTQtMTcuMTFjMTcuNjUtMjAuNSwzNy43LTM4LjMsNjAuNzMtNTIuNiw3LjYtNC43MSwxNS4xNC05LjYsMjMuNTUtMTIuODUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMy43OCAtMjMuNzcpIiBmaWxsPSIjODhhYmQ5Ii8+PHBhdGggZD0iTTM4Ni4zMiwxMTcuMTJjLTIuNDktLjMzLTUuMTMuNzctNy41LS43NCwyLjQ5LjMyLDUuMTItLjc4LDcuNS43NCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM1NTkxY2QiLz48cGF0aCBkPSJNMzU0LjA1LDExNy4xNGMtLjc5LDEuMDctMiwuNjItMywuNzNoLTEuNTFjMS4zMy0xLjMsMy0uNTIsNC41LS43MiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiM2ODlhZDEiLz48cGF0aCBkPSJNMjgyLjA2LDYzOS4xMmExODIuMywxODIuMywwLDAsMCw3MS44MS0xMS4zMSwyMTQsMjE0LDAsMCwwLDYxLjYxLTM0LjY3YzE4LjA5LTE0LjY4LDMzLjY2LTMxLjUzLDQ0LjA2LTUyLjYxYTEwMS4zNiwxMDEuMzYsMCwwLDAsMTAuMjItMzZjMS0xMS4zMS0uODgtMjItMy45NS0zMi42NC4zNC0yLjYxLDIuNzItMy44LDQuMTEtNS42Myw1LjM4LTcuMDcsOS4zNS0xNC42OSwxMS0yMy40NmEyNy40MywyNy40MywwLDAsMSwxLjIxLTMuNDMsMTExLDExMSwwLDAsMSw4LDIxLjE2YzIuNjMsMTAuMzEsNC4xMSwyMC44LDMuMzMsMzEuNGExMjMuMzEsMTIzLjMxLDAsMCwxLTE2LjA2LDUyLjMyYy05LjE2LDE2LjE1LTIxLDMwLTM0LjYsNDIuMzdhMTk5Ljg5LDE5OS44OSwwLDAsMS0zOS4zNywyNy41NCwyMTkuNSwyMTkuNSwwLDAsMS01NC4yNiwyMC43MSwyMDkuMjcsMjA5LjI3LDAsMCwxLTM2LjA1LDUuMmMtNS44NS4zMy0xMS43MS44My0xNy41Mi40Ni00LjUxLS4yOS05LjE0LDAtMTMuNTYtMS4zNyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIzLjc4IC0yMy43NykiIGZpbGw9IiMwZTFmNjYiLz48L2c+PC9zdmc+',
+
+    slippage: true,
+
+    blockchains: ['polygon'],
+    
+    polygon: {
+      router: {
+        address: '0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff',
+        api: UniswapV2.ROUTER
+      },
+      factory: {
+        address: '0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32',
+        api: UniswapV2.FACTORY
+      },
+      pair: {
+        api: UniswapV2.PAIR
+      },
+    }
+  };
+
+  var quickswap = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$d, {
+        scope,
+        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$d }),
+        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$d }),
+        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$d }),
+        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$d }),
+        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$d }),
+      })
+    )
+  };
+
+  const exchange$c = {
+    
+    name: 'spookyswap',
+    label: 'SpookySwap',
+    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgNjQxIDY0MCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjQxIDY0MDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8Zz4KCTxwYXRoIGZpbGw9IiMxMjExMjIiIGQ9Ik0zNC4yLDMyMGMwLDE1OC41LDEyOC41LDI4Ni4zLDI4Ni4zLDI4Ni4zYzE1OC41LDAsMjg2LjMtMTI4LjUsMjg2LjMtMjg2LjNjMC0xNTguNS0xMjguNS0yODYuMy0yODYuMy0yODYuMwoJCUMxNjIuNywzMy43LDM0LjIsMTYyLjIsMzQuMiwzMjBMMzQuMiwzMjB6Ii8+Cgk8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZmlsbD0iI0YyRjRGOCIgZD0iTTEyMC45LDI0Ny42Yy0zLjMsMjIuMiwwLjcsNDUuNyw0LjYsNjcuOGMyLDMuMyw1LjIsNS45LDkuOCw3LjJjLTkuMSwxOS42LTE0LjMsNDAuNC0xNC4zLDYyLjYKCQljMCw5My4zLDkwLDE2OC45LDIwMS41LDE2OC45UzUyNCw0NzguNSw1MjQsMzg1LjJjMC0yMS41LTUuMi00My0xNC4zLTYyLjZjMy45LTEuMyw2LjUtMy45LDcuOC03LjJjNC42LTIyLjIsOC41LTQ1LjcsNS4yLTY3LjgKCQljLTMuMy0zMC0xMy43LTM5LjgtNDUtMzJjLTE1LjcsMy45LTM2LjUsMTMtNTIuOCwyNC4xYy0zMC0xNS02NS4yLTIzLjUtMTAyLjQtMjMuNWMtMzcuOCwwLTczLjcsOS4xLTEwMy43LDI0LjEKCQljLTE2LjMtMTEuMS0zNy4yLTIwLjktNTMuNS0yNC44QzEzNCwyMDcuOCwxMjQuMiwyMTcuNiwxMjAuOSwyNDcuNkwxMjAuOSwyNDcuNnogTTIzOC4zLDM4MC43Yy0yMy41LTEwLjQtNjMuOS03LjgtNjMuOS03LjgKCQlzMiwzNy44LDI0LjgsNTAuOWMyNy40LDE1LDc4LjksNy44LDc4LjksNy44UzI3My41LDM5Ni4zLDIzOC4zLDM4MC43TDIzOC4zLDM4MC43eiBNMzY5LjQsNDMyLjJjMCwwLDUwLjksNy44LDc4LjktNy44CgkJYzIzLjUtMTMsMjQuOC01MC45LDI0LjgtNTAuOXMtNDAuNC0yLjYtNjMuOSw3LjhDMzc0LDM5Ni4zLDM2OS40LDQzMS41LDM2OS40LDQzMi4yTDM2OS40LDQzMi4yeiBNMzEyLjcsNDU4LjkKCQljMCwyLjYsNS4yLDUuMiwxMS43LDUuMnMxMS43LTIsMTEuNy01LjJjMC0yLjYtNS4yLTUuMi0xMS43LTUuMkMzMTcuOSw0NTMuNywzMTIuNyw0NTUuNywzMTIuNyw0NTguOUwzMTIuNyw0NTguOXoiLz4KCTxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBmaWxsPSIjRjJGNEY4IiBkPSJNNTUyLjcsNDM1LjRjLTE4LjktNy4yLTM5LjEtMTEuMS01OS4zLTExLjFjLTUuMiwwLTUuMi03LjgsMC03LjhjMjAuOSwwLDQxLjcsMy45LDYxLjMsMTEuNwoJCWMyLDAuNywzLjMsMi42LDIuNiw0LjZDNTU2LjYsNDM0LjgsNTU0LjYsNDM2LjEsNTUyLjcsNDM1LjRMNTUyLjcsNDM1LjR6IE05Mi4yLDQyNy42YzE5LjYtNy44LDQwLjQtMTEuMSw2MS4zLTExLjcKCQljNS4yLDAsNS4yLDcuOCwwLDcuOGMtMjAuMiwwLTQwLjQsMy45LTU5LjMsMTEuMWMtMiwwLjctNC42LTAuNy01LjItMi42Qzg5LDQzMC45LDkwLjMsNDI4LjMsOTIuMiw0MjcuNkw5Mi4yLDQyNy42eiBNMTMyLjcsNDUwLjQKCQljOS44LTMuMywyMC4yLTQuNiwzMC01LjJjNS4yLDAsNS4yLDcuOCwwLDcuOGMtOS4xLDAtMTguOSwyLTI3LjQsNC42Yy04LjUsMi42LTE3LjYsNS45LTI0LjEsMTEuN2MtMy45LDMuMy05LjEtMi01LjktNS45CgkJQzExMy4xLDQ1NywxMjMuNSw0NTMuNywxMzIuNyw0NTAuNEwxMzIuNyw0NTAuNHogTTE3MS44LDQ2NS40Yy03LjgsMy4zLTE1LjcsNy44LTIyLjgsMTIuNGMtNy4yLDQuNi0xMy43LDEwLjQtMTguOSwxNwoJCWMtMS4zLDItMC43LDQuNiwxLjMsNS4yYzIsMS4zLDQuNiwwLjcsNS4yLTEuM2M0LjYtNS45LDExLjEtMTEuMSwxNy0xNWM3LjItNC42LDE0LjMtOC41LDIxLjUtMTEuN2MyLTEuMywyLjYtMy4zLDEuMy01LjIKCQlDMTc2LjQsNDY0LjgsMTczLjgsNDY0LjEsMTcxLjgsNDY1LjRMMTcxLjgsNDY1LjR6IE00ODMuNSw0NTMuN2M5LjEsMCwxOC45LDIsMjcuNCw0LjZjNC42LDEuMyw5LjEsMy4zLDEzLjcsNS4yCgkJYzMuOSwxLjMsNy4yLDMuOSwxMC40LDYuNWMzLjksMy4zLDkuMS0yLDUuOS01LjljLTcuMi02LjUtMTcuNi0xMC40LTI2LjctMTNjLTkuOC0zLjMtMjAuMi00LjYtMzAtNS4yCgkJQzQ3OSw0NDUuMiw0NzksNDUzLjcsNDgzLjUsNDUzLjdMNDgzLjUsNDUzLjd6IE00OTIuNyw0ODMuN2MtNy4yLTQuNi0xNC4zLTcuOC0yMS41LTExLjFsMCwwYy0yLTEuMy0yLjYtMy4zLTEuMy01LjIKCQljMS4zLTIsMy4zLTIuNiw1LjItMS4zYzE1LjcsNi41LDMyLDE1LjcsNDEuNywyOS4zYzEuMywyLDAuNyw0LjYtMS4zLDUuMmMtMiwxLjMtNC42LDAuNy01LjItMS4zCgkJQzUwNS43LDQ5Mi44LDQ5OS4yLDQ4Ny42LDQ5Mi43LDQ4My43TDQ5Mi43LDQ4My43eiIvPgoJPHBhdGggZmlsbD0iIzY2NjVERCIgZD0iTTYyLjIsMzM1LjdjMy45LTUuOSwzNS45LTIyLjgsNzUuNy0zMy4zYzguNS0yNC44LDE5LjYtNDguMywzMi03MS4xbDMyLTU4Yy05LjEtMy45LTE4LjMtOS4xLTI2LjctMTUKCQljLTEuMy0xLjMtMi42LTIuNi0zLjktMy45Yy0wLjctMS4zLTEuMy0zLjMtMS4zLTQuNnMyLTMuOSwyLjYtNC42YzItMi42LDQuNi00LjYsNy4yLTcuMmM1LjktNS4yLDEyLjQtOS44LDE5LjYtMTMuNwoJCWMzLjMtMiw2LjUtMy45LDkuOC02LjVjMjIuOC0xNC4zLDM1LjktMjUuNCw1Ni43LTM3LjhjMjAuMi0xMS43LDMwLTE4LjMsNTIuOC0xNy42YzI5LjMsMCwxMDEuNyw5Mi42LDEzNC4zLDE0MC4yCgkJYzE5LjYsMjguNyw0Ni4zLDgwLjIsNTYuMSw5OS44YzIsMC43LDQuNiwxLjMsNi41LDJjMzAsOS4xLDU4LjcsMjIuMiw2NS45LDMwLjdjNi41LDcuMi0yMS41LDEwLjQtNDguOSwxNS43CgkJYy0yNy40LDQuNi0xMjAuNyw3LjItMjEwLDcuOGMtODkuMywwLjctMTkzLjctMi42LTIxNi41LTUuOUM4My4xLDM0OS4zLDU3LjcsMzQyLjgsNjIuMiwzMzUuN0w2Mi4yLDMzNS43eiIvPgoJPHBhdGggZmlsbD0iI0ZGOTlBNSIgZD0iTTQ4My41LDI1Ni4xYzAsMC01OC43LTE1LTE2Mi40LTE1Yy0xMTEuNSwwLTE2NSwxNy0xNjUsMTdzLTYuNSwxMi40LTkuMSwxOC45Yy0yLjYsNy4yLTkuMSwyNS40LTkuMSwyNS40CgkJUzIxOC44LDI4OCwzMjIuNSwyODhjNjIuNiwwLDEyNC42LDUuMiwxODYuNSwxNS43YzAsMC05LjEtMjIuMi0xNS0zMS4zQzQ5MC43LDI2Ny4yLDQ4Ny41LDI2MS4zLDQ4My41LDI1Ni4xTDQ4My41LDI1Ni4xeiIvPgoJPHBhdGggZmlsbD0iI0ZGRTYwMCIgZD0iTTEzMy4zLDEzMS41YzYuNS0wLjcsMTUuNywxOS42LDE1LjcsMTkuNnMyMC45LTUuOSwyNC44LDBjMy4zLDUuOS0xNSwxOS42LTE1LDE5LjZzMTEuMSwxOS42LDcuMiwyMy41CgkJYy0zLjMsMy45LTIyLjgtOC41LTIyLjgtOC41cy0xNSwxNy0xOS42LDE0LjNjLTUuMi0yLjYsMC43LTI0LjgsMC43LTI0LjhzLTIxLjUtOS4xLTE5LjYtMTQuM2MxLjMtNS4yLDIzLjUtNy4yLDIzLjUtNy4yCgkJUzEyNi44LDEzMi44LDEzMy4zLDEzMS41TDEzMy4zLDEzMS41eiIvPgo8L2c+Cjwvc3ZnPgo=',
+    
+    slippage: true,
+
+    blockchains: ['fantom'],
+
+    fantom : {
+      router: {
+        address: '0xF491e7B69E4244ad4002BC14e878a34207E38c29',
+        api: UniswapV2.ROUTER
+      },
+      factory: {
+        address: '0x152eE697f2E276fA89E96742e9bB9aB1F2E61bE3',
+        api: UniswapV2.FACTORY
+      },
+      pair: {
+        api: UniswapV2.PAIR
+      }
+    }
+  };
+
+  var spookyswap = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$c, {
+        scope,
+        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$c }),
+        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$c }),
+        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$c }),
+        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$c }),
+        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$c }),
+      })
+    )
+  };
+
+  function _optionalChain$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+
+  // Replaces 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE with the wrapped token and implies wrapping.
+  //
+  // We keep 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE internally
+  // to be able to differentiate between ETH<>Token and WETH<>Token swaps
+  // as they are not the same!
+  //
+  const getExchangePath$1 = ({ blockchain, path }) => {
+    if(!path) { return }
+    let exchangePath = path.map((token, index) => {
+      if (
+        token === Blockchains__default['default'][blockchain].currency.address && path[index+1] != Blockchains__default['default'][blockchain].wrapped.address &&
+        path[index-1] != Blockchains__default['default'][blockchain].wrapped.address
+      ) {
+        return Blockchains__default['default'][blockchain].wrapped.address
+      } else {
+        return token
+      }
+    });
+
+    if(exchangePath[0] == Blockchains__default['default'][blockchain].currency.address && exchangePath[1] == Blockchains__default['default'][blockchain].wrapped.address) {
+      exchangePath.splice(0, 1);
+    } else if(exchangePath[exchangePath.length-1] == Blockchains__default['default'][blockchain].currency.address && exchangePath[exchangePath.length-2] == Blockchains__default['default'][blockchain].wrapped.address) {
+      exchangePath.splice(exchangePath.length-1, 1);
+    }
+
+    return exchangePath
+  };
+
+  const getBestPool$1 = async ({ exchange, blockchain, path, amountIn, amountOut, block }) => {
+    path = getExchangePath$1({ blockchain, path });
+    
+    let bestPool;
+      
+    if(amountIn) {
+
+      bestPool = await request({
+        blockchain: Blockchains__default['default'][blockchain].name,
+        address: exchange[blockchain].quoter.address,
+        method: 'findBestPathFromAmountIn',
+        api: exchange[blockchain].quoter.api,
+        cache: 5,
+        block,
+        params: {
+          route: path,
+          amountIn,
+        },
+      }).catch(()=>{});
+
+    } else { // amountOut
+
+      bestPool = await request({
+        blockchain: Blockchains__default['default'][blockchain].name,
+        address: exchange[blockchain].quoter.address,
+        method: 'findBestPathFromAmountOut',
+        api: exchange[blockchain].quoter.api,
+        cache: 5,
+        block,
+        params: {
+          route: path,
+          amountOut
+        },
+      }).catch(()=>{});
+    }
+
+    if(!bestPool || bestPool.virtualAmountsWithoutSlippage.some((amount)=>amount.toString() === '0')) {
+      return
+    }
+
+    return bestPool
+  };
+
+  const pathExists$2 = async ({ exchange, blockchain, path, amountIn, amountOut, amountInMax, amountOutMin }) => {
+    return !!(await getBestPool$1({ exchange, blockchain, path, amountIn: (amountIn || amountInMax), amountOut: (amountOut || amountOutMin) }))
+  };
+
+  const findPath$2 = async ({ exchange, blockchain, tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin }) => {
     if(
-      ![tokenIn, tokenOut].includes(blockchain.currency.address) ||
-      ![tokenIn, tokenOut].includes(blockchain.wrapped.address)
-    ) { return { path: undefined, fixedPath: undefined } }
+      [tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].currency.address) &&
+      [tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].wrapped.address)
+    ) { return { path: undefined, exchangePath: undefined } }
+
+    let path;
+    let pools = [];
+
+    // DIRECT PATH
+    pools = [
+      await getBestPool$1({ exchange, blockchain, path: [tokenIn, tokenOut], amountIn: (amountIn || amountInMax), amountOut: (amountOut || amountOutMin) })
+    ];
+    if (pools.filter(Boolean).length) {
+      path = [tokenIn, tokenOut];
+    }
+
+    // PATH VIA WRAPPED
+    if(
+      !path &&
+      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
+      tokenOut != Blockchains__default['default'][blockchain].wrapped.address
+    ) {
+      pools = [];
+      if(amountOut || amountOutMin){
+        pools.push(await getBestPool$1({ exchange, blockchain, path: [Blockchains__default['default'][blockchain].wrapped.address, tokenOut], amountOut: (amountOut || amountOutMin) }));
+        if(pools.filter(Boolean).length) {
+          pools.unshift(await getBestPool$1({ exchange, blockchain, path: [tokenIn, Blockchains__default['default'][blockchain].wrapped.address], amountOut: pools[0].virtualAmountsWithoutSlippage[0] }));
+        }
+      } else { // amountIn
+        pools.push(await getBestPool$1({ exchange, blockchain, path: [tokenIn, Blockchains__default['default'][blockchain].wrapped.address], amountIn: (amountIn || amountInMax) }));
+        if(pools.filter(Boolean).length) {
+          pools.push(await getBestPool$1({ exchange, blockchain, path: [Blockchains__default['default'][blockchain].wrapped.address, tokenOut], amountIn: pools[0].virtualAmountsWithoutSlippage[1] }));
+        }
+      }
+      if (pools.filter(Boolean).length === 2) {
+        // path via WRAPPED
+        path = [tokenIn, Blockchains__default['default'][blockchain].wrapped.address, tokenOut];
+      }
+    }
+
+    // PATH VIA USD STABLE
+    if(
+      !path
+    ) {
+      pools = [];
+      let allPoolsForAllUSD = await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async(stable)=>{
+        let pools = [];
+        if(amountOut || amountOutMin){
+          pools.push(await getBestPool$1({ exchange, blockchain, path: [stable, tokenOut], amountOut: (amountOut || amountOutMin) }));
+          if(pools.filter(Boolean).length) {
+            pools.unshift(await getBestPool$1({ exchange, blockchain, path: [tokenIn, stable], amountOut: pools[0].virtualAmountsWithoutSlippage[0] }));
+          }
+        } else { // amountIn
+          pools.push(await getBestPool$1({ exchange, blockchain, path: [tokenIn, stable], amountIn: (amountIn || amountInMax) }));
+          if(pools.filter(Boolean).length) {
+            pools.push(await getBestPool$1({ exchange, blockchain, path: [stable, tokenOut], amountIn: pools[0].virtualAmountsWithoutSlippage[1] }));
+          }
+        }
+        if(pools.filter(Boolean).length === 2) {
+          return [stable, pools]
+        }
+      }));
+
+      let usdPath = allPoolsForAllUSD.filter(Boolean)[0];
+      if(usdPath) {
+        path = [tokenIn, usdPath[0], tokenOut];
+        pools = usdPath[1];
+      }
+    }
+
+    // Add WRAPPED to route path if things start or end with NATIVE
+    // because that actually reflects how things are routed in reality:
+    if(_optionalChain$1([path, 'optionalAccess', _ => _.length]) && path[0] == Blockchains__default['default'][blockchain].currency.address) {
+      path.splice(1, 0, Blockchains__default['default'][blockchain].wrapped.address);
+    } else if(_optionalChain$1([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == Blockchains__default['default'][blockchain].currency.address) {
+      path.splice(path.length-1, 0, Blockchains__default['default'][blockchain].wrapped.address);
+    }
+
+    if(!path) { pools = []; }
+    return { path, pools, exchangePath: getExchangePath$1({ blockchain, path }) }
+  };
+
+  let getAmountOut$1 = async({ exchange, blockchain, path, pools, amountIn }) => {
+    let bestPath = await request({
+      blockchain: Blockchains__default['default'][blockchain].name,
+      address: exchange[blockchain].quoter.address,
+      method: 'findBestPathFromAmountIn',
+      api: exchange[blockchain].quoter.api,
+      cache: 5,
+      params: {
+        route: getExchangePath$1({ blockchain, path }),
+        amountIn,
+      },
+    }).catch(()=>{});
+    if(bestPath) {
+      return bestPath.virtualAmountsWithoutSlippage[bestPath.virtualAmountsWithoutSlippage.length-1]
+    }
+  };
+
+  let getAmountIn$1 = async ({ exchange, blockchain, path, pools, amountOut, block }) => {
+    let bestPath = await request({
+      blockchain: Blockchains__default['default'][blockchain].name,
+      address: exchange[blockchain].quoter.address,
+      method: 'findBestPathFromAmountOut',
+      api: exchange[blockchain].quoter.api,
+      cache: 5,
+      block,
+      params: {
+        route: getExchangePath$1({ blockchain, path }),
+        amountOut
+      },
+    }).catch(()=>{});
+    if(bestPath) {
+      return bestPath.virtualAmountsWithoutSlippage[0]
+    }
+  };
+
+  let getAmounts$2 = async ({
+    exchange,
+    blockchain,
+    path,
+    pools,
+    block,
+    tokenIn,
+    tokenOut,
+    amountOut,
+    amountIn,
+    amountInMax,
+    amountOutMin
+  }) => {
+    if (amountOut) {
+      amountIn = await getAmountIn$1({ exchange, blockchain, block, path, pools, amountOut, tokenIn, tokenOut });
+      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
+        return {}
+      } else if (amountInMax === undefined) {
+        amountInMax = amountIn;
+      }
+    } else if (amountIn) {
+      amountOut = await getAmountOut$1({ exchange, blockchain, path, pools, amountIn, tokenIn, tokenOut });
+      if (amountOut == undefined || amountOutMin && amountOut.lt(amountOutMin)) {
+        return {}
+      } else if (amountOutMin === undefined) {
+        amountOutMin = amountOut;
+      }
+    } else if(amountOutMin) {
+      amountIn = await getAmountIn$1({ exchange, blockchain, block, path, pools, amountOut: amountOutMin, tokenIn, tokenOut });
+      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
+        return {}
+      } else if (amountInMax === undefined) {
+        amountInMax = amountIn;
+      }
+    } else if(amountInMax) {
+      amountOut = await getAmountOut$1({ exchange, blockchain, path, pools, amountIn: amountInMax, tokenIn, tokenOut });
+      if (amountOut == undefined ||amountOutMin && amountOut.lt(amountOutMin)) {
+        return {}
+      } else if (amountOutMin === undefined) {
+        amountOutMin = amountOut;
+      }
+    }
+    return { amountOut, amountIn, amountInMax, amountOutMin }
+  };
+
+  let getPrep$1 = async({
+    exchange,
+    blockchain,
+    tokenIn,
+    amountIn,
+    account
+  })=> {
+
+    if(tokenIn === Blockchains__default['default'][blockchain].currency.address) { return } // NATIVE
+
+    const allowance = await request({
+      blockchain,
+      address: tokenIn,
+      method: 'allowance',
+      api: Token[blockchain]['20'],
+      params: [account, exchange[blockchain].router.address]
+    });
+
+    if(allowance.gte(amountIn)) { return }
+
+    let transaction = {
+      blockchain,
+      from: account,
+      to: tokenIn,
+      api: Token[blockchain]['20'],
+      method: 'approve',
+      params: [exchange[blockchain].router.address, amountIn.sub(allowance)]
+    };
+    
+    return { transaction }
+  };
+
+  let getTransaction$2 = async({
+    exchange,
+    blockchain,
+    pools,
+    path,
+    amountIn,
+    amountInMax,
+    amountOut,
+    amountOutMin,
+    amountInInput,
+    amountOutInput,
+    amountInMaxInput,
+    amountOutMinInput,
+    account
+  }) => {
+
+    const transaction = {
+      blockchain,
+      from: account,
+      to: exchange[blockchain].router.address,
+      api: exchange[blockchain].router.api
+    };
+
+    const deadline = Math.round(Date.now() / 1000) + 60 * 60 * 24; // 24 hours
+
+    const fullPath = [
+      pools.map((pool)=>pool.binSteps[0]),
+      pools.map((pool)=>pool.versions[0]),
+      getExchangePath$1({ blockchain, path })
+    ];
+
+    if(path[0] === Blockchains__default['default'][blockchain].currency.address) { // NATIVE START
+      if(amountInMaxInput) {
+        transaction.method = 'swapNATIVEForExactTokens';
+        transaction.params = {
+          amountOut,
+          path: fullPath,
+          to: account,
+          deadline,
+        };
+        transaction.value = amountInMax;
+      } else {
+        transaction.method = 'swapExactNATIVEForTokens';
+        transaction.params = {
+          amountOutMin: (amountOutMin || amountOut),
+          path: fullPath,
+          to: account,
+          deadline,
+        };
+        transaction.value = amountIn;
+      }
+    } else if (path[path.length-1] === Blockchains__default['default'][blockchain].currency.address) { // NATIVE END
+      if(amountInMaxInput) {
+        transaction.method = 'swapTokensForExactNATIVE';
+        transaction.params = {
+          amountNATIVEOut: amountOut,
+          amountInMax,
+          path: fullPath,
+          to: account,
+          deadline,
+        };
+      } else {
+        transaction.method = 'swapExactTokensForNATIVE';
+        transaction.params = {
+          amountIn,
+          amountOutMinNATIVE: (amountOutMin || amountOut),
+          path: fullPath,
+          to: account,
+          deadline,
+        };
+      }
+    } else { // TOKENS
+      if(amountInMaxInput) {
+        transaction.method = 'swapTokensForExactTokens';
+        transaction.params = {
+          amountOut,
+          amountInMax,
+          path: fullPath,
+          to: account,
+          deadline,
+        };
+      } else {
+        transaction.method = 'swapExactTokensForTokens';
+        transaction.params = {
+          amountIn,
+          amountOutMin: (amountOutMin || amountOut),
+          path: fullPath,
+          to: account,
+          deadline,
+        };
+      }
+    }
+
+    return transaction
+  };
+
+  const ROUTER$1 = [{"inputs":[{"internalType":"contract ILBFactory","name":"factory","type":"address"},{"internalType":"contract IJoeFactory","name":"factoryV1","type":"address"},{"internalType":"contract ILBLegacyFactory","name":"legacyFactory","type":"address"},{"internalType":"contract ILBLegacyRouter","name":"legacyRouter","type":"address"},{"internalType":"contract IWNATIVE","name":"wnative","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"AddressHelper__CallFailed","type":"error"},{"inputs":[],"name":"AddressHelper__NonContract","type":"error"},{"inputs":[],"name":"JoeLibrary__InsufficientAmount","type":"error"},{"inputs":[],"name":"JoeLibrary__InsufficientLiquidity","type":"error"},{"inputs":[{"internalType":"uint256","name":"amountSlippage","type":"uint256"}],"name":"LBRouter__AmountSlippageBPTooBig","type":"error"},{"inputs":[{"internalType":"uint256","name":"amountXMin","type":"uint256"},{"internalType":"uint256","name":"amountX","type":"uint256"},{"internalType":"uint256","name":"amountYMin","type":"uint256"},{"internalType":"uint256","name":"amountY","type":"uint256"}],"name":"LBRouter__AmountSlippageCaught","type":"error"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"LBRouter__BinReserveOverflows","type":"error"},{"inputs":[],"name":"LBRouter__BrokenSwapSafetyCheck","type":"error"},{"inputs":[{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint256","name":"currentTimestamp","type":"uint256"}],"name":"LBRouter__DeadlineExceeded","type":"error"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"LBRouter__FailedToSendNATIVE","type":"error"},{"inputs":[{"internalType":"uint256","name":"idDesired","type":"uint256"},{"internalType":"uint256","name":"idSlippage","type":"uint256"}],"name":"LBRouter__IdDesiredOverflows","type":"error"},{"inputs":[{"internalType":"int256","name":"id","type":"int256"}],"name":"LBRouter__IdOverflows","type":"error"},{"inputs":[{"internalType":"uint256","name":"activeIdDesired","type":"uint256"},{"internalType":"uint256","name":"idSlippage","type":"uint256"},{"internalType":"uint256","name":"activeId","type":"uint256"}],"name":"LBRouter__IdSlippageCaught","type":"error"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"uint256","name":"amountOut","type":"uint256"}],"name":"LBRouter__InsufficientAmountOut","type":"error"},{"inputs":[{"internalType":"address","name":"wrongToken","type":"address"}],"name":"LBRouter__InvalidTokenPath","type":"error"},{"inputs":[{"internalType":"uint256","name":"version","type":"uint256"}],"name":"LBRouter__InvalidVersion","type":"error"},{"inputs":[],"name":"LBRouter__LengthsMismatch","type":"error"},{"inputs":[{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"uint256","name":"amountIn","type":"uint256"}],"name":"LBRouter__MaxAmountInExceeded","type":"error"},{"inputs":[],"name":"LBRouter__NotFactoryOwner","type":"error"},{"inputs":[{"internalType":"address","name":"tokenX","type":"address"},{"internalType":"address","name":"tokenY","type":"address"},{"internalType":"uint256","name":"binStep","type":"uint256"}],"name":"LBRouter__PairNotCreated","type":"error"},{"inputs":[],"name":"LBRouter__SenderIsNotWNATIVE","type":"error"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"LBRouter__SwapOverflows","type":"error"},{"inputs":[{"internalType":"uint256","name":"excess","type":"uint256"}],"name":"LBRouter__TooMuchTokensIn","type":"error"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"reserve","type":"uint256"}],"name":"LBRouter__WrongAmounts","type":"error"},{"inputs":[{"internalType":"address","name":"tokenX","type":"address"},{"internalType":"address","name":"tokenY","type":"address"},{"internalType":"uint256","name":"amountX","type":"uint256"},{"internalType":"uint256","name":"amountY","type":"uint256"},{"internalType":"uint256","name":"msgValue","type":"uint256"}],"name":"LBRouter__WrongNativeLiquidityParameters","type":"error"},{"inputs":[],"name":"LBRouter__WrongTokenOrder","type":"error"},{"inputs":[],"name":"TokenHelper__TransferFailed","type":"error"},{"inputs":[{"components":[{"internalType":"contract IERC20","name":"tokenX","type":"address"},{"internalType":"contract IERC20","name":"tokenY","type":"address"},{"internalType":"uint256","name":"binStep","type":"uint256"},{"internalType":"uint256","name":"amountX","type":"uint256"},{"internalType":"uint256","name":"amountY","type":"uint256"},{"internalType":"uint256","name":"amountXMin","type":"uint256"},{"internalType":"uint256","name":"amountYMin","type":"uint256"},{"internalType":"uint256","name":"activeIdDesired","type":"uint256"},{"internalType":"uint256","name":"idSlippage","type":"uint256"},{"internalType":"int256[]","name":"deltaIds","type":"int256[]"},{"internalType":"uint256[]","name":"distributionX","type":"uint256[]"},{"internalType":"uint256[]","name":"distributionY","type":"uint256[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"address","name":"refundTo","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct ILBRouter.LiquidityParameters","name":"liquidityParameters","type":"tuple"}],"name":"addLiquidity","outputs":[{"internalType":"uint256","name":"amountXAdded","type":"uint256"},{"internalType":"uint256","name":"amountYAdded","type":"uint256"},{"internalType":"uint256","name":"amountXLeft","type":"uint256"},{"internalType":"uint256","name":"amountYLeft","type":"uint256"},{"internalType":"uint256[]","name":"depositIds","type":"uint256[]"},{"internalType":"uint256[]","name":"liquidityMinted","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"components":[{"internalType":"contract IERC20","name":"tokenX","type":"address"},{"internalType":"contract IERC20","name":"tokenY","type":"address"},{"internalType":"uint256","name":"binStep","type":"uint256"},{"internalType":"uint256","name":"amountX","type":"uint256"},{"internalType":"uint256","name":"amountY","type":"uint256"},{"internalType":"uint256","name":"amountXMin","type":"uint256"},{"internalType":"uint256","name":"amountYMin","type":"uint256"},{"internalType":"uint256","name":"activeIdDesired","type":"uint256"},{"internalType":"uint256","name":"idSlippage","type":"uint256"},{"internalType":"int256[]","name":"deltaIds","type":"int256[]"},{"internalType":"uint256[]","name":"distributionX","type":"uint256[]"},{"internalType":"uint256[]","name":"distributionY","type":"uint256[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"address","name":"refundTo","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct ILBRouter.LiquidityParameters","name":"liquidityParameters","type":"tuple"}],"name":"addLiquidityNATIVE","outputs":[{"internalType":"uint256","name":"amountXAdded","type":"uint256"},{"internalType":"uint256","name":"amountYAdded","type":"uint256"},{"internalType":"uint256","name":"amountXLeft","type":"uint256"},{"internalType":"uint256","name":"amountYLeft","type":"uint256"},{"internalType":"uint256[]","name":"depositIds","type":"uint256[]"},{"internalType":"uint256[]","name":"liquidityMinted","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"tokenX","type":"address"},{"internalType":"contract IERC20","name":"tokenY","type":"address"},{"internalType":"uint24","name":"activeId","type":"uint24"},{"internalType":"uint16","name":"binStep","type":"uint16"}],"name":"createLBPair","outputs":[{"internalType":"contract ILBPair","name":"pair","type":"address"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getFactory","outputs":[{"internalType":"contract ILBFactory","name":"lbFactory","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract ILBPair","name":"pair","type":"address"},{"internalType":"uint256","name":"price","type":"uint256"}],"name":"getIdFromPrice","outputs":[{"internalType":"uint24","name":"","type":"uint24"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getLegacyFactory","outputs":[{"internalType":"contract ILBLegacyFactory","name":"legacyLBfactory","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getLegacyRouter","outputs":[{"internalType":"contract ILBLegacyRouter","name":"legacyRouter","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract ILBPair","name":"pair","type":"address"},{"internalType":"uint24","name":"id","type":"uint24"}],"name":"getPriceFromId","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract ILBPair","name":"pair","type":"address"},{"internalType":"uint128","name":"amountOut","type":"uint128"},{"internalType":"bool","name":"swapForY","type":"bool"}],"name":"getSwapIn","outputs":[{"internalType":"uint128","name":"amountIn","type":"uint128"},{"internalType":"uint128","name":"amountOutLeft","type":"uint128"},{"internalType":"uint128","name":"fee","type":"uint128"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract ILBPair","name":"pair","type":"address"},{"internalType":"uint128","name":"amountIn","type":"uint128"},{"internalType":"bool","name":"swapForY","type":"bool"}],"name":"getSwapOut","outputs":[{"internalType":"uint128","name":"amountInLeft","type":"uint128"},{"internalType":"uint128","name":"amountOut","type":"uint128"},{"internalType":"uint128","name":"fee","type":"uint128"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getV1Factory","outputs":[{"internalType":"contract IJoeFactory","name":"factoryV1","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getWNATIVE","outputs":[{"internalType":"contract IWNATIVE","name":"wnative","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"tokenX","type":"address"},{"internalType":"contract IERC20","name":"tokenY","type":"address"},{"internalType":"uint16","name":"binStep","type":"uint16"},{"internalType":"uint256","name":"amountXMin","type":"uint256"},{"internalType":"uint256","name":"amountYMin","type":"uint256"},{"internalType":"uint256[]","name":"ids","type":"uint256[]"},{"internalType":"uint256[]","name":"amounts","type":"uint256[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidity","outputs":[{"internalType":"uint256","name":"amountX","type":"uint256"},{"internalType":"uint256","name":"amountY","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"token","type":"address"},{"internalType":"uint16","name":"binStep","type":"uint16"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountNATIVEMin","type":"uint256"},{"internalType":"uint256[]","name":"ids","type":"uint256[]"},{"internalType":"uint256[]","name":"amounts","type":"uint256[]"},{"internalType":"address payable","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityNATIVE","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountNATIVE","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"components":[{"internalType":"uint256[]","name":"pairBinSteps","type":"uint256[]"},{"internalType":"enum ILBRouter.Version[]","name":"versions","type":"uint8[]"},{"internalType":"contract IERC20[]","name":"tokenPath","type":"address[]"}],"internalType":"struct ILBRouter.Path","name":"path","type":"tuple"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactNATIVEForTokens","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"components":[{"internalType":"uint256[]","name":"pairBinSteps","type":"uint256[]"},{"internalType":"enum ILBRouter.Version[]","name":"versions","type":"uint8[]"},{"internalType":"contract IERC20[]","name":"tokenPath","type":"address[]"}],"internalType":"struct ILBRouter.Path","name":"path","type":"tuple"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactNATIVEForTokensSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMinNATIVE","type":"uint256"},{"components":[{"internalType":"uint256[]","name":"pairBinSteps","type":"uint256[]"},{"internalType":"enum ILBRouter.Version[]","name":"versions","type":"uint8[]"},{"internalType":"contract IERC20[]","name":"tokenPath","type":"address[]"}],"internalType":"struct ILBRouter.Path","name":"path","type":"tuple"},{"internalType":"address payable","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForNATIVE","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMinNATIVE","type":"uint256"},{"components":[{"internalType":"uint256[]","name":"pairBinSteps","type":"uint256[]"},{"internalType":"enum ILBRouter.Version[]","name":"versions","type":"uint8[]"},{"internalType":"contract IERC20[]","name":"tokenPath","type":"address[]"}],"internalType":"struct ILBRouter.Path","name":"path","type":"tuple"},{"internalType":"address payable","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForNATIVESupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"components":[{"internalType":"uint256[]","name":"pairBinSteps","type":"uint256[]"},{"internalType":"enum ILBRouter.Version[]","name":"versions","type":"uint8[]"},{"internalType":"contract IERC20[]","name":"tokenPath","type":"address[]"}],"internalType":"struct ILBRouter.Path","name":"path","type":"tuple"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokens","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"components":[{"internalType":"uint256[]","name":"pairBinSteps","type":"uint256[]"},{"internalType":"enum ILBRouter.Version[]","name":"versions","type":"uint8[]"},{"internalType":"contract IERC20[]","name":"tokenPath","type":"address[]"}],"internalType":"struct ILBRouter.Path","name":"path","type":"tuple"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokensSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"components":[{"internalType":"uint256[]","name":"pairBinSteps","type":"uint256[]"},{"internalType":"enum ILBRouter.Version[]","name":"versions","type":"uint8[]"},{"internalType":"contract IERC20[]","name":"tokenPath","type":"address[]"}],"internalType":"struct ILBRouter.Path","name":"path","type":"tuple"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapNATIVEForExactTokens","outputs":[{"internalType":"uint256[]","name":"amountsIn","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountNATIVEOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"components":[{"internalType":"uint256[]","name":"pairBinSteps","type":"uint256[]"},{"internalType":"enum ILBRouter.Version[]","name":"versions","type":"uint8[]"},{"internalType":"contract IERC20[]","name":"tokenPath","type":"address[]"}],"internalType":"struct ILBRouter.Path","name":"path","type":"tuple"},{"internalType":"address payable","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactNATIVE","outputs":[{"internalType":"uint256[]","name":"amountsIn","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"components":[{"internalType":"uint256[]","name":"pairBinSteps","type":"uint256[]"},{"internalType":"enum ILBRouter.Version[]","name":"versions","type":"uint8[]"},{"internalType":"contract IERC20[]","name":"tokenPath","type":"address[]"}],"internalType":"struct ILBRouter.Path","name":"path","type":"tuple"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactTokens","outputs":[{"internalType":"uint256[]","name":"amountsIn","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"token","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"sweep","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract ILBToken","name":"lbToken","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256[]","name":"ids","type":"uint256[]"},{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"name":"sweepLBToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
+  const FACTORY$1 = [{"inputs":[{"internalType":"address","name":"feeRecipient","type":"address"},{"internalType":"uint256","name":"flashLoanFee","type":"uint256"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"LBFactory__AddressZero","type":"error"},{"inputs":[{"internalType":"uint256","name":"binStep","type":"uint256"}],"name":"LBFactory__BinStepHasNoPreset","type":"error"},{"inputs":[{"internalType":"uint256","name":"binStep","type":"uint256"}],"name":"LBFactory__BinStepTooLow","type":"error"},{"inputs":[{"internalType":"uint256","name":"fees","type":"uint256"},{"internalType":"uint256","name":"maxFees","type":"uint256"}],"name":"LBFactory__FlashLoanFeeAboveMax","type":"error"},{"inputs":[{"internalType":"contract IERC20","name":"token","type":"address"}],"name":"LBFactory__IdenticalAddresses","type":"error"},{"inputs":[],"name":"LBFactory__ImplementationNotSet","type":"error"},{"inputs":[{"internalType":"contract IERC20","name":"tokenX","type":"address"},{"internalType":"contract IERC20","name":"tokenY","type":"address"},{"internalType":"uint256","name":"_binStep","type":"uint256"}],"name":"LBFactory__LBPairAlreadyExists","type":"error"},{"inputs":[{"internalType":"contract IERC20","name":"tokenX","type":"address"},{"internalType":"contract IERC20","name":"tokenY","type":"address"},{"internalType":"uint256","name":"binStep","type":"uint256"}],"name":"LBFactory__LBPairDoesNotExist","type":"error"},{"inputs":[],"name":"LBFactory__LBPairIgnoredIsAlreadyInTheSameState","type":"error"},{"inputs":[{"internalType":"contract IERC20","name":"tokenX","type":"address"},{"internalType":"contract IERC20","name":"tokenY","type":"address"},{"internalType":"uint256","name":"binStep","type":"uint256"}],"name":"LBFactory__LBPairNotCreated","type":"error"},{"inputs":[{"internalType":"address","name":"LBPairImplementation","type":"address"}],"name":"LBFactory__LBPairSafetyCheckFailed","type":"error"},{"inputs":[{"internalType":"address","name":"user","type":"address"},{"internalType":"uint256","name":"binStep","type":"uint256"}],"name":"LBFactory__PresetIsLockedForUsers","type":"error"},{"inputs":[],"name":"LBFactory__PresetOpenStateIsAlreadyInTheSameState","type":"error"},{"inputs":[{"internalType":"contract IERC20","name":"quoteAsset","type":"address"}],"name":"LBFactory__QuoteAssetAlreadyWhitelisted","type":"error"},{"inputs":[{"internalType":"contract IERC20","name":"quoteAsset","type":"address"}],"name":"LBFactory__QuoteAssetNotWhitelisted","type":"error"},{"inputs":[{"internalType":"address","name":"feeRecipient","type":"address"}],"name":"LBFactory__SameFeeRecipient","type":"error"},{"inputs":[{"internalType":"uint256","name":"flashLoanFee","type":"uint256"}],"name":"LBFactory__SameFlashLoanFee","type":"error"},{"inputs":[{"internalType":"address","name":"LBPairImplementation","type":"address"}],"name":"LBFactory__SameImplementation","type":"error"},{"inputs":[],"name":"PairParametersHelper__InvalidParameter","type":"error"},{"inputs":[],"name":"PendingOwnable__AddressZero","type":"error"},{"inputs":[],"name":"PendingOwnable__NoPendingOwner","type":"error"},{"inputs":[],"name":"PendingOwnable__NotOwner","type":"error"},{"inputs":[],"name":"PendingOwnable__NotPendingOwner","type":"error"},{"inputs":[],"name":"PendingOwnable__PendingOwnerAlreadySet","type":"error"},{"inputs":[],"name":"SafeCast__Exceeds16Bits","type":"error"},{"inputs":[{"internalType":"uint256","name":"x","type":"uint256"},{"internalType":"int256","name":"y","type":"int256"}],"name":"Uint128x128Math__PowUnderflow","type":"error"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"oldRecipient","type":"address"},{"indexed":false,"internalType":"address","name":"newRecipient","type":"address"}],"name":"FeeRecipientSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"oldFlashLoanFee","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"newFlashLoanFee","type":"uint256"}],"name":"FlashLoanFeeSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"contract IERC20","name":"tokenX","type":"address"},{"indexed":true,"internalType":"contract IERC20","name":"tokenY","type":"address"},{"indexed":true,"internalType":"uint256","name":"binStep","type":"uint256"},{"indexed":false,"internalType":"contract ILBPair","name":"LBPair","type":"address"},{"indexed":false,"internalType":"uint256","name":"pid","type":"uint256"}],"name":"LBPairCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"contract ILBPair","name":"LBPair","type":"address"},{"indexed":false,"internalType":"bool","name":"ignored","type":"bool"}],"name":"LBPairIgnoredStateChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"oldLBPairImplementation","type":"address"},{"indexed":false,"internalType":"address","name":"LBPairImplementation","type":"address"}],"name":"LBPairImplementationSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"pendingOwner","type":"address"}],"name":"PendingOwnerSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"binStep","type":"uint256"},{"indexed":true,"internalType":"bool","name":"isOpen","type":"bool"}],"name":"PresetOpenStateChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"binStep","type":"uint256"}],"name":"PresetRemoved","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"binStep","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"baseFactor","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"filterPeriod","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"decayPeriod","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"reductionFactor","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"variableFeeControl","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"protocolShare","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"maxVolatilityAccumulator","type":"uint256"}],"name":"PresetSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"contract IERC20","name":"quoteAsset","type":"address"}],"name":"QuoteAssetAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"contract IERC20","name":"quoteAsset","type":"address"}],"name":"QuoteAssetRemoved","type":"event"},{"inputs":[{"internalType":"contract IERC20","name":"quoteAsset","type":"address"}],"name":"addQuoteAsset","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"becomeOwner","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"tokenX","type":"address"},{"internalType":"contract IERC20","name":"tokenY","type":"address"},{"internalType":"uint24","name":"activeId","type":"uint24"},{"internalType":"uint16","name":"binStep","type":"uint16"}],"name":"createLBPair","outputs":[{"internalType":"contract ILBPair","name":"pair","type":"address"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract ILBPair","name":"pair","type":"address"}],"name":"forceDecay","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getAllBinSteps","outputs":[{"internalType":"uint256[]","name":"binStepWithPreset","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"tokenX","type":"address"},{"internalType":"contract IERC20","name":"tokenY","type":"address"}],"name":"getAllLBPairs","outputs":[{"components":[{"internalType":"uint16","name":"binStep","type":"uint16"},{"internalType":"contract ILBPair","name":"LBPair","type":"address"},{"internalType":"bool","name":"createdByOwner","type":"bool"},{"internalType":"bool","name":"ignoredForRouting","type":"bool"}],"internalType":"struct ILBFactory.LBPairInformation[]","name":"lbPairsAvailable","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getFeeRecipient","outputs":[{"internalType":"address","name":"feeRecipient","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getFlashLoanFee","outputs":[{"internalType":"uint256","name":"flashLoanFee","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"index","type":"uint256"}],"name":"getLBPairAtIndex","outputs":[{"internalType":"contract ILBPair","name":"lbPair","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getLBPairImplementation","outputs":[{"internalType":"address","name":"lbPairImplementation","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"tokenA","type":"address"},{"internalType":"contract IERC20","name":"tokenB","type":"address"},{"internalType":"uint256","name":"binStep","type":"uint256"}],"name":"getLBPairInformation","outputs":[{"components":[{"internalType":"uint16","name":"binStep","type":"uint16"},{"internalType":"contract ILBPair","name":"LBPair","type":"address"},{"internalType":"bool","name":"createdByOwner","type":"bool"},{"internalType":"bool","name":"ignoredForRouting","type":"bool"}],"internalType":"struct ILBFactory.LBPairInformation","name":"lbPairInformation","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getMaxFlashLoanFee","outputs":[{"internalType":"uint256","name":"maxFee","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"getMinBinStep","outputs":[{"internalType":"uint256","name":"minBinStep","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"getNumberOfLBPairs","outputs":[{"internalType":"uint256","name":"lbPairNumber","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getNumberOfQuoteAssets","outputs":[{"internalType":"uint256","name":"numberOfQuoteAssets","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getOpenBinSteps","outputs":[{"internalType":"uint256[]","name":"openBinStep","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"binStep","type":"uint256"}],"name":"getPreset","outputs":[{"internalType":"uint256","name":"baseFactor","type":"uint256"},{"internalType":"uint256","name":"filterPeriod","type":"uint256"},{"internalType":"uint256","name":"decayPeriod","type":"uint256"},{"internalType":"uint256","name":"reductionFactor","type":"uint256"},{"internalType":"uint256","name":"variableFeeControl","type":"uint256"},{"internalType":"uint256","name":"protocolShare","type":"uint256"},{"internalType":"uint256","name":"maxVolatilityAccumulator","type":"uint256"},{"internalType":"bool","name":"isOpen","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"index","type":"uint256"}],"name":"getQuoteAssetAtIndex","outputs":[{"internalType":"contract IERC20","name":"asset","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"token","type":"address"}],"name":"isQuoteAsset","outputs":[{"internalType":"bool","name":"isQuote","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pendingOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint16","name":"binStep","type":"uint16"}],"name":"removePreset","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"quoteAsset","type":"address"}],"name":"removeQuoteAsset","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"revokePendingOwner","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"feeRecipient","type":"address"}],"name":"setFeeRecipient","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"tokenX","type":"address"},{"internalType":"contract IERC20","name":"tokenY","type":"address"},{"internalType":"uint16","name":"binStep","type":"uint16"},{"internalType":"uint16","name":"baseFactor","type":"uint16"},{"internalType":"uint16","name":"filterPeriod","type":"uint16"},{"internalType":"uint16","name":"decayPeriod","type":"uint16"},{"internalType":"uint16","name":"reductionFactor","type":"uint16"},{"internalType":"uint24","name":"variableFeeControl","type":"uint24"},{"internalType":"uint16","name":"protocolShare","type":"uint16"},{"internalType":"uint24","name":"maxVolatilityAccumulator","type":"uint24"}],"name":"setFeesParametersOnPair","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"flashLoanFee","type":"uint256"}],"name":"setFlashLoanFee","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"tokenX","type":"address"},{"internalType":"contract IERC20","name":"tokenY","type":"address"},{"internalType":"uint16","name":"binStep","type":"uint16"},{"internalType":"bool","name":"ignored","type":"bool"}],"name":"setLBPairIgnored","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newLBPairImplementation","type":"address"}],"name":"setLBPairImplementation","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"pendingOwner_","type":"address"}],"name":"setPendingOwner","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint16","name":"binStep","type":"uint16"},{"internalType":"uint16","name":"baseFactor","type":"uint16"},{"internalType":"uint16","name":"filterPeriod","type":"uint16"},{"internalType":"uint16","name":"decayPeriod","type":"uint16"},{"internalType":"uint16","name":"reductionFactor","type":"uint16"},{"internalType":"uint24","name":"variableFeeControl","type":"uint24"},{"internalType":"uint16","name":"protocolShare","type":"uint16"},{"internalType":"uint24","name":"maxVolatilityAccumulator","type":"uint24"},{"internalType":"bool","name":"isOpen","type":"bool"}],"name":"setPreset","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint16","name":"binStep","type":"uint16"},{"internalType":"bool","name":"isOpen","type":"bool"}],"name":"setPresetOpenState","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+  const PAIR = [{"inputs":[{"internalType":"contract ILBFactory","name":"factory_","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"AddressHelper__CallFailed","type":"error"},{"inputs":[],"name":"AddressHelper__NonContract","type":"error"},{"inputs":[{"internalType":"uint24","name":"id","type":"uint24"}],"name":"BinHelper__CompositionFactorFlawed","type":"error"},{"inputs":[],"name":"BinHelper__LiquidityOverflow","type":"error"},{"inputs":[],"name":"FeeHelper__FeeTooLarge","type":"error"},{"inputs":[],"name":"LBPair__AddressZero","type":"error"},{"inputs":[],"name":"LBPair__AlreadyInitialized","type":"error"},{"inputs":[],"name":"LBPair__EmptyMarketConfigs","type":"error"},{"inputs":[],"name":"LBPair__FlashLoanCallbackFailed","type":"error"},{"inputs":[],"name":"LBPair__FlashLoanInsufficientAmount","type":"error"},{"inputs":[],"name":"LBPair__InsufficientAmountIn","type":"error"},{"inputs":[],"name":"LBPair__InsufficientAmountOut","type":"error"},{"inputs":[],"name":"LBPair__InvalidInput","type":"error"},{"inputs":[],"name":"LBPair__InvalidStaticFeeParameters","type":"error"},{"inputs":[],"name":"LBPair__MaxTotalFeeExceeded","type":"error"},{"inputs":[],"name":"LBPair__OnlyFactory","type":"error"},{"inputs":[],"name":"LBPair__OnlyProtocolFeeRecipient","type":"error"},{"inputs":[],"name":"LBPair__OutOfLiquidity","type":"error"},{"inputs":[],"name":"LBPair__TokenNotSupported","type":"error"},{"inputs":[{"internalType":"uint24","name":"id","type":"uint24"}],"name":"LBPair__ZeroAmount","type":"error"},{"inputs":[{"internalType":"uint24","name":"id","type":"uint24"}],"name":"LBPair__ZeroAmountsOut","type":"error"},{"inputs":[],"name":"LBPair__ZeroBorrowAmount","type":"error"},{"inputs":[{"internalType":"uint24","name":"id","type":"uint24"}],"name":"LBPair__ZeroShares","type":"error"},{"inputs":[],"name":"LBToken__AddressThisOrZero","type":"error"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"LBToken__BurnExceedsBalance","type":"error"},{"inputs":[],"name":"LBToken__InvalidLength","type":"error"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"LBToken__SelfApproval","type":"error"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"LBToken__SpenderNotApproved","type":"error"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"LBToken__TransferExceedsBalance","type":"error"},{"inputs":[],"name":"LiquidityConfigurations__InvalidConfig","type":"error"},{"inputs":[],"name":"OracleHelper__InvalidOracleId","type":"error"},{"inputs":[],"name":"OracleHelper__LookUpTimestampTooOld","type":"error"},{"inputs":[],"name":"OracleHelper__NewLengthTooSmall","type":"error"},{"inputs":[],"name":"PackedUint128Math__AddOverflow","type":"error"},{"inputs":[],"name":"PackedUint128Math__MultiplierTooLarge","type":"error"},{"inputs":[],"name":"PackedUint128Math__SubUnderflow","type":"error"},{"inputs":[],"name":"PairParametersHelper__InvalidParameter","type":"error"},{"inputs":[],"name":"ReentrancyGuard__ReentrantCall","type":"error"},{"inputs":[],"name":"SafeCast__Exceeds128Bits","type":"error"},{"inputs":[],"name":"SafeCast__Exceeds24Bits","type":"error"},{"inputs":[],"name":"SafeCast__Exceeds40Bits","type":"error"},{"inputs":[],"name":"TokenHelper__TransferFailed","type":"error"},{"inputs":[],"name":"Uint128x128Math__LogUnderflow","type":"error"},{"inputs":[{"internalType":"uint256","name":"x","type":"uint256"},{"internalType":"int256","name":"y","type":"int256"}],"name":"Uint128x128Math__PowUnderflow","type":"error"},{"inputs":[],"name":"Uint256x256Math__MulDivOverflow","type":"error"},{"inputs":[],"name":"Uint256x256Math__MulShiftOverflow","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"account","type":"address"},{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"bool","name":"approved","type":"bool"}],"name":"ApprovalForAll","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"feeRecipient","type":"address"},{"indexed":false,"internalType":"bytes32","name":"protocolFees","type":"bytes32"}],"name":"CollectedProtocolFees","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint24","name":"id","type":"uint24"},{"indexed":false,"internalType":"bytes32","name":"totalFees","type":"bytes32"},{"indexed":false,"internalType":"bytes32","name":"protocolFees","type":"bytes32"}],"name":"CompositionFees","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256[]","name":"ids","type":"uint256[]"},{"indexed":false,"internalType":"bytes32[]","name":"amounts","type":"bytes32[]"}],"name":"DepositedToBins","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":true,"internalType":"contract ILBFlashLoanCallback","name":"receiver","type":"address"},{"indexed":false,"internalType":"uint24","name":"activeId","type":"uint24"},{"indexed":false,"internalType":"bytes32","name":"amounts","type":"bytes32"},{"indexed":false,"internalType":"bytes32","name":"totalFees","type":"bytes32"},{"indexed":false,"internalType":"bytes32","name":"protocolFees","type":"bytes32"}],"name":"FlashLoan","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint24","name":"idReference","type":"uint24"},{"indexed":false,"internalType":"uint24","name":"volatilityReference","type":"uint24"}],"name":"ForcedDecay","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint16","name":"oracleLength","type":"uint16"}],"name":"OracleLengthIncreased","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint16","name":"baseFactor","type":"uint16"},{"indexed":false,"internalType":"uint16","name":"filterPeriod","type":"uint16"},{"indexed":false,"internalType":"uint16","name":"decayPeriod","type":"uint16"},{"indexed":false,"internalType":"uint16","name":"reductionFactor","type":"uint16"},{"indexed":false,"internalType":"uint24","name":"variableFeeControl","type":"uint24"},{"indexed":false,"internalType":"uint16","name":"protocolShare","type":"uint16"},{"indexed":false,"internalType":"uint24","name":"maxVolatilityAccumulator","type":"uint24"}],"name":"StaticFeeParametersSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint24","name":"id","type":"uint24"},{"indexed":false,"internalType":"bytes32","name":"amountsIn","type":"bytes32"},{"indexed":false,"internalType":"bytes32","name":"amountsOut","type":"bytes32"},{"indexed":false,"internalType":"uint24","name":"volatilityAccumulator","type":"uint24"},{"indexed":false,"internalType":"bytes32","name":"totalFees","type":"bytes32"},{"indexed":false,"internalType":"bytes32","name":"protocolFees","type":"bytes32"}],"name":"Swap","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256[]","name":"ids","type":"uint256[]"},{"indexed":false,"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"name":"TransferBatch","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256[]","name":"ids","type":"uint256[]"},{"indexed":false,"internalType":"bytes32[]","name":"amounts","type":"bytes32[]"}],"name":"WithdrawnFromBins","type":"event"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"bool","name":"approved","type":"bool"}],"name":"approveForAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"id","type":"uint256"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address[]","name":"accounts","type":"address[]"},{"internalType":"uint256[]","name":"ids","type":"uint256[]"}],"name":"balanceOfBatch","outputs":[{"internalType":"uint256[]","name":"batchBalances","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256[]","name":"ids","type":"uint256[]"},{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"name":"batchTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256[]","name":"ids","type":"uint256[]"},{"internalType":"uint256[]","name":"amountsToBurn","type":"uint256[]"}],"name":"burn","outputs":[{"internalType":"bytes32[]","name":"amounts","type":"bytes32[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"collectProtocolFees","outputs":[{"internalType":"bytes32","name":"collectedProtocolFees","type":"bytes32"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"contract ILBFlashLoanCallback","name":"receiver","type":"address"},{"internalType":"bytes32","name":"amounts","type":"bytes32"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"flashLoan","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"forceDecay","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getActiveId","outputs":[{"internalType":"uint24","name":"activeId","type":"uint24"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint24","name":"id","type":"uint24"}],"name":"getBin","outputs":[{"internalType":"uint128","name":"binReserveX","type":"uint128"},{"internalType":"uint128","name":"binReserveY","type":"uint128"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getBinStep","outputs":[{"internalType":"uint16","name":"","type":"uint16"}],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"getFactory","outputs":[{"internalType":"contract ILBFactory","name":"factory","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"price","type":"uint256"}],"name":"getIdFromPrice","outputs":[{"internalType":"uint24","name":"id","type":"uint24"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"bool","name":"swapForY","type":"bool"},{"internalType":"uint24","name":"id","type":"uint24"}],"name":"getNextNonEmptyBin","outputs":[{"internalType":"uint24","name":"nextId","type":"uint24"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getOracleParameters","outputs":[{"internalType":"uint8","name":"sampleLifetime","type":"uint8"},{"internalType":"uint16","name":"size","type":"uint16"},{"internalType":"uint16","name":"activeSize","type":"uint16"},{"internalType":"uint40","name":"lastUpdated","type":"uint40"},{"internalType":"uint40","name":"firstTimestamp","type":"uint40"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint40","name":"lookupTimestamp","type":"uint40"}],"name":"getOracleSampleAt","outputs":[{"internalType":"uint64","name":"cumulativeId","type":"uint64"},{"internalType":"uint64","name":"cumulativeVolatility","type":"uint64"},{"internalType":"uint64","name":"cumulativeBinCrossed","type":"uint64"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint24","name":"id","type":"uint24"}],"name":"getPriceFromId","outputs":[{"internalType":"uint256","name":"price","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"getProtocolFees","outputs":[{"internalType":"uint128","name":"protocolFeeX","type":"uint128"},{"internalType":"uint128","name":"protocolFeeY","type":"uint128"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getReserves","outputs":[{"internalType":"uint128","name":"reserveX","type":"uint128"},{"internalType":"uint128","name":"reserveY","type":"uint128"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getStaticFeeParameters","outputs":[{"internalType":"uint16","name":"baseFactor","type":"uint16"},{"internalType":"uint16","name":"filterPeriod","type":"uint16"},{"internalType":"uint16","name":"decayPeriod","type":"uint16"},{"internalType":"uint16","name":"reductionFactor","type":"uint16"},{"internalType":"uint24","name":"variableFeeControl","type":"uint24"},{"internalType":"uint16","name":"protocolShare","type":"uint16"},{"internalType":"uint24","name":"maxVolatilityAccumulator","type":"uint24"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint128","name":"amountOut","type":"uint128"},{"internalType":"bool","name":"swapForY","type":"bool"}],"name":"getSwapIn","outputs":[{"internalType":"uint128","name":"amountIn","type":"uint128"},{"internalType":"uint128","name":"amountOutLeft","type":"uint128"},{"internalType":"uint128","name":"fee","type":"uint128"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint128","name":"amountIn","type":"uint128"},{"internalType":"bool","name":"swapForY","type":"bool"}],"name":"getSwapOut","outputs":[{"internalType":"uint128","name":"amountInLeft","type":"uint128"},{"internalType":"uint128","name":"amountOut","type":"uint128"},{"internalType":"uint128","name":"fee","type":"uint128"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getTokenX","outputs":[{"internalType":"contract IERC20","name":"tokenX","type":"address"}],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"getTokenY","outputs":[{"internalType":"contract IERC20","name":"tokenY","type":"address"}],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"getVariableFeeParameters","outputs":[{"internalType":"uint24","name":"volatilityAccumulator","type":"uint24"},{"internalType":"uint24","name":"volatilityReference","type":"uint24"},{"internalType":"uint24","name":"idReference","type":"uint24"},{"internalType":"uint40","name":"timeOfLastUpdate","type":"uint40"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint16","name":"newLength","type":"uint16"}],"name":"increaseOracleLength","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint16","name":"baseFactor","type":"uint16"},{"internalType":"uint16","name":"filterPeriod","type":"uint16"},{"internalType":"uint16","name":"decayPeriod","type":"uint16"},{"internalType":"uint16","name":"reductionFactor","type":"uint16"},{"internalType":"uint24","name":"variableFeeControl","type":"uint24"},{"internalType":"uint16","name":"protocolShare","type":"uint16"},{"internalType":"uint24","name":"maxVolatilityAccumulator","type":"uint24"},{"internalType":"uint24","name":"activeId","type":"uint24"}],"name":"initialize","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"isApprovedForAll","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes32[]","name":"liquidityConfigs","type":"bytes32[]"},{"internalType":"address","name":"refundTo","type":"address"}],"name":"mint","outputs":[{"internalType":"bytes32","name":"amountsReceived","type":"bytes32"},{"internalType":"bytes32","name":"amountsLeft","type":"bytes32"},{"internalType":"uint256[]","name":"liquidityMinted","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint16","name":"baseFactor","type":"uint16"},{"internalType":"uint16","name":"filterPeriod","type":"uint16"},{"internalType":"uint16","name":"decayPeriod","type":"uint16"},{"internalType":"uint16","name":"reductionFactor","type":"uint16"},{"internalType":"uint24","name":"variableFeeControl","type":"uint24"},{"internalType":"uint16","name":"protocolShare","type":"uint16"},{"internalType":"uint24","name":"maxVolatilityAccumulator","type":"uint24"}],"name":"setStaticFeeParameters","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bool","name":"swapForY","type":"bool"},{"internalType":"address","name":"to","type":"address"}],"name":"swap","outputs":[{"internalType":"bytes32","name":"amountsOut","type":"bytes32"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}];
+  const QUOTER$1 = [{"inputs":[{"internalType":"address","name":"factoryV1","type":"address"},{"internalType":"address","name":"legacyFactoryV2","type":"address"},{"internalType":"address","name":"factoryV2","type":"address"},{"internalType":"address","name":"legacyRouterV2","type":"address"},{"internalType":"address","name":"routerV2","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"JoeLibrary__AddressZero","type":"error"},{"inputs":[],"name":"JoeLibrary__IdenticalAddresses","type":"error"},{"inputs":[],"name":"JoeLibrary__InsufficientAmount","type":"error"},{"inputs":[],"name":"JoeLibrary__InsufficientLiquidity","type":"error"},{"inputs":[],"name":"LBQuoter_InvalidLength","type":"error"},{"inputs":[],"name":"SafeCast__Exceeds128Bits","type":"error"},{"inputs":[],"name":"SafeCast__Exceeds24Bits","type":"error"},{"inputs":[{"internalType":"uint256","name":"x","type":"uint256"},{"internalType":"int256","name":"y","type":"int256"}],"name":"Uint128x128Math__PowUnderflow","type":"error"},{"inputs":[],"name":"Uint256x256Math__MulDivOverflow","type":"error"},{"inputs":[],"name":"Uint256x256Math__MulShiftOverflow","type":"error"},{"inputs":[{"internalType":"address[]","name":"route","type":"address[]"},{"internalType":"uint128","name":"amountIn","type":"uint128"}],"name":"findBestPathFromAmountIn","outputs":[{"components":[{"internalType":"address[]","name":"route","type":"address[]"},{"internalType":"address[]","name":"pairs","type":"address[]"},{"internalType":"uint256[]","name":"binSteps","type":"uint256[]"},{"internalType":"enum ILBRouter.Version[]","name":"versions","type":"uint8[]"},{"internalType":"uint128[]","name":"amounts","type":"uint128[]"},{"internalType":"uint128[]","name":"virtualAmountsWithoutSlippage","type":"uint128[]"},{"internalType":"uint128[]","name":"fees","type":"uint128[]"}],"internalType":"struct LBQuoter.Quote","name":"quote","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address[]","name":"route","type":"address[]"},{"internalType":"uint128","name":"amountOut","type":"uint128"}],"name":"findBestPathFromAmountOut","outputs":[{"components":[{"internalType":"address[]","name":"route","type":"address[]"},{"internalType":"address[]","name":"pairs","type":"address[]"},{"internalType":"uint256[]","name":"binSteps","type":"uint256[]"},{"internalType":"enum ILBRouter.Version[]","name":"versions","type":"uint8[]"},{"internalType":"uint128[]","name":"amounts","type":"uint128[]"},{"internalType":"uint128[]","name":"virtualAmountsWithoutSlippage","type":"uint128[]"},{"internalType":"uint128[]","name":"fees","type":"uint128[]"}],"internalType":"struct LBQuoter.Quote","name":"quote","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getFactoryV1","outputs":[{"internalType":"address","name":"factoryV1","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getFactoryV2","outputs":[{"internalType":"address","name":"factoryV2","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getLegacyFactoryV2","outputs":[{"internalType":"address","name":"legacyFactoryV2","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getLegacyRouterV2","outputs":[{"internalType":"address","name":"legacyRouterV2","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getRouterV2","outputs":[{"internalType":"address","name":"routerV2","type":"address"}],"stateMutability":"view","type":"function"}];
+
+  var TraderJoeV2_1 = {
+    findPath: findPath$2,
+    pathExists: pathExists$2,
+    getAmounts: getAmounts$2,
+    getTransaction: getTransaction$2,
+    getPrep: getPrep$1,
+    ROUTER: ROUTER$1,
+    FACTORY: FACTORY$1,
+    PAIR,
+    QUOTER: QUOTER$1,
+  };
+
+  const exchange$b = {
+
+    name: 'trader_joe_v2_1',
+    label: 'Trader Joe v2.1',
+    logo: 'data:image/png;base64,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',
+    
+    slippage: true,
+    
+    blockchains: ['avalanche'],
+    
+    avalanche: {
+      router: {
+        address: '0xb4315e873dBcf96Ffd0acd8EA43f689D8c20fB30',
+        api: TraderJoeV2_1.ROUTER
+      },
+      factory: {
+        address: '0x8e42f2F4101563bF679975178e880FD87d3eFd4e',
+        api: TraderJoeV2_1.FACTORY
+      },
+      pair: {
+        api: TraderJoeV2_1.PAIR
+      },
+      quoter: {
+        address: '0x64b57F4249aA99a812212cee7DAEFEDC40B203cD',
+        api: TraderJoeV2_1.QUOTER
+      }
+    }
+    
+  };
+
+  var trader_joe_v2_1 = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$b, {
+        scope,
+        findPath: (args)=>TraderJoeV2_1.findPath({ ...args, exchange: exchange$b }),
+        pathExists: (args)=>TraderJoeV2_1.pathExists({ ...args, exchange: exchange$b }),
+        getAmounts: (args)=>TraderJoeV2_1.getAmounts({ ...args, exchange: exchange$b }),
+        getPrep: (args)=>TraderJoeV2_1.getPrep({ ...args, exchange: exchange$b }),
+        getTransaction: (args)=>TraderJoeV2_1.getTransaction({ ...args, exchange: exchange$b }),
+      })
+    )
+  };
+
+  const exchange$a = {
+    
+    name: 'uniswap_v2',
+    label: 'Uniswap v2',
+    logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQxIiBoZWlnaHQ9IjY0MCIgdmlld0JveD0iMCAwIDY0MSA2NDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0yMjQuNTM0IDEyMy4yMjZDMjE4LjY5MiAxMjIuMzIgMjE4LjQ0NSAxMjIuMjEzIDIyMS4xOTUgMTIxLjc5MUMyMjYuNDY0IDEyMC45OCAyMzguOTA1IDEyMi4wODUgMjQ3LjQ3OSAxMjQuMTIzQzI2Ny40OTQgMTI4Ljg4MSAyODUuNzA3IDE0MS4wNjkgMzA1LjE0OCAxNjIuNzE0TDMxMC4zMTMgMTY4LjQ2NUwzMTcuNzAxIDE2Ny4yNzdDMzQ4LjgyOCAxNjIuMjc1IDM4MC40OTMgMTY2LjI1IDQwNi45NzggMTc4LjQ4NUM0MTQuMjY0IDE4MS44NTEgNDI1Ljc1MiAxODguNTUyIDQyNy4xODcgMTkwLjI3NEM0MjcuNjQ1IDE5MC44MjIgNDI4LjQ4NSAxOTQuMzU1IDQyOS4wNTMgMTk4LjEyNEM0MzEuMDIgMjExLjE2NCA0MzAuMDM2IDIyMS4xNiA0MjYuMDQ3IDIyOC42MjVDNDIzLjg3NyAyMzIuNjg4IDQyMy43NTYgMjMzLjk3NSA0MjUuMjE1IDIzNy40NTJDNDI2LjM4IDI0MC4yMjcgNDI5LjYyNyAyNDIuMjggNDMyLjg0MyAyNDIuMjc2QzQzOS40MjUgMjQyLjI2NyA0NDYuNTA5IDIzMS42MjcgNDQ5Ljc5MSAyMTYuODIzTDQ1MS4wOTUgMjEwLjk0M0w0NTMuNjc4IDIxMy44NjhDNDY3Ljg0NiAyMjkuOTIgNDc4Ljk3NCAyNTEuODExIDQ4MC44ODUgMjY3LjM5M0w0ODEuMzgzIDI3MS40NTVMNDc5LjAwMiAyNjcuNzYyQzQ3NC45MDMgMjYxLjQwNyA0NzAuNzg1IDI1Ny4wOCA0NjUuNTEyIDI1My41OTFDNDU2LjAwNiAyNDcuMzAxIDQ0NS45NTUgMjQ1LjE2MSA0MTkuMzM3IDI0My43NThDMzk1LjI5NiAyNDIuNDkxIDM4MS42OSAyNDAuNDM4IDM2OC4xOTggMjM2LjAzOEMzNDUuMjQ0IDIyOC41NTQgMzMzLjY3MiAyMTguNTg3IDMwNi40MDUgMTgyLjgxMkMyOTQuMjk0IDE2Ni45MjMgMjg2LjgwOCAxNTguMTMxIDI3OS4zNjIgMTUxLjA1MUMyNjIuNDQyIDEzNC45NjQgMjQ1LjgxNiAxMjYuNTI3IDIyNC41MzQgMTIzLjIyNloiIGZpbGw9IiNGRjAwN0EiLz4KPHBhdGggZD0iTTQzMi42MSAxNTguNzA0QzQzMy4yMTUgMTQ4LjA1NyA0MzQuNjU5IDE0MS4wMzMgNDM3LjU2MiAxMzQuNjJDNDM4LjcxMSAxMzIuMDgxIDQzOS43ODggMTMwLjAwMyA0MzkuOTU0IDEzMC4wMDNDNDQwLjEyIDEzMC4wMDMgNDM5LjYyMSAxMzEuODc3IDQzOC44NDQgMTM0LjE2N0M0MzYuNzMzIDE0MC4zOTIgNDM2LjM4NyAxNDguOTA1IDQzNy44NCAxNTguODExQzQzOS42ODYgMTcxLjM3OSA0NDAuNzM1IDE3My4xOTIgNDU0LjAxOSAxODYuNzY5QzQ2MC4yNSAxOTMuMTM3IDQ2Ny40OTcgMjAxLjE2OCA0NzAuMTI0IDIwNC42MTZMNDc0LjkwMSAyMTAuODg2TDQ3MC4xMjQgMjA2LjQwNUM0NjQuMjgyIDIwMC45MjYgNDUwLjg0NyAxOTAuMjQgNDQ3Ljg3OSAxODguNzEyQzQ0NS44OSAxODcuNjg4IDQ0NS41OTQgMTg3LjcwNSA0NDQuMzY2IDE4OC45MjdDNDQzLjIzNSAxOTAuMDUzIDQ0Mi45OTcgMTkxLjc0NCA0NDIuODQgMTk5Ljc0MUM0NDIuNTk2IDIxMi4yMDQgNDQwLjg5NyAyMjAuMjA0IDQzNi43OTcgMjI4LjIwM0M0MzQuNTggMjMyLjUyOSA0MzQuMjMgMjMxLjYwNiA0MzYuMjM3IDIyNi43MjNDNDM3LjczNSAyMjMuMDc3IDQzNy44ODcgMjIxLjQ3NCA0MzcuODc2IDIwOS40MDhDNDM3Ljg1MyAxODUuMTY3IDQzNC45NzUgMTc5LjMzOSA0MTguMDk3IDE2OS4zNTVDNDEzLjgyMSAxNjYuODI2IDQwNi43NzYgMTYzLjE3OCA0MDIuNDQyIDE2MS4yNDlDMzk4LjEwNyAxNTkuMzIgMzk0LjY2NCAxNTcuNjM5IDM5NC43ODkgMTU3LjUxNEMzOTUuMjY3IDE1Ny4wMzggNDExLjcyNyAxNjEuODQyIDQxOC4zNTIgMTY0LjM5QzQyOC4yMDYgMTY4LjE4MSA0MjkuODMzIDE2OC42NzIgNDMxLjAzIDE2OC4yMTVDNDMxLjgzMiAxNjcuOTA5IDQzMi4yMiAxNjUuNTcyIDQzMi42MSAxNTguNzA0WiIgZmlsbD0iI0ZGMDA3QSIvPgo8cGF0aCBkPSJNMjM1Ljg4MyAyMDAuMTc1QzIyNC4wMjIgMTgzLjg0NiAyMTYuNjg0IDE1OC44MDkgMjE4LjI3MiAxNDAuMDkzTDIxOC43NjQgMTM0LjMwMUwyMjEuNDYzIDEzNC43OTRDMjI2LjUzNCAxMzUuNzE5IDIzNS4yNzUgMTM4Ljk3MyAyMzkuMzY5IDE0MS40NTlDMjUwLjYwMiAxNDguMjgxIDI1NS40NjUgMTU3LjI2MyAyNjAuNDEzIDE4MC4zMjhDMjYxLjg2MiAxODcuMDgzIDI2My43NjMgMTk0LjcyOCAyNjQuNjM4IDE5Ny4zMTdDMjY2LjA0NyAyMDEuNDgzIDI3MS4zNjkgMjExLjIxNCAyNzUuNjk2IDIxNy41MzRDMjc4LjgxMyAyMjIuMDg1IDI3Ni43NDMgMjI0LjI0MiAyNjkuODUzIDIyMy42MkMyNTkuMzMxIDIyMi42NyAyNDUuMDc4IDIxMi44MzQgMjM1Ljg4MyAyMDAuMTc1WiIgZmlsbD0iI0ZGMDA3QSIvPgo8cGF0aCBkPSJNNDE4LjIyMyAzMjEuNzA3QzM2Mi43OTMgMjk5LjM4OSAzNDMuMjcxIDI4MC4wMTcgMzQzLjI3MSAyNDcuMzMxQzM0My4yNzEgMjQyLjUyMSAzNDMuNDM3IDIzOC41ODUgMzQzLjYzOCAyMzguNTg1QzM0My44NCAyMzguNTg1IDM0NS45ODUgMjQwLjE3MyAzNDguNDA0IDI0Mi4xMTNDMzU5LjY0NCAyNTEuMTI4IDM3Mi4yMzEgMjU0Ljk3OSA0MDcuMDc2IDI2MC4wNjJDNDI3LjU4IDI2My4wNTQgNDM5LjExOSAyNjUuNDcgNDQ5Ljc2MyAyNjlDNDgzLjU5NSAyODAuMjIgNTA0LjUyNyAzMDIuOTkgNTA5LjUxOCAzMzQuMDA0QzUxMC45NjkgMzQzLjAxNiA1MTAuMTE4IDM1OS45MTUgNTA3Ljc2NiAzNjguODIyQzUwNS45MSAzNzUuODU3IDUwMC4yNDUgMzg4LjUzNyA0OTguNzQyIDM4OS4wMjNDNDk4LjMyNSAzODkuMTU4IDQ5Ny45MTcgMzg3LjU2MiA0OTcuODEgMzg1LjM4OUM0OTcuMjQgMzczLjc0NCA0OTEuMzU1IDM2Mi40MDYgNDgxLjQ3MiAzNTMuOTEzQzQ3MC4yMzUgMzQ0LjI1NyA0NTUuMTM3IDMzNi41NjkgNDE4LjIyMyAzMjEuNzA3WiIgZmlsbD0iI0ZGMDA3QSIvPgo8cGF0aCBkPSJNMzc5LjMxIDMzMC45NzhDMzc4LjYxNSAzMjYuODQ2IDM3Ny40MTEgMzIxLjU2OCAzNzYuNjMzIDMxOS4yNUwzNzUuMjE5IDMxNS4wMzZMMzc3Ljg0NiAzMTcuOTg1QzM4MS40ODEgMzIyLjA2NSAzODQuMzU0IDMyNy4yODcgMzg2Ljc4OSAzMzQuMjQxQzM4OC42NDcgMzM5LjU0OSAzODguODU2IDM0MS4xMjcgMzg4Ljg0MiAzNDkuNzUzQzM4OC44MjggMzU4LjIyMSAzODguNTk2IDM1OS45OTYgMzg2Ljg4IDM2NC43NzNDMzg0LjE3NCAzNzIuMzA3IDM4MC44MTYgMzc3LjY0OSAzNzUuMTgxIDM4My4zODNDMzY1LjA1NiAzOTMuNjg4IDM1Mi4wMzggMzk5LjM5MyAzMzMuMjUzIDQwMS43NkMzMjkuOTg3IDQwMi4xNzEgMzIwLjQ3IDQwMi44NjQgMzEyLjEwMyA0MDMuMjk5QzI5MS4wMTYgNDA0LjM5NSAyNzcuMTM4IDQwNi42NjEgMjY0LjY2OCA0MTEuMDRDMjYyLjg3NSA0MTEuNjcgMjYxLjI3NCA0MTIuMDUyIDI2MS4xMTIgNDExLjg5QzI2MC42MDcgNDExLjM4OCAyNjkuMDk4IDQwNi4zMjYgMjc2LjExMSA0MDIuOTQ4QzI4NS45OTkgMzk4LjE4NSAyOTUuODQyIDM5NS41ODYgMzE3Ljg5NyAzOTEuOTEzQzMyOC43OTIgMzkwLjA5OCAzNDAuMDQzIDM4Ny44OTcgMzQyLjkgMzg3LjAyMUMzNjkuODggMzc4Ljc0OSAzODMuNzQ4IDM1Ny40MDIgMzc5LjMxIDMzMC45NzhaIiBmaWxsPSIjRkYwMDdBIi8+CjxwYXRoIGQ9Ik00MDQuNzE5IDM3Ni4xMDVDMzk3LjM1NSAzNjAuMjczIDM5NS42NjQgMzQ0Ljk4OCAzOTkuNjk4IDMzMC43MzJDNDAwLjEzIDMyOS4yMDkgNDAwLjgyNCAzMjcuOTYyIDQwMS4yNDIgMzI3Ljk2MkM0MDEuNjU5IDMyNy45NjIgNDAzLjM5NyAzMjguOTAyIDQwNS4xMDMgMzMwLjA1QzQwOC40OTcgMzMyLjMzNSA0MTUuMzAzIDMzNi4xODIgNDMzLjQzNyAzNDYuMDY5QzQ1Ni4wNjUgMzU4LjQwNiA0NjguOTY2IDM2Ny45NTkgNDc3Ljc0IDM3OC44NzNDNDg1LjQyMyAzODguNDMyIDQ5MC4xNzggMzk5LjMxOCA0OTIuNDY3IDQxMi41OTNDNDkzLjc2MiA0MjAuMTEzIDQ5My4wMDMgNDM4LjIwNiA0OTEuMDc0IDQ0NS43NzhDNDg0Ljk5IDQ2OS42NTMgNDcwLjg1IDQ4OC40MDYgNDUwLjY4MiA0OTkuMzQ5QzQ0Ny43MjcgNTAwLjk1MiA0NDUuMDc1IDUwMi4yNjkgNDQ0Ljc4OCA1MDIuMjc1QzQ0NC41MDEgNTAyLjI4IDQ0NS41NzcgNDk5LjU0MyA0NDcuMTggNDk2LjE5MUM0NTMuOTY1IDQ4Mi4wMDkgNDU0LjczNyA0NjguMjE0IDQ0OS42MDggNDUyLjg1OUM0NDYuNDY3IDQ0My40NTcgNDQwLjA2NCA0MzEuOTg1IDQyNy4xMzUgNDEyLjU5NkM0MTIuMTAzIDM5MC4wNTQgNDA4LjQxNyAzODQuMDU0IDQwNC43MTkgMzc2LjEwNVoiIGZpbGw9IiNGRjAwN0EiLz4KPHBhdGggZD0iTTE5Ni41MTkgNDYxLjUyNUMyMTcuMDg5IDQ0NC4xNTcgMjQyLjY4MiA0MzEuODE5IDI2NS45OTYgNDI4LjAzMkMyNzYuMDQzIDQyNi4zOTkgMjkyLjc4IDQyNy4wNDcgMzAyLjA4NCA0MjkuNDI4QzMxNi45OTggNDMzLjI0NSAzMzAuMzM4IDQ0MS43OTMgMzM3LjI3NiA0NTEuOTc4QzM0NC4wNTcgNDYxLjkzMiAzNDYuOTY2IDQ3MC42MDYgMzQ5Ljk5NSA0ODkuOTA2QzM1MS4xODkgNDk3LjUxOSAzNTIuNDg5IDUwNS4xNjQgMzUyLjg4MiA1MDYuODk1QzM1NS4xNTYgNTE2Ljg5NyAzNTkuNTgzIDUyNC44OTIgMzY1LjA2NyA1MjguOTA3QzM3My43NzkgNTM1LjI4MyAzODguNzggNTM1LjY4IDQwMy41MzYgNTI5LjkyNEM0MDYuMDQxIDUyOC45NDcgNDA4LjIxNSA1MjguMjcxIDQwOC4zNjggNTI4LjQyNEM0MDguOTAzIDUyOC45NTUgNDAxLjQ3MyA1MzMuOTMgMzk2LjIzIDUzNi41NDhDMzg5LjE3NyA1NDAuMDcxIDM4My41NjggNTQxLjQzNCAzNzYuMTE1IDU0MS40MzRDMzYyLjYgNTQxLjQzNCAzNTEuMzc5IDUzNC41NTggMzQyLjAxNiA1MjAuNTM5QzM0MC4xNzQgNTE3Ljc4IDMzNi4wMzIgNTA5LjUxNiAzMzIuODEzIDUwMi4xNzZDMzIyLjkyOCA0NzkuNjI4IDMxOC4wNDYgNDcyLjc1OSAzMDYuNTY4IDQ2NS4yNDJDMjk2LjU3OSA0NTguNzAxIDI4My42OTcgNDU3LjUzIDI3NC4wMDYgNDYyLjI4MkMyNjEuMjc2IDQ2OC41MjMgMjU3LjcyNCA0ODQuNzkxIDI2Ni44NDIgNDk1LjEwMUMyNzAuNDY1IDQ5OS4xOTggMjc3LjIyMyA1MDIuNzMyIDI4Mi43NDkgNTAzLjQxOUMyOTMuMDg2IDUwNC43MDUgMzAxLjk3IDQ5Ni44NDEgMzAxLjk3IDQ4Ni40MDRDMzAxLjk3IDQ3OS42MjcgMjk5LjM2NSA0NzUuNzYgMjkyLjgwOCA0NzIuODAxQzI4My44NTIgNDY4Ljc2IDI3NC4yMjYgNDczLjQ4MyAyNzQuMjcyIDQ4MS44OTdDMjc0LjI5MiA0ODUuNDg0IDI3NS44NTQgNDg3LjczNyAyNzkuNDUgNDg5LjM2NEMyODEuNzU3IDQ5MC40MDggMjgxLjgxMSA0OTAuNDkxIDI3OS45MjkgNDkwLjFDMjcxLjcxMiA0ODguMzk2IDI2OS43ODcgNDc4LjQ5IDI3Ni4zOTQgNDcxLjkxM0MyODQuMzI2IDQ2NC4wMTggMzAwLjcyOSA0NjcuNTAyIDMwNi4zNjIgNDc4LjI3OUMzMDguNzI4IDQ4Mi44MDUgMzA5LjAwMyA0OTEuODIgMzA2Ljk0IDQ5Ny4yNjRDMzAyLjMyMiA1MDkuNDQ4IDI4OC44NTkgNTE1Ljg1NSAyNzUuMjAxIDUxMi4zNjhDMjY1LjkwMyA1MDkuOTk0IDI2Mi4xMTcgNTA3LjQyNCAyNTAuOTA2IDQ5NS44NzZDMjMxLjQyNSA0NzUuODA5IDIyMy44NjIgNDcxLjkyIDE5NS43NzcgNDY3LjUzNkwxOTAuMzk1IDQ2Ni42OTZMMTk2LjUxOSA0NjEuNTI1WiIgZmlsbD0iI0ZGMDA3QSIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTQ5LjYyMDIgMTIuMDAzMUMxMTQuNjc4IDkwLjk2MzggMjE0Ljk3NyAyMTMuOTAxIDIxOS45NTcgMjIwLjc4NEMyMjQuMDY4IDIyNi40NjcgMjIyLjUyMSAyMzEuNTc2IDIxNS40NzggMjM1LjU4QzIxMS41NjEgMjM3LjgwNyAyMDMuNTA4IDI0MC4wNjMgMTk5LjQ3NiAyNDAuMDYzQzE5NC45MTYgMjQwLjA2MyAxODkuNzc5IDIzNy44NjcgMTg2LjAzOCAyMzQuMzE4QzE4My4zOTMgMjMxLjgxIDE3Mi43MjEgMjE1Ljg3NCAxNDguMDg0IDE3Ny42NDZDMTI5LjIzMyAxNDguMzk2IDExMy40NTcgMTI0LjEzMSAxMTMuMDI3IDEyMy43MjVDMTEyLjAzMiAxMjIuNzg1IDExMi4wNDkgMTIyLjgxNyAxNDYuMTYyIDE4My44NTRDMTY3LjU4MiAyMjIuMTgxIDE3NC44MTMgMjM1LjczMSAxNzQuODEzIDIzNy41NDNDMTc0LjgxMyAyNDEuMjI5IDE3My44MDggMjQzLjE2NiAxNjkuMjYxIDI0OC4yMzhDMTYxLjY4MSAyNTYuNjk0IDE1OC4yOTMgMjY2LjE5NSAxNTUuODQ3IDI4NS44NTlDMTUzLjEwNCAzMDcuOTAyIDE0NS4zOTQgMzIzLjQ3MyAxMjQuMDI2IDM1MC4xMjJDMTExLjUxOCAzNjUuNzIyIDEwOS40NzEgMzY4LjU4MSAxMDYuMzE1IDM3NC44NjlDMTAyLjMzOSAzODIuNzg2IDEwMS4yNDYgMzg3LjIyMSAxMDAuODAzIDM5Ny4yMTlDMTAwLjMzNSA0MDcuNzkgMTAxLjI0NyA0MTQuNjE5IDEwNC40NzcgNDI0LjcyNkMxMDcuMzA0IDQzMy41NzUgMTEwLjI1NSA0MzkuNDE3IDExNy44IDQ1MS4xMDRDMTI0LjMxMSA0NjEuMTg4IDEyOC4wNjEgNDY4LjY4MyAxMjguMDYxIDQ3MS42MTRDMTI4LjA2MSA0NzMuOTQ3IDEyOC41MDYgNDczLjk1IDEzOC41OTYgNDcxLjY3MkMxNjIuNzQxIDQ2Ni4yMTkgMTgyLjM0OCA0NTYuNjI5IDE5My4zNzUgNDQ0Ljg3N0MyMDAuMTk5IDQzNy42MDMgMjAxLjgwMSA0MzMuNTg2IDIwMS44NTMgNDIzLjYxOEMyMDEuODg3IDQxNy4wOTggMjAxLjY1OCA0MTUuNzMzIDE5OS44OTYgNDExLjk4MkMxOTcuMDI3IDQwNS44NzcgMTkxLjgwNCA0MDAuODAxIDE4MC4yOTIgMzkyLjkzMkMxNjUuMjA5IDM4Mi42MjEgMTU4Ljc2NyAzNzQuMzIgMTU2Ljk4NyAzNjIuOTA0QzE1NS41MjcgMzUzLjUzNyAxNTcuMjIxIDM0Ni45MjggMTY1LjU2NSAzMjkuNDRDMTc0LjIwMiAzMTEuMzM4IDE3Ni4zNDIgMzAzLjYyNCAxNzcuNzkgMjg1LjM3OEMxNzguNzI1IDI3My41ODkgMTgwLjAyIDI2OC45NCAxODMuNDA3IDI2NS4yMDlDMTg2LjkzOSAyNjEuMzE3IDE5MC4xMTkgMjYwIDE5OC44NjEgMjU4LjgwNUMyMTMuMTEzIDI1Ni44NTggMjIyLjE4OCAyNTMuMTcxIDIyOS42NDggMjQ2LjI5N0MyMzYuMTE5IDI0MC4zMzQgMjM4LjgyNyAyMzQuNTg4IDIzOS4yNDMgMjI1LjkzOEwyMzkuNTU4IDIxOS4zODJMMjM1Ljk0MiAyMTUuMTY2QzIyMi44NDYgMTk5Ljg5NiA0MC44NSAwIDQwLjA0NCAwQzM5Ljg3MTkgMCA0NC4xODEzIDUuNDAxNzggNDkuNjIwMiAxMi4wMDMxWk0xMzUuNDEyIDQwOS4xOEMxMzguMzczIDQwMy45MzcgMTM2LjggMzk3LjE5NSAxMzEuODQ3IDM5My45MDJDMTI3LjE2NyAzOTAuNzkgMTE5Ljg5NyAzOTIuMjU2IDExOS44OTcgMzk2LjMxMUMxMTkuODk3IDM5Ny41NDggMTIwLjU4MiAzOTguNDQ5IDEyMi4xMjQgMzk5LjI0M0MxMjQuNzIgNDAwLjU3OSAxMjQuOTA5IDQwMi4wODEgMTIyLjg2NiA0MDUuMTUyQzEyMC43OTcgNDA4LjI2MiAxMjAuOTY0IDQxMC45OTYgMTIzLjMzNyA0MTIuODU0QzEyNy4xNjIgNDE1Ljg0OSAxMzIuNTc2IDQxNC4yMDIgMTM1LjQxMiA0MDkuMThaIiBmaWxsPSIjRkYwMDdBIi8+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjQ4LjU1MiAyNjIuMjQ0QzI0MS44NjIgMjY0LjI5OSAyMzUuMzU4IDI3MS4zOSAyMzMuMzQ0IDI3OC44MjZDMjMyLjExNiAyODMuMzYyIDIzMi44MTMgMjkxLjMxOSAyMzQuNjUzIDI5My43NzZDMjM3LjYyNSAyOTcuNzQ1IDI0MC40OTkgMjk4Ljc5MSAyNDguMjgyIDI5OC43MzZDMjYzLjUxOCAyOTguNjMgMjc2Ljc2NCAyOTIuMDk1IDI3OC4zMDQgMjgzLjkyNUMyNzkuNTY3IDI3Ny4yMjkgMjczLjc0OSAyNjcuOTQ4IDI2NS43MzYgMjYzLjg3NEMyNjEuNjAxIDI2MS43NzIgMjUyLjgwNyAyNjAuOTM4IDI0OC41NTIgMjYyLjI0NFpNMjY2LjM2NCAyNzYuMTcyQzI2OC43MTQgMjcyLjgzNCAyNjcuNjg2IDI2OS4yMjUgMjYzLjY5IDI2Ni43ODVDMjU2LjA4IDI2Mi4xMzggMjQ0LjU3MSAyNjUuOTgzIDI0NC41NzEgMjczLjE3M0MyNDQuNTcxIDI3Ni43NTIgMjUwLjU3MiAyODAuNjU2IDI1Ni4wNzQgMjgwLjY1NkMyNTkuNzM1IDI4MC42NTYgMjY0Ljc0NiAyNzguNDczIDI2Ni4zNjQgMjc2LjE3MloiIGZpbGw9IiNGRjAwN0EiLz4KPC9zdmc+Cg==',
+    
+    slippage: true,
+
+    blockchains: ['ethereum'],
+
+    ethereum: {
+      router: {
+        address: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D',
+        api: UniswapV2.ROUTER
+      },
+      factory: {
+        address: '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f',
+        api: UniswapV2.FACTORY
+      },
+      pair: {
+        api: UniswapV2.PAIR
+      },
+    }
+  };
+
+  var uniswap_v2 = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$a, {
+        scope,
+        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$a }),
+        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$a }),
+        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$a }),
+        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$a }),
+        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$a }),
+      })
+    )
+  };
+
+  function _optionalChain$6(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+
+  const SENDER_AS_RECIPIENT = '0x0000000000000000000000000000000000000001';
+  const ROUTER_AS_RECIPIENT = '0x0000000000000000000000000000000000000002';
+  const PERMIT_STRUCT = '((address token,uint160 amount,uint48 expiration,uint48 nonce) details,address spender,uint256 sigDeadline)';
+  const SIGNATURE_LENGTH = 65;
+  const EIP_2098_SIGNATURE_LENGTH = 64;
+
+  // Replaces 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE with the wrapped token and implies wrapping.
+  //
+  // We keep 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE internally
+  // to be able to differentiate between ETH<>Token and WETH<>Token swaps
+  // as they are not the same!
+  //
+  const getExchangePath = ({ blockchain, exchange, path }) => {
+    if(!path) { return }
+    let exchangePath = path.map((token, index) => {
+      if (
+        token === Blockchains__default['default'][blockchain].currency.address && path[index+1] != Blockchains__default['default'][blockchain].wrapped.address &&
+        path[index-1] != Blockchains__default['default'][blockchain].wrapped.address
+      ) {
+        return Blockchains__default['default'][blockchain].wrapped.address
+      } else {
+        return token
+      }
+    });
+
+    if(exchangePath[0] == Blockchains__default['default'][blockchain].currency.address && exchangePath[1] == Blockchains__default['default'][blockchain].wrapped.address) {
+      exchangePath.splice(0, 1);
+    } else if(exchangePath[exchangePath.length-1] == Blockchains__default['default'][blockchain].currency.address && exchangePath[exchangePath.length-2] == Blockchains__default['default'][blockchain].wrapped.address) {
+      exchangePath.splice(exchangePath.length-1, 1);
+    }
+
+    return exchangePath
+  };
+
+  const getInputAmount = async ({ exchange, pool, outputAmount })=>{
+
+    const data = await request({
+      blockchain: pool.blockchain,
+      address: exchange[pool.blockchain].quoter.address,
+      api: exchange[pool.blockchain].quoter.api,
+      method: 'quoteExactOutput',
+      params: {
+        path: ethers.ethers.utils.solidityPack(["address","uint24","address"],[pool.path[1], pool.fee, pool.path[0]]),
+        amountOut: outputAmount
+      },
+      cache: 5
+    });
+
+    return data.amountIn
+  };
+
+  const getOutputAmount = async ({ exchange, pool, inputAmount })=>{
+
+    const data = await request({
+      blockchain: pool.blockchain,
+      address: exchange[pool.blockchain].quoter.address,
+      api: exchange[pool.blockchain].quoter.api,
+      method: 'quoteExactInput',
+      params: {
+        path: ethers.ethers.utils.solidityPack(["address","uint24","address"],[pool.path[0], pool.fee, pool.path[1]]),
+        amountIn: inputAmount
+      },
+      cache: 5
+    });
+
+    return data.amountOut
+  };
+
+  const getBestPool = async ({ blockchain, exchange, path, amountIn, amountOut, block }) => {
+    path = getExchangePath({ blockchain, exchange, path });
+    if(path.length > 2) { throw('Uniswap V3 can only check paths for up to 2 tokens!') }
+
+    try {
+
+      let pools = (await Promise.all(exchange.fees.map((fee)=>{
+        return request({
+          blockchain: Blockchains__default['default'][blockchain].name,
+          address: exchange[blockchain].factory.address,
+          method: 'getPool',
+          api: exchange[blockchain].factory.api,
+          cache: 3600,
+          params: [path[0], path[1], fee],
+        }).then((address)=>{
+          return {
+            blockchain,
+            address,
+            path,
+            fee,
+            token0: [...path].sort()[0],
+            token1: [...path].sort()[1],
+          }
+        }).catch(()=>{})
+      }))).filter(Boolean);
+      
+      pools = pools.filter((pool)=>pool.address != Blockchains__default['default'][blockchain].zero);
+
+      pools = (await Promise.all(pools.map(async(pool)=>{
+
+        try {
+
+          let amount;
+          if(amountIn) {
+            amount = await getOutputAmount({ exchange, pool, inputAmount: amountIn });
+          } else {
+            amount = await getInputAmount({ exchange, pool, outputAmount: amountOut });
+          }
+
+          return { ...pool, amountIn: amountIn || amount, amountOut: amountOut || amount }
+        } catch (e) {}
+
+      }))).filter(Boolean);
+      
+      if(amountIn) {
+        // highest amountOut is best pool
+        return pools.sort((a,b)=>(b.amountOut.gt(a.amountOut) ? 1 : -1))[0]
+      } else {
+        // lowest amountIn is best pool
+        return pools.sort((a,b)=>(b.amountIn.lt(a.amountIn) ? 1 : -1))[0]
+      }
+
+    } catch (e2) { return }
+  };
+
+  const pathExists$1 = async ({ blockchain, exchange, path, amountIn, amountOut, amountInMax, amountOutMin }) => {
+    try {
+      return !!(await getBestPool({ blockchain, exchange, path, amountIn: (amountIn || amountInMax), amountOut: (amountOut || amountOutMin) }))
+    } catch (e3) { return false }
+  };
+
+  const findPath$1 = async ({ blockchain, exchange, tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin }) => {
+    if(
+      [tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].currency.address) &&
+      [tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].wrapped.address)
+    ) { return { path: undefined, exchangePath: undefined } }
+
+    let path;
+    let pools = [];
+
+    // DIRECT PATH
+    pools = [
+      await getBestPool({ exchange, blockchain, path: [tokenIn, tokenOut], amountIn: (amountIn || amountInMax), amountOut: (amountOut || amountOutMin) })
+    ];
+    if (pools.filter(Boolean).length) {
+      path = [tokenIn, tokenOut];
+    }
+
+    // PATH VIA WRAPPED
+    if(
+      !path &&
+      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
+      tokenOut != Blockchains__default['default'][blockchain].wrapped.address
+    ) {
+      pools = [];
+      if(amountOut || amountOutMin){
+        pools.push(await getBestPool({ exchange, blockchain, path: [Blockchains__default['default'][blockchain].wrapped.address, tokenOut], amountOut: (amountOut || amountOutMin) }));
+        if(pools.filter(Boolean).length) {
+          pools.unshift(await getBestPool({ exchange, blockchain, path: [tokenIn, Blockchains__default['default'][blockchain].wrapped.address], amountOut: pools[0].amountIn }));
+        }
+      } else { // amountIn
+        pools.push(await getBestPool({ exchange, blockchain, path: [tokenIn, Blockchains__default['default'][blockchain].wrapped.address], amountIn: (amountIn || amountInMax) }));
+        if(pools.filter(Boolean).length) {
+          pools.push(await getBestPool({ exchange, blockchain, path: [Blockchains__default['default'][blockchain].wrapped.address, tokenOut], amountIn: pools[0].amountOut }));
+        }
+      }
+      if (pools.filter(Boolean).length === 2) {
+        // path via WRAPPED
+        path = [tokenIn, Blockchains__default['default'][blockchain].wrapped.address, tokenOut];
+      }
+    }
+
+    // PATH VIA USD STABLE
+    if(
+      !path
+    ) {
+      pools = [];
+      let allPoolsForAllUSD = await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async(stable)=>{
+        let pools = [];
+        if(amountOut || amountOutMin){
+          pools.push(await getBestPool({ exchange, blockchain, path: [stable, tokenOut], amountOut: (amountOut || amountOutMin) }));
+          if(pools.filter(Boolean).length) {
+            pools.unshift(await getBestPool({ exchange, blockchain, path: [tokenIn, stable], amountOut: pools[0].amountIn }));
+          }
+        } else { // amountIn
+          pools.push(await getBestPool({ exchange, blockchain, path: [tokenIn, stable], amountIn: (amountIn || amountInMax) }));
+          if(pools.filter(Boolean).length) {
+            pools.push(await getBestPool({ exchange, blockchain, path: [stable, tokenOut], amountIn: pools[0].amountOut }));
+          }
+        }
+        if(pools.filter(Boolean).length === 2) {
+          return [stable, pools]
+        }
+      }));
+
+      let usdPath = allPoolsForAllUSD.filter(Boolean)[0];
+      if(usdPath) {
+        path = [tokenIn, usdPath[0], tokenOut];
+        pools = usdPath[1];
+      }
+    }
+
+    // Add WRAPPED to route path if things start or end with NATIVE
+    // because that actually reflects how things are routed in reality:
+    if(_optionalChain$6([path, 'optionalAccess', _ => _.length]) && path[0] == Blockchains__default['default'][blockchain].currency.address) {
+      path.splice(1, 0, Blockchains__default['default'][blockchain].wrapped.address);
+    } else if(_optionalChain$6([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == Blockchains__default['default'][blockchain].currency.address) {
+      path.splice(path.length-1, 0, Blockchains__default['default'][blockchain].wrapped.address);
+    }
+
+    if(!path) { pools = []; }
+    return { path, pools, exchangePath: getExchangePath({ blockchain, exchange, path }) }
+  };
+
+  let getAmountOut = ({ blockchain, exchange, path, pools, amountIn }) => {
+    return pools[pools.length-1].amountOut
+  };
+
+  let getAmountIn = async ({ blockchain, exchange, path, pools, amountOut, block }) => {
+    if(block === undefined) {
+      return pools[0].amountIn
+    } else {
+      
+      let path;
+      if(pools.length == 2) {
+        path = ethers.ethers.utils.solidityPack(["address","uint24","address","uint24","address"],[
+          pools[1].path[1], pools[1].fee, pools[0].path[1], pools[0].fee, pools[0].path[0]
+        ]);
+      } else if(pools.length == 1) { 
+        path = ethers.ethers.utils.solidityPack(["address","uint24","address"],[
+          pools[0].path[1], pools[0].fee, pools[0].path[0]
+        ]);
+      }
+
+      const data = await request({
+        block,
+        blockchain,
+        address: exchange[blockchain].quoter.address,
+        api: exchange[blockchain].quoter.api,
+        method: 'quoteExactOutput',
+        params: { path, amountOut },
+      });
+
+      return data.amountIn
+    }
+  };
+
+  let getAmounts$1 = async ({
+    blockchain,
+    exchange,
+    path,
+    pools,
+    block,
+    tokenIn,
+    tokenOut,
+    amountOut,
+    amountIn,
+    amountInMax,
+    amountOutMin
+  }) => {
+    if (amountOut) {
+      amountIn = await getAmountIn({ blockchain, exchange, block, path, pools, amountOut, tokenIn, tokenOut });
+      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
+        return {}
+      } else if (amountInMax === undefined) {
+        amountInMax = amountIn;
+      }
+    } else if (amountIn) {
+      amountOut = await getAmountOut({ blockchain, exchange, path, pools, amountIn, tokenIn, tokenOut });
+      if (amountOut == undefined || amountOutMin && amountOut.lt(amountOutMin)) {
+        return {}
+      } else if (amountOutMin === undefined) {
+        amountOutMin = amountOut;
+      }
+    } else if(amountOutMin) {
+      amountIn = await getAmountIn({ blockchain, exchange, block, path, pools, amountOut: amountOutMin, tokenIn, tokenOut });
+      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
+        return {}
+      } else if (amountInMax === undefined) {
+        amountInMax = amountIn;
+      }
+    } else if(amountInMax) {
+      amountOut = await getAmountOut({ blockchain, exchange, path, pools, amountIn: amountInMax, tokenIn, tokenOut });
+      if (amountOut == undefined ||amountOutMin && amountOut.lt(amountOutMin)) {
+        return {}
+      } else if (amountOutMin === undefined) {
+        amountOutMin = amountOut;
+      }
+    }
+    return { amountOut, amountIn, amountInMax, amountOutMin }
+  };
+
+  let getPrep = async({
+    exchange,
+    blockchain,
+    tokenIn,
+    amountIn,
+    account
+  })=> {
+
+    if(tokenIn === Blockchains__default['default'][blockchain].currency.address) { return } // NATIVE
+
+    const allowanceForPermit2 = await request({
+      blockchain,
+      address: tokenIn,
+      method: 'allowance',
+      api: Token[blockchain]['20'],
+      params: [account, exchange[blockchain].permit.address]
+    });
+
+    if(allowanceForPermit2.lt(amountIn)) {
+
+      let transaction = {
+        blockchain,
+        from: account,
+        to: tokenIn,
+        api: Token[blockchain]['20'],
+        method: 'approve',
+        params: [exchange[blockchain].permit.address, Blockchains__default['default'][blockchain].maxInt]
+      };
+      
+      return { transaction }
+
+    } else { // permit2
+
+      const allowanceWithinPermit2 = await request({
+        blockchain,
+        address: exchange[blockchain].permit.address,
+        method: 'allowance',
+        api: exchange[blockchain].permit.api,
+        params: [account, tokenIn, exchange[blockchain].router.address]
+      });
+
+      if(
+        allowanceWithinPermit2.amount.lt(amountIn) ||
+        (allowanceWithinPermit2.expiration - 1800) < (Math.floor(Date.now() / 1000))
+      ) {
+
+        const deadline = Math.floor(Date.now() / 1000) + 2592000; // 1 Month
+
+        const signature = {
+          types: {
+            Domain: [
+              { name: "name", type: "string" },
+              { name: "version", type: "string" },
+              { name: "chainId", type: "uint256" },
+              { name: "verifyingContract", type: "address" }
+            ],
+            PermitSingle: [
+              { name: "details", type: "PermitDetails" },
+              { name: "spender", type: "address" },
+              { name: "sigDeadline", type: "uint256" }
+            ],
+            PermitDetails: [
+              { name: "token", type: "address" },
+              { name: "amount", type: "uint160" },
+              { name: "expiration", type: "uint48" },
+              { name: "nonce", type: "uint48" }
+            ]
+          },
+          primaryType: "PermitSingle",
+          domain: {
+            chainId: Blockchains__default['default'][blockchain].networkId,
+            name: "Permit2",
+            verifyingContract: exchange[blockchain].permit.address,
+            version: "1"
+          },
+          message: {
+            details: {
+              token: tokenIn,
+              amount: "1461501637330902918203684832716283019655932542975", // max uint160
+              expiration: deadline,
+              nonce: allowanceWithinPermit2.nonce
+            },
+            spender: exchange[blockchain].router.address,
+            sigDeadline: deadline
+          }
+        };
+
+        return { signature }
+      }
+    }
+  };
+
+  let getTransaction$1 = async({
+    blockchain,
+    exchange,
+    pools,
+    path,
+    amountIn,
+    amountInMax,
+    amountOut,
+    amountOutMin,
+    amountInInput,
+    amountOutInput,
+    amountInMaxInput,
+    amountOutMinInput,
+    account,
+    permit2,
+    inputTokenPushed,
+  }) => {
+
+    let commands = [];
+    let inputs = [];
+    let value = "0";
+
+    if(permit2) {
+      const length = ethers.ethers.utils.arrayify(permit2.signature).length;
+      let signature;
+      if (length === SIGNATURE_LENGTH || length === EIP_2098_SIGNATURE_LENGTH) {
+        signature = ethers.ethers.utils.joinSignature(ethers.ethers.utils.splitSignature(permit2.signature));
+      }
+      commands.push("0a"); // PERMIT2_PERMIT
+      inputs.push(
+        ethers.ethers.utils.defaultAbiCoder.encode(
+          [PERMIT_STRUCT, "bytes"],
+          [permit2, signature]
+        )
+      );
+    }
+
+    if (path[0] === Blockchains__default['default'][blockchain].currency.address) {
+      commands.push("0b"); // WRAP_ETH
+      inputs.push(
+        ethers.ethers.utils.defaultAbiCoder.encode(
+          ["address", "uint256"],
+          [ROUTER_AS_RECIPIENT, (amountIn || amountInMax).toString()]
+        )
+      );
+      value = (amountIn || amountInMax).toString();
+    }
+
+
+    let packedPath;
+    if(pools.length === 1) {
+      packedPath = ethers.ethers.utils.solidityPack(["address","uint24","address"], [pools[0].path[0], pools[0].fee, pools[0].path[1]]);
+    } else if(pools.length === 2) {
+      packedPath = ethers.ethers.utils.solidityPack(["address","uint24","address","uint24","address"], [pools[0].path[0], pools[0].fee, pools[0].path[1], pools[1].fee, pools[1].path[1]]);
+    }
+
+    if (amountOutMinInput || amountInInput) {
+      commands.push("00"); // V3_SWAP_EXACT_IN (minimum out)
+      inputs.push(
+        ethers.ethers.utils.defaultAbiCoder.encode(
+          ["address", "uint256", "uint256", "bytes", "bool"],
+          [
+            path[path.length-1] === Blockchains__default['default'][blockchain].currency.address ? ROUTER_AS_RECIPIENT : SENDER_AS_RECIPIENT,
+            (amountIn || amountInMax).toString(),
+            (amountOut || amountOutMin).toString(),
+            packedPath,
+            path[0] === Blockchains__default['default'][blockchain].currency.address ? false : !inputTokenPushed
+          ]
+        )
+      );
+    } else {
+      commands.push("01"); // V3_SWAP_EXACT_OUT (maximum in)
+      inputs.push(
+        ethers.ethers.utils.defaultAbiCoder.encode(
+          ["address", "uint256", "uint256", "bytes", "bool"],
+          [
+            path[path.length-1] === Blockchains__default['default'][blockchain].currency.address ? ROUTER_AS_RECIPIENT : SENDER_AS_RECIPIENT,
+            (amountOut || amountOutMin).toString(),
+            (amountIn || amountInMax).toString(),
+            packedPath,
+            path[0] === Blockchains__default['default'][blockchain].currency.address ? false : !inputTokenPushed
+          ]
+        )
+      );
+    }
+
+    if (path[path.length-1] === Blockchains__default['default'][blockchain].currency.address) {
+      commands.push("0c"); // UNWRAP_WETH
+      inputs.push(
+        ethers.ethers.utils.defaultAbiCoder.encode(
+          ["address", "uint256"],
+          [SENDER_AS_RECIPIENT, (amountOut || amountOutMin).toString()]
+        )
+      );
+    }
+
+    const transaction = {
+      blockchain,
+      from: account,
+      to: exchange[blockchain].router.address,
+      api: exchange[blockchain].router.api,
+      method: 'execute',
+      params: {
+        commands: `0x${commands.join('')}`,
+        inputs,
+      },
+      value
+    };
+
+    return transaction
+  };
+
+  const ROUTER = [{"inputs":[{"components":[{"internalType":"address","name":"permit2","type":"address"},{"internalType":"address","name":"weth9","type":"address"},{"internalType":"address","name":"seaportV1_5","type":"address"},{"internalType":"address","name":"seaportV1_4","type":"address"},{"internalType":"address","name":"openseaConduit","type":"address"},{"internalType":"address","name":"nftxZap","type":"address"},{"internalType":"address","name":"x2y2","type":"address"},{"internalType":"address","name":"foundation","type":"address"},{"internalType":"address","name":"sudoswap","type":"address"},{"internalType":"address","name":"elementMarket","type":"address"},{"internalType":"address","name":"nft20Zap","type":"address"},{"internalType":"address","name":"cryptopunks","type":"address"},{"internalType":"address","name":"looksRareV2","type":"address"},{"internalType":"address","name":"routerRewardsDistributor","type":"address"},{"internalType":"address","name":"looksRareRewardsDistributor","type":"address"},{"internalType":"address","name":"looksRareToken","type":"address"},{"internalType":"address","name":"v2Factory","type":"address"},{"internalType":"address","name":"v3Factory","type":"address"},{"internalType":"bytes32","name":"pairInitCodeHash","type":"bytes32"},{"internalType":"bytes32","name":"poolInitCodeHash","type":"bytes32"}],"internalType":"struct RouterParameters","name":"params","type":"tuple"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"BalanceTooLow","type":"error"},{"inputs":[],"name":"BuyPunkFailed","type":"error"},{"inputs":[],"name":"ContractLocked","type":"error"},{"inputs":[],"name":"ETHNotAccepted","type":"error"},{"inputs":[{"internalType":"uint256","name":"commandIndex","type":"uint256"},{"internalType":"bytes","name":"message","type":"bytes"}],"name":"ExecutionFailed","type":"error"},{"inputs":[],"name":"FromAddressIsNotOwner","type":"error"},{"inputs":[],"name":"InsufficientETH","type":"error"},{"inputs":[],"name":"InsufficientToken","type":"error"},{"inputs":[],"name":"InvalidBips","type":"error"},{"inputs":[{"internalType":"uint256","name":"commandType","type":"uint256"}],"name":"InvalidCommandType","type":"error"},{"inputs":[],"name":"InvalidOwnerERC1155","type":"error"},{"inputs":[],"name":"InvalidOwnerERC721","type":"error"},{"inputs":[],"name":"InvalidPath","type":"error"},{"inputs":[],"name":"InvalidReserves","type":"error"},{"inputs":[],"name":"InvalidSpender","type":"error"},{"inputs":[],"name":"LengthMismatch","type":"error"},{"inputs":[],"name":"SliceOutOfBounds","type":"error"},{"inputs":[],"name":"TransactionDeadlinePassed","type":"error"},{"inputs":[],"name":"UnableToClaim","type":"error"},{"inputs":[],"name":"UnsafeCast","type":"error"},{"inputs":[],"name":"V2InvalidPath","type":"error"},{"inputs":[],"name":"V2TooLittleReceived","type":"error"},{"inputs":[],"name":"V2TooMuchRequested","type":"error"},{"inputs":[],"name":"V3InvalidAmountOut","type":"error"},{"inputs":[],"name":"V3InvalidCaller","type":"error"},{"inputs":[],"name":"V3InvalidSwap","type":"error"},{"inputs":[],"name":"V3TooLittleReceived","type":"error"},{"inputs":[],"name":"V3TooMuchRequested","type":"error"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"RewardsSent","type":"event"},{"inputs":[{"internalType":"bytes","name":"looksRareClaim","type":"bytes"}],"name":"collectRewards","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes","name":"commands","type":"bytes"},{"internalType":"bytes[]","name":"inputs","type":"bytes[]"}],"name":"execute","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"bytes","name":"commands","type":"bytes"},{"internalType":"bytes[]","name":"inputs","type":"bytes[]"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"execute","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"},{"internalType":"uint256[]","name":"","type":"uint256[]"},{"internalType":"uint256[]","name":"","type":"uint256[]"},{"internalType":"bytes","name":"","type":"bytes"}],"name":"onERC1155BatchReceived","outputs":[{"internalType":"bytes4","name":"","type":"bytes4"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"bytes","name":"","type":"bytes"}],"name":"onERC1155Received","outputs":[{"internalType":"bytes4","name":"","type":"bytes4"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"bytes","name":"","type":"bytes"}],"name":"onERC721Received","outputs":[{"internalType":"bytes4","name":"","type":"bytes4"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"int256","name":"amount0Delta","type":"int256"},{"internalType":"int256","name":"amount1Delta","type":"int256"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"uniswapV3SwapCallback","outputs":[],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
+  const FACTORY = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint24","name":"fee","type":"uint24"},{"indexed":true,"internalType":"int24","name":"tickSpacing","type":"int24"}],"name":"FeeAmountEnabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"oldOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnerChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"token0","type":"address"},{"indexed":true,"internalType":"address","name":"token1","type":"address"},{"indexed":true,"internalType":"uint24","name":"fee","type":"uint24"},{"indexed":false,"internalType":"int24","name":"tickSpacing","type":"int24"},{"indexed":false,"internalType":"address","name":"pool","type":"address"}],"name":"PoolCreated","type":"event"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint24","name":"fee","type":"uint24"}],"name":"createPool","outputs":[{"internalType":"address","name":"pool","type":"address"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint24","name":"fee","type":"uint24"},{"internalType":"int24","name":"tickSpacing","type":"int24"}],"name":"enableFeeAmount","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint24","name":"","type":"uint24"}],"name":"feeAmountTickSpacing","outputs":[{"internalType":"int24","name":"","type":"int24"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"},{"internalType":"uint24","name":"","type":"uint24"}],"name":"getPool","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"parameters","outputs":[{"internalType":"address","name":"factory","type":"address"},{"internalType":"address","name":"token0","type":"address"},{"internalType":"address","name":"token1","type":"address"},{"internalType":"uint24","name":"fee","type":"uint24"},{"internalType":"int24","name":"tickSpacing","type":"int24"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_owner","type":"address"}],"name":"setOwner","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+  const POOL = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"int24","name":"tickLower","type":"int24"},{"indexed":true,"internalType":"int24","name":"tickUpper","type":"int24"},{"indexed":false,"internalType":"uint128","name":"amount","type":"uint128"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":false,"internalType":"address","name":"recipient","type":"address"},{"indexed":true,"internalType":"int24","name":"tickLower","type":"int24"},{"indexed":true,"internalType":"int24","name":"tickUpper","type":"int24"},{"indexed":false,"internalType":"uint128","name":"amount0","type":"uint128"},{"indexed":false,"internalType":"uint128","name":"amount1","type":"uint128"}],"name":"Collect","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":true,"internalType":"address","name":"recipient","type":"address"},{"indexed":false,"internalType":"uint128","name":"amount0","type":"uint128"},{"indexed":false,"internalType":"uint128","name":"amount1","type":"uint128"}],"name":"CollectProtocol","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":true,"internalType":"address","name":"recipient","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"paid0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"paid1","type":"uint256"}],"name":"Flash","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint16","name":"observationCardinalityNextOld","type":"uint16"},{"indexed":false,"internalType":"uint16","name":"observationCardinalityNextNew","type":"uint16"}],"name":"IncreaseObservationCardinalityNext","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint160","name":"sqrtPriceX96","type":"uint160"},{"indexed":false,"internalType":"int24","name":"tick","type":"int24"}],"name":"Initialize","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"sender","type":"address"},{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"int24","name":"tickLower","type":"int24"},{"indexed":true,"internalType":"int24","name":"tickUpper","type":"int24"},{"indexed":false,"internalType":"uint128","name":"amount","type":"uint128"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint8","name":"feeProtocol0Old","type":"uint8"},{"indexed":false,"internalType":"uint8","name":"feeProtocol1Old","type":"uint8"},{"indexed":false,"internalType":"uint8","name":"feeProtocol0New","type":"uint8"},{"indexed":false,"internalType":"uint8","name":"feeProtocol1New","type":"uint8"}],"name":"SetFeeProtocol","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":true,"internalType":"address","name":"recipient","type":"address"},{"indexed":false,"internalType":"int256","name":"amount0","type":"int256"},{"indexed":false,"internalType":"int256","name":"amount1","type":"int256"},{"indexed":false,"internalType":"uint160","name":"sqrtPriceX96","type":"uint160"},{"indexed":false,"internalType":"uint128","name":"liquidity","type":"uint128"},{"indexed":false,"internalType":"int24","name":"tick","type":"int24"}],"name":"Swap","type":"event"},{"inputs":[{"internalType":"int24","name":"tickLower","type":"int24"},{"internalType":"int24","name":"tickUpper","type":"int24"},{"internalType":"uint128","name":"amount","type":"uint128"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"int24","name":"tickLower","type":"int24"},{"internalType":"int24","name":"tickUpper","type":"int24"},{"internalType":"uint128","name":"amount0Requested","type":"uint128"},{"internalType":"uint128","name":"amount1Requested","type":"uint128"}],"name":"collect","outputs":[{"internalType":"uint128","name":"amount0","type":"uint128"},{"internalType":"uint128","name":"amount1","type":"uint128"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint128","name":"amount0Requested","type":"uint128"},{"internalType":"uint128","name":"amount1Requested","type":"uint128"}],"name":"collectProtocol","outputs":[{"internalType":"uint128","name":"amount0","type":"uint128"},{"internalType":"uint128","name":"amount1","type":"uint128"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"fee","outputs":[{"internalType":"uint24","name":"","type":"uint24"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"feeGrowthGlobal0X128","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"feeGrowthGlobal1X128","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"flash","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint16","name":"observationCardinalityNext","type":"uint16"}],"name":"increaseObservationCardinalityNext","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint160","name":"sqrtPriceX96","type":"uint160"}],"name":"initialize","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"liquidity","outputs":[{"internalType":"uint128","name":"","type":"uint128"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"maxLiquidityPerTick","outputs":[{"internalType":"uint128","name":"","type":"uint128"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"int24","name":"tickLower","type":"int24"},{"internalType":"int24","name":"tickUpper","type":"int24"},{"internalType":"uint128","name":"amount","type":"uint128"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"mint","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"observations","outputs":[{"internalType":"uint32","name":"blockTimestamp","type":"uint32"},{"internalType":"int56","name":"tickCumulative","type":"int56"},{"internalType":"uint160","name":"secondsPerLiquidityCumulativeX128","type":"uint160"},{"internalType":"bool","name":"initialized","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint32[]","name":"secondsAgos","type":"uint32[]"}],"name":"observe","outputs":[{"internalType":"int56[]","name":"tickCumulatives","type":"int56[]"},{"internalType":"uint160[]","name":"secondsPerLiquidityCumulativeX128s","type":"uint160[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"name":"positions","outputs":[{"internalType":"uint128","name":"liquidity","type":"uint128"},{"internalType":"uint256","name":"feeGrowthInside0LastX128","type":"uint256"},{"internalType":"uint256","name":"feeGrowthInside1LastX128","type":"uint256"},{"internalType":"uint128","name":"tokensOwed0","type":"uint128"},{"internalType":"uint128","name":"tokensOwed1","type":"uint128"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"protocolFees","outputs":[{"internalType":"uint128","name":"token0","type":"uint128"},{"internalType":"uint128","name":"token1","type":"uint128"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint8","name":"feeProtocol0","type":"uint8"},{"internalType":"uint8","name":"feeProtocol1","type":"uint8"}],"name":"setFeeProtocol","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"slot0","outputs":[{"internalType":"uint160","name":"sqrtPriceX96","type":"uint160"},{"internalType":"int24","name":"tick","type":"int24"},{"internalType":"uint16","name":"observationIndex","type":"uint16"},{"internalType":"uint16","name":"observationCardinality","type":"uint16"},{"internalType":"uint16","name":"observationCardinalityNext","type":"uint16"},{"internalType":"uint8","name":"feeProtocol","type":"uint8"},{"internalType":"bool","name":"unlocked","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"int24","name":"tickLower","type":"int24"},{"internalType":"int24","name":"tickUpper","type":"int24"}],"name":"snapshotCumulativesInside","outputs":[{"internalType":"int56","name":"tickCumulativeInside","type":"int56"},{"internalType":"uint160","name":"secondsPerLiquidityInsideX128","type":"uint160"},{"internalType":"uint32","name":"secondsInside","type":"uint32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"bool","name":"zeroForOne","type":"bool"},{"internalType":"int256","name":"amountSpecified","type":"int256"},{"internalType":"uint160","name":"sqrtPriceLimitX96","type":"uint160"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[{"internalType":"int256","name":"amount0","type":"int256"},{"internalType":"int256","name":"amount1","type":"int256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"int16","name":"","type":"int16"}],"name":"tickBitmap","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"tickSpacing","outputs":[{"internalType":"int24","name":"","type":"int24"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"int24","name":"","type":"int24"}],"name":"ticks","outputs":[{"internalType":"uint128","name":"liquidityGross","type":"uint128"},{"internalType":"int128","name":"liquidityNet","type":"int128"},{"internalType":"uint256","name":"feeGrowthOutside0X128","type":"uint256"},{"internalType":"uint256","name":"feeGrowthOutside1X128","type":"uint256"},{"internalType":"int56","name":"tickCumulativeOutside","type":"int56"},{"internalType":"uint160","name":"secondsPerLiquidityOutsideX128","type":"uint160"},{"internalType":"uint32","name":"secondsOutside","type":"uint32"},{"internalType":"bool","name":"initialized","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}];
+  const QUOTER = [{"inputs":[{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_WETH9","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"WETH9","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes","name":"path","type":"bytes"},{"internalType":"uint256","name":"amountIn","type":"uint256"}],"name":"quoteExactInput","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint160[]","name":"sqrtPriceX96AfterList","type":"uint160[]"},{"internalType":"uint32[]","name":"initializedTicksCrossedList","type":"uint32[]"},{"internalType":"uint256","name":"gasEstimate","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"components":[{"internalType":"address","name":"tokenIn","type":"address"},{"internalType":"address","name":"tokenOut","type":"address"},{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint24","name":"fee","type":"uint24"},{"internalType":"uint160","name":"sqrtPriceLimitX96","type":"uint160"}],"internalType":"struct IQuoterV2.QuoteExactInputSingleParams","name":"params","type":"tuple"}],"name":"quoteExactInputSingle","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint160","name":"sqrtPriceX96After","type":"uint160"},{"internalType":"uint32","name":"initializedTicksCrossed","type":"uint32"},{"internalType":"uint256","name":"gasEstimate","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes","name":"path","type":"bytes"},{"internalType":"uint256","name":"amountOut","type":"uint256"}],"name":"quoteExactOutput","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint160[]","name":"sqrtPriceX96AfterList","type":"uint160[]"},{"internalType":"uint32[]","name":"initializedTicksCrossedList","type":"uint32[]"},{"internalType":"uint256","name":"gasEstimate","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"components":[{"internalType":"address","name":"tokenIn","type":"address"},{"internalType":"address","name":"tokenOut","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint24","name":"fee","type":"uint24"},{"internalType":"uint160","name":"sqrtPriceLimitX96","type":"uint160"}],"internalType":"struct IQuoterV2.QuoteExactOutputSingleParams","name":"params","type":"tuple"}],"name":"quoteExactOutputSingle","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint160","name":"sqrtPriceX96After","type":"uint160"},{"internalType":"uint32","name":"initializedTicksCrossed","type":"uint32"},{"internalType":"uint256","name":"gasEstimate","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"int256","name":"amount0Delta","type":"int256"},{"internalType":"int256","name":"amount1Delta","type":"int256"},{"internalType":"bytes","name":"path","type":"bytes"}],"name":"uniswapV3SwapCallback","outputs":[],"stateMutability":"view","type":"function"}];
+  const PERMIT2 = [{"inputs":[{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"AllowanceExpired","type":"error"},{"inputs":[],"name":"ExcessiveInvalidation","type":"error"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"InsufficientAllowance","type":"error"},{"inputs":[{"internalType":"uint256","name":"maxAmount","type":"uint256"}],"name":"InvalidAmount","type":"error"},{"inputs":[],"name":"InvalidContractSignature","type":"error"},{"inputs":[],"name":"InvalidNonce","type":"error"},{"inputs":[],"name":"InvalidSignature","type":"error"},{"inputs":[],"name":"InvalidSignatureLength","type":"error"},{"inputs":[],"name":"InvalidSigner","type":"error"},{"inputs":[],"name":"LengthMismatch","type":"error"},{"inputs":[{"internalType":"uint256","name":"signatureDeadline","type":"uint256"}],"name":"SignatureExpired","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"token","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint160","name":"amount","type":"uint160"},{"indexed":false,"internalType":"uint48","name":"expiration","type":"uint48"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":false,"internalType":"address","name":"token","type":"address"},{"indexed":false,"internalType":"address","name":"spender","type":"address"}],"name":"Lockdown","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"token","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint48","name":"newNonce","type":"uint48"},{"indexed":false,"internalType":"uint48","name":"oldNonce","type":"uint48"}],"name":"NonceInvalidation","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"token","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint160","name":"amount","type":"uint160"},{"indexed":false,"internalType":"uint48","name":"expiration","type":"uint48"},{"indexed":false,"internalType":"uint48","name":"nonce","type":"uint48"}],"name":"Permit","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":false,"internalType":"uint256","name":"word","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"mask","type":"uint256"}],"name":"UnorderedNonceInvalidation","type":"event"},{"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"uint48","name":"expiration","type":"uint48"},{"internalType":"uint48","name":"nonce","type":"uint48"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"uint48","name":"expiration","type":"uint48"}],"name":"approve","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint48","name":"newNonce","type":"uint48"}],"name":"invalidateNonces","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"wordPos","type":"uint256"},{"internalType":"uint256","name":"mask","type":"uint256"}],"name":"invalidateUnorderedNonces","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"internalType":"struct IAllowanceTransfer.TokenSpenderPair[]","name":"approvals","type":"tuple[]"}],"name":"lockdown","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"nonceBitmap","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"uint48","name":"expiration","type":"uint48"},{"internalType":"uint48","name":"nonce","type":"uint48"}],"internalType":"struct IAllowanceTransfer.PermitDetails[]","name":"details","type":"tuple[]"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"sigDeadline","type":"uint256"}],"internalType":"struct IAllowanceTransfer.PermitBatch","name":"permitBatch","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"permit","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"uint48","name":"expiration","type":"uint48"},{"internalType":"uint48","name":"nonce","type":"uint48"}],"internalType":"struct IAllowanceTransfer.PermitDetails","name":"details","type":"tuple"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"sigDeadline","type":"uint256"}],"internalType":"struct IAllowanceTransfer.PermitSingle","name":"permitSingle","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"permit","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"internalType":"struct ISignatureTransfer.TokenPermissions","name":"permitted","type":"tuple"},{"internalType":"uint256","name":"nonce","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct ISignatureTransfer.PermitTransferFrom","name":"permit","type":"tuple"},{"components":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"requestedAmount","type":"uint256"}],"internalType":"struct ISignatureTransfer.SignatureTransferDetails","name":"transferDetails","type":"tuple"},{"internalType":"address","name":"owner","type":"address"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"permitTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"internalType":"struct ISignatureTransfer.TokenPermissions[]","name":"permitted","type":"tuple[]"},{"internalType":"uint256","name":"nonce","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct ISignatureTransfer.PermitBatchTransferFrom","name":"permit","type":"tuple"},{"components":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"requestedAmount","type":"uint256"}],"internalType":"struct ISignatureTransfer.SignatureTransferDetails[]","name":"transferDetails","type":"tuple[]"},{"internalType":"address","name":"owner","type":"address"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"permitTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"internalType":"struct ISignatureTransfer.TokenPermissions","name":"permitted","type":"tuple"},{"internalType":"uint256","name":"nonce","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct ISignatureTransfer.PermitTransferFrom","name":"permit","type":"tuple"},{"components":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"requestedAmount","type":"uint256"}],"internalType":"struct ISignatureTransfer.SignatureTransferDetails","name":"transferDetails","type":"tuple"},{"internalType":"address","name":"owner","type":"address"},{"internalType":"bytes32","name":"witness","type":"bytes32"},{"internalType":"string","name":"witnessTypeString","type":"string"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"permitWitnessTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"internalType":"struct ISignatureTransfer.TokenPermissions[]","name":"permitted","type":"tuple[]"},{"internalType":"uint256","name":"nonce","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct ISignatureTransfer.PermitBatchTransferFrom","name":"permit","type":"tuple"},{"components":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"requestedAmount","type":"uint256"}],"internalType":"struct ISignatureTransfer.SignatureTransferDetails[]","name":"transferDetails","type":"tuple[]"},{"internalType":"address","name":"owner","type":"address"},{"internalType":"bytes32","name":"witness","type":"bytes32"},{"internalType":"string","name":"witnessTypeString","type":"string"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"permitWitnessTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"components":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"address","name":"token","type":"address"}],"internalType":"struct IAllowanceTransfer.AllowanceTransferDetails[]","name":"transferDetails","type":"tuple[]"}],"name":"transferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"address","name":"token","type":"address"}],"name":"transferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+
+  var UniswapV3 = {
+    findPath: findPath$1,
+    pathExists: pathExists$1,
+    getAmounts: getAmounts$1,
+    getPrep,
+    getTransaction: getTransaction$1,
+    ROUTER,
+    FACTORY,
+    POOL,
+    QUOTER,
+    PERMIT2,
+  };
+
+  const exchange$9 = {
+
+    name: 'uniswap_v3',
+    label: 'Uniswap v3',
+    logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIGRhdGEtdGVzdGlkPSJ1bmlzd2FwLWxvZ28iIGNsYXNzPSJyZ3c2ZXo0NHAgcmd3NmV6NGVqIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjAuMzUyNiAxOS45MjQyQzIwLjI5MjggMjAuMTU0OSAyMC4xODg1IDIwLjM3MTUgMjAuMDQ1NSAyMC41NjE4QzE5Ljc3OTMgMjAuOTA4OCAxOS40MjcgMjEuMTc5NCAxOS4wMjM5IDIxLjM0NjZDMTguNjYxNCAyMS41MDM1IDE4LjI3NzQgMjEuNjA1IDE3Ljg4NDkgMjEuNjQ3NUMxNy44MDQyIDIxLjY1NzggMTcuNzIwNiAyMS42NjQxIDE3LjYzOTUgMjEuNjcwM0wxNy42MjYzIDIxLjY3MTNDMTcuMzc3NyAyMS42ODA4IDE3LjEzODcgMjEuNzcgMTYuOTQ0MiAyMS45MjU4QzE2Ljc0OTcgMjIuMDgxNyAxNi42MSAyMi4yOTYgMTYuNTQ1NSAyMi41MzczQzE2LjUxNiAyMi42NTc0IDE2LjQ5NCAyMi43NzkyIDE2LjQ3OTggMjIuOTAyMUMxNi40NTcyIDIzLjA4NzQgMTYuNDQ1NiAyMy4yNzcxIDE2LjQzMyAyMy40ODIzQzE2LjQyNCAyMy42Mjk1IDE2LjQxNDQgMjMuNzg0OCAxNi40IDIzLjk1MjFDMTYuMzE1NiAyNC42MzM3IDE2LjExOTMgMjUuMjk2NSAxNS44MTkyIDI1LjkxMzZDMTUuNzU3OSAyNi4wNDMzIDE1LjY5NTQgMjYuMTY5MSAxNS42MzM5IDI2LjI5MjZDMTUuMzA0OSAyNi45NTQ2IDE1LjAwNzYgMjcuNTUyNiAxNS4wOTI5IDI4LjM1MzVDMTUuMTU5NyAyOC45NzA2IDE1LjQ3NDQgMjkuMzg0MSAxNS44OTI1IDI5LjgxMDZDMTYuMDkxMSAzMC4wMTQ2IDE2LjM1NDQgMzAuMTg4OSAxNi42Mjc3IDMwLjM2OTlDMTcuMzkyNyAzMC44NzYzIDE4LjIzNjEgMzEuNDM0NyAxNy45NTgyIDMyLjg0MTVDMTcuNzMwOCAzMy45ODE0IDE1Ljg0OTQgMzUuMTc3NiAxMy4yMDUgMzUuNTk1NEMxMy40NjE1IDM1LjU1NjMgMTIuODk2NSAzNC41ODc5IDEyLjgzMzggMzQuNDgwNEwxMi44MyAzNC40NzM5QzEyLjc1NzEgMzQuMzU5MiAxMi42ODI0IDM0LjI0NjIgMTIuNjA3OSAzNC4xMzM0TDEyLjYwNzkgMzQuMTMzNEwxMi42MDc4IDM0LjEzMzRDMTIuMzkyNiAzMy44MDc2IDEyLjE3ODMgMzMuNDgzNSAxMi4wMTExIDMzLjEyNDFDMTEuNTY5MyAzMi4xODU2IDExLjM2NDUgMzEuMDk5OCAxMS41NDU1IDMwLjA3MTRDMTEuNzA5NSAyOS4xNDA3IDEyLjMyMjEgMjguMzk3MiAxMi45MTE4IDI3LjY4MTNMMTIuOTExOCAyNy42ODEzQzEzLjAwOCAyNy41NjQ2IDEzLjEwMzUgMjcuNDQ4NyAxMy4xOTY0IDI3LjMzMjhDMTMuOTg1MiAyNi4zNDg4IDE0LjgxMjggMjUuMDU5NSAxNC45OTU5IDIzLjc4MjJDMTUuMDExNCAyMy42NzEyIDE1LjAyNTIgMjMuNTUwMiAxNS4wMzk3IDIzLjQyMjlMMTUuMDM5NyAyMy40MjI5TDE1LjAzOTcgMjMuNDIyOUMxNS4wNjU3IDIzLjE5NSAxNS4wOTM5IDIyLjk0NjkgMTUuMTM4MiAyMi42OTk3QzE1LjIwMzkgMjIuMjcyOCAxNS4zMzcxIDIxLjg1OTEgMTUuNTMyNiAyMS40NzQzQzE1LjY2NiAyMS4yMjIgMTUuODQxNyAyMC45OTQ2IDE2LjA1MiAyMC44MDIxQzE2LjE2MTYgMjAuNjk5OSAxNi4yMzM5IDIwLjU2MzcgMTYuMjU3NCAyMC40MTUzQzE2LjI4MDggMjAuMjY3IDE2LjI1NCAyMC4xMTUgMTYuMTgxMyAxOS45ODM3TDExLjk2NTggMTIuMzY3M0wxOC4wMjA3IDE5Ljg3MzNDMTguMDg5NyAxOS45NjAzIDE4LjE3NjggMjAuMDMxIDE4LjI3NiAyMC4wODAzQzE4LjM3NTIgMjAuMTI5NiAxOC40ODQgMjAuMTU2NCAxOC41OTQ2IDIwLjE1ODhDMTguNzA1MyAyMC4xNjEyIDE4LjgxNTEgMjAuMTM5MSAxOC45MTYzIDIwLjA5NEMxOS4wMTc1IDIwLjA0OSAxOS4xMDc2IDE5Ljk4MjEgMTkuMTgwMiAxOS44OTgyQzE5LjI1NjkgMTkuODA4NCAxOS4zMDA0IDE5LjY5NDcgMTkuMzAzMyAxOS41NzYzQzE5LjMwNjMgMTkuNDU4IDE5LjI2ODUgMTkuMzQyMyAxOS4xOTYzIDE5LjI0ODdDMTguOTE0OCAxOC44ODczIDE4LjYyMTggMTguNTIxIDE4LjMzMDIgMTguMTU2M0wxOC4zMyAxOC4xNTZDMTguMjEyIDE4LjAwODUgMTguMDk0MyAxNy44NjEzIDE3Ljk3NzYgMTcuNzE0OEwxNi40NTM5IDE1LjgyMDVMMTMuMzk1NyAxMi4wMzgyTDEwIDhMMTMuNzg4IDExLjY5OTRMMTcuMDQzMyAxNS4zMTQ5TDE4LjY2NzMgMTcuMTI3QzE4LjgxNjUgMTcuMjk1OCAxOC45NjU3IDE3LjQ2MzEgMTkuMTE0OCAxNy42MzAzQzE5LjUwNDQgMTguMDY3MSAxOS44OTQgMTguNTAzOSAyMC4yODM2IDE4Ljk2NzNMMjAuMzcyIDE5LjA3NTVMMjAuMzkxNCAxOS4yNDMzQzIwLjQxNzYgMTkuNDcwOCAyMC40MDQ1IDE5LjcwMTIgMjAuMzUyNiAxOS45MjQyWk0zNS45MjQ3IDIyLjQ2OTdMMzUuOTMxMSAyMi40Nzk1QzM1LjkzIDIxLjY3MTkgMzUuNDMyMiAyMC4zMzk0IDM0LjQyNDcgMTkuMDU3N0wzNC40MDEgMTkuMDI2M0MzNC4wOTA2IDE4LjY0MSAzMy43NTI0IDE4LjI3OTIgMzMuMzg5MSAxNy45NDM4QzMzLjMyMTIgMTcuODc3OCAzMy4yNDggMTcuODEyOCAzMy4xNzM2IDE3Ljc0NzlDMzIuNzA4MSAxNy4zNDAxIDMyLjE5OTMgMTYuOTg1IDMxLjY1NjQgMTYuNjg5MkwzMS42MTc2IDE2LjY2OTdDMjkuOTExOCAxNS43MzY2IDI3LjY5MiAxNS4yNTYgMjQuOTU0OSAxNS43OTcyQzI0LjU4NzMgMTUuMzQ4OSAyNC4xOTE0IDE0LjkyNDggMjMuNzY5NiAxNC41Mjc1QzIzLjEyMzYgMTMuOTA5MSAyMi4zNjMyIDEzLjQyNDEgMjEuNTMxNSAxMy4wOTk3QzIwLjcwNzIgMTIuNzk2NiAxOS44MjQ0IDEyLjY4ODQgMTguOTUxNyAxMi43ODM2QzE5Ljc5MjkgMTIuODU5NyAyMC42MTIzIDEzLjA5NDcgMjEuMzY2NiAxMy40NzY0QzIyLjA5NTEgMTMuODY4NSAyMi43NTEyIDE0LjM4MzMgMjMuMzA2MiAxNC45OTg0QzIzLjg2ODggMTUuNjI2MyAyNC4zOTc2IDE2LjI4MzkgMjQuODkwMyAxNi45Njg1TDI1LjAxMzkgMTcuMTMwMkMyNS40OTYgMTcuNzYwOSAyNS45ODY4IDE4LjQwMyAyNi41OTgyIDE4Ljk3NDRDMjYuOTM0OCAxOS4yOTI1IDI3LjMxMDMgMTkuNTY2NCAyNy43MTU3IDE5Ljc4OTVDMjcuODIzNCAxOS44NDQ3IDI3LjkzMjMgMTkuODk2NiAyOC4wMzkgMTkuOTQyMUMyOC4xNDU2IDE5Ljk4NzYgMjguMjQ1OCAyMC4wMjk4IDI4LjM1MzYgMjAuMDY4OEMyOC41NjE2IDIwLjE0OTkgMjguNzc3MSAyMC4yMTcxIDI4Ljk5MjYgMjAuMjc4OEMyOS44NTQ3IDIwLjUyNTYgMzAuNzM3MiAyMC42MTQzIDMxLjU5OTMgMjAuNjYyQzMxLjcxOTIgMjAuNjY4MyAzMS44Mzg5IDIwLjY3NDIgMzEuOTU4MSAyMC42ODAxTDMxLjk1ODMgMjAuNjgwMUMzMi4yNjYyIDIwLjY5NTQgMzIuNTcxMyAyMC43MTA1IDMyLjg3MTkgMjAuNzMyM0MzMy4yODM3IDIwLjc1NjkgMzMuNjkyMiAyMC44MjE0IDM0LjA5MTcgMjAuOTI1QzM0LjY5MTggMjEuMDgyMiAzNS4yMjAxIDIxLjQ0MTMgMzUuNTg4NSAyMS45NDI1QzM1LjcxMzcgMjIuMTA5NSAzNS44MjYxIDIyLjI4NTcgMzUuOTI0NyAyMi40Njk3Wk0zMy40MDEzIDE3Ljk0NTFDMzMuMzU4IDE3LjkwNDkgMzMuMzEzOSAxNy44NjUxIDMzLjI3IDE3LjgyNTRMMzMuMjcgMTcuODI1NEMzMy4yNDE4IDE3Ljc5OTkgMzMuMjEzNiAxNy43NzQ1IDMzLjE4NTggMTcuNzQ5MUMzMy4yMDczIDE3Ljc2ODggMzMuMjI4OCAxNy43ODg3IDMzLjI1MDMgMTcuODA4N0MzMy4zMDA5IDE3Ljg1NTYgMzMuMzUxNCAxNy45MDI1IDMzLjQwMTMgMTcuOTQ1MVpNMzIuMzIzOCAyNS45MTcyQzI5LjU1MTYgMjQuNzg3MiAyNi42NTE4IDIzLjYwNTEgMjcuMDgzNSAyMC4yODc1QzI4LjAwOTEgMjEuMjgwMiAyOS40NjIgMjEuNDg4NCAzMS4wNDIyIDIxLjcxNDlDMzIuNDc1NyAyMS45MjAzIDM0LjAxMzkgMjIuMTQwNyAzNS4zNTgzIDIyLjk3NTNDMzguNTMwNiAyNC45NDMzIDM4LjA2NzMgMjguNzY2NiAzNi45ODk3IDMwLjE3MzlDMzcuMDg2OSAyNy44NTg3IDM0Ljc1NDQgMjYuOTA4IDMyLjMyMzggMjUuOTE3MlpNMjEuMTU1MSAyNC4yNTY3QzIxLjg4NjggMjQuMTg2MyAyMy40NDYxIDIzLjgwNDIgMjIuNzQ4OSAyMi41NzEyQzIyLjU5ODkgMjIuMzIwNCAyMi4zODE1IDIyLjExNzIgMjIuMTIxNyAyMS45ODQ4QzIxLjg2MTkgMjEuODUyNSAyMS41NzAyIDIxLjc5NjUgMjEuMjgwMSAyMS44MjMyQzIwLjk4NTggMjEuODU1IDIwLjcwODIgMjEuOTc2OSAyMC40ODUyIDIyLjE3MjVDMjAuMjYyMiAyMi4zNjgxIDIwLjEwNDQgMjIuNjI3OCAyMC4wMzM0IDIyLjkxNjVDMTkuODE2OCAyMy43MjMgMjAuMDQ2MyAyNC4zNjQ5IDIxLjE1NTEgMjQuMjU2N1pNMjAuOTQ0OCAxNC41MDE0QzIwLjQ4NTggMTMuOTY4OCAxOS43NzM1IDEzLjY4OTUgMTkuMDc1MiAxMy41ODc4QzE5LjA0OTEgMTMuNzYyNSAxOS4wMzI2IDEzLjkzODUgMTkuMDI1NyAxNC4xMTVDMTguOTk0NCAxNS41Njg3IDE5LjUwODQgMTcuMTY1NCAyMC41MDMgMTguMjc1QzIwLjgyMTIgMTguNjMzNyAyMS4yMDQ5IDE4LjkyNzYgMjEuNjMzNCAxOS4xNDFDMjEuODgxMiAxOS4yNjIyIDIyLjUzODYgMTkuNTYzMSAyMi43ODIxIDE5LjI5MjVDMjIuODAwNiAxOS4yNjc3IDIyLjgxMjMgMTkuMjM4NCAyMi44MTU5IDE5LjIwNzZDMjIuODE5NSAxOS4xNzY4IDIyLjgxNDkgMTkuMTQ1NiAyMi44MDI2IDE5LjExNzJDMjIuNzYyMiAxOS4wMDEzIDIyLjY4NDMgMTguODk2MSAyMi42MDY5IDE4Ljc5MTdDMjIuNTUyIDE4LjcxNzcgMjIuNDk3NCAxOC42NDQxIDIyLjQ1NjcgMTguNTY3MkMyMi40MTU1IDE4LjQ4OTggMjIuMzcxNCAxOC40MTQyIDIyLjMyNzQgMTguMzM4OEwyMi4zMjc0IDE4LjMzODhDMjIuMjQ0NyAxOC4xOTcgMjIuMTYyMiAxOC4wNTU1IDIyLjA5ODkgMTcuOTAxNUMyMS45MzE5IDE3LjQ5ODQgMjEuODQ1IDE3LjA2OTggMjEuNzU4MyAxNi42NDI1TDIxLjc1ODMgMTYuNjQyNEwyMS43NTgzIDE2LjY0MjRMMjEuNzU4MyAxNi42NDIzTDIxLjc1ODIgMTYuNjQyMkwyMS43NTgyIDE2LjY0MjFMMjEuNzU4MiAxNi42NDJDMjEuNzQwOSAxNi41NTY2IDIxLjcyMzYgMTYuNDcxMiAyMS43MDU2IDE2LjM4NkMyMS41NzMxIDE1LjcyNjggMjEuNDAzOSAxNS4wMzQgMjAuOTQ0OCAxNC41MDE0Wk0zMC43NTI0IDI2LjA5OEMzMC4wNDAzIDI4LjA5NDMgMzEuMTg4OCAyOS43ODA0IDMyLjMzMDYgMzEuNDU2NkMzMy42MDc3IDMzLjMzMTUgMzQuODc2NCAzNS4xOTQgMzMuNTIyOCAzNy40NjQyQzM2LjE1MzIgMzYuMzczMSAzNy40MDIxIDMzLjA3NjkgMzYuMzEwNSAzMC40NjE2QzM1LjYyMjcgMjguODA3NCAzMy45NjQ5IDI3LjkxMDYgMzIuNDI2MSAyNy4wNzgzTDMyLjQyNjEgMjcuMDc4M0wzMi40MjYgMjcuMDc4MkMzMS44MjkgMjYuNzU1MyAzMS4yNDk5IDI2LjQ0MjEgMzAuNzUyNCAyNi4wOThaTTIzLjA1NTIgMzAuODYzM0MyMi41Nzg1IDMxLjA1ODcgMjIuMTI5IDMxLjMxNTIgMjEuNzE3OSAzMS42MjY1QzIyLjY1MjcgMzEuMjg1OSAyMy42MzM5IDMxLjA5MTQgMjQuNjI3NCAzMS4wNDk1QzI0LjgwNzQgMzEuMDM4OCAyNC45ODg3IDMxLjAzMDQgMjUuMTcxNSAzMS4wMjE5TDI1LjE3MTcgMzEuMDIxOUwyNS4xNzIgMzEuMDIxOUMyNS40ODc4IDMxLjAwNzMgMjUuODA4NSAzMC45OTI1IDI2LjEzNiAzMC45NjUxQzI2LjY3MjkgMzAuOTI4NSAyNy4yMDI1IDMwLjgxOTIgMjcuNzEwMyAzMC42NDAzQzI4LjI0MjUgMzAuNDUzMyAyOC43MjY4IDMwLjE1MDEgMjkuMTI4NCAyOS43NTI3QzI5LjUzNDIgMjkuMzQyNCAyOS44MTg4IDI4LjgyNzIgMjkuOTUwNiAyOC4yNjQyQzMwLjA2NjYgMjcuNzMyNCAzMC4wNTAzIDI3LjE4MDEgMjkuOTAzMiAyNi42NTYyQzI5Ljc1NiAyNi4xMzIyIDI5LjQ4MjUgMjUuNjUyOCAyOS4xMDY5IDI1LjI2MDNDMjkuMjg4MSAyNS43MjIxIDI5LjM5OTYgMjYuMjA4NCAyOS40Mzc3IDI2LjcwMzNDMjkuNDcwNSAyNy4xNjQgMjkuNDA4MSAyNy42MjY1IDI5LjI1NDUgMjguMDYxOEMyOS4xMDQ1IDI4LjQ3NDQgMjguODU5MyAyOC44NDU0IDI4LjUzOSAyOS4xNDQzQzI4LjIwODEgMjkuNDQ2MiAyNy44MjUgMjkuNjg0NiAyNy40MDg2IDI5Ljg0NzlDMjYuODI5OSAzMC4wODIxIDI2LjE3NTUgMzAuMTc3OSAyNS40OTM5IDMwLjI3NzdDMjUuMTgzIDMwLjMyMzIgMjQuODY2NCAzMC4zNjk2IDI0LjU0ODcgMzAuNDMwM0MyNC4wMzc4IDMwLjUyNDMgMjMuNTM3NCAzMC42Njk0IDIzLjA1NTIgMzAuODYzM1pNMzEuMzE4NyAzOS4xMDQ2TDMxLjI3MyAzOS4xNDE1TDMxLjI3MyAzOS4xNDE2QzMxLjE1MjUgMzkuMjM4OSAzMS4wMzAxIDM5LjMzNzkgMzAuODk4MiAzOS40MjY4QzMwLjczMDEgMzkuNTM4IDMwLjU1NCAzOS42MzY1IDMwLjM3MTMgMzkuNzIxMkMyOS45OTA4IDM5LjkwNzcgMjkuNTcyNiA0MC4wMDI5IDI5LjE0OTMgMzkuOTk5NEMyOC4wMDI4IDM5Ljk3NzggMjcuMTkyNCAzOS4xMjA1IDI2LjcxODMgMzguMTUxNkMyNi41OTQgMzcuODk3NyAyNi40ODQ1IDM3LjYzNTkgMjYuMzc1IDM3LjM3NDFMMjYuMzc1IDM3LjM3NDFDMjYuMTk5NyAzNi45NTUxIDI2LjAyNDQgMzYuNTM2MSAyNS43ODgzIDM2LjE0OUMyNS4yMzk5IDM1LjI0OTUgMjQuMzAxMyAzNC41MjUzIDIzLjIwMjIgMzQuNjU5NUMyMi43NTM5IDM0LjcxNTggMjIuMzMzNiAzNC45MTgyIDIyLjA4NDcgMzUuMzA5QzIxLjQyOTUgMzYuMzI5OCAyMi4zNzAzIDM3Ljc1OTggMjMuNTY5NiAzNy41NTczQzIzLjY3MTYgMzcuNTQxNyAyMy43NzE0IDM3LjUxNDEgMjMuODY3IDM3LjQ3NTFDMjMuOTYyMyAzNy40MzQzIDI0LjA1MTIgMzcuMzggMjQuMTMxIDM3LjMxMzhDMjQuMjk4NiAzNy4xNzM2IDI0LjQyNDggMzYuOTkwMyAyNC40OTYzIDM2Ljc4MzRDMjQuNTc1MSAzNi41Njc2IDI0LjU5MjYgMzYuMzM0MSAyNC41NDcgMzYuMTA5QzI0LjQ5NzggMzUuODczNiAyNC4zNTk0IDM1LjY2NjggMjQuMTYxMiAzNS41MzJDMjQuMzkxNyAzNS42NDA0IDI0LjU3MTMgMzUuODM0NSAyNC42NjIzIDM2LjA3MzJDMjQuNzU2NiAzNi4zMTkgMjQuNzgwOSAzNi41ODYyIDI0LjczMjMgMzYuODQ1MUMyNC42ODUyIDM3LjExNDcgMjQuNTY2OSAzNy4zNjY3IDI0LjM4OTYgMzcuNTc0N0MyNC4yOTU1IDM3LjY4MTYgMjQuMTg2NiAzNy43NzQ2IDI0LjA2NjQgMzcuODUwN0MyMy45NDcyIDM3LjkyNTkgMjMuODE5NSAzNy45ODY2IDIzLjY4NiAzOC4wMzE1QzIzLjQxNTMgMzguMTI0NCAyMy4xMjcyIDM4LjE1NDQgMjIuODQzMyAzOC4xMTkyQzIyLjQ0NDcgMzguMDYyMSAyMi4wNjg4IDM3Ljg5ODMgMjEuNzU1IDM3LjY0NUMyMS42OTcgMzcuNTk5IDIxLjY0MTQgMzcuNTUwOCAyMS41ODc1IDM3LjUwMDhDMjEuMzc0IDM3LjMxNTggMjEuMTgwMiAzNy4xMDg3IDIxLjAwOTMgMzYuODgyOUMyMC45MzI2IDM2Ljc5ODEgMjAuODU0NyAzNi43MTQ0IDIwLjc3MzMgMzYuNjM0QzIwLjM4OTEgMzYuMjI5IDE5LjkzNTggMzUuODk2NSAxOS40MzQ5IDM1LjY1MjJDMTkuMDg5NSAzNS40OTk4IDE4LjcyOCAzNS4zODcyIDE4LjM1NzQgMzUuMzE2NkMxOC4xNzA5IDM1LjI3NzYgMTcuOTgyNCAzNS4yNDk1IDE3Ljc5MzggMzUuMjI1N0MxNy43NzMzIDM1LjIyMzYgMTcuNzM0IDM1LjIxNjcgMTcuNjg1IDM1LjIwODJMMTcuNjg0NyAzNS4yMDgxTDE3LjY4NDYgMzUuMjA4MUwxNy42ODQ2IDM1LjIwODFMMTcuNjg0NiAzNS4yMDgxTDE3LjY4NDUgMzUuMjA4MUMxNy41MjcxIDM1LjE4MDYgMTcuMjcxMSAzNS4xMzYgMTcuMjI1OSAzNS4xNzhDMTcuODA4OCAzNC42MzkgMTguNDQ0MSAzNC4xNjAzIDE5LjEyMjQgMzMuNzQ5MUMxOS44MTg5IDMzLjMzNCAyMC41NjY3IDMzLjAxMjYgMjEuMzQ2NiAzMi43OTMzQzIyLjE1NTEgMzIuNTY0NyAyMy4wMDA5IDMyLjQ5OTUgMjMuODM0NyAzMi42MDE3QzI0LjI2MzkgMzIuNjUzNSAyNC42ODQzIDMyLjc2MjcgMjUuMDg0NyAzMi45MjY0QzI1LjUwNDIgMzMuMDk0OCAyNS44OTE0IDMzLjMzNTEgMjYuMjI5MSAzMy42MzY2QzI2LjU2MzIgMzMuOTUyOCAyNi44MzMzIDM0LjMzMTEgMjcuMDI0MyAzNC43NTA0QzI3LjE5NjggMzUuMTQzMSAyNy4zMjU0IDM1LjU1MzcgMjcuNDA3OSAzNS45NzQ3QzI3LjQ1MjEgMzYuMjAxMyAyNy40ODU1IDM2LjQ1MDIgMjcuNTE5OSAzNi43MDc5TDI3LjUyIDM2LjcwNzlMMjcuNTIgMzYuNzA4TDI3LjUyIDM2LjcwOEMyNy42NzcxIDM3Ljg4MjMgMjcuODU4NSAzOS4yMzcyIDI5LjIwNDMgMzkuNDczM0MyOS4yODk4IDM5LjQ5IDI5LjM3NjEgMzkuNTAyMyAyOS40NjI5IDM5LjUxMDJMMjkuNzMxMiAzOS41MTY2QzI5LjkxNTcgMzkuNTAzNCAzMC4wOTkgMzkuNDc3IDMwLjI3OTcgMzkuNDM3NkMzMC42NTQxIDM5LjM0OTIgMzEuMDE5IDM5LjIyNDEgMzEuMzY5MSAzOS4wNjQyTDMxLjMxODcgMzkuMTA0NlpNMjEuMDgwMSAzNi45NjE5QzIxLjExMjMgMzYuOTk4OSAyMS4xNDQ5IDM3LjAzNTUgMjEuMTc3OSAzNy4wNzE4QzIxLjE2NDQgMzcuMDU2NyAyMS4xNTEgMzcuMDQxNSAyMS4xMzc1IDM3LjAyNjRMMjEuMTM3NSAzNy4wMjY0TDIxLjEzNzUgMzcuMDI2NEwyMS4xMzc1IDM3LjAyNjRDMjEuMTE4NCAzNy4wMDQ5IDIxLjA5OTMgMzYuOTgzNCAyMS4wODAxIDM2Ljk2MTlaIiBmaWxsPSJjdXJyZW50Q29sb3IiPjwvcGF0aD48L3N2Zz4K',
+    
+    slippage: true,
+    fees: [100, 500, 3000, 10000],
+    
+    blockchains: ['ethereum', 'bsc', 'polygon', 'optimism', 'arbitrum'],
+    
+    ethereum: {
+      router: {
+        address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad',
+        api: UniswapV3.ROUTER
+      },
+      factory: {
+        address: '0x1F98431c8aD98523631AE4a59f267346ea31F984',
+        api: UniswapV3.FACTORY
+      },
+      pool: {
+        api: UniswapV3.POOL
+      },
+      quoter: {
+        address: '0x61fFE014bA17989E743c5F6cB21bF9697530B21e',
+        api: UniswapV3.QUOTER
+      },
+      permit: {
+        address: '0x000000000022d473030f116ddee9f6b43ac78ba3',
+        api: UniswapV3.PERMIT2
+      }
+    },
+
+    bsc: {
+      router: {
+        address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad',
+        api: UniswapV3.ROUTER
+      },
+      factory: {
+        address: '0xdB1d10011AD0Ff90774D0C6Bb92e5C5c8b4461F7',
+        api: UniswapV3.FACTORY
+      },
+      pool: {
+        api: UniswapV3.POOL
+      },
+      quoter: {
+        address: '0x78D78E420Da98ad378D7799bE8f4AF69033EB077',
+        api: UniswapV3.QUOTER
+      },
+      permit: {
+        address: '0x000000000022d473030f116ddee9f6b43ac78ba3',
+        api: UniswapV3.PERMIT2
+      }
+    },
+
+    polygon: {
+      router: {
+        address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad',
+        api: UniswapV3.ROUTER
+      },
+      factory: {
+        address: '0x1F98431c8aD98523631AE4a59f267346ea31F984',
+        api: UniswapV3.FACTORY
+      },
+      pool: {
+        api: UniswapV3.POOL
+      },
+      quoter: {
+        address: '0x61fFE014bA17989E743c5F6cB21bF9697530B21e',
+        api: UniswapV3.QUOTER
+      },
+      permit: {
+        address: '0x000000000022d473030f116ddee9f6b43ac78ba3',
+        api: UniswapV3.PERMIT2
+      }
+    },
+
+    optimism: {
+      router: {
+        address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad',
+        api: UniswapV3.ROUTER
+      },
+      factory: {
+        address: '0x1F98431c8aD98523631AE4a59f267346ea31F984',
+        api: UniswapV3.FACTORY
+      },
+      pool: {
+        api: UniswapV3.POOL
+      },
+      quoter: {
+        address: '0x61fFE014bA17989E743c5F6cB21bF9697530B21e',
+        api: UniswapV3.QUOTER
+      },
+      permit: {
+        address: '0x000000000022d473030f116ddee9f6b43ac78ba3',
+        api: UniswapV3.PERMIT2
+      }
+    },
+
+    arbitrum: {
+      router: {
+        address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad',
+        api: UniswapV3.ROUTER
+      },
+      factory: {
+        address: '0x1F98431c8aD98523631AE4a59f267346ea31F984',
+        api: UniswapV3.FACTORY
+      },
+      pool: {
+        api: UniswapV3.POOL
+      },
+      quoter: {
+        address: '0x61fFE014bA17989E743c5F6cB21bF9697530B21e',
+        api: UniswapV3.QUOTER
+      },
+      permit: {
+        address: '0x000000000022d473030f116ddee9f6b43ac78ba3',
+        api: UniswapV3.PERMIT2
+      }
+    },
+
+    base: {
+      router: {
+        address: '0x198EF79F1F515F02dFE9e3115eD9fC07183f02fC',
+        api: UniswapV3.ROUTER
+      },
+      factory: {
+        address: '0x33128a8fC17869897dcE68Ed026d694621f6FDfD',
+        api: UniswapV3.FACTORY
+      },
+      pool: {
+        api: UniswapV3.POOL
+      },
+      quoter: {
+        address: '0x3d4e44Eb1374240CE5F1B871ab261CD16335B76a',
+        api: UniswapV3.QUOTER
+      },
+      permit: {
+        address: '0x000000000022d473030f116ddee9f6b43ac78ba3',
+        api: UniswapV3.PERMIT2
+      }
+    },
+
+  };
+
+  var uniswap_v3 = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$9, {
+        scope,
+        findPath: (args)=>UniswapV3.findPath({ ...args, exchange: exchange$9 }),
+        pathExists: (args)=>UniswapV3.pathExists({ ...args, exchange: exchange$9 }),
+        getAmounts: (args)=>UniswapV3.getAmounts({ ...args, exchange: exchange$9 }),
+        getPrep: (args)=>UniswapV3.getPrep({ ...args, exchange: exchange$9 }),
+        getTransaction: (args)=>UniswapV3.getTransaction({ ...args, exchange: exchange$9 }),
+      })
+    )
+  };
+
+  let pathExists = async ({ blockchain, path }) => {
+    if(!path || path.length !== 2) { return false }
+    return (
+      path.includes(Blockchains__default['default'][blockchain].currency.address) &&
+      path.includes(Blockchains__default['default'][blockchain].wrapped.address)
+    )
+  };
+
+  let findPath = async ({ blockchain, tokenIn, tokenOut }) => {
+    if(
+      ![tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].currency.address) ||
+      ![tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].wrapped.address)
+    ) { return { path: undefined, exchangePath: undefined } }
 
     let path = [tokenIn, tokenOut];
 
-    return { path, fixedPath: path }
+    return { path, exchangePath: path }
   };
 
   let getAmounts = async ({
@@ -33512,7 +35443,9 @@
     return { amountOut, amountIn, amountInMax, amountOutMin }
   };
 
-  let getTransaction = (blockchain, exchange, {
+  let getTransaction = ({
+    exchange,
+    blockchain,
     path,
     amountIn,
     amountInMax,
@@ -33522,21 +35455,21 @@
     amountOutInput,
     amountInMaxInput,
     amountOutMinInput,
-    fromAddress
+    account
   }) => {
     
     let transaction = {
-      blockchain: blockchain.name,
-      from: fromAddress,
-      to: exchange.wrapper.address,
-      api: exchange.wrapper.api,
+      blockchain: blockchain,
+      from: account,
+      to: exchange[blockchain].router.address,
+      api: exchange[blockchain].router.api,
     };
 
-    if (path[0] === blockchain.currency.address && path[1] === blockchain.wrapped.address) {
+    if (path[0] === Blockchains__default['default'][blockchain].currency.address && path[1] === Blockchains__default['default'][blockchain].wrapped.address) {
       transaction.method = 'deposit';
       transaction.value = amountIn.toString();
       return transaction
-    } else if (path[0] === blockchain.wrapped.address && path[1] === blockchain.currency.address) {
+    } else if (path[0] === Blockchains__default['default'][blockchain].wrapped.address && path[1] === Blockchains__default['default'][blockchain].currency.address) {
       transaction.method = 'withdraw';
       transaction.value = 0;
       transaction.params = { wad: amountIn };
@@ -33554,134 +35487,427 @@
     WETH,
   };
 
-  const blockchain$3 = Blockchains__default['default'].bsc;
-
-  const exchange$3 = {
-    blockchain: 'bsc',
-    name: 'wbnb',
-    alternativeNames: [],
-    label: 'Wrapped BNB',
-    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI2LjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxOTIgMTkyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxOTIgMTkyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0YwQjkwQjt9Cjwvc3R5bGU+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01NCw0MS4xbDQyLTI0LjJsNDIsMjQuMmwtMTUuNCw4LjlMOTYsMzQuOUw2OS40LDUwTDU0LDQxLjF6IE0xMzgsNzEuN2wtMTUuNC04LjlMOTYsNzhMNjkuNCw2Mi43bC0xNS40LDl2MTgKCUw4MC42LDEwNXYzMC41bDE1LjQsOWwxNS40LTlWMTA1TDEzOCw4OS43VjcxLjd6IE0xMzgsMTIwLjN2LTE4bC0xNS40LDguOXYxOEMxMjIuNiwxMjkuMSwxMzgsMTIwLjMsMTM4LDEyMC4zeiBNMTQ4LjksMTI2LjQKCWwtMjYuNiwxNS4zdjE4bDQyLTI0LjJWODdsLTE1LjQsOUMxNDguOSw5NiwxNDguOSwxMjYuNCwxNDguOSwxMjYuNHogTTEzMy41LDU2LjRsMTUuNCw5djE4bDE1LjQtOXYtMThsLTE1LjQtOUwxMzMuNSw1Ni40CglMMTMzLjUsNTYuNHogTTgwLjYsMTQ4LjN2MThsMTUuNCw5bDE1LjQtOXYtMThMOTYsMTU3LjFMODAuNiwxNDguM3ogTTU0LDEyMC4zbDE1LjQsOXYtMTguMUw1NCwxMDIuM0w1NCwxMjAuM0w1NCwxMjAuM3oKCSBNODAuNiw1Ni40bDE1LjQsOWwxNS40LTlMOTYsNDcuNUM5Niw0Ny40LDgwLjYsNTYuNCw4MC42LDU2LjRMODAuNiw1Ni40eiBNNDMuMSw2NS40bDE1LjQtOWwtMTUuNC05bC0xNS40LDl2MThsMTUuNCw5TDQzLjEsNjUuNAoJTDQzLjEsNjUuNHogTTQzLjEsOTUuOUwyNy43LDg3djQ4LjVsNDIsMjQuMnYtMThsLTI2LjYtMTUuM1Y5NS45TDQzLjEsOTUuOXoiLz4KPC9zdmc+Cg==',
-    wrapper: {
-      address: blockchain$3.wrapped.address,
-      api: WETH$1.WETH
-    },
+  const exchange$8 = {
+    
+    name: 'wavax',
+    label: 'Wrapped Avax',
+    logo: Blockchains__default['default'].avalanche.wrapped.logo,
+    
     slippage: false,
-  };
+    
+    blockchains: ['avalanche'],
 
-  new Exchange(
-
-    Object.assign(exchange$3, {
-      findPath: ({ tokenIn, tokenOut })=>
-        WETH$1.findPath(blockchain$3, { tokenIn, tokenOut }),
-      pathExists: (path)=>
-        WETH$1.pathExists(blockchain$3, path),
-      getAmounts: WETH$1.getAmounts,
-      getTransaction: ({ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress })=>
-        WETH$1.getTransaction(blockchain$3, exchange$3 ,{ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress }),
-    })
-  );
-
-  const blockchain$2 = Blockchains__default['default'].ethereum;
-
-  const exchange$2 = {
-    blockchain: 'ethereum',
-    name: 'weth',
-    alternativeNames: [],
-    label: 'Wrapped Ethereum',
-    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI2LjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIKCSBpZD0iTGF5ZXJfMSIgaW1hZ2UtcmVuZGVyaW5nPSJvcHRpbWl6ZVF1YWxpdHkiIHNoYXBlLXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIiB0ZXh0LXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIgoJIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjgzLjUgMjgzLjUiCgkgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjgzLjUgMjgzLjU7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojMzQzNDM0O30KCS5zdDF7ZmlsbDojOEM4QzhDO30KCS5zdDJ7ZmlsbDojM0MzQzNCO30KCS5zdDN7ZmlsbDojMTQxNDE0O30KCS5zdDR7ZmlsbDojMzkzOTM5O30KPC9zdHlsZT4KPGc+Cgk8Zz4KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTQxLjcsMjUuOWwtMS41LDUuMnYxNTMuM2wxLjUsMS41bDcxLjItNDIuMUwxNDEuNywyNS45eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xNDEuNywyNS45TDcwLjYsMTQzLjhsNzEuMSw0Mi4xdi03NC40VjI1Ljl6Ii8+CgkJPHBhdGggY2xhc3M9InN0MiIgZD0iTTE0MS43LDE5OS40bC0wLjgsMS4xdjU0LjZsMC44LDIuNWw3MS4yLTEwMC4zTDE0MS43LDE5OS40eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xNDEuNywyNTcuNnYtNTguMmwtNzEuMS00Mi4xTDE0MS43LDI1Ny42eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0xNDEuNywxODUuOWw3MS4yLTQyLjFsLTcxLjItMzIuM1YxODUuOXoiLz4KCQk8cGF0aCBjbGFzcz0ic3Q0IiBkPSJNNzAuNiwxNDMuOGw3MS4xLDQyLjF2LTc0LjRMNzAuNiwxNDMuOHoiLz4KCTwvZz4KPC9nPgo8L3N2Zz4K',
-    wrapper: {
-      address: blockchain$2.wrapped.address,
-      api: WETH$1.WETH
-    },
-    slippage: false,
-  };
-
-  new Exchange(
-
-    Object.assign(exchange$2, {
-      findPath: ({ tokenIn, tokenOut })=>
-        WETH$1.findPath(blockchain$2, { tokenIn, tokenOut }),
-      pathExists: (path)=>
-        WETH$1.pathExists(blockchain$2, path),
-      getAmounts: WETH$1.getAmounts,
-      getTransaction: ({ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress })=>
-        WETH$1.getTransaction(blockchain$2, exchange$2 ,{ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress }),
-    })
-  );
-
-  const blockchain$1 = Blockchains__default['default'].fantom;
-
-  const exchange$1 = {
-    blockchain: 'fantom',
-    name: 'wftm',
-    alternativeNames: [],
-    label: 'Wrapped Fantom',
-    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTkyIDE5MiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTkyIDE5MjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8ZyBpZD0iY2lyY2xlIj4KCTxnIGlkPSJGYW50b20tY2lyY2xlIj4KCQk8Y2lyY2xlIGlkPSJPdmFsIiBmaWxsUnVsZT0iZXZlbm9kZCIgY2xpcFJ1bGU9ImV2ZW5vZGQiIGZpbGw9IiMxOTY5RkYiIGNsYXNzPSJzdDAiIGN4PSI5NiIgY3k9Ijk2IiByPSI4MC40Ii8+CgkJPHBhdGggaWQ9IlNoYXBlIiBmaWxsPSIjRkZGRkZGIiBkPSJNOTEuMSw0MS4yYzIuNy0xLjQsNi44LTEuNCw5LjUsMGwyNy42LDE0LjZjMS42LDAuOSwyLjUsMi4xLDIuNywzLjVoMHY3My4zCgkJCWMwLDEuNC0wLjksMi45LTIuNywzLjhsLTI3LjYsMTQuNmMtMi43LDEuNC02LjgsMS40LTkuNSwwbC0yNy42LTE0LjZjLTEuOC0wLjktMi42LTIuNC0yLjctMy44YzAtMC4xLDAtMC4zLDAtMC40bDAtNzIuNAoJCQljMC0wLjEsMC0wLjIsMC0wLjNsMC0wLjJoMGMwLjEtMS4zLDEtMi42LDIuNi0zLjVMOTEuMSw0MS4yeiBNMTI2LjYsOTkuOWwtMjYsMTMuN2MtMi43LDEuNC02LjgsMS40LTkuNSwwTDY1LjIsMTAwdjMyLjMKCQkJbDI1LjksMTMuNmMxLjUsMC44LDMuMSwxLjYsNC43LDEuN2wwLjEsMGMxLjUsMCwzLTAuOCw0LjYtMS41bDI2LjItMTMuOVY5OS45eiBNNTYuNSwxMzAuOWMwLDIuOCwwLjMsNC43LDEsNgoJCQljMC41LDEuMSwxLjMsMS45LDIuOCwyLjlsMC4xLDAuMWMwLjMsMC4yLDAuNywwLjQsMS4xLDAuN2wwLjUsMC4zbDEuNiwwLjlsLTIuMiwzLjdsLTEuNy0xLjFsLTAuMy0wLjJjLTAuNS0wLjMtMC45LTAuNi0xLjMtMC44CgkJCWMtNC4yLTIuOC01LjctNS45LTUuNy0xMi4zbDAtMC4ySDU2LjV6IE05My44LDgwLjVjLTAuMiwwLjEtMC40LDAuMS0wLjYsMC4yTDY1LjYsOTUuM2MwLDAtMC4xLDAtMC4xLDBsMCwwbDAsMGwwLjEsMGwyNy42LDE0LjYKCQkJYzAuMiwwLjEsMC40LDAuMiwwLjYsMC4yVjgwLjV6IE05OC4yLDgwLjV2MjkuOGMwLjItMC4xLDAuNC0wLjEsMC42LTAuMmwyNy42LTE0LjZjMCwwLDAuMSwwLDAuMSwwbDAsMGwwLDBsLTAuMSwwTDk4LjgsODAuNwoJCQlDOTguNiw4MC42LDk4LjQsODAuNSw5OC4yLDgwLjV6IE0xMjYuNiw2NC40bC0yNC44LDEzbDI0LjgsMTNWNjQuNHogTTY1LjIsNjQuNHYyNi4xbDI0LjgtMTNMNjUuMiw2NC40eiBNOTguNyw0NS4xCgkJCWMtMS40LTAuOC00LTAuOC01LjUsMEw2NS42LDU5LjdjMCwwLTAuMSwwLTAuMSwwbDAsMGwwLDBsMC4xLDBsMjcuNiwxNC42YzEuNCwwLjgsNCwwLjgsNS41LDBsMjcuNi0xNC42YzAsMCwwLjEsMCwwLjEsMGwwLDBsMCwwCgkJCWwtMC4xLDBMOTguNyw0NS4xeiBNMTMwLjcsNDYuNWwxLjcsMS4xbDAuMywwLjJjMC41LDAuMywwLjksMC42LDEuMywwLjhjNC4yLDIuOCw1LjcsNS45LDUuNywxMi4zbDAsMC4yaC00LjNjMC0yLjgtMC4zLTQuNy0xLTYKCQkJYy0wLjUtMS4xLTEuMy0xLjktMi44LTIuOWwtMC4xLTAuMWMtMC4zLTAuMi0wLjctMC40LTEuMS0wLjdsLTAuNS0wLjNsLTEuNi0wLjlMMTMwLjcsNDYuNXoiLz4KCTwvZz4KPC9nPgo8L3N2Zz4K',
-    wrapper: {
-      address: blockchain$1.wrapped.address,
-      api: WETH$1.WETH
-    },
-    slippage: false,
-  };
-
-  new Exchange(
-
-    Object.assign(exchange$1, {
-      findPath: ({ tokenIn, tokenOut })=>
-        WETH$1.findPath(blockchain$1, { tokenIn, tokenOut }),
-      pathExists: (path)=>
-        WETH$1.pathExists(blockchain$1, path),
-      getAmounts: WETH$1.getAmounts,
-      getTransaction: ({ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress })=>
-        WETH$1.getTransaction(blockchain$1, exchange$1 ,{ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress }),
-    })
-  );
-
-  const blockchain = Blockchains__default['default'].polygon;
-
-  const exchange = {
-    blockchain: 'polygon',
-    name: 'wmatic',
-    alternativeNames: [],
-    label: 'Wrapped MATIC',
-    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI2LjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA0NS40IDQ1LjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQ1LjQgNDUuNDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOiM4MjQ3RTU7fQo8L3N0eWxlPgo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzEuOSwxNi42Yy0wLjctMC40LTEuNi0wLjQtMi4yLDBsLTUuMywzLjFsLTMuNSwybC01LjEsMy4xYy0wLjcsMC40LTEuNiwwLjQtMi4yLDBsLTQtMi40CgljLTAuNi0wLjQtMS4xLTEuMS0xLjEtMnYtNC42YzAtMC45LDAuNS0xLjYsMS4xLTJsNC0yLjNjMC43LTAuNCwxLjUtMC40LDIuMiwwbDQsMi40YzAuNywwLjQsMS4xLDEuMSwxLjEsMnYzLjFsMy41LTIuMXYtMy4yCgljMC0wLjktMC40LTEuNi0xLjEtMmwtNy41LTQuNGMtMC43LTAuNC0xLjUtMC40LTIuMiwwTDYsMTEuN2MtMC43LDAuNC0xLjEsMS4xLTEuMSwxLjh2OC43YzAsMC45LDAuNCwxLjYsMS4xLDJsNy42LDQuNAoJYzAuNywwLjQsMS41LDAuNCwyLjIsMGw1LjEtMi45bDMuNS0yLjFsNS4xLTIuOWMwLjctMC40LDEuNi0wLjQsMi4yLDBsNCwyLjNjMC43LDAuNCwxLjEsMS4xLDEuMSwydjQuNmMwLDAuOS0wLjQsMS42LTEuMSwyCglsLTMuOSwyLjNjLTAuNywwLjQtMS41LDAuNC0yLjIsMGwtNC0yLjNjLTAuNy0wLjQtMS4xLTEuMS0xLjEtMnYtMi45TDIxLDI4Ljd2My4xYzAsMC45LDAuNCwxLjYsMS4xLDJsNy41LDQuNAoJYzAuNywwLjQsMS41LDAuNCwyLjIsMGw3LjUtNC40YzAuNy0wLjQsMS4xLTEuMSwxLjEtMlYyM2MwLTAuOS0wLjQtMS42LTEuMS0yQzM5LjIsMjEsMzEuOSwxNi42LDMxLjksMTYuNnoiLz4KPC9zdmc+Cg==',
-    wrapper: {
-      address: blockchain.wrapped.address,
-      api: WETH$1.WETH
-    },
-    slippage: false,
-  };
-
-  new Exchange(
-
-    Object.assign(exchange, {
-      findPath: ({ tokenIn, tokenOut })=>
-        WETH$1.findPath(blockchain, { tokenIn, tokenOut }),
-      pathExists: (path)=>
-        WETH$1.pathExists(blockchain, path),
-      getAmounts: WETH$1.getAmounts,
-      getTransaction: ({ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress })=>
-        WETH$1.getTransaction(blockchain, exchange ,{ path, amountIn, amountInMax, amountOut, amountOutMin, amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput, fromAddress }),
-    })
-  );
-
-  var routers$2 = {
-    ethereum: {
-      address: '0xae60aC8e69414C2Dc362D0e6a03af643d1D85b92',
-      api: [{"inputs":[{"internalType":"address","name":"_configuration","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"configuration","outputs":[{"internalType":"contract DePayRouterV1Configuration","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"pluginAddress","type":"address"}],"name":"isApproved","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"uint256[]","name":"amounts","type":"uint256[]"},{"internalType":"address[]","name":"addresses","type":"address[]"},{"internalType":"address[]","name":"plugins","type":"address[]"},{"internalType":"string[]","name":"data","type":"string[]"}],"name":"route","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
-    },
-    bsc: {
-      address: '0x0Dfb7137bC64b63F7a0de7Cb9CDa178702666220',
-      api: [{"inputs":[{"internalType":"address","name":"_configuration","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"configuration","outputs":[{"internalType":"contract DePayRouterV1Configuration","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"pluginAddress","type":"address"}],"name":"isApproved","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"uint256[]","name":"amounts","type":"uint256[]"},{"internalType":"address[]","name":"addresses","type":"address[]"},{"internalType":"address[]","name":"plugins","type":"address[]"},{"internalType":"string[]","name":"data","type":"string[]"}],"name":"route","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
-    },
-    polygon: {
-      address: '0x2CA727BC33915823e3D05fe043d310B8c5b2dC5b',
-      api: [{"inputs":[{"internalType":"address","name":"_configuration","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"configuration","outputs":[{"internalType":"contract DePayRouterV1Configuration","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"pluginAddress","type":"address"}],"name":"isApproved","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"uint256[]","name":"amounts","type":"uint256[]"},{"internalType":"address[]","name":"addresses","type":"address[]"},{"internalType":"address[]","name":"plugins","type":"address[]"},{"internalType":"string[]","name":"data","type":"string[]"}],"name":"route","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
+    avalanche: {
+      router: {
+        address: Blockchains__default['default'].avalanche.wrapped.address,
+        api: WETH$1.WETH
+      },
     }
   };
 
-  var routers$1 = {
+  var wavax = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$8, {
+        scope,
+        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$8 }),
+        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$8 }),
+        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$8 }),
+        getPrep: (args)=>{},
+        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$8 }),
+      })
+    )
+  };
+
+  const exchange$7 = {
+    
+    name: 'wbnb',
+    label: 'Wrapped BNB',
+    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI2LjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxOTIgMTkyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxOTIgMTkyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0YwQjkwQjt9Cjwvc3R5bGU+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01NCw0MS4xbDQyLTI0LjJsNDIsMjQuMmwtMTUuNCw4LjlMOTYsMzQuOUw2OS40LDUwTDU0LDQxLjF6IE0xMzgsNzEuN2wtMTUuNC04LjlMOTYsNzhMNjkuNCw2Mi43bC0xNS40LDl2MTgKCUw4MC42LDEwNXYzMC41bDE1LjQsOWwxNS40LTlWMTA1TDEzOCw4OS43VjcxLjd6IE0xMzgsMTIwLjN2LTE4bC0xNS40LDguOXYxOEMxMjIuNiwxMjkuMSwxMzgsMTIwLjMsMTM4LDEyMC4zeiBNMTQ4LjksMTI2LjQKCWwtMjYuNiwxNS4zdjE4bDQyLTI0LjJWODdsLTE1LjQsOUMxNDguOSw5NiwxNDguOSwxMjYuNCwxNDguOSwxMjYuNHogTTEzMy41LDU2LjRsMTUuNCw5djE4bDE1LjQtOXYtMThsLTE1LjQtOUwxMzMuNSw1Ni40CglMMTMzLjUsNTYuNHogTTgwLjYsMTQ4LjN2MThsMTUuNCw5bDE1LjQtOXYtMThMOTYsMTU3LjFMODAuNiwxNDguM3ogTTU0LDEyMC4zbDE1LjQsOXYtMTguMUw1NCwxMDIuM0w1NCwxMjAuM0w1NCwxMjAuM3oKCSBNODAuNiw1Ni40bDE1LjQsOWwxNS40LTlMOTYsNDcuNUM5Niw0Ny40LDgwLjYsNTYuNCw4MC42LDU2LjRMODAuNiw1Ni40eiBNNDMuMSw2NS40bDE1LjQtOWwtMTUuNC05bC0xNS40LDl2MThsMTUuNCw5TDQzLjEsNjUuNAoJTDQzLjEsNjUuNHogTTQzLjEsOTUuOUwyNy43LDg3djQ4LjVsNDIsMjQuMnYtMThsLTI2LjYtMTUuM1Y5NS45TDQzLjEsOTUuOXoiLz4KPC9zdmc+Cg==',
+    
+    slippage: false,
+
+    blockchains: ['bsc'],
+
+    bsc: {
+      router: {
+        address: Blockchains__default['default'].bsc.wrapped.address,
+        api: WETH$1.WETH
+      }
+    }
+  };
+
+  var wbnb = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$7, {
+        scope,
+        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$7 }),
+        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$7 }),
+        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$7 }),
+        getPrep: (args)=>{},
+        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$7 }),
+      })
+    )
+  };
+
+  const exchange$6 = {
+    
+    name: 'weth',
+    label: 'Wrapped Ethereum',
+    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI2LjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIKCSBpZD0iTGF5ZXJfMSIgaW1hZ2UtcmVuZGVyaW5nPSJvcHRpbWl6ZVF1YWxpdHkiIHNoYXBlLXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIiB0ZXh0LXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIgoJIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjgzLjUgMjgzLjUiCgkgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjgzLjUgMjgzLjU7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojMzQzNDM0O30KCS5zdDF7ZmlsbDojOEM4QzhDO30KCS5zdDJ7ZmlsbDojM0MzQzNCO30KCS5zdDN7ZmlsbDojMTQxNDE0O30KCS5zdDR7ZmlsbDojMzkzOTM5O30KPC9zdHlsZT4KPGc+Cgk8Zz4KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTQxLjcsMjUuOWwtMS41LDUuMnYxNTMuM2wxLjUsMS41bDcxLjItNDIuMUwxNDEuNywyNS45eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xNDEuNywyNS45TDcwLjYsMTQzLjhsNzEuMSw0Mi4xdi03NC40VjI1Ljl6Ii8+CgkJPHBhdGggY2xhc3M9InN0MiIgZD0iTTE0MS43LDE5OS40bC0wLjgsMS4xdjU0LjZsMC44LDIuNWw3MS4yLTEwMC4zTDE0MS43LDE5OS40eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xNDEuNywyNTcuNnYtNTguMmwtNzEuMS00Mi4xTDE0MS43LDI1Ny42eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0xNDEuNywxODUuOWw3MS4yLTQyLjFsLTcxLjItMzIuM1YxODUuOXoiLz4KCQk8cGF0aCBjbGFzcz0ic3Q0IiBkPSJNNzAuNiwxNDMuOGw3MS4xLDQyLjF2LTc0LjRMNzAuNiwxNDMuOHoiLz4KCTwvZz4KPC9nPgo8L3N2Zz4K',
+    
+    slippage: false,
+
+    blockchains: ['ethereum'],
+
+    ethereum: {
+      router: {
+        address: Blockchains__default['default'].ethereum.wrapped.address,
+        api: WETH$1.WETH
+      },
+    }
+  };
+
+  var weth = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$6, {
+        scope,
+        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$6 }),
+        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$6 }),
+        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$6 }),
+        getPrep: (args)=>{},
+        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$6 }),
+      })
+    )
+  };
+
+  const exchange$5 = {
+    
+    name: 'weth_arbitrum',
+    label: 'Wrapped Ethereum',
+    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI2LjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIKCSBpZD0iTGF5ZXJfMSIgaW1hZ2UtcmVuZGVyaW5nPSJvcHRpbWl6ZVF1YWxpdHkiIHNoYXBlLXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIiB0ZXh0LXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIgoJIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjgzLjUgMjgzLjUiCgkgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjgzLjUgMjgzLjU7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojMzQzNDM0O30KCS5zdDF7ZmlsbDojOEM4QzhDO30KCS5zdDJ7ZmlsbDojM0MzQzNCO30KCS5zdDN7ZmlsbDojMTQxNDE0O30KCS5zdDR7ZmlsbDojMzkzOTM5O30KPC9zdHlsZT4KPGc+Cgk8Zz4KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTQxLjcsMjUuOWwtMS41LDUuMnYxNTMuM2wxLjUsMS41bDcxLjItNDIuMUwxNDEuNywyNS45eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xNDEuNywyNS45TDcwLjYsMTQzLjhsNzEuMSw0Mi4xdi03NC40VjI1Ljl6Ii8+CgkJPHBhdGggY2xhc3M9InN0MiIgZD0iTTE0MS43LDE5OS40bC0wLjgsMS4xdjU0LjZsMC44LDIuNWw3MS4yLTEwMC4zTDE0MS43LDE5OS40eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xNDEuNywyNTcuNnYtNTguMmwtNzEuMS00Mi4xTDE0MS43LDI1Ny42eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0xNDEuNywxODUuOWw3MS4yLTQyLjFsLTcxLjItMzIuM1YxODUuOXoiLz4KCQk8cGF0aCBjbGFzcz0ic3Q0IiBkPSJNNzAuNiwxNDMuOGw3MS4xLDQyLjF2LTc0LjRMNzAuNiwxNDMuOHoiLz4KCTwvZz4KPC9nPgo8L3N2Zz4K',
+    
+    slippage: false,
+
+    blockchains: ['arbitrum'],
+
+    arbitrum: {
+      router: {
+        address: Blockchains__default['default'].arbitrum.wrapped.address,
+        api: WETH$1.WETH
+      },
+    }
+  };
+
+  var weth_arbitrum = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$5, {
+        scope,
+        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$5 }),
+        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$5 }),
+        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$5 }),
+        getPrep: (args)=>{},
+        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$5 }),
+      })
+    )
+  };
+
+  const exchange$4 = {
+    
+    name: 'weth_optimism',
+    label: 'Wrapped Ethereum',
+    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI2LjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIKCSBpZD0iTGF5ZXJfMSIgaW1hZ2UtcmVuZGVyaW5nPSJvcHRpbWl6ZVF1YWxpdHkiIHNoYXBlLXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIiB0ZXh0LXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIgoJIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjgzLjUgMjgzLjUiCgkgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjgzLjUgMjgzLjU7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojMzQzNDM0O30KCS5zdDF7ZmlsbDojOEM4QzhDO30KCS5zdDJ7ZmlsbDojM0MzQzNCO30KCS5zdDN7ZmlsbDojMTQxNDE0O30KCS5zdDR7ZmlsbDojMzkzOTM5O30KPC9zdHlsZT4KPGc+Cgk8Zz4KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTQxLjcsMjUuOWwtMS41LDUuMnYxNTMuM2wxLjUsMS41bDcxLjItNDIuMUwxNDEuNywyNS45eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xNDEuNywyNS45TDcwLjYsMTQzLjhsNzEuMSw0Mi4xdi03NC40VjI1Ljl6Ii8+CgkJPHBhdGggY2xhc3M9InN0MiIgZD0iTTE0MS43LDE5OS40bC0wLjgsMS4xdjU0LjZsMC44LDIuNWw3MS4yLTEwMC4zTDE0MS43LDE5OS40eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xNDEuNywyNTcuNnYtNTguMmwtNzEuMS00Mi4xTDE0MS43LDI1Ny42eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0xNDEuNywxODUuOWw3MS4yLTQyLjFsLTcxLjItMzIuM1YxODUuOXoiLz4KCQk8cGF0aCBjbGFzcz0ic3Q0IiBkPSJNNzAuNiwxNDMuOGw3MS4xLDQyLjF2LTc0LjRMNzAuNiwxNDMuOHoiLz4KCTwvZz4KPC9nPgo8L3N2Zz4K',
+    
+    slippage: false,
+
+    blockchains: ['optimism'],
+
+    optimism: {
+      router: {
+        address: Blockchains__default['default'].optimism.wrapped.address,
+        api: WETH$1.WETH
+      },
+    }
+  };
+
+  var weth_optimism = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$4, {
+        scope,
+        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$4 }),
+        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$4 }),
+        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$4 }),
+        getPrep: (args)=>{},
+        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$4 }),
+      })
+    )
+  };
+
+  const exchange$3 = {
+    
+    name: 'weth_base',
+    label: 'Wrapped Ethereum',
+    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI2LjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIKCSBpZD0iTGF5ZXJfMSIgaW1hZ2UtcmVuZGVyaW5nPSJvcHRpbWl6ZVF1YWxpdHkiIHNoYXBlLXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIiB0ZXh0LXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIgoJIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjgzLjUgMjgzLjUiCgkgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjgzLjUgMjgzLjU7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojMzQzNDM0O30KCS5zdDF7ZmlsbDojOEM4QzhDO30KCS5zdDJ7ZmlsbDojM0MzQzNCO30KCS5zdDN7ZmlsbDojMTQxNDE0O30KCS5zdDR7ZmlsbDojMzkzOTM5O30KPC9zdHlsZT4KPGc+Cgk8Zz4KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTQxLjcsMjUuOWwtMS41LDUuMnYxNTMuM2wxLjUsMS41bDcxLjItNDIuMUwxNDEuNywyNS45eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xNDEuNywyNS45TDcwLjYsMTQzLjhsNzEuMSw0Mi4xdi03NC40VjI1Ljl6Ii8+CgkJPHBhdGggY2xhc3M9InN0MiIgZD0iTTE0MS43LDE5OS40bC0wLjgsMS4xdjU0LjZsMC44LDIuNWw3MS4yLTEwMC4zTDE0MS43LDE5OS40eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xNDEuNywyNTcuNnYtNTguMmwtNzEuMS00Mi4xTDE0MS43LDI1Ny42eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0xNDEuNywxODUuOWw3MS4yLTQyLjFsLTcxLjItMzIuM1YxODUuOXoiLz4KCQk8cGF0aCBjbGFzcz0ic3Q0IiBkPSJNNzAuNiwxNDMuOGw3MS4xLDQyLjF2LTc0LjRMNzAuNiwxNDMuOHoiLz4KCTwvZz4KPC9nPgo8L3N2Zz4K',
+    
+    slippage: false,
+
+    blockchains: ['base'],
+
+    base: {
+      router: {
+        address: Blockchains__default['default'].base.wrapped.address,
+        api: WETH$1.WETH
+      },
+    }
+  };
+
+  var weth_base = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$3, {
+        scope,
+        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$3 }),
+        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$3 }),
+        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$3 }),
+        getPrep: (args)=>{},
+        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$3 }),
+      })
+    )
+  };
+
+  const exchange$2 = {
+    
+    name: 'wftm',
+    label: 'Wrapped Fantom',
+    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTkyIDE5MiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTkyIDE5MjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8ZyBpZD0iY2lyY2xlIj4KCTxnIGlkPSJGYW50b20tY2lyY2xlIj4KCQk8Y2lyY2xlIGlkPSJPdmFsIiBmaWxsUnVsZT0iZXZlbm9kZCIgY2xpcFJ1bGU9ImV2ZW5vZGQiIGZpbGw9IiMxOTY5RkYiIGNsYXNzPSJzdDAiIGN4PSI5NiIgY3k9Ijk2IiByPSI4MC40Ii8+CgkJPHBhdGggaWQ9IlNoYXBlIiBmaWxsPSIjRkZGRkZGIiBkPSJNOTEuMSw0MS4yYzIuNy0xLjQsNi44LTEuNCw5LjUsMGwyNy42LDE0LjZjMS42LDAuOSwyLjUsMi4xLDIuNywzLjVoMHY3My4zCgkJCWMwLDEuNC0wLjksMi45LTIuNywzLjhsLTI3LjYsMTQuNmMtMi43LDEuNC02LjgsMS40LTkuNSwwbC0yNy42LTE0LjZjLTEuOC0wLjktMi42LTIuNC0yLjctMy44YzAtMC4xLDAtMC4zLDAtMC40bDAtNzIuNAoJCQljMC0wLjEsMC0wLjIsMC0wLjNsMC0wLjJoMGMwLjEtMS4zLDEtMi42LDIuNi0zLjVMOTEuMSw0MS4yeiBNMTI2LjYsOTkuOWwtMjYsMTMuN2MtMi43LDEuNC02LjgsMS40LTkuNSwwTDY1LjIsMTAwdjMyLjMKCQkJbDI1LjksMTMuNmMxLjUsMC44LDMuMSwxLjYsNC43LDEuN2wwLjEsMGMxLjUsMCwzLTAuOCw0LjYtMS41bDI2LjItMTMuOVY5OS45eiBNNTYuNSwxMzAuOWMwLDIuOCwwLjMsNC43LDEsNgoJCQljMC41LDEuMSwxLjMsMS45LDIuOCwyLjlsMC4xLDAuMWMwLjMsMC4yLDAuNywwLjQsMS4xLDAuN2wwLjUsMC4zbDEuNiwwLjlsLTIuMiwzLjdsLTEuNy0xLjFsLTAuMy0wLjJjLTAuNS0wLjMtMC45LTAuNi0xLjMtMC44CgkJCWMtNC4yLTIuOC01LjctNS45LTUuNy0xMi4zbDAtMC4ySDU2LjV6IE05My44LDgwLjVjLTAuMiwwLjEtMC40LDAuMS0wLjYsMC4yTDY1LjYsOTUuM2MwLDAtMC4xLDAtMC4xLDBsMCwwbDAsMGwwLjEsMGwyNy42LDE0LjYKCQkJYzAuMiwwLjEsMC40LDAuMiwwLjYsMC4yVjgwLjV6IE05OC4yLDgwLjV2MjkuOGMwLjItMC4xLDAuNC0wLjEsMC42LTAuMmwyNy42LTE0LjZjMCwwLDAuMSwwLDAuMSwwbDAsMGwwLDBsLTAuMSwwTDk4LjgsODAuNwoJCQlDOTguNiw4MC42LDk4LjQsODAuNSw5OC4yLDgwLjV6IE0xMjYuNiw2NC40bC0yNC44LDEzbDI0LjgsMTNWNjQuNHogTTY1LjIsNjQuNHYyNi4xbDI0LjgtMTNMNjUuMiw2NC40eiBNOTguNyw0NS4xCgkJCWMtMS40LTAuOC00LTAuOC01LjUsMEw2NS42LDU5LjdjMCwwLTAuMSwwLTAuMSwwbDAsMGwwLDBsMC4xLDBsMjcuNiwxNC42YzEuNCwwLjgsNCwwLjgsNS41LDBsMjcuNi0xNC42YzAsMCwwLjEsMCwwLjEsMGwwLDBsMCwwCgkJCWwtMC4xLDBMOTguNyw0NS4xeiBNMTMwLjcsNDYuNWwxLjcsMS4xbDAuMywwLjJjMC41LDAuMywwLjksMC42LDEuMywwLjhjNC4yLDIuOCw1LjcsNS45LDUuNywxMi4zbDAsMC4yaC00LjNjMC0yLjgtMC4zLTQuNy0xLTYKCQkJYy0wLjUtMS4xLTEuMy0xLjktMi44LTIuOWwtMC4xLTAuMWMtMC4zLTAuMi0wLjctMC40LTEuMS0wLjdsLTAuNS0wLjNsLTEuNi0wLjlMMTMwLjcsNDYuNXoiLz4KCTwvZz4KPC9nPgo8L3N2Zz4K',
+    
+    slippage: false,
+
+    blockchains: ['fantom'],
+
+    fantom: {
+      router: {
+        address: Blockchains__default['default'].fantom.wrapped.address,
+        api: WETH$1.WETH
+      },
+    }
+  };
+
+  var wftm = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$2, {
+        scope,
+        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$2 }),
+        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$2 }),
+        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$2 }),
+        getPrep: (args)=>{},
+        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$2 }),
+      })
+    )
+  };
+
+  const exchange$1 = {
+    
+    name: 'wmatic',
+    label: 'Wrapped MATIC',
+    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI2LjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA0NS40IDQ1LjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQ1LjQgNDUuNDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOiM4MjQ3RTU7fQo8L3N0eWxlPgo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzEuOSwxNi42Yy0wLjctMC40LTEuNi0wLjQtMi4yLDBsLTUuMywzLjFsLTMuNSwybC01LjEsMy4xYy0wLjcsMC40LTEuNiwwLjQtMi4yLDBsLTQtMi40CgljLTAuNi0wLjQtMS4xLTEuMS0xLjEtMnYtNC42YzAtMC45LDAuNS0xLjYsMS4xLTJsNC0yLjNjMC43LTAuNCwxLjUtMC40LDIuMiwwbDQsMi40YzAuNywwLjQsMS4xLDEuMSwxLjEsMnYzLjFsMy41LTIuMXYtMy4yCgljMC0wLjktMC40LTEuNi0xLjEtMmwtNy41LTQuNGMtMC43LTAuNC0xLjUtMC40LTIuMiwwTDYsMTEuN2MtMC43LDAuNC0xLjEsMS4xLTEuMSwxLjh2OC43YzAsMC45LDAuNCwxLjYsMS4xLDJsNy42LDQuNAoJYzAuNywwLjQsMS41LDAuNCwyLjIsMGw1LjEtMi45bDMuNS0yLjFsNS4xLTIuOWMwLjctMC40LDEuNi0wLjQsMi4yLDBsNCwyLjNjMC43LDAuNCwxLjEsMS4xLDEuMSwydjQuNmMwLDAuOS0wLjQsMS42LTEuMSwyCglsLTMuOSwyLjNjLTAuNywwLjQtMS41LDAuNC0yLjIsMGwtNC0yLjNjLTAuNy0wLjQtMS4xLTEuMS0xLjEtMnYtMi45TDIxLDI4Ljd2My4xYzAsMC45LDAuNCwxLjYsMS4xLDJsNy41LDQuNAoJYzAuNywwLjQsMS41LDAuNCwyLjIsMGw3LjUtNC40YzAuNy0wLjQsMS4xLTEuMSwxLjEtMlYyM2MwLTAuOS0wLjQtMS42LTEuMS0yQzM5LjIsMjEsMzEuOSwxNi42LDMxLjksMTYuNnoiLz4KPC9zdmc+Cg==',
+    
+    slippage: false,
+
+    blockchains: ['polygon'],
+    
+    polygon: {
+      router: {
+        address: Blockchains__default['default'].polygon.wrapped.address,
+        api: WETH$1.WETH
+      },
+    }
+  };
+
+  var wmatic = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$1, {
+        scope,
+        findPath: (args)=>WETH$1.findPath({ ...args, exchange: exchange$1 }),
+        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange: exchange$1 }),
+        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange: exchange$1 }),
+        getPrep: (args)=>{},
+        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange: exchange$1 }),
+      })
+    )
+  };
+
+  const exchange = {
+    
+    name: 'wxdai',
+    label: 'Wrapped XDAI',
+    logo: Blockchains__default['default'].gnosis.wrapped.logo,
+
+    slippage: false,
+
+    blockchains: ['gnosis'],
+    
+    gnosis: {
+      router: {
+        address: Blockchains__default['default'].gnosis.wrapped.address,
+        api: WETH$1.WETH
+      },
+    }
+  };
+
+  var wxdai = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange, {
+        scope,
+        findPath: (args)=>WETH$1.findPath({ ...args, exchange }),
+        pathExists: (args)=>WETH$1.pathExists({ ...args, exchange }),
+        getAmounts: (args)=>WETH$1.getAmounts({ ...args, exchange }),
+        getPrep: (args)=>{},
+        getTransaction: (args)=>WETH$1.getTransaction({ ...args, exchange }),
+      })
+    )
+  };
+
+  const exchanges = [
+    orca(),
+    uniswap_v3(),
+    pancakeswap_v3(),
+    uniswap_v2(),
+    pancakeswap(),
+    trader_joe_v2_1(),
+    quickswap(),
+    spookyswap(),
+    honeyswap(),
+    weth(),
+    weth_optimism(),
+    weth_base(),
+    weth_arbitrum(),
+    wbnb(),
+    wmatic(),
+    wftm(),
+    wavax(),
+    wxdai(),
+  ];
+  exchanges.forEach((exchange)=>{
+    exchanges[exchange.name] = exchange;
+  });
+
+  exchanges.ethereum = [
+    uniswap_v3('ethereum'),
+    uniswap_v2('ethereum'),
+    weth('ethereum'),
+  ];
+  exchanges.ethereum.forEach((exchange)=>{ exchanges.ethereum[exchange.name] = exchange; });
+
+  exchanges.bsc = [
+    pancakeswap_v3('bsc'),
+    uniswap_v3('bsc'),
+    pancakeswap('bsc'),
+    wbnb('bsc'),
+  ];
+  exchanges.bsc.forEach((exchange)=>{ exchanges.bsc[exchange.name] = exchange; });
+
+  exchanges.polygon = [
+    uniswap_v3('polygon'),
+    quickswap('polygon'),
+    wmatic('polygon'),
+  ];
+  exchanges.polygon.forEach((exchange)=>{ exchanges.polygon[exchange.name] = exchange; });
+
+  exchanges.solana = [
+    orca('solana'),
+  ];
+  exchanges.solana.forEach((exchange)=>{ exchanges.solana[exchange.name] = exchange; });
+
+  exchanges.optimism = [
+    uniswap_v3('optimism'),
+    weth_optimism('optimism'),
+  ];
+  exchanges.optimism.forEach((exchange)=>{ exchanges.optimism[exchange.name] = exchange; });
+
+  exchanges.base = [
+    uniswap_v3('base'),
+    weth_base('base'),
+  ];
+  exchanges.base.forEach((exchange)=>{ exchanges.base[exchange.name] = exchange; });
+
+  exchanges.arbitrum = [
+    uniswap_v3('arbitrum'),
+    weth_arbitrum('arbitrum'),
+  ];
+  exchanges.arbitrum.forEach((exchange)=>{ exchanges.arbitrum[exchange.name] = exchange; });
+
+  exchanges.fantom = [
+    spookyswap('fantom'),
+    wftm('fantom'),
+  ];
+  exchanges.fantom.forEach((exchange)=>{ exchanges.fantom[exchange.name] = exchange; });
+
+  exchanges.avalanche = [
+    trader_joe_v2_1('avalanche'),
+    wavax('avalanche'),
+  ];
+  exchanges.avalanche.forEach((exchange)=>{ exchanges.avalanche[exchange.name] = exchange; });
+
+  exchanges.gnosis = [
+    honeyswap('gnosis'),
+    wxdai('gnosis'),
+  ];
+  exchanges.gnosis.forEach((exchange)=>{ exchanges.gnosis[exchange.name] = exchange; });
+
+  let route = ({
+    blockchain,
+    tokenIn,
+    tokenOut,
+    amountIn,
+    amountOut,
+    amountInMax,
+    amountOutMin,
+  }) => {
+    return Promise.all(
+      exchanges[blockchain].map((exchange) => {
+        return exchange.route({
+          tokenIn,
+          tokenOut,
+          amountIn,
+          amountOut,
+          amountInMax,
+          amountOutMin,
+        })
+      }),
+    )
+    .then((routes)=>{
+      return routes.filter(Boolean).sort((a, b)=>{
+        if ((amountIn || amountInMax) ? (BigInt(a.amountOut) < BigInt(b.amountOut)) : (BigInt(a.amountIn) > BigInt(b.amountIn))) {
+          return 1;
+        }
+        if ((amountIn || amountInMax) ? (BigInt(a.amountOut) > BigInt(b.amountOut)) : (BigInt(a.amountIn) < BigInt(b.amountIn))) {
+          return -1;
+        }
+        return 0;
+      })
+    })
+  };
+
+  exchanges.route = route;
+
+  var solanaRouters = {
     solana: {
       address: 'DePayRG7ZySPWzeK9Kvq7aPeif7sdbBZNh6DHcvNj7F7',
       ammProgram: 'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc',
@@ -33788,35 +36014,6 @@
       }
     },
   };
-
-  var routers = {... routers$2, ...routers$1};
-
-  var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-  /** Detect free variable `global` from Node.js. */
-
-  var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
-
-  var _freeGlobal = freeGlobal;
-
-  /** Detect free variable `self`. */
-  var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
-
-  /** Used as a reference to the global object. */
-  var root = _freeGlobal || freeSelf || Function('return this')();
-
-  var _root = root;
-
-  /** Built-in value references. */
-  var Symbol$1 = _root.Symbol;
-
-  var _Symbol = Symbol$1;
-
-  /** Built-in value references. */
-  _Symbol ? _Symbol.toStringTag : undefined;
-
-  /** Built-in value references. */
-  _Symbol ? _Symbol.toStringTag : undefined;
 
   let _window;
 
@@ -33937,6 +36134,86 @@
 
   }
 
+  const API = [{"inputs":[{"internalType":"address","name":"_PERMIT2","type":"address"},{"internalType":"address","name":"_FORWARDER","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ExchangeCallFailed","type":"error"},{"inputs":[],"name":"ExchangeCallMissing","type":"error"},{"inputs":[],"name":"ExchangeNotApproved","type":"error"},{"inputs":[],"name":"ForwardingPaymentFailed","type":"error"},{"inputs":[],"name":"InsufficientBalanceInAfterPayment","type":"error"},{"inputs":[],"name":"InsufficientBalanceOutAfterPayment","type":"error"},{"inputs":[],"name":"NativeFeePaymentFailed","type":"error"},{"inputs":[],"name":"NativePaymentFailed","type":"error"},{"inputs":[],"name":"PaymentDeadlineReached","type":"error"},{"inputs":[],"name":"PaymentToZeroAddressNotAllowed","type":"error"},{"inputs":[],"name":"WrongAmountPaidIn","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Disabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Enabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"InternalTransfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"FORWARDER","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PERMIT2","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"acceptOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"exchange","type":"address"},{"internalType":"bool","name":"enabled","type":"bool"}],"name":"enable","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"exchanges","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct IDePayRouterV2.Payment","name":"payment","type":"tuple"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct IDePayRouterV2.Payment","name":"payment","type":"tuple"},{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"uint48","name":"expiration","type":"uint48"},{"internalType":"uint48","name":"nonce","type":"uint48"}],"internalType":"struct IPermit2.PermitDetails","name":"details","type":"tuple"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"sigDeadline","type":"uint256"}],"internalType":"struct IPermit2.PermitSingle","name":"permitSingle","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"pendingOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
+
+  var routers$1 = {
+
+    ethereum: {
+      address: '0x6466F27B169C908Ba8174d80aEfa7173CbC3D0c7',
+      api: API
+    },
+
+    bsc: {
+      address: '0x7ea09401db4692a8AEF4111b75bD32AE758f552A',
+      api: API
+    },
+
+    polygon: {
+      address: '0x50CFAB577623B1359602E11514a9482B061A941e',
+      api: API
+    },
+
+    fantom: {
+      address: '0xFee05C41195985909DDfc9127Db1f94559c46db3',
+      api: API
+    },
+
+    avalanche: {
+      address: '0xFee05C41195985909DDfc9127Db1f94559c46db3',
+      api: API
+    },
+
+    gnosis: {
+      address: '0xFee05C41195985909DDfc9127Db1f94559c46db3',
+      api: API
+    },
+
+    arbitrum: {
+      address: '0xA1cfbeeF344A52e18f748fd6a126f9426A40fbc7',
+      api: API
+    },
+
+    optimism: {
+      address: '0x8698E529E9867eEbcC68b4792daC627cd8870736',
+      api: API
+    },
+
+    base: {
+      address: '0x8B127D169D232D5F3ebE1C3D06CE343FD7C1AA11',
+      api: API
+    },
+
+  };
+
+  var routers = {... routers$1, ...solanaRouters};
+
+  var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+  /** Detect free variable `global` from Node.js. */
+
+  var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
+
+  var _freeGlobal = freeGlobal;
+
+  /** Detect free variable `self`. */
+  var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+  /** Used as a reference to the global object. */
+  var root = _freeGlobal || freeSelf || Function('return this')();
+
+  var _root = root;
+
+  /** Built-in value references. */
+  var Symbol$1 = _root.Symbol;
+
+  var _Symbol = Symbol$1;
+
+  /** Built-in value references. */
+  _Symbol ? _Symbol.toStringTag : undefined;
+
+  /** Built-in value references. */
+  _Symbol ? _Symbol.toStringTag : undefined;
+
   var getPaymentRouterInstruction = (function (confirmedTransaction) {
     var _confirmedTransaction, _confirmedTransaction2, _confirmedTransaction3;
 
@@ -33989,8 +36266,8 @@
     });
   });
 
-  let supported = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'velas'];
-  supported.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'velas'];
+  let supported = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
+  supported.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
   supported.solana = ['solana'];
 
   const _jsxFileName = "/Users/sebastian/Work/DePay/react-token-image/src/index.js"; function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
@@ -34001,34 +36278,46 @@
 
   let TokenImage = function(props){
 
-    const [src, _setSrc] = React.useState();
-    const [source, setSource] = React.useState();
+    const [src, setSrc] = React.useState();
+    const [source, _setSource] = React.useState();
 
     const blockchain = props.blockchain.toLowerCase();
-    const NATIVE = Blockchains__default['default'].findByName(blockchain).currency.address;
     const address = props.address;
     const id = props.id;
     const date = new Date();
-    const localStorageKey = ['react-token-image', blockchain, address, [date.getFullYear(), date.getMonth(), date.getDate()].join('-')].join('-');
+    const getLocalStorageKey = (blockchain, address)=>{
+      return [
+        'react-token-image',
+        blockchain,
+        address,
+        [date.getFullYear(), date.getMonth(), date.getDate()].join('-')
+      ].join('-')
+    };
 
-    const setSrc = (_src)=>{
-      localStorage.setItem(localStorageKey, _src);
-      _setSrc(_src);
+    const setSource = (src, source)=>{
+      setSrc(src);
+      _setSource(source);
+      if(source != 'unknown') {
+        localStorage.setItem(getLocalStorageKey(blockchain, address), src);
+      }
     };
 
     React.useEffect(()=>{
-      const storedImage = localStorage.getItem(localStorageKey);
-      if(storedImage && storedImage.length && storedImage != UNKNOWN_IMAGE) { return setSrc(storedImage) }
-      if(NATIVE.toLowerCase() == address.toLowerCase()) {
-        setSrc(Blockchains__default['default'].findByName(blockchain).logo);
+      const storedImage = localStorage.getItem(getLocalStorageKey(blockchain, address));
+      if(storedImage && storedImage.length && storedImage != UNKNOWN_IMAGE) {
+        return setSource(storedImage, 'stored')
+      }
+      const foundMajorToken = Blockchains__default['default'][blockchain].tokens.find((token)=> token.address.toLowerCase() === address.toLowerCase());
+      if(foundMajorToken) {
+        setSource(foundMajorToken.logo, 'web3-blockchains');
       } else {
         if(supported.evm.includes(blockchain)) {
-          setSource('repository');
-          setSrc(logoFromRepository({ blockchain, address }));
+          setSource(logoFromRepository({ blockchain, address }), 'repository');
         } else if(blockchain === 'solana') {
-          setSource('metaplex');
           logoFromMetaplex({ blockchain, address }).then((image)=>{
-            setSrc(image);
+            setSource(image, 'metaplex');
+          }).catch((error)=>{
+            setSource(logoFromRepository({ blockchain, address }), 'repository');
           });
         }
       }
@@ -34055,6 +36344,7 @@
             api: Token.solana.METADATA_LAYOUT,
             cache: 86400000, // 1 day
           });
+
           
           if(_optionalChain([metaData, 'optionalAccess', _ => _.data, 'optionalAccess', _2 => _2.uri])) {
 
@@ -34066,29 +36356,25 @@
                   if(json && json.image) {
                     resolve(json.image);
                   } else {
-                    resolve('');
+                    reject('image not found on metaplex');
                   }
-                }).catch(()=>resolve(''));
+                }).catch(()=>reject('image not found on metaplex'));
             } else {
-              resolve('');
+              reject('image not found on metaplex');
             }
           } else {
-            resolve('');
+            reject('image not found on metaplex');
           }
 
-        } catch (e) { resolve(''); }
+        } catch (e) { reject('image not found on metaplex'); }
       })
     };
     
     const logoFromRepository = ({ blockchain, address })=> {
-      if(['ethereum', 'bsc', 'polygon', 'fantom', 'solana'].includes(blockchain)) {
-        return `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${mapBlockchainName(blockchain)}/assets/${address}/logo.png`
-      } else if(blockchain == 'velas'){
-        return `https://raw.githubusercontent.com/wagyuswapapp/assets/master/blockchains/velas/assets/${address.toLowerCase()}/logo.png`
-      }
+      return `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${mapBlockchainNameToTrustWalletAssets(blockchain)}/assets/${address}/logo.png`
     };
 
-    const mapBlockchainName = (blockchain)=>{
+    const mapBlockchainNameToTrustWalletAssets = (blockchain)=>{
       switch (blockchain) {
         case 'ethereum':
           return 'ethereum'
@@ -34100,14 +36386,23 @@
           return 'solana'
         case 'fantom':
           return 'fantom'
+        case 'arbitrum':
+          return 'arbitrum'
+        case 'avalanche':
+          return 'avalanchec'
+        case 'gnosis':
+          return 'xdai'
+        case 'optimism':
+          return 'optimism'
+        case 'base':
+          return 'base'
         default:
           throw('DePayReactTokenImage: Unknown blockchain')
       }
     };
 
     const setUnknown = ()=>{
-      setSource('unknown');
-      setSrc(UNKNOWN_IMAGE);
+      setSource(UNKNOWN_IMAGE, 'unknown');
     };
 
     const uriToImage = (tokenURI)=>{
@@ -34125,8 +36420,7 @@
             if(image.match(/^ipfs/)) {
               image = `https://ipfs.io/ipfs/${image.split('://')[1]}`;
             } 
-            setSource('meta');
-            setSrc(image);
+            setSource(image, 'meta');
           } else {
             setUnknown();
           }
@@ -34135,12 +36429,13 @@
     };
 
     const handleLoadError = (error)=> {
+      delete localStorage[getLocalStorageKey(blockchain, address)];
       if(source == 'metaplex') {
-        setSource('repository');
-        setSrc(logoFromRepository({ blockchain, address }));
+        setSource(logoFromRepository({ blockchain, address }), 'repository');
+      } else if(source == 'web3-blockchains') {
+        setSource(logoFromRepository({ blockchain, address }), 'repository');
       } else if(source == 'repository') {
-        setSource('depay');
-        setSrc(`https://integrate.depay.com/tokens/${blockchain}/${address}/image`);
+        setSource(`https://integrate.depay.com/tokens/${blockchain}/${address}/image`, 'depay');
       } else if (source == 'depay' && supported.evm.includes(blockchain)) {
         if(id) {
           request({ blockchain, address, api: uriAPI, method: 'uri', params: [id] }).then((uri)=>{
@@ -34155,13 +36450,17 @@
       }
     };
 
-    if(src == undefined) { return null }
+    if(src == undefined) {
+      return(
+        React__default['default'].createElement('div', { className:  props.className , __self: this, __source: {fileName: _jsxFileName, lineNumber: 201}} )
+      )
+    }
 
     return(
       React__default['default'].createElement('img', {
         className:  props.className ,
         src:  src ,
-        onError:  handleLoadError , __self: this, __source: {fileName: _jsxFileName, lineNumber: 179}}
+        onError:  handleLoadError , __self: this, __source: {fileName: _jsxFileName, lineNumber: 206}}
       )
     )
   };
@@ -35324,7 +37623,10 @@
             blockchain: paymentOption.blockchain,
             address: paymentOption.token
           }), /*#__PURE__*/React__default['default'].createElement("img", {
-            className: "BlockchainLogo small " + Blockchains__default['default'][paymentOption.blockchain].name,
+            className: "BlockchainLogo small bottomRight " + Blockchains__default['default'][paymentOption.blockchain].name,
+            style: {
+              backgroundColor: blockchain.logoBackgroundColor
+            },
             src: Blockchains__default['default'][paymentOption.blockchain].logo,
             alt: Blockchains__default['default'][paymentOption.blockchain].label,
             title: Blockchains__default['default'][paymentOption.blockchain].label
@@ -35364,7 +37666,10 @@
           blockchain: selectedPaymentOption.blockchain,
           address: selectedPaymentOption.token
         }), /*#__PURE__*/React__default['default'].createElement("img", {
-          className: "BlockchainLogo small " + Blockchains__default['default'][selectedPaymentOption.blockchain].name,
+          className: "BlockchainLogo small bottomRight " + Blockchains__default['default'][selectedPaymentOption.blockchain].name,
+          style: {
+            backgroundColor: blockchain.logoBackgroundColor
+          },
           src: Blockchains__default['default'][selectedPaymentOption.blockchain].logo,
           alt: Blockchains__default['default'][selectedPaymentOption.blockchain].label,
           title: Blockchains__default['default'][selectedPaymentOption.blockchain].label
@@ -35765,14 +38070,14 @@
 
   var preflight$1 = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-      var accept, recover;
+      var accept, recover, integration;
       return regenerator.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              accept = _ref.accept, recover = _ref.recover;
+              accept = _ref.accept, recover = _ref.recover, integration = _ref.integration;
 
-              if (!recover) {
+              if (!(integration || recover)) {
                 _context.next = 3;
                 break;
               }
@@ -35817,12 +38122,12 @@
 
   var Payment = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var accept, amount, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, recover, closable, integration, link, container, before, wallet, title, action, document, unmount;
+      var accept, amount, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, recover, closable, integration, payload, link, container, before, wallet, title, action, document, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, before = _ref3.before, wallet = _ref3.wallet, title = _ref3.title, action = _ref3.action, document = _ref3.document;
+              accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, payload = _ref3.payload, link = _ref3.link, container = _ref3.container, before = _ref3.before, wallet = _ref3.wallet, title = _ref3.title, action = _ref3.action, document = _ref3.document;
               requireReactVersion();
 
               if (currency && !SUPPORTED_CURRENCIES.includes(currency.toLowerCase())) {
@@ -35833,6 +38138,7 @@
               _context2.next = 6;
               return preflight$1({
                 accept: accept,
+                integration: integration,
                 recover: recover
               });
 
@@ -35853,8 +38159,12 @@
                     container: container,
                     unmount: unmount
                   }, /*#__PURE__*/React__default['default'].createElement(ConfigurationProvider, {
+                    unmount: unmount,
+                    document: document,
+                    container: container,
                     configuration: {
                       type: 'payment',
+                      payload: payload,
                       before: before,
                       amount: amount,
                       accept: accept,
@@ -35887,13 +38197,7 @@
                     container: container,
                     connected: connected,
                     unmount: unmount
-                  }, /*#__PURE__*/React__default['default'].createElement(ConversionRateProvider, null, /*#__PURE__*/React__default['default'].createElement(ChangableAmountProvider, {
-                    accept: accept
-                  }, /*#__PURE__*/React__default['default'].createElement(PaymentAmountRoutingProvider, {
-                    accept: accept,
-                    whitelist: whitelist,
-                    blacklist: blacklist,
-                    event: event,
+                  }, /*#__PURE__*/React__default['default'].createElement(ConversionRateProvider, null, /*#__PURE__*/React__default['default'].createElement(ChangableAmountProvider, null, /*#__PURE__*/React__default['default'].createElement(PaymentAmountRoutingProvider, {
                     container: container,
                     document: document
                   }, /*#__PURE__*/React__default['default'].createElement(TransactionTrackingProvider, null, /*#__PURE__*/React__default['default'].createElement(PaymentTrackingProvider, {
@@ -36152,7 +38456,10 @@
         className: "CardImage",
         title: payment.name
       }, tokenImageElement, /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "BlockchainLogo small " + blockchain.name,
+        className: "BlockchainLogo small bottomRight " + blockchain.name,
+        style: {
+          backgroundColor: blockchain.logoBackgroundColor
+        },
         src: blockchain.logo,
         alt: blockchain.label,
         title: blockchain.label
@@ -36178,7 +38485,7 @@
         className: "CardAction"
       }, (!amountConfiguration || !amountConfiguration.fix) && /*#__PURE__*/React__default['default'].createElement(ChevronRight, null))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
-        title: paymentState == 'initialized' ? "Change payment" : undefined,
+        title: paymentState == 'initialized' ? "Payment options" : undefined,
         onClick: function onClick() {
           if (paymentState != 'initialized') {
             return;
@@ -36517,7 +38824,7 @@
   });
 
   var EnterNFTDataManuallyDialog = (function (props) {
-    var _Blockchains$findByNa, _selection$blockchain3, _selection$collection3, _Blockchains$findByNa2, _selection$blockchain4, _selection$collection4, _selection$blockchain5, _selection$blockchain6, _selection$blockchain7, _selection$blockchain8, _selection$blockchain9;
+    var _Blockchains, _selection$blockchain3, _selection$collection3, _Blockchains2, _selection$blockchain4, _selection$collection4, _Blockchains$findByNa, _selection$blockchain5, _selection$collection5, _selection$blockchain6, _selection$blockchain7, _selection$blockchain8, _selection$blockchain9, _selection$blockchain10;
 
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext.navigate;
@@ -36677,7 +38984,7 @@
                     blockchain: blockchain,
                     address: address,
                     method: 'balanceOf',
-                    api: web3TokensSolana.Token[blockchain][1155],
+                    api: Token__default['default'][blockchain][1155],
                     params: [address, '1']
                   });
 
@@ -36723,17 +39030,20 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardImage small"
       }, /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "transparent",
-        src: (_Blockchains$findByNa = Blockchains__default['default'].findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain3 = selection.blockchain) === null || _selection$blockchain3 === void 0 ? void 0 : _selection$blockchain3.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection3 = selection.collection) === null || _selection$collection3 === void 0 ? void 0 : _selection$collection3.blockchain))) === null || _Blockchains$findByNa === void 0 ? void 0 : _Blockchains$findByNa.logo
+        className: "transparent BlockchainLogo small",
+        src: (_Blockchains = Blockchains__default['default'][(selection === null || selection === void 0 ? void 0 : (_selection$blockchain3 = selection.blockchain) === null || _selection$blockchain3 === void 0 ? void 0 : _selection$blockchain3.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection3 = selection.collection) === null || _selection$collection3 === void 0 ? void 0 : _selection$collection3.blockchain)]) === null || _Blockchains === void 0 ? void 0 : _Blockchains.logo,
+        style: {
+          backgroundColor: (_Blockchains2 = Blockchains__default['default'][(selection === null || selection === void 0 ? void 0 : (_selection$blockchain4 = selection.blockchain) === null || _selection$blockchain4 === void 0 ? void 0 : _selection$blockchain4.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection4 = selection.collection) === null || _selection$collection4 === void 0 ? void 0 : _selection$collection4.blockchain)]) === null || _Blockchains2 === void 0 ? void 0 : _Blockchains2.logoBackgroundColor
+        }
       })), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardBody FontSizeM"
-      }, (_Blockchains$findByNa2 = Blockchains__default['default'].findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain4 = selection.blockchain) === null || _selection$blockchain4 === void 0 ? void 0 : _selection$blockchain4.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection4 = selection.collection) === null || _selection$collection4 === void 0 ? void 0 : _selection$collection4.blockchain))) === null || _Blockchains$findByNa2 === void 0 ? void 0 : _Blockchains$findByNa2.label), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, (_Blockchains$findByNa = Blockchains__default['default'].findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain5 = selection.blockchain) === null || _selection$blockchain5 === void 0 ? void 0 : _selection$blockchain5.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection5 = selection.collection) === null || _selection$collection5 === void 0 ? void 0 : _selection$collection5.blockchain))) === null || _Blockchains$findByNa === void 0 ? void 0 : _Blockchains$findByNa.label), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardAction"
       }, /*#__PURE__*/React__default['default'].createElement(ChevronRight, null))))),
       bodyClassName: "ScrollHeight",
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React__default['default'].createElement("div", null, supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain5 = selection.blockchain) === null || _selection$blockchain5 === void 0 ? void 0 : _selection$blockchain5.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+      }, /*#__PURE__*/React__default['default'].createElement("div", null, supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain6 = selection.blockchain) === null || _selection$blockchain6 === void 0 ? void 0 : _selection$blockchain6.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("label", {
         htmlFor: "DePayWidgetsEnterNFTTokenAddresses"
@@ -36758,7 +39068,7 @@
         }
       }), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "FontSizeXS PaddingLeftXS PaddingRightXS Opacity03 LineHeightXS"
-      }, "Separate each one with a new line break."))), !supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain6 = selection.blockchain) === null || _selection$blockchain6 === void 0 ? void 0 : _selection$blockchain6.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Separate each one with a new line break."))), !supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain7 = selection.blockchain) === null || _selection$blockchain7 === void 0 ? void 0 : _selection$blockchain7.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("label", {
         htmlFor: "DePayWidgetsEnterNFTTokenAddress"
@@ -36810,7 +39120,7 @@
         onChange: function onChange(event) {
           return setName(event.target.value);
         },
-        placeholder: supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain7 = selection.blockchain) === null || _selection$blockchain7 === void 0 ? void 0 : _selection$blockchain7.name) ? 'SMB' : 'CryptoPunks',
+        placeholder: supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain8 = selection.blockchain) === null || _selection$blockchain8 === void 0 ? void 0 : _selection$blockchain8.name) ? 'SMB' : 'CryptoPunks',
         className: "InputField small"
       }))), /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
@@ -36827,7 +39137,7 @@
         onChange: function onChange(event) {
           return setImage(event.target.value);
         },
-        placeholder: supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain8 = selection.blockchain) === null || _selection$blockchain8 === void 0 ? void 0 : _selection$blockchain8.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128',
+        placeholder: supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain9 = selection.blockchain) === null || _selection$blockchain9 === void 0 ? void 0 : _selection$blockchain9.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128',
         className: "InputField small"
       }))), /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
@@ -36844,7 +39154,7 @@
         onChange: function onChange(event) {
           return setLink(event.target.value);
         },
-        placeholder: supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain9 = selection.blockchain) === null || _selection$blockchain9 === void 0 ? void 0 : _selection$blockchain9.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks",
+        placeholder: supported$4.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain10 = selection.blockchain) === null || _selection$blockchain10 === void 0 ? void 0 : _selection$blockchain10.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks",
         className: "InputField small"
       })))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
@@ -36897,8 +39207,11 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardImage"
       }, /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "transparent",
-        src: blockchain.logo
+        className: "transparent BlockchainLogo",
+        src: blockchain.logo,
+        style: {
+          backgroundColor: blockchain.logoBackgroundColor
+        }
       })), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardBody"
       }, /*#__PURE__*/React__default['default'].createElement("span", {
@@ -37228,7 +39541,7 @@
         var token;
 
         try {
-          token = new web3TokensSolana.Token({
+          token = new Token__default['default']({
             blockchain: blockchain.name,
             address: term
           });
@@ -37266,7 +39579,7 @@
         var _token;
 
         try {
-          _token = new web3TokensSolana.Token({
+          _token = new Token__default['default']({
             blockchain: blockchain.name,
             address: term
           });
@@ -37469,8 +39782,11 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardImage small"
       }, /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "transparent",
-        src: blockchain.logo
+        className: "transparent BlockchainLogo",
+        src: blockchain.logo,
+        style: {
+          backgroundColor: blockchain.logoBackgroundColor
+        }
       })), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardBody FontSizeM"
       }, blockchain.label), /*#__PURE__*/React__default['default'].createElement("div", {

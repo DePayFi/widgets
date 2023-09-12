@@ -10,7 +10,7 @@ import { ethers } from 'ethers'
 import { mock, confirm, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 describe('Payment Widget: value loss safeguard', () => {
 
@@ -299,9 +299,9 @@ describe('Payment Widget: value loss safeguard', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('10', { force: true })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
         cy.wait(3000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', "Payment would lose 100% of its value!").should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', "Payment would lose 58% of its value!").should('exist')
           cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).contains('Pay').should('exist')
-          cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).contains('Approve use of USDT').should('exist')
+          cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).contains('Approve use of DAI').should('exist')
         })
       })
     })

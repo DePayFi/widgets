@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('@depay/web3-wallets'), require('@depay/web3-blockchains'), require('@depay/web3-payments'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client'), require('@depay/local-currency'), require('@depay/web3-exchanges'), require('@depay/web3-tokens'), require('ethers'), require('decimal.js'), require('@depay/react-token-image'), require('@depay/solana-web3.js')) :
-  typeof define === 'function' && define.amd ? define(['react', '@depay/web3-wallets', '@depay/web3-blockchains', '@depay/web3-payments', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client', '@depay/local-currency', '@depay/web3-exchanges', '@depay/web3-tokens', 'ethers', 'decimal.js', '@depay/react-token-image', '@depay/solana-web3.js'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.Web3Wallets, global.Web3Blockchains, global.Web3Payments, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.ethers, global.Decimal, global.ReactTokenImage, global.SolanaWeb3js));
-}(this, (function (React, web3Wallets, Blockchains, web3Payments, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3Client, localCurrency, web3Exchanges, web3Tokens, ethers, decimal_js, reactTokenImage, solanaWeb3_js) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('@depay/web3-wallets'), require('@depay/web3-blockchains'), require('@depay/web3-payments'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client'), require('@depay/local-currency'), require('@depay/js-verify-signature'), require('@depay/web3-exchanges'), require('@depay/web3-tokens'), require('ethers'), require('decimal.js'), require('@depay/react-token-image'), require('@depay/solana-web3.js')) :
+  typeof define === 'function' && define.amd ? define(['react', '@depay/web3-wallets', '@depay/web3-blockchains', '@depay/web3-payments', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client', '@depay/local-currency', '@depay/js-verify-signature', '@depay/web3-exchanges', '@depay/web3-tokens', 'ethers', 'decimal.js', '@depay/react-token-image', '@depay/solana-web3.js'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.Web3Wallets, global.Web3Blockchains, global.Web3Payments, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.DePayVerifySignature, global.Web3Exchanges, global.Web3Tokens, global.ethers, global.Decimal, global.ReactTokenImage, global.SolanaWeb3js));
+}(this, (function (React, web3Wallets, Blockchains, web3Payments, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3Client, localCurrency, jsVerifySignature, Exchanges, Token, ethers, decimal_js, reactTokenImage, solanaWeb3_js) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -12,6 +12,8 @@
   var QRCodeStyling__default = /*#__PURE__*/_interopDefaultLegacy(QRCodeStyling);
   var Fuse__default = /*#__PURE__*/_interopDefaultLegacy(Fuse);
   var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
+  var Exchanges__default = /*#__PURE__*/_interopDefaultLegacy(Exchanges);
+  var Token__default = /*#__PURE__*/_interopDefaultLegacy(Token);
 
   function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
     try {
@@ -981,8 +983,8 @@
     return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
   }
 
-  var supported = ['ethereum', 'bsc', 'polygon', 'solana'];
-  supported.evm = ['ethereum', 'bsc', 'polygon'];
+  var supported = ['ethereum', 'bsc', 'polygon', 'solana', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom'];
+  supported.evm = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom'];
   supported.solana = ['solana'];
 
   var allWallets = [{
@@ -1206,6 +1208,7 @@
     },
     "mobile": {
       "ios": {
+        "native": "uniswap:",
         "universal": "https://uniswap.org/app",
         "connect": "WalletConnectV2",
         "qr": "WalletConnectV2"
@@ -1220,11 +1223,13 @@
     },
     "mobile": {
       "ios": {
+        "native": "safe",
         "universal": "https://app.safe.global",
         "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
       },
       "android": {
+        "native": "safe",
         "universal": "https://app.safe.global",
         "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
@@ -1456,13 +1461,13 @@
     },
     "mobile": {
       "ios": {
-        "native": "omni",
+        "native": "omni:",
         "universal": "https://links.omni.app",
         "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
       },
       "android": {
-        "native": "omni",
+        "native": "omni:",
         "universal": "https://links.omni.app",
         "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
@@ -4804,9 +4809,13 @@
     return wallet.blockchains.filter(Boolean).length > 0;
   });
 
-  var ChevronLeft = (function () {
+  var ConfigurationContext = /*#__PURE__*/React__default['default'].createContext({
+    accept: []
+  });
+
+  var ChevronLeft = (function (props) {
     return /*#__PURE__*/React__default['default'].createElement("svg", {
-      className: "ChevronLeft Icon",
+      className: ["ChevronLeft", "Icon", props.className].filter(Boolean).join(' '),
       xmlns: "http://www.w3.org/2000/svg",
       width: "16",
       height: "16",
@@ -4870,6 +4879,7 @@
       className: "ButtonCircular",
       title: "Close dialog"
     }, /*#__PURE__*/React__default['default'].createElement(CloseIcon, null))), props.header), /*#__PURE__*/React__default['default'].createElement("div", {
+      ref: props.bodyRef,
       className: ["DialogBody", props.bodyClassName].join(' ')
     }, props.body), props.footer !== false && /*#__PURE__*/React__default['default'].createElement("div", {
       className: "DialogFooter"
@@ -22157,6 +22167,9 @@
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext);
         _useContext.navigate;
 
+    var _useContext2 = React.useContext(ConfigurationContext),
+        accept = _useContext2.accept;
+
     var header = /*#__PURE__*/React__default['default'].createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }, ((_props$wallet = props.wallet) === null || _props$wallet === void 0 ? void 0 : _props$wallet.logo) && /*#__PURE__*/React__default['default'].createElement("div", {
@@ -22209,7 +22222,7 @@
     var connectViaQRCode = React.useCallback(lodash.debounce(function () {
       var _props$platform4, _props$platform5;
 
-      if ((_props$platform4 = props.platform) !== null && _props$platform4 !== void 0 && _props$platform4.solanaPay && props.accept && props.accept.every(function (accept) {
+      if ((_props$platform4 = props.platform) !== null && _props$platform4 !== void 0 && _props$platform4.solanaPay && accept && accept.every(function (accept) {
         return accept.amount;
       })) {
         return props.continueWithSolanaPay();
@@ -22342,7 +22355,7 @@
                 setCopyLinkIsAvailable(copyLinkIsAvailable);
                 openInAppIsAvailable = !!props.platform && props.platform.open;
                 setOpenInAppIsAvailable(openInAppIsAvailable);
-                scanQrAvailable = props.platform.solanaPay && props.accept && props.accept.every(function (accept) {
+                scanQrAvailable = props.platform.solanaPay && accept && accept.every(function (accept) {
                   return accept.amount;
                 }) || ((_props$platform8 = props.platform) === null || _props$platform8 === void 0 ? void 0 : _props$platform8.qr) && (!showQRCode || props.platform.qr === 'WalletLink');
                 setScanQrAvailable(scanQrAvailable);
@@ -22376,7 +22389,7 @@
       }
     }, [QRCode]);
 
-    if (showQRCode && (_props$platform13 = props.platform) !== null && _props$platform13 !== void 0 && _props$platform13.solanaPay && props.accept && props.accept.every(function (accept) {
+    if (showQRCode && (_props$platform13 = props.platform) !== null && _props$platform13 !== void 0 && _props$platform13.solanaPay && accept && accept.every(function (accept) {
       return accept.amount;
     })) {
       return null;
@@ -22404,6 +22417,8 @@
         ref: QRCodeElement,
         className: "QRCode"
       }, showQRCode && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Skeleton",
         style: {
           borderRadius: "18px",
@@ -22412,7 +22427,7 @@
         }
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "SkeletonBackground"
-      }))), showQRCode && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+      })))), showQRCode && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Opacity05 PaddingBottomXS PaddingTopS"
       }, /*#__PURE__*/React__default['default'].createElement("small", null, "Generating QR code...")), showQRCode && QRCode !== undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Opacity05 PaddingBottomXS PaddingTopXS"
@@ -22731,9 +22746,9 @@
     }));
   });
 
-  function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+  function ownKeys$8(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-  function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  function _objectSpread$8(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$8(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$8(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
   var SelectWalletList = (function (props) {
     var parentElement = React__default['default'].useRef();
     var fuse = new Fuse__default['default'](allWallets, {
@@ -22798,7 +22813,7 @@
         className: "Card small",
         title: "Connect ".concat(resultList[virtualItem.key].name),
         onClick: function onClick() {
-          props.onClickWallet(_objectSpread$7({}, resultList[virtualItem.key]));
+          props.onClickWallet(_objectSpread$8({}, resultList[virtualItem.key]));
         }
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardImage"
@@ -22815,9 +22830,9 @@
     })));
   });
 
-  function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+  function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-  function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
   var SelectWalletDialog = (function (props) {
     var _useState = React.useState(''),
         _useState2 = _slicedToArray(_useState, 2),
@@ -22940,7 +22955,7 @@
           className: "Card small",
           title: "Connect ".concat(walletMetaData.name),
           onClick: function onClick() {
-            onClickWallet(_objectSpread$6(_objectSpread$6({}, walletMetaData), {}, {
+            onClickWallet(_objectSpread$7(_objectSpread$7({}, walletMetaData), {}, {
               via: 'detected',
               connectionType: connectionType
             }), wallet);
@@ -22975,7 +22990,7 @@
         className: "Card small",
         title: "Connect ".concat(previouslyConnectedWallet.name),
         onClick: function onClick() {
-          onClickWallet(_objectSpread$6(_objectSpread$6({}, previouslyConnectedWallet), {}, {
+          onClickWallet(_objectSpread$7(_objectSpread$7({}, previouslyConnectedWallet), {}, {
             via: 'previouslyConnected',
             connectionType: 'app'
           }));
@@ -23089,17 +23104,22 @@
         platform = _useState4[0],
         setPlatform = _useState4[1];
 
-    var _useState5 = React.useState({
+    var _useState5 = React.useState(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        redirectUri = _useState6[0],
+        setRedirectUri = _useState6[1];
+
+    var _useState7 = React.useState({
       blockchain: undefined
     }),
-        _useState6 = _slicedToArray(_useState5, 2),
-        selection = _useState6[0];
-        _useState6[1];
-
-    var _useState7 = React.useState(false),
         _useState8 = _slicedToArray(_useState7, 2),
-        showConnectExtensionWarning = _useState8[0],
-        setShowConnectExtensionWarning = _useState8[1];
+        selection = _useState8[0];
+        _useState8[1];
+
+    var _useState9 = React.useState(false),
+        _useState10 = _slicedToArray(_useState9, 2),
+        showConnectExtensionWarning = _useState10[0],
+        setShowConnectExtensionWarning = _useState10[1];
 
     var resolve = function resolve(account, wallet) {
       if (account && wallet) {
@@ -23186,6 +23206,27 @@
       window.open(href, '_self', 'noreferrer noopener');
     };
 
+    var redirect = function redirect(_ref) {
+      var walletMetaData = _ref.walletMetaData,
+          platform = _ref.platform,
+          uri = _ref.uri;
+      var name = isAndroid() ? 'Android' : walletMetaData.name;
+
+      if (isWebView()) {
+        if (platform.universal) {
+          openUniversalLink(platform, uri, name);
+        } else if (isAndroid()) {
+          openWcLink(platform, uri, name);
+        }
+      } else {
+        if (platform["native"]) {
+          openNativeLink(platform, uri, name);
+        } else {
+          openUniversalLink(platform, uri, name);
+        }
+      }
+    };
+
     var connectViaRedirect = function connectViaRedirect(walletMetaData) {
       var reconnect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       var platform = platformForWallet(walletMetaData);
@@ -23199,27 +23240,26 @@
 
         var _wallet = new web3Wallets.wallets[platform.connect]();
 
+        if (redirectUri) {
+          return redirect({
+            walletMetaData: walletMetaData,
+            platform: platform,
+            uri: redirectUri
+          });
+        }
+
         _wallet.connect({
           name: walletMetaData.name,
           logo: walletMetaData.logo,
           reconnect: reconnect,
-          connect: function connect(_ref) {
-            var uri = _ref.uri;
-            var name = isAndroid() ? 'Android' : walletMetaData.name;
-
-            if (isWebView()) {
-              if (platform.universal) {
-                openUniversalLink(platform, uri, name);
-              } else if (isAndroid()) {
-                openWcLink(platform, uri, name);
-              }
-            } else {
-              if (platform["native"]) {
-                openNativeLink(platform, uri, name);
-              } else {
-                openUniversalLink(platform, uri, name);
-              }
-            }
+          connect: function connect(_ref2) {
+            var uri = _ref2.uri;
+            setRedirectUri(uri);
+            redirect({
+              walletMetaData: walletMetaData,
+              platform: platform,
+              uri: uri
+            });
           }
         }).then(function (account) {
           resolve(account, _wallet);
@@ -23280,8 +23320,7 @@
           connectViaRedirect: connectViaRedirect,
           connectExtension: connectExtension,
           showConnectExtensionWarning: showConnectExtensionWarning,
-          continueWithSolanaPay: props.continueWithSolanaPay,
-          accept: props.accept
+          continueWithSolanaPay: props.continueWithSolanaPay
         })
       }
     }));
@@ -23667,7 +23706,7 @@
   });
 
   var CardStyle = (function (style) {
-    return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 76px;\n      padding: 16px 10px;\n      width: 100%;\n    }\n\n    .Card:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 8px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 27px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 58px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 9999px;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 45px;\n      position: relative;\n      vertical-align: middle;\n      width: 45px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardImage .BlockchainLogo {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 17px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+    return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 76px;\n      padding: 16px 10px;\n      width: 100%;\n    }\n\n    .Card:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 8px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 27px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 58px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 9999px;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 45px;\n      position: relative;\n      vertical-align: middle;\n      width: 45px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 17px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
   });
 
   var DialogStyle = (function (style) {
@@ -23695,7 +23734,7 @@
   });
 
   var IconStyle = (function (style) {
-    return "\n\n    .Icon {\n      fill: ".concat(style.colors.icons, ";\n      stroke: ").concat(style.colors.icons, ";\n    }\n\n    .QuestionMarkIcon {\n      fill: transparent;\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .AlertIcon {\n      height: 20px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 20px;\n      fill: #e42626;\n      stroke: transparent;\n    }\n\n    .CheckMark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      border-radius: 100%;\n      position: relative;\n      left: -1px;\n      width: 18px;\n      height: 18px;\n      animation: spin 1.5s linear infinite;\n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
+    return "\n\n    .Icon {\n      fill: ".concat(style.colors.icons, ";\n      stroke: ").concat(style.colors.icons, ";\n    }\n\n    .QuestionMarkIcon {\n      fill: transparent;\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .ChevronLeft.small, .ChevronRight.small {\n      height: 12px;\n      width: 12px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .AlertIcon {\n      height: 20px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 20px;\n      fill: #e42626;\n      stroke: transparent;\n    }\n\n    .CheckMark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      border-radius: 100%;\n      position: relative;\n      left: -1px;\n      width: 18px;\n      height: 18px;\n      animation: spin 1.5s linear infinite;\n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
   });
 
   var ImageStyle = (function (style) {
@@ -23715,7 +23754,7 @@
   });
 
   var LogoStyle = (function (style) {
-    return "\n\n    .BlockchainLogo {\n      border-radius: 6px !important;\n    }\n\n    .BlockchainLogo.small {\n      border-radius: 4px !important;\n      height: 20px;\n      width: 20px;\n    }\n\n    .SolanaPayLogo {\n      height: 26px;\n      position: relative;\n      top: 4px;\n    }\n  ";
+    return "\n\n    .BlockchainLogo {\n      border-radius: 6px !important;\n    }\n\n    .BlockchainLogo.small {\n      border-radius: 4px !important;\n      height: 20px;\n      width: 20px;\n    }\n\n    .BlockchainLogo.bottomRight {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .SolanaPayLogo {\n      height: 26px;\n      position: relative;\n      top: 4px;\n    }\n  ";
   });
 
   var OpacityStyle = (function (style) {
@@ -23743,7 +23782,7 @@
   });
 
   var SearchStyle = (function (style) {
-    return "\n\n    .Search {\n      border-radius: 13px;\n      border: 1px solid rgba(0,0,0,0.2);\n      background: white;\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 13px;\n      width: 100%;\n    }\n\n    .Search::placeholder {\n      color: rgb(180,180,180);\n    } \n\n    .Search:focus, .Search:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n  ");
+    return "\n\n    .Search {\n      border-radius: 13px;\n      border: 1px solid rgba(0,0,0,0.2);\n      background: white;\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 13px;\n      width: 100%;\n    }\n\n    .Search.small {\n      padding: 4px 8px;\n      font-size: 16px;\n      border-radius: 6px;\n    }\n\n    .Search::placeholder {\n      color: rgb(180,180,180);\n    } \n\n    .Search:focus, .Search:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n  ");
   });
 
   var SkeletonStyle = (function () {
@@ -23752,6 +23791,10 @@
 
   var TableStyle = (function (style) {
     return "\n\n    .Table {\n      border-collapse: separate;\n      border-radius: 7px;\n      border-style: hidden;\n      border: 1px solid rgba(0,0,0,0.1);\n      width: 100%;\n    }\n\n    .Table tr.small td {\n      font-size: 14px;\n    }\n\n    .Table tr td {\n      border-bottom: 1px solid rgba(0,0,0,0.1);\n      word-break: break-all;\n    }\n    \n    .Table tr:last-child td {\n      border-bottom: none;\n    }\n    \n    .Table tr td {\n      padding: 8px 15px;\n      text-align: left;\n    }\n    \n    .Table tr td:first-child {\n      width: 30%\n    }\n\n    .Table tr td:last-child {\n      width: 70%\n    }\n    \n    .Table .TableSubTitle {\n      font-weight: 300;\n      opacity: 0.7;\n    }\n\n    .Table tr td:last-child {\n      font-weight: 500;\n    }\n  ";
+  });
+
+  var TabStyle = (function (style) {
+    return "\n\n    .Tab {\n      padding: 3px 7px;\n      margin-right: 3px;\n      font-size: 17px;\n      border-radius: 4px;\n      cursor: pointer;\n    }\n\n    .Tab.active {\n      background: white;\n      box-shadow: 0 0 4px rgba(0,0,0,0.03);\n    }\n\n    .Tab:hover:not(.active) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Tab:active:not(.active) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 4px rgba(0,0,0,0.02);\n    }\n  ";
   });
 
   var TextButtonStyle = (function (style) {
@@ -23790,7 +23833,7 @@
       }, ((_style = style) === null || _style === void 0 ? void 0 : _style.colors) || {}),
       fontFamily: ((_style2 = style) === null || _style2 === void 0 ? void 0 : _style2.fontFamily) || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
     };
-    return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
+    return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), TabStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
   });
 
   var mount = (function (_ref, content) {
@@ -23928,39 +23971,16 @@
     }());
   };
 
-  var ConfigurationContext = /*#__PURE__*/React__default['default'].createContext();
-
-  var ConfigurationProvider = (function (props) {
-    var currencyCode = new localCurrency.Currency({
-      code: props.configuration.currency
-    }).code;
-    React.useEffect(function () {
-      if (props.configuration.providers != undefined) {
-        Object.entries(props.configuration.providers).forEach(function (entry) {
-          web3Client.setProviderEndpoints(entry[0], entry[1]);
-        });
-      }
-    }, [props.configuration]);
-    return /*#__PURE__*/React__default['default'].createElement(ConfigurationContext.Provider, {
-      value: Object.assign({}, props.configuration, {
-        currencyCode: currencyCode
-      })
-    }, props.children);
-  });
-
   var NavigateContext = /*#__PURE__*/React__default['default'].createContext();
 
   var LoadingDialog = (function (props) {
-    var _useContext = React.useContext(ConfigurationContext),
-        text = _useContext.text;
-
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       closable: false,
       header: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL"
-      }, "Payment")),
+      }, "Loading")),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -23971,14 +23991,16 @@
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "SkeletonWrapper"
+        className: "PaddingBottomXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "SkeletonWrapper PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "ButtonPrimary Skeleton"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "SkeletonBackground"
-      }))), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "TextCenter Opacity05 PaddingTopS"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", null, text)))
+      })))), props.text !== false && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TextCenter Opacity05 PaddingTopXS"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, props.text)))
     });
   });
 
@@ -23998,7 +24020,9 @@
       container: props.container,
       document: props.document,
       dialogs: {
-        Loading: /*#__PURE__*/React__default['default'].createElement(LoadingDialog, null)
+        Loading: /*#__PURE__*/React__default['default'].createElement(LoadingDialog, {
+          text: props.text
+        })
       }
     });
   });
@@ -24031,6 +24055,157 @@
     }, props.children);
   });
 
+  function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+  function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  var PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtqsu0wy94cpz90W4pGsJ\nSf0bfvmsq3su+R1J4AoAYz0XoAu2MXJZM8vrQvG3op7OgB3zze8pj4joaoPU2piT\ndH7kcF4Mde6QG4qKEL3VE+J8CL3qK2dUY0Umu20x/O9O792tlv8+Q/qAVv8yPfdM\nn5Je9Wc7VI5XeIBKP2AzsCkrXuzQlR48Ac5LpViNSSLu0mz5NTBoHkW2sz1sNWc6\nUpYISJkiKTvYc8Bo4p5xD6+ZmlL4hj1Ad/+26SjYcisX2Ut4QD7YKRBP2SbItVkI\nqp9mp6c6MCKNmEUkosxAr0KVfOcrk6/fcc4tI8g+KYZ32G11Ri8Xo4fgHH06DLYP\n3QIDAQAB\n-----END PUBLIC KEY-----\n";
+  var ConfigurationProvider = (function (props) {
+    var _props$configuration, _props$configuration5;
+
+    var currencyCode = new localCurrency.Currency({
+      code: props.configuration.currency
+    }).code;
+
+    var _useState = React.useState(!((_props$configuration = props.configuration) !== null && _props$configuration !== void 0 && _props$configuration.integration) ? _objectSpread$6(_objectSpread$6({}, props.configuration), {}, {
+      currencyCode: currencyCode
+    }) : undefined),
+        _useState2 = _slicedToArray(_useState, 2),
+        configuration = _useState2[0],
+        setConfiguration = _useState2[1];
+
+    var loadConfiguration = function loadConfiguration(id, attempt) {
+      var _props$configuration2;
+
+      if (attempt >= 10) {
+        return;
+      }
+
+      var retry = function retry() {
+        setTimeout(function () {
+          return loadConfiguration(id, attempt + 1);
+        }, 1000);
+      };
+
+      fetch("https://public.depay.com/configurations/".concat(id), {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: (_props$configuration2 = props.configuration) !== null && _props$configuration2 !== void 0 && _props$configuration2.payload ? JSON.stringify({
+          payload: props.configuration.payload
+        }) : undefined
+      })["catch"](retry).then( /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(response) {
+          var _JSON$parse, configurationId, _configuration, verified, localConfigurationWithValues;
+
+          return regenerator.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  if (!(response.status == 200)) {
+                    _context.next = 19;
+                    break;
+                  }
+
+                  _context.t0 = JSON;
+                  _context.next = 4;
+                  return response.text();
+
+                case 4:
+                  _context.t1 = _context.sent;
+                  _JSON$parse = _context.t0.parse.call(_context.t0, _context.t1);
+                  configurationId = _JSON$parse.id;
+                  _configuration = _JSON$parse.configuration;
+                  _context.next = 10;
+                  return jsVerifySignature.verify({
+                    signature: response.headers.get('x-signature'),
+                    publicKey: PUBLIC_KEY,
+                    data: JSON.stringify(_configuration)
+                  });
+
+                case 10:
+                  verified = _context.sent;
+
+                  if (!verified) {
+                    _context.next = 16;
+                    break;
+                  }
+
+                  localConfigurationWithValues = Object.entries(props.configuration).reduce(function (acc, _ref2) {
+                    var _ref3 = _slicedToArray(_ref2, 2),
+                        key = _ref3[0],
+                        value = _ref3[1];
+
+                    if (value !== undefined) {
+                      acc[key] = value;
+                    }
+
+                    return acc;
+                  }, {});
+                  setConfiguration(_objectSpread$6(_objectSpread$6(_objectSpread$6({}, _configuration), localConfigurationWithValues), {}, {
+                    id: configurationId,
+                    currencyCode: currencyCode
+                  }));
+                  _context.next = 17;
+                  break;
+
+                case 16:
+                  throw 'Configuration response not verified!';
+
+                case 17:
+                  _context.next = 20;
+                  break;
+
+                case 19:
+                  retry();
+
+                case 20:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        return function (_x) {
+          return _ref.apply(this, arguments);
+        };
+      }());
+    };
+
+    React.useEffect(function () {
+      if ((configuration === null || configuration === void 0 ? void 0 : configuration.providers) != undefined) {
+        Object.entries(props.configuration.providers).forEach(function (entry) {
+          web3Client.setProviderEndpoints(entry[0], entry[1]);
+        });
+      }
+    }, [configuration]);
+    React.useEffect(function () {
+      var _props$configuration3;
+
+      if ((_props$configuration3 = props.configuration) !== null && _props$configuration3 !== void 0 && _props$configuration3.integration) {
+        var _props$configuration4;
+
+        loadConfiguration((_props$configuration4 = props.configuration) === null || _props$configuration4 === void 0 ? void 0 : _props$configuration4.integration, 1);
+      }
+    }, [props.configuration]);
+
+    if ((_props$configuration5 = props.configuration) !== null && _props$configuration5 !== void 0 && _props$configuration5.integration && !configuration) {
+      return /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
+        unmount: props.unmount,
+        closable: false
+      }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(PoweredBy, null), /*#__PURE__*/React__default['default'].createElement(LoadingStack, {
+        text: false,
+        document: props.document,
+        container: props.container
+      }))));
+    } else {
+      return /*#__PURE__*/React__default['default'].createElement(ConfigurationContext.Provider, {
+        value: configuration
+      }, props.children);
+    }
+  });
+
   var Loading = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
       var text, style, error, critical, container, document, unmount;
@@ -24052,17 +24227,14 @@
                     errorCallback: error,
                     container: container,
                     unmount: unmount
-                  }, /*#__PURE__*/React__default['default'].createElement(ConfigurationProvider, {
-                    configuration: {
-                      text: text
-                    }
                   }, /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
                     unmount: unmount,
                     closable: false
-                  }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(LoadingStack, {
+                  }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(PoweredBy, null), /*#__PURE__*/React__default['default'].createElement(LoadingStack, {
+                    text: text,
                     document: document,
                     container: container
-                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null))))));
+                  })))));
                 };
               });
               window._depayUnmountLoading = unmount;
@@ -24307,8 +24479,11 @@
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardImage"
         }, /*#__PURE__*/React__default['default'].createElement("img", {
-          className: "transparent",
-          src: blockchain.logo
+          className: "transparent BlockchainLogo small",
+          src: blockchain.logo,
+          style: {
+            backgroundColor: blockchain.logoBackgroundColor
+          }
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardBody"
         }, /*#__PURE__*/React__default['default'].createElement("span", {
@@ -24672,11 +24847,14 @@
     };
 
     var _useContext = React.useContext(ConfigurationContext),
+        accept = _useContext.accept,
         configuredAmount = _useContext.amount;
         _useContext.toAmount;
         var recover = _useContext.recover;
 
-    var _useState = React.useState(recover == undefined ? configurationsMissAmounts(props.accept) : false),
+    React.useContext(ConfigurationContext);
+
+    var _useState = React.useState(recover == undefined ? configurationsMissAmounts(accept) : false),
         _useState2 = _slicedToArray(_useState, 2),
         amountsMissing = _useState2[0],
         setAmountsMissing = _useState2[1];
@@ -24736,8 +24914,8 @@
         return;
       }
 
-      setAmountsMissing(configurationsMissAmounts(props.accept));
-    }, [props.accept, recover]);
+      setAmountsMissing(configurationsMissAmounts(accept));
+    }, [accept, recover]);
 
     var getAmounts = function getAmounts(_ref) {
       var amount = _ref.amount,
@@ -24745,16 +24923,16 @@
           fixedCurrencyConversionRate = _ref.fixedCurrencyConversionRate;
       return new Promise(function (resolve, reject) {
         if (configuredAmount && configuredAmount.token) {
-          resolve(props.accept.map(function () {
+          resolve(accept.map(function () {
             return amount;
           }));
         } else {
-          Promise.all(props.accept.map(function (configuration) {
+          Promise.all(accept.map(function (configuration) {
             if (fixedAmount) {
               if (Blockchains__default['default'][configuration.blockchain].stables.usd[0] == configuration.token) {
                 return 1.00 / fixedCurrencyConversionRate * fixedAmount;
               } else {
-                return web3Exchanges.route({
+                return Exchanges__default['default'].route({
                   blockchain: configuration.blockchain,
                   tokenIn: Blockchains__default['default'][configuration.blockchain].stables.usd[0],
                   amountIn: 1.00 / fixedCurrencyConversionRate * fixedAmount,
@@ -24764,10 +24942,12 @@
                 });
               }
             } else {
-              if (Blockchains__default['default'][configuration.blockchain].stables.usd[0] == configuration.token) {
+              if (Blockchains__default['default'][configuration.blockchain].stables.usd.find(function (stable) {
+                return stable.toLowerCase() === configuration.token.toLowerCase();
+              })) {
                 return 1.00 / conversionRate * amount;
               } else {
-                return web3Exchanges.route({
+                return Exchanges__default['default'].route({
                   blockchain: configuration.blockchain,
                   tokenIn: Blockchains__default['default'][configuration.blockchain].stables.usd[0],
                   amountIn: 1.00 / conversionRate * amount,
@@ -24784,8 +24964,8 @@
               } else if (result[0] == undefined) {
                 return;
               } else {
-                return web3Tokens.Token.readable({
-                  blockchain: props.accept[index].blockchain,
+                return Token__default['default'].readable({
+                  blockchain: accept[index].blockchain,
                   amount: result[0].amountOut,
                   address: result[0].tokenOut
                 });
@@ -24806,7 +24986,7 @@
         conversionRate: conversionRate,
         fixedCurrencyConversionRate: fixedCurrencyConversionRate
       }).then(function (amounts) {
-        setAcceptWithAmount(props.accept.map(function (configuration, index) {
+        setAcceptWithAmount(accept.map(function (configuration, index) {
           if (amounts[index] == undefined) {
             return;
           }
@@ -24825,6 +25005,7 @@
       }
 
       if (amountsMissing && account && conversionRate && (fixedAmount ? fixedCurrencyConversionRate : true)) {
+        setAcceptWithAmount();
         updateAmounts({
           account: account,
           amount: amount,
@@ -24837,7 +25018,7 @@
       if (amountsMissing && maxRoute) {
         maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
           if (configuredAmount && configuredAmount.token) {
-            web3Exchanges.route({
+            Exchanges__default['default'].route({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,
               tokenOut: maxRoute.toToken.address,
@@ -24846,7 +25027,7 @@
               toAddress: account
             }).then(function (routes) {
               if (routes[0] == undefined) {
-                web3Tokens.Token.readable({
+                Token__default['default'].readable({
                   amount: maxRoute.fromBalance,
                   blockchain: maxRoute.blockchain,
                   address: maxRoute.fromToken.address
@@ -24854,7 +25035,7 @@
                 return;
               }
 
-              web3Tokens.Token.readable({
+              Token__default['default'].readable({
                 amount: routes[0].amountOut,
                 blockchain: maxRoute.blockchain,
                 address: maxRoute.toToken.address
@@ -24869,7 +25050,7 @@
 
             setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount - 1) : _maxAmount - 1);
           } else {
-            web3Exchanges.route({
+            Exchanges__default['default'].route({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,
               tokenOut: Blockchains__default['default'][maxRoute.blockchain].stables.usd[0],
@@ -24881,7 +25062,7 @@
                 return;
               }
 
-              web3Tokens.Token.readable({
+              Token__default['default'].readable({
                 amount: routes[0].amountOut,
                 blockchain: maxRoute.blockchain,
                 address: Blockchains__default['default'][maxRoute.blockchain].stables.usd[0]
@@ -24993,7 +25174,8 @@
         whitelist = _ref.whitelist,
         blacklist = _ref.blacklist,
         fee = _ref.fee,
-        update = _ref.update;
+        update = _ref.update,
+        drip = _ref.drip;
     return web3Payments.route({
       accept: accept.map(function (accept) {
         return prepareAcceptedPayments(accept, receiver);
@@ -25001,9 +25183,9 @@
       from: mergeFromAccounts(accept, account),
       whitelist: whitelist,
       blacklist: blacklist,
-      event: 'ifRoutedAndNative',
       fee: fee,
-      update: update
+      update: update,
+      drip: drip
     });
   });
 
@@ -25018,23 +25200,38 @@
 
     var _useState3 = React.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
-        updatedRouteWithNewPrice = _useState4[0],
-        setUpdatedRouteWithNewPrice = _useState4[1];
+        updatedRoutes = _useState4[0],
+        setUpdatedRoutes = _useState4[1];
 
     var _useState5 = React.useState(),
         _useState6 = _slicedToArray(_useState5, 2),
-        selectedRoute = _useState6[0],
-        setSelectedRoute = _useState6[1];
+        updatedRouteWithNewPrice = _useState6[0],
+        setUpdatedRouteWithNewPrice = _useState6[1];
 
-    var _useState7 = React.useState(false),
+    var _useState7 = React.useState(),
         _useState8 = _slicedToArray(_useState7, 2),
-        slowRouting = _useState8[0],
-        setSlowRouting = _useState8[1];
+        selectedRoute = _useState8[0],
+        setSelectedRoute = _useState8[1];
 
-    var _useState9 = React.useState(0),
+    var _useState9 = React.useState(false),
         _useState10 = _slicedToArray(_useState9, 2),
-        reloadCount = _useState10[0],
-        setReloadCount = _useState10[1];
+        slowRouting = _useState10[0],
+        setSlowRouting = _useState10[1];
+
+    var _useState11 = React.useState(0),
+        _useState12 = _slicedToArray(_useState11, 2),
+        reloadCount = _useState12[0],
+        setReloadCount = _useState12[1];
+
+    var _useState13 = React.useState(false),
+        _useState14 = _slicedToArray(_useState13, 2),
+        allRoutesLoadedInternal = _useState14[0],
+        setAllRoutesLoadedInternal = _useState14[1];
+
+    var _useState15 = React.useState(false),
+        _useState16 = _slicedToArray(_useState15, 2),
+        allRoutesLoaded = _useState16[0],
+        setAllRoutesLoaded = _useState16[1];
 
     var _useContext = React.useContext(WalletContext),
         account = _useContext.account;
@@ -25046,120 +25243,75 @@
     var _useContext3 = React.useContext(ConfigurationContext),
         recover = _useContext3.recover;
 
-    var onRoutesUpdate = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(routes) {
-        return regenerator.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                if (routes.length == 0) {
-                  setAllRoutes([]);
-
-                  if (props.setMaxRoute) {
-                    props.setMaxRoute(null);
-                  }
-                } else {
-                  roundAmounts(routes).then( /*#__PURE__*/function () {
-                    var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(roundedRoutes) {
-                      var selectRoute, updatedSelectedRoute;
-                      return regenerator.wrap(function _callee$(_context) {
-                        while (1) {
-                          switch (_context.prev = _context.next) {
-                            case 0:
-                              if (typeof selectedRoute == 'undefined') {
-                                selectRoute = roundedRoutes[0];
-                                setSelectedRoute(selectRoute);
-                              } else {
-                                updatedSelectedRoute = roundedRoutes[roundedRoutes.findIndex(function (route) {
-                                  return route.fromToken.address == selectedRoute.fromToken.address && route.blockchain == selectedRoute.blockchain;
-                                })];
-
-                                if (updatedSelectedRoute) {
-                                  if (selectedRoute.fromAmount != updatedSelectedRoute.fromAmount) {
-                                    setUpdatedRouteWithNewPrice(updatedSelectedRoute);
-                                  } else if ( // other reasons but price to update selected route
-                                  selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired) {
-                                    setSelectedRoute(updatedSelectedRoute);
-                                  }
-                                } else {
-                                  setSelectedRoute(roundedRoutes[0]);
-                                }
-                              }
-
-                              setAllRoutes(roundedRoutes);
-
-                              if (props.setMaxRoute) {
-                                props.setMaxRoute(findMaxRoute(roundedRoutes));
-                              }
-
-                            case 3:
-                            case "end":
-                              return _context.stop();
-                          }
-                        }
-                      }, _callee);
-                    }));
-
-                    return function (_x2) {
-                      return _ref2.apply(this, arguments);
-                    };
-                  }());
-                }
-
-              case 1:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-
-      return function onRoutesUpdate(_x) {
-        return _ref.apply(this, arguments);
-      };
-    }();
+    var configuration = React.useContext(ConfigurationContext);
 
     var getPaymentRoutes = /*#__PURE__*/function () {
-      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref3) {
-        var updatable, slowRoutingTimeout;
-        return regenerator.wrap(function _callee3$(_context3) {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+        var updatable, slowRoutingTimeout, firstRouteDisplayed;
+        return regenerator.wrap(function _callee$(_context) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context.prev = _context.next) {
               case 0:
-                updatable = _ref3.updatable;
+                updatable = _ref.updatable;
 
                 if (!(updatable == false || !props.accept || !account)) {
-                  _context3.next = 3;
+                  _context.next = 3;
                   break;
                 }
 
-                return _context3.abrupt("return");
+                return _context.abrupt("return");
 
               case 3:
                 slowRoutingTimeout = setTimeout(function () {
                   setSlowRouting(true);
                 }, 4000);
-                _context3.next = 6;
-                return routePayments(Object.assign({}, props, {
-                  account: account
+                _context.next = 6;
+                return routePayments(Object.assign({}, configuration, {
+                  accept: props.accept,
+                  account: account,
+                  drip: function drip(route) {
+                    if (route.fromToken.address !== route.toToken.address && !Blockchains__default['default'][route.blockchain].tokens.find(function (token) {
+                      return token.address.toLowerCase() === route.fromToken.address.toLowerCase();
+                    })) {
+                      return;
+                    }
+
+                    if (firstRouteDisplayed) {
+                      return;
+                    }
+
+                    firstRouteDisplayed = true;
+
+                    if (allRoutesLoaded) {
+                      return;
+                    }
+
+                    if (route.approvalRequired) {
+                      return;
+                    }
+
+                    clearInterval(slowRoutingTimeout);
+                    setUpdatedRoutes([route]);
+                  }
                 })).then(function (routes) {
+                  setUpdatedRoutes(routes);
+                  setAllRoutesLoadedInternal(true);
                   clearInterval(slowRoutingTimeout);
-                  onRoutesUpdate(routes);
                 });
 
               case 6:
-                return _context3.abrupt("return", _context3.sent);
+                return _context.abrupt("return", _context.sent);
 
               case 7:
               case "end":
-                return _context3.stop();
+                return _context.stop();
             }
           }
-        }, _callee3);
+        }, _callee);
       }));
 
-      return function getPaymentRoutes(_x3) {
-        return _ref4.apply(this, arguments);
+      return function getPaymentRoutes(_x) {
+        return _ref2.apply(this, arguments);
       };
     }();
 
@@ -25168,34 +25320,79 @@
     };
 
     var roundAmount = /*#__PURE__*/function () {
-      var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(route, amountBN) {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(route, amountBN) {
         var readableAmount, roundedAmountBN;
+        return regenerator.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!route.directTransfer) {
+                  _context2.next = 2;
+                  break;
+                }
+
+                return _context2.abrupt("return", route);
+
+              case 2:
+                _context2.next = 4;
+                return route.fromToken.readable(amountBN || route.fromAmount);
+
+              case 4:
+                readableAmount = _context2.sent;
+                _context2.next = 7;
+                return route.fromToken.BigNumber(round(readableAmount));
+
+              case 7:
+                roundedAmountBN = _context2.sent;
+                updateRouteAmount(route, roundedAmountBN);
+                return _context2.abrupt("return", route);
+
+              case 10:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function roundAmount(_x2, _x3) {
+        return _ref3.apply(this, arguments);
+      };
+    }();
+
+    var roundAmounts = /*#__PURE__*/function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(routes) {
+        return regenerator.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                return _context3.abrupt("return", Promise.all(routes.map(function (route) {
+                  return roundAmount(route);
+                })));
+
+              case 1:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      return function roundAmounts(_x4) {
+        return _ref4.apply(this, arguments);
+      };
+    }();
+
+    var updateRouteWithNewPrice = /*#__PURE__*/function () {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4() {
         return regenerator.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                if (!route.directTransfer) {
-                  _context4.next = 2;
-                  break;
-                }
-
-                return _context4.abrupt("return", route);
+                setSelectedRoute(_objectSpread$3({}, updatedRouteWithNewPrice));
+                setUpdatedRouteWithNewPrice(null);
 
               case 2:
-                _context4.next = 4;
-                return route.fromToken.readable(amountBN || route.fromAmount);
-
-              case 4:
-                readableAmount = _context4.sent;
-                _context4.next = 7;
-                return route.fromToken.BigNumber(round(readableAmount));
-
-              case 7:
-                roundedAmountBN = _context4.sent;
-                updateRouteAmount(route, roundedAmountBN);
-                return _context4.abrupt("return", route);
-
-              case 10:
               case "end":
                 return _context4.stop();
             }
@@ -25203,60 +25400,15 @@
         }, _callee4);
       }));
 
-      return function roundAmount(_x4, _x5) {
-        return _ref5.apply(this, arguments);
-      };
-    }();
-
-    var roundAmounts = /*#__PURE__*/function () {
-      var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
-        return regenerator.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                return _context5.abrupt("return", Promise.all(routes.map(function (route) {
-                  return roundAmount(route);
-                })));
-
-              case 1:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5);
-      }));
-
-      return function roundAmounts(_x6) {
-        return _ref6.apply(this, arguments);
-      };
-    }();
-
-    var updateRouteWithNewPrice = /*#__PURE__*/function () {
-      var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6() {
-        return regenerator.wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                setSelectedRoute(_objectSpread$3({}, updatedRouteWithNewPrice));
-                setUpdatedRouteWithNewPrice(null);
-
-              case 2:
-              case "end":
-                return _context6.stop();
-            }
-          }
-        }, _callee6);
-      }));
-
       return function updateRouteWithNewPrice() {
-        return _ref7.apply(this, arguments);
+        return _ref5.apply(this, arguments);
       };
     }();
 
     var refreshPaymentRoutes = function refreshPaymentRoutes() {
       return getPaymentRoutes({
         allRoutes: allRoutes,
-        selectedRoute: selectedRoute,
+        selectedRoute: undefined,
         updatable: updatable
       });
     };
@@ -25275,17 +25427,69 @@
       };
     }, [reloadCount, allRoutes, selectedRoute, updatable]);
     React.useEffect(function () {
-      if (account && props.accept && recover == undefined) {
+      if (recover) {
+        return;
+      }
+
+      if (account && props.accept) {
         refreshPaymentRoutes();
+      } else if (props.accept === undefined) {
+        setSelectedRoute();
+        setAllRoutesLoaded(false);
+        setUpdatedRoutes();
+        setAllRoutes();
       }
     }, [account, props.accept]);
+    React.useEffect(function () {
+      if (updatedRoutes === undefined) {
+        return;
+      }
+
+      if (updatedRoutes.length == 0) {
+        setAllRoutes(updatedRoutes);
+
+        if (props.setMaxRoute) {
+          props.setMaxRoute(null);
+        }
+      } else {
+        roundAmounts(updatedRoutes).then(function (roundedRoutes) {
+          if (typeof selectedRoute == 'undefined') {
+            var selectRoute = roundedRoutes[0];
+            setSelectedRoute(selectRoute);
+          } else {
+            var updatedSelectedRoute = roundedRoutes[roundedRoutes.findIndex(function (route) {
+              return route.fromToken.address == selectedRoute.fromToken.address && route.blockchain == selectedRoute.blockchain;
+            })];
+
+            if (updatedSelectedRoute) {
+              if (selectedRoute.fromAmount != updatedSelectedRoute.fromAmount) {
+                setUpdatedRouteWithNewPrice(updatedSelectedRoute);
+              } else if ( // other reasons but price to update selected route
+              selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired) {
+                setSelectedRoute(updatedSelectedRoute);
+              }
+            } else {
+              setSelectedRoute(roundedRoutes[0]);
+            }
+          }
+
+          roundedRoutes.assets = updatedRoutes.assets;
+          setAllRoutes(roundedRoutes);
+          setAllRoutesLoaded(allRoutesLoadedInternal);
+
+          if (props.setMaxRoute) {
+            props.setMaxRoute(findMaxRoute(roundedRoutes));
+          }
+        });
+      }
+    }, [selectedRoute, updatedRoutes]);
     return /*#__PURE__*/React__default['default'].createElement(PaymentRoutingContext.Provider, {
       value: {
         selectedRoute: selectedRoute,
         setSelectedRoute: setSelectedRoute,
         refreshPaymentRoutes: refreshPaymentRoutes,
         allRoutes: allRoutes,
-        setAllRoutes: setAllRoutes,
+        allRoutesLoaded: allRoutesLoaded,
         slowRouting: slowRouting,
         updatedRouteWithNewPrice: updatedRouteWithNewPrice,
         updateRouteWithNewPrice: updateRouteWithNewPrice
@@ -25299,6 +25503,9 @@
         acceptWithAmount = _useContext.acceptWithAmount,
         setMaxRoute = _useContext.setMaxRoute;
 
+    var _useContext2 = React.useContext(ConfigurationContext),
+        configuredAccept = _useContext2.accept;
+
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
         accept = _useState2[0],
@@ -25306,33 +25513,547 @@
 
     React.useEffect(function () {
       if (amountsMissing) {
-        if (acceptWithAmount) {
-          setAccept(acceptWithAmount);
-        }
+        setAccept(acceptWithAmount);
       } else {
-        setAccept(props.accept);
+        setAccept(configuredAccept);
       }
     }, [amountsMissing, acceptWithAmount]);
     return /*#__PURE__*/React__default['default'].createElement(PaymentAmountRoutingContext.Provider, {
       value: {}
     }, /*#__PURE__*/React__default['default'].createElement(PaymentRoutingProvider, {
       accept: accept,
-      whitelist: props.whitelist,
-      blacklist: props.blacklist,
-      event: props.event,
       setMaxRoute: setMaxRoute,
-      fee: props.fee,
       container: props.container,
       document: props.document
     }, props.children));
+  });
+
+  var InsufficientGraphic = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAGZCAYAAAD/+YnsAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFw2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgOS4wLWMwMDAgNzkuZGE0YTdlNWVmLCAyMDIyLzExLzIyLTEzOjUwOjA3ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjQuMSAoTWFjaW50b3NoKSIgeG1wOkNyZWF0ZURhdGU9IjIwMjMtMDgtMjJUMDg6MDM6NDUrMDI6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDIzLTA4LTIyVDA5OjI0OjIzKzAyOjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDIzLTA4LTIyVDA5OjI0OjIzKzAyOjAwIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgcGhvdG9zaG9wOkNvbG9yTW9kZT0iMyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4YjA0MTU4Mi04MWVhLTRkNjktOGNmMi1hMGI0MTAxYTZjOTUiIHhtcE1NOkRvY3VtZW50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";
+
+  var NATIVE_AMOUNT_REQUIRED_FOR_TRANSACTION = {
+    ethereum: ethers.ethers.BigNumber.from('3000000000000000'),
+    bsc: ethers.ethers.BigNumber.from('700000000000000'),
+    polygon: ethers.ethers.BigNumber.from('15000000000000000'),
+    solana: ethers.ethers.BigNumber.from('15000'),
+    optimism: ethers.ethers.BigNumber.from('3000000000000000'),
+    base: ethers.ethers.BigNumber.from('3000000000000000'),
+    arbitrum: ethers.ethers.BigNumber.from('3000000000000000'),
+    fantom: ethers.ethers.BigNumber.from('3000000000000000'),
+    avalanche: ethers.ethers.BigNumber.from('3000000000000000'),
+    gnosis: ethers.ethers.BigNumber.from('3000000000000000')
+  };
+  var InsufficientAmountOfTokensDialog = (function (props) {
+    var _useState = React.useState(),
+        _useState2 = _slicedToArray(_useState, 2),
+        recommendedAssetSymbol = _useState2[0],
+        setRecommendedAssetSymbol = _useState2[1];
+
+    var _useState3 = React.useState(),
+        _useState4 = _slicedToArray(_useState3, 2),
+        recommendedAssetAmountAvailable = _useState4[0],
+        setRecommendedAssetAmountAvailable = _useState4[1];
+
+    var _useState5 = React.useState(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        recommendedAssetAmountRequired = _useState6[0],
+        setRecommendedAssetAmountRequired = _useState6[1];
+
+    var _useState7 = React.useState(),
+        _useState8 = _slicedToArray(_useState7, 2),
+        recommendedAssetTotalAmountDue = _useState8[0],
+        setRecommendedAssetTotalAmountDue = _useState8[1];
+
+    var _useState9 = React.useState(true),
+        _useState10 = _slicedToArray(_useState9, 2),
+        loading = _useState10[0],
+        setLoading = _useState10[1];
+
+    var _useContext = React.useContext(reactDialogStack.NavigateStackContext);
+        _useContext.navigate;
+        var set = _useContext.set;
+
+    var _useContext2 = React.useContext(ConfigurationContext),
+        accept = _useContext2.accept;
+
+    var _useContext3 = React.useContext(ClosableContext),
+        close = _useContext3.close;
+
+    var setRecommendation = /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref) {
+        var route, accept, nativeAvailableAsset, token, asset;
+        return regenerator.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                route = _ref.route, accept = _ref.accept;
+                nativeAvailableAsset = props.assets.find(function (asset) {
+                  return Blockchains__default['default'][asset.blockchain].currency.address.toLowerCase() === asset.address.toLowerCase();
+                });
+
+                if (!(route.blockchain === accept.blockchain && route.tokenIn.toLowerCase() === accept.token.toLowerCase())) {
+                  _context3.next = 34;
+                  break;
+                }
+
+                token = new Token__default['default']({
+                  blockchain: route.blockchain,
+                  address: route.tokenIn
+                });
+                asset = props.assets.find(function (asset) {
+                  return asset.blockchain === route.blockchain && asset.address.toLowerCase() === route.tokenIn.toLowerCase();
+                });
+                _context3.t0 = setRecommendedAssetTotalAmountDue;
+                _context3.t1 = round;
+                _context3.next = 9;
+                return token.readable(ethers.ethers.BigNumber.from(accept.amount));
+
+              case 9:
+                _context3.t2 = _context3.sent;
+                _context3.t3 = (0, _context3.t1)(_context3.t2);
+                (0, _context3.t0)(_context3.t3);
+                _context3.t4 = setRecommendedAssetAmountRequired;
+                _context3.t5 = round;
+                _context3.next = 16;
+                return token.readable(ethers.ethers.BigNumber.from(route.amountIn).sub(ethers.ethers.BigNumber.from(asset.balance)));
+
+              case 16:
+                _context3.t6 = _context3.sent;
+                _context3.t7 = (0, _context3.t5)(_context3.t6);
+                (0, _context3.t4)(_context3.t7);
+                _context3.t8 = setRecommendedAssetSymbol;
+                _context3.next = 22;
+                return token.symbol();
+
+              case 22:
+                _context3.t9 = _context3.sent;
+                (0, _context3.t8)(_context3.t9);
+                _context3.t10 = setRecommendedAssetAmountAvailable;
+                _context3.t11 = round;
+                _context3.next = 28;
+                return token.readable(asset.balance);
+
+              case 28:
+                _context3.t12 = _context3.sent;
+                _context3.t13 = (0, _context3.t11)(_context3.t12, 'down');
+                (0, _context3.t10)(_context3.t13);
+                setLoading(false);
+                _context3.next = 63;
+                break;
+
+              case 34:
+                if (!(!nativeAvailableAsset || ethers.ethers.BigNumber.from(nativeAvailableAsset.balance).lt(NATIVE_AMOUNT_REQUIRED_FOR_TRANSACTION[nativeAvailableAsset.blockchain]))) {
+                  _context3.next = 48;
+                  break;
+                }
+
+                _context3.t14 = Exchanges__default['default'];
+                _context3.t15 = route.blockchain;
+                _context3.t16 = Blockchains__default['default'][route.blockchain].currency.address;
+                _context3.next = 40;
+                return Token__default['default'].BigNumber({
+                  amount: accept.amount,
+                  blockchain: accept.blockchain,
+                  address: accept.token
+                });
+
+              case 40:
+                _context3.t17 = _context3.sent;
+                _context3.t18 = accept.token;
+                _context3.t19 = props.account;
+                _context3.t20 = accept.receiver;
+                _context3.t21 = {
+                  blockchain: _context3.t15,
+                  tokenIn: _context3.t16,
+                  amountOut: _context3.t17,
+                  tokenOut: _context3.t18,
+                  fromAddress: _context3.t19,
+                  toAddress: _context3.t20
+                };
+
+                _context3.t14.route.call(_context3.t14, _context3.t21).then( /*#__PURE__*/function () {
+                  var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(routes) {
+                    var route;
+                    return regenerator.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            route = routes[0];
+                            _context.t0 = setRecommendedAssetAmountRequired;
+                            _context.t1 = round;
+                            _context.next = 5;
+                            return Token__default['default'].readable({
+                              blockchain: route.blockchain,
+                              address: route.tokenIn,
+                              amount: route.amountIn
+                            });
+
+                          case 5:
+                            _context.t2 = _context.sent;
+                            _context.t3 = (0, _context.t1)(_context.t2);
+                            (0, _context.t0)(_context.t3);
+                            setRecommendedAssetSymbol(Blockchains__default['default'][route.blockchain].currency.symbol);
+                            setRecommendedAssetAmountAvailable(0);
+                            setLoading(false);
+
+                          case 11:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x2) {
+                    return _ref3.apply(this, arguments);
+                  };
+                }());
+
+                _context3.next = 63;
+                break;
+
+              case 48:
+                if (!route) {
+                  _context3.next = 62;
+                  break;
+                }
+
+                _context3.t22 = Exchanges__default['default'];
+                _context3.t23 = route.blockchain;
+                _context3.t24 = route.tokenIn;
+                _context3.next = 54;
+                return Token__default['default'].BigNumber({
+                  amount: accept.amount,
+                  blockchain: accept.blockchain,
+                  address: accept.token
+                });
+
+              case 54:
+                _context3.t25 = _context3.sent;
+                _context3.t26 = accept.token;
+                _context3.t27 = props.account;
+                _context3.t28 = accept.receiver;
+                _context3.t29 = {
+                  blockchain: _context3.t23,
+                  tokenIn: _context3.t24,
+                  amountOut: _context3.t25,
+                  tokenOut: _context3.t26,
+                  fromAddress: _context3.t27,
+                  toAddress: _context3.t28
+                };
+
+                _context3.t22.route.call(_context3.t22, _context3.t29).then( /*#__PURE__*/function () {
+                  var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(routes) {
+                    var route, token, asset;
+                    return regenerator.wrap(function _callee2$(_context2) {
+                      while (1) {
+                        switch (_context2.prev = _context2.next) {
+                          case 0:
+                            route = routes[0];
+                            token = new Token__default['default']({
+                              blockchain: route.blockchain,
+                              address: route.tokenIn
+                            });
+                            asset = props.assets.find(function (asset) {
+                              return asset.blockchain === route.blockchain && asset.address.toLowerCase() === route.tokenIn.toLowerCase();
+                            });
+                            _context2.t0 = setRecommendedAssetTotalAmountDue;
+                            _context2.t1 = round;
+                            _context2.next = 7;
+                            return token.readable(ethers.ethers.BigNumber.from(route.amountIn).mul(101).div(100));
+
+                          case 7:
+                            _context2.t2 = _context2.sent;
+                            _context2.t3 = (0, _context2.t1)(_context2.t2);
+                            (0, _context2.t0)(_context2.t3);
+                            _context2.t4 = setRecommendedAssetAmountRequired;
+                            _context2.t5 = round;
+                            _context2.next = 14;
+                            return token.readable(ethers.ethers.BigNumber.from(route.amountIn).sub(ethers.ethers.BigNumber.from(asset.balance)).mul(101).div(100));
+
+                          case 14:
+                            _context2.t6 = _context2.sent;
+                            _context2.t7 = (0, _context2.t5)(_context2.t6);
+                            (0, _context2.t4)(_context2.t7);
+                            _context2.t8 = setRecommendedAssetSymbol;
+                            _context2.next = 20;
+                            return token.symbol();
+
+                          case 20:
+                            _context2.t9 = _context2.sent;
+                            (0, _context2.t8)(_context2.t9);
+                            _context2.t10 = setRecommendedAssetAmountAvailable;
+                            _context2.t11 = round;
+                            _context2.next = 26;
+                            return token.readable(asset.balance);
+
+                          case 26:
+                            _context2.t12 = _context2.sent;
+                            _context2.t13 = (0, _context2.t11)(_context2.t12, 'down');
+                            (0, _context2.t10)(_context2.t13);
+                            setLoading(false);
+
+                          case 30:
+                          case "end":
+                            return _context2.stop();
+                        }
+                      }
+                    }, _callee2);
+                  }));
+
+                  return function (_x3) {
+                    return _ref4.apply(this, arguments);
+                  };
+                }());
+
+                _context3.next = 63;
+                break;
+
+              case 62:
+                set(['NoPaymentOptionFound']);
+
+              case 63:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      return function setRecommendation(_x) {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+
+    React.useEffect(function () {
+      var loadRecommendations = /*#__PURE__*/function () {
+        var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6() {
+          var directTransfer, token;
+          return regenerator.wrap(function _callee6$(_context6) {
+            while (1) {
+              switch (_context6.prev = _context6.next) {
+                case 0:
+                  directTransfer = accept.find(function (accept) {
+                    return props.assets.find(function (asset) {
+                      return accept.blockchain === asset.blockchain && accept.token.toLowerCase() === asset.address.toLowerCase();
+                    });
+                  });
+
+                  if (!directTransfer) {
+                    _context6.next = 14;
+                    break;
+                  }
+
+                  token = new Token__default['default']({
+                    blockchain: directTransfer.blockchain,
+                    address: directTransfer.token
+                  });
+                  _context6.t0 = directTransfer.blockchain;
+                  _context6.t1 = directTransfer.token;
+                  _context6.next = 7;
+                  return token.BigNumber(directTransfer.amount);
+
+                case 7:
+                  _context6.t2 = _context6.sent;
+                  _context6.next = 10;
+                  return token.BigNumber(directTransfer.amount);
+
+                case 10:
+                  _context6.t3 = _context6.sent;
+                  _context6.t4 = directTransfer.token;
+                  _context6.t5 = directTransfer.receiver;
+                  directTransfer = {
+                    blockchain: _context6.t0,
+                    tokenIn: _context6.t1,
+                    amountIn: _context6.t2,
+                    amount: _context6.t3,
+                    token: _context6.t4,
+                    receiver: _context6.t5
+                  };
+
+                case 14:
+                  if (directTransfer && props.assets.find(function (asset) {
+                    return Blockchains__default['default'][asset.blockchain].currency.address.toLowerCase() === asset.address.toLowerCase();
+                  }) && props.assets.find(function (asset) {
+                    return Blockchains__default['default'][asset.blockchain].currency.address.toLowerCase() === asset.address.toLowerCase();
+                  }).balance !== '0') {
+                    setRecommendation({
+                      route: directTransfer,
+                      accept: directTransfer
+                    });
+                  } else {
+                    // requires routing
+                    Promise.all(props.assets.map(function (asset) {
+                      if (!Blockchains__default['default'][asset.blockchain].tokens.find(function (token) {
+                        return token.address.toLowerCase() === asset.address.toLowerCase();
+                      })) {
+                        return;
+                      } // consdier only major tokens for this
+
+
+                      return accept.map( /*#__PURE__*/function () {
+                        var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(accept) {
+                          return regenerator.wrap(function _callee4$(_context4) {
+                            while (1) {
+                              switch (_context4.prev = _context4.next) {
+                                case 0:
+                                  if (!(accept.blockchain === asset.blockchain)) {
+                                    _context4.next = 12;
+                                    break;
+                                  }
+
+                                  _context4.t0 = Exchanges__default['default'];
+                                  _context4.t1 = asset.blockchain;
+                                  _context4.t2 = asset.address;
+                                  _context4.next = 6;
+                                  return Token__default['default'].BigNumber({
+                                    amount: accept.amount,
+                                    blockchain: accept.blockchain,
+                                    address: accept.token
+                                  });
+
+                                case 6:
+                                  _context4.t3 = _context4.sent;
+                                  _context4.t4 = accept.token;
+                                  _context4.t5 = props.account;
+                                  _context4.t6 = accept.receiver;
+                                  _context4.t7 = {
+                                    blockchain: _context4.t1,
+                                    tokenIn: _context4.t2,
+                                    amountOut: _context4.t3,
+                                    tokenOut: _context4.t4,
+                                    fromAddress: _context4.t5,
+                                    toAddress: _context4.t6
+                                  };
+                                  return _context4.abrupt("return", _context4.t0.route.call(_context4.t0, _context4.t7));
+
+                                case 12:
+                                case "end":
+                                  return _context4.stop();
+                              }
+                            }
+                          }, _callee4);
+                        }));
+
+                        return function (_x4) {
+                          return _ref6.apply(this, arguments);
+                        };
+                      }()).filter(Boolean).flat();
+                    }).flat().filter(Boolean)).then( /*#__PURE__*/function () {
+                      var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
+                        var route, recommendedAccept;
+                        return regenerator.wrap(function _callee5$(_context5) {
+                          while (1) {
+                            switch (_context5.prev = _context5.next) {
+                              case 0:
+                                route = (routes || []).flat().find(function (route) {
+                                  return accept.find(function (accept) {
+                                    return accept.blockchain === route.blockchain && accept.token.toLowerCase() === route.tokenOut.toLowerCase();
+                                  });
+                                }) || routes.flat()[0];
+
+                                if (!route) {
+                                  set(['NoPaymentOptionFound']);
+                                } else {
+                                  recommendedAccept = accept.find(function (accept) {
+                                    return accept.blockchain === route.blockchain && accept.token.toLowerCase() === route.tokenOut.toLowerCase();
+                                  }) || accept.find(function (accept) {
+                                    return accept.blockchain === route.blockchain;
+                                  });
+                                  setRecommendation({
+                                    route: route,
+                                    accept: recommendedAccept
+                                  });
+                                }
+
+                              case 2:
+                              case "end":
+                                return _context5.stop();
+                            }
+                          }
+                        }, _callee5);
+                      }));
+
+                      return function (_x5) {
+                        return _ref7.apply(this, arguments);
+                      };
+                    }());
+                  }
+
+                case 15:
+                case "end":
+                  return _context6.stop();
+              }
+            }
+          }, _callee6);
+        }));
+
+        return function loadRecommendations() {
+          return _ref5.apply(this, arguments);
+        };
+      }();
+
+      loadRecommendations();
+    }, []);
+    return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
+      header: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }),
+      body: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TextCenter PaddingBottomS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "Graphic",
+        src: InsufficientGraphic
+      })), /*#__PURE__*/React__default['default'].createElement("h1", {
+        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+      }, "Insufficient Amount"), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM"
+      }, loading && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Skeleton",
+        style: {
+          borderRadius: "18px",
+          width: "100%",
+          height: "170px"
+        }
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "SkeletonBackground"
+      })), !loading && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", null, recommendedAssetAmountAvailable > 0 && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("strong", {
+        className: "FontSizeM"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        style: {
+          fontWeight: 'bold'
+        }
+      }, recommendedAssetAmountRequired, " ", recommendedAssetSymbol), /*#__PURE__*/React__default['default'].createElement("br", null), " are additionally required in order to perform this payment of ", recommendedAssetTotalAmountDue, " ", recommendedAssetSymbol, ".")), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingBottomM"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", {
+        className: "FontSizeM"
+      }, "Please top up or swap another token to ", recommendedAssetSymbol, " to perform this payment."))), recommendedAssetAmountAvailable === 0 && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("strong", {
+        className: "FontSizeM"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        style: {
+          fontWeight: 'bold'
+        }
+      }, recommendedAssetAmountRequired, " ", recommendedAssetSymbol), /*#__PURE__*/React__default['default'].createElement("br", null), " is required in order to perform this payment.")), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", {
+        className: "FontSizeM"
+      }, "Please top up your ", recommendedAssetSymbol, " to perform this payment."))))))),
+      footer: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        className: "ButtonPrimary",
+        onClick: close
+      }, "Ok"))
+    });
   });
 
   var NoPaymentOptionFoundDialog = (function () {
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext.navigate;
 
-    var _useContext2 = React.useContext(ClosableContext);
-        _useContext2.close;
+    var _useContext2 = React.useContext(ClosableContext),
+        close = _useContext2.close;
 
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
@@ -25362,7 +26083,10 @@
       }, "Check available payment options"))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-      })
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        className: "ButtonPrimary",
+        onClick: close
+      }, "Ok"))
     });
   });
 
@@ -25388,7 +26112,7 @@
 
     React.useEffect(function () {
       Promise.all(accept.map(function (configuration) {
-        var token = new web3Tokens.Token({
+        var token = new Token__default['default']({
           blockchain: configuration.blockchain,
           address: configuration.token
         });
@@ -25451,7 +26175,10 @@
             blockchain: paymentOption.blockchain,
             address: paymentOption.token
           }), /*#__PURE__*/React__default['default'].createElement("img", {
-            className: "BlockchainLogo small " + Blockchains__default['default'][paymentOption.blockchain].name,
+            className: "BlockchainLogo small bottomRight " + Blockchains__default['default'][paymentOption.blockchain].name,
+            style: {
+              backgroundColor: Blockchains__default['default'][paymentOption.blockchain].logoBackgroundColor
+            },
             src: Blockchains__default['default'][paymentOption.blockchain].logo,
             alt: Blockchains__default['default'][paymentOption.blockchain].label,
             title: Blockchains__default['default'][paymentOption.blockchain].label
@@ -25499,10 +26226,13 @@
         succeeded = _useContext2.succeeded,
         failed = _useContext2.failed,
         recover = _useContext2.recover,
-        before = _useContext2.before;
+        before = _useContext2.before,
+        accept = _useContext2.accept;
 
     var _useContext3 = React.useContext(PaymentRoutingContext),
-        selectedRoute = _useContext3.selectedRoute,
+        allRoutes = _useContext3.allRoutes;
+        _useContext3.allAssets;
+        var selectedRoute = _useContext3.selectedRoute,
         refreshPaymentRoutes = _useContext3.refreshPaymentRoutes;
 
     var _useContext4 = React.useContext(ClosableContext),
@@ -25510,30 +26240,28 @@
         close = _useContext4.close,
         setClosable = _useContext4.setClosable;
 
-    var _useContext5 = React.useContext(PaymentRoutingContext),
-        allRoutes = _useContext5.allRoutes;
+    var _useContext5 = React.useContext(UpdatableContext),
+        setUpdatable = _useContext5.setUpdatable;
 
-    var _useContext6 = React.useContext(UpdatableContext),
-        setUpdatable = _useContext6.setUpdatable;
+    var _useContext6 = React.useContext(NavigateContext),
+        navigate = _useContext6.navigate,
+        set = _useContext6.set;
 
-    var _useContext7 = React.useContext(NavigateContext),
-        navigate = _useContext7.navigate,
-        set = _useContext7.set;
+    var _useContext7 = React.useContext(WalletContext),
+        wallet = _useContext7.wallet,
+        account = _useContext7.account;
 
-    var _useContext8 = React.useContext(WalletContext),
-        wallet = _useContext8.wallet;
+    var _useContext8 = React.useContext(PaymentTrackingContext),
+        release = _useContext8.release,
+        synchronousTracking = _useContext8.synchronousTracking,
+        asynchronousTracking = _useContext8.asynchronousTracking,
+        trackingInitialized = _useContext8.trackingInitialized,
+        initializePaymentTracking = _useContext8.initializeTracking,
+        trace = _useContext8.trace;
 
-    var _useContext9 = React.useContext(PaymentTrackingContext),
-        release = _useContext9.release,
-        synchronousTracking = _useContext9.synchronousTracking,
-        asynchronousTracking = _useContext9.asynchronousTracking,
-        trackingInitialized = _useContext9.trackingInitialized,
-        initializePaymentTracking = _useContext9.initializeTracking,
-        trace = _useContext9.trace;
-
-    var _useContext10 = React.useContext(TransactionTrackingContext),
-        foundTransaction = _useContext10.foundTransaction,
-        initializeTransactionTracking = _useContext10.initializeTracking;
+    var _useContext9 = React.useContext(TransactionTrackingContext),
+        foundTransaction = _useContext9.foundTransaction,
+        initializeTransactionTracking = _useContext9.initializeTracking;
 
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
@@ -25742,7 +26470,7 @@
             }
           })
         });
-        var paymentToken = new web3Tokens.Token({
+        var paymentToken = new Token__default['default']({
           blockchain: recover.blockchain,
           address: recover.token
         });
@@ -25782,7 +26510,7 @@
         }
       }
     }, [foundTransaction, transaction]);
-    React.useEffect(function () {
+    var debouncedSetPayment = React.useCallback(lodash.debounce(function (selectedRoute) {
       if (selectedRoute) {
         var fromToken = selectedRoute.fromToken;
         Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref5) {
@@ -25800,9 +26528,12 @@
             amount: amount
           });
         })["catch"](setError);
-      } else {
-        setPayment(undefined);
+      } else if (recover === undefined) {
+        setPayment();
       }
+    }, 100), []);
+    React.useEffect(function () {
+      debouncedSetPayment(selectedRoute);
     }, [selectedRoute]);
     React.useEffect(function () {
       if (allRoutes && allRoutes.length == 0) {
@@ -25816,10 +26547,15 @@
       return /*#__PURE__*/React__default['default'].createElement(reactDialogStack.ReactDialogStack, {
         open: open,
         close: close,
-        start: "NoPaymentOptionFound",
+        start: allRoutes.assets === undefined || allRoutes.assets.length === 0 ? 'NoPaymentOptionFound' : 'InsufficientAmountOfTokens',
         container: props.container,
         document: props.document,
         dialogs: {
+          InsufficientAmountOfTokens: /*#__PURE__*/React__default['default'].createElement(InsufficientAmountOfTokensDialog, {
+            assets: allRoutes.assets,
+            accept: accept,
+            account: account
+          }),
           NoPaymentOptionFound: /*#__PURE__*/React__default['default'].createElement(NoPaymentOptionFoundDialog, null),
           PaymentOptions: /*#__PURE__*/React__default['default'].createElement(PaymentOptionsDialog, null)
         }
@@ -25979,7 +26715,7 @@
         className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL TextCenter"
-      }, "Change Payment"), paymentValue != undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Payment options"), paymentValue != undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "FontSizeL TextCenter FontWeightBold"
       }, /*#__PURE__*/React__default['default'].createElement("strong", null, paymentValue.toString()))),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
@@ -25998,7 +26734,12 @@
         className: "Card Skeleton"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "SkeletonBackground"
-      }))))
+      })))),
+      footer: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingBottomXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TextCenter Opacity05 PaddingTopS PaddingBottomS"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Loading all payment options...")))
     });
   });
 
@@ -26008,6 +26749,7 @@
 
     var _useContext2 = React.useContext(PaymentRoutingContext),
         allRoutes = _useContext2.allRoutes,
+        allRoutesLoaded = _useContext2.allRoutesLoaded,
         setSelectedRoute = _useContext2.setSelectedRoute;
 
     var _useContext3 = React.useContext(PaymentValueContext),
@@ -26016,18 +26758,76 @@
     var _useContext4 = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext4.navigate;
 
-    var _useState = React.useState([]),
+    var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
-        allPaymentRoutesWithData = _useState2[0],
-        setAllPaymentRoutesWithData = _useState2[1];
+        allBestPaymentOptions = _useState2[0],
+        setBestPaymentOptions = _useState2[1];
 
-    var _useState3 = React.useState([]),
+    var _useState3 = React.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
-        cards = _useState4[0],
-        setCards = _useState4[1];
+        allMajorPaymentOptions = _useState4[0],
+        setMajorPaymentOptions = _useState4[1];
 
+    var _useState5 = React.useState(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        allNativePaymentOptions = _useState6[0],
+        setNativePaymentOptions = _useState6[1];
+
+    var _useState7 = React.useState(),
+        _useState8 = _slicedToArray(_useState7, 2),
+        allStablePaymentOptions = _useState8[0],
+        setStablePaymentOptions = _useState8[1];
+
+    var _useState9 = React.useState(),
+        _useState10 = _slicedToArray(_useState9, 2),
+        allPaymentOptions = _useState10[0],
+        setAllPaymentOptions = _useState10[1];
+
+    var _useState11 = React.useState(),
+        _useState12 = _slicedToArray(_useState11, 2),
+        selectedPaymentOptions = _useState12[0],
+        setSelectedPaymentOptions = _useState12[1];
+
+    var _useState13 = React.useState(),
+        _useState14 = _slicedToArray(_useState13, 2),
+        selectedTab = _useState14[0],
+        setSelectedTab = _useState14[1];
+
+    var _useState15 = React.useState(false),
+        _useState16 = _slicedToArray(_useState15, 2),
+        searching = _useState16[0],
+        setSearching = _useState16[1];
+
+    var _useState17 = React.useState(''),
+        _useState18 = _slicedToArray(_useState17, 2),
+        searchTerm = _useState18[0],
+        setSearchTerm = _useState18[1];
+
+    var _useState19 = React.useState(),
+        _useState20 = _slicedToArray(_useState19, 2),
+        fuse = _useState20[0],
+        setFuse = _useState20[1];
+
+    var searchPaymentOption = React.useCallback(lodash.debounce(function (term, fuse) {
+      var results = fuse.search(term);
+      setSelectedPaymentOptions(results.map(function (result) {
+        return result.item;
+      }));
+      listElement.current.scrollTop = 0;
+    }, 300), []);
+
+    var onChangeSearch = function onChangeSearch(event, fuse, allPaymentOptions) {
+      setSearchTerm(event.target.value);
+      searchPaymentOption(event.target.value, fuse, allPaymentOptions);
+    };
+
+    var listElement = React.useRef();
     React.useEffect(function () {
       if (allRoutes == undefined) {
+        return;
+      }
+
+      if (allRoutesLoaded !== true) {
         return;
       }
 
@@ -26035,76 +26835,210 @@
         route.exchangeRoutes[0];
         route.fromToken;
         return Promise.all([route.fromToken.name(), route.fromToken.symbol(), route.fromToken.decimals(), route.fromToken.readable(route.fromAmount)]);
-      })).then(function (allPaymentRoutesWithData) {
-        setAllPaymentRoutesWithData(allRoutes.map(function (route, index) {
+      })).then(function (allPaymentRoutes) {
+        var allPaymentRoutesWithDisplayData = allRoutes.map(function (route, index) {
           return {
-            name: allPaymentRoutesWithData[index][0],
-            symbol: allPaymentRoutesWithData[index][1].toUpperCase(),
-            decimals: allPaymentRoutesWithData[index][2],
-            amount: allPaymentRoutesWithData[index][3],
+            name: allPaymentRoutes[index][0],
+            symbol: allPaymentRoutes[index][1].toUpperCase(),
+            decimals: allPaymentRoutes[index][2],
+            amount: allPaymentRoutes[index][3],
+            blockchainName: route.blockchain,
             route: route
           };
+        });
+        setFuse(new Fuse__default['default'](allPaymentRoutesWithDisplayData, {
+          keys: ['name', 'symbol', 'blockchainName'],
+          threshold: 0.3,
+          ignoreFieldNorm: true
         }));
-      })["catch"](setError);
-    }, [allRoutes]);
-    React.useEffect(function () {
-      setCards(allPaymentRoutesWithData.map(function (payment, index) {
-        var blockchain = Blockchains__default['default'].findByName(payment.route.blockchain);
-        return /*#__PURE__*/React__default['default'].createElement("div", {
-          key: index,
-          className: "Card",
-          title: "Select ".concat(payment.symbol, " as payment"),
-          onClick: function onClick() {
-            setSelectedRoute(payment.route);
-            navigate('back');
-          }
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardImage"
-        }, /*#__PURE__*/React__default['default'].createElement(reactTokenImage.TokenImage, {
-          blockchain: payment.route.blockchain,
-          address: payment.route.fromToken.address
-        }), /*#__PURE__*/React__default['default'].createElement("img", {
-          className: "BlockchainLogo small " + blockchain.name,
-          src: blockchain.logo,
-          alt: blockchain.label,
-          title: blockchain.label
-        })), /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardBodyWrapper"
-        }, /*#__PURE__*/React__default['default'].createElement("h2", {
-          className: "CardText"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "TokenAmountRow"
-        }, /*#__PURE__*/React__default['default'].createElement("span", {
-          className: "TokenSymbolCell"
-        }, payment.symbol), /*#__PURE__*/React__default['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default['default'].createElement("span", {
-          className: "TokenAmountCell"
-        }, format(payment.amount)))), /*#__PURE__*/React__default['default'].createElement("h3", {
-          className: "CardText small"
-        }, /*#__PURE__*/React__default['default'].createElement("small", null, format(round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals), 'down')))))));
-      }));
-    }, [allPaymentRoutesWithData]);
+        var bestPaymentOptions = allPaymentRoutesWithDisplayData.filter(function (paymentRoute) {
+          return paymentRoute.route.fromToken.address.toLowerCase() === paymentRoute.route.toToken.address.toLowerCase();
+        });
+        setBestPaymentOptions(bestPaymentOptions);
+        var majorPaymentOptions = allPaymentRoutesWithDisplayData.filter(function (paymentRoute) {
+          return Blockchains__default['default'][paymentRoute.route.blockchain].tokens.find(function (token) {
+            return token.address.toLowerCase() === paymentRoute.route.fromToken.address.toLowerCase();
+          });
+        });
+        setMajorPaymentOptions(majorPaymentOptions);
+        setNativePaymentOptions(allPaymentRoutesWithDisplayData.filter(function (paymentRoute) {
+          return Blockchains__default['default'][paymentRoute.route.blockchain].currency.address.toLowerCase() === paymentRoute.route.fromToken.address.toLowerCase();
+        }));
+        setStablePaymentOptions(allPaymentRoutesWithDisplayData.filter(function (paymentRoute) {
+          return Blockchains__default['default'][paymentRoute.route.blockchain].stables.usd.find(function (stable) {
+            return stable.toLowerCase() === paymentRoute.route.fromToken.address.toLowerCase();
+          });
+        }));
+        setAllPaymentOptions(allPaymentRoutesWithDisplayData);
 
-    if (allPaymentRoutesWithData.length == 0 || cards.length == 0) {
+        if (selectedPaymentOptions === undefined) {
+          if (bestPaymentOptions.length) {
+            setSelectedTab('best');
+            setSelectedPaymentOptions(bestPaymentOptions);
+          } else {
+            setSelectedTab('major');
+            setSelectedPaymentOptions(majorPaymentOptions);
+          }
+        }
+      })["catch"](setError);
+    }, [allRoutes, allRoutesLoaded]);
+    var displayedPaymentOptions = selectedPaymentOptions === null || selectedPaymentOptions === void 0 ? void 0 : selectedPaymentOptions.map(function (payment, index) {
+      var blockchain = Blockchains__default['default'].findByName(payment.route.blockchain);
+      return /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        key: index,
+        className: "Card",
+        title: "Select ".concat(payment.symbol, " as payment"),
+        onClick: function onClick() {
+          setSelectedRoute(payment.route);
+          navigate('back');
+        }
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React__default['default'].createElement(reactTokenImage.TokenImage, {
+        blockchain: payment.route.blockchain,
+        address: payment.route.fromToken.address
+      }), /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "BlockchainLogo small bottomRight " + blockchain.name,
+        style: {
+          backgroundColor: blockchain.logoBackgroundColor
+        },
+        src: blockchain.logo,
+        alt: blockchain.label,
+        title: blockchain.label
+      })), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React__default['default'].createElement("h2", {
+        className: "CardText"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TokenAmountRow"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        className: "TokenSymbolCell"
+      }, payment.symbol), /*#__PURE__*/React__default['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default['default'].createElement("span", {
+        className: "TokenAmountCell"
+      }, format(payment.amount)))), /*#__PURE__*/React__default['default'].createElement("h3", {
+        className: "CardText small"
+      }, /*#__PURE__*/React__default['default'].createElement("small", null, format(round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals), 'down')))))));
+    });
+
+    if (!allRoutesLoaded || displayedPaymentOptions === undefined) {
       return /*#__PURE__*/React__default['default'].createElement(ChangePaymentSkeleton, null);
     }
 
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       stacked: true,
       header: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL TextCenter"
-      }, "Change Payment"), displayedPaymentValue != undefined && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Payment options"), displayedPaymentValue != undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "FontSizeL TextCenter FontWeightBold"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", null, displayedPaymentValue.toString()))),
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, displayedPaymentValue.toString())), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopXS PaddingBottomXS TextLeft",
+        style: {
+          height: "32px"
+        }
+      }, !searching && /*#__PURE__*/React__default['default'].createElement("div", null, allBestPaymentOptions.length > 0 && /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        className: "Tab ".concat(selectedTab === 'best' ? 'active' : ''),
+        title: "Payment options not requiring conversion",
+        onClick: function onClick() {
+          setSelectedTab('best');
+          setSelectedPaymentOptions(allBestPaymentOptions);
+          listElement.current.scrollTop = 0;
+        }
+      }, "Best"), /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        className: "Tab ".concat(selectedTab === 'major' ? 'active' : ''),
+        title: "Major tokens available to use",
+        onClick: function onClick() {
+          setSelectedTab('major');
+          setSelectedPaymentOptions(allMajorPaymentOptions);
+          listElement.current.scrollTop = 0;
+        }
+      }, "Major"), allNativePaymentOptions.length > 0 && /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        className: "Tab ".concat(selectedTab === 'native' ? 'active' : ''),
+        title: "Native blockchain currencies available to use",
+        onClick: function onClick() {
+          setSelectedTab('native');
+          setSelectedPaymentOptions(allNativePaymentOptions);
+          listElement.current.scrollTop = 0;
+        }
+      }, "Native"), allStablePaymentOptions.length > 0 && /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        className: "Tab ".concat(selectedTab === 'stable' ? 'active' : ''),
+        title: "Stablecoins available to use",
+        onClick: function onClick() {
+          setSelectedTab('stable');
+          setSelectedPaymentOptions(allStablePaymentOptions);
+          listElement.current.scrollTop = 0;
+        }
+      }, "Stable"), /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        className: "Tab ".concat(selectedTab === 'all' ? 'active' : ''),
+        title: "All available payment options",
+        onClick: function onClick() {
+          setSelectedTab('all');
+          setSelectedPaymentOptions(allPaymentOptions);
+          listElement.current.scrollTop = 0;
+        }
+      }, "All"), /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        className: "Tab",
+        title: "Search for a payment option",
+        style: {
+          fontSize: '12px',
+          position: 'relative',
+          top: '-2px'
+        },
+        onClick: function onClick() {
+          setSelectedTab('all');
+          setSelectedPaymentOptions(allPaymentOptions);
+          setSearching(true);
+          listElement.current.scrollTop = 0;
+        }
+      }, "\uD83D\uDD0D")), searching && /*#__PURE__*/React__default['default'].createElement("div", {
+        style: {
+          display: 'flex'
+        }
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        className: "Tab",
+        title: "Go back to all payment options",
+        onClick: function onClick() {
+          setSelectedTab('all');
+          setSelectedPaymentOptions(allPaymentOptions);
+          setSearching(false);
+          setSearchTerm('');
+          listElement.current.scrollTop = 0;
+        }
+      }, /*#__PURE__*/React__default['default'].createElement(ChevronLeft, {
+        className: "small"
+      })), /*#__PURE__*/React__default['default'].createElement("input", {
+        type: "text",
+        className: "Search small",
+        placeholder: "Search by name, symbol or blockchain",
+        autoFocus: true,
+        value: searchTerm,
+        onChange: function onChange(event) {
+          return onChangeSearch(event, fuse, allPaymentOptions);
+        }
+      }))))),
+      bodyClassName: "ScrollHeight",
+      bodyRef: listElement,
       body: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "MaxHeight PaddingTopXS"
+        className: "PaddingTopXS PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM"
-      }, cards)),
-      footer: /*#__PURE__*/React__default['default'].createElement("div", null)
+      }, displayedPaymentOptions, displayedPaymentOptions.length === 0 && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TextCenter Opacity05 PaddingTopS PaddingBottomS"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Nothing found for the given search term."), /*#__PURE__*/React__default['default'].createElement("br", null), /*#__PURE__*/React__default['default'].createElement("strong", null, "Please search for something else.")))),
+      footer: false
     });
   });
 
@@ -26223,10 +27157,16 @@
 
   var blockTimes = {
     // in seconds
-    ethereum: 13,
-    bsc: 4,
-    polygon: 3,
-    solana: 0.5
+    ethereum: 12,
+    bsc: 3,
+    polygon: 2,
+    solana: 0.2,
+    optimism: 0.5,
+    base: 0.5,
+    arbitrum: 0.28,
+    fantom: 2.5,
+    avalanche: 2,
+    gnosis: 5
   };
   var etaForConfirmations = (function (blockchain, confirmationsRequired, confirmationsPassed) {
     return (confirmationsRequired - confirmationsPassed) * blockTimes[blockchain];
@@ -26330,8 +27270,12 @@
           className: "Opacity05"
         }, "Initializing tracking")))));
       } else if (release) {
-        return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Card transparent small disabled"
+        return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("a", {
+          className: "Card transparent small",
+          title: "DePay has validated the payment",
+          href: "https://depay.com/docs/payments/validation",
+          target: "_blank",
+          rel: "noopener noreferrer"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardImage"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -26346,8 +27290,12 @@
           className: "Opacity05"
         }, "Payment validated")))));
       } else {
-        return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Card transparent small disabled"
+        return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("a", {
+          className: "Card transparent small",
+          title: "DePay is validating payment",
+          href: "https://depay.com/docs/payments/validation",
+          target: "_blank",
+          rel: "noopener noreferrer"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardImage"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -26384,7 +27332,14 @@
           className: "CardBodyWrapper"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "Opacity05"
-        }, "Confirm transaction in your wallet")))));
+        }, "Confirm in your wallet (", /*#__PURE__*/React__default['default'].createElement("a", {
+          href: "https://depay.com/docs/payments/verify",
+          target: "_blank",
+          rel: "noopener noreferrer",
+          style: {
+            textDecoration: 'none'
+          }
+        }, "verify"), ")")))));
       } else if (paymentState == 'success') {
         return /*#__PURE__*/React__default['default'].createElement("div", {
           className: "PaddingBottomS"
@@ -26685,7 +27640,10 @@
         blockchain: payment.blockchain,
         address: payment.token
       }), /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "BlockchainLogo small " + blockchain.name,
+        className: "BlockchainLogo small bottomRight " + blockchain.name,
+        style: {
+          backgroundColor: blockchain.logoBackgroundColor
+        },
         src: blockchain.logo,
         alt: blockchain.label,
         title: blockchain.label
@@ -27055,6 +28013,7 @@
         _useContext.errorCallback;
 
     var _useContext2 = React.useContext(ConfigurationContext),
+        configurationId = _useContext2.id,
         track = _useContext2.track,
         validated = _useContext2.validated;
         _useContext2.failed;
@@ -27096,32 +28055,37 @@
         paymentRoute = _useState12[0],
         setPaymentRoute = _useState12[1];
 
-    var _useState13 = React.useState(false),
+    var _useState13 = React.useState(),
         _useState14 = _slicedToArray(_useState13, 2),
-        trackingInitialized = _useState14[0],
-        setTrackingInitialized = _useState14[1];
+        attemptId = _useState14[0],
+        setAttemptId = _useState14[1];
 
-    var _useState15 = React.useState(!!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
-        _useState16 = _slicedToArray(_useState15, 1),
-        synchronousTracking = _useState16[0];
+    var _useState15 = React.useState(false),
+        _useState16 = _slicedToArray(_useState15, 2),
+        trackingInitialized = _useState16[0],
+        setTrackingInitialized = _useState16[1];
 
-    var _useState17 = React.useState(!!(track && track.async == true)),
+    var _useState17 = React.useState(!!configurationId || !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
         _useState18 = _slicedToArray(_useState17, 1),
-        asynchronousTracking = _useState18[0];
+        synchronousTracking = _useState18[0];
 
-    var _useState19 = React.useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+    var _useState19 = React.useState(!configurationId && !!(track && track.async == true)),
         _useState20 = _slicedToArray(_useState19, 1),
-        polling = _useState20[0];
+        asynchronousTracking = _useState20[0];
 
-    var _useState21 = React.useState(false),
-        _useState22 = _slicedToArray(_useState21, 2),
-        release = _useState22[0],
-        setRelease = _useState22[1];
+    var _useState21 = React.useState(!!configurationId || !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+        _useState22 = _slicedToArray(_useState21, 1),
+        polling = _useState22[0];
 
-    var _useState23 = React.useState(),
+    var _useState23 = React.useState(false),
         _useState24 = _slicedToArray(_useState23, 2),
-        forwardTo = _useState24[0],
-        setForwardTo = _useState24[1];
+        release = _useState24[0],
+        setRelease = _useState24[1];
+
+    var _useState25 = React.useState(),
+        _useState26 = _slicedToArray(_useState25, 2),
+        forwardTo = _useState26[0],
+        setForwardTo = _useState26[1];
 
     var _useContext4 = React.useContext(ClosableContext),
         setClosable = _useContext4.setClosable;
@@ -27246,7 +28210,24 @@
     };
 
     var callTracking = function callTracking(payment) {
-      if (track.endpoint) {
+      if (configurationId) {
+        return fetch("https://public.depay.com/configurations/".concat(configurationId, "/attempts"), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payment)
+        }).then(function (response) {
+          if (response.status == 200 || response.status == 201) {
+            response.json().then(function (attempt) {
+              return setAttemptId(attempt.id);
+            });
+            return response;
+          } else {
+            return reject('TRACKING REQUEST FAILED');
+          }
+        });
+      } else if (track.endpoint) {
         return fetch(track.endpoint, {
           method: 'POST',
           headers: {
@@ -27384,14 +28365,29 @@
                     clearInterval(pollingInterval);
 
                     if (validated) {
-                      validated(true, transaction);
+                      validated(data.status ? data.status == 'success' : true, transaction);
                     }
 
                     setRelease(true);
                   }
                 };
 
-                if (track.poll.endpoint) {
+                if (configurationId) {
+                  if (attemptId) {
+                    fetch("https://public.depay.com/attempts/".concat(attemptId), {
+                      method: 'GET',
+                      headers: {
+                        'Content-Type': 'application/json'
+                      }
+                    }).then(function (response) {
+                      if (response.status == 200 || response.status == 201) {
+                        return response.json();
+                      } else {
+                        return undefined;
+                      }
+                    }).then(handlePollingResponse);
+                  }
+                } else if (track.poll.endpoint) {
                   fetch(track.poll.endpoint, {
                     method: 'POST',
                     headers: {
@@ -27593,8 +28589,31 @@
                     deadline: _context5.t11
                   };
 
-                  if (!track.endpoint) {
+                  if (!configurationId) {
                     _context5.next = 19;
+                    break;
+                  }
+
+                  return _context5.abrupt("return", fetch("https://public.depay.com/configurations/".concat(configurationId, "/attempts"), {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payment)
+                  }).then(function (response) {
+                    if (response.status == 200 || response.status == 201) {
+                      response.json().then(function (attempt) {
+                        return setAttemptId(attempt.id);
+                      });
+                      return resolve();
+                    } else {
+                      return reject('TRACING REQUEST FAILED');
+                    }
+                  }));
+
+                case 19:
+                  if (!track.endpoint) {
+                    _context5.next = 23;
                     break;
                   }
 
@@ -27612,14 +28631,14 @@
                     }
                   }));
 
-                case 19:
+                case 23:
                   if (track.method) {
                     track.method(payment).then(resolve)["catch"](reject);
                   } else {
                     reject('No tracking defined!');
                   }
 
-                case 20:
+                case 24:
                 case "end":
                   return _context5.stop();
               }
@@ -27703,7 +28722,7 @@
       setPaymentValue(null);
       setPaymentValueLoss(null);
       Promise.all([Promise.all(Blockchains__default['default'][payment.route.blockchain].stables.usd.map(function (stable) {
-        return web3Exchanges.route({
+        return Exchanges__default['default'].route({
           blockchain: payment.route.blockchain,
           tokenIn: payment.route.fromToken.address,
           tokenOut: stable,
@@ -27711,7 +28730,7 @@
           fromAddress: account,
           toAddress: account
         });
-      })), !payment.route.directTransfer ? web3Exchanges.route({
+      })), !payment.route.directTransfer ? Exchanges__default['default'].route({
         blockchain: payment.route.blockchain,
         tokenIn: payment.route.toToken.address,
         tokenOut: payment.route.fromToken.address,
@@ -28025,7 +29044,7 @@
                 secretId = UUIDv4();
                 setSecretId(secretId);
                 _context.next = 4;
-                return web3Tokens.Token.BigNumber({
+                return Token__default['default'].BigNumber({
                   amount: selectedPaymentOption.amount,
                   blockchain: 'solana',
                   address: selectedPaymentOption.token
@@ -28060,7 +29079,7 @@
 
               case 14:
                 _context.next = 16;
-                return web3Tokens.Token.BigNumber({
+                return Token__default['default'].BigNumber({
                   amount: selectedPaymentOption.fee.amount,
                   blockchain: 'solana',
                   address: selectedPaymentOption.token
@@ -28079,7 +29098,7 @@
 
               case 21:
                 _context.next = 23;
-                return web3Tokens.Token.BigNumber({
+                return Token__default['default'].BigNumber({
                   amount: 0,
                   blockchain: 'solana',
                   address: selectedPaymentOption.token
@@ -28806,7 +29825,7 @@
         Promise.all(accept.filter(function (configuration) {
           return configuration.blockchain === 'solana';
         }).map(function (configuration) {
-          var token = new web3Tokens.Token({
+          var token = new Token__default['default']({
             blockchain: configuration.blockchain,
             address: configuration.token
           });
@@ -29062,7 +30081,10 @@
             blockchain: paymentOption.blockchain,
             address: paymentOption.token
           }), /*#__PURE__*/React__default['default'].createElement("img", {
-            className: "BlockchainLogo small " + Blockchains__default['default'][paymentOption.blockchain].name,
+            className: "BlockchainLogo small bottomRight " + Blockchains__default['default'][paymentOption.blockchain].name,
+            style: {
+              backgroundColor: blockchain.logoBackgroundColor
+            },
             src: Blockchains__default['default'][paymentOption.blockchain].logo,
             alt: Blockchains__default['default'][paymentOption.blockchain].label,
             title: Blockchains__default['default'][paymentOption.blockchain].label
@@ -29102,7 +30124,10 @@
           blockchain: selectedPaymentOption.blockchain,
           address: selectedPaymentOption.token
         }), /*#__PURE__*/React__default['default'].createElement("img", {
-          className: "BlockchainLogo small " + Blockchains__default['default'][selectedPaymentOption.blockchain].name,
+          className: "BlockchainLogo small bottomRight " + Blockchains__default['default'][selectedPaymentOption.blockchain].name,
+          style: {
+            backgroundColor: blockchain.logoBackgroundColor
+          },
           src: Blockchains__default['default'][selectedPaymentOption.blockchain].logo,
           alt: Blockchains__default['default'][selectedPaymentOption.blockchain].label,
           title: Blockchains__default['default'][selectedPaymentOption.blockchain].label
@@ -29503,14 +30528,14 @@
 
   var preflight$1 = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-      var accept, recover;
+      var accept, recover, integration;
       return regenerator.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              accept = _ref.accept, recover = _ref.recover;
+              accept = _ref.accept, recover = _ref.recover, integration = _ref.integration;
 
-              if (!recover) {
+              if (!(integration || recover)) {
                 _context.next = 3;
                 break;
               }
@@ -29555,12 +30580,12 @@
 
   var Payment = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var accept, amount, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, recover, closable, integration, link, container, before, wallet, title, action, document, unmount;
+      var accept, amount, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, recover, closable, integration, payload, link, container, before, wallet, title, action, document, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, link = _ref3.link, container = _ref3.container, before = _ref3.before, wallet = _ref3.wallet, title = _ref3.title, action = _ref3.action, document = _ref3.document;
+              accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, payload = _ref3.payload, link = _ref3.link, container = _ref3.container, before = _ref3.before, wallet = _ref3.wallet, title = _ref3.title, action = _ref3.action, document = _ref3.document;
               requireReactVersion();
 
               if (currency && !SUPPORTED_CURRENCIES.includes(currency.toLowerCase())) {
@@ -29571,6 +30596,7 @@
               _context2.next = 6;
               return preflight$1({
                 accept: accept,
+                integration: integration,
                 recover: recover
               });
 
@@ -29591,8 +30617,12 @@
                     container: container,
                     unmount: unmount
                   }, /*#__PURE__*/React__default['default'].createElement(ConfigurationProvider, {
+                    unmount: unmount,
+                    document: document,
+                    container: container,
                     configuration: {
                       type: 'payment',
+                      payload: payload,
                       before: before,
                       amount: amount,
                       accept: accept,
@@ -29625,13 +30655,7 @@
                     container: container,
                     connected: connected,
                     unmount: unmount
-                  }, /*#__PURE__*/React__default['default'].createElement(ConversionRateProvider, null, /*#__PURE__*/React__default['default'].createElement(ChangableAmountProvider, {
-                    accept: accept
-                  }, /*#__PURE__*/React__default['default'].createElement(PaymentAmountRoutingProvider, {
-                    accept: accept,
-                    whitelist: whitelist,
-                    blacklist: blacklist,
-                    event: event,
+                  }, /*#__PURE__*/React__default['default'].createElement(ConversionRateProvider, null, /*#__PURE__*/React__default['default'].createElement(ChangableAmountProvider, null, /*#__PURE__*/React__default['default'].createElement(PaymentAmountRoutingProvider, {
                     container: container,
                     document: document
                   }, /*#__PURE__*/React__default['default'].createElement(TransactionTrackingProvider, null, /*#__PURE__*/React__default['default'].createElement(PaymentTrackingProvider, {
@@ -29890,7 +30914,10 @@
         className: "CardImage",
         title: payment.name
       }, tokenImageElement, /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "BlockchainLogo small " + blockchain.name,
+        className: "BlockchainLogo small bottomRight " + blockchain.name,
+        style: {
+          backgroundColor: blockchain.logoBackgroundColor
+        },
         src: blockchain.logo,
         alt: blockchain.label,
         title: blockchain.label
@@ -29916,7 +30943,7 @@
         className: "CardAction"
       }, (!amountConfiguration || !amountConfiguration.fix) && /*#__PURE__*/React__default['default'].createElement(ChevronRight, null))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
-        title: paymentState == 'initialized' ? "Change payment" : undefined,
+        title: paymentState == 'initialized' ? "Payment options" : undefined,
         onClick: function onClick() {
           if (paymentState != 'initialized') {
             return;
@@ -30255,7 +31282,7 @@
   });
 
   var EnterNFTDataManuallyDialog = (function (props) {
-    var _Blockchains$findByNa, _selection$blockchain3, _selection$collection3, _Blockchains$findByNa2, _selection$blockchain4, _selection$collection4, _selection$blockchain5, _selection$blockchain6, _selection$blockchain7, _selection$blockchain8, _selection$blockchain9;
+    var _Blockchains, _selection$blockchain3, _selection$collection3, _Blockchains2, _selection$blockchain4, _selection$collection4, _Blockchains$findByNa, _selection$blockchain5, _selection$collection5, _selection$blockchain6, _selection$blockchain7, _selection$blockchain8, _selection$blockchain9, _selection$blockchain10;
 
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext.navigate;
@@ -30415,7 +31442,7 @@
                     blockchain: blockchain,
                     address: address,
                     method: 'balanceOf',
-                    api: web3Tokens.Token[blockchain][1155],
+                    api: Token__default['default'][blockchain][1155],
                     params: [address, '1']
                   });
 
@@ -30461,17 +31488,20 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardImage small"
       }, /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "transparent",
-        src: (_Blockchains$findByNa = Blockchains__default['default'].findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain3 = selection.blockchain) === null || _selection$blockchain3 === void 0 ? void 0 : _selection$blockchain3.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection3 = selection.collection) === null || _selection$collection3 === void 0 ? void 0 : _selection$collection3.blockchain))) === null || _Blockchains$findByNa === void 0 ? void 0 : _Blockchains$findByNa.logo
+        className: "transparent BlockchainLogo small",
+        src: (_Blockchains = Blockchains__default['default'][(selection === null || selection === void 0 ? void 0 : (_selection$blockchain3 = selection.blockchain) === null || _selection$blockchain3 === void 0 ? void 0 : _selection$blockchain3.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection3 = selection.collection) === null || _selection$collection3 === void 0 ? void 0 : _selection$collection3.blockchain)]) === null || _Blockchains === void 0 ? void 0 : _Blockchains.logo,
+        style: {
+          backgroundColor: (_Blockchains2 = Blockchains__default['default'][(selection === null || selection === void 0 ? void 0 : (_selection$blockchain4 = selection.blockchain) === null || _selection$blockchain4 === void 0 ? void 0 : _selection$blockchain4.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection4 = selection.collection) === null || _selection$collection4 === void 0 ? void 0 : _selection$collection4.blockchain)]) === null || _Blockchains2 === void 0 ? void 0 : _Blockchains2.logoBackgroundColor
+        }
       })), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardBody FontSizeM"
-      }, (_Blockchains$findByNa2 = Blockchains__default['default'].findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain4 = selection.blockchain) === null || _selection$blockchain4 === void 0 ? void 0 : _selection$blockchain4.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection4 = selection.collection) === null || _selection$collection4 === void 0 ? void 0 : _selection$collection4.blockchain))) === null || _Blockchains$findByNa2 === void 0 ? void 0 : _Blockchains$findByNa2.label), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, (_Blockchains$findByNa = Blockchains__default['default'].findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain5 = selection.blockchain) === null || _selection$blockchain5 === void 0 ? void 0 : _selection$blockchain5.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection5 = selection.collection) === null || _selection$collection5 === void 0 ? void 0 : _selection$collection5.blockchain))) === null || _Blockchains$findByNa === void 0 ? void 0 : _Blockchains$findByNa.label), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardAction"
       }, /*#__PURE__*/React__default['default'].createElement(ChevronRight, null))))),
       bodyClassName: "ScrollHeight",
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React__default['default'].createElement("div", null, supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain5 = selection.blockchain) === null || _selection$blockchain5 === void 0 ? void 0 : _selection$blockchain5.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+      }, /*#__PURE__*/React__default['default'].createElement("div", null, supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain6 = selection.blockchain) === null || _selection$blockchain6 === void 0 ? void 0 : _selection$blockchain6.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("label", {
         htmlFor: "DePayWidgetsEnterNFTTokenAddresses"
@@ -30496,7 +31526,7 @@
         }
       }), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "FontSizeXS PaddingLeftXS PaddingRightXS Opacity03 LineHeightXS"
-      }, "Separate each one with a new line break."))), !supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain6 = selection.blockchain) === null || _selection$blockchain6 === void 0 ? void 0 : _selection$blockchain6.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Separate each one with a new line break."))), !supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain7 = selection.blockchain) === null || _selection$blockchain7 === void 0 ? void 0 : _selection$blockchain7.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("label", {
         htmlFor: "DePayWidgetsEnterNFTTokenAddress"
@@ -30548,7 +31578,7 @@
         onChange: function onChange(event) {
           return setName(event.target.value);
         },
-        placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain7 = selection.blockchain) === null || _selection$blockchain7 === void 0 ? void 0 : _selection$blockchain7.name) ? 'SMB' : 'CryptoPunks',
+        placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain8 = selection.blockchain) === null || _selection$blockchain8 === void 0 ? void 0 : _selection$blockchain8.name) ? 'SMB' : 'CryptoPunks',
         className: "InputField small"
       }))), /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
@@ -30565,7 +31595,7 @@
         onChange: function onChange(event) {
           return setImage(event.target.value);
         },
-        placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain8 = selection.blockchain) === null || _selection$blockchain8 === void 0 ? void 0 : _selection$blockchain8.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128',
+        placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain9 = selection.blockchain) === null || _selection$blockchain9 === void 0 ? void 0 : _selection$blockchain9.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128',
         className: "InputField small"
       }))), /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
@@ -30582,7 +31612,7 @@
         onChange: function onChange(event) {
           return setLink(event.target.value);
         },
-        placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain9 = selection.blockchain) === null || _selection$blockchain9 === void 0 ? void 0 : _selection$blockchain9.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks",
+        placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain10 = selection.blockchain) === null || _selection$blockchain10 === void 0 ? void 0 : _selection$blockchain10.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks",
         className: "InputField small"
       })))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
@@ -30635,8 +31665,11 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardImage"
       }, /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "transparent",
-        src: blockchain.logo
+        className: "transparent BlockchainLogo",
+        src: blockchain.logo,
+        style: {
+          backgroundColor: blockchain.logoBackgroundColor
+        }
       })), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardBody"
       }, /*#__PURE__*/React__default['default'].createElement("span", {
@@ -30966,7 +31999,7 @@
         var token;
 
         try {
-          token = new web3Tokens.Token({
+          token = new Token__default['default']({
             blockchain: blockchain.name,
             address: term
           });
@@ -31004,7 +32037,7 @@
         var _token;
 
         try {
-          _token = new web3Tokens.Token({
+          _token = new Token__default['default']({
             blockchain: blockchain.name,
             address: term
           });
@@ -31207,8 +32240,11 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardImage small"
       }, /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "transparent",
-        src: blockchain.logo
+        className: "transparent BlockchainLogo",
+        src: blockchain.logo,
+        style: {
+          backgroundColor: blockchain.logoBackgroundColor
+        }
       })), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardBody FontSizeM"
       }, blockchain.label), /*#__PURE__*/React__default['default'].createElement("div", {

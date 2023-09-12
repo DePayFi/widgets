@@ -1,17 +1,17 @@
 /*#if _EVM
 
-import { route } from '@depay/web3-exchanges-evm'
-import { Token } from '@depay/web3-tokens-evm'
+import Exchanges from '@depay/web3-exchanges-evm'
+import Token from '@depay/web3-tokens-evm'
 
 /*#elif _SOLANA
 
-import { route } from '@depay/web3-exchanges-solana'
-import { Token } from '@depay/web3-tokens-solana'
+import Exchanges from '@depay/web3-exchanges-solana'
+import Token from '@depay/web3-tokens-solana'
 
 //#else */
 
-import { route } from '@depay/web3-exchanges'
-import { Token } from '@depay/web3-tokens'
+import Exchanges from '@depay/web3-exchanges'
+import Token from '@depay/web3-tokens'
 
 //#endif
 
@@ -35,8 +35,9 @@ export default (props)=>{
       )
     })
   }
-  const { amount: configuredAmount, toAmount, recover } = useContext(ConfigurationContext)
-  const [ amountsMissing, setAmountsMissing ] = useState(recover == undefined ? configurationsMissAmounts(props.accept) : false)
+  const { accept, amount: configuredAmount, toAmount, recover } = useContext(ConfigurationContext)
+  const configuration = useContext(ConfigurationContext)
+  const [ amountsMissing, setAmountsMissing ] = useState(recover == undefined ? configurationsMissAmounts(accept) : false)
   let { account } = useContext(WalletContext)
   const { conversionRate, fixedCurrencyConversionRate } = useContext(ConversionRateContext)
   const { setError } = useContext(ErrorContext)
@@ -59,20 +60,20 @@ export default (props)=>{
 
   useEffect(()=>{
     if(recover) { return }
-    setAmountsMissing(configurationsMissAmounts(props.accept))
-  }, [props.accept, recover])
+    setAmountsMissing(configurationsMissAmounts(accept))
+  }, [accept, recover])
 
   const getAmounts = ({ amount, conversionRate, fixedCurrencyConversionRate })=>{
     return new Promise((resolve, reject)=>{
       if(configuredAmount && configuredAmount.token) {
-        resolve(props.accept.map(()=>amount))
+        resolve(accept.map(()=>amount))
       } else {
-        Promise.all(props.accept.map((configuration)=>{
+        Promise.all(accept.map((configuration)=>{
           if(fixedAmount) {
             if(Blockchains[configuration.blockchain].stables.usd[0] == configuration.token) {
               return 1.00/fixedCurrencyConversionRate * fixedAmount
             } else {
-              return route({
+              return Exchanges.route({
                 blockchain: configuration.blockchain,
                 tokenIn: Blockchains[configuration.blockchain].stables.usd[0],
                 amountIn: (1.00/fixedCurrencyConversionRate) * fixedAmount,
@@ -82,10 +83,10 @@ export default (props)=>{
               })
             }
           } else {
-            if(Blockchains[configuration.blockchain].stables.usd[0] == configuration.token) {
+            if(Blockchains[configuration.blockchain].stables.usd.find((stable)=> stable.toLowerCase() === configuration.token.toLowerCase())) {
               return 1.00/conversionRate * amount
             } else {
-              return route({
+              return Exchanges.route({
                 blockchain: configuration.blockchain,
                 tokenIn: Blockchains[configuration.blockchain].stables.usd[0],
                 amountIn: (1.00/conversionRate) * amount,
@@ -103,7 +104,7 @@ export default (props)=>{
               return
             } else {
               return Token.readable({
-                blockchain: props.accept[index].blockchain,
+                blockchain: accept[index].blockchain,
                 amount: result[0].amountOut,
                 address: result[0].tokenOut
               })
@@ -116,7 +117,7 @@ export default (props)=>{
 
   const updateAmounts = useCallback(debounce(({ account, amount, conversionRate, fixedCurrencyConversionRate })=>{
     getAmounts({ amount, conversionRate, fixedCurrencyConversionRate }).then((amounts)=>{
-      setAcceptWithAmount(props.accept.map((configuration, index)=>{
+      setAcceptWithAmount(accept.map((configuration, index)=>{
         if(amounts[index] == undefined) { return }
         return(
           {...configuration, amount: round(amounts[index]) }
@@ -130,6 +131,7 @@ export default (props)=>{
   useEffect(()=>{
     if(recover) { return }
     if(amountsMissing && account && conversionRate && (fixedAmount ? fixedCurrencyConversionRate : true)) {
+      setAcceptWithAmount()
       updateAmounts({ account, amount, conversionRate, fixedCurrencyConversionRate })
     }
   }, [amountsMissing, account, conversionRate, fixedAmount, fixedCurrencyConversionRate, amount, recover])
@@ -139,7 +141,7 @@ export default (props)=>{
       maxRoute.fromToken.readable(maxRoute.fromBalance)
         .then((readableMaxAmount)=>{
           if(configuredAmount && configuredAmount.token) {
-            route({
+            Exchanges.route({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,
               tokenOut: maxRoute.toToken.address,
@@ -173,7 +175,7 @@ export default (props)=>{
             )
             setMaxAmount(maxAmount > 10 ? Math.round(maxAmount-1) : maxAmount-1)
           } else {
-            route({
+            Exchanges.route({
               blockchain: maxRoute.blockchain,
               tokenIn: maxRoute.fromToken.address,
               tokenOut: Blockchains[maxRoute.blockchain].stables.usd[0],

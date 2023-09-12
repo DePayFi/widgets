@@ -15,17 +15,17 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog@14"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@8"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-shadow-dom@5"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@8"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@9"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client-solana@10"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens-solana@9"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens-solana@10"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image-solana@4"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/coinbase-wallet-sdk@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v1@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v2@2"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets-solana@15"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-assets-solana@6"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges-solana@12"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments-solana@12"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets-solana@16"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-assets-solana@7"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges-solana@13"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments-solana@13"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/qr-code-styling@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/fuse.js@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-rangeslider@2/umd/rangeslider.js"></script>
@@ -71,6 +71,12 @@
                       <option value='bsc'>BNB Smart Chain</option>
                       <option value='polygon'>Polygon</option>
                       <option value='solana'>Solana</option>
+                      <option value='base'>Base</option>
+                      <option value='optimism'>Optimism</option>
+                      <option value='arbitrum'>Arbitrum</option>
+                      <option value='fantom'>Fantom</option>
+                      <option value='avalanche'>Avalanche</option>
+                      <option value='gnosis'>Gnosis</option>
                     </select>
                   </div>
                   <div class="col col-4">
@@ -121,6 +127,33 @@
           <div class="px-0 py-4 rounded-lg bg-white border">
             <div class="col px-0">
               <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Payment: managed integration</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Integration managed via app.depay.com</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="payManagedIntegration">Try it</button>
+                <script>
+                  var button = document.getElementById("payManagedIntegration");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      integration: '461cb57d-6063-40b8-8326-a124c4a40e6f',
+                      payload: {
+                        test: "true"
+                      }
+                    })
+                  })
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
                 <h5 class="px-4">Payment: multichain</h5>
                 <div class="px-4">
                   <div class="text-secondary ">Accept payments on multiple blockchains.</div>
@@ -153,9 +186,39 @@
                         },
                         {
                           blockchain: 'solana',
-                          amount: 0.001,
+                          amount: 0.01,
                           token: '11111111111111111111111111111111',
                           receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk'
+                        },
+                        {
+                          blockchain: 'optimism',
+                          amount: 0.01,
+                          token: '0x94b008aA00579c1307B0EF2c499aD98a8ce58e58',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },
+                        {
+                          blockchain: 'arbitrum',
+                          amount: 0.01,
+                          token: '0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },
+                        {
+                          blockchain: 'fantom',
+                          amount: 0.01,
+                          token: '0x28a92dde19D9989F39A49905d7C9C2FAc7799bDf',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },
+                        {
+                          blockchain: 'avalanche',
+                          amount: 0.01,
+                          token: '0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },
+                        {
+                          blockchain: 'gnosis',
+                          amount: 0.01,
+                          token: '0x4ECaBa5870353805a9F068101A40E0f32ed605C6',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
                         },
                       ]
                     });
@@ -902,7 +965,7 @@
           <div class="px-0 py-4 rounded-lg bg-white border">
             <div class="col px-0">
               <div class="overflow-auto" style="height: 140px;">
-                <h5 class="px-4">Sale: Buy ALPACA</h5>
+                <h5 class="px-4">Sale: Buy LimeWire Token</h5>
                 <div class="px-4">
                   <div class="text-secondary "></div>
                 </div>
@@ -914,7 +977,7 @@
                   button.addEventListener("click",function(e){
                     DePayWidgets.Sale({
                       sell: {
-                        'bsc': '0x8F0528cE5eF7B51152A59745bEfDD91D97091d2F'
+                        'ethereum': '0x628A3b2E302C7e896AcC432D2d0dD22B6cb9bc88'
                       },
                     });
                   });

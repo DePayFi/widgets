@@ -7,7 +7,7 @@ import Blockchains from '@depay/web3-blockchains'
 import { mock, confirm, increaseBlock, resetMocks } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 describe('Payment Widget: main functionality', () => {
 
@@ -101,6 +101,10 @@ describe('Payment Widget: main functionality', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    fetchMock.get({
+      url: `https://public.depay.com/transactions/${blockchain}/${fromAddress}/1`,
+    }, { status: 404 })
   })
   
   it('executes', () => {
@@ -169,7 +173,7 @@ describe('Payment Widget: main functionality', () => {
     })
   })
 
-  it('stores integration & link', () => {
+  it('stores link', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
@@ -195,7 +199,6 @@ describe('Payment Widget: main functionality', () => {
           sender_amount: "20.0",
           sender_id: fromAddress,
           sender_token_id: DEPAY,
-          integration: '123',
           link: '456',
           type: 'payment'
         },
@@ -210,7 +213,7 @@ describe('Payment Widget: main functionality', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, integration: '123', link: '456', document })
+        DePayWidgets.Payment({ ...defaultArguments, link: '456', document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.grey').should('contain.text', '€28.05')
@@ -250,13 +253,19 @@ describe('Payment Widget: main functionality', () => {
       }
     })
 
+    fetchMock.post({
+      url: "https://public.depay.com/payments",
+      matchPartialBody: true
+    }, 201)
+
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.wait(2000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click().then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Confirm transaction in your wallet')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Confirm in your wallet')
+          cy.wait(2000).then(()=>{
             confirm(mockedTransaction)
           })
         })

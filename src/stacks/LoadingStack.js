@@ -18,7 +18,7 @@ export default (props)=>{
       container={ props.container }
       document={ props.document }
       dialogs={{
-        Loading: <LoadingDialog/>,
+        Loading: <LoadingDialog text={ props.text }/>,
       }}
     />
   )

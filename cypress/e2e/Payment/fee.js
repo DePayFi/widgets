@@ -6,8 +6,8 @@ import ReactDOM from 'react-dom'
 import Blockchains from '@depay/web3-blockchains'
 import { mock, confirm, increaseBlock, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
-import { routers, plugins } from '@depay/web3-payments'
-import { Token } from '@depay/web3-tokens'
+import { routers } from '@depay/web3-payments'
+import Token from '@depay/web3-tokens'
 
 describe('Payment Widget: fee', () => {
 
@@ -36,6 +36,7 @@ describe('Payment Widget: fee', () => {
   
   let provider
   let TOKEN_A_AmountBN
+  let exchange
 
   beforeEach(async()=>{
     resetMocks()
@@ -44,7 +45,7 @@ describe('Payment Widget: fee', () => {
     mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' })
     provider = await getProvider(blockchain)
 
-    ;({ TOKEN_A_AmountBN } = mockBasics({
+    ;({ TOKEN_A_AmountBN, exchange } = mockBasics({
       
       provider,
       blockchain,
@@ -104,20 +105,29 @@ describe('Payment Widget: fee', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
-        to: "0xae60ac8e69414c2dc362d0e6a03af643d1d85b92",
+        from: fromAddress,
+        to: routers[blockchain].address,
         api: routers[blockchain].api,
-        method: 'route',
+        method: 'pay',
         params: {
-          path: ["0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee","0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"],
-          amounts: ["10100000000000000", "19000000000000000000", anything, '0', '1000000000000000000'],
-          addresses: [fromAddress, feeReceiver, toAddress],
-          plugins: [
-            plugins[blockchain].uniswap_v2.address,
-            plugins[blockchain].payment.address,
-            plugins[blockchain].paymentFee.address
-          ],
-          data:[]
-        }
+          payment: {
+            amountIn: "10100000000000000",
+            permit2: false,
+            paymentAmount: "19000000000000000000",
+            feeAmount: "1000000000000000000",
+            tokenInAddress: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            exchangeAddress: exchange.router.address,
+            tokenOutAddress: "0xa0bed124a09ac2bd941b10349d8d224fe3c955eb",
+            paymentReceiverAddress: toAddress,
+            feeReceiverAddress: feeReceiver,
+            exchangeType: 1,
+            receiverType: 0,
+            exchangeCallData: anything,
+            receiverCallData: Blockchains[blockchain].zero,
+            deadline: anything,
+          }
+        },
+        value: 0
       }
     })
 

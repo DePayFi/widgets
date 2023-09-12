@@ -12,6 +12,8 @@ or you install `@depay/widgets` via the package manager of your choice and ship 
 yarn add @depay/widgets
 ```
 
+or
+
 ```
 npm install @depay/widgets --save
 ```
@@ -22,11 +24,13 @@ and load the DePayWidgets package wherever you need it:
 import DePayWidgets from '@depay/widgets'
 ```
 
-Make sure you install DePay widgets peer dependencies, too, in case your project does not have them installed yet:
+Make sure you install DePay widgets peer dependencies, too, in case your project does not have them installed already:
 
 ```
 yarn add ethers react react-dom
 ```
+
+or
 
 ```
 npm install ethers react react-dom --save
@@ -64,7 +68,7 @@ Next.js: https://dev.to/elisabethleonhardt/how-to-use-client-side-only-packages-
 
 ## Demo
 
-To easily configure DePay Payment Widgets please use our configurator here:
+To easily integrate the DePay Payment Widgets please use our configurator here:
 
 https://app.depay.com/integrations/new
 
@@ -80,6 +84,12 @@ https://depayfi.github.io/widgets/demo.bundle.html
 - [BNB Smart Chain](https://www.binance.org/smartChain)
 - [Polygon](https://polygon.technology)
 - [Solana](https://solana.com)
+- [Optimism](https://www.optimism.io)
+- [Arbitrum](https://arbitrum.io)
+- [Fantom](https://fantom.foundation)
+- [Avalanche](https://www.avax.network)
+- [Gnosis](https://gnosis.io)
+- [Base](https://base.org)
 
 ### Wallets
 
@@ -89,22 +99,47 @@ DePay supports [most crypto wallets](https://depay.com/wallets).
 
 DePay Payments allows you to accept and perform crypto payments.
 
-### Quick start
+### Integration
+
+`integration`
+
+Connects the widget to a DePay integration managed via https://app.depay.com:
+
+```javascript
+DePayWidgets.Payment({
+  integration: 'fe690fbc-1740-4894-b12c-23a72abec54d'
+})
+```
+
+The configuration of the integration managed via https://app.depay.com will be fetched and applied before applying any additional local configurations.
+
+You can fully manage an integration via https://app.depay.com. Passing any additional configuration is not necessary.
+
+Locally applied configurations overwrite remotely stored configurations.
+
+If your integration relies on processing dynamic from your backend (e.g. pricing), and you are not managing a fixed configuration via https://app.depay.com,
+you need to pass the data that is supposed to be forwarded to your backend for dynamic configurations to the widget:
+
+```javascript
+DePayWidgets.Payment({
+  integration: 'fe690fbc-1740-4894-b12c-23a72abec54d',
+  payload: {
+    whatever: 'you want to forward to your backend for dynamic configurations'
+  }
+})
+```
+
+This will forward:
 
 ```
-DePayWidgets.Payment({
-  accept: [{
-    blockchain: 'ethereum',
-    amount: 20,
-    token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-    receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-  }]
-});
+{
+  whatever: 'you want to forward to your backend for dynamic configurations'
+}
 ```
+
+to your backend in order to receive a payment configuration for the widget.
 
 ### Configuration
-
-You need to pass a configuration object to `DePayWidgets.Payment` which needs to at least contain the `accept` field:
 
 ```javascript
 DePayWidgets.Payment({
@@ -147,12 +182,6 @@ DePayWidgets.Payment({
 `blockchain`
 
 The blockchain you want to receive the payment on.
-
-Currently supported:
-
-- `ethereum`
-- `bsc` (Binance Smart Chain)
-- `polygon`
 
 `token`
 
@@ -895,18 +924,6 @@ DePayWidgets.Payment({
 
 ```
 
-#### integration
-
-`integration`
-
-Labels payments to track them per integration.
-
-```javascript
-DePayWidgets.Payment({
-  integration: 'fe690fbc-1740-4894-b12c-23a72abec54d'
-})
-```
-
 ## DePayWidgets: Sale
 
 DePay Sales allows you to sell tokens directly from your website or dApp with automatic any-to-any payment conversion (so people can use any token when buying your token directly off your website or dApp).
@@ -948,18 +965,7 @@ DePayWidgets.Sale({
 
 `"blockchain": "token"`
 
-`blockchain`
-
-Currently supported blockchains:
-
-- `ethereum`
-- `bsc` (Binance Smart Chain)
-
-`token`
-
-The address of the token you want to sell.
-
-Use our [sale configurator](https://depay.com/documentation/sales#sale-configurator) in order to simplify configuring this.
+The address of the token you want to sell for the given blockchain.
 
 #### amount
 
@@ -1282,18 +1288,6 @@ DePayWidgets.Sale({
 
 ```
 
-#### integration
-
-`integration`
-
-Labels sales to track them per integration.
-
-```javascript
-DePayWidgets.Sale({
-  integration: 'fe690fbc-1740-4894-b12c-23a72abec54d'
-})
-```
-
 ## DePay Connect
 
 DePay Connect allows you to have your users connect their crypto wallet to your dApp or website.
@@ -1581,5 +1575,5 @@ test:cypress:debug
 Test and debug single cypress file:
 
 ```
-yarn test:cypress:debug --spec "cypress/e2e/Payment/main.solana.js"
+yarn test:cypress:debug --spec "cypress/e2e/Payment/payment-value-loss-safeguard.js"
 ```

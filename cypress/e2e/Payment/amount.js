@@ -10,7 +10,7 @@ import { ethers } from 'ethers'
 import { mock, confirm, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 describe('Payment Widget: amount', () => {
 
@@ -241,20 +241,33 @@ describe('Payment Widget: amount', () => {
 
     it('allows me to submit a changed amount', ()=> {
       let fromAddress = accounts[0]
+
       let mockedTransaction = mock({
         blockchain,
         transaction: {
           from: fromAddress,
           to: routers[blockchain].address,
           api: routers[blockchain].api,
-          method: 'route',
+          method: 'pay',
           params: {
-            path: [DAI, WETH, DEPAY],
-            amounts: [ethers.utils.parseUnits('11.658', 18), ethers.utils.parseUnits('18', 18), anything],
-            addresses: [fromAddress, toAddress],
-            plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
-            data: []
-          }
+            payment: {
+              amountIn: ethers.utils.parseUnits('11.658', 18),
+              permit2: false,
+              paymentAmount: ethers.utils.parseUnits('18', 18),
+              feeAmount: 0,
+              tokenInAddress: DAI,
+              exchangeAddress: exchange.router.address,
+              tokenOutAddress: DEPAY,
+              paymentReceiverAddress: toAddress,
+              feeReceiverAddress: Blockchains[blockchain].zero,
+              exchangeType: 1,
+              receiverType: 0,
+              exchangeCallData: anything,
+              receiverCallData: Blockchains[blockchain].zero,
+              deadline: anything,
+            }
+          },
+          value: 0
         }
       })
 
@@ -297,10 +310,12 @@ describe('Payment Widget: amount', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '11.658').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').should('exist')
-          
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').click().then(()=>{
-            confirm(mockedTransaction)
-            expect(mockedTransaction.calls.count()).to.eq(1)
+
+          cy.wait(1000).then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').click().then(()=>{
+              confirm(mockedTransaction)
+              expect(mockedTransaction.calls.count()).to.eq(1)
+            })
           })
         })
       })

@@ -3,10 +3,10 @@ import fetchMock from 'fetch-mock'
 import mockAmountsOut from './amountsOut'
 import mockAmountsIn from './amountsIn'
 import { ethers } from 'ethers'
-import { find } from '@depay/web3-exchanges'
+import Exchanges from '@depay/web3-exchanges'
 import { mock } from '@depay/web3-mock'
 import { routers } from '@depay/web3-payments'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 export default ({
 
@@ -65,7 +65,7 @@ export default ({
   let WRAPPED = Blockchains[blockchain].wrapped.address
   let WRAPPED_AmountInBN = ethers.utils.parseUnits(WRAPPED_AmountIn.toString(), Blockchains[blockchain].currency.decimals)
 
-  exchange = find(blockchain, exchange)
+  exchange = Exchanges[exchange][blockchain]
 
   fetchMock.get({
     url: `https://public.depay.com/accounts/${blockchain}/${fromAddress}/assets`,

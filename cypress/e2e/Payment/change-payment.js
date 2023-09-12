@@ -8,7 +8,7 @@ import Blockchains from '@depay/web3-blockchains'
 import { mock, confirm, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 describe('Payment Widget: change payment', () => {
 
@@ -128,8 +128,9 @@ describe('Payment Widget: change payment', () => {
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
           
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]').find('.CardImage img').invoke('attr', 'src').should('eq', 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb/logo.png')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]').find('.CardImage img').invoke('attr', 'src').should('eq', 'https://depay.com/favicon.png')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]').contains('.TokenAmountCell', '20').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]').contains('.TokenSymbolCell', 'DEPAY').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]').contains('.CardText small', '30').should('exist')
@@ -153,6 +154,7 @@ describe('Payment Widget: change payment', () => {
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Go back"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]')
@@ -184,13 +186,24 @@ describe('Payment Widget: change payment', () => {
           from: fromAddress,
           to: routers[blockchain].address,
           api: routers[blockchain].api,
-          method: 'route',
+          method: 'pay',
           params: {
-            path: [ETH, DEPAY],
-            amounts: ['10100000000000000', TOKEN_A_AmountBN, anything],
-            addresses: [fromAddress, toAddress],
-            plugins: [plugins[blockchain].uniswap_v2.address, plugins[blockchain].payment.address],
-            data: []
+            payment: {
+              amountIn: '10100000000000000',
+              permit2: false,
+              paymentAmount: TOKEN_A_AmountBN,
+              feeAmount: 0,
+              tokenInAddress: ETH,
+              exchangeAddress: exchange.router.address,
+              tokenOutAddress: DEPAY,
+              paymentReceiverAddress: toAddress,
+              feeReceiverAddress: Blockchains[blockchain].zero,
+              exchangeType: 1,
+              receiverType: 0,
+              exchangeCallData: anything,
+              receiverCallData: Blockchains[blockchain].zero,
+              deadline: anything,
+            }
           },
           value: '10100000000000000'
         }
@@ -243,15 +256,19 @@ describe('Payment Widget: change payment', () => {
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.grey').should('contain.text', '€22.95')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
-            confirm(mockedTransaction)
-            cy.wait(2000).then(()=>{
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-                cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+          cy.wait(1000).then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').click()
+            cy.wait(1000).then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
+                confirm(mockedTransaction)
+                cy.wait(2000).then(()=>{
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+                    cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+                  })
+                })
               })
             })
           })

@@ -10,7 +10,7 @@ import { ethers } from 'ethers'
 import { mock, confirm, resetMocks, anything, trigger } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 describe('Payment Widget: change account', () => {
   

@@ -1,17 +1,17 @@
 /*#if _EVM
 
 import { request } from '@depay/web3-client-evm'
-import { Token } from '@depay/web3-tokens-evm'
+import Token from '@depay/web3-tokens-evm'
 
 /*#elif _SOLANA
 
 import { request } from '@depay/web3-client-solana'
-import { Token } from '@depay/web3-tokens-solana'
+import Token from '@depay/web3-tokens-solana'
 
 //#else */
 
 import { request } from '@depay/web3-client'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 //#endif
 
@@ -19,27 +19,28 @@ import Blockchains from '@depay/web3-blockchains'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
+import InsufficientAmountOfTokensDialog from '../dialogs/InsufficientAmountOfTokensDialog'
 import NavigateContext from '../contexts/NavigateContext'
 import NoPaymentOptionFoundDialog from '../dialogs/NoPaymentOptionFoundDialog'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentOptionsDialog from '../dialogs/PaymentOptionsDialog'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useCallback } from 'react'
 import TransactionTrackingContext from '../contexts/TransactionTrackingContext'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
+import { debounce } from 'lodash'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{
   const { setError } = useContext(ErrorContext)
-  const { sent, succeeded, failed, recover, before } = useContext(ConfigurationContext)
-  const { selectedRoute, refreshPaymentRoutes } = useContext(PaymentRoutingContext)
+  const { sent, succeeded, failed, recover, before, accept } = useContext(ConfigurationContext)
+  const { allRoutes, allAssets, selectedRoute, refreshPaymentRoutes } = useContext(PaymentRoutingContext)
   const { open, close, setClosable } = useContext(ClosableContext)
-  const { allRoutes } = useContext(PaymentRoutingContext)
   const { setUpdatable } = useContext(UpdatableContext)
   const { navigate, set } = useContext(NavigateContext)
-  const { wallet } = useContext(WalletContext)
+  const { wallet, account } = useContext(WalletContext)
   const { release, synchronousTracking, asynchronousTracking, trackingInitialized, initializeTracking: initializePaymentTracking, trace } = useContext(PaymentTrackingContext)
   const { foundTransaction, initializeTracking: initializeTransactionTracking } = useContext(TransactionTrackingContext)
   const [ payment, setPayment ] = useState()
@@ -187,7 +188,7 @@ export default (props)=>{
     }
   }, [foundTransaction, transaction])
 
-  useEffect(()=>{
+  const debouncedSetPayment = useCallback(debounce((selectedRoute)=>{
     if(selectedRoute) {
       let fromToken = selectedRoute.fromToken
       Promise.all([
@@ -204,9 +205,13 @@ export default (props)=>{
           amount
         })
       }).catch(setError)
-    } else {
-      setPayment(undefined)
+    } else if(recover === undefined) {
+      setPayment()
     }
+  }, 100), [])
+
+  useEffect(()=>{
+    debouncedSetPayment(selectedRoute)
   }, [selectedRoute])
 
   useEffect(()=>{
@@ -222,10 +227,11 @@ export default (props)=>{
       <ReactDialogStack
         open={ open }
         close={ close }
-        start='NoPaymentOptionFound'
+        start={ (allRoutes.assets === undefined || allRoutes.assets.length === 0) ? 'NoPaymentOptionFound' : 'InsufficientAmountOfTokens' }
         container={ props.container }
         document={ props.document }
         dialogs={{
+          InsufficientAmountOfTokens: <InsufficientAmountOfTokensDialog assets={allRoutes.assets} accept={accept} account={account}/>,
           NoPaymentOptionFound: <NoPaymentOptionFoundDialog/>,
           PaymentOptions: <PaymentOptionsDialog/>,
         }}

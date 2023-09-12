@@ -1,5 +1,6 @@
 export default {
   '@depay/coinbase-wallet-sdk': 'CoinbaseWalletSdk',
+  '@depay/js-verify-signature': 'DePayVerifySignature',
   '@depay/local-currency': 'LocalCurrency',
   '@depay/react-dialog': 'ReactDialog',
   '@depay/react-dialog-stack': 'ReactDialogStack',
@@ -8,6 +9,7 @@ export default {
   '@depay/react-token-image-evm': 'ReactTokenImage',
   '@depay/react-token-image-solana': 'ReactTokenImage',
   '@depay/walletconnect-v1': 'WalletConnect',
+  '@depay/walletconnect-v2': 'WalletConnectV2',
   '@depay/web3-assets': 'Web3Assets',
   '@depay/web3-assets-evm': 'Web3Assets',
   '@depay/web3-assets-solana': 'Web3Assets',

@@ -90,7 +90,7 @@ export default (props)=>{
           >
             <div className="CardImage" title={ payment.name }>
               { tokenImageElement }
-              <img className={"BlockchainLogo small " + blockchain.name} src={ blockchain.logo } alt={ blockchain.label } title={ blockchain.label }/>
+              <img className={"BlockchainLogo small bottomRight " + blockchain.name} style={{ backgroundColor: blockchain.logoBackgroundColor }} src={ blockchain.logo } alt={ blockchain.label } title={ blockchain.label }/>
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">
@@ -123,7 +123,7 @@ export default (props)=>{
           </div>
           <div 
             className={["Card", (paymentState == 'initialized' ? '' : 'disabled')].join(' ')}
-            title={paymentState == 'initialized' ? "Change payment" : undefined}
+            title={paymentState == 'initialized' ? "Payment options" : undefined}
             onClick={ ()=>{
               if(paymentState != 'initialized') { return }
               navigate('ChangePayment')

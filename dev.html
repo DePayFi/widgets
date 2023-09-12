@@ -10,22 +10,23 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@uiw/copy-to-clipboard/dist/copy-to-clipboard.umd.js"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/solana-web3.js@1.25.1"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/solana-web3.js@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/local-currency@3"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog@14.1.1"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@8.1.1"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog@14"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@8"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-shadow-dom@5"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@8.3.0"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@10"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@9"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@4"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/js-verify-signature@2"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@9"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@10.18.0"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@10.3.0"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@5"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/coinbase-wallet-sdk@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v1@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v2@2"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@16.0.9"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-assets@6"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@12"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@12"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@16"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-assets@7.2.0"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@13"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@13.6.5"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/qr-code-styling@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/fuse.js@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-rangeslider@2/umd/rangeslider.js"></script>
@@ -71,6 +72,12 @@
                       <option value='bsc'>BNB Smart Chain</option>
                       <option value='polygon'>Polygon</option>
                       <option value='solana'>Solana</option>
+                      <option value='base'>Base</option>
+                      <option value='optimism'>Optimism</option>
+                      <option value='arbitrum'>Arbitrum</option>
+                      <option value='fantom'>Fantom</option>
+                      <option value='avalanche'>Avalanche</option>
+                      <option value='gnosis'>Gnosis</option>
                     </select>
                   </div>
                   <div class="col col-4">
@@ -121,6 +128,78 @@
           <div class="px-0 py-4 rounded-lg bg-white border">
             <div class="col px-0">
               <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Payment: managed integration</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Integration managed via app.depay.com</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="payManagedIntegration">Try it</button>
+                <script>
+                  var button = document.getElementById("payManagedIntegration");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      integration: '461cb57d-6063-40b8-8326-a124c4a40e6f',
+                    })
+                  })
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Donation: managed integration</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Integration managed via app.depay.com</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="donateManagedIntegration">Try it</button>
+                <script>
+                  var button = document.getElementById("donateManagedIntegration");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      integration: '99a3e989-25f2-4fd4-a0a2-34050df21c3b'
+                    })
+                  })
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Tip: managed integration</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Integration managed via app.depay.com</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="tipManagedIntegration">Try it</button>
+                <script>
+                  var button = document.getElementById("tipManagedIntegration");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      integration: '5e658691-bba4-4496-bd75-4c9daf3c6ea5'
+                    })
+                  })
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
                 <h5 class="px-4">Payment: multichain</h5>
                 <div class="px-4">
                   <div class="text-secondary ">Accept payments on multiple blockchains.</div>
@@ -135,28 +214,53 @@
                       accept: [
                         {
                           blockchain: 'polygon',
-                          amount: 0.01,
+                          amount: 1,
                           token: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
                         },
                         {
                           blockchain: 'bsc',
-                          amount: 0.01,
+                          amount: 1,
                           token: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
                         },
                         {
                           blockchain: 'ethereum',
-                          amount: 0.01,
+                          amount: 1,
                           token: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
                         },
                         {
-                          blockchain: 'solana',
-                          amount: 0.001,
-                          token: '11111111111111111111111111111111',
-                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk'
+                          blockchain: 'optimism',
+                          amount: 1,
+                          token: '0x94b008aA00579c1307B0EF2c499aD98a8ce58e58',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
                         },
+                        {
+                          blockchain: 'arbitrum',
+                          amount: 1,
+                          token: '0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },
+                        {
+                          blockchain: 'gnosis',
+                          amount: 1,
+                          token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },
+                        {
+                          blockchain: 'fantom',
+                          amount: 1,
+                          token: '0x28a92dde19D9989F39A49905d7C9C2FAc7799bDf',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },
+                        {
+                          blockchain: 'base',
+                          amount: 1,
+                          token: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },
+                        
                       ]
                     });
                   });

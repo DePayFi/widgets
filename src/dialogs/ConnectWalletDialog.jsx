@@ -16,6 +16,7 @@ import { wallets } from '@depay/web3-wallets'
 
 //#endif
 
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import copy from '@uiw/copy-to-clipboard'
 import Dialog from '../components/Dialog'
 import ExtensionImage from '../graphics/extension'
@@ -43,6 +44,7 @@ export default (props)=> {
   const [ showLinkCopied, setShowLinkCopied ] = useState(false)
   const [ QRCode, setQRCode ] = useState()
   const { navigate } = useContext(NavigateStackContext)
+  const { accept } = useContext(ConfigurationContext)
   const header = (
     <div className="PaddingTopS PaddingLeftM PaddingRightM">
       { props.wallet?.logo &&
@@ -106,7 +108,7 @@ export default (props)=> {
   }
 
   const connectViaQRCode = useCallback(debounce(()=>{
-    if(props.platform?.solanaPay && ( ( props.accept && props.accept.every((accept)=>accept.amount)) )) {
+    if(props.platform?.solanaPay && ( ( accept && accept.every((accept)=>accept.amount)) )) {
       return props.continueWithSolanaPay()
     }
     if(typeof props.platform.qr === 'function') {
@@ -161,7 +163,7 @@ export default (props)=> {
       setCopyLinkIsAvailable(copyLinkIsAvailable)
       const openInAppIsAvailable = !!props.platform && props.platform.open
       setOpenInAppIsAvailable(openInAppIsAvailable)
-      const scanQrAvailable = (props.platform.solanaPay && ( ( props.accept && props.accept.every((accept)=>accept.amount)) )) || (props.platform?.qr && (!showQRCode || props.platform.qr === 'WalletLink'))
+      const scanQrAvailable = (props.platform.solanaPay && ( ( accept && accept.every((accept)=>accept.amount)) )) || (props.platform?.qr && (!showQRCode || props.platform.qr === 'WalletLink'))
       setScanQrAvailable(scanQrAvailable)
     })()
   }, [])
@@ -189,7 +191,7 @@ export default (props)=> {
     }
   }, [QRCode])
 
-  if(showQRCode && props.platform?.solanaPay && ( ( props.accept && props.accept.every((accept)=>accept.amount)) )) { return null }
+  if(showQRCode && props.platform?.solanaPay && ( ( accept && accept.every((accept)=>accept.amount)) )) { return null }
 
   return(
     <Dialog
@@ -223,8 +225,10 @@ export default (props)=> {
             <div>
               <div ref={ QRCodeElement } className="QRCode">
                 { showQRCode && QRCode === undefined &&
-                  <div className="Skeleton" style={{ borderRadius: "18px", width: "305px", height: "305px" }}>
-                    <div className="SkeletonBackground"/>
+                  <div className="PaddingTopS">
+                    <div className="Skeleton" style={{ borderRadius: "18px", width: "305px", height: "305px" }}>
+                      <div className="SkeletonBackground"/>
+                    </div>
                   </div>
                 }
               </div>

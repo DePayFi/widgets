@@ -8,7 +8,7 @@ import { mock, anything, confirm, increaseBlock, resetMocks } from '@depay/web3-
 import { mockPaymentsAccount, mockTokenAccount } from '../../../tests/mocks/solana/transaction'
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers } from '@depay/web3-payments'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 describe('Payment Widget: main functionality for Solana', () => {
 

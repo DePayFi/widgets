@@ -1,16 +1,16 @@
 /*#if _EVM
 
-import { Token } from '@depay/web3-tokens-evm'
+import Token from '@depay/web3-tokens-evm'
 import { TokenImage } from '@depay/react-token-image-evm'
 
 /*#elif _SOLANA
 
-import { Token } from '@depay/web3-tokens-solana'
+import Token from '@depay/web3-tokens-solana'
 import { TokenImage } from '@depay/react-token-image-solana'
 
 //#else */
 
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 import { TokenImage } from '@depay/react-token-image'
 
 //#endif
@@ -100,7 +100,7 @@ export default ()=> {
                           blockchain={ paymentOption.blockchain }
                           address={ paymentOption.token }
                         />
-                        <img className={"BlockchainLogo small " + Blockchains[paymentOption.blockchain].name} src={Blockchains[paymentOption.blockchain].logo} alt={Blockchains[paymentOption.blockchain].label} title={Blockchains[paymentOption.blockchain].label}/>
+                        <img className={"BlockchainLogo small bottomRight " + Blockchains[paymentOption.blockchain].name} style={{ backgroundColor: Blockchains[paymentOption.blockchain].logoBackgroundColor }} src={Blockchains[paymentOption.blockchain].logo} alt={Blockchains[paymentOption.blockchain].label} title={Blockchains[paymentOption.blockchain].label}/>
                       </div>
                       <div className="CardBody">
                         <div className="CardBodyWrapper">

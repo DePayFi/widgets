@@ -24,7 +24,7 @@ import { ethers } from 'ethers'
 
 export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
-  const { track, validated, failed, integration, link, type } = useContext(ConfigurationContext)
+  const { id: configurationId, track, validated, failed, integration, link, type } = useContext(ConfigurationContext)
   const { account, wallet } = useContext(WalletContext)
   const [ transaction, setTransaction ] = useState()
   const [ confirmationsRequired, setConfirmationsRequired ] = useState()
@@ -32,10 +32,20 @@ export default (props)=>{
   const [ afterBlock, setAfterBlock ] = useState()
   const [ socket, setSocket ] = useState()
   const [ paymentRoute, setPaymentRoute ] = useState()
+  const [ attemptId, setAttemptId ] = useState()
   const [ trackingInitialized, setTrackingInitialized ] = useState(false)
-  const [ synchronousTracking ] = useState( !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true) )
-  const [ asynchronousTracking ] = useState( !!(track && track.async == true) )
-  const [ polling ] = useState( !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true) )
+  const [ synchronousTracking ] = useState(
+    !!configurationId ||
+    !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)
+  )
+  const [ asynchronousTracking ] = useState(
+    !configurationId &&
+    !!(track && track.async == true)
+  )
+  const [ polling ] = useState(
+    !!configurationId ||
+    !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)
+  )
   const [ release, setRelease ] = useState(false)
   const [ forwardTo, setForwardTo ] = useState()
   const { setClosable } = useContext(ClosableContext)
@@ -107,7 +117,20 @@ export default (props)=>{
   }
 
   const callTracking = (payment)=>{
-    if(track.endpoint){
+    if(configurationId){
+      return fetch(`https://public.depay.com/configurations/${configurationId}/attempts`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payment)
+      }).then((response)=>{
+        if(response.status == 200 || response.status == 201) {
+          response.json().then((attempt)=>setAttemptId(attempt.id))
+          return response
+        } else {
+          return reject('TRACKING REQUEST FAILED')
+        }
+      })
+    } else if(track.endpoint){
       return fetch(track.endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -177,12 +200,27 @@ export default (props)=>{
           setClosable(true)
         }
         clearInterval(pollingInterval)
-        if(validated) { validated(true, transaction) }
+        if(validated) {
+          validated(data.status ? data.status == 'success' : true, transaction)
+        }
         setRelease(true)
       }
     }
 
-    if(track.poll.endpoint) {
+    if(configurationId) {
+      if(attemptId) {
+        fetch(`https://public.depay.com/attempts/${attemptId}`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        }).then((response)=>{
+          if(response.status == 200 || response.status == 201) {
+            return response.json()
+          } else {
+            return undefined
+          }
+        }).then(handlePollingResponse)
+      }
+    } else if(track.poll.endpoint) {
       fetch(track.poll.endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -274,7 +312,20 @@ export default (props)=>{
         fee_amount: paymentRoute?.feeAmount?.toString(),
         deadline: transaction.deadline
       }
-      if(track.endpoint){
+      if(configurationId){
+        return fetch(`https://public.depay.com/configurations/${configurationId}/attempts`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payment)
+        }).then((response)=>{
+          if(response.status == 200 || response.status == 201) {
+            response.json().then((attempt)=>setAttemptId(attempt.id))
+            return resolve()
+          } else {
+            return reject('TRACING REQUEST FAILED')
+          }
+        })
+      } else if(track.endpoint){
         return fetch(track.endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

@@ -1,17 +1,17 @@
 /*#if _EVM
 
-import { route } from '@depay/web3-exchanges-evm'
-import { Token } from '@depay/web3-tokens-evm'
+import Exchanges from '@depay/web3-exchanges-evm'
+import Token from '@depay/web3-tokens-evm'
 
 /*#elif _SOLANA
 
-import { route } from '@depay/web3-exchanges-solana'
-import { Token } from '@depay/web3-tokens-solana'
+import Exchanges from '@depay/web3-exchanges-solana'
+import Token from '@depay/web3-tokens-solana'
 
 //#else */
 
-import { route } from '@depay/web3-exchanges'
-import { Token } from '@depay/web3-tokens'
+import Exchanges from '@depay/web3-exchanges'
+import Token from '@depay/web3-tokens'
 
 //#endif
 
@@ -48,7 +48,7 @@ export default (props)=>{
     Promise.all([
       Promise.all(
         Blockchains[payment.route.blockchain].stables.usd.map((stable)=>{
-          return route({
+          return Exchanges.route({
             blockchain: payment.route.blockchain,
             tokenIn: payment.route.fromToken.address,
             tokenOut: stable,
@@ -58,7 +58,7 @@ export default (props)=>{
           })
         })
       ),
-      !payment.route.directTransfer ? route({
+      !payment.route.directTransfer ? Exchanges.route({
         blockchain: payment.route.blockchain,
         tokenIn: payment.route.toToken.address,
         tokenOut: payment.route.fromToken.address,

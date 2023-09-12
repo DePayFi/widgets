@@ -9,7 +9,7 @@ import { mock, confirm, increaseBlock, resetMocks, anything } from '@depay/web3-
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Server } from 'mock-socket'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 describe('Payment Widget: track', () => {
 
@@ -316,7 +316,7 @@ describe('Payment Widget: track', () => {
                       }
                     }))
                     cy.wait(1000).then(()=>{
-                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Validating payment 143s').should('exist')
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Validating payment 132s').should('exist')
                       cy.get('span[title="2/13 required confirmations"]', { includeShadowDom: true }).should('exist')
                       cy.wait(2000).then(()=>{
                         mockedWebsocket.send(JSON.stringify({
@@ -469,19 +469,9 @@ describe('Payment Widget: track', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
-        to: "0xae60ac8e69414c2dc362d0e6a03af643d1d85b92",
+        to: "0x6466f27b169c908ba8174d80aefa7173cbc3d0c7",
         api: routers[blockchain].api,
-        method: 'route',
-        params: {
-          path: ["0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"],
-          amounts: ["20000000000000000000", "19800000000000000000", anything, '0', '200000000000000000'],
-          addresses: [fromAddress, feeReceiver, toAddress],
-          plugins: [
-            plugins[blockchain].payment.address,
-            plugins[blockchain].paymentFee.address
-          ],
-          data:[]
-        }
+        method: 'pay'
       }
     })
 
@@ -1037,7 +1027,7 @@ describe('Payment Widget: track', () => {
     })
   })
 
-  it.only('immediately shows failed payment and allows for a retry if payment confirmed "failed" through websocket', () => {
+  it('immediately shows failed payment and allows for a retry if payment confirmed "failed" through websocket', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {

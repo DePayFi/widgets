@@ -1,19 +1,19 @@
 /*#if _EVM
 
 import { getWallets } from '@depay/web3-wallets-evm'
-import { Token } from '@depay/web3-tokens-evm'
+import Token from '@depay/web3-tokens-evm'
 import { TokenImage } from '@depay/react-token-image-evm'
 
 /*#elif _SOLANA
 
 import { getWallets } from '@depay/web3-wallets-solana'
-import { Token } from '@depay/web3-tokens-solana'
+import Token from '@depay/web3-tokens-solana'
 import { TokenImage } from '@depay/react-token-image-solana'
 
 //#else */
 
 import { getWallets } from '@depay/web3-wallets'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 import { TokenImage } from '@depay/react-token-image'
 
 //#endif
@@ -301,7 +301,7 @@ export default (props)=> {
           <div className="PaddingTopS PaddingBottomXS">
             <div className="Card small" onClick={ onClickChangeBlockchain }>
               <div className="CardImage small">
-                <img className="transparent" src={ blockchain.logo }/>
+                <img className="transparent BlockchainLogo" src={ blockchain.logo } style={{ backgroundColor: blockchain.logoBackgroundColor }}/>
               </div>
               <div className="CardBody FontSizeM">
                 { blockchain.label }

@@ -1,11 +1,11 @@
 import Blockchains from '@depay/web3-blockchains'
 import fetchMock from 'fetch-mock'
 import { ethers } from 'ethers'
-import { find } from '@depay/web3-exchanges'
+import Exchanges from '@depay/web3-exchanges'
 import { mock } from '@depay/web3-mock'
 import { PublicKey, struct, u8, u16, u32, u64, nu64, seq, offset, publicKey } from '@depay/solana-web3.js'
 import { routers } from '@depay/web3-payments'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 export default async({
 
@@ -64,7 +64,7 @@ export default async({
   let WRAPPED = Blockchains[blockchain].wrapped.address
   let WRAPPED_AmountInBN = ethers.utils.parseUnits(WRAPPED_AmountIn.toString(), Blockchains[blockchain].currency.decimals)
 
-  exchange = find(blockchain, exchange)
+  exchange = Exchanges[blockchain][exchange]
 
   fetchMock.get({
     url: `https://public.depay.com/accounts/${blockchain}/${fromAddress}/assets`,

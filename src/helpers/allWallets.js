@@ -138,7 +138,7 @@ export default [
     "name": "Uniswap Wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "universal": "https://uniswap.org/app", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "ios": { "native": "uniswap:", "universal": "https://uniswap.org/app", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/uniswap_wallet.jpg",
     "blockchains": [...supported.evm]
@@ -147,8 +147,8 @@ export default [
     "name": "Safe",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "universal": "https://app.safe.global", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "universal": "https://app.safe.global", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "safe", "universal": "https://app.safe.global", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "android": { "native": "safe", "universal": "https://app.safe.global", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
     },
     "logo": "https://img1.depay.com/wallets/safe.jpg",
     "blockchains": [...supported.evm]
@@ -295,8 +295,8 @@ export default [
     "name": "Omni",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "omni", "universal": "https://links.omni.app", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "omni", "universal": "https://links.omni.app", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "omni:", "universal": "https://links.omni.app", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "android": { "native": "omni:", "universal": "https://links.omni.app", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
     },
     "logo": "https://img1.depay.com/wallets/omni.jpg",
     "blockchains": [...supported.evm]

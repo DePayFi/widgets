@@ -2,19 +2,19 @@
 
 import { getWallets } from '@depay/web3-wallets-evm'
 import { request } from '@depay/web3-client-evm'
-import { Token } from '@depay/web3-tokens-evm'
+import Token from '@depay/web3-tokens-evm'
 
 /*#elif _SOLANA
 
 import { getWallets } from '@depay/web3-wallets-solana'
 import { request } from '@depay/web3-client-solana'
-import { Token } from '@depay/web3-tokens-solana'
+import Token from '@depay/web3-tokens-solana'
 
 //#else */
 
 import { getWallets } from '@depay/web3-wallets'
 import { request } from '@depay/web3-client'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 //#endif
 
@@ -124,7 +124,10 @@ export default (props)=> {
           <div className="PaddingTopS PaddingBottomS">
             <div className="Card small" onClick={ ()=>navigate('SelectBlockchain') }>
               <div className="CardImage small">
-                <img className="transparent" src={ Blockchains.findByName(selection?.blockchain?.name || selection?.blockchain || selection?.collection?.blockchain )?.logo }/>
+                <img className="transparent BlockchainLogo small"
+                  src={ Blockchains[selection?.blockchain?.name || selection?.blockchain || selection?.collection?.blockchain]?.logo }
+                  style={{ backgroundColor: Blockchains[selection?.blockchain?.name || selection?.blockchain || selection?.collection?.blockchain]?.logoBackgroundColor }}
+                />
               </div>
               <div className="CardBody FontSizeM">
                 { Blockchains.findByName(selection?.blockchain?.name|| selection?.blockchain || selection?.collection?.blockchain )?.label }

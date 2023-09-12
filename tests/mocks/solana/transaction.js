@@ -1,6 +1,6 @@
 import { mock } from '@depay/web3-mock'
 import { struct, u64, publicKey, Buffer, PublicKey } from '@depay/solana-web3.js'
-import { Token } from '@depay/web3-tokens'
+import Token from '@depay/web3-tokens'
 
 const getPaymentsAccountPublicKey = async({ fromAddress })=> {
   let seeds = [Buffer.from("payments"), new PublicKey(fromAddress).toBuffer()]
