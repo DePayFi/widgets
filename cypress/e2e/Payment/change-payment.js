@@ -256,15 +256,19 @@ describe('Payment Widget: change payment', () => {
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
-            confirm(mockedTransaction)
-            cy.wait(2000).then(()=>{
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-                cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+          cy.wait(1000).then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').click()
+            cy.wait(1000).then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
+                confirm(mockedTransaction)
+                cy.wait(2000).then(()=>{
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+                    cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+                  })
+                })
               })
             })
           })

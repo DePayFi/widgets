@@ -74,7 +74,7 @@ export default ()=>{
     } else if(release) {
       return(
         <div>
-          <div className="Card transparent small disabled">
+          <a className="Card transparent small" title="DePay has validated the payment" href={ "https://depay.com/docs/payments/validation" } target="_blank" rel="noopener noreferrer">
             <div className="CardImage">
               <div className="TextCenter Opacity05">
                 <Checkmark className="small"/>
@@ -87,13 +87,13 @@ export default ()=>{
                 </div>
               </div>
             </div>
-          </div>
+          </a>
         </div>
       )
     } else {
       return(
         <div>
-          <div className="Card transparent small disabled">
+          <a className="Card transparent small" title="DePay is validating payment" href={ "https://depay.com/docs/payments/validation" } target="_blank" rel="noopener noreferrer">
             <div className="CardImage">
               <div className="TextCenter">
                 <div className="Loading Icon"></div>
@@ -109,7 +109,7 @@ export default ()=>{
                 </div>
               </div>
             </div>
-          </div>
+          </a>
         </div>
       )
     }

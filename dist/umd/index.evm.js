@@ -27203,13 +27203,13 @@
     ethereum: 12,
     bsc: 3,
     polygon: 2,
-    solana: 0.5,
+    solana: 0.2,
     optimism: 0.5,
     base: 0.5,
-    arbitrum: 1.5,
+    arbitrum: 0.28,
     fantom: 2.5,
     avalanche: 2,
-    gnosis: 5.2
+    gnosis: 5
   };
   var etaForConfirmations = (function (blockchain, confirmationsRequired, confirmationsPassed) {
     return (confirmationsRequired - confirmationsPassed) * blockTimes[blockchain];
@@ -27313,8 +27313,12 @@
           className: "Opacity05"
         }, "Initializing tracking")))));
       } else if (release) {
-        return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Card transparent small disabled"
+        return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("a", {
+          className: "Card transparent small",
+          title: "DePay has validated the payment",
+          href: "https://depay.com/docs/payments/validation",
+          target: "_blank",
+          rel: "noopener noreferrer"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardImage"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -27329,8 +27333,12 @@
           className: "Opacity05"
         }, "Payment validated")))));
       } else {
-        return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Card transparent small disabled"
+        return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("a", {
+          className: "Card transparent small",
+          title: "DePay is validating payment",
+          href: "https://depay.com/docs/payments/validation",
+          target: "_blank",
+          rel: "noopener noreferrer"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardImage"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
