@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('@depay/web3-wallets'), require('@depay/web3-blockchains'), require('@depay/web3-payments'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client'), require('@depay/local-currency'), require('@depay/js-verify-signature'), require('@depay/web3-exchanges'), require('@depay/web3-tokens'), require('ethers'), require('decimal.js'), require('@depay/react-token-image'), require('@depay/solana-web3.js')) :
-  typeof define === 'function' && define.amd ? define(['react', '@depay/web3-wallets', '@depay/web3-blockchains', '@depay/web3-payments', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client', '@depay/local-currency', '@depay/js-verify-signature', '@depay/web3-exchanges', '@depay/web3-tokens', 'ethers', 'decimal.js', '@depay/react-token-image', '@depay/solana-web3.js'], factory) :
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('@depay/web3-wallets'), require('@depay/web3-blockchains'), require('@depay/web3-payments'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client'), require('@depay/local-currency'), require('@depay/js-verify-signature-web'), require('@depay/web3-exchanges'), require('@depay/web3-tokens'), require('ethers'), require('decimal.js'), require('@depay/react-token-image'), require('@depay/solana-web3.js')) :
+  typeof define === 'function' && define.amd ? define(['react', '@depay/web3-wallets', '@depay/web3-blockchains', '@depay/web3-payments', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client', '@depay/local-currency', '@depay/js-verify-signature-web', '@depay/web3-exchanges', '@depay/web3-tokens', 'ethers', 'decimal.js', '@depay/react-token-image', '@depay/solana-web3.js'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.Web3Wallets, global.Web3Blockchains, global.Web3Payments, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.DePayVerifySignature, global.Web3Exchanges, global.Web3Tokens, global.ethers, global.Decimal, global.ReactTokenImage, global.SolanaWeb3js));
-}(this, (function (React, web3Wallets, Blockchains, web3Payments, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3Client, localCurrency, jsVerifySignature, Exchanges, Token, ethers, decimal_js, reactTokenImage, solanaWeb3_js) { 'use strict';
+}(this, (function (React, web3Wallets, Blockchains, web3Payments, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3Client, localCurrency, jsVerifySignatureWeb, Exchanges, Token, ethers, decimal_js, reactTokenImage, solanaWeb3_js) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -24117,7 +24117,7 @@
                   configurationId = _JSON$parse.id;
                   _configuration = _JSON$parse.configuration;
                   _context.next = 10;
-                  return jsVerifySignature.verify({
+                  return jsVerifySignatureWeb.verify({
                     signature: response.headers.get('x-signature'),
                     publicKey: PUBLIC_KEY,
                     data: JSON.stringify(_configuration)

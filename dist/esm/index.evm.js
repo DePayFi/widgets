@@ -24057,17 +24057,6 @@ var NavigateProvider = (function (props) {
   }, props.children);
 });
 
-let crypto;
-let atob$1;
-
-if (typeof window === 'undefined') { // running in Node.js
-  crypto = new (require("@peculiar/webcrypto").Crypto)();
-  atob$1 = require('atob');
-} else {
-  crypto = window.crypto;
-  atob$1 = window.atob;
-}
-
 const string2ArrayBuffer = (str)=> {
   const buf = new ArrayBuffer(str.length);
   const bufView = new Uint8Array(buf);
@@ -24077,9 +24066,9 @@ const string2ArrayBuffer = (str)=> {
   return buf
 };
 
-const base64ToArrayBuffer = (b64)=> {
+const base64ToArrayBuffer = (b64, atob)=> {
   const safeB64 = b64.replace(/-/g, '+').replace(/_/g, '/');
-  const byteString = atob$1(safeB64);
+  const byteString = atob(safeB64);
   let byteArray = new Uint8Array(byteString.length);
   for(let i=0; i < byteString.length; i++) {
     byteArray[i] = byteString.charCodeAt(i);
@@ -24087,17 +24076,24 @@ const base64ToArrayBuffer = (b64)=> {
   return byteArray
 };
 
-const verify = async ({ signature, publicKey, data, saltLength = 64 })=>{
+var internalVerify = async ({ signature, publicKey, data, saltLength = 64, crypto, atob })=>{
 
   let innerPublicKey = publicKey.replace(/^.*?-----BEGIN PUBLIC KEY-----\n/, '').replace(/-----END PUBLIC KEY-----(\n)*$/, '').replace(/(\n)*/g, '');
   while (innerPublicKey.length % 4) { // add proper padding
     innerPublicKey += '=';
   }
-  const binaryString = atob$1(innerPublicKey);
+  const binaryString = atob(innerPublicKey);
   const binaryStringArrayBuffer = string2ArrayBuffer(binaryString);
   const cryptoKey = await crypto.subtle.importKey("spki", binaryStringArrayBuffer, { name: "RSA-PSS", hash: "SHA-256" }, true, ["verify"]);
 
-  return await crypto.subtle.verify({ name: "RSA-PSS", saltLength }, cryptoKey, base64ToArrayBuffer(signature), string2ArrayBuffer(data))
+  return await crypto.subtle.verify({ name: "RSA-PSS", saltLength }, cryptoKey, base64ToArrayBuffer(signature, atob), string2ArrayBuffer(data))
+};
+
+const crypto = window.crypto;
+const atob$1 = window.atob;
+
+const verify = ({ signature, publicKey, data, saltLength = 64 })=>{
+  return internalVerify({ signature, publicKey, data, saltLength, crypto, atob: atob$1 })
 };
 
 function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }

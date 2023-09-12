@@ -11,7 +11,7 @@ import ReactDOM from 'react-dom';
 import { ReactShadowDOM } from '@depay/react-shadow-dom';
 import { setProviderEndpoints, request, getProvider } from '@depay/web3-client';
 import { Currency } from '@depay/local-currency';
-import { verify } from '@depay/js-verify-signature';
+import { verify } from '@depay/js-verify-signature-web';
 import Exchanges from '@depay/web3-exchanges';
 import Token from '@depay/web3-tokens';
 import { ethers } from 'ethers';

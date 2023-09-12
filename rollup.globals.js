@@ -1,6 +1,6 @@
 export default {
   '@depay/coinbase-wallet-sdk': 'CoinbaseWalletSdk',
-  '@depay/js-verify-signature': 'DePayVerifySignature',
+  '@depay/js-verify-signature-web': 'DePayVerifySignature',
   '@depay/local-currency': 'LocalCurrency',
   '@depay/react-dialog': 'ReactDialog',
   '@depay/react-dialog-stack': 'ReactDialogStack',

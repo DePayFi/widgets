@@ -1241,10 +1241,10 @@
   dependencies:
     "@coinbase/wallet-sdk" "^3.6.4"
 
-"@depay/js-verify-signature@^2.0.7":
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/@depay/js-verify-signature/-/js-verify-signature-2.0.7.tgz#06e84996e00984fc2f920dd1fcaae17356c6f019"
-  integrity sha512-ooyY0TRsqlmv/NO2EcmT++OEZBeO9Wqaa5thlkd2xRMQ4sL3iNbLgcs2S22uULYGeWmOm8kSYopBK7XKaTm3Rw==
+"@depay/js-verify-signature-web@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@depay/js-verify-signature-web/-/js-verify-signature-web-3.0.0.tgz#178cb2e2c354a99d4695159226330928326d1193"
+  integrity sha512-EuwN0I9pCZ/8SO2mEiMekbrO2sK0Ug4ZqfJOQk1mAGP3HKJZdQPlyqxOjZ8hQ4zQGiZp8QqdGOXiT6kRtV1upQ==
 
 "@depay/local-currency@^3.6.1":
   version "3.6.1"
