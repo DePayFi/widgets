@@ -25947,18 +25947,16 @@
     React.useEffect(function () {
       var loadRecommendations = /*#__PURE__*/function () {
         var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6() {
-          var _ref6;
-
           var directTransfer, token;
           return regenerator.wrap(function _callee6$(_context6) {
             while (1) {
               switch (_context6.prev = _context6.next) {
                 case 0:
-                  directTransfer = !sell & ((_ref6 = acceptWithAmount || accept) === null || _ref6 === void 0 ? void 0 : _ref6.find(function (accept) {
+                  directTransfer = !sell && (acceptWithAmount || accept).find(function (accept) {
                     return props.assets.find(function (asset) {
                       return accept.blockchain === asset.blockchain && accept.token.toLowerCase() === asset.address.toLowerCase();
                     });
-                  }));
+                  });
 
                   if (!directTransfer) {
                     _context6.next = 14;
@@ -26013,7 +26011,7 @@
 
 
                       return (acceptWithAmount || accept).map( /*#__PURE__*/function () {
-                        var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(accept) {
+                        var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(accept) {
                           return regenerator.wrap(function _callee4$(_context4) {
                             while (1) {
                               switch (_context4.prev = _context4.next) {
@@ -26057,11 +26055,11 @@
                         }));
 
                         return function (_x4) {
-                          return _ref7.apply(this, arguments);
+                          return _ref6.apply(this, arguments);
                         };
                       }()).filter(Boolean).flat();
                     }).flat().filter(Boolean)).then( /*#__PURE__*/function () {
-                      var _ref8 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
+                      var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
                         var route, recommendedAccept;
                         return regenerator.wrap(function _callee5$(_context5) {
                           while (1) {
@@ -26096,7 +26094,7 @@
                       }));
 
                       return function (_x5) {
-                        return _ref8.apply(this, arguments);
+                        return _ref7.apply(this, arguments);
                       };
                     }());
                   }

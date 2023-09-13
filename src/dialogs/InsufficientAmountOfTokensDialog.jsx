@@ -133,7 +133,7 @@ export default (props)=> {
 
   useEffect(()=>{
     const loadRecommendations = async()=>{
-      let directTransfer = !sell & (acceptWithAmount||accept)?.find((accept)=>props.assets.find((asset)=>accept.blockchain === asset.blockchain && accept.token.toLowerCase() === asset.address.toLowerCase()))
+      let directTransfer = !sell && (acceptWithAmount||accept).find((accept)=>props.assets.find((asset)=>accept.blockchain === asset.blockchain && accept.token.toLowerCase() === asset.address.toLowerCase()))
       if(directTransfer){
         const token = new Token({ blockchain: directTransfer.blockchain, address: directTransfer.token })
         directTransfer = {
