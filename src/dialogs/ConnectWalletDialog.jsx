@@ -267,30 +267,58 @@ export default (props)=> {
                       </div>
                     </div>
                   }
-                  <button onClick={ ()=>props.connectExtension(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
-                    <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
-                      <img className="transparent " title="Connect your wallet" style={{ height: '26px' }} src={ ExtensionImage }/>
-                    </span>
-                    <div className="PaddingLeftS LineHeightXS">
-                      <div className="CardText FontWeightMedium">
-                        Connect extension
+                  { props.connectingExtension &&
+                    <div className="Card disabled small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
+                      <div className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
+                        <div className="Loading Icon medium" style={{ position: 'relative', top: '4px', left: '1px' }}></div>
+                      </div>
+                      <div className="PaddingLeftS LineHeightXS">
+                        <div className="CardText FontWeightMedium">
+                          Connecting extension
+                        </div>
                       </div>
                     </div>
-                  </button>
+                  }
+                  { !props.connectingExtension &&
+                    <button onClick={ ()=>props.connectExtension(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
+                      <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
+                        <img className="transparent " title="Connect your wallet" style={{ height: '26px' }} src={ ExtensionImage }/>
+                      </span>
+                      <div className="PaddingLeftS LineHeightXS">
+                        <div className="CardText FontWeightMedium">
+                          Connect extension
+                        </div>
+                      </div>
+                    </button>
+                  }
                 </div>
               }
               { connectAppIsAvailable &&
                 <div className="PaddingBottomXS">
-                  <button onClick={()=> props.connectViaRedirect(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
-                    <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
-                      <img className="transparent " title="Click to connect app" style={{ height: '26px', width: '26px', borderRadius: '8px' }} src={ props.wallet.logo }/>
-                    </span>
-                    <div className="PaddingLeftS LineHeightXS">
-                      <div className="CardText FontWeightMedium">
-                        Connect app
+                  { props.connectingApp &&
+                    <div className="Card disabled small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
+                      <div className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
+                        <div className="Loading Icon medium" style={{ position: 'relative', top: '4px', left: '1px' }}></div>
+                      </div>
+                      <div className="PaddingLeftS LineHeightXS">
+                        <div className="CardText FontWeightMedium">
+                          Connecting app
+                        </div>
                       </div>
                     </div>
-                  </button>
+                  }
+                  { !props.connectingApp &&
+                    <button onClick={()=> props.connectViaRedirect(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
+                      <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
+                        <img className="transparent " title="Click to connect app" style={{ height: '26px', width: '26px', borderRadius: '8px' }} src={ props.wallet.logo }/>
+                      </span>
+                      <div className="PaddingLeftS LineHeightXS">
+                        <div className="CardText FontWeightMedium">
+                          Connect app
+                        </div>
+                      </div>
+                    </button>
+                  }
                 </div>
               }
               { openInAppIsAvailable &&

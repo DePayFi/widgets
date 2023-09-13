@@ -22467,7 +22467,28 @@
         className: "Alert"
       }, /*#__PURE__*/React__default['default'].createElement("span", {
         className: "FontWeightBold PaddingBottomXS"
-      }, "You wallet extension window is already asking to connect. It might be hidden."))), /*#__PURE__*/React__default['default'].createElement("button", {
+      }, "You wallet extension window is already asking to connect. It might be hidden."))), props.connectingExtension && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Card disabled small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS",
+        style: {
+          height: '50px'
+        }
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopXS PaddingRightXS PaddingLeftS TextCenter",
+        style: {
+          width: "50px"
+        }
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Loading Icon medium",
+        style: {
+          position: 'relative',
+          top: '4px',
+          left: '1px'
+        }
+      })), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingLeftS LineHeightXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardText FontWeightMedium"
+      }, "Connecting extension"))), !props.connectingExtension && /*#__PURE__*/React__default['default'].createElement("button", {
         onClick: function onClick() {
           return props.connectExtension(props.wallet);
         },
@@ -22493,7 +22514,28 @@
         className: "CardText FontWeightMedium"
       }, "Connect extension")))), connectAppIsAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS"
-      }, /*#__PURE__*/React__default['default'].createElement("button", {
+      }, props.connectingApp && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Card disabled small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS",
+        style: {
+          height: '50px'
+        }
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopXS PaddingRightXS PaddingLeftS TextCenter",
+        style: {
+          width: "50px"
+        }
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Loading Icon medium",
+        style: {
+          position: 'relative',
+          top: '4px',
+          left: '1px'
+        }
+      })), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingLeftS LineHeightXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "CardText FontWeightMedium"
+      }, "Connecting app"))), !props.connectingApp && /*#__PURE__*/React__default['default'].createElement("button", {
         onClick: function onClick() {
           return props.connectViaRedirect(props.wallet);
         },
@@ -23104,22 +23146,32 @@
         platform = _useState4[0],
         setPlatform = _useState4[1];
 
-    var _useState5 = React.useState(),
+    var _useState5 = React.useState(false),
         _useState6 = _slicedToArray(_useState5, 2),
-        redirectUri = _useState6[0],
-        setRedirectUri = _useState6[1];
+        connectingExtension = _useState6[0],
+        setConnectingExtension = _useState6[1];
 
-    var _useState7 = React.useState({
+    var _useState7 = React.useState(false),
+        _useState8 = _slicedToArray(_useState7, 2);
+        _useState8[0];
+        var setConnectingApp = _useState8[1];
+
+    var _useState9 = React.useState(),
+        _useState10 = _slicedToArray(_useState9, 2),
+        redirectUri = _useState10[0],
+        setRedirectUri = _useState10[1];
+
+    var _useState11 = React.useState({
       blockchain: undefined
     }),
-        _useState8 = _slicedToArray(_useState7, 2),
-        selection = _useState8[0];
-        _useState8[1];
+        _useState12 = _slicedToArray(_useState11, 2),
+        selection = _useState12[0];
+        _useState12[1];
 
-    var _useState9 = React.useState(false),
-        _useState10 = _slicedToArray(_useState9, 2),
-        showConnectExtensionWarning = _useState10[0],
-        setShowConnectExtensionWarning = _useState10[1];
+    var _useState13 = React.useState(false),
+        _useState14 = _slicedToArray(_useState13, 2),
+        showConnectExtensionWarning = _useState14[0],
+        setShowConnectExtensionWarning = _useState14[1];
 
     var resolve = function resolve(account, wallet) {
       if (account && wallet) {
@@ -23139,10 +23191,19 @@
 
     var connectExtension = function connectExtension(wallet) {
       setShowConnectExtensionWarning(false);
+      setConnectingExtension(true);
       wallet = new web3WalletsEvm.wallets[wallet.extension]();
+      var resetConnectingTimeout = setTimeout(function () {
+        setConnectingExtension(false);
+      }, 5000);
       wallet.connect().then(function (account) {
         resolve(account, wallet);
+        setConnectingExtension(false);
+        clearTimeout(resetConnectingTimeout);
       })["catch"](function (error) {
+        setConnectingExtension(false);
+        clearTimeout(resetConnectingTimeout);
+
         if ((error === null || error === void 0 ? void 0 : error.code) == -32002) {
           // Request of type 'wallet_requestPermissions' already pending...
           setShowConnectExtensionWarning(true);
@@ -23235,6 +23296,11 @@
         return;
       }
 
+      setConnectingApp(true);
+      setTimeout(function () {
+        setConnectingApp(false);
+      }, 5000);
+
       if (['WalletConnectV1', 'WalletConnectV2'].includes(platform.connect)) {
         localStorage[atob('ZGVwYXk6d2FsbGV0czp3YzI6cHJvamVjdElk')] = atob('YjFmYzJmMDZlYTIxMDdmY2Q5OWM2OGY0MTI3MTQxYWI=');
 
@@ -23262,7 +23328,10 @@
             });
           }
         }).then(function (account) {
+          setConnectingApp(false);
           resolve(account, _wallet);
+        })["catch"](function () {
+          setConnectingApp(false);
         });
       } else if (platform.connect === 'SolanaMobileWalletAdapter') {
         var _wallet2 = new web3WalletsEvm.wallets[platform.connect]();
@@ -23271,7 +23340,10 @@
           name: walletMetaData.name,
           logo: walletMetaData.logo
         }).then(function (account) {
+          setConnectingApp(false);
           resolve(account, _wallet2);
+        })["catch"](function () {
+          setConnectingApp(false);
         });
       }
     };
@@ -23319,6 +23391,7 @@
           openInApp: openInApp,
           connectViaRedirect: connectViaRedirect,
           connectExtension: connectExtension,
+          connectingExtension: connectingExtension,
           showConnectExtensionWarning: showConnectExtensionWarning,
           continueWithSolanaPay: props.continueWithSolanaPay
         })
@@ -23734,7 +23807,7 @@
   });
 
   var IconStyle = (function (style) {
-    return "\n\n    .Icon {\n      fill: ".concat(style.colors.icons, ";\n      stroke: ").concat(style.colors.icons, ";\n    }\n\n    .QuestionMarkIcon {\n      fill: transparent;\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .ChevronLeft.small, .ChevronRight.small {\n      height: 12px;\n      width: 12px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .AlertIcon {\n      height: 20px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 20px;\n      fill: #e42626;\n      stroke: transparent;\n    }\n\n    .CheckMark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      border-radius: 100%;\n      position: relative;\n      left: -1px;\n      width: 18px;\n      height: 18px;\n      animation: spin 1.5s linear infinite;\n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
+    return "\n\n    .Icon {\n      fill: ".concat(style.colors.icons, ";\n      stroke: ").concat(style.colors.icons, ";\n    }\n\n    .QuestionMarkIcon {\n      fill: transparent;\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .ChevronLeft.small, .ChevronRight.small {\n      height: 12px;\n      width: 12px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .AlertIcon {\n      height: 20px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 20px;\n      fill: #e42626;\n      stroke: transparent;\n    }\n\n    .CheckMark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      animation: spin 1.5s linear infinite;\n      border-radius: 100%;\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      display: inline-block;\n      height: 18px;\n      left: -1px;\n      position: relative;\n      width: 18px;\n    }\n\n    .Loading.medium {\n      border: 4px solid ").concat(style.colors.primary, ";\n      border-top: 4px solid rgba(0,0,0,0.1);\n      display: inline-block;\n      height: 22px;\n      position: relative;\n      width: 22px; \n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
   });
 
   var ImageStyle = (function (style) {
@@ -24886,10 +24959,16 @@
     };
 
     var _useContext = React.useContext(ConfigurationContext),
-        accept = _useContext.accept,
         configuredAmount = _useContext.amount;
         _useContext.toAmount;
         var recover = _useContext.recover;
+
+    var _useContext2 = React.useContext(ConfigurationContext),
+        accept = _useContext2.accept;
+
+    if (!accept) {
+      accept = props.accept;
+    }
 
     React.useContext(ConfigurationContext);
 
@@ -24898,15 +24977,15 @@
         amountsMissing = _useState2[0],
         setAmountsMissing = _useState2[1];
 
-    var _useContext2 = React.useContext(WalletContext),
-        account = _useContext2.account;
+    var _useContext3 = React.useContext(WalletContext),
+        account = _useContext3.account;
 
-    var _useContext3 = React.useContext(ConversionRateContext),
-        conversionRate = _useContext3.conversionRate,
-        fixedCurrencyConversionRate = _useContext3.fixedCurrencyConversionRate;
+    var _useContext4 = React.useContext(ConversionRateContext),
+        conversionRate = _useContext4.conversionRate,
+        fixedCurrencyConversionRate = _useContext4.fixedCurrencyConversionRate;
 
-    var _useContext4 = React.useContext(ErrorContext),
-        setError = _useContext4.setError;
+    var _useContext5 = React.useContext(ErrorContext),
+        setError = _useContext5.setError;
 
     var _useState3 = React.useState(),
         _useState4 = _slicedToArray(_useState3, 2),

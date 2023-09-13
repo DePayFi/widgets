@@ -57,14 +57,24 @@ export default (style)=>{
     }
 
     .Loading {
+      animation: spin 1.5s linear infinite;
+      border-radius: 100%;
       border: 3px solid ${style.colors.primary};
       border-top: 3px solid rgba(0,0,0,0.1);
-      border-radius: 100%;
-      position: relative;
-      left: -1px;
-      width: 18px;
+      display: inline-block;
       height: 18px;
-      animation: spin 1.5s linear infinite;
+      left: -1px;
+      position: relative;
+      width: 18px;
+    }
+
+    .Loading.medium {
+      border: 4px solid ${style.colors.primary};
+      border-top: 4px solid rgba(0,0,0,0.1);
+      display: inline-block;
+      height: 22px;
+      position: relative;
+      width: 22px; 
     }
 
     @keyframes spin {

@@ -32,6 +32,8 @@ export default (props)=>{
   const { open, close } = useContext(ClosableContext)
   const [ wallet, setWallet ] = useState()
   const [ platform, setPlatform ] = useState()
+  const [ connectingExtension, setConnectingExtension ] = useState(false)
+  const [ connectingApp, setConnectingApp ] = useState(false)
   const [ redirectUri, setRedirectUri ] = useState()
   const [ selection, setSelection ] = useState({ blockchain: undefined })
   const [ showConnectExtensionWarning, setShowConnectExtensionWarning ] = useState(false)
@@ -46,13 +48,19 @@ export default (props)=>{
 
   const connectExtension = (wallet)=>{
     setShowConnectExtensionWarning(false)
+    setConnectingExtension(true)
 
     wallet = new wallets[wallet.extension]()
+    const resetConnectingTimeout = setTimeout(()=>{ setConnectingExtension(false) }, 5000)
     wallet.connect()
       .then((account)=>{ 
         resolve(account, wallet)
+        setConnectingExtension(false)
+        clearTimeout(resetConnectingTimeout)
       })
       .catch((error)=>{
+        setConnectingExtension(false)
+        clearTimeout(resetConnectingTimeout)
         if(error?.code == -32002) { // Request of type 'wallet_requestPermissions' already pending...
           setShowConnectExtensionWarning(true)
         }
@@ -114,6 +122,8 @@ export default (props)=>{
   const connectViaRedirect = (walletMetaData, reconnect = true)=> {
     const platform = platformForWallet(walletMetaData)
     if(!platform) { return }
+    setConnectingApp(true)
+    const resetConnectingTimeout = setTimeout(()=>{ setConnectingApp(false) }, 5000)
     if(['WalletConnectV1', 'WalletConnectV2'].includes(platform.connect)) {                                                                                                                                                                                   localStorage[atob('ZGVwYXk6d2FsbGV0czp3YzI6cHJvamVjdElk')] = atob('YjFmYzJmMDZlYTIxMDdmY2Q5OWM2OGY0MTI3MTQxYWI=')
       let wallet = new wallets[platform.connect]()
       if(redirectUri) {
@@ -128,16 +138,18 @@ export default (props)=>{
           redirect({ walletMetaData, platform, uri })
         }
       }).then((account)=>{
+        setConnectingApp(false)
         resolve(account, wallet)
-      })
+      }).catch(()=>{ setConnectingApp(false) })
     } else if (platform.connect === 'SolanaMobileWalletAdapter') {
       let wallet = new wallets[platform.connect]()
       wallet.connect({
         name: walletMetaData.name,
         logo: walletMetaData.logo,
       }).then((account)=>{
+        setConnectingApp(false)
         resolve(account, wallet)
-      })
+      }).catch(()=>{ setConnectingApp(false) })
     }
   }
 
@@ -176,6 +188,7 @@ export default (props)=>{
             openInApp={openInApp}
             connectViaRedirect={connectViaRedirect}
             connectExtension={connectExtension}
+            connectingExtension={connectingExtension}
             showConnectExtensionWarning={showConnectExtensionWarning}
             continueWithSolanaPay={props.continueWithSolanaPay}
           />
