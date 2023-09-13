@@ -35,9 +35,7 @@ export default (props)=>{
       )
     })
   }
-  const { amount: configuredAmount, toAmount, recover } = useContext(ConfigurationContext)
-  let { accept } = useContext(ConfigurationContext)
-  if (!accept) { accept = props.accept }
+  const { amount: configuredAmount, toAmount, recover, accept } = useContext(ConfigurationContext)
   const configuration = useContext(ConfigurationContext)
   const [ amountsMissing, setAmountsMissing ] = useState(recover == undefined ? configurationsMissAmounts(accept) : false)
   let { account } = useContext(WalletContext)

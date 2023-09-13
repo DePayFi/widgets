@@ -23156,9 +23156,9 @@ var ConnectStack = (function (props) {
       setConnectingExtension = _useState6[1];
 
   var _useState7 = useState(false),
-      _useState8 = _slicedToArray(_useState7, 2);
-      _useState8[0];
-      var setConnectingApp = _useState8[1];
+      _useState8 = _slicedToArray(_useState7, 2),
+      connectingApp = _useState8[0],
+      setConnectingApp = _useState8[1];
 
   var _useState9 = useState(),
       _useState10 = _slicedToArray(_useState9, 2),
@@ -23396,6 +23396,7 @@ var ConnectStack = (function (props) {
         connectViaRedirect: connectViaRedirect,
         connectExtension: connectExtension,
         connectingExtension: connectingExtension,
+        connectingApp: connectingApp,
         showConnectExtensionWarning: showConnectExtensionWarning,
         continueWithSolanaPay: props.continueWithSolanaPay
       })
@@ -24139,8 +24140,10 @@ var PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMI
 var ConfigurationProvider = (function (props) {
   var _props$configuration, _props$configuration5;
 
-  var currencyCode = new Currency({
+  var currencyCode = typeof props.configuration.currency === 'string' ? new Currency({
     code: props.configuration.currency
+  }).code : new Currency({
+    amount: 0
   }).code;
 
   var _useState = useState(!((_props$configuration = props.configuration) !== null && _props$configuration !== void 0 && _props$configuration.integration) ? _objectSpread$6(_objectSpread$6({}, props.configuration), {}, {
@@ -24926,14 +24929,8 @@ var ChangableAmountProvider = (function (props) {
   var _useContext = useContext(ConfigurationContext),
       configuredAmount = _useContext.amount;
       _useContext.toAmount;
-      var recover = _useContext.recover;
-
-  var _useContext2 = useContext(ConfigurationContext),
-      accept = _useContext2.accept;
-
-  if (!accept) {
-    accept = props.accept;
-  }
+      var recover = _useContext.recover,
+      accept = _useContext.accept;
 
   useContext(ConfigurationContext);
 
@@ -24942,15 +24939,15 @@ var ChangableAmountProvider = (function (props) {
       amountsMissing = _useState2[0],
       setAmountsMissing = _useState2[1];
 
-  var _useContext3 = useContext(WalletContext),
-      account = _useContext3.account;
+  var _useContext2 = useContext(WalletContext),
+      account = _useContext2.account;
 
-  var _useContext4 = useContext(ConversionRateContext),
-      conversionRate = _useContext4.conversionRate,
-      fixedCurrencyConversionRate = _useContext4.fixedCurrencyConversionRate;
+  var _useContext3 = useContext(ConversionRateContext),
+      conversionRate = _useContext3.conversionRate,
+      fixedCurrencyConversionRate = _useContext3.fixedCurrencyConversionRate;
 
-  var _useContext5 = useContext(ErrorContext),
-      setError = _useContext5.setError;
+  var _useContext4 = useContext(ErrorContext),
+      setError = _useContext4.setError;
 
   var _useState3 = useState(),
       _useState4 = _slicedToArray(_useState3, 2),
@@ -25656,10 +25653,14 @@ var InsufficientAmountOfTokensDialog = (function (props) {
       var set = _useContext.set;
 
   var _useContext2 = useContext(ConfigurationContext),
-      accept = _useContext2.accept;
+      accept = _useContext2.accept,
+      sell = _useContext2.sell;
 
-  var _useContext3 = useContext(ClosableContext),
-      close = _useContext3.close;
+  var _useContext3 = useContext(ChangableAmountContext),
+      acceptWithAmount = _useContext3.acceptWithAmount;
+
+  var _useContext4 = useContext(ClosableContext),
+      close = _useContext4.close;
 
   var setRecommendation = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref) {
@@ -25910,16 +25911,18 @@ var InsufficientAmountOfTokensDialog = (function (props) {
   useEffect(function () {
     var loadRecommendations = /*#__PURE__*/function () {
       var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6() {
+        var _ref6;
+
         var directTransfer, token;
         return regenerator.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                directTransfer = accept.find(function (accept) {
+                directTransfer = !sell & ((_ref6 = acceptWithAmount || accept) === null || _ref6 === void 0 ? void 0 : _ref6.find(function (accept) {
                   return props.assets.find(function (asset) {
                     return accept.blockchain === asset.blockchain && accept.token.toLowerCase() === asset.address.toLowerCase();
                   });
-                });
+                }));
 
                 if (!directTransfer) {
                   _context6.next = 14;
@@ -25973,8 +25976,8 @@ var InsufficientAmountOfTokensDialog = (function (props) {
                     } // consdier only major tokens for this
 
 
-                    return accept.map( /*#__PURE__*/function () {
-                      var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(accept) {
+                    return (acceptWithAmount || accept).map( /*#__PURE__*/function () {
+                      var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(accept) {
                         return regenerator.wrap(function _callee4$(_context4) {
                           while (1) {
                             switch (_context4.prev = _context4.next) {
@@ -26018,18 +26021,18 @@ var InsufficientAmountOfTokensDialog = (function (props) {
                       }));
 
                       return function (_x4) {
-                        return _ref6.apply(this, arguments);
+                        return _ref7.apply(this, arguments);
                       };
                     }()).filter(Boolean).flat();
                   }).flat().filter(Boolean)).then( /*#__PURE__*/function () {
-                    var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
+                    var _ref8 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(routes) {
                       var route, recommendedAccept;
                       return regenerator.wrap(function _callee5$(_context5) {
                         while (1) {
                           switch (_context5.prev = _context5.next) {
                             case 0:
-                              route = (routes || []).flat().find(function (route) {
-                                return accept.find(function (accept) {
+                              route = (routes.filter(Boolean) || []).flat().find(function (route) {
+                                return (acceptWithAmount || accept).find(function (accept) {
                                   return accept.blockchain === route.blockchain && accept.token.toLowerCase() === route.tokenOut.toLowerCase();
                                 });
                               }) || routes.flat()[0];
@@ -26037,7 +26040,7 @@ var InsufficientAmountOfTokensDialog = (function (props) {
                               if (!route) {
                                 set(['NoPaymentOptionFound']);
                               } else {
-                                recommendedAccept = accept.find(function (accept) {
+                                recommendedAccept = (acceptWithAmount || accept).find(function (accept) {
                                   return accept.blockchain === route.blockchain && accept.token.toLowerCase() === route.tokenOut.toLowerCase();
                                 }) || accept.find(function (accept) {
                                   return accept.blockchain === route.blockchain;
@@ -26057,7 +26060,7 @@ var InsufficientAmountOfTokensDialog = (function (props) {
                     }));
 
                     return function (_x5) {
-                      return _ref7.apply(this, arguments);
+                      return _ref8.apply(this, arguments);
                     };
                   }());
                 }
@@ -31175,6 +31178,7 @@ var Sale = /*#__PURE__*/function () {
                 }, /*#__PURE__*/React.createElement(ConfigurationProvider, {
                   configuration: {
                     type: 'sale',
+                    accept: accept,
                     tokenImage: tokenImage,
                     amount: amount,
                     sell: sell,
@@ -31194,9 +31198,7 @@ var Sale = /*#__PURE__*/function () {
                   container: container,
                   connected: connected,
                   unmount: unmount
-                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(ConversionRateProvider, null, /*#__PURE__*/React.createElement(ChangableAmountProvider, {
-                  accept: accept
-                }, /*#__PURE__*/React.createElement(TransactionTrackingProvider, null, /*#__PURE__*/React.createElement(PaymentTrackingProvider, {
+                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(ConversionRateProvider, null, /*#__PURE__*/React.createElement(ChangableAmountProvider, null, /*#__PURE__*/React.createElement(TransactionTrackingProvider, null, /*#__PURE__*/React.createElement(PaymentTrackingProvider, {
                   document: ensureDocument(document)
                 }, /*#__PURE__*/React.createElement(SaleRoutingProvider, {
                   container: container,

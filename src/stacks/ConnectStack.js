@@ -189,6 +189,7 @@ export default (props)=>{
             connectViaRedirect={connectViaRedirect}
             connectExtension={connectExtension}
             connectingExtension={connectingExtension}
+            connectingApp={connectingApp}
             showConnectExtensionWarning={showConnectExtensionWarning}
             continueWithSolanaPay={props.continueWithSolanaPay}
           />
