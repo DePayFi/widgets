@@ -1311,10 +1311,10 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-blockchains/-/web3-blockchains-9.2.5.tgz#a428f898dfa04aa7b6b4ccfe20c68807c7326077"
   integrity sha512-4AxGC1vyEydvk4WF1cxInY51JrTg8qND8mdZCJAZzKSNZI/d1+aRczzCn/yYXSwEHdPQCKUmXKzybQp1k/m7pw==
 
-"@depay/web3-client@^10.18.3":
-  version "10.18.3"
-  resolved "https://registry.yarnpkg.com/@depay/web3-client/-/web3-client-10.18.3.tgz#793e56c8e2d549ed4d8b1d10e347f86ac7e7b8d1"
-  integrity sha512-kBL70FhGBjtjF3iIZbMpJWevy+EkvS9iRwnmqTcMT4lkmCqnzr45I3rq0uxMfiUe9WTFRqIKHe4LWvvi7CwHYQ==
+"@depay/web3-client@^10.18.4":
+  version "10.18.4"
+  resolved "https://registry.yarnpkg.com/@depay/web3-client/-/web3-client-10.18.4.tgz#94a3b07c6fa837ca414e6ac7f0adb30ceba43e91"
+  integrity sha512-MkxXkHZpfnMXeXvON+Biz+ZwoQYFd/ZA+wvLK2f2YejNLrjWk8dBryBBULkSeNpJKiLi7awkAD2nBp5sK4WQjQ==
 
 "@depay/web3-exchanges@^13.5.0":
   version "13.5.0"
@@ -1340,10 +1340,10 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-tokens/-/web3-tokens-10.3.0.tgz#11f19ed154c65329739afc29e74cd254030f811f"
   integrity sha512-r/98yZx+j0NLm5Z6wiUwyJvsWE/sq4//B1j4S4q1zzm62S3kLs3+H/5XEVEcInzekvr2NruC0oFgV+1Lfvwmtw==
 
-"@depay/web3-wallets@^16.2.1":
-  version "16.2.1"
-  resolved "https://registry.yarnpkg.com/@depay/web3-wallets/-/web3-wallets-16.2.1.tgz#821ae53848dccf4edf75ce8cf323657045bfeafd"
-  integrity sha512-9SOnFLM9O9HVoIrayu5wKjK3xiJWWShko3GkSeBPW5nFqlSW0cQS49u6dU8FGArxbMHPBgInxkjPVZSQThmGiw==
+"@depay/web3-wallets@^16.2.2":
+  version "16.2.2"
+  resolved "https://registry.yarnpkg.com/@depay/web3-wallets/-/web3-wallets-16.2.2.tgz#95a015c1f6c4c6d4f297656a1157adf9d5cf8284"
+  integrity sha512-7BgFy4XvhFMUgOM9VbyqJjEjBk+Bc8UAPugx1pU0ub9umxveh1O07aoy2p7njVsnGtno+Qf2TLoGe8wKsK5c2A==
 
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"
