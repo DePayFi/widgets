@@ -1078,13 +1078,13 @@ var allWallets = [{
     "ios": {
       "native": "trust:",
       "universal": "https://link.trustwallet.com",
-      "connect": "WalletConnectV1",
+      "connect": "WalletConnectV2",
       "qr": "WalletConnectV1"
     },
     "android": {
       "native": "trust:",
       "universal": "https://link.trustwallet.com",
-      "connect": "WalletConnectV1",
+      "connect": "WalletConnectV2",
       "qr": "WalletConnectV1"
     }
   },
@@ -1122,13 +1122,13 @@ var allWallets = [{
     "ios": {
       "native": "dfw://",
       "universal": "https://wallet.crypto.com",
-      "connect": "WalletConnectV1",
+      "connect": "WalletConnectV2",
       "qr": "WalletConnectV1"
     },
     "android": {
       "native": "dfw://",
       "universal": "https://wallet.crypto.com",
-      "connect": "WalletConnectV1",
+      "connect": "WalletConnectV2",
       "qr": "WalletConnectV1"
     }
   },
@@ -1144,13 +1144,13 @@ var allWallets = [{
     "ios": {
       "native": "coin98:",
       "universal": "https://coin98.services",
-      "connect": "WalletConnectV1",
+      "connect": "WalletConnectV2",
       "qr": "WalletConnectV1"
     },
     "android": {
       "native": "coin98:",
       "universal": "https://coin98.services",
-      "connect": "WalletConnectV1",
+      "connect": "WalletConnectV2",
       "qr": "WalletConnectV1"
     }
   },
@@ -22532,8 +22532,8 @@ var ConnectWalletDialog = (function (props) {
       className: "Loading Icon medium",
       style: {
         position: 'relative',
-        top: '4px',
-        left: '1px'
+        top: '2px',
+        left: '0px'
       }
     })), /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftS LineHeightXS"
@@ -22925,7 +22925,7 @@ var SelectWalletDialog = (function (props) {
         props.connectExtension(walletMetaData);
         navigate('ConnectWallet');
       }
-    } else {
+    } else if (isMobile()) {
       var platform = platformForWallet(walletMetaData);
 
       if (platform && platform.open) {
@@ -22937,6 +22937,9 @@ var SelectWalletDialog = (function (props) {
         props.setWallet(walletMetaData);
         navigate('ConnectWallet');
       }
+    } else {
+      props.setWallet(walletMetaData);
+      navigate('ConnectWallet');
     }
   };
 
@@ -23812,7 +23815,7 @@ var HeightStyle = (function () {
 });
 
 var IconStyle = (function (style) {
-  return "\n\n    .Icon {\n      fill: ".concat(style.colors.icons, ";\n      stroke: ").concat(style.colors.icons, ";\n    }\n\n    .QuestionMarkIcon {\n      fill: transparent;\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .ChevronLeft.small, .ChevronRight.small {\n      height: 12px;\n      width: 12px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .AlertIcon {\n      height: 20px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 20px;\n      fill: #e42626;\n      stroke: transparent;\n    }\n\n    .CheckMark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      animation: spin 1.5s linear infinite;\n      border-radius: 100%;\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      display: inline-block;\n      height: 18px;\n      left: -1px;\n      position: relative;\n      width: 18px;\n    }\n\n    .Loading.medium {\n      border: 4px solid ").concat(style.colors.primary, ";\n      border-top: 4px solid rgba(0,0,0,0.1);\n      display: inline-block;\n      height: 22px;\n      position: relative;\n      width: 22px; \n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
+  return "\n\n    .Icon {\n      fill: ".concat(style.colors.icons, ";\n      stroke: ").concat(style.colors.icons, ";\n    }\n\n    .QuestionMarkIcon {\n      fill: transparent;\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .ChevronLeft.small, .ChevronRight.small {\n      height: 12px;\n      width: 12px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .AlertIcon {\n      height: 20px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 20px;\n      fill: #e42626;\n      stroke: transparent;\n    }\n\n    .CheckMark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      animation: spin 1.5s linear infinite;\n      border-radius: 100%;\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      display: inline-block;\n      height: 18px;\n      left: -1px;\n      position: relative;\n      width: 18px;\n    }\n\n    .Loading.medium {\n      border: 4px solid ").concat(style.colors.primary, ";\n      border-top: 4px solid rgba(0,0,0,0.1);\n      display: inline-block;\n      height: 22px;\n      position: relative;\n      top: 0;\n      width: 22px; \n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
 });
 
 var ImageStyle = (function (style) {
@@ -26421,9 +26424,6 @@ var PaymentProvider = (function (props) {
   };
 
   var paymentFailed = function paymentFailed(transaction, error) {
-    console.log('PAYMENT FAILED transaction', transaction);
-    console.log('PAYMENT FAILED error', error);
-
     if (asynchronousTracking == false || trackingInitialized == true) {
       setClosable(true);
     }
@@ -27919,7 +27919,7 @@ var WrongNetworkDialog = (function (props) {
       className: "GraphicWrapper"
     }, /*#__PURE__*/React.createElement("img", {
       className: "Graphic",
-      src: blockchain.logo
+      src: blockchain.logoWhiteBackground
     })), /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
     }, "Connect to ", blockchain.label), /*#__PURE__*/React.createElement("div", {

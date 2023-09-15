@@ -74,6 +74,7 @@ export default (style)=>{
       display: inline-block;
       height: 22px;
       position: relative;
+      top: 0;
       width: 22px; 
     }
 

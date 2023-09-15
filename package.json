@@ -49,7 +49,7 @@
     "@depay/web3-exchanges": "^13.5.0",
     "@depay/web3-payments": "^13.6.5",
     "@depay/web3-tokens": "^10.3.0",
-    "@depay/web3-wallets": "^16.2.3",
+    "@depay/web3-wallets": "^16.2.10",
     "@tanstack/react-virtual": "^3.0.0-beta.54",
     "@uiw/copy-to-clipboard": "^1.0.14",
     "decimal.js": "^10.4.3",

@@ -30,7 +30,7 @@ export default (props)=>{
       body={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS TextCenter">
           <div className="GraphicWrapper">
-            <img className="Graphic" src={ blockchain.logo }/>
+            <img className="Graphic" src={ blockchain.logoWhiteBackground }/>
           </div>
           <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Connect to { blockchain.label }</h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">

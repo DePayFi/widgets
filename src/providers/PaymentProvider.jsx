@@ -57,8 +57,6 @@ export default (props)=>{
   }
 
   const paymentFailed = (transaction, error)=> {
-    console.log('PAYMENT FAILED transaction', transaction)
-    console.log('PAYMENT FAILED error', error)
     if(asynchronousTracking == false || trackingInitialized == true) {
       setClosable(true)
     }

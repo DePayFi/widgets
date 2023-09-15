@@ -49,7 +49,7 @@ export default (props)=>{
         props.connectExtension(walletMetaData)
         navigate('ConnectWallet')
       }
-    } else {
+    } else if(isMobile()) {
       const platform = platformForWallet(walletMetaData)
       if(platform && platform.open) {
         props.openInApp(walletMetaData)
@@ -60,6 +60,9 @@ export default (props)=>{
         props.setWallet(walletMetaData)
         navigate('ConnectWallet')
       }
+    } else {
+      props.setWallet(walletMetaData)
+      navigate('ConnectWallet')
     }
   }
 

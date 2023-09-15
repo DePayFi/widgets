@@ -69,8 +69,8 @@ export default [
     "extension": "Trust",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "trust:", "universal": "https://link.trustwallet.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "trust:", "universal": "https://link.trustwallet.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "trust:", "universal": "https://link.trustwallet.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
+      "android": { "native": "trust:", "universal": "https://link.trustwallet.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
     },
     "logo": wallets.Trust.info.logo,
     "blockchains": [...supported.evm]
@@ -91,8 +91,8 @@ export default [
     "extension": "CryptoCom",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "dfw://", "universal": "https://wallet.crypto.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "dfw://", "universal": "https://wallet.crypto.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "dfw://", "universal": "https://wallet.crypto.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
+      "android": { "native": "dfw://", "universal": "https://wallet.crypto.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
     },
     "logo": wallets.CryptoCom.info.logo,
     "blockchains": [...supported.evm]
@@ -102,8 +102,8 @@ export default [
     "extension": "Coin98",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "coin98:", "universal": "https://coin98.services", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "coin98:", "universal": "https://coin98.services", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "coin98:", "universal": "https://coin98.services", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
+      "android": { "native": "coin98:", "universal": "https://coin98.services", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
     },
     "logo": wallets.Coin98.info.logo,
     "blockchains": [...supported.evm]
