@@ -1864,14 +1864,16 @@
     },
     "mobile": {
       "ios": {
+        "native": "safepalwallet",
         "universal": "https://link.safepal.io",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
       },
       "android": {
+        "native": "safepalwallet",
         "universal": "https://link.safepal.io",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
       }
     },
     "logo": "https://img1.depay.com/wallets/safepal.jpg",

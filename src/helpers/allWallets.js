@@ -498,8 +498,8 @@ export default [
     "name": "SafePal",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "universal": "https://link.safepal.io", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "universal": "https://link.safepal.io", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "safepalwallet", "universal": "https://link.safepal.io", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "safepalwallet", "universal": "https://link.safepal.io", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/safepal.jpg",
     "blockchains": [...supported.evm]
