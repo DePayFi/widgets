@@ -123,7 +123,7 @@ export default (props)=>{
     const platform = platformForWallet(walletMetaData)
     if(!platform) { return }
     setConnectingApp(true)
-    const resetConnectingTimeout = setTimeout(()=>{ setConnectingApp(false) }, 5000)
+    const resetConnectingTimeout = setTimeout(()=>{ setConnectingApp(false) }, 15000)
     if(['WalletConnectV1', 'WalletConnectV2'].includes(platform.connect)) {                                                                                                                                                                                   localStorage[atob('ZGVwYXk6d2FsbGV0czp3YzI6cHJvamVjdElk')] = atob('YjFmYzJmMDZlYTIxMDdmY2Q5OWM2OGY0MTI3MTQxYWI=')
       let wallet = new wallets[platform.connect]()
       if(redirectUri) {

@@ -17,16 +17,16 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-shadow-dom@5"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/js-verify-signature-web@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@9"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@10.18.0"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@10.3.0"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@10.18.4"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@10"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@5"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/coinbase-wallet-sdk@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v1@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v2@2"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@16"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@16.2.13"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-assets@7.2.0"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@13"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@13.6.5"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@13"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/qr-code-styling@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/fuse.js@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-rangeslider@2/umd/rangeslider.js"></script>
@@ -190,6 +190,37 @@
                       integration: '5e658691-bba4-4496-bd75-4c9daf3c6ea5'
                     })
                   })
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Payment: Test</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Test</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="payTest">Try it</button>
+                <script>
+                  var button = document.getElementById("payTest");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      accept: [
+                        {
+                          blockchain: 'bsc',
+                          amount: 0.01,
+                          token: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },                        
+                      ]
+                    });
+                  });
                 </script>
               </div>
             </div>
