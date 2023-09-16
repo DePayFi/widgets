@@ -1,3 +1,5 @@
+![Screenshot 2023-09-16 at 11 22 22](https://github.com/DePayFi/widgets/assets/851393/d05674d0-8e84-4062-bc7e-f4135b8ecc54)
+
 ## Installation
 
 You can either load the `@depay/widgets` package via CDN:
