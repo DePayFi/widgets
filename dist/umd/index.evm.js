@@ -26422,6 +26422,8 @@
     };
 
     var paymentFailed = function paymentFailed(transaction, error) {
+      console.log('error', error === null || error === void 0 ? void 0 : error.toString());
+
       if (asynchronousTracking == false || trackingInitialized == true) {
         setClosable(true);
       }
