@@ -1102,13 +1102,13 @@ var allWallets = [{
     "ios": {
       "native": "bnc://app.binance.com/cedefi/",
       "universal": "https://app.binance.com/cedefi",
-      "connect": "WalletConnectV2",
+      "connect": "WalletConnectV1",
       "qr": "WalletConnectV1"
     },
     "android": {
       "native": "bnc://app.binance.com/cedefi/",
       "universal": "https://app.binance.com/cedefi",
-      "connect": "WalletConnectV2",
+      "connect": "WalletConnectV1",
       "qr": "WalletConnectV1"
     }
   },
@@ -1870,14 +1870,14 @@ var allWallets = [{
     "ios": {
       "native": "safepalwallet",
       "universal": "https://link.safepal.io",
-      "connect": "WalletConnectV2",
-      "qr": "WalletConnectV2"
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "safepalwallet",
       "universal": "https://link.safepal.io",
-      "connect": "WalletConnectV2",
-      "qr": "WalletConnectV2"
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/safepal.jpg",
@@ -23308,7 +23308,7 @@ var ConnectStack = (function (props) {
     setConnectingApp(true);
     setTimeout(function () {
       setConnectingApp(false);
-    }, 5000);
+    }, 15000);
 
     if (['WalletConnectV1', 'WalletConnectV2'].includes(platform.connect)) {
       localStorage[atob('ZGVwYXk6d2FsbGV0czp3YzI6cHJvamVjdElk')] = atob('YjFmYzJmMDZlYTIxMDdmY2Q5OWM2OGY0MTI3MTQxYWI=');
