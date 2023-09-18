@@ -145,7 +145,7 @@ export default [
   },
   {
     "name": "Safe",
-    "desktop": { "qr": "WalletConnectV1" },
+    "desktop": { "qr": "WalletConnectV1", "copyLink": "WalletConnectV1" },
     "mobile": { 
       "ios": { "native": "safe", "universal": "https://app.safe.global", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
       "android": { "native": "safe", "universal": "https://app.safe.global", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
@@ -344,7 +344,7 @@ export default [
   },
   {
     "name": "Ledger Live",
-    "desktop": { "native": "ledgerlive:", "connect": "WalletConnectV2", "qr": "WalletConnectV2", "copyLink": true },
+    "desktop": { "native": "ledgerlive:", "connect": "WalletConnectV2", "qr": "WalletConnectV2", "copyLink": "WalletConnectV2" },
     "mobile": { 
       "ios": { "native": "ledgerlive:", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
       "android": { "native": "ledgerlive:", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },

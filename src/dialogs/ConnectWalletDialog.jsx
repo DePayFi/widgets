@@ -60,7 +60,7 @@ export default (props)=> {
   )
 
   const connectViaCopyLink = ()=>{
-    let wallet = new wallets[props.platform.connect]()
+    let wallet = new wallets[props.platform.copyLink]()
     wallet.connect({
       name: props.wallet.name,
       logo: props.wallet.logo,
@@ -159,7 +159,7 @@ export default (props)=> {
       setAppIsConnected(appIsConnected)
       const connectAppIsAvailable = !!props.platform && props.platform.connect
       setConnectAppIsAvailable(connectAppIsAvailable)
-      const copyLinkIsAvailable = props.platform?.connect && ['WalletConnectV1', 'WalletConnectV2'].includes(props.platform.connect) && props.platform.copyLink
+      const copyLinkIsAvailable = !!props.platform?.copyLink
       setCopyLinkIsAvailable(copyLinkIsAvailable)
       const openInAppIsAvailable = !!props.platform && props.platform.open
       setOpenInAppIsAvailable(openInAppIsAvailable)

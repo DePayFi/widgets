@@ -1219,7 +1219,8 @@
   }, {
     "name": "Safe",
     "desktop": {
-      "qr": "WalletConnectV1"
+      "qr": "WalletConnectV1",
+      "copyLink": "WalletConnectV1"
     },
     "mobile": {
       "ios": {
@@ -1564,7 +1565,7 @@
       "native": "ledgerlive:",
       "connect": "WalletConnectV2",
       "qr": "WalletConnectV2",
-      "copyLink": true
+      "copyLink": "WalletConnectV2"
     },
     "mobile": {
       "ios": {
@@ -22186,7 +22187,7 @@
     })))));
 
     var connectViaCopyLink = function connectViaCopyLink() {
-      var wallet = new web3WalletsEvm.wallets[props.platform.connect]();
+      var wallet = new web3WalletsEvm.wallets[props.platform.copyLink]();
       wallet.connect({
         name: props.wallet.name,
         logo: props.wallet.logo,
@@ -22353,7 +22354,7 @@
                 setAppIsConnected(appIsConnected);
                 connectAppIsAvailable = !!props.platform && props.platform.connect;
                 setConnectAppIsAvailable(connectAppIsAvailable);
-                copyLinkIsAvailable = ((_props$platform7 = props.platform) === null || _props$platform7 === void 0 ? void 0 : _props$platform7.connect) && ['WalletConnectV1', 'WalletConnectV2'].includes(props.platform.connect) && props.platform.copyLink;
+                copyLinkIsAvailable = !!((_props$platform7 = props.platform) !== null && _props$platform7 !== void 0 && _props$platform7.copyLink);
                 setCopyLinkIsAvailable(copyLinkIsAvailable);
                 openInAppIsAvailable = !!props.platform && props.platform.open;
                 setOpenInAppIsAvailable(openInAppIsAvailable);
