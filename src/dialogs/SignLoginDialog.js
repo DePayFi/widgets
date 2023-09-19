@@ -11,6 +11,7 @@ export default (props)=> {
   const { message, endpoint } = useContext(ConfigurationContext)
   let { recoverSignature } = useContext(ConfigurationContext)
   const { wallet, account } = useContext(WalletContext)
+  const [ loggingIn, setLoggingIn ] = useState(false)
   if(!wallet) { return null }
   const walletName = wallet?.name ? wallet.name : 'wallet'
   const walletLogo = wallet?.logo ? wallet.logo : undefined
@@ -38,6 +39,7 @@ export default (props)=> {
   }
 
   const login = ()=> {
+    setLoggingIn(true)
     let messageToSign
     if(typeof message == 'function'){
       messageToSign = message(account)
@@ -47,9 +49,14 @@ export default (props)=> {
     wallet.sign(messageToSign).then((signature)=>{
       recoverSignature({ message: messageToSign, signature }).then((account)=>{
         props.resolve({ account, wallet })
-      }).catch(setError)
+        setLoggingIn(false)
+      }).catch((error)=>{
+        setLoggingIn(false)
+        setError(error)
+      })
     }).catch((error)=>{
-      if(error && error.code && error.code == 4001) {
+      setLoggingIn(false)
+      if(error && error.code && (error.code == 4001 || error.code == 'ACTION_REJECTED')) {
         // nothing happens
       } else {
         setError(error)
@@ -78,9 +85,19 @@ export default (props)=> {
       }
       footer={
         <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
-          <button className='ButtonPrimary' onClick={ login }>
-            Log in
-          </button>
+          {
+            loggingIn &&
+            <div className="PaddingTopXS PaddingBottomXS" style={{ height: '58px' }}>
+              <div className="PaddingTopS PaddingBottomS TextCenter">
+                <div className="Loading Icon medium" style={{ position: 'relative' }}></div>
+              </div>
+            </div>
+          }
+          { !loggingIn &&
+            <button className='ButtonPrimary' onClick={ login }>
+              Log in
+            </button>
+          }
         </div>
       }
     />

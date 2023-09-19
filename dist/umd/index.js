@@ -24363,6 +24363,11 @@
         wallet = _useContext4.wallet,
         account = _useContext4.account;
 
+    var _useState = React.useState(false),
+        _useState2 = _slicedToArray(_useState, 2),
+        loggingIn = _useState2[0],
+        setLoggingIn = _useState2[1];
+
     if (!wallet) {
       return null;
     }
@@ -24400,6 +24405,7 @@
     }
 
     var login = function login() {
+      setLoggingIn(true);
       var messageToSign;
 
       if (typeof message == 'function') {
@@ -24417,9 +24423,15 @@
             account: account,
             wallet: wallet
           });
-        })["catch"](setError);
+          setLoggingIn(false);
+        })["catch"](function (error) {
+          setLoggingIn(false);
+          setError(error);
+        });
       })["catch"](function (error) {
-        if (error && error.code && error.code == 4001) ; else {
+        setLoggingIn(false);
+
+        if (error && error.code && (error.code == 4001 || error.code == 'ACTION_REJECTED')) ; else {
           setError(error);
         }
       });
@@ -24442,7 +24454,19 @@
       }, "Please click \"Log in\" and sign the message with your connected wallet."))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-      }, /*#__PURE__*/React__default['default'].createElement("button", {
+      }, loggingIn && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopXS PaddingBottomXS",
+        style: {
+          height: '58px'
+        }
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingBottomS TextCenter"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Loading Icon medium",
+        style: {
+          position: 'relative'
+        }
+      }))), !loggingIn && /*#__PURE__*/React__default['default'].createElement("button", {
         className: "ButtonPrimary",
         onClick: login
       }, "Log in"))
