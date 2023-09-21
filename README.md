@@ -328,13 +328,13 @@ DePayWidgets.Payment({
 
 `track`
 
-Allows to track payment confirmation/validation via DePay API to trigger callbacks into your existing systems:
+Allows to track payments via any backend endpoint.
 
 ```javascript
 DePayWidgets.Payment({
 
   track: {
-    endpoint: '/track/payments' // your endpoint to forward the payment tracking to the payments api
+    endpoint: '/track/payments'
   }
 })
 ```
@@ -418,13 +418,6 @@ In case you pass a tracking method it needs to return a promise.
 If that promise resolves, the widget assumes the tracking initialization was successful. If the promise rejects it will retry the tracking initialization over and over again.
 
 Make sure to evaluate within your tracking method if the response succeeded or not and throw an error accordingly.
-
-Your endpoint also needs to make sure to forward this to the [payment tracking api](https://depay.com/documentation/api#payments).
-
-Also make sure to add `token`, `amount` and `confirmations` when forwarding the request to the payments api.
-Those values are supposed to be set by your backend not the widget nor the fronted because any user could set these values to their liking otherwise, having you confirm payment amounts and tokens that you didn't intend to receive!
-
-Make sure you read the [Payment Tracking API](https://depay.com/documentation/api#payments) for further details on how to integrate payment tracking.
 
 Payment tracking requests will be attempted indefinitely. After 2 minutes a warning dialog will be presented to users asking them to ensure an internet connection so that the payment tracking can be performed.
 
@@ -593,7 +586,7 @@ DePayWidgets.Payment({
 
 `validated`
 
-A function that will be called once the payment has been validated by DePay Apis (server-side).
+A function that will be called once the payment has been validated by DePay.
 
 ```javascript
 DePayWidgets.Payment({
