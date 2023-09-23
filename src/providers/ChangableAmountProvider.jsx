@@ -137,7 +137,6 @@ export default (props)=>{
 
   useEffect(()=>{
     if(amountsMissing && maxRoute) {
-      console.log(maxRoute)
       maxRoute.fromToken.readable(maxRoute.fromBalance)
         .then((readableMaxAmount)=>{
           if(configuredAmount && configuredAmount.token) {
@@ -193,7 +192,7 @@ export default (props)=>{
                 let maxAmount = parseFloat(
                   new Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString()
                 )
-                setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : round(maxAmount))
+                setMaxAmount(maxAmount > 10 ? Math.round(maxAmount-1) : round(maxAmount-1))
               }).catch(setError)
             }).catch(setError)
           }

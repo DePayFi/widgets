@@ -25137,7 +25137,6 @@ var ChangableAmountProvider = (function (props) {
   }, [amountsMissing, account, conversionRate, fixedAmount, fixedCurrencyConversionRate, amount, recover]);
   useEffect(function () {
     if (amountsMissing && maxRoute) {
-      console.log(maxRoute);
       maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
         if (configuredAmount && configuredAmount.token) {
           Exchanges.route({
@@ -25191,7 +25190,7 @@ var ChangableAmountProvider = (function (props) {
             }).then(function (readableMaxAmount) {
               var slippage = 1.01;
               var maxAmount = parseFloat(new Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
-              setMaxAmount(maxAmount > 10 ? Math.round(maxAmount) : round(maxAmount));
+              setMaxAmount(maxAmount > 10 ? Math.round(maxAmount - 1) : round(maxAmount - 1));
             })["catch"](setError);
           })["catch"](setError);
         }
@@ -25384,9 +25383,9 @@ var PaymentRoutingProvider = (function (props) {
       setReloadCount = _useState12[1];
 
   var _useState13 = useState(false),
-      _useState14 = _slicedToArray(_useState13, 2),
-      allRoutesLoadedInternal = _useState14[0],
-      setAllRoutesLoadedInternal = _useState14[1];
+      _useState14 = _slicedToArray(_useState13, 2);
+      _useState14[0];
+      var setAllRoutesLoadedInternal = _useState14[1];
 
   var _useState15 = useState(false),
       _useState16 = _slicedToArray(_useState15, 2),
@@ -25645,6 +25644,13 @@ var PaymentRoutingProvider = (function (props) {
         if (amountsMissing && props.setMaxRoute) {
           Promise.all(roundedRoutes.map(function (route) {
             return new Promise(function (resolve, reject) {
+              if (Blockchains[route.blockchain].tokens.findIndex(function (token) {
+                return token.address.toLowerCase() === route.fromToken.address.toLowerCase();
+              }) === -1) {
+                // Major tokens only
+                return resolve();
+              }
+
               Exchanges.route({
                 blockchain: route.blockchain,
                 tokenIn: route.fromToken.address,
@@ -25662,16 +25668,16 @@ var PaymentRoutingProvider = (function (props) {
           })).then(function (routes) {
             var _findMaxRoute;
 
-            props.setMaxRoute((_findMaxRoute = findMaxRoute(routes)) === null || _findMaxRoute === void 0 ? void 0 : _findMaxRoute.route);
+            props.setMaxRoute((_findMaxRoute = findMaxRoute(routes.filter(Boolean))) === null || _findMaxRoute === void 0 ? void 0 : _findMaxRoute.route);
             setAllRoutes(roundedRoutes);
-            setAllRoutesLoaded(allRoutesLoadedInternal);
+            setAllRoutesLoaded(true);
           })["catch"](function (e) {
             console.log('ERROR', e);
             props.setMaxRoute(null);
           });
         } else {
           setAllRoutes(roundedRoutes);
-          setAllRoutesLoaded(allRoutesLoadedInternal);
+          setAllRoutesLoaded(true);
         }
       });
     }

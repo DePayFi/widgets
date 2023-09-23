@@ -150,6 +150,10 @@ export default (props)=>{
         if(amountsMissing && props.setMaxRoute) {
           Promise.all(roundedRoutes.map((route)=>{
             return new Promise((resolve, reject)=>{
+              if(Blockchains[route.blockchain].tokens.findIndex((token)=>token.address.toLowerCase()===route.fromToken.address.toLowerCase()) === -1) {
+                // Major tokens only
+                return resolve()
+              }
               Exchanges.route({
                 blockchain: route.blockchain,
                 tokenIn: route.fromToken.address,
@@ -160,16 +164,16 @@ export default (props)=>{
               }).then((usdRoute)=>resolve({ route, usdRoute })).catch(reject)
             })
           })).then((routes)=>{
-            props.setMaxRoute(findMaxRoute(routes)?.route)
+            props.setMaxRoute(findMaxRoute(routes.filter(Boolean))?.route)
             setAllRoutes(roundedRoutes)
-            setAllRoutesLoaded(allRoutesLoadedInternal)
+            setAllRoutesLoaded(true)
           }).catch((e)=>{
             console.log('ERROR', e)
             props.setMaxRoute(null)
           })
         } else {
           setAllRoutes(roundedRoutes)
-          setAllRoutesLoaded(allRoutesLoadedInternal)
+          setAllRoutesLoaded(true)
         }
       })
     }
