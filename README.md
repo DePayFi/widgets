@@ -189,8 +189,6 @@ The blockchain you want to receive the payment on.
 
 The address of the token you want to receive.
 
-Use our [payment configurator](https://depay.com/documentation/payments#payment-configurator) in order to simplify configuring this.
-
 `amount` (Optional)
 
 The amount of tokens you want to receive. Needs to be passed as a human readable number e.g. `20`.

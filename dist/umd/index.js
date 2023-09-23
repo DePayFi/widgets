@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('@depay/web3-wallets'), require('@depay/web3-blockchains'), require('@depay/web3-payments'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client'), require('@depay/local-currency'), require('@depay/js-verify-signature-web'), require('@depay/web3-exchanges'), require('@depay/web3-tokens'), require('ethers'), require('decimal.js'), require('@depay/react-token-image'), require('@depay/solana-web3.js')) :
-  typeof define === 'function' && define.amd ? define(['react', '@depay/web3-wallets', '@depay/web3-blockchains', '@depay/web3-payments', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client', '@depay/local-currency', '@depay/js-verify-signature-web', '@depay/web3-exchanges', '@depay/web3-tokens', 'ethers', 'decimal.js', '@depay/react-token-image', '@depay/solana-web3.js'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.Web3Wallets, global.Web3Blockchains, global.Web3Payments, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.DePayVerifySignature, global.Web3Exchanges, global.Web3Tokens, global.ethers, global.Decimal, global.ReactTokenImage, global.SolanaWeb3js));
-}(this, (function (React, web3Wallets, Blockchains, web3Payments, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3Client, localCurrency, jsVerifySignatureWeb, Exchanges, Token, ethers, decimal_js, reactTokenImage, solanaWeb3_js) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('@depay/web3-wallets'), require('@depay/web3-blockchains'), require('@depay/web3-payments'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client'), require('@depay/local-currency'), require('@depay/js-verify-signature-web'), require('@depay/web3-exchanges'), require('@depay/web3-tokens'), require('decimal.js'), require('ethers'), require('@depay/react-token-image'), require('@depay/solana-web3.js')) :
+  typeof define === 'function' && define.amd ? define(['react', '@depay/web3-wallets', '@depay/web3-blockchains', '@depay/web3-payments', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client', '@depay/local-currency', '@depay/js-verify-signature-web', '@depay/web3-exchanges', '@depay/web3-tokens', 'decimal.js', 'ethers', '@depay/react-token-image', '@depay/solana-web3.js'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.React, global.Web3Wallets, global.Web3Blockchains, global.Web3Payments, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.DePayVerifySignature, global.Web3Exchanges, global.Web3Tokens, global.Decimal, global.ethers, global.ReactTokenImage, global.SolanaWeb3js));
+}(this, (function (React, web3Wallets, Blockchains, web3Payments, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3Client, localCurrency, jsVerifySignatureWeb, Exchanges, Token, decimal_js, ethers, reactTokenImage, solanaWeb3_js) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -24915,33 +24915,6 @@
 
   var ConversionRateContext = /*#__PURE__*/React__default['default'].createContext();
 
-  var findMaxRoute = (function (routes) {
-    var sortedLowToHigh = _toConsumableArray(routes).sort(function (a, b) {
-      if (a.fromBalance == '0' || a.fromAmount == '0') {
-        return -1; // b
-      }
-
-      if (b.fromBalance == '0' || b.fromAmount == '0') {
-        return 1; // a
-      }
-
-      var aAmountsAvailable = ethers.ethers.BigNumber.from(a.fromBalance).div(ethers.ethers.BigNumber.from(a.fromAmount));
-      var bAmountsAvailable = ethers.ethers.BigNumber.from(b.fromBalance).div(ethers.ethers.BigNumber.from(b.fromAmount));
-
-      if (aAmountsAvailable.lt(bAmountsAvailable)) {
-        return -1; // b
-      }
-
-      if (bAmountsAvailable.lt(aAmountsAvailable)) {
-        return 1; // a
-      }
-
-      return 0; // equal
-    });
-
-    return sortedLowToHigh[sortedLowToHigh.length - 1];
-  });
-
   function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
   function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -25122,6 +25095,7 @@
     }, [amountsMissing, account, conversionRate, fixedAmount, fixedCurrencyConversionRate, amount, recover]);
     React.useEffect(function () {
       if (amountsMissing && maxRoute) {
+        console.log(maxRoute);
         maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
           if (configuredAmount && configuredAmount.token) {
             Exchanges__default['default'].route({
@@ -25193,6 +25167,7 @@
         amount: amount,
         setAmount: setAmount,
         setMaxRoute: setMaxRoute,
+        maxRoute: maxRoute,
         maxAmount: maxAmount
       }
     }, props.children);
@@ -25242,6 +25217,43 @@
   });
 
   var PaymentAmountRoutingContext = /*#__PURE__*/React__default['default'].createContext();
+
+  var findMaxRoute = (function (routes) {
+    var sortedLowToHigh = _toConsumableArray(routes).sort(function (a, b) {
+      var _a$usdRoute, _a$usdRoute2, _b$usdRoute, _b$usdRoute2;
+
+      if ((a === null || a === void 0 ? void 0 : (_a$usdRoute = a.usdRoute) === null || _a$usdRoute === void 0 ? void 0 : _a$usdRoute.length) === undefined || (a === null || a === void 0 ? void 0 : (_a$usdRoute2 = a.usdRoute) === null || _a$usdRoute2 === void 0 ? void 0 : _a$usdRoute2.length) == 0) {
+        return -1; //b
+      }
+
+      if ((b === null || b === void 0 ? void 0 : (_b$usdRoute = b.usdRoute) === null || _b$usdRoute === void 0 ? void 0 : _b$usdRoute.length) === undefined || (b === null || b === void 0 ? void 0 : (_b$usdRoute2 = b.usdRoute) === null || _b$usdRoute2 === void 0 ? void 0 : _b$usdRoute2.length) == 0) {
+        return 1; //a
+      }
+
+      if (a.usdRoute[0].amountOut == '0') {
+        return -1; // b
+      }
+
+      if (b.usdRoute[0].amountOut == '0') {
+        return 1; // a
+      }
+
+      var aMaxUsdAmountAsDecimal = new decimal_js.Decimal(ethers.ethers.utils.formatUnits(a.usdRoute[0].amountOut, a.usdRoute[0].decimalsOut));
+      var bMaxUsdAmountAsDecimal = new decimal_js.Decimal(ethers.ethers.utils.formatUnits(b.usdRoute[0].amountOut, b.usdRoute[0].decimalsOut));
+
+      if (aMaxUsdAmountAsDecimal.lt(bMaxUsdAmountAsDecimal)) {
+        return -1; // b
+      }
+
+      if (bMaxUsdAmountAsDecimal.lt(aMaxUsdAmountAsDecimal)) {
+        return 1; // a
+      }
+
+      return 0; // equal
+    });
+
+    return sortedLowToHigh[sortedLowToHigh.length - 1];
+  });
 
   var PaymentRoutingContext = /*#__PURE__*/React__default['default'].createContext();
 
@@ -25351,6 +25363,9 @@
 
     var configuration = React.useContext(ConfigurationContext);
 
+    var _useContext4 = React.useContext(ChangableAmountContext),
+        amountsMissing = _useContext4.amountsMissing;
+
     var getPaymentRoutes = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
         var updatable, slowRoutingTimeout, firstRouteDisplayed;
@@ -25376,6 +25391,10 @@
                   accept: props.accept,
                   account: account,
                   drip: function drip(route) {
+                    if (amountsMissing) {
+                      return;
+                    }
+
                     if (route.fromToken.address !== route.toToken.address && !Blockchains__default['default'][route.blockchain].tokens.find(function (token) {
                       return token.address.toLowerCase() === route.fromToken.address.toLowerCase();
                     })) {
@@ -25546,7 +25565,7 @@
         setAllRoutes();
       }
     }, [account, props.accept]);
-    React.useEffect(function () {
+    var updateAllRoutes = React.useCallback(lodash.debounce(function (selectedRoute, updatedRoutes) {
       if (updatedRoutes === undefined) {
         return;
       }
@@ -25580,14 +25599,43 @@
           }
 
           roundedRoutes.assets = updatedRoutes.assets;
-          setAllRoutes(roundedRoutes);
-          setAllRoutesLoaded(allRoutesLoadedInternal);
 
-          if (props.setMaxRoute) {
-            props.setMaxRoute(findMaxRoute(roundedRoutes));
+          if (amountsMissing && props.setMaxRoute) {
+            Promise.all(roundedRoutes.map(function (route) {
+              return new Promise(function (resolve, reject) {
+                Exchanges__default['default'].route({
+                  blockchain: route.blockchain,
+                  tokenIn: route.fromToken.address,
+                  amountIn: route.fromBalance,
+                  tokenOut: Blockchains__default['default'][route.blockchain].stables.usd[0].toLowerCase() !== route.fromToken.address.toLowerCase() ? Blockchains__default['default'][route.blockchain].stables.usd[0] : Blockchains__default['default'][route.blockchain].stables.usd[1],
+                  fromAddress: route.fromAddress,
+                  toAddress: route.toAddress
+                }).then(function (usdRoute) {
+                  return resolve({
+                    route: route,
+                    usdRoute: usdRoute
+                  });
+                })["catch"](reject);
+              });
+            })).then(function (routes) {
+              var _findMaxRoute;
+
+              props.setMaxRoute((_findMaxRoute = findMaxRoute(routes)) === null || _findMaxRoute === void 0 ? void 0 : _findMaxRoute.route);
+              setAllRoutes(roundedRoutes);
+              setAllRoutesLoaded(allRoutesLoadedInternal);
+            })["catch"](function (e) {
+              console.log('ERROR', e);
+              props.setMaxRoute(null);
+            });
+          } else {
+            setAllRoutes(roundedRoutes);
+            setAllRoutesLoaded(allRoutesLoadedInternal);
           }
         });
       }
+    }, 500), []);
+    React.useEffect(function () {
+      updateAllRoutes(selectedRoute, updatedRoutes);
     }, [selectedRoute, updatedRoutes]);
     return /*#__PURE__*/React__default['default'].createElement(PaymentRoutingContext.Provider, {
       value: {

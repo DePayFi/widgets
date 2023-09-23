@@ -13,8 +13,8 @@ import { setProviderEndpoints, request } from '@depay/web3-client-evm';
 import { Currency } from '@depay/local-currency';
 import Exchanges from '@depay/web3-exchanges-evm';
 import Token from '@depay/web3-tokens-evm';
-import { ethers } from 'ethers';
 import { Decimal } from 'decimal.js';
+import { ethers } from 'ethers';
 import { TokenImage } from '@depay/react-token-image-evm';
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
@@ -24956,33 +24956,6 @@ var ChangableAmountContext = /*#__PURE__*/React.createContext();
 
 var ConversionRateContext = /*#__PURE__*/React.createContext();
 
-var findMaxRoute = (function (routes) {
-  var sortedLowToHigh = _toConsumableArray(routes).sort(function (a, b) {
-    if (a.fromBalance == '0' || a.fromAmount == '0') {
-      return -1; // b
-    }
-
-    if (b.fromBalance == '0' || b.fromAmount == '0') {
-      return 1; // a
-    }
-
-    var aAmountsAvailable = ethers.BigNumber.from(a.fromBalance).div(ethers.BigNumber.from(a.fromAmount));
-    var bAmountsAvailable = ethers.BigNumber.from(b.fromBalance).div(ethers.BigNumber.from(b.fromAmount));
-
-    if (aAmountsAvailable.lt(bAmountsAvailable)) {
-      return -1; // b
-    }
-
-    if (bAmountsAvailable.lt(aAmountsAvailable)) {
-      return 1; // a
-    }
-
-    return 0; // equal
-  });
-
-  return sortedLowToHigh[sortedLowToHigh.length - 1];
-});
-
 function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -25163,6 +25136,7 @@ var ChangableAmountProvider = (function (props) {
   }, [amountsMissing, account, conversionRate, fixedAmount, fixedCurrencyConversionRate, amount, recover]);
   useEffect(function () {
     if (amountsMissing && maxRoute) {
+      console.log(maxRoute);
       maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
         if (configuredAmount && configuredAmount.token) {
           Exchanges.route({
@@ -25234,6 +25208,7 @@ var ChangableAmountProvider = (function (props) {
       amount: amount,
       setAmount: setAmount,
       setMaxRoute: setMaxRoute,
+      maxRoute: maxRoute,
       maxAmount: maxAmount
     }
   }, props.children);
@@ -25283,6 +25258,43 @@ var ConversionRateProvider = (function (props) {
 });
 
 var PaymentAmountRoutingContext = /*#__PURE__*/React.createContext();
+
+var findMaxRoute = (function (routes) {
+  var sortedLowToHigh = _toConsumableArray(routes).sort(function (a, b) {
+    var _a$usdRoute, _a$usdRoute2, _b$usdRoute, _b$usdRoute2;
+
+    if ((a === null || a === void 0 ? void 0 : (_a$usdRoute = a.usdRoute) === null || _a$usdRoute === void 0 ? void 0 : _a$usdRoute.length) === undefined || (a === null || a === void 0 ? void 0 : (_a$usdRoute2 = a.usdRoute) === null || _a$usdRoute2 === void 0 ? void 0 : _a$usdRoute2.length) == 0) {
+      return -1; //b
+    }
+
+    if ((b === null || b === void 0 ? void 0 : (_b$usdRoute = b.usdRoute) === null || _b$usdRoute === void 0 ? void 0 : _b$usdRoute.length) === undefined || (b === null || b === void 0 ? void 0 : (_b$usdRoute2 = b.usdRoute) === null || _b$usdRoute2 === void 0 ? void 0 : _b$usdRoute2.length) == 0) {
+      return 1; //a
+    }
+
+    if (a.usdRoute[0].amountOut == '0') {
+      return -1; // b
+    }
+
+    if (b.usdRoute[0].amountOut == '0') {
+      return 1; // a
+    }
+
+    var aMaxUsdAmountAsDecimal = new Decimal(ethers.utils.formatUnits(a.usdRoute[0].amountOut, a.usdRoute[0].decimalsOut));
+    var bMaxUsdAmountAsDecimal = new Decimal(ethers.utils.formatUnits(b.usdRoute[0].amountOut, b.usdRoute[0].decimalsOut));
+
+    if (aMaxUsdAmountAsDecimal.lt(bMaxUsdAmountAsDecimal)) {
+      return -1; // b
+    }
+
+    if (bMaxUsdAmountAsDecimal.lt(aMaxUsdAmountAsDecimal)) {
+      return 1; // a
+    }
+
+    return 0; // equal
+  });
+
+  return sortedLowToHigh[sortedLowToHigh.length - 1];
+});
 
 var PaymentRoutingContext = /*#__PURE__*/React.createContext();
 
@@ -25392,6 +25404,9 @@ var PaymentRoutingProvider = (function (props) {
 
   var configuration = useContext(ConfigurationContext);
 
+  var _useContext4 = useContext(ChangableAmountContext),
+      amountsMissing = _useContext4.amountsMissing;
+
   var getPaymentRoutes = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
       var updatable, slowRoutingTimeout, firstRouteDisplayed;
@@ -25417,6 +25432,10 @@ var PaymentRoutingProvider = (function (props) {
                 accept: props.accept,
                 account: account,
                 drip: function drip(route) {
+                  if (amountsMissing) {
+                    return;
+                  }
+
                   if (route.fromToken.address !== route.toToken.address && !Blockchains[route.blockchain].tokens.find(function (token) {
                     return token.address.toLowerCase() === route.fromToken.address.toLowerCase();
                   })) {
@@ -25587,7 +25606,7 @@ var PaymentRoutingProvider = (function (props) {
       setAllRoutes();
     }
   }, [account, props.accept]);
-  useEffect(function () {
+  var updateAllRoutes = useCallback(lodash.debounce(function (selectedRoute, updatedRoutes) {
     if (updatedRoutes === undefined) {
       return;
     }
@@ -25621,14 +25640,43 @@ var PaymentRoutingProvider = (function (props) {
         }
 
         roundedRoutes.assets = updatedRoutes.assets;
-        setAllRoutes(roundedRoutes);
-        setAllRoutesLoaded(allRoutesLoadedInternal);
 
-        if (props.setMaxRoute) {
-          props.setMaxRoute(findMaxRoute(roundedRoutes));
+        if (amountsMissing && props.setMaxRoute) {
+          Promise.all(roundedRoutes.map(function (route) {
+            return new Promise(function (resolve, reject) {
+              Exchanges.route({
+                blockchain: route.blockchain,
+                tokenIn: route.fromToken.address,
+                amountIn: route.fromBalance,
+                tokenOut: Blockchains[route.blockchain].stables.usd[0].toLowerCase() !== route.fromToken.address.toLowerCase() ? Blockchains[route.blockchain].stables.usd[0] : Blockchains[route.blockchain].stables.usd[1],
+                fromAddress: route.fromAddress,
+                toAddress: route.toAddress
+              }).then(function (usdRoute) {
+                return resolve({
+                  route: route,
+                  usdRoute: usdRoute
+                });
+              })["catch"](reject);
+            });
+          })).then(function (routes) {
+            var _findMaxRoute;
+
+            props.setMaxRoute((_findMaxRoute = findMaxRoute(routes)) === null || _findMaxRoute === void 0 ? void 0 : _findMaxRoute.route);
+            setAllRoutes(roundedRoutes);
+            setAllRoutesLoaded(allRoutesLoadedInternal);
+          })["catch"](function (e) {
+            console.log('ERROR', e);
+            props.setMaxRoute(null);
+          });
+        } else {
+          setAllRoutes(roundedRoutes);
+          setAllRoutesLoaded(allRoutesLoadedInternal);
         }
       });
     }
+  }, 500), []);
+  useEffect(function () {
+    updateAllRoutes(selectedRoute, updatedRoutes);
   }, [selectedRoute, updatedRoutes]);
   return /*#__PURE__*/React.createElement(PaymentRoutingContext.Provider, {
     value: {

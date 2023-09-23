@@ -1,26 +1,31 @@
 /*#if _EVM
 
+import Exchanges from '@depay/web3-exchanges-evm'
 import { request } from '@depay/web3-client-evm'
 
 /*#elif _SOLANA
 
+import Exchanges from '@depay/web3-exchanges-solana'
 import { request } from '@depay/web3-client-solana'
 
 //#else */
 
+import Exchanges from '@depay/web3-exchanges'
 import { request } from '@depay/web3-client'
 
 //#endif
 
 import Blockchains from '@depay/web3-blockchains'
+import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import findMaxRoute from '../helpers/findMaxRoute'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useCallback } from 'react'
 import round from '../helpers/round'
 import routePayments from '../helpers/routePayments'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
+import { debounce } from 'lodash'
 import { ethers } from 'ethers'
 
 export default (props)=>{
@@ -36,6 +41,7 @@ export default (props)=>{
   const { updatable } = useContext(UpdatableContext)
   const { recover } = useContext(ConfigurationContext)
   const configuration = useContext(ConfigurationContext)
+  const { amountsMissing } = useContext(ChangableAmountContext)
 
   const getPaymentRoutes = async ({ allRoutes, selectedRoute, updatable })=>{
     if(updatable == false || !props.accept || !account) { return }
@@ -43,6 +49,7 @@ export default (props)=>{
     let selectedRouteFromDrip
     let firstRouteDisplayed
     return await routePayments(Object.assign({}, configuration, { accept: props.accept, account, drip: (route)=>{
+      if(amountsMissing) { return }
       if(
         route.fromToken.address !== route.toToken.address &&
         !Blockchains[route.blockchain].tokens.find((token)=>token.address.toLowerCase() === route.fromToken.address.toLowerCase())
@@ -108,7 +115,7 @@ export default (props)=>{
     }
   }, [account, props.accept])
 
-  useEffect(()=>{
+  const updateAllRoutes = useCallback(debounce((selectedRoute, updatedRoutes)=>{
     if(updatedRoutes === undefined){ return }
     if(updatedRoutes.length == 0) {
       setAllRoutes(updatedRoutes)
@@ -140,11 +147,36 @@ export default (props)=>{
           }
         }
         roundedRoutes.assets = updatedRoutes.assets
-        setAllRoutes(roundedRoutes)
-        setAllRoutesLoaded(allRoutesLoadedInternal)
-        if(props.setMaxRoute) { props.setMaxRoute(findMaxRoute(roundedRoutes)) }
+        if(amountsMissing && props.setMaxRoute) {
+          Promise.all(roundedRoutes.map((route)=>{
+            return new Promise((resolve, reject)=>{
+              Exchanges.route({
+                blockchain: route.blockchain,
+                tokenIn: route.fromToken.address,
+                amountIn: route.fromBalance,
+                tokenOut: Blockchains[route.blockchain].stables.usd[0].toLowerCase() !== route.fromToken.address.toLowerCase() ? Blockchains[route.blockchain].stables.usd[0] : Blockchains[route.blockchain].stables.usd[1],
+                fromAddress: route.fromAddress,
+                toAddress: route.toAddress
+              }).then((usdRoute)=>resolve({ route, usdRoute })).catch(reject)
+            })
+          })).then((routes)=>{
+            props.setMaxRoute(findMaxRoute(routes)?.route)
+            setAllRoutes(roundedRoutes)
+            setAllRoutesLoaded(allRoutesLoadedInternal)
+          }).catch((e)=>{
+            console.log('ERROR', e)
+            props.setMaxRoute(null)
+          })
+        } else {
+          setAllRoutes(roundedRoutes)
+          setAllRoutesLoaded(allRoutesLoadedInternal)
+        }
       })
     }
+  }, 500), [])
+
+  useEffect(()=>{
+    updateAllRoutes(selectedRoute, updatedRoutes)
   }, [selectedRoute, updatedRoutes])
 
   return(

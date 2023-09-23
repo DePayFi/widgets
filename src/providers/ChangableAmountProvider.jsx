@@ -20,7 +20,6 @@ import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ConversionRateContext from '../contexts/ConversionRateContext'
 import ErrorContext from '../contexts/ErrorContext'
-import findMaxRoute from '../helpers/findMaxRoute'
 import React, { useCallback, useState, useEffect, useContext } from 'react'
 import round from '../helpers/round'
 import WalletContext from '../contexts/WalletContext'
@@ -138,6 +137,7 @@ export default (props)=>{
 
   useEffect(()=>{
     if(amountsMissing && maxRoute) {
+      console.log(maxRoute)
       maxRoute.fromToken.readable(maxRoute.fromBalance)
         .then((readableMaxAmount)=>{
           if(configuredAmount && configuredAmount.token) {
@@ -212,6 +212,7 @@ export default (props)=>{
       amount,
       setAmount,
       setMaxRoute,
+      maxRoute,
       maxAmount
     }}>
       { props.children }

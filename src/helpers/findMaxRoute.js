@@ -1,22 +1,31 @@
+import { Decimal } from 'decimal.js'
 import { ethers } from 'ethers'
 
 export default (routes)=> {
   let sortedLowToHigh = [...routes].sort((a,b)=>{
-    if(a.fromBalance == '0' || a.fromAmount == '0') {
+    if(a?.usdRoute?.length === undefined || a?.usdRoute?.length == 0) {
+      return -1; //b
+    }
+
+    if(b?.usdRoute?.length === undefined || b?.usdRoute?.length == 0) {
+      return 1; //a
+    }
+
+    if(a.usdRoute[0].amountOut == '0') {
       return -1; // b
     }
 
-    if(b.fromBalance == '0' || b.fromAmount == '0') {
+    if(b.usdRoute[0].amountOut == '0') {
       return 1; // a
     }
 
-    let aAmountsAvailable = ethers.BigNumber.from(a.fromBalance).div(ethers.BigNumber.from(a.fromAmount));
-    let bAmountsAvailable = ethers.BigNumber.from(b.fromBalance).div(ethers.BigNumber.from(b.fromAmount));
+    let aMaxUsdAmountAsDecimal = new Decimal(ethers.utils.formatUnits(a.usdRoute[0].amountOut, a.usdRoute[0].decimalsOut));
+    let bMaxUsdAmountAsDecimal = new Decimal(ethers.utils.formatUnits(b.usdRoute[0].amountOut, b.usdRoute[0].decimalsOut));
 
-    if (aAmountsAvailable.lt(bAmountsAvailable)) {
+    if (aMaxUsdAmountAsDecimal.lt(bMaxUsdAmountAsDecimal)) {
       return -1; // b
     }
-    if (bAmountsAvailable.lt(aAmountsAvailable)) {
+    if (bMaxUsdAmountAsDecimal.lt(aMaxUsdAmountAsDecimal)) {
       return 1; // a
     }
     return 0; // equal
