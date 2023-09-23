@@ -1023,7 +1023,7 @@
         "universal": "https://metamask.app.link",
         "qr": "WalletConnectV1",
         "open": function open() {
-          return "metamask://dapp/".concat(window.location.toString().replace(/^(https*)*:\/\//, '').replace(/\?.*/, ""));
+          return "https://metamask.app.link/dapp/".concat(window.location.toString().replace(/^(https*)*:\/\//, '').replace(/\?.*/, ""));
         }
       },
       "android": {
@@ -1031,7 +1031,7 @@
         "universal": "https://metamask.app.link",
         "qr": "WalletConnectV1",
         "open": function open() {
-          return "metamask://dapp/".concat(window.location.toString().replace(/^(https*)*:\/\//, '').replace(/\?.*/, ""));
+          return "https://metamask.app.link/dapp/".concat(window.location.toString().replace(/^(https*)*:\/\//, '').replace(/\?.*/, ""));
         }
       }
     },
