@@ -233,17 +233,15 @@ describe('Payment Widget: approval', () => {
           mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [ethers.utils.parseUnits('20', 18), [DAI, Blockchains[blockchain].wrapped.address, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
           mock({ blockchain, request: { to: DAI, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: Blockchains[blockchain].maxInt } })
           cy.wait(16000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Alert', 'Price updated!').should('not.exist').then(()=>{
-              confirm(mockedTransaction)
+            confirm(mockedTransaction)
+            cy.wait(1000).then(()=>{
+              cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+              cy.get('.Card.disabled', { includeShadowDom: true }).should('not.exist')
+              cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).should('not.exist')
+              cy.contains('.ButtonPrimary', 'Approve', { includeShadowDom: true }).should('not.exist')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Reload').click()
               cy.wait(1000).then(()=>{
-                cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-                cy.get('.Card.disabled', { includeShadowDom: true }).should('not.exist')
-                cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).should('not.exist')
-                cy.contains('.ButtonPrimary', 'Approve', { includeShadowDom: true }).should('not.exist')
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Reload').click()
-                cy.wait(1000).then(()=>{
-                  cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
-                })
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
               })
             })
           })

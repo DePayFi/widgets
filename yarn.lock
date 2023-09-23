@@ -1340,10 +1340,10 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-tokens/-/web3-tokens-10.3.0.tgz#11f19ed154c65329739afc29e74cd254030f811f"
   integrity sha512-r/98yZx+j0NLm5Z6wiUwyJvsWE/sq4//B1j4S4q1zzm62S3kLs3+H/5XEVEcInzekvr2NruC0oFgV+1Lfvwmtw==
 
-"@depay/web3-wallets@^16.2.14":
-  version "16.2.14"
-  resolved "https://registry.yarnpkg.com/@depay/web3-wallets/-/web3-wallets-16.2.14.tgz#7d648e2af5729a05bbf883122d09a3704ec576d9"
-  integrity sha512-q4VoPMNUvcqrNkyv6m4f9n3kNtVI6HBE+1YFELbtia6ttjMh9qx3gJuzNH4XYOB8nekXOvhlAGI6nZlcA01pDg==
+"@depay/web3-wallets@^16.2.16":
+  version "16.2.16"
+  resolved "https://registry.yarnpkg.com/@depay/web3-wallets/-/web3-wallets-16.2.16.tgz#8df63867c90ee287f9b0d31d26e59162bfc33ff8"
+  integrity sha512-lJkpzgCe7osGvFJBFZmn6cN9PpFsABpgzWnUyfbWGblD5Yxm9VKYvKcciKvk0N++Z+/CGwQW4ZxUW/8hPFISig==
 
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"
