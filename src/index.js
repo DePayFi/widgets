@@ -1,3 +1,4 @@
+import allWallets from './helpers/allWallets'
 import Connect from './Connect'
 import Loading from './Loading'
 import Login from './Login'
@@ -12,6 +13,7 @@ let DePayWidgets = {
   Sale,
   Select,
   Loading,
+  allWallets,
 }
 
 export default DePayWidgets
