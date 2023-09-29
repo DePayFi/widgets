@@ -163,7 +163,7 @@ export default (props)=> {
       setCopyLinkIsAvailable(copyLinkIsAvailable)
       const openInAppIsAvailable = !!props.platform && props.platform.open
       setOpenInAppIsAvailable(openInAppIsAvailable)
-      const scanQrAvailable = (props.platform.solanaPay && ( ( accept && accept.every((accept)=>accept.amount)) )) || (props.platform?.qr && (!showQRCode || props.platform.qr === 'WalletLink'))
+      const scanQrAvailable = (props.platform?.solanaPay && ( ( accept && accept.every((accept)=>accept.amount)) )) || (props.platform?.qr && (!showQRCode || props.platform.qr === 'WalletLink'))
       setScanQrAvailable(scanQrAvailable)
     })()
   }, [])

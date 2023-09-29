@@ -22120,7 +22120,7 @@ var get$1 = function get() {
 };
 
 var ConnectWalletDialog = (function (props) {
-  var _props$wallet, _props$platform13;
+  var _props$wallet, _props$platform14;
 
   var QRCodeElement = React.useRef();
 
@@ -22293,7 +22293,7 @@ var ConnectWalletDialog = (function (props) {
   }, 100), []);
   useEffect(function () {
     _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-      var _props$wallet2, _props$platform6, _props$platform7, _props$platform8;
+      var _props$wallet2, _props$platform6, _props$platform7, _props$platform8, _props$platform9;
 
       var extensionIsAvailable, appIsConnected, connectAppIsAvailable, copyLinkIsAvailable, openInAppIsAvailable, scanQrAvailable;
       return regenerator.wrap(function _callee$(_context) {
@@ -22365,9 +22365,9 @@ var ConnectWalletDialog = (function (props) {
               setCopyLinkIsAvailable(copyLinkIsAvailable);
               openInAppIsAvailable = !!props.platform && props.platform.open;
               setOpenInAppIsAvailable(openInAppIsAvailable);
-              scanQrAvailable = props.platform.solanaPay && accept && accept.every(function (accept) {
+              scanQrAvailable = ((_props$platform8 = props.platform) === null || _props$platform8 === void 0 ? void 0 : _props$platform8.solanaPay) && accept && accept.every(function (accept) {
                 return accept.amount;
-              }) || ((_props$platform8 = props.platform) === null || _props$platform8 === void 0 ? void 0 : _props$platform8.qr) && (!showQRCode || props.platform.qr === 'WalletLink');
+              }) || ((_props$platform9 = props.platform) === null || _props$platform9 === void 0 ? void 0 : _props$platform9.qr) && (!showQRCode || props.platform.qr === 'WalletLink');
               setScanQrAvailable(scanQrAvailable);
 
             case 32:
@@ -22380,15 +22380,15 @@ var ConnectWalletDialog = (function (props) {
   }, []);
   useEffect(function () {
     if (appIsConnected !== undefined) {
-      var _props$wallet3, _props$wallet3$deskto, _props$platform9, _props$platform10;
+      var _props$wallet3, _props$wallet3$deskto, _props$platform10, _props$platform11;
 
-      setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && (_props$wallet3$deskto = _props$wallet3.desktop) !== null && _props$wallet3$deskto !== void 0 && _props$wallet3$deskto["native"]) && (((_props$platform9 = props.platform) === null || _props$platform9 === void 0 ? void 0 : _props$platform9.qr) || ((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.solanaPay)));
+      setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && (_props$wallet3$deskto = _props$wallet3.desktop) !== null && _props$wallet3$deskto !== void 0 && _props$wallet3$deskto["native"]) && (((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.qr) || ((_props$platform11 = props.platform) === null || _props$platform11 === void 0 ? void 0 : _props$platform11.solanaPay)));
     }
   }, [extensionIsAvailable, appIsConnected]);
   useEffect(function () {
-    var _props$platform11, _props$platform12;
+    var _props$platform12, _props$platform13;
 
-    if (showQRCode && ((_props$platform11 = props.platform) !== null && _props$platform11 !== void 0 && _props$platform11.qr || (_props$platform12 = props.platform) !== null && _props$platform12 !== void 0 && _props$platform12.solanaPay)) {
+    if (showQRCode && ((_props$platform12 = props.platform) !== null && _props$platform12 !== void 0 && _props$platform12.qr || (_props$platform13 = props.platform) !== null && _props$platform13 !== void 0 && _props$platform13.solanaPay)) {
       connectViaQRCode();
     }
   }, [showQRCode]);
@@ -22399,7 +22399,7 @@ var ConnectWalletDialog = (function (props) {
     }
   }, [QRCode]);
 
-  if (showQRCode && (_props$platform13 = props.platform) !== null && _props$platform13 !== void 0 && _props$platform13.solanaPay && accept && accept.every(function (accept) {
+  if (showQRCode && (_props$platform14 = props.platform) !== null && _props$platform14 !== void 0 && _props$platform14.solanaPay && accept && accept.every(function (accept) {
     return accept.amount;
   })) {
     return null;
