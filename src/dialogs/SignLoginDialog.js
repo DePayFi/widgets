@@ -16,12 +16,12 @@ export default (props)=> {
   const walletName = wallet?.name ? wallet.name : 'wallet'
   const walletLogo = wallet?.logo ? wallet.logo : undefined
   if(typeof recoverSignature != 'function') {
-    recoverSignature = ({ message, signature, wallet })=> {
+    recoverSignature = ({ message, signature })=> {
       return new Promise((resolve, reject)=>{
         fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message, signature, wallet: { name: wallet.name } })
+          body: JSON.stringify({ message, signature })
         })
           .then((response)=>{
             if(response.status == 200) {
