@@ -16,7 +16,7 @@ export default (props)=> {
   const walletName = wallet?.name ? wallet.name : 'wallet'
   const walletLogo = wallet?.logo ? wallet.logo : undefined
   if(typeof recoverSignature != 'function') {
-    recoverSignature = ({ message, signature })=> {
+    recoverSignature = ({ message, signature, wallet })=> {
       return new Promise((resolve, reject)=>{
         fetch(endpoint, {
           method: 'POST',

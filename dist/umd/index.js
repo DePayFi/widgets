@@ -24383,6 +24383,7 @@
       recoverSignature = function recoverSignature(_ref) {
         var message = _ref.message,
             signature = _ref.signature;
+            _ref.wallet;
         return new Promise(function (resolve, reject) {
           fetch(endpoint, {
             method: 'POST',
