@@ -21,7 +21,7 @@ export default (props)=> {
         fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message, signature })
+          body: JSON.stringify({ message, signature, wallet: { name: wallet.name } })
         })
           .then((response)=>{
             if(response.status == 200) {
@@ -47,7 +47,7 @@ export default (props)=> {
       messageToSign = message
     }
     wallet.sign(messageToSign).then((signature)=>{
-      recoverSignature({ message: messageToSign, signature }).then((account)=>{
+      recoverSignature({ message: messageToSign, signature, wallet }).then((account)=>{
         props.resolve({ account, wallet })
         setLoggingIn(false)
       }).catch((error)=>{

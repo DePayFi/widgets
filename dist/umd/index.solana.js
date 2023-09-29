@@ -24422,8 +24422,8 @@
     if (typeof recoverSignature != 'function') {
       recoverSignature = function recoverSignature(_ref) {
         var message = _ref.message,
-            signature = _ref.signature;
-            _ref.wallet;
+            signature = _ref.signature,
+            wallet = _ref.wallet;
         return new Promise(function (resolve, reject) {
           fetch(endpoint, {
             method: 'POST',
@@ -24432,7 +24432,10 @@
             },
             body: JSON.stringify({
               message: message,
-              signature: signature
+              signature: signature,
+              wallet: {
+                name: wallet.name
+              }
             })
           }).then(function (response) {
             if (response.status == 200) {
@@ -24462,7 +24465,8 @@
       wallet.sign(messageToSign).then(function (signature) {
         recoverSignature({
           message: messageToSign,
-          signature: signature
+          signature: signature,
+          wallet: wallet
         }).then(function (account) {
           props.resolve({
             account: account,
