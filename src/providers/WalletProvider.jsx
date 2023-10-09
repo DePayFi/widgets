@@ -35,7 +35,7 @@ export default (props)=>{
   }))
   
   const connected = ({ account, wallet })=> {
-    navigator.hide()
+    navigator?.hide()
     setTimeout(()=>{
       setAccount(account)
       setWallet(wallet)

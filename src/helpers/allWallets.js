@@ -18,7 +18,7 @@ import { supported } from '../blockchains'
 export default [
   {
     "name": "Coinbase",
-    "extension": "Coinbase",
+    "extensions": ["CoinbaseEVM", "CoinbaseSVM"],
     "desktop": { "qr": "WalletLink" },
     "mobile": { 
       "ios": { "native": "cbwallet://dapp", "universal": "https://go.cb-w.com/dapp", "open": ()=>`cbwallet://dapp?url=${encodeURIComponent(window.location.toString())}` },
@@ -40,7 +40,7 @@ export default [
   },
   {
     "name": "Phantom",
-    "extension": "Phantom",
+    "extensions": ["PhantomEVM", "PhantomSVM"],
     "desktop": {
       "solanaPay": true,
       "qr": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`
@@ -65,8 +65,8 @@ export default [
     "blockchains": [...supported.solana]
   },
   {
-    "name": "Trust Wallet",
-    "extension": "Trust",
+    "name": "Trust",
+    "extensions": ["TrustEVM", "TrustSVM"],
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
       "ios": { "native": "trust:", "universal": "https://link.trustwallet.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
@@ -99,7 +99,7 @@ export default [
   },
   {
     "name": "Coin98",
-    "extension": "Coin98",
+    "extensions": ["Coin98EVM", "Coin98SVM"],
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
       "ios": { "native": "coin98:", "universal": "https://coin98.services", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
@@ -1320,7 +1320,7 @@ export default [
   {
     "name": "Exodus",
     "extensions": ["ExodusEVM", "ExodusSVM"],
-    "desktop": { "native": "exodus://", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+    "desktop": { "native": "exodus://", "qr": "WalletConnectV2" },
     "mobile": { 
       "ios": { "universal": "https://exodus.com/m", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
       "android": { "universal": "https://exodus.com/m", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },

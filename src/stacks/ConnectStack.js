@@ -22,15 +22,18 @@ import PoweredBy from '../components/PoweredBy'
 import React, { useState, useContext, useEffect } from 'react'
 import safeAppUrl from '../helpers/safeAppUrl'
 import safeUniversalUrl from '../helpers/safeUniversalUrl'
+import SelectPlatformDialog from '../dialogs/SelectPlatformDialog'
 import SelectWalletDialog from '../dialogs/SelectWalletDialog'
 import WhatIsAWalletDialog from '../dialogs/WhatIsAWalletDialog'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 import { set as setPreviouslyConnectedWallet } from '../helpers/previouslyConnectedWallet'
+import { supported } from '../blockchains'
 
 export default (props)=>{
 
   const { open, close } = useContext(ClosableContext)
   const [ wallet, setWallet ] = useState()
+  const [ navigator, setNavigator ] = useState()
   const [ platform, setPlatform ] = useState()
   const [ connectingExtension, setConnectingExtension ] = useState(false)
   const [ connectingApp, setConnectingApp ] = useState(false)
@@ -39,18 +42,38 @@ export default (props)=>{
   const [ showConnectExtensionWarning, setShowConnectExtensionWarning ] = useState(false)
   const resolve = (account, wallet)=> {
     if(account && wallet) {
-      let walletMeta = allWallets.find((walletMeta)=>walletMeta.extension == wallet.name) || allWallets.find((walletMeta)=>walletMeta.name == wallet.name)
+      let walletMeta = allWallets.find((walletMeta)=>walletMeta.name == wallet.name)
       setPreviouslyConnectedWallet(walletMeta.name)
       if(props.autoClose) close()
       if(props.resolve) props.resolve({ account, wallet })
     }
   }
 
-  const connectExtension = (wallet)=>{
+  const connectExtension = (wallet, extension)=>{
     setShowConnectExtensionWarning(false)
+
+    if(extension === undefined) {
+
+      if(wallet.extensions && props.accept) {
+        let availableExtensions = wallet.extensions.filter((availableExtension)=>{
+          return props.accept.some((configuration)=>supported[wallets[availableExtension].info.platform].includes(configuration.blockchain))
+        })
+        if(availableExtensions.length === 1) {
+          extension = availableExtensions[0]
+        } else if (availableExtensions.length > 1) {
+          setTimeout(()=>{ navigator.navigate('SelectPlatform') }, 50)
+          return
+        }
+      } else if(wallet.extensions && props.accept === undefined) {
+        return navigator.navigate('SelectPlatform')
+      } else {
+        extension = wallet.extension
+      }
+    }
+
     setConnectingExtension(true)
 
-    wallet = new wallets[wallet.extension]()
+    wallet = new wallets[extension]()
     const resetConnectingTimeout = setTimeout(()=>{ setConnectingExtension(false) }, 5000)
     wallet.connect()
       .then((account)=>{ 
@@ -172,7 +195,10 @@ export default (props)=>{
         start='SelectWallet'
         container={ props.container }
         document={ props.document }
-        setNavigator={ props.setNavigator ? props.setNavigator : ()=>{} }
+        setNavigator={ (navigator)=>{
+          if(props.setNavigator && navigator) { setNavigator(navigator) }
+          if(navigator) { setNavigator(navigator) }
+        }}
         stacked={ props.stacked }
         dialogs={{
           SelectWallet: <SelectWalletDialog setWallet={(walletMetaData)=>{
@@ -180,8 +206,17 @@ export default (props)=>{
             setWallet(walletMetaData)
           }} resolve={resolve} openInApp={openInApp} connectViaRedirect={connectViaRedirect} connectExtension={connectExtension}/>,
           WhatIsAWallet: <WhatIsAWalletDialog/>,
+          SelectPlatform: <SelectPlatformDialog
+            onSelect={(extension)=>{
+              navigator.navigate('back')
+              connectExtension(wallet, extension)
+            }}
+            wallet={wallet}
+            accept={props.accept}
+          />,
           ConnectWallet: <ConnectWalletDialog
             selection={selection}
+            accept={props.accept}
             wallet={wallet}
             platform={platform}
             resolve={resolve}
