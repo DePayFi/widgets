@@ -139,7 +139,7 @@
     "logo": web3WalletsEvm.wallets.PhantomSVM.info.logo,
     "blockchains": _toConsumableArray(supported.solana)
   }, {
-    "name": "Trust",
+    "name": "Trust Wallet",
     "extensions": ["TrustEVM", "TrustSVM"],
     "desktop": {
       "qr": "WalletConnectV1"

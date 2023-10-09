@@ -142,7 +142,7 @@ var allWallets = [{
   "logo": wallets.PhantomSVM.info.logo,
   "blockchains": _toConsumableArray(supported$4.solana)
 }, {
-  "name": "Trust",
+  "name": "Trust Wallet",
   "extensions": ["TrustEVM", "TrustSVM"],
   "desktop": {
     "qr": "WalletConnectV1"
