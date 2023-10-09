@@ -79,7 +79,7 @@ var allWallets = [{
       }
     }
   },
-  "logo": wallets.Coinbase.info.logo,
+  "logo": wallets.CoinbaseEVM.info.logo,
   "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "MetaMask",
@@ -138,7 +138,7 @@ var allWallets = [{
       "solanaPay": true
     }
   },
-  "logo": wallets.Phantom.info.logo,
+  "logo": wallets.PhantomSVM.info.logo,
   "blockchains": _toConsumableArray(supported$4.solana)
 }, {
   "name": "Trust Wallet",
@@ -160,7 +160,7 @@ var allWallets = [{
       "qr": "WalletConnectV1"
     }
   },
-  "logo": wallets.Trust.info.logo,
+  "logo": wallets.TrustEVM.info.logo,
   "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Binance Wallet",
@@ -226,7 +226,7 @@ var allWallets = [{
       "qr": "WalletConnectV1"
     }
   },
-  "logo": wallets.Coin98.info.logo,
+  "logo": wallets.Coin98EVM.info.logo,
   "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Brave",
@@ -2515,25 +2515,26 @@ var allWallets = [{
   "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Exodus",
+  "extensions": ["ExodusEVM", "ExodusSVM"],
   "desktop": {
     "native": "exodus://",
-    "connect": "WalletConnectV1",
-    "qr": "WalletConnectV1"
+    "connect": "WalletConnectV2",
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://exodus.com/m",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://exodus.com/m",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/exodus.jpg",
-  "blockchains": _toConsumableArray(supported$4.evm)
+  "blockchains": _toConsumableArray(supported$4)
 }, {
   "name": "Uvtoken",
   "desktop": {
@@ -24002,6 +24003,32 @@ var UpdatableProvider = (function (props) {
   }, props.children);
 });
 
+var resetZoom = function resetZoom() {
+  var viewportMetaTag = document.createElement('meta');
+  viewportMetaTag.name = "viewport";
+  viewportMetaTag.content = "width=device-width, initial-scale=1.0";
+  document.getElementsByTagName('head')[0].appendChild(viewportMetaTag);
+};
+
+var zoomOut = function zoomOut() {
+  var viewportMetaTag = document.createElement('meta');
+  viewportMetaTag.name = "viewport";
+  viewportMetaTag.content = "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0";
+  document.getElementsByTagName('head')[0].appendChild(viewportMetaTag);
+  setTimeout(resetZoom, 50);
+};
+
+var zoomOutMobile = (function () {
+  var viewportMetaTag = document.querySelector('meta[name="viewport"]');
+
+  if (viewportMetaTag) {
+    viewportMetaTag.remove();
+    setTimeout(zoomOut, 50);
+  } else {
+    zoomOut();
+  }
+});
+
 var Connect = function Connect(options) {
   requireReactVersion();
   var style, error, document;
@@ -24012,6 +24039,7 @@ var Connect = function Connect(options) {
     document = options.document;
   }
 
+  zoomOutMobile();
   return new Promise( /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(resolve, reject) {
       return regenerator.wrap(function _callee$(_context) {
@@ -24344,6 +24372,7 @@ var Loading = /*#__PURE__*/function () {
             text = _ref.text, style = _ref.style, error = _ref.error, critical = _ref.critical, container = _ref.container, document = _ref.document;
             requireReactVersion();
             _context.prev = 2;
+            zoomOutMobile();
             unmount = mount({
               style: style,
               container: container,
@@ -24370,8 +24399,8 @@ var Loading = /*#__PURE__*/function () {
               unmount: unmount
             });
 
-          case 8:
-            _context.prev = 8;
+          case 9:
+            _context.prev = 9;
             _context.t0 = _context["catch"](2);
             console.log('critical error', _context.t0);
 
@@ -24379,12 +24408,12 @@ var Loading = /*#__PURE__*/function () {
               critical(_context.t0);
             }
 
-          case 12:
+          case 13:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[2, 8]]);
+    }, _callee, null, [[2, 9]]);
   }));
 
   return function Loading(_x) {
@@ -24894,6 +24923,7 @@ var Login = function Login(options) {
     wallet = options.wallet;
   }
 
+  zoomOutMobile();
   return new Promise( /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_resolve, reject) {
       return regenerator.wrap(function _callee$(_context) {
@@ -38330,14 +38360,15 @@ var Payment = /*#__PURE__*/function () {
             }
 
             _context2.prev = 3;
-            _context2.next = 6;
+            zoomOutMobile();
+            _context2.next = 7;
             return preflight$1({
               accept: accept,
               integration: integration,
               recover: recover
             });
 
-          case 6:
+          case 7:
             if (typeof window._depayUnmountLoading == 'function') {
               window._depayUnmountLoading();
             }
@@ -38410,8 +38441,8 @@ var Payment = /*#__PURE__*/function () {
               unmount: unmount
             });
 
-          case 11:
-            _context2.prev = 11;
+          case 12:
+            _context2.prev = 12;
             _context2.t0 = _context2["catch"](3);
             console.log('critical error', _context2.t0);
 
@@ -38419,12 +38450,12 @@ var Payment = /*#__PURE__*/function () {
               critical(_context2.t0);
             }
 
-          case 15:
+          case 16:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[3, 11]]);
+    }, _callee2, null, [[3, 12]]);
   }));
 
   return function Payment(_x2) {
@@ -38831,6 +38862,7 @@ var Sale = /*#__PURE__*/function () {
             });
 
           case 5:
+            zoomOutMobile();
             accept = Object.keys(sell).map(function (key) {
               return {
                 blockchain: key,
@@ -38885,8 +38917,8 @@ var Sale = /*#__PURE__*/function () {
               unmount: unmount
             });
 
-          case 10:
-            _context2.prev = 10;
+          case 11:
+            _context2.prev = 11;
             _context2.t0 = _context2["catch"](2);
             console.log('critical error', _context2.t0);
 
@@ -38894,12 +38926,12 @@ var Sale = /*#__PURE__*/function () {
               critical(_context2.t0);
             }
 
-          case 14:
+          case 15:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[2, 10]]);
+    }, _callee2, null, [[2, 11]]);
   }));
 
   return function Sale(_x2) {
@@ -40103,6 +40135,7 @@ var Select = function Select(options) {
     startupError = "Unknown \"what\" configured: ".concat(what, "!");
   }
 
+  zoomOutMobile();
   return new Promise( /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(resolve, reject) {
       return regenerator.wrap(function _callee$(_context) {

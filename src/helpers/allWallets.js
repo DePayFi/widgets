@@ -24,7 +24,7 @@ export default [
       "ios": { "native": "cbwallet://dapp", "universal": "https://go.cb-w.com/dapp", "open": ()=>`cbwallet://dapp?url=${encodeURIComponent(window.location.toString())}` },
       "android": { "native": "cbwallet://dapp", "universal": "https://go.cb-w.com/dapp", "open": ()=>`https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.toString())}` },
     },
-    "logo": wallets.Coinbase.info.logo,
+    "logo": wallets.CoinbaseEVM.info.logo,
     "blockchains": [...supported.evm]
   },
   {
@@ -61,7 +61,7 @@ export default [
         "solanaPay": true,
       },
     },
-    "logo": wallets.Phantom.info.logo,
+    "logo": wallets.PhantomSVM.info.logo,
     "blockchains": [...supported.solana]
   },
   {
@@ -72,7 +72,7 @@ export default [
       "ios": { "native": "trust:", "universal": "https://link.trustwallet.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
       "android": { "native": "trust:", "universal": "https://link.trustwallet.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
     },
-    "logo": wallets.Trust.info.logo,
+    "logo": wallets.TrustEVM.info.logo,
     "blockchains": [...supported.evm]
   },
   {
@@ -105,7 +105,7 @@ export default [
       "ios": { "native": "coin98:", "universal": "https://coin98.services", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
       "android": { "native": "coin98:", "universal": "https://coin98.services", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
     },
-    "logo": wallets.Coin98.info.logo,
+    "logo": wallets.Coin98EVM.info.logo,
     "blockchains": [...supported.evm]
   },
   {
@@ -1319,13 +1319,14 @@ export default [
   },
   {
     "name": "Exodus",
-    "desktop": { "native": "exodus://", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+    "extensions": ["ExodusEVM", "ExodusSVM"],
+    "desktop": { "native": "exodus://", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "universal": "https://exodus.com/m", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "universal": "https://exodus.com/m", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "universal": "https://exodus.com/m", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "universal": "https://exodus.com/m", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/exodus.jpg",
-    "blockchains": [...supported.evm]
+    "blockchains": [...supported]
   },
   {
     "name": "Uvtoken",

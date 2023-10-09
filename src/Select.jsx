@@ -10,6 +10,7 @@ import SelectionProvider from './providers/SelectionProvider'
 import SelectNFTStack from './stacks/SelectNFTStack'
 import SelectTokenStack from './stacks/SelectTokenStack'
 import UpdatableProvider from './providers/UpdatableProvider'
+import zoomOutMobile from './helpers/zoomOutMobile'
 
 let Select = (options) => {
   requireReactVersion()
@@ -23,8 +24,9 @@ let Select = (options) => {
     startupError = `Unknown "what" configured: ${what}!`
   }
 
-  return new Promise(async (resolve, reject)=>{
+  zoomOutMobile()
 
+  return new Promise(async (resolve, reject)=>{
     let unmount = mount({ style, document: ensureDocument(document) }, (unmount)=> {
       const userClosedDialog = ()=>{
         reject('USER_CLOSED_DIALOG')
