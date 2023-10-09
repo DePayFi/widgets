@@ -32,8 +32,8 @@ export default [
     "extension": "MetaMask",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "open": ()=>`https://metamask.app.link/dapp/${window.location.toString().replace(/^(https*)*:\/\//,'')}` },
-      "android": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "open": ()=>`https://metamask.app.link/dapp/${window.location.toString().replace(/^(https*)*:\/\//,'')}` },
+      "ios": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "connect":"WalletConnectV2" },
+      "android": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "connect":"WalletConnectV2" },
     },
     "logo": wallets.MetaMask.info.logo,
     "blockchains": [...supported.evm]
@@ -1322,8 +1322,8 @@ export default [
     "extensions": ["ExodusEVM", "ExodusSVM"],
     "desktop": { "native": "exodus://", "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "universal": "https://exodus.com/m", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
-      "android": { "universal": "https://exodus.com/m", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "ios": { "native": "exodus://", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "exodus://", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/exodus.jpg",
     "blockchains": [...supported]
