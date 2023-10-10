@@ -22763,7 +22763,7 @@ var SelectPlatformDialog = (function (props) {
 
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
+      className: "PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM"
     }, ((_props$wallet = props.wallet) === null || _props$wallet === void 0 ? void 0 : _props$wallet.logo) && /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS"
     }, /*#__PURE__*/React.createElement("div", {
@@ -22773,18 +22773,12 @@ var SelectPlatformDialog = (function (props) {
     }, /*#__PURE__*/React.createElement("img", {
       className: "transparent",
       src: props.wallet.logo
-    }))))),
+    })))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+      className: "LineHeightL Text FontSizeL FontWeightBold"
+    }, "Select Blockchain"))),
     stacked: true,
     bodyClassName: "ScrollHeight",
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter PaddingBottomS"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftL PaddingRightL"
-    }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL Text FontSizeL FontWeightBold"
-    }, "Select Blockchain")), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingBottomS"
-    }, blockchains.map(function (blockchain) {
+    body: /*#__PURE__*/React.createElement("div", null, blockchains.map(function (blockchain) {
       return /*#__PURE__*/React.createElement("div", {
         key: blockchain,
         className: "Card Row TextLeft",
@@ -22804,8 +22798,8 @@ var SelectPlatformDialog = (function (props) {
       }, /*#__PURE__*/React.createElement("span", {
         className: "CardText"
       }, Blockchains[blockchain].label)));
-    }))),
-    footer: false
+    })),
+    footer: null
   });
 });
 

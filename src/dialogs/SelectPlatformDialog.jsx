@@ -33,7 +33,7 @@ export default (props)=>{
   return(
     <Dialog
       header={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM">
+        <div className="PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM">
           { props.wallet?.logo &&
             <div className="PaddingTopXS">
               <div className="LineHeightL FontSizeL PaddingTopS">
@@ -43,39 +43,36 @@ export default (props)=>{
               </div>
             </div>
           }
+          <div>
+            <h1 className="LineHeightL Text FontSizeL FontWeightBold">Select Blockchain</h1>
+          </div>
         </div>
       }
       stacked={true}
       bodyClassName="ScrollHeight"
       body={
-        <div className="TextCenter PaddingBottomS">
+        <div>
 
-          <div className="PaddingLeftL PaddingRightL">
-            <h1 className="LineHeightL Text FontSizeL FontWeightBold">Select Blockchain</h1>
-          </div>
-
-          <div className="PaddingTopS PaddingBottomS">
-            {
-              blockchains.map((blockchain)=>{
-                return(
-                  <div key={ blockchain } className="Card Row TextLeft" onClick={ ()=>selectBlockchain(blockchain) }>
-                    <div className="CardImage">
-                      <img className="transparent BlockchainLogo" src={ Blockchains[blockchain].logo } style={{ backgroundColor: Blockchains[blockchain].logoBackgroundColor }}/>
-                    </div>
-                    <div className="CardBody">
-                      <span className="CardText">
-                        { Blockchains[blockchain].label }
-                      </span>
-                    </div>
+          {
+            blockchains.map((blockchain)=>{
+              return(
+                <div key={ blockchain } className="Card Row TextLeft" onClick={ ()=>selectBlockchain(blockchain) }>
+                  <div className="CardImage">
+                    <img className="transparent BlockchainLogo" src={ Blockchains[blockchain].logo } style={{ backgroundColor: Blockchains[blockchain].logoBackgroundColor }}/>
                   </div>
-                )
-              })
-            }
-          </div>
+                  <div className="CardBody">
+                    <span className="CardText">
+                      { Blockchains[blockchain].label }
+                    </span>
+                  </div>
+                </div>
+              )
+            })
+          }
 
         </div>
       }
-      footer={ false }
+      footer={ null }
     />
   )
 }

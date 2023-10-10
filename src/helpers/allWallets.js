@@ -40,7 +40,7 @@ export default [
   },
   {
     "name": "Phantom",
-    "extensions": ["PhantomEVM", "PhantomSVM"],
+    "extensions": ["PhantomSVM", "PhantomEVM"],
     "desktop": {
       "solanaPay": true,
       "qr": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`
