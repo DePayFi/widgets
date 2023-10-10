@@ -46,6 +46,7 @@ export default (props)=>{
         </div>
       }
       stacked={true}
+      bodyClassName="ScrollHeight"
       body={
         <div className="TextCenter PaddingBottomS">
 

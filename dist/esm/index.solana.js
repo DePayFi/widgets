@@ -22774,6 +22774,7 @@ var SelectPlatformDialog = (function (props) {
       src: props.wallet.logo
     }))))),
     stacked: true,
+    bodyClassName: "ScrollHeight",
     body: /*#__PURE__*/React.createElement("div", {
       className: "TextCenter PaddingBottomS"
     }, /*#__PURE__*/React.createElement("div", {
