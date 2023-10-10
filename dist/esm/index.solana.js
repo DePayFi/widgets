@@ -489,20 +489,20 @@ var allWallets = [{
 }, {
   "name": "BitGet (BitKeep)",
   "desktop": {
-    "qr": "WalletConnectV2"
+    "qr": "WalletConnectV1"
   },
   "mobile": {
     "ios": {
       "native": "bitget://",
       "universal": "https://bkapp.vip",
-      "connect": "WalletConnectV2",
-      "qr": "WalletConnectV2"
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     },
     "android": {
       "native": "bitget://",
       "universal": "https://bkapp.vip",
-      "connect": "WalletConnectV2",
-      "qr": "WalletConnectV2"
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
     }
   },
   "logo": "https://img1.depay.com/wallets/bit_keep.jpg",
