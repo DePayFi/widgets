@@ -104,7 +104,7 @@
     "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Phantom",
-    "extensions": ["PhantomEVM", "PhantomSVM"],
+    "extensions": ["PhantomSVM", "PhantomEVM"],
     "desktop": {
       "solanaPay": true,
       "qr": function qr() {
