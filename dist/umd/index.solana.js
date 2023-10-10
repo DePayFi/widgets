@@ -487,23 +487,23 @@
   }, {
     "name": "BitGet (BitKeep)",
     "desktop": {
-      "qr": "WalletConnectV1"
+      "qr": "WalletConnectV2"
     },
     "mobile": {
       "ios": {
         "native": "bitget://",
         "universal": "https://bkapp.vip",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
       },
       "android": {
         "native": "bitget://",
         "universal": "https://bkapp.vip",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
       }
     },
-    "logo": "https://img1.depay.com/wallets/bit_keep.jpg",
+    "logo": "https://img1.depay.com/wallets/bitget.jpg",
     "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Unstoppable Domains",

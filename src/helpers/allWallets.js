@@ -273,12 +273,12 @@ export default [
   },
   {
     "name": "BitGet (BitKeep)",
-    "desktop": { "qr": "WalletConnectV1" },
+    "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "native": "bitget://", "universal": "https://bkapp.vip", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "bitget://", "universal": "https://bkapp.vip", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "bitget://", "universal": "https://bkapp.vip", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "bitget://", "universal": "https://bkapp.vip", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
-    "logo": "https://img1.depay.com/wallets/bit_keep.jpg",
+    "logo": "https://img1.depay.com/wallets/bitget.jpg",
     "blockchains": [...supported.evm]
   },
   {
