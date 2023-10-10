@@ -720,7 +720,7 @@ export default (props)=> {
                               blockchain={ paymentOption.blockchain }
                               address={ paymentOption.token }
                             />
-                            <img className={"BlockchainLogo small bottomRight " + Blockchains[paymentOption.blockchain].name} style={{ backgroundColor: blockchain.logoBackgroundColor }} src={Blockchains[paymentOption.blockchain].logo} alt={Blockchains[paymentOption.blockchain].label} title={Blockchains[paymentOption.blockchain].label}/>
+                            <img className={"BlockchainLogo small bottomRight " + Blockchains[paymentOption.blockchain].name} style={{ backgroundColor: Blockchains[paymentOption.blockchain].logoBackgroundColor }} src={Blockchains[paymentOption.blockchain].logo} alt={Blockchains[paymentOption.blockchain].label} title={Blockchains[paymentOption.blockchain].label}/>
                           </div>
                           <div className="CardBody">
                             <div className="CardBodyWrapper">
@@ -765,7 +765,7 @@ export default (props)=> {
                       blockchain={ selectedPaymentOption.blockchain }
                       address={ selectedPaymentOption.token }
                     />
-                    <img className={"BlockchainLogo small bottomRight " + Blockchains[selectedPaymentOption.blockchain].name} style={{ backgroundColor: blockchain.logoBackgroundColor }} src={Blockchains[selectedPaymentOption.blockchain].logo} alt={Blockchains[selectedPaymentOption.blockchain].label} title={Blockchains[selectedPaymentOption.blockchain].label}/>
+                    <img className={"BlockchainLogo small bottomRight " + Blockchains[selectedPaymentOption.blockchain].name} style={{ backgroundColor: Blockchains[selectedPaymentOption.blockchain].logoBackgroundColor }} src={Blockchains[selectedPaymentOption.blockchain].logo} alt={Blockchains[selectedPaymentOption.blockchain].label} title={Blockchains[selectedPaymentOption.blockchain].label}/>
                   </div>
                   <div className="CardBody">
                     <div className="CardBodyWrapper">

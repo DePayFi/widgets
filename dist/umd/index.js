@@ -30390,7 +30390,7 @@
           }), /*#__PURE__*/React__default['default'].createElement("img", {
             className: "BlockchainLogo small bottomRight " + Blockchains__default['default'][paymentOption.blockchain].name,
             style: {
-              backgroundColor: blockchain.logoBackgroundColor
+              backgroundColor: Blockchains__default['default'][paymentOption.blockchain].logoBackgroundColor
             },
             src: Blockchains__default['default'][paymentOption.blockchain].logo,
             alt: Blockchains__default['default'][paymentOption.blockchain].label,
@@ -30433,7 +30433,7 @@
         }), /*#__PURE__*/React__default['default'].createElement("img", {
           className: "BlockchainLogo small bottomRight " + Blockchains__default['default'][selectedPaymentOption.blockchain].name,
           style: {
-            backgroundColor: blockchain.logoBackgroundColor
+            backgroundColor: Blockchains__default['default'][selectedPaymentOption.blockchain].logoBackgroundColor
           },
           src: Blockchains__default['default'][selectedPaymentOption.blockchain].logo,
           alt: Blockchains__default['default'][selectedPaymentOption.blockchain].label,

@@ -30394,7 +30394,7 @@ var SolanaPayDialog = (function (props) {
         }), /*#__PURE__*/React.createElement("img", {
           className: "BlockchainLogo small bottomRight " + Blockchains[paymentOption.blockchain].name,
           style: {
-            backgroundColor: blockchain.logoBackgroundColor
+            backgroundColor: Blockchains[paymentOption.blockchain].logoBackgroundColor
           },
           src: Blockchains[paymentOption.blockchain].logo,
           alt: Blockchains[paymentOption.blockchain].label,
@@ -30437,7 +30437,7 @@ var SolanaPayDialog = (function (props) {
       }), /*#__PURE__*/React.createElement("img", {
         className: "BlockchainLogo small bottomRight " + Blockchains[selectedPaymentOption.blockchain].name,
         style: {
-          backgroundColor: blockchain.logoBackgroundColor
+          backgroundColor: Blockchains[selectedPaymentOption.blockchain].logoBackgroundColor
         },
         src: Blockchains[selectedPaymentOption.blockchain].logo,
         alt: Blockchains[selectedPaymentOption.blockchain].label,

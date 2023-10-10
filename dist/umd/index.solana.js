@@ -33460,7 +33460,7 @@
     }
   };
 
-  const blockchain$2 = Blockchains__default['default'].solana;
+  const blockchain = Blockchains__default['default'].solana;
   const SWAP_INSTRUCTION = new solanaWeb3_js.BN("14449647541112719096");
   const TWO_HOP_SWAP_INSTRUCTION = new solanaWeb3_js.BN("16635068063392030915");
 
@@ -33710,8 +33710,8 @@
       }
     }
 
-    let startsWrapped = (path[0] === blockchain$2.currency.address && exchangePath[0] === blockchain$2.wrapped.address);
-    let endsUnwrapped = (path[path.length-1] === blockchain$2.currency.address && exchangePath[exchangePath.length-1] === blockchain$2.wrapped.address);
+    let startsWrapped = (path[0] === blockchain.currency.address && exchangePath[0] === blockchain.wrapped.address);
+    let endsUnwrapped = (path[path.length-1] === blockchain.currency.address && exchangePath[exchangePath.length-1] === blockchain.wrapped.address);
     let wrappedAccount;
     const provider = await getProvider('solana');
     
@@ -33732,7 +33732,7 @@
       instructions.push(
         Token.solana.initializeAccountInstruction({
           account: wrappedAccount,
-          token: blockchain$2.wrapped.address,
+          token: blockchain.wrapped.address,
           owner: account
         })
       );
@@ -37954,7 +37954,7 @@
           }), /*#__PURE__*/React__default['default'].createElement("img", {
             className: "BlockchainLogo small bottomRight " + Blockchains__default['default'][paymentOption.blockchain].name,
             style: {
-              backgroundColor: blockchain.logoBackgroundColor
+              backgroundColor: Blockchains__default['default'][paymentOption.blockchain].logoBackgroundColor
             },
             src: Blockchains__default['default'][paymentOption.blockchain].logo,
             alt: Blockchains__default['default'][paymentOption.blockchain].label,
@@ -37997,7 +37997,7 @@
         }), /*#__PURE__*/React__default['default'].createElement("img", {
           className: "BlockchainLogo small bottomRight " + Blockchains__default['default'][selectedPaymentOption.blockchain].name,
           style: {
-            backgroundColor: blockchain.logoBackgroundColor
+            backgroundColor: Blockchains__default['default'][selectedPaymentOption.blockchain].logoBackgroundColor
           },
           src: Blockchains__default['default'][selectedPaymentOption.blockchain].logo,
           alt: Blockchains__default['default'][selectedPaymentOption.blockchain].label,

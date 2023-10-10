@@ -33462,7 +33462,7 @@ let getAmounts$4 = async ({
   }
 };
 
-const blockchain$2 = Blockchains.solana;
+const blockchain = Blockchains.solana;
 const SWAP_INSTRUCTION = new BN("14449647541112719096");
 const TWO_HOP_SWAP_INSTRUCTION = new BN("16635068063392030915");
 
@@ -33712,8 +33712,8 @@ const getTransaction$4 = async ({
     }
   }
 
-  let startsWrapped = (path[0] === blockchain$2.currency.address && exchangePath[0] === blockchain$2.wrapped.address);
-  let endsUnwrapped = (path[path.length-1] === blockchain$2.currency.address && exchangePath[exchangePath.length-1] === blockchain$2.wrapped.address);
+  let startsWrapped = (path[0] === blockchain.currency.address && exchangePath[0] === blockchain.wrapped.address);
+  let endsUnwrapped = (path[path.length-1] === blockchain.currency.address && exchangePath[exchangePath.length-1] === blockchain.wrapped.address);
   let wrappedAccount;
   const provider = await getProvider('solana');
   
@@ -33734,7 +33734,7 @@ const getTransaction$4 = async ({
     instructions.push(
       Token.solana.initializeAccountInstruction({
         account: wrappedAccount,
-        token: blockchain$2.wrapped.address,
+        token: blockchain.wrapped.address,
         owner: account
       })
     );
@@ -37956,7 +37956,7 @@ var SolanaPayDialog = (function (props) {
         }), /*#__PURE__*/React.createElement("img", {
           className: "BlockchainLogo small bottomRight " + Blockchains[paymentOption.blockchain].name,
           style: {
-            backgroundColor: blockchain.logoBackgroundColor
+            backgroundColor: Blockchains[paymentOption.blockchain].logoBackgroundColor
           },
           src: Blockchains[paymentOption.blockchain].logo,
           alt: Blockchains[paymentOption.blockchain].label,
@@ -37999,7 +37999,7 @@ var SolanaPayDialog = (function (props) {
       }), /*#__PURE__*/React.createElement("img", {
         className: "BlockchainLogo small bottomRight " + Blockchains[selectedPaymentOption.blockchain].name,
         style: {
-          backgroundColor: blockchain.logoBackgroundColor
+          backgroundColor: Blockchains[selectedPaymentOption.blockchain].logoBackgroundColor
         },
         src: Blockchains[selectedPaymentOption.blockchain].logo,
         alt: Blockchains[selectedPaymentOption.blockchain].label,
