@@ -9,13 +9,11 @@ import React from 'react'
 import requireReactVersion from './helpers/requireReactVersion'
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
-import zoomOutMobile from './helpers/zoomOutMobile'
 
 let Login = (options) => {
   requireReactVersion()
   let style, error, document, message, endpoint, recover, wallet
   if(typeof options == 'object') ({ style, error, document, message, endpoint, recover, wallet } = options)
-  zoomOutMobile()
 
   return new Promise(async (resolve, reject)=>{
 

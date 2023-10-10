@@ -8,13 +8,11 @@ import React from 'react'
 import requireReactVersion from './helpers/requireReactVersion'
 import SelectionProvider from './providers/SelectionProvider'
 import UpdatableProvider from './providers/UpdatableProvider'
-import zoomOutMobile from './helpers/zoomOutMobile'
 
 let Connect = (options) => {
   requireReactVersion()
   let style, error, document
   if(typeof options == 'object') ({ style, error, document } = options)
-  zoomOutMobile()
 
   return new Promise(async (resolve, reject)=>{
 

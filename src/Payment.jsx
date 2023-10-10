@@ -21,7 +21,6 @@ import TransactionTrackingProvider from './providers/TransactionTrackingProvider
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 import { supported } from './blockchains'
-import zoomOutMobile from './helpers/zoomOutMobile'
 
 let preflight = async({ accept, recover, integration }) => {
   if(integration || recover){ return }
@@ -66,7 +65,6 @@ let Payment = async ({
   requireReactVersion()
   if(currency && !SUPPORTED_CURRENCIES.includes(currency.toLowerCase())) { currency = false }
   try {
-    zoomOutMobile()
     await preflight({ accept, integration, recover })
     if(typeof window._depayUnmountLoading == 'function') { window._depayUnmountLoading() }
     let unmount = mount({ style, container, document: ensureDocument(document), closed }, (unmount)=> {

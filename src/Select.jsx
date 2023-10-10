@@ -10,7 +10,6 @@ import SelectionProvider from './providers/SelectionProvider'
 import SelectNFTStack from './stacks/SelectNFTStack'
 import SelectTokenStack from './stacks/SelectTokenStack'
 import UpdatableProvider from './providers/UpdatableProvider'
-import zoomOutMobile from './helpers/zoomOutMobile'
 
 let Select = (options) => {
   requireReactVersion()
@@ -23,8 +22,6 @@ let Select = (options) => {
   } else if (['token', 'nft'].indexOf(what) < 0) {
     startupError = `Unknown "what" configured: ${what}!`
   }
-
-  zoomOutMobile()
 
   return new Promise(async (resolve, reject)=>{
     let unmount = mount({ style, document: ensureDocument(document) }, (unmount)=> {

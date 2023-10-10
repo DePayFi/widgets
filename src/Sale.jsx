@@ -15,7 +15,6 @@ import SaleStack from './stacks/SaleStack'
 import TransactionTrackingProvider from './providers/TransactionTrackingProvider'
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
-import zoomOutMobile from './helpers/zoomOutMobile'
 
 let preflight = async({ sell }) => {
   if(typeof sell != 'object') { throw('You need to configure at least 1 "blockchain": "token"') }
@@ -46,7 +45,6 @@ let Sale = async ({
   requireReactVersion()
   try {
     await preflight({ sell })
-    zoomOutMobile()
     const accept = Object.keys(sell).map((key)=>({ blockchain: key, token: sell[key] }))
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>

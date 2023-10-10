@@ -9,7 +9,6 @@ import PoweredBy from './components/PoweredBy'
 import React from 'react'
 import requireReactVersion from './helpers/requireReactVersion'
 import UpdatableProvider from './providers/UpdatableProvider'
-import zoomOutMobile from './helpers/zoomOutMobile'
 
 let Loading = async ({
   text,
@@ -22,7 +21,6 @@ let Loading = async ({
 }) => {
   requireReactVersion()
   try {
-    zoomOutMobile()
     let unmount = mount({ style, container, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
