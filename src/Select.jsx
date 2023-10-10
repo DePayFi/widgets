@@ -24,7 +24,6 @@ let Select = (options) => {
   }
 
   return new Promise(async (resolve, reject)=>{
-
     let unmount = mount({ style, document: ensureDocument(document) }, (unmount)=> {
       const userClosedDialog = ()=>{
         reject('USER_CLOSED_DIALOG')

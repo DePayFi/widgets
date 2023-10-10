@@ -23,7 +23,7 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/coinbase-wallet-sdk@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v1@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v2@2"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@16.2.16"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@16.3.3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-assets@7.2.0"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@13.7.0"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@13"></script>
@@ -244,17 +244,16 @@
                     DePayWidgets.Payment({
                       accept: [
                         {
-                          blockchain: 'ethereum',
-                          amount: 1,
-                          token: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+                          blockchain: 'polygon',
+                          amount: 0.0001,
+                          token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },{
+                          blockchain: 'solana',
+                          amount: 0.0001,
+                          token: '11111111111111111111111111111111',
+                          receiver: '2UgCJaHU5y8NC4uWQcZYeV9a5RyYLF7iKYCybCsdFFD1'
                         },
-                        {
-                          blockchain: 'ethereum',
-                          amount: 0.152,
-                          token: '0x4d224452801ACEd8B2F0aebE155379bb5D594381',
-                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
-                        },                      
                       ]
                     });
                   });

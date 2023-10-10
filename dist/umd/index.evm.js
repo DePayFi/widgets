@@ -52,11 +52,12 @@
 
   var supported = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom'];
   supported.evm = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom'];
+  supported.svm = [];
   supported.solana = [];
 
   var allWallets = [{
     "name": "Coinbase",
-    "extension": "Coinbase",
+    "extensions": ["CoinbaseEVM", "CoinbaseSVM"],
     "desktop": {
       "qr": "WalletLink"
     },
@@ -76,7 +77,7 @@
         }
       }
     },
-    "logo": web3WalletsEvm.wallets.Coinbase.info.logo,
+    "logo": web3WalletsEvm.wallets.CoinbaseEVM.info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "MetaMask",
@@ -89,24 +90,20 @@
         "native": "metamask:",
         "universal": "https://metamask.app.link",
         "qr": "WalletConnectV1",
-        "open": function open() {
-          return "https://metamask.app.link/dapp/".concat(window.location.toString().replace(/^(https*)*:\/\//, ''));
-        }
+        "connect": "WalletConnectV2"
       },
       "android": {
         "native": "metamask:",
         "universal": "https://metamask.app.link",
         "qr": "WalletConnectV1",
-        "open": function open() {
-          return "https://metamask.app.link/dapp/".concat(window.location.toString().replace(/^(https*)*:\/\//, ''));
-        }
+        "connect": "WalletConnectV2"
       }
     },
     "logo": web3WalletsEvm.wallets.MetaMask.info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "Phantom",
-    "extension": "Phantom",
+    "extensions": ["PhantomSVM", "PhantomEVM"],
     "desktop": {
       "solanaPay": true,
       "qr": function qr() {
@@ -135,11 +132,11 @@
         "solanaPay": true
       }
     },
-    "logo": web3WalletsEvm.wallets.Phantom.info.logo,
+    "logo": web3WalletsEvm.wallets.PhantomSVM.info.logo,
     "blockchains": _toConsumableArray(supported.solana)
   }, {
     "name": "Trust Wallet",
-    "extension": "Trust",
+    "extensions": ["TrustEVM", "TrustSVM"],
     "desktop": {
       "qr": "WalletConnectV1"
     },
@@ -157,7 +154,7 @@
         "qr": "WalletConnectV1"
       }
     },
-    "logo": web3WalletsEvm.wallets.Trust.info.logo,
+    "logo": web3WalletsEvm.wallets.TrustEVM.info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "Binance Wallet",
@@ -205,7 +202,7 @@
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "Coin98",
-    "extension": "Coin98",
+    "extensions": ["Coin98EVM", "Coin98SVM"],
     "desktop": {
       "qr": "WalletConnectV1"
     },
@@ -223,7 +220,7 @@
         "qr": "WalletConnectV1"
       }
     },
-    "logo": web3WalletsEvm.wallets.Coin98.info.logo,
+    "logo": web3WalletsEvm.wallets.Coin98EVM.info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "Brave",
@@ -493,19 +490,19 @@
     },
     "mobile": {
       "ios": {
-        "native": "bitkeep://",
+        "native": "bitget://",
         "universal": "https://bkapp.vip",
         "connect": "WalletConnectV2",
         "qr": "WalletConnectV2"
       },
       "android": {
-        "native": "bitkeep://",
+        "native": "bitget://",
         "universal": "https://bkapp.vip",
         "connect": "WalletConnectV2",
         "qr": "WalletConnectV2"
       }
     },
-    "logo": "https://img1.depay.com/wallets/bit_keep.jpg",
+    "logo": "https://img1.depay.com/wallets/bitget.jpg",
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "Unstoppable Domains",
@@ -2512,25 +2509,25 @@
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "Exodus",
+    "extensions": ["ExodusEVM", "ExodusSVM"],
     "desktop": {
       "native": "exodus://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "qr": "WalletConnectV2"
     },
     "mobile": {
       "ios": {
-        "universal": "https://exodus.com/m",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
+        "native": "exodus://",
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
       },
       "android": {
-        "universal": "https://exodus.com/m",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
+        "native": "exodus://",
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
       }
     },
     "logo": "https://img1.depay.com/wallets/exodus.jpg",
-    "blockchains": _toConsumableArray(supported.evm)
+    "blockchains": _toConsumableArray(supported)
   }, {
     "name": "Uvtoken",
     "desktop": {
@@ -22289,72 +22286,95 @@
       }
     }, 100), []);
     React.useEffect(function () {
-      _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-        var _props$wallet2, _props$platform6, _props$platform7, _props$platform8, _props$platform9;
+      _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
+        var _props$wallet2, _props$wallet3, _props$platform6, _props$platform7, _props$platform8, _props$platform9;
 
         var extensionIsAvailable, appIsConnected, connectAppIsAvailable, copyLinkIsAvailable, openInAppIsAvailable, scanQrAvailable;
-        return regenerator.wrap(function _callee$(_context) {
+        return regenerator.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
+                extensionIsAvailable = false;
+
                 if (!((_props$wallet2 = props.wallet) !== null && _props$wallet2 !== void 0 && _props$wallet2.extension)) {
-                  _context.next = 9;
+                  _context2.next = 7;
                   break;
                 }
 
-                _context.next = 3;
+                _context2.next = 4;
                 return web3WalletsEvm.wallets[props.wallet.extension].isAvailable();
 
-              case 3:
-                _context.t1 = _context.sent;
+              case 4:
+                extensionIsAvailable = _context2.sent;
+                _context2.next = 11;
+                break;
 
-                if (_context.t1) {
-                  _context.next = 6;
+              case 7:
+                if (!((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && _props$wallet3.extensions)) {
+                  _context2.next = 11;
                   break;
                 }
 
-                _context.t1 = false;
+                _context2.next = 10;
+                return Promise.all(props.wallet.extensions.map( /*#__PURE__*/function () {
+                  var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(extension) {
+                    return regenerator.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _context.next = 2;
+                            return web3WalletsEvm.wallets[extension].isAvailable();
 
-              case 6:
-                _context.t0 = _context.t1;
-                _context.next = 10;
-                break;
+                          case 2:
+                            return _context.abrupt("return", _context.sent);
 
-              case 9:
-                _context.t0 = false;
+                          case 3:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref5.apply(this, arguments);
+                  };
+                }()));
 
               case 10:
-                extensionIsAvailable = _context.t0;
+                extensionIsAvailable = _context2.sent.filter(Boolean)[0];
+
+              case 11:
                 setExtensionIsAvailable(extensionIsAvailable);
 
                 if (!((_props$platform6 = props.platform) !== null && _props$platform6 !== void 0 && _props$platform6.connect)) {
-                  _context.next = 21;
+                  _context2.next = 21;
                   break;
                 }
 
-                _context.next = 15;
+                _context2.next = 15;
                 return web3WalletsEvm.wallets[props.platform.connect].isAvailable();
 
               case 15:
-                _context.t3 = _context.sent;
+                _context2.t1 = _context2.sent;
 
-                if (_context.t3) {
-                  _context.next = 18;
+                if (_context2.t1) {
+                  _context2.next = 18;
                   break;
                 }
 
-                _context.t3 = false;
+                _context2.t1 = false;
 
               case 18:
-                _context.t2 = _context.t3;
-                _context.next = 22;
+                _context2.t0 = _context2.t1;
+                _context2.next = 22;
                 break;
 
               case 21:
-                _context.t2 = false;
+                _context2.t0 = false;
 
               case 22:
-                appIsConnected = _context.t2;
+                appIsConnected = _context2.t0;
                 setAppIsConnected(appIsConnected);
                 connectAppIsAvailable = !!props.platform && props.platform.connect;
                 setConnectAppIsAvailable(connectAppIsAvailable);
@@ -22369,17 +22389,17 @@
 
               case 32:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }))();
     }, []);
     React.useEffect(function () {
       if (appIsConnected !== undefined) {
-        var _props$wallet3, _props$wallet3$deskto, _props$platform10, _props$platform11;
+        var _props$wallet4, _props$wallet4$deskto, _props$platform10, _props$platform11;
 
-        setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet3 = props.wallet) !== null && _props$wallet3 !== void 0 && (_props$wallet3$deskto = _props$wallet3.desktop) !== null && _props$wallet3$deskto !== void 0 && _props$wallet3$deskto["native"]) && (((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.qr) || ((_props$platform11 = props.platform) === null || _props$platform11 === void 0 ? void 0 : _props$platform11.solanaPay)));
+        setShowQRCode(!extensionIsAvailable && !isMobile() && !((_props$wallet4 = props.wallet) !== null && _props$wallet4 !== void 0 && (_props$wallet4$deskto = _props$wallet4.desktop) !== null && _props$wallet4$deskto !== void 0 && _props$wallet4$deskto["native"]) && (((_props$platform10 = props.platform) === null || _props$platform10 === void 0 ? void 0 : _props$platform10.qr) || ((_props$platform11 = props.platform) === null || _props$platform11 === void 0 ? void 0 : _props$platform11.solanaPay)));
       }
     }, [extensionIsAvailable, appIsConnected]);
     React.useEffect(function () {
@@ -22716,6 +22736,69 @@
     return href;
   });
 
+  var SelectPlatformDialog = (function (props) {
+    var _props$wallet;
+
+    var blockchains = props.wallet.extensions.map(function (extension) {
+      return web3WalletsEvm.wallets[extension].info.blockchains;
+    }).flat();
+
+    if (props.accept) {
+      blockchains = blockchains.filter(function (blockchain) {
+        return props.accept.some(function (configuration) {
+          return configuration.blockchain === blockchain;
+        });
+      });
+    }
+
+    var selectBlockchain = function selectBlockchain(blockchain) {
+      props.onSelect(props.wallet.extensions.find(function (extension) {
+        return web3WalletsEvm.wallets[extension].info.blockchains.includes(blockchain);
+      }));
+    };
+
+    return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
+      header: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM"
+      }, ((_props$wallet = props.wallet) === null || _props$wallet === void 0 ? void 0 : _props$wallet.logo) && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "LineHeightL FontSizeL PaddingTopS"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        className: "CardImage rounded large"
+      }, /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "transparent",
+        src: props.wallet.logo
+      })))), /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("h1", {
+        className: "LineHeightL Text FontSizeL FontWeightBold"
+      }, "Select Blockchain"))),
+      stacked: true,
+      bodyClassName: "ScrollHeight",
+      body: /*#__PURE__*/React__default['default'].createElement("div", null, blockchains.map(function (blockchain) {
+        return /*#__PURE__*/React__default['default'].createElement("div", {
+          key: blockchain,
+          className: "Card Row TextLeft",
+          onClick: function onClick() {
+            return selectBlockchain(blockchain);
+          }
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "CardImage"
+        }, /*#__PURE__*/React__default['default'].createElement("img", {
+          className: "transparent BlockchainLogo",
+          src: Blockchains__default['default'][blockchain].logo,
+          style: {
+            backgroundColor: Blockchains__default['default'][blockchain].logoBackgroundColor
+          }
+        })), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "CardBody"
+        }, /*#__PURE__*/React__default['default'].createElement("span", {
+          className: "CardText"
+        }, Blockchains__default['default'][blockchain].label)));
+      })),
+      footer: null
+    });
+  });
+
   function _defineProperty(obj, key, value) {
     if (key in obj) {
       Object.defineProperty(obj, key, {
@@ -22984,7 +23067,11 @@
         className: "LineHeightL FontSizeL"
       }, "Connect a wallet")), (detectedWallets && detectedWallets.length > 0 || previouslyConnectedWallet) && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS PaddingLeftS PaddingRightS"
-      }, detectedWallets.map(function (wallet, index) {
+      }, detectedWallets.filter(function (wallet, index, array) {
+        return array.findIndex(function (target) {
+          return target.info.name === wallet.info.name;
+        }) === index;
+      }).map(function (wallet, index) {
         var walletMetaData = allWallets.find(function (walletFromList) {
           return walletFromList.name === (wallet.info ? wallet.info.name : wallet.name);
         });
@@ -23097,6 +23184,11 @@
           action: function action() {
             navigate('WhatIsAWallet');
           }
+        }, {
+          label: "Wallet missing?",
+          action: function action() {
+            window.open('mailto:support@depay.com?subject=Add wallet&body=Can you please add the following wallet: [ENTER YOUR WALLET HERE]?', '_blank');
+          }
         }]
       })),
       bodyClassName: "PaddingBottomXS",
@@ -23153,41 +23245,44 @@
 
     var _useState3 = React.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
-        platform = _useState4[0],
-        setPlatform = _useState4[1];
+        navigator = _useState4[0],
+        _setNavigator = _useState4[1];
 
-    var _useState5 = React.useState(false),
+    var _useState5 = React.useState(),
         _useState6 = _slicedToArray(_useState5, 2),
-        connectingExtension = _useState6[0],
-        setConnectingExtension = _useState6[1];
+        platform = _useState6[0],
+        setPlatform = _useState6[1];
 
     var _useState7 = React.useState(false),
         _useState8 = _slicedToArray(_useState7, 2),
-        connectingApp = _useState8[0],
-        setConnectingApp = _useState8[1];
+        connectingExtension = _useState8[0],
+        setConnectingExtension = _useState8[1];
 
-    var _useState9 = React.useState(),
+    var _useState9 = React.useState(false),
         _useState10 = _slicedToArray(_useState9, 2),
-        redirectUri = _useState10[0],
-        setRedirectUri = _useState10[1];
+        connectingApp = _useState10[0],
+        setConnectingApp = _useState10[1];
 
-    var _useState11 = React.useState({
+    var _useState11 = React.useState(),
+        _useState12 = _slicedToArray(_useState11, 2),
+        redirectUri = _useState12[0],
+        setRedirectUri = _useState12[1];
+
+    var _useState13 = React.useState({
       blockchain: undefined
     }),
-        _useState12 = _slicedToArray(_useState11, 2),
-        selection = _useState12[0];
-        _useState12[1];
-
-    var _useState13 = React.useState(false),
         _useState14 = _slicedToArray(_useState13, 2),
-        showConnectExtensionWarning = _useState14[0],
-        setShowConnectExtensionWarning = _useState14[1];
+        selection = _useState14[0];
+        _useState14[1];
+
+    var _useState15 = React.useState(false),
+        _useState16 = _slicedToArray(_useState15, 2),
+        showConnectExtensionWarning = _useState16[0],
+        setShowConnectExtensionWarning = _useState16[1];
 
     var resolve = function resolve(account, wallet) {
       if (account && wallet) {
         var walletMeta = allWallets.find(function (walletMeta) {
-          return walletMeta.extension == wallet.name;
-        }) || allWallets.find(function (walletMeta) {
           return walletMeta.name == wallet.name;
         });
         set(walletMeta.name);
@@ -23199,10 +23294,34 @@
       }
     };
 
-    var connectExtension = function connectExtension(wallet) {
+    var connectExtension = function connectExtension(wallet, extension) {
       setShowConnectExtensionWarning(false);
+
+      if (extension === undefined) {
+        if (wallet.extensions && props.accept) {
+          var availableExtensions = wallet.extensions.filter(function (availableExtension) {
+            return props.accept.some(function (configuration) {
+              return supported[web3WalletsEvm.wallets[availableExtension].info.platform].includes(configuration.blockchain);
+            });
+          });
+
+          if (availableExtensions.length === 1) {
+            extension = availableExtensions[0];
+          } else if (availableExtensions.length > 1) {
+            setTimeout(function () {
+              navigator.navigate('SelectPlatform');
+            }, 50);
+            return;
+          }
+        } else if (wallet.extensions && props.accept === undefined) {
+          return navigator.navigate('SelectPlatform');
+        } else {
+          extension = wallet.extension;
+        }
+      }
+
       setConnectingExtension(true);
-      wallet = new web3WalletsEvm.wallets[wallet.extension]();
+      wallet = new web3WalletsEvm.wallets[extension]();
       var resetConnectingTimeout = setTimeout(function () {
         setConnectingExtension(false);
       }, 5000);
@@ -23378,7 +23497,15 @@
       start: "SelectWallet",
       container: props.container,
       document: props.document,
-      setNavigator: props.setNavigator ? props.setNavigator : function () {},
+      setNavigator: function setNavigator(navigator) {
+        if (props.setNavigator && navigator) {
+          _setNavigator(navigator);
+        }
+
+        if (navigator) {
+          _setNavigator(navigator);
+        }
+      },
       stacked: props.stacked,
       dialogs: {
         SelectWallet: /*#__PURE__*/React__default['default'].createElement(SelectWalletDialog, {
@@ -23393,8 +23520,17 @@
           connectExtension: connectExtension
         }),
         WhatIsAWallet: /*#__PURE__*/React__default['default'].createElement(WhatIsAWalletDialog, null),
+        SelectPlatform: /*#__PURE__*/React__default['default'].createElement(SelectPlatformDialog, {
+          onSelect: function onSelect(extension) {
+            navigator.navigate('back');
+            connectExtension(wallet, extension);
+          },
+          wallet: wallet,
+          accept: props.accept
+        }),
         ConnectWallet: /*#__PURE__*/React__default['default'].createElement(ConnectWalletDialog, {
           selection: selection,
+          accept: props.accept,
           wallet: wallet,
           platform: platform,
           resolve: resolve,
@@ -24753,7 +24889,7 @@
     var connected = function connected(_ref) {
       var account = _ref.account,
           wallet = _ref.wallet;
-      navigator.hide();
+      navigator === null || navigator === void 0 ? void 0 : navigator.hide();
       setTimeout(function () {
         setAccount(account);
         setWallet(wallet);

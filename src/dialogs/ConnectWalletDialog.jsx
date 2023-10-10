@@ -153,7 +153,14 @@ export default (props)=> {
 
   useEffect(()=>{
     (async ()=>{
-      const extensionIsAvailable = props.wallet?.extension ? (await wallets[props.wallet.extension].isAvailable() || false) : false
+      let extensionIsAvailable = false
+      if(props.wallet?.extension) {
+        extensionIsAvailable = await wallets[props.wallet.extension].isAvailable()
+      } else if (props.wallet?.extensions) {
+        extensionIsAvailable = (await Promise.all(props.wallet.extensions.map(async(extension)=>{
+          return await wallets[extension].isAvailable()
+        }))).filter(Boolean)[0]
+      }
       setExtensionIsAvailable(extensionIsAvailable)
       const appIsConnected = props.platform?.connect ? (await wallets[props.platform.connect].isAvailable() || false) : false
       setAppIsConnected(appIsConnected)

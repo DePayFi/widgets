@@ -18,13 +18,13 @@ import { supported } from '../blockchains'
 export default [
   {
     "name": "Coinbase",
-    "extension": "Coinbase",
+    "extensions": ["CoinbaseEVM", "CoinbaseSVM"],
     "desktop": { "qr": "WalletLink" },
     "mobile": { 
       "ios": { "native": "cbwallet://dapp", "universal": "https://go.cb-w.com/dapp", "open": ()=>`cbwallet://dapp?url=${encodeURIComponent(window.location.toString())}` },
       "android": { "native": "cbwallet://dapp", "universal": "https://go.cb-w.com/dapp", "open": ()=>`https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.toString())}` },
     },
-    "logo": wallets.Coinbase.info.logo,
+    "logo": wallets.CoinbaseEVM.info.logo,
     "blockchains": [...supported.evm]
   },
   {
@@ -32,15 +32,15 @@ export default [
     "extension": "MetaMask",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "open": ()=>`https://metamask.app.link/dapp/${window.location.toString().replace(/^(https*)*:\/\//,'')}` },
-      "android": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "open": ()=>`https://metamask.app.link/dapp/${window.location.toString().replace(/^(https*)*:\/\//,'')}` },
+      "ios": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "connect":"WalletConnectV2" },
+      "android": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "connect":"WalletConnectV2" },
     },
     "logo": wallets.MetaMask.info.logo,
     "blockchains": [...supported.evm]
   },
   {
     "name": "Phantom",
-    "extension": "Phantom",
+    "extensions": ["PhantomSVM", "PhantomEVM"],
     "desktop": {
       "solanaPay": true,
       "qr": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`
@@ -61,18 +61,18 @@ export default [
         "solanaPay": true,
       },
     },
-    "logo": wallets.Phantom.info.logo,
+    "logo": wallets.PhantomSVM.info.logo,
     "blockchains": [...supported.solana]
   },
   {
     "name": "Trust Wallet",
-    "extension": "Trust",
+    "extensions": ["TrustEVM", "TrustSVM"],
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
       "ios": { "native": "trust:", "universal": "https://link.trustwallet.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
       "android": { "native": "trust:", "universal": "https://link.trustwallet.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
     },
-    "logo": wallets.Trust.info.logo,
+    "logo": wallets.TrustEVM.info.logo,
     "blockchains": [...supported.evm]
   },
   {
@@ -99,13 +99,13 @@ export default [
   },
   {
     "name": "Coin98",
-    "extension": "Coin98",
+    "extensions": ["Coin98EVM", "Coin98SVM"],
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
       "ios": { "native": "coin98:", "universal": "https://coin98.services", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
       "android": { "native": "coin98:", "universal": "https://coin98.services", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
     },
-    "logo": wallets.Coin98.info.logo,
+    "logo": wallets.Coin98EVM.info.logo,
     "blockchains": [...supported.evm]
   },
   {
@@ -275,10 +275,10 @@ export default [
     "name": "BitGet (BitKeep)",
     "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "native": "bitkeep://", "universal": "https://bkapp.vip", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
-      "android": { "native": "bitkeep://", "universal": "https://bkapp.vip", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "ios": { "native": "bitget://", "universal": "https://bkapp.vip", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "bitget://", "universal": "https://bkapp.vip", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
-    "logo": "https://img1.depay.com/wallets/bit_keep.jpg",
+    "logo": "https://img1.depay.com/wallets/bitget.jpg",
     "blockchains": [...supported.evm]
   },
   {
@@ -1319,13 +1319,14 @@ export default [
   },
   {
     "name": "Exodus",
-    "desktop": { "native": "exodus://", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+    "extensions": ["ExodusEVM", "ExodusSVM"],
+    "desktop": { "native": "exodus://", "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "universal": "https://exodus.com/m", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "universal": "https://exodus.com/m", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "exodus://", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "exodus://", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/exodus.jpg",
-    "blockchains": [...supported.evm]
+    "blockchains": [...supported]
   },
   {
     "name": "Uvtoken",
