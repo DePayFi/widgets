@@ -490,13 +490,13 @@
     },
     "mobile": {
       "ios": {
-        "native": "bitkeep://",
+        "native": "bitget://",
         "universal": "https://bkapp.vip",
         "connect": "WalletConnectV2",
         "qr": "WalletConnectV2"
       },
       "android": {
-        "native": "bitkeep://",
+        "native": "bitget://",
         "universal": "https://bkapp.vip",
         "connect": "WalletConnectV2",
         "qr": "WalletConnectV2"
